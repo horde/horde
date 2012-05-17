@@ -279,7 +279,15 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     public function fetch($folderid, $id, array $collection)
     {
-        // Forces entire message (up to 1Mb)
+        // Forces entire message
+        $collection['truncation'] = 0;
+        if (!empty($collection['bodyprefs'])) {
+            foreach ($collection['bodyprefs'] as &$bodypref) {
+                if (isset($bodypref['truncationsize'])) {
+                    $bodypref['truncationsize'] = 0;
+                }
+            }
+        }
         return $this->getMessage($folderid, $id, $collection);
     }
 
