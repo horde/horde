@@ -847,12 +847,7 @@ class Horde_ActiveSync_Imap_Adapter
 
                 // MIME Truncation
                 if ($base->getBytes > $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize']) {
-                    if (is_resource($airsync_body->data)) {
-                        ftruncate($airsync_body->data, $options['truncation']);
-                    } else {
-                        $airsync_body->data = Horde_String::substr(
-                            $airsync_body->data, 0, $options['truncation']);
-                    }
+                    ftruncate($airsync_body->data, $options['truncation']);
                     $airsync_body->truncated = '1';
                 } else {
                     $airsync_body->truncated = '0';
