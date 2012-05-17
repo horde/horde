@@ -160,13 +160,11 @@ var DimpCompose = {
 
     uniqueSubmit: function(action)
     {
-        var c = (action == 'redirectMessage')
-            ? $('redirect')
-            : $('compose');
+        var c = (action == 'redirectMessage') ? $('redirect') : $('compose'),
+            sc = ImpComposeBase.getSpellChecker();
 
-        if (DimpCore.SpellChecker &&
-            DimpCore.SpellChecker.isActive()) {
-            DimpCore.SpellChecker.resume();
+        if (sc && sc.isActive()) {
+            sc.resume();
             this.skip_spellcheck = true;
         }
 
@@ -181,10 +179,10 @@ var DimpCompose = {
             case 'sendMessage':
                 if (!this.skip_spellcheck &&
                     DimpCore.conf.spellcheck &&
-                    DimpCore.SpellChecker &&
-                    !DimpCore.SpellChecker.isActive()) {
+                    sc &&
+                    !sc.isActive()) {
                     this.sc_submit = action;
-                    DimpCore.SpellChecker.spellCheck();
+                    sc.spellCheck();
                     return;
                 }
 
@@ -323,7 +321,7 @@ var DimpCompose = {
 
     setDisabled: function(disable)
     {
-        var redirect = $('redirect');
+        var redirect = $('redirect'), sc;
 
         this.disabled = disable;
 
@@ -335,8 +333,8 @@ var DimpCompose = {
             HordeCore.loadingImg('sendingImg', 'composeMessageParent', disable);
             DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
             [ $('compose') ].invoke(disable ? 'disable' : 'enable');
-            if (DimpCore.SpellChecker) {
-                DimpCore.SpellChecker.disable(disable);
+            if (sc = ImpComposeBase.getSpellChecker()) {
+                sc.disable(disable);
             }
             if (ImpComposeBase.editor_on) {
                 this.RTELoading(disable ? 'show' : 'hide', true);
@@ -348,13 +346,15 @@ var DimpCompose = {
 
     toggleHtmlEditor: function(noupdate)
     {
+        var sc;
+
         if (!DimpCore.conf.rte_avail) {
             return;
         }
 
         noupdate = noupdate || false;
-        if (DimpCore.SpellChecker) {
-            DimpCore.SpellChecker.resume();
+        if (sc = ImpComposeBase.getSpellChecker()) {
+           sc.resume();
         }
 
         var changed, text;
@@ -444,7 +444,7 @@ var DimpCompose = {
 
     _onSpellCheckBefore: function()
     {
-        DimpCore.SpellChecker.htmlAreaParent = ImpComposeBase.editor_on
+        ImpComposeBase.getSpellChecker().htmlAreaParent = ImpComposeBase.editor_on
             ? 'composeMessageParent'
             : null;
 

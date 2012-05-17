@@ -1189,6 +1189,106 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * Handle output of the embedded widget: allows embedding calendar widgets
+     * in external websites.
+     *
+     * The following arguments are required:
+     *   - calendar: The share_name for the requested calendar.
+     *   - container: The DOM node to populate with the widget.
+     *   - view: The view (block) we want.
+     *
+     * The following are optional (and are not used for all views)
+     *   - css
+     *   - days
+     *   - maxevents: The maximum number of events to show.
+     *   - months: The number of months to include.
+     */
+    public function embed()
+    {
+        global $page_output, $registry;
+
+        /* First, determine the type of view we are asking for */
+        $view = $this->_vars->view;
+
+        /* The DOM container to put the HTML in on the remote site */
+        $container = $this->_vars->container;
+
+        /* The share_name of the calendar to display */
+        $calendar = $this->_vars->calendar;
+
+        /* Deault to showing only 1 month when we have a choice */
+        $count_month = $this->_vars->get('months', 1);
+
+        /* Default to no limit for the number of events */
+        $max_events = $this->_vars->get('maxevents', 0);
+
+        /* Default to one week */
+        $count_days = $this->_vars->get('days', 7);
+
+        if ($this->_vars->css == 'none') {
+            $nocss = true;
+        }
+
+        /* Build the block parameters */
+        $params = array(
+            'calendar' => $calendar,
+            'maxevents' => $max_events,
+            'months' => $count_month,
+            'days' => $count_days
+        );
+
+        /* Call the Horde_Block api to get the calendar HTML */
+        $title = $registry->call('horde/blockTitle', array('kronolith', $view, $params));
+        $results = $registry->call('horde/blockContent', array('kronolith', $view, $params));
+
+        /* Some needed paths */
+        $js_path = $registry->get('jsuri', 'kronolith');
+
+        /* Local js */
+        $jsurl = Horde::url($js_path . '/embed.js', true);
+
+        /* Horde's js */
+        $hjs_path = $registry->get('jsuri', 'horde');
+        $hjsurl = Horde::url($hjs_path . '/tooltips.js', true);
+        $pturl = Horde::url($hjs_path . '/prototype.js', true);
+
+        /* CSS */
+        if (empty($nocss)) {
+            $page_output->addThemeStylesheet('embed.css');
+
+            Horde::startBuffer();
+            $page_output->includeStylesheetFiles(array('nobase' => true), true);
+            $css = Horde::endBuffer();
+        } else {
+            $css = '';
+        }
+
+        /* Escape the text and put together the javascript to send back */
+        $container = Horde_Serialize::serialize($container, Horde_Serialize::JSON);
+        $results = Horde_Serialize::serialize('<div class="kronolith_embedded"><div class="title">' . $title . '</div>' . $results . '</div>', Horde_Serialize::JSON);
+
+        $js = <<<EOT
+if (typeof kronolith == 'undefined') {
+    if (typeof Prototype == 'undefined') {
+        document.write('<script type="text/javascript" src="$pturl"></script>');
+    }
+    if (typeof Horde_ToolTips == 'undefined') {
+        Horde_ToolTips_Autoload = false;
+        document.write('<script type="text/javascript" src="$hjsurl"></script>');
+    }
+    kronolith = new Object();
+    kronolithNodes = new Array();
+    document.write('<script type="text/javascript" src="$jsurl"></script>');
+    document.write('$css');
+}
+kronolithNodes[kronolithNodes.length] = $container;
+kronolith['$container'] = $results;
+EOT;
+
+        return new Horde_Core_Ajax_Response_Javascript($js);
+    }
+
+    /**
      * Returns the driver object for a calendar.
      *
      * @param string $cal  A calendar string in the format "type|name".

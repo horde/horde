@@ -1,111 +1,64 @@
 <?php
 /**
- * Ansel_Ajax_Imple_EditFaces:: class for performing Ajax discovery and editing
- * of image faces
+ * Imple for performing Ajax discovery and editing of image faces.
  *
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
- * @author Duck <duck@obala.net>
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- *
+ * @author  Duck <duck@obala.net>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
 class Ansel_Ajax_Imple_EditFaces extends Horde_Core_Ajax_Imple
 {
     /**
-     * Attach these actions to the view
      */
-    public function attach()
+    protected function _attach($init)
     {
-        global $page_output;
+        if ($init) {
+            $this->_jsOnDoAction(
+                '$("faces_widget_content").update(' .
+                     Horde_Serialize::serialize(_("Loading..."), Horde_Serialize::JSON) .
+                 ')'
+            );
+            $this->_jsOnComplete(
+                '$("faces_widget_content").update(e.memo.response)'
+            );
 
-        $page_output->addScriptFile('editfaces.js');
+            $GLOBALS['page_output']->addScriptFile('editfaces.js');
+        }
 
-        $url = $this->_getUrl('EditFaces', 'ansel', array('url' => rawurlencode($this->_params['selfUrl'])));
-
-        $page_output->addInlineScript(array(
-            "Ansel.ajax['editFaces'] = {'url':'" . $url . "', text: {loading:'" . _("Loading...") . "'}};",
-            "Event.observe('" . $this->_params['domid'] . "', 'click', function(event) {Ansel.doFaceEdit(" . $this->_params['image_id'] . ");Event.stop(event)});"
-        ), true);
+        return array(
+            'image_id' => $this->_params['image_id']
+        );
     }
 
-    function handle($args, $post)
+    /**
+     */
+    protected function _handle(Horde_Variables $vars)
     {
-        if ($GLOBALS['registry']->getAuth()) {
-            $action = $args['action'];
-            $image_id = (int)$post['image'];
-            $reload = empty($post['reload']) ? 0 : $post['reload'];
+        global $injector, $prefs;
 
-            if (empty($action)) {
-                return array('response' => 0);
-            }
+        $faces = $injector->getInstance('Ansel_Faces');
+        $image_id = intval($vars->image_id);
 
-            $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
-            switch($action) {
-            case 'process':
-                // process - detects all faces in the image.
-                $name = '';
-                $autocreate = true;
-                $results = $faces->getImageFacesData($image_id);
-                // Attempt to get faces from the picture if we don't already have results,
-                // or if we were asked to explicitly try again.
-                if (($reload || empty($results))) {
-                    $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
-                    $image->createView(
-                        'screen',
-                        null,
-                        ($GLOBALS['prefs']->getValue('watermark_auto') ?
-                            $GLOBALS['prefs']->getValue('watermark_text', '') : '')
-                        );
-                    $results = $faces->getFromPicture($image_id, $autocreate);
-                }
-                if (!empty($results)) {
-                    $customurl = Horde::url('faces/custom.php');
-                    $url = (!empty($args['url']) ? urldecode($args['url']) : '');
-                    Horde::startBuffer();
-                    include ANSEL_TEMPLATES . '/faces/image.inc';
-                    $html = Horde::endBuffer();
-                    return array('response' => 1,
-                                 'message' => $html);
-                } else {
-                    return array('response' => 1,
-                                 'message' => _("No faces found"));
-                }
-                break;
-
-            case 'delete':
-                // delete - deletes a single face from an image.
-                $face_id = (int)$post['face'];
-                $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
-                $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
-                if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-                    throw new Horde_Exception('Access denied editing the photo.');
-                }
-
-                Ansel_Faces::delete($image, $face_id);
-                break;
-
-            case 'setname':
-                // setname - sets the name of a single image.
-                $face_id = (int)$post['face'];
-                if (!$face_id) {
-                    return array('response' => 0);
-                }
-
-                $name = $post['facename'];
-                $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
-                $gallery = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
-                if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-                    throw new Horde_Exception('You are not allowed to edit this photo');
-                }
-
-                $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
-                $result = $faces->setName($face_id, $name);
-                return array('response' => 1,
-                             'message' => Ansel_Faces::getFaceTile($face_id));
-                break;
-            }
+        $results = $faces->getImageFacesData($image_id);
+        // Attempt to get faces from the picture if we don't already have
+        // results, or if we were asked to explicitly try again.
+        if (empty($results)) {
+            $image = $injector->getInstance('Ansel_Storage')->getImage($image_id);
+            $image->createView('screen', null, ($prefs->getValue('watermark_auto') ?  $prefs->getValue('watermark_text', '') : ''));
+            $results = $faces->getFromPicture($image_id, true);
         }
+
+        if (empty($results)) {
+            return new Horde_Core_Ajax_Response_Raw(_("No faces found"));
+        }
+
+        $url = Horde::url('faces/custom.php');
+        Horde::startBuffer();
+        include ANSEL_TEMPLATES . '/faces/image.inc';
+
+        return new Horde_Core_Ajax_Response_Raw(Horde::endBuffer(), 'text/html');
     }
 
 }

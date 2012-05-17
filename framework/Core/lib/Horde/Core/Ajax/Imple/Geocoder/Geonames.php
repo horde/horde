@@ -15,61 +15,47 @@
 class Horde_Core_Ajax_Imple_Geocoder_Geonames extends Horde_Core_Ajax_Imple
 {
     /**
-     * Constructor.
-     *
-     * @param array $params  Configuration parameters.
-     * <pre>
-     * 'triggerId' => (string) [optional] TODO
-     * </pre>
      */
-    public function __construct($params)
+    protected function _attach($init)
     {
-        parent::__construct($params);
+        return false;
     }
 
     /**
-     * Attach the object to a javascript event.
-     */
-    public function attach()
-    {
-    }
-
-    /**
-     * Handle the geocoding request.
-     *
      * @TODO: For reverse requests come up with a reasonable algorithm for
      *        checking if we have a lat/lng in the US since the
      *        findNearestAddress method is US only. If non-us, fallback to a
      *        findNearest or findPostalcode or similar request. Also will need
      *        to normalize the various response structures.
      *
-     * $args['locations'] will trigger a forward geocoding request.
-     * $args['lat'] and $args['lon'] will trigger a reverse geocoding request.
+     * 'locations' will trigger a forward geocoding request.
+     * 'lat' and 'lon' will trigger a reverse geocoding request.
      *
-     * @see Horde_Core_Ajax_Imple#handle($args, $post)
      * @throws Horde_Exception
      */
-    public function handle($args, $post)
+    protected function _handle(Horde_Variables $vars)
     {
-        if ($args['location']) {
+        if ($vars->location) {
             $url = new Horde_Url('http://ws.geonames.org/searchJSON');
-            $url = $url->add('q', $args['location']);
-        } elseif (!empty($args['lat']) && !empty($args['lon'])) {
+            $url->add(array(
+                'q' => $vars->location
+            ));
+        } elseif ($vars->lat && $vars->lon) {
             $url = new Horde_Url('http:/ws.geonames.org/findNearestJSON');
-            $url = $url->add(array('lat' => $args['lat'], 'lng' => $args['lon']));
+            $url->add(array(
+                'lat' => $vars->lat,
+                'lng' => $vars->lon
+            ));
+        } else {
+            throw new Horde_Exception('Incorrect parameters');
         }
 
-        $client = $GLOBALS['injector']->getInstance('Horde_Core_Factory_HttpClient')->create();
-        try {
-            $response = $client->get($url);
-        } catch (Horde_Http_Exception $e) {
-            throw new Horde_Exception_Wrapped($e);
-        }
+        $response = $GLOBALS['injector']->getInstance('Horde_Core_Factory_HttpClient')->create()->get($url);
 
-        return array(
+        return new Horde_Core_Ajax_Response_Prototypejs(array(
             'results' => $response->getBody(),
             'status' => 200
-        );
+        ));
     }
 
 }

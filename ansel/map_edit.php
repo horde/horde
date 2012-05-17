@@ -77,9 +77,8 @@ $returnLink = Ansel::getUrlFor(
 $image_tag = '<img src="' . Ansel::getImageUrl($image_id, 'thumb', true) . '" alt="[thumbnail]" />';
 
 // Url for geotag ajax helper
-$gt = $injector->getInstance('Horde_Core_Factory_Imple')
-    ->create(array('ansel', 'ImageSaveGeotag'));
-$gtUrl = $gt->getUrl();
+$gtUrl = $registry->getServiceLink('ajax', 'ansel')->setRaw(true);
+$gtUrl->url .= 'imageSaveGeotag';
 
 $loadingImg = Horde::img('loading.gif', _("Loading..."));
 

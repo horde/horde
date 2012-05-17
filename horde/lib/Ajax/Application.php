@@ -88,4 +88,27 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
         return '';
     }
 
+    /**
+     * AJAX action: Run imple.
+     *
+     * Parameters needed:
+     *   - app: Imple application.
+     *   - imple: Class name of imple.
+     */
+    public function imple()
+    {
+        global $injector, $registry;
+
+        $pushed = $registry->pushApp($this->_vars->app);
+        $imple = $injector->getInstance('Horde_Core_Factory_Imple')->create($this->_vars->imple, array(), true);
+
+        $result = $imple->handle($this->_vars);
+
+        if ($pushed) {
+            $registry->popApp();
+        }
+
+        return $result;
+    }
+
 }

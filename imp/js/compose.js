@@ -73,7 +73,7 @@ var ImpCompose = {
 
     uniqSubmit: function(actionID, e)
     {
-        var cur_msg, form;
+        var cur_msg, form, sc;
 
         if (!Object.isUndefined(e)) {
             e.stop();
@@ -91,12 +91,14 @@ var ImpCompose = {
             break;
 
         case 'send_message':
-            if (!this.skip_spellcheck &&
+            sc = ImpComposeBase.getSpellChecker();
+
+            if (sc &&
+                !this.skip_spellcheck &&
                 this.spellcheck &&
-                IMP.SpellChecker &&
-                !IMP.SpellChecker.isActive()) {
+                !sc.isActive()) {
                 this.sc_submit = { a: actionID, e: e };
-                IMP.SpellChecker.spellCheck();
+                sc.spellCheck();
                 return;
             }
 
@@ -107,8 +109,8 @@ var ImpCompose = {
 
             this.skip_spellcheck = false;
 
-            if (IMP.SpellChecker) {
-                IMP.SpellChecker.resume();
+            if (sc) {
+                sc.resume();
             }
 
             // fall through
@@ -339,7 +341,7 @@ var ImpCompose = {
 
     _onBeforeSpellCheck: function()
     {
-        IMP.SpellChecker.htmlAreaParent = 'composeMessageParent';
+        ImpComposeBase.getSpellChecker().htmlAreaParent = 'composeMessageParent';
         $('composeMessage').next().hide();
         CKEDITOR.instances.composeMessage.updateElement();
     },

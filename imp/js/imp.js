@@ -34,7 +34,7 @@ var IMP_JS = {
             imgload = false,
             s = new Selector('[htmlimgblocked]'),
             s2 = new Selector('[htmlcssblocked]'),
-            s3 = new Selector('STYLE[type=text/x-imp-cssblocked]');
+            s3 = new Selector('STYLE[type="text/x-imp-cssblocked"]');
 
         e.stop();
 

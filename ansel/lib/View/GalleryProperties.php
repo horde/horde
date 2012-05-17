@@ -132,11 +132,9 @@ class Ansel_View_GalleryProperties
         $page_output->addInlineScript($js, true);
         $page_output->addScriptFile('stripe.js', 'horde');
         $page_output->addScriptFile('popup.js', 'horde');
-
-        /* Attach the slug check action to the form */
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'GallerySlugCheck'), array(
-            'bindTo' => 'gallery_slug',
-            'slug' => $this->_properties['slug']
+        $page_output->addScriptFile('slugcheck.js');
+        $page_output->addInlineJsVars(array(
+            'AnselSlugCheck.text' => $this->_properties['slug']
         ));
 
         $page_output->header();

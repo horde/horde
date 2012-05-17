@@ -28,7 +28,7 @@ AnselGeoTagWidget = Class.create({
      *   relocateText [Localized text]
      *   deleteGeotagText [Localized text]
      *   hasEdit [boolean do we have PERMS_EDIT?]
-     *   updateEndPoint [AJAX endpoint for updating image data]
+     *   updateEndpoint [AJAX endpoint for updating image data]
      */
     initialize: function(imgs, opts)
     {
@@ -46,11 +46,14 @@ AnselGeoTagWidget = Class.create({
 
     setLocation: function(img, lat, lng)
     {
-        var params = { 'values': 'img=' + img + '/lat=' + lat + '/lng=' + lng };
-
-        new Ajax.Request(this.opts.updateEndpoint + '/action=geotag/post=values', {
+        new Ajax.Request(this.opts.updateEndpoint, {
             method: 'post',
-            parameters: params,
+            parameters: {
+                action: 'geotag',
+                img: img,
+                lat: lat,
+                lng: lng
+           },
             onComplete: function(transport) {
                  if (typeof Horde_ToolTips != 'undefined') {
                      Horde_ToolTips.out();
@@ -81,10 +84,12 @@ AnselGeoTagWidget = Class.create({
 
     deleteLocation: function(iid)
     {
-        var params = { 'values': 'img=' + iid };
-        new Ajax.Request(this.opts.updateEndpoint + '/action=untag/post=values', {
+        new Ajax.Request(this.opts.updateEndpoint, {
             method: 'post',
-            parameters: params,
+            parameters: {
+                action: 'untag',
+                img: iid
+            },
             onComplete: function(transport) {
                 if (transport.responseJSON.response == 1) {
                     $('ansel_geo_widget').update(transport.responseJSON.message);
@@ -95,10 +100,12 @@ AnselGeoTagWidget = Class.create({
 
     updateBaseLayer: function(l)
     {
-        var params = { 'values': 'name=' + l.layer.name };
-        new Ajax.Request(this.opts.layerUpdateEndpoint + '/post=values', {
+        new Ajax.Request(this.opts.layerUpdateEndpoint, {
             method: 'post',
-            parameters: params,
+            parameters: {
+                pref: this.opts.layerUpdatePref,
+                value: l.layer.name
+            },
             onComplete: function(transport) {
                  if (typeof Horde_ToolTips != 'undefined') {
                      Horde_ToolTips.out();
@@ -286,10 +293,14 @@ AnselGeoTagWidget = Class.create({
                         }
                         // Save the results?
                         if (u) {
-                            new Ajax.Request(this.opts.updateEndpoint + '/action=location/post=values',
+                            new Ajax.Request(this.opts.updateEndpoint,
                                 {
                                     method: 'post',
-                                    parameters: { 'values': 'location=' + encodeURIComponent(result.address) + '/img=' + i.image_id }
+                                    parameters: {
+                                        action: 'location',
+                                        location: result.address,
+                                        img: i.image_id
+                                   }
                                 }
                             );
                         }

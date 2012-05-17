@@ -28,8 +28,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $page_output->addScriptFile('dimpbase.js');
         $page_output->addScriptFile('imp.js');
-        $page_output->addScriptFile('imageunblock.js');
-        $page_output->addScriptFile('itiprequest.js');
         $page_output->addScriptFile('mailbox-dimp.js');
         $page_output->addScriptFile('viewport.js');
         $page_output->addScriptFile('dragdrop2.js', 'horde');
@@ -39,9 +37,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $page_output->addScriptFile('dialog.js', 'horde');
         $page_output->addScriptFile('slider2.js', 'horde');
         $page_output->addScriptFile('toggle_quotes.js', 'horde');
-        if ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime')) {
-            $page_output->addScriptFile('importencryptkey.js');
-        }
 
         $this->_addMailboxVars();
 

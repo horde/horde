@@ -186,10 +186,10 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         /* Make sure we have a passphrase. */
         $passphrase = $this->_impsmime->getPassphrase();
         if ($passphrase === false) {
-            $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
+            $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_PassphraseDialog', array(
                 'type' => 'smimePersonal'
             ));
-            $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getPassphraseId())) . _("You must enter the passphrase for your S/MIME private key to view this data.") . '</a>');
+            $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getDomId())) . _("You must enter the passphrase for your S/MIME private key to view this data.") . '</a>');
             return null;
         }
 
@@ -295,13 +295,13 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                     try {
                         $this->_impsmime->getPublicKey($sig_result->email);
                     } catch (Horde_Exception $e) {
-                        $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'ImportEncryptKey'), array(
+                        $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ImportEncryptKey', array(
                             'mailbox' => $imp_contents->getMailbox(),
                             'mime_id' => $base_id,
                             'type' => 'smime',
                             'uid' => $imp_contents->getUid()
                         ));
-                        $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getImportId())) . _("Save the certificate to your Address Book.") . '</a>');
+                        $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getDomId())) . _("Save the certificate to your Address Book.") . '</a>');
                     }
                     $status->addText($imp_contents->linkViewJS($this->_mimepart, 'view_attach', _("View certificate details."), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))));
                 }

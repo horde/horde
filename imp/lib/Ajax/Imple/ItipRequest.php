@@ -15,51 +15,32 @@
 class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
 {
     /**
-     * Request DOM ID counter.
-     *
-     * @var integer
      */
-    static protected $_requestId = 0;
+    protected $_observe = 'submit';
 
     /**
-     * Constructor.
-     *
      * @param array $params  Configuration parameters:
-     *   - id: (string) [OPTIONAL] The DOM ID to attach to.
      *   - mailbox: (IMP_Mailbox) The mailbox of the message.
      *   - mime_id: (string) The MIME ID of the message part with the key.
      *   - uid: (string) The UID of the message.
      */
-    public function __construct($params)
+    public function __construct(array $params = array())
     {
-        if (!isset($params['id'])) {
-            $params['id'] = 'imp_itiprequest' . self::$_requestId;
-        }
-
-        ++self::$_requestId;
-
         parent::__construct($params);
     }
 
     /**
-     * Attach the object to a javascript event.
      */
-    public function attach()
+    protected function _attach($init)
     {
-        global $page_output;
-
-        if (self::$_requestId == 1) {
-            $page_output->addScriptFile('itiprequest.js');
-        }
-
-        $page_output->addInlineJsVars(array(
-            'IMPItipRequest.handles[' . Horde_Serialize::serialize($this->getRequestId(), Horde_Serialize::JSON) . ']' => true
-        ), array('onload' => true));
+        return array(
+            'mailbox' => $this->_params['mailbox']->form_to,
+            'mime_id' => $this->_params['mime_id'],
+            'uid' => $this->_params['uid']
+        );
     }
 
     /**
-     * Perform the given action.
-     *
      * Variables required in form input:
      *   - identity (TODO: ? Code uses it, but it is never set anywhere)
      *   - itip_action
@@ -67,20 +48,14 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
      *   - mime_id
      *   - uid
      *
-     * @param array $args  Not used.
-     * @param array $post  Not used.
-     *
-     * @return object  An object with the following response entries:
-     *   - success: (integer) 1 on success, 0 on failure.
+     * @return boolean  True on success.
      */
-    public function handle($args, $post)
+    protected function _handle(Horde_Variables $vars)
     {
         global $conf, $injector, $notification, $registry;
 
-        $vars = $injector->getInstance('Horde_Variables');
-
         $actions = $vars->get('itip_action', array());
-        $result = 0;
+        $result = false;
         $vCal = new Horde_Icalendar();
 
         /* Retrieve the calendar data from the message. */
@@ -115,7 +90,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     try {
                         $registry->call('calendar/delete', array($guid, $recurrenceId));
                         $notification->push(_("Event successfully deleted."), 'horde.success');
-                        $result = 1;
+                        $result = true;
                     } catch (Horde_Exception $e) {
                         $notification->push(sprintf(_("There was an error deleting the event: %s"), $e->getMessage()), 'horde.error');
                     }
@@ -133,7 +108,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                             IMP::bareAddress($contents->getHeader()->getValue('From'))
                         ));
                         $notification->push(_("Respondent Status Updated."), 'horde.success');
-                        $result = 1;
+                        $result = true;
                     } catch (Horde_Exception $e) {
                         $notification->push(sprintf(_("There was an error updating the event: %s"), $e->getMessage()), 'horde.error');
                     }
@@ -179,7 +154,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                                 'horde.success',
                                 array('content.raw')
                             );
-                            $result = 1;
+                            $result = true;
                             break;
                         } catch (Horde_Exception $e) {
                             // Could be a missing permission.
@@ -203,7 +178,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                                 'horde.success',
                                 array('content.raw')
                             );
-                            $result = 1;
+                            $result = true;
                             break;
                         } catch (Horde_Exception $e) {
                             $notification->push(sprintf(_("There was an error importing the event: %s"), $e->getMessage()), 'horde.error');
@@ -219,7 +194,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                         try {
                             $registry->call('calendar/import_vfreebusy', array($components[$key]));
                             $notification->push(_("The user's free/busy information was sucessfully stored."), 'horde.success');
-                            $result = 1;
+                            $result = true;
                         } catch (Horde_Exception $e) {
                             $notification->push(sprintf(_("There was an error importing user's free/busy information: %s"), $e->getMessage()), 'horde.error');
                         }
@@ -245,7 +220,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                                 'horde.success',
                                 array('content.raw')
                             );
-                            $result = 1;
+                            $result = true;
                         } catch (Horde_Exception $e) {
                             $notification->push(sprintf(_("There was an error importing the task: %s"), $e->getMessage()), 'horde.error');
                         }
@@ -307,7 +282,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                             $injector->getInstance('IMP_Mail')
                         );
                         $notification->push(_("Reply Sent."), 'horde.success');
-                        $result = 1;
+                        $result = true;
                     } catch (Horde_Itip_Exception $e) {
                         $notification->push(sprintf(_("Error sending reply: %s."), $e->getMessage()), 'horde.error');
                     }
@@ -416,7 +391,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     try {
                         $mime->send($organizerEmail, $msg_headers, $injector->getInstance('IMP_Mail'));
                         $notification->push(_("Reply Sent."), 'horde.success');
-                        $result = 1;
+                        $result = true;
                     } catch (Exception $e) {
                         $notification->push(sprintf(_("Error sending reply: %s."), $e->getMessage()), 'horde.error');
                     }
@@ -433,38 +408,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
             }
         }
 
-        return new Horde_Core_Ajax_Response($result, true);
-    }
-
-    /**
-     * Generates a unique DOM ID.
-     *
-     * @return string  A unique DOM ID.
-     */
-    public function getRequestId()
-    {
-        return $this->_params['id'];
-    }
-
-    /**
-     * Get the form URL for the request.
-     *
-     * @return Horde_Url  Form URL.
-     */
-    public function getFormUrl()
-    {
-        $js_params = array(
-            'mailbox' => $this->_params['mailbox']->form_to,
-            'mime_id' => $this->_params['mime_id'],
-            'uid' => $this->_params['uid']
-        );
-
-        if (defined('SID')) {
-            parse_str(SID, $sid);
-            $js_params = array_merge($js_params, $sid);
-        }
-
-        return $this->_getUrl('ItipRequest', 'imp', array('sessionWrite' => 1))->add($js_params);
+        return $result;
     }
 
 }

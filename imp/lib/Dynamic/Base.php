@@ -72,6 +72,7 @@ abstract class IMP_Dynamic_Base
         $page_output->addScriptFile('dimpcore.js');
         $page_output->addScriptFile('indices.js');
         $page_output->addScriptFile('contextsensitive.js', 'horde');
+        $page_output->addScriptFile('imple.js', 'horde');
 
         $this->_init();
 

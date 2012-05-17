@@ -84,7 +84,7 @@ var PrettyAutocompleter = Class.create({
         trigger.observe('keyup', this._resize.bind(this));
 
         // Create the underlaying Autocompleter
-        this.p.uri += '/input=' + this.p.trigger;
+        this.p.uri += '&input=' + this.p.trigger;
 
         this.p.onShow = this._knvShow.bind(this);
         this.p.onHide = this._knvHide.bind(this);

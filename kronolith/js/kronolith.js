@@ -16,7 +16,7 @@ KronolithCore = {
     // Vars used and defaulting to null/false:
     //   weekSizes, daySizes,
     //   groupLoading, colorPicker, duration, timeMarker, monthDays,
-    //   allDays, eventsWeek, eventTagAc, calendarTagAc, attendeesAc
+    //   allDays, eventsWeek
 
     view: '',
     ecache: $H(),
@@ -2873,7 +2873,7 @@ KronolithCore = {
         if (newCalendar) {
             switch (type) {
             case 'internal':
-                this.calendarTagAc.reset();
+                HordeImple.AutoCompleter.kronolithCalendarinternalTags.reset();
                 // Fall through.
             case 'tasklists':
                 $('kronolithCalendar' + type + 'LinkExport').up('span').hide();
@@ -2915,7 +2915,7 @@ KronolithCore = {
 
             switch (type) {
             case 'internal':
-                this.calendarTagAc.reset(Kronolith.conf.calendars.internal[calendar].tg);
+                HordeImple.AutoCompleter.kronolithCalendarinternalTags.reset(Kronolith.conf.calendars.internal[calendar].tg);
                 $('kronolithCalendar' + type + 'ImportCal').setValue('internal_' + calendar);
                 if (info.edit) {
                     $('kronolithCalendar' + type + 'LinkImport').up('li').show();
@@ -2997,7 +2997,7 @@ KronolithCore = {
                     $('kronolithCalendar' + type + 'UrlFeed').enable();
                     $('kronolithCalendar' + type + 'EmbedUrl').enable();
                 }
-                this.calendarTagAc.disable();
+                HordeImple.AutoCompleter.kronolithCalendarinternalTags.disable();
                 if (Kronolith.conf.calendars[type][calendar].show) {
                     form.down('.kronolithCalendarSubscribe').hide();
                     form.down('.kronolithCalendarUnsubscribe').show().enable();
@@ -4615,12 +4615,12 @@ KronolithCore = {
                 break;
 
             case 'kronolithEventTag':
-                this.eventTagAc.addNewItemNode(elt.getText());
+                HordeImple.AutoCompleter.kronolithEventTags.addNewItemNode(elt.getText());
                 e.stop();
                 break;
 
             case 'kronolithCalendarTag':
-                this.calendarTagAc.addNewItemNode(elt.getText());
+                HordeImple.AutoCompleter.kronolithCalendarinternalTags.addNewItemNode(elt.getText());
                 e.stop();
                 break;
 
@@ -5161,7 +5161,7 @@ KronolithCore = {
         if (this.redBoxLoading) {
             return;
         }
-        if (Object.isUndefined(this.eventTagAc)) {
+        if (Object.isUndefined(HordeImple.AutoCompleter.kronolithEventTags)) {
             this.editEvent.bind(this, calendar, id, date).defer();
             return;
         }
@@ -5193,9 +5193,9 @@ KronolithCore = {
         this.knl.kronolithEventEndTime.markSelected();
         $('kronolithEventForm').reset();
         this.resetMap();
-        this.attendeesAc.reset();
-        this.eventTagAc.reset();
-        this.resourceAc.reset();
+        HordeImple.AutoCompleter.kronolithEventAttendees.reset();
+        HordeImple.AutoCompleter.kronolithEventTags.reset();
+        HordeImple.AutoCompleter.kronolithEventResources.reset();
         if (Kronolith.conf.maps.driver) {
             $('kronolithEventMapLink').hide();
         }
@@ -5315,7 +5315,7 @@ KronolithCore = {
         params.set('as_new', asnew ? 1 : 0);
         params.set('cstart', this.cacheStart.toISOString());
         params.set('cend', this.cacheEnd.toISOString());
-        this.eventTagAc.shutdown();
+        HordeImple.AutoCompleter.kronolithEventTags.shutdown();
         $('kronolithEventSave').disable();
         $('kronolithEventSaveAsNew').disable();
         $('kronolithEventDelete').disable();
@@ -5521,7 +5521,7 @@ KronolithCore = {
             $('kronolithEventStartDate').stopObserving('change', this.attendeeStartDateHandler);
         }
         if (!Object.isUndefined(ev.at)) {
-            this.attendeesAc.reset(ev.at.pluck('l'));
+            HordeImple.AutoCompleter.kronolithEventAttendees.reset(ev.at.pluck('l'));
             ev.at.each(this.addAttendee.bind(this));
             if (this.fbLoading) {
                 $('kronolithFBLoading').show();
@@ -5540,7 +5540,7 @@ KronolithCore = {
         }
         if (!Object.isUndefined(ev.rs)) {
             var rs = $H(ev.rs);
-            this.resourceAc.reset(rs.values().pluck('name'));
+            HordeImple.AutoCompleter.kronolithEventResources.reset(rs.values().pluck('name'));
             rs.each(function(r) { this.addResource(r.value, r.key) }.bind(this));
             if (this.fbLoading) {
                 $('kronolithResourceFBLoading').show();
@@ -5556,7 +5556,7 @@ KronolithCore = {
         }
 
         /* Tags */
-        this.eventTagAc.reset(ev.tg);
+        HordeImple.AutoCompleter.kronolithEventTags.reset(ev.tg);
 
         /* Geo */
         if (ev.gl) {
@@ -5567,7 +5567,7 @@ KronolithCore = {
 
         if (!ev.pe) {
             $('kronolithEventSave').hide();
-            this.eventTagAc.disable();
+            HordeImple.AutoCompleter.kronolithEventTags.disable();
             $('kronolithEventTabTags').select('label').invoke('hide');
         } else {
             HordeCore.doAction('listTopTags', {}, {
@@ -5757,9 +5757,10 @@ KronolithCore = {
 
     checkOrganizerAsAttendee: function()
     {
-        if (this.attendeesAc.selectedItems.length == 1 && this.attendeesAc.selectedItems.first().rawValue != Kronolith.conf.email) {
+        if (HordeImple.AutoCompleter.kronolithEventAttendees.selectedItems.length == 1 &&
+            HordeImple.AutoCompleter.kronolithEventAttendees.selectedItems.first().rawValue != Kronolith.conf.email) {
             // Invite the organizer of this event to the new event.
-            KronolithCore.attendeesAc.addNewItemNode(Kronolith.conf.email);
+            HordeImple.AutoCompleter.kronolithEventAttendees.addNewItemNode(Kronolith.conf.email);
             this.addAttendee(Kronolith.conf.email);
         }
     },

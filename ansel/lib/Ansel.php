@@ -818,12 +818,11 @@ class Ansel
             $domid = $options['container'];
         }
 
-        $imple = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Imple')
-            ->create(array('ansel', 'Embed'), $options);
+        $url = $GLOBALS['registry']->getServiceLink('ajax', 'ansel')->add($options);
+        $url->url .= 'embed';
 
-        return '<script type="text/javascript" src="' . $imple->getUrl()
-            . '"></script><div id="' . $domid . '"></div>';
+        return '<script type="text/javascript" src="' . $url .
+               '"></script><div id="' . $domid . '"></div>';
     }
 
     /**

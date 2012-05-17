@@ -1,6 +1,6 @@
 <?php
 /**
- * Auto completer for contact entries.
+ * Javascript autocompleter for contacts.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
@@ -16,36 +16,19 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
 {
     /**
      */
-    protected function _attach($js_params)
+    protected function _getAutoCompleter()
     {
-        $js_params['tokens'] = array(',');
-        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img';
-
-        return array(
-            'ajax' => 'ContactAutoCompleter',
-            'params' => $js_params,
-            'raw_params' => array(
-                'onSelect' => 'function (v) { return v + ", "; }',
-                'onType' => 'function (e) { return e.include("<") ? "" : e; }'
-            )
-        );
+        return new Horde_Core_Ajax_Imple_AutoCompleter_Ajax(array(
+            'onSelect' => 'function (v) { return v + ", "; }',
+            'onType' => 'function (e) { return e.include("<") ? "" : e; }',
+            'tokens' => array(',')
+        ));
     }
 
     /**
-     * Perform the address search.
-     *
-     * @param array $args  Array with 1 key: 'input'.
-     *
-     * @return array  The data to send to the autocompleter JS code.
      */
-    public function handle($args, $post)
+    protected function _handleAutoCompleter($input)
     {
-        // Avoid errors if 'input' isn't set and short-circuit empty searches.
-        if (empty($args['input']) ||
-            !($input = Horde_Util::getPost($args['input']))) {
-            return array();
-        }
-
         return array_map('strval', $this->getAddressList($input, array(
             'levenshtein' => true
         ))->base_addresses);

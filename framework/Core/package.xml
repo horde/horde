@@ -29,7 +29,7 @@
   <active>yes</active>
  </developer>
  <date>2012-05-18</date>
- <time>01:48:54</time>
+ <time>01:49:38</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -72,6 +72,7 @@
     <file name="hordecore.js" role="horde" />
     <file name="hordetree.js" role="horde" />
     <file name="identityselect.js" role="horde" />
+    <file name="imple.js" role="horde" />
     <file name="liquidmetal.js" role="horde" />
     <file name="open_html_helper.js" role="horde" />
     <file name="prefs.js" role="horde" />
@@ -97,11 +98,18 @@
       </dir> <!-- /lib/Horde/Core/ActiveSync -->
       <dir name="Ajax">
        <dir name="Imple">
+        <dir name="AutoCompleter">
+         <file name="Ajax.php" role="php" />
+         <file name="Base.php" role="php" />
+         <file name="Local.php" role="php" />
+         <file name="Pretty.php" role="php" />
+        </dir> <!-- /lib/Horde/Core/Ajax/Imple/AutoCompleter -->
         <dir name="Geocoder">
          <file name="Geonames.php" role="php" />
         </dir> <!-- /lib/Horde/Core/Ajax/Imple/Geocoder -->
         <file name="AutoCompleter.php" role="php" />
         <file name="ContactAutoCompleter.php" role="php" />
+        <file name="InPlaceEditor.php" role="php" />
         <file name="SpellChecker.php" role="php" />
         <file name="WeatherLocationAutoCompleter.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Imple -->
@@ -1111,6 +1119,7 @@
    <install as="js/hordecore.js" name="js/hordecore.js" />
    <install as="js/hordetree.js" name="js/hordetree.js" />
    <install as="js/identityselect.js" name="js/identityselect.js" />
+   <install as="js/imple.js" name="js/imple.js" />
    <install as="js/liquidmetal.js" name="js/liquidmetal.js" />
    <install as="js/open_html_helper.js" name="js/open_html_helper.js" />
    <install as="js/prefs.js" name="js/prefs.js" />
@@ -1146,8 +1155,13 @@
    <install as="Horde/Core/Ajax/Response.php" name="lib/Horde/Core/Ajax/Response.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/ContactAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/ContactAutoCompleter.php" />
+   <install as="Horde/Core/Ajax/Imple/InPlaceEditor.php" name="lib/Horde/Core/Ajax/Imple/InPlaceEditor.php" />
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
    <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" />
+   <install as="Horde/Core/Ajax/Imple/AutoCompleter/Ajax.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Ajax.php" />
+   <install as="Horde/Core/Ajax/Imple/AutoCompleter/Base.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Base.php" />
+   <install as="Horde/Core/Ajax/Imple/AutoCompleter/Local.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Local.php" />
+   <install as="Horde/Core/Ajax/Imple/AutoCompleter/Pretty.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Pretty.php" />
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
    <install as="Horde/Core/Ajax/Response/HordeCore.php" name="lib/Horde/Core/Ajax/Response/HordeCore.php" />
    <install as="Horde/Core/Ajax/Response/Notifications.php" name="lib/Horde/Core/Ajax/Response/Notifications.php" />

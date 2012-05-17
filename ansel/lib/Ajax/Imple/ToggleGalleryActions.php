@@ -10,28 +10,22 @@
  */
 class Ansel_Ajax_Imple_ToggleGalleryActions extends Horde_Core_Ajax_Imple
 {
-    public function attach()
+    /**
+     */
+    protected function _attach($init)
     {
-        global $page_output;
+        if ($init) {
+            $GLOBALS['page_output']->addScriptFile('togglewidget.js');
+        }
 
-        $page_output->addScriptFile('togglewidget.js');
-
-        $url = $this->_getUrl('ToggleGalleryActions', 'ansel', array('post' => 'value', 'sessionWrite' => true));
-
-        $page_output->addInlineScript(array(
-            "Ansel.widgets['galleryActions'] = {'bindTo': '" . $this->_params['bindTo'] . "', 'url': '" . $url . "'}",
-            "Event.observe(Ansel.widgets.galleryActions.bindTo + '-toggle', 'click', function(event) {doActionToggle('" . $this->_params['bindTo'] . "', 'galleryActions'); Event.stop(event)});"
-        ), true);
+        return 'doActionToggle("' . $this->_getDomId() . '", "show_actions")';
     }
 
-    public function handle($args, $post)
+    /**
+     * Noop.
+     */
+    protected function _handle(Horde_Variables $vars)
     {
-         if (!isset($post['value'])) {
-            return 0;
-         }
-         $GLOBALS['prefs']->setValue('show_actions', $post['value']);
-
-        return 1;
     }
 
 }

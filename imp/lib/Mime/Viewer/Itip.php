@@ -97,7 +97,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             return $imp_contents->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE, array('type' => 'text/x-vcard'));
         }
 
-        $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'ItipRequest'), array(
+        $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ItipRequest', array(
             'mailbox' => $imp_contents->getMailbox(),
             'mime_id' => $mime_id,
             'uid' => $imp_contents->getUid()
@@ -138,8 +138,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 
         $t = new Horde_Template();
         $t->setOption('gettext', true);
-        $t->set('formid', $imple->getRequestId());
-        $t->set('formurl', $imple->getFormUrl());
+        $t->set('formid', $imple->getDomId());
         $t->set('out', $out);
 
         return array(
