@@ -150,16 +150,22 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     public function content($content)
     {
         // Don't try to send a string containing \0 - it's the wbxml string
-        // terminator. For now, only check if we don't have a stream. Not sure
-        // how to do this with a stream.
+        // terminator.
         if (!is_resource($content)) {
             $content = str_replace("\0", '', $content);
             if ('x' . $content == 'x') {
                 return;
             }
+        } else {
+            stream_filter_register('horde_null', Horde_Stream_Filter_Null);
+            $filter = stream_filter_prepend($content, 'horde_null', STREAM_FILTER_READ);
         }
         $this->_outputStack();
         $this->_content($content);
+
+        if (isset($filter)) {
+            stream_filter_remove($filter);
+        }
     }
 
     /**
