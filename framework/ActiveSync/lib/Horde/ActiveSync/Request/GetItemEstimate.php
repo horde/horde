@@ -115,59 +115,6 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
                     if (!$this->_decoder->getElementEndTag()) {
                         return false;
                     }
-                    break;
-                case Horde_ActiveSync::SYNC_CONVERSATIONMODE:
-                    // 12.1/not supported anyway.
-                    // if (($conversationmode = $this->_decoder->getElementContent()) !== false) {
-                    //     if (!$this->_decoder->getElementEndTag()) {
-                    //         return false;
-                    //     }
-                    // } else {
-                    //     $conversationmode = true;
-                    // }
-                    // break;
-                    return false;
-                case Horde_ActiveSync::SYNC_OPTIONS:
-                    // 12.1
-                    // unset($options_tmp);
-                    // while (($typeoptions =  ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE) ? Horde_ActiveSync::SYNC_FOLDERTYPE :
-                    //                         ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MAXITEMS) ? Horde_ActiveSync::SYNC_MAXITEMS :
-                    //                         ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FILTERTYPE) ? Horde_ActiveSync::SYNC_FILTERTYPE :
-                    //                         -1)))) != -1) {
-                    //     switch ($typeoptions) {
-                    //     case Horde_ActiveSync::SYNC_FOLDERTYPE:
-                    //         $options_tmp['foldertype'] = $this->_decoder->getElementContent();
-                    //         if (strtolower($options_tmp['foldertype']) == strtolower($SyncCache['folders'][$collectionid]['class'])) {
-                    //             unset($options_tmp['foldertype']);
-                    //         }
-                    //         if (!$this->_decoder->getElementEndTag()) {
-                    //             return false;
-                    //         }
-                    //         break;
-                    //     case Horde_ActiveSync::SYNC_MAXITEMS:
-                    //         $options_tmp['maxitems'] = $this->_decoder->getElementContent();
-                    //         if (!$this->_decoder->getElementEndTag()) {
-                    //             return false;
-                    //         }
-                    //         break;
-                    //     case Horde_ActiveSync::SYNC_FILTERTYPE:
-                    //         $options_tmp['filtertype'] = $this->_decoder->getElementContent();
-                    //         if (!$this->_decoder->getElementEndTag()) {
-                    //             return false;
-                    //         }
-                    //         break;
-                    //     }
-                    // }
-                    // if (isset($options_tmp['foldertype'])) {
-                    //     $options['foldertype'] = $options_tmp['foldertype'];
-                    //     $options[$options_tmp['foldertype']] = $options_tmp;
-                    // } else {
-                    //     $options = array_merge($options,$options_tmp);
-                    // }
-                    // if (!$this->_decoder->getElementEndTag()) {// END Options
-                    //     return false;
-                    // }
-                    return false;
                 }
             }
             // End the FOLDER element
