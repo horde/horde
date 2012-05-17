@@ -127,17 +127,16 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $collection['synckey'] = $synckey;
             $collection['class'] = $class;
             $collection['filtertype'] = $filtertype;
-
-            // compatibility mode - get id from state
-            if (!isset($collectionid)) {
-                $collectionid = $this->_stateDriver>getFolderData(
-                    $this->_device->id, $collection['class']);
-            }
             $collection['id'] = $collectionid;
             $status[$collection['id']] = $cStatus;
-
             array_push($collections, $collection);
         }
+
+        // End Folders
+        $this->_decoder->getElementEndTag();
+
+        // End GETITEMESTIMATE
+        $this->_decoder->getElementEndTag();
 
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(self::GETITEMESTIMATE);
