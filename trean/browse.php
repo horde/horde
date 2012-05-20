@@ -13,7 +13,7 @@ require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('trean');
 
 /* Get bookmarks to display. */
-$view = new Trean_View_Browse();
+$view = new Trean_View_BookmarkList();
 if (!$view->hasBookmarks()) {
     $notification->push(_("No bookmarks yet."), 'horde.message');
     require __DIR__ . '/add.php';

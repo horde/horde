@@ -10,7 +10,7 @@
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Trean
  */
-class Trean_View_Browse
+class Trean_View_BookmarkList
 {
     /**
      * Tag Browser
@@ -51,8 +51,9 @@ class Trean_View_Browse
      * Const'r
      *
      */
-    public function __construct()
+    public function __construct($bookmarks = null)
     {
+        $this->_bookmarks = $bookmarks;
         $this->_browser = new Trean_TagBrowse(
             $GLOBALS['injector']->getInstance('Trean_Tagger'));
 
