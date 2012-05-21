@@ -78,8 +78,8 @@ if ($cal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         . Horde::img('delete-small.png', _("Remove Tag"))
         . '</a>';
 }
-        </li>
-        <?php endforeach;?>
+        echo '</li>';
+        endforeach;?>
       </ul>
       <div class="clear">&nbsp;</div>
       <input type="text" name="newtags-input_<?php echo $id?>" id="newtags-input_<?php echo $id?>" size="10" /><input type="button" class="button" value="add" name="newtags-button_<?php echo $id?>" id="newtags-button_<?php echo $id?>" />
