@@ -97,7 +97,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
         // Start decoding request
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
-            if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE) {
+            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
                 try {
                     $this->_syncCache = $this->_stateDriver->getSyncCache(
                         $this->_device->id, $this->_device->user);
