@@ -787,18 +787,18 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             $collection['newsynckey'])
                         );
                     }
-                }
 
-                // Do we need to add the new synckey to the syncCache?
-                if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
-                    if (trim($collection['newsynckey']) != trim($collection['synckey'])) {
-                        $this->_syncCache['confirmed_synckeys'][$collection['newsynckey']] = true;
+                    // Do we need to add the new synckey to the syncCache?
+                    if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
+                        if (trim($collection['newsynckey']) != trim($collection['synckey'])) {
+                            $this->_syncCache['confirmed_synckeys'][$collection['newsynckey']] = true;
+                        }
+                        $this->_updateSyncCacheCollection(
+                            $collection,
+                            (isset($collection['newsynckey']) ? $collection['newsynckey'] : false),
+                            true
+                        );
                     }
-                    $this->_updateSyncCacheCollection(
-                        $collection,
-                        (isset($collection['newsynckey']) ? $collection['newsynckey'] : false),
-                        true
-                    );
                 }
             }
             $this->_encoder->endTag();
