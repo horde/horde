@@ -1126,7 +1126,9 @@ class IMP_Contents
         $tree->addNode(
             $mimeid,
             $parent,
-            $summary['description'] . ' (' . $summary['size'] . ') ' . $summary['download']
+            sprintf('%s %s (%s) %s',
+                    $mimeid, $summary['description'],
+                    $summary['size'], $summary['download'])
         );
         $tree->addNodeParams(
             $mimeid,
