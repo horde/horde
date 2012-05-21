@@ -164,7 +164,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                 switch($sync_tag) {
                 case Horde_ActiveSync::SYNC_HEARTBEATINTERVAL:
-                    if ($sync_cahce['hbinterval'] = $this->_decoder->getElementContent()) {
+                    if ($this->_syncCache['hbinterval'] = $this->_decoder->getElementContent()) {
                         $this->_decoder->getElementEndTag();
                     }
                     $this->_logger->debug(sprintf(
