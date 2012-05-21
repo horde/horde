@@ -74,6 +74,7 @@ $this->applications = array(
         'initial_page' => 'services/portal/index.php',
         'name' => _("Horde"),
         'provides' => 'horde',
+        'status' => 'hidden',
     ),
 
     'imp' => array(
@@ -113,37 +114,9 @@ $this->applications = array(
         'status' => 'sidebar',
     ),
 
-    'organizing' => array(
-        'name' => _("Organizing"),
-        'status' => 'heading',
-    ),
-
-    'turba' => array(
-        'name' => _("Address Book"),
-        'provides' => array(
-            'contacts',
-            'clients/getClientSource',
-            'clients/clientFields',
-            'clients/getClient',
-            'clients/getClients',
-            'clients/addClient',
-            'clients/updateClient',
-            'clients/deleteClient',
-            'clients/searchClients'
-        ),
-        'menu_parent' => 'organizing'
-    ),
-
-    'turba-menu' => array(
-        'app' => 'turba',
-        'menu_parent' => 'turba',
-        'status' => 'sidebar',
-    ),
-
     'kronolith' => array(
         'name' => _("Calendar"),
         'provides' => 'calendar',
-        'menu_parent' => 'organizing'
     ),
 
     'kronolith-alarms' => array(
@@ -164,10 +137,30 @@ $this->applications = array(
         'menu_parent' => 'kronolith',
     ),
 
+    'turba' => array(
+        'name' => _("Address Book"),
+        'provides' => array(
+            'contacts',
+            'clients/getClientSource',
+            'clients/clientFields',
+            'clients/getClient',
+            'clients/getClients',
+            'clients/addClient',
+            'clients/updateClient',
+            'clients/deleteClient',
+            'clients/searchClients'
+        ),
+    ),
+
+    'turba-menu' => array(
+        'app' => 'turba',
+        'menu_parent' => 'turba',
+        'status' => 'sidebar',
+    ),
+
     'nag' => array(
         'name' => _("Tasks"),
         'provides' => 'tasks',
-        'menu_parent' => 'organizing'
     ),
 
     'nag-alarms' => array(
@@ -191,13 +184,23 @@ $this->applications = array(
     'mnemo' => array(
         'name' => _("Notes"),
         'provides' => 'notes',
-        'menu_parent' => 'organizing'
     ),
 
     'mnemo-menu' => array(
         'status' => 'sidebar',
         'app' => 'mnemo',
         'menu_parent' => 'mnemo',
+    ),
+
+    'others' => array(
+        'name' => _("Others"),
+        'status' => 'heading',
+    ),
+
+    'organizing' => array(
+        'name' => _("Organizing"),
+        'status' => 'heading',
+        'menu_parent' => 'others',
     ),
 
     'trean' => array(
@@ -215,6 +218,7 @@ $this->applications = array(
     'devel' => array(
         'name' => _("Development"),
         'status' => 'heading',
+        'menu_parent' => 'others',
     ),
 
     'chora' => array(
@@ -248,6 +252,7 @@ $this->applications = array(
     'info' => array(
         'name' => _("Information"),
         'status' => 'heading',
+        'menu_parent' => 'others',
     ),
 
     'klutz' => array(
@@ -270,6 +275,7 @@ $this->applications = array(
     'office' => array(
         'name' => _("Office"),
         'status' => 'heading',
+        'menu_parent' => 'others',
     ),
 
     'hermes' => array(
@@ -304,6 +310,7 @@ $this->applications = array(
     'myaccount' => array(
         'name' => _("My Account"),
         'status' => 'heading',
+        'menu_parent' => 'others',
     ),
 
     'gollem' => array(
@@ -326,6 +333,7 @@ $this->applications = array(
     'website' => array(
         'name' => _("Web Site"),
         'status' => 'heading',
+        'menu_parent' => 'others',
     ),
 
     'agora' => array(
@@ -354,6 +362,12 @@ $this->applications = array(
     'vilma' => array(
         'name' => _("Mail Admin"),
         'menu_parent' => 'administration'
+    ),
+
+    'administration' => array(
+        'name' => _("Administration"),
+        'status' => 'heading',
+        'menu_parent' => 'others',
     ),
 
     'content' => array(

@@ -27,6 +27,11 @@ class Horde_Bundle extends Horde_Core_Bundle
     const FULLNAME = 'Horde Groupware Webmail Edition';
 
     /**
+     * The short bundle descriptive name.
+     */
+    const SHORTNAME = 'Groupware';
+
+    /**
      * Asks for the administrator settings.
      *
      * @return string  The administrator name.

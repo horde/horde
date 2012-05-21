@@ -7,7 +7,7 @@
 }
 
 body, input, select, textarea, .inProgress {
-    font-family: Geneva,Arial,"DejuVu Sans",sans-serif;
+    font-family: Arial,"DejuVu Sans",sans-serif;
 }
 body {
     font-size: 75%;
@@ -1588,6 +1588,338 @@ span.loadingImg {
     position: absolute;
     width: 16px;
     z-index: 1000;
+}
+
+/*
+* Links für das Mainmenü,
+*/
+a.horde-mainnavi:link, a.horde-mainnavi:visited, a.horde-mainnavi:active{
+font-size: 13px;
+color: #fff;
+font-weight:bold;
+text-decoration:none;
+text-shadow: 1px 1px 0px #000;
+}
+a.horde-mainnavi:hover{
+font-size: 13px;
+color: #7eaa42;
+font-weight:bold;
+text-decoration:none;
+text-shadow: 1px 1px 0px #000;
+}
+
+a.horde-mainnavi-active:link, a.horde-mainnavi-active:visited, a.horde-mainnavi-active:active{
+font-size: 13px;
+color: #7eaa42;
+font-weight:bold;
+text-decoration:none;
+text-shadow: 1px 1px 0px #000;
+}
+a.horde-mainnavi-active:hover{
+}
+
+
+/*
+* Dropdown für das Mainmenü
+*/
+.horde-dropdown {
+  float:left;
+  list-style:none;
+  padding:0;
+  margin:0;
+  z-index:10;
+}
+.horde-dropdown ul {
+  list-style:none;
+  padding:0;
+  margin:0;
+  z-index:10;
+  background-color:#162329;
+  border:1px solid #090e11;
+}
+.horde-dropdown ul li {
+  position:relative;
+  border-bottom:1px solid #919294;
+  width: 13em;
+}
+.horde-dropdown ul li:last-child {
+  position:relative;
+  border-bottom:0px solid #919294;
+  width: 13em;
+}
+.horde-dropdown ul li.arrow {
+  background-image:url('graphics/navi-subnavi.png');
+  background-repeat:no-repeat;
+  background-position:center right;
+}
+.horde-dropdown ul li.arrow:hover {
+  background-image:url('graphics/navi-subnavi-active.png');
+  background-repeat:no-repeat;
+  background-position:center right;
+}
+.horde-dropdown li ul {
+  position:absolute;
+  display:none;
+  top:34px;
+  margin-left:-10px;
+}
+.horde-dropdown ul li ul {
+  margin-top:-25px;
+  margin-left:13em;
+  top:24px;
+}
+.horde-dropdown li:hover ul, .horde-dropdown li.over ul {
+  display:block;
+}
+.horde-dropdown li:hover ul ul, .horde-dropdown li.over ul ul {
+  display:none;
+}
+.horde-dropdown ul li:hover ul, .horde-dropdown ul li.over ul {
+  display:block;
+}
+.horde-drowdown-str{
+height:19px;
+padding:5px 10px 0px 0px;
+margin:0px 0px 0px 10px;
+}
+.horde-drowdown-str:hover a{
+color: #7eaa42;
+}
+.horde-drowdown-str:hover{
+height:19px;
+padding:5px 10px 0px 0px;
+margin:0px 0px 0px 10px;
+}
+.horde-drowdown-icon-str{
+height:19px;
+padding:5px 10px 0px 30px;
+margin:0px 0px 0px 10px;
+background-image:url('img/icons/glyphicons_144_1_folder_open.png');
+background-repeat:no-repeat;
+}
+.horde-drowdown-icon-str:hover a{
+color: #7eaa42;
+}
+.horde-drowdown-icon-str:hover{
+height:19px;
+padding:5px 10px 0px 30px;
+margin:0px 0px 0px 10px;
+background-image:url('img/icons/glyphicons_144_2_folder_open.png');
+background-repeat:no-repeat;
+}
+
+
+/*
+ * Head -> Logo, Hauptnavigation, Suche, Logout
+ */
+#horde-head{
+width:100%;
+height:34px;
+background-color:#2e464f;
+background-image: url('graphics/head-bg.png');
+background-repeat:repeat-x;
+border-bottom:2px solid #000;
+}
+  #horde-logo{
+  float:left;
+  width:88px;
+  height:34px;
+  background-image: url('graphics/logo.png');
+  background-repeat:no-repeat;
+  }
+  #horde-version{
+  float:left;
+  width:112px;
+  height:16px;
+  padding:18px 0px 0px 0px;
+  }
+  #horde-navigation{
+  float:left;
+  }
+    .horde-point-left{
+    float:left;
+    width:10px;
+    height:34px;
+    }
+    .horde-point-center{
+    float:left;
+    height:26px;
+    padding:8px 0px 0px 0px;
+    }
+    .horde-point-arrow{
+    float:left;
+    width:20px;
+    height:34px;
+    background-image:url('graphics/navi-arrow-normal.png');
+    background-repeat:no-repeat;
+    }
+    .horde-point-right{
+    float:left;
+    width:10px;
+    height:34px;
+    }
+    .horde-point-left-active{
+    float:left;
+    width:10px;
+    height:34px;
+    background-image: url('graphics/navi-left-active.png');
+    background-repeat:no-repeat;
+    }
+    .horde-point-center-active{
+    float:left;
+    height:26px;
+    padding:8px 0px 0px 0px;
+    background-image: url('graphics/navi-center-active.png');
+    background-repeat:repeat-x;
+    }
+    .horde-point-arrow-active{
+    float:left;
+    width:20px;
+    height:34px;
+    background-image:url('graphics/navi-arrow-active.png');
+    background-repeat:no-repeat;
+    }
+    .horde-point-right-active{
+    float:left;
+    width:10px;
+    height:34px;
+    background-image: url('graphics/navi-right-active.png');
+    background-repeat:no-repeat;
+    }
+    .horde-settings{
+    float:left;
+    width:22px;
+    height:27px;
+    margin:7px 0px 0px 0px;
+    }
+  #horde-search{
+  float:right;
+  width:230px;
+  padding:0px 20px 0px 0px;
+  }
+    #horde-search #horde-input{
+    float:left;
+    width:209px;
+    margin:6px 0px 0px 0px;
+    }
+      #horde-search #horde-input input{
+      width:190px;
+      height:20px;
+      padding:0px 5px 0px 5px;
+      font-size:14px;
+      border:0px;
+      }
+    #horde-search #horde-img{
+    float:left;
+    width:21px;
+    height:27px;
+    margin:7px 0px 0px 0px;
+    background-image: url('graphics/search.png');
+    background-repeat:no-repeat;
+    }
+  #horde-logout{
+  float:right;
+  width:20px;
+  height:29px;
+  margin:6px 10px 0px 0px;
+  background-image: url('graphics/logout.png');
+  background-repeat:no-repeat;
+  }
+
+
+/*
+ * Sub -> Datum, Info
+ */
+#horde-sub{
+width:100%;
+height:20px;
+background-color:#333333;
+}
+  #horde-date{
+  float:left;
+  padding:2px 0px 0px 10px;
+  }
+  #horde-info{
+  float:right;
+  padding:2px 10px 0px 0px;
+  }
+
+
+/*
+ * Icons
+ */
+.horde-icon-settings{
+background-image:url('graphics/settings.png');
+background-repeat:no-repeat;
+}
+.horde-icon-settings-active{
+background-image:url('graphics/settings-active.png');
+background-repeat:no-repeat;
+}
+
+/*
+ * Schriften
+ */
+p{
+margin:0px;
+padding:0px;
+font-size: 12px;
+color: #000;
+font-style: normal;
+}
+p.p11{
+font-size: 11px;
+}
+p.p14{
+font-size: 14px;
+}
+p.p17{
+font-size: 17px;
+}
+p.bold{
+font-weight: bold;
+}
+p.italic{
+font-style:italic;
+}
+p.lineheight{
+line-height: 20px;
+}
+p.white{
+color: #fff;
+}
+p.green{
+color: #7eaa42;
+}
+p.shadow{
+text-shadow: 1px 1px 0px #000;
+}
+p.relief{
+text-shadow: -1px -1px 0px #000;
+}
+
+
+/*
+ * Links
+ */
+a:link, a:visited, a:active{
+font-size: 12px;
+color:#000;
+font-weight:normal;
+text-decoration:none;
+}
+a:hover{
+color:#000;
+font-weight:bold;
+text-decoration:none;
+}
+
+
+/* Link für ein Background-Icon */
+a.icon:link, a.icon:visited, a.icon:active, a.icon:hover{
+display:block;
+width:100%;
+height:100%;
 }
 
 /* Print CSS. */

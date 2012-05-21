@@ -27,6 +27,11 @@ class Horde_Bundle extends Horde_Core_Bundle
     const FULLNAME = 'Horde Kolab Edition';
 
     /**
+     * The short bundle descriptive name.
+     */
+    const SHORTNAME = 'Kolab';
+
+    /**
      * Asks for the administrator settings.
      *
      * @return string  The administrator name.

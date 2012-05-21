@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-05-05</date>
- <time>00:08:24</time>
+ <date>2012-05-21</date>
+ <time>18:07:18</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -304,6 +304,7 @@
       <dir name="Tree">
        <file name="Html.php" role="php" />
        <file name="Javascript.php" role="php" />
+       <file name="Menu.php" role="php" />
        <file name="Simplehtml.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Tree -->
       <dir name="Ui">
@@ -329,6 +330,7 @@
       <file name="LoginTasks.php" role="php" />
       <file name="Perms.php" role="php" />
       <file name="Sidebar.php" role="php" />
+      <file name="Topbar.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
       </file>
@@ -1132,6 +1134,7 @@
    <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
    <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
    <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
+   <install as="Horde/Core/Topbar.php" name="lib/Horde/Core/Topbar.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
    <install as="Horde/Core/ActiveSync/Connector.php" name="lib/Horde/Core/ActiveSync/Connector.php" />
    <install as="Horde/Core/ActiveSync/Driver.php" name="lib/Horde/Core/ActiveSync/Driver.php" />
@@ -1266,6 +1269,7 @@
    <install as="Horde/Core/Text/Filter/Highlightquotes.php" name="lib/Horde/Core/Text/Filter/Highlightquotes.php" />
    <install as="Horde/Core/Tree/Html.php" name="lib/Horde/Core/Tree/Html.php" />
    <install as="Horde/Core/Tree/Javascript.php" name="lib/Horde/Core/Tree/Javascript.php" />
+   <install as="Horde/Core/Tree/Menu.php" name="lib/Horde/Core/Tree/Menu.php" />
    <install as="Horde/Core/Tree/Simplehtml.php" name="lib/Horde/Core/Tree/Simplehtml.php" />
    <install as="Horde/Core/Ui/FlagImage.php" name="lib/Horde/Core/Ui/FlagImage.php" />
    <install as="Horde/Core/Ui/JsCalendar.php" name="lib/Horde/Core/Ui/JsCalendar.php" />
