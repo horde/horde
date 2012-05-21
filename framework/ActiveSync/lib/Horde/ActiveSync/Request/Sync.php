@@ -484,7 +484,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $hbrunstarttime = microtime(true);
 
                 // See if another process has altered the sync_cache.
-                $tempSyncCache = $this->_getSyncCache($this->_device->id, $this->_device->user);
+                $tempSyncCache = $this->_stateDriver->getSyncCache($this->_device->id, $this->_device->user);
                 if ($tempSyncCache['timestamp'] > $this->_syncCache['timestamp']) {
                     $this->_logger->err('Changes in cache determined during looping SYNC exiting here.');
                     return true;
