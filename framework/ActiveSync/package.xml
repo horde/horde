@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-13</date>
- <time>18:43:50</time>
+ <date>2012-05-21</date>
+ <time>19:07:11</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -66,6 +66,7 @@
       </dir> <!-- /lib/Horde/ActiveSync/Imap -->
       <dir name="Interface">
        <file name="ImapFactory.php" role="php" />
+       <file name="LoggerFactory.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Interface -->
       <dir name="Message">
        <file name="AirSyncBaseAttachment.php" role="php" />
@@ -123,6 +124,12 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_ActiveSync.mo" role="data" />
+      <file name="Horde_ActiveSync.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
     <file name="Horde_ActiveSync.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="migration">
@@ -242,6 +249,7 @@
    <install as="Horde/ActiveSync/Imap/Adapter.php" name="lib/Horde/ActiveSync/Imap/Adapter.php" />
    <install as="Horde/ActiveSync/Imap/Message.php" name="lib/Horde/ActiveSync/Imap/Message.php" />
    <install as="Horde/ActiveSync/Interface/ImapFactory.php" name="lib/Horde/ActiveSync/Interface/ImapFactory.php" />
+   <install as="Horde/ActiveSync/Interface/LoggerFactory.php" name="lib/Horde/ActiveSync/Interface/LoggerFactory.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAttachment.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseBody.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBody.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseFileAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseFileAttachment.php" />
@@ -280,6 +288,8 @@
    <install as="Horde/ActiveSync/Wbxml/Decoder.php" name="lib/Horde/ActiveSync/Wbxml/Decoder.php" />
    <install as="Horde/ActiveSync/Wbxml/Encoder.php" name="lib/Horde/ActiveSync/Wbxml/Encoder.php" />
    <install as="locale/Horde_ActiveSync.pot" name="locale/Horde_ActiveSync.pot" />
+   <install as="locale/de/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/de/LC_MESSAGES/Horde_ActiveSync.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_ActiveSync.po" name="locale/de/LC_MESSAGES/Horde_ActiveSync.po" />
    <install as="migration/1_horde_activesync_base_tables.php" name="migration/Horde/ActiveSync/1_horde_activesync_base_tables.php" />
    <install as="migration/2_horde_activesync_peruserpolicykey.php" name="migration/Horde/ActiveSync/2_horde_activesync_peruserpolicykey.php" />
    <install as="migration/3_horde_activesync_clientidmap.php" name="migration/Horde/ActiveSync/3_horde_activesync_clientidmap.php" />
@@ -665,7 +675,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-05-10</date>
+   <date>2012-05-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Add basic Autoconfigure support.
