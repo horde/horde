@@ -37,7 +37,7 @@ var HordeImple = {
 
     impleCallback: function(r, id)
     {
-        $(id).fire(this.actions.get(id).imple . ':complete', r);
+        $(id).fire(this.actions.get(id).imple + ':complete', r);
     },
 
     // args = id, observe, params
