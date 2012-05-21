@@ -41,7 +41,7 @@ abstract class Horde_Core_Ajax_Imple_AutoCompleter extends Horde_Core_Ajax_Imple
         }
 
         $page_output->addInlineScript(array(
-            'HordeImple.AutoCompleter.' . $this->getDomId() . '=' . $this->_getAutoCompleter()->generate($this)
+            'HordeImple.AutoCompleter["' . $this->getDomId() . '"]=' . $this->_getAutoCompleter()->generate($this)
         ), true);
 
         return false;
