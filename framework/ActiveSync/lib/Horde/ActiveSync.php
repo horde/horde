@@ -391,6 +391,10 @@ class Horde_ActiveSync
             if (strpos($hash, ':') !== false) {
                 list($user, $pass) = explode(':', $hash, 2);
             }
+        } else {
+            // No provided username or Authorization header.
+            $this->_logger->debug('Client did not provide authentication data.');
+            return false;
         }
 
         $pos = strrpos($user, '\\');
