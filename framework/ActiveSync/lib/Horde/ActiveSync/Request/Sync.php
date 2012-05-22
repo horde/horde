@@ -774,7 +774,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     }
                     $this->_encoder->endTag();
                 }
-                $this->_encoder->endTag();
 
                 // Save the sync state for the next time
                 if (isset($collection['newsynckey'])) {
