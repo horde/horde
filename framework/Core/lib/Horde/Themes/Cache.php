@@ -86,10 +86,10 @@ class Horde_Themes_Cache implements Serializable
             $this->_data = array();
 
             $this->_build('horde', 'default', self::HORDE_DEFAULT);
-            //$this->_build('horde', $this->_theme, self::HORDE_THEME);
+            $this->_build('horde', $this->_theme, self::HORDE_THEME);
             if ($this->_app != 'horde') {
                 $this->_build($this->_app, 'default', self::APP_DEFAULT);
-                //$this->_build($this->_app, $this->_theme, self::APP_THEME);
+                $this->_build($this->_app, $this->_theme, self::APP_THEME);
             }
 
             $this->changed = $this->_complete = true;
@@ -171,7 +171,7 @@ class Horde_Themes_Cache implements Serializable
                 $entry |= self::HORDE_DEFAULT;
             }
             if (file_exists($path . '/' . $this->_theme . '/' . $item)) {
-                //$entry |= self::HORDE_THEME;
+                $entry |= self::HORDE_THEME;
             }
 
             if ($this->_app != 'horde') {
@@ -180,7 +180,7 @@ class Horde_Themes_Cache implements Serializable
                     $entry |= self::APP_DEFAULT;
                 }
                 if (file_exists($path . '/' . $this->_theme . '/' . $item)) {
-                    //$entry |= self::APP_THEME;
+                    $entry |= self::APP_THEME;
                 }
             }
 
@@ -215,10 +215,10 @@ class Horde_Themes_Cache implements Serializable
         $out = array();
 
         if ($entry & self::APP_THEME) {
-            //$out[] = $this->_getOutput($this->_app, $this->_theme, $item);
+            $out[] = $this->_getOutput($this->_app, $this->_theme, $item);
         }
         if ($entry & self::HORDE_THEME) {
-            //$out[] = $this->_getOutput('horde', $this->_theme, $item);
+            $out[] = $this->_getOutput('horde', $this->_theme, $item);
         }
         if ($entry & self::APP_DEFAULT) {
             $out[] = $this->_getOutput($this->_app, 'default', $item);
