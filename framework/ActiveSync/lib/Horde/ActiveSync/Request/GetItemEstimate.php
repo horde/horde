@@ -80,7 +80,6 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
         while ($this->_decoder->getElementStartTag(self::FOLDER)) {
             $options = array();
             $cStatus = self::STATUS_SUCCESS;
-            $conversationmode = false;
             while (($type = ($this->_decoder->getElementStartTag(self::FOLDERTYPE) ? self::FOLDERTYPE :
                             ($this->_decoder->getElementStartTag(self::FOLDERID) ? self::FOLDERID :
                             ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FILTERTYPE) ? Horde_ActiveSync::SYNC_FILTERTYPE :
