@@ -301,7 +301,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         if (isset($this->_syncCache['confirmed_synckeys'][$value['synckey']])) {
                             $this->_logger->debug(sprintf(
                                 'Removed %s from confirmed_synckeys',
-                                $this->_syncCache['confirmed_synckeys'][$value['synckey']])
+                                $value['synckey'])
                             );
                             unset($this->_syncCache['confirmed_synckeys'][$value['synckey']]);
                             $confirmed_synckey_count++;
@@ -410,7 +410,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         'Not a partial sync. Removing %s from collection',
                         $key)
                     );
-                    unset($this->_syncCache['collections'][$key]['synckey']);
+                    unset($this->_syncCache['collections'][$key]);
                 }
             }
 
