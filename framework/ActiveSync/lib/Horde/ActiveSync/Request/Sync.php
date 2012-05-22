@@ -1288,14 +1288,16 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     protected function _initState($collection)
     {
         // Initialize the state
+        $this->_logger->debug(sprintf(
+            "[%s] Initializing state for collection: %s, synckey: %s",
+            $this->_device->id,
+            $collection['id'],
+            $collection['synckey']));
         $this->_stateDriver->init($collection);
         $this->_stateDriver->loadState(
             $collection['synckey'],
             Horde_ActiveSync::REQUEST_TYPE_SYNC,
             $collection['id']);
-        $this->_logger->debug(sprintf(
-            "[%s] State Initialized in _initState",
-            $this->_device->id));
     }
 
     protected function _handleGlobalSyncError($limit = false)
