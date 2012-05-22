@@ -25,6 +25,13 @@ class Horde_Memcache implements Serializable
     const FLAGS_RESERVED = 16;
 
     /**
+     * Locking timeout.
+     *
+     * @since 1.1.1
+     */
+    const LOCK_TIMEOUT = 30;
+
+    /**
      * Suffix added to key to create the lock entry.
      *
      * @since 1.1.0
@@ -369,13 +376,12 @@ class Horde_Memcache implements Serializable
      */
     public function lock($key)
     {
-        /* Lock will automatically expire after 10 seconds. */
-        while ($this->_memcache->add($this->_key($key . self::LOCK_SUFFIX), 1, 0, 10) === false) {
+        while ($this->_memcache->add($this->_key($key . self::LOCK_SUFFIX), 1, 0, self::LOCK_TIMEOUT) === false) {
             /* Wait 0.1 secs before attempting again. */
             usleep(100000);
         }
 
-        $this->_locks[$key . self::LOCK_SUFFIX] = true;
+        $this->_locks[$key] = true;
     }
 
     /**
@@ -386,7 +392,7 @@ class Horde_Memcache implements Serializable
     public function unlock($key)
     {
         $this->_memcache->delete($this->_key($key . self::LOCK_SUFFIX), 0);
-        unset($this->_locks[$key . self::LOCK_SUFFIX]);
+        unset($this->_locks[$key]);
     }
 
     /**

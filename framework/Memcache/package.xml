@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Increase lock timeout to 30 seconds.
+* [mms] Fix typo preventing unlock at exit from working correctly.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -239,7 +240,8 @@
    <date>2012-05-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Increase lock timeout to 30 seconds.
+* [mms] Fix typo preventing unlock at exit from working correctly.
    </notes>
   </release>
  </changelog>
