@@ -172,17 +172,13 @@ class Horde_ActiveSync_Sync
                     if (!$folder) {
                         return false;
                     }
-                    if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA ||
-                        $this->_exporter->folderChange($folder)) {
-
+                    if ($this->_exporter->folderChange($folder)) {
                         $this->_stateDriver->updateState(
                             Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC, $stat);
                     }
                     break;
                 case Horde_ActiveSync::CHANGE_TYPE_DELETE:
-                    if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA ||
-                        $this->_exporter->folderDeletion($change['id'])) {
-
+                    if ($this->_exporter->folderDeletion($change['id'])) {
                         $this->_stateDriver->updateState(
                             Horde_ActiveSync::CHANGE_TYPE_DELETE, $change);
                     }
@@ -215,15 +211,12 @@ class Horde_ActiveSync_Sync
                         // copy the flag to the message
                         // @TODO: Rename this to ->new or ->status or *anything* other than flags!!
                         $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
-                        if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA ||
-                            $this->_exporter->messageChange($change['id'], $message) == true) {
-
+                        if ($this->_exporter->messageChange($change['id'], $message) == true) {
                             $this->_stateDriver->updateState(
                                 Horde_ActiveSync::CHANGE_TYPE_CHANGE, $change);
                         }
                     } catch (Horde_Exception_NotFound $e) {
                         $this->_logger->debug('Message gone? Possibly a MoreItems that has since disappeared.');
-                        $flags = $flags | Horde_ActiveSync::BACKEND_IGNORE_DATA;
                         $this->_stateDriver->updateState(Horde_ActiveSync::CHANGE_TYPE_CHANGE, $change);
                     } catch (Horde_ActiveSync_Exception $e) {
                         return false;
@@ -231,7 +224,7 @@ class Horde_ActiveSync_Sync
                     break;
 
                 case Horde_ActiveSync::CHANGE_TYPE_DELETE:
-                    if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA || $this->_exporter->messageDeletion($change['id']) == true) {
+                    if ($this->_exporter->messageDeletion($change['id']) == true) {
                         $this->_stateDriver->updateState(
                             Horde_ActiveSync::CHANGE_TYPE_DELETE, $change);
                     }
@@ -239,13 +232,13 @@ class Horde_ActiveSync_Sync
 
                 case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
                     if (isset($change['flags']['read'])) {
-                        if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA || $this->_exporter->messageReadFlag($change['id'], $change['flags']['read']) == true) {
+                        if ($this->_exporter->messageReadFlag($change['id'], $change['flags']['read']) == true) {
                             $this->_stateDriver->updateState(
                                 Horde_ActiveSync::CHANGE_TYPE_FLAGS, $change);
                         }
                     }
                     if (isset($change['flags']['flagged'])) {
-                        if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA || $this->_exporter->messageFlag($change['id'], $change['flags']['flagged']) == true) {
+                        if ($this->_exporter->messageFlag($change['id'], $change['flags']['flagged']) == true) {
                             $this->_stateDriver->updateState(
                                 Horde_ActiveSync::CHANGE_TYPE_FLAGS, $change);
                         }
@@ -253,7 +246,7 @@ class Horde_ActiveSync_Sync
                     break;
 
                 case Horde_ActiveSync::CHANGE_TYPE_MOVE:
-                    if ($flags & Horde_ActiveSync::BACKEND_IGNORE_DATA || $this->_exporter->messageMove($change['id'], $change['parent']) == true) {
+                    if ($this->_exporter->messageMove($change['id'], $change['parent']) == true) {
                         $this->_stateDriver->updateState(
                             Horde_ActiveSync::CHANGE_TYPE_MOVE, $change);
                     }

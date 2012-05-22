@@ -30,10 +30,6 @@ class Horde_ActiveSync
     const CONFLICT_OVERWRITE_SERVER             = 0;
     const CONFLICT_OVERWRITE_PIM                = 1;
 
-    /* Flag used to indicate we should NOT export change data to the PIM. Used
-    during PING requests. */
-    const BACKEND_IGNORE_DATA                   = 1;
-
     /* TRUNCATION Constants */
     const TRUNCATION_ALL                        = 0;
     const TRUNCATION_1                          = 1;
