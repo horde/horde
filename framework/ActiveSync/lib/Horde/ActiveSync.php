@@ -568,6 +568,10 @@ class Horde_ActiveSync
 
         // Device id is REQUIRED
         if (is_null($devId)) {
+            if ($cmd == 'Options') {
+                $this->_doOptionsRequest();
+                return true;
+            }
             throw new Horde_ActiveSync_Exception_InvalidRequest('Device failed to send device id.');
         }
 
@@ -592,9 +596,7 @@ class Horde_ActiveSync
 
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
-            $this->activeSyncHeader();
-            $this->versionHeader();
-            $this->commandsHeader();
+            $this->_doOptionsRequest();
             return true;
         }
 
@@ -784,6 +786,17 @@ class Horde_ActiveSync
         } else {
             return $get;
         }
+    }
+
+    /**
+     * Send the OPTIONS request response headers.
+     *
+     */
+    protected function _doOptionsRequest()
+    {
+        $this->activeSyncHeader();
+        $this->versionHeader();
+        $this->commandsHeader();
     }
 
     protected function _decodeBase64($uri)
