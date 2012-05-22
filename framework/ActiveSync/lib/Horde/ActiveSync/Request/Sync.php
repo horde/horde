@@ -507,12 +507,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $this->_initState($collection);
                     } catch (Horde_ActiveSync_Exception_StateGone $e) {
                         $this->_logger->err(sprintf(
-                            '[%s] SYNC terminating, state not found',
-                            $this->_device->id)
+                            '[%s] State not found for %s, continuing',
+                            $this->_device->id,
+                            $collection['id'])
                         );
-                        $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                        $this->_handleGlobalSyncError();
-                        return true;
+                        $dataavailable = true;
+                        $collections[$i]['getchanges'] = true;
+                        continue;
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_statusCode = self::STATUS_SERVERERROR;
                         $this->_handleGlobalSyncError();
