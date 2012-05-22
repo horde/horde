@@ -909,7 +909,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-04-10</date>
+   <date>2012-05-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Workaround PHP&apos;s broken convert_uudecode() function.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.2</release>
+    <api>1.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

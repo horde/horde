@@ -25,6 +25,13 @@ class Horde_Memcache implements Serializable
     const FLAGS_RESERVED = 16;
 
     /**
+     * Suffix added to key to create the lock entry.
+     *
+     * @since 1.1.0
+     */
+    const LOCK_SUFFIX = '_l';
+
+    /**
      * The max storage size of the memcache server.  This should be slightly
      * smaller than the actual value due to overhead.  By default, the max
      * slab size of memcached (as of 1.1.2) is 1 MB.
@@ -35,6 +42,13 @@ class Horde_Memcache implements Serializable
      * Serializable version.
      */
     const VERSION = 1;
+
+    /**
+     * Locked keys.
+     *
+     * @var array
+     */
+    protected $_locks = array();
 
     /**
      * Memcache object.
@@ -106,6 +120,8 @@ class Horde_Memcache implements Serializable
         }
 
         $this->_init();
+
+        register_shutdown_function(array($this, 'shutdown'));
     }
 
     /**
@@ -138,6 +154,18 @@ class Horde_Memcache implements Serializable
 
         if ($this->_logger) {
             $this->_logger->log('Connected to the following memcache servers:' . implode($servers, ', '), 'DEBUG');
+        }
+    }
+
+    /**
+     * Shutdown function.
+     *
+     * @since 1.1.0
+     */
+    public function shutdown()
+    {
+        foreach (array_keys($this->_locks) as $key) {
+            $this->unlock($key);
         }
     }
 
@@ -342,10 +370,12 @@ class Horde_Memcache implements Serializable
     public function lock($key)
     {
         /* Lock will automatically expire after 10 seconds. */
-        while ($this->_memcache->add($this->_key($key . '_l'), 1, 0, 10) === false) {
+        while ($this->_memcache->add($this->_key($key . self::LOCK_SUFFIX), 1, 0, 10) === false) {
             /* Wait 0.1 secs before attempting again. */
             usleep(100000);
         }
+
+        $this->_locks[$key . self::LOCK_SUFFIX] = true;
     }
 
     /**
@@ -355,7 +385,8 @@ class Horde_Memcache implements Serializable
      */
     public function unlock($key)
     {
-        $this->_memcache->delete($this->_key($key . '_l'), 0);
+        $this->_memcache->delete($this->_key($key . self::LOCK_SUFFIX), 0);
+        unset($this->_locks[$key . self::LOCK_SUFFIX]);
     }
 
     /**
