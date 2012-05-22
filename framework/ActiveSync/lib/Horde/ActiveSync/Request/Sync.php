@@ -800,6 +800,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         );
                     }
                 }
+                // Ensure we have no left over state.
+                while ($progress = $sync->syncronize(Horde_ActiveSync::BACKEND_IGNORE_DATA));
             }
             $this->_encoder->endTag();
         }
