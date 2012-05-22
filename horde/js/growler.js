@@ -79,7 +79,7 @@
         log: false,
         noalerts: 'No Alerts',
         info: 'This is the notification backlog'
-    },
+    };
 
     function removeNotice(n, o)
     {
