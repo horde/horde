@@ -1,3 +1,4 @@
+<?php echo $injector->getInstance('Horde_Core_Topbar')->render(); ?>
 <form action="<?php echo Horde::url('stock.php') ?>" method="post" name="stockjumpform">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="actionId" value="update_stock" />
@@ -10,5 +11,4 @@
  <br class="clear" />
 </div>
 </form>
-<?php require HORDE_BASE . '/services/sidebar.php'; ?>
 <?php $notification->notify(array('listeners' => 'status')) ?>

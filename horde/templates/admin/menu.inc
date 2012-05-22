@@ -1,3 +1,4 @@
+<?php echo $injector->getInstance('Horde_Core_Topbar')->render(); ?>
 <div id="menu">
  <div class="leftFloat">
 <?php
@@ -15,5 +16,4 @@
 ?>
  </div>
 </div>
-<?php require HORDE_BASE . '/services/sidebar.php'; ?>
 <?php $GLOBALS['notification']->notify(array('listeners' => 'status'));

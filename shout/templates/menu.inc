@@ -1,3 +1,5 @@
+<?php echo $injector->getInstance('Horde_Core_Topbar')->render(); ?>
+
 <a name="top"></a>
 <?php
 $menu_view = $prefs->getValue('menu_view');
@@ -57,4 +59,3 @@ function accountSubmit(clear)
 
   <?php echo Shout::getMenu('string') ?>
 </div>
-<?php require HORDE_BASE . '/services/sidebar.php'; ?>

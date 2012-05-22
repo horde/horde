@@ -1,3 +1,4 @@
+<?php echo $injector->getInstance('Horde_Core_Topbar')->render(); ?>
 <form name="directory_list" action="<?php echo Horde::url('browse.php') ?>" method="post">
 <?php echo Horde_Util::formInput() ?>
 <div id="menu">
@@ -13,5 +14,4 @@
  </div>
 </div>
 </form>
-<?php require HORDE_BASE . '/services/sidebar.php'; ?>
 <?php $GLOBALS['notification']->notify(array('listeners' => 'status')) ?>

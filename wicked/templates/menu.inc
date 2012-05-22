@@ -1,3 +1,4 @@
+<?php echo $injector->getInstance('Horde_Core_Topbar')->render(); ?>
 <script type="text/javascript">
 function jump()
 {
@@ -20,5 +21,4 @@ function jump()
  <br class="clear" />
 </div>
 </form>
-<?php require HORDE_BASE . '/services/sidebar.php'; ?>
 <?php $GLOBALS['notification']->notify(array('listeners' => 'status'));

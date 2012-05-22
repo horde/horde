@@ -6,6 +6,8 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
+echo $injector->getInstance('Horde_Core_Topbar')->render();
+
 $accesskey = $prefs->getValue('widget_accesskey') ? Horde::getAccessKey(_("Select _Domain")) : '';
 $menu_view = $prefs->getValue('menu_view');
 ?>
@@ -37,5 +39,4 @@ $menu_view = $prefs->getValue('menu_view');
 </span>
 <?php echo Beatnik::getMenu('string') ?>
 </div>
-<?php require HORDE_BASE . '/services/sidebar.php'; ?>
 <?php $GLOBALS['notification']->notify(array('listeners' => 'status')) ?>

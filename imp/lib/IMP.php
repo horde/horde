@@ -435,11 +435,10 @@ class IMP
 
         $menu = $t->fetch(IMP_TEMPLATES . '/imp/menu/menu.html');
 
-        /* Need to buffer sidebar output here, because it may add things like
-         * cookies which need to be sent before output begins. */
-        Horde::startBuffer();
-        require HORDE_BASE . '/services/sidebar.php';
-        return $menu . Horde::endBuffer();
+        return $GLOBALS['injector']
+            ->getInstance('Horde_Core_Topbar')
+            ->render()
+            . $menu;
     }
 
     /**
