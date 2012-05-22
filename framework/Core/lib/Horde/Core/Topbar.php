@@ -121,7 +121,7 @@ class Horde_Core_Topbar
                     $url = $params['url'];
                 } elseif (($params['status'] == 'heading') ||
                           !isset($params['webroot'])) {
-                    $url = null;
+                    $url = '#';
                 } else {
                     $url = Horde::url($registry->getInitialPage($app), false, array('app' => $app));
                 }
