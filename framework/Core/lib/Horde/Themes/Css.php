@@ -259,8 +259,6 @@ class Horde_Themes_Css
                 $css_list[] = 'ie8.css';
             } elseif ($ie_major == 7) {
                 $css_list[] = 'ie7.css';
-            } elseif ($ie_major < 7) {
-                $css_list[] = 'ie6_or_less.css';
             }
             break;
 

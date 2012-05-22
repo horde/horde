@@ -720,6 +720,12 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             break;
         }
 
+        if (($browser->getBrowser() == 'msie') &&
+            ($browser->getMajor() < 7) &&
+            ($mode != 'traditional')) {
+            $notification->push(_("You are using an old, unsupported version of Internet Explorer. Various formatting and features may not work properly until you upgrade or use the minimal view."), 'horde.warning');
+        }
+
         $registry_map = array(
             'dynamic' => Horde_Registry::VIEW_DYNAMIC,
             'mobile' => Horde_Registry::VIEW_MINIMAL,
