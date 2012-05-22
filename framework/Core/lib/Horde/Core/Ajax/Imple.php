@@ -108,11 +108,9 @@ abstract class Horde_Core_Ajax_Imple
      */
     public function handle(Horde_Variables $vars)
     {
-        if ($this->_auth && !$GLOBALS['registry']->getAuth()) {
-            return false;
-        }
-
-        return $this->_handle($vars);
+        return ($this->_auth && !$GLOBALS['registry']->getAuth())
+            ? false
+            : $this->_handle($vars);
     }
 
     /**
