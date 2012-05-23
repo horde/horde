@@ -29,29 +29,10 @@ $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::selfUrl(), 'post');
 echo '<br />';
 
 if ($form->validate($vars)) {
-    // Create the filter.
-    $combine = Horde_Util::getFormData('combine', 'OR');
-    $op = Horde_Util::getFormData('op', 'LIKE');
-    $criteria = array();
-
-    // Searching for URL?
-    if (strlen($u = Horde_Util::getFormData('url'))) {
-        $criteria[] = array('url', $op, $u);
-    }
-
-    // Searching title?
-    if (strlen($t = Horde_Util::getFormData('title'))) {
-        $criteria[] = array('title', $op, $t);
-    }
-
-    // Searching description?
-    if (strlen($d = Horde_Util::getFormData('description'))) {
-        $criteria[] = array('description', $op, $d);
-    }
-
-    if ($criteria) {
+    $q = Horde_Util::getFormData('q');
+    if ($q) {
         // Get the bookmarks.
-        $bookmarks = $trean_gateway->searchBookmarks($criteria, $combine);
+        $bookmarks = $trean_gateway->searchBookmarks($q);
         $search_title = sprintf(_("Search Results (%s)"), count($bookmarks));
 
         // Display the results.

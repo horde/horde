@@ -97,7 +97,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
         // Start decoding request
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
-            if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE) {
+            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
                 try {
                     $this->_syncCache = $this->_stateDriver->getSyncCache(
                         $this->_device->id, $this->_device->user);
@@ -164,7 +164,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                 switch($sync_tag) {
                 case Horde_ActiveSync::SYNC_HEARTBEATINTERVAL:
-                    if ($sync_cahce['hbinterval'] = $this->_decoder->getElementContent()) {
+                    if ($this->_syncCache['hbinterval'] = $this->_decoder->getElementContent()) {
                         $this->_decoder->getElementEndTag();
                     }
                     $this->_logger->debug(sprintf(
@@ -214,6 +214,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $this->_device->id,
                         $default_maxitems));
                     if (!$this->_decoder->getElementEndTag()) {
+                        $this->_logger->err('PROTOCOL ERROR');
                         return false;
                     }
                     break;
@@ -300,7 +301,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         if (isset($this->_syncCache['confirmed_synckeys'][$value['synckey']])) {
                             $this->_logger->debug(sprintf(
                                 'Removed %s from confirmed_synckeys',
-                                $this->_syncCache['confirmed_synckeys'][$value['synckey']])
+                                $value['synckey'])
                             );
                             unset($this->_syncCache['confirmed_synckeys'][$value['synckey']]);
                             $confirmed_synckey_count++;
@@ -314,7 +315,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 // @TODO: Remove after testing.
                 $CacheKeys = 0;
                 foreach ($this->_syncCache['collections'] as $value) {
-                    // Count all cached Collections with SyncKey set
                     if (isset($value['synckey'])) $CacheKeys++;
                 }
 
@@ -393,7 +393,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             $collection['windowsize'] = $default_maxitems;
                         }
                         $this->_logger->debug(sprintf(
-                            'Using SyncCache State for $s',
+                            'Using SyncCache State for %s',
                             $tempSyncCache['folders'][$key]['displayname'])
                         );
                         array_push($this->_collections, $collection);
@@ -407,10 +407,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $this->_syncCache['lastuntil'] = time();
                 foreach (array_keys($this->_syncCache['collections']) as $key) {
                     $this->_logger->debug(sprintf(
-                        'Not a partial sync. Removing SyncCache[synckey] from collection',
+                        'Not a partial sync. Removing %s from collection',
                         $key)
                     );
-                    unset($this->_syncCache['collections'][$key]['synckey']);
+                    unset($this->_syncCache['collections'][$key]);
                 }
             }
 
@@ -425,6 +425,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if (!$this->_decoder->getElementEndTag()) {
                 $this->_statusCode = self::STATUS_PROTERROR;
                 $this->_handleGlobalSyncError();
+                $this->_logger->err('PROTOCOL ERROR: Missing closing SYNC tag');
                 return false;
             }
 
@@ -483,7 +484,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $hbrunstarttime = microtime(true);
 
                 // See if another process has altered the sync_cache.
-                $tempSyncCache = $this->_getSyncCache($this->_device->id, $this->_device->user);
+                $tempSyncCache = $this->_stateDriver->getSyncCache($this->_device->id, $this->_device->user);
                 if ($tempSyncCache['timestamp'] > $this->_syncCache['timestamp']) {
                     $this->_logger->err('Changes in cache determined during looping SYNC exiting here.');
                     return true;
@@ -506,12 +507,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $this->_initState($collection);
                     } catch (Horde_ActiveSync_Exception_StateGone $e) {
                         $this->_logger->err(sprintf(
-                            '[%s] SYNC terminating, state not found',
-                            $this->_device->id)
+                            '[%s] State not found for %s, continuing',
+                            $this->_device->id,
+                            $collection['id'])
                         );
-                        $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                        $this->_handleGlobalSyncError();
-                        return true;
+                        $dataavailable = true;
+                        $collections[$i]['getchanges'] = true;
+                        continue;
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_statusCode = self::STATUS_SERVERERROR;
                         $this->_handleGlobalSyncError();
@@ -628,6 +630,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     );
                     $statusCode = self::STATUS_KEYMISM;
                 } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err('UNKNOWN ERROR');
                     return false;
                 }
 
@@ -771,7 +774,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     }
                     $this->_encoder->endTag();
                 }
-                $this->_encoder->endTag();
 
                 // Save the sync state for the next time
                 if (isset($collection['newsynckey'])) {
@@ -785,18 +787,18 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             $collection['newsynckey'])
                         );
                     }
-                }
 
-                // Do we need to add the new synckey to the syncCache?
-                if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
-                    if (trim($collection['newsynckey']) != trim($collection['synckey'])) {
-                        $this->_syncCache['confirmed_synckeys'][$collection['newsynckey']] = true;
+                    // Do we need to add the new synckey to the syncCache?
+                    if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
+                        if (trim($collection['newsynckey']) != trim($collection['synckey'])) {
+                            $this->_syncCache['confirmed_synckeys'][$collection['newsynckey']] = true;
+                        }
+                        $this->_updateSyncCacheCollection(
+                            $collection,
+                            (isset($collection['newsynckey']) ? $collection['newsynckey'] : false),
+                            true
+                        );
                     }
-                    $this->_updateSyncCacheCollection(
-                        $collection,
-                        (isset($collection['newsynckey']) ? $collection['newsynckey'] : false),
-                        true
-                    );
                 }
             }
             $this->_encoder->endTag();
@@ -1053,6 +1055,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 if (!$this->_decoder->getElementEndTag()) { // end clientid
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleGlobalSyncError();
+                    $this->_logger->err('PARSING ERROR');
                     return false;
                 }
             } else {
@@ -1134,6 +1137,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 // end change/delete/move
                 $this->_statusCode = self::STATUS_PROTERROR;
                 $this->_handleGlobalSyncError();
+                $this->_logger->err('PARSING ERROR');
                 return false;
             }
         }
@@ -1158,6 +1162,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             // end commands
             $this->_statusCode = self::STATUS_PROTERROR;
             $this->_handleGlobalSyncError();
+            $this->_logger->err('PARSING ERROR');
             return false;
         }
 
@@ -1283,14 +1288,16 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     protected function _initState($collection)
     {
         // Initialize the state
+        $this->_logger->debug(sprintf(
+            "[%s] Initializing state for collection: %s, synckey: %s",
+            $this->_device->id,
+            $collection['id'],
+            $collection['synckey']));
         $this->_stateDriver->init($collection);
         $this->_stateDriver->loadState(
             $collection['synckey'],
             Horde_ActiveSync::REQUEST_TYPE_SYNC,
             $collection['id']);
-        $this->_logger->debug(sprintf(
-            "[%s] State Initialized in _initState",
-            $this->_device->id));
     }
 
     protected function _handleGlobalSyncError($limit = false)
@@ -1374,6 +1381,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $found = false;
             foreach ($this->_syncCache['collections'] as $value) {
                 if (isset($value['synckey'])) {
+                    $this->_logger->debug('Found a syncable collection: ' . $this->_syncCache['synckey']);
                     $found = true;
                     break;
                 }
@@ -1388,7 +1396,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
             return $found;
         }
-
+        $this->_logger->debug('Have syncable collections');
         return true;
     }
 
@@ -1438,7 +1446,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $this->_syncCache['collections'][$collection['id']]['synckey'] = $collection['newsynckey'];
             } elseif (isset($collection['synckey'])) {
                 $this->_logger->debug(sprintf(
-                    'Adding SyncCache[synckey] from collection',
+                    'Adding %s from collection',
                     $collection['id'])
                 );
                 $this->_syncCache['collections'][$collection['id']]['synckey'] = $collection['synckey'];

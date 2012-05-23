@@ -45,6 +45,16 @@
  *
  * -----
  *
+ * This file contains code adapted from PEAR's PHP_Compat library (v1.6.0a3).
+ *
+ *   http://pear.php.net/package/PHP_Compat
+ *
+ * This code appears in Horde_Mime::_uudecode().
+ *
+ * This code was originally released under the LGPL 2.1
+ *
+ * -----
+ *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -636,7 +646,7 @@ class Horde_Mime
             reset($matches);
             while (list(,$v) = each($matches)) {
                 $data[] = array(
-                    'data' => convert_uudecode($v[3]),
+                    'data' => self::_uudecode($v[3]),
                     'name' => $v[2],
                     'perm' => $v[1]
                 );
@@ -644,6 +654,44 @@ class Horde_Mime
         }
 
         return $data;
+    }
+
+    /**
+     * PHP 5's built-in convert_uudecode() is broken. Need this wrapper.
+     *
+     * @param string $input  UUencoded input.
+     *
+     * @return string  Decoded string.
+     */
+    static protected function _uudecode($input)
+    {
+        $decoded = '';
+
+        foreach (explode("\n", $input) as $line) {
+            $c = count($bytes = unpack('c*', substr(trim($line,"\r\n\t"), 1)));
+
+            while ($c % 4) {
+                $bytes[++$c] = 0;
+            }
+
+            foreach (array_chunk($bytes, 4) as $b) {
+                $b0 = ($b[0] == 0x60) ? 0 : $b[0] - 0x20;
+                $b1 = ($b[1] == 0x60) ? 0 : $b[1] - 0x20;
+                $b2 = ($b[2] == 0x60) ? 0 : $b[2] - 0x20;
+                $b3 = ($b[3] == 0x60) ? 0 : $b[3] - 0x20;
+
+                $b0 <<= 2;
+                $b0 |= ($b1 >> 4) & 0x03;
+                $b1 <<= 4;
+                $b1 |= ($b2 >> 2) & 0x0F;
+                $b2 <<= 6;
+                $b2 |= $b3 & 0x3F;
+
+                $decoded .= pack('c*', $b0, $b1, $b2);
+            }
+        }
+
+        return rtrim($decoded, "\0");
     }
 
 }

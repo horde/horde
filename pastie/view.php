@@ -4,8 +4,8 @@
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (BSD). If you
- * did not receive this file, see http://www.fsf.org/copyleft/bsd.html.
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @author Ben Klang <ben@alkaloid.net>
  */

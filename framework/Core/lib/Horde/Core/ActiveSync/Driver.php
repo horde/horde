@@ -123,7 +123,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         parent::setLogger($logger);
         $this->_connector->setLogger($logger);
         if (!empty($this->_imap)) {
-            $this->_imap->setLogger($this->_logger);
+            $this->_imap->setLogger($logger);
         }
     }
 

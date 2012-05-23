@@ -1,6 +1,6 @@
 <?php
 /**
- * A data object that represents raw JSON data.
+ * A response object that directly outputs the data.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
@@ -15,29 +15,43 @@
 class Horde_Core_Ajax_Response_Raw extends Horde_Core_Ajax_Response
 {
     /**
+     * Charset of the data (if of type text/*).
+     *
+     * @var string
      */
-    public function __construct($data = null)
+    public $charset;
+
+    /**
+     * Content-type of the data.
+     *
+     * @var string
+     */
+    public $type;
+
+    /**
+     * @param string $type     Content-type of the data.
+     * @param string $charset  Charset of the data (if of type text/*).
+     */
+    public function __construct($data = null, $type = 'text/plain',
+                                $charset = 'UTF-8')
     {
         parent::__construct($data);
+
+        $this->_charset = $charset;
+        $this->_type = $type;
     }
 
     /**
-     * Don't add notification messages to raw data.
      */
-    public function addNotifications()
+    public function send()
     {
-    }
+        $type = trim($this->type);
+        if (stripos($type, 'text/') === 0) {
+            $type .= '; charset=' . $this->charset;
+        }
 
-    /**
-     * Prepare JSON data response object.
-     *
-     * For raw data, we send back only the response data.
-     *
-     * @return object  Data response object.
-     */
-    public function jsonData()
-    {
-        return $this->data;
+        header('Content-Type: ' . $type);
+        echo $this->data;
     }
 
 }

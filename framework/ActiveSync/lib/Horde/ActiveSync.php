@@ -30,10 +30,6 @@ class Horde_ActiveSync
     const CONFLICT_OVERWRITE_SERVER             = 0;
     const CONFLICT_OVERWRITE_PIM                = 1;
 
-    /* Flag used to indicate we should NOT export change data to the PIM. Used
-    during PING requests. */
-    const BACKEND_IGNORE_DATA                   = 1;
-
     /* TRUNCATION Constants */
     const TRUNCATION_ALL                        = 0;
     const TRUNCATION_1                          = 1;
@@ -262,9 +258,17 @@ class Horde_ActiveSync
     /**
      * Logger
      *
+     * @var Horde_ActiveSync_Interface_LoggerFactory
+     */
+    protected $_loggerFactory;
+
+    /**
+     * The logger for this class.
+     *
      * @var Horde_Log_Logger
      */
     protected $_logger;
+
 
     /**
      * Provisioning support
@@ -383,6 +387,10 @@ class Horde_ActiveSync
             if (strpos($hash, ':') !== false) {
                 list($user, $pass) = explode(':', $hash, 2);
             }
+        } else {
+            // No provided username or Authorization header.
+            $this->_logger->debug('Client did not provide authentication data.');
+            return false;
         }
 
         $pos = strrpos($user, '\\');
@@ -468,13 +476,18 @@ class Horde_ActiveSync
      *
      * @return void
      */
-    public function setLogger(Horde_Log_Logger $logger)
+    public function setLogger(Horde_ActiveSync_Interface_LoggerFactory $logger)
     {
-        $this->_logger = $logger;
-        $this->_encoder->setLogger($logger);
-        $this->_decoder->setLogger($logger);
-        $this->_driver->setLogger($logger);
-        $this->_state->setLogger($logger);
+        $this->_loggerFactory = $logger;
+    }
+
+    protected function _setLogger($options)
+    {
+        $this->_logger = $this->_loggerFactory->create($options);
+        $this->_encoder->setLogger($this->_logger);
+        $this->_decoder->setLogger($this->_logger);
+        $this->_driver->setLogger($this->_logger);
+        $this->_state->setLogger($this->_logger);
     }
 
     /**
@@ -521,6 +534,9 @@ class Horde_ActiveSync
         if (empty($devId)) {
             $devId = $get['DeviceId'];
         }
+
+        $this->_setLogger($get);
+
         // Autodiscovery handles authentication on it's own.
         if ($cmd == 'Autodiscover') {
             $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
@@ -548,6 +564,10 @@ class Horde_ActiveSync
 
         // Device id is REQUIRED
         if (is_null($devId)) {
+            if ($cmd == 'Options') {
+                $this->_doOptionsRequest();
+                return true;
+            }
             throw new Horde_ActiveSync_Exception_InvalidRequest('Device failed to send device id.');
         }
 
@@ -572,9 +592,7 @@ class Horde_ActiveSync
 
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
-            $this->activeSyncHeader();
-            $this->versionHeader();
-            $this->commandsHeader();
+            $this->_doOptionsRequest();
             return true;
         }
 
@@ -764,6 +782,17 @@ class Horde_ActiveSync
         } else {
             return $get;
         }
+    }
+
+    /**
+     * Send the OPTIONS request response headers.
+     *
+     */
+    protected function _doOptionsRequest()
+    {
+        $this->activeSyncHeader();
+        $this->versionHeader();
+        $this->commandsHeader();
     }
 
     protected function _decodeBase64($uri)

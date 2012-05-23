@@ -90,7 +90,7 @@ class Ansel_View_Upload
 
         $imple = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Imple')
-            ->create(array('ansel', 'UploadNotification'));
+            ->create('Ansel_Ajax_Imple_UploadNotification');
         $notificationUrl = (string)$imple->getUrl();
         $this->_params['target']->add('gallery', $this->_params['gallery']->id);
         $jsuri = $GLOBALS['registry']->get('jsuri', 'horde');
@@ -131,7 +131,14 @@ class Ansel_View_Upload
         });
         uploader.init();
         $('twitter').observe('click', function() {
-            AnselUpload.doUploadNotification('twitter', '{$this->_gallery->id}');
+            HordeCore.doAction('uploadNotification', {
+                s: 'twitter',
+                g: '{$this->_gallery->id}'
+            }, {
+                callback: function(r) {
+                    $('twitter').hide();
+                }
+            );
         });
 EOT;
 

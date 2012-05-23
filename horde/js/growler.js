@@ -49,8 +49,8 @@
  *   params: The state after the toggling
  *
  *
- * Growler has been tested with Safari 3(Mac|Win), Firefox 3(Mac|Win), IE6,
- * IE7, and Opera.
+ * Growler has been tested with Safari 3(Mac|Win), Firefox 3(Mac|Win), IE7+,
+ * and Opera.
  *
  * Requires prototypejs 1.6+ and scriptaculous 1.8+ (effects.js only).
  *
@@ -79,11 +79,7 @@
         log: false,
         noalerts: 'No Alerts',
         info: 'This is the notification backlog'
-    },
-
-    IE6 = Prototype.Browser.IE
-        ? (parseFloat(navigator.appVersion.split("MSIE ")[1]) || 0) == 6
-        : 0;
+    };
 
     function removeNotice(n, o)
     {
@@ -130,14 +126,9 @@
             var ch, cw, sl, st;
             this.opts = Object.extend(Object.clone(growlerOptions), opts || {});
 
-            this.growler = new Element('DIV', { id: 'Growler' }).setStyle({ position: IE6 ? 'absolute' : 'fixed', padding: '10px', zIndex: 50000 }).hide();
+            this.growler = new Element('DIV', { id: 'Growler' }).setStyle({ position: 'fixed', padding: '10px', zIndex: 50000 }).hide();
 
-            if (IE6) {
-                ch = '0 - this.offsetHeight + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight )';
-                cw = '0 - this.offsetWidth + ( document.documentElement.clientWidth ? document.documentElement.clientWidth : document.body.clientWidth )';
-                sl = '( document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft )';
-                st = '( document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop )';
-            } else if (this.opts.log) {
+            if (this.opts.log) {
                 var logExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
                 logExit.observe('click', this.toggleLog.bind(this));
                 this.growlerlog = new Element('DIV', { id: 'GrowlerLog' })
@@ -153,52 +144,27 @@
 
             switch (this.opts.location) {
             case 'br':
-                if (IE6) {
-                    this.growler.style.setExpression('left', "( " + cw + " + " + sl + " ) + 'px'");
-                    this.growler.style.setExpression('top', "( " + ch + "+ " + st + " ) + 'px'");
-                } else {
-                    this.growler.setStyle({ bottom: 0, right: 0 });
-                }
+                this.growler.setStyle({ bottom: 0, right: 0 });
                 break;
 
             case 'tl':
-                if (IE6) {
-                    this.growler.style.setExpression('left', sl + " + 'px'");
-                    this.growler.style.setExpression('top', st + " + 'px'");
-                } else {
-                    this.growler.setStyle({ top: 0, left: 0 });
-                }
+                this.growler.setStyle({ top: 0, left: 0 });
                 break;
 
             case 'bl':
-                if (IE6) {
-                    this.growler.style.setExpression('left', sl + " + 'px'");
-                    this.growler.style.setExpression('top', "( " + ch + " + " + st + " ) + 'px'");
-                } else {
-                    this.growler.setStyle({ top: 0, right: 0 });
-                }
+                this.growler.setStyle({ top: 0, right: 0 });
                 break;
 
             case 'tc':
-                if (!IE6) {
-                    this.growler.setStyle({ top: 0, left: '25%', width: '50%' });
-                }
+                this.growler.setStyle({ top: 0, left: '25%', width: '50%' });
                 break;
 
             case 'bc':
-                if (!IE6) {
-                    this.growler.setStyle({ bottom: 0, left: '25%', width: '50%' });
-                }
+                this.growler.setStyle({ bottom: 0, left: '25%', width: '50%' });
                 break;
 
             default:
-                if (IE6) {
-                    this.growler.setStyle({ bottom: 'auto', right: 'auto' });
-                    this.growler.style.setExpression('left', "( " + cw + " + " + sl + " ) + 'px'");
-                    this.growler.style.setExpression('top', st + " + 'px'");
-                } else {
-                    this.growler.setStyle({ top: 0, right: 0 });
-                }
+                this.growler.setStyle({ top: 0, right: 0 });
                 break;
             }
 

@@ -77,11 +77,10 @@ class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
             $images[$key]['link'] = (string)$url;
             $images[$key]['markerOnly'] = false;
         }
+
         // URL for updating selected layer
-        $imple =  $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Imple')
-            ->create(array('ansel', 'MapLayerSelect'));
-        $layerImpleUrl = $imple->getUrl();
+        $layerUrl = $GLOBALS['registry']->getServiceLink('ajax', 'ansel')->setRaw(true);
+        $layerUrl->url .= 'setPrefValue';
 
         // And the current defaultLayer, if any.
         $defaultLayer = $GLOBALS['prefs']->getValue('current_maplayer');
@@ -91,8 +90,9 @@ class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
         $html .= <<<EOT
         <script type="text/javascript">
             var opts = {
-                'layerUpdateEndpoint': '{$layerImpleUrl}',
-                'defaultBaseLayer': '{$defaultLayer}'
+                layerUpdateEndpoint: '{$layerUrl}',
+                layerUpdatePref: 'current_maplayer',
+                defaultBaseLayer: '{$defaultLayer}'
             }
             document.observe('dom:loaded', function() { new AnselBlockGeoTag({$json}, opts); });
         </script>

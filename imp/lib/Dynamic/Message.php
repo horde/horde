@@ -27,14 +27,8 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
         $page_output->addScriptFile('message-dimp.js');
         $page_output->addScriptFile('imp.js');
-        $page_output->addScriptFile('imageunblock.js');
-        $page_output->addScriptFile('itiprequest.js');
         $page_output->addScriptFile('textarearesize.js', 'horde');
         $page_output->addScriptFile('toggle_quotes.js', 'horde');
-
-        if ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime')) {
-            $page_output->addScriptFile('importencryptkey.js');
-        }
 
         $js_vars = array();
         $uid = IMP::uid();

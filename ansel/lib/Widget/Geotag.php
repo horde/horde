@@ -95,20 +95,17 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         $dtext = _("Delete geotag");
         $thisTitleText = _("This image");
         $otherTitleText = _("Other images in this gallery");
-        $imple = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Imple')
-            ->create(array('ansel', 'ImageSaveGeotag'));
-        $impleUrl = $imple->getUrl();
+
+        $geotagUrl = $GLOBALS['registry']->getServiceLink('ajax', 'ansel')->setRaw(true);
+        $geotagUrl->url .= 'imageSaveGeotag';
 
         $permsEdit = (integer)$this->_view->gallery->hasPermission(
             $GLOBALS['registry']->getAuth(),
             Horde_Perms::EDIT);
 
         // URL for updating selected layer
-        $imple =  $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Imple')
-            ->create(array('ansel', 'MapLayerSelect'));
-        $layerImpleUrl = $imple->getUrl();
+        $layerUrl = $GLOBALS['registry']->getServiceLink('ajax', 'ansel')->setRaw(true);
+        $layerUrl->url .= 'setPrefValue';
 
         // And the current defaultLayer, if any.
         $defaultLayer = $GLOBALS['prefs']->getValue('current_maplayer');
@@ -231,8 +228,9 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                 defaultBaseLayer: '{$defaultLayer}',
                 deleteGeotagText: '{$dtext}',
                 hasEdit: {$permsEdit},
-                updateEndpoint: '{$impleUrl}',
-                layerUpdateEndpoint: '{$layerImpleUrl}',
+                updateEndpoint: '{$geotagUrl}',
+                layerUpdateEndpoint: '{$layerUrl}',
+                layerUpdatePref: 'current_maplayer',
                 geocoder: "{$GLOBALS['conf']['maps']['geocoder']}"
             }
         );

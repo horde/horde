@@ -1,6 +1,6 @@
 <?php
 /**
- * Attach the spellchecker to a javascript element.
+ * Imple to attach the spellchecker to an HTML element.
  *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
@@ -15,36 +15,24 @@
 class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
 {
     /**
-     * Constructor.
-     *
      * @param array $params  OPTIONAL configuration parameters:
-     *   - id: (string) DOM ID string.
      *   - locales: (array) List of supported locales.
      *   - states: (array) TODO
      *   - targetId: (string) TODO
-     *   - triggerId: (string) TODO
      */
     public function __construct(array $params = array())
     {
         global $registry;
 
-        if (!isset($params['id'])) {
-            $params['id'] = $this->_randomid();
-        }
-
         if (!isset($params['targetId'])) {
-            $params['targetId'] = $this->_randomid();
+            $params['targetId'] = strval(new Horde_Support_Randomid());
         }
 
-        if (!isset($params['triggerId'])) {
-            $params['triggerId'] = $params['targetId'] . '_trigger';
-        }
-
-        if (empty($params['locales'])) {
+        if (!isset($params['locales'])) {
             $key_list = array_keys($registry->nlsconfig->spelling);
             asort($key_list, SORT_LOCALE_STRING);
-            $params['locales'] = array();
 
+            $params['locales'] = array();
             foreach ($key_list as $lcode) {
                 $params['locales'][] = array(
                     'l' => $registry->nlsconfig->languages[$lcode],
@@ -58,63 +46,79 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
 
     /**
      */
-    public function attach()
+    protected function _attach($init)
     {
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
-        $page_output->addScriptFile('keynavlist.js', 'horde');
-        $page_output->addScriptFile('spellchecker.js', 'horde');
+        global $page_output;
+
+        if ($init) {
+            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+            $page_output->addScriptFile('keynavlist.js', 'horde');
+            $page_output->addScriptFile('spellchecker.js', 'horde');
+
+            $page_output->addInlineJsVars(array(
+                'HordeImple.SpellChecker' => new stdClass
+            ));
+        }
+
+        $dom_id = $this->getDomId();
 
         $opts = array(
             'locales' => $this->_params['locales'],
             'sc' => 'widget',
-            'statusButton' => $this->_params['triggerId'],
+            'statusButton' => $dom_id,
             'target' => $this->_params['targetId'],
-            'url' => strval($this->_getUrl('SpellChecker', 'horde', array('input' => $this->_params['targetId'])))
+            'url' => strval($this->getImpleUrl()->setRaw(true)->add(array('input' => $this->_params['targetId'])))
         );
         if (isset($this->_params['states'])) {
             $opts['bs'] = $this->_params['states'];
         }
 
         $page_output->addInlineScript(array(
-            $this->_params['id'] . ' = new SpellChecker(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON) . ')'
+            'HordeImple.SpellChecker.' . $dom_id . '=new SpellChecker(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON) . ')'
         ), true);
+
+        return false;
     }
 
     /**
+     * Form variables used:
+     *   - input
      */
-    public function handle($args, $post)
+    protected function _handle(Horde_Variables $vars)
     {
-        $spellArgs = empty($GLOBALS['conf']['spell']['params'])
-            ? array()
-            : $GLOBALS['conf']['spell']['params'];
+        global $conf, $injector, $language;
 
-        $spellArgs['html'] = !empty($args['html']);
+        $args = Horde::getDriverConfig('spell', null);
+        $input = $vars->get($vars->input);
 
-        $input = Horde_Util::getPost($args['input']);
-
-        if (isset($args['locale'])) {
-            $spellArgs['locale'] = $args['locale'];
+        if (isset($vars->locale)) {
+            $args['locale'] = $vars->locale;
+        } elseif (empty($args['locale'])) {
+            try {
+                $args['locale'] = $injector->getInstance('Horde_Core_Factory_LanguageDetect')->getLanguageCode($input);
+            } catch (Horde_Exception $e) {}
         }
-        if (empty($spellArgs['locale']) &&
-            class_exists('Text_LanguageDetect')) {
-            $spellArgs['locale'] = $GLOBALS['injector']->getInstance('Text_LanguageDetect')->create()->getLanguageCode($input);
-        }
-        if (empty($spellArgs['locale']) && isset($GLOBALS['language'])) {
-            $spellArgs['locale'] = $GLOBALS['language'];
+
+        if (empty($args['locale']) && isset($language)) {
+            $args['locale'] = $language;
         }
 
         /* Add local dictionary words. */
         try {
             $result = Horde::loadConfiguration('spelling.php', 'ignore_list', 'horde');
-            $spellArgs['localDict'] = $result;
+            $args['localDict'] = $result;
         } catch (Horde_Exception $e) {}
 
         try {
-            return Horde_SpellChecker::factory($GLOBALS['conf']['spell']['driver'], $spellArgs)->spellCheck($input);
+            return new Horde_Core_Ajax_Response_Prototypejs(
+                Horde_SpellChecker::factory($conf['spell']['driver'], $args)->spellCheck($input)
+            );
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
-            return array('bad' => array(), 'suggestions' => array());
+            return array(
+                'bad' => array(),
+                'suggestions' => array()
+            );
         }
     }
 

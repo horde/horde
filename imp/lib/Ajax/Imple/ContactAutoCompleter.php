@@ -22,47 +22,43 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactA
     static protected $_listOutput = false;
 
     /**
-     * Attach the object to a javascript event.
      */
-    protected function _attach($js_params)
+    protected function _getAutoCompleter()
     {
-        $ret = parent::_attach($js_params);
+        global $conf, $page_output, $session;
 
-        $ac_browser = empty($GLOBALS['conf']['compose']['ac_browser'])
+        $ac_browser = empty($conf['compose']['ac_browser'])
             ? 0
-            : $GLOBALS['conf']['compose']['ac_browser'];
+            : $conf['compose']['ac_browser'];
 
-        if ($ac_browser && !$GLOBALS['session']->get('imp', 'ac_ajax')) {
+        if ($ac_browser && !$session->get('imp', 'ac_ajax')) {
             $use_ajax = true;
             $sparams = $this->_getAddressbookSearchParams();
             if (!array_diff($sparams->fields, array('email', 'name'))) {
                 $addrlist = $this->getAddressList();
                 $use_ajax = count($addrlist) > $ac_browser;
             }
-            $GLOBALS['session']->set('imp', 'ac_ajax', $use_ajax);
+            $session->set('imp', 'ac_ajax', $use_ajax);
         }
 
-        if (!$ac_browser || $GLOBALS['session']->get('imp', 'ac_ajax')) {
-            $ret['ajax'] = 'ContactAutoCompleter';
-            $ret['params']['minChars'] = intval($GLOBALS['conf']['compose']['ac_threshold'] ? $GLOBALS['conf']['compose']['ac_threshold'] : 1);
-        } else {
-            if (!self::$_listOutput) {
-                if (!isset($addrlist)) {
-                    $addrlist = $this->getAddressList();
-                }
+        if (!$ac_browser || $session->get('imp', 'ac_ajax')) {
+            return new Horde_Core_Ajax_Imple_AutoCompleter_Ajax(array(
+                'minChars' => intval($conf['compose']['ac_threshold'] ? $conf['compose']['ac_threshold'] : 1)
+            ));
+        }
 
-                $GLOBALS['page_output']->addInlineScript(array_merge(array(
-                    'if (!window.IMP) window.IMP = {}'
-                ), $GLOBALS['page_output']->addInlineJsVars(array(
-                    'IMP.ac_list' => $addrlist->addresses
-                ), array('ret_vars' => true))));
-                self::$_listOutput = true;
+        if (!self::$_listOutput) {
+            if (!isset($addrlist)) {
+                $addrlist = $this->getAddressList();
             }
 
-            $ret['browser'] = 'IMP.ac_list';
+            $page_output->addInlineJsVars(array(
+                'IMP_ac_list' => $addrlist->addresses
+            ));
+            self::$_listOutput = true;
         }
 
-        return $ret;
+        return new Horde_Core_Ajax_Imple_Autocompleter_Local('IMP.ac_list');
     }
 
     /**

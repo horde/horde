@@ -60,27 +60,7 @@ if (Horde_Util::getFormData('popup')) {
     ), true);
 }
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create(
-    array('trean', 'TagAutoCompleter'),
-    array(
-        // The name to give the (auto-generated) element that acts as the
-        // pseudo textarea.
-        'box' => 'treanEventACBox',
-
-        // Make it spiffy
-        'pretty' => true,
-
-        // The dom id of the existing element to turn into a tag autocompleter
-        'triggerId' => 'treanBookmarkTags',
-
-        // A variable to assign the autocompleter object to
-        'var' => 'bookmarkTagAc'
-    )
-);
-
-$page_output->addInlineScript(array(
-    'bookmarkTagAc.init()'
-), true);
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Trean_Ajax_Imple_TagAutoCompleter');
 
 $page_output->header(array(
     'title' => _("New Bookmark")

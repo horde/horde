@@ -62,40 +62,22 @@ class Trean_Bookmarks
     /**
      * Search bookmarks.
      */
-    function searchBookmarks($search_criteria, $search_operator = 'OR',
-                             $sortby = 'title', $sortdir = 0, $from = 0, $count = 0)
+    function searchBookmarks($q)
     {
-        // Validate the search operator (AND or OR).
-        switch ($search_operator) {
-        case 'AND':
-        case 'OR':
-            break;
-
-        default:
-            $search_operator = 'AND';
+        $indexer = $GLOBALS['injector']->getInstance('Content_Indexer');
+        $search = $indexer->search('horde-user-' . $this->_userId, 'trean-bookmark', $q);
+        if (!$search->hits->total) {
+            return array();
         }
-
-        $clauses = array();
-        $values = array($this->_userId);
-        foreach ($search_criteria as $criterion) {
-            $clause = $GLOBALS['trean_db']->buildClause(
-                'bookmark_' . $criterion[0],
-                $criterion[1],
-                Horde_String::convertCharset($criterion[2],
-                                             $GLOBALS['conf']['sql']['charset'],
-                                             'UTF-8'),
-                true,
-                isset($criterion[3]) ? $criterion[3] : array());
-            $clauses[] = $clause[0];
-            $values = array_merge($values, $clause[1]);
+        $bookmarkIds = array();
+        foreach ($search->hits->hits as $bookmarkHit) {
+            $bookmarkIds[] = (int)$bookmarkHit->_id;
         }
 
         $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, bookmark_dt
                 FROM trean_bookmarks
-                WHERE user_id = ?
-                      AND (' . implode(' ' . $search_operator . ' ', $clauses) . ')
-                ORDER BY bookmark_' . $sortby . ($sortdir ? ' DESC' : '');
-        $sql = $GLOBALS['trean_db']->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
+                WHERE user_id = ? AND bookmark_id IN (' . implode(',', $bookmarkIds) . ')';
+        $values = array($this->_userId);
 
         return Trean_Bookmarks::resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
     }

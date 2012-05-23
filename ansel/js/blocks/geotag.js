@@ -47,10 +47,12 @@ AnselBlockGeoTag = Class.create({
 
     updateBaseLayer: function(l)
     {
-        var params = { 'values': 'name=' + l.layer.name };
-        new Ajax.Request(this.opts.layerUpdateEndpoint + '/post=values', {
+        new Ajax.Request(this.opts.layerUpdateEndpoint, {
             method: 'post',
-            parameters: params,
+            parameters: {
+                pref: this.opts.layerUpdatePref,
+                value: l.layer.name
+            },
             onComplete: function(transport) {
                  if (typeof Horde_ToolTips != 'undefined') {
                      Horde_ToolTips.out();

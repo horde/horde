@@ -161,14 +161,8 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
                     $blockstart = $blockstart + $len;
                     if (is_resource($bp)) {
                         rewind($bp);
-                        stream_filter_register('horde_bin2hex', 'Horde_Stream_Filter_Bin2hex');
-                        $filter = stream_filter_prepend($bp, 'horde_bin2hex', STREAM_FILTER_READ);
-                        $bp1 = fopen('php://temp/maxmemory:2097152', 'r+');
-                        stream_copy_to_stream($bp, $bp1);
-                        fseek($bp1, 0, SEEK_END);
-                        $len = ftell($bp1) / 2;
-                        stream_filter_remove($filter);
-                        fclose($bp1);
+                        fseek($bp, 0, SEEK_END);
+                        $len = ftell($bp);
                     } else {
                         $len = strlen(bin2hex($bp)) / 2;
                     }

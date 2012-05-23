@@ -22,13 +22,6 @@
 class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
-     * Determines if notification information is sent in response.
-     *
-     * @var boolean
-     */
-    public $notify = true;
-
-    /**
      * The mailbox (view) we are dealing with on the browser.
      *
      * @var IMP_Mailbox
@@ -92,24 +85,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $this->_queue->poll(IMP_Mailbox::formFrom($poll));
             }
         }
-    }
-
-    /**
-     * Determines the HTTP response output type.
-     *
-     * @see Horde_Core_Ajax_Response::send().
-     *
-     * @return string  The output type.
-     */
-    public function responseType()
-    {
-        switch ($this->_action) {
-        case 'addAttachment':
-        case 'importMailbox':
-            return 'js-json';
-        }
-
-        return parent::responseType();
     }
 
     /**
@@ -587,8 +562,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - import_mbox: (string) The mailbox to import into (base64url
      *                  encoded).
      *
-     * @return object  False on failure, or an object with the following
-     *                 properties:
+     * @return object  Returns response object to display JSON HTML-encoded.
+     *                 Embedded data: false on failure, or an object with the
+     *                 following properties:
      *   - action: (string) The action name (importMailbox).
      *   - mbox: (string) The mailbox the messages were imported to (base64url
      *           encoded).
@@ -612,7 +588,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $this->_queue->poll($mbox);
 
-        return $result;
+        return new Horde_Core_Ajax_Response_HordeCore_JsonHtml($result);
     }
 
     /**
@@ -1523,7 +1499,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * Variables used:
      *   - composeCache: (string) The IMP_Compose cache identifier.
      *
-     * @return object  An object with the following entries:
+     * @return object  Returns response object to display JSON HTML-encoded.
+     *                 Embedded data: false on failure, or an object with the
+     *                 following properties:
      *   - atc: (integer) The attachment ID.
      *   - error: (string) An error message.
      *   - imp_compose: (string) The IMP_Compose cache identifier.
@@ -1545,7 +1523,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->imp_compose = $imp_compose->getCacheId();
         }
 
-        return $result;
+        return new Horde_Core_Ajax_Response_HordeCore_JsonHtml($result);
     }
 
     /**

@@ -1977,16 +1977,15 @@ class Kronolith
     static public function embedCode($calendar)
     {
         /* Get the base url */
-        $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('kronolith', 'Embed'), array(
+        $url = $GLOBALS['registry']->getServiceLink('ajax', 'kronolith')->add(array(
             'calendar' => 'internal_' . $calendar,
             'container' => 'kronolithCal',
             'view' => 'month'
-        ), true);
+        ));
+        $url->url .= 'embed';
 
-        $html = '<div id="kronolithCal"></div><script src="' . $imple->getUrl()
-            . '" type="text/javascript"></script>';
-
-        return $html;
+        return '<div id="kronolithCal"></div><script src="' . $url .
+               '" type="text/javascript"></script>';
     }
 
     /**

@@ -608,14 +608,16 @@ extends PHPUnit_Framework_TestCase
 
     private function _doImple($action, $data)
     {
-        $_REQUEST['itip_action'] = array($action);
-        $_REQUEST['mailbox'] = 'foo';
-        $_REQUEST['mime_id'] = 1;
-        $_REQUEST['uid'] = 1;
+        $vars = new Horde_Variables(array(
+            'itip_action' => array($action),
+            'mailbox' => 'foo',
+            'mime_id' => 1,
+            'uid' => 1
+        ));
         $this->_contentsData = $data;
 
         $imple = new IMP_Ajax_Imple_ItipRequest(array());
-        $imple->handle(array(), array());
+        $imple->handle($vars);
     }
 
 }

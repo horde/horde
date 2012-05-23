@@ -1,6 +1,6 @@
 <?php
 /**
- * Attach the contact auto completer to a javascript element.
+ * Attach the contact autocompleter to a HTML element.
  *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *

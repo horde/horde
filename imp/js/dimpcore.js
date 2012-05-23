@@ -437,7 +437,7 @@ document.observe('HordeCore:showNotifications', function(e) {
 
 /* Catch image blocking actions. Put method call in function so that pages
  * don't load IMP_JS (i.e. compose page) won't break. */
-document.observe('IMPImageUnblock:success', function(e) {
+document.observe('Imple:IMP_Ajax_Imple_ImageUnblock', function(e) {
     IMP_JS.unblockImages(e);
 });
 

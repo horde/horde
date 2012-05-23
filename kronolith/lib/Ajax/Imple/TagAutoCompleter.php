@@ -11,51 +11,26 @@
 class Kronolith_Ajax_Imple_TagAutoCompleter extends Horde_Core_Ajax_Imple_AutoCompleter
 {
     /**
-     * Attach the Imple object to a javascript event.
-     * If the 'pretty' parameter is empty then we want a
-     * traditional autocompleter, otherwise we get a spiffy pretty one.
-     *
-     * @param array $js_params  See
-     *                          Horde_Core_Ajax_Imple_AutoCompleter::_attach().
-     *
-     * @return array  See Horde_Core_Ajax_Imple_AutoCompleter::_attach().
      */
-    protected function _attach($js_params)
+    protected function _getAutoCompleter()
     {
-        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img';
+        $opts = array();
 
-        $ret = array(
-            'params' => $js_params
-        );
-
-        if (empty($this->_params['pretty'])) {
-            $ret['ajax'] = 'TagAutoCompleter';
-        } else {
-            $ret['pretty'] = 'TagAutoCompleter';
+        foreach (array('box', 'triggerContainer') as $val) {
+            if (isset($this->_params[$val])) {
+                $opts[$val] = $this->_params[$val];
+            }
         }
 
-        if (!empty($this->_params['var'])) {
-            $ret['var'] = $this->_params['var'];
-        }
-
-        return $ret;
+        return empty($this->_params['pretty'])
+            ? new Horde_Core_Ajax_Imple_AutoCompleter_Ajax($opts)
+            : new Horde_Core_Ajax_Imple_AutoCompleter_Pretty($opts);
     }
 
     /**
-     * TODO
-     *
-     * @param array $args  TODO
-     *
-     * @return string  TODO
      */
-    public function handle($args, $post)
+    protected function _handleAutoCompleter($input)
     {
-        // Avoid errors if 'input' isn't set and short-circuit empty searches.
-        if (empty($args['input']) ||
-            !($input = Horde_Util::getFormData($args['input']))) {
-            return array();
-        }
-
         $tagger = Kronolith::getTagger();
         return array_values($tagger->listTags($input));
     }

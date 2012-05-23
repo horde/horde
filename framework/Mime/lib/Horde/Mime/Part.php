@@ -51,7 +51,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @var array
      */
     static public $encodingTypes = array(
-        '7bit', '8bit', 'base64', 'binary', 'quoted-printable'
+        '7bit', '8bit', 'base64', 'binary', 'quoted-printable',
+        // Non-RFC types, but old mailers may still use
+        'uuencode', 'x-uuencode', 'x-uue'
     );
 
     /**
@@ -494,7 +496,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             case 'x-uue':
                 /* Support for uuencoded encoding - although not required by
                  * RFCs, some mailers may still encode this way. */
-                return $this->_writeStream(convert_uuencode($this->_readStream($fp)));
+                $res = Horde_Mime::uudecode($this->_readStream($fp));
+                return $this->_writeStream($res[0]['data']);
             }
         }
 

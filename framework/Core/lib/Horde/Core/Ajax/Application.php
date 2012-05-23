@@ -22,13 +22,6 @@ abstract class Horde_Core_Ajax_Application
     public $data = null;
 
     /**
-     * Determines if notification information is sent in response.
-     *
-     * @var boolean
-     */
-    public $notify = false;
-
-    /**
      * The list of (possibly) unsolicited tasks/data to do for this request.
      *
      * @var object
@@ -94,7 +87,10 @@ abstract class Horde_Core_Ajax_Application
     }
 
     /**
-     * Performs the AJAX action.
+     * Performs the AJAX action. The AJAX action should return either raw data
+     * (which will be output to the browser to be parsed by the HordeCore JS
+     * framework), or a Horde_Ajax_Core_Response object, which will be sent
+     * unaltered.
      *
      * @throws Horde_Exception
      */
@@ -135,54 +131,14 @@ abstract class Horde_Core_Ajax_Application
     }
 
     /**
-     * Determines the HTTP response output type.
-     *
-     * @return string  The output type.
-     */
-    public function responseType()
-    {
-        return 'json';
-    }
-
-    /**
      * Send AJAX response to the browser.
      */
     public function send()
     {
-        $response = new Horde_Core_Ajax_Response_HordeCore($this->data, $this->tasks, $this->notify);
-        $response->sendAndExit($this->responseType());
-    }
-
-    /**
-     * Sends a notification to the browser indicating that the user's session
-     * has timed out.
-     */
-    public function sessionTimeout()
-    {
-        $msg = new stdClass;
-        $msg->message = strval($this->getSessionLogoutUrl());
-        $msg->type = 'horde.ajaxtimeout';
-
-        $response = new Horde_Core_Ajax_Response(new stdClass);
-        $response->notifications = array($msg);
-        $response->sendAndExit('json');
-    }
-
-    /**
-     * AJAX actions performed through the endpoint are normally not a good
-     * URL to return to.  Thus, by default after a session timeout, return
-     * to the base of the application instead.
-     *
-     * @return Horde_Url  The logout Horde_Url object.
-     */
-    public function getSessionLogoutUrl()
-    {
-        return $GLOBALS['registry']->getLogoutUrl(array(
-            'reason' => Horde_Auth::REASON_SESSION
-        ))->add('url', Horde::url('', false, array(
-            'app' => $this->_app,
-            'append_session' => -1
-        )));
+        $response = ($this->data instanceof Horde_Core_Ajax_Response)
+            ? clone $this->data
+            : new Horde_Core_Ajax_Response_HordeCore($this->data, $this->tasks);
+        $response->sendAndExit();
     }
 
     /**

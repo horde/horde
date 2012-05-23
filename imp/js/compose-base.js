@@ -10,6 +10,13 @@ var ImpComposeBase = {
 
     // Vars defaulting to null: editor_on, identities
 
+    getSpellChecker: function()
+    {
+        return (HordeImple.SpellChecker && HordeImple.SpellChecker.spellcheck)
+            ? HordeImple.SpellChecker.spellcheck
+            : null;
+    },
+
     setCursorPosition: function(input, type)
     {
         var pos, range;

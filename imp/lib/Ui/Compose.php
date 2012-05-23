@@ -77,7 +77,7 @@ class IMP_Ui_Compose
     {
         /* Attach autocompleters to the compose form elements. */
         foreach ($fields as $val) {
-            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'ContactAutoCompleter'), array('triggerId' => $val));
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ContactAutoCompleter', array('id' => $val));
         }
     }
 
@@ -86,30 +86,24 @@ class IMP_Ui_Compose
      */
     public function attachSpellChecker()
     {
-        $menu_view = $GLOBALS['prefs']->getValue('menu_view');
+        global $injector, $prefs, $registry;
+
+        $br = ($registry->getView() == Horde_Registry::VIEW_BASIC)
+            ? '<br />'
+            : '';
+        $menu_view = $prefs->getValue('menu_view');
         $spell_img = '<span class="iconImg spellcheckImg"></span>';
 
-        if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_BASIC) {
-            $br = '<br />';
-            $id = 'IMP';
-        } else {
-            $br = '';
-            $id = 'DIMP';
-        }
-
-        $args = array(
-            'id' => $id . '.SpellChecker',
-            'targetId' => 'composeMessage',
-            'triggerId' => 'spellcheck',
+        $injector->getInstance('Horde_Core_Factory_Imple')->create('SpellChecker', array(
+            'id' => 'spellcheck',
             'states' => array(
-                'CheckSpelling' => $spell_img . (($menu_view == 'text' || $menu_view == 'both') ? $br . _("Check Spelling") : ''),
+                'CheckSpelling' => $spell_img . (in_array($menu_view, array('both', 'text')) ? $br . _("Check Spelling") : ''),
                 'Checking' => $spell_img . $br . _("Checking..."),
-                'ResumeEdit' => $spell_img . $br . _("Resume Editing"),
-                'Error' => $spell_img . $br . _("Spell Check Failed")
-            )
-        );
-
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('SpellChecker', $args);
+                'Error' => $spell_img . $br . _("Spell Check Failed"),
+                'ResumeEdit' => $spell_img . $br . _("Resume Editing")
+            ),
+            'targetId' => 'composeMessage'
+        ));
     }
 
     /**
@@ -228,7 +222,7 @@ class IMP_Ui_Compose
             break;
         }
 
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_PassphraseDialog', array(
             'onload' => true,
             'params' => $params,
             'type' => $type

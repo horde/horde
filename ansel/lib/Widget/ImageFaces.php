@@ -75,10 +75,9 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
 
             // Attach the ajax edit actions
             Horde::startBuffer();
-            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'EditFaces'), array(
-                'domid' => 'edit_faces',
-                'image_id' => $this->_view->resource->id,
-                'selfUrl' => $this->_params['selfUrl']
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Ansel_Ajax_Imple_EditFaces', array(
+                'id' => 'edit_faces',
+                'image_id' => $this->_view->resource->id
             ));
             $html .= Horde::endBuffer();
         }

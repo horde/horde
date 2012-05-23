@@ -58,8 +58,8 @@ $tagger = Kronolith::getTagger();
 $vars->set('tags', implode(',', array_values($tagger->getTags($calendar->getName(), 'calendar'))));
 $vars->set('system', is_null($calendar->get('owner')));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create(array('kronolith', 'TagAutoCompleter'), array(
-    'triggerId' => 'tags'
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+    'id' => 'tags'
 ));
 
 $menu = Horde::menu();

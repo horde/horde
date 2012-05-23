@@ -1,10 +1,10 @@
 --
--- Copyright 2001-2005 Robert E. Coyle <robertecoyle@hotmail.com>
+-- Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 --
 -- See the enclosed file LICENSE for license information (BSD). If you
--- did not receive this file, see http://www.horde.org/licenses/bsdl.php.
+-- did not receive this file, see http://www.horde.org/licenses/bsd.
 --
--- Database definitions for Whups
+-- Database definitions for Pastie
 
 CREATE TABLE pastie_pastes (
     paste_id		INT NOT NULL,		-- sequential id
