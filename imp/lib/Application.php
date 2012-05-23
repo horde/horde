@@ -497,7 +497,7 @@ class IMP_Application extends Horde_Registry_Application
                 false,
                 array(
                     'icon' => Horde_Themes::img('compose.png'),
-                    'url' => IMP::composeLink()
+                    'url' => IMP::composeLink()->setRaw(false)
                 )
             );
         }

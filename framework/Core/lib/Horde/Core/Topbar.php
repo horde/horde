@@ -219,13 +219,15 @@ class Horde_Core_Topbar
             if (Horde_Menu::showService('logout')) {
                 $view->logoutUrl = $registry->getServiceLink(
                     'logout',
-                    $registry->getApp());
+                    $registry->getApp())
+                    ->setRaw(false);
             }
         } else {
             if (Horde_Menu::showService('login')) {
                 $view->logoutUrl = $registry->getServiceLink(
                     'login',
-                    $registry->getApp());
+                    $registry->getApp())
+                    ->setRaw(false);
             }
         }
 
