@@ -516,47 +516,6 @@ class IMP_Application extends Horde_Registry_Application
                 )
             );
         }
-
-        if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-            return;
-        }
-
-        $name_url = Horde::url('mailbox.php');
-
-        /* Initialize the IMP_Tree object. */
-        $imaptree = $injector->getInstance('IMP_Imap_Tree');
-        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
-        $imaptree->createTree($tree, array(
-            'open' => false,
-            'parent' => $parent,
-            'poll_info' => true
-        ));
-
-        if (!($url = $registry->get('url', $parent))) {
-            $url = (($registry->get('status', $parent) == 'heading') || !$registry->get('webroot'))
-                ? null
-                : $registry->getInitialPage($parent);
-        }
-
-        $node_params = array(
-            'icon' => $registry->get('icon', $parent),
-            'url' => $url
-        );
-        $name = $registry->get('name', $parent);
-
-        if ($imaptree->unseen) {
-            $node_params['icon'] = Horde_Themes::img('newmail.png');
-            $name = sprintf('<strong>%s</strong> (%s)', $name, $imaptree->unseen);
-        }
-
-        $tree->addNode(
-            strval($parent),
-            $registry->get('menu_parent', $parent),
-            $name,
-            0,
-            $imaptree->isOpen($parent),
-            $node_params
-        );
     }
 
     /* Language change callback. */
