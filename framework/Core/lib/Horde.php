@@ -1403,7 +1403,9 @@ class Horde
      */
     static public function getCacheUrl($type, $params = array())
     {
-        $url = self::getserviceLink('cache', 'horde')->add('cache', $type);
+        $url = $GLOBALS['registry']
+            ->getserviceLink('cache', 'horde')
+            ->add('cache', $type);
         foreach ($params as $key => $val) {
             $url .= '/' . $key . '=' . rawurlencode(strval($val));
         }
