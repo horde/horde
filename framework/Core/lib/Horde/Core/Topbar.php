@@ -197,13 +197,22 @@ class Horde_Core_Topbar
         return $this->_tree;
     }
 
-    public function render()
+    /**
+     * Returns the HTML code for the topbar.
+     *
+     * @param string $subinfo  Any extra information to display at the right of
+     *                         the sub bar.
+     *
+     * @return string  The topbar's HTML code.
+     */
+    public function render($subinfo = '')
     {
         global $registry;
 
         $view = $GLOBALS['injector']->getInstance('Horde_View');
         $view->setTemplatePath($registry->get('templates', 'horde') . '/topbar');
 
+        /* Logo. */
         $view->portalUrl = $registry->getServiceLink(
             'portal', $registry->getApp());
         if (class_exists('Horde_Bundle')) {
@@ -212,6 +221,7 @@ class Horde_Core_Topbar
             $view->version = $registry->getVersion('horde');
         }
 
+        /* Main menu. */
         $view->menu = $this->getTree()->getTree();
 
         /* Login/Logout. */
@@ -231,7 +241,19 @@ class Horde_Core_Topbar
             }
         }
 
-        return $view->render('topbar');
+        /* Sub bar. */
+        $view->date = strftime($GLOBALS['prefs']->getValue('date_format'));
+        $view->subinfo = $subinfo;
+        $pageOutput = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $pageOutput->addScriptFile('topbar.js', 'horde');
+        $pageOutput->addInlineJsVars(array('HordeTopbar.format' =>
+            str_replace(
+               array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
+               array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
+               $GLOBALS['prefs']->getValue('date_format')
+        )));
+
+        return $view->render('topbar') . $view->render('sub');
     }
 
     /**

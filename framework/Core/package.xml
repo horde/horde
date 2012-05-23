@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-05-21</date>
- <time>19:07:01</time>
+ <date>2012-05-23</date>
+ <time>18:02:15</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -82,6 +82,7 @@
     <file name="spellchecker.js" role="horde" />
     <file name="toggle_quotes.js" role="horde" />
     <file name="tooltips.js" role="horde" />
+    <file name="topbar.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Horde">
@@ -1134,6 +1135,7 @@
    <install as="js/spellchecker.js" name="js/spellchecker.js" />
    <install as="js/toggle_quotes.js" name="js/toggle_quotes.js" />
    <install as="js/tooltips.js" name="js/tooltips.js" />
+   <install as="js/topbar.js" name="js/topbar.js" />
    <install as="Horde.php" name="lib/Horde.php" />
    <install as="Horde/Config.php" name="lib/Horde/Config.php" />
    <install as="Horde/ErrorHandler.php" name="lib/Horde/ErrorHandler.php" />
