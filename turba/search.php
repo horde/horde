@@ -219,9 +219,7 @@ if (count($addressBooks) == 1) {
 $searchView = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search'));
 new Horde_View_Helper_Text($searchView);
 $searchView->addressBooks = $addressBooks;
-$searchView->shareSources = $shareSources;
 $searchView->attributes = $GLOBALS['attributes'];
-$searchView->allCriteria = $allCriteria;
 $searchView->map = $map;
 $searchView->blobs = $driver->getBlobs();
 $searchView->source = $source;
@@ -234,6 +232,7 @@ if ($search_mode != 'duplicate') {
     $vbookView->hasShare = $session->get('turba', 'has_share');
     $vbookView->shareSources = $shareSources;
     $vbookView->source = $source;
+    $page_output->addInlineScript('$(\'vbook_name\').observe(\'keyup\', function() { $(\'save-vbook\').checked = !!$F(\'vbook_name\'); });');
 }
 
 switch ($search_mode) {
@@ -242,6 +241,9 @@ case 'basic':
     $page_output->addInlineScript(array(
         '$("val").focus()'
     ), true);
+    $page_output->addInlineJsVars(array(
+        'TurbaSearch.criteria' => $allCriteria,
+        'TurbaSearch.shareSources' => $shareSources));
     break;
 
 case 'advanced':
