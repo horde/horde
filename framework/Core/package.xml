@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Removed Horde::ajaxAvailable().
 * [mms] Move Horde::getServiceLink() to Horde_Registry#getServiceLink().
 * [jan] Allow to use IMAP storage for shares and groupware data without a complete Kolab server.
 * [mms] Moved smartmobile core javascript from the Horde application.

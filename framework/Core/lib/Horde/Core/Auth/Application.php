@@ -676,7 +676,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
          * login screen parameters and configuration. */
         switch ($mode) {
         case 'auto':
-            if (Horde::ajaxAvailable()) {
+            if ($browser->hasFeature('ajax')) {
                 $mode = $browser->isMobile()
                     // THIS IS A HACK. DO PROPER SMARTPHONE DETECTION.
                     ? (($browser->getBrowser() == 'webkit') ? 'smartmobile' : 'mobile')
@@ -689,27 +689,27 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             break;
 
         case 'dynamic':
-            if (!Horde::ajaxAvailable()) {
+            if (!$browser->hasFeature('ajax')) {
                 if ($browser->hasFeature('javascript')) {
-                    $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
+                    $notification->push(_("Your browser does not support the dynamic view. Using traditional view instead."), 'horde.warning');
                     $mode = 'traditional';
                 } else {
-                    $notification->push(_("Your browser is too old to display the dynamic mode. Using mobile mode instead."), 'horde.warning');
+                    $notification->push(_("Your browser does not support the dynmic view. Using minimal view instead."), 'horde.warning');
                     $mode = 'mobile';
                 }
             }
             break;
 
         case 'smartmobile':
-            if (!Horde::ajaxAvailable()) {
-                $notification->push(_("Your browser is too old to display the dynamic mode. Using mobile mode instead."), 'horde.warning');
+            if (!$browser->hasFeature('ajax')) {
+                $notification->push(_("Your browser does not support the dynamic view. Using minimal view instead."), 'horde.warning');
                 $mode = 'mobile';
             }
             break;
 
         case 'traditional':
             if (!$browser->hasFeature('javascript')) {
-                $notification->push(_("Your browser does not support javascript. Using mobile mode instead."), 'horde.warning');
+                $notification->push(_("Your browser does not support javascript. Using minimal view instead."), 'horde.warning');
                 $mode = 'mobile';
             }
             break;
@@ -723,7 +723,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         if (($browser->getBrowser() == 'msie') &&
             ($browser->getMajor() < 7) &&
             ($mode != 'traditional')) {
-            $notification->push(_("You are using an old, unsupported version of Internet Explorer. Various formatting and features may not work properly until you upgrade or use the minimal view."), 'horde.warning');
+            $notification->push(_("You are using an old, unsupported version of Internet Explorer. Various page formatting and features may not work properly until you upgrade your browser or, alternatively, use the minimal view instead."), 'horde.warning');
         }
 
         $registry_map = array(
