@@ -1848,13 +1848,12 @@ background-color:#333333;
 /*
  * Icons
  */
-.horde-icon-settings{
+.horde-icon-settings {
 background-image:url('graphics/settings.png');
 background-repeat:no-repeat;
 }
-.horde-icon-settings-active{
+.horde-icon-settings:hover {
 background-image:url('graphics/settings-active.png');
-background-repeat:no-repeat;
 }
 
 /*

@@ -16,7 +16,7 @@
 class Horde_Core_Topbar
 {
     /**
-     * A tree object.
+     * A tree object for the main menu.
      *
      * @var Horde_Tree_Base
      */
@@ -96,6 +96,48 @@ class Horde_Core_Topbar
             unset($menu['administration']);
         }
 
+        $menu['settings'] = array(
+            'class' => 'horde-settings horde-icon-settings',
+            'name' => '',
+            'noarrow' => true,
+            'status' => 'active'
+        );
+
+        if (Horde_Menu::showService('prefs') &&
+            !($GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create() instanceof Horde_Prefs_Session)) {
+            $menu['prefs'] = array(
+                'icon' => Horde_Themes::img('prefs.png'),
+                'menu_parent' => 'settings',
+                'name' => Horde_Core_Translation::t("Preferences"),
+                'status' => 'active'
+            );
+
+            /* Get a list of configurable applications. */
+            $prefs_apps = $registry->listApps(array('active', 'admin'), true, Horde_Perms::READ);
+
+            if (!empty($prefs_apps['horde'])) {
+                $menu['prefs_' . 'horde'] = array(
+                    'icon' => $registry->get('icon', 'horde'),
+                    'menu_parent' => 'prefs',
+                    'name' => Horde_Core_Translation::t("Global Preferences"),
+                    'status' => 'active',
+                    'url' => $registry->getServiceLink('prefs', 'horde')
+                );
+                unset($prefs_apps['horde']);
+            }
+
+            uasort($prefs_apps, array($this, '_sortByName'));
+            foreach ($prefs_apps as $app => $params) {
+                $menu['prefs_' . $app] = array(
+                    'icon' => $registry->get('icon', $app),
+                    'menu_parent' => 'prefs',
+                    'name' => $params['name'],
+                    'status' => 'active',
+                    'url' => $registry->getServiceLink('prefs', $app)
+                );
+            }
+        }
+
         foreach ($menu as $app => $params) {
             switch ($params['status']) {
             case 'topbar':
@@ -113,7 +155,7 @@ class Horde_Core_Topbar
                  * user's locale may not have been loaded when registry.php was
                  * parsed, and the translations of the application names are
                  * not in the Core package. */
-                $name = _($params['name']);
+                $name = strlen($params['name']) ? _($params['name']) : '';
 
                 /* Headings have no webroot; they're just containers for other
                  * menu items. */
@@ -133,13 +175,22 @@ class Horde_Core_Topbar
                     0,
                     false,
                     array(
-                        'icon' => strval((isset($params['icon']) ? $params['icon'] : $registry->get('icon', $app))),
-                        'target' => isset($params['target']) ? $params['target'] : null,
+                        'icon' => strval((isset($params['icon'])
+                                          ? $params['icon']
+                                          : $registry->get('icon', $app))),
+                        'class' => isset($params['class'])
+                            ? $params['class']
+                            : ($app == $current
+                               ? 'horde-point-center-active'
+                               : 'horde-point-center'),
+                        'noarrow' => !empty($params['noarrow']),
+                        'target' => isset($params['target'])
+                            ? $params['target']
+                            : null,
                         'url' => $url,
                         'active' => $app == $current,
                     )
                 );
-                break;
             }
         }
 
@@ -177,5 +228,18 @@ class Horde_Core_Topbar
         }
 
         return $view->render('topbar');
+    }
+
+    /**
+     * Helper method for uasort to sort applications by name.
+     *
+     * @param string $a
+     * @param string $a
+     *
+     * @return integer
+     */
+    protected function _sortByName($a, $b)
+    {
+        return strcoll(_($a['name']), _($b['name']));
     }
 }

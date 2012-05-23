@@ -22,7 +22,9 @@ class Horde_Core_Tree_Menu extends Horde_Tree_Base
      */
     protected $_allowed = array(
         'active',
+        'class',
         'icon',
+        'noarrow',
         'url',
         'target'
     );
