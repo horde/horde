@@ -477,11 +477,11 @@ class IMP_Application extends Horde_Registry_Application
         $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsCallback($ui);
     }
 
-    /* Sidebar method. */
+    /* Topbar method. */
 
     /**
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+    public function topbarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())
     {
         global $injector, $registry;

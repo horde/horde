@@ -467,7 +467,7 @@ class Horde_Registry_Application
     }
 
 
-    // Horde_Core_Sidebar method.
+    // Horde_Core_Topbar method.
 
     /**
      * Add node(s) to the sidebar tree.
@@ -478,7 +478,7 @@ class Horde_Registry_Application
      *
      * @throws Horde_Exception
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+    public function topbarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array()) {}
 
 

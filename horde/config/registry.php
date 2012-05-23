@@ -36,7 +36,7 @@
  *             hidden: Enable application, but hide.
  *             inactive: Disable application
  *             notoolbar: TODO
- *             sidebar: Show in sidebar only.
+ *             topbar: Show in topbar only.
  *         DEFAULT: 'active'
  * webroot: (string) The base URI path for the module.
  *          DEFAULT: Applications live one level below the base horde
@@ -111,7 +111,7 @@ $this->applications = array(
     'imp-menu' => array(
         'app' => 'imp',
         'menu_parent' => 'imp',
-        'status' => 'sidebar',
+        'status' => 'topbar',
     ),
 
     'kronolith' => array(
@@ -120,18 +120,18 @@ $this->applications = array(
     ),
 
     'kronolith-alarms' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'kronolith',
-        'sidebar_params' => array(
+        'topbar_params' => array(
             'id' => 'alarms'
         ),
         'menu_parent' => 'kronolith',
     ),
 
     'kronolith-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'kronolith',
-        'sidebar_params' => array(
+        'topbar_params' => array(
             'id' => 'menu'
         ),
         'menu_parent' => 'kronolith',
@@ -155,7 +155,7 @@ $this->applications = array(
     'turba-menu' => array(
         'app' => 'turba',
         'menu_parent' => 'turba',
-        'status' => 'sidebar',
+        'status' => 'topbar',
     ),
 
     'nag' => array(
@@ -164,18 +164,18 @@ $this->applications = array(
     ),
 
     'nag-alarms' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'nag',
-        'sidebar_params' => array(
+        'topbar_params' => array(
             'id' => 'alarms'
         ),
         'menu_parent' => 'nag',
     ),
 
     'nag-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'nag',
-        'sidebar_params' => array(
+        'topbar_params' => array(
             'id' => 'menu'
         ),
         'menu_parent' => 'nag',
@@ -187,7 +187,7 @@ $this->applications = array(
     ),
 
     'mnemo-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'mnemo',
         'menu_parent' => 'mnemo',
     ),
@@ -210,7 +210,7 @@ $this->applications = array(
     ),
 
     'trean-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'trean',
         'menu_parent' => 'trean',
     ),
@@ -227,7 +227,7 @@ $this->applications = array(
     ),
 
     'chora-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'chora',
         'menu_parent' => 'chora',
     ),
@@ -239,7 +239,7 @@ $this->applications = array(
     ),
 
     'whups-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'whups',
         'menu_parent' => 'whups',
     ),
@@ -267,7 +267,7 @@ $this->applications = array(
     ),
 
     'jonah-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'jonah',
         'menu_parent' => 'jonah',
     ),
@@ -285,18 +285,18 @@ $this->applications = array(
     ),
 
     'hermes-stopwatch' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'hermes',
-        'sidebar_params' => array(
+        'topbar_params' => array(
             'id' => 'stopwatch',
         ),
         'menu_parent' => 'hermes',
     ),
 
     'hermes-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'hermes',
-        'sidebar_params' => array(
+        'topbar_params' => array(
             'id' => 'menu'
         ),
         'menu_parent' => 'hermes',
@@ -320,7 +320,7 @@ $this->applications = array(
     ),
 
     'gollem-menu' => array(
-        'status' => 'sidebar',
+        'status' => 'topbar',
         'app' => 'gollem',
         'menu_parent' => 'gollem',
     ),

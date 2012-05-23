@@ -199,11 +199,11 @@ class Chora_Application extends Horde_Registry_Application
         $menu->add(Chora::url('browsedir'), _("_Browse"), 'chora.png');
     }
 
-    /* Sidebar method. */
+    /* Topbar method. */
 
     /**
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+    public function topbarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())
     {
         asort($GLOBALS['sourceroots']);

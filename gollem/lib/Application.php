@@ -278,11 +278,11 @@ class Gollem_Application extends Horde_Registry_Application
         }
     }
 
-    /* Sidebar method. */
+    /* Topbar method. */
 
     /**
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+    public function topbarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())
     {
         $icon = Horde_Themes::img('gollem.png');

@@ -1,7 +1,7 @@
 <?php foreach ($this->rootItems as $item): ?>
     <div class="horde-point-left<?php if ($this->items[$item]['active']): ?>-active<?php endif ?>"></div>
     <ul class="horde-dropdown">
-      <li><div class="horde-point-center<?php if ($this->items[$item]['active']): ?>-active<?php endif ?>"><?php if (!empty($this->items[$item]['url'])): ?><a class="horde-mainnavi<?php if ($this->items[$item]['active']): ?>-active<?php endif ?>" href="<?php echo $this->items[$item]['url'] ?>"<?php if (!empty($this->items[$item]['target'])) echo ' target="' . $this->items[$item]['target'] . '"'?>><?php endif ?><?php echo $this->h($this->items[$item]['label']) ?><?php if (!empty($this->items[$item]['url'])): ?></a><?php endif ?></div>
+      <li><div class="horde-point-center<?php if ($this->items[$item]['active']): ?>-active<?php endif ?>"><?php if (!empty($this->items[$item]['url'])): ?><a class="horde-mainnavi<?php if ($this->items[$item]['active']): ?>-active<?php endif ?>" href="<?php echo $this->items[$item]['url'] ?>"<?php if (!empty($this->items[$item]['target'])) echo ' target="' . $this->items[$item]['target'] . '"'?>><?php endif ?><?php echo $this->items[$item]['label'] ?><?php if (!empty($this->items[$item]['url'])): ?></a><?php endif ?></div>
 <?php if (!empty($this->items[$item]['children'])): ?>
 <?php echo $this->renderPartial('submenu', array('locals' => array('items' => $this->items[$item]['children']))) ?>
 <?php endif ?>

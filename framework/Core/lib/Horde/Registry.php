@@ -652,7 +652,7 @@ class Horde_Registry
             if (!isset($app['status'])) {
                 $app['status'] = 'active';
             } elseif ($app['status'] == 'heading' ||
-                      $app['status'] == 'sidebar') {
+                      $app['status'] == 'topbar') {
                 continue;
             }
 
@@ -851,9 +851,9 @@ class Horde_Registry
         $apps = array();
         foreach ($this->applications as $app => $params) {
             if (in_array($params['status'], $filter)) {
-                /* Sidebar apps can only be displayed if the parent app is
+                /* Topbar apps can only be displayed if the parent app is
                  * active. */
-                if (($params['status'] == 'sidebar') &&
+                if (($params['status'] == 'topbar') &&
                     $this->isInactive($params['app'])) {
                         continue;
                 }
@@ -1297,7 +1297,6 @@ class Horde_Registry
      *   - portal: Main portal page.
      *   - prefs: Preferences UI.
      *   - problem: Problem reporting page.
-     *   - sidebar: Sidebar link.
      * @param string $app        The name of the current Horde application.
      *
      * @return Horde_Url  The link.
@@ -1370,9 +1369,6 @@ class Horde_Registry
         case 'problem':
             return Horde::url('services/problem.php', false, $opts)
                 ->add('return_url', Horde::selfUrl(true, true, true));
-
-        case 'sidebar':
-            return Horde::url('services/sidebar.php', false, $opts);
         }
 
         throw new Horde_Exception('Invalid service provided.');
