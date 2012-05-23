@@ -204,6 +204,8 @@ class Horde_Core_Topbar
         $view = $GLOBALS['injector']->getInstance('Horde_View');
         $view->setTemplatePath($registry->get('templates', 'horde') . '/topbar');
 
+        $view->portalUrl = $registry->getServiceLink(
+            'portal', $registry->getApp());
         if (class_exists('Horde_Bundle')) {
             $view->version = Horde_Bundle::SHORTNAME . ' ' . Horde_Bundle::VERSION;
         } else {
