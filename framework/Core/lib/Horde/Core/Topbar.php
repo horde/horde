@@ -148,15 +148,33 @@ class Horde_Core_Topbar
 
     public function render()
     {
+        global $registry;
+
         $view = $GLOBALS['injector']->getInstance('Horde_View');
-        $view->setTemplatePath($GLOBALS['registry']->get('templates', 'horde') . '/topbar');
+        $view->setTemplatePath($registry->get('templates', 'horde') . '/topbar');
 
         if (class_exists('Horde_Bundle')) {
             $view->version = Horde_Bundle::SHORTNAME . ' ' . Horde_Bundle::VERSION;
         } else {
-            $view->version = $GLOBALS['registry']->getVersion('horde');
+            $view->version = $registry->getVersion('horde');
         }
+
         $view->menu = $this->getTree()->getTree();
+
+        /* Login/Logout. */
+        if ($registry->getAuth()) {
+            if (Horde_Menu::showService('logout')) {
+                $view->logoutUrl = $registry->getServiceLink(
+                    'logout',
+                    $registry->getApp());
+            }
+        } else {
+            if (Horde_Menu::showService('login')) {
+                $view->logoutUrl = $registry->getServiceLink(
+                    'login',
+                    $registry->getApp());
+            }
+        }
 
         return $view->render('topbar');
     }

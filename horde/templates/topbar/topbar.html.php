@@ -25,7 +25,7 @@
     </ul>
     <div class="clear"></div>
   </div>
-  <div id="horde-logout"><a class="icon" href=""></a></div>
+  <div id="horde-logout"><a class="icon" href="<?php echo $this->logoutUrl ?>"></a></div>
   <div id="horde-search">
     <div id="horde-input"><input type="text" name="searchfield" value="Search" /></div>
     <div id="horde-img"><a class="icon" href=""></a></div>

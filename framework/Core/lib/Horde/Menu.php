@@ -26,11 +26,6 @@ class Horde_Menu
     const MASK_HELP = 1;
 
     /**
-     * Show login/logout menu item.
-     */
-    const MASK_LOGIN = 2;
-
-    /**
      * Show preferences menu item.
      */
     const MASK_PREFS = 4;
@@ -223,29 +218,6 @@ class Horde_Menu
             ($help_link = $registry->getServiceLink('help', $app))) {
             Horde::
             $this->add($help_link, Horde_Core_Translation::t("Help"), 'help_index.png', null, 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;', 'helplink');
-        }
-
-        /* Login/Logout. */
-        if ($this->_mask & self::MASK_LOGIN) {
-            /* If the sidebar isn't always shown, but is sometimes
-             * shown, then logout links should be to the parent
-             * frame. */
-            $auth_target = null;
-            if ($conf['menu']['always'] || $prefs->getValue('show_sidebar')) {
-                $auth_target = '_parent';
-            }
-
-            if ($registry->getAuth()) {
-                if (($this->showService('logout')) &&
-                    ($logout_link = $registry->getServiceLink('logout', $app))) {
-                    $this->add($logout_link, Horde_Core_Translation::t("_Log out"), 'logout.png', null, $auth_target, null, '__noselection');
-                }
-            } else {
-                if ($this->showService('login') &&
-                    ($login_link = $registry->getServiceLink('login', $app))) {
-                    $this->add($login_link->add('url', Horde::selfUrl(true, true, true)), Horde_Core_Translation::t("_Log in"), 'login.png', null, $auth_target, null, '__noselection');
-                }
-            }
         }
 
         /* No need to return an empty list if there are no menu
