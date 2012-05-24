@@ -2050,8 +2050,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * to do sorting on the client side.
      *
      * @param array $res   The search results.
-     * @param array $opts  The options to search(). Additional option:
-     *   - fetch_res: (Horde_Imap_Client_Fetch_Data)
+     * @param array $opts  The options to _search().
      *
      * @return array  The sort results.
      *
@@ -2064,43 +2063,39 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         /* Generate the FETCH command needed. */
-        if (empty($opts['fetch_res'])) {
-            $query = new Horde_Imap_Client_Fetch_Query();
+        $query = new Horde_Imap_Client_Fetch_Query();
 
-            foreach ($opts['sort'] as $val) {
-                switch ($val) {
-                case Horde_Imap_Client::SORT_ARRIVAL:
-                    $query->imapDate();
-                    break;
+        foreach ($opts['sort'] as $val) {
+            switch ($val) {
+            case Horde_Imap_Client::SORT_ARRIVAL:
+                $query->imapDate();
+                break;
 
-                case Horde_Imap_Client::SORT_DATE:
-                    $query->imapDate();
-                    $query->envelope();
-                    break;
+            case Horde_Imap_Client::SORT_DATE:
+                $query->imapDate();
+                $query->envelope();
+                break;
 
-                case Horde_Imap_Client::SORT_CC:
-                case Horde_Imap_Client::SORT_DISPLAYFROM:
-                case Horde_Imap_Client::SORT_DISPLAYTO:
-                case Horde_Imap_Client::SORT_FROM:
-                case Horde_Imap_Client::SORT_SUBJECT:
-                case Horde_Imap_Client::SORT_TO:
-                    $query->envelope();
-                    break;
+            case Horde_Imap_Client::SORT_CC:
+            case Horde_Imap_Client::SORT_DISPLAYFROM:
+            case Horde_Imap_Client::SORT_DISPLAYTO:
+            case Horde_Imap_Client::SORT_FROM:
+            case Horde_Imap_Client::SORT_SUBJECT:
+            case Horde_Imap_Client::SORT_TO:
+                $query->envelope();
+                break;
 
-                case Horde_Imap_Client::SORT_SIZE:
-                    $query->size();
-                    break;
-                }
+            case Horde_Imap_Client::SORT_SIZE:
+            $query->size();
+                break;
             }
+        }
 
-            /* Get the FETCH results now. */
-            if (count($query)) {
-                $fetch_res = $this->fetch($this->_selected, $query, array(
-                    'ids' => $this->getIdsOb($res, !empty($opts['sequence']))
-                ));
-            }
-        } else {
-            $fetch_res = $opts['fetch_res'];
+        /* Get the FETCH results now. */
+        if (count($query)) {
+            $fetch_res = $this->fetch($this->_selected, $query, array(
+                'ids' => $this->getIdsOb($res, !empty($opts['sequence']))
+            ));
         }
 
         /* The initial sort is on the entire set. */
