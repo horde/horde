@@ -2223,9 +2223,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *   - ids: (Horde_Imap_Client_Ids) A list of messages to fetch data from.
      *          DEFAULT: All messages in $mailbox will be fetched.
      *
-     * @return array  An array of fetch results. The array consists of
-     *                keys that correspond to 'ids', and values that
-     *                contain Horde_Imap_Query_Data_Fetch objects.
+     * @return Horde_Imap_Client_Fetch_Results  A results object.
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -2241,7 +2239,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if (empty($options['ids'])) {
             $options['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);
         } elseif ($options['ids']->isEmpty()) {
-            return array();
+            return new Horde_Imap_Client_Fetch_Results($this->_fetchDataClass);
         } elseif ($options['ids']->search_res &&
                   !$this->queryCapability('SEARCHRES')) {
             /* SEARCHRES requires server support. */
@@ -2297,7 +2295,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                                 $flag_query->flags();
 
                                 /* Update flags in cache. */
-                                $this->_fetch($flag_query, array(), array(
+                                $this->_fetch(new Horde_Imap_Client_Fetch_Results(), $flag_query, array(
                                     'changedsince' => $metadata[self::CACHE_MODSEQ],
                                     'ids' => $this->getIdsOb($uids)
                                 ));
@@ -2326,27 +2324,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
         }
 
-        /* Build the default fetch entries. */
-        $fetch_ob = new $this->_fetchDataClass();
-        $ret = array();
-
-        $res_seq = $this->_getSeqUidLookup($options['ids']);
-        $ids = $options['ids']->sequence
-            ? array_keys($res_seq['lookup'])
-            : $res_seq['uids'];
-
-        foreach ($ids as $val) {
-            $ret[$val] = clone $fetch_ob;
-        }
+        $ret = new Horde_Imap_Client_Fetch_Results(
+            $this->_fetchDataClass,
+            $options['ids']->sequence ? Horde_Imap_Client_Fetch_Results::SEQUENCE : Horde_Imap_Client_Fetch_Results::UID
+        );
 
         /* If nothing is cacheable, we can do a straight search. */
         if (empty($cache_array)) {
-            $ret = $this->_fetch($query, $ret, $options);
-            foreach ($ret as $key => $val) {
-                if ($val->isDefault()) {
-                    unset($ret[$key]);
-                }
-            }
+            $this->_fetch($ret, $query, $options);
             return $ret;
         }
 
@@ -2359,27 +2344,28 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $changed_query->uid();
             }
 
-            $ret = array_intersect_key($ret, $this->_fetch($changed_query, array(), array(
+            $this->_fetch($ret, $changed_query, array(
                 'changedsince' => $options['changedsince'],
                 'ids' => $options['ids']
-            )));
-            if (empty($ret)) {
+            ));
+            if (!count($ret)) {
                 return $ret;
             }
 
-            $options['ids'] = $this->getIdsOb(array_keys($ret), $options['ids']->sequence);
+            $options['ids'] = $this->getIdsOb($ret->ids(), $options['ids']->sequence);
         }
 
-        /* Need Seq -> UID lookup if we haven't already grabbed it. */
-        if (is_null($res_seq)) {
-            $res_seq = $this->_getSeqUidLookup($options['ids']);
-        }
+        /* Grab Seq -> UID lookup. */
+        $res_seq = $this->_getSeqUidLookup($options['ids']);
+        $ids = $options['ids']->sequence
+            ? array_keys($res_seq['lookup'])
+            : $res_seq['uids'];
 
         /* Get the cached values. */
         $data = $this->cache->get($this->_selected, $res_seq['uids']->ids, array_values($cache_array), $status_res['uidvalidity']);
 
         /* Build a list of what we still need. */
-        foreach (array_keys($ret) as $val) {
+        foreach ($ids as $val) {
             $crit = clone $query;
 
             if ($options['ids']->sequence) {
@@ -2397,7 +2383,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 case Horde_Imap_Client::FETCH_ENVELOPE:
                     if (isset($data[$uid][$cid]) &&
                         ($data[$uid][$cid] instanceof Horde_Imap_Client_Data_Envelope)) {
-                        $ret[$val]->setEnvelope($data[$uid][$cid]);
+                        $ret->get($val)->setEnvelope($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
@@ -2405,7 +2391,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 case Horde_Imap_Client::FETCH_FLAGS:
                     if (isset($data[$uid][$cid]) &&
                         is_array($data[$uid][$cid])) {
-                        $ret[$val]->setFlags($data[$uid][$cid]);
+                        $ret->get($val)->setFlags($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
@@ -2416,7 +2402,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                         if (isset($data[$uid][$cid][$hval])) {
                             /* We have found a cached entry with the same MD5
                              * sum. */
-                            $ret[$val]->setHeaders($hkey, $data[$uid][$cid][$hval]);
+                            $ret->get($val)->setHeaders($hkey, $data[$uid][$cid][$hval]);
                             $crit->remove($key, $hkey);
                         } else {
                             $this->_temp['headers_caching'][$hkey] = $hval;
@@ -2427,14 +2413,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 case Horde_Imap_Client::FETCH_IMAPDATE:
                     if (isset($data[$uid][$cid]) &&
                         ($data[$uid][$cid] instanceof Horde_Imap_Client_DateTime)) {
-                        $ret[$val]->setImapDate($data[$uid][$cid]);
+                        $ret->get($val)->setImapDate($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
 
                 case Horde_Imap_Client::FETCH_SIZE:
                     if (isset($data[$uid][$cid])) {
-                        $ret[$val]->setSize($data[$uid][$cid]);
+                        $ret->get($val)->setSize($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
@@ -2442,7 +2428,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 case Horde_Imap_Client::FETCH_STRUCTURE:
                     if (isset($data[$uid][$cid]) &&
                         ($data[$uid][$cid] instanceof Horde_Mime_Part)) {
-                        $ret[$val]->setStructure($data[$uid][$cid]);
+                        $ret->get($val)->setStructure($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
@@ -2463,21 +2449,17 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         foreach ($new_query as $val) {
-            $ret = $this->_fetch($val['c'], $ret, array_merge($options, array(
+            $this->_fetch($ret, $val['c'], array_merge($options, array(
                 'ids' => $val['i']
             )));
         }
 
         foreach ($ret as $key => $val) {
-            if ($val->isDefault() && !empty($new_query)) {
-                /* If $new_query is empty, this means that the fetch requested
-                 * was for UIDs only. Need to add that info below. */
-                unset($ret[$key]);
-            } elseif ($options['ids']->sequence) {
-                $ret[$key]->setSeq($key);
-                $ret[$key]->setUid($res_seq['lookup'][$key]);
+            if ($options['ids']->sequence) {
+                $val->setSeq($key);
+                $val->setUid($res_seq['lookup'][$key]);
             } else {
-                $ret[$key]->setUid($key);
+                $val->setUid($key);
             }
         }
 
@@ -2487,17 +2469,15 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Fetch message data.
      *
-     * @param Horde_Imap_Client_Fetch_Query $query  Fetch query object.
-     * @param array $results                        Partial results.
-     * @param array $options                        Additional options.
-     *
-     * @return array  An array of fetch results. The array consists of
-     *                keys that correspond to 'ids', and values that
-     *                contain Horde_Imap_Query_Data_Fetch objects.
+     * @param Horde_Imap_Client_Fetch_Results $results  Fetch results.
+     * @param Horde_Imap_Client_Fetch_Query $query      Fetch query object.
+     * @param array $options                            Additional options.
      *
      * @throws Horde_Imap_Client_Exception
      */
-    abstract protected function _fetch($query, $results, $options);
+    abstract protected function _fetch(Horde_Imap_Client_Fetch_Results $results,
+                                       Horde_Imap_Client_Fetch_Query $query,
+                                       $options);
 
     /**
      * Get the list of vanished messages (UIDs that have been expunged since a
@@ -3420,20 +3400,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Store FETCH data in cache.
      *
-     * @param array $data     The data array.
-     * @param array $options  Additional options:
+     * @param Horde_Imap_Client_Fetch_Results $data  The fetch results.
+     * @param array $options                         Additional options:
      *   - fields: (array) Only update these cache fields.
      *             DEFAULT: Update all cache fields.
      *   - mailbox: (Horde_Imap_Client_Mailbox) The mailbox to update.
      *              DEFAULT: The selected mailbox.
-     *   - seq: (boolean) Is data stored with sequence numbers?
-     *          DEFAULT: Data stored with UIDs.
      *   - uidvalid: (integer) The UID Validity number.
      *               DEFAULT: UIDVALIDITY discovered via a status() call.
      *
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _updateCache($data, array $options = array())
+    protected function _updateCache(Horde_Imap_Client_Fetch_Results $data,
+                                    array $options = array())
     {
         $mailbox = empty($options['mailbox'])
             ? $this->_selected
@@ -3448,9 +3427,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return;
         }
 
-        $seq_res = empty($options['seq'])
+        $seq_res = ($data->key_type == $data::UID)
             ? null
-            : $this->_getSeqUidLookup($this->getIdsOb(array_keys($data), true));
+            : $this->_getSeqUidLookup($this->getIdsOb($data->ids(), true));
 
         $cf = empty($options['fields'])
             ? $this->_params['cache']['fields']
@@ -3474,8 +3453,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             ? $status_res['uidvalidity']
             : $options['uidvalid'];
 
-        reset($data);
-        while (list($k, $v) = each($data)) {
+        foreach ($data as $k => $v) {
             $tmp = array();
 
             foreach ($cf as $key => $val) {

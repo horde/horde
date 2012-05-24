@@ -2451,7 +2451,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
     /**
      */
-    protected function _fetch($query, $results, $options)
+    protected function _fetch(Horde_Imap_Client_Fetch_Results $results,
+                              Horde_Imap_Client_Fetch_Query $query,
+                              $options)
     {
         $t = &$this->_temp;
         $t['fetchcmd'] = array();
@@ -2648,39 +2650,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $cmd[] = $fetch_opts;
         }
 
-        $fr = $this->_newFetchResult();
-        if ($options['ids']->sequence) {
-            $fr->seq = $results;
-        } else {
-            $fr->uid = $results;
-        }
-
         $this->_sendLine($cmd, array(
-            'fetch' => $fr
+            'fetch' => $results
         ));
 
         unset($t['fetchcmd']);
-
-        return $options['ids']->sequence
-            ? $fr->seq
-            : $fr->uid;
-    }
-
-    /**
-     * Created a new object to use for fetch results.
-     *
-     * @return object  Object with two properties: 'seq' and 'uid'.
-     */
-    protected function _newFetchResult()
-    {
-        if (!isset($this->_temp['fr_ob'])) {
-            $fr = new stdClass;
-            $fr->seq = array();
-            $fr->uid = array();
-            $this->_temp['fr_ob'] = $fr;
-        }
-
-        return clone $this->_temp['fr_ob'];
     }
 
     /**
@@ -2845,20 +2819,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             ++$i;
         }
 
-        $fr = $this->_temp['fetchresp'];
-
-        if (!is_null($uid) && isset($fr->uid[$uid])) {
-            $fr->uid[$uid]->merge($ob);
-        } else {
-            if (isset($fr->seq[$id])) {
-                $fr->seq[$id]->merge($ob);
-            } else {
-                $fr->seq[$id] = $ob;
-            }
-            if (!is_null($uid)) {
-                $fr->uid[$uid] = $ob;
-            }
-        }
+        $fr = is_null($this->_temp['fetchresp'])
+            ? new Horde_Imap_Client_Fetch_Results($this->_fetchDataClass, is_null($uid) ? Horde_Imap_Client_Fetch_Results::SEQUENCE : Horde_Imap_Client_Fetch_Results::UID)
+            : $this->_temp['fetchresp'];
+        $fr->get(is_null($uid) ? $id : $uid)->merge($ob);
     }
 
     /**
@@ -3201,23 +3165,26 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         if (!isset($this->_init['enabled']['CONDSTORE']) ||
             empty($this->_temp['mailbox']['highestmodseq']) ||
-            empty($this->_temp['fetchresp']->seq)) {
+            !count($this->_temp['fetchresp'])) {
             return;
         }
 
         $fr = $this->_temp['fetchresp'];
-        $tocache = $uids = array();
+        $tocache = new Horde_Imap_Client_Fetch_Results();
+        $uids = array();
 
-        if (empty($fr->uid)) {
-            $res = $fr->seq;
-            $seq_res = $this->_getSeqUidLookup($this->getIdsOb(array_keys($res), true));
-        } else {
-            $res = $fr->uid;
+        switch ($fr->key_type) {
+        case $fr::SEQUENCE:
+            $seq_res = $this->_getSeqUidLookup($this->getIdsOb($fr->ids(), true));
+            break;
+
+        case $fr::UID:
             $seq_res = null;
+            break;
         }
 
-        foreach (array_keys($res) as $key) {
-            if (!$res[$key]->exists(Horde_Imap_Client::FETCH_FLAGS)) {
+        foreach ($fr->ids() as $key => $val) {
+            if (!$val->exists(Horde_Imap_Client::FETCH_FLAGS)) {
                 $uids[$key] = is_null($seq_res)
                     ? $key
                     : $seq_res['lookup'][$key];
@@ -3241,20 +3208,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $flags = array_diff($flags, $update_flags);
                 }
 
-                $tocache[$uid] = $res[$key];
+                $tocache[$uid] = $fr[$key];
                 $tocache[$uid]->setFlags(array_keys(array_flip($flags)));
             }
             break;
 
         case 'update':
             foreach ($uids as $uid) {
-                $tocache[$uid] = $res[$key];
+                $tocache[$uid] = $fr[$key];
                 $tocache[$uid]->setFlags($update_flags);
             }
             break;
         }
 
-        if (!empty($tocache)) {
+        if (count($tocache)) {
             $this->_updateCache($tocache, array(
                 'fields' => array(
                     Horde_Imap_Client::FETCH_FLAGS
@@ -3788,9 +3755,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if (empty($options['notag'])) {
             $out = ++$this->_tag . ' ';
-            $this->_temp['fetchresp'] = empty($options['fetch'])
-                ? $this->_newFetchResult()
-                : $options['fetch'];
+            $this->_temp['fetchresp'] = isset($options['fetch'])
+                ? $options['fetch']
+                : null;
         }
 
         if (is_array($data)) {
@@ -4240,13 +4207,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
 
                 /* Update the cache, if needed. */
-                $tmp = $this->_temp['fetchresp'];
-                if (!empty($tmp->uid)) {
-                    $this->_updateCache($tmp->uid);
-                } elseif (!empty($tmp->seq)) {
-                    $this->_updateCache($tmp->seq, array(
-                        'seq' => true
-                    ));
+                if (!is_null($this->_temp['fetchresp'])) {
+                    $this->_updateCache($this->_temp['fetchresp']);
                 }
                 break;
             }
@@ -4515,7 +4477,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             /* Check for cache expiration (see RFC 4549 [4.1]). */
-            $this->_updateCache(array(), array(
+            $this->_updateCache(new Horde_Imap_Client_Fetch_Results(), array(
                 'mailbox' => $this->_temp['uidplusmbox'],
                 'uidvalid' => $parts[0]
             ));
