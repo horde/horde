@@ -130,8 +130,6 @@ class Ingo_Script_Imap extends Ingo_Script
                 continue;
             }
 
-            $search_array = array();
-
             switch ($rule['action']) {
             case Ingo_Storage::ACTION_BLACKLIST:
             case Ingo_Storage::ACTION_WHITELIST:
@@ -151,13 +149,14 @@ class Ingo_Script_Imap extends Ingo_Script
                     continue;
                 }
 
-                $query = new Horde_Imap_Client_Search_Query();
+                $query = $this->_getQuery($params);
+                $or_ob = new Horde_Imap_Client_Search_Query();
                 foreach ($addr as $val) {
-                    $ob = $this->_getQuery($params);
+                    $ob = new Horde_Imap_Client_Search_Query();
                     $ob->headerText('from', $val);
-                    $search_array[] = $ob;
+                    $or_ob->orSearch(array($ob));
                 }
-                $query->orSearch($search_array);
+                $query->andSearch($or_ob);
                 $indices = $this->_api->search($query);
 
                 /* Remove any indices that got in there by way of partial
@@ -198,9 +197,12 @@ class Ingo_Script_Imap extends Ingo_Script
             case Ingo_Storage::ACTION_KEEP:
             case Ingo_Storage::ACTION_MOVE:
             case Ingo_Storage::ACTION_DISCARD:
+                $base_query = $this->_getQuery($params);
                 $query = new Horde_Imap_Client_Search_Query();
+
                 foreach ($rule['conditions'] as $val) {
-                    $ob = $this->_getQuery($params);
+                    $ob = new Horde_Imap_Client_Search_Query();
+
                     if (!empty($val['type']) &&
                         ($val['type'] == Ingo_Storage::TYPE_SIZE)) {
                         $ob->size($val['value'], ($val['match'] == 'greater than'));
@@ -211,29 +213,27 @@ class Ingo_Script_Imap extends Ingo_Script
                         if (strpos($val['field'], ',') == false) {
                             $ob->headerText($val['field'], $val['value'], $val['match'] == 'not contain');
                         } else {
-                            $headers = array();
                             foreach (explode(',', $val['field']) as $header) {
-                                $headerOb = $this->_getQuery($params);
-                                $headerOb->headerText($header, $val['value'], $val['match'] == 'not contain');
-                                $headers[] = $headerOb;
-                            }
-                            if ($val['match'] == 'contains') {
-                                $ob->orSearch($headers);
-                            } elseif ($val['match'] == 'not contain') {
-                                $ob->andSearch($headers);
+                                $hdr_ob = new Horde_Imap_Client_Search_Query();
+                                $hdr_ob->headerText($header, $val['value'], $val['match'] == 'not contain');
+                                if ($val['match'] == 'contains') {
+                                    $ob->orSearch(array($hdr_ob));
+                                } elseif ($val['match'] == 'not contain') {
+                                    $ob->andSearch(array($hdr_ob));
+                                }
                             }
                         }
                     }
-                    $search_array[] = $ob;
+
+                    if ($rule['combine'] == Ingo_Storage::COMBINE_ALL) {
+                        $query->andSearch(array($ob));
+                    } else {
+                        $query->orSearch(array($ob));
+                    }
                 }
 
-                if ($rule['combine'] == Ingo_Storage::COMBINE_ALL) {
-                    $query->andSearch($search_array);
-                } else {
-                    $query->orSearch($search_array);
-                }
-
-                $indices = $this->_api->search($query);
+                $base_query->andSearch($query);
+                $indices = $this->_api->search($base_query);
 
                 if (($indices = array_diff($indices, $ignore_ids))) {
                     if ($rule['stop']) {
@@ -384,7 +384,7 @@ class Ingo_Script_Imap extends Ingo_Script
      * Returns a query object prepared for adding further criteria.
      *
      * @param array $params  The parameter array. It MUST contain:
-     *                       - filter_seen: Only filter seen messages?
+     *   - filter_seen: Only filter seen messages?
      *
      * @return Ingo_IMAP_Search_Query  A query object.
      */
