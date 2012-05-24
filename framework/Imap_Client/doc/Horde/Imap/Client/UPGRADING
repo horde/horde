@@ -183,6 +183,11 @@ The cclient drivers have been removed.
 
     get() no longer supports the null argument to the $utf7imap parameter.
 
+  - Horde_Imap_Client_Search_Query
+
+    The $queries argument to andSearch() and orSearch() can be a base query
+    in addition to an array of queries.
+
   - Horde_Imap_Client_Utf7imap
 
    The default argument for the $force parameter to Utf8ToUtf7Imap() has
