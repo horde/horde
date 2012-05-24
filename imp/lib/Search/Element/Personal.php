@@ -39,18 +39,18 @@ class IMP_Search_Element_Personal extends IMP_Search_Element
         foreach ($identity->getAllIdentityAddresses()->bare_addresses as $val) {
             $ob = clone $search_ob;
             $ob->headerText('to', $val, $this->_data);
-            $and_ob->orSearch(array($ob));
+            $and_ob->orSearch($ob);
 
             $ob = clone $search_ob;
             $ob->headerText('cc', $val, $this->_data);
-            $and_ob->orSearch(array($ob));
+            $and_ob->orSearch($ob);
 
             $ob = clone $search_ob;
             $ob->headerText('bcc', $val, $this->_data);
-            $and_ob->orSearch(array($ob));
+            $and_ob->orSearch($ob);
         }
 
-        $queryob->andSearch(array($and_ob));
+        $queryob->andSearch($and_ob);
 
         return $queryob;
     }

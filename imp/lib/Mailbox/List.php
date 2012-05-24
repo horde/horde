@@ -273,7 +273,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                 $query_ob = array(strval($this->_mailbox) => $delete_query);
             } else {
                 foreach ($query_ob as $val) {
-                    $val->andSearch(array($delete_query));
+                    $val->andSearch($delete_query);
                 }
             }
         }

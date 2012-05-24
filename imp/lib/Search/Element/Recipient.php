@@ -39,17 +39,17 @@ class IMP_Search_Element_Recipient extends IMP_Search_Element
 
         $ob = clone $search_ob;
         $ob->headerText('to', $this->_data->t, $this->_data->n);
-        $and_ob->orSearch(array($ob));
+        $and_ob->orSearch($ob);
 
         $ob = clone $search_ob;
         $ob->headerText('cc', $this->_data->t, $this->_data->n);
-        $and_ob->orSearch(array($ob));
+        $and_ob->orSearch($ob);
 
         $ob = clone $search_ob;
         $ob->headerText('bcc', $this->_data->t, $this->_data->n);
-        $and_ob->orSearch(array($ob));
+        $and_ob->orSearch($ob);
 
-        $queryob->andSearch(array($and_ob));
+        $queryob->andSearch($and_ob);
 
         return $queryob;
     }
