@@ -11,13 +11,36 @@
  * This is an example for the file based storage backend:
  *
  * <pre>
+ * <?php
  *   $conf['driver'] = 'File';
  *   $conf['params']['directory'] = '/var/www/data/horde/prefs';
+ * </pre>
+ *
+ * The following example is the necessary setup for a SQL database:
+ *
+ * <pre>
+ * <?php
+ *   $conf['driver'] = 'Sql';
+ *   $conf['params']['db'] = new Horde_Db_Adapter_Mysql(
+ *     array(
+ *      'persistent' => false,
+ *      'username' => 'root',
+ *      'password' => 'PASSWORD',
+ *      'socket' => '/var/run/mysqld/mysqld.sock',
+ *      'protocol' => 'unix',
+ *      'database' => 'horde',
+ *      'charset' => 'utf-8',
+ *      'ssl' => true,
+ *      'splitread' => false,
+ *      'phptype' => 'mysql',
+ *    )
+ *  );
  * </pre>
  *
  * Configuring for the Kolab storage backend is more complex:
  *
  * <pre>
+ * <?php
  *   $conf['driver'] = 'KolabImap';
  *   $factory = new Horde_Kolab_Storage_Factory(
  *       array(
