@@ -47,4 +47,28 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testOrQueriesWithABaseQuery()
+    {
+        $or_ob = new Horde_Imap_Client_Search_Query();
+
+        $ob = new Horde_Imap_Client_Search_Query();
+        $ob->flag('\\deleted', false);
+        $ob->headerText('from', 'ABC');
+        $or_ob->orSearch($ob);
+
+        $ob = new Horde_Imap_Client_Search_Query();
+        $ob->flag('\\deleted', true);
+        $ob->headerText('from', 'DEF');
+        $or_ob->orSearch($ob);
+
+        $base_ob = new Horde_Imap_Client_Search_Query();
+        $base_ob->flag('\\seen', false);
+        $base_ob->andSearch($or_ob);
+
+        $this->assertEquals(
+            'UNSEEN OR (DELETED FROM DEF) (UNDELETED FROM ABC)',
+             strval($base_ob)
+         );
+    }
+
 }
