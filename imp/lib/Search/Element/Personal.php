@@ -32,19 +32,20 @@ class IMP_Search_Element_Personal extends IMP_Search_Element
      */
     public function createQuery($mbox, $queryob)
     {
-        $and_ob = new Horde_Imap_Client_Search_Query();
+        $search_ob = new Horde_Imap_Client_Search_Query();
+        $and_ob = clone $search_ob;
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
 
         foreach ($identity->getAllIdentityAddresses()->bare_addresses as $val) {
-            $ob = new Horde_Imap_Client_Search_Query();
+            $ob = clone $search_ob;
             $ob->headerText('to', $val, $this->_data);
             $and_ob->orSearch(array($ob));
 
-            $ob = new Horde_Imap_Client_Search_Query();
+            $ob = clone $search_ob;
             $ob->headerText('cc', $val, $this->_data);
             $and_ob->orSearch(array($ob));
 
-            $ob = new Horde_Imap_Client_Search_Query();
+            $ob = clone $search_ob;
             $ob->headerText('bcc', $val, $this->_data);
             $and_ob->orSearch(array($ob));
         }
