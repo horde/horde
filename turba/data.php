@@ -10,12 +10,6 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-function _cleanupData()
-{
-    $GLOBALS['import_step'] = 1;
-    return Horde_Data::IMPORT_FILE;
-}
-
 /**
  * Remove empty attributes from attributes array.
  *
@@ -39,7 +33,7 @@ function _emptyAttributeFilter($var)
 }
 
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('turba');
+$app_ob = Horde_Registry::appInit('turba');
 
 if (!$conf['menu']['import_export']) {
     require TURBA_BASE . '/index.php';
@@ -78,48 +72,6 @@ $actionID = Horde_Util::getFormData('actionID');
 $next_step = Horde_Data::IMPORT_FILE;
 $app_fields = $time_fields = array();
 $error = false;
-$outlook_mapping = array(
-    'Title' => 'namePrefix',
-    'First Name' => 'firstname',
-    'Middle Name' => 'middlenames',
-    'Last Name' => 'lastname',
-    'Nickname' => 'nickname',
-    'Suffix' => 'nameSuffix',
-    'Company' => 'company',
-    'Department' => 'department',
-    'Job Title' => 'title',
-    'Business Street' => 'workStreet',
-    'Business City' => 'workCity',
-    'Business State' => 'workProvince',
-    'Business Postal Code' => 'workPostalCode',
-    'Business Country' => 'workCountry',
-    'Home Street' => 'homeStreet',
-    'Home City' => 'homeCity',
-    'Home State' => 'homeProvince',
-    'Home Postal Code' => 'homePostalCode',
-    'Home Country' => 'homeCountry',
-    'Business Fax' => 'workFax',
-    'Business Phone' => 'workPhone',
-    'Home Phone' => 'homePhone',
-    'Mobile Phone' => 'cellPhone',
-    'Pager' => 'pager',
-    'Anniversary' => 'anniversary',
-    'Assistant\'s Name' => 'assistant',
-    'Birthday' => 'birthday',
-    'Business Address PO Box' => 'workPOBox',
-    'Categories' => 'category',
-    'Children' => 'children',
-    'E-mail Address' => 'email',
-    'Home Address PO Box' => 'homePOBox',
-    'Initials' => 'initials',
-    'Internet Free Busy' => 'freebusyUrl',
-    'Language' => 'language',
-    'Notes' => 'notes',
-    'Profession' => 'role',
-    'Office Location' => 'office',
-    'Spouse' => 'spouse',
-    'Web Page' => 'website',
-);
 $import_mapping = array(
     'e-mail' => 'email',
     'homeaddress' => 'homeAddress',
@@ -164,7 +116,7 @@ $import_mapping = array(
 );
 $param = array('time_fields' => $time_fields,
                'file_types'  => $file_types,
-               'import_mapping' => array_merge($outlook_mapping, $import_mapping));
+               'import_mapping' => array_merge($app_ob->getOutlookMapping(), $import_mapping));
 $import_format = Horde_Util::getFormData('import_format', '');
 if ($import_format == 'mulberry' || $import_format == 'pine') {
     $import_format = 'tsv';
@@ -175,128 +127,6 @@ if ($actionID != 'select') {
 
 /* Loop through the action handlers. */
 switch ($actionID) {
-case 'export':
-    $sources = array();
-    if (Horde_Util::getFormData('selected')) {
-        foreach (Horde_Util::getFormData('objectkeys') as $objectkey) {
-            list($source, $key) = explode(':', $objectkey, 2);
-            if (!isset($sources[$source])) {
-                $sources[$source] = array();
-            }
-            $sources[$source][] = $key;
-        }
-    } else {
-        $source = Horde_Util::getFormData('source');
-        if (!isset($source) && !empty($cfgSources)) {
-            reset($cfgSources);
-            $source = key($cfgSources);
-        }
-        $sources[$source] = array();
-    }
-
-    $exportType = Horde_Util::getFormData('exportID');
-    $vcard = $exportType == Horde_Data::EXPORT_VCARD ||
-        $exportType == 'vcard30';
-    if ($vcard) {
-        $version = $exportType == 'vcard30' ? '3.0' : '2.1';
-    }
-
-    $data = array();
-    $all_fields = array();
-    foreach ($sources as $source => $objectkeys) {
-        /* Create a Turba storage instance. */
-        try {
-            $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
-        } catch (Horde_Exception $e) {
-            $notification->push($e, 'horde.error');
-            $error = true;
-            break;
-        }
-
-        /* Get the full, sorted contact list. */
-        try {
-            $results = count($objectkeys)
-                ? $driver->getObjects($objectkeys)
-                : $driver->search(array())->objects;
-        } catch (Turba_Exception $e) {
-            $notification->push(sprintf(_("Failed to search the directory: %s"), $e->getMessage()), 'horde.error');
-            $error = true;
-            break;
-        }
-
-        $fields = array_keys($driver->map);
-        $all_fields = array_merge($all_fields, $fields);
-        $params = $driver->getParams();
-        foreach ($results as $ob) {
-            if ($vcard) {
-                $data[] = $driver->tovCard($ob, $version, null, true);
-            } else {
-                $row = array();
-                foreach ($fields as $field) {
-                    if (substr($field, 0, 2) != '__') {
-                        $attribute = $ob->getValue($field);
-                        if ($attributes[$field]['type'] == 'date') {
-                            $row[$field] = strftime('%Y-%m-%d', $attribute);
-                        } elseif ($attributes[$field]['type'] == 'time') {
-                            $row[$field] = strftime('%R', $attribute);
-                        } elseif ($attributes[$field]['type'] == 'datetime') {
-                            $row[$field] = strftime('%Y-%m-%d %R', $attribute);
-                        } else {
-                        $row[$field] = Horde_String::convertCharset($attribute, 'UTF-8', $params['charset']);
-                        }
-                    }
-                }
-                $data[] = $row;
-            }
-        }
-    }
-    if (!count($data)) {
-        $notification->push(_("There were no addresses to export."), 'horde.message');
-        $error = true;
-        break;
-    }
-
-    /* Make sure that all rows have the same columns if exporting from
-     * different sources. */
-    if (!$vcard && count($sources) > 1) {
-        for ($i = 0; $i < count($data); $i++) {
-            foreach ($all_fields as $field) {
-                if (!isset($data[$i][$field])) {
-                    $data[$i][$field] = '';
-                }
-            }
-        }
-    }
-
-    switch ($exportType) {
-    case Horde_Data::EXPORT_CSV:
-        $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.csv"), $data, true);
-        exit;
-
-    case Horde_Data::EXPORT_OUTLOOKCSV:
-        $injector->getInstance('Horde_Core_Factory_Data')->create('Outlookcsv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.csv"), $data, true, array_flip($outlook_mapping));
-        exit;
-
-    case Horde_Data::EXPORT_TSV:
-        $injector->getInstance('Horde_Core_Factory_Data')->create('Tsv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.tsv"), $data, true);
-        exit;
-
-    case Horde_Data::EXPORT_VCARD:
-    case 'vcard30':
-        $injector->getInstance('Horde_Core_Factory_Data')->create('Vcard', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.vcf"), $data, true);
-        exit;
-
-    case 'ldif':
-        $ldif = new Turba_Data_Ldif(array(
-            'browser' => $injector->getInstance('Horde_Browser'),
-            'vars' => Horde_Variables::getDefaultVariables(),
-            'cleanup' => '_cleanupData'
-        ));
-        $ldif->exportFile(_("contacts.ldif"), $data, true);
-        exit;
-    }
-    break;
-
 case Horde_Data::IMPORT_FILE:
     $dest = Horde_Util::getFormData('dest');
     try {
@@ -347,10 +177,10 @@ if (!$error && !empty($import_format)) {
             $data = new Turba_Data_Ldif(array(
                 'browser' => $injector->getInstance('Horde_Browser'),
                 'vars' => Horde_Variables::getDefaultVariables(),
-                'cleanup' => '_cleanupData'
+                'cleanup' => array($app_ob, 'cleanupData')
             ));
         } else {
-            $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => '_cleanupData'));
+            $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => array($app_ob, 'cleanupData')));
         }
     } catch (Horde_Exception $e) {
         $notification->push(_("This file format is not supported."), 'horde.error');

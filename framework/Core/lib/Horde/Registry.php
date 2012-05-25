@@ -1321,7 +1321,7 @@ class Horde_Registry
 
         case 'download':
             return Horde::url('services/download/', false, $opts)
-                ->add('module', $app);
+                ->add('app', $app);
 
         case 'emailconfirm':
             return Horde::url('services/confirm.php', false, $opts);
@@ -2156,6 +2156,27 @@ class Horde_Registry
         }
 
         return $this->getServiceLink('login', 'horde')->add($params)->setRaw(true);
+    }
+
+    /**
+     * Returns a URL to be used for downloading data.
+     *
+     * @param string $filename  The filename of the download data.
+     * @param array $params     Additional URL parameters needed.
+     *
+     * @return Horde_Url  The download URL. This URL should be used as-is,
+     *                    since the filename MUST be the last parameter added
+     *                    to the URL.
+     */
+    public function downloadUrl($filename, array $params = array())
+    {
+        return $this->getServiceLink('download', $this->getApp())
+            /* Add parameters. */
+            ->add($params)
+            /* Add the filename to the end of the URL. Although not necessary
+             * for many browsers, this should allow every browser to download
+             * correctly. */
+            ->add('fn', '/' . rawurlencode($filename));
     }
 
     /**

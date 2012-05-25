@@ -208,6 +208,30 @@ class Horde_Registry_Application
     }
 
 
+    // Horde service methods.
+
+    /**
+     * Prepare data to deliver to browser for download.
+     *
+     * @param Horde_Variables $vars  Form variables provided to download
+     *                               script. The filename is available in
+     *                               the 'filename' parameter.
+     *
+     * @return array  Download data:
+     *   - data: [REQUIRED] (mixed) Data. Either a stream or a string.
+     *   - name: (string) Filename that overrides 'filename' URL parameter.
+     *   - size: (integer) If set, used as size. If null, no size will be
+     *           sent to browser. If not set, size will be automatically
+     *           determined from data.
+     *   - type: (string) MIME type to send (default:
+     *           application/octet-stream).
+     */
+    public function download(Horde_Variables $vars)
+    {
+        return array();
+    }
+
+
     // Horde_Notification methods.
 
     /**

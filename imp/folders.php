@@ -106,14 +106,12 @@ case 'delete_mbox':
 
 case 'download_mbox':
 case 'download_mbox_zip':
-    if (!empty($mbox_list)) {
-        try {
-            $injector->getInstance('IMP_Ui_Folder')->downloadMbox($mbox_list, $vars->actionID == 'download_mbox_zip');
-        } catch (Horde_Exception $e) {
-            $notification->push($e);
-        }
-    }
-    break;
+    $registry->downloadUrl('mbox', array(
+        'actionID' => 'download_mbox',
+        'mbox_list' => $vars->mbox_list,
+        'zip' => intval($vars->actionID == 'download_mbox_zip')
+    ))->redirect();
+    exit;
 
 case 'import_mbox':
     if ($vars->import_mbox) {

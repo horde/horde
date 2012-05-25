@@ -9,14 +9,8 @@
  * @package Mnemo
  */
 
-function _cleanupData()
-{
-    $GLOBALS['import_step'] = 1;
-    return Horde_Data::IMPORT_FILE;
-}
-
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('mnemo');
+$app_ob = Horde_Registry::appInit('mnemo');
 
 if (!$conf['menu']['import_export']) {
     require MNEMO_BASE . '/index.php';
@@ -54,49 +48,18 @@ $import_format = Horde_Util::getFormData('import_format', '');
 $import_step   = Horde_Util::getFormData('import_step', 0) + 1;
 $next_step     = Horde_Data::IMPORT_FILE;
 $actionID      = Horde_Util::getFormData('actionID');
-$error         = false;
 
 /* Loop through the action handlers. */
 switch ($actionID) {
-case 'export':
-    $exportID = Horde_Util::getFormData('exportID');
-
-    /* Create a Mnemo storage instance. */
-    $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($GLOBALS['registry']->getAuth());
-    $storage->retrieve();
-
-    /* Get the full, sorted memo list. */
-    $notes = Mnemo::listMemos();
-
-    switch ($exportID) {
-    case Horde_Data::EXPORT_CSV:
-        if (count($notes) == 0) {
-            $notification->push(_("There were no memos to export."), 'horde.message');
-            $error = true;
-        } else {
-            $data = array();
-            foreach ($notes as $note) {
-                unset($note['memo_id']);
-                unset($note['memolist_id']);
-                unset($note['desc']);
-                unset($note['uid']);
-                $data[] = $note;
-            }
-            $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("notes.csv"), $data, true);
-            exit;
-        }
-    }
-    break;
-
 case Horde_Data::IMPORT_FILE:
     $session->set('horde', 'import_data/target', Horde_Util::getFormData('notepad_target'));
     break;
 }
 
-if (!$error && $import_format) {
+if ($import_format) {
     $data = null;
     try {
-        $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => '_cleanupData'));
+        $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => array($app_ob, 'cleanupData')));
         $next_step = $data->nextStep($actionID, $param);
     } catch (Horde_Exception $e) {
         if ($data) {

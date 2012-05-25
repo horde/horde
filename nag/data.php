@@ -10,14 +10,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-function _cleanupData()
-{
-    $GLOBALS['import_step'] = 1;
-    return Horde_Data::IMPORT_FILE;
-}
-
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('nag');
+$app_ob = Horde_Registry::appInit('nag');
 
 if (!$conf['menu']['import_export']) {
     require NAG_BASE . '/index.php';
@@ -75,73 +69,18 @@ $import_format = Horde_Util::getFormData('import_format', '');
 $import_step   = Horde_Util::getFormData('import_step', 0) + 1;
 $next_step     = Horde_Data::IMPORT_FILE;
 $actionID      = Horde_Util::getFormData('actionID');
-$error         = false;
 
 /* Loop through the action handlers. */
 switch ($actionID) {
-case 'export':
-    $exportID = Horde_Util::getFormData('exportID');
-    $tasklists = Horde_Util::getFormData('exportList', $display_tasklists);
-    if (!is_array($tasklists)) {
-        $tasklists = array($tasklists);
-    }
-
-    /* Get the full, sorted task list. */
-    try {
-        $tasks = Nag::listTasks(null, null, null, $tasklists,
-                                Horde_Util::getFormData('exportTasks'));
-        if (!$tasks->hasTasks()) {
-            $notification->push(_("There were no tasks to export."), 'horde.message');
-            $error = true;
-        } else {
-            $tasks->reset();
-            switch ($exportID) {
-            case Horde_Data::EXPORT_CSV:
-                $data = array();
-                while ($task = $tasks->each()) {
-                    $task = $task->toHash();
-                    unset($task['task_id']);
-                    $task['desc'] = str_replace(',', '', $task['desc']);
-                    unset($task['tasklist_id']);
-                    unset($task['parent']);
-                    unset($task['view_link']);
-                    unset($task['complete_link']);
-                    unset($task['edit_link']);
-                    unset($task['delete_link']);
-                    $data[] = $task;
-                }
-                $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("tasks.csv"), $data, true);
-                exit;
-
-            case Horde_Data::EXPORT_ICALENDAR:
-                $iCal = new Horde_Icalendar();
-                $iCal->setAttribute(
-                    'PRODID',
-                    '-//The Horde Project//Nag ' . $registry->getVersion() . '//EN');
-                while ($task = $tasks->each()) {
-                    $iCal->addComponent($task->toiCalendar($iCal));
-                }
-                $data = $iCal->exportvCalendar();
-                $browser->downloadHeaders(_("tasks.ics"), 'text/calendar', false, strlen($data));
-                echo $data;
-                exit;
-            }
-        }
-    } catch (Nag_Exception $e) {
-        $notification->push($e->getMessage());
-        $error = true;
-    }
-    break;
-
 case Horde_Data::IMPORT_FILE:
     $session->set('horde', 'import_data/target', Horde_Util::getFormData('tasklist_target'));
     break;
 }
 
-if (!$error && $import_format) {
+if ($import_format) {
     $data = null;
     try {
-        $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => '_cleanupData'));
+        $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => array($app_ob, 'cleanupData')));
         $next_step = $data->nextStep($actionID, $param);
     } catch (Horde_Exception $e) {
         if ($data) {

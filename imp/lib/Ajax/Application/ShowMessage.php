@@ -313,7 +313,7 @@ class IMP_Ajax_Application_ShowMessage
             $result['atc_list'] = $tmp;
         }
 
-        $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $this->_mbox->urlParams($this->_uid)));
+        $result['save_as'] = $GLOBALS['registry']->downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $this->_mbox->urlParams($this->_uid)));
 
         if ($preview) {
             try {

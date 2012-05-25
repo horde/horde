@@ -493,7 +493,7 @@ class IMP_Contents
      *   - wrap: (string) If present, indicates that this part, and all child
      *           parts, will be wrapped in a DIV with the given class name.
      */
-    public function renderMIMEPart($mime_id, $mode, $options = array())
+    public function renderMIMEPart($mime_id, $mode, array $options = array())
     {
         $this->_buildMessage();
 
@@ -521,10 +521,6 @@ class IMP_Contents
         $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, $this, $type);
 
         switch ($mode) {
-        case self::RENDER_FULL:
-            $textmode = 'full';
-            break;
-
         case self::RENDER_INLINE:
         case self::RENDER_INLINE_AUTO:
         case self::RENDER_INLINE_DISP_NO:
@@ -567,6 +563,11 @@ class IMP_Contents
             $textmode = $viewer->canRender('raw')
                 ? 'raw'
                 : 'full';
+            break;
+
+        case self::RENDER_FULL:
+        default:
+            $textmode = 'full';
             break;
         }
 
@@ -783,9 +784,9 @@ class IMP_Contents
         if ($is_atc &&
             (is_null($part['bytes']) || $part['bytes'])) {
             if ($mask & self::SUMMARY_DOWNLOAD) {
-                $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'iconImg downloadAtc', 'dload' => true, 'jstext' => _("Download")));
+                $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'iconImg downloadAtc', 'jstext' => _("Download")));
             } elseif ($mask & self::SUMMARY_DOWNLOAD_NOJS) {
-                $part['download'] = $this->urlView($mime_part, 'download_attach', array('dload' => true));
+                $part['download'] = $this->urlView($mime_part, 'download_attach');
             }
         }
 
@@ -796,7 +797,7 @@ class IMP_Contents
             ($part['bytes'] > 204800)) {
             $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, $this, $mime_type);
             if (!$viewer->getMetadata('compressed')) {
-                $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'iconImg downloadZipAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $description), 'params' => array('zip' => 1)));
+                $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'iconImg downloadZipAtc', 'jstext' => sprintf(_("Download %s in .zip Format"), $description), 'params' => array('zip' => 1)));
             }
         }
 
@@ -813,7 +814,7 @@ class IMP_Contents
              ($mask & self::SUMMARY_PRINT_STUB)) &&
             $this->canDisplay($id, self::RENDER_FULL)) {
             $part['print'] = ($mask & self::SUMMARY_PRINT)
-                ? $this->linkViewJS($mime_part, 'print_attach', '', array('css' => 'iconImg printAtc', 'jstext' => _("Print"), 'onload' => 'IMP_JS.printWindow', 'params' => $param_array))
+                ? $this->linkViewJS($mime_part, 'print_attach', '', array('css' => 'iconImg printAtc', 'jstexl' => _("Print"), 'onload' => 'IMP_JS.printWindow', 'params' => $param_array))
                 : Horde::link('#', _("Print"), 'iconImg printAtc', null, null, null, null, array('mimeid' => $id)) . '</a>';
         }
 
@@ -835,29 +836,28 @@ class IMP_Contents
     }
 
     /**
-     * Return the URL to the view.php page.
+     * Return the URL to the download/view page.
      *
      * @param Horde_Mime_Part $mime_part  The MIME part to view.
      * @param integer $actionID           The actionID to perform.
      * @param array $options              Additional options:
-     *   - dload: (boolean) Should we generate a download link?
      *   - params: (array) A list of any additional parameters that need to be
-     *             passed to view.php (key => name).
+     *             passed to the download/view page (key => name).
      *
-     * @return string  The URL to view.php.
+     * @return Horde_Url  The URL to the download/view page.
      */
     public function urlView($mime_part = null, $actionID = 'view_attach',
-                            $options = array())
+                            array $options = array())
     {
         $params = $this->_urlViewParams($mime_part, $actionID, isset($options['params']) ? $options['params'] : array());
 
-        return empty($options['dload'])
-            ? Horde::url('view.php', true)->add($params)
-            : Horde::downloadUrl($mime_part->getName(true), $params);
+        return (strpos($actionID, 'download_') === 0)
+            ? $GLOBALS['registry']->downloadUrl($mime_part->getName(true), $params)
+            : Horde::url('view.php', true)->add($params);
     }
 
     /**
-     * Generates the necessary URL parameters for the view.php page.
+     * Generates the necessary URL parameters for the download/view page.
      *
      * @param Horde_Mime_Part $mime_part  The MIME part to view.
      * @param integer $actionID           The actionID to perform.
@@ -882,19 +882,18 @@ class IMP_Contents
     }
 
     /**
-     * Generate a link to the view.php page.
+     * Generate a link to the download/view page.
      *
      * @param Horde_Mime_Part $mime_part  The MIME part to view.
      * @param integer $actionID           The actionID value.
      * @param string $text                The ESCAPED (!) link text.
      * @param array $options              Additional parameters:
      *   - class: (string) The CSS class to use.
-     *   - dload: (boolean) Should we generate a download link?
      *   - jstext: (string) The JS text to use.
      *   - params: (array) A list of any additional parameters that need to be
-     *             passed to view.php.
+     *             passed to the download/view page.
      *
-     * @return string  A HTML href link to view.php.
+     * @return string  A HTML href link to the download/view page.
      */
     public function linkView($mime_part, $actionID, $text, $options = array())
     {
@@ -904,11 +903,11 @@ class IMP_Contents
             'params' => array()
         ), $options);
 
-        return Horde::link($this->urlView($mime_part, $actionID, $options), $options['jstext'], $options['class'], empty($options['dload']) ? null : 'view_' . hash('md5', $mime_part->getMIMEId() . $this->_mailbox . $this->_uid)) . $text . '</a>';
+        return Horde::link($this->urlView($mime_part, $actionID, $options), $options['jstext'], $options['class'], strval(new Horde_Support_Randomid())) . $text . '</a>';
     }
 
     /**
-     * Generate a javascript link to the view.php page.
+     * Generate a javascript link to the download/view page.
      *
      * @param Horde_Mime_Part $mime_part  The MIME part to view.
      * @param string $actionID            The actionID to perform.
@@ -919,11 +918,11 @@ class IMP_Contents
      *   - onload: (string) A JS function to run when popup window is
      *             fully loaded.
      *   - params: (array) A list of any additional parameters that need to be
-     *             passed to view.php. (key = name)
+     *             passed to download/view page. (key = name)
      *   - widget: (boolean) If true use Horde::widget() to generate,
      *             Horde::link() otherwise.
      *
-     * @return string  A HTML href link to view.php.
+     * @return string  A HTML href link to the download/view page.
      */
     public function linkViewJS($mime_part, $actionID, $text,
                                $options = array())

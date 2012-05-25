@@ -666,4 +666,133 @@ class Kronolith_Application extends Horde_Registry_Application
         return $alarm_list;
     }
 
+    /* Download data. */
+
+    /**
+     * @throws Kronolith_Exception
+     */
+    public function download(Horde_Variables $vars)
+    {
+        global $display_calendars, $injector;
+
+        switch ($vars->actionID) {
+        case 'export':
+            if ($vars->all_events) {
+                $end = $start = null;
+            } else {
+                $start = new Horde_Date(
+                    $vars->start_year,
+                    $vars->start_month,
+                    $vars->start_day
+                );
+                $start = new Horde_Date(
+                    $vars->end_year,
+                    $vars->end_month,
+                    $vars->end_day
+                );
+            }
+
+            $calendars = $vars->get('exportCal', $display_calendars);
+            if (!is_array($calendars)) {
+                $calendars = array($calendars);
+            }
+            $events = array();
+
+            foreach ($calendars as $calendar) {
+                list($type, $cal) = explode('_', $calendar, 2);
+                $kronolith_driver = Kronolith::getDriver($type, $cal);
+                $events[$calendar] = $kronolith_driver->listEvents(
+                    $start,
+                    $end,
+                    array(
+                        'cover_dates' => false,
+                        'hide_exceptions' => ($vars->exportID == Horde_Data::EXPORT_ICALENDAR)
+                    )
+                );
+            }
+
+            if (empty($events)) {
+                throw new Kronolith_Exception(_("There were no events to export."));
+            }
+
+            switch ($vars->exportID) {
+            case Horde_Data::EXPORT_CSV:
+                $data = array();
+                foreach ($events as $calevents) {
+                    foreach ($calevents as $dayevents) {
+                        foreach ($dayevents as $event) {
+                            $row = array(
+                                'alarm' => $event->alarm,
+                                'description' => $event->description,
+                                'end_date' => sprintf('%d-%02d-%02d', $event->end->year, $event->end->month, $event->end->mday),
+                                'end_time' => sprintf('%02d:%02d:%02d', $event->end->hour, $event->end->min, $event->end->sec),
+                                'location' => $event->location,
+                                'private' => intval($event->private),
+                                'recur_type' => null,
+                                'recur_end_date' => null,
+                                'recur_interval' => null,
+                                'recur_data' => null,
+                                'start_date' => sprintf('%d-%02d-%02d', $event->start->year, $event->start->month, $event->start->mday),
+                                'start_time' => sprintf('%02d:%02d:%02d', $event->start->hour, $event->start->min, $event->start->sec),
+                                'tags' => implode(', ', $event->tags),
+                                'title' => $event->getTitle()
+                            );
+
+                            if ($event->recurs()) {
+                                $row['recur_type'] = $event->recurrence->getRecurType();
+                                $row['recur_end_date'] = sprintf(
+                                    '%d-%02d-%02d',
+                                    $event->recurrence->recurEnd->year,
+                                    $event->recurrence->recurEnd->month,
+                                    $event->recurrence->recurEnd->mday
+                                );
+                                $row['recur_interval'] = $event->recurrence->getRecurInterval();
+                                $row['recur_data'] = $event->recurrence->recurData;
+                            }
+
+                            $data[] = $row;
+                        }
+                    }
+                }
+
+                $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("events.csv"), $data, true);
+                exit;
+
+            case Horde_Data::EXPORT_ICALENDAR:
+                $calNames = $calIds = array();
+                $iCal = new Horde_Icalendar();
+
+                foreach ($events as $calevents) {
+                    foreach ($calevents as $dayevents) {
+                        foreach ($dayevents as $event) {
+                            $calIds[$event->calendar] = true;
+                            $iCal->addComponent($event->toiCalendar($iCal));
+                        }
+                    }
+                }
+
+                $kshares = $injector->getInstance('Kronolith_Shares');
+                foreach (array_keys($calIds) as $calId) {
+                    $calNames[] = $kshares->getShare($calId)->get('name');
+                }
+
+                $iCal->setAttribute('X-WR-CALNAME', implode(', ', $calNames));
+
+                return array(
+                    'data' => $iCal->exportvCalendar(),
+                    'name' => _("events.ics"),
+                    'type' => 'text/calendar'
+                );
+            }
+        }
+    }
+
+    /**
+     */
+    public function cleanupData()
+    {
+        $GLOBALS['import_step'] = 1;
+        return Horde_Data::IMPORT_FILE;
+    }
+
 }

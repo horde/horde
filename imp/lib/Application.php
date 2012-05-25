@@ -565,4 +565,77 @@ class IMP_Application extends Horde_Registry_Application
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
     }
 
+    /* Download data. */
+
+    /**
+     * URL parameters:
+     *   - actionID
+     *
+     * @throws IMP_Exception
+     */
+    public function download(Horde_Variables $vars)
+    {
+        global $injector, $registry;
+
+        /* Check for an authenticated user. */
+        if (!$registry->isAuthenticated(array('app' => 'imp'))) {
+            $e = new IMP_Exception(_("User is not authenticated."));
+            $e->logged = true;
+            throw $e;
+        }
+
+        switch ($vars->actionID) {
+        case 'download_all':
+            $view_ob = new IMP_Contents_View(IMP::mailbox(true), IMP::uid());
+            return $view_ob->downloadAll();
+
+        case 'download_attach':
+            $view_ob = new IMP_Contents_View(IMP::mailbox(true), IMP::uid());
+            return $view_ob->downloadAttach($vars->id, $vars->zip);
+
+        case 'download_mbox':
+            $mlist = IMP_Mailbox::formFrom($vars->mbox_list);
+            $mbox = $injector->getInstance('IMP_Ui_Folder')->generateMbox($mlist);
+
+            if ($vars->zip) {
+                try {
+                    $data = Horde_Compress::factory('Zip')->compress(array(
+                        array(
+                            'data' => $mbox,
+                            'name' => reset($mlist) . '.mbox'
+                        )
+                    ), array(
+                        'stream' => true
+                    ));
+                    fclose($mbox);
+                } catch (Horde_Exception $e) {
+                    fclose($mbox);
+                    throw $e;
+                }
+
+                return array(
+                    'data' => $data,
+                    'name' => reset($mlist) . '.zip',
+                    'type' => 'application/zip'
+                );
+            }
+
+            return array(
+                'data' => $mbox,
+                'name' => reset($mlist) . '.mbox',
+                'type' => 'text/plain; charset=UTF-8'
+            );
+
+        case 'download_render':
+            $view_ob = new IMP_Contents_View(IMP::mailbox(true), IMP::uid());
+            return $view_ob->downloadRender($vars->id, $vars->mode, $vars->ctype);
+
+        case 'save_message':
+            $view_ob = new IMP_Contents_View(IMP::mailbox(true), IMP::uid());
+            return $view_ob->saveMessage();
+        }
+
+        return array();
+    }
+
 }

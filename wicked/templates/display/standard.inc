@@ -120,7 +120,7 @@ if ($GLOBALS['registry']->isAdmin()) {
   <h2><?php echo _("Attachments") ?></h2>
   <?php
 foreach ($attachments as $attachment) {
-    $url = Horde::downloadUrl($attachment['attachment_name'],
+    $url = $GLOBALS['registry']->downloadUrl($attachment['attachment_name'],
                               array('page' => $this->pageName(),
                                     'file' => $attachment['attachment_name'],
                                     'version' => $attachment['attachment_version']));

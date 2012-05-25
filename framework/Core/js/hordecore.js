@@ -342,6 +342,16 @@ var HordeCore = {
         window.location.assign(this.addURLParam(url));
     },
 
+    // Redirect to the download link.
+    download: function(name, params)
+    {
+        var url = this.addURLParam(HordeCoreConf.URI_DLOAD, params);
+        // Guaranteed to have at least one URL parameter, since download
+        // URL requires the app name. So just append filename to end.
+        url += '&fn=/' . encodeURIComponent(name);
+        window.location.assign(url);
+    },
+
     // id: (string) The ID to use for the loading image.
     // base: (Element) The base element over which the loading image should
     //       appear.

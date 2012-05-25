@@ -48,62 +48,40 @@ try {
     throw $e;
 }
 
-/* Run through action handlers. */
-switch ($vars->actionID) {
-case 'download_file':
-    try {
-        $size = $gollem_vfs->size($vars->dir, $vars->file);
-    } catch (Horde_Vfs_Exception $e) {
-        $size = null;
-    }
+$mime_part = new Horde_Mime_Part();
+$mime_part->setType(Horde_Mime_Magic::extToMime($vars->type));
+$mime_part->setContents(is_resource($stream) ? $stream : $data);
+$mime_part->setName($vars->file);
+// We don't know better.
+$mime_part->setCharset('US-ASCII');
+
+$ret = $injector
+    ->getInstance('Horde_Core_Factory_MimeViewer')
+    ->create($mime_part)
+    ->render('full');
+reset($ret);
+$key = key($ret);
+try {
+    $size = $gollem_vfs->size($vars->dir, $vars->file);
+} catch (Horde_Vfs_Exception $e) {
+    $size = null;
+}
+
+if (empty($ret)) {
     $browser->downloadHeaders($vars->file, null, false, $size);
     if (is_resource($stream)) {
+        fseek($stream, 0);
         while ($buffer = fread($stream, 8192)) {
             echo $buffer;
         }
     } else {
         echo $data;
     }
-    break;
-
-case 'view_file':
-    $mime_part = new Horde_Mime_Part();
-    $mime_part->setType(Horde_Mime_Magic::extToMime($vars->type));
-    $mime_part->setContents(is_resource($stream) ? $stream : $data);
-    $mime_part->setName($vars->file);
-    // We don't know better.
-    $mime_part->setCharset('US-ASCII');
-
-    $ret = $injector
-        ->getInstance('Horde_Core_Factory_MimeViewer')
-        ->create($mime_part)
-        ->render('full');
-    reset($ret);
-    $key = key($ret);
-    try {
-        $size = $gollem_vfs->size($vars->dir, $vars->file);
-    } catch (Horde_Vfs_Exception $e) {
-        $size = null;
-    }
-
-    if (empty($ret)) {
-        $browser->downloadHeaders($vars->file, null, false, $size);
-        if (is_resource($stream)) {
-            fseek($stream, 0);
-            while ($buffer = fread($stream, 8192)) {
-                echo $buffer;
-            }
-        } else {
-            echo $data;
-        }
-    } elseif (strpos($ret[$key]['type'], 'text/html') !== false) {
-        $page_output->header();
-        echo $ret[$key]['data'];
-        $page_output->footer();
-    } else {
-        $browser->downloadHeaders($vars->file, $ret[$key]['type'], true, strlen($ret[$key]['data']));
-        echo $ret[$key]['data'];
-    }
-
-    break;
+} elseif (strpos($ret[$key]['type'], 'text/html') !== false) {
+    $page_output->header();
+    echo $ret[$key]['data'];
+    $page_output->footer();
+} else {
+    $browser->downloadHeaders($vars->file, $ret[$key]['type'], true, strlen($ret[$key]['data']));
+    echo $ret[$key]['data'];
 }

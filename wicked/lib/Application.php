@@ -87,4 +87,60 @@ class Wicked_Application extends Horde_Registry_Application
         return $perms;
     }
 
+    /* Download data. */
+
+    /**
+     */
+    public function download(Horde_Variables $vars)
+    {
+        global $wicked;
+
+        $page = $vars->get('page', 'Wiki/Home');
+
+        $page_id = (($id = $wicked->getPageId($page)) === false)
+            ? $page
+            : $id;
+
+        $version = $vars->version;
+        if (empty($version)) {
+            try {
+                $attachments = $wicked->getAttachedFiles($page_id);
+                foreach ($attachments as $attachment) {
+                    if ($attachment['attachment_name'] == $vars->file) {
+                        $version = $attachment['attachment_version'];
+                    }
+                }
+            } catch (Wicked_Exception $e) {}
+
+            if (empty($version)) {
+                // If we redirect here, we cause an infinite loop with inline
+                // attachments.
+                header('HTTP/1.1 404 Not Found');
+                exit;
+            }
+        }
+
+        try {
+            $data = $wicked->getAttachmentContents($page_id, $vars->file, $version);
+            $wicked->logAttachmentDownload($page_id, $vars->file);
+        } catch (Wicked_Exception $e) {
+            // If we redirect here, we cause an infinite loop with inline
+            // attachments.
+            header('HTTP/1.1 404 Not Found');
+            echo $e->getMessage();
+            exit;
+        }
+
+        $type = Horde_Mime_Magic::analyzeData($data, isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);
+        if ($type === false) {
+            $type = Horde_Mime_Magic::filenameToMime($vars->file, false);
+        }
+
+        return array(
+            'data' => $data,
+            'file' => $vars->file,
+            'type' => $type
+        );
+    }
+
 }

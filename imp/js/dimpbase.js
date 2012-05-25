@@ -937,11 +937,11 @@ var DimpBase = {
             tmp = e.findElement('LI');
 
             this.viewaction = function(e) {
-                HordeCore.redirect(HordeCore.addURLParam(DimpCore.conf.URI_VIEW, {
+                HordeCore.download('', {
                     actionID: 'download_mbox',
-                    mailbox: tmp.retrieve('mbox'),
+                    mbox_list: Object.toJSON([ tmp.retrieve('mbox') ]),
                     zip: Number(id == 'ctx_mbox_export_opts_zip')
-                }));
+                });
             };
 
             HordeDialog.display({

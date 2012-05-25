@@ -593,7 +593,7 @@ if (!$disable_compose &&
 }
 
 $imp_params = IMP::mailbox()->urlParams($uid, $mailbox);
-$a_template->set('save_as', Horde::widget(Horde::downloadUrl($subject, array_merge(array('actionID' => 'save_message'), $imp_params)), _("Save as"), 'widget', '', '', _("Sa_ve as"), 2));
+$a_template->set('save_as', Horde::widget($registry->downloadUrl($subject, array_merge(array('actionID' => 'save_message'), $imp_params)), _("Save as"), 'widget', '', '', _("Sa_ve as"), 2));
 
 if ($conf['spam']['reporting'] &&
     ($conf['spam']['spamfolder'] || !$mailbox->spam)) {
