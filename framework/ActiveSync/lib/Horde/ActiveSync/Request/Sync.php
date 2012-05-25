@@ -573,13 +573,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $hbrunavrgduration)
             );
 
-            // Even in case we found a change, better check that no other Sync already started... If so,
-            // we exit here and let the other process do the export.
-            // $tempSyncCache = $this->_stateDriver->getSyncCache($this->_device->id, $this->_device->user);
-            // if ($tempSyncCache['timestamp'] > $this->_syncCache['timestamp']) {
-            //     $this->_logger->debug('Changes in cache determined during Sync Wait/Heartbeat, exiting here.');
-            //     return true;
-            // }
+            // Check that no other Sync process already started
+            // If so, we exit here and let the other process do the export.
+            $tempSyncCache = $this->_stateDriver->getSyncCache(
+                $this->_device->id, $this->_device->user);
+            if ($tempSyncCache['timestamp'] > $this->_syncCache['timestamp']) {
+                $this->_logger->debug('Changes in cache determined during Sync Wait/Heartbeat, exiting here.');
+                return true;
+            }
 
             $this->_logger->debug(sprintf(
                 '[%s] 12.1 SYNC loop complete: DataAvailable: %s, DataImported: %s',
