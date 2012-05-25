@@ -1200,6 +1200,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getSettings(array $settings, $device)
     {
+        $res = array();
         foreach ($settings as $key => $setting) {
             switch ($key) {
             case 'oof':
@@ -1219,8 +1220,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     'subject' => $vacation['subject']
                 );
                 break;
-            default:
-                //$res[$key]['status'] = 0;
             }
         }
 
@@ -1255,8 +1254,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             case 'deviceinformation':
                 try {
                     $state = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
-                    Horde::debug($setting);
-                    Horde::debug($device);
                     $state->setDeviceProperties($setting, $device);
                     $res['deviceinformation'] = Horde_ActiveSync_Request_Settings::STATUS_SUCCESS;
                 } catch (Horde_Exception $e) {
