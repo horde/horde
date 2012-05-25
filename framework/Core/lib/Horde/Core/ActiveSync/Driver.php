@@ -1252,8 +1252,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $res['oof'] = Horde_ActiveSync_Request_Settings::STATUS_ERROR;
                 }
                 break;
-            default:
-                // ??
+            case 'deviceinformation':
+                try {
+                    $state = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+                    Horde::debug($setting);
+                    Horde::debug($device);
+                    $state->setDeviceProperties($setting, $device);
+                    $res['deviceinformation'] = Horde_ActiveSync_Request_Settings::STATUS_SUCCESS;
+                } catch (Horde_Exception $e) {
+                    $res['deviceinformation'] = Horde_ActiveSync_Request_Settings::STATUS_ERROR;
+                }
             }
         }
 

@@ -737,13 +737,15 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function setDeviceProperties(array $data, $deviceId)
     {
-        $query = 'UPDATE ' . $this->_syncDeviceTable . ' SET device_properties = '
-            . '? WHERE device_id = ?';
-        $properties = array(serialize($data), $deviceId);
+        $query = 'UPDATE ' . $this->_syncDeviceTable . ' SET device_properties = ?,'
+            . ' device_agent = ? WHERE device_id = ?';
+        $properties = array(
+            serialize($data),
+            $data[Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT],
+            $deviceId);
         try {
             $this->_db->update($query, $properties);
         } catch (Horde_Db_Exception $e) {
-            Horde::debug($e);
             throw new Horde_ActiveSync_Exception($e);
         }
     }
