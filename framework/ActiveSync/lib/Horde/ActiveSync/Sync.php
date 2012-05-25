@@ -218,7 +218,7 @@ class Horde_ActiveSync_Sync
                     } catch (Horde_Exception_NotFound $e) {
                         $this->_logger->debug('Message gone? Possibly a MoreItems that has since disappeared.');
                         $this->_stateDriver->updateState(Horde_ActiveSync::CHANGE_TYPE_CHANGE, $change);
-                    } catch (Horde_ActiveSync_Exception $e) {
+                    } catch (Horde_Exception $e) {
                         return false;
                     }
                     break;
