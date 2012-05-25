@@ -169,7 +169,8 @@ abstract class IMP_Dynamic_Base
         /* Gettext strings used in core javascript files. */
         $this->js_text = array(
             'allparts_label' => _("All Message Parts"),
-            'loading' => _("Loading...")
+            'loading' => _("Loading..."),
+            'verify' => _("Verifying...")
         );
     }
 
