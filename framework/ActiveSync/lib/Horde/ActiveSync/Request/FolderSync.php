@@ -169,12 +169,14 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 switch ($element[Horde_ActiveSync_Wbxml::EN_TAG]) {
                 case SYNC_ADD:
                 case SYNC_MODIFY:
-                    $serverid = $importer->importFolderChange($folder->serverid, $folder->displayname);
+                    $serverid = $importer->importFolderChange(
+                        $folder->serverid, $folder->displayname);
                     if (!in_array($serverid, $seenfolders)) {
                         $seenfolders[] = $serverid;
                     }
                     if ($sync_cache !== false) {
-                        $this->_stateDriver->updateSyncCacheFolder($sync_cache, $this->_device->id, $this->_device->user, $folder);
+                        $this->_stateDriver->updateSyncCacheFolder(
+                            $sync_cache, $this->_device->id, $this->_device->user, $folder);
                     }
                     $changes = true;
                     break;
@@ -185,7 +187,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                         $seenfolders = array_values($seenfolders);
                     }
                     if ($sync_cache !== false) {
-                        $this->_stateDriver->deleteSyncCacheFolder($sync_cache, $this->_device->id, $this->_device->user, $serverid);
+                        $this->_stateDriver->deleteSyncCacheFolder(
+                            $sync_cache, $this->_device->id, $this->_device->user, $serverid);
                     }
                     $changes = true;
                     break;
