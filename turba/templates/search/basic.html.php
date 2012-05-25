@@ -1,8 +1,10 @@
-<script type="text/javascript">
-TurbaSearch.criteria = <?php echo json_encode($this->allCriteria) ?>;
-TurbaSearch.shareSources = <?php echo json_encode($this->shareSources) ?>;
-</script>
-
+<?php
+$GLOBALS['page_output']->addInlineScript(
+    array(
+        'TurbaSearch.criteria = ' . json_encode($this->allCriteria),
+        'TurbaSearch.shareSources = ' . json_encode($this->shareSources)),
+    true);
+?>
 <?php if (count($this->addressBooks) > 1): ?>
 <strong><label for="source"><?php echo _("From") ?></label></strong>
 <select id="turbaSearchSource" name="source" onchange="TurbaSearch.updateCriteria();">
