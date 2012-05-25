@@ -239,7 +239,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_CHANGES);
 
         // Remove unnecessary updates.
-        if (if $sync_cache !== false && count($exporter->changed) > 0) {
+        if ($sync_cache !== false && count($exporter->changed) > 0) {
             foreach ($exporter->changed as $key => $folder) {
                 if (isset($folder->serverid) &&
                     in_array($folder->serverid, $seenfolders) && !empty($sync_cache['folders'][$folder->serverid]) &&
