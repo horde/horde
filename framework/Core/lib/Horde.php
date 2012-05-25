@@ -1052,7 +1052,7 @@ class Horde
      * @param boolean $secure          If deleting file, should we securely
      *                                 delete the file?
      * @param boolean $session_remove  Delete this file when session is
-     *                                 destroyed (since 1.7.0)?
+     *                                 destroyed?
      *
      * @return string   Returns the full path-name to the temporary file or
      *                  false if a temporary file could not be created.
