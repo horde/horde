@@ -18,11 +18,23 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
      */
     protected function _getAutoCompleter()
     {
-        return new Horde_Core_Ajax_Imple_AutoCompleter_Ajax(array(
+        return new Horde_Core_Ajax_Imple_AutoCompleter_Ajax(
+            $this->_getAutoCompleterParams()
+        );
+    }
+
+    /**
+     * Return the basic autocompleter parameters.
+     *
+     * @return array  Autocompleter parameters.
+     */
+    protected function _getAutoCompleterParams()
+    {
+        return array(
             'onSelect' => 'function (v) { return v + ", "; }',
             'onType' => 'function (e) { return e.include("<") ? "" : e; }',
             'tokens' => array(',')
-        ));
+        );
     }
 
     /**
