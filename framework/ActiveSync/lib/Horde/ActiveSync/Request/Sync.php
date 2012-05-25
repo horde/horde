@@ -252,22 +252,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             // Handle PARTIALSYNC requests
-            $foundsynckey = false;
             if ($partial === true) {
                 $this->_logger->debug('PARTIAL SYNC');
-
-                // @TODO: Why do we get a fresh copy here? What would have
-                // changed that we need to make sure it's fresh? Can't we
-                // just use a copy of $this->_syncCache['collections']?
-                $tempSyncCache = $this->_stateDriver->getSyncCache(
-                    $this->_device->id, $this->_device->user);
-
-                // Remove all we already have information on
+                $foundsynckey = false;
+                $tempSyncCache = $this->_syncCache;
                 $unchanged_count = 0;
                 $synckey_count = 0;
                 $confirmed_synckey_count = 0;
                 foreach ($this->_collections as $key => $value) {
-                    // Discover if any collection changed
                     $v1 = $this->_collections[$key];
                     unset($v1['id'], $v1['clientids'], $v1['fetchids'],
                           $v1['getchanges'], $v1['changeids']);
@@ -286,7 +278,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             ksort($v2['bodyprefs'][$k]);
                         }
                     }
-
                     if (md5(serialize($v1)) == md5(serialize($v2))) {
                         $unchanged_count++;
                     }
@@ -317,7 +308,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 foreach ($this->_syncCache['collections'] as $value) {
                     if (isset($value['synckey'])) $CacheKeys++;
                 }
-
                 $this->_logger->debug(sprintf(
                     'CollectionKeys/SyncCacheKeys: %s/%s Unchanged Collections/ConfirmedKeys: %s/%s',
                     $synckey_count,
