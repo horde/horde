@@ -19,7 +19,7 @@ class Horde_Core_Ajax_Imple_AutoCompleter_Ajax extends Horde_Core_Ajax_Imple_Aut
      *
      * @var array
      */
-    protected $_raw = array('onSelect', 'onShow', 'onType');
+    protected $_raw = array('onSelect', 'onShow', 'onType', 'filterCallback');
 
     /**
      * @param array $params  Configuration options:
@@ -30,6 +30,8 @@ class Horde_Core_Ajax_Imple_AutoCompleter_Ajax extends Horde_Core_Ajax_Imple_Aut
      *   - onSelect: (string) Javascript code to run on select.
      *   - onShow: (string) Javascript code to run on show.
      *   - onType: (string) Javascript code to run on type.
+     *   - filterCallback: (string) Javascript code to run to apply any filtering
+     *                     to results returned by the handler.
      *   - paramName: (string) TODO
      *   - tokens: (array) Valid token separators.
      */
