@@ -229,12 +229,14 @@ var DimpMessage = {
                     e.stop();
                     return;
                 } else if (elt.hasClassName('stripAtc')) {
-                    DimpCore.reloadMessage({
-                        actionID: 'strip_attachment',
-                        mailbox: this.mbox,
-                        id: elt.readAttribute('mimeid'),
-                        uid: this.uid
-                    });
+                    if (window.confirm(DimpCore.text.strip_warn)) {
+                        DimpCore.reloadMessage({
+                            actionID: 'strip_attachment',
+                            mailbox: this.mbox,
+                            id: elt.readAttribute('mimeid'),
+                            uid: this.uid
+                        });
+                    }
                     e.stop();
                     return;
                 }
