@@ -1669,16 +1669,15 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 }
             }
 
-            $tree->addNode(
-                $val->form_to,
-                ($elt['c']) ? $val->parent->form_to : $parent,
-                $label,
-                $elt['c'],
-                isset($opts['open']) ? $opts['open'] : $is_open,
-                $params,
-                $after,
-                empty($opts['checkbox']) ? null : $checkbox . ' />'
-            );
+            $tree->addNode(array(
+                'id' => $val->form_to,
+                'parent' => ($elt['c']) ? $val->parent->form_to : $parent,
+                'label' => $label,
+                'expanded' => isset($opts['open']) ? $opts['open'] : $is_open,
+                'params' => $params,
+                'right' => $after,
+                'left' => empty($opts['checkbox']) ? null : $checkbox . ' />'
+            ));
         }
 
         return $tree;

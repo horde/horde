@@ -128,29 +128,27 @@ $tree->setHeader(array(
 ));
 
 /* Root tree node, and reprovision button */
-$tree->addNode(
-    'root',
-    null,
-    _("Registered User Devices"),
-    0,
-    true,
-    $base_node_params,
-    array('--', $spacer, '--', $spacer, '--', $spacer, '--', $spacer, '<input class="button" type="button" value="' . _("Reprovision All Devices") . '" id="reset" />' )
-);
+$tree->addNode(array(
+    'id' => 'root',
+    'parent' => null,
+    'label' => _("Registered User Devices"),
+    'expanded' => true,
+    'params' => $base_node_params,
+    'right' => array('--', $spacer, '--', $spacer, '--', $spacer, '--', $spacer, '<input class="button" type="button" value="' . _("Reprovision All Devices") . '" id="reset" />' )
+));
 
 /* Build the device entry */
 foreach ($devices as $key => $device) {
     $node_params = array();
     if (array_search($device['device_user'], $users) === false) {
         $users[] = $device['device_user'];
-        $tree->addNode(
-            $device['device_user'],
-            'root',
-            $device['device_user'],
-            0,
-            false,
-            $user_node
-        );
+        $tree->addNode(array(
+            'id' => $device['device_user'],
+            'parent' => 'root',
+            'label' => $device['device_user'],
+            'expanded' => false,
+            'params' => $user_node
+        ));
     }
 
     /* Load this device */
@@ -185,15 +183,14 @@ foreach ($devices as $key => $device) {
     $actions .= '&nbsp;<input class="button removeDevice" type="button" value="' . _("Remove") . '" id="remove_' . $key . '" />';
 
     /* Add it */
-    $tree->addNode(
-        $device['device_id'] . $device['device_user'],
-        $device['device_user'],
-        $device['device_type']. ' | ' . $device['device_agent'],
-        0,
-        true,
-        $device_node + $node_params,
-        array($ts->format('r'), $spacer, $device['device_policykey'], $spacer, $status, $spacer, $device['device_id'], $spacer, $actions)
-    );
+    $tree->addNode(array(
+        'id' => $device['device_id'] . $device['device_user'],
+        'parent' => $device['device_user'],
+        'label' => $device['device_type']. ' | ' . $device['device_agent'],
+        'expanded' => true,
+        'params' => $device_node + $node_params,
+        'right' => array($ts->format('r'), $spacer, $device['device_policykey'], $spacer, $status, $spacer, $device['device_id'], $spacer, $actions)
+    ));
 }
 
 echo '<h1 class="header">' . Horde::img('group.png') . ' ' . _("ActiveSync Devices") . '</h1>';

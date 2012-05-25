@@ -1,6 +1,9 @@
 <?php
 /**
- * The Horde_Tree_Select:: class provides <option> tag rendering.
+ * The Horde_Tree_Renderer_Select class provides <option> tag rendering.
+ *
+ * Additional node parameters:
+ * - selected: (boolean) Whether the node is selected.
  *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
@@ -8,62 +11,19 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Ben Chavet <ben@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Tree
  */
-class Horde_Tree_Select extends Horde_Tree_Base
+class Horde_Tree_Renderer_Select extends Horde_Tree_Renderer_Base
 {
-    /**
-     * Allowed parameters for nodes.
-     *
-     * @var array
-     */
-    protected $_allowed = array(
-        'selected'
-    );
-
     /**
      * Should the tree be rendered statically?
      *
      * @var boolean
      */
     protected $_static = true;
-
-    /**
-     * Returns the tree.
-     *
-     * @param boolean $static  If true the tree nodes can't be expanded and
-     *                         collapsed and the tree gets rendered expanded.
-     *                         This option has no effect in this driver.
-     *
-     * @return string  The HTML code of the rendered tree.
-     */
-    public function getTree($static = false)
-    {
-        $this->_buildIndents($this->_root_nodes);
-
-        $tree = '';
-        foreach ($this->_root_nodes as $node_id) {
-            $tree .= $this->_buildTree($node_id);
-        }
-
-        return $tree;
-    }
-
-    /**
-     * Adds additional parameters to a node.
-     *
-     * @param string $id     The unique node id.
-     * @param array $params  Parameters to set (key/value pairs).
-     * <pre>
-     * selected - (boolean) Whether this node is selected.
-     * </pre>
-     */
-    public function addNodeParams($id, $params = array())
-    {
-        parent::addNodeParams($id, $params);
-    }
 
     /**
      * Recursive function to walk through the tree array and build the output.

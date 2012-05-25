@@ -67,11 +67,11 @@ class IMP_Ajax_Application_ShowMessage
             $query->envelope();
 
             $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-            $fetch_ret = $imp_imap->fetch($mbox, $query, array(
+            $ret = $imp_imap->fetch($mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($uid)
             ));
 
-            if (!isset($fetch_ret[$uid])) {
+            if (!($ob = $ret->first())) {
                 throw new Exception();
             }
 
@@ -81,7 +81,7 @@ class IMP_Ajax_Application_ShowMessage
         }
 
         $this->_contents = $imp_contents;
-        $this->_envelope = $fetch_ret[$uid]->getEnvelope();
+        $this->_envelope = $ob->getEnvelope();
         $this->_mbox = $mbox;
         $this->_peek = $peek;
         $this->_uid = $uid;

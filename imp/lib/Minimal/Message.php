@@ -109,8 +109,8 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
             IMP_Minimal_Mailbox::url(array('mailbox' => $mailbox))->add('a', 'm')->redirect();
         }
 
-        $envelope = $fetch_ret[$uid]->getEnvelope();
-        $flags = $flags_ret[$uid]->getFlags();
+        $envelope = $fetch_ret->first()->getEnvelope();
+        $flags = $flags_ret->first()->getFlags();
 
         /* Parse the message. */
         try {

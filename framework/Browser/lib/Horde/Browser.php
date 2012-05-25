@@ -310,6 +310,7 @@ class Horde_Browser
                 if ($this->_majorVersion >= 9) {
                     $this->setFeature('dataurl', 4100);
                     if ($this->_minorVersion >= 5) {
+                        $this->setFeature('ajax');
                         $this->setFeature('rte');
                     }
                 }
@@ -364,6 +365,7 @@ class Horde_Browser
             case 8:
             case 7:
                 $this->setFeature('javascript', 1.4);
+                $this->setFeature('ajax');
                 $this->setFeature('dom');
                 $this->setFeature('iframes');
                 $this->setFeature('utf');
@@ -462,6 +464,7 @@ class Horde_Browser
                 $this->setFeature('rte');
                 $this->setFeature('utf');
                 $this->setFeature('javascript', 1.4);
+                $this->setFeature('ajax');
                 $this->setFeature('dom');
                 $this->setFeature('iframes');
                 $this->setFeature('accesskey');
@@ -481,6 +484,7 @@ class Horde_Browser
                 if (preg_match('|Version/([0-9.]+)|', $agent, $version_string)) {
                     list($this->_majorVersion, $this->_minorVersion) = explode('.', $version_string[1], 2);
                     $this->_minorVersion = intval($this->_minorVersion);
+                    $this->setFeature('ajax');
                     $this->setFeature('rte');
                 } elseif ($this->_majorVersion >= 412) {
                     $this->_majorVersion = 2;
@@ -514,7 +518,8 @@ class Horde_Browser
                 case 3:
                     $this->setFeature('dom');
                     $this->setFeature('iframes');
-                    if ($this->_minorVersion >= 5 || $this->_majorVersion == 4) {
+                    if ($this->_minorVersion >= 5 ||
+                        $this->_majorVersion == 4) {
                         $this->setFeature('accesskey');
                         $this->setFeature('xmlhttpreq');
                     }
@@ -533,6 +538,7 @@ class Horde_Browser
                     $this->setQuirk('break_disposition_filename');
                 }
                 $this->setFeature('javascript', 1.4);
+                $this->setFeature('ajax');
                 $this->setFeature('dom');
                 $this->setFeature('accesskey');
                 $this->setFeature('optgroup');
@@ -653,6 +659,7 @@ class Horde_Browser
             $this->setMobile(true);
             if ($this->_majorVersion >= 5 ||
                 ($this->_majorVersion == 4 && $this->_minorVersion >= 6)) {
+                $this->setFeature('ajax');
                 $this->setFeature('iframes');
                 $this->setFeature('javascript', 1.5);
                 $this->setFeature('dom');
@@ -871,6 +878,7 @@ class Horde_Browser
      *
      * @param string $feature  The capability to set. Features:
      *   - accesskey
+     *   - ajax
      *   - cite
      *   - dataurl
      *   - dom

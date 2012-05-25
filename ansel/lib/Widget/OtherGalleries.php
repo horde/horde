@@ -94,9 +94,13 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
                                                    'view' => 'Gallery'),
                                      true);
 
-            $tree->addNode($gallery->id, $parent, $gallery->get('name'), null,
-                           ($gallery->id == $this->_view->gallery->id),
-                           array('icon' => $img, 'url' => $link));
+            $tree->addNode(array(
+                'id' => $gallery->id,
+                'parent' => $parent,
+                'label' => $gallery->get('name'),
+                'expanded' => $gallery->id == $this->_view->gallery->id,
+                'params' => array('icon' => $img, 'url' => $link)
+            ));
         }
 
         Horde::startBuffer();

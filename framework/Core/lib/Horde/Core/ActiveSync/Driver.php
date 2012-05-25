@@ -583,7 +583,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw new Horde_ActiveSync_Exception($e);
+                throw $e;
             }
             break;
 
@@ -597,17 +597,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw new Horde_ActiveSync_Exception($e);
+                throw $e;
             }
             break;
 
         case Horde_ActiveSync::FOLDER_TYPE_TASK:
             try {
-                $message = $this->_connector->tasks_export($id, $this->_version);
+                $message = $this->_connector->tasks_export($id, array(
+                    'protocolversion' => $this->_version,
+                    'truncation' => $collection['truncation'],
+                    'bodyprefs' => $this->addDefaultBodyPrefTruncation($collection['bodyprefs']),
+                    'mimesupport' => $collection['mimesupport']));
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw new Horde_ActiveSync_Exception($e);
+                throw $e;
             }
             break;
 
@@ -1200,6 +1204,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getSettings(array $settings, $device)
     {
+        $res = array();
         foreach ($settings as $key => $setting) {
             switch ($key) {
             case 'oof':
@@ -1219,8 +1224,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     'subject' => $vacation['subject']
                 );
                 break;
-            default:
-                //$res[$key]['status'] = 0;
             }
         }
 
@@ -1252,8 +1255,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $res['oof'] = Horde_ActiveSync_Request_Settings::STATUS_ERROR;
                 }
                 break;
-            default:
-                // ??
+            case 'deviceinformation':
+                try {
+                    $state = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+                    $state->setDeviceProperties($setting, $device);
+                    $res['deviceinformation'] = Horde_ActiveSync_Request_Settings::STATUS_SUCCESS;
+                } catch (Horde_Exception $e) {
+                    $res['deviceinformation'] = Horde_ActiveSync_Request_Settings::STATUS_ERROR;
+                }
             }
         }
 

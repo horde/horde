@@ -2801,15 +2801,17 @@ var DimpBase = {
                     e.stop();
                     return;
                 } else if (elt.hasClassName('stripAtc')) {
-                    this.loadingImg('msg', true);
-                    DimpCore.doAction('stripAttachment', this.addViewportParams({ id: elt.readAttribute('mimeid') }), {
-                        callback: function(r) {
-                            if (!this.pp) {
-                                this.viewport.select(this.viewport.createSelectionBuffer().search({ mbox: { equal: [ r.newmbox ] }, uid: { equal: [ r.newuid ] } }).get('rownum'));
-                            }
-                        }.bind(this),
-                        uids: this.viewport.createSelection('dataob', this.pp)
-                    });
+                    if (window.confirm(DimpCore.text.strip_warn)) {
+                        this.loadingImg('msg', true);
+                        DimpCore.doAction('stripAttachment', this.addViewportParams({ id: elt.readAttribute('mimeid') }), {
+                            callback: function(r) {
+                                if (!this.pp) {
+                                    this.viewport.select(this.viewport.createSelectionBuffer().search({ mbox: { equal: [ r.newmbox ] }, uid: { equal: [ r.newuid ] } }).get('rownum'));
+                                }
+                            }.bind(this),
+                            uids: this.viewport.createSelection('dataob', this.pp)
+                        });
+                    }
                     e.stop();
                     return;
                 }

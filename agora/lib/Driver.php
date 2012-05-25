@@ -1417,21 +1417,19 @@ class Agora_Driver {
                     }
                 }
 
-                $tree->addNode(
-                    $thread['message_id'],
-                    $thread['parent'],
-                    $text,
-                    $thread['indent'],
-                    true,
-                    array(
+                $tree->addNode(array(
+                    'id' => $thread['message_id'],
+                    'parent' => $thread['parent'],
+                    'label' => $text,
+                    'params' => array(
                         'class' => 'linedRow',
                         'icon' => false
                     ),
-                    array(
+                    'right' => array(
                         $thread['message_author'],
                         $thread['message_date']
                     )
-                );
+                ));
             }
 
             return $tree->getTree(true);

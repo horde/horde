@@ -1175,34 +1175,16 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param Horde_Mail_Rfc822_List $recipients  The list of recipients.
      */
-    protected function _saveRecipients(Horde_Mail_Rfc822_List $recipients)
+    public function _saveRecipients(Horde_Mail_Rfc822_List $recipients)
     {
         global $notification, $prefs, $registry, $session;
 
         if (!$prefs->getValue('save_recipients') ||
-            !$session->get('imp', 'csearchavail') ||
             !$registry->hasMethod('contacts/import') ||
             !($abook = $prefs->getValue('add_source'))) {
             return;
         }
 
-        /* Filter out anyone that matches an email address already
-         * in the address book. */
-        try {
-            $results = $registry->call('contacts/search', array($recipients->bare_addresses, array(
-                'fields' => array($abook => array('email')),
-                'matchBegin' => true,
-                'returnFields' => array('email'),
-                'rfc822Return' => true,
-                'sources' => array($abook)
-            )));
-        } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            $notification->push(_("Could not save recipients."));
-            return;
-        }
-
-        $recipients->setIteratorFilter(0, $results);
         foreach ($recipients as $recipient) {
             $name = is_null($recipient->personal)
                 ? $recipient->mailbox
@@ -1211,6 +1193,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             try {
                 $registry->call('contacts/import', array(array('name' => $name, 'email' => $recipient->bare_address), 'array', $abook));
                 $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $name), 'horde.success');
+            } catch (Turba_Exception_ObjectExists $e) {
             } catch (Horde_Exception $e) {
                 if ($e->getCode() == 'horde.error') {
                     $notification->push($e, $e->getCode());

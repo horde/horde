@@ -1,7 +1,7 @@
 <?php
 /**
- * The Horde_Tree_Jquerymobile class provides rendering of a tree as a jQuery
- * Mobile list view.
+ * The Horde_Tree_Renderer_Jquerymobile class provides rendering of a
+ * tree as a jQuery Mobile list view.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
@@ -14,21 +14,8 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Tree
  */
-class Horde_Tree_Jquerymobile extends Horde_Tree_Base
+class Horde_Tree_Renderer_Jquerymobile extends Horde_Tree_Renderer_Base
 {
-    /**
-     * Allowed parameters for nodes.
-     *
-     * @var array
-     */
-    protected $_allowed = array(
-        'class',
-        'icon',
-        'special',
-        'url',
-        'urlattributes',
-    );
-
     /**
      * Returns the tree.
      *
@@ -36,9 +23,11 @@ class Horde_Tree_Jquerymobile extends Horde_Tree_Base
      */
     public function getTree($static = false)
     {
+        $this->_nodes = $this->_tree->getNodes();
+
         $tree = '';
         foreach (array(true, false) as $special) {
-            foreach ($this->_root_nodes as $node_id) {
+            foreach ($this->_tree->getRootNodes() as $node_id) {
                 $tree .= $this->_buildTree($node_id, $special);
             }
         }
@@ -64,8 +53,8 @@ class Horde_Tree_Jquerymobile extends Horde_Tree_Base
                 $output .= ' class="' . $node['class'] . '"';
             }
             $output .= '>';
-            if (isset($node['extra'][Horde_Tree::EXTRA_LEFT])) {
-                $output .= implode(' ', $node['extra'][Horde_Tree::EXTRA_LEFT]);
+            if (isset($this->_extra[$node_id][Horde_Tree_Renderer::EXTRA_LEFT])) {
+                $output .= implode(' ', $this->_extra[$node_id][Horde_Tree_Renderer::EXTRA_LEFT]);
             }
             if (!empty($node['url'])) {
                 $output .= '<a href="' . (string)$node['url'] . '"';
@@ -80,8 +69,8 @@ class Horde_Tree_Jquerymobile extends Horde_Tree_Base
             if (!empty($node['url'])) {
                 $output .= '</a>';
             }
-            if (isset($node['extra'][Horde_Tree::EXTRA_RIGHT])) {
-                $output .= '<span class="ui-li-count">' . implode(' ', $node['extra'][Horde_Tree::EXTRA_RIGHT]) . '</span>';
+            if (isset($this->_extra[$node_id][Horde_Tree_Renderer::EXTRA_RIGHT])) {
+                $output .= '<span class="ui-li-count">' . implode(' ', $this->_extra[$node_id][Horde_Tree_Renderer::EXTRA_RIGHT]) . '</span>';
             }
             $output .= '</li>';
         }

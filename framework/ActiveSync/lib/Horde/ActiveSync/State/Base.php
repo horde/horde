@@ -597,6 +597,16 @@ abstract class Horde_ActiveSync_State_Base
     abstract public function setDeviceInfo($data);
 
     /**
+     * Set the device's properties as sent by a SETTINGS request.
+     *
+     * @param array $data       The device settings
+     * @param string $deviceId  The device id.
+     *
+     * @throws Horde_ActiveSync_Exception
+     */
+    abstract public function setDeviceProperties(array $data, $deviceId);
+
+    /**
      * Explicitly remove a state from storage.
      *
      * @param string $synckey  The specific state to remove

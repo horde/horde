@@ -282,8 +282,7 @@ class IMP_Message
                  * information from the mail log. */
                 if (!is_null($fetch)) {
                     $msg_ids = array();
-                    reset($fetch);
-                    while (list(,$v) = each($fetch)) {
+                    foreach ($fetch as $v) {
                         if ($msg_id = $v->getEnvelope()->message_id) {
                             $msg_ids[] = $msg_id;
                         }
@@ -553,11 +552,11 @@ class IMP_Message
         try {
             $res = $imp_imap->fetch($mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($uid)
-            ));
-            if (!isset($res[$uid])) {
+            ))->first();
+            if (is_null($res)) {
                 throw new IMP_Imap_Exception();
             }
-            $flags = $res[$uid]->getFlags();
+            $flags = $res->getFlags();
 
             /* If in Virtual Inbox, we need to reset flag to unseen so that it
              * appears again in the mailbox list. */
@@ -569,7 +568,7 @@ class IMP_Message
                 array(
                     'data' => $parts,
                     'flags' => $flags,
-                    'internaldate' => $res[$uid]->getImapDate()
+                    'internaldate' => $res->getImapDate()
                 )
             ))->ids;
             $new_uid = reset($new_uid);
@@ -827,8 +826,7 @@ class IMP_Message
             ));
 
             $size = 0;
-            reset($res);
-            while (list(,$v) = each($res)) {
+            foreach ($res as $v) {
                 $size += $v->getSize();
             }
             return ($formatted)

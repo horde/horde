@@ -208,15 +208,14 @@ foreach ($nodes as $id => $node) {
         $delete_link = Horde::link($delete->copy()->add('gid', $id), sprintf(_("Delete \"%s\""), $node)) . $delete_img . '</a>';
     }
 
-    $tree->addNode(
-        $id,
-        null,
-        $node,
-        0,
-        false,
-        $group_node + $node_params,
-        array($spacer, $delete_link)
-    );
+    $tree->addNode(array(
+        'id' => $id,
+        'parent' => null,
+        'label' => $node,
+        'expanded' => false,
+        'params' => $group_node + $node_params,
+        'right' => array($spacer, $delete_link)
+    ));
 }
 
 echo '<h1 class="header">' . Horde::img('group.png') . ' ' . _("Groups") . '</h1>';

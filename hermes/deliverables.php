@@ -104,9 +104,14 @@ if ($vars->exists('deliverable_id') || $vars->exists('new')) {
             $iterator = $deliverables[$iterator['parent']];
         }
 
-        $tree->addNode($deliverable['id'], $deliverable['parent'],
-                       $deliverable['name'], $depth, true, $params,
-                       array($newdeliv, $deldeliv), array());
+        $tree->addNode(array(
+            'id' => $deliverable['id'],
+            'parent' => $deliverable['parent'],
+            'label' => $deliverable['name'],
+            'expanded' => true,
+            'params' => $params,
+            'right' => array($newdeliv, $deldeliv)
+        ));
     }
 
     require HERMES_TEMPLATES . '/deliverables/list.inc';

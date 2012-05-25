@@ -154,7 +154,7 @@ class Horde_ActiveSync_Imap_Message
                 array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
             );
 
-            $data = array_pop($fetch_ret);
+            $data = $fetch_ret[$this->_uid];
             $full = $data->getFullMsg($stream);
         }
 

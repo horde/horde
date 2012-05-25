@@ -20,10 +20,11 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
         $url = $GLOBALS['registry']->getServiceLink('ajax')->setRaw(true);
         $url->url .= 'blockRefresh';
         $url->add('blockid', 'horde_block_weather');
+        $indicator = $this->_params['id'] . '_loading_img';
 
         $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(
             array(
-                'window.weatherupdate = window.weatherupdate || {};',
+                'window.weatherupdate = window.weatherupdate || {}',
                 'window.weatherupdate["' . $this->_params['instance'] . '"] = {
                     value: false,
                     choices: {},
@@ -34,14 +35,14 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                         } else {
                             v = $F("location' . $this->_params['instance'] . '");
                         }
-                        $("' . $js_params['indicator'] . '").toggle();
+                        $("' . $indicator . '").toggle();
                         new Ajax.Updater(
                             "weathercontent' . $this->_params['instance'] . '",
                             "' . $url . '",
                             {
                                 evalScripts: true,
                                 parameters: { location: v },
-                                onComplete: function() { $("' . $js_params['indicator'] . '").toggle(); }
+                                onComplete: function() { $("' . $indicator . '").toggle(); }
                             }
                         );
 
@@ -51,7 +52,7 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                 '$("button' . $this->_params['instance'] . '").observe("click", function(e) {
                     window.weatherupdate["' . $this->_params['instance'] . '"].update();
                     e.stop();
-                });'
+                })'
             ),
             true
         );

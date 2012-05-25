@@ -52,8 +52,10 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
     public function blockRefresh()
     {
         $html = '';
-
-        if (isset($this->_vars->app) && isset($this->_vars->blockid)) {
+        if (!isset($this->_vars->app)) {
+            $this->_vars->set('app', 'horde');
+        }
+        if (isset($this->_vars->blockid)) {
             try {
                 $html = $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_BlockCollection')

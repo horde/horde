@@ -100,7 +100,7 @@ class IMP_Ui_Message
                 $res = $imp_imap->fetch($mailbox, $query, array(
                     'ids' => $imp_imap->getIdsOb($uid)
                 ));
-                $mdn_sent = in_array('$mdnsent', $res[$uid]->getFlags());
+                $mdn_sent = in_array('$mdnsent', $res->first()->getFlags());
             } catch (IMP_Imap_Exception $e) {}
         } else {
             /* 2nd test: Use Maillog as a fallback. */

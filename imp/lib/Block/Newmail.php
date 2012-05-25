@@ -73,11 +73,10 @@ class IMP_Block_Newmail extends Horde_Core_Block
                     'ids' => $imp_imap->getIdsOb(array_slice($indices, 0, $shown))
                 ));
             } catch (IMP_Imap_Exception $e) {
-                $fetch_ret = array();
+                $fetch_ret = new Horde_Imap_Client_Fetch_Results();
             }
 
-            reset($fetch_ret);
-            while (list($uid, $ob) = each($fetch_ret)) {
+            foreach ($fetch_ret as $uid => $ob) {
                 $envelope = $ob->getEnvelope();
 
                 $date = $imp_ui->getDate($envelope->date);

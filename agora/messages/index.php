@@ -163,7 +163,11 @@ case '1':
     /* Resort messages by thread */
     $tree = new Agora_Tree_Flat('flatthread');
     foreach ($threads_list as &$node) {
-        $tree->addNode($node['message_id'], $node['parent'], $node['body'], $node['indent'], true, array(), $node);
+        $tree->addNode(
+            array('id' => $node['message_id'],
+                  'parent' => $node['parent'],
+                  'label' => $node['body'],
+                  'right' => $node));
     }
 
     $threads = $tree->getTree();

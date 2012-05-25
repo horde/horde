@@ -611,36 +611,44 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
     /**
      * AND queries - the contents of this query will be AND'ed (in its
-     * entirety) with the contents of each of the queries passed in.  All
+     * entirety) with the contents of EACH of the queries passed in.  All
      * AND'd queries must share the same charset as this query.
      *
-     * @param array $queries  An array of queries to AND with this one.  Each
-     *                        query is a Horde_Imap_Client_Search_Query
-     *                        object.
+     * @param mixed $queries  A query, or an array of queries, to AND with the
+     *                        current query.
      */
     public function andSearch($queries)
     {
         if (!isset($this->_search['and'])) {
             $this->_search['and'] = array();
         }
+
+        if ($queries instanceof Horde_Imap_Client_Search_Query) {
+            $queries = array($queries);
+        }
+
         $this->_search['and'] = array_merge($this->_search['and'], $queries);
     }
 
     /**
      * OR a query - the contents of this query will be OR'ed (in its entirety)
-     * with the contents of each of the queries passed in.  All OR'd queries
+     * with the contents of EACH of the queries passed in.  All OR'd queries
      * must share the same charset as this query.  All contents of any single
      * query will be AND'ed together.
      *
-     * @param array $queries  An array of queries to OR with this one.  Each
-     *                        query is a Horde_Imap_Client_Search_Query
-     *                        object.
+     * @param mixed $queries  A query, or an array of queries, to OR with the
+     *                        current query.
      */
     public function orSearch($queries)
     {
         if (!isset($this->_search['or'])) {
             $this->_search['or'] = array();
         }
+
+        if ($queries instanceof Horde_Imap_Client_Search_Query) {
+            $queries = array($queries);
+        }
+
         $this->_search['or'] = array_merge($this->_search['or'], $queries);
     }
 

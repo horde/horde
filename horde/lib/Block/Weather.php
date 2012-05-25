@@ -113,7 +113,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                 ->create(
                     'WeatherLocationAutoCompleter',
                     array(
-                        'triggerId' => 'location' . $instance,
+                        'id' => 'location' . $instance,
                         'instance' => $instance
                     )
                 );

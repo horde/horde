@@ -1371,7 +1371,7 @@ class Horde_Registry
                 ->add('return_url', Horde::selfUrl(true, true, true));
         }
 
-        throw new Horde_Exception('Invalid service provided.');
+        throw new BadFunctionCallException('Invalid service requested: ' . print_r(debug_backtrace(false), true));
     }
 
     /**

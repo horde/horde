@@ -50,6 +50,7 @@ The cclient drivers have been removed.
       The 'vanished' option has been removed - use the vanished() method
       instead.
       The $mailbox parameter can no longer be a UTF7-IMAP string.
+      Results are now returned as a Horde_Imap_Client_Fetch_Results object.
 
     - fetchFromSectionString()
 
@@ -182,6 +183,11 @@ The cclient drivers have been removed.
   - Horde_Imap_Client_Mailbox
 
     get() no longer supports the null argument to the $utf7imap parameter.
+
+  - Horde_Imap_Client_Search_Query
+
+    The $queries argument to andSearch() and orSearch() can be a base query
+    in addition to an array of queries.
 
   - Horde_Imap_Client_Utf7imap
 

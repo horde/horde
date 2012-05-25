@@ -169,12 +169,14 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 switch ($element[Horde_ActiveSync_Wbxml::EN_TAG]) {
                 case SYNC_ADD:
                 case SYNC_MODIFY:
-                    $serverid = $importer->importFolderChange($folder->serverid, $folder->displayname);
+                    $serverid = $importer->importFolderChange(
+                        $folder->serverid, $folder->displayname);
                     if (!in_array($serverid, $seenfolders)) {
                         $seenfolders[] = $serverid;
                     }
                     if ($sync_cache !== false) {
-                        $this->_stateDriver->updateSyncCacheFolder($sync_cache, $this->_device->id, $this->_device->user, $folder);
+                        $this->_stateDriver->updateSyncCacheFolder(
+                            $sync_cache, $this->_device->id, $this->_device->user, $folder);
                     }
                     $changes = true;
                     break;
@@ -185,7 +187,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                         $seenfolders = array_values($seenfolders);
                     }
                     if ($sync_cache !== false) {
-                        $this->_stateDriver->deleteSyncCacheFolder($sync_cache, $this->_device->id, $this->_device->user, $serverid);
+                        $this->_stateDriver->deleteSyncCacheFolder(
+                            $sync_cache, $this->_device->id, $this->_device->user, $serverid);
                     }
                     $changes = true;
                     break;
@@ -235,21 +238,24 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         }
         $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_CHANGES);
 
-        // Remove unnecessary folder updates. Need to do this here, instead of
-        // during loop below since we alter the count.
-        if ($sync_cache !== false && isset($folder->serverid) &&
-            in_array($folder->serverid, $seenfolders) && !empty($sync_cache['folders'][$folder->serverid]) &&
-            $sync_cache['folders'][$folder->serverid]['parentid'] == $folder->parentid &&
-            $sync_cache['folders'][$folder->serverid]['displayname'] == $folder->displayname &&
-            $sync_cache['folders'][$folder->serverid]['type'] == $folder->type) {
+        // Remove unnecessary updates.
+        if ($sync_cache !== false && count($exporter->changed) > 0) {
+            foreach ($exporter->changed as $key => $folder) {
+                if (isset($folder->serverid) &&
+                    in_array($folder->serverid, $seenfolders) && !empty($sync_cache['folders'][$folder->serverid]) &&
+                    $sync_cache['folders'][$folder->serverid]['parentid'] == $folder->parentid &&
+                    $sync_cache['folders'][$folder->serverid]['displayname'] == $folder->displayname &&
+                    $sync_cache['folders'][$folder->serverid]['type'] == $folder->type) {
 
-            $this->_logger->debug(sprintf(
-                "[%s] Ignoring %s from changes because it contains no changes from device.",
-                $this->_device->id,
-                $folder->serverid)
-            );
-            unset($exporter->changed[$key]);
-            $exporter->count--;
+                    $this->_logger->debug(sprintf(
+                        "[%s] Ignoring %s from changes because it contains no changes from device.",
+                        $this->_device->id,
+                        $folder->serverid)
+                    );
+                    unset($exporter->changed[$key]);
+                    $exporter->count--;
+                }
+            }
         }
 
         // Remove unnecessary deletes.
@@ -280,7 +286,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                     $this->_encoder->startTag(self::ADD);
                 }
                 if ($sync_cache !== false) {
-                    $this->_stateDriver->updateSyncCacheFolder($sync_cache, $this->_device->id, $this->_device->user, $folder);
+                    $this->_stateDriver->updateSyncCacheFolder(
+                        $sync_cache, $this->_device->id, $this->_device->user, $folder);
                 }
                 $folder->encodeStream($this->_encoder);
                 $this->_encoder->endTag();
@@ -296,7 +303,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 $this->_encoder->endTag();
                 $this->_encoder->endTag();
                 if ($sync_cache !== false) {
-                    $this->_stateDriver->deleteSyncCacheFolder($sync_cache, $this->_device->id, $this->_device->user, $folder);
+                    $this->_stateDriver->deleteSyncCacheFolder(
+                        $sync_cache, $this->_device->id, $this->_device->user, $folder);
                 }
             }
         }
@@ -313,7 +321,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         $this->_cleanUpAfterPairing();
 
         if ($sync_cache !== false) {
-            $this->_stateDriver->saveSyncCache($sync_cache, $this->_device->id, $this->_device->user);
+            $this->_stateDriver->saveSyncCache(
+                $sync_cache, $this->_device->id, $this->_device->user);
         }
 
         return true;

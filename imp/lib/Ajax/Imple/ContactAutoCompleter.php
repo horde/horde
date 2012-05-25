@@ -30,6 +30,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactA
         $ac_browser = empty($conf['compose']['ac_browser'])
             ? 0
             : $conf['compose']['ac_browser'];
+        $params = $this->_getAutoCompleterParams();
 
         if ($ac_browser && !$session->get('imp', 'ac_ajax')) {
             $use_ajax = true;
@@ -42,9 +43,10 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactA
         }
 
         if (!$ac_browser || $session->get('imp', 'ac_ajax')) {
-            return new Horde_Core_Ajax_Imple_AutoCompleter_Ajax(array(
-                'minChars' => intval($conf['compose']['ac_threshold'] ? $conf['compose']['ac_threshold'] : 1)
-            ));
+            $params['minChars'] = intval($conf['compose']['ac_threshold'])
+                ? $conf['compose']['ac_threshold']
+                : 1;
+            return new Horde_Core_Ajax_Imple_AutoCompleter_Ajax($params);
         }
 
         if (!self::$_listOutput) {
@@ -58,7 +60,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactA
             self::$_listOutput = true;
         }
 
-        return new Horde_Core_Ajax_Imple_Autocompleter_Local('IMP.ac_list');
+        return new Horde_Core_Ajax_Imple_Autocompleter_Local('IMP.ac_list', $params);
     }
 
     /**

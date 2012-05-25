@@ -98,59 +98,55 @@ class Hermes_Application extends Horde_Registry_Application
     {
         switch ($params['id']) {
         case 'menu':
-            $tree->addNode(
-                $parent . '__add',
-                $parent,
-                _("Enter Time"),
-                1,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent . '__add',
+                'parent' => $parent,
+                'label' => _("Enter Time"),
+                'expanded' => false,
+                'params' => array(
                     'icon' => Horde_Themes::img('hermes.png'),
                     'url' => Horde::url('entry.php')
                 )
-            );
+            ));
 
-            $tree->addNode(
-                $parent . '__search',
-                $parent,
-                _("Search Time"),
-                1,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent . '__search',
+                'parent' => $parent,
+                'label' => _("Search Time"),
+                'expanded' => false,
+                'params' => array(
                     'icon' => Horde_Themes::img('search.png'),
                     'url' => Horde::url('search.php')
                 )
-            );
+            ));
             break;
 
         case 'stopwatch':
-            $tree->addNode(
-                $parent . '__start',
-                $parent,
-                _("Start Watch"),
-                1,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent . '__start',
+                'parent' => $parent,
+                'label' => _("Start Watch"),
+                'expanded' => false,
+                'params' => array(
                     'icon' => Horde_Themes::img('timer-start.png'),
                     'url' => htmlspecialchars('javascript:' . Horde::popupJs(Horde::url('start.php'), array('height' => 200, 'width' => 400)))
                 )
-            );
+            ));
 
             if ($timers = @unserialize($GLOBALS['prefs']->getValue('running_timers'))) {
                 $entry = Horde::url('entry.php');
                 foreach ($timers as $i => $timer) {
                     $hours = round((float)(time() - $i) / 3600, 2);
-                    $tree->addNode(
-                        $parent . '__timer_' . $i,
-                        $parent,
-                        $timer['name'] . sprintf(" (%s)", $hours),
-                        1,
-                        false,
-                        array(
+                    $tree->addNode(array(
+                        'id' => $parent . '__timer_' . $i,
+                        'parent' => $parent,
+                        'label' => $timer['name'] . sprintf(" (%s)", $hours),
+                        'expanded' => false,
+                        'params' => array(
                             'icon' => Horde_Themes::img('timer-stop.png'),
                             'url' => $entry->add('timer', $i)
                         )
-                    );
+                    ));
                 }
             }
             break;

@@ -20,7 +20,13 @@ function _addTree($parent, $parent_id, $datatree, $tree, $indent = 1)
         if ($id != $parent_id) {
             $node_url = $url->copy()->add('show', $datatree->getParam('group') . ':' . $id)->setAnchor('show');
 
-            $tree->addNode($parent . ':' . $id, $parent, $datatree->getShortName($node), $indent, false, array('url' => strval($node_url)));
+            $tree->addNode(array(
+                'id' => $parent . ':' . $id,
+                'parent' => $parent,
+                'label' => $datatree->getShortName($node),
+                'expanded' => false,
+                'params' => array('url' => strval($node_url))
+            ));
             _addTree($parent . ':' . $id, $id, $datatree, $tree, $indent + 1);
         }
     }
@@ -44,7 +50,11 @@ if ($roots instanceof PEAR_Error) {
     $notification->push($roots);
 } else {
     foreach ($roots as $root) {
-        $tree->addNode($root, null, $root, 0, false);
+        $tree->addNode(array(
+            'id' => $root,
+            'label' => $root,
+            'expanded' => false
+        ));
         _addTree($root, DATATREE_ROOT, Horde_DataTree::singleton($driver, array_merge($config, array('group' => $root))), $tree);
     }
 }

@@ -121,15 +121,20 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                 }
 
                 try {
-                    $header = array(
-                        'subject' => $imp_compose->attachImapMessage($indices)
-                    );
+                    $subject = $title = $imp_compose->attachImapMessage($indices);
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e, 'horde.error');
                     break;
                 }
 
                 $show_editor = ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail'));
+
+                $onload = $compose_ajax->getBaseResponse();
+                if ($show_editor) {
+                    $onload->format = 'html';
+                }
+                $onload->opts->atc = $compose_ajax->getAttachmentInfo(IMP_Compose::FORWARD_ATTACH);
+                $onload->header['subject'] = $subject;
             } else {
                 try {
                     $contents = $imp_ui->getContents($this->vars);

@@ -119,7 +119,13 @@ case 'sidebar':
                             'topic' => $id
                         ));
                     }
-                    $tree->addNode($idx, $parent, $name, 0, false, $node_params);
+                    $tree->addNode(array(
+                        'id' => $idx,
+                        'parent' => $parent,
+                        'label' => $name,
+                        'expanded' => false,
+                        'params' => $node_params
+                    ));
                 }
                 $parent .= '|' . $name;
             }

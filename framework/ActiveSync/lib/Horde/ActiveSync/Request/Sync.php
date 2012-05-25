@@ -252,22 +252,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             // Handle PARTIALSYNC requests
-            $foundsynckey = false;
             if ($partial === true) {
                 $this->_logger->debug('PARTIAL SYNC');
-
-                // @TODO: Why do we get a fresh copy here? What would have
-                // changed that we need to make sure it's fresh? Can't we
-                // just use a copy of $this->_syncCache['collections']?
-                $tempSyncCache = $this->_stateDriver->getSyncCache(
-                    $this->_device->id, $this->_device->user);
-
-                // Remove all we already have information on
+                $foundsynckey = false;
+                $tempSyncCache = $this->_syncCache;
                 $unchanged_count = 0;
                 $synckey_count = 0;
                 $confirmed_synckey_count = 0;
                 foreach ($this->_collections as $key => $value) {
-                    // Discover if any collection changed
                     $v1 = $this->_collections[$key];
                     unset($v1['id'], $v1['clientids'], $v1['fetchids'],
                           $v1['getchanges'], $v1['changeids']);
@@ -286,7 +278,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             ksort($v2['bodyprefs'][$k]);
                         }
                     }
-
                     if (md5(serialize($v1)) == md5(serialize($v2))) {
                         $unchanged_count++;
                     }
@@ -317,7 +308,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 foreach ($this->_syncCache['collections'] as $value) {
                     if (isset($value['synckey'])) $CacheKeys++;
                 }
-
                 $this->_logger->debug(sprintf(
                     'CollectionKeys/SyncCacheKeys: %s/%s Unchanged Collections/ConfirmedKeys: %s/%s',
                     $synckey_count,
@@ -436,7 +426,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         'Confirmed Synckeys contains %s',
                         print_r($this->_syncCache['confirmed_synckeys'], true))
                     );
-                    $this->_logger->error('Some synckeys were not confirmed. Requesting full SYNC');
+                    $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
                     unset($this->_syncCache['confirmed_synckeys']);
                     $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
@@ -583,13 +573,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $hbrunavrgduration)
             );
 
-            // Even in case we found a change, better check that no other Sync already started... If so,
-            // we exit here and let the other process do the export.
-            // $tempSyncCache = $this->_stateDriver->getSyncCache($this->_device->id, $this->_device->user);
-            // if ($tempSyncCache['timestamp'] > $this->_syncCache['timestamp']) {
-            //     $this->_logger->debug('Changes in cache determined during Sync Wait/Heartbeat, exiting here.');
-            //     return true;
-            // }
+            // Check that no other Sync process already started
+            // If so, we exit here and let the other process do the export.
+            $tempSyncCache = $this->_stateDriver->getSyncCache(
+                $this->_device->id, $this->_device->user);
+            if ($tempSyncCache['timestamp'] > $this->_syncCache['timestamp']) {
+                $this->_logger->debug('Changes in cache determined during Sync Wait/Heartbeat, exiting here.');
+                return true;
+            }
 
             $this->_logger->debug(sprintf(
                 '[%s] 12.1 SYNC loop complete: DataAvailable: %s, DataImported: %s',

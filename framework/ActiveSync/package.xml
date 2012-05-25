@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-21</date>
- <time>19:07:11</time>
+ <date>2012-05-25</date>
+ <time>13:15:09</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -144,6 +144,7 @@
       <file name="7_horde_activesync_clearstate.php" role="data" />
       <file name="8_horde_activesync_addmailflagged.php" role="data" />
       <file name="9_horde_activesync_add_cache.php" role="data" />
+      <file name="10_horde_activesync_add_deviceproperties.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -299,6 +300,7 @@
    <install as="migration/7_horde_activesync_clearstate.php" name="migration/Horde/ActiveSync/7_horde_activesync_clearstate.php" />
    <install as="migration/8_horde_activesync_addmailflagged.php" name="migration/Horde/ActiveSync/8_horde_activesync_addmailflagged.php" />
    <install as="migration/9_horde_activesync_add_cache.php" name="migration/Horde/ActiveSync/9_horde_activesync_add_cache.php" />
+   <install as="migration/10_horde_activesync_add_deviceproperties.php" name="migration/Horde/ActiveSync/10_horde_activesync_add_deviceproperties.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
@@ -675,7 +677,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-05-21</date>
+   <date>2012-05-25</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Add basic Autoconfigure support.

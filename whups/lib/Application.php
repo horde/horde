@@ -199,29 +199,27 @@ class Whups_Application extends Horde_Registry_Application
     public function topbarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())
     {
-        $tree->addNode(
-            $parent . '__new',
-            $parent,
-            _("New Ticket"),
-            1,
-            false,
-            array(
+        $tree->addNode(array(
+            'id' => $parent . '__new',
+            'parent' => $parent,
+            'label' => _("New Ticket"),
+            'expanded' => false,
+            'params' => array(
                 'icon' => Horde_Themes::img('create.png'),
                 'url' => Horde::url('ticket/create.php')
             )
-        );
+        ));
 
-        $tree->addNode(
-            $parent . '__search',
-            $parent,
-            _("Search"),
-            1,
-            false,
-            array(
+        $tree->addNode(array(
+            'id' => $parent . '__search',
+            'parent' => $parent,
+            'label' => _("Search"),
+            'expanded' => false,
+            'params' => array(
                 'icon' => Horde_Themes::img('search.png'),
                 'url' => Horde::url('search.php')
             )
-        );
+        ));
     }
 
 }

@@ -1,7 +1,7 @@
 <?php
 /**
- * The Horde_Core_Tree_Javascript:: class provides javascript rendering of a
- * tree.
+ * The Horde_Core_Tree_Renderer_Javascript class provides javascript
+ * rendering of a tree.
  *
  * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
@@ -10,45 +10,45 @@
  *
  * @author   Marko Djukic <marko@oblo.com>
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
-class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
+class Horde_Core_Tree_Renderer_Javascript extends Horde_Core_Tree_Renderer_Html
 {
     /**
      * Constructor.
      *
-     * @param string $name   @see parent::__construct().
-     * @param array $params  @see parent::__construct(). Additional options:
-     * <pre>
-     * 'jsvar' - The JS variable name to store the tree object in.
-     *           DEFAULT: Instance name.
-     * </pre>
+     * @param Horde_Tree $tree  A tree object.
+     * @param array $params     Additional parameters.
+     *                          - jsvar: The JS variable name to store the tree
+     *                            object in.
+     *                            DEFAULT: Instance name.
      */
-    public function __construct($name, array $params = array())
+    public function __construct(Horde_Tree $tree, array $params = array())
     {
-        parent::__construct($name, $params);
+        parent::__construct($tree, $params);
 
         $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('hordetree.js', 'horde');
 
         /* Check for a javascript session state. */
         if (($session = $this->getOption('session')) &&
-            isset($_COOKIE[$this->_instance . '_expanded'])) {
+            isset($_COOKIE[$this->_tree->instance . '_expanded'])) {
             /* Get current session expanded values. */
-            $curr = call_user_func($session['get'], $this->_instance, '', Horde_Session::TYPE_ARRAY);
+            $curr = call_user_func($session['get'], $this->_tree->instance, '', Horde_Session::TYPE_ARRAY);
 
             /* Remove "exp" prefix from cookie value. */
-            $exp = explode(',', substr($_COOKIE[$this->_instance . '_expanded'], 3));
+            $exp = explode(',', substr($_COOKIE[$this->_tree->instance . '_expanded'], 3));
 
             /* These are the expanded folders. */
             foreach (array_filter($exp) as $val) {
-                call_user_func($session['set'], $this->_instance, $val, true);
+                call_user_func($session['set'], $this->_tree->instance, $val, true);
             }
 
             /* These are previously expanded folders. */
             foreach (array_diff(array_keys($curr), $exp) as $val) {
-                call_user_func($session['set'], $this->_instance, $val, false);
+                call_user_func($session['set'], $this->_tree->instance, $val, false);
             }
         }
     }
@@ -60,7 +60,7 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
      */
     public function fallback()
     {
-        return 'Horde_Core_Tree_Html';
+        return 'Horde_Core_Tree_Renderer_Html';
     }
 
     /**
@@ -81,7 +81,7 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
             'header' => $this->_header,
             'nocookie' => !$this->getOption('session'),
             'options' => $this->_options,
-            'target' => $this->_instance,
+            'target' => $this->_tree->instance,
 
             'cookieDomain' => $GLOBALS['conf']['cookie']['domain'],
             'cookiePath' => $GLOBALS['conf']['cookie']['path'],
@@ -106,14 +106,14 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
         );
 
         if (!($js_var = $this->getOption('jsvar'))) {
-            $js_var = $this->_instance;
+            $js_var = $this->_tree->instance;
         }
 
         $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
             'window.' . $js_var . ' = new Horde_Tree(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON) . ')'
         ), true);
 
-        return '<div id="' . $this->_instance . '"></div>';
+        return '<div id="' . $this->_tree->instance . '"></div>';
     }
 
     /**
@@ -135,12 +135,10 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
      */
     public function renderNodeDefinitions()
     {
-        $this->_buildIndents($this->_root_nodes);
-
         $result = new stdClass;
         $result->is_static = intval($this->_static);
-        $result->nodes = $this->_nodes;
-        $result->root_nodes = $this->_root_nodes;
+        $result->nodes = $this->_tree->getNodes();
+        $result->root_nodes = $this->_tree->getRootNodes();
         $result->files = array();
 
         foreach ($GLOBALS['injector']->getInstance('Horde_PageOutput')->hsf->listFiles() as $apps) {

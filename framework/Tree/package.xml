@@ -22,19 +22,19 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-04-10</date>
- <time>19:53:31</time>
+ <date>2012-05-26</date>
+ <time>00:01:24</time>
  <version>
-  <release>1.0.2</release>
-  <api>1.0.0</api>
+  <release>2.0.0alpha1</release>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Separate tree object from tree renderers.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -42,18 +42,22 @@
     <dir name="Horde">
      <dir name="Tree">
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Tree -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Tree">
-      <file name="Base.php" role="php" />
+      <dir name="Renderer">
+       <file name="Base.php" role="php" />
+       <file name="Html.php" role="php" />
+       <file name="Jquerymobile.php" role="php" />
+       <file name="Select.php" role="php" />
+       <file name="Simplehtml.php" role="php" />
+      </dir> <!-- /lib/Horde/Tree/Renderer -->
       <file name="Exception.php" role="php" />
-      <file name="Html.php" role="php" />
-      <file name="Jquerymobile.php" role="php" />
-      <file name="Select.php" role="php" />
-      <file name="Simplehtml.php" role="php" />
+      <file name="Renderer.php" role="php" />
      </dir> <!-- //lib/Horde/Tree -->
      <file name="Tree.php" role="php" />
     </dir> <!-- //lib/Horde -->
@@ -99,13 +103,15 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Tree/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Tree/UPGRADING" />
    <install as="Horde/Tree.php" name="lib/Horde/Tree.php" />
-   <install as="Horde/Tree/Base.php" name="lib/Horde/Tree/Base.php" />
    <install as="Horde/Tree/Exception.php" name="lib/Horde/Tree/Exception.php" />
-   <install as="Horde/Tree/Html.php" name="lib/Horde/Tree/Html.php" />
-   <install as="Horde/Tree/Jquerymobile.php" name="lib/Horde/Tree/Jquerymobile.php" />
-   <install as="Horde/Tree/Select.php" name="lib/Horde/Tree/Select.php" />
-   <install as="Horde/Tree/Simplehtml.php" name="lib/Horde/Tree/Simplehtml.php" />
+   <install as="Horde/Tree/Renderer.php" name="lib/Horde/Tree/Renderer.php" />
+   <install as="Horde/Tree/Renderer/Base.php" name="lib/Horde/Tree/Renderer/Base.php" />
+   <install as="Horde/Tree/Renderer/Html.php" name="lib/Horde/Tree/Renderer/Html.php" />
+   <install as="Horde/Tree/Renderer/Jquerymobile.php" name="lib/Horde/Tree/Renderer/Jquerymobile.php" />
+   <install as="Horde/Tree/Renderer/Select.php" name="lib/Horde/Tree/Renderer/Select.php" />
+   <install as="Horde/Tree/Renderer/Simplehtml.php" name="lib/Horde/Tree/Renderer/Simplehtml.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -242,10 +248,23 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-04-10</date>
+   <date>2012-05-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2012-05-26</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Separate tree object from tree renderers.
    </notes>
   </release>
  </changelog>

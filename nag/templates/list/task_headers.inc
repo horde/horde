@@ -15,7 +15,7 @@ function table_sortCallback(tableId, column, sortDown)
 
 function doPrefsUpdate(column, sortDown)
 {
-    baseurl = '<?php echo $GLOBALS['registry']->getServiceLink('prefsui', 'nag') ?>';
+    baseurl = '<?php echo $GLOBALS['registry']->getServiceLink('prefs', 'nag') ?>';
     try {
         new Ajax.Request(baseurl, { parameters: { pref: 'sortby', value: encodeURIComponent(column.substring(1)) } });
         new Ajax.Request(baseurl, { parameters: { pref: 'sortdir', value: encodeURIComponent(sortDown) } });
