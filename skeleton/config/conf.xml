@@ -12,14 +12,4 @@
    </case>
   </configswitch>
  </configsection>
-
- <configsection name="menu">
-  <configheader>Menu Settings</configheader>
-  <configmultienum name="apps" desc="Select any applications that should be
-  linked in Skeleton's menu" required="false">
-   <values>
-    <configspecial application="horde" name="apps" />
-   </values>
-  </configmultienum>
- </configsection>
 </configuration>
