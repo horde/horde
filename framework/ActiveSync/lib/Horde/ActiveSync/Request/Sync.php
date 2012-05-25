@@ -426,7 +426,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         'Confirmed Synckeys contains %s',
                         print_r($this->_syncCache['confirmed_synckeys'], true))
                     );
-                    $this->_logger->error('Some synckeys were not confirmed. Requesting full SYNC');
+                    $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
                     unset($this->_syncCache['confirmed_synckeys']);
                     $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
                     $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
