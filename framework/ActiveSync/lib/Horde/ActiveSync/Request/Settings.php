@@ -229,10 +229,10 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
 
         // Tell the backend
         if (isset($request['set'])) {
-            $result['set'] = $this->_driver->setSettings($request['set'], $this->device->id);
+            $result['set'] = $this->_driver->setSettings($request['set'], $this->_device->id);
         }
         if (isset($request['get'])) {
-            $result['get'] = $this->_driver->getSettings($request['get'], $this->device->id);
+            $result['get'] = $this->_driver->getSettings($request['get'], $this->_device->id);
         }
 
         // Output response
