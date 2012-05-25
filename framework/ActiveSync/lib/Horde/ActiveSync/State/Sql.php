@@ -728,6 +728,27 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
+     * Set the device's properties as sent by a SETTINGS request.
+     *
+     * @param array $data       The device settings
+     * @param string $deviceId  The device id.
+     *
+     * @throws Horde_ActiveSync_Exception
+     */
+    public function setDeviceProperties(array $data, $deviceId)
+    {
+        $query = 'UPDATE ' . $this->_syncDeviceTable . ' SET device_properties = '
+            . '? WHERE device_id = ?';
+        $properties = array(serialize($data), $deviceId);
+        try {
+            $this->_db->update($query, $properties);
+        } catch (Horde_Db_Exception $e) {
+            Horde::debug($e);
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
      * Check that a given device id is known to the server. This is regardless
      * of Provisioning status. If $user is provided, checks that the device
      * is attached to the provided username.
