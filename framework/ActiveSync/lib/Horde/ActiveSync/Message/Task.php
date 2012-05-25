@@ -349,10 +349,6 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
             $r->until = $recurrence->getRecurEnd();
         }
 
-        // Not sure when a recurring task would ever not regenerate.... but the
-        // protocol requires this.
-        $r->regenerate = true;
-
         $this->_properties['recurrence'] = $r;
     }
 
