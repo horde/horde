@@ -238,21 +238,24 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         }
         $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_CHANGES);
 
-        // Remove unnecessary folder updates. Need to do this here, instead of
-        // during loop below since we alter the count.
-        if ($sync_cache !== false && isset($folder->serverid) &&
-            in_array($folder->serverid, $seenfolders) && !empty($sync_cache['folders'][$folder->serverid]) &&
-            $sync_cache['folders'][$folder->serverid]['parentid'] == $folder->parentid &&
-            $sync_cache['folders'][$folder->serverid]['displayname'] == $folder->displayname &&
-            $sync_cache['folders'][$folder->serverid]['type'] == $folder->type) {
+        // Remove unnecessary updates.
+        if (if $sync_cache !== false && count($exporter->changed) > 0) {
+            foreach ($exporter->changed as $key => $folder) {
+                if (isset($folder->serverid) &&
+                    in_array($folder->serverid, $seenfolders) && !empty($sync_cache['folders'][$folder->serverid]) &&
+                    $sync_cache['folders'][$folder->serverid]['parentid'] == $folder->parentid &&
+                    $sync_cache['folders'][$folder->serverid]['displayname'] == $folder->displayname &&
+                    $sync_cache['folders'][$folder->serverid]['type'] == $folder->type) {
 
-            $this->_logger->debug(sprintf(
-                "[%s] Ignoring %s from changes because it contains no changes from device.",
-                $this->_device->id,
-                $folder->serverid)
-            );
-            unset($exporter->changed[$key]);
-            $exporter->count--;
+                    $this->_logger->debug(sprintf(
+                        "[%s] Ignoring %s from changes because it contains no changes from device.",
+                        $this->_device->id,
+                        $folder->serverid)
+                    );
+                    unset($exporter->changed[$key]);
+                    $exporter->count--;
+                }
+            }
         }
 
         // Remove unnecessary deletes.
