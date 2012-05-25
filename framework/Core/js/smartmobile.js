@@ -241,6 +241,9 @@ var HordeMobile = {
 
         // Setup notifications
         $('#horde-notification').growler();
+
+        // Fix swipe threshold.
+        $.event.special.swipe.horizontalDistanceThreshold = 50;
     }
 };
 
