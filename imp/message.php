@@ -246,8 +246,8 @@ try {
     exit;
 }
 
-$envelope = $fetch_ret[$uid]->getEnvelope();
-$flags = $flags_ret[$uid]->getFlags();
+$envelope = $fetch_ret->first()->getEnvelope();
+$flags = $flags_ret->first()->getFlags();
 $mime_headers = $peek
     ? $imp_contents->getHeader()
     : $imp_contents->getHeaderAndMarkAsSeen();
