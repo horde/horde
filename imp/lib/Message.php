@@ -282,8 +282,7 @@ class IMP_Message
                  * information from the mail log. */
                 if (!is_null($fetch)) {
                     $msg_ids = array();
-                    reset($fetch);
-                    while (list(,$v) = each($fetch)) {
+                    foreach ($fetch as $v) {
                         if ($msg_id = $v->getEnvelope()->message_id) {
                             $msg_ids[] = $msg_id;
                         }
@@ -827,8 +826,7 @@ class IMP_Message
             ));
 
             $size = 0;
-            reset($res);
-            while (list(,$v) = each($res)) {
+            foreach ($res as $v) {
                 $size += $v->getSize();
             }
             return ($formatted)

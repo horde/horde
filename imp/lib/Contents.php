@@ -1498,7 +1498,7 @@ class IMP_Contents
      *
      * @param Horde_Imap_Client_Fetch_Query $query  Search query.
      *
-     * @return array  Fetch data.
+     * @return Horde_Imap_Client_Fetch_Results  Fetch data.
      */
     protected function _fetchData(Horde_Imap_Client_Fetch_Query $query)
     {

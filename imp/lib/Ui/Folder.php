@@ -141,8 +141,7 @@ class IMP_Ui_Folder
                     continue;
                 }
 
-                reset($res);
-                while (list(,$ptr) = each($res)) {
+                foreach ($res as $ptr) {
                     $from = '<>';
                     if ($from_env = $ptr->getEnvelope()->from) {
                         $ptr2 = reset($from_env);
