@@ -38,7 +38,7 @@ Horde_Registry::appInit('imp', array(
     'impmode' => Horde_Registry::VIEW_BASIC
 ));
 
-if (empty(IMP::$mailbox)) {
+if (!IMP::mailbox()) {
     throw new IMP_Exception(_("Invalid mailbox."));
 }
 
