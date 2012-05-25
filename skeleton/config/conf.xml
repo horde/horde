@@ -7,8 +7,6 @@
    <case name="sql" desc="SQL">
     <configsection name="params">
      <configsql switchname="driverconfig">
-      <configstring name="table" desc="The name of the database
-      table.">skeleton_foos</configstring>
      </configsql>
     </configsection>
    </case>
