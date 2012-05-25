@@ -150,9 +150,6 @@ if ($logout_reason) {
         }
     } catch (Horde_Exception $e) {}
 
-    if ($vars->ie_version) {
-        $browser->setIEVersion($vars->ie_version);
-    }
     if ($auth->authenticate(Horde_Util::getPost('horde_user'), $auth_params)) {
         $entry = sprintf('Login success for %s [%s] to %s.', $registry->getAuth(), $_SERVER['REMOTE_ADDR'], ($vars->app && $is_auth) ? $vars->app : 'horde');
         Horde::logMessage($entry, 'NOTICE');

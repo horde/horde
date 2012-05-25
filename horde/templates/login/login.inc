@@ -7,7 +7,6 @@
  <input type="hidden" name="login_post" id="login_post" value="0" />
  <input type="hidden" name="url" value="<?php echo htmlspecialchars($vars->url) ?>" />
  <input type="hidden" name="anchor_string" id="anchor_string" value="<?php echo htmlspecialchars($vars->anchor_string) ?>" />
- <input type="hidden" name="ie_version" value="" />
 
 <?php foreach ($loginparams as $key => $val): ?>
 <?php if ($val['type'] == 'hidden'): ?>

@@ -18,12 +18,6 @@ var HordeLogin = {
             $('horde_pass').focus();
         } else {
             $('login-button').disable();
-            if (Prototype.Browser.IE) {
-                try {
-                    document.body.style.behavior = "url(#default#clientCaps)";
-                    $('ie_version').setValue(document.body.getComponentVersion("{89820200-ECBD-11CF-8B85-00AA005B4383}", "componentid"));
-                } catch (e) {}
-            }
             $('login_post').setValue(1);
             $('horde_login').submit();
         }
