@@ -37,5 +37,4 @@ $GLOBALS['folks_driver']->updateOnlineStatus();
 
 // Start output compression.
 if (!Horde_Util::nonInputVar('no_compress')) {
-    Horde::compressOutput();
 }

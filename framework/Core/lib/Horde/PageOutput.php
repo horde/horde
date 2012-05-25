@@ -79,6 +79,13 @@ class Horde_PageOutput
     public $sidebarLoaded = false;
 
     /**
+     * Has PHP userspace page compression been started?
+     *
+     * @var boolean
+     */
+    protected $_compress = false;
+
+    /**
      * View mode.
      *
      * @var integer
@@ -534,6 +541,42 @@ class Horde_PageOutput
     {
         foreach ($this->css->getStylesheetUrls($opts) as $val) {
             echo '<link href="' . $val->toString(false, $full) . '" rel="stylesheet" type="text/css" />';
+        }
+    }
+
+    /**
+     * Activates output compression.
+     */
+    public function startCompression()
+    {
+        if ($this->_compress) {
+            return;
+        }
+
+        /* Compress output if requested and possible. */
+        if ($GLOBALS['conf']['compress_pages'] &&
+            !$GLOBALS['browser']->hasQuirk('buggy_compression') &&
+            !(bool)ini_get('zlib.output_compression') &&
+            !(bool)ini_get('zend_accelerator.compress_all') &&
+            ini_get('output_handler') != 'ob_gzhandler') {
+            if (ob_get_level()) {
+                ob_end_clean();
+            }
+            ob_start('ob_gzhandler');
+        }
+
+        $this->_compress = true;
+    }
+
+    /**
+     * Ends output compression. If successful, throws out all data currently
+     * in the output buffer.
+     */
+    public function endCompression()
+    {
+        if ($this->_compress && (reset(ob_list_handlers()) == 'ob_gzhandler')) {
+            ob_end_clean();
+            $this->_compress = false;
         }
     }
 

@@ -281,7 +281,7 @@ class Horde_Registry
         }
 
         if (!$args['nocompress']) {
-            Horde::compressOutput();
+            $GLOBALS['page_output']->startCompression();
         }
 
         if ($args['user_admin']) {

@@ -16,13 +16,6 @@
 class Horde
 {
     /**
-     * Has compression been started?
-     *
-     * @var boolean
-     */
-    static protected $_compressStart = false;
-
-    /**
      * The access keys already used in this page.
      *
      * @var array
@@ -1072,43 +1065,6 @@ class Horde
         }
 
         return $tmpfile;
-    }
-
-    /**
-     * Starts output compression, if requested.
-     */
-    static public function compressOutput()
-    {
-        if (self::$_compressStart) {
-            return;
-        }
-
-        /* Compress output if requested and possible. */
-        if ($GLOBALS['conf']['compress_pages'] &&
-            !$GLOBALS['browser']->hasQuirk('buggy_compression') &&
-            !(bool)ini_get('zlib.output_compression') &&
-            !(bool)ini_get('zend_accelerator.compress_all') &&
-            ini_get('output_handler') != 'ob_gzhandler') {
-            if (ob_get_level()) {
-                ob_end_clean();
-            }
-            ob_start('ob_gzhandler');
-        }
-
-        self::$_compressStart = true;
-    }
-
-    /**
-     * Determines if output compression can be used.
-     *
-     * @return boolean  True if output compression can be used, false if not.
-     */
-    static public function allowOutputCompression()
-    {
-        return !$GLOBALS['browser']->hasQuirk('buggy_compression') &&
-               (ini_get('zlib.output_compression') == '') &&
-               (ini_get('zend_accelerator.compress_all') == '') &&
-               (ini_get('output_handler') != 'ob_gzhandler');
     }
 
     /**
