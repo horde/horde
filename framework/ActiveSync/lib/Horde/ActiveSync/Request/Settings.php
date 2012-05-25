@@ -87,13 +87,14 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
 
         $request = array();
         while (($reqtype = ($this->_decoder->getElementStartTag(self::SETTINGS_OOF) ? self::SETTINGS_OOF :
-                           ($this->_decoder->getElementStartTag(self::SETTINGS_DEVICEINFORMATION) ? self::SETTINGS_DEVICEINFORMATION :
-                           ($this->_decoder->getElementStartTag(self::SETTINGS_USERINFORMATION) ?   self::SETTINGS_USERINFORMATION :
-                           ($this->_decoder->getElementStartTag(self::SETTINGS_DEVICEPASSWORD) ?   self::SETTINGS_DEVICEPASSWORD :
-                           -1))))) != -1) {
+               ($this->_decoder->getElementStartTag(self::SETTINGS_DEVICEINFORMATION) ? self::SETTINGS_DEVICEINFORMATION :
+               ($this->_decoder->getElementStartTag(self::SETTINGS_USERINFORMATION) ? self::SETTINGS_USERINFORMATION :
+               ($this->_decoder->getElementStartTag(self::SETTINGS_DEVICEPASSWORD) ? self::SETTINGS_DEVICEPASSWORD :
+               -1))))) != -1) {
+
             while (($querytype = ($this->_decoder->getElementStartTag(self::SETTINGS_GET) ? self::SETTINGS_GET :
-                                 ($this->_decoder->getElementStartTag(self::SETTINGS_SET) ? self::SETTINGS_SET :
-                                    -1))) != -1) {
+                   ($this->_decoder->getElementStartTag(self::SETTINGS_SET) ? self::SETTINGS_SET :
+                   -1))) != -1) {
 
                 switch ($querytype) {
                 case self::SETTINGS_GET:
@@ -123,10 +124,10 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                     switch ($reqtype) {
                     case self::SETTINGS_OOF:
                         while (($type = ($this->_decoder->getElementStartTag(self::SETTINGS_OOFSTATE) ? self::SETTINGS_OOFSTATE :
-                                        ($this->_decoder->getElementStartTag(self::SETTINGS_STARTTIME)? self::SETTINGS_STARTTIME :
-                                        ($this->_decoder->getElementStartTag(self::SETTINGS_ENDTIME) ? self::SETTINGS_ENDTIME :
-                                        ($this->_decoder->getElementStartTag(self::SETTINGS_OOFMESSAGE) ? self::SETTINGS_OOFMESSAGE :
-                                        -1))))) != -1) {
+                               ($this->_decoder->getElementStartTag(self::SETTINGS_STARTTIME) ? self::SETTINGS_STARTTIME :
+                               ($this->_decoder->getElementStartTag(self::SETTINGS_ENDTIME) ? self::SETTINGS_ENDTIME :
+                               ($this->_decoder->getElementStartTag(self::SETTINGS_OOFMESSAGE) ? self::SETTINGS_OOFMESSAGE :
+                               -1))))) != -1) {
 
                             switch ($type) {
                             case self::SETTINGS_OOFSTATE:
@@ -149,15 +150,15 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                                 break;
                             case self::SETTINGS_OOFMESSAGE:
                                 while (($type = ($this->_decoder->getElementStartTag(self::SETTINGS_APPLIESTOINTERNAL) ? self::SETTINGS_APPLIESTOINTERNAL :
-                                                ($this->_decoder->getElementStartTag(self::SETTINGS_APPLIESTOEXTERNALKNOWN) ? self::SETTINGS_APPLIESTOEXTERNALKNOWN :
-                                                ($this->_decoder->getElementStartTag(self::SETTINGS_APPLIESTOEXTERNALUNKNOWN) ? self::SETTINGS_APPLIESTOEXTERNALUNKNOWN :
-                                                -1)))) != -1) {
+                                       ($this->_decoder->getElementStartTag(self::SETTINGS_APPLIESTOEXTERNALKNOWN) ? self::SETTINGS_APPLIESTOEXTERNALKNOWN :
+                                       ($this->_decoder->getElementStartTag(self::SETTINGS_APPLIESTOEXTERNALUNKNOWN) ? self::SETTINGS_APPLIESTOEXTERNALUNKNOWN :
+                                       -1)))) != -1) {
                                     $oof = array();
                                     $oof['appliesto'] = $type;
                                     while (($type = ($this->_decoder->getElementStartTag(self::SETTINGS_ENABLED) ? self::SETTINGS_ENABLED :
-                                                    ($this->_decoder->getElementStartTag(self::SETTINGS_REPLYMESSAGE) ? self::SETTINGS_REPLYMESSAGE :
-                                                    ($this->_decoder->getElementStartTag(self::SETTINGS_BODYTYPE) ? self::SETTINGS_BODYTYPE :
-                                                    -1)))) != -1) {
+                                           ($this->_decoder->getElementStartTag(self::SETTINGS_REPLYMESSAGE) ? self::SETTINGS_REPLYMESSAGE :
+                                           ($this->_decoder->getElementStartTag(self::SETTINGS_BODYTYPE) ? self::SETTINGS_BODYTYPE :
+                                           -1)))) != -1) {
 
                                         switch ($type) {
                                         case self::SETTINGS_ENABLED:
@@ -190,15 +191,15 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                         break;
                     case self::SETTINGS_DEVICEINFORMATION :
                         while (($field = ($this->_decoder->getElementStartTag(self::SETTINGS_MODEL) ? self::SETTINGS_MODEL :
-                                         ($this->_decoder->getElementStartTag(self::SETTINGS_IMEI) ? self::SETTINGS_IMEI :
-                                         ($this->_decoder->getElementStartTag(self::SETTINGS_FRIENDLYNAME) ? self::SETTINGS_FRIENDLYNAME :
-                                         ($this->_decoder->getElementStartTag(self::SETTINGS_OS) ? self::SETTINGS_OS :
-                                         ($this->_decoder->getElementStartTag(self::SETTINGS_OSLANGUAGE) ? self::SETTINGS_OSLANGUAGE :
-                                         ($this->_decoder->getElementStartTag(self::SETTINGS_PHONENUMBER) ? self::SETTINGS_PHONENUMBER :
-                                         ($this->_decoder->getElementStartTag(self::SETTINGS_USERAGENT) ? self::SETTINGS_USERAGENT :
-                                         ($this->_decoder->getElementStartTag(self::SETTINGS_MOBILEOPERATOR) ? self::SETTINGS_MOBILEOPERATOR :
-                                         ($this->_decoder->getElementStartTag(self::SETTINGS_ENABLEOUTBOUNDSMS) ? self::SETTINGS_ENABLEOUTBOUNDSMS :
-                                         -1)))))))))) != -1) {
+                               ($this->_decoder->getElementStartTag(self::SETTINGS_IMEI) ? self::SETTINGS_IMEI :
+                               ($this->_decoder->getElementStartTag(self::SETTINGS_FRIENDLYNAME) ? self::SETTINGS_FRIENDLYNAME :
+                               ($this->_decoder->getElementStartTag(self::SETTINGS_OS) ? self::SETTINGS_OS :
+                               ($this->_decoder->getElementStartTag(self::SETTINGS_OSLANGUAGE) ? self::SETTINGS_OSLANGUAGE :
+                               ($this->_decoder->getElementStartTag(self::SETTINGS_PHONENUMBER) ? self::SETTINGS_PHONENUMBER :
+                               ($this->_decoder->getElementStartTag(self::SETTINGS_USERAGENT) ? self::SETTINGS_USERAGENT :
+                               ($this->_decoder->getElementStartTag(self::SETTINGS_MOBILEOPERATOR) ? self::SETTINGS_MOBILEOPERATOR :
+                               ($this->_decoder->getElementStartTag(self::SETTINGS_ENABLEOUTBOUNDSMS) ? self::SETTINGS_ENABLEOUTBOUNDSMS :
+                               -1)))))))))) != -1) {
                             if (($deviceinfo[$field] = $this->_decoder->getElementContent()) !== false) {
                                 $this->_decoder->getElementEndTag(); // end $field
                             }
