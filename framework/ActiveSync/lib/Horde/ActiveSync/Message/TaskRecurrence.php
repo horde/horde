@@ -57,9 +57,6 @@ class Horde_ActiveSync_Message_TaskRecurrence extends Horde_ActiveSync_Message_B
 
     protected $_mapping = array (
         Horde_ActiveSync_Message_Task::POOMTASKS_TYPE        => array(self::KEY_ATTRIBUTE => 'type'),
-        Horde_ActiveSync_Message_Task::POOMTASKS_START       => array(self::KEY_ATTRIBUTE => 'start', self::KEY_TYPE => self::TYPE_DATE),
-        Horde_ActiveSync_Message_Task::POOMTASKS_DEADOCCUR   => array(self::KEY_ATTRIBUTE => 'deadoccur'),
-        Horde_ActiveSync_Message_Task::POOMTASKS_REGENERATE  => array(self::KEY_ATTRIBUTE => 'regenerate'),
         Horde_ActiveSync_Message_Task::POOMTASKS_UNTIL       => array(self::KEY_ATTRIBUTE => 'until', self::KEY_TYPE => self::TYPE_DATE),
         Horde_ActiveSync_Message_Task::POOMTASKS_OCCURRENCES => array(self::KEY_ATTRIBUTE => 'occurrences'),
         Horde_ActiveSync_Message_Task::POOMTASKS_INTERVAL    => array(self::KEY_ATTRIBUTE => 'interval'),
@@ -67,13 +64,12 @@ class Horde_ActiveSync_Message_TaskRecurrence extends Horde_ActiveSync_Message_B
         Horde_ActiveSync_Message_Task::POOMTASKS_DAYOFMONTH  => array(self::KEY_ATTRIBUTE => 'dayofmonth'),
         Horde_ActiveSync_Message_Task::POOMTASKS_WEEKOFMONTH => array(self::KEY_ATTRIBUTE => 'weekofmonth'),
         Horde_ActiveSync_Message_Task::POOMTASKS_MONTHOFYEAR => array(self::KEY_ATTRIBUTE => 'monthofyear'),
+        Horde_ActiveSync_Message_Task::POOMTASKS_START       => array(self::KEY_ATTRIBUTE => 'start', self::KEY_TYPE => self::TYPE_DATE),
     );
 
     protected $_properties = array(
         'type'        => false,
         'start'       => false,
-        'deadoccur'   => false,
-        'regenerate'  => false,
         'until'       => false,
         'occurrences' => false,
         'interval'    => false,
