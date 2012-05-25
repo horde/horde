@@ -43,7 +43,7 @@ a.imp-mailbutton:hover{
 }
 .imp-thl-dropdown ul li {
   position:relative;
-  width: 13em;
+  width: 100%;
   border-bottom:1px solid #919293;
 }
 .imp-thl-dropdown ul li:hover {
@@ -59,7 +59,9 @@ a.imp-mailbutton:hover{
   display:none;
 }
 .imp-thl-dropdown ul li ul {
-  margin:-25px 0px 0px 13em;
+  margin-top:-25px;
+  margin-left:100%;
+  width:100%;
 }
 .imp-thl-dropdown li:hover ul, .imp-thl-dropdown li.over ul {
   display:block;
@@ -109,7 +111,7 @@ height:22px;
 }
 .imp-thr-dropdown ul li {
   position:relative;
-  width: 13em;
+  width: 100%;
   border-bottom:1px solid #919293;
 }
 .imp-thr-dropdown ul li:hover {
@@ -125,8 +127,9 @@ height:22px;
   display:none;
 }
 .imp-thr-dropdown ul li ul {
-  margin:-25px 0px 0px 0px;
-  right:13em;
+  margin-top:-25px;
+  margin-right:100%;
+  width:100%;
 }
 .imp-thr-dropdown li:hover ul, .imp-thr-dropdown li.over ul {
   display:block;
@@ -169,7 +172,7 @@ height:22px;
 }
 .imp-sb-dropdown ul li {
   position:relative;
-  width: 13em;
+  width: 100%;
   border-bottom:1px solid #919293;
 }
 .imp-sb-dropdown ul li.arrow {
@@ -186,7 +189,8 @@ height:22px;
 }
 .imp-sb-dropdown ul li ul {
   margin-top:-25px;
-  margin-left:13em;
+  margin-left:100%;
+  width:100%;
 }
 .imp-sb-dropdown li:hover ul, .imp-sb-dropdown li.over ul {
   display:block;

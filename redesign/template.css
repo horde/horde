@@ -70,12 +70,12 @@ a.horde-mainnavi-active:hover{
 .horde-dropdown ul li {
   position:relative;
   border-bottom:1px solid #919294;
-  width: 13em;
+  width: 100%;
 }
 .horde-dropdown ul li.last {
   position:relative;
   border-bottom:0px solid #919294;
-  width: 13em;
+  width: 100%;
 }
 .horde-dropdown ul li.arrow {
   background-image:url('sysimg/navi-subnavi.png');
@@ -95,7 +95,8 @@ a.horde-mainnavi-active:hover{
 }
 .horde-dropdown ul li ul {
   margin-top:-25px;
-  margin-left:13em;
+  margin-left:100%;
+  width:100%;
   top:24px;
 }
 .horde-dropdown li:hover ul, .horde-dropdown li.over ul {
