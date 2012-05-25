@@ -286,7 +286,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                     $this->_encoder->startTag(self::ADD);
                 }
                 if ($sync_cache !== false) {
-                    $this->_stateDriver->updateSyncCacheFolder($sync_cache, $this->_device->id, $this->_device->user, $folder);
+                    $this->_stateDriver->updateSyncCacheFolder(
+                        $sync_cache, $this->_device->id, $this->_device->user, $folder);
                 }
                 $folder->encodeStream($this->_encoder);
                 $this->_encoder->endTag();
@@ -302,7 +303,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 $this->_encoder->endTag();
                 $this->_encoder->endTag();
                 if ($sync_cache !== false) {
-                    $this->_stateDriver->deleteSyncCacheFolder($sync_cache, $this->_device->id, $this->_device->user, $folder);
+                    $this->_stateDriver->deleteSyncCacheFolder(
+                        $sync_cache, $this->_device->id, $this->_device->user, $folder);
                 }
             }
         }
@@ -319,7 +321,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         $this->_cleanUpAfterPairing();
 
         if ($sync_cache !== false) {
-            $this->_stateDriver->saveSyncCache($sync_cache, $this->_device->id, $this->_device->user);
+            $this->_stateDriver->saveSyncCache(
+                $sync_cache, $this->_device->id, $this->_device->user);
         }
 
         return true;
