@@ -64,7 +64,12 @@ class Ansel
             $treeparams['selected'] = $gallery_id == $params->selected;
             $parent = $gallery->getParent();
             $parent = empty($parent) ? null : $parent->id;
-            $tree->addNode($gallery->id, $parent, $label, null, true, $treeparams);
+            $tree->addNode(array(
+                'id' => $gallery->id,
+                'parent' => $parent,
+                'label' => $label,
+                'params' => $treeparams
+            ));
         }
 
         return $tree->getTree();

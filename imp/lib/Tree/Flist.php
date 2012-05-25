@@ -13,20 +13,8 @@
  * @license  http://www.horde.org/licenses/lgpl21 GPL
  * @package  IMP
  */
-class IMP_Tree_Flist extends Horde_Tree_Select
+class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
 {
-    /**
-     * Allowed parameters for nodes.
-     *
-     * @var array
-     */
-    protected $_allowed = array(
-        'container',
-        'orig_label',
-        'selected',
-        'vfolder'
-    );
-
     /**
      * Filter list.
      *
@@ -37,8 +25,8 @@ class IMP_Tree_Flist extends Horde_Tree_Select
     /**
      * Constructor.
      *
-     * @param string $name   The name of this tree instance.
-     * @param array $params  Additional parameters.
+     * @param Horde_Tree $tree  A tree object.
+     * @param array $params     Additional parameters.
      *   - abbrev: (integer) Abbreviate long mailbox names by replacing the
      *             middle of the name with '...'? Value is the total length
      *             of the string.
@@ -62,13 +50,13 @@ class IMP_Tree_Flist extends Horde_Tree_Select
      *   - new_mbox: (boolean) Display an option to create a new mailbox?
      *               DEFAULT: No
      */
-    public function __construct($name, array $params = array())
+    public function __construct(Horde_Tree $tree, array $params = array())
     {
         $params = array_merge(array(
             'abbrev' => 30
         ), $params);
 
-        parent::__construct($name, $params);
+        parent::__construct($tree, $params);
     }
 
     /**
@@ -78,7 +66,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
     {
         global $conf, $injector, $registry;
 
-        $this->_buildIndents($this->_root_nodes);
+        $this->_nodes = $this->_tree->getNodes();
 
         $filter = $injector->createInstance('Horde_Text_Filter');
         $t = $injector->createInstance('Horde_Template');
@@ -166,7 +154,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
             : array();
 
         $tree = '';
-        foreach ($this->_root_nodes as $node_id) {
+        foreach ($this->_tree->getRootNodes() as $node_id) {
             $tree .= $this->_buildTree($node_id);
         }
         $t->set('tree', $tree);

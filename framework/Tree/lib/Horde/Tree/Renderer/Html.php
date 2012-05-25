@@ -1,6 +1,17 @@
 <?php
 /**
- * The Horde_Tree_Html:: class provides HTML specific rendering functions.
+ * The Horde_Tree_Renderer_Html class provides HTML specific rendering
+ * functions.
+ *
+ * Additional node parameters:
+ * - class: CSS class to use with this node
+ * - icon: Icon to display next node
+ * - iconalt: Alt text to use for the icon
+ * - iconopen: Icon to indicate this node as expanded
+ * - url: URL to link the node to
+ * - urlclass: CSS class for the node's URL
+ * - target: Target for the 'url' link
+ * - title: Link tooltip title
  *
  * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
@@ -8,11 +19,12 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Marko Djukic <marko@oblo.com>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Tree
  */
-class Horde_Tree_Html extends Horde_Tree_Base
+class Horde_Tree_Renderer_Html extends Horde_Tree_Renderer_Base
 {
     /**
      * Node position list.
@@ -34,22 +46,6 @@ class Horde_Tree_Html extends Horde_Tree_Base
      * @var integer
      */
     protected $_altCount = 0;
-
-    /**
-     * Allowed parameters for nodes.
-     *
-     * @var array
-     */
-    protected $_allowed = array(
-        'class',
-        'icon',
-        'iconalt',
-        'iconopen',
-        'url',
-        'urlclass',
-        'title',
-        'target'
-    );
 
     /**
      * Images array.
@@ -116,34 +112,7 @@ class Horde_Tree_Html extends Horde_Tree_Base
     public function getTree($static = false)
     {
         $this->_static = (bool)$static;
-        $this->_buildIndents($this->_root_nodes);
-
-        $tree = $this->_buildHeader();
-        foreach ($this->_root_nodes as $node_id) {
-            $tree .= $this->_buildTree($node_id);
-        }
-        return $tree;
-    }
-
-    /**
-     * Adds additional parameters to a node.
-     *
-     * @param string $id     The unique node id.
-     * @param array $params  Parameters to set (key/value pairs).
-     * <pre>
-     * class - CSS class to use with this node
-     * icon - Icon to display next node
-     * iconalt - Alt text to use for the icon
-     * iconopen - Icon to indicate this node as expanded
-     * url - URL to link the node to
-     * urlclass - CSS class for the node's URL
-     * target - Target for the 'url' link
-     * title - Link tooltip title
-     * </pre>
-     */
-    public function addNodeParams($id, $params = array())
-    {
-        parent::addNodeParams($id, $params);
+        return $this->_buildHeader() . parent::getTree($static);
     }
 
     /**
@@ -253,8 +222,8 @@ class Horde_Tree_Html extends Horde_Tree_Base
          * for any given cell of content. */
         $column = 0;
 
-        if (isset($node['extra'][Horde_Tree::EXTRA_LEFT])) {
-            $extra = $node['extra'][Horde_Tree::EXTRA_LEFT];
+        if (isset($this->_extra[$node_id][Horde_Tree_Renderer::EXTRA_LEFT])) {
+            $extra = $this->_extra[$node_id][Horde_Tree_Renderer::EXTRA_LEFT];
             $cMax = count($extra);
             while ($column < $cMax) {
                 $line .= $this->_addColumn($column) . $extra[$column] . '</span>';
@@ -283,8 +252,8 @@ class Horde_Tree_Html extends Horde_Tree_Base
 
         $line .= '</span>';
 
-        if (isset($node['extra'][Horde_Tree::EXTRA_RIGHT])) {
-            $extra = $node['extra'][Horde_Tree::EXTRA_RIGHT];
+        if (isset($this->_extra[$node_id][Horde_Tree_Renderer::EXTRA_RIGHT])) {
+            $extra = $this->_extra[$node_id][Horde_Tree_Renderer::EXTRA_RIGHT];
             $cMax = count($extra);
             for ($c = 0, $cMax = count($extra); $c < $cMax; ++$c) {
                 $line .= $this->_addColumn($column++) . $extra[$c] . '</span>';
@@ -314,19 +283,19 @@ class Horde_Tree_Html extends Horde_Tree_Base
      */
     protected function _setLabel($node_id)
     {
-        $n = $this->_nodes[$node_id];
+        $node = $this->_nodes[$node_id];
 
         $output = '<span>';
 
-        $label = $n['label'];
-        if (!empty($n['url'])) {
+        $label = $node['label'];
+        if (!empty($node['url'])) {
             $target = '';
-            if (!empty($n['target'])) {
-                $target = ' target="' . $n['target'] . '"';
+            if (!empty($node['target'])) {
+                $target = ' target="' . $node['target'] . '"';
             } elseif ($target = $this->getOption('target')) {
                 $target = ' target="' . $target . '"';
             }
-            $output .= '<a' . (!empty($n['urlclass']) ? ' class="' . $n['urlclass'] . '"' : '') . ' href="' . $n['url'] . '"' . $target . '>' . $label . '</a>';
+            $output .= '<a' . (!empty($node['urlclass']) ? ' class="' . $node['urlclass'] . '"' : '') . ' href="' . $node['url'] . '"' . $target . '>' . $label . '</a>';
         } else {
             $output .= $label;
         }
@@ -481,7 +450,7 @@ class Horde_Tree_Html extends Horde_Tree_Base
     protected function _generateUrlTag($node_id)
     {
         $url = new Horde_Url($_SERVER['PHP_SELF']);
-        return $url->add(Horde_Tree::TOGGLE . $this->_instance, $node_id)->link();
+        return $url->add(Horde_Tree::TOGGLE . $this->_tree->instance, $node_id)->link();
     }
 
     /**

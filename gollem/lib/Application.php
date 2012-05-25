@@ -289,17 +289,16 @@ class Gollem_Application extends Horde_Registry_Application
         $url = Horde::url('manager.php');
 
         foreach (Gollem_Auth::getBackend() as $key => $val) {
-            $tree->addNode(
-                $parent . $key,
-                $parent,
-                $val['name'],
-                1,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent . $key,
+                'parent' => $parent,
+                'label' => $val['name'],
+                'expanded' => false,
+                'params' => array(
                     'icon' => $icon,
                     'url' => $url->add(array('backend_key' => $key))
                 )
-            );
+            ));
         }
     }
 

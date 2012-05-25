@@ -122,43 +122,40 @@ class Mnemo_Application extends Horde_Registry_Application
     {
         $add = Horde::url('memo.php')->add('actionID', 'add_memo');
 
-        $tree->addNode(
-            $parent . '__new',
-            $parent,
-            _("New Note"),
-            1,
-            false,
-            array(
+        $tree->addNode(array(
+            'id' => $parent . '__new',
+            'parent' => $parent,
+            'label' => _("New Note"),
+            'expanded' => false,
+            'params' => array(
                 'icon' => Horde_Themes::img('add.png'),
                 'url' => $add
             )
-        );
+        ));
 
         foreach (Mnemo::listNotepads() as $name => $notepad) {
-            $tree->addNode(
-                $parent . $name . '__new',
-                $parent . '__new',
-                sprintf(_("in %s"), $notepad->get('name')),
-                2,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent . $name . '__new',
+                'parent' => $parent . '__new',
+                'label' => sprintf(_("in %s"), $notepad->get('name')),
+                'expanded' => false,
+                'params' => array(
                     'icon' => Horde_Themes::img('add.png'),
                     'url' => $add->copy()->add('memolist', $name)
                 )
-            );
+            ));
         }
 
-        $tree->addNode(
-            $parent . '__search',
-            $parent,
-            _("Search"),
-            1,
-            false,
-            array(
+        $tree->addNode(array(
+            'id' => $parent . '__search',
+            'parent' => $parent,
+            'label' => _("Search"),
+            'expanded' => false,
+            'params' => array(
                 'icon' => Horde_Themes::img('search.png'),
                 'url' => Horde::url('search.php')
             )
-        );
+        ));
     }
 
     /**

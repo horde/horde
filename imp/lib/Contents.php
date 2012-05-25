@@ -1118,18 +1118,15 @@ class IMP_Contents
             self::SUMMARY_ICON_RAW | self::SUMMARY_DESCRIP_LINK | self::SUMMARY_SIZE | self::SUMMARY_DOWNLOAD
         );
 
-        $tree->addNode(
-            $mimeid,
-            $parent,
-            $summary['description'] . ' (' . $summary['size'] . ') ' . $summary['download']
-        );
-        $tree->addNodeParams(
-            $mimeid,
-            array(
+        $tree->addNode(array(
+            'id' => $mimeid,
+            'parent' => $parent,
+            'label' => $summary['description'] . ' (' . $summary['size'] . ') ' . $summary['download'],
+            'params' => array(
                 'class' => 'partsTreeDiv',
                 'icon' => $summary['icon']
             )
-        );
+        ));
 
         foreach ($part->getParts() as $part) {
             $this->_addTreeNodes($tree, $part, $mimeid);

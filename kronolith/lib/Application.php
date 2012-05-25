@@ -527,17 +527,16 @@ class Kronolith_Application extends Horde_Registry_Application
                         continue;
                     }
                     ++$alarmCount;
-                    $tree->addNode(
-                        $parent . $calId . $event->id,
-                        $parent,
-                        htmlspecialchars($event->getTitle()),
-                        1,
-                        false,
-                        array(
+                    $tree->addNode(array(
+                        'id' => $parent . $calId . $event->id,
+                        'parent' => $parent,
+                        'label' => htmlspecialchars($event->getTitle()),
+                        'expanded' => false,
+                        'params' => array(
                             'icon' => $alarmImg,
                             'url' => $event->getViewUrl(array(), false, false)
                         )
-                    );
+                    ));
                 }
             }
 
@@ -555,17 +554,16 @@ class Kronolith_Application extends Horde_Registry_Application
                 $pnode_name = '<strong>' . $pnode_name . '</strong>';
             }
 
-            $tree->addNode(
-                $parent,
-                $GLOBALS['registry']->get('menu_parent', $parent),
-                $pnode_name,
-                0,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent,
+                'parent' => $GLOBALS['registry']->get('menu_parent', $parent),
+                'label' => $pnode_name,
+                'expanded' => false,
+                'params' => array(
                     'icon' => $GLOBALS['registry']->get('icon', $parent),
                     'url' => $purl,
                 )
-            );
+            ));
             break;
 
         case 'menu':
@@ -580,17 +578,16 @@ class Kronolith_Application extends Horde_Registry_Application
             );
 
             foreach ($menus as $menu) {
-                $tree->addNode(
-                    $parent . $menu[0],
-                    $parent,
-                    $menu[1],
-                    1,
-                    false,
-                    array(
+                $tree->addNode(array(
+                    'id' => $parent . $menu[0],
+                    'parent' => $parent,
+                    'label' => $menu[1],
+                    'expanded' => false,
+                    'params' => array(
                         'icon' => Horde_Themes::img($menu[2]),
                         'url' => $menu[3]
                     )
-                );
+                ));
             }
             break;
         }

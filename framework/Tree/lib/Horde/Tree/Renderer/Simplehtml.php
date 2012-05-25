@@ -1,7 +1,11 @@
 <?php
 /**
- * The Horde_Tree_Simplehtml:: class provides simple HTML rendering of a tree
- * (no graphics).
+ * The Horde_Tree_Renderer_Simplehtml class provides simple HTML
+ * rendering of a tree (no graphics).
+ *
+ * Additional node parameters:
+ * - class: CSS class to use with the node
+ * - url: URL to link the node to
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
@@ -9,60 +13,19 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Tree
  */
-class Horde_Tree_Simplehtml extends Horde_Tree_Base
+class Horde_Tree_Renderer_Simplehtml extends Horde_Tree_Renderer_Base
 {
-    /**
-     * Allowed parameters for nodes.
-     *
-     * @var array
-     */
-    protected $_allowed = array(
-        'class',
-        'url'
-    );
-
     /**
      * Should the tree be rendered statically?
      *
      * @var boolean
      */
     protected $_static = true;
-
-    /**
-     * Returns the tree.
-     *
-     * @return string  The HTML code of the rendered tree.
-     */
-    public function getTree($static = false)
-    {
-        $this->_buildIndents($this->_root_nodes);
-
-        $tree = '';
-        foreach ($this->_root_nodes as $node_id) {
-            $tree .= $this->_buildTree($node_id);
-        }
-
-        return $tree;
-    }
-
-    /**
-     * Adds additional parameters to a node.
-     *
-     * @param string $id     The unique node id.
-     * @param array $params  Parameters to set (key/value pairs).
-     * <pre>
-     * class - CSS class to use with this node
-     * url - URL to link the node to
-     * </pre>
-     */
-    public function addNodeParams($id, $params = array())
-    {
-        parent::addNodeParams($id, $params);
-    }
 
     /**
      * Recursive function to walk through the tree array and build the output.
@@ -78,16 +41,16 @@ class Horde_Tree_Simplehtml extends Horde_Tree_Base
         $output = '<div' .
             (empty($node['class']) ? '' : ' class="' . $node['class'] . '"') .
             '>';
-        if (isset($node['extra'][Horde_Tree::EXTRA_LEFT])) {
-            $output .= implode(' ', $node['extra'][Horde_Tree::EXTRA_LEFT]);
+        if (isset($this->_extra[$node_id][Horde_Tree_Renderer::EXTRA_LEFT])) {
+            $output .= implode(' ', $this->_extra[$node_id][Horde_Tree_Renderer::EXTRA_LEFT]);
         }
         $output .= str_repeat('&nbsp;', $node['indent'] * 2);
 
         $output .= empty($node['url'])
             ? $node['label']
             : '<a href="' . strval($node['url']) . '">' . $node['label'] . '</a>';
-        if (isset($node['extra'][Horde_Tree::EXTRA_RIGHT])) {
-            $output .= implode(' ', $node['extra'][Horde_Tree::EXTRA_RIGHT]);
+        if (isset($this->_extra[$node_id][Horde_Tree_Renderer::EXTRA_RIGHT])) {
+            $output .= implode(' ', $this->_extra[$node_id][Horde_Tree_Renderer::EXTRA_RIGHT]);
         }
 
         if (isset($node['children'])) {
@@ -118,7 +81,7 @@ class Horde_Tree_Simplehtml extends Horde_Tree_Base
     protected function _generateUrlTag($node_id)
     {
         $url = new Horde_Url($_SERVER['PHP_SELF']);
-        return $url->add(Horde_Tree::TOGGLE . $this->_instance, $node_id)->link();
+        return $url->add(Horde_Tree::TOGGLE . $this->_tree->instance, $node_id)->link();
     }
 
 }

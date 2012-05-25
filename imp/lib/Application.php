@@ -489,32 +489,30 @@ class IMP_Application extends Horde_Registry_Application
         IMP_Mailbox::get('INBOX')->filterOnDisplay();
 
         if (IMP::canCompose()) {
-            $tree->addNode(
-                strval($parent) . 'compose',
-                $parent,
-                _("New Message"),
-                0,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => strval($parent) . 'compose',
+                'parent' => $parent,
+                'label' => _("New Message"),
+                'expanded' => false,
+                'params' => array(
                     'icon' => Horde_Themes::img('compose.png'),
                     'url' => IMP::composeLink()
                 )
-            );
+            ));
         }
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
-            $tree->addNode(
-                strval($parent) . 'search',
-                $parent,
-                _("Search"),
-                0,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => strval($parent) . 'search',
+                'parent' => $parent,
+                'label' => _("Search"),
+                'expanded' => false,
+                'params' => array(
                     'icon' => Horde_Themes::img('search.png'),
                     'url' => Horde::url('search.php')
                 )
-            );
+            ));
         }
 
         if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
@@ -549,14 +547,13 @@ class IMP_Application extends Horde_Registry_Application
             $name = sprintf('<strong>%s</strong> (%s)', $name, $imaptree->unseen);
         }
 
-        $tree->addNode(
-            strval($parent),
-            $registry->get('menu_parent', $parent),
-            $name,
-            0,
-            $imaptree->isOpen($parent),
-            $node_params
-        );
+        $tree->addNode(array(
+            'id' => strval($parent),
+            'parent' => $registry->get('menu_parent', $parent),
+            'label' => $name,
+            'expanded' => $imaptree->isOpen($parent),
+            'params' => $node_params
+        ));
     }
 
     /* Language change callback. */

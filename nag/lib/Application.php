@@ -381,18 +381,17 @@ class Nag_Application extends Horde_Registry_Application
                     'tasklist' => $task->tasklist
                 ));
 
-                $tree->addNode(
-                    $parent . $taskId,
-                    $parent,
-                    $task->name,
-                    1,
-                    false,
-                    array(
+                $tree->addNode(array(
+                    'id' => $parent . $taskId,
+                    'parent' => $parent,
+                    'label' => $task->name,
+                    'expanded' => false,
+                    'params' => array(
                         'icon' => Horde_Themes::img('alarm.png'),
                         'title' => $title,
                         'url' => $url
                     )
-                );
+                ));
             }
 
             if ($registry->get('url', $parent)) {
@@ -409,59 +408,55 @@ class Nag_Application extends Horde_Registry_Application
                 $pnode_name = '<strong>' . $pnode_name . '</strong>';
             }
 
-            $tree->addNode(
-                $parent,
-                $registry->get('menu_parent', $parent),
-                $pnode_name,
-                0,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent,
+                'parent' => $registry->get('menu_parent', $parent),
+                'label' => $pnode_name,
+                'expanded' => false,
+                'params' => array(
                     'icon' => strval($registry->get('icon', $parent)),
                     'url' => $purl
                 )
-            );
+            ));
             break;
 
         case 'menu':
             $add = Horde::url('task.php')->add('actionID', 'add_task');
 
-            $tree->addNode(
-                $parent . '__new',
-                $parent,
-                _("New Task"),
-                1,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent . '__new',
+                'parent' => $parent,
+                'label' => _("New Task"),
+                'expanded' => false,
+                'params' => array(
                     'icon' => Horde_Themes::img('add.png'),
                     'url' => $add
                 )
-            );
+            ));
 
             foreach (Nag::listTasklists() as $name => $tasklist) {
-                $tree->addNode(
-                    $parent . $name . '__new',
-                    $parent . '__new',
-                    sprintf(_("in %s"), $tasklist->get('name')),
-                    2,
-                    false,
-                    array(
+                $tree->addNode(array(
+                    'id' => $parent . $name . '__new',
+                    'parent' => $parent . '__new',
+                    'label' => sprintf(_("in %s"), $tasklist->get('name')),
+                    'expanded' => false,
+                    'params' => array(
                         'icon' => Horde_Themes::img('add.png'),
                         'url' => $add->copy()->add('tasklist_id', $name)
                     )
-                );
+                ));
             }
 
-            $tree->addNode(
-                $parent . '__search',
-                $parent,
-                _("Search"),
-                1,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent . '__search',
+                'parent' => $parent,
+                'label' => _("Search"),
+                'expanded' => false,
+                'params' => array(
                     'icon' => Horde_Themes::img('search.png'),
                     'url' => Horde::url('search.php')
                 )
-            );
+            ));
             break;
         }
     }

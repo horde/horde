@@ -103,9 +103,13 @@ class Horde_Core_Perms_Ui
                 $add_link = $add->add('perm_id', $perm_id)->link(array('class' => 'permsAdd', 'title' => Horde_Core_Translation::t("Add New Permission"))) . $add_img . '</a>';
                 $base_node_params = array('icon' => Horde_Themes::img('administration.png'));
 
-                $tree->addNode($perm_id, null, Horde_Core_Translation::t("All Permissions"), 0, true,
-                               $base_node_params + $node_class,
-                               array($add_link));
+                $tree->addNode(array(
+                    'id' => $perm_id,
+                    'label' => Horde_Core_Translation::t("All Permissions"),
+                    'expanded' => true,
+                    'params' => $base_node_params + $node_class,
+                    'right' => array($add_link)
+                ));
             } else {
                 $parent_id = $this->_perms->getParent($node);
 
@@ -144,9 +148,14 @@ class Horde_Core_Perms_Ui
                 $expanded = isset($nodes[$current]) &&
                     strpos($nodes[$current], $node) === 0 &&
                     $nodes[$current] != $node;
-                $tree->addNode($perm_id, $parent_id, $name,
-                               substr_count($node, ':') + 1, $expanded,
-                               $perms_node + $node_class, $perms_extra);
+                $tree->addNode(array(
+                    'id' => $perm_id,
+                    'parent' => $parent_id,
+                    'label' => $name,
+                    'expanded' => $expanded,
+                    'params' => $perms_node + $node_class,
+                    'right' => $perms_extra
+                ));
             }
         }
 

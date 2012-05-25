@@ -200,18 +200,17 @@ class Horde_Core_Sidebar
                     $url = Horde::url($registry->getInitialPage($app), false, array('app' => $app));
                 }
 
-                $this->_tree->addNode(
-                    $app,
-                    empty($params['menu_parent']) ? null : $params['menu_parent'],
-                    $name,
-                    0,
-                    false,
-                    array(
+                $this->_tree->addNode(array(
+                    'id' => $app,
+                    'parent' => empty($params['menu_parent']) ? null : $params['menu_parent'],
+                    'label' => $name,
+                    'expanded' => false,
+                    'params' => array(
                         'icon' => strval((isset($params['icon']) ? $params['icon'] : $registry->get('icon', $app))),
                         'target' => isset($params['target']) ? $params['target'] : null,
                         'url' => $url
                     )
-                );
+                ));
                 break;
             }
         }

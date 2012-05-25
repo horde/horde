@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-05-21</date>
- <time>19:07:01</time>
+ <date>2012-05-26</date>
+ <time>00:01:20</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -319,9 +319,11 @@
        </dir> <!-- /lib/Horde/Core/Text/Filter -->
       </dir> <!-- /lib/Horde/Core/Text -->
       <dir name="Tree">
-       <file name="Html.php" role="php" />
-       <file name="Javascript.php" role="php" />
-       <file name="Simplehtml.php" role="php" />
+       <dir name="Renderer">
+        <file name="Html.php" role="php" />
+        <file name="Javascript.php" role="php" />
+        <file name="Simplehtml.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Tree/Renderer -->
       </dir> <!-- /lib/Horde/Core/Tree -->
       <dir name="Ui">
        <dir name="VarRenderer">
@@ -1062,9 +1064,9 @@
    <package>
     <name>Horde_Tree</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0</min>
+    <max>3.0.0</max>
+    <exclude>3.0.0</exclude>
    </package>
    <package>
     <name>Horde_Vfs</name>
@@ -1291,9 +1293,9 @@
    <install as="Horde/Core/Text/Filter/Emails.php" name="lib/Horde/Core/Text/Filter/Emails.php" />
    <install as="Horde/Core/Text/Filter/Emoticons.php" name="lib/Horde/Core/Text/Filter/Emoticons.php" />
    <install as="Horde/Core/Text/Filter/Highlightquotes.php" name="lib/Horde/Core/Text/Filter/Highlightquotes.php" />
-   <install as="Horde/Core/Tree/Html.php" name="lib/Horde/Core/Tree/Html.php" />
-   <install as="Horde/Core/Tree/Javascript.php" name="lib/Horde/Core/Tree/Javascript.php" />
-   <install as="Horde/Core/Tree/Simplehtml.php" name="lib/Horde/Core/Tree/Simplehtml.php" />
+   <install as="Horde/Core/Tree/Renderer/Html.php" name="lib/Horde/Core/Tree/Renderer/Html.php" />
+   <install as="Horde/Core/Tree/Renderer/Javascript.php" name="lib/Horde/Core/Tree/Renderer/Javascript.php" />
+   <install as="Horde/Core/Tree/Renderer/Simplehtml.php" name="lib/Horde/Core/Tree/Renderer/Simplehtml.php" />
    <install as="Horde/Core/Ui/FlagImage.php" name="lib/Horde/Core/Ui/FlagImage.php" />
    <install as="Horde/Core/Ui/JsCalendar.php" name="lib/Horde/Core/Ui/JsCalendar.php" />
    <install as="Horde/Core/Ui/Language.php" name="lib/Horde/Core/Ui/Language.php" />

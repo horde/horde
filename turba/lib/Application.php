@@ -498,60 +498,55 @@ class Turba_Application extends Horde_Registry_Application
         if ($GLOBALS['addSources']) {
             $newimg = Horde_Themes::img('menu/new.png');
 
-            $tree->addNode(
-                $parent . '__new',
-                $parent,
-                _("New Contact"),
-                1,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent . '__new',
+                'parent' => $parent,
+                'label' => _("New Contact"),
+                'params' => array(
                     'icon' => $newimg,
                     'url' => $add
                 )
-            );
+            ));
 
             foreach ($GLOBALS['addSources'] as $addressbook => $config) {
-                $tree->addNode(
-                    $parent . $addressbook . '__new',
-                    $parent . '__new',
-                    sprintf(_("in %s"), $config['title']),
-                    2,
-                    false,
-                    array(
+                $tree->addNode(array(
+                    'id' => $parent . $addressbook . '__new',
+                    'parent' => $parent . '__new',
+                    'label' => sprintf(_("in %s"), $config['title']),
+                    'expanded' => false,
+                    'params' => array(
                         'icon' => $newimg,
                         'url' => $add->copy()->add('source', $addressbook)
                     )
-                );
+                ));
             }
         }
 
         foreach (Turba::getAddressBooks() as $addressbook => $config) {
             if (!empty($config['browse'])) {
-                $tree->addNode(
-                    $parent . $addressbook,
-                    $parent,
-                    $config['title'],
-                    1,
-                    false,
-                    array(
+                $tree->addNode(array(
+                    'id' => $parent . $addressbook,
+                    'parent' => $parent,
+                    'label' => $config['title'],
+                    'expanded' => false,
+                    'params' => array(
                         'icon' => Horde_Themes::img('menu/browse.png'),
                         'url' => $browse->copy()->add('source', $addressbook)
                     )
-                );
+                ));
             }
         }
 
-        $tree->addNode(
-            $parent . '__search',
-            $parent,
-            _("Search"),
-            1,
-            false,
-            array(
+        $tree->addNode(array(
+            'id' => $parent . '__search',
+            'parent' => $parent,
+            'label' => _("Search"),
+            'expanded' => false,
+            'params' => array(
                 'icon' => Horde_Themes::img('search.png'),
                 'url' => Horde::url('search.php')
             )
-        );
+        ));
     }
 
 }

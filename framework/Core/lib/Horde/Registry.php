@@ -1375,7 +1375,7 @@ class Horde_Registry
             return Horde::url('services/sidebar.php', false, $opts);
         }
 
-        throw new Horde_Exception('Invalid service provided.');
+        throw new BadFunctionCallException('Invalid service requested: ' . print_r(debug_backtrace(false), true));
     }
 
     /**
