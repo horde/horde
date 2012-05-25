@@ -168,6 +168,12 @@ border-bottom:2px solid #000;
   float:left;
   min-width:490px;
   }
+    .horde-navipoint:hover .horde-point-arrow{
+     background-image:url('sysimg/navi-arrow-normal-hover.png');
+    }
+    .horde-navipoint:hover .horde-point-center a{
+     color: #7eaa42;
+    }
     .horde-point-left{
     float:left;
     width:10px;

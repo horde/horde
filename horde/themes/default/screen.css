@@ -1740,6 +1740,12 @@ border-bottom:2px solid #000;
     .horde-navipoint{
     float:left;
     }
+    .horde-navipoint:hover .horde-point-arrow{
+     background-image:url('graphics/navi-arrow-normal-hover.png');
+    }
+    .horde-navipoint:hover .horde-point-center a{
+     color: #7eaa42;
+    }
     .horde-point-left{
     float:left;
     width:10px;
