@@ -55,12 +55,26 @@ abstract class Horde_Core_Ajax_Imple_InPlaceEditor extends Horde_Core_Ajax_Imple
             $page_output->addInlineJsVars(array(
                 'HordeImple.InPlaceEditor' => $config
             ));
+            $value_url = $this->getImpleUrl()->add(array(
+                'id' => $this->_params['dataid'],
+                'input' => 'value'
+            ));
+            $load_url = $value_url->copy()->add(array(
+                'action' => 'load'
+            ));
+
             $page_output->addInlineScript(array(
-                '$H(HordeImple.InPlaceEditor.ids).each(pair) {
+                'HordeImple.InPlaceEditor.ids["' . $this->getDomId() . '"]' => array(
+                    'load_url' => (string)$load_url,
+                    'rows' => $this->_params['rows'],
+                    'value_url' => (string)$value_url,
+                    'width' => $this->_params['width']
+                ),
+                '$H(HordeImple.InPlaceEditor.ids).each(function(pair) {
                      new InPlaceEditor(pair.key, pair.value.value_url, Object.extend(HordeImple.InPlaceEditor.config, {
                          callback: function(form, value) {
                              return "value=" + encodeURIComponent(value);
-                         }
+                         },
                          onComplete: function(ipe, opts) {
                              ipe.checkEmpty()
                          },
@@ -68,26 +82,9 @@ abstract class Horde_Core_Ajax_Imple_InPlaceEditor extends Horde_Core_Ajax_Imple
                          rows: pair.value.rows,
                          width: pair.value.width
                      }));
-                 }'
+                 })'
             ), true);
         }
-
-        $value_url = $this->getImpleUrl()->add(array(
-            'id' => $this->_params['dataid'],
-            'input' => 'value'
-        ));
-        $load_url = $value_url->copy()->add(array(
-            'action' => 'load'
-        ));
-
-        $page_output->addInlineJsVars(array(
-            'HordeImple.InPlaceEditor.ids.' . $this->getDomId() => array(
-                'load_url' => $load_url,
-                'rows' => $this->_params['rows'],
-                'value_url' => $value_url,
-                'width' => $this->_params['width']
-            )
-        ));
 
         return false;
     }
