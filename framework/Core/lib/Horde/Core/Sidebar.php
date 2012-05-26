@@ -40,7 +40,7 @@ class Horde_Core_Sidebar
      */
     public function isJavascript()
     {
-        return $this->_tree instanceof Horde_Core_Tree_Javascript;
+        return $this->_tree instanceof Horde_Core_Tree_Renderer_Javascript;
     }
 
     /**
