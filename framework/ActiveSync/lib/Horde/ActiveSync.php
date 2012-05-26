@@ -769,7 +769,7 @@ class Horde_ActiveSync
                     $results['Occurrence'] = $decoded['Occurrence'];
                 }
                 if (isset($decoded['Options'])) {
-                    $decoded['Options'] = bin2hex($decoded['Options']) * 1;
+                    $results['Options'] = bin2hex($decoded['Options']) * 1;
                 }
                 if (isset($decoded['User'])) {
                     $results['User'] = $decoded['User'];
