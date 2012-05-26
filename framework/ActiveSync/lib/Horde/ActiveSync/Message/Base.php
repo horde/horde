@@ -261,7 +261,7 @@ class Horde_ActiveSync_Message_Base
             $entity = $decoder->getElement();
 
             if ($entity[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
-                if (! ($entity[Horde_ActiveSync_Wbxml::EN_FLAGS] & Horde_ActiveSync_Wbxml::EN_FLAGS_CONTENT)) {
+                if (!($entity[Horde_ActiveSync_Wbxml::EN_FLAGS] & Horde_ActiveSync_Wbxml::EN_FLAGS_CONTENT)) {
                     $map = $this->_mapping[$entity[Horde_ActiveSync_Wbxml::EN_TAG]];
                     if (!isset($map[self::KEY_TYPE])) {
                         $this->$map[self::KEY_ATTRIBUTE] = '';
