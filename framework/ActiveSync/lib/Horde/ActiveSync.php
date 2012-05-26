@@ -534,7 +534,6 @@ class Horde_ActiveSync
         if (empty($devId)) {
             $devId = $get['DeviceId'];
         }
-
         $this->_setLogger($get);
 
         // Autodiscovery handles authentication on it's own.
@@ -602,8 +601,9 @@ class Horde_ActiveSync
         // Support Multipart response for ITEMOPERATIONS requests?
         $headers = $this->_request->getHeaders();
         if ((!empty($headers['ms-asacceptmultipart']) && $headers['ms-asacceptmultipart'] == 'T') ||
-            (isset($get['Options']) && $get['Options'] & 0x02)) {
+            (isset($get['Options']) && ($get['Options'] & 0x02))) {
             $this->_multipart = true;
+            $this->_logger->debug('MULTIPART REQUEST');
         }
 
         // Support gzip encoding?
@@ -846,7 +846,6 @@ class Horde_ActiveSync
            $pos = 2 + $lenToken;
            $uri = substr($uri, $pos);
         }
-
         return $arr_ret;
     }
 
