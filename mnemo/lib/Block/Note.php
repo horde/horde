@@ -55,11 +55,11 @@ class Mnemo_Block_Note extends Horde_Core_Block
             $body = Horde::callHook('format_description', array($body), 'mnemo', $body);
         } catch (Horde_Exception_HookNotSet $e) {}
         $html .= $body . '</div>';
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Mnemo_Ajax_Imple_EditNote', array(
-            'dataid' => $this->_params['note_uid'],
-            'id' => 'noteBody' . $memo['memo_id'],
-            'rows' => substr_count($memo['body'], "\n"),
-        ));
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')
+            ->create('Mnemo_Ajax_Imple_EditNote', array(
+                'dataid' => $this->_params['note_uid'],
+                'id' => 'noteBody' . $memo['memo_id'],
+                'rows' => substr_count($memo['body'], "\n")));
         return $html;
     }
 
