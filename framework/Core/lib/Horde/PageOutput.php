@@ -661,8 +661,8 @@ class Horde_PageOutput
             }
 
             $this->addInlineJsVars(array(
-                'var HordeCoreConf' => $js_conf,
-                'var HordeCoreText' => $js_text
+                'HordeCore.conf' => $js_conf,
+                'HordeCore.text' => $js_text
             ), array('top' => true));
 
             $view->stylesheetOpts['sub'] = 'dynamic';

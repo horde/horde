@@ -964,7 +964,7 @@ var DimpBase = {
                       ),
                 form_id: 'mbox_import',
                 form_opts: {
-                    action: HordeCoreConf.URI_AJAX + 'importMailbox',
+                    action: HordeCore.conf.URI_AJAX + 'importMailbox',
                     className: 'RBForm',
                     enctype: 'multipart/form-data',
                     method: 'post',
@@ -3792,7 +3792,7 @@ var DimpBase = {
         /* Make sure loading images are closed. */
         this.loadingImg('msg', false);
         this.loadingImg('viewport', false);
-        HordeCore.notify(HordeCoreText.ajax_error, 'horde.error');
+        HordeCore.notify(HordeCore.text.ajax_error, 'horde.error');
     }
 
 };

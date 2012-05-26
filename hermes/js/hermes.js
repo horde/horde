@@ -24,7 +24,7 @@ HermesCore = {
             $('hermesLoading').hide();
         }
         this.closeRedBox();
-        HordeCore.notify(HordeCoreText.ajax_error, 'horde.error');
+        HordeCore.notify(HordeCore.text.ajax_error, 'horde.error');
         parentfunc(r, e);
     },
 

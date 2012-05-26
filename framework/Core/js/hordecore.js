@@ -16,14 +16,10 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  */
 
-if (!HordeCoreConf) {
-    var HordeCoreConf = {};
-}
-
 var HordeCore = {
 
     // Vars used and defaulting to null/false:
-    //   Growler, inAjaxCallback, is_logout, submit_frame
+    //   Growler, conf, inAjaxCallback, is_logout, submit_frame, text
     alarms: [],
     base: null,
     notify_handler: function(m) { HordeCore.showNotifications(m); },
@@ -56,7 +52,7 @@ var HordeCore = {
     onFailure: function(t, o)
     {
         this.debug('onFailure', t);
-        this.notify(HordeCoreText.ajax_error, 'horde.error');
+        this.notify(this.text.ajax_error, 'horde.error');
         document.fire('HordeCore:ajaxFailure', [ t, o ]);
     },
 
@@ -69,7 +65,7 @@ var HordeCore = {
         var ajaxopts = Object.extend(this.doActionOpts, opts.ajaxopts || {});
 
         this.addRequestParams(params);
-        params.set('token', HordeCoreConf.TOKEN);
+        params.set('token', this.conf.TOKEN);
 
         ajaxopts.parameters = params;
 
@@ -77,7 +73,7 @@ var HordeCore = {
             this.doActionComplete(t, opts.callback);
         }.bind(this);
 
-        new Ajax.Request(HordeCoreConf.URI_AJAX + action, ajaxopts);
+        new Ajax.Request(this.conf.URI_AJAX + action, ajaxopts);
     },
 
     // form: (Element) DOM Element (or DOM ID)
@@ -119,8 +115,8 @@ var HordeCore = {
     // params: (Hash) URL parameters
     addRequestParams: function(params)
     {
-        if (HordeCoreConf.SID) {
-            params.update(HordeCoreConf.SID.toQueryParams());
+        if (this.conf.SID) {
+            params.update(this.conf.SID.toQueryParams());
         }
     },
 
@@ -130,7 +126,7 @@ var HordeCore = {
 
         if (!request.responseJSON) {
             if (++this.server_error == 3) {
-                this.notify(HordeCoreText.ajax_timeout, 'horde.error');
+                this.notify(this.text.ajax_timeout, 'horde.error');
             }
             if (request.request) {
                 request.request.options.onFailure(request, {});
@@ -147,7 +143,7 @@ var HordeCore = {
 
         if (this.server_error >= 3) {
             r.msgs.push({
-                message: HordeCoreText.ajax_recover,
+                message: this.text.ajax_recover,
                 type: 'horde.success'
             });
         }
@@ -218,11 +214,11 @@ var HordeCore = {
                 }
                 if (alarm.user) {
                     var select = '<select>';
-                    $H(HordeCoreText.snooze_select).each(function(snooze) {
+                    $H(this.text.snooze_select).each(function(snooze) {
                         select += '<option value="' + snooze.key + '">' + snooze.value + '</option>';
                     });
                     select += '</select>';
-                    message.insert('<br /><br />' + HordeCoreText.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="button ko" />' }));
+                    message.insert('<br /><br />' + this.text.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="button ko" />' }));
                 }
                 var growl = this.Growler.growl(message, {
                     className: 'horde-alarm',
@@ -243,7 +239,7 @@ var HordeCore = {
                     message.down('select').observe('change', function(e) {
                         if (e.element().getValue()) {
                             this.Growler.ungrowl(growl);
-                            new Ajax.Request(HordeCoreConf.URI_SNOOZE, {
+                            new Ajax.Request(this.conf.URI_SNOOZE, {
                                 parameters: {
                                     alarm: alarm.id,
                                     snooze: e.element().getValue()
@@ -255,7 +251,7 @@ var HordeCore = {
                         e.stop();
                     });
                     message.down('input[type=button]').observe('click', function(e) {
-                        new Ajax.Request(HordeCoreConf.URI_SNOOZE, {
+                        new Ajax.Request(this.conf.URI_SNOOZE, {
                             parameters: {
                                 alarm: alarm.id,
                                 snooze: -1
@@ -301,16 +297,16 @@ var HordeCore = {
         opts = opts || {};
 
         var params = {
-            height: HordeCoreConf.popup_height,
+            height: this.conf.popup_height,
             name: (opts.name || '_hordepopup').gsub(/\W/, '_'),
             noalert: true,
             onload: opts.onload,
             url: this.addURLParam(url, params),
-            width: HordeCoreConf.popup_width
+            width: this.conf.popup_width
         };
 
         if (!Horde.popup(params)) {
-            this.notify(HordeCoreText.popup_block, 'horde.warning');
+            this.notify(this.text.popup_block, 'horde.warning');
         }
     },
 
@@ -333,7 +329,7 @@ var HordeCore = {
     logout: function(url)
     {
         this.is_logout = true;
-        this.redirect(url || HordeCoreConf.URI_LOGOUT);
+        this.redirect(url || this.conf.URI_LOGOUT);
     },
 
     // url: (string) URL to redirect to
@@ -345,7 +341,7 @@ var HordeCore = {
     // Redirect to the download link.
     download: function(name, params)
     {
-        var url = this.addURLParam(HordeCoreConf.URI_DLOAD, params);
+        var url = this.addURLParam(this.conf.URI_DLOAD, params);
         // Guaranteed to have at least one URL parameter, since download
         // URL requires the app name. So just append filename to end.
         url += '&fn=/' . encodeURIComponent(name);
@@ -408,12 +404,12 @@ var HordeCore = {
         } catch (e) {}
 
         /* Add Growler notification handler. */
-        if (HordeCoreConf.growler_log) {
+        if (this.conf.growler_log) {
             this.Growler = new Growler({
-                info: HordeCoreText.growlerinfo,
+                info: this.text.growlerinfo,
                 location: 'br',
                 log: true,
-                noalerts: HordeCoreText.growlernoalerts
+                noalerts: this.text.growlernoalerts
             });
         } else {
             this.Growler = new Growler({ location: 'br' });
