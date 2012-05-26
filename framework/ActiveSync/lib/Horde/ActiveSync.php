@@ -481,7 +481,7 @@ class Horde_ActiveSync
         $this->_loggerFactory = $logger;
     }
 
-    protected function _setLogger($options)
+    protected function _setLogger(array $options)
     {
         $this->_logger = $this->_loggerFactory->create($options);
         $this->_encoder->setLogger($this->_logger);
