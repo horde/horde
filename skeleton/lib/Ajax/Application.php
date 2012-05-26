@@ -31,7 +31,7 @@ class Skeleton_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return array Returns a list of all foos.
      */
-    public function list()
+    public function listElements()
     {
         $driver = $this->_getDriver();
         $driver->retrieve();
