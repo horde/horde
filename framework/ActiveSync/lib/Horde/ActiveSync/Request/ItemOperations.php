@@ -199,6 +199,9 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                         } catch (Horde_ActiveSync_Exception $e) {
                             $this->_statusCode = self::STATUS_ATTINVALID;
                         }
+                        if (!$this->_encoder->multipart) {
+                            $msg->total = $msg->range = $this->_getDataSize($msg->data);
+                        }
                         $this->_outputStatus();
                         $this->_encoder->startTag(Horde_ActiveSync::AIRSYNCBASE_FILEREFERENCE);
                         $this->_encoder->content($value['airsyncbasefilereference']);
@@ -275,6 +278,18 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
         $this->_encoder->startTag(self::ITEMOPERATIONS_STATUS);
         $this->_encoder->content($this->_statusCode);
         $this->_encoder->endTag();
+    }
+
+    protected function _getDataSize($data)
+    {
+        if (is_resource($data)) {
+            rewind($data);
+            fseek($data, 0, SEEK_END);
+            return ftell($data);
+            rewind($data);
+        } else {
+            return strlen(bin2hex($data)) / 2;
+        }
     }
 
 }
