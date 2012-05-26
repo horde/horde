@@ -81,7 +81,6 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
     const REMINDER_SET_TRUE       = 1;
 
     protected $_mapping = array (
-        self::POOMTASKS_BODY          => array (self::KEY_ATTRIBUTE => 'body'),
         self::POOMTASKS_COMPLETE      => array (self::KEY_ATTRIBUTE => 'complete'),
         self::POOMTASKS_DATECOMPLETED => array (self::KEY_ATTRIBUTE => 'datecompleted', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         self::POOMTASKS_DUEDATE       => array (self::KEY_ATTRIBUTE => 'duedate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
@@ -96,12 +95,10 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
         self::POOMTASKS_STARTDATE     => array (self::KEY_ATTRIBUTE => 'startdate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         self::POOMTASKS_UTCSTARTDATE  => array (self::KEY_ATTRIBUTE => 'utcstartdate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         self::POOMTASKS_SUBJECT       => array (self::KEY_ATTRIBUTE => 'subject'),
-        self::POOMTASKS_RTF           => array (self::KEY_ATTRIBUTE => 'rtf'),
         self::POOMTASKS_CATEGORIES    => array (self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::POOMTASKS_CATEGORY),
     );
 
     protected $_properties = array(
-        'body'          => false,
         'bodytruncated' => 0,
         'categories'    => array(),
         'complete'      => false,
@@ -113,13 +110,50 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
         'regenerate'    => false,
         'reminderset'   => false,
         'remindertime'  => false,
-        'rtf'           => false,
         'sensitiviy'    => false,
         'startdate'     => false,
         'subject'       => false,
         'utcduedate'    => false,
         'utcstartdate'  => false,
     );
+
+
+    /**
+     * Const'r
+     *
+     * @param array $options  Configuration options for the message:
+     *   - logger: (Horde_Log_Logger)  A logger instance
+     *             DEFAULT: none (No logging).
+     *   - version: (float)  The version of EAS to support.
+     *              DEFAULT: Horde_ActiveSync::VERSION_TWOFIVE (2.5)
+     *
+     * @return Horde_ActiveSync_Message_Base
+     */
+    public function __construct(array $options = array())
+    {
+        parent::__construct($options);
+        if ($this->_version < 12.0) {
+            $this->_mapping += array(
+                self::POOMTASKS_BODY          => array (self::KEY_ATTRIBUTE => 'body'),
+                self::POOMTASKS_RTF           => array (self::KEY_ATTRIBUTE => 'rtf'),
+            );
+
+            $this->_properties += array(
+                'body'          => false,
+                'rtf'           => false
+            );
+        }
+
+        if ($this->_version >= 12.0) {
+            $this->_mapping += array(
+                Horde_ActiveSync::AIRSYNCBASE_BODY => array(self::KEY_ATTRIBUTE => 'airsyncbasebody', self::KEY_TYPE=> 'Horde_ActiveSync_Message_AirSyncBaseBody'),
+            );
+
+            $this->_properties += array(
+                'airsyncbasebody'           => false,
+            );
+        }
+    }
 
     /**
      * Sets the task subject
