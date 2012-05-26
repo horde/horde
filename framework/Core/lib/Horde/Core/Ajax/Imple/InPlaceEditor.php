@@ -28,7 +28,7 @@ abstract class Horde_Core_Ajax_Imple_InPlaceEditor extends Horde_Core_Ajax_Imple
             'cols' => 20,
             'dataid' => '',
             'rows' => 2
-        ));
+        ), $params);
 
         parent::__construct($params);
     }
