@@ -43,18 +43,7 @@ abstract class Horde_Core_Ajax_Imple_InPlaceEditor extends Horde_Core_Ajax_Imple
             $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
             $page_output->addScriptFile('inplaceeditor.js', 'horde');
 
-            $config = new stdClass;
-            $config->config = array(
-                'cancelClassName' => '',
-                'cancelText' => _("Cancel"),
-                'emptyText' => _("Click to add caption..."),
-                'okText' => _("Ok")
-            );
-            $config->ids = new stdClass;
 
-            $page_output->addInlineJsVars(array(
-                'HordeImple.InPlaceEditor' => $config
-            ));
             $value_url = $this->getImpleUrl()->add(array(
                 'id' => $this->_params['dataid'],
                 'input' => 'value'
@@ -63,13 +52,25 @@ abstract class Horde_Core_Ajax_Imple_InPlaceEditor extends Horde_Core_Ajax_Imple
                 'action' => 'load'
             ));
 
+            $config = new stdClass;
+            $config->config = array(
+                'cancelClassName' => '',
+                'cancelText' => _("Cancel"),
+                'emptyText' => _("Click to add caption..."),
+                'okText' => _("Ok")
+            );
+            $config->ids = new stdClass;
+            $config->ids->{$this->getDomId()} = array(
+                'load_url' => (string)$load_url,
+                'rows' => $this->_params['rows'],
+                'value_url' => (string)$value_url,
+                'width' => $this->_params['width']
+            );
+
+            $page_output->addInlineJsVars(array(
+                'HordeImple.InPlaceEditor' => $config
+            ));
             $page_output->addInlineScript(array(
-                'HordeImple.InPlaceEditor.ids["' . $this->getDomId() . '"]' => array(
-                    'load_url' => (string)$load_url,
-                    'rows' => $this->_params['rows'],
-                    'value_url' => (string)$value_url,
-                    'width' => $this->_params['width']
-                ),
                 '$H(HordeImple.InPlaceEditor.ids).each(function(pair) {
                      new InPlaceEditor(pair.key, pair.value.value_url, Object.extend(HordeImple.InPlaceEditor.config, {
                          callback: function(form, value) {
