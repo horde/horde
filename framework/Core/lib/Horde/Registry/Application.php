@@ -472,13 +472,13 @@ class Horde_Registry_Application
     /**
      * Add node(s) to the sidebar tree.
      *
-     * @param Horde_Tree_Base $tree  Tree object.
+     * @param Horde_Tree_Renderer_Base $tree  Tree object.
      * @param string $parent         The current parent element.
      * @param array $params          Additional parameters.
      *
      * @throws Horde_Exception
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+    public function sidebarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
                                   array $params = array()) {}
 
 

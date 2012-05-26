@@ -46,7 +46,7 @@ class Horde_Core_Factory_Tree extends Horde_Core_Factory_Base
      *               DEFAULT: false
      * </pre>
      *
-     * @return Horde_Tree_Base  The singleton instance.
+     * @return Horde_Tree_Renderer_Base  The singleton instance.
      * @throws Horde_Tree_Exception
      */
     public function create($name, $renderer, array $params = array())

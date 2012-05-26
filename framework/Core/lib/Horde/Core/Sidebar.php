@@ -17,7 +17,7 @@ class Horde_Core_Sidebar
     /**
      * A tree object.
      *
-     * @var Horde_Tree_Base
+     * @var Horde_Tree_Renderer_Base
      */
     protected $_tree;
 
@@ -47,7 +47,7 @@ class Horde_Core_Sidebar
      * Returns the current tree object, without adding any nodes or further
      * processing.
      *
-     * @return Horde_Tree_Base  The current tree object.
+     * @return Horde_Tree_Renderer_Base  The current tree object.
      */
     public function getBaseTree()
     {
@@ -57,7 +57,7 @@ class Horde_Core_Sidebar
     /**
      * Generates the sidebar tree object.
      *
-     * @return Horde_Tree_Base  The sidebar tree object.
+     * @return Horde_Tree_Renderer_Base  The sidebar tree object.
      */
     public function getTree()
     {

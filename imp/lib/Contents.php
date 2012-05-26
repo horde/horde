@@ -1089,7 +1089,7 @@ class IMP_Contents
      * @param string $renderer  Either the tree renderer driver or a full
      *                          class name to use.
      *
-     * @return Horde_Tree_Base  A tree instance representing the MIME parts.
+     * @return Horde_Tree_Renderer_Base  A tree instance representing the MIME parts.
      * @throws Horde_Tree_Exception
      */
     public function getTree($renderer = 'Horde_Core_Tree_Html')
@@ -1104,7 +1104,7 @@ class IMP_Contents
     /**
      * Adds MIME parts to the tree instance.
      *
-     * @param Horde_Tree_Base tree   A tree instance.
+     * @param Horde_Tree_Renderer_Base tree   A tree instance.
      * @param Horde_Mime_Part $part  The MIME part to add to the tree,
      *                               including its sub-parts.
      * @param string $parent         The parent part's MIME id.

@@ -506,7 +506,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
     /**
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+    public function sidebarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
                                   array $params = array())
     {
         switch ($params['id']) {

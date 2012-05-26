@@ -1563,7 +1563,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         $this->_unseen = 0;
 
-        if ($name instanceof Horde_Tree_Base) {
+        if ($name instanceof Horde_Tree_Renderer_Base) {
             $tree = $name;
             $parent = $opts['parent'];
         } else {
