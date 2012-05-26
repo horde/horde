@@ -82,7 +82,7 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
      *
      * @throws Sms_Exception
      */
-    public function post($data)
+    public function store($data)
     {
         $query = 'INSERT INTO skeleton_items' .
                  ' (item_owner, item_data)' .
