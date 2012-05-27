@@ -786,7 +786,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         }
                         $this->_updateSyncCacheCollection(
                             $collection,
-                            (isset($collection['newsynckey']) ? $collection['newsynckey'] : false),
+                            $collection['newsynckey'],
                             true
                         );
                     }
