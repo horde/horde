@@ -46,7 +46,7 @@ class Horde_ActiveSync_Request_SmartForward extends Horde_ActiveSync_Request_Bas
     protected function _handle()
     {
         $rfc822 = file_get_contents('php://input');
-        $get = $this->_request->getGetVars();
+        $get = $this->_activeSync->getGetVars();
         if (empty($get['ItemId'])) {
             $orig = false;
         } else {

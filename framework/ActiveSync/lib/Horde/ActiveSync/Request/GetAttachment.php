@@ -47,7 +47,7 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
             "[%s] Handling GETATTACHMENT command.",
             $this->_device->id)
         );
-        $get = $this->_request->getGetVars();
+        $get = $this->_activeSync->getGetVars();
         if (empty($get['AttachmentName'])) {
             return false;
         }
