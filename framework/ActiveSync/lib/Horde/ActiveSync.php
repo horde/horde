@@ -306,6 +306,13 @@ class Horde_ActiveSync
     protected $_compression = false;
 
     /**
+     * Local cache of Get variables/decoded base64 uri
+     *
+     * @var array
+     */
+    protected $_get = array();
+
+    /**
      * Map of commands when query string is base64 encoded (EAS 12.1)
      *
      * @var array
@@ -697,7 +704,13 @@ class Horde_ActiveSync
     {
         $this->_policykey = $this->_request->getHeader('X-MS-PolicyKey');
         if (empty($this->_policykey)) {
-            $this->_policykey = 0;
+            // Try the get request.
+            $get = $this->getGetVars();
+            if (!empty($get['PolicyKey'])) {
+                $this->_policykey = $get['PolicyKey'];
+            } else {
+                $this->_policykey = 0;
+            }
         }
 
         return $this->_policykey;
@@ -732,6 +745,10 @@ class Horde_ActiveSync
      */
     public function getGetVars()
     {
+        if (!empty($this->_get)) {
+            return $this->_get;
+        }
+
         $results = array();
         $get = $this->_request->getGetVars();
         if (!isset($get['Cmd']) && !isset($get['DeviceId']) && !isset($get['DeviceType'])) {
@@ -739,6 +756,7 @@ class Horde_ActiveSync
             if (isset($serverVars['QUERY_STRING']) && strlen($serverVars['QUERY_STRING']) >= 10) {
                 $decoded = Horde_ActiveSync_Utils::decodeBase64($serverVars['QUERY_STRING']);
                 $results['DeviceId'] = $decoded['DevID'];
+                $results['PolicyKey'] = $decoded['PolKey'];
                 switch ($decoded['DevType']) {
                 case 'PPC':
                     $results['DeviceType'] = 'PocketPC';
@@ -777,9 +795,12 @@ class Horde_ActiveSync
                 if (isset($decoded['ProtVer'])) {
                     $results['ProtVer'] = $decoded['ProtVer'];
                 }
+
+                $this->_get = $results;
                 return $results;
             }
         } else {
+            $this->_get = $get;
             return $get;
         }
     }
