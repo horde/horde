@@ -737,7 +737,7 @@ class Horde_ActiveSync
         if (!isset($get['Cmd']) && !isset($get['DeviceId']) && !isset($get['DeviceType'])) {
             $serverVars = $this->_request->getServerVars();
             if (isset($serverVars['QUERY_STRING']) && strlen($serverVars['QUERY_STRING']) >= 10) {
-                $decoded = $this->_decodeBase64($serverVars['QUERY_STRING']);
+                $decoded = Horde_ActiveSync_Utils::decodeBase64($serverVars['QUERY_STRING']);
                 $results['DeviceId'] = $decoded['DevID'];
                 switch ($decoded['DevType']) {
                 case 'PPC':
@@ -793,60 +793,6 @@ class Horde_ActiveSync
         $this->activeSyncHeader();
         $this->versionHeader();
         $this->commandsHeader();
-    }
-
-    protected function _decodeBase64($uri)
-    {
-        $uri = base64_decode($uri);
-        $lenDevID = ord($uri{4});
-        $lenPolKey = ord($uri{4 + (1 + $lenDevID)});
-        $lenDevType = ord($uri{4 + (1 + $lenDevID) + (1 + $lenPolKey)});
-        $arr_ret = unpack(
-            'CProtVer/CCommand/vLocale/CDevIDLen/H' . ($lenDevID * 2)
-                . 'DevID/CPolKeyLen' . ($lenPolKey == 4 ? '/VPolKey' : '')
-                . '/CDevTypeLen/A' . $lenDevType . 'DevType', $uri);
-        $pos = (7 + $lenDevType + $lenPolKey + $lenDevID);
-        $uri = substr($uri, $pos);
-        while (strlen($uri) > 0) {
-            $lenToken = ord($uri{1});
-            switch (ord($uri{0})) {
-            case 0:
-                $type = 'AttachmentName';
-                break;
-            case 1:
-                $type = 'CollectionId';
-                break;
-            case 2:
-                $type = 'CollectionName';
-                break;
-            case 3:
-                $type = 'ItemId';
-                break;
-            case 4:
-                $type = 'LongId';
-                break;
-            case 5:
-                $type = 'ParentId';
-                break;
-            case 6:
-                $type = 'Occurrence';
-                break;
-            case 7:
-                $type = 'Options';
-                break;
-            case 8:
-                $type = 'User';
-                break;
-            default:
-                $type = 'unknown' . ord($uri{0});
-                break;
-            }
-           $value = unpack('CType/CLength/A' . $lenToken . 'Value', $uri);
-           $arr_ret[$type] = $value['Value'];
-           $pos = 2 + $lenToken;
-           $uri = substr($uri, $pos);
-        }
-        return $arr_ret;
     }
 
     /**
