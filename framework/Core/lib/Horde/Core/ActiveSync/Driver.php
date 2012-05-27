@@ -948,12 +948,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @param string $type   The search type; ['gal'|'mailbox']
      * @param array $query   The search query. An array containing:
-     *  - query: (mixed) The search term. Either a string if searching gal, or
-     *           an array for searching mailbox.
+     *  - query: array The search query. Contains at least:
+     *                 'query' and 'range'. The rest depends on the type of
+     *                 search being performed.
      *           DEFAULT: none, REQUIRED
      *  - range: (string)   A range limiter.
      *           DEFAULT: none (No range used).
-     *  -
      *
      * @return array  An array containing:
      *  - rows:   An array of search results
@@ -1560,7 +1560,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
     }
 
-    protected function _hasAttachments($mime_part)
+    /**
+     * Return if the specified mime part has attachments.
+     *
+     * @param Horde_Mime_Part $mime_part  The mime part.
+     *
+     * @return boolean
+     */
+    protected function _hasAttachments(Horde_Mime_Part $mime_part)
     {
         foreach ($mime_part->contentTypeMap() as $type) {
             if ($this->_isAttachment($type)) {
