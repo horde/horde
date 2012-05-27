@@ -1255,8 +1255,11 @@ abstract class Kronolith_Event
         if (strlen($title = $message->getSubject())) {
             $this->title = $title;
         }
-        if (strlen($description = $message->getBody())) {
+        if ($message->getProtocolVersion() == Horde_ActiveSync::VERSION_TWOFIVE &&
+            strlen($description = $message->getBody())) {
             $this->description = $description;
+        } else {
+            $this->description = $message->airsyncbasebody->data;
         }
         if (strlen($location = $message->getLocation())) {
             $this->location = $location;
