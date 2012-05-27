@@ -1020,7 +1020,7 @@ class Turba_Api extends Horde_Registry_Api
      *   - rfc822Return: Return a Horde_Mail_Rfc822_List object.
      *                   DEFAULT: Returns an array of search results.
      *   - sources: (array) The sources to search in.
-     *              DEFAULT: All sources
+     *              DEFAULT: Search the user's default address book
      *
      * @return mixed  Either a hash containing the search results or a
      *                Rfc822 List object (if 'rfc822Return' is true).
