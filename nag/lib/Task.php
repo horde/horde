@@ -1176,7 +1176,7 @@ class Nag_Task
 
         /* Notes and Title */
         if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
-
+            $this->desc = $message->airsyncbasebody->data;
         } else {
             $this->desc = $message->body;
         }
