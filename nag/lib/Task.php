@@ -1190,7 +1190,7 @@ class Nag_Task
         }
 
         /* Due Date */
-        if ($due = $message->utcduedate {
+        if ($due = $message->utcduedate) {
             $this->due = $due->timestamp();
         }
 
