@@ -1321,6 +1321,36 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Handle ResolveRecipient requests
+     *
+     * @param string $type    The type of recipient request. e.g., 'certificate'
+     * @param string $search  The email to resolve.
+     * @param array $opts  Any options required to perform the resolution.
+     *
+     * @return array  The results.
+     */
+    public function resolveRecipient($type, $search, array $opts = array())
+    {
+        $return = array();
+        $gal = $this->_connector->contacts_getGal();
+        $results = $this->_connector->resolveRecipient($search);
+        if (count($results) && isset($results[$search])) {
+            foreach ($results[$search] as $result) {
+                // Do maxabiguous filtering etc...
+                //Horde::debug($result);
+                $return[] = array(
+                    'displayname' => $result['name'],
+                    'emailaddress' => $result['email'],
+                    'entries' => array($result['smimePublicKey']),
+                    'type' => $result['source'] == $gal ? 1 : 2
+                );
+            }
+        }
+
+        return $return;
+    }
+
+    /**
      * Helper to build a folder object for non-email folders.
      *
      * @param string $id      The folder's server id.

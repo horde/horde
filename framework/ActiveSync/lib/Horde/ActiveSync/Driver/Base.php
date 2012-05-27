@@ -665,4 +665,15 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     abstract public function getUsernameFromEmail($email);
 
+    /**
+     * Handle ResolveRecipient requests
+     *
+     * @param string $type    The type of recipient request. e.g., 'certificate'
+     * @param string $search  The email to resolve.
+     * @param array $options  Any options required to perform the resolution.
+     *
+     * @return array  The results.
+     */
+    abstract public function resolveRecipient($type, $search, array $options = array());
+
 }

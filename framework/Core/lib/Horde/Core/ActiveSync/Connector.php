@@ -255,6 +255,35 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Resolve a recipient
+     *
+     * @param string $query  The search string. Ususally an email address.
+     * @param array $opts    Any additional options:
+     *   - maxAmbiguous (integer)  The maximum number of ambiguous results. If
+     *                             set to 0, we want only a single, definitive
+     *                             search result. I.e, at least on field MUST
+     *                             match strictly.
+     *                  DEFAULT: NONE
+     * @return array  The search results.
+     */
+    public function resolveRecipient($query, array $opts = array())
+    {
+        $sources = array_keys($this->_registry->contacts->sources());
+        foreach ($sources as $source) {
+            $fields[$source] = array('name', 'email', 'alias');
+        }
+        $options = array(
+            'matchBegin' => true,
+            'sources' => $sources,
+            'fields' => $fields
+        );
+        if (isset($opts['maxAmbiguous']) && $opts['maxAmbiguous'] == 0) {
+            $options['customStrict'] = array('email', 'name', 'alias');
+        }
+        return $this->_registry->contacts->search($query, $options);
+    }
+
+    /**
      * Get the GAL source uid.
      *
      * @return string | boolean  The address book id of the GAL, or false if
