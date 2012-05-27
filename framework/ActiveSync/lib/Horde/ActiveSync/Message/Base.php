@@ -122,6 +122,16 @@ class Horde_ActiveSync_Message_Base
     }
 
     /**
+     * Return the EAS version this object supports.
+     *
+     * @return float  The EAS version (2.5, 12, or 12.1).
+     */
+    public function getProtocolVersion()
+    {
+        return $this->_version;
+    }
+
+    /**
      * Check the existence of a property in this message.
      *
      * @param string $property  The property name
