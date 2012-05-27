@@ -65,7 +65,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
             'password' => true,
             'text' => $text,
             'type' => $this->_params['type'],
-            'uri' => strval($this->_getImpleUrl()->setRaw(true))
+            'uri' => strval($this->getImpleUrl()->setRaw(true))
         );
 
         if (isset($this->_params['reloadurl'])) {
