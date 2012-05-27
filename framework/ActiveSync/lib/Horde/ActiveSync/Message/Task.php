@@ -33,6 +33,21 @@
  * @copyright 2010-2012 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property boolean complete           Completion flag
+ * @property Horde_Date datecompleted   The date the task was completed, in UTC.
+ * @property Horde_Date utcduedate      The date this task is due, in UTC.
+ * @property integer importance         The importance flag.
+ * @property Horde_ActiveSync_Message_TaskRecurrence recurrence
+ *                                      The recurrence object.
+ * @property integer sensitivity        The sensitivity flag.
+ * @property Horde_Date utcstartdate    The date this task starts, in UTC.
+ * @property string subject             The task subject.
+ * @property array categories           An array of categories.
+ * @property string body                The task body (EAS Version < 12.0)
+ * @property boolean bodytruncated      Truncation flag (EAS Version < 12.0)
+ * @property Horde_ActiveSync_Message_AirSyncBaseBody  airsyncbasebody
+ *                                      The task body (EAS Version >= 12.0)
  */
 class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
 {
@@ -124,7 +139,7 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
      * @param array $options  Configuration options for the message:
      *   - logger: (Horde_Log_Logger)  A logger instance
      *             DEFAULT: none (No logging).
-     *   - version: (float)  The version of EAS to support.
+     *   - protcolversion: (float)  The version of EAS to support.
      *              DEFAULT: Horde_ActiveSync::VERSION_TWOFIVE (2.5)
      *
      * @return Horde_ActiveSync_Message_Base
@@ -132,129 +147,25 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
     public function __construct(array $options = array())
     {
         parent::__construct($options);
-        if ($this->_version < 12.0) {
+        if ($this->_version < Horde_ActiveSync::VERSION_TWELVE) {
             $this->_mapping += array(
-                self::POOMTASKS_BODY          => array (self::KEY_ATTRIBUTE => 'body'),
-                self::POOMTASKS_RTF           => array (self::KEY_ATTRIBUTE => 'rtf'),
+                self::POOMTASKS_BODY => array (self::KEY_ATTRIBUTE => 'body'),
+                self::POOMTASKS_RTF  => array (self::KEY_ATTRIBUTE => 'rtf'),
             );
 
             $this->_properties += array(
-                'body'          => false,
-                'rtf'           => false
+                'body' => false,
+                'rtf'  => false
             );
-        }
-
-        if ($this->_version >= 12.0) {
+        } else {
             $this->_mapping += array(
                 Horde_ActiveSync::AIRSYNCBASE_BODY => array(self::KEY_ATTRIBUTE => 'airsyncbasebody', self::KEY_TYPE=> 'Horde_ActiveSync_Message_AirSyncBaseBody'),
             );
 
             $this->_properties += array(
-                'airsyncbasebody'           => false,
+                'airsyncbasebody' => false,
             );
         }
-    }
-
-    /**
-     * Sets the task subject
-     *
-     * @param string $subject
-     */
-    public function setSubject($subject)
-    {
-        $this->_properties['subject'] = $subject;
-    }
-
-    /**
-     * Get the task subject/title
-     *
-     * @return string  The task subject
-     */
-    public function getSubject()
-    {
-        return $this->_getAttribute('subject');
-    }
-
-    /**
-     * Returns the body of the task.
-     *
-     * @return string  The descriptive body.
-     */
-    public function getBody()
-    {
-        return $this->_getAttribute('body');
-    }
-
-    /**
-     * Set the task body element.
-     *
-     * @param string $body  The task body
-     */
-    public function setBody($body)
-    {
-        $this->_properties['body'] = $body;
-    }
-
-    /**
-     * Set the task completion flag
-     *
-     * @param integer $flag  TASK_COMPLETE constant
-     */
-    public function setComplete($flag)
-    {
-        $this->_properties['complete'] = $flag;
-    }
-
-    /**
-     * Get the completion flag
-     *
-     * @return integer  A TASK_COMPLETE constant
-     */
-    public function getComplete()
-    {
-        return $this->_getAttribute('complete');
-    }
-
-    /**
-     * Set the date the task was completed.
-     *
-     * @param Horde_Date $date  The date in local tz.
-     */
-    public function setDateCompleted(Horde_Date $date)
-    {
-        $this->_properties['datecompleted'] = $date;
-    }
-
-    /**
-     * Get the date completed.
-     *
-     * @return Horde_Date  The date in the local tz.
-     */
-    public function getDateCompleted()
-    {
-        return $this->_getAttribute('datecompleted');
-    }
-
-    /**
-     * Set the due date. Note that even though the property is called UTCDueDate
-     * we still pass a Horde_Date in the user's timezone since the dates are
-     * transformed to UTC during encoding. Yay consistency...
-     *
-     * @param Horde_Date $date  The date.
-     */
-    public function setDueDate(Horde_Date $date)
-    {
-        $this->_properties['utcduedate'] = $date;
-    }
-
-    /**
-     * Get the task due date.
-     *
-     * @return Horde_Date  Date in local tz
-     */
-    public function getDueDate()
-    {
-        return $this->_getAttribute('utcduedate');
     }
 
     /**
@@ -302,38 +213,7 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
         if (!$this->_getAttribute('reminderset')) {
             return false;
         }
-
         return $this->_getAttribute('remindertime');
-    }
-
-    /**
-     * Set the task start datetime
-     *
-     * @param Horde_Date $date  Date in local tz
-     */
-    public function setStartDate(Horde_Date $date)
-    {
-        $this->_properties['utcstartdate'] = $date;
-    }
-
-    /**
-     * Get the task start datetime
-     *
-     * @return Horde_Date
-     */
-    public function getStartDate()
-    {
-        return $this->_getAttribute('utcstartdate');
-    }
-
-    /**
-     * Return this object's folder class
-     *
-     * @return string
-     */
-    public function getClass()
-    {
-        return 'Tasks';
     }
 
     /**
@@ -439,6 +319,16 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
         }
 
         return $rrule;
+    }
+
+    /**
+     * Return this object's folder class
+     *
+     * @return string
+     */
+    public function getClass()
+    {
+        return 'Tasks';
     }
 
     protected function _checkSendEmpty($tag)
