@@ -235,11 +235,29 @@ class Horde_Core_ActiveSync_Connector
         return $this->_registry->contacts->listBy($action, $from_ts, null, $to_ts);
     }
 
-    public function contacts_search($query)
+    /**
+     * Search the contacts store.
+     *
+     * @param string $query   The search string.
+     * @param array $sources  The sources to search. If empty, the
+     *                        configured GAL will be searched. If boolean false
+     *                        then ALL sources will be searched.
+     *
+     * @return array  The search results.
+     */
+    public function contacts_search($query, $sources = array())
     {
-        $gal = $this->contacts_getGal();
         $fields = array($gal => array('firstname', 'lastname', 'alias', 'name', 'email'));
-        return $this->_registry->contacts->search(array($query), array($gal), $fields, true, true);
+        $opts = array(
+            'fields' => $fields,
+            'matchBegin' => true,
+            'forceSource' => true
+        );
+        if (empty($sources) && $sources !== false) {
+            $opts['sources'] = array($this->contacts_getGal());
+        }
+
+        return $this->_registry->contacts->search($query, $opts);
     }
 
     /**
