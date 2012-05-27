@@ -541,6 +541,7 @@ class Horde_ActiveSync_Imap_Adapter
         }
         $mbox = new Horde_Imap_Client_Mailbox($mailbox);
         $messages = $this->_getMailMessages($mbox, $uid, $options);
+        $res = array();
         foreach ($messages as $id => $message) {
             $res[$id] = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
         }
@@ -685,7 +686,7 @@ class Horde_ActiveSync_Imap_Adapter
      *   - flags: (boolean) Fetch messagge flags.
      *            DEFAULT: true (Fetch message flags).
      *
-     * @return array An array of Horde_Imap_Client_Data_Fetch objects.
+     * @return Horde_Imap_Fetch_Results  The results.
      * @throws Horde_ActiveSync_Exception
      */
     protected function _getMailMessages(
