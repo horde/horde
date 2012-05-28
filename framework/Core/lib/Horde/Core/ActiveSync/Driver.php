@@ -24,6 +24,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     const SPECIAL_TRASH  = 'trash';
     const SPECIAL_DRAFTS = 'drafts';
 
+    const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
+
 
     /**
      * Mappings for server uids -> display names. Populated in the const'r
@@ -1030,16 +1032,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $mail = new Horde_Mime_Mail();
             $mail->addHeaders($headers->toArray());
             $body_id = $message->findBody();
-            if ($body_id) {
-                $newbody_text = $message->getPart($body_id)->getContents();
-            } else {
-                $newbody_text = '';
-            }
+            $smart_body = $this->_getSmartText($message);
 
             // Handle smartReplies and smartForward requests.
             if ($reply) {
                 $this->_logger->debug('Preparing SMART_REPLY');
-                $imap_message = array_pop($this->_imap->getImapMessage($parent, $reply));
+                $imap_message = array_pop($this->_imap->getImapMessage($parent, $reply, array('headers' => true)));
                 if (empty($imap_message)) {
                     return false;
                 }
@@ -1047,46 +1045,39 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $plain_id = $part->findBody('plain');
                 $html_id = $part->findBody('html');
                 if ($html_id) {
-                    $obody_text = $imap_message->getMimePart($html_id)->getContents();
-                    $newbody_text_html .= '<br>' . $obody_text;
-                    $this->_logger->debug('SETTING HTML BODY TO: ' . $newbody_text_html);
+                    $smart_text = $smart_body[0] == 'plain'
+                        ? self::text2html($smart_body[1])
+                        : $smart_body[1];
+                    $newbody_text_html = $smart_text . $this->_replyText($imap_message, $html_id, true);
                 }
                 if ($plain_id) {
-                    $obody_text = $imap_message->getMimePart($plain_id)->getContents();
-                    $newbody_text_plain .= "\r\n" . $obody_text;
-                    $this->_logger->debug('SETTING PLAIN BODY TO: ' . $newbody_text_plain);
+                    $smart_text = $smart_body[0] == 'html'
+                        ? self::html2text($smart_body[1])
+                        : $smart_body[1];
+                    $newbody_text_plain .= $smart_text . $this->_replyText($imap_message, $plain_id);
                 }
             } elseif ($forward) {
                 $this->_logger->debug('Preparing SMART_FORWARD');
                 $imap_message = array_pop(
-                    $this->_imap->getImapMessage(
-                        $parent, $forward, array('headers' => true))
-                );
+                    $this->_imap->getImapMessage($parent, $forward, array('headers' => true)));
                 if (empty($imap_message)) {
                     return false;
                 }
-
                 $from = $imap_message->getFromAddress();
                 $part = $imap_message->getStructure();
                 $plain_id = $part->findBody('plain');
                 $html_id = $part->findBody('html');
                 if ($html_id) {
-                    $obody_text = $imap_message->getMimePart($html_id)->getContents();
-                    $fwd_headers = $imap_message->getHeaders();
-                    $msg_pre = '<br>----- '
-                        . ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message"))
-                        . ' -----<br>' . $fwd_headers . '<br>';
-                    $msg_post = "<br><br>----- " . _("End forwarded message") . " -----<br>";
-                    $newbody_text_html .= $msg_pre . $obody_text . $msg_post;
+                    $smart_text = $smart_body[0] == 'plain'
+                        ? self::text2html($smart_body[1])
+                        : $smart_body[1];
+                    $newbody_text_html = $smart_text . $this->_forwardText($imap_message, $html_id, true);
                 }
                 if ($plain_id) {
-                    $obody_text = $imap_message->getMimePart($plain_id)->getContents();
-                    $fwd_headers = $imap_message->getHeaders();
-                    $msg_pre = "\n----- "
-                        . ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message"))
-                        . " -----\n" . $fwd_headers . "\n";
-                    $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
-                    $newbody_text_plain .= $msg_pre . $obody_text . $msg_post;
+                    $smart_text = $smart_body[0] == 'html'
+                        ? self::html2text($smart_body[1])
+                        : $smart_body[1];
+                    $newbody_text_plain = $smart_text . $this->_forwardText($imap_message, $plain_id);
                 }
                 foreach ($part->contentTypeMap() as $mid => $type) {
                     if ($imap_message->isAttachment($type)) {
@@ -1129,6 +1120,137 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         return true;
+    }
+
+    /**
+     * Return the text sent from the device in the SMART[FORWARD|REPLY] request.
+     *
+     * @param Horde_Mime_Part $part  The mime part containing the message body.
+     *
+     * @return array  An array containing the body type [plain|html] and the
+     *                message body.
+     */
+    protected function _getSmartText(Horde_Mime_Part $part)
+    {
+        $id = $part->findBody('html');
+        if ($id) {
+            $type = 'html';
+        } else {
+            $id = $part->findBody();
+            $type = 'plain';
+        }
+
+        return array($type, $part->getPart($id)->getContents());
+    }
+
+    /**
+     * Return the body of the forwarded message in the appropriate type.
+     *
+     * @param Horde_ActiveSync_Imap_Message $message  The imap message object.
+     * @param integer $partID                         The body's mime id.
+     * @param boolean $html                           Is this an html part?
+     *
+     * @return string  The propertly formatted forwarded body text.
+     */
+    protected function _forwardText(Horde_ActiveSync_Imap_Message $message, $partId, $html = false)
+    {
+        $part = $message->getMimePart($partId);
+        $fwd_headers = $message->getHeaders();
+        $from = $message->getFromAddress();
+        $msg = $this->_msgBody($part, $html);
+        $msg_pre = "\n----- "
+            . ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message"))
+            . " -----\n" . $fwd_headers . "\n";
+        $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
+
+        return ($html ? self::text2html($msg_pre) : $msg_pre)
+            . $msg
+            . ($html ? self::text2html($msg_post) : $msg_post);
+    }
+
+    /**
+     * Return the body of the replied message in the appropriate type.
+     *
+     * @param Horde_ActiveSync_Imap_Message $message  The imap message object.
+     * @param integer $partID                         The body's mime id.
+     * @param boolean $html                           Is this an html part?
+     *
+     * @return string  The propertly formatted replied body text.
+     */
+    protected function _replyText(Horde_ActiveSync_Imap_Message $message, $partId, $html)
+    {
+        $part = $message->getMimePart($partId);
+        $headers = $message->getHeaders();
+        $from = strval($headers->getOb('from'));
+        $msg_pre = $from ? sprintf(_("Quoting %s"), $from) : _("Quoted") . "\n\n";
+        $msg = $this->_msgBody($part, $html, true);
+        if (!empty($msg) && $html) {
+            $msg = '<p>' . $this->text2html($msg_pre) . '</p>'
+                . self::HTML_BLOCKQUOTE . $msg . '</blockquote><br /><br />';
+        } else {
+            $msg = empty($msg)
+                ? '[' . _("No message body text") . ']'
+                : $msg_pre . $msg;
+        }
+
+        return $msg;
+    }
+
+    /**
+     * Return the body text of the original email from a smart request.
+     *
+     * @param Horde_Mime_Part $part  The message's main mime part.
+     * @param boolean $html          Do we want an html body?
+     * @param boolean $flow          Should the body be flowed?
+     *
+     * @return string  The properly formatted/flowed message body.
+     */
+    protected function _msgBody($part, $html, $flow = false)
+    {
+        $msg = Horde_String::convertCharset($part->getContents(), $part->getCharset(), 'UTF-8');
+        trim($msg);
+        if (!$html) {
+            if ($part->getContentTypeParameter('format') == 'flowed') {
+                $flowed = new Horde_Text_Flowed($msg, 'UTF-8');
+                if (Horde_String::lower($part->getContentTypeParameter('delsp')) == 'yes') {
+                    $flowed->setDelSp(true);
+                }
+                $flowed->setMaxLength(0);
+                $msg = $flowed->toFixed(false);
+            } else {
+                // If not flowed, remove padding at eol
+                $msg = preg_replace("/\s*\n/U", "\n", $msg);
+            }
+            if ($flow) {
+                $flowed = new Horde_Text_Flowed($msg, 'UTF-8');
+                $msg = $flowed->toFlowed(true);
+            }
+        }
+
+        return $msg;
+    }
+
+    /**
+     * Shortcut function to convert text -> HTML.
+     *
+     * @param string $msg  The message text.
+     *
+     * @return string  HTML text.
+     */
+    static public function text2html($msg)
+    {
+        return $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_TextFilter')
+            ->filter($msg, 'Text2html', array(
+                'flowed' => self::HTML_BLOCKQUOTE,
+                'parselevel' => Horde_Text_Filter_Text2html::MICRO)
+        );
+    }
+
+    static public function html2text($msg)
+    {
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')
+            ->filter($msg, 'Html2text');
     }
 
     /**
@@ -1346,7 +1468,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         if (count($results) && isset($results[$search])) {
             foreach ($results[$search] as $result) {
                 // Do maxabiguous filtering etc...
-                //Horde::debug($result);
                 $return[] = array(
                     'displayname' => $result['name'],
                     'emailaddress' => $result['email'],
