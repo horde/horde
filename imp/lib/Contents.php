@@ -1092,7 +1092,7 @@ class IMP_Contents
      * @return Horde_Tree_Renderer_Base  A tree instance representing the MIME parts.
      * @throws Horde_Tree_Exception
      */
-    public function getTree($renderer = 'Horde_Core_Tree_Html')
+    public function getTree($renderer = 'Horde_Core_Tree_Renderer_Html')
     {
         $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('mime-' . $this->_uid, $renderer, array(
             'nosession' => true
