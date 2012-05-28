@@ -1065,18 +1065,20 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     return false;
                 }
 
-                // If forwarding as attachment (sadly most devices can't display
-                // message/rfc822 content-type).
-                $fwd = new Horde_Mime_Part();
-                $fwd->setType('message/rfc822');
-                $fwd->setContents($imap_message->getFullMsg());
-                $mail->addMimePart($fwd);
-
                 $from = $imap_message->getFromAddress();
                 $part = $imap_message->getStructure();
-                $id = $part->findBody();
-                if ($id) {
-                    $obody_text = $imap_message->getMimePart($id)->getContents();
+                $plain_id = $part->findBody('plain');
+                $html_id = $part->findBody('html');
+                if ($html_id) {
+                    $obody_text = $imap_message->getMimePart($html_id)->getContents();
+                    $fwd_headers = $imap_message->getHeaders();
+                    $msg_pre = '<br>----- '
+                        . ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message"))
+                        . ' -----<br>' . $fwd_headers . '<br>';
+                    $msg_post = "<br><br>----- " . _("End forwarded message") . " -----<br>";
+                    $newbody_text .= $msg_pre . $obody_text . $msg_post;
+                } elseif ($plain_id) {
+                    $obody_text = $imap_message->getMimePart($plain_id)->getContents();
                     $fwd_headers = $imap_message->getHeaders();
                     $msg_pre = "\n----- "
                         . ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message"))
@@ -1093,10 +1095,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
 
             // Set the mail email body and add any uploaded attachments.
-            $mail->setBody($newbody_text);
+            if ($html_id) {
+                $mail->setHtmlBody($newbody_text);
+            } else {
+                $mail->setBody($newbody_text);
+            }
 
             foreach ($message->contentTypeMap() as $mid => $type) {
-                if ($mid != 0 && $mid != $id) {
+                if ($mid != 0 && $mid != $plain_id) {
                     $part = $message->getPart($mid);
                     $mail->addMimePart($part);
                 }
