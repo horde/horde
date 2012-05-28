@@ -955,8 +955,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
-                // Update sync_cache
                 if (empty($this->_syncCache['collections'][$collection['id']])) {
+                    $this->_logger->debug('Creating new sync_cache entry for: ' . $collection['id']);
                     $this->_syncCache['collections'][$collection['id']] = array(
                         'class' => $collection['class'],
                         'windowsize' => isset($collection['windowsize']) ? $collection['windowsize'] : null,
@@ -968,6 +968,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         'mimetruncation' => isset($collection['mimetruncation']) ? $collection['mimetruncation'] : null,
                         'conflict' => isset($collection['conflict']) ? $collection['conflict'] : null,
                         'bodyprefs' => isset($collection['bodyprefs']) ? $collection['bodyprefs'] : null);
+                } elseif (isset($collection['windowsize'])) {
+                    $this->_syncCache['collections'][$collection['id']]['windowsize'] = $collection['windowsize'];
                 }
             }
         }
