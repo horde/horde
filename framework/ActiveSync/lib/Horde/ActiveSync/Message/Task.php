@@ -114,21 +114,21 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
     );
 
     protected $_properties = array(
-        'bodytruncated' => 0,
+        'subject'       => false,
+        'importance'    => false,
         'categories'    => array(),
+        'startdate'     => false,
+        'duedate'       => false,
+        'utcduedate'    => false,
         'complete'      => false,
         'datecompleted' => false,
-        'deadoccur'     => false,
-        'duedate'       => false,
-        'importance'    => false,
-        'recurrence'    => false,
-        'regenerate'    => false,
-        'reminderset'   => false,
         'remindertime'  => false,
         'sensitiviy'    => false,
-        'startdate'     => false,
-        'subject'       => false,
-        'utcduedate'    => false,
+        'reminderset'   => false,
+        'deadoccur'     => false,
+        'recurrence'    => false,
+        'regenerate'    => false,
+        'sensitiviy'    => false,
         'utcstartdate'  => false,
     );
 
@@ -151,11 +151,13 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
             $this->_mapping += array(
                 self::POOMTASKS_BODY => array (self::KEY_ATTRIBUTE => 'body'),
                 self::POOMTASKS_RTF  => array (self::KEY_ATTRIBUTE => 'rtf'),
+                self::POOMTASKS_BODYTRUNCATED => array(self::KEY_ATTRIBUTE => 'bodytruncated')
             );
 
             $this->_properties += array(
                 'body' => false,
-                'rtf'  => false
+                'rtf'  => false,
+                'bodytruncated' => 0,
             );
         } else {
             $this->_mapping += array(
