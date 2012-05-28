@@ -1029,9 +1029,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $message = $raw_message->getMimeObject();
             $mail = new Horde_Mime_Mail();
             $mail->addHeaders($headers->toArray());
-            $id = $message->findBody();
-            if ($id) {
-                $newbody_text = $message->getPart($id)->getContents();
+            $body_id = $message->findBody();
+            if ($body_id) {
+                $newbody_text = $message->getPart($body_id)->getContents();
             } else {
                 $newbody_text = '';
             }
@@ -1043,17 +1043,19 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if (empty($imap_message)) {
                     return false;
                 }
-                $data = $imap_message->getMessageBodyData();
-                if ($data['plain']['charset'] != 'UTF-8') {
-                    $quoted = Horde_String::convertCharset(
-                        $data['plain']['body'],
-                        $data['plain']['charset'],
-                        'UTF-8'
-                    );
-                } else {
-                    $quoted = $data['plain']['body'];
+                $part = $imap_message->getStructure();
+                $plain_id = $part->findBody('plain');
+                $html_id = $part->findBody('html');
+                if ($html_id) {
+                    $obody_text = $imap_message->getMimePart($html_id)->getContents();
+                    $newbody_text_html .= '<br>' . $obody_text;
+                    $this->_logger->debug('SETTING HTML BODY TO: ' . $newbody_text_html);
                 }
-                $newbody_text .= "\r\n" . $quoted;
+                if ($plain_id) {
+                    $obody_text = $imap_message->getMimePart($plain_id)->getContents();
+                    $newbody_text_plain .= "\r\n" . $obody_text;
+                    $this->_logger->debug('SETTING PLAIN BODY TO: ' . $newbody_text_plain);
+                }
             } elseif ($forward) {
                 $this->_logger->debug('Preparing SMART_FORWARD');
                 $imap_message = array_pop(
@@ -1061,7 +1063,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         $parent, $forward, array('headers' => true))
                 );
                 if (empty($imap_message)) {
-                    // Message gone.
                     return false;
                 }
 
@@ -1076,15 +1077,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         . ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message"))
                         . ' -----<br>' . $fwd_headers . '<br>';
                     $msg_post = "<br><br>----- " . _("End forwarded message") . " -----<br>";
-                    $newbody_text .= $msg_pre . $obody_text . $msg_post;
-                } elseif ($plain_id) {
+                    $newbody_text_html .= $msg_pre . $obody_text . $msg_post;
+                }
+                if ($plain_id) {
                     $obody_text = $imap_message->getMimePart($plain_id)->getContents();
                     $fwd_headers = $imap_message->getHeaders();
                     $msg_pre = "\n----- "
                         . ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message"))
                         . " -----\n" . $fwd_headers . "\n";
                     $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
-                    $newbody_text .= $msg_pre . $obody_text . $msg_post;
+                    $newbody_text_plain .= $msg_pre . $obody_text . $msg_post;
                 }
                 foreach ($part->contentTypeMap() as $mid => $type) {
                     if ($imap_message->isAttachment($type)) {
@@ -1095,14 +1097,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
 
             // Set the mail email body and add any uploaded attachments.
-            if ($html_id) {
-                $mail->setHtmlBody($newbody_text);
-            } else {
-                $mail->setBody($newbody_text);
+            if (!empty($newbody_text_html)) {
+                $mail->setHtmlBody($newbody_text_html);
+            }
+            if (!empty($newbody_text_plain)) {
+                $mail->setBody($newbody_text_plain);
             }
 
             foreach ($message->contentTypeMap() as $mid => $type) {
-                if ($mid != 0 && $mid != $plain_id) {
+                if ($mid != 0 && $mid != $body_id) {
                     $part = $message->getPart($mid);
                     $mail->addMimePart($part);
                 }
