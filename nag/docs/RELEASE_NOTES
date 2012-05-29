@@ -28,7 +28,7 @@ ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Updated Hungarian Italian, and Swedish translations.
+Updated Hungarian, Italian, and Swedish translations.
 FM;
 
 $this->notes['name'] = 'Nag';
