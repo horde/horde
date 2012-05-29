@@ -1,6 +1,6 @@
-----------
-v2.0.8-git
-----------
+------
+v2.0.8
+------
 
 [jan] Update Swedish translation (Per Olof Ljungmark <peo@bsdlabs.com>).
 [mms] Fix IMAP filtering on combination fields (Bug #11197).
