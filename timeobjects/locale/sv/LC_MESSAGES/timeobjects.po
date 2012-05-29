@@ -1,0 +1,71 @@
+# Swedish translations for Timeobjects package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Timeobjects package.
+# Automatically generated, 2012.
+# Updates by Jakob Alvermark <jakob.alvermark@bsdlabs.com> 2012-05-25
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Timeobjects 1.0.6-git\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-05-19 12:00+0100\n"
+"Last-Translator: Jakob Alvermark <jakob.alvermark@bsdlabs.com>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Driver/Weather.php:116
+#, php-format
+msgid ""
+"Conditions: %s\n"
+"High temperature: %d%s\n"
+"Precipitation: %s\n"
+msgstr ""
+"Förhållanden: %s\n"
+"Högsta temperatur: %d%s\n"
+"Nederbörd: %s\n"
+
+#: lib/Driver/Weather.php:104
+#, php-format
+msgid ""
+"Conditions: %s\n"
+"High temperature: %d%s\n"
+"Precipitation: %s\n"
+"Humidity: %d%%\n"
+"Winds: From the %s at %d%s"
+msgstr ""
+"Förhållanden: %s\n"
+"Högsta temperatur: %d%s\n"
+"Nederbörd: %s\n"
+"Luftfuktighet: %d%%\n"
+"Vind: Från %s, %d%s"
+
+#: lib/Api.php:34
+msgid "Facebook Events"
+msgstr "Facebook-händelser"
+
+#: lib/Driver/Weather.php:131
+#, php-format
+msgid "Location: %s"
+msgstr "Plats: %s"
+
+#: lib/Driver/Weather.php:100
+msgid "N/A"
+msgstr "Ej tillgängligt"
+
+#: lib/Driver/Weather.php:136
+#, php-format
+msgid ""
+"Sunrise: %s\n"
+"Sunset: %s\n"
+msgstr ""
+"Soluppgång: %s\n"
+"Solnedgång: %s\n"
+
+#: lib/Api.php:33
+msgid "Weather"
+msgstr "Väder"
