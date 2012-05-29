@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2012-05-29</date>
- <time>18:22:03</time>
+ <time>18:22:56</time>
  <version>
-  <release>3.0.14</release>
+  <release>3.0.15</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -40,11 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Update Swedish translation (Per Olof Ljungmark &lt;peo@bsdlabs.com&gt;).
-* [jan] Update Italian translation (Emilien &lt;emilien@wifi.e4a.it&gt;).
-* [jan] Fix number of contacts in a list that cannot be displayed.
-* [jan] Update Slovak translation (Marika Schvarczova &lt;schvarczova.marika@domeny.sk&gt;).
-* [jan] Update Czech translation (Michal Foist &lt;michal@foist.cz&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1421,6 +1417,19 @@
 * [jan] Fix number of contacts in a list that cannot be displayed.
 * [jan] Update Slovak translation (Marika Schvarczova &lt;schvarczova.marika@domeny.sk&gt;).
 * [jan] Update Czech translation (Michal Foist &lt;michal@foist.cz&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.15</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-29</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
