@@ -29,7 +29,7 @@ ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Updated Hungarian Italian, and Swedish translations.
+Updated Hungarian, Italian, and Swedish translations.
 FM;
 
 $this->notes['name'] = 'Mnemo';
