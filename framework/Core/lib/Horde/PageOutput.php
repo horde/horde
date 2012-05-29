@@ -569,10 +569,11 @@ class Horde_PageOutput
     }
 
     /**
-     * Ends output compression. If successful, throws out all data currently
-     * in the output buffer.
+     * Disables output compression. If successful, throws out all data
+     * currently in the output buffer. Must be called before any data is sent
+     * to the browser.
      */
-    public function endCompression()
+    public function disableCompression()
     {
         if ($this->_compress && (reset(ob_list_handlers()) == 'ob_gzhandler')) {
             ob_end_clean();
