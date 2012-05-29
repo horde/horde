@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-04-10</date>
- <time>19:23:50</time>
+ <date>2012-05-29</date>
+ <time>13:43:41</time>
  <version>
   <release>1.9.1</release>
   <api>1.9.0</api>
@@ -1764,7 +1764,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-04-10</date>
+   <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Swedish translation.
