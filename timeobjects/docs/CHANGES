@@ -5,9 +5,16 @@ v2.0-git
 
 
 ----------
-v1.0.7-git
+v1.0.8-git
 ----------
 
+
+
+------
+v1.0.7
+------
+
+[jan] Add Swedish translation (Jakob Alvermark <jakob.alvermark@bsdlabs.com>).
 [jan] Add Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 
 

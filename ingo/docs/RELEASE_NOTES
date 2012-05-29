@@ -10,27 +10,29 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Ingo Email
-Filter Rules Manager version H4 (2.0.7).
+Filter Rules Manager version H4 (2.0.8).
 
 Ingo is an email-filter management application. It is fully internationalized,
 integrated with Horde and the IMP Webmail client, and supports both server-side
 (Sieve, Procmail, Maildrop) and client-side (IMAP) message filtering. For more
 information on Ingo, visit http://www.horde.org/apps/ingo.
 
-The major changes compared to the Ingo version H4 (2.0.6) are:
-    * Set Return-Path: in Maildrop vacation driver.
-    * Updated Japanese translation.
+The major changes compared to the Ingo version H4 (2.0.7) are:
+    * Fixed folder names in Procmail rules if using Maildir.
+    * Updated Hungarian, Italian, and Swedish translations.
+    * Small bugfixes.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Set Return-Path: in Maildrop vacation driver.
-Updated Japanese translation.
+Fixed folder names in Procmail rules if using Maildir.
+Updated Hungarian, Italian, and Swedish translations.
+Small bugfixes.
 FM;
 
 $this->notes['name'] = 'Ingo';
