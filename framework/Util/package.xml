@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2012-05-29</date>
- <time>14:00:33</time>
+ <time>14:00:48</time>
  <version>
-  <release>1.3.1</release>
+  <release>1.3.2</release>
   <api>1.3.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix Horde_String::validUtf8() to workaround PHP/PCRE bug where segfault will occur on input strings &gt; ~5000 characters
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -473,6 +473,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix Horde_String::validUtf8() to workaround PHP/PCRE bug where segfault will occur on input strings &gt; ~5000 characters
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.2</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
