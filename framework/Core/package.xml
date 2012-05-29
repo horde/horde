@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Swedish translation.
 * [gwr] Fixed session based preferences.
  </notes>
  <contents>
@@ -1766,6 +1767,7 @@
    <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Swedish translation.
 * [gwr] Fixed session based preferences.
    </notes>
   </release>

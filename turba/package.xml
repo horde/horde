@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Update Swedish translation (Per Olof Ljungmark &lt;peo@bsdlabs.com&gt;).
 * [jan] Update Italian translation (Emilien &lt;emilien@wifi.e4a.it&gt;).
 * [jan] Fix number of contacts in a list that cannot be displayed.
 * [jan] Update Slovak translation (Marika Schvarczova &lt;schvarczova.marika@domeny.sk&gt;).
@@ -1415,6 +1416,7 @@
    <date>2012-04-11</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Update Swedish translation (Per Olof Ljungmark &lt;peo@bsdlabs.com&gt;).
 * [jan] Update Italian translation (Emilien &lt;emilien@wifi.e4a.it&gt;).
 * [jan] Fix number of contacts in a list that cannot be displayed.
 * [jan] Update Slovak translation (Marika Schvarczova &lt;schvarczova.marika@domeny.sk&gt;).
