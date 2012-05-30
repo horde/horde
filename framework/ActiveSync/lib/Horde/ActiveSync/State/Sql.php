@@ -314,7 +314,20 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_deviceInfo->user,
             $pending);
         $this->_logger->debug(
-            sprintf('[%s] Saving state: %s', $this->_devId, print_r($params, true)));
+            sprintf('[%s] Saving state: %s',
+                $this->_devId,
+                print_r(
+                    array(
+                        $params[0],
+                        $params[1],
+                        $params[2],
+                        $params[3],
+                        $params[4],
+                        $params[5],
+                        count($params[6])),
+                    true)
+                )
+            );
         try {
             $this->_db->insert($sql, $params);
         } catch (Horde_Db_Exception $e) {
