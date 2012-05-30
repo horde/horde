@@ -299,8 +299,7 @@ class IMP
      *                          (mailto-style) string.
      * @param array $extra      Hash of extra, non-standard arguments to pass
      *                          to compose script.
-     * @param string $simplejs  Use simple JS (instead of Horde.popup() JS
-     *                          function)?
+     * @param string $simplejs  Use simple JS (instead of HordePopup JS)?
      *
      * @return Horde_Url  The link to the message composition script.
      */

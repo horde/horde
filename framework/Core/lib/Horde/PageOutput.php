@@ -373,7 +373,7 @@ class Horde_PageOutput
         if (!$this->hsf->isIncluded('popup.js', 'horde')) {
             $this->addScriptFile('popup.js', 'horde');
             $this->addInlineJsVars(array(
-                'Horde.popup_block_text' => Horde_Core_Translation::t("A popup window could not be opened. Your browser may be blocking popups.")
+                'HordePopup.popup_block_text' => Horde_Core_Translation::t("A popup window could not be opened. Your browser may be blocking popups.")
             ), true);
         }
     }

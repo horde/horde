@@ -293,19 +293,22 @@ var HordeCore = {
     // opts: (object) 'name', 'onload'
     popupWindow: function(url, params, opts)
     {
-        params = params || {};
         opts = opts || {};
+        params = $H(params || {});
 
-        var params = {
+        this.addRequestParams(params);
+
+        var p = {
             height: this.conf.popup_height,
             name: (opts.name || '_hordepopup').gsub(/\W/, '_'),
             noalert: true,
             onload: opts.onload,
-            url: this.addURLParam(url, params),
+            params: params,
+            url: url,
             width: this.conf.popup_width
         };
 
-        if (!Horde.popup(params)) {
+        if (!HordePopup.popup(p)) {
             this.notify(this.text.popup_block, 'horde.warning');
         }
     },
