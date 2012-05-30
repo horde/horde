@@ -272,6 +272,16 @@ abstract class Horde_Tree_Renderer_Base
     }
 
     /**
+     * Sorts the tree by the specified node property.
+     *
+     * @param string $criteria  The node property to sort by.
+     */
+    public function sort($criteria)
+    {
+        return $this->_tree->sort($criteria);
+    }
+
+    /**
      * Check the current environment to see if we can render the tree.
      *
      * @return boolean  Whether or not this backend will function.
