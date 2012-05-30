@@ -5699,7 +5699,7 @@ KronolithCore = {
         tr, i;
         if (att.resource) {
             this.fbLoading++;
-            HoreCore.doAction('getFreeBusy', att, {
+            HordeCore.doAction('getFreeBusy', att, {
                 callback: this.addResourceCallback.curry(resource).bind(this)
             });
             tr = new Element('tr');
