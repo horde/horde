@@ -1180,7 +1180,23 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     {
         $state_query = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE';
         $map_query = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE';
+        // If the device is flagged as wiped, and we are removing the state,
+        // we MUST NOT restrict to user since it will not remove the device's
+        // device table entry, and the device will continue to be wiped each
+        // time it connects.
         if (!empty($options['devId']) && !empty($options['user'])) {
+            $q = 'SELECT device_rwstatus FROM ' . $this->_syncDeviceTable
+                . ' WHERE device_id = ?';
+
+            try {
+                $results = $this->_db->selectValue($q, array($options['devId']));
+                if ($results != Horde_ActiveSync::RWSTATUS_NA && $results != Horde_ActiveSync::RWSTATUS_OK) {
+                    unset($options['user']);
+                    return $this->removeState($options);
+                }
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_ActiveSync_Exception($e);
+            }
             $state_query .= ' sync_devid = ? AND sync_user = ?';
             $map_query .= ' sync_devid = ? AND sync_user = ?';
             $user_query = 'DELETE FROM ' . $this->_syncUsersTable . ' WHERE device_id = ? AND device_user = ?';
