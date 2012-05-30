@@ -64,8 +64,10 @@ foreach ($result as $row) {
     $start->setTimezone($utc);
     $end = new DateTime($row['event_end'], $timezone);
     $end->setTimezone($utc);
-    $recur_end = new DateTime($row['event_recurenddate'], $timezone);
-    $recur_end->setTimezone($utc);
+    if (!empty($row['event_recurenddate'])) {
+        $recur_end = new DateTime($row['event_recurenddate'], $timezone);
+        $recur_end->setTimezone($utc);
+    }
 
     try {
         $db->update($stmt, array($start->format('Y-m-d H:i:s'), $end->format('Y-m-d H:i:s'), $recur_end->format('Y-m-d H:i:s'), $row['event_id']));
