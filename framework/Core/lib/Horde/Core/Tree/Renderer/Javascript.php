@@ -138,6 +138,9 @@ class Horde_Core_Tree_Renderer_Javascript extends Horde_Core_Tree_Renderer_Html
         $result = new stdClass;
         $result->is_static = intval($this->_static);
         $result->nodes = $this->_tree->getNodes();
+        foreach ($this->_extra as $id => $extra_node) {
+            $result->nodes[$id]['extra'] = $extra_node;
+        }
         $result->root_nodes = $this->_tree->getRootNodes();
         $result->files = array();
 
