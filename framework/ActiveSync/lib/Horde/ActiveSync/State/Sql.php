@@ -324,7 +324,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         $params[3],
                         $params[4],
                         $params[5],
-                        count($params[6])),
+                        count($this->_changes)),
                     true)
                 )
             );
