@@ -271,15 +271,12 @@ var DimpCore = {
             if (elt.hasClassName('unblockImageLink')) {
                 IMP_JS.unblockImages(e);
             } else if (elt.hasClassName('largeaddrspan_active')) {
-                if (elt.hasClassName('largeaddrlistlimit')) {
-                    elt.hide();
+                if (e.element().hasClassName('largeaddrlistlimit')) {
+                    e.element().hide();
                     elt.up('TD').fire('DimpCore:updateAddressHeader');
                 } else {
                     tmp = elt.down();
-                    if (!tmp.next().visible() ||
-                        elt.hasClassName('largeaddrlist')) {
-                        [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
-                    }
+                    [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
                 }
             } else if (elt.hasClassName('pgpVerifyMsg')) {
                 elt.replace(DimpCore.text.verify);
