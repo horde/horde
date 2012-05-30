@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-22</date>
- <time>13:50:37</time>
+ <date>2012-05-30</date>
+ <time>17:24:36</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -84,15 +84,13 @@
     <file name="embed.js" role="horde" />
     <file name="goto.js" role="horde" />
     <file name="kronolith.js" role="horde" />
-    <file name="mobile.js" role="horde" />
-    <file name="tagactions.js" role="horde" />
+    <file name="smartmobile.js" role="horde" />
     <file name="views.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Imple">
       <file name="ContactAutoCompleter.php" role="horde" />
-      <file name="Embed.php" role="horde" />
       <file name="ResourceAutoCompleter.php" role="horde" />
       <file name="TagActions.php" role="horde" />
       <file name="TagAutoCompleter.php" role="horde" />
@@ -141,6 +139,7 @@
      <file name="Calendars.php" role="horde" />
      <file name="Driver.php" role="horde" />
      <file name="Geo.php" role="horde" />
+     <file name="Shares.php" role="horde" />
      <file name="Storage.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
@@ -179,11 +178,6 @@
       <file name="PurgeEvents.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/Task -->
     </dir> <!-- /lib/LoginTasks -->
-    <dir name="Notification">
-     <dir name="Listener">
-      <file name="AjaxStatus.php" role="horde" />
-     </dir> <!-- /lib/Notification/Listener -->
-    </dir> <!-- /lib/Notification -->
     <dir name="Resource">
      <file name="Base.php" role="horde" />
      <file name="Group.php" role="horde" />
@@ -205,6 +199,7 @@
      <file name="Year.php" role="horde" />
     </dir> <!-- /lib/View -->
     <file name=".htaccess" role="horde" />
+    <file name="Ajax.php" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Calendar.php" role="horde" />
@@ -462,6 +457,7 @@
     <file name="18_kronolith_upgrade_categoriestotags.php" role="horde" />
     <file name="19_kronolith_upgrade_addmysqlgeo.php" role="horde" />
     <file name="20_kronolith_upgrade_timezone.php" role="horde" />
+    <file name="21_kronolith_upgrade_exceptionutc.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -541,15 +537,6 @@
      <file name="notification.html.php" role="horde" />
      <file name="notification.plain.php" role="horde" />
     </dir> <!-- /templates/itip -->
-    <dir name="mobile">
-     <file name="day.html.php" role="horde" />
-     <file name="event.html.php" role="horde" />
-     <file name="head.html.php" role="horde" />
-     <file name="javascript_defs.php" role="horde" />
-     <file name="month.html.php" role="horde" />
-     <file name="notice.html.php" role="horde" />
-     <file name="summary.html.php" role="horde" />
-    </dir> <!-- /templates/mobile -->
     <dir name="month">
      <file name="head.inc" role="horde" />
      <file name="head_side_by_side.inc" role="horde" />
@@ -577,6 +564,13 @@
      <file name="notification.html.php" role="horde" />
      <file name="notification.plain.php" role="horde" />
     </dir> <!-- /templates/share -->
+    <dir name="smartmobile">
+     <file name="day.html.php" role="horde" />
+     <file name="event.html.php" role="horde" />
+     <file name="javascript_defs.php" role="horde" />
+     <file name="month.html.php" role="horde" />
+     <file name="summary.html.php" role="horde" />
+    </dir> <!-- /templates/smartmobile -->
     <dir name="view">
      <file name="view.inc" role="horde" />
     </dir> <!-- /templates/view -->
@@ -680,6 +674,7 @@
       <file name="dayview.png" role="horde" />
       <file name="delete-000.png" role="horde" />
       <file name="delete-fff.png" role="horde" />
+      <file name="down.png" role="horde" />
       <file name="drag-handle.png" role="horde" />
       <file name="edit-000.png" role="horde" />
       <file name="edit-fff.png" role="horde" />
@@ -716,10 +711,12 @@
       <file name="workweekview.png" role="horde" />
       <file name="yearview.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
+     <dir name="smartmobile">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/smartmobile -->
      <file name="embed.css" role="horde" />
      <file name="ie7.css" role="horde" />
      <file name="ie8.css" role="horde" />
-     <file name="mobile.css" role="horde" />
      <file name="opera.css" role="horde" />
      <file name="screen.css" role="horde" />
      <file name="webkit.css" role="horde" />
@@ -750,6 +747,7 @@
       <file name="dayview.png" role="horde" />
       <file name="delete-000.png" role="horde" />
       <file name="delete-fff.png" role="horde" />
+      <file name="down.png" role="horde" />
       <file name="edit-000.png" role="horde" />
       <file name="edit-fff.png" role="horde" />
       <file name="exception-000.png" role="horde" />
@@ -815,6 +813,7 @@
       <file name="dayview.png" role="horde" />
       <file name="delete-000.png" role="horde" />
       <file name="delete-fff.png" role="horde" />
+      <file name="down.png" role="horde" />
       <file name="edit-000.png" role="horde" />
       <file name="edit-fff.png" role="horde" />
       <file name="exception-000.png" role="horde" />
@@ -857,12 +856,12 @@
    <file name="event.php" role="horde" />
    <file name="fb.php" role="horde" />
    <file name="index.php" role="horde" />
-   <file name="mobile.php" role="horde" />
    <file name="month.php" role="horde" />
    <file name="new.php" role="horde" />
    <file name="perms.php" role="horde" />
    <file name="README" role="doc" />
    <file name="search.php" role="horde" />
+   <file name="smartmobile.php" role="horde" />
    <file name="view.php" role="horde" />
    <file name="week.php" role="horde" />
    <file name="workweek.php" role="horde" />
@@ -1175,10 +1174,10 @@
    <install as="kronolith/js/embed.js" name="js/embed.js" />
    <install as="kronolith/js/goto.js" name="js/goto.js" />
    <install as="kronolith/js/kronolith.js" name="js/kronolith.js" />
-   <install as="kronolith/js/mobile.js" name="js/mobile.js" />
-   <install as="kronolith/js/tagactions.js" name="js/tagactions.js" />
+   <install as="kronolith/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="kronolith/js/views.js" name="js/views.js" />
    <install as="kronolith/lib/.htaccess" name="lib/.htaccess" />
+   <install as="kronolith/lib/Ajax.php" name="lib/Ajax.php" />
    <install as="kronolith/lib/Api.php" name="lib/Api.php" />
    <install as="kronolith/lib/Application.php" name="lib/Application.php" />
    <install as="kronolith/lib/Calendar.php" name="lib/Calendar.php" />
@@ -1194,7 +1193,6 @@
    <install as="kronolith/lib/Test.php" name="lib/Test.php" />
    <install as="kronolith/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="kronolith/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
-   <install as="kronolith/lib/Ajax/Imple/Embed.php" name="lib/Ajax/Imple/Embed.php" />
    <install as="kronolith/lib/Ajax/Imple/ResourceAutoCompleter.php" name="lib/Ajax/Imple/ResourceAutoCompleter.php" />
    <install as="kronolith/lib/Ajax/Imple/TagActions.php" name="lib/Ajax/Imple/TagActions.php" />
    <install as="kronolith/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
@@ -1227,6 +1225,7 @@
    <install as="kronolith/lib/Factory/Calendars.php" name="lib/Factory/Calendars.php" />
    <install as="kronolith/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="kronolith/lib/Factory/Geo.php" name="lib/Factory/Geo.php" />
+   <install as="kronolith/lib/Factory/Shares.php" name="lib/Factory/Shares.php" />
    <install as="kronolith/lib/Factory/Storage.php" name="lib/Factory/Storage.php" />
    <install as="kronolith/lib/Form/CreateCalendar.php" name="lib/Form/CreateCalendar.php" />
    <install as="kronolith/lib/Form/CreateResource.php" name="lib/Form/CreateResource.php" />
@@ -1250,7 +1249,6 @@
    <install as="kronolith/lib/Geo/Sql.php" name="lib/Geo/Sql.php" />
    <install as="kronolith/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="kronolith/lib/LoginTasks/Task/PurgeEvents.php" name="lib/LoginTasks/Task/PurgeEvents.php" />
-   <install as="kronolith/lib/Notification/Listener/AjaxStatus.php" name="lib/Notification/Listener/AjaxStatus.php" />
    <install as="kronolith/lib/Resource/Base.php" name="lib/Resource/Base.php" />
    <install as="kronolith/lib/Resource/Group.php" name="lib/Resource/Group.php" />
    <install as="kronolith/lib/Resource/Single.php" name="lib/Resource/Single.php" />
@@ -1367,6 +1365,7 @@
    <install as="kronolith/migration/18_kronolith_upgrade_categoriestotags.php" name="migration/18_kronolith_upgrade_categoriestotags.php" />
    <install as="kronolith/migration/19_kronolith_upgrade_addmysqlgeo.php" name="migration/19_kronolith_upgrade_addmysqlgeo.php" />
    <install as="kronolith/migration/20_kronolith_upgrade_timezone.php" name="migration/20_kronolith_upgrade_timezone.php" />
+   <install as="kronolith/migration/21_kronolith_upgrade_exceptionutc.php" name="migration/21_kronolith_upgrade_exceptionutc.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
@@ -1419,13 +1418,6 @@
    <install as="kronolith/templates/index/year.inc" name="templates/index/year.inc" />
    <install as="kronolith/templates/itip/notification.html.php" name="templates/itip/notification.html.php" />
    <install as="kronolith/templates/itip/notification.plain.php" name="templates/itip/notification.plain.php" />
-   <install as="kronolith/templates/mobile/day.html.php" name="templates/mobile/day.html.php" />
-   <install as="kronolith/templates/mobile/event.html.php" name="templates/mobile/event.html.php" />
-   <install as="kronolith/templates/mobile/head.html.php" name="templates/mobile/head.html.php" />
-   <install as="kronolith/templates/mobile/javascript_defs.php" name="templates/mobile/javascript_defs.php" />
-   <install as="kronolith/templates/mobile/month.html.php" name="templates/mobile/month.html.php" />
-   <install as="kronolith/templates/mobile/notice.html.php" name="templates/mobile/notice.html.php" />
-   <install as="kronolith/templates/mobile/summary.html.php" name="templates/mobile/summary.html.php" />
    <install as="kronolith/templates/month/head.inc" name="templates/month/head.inc" />
    <install as="kronolith/templates/month/head_side_by_side.inc" name="templates/month/head_side_by_side.inc" />
    <install as="kronolith/templates/perms/perms.inc" name="templates/perms/perms.inc" />
@@ -1441,6 +1433,11 @@
    <install as="kronolith/templates/search/search_advanced.inc" name="templates/search/search_advanced.inc" />
    <install as="kronolith/templates/share/notification.html.php" name="templates/share/notification.html.php" />
    <install as="kronolith/templates/share/notification.plain.php" name="templates/share/notification.plain.php" />
+   <install as="kronolith/templates/smartmobile/day.html.php" name="templates/smartmobile/day.html.php" />
+   <install as="kronolith/templates/smartmobile/event.html.php" name="templates/smartmobile/event.html.php" />
+   <install as="kronolith/templates/smartmobile/javascript_defs.php" name="templates/smartmobile/javascript_defs.php" />
+   <install as="kronolith/templates/smartmobile/month.html.php" name="templates/smartmobile/month.html.php" />
+   <install as="kronolith/templates/smartmobile/summary.html.php" name="templates/smartmobile/summary.html.php" />
    <install as="kronolith/templates/view/view.inc" name="templates/view/view.inc" />
    <install as="kronolith/templates/week/head.inc" name="templates/week/head.inc" />
    <install as="kronolith/templates/week/head_side_by_side.inc" name="templates/week/head_side_by_side.inc" />
@@ -1476,7 +1473,6 @@
    <install as="kronolith/themes/default/embed.css" name="themes/default/embed.css" />
    <install as="kronolith/themes/default/ie7.css" name="themes/default/ie7.css" />
    <install as="kronolith/themes/default/ie8.css" name="themes/default/ie8.css" />
-   <install as="kronolith/themes/default/mobile.css" name="themes/default/mobile.css" />
    <install as="kronolith/themes/default/opera.css" name="themes/default/opera.css" />
    <install as="kronolith/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="kronolith/themes/default/webkit.css" name="themes/default/webkit.css" />
@@ -1505,6 +1501,7 @@
    <install as="kronolith/themes/default/graphics/dayview.png" name="themes/default/graphics/dayview.png" />
    <install as="kronolith/themes/default/graphics/delete-000.png" name="themes/default/graphics/delete-000.png" />
    <install as="kronolith/themes/default/graphics/delete-fff.png" name="themes/default/graphics/delete-fff.png" />
+   <install as="kronolith/themes/default/graphics/down.png" name="themes/default/graphics/down.png" />
    <install as="kronolith/themes/default/graphics/drag-handle.png" name="themes/default/graphics/drag-handle.png" />
    <install as="kronolith/themes/default/graphics/edit-000.png" name="themes/default/graphics/edit-000.png" />
    <install as="kronolith/themes/default/graphics/edit-fff.png" name="themes/default/graphics/edit-fff.png" />
@@ -1545,6 +1542,7 @@
    <install as="kronolith/themes/default/graphics/alerts/message.png" name="themes/default/graphics/alerts/message.png" />
    <install as="kronolith/themes/default/graphics/alerts/success.png" name="themes/default/graphics/alerts/success.png" />
    <install as="kronolith/themes/default/graphics/alerts/warning.png" name="themes/default/graphics/alerts/warning.png" />
+   <install as="kronolith/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
    <install as="kronolith/themes/silver/ie7.css" name="themes/silver/ie7.css" />
    <install as="kronolith/themes/silver/ie8.css" name="themes/silver/ie8.css" />
    <install as="kronolith/themes/silver/screen.css" name="themes/silver/screen.css" />
@@ -1565,6 +1563,7 @@
    <install as="kronolith/themes/silver/graphics/dayview.png" name="themes/silver/graphics/dayview.png" />
    <install as="kronolith/themes/silver/graphics/delete-000.png" name="themes/silver/graphics/delete-000.png" />
    <install as="kronolith/themes/silver/graphics/delete-fff.png" name="themes/silver/graphics/delete-fff.png" />
+   <install as="kronolith/themes/silver/graphics/down.png" name="themes/silver/graphics/down.png" />
    <install as="kronolith/themes/silver/graphics/edit-000.png" name="themes/silver/graphics/edit-000.png" />
    <install as="kronolith/themes/silver/graphics/edit-fff.png" name="themes/silver/graphics/edit-fff.png" />
    <install as="kronolith/themes/silver/graphics/exception-000.png" name="themes/silver/graphics/exception-000.png" />
@@ -1622,6 +1621,7 @@
    <install as="kronolith/themes/tango-blue/graphics/dayview.png" name="themes/tango-blue/graphics/dayview.png" />
    <install as="kronolith/themes/tango-blue/graphics/delete-000.png" name="themes/tango-blue/graphics/delete-000.png" />
    <install as="kronolith/themes/tango-blue/graphics/delete-fff.png" name="themes/tango-blue/graphics/delete-fff.png" />
+   <install as="kronolith/themes/tango-blue/graphics/down.png" name="themes/tango-blue/graphics/down.png" />
    <install as="kronolith/themes/tango-blue/graphics/edit-000.png" name="themes/tango-blue/graphics/edit-000.png" />
    <install as="kronolith/themes/tango-blue/graphics/edit-fff.png" name="themes/tango-blue/graphics/edit-fff.png" />
    <install as="kronolith/themes/tango-blue/graphics/exception-000.png" name="themes/tango-blue/graphics/exception-000.png" />
@@ -1665,12 +1665,12 @@
    <install as="kronolith/event.php" name="event.php" />
    <install as="kronolith/fb.php" name="fb.php" />
    <install as="kronolith/index.php" name="index.php" />
-   <install as="kronolith/mobile.php" name="mobile.php" />
    <install as="kronolith/month.php" name="month.php" />
    <install as="kronolith/new.php" name="new.php" />
    <install as="kronolith/perms.php" name="perms.php" />
    <install as="README" name="README" />
    <install as="kronolith/search.php" name="search.php" />
+   <install as="kronolith/smartmobile.php" name="smartmobile.php" />
    <install as="kronolith/view.php" name="view.php" />
    <install as="kronolith/week.php" name="week.php" />
    <install as="kronolith/workweek.php" name="workweek.php" />
