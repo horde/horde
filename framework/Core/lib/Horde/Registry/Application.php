@@ -502,8 +502,10 @@ class Horde_Registry_Application
      *
      * @throws Horde_Exception
      */
-    public function sidebarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
-                                  array $params = array()) {}
+    public function sidebarCreate(Horde_Tree_Renderer_Base $tree,
+                                  $parent = null, array $params = array())
+    {
+    }
 
 
     // Language change callback.
