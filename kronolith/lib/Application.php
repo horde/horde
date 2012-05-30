@@ -327,17 +327,22 @@ class Kronolith_Application extends Horde_Registry_Application
                 $GLOBALS['prefs']->setValue('sync_calendars', serialize($sync));
             }
         }
-
+var_dump($GLOBALS['prefs']->isDirty('sync_calendars'));
         if ($GLOBALS['conf']['activesync']['enabled'] && $GLOBALS['prefs']->isDirty('sync_calendars')) {
             try {
                 $stateMachine = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
                 $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
                 $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
                 foreach ($devices as $device) {
-                    $stateMachine->removeState(null, $device['device_id'], $GLOBALS['registry']->getAuth());
+                    $stateMachine->removeState(array(
+                        'devId' =>$device['device_id'],
+                        'user' => $GLOBALS['registry']->getAuth(),
+                        'id' => Horde_Core_ActiveSync_Driver::APPOINTMENTS_FOLDER_UID));
                 }
                 $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
             } catch (Horde_ActiveSync_Exception $e) {
+echo '<pre>';
+                var_dump($e);
                 $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.err');
             }
         }

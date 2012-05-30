@@ -718,7 +718,10 @@ class Horde_Prefs_Ui
             } elseif ($ui->vars->reset) {
                 $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
                 foreach ($devices as $device) {
-                    $stateMachine->removeState(null, $device['device_id'], $GLOBALS['registry']->getAuth());
+                    $stateMachine->removeState(array(
+                        'devId' => $device['device_id'],
+                        'user' => $GLOBALS['registry']->getAuth())
+                    );
                 }
                 $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
             } elseif ($ui->vars->removedevice) {

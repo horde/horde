@@ -277,7 +277,7 @@ abstract class Horde_ActiveSync_Request_Base
         // to avoid having 2 device entries for every android client.
         if ($this->_device->id == 'validate') {
             $this->_logger->debug('[' . $this->_device->id . '] Removing state for bogus VALIDATE device.');
-            $this->_stateDriver->removeState(null, 'validate');
+            $this->_stateDriver->removeState(array('devId' => 'validate'));
         }
     }
 
