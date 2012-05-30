@@ -120,8 +120,13 @@ var Class = (function() {
           return function() { return ancestor[m].apply(this, arguments); };
         })(property).wrap(method);
 
-        value.valueOf = method.valueOf.bind(method);
-        value.toString = method.toString.bind(method);
+        value.valueOf = (function(method) {
+          return function() { return method.valueOf.call(method); };
+        })(method);
+
+        value.toString = (function(method) {
+          return function() { return method.toString.call(method); };
+        })(method);
       }
       this.prototype[property] = value;
     }
@@ -394,12 +399,12 @@ Object.extend(Function.prototype, (function() {
     var __method = this, args = slice.call(arguments, 1);
 
     var bound = function() {
-      var a = merge(args, arguments);
-      var c = this instanceof nop ? this : context || window;
+      var a = merge(args, arguments), c = context;
+      var c = this instanceof bound ? this : context || window;
       return __method.apply(c, a);
-    }
+    };
 
-    nop.prototype = this.prototype;
+    nop.prototype   = this.prototype;
     bound.prototype = new nop();
 
     return bound;
@@ -452,16 +457,20 @@ Object.extend(Function.prototype, (function() {
     };
   }
 
-  return {
+  var extensions = {
     argumentNames:       argumentNames,
-    bind:                bind,
     bindAsEventListener: bindAsEventListener,
     curry:               curry,
     delay:               delay,
     defer:               defer,
     wrap:                wrap,
     methodize:           methodize
-  }
+  };
+
+  if (!Function.prototype.bind)
+    extensions.bind = bind;
+
+  return extensions;
 })());
 
 
@@ -2098,7 +2107,7 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
     element = $(element);
     var result = '<' + element.tagName.toLowerCase();
 
-    var attribute;
+    var attribute, value;
     for (var property in INSPECT_ATTRIBUTES) {
       attribute = INSPECT_ATTRIBUTES[property];
       value = (element[property] || '').toString();
@@ -2476,7 +2485,7 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
   }
 
   function purgeCollection_IE(elements) {
-    var i = elements.length, element, eventName, responders, uid, j;
+    var i = elements.length, element, uid;
     while (i--) {
       element = elements[i];
       uid = getUniqueElementID(element);
@@ -2647,7 +2656,7 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
   }
 
   function descendantOf_DOM(element, ancestor) {
-    element = $(element);
+    element = $(element), ancestor = $(ancestor);
     while (element = element.parentNode)
       if (element === ancestor) return true;
     return false;
@@ -2712,8 +2721,7 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
 
 
   function readAttribute(element, name) {
-    element = $(element);
-    return element.getAttribute(name);
+    return $(element).getAttribute(name);
   }
 
   function readAttribute_IE(element, name) {
@@ -2735,7 +2743,7 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
 
   function readAttribute_Opera(element, name) {
     if (name === 'title') return element.title;
-    return element.getAttribute(attribute);
+    return element.getAttribute(name);
   }
 
   var PROBLEMATIC_ATTRIBUTE_READING = (function() {
@@ -2794,7 +2802,7 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
   function getRegExpForClassName(className) {
     if (regExpCache[className]) return regExpCache[className];
 
-    re = new RegExp("(^|\\s+)" + className + "(\\s+|$)");
+    var re = new RegExp("(^|\\s+)" + className + "(\\s+|$)");
     regExpCache[className] = re;
     return re;
   }
@@ -3093,6 +3101,10 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
     return element;
   }
 
+  var STANDARD_CSS_OPACITY_SUPPORTED = (function() {
+    DIV.style.cssText = "opacity:.55";
+    return /^0.55/.test(DIV.style.opacity);
+  })();
 
   function setOpacity(element, value) {
     element = $(element);
@@ -3103,6 +3115,9 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
   }
 
   function setOpacity_IE(element, value) {
+    if (STANDARD_CSS_OPACITY_SUPPORTED)
+      return setOpacity(element, value);
+
     element = hasLayout_IE($(element));
     var filter = Element.getStyle(element, 'filter'),
      style = element.style;
@@ -3128,6 +3143,9 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
   }
 
   function getOpacity_IE(element) {
+    if (STANDARD_CSS_OPACITY_SUPPORTED)
+      return getOpacity(element);
+
     var filter = Element.getStyle(element, 'filter');
     if (filter.length === 0) return 1.0;
     var match = (filter || '').match(/alpha\(opacity=(.*)\)/);
@@ -4038,10 +4056,9 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
   }
 
   function viewportOffset(forElement) {
-    element = $(element);
     var valueT = 0, valueL = 0, docBody = document.body;
 
-    var element = forElement;
+    var element = $(forElement);
     do {
       valueT += element.offsetTop  || 0;
       valueL += element.offsetLeft || 0;
@@ -6374,15 +6391,17 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
 
   Event._isCustomEvent = isCustomEvent;
 
-  function getRegistryForElement(element) {
+  function getRegistryForElement(element, uid) {
     var CACHE = GLOBAL.Event.cache;
-    var uid = getUniqueElementID(element);
+    if (Object.isUndefined(uid))
+      uid = getUniqueElementID(element);
     if (!CACHE[uid]) CACHE[uid] = { element: element };
     return CACHE[uid];
   }
 
-  function destroyRegistryForElement(element) {
-    var uid = getUniqueElementID(element);
+  function destroyRegistryForElement(element, uid) {
+    if (Object.isUndefined(uid))
+      uid = getUniqueElementID(element);
     delete GLOBAL.Event.cache[uid];
   }
 
@@ -6505,11 +6524,15 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
 
 
   function stopObservingElement(element) {
-    var registry = getRegistryForElement(element);
-    destroyRegistryForElement(element);
+    var uid = getUniqueElementID(element),
+     registry = getRegistryForElement(element, uid);
+
+    destroyRegistryForElement(element, uid);
 
     var entries, i;
     for (var eventName in registry) {
+      if (eventName === 'element') continue;
+
       entries = registry[eventName];
       i = entries.length;
       while (i--)
