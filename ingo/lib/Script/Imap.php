@@ -232,7 +232,7 @@ class Ingo_Script_Imap extends Ingo_Script
                     }
                 }
 
-                $base_query->andSearch($query);
+                $base_query->andSearch(array($query));
                 $indices = $this->_api->search($base_query);
 
                 if (($indices = array_diff($indices, $ignore_ids))) {
