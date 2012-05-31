@@ -66,6 +66,9 @@ class Kronolith_Application extends Horde_Registry_Application
         $GLOBALS['injector']->bindFactory('Kronolith_Geo', 'Kronolith_Factory_Geo', 'create');
         $GLOBALS['injector']->bindFactory('Kronolith_Shares', 'Kronolith_Factory_Shares', 'create');
 
+        if (!$GLOBALS['prefs']->getValue('dynamic_view')) {
+            $this->features['dynamicView'] = false;
+        }
         if ($GLOBALS['registry']->getView() != Horde_Registry::VIEW_DYNAMIC ||
             !$GLOBALS['prefs']->getValue('dynamic_view') ||
             empty($this->initParams['nodynamicinit'])) {
