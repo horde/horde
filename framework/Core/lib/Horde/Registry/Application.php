@@ -149,7 +149,8 @@ class Horde_Registry_Application
     {
     }
 
-    /* Menu generation methods. */
+
+    // Menu generation methods.
 
     /**
      * Add additional items to the menu.
@@ -180,6 +181,7 @@ class Horde_Registry_Application
     public function removeUserData($user)
     {
     }
+
 
     // Horde permissions.
 
