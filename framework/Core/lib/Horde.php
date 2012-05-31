@@ -1348,7 +1348,7 @@ class Horde
             $params->width = $options['width'];
         }
 
-        return 'void(HordePoup.popup(' . self::escapeJson($params, array('nodelimit' => true, 'urlencode' => !empty($options['urlencode']))) . '));';
+        return 'void(HordePopup.popup(' . self::escapeJson($params, array('nodelimit' => true, 'urlencode' => !empty($options['urlencode']))) . '));';
     }
 
     /**
