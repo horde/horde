@@ -1331,21 +1331,13 @@ class Horde
             $options['params'] = array_merge($url->parameters, $options['params']);
         }
 
-        if (!empty($options['height'])) {
-            $params->height = $options['height'];
-        }
         if (!empty($options['menu'])) {
             $params->menu = 1;
         }
-        if (!empty($options['onload'])) {
-            $params->onload = $options['onload'];
-        }
-        if (!empty($options['params'])) {
-            // Bug #9903: 3rd parameter must explicitly be '&'
-            $params->params = array_map('rawurlencode', $options['params']);
-        }
-        if (!empty($options['width'])) {
-            $params->width = $options['width'];
+        foreach (array('height', 'onload', 'params', 'width') as $key) {
+            if (!empty($options[$key])) {
+                $params->$key = $options[$key];
+            }
         }
 
         return 'void(HordePopup.popup(' . self::escapeJson($params, array('nodelimit' => true, 'urlencode' => !empty($options['urlencode']))) . '));';
