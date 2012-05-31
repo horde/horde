@@ -1342,7 +1342,7 @@ class Horde
         }
         if (!empty($options['params'])) {
             // Bug #9903: 3rd parameter must explicitly be '&'
-            $params->params = http_build_query(array_map('rawurlencode', $options['params']), '', '&');
+            $params->params = array_map('rawurlencode', $options['params']);
         }
         if (!empty($options['width'])) {
             $params->width = $options['width'];
