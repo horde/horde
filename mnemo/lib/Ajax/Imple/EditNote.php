@@ -4,7 +4,7 @@
  *
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
- * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @package  Mnemo
  */
@@ -18,7 +18,7 @@ class Mnemo_Ajax_Imple_EditNote extends Horde_Core_Ajax_Imple_InPlaceEditor
         $memo = $storage->getByUID($vars->id);
 
         /* Are we requesting the unformatted text? */
-        if ($vars->load) {
+        if ($vars->action == 'load') {
             return $memo['body'];
         }
 
@@ -27,10 +27,10 @@ class Mnemo_Ajax_Imple_EditNote extends Horde_Core_Ajax_Imple_InPlaceEditor
             throw new Horde_Exception_PermissionDenied(_("You do not have permission to edit this note."));
         }
 
-        $storage->modify($memo['memo_id'], $memo['desc'], $vars->input);
+        $storage->modify($memo['memo_id'], $memo['desc'], $vars->{$vars->input});
 
         return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(
-            $vars->input,
+            $vars->{$vars->input},
             'text2html',
             array('parselevel' => Horde_Text_Filter_Text2html::MICRO)
         );

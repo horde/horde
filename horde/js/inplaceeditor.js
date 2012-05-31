@@ -275,7 +275,7 @@ InPlaceEditor = Class.create(
     },
 
     getText: function()
-    {   
+    {
         $(this.element).select('.' + this.options.emptyClassName).each(function(child) {
             this.element.removeChild(child);
         }.bind(this));
@@ -369,7 +369,7 @@ InPlaceEditor = Class.create(
             onComplete: Prototype.emptyFunction,
             onSuccess: function(transport) {
                 this._form.removeClassName(this.options.loadingClassName);
-                var text = transport.responseText;
+                var text = transport.responseJSON;
                 if (this.options.stripLoadedTextTags) {
                     text = text.stripTags();
                 }
@@ -459,6 +459,6 @@ InPlaceEditor = Class.create(
 
     wrapUp: function(transport) {
         this.leaveEditMode();
-        this.triggerCallback('onComplete', null);
+        this.triggerCallback('onComplete', transport);
     }
 });

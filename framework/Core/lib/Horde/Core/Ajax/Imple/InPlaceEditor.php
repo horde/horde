@@ -47,11 +47,10 @@ abstract class Horde_Core_Ajax_Imple_InPlaceEditor extends Horde_Core_Ajax_Imple
             $value_url = $this->getImpleUrl()->add(array(
                 'id' => $this->_params['dataid'],
                 'input' => 'value'
-            ));
+            ))->setRaw(true);
             $load_url = $value_url->copy()->add(array(
                 'action' => 'load'
-            ));
-
+            ))->setRaw(true);
             $config = new stdClass;
             $config->config = array(
                 'cancelClassName' => '',
@@ -73,10 +72,12 @@ abstract class Horde_Core_Ajax_Imple_InPlaceEditor extends Horde_Core_Ajax_Imple
             $page_output->addInlineScript(array(
                 '$H(HordeImple.InPlaceEditor.ids).each(function(pair) {
                      new InPlaceEditor(pair.key, pair.value.value_url, Object.extend(HordeImple.InPlaceEditor.config, {
+                         htmlResponse: false,
                          callback: function(form, value) {
                              return "value=" + encodeURIComponent(value);
                          },
                          onComplete: function(ipe, opts) {
+                            $("' . $this->getDomId() . '").update(opts.responseJSON)
                              ipe.checkEmpty()
                          },
                          loadTextURL: pair.value.load_url,
