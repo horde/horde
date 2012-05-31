@@ -294,7 +294,11 @@ class Horde_ActiveSync_Message_Base
                                 break;
                             }
                             if (isset($map[self::KEY_TYPE])) {
-                                $decoded = new $map[self::KEY_TYPE];
+                                $class = $map[self::KEY_TYPE];
+                                $decoded = new $class(array(
+                                    'protocolversion' => $this->_version,
+                                    'logger' => $this->_logger)
+                                );
                                 $decoded->decodeStream($decoder);
                             } else {
                                 $decoded = $decoder->getElementContent();
@@ -327,7 +331,11 @@ class Horde_ActiveSync_Message_Base
                                    throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                                 }
                             } else {
-                                $subdecoder = new $map[self::KEY_TYPE]();
+                                $class = $map[self::KEY_TYPE];
+                                $subdecoder = new $class(array(
+                                    'protocolversion' => $this->_version,
+                                    'logger' => $this->_logger)
+                                );
                                 if ($subdecoder->decodeStream($decoder) === false) {
                                     throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                                 }
