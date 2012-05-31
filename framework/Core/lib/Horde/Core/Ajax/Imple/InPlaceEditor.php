@@ -82,7 +82,7 @@ abstract class Horde_Core_Ajax_Imple_InPlaceEditor extends Horde_Core_Ajax_Imple
                          },
                          loadTextURL: pair.value.load_url,
                          rows: pair.value.rows,
-                         width: pair.value.width
+                         autoWidth: true
                      }));
                  })'
             ), true);
