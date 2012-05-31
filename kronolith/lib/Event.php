@@ -1473,7 +1473,8 @@ abstract class Kronolith_Event
                 $results = $kronolith_driver->search($search);
                 foreach ($results as $days) {
                     foreach ($days as $exception) {
-                        $e = new Horde_ActiveSync_Message_Exception();
+                        $e = new Horde_ActiveSync_Message_Exception(array(
+                            'protocolversion' => $options['protocolversion']));
                         $e->setDateTime(array(
                             'start' => $exception->start,
                             'end' => $exception->end,
@@ -1522,7 +1523,8 @@ abstract class Kronolith_Event
 
                 // Any dates left in $exceptions must be deleted exceptions
                 foreach ($exceptions as $deleted) {
-                    $e = new Horde_ActiveSync_Message_Exception();
+                    $e = new Horde_ActiveSync_Message_Exception(array(
+                        'protocolversion' => $options['protocolversion']));
                     // Kronolith stores the date only, but some AS clients need
                     // the datetime.
                     $st = new Horde_Date($deleted);
@@ -1539,7 +1541,8 @@ abstract class Kronolith_Event
         if (count($this->attendees)) {
             $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_IS_MEETING);
             foreach ($this->attendees as $email => $properties) {
-                $attendee = new Horde_ActiveSync_Message_Attendee();
+                $attendee = new Horde_ActiveSync_Message_Attendee(array(
+                    'protocolversion' => $options['protocolversion']));
                 $attendee->email = $email;
                 // AS only has required or optional, and only EAS Version > 2.5
                 if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
@@ -1557,7 +1560,8 @@ abstract class Kronolith_Event
            $r = $this->getResources();
            foreach ($r as $id => $data) {
                $resource = Kronolith::getDriver('Resource')->getResource($id);
-               $attendee = new Horde_ActiveSync_Message_Attendee();
+               $attendee = new Horde_ActiveSync_Message_Attendee(array(
+                    'protocolversion' => $options['protocolversion']));
                $attendee->email = $resource->get('email');
                $attendee->type = Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE;
                $attendee->name = $data['name'];
