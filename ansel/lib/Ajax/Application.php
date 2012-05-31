@@ -13,6 +13,13 @@
 class Ansel_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
+     */
+    protected function _init()
+    {
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Prefs());
+    }
+
+    /**
      * Obtain a gallery
      *
      * @return mixed  False on failure, object representing the gallery with

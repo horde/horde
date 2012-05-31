@@ -46,23 +46,21 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
     /**
      */
-    public function __construct($app, $vars, $action = null)
+    protected function _init()
     {
-        parent::__construct($app, $vars, $action);
-
         $this->_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
 
         /* Bug #10462: 'view' POST parameter is base64url encoded to
          * workaround suhosin. */
-        if (isset($vars->view)) {
-            $this->_mbox = IMP_Mailbox::formFrom($vars->view);
+        if (isset($this->_vars->view)) {
+            $this->_mbox = IMP_Mailbox::formFrom($this->_vars->view);
         }
 
         /* Make sure the viewport entry is initialized. */
-        $vp = isset($vars->viewport)
-            ? Horde_Serialize::unserialize($vars->viewport, Horde_Serialize::JSON)
+        $vp = isset($this->_vars->viewport)
+            ? Horde_Serialize::unserialize($this->_vars->viewport, Horde_Serialize::JSON)
             : new stdClass;
-        $vars->viewport = new Horde_Support_ObjectStub($vp);
+        $this->_vars->viewport = new Horde_Support_ObjectStub($vp);
 
         /* GLOBAL TASKS */
 
