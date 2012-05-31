@@ -210,7 +210,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 case Horde_ActiveSync::SYNC_WINDOWSIZE:
                     $default_maxitems = $this->_decoder->getElementContent();
                     $this->_logger->debug(sprintf(
-                        "[%s] WINDOWSIZE set to %s",
+                        "[%s] Global WINDOWSIZE set to %s",
                         $this->_device->id,
                         $default_maxitems));
                     if (!$this->_decoder->getElementEndTag()) {
