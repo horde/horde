@@ -73,7 +73,7 @@ var HordeCore = {
             this.doActionComplete(t, opts.callback);
         }.bind(this);
 
-        new Ajax.Request(this.conf.URI_AJAX + action, ajaxopts);
+        new Ajax.Request((action == 'imple' ? this.conf.URI_IMPLE : this.conf.URI_AJAX + action, ajaxopts);
     },
 
     // form: (Element) DOM Element (or DOM ID)

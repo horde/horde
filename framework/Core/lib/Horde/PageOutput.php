@@ -624,6 +624,7 @@ class Horde_PageOutput
             $js_conf = array_filter(array(
                 /* URLs */
                 'URI_AJAX' => $registry->getServiceLink('ajax', $registry->getApp())->url,
+                'URI_IMPLE' => $registry->getServiceLink('ajax', 'horde')->url . 'imple',
                 'URI_DLOAD' => $registry->getServiceLink('download', $registry->getApp())->url,
                 'URI_LOGOUT' => strval($registry->getServiceLink('logout')),
                 'URI_SNOOZE' => strval(Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1)),
