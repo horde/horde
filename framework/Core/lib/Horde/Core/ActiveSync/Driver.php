@@ -1471,7 +1471,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $return[] = array(
                     'displayname' => $result['name'],
                     'emailaddress' => $result['email'],
-                    'entries' => array($result['smimePublicKey']),
+                    'entries' => array($this->_mungeCert($result['smimePublicKey'])),
                     'type' => $result['source'] == $gal ? 1 : 2
                 );
             }
@@ -1770,6 +1770,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         default:
             return true;
         }
+    }
+
+    /**
+     * Removes the beginning/ending delimiters from the certificate.
+     *
+     * @param string $cert  The certificate text.
+     *
+     * @return string  The certificate text, with delimiters removed.
+     */
+    protected function _mungeCert($cert)
+    {
+        $cert = str_replace("-----BEGIN CERTIFICATE-----", '', $cert);
+        $cert = str_replace("-----END CERTIFICATE-----", '', $cert);
+
+        return $cert;
     }
 
 }
