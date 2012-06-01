@@ -825,7 +825,8 @@ class IMP_Contents
         if ((($mask & self::SUMMARY_STRIP_LINK) ||
              ($mask & self::SUMMARY_STRIP_STUB)) &&
             ($id != 0) &&
-            (intval($id) != 1)) {
+            (intval($id) != 1) &&
+            (strpos($id, '.') === false)) {
             if ($mask & self::SUMMARY_STRIP_LINK) {
                 $url = Horde::selfUrl(true)->remove(array('actionID', 'imapid', 'uid'))->add(array('actionID' => 'strip_attachment', 'imapid' => $id, 'uid' => $this->_uid, 'message_token' => $GLOBALS['injector']->getInstance('Horde_Token')->get('imp.impcontents')));
                 $part['strip'] = Horde::link($url, _("Strip Attachment"), 'iconImg deleteImg', null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to PERMANENTLY delete this attachment?"), Horde_Serialize::JSON, 'UTF-8') . ')') . '</a>';
