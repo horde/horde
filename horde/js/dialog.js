@@ -132,7 +132,9 @@ var HordeDialog = {
         if (this.uri) {
             var params = $H((!this.params || Object.isArray(this.params)) ? {} : this.params);
             params.update(e.findElement('form').serialize(true));
-
+            if (this.type) {
+                params.set('type', this.type);
+            }
             new Ajax.Request(this.uri, {
                 onSuccess: this._onSuccess.bind(this),
                 parameters: params
