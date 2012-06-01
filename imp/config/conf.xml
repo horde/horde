@@ -72,6 +72,10 @@
      need to dynamically set the email address for each user (e.g. DSPAM),
      this setting should be empty and you should look at the
      spam_email hook instead."/>
+     <configboolean name="redirect" desc="Should the message be redirected to
+     the email address instead of being sent in a multipart/digest message?
+     Please note that this will alter the original message's
+     headers and might break signatures!">false</configboolean>
      <configstring name="program" required="false" desc="Should we report the
      spam message via an external program (e.g. /usr/local/bin/spamassassin
      -r)? If you include the placeholder %u in this string, it will be replaced
@@ -97,6 +101,10 @@
      need to dynamically set the email address for each user (e.g. DSPAM),
      this setting should be empty and you should look at the
      spam_email hook instead."/>
+     <configboolean name="redirect" desc="Should the message be redirected to
+     the email address instead of being sent in a multipart/digest message?
+     Please note that this will alter the original message's
+     headers and might break signatures!">false</configboolean>
      <configstring name="program" required="false" desc="Should we report the
      innocent message via an external program (e.g. /usr/local/bin/spamassassin
      -k)? If you include the placeholder %u in this string, it will be replaced
