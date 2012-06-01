@@ -27,6 +27,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         $this->addHelper(new Horde_Core_Ajax_Application_Helper_Chunk());
         $this->addHelper(new Horde_Core_Ajax_Application_Helper_Email($defaultDomain));
         $this->addHelper(new Horde_Core_Ajax_Application_Helper_Groups());
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Imple());
         $this->addHelper(new Horde_Core_Ajax_Application_Helper_Prefs());
     }
 

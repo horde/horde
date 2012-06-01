@@ -48,6 +48,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _init()
     {
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Imple());
+
         $this->_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
 
         /* Bug #10462: 'view' POST parameter is base64url encoded to
