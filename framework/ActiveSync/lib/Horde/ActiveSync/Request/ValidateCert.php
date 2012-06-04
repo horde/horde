@@ -109,7 +109,7 @@ class Horde_ActiveSync_Request_ValidateCert extends Horde_ActiveSync_Request_Bas
             }
         }
 
-        $cert_status = array():
+        $cert_status = array();
         foreach ($certificates as $key => $certificate) {
             $cert_der = base64_decode($certificate);
             $cert_pem = "-----BEGIN CERTIFICATE-----\n"
