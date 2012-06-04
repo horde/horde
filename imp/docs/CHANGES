@@ -79,6 +79,7 @@ v6.0-git
 v5.0.22-git
 -----------
 
+[jan] Re-add option to report messages as spam/ham through redirection.
 [jan] Update Swedish translation (Jakob Alvermark
       <jakob.alvermark@bsdlabs.com>).
 

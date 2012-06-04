@@ -766,7 +766,7 @@ KronolithCore = {
             .update(Date.CultureInfo.monthNames[month]);
 
         // Build month table.
-        this.buildMinical(tbody, new Date(year, month, 1), null, idPrefix);
+        this.buildMinical(tbody, new Date(year, month, 1), null, idPrefix, year);
 
         return table;
     },
@@ -882,8 +882,10 @@ KronolithCore = {
      *                         in the mini calendar are highlighted.
      * @param string idPrefix  If present, each day will get a DOM ID with this
      *                         prefix
+     * @param integer year     If present, generating mini calendars for the
+     *                         year view of this year.
      */
-    buildMinical: function(tbody, date, view, idPrefix)
+    buildMinical: function(tbody, date, view, idPrefix, year)
     {
         var dates = this.viewDates(date, 'month'),
             day = dates[0].clone(),
@@ -931,7 +933,10 @@ KronolithCore = {
             }
 
             // Highlight today.
-            if (day.equals(today)) {
+            if (day.equals(today) &&
+                (Object.isUndefined(year) ||
+                 (day.getYear() + 1900 == year &&
+                  date.getMonth() == day.getMonth()))) {
                 td.addClassName('kronolithToday');
             }
             td.update(day.getDate());

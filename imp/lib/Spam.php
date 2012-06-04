@@ -112,43 +112,58 @@ class IMP_Spam
                 }
 
                 if ($to) {
-                    if (!isset($raw_msg)) {
-                        $raw_msg = $imp_contents->fullMessageText(array('stream' => true));
-                    }
-
                     if (!isset($imp_compose)) {
                         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create();
+                    }
+
+                    if (!empty($GLOBALS['conf'][$action]['redirect'])) {
+                        $index = new IMP_Indices($ob->mbox, $idx);
+                        $imp_compose->redirectMessage($index);
+
+                        /* Send the message. */
+                        try {
+                            $imp_compose->sendRedirectMessage($to, false);
+                            $report_flag = true;
+                        } catch (IMP_Compose_Exception $e) {
+                            $e->log();
+                        }
+                    } else {
                         try {
                             $from_line = $injector->getInstance('IMP_Identity')->getFromLine();
                         } catch (Horde_Exception $e) {
                             $from_line = null;
                         }
-                    }
 
-                    /* Build the MIME structure. */
-                    $mime = new Horde_Mime_Part();
-                    $mime->setType('multipart/digest');
+                        if (!isset($raw_msg)) {
+                            $raw_msg = $imp_contents->fullMessageText(array('stream' => true));
+                        }
 
-                    $rfc822 = new Horde_Mime_Part();
-                    $rfc822->setType('message/rfc822');
-                    $rfc822->setContents($raw_msg);
-                    $mime->addPart($rfc822);
+                        /* Build the MIME structure. */
+                        $mime = new Horde_Mime_Part();
+                        $mime->setType('multipart/digest');
 
-                    $spam_headers = new Horde_Mime_Headers();
-                    $spam_headers->addMessageIdHeader();
-                    $spam_headers->addHeader('Date', date('r'));
-                    $spam_headers->addHeader('To', $to);
-                    if (!is_null($from_line)) {
-                        $spam_headers->addHeader('From', $from_line);
-                    }
-                    $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action, $GLOBALS['registry']->getAuth()));
+                        $rfc822 = new Horde_Mime_Part();
+                        $rfc822->setType('message/rfc822');
+                        $rfc822->setContents($raw_msg);
+                        $mime->addPart($rfc822);
 
-                    /* Send the message. */
-                    try {
-                        $imp_compose->sendMessage(IMP::parseAddressList($to), $spam_headers, $mime, 'UTF-8');
-                        $report_flag = true;
-                    } catch (IMP_Compose_Exception $e) {
-                        $e->log();
+                        $spam_headers = new Horde_Mime_Headers();
+                        $spam_headers->addMessageIdHeader();
+                        $spam_headers->addHeader('Date', date('r'));
+                        $spam_headers->addHeader('To', $to);
+                        if (!is_null($from_line)) {
+                            $spam_headers->addHeader('From', $from_line);
+                        }
+                        $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action, $GLOBALS['registry']->getAuth()));
+
+                        /* Send the message. */
+                        try {
+                            $recip_list = $imp_compose->recipientList(array('to' => $to));
+                            $imp_compose->sendMessage($recip_list['list'], $spam_headers, $mime, 'UTF-8');
+                            $report_flag = true;
+                        } catch (IMP_Compose_Exception $e) {
+                            $e->log();
+                        }
                     }
                 }
 

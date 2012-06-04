@@ -70,6 +70,10 @@
      messages). If you need to dynamically set the e-mail address for each user
      (e.g. DSPAM), leave this setting empty and look at the spam_email hook
      instead."/>
+     <configboolean name="redirect" desc="Should the message be redirected to
+     the email address instead of being sent in a multipart/digest message?
+     Please note that this will alter the original message's
+     headers and might break signatures!">false</configboolean>
      <configstring name="program" required="false" desc="Should spam messages
      be reported via an external program (e.g. the spamassassin binary)? The
      placeholder %u in this string will be replaced with the current Horde
@@ -94,6 +98,10 @@
      messags). If you need to dynamically set the e-mail address for each user
      (e.g. DSPAM), leave this setting empty and look at the spam_email hook
      instead."/>
+     <configboolean name="redirect" desc="Should the message be redirected to
+     the email address instead of being sent in a multipart/digest message?
+     Please note that this will alter the original message's
+     headers and might break signatures!">false</configboolean>
      <configstring name="program" required="false" desc="Should innocent
      messages be reported via an external program (e.g. the spamassasin
      binary)? The placeholder %u in this string will be replaced with the
