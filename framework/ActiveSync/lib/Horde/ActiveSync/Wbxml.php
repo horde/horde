@@ -403,7 +403,7 @@ class Horde_ActiveSync_Wbxml
                 0x14 => 'MaxAmbiguousRecipients',
                 0x15 => 'CertificateCount',
             ),
-            /* VALIDATECERTS */
+            /* VALIDATECERT */
             0xb => array (
                 0x05 => 'ValidateCert',
                 0x06 => 'Certificates',

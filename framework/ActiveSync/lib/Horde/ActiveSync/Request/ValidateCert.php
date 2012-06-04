@@ -44,15 +44,14 @@ class Horde_ActiveSync_Request_ValidateCert extends Horde_ActiveSync_Request_Bas
     const VALIDATECERT_CHECKCRL         = 'ValidateCert:CheckCRL';
     const VALIDATECERT_STATUS           = 'ValidateCert:Status';
 
-    const STATUS_SUCCESS = 1;
-    const STATUS_PROTERR = 2;
-    const STATUS_SIGERR  = 3;
-    const STATUS_UNTRUSTED = 4;
-    const STATUS_EXPIRED = 7;
-    const STATUS_PURPOSE_INVALID = 9;
-    const STATUS_MISSING_INFO = 10;
-
-    const STATUS_UNKNOWN = 17;
+    const STATUS_SUCCESS                = 1;
+    const STATUS_PROTERR                = 2;
+    const STATUS_SIGERR                 = 3;
+    const STATUS_UNTRUSTED              = 4;
+    const STATUS_EXPIRED                = 7;
+    const STATUS_PURPOSE_INVALID        = 9;
+    const STATUS_MISSING_INFO           = 10;
+    const STATUS_UNKNOWN                = 17;
 
     /**
      * Handle request
@@ -131,7 +130,7 @@ class Horde_ActiveSync_Request_ValidateCert extends Horde_ActiveSync_Request_Bas
 
             // Valid purpose/trusted?
             // @TODO: CRL support, CHAIN support
-            $result = openssl_x509_checkpurpose($cert_pem, X509_PURPOSE_SMIME_SIGN, array('/etc/ssl/certs'));
+            $result = openssl_x509_checkpurpose($cert_pem, X509_PURPOSE_SMIME_SIGN, array($this->_activeSync->certPath));
             if ($result === false) {
                 // @TODO:
                 // checkpurpose returns false if either the purpose is invalid OR

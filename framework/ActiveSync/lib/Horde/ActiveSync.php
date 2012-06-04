@@ -312,6 +312,14 @@ class Horde_ActiveSync
      */
     protected $_get = array();
 
+
+    /**
+     * Path to root certificate bundle
+     *
+     * @var string
+     */
+    protected $_certPath;
+
     /**
      * Map of commands when query string is base64 encoded (EAS 12.1)
      *
@@ -450,6 +458,16 @@ class Horde_ActiveSync
     }
 
     /**
+     * Set the local path to the root certificate bundle.
+     *
+     * @param string $path  The local path to the bundle.
+     */
+    public function setRootCertificatePath($path)
+    {
+        $this->_certPath = $path;
+    }
+
+    /**
      * Getter
      *
      * @param string $property  The property to return.
@@ -466,6 +484,7 @@ class Horde_ActiveSync
         case 'driver':
         case 'provisioning':
         case 'multipart':
+        case 'certPath':
             $property = '_' . $property;
             return $this->$property;
         default:
