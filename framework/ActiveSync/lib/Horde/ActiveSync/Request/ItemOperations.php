@@ -81,7 +81,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
 
         $this->_statusCode = self::STATUS_SUCCESS;
 
-        if(!$this->_decoder->getElementStartTag(self::ITEMOPERATIONS_ITEMOPERATIONS)) {
+        if (!$this->_decoder->getElementStartTag(self::ITEMOPERATIONS_ITEMOPERATIONS)) {
             throw new Horde_ActiveSync_Exception('Protocol Error');
         }
 
