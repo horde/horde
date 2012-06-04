@@ -264,7 +264,7 @@ class Horde_Core_Perms_Ui
 
         /* Get permission configuration. */
         $this->_type = $permission->get('type');
-        $params = $permission->get('params');
+        $params = $this->_corePerms->getParams($permission->getName());
 
         /* Default permissions. */
         $perm_val = $permission->getDefaultPermissions();
