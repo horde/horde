@@ -199,7 +199,12 @@ abstract class Horde_ActiveSync_Request_Base
             $this->_version)
         );
 
-        return $this->_handle();
+        try {
+            return $this->_handle();
+        } catch (Exception $e) {
+            $this->_logger->err($e->getMessage());
+            throw $e;
+        }
     }
 
     abstract protected function _handle();

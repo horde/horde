@@ -159,12 +159,15 @@ class Horde_ActiveSync_Imap_Message
         if (!$full = $this->_data->getFullMsg()) {
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->fullText();
-            $fetch_ret = $this->_imap->fetch(
-                $this->_mbox,
-                $query,
-                array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
-            );
-
+            try {
+                $fetch_ret = $this->_imap->fetch(
+                    $this->_mbox,
+                    $query,
+                    array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
+                );
+            } catch (Horde_Imap_Exception $e) {
+                throw new Horde_ActiveSync_Exception($e);
+            }
             $data = $fetch_ret[$this->_uid];
             $full = $data->getFullMsg($stream);
         }
