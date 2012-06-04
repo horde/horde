@@ -195,7 +195,7 @@ class IMP_Contents_View
      */
     public function printAttach($id)
     {
-        global $injector, $prefs;
+        global $injector, $page_output, $prefs;
 
         if (is_null($id) ||
             !($render = $this->_contents->renderMIMEPart($id, IMP_Contents::RENDER_FULL))) {
