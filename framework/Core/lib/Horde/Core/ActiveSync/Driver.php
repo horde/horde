@@ -1205,7 +1205,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @return string  The properly formatted/flowed message body.
      */
-    protected function _msgBody($part, $html, $flow = false)
+    protected function _msgBody(Horde_Mime_Part $part, $html, $flow = false)
     {
         $msg = Horde_String::convertCharset($part->getContents(), $part->getCharset(), 'UTF-8');
         trim($msg);
