@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-27</date>
- <time>16:19:20</time>
+ <date>2012-06-02</date>
+ <time>22:32:07</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -105,6 +105,7 @@
        <file name="SmartForward.php" role="php" />
        <file name="SmartReply.php" role="php" />
        <file name="Sync.php" role="php" />
+       <file name="ValidateCert.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Request -->
       <dir name="State">
        <file name="Base.php" role="php" />
@@ -289,6 +290,7 @@
    <install as="Horde/ActiveSync/Request/SmartForward.php" name="lib/Horde/ActiveSync/Request/SmartForward.php" />
    <install as="Horde/ActiveSync/Request/SmartReply.php" name="lib/Horde/ActiveSync/Request/SmartReply.php" />
    <install as="Horde/ActiveSync/Request/Sync.php" name="lib/Horde/ActiveSync/Request/Sync.php" />
+   <install as="Horde/ActiveSync/Request/ValidateCert.php" name="lib/Horde/ActiveSync/Request/ValidateCert.php" />
    <install as="Horde/ActiveSync/State/Base.php" name="lib/Horde/ActiveSync/State/Base.php" />
    <install as="Horde/ActiveSync/State/Sql.php" name="lib/Horde/ActiveSync/State/Sql.php" />
    <install as="Horde/ActiveSync/Wbxml/Decoder.php" name="lib/Horde/ActiveSync/Wbxml/Decoder.php" />
@@ -683,7 +685,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-05-27</date>
+   <date>2012-06-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Add basic Autoconfigure support.
