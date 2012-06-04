@@ -61,6 +61,11 @@ class Horde_ActiveSync_Imap_Message
      */
     protected $_lastBodyPartDecode = null;
 
+    /**
+     * Flag to indicate if this message contains attachments.
+     *
+     * @var boolean
+     */
     protected $_hasAttachments = null;
 
     /**
@@ -72,7 +77,10 @@ class Horde_ActiveSync_Imap_Message
      *                                            must contain at least uid,
      *                                            structure and flags.
      */
-    public function __construct($imap, $mailbox, $data)
+    public function __construct(
+        Horde_Imap_Client_Base $imap,
+        Horde_Imap_Client_Mailbox $mailbox,
+        Horde_Imap_Client_Data_Fetch $data)
     {
         $this->_imap = $imap;
         $this->_message = $data->getStructure();
@@ -140,7 +148,10 @@ class Horde_ActiveSync_Imap_Message
     /**
      * Return the full message text.
      *
+     * @param boolean $stream  Return data as a stream?
+     *
      * @return mixed  A string or stream resource.
+     * @throws Horde_ActiveSync_Exception
      */
     public function getFullMsg($stream = false)
     {
@@ -189,7 +200,7 @@ class Horde_ActiveSync_Imap_Message
      *
      * @return array  An array of 'plain' and 'html' content.
      */
-    public function getMessageBodyData($options = array())
+    public function getMessageBodyData(array $options = array())
     {
         $version = empty($options['protocolversion']) ? 2.5 : $options['protocolversion'];
         if (!isset($options['trunction'])) {
@@ -340,7 +351,7 @@ class Horde_ActiveSync_Imap_Message
     /**
      * Return an array of mime parts for each message attachement.
      *
-     * @return array
+     * @return array An array of Horde_Mime_Part objects.
      */
     public function getAttachmentsMimeParts()
     {
@@ -544,6 +555,11 @@ class Horde_ActiveSync_Imap_Message
         return array('to' => $tos, 'displayto' => $dtos);
     }
 
+    /**
+     * Return the CC addresses for this message.
+     *
+     * @return string  The Cc address string.
+     */
     public function getCc()
     {
         if (empty($this->_envelope)) {
@@ -555,6 +571,11 @@ class Horde_ActiveSync_Imap_Message
         return $a->writeAddress(false);
     }
 
+    /**
+     * Return the ReplyTo Address
+     *
+     * @return string
+     */
     public function getReplyTo()
     {
         if (empty($this->_envelope)) {
@@ -669,9 +690,13 @@ class Horde_ActiveSync_Imap_Message
         }
     }
 
+    /**
+     * Return the hasAttachments flag
+     *
+     * @return boolean
+     */
     public function hasAttachments()
     {
-
         if (isset($this->_hasAttachments)) {
             return $this->_hasAttachments;
         }
