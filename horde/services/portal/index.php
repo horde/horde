@@ -38,7 +38,7 @@ foreach ($view->getStylesheets() as $val) {
 $page_output->header(array(
     'title' => _("My Portal")
 ));
-echo $injector->getInstance('Horde_Core_Topbar')->render();
+echo $injector->getInstance('Horde_View_Topbar')->render();
 echo '<div id="menuBottom">';
 echo htmlspecialchars($injector->getInstance('Horde_Core_Factory_Identity')->create()->getName());
 if (!$prefs->isLocked('portal_layout')) {

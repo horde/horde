@@ -25,12 +25,12 @@ class Horde_Core_Topbar
     /**
      * Constructor.
      */
-    public function __construct()
+    public function __construct($treeRenderer, $rendererParams)
     {
         /* Set up the tree. */
         $this->_tree = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Tree')
-            ->create('horde_menu', 'Horde_Core_Tree_Menu', array('nosession' => true));
+            ->create('horde_menu', $treeRenderer, $rendererParams);
     }
 
     /**
@@ -168,13 +168,12 @@ class Horde_Core_Topbar
                     $url = Horde::url($registry->getInitialPage($app), false, array('app' => $app));
                 }
 
-                $this->_tree->addNode(
-                    $app,
-                    empty($params['menu_parent']) ? null : $params['menu_parent'],
-                    $name,
-                    0,
-                    false,
-                    array(
+                $this->_tree->addNode(array(
+                    'id' => $app,
+                    'parent' => empty($params['menu_parent']) ? null : $params['menu_parent'],
+                    'label' => $name,
+                    'expanded' => false,
+                    'params' => array(
                         'icon' => strval((isset($params['icon'])
                                           ? $params['icon']
                                           : $registry->get('icon', $app))),
@@ -190,70 +189,11 @@ class Horde_Core_Topbar
                         'url' => $url,
                         'active' => $app == $current,
                     )
-                );
+                ));
             }
         }
 
         return $this->_tree;
-    }
-
-    /**
-     * Returns the HTML code for the topbar.
-     *
-     * @param string $subinfo  Any extra information to display at the right of
-     *                         the sub bar.
-     *
-     * @return string  The topbar's HTML code.
-     */
-    public function render($subinfo = '')
-    {
-        global $registry;
-
-        $view = $GLOBALS['injector']->getInstance('Horde_View');
-        $view->setTemplatePath($registry->get('templates', 'horde') . '/topbar');
-
-        /* Logo. */
-        $view->portalUrl = $registry->getServiceLink(
-            'portal', $registry->getApp());
-        if (class_exists('Horde_Bundle')) {
-            $view->version = Horde_Bundle::SHORTNAME . ' ' . Horde_Bundle::VERSION;
-        } else {
-            $view->version = $registry->getVersion('horde');
-        }
-
-        /* Main menu. */
-        $view->menu = $this->getTree()->getTree();
-
-        /* Login/Logout. */
-        if ($registry->getAuth()) {
-            if (Horde_Menu::showService('logout')) {
-                $view->logoutUrl = $registry->getServiceLink(
-                    'logout',
-                    $registry->getApp())
-                    ->setRaw(false);
-            }
-        } else {
-            if (Horde_Menu::showService('login')) {
-                $view->logoutUrl = $registry->getServiceLink(
-                    'login',
-                    $registry->getApp())
-                    ->setRaw(false);
-            }
-        }
-
-        /* Sub bar. */
-        $view->date = strftime($GLOBALS['prefs']->getValue('date_format'));
-        $view->subinfo = $subinfo;
-        $pageOutput = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-        $pageOutput->addScriptFile('topbar.js', 'horde');
-        $pageOutput->addInlineJsVars(array('HordeTopbar.format' =>
-            str_replace(
-               array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
-               array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
-               $GLOBALS['prefs']->getValue('date_format')
-        )));
-
-        return $view->render('topbar') . $view->render('sub');
     }
 
     /**

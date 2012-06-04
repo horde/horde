@@ -1,4 +1,4 @@
-<?php echo $injector->getInstance('Horde_Core_Topbar')->render(); ?>
+<?php echo $injector->getInstance('Horde_View_Topbar')->render(); ?>
 <form name="tjump" method="get" action="<?php echo Horde::url('ticket/', false, -1) ?>">
 <?php echo Horde_Util::formInput() ?>
 <div id="menu">

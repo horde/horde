@@ -384,7 +384,7 @@ class Ingo
         $menu = $t->fetch(INGO_TEMPLATES . '/menu/menu.html');
 
         return $GLOBALS['injector']
-            ->getInstance('Horde_Core_Topbar')
+            ->getInstance('Horde_View_Topbar')
             ->render()
             . $menu;
     }

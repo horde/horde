@@ -1,4 +1,4 @@
-<?php echo $injector->getInstance('Horde_Core_Topbar')->render(); ?>
+<?php echo $injector->getInstance('Horde_View_Topbar')->render(); ?>
 <script type="text/javascript">
 function jump()
 {

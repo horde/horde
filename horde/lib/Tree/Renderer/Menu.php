@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Core_Tree_Menu class renders the tree structure of the top
+ * The Horde_Tree_Menu class renders the tree structure of the top
  * application menu.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
@@ -13,22 +13,8 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
-class Horde_Core_Tree_Menu extends Horde_Tree_Base
+class Horde_Tree_Renderer_Menu extends Horde_Tree_Renderer_Base
 {
-    /**
-     * Allowed parameters for nodes.
-     *
-     * @var array
-     */
-    protected $_allowed = array(
-        'active',
-        'class',
-        'icon',
-        'noarrow',
-        'url',
-        'target'
-    );
-
     /**
      * Returns the tree.
      *
@@ -39,9 +25,9 @@ class Horde_Core_Tree_Menu extends Horde_Tree_Base
     public function getTree($static = false)
     {
         $view = $GLOBALS['injector']->getInstance('Horde_View');
-        $view->setTemplatePath($GLOBALS['registry']->get('templates', 'horde') . '/topbar');
-        $view->rootItems = $this->_root_nodes;
-        $view->items = $this->_nodes;
+        $view->setTemplatePath($GLOBALS['registry']->get('templates', 'horde') . '/tree');
+        $view->rootItems = $this->_tree->getRootNodes();
+        $view->items = $this->_tree->getNodes();
         return $view->render('menu');
     }
 }

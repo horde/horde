@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-05-26</date>
- <time>00:01:20</time>
+ <date>2012-06-04</date>
+ <time>14:47:06</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -240,6 +240,7 @@
        <file name="ThemesCache.php" role="php" />
        <file name="Timezone.php" role="php" />
        <file name="Token.php" role="php" />
+       <file name="Topbar.php" role="php" />
        <file name="Tree.php" role="php" />
        <file name="Twitter.php" role="php" />
        <file name="UrlShortener.php" role="php" />
@@ -323,7 +324,6 @@
        <dir name="Renderer">
         <file name="Html.php" role="php" />
         <file name="Javascript.php" role="php" />
-        <file name="Menu.php" role="php" />
         <file name="Simplehtml.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Tree/Renderer -->
       </dir> <!-- /lib/Horde/Core/Tree -->
@@ -1264,6 +1264,7 @@
    <install as="Horde/Core/Factory/ThemesCache.php" name="lib/Horde/Core/Factory/ThemesCache.php" />
    <install as="Horde/Core/Factory/Timezone.php" name="lib/Horde/Core/Factory/Timezone.php" />
    <install as="Horde/Core/Factory/Token.php" name="lib/Horde/Core/Factory/Token.php" />
+   <install as="Horde/Core/Factory/Topbar.php" name="lib/Horde/Core/Factory/Topbar.php" />
    <install as="Horde/Core/Factory/Tree.php" name="lib/Horde/Core/Factory/Tree.php" />
    <install as="Horde/Core/Factory/Twitter.php" name="lib/Horde/Core/Factory/Twitter.php" />
    <install as="Horde/Core/Factory/UrlShortener.php" name="lib/Horde/Core/Factory/UrlShortener.php" />

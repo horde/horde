@@ -436,7 +436,7 @@ class IMP
         $menu = $t->fetch(IMP_TEMPLATES . '/imp/menu/menu.html');
 
         return $GLOBALS['injector']
-            ->getInstance('Horde_Core_Topbar')
+            ->getInstance('Horde_View_Topbar')
             ->render()
             . $menu;
     }
