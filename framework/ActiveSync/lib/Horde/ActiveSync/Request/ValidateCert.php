@@ -125,7 +125,7 @@ class Horde_ActiveSync_Request_ValidateCert extends Horde_ActiveSync_Request_Bas
             // Valid times?
             $now = time();
             if ($parsed['validFrom_time_t'] >= $now || $parsed['validTo_time_t'] <= $now) {
-                $certificate_status[$key] = self::STATUS_EXPIRED;
+                $cert_status[$key] = self::STATUS_EXPIRED;
                 continue;
             }
 
@@ -158,11 +158,11 @@ class Horde_ActiveSync_Request_ValidateCert extends Horde_ActiveSync_Request_Bas
             $this->_encoder->startTag(self::VALIDATECERT_CERTIFICATE);
 
             $this->_encoder->startTag(self::VALIDATECERT_STATUS);
-            $this->_encoder->content($certificate_status[$key]);
+            $this->_encoder->content($cert_status[$key]);
+            $this->_encoder->endTag();
+
             $this->_encoder->endTag();
         }
-
-        $this->_encoder->endTag();
 
         $this->_encoder->endTag();
 
