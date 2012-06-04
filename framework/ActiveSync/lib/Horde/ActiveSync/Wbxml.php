@@ -659,7 +659,7 @@ class Horde_ActiveSync_Wbxml
               8 => 'MeetingResponse',
               9 => 'POOMTASKS',
               0xA => 'ResolveRecipients',
-              0xB => 'ValidateCerts',
+              0xB => 'ValidateCert',
               0xC => 'POOMCONTACTS2',
               0xD => 'Ping',
               0xE => 'Provision',
