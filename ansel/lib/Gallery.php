@@ -1050,7 +1050,7 @@ class Ansel_Gallery implements Serializable
 
         /* Call the parent class method */
         try {
-            $this->_share->setParent($parent->getShare());
+            $this->_share->setParent(!is_null($parent) ? $parent->getShare() : null);
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
         }
