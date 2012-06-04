@@ -295,7 +295,7 @@ EOT;
 
         function runCarousel() {
             updateCarouselSize();
-            carousel = new UI.Ajax.Carousel("horizontal_carousel", { url: "{$previewUrl}", elementSize: 115 })
+            carousel = new UI.Ajax.Carousel("horizontal_carousel", { url: "{$previewUrl->toString(true)}", elementSize: 115 })
                 .observe("request:started", function() {
                     $('spinner').show().morph("opacity:0.8", {duration:0.5});
                 })
