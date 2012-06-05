@@ -1315,7 +1315,24 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getCurrentPolicy()
     {
-        return $this->_policies;
+        $setPolicies = $this->_getPolicyFromPerms();
+        $policies = array_merge($this->_policies, $setPolicies);
+        return $policies;
+    }
+
+    /**
+     * Returns the provisioning support for the current request.
+     *
+     * @return mixed  The value of the provisiong support flag.
+     */
+    public function getProvisioning()
+    {
+        $provisioning = $GLOBALS['injector']
+            ->getInstance('Horde_Perms')
+            ->getPermissions(
+                'horde:activesync:provisioning',
+                $this->_user);
+        return $this->_getPolicyValue('provisioning', $provisioning);
     }
 
     /**
@@ -1781,6 +1798,62 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $cert = str_replace("-----END CERTIFICATE-----", '', $cert);
 
         return $cert;
+    }
+
+    /**
+     * Return a policy array suitable for transforming into either wbxml or xml
+     * to send to the device in the provision response.
+     *
+     * @return array
+     */
+    protected function _getPolicyFromPerms()
+    {
+        $prefix = 'activesync:provisioning:';
+        $policy = array();
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        if (!$provisioning = $perms->exists('horde:activesync:provisioning')) {
+            return $policy;
+        }
+
+        $properties = array('pin', 'inactivity', 'minpinsize', 'pincomplexity',
+            'wipethreshold', 'codewordfrequency');
+
+        foreach ($properties as $property) {
+            if ($perms->exists($prefix . $property)) {
+                $p = $perms->getPermissions($prefix . $property, $this->_user);
+                $policy[$property] = $this->_getPolicyValue($property, $p);
+            }
+        }
+    }
+
+    protected function _getPolicyValue($policy, $allowed)
+    {
+        if (is_array($allowed)) {
+            switch ($policy) {
+            case 'activesync':
+            case 'pin':
+            case 'pincomplexity':
+            case 'wipethreshold':
+            case 'codewordfrequency':
+            case 'inactivity':
+                $allowed = max($allowed);
+                break;
+            case 'minimumlength':
+                $allowed = min($allowed);
+                break;
+            case 'provisioning':
+                if (array_search('false', $allowed) !== false) {
+                    $allowed = Horde_ActiveSync::PROVISIONING_NONE;
+                } elseif (array_search('allow', $allowed) !== false) {
+                    $allowed = Horde_ActiveSync::PROVISIONING_LOOSE;
+                } elseif (array_search('true', $allowed) !== false) {
+                    $allowed = Horde_ActiveSync::PROVISIONING_FORCE;
+                }
+                break;
+            }
+        }
+
+        return $allowed;
     }
 
 }

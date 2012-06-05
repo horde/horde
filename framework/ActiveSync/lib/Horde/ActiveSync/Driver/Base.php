@@ -123,7 +123,6 @@ abstract class Horde_ActiveSync_Driver_Base
      *                       the concrete driver may need.
      *  - logger: (Horde_Log_Logger) The logger.
      *            DEFAULT: none (No logging).
-     *
      *  - state: (Horde_ActiveSync_State_Base) The state driver.
      *           DEFAULT: none (REQUIRED).
      *
@@ -672,4 +671,10 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     abstract public function resolveRecipient($type, $search, array $options = array());
 
+    /**
+     * Returns the provisioning support for the current request.
+     *
+     * @return mixed  The value of the provisiong support flag.
+     */
+    abstract public function getProvisioning();
 }
