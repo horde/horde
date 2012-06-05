@@ -575,6 +575,9 @@ class Horde_ActiveSync
             throw new Horde_Exception_AuthenticationFailure();
         }
 
+        // Set provisioning support now that we are authenticated.
+        $this->setProvisioning($this->_driver->getProvisioning());
+
         $this->_logger->debug(sprintf(
             "[%s] %s request received for user %s",
             $devId,
