@@ -1834,6 +1834,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $policy[$property] = $this->_getPolicyValue($property, $p);
             }
         }
+
+        return $policy;
     }
 
     protected function _getPolicyValue($policy, $allowed)
