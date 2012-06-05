@@ -139,7 +139,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $this->_logger->info('Horde_ActiveSync_Driver_Horde::logon attempt for: ' . $username);
         parent::logon($username, $password, $domain);
 
-        return $this->_auth->authenticate($username, array('password' => $password));
+        if (!$this->_auth->authenticate($username, array('password' => $password))) {
+            return false;
+        }
+
+        // Check permissions to ActiveSync
+        $perms = $GLOBALS['injector']
+            ->getInstance('Horde_Perms')
+            ->getPermissions('horde:activesync', $username);
+
+        return $this->_getPolicyValue('activesync', $perms);
     }
 
     /**
