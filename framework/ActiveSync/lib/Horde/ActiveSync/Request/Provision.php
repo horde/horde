@@ -270,7 +270,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
 
         if ($policies[Horde_ActiveSync::POLICY_PIN]) {
             $this->_encoder->startTag('Provision:AlphanumericDevicePasswordRequired');
-            $this->_encoder->content($policies[Horde_ActivSync::POLICY_COMPLEXITY === 0] ? '1' : '0');
+            $this->_encoder->content($policies[Horde_ActiveSync::POLICY_COMPLEXITY === 0] ? '1' : '0');
             $this->_encoder->endTag();
 
             $this->_encoder->startTag('Provision:PasswordRecoveryEnabled');
