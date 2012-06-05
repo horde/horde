@@ -101,7 +101,6 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     protected $_policies = array(
         'pin'               => true,
-        'extended_policies' => true,
         'inactivity'        => 5,
         'wipethreshold'     => 10,
         'codewordfrequency' => 0,
