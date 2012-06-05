@@ -1309,15 +1309,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Return the security policies.
-     *
-     * @param string  $policyType  The type of policy to return. One of:
-     *  - Horde_ActiveSync::POLICYTYPE_XML
-     *  - Horde_ActiveSync::POLICYTYPE_WBXML
+     * Return the security policies
      *
      * @return array  An array of provisionable properties and values.
      */
-    public function getCurrentPolicy($policyType)
+    public function getCurrentPolicy()
     {
         return $this->_policies;
     }
