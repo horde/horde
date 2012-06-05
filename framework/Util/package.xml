@@ -17,11 +17,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-29</date>
- <time>14:00:48</time>
+ <date>2012-06-05</date>
+ <time>13:44:08</time>
  <version>
-  <release>1.3.2</release>
-  <api>1.3.0</api>
+  <release>1.4.0</release>
+  <api>1.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -477,12 +477,12 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>1.3.2</release>
-    <api>1.3.0</api></version>
+    <release>1.4.0</release>
+    <api>1.4.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-05-29</date>
+   <date>2012-06-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

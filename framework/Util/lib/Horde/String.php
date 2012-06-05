@@ -783,4 +783,20 @@ class Horde_String
             : $charset;
     }
 
+    /**
+     * Strip UTF-8 byte order mark (BOM) from string data.
+     *
+     * @since 1.4.0
+     *
+     * @param string $str  Input string (UTF-8).
+     *
+     * @return string  Stripped string (UTF-8).
+     */
+    static public function trimUtf8Bom($str)
+    {
+        return (substr($str, 0, 3) == pack('CCC', 239, 187, 191))
+            ? substr($str, 3)
+            : $str;
+    }
+
 }
