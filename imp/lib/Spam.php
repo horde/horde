@@ -33,11 +33,11 @@ class IMP_Spam
     static public function reportSpam(IMP_Indices $indices, $action,
                                       array $opts = array())
     {
-        global $injector, $notification;
+        global $conf, $injector, $notification, $prefs, $registry;
 
         /* Abort immediately if spam reporting has not been enabled, or if
          * there are no messages. */
-        if (empty($GLOBALS['conf'][$action]['reporting']) ||
+        if (empty($conf[$action]['reporting']) ||
             !count($indices)) {
             return 0;
         }
@@ -65,17 +65,17 @@ class IMP_Spam
 
                 /* If a (not)spam reporting program has been provided, use
                  * it. */
-                if (!empty($GLOBALS['conf'][$action]['program'])) {
+                if (!empty($conf[$action]['program'])) {
                     $raw_msg = $imp_contents->fullMessageText(array('stream' => true));
 
                     /* Use a pipe to write the message contents. This should
                      * be secure. */
                     $prog = str_replace(array('%u','%l', '%d'),
                         array(
-                            escapeshellarg($GLOBALS['registry']->getAuth()),
-                            escapeshellarg($GLOBALS['registry']->getAuth('bare')),
-                            escapeshellarg($GLOBALS['registry']->getAuth('domain'))
-                        ), $GLOBALS['conf'][$action]['program']);
+                            escapeshellarg($registry->getAuth()),
+                            escapeshellarg($registry->getAuth('bare')),
+                            escapeshellarg($registry->getAuth('domain'))
+                        ), $conf[$action]['program']);
                     $proc = proc_open($prog,
                         array(
                             0 => array('pipe', 'r'),
@@ -102,8 +102,8 @@ class IMP_Spam
 
                 /* If a (not)spam reporting email address has been provided,
                  * use it. */
-                if (!empty($GLOBALS['conf'][$action]['email'])) {
-                    $to = $GLOBALS['conf'][$action]['email'];
+                if (!empty($conf[$action]['email'])) {
+                    $to = $conf[$action]['email'];
                 } else {
                     /* Call the email generation hook, if requested. */
                     try {
@@ -116,7 +116,12 @@ class IMP_Spam
                         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create();
                     }
 
-                    if (!empty($GLOBALS['conf'][$action]['redirect'])) {
+                    if (!isset($conf[$action]['email_format'])) {
+                        $conf[$action]['email_format'] = 'digest';
+                    }
+
+                    switch ($conf[$action]['email_format']) {
+                    case 'redirect':
                         $index = new IMP_Indices($ob->mbox, $idx);
                         $imp_compose->redirectMessage($index);
 
@@ -127,7 +132,10 @@ class IMP_Spam
                         } catch (IMP_Compose_Exception $e) {
                             $e->log();
                         }
-                    } else {
+                        break;
+
+                    case 'digest':
+                    default:
                         try {
                             $from_line = $injector->getInstance('IMP_Identity')->getFromLine();
                         } catch (Horde_Exception $e) {
@@ -154,7 +162,7 @@ class IMP_Spam
                         if (!is_null($from_line)) {
                             $spam_headers->addHeader('From', $from_line);
                         }
-                        $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action, $GLOBALS['registry']->getAuth()));
+                        $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action, $registry->getAuth()));
 
                         /* Send the message. */
                         try {
@@ -164,6 +172,7 @@ class IMP_Spam
                         } catch (IMP_Compose_Exception $e) {
                             $e->log();
                         }
+                        break;
                     }
                 }
 
@@ -230,7 +239,7 @@ class IMP_Spam
             $imp_message->flag(array('$junk'), $indices, true);
             $imp_message->flag(array('$notjunk'), $indices, false);
 
-            if ($result = $GLOBALS['prefs']->getValue('delete_spam_after_report')) {
+            if ($result = $prefs->getValue('delete_spam_after_report')) {
                 switch ($result) {
                 case 1:
                     $msg_count = $imp_message->delete($indices, $mbox_args);
@@ -265,7 +274,7 @@ class IMP_Spam
             $imp_message->flag(array('$notjunk'), $indices, true);
             $imp_message->flag(array('$junk'), $indices, false);
 
-            if (($result = $GLOBALS['prefs']->getValue('move_ham_after_report')) &&
+            if (($result = $prefs->getValue('move_ham_after_report')) &&
                 !$imp_message->copy('INBOX', 'move', $indices, $mbox_args)) {
                 $result = 0;
             }
