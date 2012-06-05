@@ -53,6 +53,10 @@ class Horde_Application extends Horde_Registry_Application
             )
         );
 
+        if (!empty($GLOBALS['conf']['activesync']['enabled'])) {
+            $this->_addActiveSyncPerms($permissions);
+        }
+
         try {
             foreach ($GLOBALS['registry']->callByPackage('horde', 'admin_list') as $perm_key => $perm_details) {
                 $permissions['administration:' . $perm_key] = array('title' => Horde::stripAccessKey($perm_details['name']));
@@ -182,6 +186,59 @@ class Horde_Application extends Horde_Registry_Application
         if ($error) {
             throw new Horde_Exception(sprintf(_("There was an error removing global data for %s. Details have been logged."), $user));
         }
+    }
+
+    protected function _addActiveSyncPerms(&$permissions)
+    {
+        $permissions['activesync'] = array(
+            'title' => _("ActiveSync"),
+            'type' => 'boolean'
+        );
+
+        $permissions['activesync:provisioning'] = array(
+            'title' => _("Provisioning"),
+            'type' => 'enum',
+            'params' => array(array(
+                'false' => _("Never"),
+                'true' => _("Force"),
+                'allow' => _("Allow"),
+            ))
+        );
+
+        $permissions['activesync:provisioning:pin'] = array(
+            'title' => _("Require PIN"),
+            'type' => 'boolean'
+        );
+
+        $permissions['activesync:provisioning:minimumlength'] = array(
+            'title' => _("Minimum PIN length"),
+            'type' => 'int'
+        );
+
+        $permissions['activesync:provisioning:pincomplexity'] = array(
+            'title' => _("Password Complexity"),
+            'type' => 'enum',
+            'params' => array(array(
+                0 => _("Allow only numeric"),
+                1 => _("Allow alphanumeric"),
+                2 => _("Allow any"))
+            )
+        );
+
+        $permissions['activesync:provisioning:inactivity'] = array(
+            'title' => _("Minutes of inactivity before device should lock"),
+            'type' => 'int'
+        );
+
+        $permissions['activesync:provisioning:wipethreshold'] = array(
+            'title' => _("Wipe attempts before device is wiped"),
+            'type' => 'int'
+        );
+
+        $permissions['activesync:provisioning:codewordfrequency'] = array(
+            'title' => _("Codeword frequency"),
+            'type' => 'int'
+        );
     }
 
 }
