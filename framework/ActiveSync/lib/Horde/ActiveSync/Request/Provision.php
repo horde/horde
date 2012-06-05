@@ -118,12 +118,6 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 }
             }
 
-            // Check to be sure that we *need* to PROVISION
-            if ($this->_provisioning === false) {
-                $this->_sendNoProvisionNeededResponse($status);
-                return true;
-            }
-
             // POLICYKEY is only sent by client in phase 3
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICYKEY)) {
                 $policykey = $this->_decoder->getElementContent();
@@ -175,6 +169,12 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
 
         if (!$this->_decoder->getElementEndTag()) { //provision
             return $this->_globalError(self::STATUS_PROTERROR);
+        }
+
+        // Check to be sure that we *need* to PROVISION
+        if ($this->_provisioning === false) {
+            $this->_sendNoProvisionNeededResponse($status);
+            return true;
         }
 
         // Start handling request and sending output
