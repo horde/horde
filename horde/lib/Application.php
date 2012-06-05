@@ -190,6 +190,8 @@ class Horde_Application extends Horde_Registry_Application
 
     protected function _addActiveSyncPerms(&$permissions)
     {
+        $prefix = 'activesync:provisioning:';
+
         $permissions['activesync'] = array(
             'title' => _("ActiveSync"),
             'type' => 'boolean'
@@ -205,17 +207,17 @@ class Horde_Application extends Horde_Registry_Application
             ))
         );
 
-        $permissions['activesync:provisioning:pin'] = array(
+        $permissions[$prefix . 'pin'] = array(
             'title' => _("Require PIN"),
             'type' => 'boolean'
         );
 
-        $permissions['activesync:provisioning:minimumlength'] = array(
+        $permissions[$prefix . 'minimumlength'] = array(
             'title' => _("Minimum PIN length"),
             'type' => 'int'
         );
 
-        $permissions['activesync:provisioning:pincomplexity'] = array(
+        $permissions[$prefix . 'pincomplexity'] = array(
             'title' => _("Password Complexity"),
             'type' => 'enum',
             'params' => array(array(
@@ -225,20 +227,38 @@ class Horde_Application extends Horde_Registry_Application
             )
         );
 
-        $permissions['activesync:provisioning:inactivity'] = array(
+        $permissions[$prefix . 'inactivity'] = array(
             'title' => _("Minutes of inactivity before device should lock"),
             'type' => 'int'
         );
 
-        $permissions['activesync:provisioning:wipethreshold'] = array(
+        $permissions[$prefix . 'wipethreshold'] = array(
             'title' => _("Wipe attempts before device is wiped"),
             'type' => 'int'
         );
 
-        $permissions['activesync:provisioning:codewordfrequency'] = array(
+        $permissions[$prefix . 'codewordfrequency'] = array(
             'title' => _("Codeword frequency"),
             'type' => 'int'
         );
+
+        // EAS 12.0 and above.
+        if ($GLOBALS['conf']['activesync']['version'] > Horde_ActiveSync::VERSION_TWELVE) {
+            $permissions[$prefix . 'attachments'] = array(
+                'title' => _("Attachment Download"),
+                'type' => 'boolean'
+            );
+
+            $permissions[$prefix . 'maxattachmentsize'] = array(
+                'title' => _("Maximum attachment size"),
+                'type' => 'int'
+            );
+
+            $permissions[$prefix . 'encryption'] = array(
+                'title' => _("Require device encryption"),
+                'type' => 'boolean'
+            );
+        }
     }
 
 }

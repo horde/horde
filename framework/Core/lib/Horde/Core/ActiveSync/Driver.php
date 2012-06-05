@@ -1825,7 +1825,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         $properties = array('pin', 'inactivity', 'minpinsize', 'pincomplexity',
-            'wipethreshold', 'codewordfrequency');
+            'wipethreshold', 'codewordfrequency', 'attachments', 'maxatcsize',
+            'encryption');
 
         foreach ($properties as $property) {
             if ($perms->exists($prefix . $property)) {
@@ -1845,9 +1846,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             case 'wipethreshold':
             case 'codewordfrequency':
             case 'inactivity':
+            case 'attachments':
+            case 'maxatcsize':
                 $allowed = max($allowed);
                 break;
             case 'minimumlength':
+            case 'encryption':
                 $allowed = min($allowed);
                 break;
             case 'provisioning':
