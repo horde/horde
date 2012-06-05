@@ -555,6 +555,8 @@ class Horde_Icalendar
             $this->clear();
         }
 
+        $text = Horde_Util::trimUtf8Bom($text);
+
         if (preg_match('/^BEGIN:' . $base . '(.*)^END:' . $base . '/ism', $text, $matches)) {
             $container = true;
             $vCal = $matches[1];
@@ -564,7 +566,7 @@ class Horde_Icalendar
             $container = false;
             $vCal = $text;
         }
-        $vCal = Horde_Util::trimUtf8Bom(trim($vCal));
+        $vCal = trim($vCal);
 
         // Extract all subcomponents.
         $matches = $components = null;
