@@ -2027,10 +2027,8 @@
      <configsection name="logging">
       <configswitch name="type" desc="For debugging, it may be useful to send
       activesync-related log messages to a seperate log. If you want to do this,
-      set this to Custom and enter the path to the log file to use. Horde will
-      attempt to create device specific log files in the same directory as the
-      filepath you provide here. If it is unable to do so, all log entries will
-      be sent to the filename you provide.">
+      set this to Custom and enter the path to the directory to place log files
+      in. Horde will create device specific log files in this directory.">
         <case name="horde" desc="Horde" />
         <case name="custom" desc="Custom">
          <configstring name="path" desc="Path to logfile" />
