@@ -564,7 +564,7 @@ class Horde_Icalendar
             $container = false;
             $vCal = $text;
         }
-        $vCal = trim($vCal);
+        $vCal = Horde_Util::trimUtf8Bom(trim($vCal));
 
         // Extract all subcomponents.
         $matches = $components = null;

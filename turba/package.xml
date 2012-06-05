@@ -1429,7 +1429,7 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [jan] Fix strict searching in favourites driver (Bug #11207).
    </notes>
   </release>
  </changelog>

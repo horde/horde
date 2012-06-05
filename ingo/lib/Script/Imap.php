@@ -157,7 +157,7 @@ class Ingo_Script_Imap extends Ingo_Script
                     $ob->headerText('from', $val);
                     $or_ob->orSearch(array($ob));
                 }
-                $query->andSearch($or_ob);
+                $query->andSearch(array($or_ob));
                 $indices = $this->_api->search($query);
 
                 /* Remove any indices that got in there by way of partial
