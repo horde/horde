@@ -302,6 +302,14 @@ $this->applications = array(
         'menu_parent' => 'hermes',
     ),
 
+    'sesha' => array(
+        'name' => _("Inventory"),
+        /* Uncomment this line if you want Sesha to provide queue and
+         * version names instead of Whups: */
+        // 'provides' => array('tickets/listQueues', 'tickets/getQueueDetails', 'tickets/listVersions', 'tickets/getVersionDetails'),
+        'menu_parent' => 'office',
+    ),
+
     'kolab' => array(
         'name' => _("Kolab"),
         'menu_parent' => 'myaccount'
@@ -372,14 +380,6 @@ $this->applications = array(
 
     'content' => array(
         'status' => 'hidden'
-    ),
-
-    'sesha' => array(
-        'name' => _("Inventory"),
-            // Uncomment this line if you want Sesha to provide queue and version
-            // names instead of Whups:
-            // 'provides' => array('tickets/listQueues', 'tickets/getQueueDetails', 'tickets/listVersions', 'tickets/getVersionDetails'),
-        'menu_parent' => 'office',
     ),
 
     'timeobjects' => array(
