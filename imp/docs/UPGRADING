@@ -156,6 +156,17 @@ API Changes
 
 
 
+Upgrading IMP From 5.0.x To 5.0.22
+==================================
+
+Configuration (conf.php)
+------------------------
+
+The $conf['spam']['email_format'] and $conf['notspam']['email_format']
+configuration options have been added.
+
+
+
 Upgrading IMP From 5.0.x To 5.0.20
 ==================================
 

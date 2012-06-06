@@ -64,16 +64,19 @@
      <configboolean name="spamfolder" desc="Should the spam link also appear
      in the user's spam mailbox?">false</configboolean>
      <configstring name="email" required="false" desc="Should spam messages be
-     reported via e-mail? The messages will be sent to this address in a single
-     multipart/digest message (useful for reporting to an admin user or for
-     autoamted processing of tokens/signatures contained in the original
-     messages). If you need to dynamically set the e-mail address for each user
-     (e.g. DSPAM), leave this setting empty and look at the spam_email hook
-     instead."/>
-     <configboolean name="redirect" desc="Should the message be redirected to
-     the email address instead of being sent in a multipart/digest message?
-     Please note that this will alter the original message's
-     headers and might break signatures!">false</configboolean>
+     reported via e-mail? If you need to dynamically set the e-mail address for
+     each user (e.g. DSPAM), leave this setting empty and look at the
+     spam_email hook instead."/>
+     <configswitch name="email_format" required="false" desc="If reporting
+     via email, what format should the spam messages be sent as? The default
+     and recommended value is 'digest', which packages the raw data of all
+     spam messages to report in a single multipart/digest message. 'redirect'
+     will redirect the spam messages instead, but note that this alters the
+     original message's headers and may break embedded signature
+     information.">digest
+      <case name="digest" desc="Digest" />
+      <case name="redirect" desc="Redirect" />
+     </configswitch>
      <configstring name="program" required="false" desc="Should spam messages
      be reported via an external program (e.g. the spamassassin binary)? The
      placeholder %u in this string will be replaced with the current Horde
@@ -92,16 +95,19 @@
      <configboolean name="spamfolder" desc="Should the link only appear in the
      user's spam mailbox?">true</configboolean>
      <configstring name="email" required="false" desc="Should innocent messages
-     be reported via e-mail? The messages will be sent to this address in a
-     single multipart/digest message (useful for reporting to an admin user or
-     for automated processing of tokens/signatures contained in the original
-     messags). If you need to dynamically set the e-mail address for each user
-     (e.g. DSPAM), leave this setting empty and look at the spam_email hook
-     instead."/>
-     <configboolean name="redirect" desc="Should the message be redirected to
-     the email address instead of being sent in a multipart/digest message?
-     Please note that this will alter the original message's
-     headers and might break signatures!">false</configboolean>
+     be reported via e-mail? If you need to dynamically set the e-mail address
+     for each user (e.g. DSPAM), leave this setting empty and look at the
+     spam_email hook instead."/>
+     <configswitch name="email_format" required="false" desc="If reporting
+     via email, what format should the innocent messages be sent as? The
+     default and recommended value is 'digest', which packages the raw data of
+     all innocent messages to report in a single multipart/digest message.
+     'redirect' will redirect the innocent messages instead, but note that this
+     alters the original message's headers and may break embedded signature
+     information.">digest
+      <case name="digest" desc="Digest" />
+      <case name="redirect" desc="Redirect" />
+     </configswitch>
      <configstring name="program" required="false" desc="Should innocent
      messages be reported via an external program (e.g. the spamassasin
      binary)? The placeholder %u in this string will be replaced with the
