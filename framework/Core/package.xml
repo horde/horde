@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-06-04</date>
- <time>14:47:06</time>
+ <date>2012-06-06</date>
+ <time>19:23:53</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -349,7 +349,6 @@
       <file name="Cli.php" role="php" />
       <file name="LoginTasks.php" role="php" />
       <file name="Perms.php" role="php" />
-      <file name="Sidebar.php" role="php" />
       <file name="Topbar.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
@@ -1155,7 +1154,6 @@
    <install as="Horde/Core/Cli.php" name="lib/Horde/Core/Cli.php" />
    <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
    <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
-   <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
    <install as="Horde/Core/Topbar.php" name="lib/Horde/Core/Topbar.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
    <install as="Horde/Core/ActiveSync/Connector.php" name="lib/Horde/Core/ActiveSync/Connector.php" />
