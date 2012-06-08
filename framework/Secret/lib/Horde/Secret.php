@@ -193,6 +193,7 @@ class Horde_Secret
     {
         if (isset($_COOKIE[$this->_params['session_name']]) &&
             isset($_COOKIE[$keyname . '_key'])) {
+            $this->_setCookie($keyname, false);
             unset($_COOKIE[$keyname . '_key']);
             return true;
         }
