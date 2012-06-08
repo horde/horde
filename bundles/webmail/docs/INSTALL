@@ -282,6 +282,8 @@ Edition to function properly.
 
         pecl install fileinfo
 
+      As of PHP 5.3.0, this module is automatically enabled by default.
+
    These PECL modules are **RECOMMENDED** to be installed if you need
    advanced functionality:
 
@@ -327,7 +329,7 @@ Edition to function properly.
    use Horde Groupware Webmail Edition.
 
    IMAP is **strongly** recommended over POP3. See, e.g.,
-   http://www.imap.org/imap.vs.pop.brief.html
+   http://staff.washington.edu/gray/papers/imap.vs.pop.brief.html
 
    Freely available IMAP servers (for \*nix systems) that have been verified
    to work best with Horde Groupware Webmail Edition include:

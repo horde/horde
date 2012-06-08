@@ -1,7 +1,7 @@
 <?php
 /**
- * The Horde_Secret:: class provides an API for encrypting and decrypting
- * small pieces of data with the use of a shared key.
+ * Provides an API for encrypting and decrypting small pieces of data with the
+ * use of a shared key stored in a cookie.
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
@@ -11,10 +11,14 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Secret
  */
 class Horde_Secret
 {
+    /** Generic, default keyname. */
+    const DEFAULT_KEY = 'generic';
+
     /**
      * Configuration parameters.
      *
@@ -22,7 +26,6 @@ class Horde_Secret
      */
     protected $_params = array(
         'cookie_domain' => '',
-        'cookie_expire' => 0,
         'cookie_path' => '',
         'cookie_ssl' => false,
         'session_name' => 'horde_secret'
@@ -47,7 +50,6 @@ class Horde_Secret
      *
      * @param array $params  Configuration parameters:
      *   - cookie_domain: (string) The cookie domain.
-     *   - cookie_expire: (integer) The cookie expiration time (in seconds).
      *   - cookie_path: (string) The cookie path.
      *   - cookie_ssl: (boolean) Only transmit cookie securely?
      *   - session_name: (string) The cookie session name.
@@ -129,7 +131,7 @@ class Horde_Secret
      *
      * @return string  The secret key that has been generated.
      */
-    public function setKey($keyname = 'generic')
+    public function setKey($keyname = self::DEFAULT_KEY)
     {
         $set = true;
 
@@ -160,7 +162,7 @@ class Horde_Secret
      *
      * @return string  The secret key.
      */
-    public function getKey($keyname = 'generic')
+    public function getKey($keyname = self::DEFAULT_KEY)
     {
         if (!isset($this->_keyCache[$keyname])) {
             if (isset($_COOKIE[$keyname . '_key'])) {
@@ -183,10 +185,11 @@ class Horde_Secret
      *
      * @return boolean  True if key existed, false if not.
      */
-    public function clearKey($keyname = 'generic')
+    public function clearKey($keyname = self::DEFAULT_KEY)
     {
         if (isset($_COOKIE[$this->_params['session_name']]) &&
             isset($_COOKIE[$keyname . '_key'])) {
+            $this->_setCookie($keyname, false);
             unset($_COOKIE[$keyname . '_key']);
             return true;
         }
@@ -205,7 +208,7 @@ class Horde_Secret
         @setcookie(
             $keyname . '_key',
             $key,
-            (empty($this->_params['cookie_expire']) ? 0 : (time() + $this->_params['cookie_expire'])),
+            0,
             $this->_params['cookie_path'],
             $this->_params['cookie_domain'],
             $this->_params['cookie_ssl']
