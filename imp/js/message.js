@@ -90,10 +90,8 @@ var ImpMessage = {
                    target.startsWith("tasklist\0")) {
             this.actIDconfirm = actID;
             HordeDialog.display({
-                cancel_text: IMP.text.no,
                 form_id: 'RB_ImpMessageConfirm',
                 noinput: true,
-                ok_text: IMP.text.yes,
                 text: IMP.text.moveconfirm
             });
         } else {

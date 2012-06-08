@@ -33,10 +33,9 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $page_output->addScriptFile('dragdrop2.js', 'horde');
         $page_output->addScriptFile('form_ghost.js', 'horde');
         $page_output->addScriptFile('jstorage.js', 'horde');
-        $page_output->addScriptFile('redbox.js', 'horde');
-        $page_output->addScriptFile('dialog.js', 'horde');
         $page_output->addScriptFile('slider2.js', 'horde');
         $page_output->addScriptFile('toggle_quotes.js', 'horde');
+        $page_output->addScriptPackage('Dialog');
 
         $this->_addMailboxVars();
 
@@ -408,7 +407,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'badaddr' => _("Invalid Address"),
             'badsubject' => _("Invalid Subject"),
             'baselevel' => _("base level of the folder tree"),
-            'cancel' => _("Cancel"),
             'check' => _("Checking..."),
             'copyto' => _("Copy %s to %s"),
             'create_prompt' => _("Create mailbox:"),
@@ -426,7 +424,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'messagetitle' => _("%d - %d of %d Messages"),
             'moveto' => _("Move %s to %s"),
             'nomessages' => _("No Messages"),
-            'ok' => _("Ok"),
             'onlogout' => _("Logging Out..."),
             'portal' => _("Portal"),
             'prefs' => _("User Options"),

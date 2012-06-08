@@ -4,8 +4,8 @@
  * Usage:
  * ------
  * HordeDialog.display({
- *     // [REQUIRED] Cancel text
- *     cancel_text: '',
+ *     // Cancel text
+ *     cancel_text: 'Cancel',
  *     // Any DOM or HTML to be added to the form instead of the default INPUT
  *     // element
  *     form: '',
@@ -18,7 +18,7 @@
  *     // Don't insert the default INPUT element
  *     noinput: false,
  *     // OK text.
- *     ok_text: '',
+ *     ok_text: 'OK',
  *     password: '',
  *     reloadurl: '',
  *     submit_handler: false,
@@ -55,6 +55,8 @@
  */
 
 var HordeDialog = {
+
+    // Set by calling code: cancel_text, ok_text
 
     display: function(data)
     {
@@ -99,14 +101,12 @@ var HordeDialog = {
             RedBox.onDisplay = Form.focusFirstElement.curry(n);
         }
 
-        if (data.ok_text) {
-            n.insert(
-                new Element('INPUT', { type: 'button', className: 'button', value: data.ok_text }).observe('click', this._onClick.bind(this))
-            );
-        }
+        n.insert(
+            new Element('INPUT', { type: 'button', className: 'button', value: data.ok_text || this.ok_text }).observe('click', this._onClick.bind(this))
+        );
 
         n.insert(
-            new Element('INPUT', { type: 'button', className: 'button', value: data.cancel_text }).observe('click', this._close.bind(this))
+            new Element('INPUT', { type: 'button', className: 'button', value: data.cancel_text || this.ok_text }).observe('click', this._close.bind(this))
         ).observe('keydown', function(e) { if ((e.keyCode || e.charCode) == Event.KEY_RETURN) { e.stop(); this._onClick(e); } }.bind(this));
 
         n.observe('keydown', function(e) { if ((e.keyCode || e.charCode) == Event.KEY_ESC) { e.stop(); this._close(e); } }.bind(this));

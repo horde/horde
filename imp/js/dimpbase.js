@@ -945,9 +945,7 @@ var DimpBase = {
             };
 
             HordeDialog.display({
-                cancel_text: DimpCore.text.cancel,
                 noinput: true,
-                ok_text: DimpCore.text.ok,
                 text: DimpCore.text.download_mbox
             });
             break;
@@ -956,7 +954,6 @@ var DimpBase = {
             tmp = e.findElement('LI').retrieve('mbox');
 
             HordeDialog.display({
-                cancel_text: DimpCore.text.cancel,
                 form: new Element('DIV').insert(
                           new Element('INPUT', { name: 'import_file', type: 'file' })
                       ).insert(
@@ -970,7 +967,6 @@ var DimpBase = {
                     method: 'post',
                     name: 'mbox_import'
                 },
-                ok_text: DimpCore.text.ok,
                 submit_handler: function(r) {
                     if (r.action == 'importMailbox') {
                         this.viewport.reload();
@@ -2863,13 +2859,11 @@ var DimpBase = {
                 });
             };
             HordeDialog.display({
-                cancel_text: DimpCore.text.cancel,
                 form: new Element('DIV').insert(
                     new Element('INPUT', { name: 'delete_subfolders', type: 'checkbox' })
                 ).insert(
                     DimpCore.text.delete_mbox_subfolders.sub('%s', this.fullMboxDisplay(params.elt))
                 ),
-                ok_text: DimpCore.text.ok,
                 text: params.elt.hasClassName('container') ? null : DimpCore.text.delete_mbox.sub('%s', this.fullMboxDisplay(params.elt))
             });
             break;
@@ -2881,9 +2875,7 @@ var DimpBase = {
                 });
             };
             HordeDialog.display({
-                cancel_text: DimpCore.text.cancel,
                 noinput: true,
-                ok_text: DimpCore.text.ok,
                 text: DimpCore.text.empty_mbox.sub('%s', this.fullMboxDisplay(params.elt)).sub('%d', r)
             });
             break;
@@ -2902,9 +2894,7 @@ var DimpBase = {
         }.bind(this);
 
         HordeDialog.display({
-            cancel_text: DimpCore.text.cancel,
             input_val: val,
-            ok_text: DimpCore.text.ok,
             text: text
         });
     },

@@ -80,7 +80,9 @@ class IMP
                     'spam_report' => _("Are you sure you wish to report this message as spam?"),
                     'notspam_report' => _("Are you sure you wish to report this message as innocent?"),
                     'newmbox' => _("You are copying/moving to a new mailbox.") . "\n" . _("Please enter a name for the new mailbox:") . "\n",
+                    'no' => _("No"),
                     'target_mbox' => _("You must select a target mailbox first."),
+                    'yes' => _("Yes")
                 )
             );
 

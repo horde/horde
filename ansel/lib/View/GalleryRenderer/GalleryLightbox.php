@@ -160,19 +160,14 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
             global $page_output;
             $page_output->addThemeStylesheet('lightbox.css');
             $page_output->includeStylesheetFiles(array('nobase' => true), true);
-            $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
-            $includes->add('accesskeys.js', array(
-                'app' => 'horde',
-                'full' => true
-            ));
-            $includes->add('scriptaculous/effects.js', array(
-                'app' => 'horde',
-                'full' => true
-            ));
-            $includes->add('lightbox.js', array(
-                'full' => true
-            ));
-            $includes->includeFiles();
+
+            foreach (array('prototype.js', 'accesskeys.js', 'scriptaculous/effects.js') as $val) {
+                $tmp = new Horde_Script_File_JsDir($val, 'horde');
+                echo $tmp->tag_full;
+            }
+
+            $tmp = new Horde_Script_File_JsDir('lightbox.js');
+            echo $tmp->tag_full;
         }
 
         // Needed in the template files

@@ -35,9 +35,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
         global $page_output;
 
         if ($init) {
-            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
-            $page_output->addScriptFile('redbox.js', 'horde');
-            $page_output->addScriptFile('dialog.js', 'horde');
+            $page_output->addScriptPackage('Dialog');
         }
 
         $params = isset($this->_params['params'])
@@ -59,8 +57,6 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
         }
 
         $js_params = array(
-            'cancel_text' => _("Cancel"),
-            'ok_text' => _("OK"),
             'params' => $params,
             'password' => true,
             'text' => $text,

@@ -26,9 +26,9 @@ class Horde_Core_Editor_Ckeditor extends Horde_Editor_Ckeditor
             $ck_path = $registry->get('jsuri', 'horde');
 
             foreach ($this->_js['files'] as $val) {
-                $page_output->addScriptFile($ck_path . '/' . $val, 'horde', array(
-                    'external' => true
-                ));
+                $page_output->addScriptFile(
+                    new Horde_Script_File_External($ck_path . '/' . $val)
+                );
             }
 
             $page_output->addInlineScript($this->_js['script'], true);

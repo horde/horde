@@ -51,9 +51,8 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
         global $page_output;
 
         if ($init) {
-            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
-            $page_output->addScriptFile('keynavlist.js', 'horde');
             $page_output->addScriptFile('spellchecker.js', 'horde');
+            $page_output->addScriptPackage('Keynavlist');
 
             $page_output->addInlineJsVars(array(
                 'HordeImple.SpellChecker' => new stdClass

@@ -37,8 +37,7 @@ class IMP_Dynamic_Compose_Common
 
         if (!$prefs->isLocked('default_encrypt') &&
             ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
-            $page_output->addScriptFile('redbox.js', 'horde');
-            $page_output->addScriptFile('dialog.js', 'horde');
+            $page_output->addScriptPackage('Dialog');
         }
 
         $this->_addComposeVars($base);

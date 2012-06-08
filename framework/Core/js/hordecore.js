@@ -309,7 +309,7 @@ var HordeCore = {
         };
 
         if (!HordePopup.popup(p)) {
-            this.notify(this.text.popup_block, 'horde.warning');
+            this.notify(HordePopup.popup_block_text, 'horde.warning');
         }
     },
 

@@ -581,11 +581,9 @@ if (is_array($list) && $numitem && $read_perms) {
 }
 $template->set('itemcount', sprintf(ngettext(_("%d item"), _("%d items"), $total), $total));
 
-$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
-$page_output->addScriptFile('redbox.js', 'horde');
-$page_output->addScriptFile('dialog.js', 'horde');
 $page_output->addScriptFile('tables.js', 'horde');
 $page_output->addScriptFile('manager.js');
+$page_output->addScriptPackage('Dialog');
 $page_output->addInlineJsVars(array(
     '-warn_recursive' => intval($prefs->getValue('recursive_deletes') == 'warn')
 ));

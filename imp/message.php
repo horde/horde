@@ -744,8 +744,7 @@ $page_output->addScriptFile('stripe.js', 'horde');
 
 if (!empty($conf['tasklist']['use_notepad']) ||
     !empty($conf['tasklist']['use_tasklist'])) {
-    $page_output->addScriptFile('redbox.js', 'horde');
-    $page_output->addScriptFile('dialog.js', 'horde');
+    $page_output->addScriptPackage('Dialog');
 }
 
 $menu = IMP::menu();
