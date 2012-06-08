@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Improve error reporting in whups-mail-filter.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1014,7 +1014,7 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Improve error reporting in whups-mail-filter.
    </notes>
   </release>
  </changelog>
