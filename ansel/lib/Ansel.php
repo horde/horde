@@ -562,7 +562,7 @@ class Ansel
         // the path back to the top.  By constructing it backward we can treat
         // the last element (the current page) specially.
         $levels = 0;
-        $nav = '</span>';
+        $nav = '';
         $urlFlags = array(
             'havesearch' => $haveSearch,
             'force_grouping' => true);
