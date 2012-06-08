@@ -327,7 +327,7 @@ Edition to function properly.
    use Horde Groupware Webmail Edition.
 
    IMAP is **strongly** recommended over POP3. See, e.g.,
-   http://www.imap.org/imap.vs.pop.brief.html
+   http://staff.washington.edu/gray/papers/imap.vs.pop.brief.html
 
    Freely available IMAP servers (for \*nix systems) that have been verified
    to work best with Horde Groupware Webmail Edition include:
