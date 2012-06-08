@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-06-01</date>
- <time>03:23:07</time>
+ <date>2012-06-08</date>
+ <time>13:12:49</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -67,21 +67,63 @@
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="js">
+    <dir name="jquery.mobile">
+     <dir name="images">
+      <file name="ajax-loader.gif" role="horde" />
+      <file name="ajax-loader.png" role="horde" />
+      <file name="icons-18-black.png" role="horde" />
+      <file name="icons-18-white.png" role="horde" />
+      <file name="icons-36-black.png" role="horde" />
+      <file name="icons-36-white.png" role="horde" />
+     </dir> <!-- /js/jquery.mobile/images -->
+     <file name="jquery.js" role="horde" />
+     <file name="jquery.min.js" role="horde" />
+     <file name="jquery.mobile.js" role="horde" />
+     <file name="jquery.mobile.min.css" role="horde" />
+     <file name="jquery.mobile.min.js" role="horde" />
+    </dir> <!-- /js/jquery.mobile -->
+    <dir name="scriptaculous">
+     <file name="builder.js" role="horde" />
+     <file name="controls.js" role="horde" />
+     <file name="dragdrop.js" role="horde" />
+     <file name="effects.js" role="horde" />
+     <file name="scriptaculous.js" role="horde" />
+     <file name="slider.js" role="horde" />
+     <file name="sound.js" role="horde" />
+     <file name="unittest.js" role="horde" />
+    </dir> <!-- /js/scriptaculous -->
+    <file name="accesskeys.js" role="horde" />
     <file name="addressbooksprefs.js" role="horde" />
     <file name="alarmprefs.js" role="horde" />
     <file name="autocomplete.js" role="horde" />
     <file name="calendar.js" role="horde" />
+    <file name="colorpicker.js" role="horde" />
+    <file name="dialog.js" role="horde" />
+    <file name="form_assign.js" role="horde" />
+    <file name="form_helpers.js" role="horde" />
+    <file name="growler-jquery.js" role="horde" />
+    <file name="growler.js" role="horde" />
+    <file name="horde-jquery.js" role="horde" />
+    <file name="horde.js" role="horde" />
     <file name="hordecore.js" role="horde" />
     <file name="hordetree.js" role="horde" />
     <file name="identityselect.js" role="horde" />
+    <file name="image.js" role="horde" />
     <file name="imple.js" role="horde" />
+    <file name="inplaceeditor.js" role="horde" />
+    <file name="keynavlist.js" role="horde" />
     <file name="liquidmetal.js" role="horde" />
     <file name="open_html_helper.js" role="horde" />
+    <file name="popup.js" role="horde" />
     <file name="prefs.js" role="horde" />
     <file name="prettyautocomplete.js" role="horde" />
+    <file name="prototype.js" role="horde" />
+    <file name="redbox.js" role="horde" />
     <file name="smartmobile.js" role="horde" />
+    <file name="sorter.js" role="horde" />
     <file name="sourceselect.js" role="horde" />
     <file name="spellchecker.js" role="horde" />
+    <file name="tables.js" role="horde" />
     <file name="toggle_quotes.js" role="horde" />
     <file name="tooltips.js" role="horde" />
    </dir> <!-- /js -->
@@ -316,6 +358,13 @@
        <file name="Identity.php" role="php" />
        <file name="Ui.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Prefs -->
+      <dir name="Script">
+       <dir name="Package">
+        <file name="Dialog.php" role="php" />
+        <file name="Keynavlist.php" role="php" />
+        <file name="Popup.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Script/Package -->
+      </dir> <!-- /lib/Horde/Core/Script -->
       <dir name="Share">
        <file name="Driver.php" role="php" />
        <file name="FactoryCallback.php" role="php" />
@@ -374,7 +423,13 @@
       <file name="Nlsconfig.php" role="php" />
      </dir> <!-- /lib/Horde/Registry -->
      <dir name="Script">
-      <file name="Files.php" role="php" />
+      <dir name="File">
+       <file name="External.php" role="php" />
+       <file name="JsDir.php" role="php" />
+      </dir> <!-- /lib/Horde/Script/File -->
+      <file name="File.php" role="php" />
+      <file name="List.php" role="php" />
+      <file name="Package.php" role="php" />
      </dir> <!-- /lib/Horde/Script -->
      <dir name="Session">
       <file name="Null.php" role="php" />
@@ -1128,23 +1183,59 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Core/COPYING" />
+   <install as="js/accesskeys.js" name="js/accesskeys.js" />
    <install as="js/addressbooksprefs.js" name="js/addressbooksprefs.js" />
    <install as="js/alarmprefs.js" name="js/alarmprefs.js" />
    <install as="js/autocomplete.js" name="js/autocomplete.js" />
    <install as="js/calendar.js" name="js/calendar.js" />
+   <install as="js/colorpicker.js" name="js/colorpicker.js" />
+   <install as="js/dialog.js" name="js/dialog.js" />
+   <install as="js/form_assign.js" name="js/form_assign.js" />
+   <install as="js/form_helpers.js" name="js/form_helpers.js" />
+   <install as="js/growler-jquery.js" name="js/growler-jquery.js" />
+   <install as="js/growler.js" name="js/growler.js" />
+   <install as="js/horde-jquery.js" name="js/horde-jquery.js" />
+   <install as="js/horde.js" name="js/horde.js" />
    <install as="js/hordecore.js" name="js/hordecore.js" />
    <install as="js/hordetree.js" name="js/hordetree.js" />
    <install as="js/identityselect.js" name="js/identityselect.js" />
+   <install as="js/image.js" name="js/image.js" />
    <install as="js/imple.js" name="js/imple.js" />
+   <install as="js/inplaceeditor.js" name="js/inplaceeditor.js" />
+   <install as="js/keynavlist.js" name="js/keynavlist.js" />
    <install as="js/liquidmetal.js" name="js/liquidmetal.js" />
    <install as="js/open_html_helper.js" name="js/open_html_helper.js" />
+   <install as="js/popup.js" name="js/popup.js" />
    <install as="js/prefs.js" name="js/prefs.js" />
    <install as="js/prettyautocomplete.js" name="js/prettyautocomplete.js" />
+   <install as="js/prototype.js" name="js/prototype.js" />
+   <install as="js/redbox.js" name="js/redbox.js" />
    <install as="js/smartmobile.js" name="js/smartmobile.js" />
+   <install as="js/sorter.js" name="js/sorter.js" />
    <install as="js/sourceselect.js" name="js/sourceselect.js" />
    <install as="js/spellchecker.js" name="js/spellchecker.js" />
+   <install as="js/tables.js" name="js/tables.js" />
    <install as="js/toggle_quotes.js" name="js/toggle_quotes.js" />
    <install as="js/tooltips.js" name="js/tooltips.js" />
+   <install as="js/jquery.mobile/jquery.js" name="js/jquery.mobile/jquery.js" />
+   <install as="js/jquery.mobile/jquery.min.js" name="js/jquery.mobile/jquery.min.js" />
+   <install as="js/jquery.mobile/jquery.mobile.js" name="js/jquery.mobile/jquery.mobile.js" />
+   <install as="js/jquery.mobile/jquery.mobile.min.css" name="js/jquery.mobile/jquery.mobile.min.css" />
+   <install as="js/jquery.mobile/jquery.mobile.min.js" name="js/jquery.mobile/jquery.mobile.min.js" />
+   <install as="js/jquery.mobile/images/ajax-loader.gif" name="js/jquery.mobile/images/ajax-loader.gif" />
+   <install as="js/jquery.mobile/images/ajax-loader.png" name="js/jquery.mobile/images/ajax-loader.png" />
+   <install as="js/jquery.mobile/images/icons-18-black.png" name="js/jquery.mobile/images/icons-18-black.png" />
+   <install as="js/jquery.mobile/images/icons-18-white.png" name="js/jquery.mobile/images/icons-18-white.png" />
+   <install as="js/jquery.mobile/images/icons-36-black.png" name="js/jquery.mobile/images/icons-36-black.png" />
+   <install as="js/jquery.mobile/images/icons-36-white.png" name="js/jquery.mobile/images/icons-36-white.png" />
+   <install as="js/scriptaculous/builder.js" name="js/scriptaculous/builder.js" />
+   <install as="js/scriptaculous/controls.js" name="js/scriptaculous/controls.js" />
+   <install as="js/scriptaculous/dragdrop.js" name="js/scriptaculous/dragdrop.js" />
+   <install as="js/scriptaculous/effects.js" name="js/scriptaculous/effects.js" />
+   <install as="js/scriptaculous/scriptaculous.js" name="js/scriptaculous/scriptaculous.js" />
+   <install as="js/scriptaculous/slider.js" name="js/scriptaculous/slider.js" />
+   <install as="js/scriptaculous/sound.js" name="js/scriptaculous/sound.js" />
+   <install as="js/scriptaculous/unittest.js" name="js/scriptaculous/unittest.js" />
    <install as="Horde.php" name="lib/Horde.php" />
    <install as="Horde/Config.php" name="lib/Horde/Config.php" />
    <install as="Horde/ErrorHandler.php" name="lib/Horde/ErrorHandler.php" />
@@ -1302,6 +1393,9 @@
    <install as="Horde/Core/Prefs/Storage/Hooks.php" name="lib/Horde/Core/Prefs/Storage/Hooks.php" />
    <install as="Horde/Core/Prefs/Storage/Upgrade.php" name="lib/Horde/Core/Prefs/Storage/Upgrade.php" />
    <install as="Horde/Core/Prefs/Ui/Widgets.php" name="lib/Horde/Core/Prefs/Ui/Widgets.php" />
+   <install as="Horde/Core/Script/Package/Dialog.php" name="lib/Horde/Core/Script/Package/Dialog.php" />
+   <install as="Horde/Core/Script/Package/Keynavlist.php" name="lib/Horde/Core/Script/Package/Keynavlist.php" />
+   <install as="Horde/Core/Script/Package/Popup.php" name="lib/Horde/Core/Script/Package/Popup.php" />
    <install as="Horde/Core/Share/Driver.php" name="lib/Horde/Core/Share/Driver.php" />
    <install as="Horde/Core/Share/FactoryCallback.php" name="lib/Horde/Core/Share/FactoryCallback.php" />
    <install as="Horde/Core/Text/Filter/Bbcode.php" name="lib/Horde/Core/Text/Filter/Bbcode.php" />
@@ -1330,7 +1424,11 @@
    <install as="Horde/Registry/Application.php" name="lib/Horde/Registry/Application.php" />
    <install as="Horde/Registry/Caller.php" name="lib/Horde/Registry/Caller.php" />
    <install as="Horde/Registry/Nlsconfig.php" name="lib/Horde/Registry/Nlsconfig.php" />
-   <install as="Horde/Script/Files.php" name="lib/Horde/Script/Files.php" />
+   <install as="Horde/Script/File.php" name="lib/Horde/Script/File.php" />
+   <install as="Horde/Script/List.php" name="lib/Horde/Script/List.php" />
+   <install as="Horde/Script/Package.php" name="lib/Horde/Script/Package.php" />
+   <install as="Horde/Script/File/External.php" name="lib/Horde/Script/File/External.php" />
+   <install as="Horde/Script/File/JsDir.php" name="lib/Horde/Script/File/JsDir.php" />
    <install as="Horde/Session/Null.php" name="lib/Horde/Session/Null.php" />
    <install as="Horde/Themes/Cache.php" name="lib/Horde/Themes/Cache.php" />
    <install as="Horde/Themes/Css.php" name="lib/Horde/Themes/Css.php" />
