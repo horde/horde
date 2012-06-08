@@ -718,4 +718,14 @@ class Horde_ActiveSync_Wbxml
         return $this->_stream;
     }
 
+    /**
+     * Set the logger instance
+     *
+     * @param Horde_Log_Logger $logger  The logger.
+     */
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        $this->_logger = $logger;
+    }
+
 }

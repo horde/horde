@@ -65,16 +65,6 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
-     * Set the logger instance
-     *
-     * @param Horde_Log_Logger $logger  The logger.
-     */
-    public function setLogger(Horde_Log_Logger $logger)
-    {
-        $this->_logger = $logger;
-    }
-
-    /**
      * Returns either start, content or end, and auto-concatenates successive
      * content
      */

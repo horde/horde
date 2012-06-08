@@ -82,16 +82,6 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
-     * Setter for the logger
-     *
-     * @param Horde_Log_Logger $logger  The logger instance
-     */
-    public function setLogger(Horde_Log_Logger $logger)
-    {
-        $this->_logger = $logger;
-    }
-
-    /**
      * Starts the wbxml output.
      *
      * @param boolean $multipart  Indicates we need to output mulitpart binary
