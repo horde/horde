@@ -26,7 +26,6 @@ class Horde_Secret
      */
     protected $_params = array(
         'cookie_domain' => '',
-        'cookie_expire' => 0,
         'cookie_path' => '',
         'cookie_ssl' => false,
         'session_name' => 'horde_secret'
@@ -50,13 +49,10 @@ class Horde_Secret
      * Constructor.
      *
      * @param array $params  Configuration parameters:
-     * <pre>
-     * 'cookie_domain' - (string) The cookie domain.
-     * 'cookie_expire' - (integer) The cookie expiration time (in seconds).
-     * 'cookie_path' - (string) The cookie path.
-     * 'cookie_ssl' - (boolean) Only transmit cookie securely?
-     * 'session_name' - (string) The cookie session name.
-     * </pre>
+     *   - cookie_domain: (string) The cookie domain.
+     *   - cookie_path: (string) The cookie path.
+     *   - cookie_ssl: (boolean) Only transmit cookie securely?
+     *   - session_name: (string) The cookie session name.
      */
     public function __construct($params = array())
     {
@@ -216,7 +212,7 @@ class Horde_Secret
         @setcookie(
             $keyname . '_key',
             $key,
-            (empty($this->_params['cookie_expire']) ? 0 : (time() + $this->_params['cookie_expire'])),
+            0,
             $this->_params['cookie_path'],
             $this->_params['cookie_domain'],
             $this->_params['cookie_ssl']
