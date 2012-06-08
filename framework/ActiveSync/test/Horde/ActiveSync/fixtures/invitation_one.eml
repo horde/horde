@@ -1,0 +1,199 @@
+Return-Path: <3fTDSTwwJBKoWSUObeLSXcUiQWKSV.MYWWSUOdROeZcdKSbcbYYW.MYW@calendar-server.bounces.google.com>
+X-Original-To: mike@theupstairsroom.com
+Delivered-To: mike@theupstairsroom.com
+Received: by prod.theupstairsroom.com (Postfix, from userid 5001)
+    id 2B5945C0AA4; Fri,  8 Jun 2012 13:04:02 -0400 (EDT)
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+    prod.theupstairsroom.com
+X-Spam-Level:
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,FREEMAIL_FROM,
+    HTML_MESSAGE,RCVD_IN_DNSWL_MED autolearn=ham version=3.3.1
+Received: from mail-ob0-f201.google.com (mail-ob0-f201.google.com [209.85.214.201])
+    (using TLSv1 with cipher RC4-SHA (128/128 bits))
+    (No client certificate requested)
+    by prod.theupstairsroom.com (Postfix) with ESMTPS id 410385C0A8D
+    for <mike@theupstairsroom.com>; Fri,  8 Jun 2012 13:03:58 -0400 (EDT)
+Received: by obbwd18 with SMTP id wd18so1442099obb.4
+        for <mike@theupstairsroom.com>; Fri, 08 Jun 2012 10:03:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20120113;
+        h=mime-version:reply-to:sender:auto-submitted:message-id:date:subject
+         :from:to:content-type;
+        bh=jJh2E3SH8aNAaMrugFpQEJ6vIlduIV8H2PrFPUQfTxI=;
+        b=LYr/qlgG5CMR2AB6Uis5xQoDcsHHAubPWtMfPJI3OwrioJZKo4+BjTj0X/r6U1uTu9
+         fCI4vx+0e/53hhFNe6ne3sZoJsJEYByZwpgNozZwhYZMaypVEpoAqtvHzMA9+g0kU/p7
+         Wx2P69tnoCgsWyq4Plg1cQmIKd0VSNt3isvKI46wZb+ECJHlyP1pUfItEghUPekdEZHr
+         M+K3YS7mj71Z4ty/SPApfNMpw82T/EcRAmK1MwD8YrdFJ4WOFfiD0ajv/OcgmUwbN4hf
+         WleqnoInoHUzc6PQazDehv1EscTeyBh2xgLKSm7fcbbM2zM5tOxchtN4NO+c7Q4jTnGE
+         +tBA==
+MIME-Version: 1.0
+Received: by 10.50.40.230 with SMTP id a6mr3851232igl.2.1339175037754; Fri, 08
+ Jun 2012 10:03:57 -0700 (PDT)
+Reply-To: Michael Rubinsky <mikerubinsky@gmail.com>
+Sender: Google Calendar <calendar-notification@google.com>
+Auto-Submitted: auto-generated
+Message-ID: <14dae93411cf6ade7504c1f8fcc0@google.com>
+Date: Fri, 08 Jun 2012 17:03:57 +0000
+Subject: Invitation: test @ Fri Jun 8 1:30pm - 2:30pm (mike@theupstairsroom.com)
+From: Michael Rubinsky <mikerubinsky@gmail.com>
+To: "mike@theupstairsroom.com" <mike@theupstairsroom.com>
+Content-Type: multipart/mixed; boundary=14dae93411cf6ade6804c1f8fcbf
+
+--14dae93411cf6ade6804c1f8fcbf
+Content-Type: multipart/alternative; boundary=14dae93411cf6ade5f04c1f8fcbd
+
+--14dae93411cf6ade5f04c1f8fcbd
+Content-Type: text/plain; charset=windows-1252; format=flowed; delsp=yes
+Content-Transfer-Encoding: base64
+
+WW91IGhhdmUgYmVlbiBpbnZpdGVkIHRvIHRoZSBmb2xsb3dpbmcgZXZlbnQuDQoNClRpdGxlOiB0
+ZXN0DQpmYXNkZmFzZGZzYWYNCldoZW46IEZyaSBKdW4gOCAxOjMwcG0gliAyOjMwcG0gRWFzdGVy
+biBUaW1lDQpDYWxlbmRhcjogbWlrZUB0aGV1cHN0YWlyc3Jvb20uY29tDQpXaG86DQogICAgICog
+TWljaGFlbCBSdWJpbnNreSAtIG9yZ2FuaXplcg0KICAgICAqIG1pa2VAdGhldXBzdGFpcnNyb29t
+LmNvbQ0KDQpFdmVudCBkZXRhaWxzOiAgDQpodHRwczovL3d3dy5nb29nbGUuY29tL2NhbGVuZGFy
+L2V2ZW50P2FjdGlvbj1WSUVXJmVpZD1NRE5oZFRnNWRteGpNMm8wYXpGc05EaHFNWFE0WldaMGRu
+TWdiV2xyWlVCMGFHVjFjSE4wWVdseWMzSnZiMjB1WTI5dCZ0b2s9TWpJamJXbHJaWEoxWW1sdWMy
+dDVRR2R0WVdsc0xtTnZiV000WkRRNFpHWXdNekZoTVRZd01tUTVZVFZsWldRMk56Z3pPVFUzWXpk
+aU9UTmlabUl4T0RNJmN0ej1BbWVyaWNhL05ld19Zb3JrJmhsPWVuDQoNCkludml0YXRpb24gZnJv
+bSBHb29nbGUgQ2FsZW5kYXI6IGh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vY2FsZW5kYXIvDQoNCllv
+dSBhcmUgcmVjZWl2aW5nIHRoaXMgY291cnRlc3kgZW1haWwgYXQgdGhlIGFjY291bnQgIA0KbWlr
+ZUB0aGV1cHN0YWlyc3Jvb20uY29tIGJlY2F1c2UgeW91IGFyZSBhbiBhdHRlbmRlZSBvZiB0aGlz
+IGV2ZW50Lg0KDQpUbyBzdG9wIHJlY2VpdmluZyBmdXR1cmUgbm90aWZpY2F0aW9ucyBmb3IgdGhp
+cyBldmVudCwgZGVjbGluZSB0aGlzIGV2ZW50LiAgDQpBbHRlcm5hdGl2ZWx5IHlvdSBjYW4gc2ln
+biB1cCBmb3IgYSBHb29nbGUgYWNjb3VudCBhdCAgDQpodHRwczovL3d3dy5nb29nbGUuY29tL2Nh
+bGVuZGFyLyBhbmQgY29udHJvbCB5b3VyIG5vdGlmaWNhdGlvbiBzZXR0aW5ncyBmb3IgIA0KeW91
+ciBlbnRpcmUgY2FsZW5kYXIuDQo=
+--14dae93411cf6ade5f04c1f8fcbd
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: quoted-printable
+
+<div style=3D""><table cellspacing=3D"0" cellpadding=3D"8" border=3D"0" sum=
+mary=3D"" style=3D"width:100%;font-family:Arial,Sans-serif;border:1px Solid=
+ #ccc;border-width:1px 2px 2px 1px;background-color:#fff;"><tr><td><div sty=
+le=3D"padding:2px"><div style=3D"float:right;font-weight:bold;font-size:13p=
+x"> <a href=3D"https://www.google.com/calendar/event?action=3DVIEW&amp;eid=
+=3DMDNhdTg5dmxjM2o0azFsNDhqMXQ4ZWZ0dnMgbWlrZUB0aGV1cHN0YWlyc3Jvb20uY29t&amp=
+;tok=3DMjIjbWlrZXJ1Ymluc2t5QGdtYWlsLmNvbWM4ZDQ4ZGYwMzFhMTYwMmQ5YTVlZWQ2Nzgz=
+OTU3YzdiOTNiZmIxODM&amp;ctz=3DAmerica/New_York&amp;hl=3Den" style=3D"color:=
+#20c;white-space:nowrap">more details &raquo;</a><br></div><h3 style=3D"pad=
+ding:0 0 6px 0;margin:0;font-family:Arial,Sans-serif;font-size:16px;font-we=
+ight:bold;color:#222">test</h3><div style=3D"padding-bottom:15px;font-size:=
+13px;color:#222;white-space:pre-wrap!important;white-space:-moz-pre-wrap!im=
+portant;white-space:-pre-wrap!important;white-space:-o-pre-wrap!important;w=
+hite-space:pre;word-wrap:break-word">fasdfasdfsaf</div><table cellpadding=
+=3D"0" cellspacing=3D"0" border=3D"0" summary=3D"Event details"><tr><td sty=
+le=3D"padding:0 1em 10px 0;font-family:Arial,Sans-serif;font-size:13px;colo=
+r:#888;white-space:nowrap" valign=3D"top"><div><i style=3D"font-style:norma=
+l">When</i></div></td><td style=3D"padding-bottom:10px;font-family:Arial,Sa=
+ns-serif;font-size:13px;color:#222" valign=3D"top">Fri Jun 8 1:30pm =96 2:3=
+0pm <span style=3D"color:#888">Eastern Time</span></td></tr><tr><td style=
+=3D"padding:0 1em 10px 0;font-family:Arial,Sans-serif;font-size:13px;color:=
+#888;white-space:nowrap" valign=3D"top"><div><i style=3D"font-style:normal"=
+>Calendar</i></div></td><td style=3D"padding-bottom:10px;font-family:Arial,=
+Sans-serif;font-size:13px;color:#222" valign=3D"top">mike@theupstairsroom.c=
+om</td></tr><tr><td style=3D"padding:0 1em 10px 0;font-family:Arial,Sans-se=
+rif;font-size:13px;color:#888;white-space:nowrap" valign=3D"top"><div><i st=
+yle=3D"font-style:normal">Who</i></div></td><td style=3D"padding-bottom:10p=
+x;font-family:Arial,Sans-serif;font-size:13px;color:#222" valign=3D"top"><t=
+able cellspacing=3D"0" cellpadding=3D"0"><tr><td style=3D"padding-right:10p=
+x;font-family:Arial,Sans-serif;font-size:13px;color:#222"><span style=3D"fo=
+nt-family:Courier New,monospace">&#x2022;</span></td><td style=3D"padding-r=
+ight:10px;font-family:Arial,Sans-serif;font-size:13px;color:#222"><div><div=
+ style=3D"margin:0 0 0.3em 0">Michael Rubinsky<span style=3D"font-size:11px=
+;color:#888"> - organizer</span></div></div></td></tr><tr><td style=3D"padd=
+ing-right:10px;font-family:Arial,Sans-serif;font-size:13px;color:#222"><spa=
+n style=3D"font-family:Courier New,monospace">&#x2022;</span></td><td style=
+=3D"padding-right:10px;font-family:Arial,Sans-serif;font-size:13px;color:#2=
+22"><div><div style=3D"margin:0 0 0.3em 0">mike@theupstairsroom.com</div></=
+div></td></tr></table></td></tr></table></div><p style=3D"color:#222;font-s=
+ize:13px;margin:0"><span style=3D"color:#888">Going?&nbsp;&nbsp;&nbsp;</spa=
+n><wbr><strong><a href=3D"https://www.google.com/calendar/event?action=3DRE=
+SPOND&amp;eid=3DMDNhdTg5dmxjM2o0azFsNDhqMXQ4ZWZ0dnMgbWlrZUB0aGV1cHN0YWlyc3J=
+vb20uY29t&amp;rst=3D1&amp;tok=3DMjIjbWlrZXJ1Ymluc2t5QGdtYWlsLmNvbWM4ZDQ4ZGY=
+wMzFhMTYwMmQ5YTVlZWQ2NzgzOTU3YzdiOTNiZmIxODM&amp;ctz=3DAmerica/New_York&amp=
+;hl=3Den" style=3D"color:#20c;white-space:nowrap">Yes</a><span style=3D"mar=
+gin:0 0.4em;font-weight:normal"> - </span><a href=3D"https://www.google.com=
+/calendar/event?action=3DRESPOND&amp;eid=3DMDNhdTg5dmxjM2o0azFsNDhqMXQ4ZWZ0=
+dnMgbWlrZUB0aGV1cHN0YWlyc3Jvb20uY29t&amp;rst=3D3&amp;tok=3DMjIjbWlrZXJ1Ymlu=
+c2t5QGdtYWlsLmNvbWM4ZDQ4ZGYwMzFhMTYwMmQ5YTVlZWQ2NzgzOTU3YzdiOTNiZmIxODM&amp=
+;ctz=3DAmerica/New_York&amp;hl=3Den" style=3D"color:#20c;white-space:nowrap=
+">Maybe</a><span style=3D"margin:0 0.4em;font-weight:normal"> - </span><a h=
+ref=3D"https://www.google.com/calendar/event?action=3DRESPOND&amp;eid=3DMDN=
+hdTg5dmxjM2o0azFsNDhqMXQ4ZWZ0dnMgbWlrZUB0aGV1cHN0YWlyc3Jvb20uY29t&amp;rst=
+=3D2&amp;tok=3DMjIjbWlrZXJ1Ymluc2t5QGdtYWlsLmNvbWM4ZDQ4ZGYwMzFhMTYwMmQ5YTVl=
+ZWQ2NzgzOTU3YzdiOTNiZmIxODM&amp;ctz=3DAmerica/New_York&amp;hl=3Den" style=
+=3D"color:#20c;white-space:nowrap">No</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;<=
+wbr><a href=3D"https://www.google.com/calendar/event?action=3DVIEW&amp;eid=
+=3DMDNhdTg5dmxjM2o0azFsNDhqMXQ4ZWZ0dnMgbWlrZUB0aGV1cHN0YWlyc3Jvb20uY29t&amp=
+;tok=3DMjIjbWlrZXJ1Ymluc2t5QGdtYWlsLmNvbWM4ZDQ4ZGYwMzFhMTYwMmQ5YTVlZWQ2Nzgz=
+OTU3YzdiOTNiZmIxODM&amp;ctz=3DAmerica/New_York&amp;hl=3Den" style=3D"color:=
+#20c;white-space:nowrap">more options &raquo;</a></p></td></tr><tr><td styl=
+e=3D"background-color:#f6f6f6;color:#888;border-top:1px Solid #ccc;font-fam=
+ily:Arial,Sans-serif;font-size:11px"><p>Invitation from <a href=3D"https://=
+www.google.com/calendar/" target=3D"_blank" style=3D"">Google Calendar</a><=
+/p><p>You are receiving this courtesy email at the account mike@theupstairs=
+room.com because you are an attendee of this event.</p><p>To stop receiving=
+ future notifications for this event, decline this event. Alternatively you=
+ can sign up for a Google account at https://www.google.com/calendar/ and c=
+ontrol your notification settings for your entire calendar.</p></td></tr></=
+table></div>
+--14dae93411cf6ade5f04c1f8fcbd
+Content-Type: text/calendar; charset=UTF-8; method=REQUEST
+Content-Transfer-Encoding: 7bit
+
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VEVENT
+DTSTART:20120608T173000Z
+DTEND:20120608T183000Z
+DTSTAMP:20120608T170357Z
+ORGANIZER;CN=Michael Rubinsky:mailto:mikerubinsky@gmail.com
+UID:03au89vlc3j4k1l48j1t8eftvs@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+ TRUE;CN=mike@theupstairsroom.com;X-NUM-GUESTS=0:mailto:mike@theupstairsroom
+ .com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE
+ ;CN=Michael Rubinsky;X-NUM-GUESTS=0:mailto:mikerubinsky@gmail.com
+CREATED:20120608T170357Z
+DESCRIPTION:FooBar\nView your event at http://www.google.com/calendar
+ /event?action=VIEW&eid=MDNhdTg5dmxjM2o0azFsNDhqMXQ4ZWZ0dnMgbWlrZUB0aGV1cHN0
+ YWlyc3Jvb20uY29t&tok=MjIjbWlrZXJ1Ymluc2t5QGdtYWlsLmNvbWM4ZDQ4ZGYwMzFhMTYwMm
+ Q5YTVlZWQ2NzgzOTU3YzdiOTNiZmIxODM&ctz=America/New_York&hl=en.
+LAST-MODIFIED:20120608T170357Z
+LOCATION:Philadelphia,PA
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:test
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR
+
+--14dae93411cf6ade5f04c1f8fcbd--
+--14dae93411cf6ade6804c1f8fcbf
+Content-Type: application/ics; name="invite.ics"
+Content-Disposition: attachment; filename="invite.ics"
+Content-Transfer-Encoding: base64
+
+QkVHSU46VkNBTEVOREFSDQpQUk9ESUQ6LS8vR29vZ2xlIEluYy8vR29vZ2xlIENhbGVuZGFyIDcw
+LjkwNTQvL0VODQpWRVJTSU9OOjIuMA0KQ0FMU0NBTEU6R1JFR09SSUFODQpNRVRIT0Q6UkVRVUVT
+VA0KQkVHSU46VkVWRU5UDQpEVFNUQVJUOjIwMTIwNjA4VDE3MzAwMFoNCkRURU5EOjIwMTIwNjA4
+VDE4MzAwMFoNCkRUU1RBTVA6MjAxMjA2MDhUMTcwMzU3Wg0KT1JHQU5JWkVSO0NOPU1pY2hhZWwg
+UnViaW5za3k6bWFpbHRvOm1pa2VydWJpbnNreUBnbWFpbC5jb20NClVJRDowM2F1ODl2bGMzajRr
+MWw0OGoxdDhlZnR2c0Bnb29nbGUuY29tDQpBVFRFTkRFRTtDVVRZUEU9SU5ESVZJRFVBTDtST0xF
+PVJFUS1QQVJUSUNJUEFOVDtQQVJUU1RBVD1ORUVEUy1BQ1RJT047UlNWUD0NCiBUUlVFO0NOPW1p
+a2VAdGhldXBzdGFpcnNyb29tLmNvbTtYLU5VTS1HVUVTVFM9MDptYWlsdG86bWlrZUB0aGV1cHN0
+YWlyc3Jvb20NCiAuY29tDQpBVFRFTkRFRTtDVVRZUEU9SU5ESVZJRFVBTDtST0xFPVJFUS1QQVJU
+SUNJUEFOVDtQQVJUU1RBVD1BQ0NFUFRFRDtSU1ZQPVRSVUUNCiA7Q049TWljaGFlbCBSdWJpbnNr
+eTtYLU5VTS1HVUVTVFM9MDptYWlsdG86bWlrZXJ1Ymluc2t5QGdtYWlsLmNvbQ0KQ1JFQVRFRDoy
+MDEyMDYwOFQxNzAzNTdaDQpERVNDUklQVElPTjpmYXNkZmFzZGZzYWZcblZpZXcgeW91ciBldmVu
+dCBhdCBodHRwOi8vd3d3Lmdvb2dsZS5jb20vY2FsZW5kYXINCiAvZXZlbnQ/YWN0aW9uPVZJRVcm
+ZWlkPU1ETmhkVGc1ZG14ak0ybzBhekZzTkRocU1YUTRaV1owZG5NZ2JXbHJaVUIwYUdWMWNITjAN
+CiBZV2x5YzNKdmIyMHVZMjl0JnRvaz1NaklqYldsclpYSjFZbWx1YzJ0NVFHZHRZV2xzTG1OdmJX
+TTRaRFE0WkdZd016RmhNVFl3TW0NCiBRNVlUVmxaV1EyTnpnek9UVTNZemRpT1ROaVptSXhPRE0m
+Y3R6PUFtZXJpY2EvTmV3X1lvcmsmaGw9ZW4uDQpMQVNULU1PRElGSUVEOjIwMTIwNjA4VDE3MDM1
+N1oNCkxPQ0FUSU9OOg0KU0VRVUVOQ0U6MA0KU1RBVFVTOkNPTkZJUk1FRA0KU1VNTUFSWTp0ZXN0
+DQpUUkFOU1A6T1BBUVVFDQpFTkQ6VkVWRU5UDQpFTkQ6VkNBTEVOREFSDQo=
+--14dae93411cf6ade6804c1f8fcbf--
