@@ -133,6 +133,11 @@ if ($logout_reason) {
 
     $session->setup();
 
+    $secret = $injector->getInstance('Horde_Secret');
+    if ($secret->clearKey()) {
+        $secret->setKey();
+    }
+
     /* Explicitly set language in un-authenticated session. */
     $registry->setLanguage($GLOBALS['language']);
 } elseif (Horde_Util::getPost('login_post') ||

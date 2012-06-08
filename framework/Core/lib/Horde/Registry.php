@@ -1984,23 +1984,6 @@ class Horde_Registry
     }
 
     /**
-     * Destroys any existing session on login and make sure to use a new
-     * session ID, to avoid session fixation issues. Should be called before
-     * checking a login.
-     */
-    public function getCleanSession()
-    {
-        if ($GLOBALS['session']->clean() &&
-            !empty($GLOBALS['conf']['session']['timeout'])) {
-            /* Reset cookie timeouts, if necessary. */
-            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            if ($secret->clearKey()) {
-                $secret->setKey();
-            }
-        }
-    }
-
-    /**
      * Clears any authentication tokens in the current session.
      *
      * @param boolean $destroy  Destroy the session?
