@@ -220,10 +220,12 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         // Send security policies.
         if ($phase2 && $status == self::STATUS_SUCCESS && $policyStatus == self::STATUS_SUCCESS) {
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_DATA);
+            $policyHandler = new Horde_ActiveSync_Policies(
+                $this->_encoder, $this->_driver->getCurrentPolicy());
             if ($policytype == Horde_ActiveSync::POLICYTYPE_XML) {
-                $this->_sendXml($this->_driver->getCurrentPolicy());
+                $policyHandler->toXml();
             } else {
-                $this->_sendWbxml($this->_driver->getCurrentPolicy());
+                $policyHandler->toWbxml();
             }
             $this->_encoder->endTag(); //data
         }
@@ -237,119 +239,6 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();     //provision
 
         return true;
-    }
-
-    /**
-     * Sends a WBXML style provision response to the output stream.
-     *
-     * @param array $policies  An array of policy values.
-     */
-    protected function _sendWbxml(array $policies)
-    {
-        $policies = array_merge(array(
-            Horde_ActiveSync::POLICY_PIN           => true,
-            Horde_ActiveSync::POLICY_AEFVALUE      => '5',
-            Horde_ActiveSync::POLICY_WIPETHRESHOLD => '10',
-            Horde_ActiveSync::POLICY_CODEFREQ      => '0',
-            Horde_ActiveSync::POLICY_MINLENGTH     => '5',
-            Horde_ActiveSync::POLICY_COMPLEXITY    => '2',
-            Horde_ActiveSync::POLICY_MAXLENGTH     => '10',
-            Horde_ActiveSync::POLICY_PWDRECOVERY   => '0',
-            Horde_ActiveSync::POLICY_PWDEXPIRATION => '0',
-            Horde_ActiveSync::POLICY_PWDHISTORY    => '0',
-            Horde_ActiveSync::POLICY_ENCRYPTION    => '0',
-            Horde_ActiveSync::POLICY_ATC           => '1',
-            Horde_ActiveSync::POLICY_MAXATCSIZE    => '5000000'
-            ), $policies
-        );
-        $this->_encoder->startTag('Provision:EASProvisionDoc');
-
-        $this->_encoder->startTag('Provision:DevicePasswordEnabled');
-        $this->_encoder->content($policies[Horde_ActiveSync::POLICY_PIN] ? '1' : '0');
-        $this->_encoder->endTag();
-
-        if ($policies[Horde_ActiveSync::POLICY_PIN]) {
-            $this->_encoder->startTag('Provision:AlphanumericDevicePasswordRequired');
-            $this->_encoder->content($policies[Horde_ActiveSync::POLICY_COMPLEXITY === 0] ? '1' : '0');
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag('Provision:PasswordRecoveryEnabled');
-            $this->_encoder->content($policies[Horde_ActiveSync::POLICY_PWDRECOVERY]);
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag('Provision:MinDevicePasswordLength');
-            $this->_encoder->content($policies[Horde_ActiveSync::POLICY_MINLENGTH]);
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag('Provision:MaxDevicePasswordFailedAttempts');
-            $this->_encoder->content('5');
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag('Provision:AllowSimpleDevicePassword');
-            $this->_encoder->content($policies[Horde_ActiveSync::POLICY_COMPLEXITY] >= 1 ? '1' : '0');
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag('Provision:DevicePasswordExpiration', false, true);
-
-            $this->_encoder->startTag('Provision:DevicePasswordHistory');
-            $this->_encoder->content($policies[Horde_ActiveSync::POLICY_PWDHISTORY]);
-            $this->_encoder->endTag();
-        }
-
-        $this->_encoder->startTag('Provision:DeviceEncryptionEnabled');
-        $this->_encoder->content($policies[Horde_ActiveSync::POLICY_ENCRYPTION]);
-        $this->_encoder->endTag();
-
-        $this->_encoder->startTag('Provision:AttachmentsEnabled');
-        $this->_encoder->content($policies[Horde_ActiveSync::POLICY_ATC]);
-        $this->_encoder->endTag();
-
-        $this->_encoder->startTag('Provision:MaxInactivityTimeDeviceLock');
-        $this->_encoder->content($policies[Horde_ActiveSync::POLICY_AEFVALUE]);
-        $this->_encoder->endTag();
-
-        $this->_encoder->startTag('Provision:MaxAttachmentSize');
-        $this->_encoder->content($policies[Horde_ActiveSync::POLICY_MAXATCSIZE]);
-        $this->_encoder->endTag();
-
-        $this->_encoder->endTag();
-    }
-
-    /**
-     * Send a XML style policy value to the output stream.
-     *
-     * @param array  An array of policy settings, keyed by
-     *               Horde_ActiveSync::POLICY_ constants.
-     */
-    protected function _sendXml(array $policies)
-    {
-        $xml = '<wap-provisioningdoc><characteristic type="SecurityPolicy">'
-            . '<parm name="4131" value="' . ($policies[Horde_ActiveSync::POLICY_PIN] ? 0 : 1) . '"/>'
-            . '</characteristic>';
-        if ($policies[Horde_ActiveSync::POLICY_PIN]) {
-            $xml .= '<characteristic type="Registry">'
-            .   '<characteristic type="HKLM\Comm\Security\Policy\LASSD\AE\{50C13377-C66D-400C-889E-C316FC4AB374}">'
-            .   '<parm name="AEFrequencyType" value="' . (!empty($policies[Horde_ActiveSync::POLICY_AEFVALUE]) ? 1 : 0) . '"/>'
-            .   (!empty($policies[Horde_ActiveSync::POLICY_AEFVALUE]) ? '<parm name="AEFrequencyValue" value="' . $policies[Horde_ActiveSync::POLICY_AEFVALUE] . '"/>' : '')
-            .   '</characteristic>';
-
-            if (!empty($policies[Horde_ActiveSync::POLICY_WIPETHRESHOLD])) {
-                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="DeviceWipeThreshold" value="' . $policies[Horde_ActiveSync::POLICY_WIPETHRESHOLD] . '"/></characteristic>';
-            }
-            if (!empty($policies[Horde_ActiveSync::POLICY_CODEFREQ])) {
-                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="CodewordFrequency" value="' . $policies[Horde_ActiveSync::POLICY_CODEFREQ] . '"/></characteristic>';
-            }
-            if (!empty($policies[Horde_ActiveSync::POLICY_MINLENGTH])) {
-                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="MinimumPasswordLength" value="' . $policies[Horde_ActiveSync::POLICY_MINLENGTH] . '"/></characteristic>';
-            }
-            if ($policies[Horde_ActiveSync::POLICY_COMPLEXITY] !== false) {
-                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="PasswordComplexity" value="' . $policies[Horde_ActiveSync::POLICY_COMPLEXITY] . '"/></characteristic>';
-            }
-            $xml .= '</characteristic>';
-        }
-        $xml .= '</wap-provisioningdoc>';
-
-        $this->_encoder->content($xml);
     }
 
     /**

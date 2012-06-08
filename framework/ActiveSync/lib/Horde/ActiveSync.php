@@ -164,6 +164,7 @@ class Horde_ActiveSync
     const POLICY_ENCRYPTION                     = 'encryption';
     const POLICY_ATC                            = 'attachments';
     const POLICY_MAXATCSIZE                     = 'maxattachmentsize';
+    const POLICY_MAXFAILEDATTEMPTS              = 'maxdevicepasswordfailedattempts';
 
     /* Flags */
     const FLAG_NEWMESSAGE                       = 'NewMessage';

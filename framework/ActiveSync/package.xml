@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-02</date>
- <time>22:32:07</time>
+ <date>2012-06-08</date>
+ <time>11:55:31</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -117,6 +117,7 @@
        <file name="Encoder.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Wbxml -->
       <file name="Exception.php" role="php" />
+      <file name="Policies.php" role="php" />
       <file name="Rfc822.php" role="php" />
       <file name="Sync.php" role="php" />
       <file name="Timezone.php" role="php" />
@@ -236,6 +237,7 @@
    <install as="UPGRADING" name="doc/Horde/ActiveSync/UPGRADING" />
    <install as="Horde/ActiveSync.php" name="lib/Horde/ActiveSync.php" />
    <install as="Horde/ActiveSync/Exception.php" name="lib/Horde/ActiveSync/Exception.php" />
+   <install as="Horde/ActiveSync/Policies.php" name="lib/Horde/ActiveSync/Policies.php" />
    <install as="Horde/ActiveSync/Rfc822.php" name="lib/Horde/ActiveSync/Rfc822.php" />
    <install as="Horde/ActiveSync/Sync.php" name="lib/Horde/ActiveSync/Sync.php" />
    <install as="Horde/ActiveSync/Timezone.php" name="lib/Horde/ActiveSync/Timezone.php" />
@@ -686,7 +688,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-06-02</date>
+   <date>2012-06-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Security policy support now allows for per user configuration.
