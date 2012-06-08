@@ -332,7 +332,7 @@ class Horde_ActiveSync_Imap_Message
         $map = $this->_message->contentTypeMap();
         $headers = $this->getHeaders();
         foreach ($map as $id => $type) {
-            if ($this->isAttachment($type)) {
+            if ($this->isAttachment($id, $type)) {
                 $mime_part = $this->getMimePart($id, array('nocontents' => true));
                 if ($version > Horde_ActiveSync::VERSION_TWOFIVE) {
                     $atc = new Horde_ActiveSync_Message_AirSyncBaseAttachment();
@@ -361,7 +361,7 @@ class Horde_ActiveSync_Imap_Message
         $mime_parts = array();
         $map = $this->_message->contentTypeMap();
         foreach ($map as $id => $type) {
-            if ($this->isAttachment($type)) {
+            if ($this->isAttachment($id, $type)) {
                 $mime_parts[] = $this->getMimePart($id);
             }
         }
@@ -665,16 +665,25 @@ class Horde_ActiveSync_Imap_Message
      * downloaded by itself (i.e. all the data needed to view the part is
      * contained within the download data).
      *
+     * @param string $id         The MIME Id for the part we are checking.
      * @param string $mime_part  The MIME type.
      *
      * @return boolean  True if an attachment.
      */
-    public function isAttachment($mime_type)
+    public function isAttachment($id, $mime_type)
     {
         switch ($mime_type) {
         case 'text/plain':
-        case 'application/ms-tnef':
+            if (!$this->_message->findBody('plain') == $id) {
+                return true;
+            }
+            return false;
         case 'text/html':
+            if (!$this->_message->findBody('html') == $id) {
+                return true;
+            }
+            return false;
+        case 'application/ms-tnef':
         case 'application/pkcs7-signature':
             return false;
         }
@@ -704,8 +713,8 @@ class Horde_ActiveSync_Imap_Message
             return $this->_hasAttachments;
         }
 
-        foreach ($this->contentTypeMap() as $type) {
-            if ($this->isAttachment($type)) {
+        foreach ($this->contentTypeMap() as $id => $type) {
+            if ($this->isAttachment($id, $type)) {
                 $this->_hasAttachments = true;
                 return true;
             }
