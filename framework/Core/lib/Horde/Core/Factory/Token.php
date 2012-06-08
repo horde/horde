@@ -15,7 +15,7 @@ class Horde_Core_Factory_Token extends Horde_Core_Factory_Injector
             : array();
 
         $params['logger'] = $injector->getInstance('Horde_Log_Logger');
-        $params['secret'] = $injector->getInstance('Horde_Secret')->getKey('auth');
+        $params['secret'] = $injector->getInstance('Horde_Secret')->getKey();
 
         if (strcasecmp($driver, 'Sql') === 0) {
             $params['db'] = $injector->getInstance('Horde_Db_Adapter');

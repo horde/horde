@@ -64,7 +64,7 @@ $horde_login_url = '';
 
 /* Initialize the Auth credentials key. */
 if (!$is_auth) {
-    $injector->getInstance('Horde_Secret')->setKey('auth');
+    $injector->getInstance('Horde_Secret')->setKey();
 }
 
 /* Get an Auth object. */

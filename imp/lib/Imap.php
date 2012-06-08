@@ -531,7 +531,7 @@ class IMP_Imap implements Serializable
 
     static public function getEncryptKey()
     {
-        return $GLOBALS['injector']->getInstance('Horde_Secret')->getKey('imp');
+        return $GLOBALS['injector']->getInstance('Horde_Secret')->getKey();
     }
 
     /* Serializable methods. */

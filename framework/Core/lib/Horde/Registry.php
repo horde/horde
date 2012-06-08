@@ -1993,12 +1993,10 @@ class Horde_Registry
         if ($GLOBALS['session']->clean() &&
             !empty($GLOBALS['conf']['session']['timeout'])) {
             /* Reset cookie timeouts, if necessary. */
-            $app = $this->getApp();
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            if ($secret->clearKey($app)) {
-                $secret->setKey($app);
+            if ($secret->clearKey()) {
+                $secret->setKey();
             }
-            $secret->setKey('auth');
         }
     }
 
@@ -2314,7 +2312,7 @@ class Horde_Registry
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        $entry = $secret->write($secret->getKey('auth'), serialize($credentials));
+        $entry = $secret->write($secret->getKey(), serialize($credentials));
 
         if (($base_app = $session->get('horde', 'auth/credentials')) &&
             ($session->get('horde', 'auth_app/' . $base_app) == $entry)) {
@@ -2356,7 +2354,7 @@ class Horde_Registry
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        $data = $secret->read($secret->getKey('auth'),
+        $data = $secret->read($secret->getKey(),
                               $session->get('horde', 'auth_app/' . $app));
         return @unserialize($data);
     }

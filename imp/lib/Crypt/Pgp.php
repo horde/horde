@@ -438,7 +438,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        return $secret->read($secret->getKey('imp'), $cache[$type][$id]);
+        return $secret->read($secret->getKey(), $cache[$type][$id]);
     }
 
     /**
@@ -464,7 +464,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
 
         $cache = $GLOBALS['session']->get('imp', 'pgp', Horde_Session::TYPE_ARRAY);
-        $cache[$type][$id] = $secret->write($secret->getKey('imp'), $passphrase);
+        $cache[$type][$id] = $secret->write($secret->getKey(), $passphrase);
         $GLOBALS['session']->set('imp', 'pgp', $cache);
 
         return true;

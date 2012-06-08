@@ -203,7 +203,7 @@ class Kolab_Resource
             'authenticated' => true,
             'userId' => $calendar_user,
             'timestamp' => time(),
-            'credentials' => $secret->write($secret->getKey('auth'),
+            'credentials' => $secret->write($secret->getKey(),
                                             serialize(array('password' => $conf['kolab']['filter']['calendar_pass']))),
             'remote_addr' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null,
         );
