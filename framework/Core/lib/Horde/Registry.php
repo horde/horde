@@ -1797,11 +1797,7 @@ class Horde_Registry
         if ($GLOBALS['session']->clean() &&
             !empty($GLOBALS['conf']['session']['timeout'])) {
             /* Reset cookie timeouts, if necessary. */
-            $app = $this->getApp();
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            if ($secret->clearKey($app)) {
-                $secret->setKey($app);
-            }
             $secret->setKey('auth');
         }
     }
