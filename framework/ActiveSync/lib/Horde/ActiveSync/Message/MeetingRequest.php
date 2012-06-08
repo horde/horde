@@ -55,11 +55,11 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
     );
 
     protected $_properties = array(
-        'alldayevent' => false,
+        'alldayevent' => '0',
         'starttime' => false,
         'dtstamp' => false,
         'endtime' => false,
-        'instancetype' => false,
+        'instancetype' => '0', // For now, no recurring meeting request support.
         'location' => false,
         'organizer' => false,
         'recurrenceid' => false,
@@ -71,5 +71,81 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
         'timezone' => false,
         'globalobjid' => false
     );
+
+    public function fromMimePart(Horde_Mime_Part $part)
+    {
+        // Parse the iCal file.
+        $vCal = new Horde_Icalendar();
+        $data = $part->getContents();
+        if (!$vCal->parsevCalendar($data, 'VCALENDAR', $part->getCharset())) {
+            // ??
+        }
+        try {
+            $method = $vCal->getAttribute('METHOD');
+        } catch (Horde_Icalendar_Exception $e) {
+            $method = '';
+        }
+        foreach ($vCal->getComponents() as $key => $component) {
+            switch ($component->getType()) {
+            case 'vEvent':
+                $this->_vEvent($component, $key, $method);
+                break;
+
+            case 'vTimeZone':
+            // Not sure what to do with Timezone yet/how to get it into
+            // a TZ structure etc... For now, defaults to default timezone (as the
+            // specs say it should for iCal without tz specified).
+            default:
+                break;
+            }
+        }
+
+        $tz = new Horde_ActiveSync_Timezone();
+        $this->timezone = $tz->getSyncTZFromOffsets(
+            $tz->getOffsetsFromDate(new Horde_Date()));
+        $this->alldayevent = $this->_isAllDay();
+    }
+
+    protected function _vEvent($vevent, $id, $method = 'PUBLISH')
+    {
+        $this->organizer = $vevent->organizerName();
+
+        $this->globalobjid = $vevent->getAttribute('UID');
+        $this->starttime = new Horde_Date($vevent->getAttribute('DTSTART'), 'utc');
+        $this->endtime = new Horde_Date($vevent->getAttribute('DTEND'), 'utc');
+        $this->dtstamp = new Horde_Date($vevent->getAttribute('DTSTAMP'), 'utc');
+        $this->location = Horde_String::truncate($vevent->getAttribute('LOCATION'), 255);
+
+        try {
+            $class = $vevent->getAttribute('CLASS');
+            if (!is_array($class)) {
+                $this->sensitivity = $class == 'PRIVATE'
+                    ? Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE
+                    : ($class == 'CONFIDENTIAL' ? Horde_ActiveSync_Message_Appointment::SENSITIVITY_CONFIDENTIAL
+                        : ($class == 'PERSONAL' ? Horde_ActiveSync_Message_Appointment::SENSITIVITY_PERSONAL
+                            : Horde_ActiveSync_Message_Appointment::SENSITIVITY_NORMAL));
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
+
+        try {
+            $status = $vevent->getAttribute('STATUS');
+            if (!is_array($status)) {
+                $status = Horde_String::upper($status);
+                $this->busystatus = $status == 'TENTATIVE' ? Horde_ActiveSync_Message_Appointment::BUSYSTATUS_TENTATIVE
+                    : ($status == 'CONFIRMED' ? Horde_ActiveSync_Message_Appointment::BUSYSTATUS_BUSY
+                        : Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE);
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
+    }
+
+    protected function _isAllDay()
+    {
+        return ($this->starttime->hour == 0 && $this->starttime->min == 0 && $this->starttime->sec == 0 &&
+             (($this->endtime->hour == 23 && $this->endtime->min == 59) ||
+              ($this->endtime->hour == 0 && $this->endtime->min == 0 && $this->endtime->sec == 0 &&
+               ($this->endtime->mday > $this->starttime->mday ||
+                $this->endtime->month > $this->starttime->month ||
+                $this->endtime->year > $this->starttime->year))));
+    }
 
 }
