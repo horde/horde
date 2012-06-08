@@ -908,6 +908,13 @@ class Horde_ActiveSync_Imap_Adapter
             }
         }
 
+        // Check for meeting requests.
+        if ($mime_id = $imap_message->hasMeetingRequest()) {
+            $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
+            $mtg = new Horde_ActiveSync_Message_MeetingRequest();
+            $mtg->fromMimePart($imap_message->getMimePart($mime_id));
+        }
+
         // POOMMAIL_FLAG
         if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
             $eas_message->contentclass = 'urn:content-classes:message';

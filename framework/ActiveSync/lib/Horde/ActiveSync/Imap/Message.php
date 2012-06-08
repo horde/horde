@@ -703,6 +703,25 @@ class Horde_ActiveSync_Imap_Message
     }
 
     /**
+     * Return the MIME Id of the meeting request part, if available.
+     *
+     * @return mixed  The mime part, if present, false otherwise.
+     */
+    public function hasMeetingRequest()
+    {
+        if (!$this->hasAttachments()) {
+            return false;
+        }
+        foreach ($this->contentTypeMap() as $id => $type) {
+            if ($type == 'text/calendar') {
+                return $id;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Return the hasAttachments flag
      *
      * @return boolean
