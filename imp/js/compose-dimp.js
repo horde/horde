@@ -206,7 +206,7 @@ var DimpCompose = {
             // We need a submit action here because browser security models
             // won't let us access files on user's filesystem otherwise.
             this.uploading = true;
-            c.submit();
+            HordeCore.submit(c);
         } else {
             // Move HTML text to textarea field for submission.
             if (ImpComposeBase.editor_on) {
