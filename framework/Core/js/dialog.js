@@ -106,7 +106,7 @@ var HordeDialog = {
         );
 
         n.insert(
-            new Element('INPUT', { type: 'button', className: 'button', value: data.cancel_text || this.ok_text }).observe('click', this._close.bind(this))
+            new Element('INPUT', { type: 'button', className: 'button', value: data.cancel_text || this.cancel_text }).observe('click', this._close.bind(this))
         ).observe('keydown', function(e) { if ((e.keyCode || e.charCode) == Event.KEY_RETURN) { e.stop(); this._onClick(e); } }.bind(this));
 
         n.observe('keydown', function(e) { if ((e.keyCode || e.charCode) == Event.KEY_ESC) { e.stop(); this._close(e); } }.bind(this));
