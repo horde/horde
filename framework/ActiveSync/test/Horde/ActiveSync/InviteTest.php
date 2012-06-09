@@ -22,6 +22,9 @@ class Horde_ActiveSync_InviteTest extends Horde_Test_Case
         date_default_timezone_set($this->_oldtz);
     }
 
+    /**
+     * Test creating a Horde_ActiveSync_Message_MeetingRequest from a MIME Email
+     */
     public function testInvite()
     {
         $fixture = file_get_contents(__DIR__ . '/fixtures/invitation_one.eml');
@@ -34,13 +37,53 @@ class Horde_ActiveSync_InviteTest extends Horde_Test_Case
             }
         }
 
-        $stream = fopen('php://memory', 'w+');
+        $stream = fopen('php://memory', 'wb+');
         $encoder = new Horde_ActiveSync_Wbxml_Encoder($stream);
         $msg->encodeStream($encoder);
         rewind($stream);
         $results = stream_get_contents($stream);
         fclose($stream);
-        $expected = file_get_contents(__DIR__ . '/fixtures/meeting_request_one.wbxml');
+
+        $stream = fopen(__DIR__ . '/fixtures/meeting_request_one.wbxml', 'r+');
+        $expected = '';
+        // Using file_get_contents or even fread mangles the binary data for some
+        // reason.
+        while ($line = fgets($stream)) {
+            $expected .= $line;
+        }
+        fclose($stream);
         $this->assertEquals($expected, $results);
     }
+
+    /**
+     * Test parsing GOID value.
+     */
+    public function testParseGlobalObjectId()
+    {
+        // Outlook UID
+        $fixture = 'BAAAAIIA4AB0xbcQGoLgCAfUCRDgQMnBJoXEAQAAAAAAAAAAEAAAAAvw7UtuTulOnjnjhns3jvM=';
+        $uid = Horde_ActiveSync_Utils::getUidFromGoid($fixture);
+        $this->assertEquals(
+          '040000008200E00074C5B7101A82E00800000000E040C9C12685C4010000000000000000100000000BF0ED4B6E4EE94E9E39E3867B378EF3',
+          $uid);
+
+        // vCal
+        $fixture = 'BAAAAIIA4AB0xbcQGoLgCAAAAAAAAAAAAAAAAAAAAAAAAAAAMwAAAHZDYWwtVWlkAQAAAHs4MTQxMkQzQy0yQTI0LTRFOUQtQjIwRS0xMUY3QkJFOTI3OTl9AA==';
+        $uid = Horde_ActiveSync_Utils::getUidFromGoid($fixture);
+        $this->assertEquals('{81412D3C-2A24-4E9D-B20E-11F7BBE92799}', $uid);
+    }
+
+    /**
+     * Test creation of a MAPI GOID value form a UID
+     *
+     */
+    public function testCreateGoid()
+    {
+        $uid = '{81412D3C-2A24-4E9D-B20E-11F7BBE92799}';
+        $expected = 'BAAAAIIA4AB0xbcQGoLgCAAAAAAAAAAAAAAAAAAAAAAAAAAAJgAAAHZDYWwtVWlkAQAAAHs4MTQxMkQzQy0yQTI0LTRFOUQtQjIwRS0xMUY3QkJFOTI3OTl9AA==';
+
+        $results = Horde_ActiveSync_Utils::createGoid($uid);
+        $this->assertEquals($expected, $results);
+    }
+
 }
