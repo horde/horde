@@ -913,11 +913,14 @@ class Horde_ActiveSync_Imap_Adapter
             $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
             $mtg = new Horde_ActiveSync_Message_MeetingRequest();
             $mtg->fromMimePart($imap_message->getMimePart($mime_id));
+            $eas_message->meetingrequest = $mtg;
+            $eas_message->contentclass = 'urn:content-classes:calendarmessage';
+        } else {
+            $eas_message->contentclass = 'urn:content-classes:message';
         }
 
         // POOMMAIL_FLAG
         if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
-            $eas_message->contentclass = 'urn:content-classes:message';
             $poommail_flag = new Horde_ActiveSync_Message_Flag();
             $poommail_flag->subject = $imap_message->getSubject();
             $poommail_flag->flagstatus = $imap_message->getFlag(Horde_Imap_Client::FLAG_FLAGGED)
