@@ -962,16 +962,10 @@ var DimpBase = {
                 form_id: 'mbox_import',
                 form_opts: {
                     action: HordeCore.conf.URI_AJAX + 'importMailbox',
-                    className: 'RBForm',
+                    className: 'RB_Form',
                     enctype: 'multipart/form-data',
-                    method: 'post',
-                    name: 'mbox_import'
+                    method: 'post'
                 },
-                submit_handler: function(r) {
-                    if (r.action == 'importMailbox') {
-                        this.viewport.reload();
-                    }
-                }.bind(this),
                 text: DimpCore.text.import_mbox
             });
             break;
@@ -3862,7 +3856,13 @@ document.observe('HordeDialog:onClick', function(e) {
         break;
 
     case 'mbox_import':
-        e.element().submit();
+        HordeCore.submit(e.element(), {
+            callback: function(r) {
+                if (r.action == 'importMailbox') {
+                    this.viewport.reload();
+                }
+            }.bind(this)
+        });
         break;
     }
 }.bindAsEventListener(DimpBase));

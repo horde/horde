@@ -21,7 +21,6 @@
  *     ok_text: 'OK',
  *     password: '',
  *     reloadurl: '',
- *     submit_handler: false,
  *     // The header to display at top of dialog box
  *     header: '',
  *     // The text to display at top of dialog box
@@ -113,10 +112,6 @@ var HordeDialog = {
 
         RedBox.overlay = true;
         RedBox.showHtml(n);
-
-        if (data.submit_handler) {
-            HordeCore.handleSubmit(n, data.submit_handler);
-        }
     },
 
     _close: function()
