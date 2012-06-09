@@ -62,7 +62,7 @@ var HordeCore = {
         params = $H(params).clone();
         opts = opts || {};
 
-        var ajaxopts = Object.extend(this.doActionOpts, opts.ajaxopts || {});
+        var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts || {});
 
         this.addRequestParams(params);
         params.set('token', this.conf.TOKEN);
@@ -82,7 +82,7 @@ var HordeCore = {
     {
         opts = opts || {};
 
-        var ajaxopts = Object.extend(this.doActionOpts, opts.ajaxopts || {});
+        var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts || {});
         ajaxopts.onComplete = function(t, o) {
             this.doActionComplete(t, opts.callback);
         }.bind(this);
