@@ -112,7 +112,7 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
             $organizer = parse_url($vevent->getAttribute('ORGANIZER'));
             $this->organizer = $organizer['path'];
         } catch (Horde_Icalendar_Exception $e) {}
-        $this->globalobjid = bin2hex($vevent->getAttribute('UID'));
+        $this->globalobjid = Horde_ActiveSync_Utils::createGoid($vevent->getAttribute('UID'));
         $this->starttime = new Horde_Date($vevent->getAttribute('DTSTART'), 'utc');
         $this->endtime = new Horde_Date($vevent->getAttribute('DTEND'), 'utc');
         $this->dtstamp = new Horde_Date($vevent->getAttribute('DTSTAMP'), 'utc');
