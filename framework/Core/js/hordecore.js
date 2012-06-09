@@ -90,6 +90,30 @@ var HordeCore = {
         $(form).request(ajaxopts);
     },
 
+    // Do a raw submit (non-AJAX).
+    // form: (Element) DOM Element (or DOM ID)
+    // opts: (Object) callback
+    submit: function(form, opts)
+    {
+        form = $(form);
+        opts = opts || {};
+
+        if (!form.down('INPUT[name=token]')) {
+            form.insert(new Element('INPUT', {
+                name: 'token',
+                type: 'hidden'
+            }).setValue(this.conf.TOKEN));
+        }
+
+        if (opts.callback) {
+            this.handleSubmit(form, {
+                callback: opts.callback
+            });
+        }
+
+        form.submit();
+    },
+
     handleSubmit: function(form, opts)
     {
         form = $(form);
