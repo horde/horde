@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-08</date>
- <time>11:55:31</time>
+ <date>2012-06-09</date>
+ <time>14:38:44</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -82,6 +82,7 @@
        <file name="Flag.php" role="php" />
        <file name="Folder.php" role="php" />
        <file name="Mail.php" role="php" />
+       <file name="MeetingRequest.php" role="php" />
        <file name="Recurrence.php" role="php" />
        <file name="Task.php" role="php" />
        <file name="TaskRecurrence.php" role="php" />
@@ -158,8 +159,12 @@
      <dir name="ActiveSync">
       <dir name="fixtures">
        <file name="appointment.wbxml" role="test" />
+       <file name="default_policies.wbxml" role="test" />
+       <file name="default_policies.xml" role="test" />
        <file name="dst.wbxml" role="test" />
        <file name="FolderSyncRequest.txt" role="test" />
+       <file name="invitation_one.eml" role="test" />
+       <file name="meeting_request_one.wbxml" role="test" />
        <file name="recurrence.wbxml" role="test" />
        <file name="simpleexception.wbxml" role="test" />
       </dir> <!-- /test/Horde/ActiveSync/fixtures -->
@@ -168,6 +173,8 @@
       <file name="ContactTest.php" role="test" />
       <file name="FolderSyncTest.php" role="test" />
       <file name="HordeDriverTest.php" role="test" />
+      <file name="InviteTest.php" role="test" />
+      <file name="PolicyTest.php" role="test" />
       <file name="TimezoneTest.php" role="test" />
       <file name="UtilsTest.php" role="test" />
       <file name="{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" role="test" />
@@ -278,6 +285,7 @@
    <install as="Horde/ActiveSync/Message/Flag.php" name="lib/Horde/ActiveSync/Message/Flag.php" />
    <install as="Horde/ActiveSync/Message/Folder.php" name="lib/Horde/ActiveSync/Message/Folder.php" />
    <install as="Horde/ActiveSync/Message/Mail.php" name="lib/Horde/ActiveSync/Message/Mail.php" />
+   <install as="Horde/ActiveSync/Message/MeetingRequest.php" name="lib/Horde/ActiveSync/Message/MeetingRequest.php" />
    <install as="Horde/ActiveSync/Message/Recurrence.php" name="lib/Horde/ActiveSync/Message/Recurrence.php" />
    <install as="Horde/ActiveSync/Message/Task.php" name="lib/Horde/ActiveSync/Message/Task.php" />
    <install as="Horde/ActiveSync/Message/TaskRecurrence.php" name="lib/Horde/ActiveSync/Message/TaskRecurrence.php" />
@@ -323,12 +331,18 @@
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
    <install as="Horde/ActiveSync/FolderSyncTest.php" name="test/Horde/ActiveSync/FolderSyncTest.php" />
    <install as="Horde/ActiveSync/HordeDriverTest.php" name="test/Horde/ActiveSync/HordeDriverTest.php" />
+   <install as="Horde/ActiveSync/InviteTest.php" name="test/Horde/ActiveSync/InviteTest.php" />
+   <install as="Horde/ActiveSync/PolicyTest.php" name="test/Horde/ActiveSync/PolicyTest.php" />
    <install as="Horde/ActiveSync/TimezoneTest.php" name="test/Horde/ActiveSync/TimezoneTest.php" />
    <install as="Horde/ActiveSync/UtilsTest.php" name="test/Horde/ActiveSync/UtilsTest.php" />
    <install as="Horde/ActiveSync/{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" name="test/Horde/ActiveSync/{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" />
    <install as="Horde/ActiveSync/fixtures/appointment.wbxml" name="test/Horde/ActiveSync/fixtures/appointment.wbxml" />
+   <install as="Horde/ActiveSync/fixtures/default_policies.wbxml" name="test/Horde/ActiveSync/fixtures/default_policies.wbxml" />
+   <install as="Horde/ActiveSync/fixtures/default_policies.xml" name="test/Horde/ActiveSync/fixtures/default_policies.xml" />
    <install as="Horde/ActiveSync/fixtures/dst.wbxml" name="test/Horde/ActiveSync/fixtures/dst.wbxml" />
    <install as="Horde/ActiveSync/fixtures/FolderSyncRequest.txt" name="test/Horde/ActiveSync/fixtures/FolderSyncRequest.txt" />
+   <install as="Horde/ActiveSync/fixtures/invitation_one.eml" name="test/Horde/ActiveSync/fixtures/invitation_one.eml" />
+   <install as="Horde/ActiveSync/fixtures/meeting_request_one.wbxml" name="test/Horde/ActiveSync/fixtures/meeting_request_one.wbxml" />
    <install as="Horde/ActiveSync/fixtures/recurrence.wbxml" name="test/Horde/ActiveSync/fixtures/recurrence.wbxml" />
    <install as="Horde/ActiveSync/fixtures/simpleexception.wbxml" name="test/Horde/ActiveSync/fixtures/simpleexception.wbxml" />
   </filelist>
@@ -695,7 +709,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-06-08</date>
+   <date>2012-06-09</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Security policy support now allows for per user configuration.
