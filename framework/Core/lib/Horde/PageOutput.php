@@ -683,8 +683,7 @@ class Horde_PageOutput
                 'smartmobile.js'
             );
             foreach ($smobile_files as $val) {
-                $ob = $this->addScriptFile($val, 'horde');
-                $ob->priority = $ob::PRIORITY_VERYHIGH;
+                $this->addScriptFile(new Horde_Script_File_JsFramework($val, 'horde'));
             }
 
             $init_js = implode('', array_merge(array(
@@ -718,8 +717,7 @@ class Horde_PageOutput
         }
 
         if ($this->ajax || $this->growler) {
-            $ob = $this->addScriptFile('hordecore.js', 'horde');
-            $ob->priority = $ob::PRIORITY_HIGH;
+            $this->addScriptFile(new Horde_Script_File_JsFramework('hordecore.js', 'horde'));
         }
 
         if ($this->growler) {
@@ -783,9 +781,8 @@ class Horde_PageOutput
         );
 
         foreach ($base_js as $val) {
-            $ob = $this->addScriptFile($val, 'horde');
+            $ob = $this->addScriptFile(new Horde_Script_File_JsFramework($val, 'horde'));
             $ob->cache = 'package_basic';
-            $ob->priority = $ob::PRIORITY_VERYHIGH;
         }
 
         if ($GLOBALS['prefs']->getValue('widget_accesskey')) {

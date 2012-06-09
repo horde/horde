@@ -26,11 +26,9 @@
 class Horde_Script_File
 {
     /** Priority constants. */
-    const PRIORITY_VERYHIGH = 1; // Reserved for JS framework-level scripts
-    const PRIORITY_HIGH = 2;
-    const PRIORITY_NORMAL = 3;
-    const PRIORITY_LOW = 4;
-    const PRIORITY_VERYLOW = 5;
+    const PRIORITY_HIGH = 1;
+    const PRIORITY_NORMAL = 2;
+    const PRIORITY_LOW = 3;
 
     /**
      * The cache group this file should be output in.
@@ -47,13 +45,6 @@ class Horde_Script_File
     public $jsvars = array();
 
     /**
-     * Priority.
-     *
-     * @var integer
-     */
-    public $priority = self::PRIORITY_LOW;
-
-    /**
      * Application.
      *
      * @var string
@@ -66,6 +57,13 @@ class Horde_Script_File
      * @var string
      */
     protected $_file;
+
+    /**
+     * Priority.
+     *
+     * @var integer
+     */
+    protected $_priority = self::PRIORITY_NORMAL;
 
     /**
      * Adds a single javascript script to the output (if output has already
@@ -106,6 +104,9 @@ class Horde_Script_File
         case 'path':
             return '/';
 
+        case 'priority':
+            return $this->_priority;
+
         case 'tag':
         case 'tag_full':
             return '<script type="text/javascript" src="' .
@@ -115,6 +116,19 @@ class Horde_Script_File
         case 'url':
         case 'url_full':
             return Horde::url('/' . $this->_file, ($name == 'url_full'), -1);
+        }
+    }
+
+    /**
+     */
+    public function __set($name, $value)
+    {
+        switch ($name) {
+        case 'priority':
+            if (in_array($value, array(self::PRIORITY_HIGH, self::PRIORITY_NORMAL, self::PRIORITY_LOW))) {
+                $this->_priority = $value;
+            }
+            break;
         }
     }
 

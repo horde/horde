@@ -29,7 +29,7 @@
   <active>yes</active>
  </developer>
  <date>2012-06-08</date>
- <time>14:00:45</time>
+ <time>22:31:15</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -427,6 +427,7 @@
       <dir name="File">
        <file name="External.php" role="php" />
        <file name="JsDir.php" role="php" />
+       <file name="JsFramework.php" role="php" />
       </dir> <!-- /lib/Horde/Script/File -->
       <file name="File.php" role="php" />
       <file name="List.php" role="php" />
@@ -1431,6 +1432,7 @@
    <install as="Horde/Script/Package.php" name="lib/Horde/Script/Package.php" />
    <install as="Horde/Script/File/External.php" name="lib/Horde/Script/File/External.php" />
    <install as="Horde/Script/File/JsDir.php" name="lib/Horde/Script/File/JsDir.php" />
+   <install as="Horde/Script/File/JsFramework.php" name="lib/Horde/Script/File/JsFramework.php" />
    <install as="Horde/Session/Null.php" name="lib/Horde/Session/Null.php" />
    <install as="Horde/Themes/Cache.php" name="lib/Horde/Themes/Cache.php" />
    <install as="Horde/Themes/Css.php" name="lib/Horde/Themes/Css.php" />
