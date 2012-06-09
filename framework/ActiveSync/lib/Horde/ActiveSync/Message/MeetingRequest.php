@@ -103,14 +103,16 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
         $tz = new Horde_ActiveSync_Timezone();
         $this->timezone = $tz->getSyncTZFromOffsets(
             $tz->getOffsetsFromDate(new Horde_Date()));
-        $this->alldayevent = $this->_isAllDay();
+        //$this->alldayevent = $this->_isAllDay();
     }
 
     protected function _vEvent($vevent, $id, $method = 'PUBLISH')
     {
-        $this->organizer = $vevent->organizerName();
-
-        $this->globalobjid = $vevent->getAttribute('UID');
+        try {
+            $organizer = parse_url($vevent->getAttribute('ORGANIZER'));
+            $this->organizer = $organizer['path'];
+        } catch (Horde_Icalendar_Exception $e) {}
+        $this->globalobjid = bin2hex($vevent->getAttribute('UID'));
         $this->starttime = new Horde_Date($vevent->getAttribute('DTSTART'), 'utc');
         $this->endtime = new Horde_Date($vevent->getAttribute('DTEND'), 'utc');
         $this->dtstamp = new Horde_Date($vevent->getAttribute('DTSTAMP'), 'utc');
