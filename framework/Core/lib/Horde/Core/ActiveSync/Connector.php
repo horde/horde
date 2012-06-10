@@ -109,6 +109,19 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Import a Horde_Icalendar_vEvent into a user's calendar. Used for creating
+     * events from meeting invitations.
+     *
+     * @param Horde_Icalendar_vEvent $event  The event data.
+     *
+     * @return string The event's UID.
+     */
+    public function calendar_import_vevent(Horde_Icalendar_vEvent $vEvent)
+    {
+        return $this->_registry->calendar->import($vEvent, 'text/calendar');
+    }
+
+    /**
      * Replace the event with new data
      *
      * @param string $uid                                    The UID of the

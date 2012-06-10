@@ -346,20 +346,6 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * @todo
-     *
-     * @param $requestid
-     * @param $folderid
-     * @param $error
-     * @param $calendarid
-     * @return unknown_type
-     */
-    public function meetingResponse($requestid, $folderid, $error, &$calendarid)
-    {
-        throw new Horde_ActiveSync_Exception('meetingResponse not yet implemented.');
-    }
-
-    /**
      * Returns array of items which contain contact information
      *
      * @param string $type   The search type; ['gal'|'mailbox']
@@ -676,4 +662,20 @@ abstract class Horde_ActiveSync_Driver_Base
      * @return mixed  The value of the provisiong support flag.
      */
     abstract public function getProvisioning();
+
+    /**
+     * Hanlde meeting responses.
+     *
+     * @param array $response  The response data. Contains:
+     *   - requestid: The identifier of the meeting request. Used by the server
+     *                to fetch the original meeting request details.
+     *   - response:  The user's response to the request. One of the response
+     *                code constants.
+     *   - folderid:  The collection id that contains the meeting request.
+     *
+     *
+     * @return string  The UID of any created calendar entries, otherwise false.
+     * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
+     */
+    abstract public function meetingResponse(array $response);
 }

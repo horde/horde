@@ -1503,6 +1503,115 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Handle meeting responses.
+     *
+     * @param array $response  The response data. Contains:
+     *   - requestid: The identifier of the meeting request. Used by the server
+     *                to fetch the original meeting request details.
+     *   - response:  The user's response to the request. One of the response
+     *                code constants.
+     *   - folderid:  The collection id that contains the meeting request.
+     *   -
+     *
+     * @return string  The UID of any created calendar entries, otherwise false.
+     * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
+     */
+    public function meetingResponse(array $response)
+    {
+        // First thing we need is to obtain the meeting request.
+        $imap_message = $this->_imap->getImapMessage($response['folderid'], $response['requestid']);
+        $imap_message = $imap_message[$response['requestid']];
+
+        // Find the request
+        if (!$part = $imap_message->hasMeetingRequest()) {
+            $this->_logger->err('Unable to find the meeting request.');
+            throw new Horde_Exception_NotFound();
+        }
+
+        // Parse the vCal
+        $vCal = new Horde_Icalendar();
+        $data = $part->getContents();
+        if (!$vCal->parsevCalendar($data, 'VCALENDAR', $part->getCharset())) {
+            throw new Horde_ActiveSync_Exception('Unknown error parsing vCal data.');
+        }
+        if (!$vEvent = $vCal->findComponent('vEvent')) {
+            throw new Horde_ActiveSync_Exception('Unknown error locating vEvent.');
+        }
+
+        // Create an event from the vEvent.
+        // Note we don't use self::changeMessage since we don't want to treat
+        // this as an incoming message addition from the PIM. Otherwise, the
+        // message may not get synched back to the PIM.
+        try {
+            $uid = $this->_connector->calendar_import_vevent($vEvent);
+        } catch (Horde_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            throw new Horde_ActiveSync_Exception($e);
+        }
+
+        // Start building the iTip response email.
+        try {
+            $organizer = parse_url($vEvent->getAttribute('ORGANIZER'));
+            $organizer = $organizer['path'];
+        } catch (Horde_Icalendar_Exception $e) {
+            $this->_logger->err('Unable to find organizer.');
+            throw new Horde_ActiveSync_Exception($e);
+        }
+        $ident = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->_user);
+        $cn= $ident->getValue('fullname');
+        $email = $ident->getValue('from_addr');
+
+        // Can't use Horde_Itip_Resource_Identity since it takes an IMP identity
+        $resource = new Horde_Itip_Resource_Base($email, $cn);
+
+        switch ($response['response']) {
+        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_ACCEPTED:
+            $type = new Horde_Itip_Response_Type_Accept($resource);
+            break;
+        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_DENIED:
+            $type = new Horde_Itip_Response_Type_Decline($resource);
+            break;
+        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_TENTATIVE:
+            $type = new Horde_Itip_Response_Type_Tentative($resource);
+            break;
+        }
+
+        // Note we don't use the Itip factory because we need to access the
+        // Horde_Itip_Response directly in order to save the response email to
+        // the sent items folder.
+        $itip_response = new Horde_Itip_Response(
+            new Horde_Itip_Event_Vevent($vEvent),
+            $resource
+        );
+        $itip_handler = new Horde_Itip($itip_response);
+
+        try {
+            // Send the response email
+            $itip_handler->sendMultiPartResponse(
+                $type,
+                new Horde_Itip_Response_Options_Horde(
+                    'UTF-8',
+                    array(
+                        'dns' => $GLOBALS['injector']->getInstance('Net_DNS2_Resolver'),
+                        'server' => $GLOBALS['conf']['server']['name']
+                    )
+                ),
+                $GLOBALS['injector']->getInstance('Horde_Mail')
+            );
+            $this->_logger->debug('Successfully sent iTip response.');
+        } catch (Horde_Itip_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            throw new Horde_ActiveSync_Exception($e);
+        }
+
+        // @TODO Copy to sent items.
+
+        return $uid;
+    }
+
+    /**
      * Helper to build a folder object for non-email folders.
      *
      * @param string $id      The folder's server id.
