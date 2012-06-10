@@ -1003,14 +1003,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         // Add From, but only if needed.
         if (!$headers->getValue('From')) {
-            $ident = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Identity')
-                ->create($this->_user);
-
-            $name = $ident->getValue('fullname');
-            $from_addr = $ident->getValue('from_addr');
-            $from = $name . '<' . $from_addr . '>';
-            $headers->addHeader('From', $from);
+            $headers->addHeader('From', $this->_getIdentityFromAddress());
         }
 
         // Use the raw base part parsed from the rfc822 message if we don't
@@ -1978,6 +1971,23 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         return $allowed;
+    }
+
+    /**
+     * Return the current user's From/Reply_To address.
+     *
+     * @return string
+     */
+    protected function _getIdentityFromAddress()
+    {
+        $ident = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->_user);
+
+        $name = $ident->getValue('fullname');
+        $from_addr = $ident->getValue('from_addr');
+
+        return $name . ' <' . $from_addr . '>';
     }
 
 }
