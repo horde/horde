@@ -352,7 +352,7 @@ class Horde_ActiveSync_Imap_Message
     }
 
     /**
-     * Return an array of mime parts for each message attachement.
+     * Return an array of mime parts for each message attachment.
      *
      * @return array An array of Horde_Mime_Part objects.
      */
@@ -703,7 +703,7 @@ class Horde_ActiveSync_Imap_Message
     }
 
     /**
-     * Return the MIME Id of the meeting request part, if available.
+     * Return the MIME part of the meeting request part, if available.
      *
      * @return mixed  The mime part, if present, false otherwise.
      */
@@ -714,7 +714,7 @@ class Horde_ActiveSync_Imap_Message
         }
         foreach ($this->contentTypeMap() as $id => $type) {
             if ($type == 'text/calendar') {
-                return $id;
+                return $this->getMimePart($id);
             }
         }
 

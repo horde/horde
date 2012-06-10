@@ -909,10 +909,10 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         // Check for meeting requests.
-        if ($mime_id = $imap_message->hasMeetingRequest()) {
+        if ($mime_part = $imap_message->hasMeetingRequest()) {
             $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
             $mtg = new Horde_ActiveSync_Message_MeetingRequest();
-            $mtg->fromMimePart($imap_message->getMimePart($mime_id));
+            $mtg->fromMimePart($mime_part);
             $eas_message->meetingrequest = $mtg;
             $eas_message->contentclass = 'urn:content-classes:calendarmessage';
         } else {
