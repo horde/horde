@@ -102,8 +102,8 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
 
         $tz = new Horde_ActiveSync_Timezone();
         $this->timezone = $tz->getSyncTZFromOffsets(
-            $tz->getOffsetsFromDate(new Horde_Date()));
-        //$this->alldayevent = $this->_isAllDay();
+        $tz->getOffsetsFromDate(new Horde_Date()));
+        $this->alldayevent = (int)$this->_isAllDay();
     }
 
     protected function _vEvent($vevent, $id, $method = 'PUBLISH')
