@@ -796,6 +796,7 @@ class Horde_PageOutput
     public function outputSmartmobileFiles()
     {
         $this->addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
+        $this->includeScriptFiles();
     }
 
     /**
