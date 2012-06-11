@@ -189,8 +189,14 @@ if (!$error && $vars->import_format) {
             ));
             break;
 
+        case 'csv':
+            $param['check_charset'] = true;
+            // Fall-through
+
         default:
-            $data = $injector->getInstance('Horde_Core_Factory_Data')->create($vars->import_format, array('cleanup' => array($app_ob, 'cleanupData')));
+            $data = $injector->getInstance('Horde_Core_Factory_Data')->create($vars->import_format, array(
+                'cleanup' => array($app_ob, 'cleanupData'),
+            ));
             break;
         }
     } catch (Horde_Exception $e) {
@@ -213,6 +219,9 @@ if (!$error && $vars->import_format) {
                     $notification->push(_("The import can be finished despite the warnings."), 'horde.message');
                 }
             }
+        } catch (Horde_Data_Exception_Charset $e) {
+            $bad_charset = $e->badCharset;
+            throw $e;
         } catch (Horde_Data_Exception $e) {
             $notification->push($e, 'horde.error');
             $next_step = $data->cleanup();
@@ -358,13 +367,17 @@ if ($next_step == Horde_Data::IMPORT_FILE) {
     }
 
     /* Build the charset options. */
-    $charsets = $registry->nlsconfig->encodings_sort;
-    foreach ($registry->nlsconfig->charsets as $charset) {
-        if (!isset($charsets[$charset])) {
-            $charsets[$charset] = $charset;
+    $charsets = array();
+
+    if (isset($bad_charset)) {
+        $charsets = $registry->nlsconfig->encodings_sort;
+        foreach ($registry->nlsconfig->charsets as $charset) {
+            if (!isset($charsets[$charset]) && ($charset != $bad_charset)) {
+                $charsets[$charset] = $charset;
+            }
         }
+        $my_charset = $GLOBALS['registry']->getLanguageCharset();
     }
-    $my_charset = $GLOBALS['registry']->getLanguageCharset();
 }
 
 foreach ($templates[$next_step] as $template) {

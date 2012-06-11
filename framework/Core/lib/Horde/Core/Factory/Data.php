@@ -38,16 +38,12 @@ class Horde_Core_Factory_Data extends Horde_Core_Factory_Base
      */
     public function create($driver, array $params = array())
     {
-        $params['browser'] = $this->_injector->getInstance('Horde_Browser');
-        $params['vars'] = $this->_injector->getInstance('Horde_Variables');
-
-        if (strcasecmp($driver, 'csv') === 0) {
-            $params['charset'] = 'UTF-8';
-        }
-
         $class = $this->_getDriverName($driver, 'Horde_Data');
 
-        return new $class(new Horde_Core_Data_Storage(), $params);
+        return new $class(new Horde_Core_Data_Storage(), array(
+            'browser' => $this->_injector->getInstance('Horde_Browser'),
+            'vars' => $this->_injector->getInstance('Horde_Variables')
+        ));
     }
 
 }

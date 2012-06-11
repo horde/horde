@@ -20,13 +20,6 @@
 class Horde_Data_Csv extends Horde_Data_Base
 {
     /**
-     * Default charset.
-     *
-     * @var string
-     */
-    protected $_charset = null;
-
-    /**
      * MIME content type.
      *
      * @var string
@@ -39,22 +32,6 @@ class Horde_Data_Csv extends Horde_Data_Base
      * @var string
      */
     protected $_extension = 'csv';
-
-    /**
-     * @param array $params  Optional parameters:
-     *   - charset: (string) The default charset.
-     *              DEFAULT: NONE
-     */
-    public function __construct(Horde_Data_Storage $storage,
-                                array $params = array())
-    {
-        if (isset($params['charset'])) {
-            $this->_charset = $params['charset'];
-            unset($params['charset']);
-        }
-
-        parent::__construct($storage, $params);
-    }
 
     /**
      * Imports and parses a CSV file.
@@ -100,14 +77,14 @@ class Horde_Data_Csv extends Horde_Data_Base
                 return array();
             }
             if (!empty($charset)) {
-                $head = Horde_String::convertCharset($head, $charset, $this->_charset);
+                $head = Horde_String::convertCharset($head, $charset, 'UTF-8');
             }
         }
 
         $data = array();
         while ($line = self::getCsv($fp, $conf)) {
             if (!empty($charset)) {
-                $line = Horde_String::convertCharset($line, $charset, $this->_charset);
+                $line = Horde_String::convertCharset($line, $charset, 'UTF-8');
             }
             if (!isset($head)) {
                 $data[] = $line;
@@ -204,11 +181,17 @@ class Horde_Data_Csv extends Horde_Data_Base
      *
      * @param integer $action  The current step. One of the IMPORT_* constants.
      * @param array $param     An associative array containing needed
-     *                         parameters for the current step.
+     *                         parameters for the current step. Keys for this
+     *                         driver:
+     *   - check_charset: (boolean) Do some checks to see if the correct
+     *                    charset has been provided. Throws charset exception
+     *                    on error.
+     *   - import_mapping: TODO
      *
      * @return mixed  Either the next step as an integer constant or imported
      *                data set after the final step.
      * @throws Horde_Data_Exception
+     * @throws Horde_Data_Exception_Charset
      */
     public function nextStep($action, array $param = array())
     {
@@ -222,10 +205,33 @@ class Horde_Data_Csv extends Horde_Data_Base
             if (!move_uploaded_file($_FILES['import_file']['tmp_name'], $file_name)) {
                 throw new Horde_Data_Exception(Horde_Data_Translation::t("The uploaded file could not be saved."));
             }
-            $this->_storage->set('file_name', $file_name);
 
-            /* Check if charset was specified. */
+            /* Do charset checking now, if requested. */
+            if (isset($param['check_charset'])) {
+                $file_data = file_get_contents($file_name);
+                $charset = isset($this->_vars->charset)
+                    ? Horde_String::lower($this->_vars->charset)
+                    : 'utf-8';
+
+                switch ($charset) {
+                case 'utf-8':
+                    $error = !Horde_String::validUtf8($file_data);
+                    break;
+
+                default:
+                    $error = ($file_data != Horde_String::convertCharset(Horde_String::convertCharset($file_data, $charset, 'UTF-8'), 'UTF-8', $charset));
+                    break;
+                }
+
+                if ($error) {
+                    $e = new Horde_Data_Exception_Charset(Horde_Data_Translation::t("Incorrect charset given for the data."));
+                    $e->badCharset = $charset;
+                    throw $e;
+                }
+            }
+
             $this->_storage->set('charset', $this->_vars->charset);
+            $this->_storage->set('file_name', $file_name);
 
             /* Read the file's first two lines to show them to the user. */
             $first_lines = '';
@@ -233,7 +239,7 @@ class Horde_Data_Csv extends Horde_Data_Base
                 for ($line_no = 1, $line = fgets($fp);
                      $line_no <= 3 && $line;
                      $line_no++, $line = fgets($fp)) {
-                    $line = Horde_String::convertCharset($line, $this->_vars->charset, $this->_charset);
+                    $line = Horde_String::convertCharset($line, $this->_vars->charset, 'UTF-8');
                     $first_lines .= Horde_String::truncate($line);
                     if (Horde_String::length($line) > 100) {
                         $first_lines .= "\n";

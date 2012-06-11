@@ -27,6 +27,11 @@ Upgrading to 2.0
   - Horde_Data_Csv
 
     The static helper method getCsv() was added.
+    Removed the default charset member variable. The output charset is now
+    always UTF-8.
+    nextStep() now supports the 'check_charset' parameter, which throws a
+    Horde_Data_Exception_Charset exception if the charset does not match up
+    with the data.
 
   - Horde_Data_Storage
 
