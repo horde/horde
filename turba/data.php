@@ -50,12 +50,14 @@ if (!$cfgSources) {
 }
 
 /* Importable file types. */
-$file_types = array('csv'      => _("CSV"),
-                    'tsv'      => _("TSV"),
-                    'vcard'    => _("vCard"),
-                    'mulberry' => _("Mulberry Address Book"),
-                    'pine'     => _("Pine Address Book"),
-                    'ldif'     => _("LDIF Address Book"));
+$file_types = array(
+    'csv'      => _("CSV"),
+    'tsv'      => _("TSV"),
+    'vcard'    => _("vCard"),
+    'mulberry' => _("Mulberry Address Book"),
+    'pine'     => _("Pine Address Book"),
+    'ldif'     => _("LDIF Address Book")
+);
 
 /* Templates for the different import steps. */
 $templates = array(
@@ -67,8 +69,8 @@ $templates = array(
 );
 
 /* Initial values. */
-$import_step = Horde_Util::getFormData('import_step', 0) + 1;
-$actionID = Horde_Util::getFormData('actionID');
+$vars = $injector->getInstance('Horde_Variables');
+$import_step = $vars->get('import_step', 0) + 1;
 $next_step = Horde_Data::IMPORT_FILE;
 $app_fields = $time_fields = array();
 $error = false;
@@ -114,23 +116,26 @@ $import_mapping = array(
     'Organization' => 'company',
     'Web Page 1' => 'website',
 );
-$param = array('time_fields' => $time_fields,
-               'file_types'  => $file_types,
-               'import_mapping' => array_merge($app_ob->getOutlookMapping(), $import_mapping));
-$import_format = Horde_Util::getFormData('import_format', '');
-if ($import_format == 'mulberry' || $import_format == 'pine') {
-    $import_format = 'tsv';
+$param = array(
+    'time_fields' => $time_fields,
+    'file_types'  => $file_types,
+    'import_mapping' => array_merge(
+        $app_ob->getOutlookMapping(),
+        $import_mapping
+    )
+);
+if (in_array($vars->import_format, array('mulberry', 'pine'))) {
+    $vars->import_format = 'tsv';
 }
-if ($actionID != 'select') {
+if ($vars->actionID != 'select') {
     array_unshift($templates[Horde_Data::IMPORT_FILE], TURBA_TEMPLATES . '/data/import.inc');
 }
 
 /* Loop through the action handlers. */
-switch ($actionID) {
+switch ($vars->actionID) {
 case Horde_Data::IMPORT_FILE:
-    $dest = Horde_Util::getFormData('dest');
     try {
-        $driver = $injector->getInstance('Turba_Factory_Driver')->create($dest);
+        $driver = $injector->getInstance('Turba_Factory_Driver')->create($vars->dest);
     } catch (Horde_Exception $e) {
         $notification->push($e, 'horde.error');
         $error = true;
@@ -139,30 +144,32 @@ case Horde_Data::IMPORT_FILE:
 
     /* Check permissions. */
     $max_contacts = Turba::getExtendedPermission($driver, 'max_contacts');
-    if ($max_contacts !== true &&
-        $max_contacts <= count($driver)) {
+    if (($max_contacts !== true) && ($max_contacts <= count($driver))) {
         Horde::permissionDeniedError(
             'turba',
             'max_contacts',
             sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $driver->title)
         );
         $error = true;
-        break;
+    } else {
+        $session->set('horde', 'import_data/target', $vars->dest);
+        $session->set('horde', 'import_data/purge', $vars->purge);
     }
-
-    $session->set('horde', 'import_data/target', $dest);
-    $session->set('horde', 'import_data/purge', Horde_Util::getFormData('purge'));
     break;
 
 case Horde_Data::IMPORT_MAPPED:
 case Horde_Data::IMPORT_DATETIME:
     foreach ($cfgSources[$session->get('horde', 'import_data/target')]['map'] as $field => $null) {
         if (substr($field, 0, 2) != '__' && !is_array($null)) {
-            if ($attributes[$field]['type'] == 'monthyear' ||
-                $attributes[$field]['type'] == 'monthdayyear') {
+            switch ($attributes[$field]['type']) {
+            case 'monthyear':
+            case 'monthdayyear':
                 $time_fields[$field] = 'date';
-            } elseif ($attributes[$field]['type'] == 'time') {
+                break;
+
+            case 'time':
                 $time_fields[$field] = 'time';
+                break;
             }
         }
     }
@@ -170,17 +177,21 @@ case Horde_Data::IMPORT_DATETIME:
     break;
 }
 
-if (!$error && !empty($import_format)) {
+if (!$error && $vars->import_format) {
     // TODO
     try {
-        if ($import_format == 'ldif') {
+        switch ($vars->import_format) {
+        case 'ldif':
             $data = new Turba_Data_Ldif(array(
                 'browser' => $injector->getInstance('Horde_Browser'),
-                'vars' => Horde_Variables::getDefaultVariables(),
-                'cleanup' => array($app_ob, 'cleanupData')
+                'cleanup' => array($app_ob, 'cleanupData'),
+                'vars' => $vars
             ));
-        } else {
-            $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => array($app_ob, 'cleanupData')));
+            break;
+
+        default:
+            $data = $injector->getInstance('Horde_Core_Factory_Data')->create($vars->import_format, array('cleanup' => array($app_ob, 'cleanupData')));
+            break;
         }
     } catch (Horde_Exception $e) {
         $notification->push(_("This file format is not supported."), 'horde.error');
@@ -190,7 +201,7 @@ if (!$error && !empty($import_format)) {
 
     if ($data) {
         try {
-            $next_step = $data->nextStep($actionID, $param);
+            $next_step = $data->nextStep($vars->actionID, $param);
 
             /* Raise warnings if some exist. */
             if (method_exists($data, 'warnings')) {
@@ -225,8 +236,7 @@ if (is_array($next_step)) {
     }
 
     if (!count($next_step)) {
-        $notification->push(sprintf(_("The %s file didn't contain any contacts."),
-                                    $file_types[$session->get('horde', 'import_data/format')]), 'horde.error');
+        $notification->push(sprintf(_("The %s file didn't contain any contacts."), $file_types[$session->get('horde', 'import_data/format')]), 'horde.error');
     } elseif ($driver) {
         /* Purge old address book if requested. */
         if ($session->get('horde', 'import_data/purge')) {
