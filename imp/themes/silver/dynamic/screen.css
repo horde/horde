@@ -95,10 +95,10 @@ span.dimpactionFilter {
 #ctx_message_undelete span.iconImg, #ctx_oa_undelete span.iconImg {
     background-image: url("../graphics/undelete.png");
 }
-#ctx_mbox_seen span.iconImg, #ctx_message_view span.iconImg {
+#ctx_mbox_flag_seen span.iconImg, #ctx_message_view span.iconImg {
     background-image: url("../graphics/mail_seen.png");
 }
-#ctx_mbox_unseen span.iconImg, #ctx_mbox_poll span.iconImg, #ctx_mbox_nopoll span.iconImg {
+#ctx_mbox_flag_unseen span.iconImg, #ctx_mbox_poll span.iconImg, #ctx_mbox_nopoll span.iconImg {
     background-image: url("../graphics/mail_unseen.png");
 }
 #ctx_message_setflag span.iconImg, #ctx_oa_setflag span.iconImg, #ctx_mbox_setflag span.iconImg {

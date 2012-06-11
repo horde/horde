@@ -970,10 +970,10 @@ var DimpBase = {
             });
             break;
 
-        case 'ctx_mbox_seen':
-        case 'ctx_mbox_unseen':
+        case 'ctx_mbox_flag_seen':
+        case 'ctx_mbox_flag_unseen':
             DimpCore.doAction('flagAll', {
-                add: Number(id == 'ctx_mbox_seen'),
+                add: Number(id == 'ctx_mbox_flag_seen'),
                 flags: Object.toJSON([ DimpCore.conf.FLAG_SEEN ]),
                 mbox: e.findElement('LI').retrieve('mbox')
             });
