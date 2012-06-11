@@ -608,9 +608,7 @@ class Horde_PageOutput
 
         switch ($this->_view) {
         case $registry::VIEW_BASIC:
-            if (count($this->hsl)) {
-                $this->_addBasicScripts();
-            }
+            $this->_addBasicScripts();
             $view->stylesheetOpts['sub'] = 'basic';
             break;
 
