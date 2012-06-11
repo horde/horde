@@ -230,8 +230,8 @@ class Horde_Data_Csv extends Horde_Data_Base
                 }
             }
 
-            $this->_storage->set('charset', $this->_vars->charset);
-            $this->_storage->set('file_name', $file_name);
+            $this->storage->set('charset', $this->_vars->charset);
+            $this->storage->set('file_name', $file_name);
 
             /* Read the file's first two lines to show them to the user. */
             $first_lines = '';
@@ -246,36 +246,36 @@ class Horde_Data_Csv extends Horde_Data_Base
                     }
                 }
             }
-            $this->_storage->set('first_lines', $first_lines);
+            $this->storage->set('first_lines', $first_lines);
 
             /* Import the first line to guess the number of fields. */
             if ($first_lines) {
                 rewind($fp);
                 $line = self::getCsv($fp);
                 if ($line) {
-                    $this->_storage->set('fields', count($line));
+                    $this->storage->set('fields', count($line));
                 }
             }
 
             return Horde_Data::IMPORT_CSV;
 
         case Horde_Data::IMPORT_CSV:
-            $this->_storage->set('header', $this->_vars->header);
+            $this->storage->set('header', $this->_vars->header);
             $import_mapping = array();
             if (isset($param['import_mapping'])) {
                 $import_mapping = $param['import_mapping'];
             }
-            $this->_storage->set('data', $this->importFile(
-                $this->_storage->get('file_name'),
+            $this->storage->set('data', $this->importFile(
+                $this->storage->get('file_name'),
                 $this->_vars->header,
                 $this->_vars->sep,
                 $this->_vars->quote,
                 $this->_vars->fields,
                 $import_mapping,
-                $this->_storage->get('charset'),
-                $this->_storage->get('crlf')
+                $this->storage->get('charset'),
+                $this->storage->get('crlf')
             ));
-            $this->_storage->set('map');
+            $this->storage->set('map');
             return Horde_Data::IMPORT_MAPPED;
 
         default:
