@@ -29,8 +29,7 @@ class IMP_Contents
     const SUMMARY_IMAGE_SAVE = 512;
     const SUMMARY_PRINT = 1024;
     const SUMMARY_PRINT_STUB = 2048;
-    const SUMMARY_STRIP_LINK = 4096;
-    const SUMMARY_STRIP_STUB = 8192;
+    const SUMMARY_STRIP = 4096;
 
     /* Rendering mask entries. */
     const RENDER_FULL = 1;
@@ -696,8 +695,7 @@ class IMP_Contents
      * IMP_Contents::SUMMARY_PRINT_STUB
      *   Output: parts = 'print'
      *
-     * IMP_Contents::SUMMARY_STRIP_LINK
-     * IMP_Contents::SUMMARY_STRIP_STUB
+     * IMP_Contents::SUMMARY_STRIP
      *   Output: parts = 'strip'
      * </pre>
      *
@@ -820,17 +818,12 @@ class IMP_Contents
 
         /* Strip Attachment? Allow stripping of base parts other than the
          * base multipart and the base text (body) part. */
-        if ((($mask & self::SUMMARY_STRIP_LINK) ||
-             ($mask & self::SUMMARY_STRIP_STUB)) &&
+        if (($mask & self::SUMMARY_STRIP) &&
             ($id != 0) &&
             (intval($id) != 1) &&
             (strpos($id, '.') === false)) {
-            if ($mask & self::SUMMARY_STRIP_LINK) {
-                $url = Horde::selfUrl(true)->remove(array('actionID', 'imapid', 'uid'))->add(array('actionID' => 'strip_attachment', 'imapid' => $id, 'uid' => $this->_uid, 'message_token' => $GLOBALS['injector']->getInstance('Horde_Token')->get('imp.impcontents')));
-                $part['strip'] = Horde::link($url, _("Strip Attachment"), 'iconImg deleteImg', null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to PERMANENTLY delete this attachment?"), Horde_Serialize::JSON, 'UTF-8') . ')') . '</a>';
-            } else {
-                $part['strip'] = Horde::link('#', _("Strip Attachment"), 'iconImg deleteImg stripAtc', null, null, null, null, array('mimeid' => $id)) . '</a>';
-            }
+            $url = Horde::selfUrl(true)->remove(array('actionID', 'imapid', 'uid'))->add(array('actionID' => 'strip_attachment', 'imapid' => $id, 'uid' => $this->_uid, 'message_token' => $GLOBALS['injector']->getInstance('Horde_Token')->get('imp.impcontents')));
+            $part['strip'] = Horde::link($url, _("Strip Attachment"), 'iconImg deleteImg stripAtc', null, null, null, null, array('mimeid' => $id)) . '</a>';
         }
 
         return $part;
@@ -1109,23 +1102,25 @@ class IMP_Contents
      * Adds MIME parts to the tree instance.
      *
      * @param Horde_Tree_Renderer_Base tree   A tree instance.
-     * @param Horde_Mime_Part $part  The MIME part to add to the tree,
-     *                               including its sub-parts.
-     * @param string $parent         The parent part's MIME id.
+     * @param Horde_Mime_Part $part           The MIME part to add to the
+     *                                        tree, including its sub-parts.
+     * @param string $parent                  The parent part's MIME id.
      */
     protected function _addTreeNodes($tree, $part, $parent = null)
     {
         $mimeid = $part->getMimeId();
 
-        $summary = $this->getSummary(
-            $mimeid,
-            self::SUMMARY_ICON_RAW | self::SUMMARY_DESCRIP_LINK | self::SUMMARY_SIZE | self::SUMMARY_DOWNLOAD
-        );
+        $summary_mask = self::SUMMARY_ICON_RAW | self::SUMMARY_DESCRIP_LINK | self::SUMMARY_SIZE | self::SUMMARY_DOWNLOAD;
+        if ($GLOBALS['prefs']->getValue('strip_attachments')) {
+            $summary_mask += self::SUMMARY_STRIP;
+        }
+
+        $summary = $this->getSummary($mimeid, $summary_mask);
 
         $tree->addNode(array(
             'id' => $mimeid,
             'parent' => $parent,
-            'label' => $summary['description'] . ' (' . $summary['size'] . ') ' . $summary['download'],
+            'label' => $summary['description'] . ' (' . $summary['size'] . ') ' . $summary['download'] . ' ' . $summary['strip'],
             'params' => array(
                 'class' => 'partsTreeDiv',
                 'icon' => $summary['icon']

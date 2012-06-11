@@ -2,6 +2,7 @@
 v6.0-git
 --------
 
+[mms] Move attachment strip icon to MIME part tree display.
 [mms] Convert dynamic view to Horde_View.
 [mms] Convert minimal view to Horde_View.
 [mms] Honor initial_page preference in smartmobile view (Request #11165).
