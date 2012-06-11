@@ -932,15 +932,15 @@ var DimpBase = {
             });
             break;
 
-        case 'ctx_mbox_export_opts_mbox':
-        case 'ctx_mbox_export_opts_zip':
+        case 'ctx_mbox_exportopts_mbox':
+        case 'ctx_mbox_exportopts_zip':
             tmp = e.findElement('LI');
 
             this.viewaction = function(e) {
                 HordeCore.download('', {
                     actionID: 'download_mbox',
                     mbox_list: Object.toJSON([ tmp.retrieve('mbox') ]),
-                    zip: Number(id == 'ctx_mbox_export_opts_zip')
+                    zip: Number(id == 'ctx_mbox_exportopts_zip')
                 });
             };
 
@@ -3720,7 +3720,7 @@ var DimpBase = {
         DM.addSubMenu('ctx_oa_setflag', 'ctx_flag');
         DM.addSubMenu('ctx_oa_unsetflag', 'ctx_flag');
         DM.addSubMenu('ctx_mbox_setflag', 'ctx_mbox_flag');
-        DM.addSubMenu('ctx_mbox_export', 'ctx_mbox_export_opts');
+        DM.addSubMenu('ctx_mbox_export', 'ctx_mbox_exportopts');
 
         DimpCore.addPopdown($('msglistHeaderHoriz').down('.msgSubject').identify(), 'subjectsort', {
             insert: 'bottom'

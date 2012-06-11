@@ -325,6 +325,11 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             )
         );
 
+        $context['ctx_mbox_exportopts'] = array(
+            '*mbox' => _("Mbox"),
+            '*zip' => _("Zip")
+        );
+
         if (!$prefs->getValue('subscribe')) {
             unset($context['ctx_mbox']['sub'], $context['ctx_mbox']['unsub']);
         }
