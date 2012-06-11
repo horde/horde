@@ -270,7 +270,8 @@ var DimpCore = {
             // CSS class based matching
             if (elt.hasClassName('unblockImageLink')) {
                 IMP_JS.unblockImages(e);
-            } else if (elt.hasClassName('largeaddrspan_active')) {
+            } else if (elt.hasClassName('largeaddrspan_active') &&
+                       !e.element().hasClassName('address')) {
                 if (e.element().hasClassName('largeaddrlistlimit')) {
                     e.element().hide();
                     elt.up('TD').fire('DimpCore:updateAddressHeader');
