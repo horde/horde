@@ -570,7 +570,7 @@ class Horde_Icalendar
 
         // Extract all subcomponents.
         $matches = $components = null;
-        if (preg_match_all('/^BEGIN:(.*)(\r\n|\r|\n)(.*)^END:\1/Uims', $vCal, $components)) {
+        if (preg_match_all('/^BEGIN:(.*)\s*?(\r\n|\r|\n)(.*)^END:\1\s*?/Uims', $vCal, $components)) {
             foreach ($components[0] as $key => $data) {
                 // Remove from the vCalendar data.
                 $vCal = str_replace($data, '', $vCal);
