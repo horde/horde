@@ -168,21 +168,27 @@ class Horde_PageOutput
         $driver = empty($conf['cachejs'])
             ? 'none'
             : strtolower($conf['cachejsparams']['driver']);
+        $last_cache = null;
         $jsvars = $tmp = array();
 
         foreach ($this->hsl as $val) {
             if ($driver == 'none') {
                 echo $val;
             } elseif (is_null($val->cache)) {
-                if (empty($tmp)) {
-                    echo $val;
-                } else {
+                if (!empty($tmp)) {
                     $this->_outputCachedScripts($tmp);
                     $tmp = array();
                 }
+                echo $val;
             } else {
+                if (!is_null($last_cache) && ($last_cache != $val->cache)) {
+                    $this->_outputCachedScripts($tmp);
+                    $tmp = array();
+                }
                 $tmp[$val->hash] = $val;
             }
+
+            $last_cache = $val->cache;
 
             if (!empty($val->jsvars)) {
                 $jsvars = array_merge($jsvars, $val->jsvars);
