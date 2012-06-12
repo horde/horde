@@ -1,64 +1,6 @@
+<?php echo $this->topbar ?>
+<?php echo $this->sidebar ?>
 <div id="dimpPage" style="display:none">
- <div id="sidebar">
-  <div id="logo">
-   <a id="logolink"><?php echo _("Horde") ?></a>
-  </div>
-  <ul id="dimpbarActions">
-   <?php echo $this->sidebarLink('composelink', _("_New Message"), 'dimpactionCompose') ?>
-   <?php echo $this->sidebarLink('checkmaillink', _("_Get Mail"), 'dimpactionCheckmail') ?>
-   <?php echo $this->sidebarLink('alertsloglink', _("Alerts _Log"), 'infoIcon') ?>
-<?php if ($this->filter_avail): ?>
-   <?php echo $this->sidebarLink('applyfilterlink', _("Apply Filters"), 'filtersIcon') ?>
-<?php endif; ?>
-  </ul>
-<?php if ($this->show_quota): ?>
-  <div id="quota">
-   <div id="quota-text"></div>
-   <span class="used"><?php echo $this->hordeImg('quotauncover.gif', array('width' => 99)) ?></span>
-  </div>
-<?php endif; ?>
-  <div class="sepfull"></div>
-  <ul id="serviceActions">
-<?php if (isset($this->show_portal)): ?>
-   <li class="servicelink" id="portallink">
-    <span class="iconImgSidebar hordeIcon"></span>
-    <?php echo $this->portalLink() ?>
-   </li>
-<?php endif; ?>
-<?php if ($this->show_prefs): ?>
-   <?php echo $this->sidebarLink('appprefs', _("Preferences"), 'prefsIcon') ?>
-<?php endif; ?>
-<?php if ($this->show_logout): ?>
-   <?php echo $this->sidebarLink('applogout', _("_Log Out"), 'logoutIcon') ?>
-<?php endif; ?>
-  </ul>
-  <div class="sepfull"></div>
-  <div id="foldersLoading"><?php echo _("Loading...") ?></div>
-  <div id="foldersSidebar" style="display:none">
-   <ul class="mboxlist" id="specialmboxes"></ul>
-<?php if (!empty($this->sidebar)): ?>
-   <div class="sepfull"></div>
-   <ul id="sidebar_apps">
-    <?php echo $this->sidebar ?>
-   </ul>
-<?php endif; ?>
-<?php if ($this->show_folders): ?>
-   <div class="sepfull"></div>
-   <ul class="mboxlist" id="normalmboxes">
-    <li class="mbox" id="folderopts">
-     <span class="iconImgSidebar folderoptsImg"></span>
-     <a id="folderopts_link" title="<?php echo _("Folder Actions") ?>"><?php echo _("Folder Actions") ?></a>
-    </li>
-    <li class="mbox" id="dropbase" style="display:none">
-     <span class="iconImgSidebar folderImg"></span>
-     <a title="<?php echo _("Move to Base Level") ?>"><?php echo _("Move to Base Level") ?></a>
-    </li>
-    <div class="sepfull sepfulllight"></div>
-   </ul>
-<?php endif; ?>
-  </div>
- </div>
-
  <div id="dimpmain">
   <div id="dimpmain_iframe"><?php echo _("Loading...") ?></div>
   <div id="dimpmain_folder" style="display:none">

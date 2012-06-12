@@ -347,6 +347,7 @@ var DimpBase = {
     //     mailbox
     highlightSidebar: function(id)
     {
+        return;
         // Folder bar may not be fully loaded yet.
         if ($('foldersLoading').visible()) {
             this.highlightSidebar.bind(this, id).defer();
@@ -383,7 +384,8 @@ var DimpBase = {
 
     setSidebarWidth: function()
     {
-        var tmp = $('sidebar');
+        return;
+        var tmp = $('horde-sidebar');
 
         tmp.setStyle({
             width: this._getPref('splitbar_side') + 'px'
@@ -1017,7 +1019,7 @@ var DimpBase = {
 
         case 'ctx_folderopts_expand':
         case 'ctx_folderopts_collapse':
-            this._toggleSubFolder($('normalmboxes'), id == 'ctx_folderopts_expand' ? 'expall' : 'colall', true);
+            this._toggleSubFolder($('imp-normalmboxes'), id == 'ctx_folderopts_expand' ? 'expall' : 'colall', true);
             break;
 
         case 'ctx_folderopts_reload':
@@ -2032,7 +2034,7 @@ var DimpBase = {
             // Issue: it is quite expensive to determine this, since the
             // mailbox elements themselves aren't hidden - it is one of the
             // parent containers. Probably not worth the effort.
-            args.set('poll', Object.toJSON($('foldersSidebar').select('.mbox').findAll(function(elt) {
+            args.set('poll', Object.toJSON($('horde-sidebar').select('.mbox').findAll(function(elt) {
                 return !Object.isUndefined(elt.retrieve('u')) && elt.visible();
             }).invoke('retrieve', 'mbox')));
         } else {
@@ -2051,7 +2053,7 @@ var DimpBase = {
     {
         /* Don't update polled status until the sidebar is visible. Otherwise,
          * preview callbacks may not correctly update unseen status. */
-        if (!$('foldersSidebar').visible()) {
+        if (!$('horde-sidebar').visible()) {
             return this.pollCallback.bind(this, r).defer();
         }
 
@@ -2059,7 +2061,7 @@ var DimpBase = {
             this.updateUnseenStatus(u.key, u.value);
         }, this);
 
-        $('checkmaillink').down('A').update(DimpCore.text.getmail);
+        //$('checkmaillink').down('A').update(DimpCore.text.getmail);
     },
 
     quotaCallback: function(r)
@@ -2585,8 +2587,8 @@ var DimpBase = {
             id = elt.readAttribute('id');
 
             switch (id) {
-            case 'normalmboxes':
-            case 'specialmboxes':
+            case 'imp-normalmboxes':
+            case 'imp-specialmboxes':
                 this._handleMboxMouseClick(e);
                 break;
 
@@ -2741,28 +2743,6 @@ var DimpBase = {
 
             case 'msg_template':
                 this.composeMailbox('template');
-                break;
-
-            case 'sidebar_apps':
-                tmp = e.element();
-                if (!tmp.hasClassName('custom')) {
-                    tmp = tmp.up('LI.custom');
-                }
-                if (tmp && !tmp.down('A').readAttribute('href')) {
-                    // Prefix is 'sidebarapp_'
-                    this.go('menu', tmp.down('A').identify().substring(11));
-                    e.stop();
-                    return;
-                }
-                break;
-
-            case 'tabbar':
-                if (e.element().hasClassName('applicationtab')) {
-                    // Prefix is 'apptab_'
-                    this.go('menu', e.element().identify().substring(7));
-                    e.stop();
-                    return;
-                }
                 break;
 
             case 'search_close':
@@ -2953,7 +2933,7 @@ var DimpBase = {
     mailboxCallback: function(r)
     {
         var base,
-            nm = $('normalmboxes');
+            nm = $('imp-normalmboxes');
 
         if (r.base) {
             // Need to find the submailbox and look to parent to ensure we get
@@ -2987,7 +2967,7 @@ var DimpBase = {
 
         if ($('foldersLoading').visible()) {
             $('foldersLoading').hide();
-            $('foldersSidebar').show();
+            $('horde-sidebar').show();
         }
 
         if (nm && nm.getStyle('max-height') !== null) {
@@ -3022,7 +3002,8 @@ var DimpBase = {
     _handleMboxMouseClick: function(e)
     {
         var elt = e.element(),
-            li = elt.match('LI') ? elt : elt.up('LI');
+            //li = elt.match('LI') ? elt : elt.up('LI');
+            li = elt.match('DIV') ? elt : elt.up('DIV');
 
         if (!li) {
             return;
@@ -3031,6 +3012,7 @@ var DimpBase = {
         if (elt.hasClassName('exp') || elt.hasClassName('col')) {
             this._toggleSubFolder(li, 'tog');
         } else {
+            li = li.up('DIV.horde-subnavi');
             switch (li.retrieve('ftype')) {
             case 'container':
             case 'scontainer':
@@ -3063,7 +3045,7 @@ var DimpBase = {
             // don't need to parse through them.
             subs = base.ancestors().slice(0, -2).reverse().findAll(function(n) { return n.hasClassName('subfolders'); });
         } else {
-            subs = [ base.next('.subfolders') ];
+            subs = [ base.up().next('.subfolders') ];
         }
 
         if (!subs) {
@@ -3072,14 +3054,14 @@ var DimpBase = {
 
         if (mode == 'tog' || mode == 'expall') {
             subs.compact().each(function(s) {
-                if (!s.visible() && !s.down().childElements().size()) {
+                if (!s.visible() && !s.childElements().size()) {
                     need.push(s.previous().retrieve('mbox'));
                 }
             });
 
             if (need.size()) {
                 if (mode == 'tog') {
-                    base.down('A').update(DimpCore.text.loading);
+                    //base.down('A').update(DimpCore.text.loading);
                 }
                 this._listMboxes({
                     all: Number(mode == 'expall'),
@@ -3090,7 +3072,7 @@ var DimpBase = {
             } else if (mode == 'tog') {
                 // Need to pass element here, since we might be working
                 // with 'special' mailboxes.
-                this.setMboxLabel(base);
+                this.setMboxLabel(base.up());
             }
         }
 
@@ -3175,7 +3157,7 @@ var DimpBase = {
             }
 
             /* This is a dummy container element to display child elements of
-             * a mailbox displayed in the 'specialmboxes' section. */
+             * a mailbox displayed in the 'imp-specialmboxes' section. */
             if (ob.dummy) {
                 cname += ' specialContainer';
             }
@@ -3188,20 +3170,28 @@ var DimpBase = {
             cname += ' unsubMbox';
         }
 
-        div = new Element('SPAN', { className: 'iconImgSidebar' });
+        //div = new Element('SPAN', { className: 'iconImgSidebar' });
+        div = new Element('DIV', { className: 'horde-subnavi-icon-1' });
         if (ob.i) {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
         }
 
-        li = new Element('LI', { className: cname, title: title }).store('l', label).store('mbox', ob.m).insert(div).insert(new Element('A').insert(label));
+        //li = new Element('LI', { className: cname, title: title }).store('l', label).store('mbox', ob.m).insert(div).insert(new Element('A').insert(label));
+        li = new Element('DIV', { className: 'horde-subnavi', title: title })
+            .store('l', label)
+            .store('mbox', ob.m)
+            .insert(div)
+            .insert(new Element('DIV', { className: 'horde-subnavi-point' })
+                        .insert(new Element('A').insert(label)))
+            .insert(new Element('DIV', { className: 'clear' }));
 
         // Now walk through the parent <ul> to find the right place to
         // insert the new mailbox.
         if (ob.s) {
             div.addClassName(ob.cl || 'folderImg');
-            parent_e = $('specialmboxes');
+            parent_e = $('imp-specialmboxes');
 
-            /* Create a dummy container element in 'normalmboxes' section. */
+            /* Create a dummy container element in 'imp-normalmboxes' section. */
             if (ob.ch) {
                 div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
 
@@ -3213,8 +3203,8 @@ var DimpBase = {
         } else {
             div.addClassName(ob.ch ? 'exp' : (ob.cl || 'folderImg'));
             parent_e = ob.pa
-                ? this.getSubMboxElt(ob.pa).down()
-                : $('normalmboxes');
+                ? this.getSubMboxElt(ob.pa)
+                : $('imp-normalmboxes');
         }
 
         /* Virtual folders and special mailboxes are sorted on the server. */
@@ -3231,7 +3221,7 @@ var DimpBase = {
         } else {
             parent_e.insert(li);
             if (this.expandmbox && !parent_e.hasClassName('mboxlist')) {
-                tmp2 = parent_e.up('LI').previous();
+                tmp2 = parent_e.previous();
                 if (!Object.isElement(this.expandmbox) ||
                     this.expandmbox != tmp2) {
                     tmp2.next().show();
@@ -3242,7 +3232,8 @@ var DimpBase = {
 
         // Make sure the sub<mbox> ul is created if necessary.
         if (!ob.s && ob.ch) {
-            li.insert({ after: new Element('LI', { className: 'subfolders' }).insert(new Element('UL')).hide() });
+            //li.insert({ after: new Element('LI', { className: 'subfolders' }).insert(new Element('UL')).hide() });
+            li.insert({ after: new Element('DIV', { className: 'subfolders' }).hide() });
             if (tmp) {
                 li.insert({ after: tmp });
             }
@@ -3351,7 +3342,7 @@ var DimpBase = {
 
     _sizeFolderlist: function()
     {
-        var nf = $('normalmboxes');
+        var nf = $('imp-normalmboxes');
         if (nf) {
             nf.setStyle({ height: Math.max(document.viewport.getHeight() - nf.cumulativeOffset()[1], 0) + 'px' });
         }
@@ -3367,7 +3358,7 @@ var DimpBase = {
     _reloadFolders: function()
     {
         $('foldersLoading').show();
-        $('foldersSidebar').hide();
+        $('horde-sidebar').hide();
 
         [ Object.values(this.mboxes), Object.values(this.smboxes) ].flatten().compact().each(function(elt) {
             this.deleteMboxElt(elt, true);
@@ -3646,11 +3637,12 @@ var DimpBase = {
         DimpCore.conf.sort = $H(DimpCore.conf.sort);
 
         /* Limit to folders sidebar only. */
-        $('foldersSidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
+        $('horde-sidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
 
         /* Create splitbar for sidebar. */
-        this.splitbar = new Element('DIV', { className: 'splitBarVertSidebar' });
-        $('sidebar').insert({ after: this.splitbar });
+        this.splitbar = new Element('DIV', { id: 'horde-slideleft' }).insert(
+            new Element('DIV', { id: 'horde-slideleftcursor' }));
+        $('horde-sidebar').insert({ after: this.splitbar });
         new Drag(this.splitbar, {
             constraint: 'horizontal',
             ghosting: true,
@@ -3659,7 +3651,7 @@ var DimpBase = {
 
         /* Show page now. */
         $('dimpLoading').hide();
-        $('dimpPage').show();
+        //$('dimpPage').show();
         this.setSidebarWidth();
 
         /* Init quicksearch. These needs to occur before loading the message
@@ -3695,8 +3687,8 @@ var DimpBase = {
         }
 
         /* Store these text strings for updating purposes. */
-        DimpCore.text.getmail = $('checkmaillink').down('A').innerHTML;
-        DimpCore.text.showalog = $('alertsloglink').down('A').innerHTML;
+        //DimpCore.text.getmail = $('checkmaillink').down('A').innerHTML;
+        //DimpCore.text.showalog = $('alertsloglink').down('A').innerHTML;
 
         /* Initialize the starting page. */
         tmp = decodeURIComponent(location.hash);
@@ -3800,7 +3792,7 @@ var DimpBase = {
 /* Need to add after DimpBase is defined. */
 DimpBase._msgDragConfig = {
     classname: 'msgdrag',
-    scroll: 'normalmboxes',
+    scroll: 'imp-normalmboxes',
     threshold: 5,
     caption: DimpBase.dragCaption.bind(DimpBase)
 };
@@ -3809,7 +3801,7 @@ DimpBase._mboxDragConfig = {
     classname: 'mboxdrag',
     ghosting: true,
     offset: { x: 15, y: 0 },
-    scroll: 'normalmboxes',
+    scroll: 'imp-normalmboxes',
     threshold: 5
 };
 

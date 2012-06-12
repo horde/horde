@@ -38,7 +38,13 @@ text-shadow: 1px 1px 0px #000;
 p.relief{
 text-shadow: -1px -1px 0px #000;
 }
-
+p.horde-mainnavi{
+font-size: 13px;
+color: #fff;
+font-weight:bold;
+text-decoration:none;
+text-shadow: 1px 1px 0px #000;
+}
 
 /*
  * Links

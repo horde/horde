@@ -46,19 +46,40 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $this->view->show_folders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
         $this->view->show_logout = Horde_Menu::showService('logout');
         $this->view->show_notspam = !empty($conf['notspam']['reporting']);
-        $this->view->show_quota = $session->get('imp', 'imap_quota');
         $this->view->show_prefs = Horde_Menu::showService('prefs');
         $this->view->show_search = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
         $this->view->show_spam = !empty($conf['spam']['reporting']);
 
         $this->view->is_opera = $browser->isBrowser('opera');
 
-        $status = $registry->get('status', 'horde');
-        $this->view->show_portal = (($status != 'hidden') && ($status != 'notoolbar') && empty($conf['menu']['apps_iframe']));
+        $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
+        if ($session->get('imp', 'imap_quota')) {
+            $topbar->subinfo = '<span id="quota-text"></span>';
+        }
+        $this->view->topbar = $topbar->render();
 
-        $dimp_menu = new IMP_Menu_Dimp(Horde_Menu::MASK_BASE);
-        $this->view->sidebar = $dimp_menu->render();
-        $dimp_menu->addJs();
+        $sidebar = $GLOBALS['injector']->getInstance('Horde_View_Sidebar');
+        $blank = new Horde_Url();
+        $sidebar->newLink = $blank->link(array('id' => 'composelink',
+                                               'class' => 'icon'));
+        $sidebar->newText = _("New Message");
+        $sidebar->newRefresh = $blank->link(array('id' => 'checkmaillink',
+                                                  'class' => 'icon'));
+        $folderActions =
+            $sidebar->getTreeRow(array(
+                'id' => 'folderopts_link',
+                'cssClass' => 'folderoptsImg',
+                'dropDown' => true,
+                'label' => _("Folder Actions")))
+            . $sidebar->getTreeRow(array(
+                'id' => 'dropbase',
+                'style' => 'display:none',
+                'cssClass' => 'folderImg',
+                'label' => _("Move to Base Level")));
+        $sidebar->containers = array('imp-specialmboxes' => '',
+                                     '' => $folderActions,
+                                     'imp-normalmboxes' => '');
+        $this->view->sidebar = $sidebar->render();
 
         $page_output->noDnsPrefetch();
 

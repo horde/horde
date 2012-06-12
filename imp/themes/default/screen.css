@@ -98,25 +98,25 @@ div.partsTreeDiv span span:last-child {
 }
 
 /* Folder images. */
-span.folderImg {
+.folderImg {
     background-image: url("graphics/folders/folder.png");
 }
-span.folderopenImg {
+.folderopenImg {
     background-image: url("graphics/folders/open.png");
 }
-span.draftsImg, span.composetemplatesImg {
+.draftsImg, .composetemplatesImg {
     background-image: url("graphics/folders/drafts.png");
 }
-span.inboxImg {
+.inboxImg {
     background-image: url("graphics/folders/inbox.png");
 }
-span.sentImg {
+.sentImg {
     background-image: url("graphics/folders/sent.png");
 }
-span.spamImg {
+.spamImg {
     background-image: url("graphics/folders/spam.png");
 }
-span.trashImg {
+.trashImg {
     background-image: url("graphics/folders/trash.png");
 }
 

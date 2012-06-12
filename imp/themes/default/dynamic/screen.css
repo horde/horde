@@ -16,6 +16,9 @@ input {
 }
 
 /* Main container styles. */
+#dimpPage {
+    position: relative;
+}
 #sidebar {
     background: #eee;
     bottom: 0;
@@ -359,13 +362,13 @@ span.iconImgSidebar {
     margin-right: 0;
     width: 20px;
 }
-#ctx_mbox_sub span.iconImg, #ctx_mbox_unsub span.iconImg, #ctx_folderopts_sub span.iconImg, #ctx_folderopts_unsub span.iconImg, span.folderoptsImg {
+#ctx_mbox_sub span.iconImg, #ctx_mbox_unsub span.iconImg, #ctx_folderopts_sub span.iconImg, #ctx_folderopts_unsub span.iconImg, .folderoptsImg {
     background-image: url("../graphics/folders/folder.png");
 }
-#sidebar span.col, #ctx_folderopts_collapse span.iconImg, #ctx_container_collapse span.iconImg, #ctx_mbox_collapse span.iconImg {
+#horde-sidebar .col, #ctx_folderopts_collapse span.iconImg, #ctx_container_collapse span.iconImg, #ctx_mbox_collapse span.iconImg {
     background-image: url("../graphics/folders/minus.png");
 }
-#sidebar span.exp, #ctx_folderopts_expand span.iconImg, #ctx_container_expand span.iconImg, #ctx_mbox_expand span.iconImg {
+#horde-sidebar .exp, #ctx_folderopts_expand span.iconImg, #ctx_container_expand span.iconImg, #ctx_mbox_expand span.iconImg {
     background-image: url("../graphics/folders/plus.png");
 }
 #normalmboxes li.unsubMbox {

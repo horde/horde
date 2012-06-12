@@ -287,10 +287,9 @@ background-color:#333333;
 /*
  * Sidebar (linke Seite)
  */
-#horde-sidebar{
+/*#horde-sidebar{
 position:absolute;
 top: 56px;
-left: 0;
 bottom:0px;
 width: 200px;
 background-color:#bfc9cd;
@@ -303,7 +302,22 @@ background-color:#bfc9cd;
   #horde-sidebar-subfolder{
   position:absolute;
   width: 200px;
-  top:156px;
+  top:160px;
+  bottom:0px;
+  overflow: auto;
+  background-color:#bfc9cd;
+  }*/
+#horde-sidebar{
+width: 200px;
+background-color:#bfc9cd;
+}
+  #horde-sidebar-folder{
+  width:200px;
+  background-color:#bfc9cd;
+  }
+  #horde-sidebar-subfolder{
+  position:relative;
+  width: 200px;
   bottom:0px;
   overflow: auto;
   background-color:#bfc9cd;
