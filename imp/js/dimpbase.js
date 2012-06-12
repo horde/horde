@@ -257,26 +257,6 @@ var DimpBase = {
         $('dimpmain_iframe').update(DimpCore.text.loading).show();
 
         switch (type) {
-        case 'app':
-            if (data.app == 'imp') {
-                this.go();
-                break;
-            }
-            this.highlightSidebar();
-            this.setHash('app', data.app);
-            if (data.data) {
-                this.iframeContent(data.app, data.data);
-            }
-            break;
-
-        case 'menu':
-            this.highlightSidebar();
-            this.setHash('menu', data);
-            if (DimpCore.conf.menu_urls[data]) {
-                this.iframeContent(type, DimpCore.conf.menu_urls[data]);
-            }
-            break;
-
         case 'search':
             if (!data) {
                 data = { mailbox: this.view };
@@ -284,20 +264,6 @@ var DimpBase = {
             this.highlightSidebar();
             this.setTitle(DimpCore.text.search);
             this.iframeContent(type, HordeCore.addURLParam(DimpCore.conf.URI_SEARCH, data));
-            break;
-
-        case 'prefs':
-            this.highlightSidebar('appprefs');
-            this.setHash(type);
-            this.setTitle(DimpCore.text.prefs);
-            this.iframeContent(type, HordeCore.addURLParam(DimpCore.conf.URI_PREFS_IMP, data));
-            break;
-
-        case 'portal':
-            this.highlightSidebar('portallink');
-            this.setHash(type);
-            this.setTitle(DimpCore.text.portal);
-            this.iframeContent(type, DimpCore.conf.URI_PORTAL);
             break;
         }
     },
