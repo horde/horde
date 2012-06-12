@@ -661,7 +661,8 @@ var DimpBase = {
 
         container.observe('ViewPort:contentComplete', function() {
             var flags, ssc, tmp,
-                innocent = spam = 'show';
+                innocent = 'show',
+                spam = 'show';
 
             this.setMessageListTitle();
             this.setMsgHash();
@@ -1521,7 +1522,7 @@ var DimpBase = {
 
     setSortColumns: function(sortby)
     {
-        var tmp, tmp2,
+        var elt, tmp, tmp2,
             ptr = DimpCore.conf.sort,
             m = $('msglistHeaderHoriz');
 
@@ -1747,7 +1748,7 @@ var DimpBase = {
     {
         // Store messages in cache.
         r.each(function(msg) {
-            ppuid = this._getPPId(msg.uid, msg.mbox);
+            var ppuid = this._getPPId(msg.uid, msg.mbox);
             this._expirePPCache([ ppuid ]);
             this.ppcache[ppuid] = msg;
             this.ppfifo.push(ppuid);
