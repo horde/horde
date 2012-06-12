@@ -40,6 +40,7 @@ class Horde_Help
      *                         SOURCE_* constants.
      * @param array $data      The list of data sources to use.
      *
+     * @throws Exception
      * @throws Horde_Exception
      */
     public function __construct($source, $data = array())
@@ -58,13 +59,17 @@ class Horde_Help
             break;
 
         case self::SOURCE_FILE:
-            foreach ($data as $val) {
+            foreach (array_unique($data) as $val) {
                 if (@is_file($val)) {
                     $this->_xml = new SimpleXMLElement($val, null, true);
                     break;
                 }
             }
             break;
+        }
+
+        if (!$this->_xml) {
+            throw new Horde_Exception('Help file not found.');
         }
 
         /* SimpleXML cannot deal with mixed text/data nodes. Convert all text
