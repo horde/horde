@@ -252,13 +252,6 @@ var HordeCore = {
                 });
                 growl.store('alarm', alarm.id);
 
-                document.observe('Growler:destroyed', function(e) {
-                    var id = e.element().retrieve('alarm');
-                    if (id) {
-                        this.alarms = this.alarms.without(id);
-                    }
-                }.bindAsEventListener(this));
-
                 if (alarm.user) {
                     message.down('select').observe('change', function(e) {
                         if (e.element().getValue()) {
@@ -446,3 +439,9 @@ var HordeCore = {
 };
 
 document.observe('dom:loaded', HordeCore.onDomLoad.bind(HordeCore));
+document.observe('Growler:destroyed', function(e) {
+    var id = e.element().retrieve('alarm');
+    if (id) {
+        this.alarms = this.alarms.without(id);
+    }
+}.bindAsEventListener(HordeCore));
