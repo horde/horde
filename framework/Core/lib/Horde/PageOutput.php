@@ -273,6 +273,10 @@ class Horde_PageOutput
                         'yui' => $conf['cachejsparams']['yuipath']
                     );
                     break;
+
+                default:
+                    $jsmin_params = array();
+                    break;
                 }
 
                 /* Separate JS files with a newline since some compressors may
