@@ -215,7 +215,7 @@ var DimpBase = {
         if (type != 'prefs' &&
             $('appprefs') &&
             $('appprefs').hasClassName('on')) {
-            $('dimpPage').hide();
+            $('horde-page').hide();
             $('dimpLoading').show();
             this.setHash(type, data);
             window.location.reload();
@@ -384,14 +384,12 @@ var DimpBase = {
 
     setSidebarWidth: function()
     {
-        return;
         var tmp = $('horde-sidebar');
 
         tmp.setStyle({
             width: this._getPref('splitbar_side') + 'px'
         });
         this.splitbar.setStyle({
-            height: document.viewport.getHeight() + 'px',
             left: tmp.clientWidth + 'px'
         });
         $('dimpmain').setStyle({
@@ -3651,7 +3649,7 @@ var DimpBase = {
 
         /* Show page now. */
         $('dimpLoading').hide();
-        //$('dimpPage').show();
+        $('horde-page').show();
         this.setSidebarWidth();
 
         /* Init quicksearch. These needs to occur before loading the message
