@@ -561,7 +561,7 @@ class Turba_Application extends Horde_Registry_Application
      */
     public function download(Horde_Variables $vars)
     {
-        global $cfgSources, $injector;
+        global $attributes, $cfgSources, $injector;
 
         switch ($vars->actionID) {
         case 'download_file':
