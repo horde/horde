@@ -41,7 +41,7 @@ class Horde_Script_File_External extends Horde_Script_File
     public function __construct($url)
     {
         $this->_app = 'horde';
-        $this->_file = basename($file);
+        $this->_file = basename($url);
         $this->_url = $url;
     }
 
