@@ -1730,9 +1730,8 @@ border-bottom:2px solid #000;
   }
   #horde-version{
   float:left;
-  width:112px;
   height:16px;
-  padding:18px 0px 0px 0px;
+  padding:18px 10px 0px 0px;
   }
   #horde-navigation{
   float:left;
