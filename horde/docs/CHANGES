@@ -2,6 +2,8 @@
 v4.0.16-git
 -----------
 
+[jan] Fix setting permissions on static/ directory with horde-set-perms (Bug
+      #11219).
 
 
 -------
