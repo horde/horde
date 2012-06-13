@@ -72,7 +72,7 @@ $templates = array(
 $vars = $injector->getInstance('Horde_Variables');
 $import_step = $vars->get('import_step', 0) + 1;
 $next_step = Horde_Data::IMPORT_FILE;
-$app_fields = $time_fields = array();
+$app_fields = $bad_charset = $time_fields = array();
 $error = false;
 $import_mapping = array(
     'e-mail' => 'email',
@@ -222,8 +222,18 @@ if (!$error && $vars->import_format) {
                 }
             }
         } catch (Horde_Data_Exception_Charset $e) {
-            $bad_charset = $e->badCharset;
-            throw $e;
+            if ($e->badCharset != 'UTF-8') {
+                $bad_charset[] = $e->badCharset;
+                throw $e;
+            }
+
+            $param['charset'] = 'windows-1252';
+            try {
+                $next_step = $data->nextStep($vars->actionID, $param);
+            } catch (Horde_Data_Exception_Charset $e) {
+                $bad_charset = array('UTF-8', 'windows-1252');
+                throw $e;
+            }
         } catch (Horde_Data_Exception $e) {
             $notification->push($e, 'horde.error');
             $next_step = $data->cleanup();
@@ -371,10 +381,11 @@ if ($next_step == Horde_Data::IMPORT_FILE) {
     /* Build the charset options. */
     $charsets = array();
 
-    if (isset($bad_charset)) {
+    if (!empty($bad_charset)) {
         $charsets = $registry->nlsconfig->encodings_sort;
         foreach ($registry->nlsconfig->charsets as $charset) {
-            if (!isset($charsets[$charset]) && ($charset != $bad_charset)) {
+            if (!isset($charsets[$charset]) &&
+                !in_array($charset, $bad_charset)) {
                 $charsets[$charset] = $charset;
             }
         }
