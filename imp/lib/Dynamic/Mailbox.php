@@ -187,8 +187,8 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 'collapse' => _("Collapse All")
             ),
             'ctx_datesort' => array(
-                'sequence' => _("Arrival Time"),
-                'date' => _("Message Date")
+                '*sequence' => _("Arrival Time"),
+                '*date' => _("Message Date")
             ),
             'ctx_flag' => array(),
             'ctx_flag_search' => array(),
