@@ -34,7 +34,7 @@ class Horde_ActiveSync_Policies
      */
     protected $_defaults = array(
         Horde_ActiveSync::POLICY_PIN               => false,
-        Horde_ActiveSync::POLICY_AEFVALUE          => '5',
+        Horde_ActiveSync::POLICY_AEFVALUE          => '0',
         Horde_ActiveSync::POLICY_MAXFAILEDATTEMPTS => '5',
         Horde_ActiveSync::POLICY_WIPETHRESHOLD     => '10',
         Horde_ActiveSync::POLICY_CODEFREQ          => '0',
