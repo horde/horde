@@ -112,11 +112,22 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
             $organizer = parse_url($vevent->getAttribute('ORGANIZER'));
             $this->organizer = $organizer['path'];
         } catch (Horde_Icalendar_Exception $e) {}
-        $this->globalobjid = Horde_ActiveSync_Utils::createGoid($vevent->getAttribute('UID'));
-        $this->starttime = new Horde_Date($vevent->getAttribute('DTSTART'));
-        $this->endtime = new Horde_Date($vevent->getAttribute('DTEND'));
-        $this->dtstamp = new Horde_Date($vevent->getAttribute('DTSTAMP'));
-        $this->location = Horde_String::truncate($vevent->getAttribute('LOCATION'), 255);
+
+        try {
+            $this->globalobjid = Horde_ActiveSync_Utils::createGoid($vevent->getAttribute('UID'));
+            $this->starttime = new Horde_Date($vevent->getAttribute('DTSTART'));
+            $this->endtime = new Horde_Date($vevent->getAttribute('DTEND'));
+        } catch (Horde_Icalendar_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+
+        try {
+            $this->dtstamp = new Horde_Date($vevent->getAttribute('DTSTAMP'));
+        } catch (Horde_Icalendar_Exception $e) {}
+
+        try {
+            $this->location = Horde_String::truncate($vevent->getAttribute('LOCATION'), 255);
+        } catch (Horde_Icalendar_Exception $e) {}
 
         try {
             $class = $vevent->getAttribute('CLASS');
