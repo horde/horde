@@ -23,25 +23,34 @@ class IMP_Dynamic_Helper_Base extends Horde_View_Helper_Base
      *   - icon: (string) The icon CSS classname.
      *   - id: (string) The DOM ID of the link.
      *   - title: (string) The title string.
+     *   - right: (boolean) Right align button?
      *
      * @return string  An HTML link to $url.
      */
     public function actionButton(array $params = array())
     {
-        return Horde::link(
-            '',
-            '',
-            empty($params['class']) ? '' : $params['class'],
-            '',
-            '',
-            '',
-            Horde::getAccessKey($params['title']),
-            empty($params['id']) ? array() : array('id' => $params['id']),
-            true
-        ) . (empty($params['icon'])
-            ? ''
-            : '<span class="iconImg dimpaction' . $params['icon'] . '"></span>').
-        $params['title'] . '</a>';
+        $class = 'horde-button-';
+        $class .= empty($params['right']) ? 'left' : 'right';
+        if (!empty($params['icon'])) {
+            $class .= ' horde-icon dimpaction' . $params['icon'];
+        }
+        if (!empty($params['class'])) {
+            $class .= ' ' . $params['class'];
+        }
+
+        return '<div class="' . $class . '">'
+            . Horde::link(
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                Horde::getAccessKey($params['title']),
+                empty($params['id']) ? array() : array('id' => $params['id']),
+                true
+            )
+          . $params['title'] . '</a></div>';
     }
 
 }

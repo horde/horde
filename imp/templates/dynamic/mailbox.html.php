@@ -5,7 +5,7 @@
   <div id="dimpmain_iframe"><?php echo _("Loading...") ?></div>
   <div id="dimpmain_folder" style="display:none">
    <div id="dimpmain_folder_top">
-    <div class="header mboxheader">
+    <div class="header mboxheader" style="display:none">
      <div>
       <span class="rightFloat" id="msgHeader"></span>
       <span id="mailboxName"></span>
@@ -13,8 +13,49 @@
      </div>
     </div>
 
-    <div class="dimpActions">
+    <div class="horde-buttonbar">
+     <div>
+      <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Reply', 'id' => 'button_reply', 'title' => _("Reply"))) ?>
+     </div>
+      <div class="horde-button-split"></div>
+     <div>
+      <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Forward', 'id' => 'button_forward', 'title' => _("Forward"))) ?>
+      <div class="horde-button-split"></div>
+     </div>
+<?php if ($this->show_spam): ?>
+     <div style="display:none">
+      <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?>
+      <div class="horde-button-split"></div>
+     </div>
+<?php endif; ?>
+<?php if ($this->show_notspam): ?>
+     <div style="display:none">
+      <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Ham', 'id' => 'button_ham', 'title' => _("Innocent"))) ?>
+      <div class="horde-button-split"></div>
+     </div>
+<?php endif; ?>
+     <div style="display:none">
+      <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Resume', 'id' => 'button_resume', 'title' => _("Resume"))) ?>
+      <div class="horde-button-split"></div>
+     </div>
+     <div style="display:none">
+      <?php echo $this->actionButton(array('icon' => 'Resume', 'id' => 'button_template', 'title' => _("Use Template"))) ?>
+      <div class="horde-button-split"></div>
+     </div>
+     <div>
+      <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Delete', 'id' => 'button_delete', 'title' => _("Delete"))) ?>
+      <div class="horde-button-split"></div>
+     </div>
+     <div id="button_compose">
+      <?php echo $this->actionButton(array('icon' => 'Compose', 'title' => _("Compose"))) ?>
+      <div class="horde-button-split"></div>
+     </div>
+     <div id="button_checkmail">
+      <?php echo $this->actionButton(array('icon' => 'Checkmail', 'title' => _("Get Mail"))) ?>
+      <div class="horde-button-split"></div>
+     </div>
 <?php if ($this->show_search): ?>
+     <!--
      <div id="qsearch">
       <span id="qsearch_icon">
        <span class="iconImg searchImg"></span>
@@ -24,44 +65,12 @@
        <input autocomplete="off" id="qsearch_input" type="text" />
       </form>
      </div>
+     //-->
      <div id="filter">
-      <?php echo $this->actionButton(array('icon' => 'Filter', 'id' => 'button_filter', 'title' => _("Filter"))) ?>
+      <?php echo $this->actionButton(array('id' => 'button_filter', 'title' => _("Filter"), 'right' => true)) ?>
      </div>
 <?php endif; ?>
-     <div>
-      <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Reply', 'id' => 'button_reply', 'title' => _("Reply"))) ?>
-     </div>
-     <div>
-      <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Forward', 'id' => 'button_forward', 'title' => _("Forward"))) ?>
-     </div>
-<?php if ($this->show_spam): ?>
-     <div style="display:none">
-      <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?>
-     </div>
-<?php endif; ?>
-<?php if ($this->show_notspam): ?>
-     <div style="display:none">
-      <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Ham', 'id' => 'button_ham', 'title' => _("Innocent"))) ?>
-     </div>
-<?php endif; ?>
-     <div style="display:none">
-      <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Resume', 'id' => 'button_resume', 'title' => _("Resume"))) ?>
-     </div>
-     <div style="display:none">
-      <?php echo $this->actionButton(array('icon' => 'Resume', 'id' => 'button_template', 'title' => _("Use Template"))) ?>
-     </div>
-     <div>
-      <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Delete', 'id' => 'button_delete', 'title' => _("Delete"))) ?>
-     </div>
-     <div id="button_compose">
-      <?php echo $this->actionButton(array('icon' => 'Compose', 'title' => _("Compose"))) ?>
-     </div>
-     <div id="button_checkmail">
-      <?php echo $this->actionButton(array('icon' => 'Checkmail', 'title' => _("Get Mail"))) ?>
-     </div>
-     <div>
-      <?php echo $this->actionButton(array('icon' => 'Other', 'id' => 'button_other', 'title' => _("Other"))) ?>
-     </div>
+      <?php echo $this->actionButton(array('id' => 'button_other', 'title' => _("Other"), 'right' => true)) ?>
     </div>
 
     <div id="searchbar" style="display:none">

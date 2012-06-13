@@ -85,8 +85,6 @@ div#quota {
 
 /* Splitbar styles. */
 #msgSplitPane {
-    border: 1px silver solid;
-    border-top: 0;
     overflow: hidden;
     width: auto;
 }
@@ -412,64 +410,6 @@ span.iconImgSidebar {
 }
 
 /* Actions */
-.dimpActions {
-    background: transparent url("../graphics/backhead_s2.png") repeat-x;
-    border: 1px silver solid;
-    height: 20px;
-    overflow: hidden;
-    padding: 4px 2px;
-}
-.dimpActions div {
-    border: 1px solid silver;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    float: left;
-    margin-right: 5px;
-    overflow: hidden;
-    padding: 1px 0;
-}
-.dimpActions a, .dimpActions a:visited {
-    color: #000;
-    cursor: pointer;
-    font-weight: bold;
-    padding: 2px 4px 4px 4px;
-    white-space: nowrap;
-}
-.dimpActions a, .dimpActions a:visited {
-    filter: alpha(opacity=60);
-    -moz-opacity: .6;
-    opacity: .6;
-}
-.dimpActions .iconImg {
-    vertical-align: top;
-}
-.dimpActions span.popdown, .dimpActions span.spellcheckPopdownImg, span.popdownImg {
-    filter: alpha(opacity=50);
-    -moz-opacity: .5;
-    opacity: .5;
-}
-.dimpActions span.popdown, .dimpActions span.spellcheckPopdownImg {
-    margin: -1px 0;
-    padding: 1px 0;
-}
-.dimpActions span.popdownSep {
-    border-left: 1px solid silver;
-    padding: 2px 0 20px;
-}
-.dimpActions a:hover, .dimpActions span.popdown:hover, .dimpActions span.spellcheckPopdownImg:hover, span.popdownImg:hover {
-    filter: alpha(opacity=100);
-    -moz-opacity: 1;
-    opacity: 1;
-}
-.dimpActions a:hover, .dimpActions span.popdown:hover, .dimpActions span.spellcheckPopdownImg:hover {
-    background-color: lightgrey;
-    text-decoration: none;
-}
-.dimpActions div.disabled {
-    display: none;
-}
-
 #button_compose, #button_checkmail {
     display: none;
 }
@@ -931,44 +871,44 @@ span.logoutIcon {
 }
 
 /* Dimp action images. */
-span.dimpactionReply {
+.dimpactionReply {
     background-image: url("../graphics/reply.png");
 }
-span.dimpactionForward {
+.dimpactionForward {
     background-image: url("../graphics/forward.png");
 }
-span.dimpactionSpam {
+.dimpactionSpam {
     background-image: url("../graphics/spam.png");
     width: 18px;
 }
-span.dimpactionInnocent {
+.dimpactionInnocent {
     background-image: url("../graphics/innocent.png");
 }
-span.dimpactionCompose {
+.dimpactionCompose {
     background-image: url("../graphics/compose.png");
 }
-span.dimpactionCheckmail {
+.dimpactionCheckmail {
     background-image: url("../graphics/checkmail.png");
 }
-span.dimpactionRefresh {
+.dimpactionRefresh {
     background-image: url("../graphics/reload.png");
 }
-span.dimpactionDelete {
+.dimpactionDelete {
     background-image: url("../graphics/delete.png");
 }
-span.dimpactionOther, span.dimpactionSort {
+.dimpactionOther, .dimpactionSort {
     background-image: url("../graphics/plus.png");
 }
-span.dimpactionDrafts, span.dimpactionTemplates {
+.dimpactionDrafts, .dimpactionTemplates {
     background-image: url("../graphics/drafts.png");
 }
-span.dimpactionEditsearch {
+.dimpactionEditsearch {
     background-image: url("../graphics/edit.png");
 }
-span.dimpactionResume {
+.dimpactionResume {
     background-image: url("../graphics/mail_draft.png");
 }
-span.dimpactionFilter {
+.dimpactionFilter {
     background-image: url("../graphics/filters.png");
 }
 
