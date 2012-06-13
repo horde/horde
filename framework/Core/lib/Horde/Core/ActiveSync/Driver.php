@@ -1949,12 +1949,18 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         if (is_array($allowed)) {
             switch ($policy) {
             case 'activesync':
+            case 'attachments':
+                if (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('horde:' . $policy)) {
+                    return true;
+                }
             case 'pin':
+                if (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('horde:' . $policy)) {
+                    return false;
+                }
             case 'pincomplexity':
             case 'wipethreshold':
             case 'codewordfrequency':
             case 'inactivity':
-            case 'attachments':
             case 'maxatcsize':
                 $allowed = max($allowed);
                 break;
