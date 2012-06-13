@@ -57,6 +57,22 @@ var Horde_Twitter = Class.create({
         }.bind(this));
 
         this.instanceid = opts.instanceid;
+
+        $(this.instanceid + '_updatebutton').observe('click', function(e) {
+            this.updateStatus($F(this.instanceid + '_newStatus'));
+            e.stop();
+        }.bind(this));
+
+        $(this.instanceid + '_showcontenttab').observe('click', function(e) {
+            this.showStream();
+            e.stop();
+        }.bind(this));
+
+        $(this.instanceid + '_showmentiontab').observe('click', function(e) {
+            this.showMentions();
+            e.stop();
+        }.bind(this));
+
         this.overlay = new Element('div', { 'class': 'hordeSmOverlay' }).update('&nbsp;');
         this.overlay.hide();
         $(this.instanceid + '_preview').insert({ 'before': this.overlay });
