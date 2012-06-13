@@ -143,12 +143,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             return false;
         }
 
-        // Check permissions to ActiveSync
-        $perms = $GLOBALS['injector']
-            ->getInstance('Horde_Perms')
-            ->getPermissions('horde:activesync', $username);
+        if ($GLOBALS['injector']->getInstance('Horde_Perms')->exists('horde:activesync')) {
+            // Check permissions to ActiveSync
+            $perms = $GLOBALS['injector']
+                ->getInstance('Horde_Perms')
+                ->getPermissions('horde:activesync', $username);
 
-        return $this->_getPolicyValue('activesync', $perms);
+            return $this->_getPolicyValue('activesync', $perms);
+        }
+
+        return true;
     }
 
     /**
