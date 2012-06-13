@@ -33,7 +33,7 @@ class Horde_ActiveSync_Policies
      * @var array
      */
     protected $_defaults = array(
-        Horde_ActiveSync::POLICY_PIN               => true,
+        Horde_ActiveSync::POLICY_PIN               => false,
         Horde_ActiveSync::POLICY_AEFVALUE          => '5',
         Horde_ActiveSync::POLICY_MAXFAILEDATTEMPTS => '5',
         Horde_ActiveSync::POLICY_WIPETHRESHOLD     => '10',
