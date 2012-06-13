@@ -204,7 +204,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return boolean
      */
-    public function logon($username, $password, $domain = null)
+    public function authenticate($username, $password, $domain = null)
     {
         $this->_authUser = $username;
         $this->_authPass = $password;
@@ -223,11 +223,11 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Logoff
+     * Clear authentication
      *
      * @return boolean
      */
-    public function logOff()
+    public function clearAuthentication()
     {
         return true;
     }

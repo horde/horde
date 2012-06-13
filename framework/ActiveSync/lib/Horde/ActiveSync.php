@@ -418,7 +418,7 @@ class Horde_ActiveSync
         }
 
         // Authenticate
-        if (!$this->_driver->logon($user, $pass, $domain)) {
+        if (!$this->_driver->authenticate($user, $pass, $domain)) {
             return false;
         }
 
@@ -650,7 +650,7 @@ class Horde_ActiveSync
             $request = new $class($this, $device);
             $request->setLogger($this->_logger);
             $result = $request->handle();
-            $this->_driver->logOff();
+            $this->_driver->clearAuthentication();
 
             return $result;
         }
