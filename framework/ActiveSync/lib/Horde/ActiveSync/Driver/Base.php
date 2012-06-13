@@ -71,44 +71,6 @@ abstract class Horde_ActiveSync_Driver_Base
     protected $_version;
 
     /**
-     * Secuirity Policies. These settings can be overridden by the backend
-     * provider by passing in a 'policies' key in the const'r params array. This
-     * way the server can provide user-specific policies.
-     *
-     * Currently supported settings are:
-     *  - pin: (boolean) Device must have a pin lock enabled.
-     *         DEFAULT: true (Device must have a PIN lock enabled).
-     *
-     *  - AEFrequencyValue: (integer) Time (in minutes) of inactivity before
-     *                                device locks.
-     *         DEFAULT: none (Device will not be force locked by EAS).
-     *
-     *  - DeviceWipeThreshold: (integer) Number of failed unlock attempts before
-     *                                   the device should wipe on devices that
-     *                                   support this.
-     *         DEFAULT: none (Device will not be auto wiped by EAS).
-     *
-     *  - CodewordFrequency: (integer)  Number of failed unlock attempts before
-     *                                  needing to verify that a person who can
-     *                                  read and write is using the device.
-     *         DEFAULT: 0
-     *
-     *  - MinimumPasswordLength: (integer)  Minimum length of PIN
-     *         DEFAULT: 5
-     *
-     *  - PasswordComplexity: (integer)   0 - alphanumeric, 1 - numeric, 2 - anything
-     *         DEFAULT: 2 (anything the device supports).
-     */
-    protected $_policies = array(
-        'pin'               => true,
-        'inactivity'        => 5,
-        'wipethreshold'     => 10,
-        'codewordfrequency' => 0,
-        'minimumlength'     => 5,
-        'complexity'        => 2,
-    );
-
-    /**
      * The state driver for this request. Needs to be injected into this class.
      *
      * @var Horde_ActiveSync_State_Base
@@ -148,11 +110,6 @@ abstract class Horde_ActiveSync_Driver_Base
         $this->_stateDriver = $params['state'];
         $this->_stateDriver->setLogger($this->_logger);
         $this->_stateDriver->setBackend($this);
-
-        /* Override any security policies */
-        if (!empty($params['policies'])) {
-            $this->_policies = array_merge($this->_policies, $params['policies']);
-        }
     }
 
     /**

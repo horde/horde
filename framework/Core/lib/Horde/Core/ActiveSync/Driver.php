@@ -1321,9 +1321,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getCurrentPolicy()
     {
-        $setPolicies = $this->_getPolicyFromPerms();
-        $policies = array_merge($this->_policies, $setPolicies);
-        return $policies;
+        return $this->_getPolicyFromPerms();
     }
 
     /**
@@ -1949,13 +1947,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         if (is_array($allowed)) {
             switch ($policy) {
             case 'attachments':
-                if (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('horde:activesync:provisioning:' . $policy)) {
-                    return true;
-                }
             case 'pin':
-                if (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('horde:activesync:provisioning:' . $policy)) {
-                    return false;
-                }
             case 'activesync':
             case 'pincomplexity':
             case 'wipethreshold':
