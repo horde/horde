@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Imp 5.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-05-01 14:03+0200\n"
-"PO-Revision-Date: 2012-05-04 10:22:09+0300\n"
+"PO-Revision-Date: 2012-05-24 16:26:39+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -72,8 +72,8 @@ msgstr "%d viestiä"
 #, php-format
 msgid "%d message was purged from \"%s\"."
 msgid_plural "%d messages were purged from \"%s\"."
-msgstr[0] "%d viesti tyhjennettiin kansiosta \"%s\"."
-msgstr[1] "%d viestiä tyhjennettiin kansiosta \"%s\"."
+msgstr[0] "%d viesti poistettiin kansiosta \"%s\"."
+msgstr[1] "%d viestiä poistettiin kansiosta \"%s\"."
 
 #: lib/Spam.php:229
 #, php-format
@@ -1755,7 +1755,7 @@ msgstr "Luonnos tallennettiin automaattisesti."
 
 #: config/prefs.php:437 lib/Mailbox.php:1562 lib/Mailbox.php:1651
 msgid "Drafts"
-msgstr "Drafts"
+msgstr "Luonnokset"
 
 #: lib/Prefs/Ui.php:748
 msgid "Drafts folder:"
@@ -3294,7 +3294,8 @@ msgstr "Ok"
 
 #: lib/LoginTasks/Task/DeleteSentmailMonthly.php:60
 msgid "Old sent-mail folders being purged."
-msgstr "Poistetaan viestejä vanhoista lähetettyjen viestien kansioista."
+msgstr ""
+"Poistetaan lopullisesti viestejä vanhoista lähetettyjen viestien kansioista."
 
 #: lib/Search/Element/Within.php:73 search.php:92
 msgid "Older Than"
@@ -3671,16 +3672,16 @@ msgstr "Julkisen PGP-avainpalvelimen käyttö on estetty."
 
 #: mailbox.php:455 mailbox.php:575
 msgid "Pur_ge Deleted"
-msgstr "_Tuhoa poistetut"
+msgstr "_Tyhjennä poistetut"
 
 #: lib/Imap/Acl.php:168 templates/imp/folders/actions.html:22
 msgid "Purge"
-msgstr "Tuhoa poistetut"
+msgstr "Tyhjennä"
 
 #: mailbox-mimp.php:215 mailbox.php:455 mailbox.php:575
 #: templates/dimp/index.inc:441
 msgid "Purge Deleted"
-msgstr "Tuhoa poistetut"
+msgstr "Tyhjennä poistetut"
 
 #: config/prefs.php:861
 msgid "Purge Spam how often:"
@@ -3692,7 +3693,7 @@ msgstr "Miten usein roskakorikansio tyhjennetään:"
 
 #: lib/Imap/Acl.php:167
 msgid "Purge messages"
-msgstr "Tuhoa poistetut viestit"
+msgstr "Tyhjentää poistetut viestit"
 
 #: config/prefs.php:869
 msgid "Purge messages in Spam folder older than this amount of days."
@@ -4349,7 +4350,7 @@ msgstr "Lähettäjä: %s"
 
 #: lib/Mailbox.php:1567 lib/Mailbox.php:1572 lib/Mailbox.php:1670
 msgid "Sent"
-msgstr "Sent"
+msgstr "Lähetetyt"
 
 #: config/prefs.php:494
 msgid "Sent Mail"
@@ -4621,7 +4622,7 @@ msgstr "Järjestä vastaanottajan mukaan"
 #: lib/Mailbox.php:1580 lib/Mailbox.php:1657 message-dimp.php:158
 #: templates/dimp/index.inc:136
 msgid "Spam"
-msgstr "Spam"
+msgstr "Roskaposti"
 
 #: config/prefs.php:800
 msgid "Spam Reporting"
@@ -4694,7 +4695,7 @@ msgstr "Otsikko:"
 #: templates/imp/search/search-basic.html:49
 #: templates/imp/search/search.html:112 templates/saveimage/saveimage.html:20
 msgid "Submit"
-msgstr "Lähetä"
+msgstr "Suorita"
 
 #: templates/dimp/index.inc:282 templates/imp/folders/actions.html:25
 msgid "Subscribe"
@@ -5425,7 +5426,7 @@ msgstr "Perinteinen näkymä"
 
 #: lib/Mailbox.php:1584 lib/Mailbox.php:1663
 msgid "Trash"
-msgstr "Trash"
+msgstr "Roskakori"
 
 #: lib/Prefs/Ui.php:1761
 msgid "Trash folder:"
