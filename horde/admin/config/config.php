@@ -69,18 +69,25 @@ if ($session->exists('horde', 'config/' . $app)) {
 $template->set('diff_popup', $diff_link, true);
 $template->setOption('gettext', true);
 
-$page_output->header(array(
-    'title' => $title
-));
+Horde::startBuffer();
 require HORDE_TEMPLATES . '/admin/menu.inc';
+$menu_output = Horde::endBuffer();
 
 /* Render the configuration form. */
 $renderer = $form->getRenderer();
 $renderer->setAttrColumnWidth('50%');
 
+/* Buffer the form template */
 Horde::startBuffer();
 $form->renderActive($renderer, $vars, Horde::url('admin/config/config.php'), 'post');
 $template->set('form', Horde::endBuffer());
 
+/* Send headers */
+$page_output->header(array(
+    'title' => $title
+));
+
+/* Output page */
+echo $menu_output;
 echo $template->fetch(HORDE_TEMPLATES . '/admin/config/config.html');
 $page_output->footer();
