@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add support for ActiveSync native meeting requests and responses.
 * [mjr] Security policy support now allows for per user configuration.
 * [mjr] Add basic Autoconfigure support.
 * [mjr] Add version 12.1 support.
@@ -712,6 +713,7 @@
    <date>2012-06-09</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add support for ActiveSync native meeting requests and responses.
 * [mjr] Security policy support now allows for per user configuration.
 * [mjr] Add basic Autoconfigure support.
 * [mjr] Add version 12.1 support.
