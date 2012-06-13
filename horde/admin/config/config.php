@@ -50,7 +50,7 @@ if (Horde_Util::getFormData('submitbutton') == _("Revert Configuration")) {
     }
 } elseif ($form->validate($vars)) {
     $config = new Horde_Config($app);
-    if (!$config->writePHPConfig()) {
+    if (!$config->writePHPConfig($vars)) {
         $notification->push(sprintf(_("Could not save the backup configuration file %s."), Horde_Util::realPath($path . '/conf.bak.php')), 'horde.warning');
     }
 } elseif ($form->isSubmitted()) {
