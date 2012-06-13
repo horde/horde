@@ -1986,11 +1986,14 @@
  </configtab>
  <configtab name="activesync" desc="ActiveSync">
   <configsection name="activesync">
-   <configdescription>To enable ActiveSync support, you must create an alias on
-   your webserver to point /Microsoft-Servers-ActiveSync to /horde/rpc.php.
+   <configdescription>The use of ActiveSync in the United States is PROHIBITED
+   due to patent issues. If you are NOT in the United States, or you have a
+   license to use ActiveSync, you may enable ActiveSync below and create an
+   alias on your webserver to redirect /Microsoft-Servers-ActiveSync to
+   /horde/rpc.php.
    See http://wiki.horde.org/ActiveSync for more information.
    </configdescription>
-   <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">true
+   <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">false
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
      <configheader>Capabilities</configheader>
