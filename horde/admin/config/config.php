@@ -50,8 +50,14 @@ if (Horde_Util::getFormData('submitbutton') == _("Revert Configuration")) {
     }
 } elseif ($form->validate($vars)) {
     $config = new Horde_Config($app);
-    if (!$config->writePHPConfig($vars)) {
+    if ($config->writePHPConfig($vars)) {
+        $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
+        $registry->rebuild();
+        Horde::url('admin/config/index.php', true)->redirect();
+    } else {
         $notification->push(sprintf(_("Could not save the backup configuration file %s."), Horde_Util::realPath($path . '/conf.bak.php')), 'horde.warning');
+        /* Save to session. */
+        $session->set('horde', 'config/' . $app, $php);
     }
 } elseif ($form->isSubmitted()) {
     $notification->push(_("There was an error in the configuration form. Perhaps you left out a required field."), 'horde.error');
