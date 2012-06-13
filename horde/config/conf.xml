@@ -1997,7 +1997,7 @@
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
      <configheader>Capabilities</configheader>
-      <configboolean name="emailsync" desc="Enable Email support?">false
+      <configboolean name="emailsync" desc="Enable Email support?">true
       </configboolean>
       <configenum name="version" desc="What is the highest version of EAS that
       Horde should support? All versions are backwards compatible so selecting
