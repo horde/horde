@@ -84,19 +84,19 @@ class Horde_ActiveSync_Policies
      */
     protected $_defaults_twelveone = array(
         // 1 == Allow/Yes, 0 == Disallow/No.
-        self::POLICY_ALLOW_SDCARD            => 1,
-        self::POLICY_ALLOW_CAMERA            => 1,
-        self::POLICY_ALLOW_SMS               => 1,
-        self::POLICY_ALLOW_WIFI              => 1,
-        self::POLICY_ALLOW_BLUETOOTH         => 1,
-        self::POLICY_ALLOW_POPIMAP           => 1,
-        self::POLICY_ALLOW_BROWSER           => 1,
-        self::POLICY_REQUIRE_SMIME_ENCRYPTED => 0,
-        self::POLICY_REQUIRE_SMIME_SIGNED    => 0,
-        self::POLICY_DEVICE_ENCRYPTION       => 0,
-        self::POLICY_ALLOW_HTML              => 1,
-        self::POLICY_MAX_EMAIL_AGE           => 0,
-        self::POLICY_ROAMING_NOPUSH          => 0,
+        self::POLICY_ALLOW_SDCARD            => '1',
+        self::POLICY_ALLOW_CAMERA            => '1',
+        self::POLICY_ALLOW_SMS               => '1',
+        self::POLICY_ALLOW_WIFI              => '1',
+        self::POLICY_ALLOW_BLUETOOTH         => '1',
+        self::POLICY_ALLOW_POPIMAP           => '1',
+        self::POLICY_ALLOW_BROWSER           => '1',
+        self::POLICY_REQUIRE_SMIME_ENCRYPTED => '0',
+        self::POLICY_REQUIRE_SMIME_SIGNED    => '0',
+        self::POLICY_DEVICE_ENCRYPTION       => '0',
+        self::POLICY_ALLOW_HTML              => '1',
+        self::POLICY_MAX_EMAIL_AGE           => '0',
+        self::POLICY_ROAMING_NOPUSH          => '0',
     );
 
     /**
