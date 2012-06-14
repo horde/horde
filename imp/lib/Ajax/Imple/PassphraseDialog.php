@@ -41,6 +41,9 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
         $params = isset($this->_params['params'])
             ? $this->_params['params']
             : array();
+        if (isset($params['reload'])) {
+            $params['reload'] = strval($params['reload']);
+        }
 
         switch ($this->_params['type']) {
         case 'pgpPersonal':

@@ -1056,7 +1056,7 @@ class IMP_Prefs_Ui
                 } else {
                     $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_PassphraseDialog', array(
                         'params' => array(
-                            'reload' => true
+                            'reload' => $ui->selfUrl()->setRaw(true)
                         ),
                         'type' => 'pgpPersonal'
                     ));
@@ -1467,7 +1467,7 @@ class IMP_Prefs_Ui
                 } else {
                     $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_PassphraseDialog', array(
                         'params' => array(
-                            'reload' => true
+                            'reload' => $ui->selfUrl()->setRaw(true)
                         ),
                         'type' => 'smimePersonal'
                     ));

@@ -1739,6 +1739,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables required in form input:
      *   - dialog_input: (string) Input from the dialog screen.
+     *   - reload: (mixed) If set, reloads page instead of returning data.
      *   - symmetricid: (string) The symmetric ID to process.
      *   - type: (string) The passphrase type.
      *
@@ -1790,7 +1791,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $notification->push($e, 'horde.error');
         }
 
-        return $result;
+        return ($result && $this->_vars->reload)
+            ? new Horde_Core_Ajax_Response_HordeCore_Reload($this->_vars->reload)
+            : $result;
     }
 
     /* Protected methods. */
