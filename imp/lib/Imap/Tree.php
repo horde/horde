@@ -1651,7 +1651,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             } else {
                 $params['url'] = ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL)
                     ? IMP_Minimal_Mailbox::url(array('mailbox' => $val))
-                    : $val->url('mailbox.php');
+                    : $val->url('mailbox.php')->setRaw(true);
                 if ($this->_showunsub && !$this->isSubscribed($val)) {
                     $params['class'] = 'mboxunsub';
                 }
