@@ -207,17 +207,17 @@ class Horde_Application extends Horde_Registry_Application
             ))
         );
 
-        $permissions[$prefix . 'pin'] = array(
+        $permissions[$prefix . Horde_ActiveSync_Policies::POLICY_PIN] = array(
             'title' => _("Require PIN"),
             'type' => 'boolean'
         );
 
-        $permissions[$prefix . 'minimumlength'] = array(
+        $permissions[$prefix . Horde_ActiveSync_Policies::MINLENGTH] = array(
             'title' => _("Minimum PIN length"),
             'type' => 'int'
         );
 
-        $permissions[$prefix . 'complexity'] = array(
+        $permissions[$prefix . Horde_ActiveSync_Policies::POLICY_COMPLEXITY] = array(
             'title' => _("Password Complexity"),
             'type' => 'enum',
             'params' => array(array(
