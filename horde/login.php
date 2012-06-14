@@ -374,10 +374,12 @@ if ($browser->isMobile() &&
     }
 
     $page_output->addInlineScript(array(
-         '$($("#horde-login-button").click(function() {' .
-             '$("#horde-login-post").val(1);' .
-             '$(this).closest("form").submit();' .
-         '}));'
+        '$(document).bind("pageinit", function() {' .
+             '$("#horde-login-button").click(function() {' .
+                 '$("#horde-login-post").val(1);' .
+                 '$(this).closest("form").submit();' .
+             '});' .
+         '})'
     ));
 
     /* Ensure that we are using the smartmobile status listener. */
