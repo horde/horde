@@ -2005,28 +2005,44 @@ background-repeat:repeat-x;
   .subfolders {
       padding-left: 9px;
   }
-#horde-slideleft{
-position:absolute;
-top: 56px;
-left: 198px;
-bottom: 0;
-width: 8px;
-background-image: url('graphics/slidevert-bg.png');
-background-repeat:repeat-y;
-cursor: col-resize;
+
+#horde-slideleft {
+    position: absolute;
+    top: 56px;
+    bottom: 0;
 }
-#horde-page #horde-slideleft{
+#horde-page #horde-slideleft {
     top: 0;
 }
-  #horde-slideleftcursor{
-  position:absolute;
-  top: 0;
-  bottom: 0;
-  width: 8px;
-  background-image: url('graphics/slidevert.png');
-  background-repeat:no-repeat;
-  background-position: center center;
-  cursor: col-resize;
+.horde-splitbar-vert {
+    width: 8px;
+    background-image: url('graphics/slidevert-bg.png');
+    background-repeat: repeat-y;
+    cursor: col-resize;
+}
+  .horde-splitbar-vert-handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 8px;
+      background-image: url('graphics/slidevert.png');
+      background-repeat: no-repeat;
+      background-position: center center;
+  }
+.horde-splitbar-horiz {
+    height: 8px;
+    background-image: url('graphics/slidehoriz-bg.png');
+    background-repeat: repeat-x;
+    cursor: row-resize;
+}
+  .horde-splitbar-horiz-handle {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background-image: url('graphics/slidehoriz.png');
+      background-repeat: no-repeat;
+      background-position: center center;
   }
 
 /*

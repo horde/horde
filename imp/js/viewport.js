@@ -66,6 +66,8 @@
  *             pane_mode is 'vert'.
  * split_bar_class: (object) The CSS class(es) to use for the split bar.
  *                  Takes two properties: 'horiz' and 'vert'.
+ * split_bar_handle_class: (object) The CSS class(es) to use for the split bar
+ *                         handle. Takes two properties: 'horiz' and 'vert'.
  * wait: (integer) How long, in seconds, to wait before displaying an
  *       informational message to users that the list is still being
  *       built.
@@ -218,7 +220,8 @@ var ViewPort = Class.create({
             buffer_pages: 10,
             limit_factor: 35,
             lookbehind: 40,
-            split_bar_class: {}
+            split_bar_class: {},
+            split_bar_handle_class: {}
         }, opts);
 
         this.opts.container = $(opts.container);
@@ -1105,7 +1108,8 @@ var ViewPort = Class.create({
             return;
         }
 
-        sp.currbar = sp[this.pane_mode].bar = new Element('DIV', { className: this.opts.split_bar_class[this.pane_mode] });
+        sp.currbar = sp[this.pane_mode].bar = new Element('DIV', { className: this.opts.split_bar_class[this.pane_mode] })
+            .insert(new Element('DIV', { className: this.opts.split_bar_handle_class[this.pane_mode] }));
 
         if (!this.opts.pane_data.descendantOf(this.opts.container)) {
             this.opts.container.insert(this.opts.pane_data.remove());

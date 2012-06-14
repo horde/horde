@@ -556,7 +556,8 @@ var DimpBase = {
             pane_data: 'previewPane',
             pane_mode: this._getPref('preview'),
             pane_width: this._getPref('splitbar_vert'),
-            split_bar_class: { horiz: 'splitBarHoriz', vert: 'splitBarVert' },
+            split_bar_class: { horiz: 'horde-splitbar-horiz', vert: 'horde-splitbar-vert' },
+            split_bar_handle_class: { horiz: 'horde-splitbar-horiz-handle', vert: 'horde-splitbar-vert-handle' },
 
             // Callbacks
             onAjaxRequest: function(params) {
@@ -3604,8 +3605,8 @@ var DimpBase = {
         $('horde-sidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
 
         /* Create splitbar for sidebar. */
-        this.splitbar = new Element('DIV', { id: 'horde-slideleft' }).insert(
-            new Element('DIV', { id: 'horde-slideleftcursor' }));
+        this.splitbar = new Element('DIV', { id: 'horde-slideleft', className: 'horde-splitbar-vert' }).insert(
+            new Element('DIV', { id: 'horde-slideleftcursor', className: 'horde-splitbar-vert-handle' }));
         $('horde-sidebar').insert({ after: this.splitbar });
         new Drag(this.splitbar, {
             constraint: 'horizontal',

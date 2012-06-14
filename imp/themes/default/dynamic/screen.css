@@ -88,28 +88,9 @@ div#quota {
     overflow: hidden;
     width: auto;
 }
-.splitBarHoriz, .splitBarVert, .splitBarVertSidebar {
-    background: #e9e9e9 no-repeat scroll;
-}
-.splitBarHoriz {
-    background-image: url("../graphics/dragHandle.png");
-    background-position: center top;
-    border-top: 1px solid silver;
-    border-bottom: 1px solid silver;
-    cursor: row-resize;
-    height: 5px;
-}
-.splitBarVert, .splitBarVertSidebar {
-    background-image: url("../graphics/dragHandleVert.png");
-    background-position: center;
-    border-right: 1px solid silver;
-    border-left: 1px solid silver;
-    cursor: col-resize;
-    height: 300px;
-    width: 5px;
-}
-.splitBarVertSidebar {
-    position: absolute;
+.horde-splitbar-horiz {
+    height: 7px;
+    background-position: center -1px;
 }
 
 /* Message List */
