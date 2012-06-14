@@ -40,6 +40,22 @@ class Horde_ActiveSync_Policies
     const POLICY_ATC                            = 'attachments';
     const POLICY_MAXATCSIZE                     = 'maxattachmentsize';
     const POLICY_MAXFAILEDATTEMPTS              = 'maxdevicepasswordfailedattempts';
+    // 12.1
+    const POLICY_ALLOW_SDCARD                   = 'allowsdcard';
+    const POLICY_ALLOW_CAMERA                   = 'allowcamera';
+    const POLICY_ALLOW_SMS                      = 'allowsms';
+    const POLICY_ALLOW_WIFI                     = 'allowwifi';
+    const POLICY_ALLOW_BLUETOOTH                = 'allowbluetooth';
+    const POLICY_ALLOW_POPIMAP                  = 'allowpopimap';
+    const POLICY_ALLOW_BROWSER                  = 'allowbrowser';
+    const POLICY_REQUIRE_SMIME_SIGNED           = 'requiresmimesigned';
+    const POLICY_REQUIRE_SMIME_ENCRYPTED        = 'requiresmimeencrypted';
+    const POLICY_DEVICE_ENCRYPTION              = 'deviceencryption';
+    const POLICY_ALLOW_HTML                     = 'allowhtml';
+    const POLICY_MAX_EMAIL_AGE                  = 'maxemailage';
+    const POLICY_MAX_EMAIL_TRUNCATION           = 'maxemailtruncation';
+    const POLICY_MAX_HTMLEMAIL_TRUNCATION       = 'maxhtmlemailtruncation';
+    const POLICY_ROAMING_NOPUSH                 = 'roamingnopush';
 
     /**
      * Default policy values used in both 12.0 and 12.1
@@ -67,7 +83,20 @@ class Horde_ActiveSync_Policies
      * @var array
      */
     protected $_defaults_twelveone = array(
-
+        // 1 == Allow/Yes, 0 == Disallow/No.
+        self::POLICY_ALLOW_SDCARD            => 1,
+        self::POLICY_ALLOW_CAMERA            => 1,
+        self::POLICY_ALLOW_SMS               => 1,
+        self::POLICY_ALLOW_WIFI              => 1,
+        self::POLICY_ALLOW_BLUETOOTH         => 1,
+        self::POLICY_ALLOW_POPIMAP           => 1,
+        self::POLICY_ALLOW_BROWSER           => 1,
+        self::POLICY_REQUIRE_SMIME_ENCRYPTED => 0,
+        self::POLICY_REQUIRE_SMIME_SIGNED    => 0,
+        self::POLICY_DEVICE_ENCRYPTION       => 0,
+        self::POLICY_ALLOW_HTML              => 1,
+        self::POLICY_MAX_EMAIL_AGE           => 0,
+        self::POLICY_ROAMING_NOPUSH          => 0,
     );
 
     /**
@@ -104,6 +133,11 @@ class Horde_ActiveSync_Policies
         array $policies = array())
     {
         $this->_encoder = $encoder;
+        if ($version > Horde_ActiveSync::VERSION_TWELVE) {
+            $this->_defaults = array_merge($this->_defaults, $this->_defaults_twelveone);
+        }
+
+        $this->_version = $version;
         $this->_overrides = $policies;
     }
 
@@ -174,54 +208,49 @@ class Horde_ActiveSync_Policies
 
         $this->_encoder->startTag('Provision:EASProvisionDoc');
 
-        $this->_encoder->startTag('Provision:DevicePasswordEnabled');
-        $this->_encoder->content($policies[self::POLICY_PIN] ? '1' : '0');
-        $this->_encoder->endTag();
-
+        $this->_sendPolicy('DevicePasswordEnabled', $policies[self::POLICY_PIN] ? '1' : '0');
         if ($policies[self::POLICY_PIN]) {
-            $this->_encoder->startTag('Provision:AlphanumericDevicePasswordRequired');
-            $this->_encoder->content($policies[self::POLICY_COMPLEXITY] === 0 ? '1' : '0');
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag('Provision:PasswordRecoveryEnabled');
-            $this->_encoder->content($policies[self::POLICY_PWDRECOVERY]);
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag('Provision:MinDevicePasswordLength');
-            $this->_encoder->content($policies[self::POLICY_MINLENGTH]);
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag('Provision:MaxDevicePasswordFailedAttempts');
-            $this->_encoder->content($policies[self::POLICY_MAXFAILEDATTEMPTS]);
-            $this->_encoder->endTag();
-
-            $this->_encoder->startTag('Provision:AllowSimpleDevicePassword');
-            $this->_encoder->content($policies[self::POLICY_COMPLEXITY] >= 1 ? '1' : '0');
-            $this->_encoder->endTag();
-
+            $this->_sendPolicy('AlphanumericDevicePasswordRequired', $policies[self::POLICY_COMPLEXITY] === 0 ? '1' : '0');
+            $this->_sendPolicy('PasswordRecoveryEnabled', $policies[self::POLICY_PWDRECOVERY]);
+            $this->_sendPolicy('MinDevicePasswordLength', $policies[self::POLICY_MINLENGTH]);
+            $this->_sendPolicy('MaxDevicePasswordFailedAttempts', $policies[self::POLICY_MAXFAILEDATTEMPTS]);
+            $this->_sendPolicy('AllowSimpleDevicePassword', $policies[self::POLICY_COMPLEXITY] >= 1 ? '1' : '0');
             $this->_encoder->startTag('Provision:DevicePasswordExpiration', false, true);
-
-            $this->_encoder->startTag('Provision:DevicePasswordHistory');
-            $this->_encoder->content($policies[self::POLICY_PWDHISTORY]);
-            $this->_encoder->endTag();
+            $this->_sendPolicy('DevicePasswordHistory', $policies[self::POLICY_PWDHISTORY]);
+        }
+        $this->_sendPolicy('DeviceEncryptionEnabled', $policies[self::POLICY_ENCRYPTION]);
+        $this->_sendPolicy('AttachmentsEnabled', $policies[self::POLICY_ATC]);
+        $this->_sendPolicy('MaxInactivityTimeDeviceLock', $policies[self::POLICY_AEFVALUE]);
+        $this->_sendPolicy('MaxAttachmentSize', $policies[self::POLICY_MAXATCSIZE]);
+        if ($this->_version > Horde_ActiveSync::VERSION_TWELVE) {
+            $this->_sendPolicy('AllowStorageCard', $policies[self::POLICY_ALLOW_SDCARD]);
+            $this->_sendPolicy('AllowCamera', $policies[self::POLICY_ALLOW_CAMERA]);
+            $this->_sendPolicy('RequireDeviceEncryption', $policies[self::POLICY_DEVICE_ENCRYPTION]);
+            $this->_sendPolicy('AllowWiFi', $policies[self::POLICY_ALLOW_WIFI]);
+            $this->_sendPolicy('AllowTextMessaging', $policies[self::POLICY_ALLOW_SMS]);
+            $this->_sendPolicy('AllowPOPIMAPEmail', $policies[self::POLICY_ALLOW_POPIMAP]);
+            $this->_sendPolicy('AllowBluetooth', $policies[self::POLICY_ALLOW_BLUETOOTH]);
+            $this->_sendPolicy('RequireManualSyncWhenRoaming', $policies[self::POLICY_ROAMING_NOPUSH]);
+            $this->_sendPolicy('AllowHTMLEmail', $policies[self::POLICY_ALLOW_HTML]);
+            $this->_sendPolicy('MaxEmailAgeFilter', $policies[self::POLICY_MAX_EMAIL_AGE]);
+            $this->_sendPolicy('RequireSignedSMIMEMessages', $policies[self::POLICY_REQUIRE_SMIME_SIGNED]);
+            $this->_sendPolicy('RequireEncryptedSMIMEMessages', $policies[self::POLICY_REQUIRE_SMIME_ENCRYPTED]);
+            $this->_sendPolicy('AllowBrowser', $policies[self::POLICY_ALLOW_BROWSER]);
         }
 
-        $this->_encoder->startTag('Provision:DeviceEncryptionEnabled');
-        $this->_encoder->content($policies[self::POLICY_ENCRYPTION]);
         $this->_encoder->endTag();
+    }
 
-        $this->_encoder->startTag('Provision:AttachmentsEnabled');
-        $this->_encoder->content($policies[self::POLICY_ATC]);
-        $this->_encoder->endTag();
-
-        $this->_encoder->startTag('Provision:MaxInactivityTimeDeviceLock');
-        $this->_encoder->content($policies[self::POLICY_AEFVALUE]);
-        $this->_encoder->endTag();
-
-        $this->_encoder->startTag('Provision:MaxAttachmentSize');
-        $this->_encoder->content($policies[self::POLICY_MAXATCSIZE]);
-        $this->_encoder->endTag();
-
+    /**
+     * Output a single policy value
+     *
+     * @param string $policy  The policy name
+     * @param mixed $value    The policy value
+     */
+    protected function _sendPolicy($policy, $value)
+    {
+        $this->_encoder->startTag('Provision:' . $policy);
+        $this->_encoder->content($value);
         $this->_encoder->endTag();
     }
 

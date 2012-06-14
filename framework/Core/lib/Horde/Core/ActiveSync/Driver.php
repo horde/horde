@@ -1928,10 +1928,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             return $policy;
         }
 
-        $properties = array('pin', 'inactivity', 'minpinsize', 'pincomplexity',
-            'wipethreshold', 'codewordfrequency', 'attachments', 'maxatcsize',
-            'encryption');
-
+        $policies = new Horde_ActiveSync_Policies(null, $this->_version);
+        $properties = $policies->getAvailablePolicies();
         foreach ($properties as $property) {
             if ($perms->exists($prefix . $property)) {
                 $p = $perms->getPermissions($prefix . $property, $this->_user);
@@ -1946,18 +1944,27 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         if (is_array($allowed)) {
             switch ($policy) {
-            case 'attachments':
-            case 'pin':
             case 'activesync':
-            case 'pincomplexity':
-            case 'wipethreshold':
-            case 'codewordfrequency':
-            case 'inactivity':
-            case 'maxatcsize':
+            case Horde_ActiveSync_Policies::POLICY_ATC:
+            case Horde_ActiveSync_Policies::POLICY_PIN:
+            case Horde_ActiveSync_Policies::POLICY_COMPLEXITY:
+            case Horde_ActiveSync_Policies::POLICY_MAXFAILEDATTEMPTS:
+            case Horde_ActiveSync_Policies::POLICY_CODEFREQ:
+            case Horde_ActiveSync_Policies::POLICY_AEFVALUE:
+            case Horde_ActiveSync_Policies::POLICY_MAXATCSIZE:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_SDCARD:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_CAMERA:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_SMS:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_WIFI:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_BLUETOOTH:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_POPIMAP:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_BROWSER:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_HTML:
+            case Horde_ActiveSync_Policies::POLICY_MAX_EMAIL_AGE:
                 $allowed = max($allowed);
                 break;
-            case 'minimumlength':
-            case 'encryption':
+            case Horde_ActiveSync_Policies::POLICY_MINLENGTH:
+            case Horde_ActiveSync_Policies::POLICY_ROAMING_NOPUSH:
                 $allowed = min($allowed);
                 break;
             case 'provisioning':
