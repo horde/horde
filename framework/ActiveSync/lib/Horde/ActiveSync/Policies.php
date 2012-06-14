@@ -34,7 +34,6 @@ class Horde_ActiveSync_Policies
     const POLICY_MINLENGTH                      = 'minimumlength';
     const POLICY_COMPLEXITY                     = 'complexity';
     // 12.0
-    const POLICY_MAXLENGTH                      = 'maximumlength';
     const POLICY_PWDRECOVERY                    = 'passwordrecovery';
     const POLICY_PWDEXPIRATION                  = 'passwordexpiration';
     const POLICY_PWDHISTORY                     = 'passwordhistory';
@@ -56,7 +55,6 @@ class Horde_ActiveSync_Policies
         self::POLICY_CODEFREQ          => '0',
         self::POLICY_MINLENGTH         => '5',
         self::POLICY_COMPLEXITY        => '2',
-        self::POLICY_MAXLENGTH         => '10',
         self::POLICY_PWDRECOVERY       => '0',
         self::POLICY_PWDEXPIRATION     => '0',
         self::POLICY_PWDHISTORY        => '0',
