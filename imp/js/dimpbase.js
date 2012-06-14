@@ -946,6 +946,7 @@ var DimpBase = {
             };
 
             HordeDialog.display({
+                form_id: 'dimpbase_confirm',
                 noinput: true,
                 text: DimpCore.text.download_mbox
             });
@@ -2859,6 +2860,7 @@ var DimpBase = {
                 ).insert(
                     DimpCore.text.delete_mbox_subfolders.sub('%s', this.fullMboxDisplay(params.elt))
                 ),
+                form_id: 'dimpbase_confirm',
                 text: params.elt.hasClassName('container') ? null : DimpCore.text.delete_mbox.sub('%s', this.fullMboxDisplay(params.elt))
             });
             break;
@@ -2870,6 +2872,7 @@ var DimpBase = {
                 });
             };
             HordeDialog.display({
+                form_id: 'dimpbase_confirm',
                 noinput: true,
                 text: DimpCore.text.empty_mbox.sub('%s', this.fullMboxDisplay(params.elt)).sub('%d', r)
             });
@@ -2889,6 +2892,7 @@ var DimpBase = {
         }.bind(this);
 
         HordeDialog.display({
+            form_id: 'dimpbase_confirm',
             input_val: val,
             text: text
         });
@@ -3852,8 +3856,9 @@ document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener
 /* HordeDialog listener. */
 document.observe('HordeDialog:onClick', function(e) {
     switch (e.element().identify()) {
-    case 'RB_confirm':
+    case 'dimpbase_confirm':
         this.viewaction(e);
+        HordeDialog.close();
         break;
 
     case 'mbox_import':
@@ -3864,6 +3869,7 @@ document.observe('HordeDialog:onClick', function(e) {
                 }
             }.bind(this)
         });
+        HordeDialog.close();
         break;
     }
 }.bindAsEventListener(DimpBase));

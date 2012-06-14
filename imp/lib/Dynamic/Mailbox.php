@@ -29,6 +29,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $page_output->addScriptFile('dimpbase.js');
         $page_output->addScriptFile('imp.js');
         $page_output->addScriptFile('mailbox-dimp.js');
+        $page_output->addScriptFile('passphrase.js');
         $page_output->addScriptFile('viewport.js');
         $page_output->addScriptFile('dragdrop2.js', 'horde');
         $page_output->addScriptFile('form_ghost.js', 'horde');

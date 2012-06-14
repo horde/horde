@@ -408,16 +408,7 @@ document.observe('ContextSensitive:show', DimpCore.contextOnShow.bindAsEventList
 document.observe('ContextSensitive:trigger', DimpCore.contextOnTrigger.bindAsEventListener(DimpCore));
 
 /* Dialog events. */
-document.observe('HordeDialog:success', function(e) {
-    switch (e.memo) {
-    case 'pgpPersonal':
-    case 'pgpSymmetric':
-    case 'smimePersonal':
-        HordeDialog.noreload = true;
-        this.reloadMessage({});
-        break;
-    }
-}.bindAsEventListener(DimpCore));
+document.observe('ImpPassphraseDialog:success', DimpCore.reloadMessage.bind(DimpCore, {}));
 
 /* Notification events. */
 document.observe('HordeCore:showNotifications', function(e) {

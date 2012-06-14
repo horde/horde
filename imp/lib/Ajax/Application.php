@@ -1734,6 +1734,65 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         return $result;
     }
 
+    /**
+     * AJAX action: Check passphrase.
+     *
+     * Variables required in form input:
+     *   - dialog_input: (string) Input from the dialog screen.
+     *   - symmetricid: (string) The symmetric ID to process.
+     *   - type: (string) The passphrase type.
+     *
+     * @return boolean  True on success.
+     */
+    public function checkPassphrase()
+    {
+        global $injector, $notification;
+
+        $result = false;
+
+        try {
+            Horde::requireSecureConnection();
+
+            switch ($this->_vars->type) {
+            case 'pgpPersonal':
+            case 'pgpSymmetric':
+                if ($this->_vars->dialog_input) {
+                    $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+                    if ((($this->_vars->type == 'pgpPersonal') &&
+                         $imp_pgp->storePassphrase('personal', $this->_vars->dialog_input)) ||
+                        (($this->_vars->type == 'pgpSymmetric') &&
+                         $imp_pgp->storePassphrase('symmetric', $this->_vars->dialog_input, $this->_vars->symmetricid))) {
+                        $result = true;
+                        $notification->push(_("PGP passhprase stored in session."), 'horde.success');
+                    } else {
+                        $notification->push(_("Invalid passphrase entered."), 'horde.error');
+                    }
+                } else {
+                    $notification->push(_("No passphrase entered."), 'horde.error');
+                }
+                break;
+
+            case 'smimePersonal':
+                if ($this->_vars->dialog_input) {
+                    $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
+                    if ($imp_smime->storePassphrase($this->_vars->dialog_input)) {
+                        $result = true;
+                        $notification->push(_("S/MIME passphrase stored in session."), 'horde.success');
+                    } else {
+                        $notification->error(_("Invalid passphrase entered."), 'horde.error');
+                    }
+                } else {
+                    $notification->push(_("No passphrase entered."), 'horde.error');
+                }
+                break;
+            }
+        } catch (Horde_Exception $e) {
+            $notification->push($e, 'horde.error');
+        }
+
+        return $result;
+    }
+
     /* Protected methods. */
 
     /**

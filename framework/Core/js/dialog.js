@@ -13,6 +13,8 @@
  *     form_id: 'RB_confirm',
  *     // Additional FORM attributes
  *     form_opts: {},
+ *     // Hidden parameters
+ *     hidden: {},
  *     // Default value for the INPUT element
  *     input_val: '',
  *     // Don't insert the default INPUT element
@@ -20,17 +22,10 @@
  *     // OK text.
  *     ok_text: 'OK',
  *     password: '',
- *     reloadurl: '',
  *     // The header to display at top of dialog box
  *     header: '',
  *     // The text to display at top of dialog box
- *     text: '',
- *
- *     // If these are set, an AJAX action (to 'uri') will be initiated if the
- *     // OK button is pressed:
- *     params: {},
- *     type: '',
- *     uri: ''
+ *     text: ''
  * });
  *
  *
@@ -41,9 +36,6 @@
  *
  * HordeDialog:onClick
  *   params: Event object
- *
- * HordeDialog:success
- *   params: type parameter
  *
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
@@ -63,24 +55,10 @@ var HordeDialog = {
             data = decodeURIComponent(data).evalJSON(true);
         }
 
-        if (data.uri) {
-            this.params = data.params;
-            this.type = data.type;
-            this.uri = data.uri;
-        }
-
-        if (data.reloadurl) {
-            this.reloadurl = data.reloadurl;
-        }
-
-        if (!data.form_opts) {
-            data.form_opts = {};
-        }
-
         data.form_opts = Object.extend({
             action: '#',
             id: data.form_id || 'RB_confirm'
-        }, data.form_opts);
+        }, data.form_opts || {});
 
         var n = new Element('FORM', data.form_opts);
         if (data.header) {
@@ -100,70 +78,51 @@ var HordeDialog = {
             RedBox.onDisplay = Form.focusFirstElement.curry(n);
         }
 
-        n.insert(
-            new Element('INPUT', { type: 'button', className: 'button', value: data.ok_text || this.ok_text }).observe('click', this._onClick.bind(this))
-        );
+        if (data.hidden) {
+            $H(data.hidden).each(function(pair) {
+                n.insert(new Element('INPUT', {
+                    name: pair.key,
+                    type: 'hidden'
+                }).setValue(pair.value));
+            });
+        }
 
         n.insert(
-            new Element('INPUT', { type: 'button', className: 'button', value: data.cancel_text || this.cancel_text }).observe('click', this._close.bind(this))
-        ).observe('keydown', function(e) { if ((e.keyCode || e.charCode) == Event.KEY_RETURN) { e.stop(); this._onClick(e); } }.bind(this));
+            new Element('INPUT', { type: 'button', className: 'button', value: data.ok_text || this.ok_text }).observe('click', this._onClick.bindAsEventListener(this))
+        )
+        n.insert(
+            new Element('INPUT', { type: 'button', className: 'button', value: data.cancel_text || this.cancel_text }).observe('click', this.close.bind(this))
+        )
 
-        n.observe('keydown', function(e) { if ((e.keyCode || e.charCode) == Event.KEY_ESC) { e.stop(); this._close(e); } }.bind(this));
+        n.observe('keydown', function(e) {
+            switch (e.keyCode || e.charCode) {
+            case Event.KEY_RETURN:
+                this._onClick(e);
+                e.stop();
+                break;
+
+            case Event.KEY_ESC:
+                this.close(e);
+                e.stop();
+                break;
+            }
+        }.bindAsEventListener(this));
 
         RedBox.overlay = true;
         RedBox.showHtml(n);
     },
 
-    _close: function()
+    close: function()
     {
         var c = RedBox.getWindowContents();
-        [ c, c.descendants()].flatten().compact().invoke('stopObserving');
         c.fire('HordeDialog:close');
+        c.remove();
         RedBox.close();
     },
 
     _onClick: function(e)
     {
-        if (this.uri) {
-            var params = $H((!this.params || Object.isArray(this.params)) ? {} : this.params);
-            params.update(e.findElement('form').serialize(true));
-            if (this.type) {
-                params.set('type', this.type);
-            }
-            new Ajax.Request(this.uri, {
-                onSuccess: this._onSuccess.bind(this),
-                parameters: params
-            });
-        } else {
-            RedBox.getWindowContents().fire('HordeDialog:onClick', e);
-            this._close();
-        }
-    },
-
-    _onSuccess: function(r)
-    {
-        r = r.responseJSON;
-
-        if (r.success || (r.response && r.response.success)) {
-            this._close();
-            this.noreload = false;
-            RedBox.getWindowContents().fire('HordeDialog:success', this.type);
-            if (!this.noreload) {
-                if (this.reloadurl) {
-                    location = this.reloadurl;
-                } else {
-                    location.reload();
-                }
-            }
-        }
-
-        if (r.msgs && window.HordeCore) {
-            window.HordeCore.showNotifications(r.msgs);
-        } else if (r.msgs && parent.HordeCore) {
-            parent.HordeCore.showNotifications(r.msgs);
-        } else if (r.error) {
-            alert(r.error);
-        }
+        RedBox.getWindowContents().fire('HordeDialog:onClick', e);
     }
 
 };
