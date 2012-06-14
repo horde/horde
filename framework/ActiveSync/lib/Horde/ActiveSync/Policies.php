@@ -108,6 +108,16 @@ class Horde_ActiveSync_Policies
     }
 
     /**
+     * Return a list of all configurable policy names.
+     *
+     * @return array
+     */
+    public function getAvailablePolicies()
+    {
+        return array_keys($this->_defaults);
+    }
+
+    /**
      * Output the policies as XML. Only used in EAS Version 2.5. This method
      * only outputs the 2.5 compatible policies.
      *
