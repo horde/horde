@@ -217,7 +217,7 @@ class Horde_ActiveSync_Policies
         }
         $this->_sendPolicy(self::POLICY_ENCRYPTION, $policies[self::POLICY_ENCRYPTION]);
         $this->_sendPolicy(self::POLICY_ATC, $policies[self::POLICY_ATC]);
-        $this->_sendPolicy(self::POLICY_AEFVALUE, $policies[self::POLICY_AEFVALUE]);
+        $this->_sendPolicy(self::POLICY_AEFVALUE, $policies[self::POLICY_AEFVALUE], true);
         $this->_sendPolicy(self::POLICY_MAXATCSIZE, $policies[self::POLICY_MAXATCSIZE]);
         if ($this->_version > Horde_ActiveSync::VERSION_TWELVE) {
             $this->_sendPolicy(self::POLICY_ALLOW_SDCARD, $policies[self::POLICY_ALLOW_SDCARD], true);
