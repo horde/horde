@@ -62,9 +62,12 @@ abstract class Horde_Core_Ajax_Imple_InPlaceEditor extends Horde_Core_Ajax_Imple
             $config->ids->{$this->getDomId()} = array(
                 'load_url' => (string)$load_url,
                 'rows' => $this->_params['rows'],
-                'value_url' => (string)$value_url,
-                'width' => $this->_params['width']
+                'value_url' => (string)$value_url
             );
+
+            if (!empty($this->_params['width'])) {
+                $config->ids->{$this->getDomId()}['width'] = $this->_params['width'];
+            }
 
             $page_output->addInlineJsVars(array(
                 'HordeImple.InPlaceEditor' => $config
