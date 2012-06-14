@@ -1600,7 +1600,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $params['icon'] = $icon->icon;
                 $params['special'] = $val->inbox || $val->special;
                 $params['class'] = 'imp-folder';
-                $params['urlattributes'] = array('id' => 'imp-mailbox-' . $val->form_to);
+                $params['urlattributes'] = array(
+                    'id' => 'imp-mailbox-' . $val->form_to
+                );
                 break;
 
             case 'IMP_Tree_Simplehtml':
