@@ -677,6 +677,10 @@ class Horde_PageOutput
             );
 
             $view->smartmobileView = true;
+
+            // Force JS to load at top of page, so we don't see flicker when
+            // mobile styles are applied.
+            $view->outputJs = true;
             break;
         }
 
