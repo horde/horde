@@ -120,25 +120,35 @@ div#quota {
 /* Columns */
 div.msgStatus {
     float: left;
-    width: 8%;
+    padding-left: 10px;
+    width: 74px;
     text-indent: 0 !important;
 }
 div.msgFrom {
     float: left;
-    width: 20%;
+    height: 18px;
+    padding-top: 3px;
+    width: 147px;
 }
 div.msgSubject {
     float: left;
-    width: 52%;
+    height: 18px;
+    padding-top: 3px;
 }
 div.msgDate {
-    float: left;
-    width: 14%;
+    float: right;
+    text-align: right;
+    height: 18px;
+    padding-top: 3px;
+    width: 127px;
 }
 div.msgSize {
-    float: left;
+    float: right;
+    text-align: right;
+    height: 18px;
     margin-right: -4px;
-    width: 6%;
+    padding-top: 3px;
+    width: 66px;
 }
 
 /* Message List Header and Column Header */
@@ -186,22 +196,23 @@ span.vpEmpty {
 /* Rows */
 div.vpRow, div.vpRow div {
     cursor: pointer;
-    font-size: 95%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
-    height: 16px;
-    border-bottom: 1px;
+    height: 21px;
+    border-bottom: 1px solid #d0d0d0;
+}
+div.vpRow {
+    padding-right: 20px;
 }
 div.vpRowSelected {
-    background: #ffa !important;
+    background-color: #36525d !important;
+    color: #fff;
 }
 div.vpRowHoriz div.sep {
-    border-right: 1px solid #ddd;
-}
-div.vpRowHoriz, div.vpRowHoriz div {
-    text-indent: 2px;
+    margin-left: 11px;
+    padding-left: 11px;
 }
 
 /* Rows: flags. */

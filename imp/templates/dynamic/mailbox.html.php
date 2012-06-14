@@ -227,16 +227,20 @@
 </div>
 
 <div id="msglistHeaderContainer">
- <div class="item msglistHeader" id="msglistHeaderHoriz" style="display:none">
+ <div class="horde-table-header" id="msglistHeaderHoriz" style="display:none">
   <div class="iconImg msgStatus">
    <div class="iconImg msCheckAll msCheck" id="horiz_opts" title="<?php echo _("Select All") ?>"></div>
   </div>
-  <div class="msgFrom sep"></div>
-  <div class="msgSubject sep"></div>
-  <div class="msgDate sep"></div>
-  <div class="msgSize sep"></div>
+  <div class="horde-split-left"></div>
+  <div class="msgFrom"></div>
+  <div class="horde-split-left"></div>
+  <div class="msgSubject"></div>
+  <div class="msgSize"></div>
+  <div class="horde-split-right"></div>
+  <div class="msgDate"></div>
+  <div class="horde-split-right"></div>
  </div>
- <div class="item msglistHeader" id="msglistHeaderVert" style="display:none">
+ <div class="horde-table-header" id="msglistHeaderVert" style="display:none">
   <div class="iconImg msgStatus">
    <div class="iconImg msCheckAll msCheck" title="<?php echo _("Select All") ?>"></div>
   </div>

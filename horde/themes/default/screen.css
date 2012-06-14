@@ -190,13 +190,17 @@ table.nopadding td, table.nopadding th {
     padding: 0;
 }
 .sortup {
-    background: #bbcbff url("graphics/za.png") center left no-repeat;
-    padding-left: 10px;
+    background: url("graphics/za.png") center left no-repeat;
+    text-indent: 15px;
 }
 .sortdown {
-    background: #bbcbff url("graphics/az.png") center left no-repeat;
-    padding-left: 10px;
+    background: url("graphics/az.png") center left no-repeat;
+    text-indent: 15px;
 }
+.sortdown a, .sortup a {
+    font-weight: bold;
+}
+
 /* Horde UI standard tables */
 table.horde-table {
     width: 99%;
@@ -2090,6 +2094,33 @@ overflow: hidden;
   }
   .horde-buttonbar .horde-subnavi-arrow {
       margin-top: -3px;
+  }
+
+/*
+ * Tabellenkopf
+ */
+.horde-table-header {
+height:21px;
+padding:0px 20px 0px 0px;
+background-image:url('graphics/tablehead-bg.png');
+background-repeat:repeat-x;
+}
+  .horde-table-header .horde-split-left,
+  .horde-table-header .horde-split-right {
+      background-image: url('graphics/tablehead-split.png');
+      background-repeat: no-repeat;
+      width: 2px;
+      height: 21px;
+      margin: 0 10px 0 10px;
+  }
+  .horde-table-header .horde-split-left {
+      float:left;
+  }
+  .horde-table-header .horde-split-right {
+      float:right;
+  }
+  .horde-table-header .horde-subnavi-arrow {
+      margin-top: -4px;
   }
 
 /*

@@ -1512,7 +1512,7 @@ var DimpBase = {
         } else {
             ptr.each(function(s) {
                 if (s.value.t) {
-                    var elt = new Element('A', { className: 'widget' }).insert(s.value.t).store('sortby', s.value.v);
+                    var elt = new Element('A').insert(s.value.t).store('sortby', s.value.v);
                     if (s.value.ec) {
                         elt.addClassName(s.value.ec);
                     }
@@ -1530,7 +1530,7 @@ var DimpBase = {
         [ tmp2 ].invoke(tmp ? 'show' : 'hide');
         tmp2.siblings().invoke(tmp ? 'hide' : 'show');
 
-        [ m.down('.msgSubject SPAN.popdown'), m.down('.msgDate SPAN.popdown') ].invoke(this.viewport.getMetaData('sortbylock') ? 'hide' : 'show');
+        [ m.down('.msgSubject .horde-subnavi-arrow'), m.down('.msgDate .horde-subnavi-arrow') ].invoke(this.viewport.getMetaData('sortbylock') ? 'hide' : 'show');
 
         ptr.find(function(s) {
             if (sortby != s.value.v) {

@@ -13,14 +13,14 @@
 
 DimpBase.msglist_template_horiz =
 '<div class="#{className}" id="#{VP_domid}" style="#{style}">' +
- '<div class="msgStatus sep">' +
+ '<div class="msgStatus">' +
   '<div class="iconImg msCheck"></div>' +
   '#{status}' +
  '</div>' +
  '<div class="msgFrom sep">#{from}</div>' +
  '<div class="msgSubject sep" title="#{subjecttitle}">#{subjectdata}#{subject}</div>' +
+ '<div class="msgSize sep">#{size}</div>' +
  '<div class="msgDate sep">#{date}</div>' +
- '<div class="msgSize">#{size}</div>' +
 '</div>';
 
 DimpBase.msglist_template_vert =
