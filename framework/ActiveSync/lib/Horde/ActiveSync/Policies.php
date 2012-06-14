@@ -29,7 +29,6 @@ class Horde_ActiveSync_Policies
     /* Policy configuration keys */
     const POLICY_PIN                            = 'pin';
     const POLICY_AEFVALUE                       = 'inactivity';
-    const POLICY_WIPETHRESHOLD                  = 'wipethreshold';
     const POLICY_CODEFREQ                       = 'codewordfrequency';
     const POLICY_MINLENGTH                      = 'minimumlength';
     const POLICY_COMPLEXITY                     = 'complexity';
@@ -51,7 +50,6 @@ class Horde_ActiveSync_Policies
         self::POLICY_PIN               => false,
         self::POLICY_AEFVALUE          => '0',
         self::POLICY_MAXFAILEDATTEMPTS => '5',
-        self::POLICY_WIPETHRESHOLD     => '10',
         self::POLICY_CODEFREQ          => '0',
         self::POLICY_MINLENGTH         => '5',
         self::POLICY_COMPLEXITY        => '2',
@@ -133,8 +131,8 @@ class Horde_ActiveSync_Policies
             .   (!empty($policies[self::POLICY_AEFVALUE]) ? '<parm name="AEFrequencyValue" value="' . $policies[self::POLICY_AEFVALUE] . '"/>' : '')
             .   '</characteristic>';
 
-            if (!empty($policies[self::POLICY_WIPETHRESHOLD])) {
-                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="DeviceWipeThreshold" value="' . $policies[self::POLICY_WIPETHRESHOLD] . '"/></characteristic>';
+            if (!empty($policies[self::POLICY_MAXFAILEDATTEMPTS])) {
+                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="DeviceWipeThreshold" value="' . $policies[self::POLICY_MAXFAILEDATTEMPTS] . '"/></characteristic>';
             }
             if (!empty($policies[self::POLICY_CODEFREQ])) {
                 $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="CodewordFrequency" value="' . $policies[self::POLICY_CODEFREQ] . '"/></characteristic>';
