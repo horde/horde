@@ -25,8 +25,8 @@ class Horde_Core_Ajax_Response_HordeCore extends Horde_Core_Ajax_Response
     /**
      * Constructor.
      *
-     * @param mixed $data      Response data to send to browser.
-     * @param mixed $tasks     Task data to send to browser.
+     * @param mixed $data   Response data to send to browser.
+     * @param mixed $tasks  Task data to send to browser.
      */
     public function __construct($data = null, $tasks = null)
     {

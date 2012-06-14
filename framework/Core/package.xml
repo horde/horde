@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-06-08</date>
- <time>22:31:15</time>
+ <date>2012-06-14</date>
+ <time>01:53:08</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -172,6 +172,7 @@
        <dir name="Response">
         <dir name="HordeCore">
          <file name="JsonHtml.php" role="php" />
+         <file name="Reload.php" role="php" />
          <file name="SessionTimeout.php" role="php" />
         </dir> <!-- /lib/Horde/Core/Ajax/Response/HordeCore -->
         <file name="HordeCore.php" role="php" />
@@ -1284,6 +1285,7 @@
    <install as="Horde/Core/Ajax/Response/Prototypejs.php" name="lib/Horde/Core/Ajax/Response/Prototypejs.php" />
    <install as="Horde/Core/Ajax/Response/Raw.php" name="lib/Horde/Core/Ajax/Response/Raw.php" />
    <install as="Horde/Core/Ajax/Response/HordeCore/JsonHtml.php" name="lib/Horde/Core/Ajax/Response/HordeCore/JsonHtml.php" />
+   <install as="Horde/Core/Ajax/Response/HordeCore/Reload.php" name="lib/Horde/Core/Ajax/Response/HordeCore/Reload.php" />
    <install as="Horde/Core/Ajax/Response/HordeCore/SessionTimeout.php" name="lib/Horde/Core/Ajax/Response/HordeCore/SessionTimeout.php" />
    <install as="Horde/Core/Alarm/Handler/Notify.php" name="lib/Horde/Core/Alarm/Handler/Notify.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />

@@ -161,6 +161,15 @@ var HordeCore = {
 
         var r = request.responseJSON;
 
+        if (r.reload) {
+            if (r.reload === true) {
+                window.location.reload();
+            } else {
+                window.location.assign(r.reload);
+            }
+            return;
+        }
+
         if (!r.msgs) {
             r.msgs = [];
         }

@@ -322,16 +322,19 @@ var Gollem = {
 
     okHandler: function(e)
     {
-        switch (e.findElement('FORM').id) {
+        switch (e.element().identify()) {
         case 'cdfrm':
             Gollem.changeDirectoryOK();
             break;
+
         case 'chmodfrm':
             Gollem.chmodOK();
             break;
+
         case 'createfrm':
             Gollem.createFolderOK();
             break;
+
         case 'renamefrm':
             Gollem.renameOK();
             break;
