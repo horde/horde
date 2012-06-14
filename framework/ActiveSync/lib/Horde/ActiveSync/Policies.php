@@ -69,9 +69,9 @@ class Horde_ActiveSync_Policies
         self::POLICY_CODEFREQ          => '0',
         self::POLICY_MINLENGTH         => '5',
         self::POLICY_COMPLEXITY        => '2',
-        self::POLICY_PWDRECOVERY       => '0',
-        self::POLICY_PWDEXPIRATION     => '0',
-        self::POLICY_PWDHISTORY        => '0',
+        //self::POLICY_PWDRECOVERY       => '0',
+        //self::POLICY_PWDEXPIRATION     => '0',
+        //self::POLICY_PWDHISTORY        => '0',
         self::POLICY_ENCRYPTION        => '0',
         self::POLICY_ATC               => '1',
         self::POLICY_MAXATCSIZE        => '5000000'
