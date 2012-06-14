@@ -112,27 +112,27 @@ class Horde_ActiveSync_Imap_Message
         $h = $this->getHeaders();
 
         if (($ob = $h->getValue('date'))) {
-            $tmp[_("Date")] = $ob;
+            $tmp[Horde_ActiveSync_Translation::t('Date')] = $ob;
         }
 
         if (($ob = strval($h->getOb('from')))) {
-            $tmp[_("From")] = $ob;
+            $tmp[Horde_ActiveSync_Translation::t('From')] = $ob;
         }
 
         if (($ob = strval($h->getOb('reply-to')))) {
-            $tmp[_("Reply-To")] = $ob;
+            $tmp[Horde_ActiveSync_Translation::t('Reply-To')] = $ob;
         }
 
         if (($ob = $h->getValue('subject'))) {
-            $tmp[_("Subject")] = $ob;
+            $tmp[Horde_ActiveSync_Translation::t('Subject')] = $ob;
         }
 
         if (($ob = strval($h->getOb('to')))) {
-            $tmp[_("To")] = $ob;
+            $tmp[Horde_ActiveSync_Translation::t('To')] = $ob;
         }
 
         if (($ob = strval($h->getOb('cc')))) {
-            $tmp[_("Cc")] = $ob;
+            $tmp[Horde_ActiveSync_Translation::t('Cc')] = $ob;
         }
 
         $max = max(array_map(array('Horde_String', 'length'), array_keys($tmp))) + 2;
@@ -445,28 +445,28 @@ class Horde_ActiveSync_Imap_Message
 
         switch ($ptype) {
         case 'audio':
-            return _("Audio part");
+            return Horde_ActiveSync_Translation::t('Audio part');
 
         case 'image':
-            return _("Image part");
+            return Horde_ActiveSync_Translation::t('Image part');
 
         case 'message':
         case Horde_Mime_Part::UNKNOWN:
-            return _("Message part");
+            return Horde_ActiveSync_Translation::t('Message part');
 
         case 'multipart':
-            return _("Multipart part");
+            return Horde_ActiveSync_Translation::t('Multipart part');
 
         case 'text':
-            return _("Text part");
+            return Horde_ActiveSync_Translation::t('Text part');
 
         case 'video':
-            return _("Video part");
+            return Horde_ActiveSync_Translation::t('Video part');
 
         default:
             // Attempt to translate this type, if possible. Odds are that
             // it won't appear in the dictionary though.
-            return sprintf(_("%s part"), _(Horde_String::ucfirst($ptype)));
+            return sprintf(Horde_ActiveSync_Translation::t('%s part'), _(Horde_String::ucfirst($ptype)));
         }
     }
 
