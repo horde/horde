@@ -1,6 +1,6 @@
 <?php
 /**
- * self::
+ * Horde_ActiveSync_Policies::
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
@@ -12,7 +12,7 @@
  * @package   ActiveSync
  */
 /**
- * self:: Wraps all functionality related to generating
+ * Horde_ActiveSync_Policies:: Wraps all functionality related to generating
  * the XML or WBXML for EAS Policies.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
