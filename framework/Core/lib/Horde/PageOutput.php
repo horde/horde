@@ -682,6 +682,50 @@ class Horde_PageOutput
 
         if ($this->ajax || $this->growler) {
             $this->addScriptFile(new Horde_Script_File_JsFramework('hordecore.js', 'horde'));
+
+            /* Configuration used in core javascript files. */
+            $js_conf = array_filter(array(
+                /* URLs */
+                'URI_AJAX' => $registry->getServiceLink('ajax', $registry->getApp())->url,
+                'URI_DLOAD' => $registry->getServiceLink('download', $registry->getApp())->url,
+                'URI_LOGOUT' => strval($registry->getServiceLink('logout')),
+                'URI_SNOOZE' => strval(Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1)),
+
+                /* Other constants */
+                'SID' => defined('SID') ? SID : '',
+                'TOKEN' => $session->getToken(),
+
+                /* Other config. */
+                'growler_log' => !empty($opts['growler_log']),
+                'popup_height' => 610,
+                'popup_width' => 820
+            ));
+
+            /* Gettext strings used in core javascript files. */
+            $js_text = array(
+                'ajax_error' => _("Error when communicating with the server."),
+                'ajax_recover' => _("The connection to the server has been restored."),
+                'ajax_timeout' => _("There has been no contact with the server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
+                'snooze' => sprintf(_("You can snooze it for %s or %s dismiss %s it entirely"), '#{time}', '#{dismiss_start}', '#{dismiss_end}'),
+                'snooze_select' => array(
+                    '0' => _("Select..."),
+                    '5' => _("5 minutes"),
+                    '15' => _("15 minutes"),
+                    '60' => _("1 hour"),
+                    '360' => _("6 hours"),
+                    '1440' => _("1 day")
+                )
+            );
+
+            if (!empty($opts['growler_log'])) {
+                $js_text['growlerinfo'] = _("This is the notification log.");
+                $js_text['growlernoalerts'] = _("No Alerts");
+            }
+
+            $this->addInlineJsVars(array(
+                'HordeCore.conf' => $js_conf,
+                'HordeCore.text' => $js_text
+            ), array('top' => true));
         }
 
         if ($this->growler) {
@@ -754,50 +798,6 @@ class Horde_PageOutput
         if ($prefs->getValue('widget_accesskey')) {
             $this->addScriptFile('accesskeys.js', 'horde');
         }
-
-        /* Configuration used in core javascript files. */
-        $js_conf = array_filter(array(
-            /* URLs */
-            'URI_AJAX' => $registry->getServiceLink('ajax', $registry->getApp())->url,
-            'URI_DLOAD' => $registry->getServiceLink('download', $registry->getApp())->url,
-            'URI_LOGOUT' => strval($registry->getServiceLink('logout')),
-            'URI_SNOOZE' => strval(Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1)),
-
-            /* Other constants */
-            'SID' => defined('SID') ? SID : '',
-            'TOKEN' => $session->getToken(),
-
-            /* Other config. */
-            'growler_log' => !empty($opts['growler_log']),
-            'popup_height' => 610,
-            'popup_width' => 820
-        ));
-
-        /* Gettext strings used in core javascript files. */
-        $js_text = array(
-            'ajax_error' => _("Error when communicating with the server."),
-            'ajax_recover' => _("The connection to the server has been restored."),
-            'ajax_timeout' => _("There has been no contact with the server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
-            'snooze' => sprintf(_("You can snooze it for %s or %s dismiss %s it entirely"), '#{time}', '#{dismiss_start}', '#{dismiss_end}'),
-            'snooze_select' => array(
-                '0' => _("Select..."),
-                '5' => _("5 minutes"),
-                '15' => _("15 minutes"),
-                '60' => _("1 hour"),
-                '360' => _("6 hours"),
-                '1440' => _("1 day")
-            )
-        );
-
-        if (!empty($opts['growler_log'])) {
-            $js_text['growlerinfo'] = _("This is the notification log.");
-            $js_text['growlernoalerts'] = _("No Alerts");
-        }
-
-        $this->addInlineJsVars(array(
-            'HordeCore.conf' => $js_conf,
-            'HordeCore.text' => $js_text
-        ), array('top' => true));
     }
 
     /**
