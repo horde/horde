@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde:: class provides the functionality shared by all Horde
- * applications.
+ * Provides the base functionality shared by all Horde applications.
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
@@ -11,6 +10,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Core
  */
 class Horde
@@ -179,12 +179,10 @@ class Horde
      *
      * @param mixed $data     The data to JSON-ify.
      * @param array $options  Additional options:
-     * <pre>
-     * 'nodelimit' - (boolean) Don't add security delimiters?
-     *               DEFAULT: false
-     * 'urlencode' - (boolean) URL encode the json string
-     *               DEFAULT: false
-     * </pre>
+     *   - nodelimit: (boolean) Don't add security delimiters?
+     *                DEFAULT: false
+     *   - urlencode: (boolean) URL encode the json string
+     *                DEFAULT: false
      *
      * @return string  The escaped string.
      */
@@ -489,15 +487,13 @@ class Horde
      * @param mixed $opts     Additional options. If a string/integer, it is
      *                        taken to be the 'append_session' option.  If an
      *                        array, one of the following:
-     * <pre>
-     * 'app' - (string) Use this app for the webroot.
-     *         DEFAULT: current application
-     * 'append_session' - (integer) 0 = only if needed [DEFAULT], 1 = always,
-     *                    -1 = never.
-     * 'force_ssl' - (boolean) Ignore $conf['use_ssl'] and force creation of a
-     *               SSL URL?
-     *               DEFAULT: false
-     * </pre>
+     *   - app: (string) Use this app for the webroot.
+     *          DEFAULT: current application
+     *   - append_session: (integer) 0 = only if needed [DEFAULT], 1 = always,
+     *                     -1 = never.
+     *   - force_ssl: (boolean) Ignore $conf['use_ssl'] and force creation of
+     *                a SSL URL?
+     *                DEFAULT: false
      *
      * @return Horde_Url  The URL with the session id appended (if needed).
      */
@@ -1264,19 +1260,16 @@ class Horde
      *
      * @param string $type   The cache type ('app', 'css', 'js').
      * @param array $params  Optional parameters:
-     * <pre>
-     * RESERVED PARAMETERS:
-     * 'app' - REQUIRED for $type == 'app'. Identifies the application to
-     *         call the 'cacheOutput' API call, which is passed in the
-     *         value of the entire $params array (which may include parameters
-     *         other than those listed here). The return from cacheOutput
-     *         should be a 2-element array: 'data' (the cached data) and
-     *         'type' (the content-type of the data).
-     * 'cid' - REQUIRED for $type == 'css' || 'js'. The cacheid of the
-     *         data (stored in Horde_Cache).
-     * 'nocache' - If true, sets the cache limiter to 'nocache' instead of
-     *             the default 'public'.
-     * </pre>
+     *   - app: REQUIRED for $type == 'app'. Identifies the application to
+     *          call the 'cacheOutput' API call, which is passed in the
+     *          value of the entire $params array (which may include parameters
+     *          other than those listed here). The return from cacheOutput
+     *          should be a 2-element array: 'data' (the cached data) and
+     *          'type' (the content-type of the data).
+     *   - cid: REQUIRED for $type == 'css' || 'js'. The cacheid of the
+     *          data (stored in Horde_Cache).
+     *   - nocache: If true, sets the cache limiter to 'nocache' instead of
+     *              the default 'public'.
      *
      * @return Horde_Url  The URL to the cache page.
      */
@@ -1295,21 +1288,19 @@ class Horde
      *
      * @param string|Horde_Url $url  The page to load.
      * @param array $options         Additional options:
-     * <pre>
-     * 'height' - (integer) The height of the popup window.
-     *            DEFAULT: 650px
-     * 'menu' - (boolean) Show the browser menu in the popup window?
-     *          DEFAULT: false
-     * 'onload' - (string) A JS function to call after the popup window is
-     *            fully loaded.
-     *            DEFAULT: None
-     * 'params' - (array) Additional parameters to pass to the URL.
-     *            DEFAULT: None
-     * 'urlencode' - (boolean) URL encode the json string?
-     *               DEFAULT: No
-     * 'width' - (integer) The width of the popup window.
-     *           DEFAULT: 700 px
-     * </pre>
+     *   - height: (integer) The height of the popup window.
+     *             DEFAULT: 650px
+     *   - menu: (boolean) Show the browser menu in the popup window?
+     *           DEFAULT: false
+     *   - onload: (string) A JS function to call after the popup window is
+     *             fully loaded.
+     *             DEFAULT: None
+     *   - params: (array) Additional parameters to pass to the URL.
+     *             DEFAULT: None
+     *   - urlencode: (boolean) URL encode the json string?
+     *                DEFAULT: No
+     *   - width: (integer) The width of the popup window.
+     *            DEFAULT: 700 px
      *
      * @return string  The javascript needed to call the popup code.
      */
@@ -1386,14 +1377,12 @@ class Horde
      * Generates the menu output.
      *
      * @param array $opts  Additional options:
-     * <pre>
-     * 'app' - (string) The application to generate the menu for.
-     *         DEFAULT: current application
-     * 'mask' - (integer) The Horde_Menu mask to use.
-     *          DEFAULT: Horde_Menu::MASK_ALL
-     * 'menu_ob' - (boolean) If true, returns the menu object
-     *               DEFAULT: false (renders menu)
-     * </pre>
+     *   - app: (string) The application to generate the menu for.
+     *          DEFAULT: current application
+     *   - mask: (integer) The Horde_Menu mask to use.
+     *           DEFAULT: Horde_Menu::MASK_ALL
+     *   - menu_ob: (boolean) If true, returns the menu object
+     *              DEFAULT: false (renders menu)
      * @param string $app  The application to generate the menu for. Defaults
      *                     to the current app.
      *
