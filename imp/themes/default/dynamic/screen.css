@@ -133,31 +133,6 @@ div.msgSize {
 }
 
 /* Message List Header and Column Header */
-.msglistHeader {
-    font-weight: bold;
-    overflow: hidden;
-    border-bottom: 1px solid silver;
-    background: transparent url("../graphics/backhead_orderby.png") repeat-x;
-}
-.msglistHeader a {
-    cursor: pointer;
-    vertical-align: top;
-}
-.msglistHeader div {
-    padding-top: 1px;
-    height: 15px;
-    text-indent: 2px;
-}
-.msglistHeader div.sortup, .msglistHeader div.sortdown {
-    padding-left: 0;
-}
-.msglistHeader div.sortup a, .msglistHeader div.sortdown a {
-    padding-left: 14px;
-}
-.msglistHeader div.sep {
-    border-left: 1px solid #ddd;
-}
-
 div.msgSort {
     float: right;
 }
@@ -427,13 +402,12 @@ div.dimpActionsMsg #windowclose {
 
 /* Headers styles. */
 .msgHeaders {
-    background: transparent url("../graphics/backhead_r.png") repeat-x;
-    border-bottom: 1px #b9b9b3 solid;
-    font-size: 90%;
+    padding: 18px;
+    background-color: #eceff0;
+    border-bottom: 1px solid #d0d0d0;
     max-height: 300px;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 2px 0 1px;
 }
 .msgfullread .msgHeaders {
     cursor: default;
@@ -505,13 +479,12 @@ div.dimpActionsMsg #windowclose {
 #msgHeadersContent {
     overflow: hidden;
 }
+#th_collapse {
+    cursor: pointer;
+}
 
 /* ini msg small header */
-#toggleHeaders {
-    float: left;
-}
 #msgHeadersColl {
-    margin: 0 6px;
     white-space: nowrap;
 }
 #msgHeadersColl span.date, #msgHeadersColl span.from, #msgHeadersColl span.subject {
@@ -523,23 +496,24 @@ div.dimpActionsMsg #windowclose {
     float: right;
     text-align: right;
     width: 30%;
+    padding-top: 5px;
 }
 #msgHeadersColl span.subject {
     float: left;
     font-weight: bold;
     max-width: 65%;
-    padding-left: 2px;
+    cursor: pointer;
 }
 #msgHeadersColl span.fromcontainer {
     float: left;
-    padding-left: 3px;
+    padding-left: 5px;
+    padding-top: 5px;
 }
 /* end msg small header */
 
 /* Message body formatting. */
 .messageBody {
-    background: #fff url("../graphics/backhead_shadow.png") top repeat-x;
-    padding: 7px 5px 5px;
+    padding: 18px;
 }
 .msgfullread div.messageBody {
     overflow: auto;
@@ -1022,8 +996,7 @@ div.msgSubject span.treeImg {
 #msg_newwin span.iconImg {
     cursor: pointer;
     float: right;
-    margin-left: 4px;
-    margin-right: 0;
+    margin: 5px 0 0 4px;
 }
 #th_expand span.iconImg, #partlist_col, #msgloglist_col {
     background-image: url("../graphics/arrow_collapsed.png");

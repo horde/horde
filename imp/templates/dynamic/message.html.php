@@ -54,12 +54,10 @@
 <?php endif; ?>
     </div>
     <div id="msgHeadersContent">
+     <p class="p17 bold"><?php echo $this->h($this->subject) ?></p>
+     <p>&nbsp;</p>
      <table>
       <thead>
-       <tr>
-        <td class="label"><?php echo _("Subject") ?>:</td>
-        <td class="subject"><?php echo $this->h($this->subject) ?></td>
-       </tr>
 <?php foreach ($this->hdrs as $val): ?>
        <tr<?php if ($val['id']) echo ' id="' . $val['id'] . '"'; ?>>
         <td class="label"><?php echo $val['label'] ?>:</td>

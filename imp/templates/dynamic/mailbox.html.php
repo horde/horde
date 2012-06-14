@@ -88,14 +88,10 @@
     <div id="previewInfo" style="display:none"></div>
     <div id="previewMsg" style="display:none">
      <div class="msgHeaders">
-      <div id="toggleHeaders">
-       <a id="th_expand"><span class="iconImg" title="<?php echo _("Expand Headers") ?>"></span></a>
-       <a id="th_collapse" style="display:none"><span class="iconImg" title="<?php echo _("Collapse Headers") ?>"></span></a>
-      </div>
       <div id="msgHeadersColl">
        <a id="msg_newwin"><span class="iconImg" title="<?php echo _("Open in new window") ?>"></span></a>
        <span class="date"></span>
-       <span class="subject"></span>
+       <span id="th_expand" class="p17 subject" title="<?php echo _("Expand Headers") ?>"></span>
        <span class="fromcontainer"><?php echo _("from") ?>
         <span class="from"></span>
        </span>
@@ -128,12 +124,10 @@
         </div>
        </div>
        <div id="msgHeadersContent">
+        <p id="th_collapse" class="p17 bold subject" title="<?php echo _("Collapse Headers") ?>"></p>
+        <p>&nbsp;</p>
         <table>
          <thead>
-          <tr>
-           <td class="label"><?php echo _("Subject") ?>:</td>
-           <td class="subject"></td>
-          </tr>
           <tr id="msgHeaderFrom">
            <td class="label"><?php echo _("From") ?>:</td>
            <td class="from"></td>
