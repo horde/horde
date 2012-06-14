@@ -212,7 +212,7 @@ class Horde_Application extends Horde_Registry_Application
             'type' => 'boolean'
         );
 
-        $permissions[$prefix . Horde_ActiveSync_Policies::MINLENGTH] = array(
+        $permissions[$prefix . Horde_ActiveSync_Policies::POLICY_MINLENGTH] = array(
             'title' => _("Minimum PIN length"),
             'type' => 'int'
         );
