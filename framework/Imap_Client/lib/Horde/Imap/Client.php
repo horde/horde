@@ -286,12 +286,6 @@ class Horde_Imap_Client
      *           DEFAULT: Messages output in IMAP server default language
      *    </li>
      *    <li>
-     *     log: (array) A callback to a function that receives a single
-     *          parameter: a Horde_Imap_Client_Exception object. This callback
-     *          function MUST be static.
-     *          DEFAULT: No logging
-     *    </li>
-     *    <li>
      *     port: (integer) The server port to which we will connect.
      *           DEFAULT: 143 (imap or imap w/TLS) or 993 (imaps)
      *    </li>

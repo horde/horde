@@ -152,7 +152,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $params = array_merge(array(
             'encryptKey' => null,
             'hostspec' => 'localhost',
-            'log' => null,
             'port' => ((isset($params['secure']) && ($params['secure'] == 'ssl')) ? 993 : 143),
             'secure' => false,
             'timeout' => 30
@@ -231,10 +230,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (!is_null($details)) {
             $e->details = $details;
-        }
-
-        if (is_callable($this->_params['log'])) {
-            call_user_func($this->_params['log'], $e);
         }
 
         if (!$logonly) {

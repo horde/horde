@@ -16,6 +16,9 @@ Upgrading to 2.0.0
 
 The cclient drivers have been removed.
 
+Exception logging has been removed; the calling code is now responsible for
+logging any errors.
+
   - Horde_Imap_Client_Base
 
     - append()
