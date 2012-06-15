@@ -2915,6 +2915,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $msg = trim($msg);
 
         if ($type == 'text/plain') {
+            if ($prefs->getValue('reply_strip_sig') &&
+                (($pos = strrpos($msg, "\n-- ")) !== false)) {
+                $msg = rtrim(substr($msg, 0, $pos));
+            }
+
             if ($part->getContentTypeParameter('format') == 'flowed') {
                 $flowed = new Horde_Text_Flowed($msg, 'UTF-8');
                 if (Horde_String::lower($part->getContentTypeParameter('delsp')) == 'yes') {

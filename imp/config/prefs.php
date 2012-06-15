@@ -603,7 +603,7 @@ $prefGroups['reply'] = array(
     'desc' => _("Configure how you reply to mail."),
     'members' => array(
         'reply_quote', 'reply_format', 'reply_charset', 'reply_headers',
-        'attrib_text'
+        'attrib_text', 'reply_strip_sig'
     )
 );
 
@@ -646,6 +646,14 @@ $_prefs['attrib_text'] = array(
     'type' => 'text',
     'desc' => _("How to attribute quoted lines in a reply"),
     'help' => 'prefs-attrib_text'
+);
+
+// Strip the sender's signature from plaintext replies?
+$_prefs['reply_strip_sig'] = array(
+    'desc' => _("Strip the sender's signature from plaintext replies?"),
+    'advanced' => true,
+    'value' => 0,
+    'type' => 'checkbox'
 );
 
 
