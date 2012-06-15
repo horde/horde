@@ -1513,6 +1513,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function meetingResponse(array $response)
     {
+        if (empty($response['folderid']) || empty($response['requestid']) ||
+            empty($response['response'])) {
+            throw new Horde_ActiveSync_Exception('Invalid meeting response.');
+        }
+
         // First thing we need is to obtain the meeting request.
         $imap_message = $this->_imap->getImapMessage($response['folderid'], $response['requestid']);
         $imap_message = $imap_message[$response['requestid']];
