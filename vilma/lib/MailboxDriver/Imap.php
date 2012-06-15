@@ -26,11 +26,13 @@ class Vilma_MailboxDriver_Imap extends Vilma_MailboxDriver
     public function __construct(array $params = array())
     {
         parent::__construct($params);
-        $params = array('username' => $this->_params['admin_user'],
-                        'password' => $this->_params['admin_password'],
-                        'hostspec' => $this->_params['hostspec'],
-                        'port'     => $this->_params['port']);
-        $this->_imap = Horde_Imap_Client::factory('Socket', $params);
+
+        $this->_imap = new Horde_Imap_Client_Socket(array(
+            'username' => $this->_params['admin_user'],
+            'password' => $this->_params['admin_password'],
+            'hostspec' => $this->_params['hostspec'],
+            'port'     => $this->_params['port']
+        ));
     }
 
     /**

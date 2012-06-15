@@ -135,7 +135,9 @@ class IMP_Imap implements Serializable
         }
 
         try {
-            $ob = Horde_Imap_Client::factory(($protocol == 'imap') ? 'Socket' : 'Socket_Pop3', $imap_config);
+            $ob = ($protocol == 'imap')
+                ? new Horde_Imap_Client_Socket($imap_config)
+                : new Horde_Imap_Client_Socket_Pop3($imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
             Horde::logMessage($error);

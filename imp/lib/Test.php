@@ -118,11 +118,11 @@ class IMP_Test extends Horde_Test
         );
 
         $driver = ($vars->server_type == 'imap')
-            ? 'Socket'
-            : 'Socket_Pop3';
+            ? 'Horde_Imap_Client_Socket'
+            : 'Horde_Imap_Client_Socket_Pop3';
 
         try {
-            $imap_client = Horde_Imap_Client::factory($driver, $imap_config);
+            $imap_client = new $driver($imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
             return $this->_errorMsg($e);
         }
@@ -137,7 +137,7 @@ class IMP_Test extends Horde_Test
 
         $ret .= '<span style="color:green">SUCCESS</span><p />';
 
-        if ($driver == 'Socket') {
+        if ($driver == 'Horde_Imap_Client_Socket') {
             $ret .= '<strong>The following IMAP server information was discovered from the server:</strong>' .
                 '<blockquote><em>Namespace Information</em><blockquote><pre>';
 
