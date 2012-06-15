@@ -2,6 +2,7 @@
 v5.0.22-git
 -----------
 
+[jan] Update Turkish translation (İstanbul Technical University).
 [jan] Re-add option to report messages as spam/ham through redirection.
 [jan] Update Swedish translation (Jakob Alvermark
       <jakob.alvermark@bsdlabs.com>).

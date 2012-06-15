@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Turkish translation (İstanbul Technical University).
 * [jan] Fix setting permissions on static/ directory with horde-set-perms (Bug #11219).
  </notes>
  <contents>
@@ -4680,6 +4681,7 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Turkish translation (İstanbul Technical University).
 * [jan] Fix setting permissions on static/ directory with horde-set-perms (Bug #11219).
    </notes>
   </release>
