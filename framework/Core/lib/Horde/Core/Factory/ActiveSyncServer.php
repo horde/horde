@@ -16,6 +16,9 @@ class Horde_Core_Factory_ActiveSyncServer extends Horde_Core_Factory_Injector
         );
         $server->setSupportedVersion($GLOBALS['conf']['activesync']['version']);
         $server->setLogger(new Horde_Core_ActiveSync_Logger_Factory());
+        if (!empty($GLOBALS['conf']['openssl']['cafile'])) {
+            $server->setRootCertificatePath($GLOBALS['conf']['openssl']['cafile']);
+        }
 
         return $server;
     }

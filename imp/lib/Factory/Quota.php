@@ -49,7 +49,7 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
          * session so we need to decrypt. */
         if (isset($params['password'])) {
             $secret = $injector->getInstance('Horde_Secret');
-            $params['password'] = $secret->read($secret->getKey('imp'), $params['password']);
+            $params['password'] = $secret->read($secret->getKey(), $params['password']);
         }
 
         $imap_ob = $injector->getInstance('IMP_Factory_Imap')->create();

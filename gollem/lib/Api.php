@@ -273,7 +273,6 @@ class Gollem_Api extends Horde_Registry_Api
         }
 
         return Horde::url('view.php')->add(array(
-            'actionID' => 'view_file',
             'dir' => $dir,
             'driver' => Gollem::$backend['driver'],
             'file' => $file,

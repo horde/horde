@@ -24,6 +24,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     const SPECIAL_TRASH  = 'trash';
     const SPECIAL_DRAFTS = 'drafts';
 
+    const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
+
 
     /**
      * Mappings for server uids -> display names. Populated in the const'r
@@ -130,22 +132,35 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Authenticate to Horde
      *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#Logon($username, $domain, $password)
+     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#authenticate
      */
-    public function logon($username, $password, $domain = null)
+    public function authenticate($username, $password, $domain = null)
     {
         $this->_logger->info('Horde_ActiveSync_Driver_Horde::logon attempt for: ' . $username);
-        parent::logon($username, $password, $domain);
+        parent::authenticate($username, $password, $domain);
 
-        return $this->_auth->authenticate($username, array('password' => $password));
+        if (!$this->_auth->authenticate($username, array('password' => $password))) {
+            return false;
+        }
+
+        if ($GLOBALS['injector']->getInstance('Horde_Perms')->exists('horde:activesync')) {
+            // Check permissions to ActiveSync
+            $perms = $GLOBALS['injector']
+                ->getInstance('Horde_Perms')
+                ->getPermissions('horde:activesync', $username);
+
+            return $this->_getPolicyValue('activesync', $perms);
+        }
+
+        return true;
     }
 
     /**
      * Clean up
      *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#Logoff()
+     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#removeAuthentication()
      */
-    public function logOff()
+    public function removeAuthentication()
     {
         $this->_connector->clearAuth();
         $this->_logger->info('User ' . $this->_user . ' logged off');
@@ -948,12 +963,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @param string $type   The search type; ['gal'|'mailbox']
      * @param array $query   The search query. An array containing:
-     *  - query: (mixed) The search term. Either a string if searching gal, or
-     *           an array for searching mailbox.
+     *  - query: array The search query. Contains at least:
+     *                 'query' and 'range'. The rest depends on the type of
+     *                 search being performed.
      *           DEFAULT: none, REQUIRED
      *  - range: (string)   A range limiter.
      *           DEFAULT: none (No range used).
-     *  -
      *
      * @return array  An array containing:
      *  - rows:   An array of search results
@@ -992,14 +1007,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         // Add From, but only if needed.
         if (!$headers->getValue('From')) {
-            $ident = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Identity')
-                ->create($this->_user);
-
-            $name = $ident->getValue('fullname');
-            $from_addr = $ident->getValue('from_addr');
-            $from = $name . '<' . $from_addr . '>';
-            $headers->addHeader('From', $from);
+            $headers->addHeader('From', $this->_getIdentityFromAddress());
         }
 
         // Use the raw base part parsed from the rfc822 message if we don't
@@ -1029,60 +1037,53 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $message = $raw_message->getMimeObject();
             $mail = new Horde_Mime_Mail();
             $mail->addHeaders($headers->toArray());
-            $id = $message->findBody();
-            if ($id) {
-                $newbody_text = $message->getPart($id)->getContents();
-            } else {
-                $newbody_text = '';
-            }
+            $body_id = $message->findBody();
+            $smart_body = $this->_getSmartText($message);
 
             // Handle smartReplies and smartForward requests.
             if ($reply) {
                 $this->_logger->debug('Preparing SMART_REPLY');
-                $imap_message = array_pop($this->_imap->getImapMessage($parent, $reply));
+                $imap_message = array_pop($this->_imap->getImapMessage($parent, $reply, array('headers' => true)));
                 if (empty($imap_message)) {
                     return false;
                 }
-                $data = $imap_message->getMessageBodyData();
-                if ($data['plain']['charset'] != 'UTF-8') {
-                    $quoted = Horde_String::convertCharset(
-                        $data['plain']['body'],
-                        $data['plain']['charset'],
-                        'UTF-8'
-                    );
-                } else {
-                    $quoted = $data['plain']['body'];
+                $part = $imap_message->getStructure();
+                $plain_id = $part->findBody('plain');
+                $html_id = $part->findBody('html');
+                if ($html_id) {
+                    $smart_text = $smart_body[0] == 'plain'
+                        ? self::text2html($smart_body[1])
+                        : $smart_body[1];
+                    $newbody_text_html = $smart_text . $this->_replyText($imap_message, $html_id, true);
                 }
-                $newbody_text .= "\r\n" . $quoted;
+                if ($plain_id) {
+                    $smart_text = $smart_body[0] == 'html'
+                        ? self::html2text($smart_body[1])
+                        : $smart_body[1];
+                    $newbody_text_plain .= $smart_text . $this->_replyText($imap_message, $plain_id);
+                }
             } elseif ($forward) {
                 $this->_logger->debug('Preparing SMART_FORWARD');
                 $imap_message = array_pop(
-                    $this->_imap->getImapMessage(
-                        $parent, $forward, array('headers' => true))
-                );
+                    $this->_imap->getImapMessage($parent, $forward, array('headers' => true)));
                 if (empty($imap_message)) {
-                    // Message gone.
                     return false;
                 }
-
-                // If forwarding as attachment (sadly most devices can't display
-                // message/rfc822 content-type).
-                $fwd = new Horde_Mime_Part();
-                $fwd->setType('message/rfc822');
-                $fwd->setContents($imap_message->getFullMsg());
-                $mail->addMimePart($fwd);
-
                 $from = $imap_message->getFromAddress();
                 $part = $imap_message->getStructure();
-                $id = $part->findBody();
-                if ($id) {
-                    $obody_text = $imap_message->getMimePart($id)->getContents();
-                    $fwd_headers = $imap_message->getHeaders();
-                    $msg_pre = "\n----- "
-                        . ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message"))
-                        . " -----\n" . $fwd_headers . "\n";
-                    $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
-                    $newbody_text .= $msg_pre . $obody_text . $msg_post;
+                $plain_id = $part->findBody('plain');
+                $html_id = $part->findBody('html');
+                if ($html_id) {
+                    $smart_text = $smart_body[0] == 'plain'
+                        ? self::text2html($smart_body[1])
+                        : $smart_body[1];
+                    $newbody_text_html = $smart_text . $this->_forwardText($imap_message, $html_id, true);
+                }
+                if ($plain_id) {
+                    $smart_text = $smart_body[0] == 'html'
+                        ? self::html2text($smart_body[1])
+                        : $smart_body[1];
+                    $newbody_text_plain = $smart_text . $this->_forwardText($imap_message, $plain_id);
                 }
                 foreach ($part->contentTypeMap() as $mid => $type) {
                     if ($imap_message->isAttachment($type)) {
@@ -1093,10 +1094,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
 
             // Set the mail email body and add any uploaded attachments.
-            $mail->setBody($newbody_text);
+            if (!empty($newbody_text_html)) {
+                $mail->setHtmlBody($newbody_text_html);
+            }
+            if (!empty($newbody_text_plain)) {
+                $mail->setBody($newbody_text_plain);
+            }
 
             foreach ($message->contentTypeMap() as $mid => $type) {
-                if ($mid != 0 && $mid != $id) {
+                if ($mid != 0 && $mid != $body_id) {
                     $part = $message->getPart($mid);
                     $mail->addMimePart($part);
                 }
@@ -1120,6 +1126,137 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         return true;
+    }
+
+    /**
+     * Return the text sent from the device in the SMART[FORWARD|REPLY] request.
+     *
+     * @param Horde_Mime_Part $part  The mime part containing the message body.
+     *
+     * @return array  An array containing the body type [plain|html] and the
+     *                message body.
+     */
+    protected function _getSmartText(Horde_Mime_Part $part)
+    {
+        $id = $part->findBody('html');
+        if ($id) {
+            $type = 'html';
+        } else {
+            $id = $part->findBody();
+            $type = 'plain';
+        }
+
+        return array($type, $part->getPart($id)->getContents());
+    }
+
+    /**
+     * Return the body of the forwarded message in the appropriate type.
+     *
+     * @param Horde_ActiveSync_Imap_Message $message  The imap message object.
+     * @param integer $partID                         The body's mime id.
+     * @param boolean $html                           Is this an html part?
+     *
+     * @return string  The propertly formatted forwarded body text.
+     */
+    protected function _forwardText(Horde_ActiveSync_Imap_Message $message, $partId, $html = false)
+    {
+        $part = $message->getMimePart($partId);
+        $fwd_headers = $message->getHeaders();
+        $from = $message->getFromAddress();
+        $msg = $this->_msgBody($part, $html);
+        $msg_pre = "\n----- "
+            . ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message"))
+            . " -----\n" . $fwd_headers . "\n";
+        $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
+
+        return ($html ? self::text2html($msg_pre) : $msg_pre)
+            . $msg
+            . ($html ? self::text2html($msg_post) : $msg_post);
+    }
+
+    /**
+     * Return the body of the replied message in the appropriate type.
+     *
+     * @param Horde_ActiveSync_Imap_Message $message  The imap message object.
+     * @param integer $partID                         The body's mime id.
+     * @param boolean $html                           Is this an html part?
+     *
+     * @return string  The propertly formatted replied body text.
+     */
+    protected function _replyText(Horde_ActiveSync_Imap_Message $message, $partId, $html)
+    {
+        $part = $message->getMimePart($partId);
+        $headers = $message->getHeaders();
+        $from = strval($headers->getOb('from'));
+        $msg_pre = $from ? sprintf(_("Quoting %s"), $from) : _("Quoted") . "\n\n";
+        $msg = $this->_msgBody($part, $html, true);
+        if (!empty($msg) && $html) {
+            $msg = '<p>' . $this->text2html($msg_pre) . '</p>'
+                . self::HTML_BLOCKQUOTE . $msg . '</blockquote><br /><br />';
+        } else {
+            $msg = empty($msg)
+                ? '[' . _("No message body text") . ']'
+                : $msg_pre . $msg;
+        }
+
+        return $msg;
+    }
+
+    /**
+     * Return the body text of the original email from a smart request.
+     *
+     * @param Horde_Mime_Part $part  The message's main mime part.
+     * @param boolean $html          Do we want an html body?
+     * @param boolean $flow          Should the body be flowed?
+     *
+     * @return string  The properly formatted/flowed message body.
+     */
+    protected function _msgBody(Horde_Mime_Part $part, $html, $flow = false)
+    {
+        $msg = Horde_String::convertCharset($part->getContents(), $part->getCharset(), 'UTF-8');
+        trim($msg);
+        if (!$html) {
+            if ($part->getContentTypeParameter('format') == 'flowed') {
+                $flowed = new Horde_Text_Flowed($msg, 'UTF-8');
+                if (Horde_String::lower($part->getContentTypeParameter('delsp')) == 'yes') {
+                    $flowed->setDelSp(true);
+                }
+                $flowed->setMaxLength(0);
+                $msg = $flowed->toFixed(false);
+            } else {
+                // If not flowed, remove padding at eol
+                $msg = preg_replace("/\s*\n/U", "\n", $msg);
+            }
+            if ($flow) {
+                $flowed = new Horde_Text_Flowed($msg, 'UTF-8');
+                $msg = $flowed->toFlowed(true);
+            }
+        }
+
+        return $msg;
+    }
+
+    /**
+     * Shortcut function to convert text -> HTML.
+     *
+     * @param string $msg  The message text.
+     *
+     * @return string  HTML text.
+     */
+    static public function text2html($msg)
+    {
+        return $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_TextFilter')
+            ->filter($msg, 'Text2html', array(
+                'flowed' => self::HTML_BLOCKQUOTE,
+                'parselevel' => Horde_Text_Filter_Text2html::MICRO)
+        );
+    }
+
+    static public function html2text($msg)
+    {
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')
+            ->filter($msg, 'Html2text');
     }
 
     /**
@@ -1178,17 +1315,28 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Return the security policies.
-     *
-     * @param string  $policyType  The type of policy to return. One of:
-     *  - Horde_ActiveSync::POLICYTYPE_XML
-     *  - Horde_ActiveSync::POLICYTYPE_WBXML
+     * Return the security policies
      *
      * @return array  An array of provisionable properties and values.
      */
-    public function getCurrentPolicy($policyType)
+    public function getCurrentPolicy()
     {
-        return $this->_policies;
+        return $this->_getPolicyFromPerms();
+    }
+
+    /**
+     * Returns the provisioning support for the current request.
+     *
+     * @return mixed  The value of the provisiong support flag.
+     */
+    public function getProvisioning()
+    {
+        $provisioning = $GLOBALS['injector']
+            ->getInstance('Horde_Perms')
+            ->getPermissions(
+                'horde:activesync:provisioning',
+                $this->_user);
+        return $this->_getPolicyValue('provisioning', $provisioning);
     }
 
     /**
@@ -1318,6 +1466,144 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         default:
             return $email;
         }
+    }
+
+    /**
+     * Handle ResolveRecipient requests
+     *
+     * @param string $type    The type of recipient request. e.g., 'certificate'
+     * @param string $search  The email to resolve.
+     * @param array $opts  Any options required to perform the resolution.
+     *
+     * @return array  The results.
+     */
+    public function resolveRecipient($type, $search, array $opts = array())
+    {
+        $return = array();
+        $gal = $this->_connector->contacts_getGal();
+        $results = $this->_connector->resolveRecipient($search);
+        if (count($results) && isset($results[$search])) {
+            foreach ($results[$search] as $result) {
+                // Do maxabiguous filtering etc...
+                $return[] = array(
+                    'displayname' => $result['name'],
+                    'emailaddress' => $result['email'],
+                    'entries' => array($this->_mungeCert($result['smimePublicKey'])),
+                    'type' => $result['source'] == $gal ? 1 : 2
+                );
+            }
+        }
+
+        return $return;
+    }
+
+    /**
+     * Handle meeting responses.
+     *
+     * @param array $response  The response data. Contains:
+     *   - requestid: The identifier of the meeting request. Used by the server
+     *                to fetch the original meeting request details.
+     *   - response:  The user's response to the request. One of the response
+     *                code constants.
+     *   - folderid:  The collection id that contains the meeting request.
+     *   -
+     *
+     * @return string  The UID of any created calendar entries, otherwise false.
+     * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
+     */
+    public function meetingResponse(array $response)
+    {
+        // First thing we need is to obtain the meeting request.
+        $imap_message = $this->_imap->getImapMessage($response['folderid'], $response['requestid']);
+        $imap_message = $imap_message[$response['requestid']];
+
+        // Find the request
+        if (!$part = $imap_message->hasMeetingRequest()) {
+            $this->_logger->err('Unable to find the meeting request.');
+            throw new Horde_Exception_NotFound();
+        }
+
+        // Parse the vCal
+        $vCal = new Horde_Icalendar();
+        $data = $part->getContents();
+        if (!$vCal->parsevCalendar($data, 'VCALENDAR', $part->getCharset())) {
+            throw new Horde_ActiveSync_Exception('Unknown error parsing vCal data.');
+        }
+        if (!$vEvent = $vCal->findComponent('vEvent')) {
+            throw new Horde_ActiveSync_Exception('Unknown error locating vEvent.');
+        }
+
+        // Create an event from the vEvent.
+        // Note we don't use self::changeMessage since we don't want to treat
+        // this as an incoming message addition from the PIM. Otherwise, the
+        // message may not get synched back to the PIM.
+        try {
+            $uid = $this->_connector->calendar_import_vevent($vEvent);
+        } catch (Horde_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            throw new Horde_ActiveSync_Exception($e);
+        }
+
+        // Start building the iTip response email.
+        try {
+            $organizer = parse_url($vEvent->getAttribute('ORGANIZER'));
+            $organizer = $organizer['path'];
+        } catch (Horde_Icalendar_Exception $e) {
+            $this->_logger->err('Unable to find organizer.');
+            throw new Horde_ActiveSync_Exception($e);
+        }
+        $ident = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->_user);
+        $cn= $ident->getValue('fullname');
+        $email = $ident->getValue('from_addr');
+
+        // Can't use Horde_Itip_Resource_Identity since it takes an IMP identity
+        $resource = new Horde_Itip_Resource_Base($email, $cn);
+
+        switch ($response['response']) {
+        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_ACCEPTED:
+            $type = new Horde_Itip_Response_Type_Accept($resource);
+            break;
+        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_DENIED:
+            $type = new Horde_Itip_Response_Type_Decline($resource);
+            break;
+        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_TENTATIVE:
+            $type = new Horde_Itip_Response_Type_Tentative($resource);
+            break;
+        }
+
+        // Note we don't use the Itip factory because we need to access the
+        // Horde_Itip_Response directly in order to save the response email to
+        // the sent items folder.
+        $itip_response = new Horde_Itip_Response(
+            new Horde_Itip_Event_Vevent($vEvent),
+            $resource
+        );
+        $itip_handler = new Horde_Itip($itip_response);
+
+        try {
+            // Send the response email
+            $itip_handler->sendMultiPartResponse(
+                $type,
+                new Horde_Itip_Response_Options_Horde(
+                    'UTF-8',
+                    array(
+                        'dns' => $GLOBALS['injector']->getInstance('Net_DNS2_Resolver'),
+                        'server' => $GLOBALS['conf']['server']['name']
+                    )
+                ),
+                $GLOBALS['injector']->getInstance('Horde_Mail')
+            );
+            $this->_logger->debug('Successfully sent iTip response.');
+        } catch (Horde_Itip_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            throw new Horde_ActiveSync_Exception($e);
+        }
+
+        // @TODO Copy to sent items.
+
+        return $uid;
     }
 
     /**
@@ -1560,7 +1846,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
     }
 
-    protected function _hasAttachments($mime_part)
+    /**
+     * Return if the specified mime part has attachments.
+     *
+     * @param Horde_Mime_Part $mime_part  The mime part.
+     *
+     * @return boolean
+     */
+    protected function _hasAttachments(Horde_Mime_Part $mime_part)
     {
         foreach ($mime_part->contentTypeMap() as $type) {
             if ($this->_isAttachment($type)) {
@@ -1603,6 +1896,107 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         default:
             return true;
         }
+    }
+
+    /**
+     * Removes the beginning/ending delimiters from the certificate.
+     *
+     * @param string $cert  The certificate text.
+     *
+     * @return string  The certificate text, with delimiters removed.
+     */
+    protected function _mungeCert($cert)
+    {
+        $cert = str_replace("-----BEGIN CERTIFICATE-----", '', $cert);
+        $cert = str_replace("-----END CERTIFICATE-----", '', $cert);
+
+        return $cert;
+    }
+
+    /**
+     * Return a policy array suitable for transforming into either wbxml or xml
+     * to send to the device in the provision response.
+     *
+     * @return array
+     */
+    protected function _getPolicyFromPerms()
+    {
+        $prefix = 'activesync:provisioning:';
+        $policy = array();
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        if (!$provisioning = $perms->exists('horde:activesync:provisioning')) {
+            return $policy;
+        }
+
+        $policies = new Horde_ActiveSync_Policies(null, $this->_version);
+        $properties = $policies->getAvailablePolicies();
+        foreach ($properties as $property) {
+            if ($perms->exists($prefix . $property)) {
+                $p = $perms->getPermissions($prefix . $property, $this->_user);
+                $policy[$property] = $this->_getPolicyValue($property, $p);
+            }
+        }
+
+        return $policy;
+    }
+
+    protected function _getPolicyValue($policy, $allowed)
+    {
+        if (is_array($allowed)) {
+            switch ($policy) {
+            case 'activesync':
+            case Horde_ActiveSync_Policies::POLICY_ATC:
+            case Horde_ActiveSync_Policies::POLICY_PIN:
+            case Horde_ActiveSync_Policies::POLICY_COMPLEXITY:
+            case Horde_ActiveSync_Policies::POLICY_MAXFAILEDATTEMPTS:
+            case Horde_ActiveSync_Policies::POLICY_CODEFREQ:
+            case Horde_ActiveSync_Policies::POLICY_AEFVALUE:
+            case Horde_ActiveSync_Policies::POLICY_MAXATCSIZE:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_SDCARD:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_CAMERA:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_SMS:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_WIFI:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_BLUETOOTH:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_POPIMAP:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_BROWSER:
+            case Horde_ActiveSync_Policies::POLICY_ALLOW_HTML:
+            case Horde_ActiveSync_Policies::POLICY_MAX_EMAIL_AGE:
+                $allowed = max($allowed);
+                break;
+            case Horde_ActiveSync_Policies::POLICY_MINLENGTH:
+            case Horde_ActiveSync_Policies::POLICY_ROAMING_NOPUSH:
+                $allowed = min($allowed);
+                break;
+            case 'provisioning':
+                if (array_search('false', $allowed) !== false) {
+                    $allowed = Horde_ActiveSync::PROVISIONING_NONE;
+                } elseif (array_search('allow', $allowed) !== false) {
+                    $allowed = Horde_ActiveSync::PROVISIONING_LOOSE;
+                } elseif (array_search('true', $allowed) !== false) {
+                    $allowed = Horde_ActiveSync::PROVISIONING_FORCE;
+                }
+                break;
+            }
+        }
+
+        return $allowed;
+    }
+
+    /**
+     * Return the current user's From/Reply_To address.
+     *
+     * @return string
+     */
+    protected function _getIdentityFromAddress()
+    {
+        $ident = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->_user);
+
+        $name = $ident->getValue('fullname');
+        $from_addr = $ident->getValue('from_addr');
+
+        return $name . ' <' . $from_addr . '>';
     }
 
 }

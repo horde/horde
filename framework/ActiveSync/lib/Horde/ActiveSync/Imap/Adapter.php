@@ -541,6 +541,7 @@ class Horde_ActiveSync_Imap_Adapter
         }
         $mbox = new Horde_Imap_Client_Mailbox($mailbox);
         $messages = $this->_getMailMessages($mbox, $uid, $options);
+        $res = array();
         foreach ($messages as $id => $message) {
             $res[$id] = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
         }
@@ -685,7 +686,7 @@ class Horde_ActiveSync_Imap_Adapter
      *   - flags: (boolean) Fetch messagge flags.
      *            DEFAULT: true (Fetch message flags).
      *
-     * @return array An array of Horde_Imap_Client_Data_Fetch objects.
+     * @return Horde_Imap_Fetch_Results  The results.
      * @throws Horde_ActiveSync_Exception
      */
     protected function _getMailMessages(
@@ -807,13 +808,12 @@ class Horde_ActiveSync_Imap_Adapter
                     if (!empty($message_body_data['plain'])) {
                         $plain_mime = new Horde_Mime_Part();
                         $plain_mime->setType('text/plain');
-                        if ($message_body_data['plain']['charset'] != 'UTF-8') {
-                            $message_body_data['plain']['body'] = Horde_String::convertCharset(
-                                $message_body_data['plain']['body'],
-                                $message_body_data['plain']['charset'],
-                                'UTF-8'
-                            );
-                        }
+                        $message_body_data['plain']['body'] = Horde_String::convertCharset(
+                            $message_body_data['plain']['body'],
+                            $message_body_data['plain']['charset'],
+                            'UTF-8',
+                            true
+                        );
                         $plain_mime->setContents($message_body_data['plain']['body']);
                         $plain_mime->setCharset('UTF-8');
                         $mime->addPart($plain_mime);
@@ -877,13 +877,12 @@ class Horde_ActiveSync_Imap_Adapter
                 } else {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
                 }
-                if ($message_body_data['html']['charset'] != 'UTF-8') {
-                    $message_body_data['html']['body'] = Horde_String::convertCharset(
-                        $message_body_data['html']['body'],
-                        $message_body_data['html']['charset'],
-                        'UTF-8'
-                    );
-                }
+                $message_body_data['html']['body'] = Horde_String::convertCharset(
+                    $message_body_data['html']['body'],
+                    $message_body_data['html']['charset'],
+                    'UTF-8',
+                    true
+                );
                 $airsync_body->estimateddatasize = $message_body_data['html']['estimated_size'];
                 $airsync_body->truncated = $message_body_data['html']['truncated'];
                 $airsync_body->data = $message_body_data['html']['body'];
@@ -891,13 +890,15 @@ class Horde_ActiveSync_Imap_Adapter
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
             } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) || !$haveData) {
                 $this->_logger->debug('Sending PLAINTEXT Message.');
-                if ($message_body_data['plain']['charset'] != 'UTF-8') {
-                    $message_body_data['plain']['body'] = Horde_String::convertCharset(
-                        $message_body_data['plain']['body'],
-                        $message_body_data['plain']['charset'],
-                        'UTF-8'
-                    );
-                }
+
+                // We must ensure we convert to UTF-8, so force the conversion
+                // to catch buggy messages that incorrectly report UTF-8.
+                $message_body_data['plain']['body'] = Horde_String::convertCharset(
+                    $message_body_data['plain']['body'],
+                    $message_body_data['plain']['charset'],
+                    'UTF-8',
+                    true
+                );
                 $airsync_body->estimateddatasize = $message_body_data['plain']['size'];
                 $airsync_body->truncated = $message_body_data['plain']['truncated'];
                 $airsync_body->data = $message_body_data['plain']['body'];
@@ -907,9 +908,19 @@ class Horde_ActiveSync_Imap_Adapter
             }
         }
 
+        // Check for meeting requests.
+        if ($mime_part = $imap_message->hasMeetingRequest()) {
+            $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
+            $mtg = new Horde_ActiveSync_Message_MeetingRequest();
+            $mtg->fromMimePart($mime_part);
+            $eas_message->meetingrequest = $mtg;
+            $eas_message->contentclass = 'urn:content-classes:calendarmessage';
+        } else {
+            $eas_message->contentclass = 'urn:content-classes:message';
+        }
+
         // POOMMAIL_FLAG
         if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
-            $eas_message->contentclass = 'urn:content-classes:message';
             $poommail_flag = new Horde_ActiveSync_Message_Flag();
             $poommail_flag->subject = $imap_message->getSubject();
             $poommail_flag->flagstatus = $imap_message->getFlag(Horde_Imap_Client::FLAG_FLAGGED)

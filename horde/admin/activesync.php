@@ -39,7 +39,10 @@ if ($actionID = Horde_Util::getPost('actionID')) {
         break;
 
     case 'delete':
-        $stateMachine->removeState(null, $deviceID, Horde_Util::getPost('uid'));
+        $stateMachine->removeState(array(
+            'devId' => $deviceID,
+            'user' => Horde_Util::getPost('uid'))
+        );
         $GLOBALS['notification']->push(_("Device successfully removed."), 'horde.success');
         break;
 

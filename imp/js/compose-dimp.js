@@ -206,7 +206,7 @@ var DimpCompose = {
             // We need a submit action here because browser security models
             // won't let us access files on user's filesystem otherwise.
             this.uploading = true;
-            c.submit();
+            HordeCore.submit(c);
         } else {
             // Move HTML text to textarea field for submission.
             if (ImpComposeBase.editor_on) {
@@ -1203,16 +1203,7 @@ document.observe('SpellChecker:error', DimpCompose._onSpellCheckError.bind(DimpC
 document.observe('SpellChecker:noerror', DimpCompose._onSpellCheckNoError.bind(DimpCompose));
 
 /* Catch dialog actions. */
-document.observe('HordeDialog:success', function(e) {
-    switch (e.memo) {
-    case 'pgpPersonal':
-    case 'pgpSymmetric':
-    case 'smimePersonal':
-        HordeDialog.noreload = true;
-        DimpCompose.retrySubmit();
-        break;
-    }
-});
+document.observe('ImpPassphraseDialog:success', DimpCompose.retrySubmit.bind(DimpCompose));
 
 /* Catch tasks. */
 document.observe('HordeCore:runTasks', function(e) {

@@ -555,6 +555,8 @@ class Horde_Icalendar
             $this->clear();
         }
 
+        $text = Horde_String::trimUtf8Bom($text);
+
         if (preg_match('/^BEGIN:' . $base . '(.*)^END:' . $base . '/ism', $text, $matches)) {
             $container = true;
             $vCal = $matches[1];

@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_String:: class provides static methods for charset and locale
- * safe string manipulation.
+ * Provides static methods for charset and locale safe string manipulation.
  *
  * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
@@ -777,14 +776,25 @@ class Horde_String
          * example, by various versions of Outlook to send Korean characters.
          * Use UHC (CP949) encoding instead. See, e.g.,
          * http://lists.w3.org/Archives/Public/ietf-charsets/2001AprJun/0030.html */
-        if ($charset == 'UTF-8' || $charset == 'utf-8') {
-            return $charset;
-        }
-        if (in_array(self::lower($charset), array('ks_c_5601-1987', 'ks_c_5601-1989'))) {
-            $charset = 'UHC';
-        }
+        return in_array(self::lower($charset), array('ks_c_5601-1987', 'ks_c_5601-1989'))
+            ? 'UHC'
+            : $charset;
+    }
 
-        return $charset;
+    /**
+     * Strip UTF-8 byte order mark (BOM) from string data.
+     *
+     * @since 1.4.0
+     *
+     * @param string $str  Input string (UTF-8).
+     *
+     * @return string  Stripped string (UTF-8).
+     */
+    static public function trimUtf8Bom($str)
+    {
+        return (substr($str, 0, 3) == pack('CCC', 239, 187, 191))
+            ? substr($str, 3)
+            : $str;
     }
 
 }

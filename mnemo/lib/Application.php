@@ -117,8 +117,8 @@ class Mnemo_Application extends Horde_Registry_Application
 
     /**
      */
-    public function topbarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
     {
         $add = Horde::url('memo.php')->add('actionID', 'add_memo');
 
@@ -198,6 +198,54 @@ class Mnemo_Application extends Horde_Registry_Application
         if ($error) {
             throw new Mnemo_Exception(sprintf(_("There was an error removing notes for %s. Details have been logged."), $user));
         }
+    }
+
+    /* Download data. */
+
+    /**
+     * @throws Mnemo_Exception
+     */
+    public function download(Horde_Variables $vars)
+    {
+        global $injector, $registry;
+
+        switch ($vars->actionID) {
+        case 'export':
+            /* Create a Mnemo storage instance. */
+            $storage = $injector->getInstance('Mnemo_Factory_Driver')->create($registry->getAuth());
+            $storage->retrieve();
+
+            /* Get the full, sorted memo list. */
+            $notes = Mnemo::listMemos();
+
+            switch ($vars->exportID) {
+            case Horde_Data::EXPORT_CSV:
+                if (count($notes) == 0) {
+                    throw new Mnemo_Exception(_("There were no memos to export."));
+                }
+                                                                                                $data = array();
+                foreach ($notes as $note) {
+                    unset(
+                        $note['desc'],
+                        $note['memo_id'],
+                        $note['memolist_id'],
+                        $nore['uid']
+                    );
+                    $data[] = $note;
+                }
+
+                $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("notes.csv"), $data, true);
+                exit;
+            }
+        }
+    }
+
+    /**
+     */
+    public function cleanupData()
+    {
+        $GLOBALS['import_step'] = 1;
+        return Horde_Data::IMPORT_FILE;
     }
 
 }

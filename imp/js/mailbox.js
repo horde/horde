@@ -133,10 +133,10 @@ var ImpMailbox = {
                        target.startsWith("tasklist\0")) {
                 this.actIDconfirm = actID;
                 HordeDialog.display({
-                    cancel_text: this.text.no,
+                    cancel_text: IMP.text.no,
                     form_id: 'RB_ImpMailboxConfirm',
                     noinput: true,
-                    ok_text: this.text.yes,
+                    ok_text: IMP.text.yes,
                     text: IMP.text.moveconfirm
                 });
             } else {

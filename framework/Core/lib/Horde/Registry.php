@@ -281,7 +281,7 @@ class Horde_Registry
         }
 
         if (!$args['nocompress']) {
-            Horde::compressOutput();
+            $GLOBALS['page_output']->startCompression();
         }
 
         if ($args['user_admin']) {
@@ -1320,7 +1320,7 @@ class Horde_Registry
 
         case 'download':
             return Horde::url('services/download/', false, $opts)
-                ->add('module', $app);
+                ->add('app', $app);
 
         case 'emailconfirm':
             return Horde::url('services/confirm.php', false, $opts);
@@ -1980,25 +1980,6 @@ class Horde_Registry
     }
 
     /**
-     * Destroys any existing session on login and make sure to use a new
-     * session ID, to avoid session fixation issues. Should be called before
-     * checking a login.
-     */
-    public function getCleanSession()
-    {
-        if ($GLOBALS['session']->clean() &&
-            !empty($GLOBALS['conf']['session']['timeout'])) {
-            /* Reset cookie timeouts, if necessary. */
-            $app = $this->getApp();
-            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            if ($secret->clearKey($app)) {
-                $secret->setKey($app);
-            }
-            $secret->setKey('auth');
-        }
-    }
-
-    /**
      * Clears any authentication tokens in the current session.
      *
      * @param boolean $destroy  Destroy the session?
@@ -2155,6 +2136,27 @@ class Horde_Registry
     }
 
     /**
+     * Returns a URL to be used for downloading data.
+     *
+     * @param string $filename  The filename of the download data.
+     * @param array $params     Additional URL parameters needed.
+     *
+     * @return Horde_Url  The download URL. This URL should be used as-is,
+     *                    since the filename MUST be the last parameter added
+     *                    to the URL.
+     */
+    public function downloadUrl($filename, array $params = array())
+    {
+        return $this->getServiceLink('download', $this->getApp())
+            /* Add parameters. */
+            ->add($params)
+            /* Add the filename to the end of the URL. Although not necessary
+             * for many browsers, this should allow every browser to download
+             * correctly. */
+            ->add('fn', '/' . rawurlencode($filename));
+    }
+
+    /**
      * Converts an authentication username to a unique Horde username.
      *
      * @param string $username  The username to convert.
@@ -2289,7 +2291,7 @@ class Horde_Registry
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        $entry = $secret->write($secret->getKey('auth'), serialize($credentials));
+        $entry = $secret->write($secret->getKey(), serialize($credentials));
 
         if (($base_app = $session->get('horde', 'auth/credentials')) &&
             ($session->get('horde', 'auth_app/' . $base_app) == $entry)) {
@@ -2331,7 +2333,7 @@ class Horde_Registry
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        $data = $secret->read($secret->getKey('auth'),
+        $data = $secret->read($secret->getKey(),
                               $session->get('horde', 'auth_app/' . $app));
         return @unserialize($data);
     }

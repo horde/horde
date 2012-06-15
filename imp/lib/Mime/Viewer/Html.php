@@ -135,7 +135,8 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         } else {
             if ($inline) {
                 $imgview = new IMP_Ui_Imageview();
-                $blockimg = !$imgview->showInlineImage($contents);
+                $blockimg = !$imgview->showInlineImage($contents) &&
+                            ($registry->getView() != $registry::VIEW_SMARTMOBILE);
             } else {
                 $blockimg = false;
             }
@@ -288,8 +289,8 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             if ($node->hasAttribute('href')) {
                 $url = parse_url($node->getAttribute('href'));
                 if (isset($url['scheme']) && ($url['scheme'] == 'mailto')) {
-                    /* We don't include Horde.popup() in IFRAME, so need to
-                     * use 'simple' links. */
+                    /* We don't include HordePopup in IFRAME, so need to use
+                     * 'simple' links. */
                     $node->setAttribute('href', IMP::composeLink($node->getAttribute('href'), array(), true));
                     $node->removeAttribute('target');
                 } elseif (!empty($this->_imptmp['inline']) &&

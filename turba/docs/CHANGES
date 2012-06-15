@@ -8,9 +8,17 @@ v4.0-git
 
 
 -----------
-v3.0.14-git
+v3.0.15-git
 -----------
 
+[jan] Fix strict searching in favourites driver (Bug #11207).
+
+
+-------
+v3.0.14
+-------
+
+[jan] Update Swedish translation (Per Olof Ljungmark <peo@bsdlabs.com>).
 [jan] Update Italian translation (Emilien <emilien@wifi.e4a.it>).
 [jan] Fix number of contacts in a list that cannot be displayed.
 [jan] Update Slovak translation (Marika Schvarczova

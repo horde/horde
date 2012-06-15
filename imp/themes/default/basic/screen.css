@@ -111,7 +111,7 @@ ul.msgactions, ul.msgactions ul {
 .msgactions a.hasmenu {
     padding-right: 15px;
     margin-right: -3px;
-    background: url("graphics/popdown.png") no-repeat center right;
+    background: url("../graphics/popdown.png") no-repeat center right;
 }
 .msgactions li a {
     font-size: 90%;

@@ -250,13 +250,6 @@ class IMP_Ajax_Application_ShowMessage
         $part_info = $part_info_display = array('icon', 'description', 'size', 'download', 'download_zip');
         $part_info_display[] = 'print';
 
-        /* Allow stripping of attachments? */
-        if ($GLOBALS['prefs']->getValue('strip_attachments')) {
-            $contents_mask |= IMP_Contents::SUMMARY_STRIP_STUB;
-            $part_info[] = 'strip';
-            $part_info_display[] = 'strip';
-        }
-
         /* Do MDN processing now. */
         if ($imp_ui->MDNCheck($this->_mbox, $this->_uid, $mime_headers)) {
             $status = new IMP_Mime_Status(array(
@@ -313,7 +306,7 @@ class IMP_Ajax_Application_ShowMessage
             $result['atc_list'] = $tmp;
         }
 
-        $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $this->_mbox->urlParams($this->_uid)));
+        $result['save_as'] = $GLOBALS['registry']->downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $this->_mbox->urlParams($this->_uid)));
 
         if ($preview) {
             try {

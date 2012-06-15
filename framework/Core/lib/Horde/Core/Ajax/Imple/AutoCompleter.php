@@ -29,9 +29,8 @@ abstract class Horde_Core_Ajax_Imple_AutoCompleter extends Horde_Core_Ajax_Imple
 
         if (!self::$_initAc) {
             $page_output->addScriptFile('autocomplete.js', 'horde');
-            $page_output->addScriptFile('keynavlist.js', 'horde');
             $page_output->addScriptFile('liquidmetal.js', 'horde');
-            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+            $page_output->addScriptPackage('Keynavlist');
 
             $page_output->addInlineJsVars(array(
                 'HordeImple.AutoCompleter' => new stdClass

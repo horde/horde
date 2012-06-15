@@ -372,16 +372,10 @@ class Ansel_View_Image extends Ansel_View_Ansel
 
         /* Output the js if we are calling via the api */
         if (!empty($this->_params['api'])) {
-            $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
-            $includes->add('scriptaculous/effects.js', array(
-                'app' => 'horde',
-                'full' => true
-            ));
-            $includes->add('stripe.js', array(
-                'app' => 'horde',
-                'full' => true
-            ));
-            $includes->includeFiles();
+            foreach (array('prototype.js', 'stripe.js', 'scriptaculous/effects.js') as $val) {
+                $tmp = new Horde_Script_File_JsDir($val, 'horde');
+                echo $tmp->tag_full;
+            }
         }
 
         require ANSEL_TEMPLATES . '/view/image.inc';

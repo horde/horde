@@ -282,8 +282,8 @@ class Gollem_Application extends Horde_Registry_Application
 
     /**
      */
-    public function topbarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
     {
         $icon = Horde_Themes::img('gollem.png');
         $url = Horde::url('manager.php');
@@ -300,6 +300,31 @@ class Gollem_Application extends Horde_Registry_Application
                 )
             ));
         }
+    }
+
+    /* Download data. */
+
+    /**
+     * URL parameters needed:
+     *   - dir
+     *   - driver
+     *
+     * @throws Horde_Vfs_Exception
+     */
+    public function download(Horde_Variables $vars)
+    {
+        $vfs = $GLOBALS['injector']->getInstance('Gollem_Factory_Vfs')->create($vars->driver);
+        $res = array(
+            'data' => is_callable(array($vfs, 'readStream'))
+                ? $vfs->readStream($vars->dir, $vars->filename)
+                : $vfs->read($vars->dir, $vars->filename)
+        );
+
+        try {
+            $res['size'] = $vfs->size($vars->dir, $vars->filename);
+        } catch (Horde_Vfs_Exception $e) {}
+
+        return $res;
     }
 
 }

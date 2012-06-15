@@ -15,6 +15,13 @@
 abstract class Horde_Data_Base
 {
     /**
+     * Storage object.
+     *
+     * @var Horde_Data_Storage
+     */
+    public $storage;
+
+    /**
      * Browser object.
      *
      * @var Horde_Browser
@@ -43,13 +50,6 @@ abstract class Horde_Data_Base
     protected $_extension = '';
 
     /**
-     * Storage object.
-     *
-     * @var Horde_Data_Storage
-     */
-    protected $_storage;
-
-    /**
      * Variables object.
      *
      * @var Horde_Variables
@@ -75,7 +75,7 @@ abstract class Horde_Data_Base
     public function __construct(Horde_Data_Storage $storage,
                                 array $params = array())
     {
-        $this->_storage = $storage;
+        $this->storage = $storage;
 
         if (isset($params['browser'])) {
             $this->_browser = $params['browser'];
@@ -281,7 +281,7 @@ abstract class Horde_Data_Base
             if ($_FILES['import_file']['size'] <= 0) {
                 throw new Horde_Data_Exception(Horde_Data_Translation::t("The file contained no data."));
             }
-            $this->_storage->set('format', $this->_vars->import_format);
+            $this->storage->set('format', $this->_vars->import_format);
             break;
 
         case Horde_Data::IMPORT_MAPPED:
@@ -292,7 +292,7 @@ abstract class Horde_Data_Base
             $appKeys = explode("\t", $this->_vars->appKeys);
             $dates = $map = array();
 
-            if (!$import_data = $this->_storage->get('data')) {
+            if (!$import_data = $this->storage->get('data')) {
                 $import_data = array();
             }
 
@@ -314,11 +314,11 @@ abstract class Horde_Data_Base
                 }
             }
 
-            $this->_storage->set('map', $map);
+            $this->storage->set('map', $map);
             if (count($dates) > 0) {
                 foreach ($dates as $key => $data) {
                     if (count($data['values'])) {
-                        $this->_storage->set('dates', $dates);
+                        $this->storage->set('dates', $dates);
                         return Horde_Data::IMPORT_DATETIME;
                     }
                 }
@@ -339,15 +339,15 @@ abstract class Horde_Data_Base
                 );
             }
 
-            if (!$this->_storage->exists('data')) {
+            if (!$this->storage->exists('data')) {
                 throw new Horde_Data_Exception(Horde_Data_Translation::t("The uploaded data was lost since the previous step."));
             }
 
             /* Build the result data set as an associative array. */
             $data = array();
-            $data_map = $this->_storage->get('map');
+            $data_map = $this->storage->get('map');
 
-            foreach ($this->_storage->get('data') as $row) {
+            foreach ($this->storage->get('data') as $row) {
                 $data_row = array();
                 foreach ($row as $key => $val) {
                     if (isset($data_map[$key])) {
@@ -376,10 +376,10 @@ abstract class Horde_Data_Base
      */
     public function cleanup()
     {
-        if ($filename = $this->_storage->get('file_name')) {
+        if ($filename = $this->storage->get('file_name')) {
             @unlink($filename);
         }
-        $this->_storage->clear();
+        $this->storage->clear();
 
         if ($this->_cleanupCallback) {
             return call_user_func($this->_cleanupCallback);

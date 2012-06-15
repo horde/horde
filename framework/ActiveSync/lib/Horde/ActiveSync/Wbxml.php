@@ -403,7 +403,7 @@ class Horde_ActiveSync_Wbxml
                 0x14 => 'MaxAmbiguousRecipients',
                 0x15 => 'CertificateCount',
             ),
-            /* VALIDATECERTS */
+            /* VALIDATECERT */
             0xb => array (
                 0x05 => 'ValidateCert',
                 0x06 => 'Certificates',
@@ -650,20 +650,20 @@ class Horde_ActiveSync_Wbxml
         ),
 
         'namespaces' => array(
-              1 => 'POOMCONTACTS',
-              2 => 'POOMMAIL',
-              4 => 'POOMCAL',
-              5 => 'Move',
-              6 => 'GetItemEstimate',
-              7 => 'FolderHierarchy',
-              8 => 'MeetingResponse',
-              9 => 'POOMTASKS',
-              0xA => 'ResolveRecipients',
-              0xB => 'ValidateCerts',
-              0xC => 'POOMCONTACTS2',
-              0xD => 'Ping',
-              0xE => 'Provision',
-              0xF => 'Search',
+              1    => 'POOMCONTACTS',
+              2    => 'POOMMAIL',
+              4    => 'POOMCAL',
+              5    => 'Move',
+              6    => 'GetItemEstimate',
+              7    => 'FolderHierarchy',
+              8    => 'MeetingResponse',
+              9    => 'POOMTASKS',
+              0xA  => 'ResolveRecipients',
+              0xB  => 'ValidateCert',
+              0xC  => 'POOMCONTACTS2',
+              0xD  => 'Ping',
+              0xE  => 'Provision',
+              0xF  => 'Search',
               0x10 => 'GAL',
               // EAS 12.0
               0x11 => 'AirSyncBase',
@@ -716,6 +716,16 @@ class Horde_ActiveSync_Wbxml
     public function getStream()
     {
         return $this->_stream;
+    }
+
+    /**
+     * Set the logger instance
+     *
+     * @param Horde_Log_Logger $logger  The logger.
+     */
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        $this->_logger = $logger;
     }
 
 }

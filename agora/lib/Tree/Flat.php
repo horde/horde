@@ -1,6 +1,6 @@
 <?php
 /**
- * The Agora_Tree_Flat:: class extends the Horde_Tree_Base class to provide
+ * The Agora_Tree_Flat:: class extends the Horde_Tree_Renderer_Base class to provide
  * agora flat threded view.
  *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)

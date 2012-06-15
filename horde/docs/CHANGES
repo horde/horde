@@ -18,9 +18,17 @@ v5.0-git
 
 
 -----------
-v4.0.15-git
+v4.0.16-git
 -----------
 
+
+
+-------
+v4.0.15
+-------
+
+[jan] Update Swedish translation (Jakob Alvermark
+      <jakob.alvermark@bsdlabs.com>).
 [jan] Update Italian translation (Emilien <emilien@wifi.e4a.it>).
 [jan] Update Lybian flag (Request #11169).
 [jan] Update Slovak translation (Marika Schvarczova

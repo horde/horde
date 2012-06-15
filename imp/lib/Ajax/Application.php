@@ -46,23 +46,23 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
     /**
      */
-    public function __construct($app, $vars, $action = null)
+    protected function _init()
     {
-        parent::__construct($app, $vars, $action);
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Imple());
 
         $this->_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
 
         /* Bug #10462: 'view' POST parameter is base64url encoded to
          * workaround suhosin. */
-        if (isset($vars->view)) {
-            $this->_mbox = IMP_Mailbox::formFrom($vars->view);
+        if (isset($this->_vars->view)) {
+            $this->_mbox = IMP_Mailbox::formFrom($this->_vars->view);
         }
 
         /* Make sure the viewport entry is initialized. */
-        $vp = isset($vars->viewport)
-            ? Horde_Serialize::unserialize($vars->viewport, Horde_Serialize::JSON)
+        $vp = isset($this->_vars->viewport)
+            ? Horde_Serialize::unserialize($this->_vars->viewport, Horde_Serialize::JSON)
             : new stdClass;
-        $vars->viewport = new Horde_Support_ObjectStub($vp);
+        $this->_vars->viewport = new Horde_Support_ObjectStub($vp);
 
         /* GLOBAL TASKS */
 
@@ -1732,6 +1732,68 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->tree = $ob->tree->getTree();
 
         return $result;
+    }
+
+    /**
+     * AJAX action: Check passphrase.
+     *
+     * Variables required in form input:
+     *   - dialog_input: (string) Input from the dialog screen.
+     *   - reload: (mixed) If set, reloads page instead of returning data.
+     *   - symmetricid: (string) The symmetric ID to process.
+     *   - type: (string) The passphrase type.
+     *
+     * @return boolean  True on success.
+     */
+    public function checkPassphrase()
+    {
+        global $injector, $notification;
+
+        $result = false;
+
+        try {
+            Horde::requireSecureConnection();
+
+            switch ($this->_vars->type) {
+            case 'pgpPersonal':
+            case 'pgpSymmetric':
+                if ($this->_vars->dialog_input) {
+                    $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+                    if ((($this->_vars->type == 'pgpPersonal') &&
+                         $imp_pgp->storePassphrase('personal', $this->_vars->dialog_input)) ||
+                        (($this->_vars->type == 'pgpSymmetric') &&
+                         $imp_pgp->storePassphrase('symmetric', $this->_vars->dialog_input, $this->_vars->symmetricid))) {
+                        $result = true;
+                        $notification->push(_("PGP passhprase stored in session."), 'horde.success');
+                    } else {
+                        $notification->push(_("Invalid passphrase entered."), 'horde.error');
+                    }
+                } else {
+                    $notification->push(_("No passphrase entered."), 'horde.error');
+                }
+                break;
+
+            case 'smimePersonal':
+                if ($this->_vars->dialog_input) {
+                    $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
+                    if ($imp_smime->storePassphrase($this->_vars->dialog_input)) {
+                        $result = true;
+                        $notification->push(_("S/MIME passphrase stored in session."), 'horde.success');
+                    } else {
+                        $notification->error(_("Invalid passphrase entered."), 'horde.error');
+                    }
+                } else {
+                    $notification->push(_("No passphrase entered."), 'horde.error');
+                }
+                break;
+            }
+        } catch (Horde_Exception $e) {
+            $notification->push($e, 'horde.error');
+        }
+
+        return ($result && $this->_vars->reload)
+            ? new Horde_Core_Ajax_Response_HordeCore_Reload($this->_vars->reload)
+            : $result;
     }
 
     /* Protected methods. */

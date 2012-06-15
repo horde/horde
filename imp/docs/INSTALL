@@ -65,7 +65,7 @@ To function properly, IMP **requires** the following:
    server(s) on which your users' mail is stored in order to use IMP.
 
    IMAP is **strongly** recommended over POP3.  See, e.g.,
-   http://www.imap.org/imap.vs.pop.brief.html
+   http://staff.washington.edu/gray/papers/imap.vs.pop.brief.html
 
    Freely available IMAP servers (for \*nix systems) that have been verified
    to work best with IMP include:

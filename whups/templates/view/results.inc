@@ -79,9 +79,10 @@ function doResort(column, sortDown)
 <table width="100%" cellspacing="0">
  <tr>
   <td class="smallheader nowrap">
-    <form action="<?php echo Horde::downloadUrl('report.html', null, Horde::url('data.php')) ?>" method="post" name="datagen">
+    <form action="<?php echo $registry->downloadUrl('report.html') ?>" method="post" name="datagen">
       <?php Horde_Util::pformInput() ?>
       <input type="hidden" name="ids" value="<?php echo implode(',', $ids) ?>" />
+      <input type="hidden" name="actionID" value="report" />
       <?php echo _("Download these results as: ") ?>
       <select name="template">
         <?php foreach (Whups::listTemplates('searchresults') as $name => $label): ?>

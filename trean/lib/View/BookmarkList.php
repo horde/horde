@@ -48,6 +48,12 @@ class Trean_View_BookmarkList
     protected $_noSearch = false;
 
     /**
+     * Flag to indicate whether or not to show the tag browser
+     * @var boolean
+     */
+    protected $_showTagBrowser = true;
+
+    /**
      * Const'r
      *
      */
@@ -84,6 +90,14 @@ class Trean_View_BookmarkList
     }
 
     /**
+     * Toggle showing of the tag browser
+     */
+    public function showTagBrowser($showTagBrowser)
+    {
+        $this->_showTagBrowser = $showTagBrowser;
+    }
+
+    /**
      * Returns whether bookmarks currently exist.
      *
      * @return boolean  True if there exist any bookmarks in the backend.
@@ -98,19 +112,19 @@ class Trean_View_BookmarkList
     /**
      * Renders the view.
      */
-    public function render()
+    public function render($title = null)
     {
+        if (is_null($title)) {
+            $title = _("Bookmarks");
+        }
+
         $this->_getBookmarks();
 
-        $total = $this->_browser->count();
-
-        $html = $this->_getTagTrail();
-        $html .= $this->_getRelatedTags();
-
-        $html .= '<h1 class="header">' . _("Bookmarks") . '</h1>';
-        $html .= $this->_getBookmarkList($this->_bookmarks);
-
-        return $html;
+        $html = '';
+        if ($this->_showTagBrowser) {
+            $html = $this->_getTagTrail() . $this->_getRelatedTags();
+        }
+        return $html . '<h1 class="header">' . $title . '</h1>' . $this->_getBookmarkList($this->_bookmarks);
     }
 
     /**

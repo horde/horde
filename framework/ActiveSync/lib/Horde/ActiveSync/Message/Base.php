@@ -122,6 +122,16 @@ class Horde_ActiveSync_Message_Base
     }
 
     /**
+     * Return the EAS version this object supports.
+     *
+     * @return float  The EAS version (2.5, 12, or 12.1).
+     */
+    public function getProtocolVersion()
+    {
+        return $this->_version;
+    }
+
+    /**
      * Check the existence of a property in this message.
      *
      * @param string $property  The property name
@@ -261,7 +271,7 @@ class Horde_ActiveSync_Message_Base
             $entity = $decoder->getElement();
 
             if ($entity[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
-                if (! ($entity[Horde_ActiveSync_Wbxml::EN_FLAGS] & Horde_ActiveSync_Wbxml::EN_FLAGS_CONTENT)) {
+                if (!($entity[Horde_ActiveSync_Wbxml::EN_FLAGS] & Horde_ActiveSync_Wbxml::EN_FLAGS_CONTENT)) {
                     $map = $this->_mapping[$entity[Horde_ActiveSync_Wbxml::EN_TAG]];
                     if (!isset($map[self::KEY_TYPE])) {
                         $this->$map[self::KEY_ATTRIBUTE] = '';
@@ -284,7 +294,11 @@ class Horde_ActiveSync_Message_Base
                                 break;
                             }
                             if (isset($map[self::KEY_TYPE])) {
-                                $decoded = new $map[self::KEY_TYPE];
+                                $class = $map[self::KEY_TYPE];
+                                $decoded = new $class(array(
+                                    'protocolversion' => $this->_version,
+                                    'logger' => $this->_logger)
+                                );
                                 $decoded->decodeStream($decoder);
                             } else {
                                 $decoded = $decoder->getElementContent();
@@ -317,7 +331,11 @@ class Horde_ActiveSync_Message_Base
                                    throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                                 }
                             } else {
-                                $subdecoder = new $map[self::KEY_TYPE]();
+                                $class = $map[self::KEY_TYPE];
+                                $subdecoder = new $class(array(
+                                    'protocolversion' => $this->_version,
+                                    'logger' => $this->_logger)
+                                );
                                 if ($subdecoder->decodeStream($decoder) === false) {
                                     throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                                 }

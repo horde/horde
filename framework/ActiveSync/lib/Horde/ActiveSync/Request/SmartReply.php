@@ -47,7 +47,7 @@ class Horde_ActiveSync_Request_SmartReply extends Horde_ActiveSync_Request_Base
     {
         // Smart reply should add the original message to the end of the message body
         $rfc822 = file_get_contents('php://input');
-        $get = $this->_request->getGetVars();
+        $get = $this->_activeSync->getGetVars();
         if (empty($get['ItemId'])) {
             $orig = false;
         } else {

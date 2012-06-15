@@ -80,7 +80,9 @@ class IMP
                     'spam_report' => _("Are you sure you wish to report this message as spam?"),
                     'notspam_report' => _("Are you sure you wish to report this message as innocent?"),
                     'newmbox' => _("You are copying/moving to a new mailbox.") . "\n" . _("Please enter a name for the new mailbox:") . "\n",
+                    'no' => _("No"),
                     'target_mbox' => _("You must select a target mailbox first."),
+                    'yes' => _("Yes")
                 )
             );
 
@@ -299,8 +301,7 @@ class IMP
      *                          (mailto-style) string.
      * @param array $extra      Hash of extra, non-standard arguments to pass
      *                          to compose script.
-     * @param string $simplejs  Use simple JS (instead of Horde.popup() JS
-     *                          function)?
+     * @param string $simplejs  Use simple JS (instead of HordePopup JS)?
      *
      * @return Horde_Url  The link to the message composition script.
      */

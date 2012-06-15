@@ -2045,6 +2045,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * Send a redirect (a/k/a resent) message. See RFC 5322 [3.6.6].
      *
      * @param mixed $to  The addresses to redirect to.
+     * @param boolean $log  Whether to log the resending in the history and
+     *                      sentmail log.
      *
      * @return array  An object with the following properties for each
      *                redirected message:
@@ -2055,7 +2057,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @throws IMP_Compose_Exception
      */
-    public function sendRedirectMessage($to)
+    public function sendRedirectMessage($to, $log = true)
     {
         $recip = $this->recipientList(array('to' => $to));
 
@@ -2104,12 +2106,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
                 Horde::logMessage(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth()), 'INFO');
 
-                /* Store history information. */
-                if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-                    IMP_Maillog::log(self::REDIRECT, $headers->getValue('message-id'), $recipients);
-                }
+                if ($log) {
+                    /* Store history information. */
+                    if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
+                        IMP_Maillog::log(self::REDIRECT, $headers->getValue('message-id'), $recipients);
+                    }
 
-                $GLOBALS['injector']->getInstance('IMP_Sentmail')->log(IMP_Sentmail::REDIRECT, $headers->getValue('message-id'), $recipients);
+                    $GLOBALS['injector']->getInstance('IMP_Sentmail')->log(IMP_Sentmail::REDIRECT, $headers->getValue('message-id'), $recipients);
+                }
 
                 $tmp = new stdClass;
                 $tmp->contents = $contents;

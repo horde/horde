@@ -5,9 +5,16 @@ v4.0-git
 
 
 ----------
-v3.0.6-git
+v3.0.7-git
 ----------
 
+
+
+------
+v3.0.6
+------
+
+[jan] Update Swedish translation (Per Olof Ljungmark <peo@bsdlabs.com>).
 [jan] Update Italian translation (Massimo Malabotta <mmalabotta@units.it>).
 [jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 

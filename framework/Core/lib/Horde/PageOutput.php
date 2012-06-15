@@ -44,11 +44,11 @@ class Horde_PageOutput
     public $growler = false;
 
     /**
-     * Script files object.
+     * Script list.
      *
-     * @var Horde_Script_Files
+     * @var Horde_Script_List
      */
-    public $hsf;
+    public $hsl;
 
     /**
      * List of inline scripts.
@@ -79,6 +79,13 @@ class Horde_PageOutput
     public $sidebarLoaded = false;
 
     /**
+     * Has PHP userspace page compression been started?
+     *
+     * @var boolean
+     */
+    protected $_compress = false;
+
+    /**
      * View mode.
      *
      * @var integer
@@ -91,40 +98,57 @@ class Horde_PageOutput
     public function __construct()
     {
         $this->css = new Horde_Themes_Css();
-        $this->hsf = new Horde_Script_Files();
+        $this->hsl = new Horde_Script_List();
     }
 
     /**
-     * Adds the javascript script to the output (if output has already
-     * started), or to the list of script files to include via
-     * includeScriptFiles().
+     * Adds a single javascript script to the output (if output has already
+     * started), or to the list of script files to include in the output.
      *
-     * As long as one script file is added, 'prototype.js' will be
-     * automatically added, if the prototypejs property of Horde_Script_Files
-     * is true (it is true by default).
+     * @param mixed $file  Either a Horde_Script_File object, or the full
+     *                     javascript file name.
+     * @param string $app  If $file is a file name, this is the application
+     *                     where the file is located. Defaults to the current
+     *                     registry application.
      *
-     * @param string $file  The full javascript file name.
-     * @param string $app   The application name. Defaults to the current
-     *                      application.
-     * @param array $opts   Additional options:
-     *   - external: (boolean) Treat $file as an external URL.
-     *               DEFAULT: $file is located in the app's js/ directory.
-     *   - full: (boolean) Output a full URL
-     *           DEFAULT: false
+     * @return Horde_Script_File  Script file object.
+     */
+    public function addScriptFile($file, $app = null)
+    {
+        $ob = is_object($file)
+            ? $file
+            : new Horde_Script_File_JsDir($file, $app);
+
+        return $this->hsl->add($ob);
+    }
+
+    /**
+     * Adds a javascript package to the browser output.
      *
+     * @param mixed $package  Either a classname, basename of a
+     *                        Horde_Core_Script_Package class, or a
+     *                        Horde_Script_Package object.
+     *
+     * @return Horde_Script_Package  Package object.
      * @throws Horde_Exception
      */
-    public function addScriptFile($file, $app = null, array $opts = array())
+    public function addScriptPackage($package)
     {
-        if (empty($opts['external'])) {
-            $this->hsf->add($file, array(
-                'app' => $app,
-                'full' => !empty($opts['full']),
-                'no_output' => $this->deferScripts
-            ));
-        } else {
-            $this->hsf->addExternal($file, $app);
+        if (!is_object($package)) {
+            if (!class_exists($package)) {
+                $package = 'Horde_Core_Script_Package_' . $package;
+                if (!class_exists($package)) {
+                    throw new Horde_Exception('Invalid package name provided.');
+                }
+            }
+            $package = new $package();
         }
+
+        foreach ($package as $ob) {
+            $this->hsl->add($ob);
+        }
+
+        return $package;
     }
 
     /**
@@ -135,145 +159,147 @@ class Horde_PageOutput
      */
     public function includeScriptFiles()
     {
+        global $browser, $conf;
+
+        if (!$browser->hasFeature('javascript')) {
+            return;
+        }
+
+        $driver = empty($conf['cachejs'])
+            ? 'none'
+            : strtolower($conf['cachejsparams']['driver']);
+        $last_cache = null;
+        $jsvars = $tmp = array();
+
+        foreach ($this->hsl as $val) {
+            if ($driver == 'none') {
+                echo $val;
+            } elseif (is_null($val->cache)) {
+                if (!empty($tmp)) {
+                    $this->_outputCachedScripts($tmp);
+                    $tmp = array();
+                }
+                echo $val;
+            } else {
+                if (!is_null($last_cache) && ($last_cache != $val->cache)) {
+                    $this->_outputCachedScripts($tmp);
+                    $tmp = array();
+                }
+                $tmp[$val->hash] = $val;
+            }
+
+            $last_cache = $val->cache;
+
+            if (!empty($val->jsvars)) {
+                $jsvars = array_merge($jsvars, $val->jsvars);
+            }
+        }
+
+        $this->_outputCachedScripts($tmp);
+        $this->hsl->clear();
+        $this->addInlineJsVars($jsvars);
+    }
+
+    /**
+     */
+    protected function _outputCachedScripts($scripts)
+    {
         global $conf, $injector, $registry;
+
+        if (empty($scripts)) {
+            return;
+        }
+
+        $mtime = 0;
+        foreach ($scripts as $val) {
+            if (($tmp = $val->modified) > $mtime) {
+                $mtime = $tmp;
+            }
+        }
+
+        $hashes = array_keys($scripts);
+        sort($hashes);
+
+        $sig = hash('sha1', serialize($hashes) . $mtime);
 
         $driver = empty($conf['cachejs'])
             ? 'none'
             : strtolower($conf['cachejsparams']['driver']);
 
-        if ($driver == 'none') {
-            $this->hsf->includeFiles();
-            return;
-        }
+        switch ($driver) {
+        case 'filesystem':
+            $js_filename = '/static/' . $sig . '.js';
+            $js_path = $registry->get('fileroot', 'horde') . $js_filename;
+            $js_url = $registry->get('webroot', 'horde') . $js_filename;
+            $exists = file_exists($js_path);
+            break;
 
-        $js = array(
-            'force' => array(),
-            'external' => array(),
-            'tocache' => array()
-        );
-        $mtime = array(
-            'force' => array(),
-            'tocache' => array()
-        );
-
-        $s_list = $this->hsf->listFiles();
-        if (empty($s_list)) {
-            return;
-        }
-
-        if ($driver == 'horde_cache') {
+        case 'horde_cache':
             $cache = $injector->getInstance('Horde_Cache');
             $cache_lifetime = empty($conf['cachejsparams']['lifetime'])
                 ? 0
                 : $conf['cachejsparams']['lifetime'];
+
+            // Do lifetime checking here, not on cache display page.
+            $exists = $cache->exists($sig, $cache_lifetime);
+            $js_url = Horde::getCacheUrl('js', array('cid' => $sig));
+            break;
         }
 
-        /* Output prototype.js separately from the other files. */
-        if ($s_list['horde'][0]['f'] == 'prototype.js') {
-            $js['force'][] = $s_list['horde'][0]['p'] . $s_list['horde'][0]['f'];
-            $mtime['force'][] = filemtime($s_list['horde'][0]['p'] . $s_list['horde'][0]['f']);
-            unset($s_list['horde'][0]);
+        echo '<script type="text/javascript" src="' . $js_url . '"></script>';
+
+        if ($exists) {
+            return;
         }
 
-        foreach ($s_list as $files) {
-            foreach ($files as $file) {
-                if ($file['d'] && ($file['f'][0] != '/') && empty($file['e'])) {
-                    $js['tocache'][] = $file['p'] . $file['f'];
-                    $mtime['tocache'][] = filemtime($file['p'] . $file['f']);
-                } elseif (!empty($file['e'])) {
-                    $js['external'][] = $file['u'];
-                } else {
-                    $js['force'][] = $file['p'] . $file['f'];
-                    $mtime['force'][] = filemtime($file['p'] . $file['f']);
-                }
-            }
-        }
+        $out = '';
+        foreach ($scripts as $val) {
+            $js_text = file_get_contents($val->full_path);
 
-        $jsmin_params = null;
-        foreach ($js as $key => $files) {
-            if (!count($files)) {
-                continue;
-            }
-
-            if ($key == 'external') {
-                foreach ($files as $val) {
-                    $this->hsf->outputTag($val);
-                }
-                continue;
-            }
-
-            $sig_files = $files;
-            sort($sig_files);
-            $sig = hash('md5', serialize($sig_files) . max($mtime[$key]));
-
-            switch ($driver) {
-            case 'filesystem':
-                $js_filename = '/static/' . $sig . '.js';
-                $js_path = $registry->get('fileroot', 'horde') . $js_filename;
-                $js_url = $registry->get('webroot', 'horde') . $js_filename;
-                $exists = file_exists($js_path);
-                break;
-
-            case 'horde_cache':
-                // Do lifetime checking here, not on cache display page.
-                $exists = $cache->exists($sig, $cache_lifetime);
-                $js_url = Horde::getCacheUrl('js', array('cid' => $sig));
-                break;
-            }
-
-            if (!$exists) {
-                $out = '';
-                foreach ($files as $val) {
-                    $js_text = file_get_contents($val);
-
-                    if ($conf['cachejsparams']['compress'] == 'none') {
-                        $out .= $js_text . "\n";
-                    } else {
-                        if (is_null($jsmin_params)) {
-                            switch ($conf['cachejsparams']['compress']) {
-                            case 'closure':
-                                $jsmin_params = array(
-                                    'closure' => $conf['cachejsparams']['closurepath'],
-                                    'java' => $conf['cachejsparams']['javapath']
-                                );
-                            break;
-
-                            case 'yui':
-                                $jsmin_params = array(
-                                    'java' => $conf['cachejsparams']['javapath'],
-                                    'yui' => $conf['cachejsparams']['yuipath']
-                                );
-                                break;
-                            }
-                        }
-
-                        /* Separate JS files with a newline since some
-                         * compressors may strip trailing terminators. */
-                        try {
-                            $out .= $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($js_text, 'JavascriptMinify', $jsmin_params) . "\n";
-                        } catch (Horde_Exception $e) {
-                            $out .= $js_text . "\n";
-                        }
-                    }
-                }
-
-                switch ($driver) {
-                case 'filesystem':
-                    if (!file_put_contents($js_path, $out)) {
-                        throw new Horde_Exception('Could not write cached JS file to disk.');
-                    }
+            if ($conf['cachejsparams']['compress'] == 'none') {
+                $out .= $js_text . "\n";
+            } else {
+                switch ($conf['cachejsparams']['compress']) {
+                case 'closure':
+                    $jsmin_params = array(
+                        'closure' => $conf['cachejsparams']['closurepath'],
+                        'java' => $conf['cachejsparams']['javapath']
+                    );
                     break;
 
-                case 'horde_cache':
-                    $cache->set($sig, $out);
+                case 'yui':
+                    $jsmin_params = array(
+                        'java' => $conf['cachejsparams']['javapath'],
+                        'yui' => $conf['cachejsparams']['yuipath']
+                    );
+                    break;
+
+                default:
+                    $jsmin_params = array();
                     break;
                 }
-            }
 
-            $this->hsf->outputTag($js_url);
+                /* Separate JS files with a newline since some compressors may
+                 * strip trailing terminators. */
+                try {
+                    $out .= $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($js_text, 'JavascriptMinify', $jsmin_params) . "\n";
+                } catch (Horde_Exception $e) {
+                    $out .= $js_text . "\n";
+                }
+            }
         }
 
-        $this->hsf->clear();
+        switch ($driver) {
+        case 'filesystem':
+            if (!file_put_contents($js_path, $out)) {
+                throw new Horde_Exception('Could not write cached JS file to disk.');
+            }
+            break;
+
+        case 'horde_cache':
+            $cache->set($sig, $out);
+            break;
+        }
     }
 
     /**
@@ -356,19 +382,6 @@ class Horde_PageOutput
         }
 
         $this->addInlineScript($out, $opts['onload'], $opts['top']);
-    }
-
-    /**
-     * Add the popup script to the page output.
-     */
-    public function addPopupJs()
-    {
-        if (!$this->hsf->isIncluded('popup.js', 'horde')) {
-            $this->addScriptFile('popup.js', 'horde');
-            $this->addInlineJsVars(array(
-                'Horde.popup_block_text' => Horde_Core_Translation::t("A popup window could not be opened. Your browser may be blocking popups.")
-            ), true);
-        }
     }
 
     /**
@@ -538,6 +551,43 @@ class Horde_PageOutput
     }
 
     /**
+     * Activates output compression.
+     */
+    public function startCompression()
+    {
+        if ($this->_compress) {
+            return;
+        }
+
+        /* Compress output if requested and possible. */
+        if ($GLOBALS['conf']['compress_pages'] &&
+            !$GLOBALS['browser']->hasQuirk('buggy_compression') &&
+            !(bool)ini_get('zlib.output_compression') &&
+            !(bool)ini_get('zend_accelerator.compress_all') &&
+            ini_get('output_handler') != 'ob_gzhandler') {
+            if (ob_get_level()) {
+                ob_end_clean();
+            }
+            ob_start('ob_gzhandler');
+        }
+
+        $this->_compress = true;
+    }
+
+    /**
+     * Disables output compression. If successful, throws out all data
+     * currently in the output buffer. Must be called before any data is sent
+     * to the browser.
+     */
+    public function disableCompression()
+    {
+        if ($this->_compress && (reset(ob_list_handlers()) == 'ob_gzhandler')) {
+            ob_end_clean();
+            $this->_compress = false;
+        }
+    }
+
+    /**
      * Output the page header.
      *
      * @param array $opts  Options:
@@ -568,57 +618,16 @@ class Horde_PageOutput
 
         switch ($this->_view) {
         case $registry::VIEW_BASIC:
+            $this->_addBasicScripts($opts);
             $view->stylesheetOpts['sub'] = 'basic';
             break;
 
         case $registry::VIEW_DYNAMIC:
             $this->ajax = true;
             $this->growler = true;
-            $this->addScriptFile('popup.js', 'horde');
 
-            /* Configuration used in core javascript files. */
-            $js_conf = array_filter(array(
-                /* URLs */
-                'URI_AJAX' => $registry->getServiceLink('ajax', $registry->getApp())->url,
-                'URI_LOGOUT' => strval($registry->getServiceLink('logout')),
-                'URI_SNOOZE' => strval(Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1)),
-
-                /* Other constants */
-                'SID' => defined('SID') ? SID : '',
-                'TOKEN' => $session->getToken(),
-
-                /* Other config. */
-                'growler_log' => !empty($opts['growler_log']),
-                'popup_height' => 610,
-                'popup_width' => 820
-            ));
-
-            /* Gettext strings used in core javascript files. */
-            $js_text = array(
-                'ajax_error' => _("Error when communicating with the server."),
-                'ajax_recover' => _("The connection to the server has been restored."),
-                'ajax_timeout' => _("There has been no contact with the server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
-                'popup_block' => _("A popup window could not be opened. Your browser may be blocking popups."),
-                'snooze' => sprintf(_("You can snooze it for %s or %s dismiss %s it entirely"), '#{time}', '#{dismiss_start}', '#{dismiss_end}'),
-                'snooze_select' => array(
-                    '0' => _("Select..."),
-                    '5' => _("5 minutes"),
-                    '15' => _("15 minutes"),
-                    '60' => _("1 hour"),
-                    '360' => _("6 hours"),
-                    '1440' => _("1 day")
-                )
-            );
-
-            if (!empty($opts['growler_log'])) {
-                $js_text['growlerinfo'] = _("This is the notification log.");
-                $js_text['growlernoalerts'] = _("No Alerts");
-            }
-
-            $this->addInlineJsVars(array(
-                'var HordeCoreConf' => $js_conf,
-                'var HordeCoreText' => $js_text
-            ), array('top' => true));
+            $this->_addBasicScripts($opts);
+            $this->addScriptPackage('Popup');
 
             $view->stylesheetOpts['sub'] = 'dynamic';
             break;
@@ -631,12 +640,15 @@ class Horde_PageOutput
             break;
 
         case $registry::VIEW_SMARTMOBILE:
-            $this->hsf->prototypejs = false;
-
-            $this->addScriptFile('jquery.mobile/jquery.min.js', 'horde');
-            $this->addScriptFile('growler-jquery.js', 'horde');
-            $this->addScriptFile('horde-jquery.js', 'horde');
-            $this->addScriptFile('smartmobile.js', 'horde');
+            $smobile_files = array(
+                'jquery.mobile/jquery.min.js',
+                'growler-jquery.js',
+                'horde-jquery.js',
+                'smartmobile.js'
+            );
+            foreach ($smobile_files as $val) {
+                $this->addScriptFile(new Horde_Script_File_JsFramework($val, 'horde'));
+            }
 
             $init_js = implode('', array_merge(array(
                 '$.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";',
@@ -665,15 +677,62 @@ class Horde_PageOutput
             );
 
             $view->smartmobileView = true;
+
+            // Force JS to load at top of page, so we don't see flicker when
+            // mobile styles are applied.
+            $view->outputJs = true;
             break;
         }
 
-        if ($this->ajax) {
-            $this->addScriptFile('hordecore.js', 'horde');
+        if ($this->ajax || $this->growler) {
+            $this->addScriptFile(new Horde_Script_File_JsFramework('hordecore.js', 'horde'));
+
+            /* Configuration used in core javascript files. */
+            $js_conf = array_filter(array(
+                /* URLs */
+                'URI_AJAX' => $registry->getServiceLink('ajax', $registry->getApp())->url,
+                'URI_DLOAD' => $registry->getServiceLink('download', $registry->getApp())->url,
+                'URI_LOGOUT' => strval($registry->getServiceLink('logout')),
+                'URI_SNOOZE' => strval(Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1)),
+
+                /* Other constants */
+                'SID' => defined('SID') ? SID : '',
+                'TOKEN' => $session->getToken(),
+
+                /* Other config. */
+                'growler_log' => !empty($opts['growler_log']),
+                'popup_height' => 610,
+                'popup_width' => 820
+            ));
+
+            /* Gettext strings used in core javascript files. */
+            $js_text = array(
+                'ajax_error' => _("Error when communicating with the server."),
+                'ajax_recover' => _("The connection to the server has been restored."),
+                'ajax_timeout' => _("There has been no contact with the server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
+                'snooze' => sprintf(_("You can snooze it for %s or %s dismiss %s it entirely"), '#{time}', '#{dismiss_start}', '#{dismiss_end}'),
+                'snooze_select' => array(
+                    '0' => _("Select..."),
+                    '5' => _("5 minutes"),
+                    '15' => _("15 minutes"),
+                    '60' => _("1 hour"),
+                    '360' => _("6 hours"),
+                    '1440' => _("1 day")
+                )
+            );
+
+            if (!empty($opts['growler_log'])) {
+                $js_text['growlerinfo'] = _("This is the notification log.");
+                $js_text['growlernoalerts'] = _("No Alerts");
+            }
+
+            $this->addInlineJsVars(array(
+                'HordeCore.conf' => $js_conf,
+                'HordeCore.text' => $js_text
+            ), array('top' => true));
         }
 
         if ($this->growler) {
-            $this->addScriptFile('hordecore.js', 'horde');
             $this->addScriptFile('growler.js', 'horde');
             $this->addScriptFile('scriptaculous/effects.js', 'horde');
             $this->addScriptFile('scriptaculous/sound.js', 'horde');
@@ -724,11 +783,34 @@ class Horde_PageOutput
     }
 
     /**
+     * Add basic framework scripts to the output.
+     */
+    protected function _addBasicScripts($opts)
+    {
+        global $prefs, $registry, $session;
+
+        $base_js = array(
+            'prototype.js',
+            'horde.js'
+        );
+
+        foreach ($base_js as $val) {
+            $ob = $this->addScriptFile(new Horde_Script_File_JsFramework($val, 'horde'));
+            $ob->cache = 'package_basic';
+        }
+
+        if ($prefs->getValue('widget_accesskey')) {
+            $this->addScriptFile('accesskeys.js', 'horde');
+        }
+    }
+
+    /**
      * Output files needed for smartmobile mode.
      */
     public function outputSmartmobileFiles()
     {
         $this->addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
+        $this->includeScriptFiles();
     }
 
     /**

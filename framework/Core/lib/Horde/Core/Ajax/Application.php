@@ -11,6 +11,9 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
+ *
+ * @property string $app  The current application
+ * @property Horde_Variables $vars  The Variables object.
  */
 abstract class Horde_Core_Ajax_Application
 {
@@ -43,12 +46,11 @@ abstract class Horde_Core_Ajax_Application
     protected $_app;
 
     /**
-     * Default domain.
+     * Helper classes to add methods to the base class.
      *
-     * @see parseEmailAddress()
-     * @var string
+     * @var array
      */
-    protected $_defaultDomain;
+    protected $_helpers = array();
 
     /**
      * The list of actions that require readonly access to the session.
@@ -84,6 +86,40 @@ abstract class Horde_Core_Ajax_Application
 
             $this->_action = $action;
         }
+
+        $this->_init();
+    }
+
+    /**
+     * Application initialization code.
+     */
+    protected function _init()
+    {
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'app':
+            return $this->_app;
+
+        case 'vars':
+            return $this->_vars;
+        }
+    }
+
+    /**
+     * Add a helper object. Helper objects are searched for methods that are
+     * not defined in the base Application object. Helper methods will be
+     * passed the AJAX Application object.
+     *
+     * @param object $ob  Helper object.
+     */
+    final public function addHelper($ob)
+    {
+        $this->_helpers[get_class($ob)] = $ob;
     }
 
     /**
@@ -100,12 +136,21 @@ abstract class Horde_Core_Ajax_Application
             return;
         }
 
+        /* Look for action in application. */
         if (method_exists($this, $this->_action)) {
             $this->data = call_user_func(array($this, $this->_action));
             return;
         }
 
-        /* Look for hook in application. */
+        /* Look for action in helpers. */
+        foreach ($this->_helpers as $help) {
+            if (method_exists($help, $this->_action)) {
+                $this->data = call_user_func(array($help, $this->_action), $this);
+                return;
+            }
+        }
+
+        /* Look for action in application hook. */
         try {
             $this->data = Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
             return;
@@ -139,97 +184,6 @@ abstract class Horde_Core_Ajax_Application
             ? clone $this->data
             : new Horde_Core_Ajax_Response_HordeCore($this->data, $this->tasks);
         $response->sendAndExit();
-    }
-
-    /**
-     * Returns a hash of group IDs and group names that the user has access
-     * to.
-     *
-     * @return object  Object with the following properties:
-     *   - groups: (array) Groups hash.
-     */
-    public function listGroups()
-    {
-        $result = new stdClass;
-        try {
-            $groups = $GLOBALS['injector']
-                ->getInstance('Horde_Group')
-                ->listAll(empty($GLOBALS['conf']['share']['any_group'])
-                          ? $GLOBALS['registry']->getAuth()
-                          : null);
-            if ($groups) {
-                asort($groups);
-                $result->groups = $groups;
-            }
-        } catch (Horde_Group_Exception $e) {
-            Horde::logMessage($e);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Parses a valid email address out of a complete address string.
-     *
-     * Variables used:
-     *   - mbox: (string) The name of the new mailbox.
-     *   - parent: (string) The parent mailbox.
-     *
-     * @return object  Object with the following properties:
-     *   - email: (string) The parsed email address.
-     *
-     * @throws Horde_Exception
-     * @throws Horde_Mail_Exception
-     */
-    public function parseEmailAddress()
-    {
-        $ob = new Horde_Mail_Rfc822_Address($this->_vars->email);
-        if (is_null($ob->mailbox)) {
-            throw new Horde_Exception(Horde_Core_Translation::t("No valid email address found"));
-        }
-
-        if ($this->_defaultDomain) {
-            $ob->host = $this->_defaultDomain;
-        }
-
-        $ret = new stdClass;
-        $ret->email = $ob->bare_address;
-
-        return $ret;
-    }
-
-    /**
-     * Loads a chunk of PHP code (usually an HTML template) from the
-     * application's templates directory.
-     *
-     * @return object  Object with the following properties:
-     *   - chunk: (string) A chunk of PHP output.
-     */
-    public function chunkContent()
-    {
-        $chunk = basename($this->_vars->chunk);
-        $result = new stdClass;
-        if (!empty($chunk)) {
-            Horde::startBuffer();
-            include $GLOBALS['registry']->get('templates', $this->_app) . '/chunks/' . $chunk . '.php';
-            $result->chunk = Horde::endBuffer();
-        }
-
-        return $result;
-    }
-
-    /**
-     * Sets a preference value.
-     *
-     * Variables used:
-     *   - pref: (string) The preference name.
-     *   - value: (mixed) The preference value.
-     *
-     * @return boolean  True on success.
-     */
-    public function setPrefValue()
-    {
-        return $GLOBALS['prefs']->setValue($this->_vars->pref, $this->_vars->value);
     }
 
     /**

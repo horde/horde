@@ -202,6 +202,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             $show_editor = ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail'));
 
             $onload = $compose_ajax->getBaseResponse();
+            $onload->header = $header;
             if ($show_editor) {
                 $onload->format = 'html';
             }

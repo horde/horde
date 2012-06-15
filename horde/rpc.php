@@ -91,7 +91,8 @@ if (($ra = Horde_Util::getGet('requestMissingAuthorization')) !== null) {
 /* Driver specific tasks that require Horde environment. */
 switch ($serverType) {
 case 'ActiveSync':
-    /* Check if we are even enabled for AS */
+    // Check if AS is enabled. Note that we can't check the user perms for it
+    // here since the user is not yet logged into horde at this point.
     if (empty($conf['activesync']['enabled'])) {
         exit;
     }

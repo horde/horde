@@ -121,8 +121,8 @@ class Jonah_Application extends Horde_Registry_Application
 
     /**
      */
-    public function topbarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
     {
         if (!Jonah::checkPermissions('jonah:news', Horde_Perms::EDIT) ||
             !in_array('internal', $GLOBALS['conf']['news']['enable'])) {

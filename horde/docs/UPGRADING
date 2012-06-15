@@ -61,8 +61,15 @@ Email support has been added, along with support for the EAS 12.0 and 12.1
 protocol versions. New configuration options have been added to support this.
 You MUST update Horde's ActiveSync configuration.
 
+The Custom logging option has been changed to ALWAYS be a path to a directory,
+and not a specific filename.
+
+The security policy settings have been moved out of the global configuration and
+into the permissions system for greater per user control over policies.
+
 New database migrations have been added, you MUST run these migrations for
 ActiveSync to work.
+
 
 Upgrading Horde from 4.0.x to 4.0.12
 ====================================

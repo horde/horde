@@ -12,4 +12,13 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Nag
  */
-class Nag_Ajax_Application extends Horde_Core_Ajax_Application {}
+class Nag_Ajax_Application extends Horde_Core_Ajax_Application
+{
+    /**
+     */
+    protected function _init()
+    {
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Prefs());
+    }
+
+}

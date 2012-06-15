@@ -105,14 +105,10 @@ var IMP_JS = {
         d.close();
 
         if (this.keydownhandler) {
-            var responder = function(e) {
-                return this.keydownhandler(e);
-            }.bindAsEventListener(this)
-
             if (d.addEventListener) {
-                d.addEventListener('keydown', responder, false);
+                d.addEventListener('keydown', this.keydownhandler.bindAsEventListener(this), false);
             } else {
-                d.attachEvent('onkeydown', responder);
+                d.attachEvent('onkeydown', this.keydownhandler.bindAsEventListener(this));
             }
         }
 

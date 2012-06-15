@@ -4,7 +4,6 @@ $page_output->addScriptFile('quickfinder.js', 'horde');
 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('redbox.js', 'horde');
 $page_output->addScriptFile('calendar-panel.js');
-$page_output->addScriptFile('panel.js');
 
 $info_img = Horde::img('info_icon.png', _("Calendar Information"), array('class' => 'calendar-info'));
 

@@ -247,7 +247,11 @@ class Nag_Application extends Horde_Registry_Application
                 $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
                 $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
                 foreach ($devices as $device) {
-                    $stateMachine->removeState(null, $device['device_id'], $GLOBALS['registry']->getAuth());
+                    $stateMachine->removeState(array(
+                        'devId' => $device['device_id'],
+                        'user' => $GLOBALS['registry']->getAuth(),
+                        'id' => Horde_Core_ActiveSync_Driver::TASKS_FOLDER_UID)
+                    );
                 }
                 $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
             } catch (Horde_ActiveSync_Exception $e) {
@@ -354,8 +358,8 @@ class Nag_Application extends Horde_Registry_Application
 
     /**
      */
-    public function topbarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
     {
         global $registry;
 
@@ -459,6 +463,77 @@ class Nag_Application extends Horde_Registry_Application
             ));
             break;
         }
+    }
+
+    /* Download data. */
+
+    /**
+     * @throws Nag_Exception
+     */
+    public function download(Horde_Variables $vars)
+    {
+        global $display_tasklists, $injector, $registry;
+
+        switch ($vars->actionID) {
+        case 'export':
+            $tasklists = $vars->get('exportList', $display_tasklists);
+            if (!is_array($tasklists)) {
+                $tasklists = array($tasklists);
+            }
+
+            /* Get the full, sorted task list. */
+            $tasks = Nag::listTasks(null, null, null, $tasklists, $vars->exportTasks);
+            if (!$tasks->hasTasks()) {
+                throw new Nag_Exception(_("There were no tasks to export."));
+            }
+
+            $tasks->reset();
+            switch ($vars->exportID) {
+            case Horde_Data::EXPORT_CSV:
+                $data = array();
+
+                while ($task = $tasks->each()) {
+                    $task = $task->toHash();
+                    $task['desc'] = str_replace(',', '', $task['desc']);
+                    unset(
+                        $task['complete_link'],
+                        $task['delete_link'],
+                        $task['edit_link'],
+                        $task['parent'],
+                        $task['task_id'],
+                        $task['tasklist_id'],
+                        $task['view_link']
+                    );
+                    $data[] = $task;
+                }
+
+                $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("tasks.csv"), $data, true);
+                exit;
+
+            case Horde_Data::EXPORT_ICALENDAR:
+                $iCal = new Horde_Icalendar();
+                $iCal->setAttribute(
+                    'PRODID',
+                    '-//The Horde Project//Nag ' . $registry->getVersion() . '//EN');
+                while ($task = $tasks->each()) {
+                    $iCal->addComponent($task->toiCalendar($iCal));
+                }
+
+                return array(
+                    'data' => $iCal->exportvCalendar(),
+                    'name' => _("tasks.ics"),
+                    'type' => 'text/calendar'
+                );
+            }
+        }
+    }
+
+    /**
+     */
+    public function cleanupData()
+    {
+        $GLOBALS['import_step'] = 1;
+        return Horde_Data::IMPORT_FILE;
     }
 
 }

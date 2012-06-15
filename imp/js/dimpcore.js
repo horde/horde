@@ -271,16 +271,14 @@ var DimpCore = {
             // CSS class based matching
             if (elt.hasClassName('unblockImageLink')) {
                 IMP_JS.unblockImages(e);
-            } else if (elt.hasClassName('largeaddrspan_active')) {
-                if (elt.hasClassName('largeaddrlistlimit')) {
-                    elt.hide();
+            } else if (elt.hasClassName('largeaddrspan_active') &&
+                       !e.element().hasClassName('address')) {
+                if (e.element().hasClassName('largeaddrlistlimit')) {
+                    e.element().hide();
                     elt.up('TD').fire('DimpCore:updateAddressHeader');
                 } else {
                     tmp = elt.down();
-                    if (!tmp.next().visible() ||
-                        elt.hasClassName('largeaddrlist')) {
-                        [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
-                    }
+                    [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
                 }
             } else if (elt.hasClassName('pgpVerifyMsg')) {
                 elt.replace(DimpCore.text.verify);
@@ -411,16 +409,7 @@ document.observe('ContextSensitive:show', DimpCore.contextOnShow.bindAsEventList
 document.observe('ContextSensitive:trigger', DimpCore.contextOnTrigger.bindAsEventListener(DimpCore));
 
 /* Dialog events. */
-document.observe('HordeDialog:success', function(e) {
-    switch (e.memo) {
-    case 'pgpPersonal':
-    case 'pgpSymmetric':
-    case 'smimePersonal':
-        HordeDialog.noreload = true;
-        this.reloadMessage({});
-        break;
-    }
-}.bindAsEventListener(DimpCore));
+document.observe('ImpPassphraseDialog:success', DimpCore.reloadMessage.bind(DimpCore, {}));
 
 /* Notification events. */
 document.observe('HordeCore:showNotifications', function(e) {

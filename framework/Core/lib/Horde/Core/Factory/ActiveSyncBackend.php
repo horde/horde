@@ -21,10 +21,6 @@ class Horde_Core_Factory_ActiveSyncBackend extends Horde_Core_Factory_Injector
             'state' => $injector->getInstance('Horde_ActiveSyncState'),
             'auth' => $injector->getInstance('Horde_Core_Factory_Auth')->create());
 
-        if ($params['provisioning'] = $conf['activesync']['securitypolicies']['provisioning']) {
-            $driver_params['policies'] = $conf['activesync']['securitypolicies'];
-        }
-
         return new Horde_Core_ActiveSync_Driver($driver_params);
     }
 

@@ -71,7 +71,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             throw new Horde_Rpc_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
         }
         $this->_server = $params['server'];
-        $this->_server->setProvisioning(empty($params['provisioning']) ? false : $params['provisioning']);
     }
 
     /**

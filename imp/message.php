@@ -593,7 +593,7 @@ if (!$disable_compose &&
 }
 
 $imp_params = IMP::mailbox()->urlParams($uid, $mailbox);
-$a_template->set('save_as', Horde::widget(Horde::downloadUrl($subject, array_merge(array('actionID' => 'save_message'), $imp_params)), _("Save as"), 'widget', '', '', _("Sa_ve as"), 2));
+$a_template->set('save_as', Horde::widget($registry->downloadUrl($subject, array_merge(array('actionID' => 'save_message'), $imp_params)), _("Save as"), 'widget', '', '', _("Sa_ve as"), 2));
 
 if ($conf['spam']['reporting'] &&
     ($conf['spam']['spamfolder'] || !$mailbox->spam)) {
@@ -646,7 +646,6 @@ $part_info_bodyonly = array('print');
 $show_parts = isset($vars->show_parts)
     ? $vars->show_parts
     : $prefs->getValue('parts_display');
-$strip_atc = $prefs->getValue('strip_attachments');
 
 $part_info_display = array_merge($part_info_display, $part_info_action, $part_info_bodyonly);
 $contents_mask = IMP_Contents::SUMMARY_BYTES |
@@ -657,9 +656,6 @@ $contents_mask = IMP_Contents::SUMMARY_BYTES |
     IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
     IMP_Contents::SUMMARY_IMAGE_SAVE |
     IMP_Contents::SUMMARY_PRINT;
-if (!$readonly && $strip_atc) {
-    $contents_mask |= IMP_Contents::SUMMARY_STRIP_LINK;
-}
 
 /* Do MDN processing now. */
 $mdntext = $imp_ui->MDNCheck($mailbox, $uid, $mime_headers, $vars->mdn_confirm)
@@ -679,17 +675,27 @@ $inlineout = $imp_contents->getInlineOutput(array(
 
 /* Build the Attachments menu. */
 $show_atc = false;
-if ($show_parts == 'atc') {
+switch ($show_parts) {
+case 'atc':
     $a_template->set('show_parts_all', Horde::widget($headersURL->copy()->add(array('show_parts' => 'all')), _("Show All Message Parts"), 'widget', '', '', _("Show All Message Parts"), true));
     $show_atc = true;
+    break;
+
+case 'all':
+    if ($prefs->getValue('strip_attachments')) {
+        $page_output->addInlineJsVars(array(
+            'ImpMessage.stripwarn' => _("Are you sure you wish to PERMANENTLY delete this attachment?")
+        ));
+    }
+    break;
 }
 
 if (count($inlineout['atc_parts']) > 2) {
     $a_template->set('download_all', Horde::widget($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all'), _("Download All Attachments (in .zip file)"), 'widget', '', '', _("Download All Attachments (in .zip file)"), true));
-    if ($strip_atc) {
+    if ($prefs->getValue('strip_attachments')) {
         $a_template->set('strip_all', Horde::widget(Horde::selfUrl(true)->remove(array('actionID'))->add(array('actionID' => 'strip_all', 'message_token' => $message_token)), _("Strip All Attachments"), 'widget stripAllAtc', '', '', _("Strip All Attachments"), true));
         $page_output->addInlineJsVars(array(
-            'ImpMessage.stripatc' => _("Are you sure you want to PERMANENTLY delete all attachments?")
+            'ImpMessage.stripallwarn' => _("Are you sure you want to PERMANENTLY delete all attachments?")
         ));
     }
 
@@ -744,8 +750,7 @@ $page_output->addScriptFile('stripe.js', 'horde');
 
 if (!empty($conf['tasklist']['use_notepad']) ||
     !empty($conf['tasklist']['use_tasklist'])) {
-    $page_output->addScriptFile('redbox.js', 'horde');
-    $page_output->addScriptFile('dialog.js', 'horde');
+    $page_output->addScriptPackage('Dialog');
 }
 
 $menu = IMP::menu();

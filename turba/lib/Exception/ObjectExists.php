@@ -12,6 +12,6 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Turba
  */
-class Turba_Exception_ObjectExists extends Horde_Exception_Wrapped
+class Turba_Exception_ObjectExists extends Turba_Exception
 {
 }

@@ -2819,10 +2819,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             ++$i;
         }
 
-        $fr = is_null($this->_temp['fetchresp'])
-            ? new Horde_Imap_Client_Fetch_Results($this->_fetchDataClass, is_null($uid) ? Horde_Imap_Client_Fetch_Results::SEQUENCE : Horde_Imap_Client_Fetch_Results::UID)
-            : $this->_temp['fetchresp'];
-        $fr->get(is_null($uid) ? $id : $uid)->merge($ob);
+        if (is_null($this->_temp['fetchresp'])) {
+            $this->_temp['fetchresp'] = new Horde_Imap_Client_Fetch_Results($this->_fetchDataClass, is_null($uid) ? Horde_Imap_Client_Fetch_Results::SEQUENCE : Horde_Imap_Client_Fetch_Results::UID);
+        }
+
+        $this->_temp['fetchresp']->get(is_null($uid) ? $id : $uid)->merge($ob);
     }
 
     /**
@@ -3183,7 +3184,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
         }
 
-        foreach ($fr->ids() as $key => $val) {
+        foreach ($fr as $key => $val) {
             if (!$val->exists(Horde_Imap_Client::FETCH_FLAGS)) {
                 $uids[$key] = is_null($seq_res)
                     ? $key

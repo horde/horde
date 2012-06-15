@@ -149,22 +149,6 @@ class Horde_ActiveSync
     const POLICYTYPE_XML                        = 'MS-WAP-Provisioning-XML';
     const POLICYTYPE_WBXML                      = 'MS-EAS-Provisioning-WBXML';
 
-    /* Policy configuration keys */
-    const POLICY_PIN                            = 'pin';
-    const POLICY_AEFVALUE                       = 'inactivity';
-    const POLICY_WIPETHRESHOLD                  = 'wipethreshold';
-    const POLICY_CODEFREQ                       = 'codewordfrequency';
-    const POLICY_MINLENGTH                      = 'minimumlength';
-    const POLICY_COMPLEXITY                     = 'complexity';
-    // 12.0
-    const POLICY_MAXLENGTH                      = 'maximumlength';
-    const POLICY_PWDRECOVERY                    = 'passwordrecovery';
-    const POLICY_PWDEXPIRATION                  = 'passwordexpiration';
-    const POLICY_PWDHISTORY                     = 'passwordhistory';
-    const POLICY_ENCRYPTION                     = 'encryption';
-    const POLICY_ATC                            = 'attachments';
-    const POLICY_MAXATCSIZE                     = 'maxattachmentsize';
-
     /* Flags */
     const FLAG_NEWMESSAGE                       = 'NewMessage';
 
@@ -306,6 +290,21 @@ class Horde_ActiveSync
     protected $_compression = false;
 
     /**
+     * Local cache of Get variables/decoded base64 uri
+     *
+     * @var array
+     */
+    protected $_get = array();
+
+
+    /**
+     * Path to root certificate bundle
+     *
+     * @var string
+     */
+    protected $_certPath;
+
+    /**
      * Map of commands when query string is base64 encoded (EAS 12.1)
      *
      * @var array
@@ -402,7 +401,7 @@ class Horde_ActiveSync
         }
 
         // Authenticate
-        if (!$this->_driver->logon($user, $pass, $domain)) {
+        if (!$this->_driver->authenticate($user, $pass, $domain)) {
             return false;
         }
 
@@ -443,6 +442,16 @@ class Horde_ActiveSync
     }
 
     /**
+     * Set the local path to the root certificate bundle.
+     *
+     * @param string $path  The local path to the bundle.
+     */
+    public function setRootCertificatePath($path)
+    {
+        $this->_certPath = $path;
+    }
+
+    /**
      * Getter
      *
      * @param string $property  The property to return.
@@ -459,6 +468,7 @@ class Horde_ActiveSync
         case 'driver':
         case 'provisioning':
         case 'multipart':
+        case 'certPath':
             $property = '_' . $property;
             return $this->$property;
         default:
@@ -481,7 +491,7 @@ class Horde_ActiveSync
         $this->_loggerFactory = $logger;
     }
 
-    protected function _setLogger($options)
+    protected function _setLogger(array $options)
     {
         $this->_logger = $this->_loggerFactory->create($options);
         $this->_encoder->setLogger($this->_logger);
@@ -534,7 +544,6 @@ class Horde_ActiveSync
         if (empty($devId)) {
             $devId = $get['DeviceId'];
         }
-
         $this->_setLogger($get);
 
         // Autodiscovery handles authentication on it's own.
@@ -549,6 +558,9 @@ class Horde_ActiveSync
             $this->commandsHeader();
             throw new Horde_Exception_AuthenticationFailure();
         }
+
+        // Set provisioning support now that we are authenticated.
+        $this->setProvisioning($this->_driver->getProvisioning());
 
         $this->_logger->debug(sprintf(
             "[%s] %s request received for user %s",
@@ -602,8 +614,9 @@ class Horde_ActiveSync
         // Support Multipart response for ITEMOPERATIONS requests?
         $headers = $this->_request->getHeaders();
         if ((!empty($headers['ms-asacceptmultipart']) && $headers['ms-asacceptmultipart'] == 'T') ||
-            (isset($get['Options']) && $get['Options'] & 0x02)) {
+            (isset($get['Options']) && ($get['Options'] & 0x02))) {
             $this->_multipart = true;
+            $this->_logger->debug('MULTIPART REQUEST');
         }
 
         // Support gzip encoding?
@@ -620,7 +633,7 @@ class Horde_ActiveSync
             $request = new $class($this, $device);
             $request->setLogger($this->_logger);
             $result = $request->handle();
-            $this->_driver->logOff();
+            $this->_driver->clearAuthentication();
 
             return $result;
         }
@@ -697,7 +710,13 @@ class Horde_ActiveSync
     {
         $this->_policykey = $this->_request->getHeader('X-MS-PolicyKey');
         if (empty($this->_policykey)) {
-            $this->_policykey = 0;
+            // Try the get request.
+            $get = $this->getGetVars();
+            if (!empty($get['PolicyKey'])) {
+                $this->_policykey = $get['PolicyKey'];
+            } else {
+                $this->_policykey = 0;
+            }
         }
 
         return $this->_policykey;
@@ -732,13 +751,18 @@ class Horde_ActiveSync
      */
     public function getGetVars()
     {
+        if (!empty($this->_get)) {
+            return $this->_get;
+        }
+
         $results = array();
         $get = $this->_request->getGetVars();
         if (!isset($get['Cmd']) && !isset($get['DeviceId']) && !isset($get['DeviceType'])) {
             $serverVars = $this->_request->getServerVars();
             if (isset($serverVars['QUERY_STRING']) && strlen($serverVars['QUERY_STRING']) >= 10) {
-                $decoded = $this->_decodeBase64($serverVars['QUERY_STRING']);
+                $decoded = Horde_ActiveSync_Utils::decodeBase64($serverVars['QUERY_STRING']);
                 $results['DeviceId'] = $decoded['DevID'];
+                $results['PolicyKey'] = $decoded['PolKey'];
                 switch ($decoded['DevType']) {
                 case 'PPC':
                     $results['DeviceType'] = 'PocketPC';
@@ -769,7 +793,7 @@ class Horde_ActiveSync
                     $results['Occurrence'] = $decoded['Occurrence'];
                 }
                 if (isset($decoded['Options'])) {
-                    $decoded['Options'] = bin2hex($decoded['Options']) * 1;
+                    $results['Options'] = bin2hex($decoded['Options']) * 1;
                 }
                 if (isset($decoded['User'])) {
                     $results['User'] = $decoded['User'];
@@ -777,9 +801,12 @@ class Horde_ActiveSync
                 if (isset($decoded['ProtVer'])) {
                     $results['ProtVer'] = $decoded['ProtVer'];
                 }
+
+                $this->_get = $results;
                 return $results;
             }
         } else {
+            $this->_get = $get;
             return $get;
         }
     }
@@ -793,61 +820,6 @@ class Horde_ActiveSync
         $this->activeSyncHeader();
         $this->versionHeader();
         $this->commandsHeader();
-    }
-
-    protected function _decodeBase64($uri)
-    {
-        $uri = base64_decode($uri);
-        $lenDevID = ord($uri{4});
-        $lenPolKey = ord($uri{4 + (1 + $lenDevID)});
-        $lenDevType = ord($uri{4 + (1 + $lenDevID) + (1 + $lenPolKey)});
-        $arr_ret = unpack(
-            'CProtVer/CCommand/vLocale/CDevIDLen/H' . ($lenDevID * 2)
-                . 'DevID/CPolKeyLen' . ($lenPolKey == 4 ? '/VPolKey' : '')
-                . '/CDevTypeLen/A' . $lenDevType . 'DevType', $uri);
-        $pos = (7 + $lenDevType + $lenPolKey + $lenDevID);
-        $uri = substr($uri, $pos);
-        while (strlen($uri) > 0) {
-            $lenToken = ord($uri{1});
-            switch (ord($uri{0})) {
-            case 0:
-                $type = 'AttachmentName';
-                break;
-            case 1:
-                $type = 'CollectionId';
-                break;
-            case 2:
-                $type = 'CollectionName';
-                break;
-            case 3:
-                $type = 'ItemId';
-                break;
-            case 4:
-                $type = 'LongId';
-                break;
-            case 5:
-                $type = 'ParentId';
-                break;
-            case 6:
-                $type = 'Occurrence';
-                break;
-            case 7:
-                $type = 'Options';
-                break;
-            case 8:
-                $type = 'User';
-                break;
-            default:
-                $type = 'unknown' . ord($uri{0});
-                break;
-            }
-           $value = unpack('CType/CLength/A' . $lenToken . 'Value', $uri);
-           $arr_ret[$type] = $value['Value'];
-           $pos = 2 + $lenToken;
-           $uri = substr($uri, $pos);
-        }
-
-        return $arr_ret;
     }
 
     /**

@@ -447,11 +447,10 @@ if (is_array($list) && $numitem && $read_perms) {
             }
 
             // We can always download files.
-            $item['dl'] = Horde::link(Horde::downloadUrl($val['name'], array('actionID' => 'download_file', 'dir' => Gollem::$backend['dir'], 'driver' => Gollem::$backend['driver'], 'file' => $val['name'])), sprintf(_("Download %s"), $val['name']));
+            $item['dl'] = Horde::link($registry->downloadUrl($val['name'], array('dir' => Gollem::$backend['dir'], 'driver' => Gollem::$backend['driver'])), sprintf(_("Download %s"), $val['name']));
 
             // Try a view link.
             $url = $view_url->copy()->add(array(
-                'actionID' => 'view_file',
                 'type' => $val['type'],
                 'file' => $val['name'],
                 'dir' => Gollem::$backend['dir'],
@@ -582,11 +581,9 @@ if (is_array($list) && $numitem && $read_perms) {
 }
 $template->set('itemcount', sprintf(ngettext(_("%d item"), _("%d items"), $total), $total));
 
-$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
-$page_output->addScriptFile('redbox.js', 'horde');
-$page_output->addScriptFile('dialog.js', 'horde');
 $page_output->addScriptFile('tables.js', 'horde');
 $page_output->addScriptFile('manager.js');
+$page_output->addScriptPackage('Dialog');
 $page_output->addInlineJsVars(array(
     '-warn_recursive' => intval($prefs->getValue('recursive_deletes') == 'warn')
 ));

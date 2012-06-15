@@ -989,28 +989,46 @@ class Nag_Task
      */
     function toASTask(array $options = array())
     {
-        $message = new Horde_ActiveSync_Message_Task();
+        $message = new Horde_ActiveSync_Message_Task(array(
+            'protocolversion' => $options['protocolversion'])
+        );
 
         /* Notes and Title */
-        $message->setBody($this->desc);
-        $message->setSubject($this->name);
+        if ($options['protocolversion'] >= Horde_ActiveSync::VERSION_TWELVE) {
+            $bp = $options['bodyprefs'];
+            $body = new Horde_ActiveSync_Message_AirSyncBaseBody();
+            $body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
+            if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+                if (Horde_String::length($this->desc) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
+                    $body->data = Horde_String::substr($this->desc, 0, $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
+                    $body->truncated = 1;
+                } else {
+                    $body->data = $this->desc;
+                }
+                $body->estimateddatasize = Horde_String::length($this->desc);
+            }
+            $message->airsyncbasebody = $body;
+        } else {
+            $message->body = $this->desc;
+        }
+        $message->subject = $this->name;
 
         /* Completion */
         if ($this->completed) {
-            $message->SetDateCompleted(new Horde_Date($this->completed_date));
-            $message->setComplete(Horde_ActiveSync_Message_Task::TASK_COMPLETE_TRUE);
+            $message->datecompleted = new Horde_Date($this->completed_date);
+            $message->complete = Horde_ActiveSync_Message_Task::TASK_COMPLETE_TRUE;
         } else {
-            $message->setComplete(Horde_ActiveSync_Message_Task::TASK_COMPLETE_FALSE);
+            $message->complete = Horde_ActiveSync_Message_Task::TASK_COMPLETE_FALSE;
         }
 
         /* Due Date */
         if (!empty($this->due)) {
-            $message->setDueDate(new Horde_Date($this->due));
+            $message->utcduedate = new Horde_Date($this->due);
         }
 
         /* Start Date */
         if (!empty($this->start)) {
-            $message->setStartDate(new Horde_Date($this->start));
+            $message->utcstartdate = new Horde_Date($this->start);
         }
 
         /* Priority */
@@ -1157,22 +1175,27 @@ class Nag_Task
         $this->owner = $GLOBALS['registry']->getAuth();
 
         /* Notes and Title */
-        $this->desc = $message->getBody();
-        $this->name = $message->getSubject();
+        if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
+            $this->desc = $message->airsyncbasebody->data;
+        } else {
+            $this->desc = $message->body;
+        }
+
+        $this->name = $message->subject;
 
         /* Completion */
-        if ($this->completed = $message->getComplete()) {
-            $dateCompleted = $message->getDateCompleted();
+        if ($this->completed = $message->complete) {
+            $dateCompleted = $message->datecompleted;
             $this->completed_date = empty($dateCompleted) ? null : $dateCompleted;
         }
 
         /* Due Date */
-        if ($due = $message->getDueDate()) {
+        if ($due = $message->utcduedate) {
             $this->due = $due->timestamp();
         }
 
         /* Start Date */
-        if ($start = $message->getStartDate()) {
+        if ($start = $message->utcstartdate) {
             $this->start = $start->timestamp();
         }
 

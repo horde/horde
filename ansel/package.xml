@@ -1280,6 +1280,9 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix carousel when viewing upload screen in an iFrame (Bug #10889).
+* [mjr] Fix returning to gallery view after uploading images when viewing Ansel in an iFrame (Bug #11209).
+* [mjr] Fix moving a subgallery to a top level gallery (Bug #11134).
 * [jan] Fix redirection after setting gallery password (thpo+horde@dotrc.de, Bug #11195).
    </notes>
   </release>

@@ -7,7 +7,7 @@
       }
 ?>
  <?php if ($hasExport): ?>
- <?php echo Horde::widget('#', _("Export"), 'widget', '', "document.contacts.action='" . Horde::url('data.php') . "'; Submit('select'); return false;", _("Export")) . ' | ' ?>
+ <?php echo Horde::widget('#', _("Export"), 'widget', '', "document.contacts.action='" . $GLOBALS['registry']->downloadUrl('', array('actionID' => 'export')) . "'; Submit('select'); return false;", _("Export")) . ' | ' ?>
  <?php endif; ?>
  <?php if (!empty($copymove_source_options)): $id = md5(mt_rand()); ?>
  <form style="display:inline" name="f<?php echo $id ?>" action="javascript:void(0);" onsubmit="return false;">

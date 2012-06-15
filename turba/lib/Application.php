@@ -366,7 +366,11 @@ class Turba_Application extends Horde_Registry_Application
                 $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
                 $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
                 foreach ($devices as $device) {
-                    $stateMachine->removeState(null, $device['device_id'], $GLOBALS['registry']->getAuth());
+                    $stateMachine->removeState(array(
+                        'devId' => $device['device_id'],
+                        'user' => $GLOBALS['registry']->getAuth(),
+                        'id' => Horde_Core_ActiveSync_Driver::CONTACTS_FOLDER_UID)
+                    );
                 }
                 $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
             } catch (Horde_ActiveSync_Exception $e) {
@@ -489,8 +493,8 @@ class Turba_Application extends Horde_Registry_Application
 
     /**
      */
-    public function topbarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
     {
         $add = Horde::url('add.php');
         $browse = Horde::url('browse.php');
@@ -547,6 +551,211 @@ class Turba_Application extends Horde_Registry_Application
                 'url' => Horde::url('search.php')
             )
         ));
+    }
+
+    /* Download data. */
+
+    /**
+     * @throws Horde_Vfs_Exception
+     * @throws Turba_Exception
+     */
+    public function download(Horde_Variables $vars)
+    {
+        global $attributes, $cfgSources, $injector;
+
+        switch ($vars->actionID) {
+        case 'download_file':
+            /* Get the object. */
+            if (!isset($cfgSources[$vars->source])) {
+                throw new Turba_Exception(_("The contact you requested does not exist."));
+            }
+
+            $object = $injector->getInstance('Turba_Factory_Driver')->create($vars->source)->getObject($vars->key);
+
+            /* Check permissions. */
+            if (!$object->hasPermission(Horde_Perms::READ)) {
+                throw new Turba_Exception(_("You do not have permission to view this contact."));
+            }
+
+            $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create('documents');
+            try {
+                return array(
+                    'data' => $vfs->read(Turba::VFS_PATH . '/' . $object->getValue('__uid'), $vars->file),
+                    'name' => $vars->file
+                );
+            } catch (Horde_Vfs_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Turba_Exception(sprintf(_("Access denied to %s"), $vars->file));
+            }
+
+        case 'export':
+            $sources = array();
+            if ($vars->selected) {
+                foreach ($vars->objectkeys as $objectkey) {
+                    list($source, $key) = explode(':', $objectkey, 2);
+                    if (!isset($sources[$source])) {
+                        $sources[$source] = array();
+                    }
+                    $sources[$source][] = $key;
+                }
+            } else {
+                if (!isset($vars->source) && !empty($cfgSources)) {
+                    reset($cfgSources);
+                    $vars->source = key($cfgSources);
+                }
+                $sources[$vars->source] = array();
+            }
+
+            if ($vcard = in_array($vars->exportID, array(Horde_Data::EXPORT_VCARD, 'vcard30'))) {
+                $version = ($vars->exportID == 'vcard30') ? '3.0' : '2.1';
+            }
+
+            $all_fields = $data = array();
+            $tfd = $injector->getInstance('Turba_Factory_Driver');
+
+            foreach ($sources as $source => $objectkeys) {
+                /* Create a Turba storage instance. */
+                $driver = $tfd->create($source);
+
+                /* Get the full, sorted contact list. */
+                try {
+                    $results = count($objectkeys)
+                        ? $driver->getObjects($objectkeys)
+                        : $driver->search(array())->objects;
+                } catch (Turba_Exception $e) {
+                    throw new Turba_Exception(sprintf(_("Failed to search the directory: %s"), $e->getMessage()));
+                }
+
+                $fields = array_keys($driver->map);
+                $all_fields = array_merge($all_fields, $fields);
+
+                $params = $driver->getParams();
+                foreach ($results as $ob) {
+                    if ($vcard) {
+                        $data[] = $driver->tovCard($ob, $version, null, true);
+                    } else {
+                        $row = array();
+                        foreach ($fields as $field) {
+                            if (substr($field, 0, 2) != '__') {
+                                $attribute = $ob->getValue($field);
+                                if ($attributes[$field]['type'] == 'date') {
+                                    $row[$field] = strftime('%Y-%m-%d', $attribute);
+                                } elseif ($attributes[$field]['type'] == 'time') {
+                                    $row[$field] = strftime('%R', $attribute);
+                                } elseif ($attributes[$field]['type'] == 'datetime') {
+                                    $row[$field] = strftime('%Y-%m-%d %R', $attribute);
+                                } else {
+                                $row[$field] = Horde_String::convertCharset($attribute, 'UTF-8', $params['charset']);
+                                }
+                            }
+                        }
+                        $data[] = $row;
+                    }
+                }
+            }
+
+            if (empty($data)) {
+                throw new Turba_Exception(_("There were no addresses to export."));
+            }
+
+            /* Make sure that all rows have the same columns if exporting from
+             * different sources. */
+            if (!$vcard && count($sources) > 1) {
+                for ($i = 0; $i < count($data); $i++) {
+                    foreach ($all_fields as $field) {
+                        if (!isset($data[$i][$field])) {
+                            $data[$i][$field] = '';
+                        }
+                    }
+                }
+            }
+
+            switch ($vars->exportID) {
+            case Horde_Data::EXPORT_CSV:
+                $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("contacts.csv"), $data, true);
+                exit;
+
+            case Horde_Data::EXPORT_OUTLOOKCSV:
+                $injector->getInstance('Horde_Core_Factory_Data')->create('Outlookcsv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("contacts.csv"), $data, true, array_flip($outlook_mapping));
+                exit;
+
+            case Horde_Data::EXPORT_TSV:
+                $injector->getInstance('Horde_Core_Factory_Data')->create('Tsv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("contacts.tsv"), $data, true);
+                exit;
+
+            case Horde_Data::EXPORT_VCARD:
+            case 'vcard30':
+                $injector->getInstance('Horde_Core_Factory_Data')->create('Vcard', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("contacts.vcf"), $data, true);
+                exit;
+
+            case 'ldif':
+                $ldif = new Turba_Data_Ldif(array(
+                    'browser' => $injector->getInstance('Horde_Browser'),
+                    'vars' => Horde_Variables::getDefaultVariables(),
+                    'cleanup' => array($this, 'cleanupData')
+                ));
+                $ldif->exportFile(_("contacts.ldif"), $data, true);
+                exit;
+            }
+
+            break;
+        }
+    }
+
+    /**
+     */
+    public function cleanupData()
+    {
+        $GLOBALS['import_step'] = 1;
+        return Horde_Data::IMPORT_FILE;
+    }
+
+    /**
+     */
+    public function getOutlookMapping()
+    {
+        return array(
+            'Title' => 'namePrefix',
+            'First Name' => 'firstname',
+            'Middle Name' => 'middlenames',
+            'Last Name' => 'lastname',
+            'Nickname' => 'nickname',
+            'Suffix' => 'nameSuffix',
+            'Company' => 'company',
+            'Department' => 'department',
+            'Job Title' => 'title',
+            'Business Street' => 'workStreet',
+            'Business City' => 'workCity',
+            'Business State' => 'workProvince',
+            'Business Postal Code' => 'workPostalCode',
+            'Business Country' => 'workCountry',
+            'Home Street' => 'homeStreet',
+            'Home City' => 'homeCity',
+            'Home State' => 'homeProvince',
+            'Home Postal Code' => 'homePostalCode',
+            'Home Country' => 'homeCountry',
+            'Business Fax' => 'workFax',
+            'Business Phone' => 'workPhone',
+            'Home Phone' => 'homePhone',
+            'Mobile Phone' => 'cellPhone',
+            'Pager' => 'pager',
+            'Anniversary' => 'anniversary',
+            'Assistant\'s Name' => 'assistant',
+            'Birthday' => 'birthday',
+            'Business Address PO Box' => 'workPOBox',
+            'Categories' => 'category',
+            'Children' => 'children',
+            'E-mail Address' => 'email',
+            'Home Address PO Box' => 'homePOBox',
+            'Initials' => 'initials',
+            'Internet Free Busy' => 'freebusyUrl',
+            'Language' => 'language',
+            'Notes' => 'notes',
+            'Profession' => 'role',
+            'Office Location' => 'office',
+            'Spouse' => 'spouse',
+            'Web Page' => 'website',
+        );
     }
 
 }

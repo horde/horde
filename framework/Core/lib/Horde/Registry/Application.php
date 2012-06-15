@@ -149,7 +149,8 @@ class Horde_Registry_Application
     {
     }
 
-    /* Menu generation methods. */
+
+    // Menu generation methods.
 
     /**
      * Add additional items to the menu.
@@ -181,6 +182,7 @@ class Horde_Registry_Application
     {
     }
 
+
     // Horde permissions.
 
     /**
@@ -205,6 +207,30 @@ class Horde_Registry_Application
     public function hasPermission($permission, $allowed, $opts = array())
     {
         return true;
+    }
+
+
+    // Horde service methods.
+
+    /**
+     * Prepare data to deliver to browser for download.
+     *
+     * @param Horde_Variables $vars  Form variables provided to download
+     *                               script. The filename is available in
+     *                               the 'filename' parameter.
+     *
+     * @return array  Download data:
+     *   - data: [REQUIRED] (mixed) Data. Either a stream or a string.
+     *   - name: (string) Filename that overrides 'filename' URL parameter.
+     *   - size: (integer) If set, used as size. If null, no size will be
+     *           sent to browser. If not set, size will be automatically
+     *           determined from data.
+     *   - type: (string) MIME type to send (default:
+     *           application/octet-stream).
+     */
+    public function download(Horde_Variables $vars)
+    {
+        return array();
     }
 
 
@@ -472,13 +498,13 @@ class Horde_Registry_Application
     /**
      * Add node(s) to the sidebar tree.
      *
-     * @param Horde_Tree_Base $tree  Tree object.
+     * @param Horde_Tree_Renderer_Base $tree  Tree object.
      * @param string $parent         The current parent element.
      * @param array $params          Additional parameters.
      *
      * @throws Horde_Exception
      */
-    public function topbarCreate(Horde_Tree_Base $tree, $parent = null,
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
                                   array $params = array()) {}
 
 

@@ -39,7 +39,7 @@ class Horde_Data_Tsv extends Horde_Data_Base
      */
     public function importData($contents, $header = false, $delimiter = "\t")
     {
-        if ($GLOBALS['injector']->getInstance('Horde_Session')->get('horde', 'import_data/format') == 'pine') {
+        if ($this->storage->get('format') == 'pine') {
             $contents = preg_replace('/\n +/', '', $contents);
         }
 
@@ -142,7 +142,7 @@ class Horde_Data_Tsv extends Horde_Data_Base
         case Horde_Data::IMPORT_FILE:
             parent::nextStep($action, $param);
 
-            $format = $this->_storage->get('format');
+            $format = $this->storage->get('format');
             if (in_array($format, array('mulberry', 'pine'))) {
                 $filedata = $this->importFile($_FILES['import_file']['tmp_name']);
 
@@ -204,8 +204,8 @@ class Horde_Data_Tsv extends Horde_Data_Base
                     $data[] = $hash;
                 }
 
-                $this->_storage->set('data', $data);
-                $this->_storage->set('map', $map);
+                $this->storage->set('data', $data);
+                $this->storage->set('map', $map);
 
                 return $this->nextStep(Horde_Data::IMPORT_DATA, $param);
             }
@@ -221,7 +221,7 @@ class Horde_Data_Tsv extends Horde_Data_Base
             if (!move_uploaded_file($_FILES['import_file']['tmp_name'], $file_name)) {
                 throw new Horde_Data_Exception(Horde_Data_Translation::t("The uploaded file could not be saved."));
             }
-            $this->_storage->set('file_name', $file_name);
+            $this->storage->set('file_name', $file_name);
 
             /* Read the file's first two lines to show them to the user. */
             $first_lines = '';
@@ -233,13 +233,13 @@ class Horde_Data_Tsv extends Horde_Data_Base
                     ++$line_no;
                 }
             }
-            $this->_storage->set('first_lines', $first_lines);
+            $this->storage->set('first_lines', $first_lines);
             return Horde_Data::IMPORT_TSV;
 
         case Horde_Data::IMPORT_TSV:
-            $this->_storage->set('header', $this->_vars->header);
-            $this->_storage->set('data', $this->importFile($this->_storage->get('file_name'), $this->_storage->get('header')));
-            $this->_storage->set('map');
+            $this->storage->set('header', $this->_vars->header);
+            $this->storage->set('data', $this->importFile($this->storage->get('file_name'), $this->storage->get('header')));
+            $this->storage->set('map');
             return Horde_Data::IMPORT_MAPPED;
         }
 

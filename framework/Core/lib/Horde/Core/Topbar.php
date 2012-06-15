@@ -18,7 +18,7 @@ class Horde_Core_Topbar
     /**
      * A tree object for the main menu.
      *
-     * @var Horde_Tree_Base
+     * @var Horde_Tree_Renderer_Base
      */
     protected $_tree;
 

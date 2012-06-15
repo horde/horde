@@ -6,7 +6,7 @@
  * [IMPLE NAME]:do
  * Parameter: parameters list to send to the AJAX endpoint
  *
- * [IMPLE NAME}:complete
+ * [IMPLE NAME]:complete
  * Parameter: response from AJAX endpoint
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)

@@ -70,8 +70,9 @@ class Gollem_Auth
             !empty($backend['params']['password'])) {
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
             $credentials['password'] = $secret->read(
-                $secret->getKey('gollem'),
-                $backend['params']['password']);
+                $secret->getKey(),
+                $backend['params']['password']
+            );
         }
 
         if (!isset($credentials['userId']) ||
@@ -128,7 +129,7 @@ class Gollem_Auth
         }
         if (!isset($backend['params']['password'])) {
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            $backend['params']['password'] = $secret->write($secret->getKey('gollem'), $credentials['password']);
+            $backend['params']['password'] = $secret->write($secret->getKey(), $credentials['password']);
         }
 
         // Make sure we have a 'root' parameter.
@@ -242,7 +243,7 @@ class Gollem_Auth
                 }
                 if (isset($backends[$key]['params']['password'])) {
                     $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-                    $backends[$key]['params']['password'] = $secret->write($secret->getKey('gollem'), $backends[$key]['params']['password']);
+                    $backends[$key]['params']['password'] = $secret->write($secret->getKey(), $backends[$key]['params']['password']);
                 }
             }
             $GLOBALS['session']->set('gollem', 'backends', $backends);

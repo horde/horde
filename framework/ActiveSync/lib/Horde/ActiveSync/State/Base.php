@@ -609,12 +609,17 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Explicitly remove a state from storage.
      *
-     * @param string $synckey  The specific state to remove
-     * @param string $devId    Remove all state for this device (ignores synckey)
+     * @param array $options  An options array containing:
+     *   - synckey: (string)  Remove only the state associated with this synckey.
+     *   - devId: (string)  Remove all information for this device.
+     *   - user: (string)  When removing device info, restrict to removing data
+     *                    for this user only.
+     *   - id: (string)  When removing device state, restrict ro removing data
+     *                   only for this collection.
      *
      * @throws Horde_ActiveSyncException
      */
-    abstract public function removeState($synckey = null, $devId = null);
+    abstract public function removeState(array $options);
 
     /**
      * Return the heartbeat interval, or zero if we have no existing state

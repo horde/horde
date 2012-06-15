@@ -70,6 +70,15 @@ var HordeMobile = {
 
         HordeMobile.inAjaxCallback = true;
 
+        if (d.reload) {
+            if (d.reload === true) {
+                window.location.reload();
+            } else {
+                window.location.assign(d.reload);
+            }
+            return;
+        }
+
         HordeMobile.notify_handler(d.msgs || []);
 
         if (d.tasks) {

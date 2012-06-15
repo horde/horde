@@ -210,7 +210,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 case Horde_ActiveSync::SYNC_WINDOWSIZE:
                     $default_maxitems = $this->_decoder->getElementContent();
                     $this->_logger->debug(sprintf(
-                        "[%s] WINDOWSIZE set to %s",
+                        "[%s] Global WINDOWSIZE set to %s",
                         $this->_device->id,
                         $default_maxitems));
                     if (!$this->_decoder->getElementEndTag()) {
@@ -400,7 +400,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         'Not a partial sync. Removing %s from collection',
                         $key)
                     );
-                    unset($this->_syncCache['collections'][$key]);
+                    unset($this->_syncCache['collections'][$key]['synckey']);
                 }
             }
 
@@ -786,7 +786,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         }
                         $this->_updateSyncCacheCollection(
                             $collection,
-                            (isset($collection['newsynckey']) ? $collection['newsynckey'] : false),
+                            $collection['newsynckey'],
                             true
                         );
                     }
@@ -955,18 +955,22 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
-                // Update sync_cache
-                $this->_syncCache['collections'][$collection['id']] = array(
-                    'class' => $collection['class'],
-                    'windowsize' => isset($collection['windowsize']) ? $collection['windowsize'] : null,
-                    'deletesasmoves' => isset($collection['deletesasmoves']) ? $collection['deletesasmoves'] : null,
-                    'filtertype' => isset($collection['filtertype']) ? $collection['filtertype'] : null,
-                    'truncation' => isset($collection['truncation']) ? $collection['truncation'] : null,
-                    'rtftruncation' => isset($collection['rtftruncation']) ? $collection['rtftruncation'] : null,
-                    'mimesupport' => isset($collection['mimesupport']) ? $collection['mimesupport'] : null,
-                    'mimetruncation' => isset($collection['mimetruncation']) ? $collection['mimetruncation'] : null,
-                    'conflict' => isset($collection['conflict']) ? $collection['conflict'] : null,
-                    'bodyprefs' => isset($collection['bodyprefs']) ? $collection['bodyprefs'] : null);
+                if (empty($this->_syncCache['collections'][$collection['id']])) {
+                    $this->_logger->debug('Creating new sync_cache entry for: ' . $collection['id']);
+                    $this->_syncCache['collections'][$collection['id']] = array(
+                        'class' => $collection['class'],
+                        'windowsize' => isset($collection['windowsize']) ? $collection['windowsize'] : null,
+                        'deletesasmoves' => isset($collection['deletesasmoves']) ? $collection['deletesasmoves'] : null,
+                        'filtertype' => isset($collection['filtertype']) ? $collection['filtertype'] : null,
+                        'truncation' => isset($collection['truncation']) ? $collection['truncation'] : null,
+                        'rtftruncation' => isset($collection['rtftruncation']) ? $collection['rtftruncation'] : null,
+                        'mimesupport' => isset($collection['mimesupport']) ? $collection['mimesupport'] : null,
+                        'mimetruncation' => isset($collection['mimetruncation']) ? $collection['mimetruncation'] : null,
+                        'conflict' => isset($collection['conflict']) ? $collection['conflict'] : null,
+                        'bodyprefs' => isset($collection['bodyprefs']) ? $collection['bodyprefs'] : null);
+                } elseif (isset($collection['windowsize'])) {
+                    $this->_syncCache['collections'][$collection['id']]['windowsize'] = $collection['windowsize'];
+                }
             }
         }
 
@@ -1327,7 +1331,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $collection['newsynckey'] = Horde_ActiveSync_State_Base::getNewSyncKey(($this->_statusCode == self::STATUS_KEYMISM) ? 0 : $collection['synckey']);
             if ($collection['synckey'] != 0) {
                 $this->_stateDriver->init($collection);
-                $this->_stateDriver->removeState($collection['synckey']);
+                $this->_stateDriver->removeState(array('synckey' => $collection['synckey']));
             }
         }
 

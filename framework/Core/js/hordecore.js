@@ -16,14 +16,10 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  */
 
-if (!HordeCoreConf) {
-    var HordeCoreConf = {};
-}
-
 var HordeCore = {
 
     // Vars used and defaulting to null/false:
-    //   Growler, inAjaxCallback, is_logout, submit_frame
+    //   Growler, conf, inAjaxCallback, is_logout, submit_frame, text
     alarms: [],
     base: null,
     notify_handler: function(m) { HordeCore.showNotifications(m); },
@@ -56,7 +52,7 @@ var HordeCore = {
     onFailure: function(t, o)
     {
         this.debug('onFailure', t);
-        this.notify(HordeCoreText.ajax_error, 'horde.error');
+        this.notify(this.text.ajax_error, 'horde.error');
         document.fire('HordeCore:ajaxFailure', [ t, o ]);
     },
 
@@ -66,10 +62,10 @@ var HordeCore = {
         params = $H(params).clone();
         opts = opts || {};
 
-        var ajaxopts = Object.extend(this.doActionOpts, opts.ajaxopts || {});
+        var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts || {});
 
         this.addRequestParams(params);
-        params.set('token', HordeCoreConf.TOKEN);
+        params.set('token', this.conf.TOKEN);
 
         ajaxopts.parameters = params;
 
@@ -77,7 +73,7 @@ var HordeCore = {
             this.doActionComplete(t, opts.callback);
         }.bind(this);
 
-        new Ajax.Request(HordeCoreConf.URI_AJAX + action, ajaxopts);
+        new Ajax.Request(this.conf.URI_AJAX + action, ajaxopts);
     },
 
     // form: (Element) DOM Element (or DOM ID)
@@ -86,12 +82,36 @@ var HordeCore = {
     {
         opts = opts || {};
 
-        var ajaxopts = Object.extend(this.doActionOpts, opts.ajaxopts || {});
+        var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts || {});
         ajaxopts.onComplete = function(t, o) {
             this.doActionComplete(t, opts.callback);
         }.bind(this);
 
         $(form).request(ajaxopts);
+    },
+
+    // Do a raw submit (non-AJAX).
+    // form: (Element) DOM Element (or DOM ID)
+    // opts: (Object) callback
+    submit: function(form, opts)
+    {
+        form = $(form);
+        opts = opts || {};
+
+        if (!form.down('INPUT[name=token]')) {
+            form.insert(new Element('INPUT', {
+                name: 'token',
+                type: 'hidden'
+            }).setValue(this.conf.TOKEN));
+        }
+
+        if (opts.callback) {
+            this.handleSubmit(form, {
+                callback: opts.callback
+            });
+        }
+
+        form.submit();
     },
 
     handleSubmit: function(form, opts)
@@ -119,8 +139,8 @@ var HordeCore = {
     // params: (Hash) URL parameters
     addRequestParams: function(params)
     {
-        if (HordeCoreConf.SID) {
-            params.update(HordeCoreConf.SID.toQueryParams());
+        if (this.conf.SID) {
+            params.update(this.conf.SID.toQueryParams());
         }
     },
 
@@ -130,7 +150,7 @@ var HordeCore = {
 
         if (!request.responseJSON) {
             if (++this.server_error == 3) {
-                this.notify(HordeCoreText.ajax_timeout, 'horde.error');
+                this.notify(this.text.ajax_timeout, 'horde.error');
             }
             if (request.request) {
                 request.request.options.onFailure(request, {});
@@ -141,13 +161,22 @@ var HordeCore = {
 
         var r = request.responseJSON;
 
+        if (r.reload) {
+            if (r.reload === true) {
+                window.location.reload();
+            } else {
+                window.location.assign(r.reload);
+            }
+            return;
+        }
+
         if (!r.msgs) {
             r.msgs = [];
         }
 
         if (this.server_error >= 3) {
             r.msgs.push({
-                message: HordeCoreText.ajax_recover,
+                message: this.text.ajax_recover,
                 type: 'horde.success'
             });
         }
@@ -218,11 +247,11 @@ var HordeCore = {
                 }
                 if (alarm.user) {
                     var select = '<select>';
-                    $H(HordeCoreText.snooze_select).each(function(snooze) {
+                    $H(this.text.snooze_select).each(function(snooze) {
                         select += '<option value="' + snooze.key + '">' + snooze.value + '</option>';
                     });
                     select += '</select>';
-                    message.insert('<br /><br />' + HordeCoreText.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="button ko" />' }));
+                    message.insert('<br /><br />' + this.text.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="button ko" />' }));
                 }
                 var growl = this.Growler.growl(message, {
                     className: 'horde-alarm',
@@ -232,18 +261,11 @@ var HordeCore = {
                 });
                 growl.store('alarm', alarm.id);
 
-                document.observe('Growler:destroyed', function(e) {
-                    var id = e.element().retrieve('alarm');
-                    if (id) {
-                        this.alarms = this.alarms.without(id);
-                    }
-                }.bindAsEventListener(this));
-
                 if (alarm.user) {
                     message.down('select').observe('change', function(e) {
                         if (e.element().getValue()) {
                             this.Growler.ungrowl(growl);
-                            new Ajax.Request(HordeCoreConf.URI_SNOOZE, {
+                            new Ajax.Request(this.conf.URI_SNOOZE, {
                                 parameters: {
                                     alarm: alarm.id,
                                     snooze: e.element().getValue()
@@ -255,7 +277,7 @@ var HordeCore = {
                         e.stop();
                     });
                     message.down('input[type=button]').observe('click', function(e) {
-                        new Ajax.Request(HordeCoreConf.URI_SNOOZE, {
+                        new Ajax.Request(this.conf.URI_SNOOZE, {
                             parameters: {
                                 alarm: alarm.id,
                                 snooze: -1
@@ -297,20 +319,23 @@ var HordeCore = {
     // opts: (object) 'name', 'onload'
     popupWindow: function(url, params, opts)
     {
-        params = params || {};
         opts = opts || {};
+        params = $H(params || {});
 
-        var params = {
-            height: HordeCoreConf.popup_height,
+        this.addRequestParams(params);
+
+        var p = {
+            height: this.conf.popup_height,
             name: (opts.name || '_hordepopup').gsub(/\W/, '_'),
             noalert: true,
             onload: opts.onload,
-            url: this.addURLParam(url, params),
-            width: HordeCoreConf.popup_width
+            params: params,
+            url: url,
+            width: this.conf.popup_width
         };
 
-        if (!Horde.popup(params)) {
-            this.notify(HordeCoreText.popup_block, 'horde.warning');
+        if (!HordePopup.popup(p)) {
+            this.notify(HordePopup.popup_block_text, 'horde.warning');
         }
     },
 
@@ -333,13 +358,23 @@ var HordeCore = {
     logout: function(url)
     {
         this.is_logout = true;
-        this.redirect(url || HordeCoreConf.URI_LOGOUT);
+        this.redirect(url || this.conf.URI_LOGOUT);
     },
 
     // url: (string) URL to redirect to
     redirect: function(url)
     {
         window.location.assign(this.addURLParam(url));
+    },
+
+    // Redirect to the download link.
+    download: function(name, params)
+    {
+        var url = this.addURLParam(this.conf.URI_DLOAD, params);
+        // Guaranteed to have at least one URL parameter, since download
+        // URL requires the app name. So just append filename to end.
+        url += '&fn=/' . encodeURIComponent(name);
+        window.location.assign(url);
     },
 
     // id: (string) The ID to use for the loading image.
@@ -398,12 +433,12 @@ var HordeCore = {
         } catch (e) {}
 
         /* Add Growler notification handler. */
-        if (HordeCoreConf.growler_log) {
+        if (this.conf.growler_log) {
             this.Growler = new Growler({
-                info: HordeCoreText.growlerinfo,
+                info: this.text.growlerinfo,
                 location: 'br',
                 log: true,
-                noalerts: HordeCoreText.growlernoalerts
+                noalerts: this.text.growlernoalerts
             });
         } else {
             this.Growler = new Growler({ location: 'br' });
@@ -413,3 +448,9 @@ var HordeCore = {
 };
 
 document.observe('dom:loaded', HordeCore.onDomLoad.bind(HordeCore));
+document.observe('Growler:destroyed', function(e) {
+    var id = e.element().retrieve('alarm');
+    if (id) {
+        this.alarms = this.alarms.without(id);
+    }
+}.bindAsEventListener(HordeCore));

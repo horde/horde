@@ -1986,15 +1986,18 @@
  </configtab>
  <configtab name="activesync" desc="ActiveSync">
   <configsection name="activesync">
-   <configdescription>To enable ActiveSync support, you must create an alias on
-   your webserver to point /Microsoft-Servers-ActiveSync to /horde/rpc.php.
+   <configdescription>The use of ActiveSync in the United States is PROHIBITED
+   due to patent issues. If you are NOT in the United States, or you have a
+   license to use ActiveSync, you may enable ActiveSync below and create an
+   alias on your webserver to redirect /Microsoft-Servers-ActiveSync to
+   /horde/rpc.php.
    See http://wiki.horde.org/ActiveSync for more information.
    </configdescription>
-   <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">true
+   <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">false
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
      <configheader>Capabilities</configheader>
-      <configboolean name="emailsync" desc="Enable Email support?">false
+      <configboolean name="emailsync" desc="Enable Email support?">true
       </configboolean>
       <configenum name="version" desc="What is the highest version of EAS that
       Horde should support? All versions are backwards compatible so selecting
@@ -2027,10 +2030,8 @@
      <configsection name="logging">
       <configswitch name="type" desc="For debugging, it may be useful to send
       activesync-related log messages to a seperate log. If you want to do this,
-      set this to Custom and enter the path to the log file to use. Horde will
-      attempt to create device specific log files in the same directory as the
-      filepath you provide here. If it is unable to do so, all log entries will
-      be sent to the filename you provide.">
+      set this to Custom and enter the path to the directory to place log files
+      in. Horde will create device specific log files in this directory.">
         <case name="horde" desc="Horde" />
         <case name="custom" desc="Custom">
          <configstring name="path" desc="Path to logfile" />
@@ -2073,71 +2074,6 @@
       essentially reducing the number of checks done during each heartbeat.
       Lowering this value will increase the number of checks that are down
       during each heartbeat.">5</configinteger>
-     </configsection>
-     <configsection name="securitypolicies">
-     <configheader>Security Policies</configheader>
-      <configswitch name="provisioning" desc="How should device provisioning be
-      handled? Set to DISABLE to ignore provisioning. Set to ALLOW to force
-      devices that CAN be provisioned to use provisioning, but allow older
-      devices with no support for provisioning to still be used. Set to FORCE
-      to only allow devices that are provisioned to connect to your
-      server.">false
-       <case name="false" desc="Disable" />
-       <case name="loose" desc="Allow">
-        <configswitch name="pin" desc="Force device to use a PIN to unlock
-        the device.">false
-         <case name="false" desc="No" />
-         <case name="true" desc="Yes">
-          <configinteger name="wipethreshold" desc="How many unlock attempts
-          before device should get wiped? Set to 0 to disable this policy.">10
-          </configinteger>
-          <configinteger name="codewordfrequency" desc="How many unlock attempts
-          before validating that an actual person is using the device is able to
-          read and write. This should typically be half of thewipethreshold
-          setting above. Set to 0 to disable this policy.">5</configinteger>
-          <configinteger name="minimumlength" desc="Minimum PIN
-          size">5</configinteger>
-          <configenum name="complexity" desc="PIN/Password complexity. Some
-          devices may be able to ONLY support numeric PINs.">
-           <values>
-            <value desc="Require alphanumeric">0</value>
-            <value desc="Allow only numeric">1</value>
-            <value desc="Allow any">2</value>
-         </values>
-        </configenum>
-        <configinteger name="inactivity" desc="Number of minutes of inactivity
-        before device should lock.">3</configinteger>
-         </case>
-        </configswitch>
-       </case>
-       <case name="true" desc="Force">
-        <configswitch name="pin" desc="Force device to use a PIN to unlock
-        the device.">false
-         <case name="false" desc="No" />
-         <case name="true" desc="Yes">
-          <configinteger name="wipethreshold" desc="How many unlock attempts
-          before device should get wiped? Set to 0 to disable this policy.">10
-          </configinteger>
-          <configinteger name="codewordfrequency" desc="How many unlock attempts
-          before validating that an actual person is using the device is able to
-          read and write. This should typically be half of thewipethreshold
-          setting above. Set to 0 to disable this policy.">5</configinteger>
-          <configinteger name="minimumlength" desc="Minimum PIN
-          size">5</configinteger>
-          <configenum name="complexity" desc="PIN/Password complexity. Some
-          devices may be able to ONLY support numeric PINs.">
-           <values>
-            <value desc="Require alphanumeric">0</value>
-            <value desc="Allow only numeric">1</value>
-            <value desc="Allow any">2</value>
-           </values>
-          </configenum>
-          <configinteger name="inactivity" desc="Number of minutes of
-          inactivity before device should lock.">3</configinteger>
-         </case>
-        </configswitch>
-       </case>
-      </configswitch>
      </configsection>
     </case>
    </configswitch>

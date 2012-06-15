@@ -90,10 +90,8 @@ var ImpMessage = {
                    target.startsWith("tasklist\0")) {
             this.actIDconfirm = actID;
             HordeDialog.display({
-                cancel_text: IMP.text.no,
                 form_id: 'RB_ImpMessageConfirm',
                 noinput: true,
-                ok_text: IMP.text.yes,
                 text: IMP.text.moveconfirm
             });
         } else {
@@ -207,13 +205,18 @@ var ImpMessage = {
                 } else if (elt.hasClassName('notspamAction')) {
                     this.submit('notspam_report');
                 } else if (elt.hasClassName('stripAllAtc')) {
-                    if (!window.confirm(this.stripatc)) {
+                    if (!window.confirm(this.stripallwarn)) {
                         e.stop();
                         return;
                     }
                 }
             } else if (elt.hasClassName('unblockImageLink')) {
                 IMP_JS.unblockImages(e);
+            } else if (elt.hasClassName('stripAtc')) {
+                if (!window.confirm(this.stripwarn)) {
+                    e.stop();
+                    return;
+                }
             }
 
             elt = elt.up();

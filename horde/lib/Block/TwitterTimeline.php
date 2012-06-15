@@ -124,7 +124,7 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
         $page_output->addScriptFile('twitterclient.js', 'horde');
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $script = <<<EOT
-            var Horde = window.Horde || {};
+            Horde = window.Horde || {};
             Horde['twitter{$instance}'] = new Horde_Twitter({
                instanceid: '{$instance}',
                getmore: '{$instance}_getmore',

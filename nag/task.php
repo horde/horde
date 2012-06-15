@@ -64,7 +64,7 @@ if (is_null($actionID)) {
 switch ($actionID) {
 case 'add_task':
     /* Check permissions. */
-    $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+    $perms = $injector->getInstance('Horde_Core_Perms');
     if ($perms->hasAppPermission('max_tasks') !== true &&
         $perms->hasAppPermission('max_tasks') <= Nag::countTasks()) {
         Horde::permissionDeniedError(
@@ -85,23 +85,23 @@ case 'modify_task':
     $task_id = $vars->get('task');
     $tasklist_id = $vars->get('tasklist');
     try {
-        $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
+        $share = $nag_shares->getShare($tasklist_id);
     } catch (Horde_Share_Exception $e) {
         $notification->push(sprintf(_("Access denied editing task: %s"), $e->getMessage()), 'horde.error');
     }
-    if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+    if (!$share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("Access denied editing task."), 'horde.error');
     } else {
         $task = Nag::getTask($tasklist_id, $task_id);
         if (!isset($task) || !isset($task->id)) {
             $notification->push(_("Task not found."), 'horde.error');
-        } elseif ($task->private && $task->owner != $GLOBALS['registry']->getAuth()) {
+        } elseif ($task->private && $task->owner != $registry->getAuth()) {
             $notification->push(_("Access denied editing task."), 'horde.error');
         } else {
             $vars = new Horde_Variables($task->toHash());
             $vars->set('old_tasklist', $task->tasklist);
             $vars->set('url', Horde_Util::getFormData('url'));
-            $form = new Nag_Form_Task($vars, sprintf(_("Edit: %s"), $task->name), $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE));
+            $form = new Nag_Form_Task($vars, sprintf(_("Edit: %s"), $task->name), $share->hasPermission($registry->getAuth(), Horde_Perms::DELETE));
             break;
         }
     }
@@ -121,21 +121,21 @@ default:
     Horde::url('list.php', true)->redirect();
 }
 
-$datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
-if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
+$datejs = str_replace('_', '-', $language) . '.js';
+if (!file_exists($registry->get('jsfs', 'horde') . '/date/' . $datejs)) {
     $datejs = 'en-US.js';
 }
 
-$GLOBALS['page_output']->addScriptFile('date/' . $datejs, 'horde');
-$GLOBALS['page_output']->addScriptFile('date/date.js', 'horde');
-$GLOBALS['page_output']->addScriptFile('keynavlist.js', 'horde');
-$GLOBALS['page_output']->addScriptFile('task.js');
+$page_output->addScriptFile('date/' . $datejs, 'horde');
+$page_output->addScriptFile('date/date.js', 'horde');
+$page_output->addScriptFile('task.js');
+$page_output->addScriptPackage('Keynavlist');
 
-$GLOBALS['page_output']->header(array(
+$page_output->header(array(
     'title' => $form->getTitle()
 ));
 require NAG_TEMPLATES . '/javascript_defs.php';
 echo Nag::menu();
 Nag::status();
 $form->renderActive();
-$GLOBALS['page_output']->footer();
+$page_output->footer();

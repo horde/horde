@@ -628,7 +628,8 @@ var DimpBase = {
 
         container.observe('ViewPort:contentComplete', function() {
             var flags, ssc, tmp,
-                innocent = spam = 'show';
+                innocent = 'show',
+                spam = 'show';
 
             this.setMessageListTitle();
             this.setMsgHash();
@@ -899,22 +900,21 @@ var DimpBase = {
             });
             break;
 
-        case 'ctx_mbox_export_opts_mbox':
-        case 'ctx_mbox_export_opts_zip':
+        case 'ctx_mbox_exportopts_mbox':
+        case 'ctx_mbox_exportopts_zip':
             tmp = e.findElement('LI');
 
             this.viewaction = function(e) {
-                HordeCore.redirect(HordeCore.addURLParam(DimpCore.conf.URI_VIEW, {
+                HordeCore.download('', {
                     actionID: 'download_mbox',
-                    mailbox: tmp.retrieve('mbox'),
-                    zip: Number(id == 'ctx_mbox_export_opts_zip')
-                }));
+                    mbox_list: Object.toJSON([ tmp.retrieve('mbox') ]),
+                    zip: Number(id == 'ctx_mbox_exportopts_zip')
+                });
             };
 
             HordeDialog.display({
-                cancel_text: DimpCore.text.cancel,
+                form_id: 'dimpbase_confirm',
                 noinput: true,
-                ok_text: DimpCore.text.ok,
                 text: DimpCore.text.download_mbox
             });
             break;
@@ -923,7 +923,6 @@ var DimpBase = {
             tmp = e.findElement('LI').retrieve('mbox');
 
             HordeDialog.display({
-                cancel_text: DimpCore.text.cancel,
                 form: new Element('DIV').insert(
                           new Element('INPUT', { name: 'import_file', type: 'file' })
                       ).insert(
@@ -931,26 +930,19 @@ var DimpBase = {
                       ),
                 form_id: 'mbox_import',
                 form_opts: {
-                    action: HordeCoreConf.URI_AJAX + 'importMailbox',
-                    className: 'RBForm',
+                    action: HordeCore.conf.URI_AJAX + 'importMailbox',
+                    className: 'RB_Form',
                     enctype: 'multipart/form-data',
-                    method: 'post',
-                    name: 'mbox_import'
+                    method: 'post'
                 },
-                ok_text: DimpCore.text.ok,
-                submit_handler: function(r) {
-                    if (r.action == 'importMailbox') {
-                        this.viewport.reload();
-                    }
-                }.bind(this),
                 text: DimpCore.text.import_mbox
             });
             break;
 
-        case 'ctx_mbox_seen':
-        case 'ctx_mbox_unseen':
+        case 'ctx_mbox_flag_seen':
+        case 'ctx_mbox_flag_unseen':
             DimpCore.doAction('flagAll', {
-                add: Number(id == 'ctx_mbox_seen'),
+                add: Number(id == 'ctx_mbox_flag_seen'),
                 flags: Object.toJSON([ DimpCore.conf.FLAG_SEEN ]),
                 mbox: e.findElement('LI').retrieve('mbox')
             });
@@ -1498,7 +1490,7 @@ var DimpBase = {
 
     setSortColumns: function(sortby)
     {
-        var tmp, tmp2,
+        var elt, tmp, tmp2,
             ptr = DimpCore.conf.sort,
             m = $('msglistHeaderHoriz');
 
@@ -1724,7 +1716,7 @@ var DimpBase = {
     {
         // Store messages in cache.
         r.each(function(msg) {
-            ppuid = this._getPPId(msg.uid, msg.mbox);
+            var ppuid = this._getPPId(msg.uid, msg.mbox);
             this._expirePPCache([ ppuid ]);
             this.ppcache[ppuid] = msg;
             this.ppfifo.push(ppuid);
@@ -2808,13 +2800,12 @@ var DimpBase = {
                 });
             };
             HordeDialog.display({
-                cancel_text: DimpCore.text.cancel,
                 form: new Element('DIV').insert(
                     new Element('INPUT', { name: 'delete_subfolders', type: 'checkbox' })
                 ).insert(
                     DimpCore.text.delete_mbox_subfolders.sub('%s', this.fullMboxDisplay(params.elt))
                 ),
-                ok_text: DimpCore.text.ok,
+                form_id: 'dimpbase_confirm',
                 text: params.elt.hasClassName('container') ? null : DimpCore.text.delete_mbox.sub('%s', this.fullMboxDisplay(params.elt))
             });
             break;
@@ -2826,9 +2817,8 @@ var DimpBase = {
                 });
             };
             HordeDialog.display({
-                cancel_text: DimpCore.text.cancel,
+                form_id: 'dimpbase_confirm',
                 noinput: true,
-                ok_text: DimpCore.text.ok,
                 text: DimpCore.text.empty_mbox.sub('%s', this.fullMboxDisplay(params.elt)).sub('%d', r)
             });
             break;
@@ -2847,9 +2837,8 @@ var DimpBase = {
         }.bind(this);
 
         HordeDialog.display({
-            cancel_text: DimpCore.text.cancel,
+            form_id: 'dimpbase_confirm',
             input_val: val,
-            ok_text: DimpCore.text.ok,
             text: text
         });
     },
@@ -3693,7 +3682,7 @@ var DimpBase = {
         DM.addSubMenu('ctx_oa_setflag', 'ctx_flag');
         DM.addSubMenu('ctx_oa_unsetflag', 'ctx_flag');
         DM.addSubMenu('ctx_mbox_setflag', 'ctx_mbox_flag');
-        DM.addSubMenu('ctx_mbox_export', 'ctx_mbox_export_opts');
+        DM.addSubMenu('ctx_mbox_export', 'ctx_mbox_exportopts');
 
         DimpCore.addPopdown($('msglistHeaderHoriz').down('.msgSubject').identify(), 'subjectsort', {
             insert: 'bottom'
@@ -3749,7 +3738,7 @@ var DimpBase = {
         /* Make sure loading images are closed. */
         this.loadingImg('msg', false);
         this.loadingImg('viewport', false);
-        HordeCore.notify(HordeCoreText.ajax_error, 'horde.error');
+        HordeCore.notify(HordeCore.text.ajax_error, 'horde.error');
     }
 
 };
@@ -3824,12 +3813,20 @@ document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener
 /* HordeDialog listener. */
 document.observe('HordeDialog:onClick', function(e) {
     switch (e.element().identify()) {
-    case 'RB_confirm':
+    case 'dimpbase_confirm':
         this.viewaction(e);
+        HordeDialog.close();
         break;
 
     case 'mbox_import':
-        e.element().submit();
+        HordeCore.submit(e.element(), {
+            callback: function(r) {
+                if (r.action == 'importMailbox') {
+                    this.viewport.reload();
+                }
+            }.bind(this)
+        });
+        HordeDialog.close();
         break;
     }
 }.bindAsEventListener(DimpBase));

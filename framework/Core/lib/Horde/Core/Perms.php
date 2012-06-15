@@ -238,6 +238,9 @@ class Horde_Core_Perms
                     if (isset($val['type'])) {
                         $perms['type'][$app . ':' . $key] = $val['type'];
                     }
+                    if (isset($val['params'])) {
+                        $perms['params'][$app . ':' . $key] = $val['params'];
+                    }
                 }
             }
 

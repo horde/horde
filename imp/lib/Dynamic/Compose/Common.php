@@ -37,8 +37,8 @@ class IMP_Dynamic_Compose_Common
 
         if (!$prefs->isLocked('default_encrypt') &&
             ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
-            $page_output->addScriptFile('redbox.js', 'horde');
-            $page_output->addScriptFile('dialog.js', 'horde');
+            $page_output->addScriptPackage('Dialog');
+            $page_output->addScriptFile('passphrase.js');
         }
 
         $this->_addComposeVars($base);
@@ -117,8 +117,7 @@ class IMP_Dynamic_Compose_Common
         }
 
         $compose_link = $registry->getServiceLink('ajax', 'imp');
-        $compose_link->pathInfo = 'addAttachment';
-        $view->compose_link = $compose_link;
+        $view->compose_link = $compose_link->url . 'addAttachment';
 
         $view->is_template = !empty($args['template']);
 

@@ -110,14 +110,23 @@ if ($ui->validateEditForm($info)) {
         ->redirect();
 }
 
-$page_output->header(array(
-    'title' => _("Permissions Administration")
-));
-require HORDE_TEMPLATES . '/admin/menu.inc';
-
-/* Render the form and tree. */
+// Buffer the tree rendering
+Horde::startBuffer();
 $ui->renderForm('edit.php');
 echo '<br />';
 $ui->renderTree($perm_id);
+$tree_output = Horde::endBuffer();
 
+// Buffer the menu output
+Horde::startBuffer();
+require HORDE_TEMPLATES . '/admin/menu.inc';
+$menu_output = Horde::endBuffer();
+
+$page_output->header(array(
+    'title' => _("Permissions Administration")
+));
+
+/* Render the form and tree. */
+echo $menu_output;
+echo $tree_output;
 $page_output->footer();

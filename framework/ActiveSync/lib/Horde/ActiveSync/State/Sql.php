@@ -314,7 +314,20 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_deviceInfo->user,
             $pending);
         $this->_logger->debug(
-            sprintf('[%s] Saving state: %s', $this->_devId, print_r($params, true)));
+            sprintf('[%s] Saving state: %s',
+                $this->_devId,
+                print_r(
+                    array(
+                        $params[0],
+                        $params[1],
+                        $params[2],
+                        $params[3],
+                        $params[4],
+                        $params[5],
+                        count($this->_changes)),
+                    true)
+                )
+            );
         try {
             $this->_db->insert($sql, $params);
         } catch (Horde_Db_Exception $e) {
@@ -1153,40 +1166,76 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     /**
      * Explicitly remove a state from storage.
      *
-     * @param string $synckey  The specific state to remove
-     * @param string $devId    Remove all information for this device.
-     * @param string $user     When removing device info, restrict to removing
-     *                         data for this user only.
+     * @param array $options  An options array containing:
+     *   - synckey: (string)  Remove only the state associated with this synckey.
+     *   - devId: (string)  Remove all information for this device.
+     *   - user: (string)  When removing device info, restrict to removing data
+     *                    for this user only.
+     *   - id: (string)  When removing device state, restrict ro removing data
+     *                   only for this collection.
      *
      * @throws Horde_ActiveSyncException
      */
-    public function removeState($synckey = null, $devId = null, $user = null)
+    public function removeState(array $options)
     {
         $state_query = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE';
         $map_query = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE';
-        if ($devId && $user) {
+        // If the device is flagged as wiped, and we are removing the state,
+        // we MUST NOT restrict to user since it will not remove the device's
+        // device table entry, and the device will continue to be wiped each
+        // time it connects.
+        if (!empty($options['devId']) && !empty($options['user'])) {
+            $q = 'SELECT device_rwstatus FROM ' . $this->_syncDeviceTable
+                . ' WHERE device_id = ?';
+
+            try {
+                $results = $this->_db->selectValue($q, array($options['devId']));
+                if ($results != Horde_ActiveSync::RWSTATUS_NA && $results != Horde_ActiveSync::RWSTATUS_OK) {
+                    unset($options['user']);
+                    return $this->removeState($options);
+                }
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_ActiveSync_Exception($e);
+            }
             $state_query .= ' sync_devid = ? AND sync_user = ?';
             $map_query .= ' sync_devid = ? AND sync_user = ?';
             $user_query = 'DELETE FROM ' . $this->_syncUsersTable . ' WHERE device_id = ? AND device_user = ?';
-            $values = array($devId, $user);
-            $this->_logger->debug('[' . $devId . '] Removing device state for user ' . $user . '.');
-        } elseif ($devId){
+            $state_values = $values = array($options['devId'], $options['user']);
+            if (!empty($options['id'])) {
+                $state_query .= ' AND sync_folderid = ?';
+                $map_query .= ' AND sync_folderid = ?';
+                $state_values[] = $options['id'];
+            }
+            $this->_logger->debug(sprintf(
+                '[%s] Removing device state for user %s.',
+                $this->_devId,
+                $options['user'])
+            );
+        } elseif (!empty($options['devId'])) {
             $state_query .= ' sync_devid = ?';
             $map_query .= ' sync_devid = ?';
             $user_query = 'DELETE FROM ' . $this->_syncUsersTable . ' WHERE device_id = ?';
             $device_query = 'DELETE FROM ' . $this->_syncDeviceTable . ' WHERE device_id = ?';
-            $values = array($devId);
-            $this->_logger->debug('[' . $devId . '] Removing all device state for device ' . $devId . '.');
+            $state_values = $values = array($options['devId']);
+            $this->_logger->debug(sprintf(
+                '[%s] Removing all device state for device %s.',
+                $this->_devId,
+                $options['devId'])
+            );
         } else {
             $state_query .= ' sync_key = ?';
             $map_query .= ' sync_key = ?';
-            $values = array($synckey);
-            $this->_logger->debug('[' . $this->_devId . '] Removing device state for sync_key ' . $synckey . ' only.');
+            $state_values = $values = array($options['synckey']);
+            $this->_logger->debug(sprintf(
+                '[%s] Removing device state for sync_key %s only.',
+                $this->_devId,
+                $options['synckey'])
+            );
         }
 
         try {
-            $this->_db->delete($state_query, $values);
-            $this->_db->delete($map_query, $values);
+            $this->_db->delete($state_query, $state_values);
+            $this->_db->delete($map_query, $state_values);
             if (!empty($user_query)) {
                 $this->_db->delete($user_query, $values);
             }
@@ -1442,7 +1491,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
     /**
      * Get the timestamp for the last successful sync for the current collection
-     * or specified syncKey.
      *
      * @return integer  The timestamp of the last successful sync or 0 if none
      */

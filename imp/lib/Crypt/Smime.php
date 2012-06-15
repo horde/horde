@@ -316,7 +316,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
 
         if ($session->exists('imp', 'smime_passphrase')) {
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            return $secret->read($secret->getKey('imp'), $session->get('imp', 'smime_passphrase'));
+            return $secret->read($secret->getKey(), $session->get('imp', 'smime_passphrase'));
         } elseif (!$session->exists('imp', 'smime_null_passphrase')) {
             $session->set(
                 'imp',
@@ -344,7 +344,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        $GLOBALS['session']->set('imp', 'smime_passphrase', $secret->write($secret->getKey('imp'), $passphrase));
+        $GLOBALS['session']->set('imp', 'smime_passphrase', $secret->write($secret->getKey(), $passphrase));
 
         return true;
     }

@@ -109,6 +109,19 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Import a Horde_Icalendar_vEvent into a user's calendar. Used for creating
+     * events from meeting invitations.
+     *
+     * @param Horde_Icalendar_vEvent $event  The event data.
+     *
+     * @return string The event's UID.
+     */
+    public function calendar_import_vevent(Horde_Icalendar_vEvent $vEvent)
+    {
+        return $this->_registry->calendar->import($vEvent, 'text/calendar');
+    }
+
+    /**
      * Replace the event with new data
      *
      * @param string $uid                                    The UID of the
@@ -235,11 +248,52 @@ class Horde_Core_ActiveSync_Connector
         return $this->_registry->contacts->listBy($action, $from_ts, null, $to_ts);
     }
 
+    /**
+     * Search the contacts store.
+     *
+     * @param string $query   The search string.
+     *
+     * @return array  The search results.
+     */
     public function contacts_search($query)
     {
-        $gal = $this->contacts_getGal();
         $fields = array($gal => array('firstname', 'lastname', 'alias', 'name', 'email'));
-        return $this->_registry->contacts->search(array($query), array($gal), $fields, true, true);
+        $opts = array(
+            'fields' => $fields,
+            'matchBegin' => true,
+            'forceSource' => true,
+            'sources' => array($this->contacts_getGal())
+        );
+        return $this->_registry->contacts->search($query, $opts);
+    }
+
+    /**
+     * Resolve a recipient
+     *
+     * @param string $query  The search string. Ususally an email address.
+     * @param array $opts    Any additional options:
+     *   - maxAmbiguous (integer)  The maximum number of ambiguous results. If
+     *                             set to 0, we want only a single, definitive
+     *                             search result. I.e, at least on field MUST
+     *                             match strictly.
+     *                  DEFAULT: NONE
+     * @return array  The search results.
+     */
+    public function resolveRecipient($query, array $opts = array())
+    {
+        $sources = array_keys($this->_registry->contacts->sources());
+        foreach ($sources as $source) {
+            $fields[$source] = array('name', 'email', 'alias');
+        }
+        $options = array(
+            'matchBegin' => true,
+            'sources' => $sources,
+            'fields' => $fields
+        );
+        if (isset($opts['maxAmbiguous']) && $opts['maxAmbiguous'] == 0) {
+            $options['customStrict'] = array('email', 'name', 'alias');
+        }
+        return $this->_registry->contacts->search($query, $options);
     }
 
     /**

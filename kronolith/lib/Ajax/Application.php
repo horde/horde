@@ -7,23 +7,28 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @author  Jan Schneider <jan@horde.org>
- * @author  Gonçalo Queirós <mail@goncaloqueiros.net>
- * @package Kronolith
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Gonçalo Queirós <mail@goncaloqueiros.net>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Kronolith
  */
 class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
-     * Constructor.
-     *
-     * @param string $app     The application name.
-     * @param string $action  The AJAX action to perform.
      */
-    public function __construct($app, $vars, $action = null)
+    protected function _init()
     {
-        parent::__construct($app, $vars, $action);
-        $this->_defaultDomain = empty($GLOBALS['conf']['storage']['default_domain']) ? null : $GLOBALS['conf']['storage']['default_domain'];
+        $defaultDomain = empty($GLOBALS['conf']['storage']['default_domain'])
+            ? null
+            : $GLOBALS['conf']['storage']['default_domain'];
+
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Chunk());
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Email($defaultDomain));
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Groups());
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Imple());
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Prefs());
     }
 
     /**

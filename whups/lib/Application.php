@@ -196,8 +196,8 @@ class Whups_Application extends Horde_Registry_Application
 
     /**
      */
-    public function topbarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
     {
         $tree->addNode(array(
             'id' => $parent . '__new',
@@ -220,6 +220,96 @@ class Whups_Application extends Horde_Registry_Application
                 'url' => Horde::url('search.php')
             )
         ));
+    }
+
+    /* Download data. */
+
+    /**
+     * @throws Whups_Exception
+     */
+    public function download(Horde_Variables $vars)
+    {
+        global $injector, $whups_driver;
+
+        switch ($vars->actionID) {
+        case 'download_file':
+            // Get the ticket details first.
+            if (empty($vars->id)) {
+                exit;
+            }
+
+            $details = $whups_driver->getTicketDetails($vars->id);
+
+            // Check permissions on this ticket.
+            if (!count(Whups::permissionsFilter($whups_driver->getHistory($vars->id), 'comment', Horde_Perms::READ))) {
+                throw new Whups_Exception(sprintf(_("You are not allowed to view ticket %d."), $vars->id));
+            }
+
+            try {
+                $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
+            } catch (Horde_Exception $e) {
+                throw new Whups_Exception(_("The VFS backend needs to be configured to enable attachment uploads."));
+            }
+
+            try {
+                return array(
+                    'data' => $vfs->read(Whups::VFS_ATTACH_PATH . '/' . $vars->id, $vars->file),
+                    'name' => $vars->file
+                );
+            } catch (Horde_Vfs_Exception $e) {
+                throw Whups_Exception(sprintf(_("Access denied to %s"), $vars->file));
+            }
+            break;
+
+        case 'report':
+            $_templates = Horde::loadConfiguration('templates.php', '_templates', 'whups');
+            $tpl = $vars->template;
+            if (empty($_templates[$tpl])) {
+                throw new Whups_Exception(_("The requested template does not exist."));
+            }
+            if ($_templates[$tpl]['type'] != 'searchresults') {
+                throw new Whups_Exception(_("This is not a search results template."));
+            }
+
+            // Fetch all unresolved tickets assigned to the current user.
+            $info = array('id' => explode(',', $vars->ids));
+            $tickets = $whups_driver->getTicketsByProperties($info);
+            foreach ($tickets as $id => $info) {
+                $tickets[$id]['#'] = $id + 1;
+                $tickets[$id]['link'] = Whups::urlFor('ticket', $info['id'], true, -1);
+                $tickets[$id]['date_created'] = strftime('%x', $info['timestamp']);
+                $tickets[$id]['owners'] = Whups::getOwners($info['id']);
+                $tickets[$id]['owner_name'] = Whups::getOwners($info['id'], false, true);
+                $tickets[$id]['owner_email'] = Whups::getOwners($info['id'], true, false);
+                if (!empty($info['date_assigned'])) {
+                    $tickets[$id]['date_assigned'] = strftime('%x', $info['date_assigned']);
+                }
+                if (!empty($info['date_resolved'])) {
+                    $tickets[$id]['date_resolved'] = strftime('%x', $info['date_resolved']);
+                }
+
+                // If the template has a callback function defined for data
+                // filtering, call it now.
+                if (!empty($_templates[$tpl]['callback'])) {
+                    array_walk($tickets[$id], $_templates[$tpl]['callback']);
+                }
+            }
+
+            Whups::sortTickets($tickets,
+                isset($_templates[$tpl]['sortby']) ? $_templates[$tpl]['sortby'] : null,
+                isset($_templates[$tpl]['sortdir']) ? $_templates[$tpl]['sortdir'] : null
+            );
+
+            $template = $injector->createInstance('Horde_Template');
+            $template->set('tickets', $tickets);
+            $template->set('now', strftime('%x'));
+            $template->set('values', Whups::getSearchResultColumns(null, true));
+
+            return array(
+                'data' => $template->parse($_templates[$tpl]['template']),
+                'name' => isset($_templates[$tpl]['filename']) ? $_templates[$tpl]['filename'] : 'report.html'
+            );
+        }
     }
 
 }

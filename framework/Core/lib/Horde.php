@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde:: class provides the functionality shared by all Horde
- * applications.
+ * Provides the base functionality shared by all Horde applications.
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
@@ -11,17 +10,11 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Core
  */
 class Horde
 {
-    /**
-     * Has compression been started?
-     *
-     * @var boolean
-     */
-    static protected $_compressStart = false;
-
     /**
      * The access keys already used in this page.
      *
@@ -186,12 +179,10 @@ class Horde
      *
      * @param mixed $data     The data to JSON-ify.
      * @param array $options  Additional options:
-     * <pre>
-     * 'nodelimit' - (boolean) Don't add security delimiters?
-     *               DEFAULT: false
-     * 'urlencode' - (boolean) URL encode the json string
-     *               DEFAULT: false
-     * </pre>
+     *   - nodelimit: (boolean) Don't add security delimiters?
+     *                DEFAULT: false
+     *   - urlencode: (boolean) URL encode the json string
+     *                DEFAULT: false
      *
      * @return string  The escaped string.
      */
@@ -496,15 +487,13 @@ class Horde
      * @param mixed $opts     Additional options. If a string/integer, it is
      *                        taken to be the 'append_session' option.  If an
      *                        array, one of the following:
-     * <pre>
-     * 'app' - (string) Use this app for the webroot.
-     *         DEFAULT: current application
-     * 'append_session' - (integer) 0 = only if needed [DEFAULT], 1 = always,
-     *                    -1 = never.
-     * 'force_ssl' - (boolean) Ignore $conf['use_ssl'] and force creation of a
-     *               SSL URL?
-     *               DEFAULT: false
-     * </pre>
+     *   - app: (string) Use this app for the webroot.
+     *          DEFAULT: current application
+     *   - append_session: (integer) 0 = only if needed [DEFAULT], 1 = always,
+     *                     -1 = never.
+     *   - force_ssl: (boolean) Ignore $conf['use_ssl'] and force creation of
+     *                a SSL URL?
+     *                DEFAULT: false
      *
      * @return Horde_Url  The URL with the session id appended (if needed).
      */
@@ -634,83 +623,6 @@ class Horde
         }
 
         return $ext;
-    }
-
-    /**
-     * Returns a URL to be used for downloading, that takes into account any
-     * special browser quirks (i.e. IE's broken filename handling).
-     *
-     * @param string $filename  The filename of the download data.
-     * @param array $params     Any additional parameters needed.
-     * @param string $url       The URL to alter. If none passed in, will use
-     *                          the file 'view.php' located in the current
-     *                          app's base directory.
-     *
-     * @return Horde_Url  The download URL.
-     */
-    static public function downloadUrl($filename, $params = array(),
-                                       $url = null)
-    {
-        global $browser, $registry;
-
-        $horde_url = false;
-
-        if (is_null($url)) {
-            $url = $registry->getServiceLink('download', $registry->getApp());
-            $horde_url = true;
-        }
-
-        /* Add parameters. */
-        if (!is_null($params)) {
-            $url->add($params);
-        }
-
-        /* If we are using the default Horde download link, add the
-         * filename to the end of the URL. Although not necessary for
-         * many browsers, this should allow every browser to download
-         * correctly. */
-        if ($horde_url) {
-            $url->add('fn', '/' . rawurlencode($filename));
-        } elseif ($browser->hasQuirk('break_disposition_filename')) {
-            /* Some browsers will only obtain the filename correctly
-             * if the extension is the last argument in the query
-             * string and rest of the filename appears in the
-             * PATH_INFO element. */
-            $url = (string)$url;
-            $filename = rawurlencode($filename);
-
-            /* Get the webserver ID. */
-            $server = self::webServerID();
-
-            /* Get the name and extension of the file.  Apache 2 does
-             * NOT support PATH_INFO information being passed to the
-             * PHP module by default, so disable that
-             * functionality. */
-            if (($server != 'apache2')) {
-                if (($pos = strrpos($filename, '.'))) {
-                    $name = '/' . preg_replace('/\./', '%2E', substr($filename, 0, $pos));
-                    $ext = substr($filename, $pos);
-                } else {
-                    $name = '/' . $filename;
-                    $ext = '';
-                }
-
-                /* Enter the PATH_INFO information. */
-                if (($pos = strpos($url, '?'))) {
-                    $url = substr($url, 0, $pos) . $name . substr($url, $pos);
-                } else {
-                    $url .= $name;
-                }
-            }
-            $url = new Horde_Url($url);
-
-            /* Append the extension, if it exists. */
-            if (($server == 'apache2') || !empty($ext)) {
-                $url->add('fn_ext', '/' . $filename);
-            }
-        }
-
-        return $url;
     }
 
     /**
@@ -1052,7 +964,7 @@ class Horde
      * @param boolean $secure          If deleting file, should we securely
      *                                 delete the file?
      * @param boolean $session_remove  Delete this file when session is
-     *                                 destroyed (since 1.7.0)?
+     *                                 destroyed?
      *
      * @return string   Returns the full path-name to the temporary file or
      *                  false if a temporary file could not be created.
@@ -1072,43 +984,6 @@ class Horde
         }
 
         return $tmpfile;
-    }
-
-    /**
-     * Starts output compression, if requested.
-     */
-    static public function compressOutput()
-    {
-        if (self::$_compressStart) {
-            return;
-        }
-
-        /* Compress output if requested and possible. */
-        if ($GLOBALS['conf']['compress_pages'] &&
-            !$GLOBALS['browser']->hasQuirk('buggy_compression') &&
-            !(bool)ini_get('zlib.output_compression') &&
-            !(bool)ini_get('zend_accelerator.compress_all') &&
-            ini_get('output_handler') != 'ob_gzhandler') {
-            if (ob_get_level()) {
-                ob_end_clean();
-            }
-            ob_start('ob_gzhandler');
-        }
-
-        self::$_compressStart = true;
-    }
-
-    /**
-     * Determines if output compression can be used.
-     *
-     * @return boolean  True if output compression can be used, false if not.
-     */
-    static public function allowOutputCompression()
-    {
-        return !$GLOBALS['browser']->hasQuirk('buggy_compression') &&
-               (ini_get('zlib.output_compression') == '') &&
-               (ini_get('zend_accelerator.compress_all') == '') &&
-               (ini_get('output_handler') != 'ob_gzhandler');
     }
 
     /**
@@ -1385,19 +1260,16 @@ class Horde
      *
      * @param string $type   The cache type ('app', 'css', 'js').
      * @param array $params  Optional parameters:
-     * <pre>
-     * RESERVED PARAMETERS:
-     * 'app' - REQUIRED for $type == 'app'. Identifies the application to
-     *         call the 'cacheOutput' API call, which is passed in the
-     *         value of the entire $params array (which may include parameters
-     *         other than those listed here). The return from cacheOutput
-     *         should be a 2-element array: 'data' (the cached data) and
-     *         'type' (the content-type of the data).
-     * 'cid' - REQUIRED for $type == 'css' || 'js'. The cacheid of the
-     *         data (stored in Horde_Cache).
-     * 'nocache' - If true, sets the cache limiter to 'nocache' instead of
-     *             the default 'public'.
-     * </pre>
+     *   - app: REQUIRED for $type == 'app'. Identifies the application to
+     *          call the 'cacheOutput' API call, which is passed in the
+     *          value of the entire $params array (which may include parameters
+     *          other than those listed here). The return from cacheOutput
+     *          should be a 2-element array: 'data' (the cached data) and
+     *          'type' (the content-type of the data).
+     *   - cid: REQUIRED for $type == 'css' || 'js'. The cacheid of the
+     *          data (stored in Horde_Cache).
+     *   - nocache: If true, sets the cache limiter to 'nocache' instead of
+     *              the default 'public'.
      *
      * @return Horde_Url  The URL to the cache page.
      */
@@ -1418,27 +1290,25 @@ class Horde
      *
      * @param string|Horde_Url $url  The page to load.
      * @param array $options         Additional options:
-     * <pre>
-     * 'height' - (integer) The height of the popup window.
-     *            DEFAULT: 650px
-     * 'menu' - (boolean) Show the browser menu in the popup window?
-     *          DEFAULT: false
-     * 'onload' - (string) A JS function to call after the popup window is
-     *            fully loaded.
-     *            DEFAULT: None
-     * 'params' - (array) Additional parameters to pass to the URL.
-     *            DEFAULT: None
-     * 'urlencode' - (boolean) URL encode the json string?
-     *               DEFAULT: No
-     * 'width' - (integer) The width of the popup window.
-     *           DEFAULT: 700 px
-     * </pre>
+     *   - height: (integer) The height of the popup window.
+     *             DEFAULT: 650px
+     *   - menu: (boolean) Show the browser menu in the popup window?
+     *           DEFAULT: false
+     *   - onload: (string) A JS function to call after the popup window is
+     *             fully loaded.
+     *             DEFAULT: None
+     *   - params: (array) Additional parameters to pass to the URL.
+     *             DEFAULT: None
+     *   - urlencode: (boolean) URL encode the json string?
+     *                DEFAULT: No
+     *   - width: (integer) The width of the popup window.
+     *            DEFAULT: 700 px
      *
      * @return string  The javascript needed to call the popup code.
      */
     static public function popupJs($url, $options = array())
     {
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addPopupJs();
+        $GLOBALS['page_output']->addScriptPackage('Popup');
 
         $params = new stdClass;
 
@@ -1454,24 +1324,16 @@ class Horde
             $options['params'] = array_merge($url->parameters, $options['params']);
         }
 
-        if (!empty($options['height'])) {
-            $params->height = $options['height'];
-        }
         if (!empty($options['menu'])) {
             $params->menu = 1;
         }
-        if (!empty($options['onload'])) {
-            $params->onload = $options['onload'];
-        }
-        if (!empty($options['params'])) {
-            // Bug #9903: 3rd parameter must explicitly be '&'
-            $params->params = http_build_query(array_map('rawurlencode', $options['params']), '', '&');
-        }
-        if (!empty($options['width'])) {
-            $params->width = $options['width'];
+        foreach (array('height', 'onload', 'params', 'width') as $key) {
+            if (!empty($options[$key])) {
+                $params->$key = $options[$key];
+            }
         }
 
-        return 'void(Horde.popup(' . self::escapeJson($params, array('nodelimit' => true, 'urlencode' => !empty($options['urlencode']))) . '));';
+        return 'void(HordePopup.popup(' . self::escapeJson($params, array('nodelimit' => true, 'urlencode' => !empty($options['urlencode']))) . '));';
     }
 
     /**
@@ -1517,14 +1379,12 @@ class Horde
      * Generates the menu output.
      *
      * @param array $opts  Additional options:
-     * <pre>
-     * 'app' - (string) The application to generate the menu for.
-     *         DEFAULT: current application
-     * 'mask' - (integer) The Horde_Menu mask to use.
-     *          DEFAULT: Horde_Menu::MASK_ALL
-     * 'menu_ob' - (boolean) If true, returns the menu object
-     *               DEFAULT: false (renders menu)
-     * </pre>
+     *   - app: (string) The application to generate the menu for.
+     *          DEFAULT: current application
+     *   - mask: (integer) The Horde_Menu mask to use.
+     *           DEFAULT: Horde_Menu::MASK_ALL
+     *   - menu_ob: (boolean) If true, returns the menu object
+     *              DEFAULT: false (renders menu)
      * @param string $app  The application to generate the menu for. Defaults
      *                     to the current app.
      *

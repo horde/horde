@@ -13,7 +13,6 @@ $gettext = array_map('addslashes', array(
     'login_password' => _("Please provide your password."),
 
     /* Strings used in manager.js */
-    'cancel_text' => _("Cancel"),
     'change_directory' => _("Change Folder"),
     'create_folder' => _("Create Folder"),
     'delete_confirm_1' => _("The following items will be permanently deleted:"),
@@ -21,7 +20,6 @@ $gettext = array_map('addslashes', array(
     'delete_recurs_1' => _("The following item(s) are folders:"),
     'delete_recurs_2' => _("Are you sure you wish to continue?"),
     'file' => _("File"),
-    'ok_text' => _("OK"),
     'permissions' => _("Permissions"),
     'rename' => _("Rename"),
     'select_item' => _("Please select an item before this action."),

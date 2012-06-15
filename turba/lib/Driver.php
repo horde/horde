@@ -2669,7 +2669,6 @@ class Turba_Driver implements Countable
             'companyname' => 'company',
             'department' => 'department',
             'spouse' => 'spouse',
-            'body' => 'notes',
             'webpage' => 'website',
             'assistantname' => 'assistant',
             'imaddress' => 'imaddress',
@@ -2684,6 +2683,14 @@ class Turba_Driver implements Countable
                 }
             }
         }
+
+        try {
+            if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
+                $hash['notes'] = $message->airsyncbasebody->data;
+            } else {
+                $hash['notes'] = $message->body;
+            }
+        } catch (InvalidArgumentException $e) {}
 
         $nonTextMap = array(
             'homephonenumber' => 'homePhone',

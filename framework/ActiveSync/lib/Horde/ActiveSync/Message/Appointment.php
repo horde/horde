@@ -176,15 +176,15 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         parent::__construct($options);
         if ($this->_version < Horde_ActiveSync::VERSION_TWELVE) {
             $this->_mapping += array(
-                self::POOMCAL_BODY                  => array(self::KEY_ATTRIBUTE => 'body'),
-                self::POOMCAL_BODYTRUNCATED         => array(self::KEY_ATTRIBUTE => 'bodytruncated'),
-                self::POOMCAL_RTF                   => array(self::KEY_ATTRIBUTE => 'rtf'),
+                self::POOMCAL_BODY => array(self::KEY_ATTRIBUTE => 'body'),
+                self::POOMCAL_BODYTRUNCATED => array(self::KEY_ATTRIBUTE => 'bodytruncated'),
+                self::POOMCAL_RTF => array(self::KEY_ATTRIBUTE => 'rtf'),
             );
 
             $this->_properties += array(
-                'body'                  => false,
-                'bodytruncated'         => 0,
-                'rtf'                   => false
+                'body' => false,
+                'bodytruncated' => 0,
+                'rtf' => false
             );
         } else {
             $this->_mapping += array(
@@ -221,7 +221,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Get the event's timezone
      *
-     *
+     * @return string  The timezone identifier
      */
      public function getTimezone()
      {
@@ -245,7 +245,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Get the appointment's dtimestamp
      *
-     * @return integer  timestamp
+     * @return Horde_Date  The timestamp.
      */
     public function getDTStamp()
     {
@@ -255,7 +255,12 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Set the appointment time/duration.
      *
-     * @param array $timestamp 'start', 'end' or 'duration' (in seconds) or 'allday'
+     * @param array $timestamp  An array containing:
+     *   - start: (Horde_Date) The start time.
+     *   - end: (Horde_Date) The end time. If omitted, must include duration or
+     *                       allday.
+     *   - duration: (integer) The event duration in seconds.
+     *   - allday: (boolean) If true, this is an allday event.
      *
      * @throws InvalidArgumentException
      */
@@ -304,7 +309,10 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Get the appointment's time data
      *
-     * @return array containing 'start', 'end', 'allday'
+     * @return array  An array containing:
+     *   - start: (Horde_Date) The start time.
+     *   - end: (Horde_Date) The end time.
+     *   - allday: (boolean) If true, this is an allday event.
      */
     public function getDatetime()
     {
@@ -318,7 +326,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Set the appointment subject field.
      *
-     * @param string $subject   UTF-8 string
+     * @param string $subject   A UTF-8 string
      */
     public function setSubject($subject)
     {
@@ -387,12 +395,12 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     public function setOrganizer(array $organizer)
     {
         $this->_properties['organizername'] = !empty($organizer['name'])
-                                                ? $organizer['name']
-                                                : '';
+            ? $organizer['name']
+            : '';
 
         $this->_properties['organizeremail'] = !empty($organizer['email'])
-                                                ? $organizer['email']
-                                                : '';
+            ? $organizer['email']
+            : '';
     }
 
     /**
@@ -402,8 +410,9 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function getOrganizer()
     {
-        return array('name' => $this->_getAttribute('organizername'),
-                     'email' => $this->_getAttribute('organizeremail'));
+        return array(
+            'name' => $this->_getAttribute('organizername'),
+            'email' => $this->_getAttribute('organizeremail'));
     }
 
     /**

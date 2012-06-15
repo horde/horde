@@ -143,7 +143,12 @@ class Kronolith_Event_Sql extends Kronolith_Event
             $this->baseid = $SQLEvent['event_baseid'];
         }
         if (isset($SQLEvent['event_exceptionoriginaldate'])) {
-            $this->exceptionoriginaldate = new Horde_Date($SQLEvent['event_exceptionoriginaldate']);
+            if ($driver->getParam('utc')) {
+               $this->exceptionoriginaldate = new Horde_Date($SQLEvent['event_exceptionoriginaldate'], 'UTC');
+            } else {
+                $this->exceptionoriginaldate = new Horde_Date($SQLEvent['event_exceptionoriginaldate']);
+            }
+
         }
 
         $this->initialized = true;
@@ -228,7 +233,13 @@ class Kronolith_Event_Sql extends Kronolith_Event
         /* Exception information */
         if (!empty($this->baseid)) {
             $properties['event_baseid'] = $this->baseid;
-            $properties['event_exceptionoriginaldate'] = $this->exceptionoriginaldate;
+            if ($driver->getParam('utc')) {
+                $eod = clone $this->exceptionoriginaldate;
+                $eod->setTimezone('UTC');
+            } else {
+                $eod = $this->exceptionoriginaldate;
+            }
+            $properties['event_exceptionoriginaldate'] = $eod->strftime('%Y-%m-%d %H:%M:%S');
         }
 
         return $properties;

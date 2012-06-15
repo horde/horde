@@ -64,7 +64,7 @@ $horde_login_url = '';
 
 /* Initialize the Auth credentials key. */
 if (!$is_auth) {
-    $injector->getInstance('Horde_Secret')->setKey('auth');
+    $injector->getInstance('Horde_Secret')->setKey();
 }
 
 /* Get an Auth object. */
@@ -132,6 +132,11 @@ if ($logout_reason) {
     }
 
     $session->setup();
+
+    $secret = $injector->getInstance('Horde_Secret');
+    if ($secret->clearKey()) {
+        $secret->setKey();
+    }
 
     /* Explicitly set language in un-authenticated session. */
     $registry->setLanguage($GLOBALS['language']);
@@ -369,10 +374,12 @@ if ($browser->isMobile() &&
     }
 
     $page_output->addInlineScript(array(
-         '$($("#horde-login-button").click(function() {' .
-             '$("#horde-login-post").val(1);' .
-             '$(this).closest("form").submit();' .
-         '}));'
+        '$(document).bind("pageinit", function() {' .
+             '$("#horde-login-button").click(function() {' .
+                 '$("#horde-login-post").val(1);' .
+                 '$(this).closest("form").submit();' .
+             '});' .
+         '})'
     ));
 
     /* Ensure that we are using the smartmobile status listener. */

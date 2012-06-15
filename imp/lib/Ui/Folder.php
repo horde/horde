@@ -16,54 +16,6 @@
 class IMP_Ui_Folder
 {
     /**
-     * Download mailboxe(s) into a MBOX file.
-     *
-     * @param array $mlist  The mailbox list.
-     * @param boolean $zip  Compress with zip?
-     *
-     * @throws Horde_Exception
-     */
-    public function downloadMbox($mlist, $zip = false)
-    {
-        global $browser, $injector;
-
-        $mbox = $this->generateMbox($mlist);
-
-        if ($zip) {
-            $horde_compress = Horde_Compress::factory('zip');
-            try {
-                $data = $horde_compress->compress(array(array(
-                    'data' => $mbox,
-                    'name' => reset($mlist) . '.mbox'
-                )), array(
-                    'stream' => true
-                ));
-                fclose($mbox);
-            } catch (Horde_Exception $e) {
-                fclose($mbox);
-                throw $e;
-            }
-
-            $suffix = '.zip';
-            $type = 'application/zip';
-        } else {
-            $data = $mbox;
-            $suffix = '.mbox';
-            $type = null;
-        }
-
-        fseek($data, 0, SEEK_END);
-        $browser->downloadHeaders(reset($mlist) . $suffix, $type, false, ftell($data));
-
-        rewind($data);
-        while (!feof($data)) {
-            echo fread($data, 8192);
-        }
-        fclose($data);
-        exit;
-    }
-
-    /**
      * Generates a string that can be saved out to an mbox format mailbox file
      * for a mailbox (or set of mailboxes), optionally including all
      * subfolders of the selected mailbox(es) as well. All mailboxes will be

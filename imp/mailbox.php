@@ -359,11 +359,9 @@ $page_output->addInlineJsVars(array(
         'delete' => _("Are you sure you wish to PERMANENTLY delete these messages?"),
         'delete_all' => _("Are you sure you wish to delete all mail in this mailbox?"),
         'delete_vfolder' => _("Are you sure you want to delete this Virtual Folder Definition?"),
-        'no' => _("No"),
         'selectone' => _("You must select at least one message first."),
         'selectonlyone' => _("You must select only one message for this action."),
-        'submit' => _("You must select at least one message first."),
-        'yes' => _("Yes")
+        'submit' => _("You must select at least one message first.")
     ),
     'ImpMailbox.unread' => intval($unread)
 ));
@@ -391,10 +389,8 @@ if (IMP::mailbox()->editvfolder) {
     $pagetitle = $title = htmlspecialchars($title);
 }
 
-$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
-$page_output->addScriptFile('redbox.js', 'horde');
-$page_output->addScriptFile('dialog.js', 'horde');
 $page_output->addScriptFile('mailbox.js');
+$page_output->addScriptPackage('Dialog');
 
 $menu = IMP::menu();
 $page_output->metaRefresh($prefs->getValue('refresh_time'), $refresh_url);

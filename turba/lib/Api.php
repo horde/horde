@@ -1006,6 +1006,8 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @param mixed $names  The search filter values.
      * @param array $opts   Optional parameters:
+     *   - customStrict: (array) An array of fields that must match exactly.
+     *                   DEFAULT: None
      *   - fields: (array) The fields to search on.
      *             DEFAULT: All fields
      *   - forceSource: (boolean) Whether to use the specified sources, even
@@ -1018,7 +1020,7 @@ class Turba_Api extends Horde_Registry_Api
      *   - rfc822Return: Return a Horde_Mail_Rfc822_List object.
      *                   DEFAULT: Returns an array of search results.
      *   - sources: (array) The sources to search in.
-     *              DEFAULT: All sources
+     *              DEFAULT: Search the user's default address book
      *
      * @return mixed  Either a hash containing the search results or a
      *                Rfc822 List object (if 'rfc822Return' is true).
@@ -1034,7 +1036,8 @@ class Turba_Api extends Horde_Registry_Api
             'matchBegin' => false,
             'returnFields' => array(),
             'rfc822Return' => false,
-            'sources' => array()
+            'sources' => array(),
+            'customStrict' => array(),
         ), $opts);
 
         $results = empty($opts['rfc822Return'])
@@ -1108,7 +1111,7 @@ class Turba_Api extends Horde_Registry_Api
                     Turba::getPreferredSortOrder(),
                     'OR',
                     $opts['returnFields'],
-                    array(),
+                    $opts['customStrict'],
                     $opts['matchBegin']
                 );
 

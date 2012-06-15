@@ -71,45 +71,6 @@ abstract class Horde_ActiveSync_Driver_Base
     protected $_version;
 
     /**
-     * Secuirity Policies. These settings can be overridden by the backend
-     * provider by passing in a 'policies' key in the const'r params array. This
-     * way the server can provide user-specific policies.
-     *
-     * Currently supported settings are:
-     *  - pin: (boolean) Device must have a pin lock enabled.
-     *         DEFAULT: true (Device must have a PIN lock enabled).
-     *
-     *  - AEFrequencyValue: (integer) Time (in minutes) of inactivity before
-     *                                device locks.
-     *         DEFAULT: none (Device will not be force locked by EAS).
-     *
-     *  - DeviceWipeThreshold: (integer) Number of failed unlock attempts before
-     *                                   the device should wipe on devices that
-     *                                   support this.
-     *         DEFAULT: none (Device will not be auto wiped by EAS).
-     *
-     *  - CodewordFrequency: (integer)  Number of failed unlock attempts before
-     *                                  needing to verify that a person who can
-     *                                  read and write is using the device.
-     *         DEFAULT: 0
-     *
-     *  - MinimumPasswordLength: (integer)  Minimum length of PIN
-     *         DEFAULT: 5
-     *
-     *  - PasswordComplexity: (integer)   0 - alphanumeric, 1 - numeric, 2 - anything
-     *         DEFAULT: 2 (anything the device supports).
-     */
-    protected $_policies = array(
-        'pin'               => true,
-        'extended_policies' => true,
-        'inactivity'        => 5,
-        'wipethreshold'     => 10,
-        'codewordfrequency' => 0,
-        'minimumlength'     => 5,
-        'complexity'        => 2,
-    );
-
-    /**
      * The state driver for this request. Needs to be injected into this class.
      *
      * @var Horde_ActiveSync_State_Base
@@ -123,7 +84,6 @@ abstract class Horde_ActiveSync_Driver_Base
      *                       the concrete driver may need.
      *  - logger: (Horde_Log_Logger) The logger.
      *            DEFAULT: none (No logging).
-     *
      *  - state: (Horde_ActiveSync_State_Base) The state driver.
      *           DEFAULT: none (REQUIRED).
      *
@@ -150,11 +110,6 @@ abstract class Horde_ActiveSync_Driver_Base
         $this->_stateDriver = $params['state'];
         $this->_stateDriver->setLogger($this->_logger);
         $this->_stateDriver->setBackend($this);
-
-        /* Override any security policies */
-        if (!empty($params['policies'])) {
-            $this->_policies = array_merge($this->_policies, $params['policies']);
-        }
     }
 
     /**
@@ -206,7 +161,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return boolean
      */
-    public function logon($username, $password, $domain = null)
+    public function authenticate($username, $password, $domain = null)
     {
         $this->_authUser = $username;
         $this->_authPass = $password;
@@ -225,11 +180,11 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Logoff
+     * Clear authentication
      *
      * @return boolean
      */
-    public function logOff()
+    public function clearAuthentication()
     {
         return true;
     }
@@ -345,20 +300,6 @@ abstract class Horde_ActiveSync_Driver_Base
     public function moveMessage($folderid, array $ids, $newfolderid)
     {
         throw new Horde_ActiveSync_Exception('moveMessage not yet implemented.');
-    }
-
-    /**
-     * @todo
-     *
-     * @param $requestid
-     * @param $folderid
-     * @param $error
-     * @param $calendarid
-     * @return unknown_type
-     */
-    public function meetingResponse($requestid, $folderid, $error, &$calendarid)
-    {
-        throw new Horde_ActiveSync_Exception('meetingResponse not yet implemented.');
     }
 
     /**
@@ -618,13 +559,9 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Return the security policies.
      *
-     * @param string  $policyType  The type of policy to return. One of:
-     *  - Horde_ActiveSync::POLICYTYPE_XML
-     *  - Horde_ActiveSync::POLICYTYPE_WBXML
-     *
      * @return array  An array of provisionable properties and values.
      */
-    abstract public function getCurrentPolicy($policyType);
+    abstract public function getCurrentPolicy();
 
     /**
      * Return settings from the backend for a SETTINGS request.
@@ -665,4 +602,37 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     abstract public function getUsernameFromEmail($email);
 
+    /**
+     * Handle ResolveRecipient requests
+     *
+     * @param string $type    The type of recipient request. e.g., 'certificate'
+     * @param string $search  The email to resolve.
+     * @param array $options  Any options required to perform the resolution.
+     *
+     * @return array  The results.
+     */
+    abstract public function resolveRecipient($type, $search, array $options = array());
+
+    /**
+     * Returns the provisioning support for the current request.
+     *
+     * @return mixed  The value of the provisiong support flag.
+     */
+    abstract public function getProvisioning();
+
+    /**
+     * Hanlde meeting responses.
+     *
+     * @param array $response  The response data. Contains:
+     *   - requestid: The identifier of the meeting request. Used by the server
+     *                to fetch the original meeting request details.
+     *   - response:  The user's response to the request. One of the response
+     *                code constants.
+     *   - folderid:  The collection id that contains the meeting request.
+     *
+     *
+     * @return string  The UID of any created calendar entries, otherwise false.
+     * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
+     */
+    abstract public function meetingResponse(array $response);
 }

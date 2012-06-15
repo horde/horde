@@ -61,6 +61,11 @@ class Horde_ActiveSync_Imap_Message
      */
     protected $_lastBodyPartDecode = null;
 
+    /**
+     * Flag to indicate if this message contains attachments.
+     *
+     * @var boolean
+     */
     protected $_hasAttachments = null;
 
     /**
@@ -72,7 +77,10 @@ class Horde_ActiveSync_Imap_Message
      *                                            must contain at least uid,
      *                                            structure and flags.
      */
-    public function __construct($imap, $mailbox, $data)
+    public function __construct(
+        Horde_Imap_Client_Base $imap,
+        Horde_Imap_Client_Mailbox $mailbox,
+        Horde_Imap_Client_Data_Fetch $data)
     {
         $this->_imap = $imap;
         $this->_message = $data->getStructure();
@@ -104,27 +112,27 @@ class Horde_ActiveSync_Imap_Message
         $h = $this->getHeaders();
 
         if (($ob = $h->getValue('date'))) {
-            $tmp[_("Date")] = $ob;
+            $tmp[Horde_ActiveSync_Translation::t('Date')] = $ob;
         }
 
         if (($ob = strval($h->getOb('from')))) {
-            $tmp[_("From")] = $ob;
+            $tmp[Horde_ActiveSync_Translation::t('From')] = $ob;
         }
 
         if (($ob = strval($h->getOb('reply-to')))) {
-            $tmp[_("Reply-To")] = $ob;
+            $tmp[Horde_ActiveSync_Translation::t('Reply-To')] = $ob;
         }
 
         if (($ob = $h->getValue('subject'))) {
-            $tmp[_("Subject")] = $ob;
+            $tmp[Horde_ActiveSync_Translation::t('Subject')] = $ob;
         }
 
         if (($ob = strval($h->getOb('to')))) {
-            $tmp[_("To")] = $ob;
+            $tmp[Horde_ActiveSync_Translation::t('To')] = $ob;
         }
 
         if (($ob = strval($h->getOb('cc')))) {
-            $tmp[_("Cc")] = $ob;
+            $tmp[Horde_ActiveSync_Translation::t('Cc')] = $ob;
         }
 
         $max = max(array_map(array('Horde_String', 'length'), array_keys($tmp))) + 2;
@@ -140,7 +148,10 @@ class Horde_ActiveSync_Imap_Message
     /**
      * Return the full message text.
      *
+     * @param boolean $stream  Return data as a stream?
+     *
      * @return mixed  A string or stream resource.
+     * @throws Horde_ActiveSync_Exception
      */
     public function getFullMsg($stream = false)
     {
@@ -148,12 +159,15 @@ class Horde_ActiveSync_Imap_Message
         if (!$full = $this->_data->getFullMsg()) {
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->fullText();
-            $fetch_ret = $this->_imap->fetch(
-                $this->_mbox,
-                $query,
-                array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
-            );
-
+            try {
+                $fetch_ret = $this->_imap->fetch(
+                    $this->_mbox,
+                    $query,
+                    array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
+                );
+            } catch (Horde_Imap_Exception $e) {
+                throw new Horde_ActiveSync_Exception($e);
+            }
             $data = $fetch_ret[$this->_uid];
             $full = $data->getFullMsg($stream);
         }
@@ -189,7 +203,7 @@ class Horde_ActiveSync_Imap_Message
      *
      * @return array  An array of 'plain' and 'html' content.
      */
-    public function getMessageBodyData($options = array())
+    public function getMessageBodyData(array $options = array())
     {
         $version = empty($options['protocolversion']) ? 2.5 : $options['protocolversion'];
         if (!isset($options['trunction'])) {
@@ -318,7 +332,7 @@ class Horde_ActiveSync_Imap_Message
         $map = $this->_message->contentTypeMap();
         $headers = $this->getHeaders();
         foreach ($map as $id => $type) {
-            if ($this->isAttachment($type)) {
+            if ($this->isAttachment($id, $type)) {
                 $mime_part = $this->getMimePart($id, array('nocontents' => true));
                 if ($version > Horde_ActiveSync::VERSION_TWOFIVE) {
                     $atc = new Horde_ActiveSync_Message_AirSyncBaseAttachment();
@@ -338,16 +352,16 @@ class Horde_ActiveSync_Imap_Message
     }
 
     /**
-     * Return an array of mime parts for each message attachement.
+     * Return an array of mime parts for each message attachment.
      *
-     * @return array
+     * @return array An array of Horde_Mime_Part objects.
      */
     public function getAttachmentsMimeParts()
     {
         $mime_parts = array();
         $map = $this->_message->contentTypeMap();
         foreach ($map as $id => $type) {
-            if ($this->isAttachment($type)) {
+            if ($this->isAttachment($id, $type)) {
                 $mime_parts[] = $this->getMimePart($id);
             }
         }
@@ -431,28 +445,28 @@ class Horde_ActiveSync_Imap_Message
 
         switch ($ptype) {
         case 'audio':
-            return _("Audio part");
+            return Horde_ActiveSync_Translation::t('Audio part');
 
         case 'image':
-            return _("Image part");
+            return Horde_ActiveSync_Translation::t('Image part');
 
         case 'message':
         case Horde_Mime_Part::UNKNOWN:
-            return _("Message part");
+            return Horde_ActiveSync_Translation::t('Message part');
 
         case 'multipart':
-            return _("Multipart part");
+            return Horde_ActiveSync_Translation::t('Multipart part');
 
         case 'text':
-            return _("Text part");
+            return Horde_ActiveSync_Translation::t('Text part');
 
         case 'video':
-            return _("Video part");
+            return Horde_ActiveSync_Translation::t('Video part');
 
         default:
             // Attempt to translate this type, if possible. Odds are that
             // it won't appear in the dictionary though.
-            return sprintf(_("%s part"), _(Horde_String::ucfirst($ptype)));
+            return sprintf(Horde_ActiveSync_Translation::t('%s part'), _(Horde_String::ucfirst($ptype)));
         }
     }
 
@@ -544,6 +558,11 @@ class Horde_ActiveSync_Imap_Message
         return array('to' => $tos, 'displayto' => $dtos);
     }
 
+    /**
+     * Return the CC addresses for this message.
+     *
+     * @return string  The Cc address string.
+     */
     public function getCc()
     {
         if (empty($this->_envelope)) {
@@ -555,6 +574,11 @@ class Horde_ActiveSync_Imap_Message
         return $a->writeAddress(false);
     }
 
+    /**
+     * Return the ReplyTo Address
+     *
+     * @return string
+     */
     public function getReplyTo()
     {
         if (empty($this->_envelope)) {
@@ -641,16 +665,25 @@ class Horde_ActiveSync_Imap_Message
      * downloaded by itself (i.e. all the data needed to view the part is
      * contained within the download data).
      *
+     * @param string $id         The MIME Id for the part we are checking.
      * @param string $mime_part  The MIME type.
      *
      * @return boolean  True if an attachment.
      */
-    public function isAttachment($mime_type)
+    public function isAttachment($id, $mime_type)
     {
         switch ($mime_type) {
         case 'text/plain':
-        case 'application/ms-tnef':
+            if (!$this->_message->findBody('plain') == $id) {
+                return true;
+            }
+            return false;
         case 'text/html':
+            if (!$this->_message->findBody('html') == $id) {
+                return true;
+            }
+            return false;
+        case 'application/ms-tnef':
         case 'application/pkcs7-signature':
             return false;
         }
@@ -669,15 +702,38 @@ class Horde_ActiveSync_Imap_Message
         }
     }
 
+    /**
+     * Return the MIME part of the meeting request part, if available.
+     *
+     * @return mixed  The mime part, if present, false otherwise.
+     */
+    public function hasMeetingRequest()
+    {
+        if (!$this->hasAttachments()) {
+            return false;
+        }
+        foreach ($this->contentTypeMap() as $id => $type) {
+            if ($type == 'text/calendar') {
+                return $this->getMimePart($id);
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Return the hasAttachments flag
+     *
+     * @return boolean
+     */
     public function hasAttachments()
     {
-
         if (isset($this->_hasAttachments)) {
             return $this->_hasAttachments;
         }
 
-        foreach ($this->contentTypeMap() as $type) {
-            if ($this->isAttachment($type)) {
+        foreach ($this->contentTypeMap() as $id => $type) {
+            if ($this->isAttachment($id, $type)) {
                 $this->_hasAttachments = true;
                 return true;
             }

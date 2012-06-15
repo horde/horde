@@ -8,8 +8,8 @@
 </h1>
 <table cellspacing="0" width="100%">
 <?php
-$map = $GLOBALS['session']->get('horde', 'import_data/map');
-foreach ($GLOBALS['session']->get('horde', 'import_data/dates') as $key => $date): ?>
+$map = $storage->get('map');
+foreach ($storage->get('dates') as $key => $date): ?>
 <tr>
     <td>
         <table cellspacing="0" width="100%">

@@ -1563,7 +1563,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         $this->_unseen = 0;
 
-        if ($name instanceof Horde_Tree_Base) {
+        if ($name instanceof Horde_Tree_Renderer_Base) {
             $tree = $name;
             $parent = $opts['parent'];
         } else {
@@ -1600,7 +1600,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $params['icon'] = $icon->icon;
                 $params['special'] = $val->inbox || $val->special;
                 $params['class'] = 'imp-folder';
-                $params['urlattributes'] = array('id' => 'imp-mailbox-' . $val->form_to);
+                $params['urlattributes'] = array(
+                    'id' => 'imp-mailbox-' . $val->form_to
+                );
                 break;
 
             case 'IMP_Tree_Simplehtml':
@@ -1649,7 +1651,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             } else {
                 $params['url'] = ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL)
                     ? IMP_Minimal_Mailbox::url(array('mailbox' => $val))
-                    : $val->url('mailbox.php');
+                    : $val->url('mailbox.php')->setRaw(true);
                 if ($this->_showunsub && !$this->isSubscribed($val)) {
                     $params['class'] = 'mboxunsub';
                 }

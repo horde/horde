@@ -55,7 +55,7 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
      */
     public function content()
     {
-        global $wicked, $notification;
+        global $wicked, $notification, $registry;
 
         if (!$wicked->pageExists($this->referrer())) {
             throw new Wicked_Exception(sprintf(_("Referrer \"%s\" does not exist."),
@@ -69,7 +69,7 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
             $attachments[$idx]['date'] = date('M j, Y g:ia',
                                               $attach['attachment_created']);
 
-            $attachments[$idx]['url'] = Horde::downloadUrl(
+            $attachments[$idx]['url'] = $registry->downloadUrl(
                 $attach['attachment_name'],
                 array('page' => $referrer_id,
                       'file' => $attach['attachment_name'],
