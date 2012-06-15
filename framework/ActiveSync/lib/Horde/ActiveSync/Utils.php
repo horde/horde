@@ -156,7 +156,7 @@ class Horde_ActiveSync_Utils
 
         // Pack it
         $goid = pack('H*H*H*H*VH*H*x', $arrayid, $exception, $creationtime, $reserved, $size, $vCard, $hexuid);
-        var_dump($goid);
+
         return base64_encode($goid);
     }
 
