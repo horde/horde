@@ -190,6 +190,10 @@ logging any errors.
       - CATENATE_BADURL
       - BADSEARCH
 
+  - Horde_Imap_Client_Exception_NoSupportExtension
+
+    The $extension property has been added.
+
   - Horde_Imap_Client_Mailbox
 
     get() no longer supports the null argument to the $utf7imap parameter.
@@ -201,8 +205,8 @@ logging any errors.
 
   - Horde_Imap_Client_Utf7imap
 
-   The default argument for the $force parameter to Utf8ToUtf7Imap() has
-   changed to boolean true.
+    The default argument for the $force parameter to Utf8ToUtf7Imap() has
+    changed to boolean true.
 
 
 
