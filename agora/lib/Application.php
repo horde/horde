@@ -112,16 +112,6 @@ class Agora_Application extends Horde_Registry_Application
 
     /**
      */
-    public function prefsInit($ui)
-    {
-        /* Hide prefGroups. */
-        if (!$GLOBALS['conf']['avatar']['allow_avatars']) {
-            $ui->suppressGroups[] = 'display_avatar';
-        }
-    }
-
-    /**
-     */
     public function prefsGroup($ui)
     {
         foreach ($ui->getChangeablePrefs() as $val) {

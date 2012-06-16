@@ -106,7 +106,15 @@ $prefGroups['acl'] = array(
     'column' => _("General"),
     'label' => _("Share Mailboxes"),
     'desc' => _("Share your mailboxes with other users."),
-    'members' => array('aclmanagement')
+    'members' => array('aclmanagement'),
+    'suppress' => function() {
+        try {
+            $GLOBALS['injector']->getInstance('IMP_Imap_Acl');
+            return false;
+        } catch (IMP_Exception $e) {
+            return true;
+        }
+    }
 );
 
 // ACL preference management screen
@@ -130,7 +138,12 @@ $prefGroups['searches'] = array(
     'desc' => _("Manage your saved searches"),
     'members' => array(
         'searchesmanagement'
-    )
+    ),
+    'suppress' => function() {
+        $imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        return (!$imap->access(IMP_Imap::ACCESS_SEARCH) ||
+                !$imap->access(IMP_Imap::ACCESS_FOLDERS));
+    }
 );
 
 // UI for saved searches management.
@@ -246,7 +259,10 @@ $prefGroups['pgp'] = array(
     'desc' => _("Configure PGP encryption support."),
     'members' => array(
         'pgpmanagement'
-    )
+    ),
+    'suppress' => function() {
+        return !isset($GLOBALS['conf']['gnupg']['path']);
+    }
 );
 
 // These preferences MUST appear on the same page.
@@ -333,7 +349,11 @@ $prefGroups['smime'] = array(
     'desc' => _("Configure S/MIME encryption support."),
     'members' => array(
         'smimemanagement'
-    )
+    ),
+    'suppress' => function() {
+        return (!Horde_Util::extensionExists('openssl') ||
+                !isset($GLOBALS['conf']['openssl']['path']));
+    }
 );
 
 // These preferences MUST appear on the same page.
@@ -590,7 +610,10 @@ $prefGroups['composetemplates'] = array(
     'column' => _("Compose"),
     'label' => _("Compose Templates"),
     'desc' => _("Edit compose templates."),
-    'members' => array('composetemplates_management', 'composetemplates_new')
+    'members' => array('composetemplates_management', 'composetemplates_new'),
+    'suppress' => function() {
+        return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3;
+    }
 );
 
 // Compose templates configuration widget
@@ -828,7 +851,12 @@ $prefGroups['addressbooks'] = array(
     'desc' => _("Select address book sources for adding and searching for addresses."),
    'members' => array(
         'save_recipients', 'display_contact', 'sourceselect', 'add_source'
-    )
+    ),
+    'suppress' => function() {
+        $contacts_app = $GLOBALS['registry']->hasInterface('contacts');
+        return (!$contacts_app ||
+                !$GLOBALS['registry']->hasPermission($contacts_app));
+    }
 );
 
 // Should recipients of outgoing messages be added automatically to
@@ -1303,7 +1331,10 @@ $prefGroups['flags'] = array(
     'column' => _("Message"),
     'label' => _("Flags"),
     'desc' => _("Configure flag highlighting."),
-    'members' => array('flagmanagement', 'show_all_flags')
+    'members' => array('flagmanagement', 'show_all_flags'),
+    'suppress' => function() {
+        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS);
+    }
 );
 
 // UI for flag management.

@@ -8,14 +8,15 @@
  * use prefs-servername.php.
  */
 
-if (!empty($GLOBALS['conf']['avatar']) && $GLOBALS['conf']['avatar']['allow_avatars']) {
-    $prefGroups['display_avatar'] = array(
-        'column' => _("My Information"),
-        'label' => _("Avatar"),
-        'desc' => _("Set the avatar image that is shown with your posts."),
-        'members' => array('avatar_path', 'avatar_link')
-    );
-}
+$prefGroups['display_avatar'] = array(
+    'column' => _("My Information"),
+    'label' => _("Avatar"),
+    'desc' => _("Set the avatar image that is shown with your posts."),
+    'members' => array('avatar_path', 'avatar_link'),
+    'suppress' => function() {
+        return !empty($GLOBALS['conf']['avatar']['allow_avatars']);
+    }
+);
 
 $prefGroups['display_forums'] = array(
     'column' => _("Display Preferences"),

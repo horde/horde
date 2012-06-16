@@ -13,43 +13,6 @@
 class Horde_Prefs_Ui
 {
     /**
-     * Code to run on init when viewing prefs for this application.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    public function prefsInit($ui)
-    {
-        global $conf, $injector;
-
-        /* Hide prefGroups. */
-        try {
-            $injector->getInstance('Horde_Core_Factory_Auth')->create()->hasCapability('update');
-        } catch (Horde_Exception $e) {
-            $ui->suppressGroups[] = 'forgotpass';
-        }
-
-        if (empty($conf['facebook']['enabled']) ||
-            empty($conf['facebook']['id']) ||
-            empty($conf['facebook']['secret'])) {
-            $ui->suppressGroups[] = 'facebook';
-        }
-
-        if (empty($conf['twitter']['enabled']) ||
-            empty($conf['twitter']['key']) ||
-            empty($conf['twitter']['secret'])) {
-            $ui->suppressGroups[] = 'twitter';
-        }
-
-        if (empty($conf['imsp']['enabled'])) {
-            $ui->suppressGroups[] = 'imspauth';
-        }
-
-        if (empty($conf['activesync']['enabled'])) {
-            $ui->suppressGroups[] = 'activesync';
-        }
-    }
-
-    /**
      * Determine active prefs when displaying a group.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.

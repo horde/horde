@@ -26,53 +26,6 @@ class IMP_Prefs_Ui
     protected $_cache = null;
 
     /**
-     * Run once on init when viewing prefs for an application.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    public function prefsInit($ui)
-    {
-        global $conf, $injector, $registry;
-
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-
-        /* Hide appropriate prefGroups. */
-        if (!$imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
-            $ui->suppressGroups[] = 'flags';
-        }
-        if ($imp_imap->pop3) {
-            $ui->suppressGroups[] = 'composetemplates';
-        }
-        if (!$imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
-            $ui->suppressGroups[] = 'searches';
-        }
-
-        try {
-            $injector->getInstance('IMP_Imap_Acl');
-        } catch (IMP_Exception $e) {
-            $ui->suppressGroups[] = 'acl';
-        }
-
-        $contacts_app = $registry->hasInterface('contacts');
-        if (!$contacts_app || !$registry->hasPermission($contacts_app)) {
-            $ui->suppressGroups[] = 'addressbooks';
-        }
-
-        if (!isset($conf['gnupg']['path'])) {
-            $ui->suppressGroups[] = 'pgp';
-        }
-
-        if (!Horde_Util::extensionExists('openssl') ||
-            !isset($conf['openssl']['path'])) {
-            $ui->suppressGroups[] = 'smime';
-        }
-
-        if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-            $ui->suppressGroups[] = 'searches';
-        }
-    }
-
-    /**
      * Determine active prefs when displaying a group.
      *
      * @param Horde_Core_Prefs_Ui $ui  The UI object.

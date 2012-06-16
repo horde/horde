@@ -444,13 +444,6 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public function prefsInit($ui)
-    {
-        $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsInit($ui);
-    }
-
-    /**
-     */
     public function prefsGroup($ui)
     {
         $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsGroup($ui);

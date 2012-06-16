@@ -314,7 +314,14 @@ $prefGroups['forgotpass'] = array(
     'desc' => _("Set preferences to allow you to reset your password if you ever forget it."),
     'members' => array(
         'security_question', 'security_answer', 'alternate_email'
-    )
+    ),
+    'suppress' => function() {
+        try {
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create()->hasCapability('update');
+            return false;
+        } catch (Horde_Exception $e) {}
+        return true;
+    }
 );
 
 // user security question
@@ -618,7 +625,12 @@ $prefGroups['facebook'] = array(
     'column' => _("Other Information"),
     'label' => _("Facebook Integration"),
     'desc' => _("Set up integration with your Facebook account."),
-    'members' => array('facebookmanagement')
+    'members' => array('facebookmanagement'),
+    'suppress' => function() {
+        return (empty($GLOBALS['conf']['facebook']['enabled']) ||
+                empty($GLOBALS['conf']['facebook']['id']) ||
+                empty($GLOBALS['conf']['facebook']['secret']));
+    }
 );
 
 $_prefs['facebookmanagement'] = array(
@@ -638,7 +650,12 @@ $prefGroups['twitter'] = array(
     'column' => _("Other Information"),
     'label' => _("Twitter Integration"),
     'desc' => _("Set up integration with your Twitter account."),
-    'members' => array('twittermanagement')
+    'members' => array('twittermanagement'),
+    'suppress' => function() {
+        return (empty($GLOBALS['conf']['twitter']['enabled']) ||
+                empty($GLOBALS['conf']['twitter']['key']) ||
+                empty($GLOBALS['conf']['twitter']['secret']));
+    }
 );
 
 $_prefs['twittermanagement'] = array(
@@ -657,7 +674,10 @@ $prefGroups['imspauth'] = array(
     'column' => _("Other Information"),
     'label' => _("Alternate IMSP Login"),
     'desc' => _("Use if name/password is different for IMSP server."),
-    'members' => array('imsp_auth_user', 'imsp_auth_pass')
+    'members' => array('imsp_auth_user', 'imsp_auth_pass'),
+    'suppress' => function() {
+        return empty($GLOBALS['conf']['imsp']['enabled']);
+    }
 );
 
 $_prefs['imsp_auth_user'] = array(
@@ -691,7 +711,10 @@ $prefGroups['activesync'] = array(
     'column' => _("Other Information"),
     'label' => _("ActiveSync"),
     'desc' => _("Manage your ActiveSync devices."),
-    'members' => array('activesyncmanagement')
+    'members' => array('activesyncmanagement'),
+    'suppress' => function() {
+        return empty($GLOBALS['conf']['activesync']['enabled']);
+    }
 );
 
 $_prefs['activesyncmanagement'] = array(

@@ -127,15 +127,6 @@ class Whups_Application extends Horde_Registry_Application
 
     /**
      */
-    public function prefsInit($ui)
-    {
-        if (!$GLOBALS['registry']->hasMethod('contacts/sources')) {
-            $ui->suppressGroups[] = 'addressbooks';
-        }
-    }
-
-    /**
-     */
     public function prefsGroup($ui)
     {
         foreach ($ui->getChangeablePrefs() as $val) {

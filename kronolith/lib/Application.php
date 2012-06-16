@@ -165,22 +165,6 @@ class Kronolith_Application extends Horde_Registry_Application
 
     /**
      */
-    public function prefsInit($ui)
-    {
-        global $prefs, $registry;
-
-        /* Suppress prefGroups display. */
-        if (!$registry->hasMethod('contacts/sources')) {
-            $ui->suppressGroups[] = 'addressbooks';
-        }
-
-        if ($prefs->isLocked('default_alarm')) {
-            $ui->suppressGroups[] = 'event_options';
-        }
-    }
-
-    /**
-     */
     public function prefsGroup($ui)
     {
         global $conf, $prefs;

@@ -30,6 +30,9 @@ $prefGroups['addressbooks'] = array(
     'label' => _("Address Books"),
     'desc' => _("Select address book sources for adding and searching for addresses."),
     'members' => array('sourceselect'),
+    'suppress' => function() {
+        return !$GLOBALS['registry']->hasMethod('contacts/sources');
+    }
 );
 
 

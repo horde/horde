@@ -82,10 +82,6 @@ class Klutz_Application extends Horde_Registry_Application
         }
     }
 
-    public function prefsInit($ui)
-    {
-    }
-
     /**
      */
     public function prefsGroup($ui)
