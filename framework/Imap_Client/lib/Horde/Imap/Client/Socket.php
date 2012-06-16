@@ -1995,6 +1995,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         unset($this->_temp['search_retry']);
 
+        /* Check for EXPUNGEISSUED (RFC 2180 [4.3]/RFC 5530 [3]). */
+        if (!empty($this->_temp['expungeissued'])) {
+            unset($this->_temp['expungeissued']);
+            $this->noop();
+        }
+
         return $ret;
     }
 
@@ -2679,9 +2685,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $fr->uid = $results;
         }
 
-        $this->_sendLine($cmd, array(
-            'fetch' => $fr
-        ));
+        try {
+            $this->_sendLine($cmd, array(
+                'fetch' => $fr
+            ));
+        } catch (Horde_Imap_Client_Exception $e) {
+            // A NO response, when coupled with a sequence FETCH, most likely
+            // means that messages were expunged. RFC 2180 [4.1]
+            if ($options['ids']->sequence &&
+                isset($this->_temp['parseresperr']['response']) &&
+                ($this->_temp['parseresperr']['response'] == 'NO')) {
+                $this->_temp['expungeissued'] = true;
+            }
+        }
 
         /* If we are grabbing vanished information, we don't want to return
          * FETCH information, only the vanished IDs. We need to do this switch
@@ -2694,9 +2710,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         unset($t['fetchcmd']);
 
-        return $options['ids']->sequence
+        $ret = $options['ids']->sequence
             ? $fr->seq
             : $fr->uid;
+
+        /* Check for EXPUNGEISSUED (RFC 2180 [4.1]/RFC 5530 [3]). */
+        if (!empty($this->_temp['expungeissued'])) {
+            unset($this->_temp['expungeissued']);
+            $this->noop();
+        }
+
+        return $ret;
     }
 
     /**
@@ -3181,7 +3205,22 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $cmd[] = array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $val);
             }
 
-            $this->_sendLine($cmd);
+            try {
+                $this->_sendLine($cmd);
+            } catch (Horde_Imap_Client_Exception $e) {
+                // A NO response, when coupled with a sequence STORE and
+                // non-SILENT behavior, most likely means that messages were
+                // expunged. RFC 2180 [4.2]
+                if (!empty($options['sequence']) &&
+                    !$this->_debug &&
+                    isset($this->_temp['parseresperr']['response']) &&
+                    ($this->_temp['parseresperr']['response'] == 'NO')) {
+                    $this->_temp['expungeissued'] = true;
+                } else {
+                    throw $e;
+                }
+            }
+
             $this->_storeUpdateCache('replace', $options['replace']);
         } else {
             foreach (array('add' => '+', 'remove' => '-') as $k => $v) {
@@ -3192,13 +3231,36 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         $cmdtmp[] = array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $val);
                     }
 
-                    $this->_sendLine($cmdtmp);
+                    try {
+                        $this->_sendLine($cmdtmp);
+                    } catch (Horde_Imap_Client_Exception $e) {
+                        // A NO response, when coupled with a sequence STORE
+                        // and non-SILENT behavior, most likely means that
+                        // messages were expunged. RFC 2180 [4.2]
+                        if (!empty($options['sequence']) &&
+                            !$this->_debug &&
+                            isset($this->_temp['parseresperr']['response']) &&
+                            ($this->_temp['parseresperr']['response'] == 'NO')) {
+                            $this->_temp['expungeissued'] = true;
+                        } else {
+                            throw $e;
+                        }
+                    }
+
                     $this->_storeUpdateCache($k, $options[$k]);
                 }
             }
         }
 
-        return $this->_temp['modified'];
+        $ret = $this->_temp['modified'];
+
+        /* Check for EXPUNGEISSUED (RFC 2180 [4.2]/RFC 5530 [3]). */
+        if (!empty($this->_temp['expungeissued'])) {
+            unset($this->_temp['expungeissued']);
+            $this->noop();
+        }
+
+        return $ret;
     }
 
     /**
@@ -4261,12 +4323,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             $this->_parseServerResponse($ob);
         }
-
-        /* Issue NOOP if server suggests it. */
-        if (!empty($this->_temp['run_noop'])) {
-            unset($this->_temp['run_noop']);
-            $this->noop();
-        }
     }
 
     /**
@@ -4702,7 +4758,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'EXPUNGEISSUED':
             // Defined by RFC 5530 [3]
-            $this->_temp['run_noop'] = true;
+            $this->_temp['expungeissued'] = true;
             break;
 
         case 'CORRUPTION':
