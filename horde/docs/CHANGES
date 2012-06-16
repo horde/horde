@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Add 'requires' and 'requires_nolock' options to prefs.php entries.
 [mms] Remove support for IE 6.
 [mms] Token protect all AJAX actions.
 [jan] Allow to use IMAP storage for shares and groupware data without a

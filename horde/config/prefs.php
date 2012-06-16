@@ -83,6 +83,18 @@
  *       - false: Show this preference in the UI and allow changing.
  *     DEFAULT: false
  *
+ *   - requires: (array) A list of preferences that need to be set (i.e.
+ *               non-empty value) for this preference to be displayed.
+ *     VALUES:
+ *       Array of preference names
+ *     DEFAULT: None
+ *
+ *   - requires_nolock: (array) A list of preferences that need to be unlocked
+ *                      for this preference to be displayed.
+ *     VALUES:
+ *       Array of preference names
+ *     DEFAULT: None
+ *
  *
  * The UI display for a preference is controlled by the 'type' key. This key
  * controls how the preference is displayed on the preferences screen. If this

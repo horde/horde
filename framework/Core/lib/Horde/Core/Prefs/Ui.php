@@ -142,6 +142,8 @@ class Horde_Core_Prefs_Ui
      */
     public function getChangeablePrefs($group = null)
     {
+        global $prefs;
+
         if (is_null($group)) {
             if (!$this->group) {
                 return array();
@@ -164,7 +166,9 @@ class Horde_Core_Prefs_Ui
              *   1. Not locked
              *   2. Not in suppressed array ($this->suppress)
              *   3. Not an advanced pref -or- in advanced view mode
-             *   4. Not an implicit pref */
+             *   4. Not an implicit pref
+             *   5. All required prefs are non-zero
+             *   6. All required_nolock prefs are not locked */
             if (!$GLOBALS['prefs']->isLocked($pref) &&
                 !in_array($pref, $this->suppress) &&
                 (empty($p['advanced']) ||
@@ -175,6 +179,22 @@ class Horde_Core_Prefs_Ui
                         $cprefs = array_merge($cprefs, $p['value']);
                     }
                 } else {
+                    if (isset($p['requires'])) {
+                        foreach ($p['requires'] as $val) {
+                            if (!$prefs->getValue($val)) {
+                                continue 2;
+                            }
+                        }
+                    }
+
+                    if (isset($p['requires_nolock'])) {
+                        foreach ($p['requires_nolock'] as $val) {
+                            if ($prefs->isLocked($val)) {
+                                continue 2;
+                            }
+                        }
+                    }
+
                     $cprefs[] = $pref;
                 }
             }
