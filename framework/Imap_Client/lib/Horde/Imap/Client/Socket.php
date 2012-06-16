@@ -370,8 +370,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         /* Default to AUTHENTICATIONFAILED error (see RFC 5530[3]). */
-        $t['loginerr'] = 'LOGIN_AUTHENTICATIONFAILED';
-        $t['loginerrmsg'] = Horde_Imap_Client_Translation::t("Mail server denied authentication.");
+        $t['loginerr'] = new Horde_Imap_Client_Exception(
+            Horde_Imap_Client_Translation::t("Mail server denied authentication."),
+            Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
+        );
 
         foreach ($imap_auth_mech as $method) {
             $t['referral'] = null;
@@ -429,7 +431,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        $ex = new Horde_Imap_Client_Exception($t['loginerrmsg'], $t['loginerr']);
+        $ex = $t['loginerr'];
 
         /* Try again from scratch if authentication failed in an established,
          * previously-authenticated object. */
@@ -4696,32 +4698,42 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'UNAVAILABLE':
             // Defined by RFC 5530 [3]
-            $this->_temp['loginerr'] = 'LOGIN_UNAVAILABLE';
-            $this->_temp['loginerrmsg'] = Horde_Imap_Client_Translation::t("Remote server is temporarily unavailable.");
+            $this->_temp['loginerr'] = new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Remote server is temporarily unavailable."),
+                Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE
+            );
             break;
 
         case 'AUTHENTICATIONFAILED':
             // Defined by RFC 5530 [3]
-            $this->_temp['loginerr'] = 'LOGIN_AUTHENTICATIONFAILED';
-            $this->_temp['loginerrmsg'] = Horde_Imap_Client_Translation::t("Authentication failed.");
+            $this->_temp['loginerr'] = new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Authentication failed."),
+                Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
+            );
             break;
 
         case 'AUTHORIZATIONFAILED':
             // Defined by RFC 5530 [3]
-            $this->_temp['loginerr'] = 'LOGIN_AUTHORIZATIONFAILED';
-            $this->_temp['loginerrmsg'] = Horde_Imap_Client_Translation::t("Authentication was successful, but authorization failed.");
+            $this->_temp['loginerr'] = new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Authentication was successful, but authorization failed."),
+                Horde_Imap_Client_Exception::LOGIN_AUTHORIZATIONFAILED
+            );
             break;
 
         case 'EXPIRED':
             // Defined by RFC 5530 [3]
-            $this->_temp['loginerr'] = 'LOGIN_EXPIRED';
-            $this->_temp['loginerrmsg'] = Horde_Imap_Client_Translation::t("Authentication credentials have expired.");
+            $this->_temp['loginerr'] = new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Authentication credentials have expired."),
+                Horde_Imap_Client_Exception::LOGIN_EXPIRED
+            );
             break;
 
         case 'PRIVACYREQUIRED':
             // Defined by RFC 5530 [3]
-            $this->_temp['loginerr'] = 'LOGIN_PRIVACYREQUIRED';
-            $this->_temp['loginerrmsg'] = Horde_Imap_Client_Translation::t("Operation failed due to a lack of a secure connection.");
+            $this->_temp['loginerr'] = new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Operation failed due to a lack of a secure connection."),
+                Horde_Imap_Client_Exception::LOGIN_PRIVACYREQUIRED
+            );
             break;
 
         case 'NOPERM':
