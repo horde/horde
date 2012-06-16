@@ -150,24 +150,14 @@ class Horde_Core_Prefs_Ui
             $group = $this->group;
         }
 
-        return (empty($this->prefGroups[$group]['members']) ||
-                in_array($group, $this->suppressGroups))
-            ? array()
-            : $this->_getChangeablePrefs($this->prefGroups[$group]['members']);
-    }
+        if (empty($this->prefGroups[$group]['members']) ||
+            in_array($group, $this->suppressGroups)) {
+            return array();
+        }
 
-    /**
-     * Returns the list of changeable prefs.
-     *
-     * @param array $preflist  The list of preferences to check.
-     *
-     * @return array  The list of changeable prefs.
-     */
-    protected function _getChangeablePrefs($preflist)
-    {
         $cprefs = array();
 
-        foreach ($preflist as $pref) {
+        foreach ($this->prefGroups[$group]['members'] as $pref) {
             /* Changeable pref if:
              *   1. Not locked
              *   2. Not in suppressed array ($this->suppress)
