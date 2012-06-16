@@ -31,20 +31,21 @@
  *
  * Format:
  * -------
- * column - (string) Which column head this group will go under.
- * desc - (string) Description shown under label.
- * label - (string) Label for the group of settings.
- * members - (array) List of displayable preferences contained in this group.
- * type - (string) The prefGroup type.
- *        VALUES:
- *          'identities' - An identities screen. The identities screen will
- *                         always show all the identities prefs from Horde
- *                         along with the identity switching widget.
- *                         Additionally, applications can define additional
- *                         identity information in their prefs.php file that
- *                         will be displayed after the Horde-wide settings.
- *          Empty - The default preferences screen.
- *        DEFAULT: The default preferences screen.
+ *   - column: (string) Which column head this group will go under.
+ *   - desc: (string) Description shown under label.
+ *   - label: (string) Label for the group of settings.
+ *   - members: (array) List of displayable preferences contained in this
+ *              group.
+ *   - type: (string) The prefGroup type.
+ *     VALUES:
+ *       - identities: An identities screen. The identities screen will always
+ *                     show all the identities prefs from the base Horde app,
+ *                     along with the identity switching widget.
+ *                     Additionally, applications can define additional
+ *                     identity information in their prefs.php file that will
+ *                     be displayed after the Horde-wide settings.
+ *       - [empty]: The default preferences screen.
+ *     DEFAULT: The default preferences screen.
  *
  * $_prefs
  * =======
@@ -54,31 +55,34 @@
  *
  * The following are OPTIONAL values for each entry:
  *
- * advanced - (boolean) Mark pref as advanced - will only be displayed if user
- *            switches to advanced preferences mode.
- *            VALUES:
- *              true: Advanced preference; hidden in basic preferences mode.
- *              false: Basic preference; shown regardless of preferences mode.
- *            DEFAULT: false
+ *   - advanced: (boolean) Mark pref as advanced. Will only be displayed if
+ *               user switches to advanced preferences mode.
+ *     VALUES:
+ *       - true: Advanced preference; hidden in basic preferences mode.
+ *       - false: Basic preference; shown regardless of preferences mode.
+ *     DEFAULT: false
  *
- * help - (string) The help file identifier for this preference.
- *        VALUES:
- *          If present, a help icon will be displayed next to the preference.
- *          Clicking on this icon will open the entry in the help viewer in
- *          a popup window.
- *        DEFAULT: No help icon is displayed
+ *   - help: (string) The help file identifier for this preference.
+ *     VALUES:
+ *       If present, a help icon will be displayed next to the preference.
+ *       Clicking on this icon will open the entry in the help viewer in
+ *       a popup window.
+ *     DEFAULT: No help icon is displayed
  *
- * hook - (boolean) If true, the prefs_init hook will be run for this entry.
- *        VALUES: true/false
- *        DEFAULT: false
+ *   - hook: (boolean) If true, the prefs_init hook will be run for this entry.
+ *     VALUES:
+ *       - true
+ *       - false
+ *     DEFAULT: false
  *
- * locked - (boolean) Allow preference to be changed from the preferences
- *          screen?
- *          VALUES:
- *            true: Do not show this preference in the UI and don't allow
- *                  changing by any mechanism.
- *            false: Show this preference in the UI and allow changing.
- *          DEFAULT: false
+ *   - locked: (boolean) Allow preference to be changed from the preferences
+ *             screen?
+ *     VALUES:
+ *       - true: Do not show this preference in the UI and don't allow
+ *               changing by any mechanism.
+ *       - false: Show this preference in the UI and allow changing.
+ *     DEFAULT: false
+ *
  *
  * The UI display for a preference is controlled by the 'type' key. This key
  * controls how the preference is displayed on the preferences screen. If this
@@ -91,22 +95,22 @@
  * Provides a checkbox (yes/no) entry.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the preferences page.
- *   'value' - (integer) 0 (or false) for unchecked, 1 (or true) for checked.
+ *   -desc: (string) The description text to use on the preferences page.
+ *   -value: (integer) 0 (or false) for unchecked, 1 (or true) for checked.
  *
  * 'enum'
  * ------
  * Provides an enumeration (a/k/a selection) list in the UI.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the preferences page.
- *   'escaped' - (boolean) If true, values in 'enum' are already escaped.
- *               DEFAULT: false
- *   'enum' - (array) [REQUIRED] The enumeration list. Keys will be used as
- *            the preference value; values are the text that will be displayed
- *            in the selection list.
- *   'value' - (mixed) The value of the preference. Will be used to
- *             auto-select the entry in the selection list.
+ *   - desc: (string) The description text to use on the preferences page.
+ *   - escaped: (boolean) If true, values in 'enum' are already escaped.
+ *              DEFAULT: false
+ *   - enum: (array) [REQUIRED] The enumeration list. Keys will be used as
+ *           the preference value; values are the text that will be displayed
+ *           in the selection list.
+ *   - value: (mixed) The value of the preference. Will be used to
+ *            auto-select the entry in the selection list.
  *
  * 'implicit'
  * ----------
@@ -114,8 +118,8 @@
  * via the preferences screen.
  *
  * ADDITIONAL KEYS:
- *   'value' - (mixed) The value of the preference. Will be used to
- *             auto-select the entry in the selection list.
+ *   - value: (mixed) The value of the preference. Will be used to
+ *            auto-select the entry in the selection list.
  *
  * 'link'
  * ------
@@ -125,13 +129,13 @@
  * backend.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The link text.
- *   'img' - (string) An image file to display before the link.
- *           DEFAULT: no image displayed
- *   'url' - (string) The URL to link to (unescaped). Only specify one of
- *           'url' or 'xurl'.
- *   'xurl' - (string) The URL to link to (escaped). Only specify one of 'url'
- *            or 'xurl'.
+ *   - desc: (string) The link text.
+ *   - img: (string) An image file to display before the link.
+ *          DEFAULT: no image displayed
+ *   - url: (string) The URL to link to (unescaped). Only specify one of
+ *          'url' or 'xurl'.
+ *   - xurl: (string) The URL to link to (escaped). Only specify one of 'url'
+ *           or 'xurl'.
  *
  * 'multienum'
  * -----------
@@ -139,14 +143,14 @@
  * to be selected.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the preferences page.
- *   'escaped' - (boolean) If true, values in 'enum' are already escaped.
- *               DEFAULT: false
- *   'enum' - (array) [REQUIRED] The enumeration list. Keys will be used as
- *            the preference value; values are the text that will be displayed
- *            in the selection list.
- *   'value' - (string) A serialized value containing the key(s) selected. All
- *             keys will be auto-selected in the selection area.
+ *   - desc: (string) The description text to use on the preferences page.
+ *   - escaped: (boolean) If true, values in 'enum' are already escaped.
+ *              DEFAULT: false
+ *   - enum: (array) [REQUIRED] The enumeration list. Keys will be used as
+ *           the preference value; values are the text that will be displayed
+ *           in the selection list.
+ *   - value: (string) A serialized value containing the key(s) selected. All
+ *            keys will be auto-selected in the selection area.
  *
  * 'number'
  * --------
@@ -154,10 +158,10 @@
  * preference are automatically converted to a number value.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the preferences page.
- *   'value' - (number) The preference value.
- *   'zero' - (boolean) By default, a number must be non-zero. If this is
- *            true, zeros will be accepted as valid input.
+ *   - desc: (string) The description text to use on the preferences page.
+ *   - value: (integer) The preference value.
+ *   - zero: (boolean) By default, a number must be non-zero. If this is
+ *           true, zeros will be accepted as valid input.
  *
  * 'password'
  * ----------
@@ -165,8 +169,8 @@
  * displayed to the screen).
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the preferences page.
- *   'value' - (string) The preference value.
+ *   - desc: (string) The description text to use on the preferences page.
+ *   - value: (string) The preference value.
  *
  * 'prefslink'
  * -----------
@@ -176,12 +180,12 @@
  * backend.
  *
  * ADDITIONAL KEYS:
- *   'app' - (string) The application to link to.
- *           DEFAULT: current application.
- *   'desc' - (string) The link text.
- *   'group' - (string) The preferences group to link to.
- *   'img' - (string) An image file to display before the link.
- *           DEFAULT: no image displayed
+ *   - app: (string) The application to link to.
+ *          DEFAULT: current application.
+ *   - desc: (string) The link text.
+ *   - group: (string) The preferences group to link to.
+ *   - img: (string) An image file to display before the link.
+ *          DEFAULT: no image displayed
  *
  * 'rawhtml'
  * ---------
@@ -191,24 +195,24 @@
  * backend.
  *
  * ADDITIONAL KEYS:
- *   'value' - (string) The raw (already escaped) HTML to output to the page.
+ *   - value: (string) The raw (already escaped) HTML to output to the page.
  *
  * 'text'
  * ------
  * Provides a single-line textbox.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the preferences page.
- *   'value' - (string) The preference value.
+ *   - desc: (string) The description text to use on the preferences page.
+ *   - value: (string) The preference value.
  *
  * 'textarea'
  * ----------
  * Provides a multi-line textbox.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the preferences page.
- *   'value' - (string) The preference value. Lines should be separated
- *             with the "\n" character.
+ *   - desc: (string) The description text to use on the preferences page.
+ *   - value: (string) The preference value. Lines should be separated
+ *            with the "\n" character.
  *
  *
  * Placeholder types - these prefs are UI placeholders only and will not
