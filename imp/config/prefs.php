@@ -66,7 +66,8 @@ $_prefs['sig_dashes'] = array(
 
 // User's HTML signature - UI widget
 $_prefs['signature_html_select'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'requires_nolock' => array('signature_html')
 );
 
 // User's HTML signature
@@ -93,7 +94,8 @@ $_prefs['sent_mail_folder'] = array(
 
 // sent mail mailbox selection widget.
 $_prefs['sentmailselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'requires_nolock' => array('sent_mail_folder')
 );
 
 
@@ -266,28 +268,32 @@ $_prefs['use_pgp'] = array(
 
 $_prefs['use_pgp_text'] = array(
     'value' => '<div class="prefsPgpWarning">' . _("PGP support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the PGP features will not work correctly.") . '</div>',
-    'type' => 'rawhtml'
+    'type' => 'rawhtml',
+    'requires' => array('use_pgp')
 );
 
 $_prefs['pgp_attach_pubkey'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Should your PGP public key to be attached to your messages by default?"),
-    'help' => 'pgp-option-attach-pubkey'
+    'help' => 'pgp-option-attach-pubkey',
+    'requires' => array('use_pgp')
 );
 
 $_prefs['pgp_scan_body'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Should the body of text/plain messages be scanned for PGP data?"),
-    'help' => 'pgp-option-scan-body'
+    'help' => 'pgp-option-scan-body',
+    'requires' => array('use_pgp')
 );
 
 $_prefs['pgp_verify'] = array(
     'value' => 1,
     'type' => 'checkbox',
     'desc' => _("Should PGP signed messages automatically be verified when viewed?"),
-    'help' => 'pgp-option-verify'
+    'help' => 'pgp-option-verify',
+    'requires' => array('use_pgp')
 );
 
 $_prefs['pgp_reply_pubkey'] = array(
@@ -295,11 +301,13 @@ $_prefs['pgp_reply_pubkey'] = array(
     'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Check for valid recipient PGP public keys while replying?"),
-    'help' => 'pgp-option-reply-pubkey'
+    'help' => 'pgp-option-reply-pubkey',
+    'requires' => array('use_pgp')
 );
 
 $_prefs['pgppublickey'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'requires' => array('use_pgp')
 );
 
 $_prefs['pgp_public_key'] = array(
@@ -307,7 +315,8 @@ $_prefs['pgp_public_key'] = array(
 );
 
 $_prefs['pgpprivatekey'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'requires' => array('use_pgp')
 );
 
 $_prefs['pgp_private_key'] = array(
@@ -346,19 +355,22 @@ $_prefs['use_smime'] = array(
 
 $_prefs['use_smime_text'] = array(
     'value' => '<div class="prefsSmimeWarning">' . _("S/MIME support requires popup windows to be used.  If your browser is currently set to disable popup windows, you must change this setting or else the S/MIME features will not work correctly.") . '</div>',
-    'type' => 'rawhtml'
+    'type' => 'rawhtml',
+    'requires' => array('use_smime')
 );
 
 $_prefs['smime_verify'] = array(
     'value' => 1,
     'type' => 'checkbox',
     'desc' => _("Should S/MIME signed messages automatically be verified when viewed?"),
-    'help' => 'smime-option-verify'
+    'help' => 'smime-option-verify',
+    'requires' => array('use_smime')
 );
 
 // S/MIME public key management widget
 $_prefs['smimepublickey'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'requires' => array('use_smime')
 );
 
 $_prefs['smime_public_key'] = array(
@@ -367,7 +379,8 @@ $_prefs['smime_public_key'] = array(
 
 // S/MIME private key management widget
 $_prefs['smimeprivatekey'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'requires' => array('use_smime')
 );
 
 $_prefs['smime_private_key'] = array(
@@ -377,6 +390,9 @@ $_prefs['smime_private_key'] = array(
 $_prefs['smime_additional_cert'] = array(
     'value' => ''
 );
+
+
+
 // *** Compose Preferences ***
 
 $prefGroups['compose'] = array(
@@ -446,7 +462,8 @@ $_prefs['compose_html_font_family'] = array(
     'advanced' => true,
     'locked' => true,
     'type' => 'string',
-    'desc' => _("The default font family to use in the HTML editor.")
+    'desc' => _("The default font family to use in the HTML editor."),
+    'requires' => array('compose_html')
 );
 
 // For the HTML editor, this is the default font size.
@@ -455,7 +472,8 @@ $_prefs['compose_html_font_size'] = array(
     'advanced' => true,
     'locked' => true,
     'type' => 'number',
-    'desc' => _("The default font size to use in the HTML editor (in pixels).")
+    'desc' => _("The default font size to use in the HTML editor (in pixels)."),
+    'requires' => array('compose_html')
 );
 
 // default outgoing mail domain and address completion
@@ -478,7 +496,8 @@ $_prefs['compose_cursor'] = array(
 
 // Select widget for the 'default_encrypt' preference
 $_prefs['encryptselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'requires_nolock' => array('default_encrypt')
 );
 
 // The default encryption method to use when sending messages
@@ -550,7 +569,8 @@ $_prefs['compose_popup'] = array(
 $_prefs['compose_confirm'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Display confirmation in popup window after sending a message?")
+    'desc' => _("Display confirmation in popup window after sending a message?"),
+    'requires' => array('compose_popup')
 );
 
 // The list of buttons to show in CKeditor
@@ -646,7 +666,8 @@ $_prefs['attrib_text'] = array(
     'advanced' => true,
     'type' => 'text',
     'desc' => _("How to attribute quoted lines in a reply"),
-    'help' => 'prefs-attrib_text'
+    'help' => 'prefs-attrib_text',
+    'requires' => array('reply_quote')
 );
 
 // Strip the sender's signature from plaintext replies?
@@ -654,7 +675,8 @@ $_prefs['reply_strip_sig'] = array(
     'desc' => _("Strip the sender's signature from plaintext replies?"),
     'advanced' => true,
     'value' => 0,
-    'type' => 'checkbox'
+    'type' => 'checkbox',
+    'requires' => array('reply_quote')
 );
 
 
@@ -708,7 +730,8 @@ $prefGroups['drafts'] = array(
 
 // drafts mailbox selection widget.
 $_prefs['draftsselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'requires_nolock' => array('drafts_folder')
 );
 
 // drafts mailbox
@@ -827,7 +850,8 @@ $_prefs['display_contact'] = array(
 
 // address book selection widget
 $_prefs['sourceselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'requires_nolock' => array('search_sources')
 );
 
 // Address book(s) to use when expanding addresses
@@ -1083,7 +1107,9 @@ $_prefs['use_trash'] = array(
 
 // trash mailbox selection widget.
 $_prefs['trashselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'requires' => array('use_trash'),
+    'requires_nolock' => array('use_trash', 'trash_folder')
 );
 
 // trash mailbox
@@ -1113,7 +1139,9 @@ $_prefs['delhide_trash'] = array(
 $_prefs['empty_trash_menu'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Display the \"Empty Trash\" link in the menubar?")
+    'desc' => _("Display the \"Empty Trash\" link in the menubar?"),
+    'requires' => array('use_trash'),
+    'requires_nolock' => array('use_trash')
 );
 
 // how often to purge the Trash mailbox?
@@ -1122,7 +1150,9 @@ $_prefs['purge_trash_interval'] = array(
     'type' => 'enum',
     'enum' => array_merge(array(0 => _("Never")), Horde_LoginTasks::getLabels()),
     'desc' => _("Purge Trash how often:"),
-    'help' => 'prefs-purge_trash_interval'
+    'help' => 'prefs-purge_trash_interval',
+    'requires' => array('use_trash'),
+    'requires_nolock' => array('use_trash')
 );
 
 // when purging Trash mailbox, purge messages older than how many days?
@@ -1130,7 +1160,9 @@ $_prefs['purge_trash_keep'] = array(
     'value' => 30,
     'type' => 'number',
     'desc' => _("Purge messages in Trash mailbox older than this amount of days."),
-    'help' => 'prefs-purge_trash_keep'
+    'help' => 'prefs-purge_trash_keep',
+    'requires' => array('use_trash'),
+    'requires_nolock' => array('use_trash')
 );
 
 
@@ -1155,7 +1187,8 @@ $prefGroups['spamreport'] = array(
 
 // spam mailbox selection widget.
 $_prefs['spamselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'requires_nolock' => array('spam_folder')
 );
 
 // spam mailbox
@@ -1257,7 +1290,9 @@ $_prefs['newmail_audio'] = array(
 
 // sound selection widget
 $_prefs['newmail_soundselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'requires' => array('newmail_notify'),
+    'requires_nolock' => array('newmail_audio')
 );
 
 
@@ -1329,7 +1364,8 @@ $prefGroups['mboxdisplay'] = array(
 
 // select widget for the initial_page preference
 $_prefs['initialpageselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'requires_nolock' => array('initial_page')
 );
 
 // The initial page to display. Either:
@@ -1435,7 +1471,9 @@ $_prefs['atc_flag'] = array(
 
 $_prefs['traditional_mailbox'] = array(
     'value' => '<div class="prefsViews">' . _("Preferences affecting only the Traditional View") . '</div>',
-    'type' => 'rawhtml'
+    'type' => 'rawhtml',
+    'requires' => array('preview_enabled'),
+    'requires_nolock' => array('preview_enabled')
 );
 
 // Previews are disabled by default as it can be performance intensive,
@@ -1458,28 +1496,32 @@ $_prefs['preview_maxlen'] = array(
         500 => _("500 characters"),
         1000 => _("1000 characters")
     ),
-    'desc' => _("Characters to display in preview:")
+    'desc' => _("Characters to display in preview:"),
+    'requires' => array('preview_enabled')
 );
 
 $_prefs['preview_strip_nl'] = array(
     'value' => 1,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Strip linebreaks in preview?")
+    'desc' => _("Strip linebreaks in preview?"),
+    'requires' => array('preview_enabled')
 );
 
 $_prefs['preview_show_unread'] = array(
     'value' => 1,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Show previews for unread messages only?")
+    'desc' => _("Show previews for unread messages only?"),
+    'requires' => array('preview_enabled')
 );
 
 $_prefs['preview_show_tooltip'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Show previews in tooltips?")
+    'desc' => _("Show previews in tooltips?"),
+    'requires' => array('preview_enabled')
 );
 
 $_prefs['mimp_mailbox'] = array(

@@ -86,12 +86,7 @@ class IMP_Prefs_Ui
 
         switch ($ui->group) {
         case 'identities':
-            if ($prefs->isLocked('sent_mail_folder')) {
-                $ui->suppress[] = 'sentmailselect';
-            }
-
-            if ($prefs->isLocked('signature_html') ||
-                !$session->get('imp', 'rteavail')) {
+            if (!$session->get('imp', 'rteavail')) {
                 $ui->suppress[] = 'signature_html_select';
             }
             break;
@@ -113,19 +108,6 @@ class IMP_Prefs_Ui
                 $v = $injector->getInstance('IMP_Factory_MimeViewer')->create($mock_part);
 
                 if (!$v->canRender('inline')) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
-            case 'compose_html_font_family':
-            case 'compose_html_font_size':
-                if (!$prefs->getValue('compose_html')) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
-            case 'compose_confirm':
-                if (!$prefs->getValue('compose_popup')) {
                     $ui->suppress[] = $val;
                 }
                 break;
@@ -172,25 +154,11 @@ class IMP_Prefs_Ui
                 }
                 break;
 
-            case 'draftsselect':
-                if ($prefs->isLocked('drafts_folder')) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
             case 'empty_trash_menu':
             case 'purge_trash_interval':
             case 'purge_trash_keep':
             case 'trashselect':
-                if (!$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
-                    $prefs->isLocked('use_trash') ||
-                    !$prefs->getValue('use_trash')) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
-            case 'encryptselect':
-                if ($prefs->isLocked('default_encrypt')) {
+                if (!$imp_imap->access(IMP_Imap::ACCESS_TRASH)) {
                     $ui->suppress[] = $val;
                 }
                 break;
@@ -234,41 +202,6 @@ class IMP_Prefs_Ui
                 }
                 break;
 
-            case 'initialpageselect':
-                if ($prefs->isLocked('initial_page')) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
-            case 'newmail_soundselect':
-                if (!$prefs->getValue('newmail_notify') ||
-                    $prefs->isLocked('newmail_audio')) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
-            case 'pgp_attach_pubkey':
-            case 'use_pgp_text':
-            case 'pgp_reply_pubkey':
-            case 'pgp_scan_body':
-            case 'pgp_verify':
-            case 'pgpprivatekey':
-            case 'pgppublickey':
-                if (!$prefs->getValue('use_pgp')) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
-            case 'preview_maxlen':
-            case 'preview_show_unread':
-            case 'preview_show_tooltip':
-            case 'preview_strip_nl':
-            case 'preview_enabled':
-                if (!$prefs->getValue('preview_enabled')) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
             case 'reply_lang':
                 $langs = Horde_Nls::getLanguageISO();
                 asort($langs);
@@ -281,46 +214,14 @@ class IMP_Prefs_Ui
                 }
                 break;
 
-            case 'smime_verify':
-            case 'smimeprivatekey':
-            case 'smimepublickey':
-            case 'use_smime_text':
-                if (!$prefs->getValue('use_smime')) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
             case 'sourceselect':
-                if ($prefs->isLocked('search_sources')) {
-                    $ui->suppress[] = $val;
-                } else {
-                    Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
-                }
-                break;
-
-            case 'spamselect':
-                if ($prefs->isLocked('spam_folder')) {
-                    $ui->suppress[] = $val;
-                }
+                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
                 break;
 
             case 'time_format':
                 /* Set the timezone on this page so the output uses the
                  * configured time zone's time, not the system's time zone. */
                 $registry->setTimeZone();
-                break;
-
-            case 'traditional_mailbox':
-                if (!$prefs->getValue('preview_enabled') &&
-                    $prefs->isLocked('preview_enabled')) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
-            case 'trashselect':
-                if ($prefs->isLocked('trash_folder')) {
-                    $ui->suppress[] = $val;
-                }
                 break;
 
             case 'use_trash':

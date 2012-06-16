@@ -201,6 +201,7 @@ class Kronolith_Application extends Horde_Registry_Application
                     $ui->override['default_share'][$id] = $calendar->get('name');
                 }
                 break;
+
             case 'sync_calendars':
                 $sync = @unserialize($prefs->getValue('sync_calendars'));
                 if (empty($sync)) {
@@ -214,9 +215,9 @@ class Kronolith_Application extends Horde_Registry_Application
                 }
                 $ui->override['sync_calendars'] = $out;
                 break;
+
             case 'event_alarms_select':
-                if (empty($conf['alarms']['driver']) ||
-                    $prefs->isLocked('event_alarms_select')) {
+                if (empty($conf['alarms']['driver'])) {
                     $ui->suppress[] = 'event_alarms';
                 } else {
                     Horde_Core_Prefs_Ui_Widgets::alarmInit();
@@ -234,11 +235,7 @@ class Kronolith_Application extends Horde_Registry_Application
                 break;
 
             case 'sourceselect':
-                if ($prefs->isLocked('search_sources')) {
-                    $ui->suppress[] = $val;
-                } else {
-                    Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
-                }
+                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
                 break;
             }
         }

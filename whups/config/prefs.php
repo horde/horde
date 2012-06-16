@@ -144,7 +144,10 @@ $_prefs['comment_sort_dir'] = array(
 );
 
 // address book selection widget
-$_prefs['sourceselect'] = array('type' => 'special');
+$_prefs['sourceselect'] = array(
+    'type' => 'special',
+    'requires_nolock' => array('search_sources')
+);
 
 // Address book(s) to use when expanding addresses
 // Refer to turba/config/sources.php for possible source values

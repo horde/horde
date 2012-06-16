@@ -177,8 +177,7 @@ class Nag_Application extends Horde_Registry_Application
                 break;
 
             case 'task_alarms_select':
-                if (empty($conf['alarms']['driver']) ||
-                    $prefs->isLocked('task_alarms_select')) {
+                if (empty($conf['alarms']['driver'])) {
                     $ui->suppress[] = 'task_alarms';
                 } else {
                     Horde_Core_Prefs_Ui_Widgets::alarmInit();

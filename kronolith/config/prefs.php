@@ -39,7 +39,7 @@ $prefGroups['event_options'] = array(
     'column' => _("Events"),
     'label' => _("Event Defaults"),
     'desc' => _("Set default values for new events."),
-    'members' => array('default_alarm_management'),
+    'members' => array('default_alarm_management')
 );
 
 $prefGroups['logintasks'] = array(
@@ -242,7 +242,10 @@ $_prefs['default_alarm'] = array(
     'value' => ''
 );
 
-$_prefs['default_alarm_management'] = array('type' => 'special');
+$_prefs['default_alarm_management'] = array(
+    'type' => 'special',
+    'requires_nolock' => array('default_alarm')
+);
 
 // remote calendars
 $_prefs['remote_cals'] = array(
@@ -330,7 +333,10 @@ $_prefs['display_contact'] = array(
 );
 
 // address book selection widget
-$_prefs['sourceselect'] = array('type' => 'special');
+$_prefs['sourceselect'] = array(
+    'type' => 'special',
+    'requires_nolock' => array('search_sources')
+);
 
 // Address book(s) to use when expanding addresses
 // Refer to turba/config/sources.php for possible source values
