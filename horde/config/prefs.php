@@ -36,6 +36,7 @@
  *   - label: (string) Label for the group of settings.
  *   - members: (array) List of displayable preferences contained in this
  *              group.
+ *   - suppress: (boolean|function) If true, this group is not displayed.
  *   - type: (string) The prefGroup type.
  *     VALUES:
  *       - identities: An identities screen. The identities screen will always

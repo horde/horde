@@ -115,6 +115,14 @@ class Horde_Core_Prefs_Ui
         /* Run app-specific init code. */
         $registry->callAppMethod($this->app, 'prefsInit', array('args' => array($this)));
 
+        /* Suppress prefs groups, as needed. */
+        foreach ($this->_getPrefGroups() as $key => $val) {
+            if (!empty($val['suppress']) &&
+                (!is_callable($val['suppress']) || $val['suppress']())) {
+                $this->suppressGroups[] = $key;
+            }
+        }
+
         if ($this->group &&
             !in_array($this->group, $this->suppressGroups)) {
             $registry->callAppMethod($this->app, 'prefsGroup', array('args' => array($this)));
