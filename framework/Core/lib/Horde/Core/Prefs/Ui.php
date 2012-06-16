@@ -172,7 +172,8 @@ class Horde_Core_Prefs_Ui
 
             /* Changeable pref if:
              *   1. Not locked
-             *   2. Not in suppressed array ($this->suppress)
+             *   2. Not in suppressed array ($this->suppress) or supressed
+             *      variable is empty
              *   3. Not an advanced pref -or- in advanced view mode
              *   4. Not an implicit pref
              *   5. All required prefs are non-zero
@@ -182,6 +183,11 @@ class Horde_Core_Prefs_Ui
                 (empty($p['advanced']) ||
                  $GLOBALS['session']->get('horde', 'prefs_advanced')) &&
                 ((!empty($p['type']) && ($p['type'] != 'implicit')))) {
+                if (!empty($p['suppress']) &&
+                    (!is_callable($p['suppress']) || $p['suppress']())) {
+                    continue;
+                }
+
                 if ($p['type'] == 'container') {
                     if (isset($p['value']) && is_array($p['value'])) {
                         $cprefs = array_merge($cprefs, $p['value']);

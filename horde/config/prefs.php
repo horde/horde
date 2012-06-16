@@ -96,6 +96,13 @@
  *       Array of preference names
  *     DEFAULT: None
  *
+ *   - suppress: (boolean|function) If true, suppresses display of the
+ *               preference in the UI.
+ *     VALUES:
+ *       - true
+ *       - false
+ *     DEFAULT: false
+ *
  *
  * The UI display for a preference is controlled by the 'type' key. This key
  * controls how the preference is displayed on the preferences screen. If this
