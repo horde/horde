@@ -604,9 +604,13 @@ $_prefs['reply_lang'] = array(
     'value' => 'a:0:{}',
     'advanced' => true,
     'type' => 'multienum',
-    // Language list is automatically generated
     'enum' => array(),
-    'desc' => _("What language(s) do you prefer replies to your messages to be in? (Hold down the CTRL key when clicking to add multiple languages)")
+    'desc' => _("What language(s) do you prefer replies to your messages to be in? (Hold down the CTRL key when clicking to add multiple languages)"),
+    'on_init' => function($ui) {
+        $enum = Horde_Nls::getLanguageISO();
+        asort($enum);
+        $ui->prefs['reply_lang']['enum'] = $enum;
+    },
 );
 
 $_prefs['traditional_compose'] = array(
@@ -973,6 +977,9 @@ $_prefs['add_source'] = array(
             return true;
         } catch (Horde_Exception $e) {}
         return false;
+    },
+    'on_init' => function($ui) {
+        $ui->prefs['add_source']['enum'] = $GLOBALS['registry']->call('contacts/sources', array(true));
     }
 );
 
@@ -1309,13 +1316,19 @@ $_prefs['spam_folder'] = array(
 $_prefs['delete_spam_after_report'] = array(
     'value' => 0,
     'type' => 'enum',
-    'enum' => array(
-        0 => _("Nothing"),
-        1 => _("Delete message"),
-        2 => _("Move to spam mailbox")
-    ),
+    'enum' => array(),
     'desc' => _("What should we do with messages after they have been reported as spam?"),
-    'help' => 'prefs-delete_spam_after_report'
+    'help' => 'prefs-delete_spam_after_report',
+    'on_init' => function($ui) {
+        $enum = array(
+            0 => _("Nothing"),
+            1 => _("Delete message")
+        );
+        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
+            $enum[2] = _("Move to spam mailbox");
+        }
+        $ui->prefs['delete_spam_after_report']['enum'] = $enum;
+    }
 );
 
 // What should we do with spam messages after reporting them as innocent?

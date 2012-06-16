@@ -84,6 +84,13 @@
  *       - false: Show this preference in the UI and allow changing.
  *     DEFAULT: false
  *
+ *   - on_init: (function) A method to call when initialzing the value for
+ *              display on the UI page. Is passed one argument: the
+ *              Horde_Core_Prefs_Ui object.
+ *     VALUES:
+ *       Function
+ *     DEFAULT: None
+ *
  *   - requires: (array) A list of preferences that need to be set (i.e.
  *               non-empty value) for this preference to be displayed.
  *     VALUES:
@@ -126,7 +133,7 @@
  *   - desc: (string) The description text to use on the preferences page.
  *   - escaped: (boolean) If true, values in 'enum' are already escaped.
  *              DEFAULT: false
- *   - enum: (array) [REQUIRED] The enumeration list. Keys will be used as
+ *   - enum: (array) [REQUIRED] The enumeration list. Keys will be used as the
  *           the preference value; values are the text that will be displayed
  *           in the selection list.
  *   - value: (mixed) The value of the preference. Will be used to
@@ -166,7 +173,7 @@
  *   - desc: (string) The description text to use on the preferences page.
  *   - escaped: (boolean) If true, values in 'enum' are already escaped.
  *              DEFAULT: false
- *   - enum: (array) [REQUIRED] The enumeration list. Keys will be used as
+ *   - enum: (array) [REQUIRED] The enumeration list. Keys will be used as the
  *           the preference value; values are the text that will be displayed
  *           in the selection list.
  *   - value: (string) A serialized value containing the key(s) selected. All
@@ -370,10 +377,14 @@ $prefGroups['language'] = array(
 $_prefs['language'] = array(
     'value' => '',
     'type' => 'enum',
-    // Language list is dynamically built when prefs screen is displayed
     'enum' => array(),
     'escaped' => true,
-    'desc' => _("Select your preferred language:")
+    'desc' => _("Select your preferred language:"),
+    'on_init' => function($ui) {
+        $enum = $GLOBALS['registry']->nlsconfig->languages;
+        array_unshift($enum, _("Default"));
+        $ui->prefs['language']['enum'] = $enum;
+    }
 );
 
 // Select widget for email charsets
@@ -394,9 +405,13 @@ $_prefs['sending_charset'] = array(
 $_prefs['timezone'] = array(
     'value' => '',
     'type' => 'enum',
-    // Timezone list is dynamically built when prefs screen is displayed
     'enum' => array(),
-    'desc' => _("Your current time zone:")
+    'desc' => _("Your current time zone:"),
+    'on_init' => function($ui) {
+        $enum = Horde_Nls::getTimezones();
+        array_unshift($enum, _("Default"));
+        $ui->prefs['timezone']['enum'] = $enum;
+    },
 );
 
 // time format
@@ -532,9 +547,21 @@ $prefGroups['display'] = array(
 $_prefs['initial_application'] = array(
     'value' => 'horde',
     'type' => 'enum',
-    // Application list is dynamically built when prefs screen is displayed
     'enum' => array(),
-    'desc' => sprintf(_("What application should %s display after login?"), $GLOBALS['registry']->get('name'))
+    'desc' => sprintf(_("What application should %s display after login?"), $GLOBALS['registry']->get('name')),
+    'on_init' => function($ui) {
+        $enum = array();
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        foreach ($GLOBALS['registry']->listApps(array('active')) as $a) {
+            if (file_exists($GLOBALS['registry']->get('fileroot', $a)) &&
+                (($perms->exists($a) && ($perms->hasPermission($a, $GLOBALS['registry']->getAuth(), Horde_Perms::READ) || $GLOBALS['registry']->isAdmin())) ||
+                 !$perms->exists($a))) {
+                $enum[$a] = $GLOBALS['registry']->get('name', $a);
+            }
+        }
+        asort($enum);
+        $ui->prefs['initial_application']['enum'] = $enum;
+    },
 );
 
 // show the last login time of user
@@ -556,8 +583,7 @@ $_prefs['last_login'] = array(
 $_prefs['theme'] = array(
     'value' => 'silver',
     'type' => 'enum',
-    // Theme list is dynamically built when prefs screen is displayed
-    'enum' => array(),
+    'enum' => Horde_Themes::themeList(),
     'desc' => _("Select your color scheme.")
 );
 

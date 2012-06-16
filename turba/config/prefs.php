@@ -63,7 +63,23 @@ $_prefs['addressbooks'] = array(
 $_prefs['sync_books'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
+    'enum' => array(),
     'desc' => _("Select the address books that should be used for synchronization with external devices:"),
+    'on_init' => function($ui) {
+        Horde_Core_Prefs_Ui_Widgets::sourceInit();
+        $enum = array();
+        $sync_books = @unserialize($GLOBALS['prefs']->getValue('sync_books'));
+        if (empty($sync_books)) {
+            $GLOBALS['prefs']->setValue('sync_books', serialize(array(Turba::getDefaultAddressbook())));
+        }
+        foreach (Turba::getAddressBooks() as $key => $val) {
+            if (!empty($val['map']['__uid']) &&
+                !empty($val['browse'])) {
+                $enum[$key] = $val['title'];
+            }
+        }
+        $ui->prefs['sync_books']['enum'] = $enum;
+    }
 );
 
 // Columns selection widget
@@ -135,12 +151,20 @@ $_prefs['name_sort'] = array(
 );
 
 // Default directory
-// Addressbook list array is dynamically built when prefs screen is displayed
 $_prefs['default_dir'] = array(
     'value' => '',
     // 'value' => 'localsql',
     'type' => 'enum',
+    'enum' => array(),
     'desc' => _("This will be the default address book when adding or importing contacts."),
+    'on_init' => function($ui) {
+        Horde_Core_Prefs_Ui_Widgets::sourceInit();
+        $enum = array();
+        foreach ($GLOBALS['cfgSources'] as $key => $info) {
+            $enum[$key] = $info['title'];
+        }
+        $ui->prefs['default_dir']['enum'] = $enum;
+    }
 );
 
 // preference for holding any preferences-based addressbooks.

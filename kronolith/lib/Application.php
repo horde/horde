@@ -171,47 +171,8 @@ class Kronolith_Application extends Horde_Registry_Application
 
         foreach ($ui->getChangeablePrefs() as $val) {
             switch ($val) {
-            case 'day_hour_end':
-            case 'day_hour_start':
-                $hour = array();
-                for ($i = 0; $i <= 48; ++$i) {
-                    $hour[$i] = date(($prefs->getValue('twentyFour')) ? 'G:i' : 'g:ia', mktime(0, $i * 30, 0));
-                }
-                $ui->override[$val] = $hour;
-                break;
-
-            case 'default_share':
-                foreach (Kronolith::listInternalCalendars(false, Horde_Perms::EDIT) as $id => $calendar) {
-                    $ui->override['default_share'][$id] = $calendar->get('name');
-                }
-                break;
-
-            case 'sync_calendars':
-                $sync = @unserialize($prefs->getValue('sync_calendars'));
-                if (empty($sync)) {
-                    $prefs->setValue('sync_calendars', serialize(array(Kronolith::getDefaultCalendar())));
-                }
-                $out = array();
-                foreach (Kronolith::listInternalCalendars(true, Horde_Perms::EDIT) as $key => $cal) {
-                    if ($cal->getName() != Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
-                        $out[$key] = $cal->get('name');
-                    }
-                }
-                $ui->override['sync_calendars'] = $out;
-                break;
-
             case 'event_alarms_select':
                 Horde_Core_Prefs_Ui_Widgets::alarmInit();
-                break;
-
-            case 'fb_cals':
-                $fb_list = array();
-                foreach (Kronolith::listCalendars() as $fb_cal => $cal) {
-                    if ($cal->display()) {
-                        $fb_list[htmlspecialchars($fb_cal)] = htmlspecialchars($cal->name());
-                    }
-                }
-                $ui->override['fb_cals'] = $fb_list;
                 break;
 
             case 'sourceselect':

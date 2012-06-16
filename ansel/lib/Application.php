@@ -149,25 +149,6 @@ class Ansel_Application extends Horde_Registry_Application
 
     /**
      */
-    public function prefsGroup($ui)
-    {
-        global $conf;
-
-        foreach ($ui->getChangeablePrefs() as $val) {
-            switch ($val) {
-            case 'exif_tags':
-                $fields = Horde_Image_Exif::getFields(array($conf['exif']['driver'], !empty($conf['exif']['params']) ? $conf['exif']['params'] : array()), true);
-                $ui->override['exif_tags'] = $fields;
-                $ui->override['exif_title'] = array_merge(array(
-                    'none' => _("None")
-                ), $fields);
-                break;
-            }
-        }
-    }
-
-    /**
-     */
     public function prefsSpecial($ui, $item)
     {
         switch ($item) {

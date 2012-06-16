@@ -39,25 +39,11 @@ class IMP_Prefs_Ui
 
         foreach ($cprefs as $val) {
             switch ($val) {
-            case 'add_source':
-                try {
-                    $ui->override['add_source'] = $registry->call('contacts/sources', array(true));
-                } catch (Horde_Exception $e) {}
-                break;
-
             case 'composetemplates_new':
                 $ui->prefs[$val]['xurl'] = IMP::composeLink(array(), array(
                     'actionID' => 'template_new',
                     'type' => 'template_new'
                 ));
-                break;
-
-            case 'delete_spam_after_report':
-                if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-                    $tmp = $ui->prefs['delete_spam_after_report']['enum'];
-                    unset($tmp[2]);
-                    $ui->override['delete_spam_after_report'] = $tmp;
-                }
                 break;
 
             case 'filters_blacklist_link':
@@ -83,12 +69,6 @@ class IMP_Prefs_Ui
                     $prefs->isLocked('msgflags_user')) {
                     $ui->nobuttons = true;
                 }
-                break;
-
-            case 'reply_lang':
-                $langs = Horde_Nls::getLanguageISO();
-                asort($langs);
-                $ui->override['reply_lang'] = $langs;
                 break;
 
             case 'sourceselect':

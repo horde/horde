@@ -152,7 +152,19 @@ $_prefs['default_due_days'] = array(
 $_prefs['default_due_time'] = array(
     'value' => 'now',
     'type' => 'enum',
-    'desc' => _("What do you want to be the default due time for tasks?")
+    'enum' => array(),
+    'desc' => _("What do you want to be the default due time for tasks?"),
+    'on_init' => function($ui) {
+        $enum = array('now' => _("The current hour"));
+        $twentyfour = $prefs->getValue('twentyFour');
+        for ($i = 0; $i < 24; ++$i) {
+            $value = sprintf('%02d:00', $i);
+            $enum[$value] = $twentyfour
+                ? $value
+                : sprintf('%02d:00 ' . ($i >= 12 ? _("pm") : _("am")), ($i % 12 ? $i % 12 : 12));
+        }
+        $ui->prefs['default_due_time']['enum'] = $enum;
+    }
 );
 
 // new task notifications
@@ -191,6 +203,7 @@ $_prefs['task_alarms'] = array(
 $_prefs['show_external'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
+    'enum' => array('whups' => $GLOBALS['registry']->get('name', 'whups')),
     'desc' => _("Show data from any of these other applications in your task list?"),
     'suppress' => function() {
         return !$GLOBALS['registry']->hasMethod('getListTypes', 'whups');
@@ -220,7 +233,15 @@ $_prefs['task_categories'] = array(
 $_prefs['default_tasklist'] = array(
     'value' => $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : 0,
     'type' => 'enum',
-    'desc' => _("Your default task list:")
+    'enum' => array(),
+    'desc' => _("Your default task list:"),
+    'on_init' => function($ui) {
+        $enum = array();
+        foreach (Nag::listTasklists() as $key => $val) {
+            $enum[htmlspecialchars($key)] = htmlspecialchars($val->get('name'));
+        }
+        $ui->prefs['default_tasklist']['enum'] = $enum;
+    }
 );
 
 // store the task lists to diplay
@@ -232,5 +253,19 @@ $_prefs['display_tasklists'] = array(
 $_prefs['sync_lists'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
+    'enum' => array(),
     'desc' => _("Select the tasklists that, in addition to the default, should be used for synchronization with external devices:"),
+    'on_init' => function($ui) {
+        $enum = array();
+        $sync = @unserialize($GLOBALS['prefs']->getValue('sync_lists'));
+        if (empty($sync)) {
+            $GLOBALS['prefs']->setValue('sync_lists', serialize(array(Nag::getDefaultTasklist())));
+        }
+        foreach (Nag::listTasklists(false, Horde_Perms::EDIT) as $key => $list) {
+            if ($list->getName() != Nag::getDefaultTasklist(Horde_Perms::EDIT)) {
+                $enum[$key] = $list->get('name');
+            }
+        }
+        $ui->prefs['sync_lists']['enum'] = $enum;
+    }
 );

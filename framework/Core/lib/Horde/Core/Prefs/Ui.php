@@ -36,13 +36,6 @@ class Horde_Core_Prefs_Ui
     public $prefs = array();
 
     /**
-     * Data overrides (for 'enum' and 'multienum' types).
-     *
-     * @var array
-     */
-    public $override = array();
-
-    /**
      * Suppressed preference entries.
      *
      * @var array
@@ -311,9 +304,7 @@ class Horde_Core_Prefs_Ui
                 break;
 
             case 'enum':
-                $enum = isset($this->override[$pref])
-                    ? $this->override[$pref]
-                    : $this->prefs[$pref]['enum'];
+                $enum = $this->prefs[$pref]['enum'];
                 if (isset($enum[$this->vars->$pref])) {
                     $updated |= $save->setValue($pref, $this->vars->$pref);
                 } else {
@@ -325,10 +316,7 @@ class Horde_Core_Prefs_Ui
                 $set = array();
 
                 if (is_array($this->vars->$pref)) {
-                    $enum = isset($this->override[$pref])
-                        ? $this->override[$pref]
-                        : $this->prefs[$pref]['enum'];
-
+                    $enum = $this->prefs[$pref]['enum'];
                     foreach ($this->vars->$pref as $val) {
                         if (isset($enum[$val])) {
                             $set[] = $val;
@@ -477,6 +465,11 @@ class Horde_Core_Prefs_Ui
             }
 
             foreach ($pref_list as $pref) {
+                if (isset($this->prefs[$pref]['on_init']) &&
+                    is_callable($this->prefs[$pref]['on_init'])) {
+                    $this->prefs[$pref]['on_init']($this);
+                }
+
                 if ($this->prefs[$pref]['type'] == 'special') {
                     echo $registry->callAppMethod($this->app, 'prefsSpecial', array('args' => array($this, $pref)));
                     continue;
@@ -501,9 +494,7 @@ class Horde_Core_Prefs_Ui
                     break;
 
                 case 'enum':
-                    $enum = isset($this->override[$pref])
-                        ? $this->override[$pref]
-                        : $this->prefs[$pref]['enum'];
+                    $enum = $this->prefs[$pref]['enum'];
                     $esc = !empty($this->prefs[$pref]['escaped']);
                     $curval = $prefs->getValue($pref);
 
@@ -538,9 +529,7 @@ class Horde_Core_Prefs_Ui
                     break;
 
                 case 'multienum':
-                    $enum = isset($this->override[$pref])
-                        ? $this->override[$pref]
-                        : $this->prefs[$pref]['enum'];
+                    $enum = $this->prefs[$pref]['enum'];
                     $esc = !empty($this->prefs[$pref]['escaped']);
                     if (!$selected = @unserialize($prefs->getValue($pref))) {
                         $selected = array();

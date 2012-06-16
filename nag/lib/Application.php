@@ -131,47 +131,6 @@ class Nag_Application extends Horde_Registry_Application
 
         foreach ($ui->getChangeablePrefs() as $val) {
             switch ($val) {
-            case 'default_due_time':
-                $twentyfour = $prefs->getValue('twentyFour');
-
-                $vals = array('now' => _("The current hour"));
-                for ($i = 0; $i < 24; ++$i) {
-                    $value = sprintf('%02d:00', $i);
-                    $vals[$value] = ($twentyfour)
-                        ? $value
-                        : sprintf('%02d:00 ' . ($i >= 12 ? _("pm") : _("am")), ($i % 12 ? $i % 12 : 12));
-                }
-                $ui->override['default_due_time'] = $vals;
-                break;
-
-            case 'default_tasklist':
-                $vals = array();
-                foreach (Nag::listTasklists() as $id => $tasklist) {
-                    $vals[htmlspecialchars($id)] = htmlspecialchars($tasklist->get('name'));
-                }
-                $ui->override['default_tasklist'] = $vals;
-                break;
-
-            case 'sync_lists':
-                $sync = @unserialize($prefs->getValue('sync_lists'));
-                if (empty($sync)) {
-                    $prefs->setValue('sync_lists', serialize(array(Nag::getDefaultTasklist())));
-                }
-                $out = array();
-                foreach (Nag::listTasklists(false, Horde_Perms::EDIT) as $key => $list) {
-                    if ($list->getName() != Nag::getDefaultTasklist(Horde_Perms::EDIT)) {
-                        $out[$key] = $list->get('name');
-                    }
-                }
-                $ui->override['sync_lists'] = $out;
-                break;
-
-            case 'show_external':
-                $ui->override['show_external'] = array(
-                    'whups' => $registry->get('name', 'whups')
-                );
-                break;
-
             case 'task_alarms_select':
                 Horde_Core_Prefs_Ui_Widgets::alarmInit();
                 break;

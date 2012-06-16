@@ -190,31 +190,10 @@ class Turba_Application extends Horde_Registry_Application
                 break;
 
             case 'default_dir':
-                $out = array();
-                foreach ($GLOBALS['cfgSources'] as $key => $info) {
-                    $out[$key] = $info['title'];
-                }
-                $ui->override['default_dir'] = $out;
-
                 $source_init = true;
                 break;
 
             case 'sync_books':
-                $out = array();
-                foreach (Turba::getAddressBooks() as $key => $curSource) {
-                    if (empty($curSource['map']['__uid'])) {
-                        continue;
-                    }
-                    if (!empty($curSource['browse'])) {
-                        $out[$key] = $curSource['title'];
-                    }
-                    $sync_books = @unserialize($prefs->getValue('sync_books'));
-                    if (empty($sync_books)) {
-                        $prefs->setValue('sync_books', serialize(array(Turba::getDefaultAddressbook())));
-                    }
-                }
-                $ui->override['sync_books'] = $out;
-
                 $source_init = true;
                 break;
             }

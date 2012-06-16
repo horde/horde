@@ -23,38 +23,9 @@ class Horde_Prefs_Ui
 
         foreach ($ui->getChangeablePrefs() as $val) {
             switch ($val) {
-            case 'initial_application':
-                $out = array();
-                $apps = $registry->listApps(array('active'));
-                foreach ($apps as $a) {
-                    $perms = $injector->getInstance('Horde_Perms');
-                    if (file_exists($registry->get('fileroot', $a)) &&
-                        (($perms->exists($a) && ($perms->hasPermission($a, $registry->getAuth(), Horde_Perms::READ) || $registry->isAdmin())) ||
-                         !$perms->exists($a))) {
-                        $out[$a] = $registry->get('name', $a);
-                    }
-                }
-                asort($out);
-                $ui->override['initial_application'] = $out;
-                break;
-
-            case 'language':
-                $ui->override['language'] = $registry->nlsconfig->languages;
-                array_unshift($ui->override['language'], _("Default"));
-                break;
-
             case 'remotemanagement':
                 $page_output->addScriptFile('rpcprefs.js', 'horde');
                 $ui->nobuttons = true;
-                break;
-
-            case 'theme':
-                $ui->override['theme'] = Horde_Themes::themeList();
-                break;
-
-            case 'timezone':
-                $ui->override['timezone'] = Horde_Nls::getTimezones();
-                array_unshift($ui->override['timezone'], _("Default"));
                 break;
             }
         }
