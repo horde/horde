@@ -117,14 +117,7 @@ class Agora_Application extends Horde_Registry_Application
         foreach ($ui->getChangeablePrefs() as $val) {
             switch ($val) {
             case 'avatar_link':
-                $vfs = Agora::getVFS();
-                if (($vfs instanceof PEAR_Error) ||
-                    !$GLOBALS['conf']['avatar']['enable_gallery'] ||
-                    !$vfs->isFolder(Agora::AVATAR_PATH, 'gallery')) {
-                    $ui->suppress[] = 'avatar_link';
-                } else {
-                    $GLOBALS['page_output']->addScriptFile('popup.js', 'horde');
-                }
+                $GLOBALS['page_output']->addScriptFile('popup.js', 'horde');
                 break;
             }
         }

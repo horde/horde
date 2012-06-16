@@ -79,6 +79,12 @@ if ($GLOBALS['conf']['avatar']['allow_avatars'] &&
 
 $_prefs['avatar_link'] = array(
     'type' => 'rawhtml',
+    'suppress' => function() {
+        $vfs = Agora::getVFS();
+        return (($vfs instanceof PEAR_Error) ||
+                !$GLOBALS['conf']['avatar']['enable_gallery'] ||
+                !$vfs->isFolder(Agora::AVATAR_PATH, 'gallery'));
+    }
     //'url' => '<p>' . _("Choose from a gallery of avatars:") . ' <input class="button" type="button" value="' . _("Click to Show Gallery") . '" onclick="' . Horde::popupJs(Horde::url('avatars/gallery.php'), array('height' => 320, 'width' => 320)) . '" /></p>'
 );
 

@@ -37,66 +37,19 @@ class IMP_Prefs_Ui
         $cprefs = $ui->getChangeablePrefs();
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-        switch ($ui->group) {
-        case 'identities':
-            if (!$session->get('imp', 'rteavail')) {
-                $ui->suppress[] = 'signature_html_select';
-            }
-            break;
-        }
-
         foreach ($cprefs as $val) {
             switch ($val) {
             case 'add_source':
                 try {
                     $ui->override['add_source'] = $registry->call('contacts/sources', array(true));
-                } catch (Horde_Exception $e) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
-            case 'alternative_display':
-                $mock_part = new Horde_Mime_Part();
-                $mock_part->setType('text/html');
-                $v = $injector->getInstance('IMP_Factory_MimeViewer')->create($mock_part);
-
-                if (!$v->canRender('inline')) {
-                    $ui->suppress[] = $val;
-                }
+                } catch (Horde_Exception $e) {}
                 break;
 
             case 'composetemplates_new':
-                if ($tmp = IMP_Mailbox::getPref('composetemplates_mbox')) {
-                    $ui->prefs[$val]['xurl'] = IMP::composeLink(array(), array(
-                        'actionID' => 'template_new',
-                        'type' => 'template_new'
-                    ));
-                } else {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
-            case 'delete_attachments_monthly_keep':
-                if (empty($conf['compose']['link_attachments'])) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
-            case 'delete_sentmail_monthly_keep':
-            case 'empty_spam_menu':
-            case 'initialpageselect':
-            case 'move_innocent_after_report':
-            case 'nav_expanded':
-            case 'nav_poll_all':
-            case 'purge_sentmail_interval':
-            case 'purge_sentmail_keep':
-            case 'purge_spam_interval':
-            case 'purge_spam_keep':
-            case 'rename_sentmail_monthly':
-            case 'tree_view':
-                if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-                    $ui->suppress[] = $val;
-                }
+                $ui->prefs[$val]['xurl'] = IMP::composeLink(array(), array(
+                    'actionID' => 'template_new',
+                    'type' => 'template_new'
+                ));
                 break;
 
             case 'delete_spam_after_report':
@@ -107,45 +60,22 @@ class IMP_Prefs_Ui
                 }
                 break;
 
-            case 'empty_trash_menu':
-            case 'purge_trash_interval':
-            case 'purge_trash_keep':
-            case 'trashselect':
-                if (!$imp_imap->access(IMP_Imap::ACCESS_TRASH)) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
-            case 'filter_any_mailbox':
-            case 'filter_on_display':
-            case 'filter_on_login':
-                if (!$session->get('imp', 'filteravail')) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
             case 'filters_blacklist_link':
                 try {
                     $ui->prefs[$val]['url'] = $registry->link('mail/showBlacklist');
-                } catch (Horde_Exception $e) {
-                    $ui->suppress[] = $val;
-                }
+                } catch (Horde_Exception $e) {}
                 break;
 
             case 'filters_link':
                 try {
                     $ui->prefs[$val]['url'] = $registry->link('mail/showFilters');
-                } catch (Horde_Exception $e) {
-                    $ui->suppress[] = $val;
-                }
+                } catch (Horde_Exception $e) {}
                 break;
 
             case 'filters_whitelist_link':
                 try {
                     $ui->prefs[$val]['url'] = $registry->link('mail/showWhitelist');
-                } catch (Horde_Exception $e) {
-                    $ui->suppress[] = $val;
-                }
+                } catch (Horde_Exception $e) {}
                 break;
 
             case 'flagmanagement':
@@ -161,12 +91,6 @@ class IMP_Prefs_Ui
                 $ui->override['reply_lang'] = $langs;
                 break;
 
-            case 'send_mdn':
-                if (empty($conf['maillog']['use_maillog'])) {
-                    $ui->suppress[] = $val;
-                }
-                break;
-
             case 'sourceselect':
                 Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
                 break;
@@ -175,12 +99,6 @@ class IMP_Prefs_Ui
                 /* Set the timezone on this page so the output uses the
                  * configured time zone's time, not the system's time zone. */
                 $registry->setTimeZone();
-                break;
-
-            case 'use_trash':
-                if (!$imp_imap->access(IMP_Imap::ACCESS_TRASH)) {
-                    $ui->suppress[] = $val;
-                }
                 break;
             }
         }

@@ -177,7 +177,10 @@ $_prefs['task_notification_exclude_self'] = array(
 
 // alarm methods
 $_prefs['task_alarms_select'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'suppress' => function() {
+        return empty($GLOBALS['conf']['alarms']['driver']);
+    }
 );
 
 $_prefs['task_alarms'] = array(
@@ -189,6 +192,9 @@ $_prefs['show_external'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
     'desc' => _("Show data from any of these other applications in your task list?"),
+    'suppress' => function() {
+        return !$GLOBALS['registry']->hasMethod('getListTypes', 'whups');
+    }
 );
 
 // show complete/incomplete tasks?

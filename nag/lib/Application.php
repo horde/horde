@@ -167,21 +167,13 @@ class Nag_Application extends Horde_Registry_Application
                 break;
 
             case 'show_external':
-                if ($registry->hasMethod('getListTypes', 'whups')) {
-                    $ui->override['show_external'] = array(
-                        'whups' => $registry->get('name', 'whups')
-                    );
-                } else {
-                    $ui->suppress[] = 'show_external';
-                }
+                $ui->override['show_external'] = array(
+                    'whups' => $registry->get('name', 'whups')
+                );
                 break;
 
             case 'task_alarms_select':
-                if (empty($conf['alarms']['driver'])) {
-                    $ui->suppress[] = 'task_alarms';
-                } else {
-                    Horde_Core_Prefs_Ui_Widgets::alarmInit();
-                }
+                Horde_Core_Prefs_Ui_Widgets::alarmInit();
                 break;
             }
         }

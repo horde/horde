@@ -201,11 +201,7 @@ class Kronolith_Application extends Horde_Registry_Application
                 break;
 
             case 'event_alarms_select':
-                if (empty($conf['alarms']['driver'])) {
-                    $ui->suppress[] = 'event_alarms';
-                } else {
-                    Horde_Core_Prefs_Ui_Widgets::alarmInit();
-                }
+                Horde_Core_Prefs_Ui_Widgets::alarmInit();
                 break;
 
             case 'fb_cals':

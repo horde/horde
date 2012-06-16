@@ -312,7 +312,10 @@ $_prefs['event_reminder'] = array(
 
 // alarm methods
 $_prefs['event_alarms_select'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'suppress' => function() {
+        return empty($GLOBALS['conf']['alarms']['driver']);
+    }
 );
 
 $_prefs['event_alarms'] = array(
