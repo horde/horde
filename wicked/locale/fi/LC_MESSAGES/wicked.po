@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Wicked 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-03-28 19:48:26+0300\n"
+"PO-Revision-Date: 2012-05-24 14:14:21+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -777,7 +777,7 @@ msgstr "Tallennettu"
 
 #: templates/display/MergeOrRename.html:61
 msgid "Submit"
-msgstr "Lähetä"
+msgstr "Suorita"
 
 #: lib/Page/DeletePage.php:126
 #, php-format

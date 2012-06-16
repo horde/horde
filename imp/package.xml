@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Move attachment strip icon to MIME part tree display.
-* [jan] Re-add option to report messages as spam/ham through redirection.
-* [jan] Update Swedish translation (Jakob Alvermark &lt;jakob.alvermark@bsdlabs.com&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2712,6 +2710,7 @@
    <date>2012-05-09</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update Turkish translation (İstanbul Technical University).
 * [jan] Re-add option to report messages as spam/ham through redirection.
 * [jan] Update Swedish translation (Jakob Alvermark &lt;jakob.alvermark@bsdlabs.com&gt;).
    </notes>

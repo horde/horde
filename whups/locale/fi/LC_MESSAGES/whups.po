@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-05-01 14:03+0200\n"
-"PO-Revision-Date: 2012-03-28 19:49:00+0300\n"
+"PO-Revision-Date: 2012-05-24 14:14:04+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -1711,7 +1711,7 @@ msgstr "Tila"
 
 #: ticket/create.php:139
 msgid "Submit"
-msgstr "Lähetä"
+msgstr "Suorita"
 
 #: query/run.php:91 query/run.php:92
 msgid "Subscribe to this query"

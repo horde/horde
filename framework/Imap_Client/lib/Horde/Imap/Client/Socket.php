@@ -2017,6 +2017,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         unset($this->_temp['search_retry']);
 
+        /* Check for EXPUNGEISSUED (RFC 2180 [4.3]/RFC 5530 [3]). */
+        if (!empty($this->_temp['expungeissued'])) {
+            unset($this->_temp['expungeissued']);
+            $this->noop();
+        }
+
         return $ret;
     }
 
@@ -2696,11 +2702,23 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $cmd[] = $fetch_opts;
         }
 
-        $this->_sendLine($cmd, array(
-            'fetch' => $results
-        ));
+        try {
+            $this->_sendLine($cmd, array(
+                'fetch' => $results
+            ));
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            // A NO response, when coupled with a sequence FETCH, most likely
+            // means that messages were expunged. RFC 2180 [4.1]
+            if ($options['ids']->sequence && ($e->response == 'NO')) {
+                $this->_temp['expungeissued'] = true;
+            }
+        }
 
-        unset($t['fetchcmd']);
+        /* Check for EXPUNGEISSUED (RFC 2180 [4.1]/RFC 5530 [3]). */
+        if (!empty($this->_temp['expungeissued'])) {
+            unset($this->_temp['expungeissued']);
+            $this->noop();
+        }
     }
 
     /**
@@ -3190,7 +3208,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $cmd[] = array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $val);
             }
 
-            $this->_sendLine($cmd);
+            try {
+                $this->_sendLine($cmd);
+            } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+                // A NO response, when coupled with a sequence STORE and
+                // non-SILENT behavior, most likely means that messages were
+                // expunged. RFC 2180 [4.2]
+                if (!empty($options['sequence']) &&
+                    !$this->_debug &&
+                    ($e->response == 'NO')) {
+                    $this->_temp['expungeissued'] = true;
+                }
+            }
+
             $this->_storeUpdateCache('replace', $options['replace']);
         } else {
             foreach (array('add' => '+', 'remove' => '-') as $k => $v) {
@@ -3201,13 +3231,33 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         $cmdtmp[] = array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $val);
                     }
 
-                    $this->_sendLine($cmdtmp);
+                    try {
+                        $this->_sendLine($cmdtmp);
+                    } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+                        // A NO response, when coupled with a sequence STORE
+                        // and non-SILENT behavior, most likely means that
+                        // messages were expunged. RFC 2180 [4.2]
+                        if (!empty($options['sequence']) &&
+                            !$this->_debug &&
+                            ($e->response == 'NO')) {
+                            $this->_temp['expungeissued'] = true;
+                        }
+                    }
+
                     $this->_storeUpdateCache($k, $options[$k]);
                 }
             }
         }
 
-        return $this->_temp['modified'];
+        $ret = $this->_temp['modified'];
+
+        /* Check for EXPUNGEISSUED (RFC 2180 [4.2]/RFC 5530 [3]). */
+        if (!empty($this->_temp['expungeissued'])) {
+            unset($this->_temp['expungeissued']);
+            $this->noop();
+        }
+
+        return $ret;
     }
 
     /**
@@ -4279,12 +4329,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             $this->_parseServerResponse($ob);
         }
-
-        /* Issue NOOP if server suggests it. */
-        if (!empty($this->_temp['run_noop'])) {
-            unset($this->_temp['run_noop']);
-            $this->noop();
-        }
     }
 
     /**
@@ -4700,7 +4744,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'EXPUNGEISSUED':
             // Defined by RFC 5530 [3]
-            $this->_temp['run_noop'] = true;
+            $this->_temp['expungeissued'] = true;
             break;
 
         case 'CORRUPTION':

@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Add recurring tasks (Request #2150).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1162,7 +1162,7 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Update Turkish translation (İstanbul Technical University).
    </notes>
   </release>
  </changelog>

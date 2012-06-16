@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Klutz 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-03-28 20:01:36+0300\n"
+"PO-Revision-Date: 2012-05-24 14:13:33+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -202,7 +202,7 @@ msgstr "Ohitetaan %s - %s - ei historia hakuja"
 
 #: templates/savecomic.html.php:28
 msgid "Submit"
-msgstr "Lähetä"
+msgstr "Suorita"
 
 #: backend.php:254
 #, php-format

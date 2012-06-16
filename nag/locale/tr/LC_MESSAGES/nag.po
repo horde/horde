@@ -1,214 +1,306 @@
-# Turkish translations for Nag package
-# Görevler paketi için Türkçe çeviriler.
+# Turkish language for Horde 4
+# Horde 4 için türkçe dili
 # Copyright 2008-2012 Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the Nag package.
-# horde-tr team <horde-tr@horde.org>, 2008.
+# This file is distributed under the same license as the Horde_Core package.
+# İstanbul Technical University - Office of Information Technologies - System Support Group sistemdestek [at] itu.edu.tr
+# İstanbul Teknik Üniversitesi - Bilgi İşleml Daire Başkanlığı - Sistem Destek Grubu - sistemdestek [at] itu.edu.tr
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Nag H3 (2.2-RC2)\n"
+"Project-Id-Version: Nag H4 (3.0.7)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2008-04-15 12:57+0300\n"
-"PO-Revision-Date: 2008-02-13 19:04+0200\n"
-"Last-Translator: Onur Kosar <horde-tr@horde.org>\n"
-"Language-Team: Turkish <dev@lists.horde.org>\n"
+"POT-Creation-Date: 2012-05-13 11:20+0100\n"
+"PO-Revision-Date: 2012-06-15 13:20+0200\n"
+"Last-Translator: ITU-BIDB\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: Turkish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: templates/view/task.inc:35
+#: templates/view/task.inc:39
 #, php-format
 msgid " (%s including sub-tasks)"
 msgstr "(%s alt görevleri içeriyor)"
 
-#: lib/Nag.php:71
+#: lib/Nag.php:116
 #, php-format
 msgid "%d hour"
 msgstr "%d saat"
 
-#: lib/Nag.php:73
+#: lib/Nag.php:118
 #, php-format
 msgid "%d hour, %d minute"
 msgstr "%d saat, %d dakika"
 
-#: lib/Nag.php:75
+#: lib/Nag.php:120
 #, php-format
 msgid "%d hour, %d minutes"
 msgstr "%d saat, %d dakika"
 
-#: lib/Nag.php:63
+#: lib/Nag.php:108
 #, php-format
 msgid "%d hours"
 msgstr "%d saat"
 
-#: lib/Nag.php:65
+#: lib/Nag.php:110
 #, php-format
 msgid "%d hours, %d minute"
 msgstr "%d saat, %d dakika"
 
-#: lib/Nag.php:67
+#: lib/Nag.php:112
 #, php-format
 msgid "%d hours, %d minutes"
 msgstr "%d saat, %d dakika"
 
-#: lib/Nag.php:81
+#: lib/Nag.php:126
 #, php-format
 msgid "%d minute"
 msgstr "%d dakika"
 
-#: lib/Nag.php:83
+#: lib/Nag.php:128
 #, php-format
 msgid "%d minutes"
 msgstr "%d dakika"
 
-#: lib/Nag.php:364
+#: lib/Nag.php:692
 #, php-format
 msgid "%s at %s"
-msgstr "%s de %s"
+msgstr "%s %s de"
 
-#: lib/Nag.php:590 lib/Block/summary.php:106 lib/Block/tree_alarms.php:41
+#: lib/Application.php:371 lib/Block/Summary.php:140 lib/Nag.php:870
 #, php-format
 msgid "%s is due in %s"
 msgstr "%s için son tarih %s"
 
-#: lib/Nag.php:588 lib/Block/summary.php:104 lib/Block/tree_alarms.php:43
+#: lib/Application.php:372 lib/Block/Summary.php:137 lib/Nag.php:868
 #, php-format
 msgid "%s is due now."
 msgstr "%s şu ana kadar"
 
-#: task.php:231
+#: task.php:228
 #, php-format
 msgid "%s is now incomplete."
-msgstr "%s tamamlanmadi"
+msgstr "%s tamamlanmadı"
 
-#: data.php:199
+#: data.php:223
 #, php-format
 msgid "%s successfully imported"
 msgstr "%s başarı ile alındı"
 
-#: lib/Nag.php:516 lib/Forms/DeleteTaskList.php:86
-#, php-format
-msgid "%s's Task List"
-msgstr "%s Görev Listesi"
-
-#: lib/Nag.php:315 lib/Forms/task.php:58
+#: lib/Form/Task.php:64 lib/Nag.php:643
 msgid "(highest)"
 msgstr "En yüksek"
 
-#: lib/Nag.php:315 lib/Forms/task.php:59
+#: lib/Form/Task.php:68 lib/Nag.php:643
 msgid "(lowest)"
 msgstr "En düşük"
 
-#: task.php:215
+#: lib/Form/Type/NagAlarm.php:30
+msgid "A due date must be set to enable alarms."
+msgstr "Alarmı etkinleştirmek için son tarih gerekli."
+
+#: task.php:211
 #, php-format
 msgid "Access denied completing task %s."
-msgstr "görevin tamamlanmasına izin verilmedi %s"
+msgstr "Görevin tamamlanmasına izin verilmedi %s"
 
-#: task.php:24
-#, php-format
-msgid "Access denied deleting %s"
-msgstr "Silme izini verilmedi. %s"
+#: task.php:23
+msgid "Access denied deleting task."
+msgstr "Görevin silinmesine izin verilmedi"
 
-#: task.php:84 task.php:90
+#: task.php:94 task.php:100
 msgid "Access denied editing task."
-msgstr "Düzenleme izni verilmedi."
+msgstr "Görevin düzenlenmesine izin verilmedi"
 
-#: task.php:82
+#: task.php:91
 #, php-format
 msgid "Access denied editing task: %s"
-msgstr "Düzenleme izni verilmedi %s"
+msgstr "Görevin silinmesine izin verilmedi: %s"
 
-#: task.php:163
+#: lib/Driver.php:307
 #, php-format
 msgid "Access denied moving the task to %s."
-msgstr "'a görevin taşınmasına izin verilmedi %s."
+msgstr "Görevin %s e taşınmasına izin verilmedi."
 
-#: task.php:166
+#: lib/Driver.php:295
 #, php-format
 msgid "Access denied removing task from %s."
 msgstr "%s 'dan görevin kaldırılmasına izin verilmedi ."
 
-#: task.php:125
+#: task.php:136
 #, php-format
 msgid "Access denied saving task to %s."
 msgstr "%s'a görevin kaydedilmesine izin verilmedi ."
 
-#: task.php:121
+#: task.php:132
 #, php-format
 msgid "Access denied saving task: %s"
-msgstr "%s'a görevin kaydedilmesine izin verilmedi ."
+msgstr "%s görevinin kaydedilmesine izin verilmedi ."
 
-#: templates/view/task.inc:26 lib/Forms/task.php:88
+#: quick.php:13
+#, php-format
+msgid "Added %d task"
+msgid_plural "Added %d tasks"
+msgstr[0] "%d görev eklendi:"
+
+#: data.php:58 lib/Form/Task.php:100 templates/view/task.inc:30
 msgid "Alarm"
 msgstr "Alarm"
 
-#: config/prefs.php.dist:200
+#: lib/Application.php:250
+msgid ""
+"All state removed for your ActiveSync devices. They will resynchronize next "
+"time they connect to the server."
+msgstr ""
+"ActiveSync cihazından tüm durumlar silindi. Sunucuya bağlanıldığında tekrar "
+"eşlenecek."
+
+#: config/prefs.php:199 templates/data/export.inc:34
 msgid "All tasks"
 msgstr "Tüm görevler"
 
-#: lib/Block/summary.php:63
-msgid "Always show completed tasks?"
-msgstr "Herzaman biten görevleri göster"
+#: lib/Block/Summary.php:88
+msgid "Always show completed and future tasks?"
+msgstr "Tamanlanmış ve ileri tarihli görevler her zaman gösterilsin mi?"
 
-#: lib/Block/summary.php:60
+#: lib/Block/Summary.php:83
 msgid "Always show overdue tasks?"
 msgstr "Herzaman günü geçmiş görevler"
 
-#: config/prefs.php.dist:117
+#: lib/Form/Type/NagMethod.php:42
+msgid "An alarm must be set to specify a notification method"
+msgstr "Uyarı biçimi tanımlamak için bir alarm ayarlanmalıdır."
+
+#: config/prefs.php:123
 msgid "Ascending"
 msgstr "Artan"
 
-#: lib/Block/summary.php:39
+#: config/prefs.php:67 config/prefs.php:94 config/prefs.php:112 data.php:56
+#: lib/Form/Task.php:95 templates/list/task_headers.inc:64
+#: templates/view/task.inc:12
+msgid "Assignee"
+msgstr "Vekil"
+
+#: lib/Block/Summary.php:48
 msgid "Block title"
 msgstr "Blok başlığı"
 
-#: data.php:30
+#: data.php:28
 msgid "CSV"
-msgstr "Virgül ile ayrılmış veri(CSV)"
+msgstr "CSV"
 
-#: lib/UI/VarRenderer/nag.php:58 lib/UI/VarRenderer/nag.php:106
+#: lib/Ui/VarRenderer/Nag.php:84 lib/Ui/VarRenderer/Nag.php:134
 msgid "Calendar"
 msgstr "Takvim"
 
-#: lib/Forms/DeleteTaskList.php:45 lib/Forms/DeleteTaskList.php:51
+#: lib/Form/DeleteTaskList.php:40 lib/Form/DeleteTaskList.php:46
+#: templates/quick.inc:8
 msgid "Cancel"
 msgstr "İptal"
 
-#: templates/list/task_headers.inc:53
+#: templates/list/task_headers.inc:68
 msgid "Cat_egory"
 msgstr "Sı_nıf"
 
-#: data.php:54 templates/view/task.inc:8 lib/Forms/task.php:76
-#: lib/Forms/task.php:82 config/prefs.php.dist:89 config/prefs.php.dist:104
+#: config/prefs.php:71 config/prefs.php:89 config/prefs.php:107 data.php:55
+#: lib/Form/Task.php:87 lib/Form/Task.php:91 templates/view/task.inc:8
 msgid "Category"
 msgstr "Sınıf"
 
-#: tasklists/index.php:56 templates/tasklist_list.php:35
+#: tasklists/index.php:60 templates/tasklist_list.php:35
 msgid "Change Permissions"
-msgstr "İzinleri değiştir"
+msgstr "İzinleri Değiştir"
 
-#: config/prefs.php.dist:14
-msgid "Change your task sorting and display options."
-msgstr "Görev sıralama ve görüntüleme seçeneklerinizi değiştirin."
+#: config/prefs.php:14
+msgid "Change your task sorting and display preferences."
+msgstr "Not sıralama ve görüntüleme seçeneklerinizi değiştirin."
 
-#: config/prefs.php.dist:179
+#: lib/Nag.php:1065
+#, php-format
+msgid "Changed alarm from %s to %s"
+msgstr "%s olan alarm, %s olarak değiştirildi."
+
+#: lib/Nag.php:1044
+#, php-format
+msgid "Changed assignee from \"%s\" to \"%s\""
+msgstr "%s olan vekil, %s olarak değiştirildi."
+
+#: lib/Nag.php:1029
+#, php-format
+msgid "Changed category from \"%s\" to \"%s\""
+msgstr "%s olan sınıf, %s olarak değiştirildi."
+
+#: lib/Nag.php:1080
+#, php-format
+msgid "Changed completion from %s to %s"
+msgstr "%s olan tamamlama, %s olarak değiştirildi."
+
+#: lib/Nag.php:1085
+msgid "Changed description"
+msgstr "Tanımlama değişti"
+
+#: lib/Nag.php:1053
+#, php-format
+msgid "Changed due date from %s to %s"
+msgstr "Son tarih %s iken %s olarak değiştirildi."
+
+#: lib/Nag.php:1075
+#, php-format
+msgid "Changed estimate from %s to %s"
+msgstr "%s olan tahmin, %s olarak değiştirildi."
+
+#: lib/Nag.php:1007
+#, php-format
+msgid "Changed name from \"%s\" to \"%s\""
+msgstr "%s olan ad, %s olarak değiştirildi."
+
+#: lib/Nag.php:1021
+#, php-format
+msgid "Changed parent task from \"%s\" to \"%s\""
+msgstr "Üst görev \"%s\" iken \"%s\" olarak değiştirildi."
+
+#: lib/Nag.php:1070
+#, php-format
+msgid "Changed priority from %s to %s"
+msgstr "%s olan öncelik, %s olarak değiştirildi."
+
+#: lib/Nag.php:1059
+#, php-format
+msgid "Changed start date from %s to %s"
+msgstr "Başlangıç tarihi %s iken %s olarak değiştirildi."
+
+#: lib/Nag.php:1013
+#, php-format
+msgid "Changed task list from \"%s\" to \"%s\""
+msgstr "%s olan görev listesi, %s olarak değiştirildi."
+
+#: lib/Nag.php:1004
+msgid "Changes made for this task:"
+msgstr "Bu görev için yapılan değişiklikler:"
+
+#: lib/Application.php:196
 msgid "Choose how you want to receive reminders for tasks with alarms:"
 msgstr "Görevlerde alarm uyarılarının nasıl yapılacağını seçiniz:"
 
-#: config/prefs.php.dist:170
+#: config/prefs.php:168
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted tasks by email:"
 msgstr ""
 "E-posta aracılığı ile yeni, düzenlenmiş veya silinmiş takvimlerden haberdar "
 "edilmek için seçiniz."
 
-#: config/prefs.php.dist:42
+#: config/prefs.php:49
 msgid "Choose if you want to be notified of task changes and task alarms."
 msgstr ""
 "Yeni, düzenlenmiş veya silinmiş etkliklerden haberdar edilmek için seçiniz."
 
-#: config/prefs.php.dist:35
+#: config/prefs.php:42
+msgid "Choose the task lists to use for synchronization with external devices."
+msgstr "Harici cihazlarla eşlecek adres defterini seçin."
+
+#: config/prefs.php:35
 msgid "Choose your default task list."
 msgstr "Varsayılan görev listenizi seçiniz."
 
@@ -217,36 +309,41 @@ msgid "Click or copy this URL to display this task list"
 msgstr ""
 "Bu görev listesini görüntülemek için tıklayınız ya da bu URL'i kopyalayınız"
 
-#: templates/panel.inc:43
+#: templates/panel.inc:45
 msgid "Close"
 msgstr "Kapat"
 
-#: templates/list/header.inc:8
+#: templates/list/header.inc:7
 msgid "Close Search"
 msgstr "Aramayı Kapat"
 
-#: view.php:99
+#: lib/Form/CreateTaskList.php:24
+msgid "Color"
+msgstr "Arkaplan Rengi"
+
+#: view.php:106
 msgid "Complete"
 msgstr "Tamamlandı"
 
-#: templates/list/task_summaries.inc:11 lib/Block/summary.php:175
+#: lib/Block/Summary.php:211 mobile.php:114
+#: templates/list/task_summaries.inc:10
 #, php-format
 msgid "Complete \"%s\""
 msgstr "Tamamlandı \"%s\""
 
-#: templates/view/task.inc:42
+#: templates/view/task.inc:46
 msgid "Complete Task"
 msgstr "Görevi tamamla"
 
-#: config/prefs.php.dist:202
+#: config/prefs.php:201
 msgid "Complete tasks"
 msgstr "Görevi tamamla"
 
-#: lib/Nag.php:379 lib/Block/summary.php:173
+#: lib/Block/Summary.php:209 lib/Nag.php:707 mobile.php:129
 msgid "Completed"
 msgstr "Tamamlandı"
 
-#: task.php:229
+#: task.php:226
 #, php-format
 msgid "Completed %s."
 msgstr "Tamamlandı %s."
@@ -255,157 +352,199 @@ msgstr "Tamamlandı %s."
 msgid "Completed Tasks"
 msgstr "Tamamlanmış Görevler"
 
-#: templates/list/task_summaries.inc:16
+#: mobile.php:120 templates/list/task_summaries.inc:15
 msgid "Completed parent task, mark it as incomplete first"
 msgstr "Tamamlanmış üst görev, önce tamamlanmamış olarak işaretleyin"
 
-#: templates/list/task_headers.inc:31 templates/view/task.inc:38
-#: lib/Forms/task.php:94 config/prefs.php.dist:91 config/prefs.php.dist:106
+#: templates/data/export.inc:37
+msgid "Completed tasks"
+msgstr "Tamamlanmış Görevler"
+
+#: config/prefs.php:92 config/prefs.php:110 lib/Form/Task.php:109
+#: templates/list/task_headers.inc:31 templates/view/task.inc:42
 msgid "Completed?"
 msgstr "Tamamlandı?"
 
-#: data.php:58
+#: data.php:64
+msgid "Completion Date"
+msgstr "Tamamlanma Tarihi"
+
+#: data.php:63
 msgid "Completion Status"
 msgstr "Tamamlanma Durumu"
 
-#: lib/api.php:317 lib/api.php:544
+#: lib/Api.php:659
 #, php-format
 msgid "Connection failed: %s"
 msgstr "Bağlantı başarısız: %s"
 
-#: lib/Forms/CreateTaskList.php:39
+#: lib/Form/CreateTaskList.php:32 templates/quick.inc:7
 msgid "Create"
 msgstr "Oluştur"
 
-#: lib/Forms/CreateTaskList.php:34
+#: lib/Form/CreateTaskList.php:21
 msgid "Create Task List"
 msgstr "Görev Listesi oluştur"
 
-#: templates/tasklist_list.php:8
+#: templates/tasklist_list.php:9
 msgid "Create a new Task List"
 msgstr "Yeni bir Görev Listesi oluştur"
 
-#: templates/view/task.inc:57
+#: templates/view/task.inc:61
 msgid "Created"
-msgstr "Oluşturuldu"
+msgstr "Yaratıldı"
 
-#: lib/UI/VarRenderer/nag.php:51 lib/UI/VarRenderer/nag.php:100
-msgid "Day"
+#: lib/Ui/VarRenderer/Nag.php:75 lib/Ui/VarRenderer/Nag.php:124
+msgid "Date"
+msgstr "Tarih"
+
+#: templates/alarm/mail.html.php:13
+msgid "Date and time:"
+msgstr "Tarih ve saat seçimi"
+
+#: templates/alarm/mail.plain.php:7
+msgid "Date:"
+msgstr "Tarih:"
+
+#: lib/Nag.php:739 lib/Ui/VarRenderer/Nag.php:164
+msgid "Day(s)"
 msgstr "Gün"
 
-#: lib/Nag.php:411 lib/UI/VarRenderer/nag.php:136
-msgid "Day(s)"
-msgstr "Gün(ler)"
-
-#: config/prefs.php.dist:34
+#: config/prefs.php:34
 msgid "Default Task List"
 msgstr "Ön Tanımlı görev Listesi"
 
-#: config/prefs.php.dist:28
+#: config/prefs.php:28
 msgid "Defaults for new tasks"
 msgstr "Yeni görevler için öntanımlı değerler"
 
-#: lib/Forms/task.php:87
+#: lib/Form/Task.php:99
 msgid "Delay Start Until"
 msgstr "Başlangıcı Ertele"
 
-#: view.php:106 tasklists/index.php:57 templates/tasklist_list.php:37
-#: lib/Forms/DeleteTaskList.php:45
+#: lib/Form/DeleteTaskList.php:40 tasklists/index.php:61
+#: templates/tasklist_list.php:37 view.php:113
 msgid "Delete"
 msgstr "Sil"
 
-#: lib/Forms/DeleteTaskList.php:40
+#: lib/Form/DeleteTaskList.php:34
 #, php-format
 msgid "Delete %s"
-msgstr "Sil %s"
+msgstr "Sil: %s"
 
-#: config/prefs.php.dist:20
+#: config/prefs.php:20
 msgid "Delete Confirmation"
 msgstr "Silme Onayı"
 
-#: config/prefs.php.dist:21
+#: config/prefs.php:21
 msgid "Delete button behaviour"
 msgstr "Silme tuşu davranışı."
 
-#: task.php:105 lib/Forms/task.php:99
+#: lib/Form/Renderer/Task.php:39 lib/Form/Task.php:120 task.php:115
 msgid "Delete this task"
 msgstr "Bu görevi sil"
 
-#: task.php:32
+#: task.php:34
 #, php-format
 msgid "Deleted %s."
 msgstr "Silindi %s."
 
-#: config/prefs.php.dist:118
+#: lib/Api.php:638
+msgid "Deleting entire tasklists is not supported."
+msgstr "Tüm görev listesinin silinmesi desteklenmemektedir."
+
+#: config/prefs.php:124
 msgid "Descending"
 msgstr "Azalan"
 
-#: data.php:53 lib/Forms/EditTaskList.php:44 lib/Forms/CreateTaskList.php:37
-#: lib/Forms/task.php:95
+#: data.php:54 lib/Form/CreateTaskList.php:25 lib/Form/Task.php:116
 msgid "Description"
 msgstr "Açıklama"
 
-#: config/prefs.php.dist:13
-msgid "Display Options"
+#: templates/alarm/mail.html.php:23
+msgid "Description:"
+msgstr "Açıklama:"
+
+#: config/prefs.php:13
+msgid "Display Preferences"
 msgstr "Görüntüleme Seçenekleri"
 
-#: templates/tasklist_list.php:16
+#: templates/tasklist_list.php:19
 msgid "Display URL"
 msgstr "URL'i Göster"
 
-#: config/prefs.php.dist:128
+#: config/prefs.php:133
 msgid "Do you want to confirm deleting entries?"
 msgstr "Silinecekleri onaylamak istiyor musunuz?"
 
-#: data.php:55 templates/view/task.inc:22 lib/Forms/task.php:86
+#: config/prefs.php:175
+msgid ""
+"Don't send me a notification if I've added, changed or deleted the task?"
+msgstr ""
+"Etkinlik eklediğimde, değiştirdiğimde ya da sildiğimde bildirim "
+"gönderilmesin mi?"
+
+#: data.php:57 lib/Form/Task.php:98 templates/view/task.inc:26
 msgid "Due By"
 msgstr "Son Tarih"
 
-#: config/prefs.php.dist:90 config/prefs.php.dist:105
+#: config/prefs.php:68 config/prefs.php:90 config/prefs.php:108
 msgid "Due Date"
 msgstr "Son Tarih"
 
-#: lib/UI/VarRenderer/nag.php:99
+#: lib/Ui/VarRenderer/Nag.php:123
 msgid "Due date specified."
 msgstr "Son tarih belirtilmedi."
 
-#: view.php:102 tasklists/index.php:55 templates/tasklist_list.php:33
+#: tasklists/index.php:59 templates/tasklist_list.php:33 view.php:109
 msgid "Edit"
 msgstr "Düzenle"
 
-#: templates/list/task_summaries.inc:38 lib/Block/summary.php:166
+#: lib/Block/Summary.php:202 templates/list/task_summaries.inc:37
 #, php-format
 msgid "Edit \"%s\""
 msgstr "Düzenle \"%s\""
 
-#: lib/Forms/EditTaskList.php:40
+#: lib/Form/EditTaskList.php:35
 #, php-format
 msgid "Edit %s"
 msgstr "Düzenle %s"
 
-#: templates/list/task_headers.inc:42
+#: templates/list/task_headers.inc:43
 msgid "Edit Task"
-msgstr "%s Görevi Düzenle"
+msgstr "Görevi Düzenle"
 
-#: templates/list/task_headers.inc:58
+#: templates/list/task_headers.inc:74
 msgid "Edit categories and colors"
 msgstr "Sınıf ve renkleri düzenle"
 
-#: task.php:95 task.php:109
+#: task.php:106 task.php:119
 #, php-format
 msgid "Edit: %s"
 msgstr "Düzenle: %s"
 
-#: task.php:19
+#: templates/quick.inc:4
+msgid ""
+"Enter one task per line. Create child tasks by indenting them below their "
+"parent task. Include due dates like \"laundry tomorrow\" or \"get dry "
+"cleaning next Thursday\"."
+msgstr ""
+"Her satıra bir görev girin. Alt görevleri, üst görevlerinin altına "
+"girintileyerek yaratın. Son tarihleri şu şekilde belirtin: \"toplantı yarın"
+"\" yada \"Makale önümüzdeki perşembeye\""
+
+#: task.php:39
 #, php-format
 msgid "Error deleting task: %s"
 msgstr "Görev silinirken hata oluştu: %s"
 
-#: templates/view/task.inc:34 lib/Forms/task.php:93
+#: config/prefs.php:70 config/prefs.php:93 config/prefs.php:111 data.php:62
+#: lib/Form/Task.php:108 templates/list/task_headers.inc:60
+#: templates/view/task.inc:38
 msgid "Estimated Time"
 msgstr "Hesaplanan süre"
 
-#: templates/data/export.inc:17
+#: templates/data/export.inc:41
 msgid "Export"
 msgstr "Dışarı Aktar"
 
@@ -413,19 +552,23 @@ msgstr "Dışarı Aktar"
 msgid "Export Tasks"
 msgstr "Görevleri Dışarı Aktar"
 
-#: config/prefs.php.dist:56
+#: config/prefs.php:55
 msgid "External Data"
 msgstr "Dış Veri"
 
-#: config/prefs.php.dist:12 config/prefs.php.dist:19 config/prefs.php.dist:26
-msgid "General Options"
+#: config/prefs.php:202 templates/data/export.inc:36
+msgid "Future tasks"
+msgstr "Gelecek tarihli görevler"
+
+#: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
+msgid "General Preferences"
 msgstr "Genel Seçenekler"
 
-#: lib/UI/VarRenderer/nag.php:111
-msgid "Hour"
-msgstr "Saat"
+#: mobile.php:46
+msgid "Home"
+msgstr "Ev"
 
-#: lib/Nag.php:414 lib/UI/VarRenderer/nag.php:135
+#: lib/Nag.php:742 lib/Ui/VarRenderer/Nag.php:163
 msgid "Hour(s)"
 msgstr "Saat"
 
@@ -434,11 +577,11 @@ msgstr "Saat"
 msgid "Import Tasks, Step %d"
 msgstr "Görevleri içeri Aktar, Adım %d"
 
-#: data.php:205
+#: data.php:235
 msgid "Import/Export Tasks"
 msgstr "Görevleri İçeri/Dışarı Aktar"
 
-#: list.php:112
+#: list.php:111
 msgid "Incom_plete tasks"
 msgstr "Ta_mamlanmamış görevler"
 
@@ -446,68 +589,76 @@ msgstr "Ta_mamlanmamış görevler"
 msgid "Incomplete Tasks"
 msgstr "Tamamlanmamış Görevler"
 
-#: templates/list/task_summaries.inc:8
+#: mobile.php:111 templates/list/task_summaries.inc:7
 msgid "Incomplete sub tasks, complete them first"
 msgstr "Tamamlanmamış alt görevler, önce onları tamamlayınız"
 
-#: config/prefs.php.dist:201
+#: config/prefs.php:200 templates/data/export.inc:35
 msgid "Incomplete tasks"
 msgstr "Tamamlanmamış görevler"
 
-#: templates/view/task.inc:64
-msgid "Last Modified"
-msgstr "Son Güncelleme"
+#: lib/Api.php:336
+msgid "Invalid tasklist file requested."
+msgstr "Geçersiz görev liste dosyası."
 
-#: tasklists/index.php:61 templates/tasklist_list.php:2
+#: lib/Api.php:470
+msgid "Invalid tasklist name supplied."
+msgstr "Geçersiz görev liste ismi."
+
+#: lib/Api.php:352
+msgid "Invalid tasklist requested."
+msgstr "Geçersiz görev listesi"
+
+#: templates/tasklist_list.php:18
+msgid "Kind"
+msgstr "Tür"
+
+#: templates/view/task.inc:68
+msgid "Last Modified"
+msgstr "Son Değişim"
+
+#: templates/tasklist_list.php:30
+msgid "Local"
+msgstr "Yerel"
+
+#: mobile.php:48
+msgid "Log out"
+msgstr "Oturumu Kapat"
+
+#: tasklists/index.php:64 templates/tasklist_list.php:2
 msgid "Manage Task Lists"
 msgstr "Görev listesini yönet"
 
-#: templates/list/task_summaries.inc:19
+#: mobile.php:123 templates/list/task_summaries.inc:18
 #, php-format
 msgid "Mark \"%s\" as incomplete"
 msgstr "\"%s\" 'ı tamamlanmamış olarak işaretle"
 
-#: templates/view/task.inc:44
+#: templates/view/task.inc:48
 msgid "Mark as incomplete"
 msgstr "Tamamlanmamış olarak işaretle"
 
-#: lib/api.php:120
+#: lib/Application.php:64
 msgid "Maximum Number of Tasks"
 msgstr "En Fazla Görev Sayısı"
 
-#: lib/Block/tree_alarms.php:3
-msgid "Menu Alarms"
-msgstr "Menü Alarmları"
-
-#: lib/Block/tree_menu.php:3
-msgid "Menu List"
-msgstr "Menü Listesi"
-
-#: lib/UI/VarRenderer/nag.php:112
-msgid "Minute"
-msgstr "Dakika"
-
-#: lib/Nag.php:417 lib/UI/VarRenderer/nag.php:135
+#: lib/Nag.php:745 lib/Ui/VarRenderer/Nag.php:163
 msgid "Minute(s)"
 msgstr "Dakika"
 
-#: lib/UI/VarRenderer/nag.php:52 lib/UI/VarRenderer/nag.php:101
-msgid "Month"
-msgstr "Ay"
-
-#: templates/list/header.inc:9
+#: templates/list/header.inc:8
 msgid "More Options..."
 msgstr "Daha Fazla Seçenek..."
 
-#: lib/api.php:1001
+#: lib/Api.php:1216
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr "Birçok iCalendar bileşeni bulundu; sadece bir vTodo destekleniyor."
 
-#: templates/panel.inc:70
+#: templates/panel.inc:73
 msgid "My Task Lists:"
 msgstr "Görev Listelerim"
 
-#: list.php:34
+#: list.php:33 mobile.php:10
 msgid "My Tasks"
 msgstr "Görevlerim"
 
@@ -515,21 +666,15 @@ msgstr "Görevlerim"
 msgid "N_ame"
 msgstr "_Ad"
 
-#: templates/list/task_headers.inc:45
+#: templates/list/task_headers.inc:46
 msgid "Na_me"
 msgstr "_Ad"
 
-#: lib/Driver/kolab.php:741
-#, php-format
-msgid "Nag/kolab: Did not find task %s"
-msgstr "Nag/kolab:%s görevi bulunamadı"
-
-#: data.php:52 lib/Forms/EditTaskList.php:43 lib/Forms/CreateTaskList.php:36
-#: lib/Forms/task.php:65
+#: data.php:53 lib/Form/CreateTaskList.php:23 lib/Form/Task.php:74
 msgid "Name"
 msgstr "Ad"
 
-#: task.php:74 task.php:109 lib/Block/tree_menu.php:26
+#: lib/Application.php:425 task.php:82 task.php:119
 msgid "New Task"
 msgstr "Yeni Görev"
 
@@ -537,129 +682,147 @@ msgstr "Yeni Görev"
 msgid "Next"
 msgstr "Sonraki"
 
-#: config/prefs.php.dist:166
+#: config/prefs.php:163
 msgid "No"
 msgstr "Hayır"
 
-#: lib/UI/VarRenderer/nag.php:46
+#: lib/Ui/VarRenderer/Nag.php:70
 msgid "No delay"
 msgstr "Gecikme yok"
 
-#: lib/UI/VarRenderer/nag.php:95
+#: lib/Ui/VarRenderer/Nag.php:119
 msgid "No due date."
 msgstr "Son tarih yok"
 
-#: lib/api.php:405 lib/api.php:724 lib/api.php:782 lib/api.php:994
+#: lib/Api.php:848 lib/Api.php:900 lib/Api.php:1223
 msgid "No iCalendar data was found."
 msgstr "Hiç iCalendar verisi bulunamadı."
 
-#: lib/Forms/task.php:50
+#: lib/Form/Task.php:35
 msgid "No parent task"
 msgstr "Ana görev yok"
 
-#: lib/Nag.php:605
+#: lib/Nag.php:888
 msgid "No task lists are available to guests."
 msgstr "Konuklar için Görev Listesi bulunamadı."
 
-#: templates/list/task_footers.inc:5
+#: quick.php:15 quick.php:18
+msgid "No tasks have been added."
+msgstr "Hiç görev eklenmedi."
+
+#: templates/list/task_footers.inc:4
 msgid "No tasks match"
 msgstr "Hiç uyan görev yok"
 
-#: lib/Block/summary.php:229
+#: lib/Block/Summary.php:265
 msgid "No tasks to display"
 msgstr "Görüntülenecek görev yok"
 
-#: lib/Nag.php:421 lib/UI/VarRenderer/nag.php:151
+#: lib/Form/Task.php:96 lib/Nag.php:749 lib/Ui/VarRenderer/Nag.php:179
 msgid "None"
 msgstr "Hiçbiri"
 
-#: lib/Nag.php:380
+#: lib/Nag.php:708
 msgid "Not Completed"
 msgstr "Tamamlanmadı"
 
-#: templates/view/task.inc:14
+#: lib/Driver/Kolab.php:93
+msgid "Not Found"
+msgstr "Bulunamadı"
+
+#: templates/view/task.inc:18
 msgid "Not Private"
 msgstr "Özel Değil"
 
-#: lib/Driver/sql.php:100 lib/Driver/sql.php:136
-msgid "Not found"
-msgstr "Bulunamadı"
+#: mobile.php:132
+msgid "Not completed"
+msgstr "Tamamlanmadı"
 
-#: config/prefs.php.dist:41
+#: lib/Api.php:697
+msgid "Not configured"
+msgstr "Yapılandırılmadı."
+
+#: lib/Form/Task.php:102
+msgid "Notification"
+msgstr "Bildirim"
+
+#: config/prefs.php:48
 msgid "Notifications"
 msgstr "Bildirimler"
 
-#: config/prefs.php.dist:168
-msgid "On all shown tasklists"
-msgstr "Gösterilen tüm görev listelerinde"
+#: config/prefs.php:165
+msgid "On all shown task lists"
+msgstr "Tüm gösterilen Görev Listelerinde"
 
-#: config/prefs.php.dist:169
-msgid "On all tasklists I have read access to"
-msgstr "Tüm görev listelerinde okuma hakkına sahibim"
+#: config/prefs.php:166
+msgid "On all task lists I have read access to"
+msgstr "Tüm erişilebilir Görev Listelerinde"
 
-#: config/prefs.php.dist:167
-msgid "On my tasklists only"
-msgstr "Sadece benim görev listelerimde"
+#: config/prefs.php:164
+msgid "On my task lists only"
+msgstr "Sadece kendi Görev Listemde"
 
 #: templates/list/task_headers.inc:39
 msgid "P_ri"
 msgstr "Ö_ncelik"
 
-#: lib/Forms/task.php:72
+#: lib/Form/Task.php:83
 msgid "Parent task"
-msgstr "Ana Görev"
+msgstr "Üst Görev"
 
-#: lib/api.php:591 lib/api.php:629 lib/api.php:662 lib/api.php:698
-#: lib/api.php:820 lib/api.php:875 lib/api.php:939 lib/api.php:976
-#: lib/api.php:1087 lib/api.php:1134
+#: lib/Api.php:798 lib/Api.php:827 lib/Api.php:945 lib/Api.php:984
+#: lib/Api.php:999 lib/Api.php:1038 lib/Api.php:1076 lib/Api.php:1100
+#: lib/Api.php:1152 lib/Api.php:1169 lib/Api.php:1199 lib/Api.php:1285
+#: lib/Api.php:1364 lib/Api.php:1421 lib/Application.php:306 lib/Nag.php:333
 msgid "Permission Denied"
-msgstr "Erişim Engellendi"
+msgstr "İzin Yok"
 
-#: lib/api.php:178 lib/Forms/DeleteTaskList.php:56
-msgid "Permission denied"
-msgstr "Erişim engellendi"
-
-#: data.php:57 templates/view/task.inc:30 lib/Forms/task.php:90
-#: config/prefs.php.dist:87 config/prefs.php.dist:102
+#: config/prefs.php:66 config/prefs.php:87 config/prefs.php:105 data.php:60
+#: lib/Form/Task.php:105 templates/view/task.inc:34
 msgid "Priority"
 msgstr "Öncelik"
 
-#: templates/view/task.inc:14 lib/Driver.php:907
+#: lib/Task.php:518 templates/view/task.inc:18
 msgid "Private"
 msgstr "Kişisel"
 
-#: lib/Driver.php:905
+#: data.php:61 lib/Task.php:516
 msgid "Private Task"
 msgstr "Kişisel Görev"
 
-#: templates/view/task.inc:12 lib/Forms/task.php:85
+#: lib/Form/Task.php:97 templates/view/task.inc:16
 msgid "Private?"
 msgstr "Kişisel?"
 
-#: lib/Forms/DeleteTaskList.php:43
+#: templates/quick.inc:2
+msgid "Quick Task Creation"
+msgstr "Dizin Yaratılmasına İzin Verilsin mi?"
+
+#: lib/Form/DeleteTaskList.php:37
 #, php-format
 msgid ""
 "Really delete the task list \"%s\"? This cannot be undone and all data on "
 "this task list will be permanently removed."
 msgstr ""
-"\"%s\" adlı görev listesi gerçekten silinsin mi? Bu işlem geri "
-"çevrilemez.    Bu görev listesindeki veriler kalıcı olarak silinecek"
+"\"%s\" adlı görev listesi gerçekten silinsin mi? Bu işlem geri çevrilemez. "
+"Bu görev listesindeki veriler kalıcı olarak silinecek"
 
-#: view.php:106
+#: view.php:113
 msgid "Really delete this task?"
 msgstr "Bu görev gerçekten silinsin mi?"
 
-#: templates/panel.inc:88 lib/Forms/EditTaskList.php:46 lib/Forms/task.php:97
+#: lib/Form/EditTaskList.php:45 lib/Form/Renderer/Task.php:37
+#: lib/Form/Task.php:118 templates/panel.inc:91
 msgid "Save"
 msgstr "Kaydet"
 
-#: task.php:194
+#: task.php:189
 #, php-format
 msgid "Saved %s."
 msgstr "%s kaydedildi."
 
-#: search.php:14 templates/list/header.inc:4 templates/search/search.inc:31
-#: lib/Block/tree_menu.php:46
+#: lib/Application.php:451 search.php:19 templates/list/header.inc:3
+#: templates/search/search.inc:31
 msgid "Search"
 msgstr "Arama"
 
@@ -671,105 +834,116 @@ msgstr "içinde ara"
 msgid "Search _Text:"
 msgstr "Aranacak _kelime"
 
-#: templates/panel.inc:58
+#: templates/panel.inc:61
 msgid "Search for Task Lists:"
 msgstr "Görev Listesinde Ara:"
 
 #: templates/search/search.inc:24
 msgid "Search:"
-msgstr "Ara"
+msgstr "Ara:"
 
-#: list.php:73
+#: list.php:75 tasks/index.php:41
 #, php-format
 msgid "Search: Results for \"%s\""
 msgstr "Arama: \"%s\" için arama sonuçları"
 
-#: lib/UI/VarRenderer/nag.php:58 lib/UI/VarRenderer/nag.php:106
-msgid "Select a date"
-msgstr "Bir tarih Seçin"
+#: config/prefs.php:73
+msgid "Select the columns that should be shown in the list view:"
+msgstr "Liste görünümünde gösterilecek sütunları seçin:"
 
 #: templates/data/export.inc:11
 msgid "Select the export format:"
-msgstr "Dışarı taşıma biçimini seçin:"
+msgstr "Dışarı aktarma biçimini seçin:"
 
 #: templates/data/import.inc:36
 msgid "Select the file to import:"
-msgstr "İçeri taşınacak dosyayı seçin:"
+msgstr "İçeri aktarılacak dosyayı seçin:"
 
 #: templates/data/import.inc:12
 msgid "Select the format of the source file:"
 msgstr "Kaynak dosyanın biçimini seçin:"
 
-#: templates/panel.inc:79
+#: templates/data/export.inc:20
+msgid "Select the task list(s) to export from:"
+msgstr "Verilerin dışarı aktarılacağı adres defterini seçin:"
+
+#: templates/data/export.inc:32
+msgid "Select the task states to export:"
+msgstr "Dışarı aktarılacak görev durumlarını seçiniz:"
+
+#: config/prefs.php:229
+msgid ""
+"Select the tasklists that, in addition to the default, should be used for "
+"synchronization with external devices:"
+msgstr ""
+"Varsayılana ek olarak, harici cihazlarla eşlenecek görev listesini seçin:"
+
+#: templates/panel.inc:82
 msgid "Shared Task Lists:"
 msgstr "Paylaşımlı Görev Listesi"
 
-#: config/prefs.php.dist:68
-msgid "Should the Task List be shown in its own column in the List view?"
-msgstr "Liste görüntüsünde, Görev Listesi kendi kolonunda görünsün mü? "
-
-#: lib/Block/summary.php:45
+#: lib/Block/Summary.php:58
 msgid "Show action buttons?"
 msgstr "Eylem tuşları gösterilsin mi?"
 
-#: config/prefs.php.dist:203
+#: config/prefs.php:204
 msgid "Show complete, incomplete, or all tasks in the task list?"
 msgstr ""
 "Tamamlanmış, tamamlanmamış veya tüm görevler görev listesinde gösterilsin mi?"
 
-#: config/prefs.php.dist:190
+#: config/prefs.php:191
 msgid "Show data from any of these other applications in your task list?"
 msgstr "Diğer uygulamalardaki veriler de görev listesinde gösterilsin mi?"
 
-#: config/prefs.php.dist:57
+#: config/prefs.php:56
 msgid "Show data from other applications or sources."
 msgstr "Diğer uygulamalardaki veri ve kaynaklar gösterilsin mi?"
 
-#: lib/Block/summary.php:48
+#: lib/Block/Summary.php:63
 msgid "Show due dates?"
 msgstr "Görevlerin bitiş tarihleri gösterilsin mi?"
 
-#: lib/Block/summary.php:42
+#: lib/Block/Summary.php:53
 msgid "Show priorities?"
 msgstr "Öncelikler gösterilsin mi?"
 
-#: lib/Block/summary.php:54
+#: lib/Block/Summary.php:73
 msgid "Show task alarms?"
 msgstr "Görev alarmları gösterilsin mi?"
 
-#: lib/Block/summary.php:57
+#: lib/Block/Summary.php:78
 msgid "Show task category?"
 msgstr "Görev Kategori açıklaması gösterilsin mi?"
 
-#: config/prefs.php.dist:78
-msgid "Show task list options panel?"
-msgstr "Görev Listesi seçenek paneli gösterilsin mi?"
-
-#: lib/Block/summary.php:51
+#: lib/Block/Summary.php:68
 msgid "Show tasklist name?"
 msgstr "Görev Listesi adı gösterilsin mi?"
 
-#: lib/Block/summary.php:70
+#: lib/Block/Summary.php:99
 msgid "Show tasks from these categories"
 msgstr "Bu kategorilerdeki görevleri göster"
 
-#: lib/Block/summary.php:66
+#: lib/Block/Summary.php:93
 msgid "Show tasks from these tasklists"
 msgstr "Bu görev listelerindeki görevleri göster"
 
-#: templates/list/task_headers.inc:53
+#: templates/list/task_headers.inc:64
+msgid "Sort by Assignee"
+msgstr "Geliş Zamanına Göre Sırala"
+
+#: templates/list/task_headers.inc:68
 msgid "Sort by Category"
-msgstr "Kategoriye Göre Sırala"
+msgstr "Sınıfa Göre Sırala"
 
 #: templates/list/task_headers.inc:31
 msgid "Sort by Completion Status"
 msgstr "Tamamlanma durumlarına göre sırala"
 
-#: templates/list/task_headers.inc:50
+#: templates/list/task_headers.inc:52
 msgid "Sort by Due Date"
 msgstr "Bitiş Tarihine Göre Sırala"
 
-#: templates/list/task_headers.inc:45
+#: templates/list/task_headers.inc:46
 msgid "Sort by Name"
 msgstr "Ada Göre Sırala"
 
@@ -777,80 +951,123 @@ msgstr "Ada Göre Sırala"
 msgid "Sort by Priority"
 msgstr "Önceliğe göre sırala"
 
+#: templates/list/task_headers.inc:56
+msgid "Sort by Start Date"
+msgstr "Başlangıç Tarihine Göre Sırala"
+
 #: templates/list/task_headers.inc:35
 msgid "Sort by User Name"
 msgstr "Kullanıcı adına göre Sırala"
 
-#: config/prefs.php.dist:119
-msgid "Sort direction:"
-msgstr "Sıralama Yönü"
+#: templates/list/task_headers.inc:60
+msgid "Sort by estimated time"
+msgstr "Tahmini Zamana Göre Sırala"
 
-#: config/prefs.php.dist:93
+#: config/prefs.php:126
+msgid "Sort direction:"
+msgstr "Sıralama Yönü:"
+
+#: config/prefs.php:97
 msgid "Sort tasks by:"
 msgstr "ile görevleri sırala"
 
-#: data.php:56
+#: data.php:59
 msgid "Start"
 msgstr "Başlat"
 
-#: templates/view/task.inc:18
+#: config/prefs.php:69 config/prefs.php:91 config/prefs.php:109
+#: templates/view/task.inc:22
 msgid "Start Date"
 msgstr "Başlama Tarihi"
 
-#: lib/UI/VarRenderer/nag.php:50
+#: lib/Ui/VarRenderer/Nag.php:74
 msgid "Start date specified."
 msgstr "Başlama tarihi belirtildi."
 
-#: templates/tasklist_list.php:17
+#: templates/tasklist_list.php:20
 msgid "Subscription URL"
 msgstr "Abonelik URL'si"
 
-#: templates/list/task_summaries.inc:57
+#: config/prefs.php:41
+msgid "Synchronization Preferences"
+msgstr "Eşleşme Seçenekleri"
+
+#: templates/tasklist_list.php:30
+msgid "System"
+msgstr "Sistem"
+
+#: lib/Form/CreateTaskList.php:28 lib/Form/EditTaskList.php:41
+msgid "System Task List"
+msgstr "Sistem Görev Listesi"
+
+#: lib/Form/CreateTaskList.php:29 lib/Form/EditTaskList.php:42
+msgid ""
+"System task lists don't have an owner. Only administrators can change the "
+"task list settings and permissions."
+msgstr ""
+"Sistem görev listesinin bir sahibi yok. Görev listesi ayarlarını ve "
+"izinlerini sadece yöneticiler değiştirebilir."
+
+#: templates/list/task_summaries.inc:58
 msgid "Task Alarm"
 msgstr "Görev Alarm'ı"
 
-#: templates/list/task_headers.inc:48
+#: templates/list/task_headers.inc:49
 msgid "Task Alarm?"
 msgstr "Görev Alarm'ı?"
 
-#: config/prefs.php.dist:27
+#: config/prefs.php:27
 msgid "Task Defaults"
 msgstr "Varsayılan Görev Özellikleri"
 
-#: templates/tasklist_list.php:15 lib/Forms/task.php:68
+#: config/prefs.php:65 config/prefs.php:95 config/prefs.php:113
+#: lib/Form/Task.php:78 templates/tasklist_list.php:17
 msgid "Task List"
 msgstr "Görev listesi"
 
-#: templates/panel.inc:5
+#: lib/Form/EditTaskList.php:38
+msgid "Task List Description"
+msgstr "Görev Listesi Tanımı"
+
+#: templates/panel.inc:6
 msgid "Task List Information"
 msgstr "Görev Listesi Bilgileri"
 
-#: templates/tasklist_list.php:12
+#: templates/tasklist_list.php:14
 msgid "Task List List"
 msgstr "Görev Listesi Listesi"
 
-#: config/prefs.php.dist:33 config/prefs.php.dist:40 config/prefs.php.dist:55
-msgid "Task List and Share Options"
+#: lib/Form/EditTaskList.php:37
+msgid "Task List Name"
+msgstr "Görev Listes Adı"
+
+#: config/prefs.php:33 config/prefs.php:40 config/prefs.php:47
+#: config/prefs.php:54
+msgid "Task List and Share Preferences"
 msgstr "Görev Listesi ve Paylaşım Seçenekleri"
 
 #: templates/tasklist_info.php:6
 #, php-format
 msgid "Task List owned by %s."
-msgstr "Görev Listesi %s. tarafından oluşturuldu"
+msgstr "Görev Listesi %s sahipline verildi."
 
-#: templates/panel.inc:52 templates/panel.inc:53
+#: templates/tasklist_info.php:6
+msgid "Task List owned by system."
+msgstr "Görev listesinin sahipliği sistem olarak atandı."
+
+#: templates/panel.inc:55 templates/panel.inc:56
 msgid "Task Lists"
 msgstr "Görev Listeleri"
 
-#: config/prefs.php.dist:88 config/prefs.php.dist:103
+#: config/prefs.php:88 config/prefs.php:106
 msgid "Task Name"
 msgstr "Görev Adı"
 
-#: templates/list/task_summaries.inc:55
+#: templates/list/task_summaries.inc:56
 msgid "Task Note"
 msgstr "Görev Notu"
 
-#: templates/list/task_headers.inc:47
+#: templates/list/task_headers.inc:48
 msgid "Task Note?"
 msgstr "Görev Notu?"
 
@@ -858,96 +1075,117 @@ msgstr "Görev Notu?"
 msgid "Task Search"
 msgstr "Görev Arama"
 
-#: lib/Nag.php:630
+#: lib/Driver/Sql.php:89
+#, php-format
+msgid "Task UID %s not found"
+msgstr "Görev UID %s bulunamadı"
+
+#: lib/Nag.php:986
 msgid "Task added:"
 msgstr "Görev eklendi:"
 
-#: lib/Nag.php:640
+#: lib/Nag.php:1090
 msgid "Task deleted:"
 msgstr "Silinen görev:"
 
-#: lib/Nag.php:635
+#: lib/Nag.php:1107
+msgid "Task description:"
+msgstr "Görev tanımı:"
+
+#: lib/Tasklists/Default.php:46
+#, php-format
+msgid "Task list of %s"
+msgstr "%s Görev Listesi"
+
+#: lib/Nag.php:997
 msgid "Task modified:"
 msgstr "Güncellenen görev:"
 
-#: task.php:88 view.php:44
+#: task.php:98 view.php:38
 msgid "Task not found."
 msgstr "Görev bulunamadı."
 
-#: config/prefs.php.dist:92 config/prefs.php.dist:107
-msgid "Tasklist"
-msgstr "Görev Listesi"
+#: lib/Api.php:651
+msgid "Tasklist does not exist or no permission to delete"
+msgstr "Görev listesi bulunmuyor yada silmek için izin yok."
 
-#: lib/api.php:1056
+#: lib/Api.php:476
+msgid "Tasklist does not exist or no permission to edit"
+msgstr "Görev listesi bulunmuyor yada değiştirmek için izin yok."
+
+#: lib/Api.php:1336 lib/Tasklists/Kolab.php:21
 msgid "Tasks"
 msgstr "Görevler"
 
-#: lib/Block/summary.php:3
+#: lib/Block/Summary.php:12
 msgid "Tasks Summary"
 msgstr "Görev Özeti"
 
-#: data.php:193
+#: lib/Api.php:298
+#, php-format
+msgid "Tasks from %s"
+msgstr "%s Görevleri"
+
+#: data.php:220
 #, php-format
 msgid "The %s file didn't contain any tasks."
 msgstr "Bu %s dosyası hiçbir görev içermiyor."
 
 #: lib/Driver.php:56
 msgid "The Tasks backend is not currently available."
-msgstr "Görevlerin arka araçları şu anda kullanılabilir değil."
+msgstr "Görev yapılandırması şu anda kullanılabilir değil."
 
-#: lib/Driver.php:137
+#: lib/Driver.php:116
 #, php-format
 msgid "The Tasks backend is not currently available: %s"
-msgstr "Görevlerin arka aracı şu anda kullanılabilir değil: %s"
+msgstr "Görev yapılandırması şu anda kullanılabilir değil: %s"
 
-#: lib/Forms/task.php:133
-msgid "The alarm value must not be empty."
-msgstr "Alarm içeriği boş olmamalı."
-
-#: templates/prefs/defaultduetimeselect.inc:8
+#: lib/Application.php:135
 msgid "The current hour"
-msgstr "Şuanki saat"
+msgstr "Şu anki saat"
 
-#: lib/Nag.php:631
+#: lib/Nag.php:990
 #, php-format
 msgid ""
-"The task \"%s\" has been added to \"%s\" tasklist, with a due date of: %s."
+"The task \"%s\" has been added to task list \"%s\", with a due date of: %s."
 msgstr "\"%s\" görevi,  \"%s\" görev listesine eklendi.  son tarih: %s. "
 
-#: lib/Nag.php:641
+#: lib/Nag.php:991
 #, php-format
-msgid ""
-"The task \"%s\" has been deleted from \"%s\" tasklist, with a due date of: %"
-"s."
-msgstr " \"%s\" görevi,  \"%s\" görev listesinden silindi.  son tarih: %s."
+msgid "The task \"%s\" has been added to task list \"%s\"."
+msgstr "\"%s\" görevi,  \"%s\" görev listesine eklendi."
 
-#: lib/Nag.php:636
+#: lib/Nag.php:1094
 #, php-format
-msgid ""
-"The task \"%s\" has been edited on \"%s\" tasklist, with a due date of: %s."
-msgstr "\"%s\" görevi,  \"%s\" görev listesinde düzenlendi.  son tarih: %s."
+msgid "The task \"%s\" has been deleted from task list \"%s\"."
+msgstr "\"%s\" görevi,  \"%s\" görev listesinden silindi."
 
-#: tasklists/create.php:31
+#: lib/Nag.php:1000
+#, php-format
+msgid "The task \"%s\" has been edited on task list \"%s\"."
+msgstr "\"%s\" görevi, \"%s\" görev listesinde düzenlendi."
+
+#: tasklists/create.php:25
 #, php-format
 msgid "The task list \"%s\" has been created."
 msgstr "\"%s\" görev listesi  yaratıldı."
 
-#: tasklists/delete.php:48
+#: tasklists/delete.php:37
 #, php-format
 msgid "The task list \"%s\" has been deleted."
 msgstr "\"%s\" görev listesi  silindi."
 
-#: tasklists/edit.php:42
+#: tasklists/edit.php:37
 #, php-format
 msgid "The task list \"%s\" has been renamed to \"%s\"."
 msgstr "\"%s\" görev listesi , \"%s\" olarak yeniden adlandırıldı."
 
-#: tasklists/edit.php:44
+#: tasklists/edit.php:39
 #, php-format
 msgid "The task list \"%s\" has been saved."
 msgstr "\"%s\" görev listesi kaydedildi."
 
-#: config/prefs.php.dist:108
+#: config/prefs.php:115
 msgid "Then:"
 msgstr "Sonra:"
 
@@ -955,103 +1193,121 @@ msgstr "Sonra:"
 msgid "There are no tasks matching the current criteria."
 msgstr "Geçerli ölçütlere uyan bir görev bulunamadı."
 
-#: task.php:225
+#: task.php:222
 #, php-format
 msgid "There was a problem completing %s: %s"
 msgstr "\"%s\" güncellenirken hata oluştu: %s"
 
-#: task.php:29
+#: task.php:30
 #, php-format
 msgid "There was a problem deleting %s: %s"
 msgstr "\"%s\" silinirken hata olu?tu: %s"
 
-#: task.php:192
+#: task.php:183
 #, php-format
 msgid "There was a problem saving the task: %s."
 msgstr "Görev saklanırken hata oluştu: %s"
 
-#: data.php:196
+#: lib/Application.php:252
+#, php-format
+msgid "There was an error communicating with the ActiveSync server: %s"
+msgstr "ActiveSync sunucusu ile iletişimde bir hata oluştu: %s"
+
+#: data.php:204
 #, php-format
 msgid "There was an error importing the data: %s"
-msgstr "Veri aktarılırken hata oluştu: %s"
+msgstr "%s tarihini içeri aktarmada hata oluştu"
 
-#: lib/api.php:397 lib/api.php:716 lib/api.php:988
+#: lib/Api.php:492 lib/Api.php:840 lib/Api.php:1208
 msgid "There was an error importing the iCalendar data."
 msgstr "iCalendar verisini içeri aktarılırken hata oluştu."
 
-#: data.php:80
+#: lib/Application.php:293
+#, php-format
+msgid "There was an error removing tasks for %s. Details have been logged."
+msgstr "%s için notlar silinirken hata oluştu. Ayrıntılar günlüğe kaydedildi."
+
+#: data.php:94
 msgid "There were no tasks to export."
 msgstr "Dışarı aktarılacak bir etkinlik bulunamadı."
 
-#: data.php:126
+#: data.php:151
 msgid "This file format is not supported."
 msgstr "Bu dosya biçimi desteklenmiyor."
 
-#: tasklists/delete.php:24
-msgid "This task list cannot be deleted."
-msgstr "\"%s\" görev listesi silinemiyor."
+#: lib/Ui/VarRenderer/Nag.php:139
+msgid "Time"
+msgstr "Zaman"
+
+#: templates/alarm/mail.plain.php:9
+msgid "Time:"
+msgstr "Zaman:"
 
 #: templates/tasklist_info.php:7
-msgid "To subscribe to this task list from another program, use this URL: "
+msgid "To subscribe to this task list from another program, use this URL:"
 msgstr ""
 "Bu görev listesine başka bir uygulamadan üye olmak için; bu URL'i kullanınız"
 
-#: lib/Forms/DeleteTaskList.php:63
-#, php-format
-msgid "Unable to delete \"%s\": %s"
-msgstr "\"%s\" silinemedi: %s"
+#: lib/Nag.php:1049
+msgid "Turned privacy off"
+msgstr "Gizlilik kapatıldı."
 
-#: lib/Driver.php:140
+#: lib/Nag.php:1049
+msgid "Turned privacy on"
+msgstr "Gizlilik açıldı"
+
+#: lib/Api.php:669
+#, php-format
+msgid "Unable to delete tasklist \"%s\": %s"
+msgstr "Görev listesi \"%s\" silinemedi: %s"
+
+#: lib/Driver.php:119
 #, php-format
 msgid "Unable to load the definition of %s."
 msgstr "%s in tanımı yüklenemedi."
 
-#: lib/Forms/EditTaskList.php:55
+#: lib/Nag.php:602
 #, php-format
 msgid "Unable to save task list \"%s\": %s"
 msgstr "\"%s\" görev listesi kaydedilemedi: %s"
 
-#: templates/list/task_summaries.inc:62 templates/view/task.inc:9
-#: lib/Nag.php:850 lib/Nag.php:851 lib/Nag.php:865 lib/Nag.php:866
-#: lib/Block/summary.php:31 lib/Block/summary.php:222 lib/Forms/task.php:81
+#: lib/Block/Summary.php:38 lib/Block/Summary.php:258 lib/Form/Task.php:92
+#: lib/Nag.php:1404 lib/Nag.php:1405 lib/Nag.php:1419 lib/Nag.php:1420
+#: templates/list/task_summaries.inc:77 templates/view/task.inc:9
 msgid "Unfiled"
 msgstr "Doldurulmamış"
 
-#: lib/api.php:502 lib/api.php:789 lib/api.php:847 lib/api.php:901
-#: lib/api.php:1026
+#: data.php:65
+msgid "Unique ID"
+msgstr "Geçersiz kişi benzersiz ID'si"
+
+#: lib/Api.php:605 lib/Api.php:931 lib/Api.php:1061 lib/Api.php:1123
+#: lib/Api.php:1268
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Desteklenmeyen İçerik Türü: %s"
 
-#: lib/Driver.php:1084
-#, php-format
-msgid ""
-"We would like to remind you of this due task.\n"
-"\n"
-"%s\n"
-"\n"
-"Date: %s\n"
-"Time: %s\n"
-"\n"
-"%s"
-msgstr ""
-"Bu not edilen görevi size hatırlatmak istiyoruz\n"
-"%s\n"
-"\n"
-"Tarih: %s\n"
-"Zaman: %s\n"
-"\n"
-"%s"
+#: lib/Ui/VarRenderer/Nag.php:41
+msgid "Use custom notification method"
+msgstr "Özel bildiri biçimini kullan"
 
-#: lib/Nag.php:408 lib/UI/VarRenderer/nag.php:136
+#: lib/Ui/VarRenderer/Nag.php:35
+msgid "Use default notification method"
+msgstr "Varsayılan bildiri biçimini kullan"
+
+#: templates/alarm/mail.plain.php:1
+msgid "We would like to remind you of this due task."
+msgstr "Bu not edilen görevi size hatırlatmak istiyoruz"
+
+#: lib/Nag.php:736 lib/Ui/VarRenderer/Nag.php:164
 msgid "Week(s)"
-msgstr "Hafta(lar)"
+msgstr "Hafta"
 
-#: templates/prefs/defaultduetimeselect.inc:6
+#: config/prefs.php:155
 msgid "What do you want to be the default due time for tasks?"
 msgstr "Görevlerin varsayılan bitiş zamanının ne olmasını istersiniz? "
 
-#: config/prefs.php.dist:146
+#: config/prefs.php:148
 msgid ""
 "When creating a new task, how many days in the future should the default due "
 "date be (0 means today)?"
@@ -1059,7 +1315,7 @@ msgstr ""
 "Yeni bir görev oluşturulurken, kaç gün için varsayılan tarih atanmalı (0 "
 "bugün demek)?"
 
-#: config/prefs.php.dist:137
+#: config/prefs.php:140
 msgid "When creating a new task, should it default to having a due date?"
 msgstr ""
 "Yeni bir görev oluştururken, öntanımlı bir son tarihi olması zorunlu mu?"
@@ -1068,53 +1324,61 @@ msgstr ""
 msgid "Which tasklist should the tasks be added to?"
 msgstr "Görevler hangi görev listesine eklensin?"
 
-#: lib/UI/VarRenderer/nag.php:53 lib/UI/VarRenderer/nag.php:102
-msgid "Year"
-msgstr "Yıl"
-
-#: tasklists/edit.php:28
+#: lib/Nag.php:591 tasklists/edit.php:26
 msgid "You are not allowed to change this task list."
 msgstr "Bu görev listesini değiştirme izniniz yok."
 
-#: data.php:41 data.php:151 task.php:61
+#: data.php:44 data.php:173 task.php:73
 #, php-format
 msgid "You are not allowed to create more than %d tasks."
 msgstr "%d den fazla sayıda görev oluşturmanıza izin verilmiyor."
 
-#: tasklists/delete.php:35
+#: lib/Nag.php:618 tasklists/delete.php:27
 msgid "You are not allowed to delete this task list."
 msgstr "Bu görev listesini silme izniniz yok."
 
-#: view.php:52
+#: lib/Api.php:127
+msgid "You are not allowed to retrieve this task list."
+msgstr "Bu görev listesini alma izniniz yok."
+
+#: view.php:48
 msgid "You do not have permission to view this tasklist."
 msgstr "Bu görev listesini görüntülemeye izniniz yok."
 
-#: lib/Nag.php:631
-msgid "You requested to be notified when tasks are added to your tasklists."
-msgstr "Görev listenize etkinlik eklenince bildirimde bulunulmasını istediniz."
-
-#: lib/Nag.php:641
+#: templates/alarm/mail.html.php:35
+#, php-format
 msgid ""
-"You requested to be notified when tasks are deleted from your tasklists."
+"You get this message because your task list is configured to send you "
+"reminders of due tasks with alarms. You can change this if you %slogin to "
+"the task list%s and change your preferences."
 msgstr ""
-"Görev listenizden etkinlik silinince bildirimde bulunulmasını istediniz."
+"Görev listeniz hatırlatıcı göndermek için ayarlandığı için bu iletiyi "
+"almaktasınız. Değiştirmek için %sgiriş yapın ve görev listesi%s içinde "
+"seçeneklerinizi değiştirin."
 
-#: lib/Nag.php:636
-msgid "You requested to be notified when tasks are edited on your tasklists."
-msgstr ""
-"Görev listenizde bir etkinlik düzenlenince bildirimde bulunulmasını "
-"istediniz."
+#: lib/Nag.php:987
+msgid "You requested to be notified when tasks are added to your task lists."
+msgstr "Görev listenize görev eklendiğinde bildiri talep etiniz."
 
-#: templates/prefs/tasklistselect.inc:10
+#: lib/Nag.php:1092
+msgid ""
+"You requested to be notified when tasks are deleted from your task lists."
+msgstr "Görev listenizden görev silindiğinde bildiri talep etiniz."
+
+#: lib/Nag.php:998
+msgid "You requested to be notified when tasks are edited on your task lists."
+msgstr "Görev listenizde görev güncellendiğinde bildiri talep etiniz."
+
+#: config/prefs.php:217
 msgid "Your default task list:"
 msgstr "Varsayılan görev listeniz:"
 
-#: templates/panel.inc:65
+#: templates/panel.inc:68
 msgid "[Manage Task Lists]"
 msgstr "[Görev Listesini Yönet]"
 
-#: templates/list/task_summaries.inc:46 lib/Block/summary.php:101
-#: lib/Block/summary.php:206
+#: lib/Block/Summary.php:134 lib/Block/Summary.php:241
+#: templates/list/task_summaries.inc:47
 msgid "[none]"
 msgstr "Hiçbiri"
 
@@ -1122,7 +1386,7 @@ msgstr "Hiçbiri"
 msgid "_All Tasks"
 msgstr "_Tüm Görevler"
 
-#: list.php:111
+#: list.php:110
 msgid "_All tasks"
 msgstr "_Tüm Görevler"
 
@@ -1130,83 +1394,120 @@ msgstr "_Tüm Görevler"
 msgid "_Category"
 msgstr "Sını_f"
 
-#: view.php:99
+#: view.php:106
 msgid "_Complete"
 msgstr "_Tamamlandı"
 
-#: list.php:114
+#: list.php:113
 msgid "_Completed tasks"
 msgstr "_Tamamlanmış görevler"
 
-#: view.php:106
+#: view.php:113
 msgid "_Delete"
 msgstr "_Sil"
 
 #: templates/search/search.inc:19
 msgid "_Description"
-msgstr "Açıklama"
+msgstr "Açı_klama"
 
-#: templates/list/task_headers.inc:50
+#: templates/list/task_headers.inc:52
 msgid "_Due Date"
 msgstr "_Son Tarih"
 
-#: view.php:102
+#: view.php:109
 msgid "_Edit"
 msgstr "_Düzenle"
 
-#: list.php:113
+#: list.php:112
 msgid "_Future tasks"
 msgstr "_Gelecek tarihli görevler"
 
-#: lib/Nag.php:553
+#: lib/Application.php:94
 msgid "_Import/Export"
 msgstr "İçeri/_Dışarı Aktar"
 
-#: lib/Nag.php:540
+#: lib/Application.php:76
 msgid "_List Tasks"
 msgstr "Görevleri _Listele"
 
-#: lib/Nag.php:545
+#: lib/Application.php:81
 msgid "_New Task"
 msgstr "_Yeni Görev"
 
-#: lib/Nag.php:558
-msgid "_Print"
-msgstr "Yaz_dır"
+#: lib/Application.php:85
+msgid "_Quick Add"
+msgstr "_Hızlı Ekle"
 
-#: lib/Nag.php:549
+#: lib/Application.php:90
 msgid "_Search"
 msgstr "_Arama"
+
+#: templates/list/task_headers.inc:56
+msgid "_Start Date"
+msgstr "_Başlama Tarihi"
 
 #: templates/list/task_headers.inc:35
 msgid "_Task List"
 msgstr "_Görev listesi"
 
-#: templates/prefs/defaultduetimeselect.inc:15
+#: lib/Application.php:140
 msgid "am"
 msgstr "öö"
 
-#: data.php:31
-msgid "iCalendar (vTodo)"
-msgstr "Takvim"
+#: lib/Ui/VarRenderer/Nag.php:138
+msgid "at"
+msgstr " de(da) "
 
-#: lib/Block/tree_menu.php:36
+#: view.php:67 view.php:76
+#, php-format
+msgid "by %s"
+msgstr "%s 'e göre"
+
+#: view.php:69 view.php:78
+msgid "by me"
+msgstr "benden"
+
+#: lib/Nag.php:1081 lib/Nag.php:1082
+msgid "completed"
+msgstr "Tamamlandı"
+
+#: data.php:29
+msgid "iCalendar (vTodo)"
+msgstr "iCalendar (vTodo)"
+
+#: lib/Application.php:438
 #, php-format
 msgid "in %s"
 msgstr "%s içinde"
 
-#: lib/Nag.php:79
+#: lib/Nag.php:1054 lib/Nag.php:1055
+msgid "no due date"
+msgstr "Son tarih yok"
+
+#: lib/Nag.php:1022 lib/Nag.php:1023
+msgid "no parent"
+msgstr "Üst görev yok"
+
+#: lib/Nag.php:1060 lib/Nag.php:1061
+msgid "no start date"
+msgstr "başlama tarihi yok"
+
+#: lib/Nag.php:124
 msgid "no time"
 msgstr "zaman yok"
 
-#: templates/prefs/defaultduetimeselect.inc:15
+#: lib/Nag.php:1081 lib/Nag.php:1082
+msgid "not completed"
+msgstr "Tamamlanmadı"
+
+#: lib/Application.php:140
 msgid "pm"
 msgstr "ös"
 
-#: data.php:100 templates/data/export.inc:1
+#: data.php:113 templates/data/export.inc:1
 msgid "tasks.csv"
 msgstr "görevler.csv"
 
-#: data.php:111
+#: data.php:125
 msgid "tasks.ics"
 msgstr "görevler.ics"
