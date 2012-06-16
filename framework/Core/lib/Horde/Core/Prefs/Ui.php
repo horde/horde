@@ -158,6 +158,8 @@ class Horde_Core_Prefs_Ui
         $cprefs = array();
 
         foreach ($this->prefGroups[$group]['members'] as $pref) {
+            $p = $this->prefs[$pref];
+
             /* Changeable pref if:
              *   1. Not locked
              *   2. Not in suppressed array ($this->suppress)
@@ -165,14 +167,12 @@ class Horde_Core_Prefs_Ui
              *   4. Not an implicit pref */
             if (!$GLOBALS['prefs']->isLocked($pref) &&
                 !in_array($pref, $this->suppress) &&
-                (empty($this->prefs[$pref]['advanced']) ||
+                (empty($p['advanced']) ||
                  $GLOBALS['session']->get('horde', 'prefs_advanced')) &&
-                ((!empty($this->prefs[$pref]['type']) &&
-                 ($this->prefs[$pref]['type'] != 'implicit')))) {
-                if ($this->prefs[$pref]['type'] == 'container') {
-                    if (isset($this->prefs[$pref]['value']) &&
-                        is_array($this->prefs[$pref]['value'])) {
-                        $cprefs = array_merge($cprefs, $this->prefs[$pref]['value']);
+                ((!empty($p['type']) && ($p['type'] != 'implicit')))) {
+                if ($p['type'] == 'container') {
+                    if (isset($p['value']) && is_array($p['value'])) {
+                        $cprefs = array_merge($cprefs, $p['value']);
                     }
                 } else {
                     $cprefs[] = $pref;
