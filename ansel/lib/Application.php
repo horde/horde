@@ -147,34 +147,4 @@ class Ansel_Application extends Horde_Registry_Application
         }
     }
 
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        switch ($item) {
-        case 'default_gallerystyle_select':
-            return _("Default style for galleries") .
-                Ansel::getStyleSelect('default_gallerystyle_select', $GLOBALS['prefs']->getValue('default_gallerystyle')) .
-                '<br />';
-        }
-
-        return '';
-    }
-
-    /**
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-        switch ($item) {
-        case 'default_gallerystyle_select':
-            if (isset($ui->vars->default_gallerystyle_select)) {
-                $GLOBALS['prefs']->setValue('default_gallerystyle', $ui->vars->default_gallerystyle_select);
-                return true;
-            }
-            break;
-        }
-
-        return false;
-    }
-
 }

@@ -89,27 +89,6 @@ class Horde_Application extends Horde_Registry_Application
 
     /**
      */
-    public function prefsGroup($ui)
-    {
-        $GLOBALS['injector']->getInstance('Horde_Prefs_Ui')->prefsGroup($ui);
-    }
-
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        return $GLOBALS['injector']->getInstance('Horde_Prefs_Ui')->prefsSpecial($ui, $item);
-    }
-
-    /**
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-        return $GLOBALS['injector']->getInstance('Horde_Prefs_Ui')->prefsSpecialUpdate($ui, $item);
-    }
-
-    /**
-     */
     public function prefsCallback($ui)
     {
         $GLOBALS['injector']->getInstance('Horde_Prefs_Ui')->prefsCallback($ui);

@@ -111,65 +111,6 @@ class Nag_Application extends Horde_Registry_Application
         return $allowed;
     }
 
-    public function prefsInit($ui)
-    {
-        global $registry;
-        if ($registry->hasMethod('getListTypes', 'whups')) {
-            $ui->override['show_external'] = array(
-                'whups' => $registry->get('name', 'whups')
-            );
-        } else {
-            $ui->suppress[] = 'show_external';
-        }
-    }
-
-    /**
-     */
-    public function prefsGroup($ui)
-    {
-        global $conf, $prefs, $registry;
-
-        foreach ($ui->getChangeablePrefs() as $val) {
-            switch ($val) {
-            case 'task_alarms_select':
-                Horde_Core_Prefs_Ui_Widgets::alarmInit();
-                break;
-            }
-        }
-    }
-
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        switch ($item) {
-        case 'task_alarms_select':
-            return Horde_Core_Prefs_Ui_Widgets::alarm(array(
-                'label' => _("Choose how you want to receive reminders for tasks with alarms:"),
-                'pref' => 'task_alarms'
-            ));
-        }
-
-        return '';
-    }
-
-    /**
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-        switch ($item) {
-        case 'task_alarms_select':
-            $data = Horde_Core_Prefs_Ui_Widgets::alarmUpdate($ui, array('pref' => 'task_alarms'));
-            if (!is_null($data)) {
-                $GLOBALS['prefs']->setValue('task_alarms', serialize($data));
-                return true;
-            }
-            break;
-        }
-
-        return false;
-    }
-
     /**
      */
     public function prefsCallback($ui)

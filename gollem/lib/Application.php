@@ -204,59 +204,6 @@ class Gollem_Application extends Horde_Registry_Application
 
     /**
      */
-    public function prefsGroup($ui)
-    {
-        foreach ($ui->getChangeablePrefs() as $val) {
-            switch ($val) {
-            case 'columnselect':
-                Horde_Core_Prefs_Ui_Widgets::sourceInit();
-                break;
-            }
-        }
-    }
-
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        switch ($item) {
-        case 'columnselect':
-            $cols = json_decode($GLOBALS['prefs']->getValue('columns'));
-            $sources = array();
-
-            foreach (Gollem_Auth::getBackend() as $source => $info) {
-                $selected = $unselected = array();
-                $selected_list = isset($cols[$source])
-                    ? array_flip($cols[$source])
-                    : array();
-
-                foreach ($info['attributes'] as $column) {
-                    if (isset($selected_list[$column])) {
-                        $selected[$column] = $column;
-                    } else {
-                        $unselected[$column] = $column;
-                    }
-                }
-                $sources[$source] = array(
-                    'selected' => $selected,
-                    'unselected' => $unselected,
-                );
-            }
-
-            return Horde_Core_Prefs_Ui_Widgets::source(array(
-                'mainlabel' => _("Choose which columns to display, and in what order:"),
-                'selectlabel' => _("These columns will display in this order:"),
-                'sourcelabel' => _("Select a backend:"),
-                'sources' => $sources,
-                'unselectlabel' => _("Columns that will not be displayed:")
-            ));
-        }
-
-        return '';
-    }
-
-    /**
-     */
     public function menu($menu)
     {
         $backend_key = Gollem_Auth::getPreferredBackend();
@@ -282,8 +229,8 @@ class Gollem_Application extends Horde_Registry_Application
 
     /**
      */
-    public function sidebarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
-                                  array $params = array())
+    public function sidebarCreate(Horde_Tree_Renderer_Base $tree,
+                                  $parent = null, array $params = array())
     {
         $icon = Horde_Themes::img('gollem.png');
         $url = Horde::url('manager.php');

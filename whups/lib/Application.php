@@ -125,60 +125,6 @@ class Whups_Application extends Horde_Registry_Application
         }
     }
 
-    /**
-     */
-    public function prefsGroup($ui)
-    {
-        foreach ($ui->getChangeablePrefs() as $val) {
-            switch ($val) {
-            case 'sourceselect':
-                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
-                break;
-            }
-        }
-    }
-
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        switch ($item) {
-        case 'sourceselect':
-            $search = Whups::getAddressbookSearchParams();
-            return Horde_Core_Prefs_Ui_Widgets::addressbooks(array(
-                'fields' => $search['fields'],
-                'sources' => $search['sources']
-            ));
-        }
-
-        return '';
-    }
-
-    /**
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-        $updated = false;
-
-        switch ($item) {
-        case 'sourceselect':
-            $data = Horde_Core_Prefs_Ui_Widgets::addressbooksUpdate($ui);
-
-            if (isset($data['sources'])) {
-                $GLOBALS['prefs']->setValue('search_sources', $data['sources']);
-                $updated = true;
-            }
-
-            if (isset($data['fields'])) {
-                $GLOBALS['prefs']->setValue('search_fields', $data['fields']);
-                $updated = true;
-            }
-            break;
-        }
-
-        return $updated;
-    }
-
     /* Sidebar method. */
 
     /**

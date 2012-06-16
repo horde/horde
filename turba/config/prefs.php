@@ -46,6 +46,7 @@ $prefGroups['format'] = array(
 // Address Book selection widget
 $_prefs['addressbookselect'] = array(
     'type' => 'special',
+    'handler' => 'Turba_Prefs_Special_Addressbook'
 );
 
 // Address books to be displayed in the address book selection widget
@@ -84,7 +85,8 @@ $_prefs['sync_books'] = array(
 
 // Columns selection widget
 $_prefs['columnselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Turba_Prefs_Special_Addressbook'
 );
 
 // Columns to be displayed in Browse and Search results, with entries

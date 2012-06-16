@@ -190,6 +190,7 @@ $_prefs['task_notification_exclude_self'] = array(
 // alarm methods
 $_prefs['task_alarms_select'] = array(
     'type' => 'special',
+    'handler' => 'Nag_Prefs_Special_TaskAlarms',
     'suppress' => function() {
         return empty($GLOBALS['conf']['alarms']['driver']);
     }

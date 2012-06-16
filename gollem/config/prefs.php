@@ -36,7 +36,8 @@ $_prefs['sortdirsfirst'] = array(
 
 // columns selection widget
 $_prefs['columnselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Gollem_Prefs_Special_Columnselect'
 );
 
 // columns to be displayed

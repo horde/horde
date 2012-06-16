@@ -430,8 +430,8 @@ class Horde_Registry_Application
     }
 
     /**
-     * Determine active prefs when displaying a group. This is where all
-     * suppress/overrides should be defined.
+     * Determine active prefs when displaying a group. This is where
+     * suppress/overrides can be defined.
      *
      * This function may be run multiple times in a single page - once on init
      * and once after prefs are updated.
@@ -449,32 +449,6 @@ class Horde_Registry_Application
      */
     public function prefsCallback($ui)
     {
-    }
-
-    /**
-     * Generate code used to display a special preference.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return string  The HTML code to display on the preferences page.
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        return '';
-    }
-
-    /**
-     * Special preferences handling on update.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return boolean  True if preference was updated.
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-        return false;
     }
 
 

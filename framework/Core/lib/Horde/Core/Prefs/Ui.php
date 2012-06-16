@@ -292,7 +292,7 @@ class Horde_Core_Prefs_Ui
      */
     protected function _handleForm($preflist, $save)
     {
-        global $notification, $prefs, $registry;
+        global $injector, $notification, $prefs, $registry;
 
         $updated = false;
 
@@ -351,7 +351,10 @@ class Horde_Core_Prefs_Ui
             case 'special':
                 /* Code for special elements written specifically for each
                  * application. */
-                $updated = $updated | (bool)$registry->callAppMethod($this->app, 'prefsSpecialUpdate', array('args' => array($this, $pref)));
+                if (isset($this->prefs[$pref]['handler']) &&
+                    ($ob = $injector->getInstance($this->prefs[$pref]['handler']))) {
+                    $updated = $ob->update($this);
+                }
                 break;
             }
         }
@@ -470,8 +473,10 @@ class Horde_Core_Prefs_Ui
                     $this->prefs[$pref]['on_init']($this);
                 }
 
-                if ($this->prefs[$pref]['type'] == 'special') {
-                    echo $registry->callAppMethod($this->app, 'prefsSpecial', array('args' => array($this, $pref)));
+                if (($this->prefs[$pref]['type'] == 'special') &&
+                    isset($this->prefs[$pref]['handler']) &&
+                    ($ob = $GLOBALS['injector']->getInstance($this->prefs[$pref]['handler']))) {
+                    echo $ob->display($this);
                     continue;
                 }
 

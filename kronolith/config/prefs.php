@@ -291,6 +291,7 @@ $_prefs['default_alarm'] = array(
 
 $_prefs['default_alarm_management'] = array(
     'type' => 'special',
+    'handler' => 'Kronolith_Prefs_Special_DefaultAlarm',
     'requires_nolock' => array('default_alarm')
 );
 
@@ -357,6 +358,7 @@ $_prefs['event_reminder'] = array(
 // alarm methods
 $_prefs['event_alarms_select'] = array(
     'type' => 'special',
+    'handler' => 'Kronolith_Prefs_Special_EventAlarms',
     'suppress' => function() {
         return empty($GLOBALS['conf']['alarms']['driver']);
     }
@@ -385,6 +387,7 @@ $_prefs['display_contact'] = array(
 // address book selection widget
 $_prefs['sourceselect'] = array(
     'type' => 'special',
+    'handler' => 'Kronolith_Prefs_Special_Sourceselect',
     'requires_nolock' => array('search_sources')
 );
 

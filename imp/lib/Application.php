@@ -439,35 +439,37 @@ class IMP_Application extends Horde_Registry_Application
         }
     }
 
-    /* Preferences display/handling methods. Code is contained in
-     * IMP_Prefs_Ui so it doesn't have to be loaded on every page load. */
-
-    /**
-     */
-    public function prefsGroup($ui)
-    {
-        $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsGroup($ui);
-    }
-
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        return $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsSpecial($ui, $item);
-    }
-
-    /**
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-        return $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsSpecialUpdate($ui, $item);
-    }
+    /* Preferences display/handling methods. */
 
     /**
      */
     public function prefsCallback($ui)
     {
-        $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsCallback($ui);
+        global $injector, $notification, $prefs, $session;
+
+        if ($prefs->isDirty('use_trash')) {
+            IMP_Mailbox::getPref('trash_folder')->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+        }
+
+        /* Always check to make sure we have a valid trash mailbox if move to
+         * trash is active. */
+        if (($prefs->isDirty('use_trash') || $prefs->isDirty('trash_folder')) &&
+            $prefs->getValue('use_trash') &&
+            !$prefs->getValue('trash_folder')) {
+            $notification->push(_("You have activated move to Trash but no Trash mailbox is defined. You will be unable to delete messages until you set a Trash mailbox in the preferences."), 'horde.warning');
+        }
+
+        if ($prefs->isDirty('mail_domain')) {
+            $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $prefs->getValue('mail_domain'));
+            $prefs->setValue('mail_domain', $maildomain);
+            if (!empty($maildomain)) {
+                $session->set('imp', 'maildomain', $maildomain);
+            }
+        }
+
+        if ($prefs->isDirty('subscribe') || $prefs->isDirty('tree_view')) {
+            $injector->getInstance('IMP_Imap_Tree')->init();
+        }
     }
 
     /* Sidebar method. */

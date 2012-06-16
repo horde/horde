@@ -122,7 +122,8 @@ $_prefs['default_gallerystyle'] = array(
     'value' => 'ansel_default'
 );
 $_prefs['default_gallerystyle_select'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Ansel_Prefs_Special_GalleryStyle'
 );
 
 // Default category

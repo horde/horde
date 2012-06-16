@@ -110,15 +110,4 @@ if (!$prefs->isLocked('comicgallery') &&
         */
     }
 
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-    }
-
-    /**
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-    }
 }

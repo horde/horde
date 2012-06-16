@@ -254,6 +254,9 @@
  * ---------
  * Used as placeholder to indicate that the application will provide both the
  * UI display code and the subsequent preferences storage.
+ *
+ * This type REQUIRES a 'handler' parameter, which is the classname of an
+ * object that implements Horde_Core_Prefs_Ui_Special.
  */
 
 // *** Personal Information (Identities) Preferences ***
@@ -515,7 +518,8 @@ $prefGroups['categories'] = array(
 
 // UI for category management.
 $_prefs['categorymanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Horde_Prefs_Special_Category'
 );
 
 // categories
@@ -667,7 +671,8 @@ $prefGroups['facebook'] = array(
 );
 
 $_prefs['facebookmanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Horde_Prefs_Special_Facebook'
 );
 
 $_prefs['facebook'] = array(
@@ -692,7 +697,8 @@ $prefGroups['twitter'] = array(
 );
 
 $_prefs['twittermanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Horde_Prefs_Special_Twitter'
 );
 
 $_prefs['twitter'] = array(
@@ -736,7 +742,8 @@ $prefGroups['syncml'] = array(
 );
 
 $_prefs['syncmlmanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Horde_Prefs_Special_Syncml'
 );
 
 // *** ActiveSync Preferences ***
@@ -751,7 +758,8 @@ $prefGroups['activesync'] = array(
 );
 
 $_prefs['activesyncmanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Horde_Prefs_Special_Activesync'
 );
 
 

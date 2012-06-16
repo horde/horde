@@ -123,16 +123,4 @@ class Agora_Application extends Horde_Registry_Application
         }
     }
 
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        switch ($item) {
-        case 'avatarselect':
-            return $this->_accountsManagement($ui);
-        }
-
-        return '';
-    }
-
 }

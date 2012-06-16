@@ -67,6 +67,7 @@ $_prefs['sig_dashes'] = array(
 // User's HTML signature - UI widget
 $_prefs['signature_html_select'] = array(
     'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_HtmlSignature',
     'requires_nolock' => array('signature_html'),
     'suppress' => function() {
         return $GLOBALS['session']->get('imp', 'rteavail');
@@ -98,6 +99,7 @@ $_prefs['sent_mail_folder'] = array(
 // sent mail mailbox selection widget.
 $_prefs['sentmailselect'] = array(
     'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Sentmail',
     'requires_nolock' => array('sent_mail_folder')
 );
 
@@ -122,7 +124,8 @@ $prefGroups['acl'] = array(
 
 // ACL preference management screen
 $_prefs['aclmanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Acl'
 );
 
 // mailbox sharing preferences
@@ -151,7 +154,8 @@ $prefGroups['searches'] = array(
 
 // UI for saved searches management.
 $_prefs['searchesmanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Searches'
 );
 
 $_prefs['vfolder'] = array(
@@ -356,6 +360,7 @@ $_prefs['pgp_reply_pubkey'] = array(
 
 $_prefs['pgppublickey'] = array(
     'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_PgpPublicKey',
     'requires' => array('use_pgp')
 );
 
@@ -365,6 +370,7 @@ $_prefs['pgp_public_key'] = array(
 
 $_prefs['pgpprivatekey'] = array(
     'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_PgpPrivateKey',
     'requires' => array('use_pgp')
 );
 
@@ -423,6 +429,7 @@ $_prefs['smime_verify'] = array(
 // S/MIME public key management widget
 $_prefs['smimepublickey'] = array(
     'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_SmimePublicKey',
     'requires' => array('use_smime')
 );
 
@@ -433,6 +440,7 @@ $_prefs['smime_public_key'] = array(
 // S/MIME private key management widget
 $_prefs['smimeprivatekey'] = array(
     'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_SmimePrivateKey',
     'requires' => array('use_smime')
 );
 
@@ -465,7 +473,8 @@ $prefGroups['compose'] = array(
 
 // Link to register a mailto: handler with the browser
 $_prefs['mailto_handler'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Mailto'
 );
 
 // Show Cc: field?
@@ -550,6 +559,7 @@ $_prefs['compose_cursor'] = array(
 // Select widget for the 'default_encrypt' preference
 $_prefs['encryptselect'] = array(
     'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Encrypt',
     'requires_nolock' => array('default_encrypt')
 );
 
@@ -658,7 +668,8 @@ $prefGroups['composetemplates'] = array(
 
 // Compose templates configuration widget
 $_prefs['composetemplates_management'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_ComposeTemplates'
 );
 
 // Link to compose templates mailbox.
@@ -797,6 +808,7 @@ $prefGroups['drafts'] = array(
 // drafts mailbox selection widget.
 $_prefs['draftsselect'] = array(
     'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Drafts',
     'requires_nolock' => array('drafts_folder')
 );
 
@@ -934,6 +946,7 @@ $_prefs['display_contact'] = array(
 // address book selection widget
 $_prefs['sourceselect'] = array(
     'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Sourceselect',
     'requires_nolock' => array('search_sources')
 );
 
@@ -1209,6 +1222,7 @@ $_prefs['use_trash'] = array(
 // trash mailbox selection widget.
 $_prefs['trashselect'] = array(
     'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Trash',
     'requires' => array('use_trash'),
     'requires_nolock' => array('use_trash', 'trash_folder'),
     'suppress' => function() {
@@ -1301,6 +1315,7 @@ $prefGroups['spamreport'] = array(
 // spam mailbox selection widget.
 $_prefs['spamselect'] = array(
     'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Spam',
     'requires_nolock' => array('spam_folder')
 );
 
@@ -1422,6 +1437,7 @@ $_prefs['newmail_audio'] = array(
 // sound selection widget
 $_prefs['newmail_soundselect'] = array(
     'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_NewmailSound',
     'requires' => array('newmail_notify'),
     'requires_nolock' => array('newmail_audio')
 );
@@ -1442,7 +1458,8 @@ $prefGroups['flags'] = array(
 
 // UI for flag management.
 $_prefs['flagmanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_Flag'
 );
 
 // This array contains the list of flags created by the user through the
@@ -1499,6 +1516,7 @@ $prefGroups['mboxdisplay'] = array(
 // select widget for the initial_page preference
 $_prefs['initialpageselect'] = array(
     'type' => 'special',
+    'handler' => 'IMP_Prefs_Special_InitialPage',
     'requires_nolock' => array('initial_page'),
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
