@@ -1523,7 +1523,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $imap_message = $imap_message[$response['requestid']];
 
         // Find the request
-        if (!$part = $imap_message->hasMeetingRequest()) {
+        if (!$part = $imap_message->hasiCalendar()) {
             $this->_logger->err('Unable to find the meeting request.');
             throw new Horde_Exception_NotFound();
         }

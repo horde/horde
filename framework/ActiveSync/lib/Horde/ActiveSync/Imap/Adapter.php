@@ -909,14 +909,19 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         // Check for meeting requests.
-        if ($mime_part = $imap_message->hasMeetingRequest()) {
-            $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
-            $mtg = new Horde_ActiveSync_Message_MeetingRequest();
-            $mtg->fromMimePart($mime_part);
-            $eas_message->meetingrequest = $mtg;
-            $eas_message->contentclass = 'urn:content-classes:calendarmessage';
-        } else {
-            $eas_message->contentclass = 'urn:content-classes:message';
+        $eas_message->contentclass = 'urn:content-classes:message';
+        if ($mime_part = $imap_message->hasiCalendar()) {
+            $data = $mime_part->getContents();
+            $vCal = new Horde_Icalendar();
+            if ($vCal->parsevCalendar($data, 'VCALENDAR', $mime_part->getCharset()) &&
+                $vCal->getAttribute('METHOD') == 'REQUEST') {
+
+                $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
+                $mtg = new Horde_ActiveSync_Message_MeetingRequest();
+                $mtg->fromvEvent($vCal);
+                $eas_message->meetingrequest = $mtg;
+                $eas_message->contentclass = 'urn:content-classes:calendarmessage';
+            }
         }
 
         // POOMMAIL_FLAG
