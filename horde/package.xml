@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-08</date>
- <time>20:12:41</time>
+ <date>2012-06-18</date>
+ <time>15:30:57</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -202,18 +202,6 @@
      <file name="zh-CN.js" role="horde" />
      <file name="zh-TW.js" role="horde" />
     </dir> <!-- /js/date -->
-    <dir name="jquery.mobile">
-     <dir name="images">
-      <file name="ajax-loader.png" role="horde" />
-      <file name="icons-18-black.png" role="horde" />
-      <file name="icons-18-white.png" role="horde" />
-      <file name="icons-36-black.png" role="horde" />
-      <file name="icons-36-white.png" role="horde" />
-     </dir> <!-- /js/jquery.mobile/images -->
-     <file name="jquery.min.js" role="horde" />
-     <file name="jquery.mobile.min.css" role="horde" />
-     <file name="jquery.mobile.min.js" role="horde" />
-    </dir> <!-- /js/jquery.mobile -->
     <dir name="map">
      <dir name="img">
       <file name="blank.gif" role="horde" />
@@ -362,49 +350,27 @@
      <file name="plupload.silverlight.xap" role="horde" />
      <file name="uploader.js" role="horde" />
     </dir> <!-- /js/plupload -->
-    <file name="accesskeys.html" role="horde" />
-    <file name="accesskeys.js" role="horde" />
     <file name="activesyncadmin.js" role="horde" />
     <file name="activesyncprefs.js" role="horde" />
-    <file name="builder.js" role="horde" />
     <file name="categoryprefs.js" role="horde" />
-    <file name="colorpicker.js" role="horde" />
     <file name="contextsensitive.js" role="horde" />
-    <file name="controls.js" role="horde" />
-    <file name="dialog.js" role="horde" />
-    <file name="dragdrop.js" role="horde" />
     <file name="dragdrop2.js" role="horde" />
-    <file name="effects.js" role="horde" />
     <file name="facebookclient.js" role="horde" />
-    <file name="form_assign.js" role="horde" />
     <file name="form_ghost.js" role="horde" />
-    <file name="form_helpers.js" role="horde" />
     <file name="form_sections.js" role="horde" />
-    <file name="growler.js" role="horde" />
-    <file name="horde-jquery.js" role="horde" />
-    <file name="horde.js" role="horde" />
     <file name="ieescguard.js" role="horde" />
-    <file name="image.js" role="horde" />
-    <file name="inplaceeditor.js" role="horde" />
-    <file name="keynavlist.js" role="horde" />
+    <file name="json2.js" role="horde" />
+    <file name="jstorage.js" role="horde" />
     <file name="login.js" role="horde" />
     <file name="logintasks.js" role="horde" />
     <file name="md5.js" role="horde" />
-    <file name="mobile.js" role="horde" />
-    <file name="popup.js" role="horde" />
-    <file name="prototype.js" role="horde" />
+    <file name="problem.js" role="horde" />
     <file name="quickfinder.js" role="horde" />
-    <file name="redbox.js" role="horde" />
     <file name="rpcprefs.js" role="horde" />
-    <file name="scriptaculous.js" role="horde" />
     <file name="sidebar.js" role="horde" />
-    <file name="slider.js" role="horde" />
     <file name="slider2.js" role="horde" />
-    <file name="sorter.js" role="horde" />
-    <file name="sound.js" role="horde" />
     <file name="stripe.js" role="horde" />
     <file name="syncmlprefs.js" role="horde" />
-    <file name="tables.js" role="horde" />
     <file name="textarearesize.js" role="horde" />
     <file name="twitterclient.js" role="horde" />
     <file name="userupdate.js" role="horde" />
@@ -806,7 +772,7 @@
      <file name="cloud_search.php" role="horde" />
      <file name="edit.php" role="horde" />
      <file name="index.php" role="horde" />
-     <file name="mobile.php" role="horde" />
+     <file name="smartmobile.php" role="horde" />
     </dir> <!-- /services/portal -->
     <dir name="shares">
      <file name="edit.php" role="horde" />
@@ -820,7 +786,6 @@
     <file name="changepassword.php" role="horde" />
     <file name="confirm.php" role="horde" />
     <file name="go.php" role="horde" />
-    <file name="imple.php" role="horde" />
     <file name="keyboard.php" role="horde" />
     <file name="language.php" role="horde" />
     <file name="logintasks.php" role="horde" />
@@ -870,6 +835,10 @@
      <file name="twitter-layout.html.php" role="horde" />
      <file name="twitter_tweet.html.php" role="horde" />
     </dir> <!-- /templates/block -->
+    <dir name="common">
+     <file name="footer.html.php" role="horde" />
+     <file name="header.html.php" role="horde" />
+    </dir> <!-- /templates/common -->
     <dir name="data">
      <file name="csvinfo.inc" role="horde" />
      <file name="csvmap.inc" role="horde" />
@@ -886,13 +855,13 @@
     </dir> <!-- /templates/help -->
     <dir name="login">
      <file name="login.inc" role="horde" />
-     <file name="mobile.inc" role="horde" />
      <file name="resetpassword.inc" role="horde" />
      <file name="signup.inc" role="horde" />
+     <file name="smartmobile.inc" role="horde" />
     </dir> <!-- /templates/login -->
     <dir name="logintasks">
      <file name="logintasks.html" role="horde" />
-     <file name="mobile.html" role="horde" />
+     <file name="smartmobile.html" role="horde" />
     </dir> <!-- /templates/logintasks -->
     <dir name="menu">
      <file name="menu.inc" role="horde" />
@@ -902,7 +871,7 @@
      <file name="block.inc" role="horde" />
      <file name="edit.inc" role="horde" />
      <file name="layout.inc" role="horde" />
-     <file name="mobile.inc" role="horde" />
+     <file name="smartmobile.inc" role="horde" />
     </dir> <!-- /templates/portal -->
     <dir name="prefs">
      <file name="activesync.html" role="horde" />
@@ -949,10 +918,6 @@
      <file name="version.inc" role="horde" />
     </dir> <!-- /templates/test -->
     <file name=".htaccess" role="horde" />
-    <file name="common-footer-mobile.inc" role="horde" />
-    <file name="common-footer.inc" role="horde" />
-    <file name="common-header-mobile.inc" role="horde" />
-    <file name="common-header.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="bluewhite">
@@ -1532,20 +1497,6 @@
        <file name="wordperfect.png" role="horde" />
        <file name="xml.png" role="horde" />
       </dir> <!-- /themes/default/graphics/mime -->
-      <dir name="mobile">
-       <dir name="alerts">
-        <file name="alarm.png" role="horde" />
-        <file name="error.png" role="horde" />
-        <file name="message.png" role="horde" />
-        <file name="success.png" role="horde" />
-        <file name="warning.png" role="horde" />
-       </dir> <!-- /themes/default/graphics/mobile/alerts -->
-       <file name="bottom.jpg" role="horde" />
-       <file name="display.jpg" role="horde" />
-       <file name="left.jpg" role="horde" />
-       <file name="right.jpg" role="horde" />
-       <file name="top.jpg" role="horde" />
-      </dir> <!-- /themes/default/graphics/mobile -->
       <dir name="nav">
        <file name="bottom-grey.png" role="horde" />
        <file name="bottom.png" role="horde" />
@@ -1564,6 +1515,20 @@
        <file name="up-grey.png" role="horde" />
        <file name="up.png" role="horde" />
       </dir> <!-- /themes/default/graphics/nav -->
+      <dir name="smartmobile">
+       <dir name="alerts">
+        <file name="alarm.png" role="horde" />
+        <file name="error.png" role="horde" />
+        <file name="message.png" role="horde" />
+        <file name="success.png" role="horde" />
+        <file name="warning.png" role="horde" />
+       </dir> <!-- /themes/default/graphics/smartmobile/alerts -->
+       <file name="bottom.jpg" role="horde" />
+       <file name="display.jpg" role="horde" />
+       <file name="left.jpg" role="horde" />
+       <file name="right.jpg" role="horde" />
+       <file name="top.jpg" role="horde" />
+      </dir> <!-- /themes/default/graphics/smartmobile -->
       <dir name="tree">
        <file name="blank.png" role="horde" />
        <file name="folder.png" role="horde" />
@@ -1781,6 +1746,9 @@
       <file name="website.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
+     <dir name="smartmobile">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/smartmobile -->
      <dir name="sounds">
       <file name="doorbell.wav" role="horde" />
       <file name="gnid3.wav" role="horde" />
@@ -1791,9 +1759,7 @@
      <file name="embed.css" role="horde" />
      <file name="facebook.css" role="horde" />
      <file name="feed-rss.xsl" role="horde" />
-     <file name="ie6_or_less.css" role="horde" />
      <file name="ie7.css" role="horde" />
-     <file name="mobile.css" role="horde" />
      <file name="opera.css" role="horde" />
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
@@ -2647,49 +2613,27 @@
    <install as="TRANSLATIONS" name="docs/TRANSLATIONS" />
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="install/horde.php" name="install/horde.php" />
-   <install as="js/accesskeys.html" name="js/accesskeys.html" />
-   <install as="js/accesskeys.js" name="js/accesskeys.js" />
    <install as="js/activesyncadmin.js" name="js/activesyncadmin.js" />
    <install as="js/activesyncprefs.js" name="js/activesyncprefs.js" />
-   <install as="js/builder.js" name="js/builder.js" />
    <install as="js/categoryprefs.js" name="js/categoryprefs.js" />
-   <install as="js/colorpicker.js" name="js/colorpicker.js" />
    <install as="js/contextsensitive.js" name="js/contextsensitive.js" />
-   <install as="js/controls.js" name="js/controls.js" />
-   <install as="js/dialog.js" name="js/dialog.js" />
-   <install as="js/dragdrop.js" name="js/dragdrop.js" />
    <install as="js/dragdrop2.js" name="js/dragdrop2.js" />
-   <install as="js/effects.js" name="js/effects.js" />
    <install as="js/facebookclient.js" name="js/facebookclient.js" />
-   <install as="js/form_assign.js" name="js/form_assign.js" />
    <install as="js/form_ghost.js" name="js/form_ghost.js" />
-   <install as="js/form_helpers.js" name="js/form_helpers.js" />
    <install as="js/form_sections.js" name="js/form_sections.js" />
-   <install as="js/growler.js" name="js/growler.js" />
-   <install as="js/horde-jquery.js" name="js/horde-jquery.js" />
-   <install as="js/horde.js" name="js/horde.js" />
    <install as="js/ieescguard.js" name="js/ieescguard.js" />
-   <install as="js/image.js" name="js/image.js" />
-   <install as="js/inplaceeditor.js" name="js/inplaceeditor.js" />
-   <install as="js/keynavlist.js" name="js/keynavlist.js" />
+   <install as="js/json2.js" name="js/json2.js" />
+   <install as="js/jstorage.js" name="js/jstorage.js" />
    <install as="js/login.js" name="js/login.js" />
    <install as="js/logintasks.js" name="js/logintasks.js" />
    <install as="js/md5.js" name="js/md5.js" />
-   <install as="js/mobile.js" name="js/mobile.js" />
-   <install as="js/popup.js" name="js/popup.js" />
-   <install as="js/prototype.js" name="js/prototype.js" />
+   <install as="js/problem.js" name="js/problem.js" />
    <install as="js/quickfinder.js" name="js/quickfinder.js" />
-   <install as="js/redbox.js" name="js/redbox.js" />
    <install as="js/rpcprefs.js" name="js/rpcprefs.js" />
-   <install as="js/scriptaculous.js" name="js/scriptaculous.js" />
    <install as="js/sidebar.js" name="js/sidebar.js" />
-   <install as="js/slider.js" name="js/slider.js" />
    <install as="js/slider2.js" name="js/slider2.js" />
-   <install as="js/sorter.js" name="js/sorter.js" />
-   <install as="js/sound.js" name="js/sound.js" />
    <install as="js/stripe.js" name="js/stripe.js" />
    <install as="js/syncmlprefs.js" name="js/syncmlprefs.js" />
-   <install as="js/tables.js" name="js/tables.js" />
    <install as="js/textarearesize.js" name="js/textarearesize.js" />
    <install as="js/twitterclient.js" name="js/twitterclient.js" />
    <install as="js/userupdate.js" name="js/userupdate.js" />
@@ -2738,14 +2682,6 @@
    <install as="js/date/uk-UA.js" name="js/date/uk-UA.js" />
    <install as="js/date/zh-CN.js" name="js/date/zh-CN.js" />
    <install as="js/date/zh-TW.js" name="js/date/zh-TW.js" />
-   <install as="js/jquery.mobile/jquery.min.js" name="js/jquery.mobile/jquery.min.js" />
-   <install as="js/jquery.mobile/jquery.mobile.min.css" name="js/jquery.mobile/jquery.mobile.min.css" />
-   <install as="js/jquery.mobile/jquery.mobile.min.js" name="js/jquery.mobile/jquery.mobile.min.js" />
-   <install as="js/jquery.mobile/images/ajax-loader.png" name="js/jquery.mobile/images/ajax-loader.png" />
-   <install as="js/jquery.mobile/images/icons-18-black.png" name="js/jquery.mobile/images/icons-18-black.png" />
-   <install as="js/jquery.mobile/images/icons-18-white.png" name="js/jquery.mobile/images/icons-18-white.png" />
-   <install as="js/jquery.mobile/images/icons-36-black.png" name="js/jquery.mobile/images/icons-36-black.png" />
-   <install as="js/jquery.mobile/images/icons-36-white.png" name="js/jquery.mobile/images/icons-36-white.png" />
    <install as="js/map/bing.js" name="js/map/bing.js" />
    <install as="js/map/cloudmade.js" name="js/map/cloudmade.js" />
    <install as="js/map/google.js" name="js/map/google.js" />
@@ -3059,7 +2995,6 @@
    <install as="services/changepassword.php" name="services/changepassword.php" />
    <install as="services/confirm.php" name="services/confirm.php" />
    <install as="services/go.php" name="services/go.php" />
-   <install as="services/imple.php" name="services/imple.php" />
    <install as="services/keyboard.php" name="services/keyboard.php" />
    <install as="services/language.php" name="services/language.php" />
    <install as="services/logintasks.php" name="services/logintasks.php" />
@@ -3077,15 +3012,11 @@
    <install as="services/portal/cloud_search.php" name="services/portal/cloud_search.php" />
    <install as="services/portal/edit.php" name="services/portal/edit.php" />
    <install as="services/portal/index.php" name="services/portal/index.php" />
-   <install as="services/portal/mobile.php" name="services/portal/mobile.php" />
+   <install as="services/portal/smartmobile.php" name="services/portal/smartmobile.php" />
    <install as="services/shares/edit.php" name="services/shares/edit.php" />
    <install as="services/twitter/index.php" name="services/twitter/index.php" />
    <install as="static/README" name="static/README" />
    <install as="templates/.htaccess" name="templates/.htaccess" />
-   <install as="templates/common-footer-mobile.inc" name="templates/common-footer-mobile.inc" />
-   <install as="templates/common-footer.inc" name="templates/common-footer.inc" />
-   <install as="templates/common-header-mobile.inc" name="templates/common-header-mobile.inc" />
-   <install as="templates/common-header.inc" name="templates/common-header.inc" />
    <install as="templates/admin/menu.inc" name="templates/admin/menu.inc" />
    <install as="templates/admin/alarms/list.html.php" name="templates/admin/alarms/list.html.php" />
    <install as="templates/admin/config/config.html" name="templates/admin/config/config.html" />
@@ -3108,6 +3039,8 @@
    <install as="templates/block/facebook_story.html.php" name="templates/block/facebook_story.html.php" />
    <install as="templates/block/twitter-layout.html.php" name="templates/block/twitter-layout.html.php" />
    <install as="templates/block/twitter_tweet.html.php" name="templates/block/twitter_tweet.html.php" />
+   <install as="templates/common/footer.html.php" name="templates/common/footer.html.php" />
+   <install as="templates/common/header.html.php" name="templates/common/header.html.php" />
    <install as="templates/data/csvinfo.inc" name="templates/data/csvinfo.inc" />
    <install as="templates/data/csvmap.inc" name="templates/data/csvmap.inc" />
    <install as="templates/data/date.inc" name="templates/data/date.inc" />
@@ -3119,17 +3052,17 @@
    <install as="templates/help/menu.inc" name="templates/help/menu.inc" />
    <install as="templates/help/sidebar.inc" name="templates/help/sidebar.inc" />
    <install as="templates/login/login.inc" name="templates/login/login.inc" />
-   <install as="templates/login/mobile.inc" name="templates/login/mobile.inc" />
    <install as="templates/login/resetpassword.inc" name="templates/login/resetpassword.inc" />
    <install as="templates/login/signup.inc" name="templates/login/signup.inc" />
+   <install as="templates/login/smartmobile.inc" name="templates/login/smartmobile.inc" />
    <install as="templates/logintasks/logintasks.html" name="templates/logintasks/logintasks.html" />
-   <install as="templates/logintasks/mobile.html" name="templates/logintasks/mobile.html" />
+   <install as="templates/logintasks/smartmobile.html" name="templates/logintasks/smartmobile.html" />
    <install as="templates/menu/menu.inc" name="templates/menu/menu.inc" />
    <install as="templates/portal/add.inc" name="templates/portal/add.inc" />
    <install as="templates/portal/block.inc" name="templates/portal/block.inc" />
    <install as="templates/portal/edit.inc" name="templates/portal/edit.inc" />
    <install as="templates/portal/layout.inc" name="templates/portal/layout.inc" />
-   <install as="templates/portal/mobile.inc" name="templates/portal/mobile.inc" />
+   <install as="templates/portal/smartmobile.inc" name="templates/portal/smartmobile.inc" />
    <install as="templates/prefs/activesync.html" name="templates/prefs/activesync.html" />
    <install as="templates/prefs/addressbooks.html" name="templates/prefs/addressbooks.html" />
    <install as="templates/prefs/alarm.html" name="templates/prefs/alarm.html" />
@@ -3170,9 +3103,7 @@
    <install as="themes/default/embed.css" name="themes/default/embed.css" />
    <install as="themes/default/facebook.css" name="themes/default/facebook.css" />
    <install as="themes/default/feed-rss.xsl" name="themes/default/feed-rss.xsl" />
-   <install as="themes/default/ie6_or_less.css" name="themes/default/ie6_or_less.css" />
    <install as="themes/default/ie7.css" name="themes/default/ie7.css" />
-   <install as="themes/default/mobile.css" name="themes/default/mobile.css" />
    <install as="themes/default/opera.css" name="themes/default/opera.css" />
    <install as="themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="themes/default/screen.css" name="themes/default/screen.css" />
@@ -3796,16 +3727,6 @@
    <install as="themes/default/graphics/mime/video.png" name="themes/default/graphics/mime/video.png" />
    <install as="themes/default/graphics/mime/wordperfect.png" name="themes/default/graphics/mime/wordperfect.png" />
    <install as="themes/default/graphics/mime/xml.png" name="themes/default/graphics/mime/xml.png" />
-   <install as="themes/default/graphics/mobile/bottom.jpg" name="themes/default/graphics/mobile/bottom.jpg" />
-   <install as="themes/default/graphics/mobile/display.jpg" name="themes/default/graphics/mobile/display.jpg" />
-   <install as="themes/default/graphics/mobile/left.jpg" name="themes/default/graphics/mobile/left.jpg" />
-   <install as="themes/default/graphics/mobile/right.jpg" name="themes/default/graphics/mobile/right.jpg" />
-   <install as="themes/default/graphics/mobile/top.jpg" name="themes/default/graphics/mobile/top.jpg" />
-   <install as="themes/default/graphics/mobile/alerts/alarm.png" name="themes/default/graphics/mobile/alerts/alarm.png" />
-   <install as="themes/default/graphics/mobile/alerts/error.png" name="themes/default/graphics/mobile/alerts/error.png" />
-   <install as="themes/default/graphics/mobile/alerts/message.png" name="themes/default/graphics/mobile/alerts/message.png" />
-   <install as="themes/default/graphics/mobile/alerts/success.png" name="themes/default/graphics/mobile/alerts/success.png" />
-   <install as="themes/default/graphics/mobile/alerts/warning.png" name="themes/default/graphics/mobile/alerts/warning.png" />
    <install as="themes/default/graphics/nav/bottom-grey.png" name="themes/default/graphics/nav/bottom-grey.png" />
    <install as="themes/default/graphics/nav/bottom.png" name="themes/default/graphics/nav/bottom.png" />
    <install as="themes/default/graphics/nav/down-grey.png" name="themes/default/graphics/nav/down-grey.png" />
@@ -3822,6 +3743,16 @@
    <install as="themes/default/graphics/nav/top.png" name="themes/default/graphics/nav/top.png" />
    <install as="themes/default/graphics/nav/up-grey.png" name="themes/default/graphics/nav/up-grey.png" />
    <install as="themes/default/graphics/nav/up.png" name="themes/default/graphics/nav/up.png" />
+   <install as="themes/default/graphics/smartmobile/bottom.jpg" name="themes/default/graphics/smartmobile/bottom.jpg" />
+   <install as="themes/default/graphics/smartmobile/display.jpg" name="themes/default/graphics/smartmobile/display.jpg" />
+   <install as="themes/default/graphics/smartmobile/left.jpg" name="themes/default/graphics/smartmobile/left.jpg" />
+   <install as="themes/default/graphics/smartmobile/right.jpg" name="themes/default/graphics/smartmobile/right.jpg" />
+   <install as="themes/default/graphics/smartmobile/top.jpg" name="themes/default/graphics/smartmobile/top.jpg" />
+   <install as="themes/default/graphics/smartmobile/alerts/alarm.png" name="themes/default/graphics/smartmobile/alerts/alarm.png" />
+   <install as="themes/default/graphics/smartmobile/alerts/error.png" name="themes/default/graphics/smartmobile/alerts/error.png" />
+   <install as="themes/default/graphics/smartmobile/alerts/message.png" name="themes/default/graphics/smartmobile/alerts/message.png" />
+   <install as="themes/default/graphics/smartmobile/alerts/success.png" name="themes/default/graphics/smartmobile/alerts/success.png" />
+   <install as="themes/default/graphics/smartmobile/alerts/warning.png" name="themes/default/graphics/smartmobile/alerts/warning.png" />
    <install as="themes/default/graphics/tree/blank.png" name="themes/default/graphics/tree/blank.png" />
    <install as="themes/default/graphics/tree/folder.png" name="themes/default/graphics/tree/folder.png" />
    <install as="themes/default/graphics/tree/folderopen.png" name="themes/default/graphics/tree/folderopen.png" />
@@ -3953,6 +3884,7 @@
    <install as="themes/default/graphics/weather/32x32/46.png" name="themes/default/graphics/weather/32x32/46.png" />
    <install as="themes/default/graphics/weather/32x32/47.png" name="themes/default/graphics/weather/32x32/47.png" />
    <install as="themes/default/graphics/weather/32x32/na.png" name="themes/default/graphics/weather/32x32/na.png" />
+   <install as="themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
    <install as="themes/default/sounds/doorbell.wav" name="themes/default/sounds/doorbell.wav" />
    <install as="themes/default/sounds/gnid3.wav" name="themes/default/sounds/gnid3.wav" />
    <install as="themes/default/sounds/jetsndb.wav" name="themes/default/sounds/jetsndb.wav" />
