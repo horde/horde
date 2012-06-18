@@ -1602,11 +1602,20 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $type, $options, $GLOBALS['injector']->getInstance('Horde_Mail'));
             $this->_logger->debug('Successfully sent iTip response.');
         } catch (Horde_Itip_Exception $e) {
-            $this->_logger->err($e->getMessage());
+            $this->_logger->err('Error sending response: ' . $e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
 
-        // @TODO Copy to sent items.
+        // Save to SENT
+        $sf = $this->getSpecialFolderNameByType(self::SPECIAL_SENT);
+        if (!empty($sf)) {
+            $this->_logger->debug(sprintf("Preparing to copy to '%s'", $sf));
+            list($headers, $body) = $itip_response->getMultiPartMessage(
+                $type, $options);
+            $flags = array(Horde_Imap_Client::FLAG_SEEN);
+            $msg = $body->toString(array('headers' => $headers));
+            $this->_imap->appendMessage($sf, $msg, $flags);
+        }
 
         return $uid;
     }
