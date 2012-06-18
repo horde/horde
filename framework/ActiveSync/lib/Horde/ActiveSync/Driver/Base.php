@@ -229,81 +229,6 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Get the wastebasket folder.
-     *
-     * @param string $class  The collection class.
-     *
-     * @return string|boolean  Returns name of the trash folder, or false
-     *                         if not using a trash folder.
-     */
-    public function getWasteBasket($class)
-    {
-        return false;
-    }
-
-    /**
-     * Delete a folder on the server.
-     *
-     * @param string $parent  The parent folder.
-     * @param string $id      The folder to delete.
-     *
-     * @return boolean
-     * @throws Horde_ActiveSync_Exception
-     */
-    public function deleteFolder($parent, $id)
-    {
-        throw new Horde_ActiveSync_Exception('DeleteFolder not yet implemented');
-    }
-
-    /**
-     * Change the name and/or type of a folder.
-     *
-     * @param string $parent
-     * @param string $id
-     * @param string $displayname
-     * @param string $type
-     *
-     * @return boolean
-     */
-    public function changeFolder($parent, $id, $displayname, $type)
-    {
-        throw new Horde_ActiveSync_Exception('changeFolder not yet implemented.');
-    }
-
-    /**
-     * Move message
-     *
-     * @param string $folderid     Existing folder id
-     * @param array $ids           Message UIDs
-     * @param string $newfolderid  The new folder id
-     *
-     * @return array  The new uids for the message.
-     */
-    public function moveMessage($folderid, array $ids, $newfolderid)
-    {
-        throw new Horde_ActiveSync_Exception('moveMessage not yet implemented.');
-    }
-
-    /**
-     * Returns array of items which contain contact information
-     *
-     * @param string $type   The search type; ['gal'|'mailbox']
-     * @param array $query   The search query. An array containing:
-     *  - query: (string) The search term.
-     *           DEFAULT: none, REQUIRED
-     *  - range: (string)   A range limiter.
-     *           DEFAULT: none (No range used).
-     *
-     * @return array  An array containing:
-     *  - rows:   An array of search results
-     *  - status: The search store status code.
-     */
-    public function getSearchResults($type, $query)
-    {
-        throw new Horde_ActiveSync_Exception('getSearchResults not implemented.');
-    }
-
-    /**
      * Add default truncation values for this driver.
      *
      * @param array $bodyprefs  BODYPREFERENCE data.
@@ -331,6 +256,56 @@ abstract class Horde_ActiveSync_Driver_Base
 
         return $bodyprefs;
     }
+
+    /**
+     * Delete a folder on the server.
+     *
+     * @param string $parent  The parent folder.
+     * @param string $id      The folder to delete.
+     *
+     * @return boolean
+     * @throws Horde_ActiveSync_Exception
+     */
+    abstract public function deleteFolder($parent, $id);
+
+    /**
+     * Change the name and/or type of a folder.
+     *
+     * @param string $parent
+     * @param string $id
+     * @param string $displayname
+     * @param string $type
+     *
+     * @return boolean
+     */
+    abstract public function changeFolder($parent, $id, $displayname, $type);
+
+    /**
+     * Move message
+     *
+     * @param string $folderid     Existing folder id
+     * @param array $ids           Message UIDs
+     * @param string $newfolderid  The new folder id
+     *
+     * @return array  The new uids for the message.
+     */
+    abstract public function moveMessage($folderid, array $ids, $newfolderid);
+
+    /**
+     * Returns array of items which contain contact information
+     *
+     * @param string $type   The search type; ['gal'|'mailbox']
+     * @param array $query   The search query. An array containing:
+     *  - query: (string) The search term.
+     *           DEFAULT: none, REQUIRED
+     *  - range: (string)   A range limiter.
+     *           DEFAULT: none (No range used).
+     *
+     * @return array  An array containing:
+     *  - rows:   An array of search results
+     *  - status: The search store status code.
+     */
+    abstract public function getSearchResults($type, $query);
 
     /**
      * Get folder stat
@@ -431,6 +406,16 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param array $ids        Message ids
      */
     abstract public function deleteMessage($folderid, array $ids);
+
+    /**
+     * Get the wastebasket folder.
+     *
+     * @param string $class  The collection class.
+     *
+     * @return string|boolean  Returns name of the trash folder, or false
+     *                         if not using a trash folder.
+     */
+    abstract public function getWasteBasket($class);
 
     /**
      * Add/Edit a message
