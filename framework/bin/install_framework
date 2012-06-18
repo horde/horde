@@ -199,6 +199,10 @@ foreach ($pkgs as $key => $val) {
         continue;
     }
     foreach ($pkg_ob->getInstallationFilelist() as $file) {
+        if (!isset($file['attribs']['name'])) {
+            $cli->message('Invalid <install> entry: ' . print_r($file['attribs'], true), 'cli.error');
+            continue;
+        }
         $orig = realpath($val . '/' . $file['attribs']['name']);
         if (empty($orig)) {
             $cli->message('Install file does not seem to exist: ' . $val . '/' . $file['attribs']['name'], 'cli.error');
