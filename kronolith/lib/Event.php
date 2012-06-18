@@ -1295,7 +1295,8 @@ abstract class Kronolith_Event
         case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_OUT:
             $status = Kronolith::STATUS_CONFIRMED;
         default:
-            $status = Kronolith::STATUS_NONE;
+            // EAS Specifies default should be free.
+            $status = Kronolith::STATUS_FREE;
         }
         $this->status = $status;
 
