@@ -43,7 +43,7 @@ class Horde_ActiveSync_Request_GetHierarchy extends Horde_ActiveSync_Request_Bas
      */
     public function handle()
     {
-        $folders = $this->_driver->getHierarchy();
+        $folders = $this->_driver->getFolders();
         if (!$folders) {
             return false;
         }

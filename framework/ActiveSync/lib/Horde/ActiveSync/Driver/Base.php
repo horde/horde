@@ -206,24 +206,6 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Get the full folder hierarchy from the backend.
-     *
-     * @return array
-     */
-    public function getHierarchy()
-    {
-        $folders = array();
-
-        // @TODO, use self::getFolders() once we bump the min required version
-        $fl = $this->getFolderList();
-        foreach ($fl as $f) {
-            $folders[] = $this->getFolder($f['id']);
-        }
-
-        return $folders;
-    }
-
-    /**
      * Obtain a message from the backend.
      *
      * @param string $folderid   Folder id containing data to fetch.
@@ -402,7 +384,6 @@ abstract class Horde_ActiveSync_Driver_Base
      * Return an array of folder objects.
      *
      * @return array  An array of Horde_ActiveSync_Message_Folder objects.
-     * @since TODO
      */
     abstract public function getFolders();
 
