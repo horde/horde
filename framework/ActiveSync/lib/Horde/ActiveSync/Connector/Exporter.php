@@ -203,7 +203,7 @@ class Horde_ActiveSync_Connector_Exporter
 
     /**
      * Move a message to a different folder.
-     * @TODO
+     *
      * @param Horde_ActiveSync_Message_Base $message  The message
      *
      * @return boolean
