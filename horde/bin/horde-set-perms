@@ -75,7 +75,12 @@ foreach ($it as $key => $val) {
 
     $octal_perms = substr(sprintf('%o', $val->getPerms()), -4);
     if ($val->isDir()) {
-        if ($octal_perms != '0750') {
+        if (basename($key) == 'static') {
+            if ($octal_perms != '0770') {
+                $cli->message('Changing permissions for ' . $key, 'cli.message');
+                chmod($key, 0770);
+            }
+        } elseif ($octal_perms != '0750') {
             $cli->message('Changing permissions for ' . $key, 'cli.message');
             chmod($key, 0750);
         }

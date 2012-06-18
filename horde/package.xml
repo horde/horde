@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-04</date>
- <time>15:06:08</time>
+ <date>2012-06-18</date>
+ <time>15:30:57</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -40,11 +40,17 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Remove support for IE 6.
 * [mms] Token protect all AJAX actions.
 * [jan] Allow to use IMAP storage for shares and groupware data without a complete Kolab server.
+* [mms] Implement growler-like notifications for smartmobile view.
 * [mms] Modified pushapp hook behavior.
 * [mms] Removed pushapp_post hook.
-* [jan] Fix setting default values for HTML signatures.
+* [mms] AJAX core features now contained within Horde_Core.
+* [mms] E-mail sending charset now defaults to UTF-8.
+* [mms] Add post-install script for the Horde application
+* [mms] Portal blocks can now load just the CSS necessary to display an application&apos;s blocks.
+* [jan] Show notifications during logging into Smartphone mode.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -196,21 +202,6 @@
      <file name="zh-CN.js" role="horde" />
      <file name="zh-TW.js" role="horde" />
     </dir> <!-- /js/date -->
-    <dir name="jquery.mobile">
-     <dir name="images">
-      <file name="ajax-loader.gif" role="horde" />
-      <file name="ajax-loader.png" role="horde" />
-      <file name="icons-18-black.png" role="horde" />
-      <file name="icons-18-white.png" role="horde" />
-      <file name="icons-36-black.png" role="horde" />
-      <file name="icons-36-white.png" role="horde" />
-     </dir> <!-- /js/jquery.mobile/images -->
-     <file name="jquery.js" role="horde" />
-     <file name="jquery.min.js" role="horde" />
-     <file name="jquery.mobile.js" role="horde" />
-     <file name="jquery.mobile.min.css" role="horde" />
-     <file name="jquery.mobile.min.js" role="horde" />
-    </dir> <!-- /js/jquery.mobile -->
     <dir name="map">
      <dir name="img">
       <file name="blank.gif" role="horde" />
@@ -359,55 +350,27 @@
      <file name="plupload.silverlight.xap" role="horde" />
      <file name="uploader.js" role="horde" />
     </dir> <!-- /js/plupload -->
-    <dir name="scriptaculous">
-     <file name="builder.js" role="horde" />
-     <file name="controls.js" role="horde" />
-     <file name="dragdrop.js" role="horde" />
-     <file name="effects.js" role="horde" />
-     <file name="scriptaculous.js" role="horde" />
-     <file name="slider.js" role="horde" />
-     <file name="sound.js" role="horde" />
-     <file name="unittest.js" role="horde" />
-    </dir> <!-- /js/scriptaculous -->
-    <file name="accesskeys.html" role="horde" />
-    <file name="accesskeys.js" role="horde" />
     <file name="activesyncadmin.js" role="horde" />
     <file name="activesyncprefs.js" role="horde" />
     <file name="categoryprefs.js" role="horde" />
-    <file name="colorpicker.js" role="horde" />
     <file name="contextsensitive.js" role="horde" />
-    <file name="dialog.js" role="horde" />
     <file name="dragdrop2.js" role="horde" />
     <file name="facebookclient.js" role="horde" />
-    <file name="form_assign.js" role="horde" />
     <file name="form_ghost.js" role="horde" />
-    <file name="form_helpers.js" role="horde" />
     <file name="form_sections.js" role="horde" />
-    <file name="growler-jquery.js" role="horde" />
-    <file name="growler.js" role="horde" />
-    <file name="horde-jquery.js" role="horde" />
-    <file name="horde.js" role="horde" />
     <file name="ieescguard.js" role="horde" />
-    <file name="image.js" role="horde" />
-    <file name="inplaceeditor.js" role="horde" />
     <file name="json2.js" role="horde" />
     <file name="jstorage.js" role="horde" />
-    <file name="keynavlist.js" role="horde" />
     <file name="login.js" role="horde" />
     <file name="logintasks.js" role="horde" />
     <file name="md5.js" role="horde" />
-    <file name="popup.js" role="horde" />
     <file name="problem.js" role="horde" />
-    <file name="prototype.js" role="horde" />
     <file name="quickfinder.js" role="horde" />
-    <file name="redbox.js" role="horde" />
     <file name="rpcprefs.js" role="horde" />
     <file name="sidebar.js" role="horde" />
     <file name="slider2.js" role="horde" />
-    <file name="sorter.js" role="horde" />
     <file name="stripe.js" role="horde" />
     <file name="syncmlprefs.js" role="horde" />
-    <file name="tables.js" role="horde" />
     <file name="textarearesize.js" role="horde" />
     <file name="twitterclient.js" role="horde" />
     <file name="userupdate.js" role="horde" />
@@ -883,7 +846,6 @@
     <dir name="common">
      <file name="footer.html.php" role="horde" />
      <file name="header.html.php" role="horde" />
-     <file name="sidebar.html.php" role="horde" />
     </dir> <!-- /templates/common -->
     <dir name="data">
      <file name="csvinfo.inc" role="horde" />
@@ -2238,45 +2200,27 @@
    <install as="TRANSLATIONS" name="docs/TRANSLATIONS" />
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="install/horde.php" name="install/horde.php" />
-   <install as="js/accesskeys.html" name="js/accesskeys.html" />
-   <install as="js/accesskeys.js" name="js/accesskeys.js" />
    <install as="js/activesyncadmin.js" name="js/activesyncadmin.js" />
    <install as="js/activesyncprefs.js" name="js/activesyncprefs.js" />
    <install as="js/categoryprefs.js" name="js/categoryprefs.js" />
-   <install as="js/colorpicker.js" name="js/colorpicker.js" />
    <install as="js/contextsensitive.js" name="js/contextsensitive.js" />
-   <install as="js/dialog.js" name="js/dialog.js" />
    <install as="js/dragdrop2.js" name="js/dragdrop2.js" />
    <install as="js/facebookclient.js" name="js/facebookclient.js" />
-   <install as="js/form_assign.js" name="js/form_assign.js" />
    <install as="js/form_ghost.js" name="js/form_ghost.js" />
-   <install as="js/form_helpers.js" name="js/form_helpers.js" />
    <install as="js/form_sections.js" name="js/form_sections.js" />
-   <install as="js/growler-jquery.js" name="js/growler-jquery.js" />
-   <install as="js/growler.js" name="js/growler.js" />
-   <install as="js/horde-jquery.js" name="js/horde-jquery.js" />
-   <install as="js/horde.js" name="js/horde.js" />
    <install as="js/ieescguard.js" name="js/ieescguard.js" />
-   <install as="js/image.js" name="js/image.js" />
-   <install as="js/inplaceeditor.js" name="js/inplaceeditor.js" />
    <install as="js/json2.js" name="js/json2.js" />
    <install as="js/jstorage.js" name="js/jstorage.js" />
-   <install as="js/keynavlist.js" name="js/keynavlist.js" />
    <install as="js/login.js" name="js/login.js" />
    <install as="js/logintasks.js" name="js/logintasks.js" />
    <install as="js/md5.js" name="js/md5.js" />
-   <install as="js/popup.js" name="js/popup.js" />
    <install as="js/problem.js" name="js/problem.js" />
-   <install as="js/prototype.js" name="js/prototype.js" />
    <install as="js/quickfinder.js" name="js/quickfinder.js" />
-   <install as="js/redbox.js" name="js/redbox.js" />
    <install as="js/rpcprefs.js" name="js/rpcprefs.js" />
    <install as="js/sidebar.js" name="js/sidebar.js" />
    <install as="js/slider2.js" name="js/slider2.js" />
-   <install as="js/sorter.js" name="js/sorter.js" />
    <install as="js/stripe.js" name="js/stripe.js" />
    <install as="js/syncmlprefs.js" name="js/syncmlprefs.js" />
-   <install as="js/tables.js" name="js/tables.js" />
    <install as="js/textarearesize.js" name="js/textarearesize.js" />
    <install as="js/twitterclient.js" name="js/twitterclient.js" />
    <install as="js/userupdate.js" name="js/userupdate.js" />
@@ -2325,17 +2269,6 @@
    <install as="js/date/uk-UA.js" name="js/date/uk-UA.js" />
    <install as="js/date/zh-CN.js" name="js/date/zh-CN.js" />
    <install as="js/date/zh-TW.js" name="js/date/zh-TW.js" />
-   <install as="js/jquery.mobile/jquery.js" name="js/jquery.mobile/jquery.js" />
-   <install as="js/jquery.mobile/jquery.min.js" name="js/jquery.mobile/jquery.min.js" />
-   <install as="js/jquery.mobile/jquery.mobile.js" name="js/jquery.mobile/jquery.mobile.js" />
-   <install as="js/jquery.mobile/jquery.mobile.min.css" name="js/jquery.mobile/jquery.mobile.min.css" />
-   <install as="js/jquery.mobile/jquery.mobile.min.js" name="js/jquery.mobile/jquery.mobile.min.js" />
-   <install as="js/jquery.mobile/images/ajax-loader.gif" name="js/jquery.mobile/images/ajax-loader.gif" />
-   <install as="js/jquery.mobile/images/ajax-loader.png" name="js/jquery.mobile/images/ajax-loader.png" />
-   <install as="js/jquery.mobile/images/icons-18-black.png" name="js/jquery.mobile/images/icons-18-black.png" />
-   <install as="js/jquery.mobile/images/icons-18-white.png" name="js/jquery.mobile/images/icons-18-white.png" />
-   <install as="js/jquery.mobile/images/icons-36-black.png" name="js/jquery.mobile/images/icons-36-black.png" />
-   <install as="js/jquery.mobile/images/icons-36-white.png" name="js/jquery.mobile/images/icons-36-white.png" />
    <install as="js/map/bing.js" name="js/map/bing.js" />
    <install as="js/map/cloudmade.js" name="js/map/cloudmade.js" />
    <install as="js/map/google.js" name="js/map/google.js" />
@@ -2705,7 +2638,6 @@
    <install as="templates/block/twitter_tweet.html.php" name="templates/block/twitter_tweet.html.php" />
    <install as="templates/common/footer.html.php" name="templates/common/footer.html.php" />
    <install as="templates/common/header.html.php" name="templates/common/header.html.php" />
-   <install as="templates/common/sidebar.html.php" name="templates/common/sidebar.html.php" />
    <install as="templates/data/csvinfo.inc" name="templates/data/csvinfo.inc" />
    <install as="templates/data/csvmap.inc" name="templates/data/csvmap.inc" />
    <install as="templates/data/date.inc" name="templates/data/date.inc" />
@@ -3919,7 +3851,8 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update Turkish translation (İstanbul Technical University).
+* [jan] Fix setting permissions on static/ directory with horde-set-perms (Bug #11219).
    </notes>
   </release>
  </changelog>

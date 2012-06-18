@@ -2,6 +2,7 @@
 v6.0-git
 --------
 
+[mms] Add 'reply_strip_sig' preference (Request #11056).
 [mms] Move attachment strip icon to MIME part tree display.
 [mms] Convert dynamic view to Horde_View.
 [mms] Convert minimal view to Horde_View.
@@ -80,6 +81,7 @@ v6.0-git
 v5.0.22-git
 -----------
 
+[jan] Update Turkish translation (İstanbul Technical University).
 [jan] Re-add option to report messages as spam/ham through redirection.
 [jan] Update Swedish translation (Jakob Alvermark
       <jakob.alvermark@bsdlabs.com>).

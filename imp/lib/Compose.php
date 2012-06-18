@@ -2836,6 +2836,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _getMessageText($contents, array $options = array())
     {
+        global $conf, $injector, $prefs, $session;
+
         $body_id = null;
         $mode = 'text';
         $options = array_merge(array(
@@ -2843,7 +2845,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         ), $options);
 
         if (!empty($options['html']) &&
-            $GLOBALS['session']->get('imp', 'rteavail') &&
+            $session->get('imp', 'rteavail') &&
             (($body_id = $contents->findBody('html')) !== null)) {
             $mime_message = $contents->getMIMEMessage();
 
@@ -2882,15 +2884,15 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         /* Enforce reply limits. */
         if (!empty($options['replylimit']) &&
-            !empty($GLOBALS['conf']['compose']['reply_limit'])) {
-            $limit = $GLOBALS['conf']['compose']['reply_limit'];
+            !empty($conf['compose']['reply_limit'])) {
+            $limit = $conf['compose']['reply_limit'];
             if (Horde_String::length($msg) > $limit) {
                 $msg = Horde_String::substr($msg, 0, $limit) . "\n" . _("[Truncated Text]");
             }
         }
 
         if ($mode == 'html') {
-            $msg = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, array('Cleanhtml', 'Xss'), array(array('body_only' => true), array('strip_style_attributes' => false)));
+            $msg = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, array('Cleanhtml', 'Xss'), array(array('body_only' => true), array('strip_style_attributes' => false)));
 
             /* If we are replying to a related part, and this part refers
              * to local message parts, we need to move those parts into this
@@ -2903,7 +2905,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 unset($this->_metadata['related_contents']);
             }
         } elseif ($type == 'text/html') {
-            $msg = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Html2text');
+            $msg = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Html2text');
             $type = 'text/plain';
         }
 
@@ -2913,6 +2915,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $msg = trim($msg);
 
         if ($type == 'text/plain') {
+            if ($prefs->getValue('reply_strip_sig') &&
+                (($pos = strrpos($msg, "\n-- ")) !== false)) {
+                $msg = rtrim(substr($msg, 0, $pos));
+            }
+
             if ($part->getContentTypeParameter('format') == 'flowed') {
                 $flowed = new Horde_Text_Flowed($msg, 'UTF-8');
                 if (Horde_String::lower($part->getContentTypeParameter('delsp')) == 'yes') {

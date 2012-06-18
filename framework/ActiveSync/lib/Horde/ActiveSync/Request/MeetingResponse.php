@@ -52,7 +52,13 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
     const RESPONSE_TENTATIVE              = 2;
     const RESPONSE_DECLINED               = 3;
 
-
+    const STATUS_SUCCESS                  = 1;
+    // Invalid meeting response sent
+    const STATUS_INVALID_REQUEST          = 2;
+    // Invalid device state on server
+    const STATUS_STATE_ERROR              = 3;
+    // Meeting not found or canceled.
+    const STATUS_SERVER_ERROR             = 4;
     /**
      * Handle request
      *
@@ -105,10 +111,13 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
         foreach ($requests as $req) {
             try {
                 $uid = $this->_driver->meetingResponse($req);
-                $status = 1;
+                $status = self::STATUS_SUCCESS;
+            } catch (Horde_Exception_NotFound $e) {
+                $status = self::STATUS_SERVER_ERROR;
             } catch (Horde_ActiveSync_Exception $e) {
-                $staus = 2;
+                $status = self::STATUS_INVALID_REQUEST;
             }
+
             $this->_encoder->startTag(self::MEETINGRESPONSE_RESULT);
             $this->_encoder->startTag(self::MEETINGRESPONSE_REQUESTID);
             $this->_encoder->content($req['requestid']);
@@ -116,7 +125,7 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
             $this->_encoder->startTag(self::MEETINGRESPONSE_STATUS);
             $this->_encoder->content($status);
             $this->_encoder->endTag();
-            if ($status == 1) {
+            if ($status == self::STATUS_SUCCESS) {
                 $this->_encoder->startTag(self::MEETINGRESPONSE_CALENDARID);
                 $this->_encoder->content($uid);
                 $this->_encoder->endTag();

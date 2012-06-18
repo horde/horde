@@ -602,17 +602,9 @@ $prefGroups['reply'] = array(
     'label' => _("Replies"),
     'desc' => _("Configure how you reply to mail."),
     'members' => array(
-        'reply_quote', 'reply_format', 'reply_charset', 'reply_headers',
-        'attrib_text'
+        'reply_format', 'reply_charset', 'reply_headers', 'reply_quote',
+        'attrib_text', 'reply_strip_sig'
     )
-);
-
-// Should the original message be included?
-$_prefs['reply_quote'] = array(
-    'value' => 1,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("Include original message in a reply?")
 );
 
 // When replying to a message, should we use the same format as the
@@ -640,12 +632,29 @@ $_prefs['reply_headers'] = array(
     'type' => 'checkbox'
 );
 
+// Should the original message be included?
+$_prefs['reply_quote'] = array(
+    'value' => 1,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Include original message in a reply?")
+);
+
 // How should we attribute quoted lines in a reply
 $_prefs['attrib_text'] = array(
     'value' => _("Quoting %f:"),
+    'advanced' => true,
     'type' => 'text',
     'desc' => _("How to attribute quoted lines in a reply"),
     'help' => 'prefs-attrib_text'
+);
+
+// Strip the sender's signature from plaintext replies?
+$_prefs['reply_strip_sig'] = array(
+    'desc' => _("Strip the sender's signature from plaintext replies?"),
+    'advanced' => true,
+    'value' => 0,
+    'type' => 'checkbox'
 );
 
 

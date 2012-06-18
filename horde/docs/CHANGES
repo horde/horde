@@ -21,6 +21,9 @@ v5.0-git
 v4.0.16-git
 -----------
 
+[jan] Update Turkish translation (İstanbul Technical University).
+[jan] Fix setting permissions on static/ directory with horde-set-perms (Bug
+      #11219).
 
 
 -------

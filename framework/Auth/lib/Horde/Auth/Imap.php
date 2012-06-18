@@ -166,7 +166,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
             );
 
             try {
-                $this->_ob[$sig] = Horde_Imap_Client::factory('Socket', $imap_config);
+                $this->_ob[$sig] = new Horde_Imap_Client_Socket($imap_config);
             } catch (InvalidArgumentException $e) {
                 throw new Horde_Auth_Exception($e);
             }

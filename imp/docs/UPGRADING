@@ -117,8 +117,8 @@ a user logs into IMP 6 for the first time)::
 The 'cursor_compose' preference removed the 'sig' option. Existing preferences
 will automatically be converted to 'bottom'.
 
-The 'add_printedby', 'image_replacement_addrs', and 'reply_charset'
-preferences were added.
+The 'add_printedby', 'image_replacement_addrs', 'reply_charset', and
+'reply_strip_sig' preferences were added.
 
 The 'forward_default' preference now contains the 'editasnew' option.
 
