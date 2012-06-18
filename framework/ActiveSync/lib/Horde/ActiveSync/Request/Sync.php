@@ -90,17 +90,18 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         $this->_statusCode = self::STATUS_SUCCESS;
         $partial = false;
 
+        try {
+            $this->_syncCache = $this->_stateDriver->getSyncCache(
+                $this->_device->id, $this->_device->user);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_statusCode = self::STATUS_SERVERERROR;
+            $this->_handleGlobalSynError();
+            return true;
+        }
+
         // Start decoding request
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
             if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
-                try {
-                    $this->_syncCache = $this->_stateDriver->getSyncCache(
-                        $this->_device->id, $this->_device->user);
-                } catch (Horde_ActiveSync_Exception $e) {
-                    $this->_statusCode = self::STATUS_SERVERERROR;
-                    $this->_handleGlobalSynError();
-                    return true;
-                }
                 if (empty($this->_syncCache['collections'])) {
                     $this->_logger->err(
                         'Empty SYNC request but no SyncCache or SyncCache with no collections.');
@@ -145,7 +146,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         } else {
             // Non-empty SYNC request. Either < 12.1 or a full 12.1 reqeust.
             if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
-                $this->_syncCache = $this->_stateDriver->getSyncCache($this->_device->id, $this->_device->user);
                 $this->_syncCache['wait'] = false;
                 $this->_syncCache['hbinterval'] = false;
             }
@@ -385,7 +385,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     }
                 }
                 unset($tempSyncCache);
-            } elseif ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
+            } else {
                 // We received a full sync so don't look for missing collections
                 // since device only knows the synckeys that it is sending now.
                 $this->_syncCache['confirmed_synckeys'] = array();
@@ -400,10 +400,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             // Update the sync_cache
-            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
-                foreach ($this->_collections as $value) {
-                    $this->_updateSyncCacheCollection($value);
-                }
+            foreach ($this->_collections as $value) {
+                $this->_updateSyncCacheCollection($value);
             }
 
             // End SYNC tag.
@@ -415,22 +413,20 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             // In case some synckeys didn't get confirmed by device we issue a full sync
-            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
-                if (count($this->_syncCache['confirmed_synckeys']) > 0) {
-                    $this->_logger->debug(sprintf(
-                        'Confirmed Synckeys contains %s',
-                        print_r($this->_syncCache['confirmed_synckeys'], true))
-                    );
-                    $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
-                    unset($this->_syncCache['confirmed_synckeys']);
-                    $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
-                    $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
-                    $this->_handleGlobalSyncError();
-                    return true;
-                } else {
-                    $this->_logger->debug('All synckeys confirmed. Continuing with SYNC');
-                    $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
-                }
+            if (count($this->_syncCache['confirmed_synckeys']) > 0) {
+                $this->_logger->debug(sprintf(
+                    'Confirmed Synckeys contains %s',
+                    print_r($this->_syncCache['confirmed_synckeys'], true))
+                );
+                $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
+                unset($this->_syncCache['confirmed_synckeys']);
+                $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
+                $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
+                $this->_handleGlobalSyncError();
+                return true;
+            } else {
+                $this->_logger->debug('All synckeys confirmed. Continuing with SYNC');
+                $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
             }
         } // End of non-empty SYNC request.
 
@@ -775,16 +771,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     }
 
                     // Do we need to add the new synckey to the syncCache?
-                    if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
-                        if (trim($collection['newsynckey']) != trim($collection['synckey'])) {
-                            $this->_syncCache['confirmed_synckeys'][$collection['newsynckey']] = true;
-                        }
-                        $this->_updateSyncCacheCollection(
-                            $collection,
-                            $collection['newsynckey'],
-                            true
-                        );
+                    if (trim($collection['newsynckey']) != trim($collection['synckey'])) {
+                        $this->_syncCache['confirmed_synckeys'][$collection['newsynckey']] = true;
                     }
+                    $this->_updateSyncCacheCollection(
+                        $collection,
+                        $collection['newsynckey'],
+                        true
+                    );
                 }
             }
             $this->_encoder->endTag();
