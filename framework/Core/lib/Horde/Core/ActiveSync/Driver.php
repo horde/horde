@@ -1617,6 +1617,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $this->_imap->appendMessage($sf, $msg, $flags);
         }
 
+        // Delete the original request. EAS Specs require this. Most clients
+        // will remove the email from the UI as soon as the response is sent.
+        // Failure to remove it from the server will result in an inconsistent
+        // sync state.
+        $this->_logger->debug('Deleting');
+        $this->_imap->deleteMessages(array($response['requestid']), $response['folderid']);
+
         return $uid;
     }
 
