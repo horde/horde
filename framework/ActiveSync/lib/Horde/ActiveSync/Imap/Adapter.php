@@ -910,13 +910,17 @@ class Horde_ActiveSync_Imap_Adapter
 
         // Check for special message types.
         $part = $imap_message->getStructure();
-        if ($part->getType() == 'multipart/report' &&
-            $part->getContentTypeParameter('report-type') == 'delivery-status') {
-
-            $lines = explode(chr(13), $imap_message->getBodyPart(2, array('decode' => true)));
-            foreach ($lines as $line) {
-                if (strpos(trim($line), 'Action:') === 0) {
-                    switch (trim(substr(trim($line), 7))) {
+        if ($part->getType() == 'multipart/report') {
+            $ids = array_keys($imap_message->contentTypeMap());
+            reset($ids);
+            $part1_id = next($ids);
+            $part2_id = Horde_Mime::mimeIdArithmetic($part1_id, 'next');
+            $lines = explode(chr(13), $imap_message->getBodyPart($part2_id, array('decode' => true)));
+            switch ($part->getContentTypeParameter('report-type')) {
+            case 'delivery-status':
+                foreach ($lines as $line) {
+                    if (strpos(trim($line), 'Action:') === 0) {
+                        switch (trim(substr(trim($line), 7))) {
                         case 'failed':
                             $eas_message->messageclass = 'REPORT.IPM.NOTE.NDR';
                             break 2;
@@ -926,6 +930,19 @@ class Horde_ActiveSync_Imap_Adapter
                         case 'delivered':
                             $eas_message->messageclass = 'REPORT.IPM.NOTE.DR';
                             break 2;
+                        }
+                    }
+                }
+                break;
+            case 'disposition-notification':
+                foreach ($lines as $line) {
+                    if (strpos(trim($line), 'Disposition:') === 0) {
+                        if (strpos($line, 'displayed') !== false) {
+                            $eas_message->messageclass = 'REPORT.IPM.NOTE.IPNRN';
+                        } elseif (strpos($line, 'deleted') !== false) {
+                            $eas_message->messageclass = 'REPORT.IPM.NOTE.IPNNRN';
+                        }
+                        break;
                     }
                 }
             }
