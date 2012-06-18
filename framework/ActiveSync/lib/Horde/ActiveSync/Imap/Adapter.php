@@ -908,6 +908,29 @@ class Horde_ActiveSync_Imap_Adapter
             }
         }
 
+        // Check for special message types.
+        $part = $imap_message->getStructure();
+        if ($part->getType() == 'multipart/report' &&
+            $part->getContentTypeParameter('report-type') == 'delivery-status') {
+
+            $lines = explode(chr(13), $imap_message->getBodyPart(2, array('decode' => true)));
+            foreach ($lines as $line) {
+                if (strpos(trim($line), 'Action:') === 0) {
+                    switch (trim(substr(trim($line), 7))) {
+                        case 'failed':
+                            $eas_message->messageclass = 'REPORT.IPM.NOTE.NDR';
+                            break 2;
+                        case 'delayed':
+                            $eas_message->messageclass = 'REPORT.IPM.NOTE.DELAYED';
+                            break 2;
+                        case 'delivered':
+                            $eas_message->messageclass = 'REPORT.IPM.NOTE.DR';
+                            break 2;
+                    }
+                }
+            }
+        }
+
         // Check for meeting requests.
         $eas_message->contentclass = 'urn:content-classes:message';
         if ($mime_part = $imap_message->hasiCalendar()) {
