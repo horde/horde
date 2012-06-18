@@ -1589,20 +1589,17 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $resource
         );
         $itip_handler = new Horde_Itip($itip_response);
-
+        $options = new Horde_Itip_Response_Options_Horde(
+            'UTF-8',
+            array(
+                'dns' => $GLOBALS['injector']->getInstance('Net_DNS2_Resolver'),
+                'server' => $GLOBALS['conf']['server']['name']
+            )
+        );
         try {
             // Send the response email
             $itip_handler->sendMultiPartResponse(
-                $type,
-                new Horde_Itip_Response_Options_Horde(
-                    'UTF-8',
-                    array(
-                        'dns' => $GLOBALS['injector']->getInstance('Net_DNS2_Resolver'),
-                        'server' => $GLOBALS['conf']['server']['name']
-                    )
-                ),
-                $GLOBALS['injector']->getInstance('Horde_Mail')
-            );
+                $type, $options, $GLOBALS['injector']->getInstance('Horde_Mail'));
             $this->_logger->debug('Successfully sent iTip response.');
         } catch (Horde_Itip_Exception $e) {
             $this->_logger->err($e->getMessage());
