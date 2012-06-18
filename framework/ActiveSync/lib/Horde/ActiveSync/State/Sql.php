@@ -354,16 +354,14 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * to break out state handling into different classes based on the command
      * being run (Horde_ActiveSync_State_Sync, *_FolderSync, *_Ping etc...);
      *
-     *  @TODO: Deal with PIM generated folder changes (mail only)
-     *
      * @param string $type      The type of change (change, delete, flags or
      *                          foldersync)
      * @param array $change     A stat/change hash describing the change.
      *  Contains:
-     *    'id'      - The message uid the change applies to
-     *    'parent'  - The parent of the message, normally the folder id.
-     *    'flags'   - If this is a flag change, the state of the read flag.
-     *    'mod'     - The modtime of this change for collections that use it.
+     *    - id:      The message uid the change applies to
+     *    - parent:  The parent of the message, normally the folder id.
+     *    - flags:   If this is a flag change, the state of the read flag.
+     *    - mod:     The modtime of this change for collections that use it.
      *
      * @param integer $origin   Flag to indicate the origin of the change.
      *  Either:
@@ -1314,8 +1312,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * Save the provided sync_cache.
      *
      * @param array $cache  The cache to save.
-     * @TODO: Need to add parameter to indicate if this is an in-memory
-     * save only or save to storage??
      *
      * @throws Horde_ActiveSync_Exception
      */
@@ -1468,8 +1464,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * PIM generated changes for this sync period.
      *
      * @param string $class  The collection class to check for.
-     *
-     * @TODO: Optimize to only check for changes in a specific collection.
      *
      * @return boolean
      * @throws Horde_ActiveSync_Exception

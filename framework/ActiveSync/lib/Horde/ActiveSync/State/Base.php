@@ -185,7 +185,6 @@ abstract class Horde_ActiveSync_State_Base
      */
     public function getPolicyKey($devId)
     {
-        //@TODO - combine _devId and _deviceInfo
         /* See if we have it already */
         if (empty($this->_deviceInfo) || $this->_devId != $devId) {
             throw new Horde_ActiveSync_Exception('Device not loaded.');
@@ -203,7 +202,6 @@ abstract class Horde_ActiveSync_State_Base
      */
     public function getDeviceRWStatus($devId)
     {
-        //@TODO - combine _devId and _deviceInfo
         /* See if we have it already */
         if (empty($this->_deviceInfo) || $this->_devId != $devId) {
             throw new Horde_ActiveSync_Exception('Device not loaded.');

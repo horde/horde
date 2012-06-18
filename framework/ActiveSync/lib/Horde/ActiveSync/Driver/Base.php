@@ -505,7 +505,14 @@ abstract class Horde_ActiveSync_Driver_Base
     abstract public function itemOperationsGetAttachmentData($filereference);
 
     /**
-     * @TODO
+     * Returnmail object represented by the specified longid. Used to fetch
+     * email objects from a search result, which only returns a 'longid'.
+     *
+     * @param string $longid   The unique search result identifier.
+     * @param array $bodypref  The bodypreference array.
+     * @param boolean $mime    Mimesupport flag.
+     *
+     * @return Horde_ActiveSync_Message_Base  The message requested.
      */
     abstract public function itemOperationsFetchMailbox($searchlongid, array $bodypreference, $mimesupport);
 

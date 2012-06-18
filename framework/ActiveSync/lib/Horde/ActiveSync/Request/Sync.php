@@ -33,11 +33,6 @@
  * @copyright 2009-2012 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
- *
- *
- * @TODO: _handleError methods
- * @TODO: figure out how to return from _handle with error
- * @TODO: SYNC_SUPPORTED not allowed in 12.1????
  */
 class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 {
