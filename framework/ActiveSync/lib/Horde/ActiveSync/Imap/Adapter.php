@@ -913,14 +913,17 @@ class Horde_ActiveSync_Imap_Adapter
         if ($mime_part = $imap_message->hasiCalendar()) {
             $data = $mime_part->getContents();
             $vCal = new Horde_Icalendar();
-            if ($vCal->parsevCalendar($data, 'VCALENDAR', $mime_part->getCharset()) &&
-                $vCal->getAttribute('METHOD') == 'REQUEST') {
-
-                $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
-                $mtg = new Horde_ActiveSync_Message_MeetingRequest();
-                $mtg->fromvEvent($vCal);
-                $eas_message->meetingrequest = $mtg;
-                $eas_message->contentclass = 'urn:content-classes:calendarmessage';
+            if ($vCal->parsevCalendar($data, 'VCALENDAR', $mime_part->getCharset())) {
+                switch ($vCal->getAttribute('METHOD')) {
+                case 'REQUEST':
+                case 'PUBLISH':
+                    $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
+                    $mtg = new Horde_ActiveSync_Message_MeetingRequest();
+                    $mtg->fromvEvent($vCal);
+                    $eas_message->meetingrequest = $mtg;
+                    $eas_message->contentclass = 'urn:content-classes:calendarmessage';
+                    break;
+                }
             }
         }
 

@@ -103,7 +103,9 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
     protected function _vEvent($vevent, $id, $method = 'REQUEST')
     {
         if ($method == 'REQUEST') {
-            $this->responserequested = true;
+            $this->responserequested = '1';
+        } else {
+            $this->responserequested = '0';
         }
         try {
             $organizer = parse_url($vevent->getAttribute('ORGANIZER'));
