@@ -1520,6 +1520,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         // First thing we need is to obtain the meeting request.
         $imap_message = $this->_imap->getImapMessage($response['folderid'], $response['requestid']);
+        if (empty($imap_message)) {
+            throw new Horde_Exception_NotFound();
+        }
         $imap_message = $imap_message[$response['requestid']];
 
         // Find the request
