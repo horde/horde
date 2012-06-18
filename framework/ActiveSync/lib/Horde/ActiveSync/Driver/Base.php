@@ -304,17 +304,6 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Specifies if this driver has an alternate way of checking for changes
-     * when PING is used.
-     *
-     * @return boolean
-     */
-    public function alterPing()
-    {
-        return false;
-    }
-
-    /**
      * Add default truncation values for this driver.
      *
      * @param array $bodyprefs  BODYPREFERENCE data.
