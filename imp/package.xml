@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-06-18</date>
- <time>15:30:36</time>
+ <time>15:34:56</time>
  <version>
   <release>6.0.0</release>
   <api>6.0.0</api>
@@ -273,9 +273,6 @@
     <dir name="Mbox">
      <file name="Parse.php" role="horde" />
     </dir> <!-- /lib/Mbox -->
-    <dir name="Menu">
-     <file name="Dimp.php" role="horde" />
-    </dir> <!-- /lib/Menu -->
     <dir name="Mime">
      <dir name="Viewer">
       <file name="Alternative.php" role="horde" />
@@ -877,15 +874,6 @@
     </dir> <!-- /test/Imp -->
    </dir> <!-- /test -->
    <dir name="themes">
-    <dir name="bluewhite">
-     <dir name="basic">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/bluewhite/basic -->
-     <dir name="dynamic">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/bluewhite/dynamic -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/bluewhite -->
     <dir name="default">
      <dir name="basic">
       <file name="screen.css" role="horde" />
@@ -937,10 +925,6 @@
       <file name="arrow_expanded.png" role="horde" />
       <file name="arrow_up.png" role="horde" />
       <file name="attachment.png" role="horde" />
-      <file name="backhead_orderby.png" role="horde" />
-      <file name="backhead_r.png" role="horde" />
-      <file name="backhead_s2.png" role="horde" />
-      <file name="backhead_shadow.png" role="horde" />
       <file name="blacklist.png" role="horde" />
       <file name="calendar.png" role="horde" />
       <file name="checkbox_off.png" role="horde" />
@@ -952,8 +936,6 @@
       <file name="delete.png" role="horde" />
       <file name="download.png" role="horde" />
       <file name="drafts.png" role="horde" />
-      <file name="dragHandle.png" role="horde" />
-      <file name="dragHandleVert.png" role="horde" />
       <file name="edit.png" role="horde" />
       <file name="email_attach.png" role="horde" />
       <file name="empty_spam.png" role="horde" />
@@ -1027,157 +1009,7 @@
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="silver">
-     <dir name="basic">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/silver/basic -->
-     <dir name="dynamic">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/silver/dynamic -->
-     <dir name="graphics">
-      <dir name="folders">
-       <file name="create.png" role="horde" />
-       <file name="delete.png" role="horde" />
-       <file name="drafts.png" role="horde" />
-       <file name="edit.png" role="horde" />
-       <file name="explore.png" role="horde" />
-       <file name="folder.png" role="horde" />
-       <file name="inbox.png" role="horde" />
-       <file name="minus.png" role="horde" />
-       <file name="open.png" role="horde" />
-       <file name="options.png" role="horde" />
-       <file name="plus.png" role="horde" />
-       <file name="sent.png" role="horde" />
-       <file name="spam.png" role="horde" />
-       <file name="trash.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/folders -->
-      <dir name="mime">
-       <file name="compressed.png" role="horde" />
-       <file name="itip.php" role="horde" />
-      </dir> <!-- /themes/silver/graphics/mime -->
-      <dir name="nav">
-       <file name="first-grey.png" role="horde" />
-       <file name="first.png" role="horde" />
-       <file name="last-grey.png" role="horde" />
-       <file name="last.png" role="horde" />
-       <file name="left-grey.png" role="horde" />
-       <file name="left.png" role="horde" />
-       <file name="right-grey.png" role="horde" />
-       <file name="right.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/nav -->
-      <file name="addressbook_add.png" role="horde" />
-      <file name="addressbook_browse.png" role="horde" />
-      <file name="add_contact.png" role="horde" />
-      <file name="application_tile_horizontal.png" role="horde" />
-      <file name="application_tile_vertical.png" role="horde" />
-      <file name="arrow_collapsed.png" role="horde" />
-      <file name="arrow_down.png" role="horde" />
-      <file name="arrow_expanded.png" role="horde" />
-      <file name="arrow_up.png" role="horde" />
-      <file name="attachment.png" role="horde" />
-      <file name="blacklist.png" role="horde" />
-      <file name="calendar.png" role="horde" />
-      <file name="checkmail.png" role="horde" />
-      <file name="close.png" role="horde" />
-      <file name="compose.png" role="horde" />
-      <file name="delete.png" role="horde" />
-      <file name="download.png" role="horde" />
-      <file name="drafts.png" role="horde" />
-      <file name="edit.png" role="horde" />
-      <file name="email_attach.png" role="horde" />
-      <file name="empty_spam.png" role="horde" />
-      <file name="empty_trash.png" role="horde" />
-      <file name="encrypted.png" role="horde" />
-      <file name="fetchmail.png" role="horde" />
-      <file name="filters.png" role="horde" />
-      <file name="forward.png" role="horde" />
-      <file name="group.png" role="horde" />
-      <file name="help.png" role="horde" />
-      <file name="imp.png" role="horde" />
-      <file name="info_icon.png" role="horde" />
-      <file name="innocent.png" role="horde" />
-      <file name="locked.png" role="horde" />
-      <file name="logout.png" role="horde" />
-      <file name="mail_answered.png" role="horde" />
-      <file name="mail_clearflag.png" role="horde" />
-      <file name="mail_deleted.png" role="horde" />
-      <file name="mail_draft.png" role="horde" />
-      <file name="mail_flagged.png" role="horde" />
-      <file name="mail_forwarded.png" role="horde" />
-      <file name="mail_personal.png" role="horde" />
-      <file name="mail_priority_high.png" role="horde" />
-      <file name="mail_priority_low.png" role="horde" />
-      <file name="mail_seen.png" role="horde" />
-      <file name="mail_unseen.png" role="horde" />
-      <file name="message_source.png" role="horde" />
-      <file name="newmail.png" role="horde" />
-      <file name="newwin.png" role="horde" />
-      <file name="plus.png" role="horde" />
-      <file name="popdown.png" role="horde" />
-      <file name="prefs.png" role="horde" />
-      <file name="preview.png" role="horde" />
-      <file name="print.png" role="horde" />
-      <file name="reload.png" role="horde" />
-      <file name="reply.png" role="horde" />
-      <file name="replyall.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="shared.png" role="horde" />
-      <file name="signed.png" role="horde" />
-      <file name="sortdown.png" role="horde" />
-      <file name="sortup.png" role="horde" />
-      <file name="spam.png" role="horde" />
-      <file name="spellcheck.png" role="horde" />
-      <file name="undelete.png" role="horde" />
-      <file name="warning.png" role="horde" />
-      <file name="whitelist.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-    <dir name="tango-blue">
-     <dir name="basic">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/tango-blue/basic -->
-     <dir name="dynamic">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/tango-blue/dynamic -->
-     <dir name="graphics">
-      <dir name="folders">
-       <file name="drafts.png" role="horde" />
-       <file name="folder.png" role="horde" />
-       <file name="inbox.png" role="horde" />
-       <file name="open.png" role="horde" />
-       <file name="sent.png" role="horde" />
-       <file name="spam.png" role="horde" />
-       <file name="trash.png" role="horde" />
-      </dir> <!-- /themes/tango-blue/graphics/folders -->
-      <file name="addressbook_browse.png" role="horde" />
-      <file name="attachment.png" role="horde" />
-      <file name="calendar.png" role="horde" />
-      <file name="close.png" role="horde" />
-      <file name="compose.png" role="horde" />
-      <file name="empty_trash.png" role="horde" />
-      <file name="encrypted.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="fetchmail.png" role="horde" />
-      <file name="filters.png" role="horde" />
-      <file name="imp.png" role="horde" />
-      <file name="mail_answered.png" role="horde" />
-      <file name="mail_deleted.png" role="horde" />
-      <file name="mail_draft.png" role="horde" />
-      <file name="mail_flagged.png" role="horde" />
-      <file name="mail_personal.png" role="horde" />
-      <file name="mail_priority_high.png" role="horde" />
-      <file name="mail_priority_low.png" role="horde" />
-      <file name="mail_unseen.png" role="horde" />
-      <file name="newmail.png" role="horde" />
-      <file name="reload.png" role="horde" />
-      <file name="shared.png" role="horde" />
-      <file name="signed.png" role="horde" />
-      <file name="spellcheck.png" role="horde" />
-     </dir> <!-- /themes/tango-blue/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/tango-blue -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="attachment.php" role="horde" />
    <file name="compose.php" role="horde" />
    <file name="contacts.php" role="horde" />
@@ -1619,7 +1451,6 @@
    <install as="imp/lib/Mailbox/List/Thread.php" name="lib/Mailbox/List/Thread.php" />
    <install as="imp/lib/Mailbox/List/Track.php" name="lib/Mailbox/List/Track.php" />
    <install as="imp/lib/Mbox/Parse.php" name="lib/Mbox/Parse.php" />
-   <install as="imp/lib/Menu/Dimp.php" name="lib/Menu/Dimp.php" />
    <install as="imp/lib/Mime/Status.php" name="lib/Mime/Status.php" />
    <install as="imp/lib/Mime/Viewer/Alternative.php" name="lib/Mime/Viewer/Alternative.php" />
    <install as="imp/lib/Mime/Viewer/Appledouble.php" name="lib/Mime/Viewer/Appledouble.php" />
@@ -1922,9 +1753,6 @@
    <install as="Imp/Unit/QuotaTest.php" name="test/Imp/Unit/QuotaTest.php" />
    <install as="Imp/Unit/Mime/Viewer/HtmlTest.php" name="test/Imp/Unit/Mime/Viewer/HtmlTest.php" />
    <install as="Imp/Unit/Mime/Viewer/ItipTest.php" name="test/Imp/Unit/Mime/Viewer/ItipTest.php" />
-   <install as="imp/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
-   <install as="imp/themes/bluewhite/basic/screen.css" name="themes/bluewhite/basic/screen.css" />
-   <install as="imp/themes/bluewhite/dynamic/screen.css" name="themes/bluewhite/dynamic/screen.css" />
    <install as="imp/themes/default/ie7.css" name="themes/default/ie7.css" />
    <install as="imp/themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="imp/themes/default/screen.css" name="themes/default/screen.css" />
@@ -1942,10 +1770,6 @@
    <install as="imp/themes/default/graphics/arrow_expanded.png" name="themes/default/graphics/arrow_expanded.png" />
    <install as="imp/themes/default/graphics/arrow_up.png" name="themes/default/graphics/arrow_up.png" />
    <install as="imp/themes/default/graphics/attachment.png" name="themes/default/graphics/attachment.png" />
-   <install as="imp/themes/default/graphics/backhead_orderby.png" name="themes/default/graphics/backhead_orderby.png" />
-   <install as="imp/themes/default/graphics/backhead_r.png" name="themes/default/graphics/backhead_r.png" />
-   <install as="imp/themes/default/graphics/backhead_s2.png" name="themes/default/graphics/backhead_s2.png" />
-   <install as="imp/themes/default/graphics/backhead_shadow.png" name="themes/default/graphics/backhead_shadow.png" />
    <install as="imp/themes/default/graphics/blacklist.png" name="themes/default/graphics/blacklist.png" />
    <install as="imp/themes/default/graphics/calendar.png" name="themes/default/graphics/calendar.png" />
    <install as="imp/themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
@@ -1957,8 +1781,6 @@
    <install as="imp/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="imp/themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
    <install as="imp/themes/default/graphics/drafts.png" name="themes/default/graphics/drafts.png" />
-   <install as="imp/themes/default/graphics/dragHandle.png" name="themes/default/graphics/dragHandle.png" />
-   <install as="imp/themes/default/graphics/dragHandleVert.png" name="themes/default/graphics/dragHandleVert.png" />
    <install as="imp/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="imp/themes/default/graphics/email_attach.png" name="themes/default/graphics/email_attach.png" />
    <install as="imp/themes/default/graphics/empty_spam.png" name="themes/default/graphics/empty_spam.png" />
@@ -2046,132 +1868,6 @@
    <install as="imp/themes/default/graphics/nav/right.png" name="themes/default/graphics/nav/right.png" />
    <install as="imp/themes/default/minimal/screen.css" name="themes/default/minimal/screen.css" />
    <install as="imp/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
-   <install as="imp/themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="imp/themes/silver/basic/screen.css" name="themes/silver/basic/screen.css" />
-   <install as="imp/themes/silver/dynamic/screen.css" name="themes/silver/dynamic/screen.css" />
-   <install as="imp/themes/silver/graphics/addressbook_add.png" name="themes/silver/graphics/addressbook_add.png" />
-   <install as="imp/themes/silver/graphics/addressbook_browse.png" name="themes/silver/graphics/addressbook_browse.png" />
-   <install as="imp/themes/silver/graphics/add_contact.png" name="themes/silver/graphics/add_contact.png" />
-   <install as="imp/themes/silver/graphics/application_tile_horizontal.png" name="themes/silver/graphics/application_tile_horizontal.png" />
-   <install as="imp/themes/silver/graphics/application_tile_vertical.png" name="themes/silver/graphics/application_tile_vertical.png" />
-   <install as="imp/themes/silver/graphics/arrow_collapsed.png" name="themes/silver/graphics/arrow_collapsed.png" />
-   <install as="imp/themes/silver/graphics/arrow_down.png" name="themes/silver/graphics/arrow_down.png" />
-   <install as="imp/themes/silver/graphics/arrow_expanded.png" name="themes/silver/graphics/arrow_expanded.png" />
-   <install as="imp/themes/silver/graphics/arrow_up.png" name="themes/silver/graphics/arrow_up.png" />
-   <install as="imp/themes/silver/graphics/attachment.png" name="themes/silver/graphics/attachment.png" />
-   <install as="imp/themes/silver/graphics/blacklist.png" name="themes/silver/graphics/blacklist.png" />
-   <install as="imp/themes/silver/graphics/calendar.png" name="themes/silver/graphics/calendar.png" />
-   <install as="imp/themes/silver/graphics/checkmail.png" name="themes/silver/graphics/checkmail.png" />
-   <install as="imp/themes/silver/graphics/close.png" name="themes/silver/graphics/close.png" />
-   <install as="imp/themes/silver/graphics/compose.png" name="themes/silver/graphics/compose.png" />
-   <install as="imp/themes/silver/graphics/delete.png" name="themes/silver/graphics/delete.png" />
-   <install as="imp/themes/silver/graphics/download.png" name="themes/silver/graphics/download.png" />
-   <install as="imp/themes/silver/graphics/drafts.png" name="themes/silver/graphics/drafts.png" />
-   <install as="imp/themes/silver/graphics/edit.png" name="themes/silver/graphics/edit.png" />
-   <install as="imp/themes/silver/graphics/email_attach.png" name="themes/silver/graphics/email_attach.png" />
-   <install as="imp/themes/silver/graphics/empty_spam.png" name="themes/silver/graphics/empty_spam.png" />
-   <install as="imp/themes/silver/graphics/empty_trash.png" name="themes/silver/graphics/empty_trash.png" />
-   <install as="imp/themes/silver/graphics/encrypted.png" name="themes/silver/graphics/encrypted.png" />
-   <install as="imp/themes/silver/graphics/fetchmail.png" name="themes/silver/graphics/fetchmail.png" />
-   <install as="imp/themes/silver/graphics/filters.png" name="themes/silver/graphics/filters.png" />
-   <install as="imp/themes/silver/graphics/forward.png" name="themes/silver/graphics/forward.png" />
-   <install as="imp/themes/silver/graphics/group.png" name="themes/silver/graphics/group.png" />
-   <install as="imp/themes/silver/graphics/help.png" name="themes/silver/graphics/help.png" />
-   <install as="imp/themes/silver/graphics/imp.png" name="themes/silver/graphics/imp.png" />
-   <install as="imp/themes/silver/graphics/info_icon.png" name="themes/silver/graphics/info_icon.png" />
-   <install as="imp/themes/silver/graphics/innocent.png" name="themes/silver/graphics/innocent.png" />
-   <install as="imp/themes/silver/graphics/locked.png" name="themes/silver/graphics/locked.png" />
-   <install as="imp/themes/silver/graphics/logout.png" name="themes/silver/graphics/logout.png" />
-   <install as="imp/themes/silver/graphics/mail_answered.png" name="themes/silver/graphics/mail_answered.png" />
-   <install as="imp/themes/silver/graphics/mail_clearflag.png" name="themes/silver/graphics/mail_clearflag.png" />
-   <install as="imp/themes/silver/graphics/mail_deleted.png" name="themes/silver/graphics/mail_deleted.png" />
-   <install as="imp/themes/silver/graphics/mail_draft.png" name="themes/silver/graphics/mail_draft.png" />
-   <install as="imp/themes/silver/graphics/mail_flagged.png" name="themes/silver/graphics/mail_flagged.png" />
-   <install as="imp/themes/silver/graphics/mail_forwarded.png" name="themes/silver/graphics/mail_forwarded.png" />
-   <install as="imp/themes/silver/graphics/mail_personal.png" name="themes/silver/graphics/mail_personal.png" />
-   <install as="imp/themes/silver/graphics/mail_priority_high.png" name="themes/silver/graphics/mail_priority_high.png" />
-   <install as="imp/themes/silver/graphics/mail_priority_low.png" name="themes/silver/graphics/mail_priority_low.png" />
-   <install as="imp/themes/silver/graphics/mail_seen.png" name="themes/silver/graphics/mail_seen.png" />
-   <install as="imp/themes/silver/graphics/mail_unseen.png" name="themes/silver/graphics/mail_unseen.png" />
-   <install as="imp/themes/silver/graphics/message_source.png" name="themes/silver/graphics/message_source.png" />
-   <install as="imp/themes/silver/graphics/newmail.png" name="themes/silver/graphics/newmail.png" />
-   <install as="imp/themes/silver/graphics/newwin.png" name="themes/silver/graphics/newwin.png" />
-   <install as="imp/themes/silver/graphics/plus.png" name="themes/silver/graphics/plus.png" />
-   <install as="imp/themes/silver/graphics/popdown.png" name="themes/silver/graphics/popdown.png" />
-   <install as="imp/themes/silver/graphics/prefs.png" name="themes/silver/graphics/prefs.png" />
-   <install as="imp/themes/silver/graphics/preview.png" name="themes/silver/graphics/preview.png" />
-   <install as="imp/themes/silver/graphics/print.png" name="themes/silver/graphics/print.png" />
-   <install as="imp/themes/silver/graphics/reload.png" name="themes/silver/graphics/reload.png" />
-   <install as="imp/themes/silver/graphics/reply.png" name="themes/silver/graphics/reply.png" />
-   <install as="imp/themes/silver/graphics/replyall.png" name="themes/silver/graphics/replyall.png" />
-   <install as="imp/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
-   <install as="imp/themes/silver/graphics/shared.png" name="themes/silver/graphics/shared.png" />
-   <install as="imp/themes/silver/graphics/signed.png" name="themes/silver/graphics/signed.png" />
-   <install as="imp/themes/silver/graphics/sortdown.png" name="themes/silver/graphics/sortdown.png" />
-   <install as="imp/themes/silver/graphics/sortup.png" name="themes/silver/graphics/sortup.png" />
-   <install as="imp/themes/silver/graphics/spam.png" name="themes/silver/graphics/spam.png" />
-   <install as="imp/themes/silver/graphics/spellcheck.png" name="themes/silver/graphics/spellcheck.png" />
-   <install as="imp/themes/silver/graphics/undelete.png" name="themes/silver/graphics/undelete.png" />
-   <install as="imp/themes/silver/graphics/warning.png" name="themes/silver/graphics/warning.png" />
-   <install as="imp/themes/silver/graphics/whitelist.png" name="themes/silver/graphics/whitelist.png" />
-   <install as="imp/themes/silver/graphics/folders/create.png" name="themes/silver/graphics/folders/create.png" />
-   <install as="imp/themes/silver/graphics/folders/delete.png" name="themes/silver/graphics/folders/delete.png" />
-   <install as="imp/themes/silver/graphics/folders/drafts.png" name="themes/silver/graphics/folders/drafts.png" />
-   <install as="imp/themes/silver/graphics/folders/edit.png" name="themes/silver/graphics/folders/edit.png" />
-   <install as="imp/themes/silver/graphics/folders/explore.png" name="themes/silver/graphics/folders/explore.png" />
-   <install as="imp/themes/silver/graphics/folders/folder.png" name="themes/silver/graphics/folders/folder.png" />
-   <install as="imp/themes/silver/graphics/folders/inbox.png" name="themes/silver/graphics/folders/inbox.png" />
-   <install as="imp/themes/silver/graphics/folders/minus.png" name="themes/silver/graphics/folders/minus.png" />
-   <install as="imp/themes/silver/graphics/folders/open.png" name="themes/silver/graphics/folders/open.png" />
-   <install as="imp/themes/silver/graphics/folders/options.png" name="themes/silver/graphics/folders/options.png" />
-   <install as="imp/themes/silver/graphics/folders/plus.png" name="themes/silver/graphics/folders/plus.png" />
-   <install as="imp/themes/silver/graphics/folders/sent.png" name="themes/silver/graphics/folders/sent.png" />
-   <install as="imp/themes/silver/graphics/folders/spam.png" name="themes/silver/graphics/folders/spam.png" />
-   <install as="imp/themes/silver/graphics/folders/trash.png" name="themes/silver/graphics/folders/trash.png" />
-   <install as="imp/themes/silver/graphics/mime/compressed.png" name="themes/silver/graphics/mime/compressed.png" />
-   <install as="imp/themes/silver/graphics/mime/itip.php" name="themes/silver/graphics/mime/itip.php" />
-   <install as="imp/themes/silver/graphics/nav/first-grey.png" name="themes/silver/graphics/nav/first-grey.png" />
-   <install as="imp/themes/silver/graphics/nav/first.png" name="themes/silver/graphics/nav/first.png" />
-   <install as="imp/themes/silver/graphics/nav/last-grey.png" name="themes/silver/graphics/nav/last-grey.png" />
-   <install as="imp/themes/silver/graphics/nav/last.png" name="themes/silver/graphics/nav/last.png" />
-   <install as="imp/themes/silver/graphics/nav/left-grey.png" name="themes/silver/graphics/nav/left-grey.png" />
-   <install as="imp/themes/silver/graphics/nav/left.png" name="themes/silver/graphics/nav/left.png" />
-   <install as="imp/themes/silver/graphics/nav/right-grey.png" name="themes/silver/graphics/nav/right-grey.png" />
-   <install as="imp/themes/silver/graphics/nav/right.png" name="themes/silver/graphics/nav/right.png" />
-   <install as="imp/themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
-   <install as="imp/themes/tango-blue/basic/screen.css" name="themes/tango-blue/basic/screen.css" />
-   <install as="imp/themes/tango-blue/dynamic/screen.css" name="themes/tango-blue/dynamic/screen.css" />
-   <install as="imp/themes/tango-blue/graphics/addressbook_browse.png" name="themes/tango-blue/graphics/addressbook_browse.png" />
-   <install as="imp/themes/tango-blue/graphics/attachment.png" name="themes/tango-blue/graphics/attachment.png" />
-   <install as="imp/themes/tango-blue/graphics/calendar.png" name="themes/tango-blue/graphics/calendar.png" />
-   <install as="imp/themes/tango-blue/graphics/close.png" name="themes/tango-blue/graphics/close.png" />
-   <install as="imp/themes/tango-blue/graphics/compose.png" name="themes/tango-blue/graphics/compose.png" />
-   <install as="imp/themes/tango-blue/graphics/empty_trash.png" name="themes/tango-blue/graphics/empty_trash.png" />
-   <install as="imp/themes/tango-blue/graphics/encrypted.png" name="themes/tango-blue/graphics/encrypted.png" />
-   <install as="imp/themes/tango-blue/graphics/favicon.ico" name="themes/tango-blue/graphics/favicon.ico" />
-   <install as="imp/themes/tango-blue/graphics/fetchmail.png" name="themes/tango-blue/graphics/fetchmail.png" />
-   <install as="imp/themes/tango-blue/graphics/filters.png" name="themes/tango-blue/graphics/filters.png" />
-   <install as="imp/themes/tango-blue/graphics/imp.png" name="themes/tango-blue/graphics/imp.png" />
-   <install as="imp/themes/tango-blue/graphics/mail_answered.png" name="themes/tango-blue/graphics/mail_answered.png" />
-   <install as="imp/themes/tango-blue/graphics/mail_deleted.png" name="themes/tango-blue/graphics/mail_deleted.png" />
-   <install as="imp/themes/tango-blue/graphics/mail_draft.png" name="themes/tango-blue/graphics/mail_draft.png" />
-   <install as="imp/themes/tango-blue/graphics/mail_flagged.png" name="themes/tango-blue/graphics/mail_flagged.png" />
-   <install as="imp/themes/tango-blue/graphics/mail_personal.png" name="themes/tango-blue/graphics/mail_personal.png" />
-   <install as="imp/themes/tango-blue/graphics/mail_priority_high.png" name="themes/tango-blue/graphics/mail_priority_high.png" />
-   <install as="imp/themes/tango-blue/graphics/mail_priority_low.png" name="themes/tango-blue/graphics/mail_priority_low.png" />
-   <install as="imp/themes/tango-blue/graphics/mail_unseen.png" name="themes/tango-blue/graphics/mail_unseen.png" />
-   <install as="imp/themes/tango-blue/graphics/newmail.png" name="themes/tango-blue/graphics/newmail.png" />
-   <install as="imp/themes/tango-blue/graphics/reload.png" name="themes/tango-blue/graphics/reload.png" />
-   <install as="imp/themes/tango-blue/graphics/shared.png" name="themes/tango-blue/graphics/shared.png" />
-   <install as="imp/themes/tango-blue/graphics/signed.png" name="themes/tango-blue/graphics/signed.png" />
-   <install as="imp/themes/tango-blue/graphics/spellcheck.png" name="themes/tango-blue/graphics/spellcheck.png" />
-   <install as="imp/themes/tango-blue/graphics/folders/drafts.png" name="themes/tango-blue/graphics/folders/drafts.png" />
-   <install as="imp/themes/tango-blue/graphics/folders/folder.png" name="themes/tango-blue/graphics/folders/folder.png" />
-   <install as="imp/themes/tango-blue/graphics/folders/inbox.png" name="themes/tango-blue/graphics/folders/inbox.png" />
-   <install as="imp/themes/tango-blue/graphics/folders/open.png" name="themes/tango-blue/graphics/folders/open.png" />
-   <install as="imp/themes/tango-blue/graphics/folders/sent.png" name="themes/tango-blue/graphics/folders/sent.png" />
-   <install as="imp/themes/tango-blue/graphics/folders/spam.png" name="themes/tango-blue/graphics/folders/spam.png" />
-   <install as="imp/themes/tango-blue/graphics/folders/trash.png" name="themes/tango-blue/graphics/folders/trash.png" />
    <install as="imp/attachment.php" name="attachment.php" />
    <install as="imp/compose.php" name="compose.php" />
    <install as="imp/contacts.php" name="contacts.php" />

@@ -29,7 +29,7 @@
   <active>yes</active>
  </lead>
  <date>2012-06-18</date>
- <time>15:30:57</time>
+ <time>15:35:10</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -425,6 +425,7 @@
      </dir> <!-- /lib/Tree/Renderer -->
     </dir> <!-- /lib/Tree -->
     <dir name="View">
+     <file name="Sidebar.php" role="horde" />
      <file name="Topbar.php" role="horde" />
     </dir> <!-- /lib/View -->
     <file name=".htaccess" role="horde" />
@@ -915,7 +916,8 @@
      <file name="edit.inc" role="horde" />
     </dir> <!-- /templates/shares -->
     <dir name="sidebar">
-     <file name="sidebar.inc" role="horde" />
+     <file name="container.html.php" role="horde" />
+     <file name="sidebar.html.php" role="horde" />
     </dir> <!-- /templates/sidebar -->
     <dir name="test">
      <file name="extensions.inc" role="horde" />
@@ -1690,6 +1692,8 @@
       <file name="az.png" role="horde" />
       <file name="blank.gif" role="horde" />
       <file name="block.png" role="horde" />
+      <file name="button-split.png" role="horde" />
+      <file name="buttonbar-bg.png" role="horde" />
       <file name="calendar.png" role="horde" />
       <file name="close.png" role="horde" />
       <file name="color-picker-cursor.gif" role="horde" />
@@ -1763,7 +1767,19 @@
       <file name="shadow.png" role="horde" />
       <file name="shell.png" role="horde" />
       <file name="show_panel.png" role="horde" />
+      <file name="sidebar-active-bg.png" role="horde" />
+      <file name="sidebar-arrow.png" role="horde" />
+      <file name="sidebar-new-bg.png" role="horde" />
+      <file name="sidebar-new.png" role="horde" />
+      <file name="sidebar-refresh.png" role="horde" />
+      <file name="sidebar-split.png" role="horde" />
+      <file name="slidehoriz-bg.png" role="horde" />
+      <file name="slidehoriz.png" role="horde" />
+      <file name="slidevert-bg.png" role="horde" />
+      <file name="slidevert.png" role="horde" />
       <file name="sql.png" role="horde" />
+      <file name="tablehead-bg.png" role="horde" />
+      <file name="tablehead-split.png" role="horde" />
       <file name="tab_bottom.gif" role="horde" />
       <file name="unlocked.png" role="horde" />
       <file name="user.png" role="horde" />
@@ -2441,6 +2457,7 @@
    <install as="lib/Prefs/Ui.php" name="lib/Prefs/Ui.php" />
    <install as="lib/tests/webroot.phpt" name="lib/tests/webroot.phpt" />
    <install as="lib/Tree/Renderer/Menu.php" name="lib/Tree/Renderer/Menu.php" />
+   <install as="lib/View/Sidebar.php" name="lib/View/Sidebar.php" />
    <install as="lib/View/Topbar.php" name="lib/View/Topbar.php" />
    <install as="locale/.htaccess" name="locale/.htaccess" />
    <install as="locale/horde.pot" name="locale/horde.pot" />
@@ -2687,7 +2704,8 @@
    <install as="templates/prefs/twitter.html" name="templates/prefs/twitter.html" />
    <install as="templates/problem/problem.inc" name="templates/problem/problem.inc" />
    <install as="templates/shares/edit.inc" name="templates/shares/edit.inc" />
-   <install as="templates/sidebar/sidebar.inc" name="templates/sidebar/sidebar.inc" />
+   <install as="templates/sidebar/container.html.php" name="templates/sidebar/container.html.php" />
+   <install as="templates/sidebar/sidebar.html.php" name="templates/sidebar/sidebar.html.php" />
    <install as="templates/test/extensions.inc" name="templates/test/extensions.inc" />
    <install as="templates/test/footer.inc" name="templates/test/footer.inc" />
    <install as="templates/test/header.inc" name="templates/test/header.inc" />
@@ -2715,6 +2733,8 @@
    <install as="themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="themes/default/graphics/blank.gif" name="themes/default/graphics/blank.gif" />
    <install as="themes/default/graphics/block.png" name="themes/default/graphics/block.png" />
+   <install as="themes/default/graphics/button-split.png" name="themes/default/graphics/button-split.png" />
+   <install as="themes/default/graphics/buttonbar-bg.png" name="themes/default/graphics/buttonbar-bg.png" />
    <install as="themes/default/graphics/calendar.png" name="themes/default/graphics/calendar.png" />
    <install as="themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
    <install as="themes/default/graphics/color-picker-cursor.gif" name="themes/default/graphics/color-picker-cursor.gif" />
@@ -2788,7 +2808,19 @@
    <install as="themes/default/graphics/shadow.png" name="themes/default/graphics/shadow.png" />
    <install as="themes/default/graphics/shell.png" name="themes/default/graphics/shell.png" />
    <install as="themes/default/graphics/show_panel.png" name="themes/default/graphics/show_panel.png" />
+   <install as="themes/default/graphics/sidebar-active-bg.png" name="themes/default/graphics/sidebar-active-bg.png" />
+   <install as="themes/default/graphics/sidebar-arrow.png" name="themes/default/graphics/sidebar-arrow.png" />
+   <install as="themes/default/graphics/sidebar-new-bg.png" name="themes/default/graphics/sidebar-new-bg.png" />
+   <install as="themes/default/graphics/sidebar-new.png" name="themes/default/graphics/sidebar-new.png" />
+   <install as="themes/default/graphics/sidebar-refresh.png" name="themes/default/graphics/sidebar-refresh.png" />
+   <install as="themes/default/graphics/sidebar-split.png" name="themes/default/graphics/sidebar-split.png" />
+   <install as="themes/default/graphics/slidehoriz-bg.png" name="themes/default/graphics/slidehoriz-bg.png" />
+   <install as="themes/default/graphics/slidehoriz.png" name="themes/default/graphics/slidehoriz.png" />
+   <install as="themes/default/graphics/slidevert-bg.png" name="themes/default/graphics/slidevert-bg.png" />
+   <install as="themes/default/graphics/slidevert.png" name="themes/default/graphics/slidevert.png" />
    <install as="themes/default/graphics/sql.png" name="themes/default/graphics/sql.png" />
+   <install as="themes/default/graphics/tablehead-bg.png" name="themes/default/graphics/tablehead-bg.png" />
+   <install as="themes/default/graphics/tablehead-split.png" name="themes/default/graphics/tablehead-split.png" />
    <install as="themes/default/graphics/tab_bottom.gif" name="themes/default/graphics/tab_bottom.gif" />
    <install as="themes/default/graphics/unlocked.png" name="themes/default/graphics/unlocked.png" />
    <install as="themes/default/graphics/user.png" name="themes/default/graphics/user.png" />
