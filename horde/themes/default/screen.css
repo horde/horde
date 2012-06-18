@@ -44,9 +44,9 @@ input[type=image] {
     background-repeat: no-repeat;
     display: -moz-inline-stack;
     display: inline-block;
-    height: 16px;
+    height: 24px;
     vertical-align: bottom;
-    width: 16px;
+    width: 24px;
 }
 
 span.hordeIcon {
@@ -1371,30 +1371,28 @@ div.GrowlerNoticeExit:hover {
     top: 0;
     left: 0;
     z-index: 10000;
-    border: 1px #d4d4d4 solid;
-    padding: 1px;
-    background: #f4f4f4;
-    color: #000;
-    font-size: 90%;
+    background-color: #eceff0;
+    border: 1px solid #919293;
+    border-bottom-width: 0;
 }
 .context a, .context a:visited {
     white-space: nowrap;
     display: block;
-    padding: 3px 2px;
+    border-bottom: 1px solid #919293;
+    padding: 5px 10px 0 0;
     text-decoration: none;
     color: #000;
 }
 .context a:hover, .context a.contextSubmenu.contextHover {
-    background-color: lightgrey !important;
-    color: #fff;
+    background-color: #c2ccd0 !important;
     cursor: pointer;
     text-decoration: none;
 }
 .context div.sep {
-    background: silver;
+    background: #919293;
     height: 1px !important;
-    margin: 1px 0;
     padding: 0;
+    margin-top: 1px;
 }
 .contextSubmenu {
     background: url("graphics/popright.png") 100% 50% no-repeat;
@@ -1406,6 +1404,7 @@ div.GrowlerNoticeExit:hover {
 }
 .contextMenu .iconImg {
     vertical-align: top;
+    margin: -5px 6px 0 10px;
 }
 
 /* Form ghosting. */
