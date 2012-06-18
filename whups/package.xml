@@ -28,9 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
-* [jan] Fix saving portal blocks.
-* [jan] Fix deleting queries (Bug #10985).
-* [jan] Fix encoding of auto-completion results (Bug #10945).
+* [jan] Add due date to ticket columns (Request #10986).
+* [jan] Make columns of portal block configurable (Request #10986).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
