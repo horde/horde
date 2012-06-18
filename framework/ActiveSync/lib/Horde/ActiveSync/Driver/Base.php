@@ -260,25 +260,19 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Delete a folder on the server.
      *
-     * @param string $parent  The parent folder.
-     * @param string $id      The folder to delete.
-     *
-     * @return boolean
-     * @throws Horde_ActiveSync_Exception
+     * @param string $id  The server's folder id.
+     * @param string $parent  The folder's parent, if needed.
      */
-    abstract public function deleteFolder($parent, $id);
+    abstract public function deleteFolder($id, $parent = Horde_ActiveSync::FOLDER_ROOT);
 
     /**
-     * Change the name and/or type of a folder.
+     * Change a folder on the server.
      *
-     * @param string $parent
-     * @param string $id
-     * @param string $displayname
-     * @param string $type
-     *
-     * @return boolean
+     * @param string $id           The server's folder id
+     * @param string $displayname  The new display name.
+     * @param string $parent       The folder's parent, if needed.
      */
-    abstract public function changeFolder($parent, $id, $displayname, $type);
+    abstract public function changeFolder($id, $displayname, $parent);
 
     /**
      * Move message
@@ -305,28 +299,20 @@ abstract class Horde_ActiveSync_Driver_Base
      *  - rows:   An array of search results
      *  - status: The search store status code.
      */
-    abstract public function getSearchResults($type, $query);
+    abstract public function getSearchResults($type, array $query);
 
     /**
-     * Get folder stat
+     * Stat folder. Note that since the only thing that can ever change for a
+     * folder is the name, we use that as the 'mod' value.
      *
-     * @param string $id  The folder server id.
-     *
-     * @return array  An array defined like:
-     *<pre>
-     *  -id      The server ID that will be used to identify the folder.
-     *           It must be unique, and not too long. How long exactly is not
-     *           known, but try keeping it under 20 chars or so.
-     *           It must be a string.
-     *  -parent  The server ID of the parent of the folder. Same restrictions
-     *           as 'id' apply.
-     *  -mod     This is the modification signature. It is any arbitrary string
-     *           which is constant as long as the folder has not changed. In
-     *           practice this means that 'mod' can be equal to the folder name
-     *           as this is the only thing that ever changes in folders.
-     *</pre>
+     * @param string $id     The folder id
+     * @param mixed $parent  The parent folder (or 0 if none).
+     * @param mixed $mod     Modification indicator. For folders, this is the
+     *                       name of the folder, since that's the only thing
+     *                       that can change.
+     * @return a stat hash
      */
-    abstract public function statFolder($id);
+    abstract public function statFolder($id, $parent = 0, $mod = null);
 
     /**
      * Return the ActiveSync message object for the specified folder.
@@ -444,14 +430,18 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Sends the email represented by the rfc822 string received by the PIM.
      *
-     * @param string $rfc822    The rfc822 mime message
-     * @param boolean $forward  Is this a message forward?
-     * @param boolean $reply    Is this a reply?
-     * @param boolean $parent   Parent message in thread.
+     * @param mixed $rfc822     The rfc822 mime message, a string or stream
+     *                          resource.
+     * @param integer $forward  The UID of the message, if forwarding.
+     * @param integer $reply    The UID of the message if replying.
+     * @param string $parent    The collection id of parent message if
+     *                          forwarding/replying.
+     * @param boolean $save     Save in sent messages.
      *
      * @return boolean
      */
-    abstract function sendMail($rfc822, $forward = false, $reply = false, $parent = false);
+    abstract public function sendMail(
+        $rfc822, $forward = null, $reply = null, $parent = null, $save = true);
 
     /**
      * Return the specified attachment.

@@ -354,10 +354,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * folder is the name, we use that as the 'mod' value.
      *
      * @param string $id     The folder id
-     * @param mixed $parent  The parent folder (or 0 if none). @since 2.0
+     * @param mixed $parent  The parent folder (or 0 if none).
      * @param mixed $mod     Modification indicator. For folders, this is the
      *                       name of the folder, since that's the only thing
-     *                       that can change. @since 2.0
+     *                       that can change.
      * @return a stat hash
      */
     public function statFolder($id, $parent = 0, $mod = null)
@@ -725,9 +725,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @return Horde_ActiveSync_Message_AirSyncBaseFileAttachment
      */
-    public function itemOperationsGetAttachmentData($name)
+    public function itemOperationsGetAttachmentData($filereference)
     {
-        $att = $this->getAttachment($name);
+        $att = $this->getAttachment($filereference);
         $airatt = new Horde_ActiveSync_Message_AirSyncBaseFileAttachment(array('logger' => $this->_logger));
         $airatt->data = $att['data'];
         $airatt->contenttype = $att['content-type'];
