@@ -82,7 +82,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         } elseif ($lifetime > $this->_pingSettings['heartbeatmax']) {
             $this->_statusCode = self::STATUS_HBOUTOFBOUNDS;
             $lifetime = $this->_pingSettings['heartbeatmax'];
-            $this->_stateDriver->setHeartbeatInterval($lifetime);
+            //$this->_stateDriver->setHeartbeatInterval($lifetime);
         }
 
         return $lifetime;
@@ -107,20 +107,23 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             $this->_device->id,
             $now));
 
-        // Get the settings for the server
+        // Get the settings for the server and load the syncCache
         $this->_pingSettings = $this->_driver->getHeartbeatConfig();
         $timeout = $this->_pingSettings['waitinterval'];
         $this->_statusCode = self::STATUS_NOCHANGES;
+        $syncCache = $this->_stateDriver->getSyncCache(
+            $this->_device->id, $this->_device->user);
 
-        // Initialize the state machine
-        $this->_stateDriver->loadDeviceInfo(
-            $this->_device->id, $this->_driver->getUser());
-
-        // See if we have an existing PING state. Need to do this here, before
-        // we read in the PING request since the PING request is allowed to omit
-        // sections if they have been sent previously
-        $collections = array_values($this->_stateDriver->initPingState($this->_device));
-        $lifetime = $this->_checkHeartbeat($this->_stateDriver->getHeartbeatInterval());
+        // Build the collection array from anything we have in the cache.
+        $collections = array();
+        $cache_collections = $syncCache['collections'];
+        foreach ($cache_collections as $id => $cache_collection) {
+            $cache_collection['id'] = $id;
+            $collections[$id] = $cache_collection;
+        }
+        $lifetime = $this->_checkHeartbeat(empty($syncCache['hbinterval'])
+            ? 0
+            : $syncCache['hbinterval']);
 
         // Build the $collections array if we receive request from PIM
         if ($this->_decoder->getElementStartTag(self::PING)) {
@@ -131,10 +134,15 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             if ($lifetime == 0) {
                 $lifetime = $this->_pingSettings['heartbeatdefault'];
             }
-            $this->_stateDriver->setHeartbeatInterval($lifetime);
+            // Save the hbinterval to the syncCache.
+            $syncCache['hbinterval'] = $lifetime;
+            $this->_stateDriver->saveSyncCache(
+                $syncCache,
+                $this->_device->id,
+                $this->_device->user
+            );
 
             if ($this->_decoder->getElementStartTag(self::FOLDERS)) {
-                $collections = array();
                 while ($this->_decoder->getElementStartTag(self::FOLDER)) {
                     $collection = array();
                     if ($this->_decoder->getElementStartTag(self::SERVERENTRYID)) {
@@ -146,29 +154,38 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $this->_decoder->getElementEndTag();
                     }
                     $this->_decoder->getElementEndTag();
-                    // Ensure we only PING each collection once
+
+                    // Ensure we have a synckey, or force a resync.
+                    $collection['synckey'] = !empty($collections[$collection['id']]['synckey'])
+                        ? $collections[$collection['id']]['synckey']
+                        : 0;
                     $collections = array_merge(
                         $collections,
                         array($collection['id'] => $collection));
                 }
                 $collections = array_values($collections);
-
                 if (!$this->_decoder->getElementEndTag()) {
                     throw new Horde_ActiveSync_Exception('Protocol Error');
                 }
             }
+
             if (!$this->_decoder->getElementEndTag()) {
                 throw new Horde_ActiveSync_Exception('Protocol Error');
             }
-            $this->_stateDriver->addPingCollections($collections);
         } else {
             $this->_logger->debug(sprintf('Reusing PING state: %s', print_r($collections, true)));
         }
 
-        $changes = array();
-        $dataavailable = false;
+        // Remove any collections that have not yet been synced.
+        foreach ($collections as $id => $collection) {
+            if (!isset($collection['synckey'])) {
+                unset($collections[$id]);
+            }
+        }
 
         // Start waiting for changes, but only if we don't have any errors
+        $changes = array();
+        $dataavailable = false;
         if ($this->_statusCode == self::STATUS_NOCHANGES) {
             $this->_logger->info(sprintf(
                 '[%s] Waiting for changes (heartbeat interval: %d)',
@@ -195,10 +212,9 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
                 for ($i = 0; $i < count($collections); $i++) {
                     $collection = $collections[$i];
-                    $collection['synckey'] = $this->_device->id;
                     $sync = $this->_getSyncObject();
                     try {
-                        $this->_stateDriver->loadPingCollectionState($collection);
+                        $this->_initState($collection);
                     } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
                         // I *love* standards that nobody follows. This
                         // really should throw an exception and return a HTTP 400
@@ -306,9 +322,36 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             $this->_encoder->endTag();
         }
         $this->_encoder->endTag();
-        $this->_stateDriver->savePingState();
+        //$this->_stateDriver->savePingState();
 
         return true;
+    }
+
+    /**
+     * Attempt to initialize the sync state.
+     *
+     * @param array $collection  The collection array
+     */
+    protected function _initState($collection)
+    {
+        if ($collection['synckey'] === false) {
+            throw new Horde_ActiveSync_Exception_InvalidRequest();
+        }
+
+        // Initialize the state
+        $this->_logger->debug(sprintf(
+            "[%s] Initializing state for collection: %s, synckey: %s",
+            $this->_device->id,
+            $collection['id'],
+            $collection['synckey'])
+        );
+
+        // @TODO: Combine these method calls. No need to have them separate.
+        $this->_stateDriver->init($collection);
+        $this->_stateDriver->loadState(
+            $collection['synckey'],
+            Horde_ActiveSync::REQUEST_TYPE_SYNC,
+            $collection['id']);
     }
 
 }
