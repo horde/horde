@@ -155,8 +155,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $this->_decoder->getElementEndTag();
 
                     // Ensure we have a synckey, or force a resync.
-                    $collection['synckey'] = !empty($collections[$collection['id']]['synckey'])
-                        ? $collections[$collection['id']]['synckey']
+                    $collection['synckey'] = !empty($collections[$collection['id']]['lastsynckey'])
+                        ? $collections[$collection['id']]['lastsynckey']
                         : 0;
                     $collections = array_merge(
                         $collections,
@@ -208,6 +208,15 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $this->_logger->err('0 collections');
                     $this->_statusCode = self::STATUS_MISSING;
                     break;
+                }
+
+                $tempCache = $this->_stateDriver->getSyncCache(
+                    $this->_device->id, $this->_device->user);
+                if ($tempCache['timestamp'] > $syncCache['timestamp']) {
+                    $this->_logger->debug(sprintf(
+                        '[%s] SyncCache was modified. Updating collections from SyncCache.',
+                        $this->_device->id));
+                    $collections = $this->_updateCollections();
                 }
 
                 for ($i = 0; $i < count($collections); $i++) {
@@ -325,6 +334,32 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         return true;
     }
+
+    /**
+     * Get updated collection data.
+     *
+     * @return array.
+     */
+    protected function _updateCollections()
+    {
+        $syncCache = $this->_stateDriver->getSyncCache(
+            $this->_device->id, $this->_device->user);
+
+        // Build the collection array from anything we have in the cache.
+        $collections = array();
+        $cache_collections = $syncCache['collections'];
+        foreach ($cache_collections as $id => $cache_collection) {
+            if (!isset($cache_collection['lastsynckey'])) {
+                continue;
+            }
+            $cache_collection['id'] = $id;
+            $cache_collection['synckey'] = $cache_collection['lastsynckey'];
+            $collections[] = $cache_collection;
+        }
+
+        return $collections;
+    }
+
 
     /**
      * Attempt to initialize the sync state.
