@@ -82,7 +82,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         } elseif ($lifetime > $this->_pingSettings['heartbeatmax']) {
             $this->_statusCode = self::STATUS_HBOUTOFBOUNDS;
             $lifetime = $this->_pingSettings['heartbeatmax'];
-            //$this->_stateDriver->setHeartbeatInterval($lifetime);
         }
 
         return $lifetime;
@@ -194,11 +193,12 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             );
             $expire = $now + $lifetime;
             while (time() <= $expire) {
-                // Check the remote wipe status and request a foldersync if
-                // we want the device wiped.
+                // Check the remote wipe status
                 if ($this->_provisioning === true) {
                     $rwstatus = $this->_stateDriver->getDeviceRWStatus($this->_device->id);
-                    if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
+                    if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING ||
+                        $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
+
                         $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
                         break;
                     }
@@ -322,7 +322,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             $this->_encoder->endTag();
         }
         $this->_encoder->endTag();
-        //$this->_stateDriver->savePingState();
 
         return true;
     }
@@ -334,7 +333,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
      */
     protected function _initState($collection)
     {
-        if ($collection['synckey'] === false) {
+        if (empty($collection['synckey'])) {
             throw new Horde_ActiveSync_Exception_InvalidRequest();
         }
 
