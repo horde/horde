@@ -2248,14 +2248,14 @@ var DimpBase = {
             id = elt.identify(),
             d = DragDrop.Drags.getDrag(id);
 
-        if (elt.hasClassName('mbox')) {
+        if (id == 'horde-slideleft') {
+            this._setPref('splitbar_side', d.lastCoord[0]);
+            this.setSidebarWidth();
+        } else if (elt.hasClassName('mbox')) {
             if (!d.opera) {
                 $('folderopts').show();
                 $('dropbase').hide();
             }
-        } else if (elt.hasClassName('splitBarVertSidebar')) {
-            this._setPref('splitbar_side', d.lastCoord[0]);
-            this.setSidebarWidth();
         }
     },
 
