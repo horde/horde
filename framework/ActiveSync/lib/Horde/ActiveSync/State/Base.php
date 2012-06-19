@@ -426,16 +426,26 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Update the state to reflect changes
      *
-     * @param string $type     The type of change (change, delete, flags)
-     * @param array $change    A stat/change hash describing the change
-     * @param integer $origin  Flag to indicate the origin of the change.
-     * @param string $user     The current synch user
+     * @param string $type      The type of change (change, delete, flags or
+     *                          foldersync)
+     * @param array $change     A stat/change hash describing the change.
+     *  Contains:
+     *    - id:      The message uid the change applies to
+     *    - parent:  The parent of the message, normally the folder id.
+     *    - flags:   If this is a flag change, the state of the read flag.
+     *    - mod:     The modtime of this change for collections that use it.
      *
-     * @return void
+     * @param integer $origin   Flag to indicate the origin of the change:
+     *    Horde_ActiveSync::CHANGE_ORIGIN_NA  - Not applicapble/not important
+     *    Horde_ActiveSync::CHANGE_ORIGIN_PIM - Change originated from PIM
+     *
+     * @param string $user      The current sync user, only needed if change
+     *                          origin is CHANGE_ORIGIN_PIM
+     * @param string $clientid  PIM clientid sent when adding a new message
      */
-    abstract public function updateState($type, array $change,
-                                         $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
-                                         $user = null);
+    abstract public function updateState(
+        $type, array $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
+        $user = null, $clientid = '');
 
     /**
      * Save folder data for a specific device. This is needed for BC with older

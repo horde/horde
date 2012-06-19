@@ -233,7 +233,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * called from the Importer during an import of a non-new change from the
      * PIM.
      *
-     * @see Horde_ActiveSync_State_Base::isConflict()
+     * @param array $stat   A message stat array
+     * @param string $type  The type of change (change, delete, add)
+     *
+     * @return boolean
      */
     public function isConflict($stat, $type)
     {
@@ -332,16 +335,13 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *    - flags:   If this is a flag change, the state of the read flag.
      *    - mod:     The modtime of this change for collections that use it.
      *
-     * @param integer $origin   Flag to indicate the origin of the change.
-     *  Either:
+     * @param integer $origin   Flag to indicate the origin of the change:
      *    Horde_ActiveSync::CHANGE_ORIGIN_NA  - Not applicapble/not important
      *    Horde_ActiveSync::CHANGE_ORIGIN_PIM - Change originated from PIM
      *
      * @param string $user      The current sync user, only needed if change
      *                          origin is CHANGE_ORIGIN_PIM
      * @param string $clientid  PIM clientid sent when adding a new message
-     *
-     * @return void
      */
     public function updateState(
         $type, array $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
@@ -369,7 +369,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             switch ($this->_collection['class']) {
             case Horde_ActiveSync::CLASS_EMAIL:
                 // the 'flagged' flag is imported as a CHANGE, not as a FLAG
-                if ($type == Horde_ActiveSync::CHANGE_TYPE_CHANGE && isset($change['flags']['flagged'])) {
+                if ($type == Horde_ActiveSync::CHANGE_TYPE_CHANGE &&
+                    isset($change['flags']['flagged'])) {
                     $type = Horde_ActiveSync::CHANGE_TYPE_FLAGS;
                 }
                 if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
