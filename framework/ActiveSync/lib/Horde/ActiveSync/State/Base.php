@@ -448,19 +448,6 @@ abstract class Horde_ActiveSync_State_Base
         $user = null, $clientid = '');
 
     /**
-     * Save folder data for a specific device. This is needed for BC with older
-     * activesync versions that use GETHIERARCHY requests to get the folder info
-     * instead of maintaining the folder state with FOLDERSYNC requests.
-     *
-     * @param object $device  The device object
-     * @param array $folders  The folder data
-     *
-     * @return boolean
-     * @throws Horde_ActiveSync_Exception
-     */
-    abstract public function setFolderData($device, $folders);
-
-    /**
      * Get all items that have changed since the last sync time
      *
      * @param array $options  An options array:

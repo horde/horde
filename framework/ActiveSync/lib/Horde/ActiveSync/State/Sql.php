@@ -461,54 +461,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Save folder data for a specific device. This is needed for BC with older
-     * activesync versions that use GETHIERARCHY requests to get the folder info
-     * instead of maintaining the folder state with FOLDERSYNC requests.
-     *
-     * @param object $device  The device object
-     * @param array $folders  The folder data
-     *
-     * @return boolean
-     * @throws Horde_ActiveSync_Exception
-     */
-    public function setFolderData($device, $folders)
-    {
-        if (!is_array($folders) || empty ($folders)) {
-            return false;
-        }
-
-        $unique_folders = array ();
-        foreach ($folders as $folder) {
-            /* don't save folder-ids for emails */
-            if ($folder->type == Horde_ActiveSync::FOLDER_TYPE_INBOX) {
-                continue;
-            }
-
-            /* no folder from that type or the default folder */
-            if (!array_key_exists($folder->type, $unique_folders) || $folder->parentid == 0) {
-                $unique_folders[$folder->type] = $folder->serverid;
-            }
-        }
-
-        // Treo does initial sync for calendar and contacts too, so we need to fake
-        // these folders if they are not supported by the backend
-        if (!array_key_exists(Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT, $unique_folders)) {
-            $unique_folders[Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT] = Horde_ActiveSync::FOLDER_TYPE_DUMMY;
-        }
-        if (!array_key_exists(Horde_ActiveSync::FOLDER_TYPE_CONTACT, $unique_folders)) {
-            $unique_folders[Horde_ActiveSync::FOLDER_TYPE_CONTACT] = Horde_ActiveSync::FOLDER_TYPE_DUMMY;
-        }
-
-        /* Store it*/
-        $sql = 'UPDATE ' . $this->_syncUsersTable . ' SET device_folders = ? WHERE device_id = ? AND device_user = ?';
-        try {
-            return $this->_db->update($sql, array(serialize($folders), $device->id, $device->user));
-        } catch (Horde_Db_Exception $e) {
-            throw new Horde_ActiveSync_Exception($e);
-        }
-    }
-
-    /**
      * Return an array of known folders. This is essentially the state for a
      * FOLDERSYNC request. AS uses a seperate synckey for FOLDERSYNC requests
      * also, so need to treat it as any other collection.
