@@ -52,8 +52,6 @@
  *    syncUsersTable (horde_activesync_device_users):
  *        device_user      - A username attached to the device
  *        device_id        - The device id
- *        device_ping      - The account's ping state
- *        device_folders   - Account's folder data
  *        device_policykey - The provisioned policykey for this device/user
  *                           combination.
  *
