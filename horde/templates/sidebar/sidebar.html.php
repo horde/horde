@@ -12,15 +12,10 @@
   </div>
 <?php endif ?>
 
-<?php $i = 0; $c = count($this->containers); foreach ($this->containers as $id => $container): $i++ ?>
-
-<?php if ($i != 1): ?>
-  <div class="horde-subnavi-split"></div>
+<?php if ($this->containers): ?>
+<?php echo $this->renderPartial('container', array('collection' => $this->containers)) ?>
+<?php elseif (strlen($this->content)): ?>
+<?php echo $this->content ?>
 <?php endif ?>
-
-  <div id="<?php echo $id ?>" class="horde-sidebar-<?php if ($i == $c) echo 'sub' ?>folder">
-<?php echo $container ?>
-  </div>
-<?php endforeach ?>
 
 </div>

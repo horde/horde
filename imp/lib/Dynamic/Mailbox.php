@@ -65,20 +65,19 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $sidebar->newText = _("New Message");
         $sidebar->newRefresh = $blank->link(array('id' => 'checkmaillink',
                                                   'class' => 'icon'));
-        $folderActions =
-            $sidebar->getTreeRow(array(
-                'id' => 'folderopts_link',
-                'cssClass' => 'folderoptsImg',
-                'dropDown' => true,
-                'label' => _("Folder Actions")))
-            . $sidebar->getTreeRow(array(
-                'id' => 'dropbase',
-                'style' => 'display:none',
-                'cssClass' => 'folderImg',
-                'label' => _("Move to Base Level")));
-        $sidebar->containers = array('imp-specialmboxes' => '',
-                                     '' => $folderActions,
-                                     'imp-normalmboxes' => '');
+        $sidebar->containers = array(
+            array('id' => 'imp-specialmboxes'),
+            array('rows' => array(
+                array('id' => 'folderopts_link',
+                      'cssClass' => 'folderoptsImg',
+                      'dropDown' => true,
+                      'label' => _("Folder Actions")),
+                array('id' => 'dropbase',
+                      'style' => 'display:none',
+                      'cssClass' => 'folderImg',
+                      'label' => _("Move to Base Level")))),
+            array('id' => 'imp-normalmboxes'));
+        $sidebar->containersCount = 3;
         $this->view->sidebar = $sidebar->render();
 
         $page_output->noDnsPrefetch();
