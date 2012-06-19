@@ -20,14 +20,7 @@ if (!in_array(Ingo_Storage::ACTION_BLACKLIST, $session->get('ingo', 'script_cate
     Horde::url('filters.php', true)->redirect();
 }
 
-/* Get the blacklist object. */
 $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
-try {
-    $blacklist = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
-} catch (Ingo_Exception $e) {
-    $notification->push($e);
-    $blacklist = new Ingo_Storage_Blacklist();
-}
 $folder = $blacklist_folder = null;
 
 /* Perform requested actions. */
@@ -54,7 +47,7 @@ case 'rule_update':
         $notification->push("Not supported by this script generator.", 'horde.error');
     } else {
         try {
-            $blacklist->setBlacklist($vars->blacklist);
+            $blacklist = Ingo::updateListFilter($vars->blacklist, Ingo_Storage::ACTION_BLACKLIST);
             $blacklist->setBlacklistFolder($folder);
             $ingo_storage->store($blacklist);
             $notification->push(_("Changes saved."), 'horde.success');
@@ -69,6 +62,16 @@ case 'rule_update':
     }
 
     break;
+}
+
+/* Get the blacklist object. */
+if (!isset($blacklist)) {
+    try {
+        $blacklist = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
+    } catch (Ingo_Exception $e) {
+        $notification->push($e);
+        $blacklist = new Ingo_Storage_Blacklist();
+    }
 }
 
 /* Create the folder listing. */

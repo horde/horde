@@ -31,18 +31,18 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function blacklistFrom($addresses)
     {
+        global $injector, $notification;
+
         if (!empty($addresses)) {
             try {
-                $ingo_storage = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create();
-                $blacklist = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
-                $blacklist->setBlacklist(array_merge($blacklist->getBlacklist(), $addresses));
-                $ingo_storage->store($blacklist);
+                $bl = $injector->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_BLACKLIST)->getBlacklist();
+                Ingo::updateListFilter(array_merge($bl, $addresses), Ingo_Storage::ACTION_BLACKLIST);
                 Ingo::updateScript();
                 foreach ($addresses as $from) {
-                    $GLOBALS['notification']->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
+                    $notification->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
                 }
             } catch (Ingo_Exception $e) {
-                $GLOBALS['notification']->push($e);
+                $notification->push($e);
             }
         }
     }
@@ -54,17 +54,17 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function whitelistFrom($addresses)
     {
+        global $injector, $notification;
+
         try {
-            $ingo_storage = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create();
-            $whitelist = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
-            $whitelist->setWhitelist(array_merge($whitelist->getWhitelist(), $addresses));
-            $ingo_storage->store($whitelist);
+            $wl = $injector->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_WHITELIST)->getWhitelist();
+            Ingo::updateListFilter(array_merge($wl, $addresses), Ingo_Storage::ACTION_WHITELIST);
             Ingo::updateScript();
             foreach ($addresses as $from) {
-                $GLOBALS['notification']->push(sprintf(_("The address \"%s\" has been added to your whitelist."), $from));
+                $notification->push(sprintf(_("The address \"%s\" has been added to your whitelist."), $from));
             }
         } catch (Ingo_Exception $e) {
-            $GLOBALS['notification']->push($e);
+            $notification->push($e);
         }
     }
 
