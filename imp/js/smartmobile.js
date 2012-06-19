@@ -401,7 +401,9 @@ var ImpMobile = {
             data = ImpMobile.message,
             headers = $('#imp-message-headers tbody'),
             args = '&mbox=' + data.mbox + '&uid=' + data.uid,
-            innocent = spam = 'show', spambar;
+            innocent = 'show',
+            spam = 'show',
+            spambar;
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
