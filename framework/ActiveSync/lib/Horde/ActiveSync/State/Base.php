@@ -12,11 +12,7 @@
  * @package   ActiveSync
  */
 /**
- * Base class for managing everything related to state:
- *
- *     Persistence of state data
- *     Generating delta between server and PIM
- *     Caching PING related state (hearbeat interval, folder list etc...)
+ * Base class for managing everything related to device state
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
@@ -58,22 +54,15 @@ abstract class Horde_ActiveSync_State_Base
     protected $_backend;
 
     /**
-     * Cache for ping state
-     *
-     * @var array
-     */
-    protected $_pingState;
-
-    /**
      * The collection array for the collection we are currently syncing.
      * Keys include:
-     *   'class'      - The collection class Contacts, Calendar etc...
-     *   'synckey'    - The current synckey
-     *   'newsynckey' - The new synckey sent back to the PIM
-     *   'id'         - Server folder id
-     *   'filtertype' - Filter
-     *   'conflict'   - Conflicts
-     *   'truncation' - Truncation
+     *   - class:       The collection class Contacts, Calendar etc...
+     *   - synckey:     The current synckey
+     *   - newsynckey:  The new synckey sent back to the PIM
+     *   - id:          Server folder id
+     *   - filtertype:  Filter
+     *   - conflict:    Conflicts
+     *   - truncation:  Truncation
      *
      * @var array
      */
