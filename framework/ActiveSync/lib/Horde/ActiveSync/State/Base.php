@@ -412,13 +412,6 @@ abstract class Horde_ActiveSync_State_Base
     abstract public function loadState($syncKey, $type = null, $id = null);
 
     /**
-     * Loads the last known state for the specified collection/folderid.
-     *
-     * @param string $folderid  The folderid to load the state for.
-     */
-    abstract public function loadLastKnownState($folderid);
-
-    /**
      * Get the list of known folders for the specified syncState
      *
      * @return array  An array of server folder ids

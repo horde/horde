@@ -176,37 +176,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Loads the last known state for the specified collection/folderid.
-     *
-     * @param string $folderid  The folderid to load the state for.
-     */
-    public function loadLastKnownState($folderid)
-    {
-        $sql = 'SELECT sync_key, sync_data, sync_devid, sync_time, sync_pending FROM '
-                . $this->_syncStateTable . ' WHERE sync_folderid = ? AND '
-                . 'sync_devid = ? AND sync_user = ? ORDER BY sync_time DESC LIMIT 1';
-
-        $values = array($folderid,
-                        $this->_deviceInfo->id,
-                        $this->_deviceInfo->user);
-
-        try {
-            $results = $this->_db->selectOne($sql, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Horde_ActiveSync_Exception($e);
-        }
-        $this->_logger->debug(sprintf(
-            '[%s] Loaded last known sync_state (%s) for device: %s, user: %s, folder: %s',
-            $this->_deviceInfo->id,
-            $results['sync_key'],
-            $this->_deviceInfo->id,
-            $this->_deviceInfo->user,
-            $this->_collection['id'])
-        );
-        $this->_loadStateFromResults($results);
-    }
-
-    /**
      * Actually load the state data into the object from the query results.
      *
      * @param array $results  The results array from the state query.
