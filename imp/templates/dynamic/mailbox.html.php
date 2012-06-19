@@ -16,8 +16,8 @@
     <div class="horde-buttonbar">
      <div>
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Reply', 'id' => 'button_reply', 'title' => _("Reply"))) ?>
-     </div>
       <div class="horde-button-split"></div>
+     </div>
      <div>
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Forward', 'id' => 'button_forward', 'title' => _("Forward"))) ?>
       <div class="horde-button-split"></div>
