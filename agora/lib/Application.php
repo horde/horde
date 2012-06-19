@@ -110,17 +110,4 @@ class Agora_Application extends Horde_Registry_Application
         $menu->add($url, _("_Search"), 'search.png');
     }
 
-    /**
-     */
-    public function prefsGroup($ui)
-    {
-        foreach ($ui->getChangeablePrefs() as $val) {
-            switch ($val) {
-            case 'avatar_link':
-                $GLOBALS['page_output']->addScriptFile('popup.js', 'horde');
-                break;
-            }
-        }
-    }
-
 }

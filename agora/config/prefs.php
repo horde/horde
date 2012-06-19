@@ -85,6 +85,9 @@ $_prefs['avatar_link'] = array(
                 !$GLOBALS['conf']['avatar']['enable_gallery'] ||
                 !$vfs->isFolder(Agora::AVATAR_PATH, 'gallery'));
     }
+    //'on_init' => function($ui) {
+    //    $GLOBALS['page_output']->addScriptFile('popup.js', 'horde');
+    // },
     //'url' => '<p>' . _("Choose from a gallery of avatars:") . ' <input class="button" type="button" value="' . _("Click to Show Gallery") . '" onclick="' . Horde::popupJs(Horde::url('avatars/gallery.php'), array('height' => 320, 'width' => 320)) . '" /></p>'
 );
 

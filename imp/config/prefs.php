@@ -196,11 +196,15 @@ $_prefs['filters_link'] = array(
             return false;
         } catch (Horde_Exception $e) {}
         return true;
+    },
+    'on_init' => function($ui) {
+        $ui->prefs['filters_link']['url'] = $GLOBALS['registry']->link('mail/showFilters');
     }
 );
 
 $_prefs['filters_blacklist_link'] = array(
     'type' => 'link',
+    'url' => '',
     'img' => 'filters.png',
     'desc' => _("Edit your Blacklist"),
     'help' => 'filter-edit-blacklist',
@@ -210,11 +214,15 @@ $_prefs['filters_blacklist_link'] = array(
             return false;
         } catch (Horde_Exception $e) {}
         return true;
+    },
+    'on_init' => function($ui) {
+        $ui->prefs['filters_blacklist_link']['url'] = $GLOBALS['registry']->link('mail/showBlacklist');
     }
 );
 
 $_prefs['filters_whitelist_link'] = array(
     'type' => 'link',
+    'url' => '',
     'img' => 'filters.png',
     'desc' => _("Edit your Whitelist"),
     'help' => 'filter-edit-whitelist',
@@ -224,6 +232,9 @@ $_prefs['filters_whitelist_link'] = array(
             return false;
         } catch (Horde_Exception $e) {}
         return true;
+    },
+    'on_init' => function($ui) {
+        $ui->prefs['filters_whitelist_link']['url'] = $GLOBALS['registry']->link('mail/showWhitelist');
     }
 );
 
@@ -675,10 +686,17 @@ $_prefs['composetemplates_management'] = array(
 // Link to compose templates mailbox.
 $_prefs['composetemplates_new'] = array(
     'type' => 'link',
+    'xurl' => '',
     'img' => 'edit.png',
     'desc' => _("Create new Template"),
     'suppress' => function() {
         return !IMP_Mailbox::getPref('composetemplates_mbox');
+    },
+    'on_init' => function($ui) {
+        $ui->prefs['composetemplates_new']['xurl'] = IMP::composeLink(array(), array(
+            'actionID' => 'template_new',
+            'type' => 'template_new'
+        ));
     }
 );
 

@@ -82,32 +82,4 @@ class Klutz_Application extends Horde_Registry_Application
         }
     }
 
-    /**
-     */
-    public function prefsGroup($ui)
-    {
-        /*
-function handle_comic_select($updated)
-{
-    $viewcomics = Horde_Util::getFormData('viewcomics');
-    if (!is_null($viewcomics)) {
-        $GLOBALS['prefs']->setValue('viewcomics', $viewcomics);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-$comicgallery_options = array();
-if (!$prefs->isLocked('comicgallery') &&
-    $registry->hasMethod('images/listGalleries')) {
-
-    $gals = $registry->call('images/listGalleries', array(null, PERMS_EDIT));
-    foreach ($gals as $key => $gal) {
-        $comicgallery_options[$key] = $gal['attribute_name'];
-    }
-}
-        */
-    }
-
 }
