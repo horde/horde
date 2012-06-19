@@ -369,7 +369,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
     protected function _initState($collection)
     {
         if (empty($collection['synckey'])) {
-            throw new Horde_ActiveSync_Exception_InvalidRequest();
+            throw new Horde_ActiveSync_Exception_InvalidRequest('Empty synckey for ' . $collection['id']);
         }
 
         // Initialize the state

@@ -1364,7 +1364,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $found = false;
             foreach ($this->_syncCache['collections'] as $value) {
                 if (isset($value['synckey'])) {
-                    $this->_logger->debug('Found a syncable collection: ' . $this->_syncCache['synckey']);
+                    $this->_logger->debug('Found a syncable collection: ' . $value['type'] . ' : ' . $value['synckey']);
                     $found = true;
                     break;
                 }
