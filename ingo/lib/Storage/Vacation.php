@@ -11,7 +11,6 @@
  */
 class Ingo_Storage_Vacation extends Ingo_Storage_Rule
 {
-
     /**
      */
     protected $_addr = array();
@@ -50,9 +49,9 @@ class Ingo_Storage_Vacation extends Ingo_Storage_Rule
 
     /**
      */
-    public function setVacationAddresses($data, $sort = true)
+    public function setVacationAddresses($data)
     {
-        $this->_addr = $this->_addressList($data, $sort);
+        $this->_addr = $this->_addressList($data);
     }
 
     /**
@@ -64,9 +63,9 @@ class Ingo_Storage_Vacation extends Ingo_Storage_Rule
 
     /**
      */
-    public function setVacationExcludes($data, $sort = true)
+    public function setVacationExcludes($data)
     {
-        $this->_excludes = $this->_addressList($data, $sort);
+        $this->_excludes = $this->_addressList($data);
     }
 
     /**

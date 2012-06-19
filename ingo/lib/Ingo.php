@@ -312,20 +312,6 @@ class Ingo
     }
 
     /**
-     * Returns whether an address is empty or only contains a "@".
-     * Helper function for array_filter().
-     *
-     * @param string $address  An email address to test.
-     *
-     * @return boolean  True if the address is not empty.
-     */
-    static public function filterEmptyAddress($address)
-    {
-        $address = trim($address);
-        return (!empty($address) && ($address != '@'));
-    }
-
-    /**
      * Returns the vacation reason with all placeholder replaced.
      *
      * @param string $reason  The vacation reason including placeholders.
