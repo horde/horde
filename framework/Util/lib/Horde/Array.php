@@ -17,62 +17,6 @@
 class Horde_Array
 {
     /**
-     * Prepare a list of addresses for storage.
-     * Namely, trims and lowercases all addresses and then sort.
-     *
-     * @param array $addr  The list of addresses.
-     *
-     * @return array  The list of addresses, prepared for storage.
-     */
-    static public function prepareAddressList(array $addr)
-    {
-        /* Remove any extra space in the address and make it lowercase. */
-        $addr = array_map(array('Horde_String', 'lower'), array_map('trim', $addr));
-
-        /* Remove duplicate entries. */
-        $addr = array_keys(array_flip($addr));
-
-        /* Sort the list. */
-        usort($addr, array(__CLASS__, 'sortAddressList'));
-
-        return $addr;
-    }
-
-    /**
-     * Function used by usort() to sort an address list.
-     *
-     * @param string $a  Address #1.
-     * @param string $b  Address #2.
-     *
-     * @return integer  -1, 0, or 1.
-     */
-    static public function sortAddressList($a, $b)
-    {
-        $a = explode('@', $a);
-        $b = explode('@', $b);
-
-        /* One of the addresses doesn't have a host name. */
-        if (empty($a[0])) {
-            array_shift($a);
-        }
-        if (empty($b[0])) {
-            array_shift($b);
-        }
-        if (count($a) != count($b)) {
-            return (count($a) > count($b));
-        }
-
-        /* The addresses have different hostname or not hostname and
-         * different mailbox names. */
-        if ($a[(count($a) - 1)] != $b[(count($b) - 1)]) {
-            return strcmp($a[(count($a) - 1)], $b[(count($b) - 1)]);
-        }
-
-        /* Compare mailbox names. */
-        return strcmp($a[0], $b[0]);
-    }
-
-    /**
      * Sorts an array on a specified key. If the key does not exist,
      * defaults to the first key of the array.
      *

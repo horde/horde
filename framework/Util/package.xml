@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Removed e-mail array manipulation methods (Horde_Mail package now provides this feature).
 * [mms] Removed Horde_Util::getCsv() (moved to Horde_Data package).
 * [mms] Add iteration to Horde_Domhtml object.
 * [jan] Remove Horde_Util::getTempDir().
