@@ -798,6 +798,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
             }
         } else {
+            $this->_syncCache['timestamp'] = $this->_syncCache['lastsyncendnormal'] = time();
             $this->_stateDriver->saveSyncCache($this->_syncCache, $this->_device->id, $this->_device->user);
         }
 
