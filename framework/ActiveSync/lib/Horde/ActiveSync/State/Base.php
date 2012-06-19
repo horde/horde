@@ -76,13 +76,6 @@ abstract class Horde_ActiveSync_State_Base
     protected $_logger;
 
     /**
-     * The PIM device id. Needed for PING requests
-     *
-     * @var string
-     */
-    protected $_devId;
-
-    /**
      * Device info structure. Contains the following properties:
      *  'rwstatus'   - Device RemoteWipe status.
      *  'deviceType' - The device type.
@@ -175,7 +168,7 @@ abstract class Horde_ActiveSync_State_Base
     public function getPolicyKey($devId)
     {
         /* See if we have it already */
-        if (empty($this->_deviceInfo) || $this->_devId != $devId) {
+        if (empty($this->_deviceInfo) || $this->_deviceInfo->id != $devId) {
             throw new Horde_ActiveSync_Exception('Device not loaded.');
         }
 
@@ -192,7 +185,7 @@ abstract class Horde_ActiveSync_State_Base
     public function getDeviceRWStatus($devId)
     {
         /* See if we have it already */
-        if (empty($this->_deviceInfo) || $this->_devId != $devId) {
+        if (empty($this->_deviceInfo) || $this->_deviceInfo->id != $devId) {
             throw new Horde_ActiveSync_Exception('Device not loaded.');
         }
 
