@@ -589,26 +589,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Perform any initialization needed to deal with pingStates for this driver
-     *
-     * @param string $devId  The device id to load pingState for
-     *
-     * @return The $collection array
-     */
-    public function initPingState($device)
-    {
-        // This would normally already be loaded by loadDeviceInfo() but we
-        // should verify we have the correct device loaded etc...
-        if (!isset($this->_pingState) || $this->_deviceInfo->id !== $device->id) {
-            throw new Horde_ActiveSync_Exception('Device not loaded');
-        }
-
-        return $this->_pingState['collections'];
-    }
-
-    /**
-     * Obtain the device object. We also store the PING data in the device
-     * table.
+     * Load the device object.
      *
      * @param string $devId   The device id to obtain
      * @param string $user    The user to retrieve user-specific device info for
@@ -616,7 +597,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * @return StdClass The device object
      * @throws Horde_ActiveSync_Exception
      */
-    public function loadDeviceInfo($devId, $user)
+    public function loadDeviceInfo($devId, $user = null)
     {
         $this->_logger->debug(sprintf(
             "[%s] loadDeviceInfo: %s",
@@ -634,47 +615,36 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             . $this->_syncDeviceTable . ' WHERE device_id = ?';
 
         try {
-            $device = $this->_db->selectOne($query, array($devId));
+            if (!$device = $this->_db->selectOne($query, array($devId))) {
+                throw new Horde_ActiveSync_Exception('Device not found.');
+            }
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
 
         if (!empty($user)) {
-            $query = 'SELECT device_ping, device_policykey FROM ' . $this->_syncUsersTable
+            $query = 'SELECT device_policykey FROM ' . $this->_syncUsersTable
                 . ' WHERE device_id = ? AND device_user = ?';
             try {
                 $duser = $this->_db->selectOne($query, array($devId, $user));
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_ActiveSync_Exception($e);
             }
-        } else {
-            $this->resetPingState();
         }
 
         $this->_deviceInfo = new StdClass();
-        if ($device) {
-            $this->_deviceInfo->rwstatus = $device['device_rwstatus'];
-            $this->_deviceInfo->deviceType = $device['device_type'];
-            $this->_deviceInfo->userAgent = $device['device_agent'];
-            $this->_deviceInfo->id = $devId;
-            $this->_deviceInfo->user = $user;
-            $this->_deviceInfo->supported = unserialize($device['device_supported']);
-            if (empty($duser)) {
-                $this->resetPingState();
-                $this->_deviceInfo->policykey = 0;
-            } else {
-                if (empty($duser['device_ping'])) {
-                    $this->resetPingState();
-                } else {
-                    $this->_pingState = unserialize($duser['device_ping']);
-                }
-                $this->_deviceInfo->policykey =
-                    (empty($duser['device_policykey']) ?
-                        0 :
-                        $duser['device_policykey']);
-            }
+        $this->_deviceInfo->rwstatus = $device['device_rwstatus'];
+        $this->_deviceInfo->deviceType = $device['device_type'];
+        $this->_deviceInfo->userAgent = $device['device_agent'];
+        $this->_deviceInfo->id = $devId;
+        $this->_deviceInfo->user = $user;
+        $this->_deviceInfo->supported = unserialize($device['device_supported']);
+        if (empty($duser)) {
+            $this->_deviceInfo->policykey = 0;
         } else {
-            throw new Horde_ActiveSync_Exception('Device not found.');
+            $this->_deviceInfo->policykey = empty($duser['device_policykey'])
+                ? 0
+                : $duser['device_policykey'];
         }
 
         return $this->_deviceInfo;
@@ -718,11 +688,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             if (!$cnt) {
                 $this->_logger->debug('[' . $data->id . '] Device entry does not exist for user ' . $data->user . ', creating it.');
                 $query = 'INSERT INTO ' . $this->_syncUsersTable
-                    . ' (device_ping, device_id, device_user, device_policykey)'
-                    . ' VALUES(?, ?, ?, ?)';
+                    . ' (device_id, device_user, device_policykey)'
+                    . ' VALUES(?, ?, ?)';
 
                 $values = array(
-                    '',
                     $data->id,
                     $data->user,
                     $data->policykey
@@ -830,124 +799,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
-    }
-
-    /**
-     * Add a collection to the PING state. Ping state must already be loaded.
-     *
-     * @param array $collections  An array of collection information to replace
-     *                            any existing cached ping collection state.
-     */
-    public function addPingCollections($collections)
-    {
-        if (empty($this->_pingState)) {
-            throw new Horde_ActiveSync_Exception('PING state not initialized');
-        }
-        $this->_pingState['collections'] = array();
-        foreach ($collections as $collection) {
-            $this->_pingState['collections'][$collection['id']] = $collection;
-        }
-    }
-
-    /**
-     * Load a specific collection's ping state. Ping state must already have
-     * been loaded.
-     *
-     * @param array $pingCollection  The collection array from the PIM request
-     *
-     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_StateGone,
-     *         Horde_ActiveSync_Exception_InvalidRequest
-     */
-    public function loadPingCollectionState($pingCollection)
-    {
-        if (empty($this->_pingState)) {
-            throw new Horde_ActiveSync_Exception('PING state not initialized');
-        }
-        $haveState = false;
-
-        // Load any existing state
-        $this->_logger->debug(sprintf(
-            "[%s] Attempting to load PING state for: %s",
-            $this->_deviceInfo->id,
-            $pingCollection['id']));
-        if (!empty($this->_pingState['collections'][$pingCollection['id']])) {
-            $this->_collection = $this->_pingState['collections'][$pingCollection['id']];
-            $this->_collection['synckey'] = $this->_deviceInfo->id;
-            $this->loadLastKnownState($this->_collection['id']);
-        } else {
-            // Initialize the collection's state.
-            $this->_logger->info(sprintf(
-                "[%s] Found empty state for %s",
-                $this->_deviceInfo->id,
-                $pingCollection['class']));
-
-            // Init members for the getChanges call.
-            $this->_collection = $pingCollection;
-            $this->_collection['synckey'] = $this->_deviceInfo->id;
-
-            // The PING state was empty, need to prime it.
-            $this->_pingState['collections'][$this->_collection['id']] = $this->_collection;
-            $this->savePingState();
-
-            // We MUST have a previous successful SYNC before PING.
-            if (!$this->_lastSyncTS = $this->_getLastSyncTS()) {
-                throw new Horde_ActiveSync_Exception_InvalidRequest('No previous SYNC found for collection ' . $pingCollection['class']);
-            }
-        }
-    }
-
-    /**
-     * Save the current ping state to storage
-     *
-     * @param string $devId      The PIM device id
-     * @param integer $lifetime  The ping heartbeat/lifetime interval
-     *
-     * @return boolean
-     * @throws Horde_ActiveSync_Exception
-     */
-    public function savePingState()
-    {
-        if (empty($this->_pingState)) {
-            throw new Horde_ActiveSync_Exception('PING state not initialized');
-        }
-        /* Update the ping's collection */
-        if (!empty($this->_collection)) {
-            $this->_pingState['collections'][$this->_collection['id']] = $this->_collection;
-        }
-
-        $state = serialize(array('lifetime' => $this->_pingState['lifetime'], 'collections' => $this->_pingState['collections']));
-        $query = 'UPDATE ' . $this->_syncUsersTable . ' SET device_ping = ? WHERE device_id = ? AND device_user = ?';
-        $this->_logger->debug(sprintf('Saving PING state: %s', $state));
-        try {
-            return $this->_db->update($query, array($state, $this->_deviceInfo->id, $this->_deviceInfo->user));
-        } catch (Horde_Db_Exception $e) {
-            throw new Horde_ActiveSync_Exception($e);
-        }
-    }
-
-    /**
-     * Return the heartbeat interval, or zero if we have no existing state
-     *
-     * @return integer  The hearbeat interval, or zero if not found.
-     * @throws Horde_ActiveSync_Exception
-     */
-    public function getHeartbeatInterval()
-    {
-        if (empty($this->_pingState)) {
-            throw new Horde_ActiveSync_Exception('PING state not initialized');
-        }
-
-        return (!$this->_pingState) ? 0 : $this->_pingState['lifetime'];
-    }
-
-    /**
-     * Set the device's heartbeat interval
-     *
-     * @param integer $lifetime
-     */
-    public function setHeartbeatInterval($lifetime)
-    {
-        $this->_pingState['lifetime'] = $lifetime;
     }
 
     /**

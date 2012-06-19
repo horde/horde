@@ -229,19 +229,6 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
-     * Reset the device's PING state.
-     *
-     * @return void
-     */
-    public function resetPingState()
-    {
-        $this->_logger->debug('Resetting PING state');
-        $this->_pingState = array(
-            'lifetime' => 0,
-            'collections' => array());
-    }
-
-    /**
      * Get the number of server changes.
      *
      * @return integer
@@ -422,7 +409,7 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @return array The state array
      */
-    abstract public function loadState($syncKey, $type = null, $id = '');
+    abstract public function loadState($syncKey, $type = null, $id = null);
 
     /**
      * Loads the last known state for the specified collection/folderid.
@@ -430,20 +417,6 @@ abstract class Horde_ActiveSync_State_Base
      * @param string $folderid  The folderid to load the state for.
      */
     abstract public function loadLastKnownState($folderid);
-
-    /**
-     * Load/initialize the ping state for the specified device.
-     *
-     * @param object $device
-     */
-    abstract public function initPingState($device);
-
-    /**
-     * Load the ping state for the given device id
-     *
-     * @param string $devid  The device id.
-     */
-    abstract public function loadPingCollectionState($devid);
 
     /**
      * Get the list of known folders for the specified syncState
@@ -554,7 +527,7 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @return StdClass
      */
-    abstract public function loadDeviceInfo($device, $user);
+    abstract public function loadDeviceInfo($device, $user = null);
 
     /**
      * Check that a given device id is known to the server. This is regardless
