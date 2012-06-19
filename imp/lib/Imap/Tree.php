@@ -1555,6 +1555,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function createTree($name, array $opts = array())
     {
+        global $injector, $registry;
+
         $opts = array_merge(array(
             'parent' => null,
             'render_params' => array(),
@@ -1562,12 +1564,13 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         ), $opts);
 
         $this->_unseen = 0;
+        $view = $registry->getView();
 
         if ($name instanceof Horde_Tree_Renderer_Base) {
             $tree = $name;
             $parent = $opts['parent'];
         } else {
-            $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create($name, $opts['render_type'], array_merge(array(
+            $tree = $injector->getInstance('Horde_Core_Factory_Tree')->create($name, $opts['render_type'], array_merge(array(
                 'alternate' => true,
                 'lines' => true,
                 'lines_base' => true,
@@ -1649,9 +1652,20 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             if ($this->isContainer($val)) {
                 $params['container'] = true;
             } else {
-                $params['url'] = ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL)
-                    ? IMP_Minimal_Mailbox::url(array('mailbox' => $val))
-                    : $val->url('mailbox.php')->setRaw(true);
+                switch ($view) {
+                case $registry::VIEW_MINIMAL:
+                    $params['url'] = IMP_Minimal_Mailbox::url(array('mailbox' => $val));
+                    break;
+
+                case $registry::VIEW_SMARTMOBILE:
+                    $params['url'] = '#mailbox?mbox=' . $val->form_to;
+                    break;
+
+                default:
+                    $params['url'] = $val->url('mailbox.php')->setRaw(true);
+                    break;
+                }
+
                 if ($this->_showunsub && !$this->isSubscribed($val)) {
                     $params['class'] = 'mboxunsub';
                 }
@@ -1666,7 +1680,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
                 if (!empty($opts['editvfolder']) && $this->isContainer($val)) {
                     $after = '&nbsp[' .
-                        $GLOBALS['registry']->getServiceLink('prefs', 'imp')->add('group', 'searches')->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>'.
+                        $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>'.
                         ']';
                 }
             }
