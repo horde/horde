@@ -58,14 +58,14 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         }
         $this->view->topbar = $topbar->render();
 
-        $sidebar = $GLOBALS['injector']->getInstance('Horde_View_Sidebar');
-        $blank = new Horde_Url();
-        $sidebar->newLink = $blank->link(array('id' => 'composelink',
-                                               'class' => 'icon'));
-        $sidebar->newText = _("New Message");
-        $sidebar->newRefresh = $blank->link(array('id' => 'checkmaillink',
-                                                  'class' => 'icon'));
-        $sidebar->containers = array(
+        $impSidebar = new Horde_View(array(
+            'templatePath' => array(
+                $GLOBALS['registry']->get('templates', 'horde') . '/sidebar',
+                IMP_TEMPLATES . '/dynamic'
+            )
+        ));
+        $impSidebar->addHelper('Text');
+        $impSidebar->containers = array(
             array('id' => 'imp-specialmboxes'),
             array('rows' => array(
                 array('id' => 'folderopts_link',
@@ -77,7 +77,17 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                       'cssClass' => 'folderImg',
                       'label' => _("Move to Base Level")))),
             array('id' => 'imp-normalmboxes'));
-        $sidebar->containersCount = 3;
+        $impSidebar->containersCount = 3;
+
+        $sidebar = $GLOBALS['injector']->getInstance('Horde_View_Sidebar');
+        $blank = new Horde_Url();
+        $sidebar->newLink = $blank->link(array('id' => 'composelink',
+                                               'class' => 'icon'));
+        $sidebar->newText = _("New Message");
+        $sidebar->newRefresh = $blank->link(array('id' => 'checkmaillink',
+                                                  'class' => 'icon'));
+        $sidebar->content = $impSidebar->render('sidebar');
+
         $this->view->sidebar = $sidebar->render();
 
         $page_output->noDnsPrefetch();

@@ -313,29 +313,22 @@ var DimpBase = {
     //     mailbox
     highlightSidebar: function(id)
     {
-        return;
         // Folder bar may not be fully loaded yet.
         if ($('foldersLoading').visible()) {
             this.highlightSidebar.bind(this, id).defer();
             return;
         }
 
-        var curr = $('sidebar').down('.on'),
+        var curr = $('foldersSidebar').down('.horde-subnavi-active'),
             elt = $(id);
 
         if (curr === elt) {
             return;
         }
 
-        if (elt && !elt.match('LI')) {
-            elt = elt.up();
-            if (!elt) {
-                return;
-            }
-        }
-
         if (curr) {
-            curr.removeClassName('on');
+            curr.removeClassName('horde-subnavi-active');
+            curr.addClassName('horde-subnavi');
         }
 
         if (!elt) {
@@ -343,7 +336,7 @@ var DimpBase = {
         }
 
         if (elt) {
-            elt.addClassName('on');
+            elt.addClassName('horde-subnavi-active');
             this._toggleSubFolder(elt, 'exp');
         }
     },
@@ -1991,7 +1984,7 @@ var DimpBase = {
             // Issue: it is quite expensive to determine this, since the
             // mailbox elements themselves aren't hidden - it is one of the
             // parent containers. Probably not worth the effort.
-            args.set('poll', Object.toJSON($('horde-sidebar').select('.mbox').findAll(function(elt) {
+            args.set('poll', Object.toJSON($('foldersSidebar').select('.mbox').findAll(function(elt) {
                 return !Object.isUndefined(elt.retrieve('u')) && elt.visible();
             }).invoke('retrieve', 'mbox')));
         } else {
@@ -2010,7 +2003,7 @@ var DimpBase = {
     {
         /* Don't update polled status until the sidebar is visible. Otherwise,
          * preview callbacks may not correctly update unseen status. */
-        if (!$('horde-sidebar').visible()) {
+        if (!$('foldersSidebar').visible()) {
             return this.pollCallback.bind(this, r).defer();
         }
 
@@ -2921,7 +2914,7 @@ var DimpBase = {
 
         if ($('foldersLoading').visible()) {
             $('foldersLoading').hide();
-            $('horde-sidebar').show();
+            $('foldersSidebar').show();
         }
 
         if (nm && nm.getStyle('max-height') !== null) {
@@ -3312,7 +3305,7 @@ var DimpBase = {
     _reloadFolders: function()
     {
         $('foldersLoading').show();
-        $('horde-sidebar').hide();
+        $('foldersSidebar').hide();
 
         [ Object.values(this.mboxes), Object.values(this.smboxes) ].flatten().compact().each(function(elt) {
             this.deleteMboxElt(elt, true);
@@ -3591,7 +3584,7 @@ var DimpBase = {
         DimpCore.conf.sort = $H(DimpCore.conf.sort);
 
         /* Limit to folders sidebar only. */
-        $('horde-sidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
+        $('foldersSidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
 
         /* Create splitbar for sidebar. */
         this.splitbar = new Element('DIV', { id: 'horde-slideleft', className: 'horde-splitbar-vert' }).insert(

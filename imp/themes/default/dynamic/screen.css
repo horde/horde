@@ -335,7 +335,7 @@ span.iconImgSidebar {
     cursor: pointer;
 }
 
-#logo, #dimpbarActions, #serviceActions, #foldersSidebar, #normalmboxes {
+#logo, #dimpbarActions, #serviceActions, #normalmboxes {
     overflow-x: hidden;
     overflow-y: auto;
 }
