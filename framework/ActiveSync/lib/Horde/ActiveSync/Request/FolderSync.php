@@ -117,8 +117,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 }
             }
             $this->_logger->debug(sprintf(
-                "[%s] Using SYNC_CACHE: %s",
-                print_r($sync_cache['folders'], true))
+                '[%s] Using syncCache',
+                $this->_device->id));
             );
         } else {
             $sync_cache = false;
