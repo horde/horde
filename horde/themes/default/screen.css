@@ -1003,7 +1003,7 @@ ul.sound-list {
 #color-picker .north {
     background: #111;
     border-bottom: 1px solid #171717;
-    font-size: 11px;
+    font-size: 90%;
 }
 #color-picker .north div {
     color: #999;
@@ -1258,7 +1258,7 @@ ul.horde-tags {
 }
 #GrowlerLog ul li {
     color: #333;
-    font-size: 12px;
+    font-size: 100%;
     list-style-type: none;
     overflow: hidden;
     padding: 10px 30px;
@@ -1597,7 +1597,6 @@ span.loadingImg {
  * Links
  */
 a, a:link, a:visited, a:active{
-font-size: 12px;
 color:#000;
 font-weight:normal;
 text-decoration:none;
@@ -1619,14 +1618,14 @@ height:100%;
 * Links für das Mainmenü,
 */
 a.horde-mainnavi:link, a.horde-mainnavi:visited, a.horde-mainnavi:active{
-font-size: 13px;
+font-size: 110%;
 color: #fff;
 font-weight:bold;
 text-decoration:none;
 text-shadow: 1px 1px 0px #000;
 }
 a.horde-mainnavi:hover{
-font-size: 13px;
+font-size: 110%;
 color: #7eaa42;
 font-weight:bold;
 text-decoration:none;
@@ -1634,7 +1633,7 @@ text-shadow: 1px 1px 0px #000;
 }
 
 a.horde-mainnavi-active:link, a.horde-mainnavi-active:visited, a.horde-mainnavi-active:active{
-font-size: 13px;
+font-size: 110%;
 color: #7eaa42;
 font-weight:bold;
 text-decoration:none;
@@ -1840,7 +1839,7 @@ border-bottom:2px solid #000;
       width:190px;
       height:20px;
       padding:0px 5px 0px 5px;
-      font-size:14px;
+      font-size:115%;
       border:0px;
       }
     #horde-search #horde-img{
@@ -2096,7 +2095,6 @@ overflow: hidden;
   .horde-button-left a:visited, .horde-button-left a:active,
   .horde-button-right a, .horde-button-right a:link,
   .horde-button-right a:visited, .horde-button-right a:active {
-      font-size: 12px;
       color: #616161;
       font-weight:bold;
       text-decoration:none;
@@ -2144,18 +2142,17 @@ background-repeat:repeat-x;
 p{
 margin:0px;
 padding:0px;
-font-size: 12px;
 color: #000;
 font-style: normal;
 }
 .p11{
-font-size: 11px;
+font-size: 90%;
 }
 .p14{
-font-size: 14px;
+font-size: 115%;
 }
 .p17{
-font-size: 17px;
+font-size: 140%;
 }
 .bold{
 font-weight: bold;
