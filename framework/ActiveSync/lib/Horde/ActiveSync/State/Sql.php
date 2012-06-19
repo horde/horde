@@ -1167,7 +1167,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         default:
             $cache['folders'][$folder->serverid]['class'] = 'Email';
         }
-        $cache['folders'][$folder->serverid]['type'] = $type;
+        $cache['folders'][$folder->serverid]['type'] = $folder->type;
         $cache['folders'][$folder->serverid]['filtertype'] = '0';
         $cache['timestamp'] = time();
     }
