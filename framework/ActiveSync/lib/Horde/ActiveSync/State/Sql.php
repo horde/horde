@@ -509,36 +509,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Get the folder data for a specific device. Used only from very old
-     * devices...and this is probably currently broken.
-     *
-     * @param object $device  The device object
-     * @param string $class   The folder class to fetch (Calendar, Contacts etc.)
-     *
-     * @return mixed  Either an array of folder data || false
-     */
-    public function getFolderData($device, $class)
-    {
-        $sql = 'SELECT device_folders FROM ' . $this->_syncUsersTable . ' WHERE device_id = ? AND device_user = ?';
-        try {
-            $folders = $this->_db->selectValue($sql, array($device->id, $device->user));
-        } catch (Horde_Db_Exception $e) {
-            throw new Horde_ActiveSync_Exception($e);
-        }
-        if ($folders) {
-            $folders = unserialize($folders);
-            if ($class == "Calendar") {
-                return $folders[Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT];
-            }
-            if ($class == "Contacts") {
-                return $folders[Horde_ActiveSync::FOLDER_TYPE_CONTACT];
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Return an array of known folders. This is essentially the state for a
      * FOLDERSYNC request. AS uses a seperate synckey for FOLDERSYNC requests
      * also, so need to treat it as any other collection.

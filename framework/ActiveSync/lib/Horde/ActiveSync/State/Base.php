@@ -461,16 +461,6 @@ abstract class Horde_ActiveSync_State_Base
     abstract public function setFolderData($device, $folders);
 
     /**
-     * Get the folder data for a specific device
-     *
-     * @param object $device  The device object
-     * @param string $class   The folder class to fetch (Calendar, Contacts etc.)
-     *
-     * @return mixed  Either an array of folder data || false
-     */
-    abstract public function getFolderData($device, $class);
-
-    /**
      * Get all items that have changed since the last sync time
      *
      * @param array $options  An options array:
