@@ -138,9 +138,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC && empty($id)) {
             $id = Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC;
         }
+
+        // synckey == 0 is an initial sync or reset.
         if (empty($syncKey)) {
             if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
-                // FolderSync with a synckey == 0 is an initial sync or reset.
                 $this->_folder = array();
             } else {
                 $this->_folder = ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL) ?
@@ -150,10 +151,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_resetDeviceState($id);
             return;
         }
+
         $this->_logger->debug(
             sprintf('[%s] Loading state for synckey %s',
                 $this->_deviceInfo->id,
-                $syncKey));
+                $syncKey)
+        );
 
         // Check if synckey is allowed
         if (!preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
@@ -208,7 +211,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 sprintf('[%s] Loading FOLDERSYNC state: %s',
                 $this->_deviceInfo->id,
                 print_r($this->_folder, true)));
-
         } elseif ($type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
             $this->_folder = ($data !== false
                 ? $data
@@ -835,6 +837,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @param string $devId  The device id
      * @param integer $key   The new policy key
+     *
+     * @throws Horde_ActiveSync_Exception
      */
     public function setPolicyKey($devId, $key)
     {
@@ -843,7 +847,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             throw new Horde_ActiveSync_Exception('Device not loaded');
         }
 
-        $query = 'UPDATE ' . $this->_syncUsersTable . ' SET device_policykey = ? WHERE device_id = ? AND device_user = ?';
+        $query = 'UPDATE ' . $this->_syncUsersTable
+            . ' SET device_policykey = ? WHERE device_id = ? AND device_user = ?';
         try {
             $this->_db->update($query, array($key, $devId, $this->_backend->getUser()));
         } catch (Horde_Db_Exception $e) {
@@ -872,8 +877,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     /**
      * Set a new remotewipe status for the device
      *
-     * @param string $devid
-     * @param string $status
+     * @param string $devid    The device id.
+     * @param string $status   A Horde_ActiveSync::RWSTATUS_* constant.
      *
      * @return boolean
      * @throws Horde_ActiveSync_Exception
@@ -929,16 +934,19 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
             try {
                 $results = $this->_db->selectValue($q, array($options['devId']));
-                if ($results != Horde_ActiveSync::RWSTATUS_NA && $results != Horde_ActiveSync::RWSTATUS_OK) {
+                if ($results != Horde_ActiveSync::RWSTATUS_NA &&
+                    $results != Horde_ActiveSync::RWSTATUS_OK) {
                     unset($options['user']);
                     return $this->removeState($options);
                 }
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_ActiveSync_Exception($e);
             }
+
             $state_query .= ' sync_devid = ? AND sync_user = ?';
             $map_query .= ' sync_devid = ? AND sync_user = ?';
-            $user_query = 'DELETE FROM ' . $this->_syncUsersTable . ' WHERE device_id = ? AND device_user = ?';
+            $user_query = 'DELETE FROM ' . $this->_syncUsersTable
+                . ' WHERE device_id = ? AND device_user = ?';
             $state_values = $values = array($options['devId'], $options['user']);
             if (!empty($options['id'])) {
                 $state_query .= ' AND sync_folderid = ?';
@@ -953,8 +961,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         } elseif (!empty($options['devId'])) {
             $state_query .= ' sync_devid = ?';
             $map_query .= ' sync_devid = ?';
-            $user_query = 'DELETE FROM ' . $this->_syncUsersTable . ' WHERE device_id = ?';
-            $device_query = 'DELETE FROM ' . $this->_syncDeviceTable . ' WHERE device_id = ?';
+            $user_query = 'DELETE FROM ' . $this->_syncUsersTable
+                . ' WHERE device_id = ?';
+            $device_query = 'DELETE FROM ' . $this->_syncDeviceTable
+                . ' WHERE device_id = ?';
             $state_values = $values = array($options['devId']);
             $this->_logger->debug(sprintf(
                 '[%s] Removing all device state for device %s.',
@@ -981,8 +991,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             if (!empty($device_query)) {
                 $this->_db->delete($device_query, $values);
             } elseif (!empty($user_query)) {
-                /* If there was a user_deletion, check if we should remove the
-                 * device entry as well */
+                // If there was a user_deletion, check if we should remove the
+                // device entry as well
                 $sql = 'SELECT COUNT(*) FROM ' . $this->_syncUsersTable . ' WHERE device_id = ?';
                 if (!$this->_db->selectValue($sql, array($devId))) {
                     $query = 'DELETE FROM ' . $this->_syncDeviceTable . ' WHERE device_id = ?';

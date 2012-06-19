@@ -485,17 +485,17 @@ abstract class Horde_ActiveSync_State_Base
      * cause all devices that support provisioning to be reprovisioned.
      *
      * @throws Horde_ActiveSync_Exception
-     *
      */
     abstract public function resetAllPolicyKeys();
 
     /**
      * Set a new remotewipe status for the device
      *
-     * @param string $devid
-     * @param string $status
+     * @param string $devid    The device id.
+     * @param string $status   A Horde_ActiveSync::RWSTATUS_* constant.
      *
      * @return boolean
+     * @throws Horde_ActiveSync_Exception
      */
     abstract public function setDeviceRWStatus($devid, $status);
 
@@ -553,21 +553,6 @@ abstract class Horde_ActiveSync_State_Base
      * @throws Horde_ActiveSyncException
      */
     abstract public function removeState(array $options);
-
-    /**
-     * Return the heartbeat interval, or zero if we have no existing state
-     *
-     * @return integer  The hearbeat interval, or zero if not found.
-     * @throws Horde_ActiveSync_Exception
-     */
-    abstract public function getHeartbeatInterval();
-
-    /**
-     * Set the device's heartbeat interval
-     *
-     * @param integer $heartbeat  The interval (in seconds).
-     */
-    abstract public function setHeartbeatInterval($heartbeat);
 
     /**
      * List all devices that we know about.
@@ -637,5 +622,17 @@ abstract class Horde_ActiveSync_State_Base
      *
      */
     abstract public function deleteSyncCacheFolder(array &$cache, $devid, $user, $folder);
+
+    /**
+     * Check and see that we didn't already see the incoming change from the PIM.
+     * This would happen e.g., if the PIM failed to receive the server response
+     * after successfully importing new messages.
+     *
+     * @param string $id  The client id sent during message addition.
+     *
+     * @return string The UID for the given clientid, null if none found.
+     * @throws Horde_ActiveSync_Exception
+     */
+     abstract public function isDuplicatePIMAddition($id);
 
 }
