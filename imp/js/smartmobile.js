@@ -403,7 +403,7 @@ var ImpMobile = {
             args = '&mbox=' + data.mbox + '&uid=' + data.uid,
             innocent = 'show',
             spam = 'show',
-            spambar;
+            spambar, tmp;
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
@@ -529,7 +529,10 @@ var ImpMobile = {
             });
         }
 
-        $('#message').children().not('.ui-header, #imp-message-less-parent').show();
+        $('#message').children().show();
+        tmp = $('#imp-message-header-toggle').children();
+        tmp.eq(0).show();
+        tmp.eq(1).hide();
 
         delete ImpMobile.message;
     },
@@ -956,14 +959,8 @@ var ImpMobile = {
                 $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox);
                 return;
 
-            case 'imp-message-more':
-                elt.parent().hide();
-                elt.parent().next().show();
-                return;
-
-            case 'imp-message-less':
-                elt.parent().hide();
-                elt.parent().prev().show();
+            case 'imp-message-header-toggle':
+                elt.children().toggle();
                 return;
 
             case 'imp-message-prev':
