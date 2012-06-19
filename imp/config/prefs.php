@@ -553,7 +553,14 @@ $_prefs['compose_html_font_size'] = array(
 $_prefs['mail_domain'] = array(
     'value' => '',
     'type' => 'text',
-    'desc' => _("When sending mail or expanding addresses, what domain should we append to unqualified addresses (email addresses without \"@\")?")
+    'desc' => _("When sending mail or expanding addresses, what domain should we append to unqualified addresses (email addresses without \"@\")?"),
+    'on_change' => function() {
+        $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $GLOBALS['prefs']->getValue('mail_domain'));
+        $GLOBALS['prefs']->setValue('mail_domain', $maildomain);
+        if (!empty($maildomain)) {
+            $GLOBALS['session']->set('imp', 'maildomain', $maildomain);
+        }
+    }
 );
 
 // Where should the cursor be located in the compose text area by default?
@@ -1234,7 +1241,14 @@ $_prefs['delete_mark_seen'] = array(
 $_prefs['use_trash'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("When deleting messages, move them to your Trash mailbox instead of marking them as deleted?")
+    'desc' => _("When deleting messages, move them to your Trash mailbox instead of marking them as deleted?"),
+    'on_change' => function() {
+        IMP_Mailbox::getPref('trash_folder')->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+        if ($GLOBALS['prefs']->getValue('use_trash') &&
+            !$GLOBALS['prefs']->getValue('trash_folder')) {
+            $GLOBALS['notification']->push(_("You have activated move to Trash but no Trash mailbox is defined. You will be unable to delete messages until you set a Trash mailbox in the preferences."), 'horde.warning');
+        }
+    }
 );
 
 // trash mailbox selection widget.
@@ -1253,9 +1267,15 @@ $_prefs['trash_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
     // on the IMAP server is different than this value.
-    'value' => 'Trash'
+    'value' => 'Trash',
     // Exchange servers use this default value instead.
-    // 'value' => 'Deleted Items'
+    // 'value' => 'Deleted Items',
+    'on_change' => function() {
+        if ($GLOBALS['prefs']->getValue('use_trash') &&
+            !$GLOBALS['prefs']->getValue('trash_folder')) {
+            $GLOBALS['notification']->push(_("You have activated move to Trash but no Trash mailbox is defined. You will be unable to delete messages until you set a Trash mailbox in the preferences."), 'horde.warning');
+        }
+    }
 );
 
 // hide deleted when using a Trash mailbox. This REALLY should be disabled;
@@ -1726,7 +1746,10 @@ $prefGroups['folderdisplay'] = array(
 $_prefs['subscribe'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Use IMAP mailbox subscriptions?")
+    'desc' => _("Use IMAP mailbox subscriptions?"),
+    'on_change' => function() {
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
+    }
 );
 
 // expand folder tree by default
@@ -1756,6 +1779,9 @@ $_prefs['tree_view'] = array(
     'desc' => _("How should namespaces be displayed in the folder tree view?"),
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
+    },
+    'on_change' => function() {
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
     }
 );
 

@@ -112,46 +112,6 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
-     */
-    public function prefsCallback($ui)
-    {
-        // Ensure that the current default_share is included in sync_calendars
-        if ($GLOBALS['prefs']->isDirty('sync_lists') || $GLOBALS['prefs']->isDirty('default_tasklist')) {
-            $sync = @unserialize($GLOBALS['prefs']->getValue('sync_lists'));
-            $haveDefault = false;
-            $default = Nag::getDefaultTasklist(Horde_Perms::EDIT);
-            foreach ($sync as $cid) {
-                if ($cid == $default) {
-                    $haveDefault = true;
-                    break;
-                }
-            }
-            if (!$haveDefault) {
-                $sync[] = $default;
-                $GLOBALS['prefs']->setValue('sync_lists', serialize($sync));
-            }
-        }
-
-        if ($GLOBALS['conf']['activesync']['enabled'] && $GLOBALS['prefs']->isDirty('sync_lists')) {
-            try {
-                $stateMachine = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
-                $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
-                $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
-                foreach ($devices as $device) {
-                    $stateMachine->removeState(array(
-                        'devId' => $device['device_id'],
-                        'user' => $GLOBALS['registry']->getAuth(),
-                        'id' => Horde_Core_ActiveSync_Driver::TASKS_FOLDER_UID)
-                    );
-                }
-                $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
-            } catch (Horde_ActiveSync_Exception $e) {
-                $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.err');
-            }
-        }
-    }
-
-    /**
      * Remove all data for the specified user.
      *
      * @param string $user  The user to remove.

@@ -418,18 +418,6 @@ class Horde_Registry_Application
     }
 
 
-    // Horde_Core_Prefs_Ui functions.
-
-    /**
-     * Called when preferences are changed.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    public function prefsCallback($ui)
-    {
-    }
-
-
     // Horde_Config functions.
 
     /**

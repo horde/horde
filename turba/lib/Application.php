@@ -174,29 +174,6 @@ class Turba_Application extends Horde_Registry_Application
     }
 
     /**
-     */
-    public function prefsCallback($ui)
-    {
-        if ($GLOBALS['conf']['activesync']['enabled'] && $GLOBALS['prefs']->isDirty('sync_books')) {
-            try {
-                $stateMachine = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
-                $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
-                $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
-                foreach ($devices as $device) {
-                    $stateMachine->removeState(array(
-                        'devId' => $device['device_id'],
-                        'user' => $GLOBALS['registry']->getAuth(),
-                        'id' => Horde_Core_ActiveSync_Driver::CONTACTS_FOLDER_UID)
-                    );
-                }
-                $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
-            } catch (Horde_ActiveSync_Exception $e) {
-                $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.err');
-            }
-        }
-    }
-
-    /**
      * Returns values for <configspecial> configuration settings.
      *
      * @param string $what  Either 'client-fields' or 'sources'.

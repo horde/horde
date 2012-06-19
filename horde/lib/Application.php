@@ -89,22 +89,6 @@ class Horde_Application extends Horde_Registry_Application
 
     /**
      */
-    public function prefsCallback($ui)
-    {
-        global $prefs, $registry;
-
-        if ($prefs->isDirty('language')) {
-            $registry->setLanguageEnvironment($prefs->getValue('language'));
-            foreach ($registry->listApps() as $app) {
-                if ($registry->isAuthenticated(array('app' => $app, 'notransparent' => true))) {
-                    $registry->callAppMethod($app, 'changeLanguage');
-                }
-            }
-        }
-    }
-
-    /**
-     */
     public function configSpecialValues($what)
     {
         switch ($what) {

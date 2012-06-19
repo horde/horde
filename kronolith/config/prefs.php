@@ -251,6 +251,21 @@ $_prefs['default_share'] = array(
             $enum[$id] = $calendar->get('name');
         }
         $ui->prefs['default_share']['enum'] = $enum;
+    },
+    'on_change' => function() {
+        $sync = @unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
+        $haveDefault = false;
+        $default = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
+        foreach ($sync as $cid) {
+            if ($cid == $default) {
+                $haveDefault = true;
+                break;
+            }
+        }
+        if (!$haveDefault) {
+            $sync[] = $default;
+            $GLOBALS['prefs']->setValue('sync_calendars', serialize($sync));
+        }
     }
 );
 // Calendars use for synchronization
@@ -271,6 +286,38 @@ $_prefs['sync_calendars'] = array(
             }
         }
         $ui->prefs['sync_calendars']['enum'] = $enum;
+    },
+    'on_change' => function() {
+        $sync = @unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
+        $haveDefault = false;
+        $default = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
+        foreach ($sync as $cid) {
+            if ($cid == $default) {
+                $haveDefault = true;
+                break;
+            }
+        }
+        if (!$haveDefault) {
+            $sync[] = $default;
+            $GLOBALS['prefs']->setValue('sync_calendars', serialize($sync));
+        }
+        if ($GLOBALS['conf']['activesync']['enabled']) {
+            try {
+                $sm = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+                $sm->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
+                $devices = $sm->listDevices($GLOBALS['registry']->getAuth());
+                foreach ($devices as $device) {
+                    $sm->removeState(array(
+                        'devId' =>$device['device_id'],
+                        'id' => Horde_Core_ActiveSync_Driver::APPOINTMENTS_FOLDER_UID,
+                        'user' => $GLOBALS['registry']->getAuth()
+                    ));
+                }
+                $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
+            } catch (Horde_ActiveSync_Exception $e) {
+                $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.error');
+            }
+        }
     }
 );
 

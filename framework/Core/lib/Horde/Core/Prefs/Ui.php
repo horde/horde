@@ -289,15 +289,17 @@ class Horde_Core_Prefs_Ui
 
         /* Run through the action handlers */
         foreach ($preflist as $pref) {
+            $pref_updated = false;
+
             switch ($this->prefs[$pref]['type']) {
             case 'checkbox':
-                $updated |= $save->setValue($pref, intval(isset($this->vars->$pref)));
+                $pref_updated = $save->setValue($pref, intval(isset($this->vars->$pref)));
                 break;
 
             case 'enum':
                 $enum = $this->prefs[$pref]['enum'];
                 if (isset($enum[$this->vars->$pref])) {
-                    $updated |= $save->setValue($pref, $this->vars->$pref);
+                    $pref_updated = $save->setValue($pref, $this->vars->$pref);
                 } else {
                     $this->_errors[$pref] = Horde_Core_Translation::t("An illegal value was specified.");
                 }
@@ -318,7 +320,7 @@ class Horde_Core_Prefs_Ui
                     }
                 }
 
-                $updated |= $save->setValue($pref, @serialize($set));
+                $pref_updated = $save->setValue($pref, @serialize($set));
                 break;
 
             case 'number':
@@ -328,14 +330,14 @@ class Horde_Core_Prefs_Ui
                 } elseif (empty($num) && empty($this->prefs[$pref]['zero'])) {
                     $this->_errors[$pref] = Horde_Core_Translation::t("This value must be non-zero.");
                 } else {
-                    $updated |= $save->setValue($pref, $num);
+                    $pref_updated = $save->setValue($pref, $num);
                 }
                 break;
 
             case 'password':
             case 'text':
             case 'textarea':
-                $updated |= $save->setValue($pref, $this->vars->$pref);
+                $pref_updated = $save->setValue($pref, $this->vars->$pref);
                 break;
 
 
@@ -344,9 +346,18 @@ class Horde_Core_Prefs_Ui
                  * application. */
                 if (isset($this->prefs[$pref]['handler']) &&
                     ($ob = $injector->getInstance($this->prefs[$pref]['handler']))) {
-                    $updated = $ob->update($this);
+                    $pref_updated = $ob->update($this);
                 }
                 break;
+            }
+
+            if ($pref_updated) {
+                $updated = true;
+
+                if (isset($this->prefs[$pref]['on_change']) &&
+                    is_callable($this->prefs[$pref]['on_change'])) {
+                    $this->prefs[$pref]['on_change']();
+                }
             }
         }
 
@@ -359,8 +370,6 @@ class Horde_Core_Prefs_Ui
                 // Throws Exception caught in _identitiesUpdate().
                 $save->verify();
             }
-
-            $registry->callAppMethod($this->app, 'prefsCallback', array('args' => array($this)));
 
             if ($prefs instanceof Horde_Prefs_Session) {
                 $notification->push(Horde_Core_Translation::t("Your preferences have been updated for the duration of this session."), 'horde.success');

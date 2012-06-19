@@ -84,6 +84,12 @@
  *       - false: Show this preference in the UI and allow changing.
  *     DEFAULT: false
  *
+ *   - on_change: (function) A method to call when this prefs value is changed
+ *                in the UI.
+ *     VALUES:
+ *       Function
+ *     DEFAULT: None
+ *
  *   - on_init: (function) A method to call when initialzing the value for
  *              display on the UI page. Is passed one argument: the
  *              Horde_Core_Prefs_Ui object.
@@ -387,6 +393,15 @@ $_prefs['language'] = array(
         $enum = $GLOBALS['registry']->nlsconfig->languages;
         array_unshift($enum, _("Default"));
         $ui->prefs['language']['enum'] = $enum;
+    },
+    'on_change' => function() {
+        global $prefs, $registry;
+        $registry->setLanguageEnvironment($prefs->getValue('language'));
+        foreach ($registry->listApps() as $app) {
+            if ($registry->isAuthenticated(array('app' => $app, 'notransparent' => true))) {
+                $registry->callAppMethod($app, 'changeLanguage');
+            }
+        }
     }
 );
 
