@@ -1,27 +1,32 @@
 <?php echo $this->status ?>
 
 <div id="msgData" style="display:none">
- <div class="dimpActions dimpActionsMsg">
+ <div class="horde-buttonbar">
   <div class="iconImg headercloseimg closeImg" id="windowclose" title="X"></div>
   <div>
    <?php echo $this->actionButton(array('class' => 'hasmenu', 'icon' => 'Reply', 'id' => 'reply_link', 'title' => _("Reply"))) ?>
+   <div class="horde-button-split"></div>
   </div>
   <div>
    <?php echo $this->actionButton(array('class' => 'hasmenu', 'icon' => 'Forward', 'id' => 'forward_link', 'title' => _("Forward"))) ?>
+   <div class="horde-button-split"></div>
   </div>
 <?php if ($this->show_spam): ?>
   <div>
    <?php echo $this->actionButton(array('icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?>
+   <div class="horde-button-split"></div>
   </div>
 <?php endif; ?>
 <?php if ($this->show_innocent): ?>
   <div>
    <?php echo $this->actionButton(array('icon' => 'Innocent', 'id' => 'button_innocent', 'title' => _("Innocent"))) ?>
+   <div class="horde-button-split"></div>
   </div>
 <?php endif; ?>
 <?php if ($this->show_delete): ?>
   <div>
    <?php echo $this->actionButton(array('icon' => 'Delete', 'id' => 'button_delete', 'title' => _("Delete"))) ?>
+   <div class="horde-button-split"></div>
   </div>
 <?php endif; ?>
  </div>
