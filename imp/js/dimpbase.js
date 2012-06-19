@@ -1109,7 +1109,7 @@ var DimpBase = {
 
         case 'ctx_oa_blacklist':
         case 'ctx_oa_whitelist':
-            this.blacklist(id == 'oa_blacklist');
+            this.blacklist(id == 'ctx_oa_blacklist');
             break;
 
         case 'ctx_message_undelete':
@@ -1123,7 +1123,7 @@ var DimpBase = {
 
         case 'ctx_oa_hide_deleted':
         case 'ctx_oa_show_deleted':
-            this.viewport.reload({ delhide: Number(id == 'oa_hide_deleted') });
+            this.viewport.reload({ delhide: Number(id == 'ctx_oa_hide_deleted') });
             break;
 
         case 'ctx_oa_help':
