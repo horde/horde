@@ -620,26 +620,24 @@ class Horde_Hooks
 //        // configured in $conf and store the extra fields in turba_objects,
 //        // using the $userId as the key for the object and values from the
 //        // $extra array. You could create your own sql syntax or code to
-//        store this in whichever backend you require.
+//        // store this in whichever backend you require.
 //        // NOTE: You NEED Turba to be correctly installed before you can use
 //        // this example. It also assumes you are using an SQL backend.
-//        $db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb();
+//        $db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
 //
-//        $fields = $values = array();
+//        $fields = $values = $markers = array();
 //        foreach ($extra as $field => $value) {
 //            $fields[] = 'object_' . Horde_String::lower($field);
-//            $values[] = $db->quote(Horde_String::convertCharset($value, 'UTF-8', $GLOBALS['conf']['sql']['charset']));
+//            $markers[] = '?';
+//            $values[] = Horde_String::convertCharset($value, 'UTF-8', $db->getCharset());
 //        }
 //        $fields[] = 'object_id';
-//        $values[] = $db->quote($userId);
+//        $markers[] = '?';
+//        $values[] = $userId;
 //
 //        $query  = 'INSERT INTO turba_objects ( owner_id, ' . implode(', ', $fields) . ')';
-//        $query .= ' VALUES ( \'admin\', ' . implode(', ', $values) . ')';
-//        $result = $db->query($query);
-//
-//        if ($result instanceof PEAR_Error) {
-//            throw new Horde_Exception_Wrapped($result);
-//        }
+//        $query .= ' VALUES ( \'admin\', ' . implode(', ', $markers) . ')';
+//        $db->insert($query, $values);
 //    }
 
 
