@@ -200,6 +200,8 @@ $backends['procmail'] = array(
             // 'PATH' => '/usr/bin',
             // Example for the $DEFAULT variable
             // 'DEFAULT' => '$HOME/Maildir',
+            // Example for the $DEFAULT variable when using Maildir format
+            // 'DEFAULT' => '$HOME/Maildir/',
             // Example for the $VACATION_DIR variable (used to store vacation files)
             // 'VACATION_DIR' => '$HOME',
         )
