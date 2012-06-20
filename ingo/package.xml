@@ -1056,7 +1056,6 @@
 * [mms] Fix IMAP filtering on combination fields (Bug #11197).
 * [jan] Fix showing blacklist option to mark message as deleted (Bug #11186).
 * [jan] Update Italian translation (Massimo Malabotta &lt;mmalabotta@units.it&gt;).
-* [jan] Fix folder names in Procmail rules if using Maildir (Bug #10113).
 * [jan] Update Hungarian translation (Zoltán Németh &lt;nemeth.zoltan@etit.hu&gt;).
 * [mms] Application initialization should only be done on first access.
    </notes>
