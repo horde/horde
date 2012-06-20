@@ -2531,25 +2531,15 @@ var DimpBase = {
 
     dblclickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
-        }
-
         var elt = e.element(),
             tmp, tmp2;
 
         if (elt.hasClassName('splitBarVertSidebar')) {
             this._setPref('splitbar_side', null);
             this.setSidebarWidth();
-            e.stop();
+            e.memo.stop();
             return;
-        }
-
-        if (!elt.hasClassName('vpRow')) {
-            elt = elt.up('.vpRow');
-        }
-
-        if (elt) {
+        } else if (elt.hasClassName('vpRow')) {
             tmp = this.viewport.createSelection('domid', elt.identify());
             tmp2 = tmp.get('dataob').first();
 
@@ -2560,256 +2550,275 @@ var DimpBase = {
             } else {
                 this.msgWindow(tmp2);
             }
-            e.stop();
+            e.memo.stop();
         }
     },
 
     clickHandler: function(e)
     {
-        if (e.isRightClick() || DimpCore.DMenu.operaCheck(e)) {
+        var tmp;
+
+        if (DimpCore.DMenu.operaCheck(e.memo)) {
             return;
         }
 
-        var elt = e.element(),
-            id, tmp;
+        switch (e.element().readAttribute('id')) {
+        case 'normalmboxes':
+        case 'specialmboxes':
+            this._handleMboxMouseClick(e.memo);
+            break;
 
-        while (Object.isElement(elt)) {
-            id = elt.readAttribute('id');
+        case 'appportal':
+        case 'hometab':
+        case 'logolink':
+            this.go('portal');
+            e.memo.stop();
+            break;
 
-            switch (id) {
-            case 'normalmboxes':
-            case 'specialmboxes':
-                this._handleMboxMouseClick(e);
-                break;
+        case 'button_compose':
+        case 'composelink':
+            DimpCore.compose('new');
+            e.memo.stop();
+            break;
 
-            case 'appportal':
-            case 'hometab':
-            case 'logolink':
-                this.go('portal');
-                e.stop();
-                return;
+        case 'search_refresh':
+            this.loadingImg('viewport', true);
+            this.searchbarTimeReset(true);
+            this.poll(true);
+            e.memo.stop();
+            break;
 
-            case 'button_compose':
-            case 'composelink':
-                DimpCore.compose('new');
-                e.stop();
-                return;
+        case 'checkmaillink':
+            this.poll(false);
+            e.memo.stop();
+            break;
 
-            case 'search_refresh':
-                this.loadingImg('viewport', true);
-                this.searchbarTimeReset(true);
-                // Fall-through
+        case 'search_edit':
+            this.go('search', {
+                edit_query: 1,
+                mailbox: this.view
+            });
+            e.memo.stop();
+            break;
 
-            case 'checkmaillink':
-                this.poll(id == 'search_refresh');
-                e.stop();
-                return;
+        case 'alertsloglink':
+            HordeCore.Growler.toggleLog();
+            break;
 
-            case 'search_edit':
-                this.go('search', {
-                    edit_query: 1,
-                    mailbox: this.view
-                });
-                e.stop();
-                return;
+        case 'applyfilterlink':
+            if (this.viewport) {
+                this.viewport.reload({ applyfilter: 1 });
+            }
+            e.memo.stop();
+            break;
 
-            case 'alertsloglink':
-                HordeCore.Growler.toggleLog();
-                break;
+        case 'appprefs':
+            this.go('prefs');
+            e.memo.stop();
+            break;
 
-            case 'applyfilterlink':
-                if (this.viewport) {
-                    this.viewport.reload({ applyfilter: 1 });
+        case 'applogout':
+            e.element().down('A').update('[' + DimpCore.text.onlogout + ']');
+            HordeCore.logout();
+            e.memo.stop();
+            break;
+
+        case 'button_forward':
+            this.composeMailbox('forward_auto');
+            break;
+
+        case 'button_reply':
+            this.composeMailbox('reply_auto');
+            break;
+
+        case 'button_resume':
+            this.composeMailbox('resume');
+            e.memo.stop();
+            break;
+
+        case 'button_template':
+            if (this.viewport.getSelection().size()) {
+                this.composeMailbox('template');
+            }
+            e.memo.stop();
+            break;
+
+        case 'button_innocent':
+            this.reportSpam(false);
+            e.memo.stop();
+            break;
+
+        case 'button_spam':
+            this.reportSpam(true);
+            e.memo.stop();
+            break;
+
+        case 'button_delete':
+            this.deleteMsg();
+            e.memo.stop();
+            break;
+
+        case 'msglistHeaderHoriz':
+            tmp = e.memo.element();
+            if (tmp.hasClassName('msCheckAll')) {
+                this.selectAll();
+            } else {
+                this.sort(tmp.retrieve('sortby'));
+            }
+            e.memo.stop();
+            break;
+
+        case 'msglistHeaderVert':
+            tmp = e.memo.element();
+            if (tmp.hasClassName('msCheckAll')) {
+                this.selectAll();
+            }
+            e.memo.stop();
+            break;
+
+        case 'th_expand':
+        case 'th_collapse':
+            this._toggleHeaders(e.element(), true);
+            break;
+
+        case 'msgloglist_toggle':
+        case 'partlist_toggle':
+            tmp = (e.element().readAttribute('id') == 'partlist_toggle') ? 'partlist' : 'msgloglist';
+            $(tmp + '_col', tmp + '_exp').invoke('toggle');
+            Effect.toggle(tmp, 'blind', {
+                duration: 0.2,
+                queue: {
+                    position: 'end',
+                    scope: tmp,
+                    limit: 2
                 }
-                e.stop();
-                return;
+            });
+            break;
 
-            case 'appprefs':
-                this.go(id.substring(3));
-                e.stop();
-                return;
-
-            case 'applogout':
-                elt.down('A').update('[' + DimpCore.text.onlogout + ']');
-                HordeCore.logout();
-                e.stop();
-                return;
-
-            case 'button_forward':
-            case 'button_reply':
-                this.composeMailbox(id == 'button_reply' ? 'reply_auto' : 'forward_auto');
-                break;
-
-            case 'button_resume':
-                this.composeMailbox('resume');
-                e.stop();
-                return;
-
-            case 'button_template':
-                if (this.viewport.getSelection().size()) {
-                    this.composeMailbox('template');
+        case 'msg_newwin':
+        case 'msg_newwin_options':
+        case 'ppane_view_error':
+            this.msgWindow(this.viewport.getSelection().search({
+                mbox: {
+                    equal: [ this.pp.mbox ]
+                },
+                uid: {
+                    equal: [ this.pp.uid ]
                 }
-                e.stop();
-                return;
+            }).get('dataob').first());
+            e.memo.stop();
+            break;
 
-            case 'button_innocent':
-            case 'button_spam':
-                this.reportSpam(id == 'button_spam');
-                e.stop();
-                return;
+        case 'ctx_preview_save':
+            HordeCore.redirect(this.pp.save_as);
+            break;
 
-            case 'button_delete':
-                this.deleteMsg();
-                e.stop();
-                return;
+        case 'ctx_preview_viewsource':
+            HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
+                actionID: 'view_source',
+                id: 0,
+                mailbox: this.pp.mbox,
+                uid: this.pp.uid
+            }, {
+            name: this.pp.uid + '|' + this.pp.mbox
+        });
+        break;
 
-            case 'msglistHeaderHoriz':
-                tmp = e.element();
-                if (tmp.hasClassName('msCheckAll')) {
-                    this.selectAll();
-                } else {
-                    this.sort(tmp.retrieve('sortby'));
-                }
-                e.stop();
-                return;
+        case 'ctx_preview_allparts':
+            this.loadingImg('msg', true);
+            DimpCore.doAction('messageMimeTree', {
+                preview: 1
+            }, {
+                callback: this._mimeTreeCallback.bind(this),
+                uids: this.viewport.createSelection('dataob', this.pp)
+            });
+            break;
 
-            case 'msglistHeaderVert':
-                tmp = e.element();
-                if (tmp.hasClassName('msCheckAll')) {
-                    this.selectAll();
-                }
-                e.stop();
-                return;
+        case 'msg_resume_draft':
+            this.composeMailbox('resume');
+            break;
 
-            case 'th_expand':
-            case 'th_collapse':
-                this._toggleHeaders(elt, true);
-                break;
+        case 'msg_template':
+            this.composeMailbox('template');
+            break;
 
-            case 'msgloglist_toggle':
-            case 'partlist_toggle':
-                tmp = (id == 'partlist_toggle') ? 'partlist' : 'msgloglist';
-                $(tmp + '_col', tmp + '_exp').invoke('toggle');
-                Effect.toggle(tmp, 'blind', {
-                    duration: 0.2,
-                    queue: {
-                        position: 'end',
-                        scope: tmp,
-                        limit: 2
-                    }
-                });
-                break;
+        case 'sidebar_apps':
+            tmp = e.memo.element();
+            if (!tmp.hasClassName('custom')) {
+                tmp = tmp.up('LI.custom');
+            }
+            if (tmp && !tmp.down('A').readAttribute('href')) {
+                // Prefix is 'sidebarapp_'
+                this.go('menu', tmp.down('A').identify().substring(11));
+                e.memo.stop();
+            }
+            break;
 
-            case 'msg_newwin':
-            case 'msg_newwin_options':
-            case 'ppane_view_error':
-                this.msgWindow(this.viewport.getSelection().search({ uid: { equal: [ this.pp.uid ] } , mbox: { equal: [ this.pp.mbox ] } }).get('dataob').first());
-                e.stop();
-                return;
+        case 'tabbar':
+            if (e.memo.element().hasClassName('applicationtab')) {
+                // Prefix is 'apptab_'
+                this.go('menu', e.memo.element().identify().substring(7));
+                e.memo.stop();
+            }
+            break;
 
-            case 'ctx_preview_save':
-                HordeCore.redirect(this.pp.save_as);
-                return;
+        case 'search_close':
+            this.quicksearchClear();
+            e.memo.stop();
+            break;
 
-            case 'ctx_preview_viewsource':
+        case 'helptext_close':
+            this.toggleHelp();
+            e.memo.stop();
+            break;
+
+        case 'send_mdn_link':
+            this.loadingImg('msg', true);
+            tmp = {};
+            tmp[this.pp.mbox] = [ this.pp.uid ];
+            DimpCore.doAction('sendMDN', {
+                uid: DimpCore.toUIDString(tmp)
+            }, {
+                callback: this._sendMdnCallback.bind(this)
+            });
+            e.memo.stop();
+            break;
+
+        default:
+            if (e.element().hasClassName('printAtc')) {
                 HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
-                    actionID: 'view_source',
-                    id: 0,
+                    actionID: 'print_attach',
+                    id: e.element().readAttribute('mimeid'),
                     mailbox: this.pp.mbox,
                     uid: this.pp.uid
                 }, {
-                    name: this.pp.uid + '|' + this.pp.mbox
+                    name: this.pp.uid + '|' + this.pp.mbox + '|print',
+                    onload: IMP_JS.printWindow
                 });
-                break;
-
-            case 'ctx_preview_allparts':
-                this.loadingImg('msg', true);
-                DimpCore.doAction('messageMimeTree', { preview: 1 }, { uids: this.viewport.createSelection('dataob', this.pp), callback: this._mimeTreeCallback.bind(this) });
-                break;
-
-            case 'msg_resume_draft':
-                this.composeMailbox('resume');
-                break;
-
-            case 'msg_template':
-                this.composeMailbox('template');
-                break;
-
-            case 'sidebar_apps':
-                tmp = e.element();
-                if (!tmp.hasClassName('custom')) {
-                    tmp = tmp.up('LI.custom');
-                }
-                if (tmp && !tmp.down('A').readAttribute('href')) {
-                    // Prefix is 'sidebarapp_'
-                    this.go('menu', tmp.down('A').identify().substring(11));
-                    e.stop();
-                    return;
-                }
-                break;
-
-            case 'tabbar':
-                if (e.element().hasClassName('applicationtab')) {
-                    // Prefix is 'apptab_'
-                    this.go('menu', e.element().identify().substring(7));
-                    e.stop();
-                    return;
-                }
-                break;
-
-            case 'search_close':
-                this.quicksearchClear();
-                e.stop();
-                return;
-
-            case 'helptext_close':
-                this.toggleHelp();
-                e.stop();
-                return;
-
-            case 'send_mdn_link':
-                this.loadingImg('msg', true);
-                tmp = {};
-                tmp[this.pp.mbox] = [ this.pp.uid ];
-                DimpCore.doAction('sendMDN', {
-                    uid: DimpCore.toUIDString(tmp)
-                }, {
-                    callback: this._sendMdnCallback.bind(this)
-                });
-                e.stop();
-                return;
-
-            default:
-                if (elt.hasClassName('printAtc')) {
-                    HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
-                        actionID: 'print_attach',
-                        id: elt.readAttribute('mimeid'),
-                        mailbox: this.pp.mbox,
-                        uid: this.pp.uid
-                    }, {
-                        name: this.pp.uid + '|' + this.pp.mbox + '|print',
-                        onload: IMP_JS.printWindow
+                e.memo.stop();
+            } else if (e.element().hasClassName('stripAtc')) {
+                if (window.confirm(DimpCore.text.strip_warn)) {
+                    this.loadingImg('msg', true);
+                    DimpCore.doAction('stripAttachment', this.addViewportParams({
+                        id: e.element().readAttribute('mimeid')
+                    }), {
+                        callback: function(r) {
+                            if (!this.pp) {
+                                this.viewport.select(this.viewport.createSelectionBuffer().search({
+                                    mbox: {
+                                        equal: [ r.newmbox ]
+                                    },
+                                    uid: {
+                                        equal: [ r.newuid ]
+                                    }
+                                }).get('rownum'));
+                            }
+                        }.bind(this),
+                        uids: this.viewport.createSelection('dataob', this.pp)
                     });
-                    e.stop();
-                    return;
-                } else if (elt.hasClassName('stripAtc')) {
-                    if (window.confirm(DimpCore.text.strip_warn)) {
-                        this.loadingImg('msg', true);
-                        DimpCore.doAction('stripAttachment', this.addViewportParams({ id: elt.readAttribute('mimeid') }), {
-                            callback: function(r) {
-                                if (!this.pp) {
-                                    this.viewport.select(this.viewport.createSelectionBuffer().search({ mbox: { equal: [ r.newmbox ] }, uid: { equal: [ r.newuid ] } }).get('rownum'));
-                                }
-                            }.bind(this),
-                            uids: this.viewport.createSelection('dataob', this.pp)
-                        });
-                    }
-                    e.stop();
-                    return;
                 }
+                e.memo.stop();
             }
-
-            elt = elt.up();
         }
     },
 
@@ -3630,6 +3639,8 @@ var DimpBase = {
 
         /* Register global handlers now. */
         IMP_JS.keydownhandler = this.keydownHandler.bind(this);
+        HordeCore.initHandler('click');
+        HordeCore.initHandler('dblclick');
 
         /* Initialize variables. */
         DimpCore.conf.sort = $H(DimpCore.conf.sort);
@@ -3843,7 +3854,6 @@ DimpBase._mboxDropConfig = {
 
 /* Basic event handlers. */
 document.observe('keydown', DimpBase.keydownHandler.bindAsEventListener(DimpBase));
-document.observe('dblclick', DimpBase.dblclickHandler.bindAsEventListener(DimpBase));
 Event.observe(window, 'resize', DimpBase.onResize.bind(DimpBase));
 
 /* Drag/drop listeners. */
@@ -3880,8 +3890,9 @@ document.observe('HordeCore:runTasks', function(e) {
     this.tasksHandler(e.memo);
 }.bindAsEventListener(DimpBase));
 
-/* Click handler. */
-document.observe('click', DimpBase.clickHandler.bindAsEventListener(DimpBase));
+/* Click handlers. */
+document.observe('HordeCore:click', DimpBase.clickHandler.bindAsEventListener(DimpBase));
+document.observe('HordeCore:dblclick', DimpBase.dblclickHandler.bindAsEventListener(DimpBase));
 
 /* ContextSensitive handlers. */
 document.observe('ContextSensitive:click', DimpBase.contextOnClick.bindAsEventListener(DimpBase));

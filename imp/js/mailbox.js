@@ -214,91 +214,76 @@ var ImpMailbox = {
 
     clickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
-        }
+        var elt = e.element();
 
-        var elt = e.element(), id;
-
-        while (Object.isElement(elt)) {
-            if (elt.match('.msgactions A.widget')) {
-                if (elt.hasClassName('moveAction')) {
-                    this._transfer('move_messages');
-                    e.stop();
-                } else if (elt.hasClassName('copyAction')) {
-                    this._transfer('copy_messages');
-                    e.stop();
-                } else if (elt.hasClassName('permdeleteAction')) {
-                    if (confirm(this.text.delete)) {
-                        this.submit('delete_messages');
-                    }
-                    e.stop();
-                } else if (elt.hasClassName('deleteAction')) {
+        if (elt.match('.msgactions A.widget')) {
+            if (elt.hasClassName('moveAction')) {
+                this._transfer('move_messages');
+                e.memo.stop();
+            } else if (elt.hasClassName('copyAction')) {
+                this._transfer('copy_messages');
+                e.memo.stop();
+            } else if (elt.hasClassName('permdeleteAction')) {
+                if (confirm(this.text.delete)) {
                     this.submit('delete_messages');
-                    e.stop();
-                } else if (elt.hasClassName('undeleteAction')) {
-                    this.submit('undelete_messages');
-                    e.stop();
-                } else if (elt.hasClassName('blacklistAction')) {
-                    this.submit('blacklist');
-                    e.stop();
-                } else if (elt.hasClassName('whitelistAction')) {
-                    this.submit('whitelist');
-                    e.stop();
-                } else if (elt.hasClassName('forwardAction')) {
-                    this.submit('fwd_digest');
-                    e.stop();
-                } else if (elt.hasClassName('redirectAction')) {
-                    this.submit('redirect_messages');
-                    e.stop();
-                } else if (elt.hasClassName('spamAction')) {
-                    this.submit('spam_report');
-                    e.stop();
-                } else if (elt.hasClassName('notspamAction')) {
-                    this.submit('notspam_report');
-                    e.stop();
-                } else if (elt.hasClassName('viewAction')) {
-                    this.submit('view_messages');
-                    e.stop();
-                } else if (elt.hasClassName('templateeditAction')) {
-                    switch (this.countSelected()) {
-                    case 0:
-                        alert(this.text.selectone);
-                        break;
-
-                    case 1:
-                        this.submit('template_edit');
-                        break;
-
-                    default:
-                        alert(this.text.selectonlyone);
-                        break;
-                    }
-                    e.stop();
                 }
-                return;
-            } else if (elt.hasClassName('checkbox')) {
-                this.selectRange(e);
-                // Fall through to elt.up() call below.
-            }
+                e.memo.stop();
+            } else if (elt.hasClassName('deleteAction')) {
+                this.submit('delete_messages');
+                e.memo.stop();
+            } else if (elt.hasClassName('undeleteAction')) {
+                this.submit('undelete_messages');
+                e.memo.stop();
+            } else if (elt.hasClassName('blacklistAction')) {
+                this.submit('blacklist');
+                e.memo.stop();
+            } else if (elt.hasClassName('whitelistAction')) {
+                this.submit('whitelist');
+                e.memo.stop();
+            } else if (elt.hasClassName('forwardAction')) {
+                this.submit('fwd_digest');
+                e.memo.stop();
+            } else if (elt.hasClassName('redirectAction')) {
+                this.submit('redirect_messages');
+                e.memo.stop();
+            } else if (elt.hasClassName('spamAction')) {
+                this.submit('spam_report');
+                e.memo.stop();
+            } else if (elt.hasClassName('notspamAction')) {
+                this.submit('notspam_report');
+                e.memo.stop();
+            } else if (elt.hasClassName('viewAction')) {
+                this.submit('view_messages');
+                e.memo.stop();
+            } else if (elt.hasClassName('templateeditAction')) {
+                switch (this.countSelected()) {
+                case 0:
+                    alert(this.text.selectone);
+                    break;
 
-            id = elt.readAttribute('id');
-            if (!id) {
-                elt = elt.up();
-                continue;
-            }
+                case 1:
+                    this.submit('template_edit');
+                    break;
 
-            switch (id) {
+                default:
+                    alert(this.text.selectonlyone);
+                    break;
+                }
+                e.memo.stop();
+            }
+        } else if (elt.hasClassName('checkbox')) {
+            this.selectRange(e.memo);
+        } else {
+            switch (elt.readAttribute('id')) {
             case 'checkheader':
-            case 'checkAll':
-                if (id == 'checkheader') {
-                    $('checkAll').checked = !$('checkAll').checked;
-                }
+                $('checkAll').checked = !$('checkAll').checked;
+                // Fall-through
 
-                $('messages').select('TABLE.messageList TR[id]').each(function(i, s) {
+            case 'checkAll':
+                $('messages').select('TABLE.messageList TR[id]').each(function(i) {
                     this.selectRow(i, $F('checkAll'));
                 }, this);
-                return;
+                break;
 
             case 'delete_vfolder':
                 this.lastclick = elt.readAttribute('href');
@@ -309,8 +294,8 @@ var ImpMailbox = {
                     ok_text: this.text.yes,
                     text: this.text.delete_vfolder
                 });
-                e.stop();
-                return;
+                e.memo.stop();
+                break;
 
             case 'empty_mailbox':
                 this.lastclick = elt.readAttribute('href');
@@ -321,16 +306,14 @@ var ImpMailbox = {
                     ok_text: this.text.yes,
                     text: this.text.delete_all
                 });
-                e.stop();
-                return;
+                e.memo.stop();
+                break;
             }
+        }
 
-            if (elt.match('TH') &&
-                elt.up('TABLE.messageList')) {
-                document.location.href = elt.down('A').href;
-            }
-
-            elt = elt.up();
+        if (elt.match('TH') && elt.up('TABLE.messageList')) {
+            document.location.href = elt.down('A').href;
+            e.memo.hordecore_stop = true;
         }
     },
 
@@ -415,29 +398,32 @@ var ImpMailbox = {
         if (e.element().hasClassName('navbarselect')) {
             e.stop();
         }
+    },
+
+    onDomLoad: function()
+    {
+        HordeCore.initHandler('click');
+
+        if (Prototype.Browser.IE) {
+            $('flag1', 'filter1', 'targetMailbox1', 'flag2', 'filter2', 'targetMailbox2').compact().invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
+        } else {
+            document.observe('change', this.changeHandler.bindAsEventListener(this));
+        }
+
+        if (window.fluid) {
+            try {
+                window.fluid.setDockBadge(this.unread);
+            } catch (e) {}
+        }
     }
 
 };
 
-document.observe('dom:loaded', function() {
-    var im = ImpMailbox;
+document.observe('dom:loaded', ImpMailbox.onDomLoad.bind(ImpMailbox));
 
-    document.observe('click', im.clickHandler.bindAsEventListener(im));
-    document.observe('keydown', im.keyDownHandler.bindAsEventListener(im));
-    document.observe('submit', im.submitHandler.bindAsEventListener(im));
-
-    if (Prototype.Browser.IE) {
-        $('flag1', 'filter1', 'targetMailbox1', 'flag2', 'filter2', 'targetMailbox2').compact().invoke('observe', 'change', im.changeHandler.bindAsEventListener(im));
-    } else {
-        document.observe('change', im.changeHandler.bindAsEventListener(im));
-    }
-
-    if (window.fluid) {
-        try {
-            window.fluid.setDockBadge(ImpMailbox.unread);
-        } catch (e) {}
-    }
-});
+document.observe('HordeCore:click', ImpMailbox.clickHandler.bindAsEventListener(ImpMailbox));
+document.observe('keydown', ImpMailbox.keyDownHandler.bindAsEventListener(ImpMailbox));
+document.observe('submit', ImpMailbox.submitHandler.bindAsEventListener(ImpMailbox));
 
 document.observe('HordeDialog:onClick', function(e) {
     switch (e.element().identify()) {
