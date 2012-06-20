@@ -165,7 +165,9 @@ var ImpMobile = {
             from = ob.from;
         }
 
-        params.slice = from + ':' + (from + ImpMobile.mbox_rows - 1);
+        if (!params.search) {
+            params.slice = from + ':' + (from + ImpMobile.mbox_rows - 1);
+        }
 
         return {
             view: params.view,
@@ -308,7 +310,7 @@ var ImpMobile = {
             // between messages.
             HordeMobile.doAction(
                 'viewPort',
-                {
+                ImpMobile.addViewportParams({
                     // Make sure we have a big enough buffer to fit all
                     // messages on a page.
                     after: ImpMobile.mbox_rows,
@@ -317,7 +319,7 @@ var ImpMobile = {
                     // Need to manually encode JSON here.
                     search: JSON.stringify({ uid: url.params.uid }),
                     view: url.params.view
-                }
+                })
             );
             ImpMobile.mailbox = url.params.view;
         }
