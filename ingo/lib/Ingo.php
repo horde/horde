@@ -176,16 +176,6 @@ class Ingo
     }
 
     /**
-     * Connects to the backend and returns the currently active script.
-     *
-     * @return string  The currently active script.
-     */
-    static public function getScript()
-    {
-        return self::getTransport()->getScript();
-    }
-
-    /**
      * Does all the work in updating the script on the server.
      *
      * @throws Ingo_Exception
