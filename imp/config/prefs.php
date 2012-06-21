@@ -1788,6 +1788,7 @@ $_prefs['tree_view'] = array(
 // poll all mailboxes for new mail?
 $_prefs['nav_poll_all'] = array(
     'value' => 0,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Poll all mailboxes for new mail?"),
     'suppress' => function() {
