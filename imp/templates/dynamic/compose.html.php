@@ -4,7 +4,7 @@
  <?php echo $this->hiddenFieldTag('request_read_receipt', intval($this->read_receipt_set)) ?>
  <?php echo $this->hiddenFieldTag('save_attachments_select', intval($this->save_attach_set)) ?>
 
- <div class="dimpActions dimpActionsCompose">
+ <div class="horde-buttonbar">
 <?php if ($this->compose_enable): ?>
 <?php if (!$this->is_template): ?>
   <div>
@@ -18,9 +18,13 @@
   </div>
 <?php else: ?>
   <div>
+<?php if ($this->compose_enable): ?>
+   <div class="horde-button-split"></div>
+<?php endif; ?>
    <?php echo $this->actionButton(array('id' => 'spellcheck', 'title' => _("Check Spelling"))) ?>
   </div>
   <div>
+   <div class="horde-button-split"></div>
    <?php echo $this->actionButton(array('icon' => 'Drafts', 'id' => 'draft_button', 'title' => _("Save as Draft"))) ?>
   </div>
 <?php endif; ?>

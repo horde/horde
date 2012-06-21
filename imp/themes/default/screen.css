@@ -324,13 +324,6 @@ table.searchesmanagement .vfolderenabled {
     width: 60px;
 }
 
-/* Popdown styles. */
-span.spellcheckPopdownImg {
-    background: url("graphics/popdown.png") no-repeat center center;
-    cursor: pointer;
-    vertical-align: top;
-}
-
 /* Large addresslist display. */
 .largeaddrlist, .largeaddrlistlimit {
     cursor: pointer;

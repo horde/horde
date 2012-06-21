@@ -64,9 +64,8 @@ div#quota {
 
 /* SpellChecker styles. */
 #spellcheck {
-    border-right: 1px solid silver;
-    color: #000;
     font-size: 100%;
+    margin-left: 15px;
 }
 .spellcheckChecking, .spellcheckIncorrect {
     color: red;
@@ -381,7 +380,7 @@ span.iconImgSidebar {
     display: none;
 }
 
-div.dimpActionsCompose, div.dimpActionsMsg {
+div.dimpActionsMsg {
     border-bottom: 1px solid #999;
 }
 
@@ -543,15 +542,19 @@ div.dimpActionsMsg #windowclose {
     margin-left: 2px;
 }
 
+#composeContainer .header {
+    background-color: #eceff0;
+    border-bottom: 1px solid #d0d0d0;
+    padding: 18px;
+}
 .msgwrite {
-    background: #e2e2e2 url("../graphics/backhead_r.png") repeat-x;
-    border: 1px #b9b9b3 solid;
+    background-color: #eceff0;
+    border-bottom: 1px solid #d0d0d0;
     cursor: default;
-    padding: 2px 0;
+    padding: 18px;
 }
 .msgwrite .dimpOptions {
     padding: 8px 8px 0 0;
-    font-size: 90%;
 }
 .msgwrite .dimpOptions div {
     padding-bottom: 0;
@@ -567,16 +570,11 @@ div.dimpActionsMsg #windowclose {
 .msgwrite tr {
     vertical-align: top;
 }
-.msgwrite td {
-    font-size: 90%;
-}
-.msgwrite td .button {
-    font-size: 100%;
-}
 .msgwrite td.label {
     white-space: nowrap;
     text-align: right;
     padding: 4px 4px 0 4px;
+    font-weight: bold;
 }
 .msgwrite span.loadingImg {
     padding: 1px;
@@ -604,10 +602,6 @@ div.dimpActionsMsg #windowclose {
 }
 
 #composeMessageParent {
-    background: #fff url("../graphics/backhead_shadow.png") top repeat-x;
-    border-left: 1px silver solid;
-    border-right: 1px silver solid;
-    border-bottom: 1px silver solid;
     padding: 10px 5px 5px;
 }
 #composeMessage {

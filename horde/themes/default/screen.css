@@ -40,12 +40,12 @@ input[type=image] {
 
 .iconImg {
     background-color: transparent;
-    background-position: center right;
+    background-position: center top;
     background-repeat: no-repeat;
     display: -moz-inline-stack;
     display: inline-block;
-    height: 24px;
-    vertical-align: bottom;
+    height: 22px;
+    vertical-align: top;
     width: 24px;
 }
 
@@ -110,7 +110,7 @@ br.spacer {
 .header {
     text-align: left;
     font-weight: bold;
-    font-size: 125%;
+    font-size: 140%;
     padding: 3px;
 }
 .header a:hover, a.header:hover {
