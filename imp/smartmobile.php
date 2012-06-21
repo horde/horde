@@ -23,10 +23,11 @@ $view = new Horde_View(array(
 ));
 $view->addHelper('Text');
 
-/* Initialize the IMP_Imap_Tree object. */
+/* Initialize the IMP_Imap_Tree object. By default, only show INBOX, special
+ * mailboxes, and polled mailboxes. */
 $imptree = $injector->getInstance('IMP_Imap_Tree');
-$imptree->setIteratorFilter();
-$view->tree = $imptree->createTree('mobile_folders', array(
+$imptree->setIteratorFilter(Imp_Imap_Tree::FLIST_POLLED);
+$view->tree = $imptree->createTree('smobile_folders', array(
     'poll_info' => true,
     'render_type' => 'IMP_Tree_Jquerymobile'
 ))->getTree(true);

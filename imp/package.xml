@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Only show Inbox, special mailboxes, and polled mailboxes by default in smartmobile view.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

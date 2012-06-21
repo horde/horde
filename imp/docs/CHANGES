@@ -2,6 +2,8 @@
 v6.0-git
 --------
 
+[mms] Only show Inbox, special mailboxes, and polled mailboxes by default in
+      smartmobile view.
 [mms] Add 'reply_strip_sig' preference (Request #11056).
 [mms] Move attachment strip icon to MIME part tree display.
 [mms] Convert dynamic view to Horde_View.

@@ -55,6 +55,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     const FLIST_NOBASE = 128;
     const FLIST_ASIS = 256;
     const FLIST_NOSPECIALMBOXES = 512;
+    const FLIST_POLLED = 1024;
 
     /* The string used to indicate the base of the tree. This must include
      * null since this is the only 7-bit character not allowed in IMAP
@@ -2029,25 +2030,36 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      * <ul>
      *  <li>
      *   IMP_Imap_Tree::FLIST_NOCONTAINER: Don't include container elements.
+     *   Default: Container elements are included.
      *  </li>
      *  <li>
      *   IMP_Imap_Tree::FLIST_UNSUB: Include unsubscribed elements.
+     *   Default: Unsubcribed elements are not included.
      *  </li>
      *  <li>
      *   IMP_Imap_Tree::FLIST_VFOLDER: Include Virtual Folders.
+     *   Default: Virtual folders are not included.
      *  </li>
      *  <li>
      *   IMP_Imap_Tree::FLIST_NOCHILDREN: Don't include child elements.
+     *   Default: Child elements are included
      *  </li>
      *  <li>
      *   IMP_Imap_Tree::FLIST_EXPANDED: Only include expanded mailboxes.
+     *   Default: Expanded status is ignored.
      *  </li>
      *  <li>
      *   IMP_Imap_Tree::FLIST_ASIS: Display the list as is currently cached
-     *                              in this object.
+     *   in this object.
+     *   Default: Object may be updated as needed.
      *  </li>
      *  <li>
      *   IMP_Imap_Tree::FLIST_NOSPECIALMBOXES: Don't display special mailboxes.
+     *   Default: Special mailboxes are displayed.
+     *  </li>
+     *  <li>
+     *   IMP_Imap_Tree::FLIST_POLLED: Only show polled mailboxes.
+     *   Default: Polled status is ignored.
      *  </li>
      *  <li>Options that require $base to be set:
      *   <ul>
@@ -2098,14 +2110,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             return false;
         }
 
-        /* Skip special mailboxes if requested. */
-        if (($c['mask'] & self::FLIST_NOSPECIALMBOXES) && $elt->special) {
-            return false;
-        }
-
         if ($child_check) {
             /* Checks done when determining whether to proceed into child
              * node. */
+
             if (!isset($this->_parent[$elt->value])) {
                return false;
             }
@@ -2122,18 +2130,31 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 return $this->isOpen($elt);
             }
 
+            /* Explicitly don't return child elements. */
             if ($c['mask'] & self::FLIST_NOCHILDREN) {
                 return false;
             }
         } else {
             /* Checks done when determining whether to mark current element as
              * valid. */
+
+            /* Show containers if NOCONTAINER is not set and children exist. */
             if ($this->isContainer($elt)) {
                 if (($c['mask'] & self::FLIST_NOCONTAINER) ||
                     !$this->hasChildren($elt, true)) {
                     return false;
                 }
             } elseif (!$this->_showunsub && !$this->isSubscribed($elt)) {
+                /* Don't show element if not subscribed. */
+                return false;
+            } elseif ($elt->special) {
+                /* Skip special mailboxes if requested. Otherwise, always
+                 * show. */
+                if ($c['mask'] & self::FLIST_NOSPECIALMBOXES) {
+                    return false;
+                }
+            } elseif (($c['mask'] & self::FLIST_POLLED) && !$elt->polled) {
+                /* Skip non-polled mailboxes if requested. */
                 return false;
             }
         }

@@ -681,9 +681,11 @@ var ImpMobile = {
         } else {
             // Use an AJAX submit here so that we can do javascript-y stuff
             // before having to close the window on success.
-            HordeMobile.doAction(action,
-                                 form.serializeArray(true),
-                                 ImpMobile.uniqueSubmitCallback);
+            HordeMobile.doAction(
+                action,
+                form.serializeArray(true),
+                ImpMobile.uniqueSubmitCallback
+            );
 
             // Can't disable until we send the message - or else nothing
             // will get POST'ed.
@@ -1002,6 +1004,20 @@ var ImpMobile = {
                     qsearchmbox: ImpMobile.mailbox
                 };
                 $.mobile.changePage('#mailbox?mbox=' + IMP.conf.qsearchid);
+                return;
+
+            case 'imp-folders-showall':
+            case 'imp-folders-showpoll':
+                HordeMobile.doAction(
+                    'smartmobileFolderTree',
+                    {
+                        all: $('#imp-folders-showall').filter(':visible').size()
+                    },
+                    function(r) {
+                        $('#imp-folders-list').html(r).listview('refresh');
+                    }
+                );
+                $('#imp-folders-showall,#imp-folders-showpoll').toggle();
                 return;
             }
 
