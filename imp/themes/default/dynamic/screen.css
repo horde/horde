@@ -839,7 +839,6 @@ span.logoutIcon {
 }
 .dimpactionSpam {
     background-image: url("../graphics/spam.png");
-    width: 18px;
 }
 .dimpactionInnocent {
     background-image: url("../graphics/innocent.png");
