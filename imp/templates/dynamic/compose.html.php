@@ -10,23 +10,23 @@
 <?php if (!$this->is_template): ?>
   <div>
    <?php echo $this->actionButton(array('icon' => 'Forward', 'id' => 'send_button', 'title' => _("Send"))) ?>
+   <div class="horde-button-split"></div>
   </div>
 <?php endif; ?>
 <?php endif; ?>
 <?php if ($this->is_template): ?>
   <div>
    <?php echo $this->actionButton(array('icon' => 'Templates', 'id' => 'template_button', 'title' => _("Save Template"))) ?>
+   <div class="horde-button-split"></div>
   </div>
 <?php else: ?>
   <div>
-<?php if ($this->compose_enable): ?>
-   <div class="horde-button-split"></div>
-<?php endif; ?>
    <?php echo $this->actionButton(array('id' => 'spellcheck', 'title' => _("Check Spelling"))) ?>
+   <div class="horde-button-split"></div>
   </div>
   <div>
-   <div class="horde-button-split"></div>
    <?php echo $this->actionButton(array('icon' => 'Drafts', 'id' => 'draft_button', 'title' => _("Save as Draft"))) ?>
+   <div class="horde-button-split"></div>
   </div>
 <?php endif; ?>
  </div>
