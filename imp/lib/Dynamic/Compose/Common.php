@@ -66,6 +66,8 @@ class IMP_Dynamic_Compose_Common
     {
         global $conf, $injector, $page_output, $registry, $prefs, $session;
 
+        $view->title = $args['title'];
+
         /* Load Identity. */
         $identity = $injector->getInstance('IMP_Identity');
         $selected_identity = intval($identity->getDefault());

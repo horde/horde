@@ -542,7 +542,7 @@ div.dimpActionsMsg #windowclose {
     margin-left: 2px;
 }
 
-#composeContainer .header {
+#composeContainer .header, #qreply .header {
     background-color: #eceff0;
     border-bottom: 1px solid #d0d0d0;
     padding: 18px;

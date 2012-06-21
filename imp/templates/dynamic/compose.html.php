@@ -5,6 +5,7 @@
  <?php echo $this->hiddenFieldTag('save_attachments_select', intval($this->save_attach_set)) ?>
 
  <div class="horde-buttonbar">
+  <div class="iconImg headercloseimg closeImg" id="compose_close"></div>
 <?php if ($this->compose_enable): ?>
 <?php if (!$this->is_template): ?>
   <div>
@@ -67,6 +68,9 @@
      </span>
     </div>
    </div>
+
+   <p class="p17 bold"><?php echo $this->h($this->title) ?></p>
+   <p>&nbsp;</p>
 
    <table>
     <tr>

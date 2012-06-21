@@ -228,14 +228,14 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         }
 
         $this->title = $title;
-        $this->view->title = $title;
 
         $this->view->compose = $injector->getInstance('IMP_Dynamic_Compose_Common')->compose($this, array(
             'composeCache' => $imp_compose->getCacheId(),
             'fwdattach' => in_array($msg_type, array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH)),
             'redirect' => ($this->vars->type == 'redirect'),
             'show_editor' => $show_editor,
-            'template' => in_array($this->vars->type, array('template_edit', 'template_new'))
+            'template' => in_array($this->vars->type, array('template_edit', 'template_new')),
+            'title' => $title
         ));
 
         Horde::startBuffer();
