@@ -102,6 +102,27 @@ class Ingo_Script_Procmail extends Ingo_Script
     protected $_recipes = array();
 
     /**
+     * Constructor.
+     *
+     * @param array $params  A hash containing parameters needed.
+     */
+    public function __construct($params = array())
+    {
+        parent::__construct($params);
+
+        // Bug #10113: Need to explicitly define these variables instead of
+        // relying on system defaults.
+        if ($this->_params['path_style'] == 'maildir') {
+            if (!isset($this->_params['variables']['DEFAULT'])) {
+                $this->_params['variables']['DEFAULT'] = '$HOME/Maildir/';
+            }
+            if (!isset($this->_params['variables']['MAILDIR'])) {
+                $this->_params['variables']['MAILDIR'] = '$HOME/Maildir';
+            }
+        }
+    }
+
+    /**
      * Returns a script previously generated with generate().
      *
      * @return string  The procmail script.
