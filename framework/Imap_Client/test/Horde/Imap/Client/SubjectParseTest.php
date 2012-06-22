@@ -32,12 +32,16 @@ class Horde_Imap_Client_SubjectParseTest extends PHPUnit_Framework_TestCase
         $imap_utils = new Horde_Imap_Client_Utils();
 
         $subjects = array(
+            'Test',
             'Re: Test',
             're: Test',
             'Fwd: Test',
             'fwd: Test',
             'Fwd: Re: Test',
             'Fwd: Re: Test (fwd)',
+            '  re    :   Test  (fwd)',
+            '  re :   [foo]Test(Fwd)',
+            "re \t: \tTest"
         );
 
         foreach ($subjects as $val) {
@@ -46,6 +50,12 @@ class Horde_Imap_Client_SubjectParseTest extends PHPUnit_Framework_TestCase
                 $imap_utils->getBaseSubject($val)
             );
         }
+
+        // This used to throw an undefined index error.
+        $this->assertEquals(
+            'fwd',
+            $imap_utils->getBaseSubject('fwd')
+        );
     }
 
     public function testSubjectParseTabs()

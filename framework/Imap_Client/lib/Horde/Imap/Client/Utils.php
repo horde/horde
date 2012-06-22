@@ -548,49 +548,46 @@ class Horde_Imap_Client_Utils
     {
         $ret = false;
 
-        if (!$str) {
+        if (!strlen($str)) {
             return $ret;
         }
 
-        if ($str[0] == ' ') {
-            $str = substr($str, 1);
+        if ($len = strspn($str, " \t")) {
+            $str = substr($str, $len);
             $ret = true;
         }
 
         $i = 0;
 
         if (!$keepblob) {
-            while ($str[$i] == '[') {
+            while (isset($str[$i]) && ($str[$i] == '[')) {
                 if (($i = $this->_removeBlob($str, $i)) === false) {
                     return $ret;
                 }
             }
         }
 
-        $cmp_str = substr($str, $i);
-        if (stripos($cmp_str, 're') === 0) {
+        if (stripos($str, 're', $i) === 0) {
             $i += 2;
-        } elseif (stripos($cmp_str, 'fwd') === 0) {
+        } elseif (stripos($str, 'fwd', $i) === 0) {
             $i += 3;
-        } elseif (stripos($cmp_str, 'fw') === 0) {
+        } elseif (stripos($str, 'fw', $i) === 0) {
             $i += 2;
         } else {
             return $ret;
         }
 
-        if ($str[$i] == ' ') {
-            ++$i;
-        }
+        $i += strspn($str, " \t", $i);
 
         if (!$keepblob) {
-            while ($str[$i] == '[') {
+            while (isset($str[$i]) && ($str[$i] == '[')) {
                 if (($i = $this->_removeBlob($str, $i)) === false) {
                     return $ret;
                 }
             }
         }
 
-        if ($str[$i] != ':') {
+        if (!isset($str[$i]) || ($str[$i] != ':')) {
             return $ret;
         }
 
