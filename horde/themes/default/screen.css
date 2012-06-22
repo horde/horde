@@ -2117,6 +2117,7 @@ height:21px;
 padding:0px 20px 0px 0px;
 background-image:url('graphics/tablehead-bg.png');
 background-repeat:repeat-x;
+overflow: hidden;
 }
   .horde-table-header .horde-split-left,
   .horde-table-header .horde-split-right {
