@@ -362,8 +362,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function statFolder($id, $parent = 0, $mod = null)
     {
-        $this->_logger->debug('Horde::statFolder(' . $id . ')');
-
         $folder = array();
         $folder['id'] = $id;
         $folder['mod'] = empty($mod) ? $id : $mod;
