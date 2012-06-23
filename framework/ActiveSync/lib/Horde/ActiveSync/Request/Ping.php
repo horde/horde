@@ -260,7 +260,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                             "[%s] PING terminating and force-clearing device state: %s",
                             $this->_device->id,
                             $e->getMessage()));
-                        $this->_stateDriver->loadState(null, $collection['id']);
+                        $this->_stateDriver->loadState(array(), null, $collection['id']);
                         $changes[$collection['id']] = 1;
                         $this->_statusCode = self::STATUS_NEEDSYNC;
                         $expire = time();
@@ -350,8 +350,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         );
 
         // @TODO: Combine these method calls. No need to have them separate.
-        $this->_stateDriver->init($collection);
         $this->_stateDriver->loadState(
+            $collection,
             $collection['synckey'],
             Horde_ActiveSync::REQUEST_TYPE_SYNC,
             $collection['id']);

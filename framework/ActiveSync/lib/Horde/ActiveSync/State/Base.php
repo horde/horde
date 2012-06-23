@@ -207,18 +207,6 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
-     * Initialize the state object
-     *
-     * @param array $collection  The collection array
-     *
-     * @return void
-     */
-    public function init($collection = array())
-    {
-        $this->_collection = $collection;
-    }
-
-    /**
      * Set the logger instance for this object.
      *
      * @param Horde_Log_Logger $logger
@@ -403,13 +391,14 @@ abstract class Horde_ActiveSync_State_Base
      * Loads the state from storage for the specified syncKey and intializes the
      * object for use.
      *
-     * @param string $syncKey  The key for the state to load.
-     * @param string $type     Treat the loaded state data as this type of state.
-     * @param string $id       The collection id this represents
+     * @param array $collection  The collection array, if loading a collection.
+     * @param string $syncKey    The key for the state to load.
+     * @param string $type       Treat the loaded state data as this type of state.
+     * @param string $id         The collection id this represents
      *
      * @return array The state array
      */
-    abstract public function loadState($syncKey, $type = null, $id = null);
+    abstract public function loadState(array $collection, $syncKey, $type = null, $id = null);
 
     /**
      * Get the list of known folders for the specified syncState

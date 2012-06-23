@@ -438,7 +438,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             $this->_device->id,
                             $e->getMessage())
                         );
-                        $this->_stateDriver->loadState(null, Horde_ActiveSync::REQUEST_TYPE_SYNC, $collection['id']);
+                        $this->_stateDriver->loadState(
+                            array(),
+                            null,
+                            Horde_ActiveSync::REQUEST_TYPE_SYNC,
+                            $collection['id']);
                         $changecount = 1;
                     } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                         $this->_logger->err(sprintf(
@@ -553,7 +557,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             "[%s] Force restting of state for %s. Invalid state encountered.",
                             $this->_device->id,
                             $collection['id']));
-                        $this->_stateDriver->loadState(null, Horde_ActiveSync::REQUEST_TYPE_SYNC, $collection['id']);
+                        $this->_stateDriver->loadState(
+                            array(),
+                            null,
+                            Horde_ActiveSync::REQUEST_TYPE_SYNC,
+                            $collection['id']);
                         $statusCode = self::STATUS_KEYMISM;
                     } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                         $this->_logger->err(sprintf(
@@ -1190,8 +1198,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             getmypid(),
             $collection['id'],
             $collection['synckey']));
-        $this->_stateDriver->init($collection);
         $this->_stateDriver->loadState(
+            $collection,
             $collection['synckey'],
             Horde_ActiveSync::REQUEST_TYPE_SYNC,
             $collection['id']);
@@ -1232,7 +1240,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
             $collection['newsynckey'] = Horde_ActiveSync_State_Base::getNewSyncKey(($this->_statusCode == self::STATUS_KEYMISM) ? 0 : $collection['synckey']);
             if ($collection['synckey'] != 0) {
-                $this->_stateDriver->init($collection);
                 $this->_stateDriver->removeState(array('synckey' => $collection['synckey']));
             }
         }

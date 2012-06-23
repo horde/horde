@@ -119,6 +119,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     /**
      * Load and initialize the sync state
      *
+     * @param array $collection  The collection array for the collection, if
+     *                           a FOLDERSYNC, pass an empty array.
      * @param string $syncKey   The synckey of the state to load. If empty will
      *                          force a reset of the state for the class
      *                          specified in $id
@@ -129,8 +131,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @throws Horde_ActiveSync_Exception
      */
-    public function loadState($syncKey, $type = null, $id = null)
+    public function loadState(array $collection, $syncKey, $type = null, $id = null)
     {
+        $this->_collection = $collection;
         $this->_changes = null;
         $this->_type = $type;
         if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC && empty($id)) {

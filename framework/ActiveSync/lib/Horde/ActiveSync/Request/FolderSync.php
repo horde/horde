@@ -90,7 +90,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
         // Load Folder Sync State
         try {
-            $this->_stateDriver->loadState($synckey, Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
+            $this->_stateDriver->loadState(
+                array(), $synckey, Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_KEYMISM;
             $this->_handleError();
