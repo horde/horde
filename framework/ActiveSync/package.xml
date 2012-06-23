@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-19</date>
- <time>13:58:39</time>
+ <date>2012-06-22</date>
+ <time>17:50:27</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -122,6 +122,7 @@
       <file name="Policies.php" role="php" />
       <file name="Rfc822.php" role="php" />
       <file name="Sync.php" role="php" />
+      <file name="SyncCache.php" role="php" />
       <file name="Timezone.php" role="php" />
       <file name="Translation.php" role="php" />
       <file name="Utils.php" role="php" />
@@ -172,6 +173,7 @@
       </dir> <!-- /test/Horde/ActiveSync/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="AppointmentTest.php" role="test" />
+      <file name="CacheTest.php" role="test" />
       <file name="ContactTest.php" role="test" />
       <file name="FolderSyncTest.php" role="test" />
       <file name="HordeDriverTest.php" role="test" />
@@ -256,6 +258,7 @@
    <install as="Horde/ActiveSync/Policies.php" name="lib/Horde/ActiveSync/Policies.php" />
    <install as="Horde/ActiveSync/Rfc822.php" name="lib/Horde/ActiveSync/Rfc822.php" />
    <install as="Horde/ActiveSync/Sync.php" name="lib/Horde/ActiveSync/Sync.php" />
+   <install as="Horde/ActiveSync/SyncCache.php" name="lib/Horde/ActiveSync/SyncCache.php" />
    <install as="Horde/ActiveSync/Timezone.php" name="lib/Horde/ActiveSync/Timezone.php" />
    <install as="Horde/ActiveSync/Translation.php" name="lib/Horde/ActiveSync/Translation.php" />
    <install as="Horde/ActiveSync/Utils.php" name="lib/Horde/ActiveSync/Utils.php" />
@@ -331,6 +334,7 @@
    <install as="migration/11_horde_activesync_removepingstate.php" name="migration/Horde/ActiveSync/11_horde_activesync_removepingstate.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
+   <install as="Horde/ActiveSync/CacheTest.php" name="test/Horde/ActiveSync/CacheTest.php" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
    <install as="Horde/ActiveSync/FolderSyncTest.php" name="test/Horde/ActiveSync/FolderSyncTest.php" />
    <install as="Horde/ActiveSync/HordeDriverTest.php" name="test/Horde/ActiveSync/HordeDriverTest.php" />
@@ -712,7 +716,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-06-19</date>
+   <date>2012-06-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Add support for ActiveSync native meeting requests and responses.

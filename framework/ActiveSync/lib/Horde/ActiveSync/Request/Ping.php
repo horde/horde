@@ -110,19 +110,17 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $this->_pingSettings = $this->_driver->getHeartbeatConfig();
         $timeout = $this->_pingSettings['waitinterval'];
         $this->_statusCode = self::STATUS_NOCHANGES;
-        $syncCache = $this->_stateDriver->getSyncCache(
-            $this->_device->id, $this->_device->user);
+        $syncCache = new Horde_ActiveSync_SyncCache(
+            $this->_stateDriver,
+            $this->_device->id,
+            $this->_device->user);
 
         // Build the collection array from anything we have in the cache.
         $collections = array();
-        $cache_collections = $syncCache['collections'];
-        foreach ($cache_collections as $id => $cache_collection) {
-            $cache_collection['id'] = $id;
-            $collections[$id] = $cache_collection;
-        }
-        $lifetime = $this->_checkHeartbeat(empty($syncCache['hbinterval'])
+        $collections = $syncCache->getCollections(false);
+        $lifetime = $this->_checkHeartbeat(empty($this->_syncCache->hbinterval)
             ? 0
-            : $syncCache['hbinterval']);
+            : $this->_syncCache->hbinterval);
 
         // Build the $collections array if we receive request from PIM
         if ($this->_decoder->getElementStartTag(self::PING)) {
@@ -134,12 +132,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 $lifetime = $this->_pingSettings['heartbeatdefault'];
             }
             // Save the hbinterval to the syncCache.
-            $syncCache['hbinterval'] = $lifetime;
-            $this->_stateDriver->saveSyncCache(
-                $syncCache,
-                $this->_device->id,
-                $this->_device->user
-            );
+            $this->_syncCache->hbinterval = $lifetime;
+            $syncCache->save();
 
             if ($this->_decoder->getElementStartTag(self::FOLDERS)) {
                 while ($this->_decoder->getElementStartTag(self::FOLDER)) {
@@ -158,6 +152,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $collection['synckey'] = !empty($collections[$collection['id']]['lastsynckey'])
                         ? $collections[$collection['id']]['lastsynckey']
                         : 0;
+
                     $collections = array_merge(
                         $collections,
                         array($collection['id'] => $collection));
@@ -210,13 +205,12 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     break;
                 }
 
-                $tempCache = $this->_stateDriver->getSyncCache(
-                    $this->_device->id, $this->_device->user);
-                if ($tempCache['timestamp'] > $syncCache['timestamp']) {
+                if (!$syncCache->validateCache()) {
                     $this->_logger->debug(sprintf(
                         '[%s] SyncCache was modified. Updating collections from SyncCache.',
                         $this->_device->id));
-                    $collections = $this->_updateCollections();
+                    $syncCache->refreshCollections();
+                    $collections = $syncCache->getCollections(false);
                 }
 
                 for ($i = 0; $i < count($collections); $i++) {
@@ -237,6 +231,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                             "[%s] PING terminating: %s",
                             $this->_device->id,
                             $e->getMessage()));
+                        $this->_statusCode = self::STATUS_NEEDSYNC;
                         $expire = time();
                         break;
                     } catch (Horde_ActiveSync_Exception_StateGone $e) {
@@ -251,7 +246,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         break;
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_logger->err(sprintf(
-                            "[%s] PING terminating: %s",
+                            "[%s] PING terminating unknown error: %s",
                             $this->_device->id,
                             $e->getMessage()));
                         $this->_statusCode = self::STATUS_SERVERERROR;
@@ -334,32 +329,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         return true;
     }
-
-    /**
-     * Get updated collection data.
-     *
-     * @return array.
-     */
-    protected function _updateCollections()
-    {
-        $syncCache = $this->_stateDriver->getSyncCache(
-            $this->_device->id, $this->_device->user);
-
-        // Build the collection array from anything we have in the cache.
-        $collections = array();
-        $cache_collections = $syncCache['collections'];
-        foreach ($cache_collections as $id => $cache_collection) {
-            if (!isset($cache_collection['lastsynckey'])) {
-                continue;
-            }
-            $cache_collection['id'] = $id;
-            $cache_collection['synckey'] = $cache_collection['lastsynckey'];
-            $collections[] = $cache_collection;
-        }
-
-        return $collections;
-    }
-
 
     /**
      * Attempt to initialize the sync state.

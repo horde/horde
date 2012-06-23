@@ -602,28 +602,6 @@ abstract class Horde_ActiveSync_State_Base
     abstract public function deleteSyncCache($devid, $user);
 
     /**
-     * Update a single folder entry in the sync cache.
-     *
-     * @param array $cache                     The sync cache.
-     * @param string $devid                    The device id.
-     * @param string $user                     The user id.
-     * @param Horde_ActiveSync_Message_Folder  The folder to update.
-     *
-     */
-    abstract public function updateSyncCacheFolder(array &$cache, $devid, $user, $folder);
-
-    /**
-     * Delete a single folder entry in the sync cache.
-     *
-     * @param array $cache    The sync cache.
-     * @param string $devid   The device id.
-     * @param string $user    The user id.
-     * @param string $folder  The folder to delete.
-     *
-     */
-    abstract public function deleteSyncCacheFolder(array &$cache, $devid, $user, $folder);
-
-    /**
      * Check and see that we didn't already see the incoming change from the PIM.
      * This would happen e.g., if the PIM failed to receive the server response
      * after successfully importing new messages.

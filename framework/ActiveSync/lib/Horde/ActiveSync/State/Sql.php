@@ -170,6 +170,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $results = $this->_db->selectOne('SELECT sync_data, sync_devid, sync_time, sync_pending FROM '
                 . $this->_syncStateTable . ' WHERE sync_key = ?', array($this->_syncKey));
         } catch (Horde_Db_Exception $e) {
+            $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
 
@@ -422,7 +423,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             try {
                 $this->_db->insert($sql, $params);
             } catch (Horde_Db_Exception $e) {
-                $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
             }
         } else {
@@ -1050,7 +1050,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 'wait' => false,
                 'hbinterval' => false,
                 'folders' => array(),
-                'hierarchy' => array(),
+                'hierarchy' => false,
                 'collections' => array());
         } else {
             return $data;
@@ -1066,6 +1066,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function saveSyncCache(array $cache, $devid, $user)
     {
+        $this->_logger->debug('SAVING: ' . print_r($cache['collections'], true));
         // Iterate over the collections and persist the last known synckey.
         // This is needed since some devices erroneously send a full SYNC
         // request with only a single collection when the user hits refresh.
@@ -1125,70 +1126,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
-    }
-
-    /**
-     * Update a single folder entry in the sync cache.
-     *
-     * @param array $cache                     The sync cache.
-     * @param string $devid                    The device id.
-     * @param string $user                     The user id.
-     * @param Horde_ActiveSync_Message_Folder  The folder to update.
-     *
-     */
-    public function updateSyncCacheFolder(array &$cache, $devid, $user, $folder)
-    {
-        $this->_logger->debug(sprintf(
-            "[%s] Updating SyncCache folder %s",
-            $devid,
-            $folder->displayname)
-        );
-        $cache['folders'][$folder->serverid]['parentid'] = $folder->parentid;
-        $cache['folders'][$folder->serverid]['displayname'] = $folder->displayname;
-        switch ($folder->type) {
-        case 7:
-        case 15:
-            $cache['folders'][$folder->serverid]['class'] = 'Tasks';
-            break;
-        case 8:
-        case 13:
-            $cache['folders'][$folder->serverid]['class'] = 'Calendar';
-            break;
-        case 9:
-        case 14:
-            $cache['folders'][$folder->serverid]['class'] = 'Contacts';
-            break;
-        case 17:
-        case 10:
-            $cache['folders'][$folder->serverid]['class'] = 'Notes';
-            break;
-        default:
-            $cache['folders'][$folder->serverid]['class'] = 'Email';
-        }
-        $cache['folders'][$folder->serverid]['type'] = $folder->type;
-        $cache['folders'][$folder->serverid]['filtertype'] = '0';
-        $cache['timestamp'] = time();
-    }
-
-    /**
-     * Delete a single folder entry in the sync cache.
-     *
-     * @param array $cache    The sync cache.
-     * @param string $devid   The device id.
-     * @param string $user    The user id.
-     * @param string $folder  The folder to delete.
-     *
-     */
-    public function deleteSyncCacheFolder(array &$cache, $devid, $user, $folder)
-    {
-        $this->_logger->debug(sprintf(
-            "[%s] Delete SyncCache folder %s",
-            $devid,
-            $folder)
-        );
-        unset($cache['folders'][$folder]);
-        unset($cache['collections'][$folder]);
-        $cache['timestamp'] = time();
     }
 
     /**
