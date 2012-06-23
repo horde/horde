@@ -2,6 +2,7 @@
 v2.0.3-git
 ----------
 
+[jan] Fix getViewLink() API method (Bug #11226).
 [jan] Update Turkish translation (İstanbul Technical University).
 
 

@@ -249,23 +249,24 @@ class Gollem_Api extends Horde_Registry_Api
     /**
      * Returns a link to the gollem file preview interface
      *
-     * @param string $dir       File absolute path
-     * @param string $file      File basename
-     * @param string $backend   Backend key. Defaults to
-     *                          Gollem::getPreferredBackend().
+     * @param string $dir          File absolute path
+     * @param string $file         File basename
+     * @param string $backend_key  Backend key. Defaults to
+     *                             Gollem_Auth::getPreferredBackend().
      *
      * @return Horde_Url  The URL object.
      */
-    public function getViewLink($dir, $file, $backend = '')
+    public function getViewLink($dir, $file, $backend_key = '')
     {
-        if (empty($backend)) {
-            $backend = Gollem::getPreferredBackend();
+        if (empty($backend_key)) {
+            $backend_key = Gollem_Auth::getPreferredBackend();
         }
+        $backend = Gollem_Auth::getBackend($backend_key);
 
         return Horde::url('view.php')->add(array(
             'actionID' => 'view_file',
             'dir' => $dir,
-            'driver' => Gollem::$backend['driver'],
+            'driver' => $backend['driver'],
             'file' => $file,
             'type' => substr($file, strrpos($file, '.') + 1)
         ));
