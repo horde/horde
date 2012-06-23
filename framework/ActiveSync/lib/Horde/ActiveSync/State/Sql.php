@@ -1069,7 +1069,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function saveSyncCache(array $cache, $devid, $user)
     {
-        $this->_logger->debug('SAVING: ' . print_r($cache['collections'], true));
         // Iterate over the collections and persist the last known synckey.
         // This is needed since some devices erroneously send a full SYNC
         // request with only a single collection when the user hits refresh.
