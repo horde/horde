@@ -1628,6 +1628,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Request freebusy information from the server
+     */
+    public function getFreebusy($user, array $options = array())
+    {
+        throw new Horde_ActiveSync_Exception('Not supported');
+    }
+
+    /**
      * Helper to build a folder object for non-email folders.
      *
      * @param string $id      The folder's server id.

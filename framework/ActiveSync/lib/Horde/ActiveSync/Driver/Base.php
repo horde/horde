@@ -587,4 +587,9 @@ abstract class Horde_ActiveSync_Driver_Base
      * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
      */
     abstract public function meetingResponse(array $response);
+
+    /**
+     * Request freebusy information from the server
+     */
+    abstract public function getFreebusy($user, array $options = array());
 }
