@@ -55,17 +55,6 @@
       <div class="horde-button-split"></div>
      </div>
 <?php if ($this->show_search): ?>
-     <!--
-     <div id="qsearch">
-      <span id="qsearch_icon">
-       <span class="iconImg searchImg"></span>
-       <span class="iconImg popdownImg"></span>
-      </span>
-      <form action="#" method="post">
-       <input autocomplete="off" id="qsearch_input" type="text" />
-      </form>
-     </div>
-     //-->
      <div id="filter">
       <?php echo $this->actionButton(array('id' => 'button_filter', 'title' => _("Filter"), 'right' => true)) ?>
      </div>

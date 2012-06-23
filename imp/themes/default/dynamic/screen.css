@@ -738,9 +738,9 @@ a.address:hover img {
     margin-right: 0;
     padding-top: 2px;
 }
-#qsearch span.popdownImg {
+#horde-search span.popdownImg {
     cursor: pointer;
-    margin: 0 -4px 0 -8px;
+    width: 16px;
 }
 #qsearch_icon:hover span.popdownImg {
     filter: alpha(opacity=100);

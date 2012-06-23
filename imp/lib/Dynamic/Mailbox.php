@@ -56,6 +56,9 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         if ($session->get('imp', 'imap_quota')) {
             $topbar->subinfo = '<span id="quota-text"></span>';
         }
+        $topbar->search = $this->view->show_search;
+        $topbar->searchAction = '#';
+        $topbar->searchMenu = true;
         $this->view->topbar = $topbar->render();
 
         $impSidebar = new Horde_View(array(

@@ -68,7 +68,7 @@ var DimpBase = {
         // from the search input, because the user may immediately start
         // keyboard navigation after that. Thus, we need to ensure that a
         // message click loses focus on the search input.
-        if ($('qsearch')) {
+        if ($('horde-search')) {
             $('qsearch_input').blur();
         }
 
@@ -665,7 +665,7 @@ var DimpBase = {
                 if (this.isSearch()) {
                     $('filter').hide();
                     if (!this.search || !this.search.qsearch) {
-                        $('qsearch').hide();
+                        $('horde-search').hide();
                     }
                     this.showSearchbar(true);
                 } else {
@@ -2076,7 +2076,7 @@ var DimpBase = {
     quicksearchClear: function(noload)
     {
         var f = this.view,
-            qs = $('qsearch');
+            qs = $('horde-search');
 
         if (!qs) {
             return;
@@ -3603,20 +3603,20 @@ var DimpBase = {
 
         /* Init quicksearch. These needs to occur before loading the message
          * list since it may be disabled if we are in a search mailbox. */
-        if ($('qsearch')) {
+        if ($('horde-search')) {
             this._setQsearchText();
             this.qsearch_ghost = new FormGhost('qsearch_input');
 
             DimpCore.addContextMenu({
                 elt: $('qsearch_icon'),
                 left: true,
-                offset: 'qsearch',
+                offset: $$('#horde-search .horde-fake-input')[0],
                 type: 'qsearchopts'
             });
             DimpCore.addContextMenu({
                 elt: $('qsearch_icon'),
                 left: false,
-                offset: 'qsearch',
+                offset: $$('#horde-search .horde-fake-input')[0],
                 type: 'qsearchopts'
             });
             DM.addSubMenu('ctx_qsearchopts_by', 'ctx_qsearchby');

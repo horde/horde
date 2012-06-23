@@ -1835,12 +1835,24 @@ border-bottom:2px solid #000;
     width:209px;
     margin:6px 0px 0px 0px;
     }
-      #horde-search #horde-input input{
-      width:190px;
+    #horde-search form {
+    display: inline;
+    }
+      #horde-search #horde-input input, #horde-search #horde-input .horde-fake-input {
+      width:195px;
+      background: #fff;
       height:20px;
-      padding:0px 5px 0px 5px;
       font-size:115%;
       border:0px;
+      }
+      #horde-search #horde-input input {
+      width:190px;
+      padding:0px 5px 0px 5px;
+      }
+      #horde-search #horde-input .horde-fake-input input {
+      padding: 0 5px 0 0;
+      width: 170px;
+      font-size: 100%;
       }
     #horde-search #horde-img{
     float:left;

@@ -3,7 +3,11 @@
  * This is a view of the Horde topbar.
  *
  * Useful properties:
- * - subinfo: Right-aligned content of the sub-bar
+ * - subinfo: (string) Right-aligned content of the sub-bar.
+ * - search: (boolean) Whether to show the search bar.
+ * - searchAction: (string) The form action attribute of the search form.
+ * - searchMenu: (boolean) whether to show a drop down icon inside the search
+ *               field.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *

@@ -6,10 +6,25 @@
     <div class="clear"></div>
   </div>
   <div id="horde-logout"><a class="icon" href="<?php echo $this->logoutUrl ?>"></a></div>
+<?php if ($this->search): ?>
   <div id="horde-search">
-    <div id="horde-input"><input type="text" name="searchfield" value="Search" /></div>
+    <div id="horde-input">
+      <form action="<?php echo $this->searchAction ?>" method="post">
+<?php if ($this->searchMenu): ?>
+        <div class="horde-fake-input">
+          <span id="qsearch_icon">
+            <span class="iconImg popdownImg"></span>
+          </span>
+          <input autocomplete="off" id="qsearch_input" type="text" />
+        </div>
+<?php else: ?>
+        <input type="text" name="searchfield" class="formGhost" value="<?php echo _("Search") ?>" />
+<?php endif ?>
+      </form>
+    </div>
     <div id="horde-img"><a class="icon" href=""></a></div>
     <div class="clear"></div>
   </div>
+<?php endif ?>
   <div class="clear"></div>
 </div>
