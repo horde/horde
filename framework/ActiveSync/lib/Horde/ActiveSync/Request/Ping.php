@@ -349,7 +349,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             $collection['synckey'])
         );
 
-        // @TODO: Combine these method calls. No need to have them separate.
         $this->_stateDriver->loadState(
             $collection,
             $collection['synckey'],
