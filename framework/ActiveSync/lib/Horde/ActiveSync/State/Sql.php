@@ -959,6 +959,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_deviceInfo->id,
                 $options['user'])
             );
+
+            // Also need to remove the synccache
+            $this->deleteSyncCache($options['devId'], $options['user']);
+
         } elseif (!empty($options['devId'])) {
             $state_query .= ' sync_devid = ?';
             $map_query .= ' sync_devid = ?';
