@@ -27,6 +27,7 @@
  * @property array folders              The folders cache.
  * @property integer hbinterval         The heartbeat interval (in seconds).
  * @property integer wait               The wait interval (in minutes).
+ * @property integer pingheartbeat      The heartbeat used in PING requests.
  * @property string hierarchy           The hierarchy synckey.
  * @property array confirmed_synckeys   Array of synckeys being confirmed during
  *                                      a looping sync.
@@ -115,7 +116,7 @@ class Horde_ActiveSync_SyncCache
     {
         return in_array($property, array(
             'hbinterval', 'wait', 'hierarchy', 'confirmed_synckeys', 'lastuntil',
-            'lasthbsyncstarted', 'lastsyncendnormal', 'folders'));
+            'lasthbsyncstarted', 'lastsyncendnormal', 'folders', 'pingheartbeat'));
     }
     /**
      * Validate the cache. Compares the cache timestamp with the current cache
