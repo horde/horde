@@ -347,7 +347,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         // Initialize the state
         $this->_logger->debug(sprintf(
             "[%s] Initializing state for collection: %s, synckey: %s",
-            $this->_device->id,
+            getmypid(),
             $collection['id'],
             $collection['synckey'])
         );
