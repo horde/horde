@@ -1016,7 +1016,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 if (!$this->_decoder->getElementEndTag()) {
                     // End application data
                     $this->_statusCode = self::STATUS_PROTERROR;
-                    break;
+                    $this->_handleGlobalSyncError();
+                    return false;
                 }
             }
             switch ($element[Horde_ActiveSync_Wbxml::EN_TAG]) {
