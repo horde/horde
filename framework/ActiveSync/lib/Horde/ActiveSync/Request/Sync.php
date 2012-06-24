@@ -119,8 +119,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         return true;
                     }
                     $shortsyncreq = true;
-                    $this->_syncCache->updateTimestamp();
-                    $this->_stateDriver->save();
+                    $this->_syncCache->save();
                     $this->_logger->debug('Empty Sync request taking info from SyncCache.');
                     $this->_collections = $this->_syncCache->getCollections();
                 }
