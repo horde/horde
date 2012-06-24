@@ -291,6 +291,12 @@ class Horde_Core_Prefs_Ui
         foreach ($preflist as $pref) {
             $pref_updated = false;
 
+            if (isset($this->prefs[$pref]['on_init']) &&
+                is_callable($this->prefs[$pref]['on_init'])) {
+
+                $this->prefs[$pref]['on_init']($this);
+            }
+
             switch ($this->prefs[$pref]['type']) {
             case 'checkbox':
                 $pref_updated = $save->setValue($pref, intval(isset($this->vars->$pref)));
