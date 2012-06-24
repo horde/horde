@@ -167,6 +167,11 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 throw new Horde_ActiveSync_Exception('Protocol Error');
             }
         } else {
+            foreach ($collections as &$collection) {
+                $collection['synckey'] = !empty($collection['lastsynckey'])
+                    ? $collection['lastsynckey']
+                    : 0;
+            }
             $this->_logger->debug(sprintf('Reusing PING state: %s', print_r($collections, true)));
         }
 
