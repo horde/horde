@@ -745,7 +745,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $this->_syncCache->save();
             }
         } else {
-            $this->_syncCache->updateTimestamp();
             $this->_syncCache->save();
         }
 

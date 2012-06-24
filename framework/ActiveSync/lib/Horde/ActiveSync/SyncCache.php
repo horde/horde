@@ -493,7 +493,6 @@ class Horde_ActiveSync_SyncCache
         }
         $this->_data['folders'][$folder->serverid]['type'] = $folder->type;
         $this->_data['folders'][$folder->serverid]['filtertype'] = '0';
-        $this->_data['timestamp'] = time();
     }
 
     /**
@@ -505,7 +504,6 @@ class Horde_ActiveSync_SyncCache
     {
         unset($this->_data['folders'][$folder]);
         unset($this->_data['collections'][$folder]);
-        $this->_data['timestamp'] = time();
     }
 
     /**
