@@ -857,7 +857,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                 case Horde_ActiveSync::SYNC_COMMANDS:
                     $this->_initState($collection);
-                    $this->_logger->debug('foo');
                     if (!$this->_parseSyncCommands($collection)) {
                         return true;
                     }
