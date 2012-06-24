@@ -911,11 +911,13 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     /**
      * Explicitly remove a state from storage.
      *
-     * @param array $options  An options array containing:
+     * @param array $options  An options array containing at least one of:
      *   - synckey: (string)  Remove only the state associated with this synckey.
+     *              DEFAULT: All synckeys are removed for the specified device.
      *   - devId: (string)  Remove all information for this device.
-     *   - user: (string)  When removing device info, restrict to removing data
-     *                    for this user only.
+     *            DEFAULT: None. If no device, a synckey is required.
+     *   - user: (string) Restrict to removing data for this user only.
+     *           DEFAULT: None - all users for the specified device are removed.
      *   - id: (string)  When removing device state, restrict ro removing data
      *                   only for this collection.
      *
@@ -962,7 +964,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
             // Also need to remove the synccache
             $this->deleteSyncCache($options['devId'], $options['user']);
-
         } elseif (!empty($options['devId'])) {
             $state_query .= ' sync_devid = ?';
             $map_query .= ' sync_devid = ?';
@@ -976,7 +977,18 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_deviceInfo->id,
                 $options['devId'])
             );
-        } else {
+        } elseif (!empty($options['user'])) {
+            $state_query .= ' sync_user = ?';
+            $map_query .= ' sync_user = ?';
+            $user_query = 'DELETE FROM ' . $this->_syncUsersTable
+                . ' WHERE device_user = ?';
+            $state_values = $values = array($options['user']);
+            $this->_logger->debug(sprintf(
+                '[%s] Removing all device state for user %s.',
+                $this->_deviceInfo->id,
+                $options['user']));
+            );
+        } elseif (!empty($options['synckey'])) {
             $state_query .= ' sync_key = ?';
             $map_query .= ' sync_key = ?';
             $state_values = $values = array($options['synckey']);
@@ -985,6 +997,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_deviceInfo->id,
                 $options['synckey'])
             );
+        } else {
+            return;
         }
 
         try {
