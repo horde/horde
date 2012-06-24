@@ -196,6 +196,9 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 $lifetime)
             );
             $expire = $now + $lifetime;
+            $syncCache->lastuntil = $expire;
+            $syncCache->lasthbsyncstarted = time();
+
             while (time() <= $expire) {
                 // Check the remote wipe status
                 if ($this->_provisioning === true) {
