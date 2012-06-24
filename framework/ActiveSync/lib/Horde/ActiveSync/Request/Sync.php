@@ -1312,6 +1312,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $this->_syncCache->save();
             }
             return $found;
+        } elseif (empty($this->_collections)) {
+            return false;
         }
         $this->_logger->debug('Have syncable collections');
 
