@@ -1082,6 +1082,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $collection['lastsynckey'] = $collection['synckey'];
             }
         }
+        $cache['timestamp'] = strval($cache['timestamp']);
         $sql = 'SELECT count(*) FROM ' . $this->_syncCacheTable
             . ' WHERE cache_devid = ? AND cache_user = ?';
         try {
