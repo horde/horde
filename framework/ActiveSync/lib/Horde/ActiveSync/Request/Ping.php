@@ -118,9 +118,9 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         // Build the collection array from anything we have in the cache.
         $collections = array();
         $collections = $syncCache->getCollections(false);
-        $lifetime = $this->_checkHeartbeat(empty($this->_syncCache->hbinterval)
+        $lifetime = $this->_checkHeartbeat(empty($syncCache->hbinterval)
             ? 0
-            : $this->_syncCache->hbinterval);
+            : $syncCache->hbinterval);
 
         // Build the $collections array if we receive request from PIM
         if ($this->_decoder->getElementStartTag(self::PING)) {
@@ -132,7 +132,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 $lifetime = $this->_pingSettings['heartbeatdefault'];
             }
             // Save the hbinterval to the syncCache.
-            $this->_syncCache->hbinterval = $lifetime;
+            $syncCache->hbinterval = $lifetime;
             $syncCache->save();
 
             if ($this->_decoder->getElementStartTag(self::FOLDERS)) {
