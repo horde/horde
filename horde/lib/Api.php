@@ -229,6 +229,15 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         $GLOBALS['registry']->removeUserData($user, $app);
+
+        if ($GLOBALS['conf']['activesync']['enabled']) {
+            try {
+                $GLOBALS['injector']->getInstance('Horde_ActiveSyncState')
+                    ->removeState(array('user' => $user));
+            } catch (Horde_ActiveSync_Exception $e) {
+                throw Horde_Exception($e);
+            }
+        }
     }
 
     /* Groups. */
