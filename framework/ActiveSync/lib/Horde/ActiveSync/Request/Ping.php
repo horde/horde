@@ -213,10 +213,9 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
                 if (!$syncCache->validateCache()) {
                     $this->_logger->debug(sprintf(
-                        '[%s] SyncCache was modified. Updating collections from SyncCache.',
+                        '[%s] SyncCache was modified by other process, exiting.',
                         $this->_device->id));
-                    $syncCache->refreshCollections();
-                    $collections = $syncCache->getCollections(false);
+                    return true;
                 }
 
                 foreach ($collections as $collection) {
@@ -236,7 +235,10 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                             "[%s] PING terminating: %s",
                             $this->_device->id,
                             $e->getMessage()));
+                        $expire = time();
                         $this->_statusCode = self::STATUS_NEEDSYNC;
+                        $dataavailable = true;
+                        $changes[$collection['id']] = 1;
                         $expire = time();
                         break;
                     } catch (Horde_ActiveSync_Exception_StateGone $e) {
@@ -304,6 +306,9 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 sleep($timeout);
             }
         }
+
+        $syncCache->lastsyncendnormal = time();
+        $syncCache->save();
 
         // Prepare for response
         $this->_logger->info(sprintf(
