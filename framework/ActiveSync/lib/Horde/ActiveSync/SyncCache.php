@@ -251,6 +251,7 @@ class Horde_ActiveSync_SyncCache
      */
     public function save()
     {
+        $this->_data['timestamp'] = time();
         $this->_state->saveSyncCache(
             $this->_data,
             $this->_devid,
