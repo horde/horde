@@ -157,7 +157,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $collections,
                         array($collection['id'] => $collection));
                 }
-                $collections = array_values($collections);
                 if (!$this->_decoder->getElementEndTag()) {
                     throw new Horde_ActiveSync_Exception('Protocol Error');
                 }
@@ -218,8 +217,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $collections = $syncCache->getCollections(false);
                 }
 
-                for ($i = 0; $i < count($collections); $i++) {
-                    $collection = $collections[$i];
+                foreach ($collections as $collection) {
                     $sync = $this->_getSyncObject();
                     try {
                         $this->_initState($collection);
