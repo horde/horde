@@ -986,7 +986,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_logger->debug(sprintf(
                 '[%s] Removing all device state for user %s.',
                 $this->_deviceInfo->id,
-                $options['user']));
+                $options['user'])
             );
         } elseif (!empty($options['synckey'])) {
             $state_query .= ' sync_key = ?';
