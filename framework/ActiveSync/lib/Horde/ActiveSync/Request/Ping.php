@@ -181,6 +181,11 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             }
         }
 
+        if (count($collections) == 0) {
+            $this->_logger->err('0 collections');
+            throw new Horde_ActiveSync_Exception();
+        }
+
         // Start waiting for changes, but only if we don't have any errors
         $changes = array();
         $dataavailable = false;
@@ -201,12 +206,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
                         break;
                     }
-                }
-
-                if (count($collections) == 0) {
-                    $this->_logger->err('0 collections');
-                    $this->_statusCode = self::STATUS_MISSING;
-                    break;
                 }
 
                 if (!$syncCache->validateCache()) {
