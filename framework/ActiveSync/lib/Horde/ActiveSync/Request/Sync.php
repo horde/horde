@@ -211,6 +211,23 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 return true;
             }
 
+            // Ensure the FILTERTYPE hasn't changed. If so, we need to invalidate
+            // the client's synckey to force a sync reset. This is the only
+            // reliable way of fetching an older set of data from the backend.
+            foreach ($this->_collections as $collection) {
+                $cc = $this->_syncCache->getCollections();
+                if (!empty($cc[$collection['id']]['filtertype']) &&
+                    !empty($collection['filtertype']) &&
+                    $cc[$collection['id']]['filtertype'] != $collection['filtertype']) {
+                    $this->_syncCache->removeCollection($collection['id']);
+                    $this->_syncCache->save();
+                    $this->_logger->debug('Invalidating SYNCKEY - found updated filtertype');
+                    $this->_statusCode = self::STATUS_KEYMISM;
+                    $this->_handleError($collection);
+                    return true;
+                }
+            }
+
             // Fill in missing values from the cache.
             if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
                 // Give up in case we don't have a synched hierarchy synckey
