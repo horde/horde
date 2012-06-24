@@ -131,9 +131,9 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             if ($lifetime == 0) {
                 $lifetime = $this->_pingSettings['heartbeatdefault'];
             }
+
             // Save the hbinterval to the syncCache.
             $syncCache->pingheartbeat = $lifetime;
-            $syncCache->save();
 
             if ($this->_decoder->getElementStartTag(self::FOLDERS)) {
                 while ($this->_decoder->getElementStartTag(self::FOLDER)) {
