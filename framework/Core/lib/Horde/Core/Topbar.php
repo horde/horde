@@ -92,8 +92,12 @@ class Horde_Core_Topbar
         } catch (Horde_Exception $e) {
         }
 
-        if (!$admin_item_count) {
-            unset($menu['administration']);
+        if ($admin_item_count) {
+            $menu['administration'] = array(
+                'name' => _("Administration"),
+                'status' => 'heading',
+                'menu_parent' => 'settings',
+            );
         }
 
         $menu['settings'] = array(
@@ -103,6 +107,7 @@ class Horde_Core_Topbar
             'status' => 'active'
         );
 
+        /* Add preferences. */
         if (Horde_Menu::showService('prefs') &&
             !($GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create() instanceof Horde_Prefs_Session)) {
             $menu['prefs'] = array(
@@ -136,6 +141,32 @@ class Horde_Core_Topbar
                     'url' => $registry->getServiceLink('prefs', $app)
                 );
             }
+        }
+
+        /* Add problem link. */
+        if (Horde_Menu::showService('problem') &&
+            ($problem_link = $registry->getServiceLink('problem', $current))) {
+            $menu['problem_' . $current] = array(
+                'icon' => 'problem.png',
+                'menu_parent' => 'settings',
+                'name' => Horde_Core_Translation::t("Problem"),
+                'status' => 'active',
+                'url' => $problem_link
+            );
+        }
+
+        /* Add help link. */
+        if (Horde_Menu::showService('help') &&
+            ($help_link = $registry->getServiceLink('help', $current))) {
+            $menu['help_' . $current] = array(
+                'icon' => 'help_index.png',
+                'menu_parent' => 'settings',
+                'name' => Horde_Core_Translation::t("Help"),
+                'onclick' => Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;',
+                'status' => 'active',
+                'target' => 'help',
+                'url' => $help_link
+            );
         }
 
         foreach ($menu as $app => $params) {
@@ -183,6 +214,9 @@ class Horde_Core_Topbar
                                ? 'horde-point-center-active'
                                : 'horde-point-center'),
                         'noarrow' => !empty($params['noarrow']),
+                        'onclick' => isset($params['onclick'])
+                            ? $params['onclick']
+                            : null,
                         'target' => isset($params['target'])
                             ? $params['target']
                             : null,

@@ -3,6 +3,12 @@
  * The Horde_Tree_Menu class renders the tree structure of the top
  * application menu.
  *
+ * Additional node parameters:
+ * - noarrow: Whether to hide the arrow next to the top level menu entry.
+ * - onclick: Value for onclick attribute.
+ * - url: URL to link the node to
+ * - target: Target for the 'url' link
+ *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

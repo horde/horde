@@ -372,12 +372,6 @@ $this->applications = array(
         'menu_parent' => 'administration'
     ),
 
-    'administration' => array(
-        'name' => _("Administration"),
-        'status' => 'heading',
-        'menu_parent' => 'others',
-    ),
-
     'content' => array(
         'status' => 'hidden'
     ),
