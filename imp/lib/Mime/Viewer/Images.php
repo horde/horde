@@ -21,21 +21,38 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      * @var array
      */
     protected $_capability = array(
-        'full' => true,
+        'full' => false,
         'info' => true,
         'inline' => true,
-        'raw' => true
+        'raw' => false
     );
 
     /**
      */
     public function canRender($mode)
     {
-        /* For mimp - allow rendering of attachments inline (on the view
-         * parts page). */
-        return (($mode == 'inline') && (IMP::getViewMode() == 'mimp'))
-            ? true
-            : parent::canRender($mode);
+        global $browser;
+
+        switch ($mode) {
+        case 'full':
+        case 'raw':
+            /* Only display raw images we know the browser supports, and we
+             * know can't cause any sort of security issue. */
+            if ($browser->isViewable($this->_getType())) {
+                return true;
+            }
+            break;
+
+        case 'inline':
+            /* For minimal view: allow rendering of attachments inline (on the
+             * view parts page). */
+            if (IMP::getViewMode() == 'mimp') {
+                return true;
+            }
+            break;
+        }
+
+        return parent::canRender($mode);
     }
 
     /**
