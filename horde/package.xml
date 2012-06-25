@@ -40,17 +40,11 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Remove support for IE 6.
 * [mms] Token protect all AJAX actions.
 * [jan] Allow to use IMAP storage for shares and groupware data without a complete Kolab server.
-* [mms] Implement growler-like notifications for smartmobile view.
 * [mms] Modified pushapp hook behavior.
 * [mms] Removed pushapp_post hook.
-* [mms] AJAX core features now contained within Horde_Core.
-* [mms] E-mail sending charset now defaults to UTF-8.
-* [mms] Add post-install script for the Horde application
-* [mms] Portal blocks can now load just the CSS necessary to display an application&apos;s blocks.
-* [jan] Show notifications during logging into Smartphone mode.
+* [jan] Fix setting default values for HTML signatures.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

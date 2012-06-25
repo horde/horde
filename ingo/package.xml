@@ -34,10 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] When adding to blacklist/whitelist, remove added addresses from the other list.
-* [jan] Allow to use placeholder variables in vacation messages (Request #10316).
-* [mjr] Add ability to retrieve vacation message details from the API.
-* [jan] Validate start and end dates of vacation rules (Request #10879).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

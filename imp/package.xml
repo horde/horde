@@ -34,10 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Only allow display of basic image types directly in browser.
-* [jan] Update Turkish translation (İstanbul Technical University).
-* [jan] Re-add option to report messages as spam/ham through redirection.
-* [jan] Update Swedish translation (Jakob Alvermark &lt;jakob.alvermark@bsdlabs.com&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
