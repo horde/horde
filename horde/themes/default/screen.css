@@ -1399,8 +1399,11 @@ div.GrowlerNoticeExit:hover {
     padding-left: 16px;
 }
 .contextSelected {
-    background: gray !important;
+    background-color: #36525d !important;
     color: #fff !important;
+}
+a.contextSelected:hover {
+    color: #000 !important;
 }
 .contextMenu .iconImg {
     vertical-align: top;
