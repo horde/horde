@@ -1108,23 +1108,33 @@ class Horde
      * Returns the appropriate "accesskey" and "title" attributes for an HTML
      * tag and the given label.
      *
-     * @param string $label     The title of an HTML element
-     * @param boolean $nocheck  Don't check if the access key already has been
-     *                          used?
+     * @param string $label          The title of an HTML element
+     * @param boolean $nocheck       Don't check if the access key already has
+     *                               been used?
+     * @param boolean $return_array  Return attributes as a hash?
      *
      * @return string  The title, and if appropriate, the accesskey attributes
      *                 for the element.
      */
-    static public function getAccessKeyAndTitle($label, $nocheck = false)
+    static public function getAccessKeyAndTitle($label, $nocheck = false,
+                                                $return_array = false)
     {
         $ak = self::getAccessKey($label, $nocheck);
-        $attributes = 'title="' . self::stripAccessKey($label);
+        $attributes = array('title' => self::stripAccessKey($label));
         if (!empty($ak)) {
-            $attributes .= sprintf(Horde_Core_Translation::t(" (Accesskey %s)"), strtoupper($ak))
-              . '" accesskey="' . $ak;
+            $attributes['title'] .= sprintf(Horde_Core_Translation::t(" (Accesskey %s)"), strtoupper($ak));
+            $attributes['accesskey'] = $ak;
         }
 
-        return $attributes . '"';
+        if ($return_array) {
+            return $attributes;
+        }
+
+        $html = '';
+        foreach ($attributes as $attribute => $value) {
+            $html .= sprintf(' %s="%s"', $attribute, $value);
+        }
+        return $html;
     }
 
     /**
