@@ -2250,7 +2250,7 @@ class Kronolith
             throw new Kronolith_Exception($e);
         }
 
-        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
+        $senderIdentity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
 
         $owner = $share->get('owner');
         if ($owner) {
@@ -2334,7 +2334,7 @@ class Kronolith
                     $mime_mail = new Horde_Mime_Mail(array(
                         'Subject' => $subject . ' ' . $event->title,
                         'To' => implode(',', $df_recipients),
-                        'From' => $identity->getDefaultFromAddress(true),
+                        'From' => $senderIdentity->getDefaultFromAddress(true),
                         'User-Agent' => 'Kronolith ' . $GLOBALS['registry']->getVersion(),
                         'body' => $message));
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), 'DEBUG');
