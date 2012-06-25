@@ -67,10 +67,13 @@ $form = new Turba_Form_AddContact($vars, $contact);
 if ($form->validate()) {
     $form->execute();
 }
+Horde::startBuffer();
+require TURBA_TEMPLATES . '/menu.inc';
+$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('add.php'), 'post');
+$formHtml = Horde::endBuffer();
 
 $page_output->header(array(
     'title' => _("New Contact")
 ));
-require TURBA_TEMPLATES . '/menu.inc';
-$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('add.php'), 'post');
+echo $formHtml;
 $page_output->footer();
