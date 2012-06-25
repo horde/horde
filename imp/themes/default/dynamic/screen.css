@@ -717,43 +717,6 @@ a.address:hover img {
 }
 
 /* Search-related styles */
-#qsearch {
-    background-color: #fff;
-    border: 1px solid #999;
-    cursor: default;
-    float: right;
-    margin: -1px 2px 0 0;
-    padding-left: 1px;
-    padding-right: 1px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-}
-#qsearch form {
-    display: inline;
-}
-#qsearch span.searchImg {
-    cursor: pointer;
-    margin-left: 1px;
-    margin-right: 0;
-    padding-top: 2px;
-}
-#horde-search span.popdownImg {
-    cursor: pointer;
-    width: 16px;
-}
-#qsearch_icon:hover span.popdownImg {
-    filter: alpha(opacity=100);
-    -moz-opacity: 1;
-    opacity: 1;
-}
-#qsearch_input {
-    background-color: #fff;
-    border: none;
-    color: #000;
-    padding: 0 2px 0 0;
-    width: 150px;
-}
 .qsearchMatch {
     font-weight: bold;
     text-decoration: underline;

@@ -69,7 +69,7 @@ var DimpBase = {
         // keyboard navigation after that. Thus, we need to ensure that a
         // message click loses focus on the search input.
         if ($('horde-search')) {
-            $('qsearch_input').blur();
+            $('horde-search-input').blur();
         }
 
         this.resetSelectAll();
@@ -505,7 +505,7 @@ var DimpBase = {
 
                 // Check for search strings
                 if (this.isQSearch()) {
-                    re = new RegExp("(" + $F('qsearch_input') + ")", "i");
+                    re = new RegExp("(" + $F('horde-search-input') + ")", "i");
                     [ 'from', 'subject' ].each(function(h) {
                         if (r[h] !== null) {
                             r[h] = r[h].gsub(re, '<span class="qsearchMatch">#{1}</span>');
@@ -571,7 +571,7 @@ var DimpBase = {
                             qsearchflagnot: Number(this.search.not)
                         });
                     } else {
-                        params.set('qsearch', $F('qsearch_input'));
+                        params.set('qsearch', $F('horde-search-input'));
                     }
                 }
 
@@ -2051,7 +2051,7 @@ var DimpBase = {
 
     quicksearchRun: function()
     {
-        var q = $F('qsearch_input');
+        var q = $F('horde-search-input');
 
         if (this.isSearch()) {
             /* Search text has changed. */
@@ -2083,13 +2083,13 @@ var DimpBase = {
         }
 
         if (this.isSearch()) {
-            $(qs, 'qsearch_icon', 'qsearch_input').invoke('show');
+            $(qs, 'horde-search-dropdown', 'horde-search-input').invoke('show');
             if (!noload) {
                 this.go('mbox', (this.search ? this.search.mbox : this.INBOX));
             }
             delete this.search;
 
-            $('qsearch_input').clear();
+            $('horde-search-input').clear();
             if (this.qsearch_ghost) {
                 // Needed because there is no reset method in ghost JS (as of
                 // H4).
@@ -2102,7 +2102,7 @@ var DimpBase = {
     /* Set quicksearch text. */
     _setQsearchText: function()
     {
-        $('qsearch_input').writeAttribute('title', DimpCore.text.search + ' (' + DimpCore.context.ctx_qsearchby['*' + this._getPref('qsearch_field')] + ')');
+        $('horde-search-input').writeAttribute('title', DimpCore.text.search + ' (' + DimpCore.context.ctx_qsearchby['*' + this._getPref('qsearch_field')] + ')');
         if (this.qsearch_ghost) {
             this.qsearch_ghost.refresh();
         }
@@ -2291,7 +2291,7 @@ var DimpBase = {
             case Event.KEY_ESC:
             case Event.KEY_TAB:
                 // Catch escapes in search box
-                if (elt.readAttribute('id') == 'qsearch_input') {
+                if (elt.readAttribute('id') == 'horde-search-input') {
                     if (kc == Event.KEY_ESC || !elt.getValue()) {
                         this.quicksearchClear();
                     }
@@ -2301,8 +2301,8 @@ var DimpBase = {
                 break;
 
             case Event.KEY_RETURN:
-                if (elt.readAttribute('id') == 'qsearch_input') {
-                    if ($F('qsearch_input')) {
+                if (elt.readAttribute('id') == 'horde-search-input') {
+                    if ($F('horde-search-input')) {
                         this.quicksearchRun();
                     } else {
                         this.quicksearchClear();
@@ -3605,16 +3605,16 @@ var DimpBase = {
          * list since it may be disabled if we are in a search mailbox. */
         if ($('horde-search')) {
             this._setQsearchText();
-            this.qsearch_ghost = new FormGhost('qsearch_input');
+            this.qsearch_ghost = new FormGhost('horde-search-input');
 
             DimpCore.addContextMenu({
-                elt: $('qsearch_icon'),
+                elt: $('horde-search-dropdown'),
                 left: true,
                 offset: $$('#horde-search .horde-fake-input')[0],
                 type: 'qsearchopts'
             });
             DimpCore.addContextMenu({
-                elt: $('qsearch_icon'),
+                elt: $('horde-search-dropdown'),
                 left: false,
                 offset: $$('#horde-search .horde-fake-input')[0],
                 type: 'qsearchopts'
@@ -3630,7 +3630,7 @@ var DimpBase = {
 
             /* Don't submit FORM. Really only needed for Opera (Bug #9730)
              * but shouldn't hurt otherwise. */
-            $('qsearch_input').up('FORM').observe('submit', Event.stop);
+            $('horde-search-input').up('FORM').observe('submit', Event.stop);
         }
 
         /* Store these text strings for updating purposes. */

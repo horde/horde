@@ -1857,7 +1857,11 @@ border-bottom:2px solid #000;
       width: 170px;
       font-size: 100%;
       }
-    #horde-search #horde-img{
+      #horde-search span.popdownImg {
+          cursor: pointer;
+          width: 16px;
+      }
+    #horde-search-icon {
     float:left;
     width:21px;
     height:27px;
