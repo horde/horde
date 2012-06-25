@@ -41,7 +41,7 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function getTasklistFromCache()
     {
-        return $GLOBALS['session']->get('horde', 'logintasks/' . $this->_app);
+        return $GLOBALS['session']->get($this->_app, 'logintasks');
     }
 
     /**
@@ -52,7 +52,7 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function storeTasklistInCache($tasklist)
     {
-        $GLOBALS['session']->set('horde', 'logintasks/' . $this->_app, $tasklist);
+        $GLOBALS['session']->set($this->_app, 'logintasks', $tasklist);
     }
 
     /**
