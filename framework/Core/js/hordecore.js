@@ -20,8 +20,10 @@ var HordeCore = {
 
     // Vars used and defaulting to null/false:
     //   Growler, conf, inAjaxCallback, is_logout, submit_frame, text
+
     alarms: [],
     base: null,
+    handlers: {},
     notify_handler: function(m) { HordeCore.showNotifications(m); },
     server_error: 0,
     submit_frame: [],
@@ -417,6 +419,41 @@ var HordeCore = {
         return params.size()
             ? (url + '?' + params.toQueryString())
             : url;
+    },
+
+    initHandler: function(type)
+    {
+        if (!this.handlers[type]) {
+            switch (type) {
+            case 'click':
+            case 'dblclick':
+                this.handlers[type] = this.clickHandler.bindAsEventListener(this);
+                document.observe(type, this.handlers[type]);
+                break;
+            }
+        }
+    },
+
+    // 'HordeCore:click'/'HordeCore:dblclick' is fired on every element up
+    // to the document root. The memo attribute is the original Event. If
+    // this original Event contains a non-zero value of hordecore_stop,
+    // bubbling is immediately stopped.
+    clickHandler: function(e)
+    {
+        if (e.isRightClick()) {
+            return;
+        }
+
+        var elt = e.element();
+
+        while (Object.isElement(elt)) {
+            elt.fire('HordeCore:' + e.type, e);
+            if (e.hordecore_stop) {
+                e.stop();
+                break;
+            }
+            elt = elt.up();
+        }
     },
 
     onDomLoad: function()

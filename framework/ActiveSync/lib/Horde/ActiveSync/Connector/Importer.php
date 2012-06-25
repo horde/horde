@@ -223,7 +223,6 @@ class Horde_ActiveSync_Connector_Importer
             Horde_ActiveSync::CHANGE_ORIGIN_PIM,
             $this->_backend->getUser());
 
-        // @TODO: These methods should be passed a Folder object.
         $this->_backend->setReadFlag($this->_folderId, $id, $flags);
 
         return true;

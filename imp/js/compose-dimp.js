@@ -875,146 +875,149 @@ var DimpCompose = {
     /* Click observe handler. */
     clickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
-        }
-
-        var elt = e.element(),
-            orig = elt,
-            atc_num, id, tmp;
-
         /* Needed because reply/forward buttons need to be of type="submit"
          * for FF to correctly size. */
-        if (elt.readAttribute('type') == 'submit') {
+        if (e.memo.element().readAttribute('type') == 'submit') {
+            e.memo.hordecore_stop = true;
             return;
         }
 
-        while (Object.isElement(elt)) {
-            id = elt.readAttribute('id');
+        var atc_num, tmp;
 
-            switch (id) {
-            case 'togglebcc':
-            case 'togglecc':
-                this.toggleCC(id.substring(6));
-                this.resizeMsgArea();
-                break;
+        switch (e.element().readAttribute('id')) {
+        case 'togglebcc':
+            this.toggleCC('bcc');
+            this.resizeMsgArea();
+            break;
 
-            case 'compose_close':
-                this.confirmCancel();
-                break;
+        case 'togglecc':
+            this.toggleCC('cc');
+            this.resizeMsgArea();
+            break;
 
-            case 'draft_button':
-                if (!this.disabled) {
-                    this.uniqueSubmit('saveDraft');
-                }
-                break;
+        case 'compose_close':
+            this.confirmCancel();
+            break;
 
-            case 'template_button':
-                if (!this.disabled) {
-                    this.uniqueSubmit('saveTemplate');
-                }
-                break;
-
-            case 'send_button':
-                if (!this.disabled) {
-                    this.uniqueSubmit('sendMessage');
-                }
-                break;
-
-            case 'send_button_redirect':
-                if (!this.disabled) {
-                    this.uniqueSubmit('redirectMessage');
-                }
-                break;
-
-            case 'htmlcheckbox':
-                if (!ImpComposeBase.editor_on ||
-                    window.confirm(DimpCore.text.toggle_html)) {
-                    this.toggleHtmlEditor();
-                } else {
-                    $('htmlcheckbox').setValue(true);
-                }
-                break;
-
-            case 'redirect_sendto':
-                if (orig.match('TD.label SPAN')) {
-                    this.openAddressbook({
-                        to_only: 1
-                    });
-                }
-                break;
-
-            case 'sendcc':
-            case 'sendbcc':
-            case 'sendto':
-                if (orig.match('TD.label SPAN')) {
-                    this.openAddressbook();
-                }
-                break;
-
-            case 'attach_list':
-                if (orig.match('SPAN.remove')) {
-                    this.removeAttach([ orig.up() ]);
-                } else if (orig.match('SPAN.attachName')) {
-                    atc_num = orig.up('LI').retrieve('atc_id');
-                    HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
-                        actionID: 'compose_attach_preview',
-                        composeCache: $F('composeCache'),
-                        id: atc_num
-                    }, {
-                        name: $F('composeCache') + '|' + atc_num
-                    });
-                }
-                break;
-
-            case 'save_sent_mail':
-                this.setSaveSentMail($F(elt));
-                break;
-
-            case 'fwdattachnotice':
-            case 'fwdbodynotice':
-                this.fadeNotice(elt);
-                DimpCore.doAction('GetForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
-                $('composeMessage').stopObserving('keydown');
-                e.stop();
-                return;
-
-            case 'identitychecknotice':
-                this.fadeNotice(elt);
-                $('identity').setValue(this.old_identity);
-                this.changeIdentity();
-                e.stop();
-                return;
-
-            case 'replyall_revert':
-            case 'replylist_revert':
-                this.fadeNotice(elt.up('LI'));
-                $('to_loading_img').show();
-                DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
-                e.stop();
-                return;
-
-            case 'writemsg':
-                if (!this.disabled &&
-                    e.element().hasClassName('dimpOptionPopdown')) {
-                    tmp = e.element().retrieve('popdown_id');
-                    this.knl[tmp].knl.show();
-                    this.knl[tmp].knl.ignoreClick(e);
-                    e.stop();
-                }
-                break;
+        case 'draft_button':
+            if (!this.disabled) {
+                this.uniqueSubmit('saveDraft');
             }
+            break;
 
-            elt = elt.up();
+        case 'template_button':
+            if (!this.disabled) {
+                this.uniqueSubmit('saveTemplate');
+            }
+            break;
+
+        case 'send_button':
+            if (!this.disabled) {
+                this.uniqueSubmit('sendMessage');
+            }
+            break;
+
+        case 'send_button_redirect':
+            if (!this.disabled) {
+                this.uniqueSubmit('redirectMessage');
+            }
+            break;
+
+        case 'htmlcheckbox':
+            if (!ImpComposeBase.editor_on ||
+                window.confirm(DimpCore.text.toggle_html)) {
+                this.toggleHtmlEditor();
+            } else {
+                $('htmlcheckbox').setValue(true);
+            }
+            break;
+
+        case 'redirect_sendto':
+            if (e.memo.element().match('TD.label SPAN')) {
+                this.openAddressbook({
+                    to_only: 1
+                });
+            }
+            break;
+
+        case 'sendcc':
+        case 'sendbcc':
+        case 'sendto':
+            if (e.memo.element().match('TD.label SPAN')) {
+                this.openAddressbook();
+            }
+            break;
+
+        case 'attach_list':
+            tmp = e.memo.element();
+            if (tmp.match('SPAN.remove')) {
+                this.removeAttach([ tmp.up() ]);
+            } else if (tmp.match('SPAN.attachName')) {
+                atc_num = tmp.up('LI').retrieve('atc_id');
+                HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
+                    actionID: 'compose_attach_preview',
+                    composeCache: $F('composeCache'),
+                    id: atc_num
+                }, {
+                    name: $F('composeCache') + '|' + atc_num
+                });
+            }
+            break;
+
+        case 'save_sent_mail':
+            this.setSaveSentMail($F(e.element()));
+            break;
+
+        case 'fwdattachnotice':
+        case 'fwdbodynotice':
+            this.fadeNotice(e.element());
+            DimpCore.doAction('GetForwardData', {
+                dataonly: 1,
+                imp_compose: $F('composeCache'),
+                type: (e.element().identify() == 'fwdattachnotice' ? 'forward_body' : 'forward_attach')
+            }, {
+                callback: this.forwardAddCallback.bind(this)
+            });
+            $('composeMessage').stopObserving('keydown');
+            e.memo.stop();
+            break;
+
+        case 'identitychecknotice':
+            this.fadeNotice(e.element());
+            $('identity').setValue(this.old_identity);
+            this.changeIdentity();
+            e.memo.stop();
+            break;
+
+        case 'replyall_revert':
+        case 'replylist_revert':
+            this.fadeNotice(e.element().up('LI'));
+            $('to_loading_img').show();
+            DimpCore.doAction('getReplyData', {
+                headeronly: 1,
+                imp_compose: $F('composeCache'),
+                type: 'reply'
+            }, {
+                callback: this.swapToAddressCallback.bind(this)
+            });
+            e.memo.stop();
+            break;
+
+        case 'writemsg':
+            if (!this.disabled &&
+                e.memo.element().hasClassName('dimpOptionPopdown')) {
+                tmp = e.memo.element().retrieve('popdown_id');
+                this.knl[tmp].knl.show();
+                this.knl[tmp].knl.ignoreClick(e.memo);
+                e.stop();
+            }
+            break;
         }
     },
 
     changeHandler: function(e)
     {
-        var elt = e.element(),
-            id = elt.readAttribute('id');
-
-        switch (id) {
+        switch (e.element().readAttribute('id')) {
         case 'identity':
             this.changeIdentity();
             break;
@@ -1116,6 +1119,7 @@ var DimpCompose = {
         }
         $('compose').observe('submit', Event.stop);
 
+        HordeCore.initHandler('click');
         HordeCore.handleSubmit($('compose'), {
             callback: this.uniqueSubmitCallback.bind(this)
         });
@@ -1185,7 +1189,7 @@ var DimpCompose = {
 
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpCompose.onDomLoad.bind(DimpCompose));
-document.observe('click', DimpCompose.clickHandler.bindAsEventListener(DimpCompose));
+document.observe('HordeCore:click', DimpCompose.clickHandler.bindAsEventListener(DimpCompose));
 Event.observe(window, 'resize', DimpCompose.resizeMsgArea.bindAsEventListener(DimpCompose));
 
 /* Other UI event handlers. */

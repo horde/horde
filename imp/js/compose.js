@@ -208,36 +208,27 @@ var ImpCompose = {
 
     clickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
-        }
-
         var elt = e.element(), name;
 
-        while (Object.isElement(elt)) {
-            if (elt.readAttribute('id') == 'redirect_abook') {
-                window.open(this.redirect_contacts, "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100");
-                return;
-            } else if (elt.hasClassName('button')) {
-                name = elt.readAttribute('name');
-                switch (name) {
-                case 'btn_add_attachment':
-                case 'btn_redirect':
-                case 'btn_replyall_revert':
-                case 'btn_replylist_revert':
-                case 'btn_save_draft':
-                case 'btn_save_template':
-                case 'btn_send_message':
-                    this.uniqSubmit(name.substring(4), e);
-                    break;
+        if (elt.readAttribute('id') == 'redirect_abook') {
+            window.open(this.redirect_contacts, "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100");
+        } else if (elt.hasClassName('button')) {
+            name = elt.readAttribute('name');
+            switch (name) {
+            case 'btn_add_attachment':
+            case 'btn_redirect':
+            case 'btn_replyall_revert':
+            case 'btn_replylist_revert':
+            case 'btn_save_draft':
+            case 'btn_save_template':
+            case 'btn_send_message':
+                this.uniqSubmit(name.substring(4), e.memo);
+                break;
 
-                case 'btn_cancel_compose':
-                    this.confirmCancel(e);
-                    break;
-                }
+            case 'btn_cancel_compose':
+                this.confirmCancel(e.memo);
+                break;
             }
-
-            elt = elt.up();
         }
     },
 
@@ -273,6 +264,8 @@ var ImpCompose = {
     onDomLoad: function()
     {
         var handler;
+
+        HordeCore.initHandler('click');
 
         if (this.redirect) {
             $('to').focus();
@@ -327,7 +320,6 @@ var ImpCompose = {
             }
         }
 
-        document.observe('click', this.clickHandler.bindAsEventListener(this));
         this.resize.bind(this).delay(0.25);
     },
 

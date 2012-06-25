@@ -703,11 +703,11 @@ class Horde_ActiveSync_Imap_Message
     }
 
     /**
-     * Return the MIME part of the meeting request part, if available.
+     * Return the MIME part of the iCalendar attachment, if available.
      *
      * @return mixed  The mime part, if present, false otherwise.
      */
-    public function hasMeetingRequest()
+    public function hasiCalendar()
     {
         if (!$this->hasAttachments()) {
             return false;

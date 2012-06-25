@@ -479,7 +479,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_isSecure = false;
             $e = new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Error connecting to mail server."),
-                'SERVER_CONNECT'
+                Horde_Imap_Client_Exception::SERVER_CONNECT
             );
             $e->details = sprintf("[%u] %s", $error_number, $error_string);
             throw $e;

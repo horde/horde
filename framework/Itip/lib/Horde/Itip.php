@@ -89,6 +89,7 @@ class Horde_Itip
      *
      * @return array A list of two object: The mime headers and the mime
      *               message.
+     * @throws Horde_Itip_Exception
      */
     public function sendSinglepartResponse(
         Horde_Itip_Response_Type $type,
@@ -99,11 +100,15 @@ class Horde_Itip
         list($headers, $body) = $this->_response->getMessage(
             $type, $options
         );
-        $body->send(
-            $this->_response->getRequest()->getOrganizer(),
-            $headers,
-            $transport
-        );
+        try {
+            $body->send(
+                $this->_response->getRequest()->getOrganizer(),
+                $headers,
+                $transport
+            );
+        } catch (Horde_Mime_Exception $e) {
+            throw new Horde_Itip_Exception($e);
+        }
     }
 
     /**
@@ -114,6 +119,7 @@ class Horde_Itip
      * @param Horde_Mail_Transport        $transport The mail transport.
      *
      * @return NULL
+     * @throws Horde_Itip_Exception
      */
     public function sendMultipartResponse(
         Horde_Itip_Response_Type $type,
@@ -124,11 +130,15 @@ class Horde_Itip
         list($headers, $body) = $this->_response->getMultiPartMessage(
             $type, $options
         );
-        $body->send(
-            $this->_response->getRequest()->getOrganizer(),
-            $headers,
-            $transport
-        );
+        try {
+            $body->send(
+                $this->_response->getRequest()->getOrganizer(),
+                $headers,
+                $transport
+            );
+        } catch (Horde_Mime_Exception $e) {
+            throw new Horde_Itip_Exception($e);
+        }
     }
 
     /**

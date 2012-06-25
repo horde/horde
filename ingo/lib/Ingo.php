@@ -176,16 +176,6 @@ class Ingo
     }
 
     /**
-     * Connects to the backend and returns the currently active script.
-     *
-     * @return string  The currently active script.
-     */
-    static public function getScript()
-    {
-        return self::getTransport()->getScript();
-    }
-
-    /**
      * Does all the work in updating the script on the server.
      *
      * @throws Ingo_Exception
@@ -312,20 +302,6 @@ class Ingo
     }
 
     /**
-     * Returns whether an address is empty or only contains a "@".
-     * Helper function for array_filter().
-     *
-     * @param string $address  An email address to test.
-     *
-     * @return boolean  True if the address is not empty.
-     */
-    static public function filterEmptyAddress($address)
-    {
-        $address = trim($address);
-        return (!empty($address) && ($address != '@'));
-    }
-
-    /**
      * Returns the vacation reason with all placeholder replaced.
      *
      * @param string $reason  The vacation reason including placeholders.
@@ -397,6 +373,59 @@ class Ingo
         $GLOBALS['notification']->notify(array(
             'listeners' => array('status', 'audio')
         ));
+    }
+
+    /**
+     * Updates a list (blacklist/whitelist) filter.
+     *
+     * @param mixed $addresses  Addresses of the filter.
+     * @param integer $type     Type of filter.
+     *
+     * @return Horde_Storage_Rule  The filter object.
+     */
+    static public function updateListFilter($addresses, $type)
+    {
+        global $injector;
+
+        $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
+        $rule = $storage->retrieve($type);
+
+        switch ($type) {
+        case $storage::ACTION_BLACKLIST:
+            $rule->setBlacklist($addresses);
+            $addr = $rule->getBlacklist();
+
+            $rule2 = $storage->retrieve($storage::ACTION_WHITELIST);
+            $addr2 = $rule2->getWhitelist();
+            break;
+
+        case $storage::ACTION_WHITELIST:
+            $rule->setWhitelist($addresses);
+            $addr = $rule->getWhitelist();
+
+            $rule2 = $storage->retrieve($storage::ACTION_BLACKLIST);
+            $addr2 = $rule2->getBlacklist();
+            break;
+        }
+
+        /* Filter out the rule's addresses in the opposite filter. */
+        $ob = new Horde_Mail_Rfc822_List($addr2);
+        $ob->setIteratorFilter(0, $addr);
+
+        switch ($type) {
+        case $storage::ACTION_BLACKLIST:
+            $rule2->setWhitelist($ob->bare_addresses);
+            break;
+
+        case $storage::ACTION_WHITELIST:
+            $rule2->setBlacklist($ob->bare_addresses);
+            break;
+        }
+
+        $storage->store($rule);
+        $storage->store($rule2);
+
+        return $rule;
     }
 
 }

@@ -261,38 +261,27 @@ var DimpCore = {
     /* Mouse click handler. */
     clickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
-        }
+        var elt = e.element(), tmp;
 
-        var elt = e.element(), id, tmp;
-
-        while (Object.isElement(elt)) {
-            // CSS class based matching
-            if (elt.hasClassName('unblockImageLink')) {
-                IMP_JS.unblockImages(e);
-            } else if (elt.hasClassName('largeaddrspan_active') &&
-                       !e.element().hasClassName('address')) {
-                if (e.element().hasClassName('largeaddrlistlimit')) {
-                    e.element().hide();
-                    elt.up('TD').fire('DimpCore:updateAddressHeader');
-                } else {
-                    tmp = elt.down();
-                    [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
-                }
-            } else if (elt.hasClassName('pgpVerifyMsg')) {
-                elt.replace(DimpCore.text.verify);
-                DimpCore.reloadMessage({ pgp_verify_msg: 1 });
-                e.stop();
-                return;
-            } else if (elt.hasClassName('smimeVerifyMsg')) {
-                elt.replace(DimpCore.text.verify);
-                DimpCore.reloadMessage({ smime_verify_msg: 1 });
-                e.stop();
-                return;
+        if (elt.hasClassName('unblockImageLink')) {
+            IMP_JS.unblockImages(e.memo);
+        } else if (elt.hasClassName('largeaddrspan_active') &&
+                   !e.memo.element().hasClassName('address')) {
+            if (e.memo.element().hasClassName('largeaddrlistlimit')) {
+                e.memo.element().hide();
+                elt.up('TD').fire('DimpCore:updateAddressHeader');
+            } else {
+                tmp = elt.down();
+                [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
             }
-
-            elt = elt.up();
+        } else if (elt.hasClassName('pgpVerifyMsg')) {
+            elt.replace(DimpCore.text.verify);
+            DimpCore.reloadMessage({ pgp_verify_msg: 1 });
+            e.memo.stop();
+        } else if (elt.hasClassName('smimeVerifyMsg')) {
+            elt.replace(DimpCore.text.verify);
+            DimpCore.reloadMessage({ smime_verify_msg: 1 });
+            e.memo.stop();
         }
     },
 
@@ -390,6 +379,8 @@ var DimpCore = {
     /* DIMP initialization function. */
     onDomLoad: function()
     {
+        HordeCore.initHandler('click');
+
         if (typeof ContextSensitive != 'undefined') {
             this.DMenu = new ContextSensitive();
         }
@@ -401,7 +392,7 @@ var DimpCore = {
 document.observe('dom:loaded', DimpCore.onDomLoad.bind(DimpCore));
 
 /* Browser native events. */
-document.observe('click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
+document.observe('HordeCore:click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
 
 /* ContextSensitive events. */
 document.observe('ContextSensitive:click', DimpCore.contextOnClick.bindAsEventListener(DimpCore));

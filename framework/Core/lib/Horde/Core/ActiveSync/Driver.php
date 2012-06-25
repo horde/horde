@@ -354,16 +354,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * folder is the name, we use that as the 'mod' value.
      *
      * @param string $id     The folder id
-     * @param mixed $parent  The parent folder (or 0 if none). @since 2.0
+     * @param mixed $parent  The parent folder (or 0 if none).
      * @param mixed $mod     Modification indicator. For folders, this is the
      *                       name of the folder, since that's the only thing
-     *                       that can change. @since 2.0
+     *                       that can change.
      * @return a stat hash
      */
     public function statFolder($id, $parent = 0, $mod = null)
     {
-        $this->_logger->debug('Horde::statFolder(' . $id . ')');
-
         $folder = array();
         $folder['id'] = $id;
         $folder['mod'] = empty($mod) ? $id : $mod;
@@ -725,9 +723,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @return Horde_ActiveSync_Message_AirSyncBaseFileAttachment
      */
-    public function itemOperationsGetAttachmentData($name)
+    public function itemOperationsGetAttachmentData($filereference)
     {
-        $att = $this->getAttachment($name);
+        $att = $this->getAttachment($filereference);
         $airatt = new Horde_ActiveSync_Message_AirSyncBaseFileAttachment(array('logger' => $this->_logger));
         $airatt->data = $att['data'];
         $airatt->contenttype = $att['content-type'];
@@ -1520,10 +1518,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         // First thing we need is to obtain the meeting request.
         $imap_message = $this->_imap->getImapMessage($response['folderid'], $response['requestid']);
+        if (empty($imap_message)) {
+            throw new Horde_Exception_NotFound();
+        }
         $imap_message = $imap_message[$response['requestid']];
 
         // Find the request
-        if (!$part = $imap_message->hasMeetingRequest()) {
+        if (!$part = $imap_message->hasiCalendar()) {
             $this->_logger->err('Unable to find the meeting request.');
             throw new Horde_Exception_NotFound();
         }
@@ -1586,29 +1587,50 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $resource
         );
         $itip_handler = new Horde_Itip($itip_response);
-
+        $options = new Horde_Itip_Response_Options_Horde(
+            'UTF-8',
+            array(
+                'dns' => $GLOBALS['injector']->getInstance('Net_DNS2_Resolver'),
+                'server' => $GLOBALS['conf']['server']['name']
+            )
+        );
         try {
             // Send the response email
             $itip_handler->sendMultiPartResponse(
-                $type,
-                new Horde_Itip_Response_Options_Horde(
-                    'UTF-8',
-                    array(
-                        'dns' => $GLOBALS['injector']->getInstance('Net_DNS2_Resolver'),
-                        'server' => $GLOBALS['conf']['server']['name']
-                    )
-                ),
-                $GLOBALS['injector']->getInstance('Horde_Mail')
-            );
+                $type, $options, $GLOBALS['injector']->getInstance('Horde_Mail'));
             $this->_logger->debug('Successfully sent iTip response.');
         } catch (Horde_Itip_Exception $e) {
-            $this->_logger->err($e->getMessage());
+            $this->_logger->err('Error sending response: ' . $e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
 
-        // @TODO Copy to sent items.
+        // Save to SENT
+        $sf = $this->getSpecialFolderNameByType(self::SPECIAL_SENT);
+        if (!empty($sf)) {
+            $this->_logger->debug(sprintf("Preparing to copy to '%s'", $sf));
+            list($headers, $body) = $itip_response->getMultiPartMessage(
+                $type, $options);
+            $flags = array(Horde_Imap_Client::FLAG_SEEN);
+            $msg = $body->toString(array('headers' => $headers));
+            $this->_imap->appendMessage($sf, $msg, $flags);
+        }
+
+        // Delete the original request. EAS Specs require this. Most clients
+        // will remove the email from the UI as soon as the response is sent.
+        // Failure to remove it from the server will result in an inconsistent
+        // sync state.
+        $this->_logger->debug('Deleting');
+        $this->_imap->deleteMessages(array($response['requestid']), $response['folderid']);
 
         return $uid;
+    }
+
+    /**
+     * Request freebusy information from the server
+     */
+    public function getFreebusy($user, array $options = array())
+    {
+        throw new Horde_ActiveSync_Exception('Not supported');
     }
 
     /**

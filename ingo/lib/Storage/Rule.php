@@ -58,25 +58,16 @@ class Ingo_Storage_Rule
     /**
      * Function to manage an internal address list.
      *
-     * @param mixed $data    The incoming data (array or string).
-     * @param boolean $sort  Sort the list?
+     * @param mixed $data  The incoming data (array or string).
      *
      * @return array  The address list.
      */
-    protected function _addressList($data, $sort)
+    protected function _addressList($data)
     {
-        $output = array();
+        $ob = new Horde_Mail_Rfc822_List(is_array($data) ? $data : preg_split("/\s+/", $data));
+        $ob->unique();
 
-        if (is_array($data)) {
-            $output = $data;
-        } else {
-            $data = trim($data);
-            $output = (empty($data)) ? array() : preg_split("/\s+/", $data);
-        }
-
-        return $sort
-            ? Horde_Array::prepareAddressList($output)
-            : $output;
+        return $ob->bare_addresses;
     }
 
 }

@@ -72,18 +72,12 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
         'globalobjid' => false
     );
 
-    public function fromMimePart(Horde_Mime_Part $part)
+    public function fromvEvent($vCal)
     {
-        // Parse the iCal file.
-        $vCal = new Horde_Icalendar();
-        $data = $part->getContents();
-        if (!$vCal->parsevCalendar($data, 'VCALENDAR', $part->getCharset())) {
-            // ??
-        }
         try {
             $method = $vCal->getAttribute('METHOD');
         } catch (Horde_Icalendar_Exception $e) {
-            $method = '';
+            throw new Horde_ActiveSync_Exception('Unable to parse vEvent');
         }
         foreach ($vCal->getComponents() as $key => $component) {
             switch ($component->getType()) {
@@ -106,8 +100,13 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
         $this->alldayevent = (int)$this->_isAllDay();
     }
 
-    protected function _vEvent($vevent, $id, $method = 'PUBLISH')
+    protected function _vEvent($vevent, $id, $method = 'REQUEST')
     {
+        if ($method == 'REQUEST') {
+            $this->responserequested = '1';
+        } else {
+            $this->responserequested = '0';
+        }
         try {
             $organizer = parse_url($vevent->getAttribute('ORGANIZER'));
             $this->organizer = $organizer['path'];
@@ -149,6 +148,39 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
                         : Horde_ActiveSync_Message_Appointment::BUSYSTATUS_FREE);
             }
         } catch (Horde_Icalendar_Exception $e) {}
+
+        // vCalendar 1.0 alarms
+        try {
+            $alarm = $vevent->getAttribute('AALARM');
+            if (!is_array($alarm) && intval($alarm)) {
+                $this->reminder = intval($this->start->timestamp() - $alarm);
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
+
+        // vCalendar 2.0 alarms
+        foreach ($vevent->getComponents() as $alarm) {
+            if (!($alarm instanceof Horde_Icalendar_Valarm)) {
+                continue;
+            }
+            try {
+                $trigger = $alarm->getAttribute('TRIGGER');
+                $triggerParams = $alarm->getAttribute('TRIGGER', true);
+            } catch (Horde_Icalendar_Exception $e) {
+                continue;
+            }
+            if (isset($triggerParams['VALUE']) &&
+                $triggerParams['VALUE'] == 'DATE-TIME') {
+                if (isset($triggerParams['RELATED']) &&
+                    $triggerParams['RELATED'] == 'END') {
+                    $this->reminder = intval($this->end->timestamp() - $trigger);
+                } else {
+                    $this->reminder = intval($this->start->timestamp() - $trigger);
+                }
+            } else {
+                $this->reminder = -intval($trigger);
+            }
+        }
+
     }
 
     protected function _isAllDay()

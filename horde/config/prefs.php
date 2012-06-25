@@ -31,20 +31,22 @@
  *
  * Format:
  * -------
- * column - (string) Which column head this group will go under.
- * desc - (string) Description shown under label.
- * label - (string) Label for the group of settings.
- * members - (array) List of displayable preferences contained in this group.
- * type - (string) The prefGroup type.
- *        VALUES:
- *          'identities' - An identities screen. The identities screen will
- *                         always show all the identities prefs from Horde
- *                         along with the identity switching widget.
- *                         Additionally, applications can define additional
- *                         identity information in their prefs.php file that
- *                         will be displayed after the Horde-wide settings.
- *          Empty - The default preferences screen.
- *        DEFAULT: The default preferences screen.
+ *   - column: (string) Which column head this group will go under.
+ *   - desc: (string) Description shown under label.
+ *   - label: (string) Label for the group of settings.
+ *   - members: (array) List of displayable preferences contained in this
+ *              group.
+ *   - suppress: (boolean|function) If true, this group is not displayed.
+ *   - type: (string) The prefGroup type.
+ *     VALUES:
+ *       - identities: An identities screen. The identities screen will always
+ *                     show all the identities prefs from the base Horde app,
+ *                     along with the identity switching widget.
+ *                     Additionally, applications can define additional
+ *                     identity information in their prefs.php file that will
+ *                     be displayed after the Horde-wide settings.
+ *       - [empty]: The default preferences screen.
+ *     DEFAULT: The default preferences screen.
  *
  * $_prefs
  * =======
@@ -54,31 +56,66 @@
  *
  * The following are OPTIONAL values for each entry:
  *
- * advanced - (boolean) Mark pref as advanced - will only be displayed if user
- *            switches to advanced preferences mode.
- *            VALUES:
- *              true: Advanced preference; hidden in basic preferences mode.
- *              false: Basic preference; shown regardless of preferences mode.
- *            DEFAULT: false
+ *   - advanced: (boolean) Mark pref as advanced. Will only be displayed if
+ *               user switches to advanced preferences mode.
+ *     VALUES:
+ *       - true: Advanced preference; hidden in basic preferences mode.
+ *       - false: Basic preference; shown regardless of preferences mode.
+ *     DEFAULT: false
  *
- * help - (string) The help file identifier for this preference.
- *        VALUES:
- *          If present, a help icon will be displayed next to the preference.
- *          Clicking on this icon will open the entry in the help viewer in
- *          a popup window.
- *        DEFAULT: No help icon is displayed
+ *   - help: (string) The help file identifier for this preference.
+ *     VALUES:
+ *       If present, a help icon will be displayed next to the preference.
+ *       Clicking on this icon will open the entry in the help viewer in
+ *       a popup window.
+ *     DEFAULT: No help icon is displayed
  *
- * hook - (boolean) If true, the prefs_init hook will be run for this entry.
- *        VALUES: true/false
- *        DEFAULT: false
+ *   - hook: (boolean) If true, the prefs_init hook will be run for this entry.
+ *     VALUES:
+ *       - true
+ *       - false
+ *     DEFAULT: false
  *
- * locked - (boolean) Allow preference to be changed from the preferences
- *          screen?
- *          VALUES:
- *            true: Do not show this preference in the UI and don't allow
- *                  changing by any mechanism.
- *            false: Show this preference in the UI and allow changing.
- *          DEFAULT: false
+ *   - locked: (boolean) Allow preference to be changed from the preferences
+ *             screen?
+ *     VALUES:
+ *       - true: Do not show this preference in the UI and don't allow
+ *               changing by any mechanism.
+ *       - false: Show this preference in the UI and allow changing.
+ *     DEFAULT: false
+ *
+ *   - on_change: (function) A method to call when this prefs value is changed
+ *                in the UI.
+ *     VALUES:
+ *       Function
+ *     DEFAULT: None
+ *
+ *   - on_init: (function) A method to call when initialzing the value for
+ *              display on the UI page. Is passed one argument: the
+ *              Horde_Core_Prefs_Ui object.
+ *     VALUES:
+ *       Function
+ *     DEFAULT: None
+ *
+ *   - requires: (array) A list of preferences that need to be set (i.e.
+ *               non-empty value) for this preference to be displayed.
+ *     VALUES:
+ *       Array of preference names
+ *     DEFAULT: None
+ *
+ *   - requires_nolock: (array) A list of preferences that need to be unlocked
+ *                      for this preference to be displayed.
+ *     VALUES:
+ *       Array of preference names
+ *     DEFAULT: None
+ *
+ *   - suppress: (boolean|function) If true, suppresses display of the
+ *               preference in the UI.
+ *     VALUES:
+ *       - true
+ *       - false
+ *     DEFAULT: false
+ *
  *
  * The UI display for a preference is controlled by the 'type' key. This key
  * controls how the preference is displayed on the preferences screen. If this
@@ -91,22 +128,22 @@
  * Provides a checkbox (yes/no) entry.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the preferences page.
- *   'value' - (integer) 0 (or false) for unchecked, 1 (or true) for checked.
+ *   -desc: (string) The description text to use on the preferences page.
+ *   -value: (integer) 0 (or false) for unchecked, 1 (or true) for checked.
  *
  * 'enum'
  * ------
  * Provides an enumeration (a/k/a selection) list in the UI.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the preferences page.
- *   'escaped' - (boolean) If true, values in 'enum' are already escaped.
- *               DEFAULT: false
- *   'enum' - (array) [REQUIRED] The enumeration list. Keys will be used as
- *            the preference value; values are the text that will be displayed
- *            in the selection list.
- *   'value' - (mixed) The value of the preference. Will be used to
- *             auto-select the entry in the selection list.
+ *   - desc: (string) The description text to use on the preferences page.
+ *   - escaped: (boolean) If true, values in 'enum' are already escaped.
+ *              DEFAULT: false
+ *   - enum: (array) [REQUIRED] The enumeration list. Keys will be used as the
+ *           the preference value; values are the text that will be displayed
+ *           in the selection list.
+ *   - value: (mixed) The value of the preference. Will be used to
+ *            auto-select the entry in the selection list.
  *
  * 'implicit'
  * ----------
@@ -114,8 +151,8 @@
  * via the preferences screen.
  *
  * ADDITIONAL KEYS:
- *   'value' - (mixed) The value of the preference. Will be used to
- *             auto-select the entry in the selection list.
+ *   - value: (mixed) The value of the preference. Will be used to
+ *            auto-select the entry in the selection list.
  *
  * 'link'
  * ------
@@ -125,13 +162,13 @@
  * backend.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The link text.
- *   'img' - (string) An image file to display before the link.
- *           DEFAULT: no image displayed
- *   'url' - (string) The URL to link to (unescaped). Only specify one of
- *           'url' or 'xurl'.
- *   'xurl' - (string) The URL to link to (escaped). Only specify one of 'url'
- *            or 'xurl'.
+ *   - desc: (string) The link text.
+ *   - img: (string) An image file to display before the link.
+ *          DEFAULT: no image displayed
+ *   - url: (string) The URL to link to (unescaped). Only specify one of
+ *          'url' or 'xurl'.
+ *   - xurl: (string) The URL to link to (escaped). Only specify one of 'url'
+ *           or 'xurl'.
  *
  * 'multienum'
  * -----------
@@ -139,14 +176,14 @@
  * to be selected.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the preferences page.
- *   'escaped' - (boolean) If true, values in 'enum' are already escaped.
- *               DEFAULT: false
- *   'enum' - (array) [REQUIRED] The enumeration list. Keys will be used as
- *            the preference value; values are the text that will be displayed
- *            in the selection list.
- *   'value' - (string) A serialized value containing the key(s) selected. All
- *             keys will be auto-selected in the selection area.
+ *   - desc: (string) The description text to use on the preferences page.
+ *   - escaped: (boolean) If true, values in 'enum' are already escaped.
+ *              DEFAULT: false
+ *   - enum: (array) [REQUIRED] The enumeration list. Keys will be used as the
+ *           the preference value; values are the text that will be displayed
+ *           in the selection list.
+ *   - value: (string) A serialized value containing the key(s) selected. All
+ *            keys will be auto-selected in the selection area.
  *
  * 'number'
  * --------
@@ -154,10 +191,10 @@
  * preference are automatically converted to a number value.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the preferences page.
- *   'value' - (number) The preference value.
- *   'zero' - (boolean) By default, a number must be non-zero. If this is
- *            true, zeros will be accepted as valid input.
+ *   - desc: (string) The description text to use on the preferences page.
+ *   - value: (integer) The preference value.
+ *   - zero: (boolean) By default, a number must be non-zero. If this is
+ *           true, zeros will be accepted as valid input.
  *
  * 'password'
  * ----------
@@ -165,8 +202,8 @@
  * displayed to the screen).
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the preferences page.
- *   'value' - (string) The preference value.
+ *   - desc: (string) The description text to use on the preferences page.
+ *   - value: (string) The preference value.
  *
  * 'prefslink'
  * -----------
@@ -176,12 +213,12 @@
  * backend.
  *
  * ADDITIONAL KEYS:
- *   'app' - (string) The application to link to.
- *           DEFAULT: current application.
- *   'desc' - (string) The link text.
- *   'group' - (string) The preferences group to link to.
- *   'img' - (string) An image file to display before the link.
- *           DEFAULT: no image displayed
+ *   - app: (string) The application to link to.
+ *          DEFAULT: current application.
+ *   - desc: (string) The link text.
+ *   - group: (string) The preferences group to link to.
+ *   - img: (string) An image file to display before the link.
+ *          DEFAULT: no image displayed
  *
  * 'rawhtml'
  * ---------
@@ -191,24 +228,24 @@
  * backend.
  *
  * ADDITIONAL KEYS:
- *   'value' - (string) The raw (already escaped) HTML to output to the page.
+ *   - value: (string) The raw (already escaped) HTML to output to the page.
  *
  * 'text'
  * ------
  * Provides a single-line textbox.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the preferences page.
- *   'value' - (string) The preference value.
+ *   - desc: (string) The description text to use on the preferences page.
+ *   - value: (string) The preference value.
  *
  * 'textarea'
  * ----------
  * Provides a multi-line textbox.
  *
  * ADDITIONAL KEYS:
- *   'desc' - (string) The description text to use on the preferences page.
- *   'value' - (string) The preference value. Lines should be separated
- *             with the "\n" character.
+ *   - desc: (string) The description text to use on the preferences page.
+ *   - value: (string) The preference value. Lines should be separated
+ *            with the "\n" character.
  *
  *
  * Placeholder types - these prefs are UI placeholders only and will not
@@ -223,6 +260,9 @@
  * ---------
  * Used as placeholder to indicate that the application will provide both the
  * UI display code and the subsequent preferences storage.
+ *
+ * This type REQUIRES a 'handler' parameter, which is the classname of an
+ * object that implements Horde_Core_Prefs_Ui_Special.
  */
 
 // *** Personal Information (Identities) Preferences ***
@@ -297,7 +337,14 @@ $prefGroups['forgotpass'] = array(
     'desc' => _("Set preferences to allow you to reset your password if you ever forget it."),
     'members' => array(
         'security_question', 'security_answer', 'alternate_email'
-    )
+    ),
+    'suppress' => function() {
+        try {
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create()->hasCapability('update');
+            return false;
+        } catch (Horde_Exception $e) {}
+        return true;
+    }
 );
 
 // user security question
@@ -339,10 +386,23 @@ $prefGroups['language'] = array(
 $_prefs['language'] = array(
     'value' => '',
     'type' => 'enum',
-    // Language list is dynamically built when prefs screen is displayed
     'enum' => array(),
     'escaped' => true,
-    'desc' => _("Select your preferred language:")
+    'desc' => _("Select your preferred language:"),
+    'on_init' => function($ui) {
+        $enum = $GLOBALS['registry']->nlsconfig->languages;
+        array_unshift($enum, _("Default"));
+        $ui->prefs['language']['enum'] = $enum;
+    },
+    'on_change' => function() {
+        global $prefs, $registry;
+        $registry->setLanguageEnvironment($prefs->getValue('language'));
+        foreach ($registry->listApps() as $app) {
+            if ($registry->isAuthenticated(array('app' => $app, 'notransparent' => true))) {
+                $registry->callAppMethod($app, 'changeLanguage');
+            }
+        }
+    }
 );
 
 // Select widget for email charsets
@@ -363,9 +423,13 @@ $_prefs['sending_charset'] = array(
 $_prefs['timezone'] = array(
     'value' => '',
     'type' => 'enum',
-    // Timezone list is dynamically built when prefs screen is displayed
     'enum' => array(),
-    'desc' => _("Your current time zone:")
+    'desc' => _("Your current time zone:"),
+    'on_init' => function($ui) {
+        $enum = Horde_Nls::getTimezones();
+        array_unshift($enum, _("Default"));
+        $ui->prefs['timezone']['enum'] = $enum;
+    },
 );
 
 // time format
@@ -469,7 +533,8 @@ $prefGroups['categories'] = array(
 
 // UI for category management.
 $_prefs['categorymanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Horde_Prefs_Special_Category'
 );
 
 // categories
@@ -501,9 +566,21 @@ $prefGroups['display'] = array(
 $_prefs['initial_application'] = array(
     'value' => 'horde',
     'type' => 'enum',
-    // Application list is dynamically built when prefs screen is displayed
     'enum' => array(),
-    'desc' => sprintf(_("What application should %s display after login?"), $GLOBALS['registry']->get('name'))
+    'desc' => sprintf(_("What application should %s display after login?"), $GLOBALS['registry']->get('name')),
+    'on_init' => function($ui) {
+        $enum = array();
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        foreach ($GLOBALS['registry']->listApps(array('active')) as $a) {
+            if (file_exists($GLOBALS['registry']->get('fileroot', $a)) &&
+                (($perms->exists($a) && ($perms->hasPermission($a, $GLOBALS['registry']->getAuth(), Horde_Perms::READ) || $GLOBALS['registry']->isAdmin())) ||
+                 !$perms->exists($a))) {
+                $enum[$a] = $GLOBALS['registry']->get('name', $a);
+            }
+        }
+        asort($enum);
+        $ui->prefs['initial_application']['enum'] = $enum;
+    },
 );
 
 // show the last login time of user
@@ -525,8 +602,7 @@ $_prefs['last_login'] = array(
 $_prefs['theme'] = array(
     'value' => 'silver',
     'type' => 'enum',
-    // Theme list is dynamically built when prefs screen is displayed
-    'enum' => array(),
+    'enum' => Horde_Themes::themeList(),
     'desc' => _("Select your color scheme.")
 );
 
@@ -601,11 +677,17 @@ $prefGroups['facebook'] = array(
     'column' => _("Other Information"),
     'label' => _("Facebook Integration"),
     'desc' => _("Set up integration with your Facebook account."),
-    'members' => array('facebookmanagement')
+    'members' => array('facebookmanagement'),
+    'suppress' => function() {
+        return (empty($GLOBALS['conf']['facebook']['enabled']) ||
+                empty($GLOBALS['conf']['facebook']['id']) ||
+                empty($GLOBALS['conf']['facebook']['secret']));
+    }
 );
 
 $_prefs['facebookmanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Horde_Prefs_Special_Facebook'
 );
 
 $_prefs['facebook'] = array(
@@ -621,11 +703,17 @@ $prefGroups['twitter'] = array(
     'column' => _("Other Information"),
     'label' => _("Twitter Integration"),
     'desc' => _("Set up integration with your Twitter account."),
-    'members' => array('twittermanagement')
+    'members' => array('twittermanagement'),
+    'suppress' => function() {
+        return (empty($GLOBALS['conf']['twitter']['enabled']) ||
+                empty($GLOBALS['conf']['twitter']['key']) ||
+                empty($GLOBALS['conf']['twitter']['secret']));
+    }
 );
 
 $_prefs['twittermanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Horde_Prefs_Special_Twitter'
 );
 
 $_prefs['twitter'] = array(
@@ -640,7 +728,10 @@ $prefGroups['imspauth'] = array(
     'column' => _("Other Information"),
     'label' => _("Alternate IMSP Login"),
     'desc' => _("Use if name/password is different for IMSP server."),
-    'members' => array('imsp_auth_user', 'imsp_auth_pass')
+    'members' => array('imsp_auth_user', 'imsp_auth_pass'),
+    'suppress' => function() {
+        return empty($GLOBALS['conf']['imsp']['enabled']);
+    }
 );
 
 $_prefs['imsp_auth_user'] = array(
@@ -666,7 +757,8 @@ $prefGroups['syncml'] = array(
 );
 
 $_prefs['syncmlmanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Horde_Prefs_Special_Syncml'
 );
 
 // *** ActiveSync Preferences ***
@@ -674,11 +766,15 @@ $prefGroups['activesync'] = array(
     'column' => _("Other Information"),
     'label' => _("ActiveSync"),
     'desc' => _("Manage your ActiveSync devices."),
-    'members' => array('activesyncmanagement')
+    'members' => array('activesyncmanagement'),
+    'suppress' => function() {
+        return empty($GLOBALS['conf']['activesync']['enabled']);
+    }
 );
 
 $_prefs['activesyncmanagement'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Horde_Prefs_Special_Activesync'
 );
 
 

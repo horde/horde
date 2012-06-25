@@ -14,7 +14,11 @@ $prefGroups['script'] = array(
     'column' => _("Other Preferences"),
     'label' => _("Script Updating"),
     'desc' => _("Preferences about script updating."),
-    'members' => array('auto_update'));
+    'members' => array('auto_update'),
+    'suppress' => function() {
+        return !$GLOBALS['session']->get('ingo', 'script_generate');
+    }
+);
 
 // Automatically update the script?
 $_prefs['auto_update'] = array(

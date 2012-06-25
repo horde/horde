@@ -32,7 +32,9 @@ class Horde_ActiveSync_InviteTest extends Horde_Test_Case
         $msg = new Horde_ActiveSync_Message_MeetingRequest();
         foreach ($mime->contentTypeMap() as $id => $type) {
             if ($type == 'text/calendar') {
-                $msg->fromMimePart($mime->getPart($id));
+                $vcal = new Horde_Icalendar();
+                $vcal->parseVcalendar($mime->getPart($id)->getContents());
+                $msg->fromvEvent($vcal);
                 break;
             }
         }

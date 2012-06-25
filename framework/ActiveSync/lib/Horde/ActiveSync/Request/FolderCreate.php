@@ -122,7 +122,8 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
         }
 
         try {
-            $this->_stateDriver->loadState($synckey, Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
+            $this->_stateDriver->loadState(
+                array(), $synckey, Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
             $newsynckey = $this->_stateDriver->getNewSyncKey($synckey);
         } catch (Horde_ActiveSync_Exception $e) {
             $status = self::STATUS_KEYMISM;

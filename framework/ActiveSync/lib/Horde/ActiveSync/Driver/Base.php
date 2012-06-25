@@ -206,24 +206,6 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Get the full folder hierarchy from the backend.
-     *
-     * @return array
-     */
-    public function getHierarchy()
-    {
-        $folders = array();
-
-        // @TODO, use self::getFolders() once we bump the min required version
-        $fl = $this->getFolderList();
-        foreach ($fl as $f) {
-            $folders[] = $this->getFolder($f['id']);
-        }
-
-        return $folders;
-    }
-
-    /**
      * Obtain a message from the backend.
      *
      * @param string $folderid   Folder id containing data to fetch.
@@ -244,92 +226,6 @@ abstract class Horde_ActiveSync_Driver_Base
             }
         }
         return $this->getMessage($folderid, $id, $collection);
-    }
-
-    /**
-     * Get the wastebasket folder.
-     *
-     * @param string $class  The collection class.
-     *
-     * @return string|boolean  Returns name of the trash folder, or false
-     *                         if not using a trash folder.
-     */
-    public function getWasteBasket($class)
-    {
-        return false;
-    }
-
-    /**
-     * Delete a folder on the server.
-     *
-     * @param string $parent  The parent folder.
-     * @param string $id      The folder to delete.
-     *
-     * @return boolean
-     * @throws Horde_ActiveSync_Exception
-     */
-    public function deleteFolder($parent, $id)
-    {
-        throw new Horde_ActiveSync_Exception('DeleteFolder not yet implemented');
-    }
-
-    /**
-     * Change the name and/or type of a folder.
-     *
-     * @param string $parent
-     * @param string $id
-     * @param string $displayname
-     * @param string $type
-     *
-     * @return boolean
-     */
-    public function changeFolder($parent, $id, $displayname, $type)
-    {
-        throw new Horde_ActiveSync_Exception('changeFolder not yet implemented.');
-    }
-
-    /**
-     * Move message
-     *
-     * @param string $folderid     Existing folder id
-     * @param array $ids           Message UIDs
-     * @param string $newfolderid  The new folder id
-     *
-     * @return array  The new uids for the message.
-     */
-    public function moveMessage($folderid, array $ids, $newfolderid)
-    {
-        throw new Horde_ActiveSync_Exception('moveMessage not yet implemented.');
-    }
-
-    /**
-     * Returns array of items which contain contact information
-     *
-     * @param string $type   The search type; ['gal'|'mailbox']
-     * @param array $query   The search query. An array containing:
-     *  - query: (string) The search term.
-     *           DEFAULT: none, REQUIRED
-     *  - range: (string)   A range limiter.
-     *           DEFAULT: none (No range used).
-     *
-     * @return array  An array containing:
-     *  - rows:   An array of search results
-     *  - status: The search store status code.
-     */
-    public function getSearchResults($type, $query)
-    {
-        throw new Horde_ActiveSync_Exception('getSearchResults not implemented.');
-    }
-
-    /**
-     * Specifies if this driver has an alternate way of checking for changes
-     * when PING is used.
-     *
-     * @return boolean
-     */
-    public function alterPing()
-    {
-        return false;
     }
 
     /**
@@ -362,25 +258,61 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Get folder stat
+     * Delete a folder on the server.
      *
-     * @param string $id  The folder server id.
-     *
-     * @return array  An array defined like:
-     *<pre>
-     *  -id      The server ID that will be used to identify the folder.
-     *           It must be unique, and not too long. How long exactly is not
-     *           known, but try keeping it under 20 chars or so.
-     *           It must be a string.
-     *  -parent  The server ID of the parent of the folder. Same restrictions
-     *           as 'id' apply.
-     *  -mod     This is the modification signature. It is any arbitrary string
-     *           which is constant as long as the folder has not changed. In
-     *           practice this means that 'mod' can be equal to the folder name
-     *           as this is the only thing that ever changes in folders.
-     *</pre>
+     * @param string $id  The server's folder id.
+     * @param string $parent  The folder's parent, if needed.
      */
-    abstract public function statFolder($id);
+    abstract public function deleteFolder($id, $parent = Horde_ActiveSync::FOLDER_ROOT);
+
+    /**
+     * Change a folder on the server.
+     *
+     * @param string $id           The server's folder id
+     * @param string $displayname  The new display name.
+     * @param string $parent       The folder's parent, if needed.
+     */
+    abstract public function changeFolder($id, $displayname, $parent);
+
+    /**
+     * Move message
+     *
+     * @param string $folderid     Existing folder id
+     * @param array $ids           Message UIDs
+     * @param string $newfolderid  The new folder id
+     *
+     * @return array  The new uids for the message.
+     */
+    abstract public function moveMessage($folderid, array $ids, $newfolderid);
+
+    /**
+     * Returns array of items which contain contact information
+     *
+     * @param string $type   The search type; ['gal'|'mailbox']
+     * @param array $query   The search query. An array containing:
+     *  - query: (string) The search term.
+     *           DEFAULT: none, REQUIRED
+     *  - range: (string)   A range limiter.
+     *           DEFAULT: none (No range used).
+     *
+     * @return array  An array containing:
+     *  - rows:   An array of search results
+     *  - status: The search store status code.
+     */
+    abstract public function getSearchResults($type, array $query);
+
+    /**
+     * Stat folder. Note that since the only thing that can ever change for a
+     * folder is the name, we use that as the 'mod' value.
+     *
+     * @param string $id     The folder id
+     * @param mixed $parent  The parent folder (or 0 if none).
+     * @param mixed $mod     Modification indicator. For folders, this is the
+     *                       name of the folder, since that's the only thing
+     *                       that can change.
+     * @return a stat hash
+     */
+    abstract public function statFolder($id, $parent = 0, $mod = null);
 
     /**
      * Return the ActiveSync message object for the specified folder.
@@ -402,7 +334,6 @@ abstract class Horde_ActiveSync_Driver_Base
      * Return an array of folder objects.
      *
      * @return array  An array of Horde_ActiveSync_Message_Folder objects.
-     * @since TODO
      */
     abstract public function getFolders();
 
@@ -463,6 +394,16 @@ abstract class Horde_ActiveSync_Driver_Base
     abstract public function deleteMessage($folderid, array $ids);
 
     /**
+     * Get the wastebasket folder.
+     *
+     * @param string $class  The collection class.
+     *
+     * @return string|boolean  Returns name of the trash folder, or false
+     *                         if not using a trash folder.
+     */
+    abstract public function getWasteBasket($class);
+
+    /**
      * Add/Edit a message
      *
      * @param string $folderid  The server id for the folder the message belongs
@@ -489,14 +430,18 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Sends the email represented by the rfc822 string received by the PIM.
      *
-     * @param string $rfc822    The rfc822 mime message
-     * @param boolean $forward  Is this a message forward?
-     * @param boolean $reply    Is this a reply?
-     * @param boolean $parent   Parent message in thread.
+     * @param mixed $rfc822     The rfc822 mime message, a string or stream
+     *                          resource.
+     * @param integer $forward  The UID of the message, if forwarding.
+     * @param integer $reply    The UID of the message if replying.
+     * @param string $parent    The collection id of parent message if
+     *                          forwarding/replying.
+     * @param boolean $save     Save in sent messages.
      *
      * @return boolean
      */
-    abstract function sendMail($rfc822, $forward = false, $reply = false, $parent = false);
+    abstract public function sendMail(
+        $rfc822, $forward = null, $reply = null, $parent = null, $save = true);
 
     /**
      * Return the specified attachment.
@@ -524,7 +469,14 @@ abstract class Horde_ActiveSync_Driver_Base
     abstract public function itemOperationsGetAttachmentData($filereference);
 
     /**
-     * @TODO
+     * Returnmail object represented by the specified longid. Used to fetch
+     * email objects from a search result, which only returns a 'longid'.
+     *
+     * @param string $longid   The unique search result identifier.
+     * @param array $bodypref  The bodypreference array.
+     * @param boolean $mime    Mimesupport flag.
+     *
+     * @return Horde_ActiveSync_Message_Base  The message requested.
      */
     abstract public function itemOperationsFetchMailbox($searchlongid, array $bodypreference, $mimesupport);
 
@@ -635,4 +587,9 @@ abstract class Horde_ActiveSync_Driver_Base
      * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
      */
     abstract public function meetingResponse(array $response);
+
+    /**
+     * Request freebusy information from the server
+     */
+    abstract public function getFreebusy($user, array $options = array());
 }

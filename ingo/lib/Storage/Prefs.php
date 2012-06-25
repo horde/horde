@@ -32,7 +32,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
         case self::ACTION_BLACKLIST:
             $ob = new Ingo_Storage_Blacklist();
             if ($data = @unserialize($prefs->getValue('blacklist'))) {
-                $ob->setBlacklist($data['a'], true);
+                $ob->setBlacklist($data['a']);
                 $ob->setBlacklistFolder($data['f']);
             }
             break;
@@ -40,7 +40,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
         case self::ACTION_WHITELIST:
             $ob = new Ingo_Storage_Whitelist();
             if ($data = @unserialize($prefs->getValue('whitelist'))) {
-                $ob->setWhitelist($data, true);
+                $ob->setWhitelist($data);
             }
             break;
 
@@ -54,7 +54,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
         case self::ACTION_FORWARD:
             $ob = new Ingo_Storage_Forward();
             if ($data = @unserialize($prefs->getValue('forward'))) {
-                $ob->setForwardAddresses($data['a'], false);
+                $ob->setForwardAddresses($data['a']);
                 $ob->setForwardKeep($data['k']);
             }
             break;
@@ -62,9 +62,9 @@ class Ingo_Storage_Prefs extends Ingo_Storage
         case self::ACTION_VACATION:
             $ob = new Ingo_Storage_Vacation();
             if ($data = @unserialize($prefs->getValue('vacation'))) {
-                $ob->setVacationAddresses($data['addresses'], false);
+                $ob->setVacationAddresses($data['addresses']);
                 $ob->setVacationDays($data['days']);
-                $ob->setVacationExcludes($data['excludes'], false);
+                $ob->setVacationExcludes($data['excludes']);
                 $ob->setVacationIgnorelist($data['ignorelist']);
                 $ob->setVacationReason($data['reason']);
                 $ob->setVacationSubject($data['subject']);

@@ -140,10 +140,12 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(self::GETITEMESTIMATE);
         foreach ($collections as $collection) {
-            $this->_stateDriver->init($collection);
             try {
                 $this->_stateDriver->loadState(
-                    $collection['synckey'], Horde_ActiveSync::REQUEST_TYPE_SYNC, $collection['id']);
+                    $collection,
+                    $collection['synckey'],
+                    Horde_ActiveSync::REQUEST_TYPE_SYNC,
+                    $collection['id']);
             } catch (Horde_ActiveSync_Exception $e) {
                 $status[$collection['id']] = self::STATUS_KEYMISM;
             }

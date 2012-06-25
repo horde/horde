@@ -15,7 +15,7 @@ var ImpMessage = {
 
     // Set in message.php: pop3delete, stripatc
 
-    _arrowHandler: function(e)
+    arrowHandler: function(e)
     {
         if (e.altKey || e.shiftKey || e.ctrlKey) {
             return;
@@ -144,9 +144,7 @@ var ImpMessage = {
 
     onDomLoad: function()
     {
-        // Set up left and right arrows to go to the previous/next page.
-        document.observe('keydown', this._arrowHandler.bindAsEventListener(this));
-        document.observe('click', this._clickHandler.bindAsEventListener(this));
+        HordeCore.initHandler('click');
 
         if (Prototype.Browser.IE) {
             $('flag1', 'target1', 'flag2', 'target2').compact().invoke('observe', 'change', this._changeHandler.bindAsEventListener(this));
@@ -180,50 +178,42 @@ var ImpMessage = {
         }
     },
 
-    _clickHandler: function(e)
+    clickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
-        }
-
         var elt = e.element();
 
-        while (Object.isElement(elt)) {
-            if (elt.match('.msgactions A.widget')) {
-                if (this.pop3delete && elt.hasClassName('deleteAction')) {
-                    if (!window.confirm(this.pop3delete)) {
-                        e.stop();
-                        return;
-                    }
-                }
-                if (elt.hasClassName('moveAction')) {
-                    this._transfer('move_message');
-                } else if (elt.hasClassName('copyAction')) {
-                    this._transfer('copy_message');
-                } else if (elt.hasClassName('spamAction')) {
-                    this.submit('spam_report');
-                } else if (elt.hasClassName('notspamAction')) {
-                    this.submit('notspam_report');
-                } else if (elt.hasClassName('stripAllAtc')) {
-                    if (!window.confirm(this.stripallwarn)) {
-                        e.stop();
-                        return;
-                    }
-                }
-            } else if (elt.hasClassName('unblockImageLink')) {
-                IMP_JS.unblockImages(e);
-            } else if (elt.hasClassName('stripAtc')) {
-                if (!window.confirm(this.stripwarn)) {
-                    e.stop();
-                    return;
+        if (elt.match('.msgactions A.widget')) {
+            if (this.pop3delete && elt.hasClassName('deleteAction')) {
+                if (!window.confirm(this.pop3delete)) {
+                    e.memo.stop();
                 }
             }
 
-            elt = elt.up();
+            if (elt.hasClassName('moveAction')) {
+                this._transfer('move_message');
+            } else if (elt.hasClassName('copyAction')) {
+                this._transfer('copy_message');
+            } else if (elt.hasClassName('spamAction')) {
+                this.submit('spam_report');
+            } else if (elt.hasClassName('notspamAction')) {
+                this.submit('notspam_report');
+            } else if (elt.hasClassName('stripAllAtc')) {
+                if (!window.confirm(this.stripallwarn)) {
+                    e.memo.stop();
+                }
+            }
+        } else if (elt.hasClassName('unblockImageLink')) {
+            IMP_JS.unblockImages(e.memo);
+        } else if (elt.hasClassName('stripAtc')) {
+            if (!window.confirm(this.stripwarn)) {
+                e.memo.stop();
+            }
         }
     }
 
 };
 
 document.observe('dom:loaded', ImpMessage.onDomLoad.bind(ImpMessage));
+document.observe('keydown', ImpMessage.arrowHandler.bindAsEventListener(ImpMessage));
+document.observe('HordeCore:click', ImpMessage.clickHandler.bindAsEventListener(ImpMessage));
 document.observe('HordeDialog:onClick', ImpMessage.onDialogClick.bind(ImpMessage));

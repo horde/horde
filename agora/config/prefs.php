@@ -8,14 +8,15 @@
  * use prefs-servername.php.
  */
 
-if (!empty($GLOBALS['conf']['avatar']) && $GLOBALS['conf']['avatar']['allow_avatars']) {
-    $prefGroups['display_avatar'] = array(
-        'column' => _("My Information"),
-        'label' => _("Avatar"),
-        'desc' => _("Set the avatar image that is shown with your posts."),
-        'members' => array('avatar_path', 'avatar_link')
-    );
-}
+$prefGroups['display_avatar'] = array(
+    'column' => _("My Information"),
+    'label' => _("Avatar"),
+    'desc' => _("Set the avatar image that is shown with your posts."),
+    'members' => array('avatar_path', 'avatar_link'),
+    'suppress' => function() {
+        return !empty($GLOBALS['conf']['avatar']['allow_avatars']);
+    }
+);
 
 $prefGroups['display_forums'] = array(
     'column' => _("Display Preferences"),
@@ -78,6 +79,15 @@ if ($GLOBALS['conf']['avatar']['allow_avatars'] &&
 
 $_prefs['avatar_link'] = array(
     'type' => 'rawhtml',
+    'suppress' => function() {
+        $vfs = Agora::getVFS();
+        return (($vfs instanceof PEAR_Error) ||
+                !$GLOBALS['conf']['avatar']['enable_gallery'] ||
+                !$vfs->isFolder(Agora::AVATAR_PATH, 'gallery'));
+    }
+    //'on_init' => function($ui) {
+    //    $GLOBALS['page_output']->addScriptFile('popup.js', 'horde');
+    // },
     //'url' => '<p>' . _("Choose from a gallery of avatars:") . ' <input class="button" type="button" value="' . _("Click to Show Gallery") . '" onclick="' . Horde::popupJs(Horde::url('avatars/gallery.php'), array('height' => 320, 'width' => 320)) . '" /></p>'
 );
 

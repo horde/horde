@@ -1295,7 +1295,8 @@ abstract class Kronolith_Event
         case Horde_ActiveSync_Message_Appointment::BUSYSTATUS_OUT:
             $status = Kronolith::STATUS_CONFIRMED;
         default:
-            $status = Kronolith::STATUS_NONE;
+            // EAS Specifies default should be free.
+            $status = Kronolith::STATUS_FREE;
         }
         $this->status = $status;
 
@@ -1355,10 +1356,33 @@ abstract class Kronolith_Event
         /* Attendees */
         $attendees = $message->getAttendees();
         foreach ($attendees as $attendee) {
-            // TODO: participation and response are not supported in AS <= 2.5
+            switch ($attendee->status) {
+            case Horde_ActiveSync_Message_Attendee::STATUS_ACCEPT:
+                $response_code = Kronolith::RESPONSE_ACCEPTED;
+                break;
+            case Horde_ActiveSync_Message_Attendee::STATUS_DECLINE:
+                $response_code = Kronolith::RESPONSE_DECLINED;
+                break;
+            case Horde_ActiveSync_Message_Attendee::STATUS_TENTATIVE:
+                $response_code = Kronolith::RESPONSE_TENTATIVE;
+                break;
+            default:
+                $response_code = Kronolith::RESPONSE_NONE;
+            }
+            switch ($attendee->type) {
+            case Horde_ActiveSync_Message_Attendee::TYPE_REQUIRED:
+                $part_type = Kronolith::PART_REQUIRED;
+                break;
+            case Horde_ActiveSync_Message_Attendee::TYPE_OPTIONAL:
+                $part_type = Kronolith::PART_OPTIONAL;
+                break;
+            case Horde_ActiveSync_Message_Attendee::TYPE_RESOURCE:
+                $part_type = Kronolith::PART_REQUIRED;
+            }
+
             $this->addAttendee($attendee->email,
-                               Kronolith::PART_NONE,
-                               Kronolith::RESPONSE_NONE,
+                               $part_type,
+                               $response_code,
                                $attendee->name);
         }
 
@@ -1549,8 +1573,25 @@ abstract class Kronolith_Event
                     $attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED
                         ? Horde_ActiveSync_Message_Attendee::TYPE_OPTIONAL
                         : Horde_ActiveSync_Message_Attendee::TYPE_REQUIRED);
-                    $attendee->status = $properties['response'];
+
+                    switch ($properties['response']) {
+                    case Kronolith::RESPONSE_NONE:
+                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_NORESPONSE;
+                        break;
+                    case Kronolith::RESPONSE_ACCEPTED:
+                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_ACCEPT;
+                        break;
+                    case Kronolith::RESPONE_DECLINED:
+                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_DECLINE;
+                        break;
+                    case Kronolith::RESPONSE_TENTATIVE:
+                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_TENTATIVE;
+                        break;
+                    default:
+                        $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_UNKNOWN;
+                    }
                 }
+
                 $message->addAttendee($attendee);
             }
         }

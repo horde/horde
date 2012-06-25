@@ -96,23 +96,6 @@ class Mnemo_Application extends Horde_Registry_Application
         return $allowed;
     }
 
-    /**
-     */
-    public function prefsGroup($ui)
-    {
-        foreach ($ui->getChangeablePrefs() as $val) {
-            switch ($val) {
-            case 'default_notepad':
-                $notepads = array();
-                foreach (Mnemo::listNotepads() as $key => $val) {
-                    $notepads[htmlspecialchars($key)] = htmlspecialchars($val->get('name'));
-                }
-                $ui->override['default_notepad'] = $notepads;
-                break;
-            }
-        }
-    }
-
     /* Topbar method. */
 
     /**

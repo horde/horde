@@ -43,13 +43,10 @@ class Horde_ActiveSync_Request_GetHierarchy extends Horde_ActiveSync_Request_Bas
      */
     public function handle()
     {
-        $folders = $this->_driver->getHierarchy();
+        $folders = $this->_driver->getFolders();
         if (!$folders) {
             return false;
         }
-
-        /* save folder-ids for fourther syncing */
-        $this->_stateDriver->setFolderData($this->_device, $folders);
 
         $this->_encoder->StartWBXML();
         $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDERS);
@@ -63,4 +60,5 @@ class Horde_ActiveSync_Request_GetHierarchy extends Horde_ActiveSync_Request_Bas
 
         return true;
     }
+
 }

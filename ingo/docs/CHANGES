@@ -2,6 +2,8 @@
 v3.0-git
 --------
 
+[mms] When adding to blacklist/whitelist, remove added addresses from the
+      other list.
 [jan] Allow to use placeholder variables in vacation messages (Request #10316).
 [mjr] Add ability to retrieve vacation message details from the API.
 [jan] Validate start and end dates of vacation rules (Request #10879).
@@ -11,6 +13,8 @@ v3.0-git
 v2.0.9-git
 ----------
 
+[mms] Procmail driver now explicitly sets the base Maildir directory by default
+      (Bug #10113).
 [jan] Update Turkish translation (İstanbul Technical University).
 
 

@@ -165,7 +165,9 @@ var ImpMobile = {
             from = ob.from;
         }
 
-        params.slice = from + ':' + (from + ImpMobile.mbox_rows - 1);
+        if (!params.search) {
+            params.slice = from + ':' + (from + ImpMobile.mbox_rows - 1);
+        }
 
         return {
             view: params.view,
@@ -308,7 +310,7 @@ var ImpMobile = {
             // between messages.
             HordeMobile.doAction(
                 'viewPort',
-                {
+                ImpMobile.addViewportParams({
                     // Make sure we have a big enough buffer to fit all
                     // messages on a page.
                     after: ImpMobile.mbox_rows,
@@ -317,7 +319,7 @@ var ImpMobile = {
                     // Need to manually encode JSON here.
                     search: JSON.stringify({ uid: url.params.uid }),
                     view: url.params.view
-                }
+                })
             );
             ImpMobile.mailbox = url.params.view;
         }
@@ -401,7 +403,9 @@ var ImpMobile = {
             data = ImpMobile.message,
             headers = $('#imp-message-headers tbody'),
             args = '&mbox=' + data.mbox + '&uid=' + data.uid,
-            innocent = spam = 'show', spambar;
+            innocent = 'show',
+            spam = 'show',
+            spambar, tmp;
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
@@ -527,7 +531,10 @@ var ImpMobile = {
             });
         }
 
-        $('#message').children().not('.ui-header, #imp-message-less-parent').show();
+        $('#message').children().show();
+        tmp = $('#imp-message-header-toggle').children();
+        tmp.eq(0).show();
+        tmp.eq(1).hide();
 
         delete ImpMobile.message;
     },
@@ -954,14 +961,8 @@ var ImpMobile = {
                 $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox);
                 return;
 
-            case 'imp-message-more':
-                elt.parent().hide();
-                elt.parent().next().show();
-                return;
-
-            case 'imp-message-less':
-                elt.parent().hide();
-                elt.parent().prev().show();
+            case 'imp-message-header-toggle':
+                elt.children().toggle();
                 return;
 
             case 'imp-message-prev':

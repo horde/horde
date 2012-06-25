@@ -170,34 +170,27 @@ var ImpFolders = {
 
     clickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
-        }
+        switch (e.element().readAttribute('id')) {
+        case 'btn_import':
+            this.submitAction('import_mbox');
+            break;
 
-        var elt = e.element();
+        case 'btn_return':
+            document.location.href = this.folders_url;
+            e.memo.hordecore_stop = true;
+            break;
 
-        while (Object.isElement(elt)) {
-            switch (elt.readAttribute('id')) {
-            case 'btn_import':
-                this.submitAction('import_mbox');
-                break;
-
-            case 'btn_return':
-                document.location.href = this.folders_url;
-                break;
-
-            case 'checkAll0':
-            case 'checkAll1':
-                this.toggleSelection();
-                break;
-            }
-
-            elt = elt.up();
+        case 'checkAll0':
+        case 'checkAll1':
+            this.toggleSelection();
+            break;
         }
     },
 
     onDomLoad: function()
     {
+        HordeCore.initHandler('click');
+
         // Observe actual form element since IE does not bubble change events.
         $('action_choose0', 'action_choose1').invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
 
@@ -209,5 +202,5 @@ var ImpFolders = {
 
 };
 
-document.observe('click', ImpFolders.clickHandler.bind(ImpFolders));
 document.observe('dom:loaded', ImpFolders.onDomLoad.bind(ImpFolders));
+document.observe('HordeCore:click', ImpFolders.clickHandler.bind(ImpFolders));

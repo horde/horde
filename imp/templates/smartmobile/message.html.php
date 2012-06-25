@@ -7,16 +7,18 @@
 <?php endif ?>
  </div>
 
- <div class="ui-body ui-body-c">
-  <a id="imp-message-more" href="#" data-role="button" data-icon="arrow-d" data-iconpos="notext"><?php echo _("Show more") ?></a>
-  <span id="imp-message-subject"></span>
-  <span id="imp-message-subject-from">(<?php echo _("from") ?> <span id="imp-message-from"></span>)</span><br>
-  <span id="imp-message-date"></span>
- </div>
+ <div id="imp-message-header-toggle">
+  <div class="ui-body ui-body-c">
+   <a href="#" data-role="button" data-icon="arrow-d" data-iconpos="notext"><?php echo _("Show more") ?></a>
+   <span id="imp-message-subject"></span>
+   <span id="imp-message-subject-from">(<?php echo _("from") ?> <span id="imp-message-from"></span>)</span><br>
+   <span id="imp-message-date"></span>
+  </div>
 
- <div id="imp-message-less-parent" class="ui-body ui-body-c" style="display:none">
-  <a id="imp-message-less" href="#" data-role="button" data-icon="arrow-u" data-iconpos="notext"><?php echo _("Show less") ?></a>
-  <table id="imp-message-headers"><tbody></tbody></table>
+  <div class="ui-body ui-body-c" style="display:none">
+   <a href="#" data-role="button" data-icon="arrow-u" data-iconpos="notext"><?php echo _("Show less") ?></a>
+   <table id="imp-message-headers"><tbody></tbody></table>
+  </div>
  </div>
 
  <div id="imp-message-body" data-role="content"></div>

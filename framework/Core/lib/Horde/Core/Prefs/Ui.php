@@ -36,13 +36,6 @@ class Horde_Core_Prefs_Ui
     public $prefs = array();
 
     /**
-     * Data overrides (for 'enum' and 'multienum' types).
-     *
-     * @var array
-     */
-    public $override = array();
-
-    /**
      * Suppressed preference entries.
      *
      * @var array
@@ -112,12 +105,12 @@ class Horde_Core_Prefs_Ui
         /* Load preferences. */
         $this->_loadPrefs($this->app);
 
-        /* Run app-specific init code. */
-        $registry->callAppMethod($this->app, 'prefsInit', array('args' => array($this)));
-
-        if ($this->group &&
-            !in_array($this->group, $this->suppressGroups)) {
-            $registry->callAppMethod($this->app, 'prefsGroup', array('args' => array($this)));
+        /* Suppress prefs groups, as needed. */
+        foreach ($this->_getPrefGroups() as $key => $val) {
+            if (!empty($val['suppress']) &&
+                (!is_callable($val['suppress']) || $val['suppress']())) {
+                $this->suppressGroups[] = $key;
+            }
         }
     }
 
@@ -142,6 +135,8 @@ class Horde_Core_Prefs_Ui
      */
     public function getChangeablePrefs($group = null)
     {
+        global $prefs;
+
         if (is_null($group)) {
             if (!$this->group) {
                 return array();
@@ -150,41 +145,55 @@ class Horde_Core_Prefs_Ui
             $group = $this->group;
         }
 
-        return (empty($this->prefGroups[$group]['members']) ||
-                in_array($group, $this->suppressGroups))
-            ? array()
-            : $this->_getChangeablePrefs($this->prefGroups[$group]['members']);
-    }
+        if (empty($this->prefGroups[$group]['members']) ||
+            in_array($group, $this->suppressGroups)) {
+            return array();
+        }
 
-    /**
-     * Returns the list of changeable prefs.
-     *
-     * @param array $preflist  The list of preferences to check.
-     *
-     * @return array  The list of changeable prefs.
-     */
-    protected function _getChangeablePrefs($preflist)
-    {
         $cprefs = array();
 
-        foreach ($preflist as $pref) {
+        foreach ($this->prefGroups[$group]['members'] as $pref) {
+            $p = $this->prefs[$pref];
+
             /* Changeable pref if:
              *   1. Not locked
-             *   2. Not in suppressed array ($this->suppress)
+             *   2. Not in suppressed array ($this->suppress) or supressed
+             *      variable is empty
              *   3. Not an advanced pref -or- in advanced view mode
-             *   4. Not an implicit pref */
+             *   4. Not an implicit pref
+             *   5. All required prefs are non-zero
+             *   6. All required_nolock prefs are not locked */
             if (!$GLOBALS['prefs']->isLocked($pref) &&
                 !in_array($pref, $this->suppress) &&
-                (empty($this->prefs[$pref]['advanced']) ||
+                (empty($p['advanced']) ||
                  $GLOBALS['session']->get('horde', 'prefs_advanced')) &&
-                ((!empty($this->prefs[$pref]['type']) &&
-                 ($this->prefs[$pref]['type'] != 'implicit')))) {
-                if ($this->prefs[$pref]['type'] == 'container') {
-                    if (isset($this->prefs[$pref]['value']) &&
-                        is_array($this->prefs[$pref]['value'])) {
-                        $cprefs = array_merge($cprefs, $this->prefs[$pref]['value']);
+                ((!empty($p['type']) && ($p['type'] != 'implicit')))) {
+                if (!empty($p['suppress']) &&
+                    (!is_callable($p['suppress']) || $p['suppress']())) {
+                    continue;
+                }
+
+                if ($p['type'] == 'container') {
+                    if (isset($p['value']) && is_array($p['value'])) {
+                        $cprefs = array_merge($cprefs, $p['value']);
                     }
                 } else {
+                    if (isset($p['requires'])) {
+                        foreach ($p['requires'] as $val) {
+                            if (!$prefs->getValue($val)) {
+                                continue 2;
+                            }
+                        }
+                    }
+
+                    if (isset($p['requires_nolock'])) {
+                        foreach ($p['requires_nolock'] as $val) {
+                            if ($prefs->isLocked($val)) {
+                                continue 2;
+                            }
+                        }
+                    }
+
                     $cprefs[] = $pref;
                 }
             }
@@ -263,7 +272,6 @@ class Horde_Core_Prefs_Ui
 
         $this->nobuttons = false;
         $this->suppress = array();
-        $GLOBALS['registry']->callAppMethod($this->app, 'prefsGroup', array('args' => array($this)));
     }
 
     /*
@@ -275,23 +283,29 @@ class Horde_Core_Prefs_Ui
      */
     protected function _handleForm($preflist, $save)
     {
-        global $notification, $prefs, $registry;
+        global $injector, $notification, $prefs, $registry;
 
         $updated = false;
 
         /* Run through the action handlers */
         foreach ($preflist as $pref) {
+            $pref_updated = false;
+
+            if (isset($this->prefs[$pref]['on_init']) &&
+                is_callable($this->prefs[$pref]['on_init'])) {
+
+                $this->prefs[$pref]['on_init']($this);
+            }
+
             switch ($this->prefs[$pref]['type']) {
             case 'checkbox':
-                $updated |= $save->setValue($pref, intval(isset($this->vars->$pref)));
+                $pref_updated = $save->setValue($pref, intval(isset($this->vars->$pref)));
                 break;
 
             case 'enum':
-                $enum = isset($this->override[$pref])
-                    ? $this->override[$pref]
-                    : $this->prefs[$pref]['enum'];
+                $enum = $this->prefs[$pref]['enum'];
                 if (isset($enum[$this->vars->$pref])) {
-                    $updated |= $save->setValue($pref, $this->vars->$pref);
+                    $pref_updated = $save->setValue($pref, $this->vars->$pref);
                 } else {
                     $this->_errors[$pref] = Horde_Core_Translation::t("An illegal value was specified.");
                 }
@@ -301,10 +315,7 @@ class Horde_Core_Prefs_Ui
                 $set = array();
 
                 if (is_array($this->vars->$pref)) {
-                    $enum = isset($this->override[$pref])
-                        ? $this->override[$pref]
-                        : $this->prefs[$pref]['enum'];
-
+                    $enum = $this->prefs[$pref]['enum'];
                     foreach ($this->vars->$pref as $val) {
                         if (isset($enum[$val])) {
                             $set[] = $val;
@@ -315,7 +326,7 @@ class Horde_Core_Prefs_Ui
                     }
                 }
 
-                $updated |= $save->setValue($pref, @serialize($set));
+                $pref_updated = $save->setValue($pref, @serialize($set));
                 break;
 
             case 'number':
@@ -325,22 +336,34 @@ class Horde_Core_Prefs_Ui
                 } elseif (empty($num) && empty($this->prefs[$pref]['zero'])) {
                     $this->_errors[$pref] = Horde_Core_Translation::t("This value must be non-zero.");
                 } else {
-                    $updated |= $save->setValue($pref, $num);
+                    $pref_updated = $save->setValue($pref, $num);
                 }
                 break;
 
             case 'password':
             case 'text':
             case 'textarea':
-                $updated |= $save->setValue($pref, $this->vars->$pref);
+                $pref_updated = $save->setValue($pref, $this->vars->$pref);
                 break;
 
 
             case 'special':
                 /* Code for special elements written specifically for each
                  * application. */
-                $updated = $updated | (bool)$registry->callAppMethod($this->app, 'prefsSpecialUpdate', array('args' => array($this, $pref)));
+                if (isset($this->prefs[$pref]['handler']) &&
+                    ($ob = $injector->getInstance($this->prefs[$pref]['handler']))) {
+                    $pref_updated = $ob->update($this);
+                }
                 break;
+            }
+
+            if ($pref_updated) {
+                $updated = true;
+
+                if (isset($this->prefs[$pref]['on_change']) &&
+                    is_callable($this->prefs[$pref]['on_change'])) {
+                    $this->prefs[$pref]['on_change']();
+                }
             }
         }
 
@@ -353,8 +376,6 @@ class Horde_Core_Prefs_Ui
                 // Throws Exception caught in _identitiesUpdate().
                 $save->verify();
             }
-
-            $registry->callAppMethod($this->app, 'prefsCallback', array('args' => array($this)));
 
             if ($prefs instanceof Horde_Prefs_Session) {
                 $notification->push(Horde_Core_Translation::t("Your preferences have been updated for the duration of this session."), 'horde.success');
@@ -453,8 +474,15 @@ class Horde_Core_Prefs_Ui
             }
 
             foreach ($pref_list as $pref) {
-                if ($this->prefs[$pref]['type'] == 'special') {
-                    echo $registry->callAppMethod($this->app, 'prefsSpecial', array('args' => array($this, $pref)));
+                if (isset($this->prefs[$pref]['on_init']) &&
+                    is_callable($this->prefs[$pref]['on_init'])) {
+                    $this->prefs[$pref]['on_init']($this);
+                }
+
+                if (($this->prefs[$pref]['type'] == 'special') &&
+                    isset($this->prefs[$pref]['handler']) &&
+                    ($ob = $GLOBALS['injector']->getInstance($this->prefs[$pref]['handler']))) {
+                    echo $ob->display($this);
                     continue;
                 }
 
@@ -477,9 +505,7 @@ class Horde_Core_Prefs_Ui
                     break;
 
                 case 'enum':
-                    $enum = isset($this->override[$pref])
-                        ? $this->override[$pref]
-                        : $this->prefs[$pref]['enum'];
+                    $enum = $this->prefs[$pref]['enum'];
                     $esc = !empty($this->prefs[$pref]['escaped']);
                     $curval = $prefs->getValue($pref);
 
@@ -514,9 +540,7 @@ class Horde_Core_Prefs_Ui
                     break;
 
                 case 'multienum':
-                    $enum = isset($this->override[$pref])
-                        ? $this->override[$pref]
-                        : $this->prefs[$pref]['enum'];
+                    $enum = $this->prefs[$pref]['enum'];
                     $esc = !empty($this->prefs[$pref]['escaped']);
                     if (!$selected = @unserialize($prefs->getValue($pref))) {
                         $selected = array();

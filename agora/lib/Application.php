@@ -110,46 +110,4 @@ class Agora_Application extends Horde_Registry_Application
         $menu->add($url, _("_Search"), 'search.png');
     }
 
-    /**
-     */
-    public function prefsInit($ui)
-    {
-        /* Hide prefGroups. */
-        if (!$GLOBALS['conf']['avatar']['allow_avatars']) {
-            $ui->suppressGroups[] = 'display_avatar';
-        }
-    }
-
-    /**
-     */
-    public function prefsGroup($ui)
-    {
-        foreach ($ui->getChangeablePrefs() as $val) {
-            switch ($val) {
-            case 'avatar_link':
-                $vfs = Agora::getVFS();
-                if (($vfs instanceof PEAR_Error) ||
-                    !$GLOBALS['conf']['avatar']['enable_gallery'] ||
-                    !$vfs->isFolder(Agora::AVATAR_PATH, 'gallery')) {
-                    $ui->suppress[] = 'avatar_link';
-                } else {
-                    $GLOBALS['page_output']->addScriptFile('popup.js', 'horde');
-                }
-                break;
-            }
-        }
-    }
-
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        switch ($item) {
-        case 'avatarselect':
-            return $this->_accountsManagement($ui);
-        }
-
-        return '';
-    }
-
 }

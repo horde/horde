@@ -39,7 +39,7 @@ class Ingo_Script_Procmail_Variable
      */
     public function generate()
     {
-        return $this->_name . '=' . $this->_value . "\n";
+        return $this->_name . '=' . $this->_value;
     }
 
 }

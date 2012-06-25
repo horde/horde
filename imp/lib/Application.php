@@ -439,44 +439,6 @@ class IMP_Application extends Horde_Registry_Application
         }
     }
 
-    /* Preferences display/handling methods. Code is contained in
-     * IMP_Prefs_Ui so it doesn't have to be loaded on every page load. */
-
-    /**
-     */
-    public function prefsInit($ui)
-    {
-        $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsInit($ui);
-    }
-
-    /**
-     */
-    public function prefsGroup($ui)
-    {
-        $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsGroup($ui);
-    }
-
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        return $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsSpecial($ui, $item);
-    }
-
-    /**
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-        return $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsSpecialUpdate($ui, $item);
-    }
-
-    /**
-     */
-    public function prefsCallback($ui)
-    {
-        $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsCallback($ui);
-    }
-
     /* Topbar method. */
 
     /**
