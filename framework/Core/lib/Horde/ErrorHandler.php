@@ -29,9 +29,13 @@ class Horde_ErrorHandler
         if (is_object($error)) {
             switch (get_class($error)) {
             case 'Horde_Exception_AuthenticationFailure':
+                if ($registry->clearAuthApp($error->applicaton)) {
+                    break;
+                }
+
                 if (Horde_Cli::runningFromCLI()) {
                     $cli = new Horde_Cli();
-                    $cli->fatal($error ? $error : Horde_Core_Translation::t("You are not authenticated."));
+                    $cli->fatal($error);
                 }
 
                 $params = array(

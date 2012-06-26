@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-18</date>
- <time>15:35:10</time>
+ <date>2012-06-26</date>
+ <time>16:16:05</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -40,17 +40,11 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Remove support for IE 6.
 * [mms] Token protect all AJAX actions.
 * [jan] Allow to use IMAP storage for shares and groupware data without a complete Kolab server.
-* [mms] Implement growler-like notifications for smartmobile view.
 * [mms] Modified pushapp hook behavior.
 * [mms] Removed pushapp_post hook.
-* [mms] AJAX core features now contained within Horde_Core.
-* [mms] E-mail sending charset now defaults to UTF-8.
-* [mms] Add post-install script for the Horde application
-* [mms] Portal blocks can now load just the CSS necessary to display an application&apos;s blocks.
-* [jan] Show notifications during logging into Smartphone mode.
+* [jan] Fix setting default values for HTML signatures.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -366,7 +360,6 @@
     <file name="md5.js" role="horde" />
     <file name="problem.js" role="horde" />
     <file name="quickfinder.js" role="horde" />
-    <file name="rpcprefs.js" role="horde" />
     <file name="sidebar.js" role="horde" />
     <file name="slider2.js" role="horde" />
     <file name="stripe.js" role="horde" />
@@ -414,7 +407,13 @@
      </dir> <!-- /lib/LoginTasks/Task -->
     </dir> <!-- /lib/LoginTasks -->
     <dir name="Prefs">
-     <file name="Ui.php" role="horde" />
+     <dir name="Special">
+      <file name="Activesync.php" role="horde" />
+      <file name="Category.php" role="horde" />
+      <file name="Facebook.php" role="horde" />
+      <file name="Syncml.php" role="horde" />
+      <file name="Twitter.php" role="horde" />
+     </dir> <!-- /lib/Prefs/Special -->
     </dir> <!-- /lib/Prefs -->
     <dir name="tests">
      <file name="webroot.phpt" role="horde" />
@@ -2232,7 +2231,6 @@
    <install as="js/md5.js" name="js/md5.js" />
    <install as="js/problem.js" name="js/problem.js" />
    <install as="js/quickfinder.js" name="js/quickfinder.js" />
-   <install as="js/rpcprefs.js" name="js/rpcprefs.js" />
    <install as="js/sidebar.js" name="js/sidebar.js" />
    <install as="js/slider2.js" name="js/slider2.js" />
    <install as="js/stripe.js" name="js/stripe.js" />
@@ -2454,7 +2452,11 @@
    <install as="lib/LoginTasks/Task/AdminCheck.php" name="lib/LoginTasks/Task/AdminCheck.php" />
    <install as="lib/LoginTasks/Task/LastLogin.php" name="lib/LoginTasks/Task/LastLogin.php" />
    <install as="lib/LoginTasks/Task/TosAgreement.php" name="lib/LoginTasks/Task/TosAgreement.php" />
-   <install as="lib/Prefs/Ui.php" name="lib/Prefs/Ui.php" />
+   <install as="lib/Prefs/Special/Activesync.php" name="lib/Prefs/Special/Activesync.php" />
+   <install as="lib/Prefs/Special/Category.php" name="lib/Prefs/Special/Category.php" />
+   <install as="lib/Prefs/Special/Facebook.php" name="lib/Prefs/Special/Facebook.php" />
+   <install as="lib/Prefs/Special/Syncml.php" name="lib/Prefs/Special/Syncml.php" />
+   <install as="lib/Prefs/Special/Twitter.php" name="lib/Prefs/Special/Twitter.php" />
    <install as="lib/tests/webroot.phpt" name="lib/tests/webroot.phpt" />
    <install as="lib/Tree/Renderer/Menu.php" name="lib/Tree/Renderer/Menu.php" />
    <install as="lib/View/Sidebar.php" name="lib/View/Sidebar.php" />

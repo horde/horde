@@ -46,9 +46,11 @@ class IMP_Imap_Exception extends Horde_Imap_Client_Exception
     /**
      * Generates an authentication exception.
      *
+     * @param boolean $default  Return exception, even if no code exists?
+     *
      * @return Horde_Auth_Exception  An authentication exception.
      */
-    public function authException()
+    public function authException($default = true)
     {
         $e = $this;
 
@@ -70,12 +72,19 @@ class IMP_Imap_Exception extends Horde_Imap_Client_Exception
         case self::LOGIN_NOAUTHMETHOD:
         case self::LOGIN_PRIVACYREQUIRED:
         case self::LOGIN_TLSFAILURE:
-        default:
             $code = Horde_Auth::REASON_FAILED;
+            break;
+
+        default:
+            $code = $default
+                ? Horde_Auth::REASON_FAILED
+                : null;
             break;
         }
 
-        return new Horde_Auth_Exception($e, $code);
+        return is_null($code)
+            ? null
+            : new Horde_Auth_Exception($e, $code);
     }
 
     /**

@@ -34,10 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] When adding to blacklist/whitelist, remove added addresses from the other list.
-* [jan] Allow to use placeholder variables in vacation messages (Request #10316).
-* [mjr] Add ability to retrieve vacation message details from the API.
-* [jan] Validate start and end dates of vacation rules (Request #10879).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1068,11 +1065,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-05-29</date>
+   <date>2012-06-26</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mms] Fix patch for filtering on combination fields (Bug #11197).
 * [mms] Procmail driver now explicitly sets the base Maildir directory by default (Bug #10113).
 * [jan] Update Turkish translation (İstanbul Technical University).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.10</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-06-26</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

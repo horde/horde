@@ -9,10 +9,17 @@ v3.0-git
 [jan] Validate start and end dates of vacation rules (Request #10879).
 
 
-----------
-v2.0.9-git
-----------
+-----------
+v2.0.10-git
+-----------
 
+
+
+------
+v2.0.9
+------
+
+[mms] Fix patch for filtering on combination fields (Bug #11197).
 [mms] Procmail driver now explicitly sets the base Maildir directory by default
       (Bug #10113).
 [jan] Update Turkish translation (İstanbul Technical University).

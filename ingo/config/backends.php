@@ -196,12 +196,12 @@ $backends['procmail'] = array(
         // An array of variables to append to every generated script.
         // Use if you need to set up specific environment variables.
         'variables' => array(
-            // The $DEFAULT variable. By default, ingo overrides the
-            // system-wide default value.
-            'DEFAULT' => '$HOME/Maildir',
-            // The $MAILDIR variable. By default, ingo overrides the
-            // system-wide default value.
-            'MAILDIR' => '$HOME/Maildir',
+            // The $DEFAULT variable. If using Maildir, Ingo will use this
+            // value as the default unless you explicitly configure otherwise.
+            // 'DEFAULT' => '$HOME/Maildir/',
+            // The $DEFAULT variable. If using Maildir, Ingo will use this
+            // value as the default unless you explicitly configure otherwise.
+            // 'MAILDIR' => '$HOME/Maildir',
             // Example for the $PATH variable
             // 'PATH' => '/usr/bin',
             // Example for the $VACATION_DIR variable (used to store vacation files)

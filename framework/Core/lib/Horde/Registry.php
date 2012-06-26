@@ -2007,6 +2007,29 @@ class Horde_Registry
     }
 
     /**
+     * Clears authentication tokens for a given application in the current
+     * session.
+     *
+     * @return boolean  If false, did not remove authentication token because
+     *                  the application is in control of Horde's auth.
+     */
+    public function clearAuthApp($app)
+    {
+        global $session;
+
+        if ($session->get('horde', 'auth/credentials') == $app) {
+            return false;
+        }
+
+        $this->callAppMethod($app, 'logout');
+        $session->remove($app);
+        $session->remove('horde', 'auth_app/' . $app);
+        $session->remove('horde', 'auth_app_init/' . $app);
+
+        return true;
+    }
+
+    /**
      * Is a user an administrator?
      *
      * @param array $options  Options:

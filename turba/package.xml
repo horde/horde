@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [mms] Import API call now throws an ObjectExists exception when a duplicate is found.
-* [jan] Add parameters to specify field size of phone and email fields.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

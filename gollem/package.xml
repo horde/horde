@@ -34,8 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix sorting if using a pager.
-* [jan] Use standard Horde dialogs.
+* [jan] Fix getViewLink() API method (Bug #11226).
+* [jan] Update Turkish translation (İstanbul Technical University).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -758,6 +758,7 @@
    <date>2012-04-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix getViewLink() API method (Bug #11226).
 * [jan] Update Turkish translation (İstanbul Technical University).
    </notes>
   </release>
