@@ -557,8 +557,8 @@ $prefGroups['display'] = array(
     'desc' => _("Set your startup application, color scheme, page refreshing, and other display preferences."),
     'members' => array(
         'initial_application', 'show_last_login', 'theme',
-        'summary_refresh_time', 'show_sidebar', 'sidebar_width',
-        'menu_view', 'menu_refresh_time', 'widget_accesskey'
+        'summary_refresh_time', 'sidebar_width',
+        'menu_refresh_time', 'widget_accesskey'
     )
 );
 
@@ -620,27 +620,10 @@ $_prefs['summary_refresh_time'] = array(
     'desc' => _("Refresh Portal View:")
 );
 
-$_prefs['show_sidebar'] = array(
-    'value' => true,
-    'type' => 'checkbox',
-    'desc' => sprintf(_("Show the %s Menu on the left?"), $GLOBALS['registry']->get('name', 'horde'))
-);
-
 $_prefs['sidebar_width'] = array(
     'value' => 150,
     'type' => 'number',
     'desc' => sprintf(_("Width of the %s menu on the left:"), $GLOBALS['registry']->get('name', 'horde'))
-);
-
-$_prefs['menu_view'] = array(
-    'value' => 'both',
-    'type' => 'enum',
-    'enum' => array(
-        'text' => _("Text Only"),
-        'icon' => _("Icons Only"),
-        'both' => _("Icons with text")
-    ),
-    'desc' => _("Menu mode:")
 );
 
 $_prefs['menu_refresh_time'] = array(

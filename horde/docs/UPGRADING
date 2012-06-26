@@ -54,6 +54,8 @@ Preferences (prefs.php)
 
 The 'sending_charset' preference now defaults to 'UTF-8'.
 
+The 'menu_view' and 'show_sidebar' preferences have been removed.
+
 ActiveSync (EAS) Integration
 ----------------------
 

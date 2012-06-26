@@ -198,28 +198,6 @@ class Horde_Menu
             $this->addAppLinks();
         }
 
-        /* Add preferences link. */
-        if (($this->_mask & self::MASK_PREFS) &&
-            $this->showService('prefs') &&
-            ($url = $registry->getServiceLink('prefs', $app))) {
-            $this->add($url, Horde_Core_Translation::t("_Preferences"), 'prefs.png');
-        }
-
-        /* Add problem link. */
-        if (($this->_mask & self::MASK_PROBLEM) &&
-            $this->showService('problem') &&
-            ($problem_link = $registry->getServiceLink('problem', $app))) {
-            $this->add($problem_link, Horde_Core_Translation::t("Problem"), 'problem.png');
-        }
-
-        /* Add help link. */
-        if (($this->_mask & self::MASK_HELP) &&
-            $this->showService('help') &&
-            ($help_link = $registry->getServiceLink('help', $app))) {
-            Horde::
-            $this->add($help_link, Horde_Core_Translation::t("Help"), 'help_index.png', null, 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;', 'helplink');
-        }
-
         /* No need to return an empty list if there are no menu
          * items. */
         if (!count($this->_menu)) {
@@ -244,15 +222,23 @@ class Horde_Menu
      */
     protected function _render()
     {
-        $menu_view = $GLOBALS['prefs']->getValue('menu_view');
-        $output = '<ul>';
+        $sidebar = $GLOBALS['injector']->getInstance('Horde_View_Sidebar');
 
+        $container = 0;
         foreach ($this->_menu as $m) {
             /* Check for separators. */
             if ($m == 'separator') {
-                $output .= "\n<li class=\"separator\">&nbsp;</li>";
+                $container++;
                 continue;
             }
+
+            $row = array(
+                'cssClass' => $m['icon'],
+                'url' => $m['url'],
+                'label' => $m['text'],
+                //'target' => $m['target'],
+                //'onclick' => $m['onclick'],
+            );
 
             /* Item class and selected indication. */
             if (!isset($m['class'])) {
@@ -260,35 +246,16 @@ class Horde_Menu
                  * script filename as well as other possible URLs to
                  * this script. */
                 if ($this->isSelected($m['url'])) {
-                    $m['class'] = 'current';
+                    $row['selected'] = true;
                 }
             } elseif ($m['class'] === '__noselection') {
                 unset($m['class']);
             }
 
-            /* Icon. */
-            $icon = '';
-            if ($menu_view == 'icon' || $menu_view == 'both') {
-                if (empty($m['icon_path'])) {
-                    $m['icon_path'] = null;
-                }
-                $icon = Horde::img($m['icon'], Horde::stripAccessKey($m['text']), '', $m['icon_path']) . '<br />';
-            }
-
-            /* Link. */
-            $accesskey = Horde::getAccessKey($m['text']);
-            $link = $m['url']->setRaw(false)->link(
-                array('title' => $menu_view == 'icon' ? Horde::stripAccessKey($m['text']) : '',
-                      'class' => isset($m['class']) ? $m['class'] : '',
-                      'target' => $m['target'],
-                      'onclick' => $m['onclick'],
-                      'accesskey' => $accesskey));
-
-            $output .= sprintf("\n<li>%s%s%s</a></li>",
-                               $link, $icon, ($menu_view != 'icon') ? Horde::highlightAccessKey($m['text'], $accesskey) : '');
+            $sidebar->addRow($row);
         }
 
-        return $output . '</ul>';
+        return $sidebar->render();
     }
 
     /**

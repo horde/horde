@@ -82,13 +82,6 @@ class Horde_Application extends Horde_Registry_Application
 
     /**
      */
-    public function menu($menu)
-    {
-        $menu->add(Horde::url('services/portal/', false, array('app' => 'horde')), _("_Home"), 'horde.png');
-    }
-
-    /**
-     */
     public function configSpecialValues($what)
     {
         switch ($what) {
