@@ -2075,10 +2075,9 @@ background-repeat:repeat-x;
  * Obere Buttons -> Reply, All Reply, Forward, Delete, Filters, Others
  */
 .horde-buttonbar{
-height:29px;
+min-height:30px;
 background-image:url('graphics/buttonbar-bg.png');
-background-repeat:repeat-x;
-border-bottom:1px solid #d0d0d0;
+background-repeat:repeat;
 overflow: hidden;
 }
   .horde-button-icon{
@@ -2118,37 +2117,60 @@ overflow: hidden;
   .horde-buttonbar div.disabled {
       display: none;
   }
-  .horde-button-left, .horde-button-right,
-  .horde-button-left a, .horde-button-left a:link,
-  .horde-button-left a:visited, .horde-button-left a:active,
-  .horde-button-right a, .horde-button-right a:link,
-  .horde-button-right a:visited, .horde-button-right a:active {
+  .horde-buttonbar, .horde-buttonbar a, .horde-buttonbar a:link,
+  .horde-buttonbar a:visited, .horde-buttonbar a:active {
       color: #616161;
       font-weight:bold;
       text-decoration:none;
   }
   .horde-buttonbar .horde-icon {
       padding-left: 25px;
-      background-repeat:no-repeat;
-      background-position: left -2px;
+      background-position: left center, right center;
+      background-repeat: no-repeat;
   }
   .horde-buttonbar .horde-subnavi-arrow {
       margin-top: -3px;
   }
   .horde-buttonbar select {
+      margin-left: -4px;
       background-color: transparent;
       border-width: 0;
       color: #616161;
       font-weight: bold;
+  }
+  .horde-buttonbar ul {
+      list-style: none;
+  }
+  .horde-buttonbar li {
+      float: left;
+      height: 22px;
+      padding: 7px 17px 0 0;
+      margin: 0 2px 1px 15px;
+      background-image: url('graphics/button-split.png');
+      background-repeat: no-repeat;
+      background-position: center right;
+  }
+  .horde-buttonbar .rightFloat li {
+      padding: 7px 0 0 17px;
+      margin: 0 15px 1px 2px;
+      background-position: center left;
+  }
+  .horde-buttonbar li ul {
+      display: none;
+  }
+  .horde-buttonbar li.horde-nobutton {
+      background-image: none;
+      padding-left: 15px;
+      margin-left: 0;
   }
 
 /*
  * Tabellenkopf
  */
 .horde-table-header {
-    height:21px;
-    background-image:url('graphics/tablehead-bg.png');
-    background-repeat:repeat-x;
+    height: 21px;
+    background-image: url('graphics/tablehead-bg.png');
+    background-repeat: repeat-x;
 }
     .horde-table-header .horde-split-left,
     .horde-table-header .horde-split-right {
