@@ -346,22 +346,24 @@ if ($session->get('imp', 'file_upload') &&
     exit;
 }
 
-/* Prepare the header template. */
+/* Prepare the sidebar. */
 $refresh_title = _("Reload View");
-$head_template = $injector->createInstance('Horde_Template');
-$head_template->setOption('gettext', true);
-$head_template->set('title', $refresh_title);
-$head_template->set('folders_url', $folders_url_ob);
 $refresh_ak = Horde::getAccessKey($refresh_title);
 $refresh_title = Horde::stripAccessKey($refresh_title);
 if (!empty($refresh_ak)) {
     $refresh_title .= sprintf(_(" (Accesskey %s)"), $refresh_ak);
 }
-$head_template->set('refresh', $folders_url_ob->link(array(
+$sidebar = $injector->getInstance('Horde_View_Sidebar');
+$sidebar->newRefresh = $folders_url_ob->link(array(
     'accesskey' => $refresh_ak,
     'title' => $refresh_title
-)));
-$head_template->set('help', Horde_Help::link('imp', 'folder-options'));
+));
+
+/* Prepare the header template. */
+$head_template = $injector->createInstance('Horde_Template');
+$head_template->setOption('gettext', true);
+$head_template->set('title', $refresh_title);
+$head_template->set('folders_url', $folders_url_ob);
 $head_template->set('folders_token', $folders_token);
 
 /* Prepare the actions template. */
@@ -374,13 +376,14 @@ $a_template->set('create_mbox', $injector->getInstance('Horde_Core_Perms')->hasA
 if ($prefs->getValue('subscribe')) {
     $a_template->set('subscribe', true);
     $subToggleText = ($showAll) ? _("Hide Unsubscribed") : _("Show All");
-    $a_template->set('toggle_subscribe', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'toggle_subscribed_view', 'folders_token' => $folders_token)), $subToggleText, 'widget', '', '', $subToggleText, true));
+    $a_template->set('toggle_subscribe', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'toggle_subscribed_view', 'folders_token' => $folders_token)), $subToggleText, '', '', '', $subToggleText, true));
 }
 $a_template->set('nav_poll', !$prefs->isLocked('nav_poll') && !$prefs->getValue('nav_poll_all'));
 $a_template->set('notrash', !$prefs->getValue('use_trash'));
 $a_template->set('file_upload', $session->get('imp', 'file_upload'));
-$a_template->set('expand_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), _("Expand All Folders"), 'widget', '', '', _("Expand All"), true));
-$a_template->set('collapse_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), _("Collapse All Folders"), 'widget', '', '', _("Collapse All"), true));
+$a_template->set('expand_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), _("Expand All Folders"), '', '', '', _("Expand All"), true));
+$a_template->set('collapse_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), _("Collapse All Folders"), '', '', '', _("Collapse All"), true));
+$a_template->set('help', Horde_Help::link('imp', 'folder-options'));
 
 /* Build the folder tree. */
 $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
@@ -424,6 +427,6 @@ if (count($tree) > 10) {
 }
 
 /* No need for extra template - close out the tags here. */
-echo '</form></div>';
+echo '</form>';
 
 $page_output->footer();

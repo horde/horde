@@ -414,27 +414,9 @@ class IMP
      */
     static public function menu()
     {
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->set('form_url', Horde::url('mailbox.php'));
-        $t->set('forminput', Horde_Util::formInput());
-        $t->set('use_folders', $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS), true);
-        if ($t->get('use_folders')) {
-            $GLOBALS['page_output']->addScriptFile('imp.js');
-            $menu_view = $GLOBALS['prefs']->getValue('menu_view');
-            $ak = $GLOBALS['prefs']->getValue('widget_accesskey')
-                ? Horde::getAccessKey(_("Open Fo_lder"))
-                : '';
-
-            $t->set('ak', $ak);
-            $t->set('flist', self::flistSelect(array(
-                'inc_vfolder' => true,
-                'selected' => self::mailbox()
-            )));
-            $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? '<span class="iconImg folderImg" title="' . htmlspecialchars(_("Open Mailbox")) . '"></span>' : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Mai_lbox"), $ak) : ''));
-        }
-
         $sidebar = Horde::menu(array('app' => 'imp', 'menu_ob' => true))
             ->render();
+
         if (self::canCompose()) {
             $sidebar->addNewButton(_("_New Message"), self::composeLink());
         }
@@ -456,14 +438,10 @@ class IMP
             $sidebar->containers['imp-menu'] = array('content' => $tree->getTree());
         }
 
-        $t->set('menu_string', $sidebar);
-
-        $menu = $t->fetch(IMP_TEMPLATES . '/imp/menu/menu.html');
-
         return $GLOBALS['injector']
             ->getInstance('Horde_View_Topbar')
             ->render()
-            . $menu;
+            . $sidebar;
     }
 
     /**

@@ -1,45 +1,42 @@
-<table class="mboxactions">
- <tr>
-  <td class="mboxcontrol<if:isbottom> topborder</if:isbottom>">
-   <span class="rightFloat">
-    <ul class="msgactions">
+<div class="horde-buttonbar">
 <loop:mboxactions>
-     <li<if:mboxactions.last> class="lastnavbar"</if:mboxactions.last>><tag:mboxactions.v /></li>
+  <div class="horde-button-right"><tag:mboxactions.v /></div>
 </loop:mboxactions>
-    </ul>
-   </span>
-   <span class="leftFloat">
-    <ul class="msgactions">
 <if:templateedit>
-     <li><tag:templateedit /></li>
+  <div class="horde-button-left"><tag:templateedit /></div>
+  <div class="horde-button-split"></div>
 </if:templateedit>
 <if:delete>
-     <li><tag:delete /></li>
+  <div class="horde-button-left"><tag:delete /></div>
+  <div class="horde-button-split"></div>
 </if:delete>
 <if:undelete>
-     <li><tag:undelete /></li>
+  <div class="horde-button-left"><tag:undelete /></div>
+  <div class="horde-button-split"></div>
 </if:undelete>
 <if:blacklist>
-     <li><tag:blacklist /></li>
+  <div class="horde-button-left"><tag:blacklist /></div>
+  <div class="horde-button-split"></div>
 </if:blacklist>
 <if:whitelist>
-     <li><tag:whitelist /></li>
+  <div class="horde-button-left"><tag:whitelist /></div>
+  <div class="horde-button-split"></div>
 </if:whitelist>
 <if:forward>
-     <li><tag:forward /></li>
+  <div class="horde-button-left"><tag:forward /></div>
+  <div class="horde-button-split"></div>
 </if:forward>
 <if:redirect>
-     <li><tag:redirect /></li>
+  <div class="horde-button-left"><tag:redirect /></div>
+  <div class="horde-button-split"></div>
 </if:redirect>
 <if:spam>
-     <li><tag:spam /></li>
+  <div class="horde-button-left"><tag:spam /></div>
+  <div class="horde-button-split"></div>
 </if:spam>
 <if:notspam>
-     <li><tag:notspam /></li>
+  <div class="horde-button-left"><tag:notspam /></div>
+  <div class="horde-button-split"></div>
 </if:notspam>
-     <li class="lastnavbar"><tag:view_messages /></li>
-    </ul>
-   </span>
-  </td>
- </tr>
-</table>
+  <div class="horde-button-left"><tag:view_messages /></div>
+</div>

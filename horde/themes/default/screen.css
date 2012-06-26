@@ -1938,6 +1938,7 @@ height:29px;
 background-image:url('graphics/sidebar-new-bg.png');
 background-repeat:repeat-x;
 border-bottom:1px solid #787878;
+overflow: hidden;
 }
   .horde-new-plus{
   float:left;
@@ -2075,7 +2076,6 @@ background-repeat:repeat-x;
  */
 .horde-buttonbar{
 height:29px;
-padding:0px 18px 0px 0px;
 background-image:url('graphics/buttonbar-bg.png');
 background-repeat:repeat-x;
 border-bottom:1px solid #d0d0d0;
@@ -2090,7 +2090,7 @@ overflow: hidden;
   .horde-button-left{
   float:left;
   height:22px;
-  margin:7px 15px 0px 0px;
+  margin:7px 15px 0px 15px;
   }
   .horde-button-left-arrow{
   float:left;
@@ -2118,6 +2118,7 @@ overflow: hidden;
   .horde-buttonbar div.disabled {
       display: none;
   }
+  .horde-button-left, .horde-button-right,
   .horde-button-left a, .horde-button-left a:link,
   .horde-button-left a:visited, .horde-button-left a:active,
   .horde-button-right a, .horde-button-right a:link,
@@ -2127,7 +2128,6 @@ overflow: hidden;
       text-decoration:none;
   }
   .horde-buttonbar .horde-icon {
-      margin-left: 15px;
       padding-left: 25px;
       background-repeat:no-repeat;
       background-position: left -2px;
@@ -2135,34 +2135,33 @@ overflow: hidden;
   .horde-buttonbar .horde-subnavi-arrow {
       margin-top: -3px;
   }
+  .horde-buttonbar select {
+      background-color: transparent;
+      border-width: 0;
+      color: #616161;
+      font-weight: bold;
+  }
 
 /*
  * Tabellenkopf
  */
 .horde-table-header {
-height:21px;
-padding:0px 20px 0px 0px;
-background-image:url('graphics/tablehead-bg.png');
-background-repeat:repeat-x;
-overflow: hidden;
+    height:21px;
+    background-image:url('graphics/tablehead-bg.png');
+    background-repeat:repeat-x;
 }
-  .horde-table-header .horde-split-left,
-  .horde-table-header .horde-split-right {
-      background-image: url('graphics/tablehead-split.png');
-      background-repeat: no-repeat;
-      width: 2px;
-      height: 21px;
-      margin: 0 10px 0 10px;
-  }
-  .horde-table-header .horde-split-left {
-      float:left;
-  }
-  .horde-table-header .horde-split-right {
-      float:right;
-  }
-  .horde-table-header .horde-subnavi-arrow {
-      margin-top: -4px;
-  }
+    .horde-table-header .horde-split-left,
+    .horde-table-header .horde-split-right {
+        background-image: url('graphics/tablehead-split.png');
+        background-repeat: no-repeat;
+        padding: 0 10px 0 10px;
+    }
+    .horde-table-header .horde-split-right {
+        background-position: center right;
+    }
+    .horde-table-header .iconImg {
+        vertical-align: middle;
+    }
 
 /*
  * Schriften

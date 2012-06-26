@@ -69,11 +69,9 @@ table.messageList .sortup, table.messageList .sortdown {
     border-collapse: collapse;
 }
 .messageList tr {
-    height: 20px;
+    height: 21px;
 }
 .messageList th {
-    border-top: 1px solid #999;
-    border-left: 1px solid #ddd;
     cursor: pointer;
     overflow: hidden;
     padding: 0 0 1px 2px;
@@ -91,7 +89,7 @@ table.messageList .sortup, table.messageList .sortdown {
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
     overflow: hidden;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #d0d0d0;
     vertical-align: middle;
 }
 .messageList td label input {
@@ -112,78 +110,11 @@ table.messageList .sortup, table.messageList .sortdown {
 }
 
 /* Navbar action styling. */
-table.navbaractions {
-    border-collapse: collapse;
-    width: 100%;
-}
-ul.msgactions, ul.msgactions ul {
-    list-style: none;
-}
-.msgactions li {
-    float: left;
-    padding: 1px 3px;
-    border-right: 1px solid #888;
-    position: relative;
-}
-.msgactions li.lastnavbar {
-    border-right: 0;
-}
 .msgactions a.hasmenu {
     padding-right: 15px;
     margin-right: -3px;
     background: url("../graphics/popdown.png") no-repeat center right;
 }
-.msgactions li a {
-    font-size: 90%;
-    white-space: nowrap;
-}
-.folders .msgactions li a {
-    font-size: 100%;
-}
-.msgactions li ul {
-    background: #f4f4f4;
-    border: 1px solid #d4d4d4;
-    display: none;
-    padding: 1px;
-    position: absolute;
-    z-index: 99;
-}
-.bottomborder .msgactions li ul {
-    top: 1.25em;
-}
-.topborder .msgactions li ul {
-    bottom: 1.25em;
-}
-.msgactions li ul a:hover, .msgactions li ul a:active {
-    background: gray;
-    color: #fff;
-}
-.msgactions li:hover ul, .msgactions li.hover ul {
-    display: block;
-}
-.msgactions li ul li {
-    float: none;
-    padding: 0;
-    border: none;
-    display: inline;
-}
-.msgactions li ul li a {
-    display: block;
-    padding: 2px;
-}
-.mboxcontrol {
-    color: #000;
-    background: #ccc;
-}
-.bottomborder {
-    border-bottom: 1px solid #999;
-    padding-bottom: 0;
-    padding-top: 0;
-}
-.topborder {
-    border-top: 1px solid #999;
-}
-
 table.msgActionTable, #fmanager table {
     width: 100%;
     border-collapse: collapse;

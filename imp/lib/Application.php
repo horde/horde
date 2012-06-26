@@ -248,12 +248,6 @@ class IMP_Application extends Horde_Registry_Application
         $menu_mailbox_url = Horde::url('mailbox.php');
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-        $menu->addArray(array(
-            'icon' => 'imp-inbox',
-            'text' => _("_Inbox"),
-            'url' => IMP_Mailbox::get('INBOX')->url($menu_mailbox_url)
-        ));
-
         if ($imp_imap->access(IMP_Imap::ACCESS_TRASH) &&
             $prefs->getValue('use_trash') &&
             $prefs->getValue('empty_trash_menu') &&
