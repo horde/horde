@@ -351,8 +351,8 @@ var DimpBase = {
         this.splitbar.setStyle({
             left: tmp.clientWidth + 'px'
         });
-        $('dimpmain').setStyle({
-            left: (tmp.clientWidth + this.splitbar.clientWidth) + 'px'
+        $('horde-body').setStyle({
+            left: (tmp.clientWidth) + 'px'
         });
     },
 
@@ -3600,9 +3600,7 @@ var DimpBase = {
         $('foldersSidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
 
         /* Create splitbar for sidebar. */
-        this.splitbar = new Element('DIV', { id: 'horde-slideleft', className: 'horde-splitbar-vert' }).insert(
-            new Element('DIV', { id: 'horde-slideleftcursor', className: 'horde-splitbar-vert-handle' }));
-        $('horde-sidebar').insert({ after: this.splitbar });
+        this.splitbar = $('horde-slideleft');
         new Drag(this.splitbar, {
             constraint: 'horizontal',
             ghosting: true,

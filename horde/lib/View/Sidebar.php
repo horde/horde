@@ -21,6 +21,13 @@
 class Horde_View_Sidebar extends Horde_View
 {
     /**
+     * Containers and rows added through {@link addRow()}.
+     *
+     * @var array
+     */
+    protected $_containers = array();
+
+    /**
      * Constructor.
      *
      * @param array $config  Configuration key-value pairs.
@@ -32,6 +39,8 @@ class Horde_View_Sidebar extends Horde_View
         }
         parent::__construct($config);
         $this->addHelper('Text');
+
+        $this->width = $GLOBALS['prefs']->getValue('sidebar_width');
     }
 
     /**
@@ -43,22 +52,51 @@ class Horde_View_Sidebar extends Horde_View
      */
     public function render($name = 'sidebar', $locals = array())
     {
+        $GLOBALS['page_output']->sidebarLoaded = true;
+        if (!$this->containers) {
+            $this->containers = array_values($this->_containers);
+        }
         return parent::render($name, $locals);
     }
 
     /**
-     * Returns the HTML for a single tree-style row in the sidebar
+     * Adds a row to the sidebar.
      *
-     * @param array $values  The template values to assign. Possible values:
-     *                       id, style, cssClass, label.
+     * If containers/sections are not added explicitly to the view
+     * through the "containers" property, these rows will be used
+     * instead.
      *
-     * @return string  The row's HTML code.
+     * @param array $row         A hash with the row information. Possible
+     *                           values:
+     *                           - cssClass: (string) CSS class for the icon.
+     *                           - id: (string) DOM ID for the row link.
+     *                           - link (string) Link tag for the row.
+     *                           - selected: (boolean) Whether to mark the row
+     *                             as active.
+     *                           - style: (string) Additional CSS styles to
+     *                             apply to the row.
+     * @param string $container  If using multiple sidebar sections, the ID of
+     *                           the section to add the row to. Sections will
+     *                           be rendered in the order of their first usage.
      */
-    public function getTreeRow(array $values)
+    public function addRow(array $row, $container = '')
     {
-        $view = new Horde_View(array('templatePath' => $GLOBALS['registry']->get('templates', 'horde') . '/sidebar'));
-        $view->addHelper('Text');
-        $view->assign($values);
-        return $view->render('container');
+        if (!isset($this->_containers[$container])) {
+            $this->_containers[$container] = array('rows' => array());
+            if ($container) {
+                $this->_containers[$container]['id'] = $container;
+            }
+        }
+
+        $ak = Horde::getAccessKey($row['label']);
+        $url = empty($row['url']) ? new Horde_Url() : $row['url'];
+        $attributes = $ak
+            ? Horde::getAccessKeyAndTitle($row['label'], true, true)
+            : array();
+        $row['link'] = $url->link($attributes)
+            . Horde::highlightAccessKey($row['label'], $ak)
+            . '</a>';
+
+        $this->_containers[$container]['rows'][] = $row;
     }
 }

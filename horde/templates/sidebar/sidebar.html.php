@@ -1,4 +1,4 @@
-<div id="horde-sidebar">
+<div id="horde-sidebar" style="width:<?php echo $this->width ?>px">
 
 <?php if ($this->newLink): ?>
   <div class="horde-new">
@@ -19,3 +19,8 @@
 <?php endif ?>
 
 </div>
+
+<div id="horde-slideleft" class="horde-splitbar-vert" style="left:<?php echo $this->width ?>px">
+  <div id="horde-slideleftcursor" class="horde-splitbar-vert-handle"></div>
+</div>
+<div id="horde-body" style="left:<?php echo $this->width ?>px">

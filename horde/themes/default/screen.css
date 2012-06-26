@@ -647,11 +647,11 @@ div.logintasks-item input {
 }
 
 /* Main body. */
-.body {
+#horde-body {
     position: absolute;
-    left: 0;
     right: 0;
-    margin-top: 8px;
+    top: 56px;
+    margin-left: 8px;
 }
 
 /* Pager. */
@@ -1987,6 +1987,8 @@ background-image:url('graphics/sidebar-active-bg.png');
 background-repeat:repeat-x;
 }
   .horde-subnavi-icon-1{
+      background-repeat: no-repeat;
+      background-position: center center;
   float:left;
   width:24px;
   height:24px;
@@ -2035,9 +2037,12 @@ background-repeat:repeat-x;
     width: 8px;
     background-image: url('graphics/slidevert-bg.png');
     background-repeat: repeat-y;
+}
+.horde-splitbar-vert.DragElt {
     cursor: col-resize;
 }
   .horde-splitbar-vert-handle {
+      display: none;
       position: absolute;
       top: 0;
       bottom: 0;
@@ -2045,6 +2050,9 @@ background-repeat:repeat-x;
       background-image: url('graphics/slidevert.png');
       background-repeat: no-repeat;
       background-position: center center;
+  }
+  .DragElt .horde-splitbar-vert-handle {
+      display: block;
   }
 .horde-splitbar-horiz {
     height: 8px;
@@ -2194,6 +2202,41 @@ text-shadow: 1px 1px 0px #000;
 }
 .relief{
 text-shadow: -1px -1px 0px #000;
+}
+
+/* Sidebar entries. */
+.horde-admin-config {
+    background-image: url("graphics/config.png");
+}
+.horde-admin-user {
+    background-image: url("graphics/user.png");
+}
+.horde-admin-group {
+    background-image: url("graphics/group.png");
+}
+.horde-admin-perms {
+    background-image: url("graphics/perms.png");
+}
+.horde-admin-locked {
+    background-image: url("graphics/locked.png");
+}
+.horde-admin-alarm {
+    background-image: url("graphics/alerts/alarm.png");
+}
+.horde-admin-datatree {
+    background-image: url("graphics/datatree.png");
+}
+.horde-admin-php {
+    background-image: url("graphics/mime/php.png");
+}
+.horde-admin-sql {
+    background-image: url("graphics/sql.png");
+}
+.horde-admin-shell {
+    background-image: url("graphics/shell.png");
+}
+.horde-admin-mobile {
+    background-image: url("graphics/mobile.png");
 }
 
 /* Print CSS. */

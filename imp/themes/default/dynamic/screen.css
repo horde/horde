@@ -16,10 +16,8 @@ input {
 }
 
 /* Main container styles. */
-#dimpmain {
+#horde-body {
     bottom: 0;
-    position: absolute;
-    right: 0;
     top: 0;
 }
 

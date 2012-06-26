@@ -61,6 +61,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $topbar->searchMenu = true;
         $this->view->topbar = $topbar->render();
 
+        $blank = new Horde_Url();
         $impSidebar = new Horde_View(array(
             'templatePath' => array(
                 $GLOBALS['registry']->get('templates', 'horde') . '/sidebar',
@@ -74,16 +75,15 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 array('id' => 'folderopts_link',
                       'cssClass' => 'folderoptsImg',
                       'dropDown' => true,
-                      'label' => _("Folder Actions")),
+                      'link' => $blank->link() . _("Folder Actions") . '</a>'),
                 array('id' => 'dropbase',
                       'style' => 'display:none',
                       'cssClass' => 'folderImg',
-                      'label' => _("Move to Base Level")))),
+                      'link' => $blank->link() . _("Move to Base Level") . '</a>'))),
             array('id' => 'imp-normalmboxes'));
         $impSidebar->containersCount = 3;
 
         $sidebar = $GLOBALS['injector']->getInstance('Horde_View_Sidebar');
-        $blank = new Horde_Url();
         $sidebar->newLink = $blank->link(array('id' => 'composelink',
                                                'class' => 'icon'));
         $sidebar->newText = _("New Message");
