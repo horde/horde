@@ -1412,7 +1412,7 @@ class Horde
             $opts['mask'] = Horde_Menu::MASK_ALL;
         }
 
-        $menu = new Horde_Menu(isset($opts['mask']) ? $opts['mask'] : Horde_Menu::MASK_ALL);
+        $menu = new Horde_Menu($opts['mask']);
 
         $registry->callAppMethod($opts['app'], 'menu', array(
             'args' => array($menu)
