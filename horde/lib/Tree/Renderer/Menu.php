@@ -4,10 +4,11 @@
  * application menu.
  *
  * Additional node parameters:
- * - noarrow: Whether to hide the arrow next to the top level menu entry.
- * - onclick: Value for onclick attribute.
- * - url: URL to link the node to
- * - target: Target for the 'url' link
+ * - noarrow: (boolean) Whether to hide the arrow next to the top level menu
+ *            entry.
+ * - onclick: (string) Value for onclick attribute.
+ * - target: (string) Target for the 'url' link.
+ * - url: (string|Horde_Url) URL for the node link.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
