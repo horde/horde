@@ -92,15 +92,6 @@
    group? Assignment of bugs to groups can be limited to groups that users are
    members of by disabling this option" required="false">false</configboolean>
   </configsection>
-  <configsection name="menu">
-   <configheader>Menu Settings</configheader>
-   <configmultienum name="apps" desc="Select any applications that should be
-   linked in Whups' menu" required="false">
-    <values>
-     <configspecial application="horde" name="apps" />
-    </values>
-   </configmultienum>
-  </configsection>
  </configtab>
 
  <configtab name="defaults" desc="Default States">

@@ -40,14 +40,4 @@
    </case>
   </configswitch>
  </configsection>
-
- <configsection name="menu">
-  <configheader>Menu settings</configheader>
-  <configmultienum name="apps" desc="Select any applications
-  that should be linked in Ingo's menu" required="false">
-   <values>
-    <configspecial application="horde" name="apps" />
-   </values>
-  </configmultienum>
- </configsection>
 </configuration>

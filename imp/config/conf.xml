@@ -219,19 +219,4 @@
    notepad support?">true</configboolean>
   </configsection>
  </configtab>
-
- <configtab name="menu" desc="Menu">
-  <configsection name="menu">
-   <configheader>Menu settings</configheader>
-   <configmultienum name="apps" desc="Applications that should be linked in
-   the menu." required="false">
-    <values>
-     <configspecial application="horde" name="apps" />
-    </values>
-   </configmultienum>
-   <configboolean name="apps_iframe" desc="Should linked applications be loaded
-   in an IFRAME within the Ajax interface?"
-   required="false">false</configboolean>
-  </configsection>
- </configtab>
 </configuration>

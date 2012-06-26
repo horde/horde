@@ -379,34 +379,6 @@ KronolithCore = {
             this.loadNextView();
             break;
 
-        case 'prefs':
-            var url = Kronolith.conf.prefs_url;
-            if (data) {
-                url += (url.include('?') ? '&' : '?') + $H(data).toQueryString();
-            }
-            this.addHistory(loc);
-            this.inPrefs = true;
-            this.closeView('iframe');
-            this.iframeContent(url);
-            this.setTitle(Kronolith.text.prefs);
-            this.updateMinical(this.date);
-            this.loadNextView();
-            break;
-
-        case 'app':
-            this.addHistory(fullloc);
-            this.closeView('iframe');
-            var app = locParts.shift();
-            if (data) {
-                this.loadPage(data);
-            } else if (Kronolith.conf.app_urls[app]) {
-                this.loadPage(Kronolith.conf.app_urls[app]);
-            }
-            this.updateMinical(this.date);
-            this.view = 'iframe';
-            this.loadNextView();
-            break;
-
         default:
             this.loadNextView();
             break;
@@ -3888,32 +3860,7 @@ KronolithCore = {
      */
     loadPage: function(loc)
     {
-        if (Kronolith.conf.use_iframe) {
-            this.iframeContent(loc);
-        } else {
-            window.location.assign(loc);
-        }
-    },
-
-    /**
-     * Loads a page into the iframe view.
-     *
-     * @param string loc  The URL of the page to load.
-     */
-    iframeContent: function(loc)
-    {
-        var view = $('kronolithViewIframe'), iframe = $('kronolithIframe');
-        view.hide();
-        if (!iframe) {
-            view.insert(new Element('iframe', { id: 'kronolithIframe', className: 'kronolithIframe', frameBorder: 0 }));
-            iframe = $('kronolithIframe');
-        }
-        iframe.observe('load', function() {
-            view.appear({ duration: this.effectDur, queue: 'end' });
-            iframe.stopObserving('load');
-        }.bind(this));
-        iframe.src = HordeCore.addURLParam(loc);
-        this.view = 'iframe';
+        window.location.assign(loc);
     },
 
     /* Keydown event handler */

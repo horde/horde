@@ -34,11 +34,6 @@
   <configsection name="menu">
    <configheader>Menu settings</configheader>
    <configboolean name="print" desc="Should we display a print link in the Horde application menus?">true</configboolean>
-   <configmultienum name="apps" desc="Select any applications that should be linked in Papers's menu">
-    <values>
-    <configspecial application="horde" name="apps" />
-    </values>
-   </configmultienum>
   </configsection>
  </configtab>
 </configuration>

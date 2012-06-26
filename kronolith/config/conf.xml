@@ -87,15 +87,6 @@
   <configheader>Menu Settings</configheader>
   <configboolean name="import_export" desc="Should we display an Import/Export
    link in the Horde application menus?">true</configboolean>
-  <configmultienum name="apps" desc="Select any applications that should be
-   linked in Kronolith's menu" required="false">horde
-   <values>
-    <configspecial application="horde" name="apps" />
-   </values>
-  </configmultienum>
-  <configboolean name="apps_iframe" desc="Should linked applications be loaded
-  in an IFRAME within the Ajax interface?"
-  required="false">false</configboolean>
  </configsection>
 
  <configsection name="maps">

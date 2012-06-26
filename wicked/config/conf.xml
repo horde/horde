@@ -60,13 +60,6 @@
     <value desc="All Pages">AllPages</value>
    </values>
   </configmultienum>
-
-  <configmultienum name="apps" desc="Select any applications that should be
-  linked in Wicked's menu" required="false">
-   <values>
-    <configspecial application="horde" name="apps" />
-   </values>
-  </configmultienum>
  </configsection>
 
  <configsection name="storage">

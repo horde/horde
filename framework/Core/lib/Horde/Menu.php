@@ -193,9 +193,6 @@ class Horde_Menu
         if ($this->_mask !== self::MASK_NONE) {
             /* Add any custom menu items. */
             $this->addSiteLinks();
-
-            /* Add any app menu items. */
-            $this->addAppLinks();
         }
 
         /* No need to return an empty list if there are no menu
@@ -256,45 +253,6 @@ class Horde_Menu
         }
 
         return $sidebar->render();
-    }
-
-    /**
-     * Add links to other Horde applications defined in an application's
-     * config file.
-     */
-    public function addAppLinks()
-    {
-        global $registry;
-
-        foreach ($this->getAppLinks() as $app) {
-            try {
-                $this->add(Horde::url($registry->getInitialPage($app)), $registry->get('name', $app), $registry->get('icon', $app), '');
-            } catch (Horde_Exception $e) {}
-        }
-    }
-
-    /**
-     * List any links to other Horde applications defined in an application's
-     * config file.
-     *
-     * @return array  A list of applications to create menu items for.
-     */
-    public function getAppLinks()
-    {
-        global $conf, $registry;
-
-        $out = array();
-
-        if (isset($conf['menu']['apps']) && is_array($conf['menu']['apps'])) {
-            foreach ($conf['menu']['apps'] as $app) {
-                if (!$registry->isInactive($app) &&
-                    $registry->hasPermission($app, Horde_Perms::SHOW)) {
-                    $out[] = $app;
-                }
-            }
-        }
-
-        return $out;
     }
 
     /**

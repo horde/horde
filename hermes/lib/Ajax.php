@@ -72,7 +72,6 @@ class Hermes_Ajax
             'prefs_url' => strval($GLOBALS['registry']->getServiceLink('prefs', 'hermes')->setRaw(true)),
             'app_urls' => $app_urls,
             'name' => $identity->getName(),
-            'use_iframe' => intval(!empty($conf['menu']['apps_iframe'])),
             'login_view' => 'time',
             'date_format' => str_replace(
                 array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
