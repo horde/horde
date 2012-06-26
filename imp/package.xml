@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-06-26</date>
- <time>13:30:08</time>
+ <time>13:32:02</time>
  <version>
-  <release>5.0.22</release>
+  <release>5.0.23</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,10 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Only allow display of basic image types directly in browser.
-* [jan] Update Turkish translation (İstanbul Technical University).
-* [jan] Re-add option to report messages as spam/ham through redirection.
-* [jan] Update Swedish translation (Jakob Alvermark &lt;jakob.alvermark@bsdlabs.com&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2736,6 +2733,19 @@
 * [jan] Update Turkish translation (İstanbul Technical University).
 * [jan] Re-add option to report messages as spam/ham through redirection.
 * [jan] Update Swedish translation (Jakob Alvermark &lt;jakob.alvermark@bsdlabs.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.23</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-06-26</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
