@@ -617,11 +617,7 @@ class Horde_Core_Prefs_Ui
 
         /* Get the menu output before we start to output the page.
          * Again, this will catch any javascript inserted into the page. */
-        $menu_out = ($registry->getView() == $registry::VIEW_DYNAMIC)
-            ? ''
-            : Horde::menu(array(
-                  'app' => $this->app,
-              ));
+        $menu_out = Horde::menu(array('app' => $this->app));
 
         /* Get list of accessible applications. */
         $apps = array();
