@@ -1,9 +1,16 @@
-<table class="msgActionTable">
- <tr class="mboxcontrol">
-  <td>
+<div class="horde-buttonbar">
+  <ul class="rightFloat">
+   <li class="horde-nobutton nowrap">
+    <tag:back_to />
+    <if:prev><tag:prev /></if:prev><span class="iconImg <tag:prev_img />"></span><if:prev></a></if:prev>
+    <if:next><tag:next /></if:next><span class="iconImg <tag:next_img />"></span><if:next></a></if:next>
+   </li>
+  </ul>
+
 <if:readonly><else:readonly>
+  <ul>
 <if:flaglist_set>
-   <div class="leftFloat">
+   <li>
     <input type="hidden" name="mailbox" value="<tag:mailbox />" />
     <label for="flag<tag:id />" class="hidden"><gettext>Mark Message</gettext></label>
     <select id="flag<tag:id />">
@@ -19,36 +26,25 @@
      <option value="<tag:flaglist_unset.f />">&nbsp;&nbsp;<tag:flaglist_unset.l /></option>
 </loop:flaglist_unset>
     </select>
-   </div>
+   </li>
 </if:flaglist_set>
 <if:move>
-   <div class="leftFloat msgActions">
+   <li>
     <ul class="msgactions">
      <li><tag:move /></li>
      <li class="lastnavbar"><tag:copy /></li>
     </ul>
-   </div>
-   <div class="leftFloat">
+   </li>
+   <li>
     <label for="target<tag:id />" class="hidden"><gettext>Target Mailbox</gettext></label>
     <select id="target<tag:id />" name="target<tag:id />">
      <tag:options />
     </select>
-   </div>
+   </li>
 </if:move>
+  </ul>
 </else:readonly></if:readonly>
-   <div class="rightFloat nowrap">
-    <tag:back_to />
-    <if:prev><tag:prev /></if:prev><span class="iconImg <tag:prev_img />"></span><if:prev></a></if:prev>
-    <if:next><tag:next /></if:next><span class="iconImg <tag:next_img />"></span><if:next></a></if:next>
-   </div>
-  </td>
- </tr>
-<if:isbottom>
- <tr>
-  <td class="bottomborder" colspan="3"></td>
- </tr>
-</if:isbottom>
-</table>
+</div>
 <if:isbottom>
 </form>
 </if:isbottom>
