@@ -1,6 +1,6 @@
------------
-v5.0.22-git
------------
+-------
+v5.0.22
+-------
 
 [mms] SECURITY: Only allow display of basic image types directly in browser.
 [jan] Update Turkish translation (İstanbul Technical University).

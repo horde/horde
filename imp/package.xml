@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-09</date>
- <time>12:32:47</time>
+ <date>2012-06-26</date>
+ <time>13:30:08</time>
  <version>
   <release>5.0.22</release>
   <api>5.0.0</api>
@@ -2729,7 +2729,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-05-09</date>
+   <date>2012-06-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Only allow display of basic image types directly in browser.
