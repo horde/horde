@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [mms] Fix patch for filtering on combination fields (Bug #11197).
 * [mms] Procmail driver now explicitly sets the base Maildir directory by default (Bug #10113).
 * [jan] Update Turkish translation (İstanbul Technical University).
  </notes>
@@ -1043,6 +1044,7 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mms] Fix patch for filtering on combination fields (Bug #11197).
 * [mms] Procmail driver now explicitly sets the base Maildir directory by default (Bug #10113).
 * [jan] Update Turkish translation (İstanbul Technical University).
    </notes>

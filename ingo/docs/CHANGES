@@ -2,6 +2,7 @@
 v2.0.9-git
 ----------
 
+[mms] Fix patch for filtering on combination fields (Bug #11197).
 [mms] Procmail driver now explicitly sets the base Maildir directory by default
       (Bug #10113).
 [jan] Update Turkish translation (İstanbul Technical University).
