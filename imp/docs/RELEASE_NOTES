@@ -10,12 +10,15 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORSECURITY, Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORSECURITY, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Internet Mail
-Program (IMP) version H4 (5.0.21).
+Program (IMP) version H4 (5.0.22).
+
+Thanks to Mike Cardwell (https://grepular.com/) for reporting the SVG
+vulnerability.
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
@@ -23,21 +26,18 @@ access to IMAP and POP3 mail servers and provides Ajax, mobile and traditional
 interfaces with a rich range of features normally found only in desktop email
 clients. For more information on IMP, visit http://www.horde.org/apps/imp.
 
-The major changes compared to the IMP version H4 (5.0.20) are:
-    * Fixed XSS vulnerabilities.
-    * Fixed regression in PGP support.
-    * Improved HTML editor support.
-    * Updated Czech, Italian, and Slovak translations.
-    * Small bugfixes and improvements.
+The major changes compared to the IMP version H4 (5.0.21) are:
+    * Only display basic image attachments in the browser to avoid XSS
+      vulnerabilities triggered by opening malicious SVG attachments.
+    * Re-added option to report messages as spam/ham through redirection.
+    * Updated Swedish and Turkish translations.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed XSS vulnerabilities.
-Fixed regression in PGP support.
-Improved HTML editor support.
-Updated Czech, Italian, and Slovak translations.
-Small bugfixes and improvements.
+Only display basic image attachments in the browser to avoid XSS vulnerabilities triggered by opening malicious SVG attachments.
+Re-added option to report messages as spam/ham through redirection.
+Updated Swedish and Turkish translations.
 FM;
 
 $this->notes['name'] = 'IMP';
