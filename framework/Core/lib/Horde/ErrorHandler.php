@@ -22,8 +22,6 @@ class Horde_ErrorHandler
      */
     static public function fatal($error)
     {
-        global $registry;
-
         try {
             Horde::logMessage($error, 'EMERG');
         } catch (Exception $e) {}
@@ -31,8 +29,7 @@ class Horde_ErrorHandler
         if (is_object($error)) {
             switch (get_class($error)) {
             case 'Horde_Exception_AuthenticationFailure':
-                if (!$registry->getAuth() ||
-                    $registry->clearAuthApp($error->applicaton)) {
+                if ($registry->clearAuthApp($error->applicaton)) {
                     break;
                 }
 
@@ -52,14 +49,14 @@ class Horde_ErrorHandler
                     break;
                 }
 
-                header('Location: ' . $registry->getLogoutUrl($params));
+                header('Location: ' . $GLOBALS['registry']->getLogoutUrl($params));
                 exit;
             }
         }
 
         header('Content-type: text/html; charset=UTF-8');
         try {
-            $admin = $registry->isAdmin();
+            $admin = $GLOBALS['registry']->isAdmin();
             $cli = Horde_Cli::runningFromCLI();
 
             $errortext = '<h1>' . Horde_Core_Translation::t("A fatal error has occurred") . '</h1>';
