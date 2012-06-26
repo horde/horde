@@ -1,3 +1,23 @@
+/* Sidebar icons. */
+.imp-inbox {
+    background-image: url("../graphics/folders/inbox.png");
+}
+.imp-empty-trash {
+    background-image: url("../graphics/empty_trash.png");
+}
+.imp-empty-spam {
+    background-image: url("../graphics/empty_spam.png");
+}
+.imp-folder {
+    background-image: url("../graphics/folders/folder.png");
+}
+.imp-search {
+    background-image: url("../graphics/search.png");
+}
+.imp-filters {
+    background-image: url("../graphics/filters.png");
+}
+
 /* Mailbox page styling. */
 .mboxheader .pageCount {
     padding-right: 10px;

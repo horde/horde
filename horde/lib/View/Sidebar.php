@@ -21,13 +21,6 @@
 class Horde_View_Sidebar extends Horde_View
 {
     /**
-     * Containers and rows added through {@link addRow()}.
-     *
-     * @var array
-     */
-    protected $_containers = array();
-
-    /**
      * Constructor.
      *
      * @param array $config  Configuration key-value pairs.
@@ -40,6 +33,7 @@ class Horde_View_Sidebar extends Horde_View
         parent::__construct($config);
         $this->addHelper('Text');
 
+        $this->containers = array();
         $this->width = $GLOBALS['prefs']->getValue('sidebar_width');
     }
 
@@ -53,10 +47,34 @@ class Horde_View_Sidebar extends Horde_View
     public function render($name = 'sidebar', $locals = array())
     {
         $GLOBALS['page_output']->sidebarLoaded = true;
-        if (!$this->containers) {
-            $this->containers = array_values($this->_containers);
-        }
+        $this->containers = array_values($this->containers);
         return parent::render($name, $locals);
+    }
+
+    /**
+     * Handler for string casting.
+     *
+     * @return string  The sidebar's HTML code.
+     */
+    public function __toString()
+    {
+        return $this->render();
+    }
+
+    /**
+     * Adds a "New ..." button to the sidebar.
+     *
+     * @param string $label  The button text, including access key.
+     * @param string $url    The button URL.
+     */
+    public function addNewButton($label, $url)
+    {
+        $ak = Horde::getAccessKey($label);
+        $attributes = $ak
+            ? Horde::getAccessKeyAndTitle($label, true, true)
+            : array();
+        $this->newLink = $url->link($attributes);
+        $this->newText = Horde::highlightAccessKey($label, $ak);
     }
 
     /**
@@ -82,10 +100,10 @@ class Horde_View_Sidebar extends Horde_View
      */
     public function addRow(array $row, $container = '')
     {
-        if (!isset($this->_containers[$container])) {
-            $this->_containers[$container] = array('rows' => array());
+        if (!isset($this->containers[$container])) {
+            $this->containers[$container] = array('rows' => array());
             if ($container) {
-                $this->_containers[$container]['id'] = $container;
+                $this->containers[$container]['id'] = $container;
             }
         }
 
@@ -98,6 +116,6 @@ class Horde_View_Sidebar extends Horde_View
             . Horde::highlightAccessKey($row['label'], $ak)
             . '</a>';
 
-        $this->_containers[$container]['rows'][] = $row;
+        $this->containers[$container]['rows'][] = $row;
     }
 }

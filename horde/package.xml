@@ -29,7 +29,7 @@
   <active>yes</active>
  </lead>
  <date>2012-06-26</date>
- <time>16:16:05</time>
+ <time>16:18:22</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -421,6 +421,7 @@
     <dir name="Tree">
      <dir name="Renderer">
       <file name="Menu.php" role="horde" />
+      <file name="Sidebar.php" role="horde" />
      </dir> <!-- /lib/Tree/Renderer -->
     </dir> <!-- /lib/Tree -->
     <dir name="View">
@@ -915,8 +916,9 @@
      <file name="edit.inc" role="horde" />
     </dir> <!-- /templates/shares -->
     <dir name="sidebar">
-     <file name="container.html.php" role="horde" />
      <file name="sidebar.html.php" role="horde" />
+     <file name="_container.html.php" role="horde" />
+     <file name="_row.html.php" role="horde" />
     </dir> <!-- /templates/sidebar -->
     <dir name="test">
      <file name="extensions.inc" role="horde" />
@@ -933,6 +935,8 @@
     </dir> <!-- /templates/topbar -->
     <dir name="tree">
      <file name="menu.html.php" role="horde" />
+     <file name="sidebar.html.php" role="horde" />
+     <file name="_row.html.php" role="horde" />
      <file name="_submenu.html.php" role="horde" />
     </dir> <!-- /templates/tree -->
     <file name=".htaccess" role="horde" />
@@ -2459,6 +2463,7 @@
    <install as="lib/Prefs/Special/Twitter.php" name="lib/Prefs/Special/Twitter.php" />
    <install as="lib/tests/webroot.phpt" name="lib/tests/webroot.phpt" />
    <install as="lib/Tree/Renderer/Menu.php" name="lib/Tree/Renderer/Menu.php" />
+   <install as="lib/Tree/Renderer/Sidebar.php" name="lib/Tree/Renderer/Sidebar.php" />
    <install as="lib/View/Sidebar.php" name="lib/View/Sidebar.php" />
    <install as="lib/View/Topbar.php" name="lib/View/Topbar.php" />
    <install as="locale/.htaccess" name="locale/.htaccess" />
@@ -2706,8 +2711,9 @@
    <install as="templates/prefs/twitter.html" name="templates/prefs/twitter.html" />
    <install as="templates/problem/problem.inc" name="templates/problem/problem.inc" />
    <install as="templates/shares/edit.inc" name="templates/shares/edit.inc" />
-   <install as="templates/sidebar/container.html.php" name="templates/sidebar/container.html.php" />
    <install as="templates/sidebar/sidebar.html.php" name="templates/sidebar/sidebar.html.php" />
+   <install as="templates/sidebar/_container.html.php" name="templates/sidebar/_container.html.php" />
+   <install as="templates/sidebar/_row.html.php" name="templates/sidebar/_row.html.php" />
    <install as="templates/test/extensions.inc" name="templates/test/extensions.inc" />
    <install as="templates/test/footer.inc" name="templates/test/footer.inc" />
    <install as="templates/test/header.inc" name="templates/test/header.inc" />
@@ -2718,6 +2724,8 @@
    <install as="templates/topbar/_menubar.html.php" name="templates/topbar/_menubar.html.php" />
    <install as="templates/topbar/_subbar.html.php" name="templates/topbar/_subbar.html.php" />
    <install as="templates/tree/menu.html.php" name="templates/tree/menu.html.php" />
+   <install as="templates/tree/sidebar.html.php" name="templates/tree/sidebar.html.php" />
+   <install as="templates/tree/_row.html.php" name="templates/tree/_row.html.php" />
    <install as="templates/tree/_submenu.html.php" name="templates/tree/_submenu.html.php" />
    <install as="themes/default/embed.css" name="themes/default/embed.css" />
    <install as="themes/default/facebook.css" name="themes/default/facebook.css" />

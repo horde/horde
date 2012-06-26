@@ -249,7 +249,7 @@ class IMP_Application extends Horde_Registry_Application
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         $menu->addArray(array(
-            'icon' => 'folders/inbox.png',
+            'icon' => 'imp-inbox',
             'text' => _("_Inbox"),
             'url' => IMP_Mailbox::get('INBOX')->url($menu_mailbox_url)
         ));
@@ -261,7 +261,7 @@ class IMP_Application extends Horde_Registry_Application
             ($trash->vtrash || $trash->access_expunge)) {
             $menu->addArray(array(
                 'class' => '__noselection',
-                'icon' => 'empty_trash.png',
+                'icon' => 'imp-empty-trash',
                 'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash mailbox?"), Horde_Serialize::JSON, 'UTF-8') . ')',
                 'text' => _("Empty _Trash"),
                 'url' => $trash->url($menu_mailbox_url)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
@@ -274,24 +274,16 @@ class IMP_Application extends Horde_Registry_Application
             $spam->access_expunge) {
             $menu->addArray(array(
                 'class' => '__noselection',
-                'icon' =>  'empty_spam.png',
+                'icon' =>  'imp-empty-spam',
                 'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your spam mailbox?"), Horde_Serialize::JSON, 'UTF-8') . ')',
                 'text' => _("Empty _Spam"),
                 'url' => $spam->url($menu_mailbox_url)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
             ));
         }
 
-        if (IMP::canCompose()) {
-            $menu->addArray(array(
-                'icon' => 'compose.png',
-                'text' => _("_New Message"),
-                'url' => IMP::composeLink()
-            ));
-        }
-
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $menu->addArray(array(
-                'icon' => 'folders/folder.png',
+                'icon' => 'imp-folder',
                 'text' => _("_Folders"),
                 'url' => Horde::url('folders.php')->unique()
             ));
@@ -299,7 +291,7 @@ class IMP_Application extends Horde_Registry_Application
 
         if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $menu->addArray(array(
-                'icon' => 'search.png',
+                'icon' => 'imp-search',
                 'text' =>_("_Search"),
                 'url' => Horde::url('search.php')
             ));
@@ -307,7 +299,7 @@ class IMP_Application extends Horde_Registry_Application
 
         if ($prefs->getValue('filter_menuitem')) {
             $menu->addArray(array(
-                'icon' => 'filters.png',
+                'icon' => 'imp-filters',
                 'text' => _("Fi_lters"),
                 'url' => $registry->getServiceLink('prefs', 'imp')->add('group', 'filters')
             ));

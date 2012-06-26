@@ -182,7 +182,7 @@ class Horde_Menu
     /**
      * Return the rendered representation of the menu items.
      *
-     * @return string  The rendered representation.
+     * @return Horde_View_Sidebar  Sidebar view of menu elements.
      */
     public function render()
     {
@@ -211,11 +211,9 @@ class Horde_Menu
     }
 
     /**
-     * Unordered list representing the list of menu items. Styling is done
-     * through CSS.
+     * Converts the menu to a sidebar view.
      *
-     * @return string  An unordered list of menu elements that can be entirely
-     *                 styled with CSS.
+     * @return Horde_View_Sidebar  Sidebar view of menu elements.
      */
     protected function _render()
     {
@@ -252,7 +250,7 @@ class Horde_Menu
             $sidebar->addRow($row);
         }
 
-        return $sidebar->render();
+        return $sidebar;
     }
 
     /**

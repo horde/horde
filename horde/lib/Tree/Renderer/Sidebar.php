@@ -1,12 +1,11 @@
 <?php
 /**
- * The Horde_Tree_Menu class renders the tree structure of the top
- * application menu.
+ * The Horde_Tree_Sidebar class renders tree structures in the sidebar menus.
  *
  * Additional node parameters:
- * - noarrow: (boolean) Whether to hide the arrow next to the top level menu
- *            entry.
+ * - icon: (string) Icon to display next node.
  * - onclick: (string) Value for onclick attribute.
+ * - selected: (boolean) Whether the node is selected.
  * - target: (string) Target for the 'url' link.
  * - url: (string|Horde_Url) URL for the node link.
  *
@@ -20,7 +19,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Horde
  */
-class Horde_Tree_Renderer_Menu extends Horde_Tree_Renderer_Base
+class Horde_Tree_Renderer_Sidebar extends Horde_Tree_Renderer_Base
 {
     /**
      * Returns the tree.
@@ -32,9 +31,12 @@ class Horde_Tree_Renderer_Menu extends Horde_Tree_Renderer_Base
     public function getTree($static = false)
     {
         $view = $GLOBALS['injector']->getInstance('Horde_View');
-        $view->setTemplatePath($GLOBALS['registry']->get('templates', 'horde') . '/tree');
+        $view->setTemplatePath(array(
+            $GLOBALS['registry']->get('templates', 'horde') . '/sidebar',
+            $GLOBALS['registry']->get('templates', 'horde') . '/tree'
+        ));
         $view->rootItems = $this->_tree->getRootNodes();
         $view->items = $this->_tree->getNodes();
-        return $view->render('menu');
+        return $view->render('sidebar');
     }
 }
