@@ -1679,9 +1679,10 @@ var DimpBase = {
             DimpCore.DMenu.removeElement(elt.identify());
         });
 
-        // Add subject
+        // Add subject. Subject was already html encoded on server (subject
+        // may include links).
         tmp = pm.select('.subject');
-        tmp.invoke('update', r.subject === null ? '[' + DimpCore.text.badsubject + ']' : r.subject.escapeHTML());
+        tmp.invoke('update', r.subject === null ? '[' + DimpCore.text.badsubject + ']' : r.subject);
 
         // Add date
         [ $('msgHeaderDate') ].flatten().invoke(r.localdate ? 'show' : 'hide');

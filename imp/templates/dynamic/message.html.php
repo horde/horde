@@ -58,7 +58,7 @@
       <thead>
        <tr>
         <td class="label"><?php echo _("Subject") ?>:</td>
-        <td class="subject"><?php echo $this->h($this->subject) ?></td>
+        <td class="subject"><?php echo $this->subject ?></td>
        </tr>
 <?php foreach ($this->hdrs as $val): ?>
        <tr<?php if ($val['id']) echo ' id="' . $val['id'] . '"'; ?>>
