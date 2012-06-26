@@ -1,26 +1,25 @@
 <div class="horde-buttonbar">
-  <div class="horde-button-right"><tag:pagetitle /></div>
+ <ul class="rightFloat">
 <if:readonly>
-  <span class="iconImg readonlyImg" title="<gettext>Read-Only</gettext>"></span>
+  <li class="horde-nobutton readonlyImg" title="<gettext>Read-Only</gettext>"></li>
 </if:readonly>
+  <li class="horde-nobutton"><tag:pagetitle /></li>
+ </ul>
+ <ul>
 <if:filter_url>
-  <div class="horde-button-left horde-icon filtersIcon"><a href="<tag:filter_url />"><gettext>Apply Filters</gettext></a></div>
-  <div class="horde-button-split"></div>
+  <li class="horde-icon filtersIcon"><a href="<tag:filter_url />"><gettext>Apply Filters</gettext></a></li>
 </if:filter_url>
 <if:search_url>
-  <div class="horde-button-left horde-icon searchImg"><a href="<tag:search_url />"><gettext>Search</gettext></a></div>
-  <div class="horde-button-split"></div>
+  <li class="horde-icon searchImg"><a href="<tag:search_url />"><gettext>Search</gettext></a></li>
 <if:searchclose>
-  <div class="horde-button-left horde-icon closeImg"><a href="<tag:searchclose />"><gettext>Exit Search</gettext></a></div>
-  <div class="horde-button-split"></div>
+  <li class="horde-icon closeImg"><a href="<tag:searchclose />"><gettext>Exit Search</gettext></a></li>
 </if:searchclose>
 </if:search_url>
 <if:edit_search_url>
-  <div class="horde-button-left horde-icon editImg"><a href="<tag:edit_search_url />"><tag:edit_search_title /></a></div>
-  <div class="horde-button-split"></div>
+  <li class="horde-icon editImg"><a href="<tag:edit_search_url />"><tag:edit_search_title /></a></li>
 </if:edit_search_url>
 <if:empty>
-  <div class="horde-button-left horde-icon emptytrashImg"><a href="<tag:empty />" id="empty_mailbox"><gettext>Empty Mailbox</gettext></a></div>
-  <div class="horde-button-split"></div>
+  <li class="horde-icon emptytrashImg"><a href="<tag:empty />" id="empty_mailbox"><gettext>Empty Mailbox</gettext></a></li>
 </if:empty>
+ </ul>
 </div>

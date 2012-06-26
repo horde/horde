@@ -457,11 +457,14 @@ span.mimePartInfoSize {
 .editImg {
     background-image: url("graphics/edit.png");
 }
-.searchImg {
-    background-image: url("graphics/search.png");
+.searchImg, .horde-buttonbar li.searchImg {
+    background-image: url("graphics/search.png"), url('graphics/button-split.png');
 }
-.readonlyImg {
+.readonlyImg, .horde-buttonbar li.readonlyImg {
     background-image: url("graphics/locked.png");
+}
+.horde-buttonbar li.readonlyImg {
+    margin-right: -5px;
 }
 .addrbookaddImg {
     background-image: url("graphics/addressbook_add.png");
@@ -469,12 +472,12 @@ span.mimePartInfoSize {
 .spellcheckImg {
     background-image: url("graphics/spellcheck.png");
 }
-.emptytrashImg {
-    background-image: url("graphics/empty_trash.png");
+.emptytrashImg, .horde-buttonbar li.emptytrashImg {
+    background-image: url("graphics/empty_trash.png"), url('graphics/button-split.png');
 }
 
-.filtersIcon {
-    background-image: url("graphics/filters.png");
+.filtersIcon, .horde-buttonbar li.filtersIcon {
+    background-image: url("graphics/filters.png"), url('graphics/button-split.png');
 }
 
 /* iTip styles. */

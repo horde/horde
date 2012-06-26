@@ -1,42 +1,38 @@
 <div class="horde-buttonbar">
+ <ul class="rightFloat">
 <loop:mboxactions>
-  <div class="horde-button-right"><tag:mboxactions.v /></div>
+  <li><tag:mboxactions.v /></li>
 </loop:mboxactions>
+ </ul>
+ <ul>
 <if:templateedit>
-  <div class="horde-button-left"><tag:templateedit /></div>
-  <div class="horde-button-split"></div>
+  <li><tag:templateedit /></li>
 </if:templateedit>
 <if:delete>
-  <div class="horde-button-left"><tag:delete /></div>
-  <div class="horde-button-split"></div>
+  <li><tag:delete /></li>
 </if:delete>
 <if:undelete>
-  <div class="horde-button-left"><tag:undelete /></div>
-  <div class="horde-button-split"></div>
+  <li><tag:undelete /></li>
 </if:undelete>
 <if:blacklist>
-  <div class="horde-button-left"><tag:blacklist /></div>
-  <div class="horde-button-split"></div>
+  <li><tag:blacklist /></li>
 </if:blacklist>
 <if:whitelist>
-  <div class="horde-button-left"><tag:whitelist /></div>
-  <div class="horde-button-split"></div>
+  <li><tag:whitelist /></li>
 </if:whitelist>
 <if:forward>
-  <div class="horde-button-left"><tag:forward /></div>
-  <div class="horde-button-split"></div>
+  <li><tag:forward /></li>
 </if:forward>
 <if:redirect>
-  <div class="horde-button-left"><tag:redirect /></div>
-  <div class="horde-button-split"></div>
+  <li><tag:redirect /></li>
 </if:redirect>
 <if:spam>
-  <div class="horde-button-left"><tag:spam /></div>
-  <div class="horde-button-split"></div>
+  <li><tag:spam /></li>
 </if:spam>
 <if:notspam>
-  <div class="horde-button-left"><tag:notspam /></div>
-  <div class="horde-button-split"></div>
+  <li><tag:notspam /></li>
 </if:notspam>
-  <div class="horde-button-left"><tag:view_messages /></div>
+  <li><tag:view_messages /></li>
+ </ul>
 </div>
+<div class="clear"></div>
