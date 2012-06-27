@@ -580,7 +580,7 @@ if (!$readonly && $registry->hasMethod('mail/whitelistFrom')) {
 }
 
 if (!empty($conf['user']['allow_view_source'])) {
-    $a_template->set('view_source', $imp_contents->linkViewJS($imp_contents->getMIMEMessage(), 'view_source', _("_Message Source"), array('jstext' => _("Message Source"), 'css' => '', '' => true)));
+    $a_template->set('view_source', $imp_contents->linkViewJS($imp_contents->getMIMEMessage(), 'view_source', _("_Message Source"), array('jstext' => _("Message Source"), 'css' => '', 'widget' => true)));
 }
 
 if (!$disable_compose &&
