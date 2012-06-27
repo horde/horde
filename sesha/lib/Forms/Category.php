@@ -10,7 +10,7 @@
  */
 class Sesha_Forms_Category extends Horde_Form
 {
-    function __construct($vars)
+    public function __construct($vars)
     {
         parent::__construct($vars);
         // This is probably wrong. The library should get the driver 

@@ -10,7 +10,7 @@
  */
 class Sesha_Forms_Property extends Horde_Form
 {
-    function __construct($vars)
+    public function __construct($vars)
     {
         parent::__construct($vars);
 

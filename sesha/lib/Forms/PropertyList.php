@@ -11,7 +11,7 @@
 
 class Sesha_Forms_PropertyList extends Horde_Form
 {
-    function __construct($vars)
+    public function __construct($vars)
     {
         parent::Horde_Form($vars);
         // This is probably wrong. The library should get the driver 

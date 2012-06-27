@@ -21,7 +21,7 @@ class Sesha_Forms_Stock extends Horde_Form {
      *
      * @param Horde_Variables $vars  The default variables to use.
      */
-    function __construct($vars)
+    public function __construct($vars)
     {
 
         parent::__construct($vars);
