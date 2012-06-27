@@ -1,4 +1,5 @@
-<?php echo $injector->getInstance('Horde_View_Topbar')->render(); ?>
+<?php echo $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render(); ?>
+<?php echo Wicked::getMenu('string') ?>
 <script type="text/javascript">
 function jump()
 {
@@ -12,13 +13,9 @@ function jump()
 <form name="wjump" method="get" action="<?php echo Horde::url('display.php') ?>">
 <input type="hidden" name="page" value="Search" />
 <?php Horde_Util::pformInput() ?>
-<div id="menu">
  <div class="rightFloat">
   <input type="text" size="10" name="params" value="<?php echo htmlspecialchars(Horde_Util::getFormData('params')) ?>" />
   <input type="submit" onclick="return jump()" class="button" value="<?php echo _("Search") ?>" />
  </div>
- <?php echo Wicked::getMenu('string') ?>
- <br class="clear" />
-</div>
 </form>
 <?php $GLOBALS['notification']->notify(array('listeners' => 'status'));
