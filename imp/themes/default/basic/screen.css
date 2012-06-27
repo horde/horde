@@ -124,11 +124,21 @@ div.msgActions, #fmanager div.folderActions {
 }
 
 /* Message headers styling. */
+#msgheaders {
+    padding: 18px;
+    background-color: #eceff0;
+    border-bottom: 1px solid #d0d0d0;
+}
 #msgheaders table {
     border-collapse: collapse;
 }
 #msgheaders td {
     vertical-align: top;
+    padding: 0 0 1px 0;
+}
+#msgheaders td.rightAlign {
+    font-weight: bold;
+    padding-right: 4px;
 }
 
 /* Attachment tree styling. */
@@ -139,10 +149,8 @@ div.partsTreeDiv span span:last-child {
 
 /* Message body styling. */
 .messageBody {
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    background: #fff;
-    padding: 8px;
+    padding: 18px;
+    border-bottom: 1px solid #d0d0d0;
 }
 
 /* Folder view. */

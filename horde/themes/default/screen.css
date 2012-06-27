@@ -381,15 +381,14 @@ pre, code, .fixed, table.lineNumbered * {
 /* Various popup and status layers. */
 .notices {
     text-align: left;
-    margin: .5em 8px;
     list-style-type: none;
 }
 .notices li, .notice {
     font-weight: bold;
     color: #000;
     background: #ffc;
-    border: 1px solid #aaa;
-    padding: 1px 3px;
+    border-bottom: 1px solid #d0d0d0;
+    padding: 7px 15px;
 }
 .notices img, .notice img {
     margin-right: .5em;

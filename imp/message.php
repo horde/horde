@@ -454,9 +454,6 @@ $t_template->set('mailbox', IMP::mailbox()->form_to);
 $t_template->set('thismailbox', IMP::mailbox(true)->form_to);
 $t_template->set('start', htmlspecialchars($msgindex));
 $t_template->set('uid', htmlspecialchars($uid));
-$t_template->set('label', sprintf(_("%s: %s"), $header_label, $shortsub));
-$t_template->set('msg_count', sprintf(_("(%d&nbsp;of&nbsp;%d)"), $msgindex, count($imp_mailbox)));
-$t_template->set('status', $status);
 $t_template->set('message_token', $message_token);
 
 /* Prepare the navbar navigate template. */
@@ -738,8 +735,15 @@ if (!empty($inlineout['atc_parts'])) {
     );
 }
 
+$m_template->set('label', $shortsub);
 $m_template->set('headers', $hdrs);
 $m_template->set('msgtext', $mdntext . $inlineout['msgtext']);
+
+$injector->getInstance('Horde_View_Topbar')->subinfo = sprintf(
+    '%s: %s %s',
+    $header_label,
+    sprintf(_("(%d&nbsp;of&nbsp;%d)"), $msgindex, count($imp_mailbox)),
+    $status);
 
 /* Output message page now. */
 $page_output->addInlineScript($inlineout['js_onload'], true);
