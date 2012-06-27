@@ -558,6 +558,9 @@ class Horde_Browser
                         $this->setFeature('utf');
                     }
                 }
+                if (stripos($agent, 'mobile') !== false) {
+                    $this->setMobile(true);
+                }
                 break;
 
             case 4:
