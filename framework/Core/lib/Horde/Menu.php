@@ -231,8 +231,8 @@ class Horde_Menu
                 'cssClass' => $m['icon'],
                 'url' => $m['url'],
                 'label' => $m['text'],
-                //'target' => $m['target'],
-                //'onclick' => $m['onclick'],
+                'target' => $m['target'],
+                'onclick' => $m['onclick'],
             );
 
             /* Item class and selected indication. */
