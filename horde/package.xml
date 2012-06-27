@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-26</date>
- <time>16:18:22</time>
+ <date>2012-06-27</date>
+ <time>16:47:57</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -365,6 +365,7 @@
     <file name="stripe.js" role="horde" />
     <file name="syncmlprefs.js" role="horde" />
     <file name="textarearesize.js" role="horde" />
+    <file name="topbar.js" role="horde" />
     <file name="twitterclient.js" role="horde" />
     <file name="userupdate.js" role="horde" />
     <file name="vatid.js" role="horde" />
@@ -1754,6 +1755,7 @@
       <file name="perms.png" role="horde" />
       <file name="phone.png" role="horde" />
       <file name="plus.png" role="horde" />
+      <file name="popdown.png" role="horde" />
       <file name="popright.png" role="horde" />
       <file name="prefs.png" role="horde" />
       <file name="print.png" role="horde" />
@@ -1771,7 +1773,6 @@
       <file name="shell.png" role="horde" />
       <file name="show_panel.png" role="horde" />
       <file name="sidebar-active-bg.png" role="horde" />
-      <file name="sidebar-arrow.png" role="horde" />
       <file name="sidebar-new-bg.png" role="horde" />
       <file name="sidebar-new.png" role="horde" />
       <file name="sidebar-refresh.png" role="horde" />
@@ -2240,6 +2241,7 @@
    <install as="js/stripe.js" name="js/stripe.js" />
    <install as="js/syncmlprefs.js" name="js/syncmlprefs.js" />
    <install as="js/textarearesize.js" name="js/textarearesize.js" />
+   <install as="js/topbar.js" name="js/topbar.js" />
    <install as="js/twitterclient.js" name="js/twitterclient.js" />
    <install as="js/userupdate.js" name="js/userupdate.js" />
    <install as="js/vatid.js" name="js/vatid.js" />
@@ -2802,6 +2804,7 @@
    <install as="themes/default/graphics/perms.png" name="themes/default/graphics/perms.png" />
    <install as="themes/default/graphics/phone.png" name="themes/default/graphics/phone.png" />
    <install as="themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
+   <install as="themes/default/graphics/popdown.png" name="themes/default/graphics/popdown.png" />
    <install as="themes/default/graphics/popright.png" name="themes/default/graphics/popright.png" />
    <install as="themes/default/graphics/prefs.png" name="themes/default/graphics/prefs.png" />
    <install as="themes/default/graphics/print.png" name="themes/default/graphics/print.png" />
@@ -2819,7 +2822,6 @@
    <install as="themes/default/graphics/shell.png" name="themes/default/graphics/shell.png" />
    <install as="themes/default/graphics/show_panel.png" name="themes/default/graphics/show_panel.png" />
    <install as="themes/default/graphics/sidebar-active-bg.png" name="themes/default/graphics/sidebar-active-bg.png" />
-   <install as="themes/default/graphics/sidebar-arrow.png" name="themes/default/graphics/sidebar-arrow.png" />
    <install as="themes/default/graphics/sidebar-new-bg.png" name="themes/default/graphics/sidebar-new-bg.png" />
    <install as="themes/default/graphics/sidebar-new.png" name="themes/default/graphics/sidebar-new.png" />
    <install as="themes/default/graphics/sidebar-refresh.png" name="themes/default/graphics/sidebar-refresh.png" />

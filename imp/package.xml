@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-18</date>
- <time>15:34:56</time>
+ <date>2012-06-27</date>
+ <time>16:48:07</time>
  <version>
   <release>6.0.0</release>
   <api>6.0.0</api>
@@ -270,9 +270,29 @@
       <file name="Fixed.php" role="horde" />
       <file name="Sortpref.php" role="horde" />
      </dir> <!-- /lib/Prefs/Sort -->
+     <dir name="Special">
+      <file name="Acl.php" role="horde" />
+      <file name="ComposeTemplates.php" role="horde" />
+      <file name="Drafts.php" role="horde" />
+      <file name="Encrypt.php" role="horde" />
+      <file name="Flag.php" role="horde" />
+      <file name="HtmlSignature.php" role="horde" />
+      <file name="InitialPage.php" role="horde" />
+      <file name="Mailto.php" role="horde" />
+      <file name="NewmailSound.php" role="horde" />
+      <file name="PgpPrivateKey.php" role="horde" />
+      <file name="PgpPublicKey.php" role="horde" />
+      <file name="Searches.php" role="horde" />
+      <file name="Sentmail.php" role="horde" />
+      <file name="SmimePrivateKey.php" role="horde" />
+      <file name="SmimePublicKey.php" role="horde" />
+      <file name="Sourceselect.php" role="horde" />
+      <file name="Spam.php" role="horde" />
+      <file name="SpecialMboxes.php" role="horde" />
+      <file name="Trash.php" role="horde" />
+     </dir> <!-- /lib/Prefs/Special -->
      <file name="Identity.php" role="horde" />
      <file name="Sort.php" role="horde" />
-     <file name="Ui.php" role="horde" />
     </dir> <!-- /lib/Prefs -->
     <dir name="Quota">
      <file name="Command.php" role="horde" />
@@ -674,6 +694,7 @@
      <file name="message.html.php" role="horde" />
      <file name="qreply.html.php" role="horde" />
      <file name="redirect.html.php" role="horde" />
+     <file name="sidebar.html.php" role="horde" />
     </dir> <!-- /templates/dynamic -->
     <dir name="imp">
      <dir name="compose">
@@ -872,6 +893,7 @@
       <file name="arrow_up.png" role="horde" />
       <file name="attachment.png" role="horde" />
       <file name="blacklist.png" role="horde" />
+      <file name="button-split.png" role="horde" />
       <file name="calendar.png" role="horde" />
       <file name="checkbox_off.png" role="horde" />
       <file name="checkbox_on.png" role="horde" />
@@ -1431,9 +1453,27 @@
    <install as="imp/lib/Notification/Handler/Decorator/NewmailNotify.php" name="lib/Notification/Handler/Decorator/NewmailNotify.php" />
    <install as="imp/lib/Prefs/Identity.php" name="lib/Prefs/Identity.php" />
    <install as="imp/lib/Prefs/Sort.php" name="lib/Prefs/Sort.php" />
-   <install as="imp/lib/Prefs/Ui.php" name="lib/Prefs/Ui.php" />
    <install as="imp/lib/Prefs/Sort/Fixed.php" name="lib/Prefs/Sort/Fixed.php" />
    <install as="imp/lib/Prefs/Sort/Sortpref.php" name="lib/Prefs/Sort/Sortpref.php" />
+   <install as="imp/lib/Prefs/Special/Acl.php" name="lib/Prefs/Special/Acl.php" />
+   <install as="imp/lib/Prefs/Special/ComposeTemplates.php" name="lib/Prefs/Special/ComposeTemplates.php" />
+   <install as="imp/lib/Prefs/Special/Drafts.php" name="lib/Prefs/Special/Drafts.php" />
+   <install as="imp/lib/Prefs/Special/Encrypt.php" name="lib/Prefs/Special/Encrypt.php" />
+   <install as="imp/lib/Prefs/Special/Flag.php" name="lib/Prefs/Special/Flag.php" />
+   <install as="imp/lib/Prefs/Special/HtmlSignature.php" name="lib/Prefs/Special/HtmlSignature.php" />
+   <install as="imp/lib/Prefs/Special/InitialPage.php" name="lib/Prefs/Special/InitialPage.php" />
+   <install as="imp/lib/Prefs/Special/Mailto.php" name="lib/Prefs/Special/Mailto.php" />
+   <install as="imp/lib/Prefs/Special/NewmailSound.php" name="lib/Prefs/Special/NewmailSound.php" />
+   <install as="imp/lib/Prefs/Special/PgpPrivateKey.php" name="lib/Prefs/Special/PgpPrivateKey.php" />
+   <install as="imp/lib/Prefs/Special/PgpPublicKey.php" name="lib/Prefs/Special/PgpPublicKey.php" />
+   <install as="imp/lib/Prefs/Special/Searches.php" name="lib/Prefs/Special/Searches.php" />
+   <install as="imp/lib/Prefs/Special/Sentmail.php" name="lib/Prefs/Special/Sentmail.php" />
+   <install as="imp/lib/Prefs/Special/SmimePrivateKey.php" name="lib/Prefs/Special/SmimePrivateKey.php" />
+   <install as="imp/lib/Prefs/Special/SmimePublicKey.php" name="lib/Prefs/Special/SmimePublicKey.php" />
+   <install as="imp/lib/Prefs/Special/Sourceselect.php" name="lib/Prefs/Special/Sourceselect.php" />
+   <install as="imp/lib/Prefs/Special/Spam.php" name="lib/Prefs/Special/Spam.php" />
+   <install as="imp/lib/Prefs/Special/SpecialMboxes.php" name="lib/Prefs/Special/SpecialMboxes.php" />
+   <install as="imp/lib/Prefs/Special/Trash.php" name="lib/Prefs/Special/Trash.php" />
    <install as="imp/lib/Quota/Command.php" name="lib/Quota/Command.php" />
    <install as="imp/lib/Quota/Hook.php" name="lib/Quota/Hook.php" />
    <install as="imp/lib/Quota/Imap.php" name="lib/Quota/Imap.php" />
@@ -1613,6 +1653,7 @@
    <install as="imp/templates/dynamic/message.html.php" name="templates/dynamic/message.html.php" />
    <install as="imp/templates/dynamic/qreply.html.php" name="templates/dynamic/qreply.html.php" />
    <install as="imp/templates/dynamic/redirect.html.php" name="templates/dynamic/redirect.html.php" />
+   <install as="imp/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />
    <install as="imp/templates/imp/compose/compose.html" name="templates/imp/compose/compose.html" />
    <install as="imp/templates/imp/compose/redirect.html" name="templates/imp/compose/redirect.html" />
    <install as="imp/templates/imp/compose/success.html" name="templates/imp/compose/success.html" />
@@ -1717,6 +1758,7 @@
    <install as="imp/themes/default/graphics/arrow_up.png" name="themes/default/graphics/arrow_up.png" />
    <install as="imp/themes/default/graphics/attachment.png" name="themes/default/graphics/attachment.png" />
    <install as="imp/themes/default/graphics/blacklist.png" name="themes/default/graphics/blacklist.png" />
+   <install as="imp/themes/default/graphics/button-split.png" name="themes/default/graphics/button-split.png" />
    <install as="imp/themes/default/graphics/calendar.png" name="themes/default/graphics/calendar.png" />
    <install as="imp/themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
    <install as="imp/themes/default/graphics/checkbox_on.png" name="themes/default/graphics/checkbox_on.png" />
