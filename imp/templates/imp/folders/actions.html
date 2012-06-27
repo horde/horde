@@ -1,13 +1,13 @@
 <div class="horde-buttonbar">
-  <div class="horde-button-right">
-     <tag:help />
-  </div>
-  <div class="horde-button-left">
+ <ul class="rightFloat">
+  <li class="horde-nobutton"><tag:help /></li>
+ </ul>
+ <ul>
+  <li>
     <input type="checkbox" class="checkbox" id="checkAll<tag:id />" name="checkAll" <tag:check_ak /> />&nbsp;
     <label for="checkAll<tag:id />"><gettext>Check All/None</gettext></label>
-  </div>
-  <div class="horde-button-split"></div>
-  <div class="horde-button-left">
+  </li>
+  <li>
     <label for="action_choose<tag:id />" class="hidden"><gettext>Choose Action</gettext></label>
     <select id="action_choose<tag:id />">
      <option selected="selected"><gettext>Choose Action</gettext></option>
@@ -41,20 +41,17 @@
      <option value="" disabled="disabled">--------------------</option>
      <option value="rebuild_tree"><gettext>Rebuild Folder Tree</gettext></option>
     </select>
-  </div>
-  <div class="horde-button-split"></div>
-  <div class="horde-button-left">
+  </li>
+  <li>
 <if:subscribe>
     <tag:toggle_subscribe />
-  </div>
+  </li>
 </if:subscribe>
-  <div class="horde-button-split"></div>
-  <div class="horde-button-left">
+  <li>
     <tag:expand_all />
-  </div>
-  <div class="horde-button-split"></div>
-  <div class="horde-button-left">
+  </li>
+  <li>
      <tag:collapse_all />
-  </div>
-  <div class="horde-button-split"></div>
+  </li>
+ </ul>
 </div>
