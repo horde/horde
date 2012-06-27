@@ -1,4 +1,4 @@
-/*  Prototype JavaScript framework, version 1.7
+/*  Prototype JavaScript framework, version 1.7.1
  *  (c) 2005-2010 Sam Stephenson
  *
  *  Prototype is freely distributable under the terms of an MIT-style license.
@@ -8,7 +8,7 @@
 
 var Prototype = {
 
-  Version: '1.7',
+  Version: '1.7.1',
 
   Browser: (function(){
     var ua = navigator.userAgent;
@@ -400,7 +400,7 @@ Object.extend(Function.prototype, (function() {
 
     var bound = function() {
       var a = merge(args, arguments), c = context;
-      var c = this instanceof bound ? this : context || window;
+      var c = this instanceof bound ? this : context;
       return __method.apply(c, a);
     };
 
@@ -1243,6 +1243,7 @@ Array.from = $A;
     return array;
   }
 
+
   function wrapNative(method) {
     return function() {
       if (arguments.length === 0) {
@@ -1256,6 +1257,7 @@ Array.from = $A;
       }
     };
   }
+
 
   function map(iterator) {
     if (this == null) throw new TypeError();
@@ -1318,6 +1320,7 @@ Array.from = $A;
   if (arrayProto.some) {
     var some = wrapNative(Array.prototype.some);
   }
+
 
   function every(iterator) {
     if (this == null) throw new TypeError();
@@ -1911,7 +1914,12 @@ Ajax.Response = Class.create({
   _getHeaderJSON: function() {
     var json = this.getHeader('X-JSON');
     if (!json) return null;
-    json = decodeURIComponent(escape(json));
+
+    try {
+      json = decodeURIComponent(escape(json));
+    } catch(e) {
+    }
+
     try {
       return json.evalJSON(this.request.options.sanitizeJSON ||
         !this.request.isSameOrigin());
@@ -3079,7 +3087,7 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
       value = element.currentStyle[style];
     }
 
-    if (style === 'opacity')
+    if (style === 'opacity' && !STANDARD_CSS_OPACITY_SUPPORTED)
       return getOpacity_IE(element);
 
     if (value === 'auto') {
@@ -5798,7 +5806,10 @@ var Form = {
     } else {
       initial = '';
       accumulator = function(result, key, value) {
-        return result + (result ? '&' : '') + encodeURIComponent(key) + '=' + encodeURIComponent(value);
+        value = value.gsub(/(\r)?\n/, '\r\n');
+        value = encodeURIComponent(value);
+        value = value.gsub(/%20/, '+');
+        return result + (result ? '&' : '') + encodeURIComponent(key) + '=' + value;
       }
     }
 
