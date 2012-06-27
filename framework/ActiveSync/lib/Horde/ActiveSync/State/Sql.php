@@ -500,7 +500,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $user));
 
         // See if we already have this device, for this user loaded
-        if ($this->_deviceInfo->id == $devId && !empty($this->_deviceInfo) &&
+        if (!empty($this->_deviceInfo) && $this->_deviceInfo->id == $devId &&
+            !empty($this->_deviceInfo) &&
             $user == $this->_deviceInfo->user) {
             return $this->_deviceInfo;
         }
