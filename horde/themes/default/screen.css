@@ -19,13 +19,6 @@ p {
     margin-bottom: 10px;
 }
 
-a {
-    cursor: pointer;
-}
-.horde-block-links a, a.horde-block-links {
-    display: block;
-}
-
 img, .img, .img:active, .img:hover, .img:visited, .image {
     border: none;
     vertical-align: middle;
@@ -139,12 +132,17 @@ br.spacer {
 }
 
 a {
-    color: blue;
+    color: #000;
+    cursor: pointer;
     text-decoration: none;
 }
 a:hover {
     text-decoration: underline;
 }
+.horde-block-links a, a.horde-block-links {
+    display: block;
+}
+
 .selected {
     background: #bbcbff;
 }
@@ -1593,20 +1591,6 @@ span.loadingImg {
     position: absolute;
     width: 16px;
     z-index: 1000;
-}
-
-/*
- * Links
- */
-a, a:link, a:visited, a:active{
-color:#000;
-font-weight:normal;
-text-decoration:none;
-}
-a:hover{
-color:#000;
-font-weight:bold;
-text-decoration:none;
 }
 
 /* Link für ein Background-Icon */
