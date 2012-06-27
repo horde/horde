@@ -1612,6 +1612,7 @@ color: #fff;
 font-weight:bold;
 text-decoration:none;
 text-shadow: 1px 1px 0px #000;
+display: block;
 }
 a.horde-mainnavi:hover{
 font-size: 110%;
@@ -1919,43 +1920,48 @@ background-color:#bfc9cd;
   background-color:#bfc9cd;
   }
 
-.horde-new{
-height:29px;
-background-image:url('graphics/sidebar-new-bg.png');
-background-repeat:repeat-x;
-border-bottom:1px solid #787878;
-overflow: hidden;
+.horde-new {
+    height: 29px;
+    background-image: url('graphics/sidebar-new-bg.png');
+    background-repeat: repeat-x;
+    border-bottom: 1px solid #787878;
+    overflow: hidden;
+    font-size: 140%;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: -1px -1px 0px #000;
 }
-  .horde-new-plus{
-  float:left;
-  width:17px;
-  height:23px;
-  margin:6px 11px 0px 10px;
-  background-image:url('graphics/sidebar-new.png');
-  background-repeat:no-repeat;
-  }
-  .horde-new-str{
-  float:left;
-  height:23px;
-  margin:5px 10px 0px 0px;
-  }
-  .horde-new-split{
-  float:right;
-  width:2px;
-  height:29px;
-  margin:0px 7px 0px 10px;
-  background-image:url('graphics/sidebar-split.png');
-  background-repeat:no-repeat;
-  }
-  .horde-new-refresh{
-  float:right;
-  width:20px;
-  height:24px;
-  margin:5px 6px 0px 0px;
-  background-image:url('graphics/sidebar-refresh.png');
-  background-repeat:no-repeat;
-  }
-
+    .horde-new-link a {
+        padding-left: 28px;
+        margin: 5px 10px 0 10px;
+        background-image:url('graphics/sidebar-new.png');
+        background-repeat:no-repeat;
+        background-position: left 1px;
+        color: #fff;
+        display: block;
+    }
+    .horde-new-split {
+        float: right;
+        width: 2px;
+        height: 29px;
+        margin-left: 10px;
+        background-image: url('graphics/sidebar-split.png');
+        background-repeat: no-repeat;
+    }
+    .horde-new-refresh {
+        float: right;
+        width: 20px;
+        height: 24px;
+        margin: 5px 6px 0px 7px;
+        background-image: url('graphics/sidebar-refresh.png');
+        background-repeat: no-repeat;
+    }
+    .horde-new-refresh a {
+        display: block;
+    }
+    .horde-new-refresh a:hover {
+        text-decoration: none;
+    }
 
 /*
  * Sidebar -> Navigation (Icon, Link, Icon)
