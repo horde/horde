@@ -1995,7 +1995,7 @@ var DimpBase = {
             args.set('forceUpdate', 1);
         }
 
-        $('checkmaillink').down('A').update('[' + DimpCore.text.check + ']');
+        //$('checkmaillink').down('A').update('[' + DimpCore.text.check + ']');
         DimpCore.doAction('poll', args);
     },
 
