@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-10</date>
- <time>19:52:03</time>
+ <date>2012-06-27</date>
+ <time>19:16:14</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -46,6 +46,8 @@
    <dir name="docs">
     <file name="CHANGES" role="doc" />
     <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
     <file name="TODO" role="doc" />
    </dir> <!-- /docs -->
    <dir name="lib">
@@ -65,10 +67,10 @@
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
     </dir> <!-- /lib/Factory -->
-    <dir name="Forms">
+    <dir name="Form">
      <dir name="Type">
       <file name="Client.php" role="horde" />
-     </dir> <!-- /lib/Forms/Type -->
+     </dir> <!-- /lib/Form/Type -->
      <file name="Category.php" role="horde" />
      <file name="CategoryDelete.php" role="horde" />
      <file name="CategoryList.php" role="horde" />
@@ -77,7 +79,7 @@
      <file name="PropertyList.php" role="horde" />
      <file name="Search.php" role="horde" />
      <file name="Stock.php" role="horde" />
-    </dir> <!-- /lib/Forms -->
+    </dir> <!-- /lib/Form -->
     <dir name="Ui">
      <dir name="VarRenderer">
       <file name="Stockedit_Html.php" role="horde" />
@@ -240,7 +242,6 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
-  </required>
    <package>
     <name>Horde_Rdo</name>
     <channel>pear.horde.org</channel>
@@ -269,6 +270,8 @@
    <install as="sesha/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="sesha/lib/Api.php" name="lib/Api.php" />
    <install as="sesha/lib/Application.php" name="lib/Application.php" />
@@ -285,15 +288,15 @@
    <install as="sesha/lib/Entity/Value.php" name="lib/Entity/Value.php" />
    <install as="sesha/lib/Entity/ValueMapper.php" name="lib/Entity/ValueMapper.php" />
    <install as="sesha/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
-   <install as="sesha/lib/Forms/Category.php" name="lib/Forms/Category.php" />
-   <install as="sesha/lib/Forms/CategoryDelete.php" name="lib/Forms/CategoryDelete.php" />
-   <install as="sesha/lib/Forms/CategoryList.php" name="lib/Forms/CategoryList.php" />
-   <install as="sesha/lib/Forms/Property.php" name="lib/Forms/Property.php" />
-   <install as="sesha/lib/Forms/PropertyDelete.php" name="lib/Forms/PropertyDelete.php" />
-   <install as="sesha/lib/Forms/PropertyList.php" name="lib/Forms/PropertyList.php" />
-   <install as="sesha/lib/Forms/Search.php" name="lib/Forms/Search.php" />
-   <install as="sesha/lib/Forms/Stock.php" name="lib/Forms/Stock.php" />
-   <install as="sesha/lib/Forms/Type/Client.php" name="lib/Forms/Type/Client.php" />
+   <install as="sesha/lib/Form/Category.php" name="lib/Form/Category.php" />
+   <install as="sesha/lib/Form/CategoryDelete.php" name="lib/Form/CategoryDelete.php" />
+   <install as="sesha/lib/Form/CategoryList.php" name="lib/Form/CategoryList.php" />
+   <install as="sesha/lib/Form/Property.php" name="lib/Form/Property.php" />
+   <install as="sesha/lib/Form/PropertyDelete.php" name="lib/Form/PropertyDelete.php" />
+   <install as="sesha/lib/Form/PropertyList.php" name="lib/Form/PropertyList.php" />
+   <install as="sesha/lib/Form/Search.php" name="lib/Form/Search.php" />
+   <install as="sesha/lib/Form/Stock.php" name="lib/Form/Stock.php" />
+   <install as="sesha/lib/Form/Type/Client.php" name="lib/Form/Type/Client.php" />
    <install as="sesha/lib/Ui/VarRenderer/Stockedit_Html.php" name="lib/Ui/VarRenderer/Stockedit_Html.php" />
    <install as="sesha/lib/View/Base.php" name="lib/View/Base.php" />
    <install as="sesha/lib/View/List.php" name="lib/View/List.php" />
@@ -334,7 +337,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-05-10</date>
+   <date>2012-06-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [rla] Use Horde_View in place of Horde_Template
