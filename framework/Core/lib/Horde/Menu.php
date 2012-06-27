@@ -245,6 +245,8 @@ class Horde_Menu
                 }
             } elseif ($m['class'] === '__noselection') {
                 unset($m['class']);
+            } elseif ($m['class'] === 'current') {
+                $row['selected'] = true;
             }
 
             $sidebar->addRow($row);
