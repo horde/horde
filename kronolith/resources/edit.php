@@ -56,7 +56,7 @@ $vars->set('description', $resource->get('description'));
 $vars->set('category', Kronolith::getDriver('Resource')->getGroupMemberships($resource->getId()));
 $vars->set('responsetype', $resource->get('response_type'));
 
-$menu = Horde::menu();
+$menu = Kronolith::menu();
 $page_output->header(array(
     'title' => $form->getTitle()
 ));

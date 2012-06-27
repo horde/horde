@@ -2266,6 +2266,12 @@ text-shadow: -1px -1px 0px #000;
 .horde-admin-mobile {
     background-image: url("graphics/mobile.png");
 }
+.horde-data {
+    background-image: url('graphics/data.png');
+}
+.horde-perms {
+    background-image: url('graphics/perms.png');
+}
 
 /* Print CSS. */
 @media print {

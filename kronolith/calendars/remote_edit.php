@@ -68,7 +68,7 @@ if (isset($calendar['color'])) {
 }
 $vars->set('user', $username);
 $vars->set('password', $password);
-$menu = Horde::menu();
+$menu = Kronolith::menu();
 $page_output->header(array(
     'title' => $form->getTitle()
 ));

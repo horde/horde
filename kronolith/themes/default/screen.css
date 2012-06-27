@@ -271,7 +271,7 @@ body.rightPanel ul {
 
 #pageControls {
     position: absolute;
-    top: -8px;
+    top: 0;
     right: 0;
     background: #eee;
     border: 1px solid #ccc;
@@ -348,6 +348,16 @@ table#calendar-list td {
     width: 1%;
 }
 
+/* Icons. */
+.kronolith-today {
+    background-image: url('graphics/today.png');
+}
+.kronolith-goto {
+    background-image: url('graphics/goto.png');
+}
+.kronolith-search {
+    background-image: url('graphics/search.png');
+}
 
 /*****************
  * AJAX INTERFACE

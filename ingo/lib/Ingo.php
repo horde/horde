@@ -338,6 +338,23 @@ class Ingo
      */
     static public function menu()
     {
+        global $injector;
+
+        $sidebar = Horde::menu(array('menu_ob' => true))->render();
+        $perms = $injector->getInstance('Horde_Core_Perms');
+        $actions = $injector->getInstance('Ingo_Script') ->availableActions();
+        $filters = $injector->getInstance('Ingo_Factory_Storage')
+            ->create()
+            ->retrieve(Ingo_Storage::ACTION_FILTERS)
+            ->getFilterList();
+
+        if (!empty($actions) &&
+            ($perms->hasAppPermission('allow_rules') &&
+             ($perms->hasAppPermission('max_rules') === true ||
+              $perms->hasAppPermission('max_rules') > count($filters)))) {
+            $sidebar->addNewButton(_("New Rule"), Horde::url('rule.php'));
+        }
+
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->set('form_url', Horde::url('filters.php'));
         $t->set('forminput', Horde_Util::formInput());
@@ -355,7 +372,7 @@ class Ingo
             $t->set('options', $options);
         }
 
-        $t->set('menu_string', Horde::menu(array('menu_ob' => true))->render());
+        $t->set('menu_string', $sidebar->render());
 
         $menu = $t->fetch(INGO_TEMPLATES . '/menu/menu.html');
 

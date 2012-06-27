@@ -676,4 +676,19 @@ class Turba
         ));
     }
 
+    /**
+     * Build Turba's menu.
+     *
+     * @return string  The menu output.
+     */
+    static public function menu()
+    {
+        $sidebar = Horde::menu(array('menu_ob' => true))->render();
+
+        if (count($GLOBALS['addSources'])) {
+            $sidebar->addNewButton(_("_New Contact"), Horde::url('add.php'));
+        }
+
+        return $sidebar;
+    }
 }

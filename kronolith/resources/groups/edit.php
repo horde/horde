@@ -50,7 +50,7 @@ $vars->set('name', $group->get('name'));
 $vars->set('description', $group->get('description'));
 $vars->set('members', $group->get('members'));
 
-$menu = Horde::menu();
+$menu = Kronolith::menu();
 $page_output->header(array(
     'title' => $form->getTitle()
 ));

@@ -117,12 +117,7 @@ class Kronolith_Application extends Horde_Registry_Application
             $notification->push(_("No calendars are available to guests."));
         }
 
-        $menu->add(Horde::url($prefs->getValue('defaultview') . '.php'), _("_Today"), 'today.png', null, null, null, '__noselection');
-        if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
-            ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') === true ||
-             $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())) {
-            $menu->add(Horde::url('new.php')->add('url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
-        }
+        $menu->add(Horde::url($prefs->getValue('defaultview') . '.php'), _("_Today"), 'kronolith-today', null, null, null, '__noselection');
 
         if ($browser->hasFeature('dom')) {
             Horde_Core_Ui_JsCalendar::init(array(
@@ -138,14 +133,14 @@ class Kronolith_Application extends Horde_Registry_Application
                 'KronolithGoto.weekurl' => strval(Horde::url('week.php')),
                 'KronolithGoto.yearurl' => strval(Horde::url('year.php'))
             ));
-            $menu->add(new Horde_Url(''), _("_Goto"), 'goto.png', null, '', null, 'kgotomenu');
+            $menu->add(new Horde_Url(''), _("_Goto"), 'kronolith-goto', null, '', null, 'kgotomenu');
         }
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
+        $menu->add(Horde::url('search.php'), _("_Search"), 'kronolith-search');
 
         /* Import/Export. */
         if ($conf['menu']['import_export'] &&
             !Kronolith::showAjaxView()) {
-            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
+            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'horde-data');
         }
     }
 

@@ -19,7 +19,7 @@ $page_output->header(array(
     'body_class' => $prefs->getValue('show_panel') ? 'rightPanel' : null,
     'title' => _("Search")
 ));
-echo Horde::menu();
+echo Mnemo::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/search/search.inc';
 require MNEMO_TEMPLATES . '/panel.inc';

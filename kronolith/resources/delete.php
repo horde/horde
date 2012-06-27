@@ -46,7 +46,7 @@ if ($form->validate(new Horde_Variables($_POST))) {
     Horde::url('resources/', true)->redirect();
 }
 
-$menu = Horde::menu();
+$menu = Kronolith::menu();
 $page_output->header(array(
     'title' => $form->getTitle()
 ));

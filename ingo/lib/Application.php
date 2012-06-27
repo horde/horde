@@ -172,9 +172,9 @@ class Ingo_Application extends Horde_Registry_Application
     public function menu($menu)
     {
         try {
-            $menu->add(Horde::url('filters.php'), _("Filter _Rules"), 'ingo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showWhitelist')), _("_Whitelist"), 'whitelist.png');
-            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showBlacklist')), _("_Blacklist"), 'blacklist.png');
+            $menu->add(Horde::url('filters.php'), _("Filter _Rules"), 'ingo-rules', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showWhitelist')), _("_Whitelist"), 'ingo-whitelist');
+            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showBlacklist')), _("_Blacklist"), 'ingo-blacklist');
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
         }
@@ -182,26 +182,26 @@ class Ingo_Application extends Horde_Registry_Application
         $s_categories = $GLOBALS['session']->get('ingo', 'script_categories');
 
         if (in_array(Ingo_Storage::ACTION_VACATION, $s_categories)) {
-            $menu->add(Horde::url('vacation.php'), _("_Vacation"), 'vacation.png');
+            $menu->add(Horde::url('vacation.php'), _("_Vacation"), 'ingo-vacation');
         }
 
         if (in_array(Ingo_Storage::ACTION_FORWARD, $s_categories)) {
-            $menu->add(Horde::url('forward.php'), _("_Forward"), 'forward.png');
+            $menu->add(Horde::url('forward.php'), _("_Forward"), 'ingo-forward');
         }
 
         if (in_array(Ingo_Storage::ACTION_SPAM, $s_categories)) {
-            $menu->add(Horde::url('spam.php'), _("S_pam"), 'spam.png');
+            $menu->add(Horde::url('spam.php'), _("S_pam"), 'ingo-spam');
         }
 
         if ($GLOBALS['session']->get('ingo', 'script_generate') &&
             (!$GLOBALS['prefs']->isLocked('auto_update') ||
              !$GLOBALS['prefs']->getValue('auto_update'))) {
-            $menu->add(Horde::url('script.php'), _("_Script"), 'script.png');
+            $menu->add(Horde::url('script.php'), _("_Script"), 'ingo-script');
         }
 
         if (!empty($GLOBALS['ingo_shares']) &&
             empty($GLOBALS['conf']['share']['no_sharing'])) {
-            $menu->add('#', _("_Permissions"), 'perms.png', null, '', Horde::popupJs(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('params' => array('app' => 'ingo', 'share' => $GLOBALS['session']->get('ingo', 'backend/id') . ':' . $GLOBALS['registry']->getAuth()), 'urlencode' => true)) . 'return false;');
+            $menu->add('#', _("_Permissions"), 'horde-perms', null, '', Horde::popupJs(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('params' => array('app' => 'ingo', 'share' => $GLOBALS['session']->get('ingo', 'backend/id') . ':' . $GLOBALS['registry']->getAuth()), 'urlencode' => true)) . 'return false;');
         }
     }
 

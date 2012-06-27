@@ -322,11 +322,6 @@ if (count($filter_list) == 0) {
     echo $template->fetch(INGO_TEMPLATES . '/filters/filter.html');
 }
 
-$actions = $ingo_script->availableActions();
-$createrule = (!empty($actions) &&
-               ($perms->hasAppPermission('allow_rules') &&
-                ($perms->hasAppPermission('max_rules') === true ||
-                 $perms->hasAppPermission('max_rules') > count($filter_list))));
 $canapply = $ingo_script->canApply();
 require INGO_TEMPLATES . '/filters/footer.inc';
 if ($on_demand && $edit_allowed) {

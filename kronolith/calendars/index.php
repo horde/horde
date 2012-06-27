@@ -73,7 +73,7 @@ $perms_img = Horde::img('perms.png', _("Change Permissions"));
 $delete_img = Horde::img('delete.png', _("Delete"));
 
 $page_output->addScriptFile('tables.js', 'horde');
-$menu = Horde::menu();
+$menu = Kronolith::menu();
 $page_output->header(array(
     'title' => _("Manage Calendars")
 ));

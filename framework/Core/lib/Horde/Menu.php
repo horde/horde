@@ -247,6 +247,8 @@ class Horde_Menu
                 unset($m['class']);
             } elseif ($m['class'] === 'current') {
                 $row['selected'] = true;
+            } else {
+                $row['class'] = $m['class'];
             }
 
             $sidebar->addRow($row);

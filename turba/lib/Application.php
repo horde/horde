@@ -154,22 +154,18 @@ class Turba_Application extends Horde_Registry_Application
     public function menu($menu)
     {
         if ($GLOBALS['session']->get('turba', 'has_share')) {
-            $menu->add(Horde::url('addressbooks/index.php'), _("_My Address Books"), 'turba.png');
+            $menu->add(Horde::url('addressbooks/index.php'), _("_My Address Books"), 'turba-addressbooks');
         }
 
         if ($GLOBALS['browse_source_count']) {
-            $menu->add(Horde::url('browse.php'), _("_Browse"), 'menu/browse.png', null, null, null, (($GLOBALS['prefs']->getValue('initial_page') == 'browse.php' && basename($_SERVER['PHP_SELF']) == 'index.php' && basename(dirname($_SERVER['PHP_SELF'])) != 'addressbooks') || (basename($_SERVER['PHP_SELF']) == 'browse.php' && Horde_Util::getFormData('key') != '**search')) ? 'current' : '__noselection');
+            $menu->add(Horde::url('browse.php'), _("_Browse"), 'turba-browse', null, null, null, (($GLOBALS['prefs']->getValue('initial_page') == 'browse.php' && basename($_SERVER['PHP_SELF']) == 'index.php' && basename(dirname($_SERVER['PHP_SELF'])) != 'addressbooks') || (basename($_SERVER['PHP_SELF']) == 'browse.php' && Horde_Util::getFormData('key') != '**search')) ? 'current' : '__noselection');
         }
 
-        if (count($GLOBALS['addSources'])) {
-            $menu->add(Horde::url('add.php'), _("_New Contact"), 'menu/new.png');
-        }
-
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', null, null, null, (($GLOBALS['prefs']->getValue('initial_page') == 'search.php' && basename($_SERVER['PHP_SELF']) == 'index.php' && strpos($_SERVER['PHP_SELF'], 'addressbooks/index.php') === false) || (basename($_SERVER['PHP_SELF']) == 'browse.php' && Horde_Util::getFormData('key') == '**search')) ? 'current' : null);
+        $menu->add(Horde::url('search.php'), _("_Search"), 'turba-search', null, null, null, (($GLOBALS['prefs']->getValue('initial_page') == 'search.php' && basename($_SERVER['PHP_SELF']) == 'index.php' && strpos($_SERVER['PHP_SELF'], 'addressbooks/index.php') === false) || (basename($_SERVER['PHP_SELF']) == 'browse.php' && Horde_Util::getFormData('key') == '**search')) ? 'current' : null);
 
         /* Import/Export */
         if ($GLOBALS['conf']['menu']['import_export']) {
-            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
+            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'horde-data');
         }
     }
 

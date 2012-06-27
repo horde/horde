@@ -1,5 +1,5 @@
 <?php echo $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render(); ?>
-<?php echo Horde::menu(array('menu_ob' => true))->render() ?>
+<?php echo Turba::menu() ?>
 <form name="directory_list" action="<?php echo Horde::url('browse.php') ?>" method="post">
 <?php echo Horde_Util::formInput() ?>
 <?php if ($browse_source_count > 1): ?>

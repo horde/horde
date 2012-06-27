@@ -112,11 +112,10 @@ class Horde_View_Sidebar extends Horde_View
         $attributes = $ak
             ? Horde::getAccessKeyAndTitle($row['label'], true, true)
             : array();
-        if (!empty($row['onclick'])) {
-            $attributes['onclick'] = $row['onclick'];
-        }
-        if (!empty($row['target'])) {
-            $attributes['target'] = $row['target'];
+        foreach (array('onclick', 'target', 'class') as $attribute) {
+            if (!empty($row[$attribute])) {
+               $attributes[$attribute] = $row[$attribute];
+            }
         }
         $row['link'] = $url->link($attributes)
             . Horde::highlightAccessKey($row['label'], $ak)

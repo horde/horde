@@ -12,7 +12,7 @@ if (!$GLOBALS['registry']->getAuth()) {
     Horde::url($prefs->getValue('defaultview') . '.php')->redirect();
 }
 
-$menu = Horde::menu();
+$menu = Kronolith::menu();
 $page_output->header(array(
     'title' => _("Resource Groups")
 ));

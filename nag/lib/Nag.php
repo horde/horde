@@ -840,9 +840,19 @@ class Nag
 
     public static function menu()
     {
+        $sidebar = Horde::menu(array('menu_ob' => true))->render();
+        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+        if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
+            ($perms->hasAppPermission('max_tasks') === true ||
+             $perms->hasAppPermission('max_tasks') > Nag::countTasks())) {
+            $sidebar->addNewButton(
+                _("_New Task"),
+                Horde::url('task.php')->add('actionID', 'add_task'));
+        }
         Horde::startBuffer();
         include NAG_TEMPLATES . '/quick.inc';
-        return Horde::menu() . Horde::endBuffer();
+        return $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render()
+            . $sidebar . Horde::endBuffer();
     }
 
     /**

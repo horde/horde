@@ -105,7 +105,7 @@ if ($search_mode == 'basic') {
     $page_output->addScriptFile('edit.js');
 }
 
-$menu = Horde::menu();
+$menu = Kronolith::menu();
 $page_output->addScriptFile('tooltips.js', 'horde');
 $page_output->header(array(
     'title' => _("Search")
