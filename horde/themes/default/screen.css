@@ -1654,12 +1654,11 @@ a.horde-mainnavi-active:hover{
 .horde-dropdown ul li {
   position:relative;
   border-bottom:1px solid #919294;
-  width: 100%;
+  white-space: nowrap;
 }
 .horde-dropdown ul li:last-child {
   position:relative;
   border-bottom:0px solid #919294;
-  width: 100%;
 }
 .horde-dropdown ul li.arrow {
   background-image:url('graphics/navi-subnavi.png');
@@ -1680,7 +1679,6 @@ a.horde-mainnavi-active:hover{
 .horde-dropdown ul li ul {
   margin-top:-25px;
   margin-left:100%;
-  width:100%;
   top:24px;
 }
 .horde-dropdown li:hover ul, .horde-dropdown li.over ul {
@@ -1694,16 +1692,11 @@ a.horde-mainnavi-active:hover{
 }
 .horde-drowdown-str{
 height:19px;
-padding:5px 10px 0px 0px;
+padding:5px 15px 0px 0px;
 margin:0px 0px 0px 10px;
 }
 .horde-drowdown-str:hover a{
 color: #7eaa42;
-}
-.horde-drowdown-str:hover{
-height:19px;
-padding:5px 10px 0px 0px;
-margin:0px 0px 0px 10px;
 }
 .horde-drowdown-icon-str{
 height:19px;
