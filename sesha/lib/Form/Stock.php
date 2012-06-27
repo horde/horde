@@ -14,7 +14,7 @@
  * @package Sesha
  */
 
-class Sesha_Forms_Stock extends Horde_Form {
+class Sesha_Form_Stock extends Horde_Form {
 
     /**
      * The default constructor for the StockForm class.

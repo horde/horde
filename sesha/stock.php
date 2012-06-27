@@ -36,7 +36,7 @@ case 'add_stock':
     $vars->set('stock_id', $stock_id);
     $params = array('varrenderer_driver' => array('sesha', 'Stockedit_Html'));
     $renderer = new Horde_Form_Renderer($params);
-    $form = new Sesha_Forms_Stock($vars);
+    $form = new Sesha_Form_Stock($vars);
     $form->setTitle(_("Add Stock To Inventory"));
 
     $valid = $form->validate($vars);
@@ -127,7 +127,7 @@ case 'update_stock':
     // Set up form variables.
     $params = array('varrenderer_driver' => array('sesha', 'stockedit_Html'));
     $renderer = new Horde_Form_Renderer($params);
-    $form = new Sesha_Forms_Stock($vars);
+    $form = new Sesha_Form_Stock($vars);
     $form->setTitle((!isset($form_title) ? _("Edit Inventory Item") : $form_title));
     if (!$active) {
         $form->setExtra('<span class="smallheader">' . Horde::link(Horde_Util::addParameter(Horde::url('stock.php'), array('stock_id' => $vars->get('stock_id'), 'actionId' => 'update_stock'))) . _("Edit") . '</a></span>');

@@ -13,7 +13,7 @@
  * @package Sesha
  */
 
-class Sesha_Forms_Type_Client extends Horde_Form_Type_enum {
+class Sesha_Form_Type_Client extends Horde_Form_Type_enum {
 
     public function init($values = null, $prompt = null)
     {

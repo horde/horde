@@ -9,19 +9,19 @@
  * @package Sesha
  */
 
-class Sesha_Forms_PropertyDelete extends Horde_Form
-{
+class Sesha_Form_CategoryDelete extends Horde_Form {
+
     public function __construct($vars)
     {
         parent::__construct($vars);
 
-        $this->appendButtons(_("Delete Property"));
+        $this->appendButtons(_("Delete Category"));
         $params = array('yes' => _("Yes"),
                         'no' => _("No"));
-        $desc = _("Really delete this property?");
+        $desc = _("Really delete this category?");
 
-        $this->addHidden('', 'actionID', 'text', false, false, null, array('delete_property'));
-        $this->addHidden('', 'property_id', 'text', false, false, null);
+        $this->addHidden('', 'actionID', 'text', false, false, null, array('delete_category'));
+        $this->addHidden('', 'category_id', 'text', false, false, null);
         $this->addVariable(_("Confirm"), 'confirm', 'enum', true, false, $desc, array($params));
     }
 

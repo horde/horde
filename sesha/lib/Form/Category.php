@@ -8,7 +8,7 @@
  * @author  Bo Daley <bo@darkwork.net>
  * @package Sesha
  */
-class Sesha_Forms_Category extends Horde_Form
+class Sesha_Form_Category extends Horde_Form
 {
     public function __construct($vars)
     {

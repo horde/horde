@@ -9,7 +9,7 @@
  * @package Sesha
  */
 
-class Sesha_Forms_PropertyList extends Horde_Form
+class Sesha_Form_PropertyList extends Horde_Form
 {
     public function __construct($vars)
     {

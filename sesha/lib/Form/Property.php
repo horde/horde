@@ -8,7 +8,7 @@
  * @author  Bo Daley <bo@darkwork.net>
  * @package Sesha
  */
-class Sesha_Forms_Property extends Horde_Form
+class Sesha_Form_Property extends Horde_Form
 {
     public function __construct($vars)
     {
@@ -130,8 +130,8 @@ class Sesha_Forms_Property extends Horde_Form
     {
         if (class_exists('Horde_Form_Type_' . $dataType)) {
             return 'Horde_Form_Type_' . $dataType;
-        } elseif (class_exists('Sesha_Forms_Type_' . ucfirst($dataType))) {
-            return 'Sesha_Forms_Type_' . ucfirst($dataType);
+        } elseif (class_exists('Sesha_Form_Type_' . ucfirst($dataType))) {
+            return 'Sesha_Form_Type_' . ucfirst($dataType);
         } else {
             return '';
         }

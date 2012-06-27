@@ -12,7 +12,7 @@
  * @author  Andrew Coleman <mercury@appisolutions.net>
  * @package Sesha
  */
-class Sesha_Forms_Search extends Horde_Form {
+class Sesha_Form_Search extends Horde_Form {
 
     /**
      * Basic constructor for the SearchForm.
