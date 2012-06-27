@@ -14,9 +14,9 @@ class Sesha_Api extends Horde_Registry_Api
 {
 
     /**
-    * List categories as ticket queues
-    * @return array  a list of ticket queues with category id as key and category caption as value
-    */
+     * List categories as ticket queues
+     * @return array  a list of ticket queues with category id as key and category caption as value
+     */
     public function listQueues()
     {
         $queues = array();
@@ -30,10 +30,10 @@ class Sesha_Api extends Horde_Registry_Api
     }
 
     /**
-    * Get a queueDetails hash for a queue (category)
-    * @param integer $queue_id  The Queue for which to build the details hash
-    * @return array  A hash of category id as id, category label as name, category description as description, a link, a list of subjects as configured
-    */
+     * Get a queueDetails hash for a queue (category)
+     * @param integer $queue_id  The Queue for which to build the details hash
+     * @return array  A hash of category id as id, category label as name, category description as description, a link, a list of subjects as configured
+     */
     public function getQueueDetails($queue_id)
     {
         global $registry;
@@ -49,10 +49,10 @@ class Sesha_Api extends Horde_Registry_Api
     }
 
     /**
-    * List Stock items as versions for a queue (category)
-    * @param integer $queue_id  The category id (queue) for which we want to fetch versions
-    * @return array  A hash containing stock id as id, stock name as name, stock note as description
-    */
+     * List Stock items as versions for a queue (category)
+     * @param integer $queue_id  The category id (queue) for which we want to fetch versions
+     * @return array  A hash containing stock id as id, stock name as name, stock note as description
+     */
     public function listVersions($queue_id)
     {
         $inventory = $GLOBALS['backend']->findStock(array('categories' => $queue_id));
@@ -69,10 +69,10 @@ class Sesha_Api extends Horde_Registry_Api
     }
 
     /**
-    * return a version details hash by version id
-    * @param integer $version_id  The ID of the stock item to display as a version
-    * @return array  The version hash containing stock name as name, stock note as description and a link
-    */
+     * return a version details hash by version id
+     * @param integer $version_id  The ID of the stock item to display as a version
+     * @return array  The version hash containing stock name as name, stock note as description and a link
+     */
     public function getVersionDetails($version_id)
     {
         $item = $GLOBALS['backend']->fetch($version_id);
