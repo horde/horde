@@ -1931,6 +1931,10 @@ background-color:#bfc9cd;
     color: #fff;
     text-shadow: -1px -1px 0px #000;
 }
+.horde-portal-new {
+    float: left;
+    border-right: 1px solid #787878;
+}
     .horde-new-link a {
         padding-left: 28px;
         margin: 5px 10px 0 10px;
