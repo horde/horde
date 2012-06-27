@@ -1,0 +1,36 @@
+<?php
+/**
+ * Release focus. Possible values (multiple possible with arrays):
+ * Horde_Release::FOCUS_INITIAL - Initial announcement
+ * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
+ * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
+ * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
+ * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
+ * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
+ * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
+ * Horde_Release::FOCUS_DOCS - Documentation improvements
+ */
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_INITIAL);
+
+/* Mailing list release notes. */
+$this->notes['ml']['changes'] = <<<ML
+The Horde Team is pleased to announce the first alpha release of the Sesha
+Inventory Manager Application version H5 (1.0.0).
+
+Sesha is the Horde Inventory Manager. It is an application designed to track a
+multitude of items. It can organize stockable items into multiple categories,
+each with unique properties.
+
+For more information on Sesha, visit
+http://www.horde.org/apps/sesha.
+
+ML;
+
+/* Freshmeat release notes. */
+$this->notes['fm']['changes'] = <<<FM
+Initial Release of Sesha for Horde 5
+FM;
+
+$this->notes['name'] = 'Sesha';
+$this->notes['fm']['project'] = 'sesha';
+$this->notes['fm']['branch'] = 'Horde 5';
