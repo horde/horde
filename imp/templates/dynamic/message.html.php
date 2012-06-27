@@ -4,11 +4,11 @@
  <div class="horde-buttonbar">
   <div class="iconImg headercloseimg closeImg" id="windowclose" title="X"></div>
   <div>
-   <?php echo $this->actionButton(array('class' => 'hasmenu', 'icon' => 'Reply', 'id' => 'reply_link', 'title' => _("Reply"))) ?>
+   <?php echo $this->actionButton(array('class' => 'horde-hasmenu', 'icon' => 'Reply', 'id' => 'reply_link', 'title' => _("Reply"))) ?>
    <div class="horde-button-split"></div>
   </div>
   <div>
-   <?php echo $this->actionButton(array('class' => 'hasmenu', 'icon' => 'Forward', 'id' => 'forward_link', 'title' => _("Forward"))) ?>
+   <?php echo $this->actionButton(array('class' => 'horde-hasmenu', 'icon' => 'Forward', 'id' => 'forward_link', 'title' => _("Forward"))) ?>
    <div class="horde-button-split"></div>
   </div>
 <?php if ($this->show_spam): ?>

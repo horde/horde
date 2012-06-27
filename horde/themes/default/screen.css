@@ -1362,25 +1362,32 @@ div.GrowlerNoticeExit:hover {
 }
 
 /* Context Menus */
-.context {
+.context, .horde-buttonbar li div {
     min-width: 180px;
     position: absolute;
-    top: 0;
-    left: 0;
     z-index: 10000;
-    background-color: #eceff0;
+    background: #eceff0;
     border: 1px solid #919293;
     border-bottom-width: 0;
+    -moz-box-shadow: 3px 3px 3px #888;
+    -webkit-box-shadow: 3px 3px 3px #888;
+    box-shadow: 3px 3px 3px #888;
 }
-.context a, .context a:visited {
+.context {
+    top: 0;
+    left: 0;
+}
+.context a, .context a:visited, .horde-buttonbar li div li a {
     white-space: nowrap;
     display: block;
+    height: 19px;
     border-bottom: 1px solid #919293;
-    padding: 5px 10px 0 0;
+    padding: 5px 10px 0 10px;
     text-decoration: none;
     color: #000;
 }
-.context a:hover, .context a.contextSubmenu.contextHover {
+.context a:hover, .context a.contextSubmenu.contextHover,
+.horde-buttonbar li div li a:hover {
     background-color: #c2ccd0 !important;
     cursor: pointer;
     text-decoration: none;
@@ -1404,7 +1411,7 @@ a.contextSelected:hover {
 }
 .contextMenu .iconImg {
     vertical-align: top;
-    margin: -5px 6px 0 10px;
+    margin: -5px 6px 0 5px;
 }
 
 /* Form ghosting. */
@@ -2002,7 +2009,7 @@ background-repeat:repeat-x;
   background-position:top center;
   }
   .horde-icon-arrow-subnavi{
-  background-image:url('graphics/sidebar-arrow.png');
+  background-image:url('graphics/popdown.png');
   background-repeat:no-repeat;
   }
   .subfolders {
@@ -2138,8 +2145,26 @@ overflow: hidden;
       margin: 0 15px 1px 2px;
       background-position: center left;
   }
-  .horde-buttonbar li ul {
+  .horde-buttonbar .horde-hasmenu {
+      padding-right: 24px;
+      background: url('graphics/popdown.png') no-repeat right center;
+  }
+  .horde-buttonbar li div {
       display: none;
+  }
+  .horde-buttonbar li:hover div {
+      display: block;
+  }
+  .horde-buttonbar li ul li {
+      float: none;
+      background: transparent;
+      height: auto;
+      margin: 0;
+      padding: 0;
+  }
+  .horde-buttonbar li ul li a, .horde-buttonbar li ul li a:link {
+      font-weight: normal;
+      color: #000;
   }
   .horde-buttonbar li.horde-nobutton {
       background-image: none;

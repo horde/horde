@@ -539,7 +539,7 @@ if (IMP::mailbox()->access_deletemsgs) {
 $disable_compose = !IMP::canCompose();
 
 if (!$disable_compose) {
-    $a_template->set('reply', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_auto') + $compose_params), _("Reply"), 'hasmenu', '', '', _("_Reply"), true));
+    $a_template->set('reply', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_auto') + $compose_params), _("Reply"), 'horde-hasmenu', '', '', _("_Reply"), true));
     $a_template->set('reply_sender', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply') + $compose_params), _("To Sender"), '', '', '', _("To Sender"), true));
 
     if ($list_info['reply_list']) {
@@ -555,7 +555,7 @@ if (!$disable_compose) {
     }
 
     $fwd_locked = $prefs->isLocked('forward_default');
-    $a_template->set('forward', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_auto') + $compose_params), _("Forward"), '' . ($fwd_locked ? '' : ' hasmenu'), '', '', _("Fo_rward"), true));
+    $a_template->set('forward', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_auto') + $compose_params), _("Forward"), '' . ($fwd_locked ? '' : ' horde-hasmenu'), '', '', _("Fo_rward"), true));
     if (!$fwd_locked) {
         $a_template->set('forward_attach', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_attach') + $compose_params), _("As Attachment"), '', '', '', _("As Attachment"), true));
         $a_template->set('forward_body', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_body') + $compose_params), _("In Body Text"), '', '', '', _("In Body Text"), true));
@@ -604,7 +604,7 @@ if ($conf['notspam']['reporting'] &&
 
 $a_template->set('redirect', Horde::widget(IMP::composeLink(array(), array('actionID' => 'redirect_compose') + $compose_params), _("Redirect"), '', '', '', _("Redirec_t"), true));
 
-$a_template->set('headers', Horde::widget('#', _("Headers"), 'hasmenu', '', '', _("Headers"), true));
+$a_template->set('headers', Horde::widget('#', _("Headers"), 'horde-hasmenu', '', '', _("Headers"), true));
 if ($all_headers || $list_headers) {
     $a_template->set('common_headers', Horde::widget($headersURL, _("Show Common Headers"), '', '', '', _("Show Common Headers"), true));
 }
@@ -700,7 +700,7 @@ if (count($inlineout['atc_parts']) > 2) {
 }
 
 if ($show_atc) {
-    $a_template->set('atc', Horde::widget('#', _("Attachments"), 'hasmenu', '', '', _("Attachments"), true));
+    $a_template->set('atc', Horde::widget('#', _("Attachments"), 'horde-hasmenu', '', '', _("Attachments"), true));
 }
 
 /* Show attachment information in headers? 'atc_parts' will be empty if
