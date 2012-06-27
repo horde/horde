@@ -71,6 +71,12 @@ class Horde_View_Topbar extends Horde_View
         /* Sub bar. */
         $this->date = strftime($GLOBALS['prefs']->getValue('date_format'));
         $pageOutput = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
+        if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
+            $datejs = 'en-US.js';
+        }
+        $pageOutput->addScriptFile('date/' . $datejs, 'horde');
+        $pageOutput->addScriptFile('date/date.js', 'horde');
         $pageOutput->addScriptFile('topbar.js', 'horde');
         $pageOutput->addInlineJsVars(array('HordeTopbar.format' =>
             str_replace(

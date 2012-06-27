@@ -14,7 +14,7 @@ var HordeTopbar = {
      * Updates the date in the sub bar.
      */
     updateDate: function() {
-        $('horde-sub-date').update(Date.format(this.format));
+        $('horde-sub-date').update(Date.today().toString(this.format));
         this.updateDate.bind(this).delay(1);
     }
 }
