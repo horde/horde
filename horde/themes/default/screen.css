@@ -1407,7 +1407,7 @@ a.contextSelected:hover {
 }
 .contextMenu .iconImg {
     vertical-align: top;
-    margin: -5px 6px 0 5px;
+    margin: -2px 6px 0 0;
 }
 
 /* Form ghosting. */
