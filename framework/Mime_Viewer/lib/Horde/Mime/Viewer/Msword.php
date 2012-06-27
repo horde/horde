@@ -31,14 +31,8 @@ class Horde_Mime_Viewer_Msword extends Horde_Mime_Viewer_Base
     /**
      * Constructor.
      *
-     * @param Horde_Mime_Part $mime_part  The object with the data to be
-     *                                    rendered.
-     * @param array $conf                 Configuration:
-     * <pre>
-     * 'location' - (string) Location of the abiword binary.
-     * </pre>
-     *
-     * @throws InvalidArgumentException
+     * @param array $conf  Configuration for this driver:
+     *   - location: (string) Location of the abiword binary.
      */
     public function __construct(Horde_Mime_Part $part, array $conf = array())
     {
