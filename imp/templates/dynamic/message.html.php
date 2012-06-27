@@ -59,7 +59,7 @@
 <?php endif; ?>
     </div>
     <div id="msgHeadersContent">
-     <p class="p17 bold"><?php echo $this->h($this->subject) ?></p>
+     <p class="p17 bold"><?php echo $this->subject ?></p>
      <p>&nbsp;</p>
      <table>
       <thead>

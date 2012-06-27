@@ -678,8 +678,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         case 'auto':
             if ($browser->hasFeature('ajax')) {
                 $mode = $browser->isMobile()
-                    // THIS IS A HACK. DO PROPER SMARTPHONE DETECTION.
-                    ? (($browser->getBrowser() == 'webkit') ? 'smartmobile' : 'mobile')
+                    ? 'smartmobile'
                     : 'dynamic';
             } else {
                 $mode = $browser->isMobile()

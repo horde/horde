@@ -470,15 +470,17 @@ var HordeCore = {
         } catch (e) {}
 
         /* Add Growler notification handler. */
-        if (this.conf.growler_log) {
-            this.Growler = new Growler({
-                info: this.text.growlerinfo,
-                location: 'br',
-                log: true,
-                noalerts: this.text.growlernoalerts
-            });
-        } else {
-            this.Growler = new Growler({ location: 'br' });
+        if (window.Growler) {
+            if (this.conf.growler_log) {
+                this.Growler = new Growler({
+                    info: this.text.growlerinfo,
+                    location: 'br',
+                    log: true,
+                    noalerts: this.text.growlernoalerts
+                });
+            } else {
+                this.Growler = new Growler({ location: 'br' });
+            }
         }
     }
 

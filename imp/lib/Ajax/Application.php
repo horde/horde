@@ -48,9 +48,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _init()
     {
-        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Imple());
+        global $injector, $registry;
 
-        $this->_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Imple());
+        if ($registry->getView() == $registry::VIEW_SMARTMOBILE) {
+            $this->addHelper(new IMP_Ajax_Application_Helper_Smartmobile());
+        }
+
+        $this->_queue = $injector->getInstance('IMP_Ajax_Queue');
 
         /* Bug #10462: 'view' POST parameter is base64url encoded to
          * workaround suhosin. */
@@ -80,7 +85,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (isset($this->_vars->poll)) {
             $poll = Horde_Serialize::unserialize($this->_vars->poll, Horde_Serialize::JSON);
             if (empty($poll)) {
-                $this->_queue->poll($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList());
+                $this->_queue->poll($injector->getInstance('IMP_Imap_Tree')->getPollList());
             } else {
                 $this->_queue->poll(IMP_Mailbox::formFrom($poll));
             }

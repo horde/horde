@@ -31,14 +31,8 @@ class Horde_Mime_Viewer_Msword extends Horde_Mime_Viewer_Base
     /**
      * Constructor.
      *
-     * @param Horde_Mime_Part $mime_part  The object with the data to be
-     *                                    rendered.
-     * @param array $conf                 Configuration:
-     * <pre>
-     * 'location' - (string) Location of the abiword binary.
-     * </pre>
-     *
-     * @throws InvalidArgumentException
+     * @param array $conf  Configuration for this driver:
+     *   - location: (string) Location of the abiword binary.
      */
     public function __construct(Horde_Mime_Part $part, array $conf = array())
     {
@@ -56,6 +50,19 @@ class Horde_Mime_Viewer_Msword extends Horde_Mime_Viewer_Base
      */
     protected function _render()
     {
+        return $this->_convert('html', 'text/html');
+    }
+
+    /**
+     * Return the converted msword document.
+     *
+     * @param string $type  The document type (abiword 'to' argument).
+     * @param string $mime  The MIME type of the output.
+     *
+     * @return array  See render().
+     */
+    protected function _convert($type, $mime)
+    {
         /* Check to make sure the viewer program exists. */
         if (!($location = $this->getConfigParam('location')) ||
             !file_exists($location)) {
@@ -67,20 +74,16 @@ class Horde_Mime_Viewer_Msword extends Horde_Mime_Viewer_Base
 
         file_put_contents($tmp_in, $this->_mimepart->getContents());
 
-        exec($location . ' --to=html --to-name=' . $tmp_out . ' ' . $tmp_in);
+        exec($location . ' --to=' . escapeshellcmd($type) . ' --to-name=' . escapeshellcmd($tmp_out) . ' ' . escapeshellcmd($tmp_in));
 
         if (file_exists($tmp_out)) {
             $data = file_get_contents($tmp_out);
-            $type = 'text/html';
         } else {
             $data = Horde_Mime_Viewer_Translation::t("Unable to translate this Word document");
-            $type = 'text/plain';
+            $mime = 'text/plain; charset=UTF-8';
         }
 
-        return $this->_renderReturn(
-            $data,
-            $type . '; charset=' . $this->getConfigParam('charset')
-        );
+        return $this->_renderReturn($data, $mime);
     }
 
 }

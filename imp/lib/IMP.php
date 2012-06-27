@@ -373,7 +373,7 @@ class IMP
      */
     static public function composeLinkSimpleCallback($url)
     {
-        return "javascript:void(window.open('" . strval($url) . "','','width=820,height=610,status=1,scrollbars=yes,resizable=yes'));";
+        return "javascript:void(window.open('" . strval($url) . "','','width=820,height=610,status=1,scrollbars=yes,resizable=yes'))";
     }
 
     /**
