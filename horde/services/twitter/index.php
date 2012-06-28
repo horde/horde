@@ -100,7 +100,7 @@ case 'getPage':
         // Links and media
         $map = array();
         $previews = array();
-        //var_dump($tweet);
+
         foreach ($tweet->entities->urls as $link) {
             $replace = '<a href="' . $link->url . '" title="' . $link->expanded_url . '">' . htmlspecialchars($link->display_url) . '</a>';
             $map[$link->indices[0]] = array($link->indices[1], $replace);
@@ -179,7 +179,7 @@ if (!empty($auth_token)) {
 } elseif ($r_secret = $session->retrieve('twitter_request_secret')) {
      /* No existing auth token, maybe we are in the process of getting it? */
     try {
-        $auth_token = $twitter->auth->getAccessToken($GLOBALS['injector']->getInstance('Horde_Controller_Request'), $r_secret);
+        $auth_token = $twitter->auth->getAccessToken($GLOBALS['injector']->getInstance('Horde_Controller_Request'), Horde_Util::getFormData('oauth_verifier'));
     } catch (Horde_Service_Twitter_Exception $e) {
         echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
         echo '</form>';
