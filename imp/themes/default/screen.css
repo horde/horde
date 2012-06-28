@@ -376,7 +376,6 @@ div.mimeStatusMessage, div.mimePartInfo {
 .mimePartInfo div {
     background: #efefef;
     border: 1px solid #ccc;
-    font-size: 90%;
     margin: 0;
     padding: 5px;
     -moz-border-radius: 4px;
