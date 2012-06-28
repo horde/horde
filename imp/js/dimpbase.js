@@ -2017,9 +2017,7 @@ var DimpBase = {
 
     quotaCallback: function(r)
     {
-        var q = $('quota').cleanWhitespace();
         $('quota-text').setText(r.m);
-        q.down('SPAN.used IMG').writeAttribute('width', 99 - r.p);
     },
 
     setPoll: function()

@@ -21,45 +21,6 @@ input {
     top: 0;
 }
 
-/* ini header */
-#quota {
-    font-weight: normal;
-    padding-bottom: 3px;
-}
-div#quota {
-    margin-top: 3px;
-    border-top-width: 0;
-    height: 14px;
-}
-#quota .used {
-    float: left;
-    width: 100px;
-    background: maroon url("../graphics/quotaback.jpg") repeat-y;
-    text-align: right;
-    border: 1px #000 solid;
-    margin-right: 2px;
-}
-#quota .used img {
-    display: inline;
-    float: none;
-    padding: 0;
-    border-left: 1px #000 solid;
-    height: 14px;
-}
-.tabset li#quota {
-    border-top: 0;
-}
-#quota-text {
-    position: absolute;
-    margin-left: 2px;
-    font-size: 95%;
-}
-
-#logo {
-    display: none;
-}
-/* end header */
-
 /* SpellChecker styles. */
 #spellcheck {
     font-size: 100%;
