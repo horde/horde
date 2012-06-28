@@ -24,13 +24,7 @@ class Kronolith_Ajax
         $page_output->addScriptFile('redbox.js', 'horde');
         $page_output->addScriptFile('tooltips.js', 'horde');
         $page_output->addScriptFile('colorpicker.js', 'horde');
-
-        $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
-        if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
-            $datejs = 'en-US.js';
-        }
-        $page_output->addScriptFile('date/' . $datejs, 'horde');
-        $page_output->addScriptFile('date/date.js', 'horde');
+        $page_output->addScriptPackage('Datejs');
         $page_output->addScriptFile('kronolith.js');
         Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
 
@@ -85,9 +79,7 @@ class Kronolith_Ajax
             'login_view' => ($prefs->getValue('defaultview') == 'workweek') ? 'week' : $prefs->getValue('defaultview'),
             'default_calendar' => 'internal|' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT),
             'max_events' => intval($prefs->getValue('max_events')),
-            'date_format' => str_replace(
-                array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
-                array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
+            'date_format' => Horde_Core_Script_Package_Datejs::translateFormat(
                 Horde_Nls::getLangInfo(D_FMT)
             ),
             'time_format' => $prefs->getValue('twentyFour') ? 'HH:mm' : 'hh:mm tt',
