@@ -147,7 +147,7 @@ class Horde_Lock_Sql extends Horde_Lock
             return false;
         }
 
-        $expiration = $extend == Horde_Lock::PERMANENT ? Horde_Lock::PERMANENT : $now + $lifetime;
+        $expiration = $lifetime == Horde_Lock::PERMANENT ? Horde_Lock::PERMANENT : $now + $lifetime;
 
         $sql = 'UPDATE ' . $this->_params['table'] . ' SET ' .
                'lock_update_timestamp = ?, lock_expiry_timestamp = ? ' .
@@ -240,8 +240,8 @@ class Horde_Lock_Sql extends Horde_Lock
     {
         $now = time();
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE ' .
-                 'lock_expiry_timestamp < ? AND lock_expiry_timestamp != ' . HORDE_LOCK::PERMANENT;
-        $values = array($now);
+                 'lock_expiry_timestamp < ? AND lock_expiry_timestamp != ?';
+        $values = array($now, Horde_Lock::PERMANENT);
 
         try {
             $result = $this->_db->delete($query, $values);
