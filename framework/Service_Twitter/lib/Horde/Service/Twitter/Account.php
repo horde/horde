@@ -41,6 +41,7 @@ class Horde_Service_Twitter_Account
      * http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-account%C2%A0verify_credentials
      *
      * @return string  JSON reprentation of profile.
+     * @throws Horde_Service_Twitter_Exception
      */
     public function verifyCredentials()
     {

@@ -28,7 +28,7 @@
 class Horde_Service_Twitter
 {
     /* Constants */
-    const REQUEST_TOKEN_URL = 'http://api.twitter.com/oauth/request_token';
+    const REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token';
     const USER_AUTHORIZE_URL = 'https://api.twitter.com/oauth/authorize';
     const ACCESS_TOKEN_URL = 'https://api.twitter.com/oauth/access_token';
 

@@ -16,7 +16,7 @@ class Horde_Service_Twitter_Statuses
      *
      * @var string
      */
-    private $_endpoint = 'http://api.twitter.com/1/statuses/';
+    private $_endpoint = 'https://api.twitter.com/1/statuses/';
 
     /**
      * Format to use json or xml
