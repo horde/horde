@@ -182,10 +182,11 @@ div.contextMenu .msCheck, div.contextMenu .msCheckOn {
 div.vpRowVert {
     height: auto;
     padding-top: 1px;
-    border-bottom: thin solid gainsboro;
+    border-bottom: 1px solid #d0d0d0;
 }
 div.vpRowVert div {
     font-size: 100%;
+    border-bottom-width: 0;
 }
 div.vpRowVert div.msgStatus {
     height: 24px;
