@@ -2,12 +2,12 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>sesha</name>
  <channel>pear.horde.org</channel>
- <summary>A simple inventory app for horde 4</summary>
+ <summary>A simple Inventory App for Horde</summary>
  <description>Sesha allows you to define categories with a rich set of attributes to manage your inventory stock</description>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
+  <name>Ralf Lang</name>
+  <user>rlang</user>
+  <email>lang@b1-systems.de</email>
   <active>yes</active>
  </lead>
  <lead>
@@ -186,64 +186,64 @@
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
     <min>1.4.7</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
     <min>1.0.1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
     <min>1.8.3</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
     <min>1.2.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
     <min>1.0.8</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
     <min>1.0.5</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
     <min>1.0.6</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
     <min>1.1.7</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Rdo</name>
     <channel>pear.horde.org</channel>
-    <min>1.2.2</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0alpha1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
  </dependencies>
