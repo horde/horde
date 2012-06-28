@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-06-27</date>
- <time>16:47:52</time>
+ <date>2012-06-28</date>
+ <time>12:17:23</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -363,6 +363,7 @@
       </dir> <!-- /lib/Horde/Core/Prefs -->
       <dir name="Script">
        <dir name="Package">
+        <file name="Datejs.php" role="php" />
         <file name="Dialog.php" role="php" />
         <file name="Keynavlist.php" role="php" />
         <file name="Popup.php" role="php" />
@@ -1402,6 +1403,7 @@
    <install as="Horde/Core/Prefs/Storage/Upgrade.php" name="lib/Horde/Core/Prefs/Storage/Upgrade.php" />
    <install as="Horde/Core/Prefs/Ui/Special.php" name="lib/Horde/Core/Prefs/Ui/Special.php" />
    <install as="Horde/Core/Prefs/Ui/Widgets.php" name="lib/Horde/Core/Prefs/Ui/Widgets.php" />
+   <install as="Horde/Core/Script/Package/Datejs.php" name="lib/Horde/Core/Script/Package/Datejs.php" />
    <install as="Horde/Core/Script/Package/Dialog.php" name="lib/Horde/Core/Script/Package/Dialog.php" />
    <install as="Horde/Core/Script/Package/Keynavlist.php" name="lib/Horde/Core/Script/Package/Keynavlist.php" />
    <install as="Horde/Core/Script/Package/Popup.php" name="lib/Horde/Core/Script/Package/Popup.php" />
