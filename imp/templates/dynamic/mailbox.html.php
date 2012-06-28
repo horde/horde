@@ -114,7 +114,6 @@
        </div>
        <div id="msgHeadersContent">
         <p id="th_collapse" class="p17 bold subject" title="<?php echo _("Collapse Headers") ?>"></p>
-        <p>&nbsp;</p>
         <table>
          <thead>
           <tr id="msgHeaderFrom">

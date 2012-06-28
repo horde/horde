@@ -103,12 +103,12 @@ div.msgSubject {
 div.msgDate {
     text-align: right;
     right: 62px;
-    width: 70px;
+    width: 130px;
 }
 #msglistHeaderHoriz div.msgDate {
     right: 76px;
     padding-right: 20px;
-    width: 50px;
+    width: 110px;
 }
 div.msgSize {
     text-align: right;
@@ -406,7 +406,7 @@ div.dimpActionsMsg #windowclose {
 
 /* Headers styles. */
 .msgHeaders {
-    padding: 18px;
+    padding: 2px;
     background-color: #eceff0;
     border-bottom: 1px solid #d0d0d0;
     max-height: 300px;
@@ -517,7 +517,7 @@ div.dimpActionsMsg #windowclose {
 
 /* Message body formatting. */
 .messageBody {
-    padding: 18px;
+    padding: 6px;
 }
 .msgfullread div.messageBody {
     overflow: auto;
