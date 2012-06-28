@@ -29,7 +29,7 @@
   <active>yes</active>
  </lead>
  <date>2012-06-28</date>
- <time>11:42:09</time>
+ <time>12:26:28</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -150,52 +150,6 @@
     <file name="horde.php" role="horde" />
    </dir> <!-- /install -->
    <dir name="js">
-    <dir name="date">
-     <file name="ar-SY.js" role="horde" />
-     <file name="bg-BG.js" role="horde" />
-     <file name="bs-BA.js" role="horde" />
-     <file name="ca-ES.js" role="horde" />
-     <file name="cs-CZ.js" role="horde" />
-     <file name="da-DK.js" role="horde" />
-     <file name="date.js" role="horde" />
-     <file name="de-DE.js" role="horde" />
-     <file name="el-GR.js" role="horde" />
-     <file name="en-US.js" role="horde" />
-     <file name="es-ES.js" role="horde" />
-     <file name="et-EE.js" role="horde" />
-     <file name="eu-ES.js" role="horde" />
-     <file name="extras.js" role="horde" />
-     <file name="fa-IR.js" role="horde" />
-     <file name="fi-FI.js" role="horde" />
-     <file name="fr-FR.js" role="horde" />
-     <file name="gl-ES.js" role="horde" />
-     <file name="he-IL.js" role="horde" />
-     <file name="hu-HU.js" role="horde" />
-     <file name="id-ID.js" role="horde" />
-     <file name="is-IS.js" role="horde" />
-     <file name="it-IT.js" role="horde" />
-     <file name="ja-JP.js" role="horde" />
-     <file name="ko-KR.js" role="horde" />
-     <file name="lt-LT.js" role="horde" />
-     <file name="lv-LV.js" role="horde" />
-     <file name="mk-MK.js" role="horde" />
-     <file name="nb-NO.js" role="horde" />
-     <file name="nl-NL.js" role="horde" />
-     <file name="nn-NO.js" role="horde" />
-     <file name="pl-PL.js" role="horde" />
-     <file name="pt-BR.js" role="horde" />
-     <file name="pt-PT.js" role="horde" />
-     <file name="ro-RO.js" role="horde" />
-     <file name="ru-RU.js" role="horde" />
-     <file name="sk-SK.js" role="horde" />
-     <file name="sl-SI.js" role="horde" />
-     <file name="sv-SE.js" role="horde" />
-     <file name="time.js" role="horde" />
-     <file name="tr-TR.js" role="horde" />
-     <file name="uk-UA.js" role="horde" />
-     <file name="zh-CN.js" role="horde" />
-     <file name="zh-TW.js" role="horde" />
-    </dir> <!-- /js/date -->
     <dir name="map">
      <dir name="img">
       <file name="blank.gif" role="horde" />
@@ -2246,50 +2200,6 @@
    <install as="js/twitterclient.js" name="js/twitterclient.js" />
    <install as="js/userupdate.js" name="js/userupdate.js" />
    <install as="js/vatid.js" name="js/vatid.js" />
-   <install as="js/date/ar-SY.js" name="js/date/ar-SY.js" />
-   <install as="js/date/bg-BG.js" name="js/date/bg-BG.js" />
-   <install as="js/date/bs-BA.js" name="js/date/bs-BA.js" />
-   <install as="js/date/ca-ES.js" name="js/date/ca-ES.js" />
-   <install as="js/date/cs-CZ.js" name="js/date/cs-CZ.js" />
-   <install as="js/date/da-DK.js" name="js/date/da-DK.js" />
-   <install as="js/date/date.js" name="js/date/date.js" />
-   <install as="js/date/de-DE.js" name="js/date/de-DE.js" />
-   <install as="js/date/el-GR.js" name="js/date/el-GR.js" />
-   <install as="js/date/en-US.js" name="js/date/en-US.js" />
-   <install as="js/date/es-ES.js" name="js/date/es-ES.js" />
-   <install as="js/date/et-EE.js" name="js/date/et-EE.js" />
-   <install as="js/date/eu-ES.js" name="js/date/eu-ES.js" />
-   <install as="js/date/extras.js" name="js/date/extras.js" />
-   <install as="js/date/fa-IR.js" name="js/date/fa-IR.js" />
-   <install as="js/date/fi-FI.js" name="js/date/fi-FI.js" />
-   <install as="js/date/fr-FR.js" name="js/date/fr-FR.js" />
-   <install as="js/date/gl-ES.js" name="js/date/gl-ES.js" />
-   <install as="js/date/he-IL.js" name="js/date/he-IL.js" />
-   <install as="js/date/hu-HU.js" name="js/date/hu-HU.js" />
-   <install as="js/date/id-ID.js" name="js/date/id-ID.js" />
-   <install as="js/date/is-IS.js" name="js/date/is-IS.js" />
-   <install as="js/date/it-IT.js" name="js/date/it-IT.js" />
-   <install as="js/date/ja-JP.js" name="js/date/ja-JP.js" />
-   <install as="js/date/ko-KR.js" name="js/date/ko-KR.js" />
-   <install as="js/date/lt-LT.js" name="js/date/lt-LT.js" />
-   <install as="js/date/lv-LV.js" name="js/date/lv-LV.js" />
-   <install as="js/date/mk-MK.js" name="js/date/mk-MK.js" />
-   <install as="js/date/nb-NO.js" name="js/date/nb-NO.js" />
-   <install as="js/date/nl-NL.js" name="js/date/nl-NL.js" />
-   <install as="js/date/nn-NO.js" name="js/date/nn-NO.js" />
-   <install as="js/date/pl-PL.js" name="js/date/pl-PL.js" />
-   <install as="js/date/pt-BR.js" name="js/date/pt-BR.js" />
-   <install as="js/date/pt-PT.js" name="js/date/pt-PT.js" />
-   <install as="js/date/ro-RO.js" name="js/date/ro-RO.js" />
-   <install as="js/date/ru-RU.js" name="js/date/ru-RU.js" />
-   <install as="js/date/sk-SK.js" name="js/date/sk-SK.js" />
-   <install as="js/date/sl-SI.js" name="js/date/sl-SI.js" />
-   <install as="js/date/sv-SE.js" name="js/date/sv-SE.js" />
-   <install as="js/date/time.js" name="js/date/time.js" />
-   <install as="js/date/tr-TR.js" name="js/date/tr-TR.js" />
-   <install as="js/date/uk-UA.js" name="js/date/uk-UA.js" />
-   <install as="js/date/zh-CN.js" name="js/date/zh-CN.js" />
-   <install as="js/date/zh-TW.js" name="js/date/zh-TW.js" />
    <install as="js/map/bing.js" name="js/map/bing.js" />
    <install as="js/map/cloudmade.js" name="js/map/cloudmade.js" />
    <install as="js/map/google.js" name="js/map/google.js" />
