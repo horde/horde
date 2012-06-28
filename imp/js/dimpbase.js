@@ -2231,11 +2231,11 @@ var DimpBase = {
 
     onDragStart: function(e)
     {
-        if (e.element().hasClassName('mbox')) {
+        if (e.element().hasClassName('horde-subnavi')) {
             var d = e.memo;
             if (!d.opera && !d.wasDragged) {
-                $('folderopts').hide();
-                $('dropbase').show();
+                $('folderopts_link').up().hide();
+                $('dropbase').up().show();
                 d.ghost.removeClassName('on');
             }
         }
@@ -2250,10 +2250,10 @@ var DimpBase = {
         if (id == 'horde-slideleft') {
             this._setPref('splitbar_side', d.lastCoord[0]);
             this.setSidebarWidth();
-        } else if (elt.hasClassName('mbox')) {
+        } else if (elt.hasClassName('horde-subnavi')) {
             if (!d.opera) {
-                $('folderopts').show();
-                $('dropbase').hide();
+                $('folderopts_link').up().show();
+                $('dropbase').up().hide();
             }
         }
     },
