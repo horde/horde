@@ -3179,7 +3179,9 @@ var DimpBase = {
             f_node.insert({ before: li });
         } else {
             parent_e.insert(li);
-            if (this.expandmbox && !parent_e.hasClassName('mboxlist')) {
+            if (this.expandmbox &&
+                !parent_e.hasClassName('horde-sidebar-folder') &&
+                !parent_e.hasClassName('horde-sidebar-subfolder')) {
                 tmp2 = parent_e.previous();
                 if (!Object.isElement(this.expandmbox) ||
                     this.expandmbox != tmp2) {
