@@ -28,10 +28,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [rla] Use Horde_View in place of Horde_Template
-* [rla] change backend from Sql driver to Rdo driver with enhanced search capabilities
+* [rla] Use Horde_View in place of Horde_Template.
+* [rla] change backend from Sql driver to Rdo driver with enhanced search capabilities.
 * [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
-* [rla] Convert to Horde 5 Framework
+* [rla] Convert to Horde 5 Framework.
 * Initial release.
  </notes>
  <contents>
@@ -340,10 +340,10 @@
    <date>2012-06-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [rla] Use Horde_View in place of Horde_Template
-* [rla] change backend from Sql driver to Rdo driver with enhanced search capabilities
+* [rla] Use Horde_View in place of Horde_Template.
+* [rla] change backend from Sql driver to Rdo driver with enhanced search capabilities.
 * [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
-* [rla] Convert to Horde 5 Framework
+* [rla] Convert to Horde 5 Framework.
 * Initial release.
    </notes>
   </release>

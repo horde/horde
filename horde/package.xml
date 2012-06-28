@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [rla] Retrieve more detailed message from Horde_Auth when a user is temporarily or permanently locked out (Request #11254)
+* [rla] Retrieve more detailed message from Horde_Auth when a user is temporarily or permanently locked out (Request #11254).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3839,7 +3839,7 @@
    <date>2012-07-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [rla] Retrieve more detailed message from Horde_Auth when a user is temporarily or permanently locked out (Request #11254)
+* [rla] Retrieve more detailed message from Horde_Auth when a user is temporarily or permanently locked out (Request #11254).
    </notes>
   </release>
  </changelog>
