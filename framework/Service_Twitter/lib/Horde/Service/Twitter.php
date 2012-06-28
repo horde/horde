@@ -28,9 +28,9 @@
 class Horde_Service_Twitter
 {
     /* Constants */
-    const REQUEST_TOKEN_URL = 'http://twitter.com/oauth/request_token';
-    const USER_AUTHORIZE_URL = 'https://twitter.com/oauth/authorize';
-    const ACCESS_TOKEN_URL = 'https://twitter.com/oauth/access_token';
+    const REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token';
+    const USER_AUTHORIZE_URL = 'https://api.twitter.com/oauth/authorize';
+    const ACCESS_TOKEN_URL = 'https://api.twitter.com/oauth/access_token';
 
     /**
      * Cache for the various objects we lazy load in __get()
