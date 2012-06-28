@@ -17,7 +17,7 @@ abstract class Horde_Lock
     /* Class constants. */
     const TYPE_EXCLUSIVE = 1;
     const TYPE_SHARED = 2;
-
+    const PERMANENT = -1;
     /**
      * Driver parameters.
      *
