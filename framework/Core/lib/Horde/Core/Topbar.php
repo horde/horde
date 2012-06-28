@@ -52,10 +52,11 @@ class Horde_Core_Topbar
              * everyone (but get filtered out later if they have no
              * children). Administrators always see all applications except
              * those marked 'inactive'. */
-            if ($params['status'] == 'heading' ||
-                (in_array($params['status'], array('active', 'admin', 'noadmin', 'topbar')) &&
-                 $registry->hasPermission((!empty($params['app']) ? $params['app'] : $app), Horde_Perms::SHOW) &&
-                 !($isAdmin && $params['status'] == 'noadmin'))) {
+            if ($app != 'horde' &&
+                ($params['status'] == 'heading' ||
+                 (in_array($params['status'], array('active', 'admin', 'noadmin', 'topbar')) &&
+                  $registry->hasPermission((!empty($params['app']) ? $params['app'] : $app), Horde_Perms::SHOW) &&
+                  !($isAdmin && $params['status'] == 'noadmin')))) {
                 $menu[$app] = $params;
 
                 if (isset($params['menu_parent'])) {
