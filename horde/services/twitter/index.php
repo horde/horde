@@ -173,7 +173,9 @@ case 'getPage':
 
 /* No requested action, check to see if we have a valid token */
 if (!empty($auth_token)) {
-    $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
+    try {
+        $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
+    } catch (Horde_Service_Twitter_Exception $e) {}
 } elseif ($r_secret = $session->retrieve('twitter_request_secret')) {
      /* No existing auth token, maybe we are in the process of getting it? */
     try {
