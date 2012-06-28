@@ -14,7 +14,7 @@ Horde_Registry::appInit('ansel');
 $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage(Horde_Util::getFormData('image'));
 $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ) || !$gallery->canDownload()) {
-    throw new Horde_Exception_PermissionDenied(_("Access denied viewing this photo."), __FILE__, __LINE__);
+    throw new Horde_Exception_PermissionDenied(_("Access denied viewing this photo."));
 }
 $image->downloadHeaders();
 
