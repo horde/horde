@@ -3,7 +3,7 @@ v5.0.0beta1
 -----------
 
 [rla] Retrieve more detailed message from Horde_Auth when a user is temporarily
-      or permanently locked out
+      or permanently locked out (Request #11254)
 
 
 ------------
