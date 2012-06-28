@@ -58,9 +58,9 @@ input {
 .mboxheader {
     clear: left;
 }
-.horde-table-header {
-    padding:0px 20px 0px 0px;
-    overflow: hidden;
+#msglistHeaderHoriz {
+    padding-right: 14px;
+    margin-right: 0;
 }
     .horde-table-header .horde-split-left,
     .horde-table-header .horde-split-right {
@@ -70,7 +70,9 @@ input {
         padding: 0;
     }
     .horde-table-header .horde-split-left {
-        float:left;
+        position: absolute;
+        top: 0;
+        margin-left: -11px;
     }
     .horde-table-header .horde-split-right {
         float:right;
@@ -82,36 +84,39 @@ input {
 
 /* Columns */
 div.msgStatus {
-    float: left;
     padding-left: 10px;
     width: 74px;
     text-indent: 0 !important;
 }
 div.msgFrom {
-    float: left;
-    height: 18px;
-    padding-top: 3px;
+    left: 85px;
     width: 147px;
 }
 div.msgSubject {
-    float: left;
-    height: 18px;
-    padding-top: 3px;
+    left: 254px;
+    right: 154px;
+}
+#msglistHeaderHoriz div.msgSubject {
+    right: auto;
+    overflow: visible;
 }
 div.msgDate {
-    float: right;
     text-align: right;
-    height: 18px;
-    padding-top: 3px;
-    width: 127px;
+    right: 62px;
+    width: 70px;
+}
+#msglistHeaderHoriz div.msgDate {
+    right: 76px;
+    padding-right: 20px;
+    width: 50px;
 }
 div.msgSize {
-    float: right;
     text-align: right;
-    height: 18px;
-    margin-right: -4px;
-    padding-top: 3px;
-    width: 66px;
+    right: 0;
+    width: 40px;
+}
+#msglistHeaderHoriz div.msgSize {
+    right: 14px;
 }
 
 /* Message List Header and Column Header */
@@ -142,7 +147,16 @@ div.vpRow, div.vpRow div {
     border-bottom: 1px solid #d0d0d0;
 }
 div.vpRow {
-    padding-right: 20px;
+    position: relative;
+    margin-right: 14px;
+}
+div.vpRow div {
+    position: absolute;
+    padding-top: 4px;
+}
+div.vpRow div.iconImg, div.vpRow div.horde-subnavi-arrow {
+    position: relative;
+    width: 16px;
 }
 div.vpRowSelected {
     background-color: #36525d !important;
@@ -151,6 +165,12 @@ div.vpRowSelected {
 div.vpRowHoriz div.sep {
     margin-left: 11px;
     padding-left: 11px;
+}
+div.vpRowHoriz div.sep.sortup, div.vpRowHoriz div.sep.sortdown {
+    background-position: 11px center;
+}
+#msglistHeaderHoriz div.horde-subnavi-arrow {
+    margin-right: -22px;
 }
 
 /* Rows: flags. */

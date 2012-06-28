@@ -210,18 +210,22 @@
 </div>
 
 <div id="msglistHeaderContainer">
- <div class="horde-table-header" id="msglistHeaderHoriz" style="display:none">
-  <div class="iconImg msgStatus">
+ <div class="vpRowHoriz vpRow horde-table-header" id="msglistHeaderHoriz" style="display:none">
+  <div class="msgStatus">
    <div class="iconImg msCheckAll msCheck" id="horiz_opts" title="<?php echo _("Select All") ?>"></div>
   </div>
-  <div class="horde-split-left"></div>
-  <div class="msgFrom"></div>
-  <div class="horde-split-left"></div>
-  <div class="msgSubject"></div>
-  <div class="msgSize"></div>
-  <div class="horde-split-right"></div>
-  <div class="msgDate"></div>
-  <div class="horde-split-right"></div>
+  <div class="msgFrom sep">
+   <div class="horde-split-left"></div>
+  </div>
+  <div class="msgSubject sep">
+   <div class="horde-split-left"></div>
+  </div>
+  <div class="msgDate sep">
+   <div class="horde-split-left"></div>
+  </div>
+  <div class="msgSize sep">
+   <div class="horde-split-left"></div>
+  </div>
  </div>
  <div class="horde-table-header" id="msglistHeaderVert" style="display:none">
   <div class="iconImg msgStatus">
