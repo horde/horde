@@ -1369,6 +1369,12 @@ class Horde_Registry
         case 'problem':
             return Horde::url('services/problem.php', false, $opts)
                 ->add('return_url', Horde::selfUrl(true, true, true));
+
+        case 'sidebar':
+            return Horde::url('services/sidebar.php', false, $opts);
+
+        case 'twitter':
+            return Horde::url('services/twitter/', true);
         }
 
         throw new BadFunctionCallException('Invalid service requested: ' . print_r(debug_backtrace(false), true));
