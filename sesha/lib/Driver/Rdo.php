@@ -331,7 +331,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
     public function setPropertiesForCategory($category_id, $properties = array())
     {
         $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
-        if ($category_id instanceof Insysgui_Entity_Category) {
+        if ($category_id instanceof Sesha_Entity_Category) {
             $category = $category_id;
         } else {
             $category = $cm->findOne($category_id);
@@ -357,7 +357,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
     public function clearPropertiesForCategory($category_id)
     {
         $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
-        if ($category_id instanceof Insysgui_Entity_Category) {
+        if ($category_id instanceof Sesha_Entity_Category) {
             $category = $category_id;
         } else {
             $category = $cm->findOne($category_id);
@@ -534,7 +534,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
                     $categories = is_array($filter['value']) ? $filter['value'] : array($filter['value']);
                     $items = array();
                     foreach ($categories as $category) {
-                        if ($category instanceof Insysgui_Entity_Category) {
+                        if ($category instanceof Sesha_Entity_Category) {
                             $category_id = $category->category_id;
                         } else {
                             $category_id = $category;
