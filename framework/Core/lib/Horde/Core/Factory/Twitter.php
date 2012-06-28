@@ -28,7 +28,8 @@ class Horde_Core_Factory_Twitter extends Horde_Core_Factory_Injector
             'requestTokenUrl' => Horde_Service_Twitter::REQUEST_TOKEN_URL,
             'authorizeTokenUrl' => Horde_Service_Twitter::USER_AUTHORIZE_URL,
             'accessTokenUrl' => Horde_Service_Twitter::ACCESS_TOKEN_URL,
-            'signatureMethod' => new Horde_Oauth_SignatureMethod_HmacSha1()
+            'signatureMethod' => new Horde_Oauth_SignatureMethod_HmacSha1(),
+            'callbackUrl' => $GLOBALS['registry']->getServiceLink('twitter')
         );
 
         /* Create the Consumer */
