@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-27</date>
- <time>16:47:57</time>
+ <date>2012-06-28</date>
+ <time>11:42:09</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -881,6 +881,7 @@
      <file name="block.inc" role="horde" />
      <file name="edit.inc" role="horde" />
      <file name="layout.inc" role="horde" />
+     <file name="new.inc" role="horde" />
      <file name="smartmobile.inc" role="horde" />
     </dir> <!-- /templates/portal -->
     <dir name="prefs">
@@ -2685,6 +2686,7 @@
    <install as="templates/portal/block.inc" name="templates/portal/block.inc" />
    <install as="templates/portal/edit.inc" name="templates/portal/edit.inc" />
    <install as="templates/portal/layout.inc" name="templates/portal/layout.inc" />
+   <install as="templates/portal/new.inc" name="templates/portal/new.inc" />
    <install as="templates/portal/smartmobile.inc" name="templates/portal/smartmobile.inc" />
    <install as="templates/prefs/activesync.html" name="templates/prefs/activesync.html" />
    <install as="templates/prefs/addressbooks.html" name="templates/prefs/addressbooks.html" />
