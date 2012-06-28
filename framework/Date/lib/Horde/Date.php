@@ -427,7 +427,9 @@ class Horde_Date
         if ($name == 'day') {
             $name = 'mday';
         }
-
+        if ($name[0] == '_') {
+            return null;
+        }
         return $this->{'_' . $name};
     }
 

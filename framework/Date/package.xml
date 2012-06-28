@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Avoid infinite loop when requesting invalid date property.
 * [bak] Avoid printing empty BYDAY field on RRULE.
  </notes>
  <contents>
@@ -733,6 +734,7 @@
    <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Avoid infinite loop when requesting invalid date property.
 * [bak] Avoid printing empty BYDAY field on RRULE.
    </notes>
   </release>
