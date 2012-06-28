@@ -63,26 +63,28 @@ class Horde_Imap_Client_Search_Query implements Serializable
     /**
      * Sets the charset of the search text.
      *
-     * @param string $charset     The charset to use for the search.
-     * @param callback $callback  A callback function to run on all text
-     *                            values when the charset changes.  It must
-     *                            accept three parameters: the text, the old
-     *                            charset (will be null if no charset was
-     *                            previously given), and the new charset. It
-     *                            should return the converted text value.
+     * @param string $charset   The charset to use for the search.
+     * @param boolean $convert  Convert existing text values?
+     *
+     * @throws Horde_Imap_Client_Exception_SearchCharset
      */
-    public function charset($charset, $callback = null)
+    public function charset($charset, $convert = true)
     {
         $oldcharset = $this->_charset;
         $this->_charset = strtoupper($charset);
-        if (is_null($callback) || ($oldcharset == $this->_charset)) {
+
+        if (!$convert || ($oldcharset == $this->_charset)) {
             return;
         }
 
         foreach (array('header', 'text') as $item) {
             if (isset($this->_search[$item])) {
-                foreach (array_keys($this->_search[$item]) as $key) {
-                    $this->_search[$item][$key]['text'] = call_user_func_array($callback, array($this->_search[$item][$key]['text'], $oldcharset, $this->_charset));
+                foreach ($this->_search[$item] as $key => $val) {
+                    $new_val = Horde_String::convertCharset($val['text'], $oldcharset, $this->_charset);
+                    if (Horde_String::convertCharset($new_val, $this->_charset, $oldcharset) != $val['text']) {
+                        throw new Horde_Imap_Client_Exception_SearchCharset($this->_charset);
+                    }
+                    $this->_search[$item][$key]['text'] = $new_val;
                 }
             }
         }

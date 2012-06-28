@@ -203,6 +203,10 @@ logging any errors.
     The $queries argument to andSearch() and orSearch() can be a base query
     in addition to an array of queries.
 
+    The second argument to charset() has been changed to a boolean indicating
+    whether the current text queries should be converted to the new charset
+    provided.
+
   - Horde_Imap_Client_Utf7imap
 
     The default argument for the $force parameter to Utf8ToUtf7Imap() has

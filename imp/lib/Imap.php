@@ -443,20 +443,14 @@ class IMP_Imap implements Serializable
      */
     protected function _search($mailbox, $query = null, array $opts = array())
     {
-        $imap_charset = null;
         $mailbox = IMP_Mailbox::get($mailbox);
 
         if (!empty($opts['sort'])) {
-            /* SORT (RFC 5256) requires UTF-8 support. So if we are sorting
-             * via the server, we know that we can search in UTF-8. */
-            if ($sort_cap = $this->queryCapability('SORT')) {
-                $imap_charset = 'UTF-8';
-            }
-
             /* If doing a from/to search, use display sorting if possible.
              * Although there is a fallback to a PHP-based display sort, for
              * performance reasons only do a display sort if it is supported
              * on the server. */
+            $sort_cap = $this->queryCapability('SORT');
             if (is_array($sort_cap) &&
                 in_array('DISPLAY', $sort_cap) &&
                 $mailbox->access_sort) {
@@ -472,15 +466,8 @@ class IMP_Imap implements Serializable
             }
         }
 
-        /* Make sure we search in the proper charset. */
         if (!is_null($query)) {
-            $query = clone $query;
-            if (is_null($imap_charset)) {
-                $imap_charset = $this->validSearchCharset('UTF-8')
-                    ? 'UTF-8'
-                    : 'US-ASCII';
-            }
-            $query->charset($imap_charset, array('Horde_String', 'convertCharset'));
+            $query->charset('UTF-8', false);
         }
 
         return array($mailbox->imap_mbox_ob, $query, $opts);

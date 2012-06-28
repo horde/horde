@@ -1927,17 +1927,21 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         try {
             $this->_sendLine($cmd);
-        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
-            if ($e->response == 'NO') {
+        } catch (Horde_Imap_Client_Exception $e) {
+            if (($e instanceof Horde_Imap_Client_Exception_ServerResponse) &&
+                ($e->response == 'NO') &&
+                ($charset != 'US-ASCII')) {
                 /* RFC 3501 [6.4.4]: BADCHARSET response code is only a
                  * SHOULD return. If it doesn't exist, need to check for
                  * command status of 'NO'. List of supported charsets in
                  * the BADCHARSET response has already been parsed and stored
                  * at this point. */
+                $s_charset = $this->_init['s_charset'];
+                $s_charset[$charset] = false;
+                $this->_setInit('s_charset', $s_charset);
                 $e->setCode(Horde_Imap_Client_Exception::BADCHARSET);
             }
-            throw $e;
-        } catch (Horde_Imap_Client_Exception $e) {
+
             if (empty($this->_temp['search_retry'])) {
                 $this->_temp['search_retry'] = true;
 
@@ -1955,12 +1959,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
 
                 /* Try to convert charset. */
-                foreach ($this->_init['s_charset'] as $key => $val) {
-                    $this->_temp['search_retry'] = 1;
-                    if ($val && ($key != $charset)) {
+                if (($e->getCode() == Horde_Imap_Client_Exception::BADCHARSET) &&
+                    ($charset != 'US-ASCII')) {
+                    foreach (array_merge(array_keys(array_filter($this->_init['s_charset'])), array('US-ASCII')) as $val) {
+                        $this->_temp['search_retry'] = 1;
                         $new_query = clone($query);
-                        $options['_query'] = $new_query->build($this->capability());
                         try {
+                            $new_query->charset($val);
+                            $options['_query'] = $new_query->build($this->capability());
                             return $this->_search($new_query, $options);
                         } catch (Horde_Imap_Client_Exception $e) {}
                     }

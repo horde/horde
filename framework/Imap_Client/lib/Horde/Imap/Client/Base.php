@@ -1995,7 +1995,28 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $query = new Horde_Imap_Client_Search_Query();
         }
 
+        // Check for supported charset.
         $options['_query'] = $query->build($this->capability());
+        if (!is_null($options['_query']['charset']) &&
+            array_key_exists($options['_query']['charset'], $this->_init['s_charset']) &&
+            !$this->_init['s_charset'][$options['_query']['charset']]) {
+            foreach (array_merge(array_keys(array_filter($this->_init['s_charset'])), array('US-ASCII')) as $val) {
+                try {
+                    $new_query = clone $query;
+                    $new_query->charset($val);
+                    break;
+                } catch (Horde_Imap_Client_Exception_SearchCharset $e) {
+                    unset($new_query);
+                }
+            }
+
+            if (!isset($new_query)) {
+                throw $e;
+            }
+
+            $query = $new_query;
+            $options['_query'] = $query->build($this->capability());
+        }
 
         /* RFC 6203: MUST NOT request relevancy results if we are not using
          * FUZZY searching. */
@@ -3333,37 +3354,27 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         $charset = strtoupper($charset);
 
+        if ($charset == 'US-ASCII') {
+            return true;
+        }
+
         if (!isset($this->_init['s_charset'][$charset])) {
-            $support = null;
-
-            switch ($charset) {
-            case 'US-ASCII';
-                /* US-ASCII is always supported (RFC 3501 [6.4.4]). */
-                $support = true;
-                break;
-            }
-
-            /* Use a dummy search query and search for BADCHARSET
-             * response. */
-            if (is_null($support)) {
-                $query = new Horde_Imap_Client_Search_Query();
-                $query->charset($charset);
-                $query->ids($this->getIdsOb(1, true));
-                $query->text('a');
-                try {
-                    $this->search('INBOX', $query, array(
-                        'sequence' => true
-                    ));
-                    $support = true;
-                } catch (Horde_Imap_Client_Exception $e) {
-                    /* BADCHARSET is only a MAY return - but there is no
-                     * other way of determining charset support. */
-                    $support = ($e->getCode() != Horde_Imap_Client_Exception::BADCHARSET);
-                }
-            }
-
             $s_charset = $this->_init['s_charset'];
-            $s_charset[$charset] = $support;
+
+            /* Use a dummy search query and search for BADCHARSET response. */
+            $query = new Horde_Imap_Client_Search_Query();
+            $query->charset($charset, false);
+            $query->ids($this->getIdsOb(1, true));
+            $query->text('a');
+            try {
+                $this->search('INBOX', $query, array(
+                    'sequence' => true
+                ));
+                $s_charset[$charset] = true;
+            } catch (Horde_Imap_Client_Exception $e) {
+                $s_charset[$charset] = ($e->getCode() != Horde_Imap_Client_Exception::BADCHARSET);
+            }
+
             $this->_setInit('s_charset', $s_charset);
         }
 
