@@ -1213,12 +1213,12 @@ $prefGroups['addressbooks'] = array(
 $_prefs['save_recipients'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Save recipients automatically to the default address book?")
+    'desc' => _("Save recipients automatically to your address book?")
 );
 
 // By default, display all contacts in the address book when loading
-// the contacts screen.  If your default address book is large and
-// slow to display, you may want to disable and lock this preference.
+// the contacts screen?  If your address book is large and slow to display,
+// you may want to disable and lock this preference.
 $_prefs['display_contact'] = array(
     'value' => 1,
     'type' => 'checkbox',
