@@ -19,7 +19,7 @@ div.partsTreeDiv span span:last-child {
 
 /* Message body styling. */
 .messageBody div.mimePartData {
-    line-height: 20px;
+    line-height: 1.3em;
     margin-bottom: 8px;
 }
 
