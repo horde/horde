@@ -74,7 +74,6 @@ $this->applications = array(
         'initial_page' => 'services/portal/index.php',
         'name' => _("Horde"),
         'provides' => 'horde',
-        'status' => 'hidden',
     ),
 
     'imp' => array(
