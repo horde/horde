@@ -502,13 +502,12 @@ div.dimpActionsMsg #windowclose {
 #msgHeadersColl span.date {
     float: right;
     text-align: right;
-    width: 30%;
     padding-top: 5px;
 }
 #msgHeadersColl span.subject {
     float: left;
     font-weight: bold;
-    max-width: 65%;
+    max-width: 60%;
     cursor: pointer;
 }
 #msgHeadersColl span.fromcontainer {
