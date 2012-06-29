@@ -353,7 +353,6 @@ table.searchesmanagement .vfolderenabled {
 /* Inline display (Horde_Mime_Viewer) styles. */
 .mimeStatusMessageTable {
     margin-bottom: 3px;
-    font-size: 90%;
 }
 .mimeStatusMessageTable {
     background: #ffc;

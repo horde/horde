@@ -743,12 +743,10 @@ a.address:hover img {
     margin-top: -1px;
 }
 #searchbar #search_label {
-    font-size: 90%;
     font-weight: bold;
 }
 #searchbar #search_time_elapsed {
     float: right;
-    font-size: 90%;
     padding-right: 12px;
 }
 
