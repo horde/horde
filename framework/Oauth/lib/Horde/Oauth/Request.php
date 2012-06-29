@@ -182,9 +182,11 @@ class Horde_Oauth_Request
     protected function _getNormalizedUrl()
     {
         $parts = parse_url($this->_url);
-
-        $port = !empty($parts['port']) ? $parts['port'] : '80';
         $scheme = $parts['scheme'];
+        $port = !empty($parts['port'])
+            ? $parts['port']
+            : $scheme == 'https' ? '443' : '80';
+
         $host = $parts['host'];
         $path = !empty($parts['path']) ? $parts['path'] : '';
 
