@@ -561,9 +561,13 @@ abstract class Kronolith_Event
         $vEvent = Horde_Icalendar::newComponent('vevent', $calendar);
         $v1 = $calendar->getAttribute('VERSION') == '1.0';
         $vEvents = array();
+
+        /* DTEND is non-inclusive, but $this->end is inclusive. */
+        $end = clone $this->end;
+        $end->sec++;
         if ($this->isAllDay()) {
             $vEvent->setAttribute('DTSTART', $this->start, array('VALUE' => 'DATE'));
-            $vEvent->setAttribute('DTEND', $this->end, array('VALUE' => 'DATE'));
+            $vEvent->setAttribute('DTEND', $end, array('VALUE' => 'DATE'));
             $vEvent->setAttribute('X-FUNAMBOL-ALLDAY', 1);
         } else {
             $this->setTimezone(true);

@@ -175,6 +175,188 @@ class Horde
     }
 
     /**
+     * Returns the URL to various Horde services.
+     *
+     * @param string $type       The service to display.
+     * <pre>
+     * 'ajax'
+     * 'cache'
+     * 'download'
+     * 'emailconfirm'
+     * 'go'
+     * 'help'
+     * 'imple'
+     * 'login'
+     * 'logintasks'
+     * 'logout'
+     * 'pixel'
+     * 'portal'
+     * 'problem'
+     * 'sidebar'
+     * 'prefs'
+     * </pre>
+     * @param string $app        The name of the current Horde application.
+     *
+     * @return Horde_Url|boolean  The HTML to create the link.
+     */
+    static public function getServiceLink($type, $app = null)
+    {
+        $opts = array('app' => 'horde');
+
+        switch ($type) {
+        case 'ajax':
+            $opts['noajax'] = true;
+            return self::url('services/ajax.php/' . $app . '/', false, $opts);
+
+        case 'cache':
+            $opts['append_session'] = -1;
+            return self::url('services/cache.php', false, $opts);
+
+        case 'download':
+            return self::url('services/download/', false, $opts)
+                ->add('module', $app);
+
+        case 'emailconfirm':
+            $opts['noajax'] = true;
+            return self::url('services/confirm.php', false, $opts);
+
+        case 'go':
+            $opts['noajax'] = true;
+            return self::url('services/go.php', false, $opts);
+
+        case 'help':
+            return self::url('services/help/', false, $opts)
+                ->add('module', $app);
+
+        case 'imple':
+            $opts['noajax'] = true;
+            return self::url('services/imple.php', false, $opts);
+
+        case 'login':
+            $opts['noajax'] = true;
+            return self::url('login.php', false, $opts);
+
+        case 'logintasks':
+            return self::url('services/logintasks.php', false, $opts)
+                ->add('app', $app);
+
+        case 'logout':
+            return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
+
+        case 'pixel':
+            return self::url('services/images/pixel.php', false, $opts);
+
+        case 'prefs':
+            if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
+                $url = self::url('services/prefs.php', false, $opts);
+                if (!is_null($app)) {
+                    $url->add('app', $app);
+                }
+                return $url;
+            }
+            break;
+
+        case 'portal':
+            if ($GLOBALS['session']->get('horde', 'mode') == 'smartmobile' && self::ajaxAvailable()) {
+                return self::url('services/portal/mobile.php', false, $opts);
+            } else {
+                return self::url('services/portal/', false, $opts);
+            }
+            break;
+
+        case 'problem':
+            return self::url('services/problem.php', false, $opts)
+                ->add('return_url', self::selfUrl(true, true, true));
+
+        case 'sidebar':
+            return self::url('services/sidebar.php', false, $opts);
+
+        case 'twitter':
+            return self::url('services/twitter/', true, $opts);
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns a response object with added notification information.
+     *
+     * @param mixed $data      The 'response' data.
+     * @param boolean $notify  If true, adds notification info to object.
+     *
+     * @return object  The Horde JSON response.  It has the following
+     *                 properties:
+     *   - msgs: (array) [OPTIONAL] List of notification messages.
+     *   - response: (mixed) The response data for the request.
+     */
+    static public function prepareResponse($data = null, $notify = false)
+    {
+        $response = new stdClass();
+        $response->response = $data;
+
+        if ($notify) {
+            $stack = $GLOBALS['notification']->notify(array('listeners' => 'status', 'raw' => true));
+            if (!empty($stack)) {
+                $response->msgs = $stack;
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * Send response data to browser.
+     *
+     * @param mixed $data  The data to serialize and send to the browser.
+     * @param string $ct   The content-type to send the data with.  Either
+     *                     'json', 'js-json', 'html', 'plain', and 'xml'.
+     */
+    static public function sendHTTPResponse($data, $ct)
+    {
+        // Output headers and encoded response.
+        switch ($ct) {
+        case 'json':
+        case 'js-json':
+            /* JSON responses are a structured object which always
+             * includes the response in a member named 'response', and an
+             * additional array of messages in 'msgs' which may be updates
+             * for the server or notification messages.
+             *
+             * Make sure no null bytes sneak into the JSON output stream.
+             * Null bytes cause IE to stop reading from the input stream,
+             * causing malformed JSON data and a failed request.  These
+             * bytes don't seem to break any other browser, but might as
+             * well remove them anyway.
+             *
+             * Finally, add prototypejs security delimiters to returned
+             * JSON. */
+            $s_data = str_replace("\00", '', self::escapeJson($data));
+
+            if ($ct == 'json') {
+                header('Content-Type: application/json');
+                echo $s_data;
+            } else {
+                header('Content-Type: text/html; charset=UTF-8');
+                echo htmlspecialchars($s_data);
+            }
+            break;
+
+        case 'html':
+        case 'plain':
+        case 'xml':
+            $s_data = is_string($data) ? $data : $data->response;
+            header('Content-Type: text/' . $ct . '; charset=UTF-8');
+            echo $s_data;
+            break;
+
+        default:
+            echo $data;
+        }
+
+        exit;
+    }
+
+    /**
      * Do necessary escaping to output JSON.
      *
      * @param mixed $data     The data to JSON-ify.
