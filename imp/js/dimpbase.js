@@ -1836,7 +1836,7 @@ var DimpBase = {
         if (update) {
             this._setPref('toggle_hdrs', Number(!this._getPref('toggle_hdrs')));
         }
-        [ elt.up().select('A'), $('msgHeadersColl', 'msgHeaders') ].flatten().invoke('toggle');
+        [ $('msgHeadersColl', 'msgHeaders') ].flatten().invoke('toggle');
     },
 
     _expirePPCache: function(ids)
