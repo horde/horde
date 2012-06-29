@@ -1931,7 +1931,7 @@ background-color:#bfc9cd;
     float: left;
     border-right: 1px solid #787878;
 }
-    .horde-new-link a {
+    #horde-sidebar .horde-new-link a {
         padding-left: 28px;
         margin: 5px 10px 0 10px;
         background-image:url('graphics/sidebar-new.png');
