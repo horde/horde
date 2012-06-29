@@ -406,7 +406,7 @@ div.dimpActionsMsg #windowclose {
 
 /* Headers styles. */
 .msgHeaders {
-    padding: 2px;
+    padding: 10px;
     background-color: #eceff0;
     border-bottom: 1px solid #d0d0d0;
     max-height: 300px;
@@ -483,6 +483,9 @@ div.dimpActionsMsg #windowclose {
 #msgHeadersContent {
     overflow: hidden;
 }
+#msgHeadersContent p.subject {
+    margin-bottom: 10px;
+}
 #th_collapse {
     cursor: pointer;
 }
@@ -517,7 +520,7 @@ div.dimpActionsMsg #windowclose {
 
 /* Message body formatting. */
 .messageBody {
-    padding: 6px;
+    padding: 10px;
 }
 .msgfullread div.messageBody {
     overflow: auto;
