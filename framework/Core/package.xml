@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-05-29</date>
- <time>13:44:08</time>
+ <date>2012-06-29</date>
+ <time>14:35:32</time>
  <version>
   <release>1.9.2</release>
   <api>1.9.0</api>
@@ -1778,7 +1778,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-05-29</date>
+   <date>2012-06-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix cache maxsize preference (Bug #11224).
