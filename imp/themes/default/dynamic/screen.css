@@ -734,8 +734,7 @@ a.address:hover img {
 
 #searchbar {
     background-color: #ffa;
-    border: 1px solid gray;
-    padding: 3px 2px;
+    padding: 8px 10px;
 }
 #search_close, #search_edit, #search_refresh {
     cursor: pointer;
