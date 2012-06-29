@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-29</date>
- <time>13:26:49</time>
+ <date>2012-06-29</date>
+ <time>14:31:13</time>
  <version>
   <release>1.0.8</release>
   <api>1.0.0</api>
@@ -657,7 +657,7 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-05-29</date>
+   <date>2012-06-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add recognition of Firefox for Android as a mobile browser (Request #11216).
