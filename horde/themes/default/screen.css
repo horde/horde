@@ -2011,7 +2011,7 @@ background-repeat:repeat-x;
   background-image:url('graphics/popdown.png');
   background-repeat:no-repeat;
   }
-  .subfolders {
+  .subfolders .horde-subnavi {
       padding-left: 9px;
   }
 
