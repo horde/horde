@@ -1,4 +1,12 @@
 <?php echo $this->topbar ?>
+
+<div id="dimpLoading">
+ <?php echo _("Loading...") ?>
+ <noscript>
+  <div class="nojserror"><?php echo _("Error! This application requires javascript to be available and enabled in your browser.") ?></div>
+ </noscript>
+</div>
+
 <div id="horde-page" style="display:none">
 <?php echo $this->sidebar ?>
  <div id="dimpmain">
