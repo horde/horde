@@ -2192,7 +2192,7 @@ overflow: hidden;
     .horde-table-header .horde-split-right {
         background-image: url('graphics/tablehead-split.png');
         background-repeat: no-repeat;
-        padding: 0 10px 0 10px;
+        padding: 0 5px;
     }
     .horde-table-header .horde-split-right {
         background-position: center right;

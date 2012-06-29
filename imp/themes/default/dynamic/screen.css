@@ -66,13 +66,13 @@ input {
     .horde-table-header .horde-split-right {
         width: 2px;
         height: 21px;
-        margin: 0 10px 0 10px;
+        margin: 0 5px;
         padding: 0;
     }
     .horde-table-header .horde-split-left {
         position: absolute;
         top: 0;
-        margin-left: -11px;
+        margin-left: -6px;
     }
     .horde-table-header .horde-split-right {
         float:right;
@@ -85,16 +85,16 @@ input {
 /* Columns */
 div.msgStatus {
     padding-left: 10px;
-    width: 74px;
+    width: 70px;
     text-indent: 0 !important;
 }
 div.msgFrom {
-    left: 85px;
-    width: 147px;
+    left: 80px;
+    width: 150px;
 }
 div.msgSubject {
-    left: 254px;
-    right: 228px;
+    left: 240px;
+    right: 225px;
 }
 #msglistHeaderHoriz div.msgSubject {
     right: auto;
@@ -102,19 +102,18 @@ div.msgSubject {
 }
 div.msgDate {
     text-align: right;
-    right: 76px;
+    right: 85px;
     width: 130px;
 }
 #msglistHeaderHoriz div.msgDate {
-    right: 76px;
     padding-right: 20px;
     width: 110px;
 }
 div.msgSize {
     text-align: right;
     right: 0;
-    width: 40px;
-    padding-right: 14px;
+    width: 50px;
+    padding-right: 25px;
 }
 
 /* Message List Header and Column Header */
@@ -160,11 +159,11 @@ div.vpRowSelected {
     color: #fff;
 }
 div.vpRowHoriz div.sep {
-    margin-left: 11px;
-    padding-left: 11px;
+    margin-left: 5px;
+    padding-left: 5px;
 }
 div.vpRowHoriz div.sep.sortup, div.vpRowHoriz div.sep.sortdown {
-    background-position: 11px center;
+    background-position: 6px center;
 }
 #msglistHeaderHoriz div.horde-subnavi-arrow {
     margin-right: -22px;
