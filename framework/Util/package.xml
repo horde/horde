@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-05</date>
- <time>13:44:08</time>
+ <date>2012-06-29</date>
+ <time>14:48:37</time>
  <version>
   <release>1.4.0</release>
   <api>1.4.0</api>
@@ -482,7 +482,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-06-05</date>
+   <date>2012-06-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add Horde_String::trimUtf8Bom().
