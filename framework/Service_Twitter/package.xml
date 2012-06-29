@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-06-28</date>
- <time>21:03:53</time>
+ <time>21:04:05</time>
  <version>
-  <release>1.1.4</release>
+  <release>1.1.5</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mjr] Update API endpoints.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -259,6 +259,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Update API endpoints.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.5</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-06-28</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
