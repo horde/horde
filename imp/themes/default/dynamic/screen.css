@@ -232,6 +232,7 @@ div.vpRowVert div.msgSubject span.flagUser {
 
 /* ViewPort - scroller */
 .vpScroll {
+    position: relative;
     background: url("../graphics/scroller_back.png") repeat-y;
 }
 .vpScrollCursor {
