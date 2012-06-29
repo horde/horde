@@ -418,7 +418,7 @@ div.dimpActionsMsg #windowclose {
 }
 
 .msgHeaders .dimpOptions {
-    padding: 3px 10px 5px 5px;
+    padding: 0 0 5px 5px;
 }
 
 .msgHeaders table {
