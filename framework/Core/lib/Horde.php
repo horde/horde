@@ -580,6 +580,9 @@ HTML;
 
         case 'sidebar':
             return self::url('services/sidebar.php', false, $opts);
+
+        case 'twitter':
+            return self::url('services/twitter/', true, $opts);
         }
 
         return false;
