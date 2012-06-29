@@ -94,7 +94,7 @@ div.msgFrom {
 }
 div.msgSubject {
     left: 254px;
-    right: 214px;
+    right: 228px;
 }
 #msglistHeaderHoriz div.msgSubject {
     right: auto;
@@ -102,7 +102,7 @@ div.msgSubject {
 }
 div.msgDate {
     text-align: right;
-    right: 62px;
+    right: 76px;
     width: 130px;
 }
 #msglistHeaderHoriz div.msgDate {
@@ -114,9 +114,7 @@ div.msgSize {
     text-align: right;
     right: 0;
     width: 40px;
-}
-#msglistHeaderHoriz div.msgSize {
-    right: 14px;
+    padding-right: 14px;
 }
 
 /* Message List Header and Column Header */
@@ -148,7 +146,6 @@ div.vpRow, div.vpRow div {
 }
 div.vpRow {
     position: relative;
-    margin-right: 14px;
 }
 div.vpRow div {
     position: absolute;
