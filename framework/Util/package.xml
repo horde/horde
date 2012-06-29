@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2012-06-29</date>
- <time>14:48:37</time>
+ <time>14:48:54</time>
  <version>
-  <release>1.4.0</release>
+  <release>1.4.1</release>
   <api>1.4.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add Horde_String::trimUtf8Bom().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -486,6 +486,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add Horde_String::trimUtf8Bom().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.1</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-06-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
