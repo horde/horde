@@ -411,6 +411,9 @@ div.dimpActionsMsg #windowclose {
     overflow-x: hidden;
     overflow-y: auto;
 }
+.msgHeaders a {
+    color: #000;
+}
 .msgfullread .msgHeaders {
     cursor: default;
 }
@@ -684,21 +687,11 @@ span.attachmentImg {
 /* Email Addresses. */
 a.address {
     cursor: pointer;
-    text-decoration: underline;
     white-space: nowrap;
 }
 a.address img {
     display: none;
     vertical-align: top;
-}
-a.address:hover {
-    background: #fff;
-    border: 1px silver solid;
-    display: -moz-inline-stack;
-    display: inline-block;
-    margin: -2px;
-    padding: 1px;
-    text-decoration: none;
 }
 a.address:hover img {
     display: inline;

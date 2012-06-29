@@ -132,7 +132,7 @@ br.spacer {
 }
 
 a {
-    color: #000;
+    color: #36525d;
     cursor: pointer;
     text-decoration: none;
 }
@@ -1903,6 +1903,9 @@ background-image:url('graphics/settings-active.png');
 #horde-sidebar{
 background-color:#bfc9cd;
 }
+  #horde-sidebar a {
+      color: #000;
+  }
   .horde-sidebar-folder{
   background-color:#bfc9cd;
   }
@@ -2182,6 +2185,9 @@ overflow: hidden;
     background-image: url('graphics/tablehead-bg.png');
     background-repeat: repeat-x;
 }
+    .horde-table-header a {
+        color: #000;
+    }
     .horde-table-header .horde-split-left,
     .horde-table-header .horde-split-right {
         background-image: url('graphics/tablehead-split.png');
