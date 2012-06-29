@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-06-29</date>
- <time>14:31:13</time>
+ <time>14:33:31</time>
  <version>
-  <release>1.0.8</release>
+  <release>1.0.9</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add recognition of Firefox for Android as a mobile browser (Request #11216).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -661,6 +661,19 @@ Initial packaging
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add recognition of Firefox for Android as a mobile browser (Request #11216).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.9</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-06-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
