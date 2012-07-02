@@ -27,7 +27,7 @@ $return_url = $registry->getServiceLink('prefs', 'horde')
 // See why we are here. A $code indicates the user has *just* authenticated the
 // application and we now need to obtain the auth_token.
 if ($code = Horde_Util::getFormData('code')) {
-    $state = Horde_Util::getFormDate('state');
+    $state = Horde_Util::getFormData('state');
     $token = $injector->getInstane('Horde_Token');
     if (!$token->isValid($state, '', null, true)) {
         $notification->push(_("Unable to validate the request token. Please try your request again."));
