@@ -37,7 +37,6 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
     const EXTEND_PERMS_FRIENDS_PHOTOS = 'friends_photos';
 
     /** Misc **/
-    const EXTEND_PERMS_OFFLINE = 'offline_access';
     const EXTEND_PERMS_PUBLISHSTREAM = 'publish_stream';
     const EXTEND_PERMS_READSTREAM = 'read_stream';
 

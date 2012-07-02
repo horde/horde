@@ -63,13 +63,11 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
         if (!empty($haveSession)) {
             try {
                 $facebook->batchBegin();
-                $offline = &$facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE, $uid);
                 $publish = &$facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM, $uid);
                 $read = &$facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_READSTREAM, $uid);
                 $friends = &$facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_ABOUT, $uid);
                 $facebook->batchEnd();
 
-                $t->set('have_offline', $offline);
                 $t->set('have_publish', $publish);
                 $t->set('have_read', $read);
                 $t->set('have_friends', $friends);
@@ -90,8 +88,6 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
 
             // FB Perms links
             $cburl = Horde::url('services/facebook', true);
-            $url = $facebook->auth->getOAuthUrl($cburl, array(Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE), $state);
-            $t->set('authUrl', Horde::signQueryString($url));
             $t->set('have_session', true);
             $t->set('user_pic_url', $user_info[0]['pic_with_logo']);
             $t->set('user_name', $user_info[0]['first_name'] . ' ' . $user_info[0]['last_name']);
@@ -143,14 +139,10 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
         }
         try {
             switch ($ui->vars->fbactionID) {
-            case 'revokeInfinite':
-                $facebook->auth->revokeExtendedPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE);
-                break;
-
             case 'revokeApplication':
-                $facebook->auth->revokeAuthorization();
-                $prefs->setValue('facebook', array('uid' => '',
-                                                   'sid' => ''));
+                $prefs->setValue(
+                    'facebook',
+                    array('uid' => '', 'sid' => ''));
                 break;
 
             case 'revokePublish':
