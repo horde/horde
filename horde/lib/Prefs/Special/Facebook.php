@@ -118,8 +118,10 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
         }
 
         /* No existing session */
+        $token = $GLOBALS['injector']->getInstance('Horde_Token');
+        $state = $token->get();
         $t->set('have_session', false);
-        $t->set('authUrl', $facebook->auth->getOAuthUrl(Horde::url('services/facebook', true)));
+        $t->set('authUrl', $facebook->auth->getOAuthUrl(Horde::url('services/facebook', true), array(), $state));
 
         return $t->fetch(HORDE_TEMPLATES . '/prefs/facebook.html');
     }
