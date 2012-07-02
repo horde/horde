@@ -552,13 +552,13 @@ div.dimpActionsMsg #windowclose {
 #composeContainer .header, #qreply .header {
     background-color: #eceff0;
     border-bottom: 1px solid #d0d0d0;
-    padding: 18px;
+    padding: 10px;
 }
 .msgwrite {
     background-color: #eceff0;
     border-bottom: 1px solid #d0d0d0;
     cursor: default;
-    padding: 18px;
+    padding: 10px;
 }
 .msgwrite .dimpOptions {
     padding: 8px 8px 0 0;
