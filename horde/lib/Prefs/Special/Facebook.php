@@ -56,6 +56,9 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
             $prefs->setValue('facebook', serialize(array('uid' => '', 'sid' => 0)));
         }
 
+        // Get a token generator
+        $token = $GLOBALS['injector']->getInstance('Horde_Token');
+
         // We have a session, build the template.
         if (!empty($haveSession)) {
             try {
@@ -70,7 +73,6 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
                 $t->set('have_publish', $publish);
                 $t->set('have_read', $read);
                 $t->set('have_friends', $friends);
-
             } catch (Horde_Service_Facebook_Exception $e) {
                 $notification->push($e->getMessage(), 'horde.error');
             }
@@ -83,9 +85,12 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
                 $notification->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.alert');
             }
 
+            // Get a state token.
+            $state = $token->get();
+
             // FB Perms links
             $cburl = Horde::url('services/facebook', true);
-            $url = $facebook->auth->getOAuthUrl($cburl, array(Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE));
+            $url = $facebook->auth->getOAuthUrl($cburl, array(Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE), $state);
             $t->set('authUrl', Horde::signQueryString($url));
             $t->set('have_session', true);
             $t->set('user_pic_url', $user_info[0]['pic_with_logo']);
@@ -102,7 +107,7 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
                 Horde_Service_Facebook_Auth::EXTEND_PERMS_USER_EVENTS,
                 Horde_Service_Facebook_Auth::EXTEND_PERMS_USER_HOMETOWN,
                 Horde_Service_Facebook_Auth::EXTEND_PERMS_USER_LOCATION,
-                Horde_Service_Facebook_Auth::EXTEND_PERMS_USER_PHOTOS));
+                Horde_Service_Facebook_Auth::EXTEND_PERMS_USER_PHOTOS), $state);
             $t->set('read_url', Horde::signQueryString($url));
 
             // Friend read perms
@@ -111,14 +116,13 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
                 Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_BIRTHDAY,
                 Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_HOMETOWN,
                 Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_LOCATION,
-                Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_PHOTOS));
+                Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_PHOTOS), $state);
             $t->set('friends_url', Horde::signQueryString($url));
 
             return $t->fetch(HORDE_TEMPLATES . '/prefs/facebook.html');
         }
 
         /* No existing session */
-        $token = $GLOBALS['injector']->getInstance('Horde_Token');
         $state = $token->get();
         $t->set('have_session', false);
         $t->set('authUrl', $facebook->auth->getOAuthUrl(Horde::url('services/facebook', true), array(), $state));
