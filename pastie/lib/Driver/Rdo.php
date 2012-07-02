@@ -30,41 +30,42 @@ class Pastie_Driver_Rdo extends Pastie_Driver
      */
     protected $_mappers;
 
-    public function savePaste($bin, $paste, $syntax = 'none', $title = '')
+    /**
+     * This is the basic constructor for the Rdo driver.
+     *
+     * @param array $params  Hash containing the connection parameters.
+     */
+    public function __construct($params = array())
     {
-        $this->_connect();
+        $this->_db = $params['db'];
+        $this->_mappers = new Horde_Rdo_Factory($this->_db);
+    }
 
-        $id = $this->_db->nextId('mySequence');
-        if (PEAR::isError($id)) {
-            throw new Horde_Exception_Wrapped($id);
-        }
-
+    /**
+     * Create a new paste in backend.
+     * @param string $bin  the paste bin to fill
+     * @param string $content  the actual paste content
+     * @param string $syntax  the highlighting syntax keyword
+     * @param string $title  the title line of the paste
+     * @return string uuid of the new paste
+     */
+    public function savePaste($bin, $content, $syntax = 'none', $title = '')
+    {
+        $pm = $this->_mappers->create('Pastie_Entity_PasteMapper');
+        $bin = 'default'; // FIXME: Allow bins to be Horde_Shares
         $uuid = new Horde_Support_Uuid();
 
-        $bin = 'default'; // FIXME: Allow bins to be Horde_Shares
+        $paste = $pm->create(array(
+                'paste_uuid' => $uuid,
+                'paste_bin' => $bin,
+                'paste_title' => $title,
+                'paste_syntax' => $syntax,
+                'paste_content' => $content,
+                'paste_owner' => $GLOBALS['registry']->getAuth(), /* Should the driver handle this? */
+                'paste_timestamp' => time()
+            )
 
-        $query = 'INSERT INTO pastie_pastes (paste_id, paste_uuid, ' .
-                 'paste_bin, paste_title, paste_syntax, paste_content, ' .
-                 'paste_owner, paste_timestamp) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-        $values = array(
-                      $id,
-                      $uuid,
-                      $bin,
-                      $title,
-                      $syntax,
-                      $paste,
-                      $GLOBALS['registry']->getAuth(),
-                      time()
         );
-
-        Horde::logMessage(sprintf('Pastie_Driver_Sql#savePaste(): %s', $query), 'DEBUG');
-        Horde::logMessage(print_r($values, true), 'DEBUG');
-
-        $result = $this->_write_db->query($query, $values);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'err');
-            throw new Horde_Exception_Wrapped($result);
-        }
 
         return $uuid;
     }
@@ -78,141 +79,70 @@ class Pastie_Driver_Rdo extends Pastie_Driver
      */
     public function getPaste($params)
     {
+        $pm = $this->_mappers->create('Pastie_Entity_PasteMapper');
+        $query = new Horde_Rdo_Query($pm);
+        
         // Right now we will accept 'id' or 'uuid'
+        if (isset($params['id'])) {
+            $query->addTest('paste_id', '=', $params['id']);
+        }
+        if (isset($params['uuid'])) {
+            $query->addTest('paste_uuid', '=', $params['uuid']);
+        }
         if (!isset($params['id']) && !isset($params['uuid'])) {
             Horde::logMessage('Error: must specify some kind of unique id.', 'err');
             throw new Pastie_Exception(_("Internal error.  Details have been logged for the administrator."));
         }
 
-        $query = 'SELECT paste_id, paste_uuid, paste_bin, paste_title, ' .
-                 'paste_syntax, paste_content, paste_owner, paste_timestamp ' .
-                 'FROM pastie_pastes ';
-        $values = array();
-        if (isset($params['id'])) {
-            $query .= 'WHERE paste_id = ? ';
-            $values[] = $params['id'];
-        } elseif (isset($params['uuid'])) {
-            $query .= 'WHERE paste_uuid = ? ';
-            $values[] = $params['uuid'];
-        }
-
-        $query .= 'AND paste_bin = ?';
-        $values[] = 'default'; // FIXME: Horde_Share
-
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Pastie_Driver_Sql#getPaste(): %s', $query), 'DEBUG');
-
-        /* Execute the query. */
-        $result = $this->_db->query($query, $values);
-
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception_Wrapped($result);
-        }
-
-        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        if ($row instanceof PEAR_Error) {
-            throw new Horde_Exception_Wrapped($row);
-        }
-        $result->free();
-
-        if ($row) {
-            return array(
-                'id' => $row['paste_id'],
-                'uuid' => $row['paste_uuid'],
-                'bin' => $row['paste_bin'],
-                'title' => $row['paste_title'],
-                'syntax' => $row['paste_syntax'],
-                'paste' => $row['paste_content'],
-                'owner' => $row['paste_owner'],
-                'timestamp' => new Horde_Date($row['paste_timestamp'])
-            );
+        $paste = $pm->findOne($query);
+        if ($paste) {
+            return $this->_fromBackend($paste);
         } else {
             throw new Pastie_Exception(_("Invalid paste ID."));
         }
     }
 
+    /**
+     * get any number of pastes from a bin, ordered by date, narrowed by limit and offset
+     * @param string  $bin  A paste bin to query
+     * @param integer $limit  a maximum of pastes to retrieve (optional, default to null = all)
+     * @param integer start  a number of pastes to skip before retrieving (optional, default to null = begin with first)
+     * @return array  a list of pastes
+     */
     public function getPastes($bin, $limit = null, $start = null)
     {
-        throw new Pastie_Exception('Not Implemented');
-        $query = 'SELECT paste_id, paste_uuid, paste_bin, paste_title, ' .
-                 'paste_syntax, paste_content, paste_owner, paste_timestamp ' .
-                 'FROM pastie_pastes WHERE paste_bin = ? ' .
-                 'ORDER BY paste_timestamp DESC';
-        $values[] = 'default'; // FIXME: Horde_Share
-
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Pastie_Driver_Sql#getPastes(): %s', $query), 'DEBUG');
-
-        /* Execute the query. */
+        $pm = $this->_mappers->create('Pastie_Entity_PasteMapper');
+        $query = new Horde_Rdo_Query($pm);
+        $query->sortBy('paste_timestamp DESC');
         if ($limit !== null) {
-            if ($start === null) {
-                $start = 0;
-            }
-            $result = $this->_db->limitQuery($query, $start, $limit, $values);
-        } else {
-            $result = $this->_db->query($query, $values);
+             if ($start === null) {
+                 $start = 0;
+             }
+            $query->limit($limit, $start);
         }
-
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception_Wrapped($result);
-        }
-
-        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        if ($row instanceof PEAR_Error) {
-            throw new Horde_Exception_Wrapped($row);
-        }
-
         $pastes = array();
-        while ($row && !($row instanceof PEAR_Error)) {
-            $pastes[$row['paste_uuid']] = array(
-                'id' => $row['paste_id'],
-                'uuid' => $row['paste_uuid'],
-                'bin' => $row['paste_bin'],
-                'title' => $row['paste_title'],
-                'syntax' => $row['paste_syntax'],
-                'paste' => $row['paste_content'],
-                'owner' => $row['paste_owner'],
-                'timestamp' => new Horde_Date($row['paste_timestamp'])
-            );
-
-            /* Advance to the new row in the result set. */
-            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        }
-        $result->free();
-
-        return $pastes;
+            foreach ($pm->find($query) as $paste) {
+                $pastes[$paste['paste_uuid']] = $this->_fromBackend($paste);
+            }
+        return $pastes; 
     }
 
     /**
-     * Attempts to open a persistent connection to the SQL server.
-     *
-     * @throws Horde_Exception
+     * Convert a backend hash or object to an application context hash.
+     * This is ugly and may be redesigned or refactored
+     * @param array|Pastie_Entity_Paste $paste  A paste hash or Rdo object.
+     * @return an application context hash
      */
-    protected function _connect()
-    {
-        if (!$this->_connected) {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'pastie', 'storage');
-            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'pastie', 'storage');
-            $this->_connected = true;
-        }
+    protected function _fromBackend($paste) {
+        return array(
+            'id' => $paste['paste_id'],
+            'uuid' => $paste['paste_uuid'],
+            'bin' => $paste['paste_bin'],
+            'title' => $paste['paste_title'],
+            'syntax' => $paste['paste_syntax'],
+            'paste' => $paste['paste_content'],
+            'owner' => $paste['paste_owner'],
+            'timestamp' => new Horde_Date($paste['paste_timestamp'])
+        );
     }
-
-    /**
-     * Disconnects from the SQL server and cleans up the connection.
-     */
-    protected function _disconnect()
-    {
-        if ($this->_connected) {
-            $this->_connected = false;
-            $this->_db->disconnect();
-            $this->_write_db->disconnect();
-        }
-    }
-
 }
