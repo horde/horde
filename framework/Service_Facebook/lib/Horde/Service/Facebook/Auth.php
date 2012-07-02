@@ -47,14 +47,18 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
      *
      * @param string $callback  The callback url. FB will redirect back to here.
      * @param array $perms      An array of FB permissions to request.
+     * @param string $state     A random, but unique string for FB to return
+     *                          to ensure security.
      *
      * @return string  The URL.
      */
-    public function getOAuthUrl($callback, array $perms = array())
+    public function getOAuthUrl($callback, array $perms = array(), $state = null)
     {
         return $this->_facebook->getFacebookUrl()
             . '/dialog/oauth?client_id=' . $this->_facebook->appId
-            . '&redirect_uri=' . urlencode($callback) . '&scope=' . implode(',', $perms);
+            . '&redirect_uri=' . urlencode($callback)
+            . '&scope=' . implode(',', $perms)
+            . (!empty($state) ? '&state=' . $state : '');
     }
 
     /**
