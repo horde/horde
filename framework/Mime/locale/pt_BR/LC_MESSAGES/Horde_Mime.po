@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Mime\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-03-23 23:51-0300\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -30,31 +30,31 @@ msgstr "Versão HTML da Mensagem"
 msgid "Invalid character in e-mail address: %s."
 msgstr "Caracter inválido no endereço de e-mail: %s."
 
-#: lib/Horde/Mime/Headers.php:551
+#: lib/Horde/Mime/Headers.php:557
 msgid "List-Archive"
 msgstr "List-Archive"
 
-#: lib/Horde/Mime/Headers.php:546
+#: lib/Horde/Mime/Headers.php:552
 msgid "List-Help"
 msgstr "List-Help"
 
-#: lib/Horde/Mime/Headers.php:553
+#: lib/Horde/Mime/Headers.php:559
 msgid "List-Id"
 msgstr "List-Id"
 
-#: lib/Horde/Mime/Headers.php:549
+#: lib/Horde/Mime/Headers.php:555
 msgid "List-Owner"
 msgstr "List-Owner"
 
-#: lib/Horde/Mime/Headers.php:550
+#: lib/Horde/Mime/Headers.php:556
 msgid "List-Post"
 msgstr "List-Post"
 
-#: lib/Horde/Mime/Headers.php:548
+#: lib/Horde/Mime/Headers.php:554
 msgid "List-Subscribe"
 msgstr "List-Subscribe"
 
-#: lib/Horde/Mime/Headers.php:547
+#: lib/Horde/Mime/Headers.php:553
 msgid "List-Unsubscribe"
 msgstr "List-Unsubscribe"
 

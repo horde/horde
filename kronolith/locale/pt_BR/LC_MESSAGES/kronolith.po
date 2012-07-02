@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kronolith H4 (3.0.4-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-03-23 23:51-0300\n"
-"PO-Revision-Date: 2012-03-27 22:25-0300\n"
+"POT-Creation-Date: 2012-06-16 23:22-0300\n"
+"PO-Revision-Date: 2012-06-30 19:39-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -76,14 +76,14 @@ msgstr[1] "%d semanas"
 #: templates/chunks/permissions.inc:20
 #, php-format
 msgid "%s %sShare with the %s %sgroup%s and %sallow them to%s %s"
-msgstr "%s %sCompartilhar com o %s %sgrupo%s e %sdescorá-los para%s %s"
+msgstr "%s %sCompartilhar com o grupo %s %s%s e %spermitir a ele%s %s"
 
 #: templates/chunks/permissions.inc:38
 #, php-format
 msgid "%s %sShare with the users:%s %s and %sallow them to%s %s"
-msgstr "%s %sCompartilhar com os usuários:%s %s e %spermiti-los em%s %s"
+msgstr "%s %sCompartilhar com os usuários:%s %s e %spermitir a eles%s %s"
 
-#: lib/Api.php:714 lib/Api.php:725
+#: lib/Api.php:719 lib/Api.php:730
 #, php-format
 msgid "%s Already Exists"
 msgstr "%s Já Existe"
@@ -1579,7 +1579,7 @@ msgstr "Meses Adiante"
 msgid "Months Before"
 msgstr "Neses Antes"
 
-#: lib/Api.php:971
+#: lib/Api.php:976
 msgid "Multiple iCalendar components found; only one vEvent is supported."
 msgstr ""
 "Múltiplos componentes iCalendar encontrados; somente um vEvent é suportado."
@@ -1703,7 +1703,7 @@ msgstr "Nenhum participante"
 msgid "No attendees defined"
 msgstr "Nenhum participante definido"
 
-#: lib/Api.php:1099
+#: lib/Api.php:1104
 msgid ""
 "No attendees have been updated because none of the provided email addresses "
 "have been found in the event's attendees list."
@@ -1723,7 +1723,7 @@ msgstr "Nenhum calendário para procurar"
 msgid "No end date"
 msgstr "Nenhum data de término"
 
-#: lib/Block/Monthlist.php:173 lib/Block/Prevmonthlist.php:167
+#: lib/Block/Monthlist.php:178 lib/Block/Prevmonthlist.php:167
 #: lib/Block/Summary.php:204 templates/mobile/javascript_defs.php:147
 msgid "No events to display"
 msgstr "Nenhum evento para mostrar"
@@ -1739,7 +1739,7 @@ msgstr ""
 msgid "No free/busy url found for %s."
 msgstr "Nenhuma URL livre/ocupado encontrada para %s."
 
-#: lib/Api.php:655 lib/Api.php:675 lib/Api.php:978
+#: lib/Api.php:660 lib/Api.php:680 lib/Api.php:983
 msgid "No iCalendar data was found."
 msgstr "Nenhum dado iCalendar foi encontrado."
 
@@ -1899,7 +1899,7 @@ msgstr "Apagar permanentemente este evento?"
 msgid "Permission Denied"
 msgstr "Permissão Negada"
 
-#: lib/Api.php:460
+#: lib/Api.php:465
 #, php-format
 msgid "Permission Denied or Calendar Not Found: %s - skipping."
 msgstr "Permissão Negada ou Calendário Não Encontrado: %s - ignorando."
@@ -2715,7 +2715,7 @@ msgstr "A estrutura de Calendário não está disponível atualmente: %s"
 msgid "The Edit Attendees screen is no longer present. Exiting."
 msgstr "A tela de Edição de Participantes não está mais presente. Saindo."
 
-#: lib/Api.php:1122
+#: lib/Api.php:1127
 msgid ""
 "The attendee hasn't been updated because the update was not sent from the "
 "attendee."
@@ -2971,7 +2971,7 @@ msgstr "Houve um erro ao comunicar com o servidor ActiveSync: %s"
 msgid "There was an error editing the event: %s"
 msgstr "Houve um erro ao editar o evento: %s"
 
-#: lib/Api.php:304 lib/Api.php:647 lib/Api.php:963
+#: lib/Api.php:304 lib/Api.php:652 lib/Api.php:968
 msgid "There was an error importing the iCalendar data."
 msgstr "Houve um erro ao importar os dados do iCalendar."
 
@@ -3119,12 +3119,12 @@ msgstr ""
 msgid "To subscribe to this calendar, you need to click the following link:"
 msgstr "Para assinar este calendário, você precisa clicar no link a seguir:"
 
-#: lib/Block/Monthlist.php:138 lib/Block/Prevmonthlist.php:134
+#: lib/Block/Monthlist.php:141 lib/Block/Prevmonthlist.php:134
 #: lib/Block/Summary.php:154 templates/mobile/javascript_defs.php:149
 msgid "Today"
 msgstr "Hoje"
 
-#: lib/Block/Monthlist.php:140 lib/Block/Prevmonthlist.php:136
+#: lib/Block/Monthlist.php:143 lib/Block/Prevmonthlist.php:136
 #: lib/Block/Summary.php:156 templates/mobile/javascript_defs.php:150
 msgid "Tomorrow"
 msgstr "Amanhã"
@@ -3152,12 +3152,12 @@ msgstr "URL"
 msgid "Unable to delete \"%s\": %s"
 msgstr "Impossível excluir \"%s\": %s"
 
-#: lib/Api.php:411
+#: lib/Api.php:416
 #, php-format
 msgid "Unable to delete calendar \"%s\": %s"
 msgstr "Impossível apagar o calendário \"%s\": %s"
 
-#: lib/Api.php:920
+#: lib/Api.php:925
 msgid ""
 "Unable to delete event. An exception date was provided but the event does "
 "not seem to be recurring."
@@ -3197,7 +3197,7 @@ msgstr "Impossível gravar o recurso  \"%s\": %s"
 msgid "Unexpected response from remote server."
 msgstr "Resposta inesperada do servidor remoto."
 
-#: lib/Api.php:1200 lib/Api.php:1217
+#: lib/Api.php:1205 lib/Api.php:1222
 msgid "Unknown calendar protocol"
 msgstr "Protocolo de calendário desconhecido"
 
@@ -3211,8 +3211,8 @@ msgstr "Cancelar assinatura"
 msgid "Unsubscribe from %s"
 msgstr "Remover subscrição de %s"
 
-#: lib/Api.php:362 lib/Api.php:694 lib/Api.php:801 lib/Api.php:853
-#: lib/Api.php:984
+#: lib/Api.php:367 lib/Api.php:699 lib/Api.php:806 lib/Api.php:858
+#: lib/Api.php:989
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Tipo de Conteúdo não suportado: %s"
@@ -3416,11 +3416,6 @@ msgstr ""
 msgid "You do not have permission to add events to %s."
 msgstr "Você não tem permissão para adiconar eventos a %s."
 
-#: data.php:204
-msgid "You do not have permission to add events to the selected calendar."
-msgstr ""
-"Você não tem permissão para adicionar eventos ao calendário selecionado."
-
 #: add.php:53 edit.php:181
 #, php-format
 msgid "You do not have permission to delegate events to %s."
@@ -3471,9 +3466,13 @@ msgstr "Você foi subscrito a \"%s\" (%s)."
 msgid "You have been unsubscribed from \"%s\" (%s)."
 msgstr "Sua subscrição foi removida de \"%s\" (%s)."
 
-#: data.php:210
-msgid "You have specified an invalid calendar."
-msgstr "Você especificou um calendário inválido."
+#: data.php:204
+msgid ""
+"You have specified an invalid calendar or you do not have permission to add "
+"events to the selected calendar."
+msgstr ""
+"Você especificou um calendário inválido ou não tem permissão para criar "
+"eventos no calendário selecionado."
 
 #: attend.php:23
 msgid "You have successfully accepted attendence to this event."

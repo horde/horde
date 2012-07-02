@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-03-23 23:51-0300\n"
+"POT-Creation-Date: 2012-06-16 23:22-0300\n"
 "PO-Revision-Date: 2012-03-27 22:53-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
@@ -987,7 +987,7 @@ msgstr "Nenhum duplicado encontrado."
 msgid "No matching contacts"
 msgstr "Nenhum contato encontrado"
 
-#: lib/Driver/Favourites.php:147
+#: lib/Driver/Favourites.php:168
 msgid "No source for favourite recipients exists."
 msgstr "Sem fonte para destinatários favoritos."
 
