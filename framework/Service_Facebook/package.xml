@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -40,6 +40,9 @@
     <dir name="Horde">
      <dir name="Service">
       <dir name="Facebook">
+       <dir name="Request">
+        <file name="Graph.php" role="php" />
+       </dir> <!-- /lib/Horde/Service/Facebook/Request -->
        <file name="Auth.php" role="php" />
        <file name="Base.php" role="php" />
        <file name="BatchRequest.php" role="php" />
@@ -397,6 +400,7 @@
    <install as="Horde/Service/Facebook/UploadRequest.php" name="lib/Horde/Service/Facebook/UploadRequest.php" />
    <install as="Horde/Service/Facebook/Users.php" name="lib/Horde/Service/Facebook/Users.php" />
    <install as="Horde/Service/Facebook/Videos.php" name="lib/Horde/Service/Facebook/Videos.php" />
+   <install as="Horde/Service/Facebook/Request/Graph.php" name="lib/Horde/Service/Facebook/Request/Graph.php" />
    <install as="locale/Horde_Service_Facebook.pot" name="locale/Horde_Service_Facebook.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Service_Facebook.mo" name="locale/ar/LC_MESSAGES/Horde_Service_Facebook.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Service_Facebook.po" name="locale/ar/LC_MESSAGES/Horde_Service_Facebook.po" />
@@ -669,7 +673,7 @@
    <date>2012-07-05</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>
