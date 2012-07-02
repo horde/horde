@@ -2679,9 +2679,9 @@ var DimpBase = {
                 mailbox: this.pp.mbox,
                 uid: this.pp.uid
             }, {
-            name: this.pp.uid + '|' + this.pp.mbox
-        });
-        break;
+                name: this.pp.uid + '|' + this.pp.mbox
+            });
+            break;
 
         case 'ctx_preview_allparts':
             this.loadingImg('msg', true);
