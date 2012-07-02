@@ -28,7 +28,7 @@ $return_url = $registry->getServiceLink('prefs', 'horde')
 // application and we now need to obtain the auth_token.
 if ($code = Horde_Util::getFormData('code')) {
     $state = Horde_Util::getFormData('state');
-    $token = $injector->getInstane('Horde_Token');
+    $token = $injector->getInstance('Horde_Token');
     if (!$token->isValid($state, '', null, true)) {
         $notification->push(_("Unable to validate the request token. Please try your request again."));
         $return_url->redirect();
