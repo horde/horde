@@ -13,17 +13,19 @@
 require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
+// Get the facebook client.
 try {
     $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
 } catch (Horde_Exception $e) {
     Horde::url('index.php', false, array('app' => 'horde'))->redirect();
 }
 
+// Url to return to after processing.
 $return_url = $registry->getServiceLink('prefs', 'horde')
       ->add(array('group' => 'facebook'));
 
-/* See why we are here. A $code indicates the user has *just* authenticated the
- * application and we now need to obtain the auth_token.*/
+// See why we are here. A $code indicates the user has *just* authenticated the
+// application and we now need to obtain the auth_token.
 if ($code = Horde_Util::getFormData('code')) {
     $state = Horde_Util::getFormDate('state');
     $token = $injector->getInstane('Horde_Token');
@@ -32,18 +34,25 @@ if ($code = Horde_Util::getFormData('code')) {
         $return_url->redirect();
     }
     try {
-        $sessionKey = $facebook->auth->getSessionKey($code, Horde::url('services/facebook', true));
+        $sessionKey = $facebook->auth->getSessionKey(
+            $code, Horde::url('services/facebook', true));
         if ($sessionKey) {
-            // Remember in user prefs
+            // Store in user prefs
             $sid =  $sessionKey;
             $uid = $facebook->auth->getLoggedInUser();
             $prefs->setValue('facebook', serialize(array('uid' => (string)$uid, 'sid' => $sid)));
-            $notification->push(_("Succesfully connected your Facebook account or updated permissions."), 'horde.success');
+            $notification->push(
+                _("Succesfully connected your Facebook account or updated permissions."),
+                'horde.success');
         } else {
-            $notification->push(_("There was an error obtaining your Facebook session. Please try again later."), 'horde.error');
+            $notification->push(
+                _("There was an error obtaining your Facebook session. Please try again later."),
+                'horde.error');
         }
     } catch (Horde_Service_Facebook_Exception $e) {
-        $notification->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.error');
+        $notification->push(
+            _("Temporarily unable to connect with Facebook, Please try again."),
+            'horde.error');
     }
     $return_url->redirect();
 }
