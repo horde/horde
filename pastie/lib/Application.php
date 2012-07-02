@@ -39,13 +39,17 @@ class Pastie_Application extends Horde_Registry_Application
     public $version = 'H5 (0.1-git)';
 
     /**
+     * @var $driver;
+     */
+    public $driver;
+    /**
      */
     protected function _init()
     {
         try {
-            $this->driver = Pastie_Driver::factory();
+            $this->driver = $GLOBALS['injector']->getInstance('Pastie_Factory_Driver')->create();
         } catch (Pastie_Exception $e) {
-            $GLOBALS['notification']->notify($e);
+            $GLOBALS['notification']->notify($e->getMessage());
         }
     }
 
