@@ -684,7 +684,7 @@ class Horde_PageOutput
             break;
         }
 
-        if (true || $this->ajax || $this->growler) {
+        if ($this->ajax || $this->growler) {
             $this->addScriptFile(new Horde_Script_File_JsFramework('hordecore.js', 'horde'));
 
             /* Configuration used in core javascript files. */
@@ -732,7 +732,7 @@ class Horde_PageOutput
             ), array('top' => true));
         }
 
-        if (true || $this->growler) {
+        if ($this->growler) {
             $this->addScriptFile('growler.js', 'horde');
             $this->addScriptFile('scriptaculous/effects.js', 'horde');
             $this->addScriptFile('scriptaculous/sound.js', 'horde');
