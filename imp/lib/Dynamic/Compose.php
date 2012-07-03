@@ -68,7 +68,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         $compose_ajax = new IMP_Ajax_Application_Compose($imp_compose, $this->vars->type);
 
         $show_editor = false;
-        $title = _("New Message");
+        $title = '';
 
         switch ($this->vars->type) {
         case 'reply':
