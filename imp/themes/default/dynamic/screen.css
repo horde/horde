@@ -46,6 +46,9 @@ input {
     overflow: hidden;
     width: auto;
 }
+#msgSplitPane .horde-splitbar-vert, #previewPane {
+    border-bottom: 1px solid #d0d0d0;
+}
 .horde-splitbar-horiz {
     height: 7px;
     background-position: center -1px;
@@ -119,6 +122,8 @@ div.msgSize {
 /* Message List Header and Column Header */
 div.msgSort {
     float: right;
+    padding-top: 4px;
+    margin-bottom: -4px;
 }
 div.msgSort span.iconImg {
     margin-bottom: -2px;
@@ -202,32 +207,38 @@ div.contextMenu .msCheck, div.contextMenu .msCheckOn {
 /* Rows (vertical mode) */
 div.vpRowVert {
     height: auto;
-    padding-top: 1px;
+    padding-top: 4px;
     border-bottom: 1px solid #d0d0d0;
 }
 div.vpRowVert div {
-    font-size: 100%;
+    position: relative;
+    padding-top: 0;
     border-bottom-width: 0;
 }
 div.vpRowVert div.msgStatus {
+    float: left;
     height: 24px;
     margin-right: 2px;
-    padding-top: 8px;
+    padding-top: 16px;
     width: 15%;
 }
 div.vpRowVert div.msgFrom {
+    float: left;
+    left: auto;
     width: auto;
 }
 div.vpRowVert div.msgDate {
     float: right;
-    padding-right: 2px;
+    right: auto;
+    padding-right: 10px;
     text-indent: 2px;
     width: auto;
 }
 div.vpRowVert div.msgSubject {
+    left: auto;
+    right: auto;
     color: gray;
-    float: none;
-    margin-right: 2px;
+    padding-right: 10px;
     width: auto;
 }
 div.vpRowVert div.msgSubject span.flagUser {

@@ -511,8 +511,8 @@ var ViewPort = Class.create({
                 height: h + 'px'
             });
             this.opts.content.setStyle({ width: sp.vert.width + 'px' });
-            sp.currbar.setStyle({ height: h + 'px' }).show();
-            this.opts.pane_data.setStyle({ height: h + 'px' }).show();
+            sp.currbar.setStyle({ height: h - sp.currbar.getLayout().get('border-bottom') + 'px' }).show();
+            this.opts.pane_data.setStyle({ height: h - this.opts.pane_data.getLayout().get('border-bottom') + 'px' }).show();
             break;
 
         default:
