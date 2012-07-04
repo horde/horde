@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-27</date>
- <time>16:48:07</time>
+ <date>2012-07-04</date>
+ <time>19:14:26</time>
  <version>
   <release>6.0.0</release>
   <api>6.0.0</api>
@@ -91,6 +91,9 @@
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Application">
+      <dir name="Helper">
+       <file name="Smartmobile.php" role="horde" />
+      </dir> <!-- /lib/Ajax/Application/Helper -->
       <file name="Compose.php" role="horde" />
       <file name="ListMessages.php" role="horde" />
       <file name="ShowMessage.php" role="horde" />
@@ -855,7 +858,6 @@
      <dir name="graphics">
       <dir name="folders">
        <file name="create.png" role="horde" />
-       <file name="delete.png" role="horde" />
        <file name="drafts.png" role="horde" />
        <file name="edit.png" role="horde" />
        <file name="folder.png" role="horde" />
@@ -882,7 +884,6 @@
        <file name="right-grey.png" role="horde" />
        <file name="right.png" role="horde" />
       </dir> <!-- /themes/default/graphics/nav -->
-      <file name="addressbook_add.png" role="horde" />
       <file name="addressbook_browse.png" role="horde" />
       <file name="add_contact.png" role="horde" />
       <file name="application_tile_horizontal.png" role="horde" />
@@ -945,8 +946,6 @@
       <file name="prefs.png" role="horde" />
       <file name="preview.png" role="horde" />
       <file name="print.png" role="horde" />
-      <file name="quotaback.jpg" role="horde" />
-      <file name="quotauncover.gif" role="horde" />
       <file name="reload.png" role="horde" />
       <file name="reply.png" role="horde" />
       <file name="replyall.png" role="horde" />
@@ -955,7 +954,6 @@
       <file name="scroller.png" role="horde" />
       <file name="scroller_back.png" role="horde" />
       <file name="search.png" role="horde" />
-      <file name="select.png" role="horde" />
       <file name="shared.png" role="horde" />
       <file name="signed.png" role="horde" />
       <file name="sortdown.png" role="horde" />
@@ -1340,6 +1338,7 @@
    <install as="imp/lib/Ajax/Application/Compose.php" name="lib/Ajax/Application/Compose.php" />
    <install as="imp/lib/Ajax/Application/ListMessages.php" name="lib/Ajax/Application/ListMessages.php" />
    <install as="imp/lib/Ajax/Application/ShowMessage.php" name="lib/Ajax/Application/ShowMessage.php" />
+   <install as="imp/lib/Ajax/Application/Helper/Smartmobile.php" name="lib/Ajax/Application/Helper/Smartmobile.php" />
    <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="imp/lib/Ajax/Imple/ImageUnblock.php" name="lib/Ajax/Imple/ImageUnblock.php" />
    <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
@@ -1747,7 +1746,6 @@
    <install as="imp/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="imp/themes/default/dynamic/ie7.css" name="themes/default/dynamic/ie7.css" />
    <install as="imp/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
-   <install as="imp/themes/default/graphics/addressbook_add.png" name="themes/default/graphics/addressbook_add.png" />
    <install as="imp/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
    <install as="imp/themes/default/graphics/add_contact.png" name="themes/default/graphics/add_contact.png" />
    <install as="imp/themes/default/graphics/application_tile_horizontal.png" name="themes/default/graphics/application_tile_horizontal.png" />
@@ -1810,8 +1808,6 @@
    <install as="imp/themes/default/graphics/prefs.png" name="themes/default/graphics/prefs.png" />
    <install as="imp/themes/default/graphics/preview.png" name="themes/default/graphics/preview.png" />
    <install as="imp/themes/default/graphics/print.png" name="themes/default/graphics/print.png" />
-   <install as="imp/themes/default/graphics/quotaback.jpg" name="themes/default/graphics/quotaback.jpg" />
-   <install as="imp/themes/default/graphics/quotauncover.gif" name="themes/default/graphics/quotauncover.gif" />
    <install as="imp/themes/default/graphics/reload.png" name="themes/default/graphics/reload.png" />
    <install as="imp/themes/default/graphics/reply.png" name="themes/default/graphics/reply.png" />
    <install as="imp/themes/default/graphics/replyall.png" name="themes/default/graphics/replyall.png" />
@@ -1820,7 +1816,6 @@
    <install as="imp/themes/default/graphics/scroller.png" name="themes/default/graphics/scroller.png" />
    <install as="imp/themes/default/graphics/scroller_back.png" name="themes/default/graphics/scroller_back.png" />
    <install as="imp/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
-   <install as="imp/themes/default/graphics/select.png" name="themes/default/graphics/select.png" />
    <install as="imp/themes/default/graphics/shared.png" name="themes/default/graphics/shared.png" />
    <install as="imp/themes/default/graphics/signed.png" name="themes/default/graphics/signed.png" />
    <install as="imp/themes/default/graphics/sortdown.png" name="themes/default/graphics/sortdown.png" />
@@ -1832,7 +1827,6 @@
    <install as="imp/themes/default/graphics/warning.png" name="themes/default/graphics/warning.png" />
    <install as="imp/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
    <install as="imp/themes/default/graphics/folders/create.png" name="themes/default/graphics/folders/create.png" />
-   <install as="imp/themes/default/graphics/folders/delete.png" name="themes/default/graphics/folders/delete.png" />
    <install as="imp/themes/default/graphics/folders/drafts.png" name="themes/default/graphics/folders/drafts.png" />
    <install as="imp/themes/default/graphics/folders/edit.png" name="themes/default/graphics/folders/edit.png" />
    <install as="imp/themes/default/graphics/folders/folder.png" name="themes/default/graphics/folders/folder.png" />
