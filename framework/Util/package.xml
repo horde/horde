@@ -21,7 +21,7 @@
  <time>14:00:48</time>
  <version>
   <release>2.0.0alpha1</release>
-  <api>2.0.0</api>
+  <api>2.0.0alpha1</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -443,6 +443,26 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
+   </notes>
+  </release>
+  <release>
+   <date>2012-04-12</date>
+   <time>14:00:48</time>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Removed e-mail array manipulation methods (Horde_Mail package now provides this feature).
+* [mms] Removed Horde_Util::getCsv() (moved to Horde_Data package).
+* [mms] Add iteration to Horde_Domhtml object.
+* [jan] Remove Horde_Util::getTempDir().
+* [jan] Remove Horde_Array::replaceRecursive().
    </notes>
   </release>
  </changelog>

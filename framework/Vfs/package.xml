@@ -31,7 +31,7 @@ Reading, writing and listing of files are all supported.</description>
  <time>15:07:55</time>
  <version>
   <release>2.0.0alpha1</release>
-  <api>2.0.0</api>
+  <api>2.0.0alpha1</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -951,6 +951,24 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
+   </notes>
+  </release>
+  <release>
+   <date>2012-03-01</date>
+   <time>15:07:55</time>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add hasFeature().
+* [jan] Drop listFolders() method.
+* [jan] Remove Horde_Vfs_Browser, Horde_Vfs_ListItem, Horde_Vfs_Object classes.
    </notes>
   </release>
  </changelog>

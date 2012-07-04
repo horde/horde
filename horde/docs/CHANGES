@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[jan] Implement new user interface.
 [mms] Add 'suppress' option to prefs.php group entries.
 [mms] Add 'on_change', 'on_init', 'requires', 'requires_nolock', and
      'suppress' options to prefs.php preference entries.
