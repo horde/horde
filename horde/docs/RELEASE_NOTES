@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the final release of the Horde
-Application Framework version 4.0.15.
+The Horde Team is pleased to announce the first alpha release of the Horde
+Application Framework version 5.0.0.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
 application framework written in PHP. It provides an extensive array of
@@ -24,23 +24,45 @@ developing modern web applications. It is the basis for a large number of
 production-level web applications, notably the Horde Groupware suites. For more
 information on Horde or the Horde Groupware suites, visit http://www.horde.org.
 
+IMPORTANT! This is a preview version that should not be used on production
+systems. This version is not feature complete yet and there are likely to be
+bugs. You should not use this preview version with existing production data.
+
+We encourage widespread testing and feedback via the mailing lists or our bug
+tracking system. Updated translations are very welcome, though some strings
+might still change before the release candidates are prepared.
+
 For upgrading instructions, please see
 http://www.horde.org/apps/horde/docs/UPGRADING
 
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-The major changes compared to the Horde version 4.0.14 are:
-    * Updated Czech, Hungarian, Italian, Slovak, and Swedish translations.
-    * Small bugfixes and improvements.
+The major changes compared to the Horde version 4.0 are:
+    * Completely redesigned user interface.
+    * Much improved ActiveSync library including version 12.1 support and email
+      synchronization.
+    * Default to UTF-8 for all e-mail messages.
+    * IMAP groupware storage without dedicated Kolab server.
+    * Improved support for Kolab 2.
+    * Dropped support for Internet Explorer 6.
+    * Many further improvements.
+
+Known issues:
+   * The new user interface and icon theme is not complete yet.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Updated Czech, Hungarian, Italian, Slovak, and Swedish translations.
-Small bugfixes and improvements.
+Completely redesigned user interface.
+Much improved ActiveSync library including version 12.1 support and email synchronization.
+Default to UTF-8 for all e-mail messages.
+IMAP groupware storage without dedicated Kolab server.
+Improved support for Kolab 2.
+Dropped support for Internet Explorer 6.
+Many further improvements.
 FM;
 
 $this->notes['name'] = 'Horde';
 $this->notes['fm']['project'] = 'horde';
-$this->notes['fm']['branch'] = 'Horde 4';
+$this->notes['fm']['branch'] = 'Horde 5';
