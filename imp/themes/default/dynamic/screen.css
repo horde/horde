@@ -918,8 +918,8 @@ span.logoutIcon {
 }
 #ctx_flag span.iconImg.flagUser, #ctx_flag_search span.iconImg.flagUser {
     border: 1px black solid;
-    height: 15px;
-    width: 15px;
+    height: 17px;
+    width: 17px;
 }
 #ctx_sortopts span.iconImg.sortup, #ctx_sortopts span.iconImg.sortdown {
     background-color: inherit;
