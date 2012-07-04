@@ -75,7 +75,7 @@ extends Components_Release_Task_Base
             $this->getNotes()->getBranch(),
             $options['from'],
             $this->getNotes()->getList(),
-            Components_Helper_Version::pearToHorde($this->getComponent()->getVersion()),
+            $this->getComponent()->getVersion(),
             $this->getNotes()->getFocusList()
         );
         $mailer->append($this->getNotes()->getAnnouncement());

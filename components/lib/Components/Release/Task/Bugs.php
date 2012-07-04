@@ -106,9 +106,7 @@ extends Components_Release_Task_Base
             return;
         }
 
-        $ticket_version = Components_Helper_Version::pearToHorde(
-            $this->getComponent()->getVersion()
-        );
+        $ticket_version = $this->getComponent()->getVersion();
 
         $ticket_description = Components_Helper_Version::pearToTicketDescription(
             $this->getComponent()->getVersion()

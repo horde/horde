@@ -42,9 +42,7 @@ extends Components_Release_Task_Sentinel
         if (empty($options['next_version'])) {
             $options['next_version'] = Components_Helper_Version::nextVersion($this->getComponent()->getVersion());
         }
-        $changes_version = Components_Helper_Version::pearToHorde(
-            $options['next_version']
-        );
+        $changes_version = $options['next_version'];
         $application_version = Components_Helper_Version::pearToHordeWithBranch(
             $options['next_version'], $this->getNotes()->getBranch()
         );

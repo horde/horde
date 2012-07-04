@@ -39,9 +39,7 @@ extends Components_Release_Task_Sentinel
      */
     public function run(&$options)
     {
-        $changes_version = Components_Helper_Version::pearToHorde(
-            $this->getComponent()->getVersion()
-        );
+        $changes_version = $this->getComponent()->getVersion();
         $application_version = Components_Helper_Version::pearToHordeWithBranch(
             $this->getComponent()->getVersion(), $this->getNotes()->getBranch()
         );
