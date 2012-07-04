@@ -850,7 +850,7 @@ var DimpBase = {
         switch (id) {
         case 'ctx_container_create':
         case 'ctx_mbox_create':
-            tmp = e.findElement('LI');
+            tmp = e.findElement('DIV.horde-subnavi');
             DimpCore.doAction('createMailboxPrepare', {
                 mbox: tmp.retrieve('mbox')
             },{
@@ -860,7 +860,7 @@ var DimpBase = {
 
         case 'ctx_container_rename':
         case 'ctx_mbox_rename':
-            tmp = e.findElement('LI');
+            tmp = e.findElement('DIV.horde-subnavi');
             DimpCore.doAction('deleteMailboxPrepare', {
                 mbox: tmp.retrieve('mbox'),
                 type: 'rename'
@@ -870,7 +870,7 @@ var DimpBase = {
             break;
 
         case 'ctx_mbox_empty':
-            tmp = e.findElement('LI');
+            tmp = e.findElement('DIV.horde-subnavi');
             DimpCore.doAction('emptyMailboxPrepare', {
                 mbox: tmp.retrieve('mbox')
             },{
@@ -879,12 +879,12 @@ var DimpBase = {
             break;
 
         case 'ctx_container_delete':
-            this._mailboxPromptCallback('delete', { elt: e.findElement('LI') });
+            this._mailboxPromptCallback('delete', { elt: e.findElement('DIV.horde-subnavi') });
             break;
 
         case 'ctx_mbox_delete':
         case 'ctx_vfolder_delete':
-            tmp = e.findElement('LI');
+            tmp = e.findElement('DIV.horde-subnavi');
             DimpCore.doAction('deleteMailboxPrepare', {
                 mbox: tmp.retrieve('mbox'),
                 type: 'delete'
@@ -895,7 +895,7 @@ var DimpBase = {
 
         case 'ctx_mbox_exportopts_mbox':
         case 'ctx_mbox_exportopts_zip':
-            tmp = e.findElement('LI');
+            tmp = e.findElement('DIV.horde-subnavi');
 
             this.viewaction = function(e) {
                 HordeCore.download('', {
@@ -913,7 +913,7 @@ var DimpBase = {
             break;
 
         case 'ctx_mbox_import':
-            tmp = e.findElement('LI').retrieve('mbox');
+            tmp = e.findElement('DIV.horde-subnavi').retrieve('mbox');
 
             HordeDialog.display({
                 form: new Element('DIV').insert(
@@ -937,24 +937,24 @@ var DimpBase = {
             DimpCore.doAction('flagAll', {
                 add: Number(id == 'ctx_mbox_flag_seen'),
                 flags: Object.toJSON([ DimpCore.conf.FLAG_SEEN ]),
-                mbox: e.findElement('LI').retrieve('mbox')
+                mbox: e.findElement('DIV.horde-subnavi').retrieve('mbox')
             });
             break;
 
         case 'ctx_mbox_poll':
         case 'ctx_mbox_nopoll':
-            this.modifyPoll(e.findElement('LI').retrieve('mbox'), id == 'ctx_mbox_poll');
+            this.modifyPoll(e.findElement('DIV.horde-subnavi').retrieve('mbox'), id == 'ctx_mbox_poll');
             break;
 
         case 'ctx_mbox_sub':
         case 'ctx_mbox_unsub':
-            this.subscribeMbox(e.findElement('LI').retrieve('mbox'), id == 'ctx_mbox_sub');
+            this.subscribeMbox(e.findElement('DIV.horde-subnavi').retrieve('mbox'), id == 'ctx_mbox_sub');
             break;
 
         case 'ctx_mbox_acl':
             this.go('prefs', {
                 group: 'acl',
-                mbox: e.findElement('LI').retrieve('mbox')
+                mbox: e.findElement('DIV.horde-subnavi').retrieve('mbox')
             });
             break;
 
@@ -1182,7 +1182,7 @@ var DimpBase = {
         switch (ctx_id) {
         case 'ctx_mbox':
             elts = $('ctx_mbox_create', 'ctx_mbox_rename', 'ctx_mbox_delete');
-            baseelt = e.findElement('LI');
+            baseelt = e.findElement('DIV.horde-subnavi');
 
             if (baseelt.retrieve('mbox') == this.INBOX) {
                 elts.invoke('hide');
@@ -1222,7 +1222,7 @@ var DimpBase = {
         case 'ctx_container':
         case 'ctx_noactions':
         case 'ctx_vfolder':
-            baseelt = e.findElement('LI');
+            baseelt = e.findElement('DIV.horde-subnavi');
             $(ctx_id).down('DIV.mboxName').update(this.fullMboxDisplay(baseelt));
             break;
 
@@ -2959,8 +2959,7 @@ var DimpBase = {
     _handleMboxMouseClick: function(e)
     {
         var elt = e.element(),
-            //li = elt.match('LI') ? elt : elt.up('LI');
-            li = elt.match('DIV') ? elt : elt.up('DIV');
+            li = elt.match('DIV') ? elt : elt.up('DIV.horde-subnavi');
 
         if (!li) {
             return;
@@ -2969,7 +2968,6 @@ var DimpBase = {
         if (elt.hasClassName('exp') || elt.hasClassName('col')) {
             this._toggleSubFolder(li, 'tog');
         } else {
-            li = li.up('DIV.horde-subnavi');
             switch (li.retrieve('ftype')) {
             case 'container':
             case 'scontainer':
