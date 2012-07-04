@@ -127,6 +127,7 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callStrictComponents();
             break;
+/*
         case 'calling the package with the cisetup option and paths':
             $_SERVER['argv'] = array(
                 'horde-components',
@@ -198,6 +199,7 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
+*/
         case 'calling the package with the install option and a path to a Horde framework component':
             $_SERVER['argv'] = array(
                 'horde-components',

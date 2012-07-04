@@ -42,6 +42,7 @@ extends Components_TestCase
 
     public function testValidateSucceeds()
     {
+        $this->markTestSkipped('Release no longer possible with outdated package.xml');
         $package = $this->getComponent($this->_fixture);
         $task = $this->getReleaseTask('timestamp', $package);
         $this->assertEquals(array(), $task->validate(array()));
@@ -65,6 +66,7 @@ extends Components_TestCase
 
     public function testPretend()
     {
+        $this->markTestSkipped('Release no longer possible with outdated package.xml');
         $tasks = $this->getReleaseTasks();
         $package = $this->getComponent($this->_fixture);
         $tasks->run(
