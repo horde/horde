@@ -37,9 +37,9 @@ input[type=image] {
     background-repeat: no-repeat;
     display: -moz-inline-stack;
     display: inline-block;
-    height: 22px;
-    vertical-align: top;
-    width: 24px;
+    height: 20px;
+    vertical-align: middle;
+    width: 20px;
 }
 
 span.hordeIcon {
@@ -1983,13 +1983,13 @@ height:24px;
 background-image:url('graphics/sidebar-active-bg.png');
 background-repeat:repeat-x;
 }
-  .horde-subnavi-icon-1{
+  .horde-subnavi-icon-1 {
       background-repeat: no-repeat;
       background-position: center center;
-  float:left;
-  width:24px;
-  height:24px;
-  margin:0px 5px 0px 9px;
+      float:left;
+      width: 20px;
+      height: 20px;
+      margin: 2px 8px 0 10px;
   }
   .horde-subnavi-icon-2{
   float:left;
@@ -2082,26 +2082,15 @@ overflow: hidden;
   height:24px;
   margin:5px 5px 0px 15px;
   }
-  .horde-button-left{
+  .horde-button-left, .horde-button-left-arrow {
   float:left;
   height:22px;
   margin:7px 15px 0px 15px;
   }
-  .horde-button-left-arrow{
-  float:left;
-  height:22px;
-  margin:7px 15px 0px 0px;
-  }
-  .horde-button-right{
+  .horde-button-right, .horde-button-right-arrow {
   float:right;
   height:22px;
   margin:7px 5px 0px 32px;
-  }
-  .horde-button-right-arrow{
-  float:right;
-  width:12px;
-  height:22px;
-  margin:7px 0px 0px 0px;
   }
   .horde-button-split{
   float:left;
@@ -2120,12 +2109,14 @@ overflow: hidden;
       text-decoration:none;
   }
   .horde-buttonbar .horde-icon {
+      margin-top: 2px;
+      padding-top: 6px;
       padding-left: 25px;
       background-position: left center, right center;
       background-repeat: no-repeat;
   }
   .horde-buttonbar .horde-subnavi-arrow {
-      margin-top: -3px;
+      margin-top: -5px;
   }
   .horde-buttonbar select {
       margin-left: -4px;

@@ -150,9 +150,14 @@ div.vpRow div {
     position: absolute;
     padding-top: 4px;
 }
-div.vpRow div.iconImg, div.vpRow div.horde-subnavi-arrow {
+div.vpRow div.iconImg {
+    position: relative;
+    margin-top: -3px
+}
+div.vpRow div.horde-subnavi-arrow {
     position: relative;
     width: 16px;
+    margin-top: -4px
 }
 div.vpRowSelected {
     background-color: #36525d !important;
@@ -163,7 +168,7 @@ div.vpRowHoriz div.sep {
     padding-left: 5px;
 }
 div.vpRowHoriz div.sep.sortup, div.vpRowHoriz div.sep.sortdown {
-    background-position: 6px center;
+    background-position: left center;
 }
 #msglistHeaderHoriz div.horde-subnavi-arrow {
     margin-right: -22px;
@@ -882,7 +887,7 @@ span.logoutIcon {
     background-image: url("../graphics/search.png");
 }
 #ctx_container_delete span.iconImg, #ctx_mbox_delete span.iconImg, #ctx_vfolder_delete span.iconImg {
-    background-image: url("../graphics/folders/delete.png");
+    background-image: url("../graphics/folders/trash.png");
 }
 #ctx_mbox_export span.iconImg, #ctx_mbox_import span.iconImg, #ctx_preview_save span.iconImg {
     background-image: url("../graphics/download.png");

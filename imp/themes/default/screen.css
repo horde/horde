@@ -159,10 +159,6 @@ div.partsTreeDiv span span:last-child {
 
 /* Message flags definitions.
  * For background color, see config/prefs.php [msgflags preference]. */
-.msgflags {
-    padding-left: 10px;
-    vertical-align: middle;
-}
 .mboxheader .msgflags {
     vertical-align: sub;
 }
@@ -465,7 +461,7 @@ span.mimePartInfoSize {
     margin-right: -5px;
 }
 .addrbookaddImg {
-    background-image: url("graphics/addressbook_add.png");
+    background-image: url("graphics/add_contact.png");
 }
 .spellcheckImg {
     background-image: url("graphics/spellcheck.png");
