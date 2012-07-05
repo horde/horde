@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-03-23 23:51-0300\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
 "PO-Revision-Date: 2011-10-30 20:32-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
@@ -92,7 +92,7 @@ msgstr "Perguntar"
 msgid "Attributes"
 msgstr "Atributos"
 
-#: lib/Application.php:124
+#: lib/Application.php:139
 msgid "Backend"
 msgstr "Estrutura"
 
@@ -145,7 +145,7 @@ msgstr "Alterar Permissões"
 msgid "Change Server"
 msgstr "Mudar Servidor"
 
-#: lib/Application.php:286
+#: lib/Application.php:301
 msgid "Check Quota"
 msgstr "Verificar Quota"
 
@@ -157,7 +157,7 @@ msgstr "Verific_ar Todos/Nenhum"
 msgid "Chmod done: "
 msgstr "Alteração de permissões terminada: "
 
-#: lib/Application.php:256
+#: lib/Application.php:271
 msgid "Choose which columns to display, and in what order:"
 msgstr "Escolha quais colunas para mostrar, e em qual ordem:"
 
@@ -173,7 +173,7 @@ msgstr "Área de Transferência"
 msgid "Close"
 msgstr "Fechar"
 
-#: lib/Application.php:260
+#: lib/Application.php:275
 msgid "Columns that will not be displayed:"
 msgstr "Colunas que não serão exibidas:"
 
@@ -454,7 +454,7 @@ msgstr "Selecionar Todas"
 msgid "Select None"
 msgstr "Selecionar Nenhum"
 
-#: lib/Application.php:258
+#: lib/Application.php:273
 msgid "Select a backend:"
 msgstr "Selecione uma estrutura:"
 
@@ -490,7 +490,7 @@ msgstr "A janela original de abertura foi fechado. Saindo."
 msgid "There are no files in this folder."
 msgstr "Não existem arquivos nesta pasta."
 
-#: lib/Application.php:257
+#: lib/Application.php:272
 msgid "These columns will display in this order:"
 msgstr "Essas colunas serão exibidas nesta ordem:"
 
@@ -567,10 +567,10 @@ msgstr ""
 msgid "_Change Server"
 msgstr "_Mudar Servidor"
 
-#: lib/Application.php:273
+#: lib/Application.php:288
 msgid "_My Home"
 msgstr "_Meu Início"
 
-#: lib/Application.php:276
+#: lib/Application.php:291
 msgid "_Permissions"
 msgstr "_Permissões"

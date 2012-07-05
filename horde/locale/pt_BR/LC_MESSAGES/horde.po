@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-27 22:23-0300\n"
+"POT-Creation-Date: 2012-06-16 23:22-0300\n"
+"PO-Revision-Date: 2012-06-30 19:44-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
 "Language: \n"
@@ -40,7 +40,7 @@ msgstr "\"%s\" não foi criado: %s."
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB usado de %.2fMB permitido (%.2f%%)"
 
-#: lib/Block/Weather.php:197
+#: lib/Block/Weather.php:199
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s e %s"
@@ -67,7 +67,7 @@ msgstr[1] "%d pessoas gostam disso"
 msgid "%d to %d of %d"
 msgstr "%d a %d de %d"
 
-#: lib/Block/Weather.php:237
+#: lib/Block/Weather.php:239
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d-previsão do dia"
@@ -565,7 +565,7 @@ msgstr "Central European (ISO-8859-2)"
 msgid "Change"
 msgstr "Alterar"
 
-#: lib/Block/Weather.php:120
+#: lib/Block/Weather.php:122
 msgid "Change Location"
 msgstr "Alterar Localização"
 
@@ -692,7 +692,7 @@ msgstr "Comentários: %d"
 msgid "Computers"
 msgstr "Computadores"
 
-#: lib/Block/Weather.php:250
+#: lib/Block/Weather.php:252
 msgid "Condition"
 msgstr "Condição"
 
@@ -852,7 +852,7 @@ msgstr "Horário Atual"
 msgid "Current Weather"
 msgstr "Clima Atual"
 
-#: lib/Block/Weather.php:230
+#: lib/Block/Weather.php:232
 msgid "Current condition"
 msgstr "Condição atual"
 
@@ -916,7 +916,7 @@ msgstr "Data de Recebimento"
 msgid "Date: %s; time: %s"
 msgstr "Data: %s; hora: %s"
 
-#: lib/Block/Weather.php:245
+#: lib/Block/Weather.php:247
 msgid "Day"
 msgstr "Dia"
 
@@ -1028,7 +1028,7 @@ msgstr "Ponto de Orvalho"
 msgid "Dew Point for last hour: "
 msgstr "Ponto de Orvalho para a última hora: "
 
-#: lib/Block/Weather.php:180
+#: lib/Block/Weather.php:182
 msgid "Dew point"
 msgstr "Temperatura de condensação"
 
@@ -1127,6 +1127,10 @@ msgstr "Endereço de E-Mail"
 #: templates/admin/locks/list.html.php:14
 msgid "End Time"
 msgstr "Hora de Término"
+
+#: lib/Block/Weather.php:75
+msgid "English"
+msgstr "Inglês"
 
 #: lib/Prefs/Ui.php:201
 msgid "Enter a name for the new category:"
@@ -1245,7 +1249,7 @@ msgstr "Campos para procurar"
 
 #: config/registry.php:310
 msgid "File Manager"
-msgstr "Gerenciador de Arquivos"
+msgstr "Arquivos"
 
 #: lib/Block/FbStream.php:54
 msgid "Filter"
@@ -1315,12 +1319,12 @@ msgstr "Solicitações de Amigos:"
 msgid "Friends enabled"
 msgstr "Amigos habilitados"
 
-#: lib/Block/Weather.php:207
+#: lib/Block/Weather.php:209
 #, php-format
 msgid "From the %s (%s &deg;) at %s %s"
 msgstr "A partir de %s (%s &deg;) em %s %s"
 
-#: lib/Block/Weather.php:316
+#: lib/Block/Weather.php:318
 #, php-format
 msgid "From the %s at %s %s"
 msgstr "A partir de %s em %s %s"
@@ -1464,7 +1468,7 @@ msgstr "Quantos campos (colunas) existem?"
 msgid "How many seconds before we check for new articles?"
 msgstr "Quantos segundos antes de buscar novos artigos?"
 
-#: lib/Block/Metar.php:203 lib/Block/Weather.php:219 lib/Block/Weather.php:258
+#: lib/Block/Metar.php:203 lib/Block/Weather.php:221 lib/Block/Weather.php:260
 msgid "Humidity"
 msgstr "Umidade"
 
@@ -1714,7 +1718,7 @@ msgstr "Literatura"
 msgid "Loading..."
 msgstr "Carregando..."
 
-#: lib/Block/Weather.php:159
+#: lib/Block/Weather.php:161
 #, php-format
 msgid "Local time: %s %s"
 msgstr "Hora local: %s %s"
@@ -1908,8 +1912,8 @@ msgstr "Meu Portal"
 msgid "My Portal Layout"
 msgstr "Meu Layout de Portal"
 
-#: lib/Block/Weather.php:306 lib/Block/Weather.php:310
-#: lib/Block/Weather.php:326
+#: lib/Block/Weather.php:308 lib/Block/Weather.php:312
+#: lib/Block/Weather.php:328
 msgid "N/A"
 msgstr "N/A"
 
@@ -2279,12 +2283,12 @@ msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "Precipitação para a última %d hora: "
 msgstr[1] "Precipitação para a últimas %d horas: "
 
-#: lib/Block/Weather.php:254
+#: lib/Block/Weather.php:256
 #, php-format
 msgid "Precipitation%schance"
 msgstr "Chance%sprecipitação"
 
-#: lib/Block/Metar.php:198 lib/Block/Weather.php:191
+#: lib/Block/Metar.php:198 lib/Block/Weather.php:193
 msgid "Pressure"
 msgstr "Pressão"
 
@@ -2605,11 +2609,11 @@ msgstr "Horário do Servidor"
 
 #: admin/sessions.php:19
 msgid "Session Admin"
-msgstr "Administração de seção"
+msgstr "Administração de sessão"
 
 #: admin/sessions.php:41
 msgid "Session Timestamp:"
-msgstr "Carimbo de tempo da seção:"
+msgstr "Carimbo de data da sessão:"
 
 #: lib/Api.php:62
 msgid "Sessions"
@@ -2642,7 +2646,7 @@ msgstr ""
 "Configurar sua aplicação inicial, esquema de cores, atualização de páginas e "
 "outras opções de exibição."
 
-#: lib/Block/Weather.php:136
+#: lib/Block/Weather.php:138
 #, php-format
 msgid "Several locations possible with the parameter: %s"
 msgstr "Diversas localizações possíveis com o parâmetro: %s"
@@ -2740,7 +2744,7 @@ msgstr "Entrada de Caracteres Especiais"
 msgid "Sports"
 msgstr "Esportes"
 
-#: lib/Block/Metar.php:60 lib/Block/Weather.php:75
+#: lib/Block/Metar.php:60
 msgid "Standard"
 msgstr "Padrão"
 
@@ -2848,7 +2852,7 @@ msgstr "Pôr-do-Sol"
 msgid "Sunday"
 msgstr "Domingo"
 
-#: lib/Block/Weather.php:165 lib/Block/Weather.php:166
+#: lib/Block/Weather.php:167 lib/Block/Weather.php:168
 msgid "Sunrise"
 msgstr "Amanhecer"
 
@@ -2856,7 +2860,7 @@ msgstr "Amanhecer"
 msgid "Sunrise/Sunset"
 msgstr "Amanhecer/Pôr-do-Sol"
 
-#: lib/Block/Weather.php:168 lib/Block/Weather.php:169
+#: lib/Block/Weather.php:170 lib/Block/Weather.php:171
 msgid "Sunset"
 msgstr "Pôr-do-Sol"
 
@@ -2888,11 +2892,11 @@ msgstr "Pato"
 msgid "Temp for last hour: "
 msgstr "Temperatura para a última hora: "
 
-#: lib/Block/Metar.php:187 lib/Block/Weather.php:175
+#: lib/Block/Metar.php:187 lib/Block/Weather.php:177
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: lib/Block/Weather.php:246
+#: lib/Block/Weather.php:248
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr "Temperatura%s(%sAlta%s/%sBaixa%s)"
@@ -3143,11 +3147,11 @@ msgstr ""
 "Para selecionar campos múltiplos, segure a tecla Ctrl (PC) ou Command (Mac) "
 "quando clicar."
 
-#: lib/Block/Weather.php:278
+#: lib/Block/Weather.php:280
 msgid "Today"
 msgstr "Hoje"
 
-#: lib/Block/Weather.php:280
+#: lib/Block/Weather.php:282
 msgid "Tomorrow"
 msgstr "Amanhã"
 
@@ -3356,7 +3360,7 @@ msgstr "Vietnamita (VISCII)"
 msgid "View an external web page"
 msgstr "Visualizar uma página web externa"
 
-#: lib/Block/Metar.php:182 lib/Block/Weather.php:224
+#: lib/Block/Metar.php:182 lib/Block/Weather.php:226
 msgid "Visibility"
 msgstr "Visibilidade"
 
@@ -3368,13 +3372,13 @@ msgstr "Atenção"
 msgid "Weather"
 msgstr "Clima"
 
-#: lib/Block/Weather.php:338 lib/Block/Weather.php:346
+#: lib/Block/Weather.php:340 lib/Block/Weather.php:348
 msgid "Weather data provided by"
 msgstr "Dados do Clima fornecido por"
 
 #: config/registry.php:327
 msgid "Web Site"
-msgstr "Site da Web"
+msgstr "Web"
 
 #: services/portal/mobile.php:29
 msgid "Welcome"
@@ -3432,7 +3436,7 @@ msgstr "Largura do Menu %s à esquerda:"
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weather.php:204 lib/Block/Weather.php:262
+#: lib/Block/Weather.php:206 lib/Block/Weather.php:264
 msgid "Wind"
 msgstr "Vento"
 
@@ -3766,7 +3770,7 @@ msgstr "calmo"
 msgid "from the %s (%s) at %s %s"
 msgstr "a partir de %s (%s) em %s %s"
 
-#: lib/Block/Weather.php:213 lib/Block/Weather.php:321
+#: lib/Block/Weather.php:215 lib/Block/Weather.php:323
 msgid "gusting"
 msgstr "ventando"
 

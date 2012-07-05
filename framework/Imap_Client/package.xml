@@ -867,10 +867,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-04-12</date>
+   <date>2012-06-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Improved handling of multi-accessed mailboxes and the FETCH/STORE/SEARCH commands (RFC 2180 [2-4]).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.6</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-06-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
   <release>

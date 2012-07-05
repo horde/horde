@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"POT-Creation-Date: 2012-06-16 23:22-0300\n"
 "PO-Revision-Date: 2011-06-09 00:20-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
@@ -364,7 +364,7 @@ msgstr "Atividade do Filtro: %s mensagem(ns) excluída(s)."
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr "Atividade do Filtro: %s mensagem(ns) movida(s) para a pasta \"%s\"."
 
-#: lib/Script/Imap.php:191
+#: lib/Script/Imap.php:190
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr ""
