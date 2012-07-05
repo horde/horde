@@ -174,7 +174,7 @@
                 this.growler.observe('click', function(e) {
                     if (e.element().match('A')) {
                         e.stop();
-                        this.growler.fire('Growler:linkClick', e);
+                        this.growler.fire('Growler:linkClick', e.element());
                     }
                 }.bindAsEventListener(this));
             }
