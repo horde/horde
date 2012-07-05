@@ -50,14 +50,11 @@ if (Horde_Util::getFormData('submitbutton') == _("Revert Configuration")) {
     }
 } elseif ($form->validate($vars)) {
     $config = new Horde_Config($app);
-    if ($config->writePHPConfig($vars)) {
-        $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
-        $registry->rebuild();
+    if ($config->writePHPConfig($vars, $php)) {
         Horde::url('admin/config/index.php', true)->redirect();
     } else {
-        $notification->push(sprintf(_("Could not save the backup configuration file %s."), Horde_Util::realPath($path . '/conf.bak.php')), 'horde.warning');
-        /* Save to session. */
-        $session->set('horde', 'config/' . $app, $php);
+        $notification->push(sprintf(_("Could not save the configuration file %s. You can either use one of the options to save the code back on %s or copy manually the code below to %s."), Horde_Util::realPath($configFile), Horde::link(Horde::url('admin/config/index.php') . '#update', _("Configuration")) . _("Configuration") . '</a>', Horde_Util::realPath($configFile)), 'horde.warning', array('content.raw', 'sticky'));
+        $page_output->addInlineScript('document.observe(\'Growler:linkClick\', function(e) { window.location.assign(e.memo.href); });');
     }
 } elseif ($form->isSubmitted()) {
     $notification->push(_("There was an error in the configuration form. Perhaps you left out a required field."), 'horde.error');

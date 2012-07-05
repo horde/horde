@@ -295,6 +295,7 @@ class Horde_Config
             fwrite($fp, $php);
             fclose($fp);
             $GLOBALS['registry']->rebuild();
+            $GLOBALS['notification']->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
             return true;
         }
 
