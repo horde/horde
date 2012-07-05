@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-25</date>
- <time>22:59:32</time>
+ <date>2012-07-06</date>
+ <time>00:12:51</time>
  <version>
   <release>2.0.0alpha1</release>
   <api>2.0.0alpha1</api>
@@ -329,6 +329,7 @@
       <dir name="fixtures">
        <file name="attachment.bin" role="test" />
        <file name="flowed_msg.txt" role="test" />
+       <file name="related_msg.txt" role="test" />
        <file name="sample_msg.txt" role="test" />
        <file name="uudecode.txt" role="test" />
       </dir> <!-- /test/Horde/Mime/fixtures -->
@@ -339,6 +340,7 @@
       <file name="MailTest.php" role="test" />
       <file name="MimeTest.php" role="test" />
       <file name="PartTest.php" role="test" />
+      <file name="RelatedTest.php" role="test" />
      </dir> <!-- /test/Horde/Mime -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -542,8 +544,10 @@
    <install as="Horde/Mime/MailTest.php" name="test/Horde/Mime/MailTest.php" />
    <install as="Horde/Mime/MimeTest.php" name="test/Horde/Mime/MimeTest.php" />
    <install as="Horde/Mime/PartTest.php" name="test/Horde/Mime/PartTest.php" />
+   <install as="Horde/Mime/RelatedTest.php" name="test/Horde/Mime/RelatedTest.php" />
    <install as="Horde/Mime/fixtures/attachment.bin" name="test/Horde/Mime/fixtures/attachment.bin" />
    <install as="Horde/Mime/fixtures/flowed_msg.txt" name="test/Horde/Mime/fixtures/flowed_msg.txt" />
+   <install as="Horde/Mime/fixtures/related_msg.txt" name="test/Horde/Mime/fixtures/related_msg.txt" />
    <install as="Horde/Mime/fixtures/sample_msg.txt" name="test/Horde/Mime/fixtures/sample_msg.txt" />
    <install as="Horde/Mime/fixtures/uudecode.txt" name="test/Horde/Mime/fixtures/uudecode.txt" />
   </filelist>
@@ -930,7 +934,7 @@
    </notes>
   </release>
   <release>
-   <date>2012-03-25</date>
+   <date>2012-07-06</date>
    <time>22:59:32</time>
    <version>
     <release>2.0.0alpha1</release>
