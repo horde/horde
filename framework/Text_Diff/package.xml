@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-05</date>
- <time>22:17:40</time>
+ <date>2012-07-06</date>
+ <time>00:03:34</time>
  <version>
   <release>2.0.0alpha1</release>
   <api>1.0.0</api>
@@ -312,7 +312,7 @@
    <stability>
     <release>alpha</release>
     <api>stable</api></stability>
-   <date>2012-07-05</date>
+   <date>2012-07-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 5.
