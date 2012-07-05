@@ -13,7 +13,7 @@
  <date>2012-07-05</date>
  <time>23:50:56</time>
  <version>
-  <release>2.0.0beta1</release>
+  <release>1.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -287,7 +287,7 @@
   </release>
   <release>
    <version>
-    <release>2.0.0beta1</release>
+    <release>1.0.0beta1</release>
     <api>1.0.0</api></version>
    <stability>
     <release>beta</release>
