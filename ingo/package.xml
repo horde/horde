@@ -25,8 +25,8 @@
  <date>2012-07-05</date>
  <time>17:25:14</time>
  <version>
-  <release>3.0.0</release>
-  <api>3.0.0</api>
+  <release>3.0.0alpha1</release>
+  <api>3.0.0alpha1</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -1047,6 +1047,25 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-05</date>
+   <time>17:25:14</time>
+   <version>
+    <release>3.0.0alpha1</release>
+    <api>3.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] When adding to blacklist/whitelist, remove added addresses from the other list.
+* [jan] Allow to use placeholder variables in vacation messages (Request #10316).
+* [mjr] Add ability to retrieve vacation message details from the API.
+* [jan] Validate start and end dates of vacation rules (Request #10879).
    </notes>
   </release>
  </changelog>
