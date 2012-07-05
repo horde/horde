@@ -620,7 +620,7 @@ abstract class Kronolith_Event
             }
             $vEvent->setAttribute('ORGANIZER', $email, $params);
         }
-        if (!$this->private || $this->creator == $GLOBALS['registry']->getAuth()) {
+        if (!$this->isPrivate()) {
             if (!empty($this->description)) {
                 $vEvent->setAttribute('DESCRIPTION', $this->description);
             }
@@ -1349,8 +1349,10 @@ abstract class Kronolith_Event
         $message = new Horde_ActiveSync_Message_Appointment(
             array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
         $message->setSubject($this->getTitle());
-        $message->setBody($this->description);
-        $message->setLocation($this->location);
+        if (!$this->isPrivate()) {
+            $message->setBody($this->description);
+            $message->setLocation($this->location);
+        }
 
         /* Start and End */
         $message->setDatetime(array('start' => $this->start,
@@ -1429,8 +1431,10 @@ abstract class Kronolith_Event
 
                         /* Remaining properties that could be different */
                         $e->setSubject($exception->getTitle());
-                        $e->setLocation($exception->location);
-                        $e->setBody($exception->description);
+                        if (!$exception->isPrivate()) {
+                            $e->setLocation($exception->location);
+                            $e->setBody($exception->description);
+                        }
 
                         $e->setSensitivity($exception->private ?
                             Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE :
@@ -1455,8 +1459,10 @@ abstract class Kronolith_Event
                         $e->setResponseType($status);
 
                         /* Tags/Categories */
-                        foreach ($exception->tags as $tag) {
-                            $e->addCategory($tag);
+                        if (!$exception->isPrivate()) {
+                            foreach ($exception->tags as $tag) {
+                                $e->addCategory($tag);
+                            }
                         }
                         $message->addexception($e);
 
@@ -1479,7 +1485,7 @@ abstract class Kronolith_Event
         }
 
         /* Attendees */
-        if (count($this->attendees)) {
+        if (!$this->isPrivate() && count($this->attendees)) {
             $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_IS_MEETING);
             foreach ($this->attendees as $email => $properties) {
                 $attendee = new Horde_ActiveSync_Message_Attendee();
@@ -1509,8 +1515,10 @@ abstract class Kronolith_Event
         }
 
         /* Categories (tags) */
-        foreach ($this->tags as $tag) {
-            $message->addCategory($tag);
+        if (!$this->isPrivate()) {
+            foreach ($this->tags as $tag) {
+                $message->addCategory($tag);
+            }
         }
 
         return $message;
@@ -1714,7 +1722,7 @@ abstract class Kronolith_Event
             if (!$prefs->isLocked('event_reminder')) {
                 $view->prefsUrl = Horde::url(Horde::getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
             }
-            if ($this->attendees) {
+            if (!$this->isPrivate() && $this->attendees) {
                 $attendees = array();
                 foreach ($this->attendees as $mail => $attendee) {
                     $attendees[] = empty($attendee['name']) ? $mail : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($mail, '@') === false ? '' : ' <' . $mail . '>'));
@@ -1799,7 +1807,7 @@ abstract class Kronolith_Event
         $json->al = is_null($allDay) ? $this->isAllDay() : $allDay;
         $json->pe = $this->hasPermission(Horde_Perms::EDIT);
         $json->pd = $this->hasPermission(Horde_Perms::DELETE);
-        $json->l = $this->location;
+        $json->l = $this->getLocation();
         if ($this->icon) {
             $json->ic = $this->icon;
         }
@@ -1830,31 +1838,33 @@ abstract class Kronolith_Event
         if ($full) {
             $json->id = $this->id;
             $json->ty = $this->calendarType;
-            $json->d = $this->description;
-            $json->u = $this->url;
             $json->sd = $this->start->strftime('%x');
             $json->st = $this->start->format($time_format);
             $json->ed = $this->end->strftime('%x');
             $json->et = $this->end->format($time_format);
             $json->a = $this->alarm;
             $json->pv = $this->private;
-            $json->tg = array_values($this->tags);
-            $json->gl = $this->geoLocation;
             if ($this->recurs()) {
                 $json->r = $this->recurrence->toJson();
             }
-            if ($this->attendees) {
-                $attendees = array();
-                foreach ($this->attendees as $email => $info) {
-                    $attendee = array('a' => (int)$info['attendance'],
-                                      'r' => (int)$info['response'],
-                                      'l' => empty($info['name']) ? $email : Horde_Mime_Address::trimAddress($info['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>')));
-                    if (strpos($email, '@') !== false) {
-                        $attendee['e'] = $email;
+            if (!$this->isPrivate()) {
+                $json->d = $this->description;
+                $json->u = $this->url;
+                $json->tg = array_values($this->tags);
+                $json->gl = $this->geoLocation;
+                if ($this->attendees) {
+                    $attendees = array();
+                    foreach ($this->attendees as $email => $info) {
+                        $attendee = array('a' => (int)$info['attendance'],
+                                          'r' => (int)$info['response'],
+                                          'l' => empty($info['name']) ? $email : Horde_Mime_Address::trimAddress($info['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>')));
+                        if (strpos($email, '@') !== false) {
+                            $attendee['e'] = $email;
+                        }
+                        $attendees[] = $attendee;
                     }
-                    $attendees[] = $attendee;
+                    $json->at = $attendees;
                 }
-                $json->at = $attendees;
             }
             if ($this->methods) {
                 $json->m = $this->methods;
@@ -2006,7 +2016,36 @@ abstract class Kronolith_Event
     }
 
     /**
-     * Returns the title of this event.
+     * Returns whether the event should be considered private.
+     *
+     * The event's private flag can be overriden if the current user
+     * is an administrator and the code is run from command line. This
+     * is to allow full event notifications in alarm messages or
+     * agendas.
+     *
+     * @param string $user  The current user.
+     *
+     * @return boolean  Whether to consider the event as private.
+     */
+    public function isPrivate($user = null)
+    {
+        if ($user === null) {
+            $user = $GLOBALS['registry']->getAuth();
+        }
+
+        if (!(Horde_Cli::runningFromCLI() && $GLOBALS['registry']->isAdmin()) &&
+            $this->private && $this->creator != $user) {
+            return true;
+        }
+        if ($GLOBALS['registry']->isAdmin() ||
+            $this->hasPermission(Horde_Perms::READ, $user)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Returns the title of this event, considering private flags.
      *
      * @param string $user  The current user.
      *
@@ -2018,19 +2057,21 @@ abstract class Kronolith_Event
             return '';
         }
 
-        if ($user === null) {
-            $user = $GLOBALS['registry']->getAuth();
-        }
+        return $this->isPrivate($user)
+            ? _("busy")
+            : (strlen($this->title) ? $this->title : _("[Unnamed event]"));
+    }
 
-        // We explicitly allow admin access here for the alarms notifications.
-        if (!(Horde_Cli::runningFromCLI() && $GLOBALS['registry']->isAdmin()) &&
-            $this->private && $this->creator != $user) {
-            return _("busy");
-        } elseif ($GLOBALS['registry']->isAdmin() || $this->hasPermission(Horde_Perms::READ, $user)) {
-            return strlen($this->title) ? $this->title : _("[Unnamed event]");
-        } else {
-            return _("busy");
-        }
+    /**
+     * Returns the location of this event, considering private flags.
+     *
+     * @param string $user  The current user.
+     *
+     * @return string  The location of this event.
+     */
+    public function getLocation($user = null)
+    {
+        return $this->isPrivate($user) ? '' : $this->location;
     }
 
     /**
@@ -2854,7 +2895,7 @@ abstract class Kronolith_Event
             . "\n" . sprintf(_("Owner: %s"), ($this->creator == $GLOBALS['registry']->getAuth() ?
                                               _("Me") : Kronolith::getUserName($this->creator)));
 
-        if (!$this->private || $this->creator == $GLOBALS['registry']->getAuth()) {
+        if (!$this->isPrivate()) {
             if ($this->location) {
                 $tooltip .= "\n" . _("Location") . ': ' . $this->location;
             }

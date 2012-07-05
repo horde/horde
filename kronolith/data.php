@@ -128,8 +128,11 @@ case 'export':
                 foreach ($dayevents as $event) {
                     $row = array();
                     $row['title'] = $event->getTitle();
-                    $row['location'] = $event->location;
-                    $row['description'] = $event->description;
+                    if (!$event->isPrivate()) {
+                        $row['location'] = $event->location;
+                        $row['description'] = $event->description;
+                        $row['tags'] = implode(', ', $event->tags);
+                    }
                     $row['private'] = (int)$event->private;
                     $row['start_date'] = sprintf('%d-%02d-%02d', $event->start->year, $event->start->month, $event->start->mday);
                     $row['start_time'] = sprintf('%02d:%02d:%02d', $event->start->hour, $event->start->min, $event->start->sec);
@@ -150,7 +153,6 @@ case 'export':
                         $row['recur_interval'] = null;
                         $row['recur_data'] = null;
                     }
-                    $row['tags'] = implode(', ', $event->tags);
                     $data[] = $row;
                 }
             }

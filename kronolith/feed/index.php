@@ -116,7 +116,7 @@ foreach ($events as $day_events) {
         }
         $modified = new Horde_Date($modified);
         /* Description. */
-        $desc = htmlspecialchars($event->description);
+        $desc = $event->isPrivate() ? '' : htmlspecialchars($event->description);
         if (strlen($desc)) {
             $desc .= '<br /><br />';
         }
@@ -128,15 +128,17 @@ foreach ($events as $day_events) {
             $desc .= $event->end->strftime($prefs->getValue('date_format')) . ' ' . $event->end->format($twentyFor ? 'H:i' : 'h:ia');
         }
         /* Attendees. */
-        $attendees = array();
-        foreach ($event->attendees as $attendee => $status) {
-            $attendees[] = empty($status['name']) ? $attendee : Horde_Mime_Address::trimAddress($status['name'] . (strpos($attendee, '@') === false ? '' : ' <' . $attendee . '>'));
-        }
-        if (count($attendees)) {
-            $desc .= '<br />' . _("Who:") . ' ' . htmlspecialchars(implode(', ', $attendees));
-        }
-        if (strlen($event->location)) {
-            $desc .= '<br />' . _("Where:") . ' ' . htmlspecialchars($event->location);
+        if (!$event->isPrivate()) {
+            $attendees = array();
+            foreach ($event->attendees as $attendee => $status) {
+                $attendees[] = empty($status['name']) ? $attendee : Horde_Mime_Address::trimAddress($status['name'] . (strpos($attendee, '@') === false ? '' : ' <' . $attendee . '>'));
+            }
+            if (count($attendees)) {
+                $desc .= '<br />' . _("Who:") . ' ' . htmlspecialchars(implode(', ', $attendees));
+            }
+            if (strlen($event->location)) {
+                $desc .= '<br />' . _("Where:") . ' ' . htmlspecialchars($event->location);
+            }
         }
         $desc .= '<br />' . _("Event Status:") . ' ' . Kronolith::statusToString($event->status);
 

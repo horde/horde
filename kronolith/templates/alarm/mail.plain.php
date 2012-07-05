@@ -4,7 +4,7 @@
 <?php echo $this->event->getTitle($this->user) ?>
 
 
-<?php echo _("Location:") ?> <?php echo $this->event->location ?>
+<?php echo _("Location:") ?> <?php echo $this->event->getLocation($this->user) ?>
 
 
 <?php echo _("Date:") ?> <?php echo $this->event->start->strftime($this->dateFormat) ?>
@@ -12,4 +12,4 @@
 <?php echo _("Time:") ?> <?php echo $this->event->start->format($this->timeFormat) ?>
 
 
-<?php echo $this->event->description ?>
+<?php if (!$this->isPrivate($this->user)) echo $this->event->description ?>

@@ -15,16 +15,17 @@
         <td width="5">&nbsp;</td>
         <td width="100%"><font size="2"><strong><?php echo $this->event->start->strftime($this->dateFormat) ?>, <?php echo $this->event->start->format($this->timeFormat) ?></strong></font></td>
       </tr>
-      <?php if (strlen($this->event->location)): ?>
+      <?php if (strlen($this->event->getLocation($this->user))): ?>
 
       <tr<?php if ($i++ % 2) echo ' bgcolor="#f1f1f1"' ?>>
         <td nowrap="nowrap" align="right">
           <font size="2"><strong><?php echo _("Location:") ?></strong></font>
         </td>
         <td width="5">&nbsp;</td>
-        <td width="100%"><font size="2"><strong><?php echo $this->h($this->event->location) ?></strong></font></td>
+        <td width="100%"><font size="2"><strong><?php echo $this->h($this->event->getLocation($this->user)) ?></strong></font></td>
       </tr>
       <?php endif ?>
+      <?php if (!$this->isPrivate($this->user)): ?>
       <?php if ($this->attendees): ?>
 
       <tr<?php if ($i++ % 2) echo ' bgcolor="#f1f1f1"' ?>>
@@ -54,6 +55,7 @@
         <td width="5">&nbsp;</td>
         <td width="100%"><font size="2"><strong><?php echo $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($this->event->description, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'callback' => null)) ?></strong></font></td>
       </tr>
+      <?php endif ?>
       <?php endif ?>
 
     </table>

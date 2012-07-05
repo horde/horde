@@ -126,8 +126,8 @@ class Kronolith_View_Day extends Kronolith_Day
                         . 'width="' . round(90 / count($this->_currentCalendars))  . '%" '
                         . 'valign="top" colspan="' . $this->span[$cid] . '">'
                         . $event->getLink($this, true, $this->link(0, true));
-                    if ($showLocation) {
-                        $row .= '<div class="event-location">' . htmlspecialchars($event->location) . '</div>';
+                    if (!$event->isPrivate() && $showLocation) {
+                        $row .= '<div class="event-location">' . htmlspecialchars($event->getLocation()) . '</div>';
                     }
                     $row .= '</td>';
                 }
@@ -241,8 +241,8 @@ class Kronolith_View_Day extends Kronolith_Day
                         if ($showTime) {
                             $row .= '<div class="event-time">' . htmlspecialchars($event->getTimeRange()) . '</div>';
                         }
-                        if ($showLocation) {
-                            $row .= '<div class="event-location">' . htmlspecialchars($event->location) . '</div>';
+                        if (!$event->isPrivate() && $showLocation) {
+                            $row .= '<div class="event-location">' . htmlspecialchars($event->getLocation()) . '</div>';
                         }
                         $row .= '</td>';
                     }
