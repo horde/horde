@@ -344,9 +344,13 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             }
 
             /* Next, search all from addresses. */
-            if ($search_own &&
-                $this->getFromAddresses($key)->contains($addresses)) {
-                return $key;
+            if ($search_own) {
+                $from = $this->getFromAddresses($key);
+                foreach ($addresses as $val) {
+                    if ($from->contains($val)) {
+                        return $key;
+                    }
+                }
             }
         }
 
