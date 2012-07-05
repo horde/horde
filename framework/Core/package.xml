@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2012-07-05</date>
- <time>23:43:47</time>
+ <time>23:44:20</time>
  <version>
-  <release>2.0.0alpha1</release>
+  <release>2.0.0beta1</release>
   <api>2.0.0alpha1</api>
  </version>
  <stability>
@@ -40,24 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First alpha release for Horde 5.
-* [jan] Update classes for the new user interface.
-* [mms] Move output compression code into Horde_PageOutput.
-* [mms] Removed Horde::ajaxAvailable().
-* [mms] Move Horde::getServiceLink() to Horde_Registry#getServiceLink().
-* [jan] Allow to use IMAP storage for shares and groupware data without a complete Kolab server.
-* [mms] Moved smartmobile core javascript from the Horde application.
-* [mms] Added Horde_PageOutput.
-* [mms] Added Horde_Core_Ajax_Imple_ContactAutoCompleter.
-* [mjr] Use local member storage when no session is available (Bug #9733).
-* [mms] Added AJAX core features.
-* [mms] Added view determination to Horde_Registry.
-* [mms] Performance improvements when initializing Alarm system.
-* [mms] Performance improvements to Alarm checking.
-* [mms] Performance improvements when initializing Notification system.
-* [mjr] Allow restricting pretty autocompleter to available choices.
-* [mms] Add language detection to AJAX spellchecker if no language is selected by the user (Request #7137).
-* [mms] Add Horde_Core_Block_Layout_View::getStylesheets().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2152,6 +2135,19 @@
 * [mjr] Allow restricting pretty autocompleter to available choices.
 * [mms] Add language detection to AJAX spellchecker if no language is selected by the user (Request #7137).
 * [mms] Add Horde_Core_Block_Layout_View::getStylesheets().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0alpha1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
