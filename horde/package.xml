@@ -2341,14 +2341,6 @@
    <install as="js/plupload/i18n/pt-br.js" name="js/plupload/i18n/pt-br.js" />
    <install as="js/plupload/i18n/ru.js" name="js/plupload/i18n/ru.js" />
    <install as="js/plupload/i18n/sv.js" name="js/plupload/i18n/sv.js" />
-   <install as="js/scriptaculous/builder.js" name="js/scriptaculous/builder.js" />
-   <install as="js/scriptaculous/controls.js" name="js/scriptaculous/controls.js" />
-   <install as="js/scriptaculous/dragdrop.js" name="js/scriptaculous/dragdrop.js" />
-   <install as="js/scriptaculous/effects.js" name="js/scriptaculous/effects.js" />
-   <install as="js/scriptaculous/scriptaculous.js" name="js/scriptaculous/scriptaculous.js" />
-   <install as="js/scriptaculous/slider.js" name="js/scriptaculous/slider.js" />
-   <install as="js/scriptaculous/sound.js" name="js/scriptaculous/sound.js" />
-   <install as="js/scriptaculous/unittest.js" name="js/scriptaculous/unittest.js" />
    <install as="lib/.htaccess" name="lib/.htaccess" />
    <install as="lib/Api.php" name="lib/Api.php" />
    <install as="lib/Application.php" name="lib/Application.php" />
