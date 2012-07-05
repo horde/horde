@@ -1,6 +1,6 @@
---------
-v4.0-git
---------
+------------
+v4.0.0alpha1
+------------
 
 First alpha release for Horde 5.
 [mms] Import API call now throws an ObjectExists exception when a duplicate is
