@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>12:08:48</time>
+ <date>2012-07-05</date>
+ <time>23:42:33</time>
  <version>
   <release>2.0.0alpha1</release>
   <api>2.0.0</api>
@@ -620,7 +620,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-11-22</date>
+   <date>2012-07-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 5.
