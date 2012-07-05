@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-05</date>
- <time>23:46:06</time>
+ <time>23:46:33</time>
  <version>
-  <release>2.0.0alpha1</release>
+  <release>2.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First alpha release for Horde 5.
-* [mms] Update CKEditor to v2.6.3.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1086,6 +1085,19 @@ Initial packaging
    <notes>
 * First alpha release for Horde 5.
 * [mms] Update CKEditor to v2.6.3.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
