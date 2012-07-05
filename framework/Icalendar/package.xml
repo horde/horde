@@ -24,8 +24,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-06-29</date>
- <time>14:39:41</time>
+ <date>2012-07-05</date>
+ <time>23:48:53</time>
  <version>
   <release>2.0.0alpha1</release>
   <api>1.1.0</api>
@@ -874,7 +874,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    </notes>
   </release>
   <release>
-   <date>2012-06-29</date>
+   <date>2012-07-05</date>
    <time>14:39:41</time>
    <version>
     <release>2.0.0alpha1</release>
