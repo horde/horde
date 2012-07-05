@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2012-07-05</date>
- <time>23:46:36</time>
+ <time>23:46:50</time>
  <version>
-  <release>2.0.0alpha1</release>
+  <release>2.0.0beta1</release>
   <api>2.0.0alpha1</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First alpha release for Horde 5.
-* [mms] Added log level setting to Horde_Exception.
-* [mms] Added $logged property to Horde_Exception class.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -682,6 +680,19 @@
 * First alpha release for Horde 5.
 * [mms] Added log level setting to Horde_Exception.
 * [mms] Added $logged property to Horde_Exception class.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0alpha1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
