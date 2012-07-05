@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-29</date>
- <time>14:38:55</time>
+ <date>2012-07-06</date>
+ <time>00:10:28</time>
  <version>
   <release>2.0.0alpha1</release>
   <api>2.0.0</api>
@@ -37,6 +37,7 @@
     <dir name="Horde">
      <dir name="Date">
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Date -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -395,6 +396,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Date/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Date/UPGRADING" />
    <install as="Horde/Date.php" name="lib/Horde/Date.php" />
    <install as="Horde/Date/Exception.php" name="lib/Horde/Date/Exception.php" />
    <install as="Horde/Date/Recurrence.php" name="lib/Horde/Date/Recurrence.php" />
@@ -760,7 +762,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-02-22</date>
+   <date>2012-07-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 5.
