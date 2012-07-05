@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-06</date>
- <time>00:06:28</time>
+ <time>00:06:44</time>
  <version>
-  <release>2.0.0alpha1</release>
+  <release>2.0.0beta1</release>
   <api>2.0.0alpha1</api>
  </version>
  <stability>
@@ -29,12 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First alpha release for Horde 5.
-* [mms] Removed e-mail array manipulation methods (Horde_Mail package now provides this feature).
-* [mms] Removed Horde_Util::getCsv() (moved to Horde_Data package).
-* [mms] Add iteration to Horde_Domhtml object.
-* [jan] Remove Horde_Util::getTempDir().
-* [jan] Remove Horde_Array::replaceRecursive().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -478,6 +473,19 @@ Converted to package.xml 2.0 for pear.horde.org
 * [mms] Add iteration to Horde_Domhtml object.
 * [jan] Remove Horde_Util::getTempDir().
 * [jan] Remove Horde_Array::replaceRecursive().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0alpha1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
