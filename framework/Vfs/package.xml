@@ -27,8 +27,8 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-01</date>
- <time>15:07:55</time>
+ <date>2012-07-06</date>
+ <time>00:15:19</time>
  <version>
   <release>2.0.0alpha1</release>
   <api>2.0.0alpha1</api>
@@ -53,6 +53,7 @@ Reading, writing and listing of files are all supported.</description>
     <dir name="Horde">
      <dir name="Vfs">
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Vfs -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -352,10 +353,35 @@ Reading, writing and listing of files are all supported.</description>
        <file name="samba1.txt" role="test" />
        <file name="samba2.txt" role="test" />
       </dir> <!-- /test/Horde/Vfs/fixtures -->
+      <dir name="Sql">
+       <dir name="Pdo">
+        <file name="MysqlTest.php" role="test" />
+        <file name="PgsqlTest.php" role="test" />
+        <file name="SqliteTest.php" role="test" />
+       </dir> <!-- /test/Horde/Vfs/Sql/Pdo -->
+       <file name="Base.php" role="test" />
+       <file name="MysqliTest.php" role="test" />
+       <file name="MysqlTest.php" role="test" />
+      </dir> <!-- /test/Horde/Vfs/Sql -->
+      <dir name="SqlFile">
+       <dir name="Pdo">
+        <file name="MysqlTest.php" role="test" />
+        <file name="PgsqlTest.php" role="test" />
+        <file name="SqliteTest.php" role="test" />
+       </dir> <!-- /test/Horde/Vfs/SqlFile/Pdo -->
+       <file name="Base.php" role="test" />
+       <file name="MysqliTest.php" role="test" />
+       <file name="MysqlTest.php" role="test" />
+      </dir> <!-- /test/Horde/Vfs/SqlFile -->
       <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="Base.php" role="test" />
+      <file name="conf.php.dist" role="test" />
       <file name="FileTest.php" role="test" />
+      <file name="FtpTest.php" role="test" />
       <file name="KolabTest.php" role="test" />
       <file name="SmbTest.php" role="test" />
+      <file name="Ssh2Test.php" role="test" />
      </dir> <!-- /test/Horde/Vfs -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -448,6 +474,7 @@ Reading, writing and listing of files are all supported.</description>
   <filelist>
    <install as="horde-vfs" name="bin/horde-vfs" />
    <install as="COPYING" name="doc/Horde/Vfs/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Vfs/UPGRADING" />
    <install as="Horde/Vfs.php" name="lib/Horde/Vfs.php" />
    <install as="Horde/Vfs/Base.php" name="lib/Horde/Vfs/Base.php" />
    <install as="Horde/Vfs/Exception.php" name="lib/Horde/Vfs/Exception.php" />
@@ -552,11 +579,28 @@ Reading, writing and listing of files are all supported.</description>
    <install as="migration/1_horde_vfs_base_tables.php" name="migration/Horde/Vfs/1_horde_vfs_base_tables.php" />
    <install as="migration/2_horde_vfs_upgrade_autoincrement.php" name="migration/Horde/Vfs/2_horde_vfs_upgrade_autoincrement.php" />
    <install as="Horde/Vfs/AllTests.php" name="test/Horde/Vfs/AllTests.php" />
+   <install as="Horde/Vfs/Autoload.php" name="test/Horde/Vfs/Autoload.php" />
+   <install as="Horde/Vfs/Base.php" name="test/Horde/Vfs/Base.php" />
+   <install as="Horde/Vfs/conf.php.dist" name="test/Horde/Vfs/conf.php.dist" />
    <install as="Horde/Vfs/FileTest.php" name="test/Horde/Vfs/FileTest.php" />
+   <install as="Horde/Vfs/FtpTest.php" name="test/Horde/Vfs/FtpTest.php" />
    <install as="Horde/Vfs/KolabTest.php" name="test/Horde/Vfs/KolabTest.php" />
    <install as="Horde/Vfs/SmbTest.php" name="test/Horde/Vfs/SmbTest.php" />
+   <install as="Horde/Vfs/Ssh2Test.php" name="test/Horde/Vfs/Ssh2Test.php" />
    <install as="Horde/Vfs/fixtures/samba1.txt" name="test/Horde/Vfs/fixtures/samba1.txt" />
    <install as="Horde/Vfs/fixtures/samba2.txt" name="test/Horde/Vfs/fixtures/samba2.txt" />
+   <install as="Horde/Vfs/Sql/Base.php" name="test/Horde/Vfs/Sql/Base.php" />
+   <install as="Horde/Vfs/Sql/MysqliTest.php" name="test/Horde/Vfs/Sql/MysqliTest.php" />
+   <install as="Horde/Vfs/Sql/MysqlTest.php" name="test/Horde/Vfs/Sql/MysqlTest.php" />
+   <install as="Horde/Vfs/Sql/Pdo/MysqlTest.php" name="test/Horde/Vfs/Sql/Pdo/MysqlTest.php" />
+   <install as="Horde/Vfs/Sql/Pdo/PgsqlTest.php" name="test/Horde/Vfs/Sql/Pdo/PgsqlTest.php" />
+   <install as="Horde/Vfs/Sql/Pdo/SqliteTest.php" name="test/Horde/Vfs/Sql/Pdo/SqliteTest.php" />
+   <install as="Horde/Vfs/SqlFile/Base.php" name="test/Horde/Vfs/SqlFile/Base.php" />
+   <install as="Horde/Vfs/SqlFile/MysqliTest.php" name="test/Horde/Vfs/SqlFile/MysqliTest.php" />
+   <install as="Horde/Vfs/SqlFile/MysqlTest.php" name="test/Horde/Vfs/SqlFile/MysqlTest.php" />
+   <install as="Horde/Vfs/SqlFile/Pdo/MysqlTest.php" name="test/Horde/Vfs/SqlFile/Pdo/MysqlTest.php" />
+   <install as="Horde/Vfs/SqlFile/Pdo/PgsqlTest.php" name="test/Horde/Vfs/SqlFile/Pdo/PgsqlTest.php" />
+   <install as="Horde/Vfs/SqlFile/Pdo/SqliteTest.php" name="test/Horde/Vfs/SqlFile/Pdo/SqliteTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -955,7 +999,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    </notes>
   </release>
   <release>
-   <date>2012-03-01</date>
+   <date>2012-07-06</date>
    <time>15:07:55</time>
    <version>
     <release>2.0.0alpha1</release>
