@@ -32,7 +32,7 @@ extends Components_Module_Base
 {
     public function getOptionGroupTitle()
     {
-        return 'Update ppackage.xml';
+        return 'Update package.xml';
     }
 
     public function getOptionGroupDescription()
@@ -83,6 +83,20 @@ extends Components_Module_Base
                     'help'   => 'Set a new api number in the package.xml.'
                 )
             ),
+            new Horde_Argv_Option(
+                '--new-state',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Set a new release state in the package.xml.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '--new-apistate',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Set a new api state in the package.xml.'
+                )
+            ),
         );
     }
 
@@ -119,6 +133,8 @@ extends Components_Module_Base
             '--regenerate' => 'Purge the old file listings and replace them with a completely fresh list.',
             '--new-version' => '',
             '--new-api' => '',
+            '--new-state' => '',
+            '--new-apistate' => '',
             '--commit' => 'Commit the changed package.xml to git.',
         );
     }

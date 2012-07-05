@@ -23,6 +23,7 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * First alpha release for Horde 5.
+* [jan] Add Horde_Pear_Package_Xml#setState().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -456,6 +457,7 @@
    <date>2012-07-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Horde_Pear_Package_Xml#setState().
 * First alpha release for Horde 5.
    </notes>
   </release>
