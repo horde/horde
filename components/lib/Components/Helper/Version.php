@@ -67,24 +67,6 @@ class Components_Helper_Version
                 )
             );
         }
-        $requires = array(
-            'alpha' => 'alpha',
-            'beta' => 'beta',
-            'RC' => 'beta',
-            'dev' => 'devel'
-        );
-        foreach ($requires as $m => $s) {
-            if (isset($match[2]) && $match[2] == $m && $stability != $s) {
-                throw new Components_Exception(
-                    sprintf(
-                        '%s version "%s" marked with invalid release stability "%s"!',
-                        $s,
-                        $version,
-                        $stability
-                    )
-                );
-            }
-        }
     }
 
     /**
@@ -106,24 +88,6 @@ class Components_Helper_Version
                     $stability
                 )
             );
-        }
-        $requires = array(
-            'alpha' => 'alpha',
-            'beta' => 'beta',
-            'RC' => 'beta',
-            'dev' => 'devel'
-        );
-        foreach ($requires as $m => $s) {
-            if (isset($match[2]) && $match[2] == $m && $stability != $s) {
-                throw new Components_Exception(
-                    sprintf(
-                        '%s version "%s" marked with invalid api stability "%s"!',
-                        $s,
-                        $version,
-                        $stability
-                    )
-                );
-            }
         }
     }
 
