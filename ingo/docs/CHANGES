@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+First alpha release for Horde 5.
 [mms] When adding to blacklist/whitelist, remove added addresses from the
       other list.
 [jan] Allow to use placeholder variables in vacation messages (Request #10316).

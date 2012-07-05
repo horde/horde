@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* First alpha release for Horde 5.
 * [mms] Only show Inbox, special mailboxes, and polled mailboxes by default in smartmobile view.
 * [mms] Add &apos;reply_strip_sig&apos; preference (Request #11056).
 * [mms] Move attachment strip icon to MIME part tree display.
@@ -65,7 +66,7 @@
 * [jan] Add reporting as spam/innocent to smartphone view.
 * [mms] Workaround overquota error when deleting messages and using Trash mailbox.
 * [jan] Add basic search to smartphone view.
-* [jan] Add resume and &quot;edit as new&quot; to smartphone view.
+* [jan] Add resume and "edit as new" to smartphone view.
 * [mms] Hide deleted now works with threaded mailboxes.
 * [mms] Threaded sorts now work in all search mailboxes (Request #9700).
 * [mms] Improved threading performance.
@@ -2561,6 +2562,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* First alpha release for Horde 5.
 * [mms] Only show Inbox, special mailboxes, and polled mailboxes by default in smartmobile view.
 * [mms] Add &apos;reply_strip_sig&apos; preference (Request #11056).
 * [mms] Move attachment strip icon to MIME part tree display.
@@ -2592,7 +2594,7 @@
 * [jan] Add reporting as spam/innocent to smartphone view.
 * [mms] Workaround overquota error when deleting messages and using Trash mailbox.
 * [jan] Add basic search to smartphone view.
-* [jan] Add resume and &quot;edit as new&quot; to smartphone view.
+* [jan] Add resume and "edit as new" to smartphone view.
 * [mms] Hide deleted now works with threaded mailboxes.
 * [mms] Threaded sorts now work in all search mailboxes (Request #9700).
 * [mms] Improved threading performance.

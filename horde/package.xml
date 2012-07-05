@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First alpha release for Horde 5.
 * [jan] Implement new user interface.
 * [mms] Add &apos;suppress&apos; option to prefs.php group entries.
 * [mms] Add &apos;on_change&apos;, &apos;on_init&apos;, &apos;requires&apos;, &apos;requires_nolock&apos;, and &apos;suppress&apos; options to prefs.php preference entries.
@@ -3825,6 +3826,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* First alpha release for Horde 5.
 * [jan] Implement new user interface.
 * [mms] Add &apos;suppress&apos; option to prefs.php group entries.
 * [mms] Add &apos;on_change&apos;, &apos;on_init&apos;, &apos;requires&apos;, &apos;requires_nolock&apos;, and &apos;suppress&apos; options to prefs.php preference entries.

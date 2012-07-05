@@ -2,6 +2,7 @@
 v6.0-git
 --------
 
+First alpha release for Horde 5.
 [mms] Only show Inbox, special mailboxes, and polled mailboxes by default in
       smartmobile view.
 [mms] Add 'reply_strip_sig' preference (Request #11056).
