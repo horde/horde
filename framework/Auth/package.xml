@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-05</date>
- <time>23:31:11</time>
+ <time>23:31:44</time>
  <version>
-  <release>2.0.0alpha1</release>
+  <release>2.0.0beta1</release>
   <api>2.0.0alpha1</api>
  </version>
  <stability>
@@ -35,8 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First alpha release for Horde 5.
-* [mms] Removed charset parameter for Imap and Cyrsql drivers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -714,6 +713,19 @@
    <notes>
 * First alpha release for Horde 5.
 * [mms] Removed charset parameter for Imap and Cyrsql drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0alpha1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
