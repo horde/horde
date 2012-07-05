@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-06</date>
- <time>00:35:52</time>
+ <time>00:37:14</time>
  <version>
-  <release>5.0.0alpha1</release>
+  <release>5.0.0beta1</release>
   <api>5.0.0alpha1</api>
  </version>
  <stability>
@@ -40,21 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First alpha release for Horde 5.
-* [jan] Implement new user interface.
-* [mms] Add &apos;suppress&apos; option to prefs.php group entries.
-* [mms] Add &apos;on_change&apos;, &apos;on_init&apos;, &apos;requires&apos;, &apos;requires_nolock&apos;, and &apos;suppress&apos; options to prefs.php preference entries.
-* [mms] Remove support for IE 6.
-* [mms] Token protect all AJAX actions.
-* [jan] Allow to use IMAP storage for shares and groupware data without a complete Kolab server.
-* [mms] Implement growler-like notifications for smartmobile view.
-* [mms] Modified pushapp hook behavior.
-* [mms] Removed pushapp_post hook.
-* [mms] AJAX core features now contained within Horde_Core.
-* [mms] E-mail sending charset now defaults to UTF-8.
-* [mms] Add post-install script for the Horde application
-* [mms] Portal blocks can now load just the CSS necessary to display an application&apos;s blocks.
-* [jan] Show notifications during logging into Smartphone mode.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3841,6 +3827,19 @@
 * [mms] Add post-install script for the Horde application
 * [mms] Portal blocks can now load just the CSS necessary to display an application&apos;s blocks.
 * [jan] Show notifications during logging into Smartphone mode.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta1</release>
+    <api>5.0.0alpha1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
