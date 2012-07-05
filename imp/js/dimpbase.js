@@ -3509,9 +3509,9 @@ var DimpBase = {
     _modifyPollCallback: function(r)
     {
         if (r.add) {
-            this.getMboxElt().store('u', 0);
+            this.getMboxElt(r.mbox).store('u', 0);
         } else {
-            this.getMboxElt().store('u', undefined);
+            this.getMboxElt(r.mbox).store('u', undefined);
             this.updateUnseenStatus(r.mbox, 0);
         }
     },
