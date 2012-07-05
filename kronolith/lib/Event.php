@@ -2023,8 +2023,8 @@ abstract class Kronolith_Event
         }
 
         // We explicitly allow admin access here for the alarms notifications.
-        if (!$GLOBALS['registry']->isAdmin() && $this->private &&
-            $this->creator != $user) {
+        if (!(Horde_Cli::runningFromCLI() && $GLOBALS['registry']->isAdmin()) &&
+            $this->private && $this->creator != $user) {
             return _("busy");
         } elseif ($GLOBALS['registry']->isAdmin() || $this->hasPermission(Horde_Perms::READ, $user)) {
             return strlen($this->title) ? $this->title : _("[Unnamed event]");
