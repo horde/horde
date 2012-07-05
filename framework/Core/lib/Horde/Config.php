@@ -353,6 +353,10 @@ class Horde_Config
         }
 
         foreach ($section as $name => $configitem) {
+            if (is_array($configitem) && isset($configitem['tab'])) {
+                continue;
+            }
+
             $prefixedname = empty($prefix)
                 ? $name
                 : $prefix . '|' . $name;
