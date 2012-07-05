@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-31</date>
- <time>19:19:01</time>
+ <date>2012-07-05</date>
+ <time>17:25:14</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -453,32 +453,7 @@
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="silver">
-     <dir name="block">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/silver/block -->
-     <dir name="graphics">
-      <file name="blacklist.png" role="horde" />
-      <file name="copy.png" role="horde" />
-      <file name="disable.png" role="horde" />
-      <file name="enable.png" role="horde" />
-      <file name="forward.png" role="horde" />
-      <file name="ingo.png" role="horde" />
-      <file name="script.png" role="horde" />
-      <file name="spam.png" role="horde" />
-      <file name="vacation.png" role="horde" />
-      <file name="whitelist.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-    </dir> <!-- /themes/silver -->
-    <dir name="tango-blue">
-     <dir name="graphics">
-      <file name="copy.png" role="horde" />
-      <file name="forward.png" role="horde" />
-      <file name="ingo.png" role="horde" />
-      <file name="spam.png" role="horde" />
-     </dir> <!-- /themes/tango-blue/graphics -->
-    </dir> <!-- /themes/tango-blue -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="blacklist.php" role="horde" />
    <file name="filters.php" role="horde" />
    <file name="forward.php" role="horde" />
@@ -825,21 +800,6 @@
    <install as="ingo/themes/default/graphics/spam.png" name="themes/default/graphics/spam.png" />
    <install as="ingo/themes/default/graphics/vacation.png" name="themes/default/graphics/vacation.png" />
    <install as="ingo/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
-   <install as="ingo/themes/silver/block/screen.css" name="themes/silver/block/screen.css" />
-   <install as="ingo/themes/silver/graphics/blacklist.png" name="themes/silver/graphics/blacklist.png" />
-   <install as="ingo/themes/silver/graphics/copy.png" name="themes/silver/graphics/copy.png" />
-   <install as="ingo/themes/silver/graphics/disable.png" name="themes/silver/graphics/disable.png" />
-   <install as="ingo/themes/silver/graphics/enable.png" name="themes/silver/graphics/enable.png" />
-   <install as="ingo/themes/silver/graphics/forward.png" name="themes/silver/graphics/forward.png" />
-   <install as="ingo/themes/silver/graphics/ingo.png" name="themes/silver/graphics/ingo.png" />
-   <install as="ingo/themes/silver/graphics/script.png" name="themes/silver/graphics/script.png" />
-   <install as="ingo/themes/silver/graphics/spam.png" name="themes/silver/graphics/spam.png" />
-   <install as="ingo/themes/silver/graphics/vacation.png" name="themes/silver/graphics/vacation.png" />
-   <install as="ingo/themes/silver/graphics/whitelist.png" name="themes/silver/graphics/whitelist.png" />
-   <install as="ingo/themes/tango-blue/graphics/copy.png" name="themes/tango-blue/graphics/copy.png" />
-   <install as="ingo/themes/tango-blue/graphics/forward.png" name="themes/tango-blue/graphics/forward.png" />
-   <install as="ingo/themes/tango-blue/graphics/ingo.png" name="themes/tango-blue/graphics/ingo.png" />
-   <install as="ingo/themes/tango-blue/graphics/spam.png" name="themes/tango-blue/graphics/spam.png" />
    <install as="ingo/blacklist.php" name="blacklist.php" />
    <install as="ingo/filters.php" name="filters.php" />
    <install as="ingo/forward.php" name="forward.php" />

@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-01-17</date>
- <time>13:22:43</time>
+ <date>2012-07-05</date>
+ <time>17:24:45</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -93,6 +93,7 @@
     <file name="browse.js" role="horde" />
     <file name="columnprefs.js" role="horde" />
     <file name="contact_tabs.js" role="horde" />
+    <file name="minisearch.js" role="horde" />
     <file name="search.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
@@ -116,9 +117,11 @@
     </dir> <!-- /lib/Driver -->
     <dir name="Exception">
      <file name="NotSupported.php" role="horde" />
+     <file name="ObjectExists.php" role="horde" />
     </dir> <!-- /lib/Exception -->
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
+     <file name="Shares.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
      <file name="AddContact.php" role="horde" />
@@ -138,6 +141,12 @@
     <dir name="Object">
      <file name="Group.php" role="horde" />
     </dir> <!-- /lib/Object -->
+    <dir name="Prefs">
+     <dir name="Special">
+      <file name="Addressbook.php" role="horde" />
+      <file name="Columnselect.php" role="horde" />
+     </dir> <!-- /lib/Prefs/Special -->
+    </dir> <!-- /lib/Prefs -->
     <dir name="View">
      <dir name="List">
       <file name="AlphaFilter.php" role="horde" />
@@ -522,10 +531,10 @@
     </dir> <!-- /test/Turba -->
    </dir> <!-- /test -->
    <dir name="themes">
-    <dir name="bluewhite">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/bluewhite -->
     <dir name="default">
+     <dir name="block">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/block -->
      <dir name="graphics">
       <dir name="menu">
        <file name="browse.png" role="horde" />
@@ -540,58 +549,17 @@
       <file name="edit.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="group.png" role="horde" />
+      <file name="loading.gif" role="horde" />
       <file name="new.png" role="horde" />
       <file name="search.png" role="horde" />
       <file name="turba.png" role="horde" />
       <file name="za.png" role="horde" />
       <file name="za_secondary.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
-     <file name="ie6_or_less.css" role="horde" />
      <file name="ie7.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="ideas">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/ideas -->
-    <dir name="silver">
-     <dir name="graphics">
-      <dir name="menu">
-       <file name="browse.png" role="horde" />
-       <file name="new.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/menu -->
-      <dir name="mime">
-       <file name="vcard.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/mime -->
-      <file name="az.png" role="horde" />
-      <file name="az_secondary.png" role="horde" />
-      <file name="contact.png" role="horde" />
-      <file name="edit.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="group.png" role="horde" />
-      <file name="new.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="turba.png" role="horde" />
-      <file name="za.png" role="horde" />
-      <file name="za_secondary.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-    <dir name="tango-blue">
-     <dir name="graphics">
-      <dir name="menu">
-       <file name="browse.png" role="horde" />
-       <file name="new.png" role="horde" />
-      </dir> <!-- /themes/tango-blue/graphics/menu -->
-      <file name="az_secondary.png" role="horde" />
-      <file name="contact.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="group.png" role="horde" />
-      <file name="new.png" role="horde" />
-      <file name="turba.png" role="horde" />
-      <file name="za_secondary.png" role="horde" />
-     </dir> <!-- /themes/tango-blue/graphics -->
-    </dir> <!-- /themes/tango-blue -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="add.php" role="horde" />
    <file name="browse.php" role="horde" />
    <file name="contact.php" role="horde" />
@@ -856,6 +824,7 @@
    <install as="turba/js/browse.js" name="js/browse.js" />
    <install as="turba/js/columnprefs.js" name="js/columnprefs.js" />
    <install as="turba/js/contact_tabs.js" name="js/contact_tabs.js" />
+   <install as="turba/js/minisearch.js" name="js/minisearch.js" />
    <install as="turba/js/search.js" name="js/search.js" />
    <install as="turba/lib/.htaccess" name="lib/.htaccess" />
    <install as="turba/lib/Api.php" name="lib/Api.php" />
@@ -879,7 +848,9 @@
    <install as="turba/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="turba/lib/Driver/Vbook.php" name="lib/Driver/Vbook.php" />
    <install as="turba/lib/Exception/NotSupported.php" name="lib/Exception/NotSupported.php" />
+   <install as="turba/lib/Exception/ObjectExists.php" name="lib/Exception/ObjectExists.php" />
    <install as="turba/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="turba/lib/Factory/Shares.php" name="lib/Factory/Shares.php" />
    <install as="turba/lib/Form/AddContact.php" name="lib/Form/AddContact.php" />
    <install as="turba/lib/Form/Contact.php" name="lib/Form/Contact.php" />
    <install as="turba/lib/Form/ContactBase.php" name="lib/Form/ContactBase.php" />
@@ -890,6 +861,8 @@
    <install as="turba/lib/Form/EditContactGroup.php" name="lib/Form/EditContactGroup.php" />
    <install as="turba/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="turba/lib/Object/Group.php" name="lib/Object/Group.php" />
+   <install as="turba/lib/Prefs/Special/Addressbook.php" name="lib/Prefs/Special/Addressbook.php" />
+   <install as="turba/lib/Prefs/Special/Columnselect.php" name="lib/Prefs/Special/Columnselect.php" />
    <install as="turba/lib/View/Browse.php" name="lib/View/Browse.php" />
    <install as="turba/lib/View/Contact.php" name="lib/View/Contact.php" />
    <install as="turba/lib/View/DeleteContact.php" name="lib/View/DeleteContact.php" />
@@ -1057,16 +1030,16 @@
    <install as="Turba/Unit/Turba/KolabTest.php" name="test/Turba/Unit/Turba/KolabTest.php" />
    <install as="Turba/Unit/Turba/Sql/Base.php" name="test/Turba/Unit/Turba/Sql/Base.php" />
    <install as="Turba/Unit/Turba/Sql/Pdo/SqliteTest.php" name="test/Turba/Unit/Turba/Sql/Pdo/SqliteTest.php" />
-   <install as="turba/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
-   <install as="turba/themes/default/ie6_or_less.css" name="themes/default/ie6_or_less.css" />
    <install as="turba/themes/default/ie7.css" name="themes/default/ie7.css" />
    <install as="turba/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="turba/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="turba/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="turba/themes/default/graphics/az_secondary.png" name="themes/default/graphics/az_secondary.png" />
    <install as="turba/themes/default/graphics/contact.png" name="themes/default/graphics/contact.png" />
    <install as="turba/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="turba/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="turba/themes/default/graphics/group.png" name="themes/default/graphics/group.png" />
+   <install as="turba/themes/default/graphics/loading.gif" name="themes/default/graphics/loading.gif" />
    <install as="turba/themes/default/graphics/new.png" name="themes/default/graphics/new.png" />
    <install as="turba/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="turba/themes/default/graphics/turba.png" name="themes/default/graphics/turba.png" />
@@ -1075,31 +1048,6 @@
    <install as="turba/themes/default/graphics/menu/browse.png" name="themes/default/graphics/menu/browse.png" />
    <install as="turba/themes/default/graphics/menu/new.png" name="themes/default/graphics/menu/new.png" />
    <install as="turba/themes/default/graphics/mime/vcard.png" name="themes/default/graphics/mime/vcard.png" />
-   <install as="turba/themes/ideas/screen.css" name="themes/ideas/screen.css" />
-   <install as="turba/themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="turba/themes/silver/graphics/az.png" name="themes/silver/graphics/az.png" />
-   <install as="turba/themes/silver/graphics/az_secondary.png" name="themes/silver/graphics/az_secondary.png" />
-   <install as="turba/themes/silver/graphics/contact.png" name="themes/silver/graphics/contact.png" />
-   <install as="turba/themes/silver/graphics/edit.png" name="themes/silver/graphics/edit.png" />
-   <install as="turba/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
-   <install as="turba/themes/silver/graphics/group.png" name="themes/silver/graphics/group.png" />
-   <install as="turba/themes/silver/graphics/new.png" name="themes/silver/graphics/new.png" />
-   <install as="turba/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
-   <install as="turba/themes/silver/graphics/turba.png" name="themes/silver/graphics/turba.png" />
-   <install as="turba/themes/silver/graphics/za.png" name="themes/silver/graphics/za.png" />
-   <install as="turba/themes/silver/graphics/za_secondary.png" name="themes/silver/graphics/za_secondary.png" />
-   <install as="turba/themes/silver/graphics/menu/browse.png" name="themes/silver/graphics/menu/browse.png" />
-   <install as="turba/themes/silver/graphics/menu/new.png" name="themes/silver/graphics/menu/new.png" />
-   <install as="turba/themes/silver/graphics/mime/vcard.png" name="themes/silver/graphics/mime/vcard.png" />
-   <install as="turba/themes/tango-blue/graphics/az_secondary.png" name="themes/tango-blue/graphics/az_secondary.png" />
-   <install as="turba/themes/tango-blue/graphics/contact.png" name="themes/tango-blue/graphics/contact.png" />
-   <install as="turba/themes/tango-blue/graphics/favicon.ico" name="themes/tango-blue/graphics/favicon.ico" />
-   <install as="turba/themes/tango-blue/graphics/group.png" name="themes/tango-blue/graphics/group.png" />
-   <install as="turba/themes/tango-blue/graphics/new.png" name="themes/tango-blue/graphics/new.png" />
-   <install as="turba/themes/tango-blue/graphics/turba.png" name="themes/tango-blue/graphics/turba.png" />
-   <install as="turba/themes/tango-blue/graphics/za_secondary.png" name="themes/tango-blue/graphics/za_secondary.png" />
-   <install as="turba/themes/tango-blue/graphics/menu/browse.png" name="themes/tango-blue/graphics/menu/browse.png" />
-   <install as="turba/themes/tango-blue/graphics/menu/new.png" name="themes/tango-blue/graphics/menu/new.png" />
    <install as="turba/add.php" name="add.php" />
    <install as="turba/browse.php" name="browse.php" />
    <install as="turba/contact.php" name="contact.php" />
