@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-05</date>
- <time>23:42:16</time>
+ <time>23:42:30</time>
  <version>
-  <release>2.0.0alpha1</release>
+  <release>2.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
  <notes>
-* First alpha release for Horde 5.
-* [gwr] Fixed wording of the documentation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -187,6 +186,19 @@
    <notes>
 * First alpha release for Horde 5.
 * [gwr] Fixed wording of the documentation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
