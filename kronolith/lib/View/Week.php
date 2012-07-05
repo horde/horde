@@ -140,8 +140,8 @@ class Kronolith_View_Week
                                 . 'width="' . round(99 / count($this->days[$j]->currentCalendars)) . '%" '
                                 . 'valign="top">'
                                 . $event->getLink($this->days[$j], true, $this->link(0, true));
-                            if ($showLocation) {
-                                $row .= '<div class="event-location">' . htmlspecialchars($event->location) . '</div>';
+                            if (!$event->isPrivate() && $showLocation) {
+                                $row .= '<div class="event-location">' . htmlspecialchars($event->getLocation()) . '</div>';
                             }
                             $row .= '</td>';
                         }
@@ -290,8 +290,8 @@ class Kronolith_View_Week
                                 if ($showTime) {
                                     $row .= '<div class="event-time">' . htmlspecialchars($event->getTimeRange()) . '</div>';
                                 }
-                                if ($showLocation) {
-                                    $row .= '<div class="event-location">' . htmlspecialchars($event->location) . '</div>';
+                                if (!$event->isPrivate() && $showLocation) {
+                                    $row .= '<div class="event-location">' . htmlspecialchars($event->getLocation()) . '</div>';
                                 }
                                 $row .= '</td>';
                             }

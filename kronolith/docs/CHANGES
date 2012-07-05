@@ -27,6 +27,7 @@ v4.0-git
 v3.0.18-git
 -----------
 
+[jan] Don't show location of private events (Bug #11235).
 [jan] Fix exporting multi-all-day events to iCalendar.
 [jan] Update Turkish translation (İstanbul Technical University).
 [jan] Update Swedish translation (Jakob Alvermark

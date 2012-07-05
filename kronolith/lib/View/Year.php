@@ -141,7 +141,7 @@ class Kronolith_View_Year
                                 $day_events .= $event->start->strftime($prefs->getValue('twentyFour') ? '%R' : '%I:%M%p') . '-' . $event->end->strftime($prefs->getValue('twentyFour') ? '%R' : '%I:%M%p');
                             }
                             $day_events .= ':'
-                                . (($event->location) ? ' (' . $event->location . ')' : '')
+                                . ($event->getLocation() ? ' (' . $event->getLocation() . ')' : '')
                                 . ' ' . $event->getTitle() . "\n";
                         }
                         /* Bold the cell if there are events. */

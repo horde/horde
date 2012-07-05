@@ -96,7 +96,7 @@ class Kronolith_View_Event
         $description = $this->_event->description;
         $location = $this->_event->location;
         $eventurl = $this->_event->url;
-        $private = $this->_event->private && $creatorId != $GLOBALS['registry']->getAuth();
+        $private = $this->_event->isPrivate();
         $owner = Kronolith::getUserName($creatorId);
         $status = Kronolith::statusToString($this->_event->status);
         $attendees = $this->_event->attendees;
