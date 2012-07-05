@@ -891,7 +891,7 @@
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.0alpha1</min>
     <max>3.0.0</max>
     <exclude>3.0.0</exclude>
    </package>
@@ -1010,7 +1010,7 @@
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.0alpha1</min>
     <max>3.0.0</max>
     <exclude>3.0.0</exclude>
    </package>
@@ -1109,7 +1109,7 @@
    <package>
     <name>timeobjects</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.0alpha1</min>
     <max>3.0.0</max>
     <exclude>3.0.0</exclude>
    </package>

@@ -1064,7 +1064,7 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.0</min>
+    <min>5.0.0alpha1</min>
     <max>6.0.0</max>
     <exclude>6.0.0</exclude>
    </package>
@@ -1162,7 +1162,7 @@
    <package>
     <name>Horde_ListHeaders</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.0alpha1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1176,7 +1176,7 @@
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.0alpha1</min>
     <max>3.0.0</max>
     <exclude>3.0.0</exclude>
    </package>
@@ -1260,7 +1260,7 @@
    <package>
     <name>Horde_Tree</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.0alpha1</min>
     <max>3.0.0</max>
     <exclude>3.0.0</exclude>
    </package>
