@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-05</date>
- <time>23:57:28</time>
+ <time>23:57:44</time>
  <version>
-  <release>2.0.0alpha1</release>
+  <release>2.0.0beta1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* First alpha release for Horde 5.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -249,6 +249,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
