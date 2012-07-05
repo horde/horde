@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-22</date>
- <time>17:50:27</time>
+ <date>2012-07-05</date>
+ <time>23:30:39</time>
  <version>
   <release>2.0.0alpha1</release>
   <api>2.0.0alpha1</api>
@@ -717,7 +717,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-06-22</date>
+   <date>2012-07-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First alpha release for Horde 5.
