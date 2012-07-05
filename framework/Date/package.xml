@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First alpha release for Horde 5.
 * [jan] Rename fromHash()/toHash() to fromKolab()/toKolab().
  </notes>
  <contents>
@@ -762,6 +763,7 @@
    <date>2012-02-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* First alpha release for Horde 5.
 * [jan] Rename fromHash()/toHash() to fromKolab()/toKolab().
    </notes>
   </release>

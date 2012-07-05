@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First alpha release for Horde 5.
 * [mms] Internally workaround IMAP servers that don&apos;t support text searches other than US-ASCII.
 * [mms] Horde_Imap_Client_DateTime is now a wrapper around the native PHP DateTime obejct (Request #11074).
 * [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
@@ -899,9 +900,10 @@
    </stability>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*   [mms] Internally workaround IMAP servers that don&apos;t support text searches other than US-ASCII.
-*   [mms] Horde_Imap_Client_DateTime is now a wrapper around the native PHP DateTime obejct (Request #11074).
-*   [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
+* First alpha release for Horde 5.
+* [mms] Internally workaround IMAP servers that don&apos;t support text searches other than US-ASCII.
+* [mms] Horde_Imap_Client_DateTime is now a wrapper around the native PHP DateTime obejct (Request #11074).
+* [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
    </notes>
   </release>
  </changelog>

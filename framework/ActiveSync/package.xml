@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* First alpha release for Horde 5.
 * [mjr] Add support for ActiveSync native meeting requests and responses.
 * [mjr] Security policy support now allows for per user configuration.
 * [mjr] Add basic Autoconfigure support.
@@ -719,12 +720,13 @@
    <date>2012-06-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* First alpha release for Horde 5.
 * [mjr] Add support for ActiveSync native meeting requests and responses.
 * [mjr] Security policy support now allows for per user configuration.
 * [mjr] Add basic Autoconfigure support.
-* [mjr] Add version 12.1 support.
+* [mjr] Add EAS version 12.1 support.
 * [mjr] Add EAS version 12.0 support.
-* [mjr] Add Email support
+* [mjr] Add email support.
    </notes>
   </release>
  </changelog>

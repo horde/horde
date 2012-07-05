@@ -25,15 +25,16 @@
  <date>2012-04-10</date>
  <time>19:43:18</time>
  <version>
-  <release>1.1.9</release>
+  <release>2.0.0alpha1</release>
   <api>1.1.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First alpha release for Horde 5.
 * [mms] Use new Horde_Mail API.
  </notes>
  <contents>
@@ -856,6 +857,23 @@ Initial release as a PEAR package
    <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <date>2012-04-10</date>
+   <time>19:43:18</time>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
 * [mms] Use new Horde_Mail API.
    </notes>
   </release>

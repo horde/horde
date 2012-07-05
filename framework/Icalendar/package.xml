@@ -27,15 +27,16 @@
  <date>2012-06-29</date>
  <time>14:39:41</time>
  <version>
-  <release>1.1.3</release>
+  <release>2.0.0alpha1</release>
   <api>1.1.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First alpha release for Horde 5.
 * [mms] Use new Horde_Mail API.
  </notes>
  <contents>
@@ -869,6 +870,23 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <date>2012-06-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <date>2012-06-29</date>
+   <time>14:39:41</time>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
 * [mms] Use new Horde_Mail API.
    </notes>
   </release>

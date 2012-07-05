@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First alpha release for Horde 5.
 * [mjr] Fix issue that could cause outputting of duplicate data from a parsed mulitpart mime message.
 * [mms] Added Horde_Mime_Related class.
 * [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
@@ -941,6 +942,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* First alpha release for Horde 5.
 * [mjr] Fix issue that could cause outputting of duplicate data from a parsed mulitpart mime message.
 * [mms] Added Horde_Mime_Related class.
 * [mms] Implement new 2.0 API. See UPGRADING for full details of changes.

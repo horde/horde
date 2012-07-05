@@ -16,18 +16,19 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-08</date>
- <time>16:32:39</time>
+ <date>2012-07-05</date>
+ <time>22:17:39</time>
  <version>
-  <release>1.1.0</release>
+  <release>2.0.0alpha1</release>
   <api>1.1.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* First alpha release for Horde 5.
 * [mms] Add Horde_Support_ObjectStub.
  </notes>
  <contents>
@@ -294,14 +295,15 @@
   </release>
   <release>
    <version>
-    <release>1.1.0</release>
+    <release>2.0.0alpha1</release>
     <api>1.1.0</api></version>
    <stability>
-    <release>stable</release>
+    <release>alpha</release>
     <api>stable</api></stability>
-   <date>2012-05-08</date>
+   <date>2012-07-05</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* First alpha release for Horde 5.
 * [mms] Add Horde_Support_ObjectStub.
    </notes>
   </release>

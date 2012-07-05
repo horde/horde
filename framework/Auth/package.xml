@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First alpha release for Horde 5.
 * [mms] Removed charset parameter for Imap and Cyrsql drivers.
  </notes>
  <contents>
@@ -711,6 +712,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* First alpha release for Horde 5.
 * [mms] Removed charset parameter for Imap and Cyrsql drivers.
    </notes>
   </release>

@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First alpha release for Horde 5.
 * [jan] Update classes for the new user interface.
 * [mms] Move output compression code into Horde_PageOutput.
 * [mms] Removed Horde::ajaxAvailable().
@@ -2133,6 +2134,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* First alpha release for Horde 5.
 * [jan] Update classes for the new user interface.
 * [mms] Move output compression code into Horde_PageOutput.
 * [mms] Removed Horde::ajaxAvailable().

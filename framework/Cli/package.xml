@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First alpha release for Horde 5.
 * [jan] Use late static binding in init() for easier extension of Horde_Cli.
  </notes>
  <contents>
@@ -622,6 +623,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* First alpha release for Horde 5.
 * [jan] Use late static binding in init() for easier extension of Horde_Cli.
    </notes>
   </release>

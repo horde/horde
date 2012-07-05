@@ -11,19 +11,19 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-04-06</date>
- <time>15:25:33</time>
+ <date>2012-07-05</date>
+ <time>22:17:36</time>
  <version>
-  <release>1.2.1</release>
+  <release>2.0.0alpha1</release>
   <api>1.2.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* First alpha release for Horde 5.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -283,15 +283,15 @@ Major improvements including inflection, eager or lazy loading of relationships 
   </release>
   <release>
    <version>
-    <release>1.2.1</release>
+    <release>2.0.0alpha1</release>
     <api>1.2.0</api></version>
    <stability>
-    <release>stable</release>
+    <release>alpha</release>
     <api>stable</api></stability>
-   <date>2012-04-06</date>
+   <date>2012-07-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* First alpha release for Horde 5.
    </notes>
   </release>
  </changelog>

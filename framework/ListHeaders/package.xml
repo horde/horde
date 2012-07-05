@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Initial release (imported from IMP).
+* [mms] First alpha release for Horde 5 (imported from IMP).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

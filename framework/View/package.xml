@@ -17,18 +17,19 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2012-05-15</date>
- <time>14:39:12</time>
+ <date>2012-07-05</date>
+ <time>22:17:42</time>
  <version>
-  <release>1.1.0</release>
+  <release>2.0.0alpha1</release>
   <api>1.1.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First alpha release for Horde 5.
 * [mms] Added Horde_View_Helper_FormTag#optionTag().
  </notes>
  <contents>
@@ -341,14 +342,15 @@
   </release>
   <release>
    <version>
-    <release>1.1.0</release>
+    <release>2.0.0alpha1</release>
     <api>1.1.0</api></version>
    <stability>
-    <release>stable</release>
+    <release>alpha</release>
     <api>stable</api></stability>
-   <date>2012-05-15</date>
+   <date>2012-07-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* First alpha release for Horde 5.
 * [mms] Added Horde_View_Helper_FormTag#optionTag().
    </notes>
   </release>

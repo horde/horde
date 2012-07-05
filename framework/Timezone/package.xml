@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-13</date>
- <time>05:32:03</time>
+ <date>2012-07-05</date>
+ <time>18:20:36</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -20,9 +20,9 @@
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="TODO">TODO</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* Initial release.
+* First alpha release for Horde 5.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -105,10 +105,10 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-11-13</date>
-   <license uri="TODO">TODO</license>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* Initial release.
+* Initial alpha release.
    </notes>
   </release>
  </changelog>
