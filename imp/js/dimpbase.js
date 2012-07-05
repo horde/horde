@@ -2870,10 +2870,9 @@ var DimpBase = {
                 action = 'createMailbox';
                 params = { mbox: val };
                 if (mode == 'createsub') {
-                    params.parent = mbox.up('LI').retrieve('mbox');
+                    params.parent = mbox.retrieve('mbox');
                     tmp = this.getSubMboxElt(params.parent);
-                    if (!tmp ||
-                        !tmp.down('UL').childElements().size()) {
+                    if (!tmp || !tmp.childElements().size()) {
                         params.noexpand = 1;
                     }
                 }
