@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-04-12</date>
- <time>14:00:48</time>
+ <date>2012-07-06</date>
+ <time>00:06:28</time>
  <version>
   <release>2.0.0alpha1</release>
   <api>2.0.0alpha1</api>
@@ -460,7 +460,7 @@ Converted to package.xml 2.0 for pear.horde.org
    </notes>
   </release>
   <release>
-   <date>2012-04-12</date>
+   <date>2012-07-06</date>
    <time>14:00:48</time>
    <version>
     <release>2.0.0alpha1</release>
