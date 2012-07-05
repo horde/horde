@@ -31,7 +31,7 @@ We encourage widespread testing and feedback via the mailing lists or our bug
 tracking system. Updated translations are very welcome, though some strings
 might still change before the release candidates are prepared.
 
-The major changes compared to the IMP version H4 (5.0) are:
+The major changes compared to the IMP version H4 are:
     * Completely redesigned user interface.
     * Completed and improved smartphone mode.
     * Added special mailbox for templates.
