@@ -621,7 +621,7 @@ $_prefs['summary_refresh_time'] = array(
 );
 
 $_prefs['sidebar_width'] = array(
-    'value' => 150,
+    'value' => 210,
     'type' => 'number',
     'desc' => sprintf(_("Width of the %s menu on the left:"), $GLOBALS['registry']->get('name', 'horde'))
 );
