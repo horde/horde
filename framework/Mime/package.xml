@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-06</date>
- <time>00:12:51</time>
+ <time>00:13:07</time>
  <version>
-  <release>2.0.0alpha1</release>
+  <release>2.0.0beta1</release>
   <api>2.0.0alpha1</api>
  </version>
  <stability>
@@ -29,10 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First alpha release for Horde 5.
-* [mjr] Fix issue that could cause outputting of duplicate data from a parsed mulitpart mime message.
-* [mms] Added Horde_Mime_Related class.
-* [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -950,6 +947,19 @@
 * [mjr] Fix issue that could cause outputting of duplicate data from a parsed mulitpart mime message.
 * [mms] Added Horde_Mime_Related class.
 * [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0alpha1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
