@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-12-21 18:23+0100\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
 "PO-Revision-Date: 2011-08-02 15:27+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -162,11 +162,11 @@ msgstr "Nach Arbeitsart"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: lib/Driver/Sql.php:580
+#: lib/Driver/Sql.php:588
 msgid "Cannot delete deliverable; it has children."
 msgstr "Ergebnis kann nicht gelöscht werden; es existieren Unterergebnisse."
 
-#: lib/Driver/Sql.php:591
+#: lib/Driver/Sql.php:599
 msgid "Cannot delete deliverable; there is time entered on it."
 msgstr "Ergebnis kann nicht gelöscht werden; es existieren Zeiteinträge dafür."
 

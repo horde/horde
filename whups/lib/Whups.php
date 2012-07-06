@@ -1021,7 +1021,7 @@ class Whups
         $url_params = array('actionID' => 'download_file',
                             'file' => $file['name'],
                             'ticket' => $ticket);
-        $link .= ' ' . Horde::link(Horde::downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download")) . '</a>';
+        $link .= ' ' . Horde::link($GLOBALS['registry']->downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download")) . '</a>';
 
         // Admins can delete attachments.
         if (self::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {

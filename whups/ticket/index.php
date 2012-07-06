@@ -15,10 +15,11 @@ Horde_Registry::appInit('whups');
 $ticket = Whups::getCurrentTicket();
 $vars = Horde_Variables::getDefaultVariables();
 $ticket->setDetails($vars);
-$injector->getInstance('Horde_PageOutput')->addLinkTag($ticket->feedLink());
+$page_output->addLinkTag($ticket->feedLink());
 
-$title = '[#' . $ticket->getId() . '] ' . $ticket->get('summary');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => '[#' . $ticket->getId() . '] ' . $ticket->get('summary')
+));
 require WHUPS_TEMPLATES . '/menu.inc';
 require WHUPS_TEMPLATES . '/prevnext.inc';
 
@@ -51,4 +52,4 @@ if ($prefs->getValue('comment_sort_dir')) {
 echo implode('', $chtml);
 $comment->end();
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

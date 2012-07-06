@@ -5,17 +5,9 @@
     <span><tag:user_name /></span>
     </div>
     <div class="clear">&nbsp;</div>
-    <if:have_offline>
-     <div class="fbbluebox"><gettext>Infinite sessions enabled.</gettext>
-      <div class="fbaction"><input type="submit" class="fbbutton" value="<gettext>Disable</gettext>" onclick="document.prefs.fbactionID.value='revokeInfinite'; return true" /></div>
-     </div>
-    <else:have_offline>
-     <div class="fbbluebox">
-      <gettext><tag:app_name /> can interact with your Facebook account, but you must login to Facebook manually each time.</gettext>
-      <div class="fbaction"><gettext>Authorize an infinite session:</gettext><a class="fbbutton" href="<tag:authUrl />">Facebook</a></div>
-     </div>
-    </else:have_offline>
-    </if:have_offline>
+    <div class="fbbluebox"><gettext>Logged in to Facebook</gettext>
+      <div class="fbaction"><input type="submit" class="fbbutton" value="<gettext>Logout</gettext>" onclick="document.prefs.fbactionID.value='revokeApplication'; return true" /></div>
+    </div>
     <if:have_publish>
      <div class="fbbluebox"><gettext>Publish enabled.</gettext>
       <div class="fbaction"><input type="submit" class="fbbutton" value="<gettext>Disable</gettext>" onclick="document.prefs.fbactionID.value='revokePublish'; return true" /></div>

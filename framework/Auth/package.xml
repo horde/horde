@@ -23,11 +23,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-20</date>
- <time>10:30:07</time>
+ <date>2012-07-05</date>
+ <time>23:31:44</time>
  <version>
-  <release>2.0.0</release>
-  <api>2.0.0</api>
+  <release>2.0.0beta1</release>
+  <api>2.0.0alpha1</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Removed charset parameter for Imap and Cyrsql drivers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -206,9 +206,9 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0alpha1</min>
+    <max>3.0.0</max>
+    <exclude>3.0.0</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Session</name>
@@ -693,6 +693,36 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-03-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-05</date>
+   <time>10:30:07</time>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+* [mms] Removed charset parameter for Imap and Cyrsql drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0alpha1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-07-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

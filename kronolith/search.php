@@ -93,8 +93,6 @@ if ($search_mode == 'basic') {
     }
 }
 
-$page_output = $injector->getInstance('Horde_PageOutput');
-
 if ($search_mode == 'basic') {
     $page_output->addInlineScript(array(
         '$("pattern_title").focus()'
@@ -107,10 +105,11 @@ if ($search_mode == 'basic') {
     $page_output->addScriptFile('edit.js');
 }
 
-$menu = Horde::menu();
-$title = _("Search");
+$menu = Kronolith::menu();
 $page_output->addScriptFile('tooltips.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Search")
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
@@ -141,4 +140,4 @@ if (!is_null($events)) {
 
 echo '</div>';
 require KRONOLITH_TEMPLATES . '/panel.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

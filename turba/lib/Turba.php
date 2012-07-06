@@ -419,14 +419,12 @@ class Turba
      */
     static public function getConfigFromShares(array $sources)
     {
-        global $injector, $notification, $registry;
-
         try {
             $shares = self::listShares();
         } catch (Horde_Share_Exception $e) {
             // Notify the user if we failed, but still return the $cfgSource
             // array.
-            $notification->push($e, 'horde.error');
+            $GLOBALS['notification']->push($e, 'horde.error');
             return $sources;
         }
 
@@ -440,7 +438,7 @@ class Turba
             }
         }
 
-        $auth_user = $registry->getAuth();
+        $auth_user = $GLOBALS['registry']->getAuth();
         $sortedSources = $defaults = $vbooks = array();
         $personal = false;
 
@@ -495,14 +493,16 @@ class Turba
                 $newSources = array_merge($newSources, $sortedSources[$source]);
             }
 
-            if (!empty($conf['share']['auto_create']) &&
+            if (!empty($GLOBALS['conf']['share']['auto_create']) &&
                 $auth_user &&
                 !$personal) {
                 // User's default share is missing.
                 try {
-                    $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
+                    $driver = $GLOBALS['injector']
+                        ->getInstance('Turba_Factory_Driver')
+                        ->create($source);
                 } catch (Turba_Exception $e) {
-                    $notification->push($e->getMessage(), 'horde.error');
+                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
                     continue;
                 }
 
@@ -625,7 +625,7 @@ class Turba
 
         /* Generate the new share. */
         try {
-            $turba_shares = $injector->getInstance('Turba_Shares');
+            $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
 
             $share = $turba_shares->newShare($GLOBALS['registry']->getAuth(), $share_name, $name);
 
@@ -663,7 +663,8 @@ class Turba
      */
     static public function addBrowseJs()
     {
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
+
         $page_output->addScriptFile('browse.js');
         $page_output->addInlineJsVars(array(
             'TurbaBrowse.confirmdelete' => _("Are you sure that you want to delete %s?"),
@@ -675,4 +676,19 @@ class Turba
         ));
     }
 
+    /**
+     * Build Turba's menu.
+     *
+     * @return string  The menu output.
+     */
+    static public function menu()
+    {
+        $sidebar = Horde::menu(array('menu_ob' => true))->render();
+
+        if (count($GLOBALS['addSources'])) {
+            $sidebar->addNewButton(_("_New Contact"), Horde::url('add.php'));
+        }
+
+        return $sidebar;
+    }
 }

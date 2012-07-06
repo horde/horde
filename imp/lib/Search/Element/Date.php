@@ -69,7 +69,7 @@ class IMP_Search_Element_Date extends IMP_Search_Element
             break;
         }
 
-        return sprintf("%s '%s'", $label, strftime('%x', $this->_data->d));
+        return sprintf("%s '%s'", $label, gmstrftime('%x', $this->_data->d));
     }
 
 }

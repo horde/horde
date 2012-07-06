@@ -85,9 +85,9 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
                             $file->getPath());
         $this->assertEquals(__DIR__ . '/repos/rcs/file1,v',
                             $file->getFullPath());
-        $this->assertEquals('1.2', $file->getRevision());
+        $this->assertEquals('1.3', $file->getRevision());
         $this->assertEquals('1.1', $file->getPreviousRevision('1.2'));
-        $this->assertEquals(2, $file->revisionCount());
+        $this->assertEquals(3, $file->revisionCount());
         $this->assertEquals(array(), $file->getTags());
         $this->assertEquals(array(), $file->getBranches());
         $this->assertFalse($file->isDeleted());
@@ -143,7 +143,7 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
     {
         $logs = $this->vcs->getFile('file1')->getLog();
         $this->assertInternalType('array', $logs);
-        $this->assertEquals(array('1.2', '1.1'), array_keys($logs));
+        $this->assertEquals(array('1.3', '1.2', '1.1'), array_keys($logs));
         $this->assertInstanceOf('Horde_Vcs_Log_Rcs', $logs['1.2']);
 
         $log = $logs['1.2'];
@@ -170,6 +170,13 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertEquals(array(), $log->getBranch());
         $this->assertEquals(array(), $log->getTags());
 
+        $this->assertEquals(
+            'Multiline commit message.
+
+More message here
+and here.',
+            $logs['1.3']->getMessage());
+
         $logs = $this->vcs->getFile('umläüte')->getLog();
         $this->assertInternalType('array', $logs);
         $this->assertEquals(array('1.1'), array_keys($logs));
@@ -182,9 +189,12 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
             ->getFile('file1')
             ->getLastLog();
         $this->assertInstanceof('Horde_Vcs_QuickLog_Rcs', $log);
-        $this->assertEquals('1.2', $log->getRevision());
-        $this->assertEquals(1322495969, $log->getDate());
+        $this->assertEquals('1.3', $log->getRevision());
+        $this->assertEquals(1332506787, $log->getDate());
         $this->assertEquals('jan', $log->getAuthor());
-        $this->assertEquals('Commit 2nd version.', $log->getMessage());
+        $this->assertEquals('Multiline commit message.
+
+More message here
+and here.', $log->getMessage());
     }
 }

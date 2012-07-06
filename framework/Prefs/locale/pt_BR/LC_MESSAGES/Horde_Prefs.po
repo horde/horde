@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Prefs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"POT-Creation-Date: 2012-03-23 23:51-0300\n"
 "PO-Revision-Date: 2011-06-12 19:47-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: lib/Horde/Prefs/Identity.php:334
+#, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr "\"%s\" não é um e-mail válido."
 
 #: lib/Horde/Prefs/Identity.php:112
 msgid "Default Identity"

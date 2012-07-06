@@ -11,6 +11,9 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
+ *
+ * @property string $app  The current application
+ * @property Horde_Variables $vars  The Variables object.
  */
 abstract class Horde_Core_Ajax_Application
 {
@@ -20,13 +23,6 @@ abstract class Horde_Core_Ajax_Application
      * @var mixed
      */
     public $data = null;
-
-    /**
-     * Determines if notification information is sent in response.
-     *
-     * @var boolean
-     */
-    public $notify = false;
 
     /**
      * The list of (possibly) unsolicited tasks/data to do for this request.
@@ -50,12 +46,11 @@ abstract class Horde_Core_Ajax_Application
     protected $_app;
 
     /**
-     * Default domain.
+     * Helper classes to add methods to the base class.
      *
-     * @see parseEmailAddress()
-     * @var string
+     * @var array
      */
-    protected $_defaultDomain;
+    protected $_helpers = array();
 
     /**
      * The list of actions that require readonly access to the session.
@@ -91,10 +86,47 @@ abstract class Horde_Core_Ajax_Application
 
             $this->_action = $action;
         }
+
+        $this->_init();
     }
 
     /**
-     * Performs the AJAX action.
+     * Application initialization code.
+     */
+    protected function _init()
+    {
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'app':
+            return $this->_app;
+
+        case 'vars':
+            return $this->_vars;
+        }
+    }
+
+    /**
+     * Add a helper object. Helper objects are searched for methods that are
+     * not defined in the base Application object. Helper methods will be
+     * passed the AJAX Application object.
+     *
+     * @param object $ob  Helper object.
+     */
+    final public function addHelper($ob)
+    {
+        $this->_helpers[get_class($ob)] = $ob;
+    }
+
+    /**
+     * Performs the AJAX action. The AJAX action should return either raw data
+     * (which will be output to the browser to be parsed by the HordeCore JS
+     * framework), or a Horde_Ajax_Core_Response object, which will be sent
+     * unaltered.
      *
      * @throws Horde_Exception
      */
@@ -104,12 +136,21 @@ abstract class Horde_Core_Ajax_Application
             return;
         }
 
+        /* Look for action in application. */
         if (method_exists($this, $this->_action)) {
             $this->data = call_user_func(array($this, $this->_action));
             return;
         }
 
-        /* Look for hook in application. */
+        /* Look for action in helpers. */
+        foreach ($this->_helpers as $help) {
+            if (method_exists($help, $this->_action)) {
+                $this->data = call_user_func(array($help, $this->_action), $this);
+                return;
+            }
+        }
+
+        /* Look for action in application hook. */
         try {
             $this->data = Horde::callHook('ajaxaction', array($this->_action, $this->_vars), $this->_app);
             return;
@@ -135,156 +176,24 @@ abstract class Horde_Core_Ajax_Application
     }
 
     /**
-     * Determines the HTTP response output type.
-     *
-     * @return string  The output type.
-     */
-    public function responseType()
-    {
-        return 'json';
-    }
-
-    /**
      * Send AJAX response to the browser.
      */
     public function send()
     {
-        $response = new Horde_Core_Ajax_Response_HordeCore($this->data, $this->tasks, $this->notify);
-        $response->sendAndExit($this->responseType());
+        $response = ($this->data instanceof Horde_Core_Ajax_Response)
+            ? clone $this->data
+            : new Horde_Core_Ajax_Response_HordeCore($this->data, $this->tasks);
+        $response->sendAndExit();
     }
 
     /**
-     * Sends a notification to the browser indicating that the user's session
-     * has timed out.
+     * Noop.
+     *
+     * @return boolean  True.
      */
-    public function sessionTimeout()
+    public function noop()
     {
-        $msg = new stdClass;
-        $msg->message = strval($this->getSessionLogoutUrl());
-        $msg->type = 'horde.ajaxtimeout';
-
-        $response = new Horde_Core_Ajax_Response(new stdClass);
-        $response->notifications = array($msg);
-        $response->sendAndExit('json');
-    }
-
-    /**
-     * Logs the user off the Horde session.
-     *
-     * This needs to be done here (server), rather than on the browser,
-     * because the logout tokens might otherwise expire.
-     */
-    public function logOut()
-    {
-        Horde::getServiceLink('logout', $this->_app)->setRaw(true)->redirect();
-    }
-
-    /**
-     * AJAX actions performed through the endpoint are normally not a good
-     * URL to return to.  Thus, by default after a session timeout, return
-     * to the base of the application instead.
-     *
-     * @return Horde_Url  The logout Horde_Url object.
-     */
-    public function getSessionLogoutUrl()
-    {
-        return $GLOBALS['registry']->getLogoutUrl(array(
-            'reason' => Horde_Auth::REASON_SESSION
-        ))->add('url', Horde::url('', false, array(
-            'app' => $this->_app,
-            'append_session' => -1
-        )));
-    }
-
-    /**
-     * Returns a hash of group IDs and group names that the user has access
-     * to.
-     *
-     * @return object  Object with the following properties:
-     *   - groups: (array) Groups hash.
-     */
-    public function listGroups()
-    {
-        $result = new stdClass;
-        try {
-            $groups = $GLOBALS['injector']
-                ->getInstance('Horde_Group')
-                ->listAll(empty($GLOBALS['conf']['share']['any_group'])
-                          ? $GLOBALS['registry']->getAuth()
-                          : null);
-            if ($groups) {
-                asort($groups);
-                $result->groups = $groups;
-            }
-        } catch (Horde_Group_Exception $e) {
-            Horde::logMessage($e);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Parses a valid email address out of a complete address string.
-     *
-     * Variables used:
-     *   - mbox: (string) The name of the new mailbox.
-     *   - parent: (string) The parent mailbox.
-     *
-     * @return object  Object with the following properties:
-     *   - email: (string) The parsed email address.
-     *
-     * @throws Horde_Exception
-     * @throws Horde_Mail_Exception
-     */
-    public function parseEmailAddress()
-    {
-        $ob = new Horde_Mail_Rfc822_Address($this->_vars->email);
-        if (is_null($ob->mailbox)) {
-            throw new Horde_Exception(Horde_Core_Translation::t("No valid email address found"));
-        }
-
-        if ($this->_defaultDomain) {
-            $ob->host = $this->_defaultDomain;
-        }
-
-        $ret = new stdClass;
-        $ret->email = $ob->bare_address;
-
-        return $ret;
-    }
-
-    /**
-     * Loads a chunk of PHP code (usually an HTML template) from the
-     * application's templates directory.
-     *
-     * @return object  Object with the following properties:
-     *   - chunk: (string) A chunk of PHP output.
-     */
-    public function chunkContent()
-    {
-        $chunk = basename($vars->chunk);
-        $result = new stdClass;
-        if (!empty($chunk)) {
-            Horde::startBuffer();
-            include $GLOBALS['registry']->get('templates', $this->_app) . '/chunks/' . $chunk . '.php';
-            $result->chunk = Horde::endBuffer();
-        }
-
-        return $result;
-    }
-
-    /**
-     * Sets a preference value.
-     *
-     * Variables used:
-     *   - pref: (string) The preference name.
-     *   - value: (mixed) The preference value.
-     *
-     * @return boolean  True on success.
-     */
-    public function setPrefValue()
-    {
-        return $GLOBALS['prefs']->setValue($this->_vars->pref, $this->_vars->value);
+        return true;
     }
 
 }

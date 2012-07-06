@@ -60,13 +60,15 @@ case 'edit_file':
         $injector->getInstance('Horde_Editor')->initialize(array('id' => 'content'));
     }
 
-    $injector->getInstance('Horde_PageOutput')->addScriptFile('edit.js');
+    $page_output->addScriptFile('edit.js');
 
-    require $registry->get('templates', 'horde') . '/common-header.inc';
+    $page_output->header(array(
+        'title' => $title
+    ));
     require GOLLEM_TEMPLATES . '/javascript_defs.php';
     Gollem::status();
     require GOLLEM_TEMPLATES . '/edit/edit.inc';
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 }
 

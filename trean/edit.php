@@ -20,36 +20,16 @@ try {
     Horde::url('browse.php', true)->redirect();
 }
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create(
-    array('trean', 'TagAutoCompleter'),
-    array(
-        // The name to give the (auto-generated) element that acts as the
-        // pseudo textarea.
-        'box' => 'treanEventACBox',
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Trean_Ajax_Imple_TagAutoCompleter', array(
+    'existing' => array_values($bookmark->tags)
+));
 
-        // Make it spiffy
-        'pretty' => true,
-
-        // The dom id of the existing element to turn into a tag autocompleter
-        'triggerId' => 'treanBookmarkTags',
-
-        // A variable to assign the autocompleter object to
-        'var' => 'bookmarkTagAc',
-
-        // Tags
-        'existing' => array_values($bookmark->tags),
-    )
-);
-
-$injector->getInstance('Horde_PageOutput')->addInlineScript(array(
-    'bookmarkTagAc.init()',
-), true);
-
-$title = _("Edit Bookmark");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Edit Bookmark")
+));
 if (!Horde_Util::getFormData('popup')) {
     echo Horde::menu();
     $notification->notify(array('listeners' => 'status'));
 }
 require TREAN_TEMPLATES . '/edit.html.php';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

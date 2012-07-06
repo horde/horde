@@ -61,7 +61,7 @@ body.rightPanel ul {
 
 #pageControls {
     position: absolute;
-    top: -8px;
+    top: 0;
     right: 0;
     background: #eee;
     border: 1px solid #ccc;
@@ -150,4 +150,12 @@ table#notepad-list th.sortdown {
 }
 .stickies-category {
     color: black;
+}
+
+/* Icons. */
+.mnemo-list {
+    background-image: url('graphics/mnemo.png');
+}
+.mnemo-search {
+    background-image: url('graphics/search.png');
 }

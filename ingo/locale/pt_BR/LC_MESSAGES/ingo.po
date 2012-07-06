@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"POT-Creation-Date: 2012-06-16 23:22-0300\n"
 "PO-Revision-Date: 2011-06-09 00:20-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
@@ -154,11 +154,11 @@ msgstr "Copiar %s"
 msgid "Copy of %s"
 msgstr "Copiar de %s"
 
-#: lib/Ingo.php:167
+#: lib/Ingo.php:166
 msgid "Could not validate IMAP mailbox."
 msgstr "Não foi possível validar pasta IMAP."
 
-#: lib/Ingo.php:121
+#: lib/Ingo.php:120
 msgid "Create new folder"
 msgstr "Criar nova pasta"
 
@@ -364,7 +364,7 @@ msgstr "Atividade do Filtro: %s mensagem(ns) excluída(s)."
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr "Atividade do Filtro: %s mensagem(ns) movida(s) para a pasta \"%s\"."
 
-#: lib/Script/Imap.php:191
+#: lib/Script/Imap.php:190
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr ""
@@ -576,16 +576,16 @@ msgstr "Meus endereços de e-mail:"
 msgid "New Rule"
 msgstr "Nova Regra"
 
-#: lib/Ingo.php:318
+#: lib/Ingo.php:317
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
 msgstr "Nenhum elemento \"%s\" encontrado na configuração da estrutura."
 
-#: lib/Ingo.php:310
+#: lib/Ingo.php:309
 msgid "No backend configured for this host"
 msgstr "Não foi configurado um driver para este servidor"
 
-#: lib/Ingo.php:283
+#: lib/Ingo.php:282
 msgid "No backends configured in backends.php"
 msgstr "Nenhum driver configurado em backends.php"
 
@@ -639,7 +639,7 @@ msgstr "Participante (De, Para, etc.)"
 msgid "Permission Denied"
 msgstr "Permissão Negada"
 
-#: lib/Ingo.php:136
+#: lib/Ingo.php:135
 msgid "Please enter the name of the new folder:"
 msgstr "Por favor forneça o nome para a nova pasta:"
 
@@ -769,15 +769,15 @@ msgstr "Rotina"
 msgid "Script Updating"
 msgstr "Atualizando Rotina"
 
-#: lib/Ingo.php:263
+#: lib/Ingo.php:262
 msgid "Script not updated."
 msgstr "Rotina não Atualizada."
 
-#: lib/Ingo.php:233
+#: lib/Ingo.php:232
 msgid "Script successfully activated."
 msgstr "Rotina ativada com sucesso."
 
-#: lib/Ingo.php:232
+#: lib/Ingo.php:231
 msgid "Script successfully deactivated."
 msgstr "Rotina desativada com sucesso."
 
@@ -797,7 +797,7 @@ msgstr "Selecionar conjunto de regras para exibir:"
 msgid "Select target folder"
 msgstr "Selecione a pasta destino"
 
-#: lib/Ingo.php:117
+#: lib/Ingo.php:116
 msgid "Select target folder:"
 msgstr "Selecione pasta de destino:"
 
@@ -876,15 +876,15 @@ msgstr "O edereço \"%s\" foi adicionado a sua lista negra."
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "O edereço \"%s\" foi adicionado a sua lista branca."
 
-#: lib/Ingo.php:227
+#: lib/Ingo.php:226
 msgid "The driver said: "
 msgstr "O driver disse: "
 
-#: lib/Ingo.php:226
+#: lib/Ingo.php:225
 msgid "There was an error activating the script."
 msgstr "Houve um erro ao ativar a rotina."
 
-#: lib/Ingo.php:225
+#: lib/Ingo.php:224
 msgid "There was an error deactivating the script."
 msgstr "Houve um erro ao desativar a rotina."
 

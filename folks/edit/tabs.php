@@ -10,7 +10,7 @@
  */
 
 if (!$registry->isAuthenticated()) {
-    $registry->authenticateFailure('folks');
+    throw new Horde_Exception_AuthenticationFailure();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -33,4 +33,4 @@ if ($conf['facebook']['enabled']) {
 }
 
 
-$injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
+$page_output->addScriptFile('tables.js', 'horde');

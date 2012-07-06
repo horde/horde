@@ -72,9 +72,9 @@ if (!isset($addressBooks[$source])) {
     /* If there are absolutely no valid sources, abort. */
     if (!isset($addressBooks[$source])) {
         $notification->push(_("No Address Books are currently available. Searching is disabled."), 'horde.error');
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $page_output->header();
         require TURBA_TEMPLATES . '/menu.inc';
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
         exit;
     }
 }
@@ -83,8 +83,6 @@ if (!isset($addressBooks[$source])) {
 $criteria = Horde_Util::getFormData('criteria');
 $val = Horde_Util::getFormData('val');
 $action = Horde_Util::getFormData('actionID');
-
-$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
 
 try {
     $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
@@ -221,9 +219,7 @@ if (count($addressBooks) == 1) {
 $searchView = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search'));
 new Horde_View_Helper_Text($searchView);
 $searchView->addressBooks = $addressBooks;
-$searchView->shareSources = $shareSources;
 $searchView->attributes = $GLOBALS['attributes'];
-$searchView->allCriteria = $allCriteria;
 $searchView->map = $map;
 $searchView->blobs = $driver->getBlobs();
 $searchView->source = $source;
@@ -236,6 +232,7 @@ if ($search_mode != 'duplicate') {
     $vbookView->hasShare = $session->get('turba', 'has_share');
     $vbookView->shareSources = $shareSources;
     $vbookView->source = $source;
+    $page_output->addInlineScript('$(\'vbook_name\').observe(\'keyup\', function() { $(\'save-vbook\').checked = !!$F(\'vbook_name\'); });');
 }
 
 switch ($search_mode) {
@@ -244,6 +241,9 @@ case 'basic':
     $page_output->addInlineScript(array(
         '$("val").focus()'
     ), true);
+    $page_output->addInlineJsVars(array(
+        'TurbaSearch.criteria' => $allCriteria,
+        'TurbaSearch.shareSources' => $shareSources));
     break;
 
 case 'advanced':
@@ -259,14 +259,16 @@ case 'duplicate':
 }
 
 $page_output->addScriptFile('quickfinder.js', 'horde');
-$page_output->addScriptFile('effects.js', 'horde');
+$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('redbox.js', 'horde');
 $page_output->addScriptFile('search.js');
 if (isset($view) && is_object($view)) {
     Turba::addBrowseJs();
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require TURBA_TEMPLATES . '/menu.inc';
 echo $tabs->render($search_mode);
 echo $headerView->render('header');
@@ -278,4 +280,4 @@ if (isset($view) && is_object($view)) {
     require TURBA_TEMPLATES . '/browse/header.inc';
     $view->display();
 }
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

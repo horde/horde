@@ -259,14 +259,15 @@ $end =  new Horde_Date(Horde_Util::getFormData('enddate', date('Ymd') . '000000'
 
 $vfb_html = $attendee_view->render($date);
 
-// Add the ContactAutoCompleter
-$injector->getInstance('Horde_Core_Factory_Imple')->create(array('kronolith', 'ContactAutoCompleter'), array(
-    'triggerId' => 'newAttendees'
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ContactAutoCompleter', array(
+    'id' => 'newAttendees'
 ));
 
 $title = _("Edit attendees");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 $notification->notify(array('listeners' => 'status'));
 require KRONOLITH_TEMPLATES . '/attendees/attendees.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

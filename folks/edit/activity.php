@@ -48,11 +48,13 @@ if ($activities instanceof PEAR_Error) {
 $delete_url = Horde::url('edit/activity.php');
 $delete_img = Horde::img('delete.png');
 
-$injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render('activity');
 require FOLKS_TEMPLATES . '/edit/activity.php';
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

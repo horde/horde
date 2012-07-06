@@ -59,7 +59,7 @@ class Horde_SessionHandler_Storage_External extends Horde_SessionHandler_Storage
      */
     public function read($id)
     {
-        return call_user_func($this->_params['read']);
+        return call_user_func($this->_params['read'], $id);
     }
 
     /**

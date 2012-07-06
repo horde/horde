@@ -1,0 +1,12 @@
+.ui-icon-nag-unchecked {
+    background-image: none;
+}
+.overdue {
+    color: #f00;
+}
+.closed {
+    color: #aaa;
+}
+.closed a {
+    text-decoration: line-through;
+}

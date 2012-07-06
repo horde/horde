@@ -52,7 +52,6 @@ if ($messages_list instanceof PEAR_Error) {
     $messages_list = array_slice($messages_list, $messages_start, $messages_per_page);
 }
 
-
 /* Set up the column headers. */
 $col_headers = array('forum_id' => _("Forum"), 'message_subject' => _("Subject"), 'message_author' => _("Posted by"), 'message_body' => _("Body"), 'message_timestamp' => _("Date"));
 $col_headers = Agora::formatColumnHeaders($col_headers, $sort_by, $sort_dir, 'moderate');
@@ -76,10 +75,11 @@ $view->pager = $pager_ob->render();
 
 if (isset($api_call)) {
     return $view->render('moderate');
-} else {
-    $title = _("Messages Awaiting Moderation");
-    $view->menu = Horde::menu();
-    require $registry->get('templates', 'horde') . '/common-header.inc';
-    echo $view->render('moderate');
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
 }
+
+$view->menu = Horde::menu();
+$page_output->header(array(
+    'title' => _("Messages Awaiting Moderation")
+));
+echo $view->render('moderate');
+$page_output->footer();

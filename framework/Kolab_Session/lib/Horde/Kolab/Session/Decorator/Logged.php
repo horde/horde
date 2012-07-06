@@ -38,7 +38,7 @@ extends Horde_Kolab_Session_Decorator_Base
     /**
      * Constructor.
      *
-     * The provided logger class needs to implement the methods info() and
+     * The provided logger class needs to implement the methods debug() and
      * err().
      *
      * @param Horde_Kolab_Session $session The session handler.
@@ -65,7 +65,7 @@ extends Horde_Kolab_Session_Decorator_Base
     {
         try {
             $this->_session->connect($user_id, $credentials);
-            $this->_logger->info(
+            $this->_logger->debug(
                 sprintf(
                     "Connected Kolab session for \"%s\".",
                     $this->_session->getId()
@@ -90,7 +90,7 @@ extends Horde_Kolab_Session_Decorator_Base
     public function export()
     {
         $session_data = $this->_session->export();
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 "Exported session data for \"%s\" (%s).",
                 $this->_session->getMail(), serialize($session_data)
@@ -109,7 +109,7 @@ extends Horde_Kolab_Session_Decorator_Base
     public function import(array $session_data)
     {
         $this->_session->import($session_data);
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 "Imported session data for \"%s\" (%s).",
                 $this->_session->getMail(), serialize($session_data)

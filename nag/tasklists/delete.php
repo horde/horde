@@ -42,9 +42,10 @@ if ($form->validate(new Horde_Variables($_POST))) {
     Horde::url('tasklists/', true)->redirect();
 }
 
-$title = $form->getTitle();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $form->getTitle()
+));
 echo Nag::menu();
 Nag::status();
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('tasklists/delete.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

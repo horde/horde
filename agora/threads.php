@@ -75,7 +75,8 @@ $pager_ob = new Horde_Core_Ui_Pager('thread_page', $vars, array('num' => $thread
 $pager_ob->preserve('agora', Horde_Util::getFormData('agora'));
 $view->pager_link = $pager_ob->render();
 
-$title = sprintf(_("Threads in %s"), $forum_array['forum_name']);
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => sprintf(_("Threads in %s"), $forum_array['forum_name'])
+));
 echo $view->render('threads');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

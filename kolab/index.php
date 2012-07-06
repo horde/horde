@@ -13,9 +13,9 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kolab');
 
-$title = _("Overview");
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Overview")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

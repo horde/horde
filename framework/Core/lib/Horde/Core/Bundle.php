@@ -7,7 +7,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Jan Schneider <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Core
  */
 abstract class Horde_Core_Bundle

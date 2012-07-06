@@ -16,7 +16,7 @@ class Ansel_View_Slideshow extends Ansel_View_Image
     {
         parent::__construct($params);
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('slideshow.js');
+        $GLOBALS['page_output']->addScriptFile('slideshow.js');
     }
 
     protected function _html()

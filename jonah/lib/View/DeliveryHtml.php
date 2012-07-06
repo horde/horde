@@ -59,9 +59,11 @@ class Jonah_View_DeliveryHtml extends Jonah_View_Base
         $GLOBALS['notification']->notify(array('listeners' => 'status'));
         $template->set('notify', Horde::endBuffer());
 
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $GLOBALS['page_output']->header(array(
+            'title' => $title
+        ));
         echo $template->fetch(JONAH_TEMPLATES . '/delivery/html.html');
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $GLOBALS['page_output']->footer();
     }
 
 }

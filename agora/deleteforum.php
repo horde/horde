@@ -81,6 +81,6 @@ Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $view->notify = Horde::endBuffer();
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $view->render('main');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -49,7 +49,7 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
          * session so we need to decrypt. */
         if (isset($params['password'])) {
             $secret = $injector->getInstance('Horde_Secret');
-            $params['password'] = $secret->read($secret->getKey('imp'), $params['password']);
+            $params['password'] = $secret->read($secret->getKey(), $params['password']);
         }
 
         $imap_ob = $injector->getInstance('IMP_Factory_Imap')->create();
@@ -69,12 +69,8 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
 
         $params['username'] = $imap_ob->getParam('username');
 
-        $class = 'IMP_Quota_' . ucfirst($driver);
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new IMP_Exception('Could not create quota instance: ' . $class);
+        $class = $this->_getDriverName($driver, 'IMP_Quota');
+        return new $class($params);
     }
 
 }

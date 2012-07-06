@@ -30,6 +30,9 @@ $prefGroups['addressbooks'] = array(
     'label' => _("Address Books"),
     'desc' => _("Select address book sources for adding and searching for addresses."),
     'members' => array('sourceselect'),
+    'suppress' => function() {
+        return !$GLOBALS['registry']->hasMethod('contacts/sources');
+    }
 );
 
 
@@ -144,7 +147,10 @@ $_prefs['comment_sort_dir'] = array(
 );
 
 // address book selection widget
-$_prefs['sourceselect'] = array('type' => 'special');
+$_prefs['sourceselect'] = array(
+    'type' => 'special',
+    'requires_nolock' => array('search_sources')
+);
 
 // Address book(s) to use when expanding addresses
 // Refer to turba/config/sources.php for possible source values

@@ -26,6 +26,8 @@ class Horde_Session
     const NOT_SERIALIZED = 0;
     const IS_SERIALIZED = 1;
 
+    const TOKEN_ID = 'session_token';
+
     /**
      * Maximum size of the pruneable data store.
      *
@@ -409,6 +411,39 @@ class Horde_Session
         }
 
         return $ret;
+    }
+
+    /* Session tokens. */
+
+    /**
+     * Returns the session token.
+     *
+     * @return string  Session token.
+     */
+    public function getToken()
+    {
+        if ($token = $this->get('horde', self::TOKEN_ID)) {
+            return $token;
+        }
+
+        $token = strval(new Horde_Support_Randomid());
+        $this->set('horde', self::TOKEN_ID, $token);
+
+        return $token;
+    }
+
+    /**
+     * Checks the validity of the session token.
+     *
+     * @param string $token  Token to check.
+     *
+     * @throws Horde_Exception
+     */
+    public function checkToken($token)
+    {
+        if ($this->getToken() != $token) {
+            throw new Horde_Exception('Invalid token!');
+        }
     }
 
     /* Session object storage. */

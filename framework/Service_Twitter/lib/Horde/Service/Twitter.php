@@ -28,9 +28,9 @@
 class Horde_Service_Twitter
 {
     /* Constants */
-    const REQUEST_TOKEN_URL = 'http://twitter.com/oauth/request_token';
-    const USER_AUTHORIZE_URL = 'https://twitter.com/oauth/authorize';
-    const ACCESS_TOKEN_URL = 'https://twitter.com/oauth/access_token';
+    const REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token';
+    const USER_AUTHORIZE_URL = 'https://api.twitter.com/oauth/authorize';
+    const ACCESS_TOKEN_URL = 'https://api.twitter.com/oauth/access_token';
 
     /**
      * Cache for the various objects we lazy load in __get()
@@ -127,9 +127,9 @@ class Horde_Service_Twitter
         $consumer_params = array(
             'key' => $params['oauth']['consumer_key'],
             'secret' => $params['oauth']['consumer_secret'],
-            'requestTokenUrl' => Horde_Service_Twitter::REQUEST_TOKEN_URL,
-            'authorizeTokenUrl' => Horde_Service_Twitter::USER_AUTHORIZE_URL,
-            'accessTokenUrl' => Horde_Service_Twitter::ACCESS_TOKEN_URL,
+            'requestTokenUrl' => self::REQUEST_TOKEN_URL,
+            'authorizeTokenUrl' => self::USER_AUTHORIZE_URL,
+            'accessTokenUrl' => self::ACCESS_TOKEN_URL,
             'signatureMethod' => new Horde_Oauth_SignatureMethod_HmacSha1());
 
         /* Create the Consumer */

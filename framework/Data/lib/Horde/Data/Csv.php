@@ -20,13 +20,6 @@
 class Horde_Data_Csv extends Horde_Data_Base
 {
     /**
-     * Default charset.
-     *
-     * @var string
-     */
-    protected $_charset = null;
-
-    /**
      * MIME content type.
      *
      * @var string
@@ -39,27 +32,6 @@ class Horde_Data_Csv extends Horde_Data_Base
      * @var string
      */
     protected $_extension = 'csv';
-
-    /**
-     * Constructor.
-     *
-     * @param array $params  Optional parameters:
-     * <pre>
-     * 'charset' - (string) The default charset.
-     *             DEFAULT: NONE
-     * </pre>
-     *
-     * @throws InvalidArgumentException
-     */
-    public function __construct(array $params = array())
-    {
-        if (isset($params['charset'])) {
-            $this->_charset = $params['charset'];
-            unset($params['charset']);
-        }
-
-        parent::__construct($params);
-    }
 
     /**
      * Imports and parses a CSV file.
@@ -100,19 +72,19 @@ class Horde_Data_Csv extends Horde_Data_Base
 
         /* Strip and keep the first line if it contains the field names. */
         if ($header) {
-            $head = Horde_Util::getCsv($fp, $conf);
+            $head = self::getCsv($fp, $conf);
             if (!$head) {
                 return array();
             }
             if (!empty($charset)) {
-                $head = Horde_String::convertCharset($head, $charset, $this->_charset);
+                $head = Horde_String::convertCharset($head, $charset, 'UTF-8');
             }
         }
 
         $data = array();
-        while ($line = Horde_Util::getCsv($fp, $conf)) {
+        while ($line = self::getCsv($fp, $conf)) {
             if (!empty($charset)) {
-                $line = Horde_String::convertCharset($line, $charset, $this->_charset);
+                $line = Horde_String::convertCharset($line, $charset, 'UTF-8');
             }
             if (!isset($head)) {
                 $data[] = $line;
@@ -209,16 +181,20 @@ class Horde_Data_Csv extends Horde_Data_Base
      *
      * @param integer $action  The current step. One of the IMPORT_* constants.
      * @param array $param     An associative array containing needed
-     *                         parameters for the current step.
+     *                         parameters for the current step. Keys for this
+     *                         driver:
+     *   - check_charset: (boolean) Do some checks to see if the correct
+     *                    charset has been provided. Throws charset exception
+     *                    on error.
+     *   - import_mapping: TODO
      *
      * @return mixed  Either the next step as an integer constant or imported
      *                data set after the final step.
      * @throws Horde_Data_Exception
+     * @throws Horde_Data_Exception_Charset
      */
-    public function nextStep($action, $param = array())
+    public function nextStep($action, array $param = array())
     {
-        $session = $GLOBALS['injector']->getInstance('Horde_Session');
-
         switch ($action) {
         case Horde_Data::IMPORT_FILE:
             parent::nextStep($action, $param);
@@ -229,10 +205,33 @@ class Horde_Data_Csv extends Horde_Data_Base
             if (!move_uploaded_file($_FILES['import_file']['tmp_name'], $file_name)) {
                 throw new Horde_Data_Exception(Horde_Data_Translation::t("The uploaded file could not be saved."));
             }
-            $session->set('horde', 'import_data/file_name', $file_name);
 
-            /* Check if charset was specified. */
-            $session->set('horde', 'import_data/charset', $this->_vars->charset);
+            /* Do charset checking now, if requested. */
+            if (isset($param['check_charset'])) {
+                $file_data = file_get_contents($file_name);
+                $charset = isset($this->_vars->charset)
+                    ? Horde_String::lower($this->_vars->charset)
+                    : 'utf-8';
+
+                switch ($charset) {
+                case 'utf-8':
+                    $error = !Horde_String::validUtf8($file_data);
+                    break;
+
+                default:
+                    $error = ($file_data != Horde_String::convertCharset(Horde_String::convertCharset($file_data, $charset, 'UTF-8'), 'UTF-8', $charset));
+                    break;
+                }
+
+                if ($error) {
+                    $e = new Horde_Data_Exception_Charset(Horde_Data_Translation::t("Incorrect charset given for the data."));
+                    $e->badCharset = $charset;
+                    throw $e;
+                }
+            }
+
+            $this->storage->set('charset', $this->_vars->charset);
+            $this->storage->set('file_name', $file_name);
 
             /* Read the file's first two lines to show them to the user. */
             $first_lines = '';
@@ -240,48 +239,110 @@ class Horde_Data_Csv extends Horde_Data_Base
                 for ($line_no = 1, $line = fgets($fp);
                      $line_no <= 3 && $line;
                      $line_no++, $line = fgets($fp)) {
-                    $line = Horde_String::convertCharset($line, $this->_vars->charset, $this->_charset);
+                    $line = Horde_String::convertCharset($line, $this->_vars->charset, 'UTF-8');
                     $first_lines .= Horde_String::truncate($line);
                     if (Horde_String::length($line) > 100) {
                         $first_lines .= "\n";
                     }
                 }
             }
-            $session->set('horde', 'import_data/first_lines', $first_lines);
+            $this->storage->set('first_lines', $first_lines);
 
             /* Import the first line to guess the number of fields. */
             if ($first_lines) {
                 rewind($fp);
-                $line = Horde_Util::getCsv($fp);
+                $line = self::getCsv($fp);
                 if ($line) {
-                    $session->set('horde', 'import_data/fields', count($line));
+                    $this->storage->set('fields', count($line));
                 }
             }
 
             return Horde_Data::IMPORT_CSV;
 
         case Horde_Data::IMPORT_CSV:
-            $session->set('horde', 'import_data/header', $this->_vars->header);
+            $this->storage->set('header', $this->_vars->header);
             $import_mapping = array();
             if (isset($param['import_mapping'])) {
                 $import_mapping = $param['import_mapping'];
             }
-            $session->set('horde', 'import_data/data', $this->importFile(
-                $session->get('horde', 'import_data/file_name'),
+            $this->storage->set('data', $this->importFile(
+                $this->storage->get('file_name'),
                 $this->_vars->header,
                 $this->_vars->sep,
                 $this->_vars->quote,
                 $this->_vars->fields,
                 $import_mapping,
-                $session->get('horde', 'import_data/charset'),
-                $session->get('horde', 'import_data/crlf')
+                $this->storage->get('charset'),
+                $this->storage->get('crlf')
             ));
-            $session->remove('horde', 'import_data/map');
+            $this->storage->set('map');
             return Horde_Data::IMPORT_MAPPED;
 
         default:
             return parent::nextStep($action, $param);
         }
+    }
+
+    /* Static utility method. */
+
+    /**
+     * Wrapper around fgetcsv().
+     *
+     * Empty lines will be skipped. If the 'length' parameter is provided, all
+     * rows are filled up with empty strings up to this length, or stripped
+     * down to this length.
+     *
+     * @param resource $file  A file pointer.
+     * @param array $params   Optional parameters. Possible values:
+     *   - escape: The escape character.
+     *   - length: The expected number of fields.
+     *   - quote: The quote character.
+     *   - separator: The field delimiter.
+     *
+     * @return array|boolean  A row from the CSV file or false on error or end
+     *                        of file.
+     */
+    static public function getCsv($file, array $params = array())
+    {
+        $params += array(
+            'escape' => '\\',
+            'quote' => '"',
+            'separator' => ','
+        );
+
+        // fgetcsv() throws a warning if the quote character is empty.
+        if (!strlen($params['quote']) && ($params['escape'] != '\\')) {
+            $params['quote'] = '"';
+        }
+
+        // Detect Mac line endings.
+        $old = ini_get('auto_detect_line_endings');
+        ini_set('auto_detect_line_endings', 1);
+
+        do {
+            $row = strlen($params['quote'])
+                ? fgetcsv($file, 0, $params['separator'], $params['quote'], $params['escape'])
+                : fgetcsv($file, 0, $params['separator']);
+        } while ($row && is_null($row[0]));
+
+        ini_set('auto_detect_line_endings', $old);
+
+        if ($row) {
+            $row = (strlen($params['quote']) && strlen($params['escape']))
+                ? array_map(create_function('$a', 'return str_replace(\'' . str_replace('\'', '\\\'', $params['escape'] . $params['quote']) . '\', \'' . str_replace('\'', '\\\'', $params['quote']) . '\', $a);'), $row)
+                : array_map('trim', $row);
+
+            if (!empty($params['length'])) {
+                $length = count($row);
+                if ($length < $params['length']) {
+                    $row += array_fill($length, $params['length'] - $length, '');
+                } elseif ($length > $params['length']) {
+                    array_splice($row, $params['length']);
+                }
+            }
+        }
+
+        return $row;
     }
 
 }

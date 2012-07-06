@@ -73,7 +73,9 @@ if ($r) {
 }
 
 $title = sprintf(_("%s :: Symbol \"%s\""), $source['name'], $index->symname($ident));
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require LUXOR_TEMPLATES . '/menu.inc';
 
 $view = new Horde_View(array('templatePath' => LUXOR_TEMPLATES));
@@ -83,4 +85,4 @@ $view->declarations = $ds;
 $view->references = $rs;
 echo $view->render('symbol.html.php');
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

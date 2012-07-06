@@ -52,11 +52,11 @@ case 'empty':
     if ($galleryId) {
         try {
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
-            require $registry->get('templates', 'horde') . '/common-header.inc';
+            $page_output->header();
             echo Horde::menu();
             $notification->notify(array('listeners' => 'status'));
             require ANSEL_TEMPLATES . '/gallery/delete_confirmation.inc';
-            require $registry->get('templates', 'horde') . '/common-footer.inc';
+            $page_output->footer();
             exit;
         } catch (Ansel_Exception $e) {
             $notification->push($gallery->getMessage(), 'horde.error');

@@ -81,12 +81,19 @@ class Horde_Core_ActiveSync_Connector
      * Export the specified event as an ActiveSync message
      *
      * @param string $uid          The calendar id.
+     * @param array $options       Options to pass to the backend exporter.
+     *   - protocolversion: (float)  The EAS version to support
+     *                      DEFAULT: 2.5
+     *   - bodyprefs: (array)  A BODYPREFERENCE array.
+     *                DEFAULT: none (No body prefs enforced).
+     *   - truncation: (integer)  Truncate event body to this length
+     *                 DEFAULT: none (No truncation).
      *
      * @return Horde_ActiveSync_Message_Appointment  The requested event.
      */
-    public function calendar_export($uid)
+    public function calendar_export($uid, array $options = array())
     {
-        return $this->_registry->calendar->export($uid, 'activesync');
+        return $this->_registry->calendar->export($uid, 'activesync', $options);
     }
 
     /**
@@ -99,6 +106,19 @@ class Horde_Core_ActiveSync_Connector
     public function calendar_import(Horde_ActiveSync_Message_Appointment $content)
     {
         return $this->_registry->calendar->import($content, 'activesync');
+    }
+
+    /**
+     * Import a Horde_Icalendar_vEvent into a user's calendar. Used for creating
+     * events from meeting invitations.
+     *
+     * @param Horde_Icalendar_vEvent $event  The event data.
+     *
+     * @return string The event's UID.
+     */
+    public function calendar_import_vevent(Horde_Icalendar_vEvent $vEvent)
+    {
+        return $this->_registry->calendar->import($vEvent, 'text/calendar');
     }
 
     /**
@@ -149,13 +169,20 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Export the specified contact from Horde's contacts storage
      *
-     * @param string $uid          The contact's UID
+     * @param string $uid     The contact's UID
+     * @param array $options  Exporter options:
+     *   - protocolversion: (float)  The EAS version to support
+     *                      DEFAULT: 2.5
+     *   - bodyprefs: (array)  A BODYPREFERENCE array.
+     *                DEFAULT: none (No body prefs enforced).
+     *   - truncation: (integer)  Truncate event body to this length
+     *                 DEFAULT: none (No truncation).
      *
-     * @return array The contact hash
+     * @return Horde_ActiveSync_Message_Contact  The contact object.
      */
-    public function contacts_export($uid)
+    public function contacts_export($uid, array $options = array())
     {
-        return $this->_registry->contacts->export($uid, 'activesync');
+        return $this->_registry->contacts->export($uid, 'activesync', null, null, $options);
     }
 
     /**
@@ -221,11 +248,52 @@ class Horde_Core_ActiveSync_Connector
         return $this->_registry->contacts->listBy($action, $from_ts, null, $to_ts);
     }
 
+    /**
+     * Search the contacts store.
+     *
+     * @param string $query   The search string.
+     *
+     * @return array  The search results.
+     */
     public function contacts_search($query)
     {
-        $gal = $this->contacts_getGal();
         $fields = array($gal => array('firstname', 'lastname', 'alias', 'name', 'email'));
-        return $this->_registry->contacts->search(array($query), array($gal), $fields, true, true);
+        $opts = array(
+            'fields' => $fields,
+            'matchBegin' => true,
+            'forceSource' => true,
+            'sources' => array($this->contacts_getGal())
+        );
+        return $this->_registry->contacts->search($query, $opts);
+    }
+
+    /**
+     * Resolve a recipient
+     *
+     * @param string $query  The search string. Ususally an email address.
+     * @param array $opts    Any additional options:
+     *   - maxAmbiguous (integer)  The maximum number of ambiguous results. If
+     *                             set to 0, we want only a single, definitive
+     *                             search result. I.e, at least on field MUST
+     *                             match strictly.
+     *                  DEFAULT: NONE
+     * @return array  The search results.
+     */
+    public function resolveRecipient($query, array $opts = array())
+    {
+        $sources = array_keys($this->_registry->contacts->sources());
+        foreach ($sources as $source) {
+            $fields[$source] = array('name', 'email', 'alias');
+        }
+        $options = array(
+            'matchBegin' => true,
+            'sources' => $sources,
+            'fields' => $fields
+        );
+        if (isset($opts['maxAmbiguous']) && $opts['maxAmbiguous'] == 0) {
+            $options['customStrict'] = array('email', 'name', 'alias');
+        }
+        return $this->_registry->contacts->search($query, $options);
     }
 
     /**
@@ -257,13 +325,14 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Export a single task from the backend.
      *
-     * @param string $uid  The task uid
+     * @param string $uid     The task uid
+     * @param array $options  Options to pass to the backend exporter.
      *
      * @return Horde_ActiveSync_Message_Task  The task message object
      */
-    public function tasks_export($uid)
+    public function tasks_export($uid, array $options = array())
     {
-        return $this->_registry->tasks->export($uid, 'activesync');
+        return $this->_registry->tasks->export($uid, 'activesync', $options);
     }
 
     /**
@@ -360,6 +429,40 @@ class Horde_Core_ActiveSync_Connector
     public function horde_hasInterface($api)
     {
         return $this->_registry->hasInterface($api);
+    }
+
+    /**
+     * Return the currently set vacation message details.
+     *
+     * @return array  The vacation rule properties.
+     */
+    public function filters_getVacation()
+    {
+        return $this->_registry->filter->getVacation();
+    }
+
+    /**
+     * Set vacation message properties.
+     *
+     * @param array $setting  The vacation details.
+     */
+    public function filters_setVacation(array $setting)
+    {
+        if ($setting['oofstate'] == Horde_ActiveSync_Request_Settings::OOF_STATE_ENABLED) {
+            // Only support a single message, the APPLIESTOINTERNAL message.
+            foreach ($setting['oofmsgs'] as $msg) {
+                if ($msg['appliesto'] == Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOINTERNAL) {
+                    $vacation = array(
+                        'reason' => $msg['replymessage'],
+                        'subject' => Horde_Core_Translation::t('Out Of Office')
+                    );
+                    $this->_registry->filter->setVacation($vacation);
+                    return;
+                }
+            }
+        } else {
+            $this->_registry->filter->disableVacation();
+        }
     }
 
     /**

@@ -34,7 +34,8 @@ $params = array();
  * and determine what kind of request this is. */
 if ((!empty($_SERVER['CONTENT_TYPE']) &&
      (strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.ms-sync.wbxml') !== false)) ||
-   (strpos($_SERVER['REQUEST_URI'], 'Microsoft-Server-ActiveSync') !== false)) {
+   (strpos($_SERVER['REQUEST_URI'], 'Microsoft-Server-ActiveSync') !== false) ||
+   (strpos($_SERVER['REQUEST_URI'], 'autodiscover/autodiscover.xml') !== false)) {
     /* ActiveSync Request */
     $conf['cookie']['path'] = '/Microsoft-Server-ActiveSync';
     $serverType = 'ActiveSync';
@@ -90,11 +91,11 @@ if (($ra = Horde_Util::getGet('requestMissingAuthorization')) !== null) {
 /* Driver specific tasks that require Horde environment. */
 switch ($serverType) {
 case 'ActiveSync':
-    /* Check if we are even enabled for AS */
+    // Check if AS is enabled. Note that we can't check the user perms for it
+    // here since the user is not yet logged into horde at this point.
     if (empty($conf['activesync']['enabled'])) {
         exit;
     }
-    $params['backend'] = $injector->getInstance('Horde_ActiveSyncBackend');
     $params['server'] = $injector->getInstance('Horde_ActiveSyncServer');
     $params['provisioning'] = $conf['activesync']['securitypolicies']['provisioning'];
     break;
@@ -117,6 +118,7 @@ try {
 } catch (Horde_Rpc_Exception $e) {
     Horde::logMessage($e, 'ERR');
     header('HTTP/1.1 501 Not Implemented');
+    exit;
 }
 
 // Let the backend check authentication. By default, we look for HTTP

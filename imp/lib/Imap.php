@@ -135,7 +135,9 @@ class IMP_Imap implements Serializable
         }
 
         try {
-            $ob = Horde_Imap_Client::factory(($protocol == 'imap') ? 'Socket' : 'Socket_Pop3', $imap_config);
+            $ob = ($protocol == 'imap')
+                ? new Horde_Imap_Client_Socket($imap_config)
+                : new Horde_Imap_Client_Socket_Pop3($imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
             Horde::logMessage($error);
@@ -326,8 +328,7 @@ class IMP_Imap implements Serializable
     {
         if (!$this->ob || !method_exists($this->ob, $method)) {
             if ($GLOBALS['registry']->getAuth()) {
-                $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create()->setError(Horde_Auth::REASON_SESSION);
-                $GLOBALS['registry']->authenticateFailure('imp');
+                throw new Horde_Exception_AuthenticationFailure('', Horde_Auth::REASON_SESSION);
             } else {
                 throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
             }
@@ -383,7 +384,11 @@ class IMP_Imap implements Serializable
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
             Horde::logMessage($error);
-            throw $error;
+
+            $auth_e = $error->authException(false);
+            throw is_null($auth_e)
+                ? $error
+                : $auth_e;
         }
 
         /* Special handling for various methods. */
@@ -438,20 +443,14 @@ class IMP_Imap implements Serializable
      */
     protected function _search($mailbox, $query = null, array $opts = array())
     {
-        $imap_charset = null;
         $mailbox = IMP_Mailbox::get($mailbox);
 
         if (!empty($opts['sort'])) {
-            /* SORT (RFC 5256) requires UTF-8 support. So if we are sorting
-             * via the server, we know that we can search in UTF-8. */
-            if ($sort_cap = $this->queryCapability('SORT')) {
-                $imap_charset = 'UTF-8';
-            }
-
             /* If doing a from/to search, use display sorting if possible.
              * Although there is a fallback to a PHP-based display sort, for
              * performance reasons only do a display sort if it is supported
              * on the server. */
+            $sort_cap = $this->queryCapability('SORT');
             if (is_array($sort_cap) &&
                 in_array('DISPLAY', $sort_cap) &&
                 $mailbox->access_sort) {
@@ -467,15 +466,8 @@ class IMP_Imap implements Serializable
             }
         }
 
-        /* Make sure we search in the proper charset. */
         if (!is_null($query)) {
-            $query = clone $query;
-            if (is_null($imap_charset)) {
-                $imap_charset = $this->validSearchCharset('UTF-8')
-                    ? 'UTF-8'
-                    : 'US-ASCII';
-            }
-            $query->charset($imap_charset, array('Horde_String', 'convertCharset'));
+            $query->charset('UTF-8', false);
         }
 
         return array($mailbox->imap_mbox_ob, $query, $opts);
@@ -532,7 +524,7 @@ class IMP_Imap implements Serializable
 
     static public function getEncryptKey()
     {
-        return $GLOBALS['injector']->getInstance('Horde_Secret')->getKey('imp');
+        return $GLOBALS['injector']->getInstance('Horde_Secret')->getKey();
     }
 
     /* Serializable methods. */

@@ -21,21 +21,38 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      * @var array
      */
     protected $_capability = array(
-        'full' => true,
+        'full' => false,
         'info' => true,
         'inline' => true,
-        'raw' => true
+        'raw' => false
     );
 
     /**
      */
     public function canRender($mode)
     {
-        /* For mimp - allow rendering of attachments inline (on the view
-         * parts page). */
-        return (($mode == 'inline') && ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL))
-            ? true
-            : parent::canRender($mode);
+        global $browser, $registry;
+
+        switch ($mode) {
+        case 'full':
+        case 'raw':
+            /* Only display raw images we know the browser supports, and we
+             * know can't cause any sort of security issue. */
+            if ($browser->isViewable($this->_getType())) {
+                return true;
+            }
+            break;
+
+        case 'inline':
+            /* For minimal view: allow rendering of attachments inline (on the
+             * view parts page). */
+            if ($registry->getView() == $registry::VIEW_MINIMAL) {
+                return true;
+            }
+            break;
+        }
+
+        return parent::canRender($mode);
     }
 
     /**
@@ -52,7 +69,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _render()
     {
-        switch (Horde_Util::getFormData('imp_img_view')) {
+        switch ($GLOBALS['injector']->getInstance('Horde_Variables')->imp_img_view) {
         case 'data':
             /* If calling page is asking us to output data, do that without
              * any further delay and exit. */

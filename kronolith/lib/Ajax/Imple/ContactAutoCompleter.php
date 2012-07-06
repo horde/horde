@@ -1,6 +1,6 @@
 <?php
 /**
- * Attach the contact auto completer to a javascript element.
+ * Imple to attach the contact autocompleter to a HTML element.
  *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
@@ -9,32 +9,26 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Kronolith
  * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Kronolith
  */
 class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactAutoCompleter
 {
     /**
      */
-    protected function _attach($js_params)
+    protected function _getAutoCompleter()
     {
-        $ret = parent::_attach($js_params);
+        $opts = array();
 
-        if (isset($this->_params['onAdd'])) {
-            $ret['raw_params']['onAdd'] = $this->_params['onAdd'];
-            $ret['raw_params']['onRemove'] = $this->_params['onRemove'];
+        foreach (array('box', 'onAdd', 'onRemove', 'triggerContainer') as $val) {
+            if (isset($this->_params[$val])) {
+                $opts[$val] = $this->_params[$val];
+            }
         }
 
-        if (!empty($this->_params['pretty'])) {
-            unset($ret['ajax']);
-            $ret['pretty'] = 'ContactAutoCompleter';
-        }
-
-        if (!empty($this->_params['var'])) {
-            $ret['var'] = $this->_params['var'];
-        }
-
-        return $ret;
+        return empty($this->_params['pretty'])
+            ? new Horde_Core_Ajax_Imple_AutoCompleter_Ajax($opts)
+            : new Horde_Core_Ajax_Imple_AutoCompleter_Pretty($opts);
     }
 
     /**

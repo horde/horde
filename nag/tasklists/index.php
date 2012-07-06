@@ -60,10 +60,11 @@ $edit_img = Horde::img('edit.png', _("Edit"));
 $perms_img = Horde::img('perms.png', _("Change Permissions"));
 $delete_img = Horde::img('delete.png', _("Delete"));
 
-$injector->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
-$title = _("Manage Task Lists");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->header(array(
+    'title' => _("Manage Task Lists")
+));
 echo Nag::menu();
 Nag::status();
 require NAG_TEMPLATES . '/tasklist_list.php';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

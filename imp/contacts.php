@@ -25,10 +25,12 @@ Horde_Registry::appInit('imp', array('authentication' => 'horde'));
 
 /* Sanity checking. */
 if (!$session->get('imp', 'csearchavail')) {
-    Horde::fatal(new IMP_Exception('Addressbook not available on this system.'), false);
+    $e = new IMP_Exception('Addressbook not available on this system.');
+    $e->logged = true;
+    throw $e;
 }
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* Get the lists of address books through the API. */
 $source_list = $registry->call('contacts/sources');
@@ -87,7 +89,6 @@ $template->set('to_only', intval($vars->to_only));
 $template->set('sa', $selected_addresses);
 
 /* Display the form. */
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('contacts.js');
 $page_output->addInlineJsVars(array(
     'ImpContacts.text' => array(
@@ -98,4 +99,4 @@ $page_output->addInlineJsVars(array(
 
 IMP::header(_("Address Book"));
 echo $template->fetch(IMP_TEMPLATES . '/imp/contacts/contacts.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

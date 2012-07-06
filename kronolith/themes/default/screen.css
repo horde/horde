@@ -96,6 +96,9 @@ table.monthgrid th, table.monthgrid td {
 .block-monthgrid .today {
     border: 1px solid #446;
 }
+.block-upcomingday td {
+    border-top: 1px solid #ddd;
+}
 
 /* background-color will always be overridden for the
  * *-eventbox classes */
@@ -268,7 +271,7 @@ body.rightPanel ul {
 
 #pageControls {
     position: absolute;
-    top: -8px;
+    top: 0;
     right: 0;
     background: #eee;
     border: 1px solid #ccc;
@@ -345,6 +348,16 @@ table#calendar-list td {
     width: 1%;
 }
 
+/* Icons. */
+.kronolith-today {
+    background-image: url('graphics/today.png');
+}
+.kronolith-goto {
+    background-image: url('graphics/goto.png');
+}
+.kronolith-search {
+    background-image: url('graphics/search.png');
+}
 
 /*****************
  * AJAX INTERFACE
@@ -860,17 +873,7 @@ div.kronolithFormActions {
     overflow: auto;
     line-height: 20px;
 }
-.kronolithTopTags span {
-    padding: 2px 4px;
-    margin-right: 4px;
-    background-color: #fff;
-    border: 1px #999 solid;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    font-size: 90%;
-}
-.kronolithTopTags span:hover {
+ul.horde-tags li:hover {
     background-color: #ffc;
     cursor: pointer;
 }
@@ -1692,16 +1695,15 @@ li.panel-tags {
         border-bottom: thin solid #000;
     }
 
-    .iconAlarm, .iconDelete, .iconEdit, .iconRecur, .iconAdd, a.newEvent, .iconNav, #kronolithMenu, #kronolithBar, #kronolithHeader, .tabset {
+    .iconAlarm, .iconDelete, .iconEdit, .iconRecur, .iconAdd, .iconNav,
+    a.newEvent,
+    #kronolithMenu, #kronolithBar, #kronolithHeader, #kronolithNewTask,
+    .kronolithNavigation, .tabset {
         display: none;
     }
 
     #kronolithBody {
         position: static;
-    }
-
-    #pageControls {
-        display: none;
     }
 
     #calendarPrint {
@@ -1741,7 +1743,53 @@ li.panel-tags {
         border-radius: 0;
         border-bottom: thin solid #000;
     }
+    table.kronolithView td,
+    .kronolithMinical th,
+    .kronolithMinical tbody td,
+    .kronolithMinical td.kronolithMinicalWeek {
+        border: thin solid #000 !important;
+    }
+    #kronolithViewMonth div.kronolithEvent {
+        max-height: none;
+        clear: left;
+        border: thin solid #000;
+    }
+    .kronolithDay, .kronolithOtherMonth .kronolithDay {
+        border-right: thin solid #000;
+        border-bottom: thin solid #000;
+    }
+    #kronolithBody .kronolithMinical caption {
+        border-bottom: none;
+    }
     body.rightPanel #page {
         margin: 0;
+    }
+
+    .kronolithViewHead {
+        margin-right: 0;
+    }
+
+    .kronolithViewBody {
+        overflow: hidden;
+        top: 10px;
+        position: relative;
+    }
+    #kronolithViewDay .kronolithViewBody div.kronolithEvent,
+    #kronolithViewWeek .kronolithViewBody div.kronolithEvent {
+        margin-left: 0.5%;
+    }
+    #kronolithViewDay div.kronolithEvent,
+    #kronolithViewWeek div.kronolithEvent {
+        opacity: 1.0;
+        filter: alpha(opacity=100);
+        border: thin solid #000;
+    }
+    #kronolithViewDay .kronolithViewHead div.kronolithEvent,
+    #kronolithViewWeek .kronolithViewHead div.kronolithEvent {
+        white-space: normal;
+    }
+
+    .kronolithAllDay td {
+        height: auto;
     }
 }

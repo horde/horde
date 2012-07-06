@@ -38,7 +38,8 @@ try {
     $notification->push(sprintf(_("There was an error deleting this contact: %s"), $e->getMessage()), 'horde.error');
 }
 
-$title = _("Deletion failed");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Deletion failed")
+));
 require TURBA_TEMPLATES . '/menu.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

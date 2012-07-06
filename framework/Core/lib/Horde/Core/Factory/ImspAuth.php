@@ -90,20 +90,17 @@ class Horde_Core_Factory_ImspAuth
      * @return mixed  The created Horde_Imsp_Auth subclass.
      * @throws Horde_Exception
      */
-    static protected function _factory($driver, array $params)
+    static protected function _factory($driver, array $params = array())
     {
-        $driver = basename($driver);
-        $class = 'Horde_Imsp_Auth_' . $driver;
+        $class = $this->_getDriverName($driver, 'Horde_Imsp_Auth');
+
         // Verify user/pass
         if (empty($params['username'])) {
             $params['username'] = $GLOBALS['registry']->getAuth('bare');
             $params['password'] = $GLOBALS['registry']->getAuthCredential('password');
         }
-        if (class_exists($class)) {
-            return new $class($params);
-        }
 
-        throw new Horde_Exception(sprintf('Unable to load the definition of %s.', $class));
+        return new $class($params);
     }
 
 }

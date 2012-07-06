@@ -1,4 +1,4 @@
-<form method="post" name="export" action="<?php echo Horde::downloadUrl(_("events.csv"), null, 'data.php') ?>">
+<form method="post" name="export" action="<?php echo $GLOBALS['registry']->downloadUrl(_("events.csv")) ?>">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="export" />
 

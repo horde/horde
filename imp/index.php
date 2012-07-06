@@ -1,5 +1,7 @@
 <?php
 /**
+ * Base redirection page for IMP.
+ *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -15,5 +17,14 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp');
 
-// Load initial page as defined by view mode & preferences.
-require IMP_Auth::getInitialPage()->fullpath;
+switch ($registry->getView()) {
+case $registry::VIEW_DYNAMIC:
+case $registry::VIEW_MINIMAL:
+case $registry::VIEW_SMARTMOBILE:
+    IMP_Auth::getInitialPage()->url->redirect();
+    break;
+
+default:
+    require IMP_Auth::getInitialPage()->fullpath;
+    break;
+}

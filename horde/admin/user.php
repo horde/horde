@@ -9,12 +9,9 @@
  */
 
 require_once __DIR__ . '/../lib/Application.php';
-$permission = 'users';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() &&
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:users')
+));
 
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 
@@ -235,7 +232,6 @@ case 'removequeued':
     break;
 }
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('stripe.js', 'horde');
 if (isset($update_form) && $auth->hasCapability('list')) {
     $page_output->addScriptFile('userupdate.js', 'horde');
@@ -244,8 +240,9 @@ if (isset($update_form) && $auth->hasCapability('list')) {
     ));
 }
 
-$title = _("User Administration");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("User Administration")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 if (isset($update_form) && $auth->hasCapability('list')) {
@@ -299,4 +296,4 @@ if ($auth->hasCapability('list')) {
     require HORDE_TEMPLATES . '/admin/user/nolist.inc';
 }
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

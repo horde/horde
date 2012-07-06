@@ -13,13 +13,6 @@
 class Hermes_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
-     * Determines if notification information is sent in response.
-     *
-     * @var boolean
-     */
-    public $notify = true;
-
-    /**
      * Fetch a collection of time slices. For now, just allows a search for
      * all of a single employees time. Either submitted or not submitted.
      *

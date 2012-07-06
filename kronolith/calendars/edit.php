@@ -57,16 +57,17 @@ $vars->set('description', $calendar->get('desc'));
 $tagger = Kronolith::getTagger();
 $vars->set('tags', implode(',', array_values($tagger->getTags($calendar->getName(), 'calendar'))));
 $vars->set('system', is_null($calendar->get('owner')));
-$title = $form->getTitle();
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create(array('kronolith', 'TagAutoCompleter'), array(
-    'triggerId' => 'tags'
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+    'id' => 'tags'
 ));
 
-$menu = Horde::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$menu = Kronolith::menu();
+$page_output->header(array(
+    'title' => $form->getTitle()
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('calendars/edit.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

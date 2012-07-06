@@ -57,11 +57,13 @@ class Horde_LoginTasks_Task_TosAgreement extends Horde_LoginTasks_Task
     /**
      * Determine if user agreed with the terms or not.  If the user does not
      * agree, log him/her out immediately.
+     *
+     * @throws Horde_Exception_AuthenticationFailure
      */
     public function execute()
     {
         if (Horde_Util::getFormData('not_agree')) {
-            $GLOBALS['registry']->authenticateFailure('horde', new Horde_Exception(_("You did not agree to the Terms of Service agreement, so you were not allowed to login."), Horde_Registry::PERMISSION_DENIED));
+            throw new Horde_Exception_AuthenticationFailure(_("You did not agree to the Terms of Service agreement, so you were not allowed to login."), Horde_Auth::REASON_MESSAGE);
         }
     }
 

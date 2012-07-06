@@ -12,10 +12,10 @@ if (!$GLOBALS['registry']->getAuth()) {
     Horde::url($prefs->getValue('defaultview') . '.php')->redirect();
 }
 
-$menu = Horde::menu();
-$title = _("Resource Groups");
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$menu = Kronolith::menu();
+$page_output->header(array(
+    'title' => _("Resource Groups")
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));

@@ -43,18 +43,15 @@ foreach ($fl->getTags() as $sm => $rv) {
     $sel .= '<option value="' . $rv . '">' . $sm . '</option>';
 }
 
-$selAllBranches = '';
+$branches = array();
 if ($VC->hasFeature('branches')) {
-    foreach (array_keys($fl->getBranches()) as $sym) {
-        $selAllBranches .= '<option value="' . $sym . '"' . (($sym === $onb) ? ' selected="selected"' : '' ) . '>' . $sym . '</option>';
-    }
-    if (!empty($selAllBranches)) {
-        $selAllBranches = '<option></option>' . $selAllBranches;
-    }
+    $branches = $fl->getBranches();
 }
 
-$injector->getInstance('Horde_PageOutput')->addScriptFile('revlog.js');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('revlog.js');
+$page_output->header(array(
+    'title' => $title
+));
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/log/header.inc';
@@ -74,4 +71,4 @@ foreach ($logs as $log) {
 }
 
 echo '</div>';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

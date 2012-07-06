@@ -16,14 +16,14 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>13:35:35</time>
+ <date>2012-07-06</date>
+ <time>00:02:32</time>
  <version>
-  <release>1.0.3</release>
-  <api>1.0.0</api>
+  <release>2.0.0beta1</release>
+  <api>1.1.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
@@ -57,6 +57,7 @@
       <file name="Inflector.php" role="php" />
       <file name="Memory.php" role="php" />
       <file name="Numerizer.php" role="php" />
+      <file name="ObjectStub.php" role="php" />
       <file name="Randomid.php" role="php" />
       <file name="Stack.php" role="php" />
       <file name="StringStream.php" role="php" />
@@ -84,6 +85,7 @@
       <file name="GuidTest.php" role="test" />
       <file name="InflectorTest.php" role="test" />
       <file name="MemoryTest.php" role="test" />
+      <file name="ObjectStubTest.php" role="test" />
       <file name="RandomidTest.php" role="test" />
       <file name="StackTest.php" role="test" />
       <file name="StringStreamTest.php" role="test" />
@@ -130,6 +132,7 @@
    <install as="Horde/Support/Inflector.php" name="lib/Horde/Support/Inflector.php" />
    <install as="Horde/Support/Memory.php" name="lib/Horde/Support/Memory.php" />
    <install as="Horde/Support/Numerizer.php" name="lib/Horde/Support/Numerizer.php" />
+   <install as="Horde/Support/ObjectStub.php" name="lib/Horde/Support/ObjectStub.php" />
    <install as="Horde/Support/Randomid.php" name="lib/Horde/Support/Randomid.php" />
    <install as="Horde/Support/Stack.php" name="lib/Horde/Support/Stack.php" />
    <install as="Horde/Support/StringStream.php" name="lib/Horde/Support/StringStream.php" />
@@ -148,6 +151,7 @@
    <install as="Horde/Support/GuidTest.php" name="test/Horde/Support/GuidTest.php" />
    <install as="Horde/Support/InflectorTest.php" name="test/Horde/Support/InflectorTest.php" />
    <install as="Horde/Support/MemoryTest.php" name="test/Horde/Support/MemoryTest.php" />
+   <install as="Horde/Support/ObjectStubTest.php" name="test/Horde/Support/ObjectStubTest.php" />
    <install as="Horde/Support/RandomidTest.php" name="test/Horde/Support/RandomidTest.php" />
    <install as="Horde/Support/StackTest.php" name="test/Horde/Support/StackTest.php" />
    <install as="Horde/Support/StringStreamTest.php" name="test/Horde/Support/StringStreamTest.php" />
@@ -290,12 +294,26 @@
   </release>
   <release>
    <version>
-    <release>1.0.3</release>
-    <api>1.0.0</api></version>
+    <release>2.0.0alpha1</release>
+    <api>1.1.0</api></version>
    <stability>
-    <release>stable</release>
+    <release>alpha</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First alpha release for Horde 5.
+* [mms] Add Horde_Support_ObjectStub.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-06</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

@@ -1,0 +1,70 @@
+/*
+ * Schriften
+ */
+p{
+margin:0px;
+padding:0px;
+font-size: 12px;
+color: #000;
+font-style: normal;
+}
+p.p11{
+font-size: 11px;
+}
+p.p14{
+font-size: 14px;
+}
+p.p17{
+font-size: 17px;
+}
+p.bold{
+font-weight: bold;
+}
+p.italic{
+font-style:italic;
+}
+p.lineheight{
+line-height: 20px;
+}
+p.white{
+color: #fff;
+}
+p.green{
+color: #7eaa42;
+}
+p.shadow{
+text-shadow: 1px 1px 0px #000;
+}
+p.relief{
+text-shadow: -1px -1px 0px #000;
+}
+p.horde-mainnavi{
+font-size: 13px;
+color: #fff;
+font-weight:bold;
+text-decoration:none;
+text-shadow: 1px 1px 0px #000;
+}
+
+/*
+ * Links
+ */
+a:link, a:visited, a:active{
+font-size: 12px;
+color:#000;
+font-weight:normal;
+text-decoration:none;
+}
+a:hover{
+color:#000;
+font-weight:bold;
+text-decoration:none;
+}
+
+
+/* Link für ein Background-Icon */
+a.icon:link, a.icon:visited, a.icon:active, a.icon:hover{
+display:block;
+width:100%;
+height:100%;
+}

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde 4.0.14-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-23 12:02+0100\n"
-"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-04-20 20:30+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -285,7 +285,7 @@ msgstr "Direcciones"
 
 #: lib/Application.php:46
 msgid "Administration"
-msgstr "Gestión"
+msgstr "Administración"
 
 #: admin/alarms.php:31
 msgid "Alarm end"
@@ -1916,7 +1916,7 @@ msgstr "Distribución de mi portal"
 #: lib/Block/Weather.php:306 lib/Block/Weather.php:310
 #: lib/Block/Weather.php:326
 msgid "N/A"
-msgstr "N/D"
+msgstr "N/A"
 
 #: templates/logintasks/logintasks.html:27 templates/logintasks/mobile.html:31
 msgid "NO, I Do NOT Agree"

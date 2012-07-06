@@ -87,7 +87,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals('file1', $file->getSourcerootPath());
         $this->assertEquals('file1', $file->getPath());
         $this->assertEquals(
-            'da46ee2e478c6d3a9963eaafcd8f43e83d630526',
+            '428a3d1e55c4a65f26f78899d0e8358e7cefcf06',
             $file->getRevision());
         $this->assertEquals(
             'd8561cd227c800ee5b0720701c8b6b77e6f6db4a',
@@ -95,11 +95,11 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals(
              '160a468250615b713a7e33d34243530afc4682a9',
              $file->getPreviousRevision('da46ee2e478c6d3a9963eaafcd8f43e83d630526'));
-        $this->assertEquals(3, $file->revisionCount());
+        $this->assertEquals(4, $file->revisionCount());
         $this->assertEquals(array('tag1' => '160a468250615b713a7e33d34243530afc4682a9'),
                                   $file->getTags());
         $this->assertEquals(
-            array('master' => '2d701be7faf94a5fad1942eb763b6c5c6cae540f',
+            array('master' => '428a3d1e55c4a65f26f78899d0e8358e7cefcf06',
                   'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
             $file->getBranches());
         $this->assertFalse($file->isDeleted());
@@ -113,7 +113,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
 
         $file = $this->vcs->getFile('file1', array('branch' => 'branch1'));
         $this->assertEquals(
-            array('master' => '2d701be7faf94a5fad1942eb763b6c5c6cae540f',
+            array('master' => '428a3d1e55c4a65f26f78899d0e8358e7cefcf06',
                   //FIXME? 'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
                   'branch1' => 'branch1'),
             $file->getBranches());
@@ -121,12 +121,12 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         /* Test master branch. */
         $file = $this->vcs->getFile('file1', array('branch' => 'master'));
         $this->assertEquals(
-            '160a468250615b713a7e33d34243530afc4682a9',
+            '428a3d1e55c4a65f26f78899d0e8358e7cefcf06',
             $file->getRevision());
         $this->assertEquals(
             'd8561cd227c800ee5b0720701c8b6b77e6f6db4a',
             $file->getPreviousRevision('160a468250615b713a7e33d34243530afc4682a9'));
-        $this->assertEquals(2, $file->revisionCount());
+        $this->assertEquals(3, $file->revisionCount());
 
         /* Test branch1 branch. */
         $file = $this->vcs->getFile('file1', array('branch' => 'branch1'));
@@ -151,7 +151,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals(array('tag1' => '160a468250615b713a7e33d34243530afc4682a9'),
                                   $file->getTags());
         $this->assertEquals(
-            array('master' => '2d701be7faf94a5fad1942eb763b6c5c6cae540f',
+            array('master' => '428a3d1e55c4a65f26f78899d0e8358e7cefcf06',
                   'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
             $file->getBranches());
         $this->assertFalse($file->isDeleted());
@@ -212,7 +212,8 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $logs = $this->vcs->getFile('file1')->getLog();
         $this->assertInternalType('array', $logs);
         $this->assertEquals(
-            array('da46ee2e478c6d3a9963eaafcd8f43e83d630526',
+            array('428a3d1e55c4a65f26f78899d0e8358e7cefcf06',
+                  'da46ee2e478c6d3a9963eaafcd8f43e83d630526',
                   '160a468250615b713a7e33d34243530afc4682a9',
                   'd8561cd227c800ee5b0720701c8b6b77e6f6db4a'),
             array_keys($logs));
@@ -315,11 +316,19 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals(1, $log->getAddedLines());
         $this->assertEquals(1, $log->getDeletedLines());
 
+        $this->assertEquals(
+            'Multiline commit message.
+
+More message here
+and here.',
+            $logs['428a3d1e55c4a65f26f78899d0e8358e7cefcf06']->getMessage());
+
         $logs = $this->vcs->getFile('file1', array('branch' => 'master'))
             ->getLog();
         $this->assertInternalType('array', $logs);
         $this->assertEquals(
-            array('160a468250615b713a7e33d34243530afc4682a9',
+            array('428a3d1e55c4a65f26f78899d0e8358e7cefcf06',
+                  '160a468250615b713a7e33d34243530afc4682a9',
                   'd8561cd227c800ee5b0720701c8b6b77e6f6db4a'),
             array_keys($logs));
 
@@ -349,12 +358,15 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
             ->getLastLog();
         $this->assertInstanceof('Horde_Vcs_QuickLog_Git', $log);
         $this->assertEquals(
-            '160a468250615b713a7e33d34243530afc4682a9',
+            '428a3d1e55c4a65f26f78899d0e8358e7cefcf06',
             $log->getRevision());
-        $this->assertEquals(1322495899, $log->getDate());
+        $this->assertEquals(1332505943, $log->getDate());
         $this->assertEquals('Jan Schneider <jan@horde.org>', $log->getAuthor());
         $this->assertEquals(
-            'Commit 2nd version to master branch.',
+            'Multiline commit message.
+
+More message here
+and here.',
             $log->getMessage());
 
         $log = $this->vcs
@@ -377,8 +389,9 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertInstanceOf('Horde_Vcs_Patchset_Git', $ps);
         $sets = $ps->getPatchsets();
         $this->assertInternalType('array', $sets);
-        $this->assertEquals(3, count($sets));
-        $this->assertEquals(array('da46ee2e478c6d3a9963eaafcd8f43e83d630526',
+        $this->assertEquals(4, count($sets));
+        $this->assertEquals(array('428a3d1e55c4a65f26f78899d0e8358e7cefcf06',
+                                  'da46ee2e478c6d3a9963eaafcd8f43e83d630526',
                                   '160a468250615b713a7e33d34243530afc4682a9',
                                   'd8561cd227c800ee5b0720701c8b6b77e6f6db4a'),
                             array_keys($sets));

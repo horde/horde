@@ -1,0 +1,96 @@
+.ui-bar .ui-title {
+    /* copy of .ui-header .ui-title */
+    min-height: 1.1em;
+    text-align: center;
+    font-size: 16px;
+    margin: 0 20px 0.2em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.center {
+    text-align: center;
+}
+
+pre, code, .fixed, table.lineNumbered * {
+    font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
+}
+
+/* Styles for email-like messages. */
+.signature {
+    color: #ccc;
+}
+.signature .fixed {
+    color: #ccc;
+}
+.citation {
+    margin: 1em 0;
+    padding-left: 1em;
+    border-left-width: 1px;
+    border-left-style: solid;
+    min-height: 1em;
+}
+.quoted1 {
+    color: #606;
+    border-color: #606;
+}
+.quoted2 {
+    color: #077;
+    border-color: #077;
+}
+.quoted3 {
+    color: #900;
+    border-color: #900;
+}
+.quoted4 {
+    color: #009;
+    border-color: #009;
+}
+.quoted5 {
+    color: #b60;
+    border-color: #b60;
+}
+
+/* Notification styles. */
+#horde-notification {
+    bottom: 0;
+    left: 10%;
+    position: fixed;
+    width: 80%;
+    z-index: 2000;
+}
+#horde-notification div {
+    background-position: 3px center;
+    background-repeat: no-repeat;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    color: #fff;
+    cursor: pointer;
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 5px;
+    padding: 5px 5px 5px 25px;
+    text-align: left;
+    text-shadow: none;
+}
+.horde-error {
+    background-color: #e81222 !important;
+    background-image: url("../graphics/smartmobile/alerts/error.png") !important;
+}
+.horde-message {
+    background-color: #369 !important;
+    background-image: url("../graphics/smartmobile/alerts/message.png") !important;
+}
+.horde-success  {
+    background-color: #5db110 !important;
+    background-image: url("../graphics/smartmobile/alerts/success.png") !important;
+}
+.horde-warning {
+    background-color: #ebe20c !important;
+    background-image: url("../graphics/smartmobile/alerts/warning.png") !important;
+    color: #444 !important;
+    text-shadow: 0 1px 1px #f6f6f6 !important;
+}

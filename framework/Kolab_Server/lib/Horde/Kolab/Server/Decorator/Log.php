@@ -45,14 +45,13 @@ implements Horde_Kolab_Server_Interface
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Server $server The base server connection.
-     * @param mixed              $logger The log handler. The class must at
-     *                                   least provide the info() method.
+     * @param Horde_Kolab_Server $server  The base server connection.
+     * @param mixed $logger               The log handler. The class must at
+     *                                    least provide the debug() and warn()
+     *                                    methods.
      */
-    public function __construct(
-        Horde_Kolab_Server_Interface $server,
-        $logger
-    ) {
+    public function __construct(Horde_Kolab_Server_Interface $server, $logger)
+    {
         $this->_server = $server;
         $this->_logger = $logger;
     }
@@ -71,14 +70,14 @@ implements Horde_Kolab_Server_Interface
     {
         try {
             $this->_server->connectGuid($guid, $pass);
-            $this->_logger->info(
+            $this->_logger->debug(
                 sprintf(
                     "Successfully connected to the Kolab Server as \"%s\".",
                     $guid
                 )
             );
         } catch (Horde_Kolab_Server_Exception $e) {
-            $this->_logger->info(
+            $this->_logger->debug(
                 sprintf(
                     "Failed connecting to the Kolab Server as \"%s\"! Error: %s",
                     $guid, $e->getMessage()
@@ -196,14 +195,14 @@ implements Horde_Kolab_Server_Interface
     ) {
         try {
             $this->_server->save($object, $data);
-            $this->_logger->info(
+            $this->_logger->debug(
                 sprintf(
                     "The object \"%s\" has been successfully saved!",
                     $object->getGuid()
                 )
             );
         } catch (Horde_Kolab_Server_Exception $e) {
-            $this->_logger->info(
+            $this->_logger->warn(
                 sprintf(
                     "Failed saving object \"%s\"! Error: %s",
                     $object->getGuid(), $e->getMessage()
@@ -230,14 +229,14 @@ implements Horde_Kolab_Server_Interface
     ) {
         try {
             $this->_server->add($object, $data);
-            $this->_logger->info(
+            $this->_logger->debug(
                 sprintf(
                     "The object \"%s\" has been successfully added!",
                     $object->getGuid()
                 )
             );
         } catch (Horde_Kolab_Server_Exception $e) {
-            $this->_logger->info(
+            $this->_logger->warn(
                 sprintf(
                     "Failed adding object \"%s\"! Error: %s",
                     $object->getGuid(), $e->getMessage()
@@ -260,11 +259,11 @@ implements Horde_Kolab_Server_Interface
     {
         try {
             $this->_server->delete($guid);
-            $this->_logger->info(
+            $this->_logger->debug(
                 sprintf("The object \"%s\" has been successfully deleted!", $guid)
             );
         } catch (Horde_Kolab_Server_Exception $e) {
-            $this->_logger->info(
+            $this->_logger->warn(
                 sprintf(
                     "Failed deleting object \"%s\"! Error: %s",
                     $object->getGuid(), $e->getMessage()
@@ -289,14 +288,14 @@ implements Horde_Kolab_Server_Interface
     {
         try {
             $this->_server->rename($guid, $new);
-            $this->_logger->info(
+            $this->_logger->debug(
                 sprintf(
                     "The object \"%s\" has been successfully renamed to \"%s\"!",
                     $guid, $new
                 )
             );
         } catch (Horde_Kolab_Server_Exception $e) {
-            $this->_logger->info(
+            $this->_logger->warn(
                 sprintf(
                     "Failed saving object \"%s\"! Error: %s",
                     $object->getGuid(), $e->getMessage()

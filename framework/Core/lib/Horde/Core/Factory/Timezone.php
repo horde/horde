@@ -15,15 +15,18 @@
 class Horde_Core_Factory_Timezone extends Horde_Core_Factory_Injector
 {
     /**
+     * @throws Horde_Exception
      */
     public function create(Horde_Injector $injector)
     {
         if (empty($GLOBALS['conf']['timezone']['location'])) {
             throw new Horde_Exception('Timezone database location is not configured');
         }
-        $params = array('temp' => Horde::getTempDir(),
-                        'cache' => $injector->getInstance('Horde_Cache'),
-                        'location' => $GLOBALS['conf']['timezone']['location']);
-        return new Horde_Timezone($params);
+
+        return new Horde_Timezone(array(
+            'cache' => $injector->getInstance('Horde_Cache'),
+            'location' => $GLOBALS['conf']['timezone']['location'],
+            'temp' => Horde::getTempDir()
+        ));
     }
 }

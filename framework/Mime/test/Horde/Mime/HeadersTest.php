@@ -101,4 +101,51 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testMultivalueHeaders()
+    {
+        $hdrs = Horde_Mime_Headers::parseHeaders(
+"To: recipient1@example.com, recipient2@example.com"
+        );
+        $this->assertEquals(
+            'recipient1@example.com, recipient2@example.com',
+            $hdrs->getValue('to')
+        );
+
+        $hdrs = Horde_Mime_Headers::parseHeaders(
+"To: recipient1@example.com
+To: recipient2@example.com"
+        );
+        $this->assertEquals(
+            'recipient1@example.com, recipient2@example.com',
+            $hdrs->getValue('to')
+        );
+    }
+
+    public function testAddHeaderWithGroup()
+    {
+        $email = 'Test: foo@example.com, bar@example.com;';
+
+        $rfc822 = new Horde_Mail_Rfc822();
+        $ob = $rfc822->parseAddressList($email);
+
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('To', $ob);
+
+        $this->assertEquals(
+            $email,
+            $hdrs->getValue('to')
+        );
+    }
+
+    public function testUnencodedMimeHeader()
+    {
+        // The header is base64 encoded to preserve charset data.
+        $hdr = 'RnJvbTogqSBWSUFHUkEgriBPZmZpY2lhbCBTaXRlIDxzbHVzYXJza2lAZ29sZGVud2FyZS5jb20+DQo=';
+        $hdrs = Horde_Mime_Headers::parseHeaders(base64_decode($hdr));
+        $this->assertEquals(
+            '© VIAGRA ® Official Site <slusarski@goldenware.com>',
+            $hdrs->getValue('from')
+        );
+    }
+
 }

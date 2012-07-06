@@ -30,7 +30,7 @@ $baseUrl = $registry->get('webroot', 'sesha');
 // Determine action.
 switch ($actionId) {
 case 'add_stock':
-    $url = $baseUrl . '/stock.php';
+    $url = new Horde_Url($baseUrl . '/stock.php');
     $vars = Horde_Variables::getDefaultVariables();
     $vars->set('actionId', $actionId);
     $vars->set('stock_id', $stock_id);
@@ -63,9 +63,8 @@ case 'add_stock':
         $sesha_driver->updatePropertiesForStock($stock_id,
                                             $vars->get('property'));
 
-        $url = Horde_Util::addParameter($url, array('actionId' => 'view_stock',
-                                              'stock_id' => $stock_id),
-                                  null, false);
+        $url->add(array('actionId' => 'view_stock',
+                        'stock_id' => $stock_id));
         header('Location: ' . $url);
         exit;
     }
@@ -97,7 +96,7 @@ case 'update_stock':
     // Get the stock item.
     $stock = $sesha_driver->fetch($stock_id);
     $categories = $sesha_driver->getCategories($stock_id);
-    $properties = $sesha_driver->getPropertiesForStock($stock_id);
+    $values = $sesha_driver->getValuesForStock($stock_id);
 
     $vars = Horde_Variables::getDefaultVariables();
     $vars->set('actionId', $actionId);
@@ -119,8 +118,8 @@ case 'update_stock':
 
         // Properties for categories.
         $p = array();
-        foreach ($properties as $property) {
-            $p[$property['property_id']] = $property['txt_datavalue'];
+        foreach ($values as $value) {
+            $p[$value->property_id] = $value->getDataValue();
         }
         $vars->set('property', $p);
     }
@@ -177,7 +176,9 @@ default:
 
 // Begin page display.
 // require SESHA_TEMPLATES . '/menu.inc';
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require SESHA_TEMPLATES . '/menu.inc';
 $notification->notify(array('listeners' => 'status'));
 
@@ -186,4 +187,4 @@ if ($active) {
 } else {
     $form->renderInactive($renderer, $vars, Horde::selfUrl(), 'post');
 }
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

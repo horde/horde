@@ -38,7 +38,7 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
     protected function _render()
     {
         /* Create the thumbnail and display. */
-        if (!Horde_Util::getFormData('pdf_view_thumbnail')) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Variables')->pdf_view_thumbnail) {
             return parent::_render();
         }
 

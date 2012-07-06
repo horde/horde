@@ -124,6 +124,6 @@ Horde::startBuffer();
 $form->renderActive(null, $vars, Horde::url('message/edit.php'), 'post');
 $view->formbox = Horde::endBuffer();
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $view->render('messages/edit');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -89,7 +89,7 @@ interface Horde_Kolab_Storage
      *                             access in the folder.
      * @param int    $data_version Format version of the object data.
      *
-     * @return Horde_Kolab_Data The data object.
+     * @return Horde_Kolab_Storage_Data The data object.
      */
     public function getData($folder, $object_type = null, $data_version = 1);
 }

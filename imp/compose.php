@@ -16,22 +16,22 @@
 
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
-    'impmode' => 'imp',
+    'impmode' => Horde_Registry::VIEW_BASIC,
     'session_control' => 'netscape'
 ));
 
-$page_output = $injector->getInstance('Horde_PageOutput');
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* Mailto link handler: redirect based on current view. */
+// TODO: preserve state
 if ($vars->actionID == 'mailto_link') {
     switch ($registry->getView()) {
     case Horde_Registry::VIEW_DYNAMIC:
-        require IMP_BASE . '/compose-dimp.php';
+        IMP_Dynamic_Compose::url()->redirect();
         exit;
 
     case Horde_Registry::VIEW_MINIMAL:
-        require IMP_BASE . '/compose-mimp.php';
+        IMP_Minimal_Compose::url()->redirect();
         exit;
     }
 }
@@ -202,7 +202,7 @@ case 'mailto':
     break;
 
 case 'mailto_link':
-    $args = IMP::getComposeArgs();
+    $args = IMP::getComposeArgs($vars);
     if (isset($args['body'])) {
         $msg = $args['body'];
     }
@@ -240,10 +240,10 @@ case 'template_edit':
         }
 
         if (!is_null($rtemode)) {
-            $rtemode = ($result['mode'] == 'html');
+            $rtemode = ($result['format'] == 'html');
         }
-        $msg = $result['msg'];
-        $header = array_merge($header, $result['header']);
+        $msg = $result['body'];
+        $header = array_merge($header, $result['headers']);
         if (!is_null($result['identity']) &&
             ($result['identity'] != $identity->getDefault()) &&
             !$prefs->isLocked('default_identity')) {
@@ -275,7 +275,9 @@ case 'reply_list':
         'reply_list' => IMP_Compose::REPLY_LIST
     );
 
-    $reply_msg = $imp_compose->replyMessage($reply_map[$vars->actionID], $contents, $vars->to);
+    $reply_msg = $imp_compose->replyMessage($reply_map[$vars->actionID], $contents, array(
+        'to' => $vars->to
+    ));
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     $format = $reply_msg['format'];
@@ -398,7 +400,7 @@ case 'send_message':
     }
 
     try {
-        $header['from'] = $identity->getFromLine(null, $vars->from);
+        $header['from'] = strval($identity->getFromLine(null, $vars->from));
     } catch (Horde_Exception $e) {
         $header['from'] = '';
         $notification->push($e);
@@ -477,8 +479,8 @@ case 'send_message':
             $request->requestToken = $injector->getInstance('Horde_Token')->get('imp.compose');
             $request->formToken = Horde_Token::generateId('compose');
 
-            $response = new Horde_Core_Ajax_Response_Raw($request);
-            $response->sendAndExit('json');
+            $response = new Horde_Core_Ajax_Response_HordeCore($request);
+            $response->sendAndExit();
         }
 
         break;
@@ -503,7 +505,7 @@ case 'send_message':
     );
 
     try {
-        $sent = $imp_compose->buildAndSendMessage($message, $header, $options);
+        $imp_compose->buildAndSendMessage($message, $header, $options);
         $imp_compose->destroy('send');
     } catch (IMP_Compose_Exception $e) {
         $code = $e->getCode();
@@ -532,10 +534,8 @@ case 'send_message':
     }
 
     if ($isPopup) {
-        if ($prefs->getValue('compose_confirm') || !$sent) {
-            if ($sent) {
-                $notification->push(_("Message sent successfully."), 'horde.success');
-            }
+        if ($prefs->getValue('compose_confirm')) {
+            $notification->push(_("Message sent successfully."), 'horde.success');
             $imp_ui->popupSuccess();
         } else {
             echo Horde::wrapInlineScript(array('window.close();'));
@@ -1096,13 +1096,13 @@ if ($showmenu) {
 $page_output->addScriptFile('compose-base.js');
 $page_output->addScriptFile('compose.js');
 $page_output->addScriptFile('md5.js', 'horde');
-IMP::header($title);
 $page_output->addInlineJsVars($js_vars);
 if (!$redirect) {
-    $page_output->addInlineScript($imp_ui->identityJs());
+    $imp_ui->addIdentityJs();
 }
+IMP::header($title);
 if ($showmenu) {
     echo $menu;
 }
 echo $template_output;
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

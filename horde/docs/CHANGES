@@ -1,7 +1,23 @@
---------
-v5.0-git
---------
+-----------
+v5.0.0beta1
+-----------
 
+
+
+------------
+v5.0.0alpha1
+------------
+
+First alpha release for Horde 5.
+[jan] Implement new user interface.
+[mms] Add 'suppress' option to prefs.php group entries.
+[mms] Add 'on_change', 'on_init', 'requires', 'requires_nolock', and
+     'suppress' options to prefs.php preference entries.
+[mms] Remove support for IE 6.
+[mms] Token protect all AJAX actions.
+[jan] Allow to use IMAP storage for shares and groupware data without a
+      complete Kolab server.
+[mms] Implement growler-like notifications for smartmobile view.
 [mms] Modified pushapp hook behavior.
 [mms] Removed pushapp_post hook.
 [mms] AJAX core features now contained within Horde_Core.
@@ -13,9 +29,26 @@ v5.0-git
 
 
 -----------
-v4.0.15-git
+v4.0.16-git
 -----------
 
+[jan] Update Turkish translation (İstanbul Technical University).
+[jan] Fix setting permissions on static/ directory with horde-set-perms (Bug
+      #11219).
+
+
+-------
+v4.0.15
+-------
+
+[jan] Update Swedish translation (Jakob Alvermark
+      <jakob.alvermark@bsdlabs.com>).
+[jan] Update Italian translation (Emilien <emilien@wifi.e4a.it>).
+[jan] Update Lybian flag (Request #11169).
+[jan] Update Slovak translation (Marika Schvarczova
+      <schvarczova.marika@domeny.sk>).
+[jan] Update Czech translation (Michal Foist <michal@foist.cz>).
+[jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 [jan] Fix horde-set-perms script (Arjen de Korte, Bug #11048).
 
 

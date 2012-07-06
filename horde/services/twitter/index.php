@@ -100,7 +100,7 @@ case 'getPage':
         // Links and media
         $map = array();
         $previews = array();
-        //var_dump($tweet);
+
         foreach ($tweet->entities->urls as $link) {
             $replace = '<a href="' . $link->url . '" title="' . $link->expanded_url . '">' . htmlspecialchars($link->display_url) . '</a>';
             $map[$link->indices[0]] = array($link->indices[1], $replace);
@@ -173,15 +173,17 @@ case 'getPage':
 
 /* No requested action, check to see if we have a valid token */
 if (!empty($auth_token)) {
-    $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
+    try {
+        $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
+    } catch (Horde_Service_Twitter_Exception $e) {}
 } elseif ($r_secret = $session->retrieve('twitter_request_secret')) {
      /* No existing auth token, maybe we are in the process of getting it? */
     try {
-        $auth_token = $twitter->auth->getAccessToken($GLOBALS['injector']->getInstance('Horde_Controller_Request'), $r_secret);
+        $auth_token = $twitter->auth->getAccessToken($GLOBALS['injector']->getInstance('Horde_Controller_Request'), Horde_Util::getFormData('oauth_verifier'));
     } catch (Horde_Service_Twitter_Exception $e) {
         echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
         echo '</form>';
-        require HORDE_TEMPLATES . '/common-footer.inc';
+        $page_output->footer();
         exit;
     }
 
@@ -204,7 +206,7 @@ if (!empty($auth_token)) {
         } catch (Horde_Service_Twitter_Exception $e) {
             echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
             echo '</form>';
-            require HORDE_TEMPLATES . '/common-footer.inc';
+            $page_output->footer();
             exit;
         }
         if (!empty($profile->error)) {
@@ -212,8 +214,9 @@ if (!empty($auth_token)) {
             die;
         }
         if (!empty($profile)) {
-            require HORDE_TEMPLATES . '/common-header.inc';
+            $page_output->header();
             echo '<script type="text/javascript">window.opener.location.reload(true);window.close();</script>';
+            $page_output->footer();
         }
     }
 }

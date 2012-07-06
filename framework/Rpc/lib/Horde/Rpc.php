@@ -31,14 +31,14 @@ class Horde_Rpc
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * Do we need an authenticated user?
      *
      * @var boolean
      */
-    var $_requireAuthorization = true;
+    protected $_requireAuthorization = true;
 
     /**
      * Whether we should exit if auth fails instead of requesting
@@ -46,7 +46,7 @@ class Horde_Rpc
      *
      * @var boolean
      */
-    var $_requestMissingAuthorization = true;
+    protected $_requestMissingAuthorization = true;
 
     /**
      * Request variables, cookies etc...

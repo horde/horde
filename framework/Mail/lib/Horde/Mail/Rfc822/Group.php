@@ -22,6 +22,7 @@
  * @package   Mail
  *
  * @property string $groupname_encoded  MIME encoded groupname (UTF-8).
+ * @property string $label  The shorthand label for this group.
  * @property boolean $valid  Returns true if there is enough information in
  *                           object to create a valid address.
  */
@@ -85,6 +86,7 @@ class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements Counta
     {
         switch ($name) {
         case 'groupname':
+        case 'label':
             return $this->_groupname;
 
         case 'groupname_encoded':

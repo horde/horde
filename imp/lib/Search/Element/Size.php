@@ -34,7 +34,7 @@ class IMP_Search_Element_Size extends IMP_Search_Element
          * s = (integer) Size (in bytes). */
         $this->_data = new stdClass;
         $this->_data->s = intval($size);
-        $this->_data->l = intval($larger);
+        $this->_data->l = intval(!empty($larger));
     }
 
     /**

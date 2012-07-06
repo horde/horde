@@ -73,7 +73,7 @@ var ImpCompose = {
 
     uniqSubmit: function(actionID, e)
     {
-        var cur_msg, form;
+        var cur_msg, form, sc;
 
         if (!Object.isUndefined(e)) {
             e.stop();
@@ -91,12 +91,14 @@ var ImpCompose = {
             break;
 
         case 'send_message':
-            if (!this.skip_spellcheck &&
+            sc = ImpComposeBase.getSpellChecker();
+
+            if (sc &&
+                !this.skip_spellcheck &&
                 this.spellcheck &&
-                IMP.SpellChecker &&
-                !IMP.SpellChecker.isActive()) {
+                !sc.isActive()) {
                 this.sc_submit = { a: actionID, e: e };
-                IMP.SpellChecker.spellCheck();
+                sc.spellCheck();
                 return;
             }
 
@@ -107,8 +109,8 @@ var ImpCompose = {
 
             this.skip_spellcheck = false;
 
-            if (IMP.SpellChecker) {
-                IMP.SpellChecker.resume();
+            if (sc) {
+                sc.resume();
             }
 
             // fall through
@@ -206,36 +208,27 @@ var ImpCompose = {
 
     clickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
-        }
-
         var elt = e.element(), name;
 
-        while (Object.isElement(elt)) {
-            if (elt.readAttribute('id') == 'redirect_abook') {
-                window.open(this.redirect_contacts, "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100");
-                return;
-            } else if (elt.hasClassName('button')) {
-                name = elt.readAttribute('name');
-                switch (name) {
-                case 'btn_add_attachment':
-                case 'btn_redirect':
-                case 'btn_replyall_revert':
-                case 'btn_replylist_revert':
-                case 'btn_save_draft':
-                case 'btn_save_template':
-                case 'btn_send_message':
-                    this.uniqSubmit(name.substring(4), e);
-                    break;
+        if (elt.readAttribute('id') == 'redirect_abook') {
+            window.open(this.redirect_contacts, "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100");
+        } else if (elt.hasClassName('button')) {
+            name = elt.readAttribute('name');
+            switch (name) {
+            case 'btn_add_attachment':
+            case 'btn_redirect':
+            case 'btn_replyall_revert':
+            case 'btn_replylist_revert':
+            case 'btn_save_draft':
+            case 'btn_save_template':
+            case 'btn_send_message':
+                this.uniqSubmit(name.substring(4), e.memo);
+                break;
 
-                case 'btn_cancel_compose':
-                    this.confirmCancel(e);
-                    break;
-                }
+            case 'btn_cancel_compose':
+                this.confirmCancel(e.memo);
+                break;
             }
-
-            elt = elt.up();
         }
     },
 
@@ -271,6 +264,8 @@ var ImpCompose = {
     onDomLoad: function()
     {
         var handler;
+
+        HordeCore.initHandler('click');
 
         if (this.redirect) {
             $('to').focus();
@@ -325,7 +320,6 @@ var ImpCompose = {
             }
         }
 
-        document.observe('click', this.clickHandler.bindAsEventListener(this));
         this.resize.bind(this).delay(0.25);
     },
 
@@ -339,7 +333,7 @@ var ImpCompose = {
 
     _onBeforeSpellCheck: function()
     {
-        IMP.SpellChecker.htmlAreaParent = 'composeMessageParent';
+        ImpComposeBase.getSpellChecker().htmlAreaParent = 'composeMessageParent';
         $('composeMessage').next().hide();
         CKEDITOR.instances.composeMessage.updateElement();
     },
@@ -396,13 +390,4 @@ Event.observe(window, 'beforeunload', ImpCompose.onBeforeUnload.bind(ImpCompose)
 document.observe('ImpContacts:update', ImpCompose.onContactsUpdate.bindAsEventListener(ImpCompose));
 
 /* Catch dialog actions. */
-document.observe('HordeDialog:success', function(e) {
-    switch (e.memo) {
-    case 'pgpPersonal':
-    case 'pgpSymmetric':
-    case 'smimePersonal':
-        HordeDialog.noreload = true;
-        ImpCompose.uniqSubmit('send_message');
-        break;
-    }
-});
+document.observe('ImpPassphraseDialog:success', ImpCompose.uniqSubmit.bind(ImpCompose, 'send_message'));

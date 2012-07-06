@@ -71,20 +71,12 @@ div.bookmarks img {
     padding: 8px;
 }
 
-.tag-list {
-    display: inline;
-    list-style-type: none;
-    font-size: 80%;
+ul.horde-tags {
+    margin: 4px;
 }
-
-.tag-list li {
-    display: inline-block;
-    background-color: lightblue;
-    border: 1px solid #C0C0C0;
-    border-radius: 4px 4px 4px 4px;
-    margin: 5px;
+.trean-tags-related {
+    padding: 5px;
 }
-
-.tag-list li img {
-    vertical-align: middle;
+.bl-title ul.horde-tags a {
+    font-weight: normal;
 }

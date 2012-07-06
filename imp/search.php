@@ -137,7 +137,7 @@ if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCE
 
 $imp_flags = $injector->getInstance('IMP_Flags');
 $imp_search = $injector->getInstance('IMP_Search');
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 $dimp_view = ($registry->getView() == Horde_Registry::VIEW_DYNAMIC);
 $js_vars = array();
@@ -311,7 +311,7 @@ if ($vars->criteria_form) {
         break;
 
     default:
-        $form = Horde_Serialize::unserialize($vars->form, Horde_Serialize::JSON);
+        $form = Horde_Serialize::unserialize($vars->mboxes_form, Horde_Serialize::JSON);
         $q_ob = $imp_search->createQuery($c_list, array(
             'mboxes' => IMP_Mailbox::formFrom($form->mbox),
             'subfolders' => IMP_Mailbox::formFrom($form->subfolder)
@@ -335,7 +335,7 @@ if ($vars->criteria_form) {
             break;
 
         case 'prefs':
-            Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
+            $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
             break;
         }
 
@@ -354,14 +354,14 @@ if ($vars->edit_query && IMP::mailbox()->search) {
     if (IMP::mailbox()->vfolder) {
         if (!IMP::mailbox()->editvfolder) {
             $notification->push(_("Built-in Virtual Folders cannot be edited."), 'horde.error');
-            Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
+            $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
         }
         $t->set('edit_query', true);
         $t->set('edit_query_vfolder', IMP::mailbox()->formTo);
     } elseif ($imp_search->isFilter($q_ob)) {
         if (!$imp_search->isFilter($q_ob, true)) {
             $notification->push(_("Built-in Filters cannot be edited."), 'horde.error');
-            Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
+            $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
         }
         $t->set('edit_query', true);
         $t->set('edit_query_filter', IMP::mailbox()->formTo);
@@ -369,7 +369,7 @@ if ($vars->edit_query && IMP::mailbox()->search) {
 
     if ($t->get('edit_query')) {
         $t->set('search_label', htmlspecialchars($q_ob->label));
-        $js_vars['ImpSearch.prefsurl'] = strval(Horde::getServiceLink('prefs', 'imp')->add('group', 'searches')->setRaw(true));
+        $js_vars['ImpSearch.prefsurl'] = strval($registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->setRaw(true));
     }
 } else {
     /* Process list of recent searches. */
@@ -448,12 +448,11 @@ if (!$t->get('edit_query_filter')) {
 
     if ($prefs->getValue('subscribe')) {
         $t->set('subscribe', true);
-        $js_vars['ImpSearch.ajaxurl'] = Horde::getServiceLink('ajax', 'imp')->url;
+        $js_vars['ImpSearch.ajaxurl'] = $registry->getServiceLink('ajax', 'imp')->url;
     }
 }
 
 Horde_Core_Ui_JsCalendar::init();
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('horde.js', 'horde');
 $page_output->addScriptFile('search.js');
 
@@ -504,4 +503,4 @@ if (!$dimp_view) {
 IMP::status();
 
 echo $t->fetch(IMP_TEMPLATES . '/imp/search/search.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

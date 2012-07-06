@@ -228,7 +228,7 @@ class Whups_Query
             $tabs->addTab(_("_Edit Query"), $queryurl, 'edit');
         }
         if ($this->id && $edit && empty($GLOBALS['conf']['share']['no_sharing'])) {
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('popup.js', 'horde');
+            $GLOBALS['page_output']->addScriptFile('popup.js', 'horde');
 
             $permsurl = $GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php';
             $permsurl = Horde_Util::addParameter(

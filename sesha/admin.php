@@ -264,7 +264,9 @@ case 'list_properties':
     break;
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require SESHA_TEMPLATES . '/menu.inc';
 echo $tabs->render(strpos($actionID, 'propert') === false ? 'list_categories' : 'list_properties');
 
@@ -277,4 +279,4 @@ if (isset($form2)) {
     $form2->renderActive($renderer, $vars2, Horde::url('admin.php'), 'post');
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

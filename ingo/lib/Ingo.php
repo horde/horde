@@ -49,7 +49,7 @@ class Ingo
     static public function flistSelect($value = null, $form = null,
                                        $tagname = 'actionvalue')
     {
-        global $conf, $registry;
+        global $conf, $page_output, $registry;
 
         if ($registry->hasMethod('mail/mailboxList')) {
             try {
@@ -73,7 +73,6 @@ class Ingo
                     );
                 }
 
-                $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
                 $page_output->addScriptFile('new_folder.js');
                 $page_output->addInlineJsVars(array(
                     'IngoNewFolder.folderprompt' => _("Please enter the name of the new folder:")
@@ -154,41 +153,32 @@ class Ingo
      *                             script as deactivated instead of activated.
      * @param array $additional    Any additional scripts that need to uploaded.
      *
-     * @return boolean  True on success, false on failure.
+     * @throws Ingo_Exception
      */
     static public function activateScript($script, $deactivate = false,
                                           $additional = array())
     {
         try {
-            $GLOBALS['injector']->getInstance('Ingo_Transport')->setScriptActive($script, $additional);
+            $GLOBALS['injector']
+                ->getInstance('Ingo_Transport')
+                ->setScriptActive($script, $additional);
         } catch (Ingo_Exception $e) {
             $msg = $deactivate
               ? _("There was an error deactivating the script.")
               : _("There was an error activating the script.");
-            $GLOBALS['notification']->push($msg . ' ' . _("The driver said: ") . $e->getMessage(), 'horde.error');
-            return false;
+            throw new Ingo_Exception(sprintf(_("%s The driver said: %s"), $msg, $e->getMessage()));
         }
 
         $msg = ($deactivate)
             ? _("Script successfully deactivated.")
             : _("Script successfully activated.");
         $GLOBALS['notification']->push($msg, 'horde.success');
-
-        return true;
-    }
-
-    /**
-     * Connects to the backend and returns the currently active script.
-     *
-     * @return string  The currently active script.
-     */
-    static public function getScript()
-    {
-        return self::getTransport()->getScript();
     }
 
     /**
      * Does all the work in updating the script on the server.
+     *
+     * @throws Ingo_Exception
      */
     static public function updateScript()
     {
@@ -197,11 +187,12 @@ class Ingo
                 $ingo_script = $GLOBALS['injector']->getInstance('Ingo_Script');
 
                 /* Generate and activate the script. */
-                self::activateScript($ingo_script->generate(),
-                                     false,
-                                     $ingo_script->additionalScripts());
+                self::activateScript(
+                    $ingo_script->generate(),
+                    false,
+                    $ingo_script->additionalScripts());
             } catch (Ingo_Exception $e) {
-                $GLOBALS['notification']->push(_("Script not updated."), 'horde.error');
+                throw new Ingo_Exception(sprintf(_("Script not updated: %s"), $e->getMessage()));
             }
         }
     }
@@ -311,17 +302,33 @@ class Ingo
     }
 
     /**
-     * Returns whether an address is empty or only contains a "@".
-     * Helper function for array_filter().
+     * Returns the vacation reason with all placeholder replaced.
      *
-     * @param string $address  An email address to test.
+     * @param string $reason  The vacation reason including placeholders.
+     * @param integer $start  The vacation start timestamp.
+     * @param integer $end    The vacation end timestamp.
      *
-     * @return boolean  True if the address is not empty.
+     * @return string  The vacation reason suitable for usage in the filter
+     *                 scripts.
      */
-    static public function filterEmptyAddress($address)
+    static public function getReason($reason, $start, $end)
     {
-        $address = trim($address);
-        return (!empty($address) && ($address != '@'));
+        $identity = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create(Ingo::getUser());
+        $format = $GLOBALS['prefs']->getValue('date_format');
+
+        return str_replace(array('%NAME%',
+                                 '%EMAIL%',
+                                 '%SIGNATURE%',
+                                 '%STARTDATE%',
+                                 '%ENDDATE%'),
+                           array($identity->getName(),
+                                 $identity->getDefaultFromAddress(),
+                                 $identity->getValue('signature'),
+                                 $start ? strftime($format, $start) : '',
+                                 $end ? strftime($format, $end) : ''),
+                           $reason);
     }
 
     /**
@@ -331,6 +338,23 @@ class Ingo
      */
     static public function menu()
     {
+        global $injector;
+
+        $sidebar = Horde::menu(array('menu_ob' => true))->render();
+        $perms = $injector->getInstance('Horde_Core_Perms');
+        $actions = $injector->getInstance('Ingo_Script') ->availableActions();
+        $filters = $injector->getInstance('Ingo_Factory_Storage')
+            ->create()
+            ->retrieve(Ingo_Storage::ACTION_FILTERS)
+            ->getFilterList();
+
+        if (!empty($actions) &&
+            ($perms->hasAppPermission('allow_rules') &&
+             ($perms->hasAppPermission('max_rules') === true ||
+              $perms->hasAppPermission('max_rules') > count($filters)))) {
+            $sidebar->addNewButton(_("New Rule"), Horde::url('rule.php'));
+        }
+
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->set('form_url', Horde::url('filters.php'));
         $t->set('forminput', Horde_Util::formInput());
@@ -348,15 +372,14 @@ class Ingo
             $t->set('options', $options);
         }
 
-        $t->set('menu_string', Horde::menu(array('menu_ob' => true))->render());
+        $t->set('menu_string', $sidebar->render());
 
         $menu = $t->fetch(INGO_TEMPLATES . '/menu/menu.html');
 
-        /* Need to buffer sidebar output here, because it may add things like
-         * cookies which need to be sent before output begins. */
-        Horde::startBuffer();
-        require HORDE_BASE . '/services/sidebar.php';
-        return $menu . Horde::endBuffer();
+        return $GLOBALS['injector']
+            ->getInstance('Horde_View_Topbar')
+            ->render()
+            . $menu;
     }
 
     /**
@@ -367,6 +390,59 @@ class Ingo
         $GLOBALS['notification']->notify(array(
             'listeners' => array('status', 'audio')
         ));
+    }
+
+    /**
+     * Updates a list (blacklist/whitelist) filter.
+     *
+     * @param mixed $addresses  Addresses of the filter.
+     * @param integer $type     Type of filter.
+     *
+     * @return Horde_Storage_Rule  The filter object.
+     */
+    static public function updateListFilter($addresses, $type)
+    {
+        global $injector;
+
+        $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
+        $rule = $storage->retrieve($type);
+
+        switch ($type) {
+        case $storage::ACTION_BLACKLIST:
+            $rule->setBlacklist($addresses);
+            $addr = $rule->getBlacklist();
+
+            $rule2 = $storage->retrieve($storage::ACTION_WHITELIST);
+            $addr2 = $rule2->getWhitelist();
+            break;
+
+        case $storage::ACTION_WHITELIST:
+            $rule->setWhitelist($addresses);
+            $addr = $rule->getWhitelist();
+
+            $rule2 = $storage->retrieve($storage::ACTION_BLACKLIST);
+            $addr2 = $rule2->getBlacklist();
+            break;
+        }
+
+        /* Filter out the rule's addresses in the opposite filter. */
+        $ob = new Horde_Mail_Rfc822_List($addr2);
+        $ob->setIteratorFilter(0, $addr);
+
+        switch ($type) {
+        case $storage::ACTION_BLACKLIST:
+            $rule2->setWhitelist($ob->bare_addresses);
+            break;
+
+        case $storage::ACTION_WHITELIST:
+            $rule2->setBlacklist($ob->bare_addresses);
+            break;
+        }
+
+        $storage->store($rule);
+        $storage->store($rule2);
+
+        return $rule;
     }
 
 }

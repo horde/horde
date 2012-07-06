@@ -47,9 +47,9 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 throw new Ingo_Exception($e);
             }
             if ($field == self::ACTION_BLACKLIST) {
-                $ob->setBlacklist($addresses, true);
+                $ob->setBlacklist($addresses);
             } else {
-                $ob->setWhitelist($addresses, true);
+                $ob->setWhitelist($addresses);
             }
             break;
 
@@ -69,11 +69,11 @@ class Ingo_Storage_Sql extends Ingo_Storage
             }
             $ob = new Ingo_Storage_Forward();
             if (!empty($data)) {
-                $ob->setForwardAddresses(explode("\n", $data['forward_addresses']), false);
+                $ob->setForwardAddresses(explode("\n", $data['forward_addresses']));
                 $ob->setForwardKeep((bool)$data['forward_keep']);
                 $ob->setSaved(true);
             } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('forward'))) {
-                $ob->setForwardAddresses($data['a'], false);
+                $ob->setForwardAddresses($data['a']);
                 $ob->setForwardKeep($data['k']);
             }
             break;
@@ -89,11 +89,11 @@ class Ingo_Storage_Sql extends Ingo_Storage
             }
             $ob = new Ingo_Storage_Vacation();
             if (!empty($data)) {
-                $ob->setVacationAddresses(explode("\n", $data['vacation_addresses']), false);
+                $ob->setVacationAddresses(explode("\n", $data['vacation_addresses']));
                 $ob->setVacationDays((int)$data['vacation_days']);
                 $ob->setVacationStart((int)$data['vacation_start']);
                 $ob->setVacationEnd((int)$data['vacation_end']);
-                $ob->setVacationExcludes(explode("\n", $data['vacation_excludes']), false);
+                $ob->setVacationExcludes(explode("\n", $data['vacation_excludes']));
                 $ob->setVacationIgnorelist((bool)$data['vacation_ignorelists']);
                 $ob->setVacationReason(Horde_String::convertCharset($data['vacation_reason'], $this->_params['charset'], 'UTF-8'));
                 $ob->setVacationSubject(Horde_String::convertCharset($data['vacation_subject'], $this->_params['charset'], 'UTF-8'));
@@ -101,7 +101,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('vacation'))) {
                 $ob->setVacationAddresses($data['addresses'], false);
                 $ob->setVacationDays($data['days']);
-                $ob->setVacationExcludes($data['excludes'], false);
+                $ob->setVacationExcludes($data['excludes']);
                 $ob->setVacationIgnorelist($data['ignorelist']);
                 $ob->setVacationReason($data['reason']);
                 $ob->setVacationSubject($data['subject']);

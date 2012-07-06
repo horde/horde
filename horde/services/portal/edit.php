@@ -29,9 +29,10 @@ if ($layout->updated()) {
     }
 }
 
-$title = _("My Portal Layout");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("My Portal Layout")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require HORDE_TEMPLATES . '/portal/edit.inc';
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

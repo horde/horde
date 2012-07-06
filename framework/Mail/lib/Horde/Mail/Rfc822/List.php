@@ -155,7 +155,7 @@ class Horde_Mail_Rfc822_List extends Horde_Mail_Rfc822_Object implements ArrayAc
         $old = $this->_filter;
         $this->setIteratorFilter(self::HIDE_GROUPS | self::BASE_ELEMENTS);
 
-        // For duplictes, we use the first address that contains personal
+        // For duplicates, we use the first address that contains personal
         // information.
         foreach ($this as $key => $val) {
             $bare = $val->bare_address;

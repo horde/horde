@@ -112,10 +112,10 @@ $perms_img = Horde::img('perms.png');
 $members_url = Horde::url('edit/friends/friends.php');
 $members_img = Horde::img('group.png');
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
-
 echo $tabs->render('groups');
 require FOLKS_TEMPLATES . '/edit/groups.php';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

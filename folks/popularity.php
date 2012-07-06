@@ -37,8 +37,10 @@ $pager = new Horde_Core_Ui_Pager('page',
 $pager->preserve($criteria);
 $list_url = Folks::getUrlFor('list', 'popularity');
 
-$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
+$page_output->footer();
 require FOLKS_TEMPLATES . '/menu.inc';
 require FOLKS_TEMPLATES . '/list/list.php';
-require $registry->get('templates', 'horde') . '/common-footer.inc';

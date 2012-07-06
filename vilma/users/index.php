@@ -15,7 +15,7 @@ $vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($curdomain)) {
-    $registry->authenticateFailure('vilma');
+    throw new Horde_Exception_AuthenticationFailure();
 }
 
 // Input validation: make sure we have a valid section.
@@ -117,6 +117,6 @@ $images = array('delete' => Horde::img('delete.png', _("Delete User")),
 $template->set('images', $images);
 
 /* Render the page. */
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $template->fetch(VILMA_TEMPLATES . '/users/index.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

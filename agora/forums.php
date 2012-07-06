@@ -71,11 +71,12 @@ $pager_ob = new Horde_Core_Ui_Pager('forum_page', $vars, array('num' => $forums_
 $pager_ob->preserve('scope', $scope);
 $view->pager_link = $pager_ob->render();
 
-$title = _("All Forums");
-$injector->getInstance('Horde_PageOutput')->addLinkTag(array(
+$page_output->addLinkTag(array(
     'href' => Horde::url('rss/index.php', true, -1)->add('scope', $scope),
     'title' => _("Forums")
 ));
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("All Forums")
+));
 echo $view->render('forums');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -25,9 +25,9 @@ class Ingo_Storage_Forward extends Ingo_Storage_Rule
 
     /**
      */
-    public function setForwardAddresses($data, $sort = true)
+    public function setForwardAddresses($data)
     {
-        $this->_addr = $this->_addressList($data, $sort);
+        $this->_addr = $this->_addressList($data);
     }
 
     /**

@@ -42,14 +42,22 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
         }
 
         if ($event instanceof Exception) {
-            if (($event instanceof Horde_Exception) && $event->logged) {
-                return;
+            if ($event instanceof Horde_Exception) {
+                if ($event->logged) {
+                    return;
+                }
+                $event->logged = true;
+                if ($loglevel = $event->getLogLevel()) {
+                    $priority = $loglevel;
+                }
             }
-            $event->logged = true;
             if (is_null($priority)) {
                 $priority = Horde_Log::ERR;
             }
             $text = $event->getMessage();
+            if (!empty($event->details)) {
+                $text .= ' ' . $event->details;
+            }
             $trace = array(
                 'file' => $event->getFile(),
                 'line' => $event->getLine()

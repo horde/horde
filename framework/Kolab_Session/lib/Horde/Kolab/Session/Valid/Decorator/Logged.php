@@ -45,7 +45,7 @@ implements Horde_Kolab_Session_Valid
     /**
      * Constructor.
      *
-     * The provided logger class needs to implement the methods info() and
+     * The provided logger class needs to implement the methods debug() and
      * err().
      *
      * @param Horde_Kolab_Session_Valid_Interface $valid  The validator.
@@ -69,7 +69,7 @@ implements Horde_Kolab_Session_Valid
      */
     public function validate($user = null)
     {
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 "Validating Kolab session for current user \"%s\", requested user \"%s\", and stored user \"%s\".",
                 $this->_valid->getAuth(),
@@ -79,7 +79,7 @@ implements Horde_Kolab_Session_Valid
         );
         $result = $this->_valid->validate($user);
         if ($result === false) {
-            $this->_logger->info(
+            $this->_logger->debug(
                 sprintf(
                     "Invalid Kolab session for current user \"%s\" and requested user \"%s\".",
                     $this->_valid->getAuth(),

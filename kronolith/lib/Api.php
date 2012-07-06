@@ -75,7 +75,7 @@ class Kronolith_Api extends Horde_Registry_Api
             $calendars = Kronolith::listInternalCalendars(false, Horde_Perms::READ);
             $owners = array();
             foreach ($calendars as $calendar) {
-                $owners[$calendar->get('owner')] = true;
+                $owners[$calendar->get('owner') ? $calendar->get('owner') : '-system-'] = true;
             }
 
             $results = array();
@@ -324,32 +324,38 @@ class Kronolith_Api extends Horde_Registry_Api
                         // the event's history.
                         $created = $modified = null;
                         try {
-                            $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('kronolith:' . $calendar . ':' . $uid);
-                            foreach ($log as $entry) {
-                                switch ($entry['action']) {
-                                case 'add':
-                                    $created = $entry['ts'];
-                                    break;
-
-                                case 'modify':
-                                    $modified = $entry['ts'];
-                                    break;
-                                }
+                            $history = $GLOBALS['injector']->getInstance('Horde_History');
+                            $created = $history->getActionTimestamp(
+                                'kronolith:' . $calendar . ':' . $uid, 'add');
+                            $modified = $history->getActionTimestamp(
+                                'kronolith:' . $calendar . ':' . $uid, 'modify');
+                            /* The history driver returns 0 for not found. If 0
+                             * or null does not matter, strip this */
+                            if ($created == 0) {
+                                $created = null;
                             }
-                        } catch (Exception $e) {}
+                            if ($modified == 0) {
+                                $modified = null;
+                            }
+                        } catch (Horde_Exception $e) {
+                        }
                         if (empty($modified) && !empty($created)) {
                             $modified = $created;
                         }
-                        if (!empty($modified) &&
-                            $modified >= $content->getAttribute('LAST-MODIFIED')) {
+                        try {
+                            if (!empty($modified) &&
+                                $modified >= $content->getAttribute('LAST-MODIFIED')) {
                                 // LAST-MODIFIED timestamp of existing entry
                                 // is newer: don't replace it.
                                 continue;
                             }
+                        } catch (Horde_Icalendar_Exception $e) {
+                        }
 
                         // Don't change creator/owner.
                         $event->creator = $existing_event->creator;
-                    } catch (Horde_Exception_NotFound $e) {}
+                    } catch (Horde_Exception_NotFound $e) {
+                    }
 
                     // Save entry.
                     $saved = $event->save();
@@ -438,9 +444,9 @@ class Kronolith_Api extends Horde_Registry_Api
      * events that represent exceptions, making this method useful for syncing
      * purposes. For more control, use the listEvents method.
      *
-     * @param string $calendars      The calendar to check for events.
-     * @param object $startstamp    The start of the time range.
-     * @param object $endstamp      The end of the time range.
+     * @param string $calendars    The calendar to check for events.
+     * @param object $startstamp   The start of the time range.
+     * @param object $endstamp     The end of the time range.
      *
      * @return array  The event ids happening in this time period.
      * @throws Kronolith_Exception
@@ -467,12 +473,9 @@ class Kronolith_Api extends Horde_Registry_Api
                 $events = $driver->listEvents(
                     $startstamp ? new Horde_Date($startstamp) : null,
                     $endstamp   ? new Horde_Date($endstamp)   : null,
-                    false,  // recurrence
-                    false,  // alarm
-                    false,  // no json cache
-                    false,  // Don't cover dates
-                    true,   // Hide exceptions
-                    false); // No tags
+                    array('cover_dates' => false,
+                          'hide_exceptions' => true)
+                );
                 Kronolith::mergeEvents($results, $events);
             } catch (Kronolith_Exception $e) {
                 Horde::logMessage($e);
@@ -768,12 +771,14 @@ class Kronolith_Api extends Horde_Registry_Api
      *                                              Still in wide use)
      *                             activesync (Horde_ActiveSync_Message_Appointment)
      *                            </pre>
+     * @param array $optinos      Any additional options to be passed to the
+     *                            exporter.
      *
      * @return string  The requested data.
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function export($uid, $contentType)
+    public function export($uid, $contentType, array $options = array())
     {
         $event = Kronolith::getDriver()->getByUID($uid);
         if (!$event->hasPermission(Horde_Perms::READ)) {
@@ -796,7 +801,7 @@ class Kronolith_Api extends Horde_Registry_Api
             return $iCal->exportvCalendar();
 
         case 'activesync':
-            return $event->toASAppointment();
+            return $event->toASAppointment($options);
         }
 
         throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
@@ -813,7 +818,6 @@ class Kronolith_Api extends Horde_Registry_Api
      *                                            this is specified in rfc2445)
      *                             text/x-vcalendar (old VCALENDAR 1.0 format.
      *                                              Still in wide use)
-     *                             activesync (Horde_ActiveSync_Message_Appointment)
      *                             </pre>
      *
      * @return string  The iCalendar representation of the calendar.
@@ -826,15 +830,18 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         $kronolith_driver = Kronolith::getDriver(null, $calendar);
-        $events = $kronolith_driver->listEvents(null, null, false, false, false, false, false, true);
-
+        $events = $kronolith_driver->listEvents(null, null, array(
+            'cover_dates' => false,
+            'hide_exceptions' => true)
+        );
         $version = '2.0';
         switch ($contentType) {
         case 'text/x-vcalendar':
             $version = '1.0';
         case 'text/calendar':
-            $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar);
-
+            $share = $GLOBALS['injector']
+                ->getInstance('Kronolith_Shares')
+                ->getShare($calendar);
             $iCal = new Horde_Icalendar($version);
             $iCal->setAttribute('X-WR-CALNAME', $share->get('name'));
             if (strlen($share->get('desc'))) {
@@ -850,7 +857,10 @@ class Kronolith_Api extends Horde_Registry_Api
             return $iCal->exportvCalendar();
         }
 
-        throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
+        throw new Kronolith_Exception(sprintf(
+            _("Unsupported Content-Type: %s"),
+            $contentType)
+        );
     }
 
     /**
@@ -1176,13 +1186,14 @@ class Kronolith_Api extends Horde_Registry_Api
         return Kronolith::listEvents(
             new Horde_Date($startstamp),
             new Horde_Date($endstamp),
-            $calendars,
-            $showRecurrence,
-            $alarmsOnly,
-            $showRemote,
-            $hideExceptions,
-            $coverDates,
-            $fetchTags);
+            $calendars, array(
+                'show_recurrence' => $showRecurrence,
+                'has_alarm' => $alarmsOnly,
+                'show_remote' => $showRemote,
+                'hide_exceptions' => $hideExceptions,
+                'cover_dates' => $coverDates,
+                'fetch_tags' => $fetchTags)
+        );
     }
 
     /**

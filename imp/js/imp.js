@@ -29,12 +29,12 @@ var IMP_JS = {
     {
         var callback,
             elt = e.element().up('.mimeStatusMessageTable').up(),
-            iframe = elt.up().next().down('.htmlMsgData'),
+            iframe = elt.up('.mimePartBase').down('.mimePartData IFRAME.htmlMsgData'),
             iframeid = iframe.readAttribute('id'),
             imgload = false,
             s = new Selector('[htmlimgblocked]'),
             s2 = new Selector('[htmlcssblocked]'),
-            s3 = new Selector('STYLE[type=text/x-imp-cssblocked]');
+            s3 = new Selector('STYLE[type="text/x-imp-cssblocked"]');
 
         e.stop();
 
@@ -105,14 +105,10 @@ var IMP_JS = {
         d.close();
 
         if (this.keydownhandler) {
-            var responder = function(e) {
-                return this.keydownhandler(e);
-            }.bindAsEventListener(this)
-
             if (d.addEventListener) {
-                d.addEventListener('keydown', responder, false);
+                d.addEventListener('keydown', this.keydownhandler.bindAsEventListener(this), false);
             } else {
-                d.attachEvent('onkeydown', responder);
+                d.attachEvent('onkeydown', this.keydownhandler.bindAsEventListener(this));
             }
         }
 
@@ -139,11 +135,6 @@ var IMP_JS = {
             if (lc.clientHeight != lc.scrollHeight) {
                 // Finally, brute force if it still isn't working.
                 id.setStyle({ height: (lc.scrollHeight + 25) + 'px' });
-            }
-            if (lc.style.setProperty) {
-                lc.style.setProperty('overflow-x', 'hidden', '');
-            } else {
-                lc.style['overflow-x'] = 'hidden';
             }
         }
     },

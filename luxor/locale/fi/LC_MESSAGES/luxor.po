@@ -1,0 +1,160 @@
+# Finnish translations for Luxor H4 package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Luxor package.
+# Leena Heino <liinu@uta.fi>, 2011-2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Luxor H4 (1.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-12 22:48:27+0200\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: symbol.php:75
+#, php-format
+msgid "%s :: Symbol \"%s\""
+msgstr "%s :: Symboli \"%s\""
+
+#: lib/Tagger.php:38 lib/Tagger.php:85
+#, php-format
+msgid "%s was already indexed."
+msgstr "%s on jo indeksoitu."
+
+#: lib/Tagger.php:49 lib/Tagger.php:96
+#, php-format
+msgid "Can't create copy of file %s."
+msgstr "Ei voitu tehdä kopioita tiedostosta %s."
+
+#: lib/Files/plain.php:85
+#, php-format
+msgid "Can't open directory %s"
+msgstr "Ei voitu aukaista hakemistoa %s"
+
+#: lib/Lang/Generic.php:115
+#, php-format
+msgid "Can't open file %s."
+msgstr "Ei voitu aukaista tiedostoa %s."
+
+#: lib/Lang/Generic.php:73
+msgid "Can't run ectags."
+msgstr "Ei voi suorittaa ectags."
+
+#: source.php:84
+#, php-format
+msgid "Could not markup file %s."
+msgstr "Ei voitu merkitä tiedostoa %s."
+
+#: templates/directory.html.php:6
+msgid "Date (GMT)"
+msgstr "Päiväys (GMT)"
+
+#: templates/symbol.html.php:8
+msgid "Declarations"
+msgstr "Ilmoitukset"
+
+#: search.php:53
+msgid "Declared as "
+msgstr "Ilmoitettu -"
+
+#: symbol.php:39
+#, php-format
+msgid "Declared as a %s"
+msgstr "Ilmoitettu - %s"
+
+#: templates/directory.html.php:7
+msgid "Description"
+msgstr "Kuvaus"
+
+#: source.php:131
+#, php-format
+msgid "Directory Listing :: %s"
+msgstr "Hakemistolistaus :: %s"
+
+#: lib/Lang/Generic.php:63
+#, php-format
+msgid "Exuberant ctags version 5 or above required, found version %s"
+msgstr "Exuberant ctags version 5 tai uudempi vaaditaan, löytyi versio %s"
+
+#: symbol.php:45 symbol.php:69
+#, php-format
+msgid "Line %s"
+msgstr "Rivi %s"
+
+#: templates/headerbar.inc:3
+msgid "Location:"
+msgstr "Paikka:"
+
+#: source.php:134
+#, php-format
+msgid "Markup of %s"
+msgstr "Merkintä %s"
+
+#: templates/directory.html.php:4
+msgid "Name"
+msgstr "Nimi"
+
+#: lib/Luxor.php:78
+msgid "Other Sources"
+msgstr "Muut lähteet"
+
+#: lib/Luxor.php:152
+msgid "Parent Directory"
+msgstr "Ylähakemisto"
+
+#: templates/symbol.html.php:20
+msgid "Referenced in"
+msgstr "Viitattu -"
+
+#: templates/directory.html.php:5
+msgid "Size"
+msgstr "Koko"
+
+#: templates/menu.inc:13
+msgid "Symbol Search"
+msgstr "Symbolihaku"
+
+#: search.php:28
+#, php-format
+msgid "Symbol Search for \"%s\""
+msgstr "Symboli haku - \"%s\""
+
+#: symbol.php:22
+msgid "Symbol not found"
+msgstr "Symbolia ei löytynyt"
+
+#: source.php:78
+#, php-format
+msgid "The file %s can't be opened or doesn't exist."
+msgstr "Tiedostoa %s ei voitu aukaista tai sitä ei ole olemassa."
+
+#: templates/headerbar.inc:10
+msgid "Tracking Branch"
+msgstr "Seurantahaara"
+
+#: lib/Luxor.php:151
+msgid "Up to parent"
+msgstr "Ylätasolle"
+
+#: source.php:36
+#, php-format
+msgid "You do not have permission to view %s."
+msgstr "Sinulle ei ole oikeuksia nähdä %s."
+
+#: lib/Luxor.php:454
+msgid "_Browse"
+msgstr "_Selaa"
+
+#: lib/Luxor.php:163
+msgid "bytes"
+msgstr "tavua"
+
+#: lib/Luxor.php:165
+msgid "kbytes"
+msgstr "ktavua"

@@ -214,7 +214,7 @@ class Horde_Db_Adapter_Base_Column
      */
     public function binaryToString($value)
     {
-        return $value;
+        return (string)$value;
     }
 
     /**

@@ -23,23 +23,19 @@ class IMP_Search_Element_Contacts extends IMP_Search_Element
     public function __construct($not = false)
     {
         /* Data element: (integer) Do a NOT search? */
-        $this->_data = intval($not);
+        $this->_data = intval(!empty($not));
     }
 
     /**
      */
     public function createQuery($mbox, $queryob)
     {
-        $addrs = array();
-
         $ajax = new IMP_Ajax_Imple_ContactAutoCompleter();
         foreach ($ajax->getAddressList()->bare_addresses as $val) {
             $ob = new Horde_Imap_Client_Search_Query();
             $ob->headerText('from', $val, $this->_data);
-            $addrs[] = $ob;
+            $queryob->orSearch($ob);
         }
-
-        $queryob->orSearch($addrs);
 
         return $queryob;
     }

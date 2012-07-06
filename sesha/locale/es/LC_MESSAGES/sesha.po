@@ -9,8 +9,9 @@ msgstr ""
 "Project-Id-Version: Sesha 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2008-03-19 08:42+0100\n"
-"PO-Revision-Date: 2012-03-20 20:41+0100\n"
-"Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
+"PO-Revision-Date: 2012-04-20 20:30+0200\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -220,7 +221,7 @@ msgstr "Nombre"
 
 #: lib/Forms/Search.php:37
 msgid "Item Note"
-msgstr "Comentario"
+msgstr "Nota"
 
 #: stock.php:86
 #, php-format
@@ -229,7 +230,7 @@ msgstr "Se eliminó correctamente el elemento número %d"
 
 #: lib/Forms/Search.php:33
 msgid "Location"
-msgstr "Buscar en"
+msgstr "Ubicación"
 
 #: admin.php:26
 msgid "Manage Categories"
@@ -298,7 +299,7 @@ msgstr ""
 
 #: list.php:107 lib/Forms/Stock.php:99 config/.bak/prefs.php.dist:25
 msgid "Note"
-msgstr "Comentario"
+msgstr "Nota"
 
 #: lib/Forms/Property.php:45
 msgid "Priority"
@@ -484,7 +485,7 @@ msgstr "_Examinar"
 
 #: lib/Sesha.php:231
 msgid "_Print"
-msgstr "_Imprimir"
+msgstr "Im_primir"
 
 #: lib/Sesha.php:227
 msgid "_Search"

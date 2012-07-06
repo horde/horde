@@ -21,7 +21,7 @@ olcAttributeTypes: {5}( 1.2.840.113556.1.4.483 NAME 'calOtherFBURLs' DESC 'URI
   SUBSTR caseIgnoreIA5SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
 olcAttributeTypes: {6}( 1.2.840.113556.1.4.484 NAME 'calOtherCAPURIs' DESC 'UR
  Is for communicating with non-default calendars' EQUALITY caseIgnoreIA5Match
- SUBSTR caseIgnoreIA5SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+  SUBSTR caseIgnoreIA5SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
 olcAttributeTypes: {7}( 1.2.840.113556.1.4.485 NAME 'calOtherCalAdrURIs' DESC
  'Destinations for event requests to non-default calendars' EQUALITY caseIgnor
  eIA5Match SUBSTR caseIgnoreIA5SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121

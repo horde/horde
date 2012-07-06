@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde 4.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-10 15:49:18+0200\n"
+"PO-Revision-Date: 2012-04-22 11:03:09+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -279,7 +279,7 @@ msgstr "Osoite"
 
 #: config/registry.php:122
 msgid "Address Book"
-msgstr "Osoitekirja"
+msgstr "Osoitteet"
 
 #: lib/Application.php:46
 msgid "Administration"
@@ -1105,7 +1105,7 @@ msgstr "Muokkaa oikeuksia"
 #: services/shares/edit.php:257 templates/shares/edit.inc:14
 #, php-format
 msgid "Edit permissions for \"%s\""
-msgstr "Muokkaa oikeuksia \"%s\":lle"
+msgstr "Muokkaa oikeuksia - \"%s\""
 
 #: lib/Block/Fortune.php:42
 msgid "Education"
@@ -1236,7 +1236,7 @@ msgstr "Etsittävät kentät"
 
 #: config/registry.php:310
 msgid "File Manager"
-msgstr "Tiedostohallinta"
+msgstr "Tiedostot"
 
 #: lib/Block/FbStream.php:54
 msgid "Filter"
@@ -1244,7 +1244,7 @@ msgstr "Suodatin"
 
 #: config/registry.php:88
 msgid "Filters"
-msgstr "Suodattimet"
+msgstr "Suodatus"
 
 #: lib/Block/Moon.php:167
 msgid "First Half"
@@ -1331,7 +1331,7 @@ msgstr "Koko nimi"
 #: admin/config/config.php:36
 #, php-format
 msgid "Generate %s Configuration"
-msgstr "Muodosta %s asetukset"
+msgstr "Muodosta %s asennusasetukset"
 
 #: templates/admin/config/config.html:6
 msgid "Generated Code"
@@ -1473,7 +1473,7 @@ msgstr "Vain ikonit"
 #: util/icon_browser.php:53
 #, php-format
 msgid "Icons for %s"
-msgstr "Ikonit %s:lle"
+msgstr "Ikonit - %s"
 
 #: config/prefs.php:563
 msgid "Icons with text"
@@ -1727,11 +1727,11 @@ msgstr "Lukot"
 
 #: login.php:303 templates/login/login.inc:43
 msgid "Log in"
-msgstr "Kirjaudu sisaan"
+msgstr "Kirjaudu"
 
 #: templates/portal/mobile.inc:7
 msgid "Log out"
-msgstr "Kirjaudu ulos"
+msgstr "Poistu"
 
 #: login.php:328
 msgid "Login failed because your username or password was entered incorrectly."
@@ -1745,7 +1745,7 @@ msgstr "Sisäänkirjautuminen epäonnistui."
 
 #: templates/prefs/facebook.html:57
 msgid "Login to Facebook and authorize <tag:app_name />"
-msgstr "Kirjaudu Facebookiin ja anna lupa <tag:app_name />"
+msgstr "Kirjaudu sisään Facebookiin ja anna lupa <tag:app_name />"
 
 #: templates/prefs/twitter.html:21
 msgid "Login to Twitter and authorize the <tag:appname /> application"
@@ -1776,11 +1776,11 @@ msgstr "Taikuus"
 
 #: config/registry.php:80
 msgid "Mail"
-msgstr "Sähköposti"
+msgstr "Posti"
 
 #: config/registry.php:355
 msgid "Mail Admin"
-msgstr "Sähköpostin hallinta"
+msgstr "Postin hallinta"
 
 #: config/prefs.php:464
 msgid ""
@@ -1868,7 +1868,7 @@ msgstr "Mobiili (älypuhelin)"
 
 #: login.php:215
 msgid "Mode"
-msgstr "Tila"
+msgstr "Käyttötila"
 
 #: config/prefs.php:452
 msgid "Monday"
@@ -2039,7 +2039,7 @@ msgstr "Ei jaettu"
 
 #: config/registry.php:192
 msgid "Notes"
-msgstr "Muistiinpanot"
+msgstr "Muistiot"
 
 #: services/obrowser/index.php:32
 msgid "Nothing to browse, go back."
@@ -2253,12 +2253,12 @@ msgstr "Politiikka"
 #: services/facebook/index.php:109
 #, php-format
 msgid "Posted %s"
-msgstr "Postattu %s"
+msgstr "Lähetetty %s"
 
 #: templates/block/twitter_tweet.html.php:26
 #, php-format
 msgid "Posted %s via %s"
-msgstr "Postattu %s kautta %s"
+msgstr "Lähetetty %s kautta %s"
 
 #: themes/postnuke/info.php:2
 msgid "Postnuke"
@@ -2434,7 +2434,7 @@ msgstr "Tulokset"
 #: services/portal/cloud_search.php:34
 #, php-format
 msgid "Results for %s"
-msgstr "Tulokset %s:lle"
+msgstr "Tulokset - %s"
 
 #: templates/prefs/end.html:7
 msgid "Return to Main Screen"
@@ -2442,12 +2442,12 @@ msgstr "Palaa päänäkymään"
 
 #: templates/block/twitter_tweet.html.php:35
 msgid "Retweet"
-msgstr "Uusviserrä"
+msgstr "Retweet"
 
 #: templates/block/twitter_tweet.html.php:30
 #, php-format
 msgid "Retweeted by %s"
-msgstr "Uusvisertänyt %s"
+msgstr "Retweetannut %s"
 
 #: services/changepassword.php:30
 msgid "Retype new password"
@@ -3082,7 +3082,7 @@ msgstr ""
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
 msgstr ""
-"Joitakin ongelmia poistettaessa kaikkia tietoja %s:stä. Tarkemmat tiedot on "
+"Joitakin ongelmia poistettaessa kaikkia tietoja %s. Tarkemmat tiedot on "
 "tallennettu."
 
 #: services/facebook/index.php:49
@@ -3160,7 +3160,7 @@ msgstr "Turkki (ISO-8859-9)"
 
 #: templates/block/twitter-layout.html.php:15
 msgid "Tweet"
-msgstr "Viserrys"
+msgstr "Tweet"
 
 #: config/prefs.php:620
 msgid "Twitter Integration"
@@ -3173,7 +3173,7 @@ msgstr "Twitter aikajana"
 #: lib/Block/TwitterTimeline.php:57
 #, php-format
 msgid "Twitter Timeline for %s"
-msgstr "Twitter %s aikajana"
+msgstr "Twitter aikajana %s"
 
 #: services/keyboard.php:108
 msgid "U characters"
@@ -3253,7 +3253,7 @@ msgstr "Päivitettiin \"%s\"."
 #: admin/config/index.php:118
 #, php-format
 msgid "Updated schema for %s."
-msgstr "Päivitettiin skeema \"%s\":ksi."
+msgstr "Päivitettiin skeema - \"%s\"."
 
 #: admin/config/index.php:320
 msgid "Upload"
@@ -3524,7 +3524,7 @@ msgstr "Sinulla ei ole oikeuksia listata jakojen jäseniä."
 #: services/facebook/index.php:63 services/facebook/index.php:80
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
-msgstr "Voit myös tarkistaa Facebook asetuksesi %s:ssä."
+msgstr "Voit myös tarkistaa Facebook asetuksesi %s."
 
 #: lib/LoginTasks/Task/TosAgreement.php:64
 msgid ""
@@ -3547,7 +3547,7 @@ msgid ""
 "check your Facebook settings in your %s."
 msgstr ""
 "Et ole kunnolla liittänyt Facebook tiliäsi Horden kanssa. Sinun tulisi "
-"tarkistaa Facebook asetukset %s:ssä."
+"tarkistaa Facebook asetukset %s."
 
 #: lib/Block/TwitterTimeline.php:169
 #, php-format
@@ -3556,7 +3556,7 @@ msgid ""
 "check your Twitter settings in your %s."
 msgstr ""
 "Et ole kunnolla liittänyt Twitter tiliäsi Horden kanssa. Sinun tulisi "
-"tarkistaa Facebook asetukset %s:ssä."
+"tarkistaa Facebook asetukset %s."
 
 #: services/facebook/index.php:120 services/facebook/index.php:160
 #: services/facebook/index.php:168
@@ -3660,7 +3660,7 @@ msgstr "Käyttäjätunnuksesi on vanhentunut."
 #: services/resetpassword.php:79
 #, php-format
 msgid "Your new password for %s is: %s"
-msgstr "Uusi salasanasi %s:lle on: %s"
+msgstr "Uusi salasanasi %s on: %s"
 
 #: services/resetpassword.php:78
 msgid "Your password has been reset"

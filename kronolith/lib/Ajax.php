@@ -12,53 +12,29 @@
  * @license  http://www.horde.org/licenses/gpl21 GPL
  * @package  Kronolith
  */
-class Kronolith_Ajax extends Horde_Core_Ajax
+class Kronolith_Ajax
 {
     /**
-     * Javascript variables to output to the page.
-     *
-     * @var array
      */
-    protected $_jsvars = array();
-
-    /**
-     */
-    public function init(array $opts = array())
+    public function init()
     {
-        parent::init(array_merge($opts, array('app' => 'kronolith')));
-    }
+        global $page_output;
 
-    /**
-     */
-    public function header()
-    {
-        $this->init(array(
-            'growler_log' => true
-        ));
-
-        $this->_addBaseVars();
-
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $page_output->addScriptFile('dragdrop2.js');
         $page_output->addScriptFile('redbox.js', 'horde');
         $page_output->addScriptFile('tooltips.js', 'horde');
         $page_output->addScriptFile('colorpicker.js', 'horde');
-
-        $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
-        if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
-            $datejs = 'en-US.js';
-        }
-        $page_output->addScriptFile('date/' . $datejs, 'horde');
-        $page_output->addScriptFile('date/date.js', 'horde');
+        $page_output->addScriptPackage('Datejs');
         $page_output->addScriptFile('kronolith.js');
         Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
 
         $page_output->addInlineJsVars(array(
-            'var Kronolith' => $this->_jsvars
+            'var Kronolith' => $this->_addBaseVars()
         ), array('top' => true));
 
-        parent::header(array(
-            'bodyid' => 'kronolithAjax'
+        $page_output->header(array(
+            'body_id' => 'kronolithAjax',
+            'growler_log' => true
         ));
     }
 
@@ -73,17 +49,17 @@ class Kronolith_Ajax extends Horde_Core_Ajax
         $has_tasks = Kronolith::hasApiPermission('tasks');
         $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
 
-        $app_urls = array();
+        $app_urls = $js_vars = array();
         if (isset($conf['menu']['apps']) &&
             is_array($conf['menu']['apps'])) {
             foreach ($conf['menu']['apps'] as $app) {
-                $app_urls[$app] = strval(Horde::url($registry->getInitialPage($app), true)->add('ajaxui', 1));
+                $app_urls[$app] = strval(Horde::url($registry->getInitialPage($app), true));
             }
         }
 
         /* Variables used in core javascript files. */
-        $this->_jsvars['conf'] = array_filter(array(
-            'URI_CALENDAR_EXPORT' => strval(Horde::url('data.php', true)->add(array('actionID' => 'export', 'all_events' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportCal' => 'internal_'))),
+        $js_vars['conf'] = array_filter(array(
+            'URI_CALENDAR_EXPORT' => strval($registry->downloadUrl('', array('actionID' => 'export', 'all_events' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportCal' => 'internal_'))),
             'URI_EVENT_EXPORT' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('event.php', true)->add(array('view' => 'ExportEvent', 'eventID' => '#{id}', 'calendar' => '#{calendar}', 'type' => '#{type}'))),
             'URI_HOME' => empty($conf['logo']['link']) ? null : $conf['logo']['link'],
 
@@ -96,17 +72,14 @@ class Kronolith_Ajax extends Horde_Core_Ajax
             'user' => $registry->convertUsername($auth_name, false),
             'name' => $identity->getName(),
             'email' => $identity->getDefaultFromAddress(),
-            'prefs_url' => strval(Horde::getServiceLink('prefs', 'kronolith')->setRaw(true)->add('ajaxui', 1)),
+            'prefs_url' => strval($registry->getServiceLink('prefs', 'kronolith')->setRaw(true)),
             'app_urls' => $app_urls,
-            'use_iframe' => intval(!empty($conf['menu']['apps_iframe'])),
             'name' => $registry->get('name'),
             'has_tasks' => intval($has_tasks),
             'login_view' => ($prefs->getValue('defaultview') == 'workweek') ? 'week' : $prefs->getValue('defaultview'),
             'default_calendar' => 'internal|' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT),
             'max_events' => intval($prefs->getValue('max_events')),
-            'date_format' => str_replace(
-                array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
-                array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
+            'date_format' => Horde_Core_Script_Package_Datejs::translateFormat(
                 Horde_Nls::getLangInfo(D_FMT)
             ),
             'time_format' => $prefs->getValue('twentyFour') ? 'HH:mm' : 'hh:mm tt',
@@ -140,10 +113,10 @@ class Kronolith_Ajax extends Horde_Core_Ajax
          ));
 
         /* Make sure this value is not optimized out by array_filter(). */
-        $this->_jsvars['conf']['week_start'] = intval($prefs->getValue('week_start_monday'));
+        $js_vars['conf']['week_start'] = intval($prefs->getValue('week_start_monday'));
 
         /* Gettext strings. */
-        $this->_jsvars['text'] = array(
+        $js_vars['text'] = array(
             'agenda' => _("Agenda"),
             'alarm' => _("Alarm:"),
             'alerts' => _("Notifications"),
@@ -171,20 +144,22 @@ class Kronolith_Ajax extends Horde_Core_Ajax
         );
 
         for ($i = 1; $i <= 12; ++$i) {
-            $this->_jsvars['text']['month'][$i - 1] = Horde_Nls::getLangInfo(constant('MON_' . $i));
+            $js_vars['text']['month'][$i - 1] = Horde_Nls::getLangInfo(constant('MON_' . $i));
         }
 
         for ($i = 1; $i <= 7; ++$i) {
-            $this->_jsvars['text']['weekday'][$i] = Horde_Nls::getLangInfo(constant('DAY_' . $i));
+            $js_vars['text']['weekday'][$i] = Horde_Nls::getLangInfo(constant('DAY_' . $i));
         }
 
-        foreach (array_diff(array_keys($this->_jsvars['conf']['recur']), array(Horde_Date_Recurrence::RECUR_NONE)) as $recurType) {
-            $this->_jsvars['text']['recur'][$recurType] = Kronolith::recurToString($recurType);
+        foreach (array_diff(array_keys($js_vars['conf']['recur']), array(Horde_Date_Recurrence::RECUR_NONE)) as $recurType) {
+            $js_vars['text']['recur'][$recurType] = Kronolith::recurToString($recurType);
         }
-        $this->_jsvars['text']['recur']['exception'] = _("Exception");
+        $js_vars['text']['recur']['exception'] = _("Exception");
 
         // Maps
-        $this->_jsvars['conf']['maps'] = $conf['maps'];
+        $js_vars['conf']['maps'] = $conf['maps'];
+
+        return $js_vars;
     }
 
 }

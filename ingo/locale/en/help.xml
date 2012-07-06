@@ -239,6 +239,13 @@
   <entry id="vacation-reason">
     <title>Vacation: Vacation Reason</title>
     <para>This is the text that will be sent in your vacation responses.</para>
+    <para>You can use placeholders to dynamically generate the response message
+    contents from your identity information or other sources:</para>
+    <para>%NAME%: The full name from your standard identity</para>
+    <para>%EMAIL%: The email address from your standard identity</para>
+    <para>%SIGNATURE%: The signature from your standard identity</para>
+    <para>%STARTDATE%: The start date of your vacation</para>
+    <para>%ENDDATE%: The end date of your vacation</para>
   </entry>
   <entry id="vacation-subject">
     <title>Vacation: Vacation Subject</title>

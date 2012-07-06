@@ -24,7 +24,7 @@ $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 if ($isPopup) {
     $template->set('closebutton', _("Close"));
-    $injector->getInstance('Horde_PageOutput')->addInlineScript(array(
+    $page_output->addInlineScript(array(
         '$("closebutton").observe("click", function() { window.close(); })'
     ), true);
 }
@@ -54,12 +54,13 @@ if (Gollem::$backend['quota_val'] > -1) {
     }
 }
 
-$title = _("Quota Display");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Quota Display")
+));
 require GOLLEM_TEMPLATES . '/javascript_defs.php';
 if (!$isPopup) {
     Gollem::menu();
     Gollem::status();
 }
 echo $template->fetch(GOLLEM_TEMPLATES . '/quota/quota.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

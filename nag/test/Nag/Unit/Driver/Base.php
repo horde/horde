@@ -78,34 +78,26 @@ class Nag_Unit_Driver_Base extends Nag_TestCase
         }
     }
 
-    private function _add($name, $desc, $start = 0, $due = 0, $priority = 0,
-                 $estimate = 0.0, $completed = 0, $category = '', $alarm = 0,
-                 array $methods = null, $uid = null, $parent = '', $private = false,
-                 $owner = null, $assignee = null)
+    private function _add($task)
     {
-        $id = self::$driver->add(
-            $name, $desc, $start, $due, $priority,
-            $estimate, $completed, $category, $alarm,
-            $methods, $uid, $parent, $private,
-            $owner, $assignee
-        );
+        $id = self::$driver->add($task);
         $this->_added[] = $id[0];
         return $id;
     }
 
     public function testListTasks()
     {
-        $this->_add('TEST','Some test task.');
+        $this->_add(array('name' => 'TEST', 'desc' => 'Some test task.'));
         self::$driver->retrieve();
         $this->assertEquals(1, self::$driver->tasks->count());
     }
 
     public function testListSubTasks()
     {
-        $id = $this->_add('TEST','Some test task.');
-        $this->_add(
-            'SUB', 'Some sub task.', 0, 0, 0, 0.0, 0, '', 0, null, null, $id[0]
-        );
+        $id = $this->_add(array('name' => 'TEST', 'desc' => 'Some test task.'));
+        $this->_add(array('name' => 'SUB',
+                          'desc' => 'Some sub task.',
+                          'parent' => $id[0]));
         self::$driver->retrieve();
         $this->assertEquals(2, self::$driver->tasks->count());
     }
@@ -113,7 +105,9 @@ class Nag_Unit_Driver_Base extends Nag_TestCase
     public function testDueTasks()
     {
         $due = time() + 20;
-        $id = $this->_add('TEST','Some test task.', 0, $due);
+        $id = $this->_add(array('name' => 'TEST',
+                                'desc' => 'Some test task.',
+                                'due' => $due));
         $result = self::$driver->get($id[0]);
         $this->assertEquals($due, $result->due);
     }
@@ -121,15 +115,64 @@ class Nag_Unit_Driver_Base extends Nag_TestCase
     public function testStartTasks()
     {
         $start = time() + 20;
-        $id = $this->_add('TEST','Some test task.', $start);
+        $id = $this->_add(array('name' => 'TEST',
+                                'desc' => 'Some test task.',
+                                'start' => $start));
         $result = self::$driver->get($id[0]);
         $this->assertEquals($start, $result->start);
     }
 
+    public function testRecurringTasks()
+    {
+        $due = time() - 1;
+        $recurrence = new Horde_Date_Recurrence($due);
+        $recurrence->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
+        $id = $this->_add(array('name' => 'TEST',
+                                'desc' => 'Some test task.',
+                                'due' => $due,
+                                'recurrence' => $recurrence));
+        $due = new Horde_Date($due);
+        $result = self::$driver->get($id[0]);
+        $next = $result->getNextDue();
+        $this->assertInstanceOf('Horde_Date', $next);
+        $this->assertEquals($due->timestamp(), $next->timestamp());
+        $result->toggleComplete();
+        $result->save();
+        $result2 = self::$driver->get($id[0]);
+        $due->mday++;
+        $next = $result2->getNextDue();
+        $this->assertInstanceOf('Horde_Date', $next);
+        $this->assertEquals($due->timestamp(), $next->timestamp());
+        $result2->toggleComplete();
+        $result2->save();
+        $result3 = self::$driver->get($id[0]);
+        $due->mday++;
+        $next = $result3->getNextDue();
+        $this->assertInstanceOf('Horde_Date', $next);
+        $this->assertEquals($due->timestamp(), $next->timestamp());
+        $this->assertFalse($result3->recurrence->hasCompletion($due->year, $due->month, $due->mday));
+        $due->mday--;
+        $this->assertTrue($result3->recurrence->hasCompletion($due->year, $due->month, $due->mday));
+        $due->mday--;
+        $this->assertTrue($result3->recurrence->hasCompletion($due->year, $due->month, $due->mday));
+    }
+
+    public function testModify()
+    {
+        $id = $this->_add(array('name' => 'TEST', 'desc' => 'Some test task.'));
+        self::$driver->modify($id[0], array('desc' => 'Modified'));
+        $result = self::$driver->get($id[0]);
+        $this->assertEquals('Modified', $result->desc);
+        $result->name = 'MODIFIED';
+        $result->save();
+        $result2 = self::$driver->get($id[0]);
+        $this->assertEquals('MODIFIED', $result2->name);
+    }
+
     public function testDelete()
     {
-        $this->_add('TEST','Some test task.');
-        $id = $this->_add('TEST','Some test task.');
+        $this->_add(array('name' => 'TEST', 'desc' => 'Some test task.'));
+        $id = $this->_add(array('name' => 'TEST', 'desc' => 'Some test task.'));
         self::$driver->delete($id[0]);
         self::$driver->retrieve();
         $this->assertEquals(1, self::$driver->tasks->count());
@@ -137,8 +180,8 @@ class Nag_Unit_Driver_Base extends Nag_TestCase
 
     public function testDeleteAll()
     {
-        $this->_add('TEST','Some test task.');
-        $this->_add('TEST','Some test task.');
+        $this->_add(array('name' => 'TEST', 'desc' => 'Some test task.'));
+        $this->_add(array('name' => 'TEST', 'desc' => 'Some test task.'));
         self::$driver->retrieve();
         $this->assertEquals(2, self::$driver->tasks->count());
         self::$driver->deleteAll();

@@ -584,30 +584,31 @@ class Turba_Api extends Horde_Registry_Api
      * @param string $source       The source into which the contact will be
      *                             imported.
      *
-     * @return string  The new UID, or false on failure.
+     * @return string  The new UID.
+     *
      * @throws Turba_Exception
+     * @throws Turba_Exception_ObjectExists
      */
-    public function import($content, $contentType = 'array',
-                           $import_source = null)
+    public function import($content, $contentType = 'array', $source = null)
     {
-        global $cfgSources, $prefs;
+        global $cfgSources, $injector, $prefs;
 
         /* Get default address book from user preferences. */
-        if (is_null($import_source) &&
-            !($import_source = $prefs->getValue('default_dir'))) {;
+        if (is_null($source) &&
+            !($source = $prefs->getValue('default_dir'))) {
             /* On new installations default_dir is not set; use first source
              * instead. */
-            $import_source = key(Turba::getAddressBooks(Horde_Perms::EDIT));
+            $source = key(Turba::getAddressBooks(Horde_Perms::EDIT));
         }
 
         // Check existence of and permissions on the specified source.
-        if (!isset($cfgSources[$import_source])) {
-            throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $import_source));
+        if (!isset($cfgSources[$source])) {
+            throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
         }
 
-        $driver = $GLOBALS['injector']
+        $driver = $injector
             ->getInstance('Turba_Factory_Driver')
-            ->create($import_source);
+            ->create($source);
 
         if (!$driver->hasPermission(Horde_Perms::EDIT)) {
             throw new Turba_Exception(_("Permission denied"));
@@ -679,10 +680,10 @@ class Turba_Api extends Horde_Registry_Api
             $content = $driver->toHash($content);
         }
 
-        // Check if the entry already exists in the data source:
+        // Check if the entry already exists in the data source.
         $result = $driver->search($content);
         if (count($result)) {
-            throw new Turba_Exception(_("Already Exists"));
+            throw new Turba_Exception_ObjectExists(_("Already Exists"));
         }
 
         // We can't use $object->setValue() here since that cannot be used
@@ -720,11 +721,13 @@ class Turba_Api extends Horde_Registry_Api
      * @param array $fields          Hash of field names and
      *                               Horde_SyncMl_Property properties with the
      *                               requested fields.
+     * @param array $options         Any additional options to be passed to the
+     *                               exporter.
      *
      * @return mixed  The requested data.
      * @throws Turba_Exception
      */
-    public function export($uid, $contentType, $sources = null, $fields = null)
+    public function export($uid, $contentType, $sources = null, $fields = null, array $options = array())
     {
         if (empty($uid)) {
             throw new Turba_Exception(_("Invalid ID"));
@@ -779,7 +782,7 @@ class Turba_Api extends Horde_Registry_Api
                 foreach ($result->objects as $object) {
                     $return = $object;
                 }
-                return $sdriver->toASContact($return);
+                return $sdriver->toASContact($return, $options);
 
             default:
                 throw new Turba_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
@@ -1003,6 +1006,8 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @param mixed $names  The search filter values.
      * @param array $opts   Optional parameters:
+     *   - customStrict: (array) An array of fields that must match exactly.
+     *                   DEFAULT: None
      *   - fields: (array) The fields to search on.
      *             DEFAULT: All fields
      *   - forceSource: (boolean) Whether to use the specified sources, even
@@ -1015,7 +1020,7 @@ class Turba_Api extends Horde_Registry_Api
      *   - rfc822Return: Return a Horde_Mail_Rfc822_List object.
      *                   DEFAULT: Returns an array of search results.
      *   - sources: (array) The sources to search in.
-     *              DEFAULT: All sources
+     *              DEFAULT: Search the user's default address book
      *
      * @return mixed  Either a hash containing the search results or a
      *                Rfc822 List object (if 'rfc822Return' is true).
@@ -1031,7 +1036,8 @@ class Turba_Api extends Horde_Registry_Api
             'matchBegin' => false,
             'returnFields' => array(),
             'rfc822Return' => false,
-            'sources' => array()
+            'sources' => array(),
+            'customStrict' => array(),
         ), $opts);
 
         $results = empty($opts['rfc822Return'])
@@ -1105,7 +1111,7 @@ class Turba_Api extends Horde_Registry_Api
                     Turba::getPreferredSortOrder(),
                     'OR',
                     $opts['returnFields'],
-                    array(),
+                    $opts['customStrict'],
                     $opts['matchBegin']
                 );
 

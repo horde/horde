@@ -58,8 +58,9 @@ if ($form->validate()) {
 
 }
 
-$title = _("Upload face photo");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Upload face photo")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $tabs->render(Horde_Util::getGet('search_faces', 'image'));
@@ -75,4 +76,4 @@ if (empty($name)) {
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -11,7 +11,7 @@ class Horde_Data_CsvTest extends PHPUnit_Framework_TestCase
 {
     public function testImportFile()
     {
-        $data = new Horde_Data_Csv();
+        $data = new Horde_Data_Csv(new Horde_Data_Storage_Mock());
 
         $expected = array(array(0 => 'one',
                                 1 => 'two',

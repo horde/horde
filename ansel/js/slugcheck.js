@@ -1,43 +1,46 @@
-function checkSlug()
-{
-    slug = document.gallery.gallery_slug.value;
-    // Empty slugs are always allowed.
-    if (!slug.length) {
-        return true;
+/**
+ */
+
+var AnselSlugCheck = {
+
+    // Set by calling code: text
+
+    checkSlug: function()
+    {
+        var slug = $F('gallery_slug');
+
+        // Empty slugs are always allowed.
+        if (slug.length && slug != this.text) {
+            HordeCore.doAction('checkSlug', {
+                slug: slug
+            }, {
+                callback: this.checkSlugCallback.bind(this)
+            });
+        } else {
+            this.checkSlugCallback(true);
+        }
+    },
+
+    checkSlugCallback: function(r)
+    {
+        var slugFlag = $('slug_flag');
+
+        if (r) {
+            slugFlag.removeClassName('problem').addClassName('success');
+            $('gallery_submit').enable();
+            // In case we try various slugs
+            this.text = slug;
+        } else {
+            slugFlag.removeClassName('success').addClassName('problem');
+            $('gallery_submit').disable();
+        }
+    },
+
+    onDomLoad: function()
+    {
+        $('gallery_slug').observe('change', this.checkSlug.bind(this));
     }
-    
-    if (slug != Ansel.ajax.gallerySlugCheck.slugText) {
-        var url = Ansel.ajax.gallerySlugCheck.url;
-        var params = new Object();
-        params.slug = slug;
-        new Ajax.Request(url, {
-            method: 'post',
-            parameters: params,
-            onComplete: function(transport) {
-                var slugFlag = $('slug_flag');
-                response = transport.responseJSON.response;
-                if (response == 1) {
-                    if (slugFlag.hasClassName('problem')) {
-                        slugFlag.removeClassName('problem');
-                    }
-                    slugFlag.addClassName('success');
-                    $('gallery_submit').enable();
-                    // In case we try various slugs
-                    Ansel.ajax.gallerySlugCheck.slugText = slug;
-                } else {
-                    if (slugFlag.hasClassName('success')) {
-                        slugFlag.removeClassName('success');
-                    }
-                    slugFlag.addClassName('problem');
-                    $('gallery_submit').disable();
-                }
-            }
-        });
-    } else {
-	    if (slugFlag.hasClassName('problem')) {
-	        slugFlag.removeClassName('problem');
-	    }
-	    slugFlag.addClassName('success');
-	    $('gallery_submit').enable();
-    }
-}
+
+};
+
+document.observe('dom:loaded', AnselSlugCheck.onDomLoad.bind(AnselSlugCheck));

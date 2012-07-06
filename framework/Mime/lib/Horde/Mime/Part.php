@@ -51,7 +51,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @var array
      */
     static public $encodingTypes = array(
-        '7bit', '8bit', 'base64', 'binary', 'quoted-printable'
+        '7bit', '8bit', 'base64', 'binary', 'quoted-printable',
+        // Non-RFC types, but old mailers may still use
+        'uuencode', 'x-uuencode', 'x-uue'
     );
 
     /**
@@ -286,7 +288,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * Get the content-disposition of this part.
      *
      * @return string  The part's content-disposition.  An empty string means
-     * q               no desired disposition has been set for this part.
+     *                 no desired disposition has been set for this part.
      */
     public function getDisposition()
     {
@@ -494,7 +496,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             case 'x-uue':
                 /* Support for uuencoded encoding - although not required by
                  * RFCs, some mailers may still encode this way. */
-                return $this->_writeStream(convert_uuencode($this->_readStream($fp)));
+                $res = Horde_Mime::uudecode($this->_readStream($fp));
+                return $this->_writeStream($res[0]['data']);
             }
         }
 
@@ -1170,7 +1173,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $this->_temp['toString'] = '';
             $options['_baseptr'] = &$this->_temp['toString'];
 
-            /* Any information about a message/* is embedded in the message
+            /* Any information about a message is embedded in the message
              * contents themself. Simply output the contents of the part
              * directly and return. */
             $ptype = $this->getPrimaryType();
@@ -1237,6 +1240,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         $newfp = $this->_writeStream($parts);
+
         array_map('fclose', $parts_close);
 
         if (!is_null($oldbaseptr)) {
@@ -1483,7 +1487,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if (is_null($this->_contentid)) {
             $this->_contentid = is_null($cid)
                 ? (strval(new Horde_Support_Randomid()) . '@' . $_SERVER['SERVER_NAME'])
-                : $cid;
+                : trim($cid, '<>');
         }
 
         return $this->_contentid;
@@ -1645,15 +1649,20 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /**
      * Sends this message.
      *
-     * @param string $email                The address list to send to.
-     * @param Horde_Mime_Headers $headers  The Horde_Mime_Headers object
-     *                                     holding this message's headers.
-     * @param Horde_Mail_Transport $mailer A Horde_Mail_Transport object.
+     * @param string $email                 The address list to send to.
+     * @param Horde_Mime_Headers $headers   The Horde_Mime_Headers object
+     *                                      holding this message's headers.
+     * @param Horde_Mail_Transport $mailer  A Horde_Mail_Transport object.
+     * @param array $opts                   Additional options:
+     *   - encode: (integer) The encoding to use. A mask of self::ENCODE_*
+     *             values.
+     *             DEFAULT: Auto-determined based on transport driver.
      *
      * @throws Horde_Mime_Exception
      * @throws InvalidArgumentException
      */
-    public function send($email, $headers, Horde_Mail_Transport $mailer)
+    public function send($email, $headers, Horde_Mail_Transport $mailer,
+                         array $opts = array())
     {
         $old_basepart = $this->_basepart;
         $this->_basepart = true;
@@ -1662,16 +1671,21 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
          * BINARYMIME (RFC 3030) extensions? Requires Net_SMTP version
          * 1.3+. */
         $encode = self::ENCODE_7BIT;
-        if ($mailer instanceof Horde_Mail_Transport_Smtp) {
-            try {
-                $smtp_ext = $mailer->getSMTPObject()->getServiceExtensions();
-                if (isset($smtp_ext['8BITMIME'])) {
-                    $encode |= self::ENCODE_8BIT;
-                }
-                if (isset($smtp_ext['BINARYMIME'])) {
-                    $encode |= self::ENCODE_BINARY;
-                }
-            } catch (Horde_Mail_Exception $e) {}
+        if (isset($opts['encode'])) {
+            /* Always allow 7bit encoding. */
+            $encode |= $opts['encode'];
+        } else {
+            if ($mailer instanceof Horde_Mail_Transport_Smtp) {
+                try {
+                    $smtp_ext = $mailer->getSMTPObject()->getServiceExtensions();
+                    if (isset($smtp_ext['8BITMIME'])) {
+                        $encode |= self::ENCODE_8BIT;
+                    }
+                    if (isset($smtp_ext['BINARYMIME'])) {
+                        $encode |= self::ENCODE_BINARY;
+                    }
+                } catch (Horde_Mail_Exception $e) {}
+            }
         }
 
         $msg = $this->toString(array(
@@ -1965,7 +1979,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
             if (!empty($body)) {
                 $ob->setContents($body);
-                $ob->setBytes( strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body)));
+                $ob->setBytes(strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body)));
             }
 
             return $ob;
@@ -2013,7 +2027,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         /* Get file size (if 'body' text is set). */
-        if (!empty($body)) {
+        if (!empty($body) && $ob->getPrimaryType() != 'multipart') {
             $ob->setContents($body);
             if ($ob->getType() != '/message/rfc822') {
                 $ob->setBytes(strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body)));

@@ -4,6 +4,12 @@ class Sesha_Factory_Driver extends Horde_Core_Factory_Base
 {
     private $_instances = array();
 
+    /**
+     * A Factory for the Sesha_Driver. Currently only Rdo is implemented
+     * @param string name  An arbitrary name string to identify the driver instance
+     * @param array params  a hash of driver parameters. For the Rdo driver, these are the parameters for creating a Horde_Db_Adapter
+     * @return Horde_Rdo_Driver  A concrete instance of Horde_Rdo_Driver with all necessary dependencies injected
+     */
     public function create($name = '', $params = array())
     {
         if (!isset($this->_instances[$name])) {
@@ -21,7 +27,7 @@ class Sesha_Factory_Driver extends Horde_Core_Factory_Base
             }
 
             switch ($class) {
-            case 'Sesha_Driver_Sql':
+            case 'Sesha_Driver_Rdo':
                 if (empty($params['db'])) {
                     $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('sesha', $params);
                 }

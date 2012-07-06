@@ -31,11 +31,5 @@
   <configboolean name="import_export" desc="Should we display an Import/Export
   link in the Mnemo application menus?">true
   </configboolean>
-  <configmultienum name="apps" desc="Select any applications
-  that should be linked in Mnemo's menu" required="false">
-   <values>
-    <configspecial application="horde" name="apps" />
-   </values>
-  </configmultienum>
  </configsection>
 </configuration>

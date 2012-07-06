@@ -60,8 +60,8 @@ class Ansel_View_Upload
 
         Ansel::initJSVariables();
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-        $page_output->addScriptFile('effects.js', 'horde');
+        global $page_output;
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('carousel.js');
         $page_output->addScriptFile('upload.js');
     }
@@ -72,7 +72,7 @@ class Ansel_View_Upload
         $this->_handleFileUpload();
 
         // TODO: Configure which runtimes to allow?
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addScriptFile('plupload/plupload.js', 'horde');
         $page_output->addScriptFile('plupload/plupload.flash.js', 'horde');
         $page_output->addScriptFile('plupload/plupload.silverlight.js', 'horde');
@@ -90,7 +90,7 @@ class Ansel_View_Upload
 
         $imple = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Imple')
-            ->create(array('ansel', 'UploadNotification'));
+            ->create('Ansel_Ajax_Imple_UploadNotification');
         $notificationUrl = (string)$imple->getUrl();
         $this->_params['target']->add('gallery', $this->_params['gallery']->id);
         $jsuri = $GLOBALS['registry']->get('jsuri', 'horde');
@@ -131,7 +131,14 @@ class Ansel_View_Upload
         });
         uploader.init();
         $('twitter').observe('click', function() {
-            AnselUpload.doUploadNotification('twitter', '{$this->_gallery->id}');
+            HordeCore.doAction('uploadNotification', {
+                s: 'twitter',
+                g: '{$this->_gallery->id}'
+            }, {
+                callback: function(r) {
+                    $('twitter').hide();
+                }
+            );
         });
 EOT;
 
@@ -144,7 +151,7 @@ EOT;
      */
     public function handleLegacy()
     {
-        global $conf, $notification, $browser;
+        global $conf, $notification, $page_output, $browser;
 
         $vars = Horde_Variables::getDefaultVariables();
         $form = new Ansel_Form_Upload($vars, _("Upload photos"));
@@ -153,7 +160,7 @@ EOT;
         // explicitly selected the old uploader.
         $js = $this->_doCarouselSetup();
         if (!empty($js)) {
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript($js, true);
+            $page_output->addInlineScript($js, true);
         }
 
         if ($form->validate($vars)) {
@@ -289,7 +296,7 @@ EOT;
 
         function runCarousel() {
             updateCarouselSize();
-            carousel = new UI.Ajax.Carousel("horizontal_carousel", { url: "{$previewUrl}", elementSize: 115 })
+            carousel = new UI.Ajax.Carousel("horizontal_carousel", { url: "{$previewUrl->toString(true)}", elementSize: 115 })
                 .observe("request:started", function() {
                     $('spinner').show().morph("opacity:0.8", {duration:0.5});
                 })

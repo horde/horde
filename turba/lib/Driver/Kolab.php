@@ -36,14 +36,14 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @var Horde_Kolab_Storage_Data
      */
-    private $_data;
+    protected $_data;
 
     /**
      * The current addressbook represented as share.
      *
      * @var Horde_Share_Object
      */
-    private $_share;
+    protected $_share;
 
     /**
      * What can this backend do?
@@ -77,11 +77,41 @@ class Turba_Driver_Kolab extends Turba_Driver
     }
 
     /**
-     * Return the Kolab data handler for the current notepad.
+     * Translates the keys of the first hash from the generalized Turba
+     * attributes to the driver-specific fields. The translation is based on
+     * the contents of $this->map.
      *
-     * @return Horde_Kolab_Storage_Date The data handler.
+     * @param array $hash  Hash using Turba keys.
+     *
+     * @return array  Translated version of $hash.
      */
-    private function _getData()
+    public function toDriverKeys(array $hash)
+    {
+        $hash = parent::toDriverKeys($hash);
+
+        if (isset($hash['name'])) {
+            $hash['name'] = array('full-name' => $hash['name']);
+        } else {
+            $hash['name'] = array();
+        }
+        /* TODO: use Horde_Kolab_Format_Xml_Type_Composite_Name */
+        foreach (array('given-name', 'middle-names', 'last-name', 'initials',
+                       'prefix', 'suffix') as $sub) {
+            if (isset($hash[$sub])) {
+                $hash['name'][$sub] = $hash[$sub];
+                unset($hash[$sub]);
+            }
+        }
+
+        return $hash;
+    }
+
+    /**
+     * Return the Kolab data handler for the current address book.
+     *
+     * @return Horde_Kolab_Storage_Data The data handler.
+     */
+    protected function _getData()
     {
         if ($this->_data === null) {
             if (!empty($this->_share)) {
@@ -90,13 +120,12 @@ class Turba_Driver_Kolab extends Turba_Driver
                     'contact'
                 );
                 $this->setContactOwner($this->_share->get('owner'));
-            } else if (empty($this->_name)) {
+            } elseif (empty($this->_name)) {
                 throw new Turba_Exception(
                     'The addressbook has been left undefined but is required!'
                 );
-            } else {
-                $this->_data = $this->_getDataForAddressbook($this->_name);
             }
+            $this->_data = $this->_getDataForAddressbook($this->_name);
         }
         return $this->_data;
     }
@@ -108,9 +137,11 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return Horde_Kolab_Storage_Date The data handler.
      */
-    private function _getDataForAddressbook($addressbook)
+    protected function _getDataForAddressbook($addressbook)
     {
-        $share = $GLOBALS['injector']->getInstance('Turba_Shares')->getShare($addressbook);
+        $share = $GLOBALS['injector']
+            ->getInstance('Turba_Shares')
+            ->getShare($addressbook);
         $this->setContactOwner($share->get('owner'));
         return $this->_kolab->getData($share->get('folder'), 'contact');
     }
@@ -120,7 +151,7 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @throws Turba_Exception
      */
-    function connect()
+    public function connect()
     {
         /* Fetch the contacts first */
         $raw_contacts = $this->_getData()->getObjects();
@@ -135,7 +166,8 @@ class Turba_Driver_Kolab extends Turba_Driver
             if (isset($contact['picture'])) {
                 $name = $contact['picture'];
                 if (isset($contact['_attachments'][$name])) {
-                    $contact['photo'] =  $this->_getData()->getAttachment($contact['_attachments'][$name]['key']);
+                    $contact['photo'] = $this->_getData()
+                        ->getAttachment($contact['_attachments'][$name]['key']);
                     $contact['phototype'] = $contact['_attachments'][$name]['type'];
                 }
             }
@@ -190,7 +222,7 @@ class Turba_Driver_Kolab extends Turba_Driver
         $ids = $this->_removeDuplicated($ids);
 
         /* Now we have a list of names, get the rest. */
-        $this->_read('uid', $ids, null, $fields);
+        $result = $this->_read('uid', $ids, null, $fields);
 
         Horde::logMessage(sprintf('Kolab returned %s results',
                                   count($result)), 'DEBUG');
@@ -441,21 +473,6 @@ class Turba_Driver_Kolab extends Turba_Driver
     protected function _add(array $attributes, array $blob_fields = array())
     {
         $this->connect();
-
-        if (isset($attributes['last-name'])) {
-            $attributes['full-name'] = $attributes['last-name'];
-        }
-        if (isset($attributes['middle-names'])) {
-            $attributes['full-name'] = $attributes['middle-names'] . ' ' . $attributes['full-name'];
-        }
-        if (isset($attributes['given-name'])) {
-            $attributes['full-name'] = $attributes['given-name'] . ' ' . $attributes['full-name'];
-        }
-
-        $attributes['name'] = array(
-            'last-name' => $attributes['last-name'],
-        );
-
         $this->_store($attributes);
     }
 
@@ -524,12 +541,8 @@ class Turba_Driver_Kolab extends Turba_Driver
     protected function _save(Turba_Object $object)
     {
         $this->connect();
-
-        if ($object_key != 'uid') {
-            throw new Turba_Exception(sprintf('Key for saving must be \'uid\' not %s!', $object_key));
-        }
-
-        return $this->_store($attributes, $object_id);
+        return $this->_store($this->toDriverKeys($object->getAttributes()),
+                             $object->getValue('__uid'));
     }
 
     /**
@@ -575,7 +588,7 @@ class Turba_Driver_Kolab extends Turba_Driver
     /**
      * TODO
      */
-    function _convertMembers(&$attributes)
+    protected function _convertMembers(&$attributes)
     {
         if (isset($attributes['__members'])) {
             $member_ids = unserialize($attributes['__members']);
@@ -632,7 +645,7 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return string  A unique ID for the new object.
      */
-    private function _generateUid()
+    protected function _generateUid()
     {
         return $this->_getData()->generateUID();
     }
@@ -661,7 +674,8 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return boolean TODO
      */
-    public function checkDefaultShare(Horde_Share_Object $share, array $srcconfig)
+    public function checkDefaultShare(Horde_Share_Object $share,
+                                      array $srcconfig)
     {
         $params = @unserialize($share->get('params'));
         return isset($params['default'])

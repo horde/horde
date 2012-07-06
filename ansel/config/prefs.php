@@ -122,7 +122,8 @@ $_prefs['default_gallerystyle'] = array(
     'value' => 'ansel_default'
 );
 $_prefs['default_gallerystyle_select'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Ansel_Prefs_Special_GalleryStyle'
 );
 
 // Default category
@@ -239,12 +240,16 @@ $_prefs['group_permissions'] = array(
 $_prefs['exif_tags'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
+    'enum' => Horde_Image_Exif::getFields(array($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array()), true),
     'desc' => _("Which metadata fields should we automatically add as image tags during upload?"),
 );
 
 $_prefs['exif_title'] = array(
     'value' => '',
     'type' => 'enum',
+    'enum' => array_merge(array(
+        'none' => _("None"),
+    ), Horde_Image_Exif::getFields(array($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array()), true)),
     'desc' => _("Should we automatically set the image title on upload if able? If so, choose the field to obtain the title from.")
 );
 

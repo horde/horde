@@ -66,9 +66,10 @@ case 'save':
     exit;
 }
 
-$title = _("Caption Editor");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Caption Editor")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/captions/captions.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

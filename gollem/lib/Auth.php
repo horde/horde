@@ -53,7 +53,7 @@ class Gollem_Auth
         if ((!isset($credentials['userId']) ||
              !isset($credentials['password'])) &&
             !$GLOBALS['session']->exists('gollem', 'backend_key') &&
-            self::_canAutoLogin()) {
+            self::canAutoLogin()) {
             if (!empty($backend['hordeauth'])) {
                 $credentials['userId'] = self::getAutologinID($credentials['backend_key']);
                 $credentials['password'] = $GLOBALS['registry']->getAuthCredential('password');
@@ -70,8 +70,9 @@ class Gollem_Auth
             !empty($backend['params']['password'])) {
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
             $credentials['password'] = $secret->read(
-                $secret->getKey('gollem'),
-                $backend['params']['password']);
+                $secret->getKey(),
+                $backend['params']['password']
+            );
         }
 
         if (!isset($credentials['userId']) ||
@@ -128,7 +129,7 @@ class Gollem_Auth
         }
         if (!isset($backend['params']['password'])) {
             $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-            $backend['params']['password'] = $secret->write($secret->getKey('gollem'), $credentials['password']);
+            $backend['params']['password'] = $secret->write($secret->getKey(), $credentials['password']);
         }
 
         // Make sure we have a 'root' parameter.
@@ -197,7 +198,7 @@ class Gollem_Auth
 
         if (empty($credentials['transparent'])) {
             /* Attempt hordeauth authentication. */
-            $credentials = self::_canAutoLogin();
+            $credentials = self::canAutoLogin();
             if ($credentials === false) {
                 return false;
             }
@@ -242,7 +243,7 @@ class Gollem_Auth
                 }
                 if (isset($backends[$key]['params']['password'])) {
                     $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-                    $backends[$key]['params']['password'] = $secret->write($secret->getKey('gollem'), $backends[$key]['params']['password']);
+                    $backends[$key]['params']['password'] = $secret->write($secret->getKey(), $backends[$key]['params']['password']);
                 }
             }
             $GLOBALS['session']->set('gollem', 'backends', $backends);
@@ -314,12 +315,16 @@ class Gollem_Auth
     /**
      * Can we log in without a login screen for the requested backend key?
      *
+     * @param string $key  The backend to login to.
+     *
      * @return array  The credentials needed to login ('userId', 'password',
      *                'backend') or false if autologin not available.
      */
-    static protected function _canAutoLogin()
+    static public function canAutoLogin($key = null)
     {
-        $key = self::getPreferredBackend();
+        if (is_null($key)) {
+            $key = self::getPreferredBackend();
+        }
 
         if ($key &&
             $GLOBALS['registry']->getAuth() &&

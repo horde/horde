@@ -84,9 +84,10 @@ $view->formbox = Horde::endBuffer();
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $view->notify = Horde::endBuffer();
-
 $view->forums = $forums_list;
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo $view->render('moderators');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

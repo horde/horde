@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Ingo H3 (1.2-cvs)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2007-11-21 19:43+0100\n"
-"PO-Revision-Date: 2007-11-21 23:17+0100\n"
+"PO-Revision-Date: 2012-05-15 18:53+0200\n"
 "Last-Translator: Jan Kuipers <jrkuipers@lauwerscollege.nl>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
@@ -873,7 +873,7 @@ msgstr "Aan"
 
 #: templates/filters/filter.html:32
 msgid "To:"
-msgstr "Aan:"
+msgstr "Naar:"
 
 #: lib/Script.php:126
 #, php-format

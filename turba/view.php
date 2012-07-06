@@ -19,7 +19,6 @@ if ($conf['documents']['type'] == 'none') {
 
 $source = Horde_Util::getFormData('source');
 $key = Horde_Util::getFormData('key');
-$actionID = Horde_Util::getFormData('actionID');
 $filename = Horde_Util::getFormData('file');
 $type = Horde_Util::getFormData('type');
 
@@ -49,24 +48,14 @@ try {
     throw new Turba_Exception(sprintf(_("Access denied to %s"), $filename));
 }
 
-/* Run through action handlers */
-switch ($actionID) {
-case 'download_file':
-     $browser->downloadHeaders($filename);
-     echo $data;
-     exit;
+$mime_part = new Horde_Mime_Part();
+$mime_part->setType(Horde_Mime_Magic::extToMime($type));
+$mime_part->setContents($data);
+$mime_part->setName($filename);
+$mime_part->buildMimeIds();
 
-case 'view_file':
-    $mime_part = new Horde_Mime_Part();
-    $mime_part->setType(Horde_Mime_Magic::extToMime($type));
-    $mime_part->setContents($data);
-    $mime_part->setName($filename);
-    $mime_part->buildMimeIds();
+$content = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part)->render('full');
+$body = $content[1]['data'];
 
-    $content = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part)->render('full');
-    $body = $content[1]['data'];
-
-    $browser->downloadHeaders($filename, $content[1]['type'], true, strlen($body));
-    echo $body;
-    exit;
-}
+$browser->downloadHeaders($filename, $content[1]['type'], true, strlen($body));
+echo $body;

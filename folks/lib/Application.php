@@ -36,9 +36,8 @@ class Folks_Application extends Horde_Registry_Application
             $links[Folks::getUrlFor('feed', 'know')] = _("People you might know");
         }
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         foreach ($links as $url => $label) {
-            $page_output->addLinkTag(array(
+            $GLOBALS['page_output']->addLinkTag(array(
                 'href' => $url,
                 'title' => $label
             ));

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Weather \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
 "PO-Revision-Date: 2012-03-07 18:39:03+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -622,7 +622,7 @@ msgstr "Pilvistä"
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:128
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:146
 #: lib/Horde/Service/Weather/Wwo_Strings.php:54
-#: test/Horde/Service/Weather/WundergroundTest.php:76
+#: test/Horde/Service/Weather/WundergroundTest.php:77
 #: test/Horde/Service/Weather/WwoTest.php:32
 msgid "Partly Cloudy"
 msgstr "Osittain pilvistä"

@@ -9,8 +9,9 @@ msgstr ""
 "Project-Id-Version: Wicked 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2008-03-20 10:33+0100\n"
-"Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
+"PO-Revision-Date: 2012-04-20 20:30+0200\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -672,7 +673,7 @@ msgstr "Permiso denegado."
 
 #: templates/display/standard.inc:140
 msgid "Plain Text"
-msgstr "texto plano"
+msgstr "Sólo texto"
 
 #: lib/Page/SyncPages.php:228
 msgid "Prefix"

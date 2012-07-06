@@ -1005,7 +1005,7 @@ class Turba_Driver implements Countable
                 try {
                     $val = Horde::callHook(
                         'decode_attribute',
-                        array($attribute, $this->attributes[$attribute], $this),
+                        array($key, $val, $object),
                         'turba');
                 } catch (Turba_Exception $e) {}
             }
@@ -2326,12 +2326,22 @@ class Turba_Driver implements Countable
      * Convert the contact to an ActiveSync contact message
      *
      * @param Turba_Object $object  The turba object to convert
+     * @param array $options        Options:
+     *   - protocolversion: (float)  The EAS version to support
+     *                      DEFAULT: 2.5
+     *   - bodyprefs: (array)  A BODYPREFERENCE array.
+     *                DEFAULT: none (No body prefs enforced).
+     *   - truncation: (integer)  Truncate event body to this length
+     *                 DEFAULT: none (No truncation).
      *
      * @return Horde_ActiveSync_Message_Contact
      */
-    public function toASContact(Turba_Object $object)
+    public function toASContact(Turba_Object $object, array $options = array())
     {
-        $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
+        $message = new Horde_ActiveSync_Message_Contact(array(
+            'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
+            'protocolversion' => $options['protocolversion'])
+        );
         $hash = $object->getAttributes();
         if (!isset($hash['lastname']) && isset($hash['name'])) {
             $this->_guessName($hash);
@@ -2569,11 +2579,29 @@ class Turba_Driver implements Countable
             case 'spouse':
                 $message->spouse = $value;
                 break;
+
             case 'notes':
-                /* Assume no truncation - AS server will truncate as needed */
-                $message->body = $value;
-                $message->bodysize = strlen($message->body);
-                $message->bodytruncated = false;
+                if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
+                    $bp = $options['bodyprefs'];
+                    $note = new Horde_ActiveSync_Message_AirSyncBaseBody();
+                    // No HTML supported in Turba's notes. Always use plaintext.
+                    $note->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
+                    if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+                        if (Horde_String::length($value) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
+                            $note->data = Horde_String::substr($value, 0, $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
+                            $note->truncated = 1;
+                        } else {
+                            $note->data = $value;
+                        }
+                        $note->estimateddatasize = Horde_String::length($value);
+                    }
+                    $message->airsyncbasebody = $note;
+                } else {
+                    // EAS 2.5
+                    $message->body = $value;
+                    $message->bodysize = strlen($message->body);
+                    $message->bodytruncated = 0;
+                }
                 break;
 
             case 'website':
@@ -2641,7 +2669,6 @@ class Turba_Driver implements Countable
             'companyname' => 'company',
             'department' => 'department',
             'spouse' => 'spouse',
-            'body' => 'notes',
             'webpage' => 'website',
             'assistantname' => 'assistant',
             'imaddress' => 'imaddress',
@@ -2656,6 +2683,14 @@ class Turba_Driver implements Countable
                 }
             }
         }
+
+        try {
+            if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
+                $hash['notes'] = $message->airsyncbasebody->data;
+            } else {
+                $hash['notes'] = $message->body;
+            }
+        } catch (InvalidArgumentException $e) {}
 
         $nonTextMap = array(
             'homephonenumber' => 'homePhone',

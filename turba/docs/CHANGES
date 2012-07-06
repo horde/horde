@@ -1,13 +1,46 @@
---------
-v4.0-git
---------
+-----------
+v4.0.0beta1
+-----------
 
+
+
+------------
+v4.0.0alpha1
+------------
+
+First alpha release for Horde 5.
+[mms] Import API call now throws an ObjectExists exception when a duplicate is
+      found.
+[jan] Add parameters to specify field size of phone and email fields.
 
 
 -----------
-v3.0.13-git
+v3.0.15-git
 -----------
 
+[jan] Update Turkish translation (İstanbul Technical University).
+[jan] Fix strict searching in favourites driver (Bug #11207).
+
+
+-------
+v3.0.14
+-------
+
+[jan] Update Swedish translation (Per Olof Ljungmark <peo@bsdlabs.com>).
+[jan] Update Italian translation (Emilien <emilien@wifi.e4a.it>).
+[jan] Fix number of contacts in a list that cannot be displayed.
+[jan] Update Slovak translation (Marika Schvarczova
+      <schvarczova.marika@domeny.sk>).
+[jan] Update Czech translation (Michal Foist <michal@foist.cz>).
+
+
+-------
+v3.0.13
+-------
+
+[jan] Fix decode_attribute hook when exporting to vCard (kd@tu-cottbus.de, Bug
+      #11123).
+[jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 [jan] Only connect to LDAP driver for read/write requests (Dominique Lalot
       <dom.lalot@gmail.com>, Request #11082).
 [mjr] Fix bug that caused time shifting of contact birthday and anniversary

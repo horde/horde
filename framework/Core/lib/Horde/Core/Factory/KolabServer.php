@@ -149,11 +149,9 @@ class Horde_Core_Factory_KolabServer extends Horde_Core_Factory_Base
     private function _setupStructure()
     {
         $configuration = $this->getConfiguration();
-        if (!isset($configuration['structure']['driver'])) {
-            $driver = 'Horde_Kolab_Server_Structure_Kolab';
-        } else {
-            $driver = $configuration['structure']['driver'];
-        }
+        $driver = isset($configuration['structure']['driver'])
+            ? $configuration['structure']['driver']
+            : 'Horde_Kolab_Server_Structure_Kolab';
 
         $this->_injector->bindImplementation(
             'Horde_Kolab_Server_Structure_Interface', $driver
@@ -193,28 +191,25 @@ class Horde_Core_Factory_KolabServer extends Horde_Core_Factory_Base
             if (isset($configuration['host_master'])) {
                 $configuration['hostspec'] = $configuration['host_master'];
                 $ldap_write = new Horde_Ldap($configuration);
-                $connection = new Horde_Kolab_Server_Connection_Splittedldap(
+                return new Horde_Kolab_Server_Connection_Splittedldap(
                     $ldap_read, $ldap_write
                 );
-            } else {
-                $connection = new Horde_Kolab_Server_Connection_Simpleldap(
-                    $ldap_read
-                );
             }
-            return $connection;
-        } else {
-            if (isset($configuration['data'])) {
-                $data = $configuration['data'];
-            } else {
-                $data = array();
-            }
-            $connection = new Horde_Kolab_Server_Connection_Mock(
-                new Horde_Kolab_Server_Connection_Mock_Ldap(
-                    $configuration, $data
-                )
+
+            return new Horde_Kolab_Server_Connection_Simpleldap(
+                $ldap_read
             );
-            return $connection;
         }
+
+        $data = isset($configuration['data'])
+            ? $configuration['data']
+            : array();
+
+        return new Horde_Kolab_Server_Connection_Mock(
+            new Horde_Kolab_Server_Connection_Mock_Ldap(
+                $configuration, $data
+            )
+        );
     }
 
     /**
@@ -277,6 +272,7 @@ class Horde_Core_Factory_KolabServer extends Horde_Core_Factory_Base
                 $server
             );
         }
+
         return $server;
     }
 

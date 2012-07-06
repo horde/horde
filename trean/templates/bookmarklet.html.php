@@ -1,0 +1,1 @@
+<a href="javascript:d = new Date(); w = window.open('<?php echo $this->url ?>&amp;title=' + encodeURIComponent(document.title) + '&amp;url=' + encodeURIComponent(location.href) + '&amp;d=' + d.getTime(), d.getTime(), 'height=250,width=500'); w.focus();"><?php echo $this->image ?> <?php echo _("Add to Bookmarks") ?></a>

@@ -1,0 +1,255 @@
+/* Sidebar icons. */
+.imp-inbox {
+    background-image: url("../graphics/folders/inbox.png");
+}
+.imp-empty-trash {
+    background-image: url("../graphics/empty_trash.png");
+}
+.imp-empty-spam {
+    background-image: url("../graphics/empty_spam.png");
+}
+.imp-folder {
+    background-image: url("../graphics/folders/folder.png");
+}
+.imp-search {
+    background-image: url("../graphics/search.png");
+}
+.imp-filters {
+    background-image: url("../graphics/filters.png");
+}
+
+/* Mailbox page styling. */
+.mboxheader .pageCount {
+    padding-right: 10px;
+}
+
+table.mboxactions {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#checkheader {
+    width: 8%;
+}
+#checkheader input {
+    float: left;
+}
+
+#mboxdate {
+    width: 14%;
+}
+
+#mboxto, #mboxfrom {
+    width: 20%;
+}
+
+#mboxthread, #mboxsubject {
+    width: 52%;
+}
+
+#mboxsize {
+    width: 6%;
+}
+
+.actionsSelectSection {
+    font-weight: bold;
+}
+
+table.messageList .sortup, table.messageList .sortdown {
+    padding-left: 0;
+}
+
+/* Message list table styles. */
+.searchmbox a.smallheader {
+    display: block;
+}
+.messageList {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+}
+.messageList tr {
+    height: 21px;
+}
+.messageList th {
+    cursor: pointer;
+    overflow: hidden;
+    padding: 0 0 1px 2px;
+    text-align: left;
+    white-space: nowrap;
+}
+.messageList th .toggleSort {
+    font-size: 90%;
+}
+.messageList td {
+    padding-top: 0;
+    padding-bottom: 0;
+    text-indent: 1px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    overflow: hidden;
+    border-bottom: 1px solid #d0d0d0;
+    vertical-align: middle;
+}
+.messageList td label input {
+    vertical-align: middle;
+}
+.messageList td span.flagUser {
+    font-size: 80%;
+    margin-right: 3px;
+}
+
+#messages h1.header {
+    font-size: 110%;
+    vertical-align: bottom;
+}
+#messages h1.header span.flagUser {
+    font-size: 80%;
+    margin-left: 3px;
+}
+
+/* Navbar action styling. */
+table.msgActionTable, #fmanager table {
+    width: 100%;
+    border-collapse: collapse;
+}
+div.msgActions, #fmanager div.folderActions {
+    padding-left: 15px;
+}
+
+/* Message headers styling. */
+#msgheaders {
+    padding: 18px;
+    background-color: #eceff0;
+    border-bottom: 1px solid #d0d0d0;
+}
+#msgheaders table {
+    border-collapse: collapse;
+}
+#msgheaders td {
+    vertical-align: top;
+    padding: 0 0 1px 0;
+}
+#msgheaders td.rightAlign {
+    font-weight: bold;
+    padding-right: 4px;
+}
+
+/* Attachment tree styling. */
+div.partsTreeDiv span span:last-child {
+    padding-left: 3px;
+    vertical-align: bottom;
+}
+
+/* Message body styling. */
+.messageBody {
+    padding: 18px;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+/* Folder view. */
+#checkAll0, #checkAll1, #fmanager input.checkbox {
+    vertical-align: middle;
+}
+
+#fmanager div.folderChoose {
+    padding-left: 5px;
+}
+
+/* Compose view */
+.composebody {
+    padding: 2px;
+}
+#text_identity {
+    width: 500px;
+}
+#compose td.light {
+    vertical-align: top;
+}
+
+.seen {
+    background: #fff;
+}
+
+.addressTr {
+    width: 580px;
+}
+.addressTr span {
+    vertical-align: top;
+}
+
+.attachList {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Message flags definitions.
+ * For background color, see config/prefs.php [msgflags preference]. */
+tr.flagLowpriority {
+    font-weight: normal !important;
+}
+tr.flagUnseen {
+    font-weight: bold;
+}
+tr.flagDeleted * {
+    text-decoration: line-through;
+}
+
+/* Pad the addressbook icon in header compose links. */
+td.msgheader {
+    width: 100%;
+}
+.msgheader img {
+    padding: 0 1px 0 2px;
+    vertical-align: bottom;
+}
+
+/* Thread page */
+.threadSummary {
+    margin: 5px 3px;
+}
+.threadSummary div {
+    height: 16px;
+}
+.threadBox {
+    margin: 3px;
+}
+.threadBox div.rowEven {
+    padding: 1px 2px;
+}
+.threadBox span.threadlink {
+    float: right;
+}
+.threadBox .messageBody {
+    border-bottom: 0;
+}
+
+/* Loading graphic */
+td.addressTr span.loadingImg {
+    padding: 0 0 0 16px;
+}
+
+/* iTip styles. */
+.itipconflicts {
+    border-spacing: 0;
+}
+.itipconflicts tr.itipcollision {
+    background-color: #f00;
+    color: #fff;
+}
+
+.itipconflicts tr.itipnearcollision {
+    background-color: #ee0;
+}
+
+/* Quota styles. */
+#quota {
+    border-collapse: collapse;
+    width: 100%;
+}
+#quota td {
+    padding: 3px;
+    vertical-align: middle;
+    text-align: center;
+}

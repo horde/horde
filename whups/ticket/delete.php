@@ -13,7 +13,7 @@ require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 $ticket = Whups::getCurrentTicket();
-$injector->getInstance('Horde_PageOutput')->addLinkTag($ticket->feedLink());
+$page_output->addLinkTag($ticket->feedLink());
 $details = $ticket->getDetails();
 if (!Whups::hasPermission($details['queue'], 'queue', Horde_Perms::DELETE)) {
     $notification->push(_("Permission Denied"), 'horde.error');
@@ -49,7 +49,9 @@ if ($vars->get('formname') == 'whups_form_ticket_delete') {
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require WHUPS_TEMPLATES . '/menu.inc';
 require WHUPS_TEMPLATES . '/prevnext.inc';
 
@@ -67,4 +69,4 @@ $r->beginInactive($title);
 $r->renderFormInactive($form, $vars);
 $r->end();
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

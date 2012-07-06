@@ -77,7 +77,7 @@ class IMP_Ui_Compose
     {
         /* Attach autocompleters to the compose form elements. */
         foreach ($fields as $val) {
-            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'ContactAutoCompleter'), array('triggerId' => $val));
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ContactAutoCompleter', array('id' => $val));
         }
     }
 
@@ -86,30 +86,24 @@ class IMP_Ui_Compose
      */
     public function attachSpellChecker()
     {
-        $menu_view = $GLOBALS['prefs']->getValue('menu_view');
+        global $injector, $prefs, $registry;
+
+        $br = ($registry->getView() == Horde_Registry::VIEW_BASIC)
+            ? '<br />'
+            : '';
+        $menu_view = $prefs->getValue('menu_view');
         $spell_img = '<span class="iconImg spellcheckImg"></span>';
 
-        if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_BASIC) {
-            $br = '<br />';
-            $id = 'IMP';
-        } else {
-            $br = '';
-            $id = 'DIMP';
-        }
-
-        $args = array(
-            'id' => $id . '.SpellChecker',
-            'targetId' => 'composeMessage',
-            'triggerId' => 'spellcheck',
+        $injector->getInstance('Horde_Core_Factory_Imple')->create('SpellChecker', array(
+            'id' => 'spellcheck',
             'states' => array(
-                'CheckSpelling' => $spell_img . (($menu_view == 'text' || $menu_view == 'both') ? $br . _("Check Spelling") : ''),
+                'CheckSpelling' => $spell_img . (in_array($menu_view, array('both', 'text')) ? $br . _("Check Spelling") : ''),
                 'Checking' => $spell_img . $br . _("Checking..."),
-                'ResumeEdit' => $spell_img . $br . _("Resume Editing"),
-                'Error' => $spell_img . $br . _("Spell Check Failed")
-            )
-        );
-
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('SpellChecker', $args);
+                'Error' => $spell_img . $br . _("Spell Check Failed"),
+                'ResumeEdit' => $spell_img . $br . _("Resume Editing")
+            ),
+            'targetId' => 'composeMessage'
+        ));
     }
 
     /**
@@ -150,7 +144,7 @@ class IMP_Ui_Compose
      *
      * @param Horde_Variables $vars  The variables object.
      *
-     * @return IMP_Contents  The IMP_Contents object.
+     * @return IMP_Indices  The indices object.
      */
     public function getIndices($vars = null)
     {
@@ -176,9 +170,11 @@ class IMP_Ui_Compose
             $url = Horde::url('mailbox.php');
         }
 
+        $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
+
         foreach (array('start', 'page', 'mailbox', 'thismailbox') as $key) {
-            if (($param = Horde_Util::getFormData($key))) {
-                $url->add($key, $param);
+            if (isset($vars->$key)) {
+                $url->add($key, $vars->$key);
             }
         }
 
@@ -198,7 +194,7 @@ class IMP_Ui_Compose
         $success_template->set('menu', $menu->render());
         echo $success_template->fetch(IMP_TEMPLATES . '/imp/compose/success.html');
         IMP::status();
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
+        $GLOBALS['page_output']->footer();
     }
 
     /**
@@ -226,7 +222,7 @@ class IMP_Ui_Compose
             break;
         }
 
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_PassphraseDialog', array(
             'onload' => true,
             'params' => $params,
             'type' => $type
@@ -234,9 +230,8 @@ class IMP_Ui_Compose
     }
 
     /**
-     * @return array
      */
-    public function identityJs()
+    public function addIdentityJs()
     {
         $identities = array();
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
@@ -256,9 +251,9 @@ class IMP_Ui_Compose
             );
         }
 
-        return $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+        $GLOBALS['page_output']->addInlineJsVars(array(
             'ImpComposeBase.identities' => $identities
-        ), array('ret_vars' => true));
+        ));
     }
 
     /**

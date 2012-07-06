@@ -105,7 +105,7 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
         if ($GLOBALS['registry']->hasMethod('mail/imapOb')) {
             $ob = $GLOBALS['registry']->call('mail/imapOb');
             try {
-                return $ob->getCacheId($this->_params->_getMboxOb());
+                return $ob->getCacheId($this->_params['mailbox']);
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 

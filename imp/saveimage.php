@@ -18,11 +18,13 @@ Horde_Registry::appInit('imp');
 
 if (!$registry->hasMethod('images/selectGalleries') ||
     !$registry->hasMethod('images/saveImage')) {
-    Horde::fatal(new IMP_Exception('Image saving is not available.'), false);
+    $e = new IMP_Exception('Image saving is not available.');
+    $e->logged = true;
+    throw $e;
 }
 
 /* Run through the action handlers. */
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 switch ($vars->actionID) {
 case 'save_image':
     $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($vars->mbox, $vars->uid));
@@ -58,4 +60,4 @@ $t->set('gallerylist', $registry->images->selectGalleries(array('perm' => Horde_
 IMP::header(_("Save Image"));
 IMP::status();
 echo $t->fetch(IMP_TEMPLATES . '/saveimage/saveimage.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

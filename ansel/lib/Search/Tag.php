@@ -197,7 +197,7 @@ class Ansel_Search_Tag
     {
         global $registry;
 
-        $html = '<ul class="tag-list">';
+        $html = '<ul class="horde-tags">';
 
         /* Use the local cache to preserve the order */
         $count = 0;

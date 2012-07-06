@@ -9,8 +9,9 @@ msgstr ""
 "Project-Id-Version: Klutz 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-01-05 12:15+0100\n"
-"PO-Revision-Date: 2011-08-02 15:56+0200\n"
-"Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
+"PO-Revision-Date: 2012-04-20 20:30+0200\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
+"<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +27,7 @@ msgstr "%s por %s"
 
 #: lib/api.php:35
 msgid "Admin"
-msgstr "Administrador"
+msgstr "Administrar"
 
 #: backend.php:119
 msgid "All Comics"
@@ -104,7 +105,7 @@ msgstr "Descripción"
 
 #: config/.bak/prefs.php.dist:10
 msgid "Display Options"
-msgstr "Opciones de Visualización"
+msgstr "Opciones de visualización"
 
 #: templates/backend/backend.inc:20
 msgid "Don't check for uniqueness"
@@ -230,11 +231,11 @@ msgstr "Guardar imagen"
 
 #: templates/prefs/comic_select.inc:65
 msgid "Select All"
-msgstr "Seleccionar todos"
+msgstr "Seleccionar todas"
 
 #: templates/prefs/comic_select.inc:64
 msgid "Select None"
-msgstr "Anular selección"
+msgstr "No seleccionar nada"
 
 #: templates/savecomic/savecomic.inc:8
 msgid "Select the gallery to save the comic to."
@@ -268,7 +269,7 @@ msgstr "Dom"
 
 #: templates/savecomic/savecomic.inc:28
 msgid "Submit"
-msgstr "Enviar "
+msgstr "Enviar"
 
 #: backend.php:258
 #, php-format
@@ -361,7 +362,7 @@ msgstr "_Hoy"
 
 #: lib/Klutz.php:358
 msgid "_Update"
-msgstr "_Actualizar"
+msgstr "Act_ualizar"
 
 #: backend.php:279 backend.php:281
 msgid "all comics"

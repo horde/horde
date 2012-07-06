@@ -7,30 +7,28 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @author  Jan Schneider <jan@horde.org>
- * @author  Gonçalo Queirós <mail@goncaloqueiros.net>
- * @package Kronolith
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Gonçalo Queirós <mail@goncaloqueiros.net>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Kronolith
  */
 class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
-     * Determines if notification information is sent in response.
-     *
-     * @var boolean
      */
-    public $notify = true;
-
-    /**
-     * Constructor.
-     *
-     * @param string $app     The application name.
-     * @param string $action  The AJAX action to perform.
-     */
-    public function __construct($app, $vars, $action = null)
+    protected function _init()
     {
-        parent::__construct($app, $vars, $action);
-        $this->_defaultDomain = empty($GLOBALS['conf']['storage']['default_domain']) ? null : $GLOBALS['conf']['storage']['default_domain'];
+        $defaultDomain = empty($GLOBALS['conf']['storage']['default_domain'])
+            ? null
+            : $GLOBALS['conf']['storage']['default_domain'];
+
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Chunk());
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Email($defaultDomain));
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Groups());
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Imple());
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Prefs());
     }
 
     /**
@@ -120,7 +118,10 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         }
         try {
             session_write_close();
-            $events = $kronolith_driver->listEvents($start, $end, true, false, true);
+            $events = $kronolith_driver->listEvents($start, $end, array(
+                'show_recurrence' => true,
+                'json' => true)
+            );
             session_start();
             if (count($events)) {
                 $result->events = $events;
@@ -177,22 +178,21 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
     /**
      * Save a new or update an existing event from the AJAX event detail view.
+     *
      * Request parameters used:
-     *<pre>
-     *   -event:          The event id.
-     *   -cal:            The calendar id.
-     *   -targetcalendar: If moving events, the targetcalendar to move to.
-     *   -as_new:         Save an existing event as a new event.
-     *   -recur_edit:     If editing an instance of a recurring event series,
-     *                    how to apply the edit [current|future|all].
-     *   -rstart:         If editing an instance of a recurring event series,
-     *                    the original start datetime of this instance.
-     *   -rend:           If editing an instance of a recurring event series,
-     *                    the original ending datetime of this instance.
-     *   -sendupdates:    Should updates be sent to attendees?
-     *   -cstart:         Start time of the client cache.
-     *   -cend:           End time of the client cache.
-     *</pre>
+     * - event:          The event id.
+     * - cal:            The calendar id.
+     * - targetcalendar: If moving events, the targetcalendar to move to.
+     * - as_new:         Save an existing event as a new event.
+     * - recur_edit:     If editing an instance of a recurring event series,
+     *                   how to apply the edit [current|future|all].
+     * - rstart:         If editing an instance of a recurring event series,
+     *                   the original start datetime of this instance.
+     * - rend:           If editing an instance of a recurring event series,
+     *                   the original ending datetime of this instance.
+     * - sendupdates:    Should updates be sent to attendees?
+     * - cstart:         Start time of the client cache.
+     * - cend:           End time of the client cache.
      */
     public function saveEvent()
     {
@@ -267,7 +267,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         if ($this->_vars->recur_edit && $this->_vars->recur_edit != 'all') {
-
             switch ($this->_vars->recur_edit) {
             case 'current':
                 $attributes = new stdClass();
@@ -691,6 +690,10 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $task['completed'] = false;
         }
 
+        if ($this->_vars->recur && !empty($due)) {
+            $task['recurrence'] = Kronolith_Event::readRecurrenceForm($due, 'UTC');
+        }
+
         try {
             $ids = ($id && $list)
                 ? $GLOBALS['registry']->tasks->updateTask($list, $id, $task)
@@ -765,8 +768,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         try {
-            $GLOBALS['registry']->tasks->toggleCompletion($this->_vars->id, $this->_vars->list);
-            $result->toggled = true;
+            $result->toggled = $GLOBALS['registry']->tasks->toggleCompletion($this->_vars->id, $this->_vars->list);
         } catch (Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
         }
@@ -779,7 +781,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function listTopTags()
     {
-        $this->notify = false;
         $tagger = new Kronolith_Tagger();
         $result = new stdClass;
         $result->tags = array();
@@ -1190,6 +1191,106 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         return $data;
+    }
+
+    /**
+     * Handle output of the embedded widget: allows embedding calendar widgets
+     * in external websites.
+     *
+     * The following arguments are required:
+     *   - calendar: The share_name for the requested calendar.
+     *   - container: The DOM node to populate with the widget.
+     *   - view: The view (block) we want.
+     *
+     * The following are optional (and are not used for all views)
+     *   - css
+     *   - days
+     *   - maxevents: The maximum number of events to show.
+     *   - months: The number of months to include.
+     */
+    public function embed()
+    {
+        global $page_output, $registry;
+
+        /* First, determine the type of view we are asking for */
+        $view = $this->_vars->view;
+
+        /* The DOM container to put the HTML in on the remote site */
+        $container = $this->_vars->container;
+
+        /* The share_name of the calendar to display */
+        $calendar = $this->_vars->calendar;
+
+        /* Deault to showing only 1 month when we have a choice */
+        $count_month = $this->_vars->get('months', 1);
+
+        /* Default to no limit for the number of events */
+        $max_events = $this->_vars->get('maxevents', 0);
+
+        /* Default to one week */
+        $count_days = $this->_vars->get('days', 7);
+
+        if ($this->_vars->css == 'none') {
+            $nocss = true;
+        }
+
+        /* Build the block parameters */
+        $params = array(
+            'calendar' => $calendar,
+            'maxevents' => $max_events,
+            'months' => $count_month,
+            'days' => $count_days
+        );
+
+        /* Call the Horde_Block api to get the calendar HTML */
+        $title = $registry->call('horde/blockTitle', array('kronolith', $view, $params));
+        $results = $registry->call('horde/blockContent', array('kronolith', $view, $params));
+
+        /* Some needed paths */
+        $js_path = $registry->get('jsuri', 'kronolith');
+
+        /* Local js */
+        $jsurl = Horde::url($js_path . '/embed.js', true);
+
+        /* Horde's js */
+        $hjs_path = $registry->get('jsuri', 'horde');
+        $hjsurl = Horde::url($hjs_path . '/tooltips.js', true);
+        $pturl = Horde::url($hjs_path . '/prototype.js', true);
+
+        /* CSS */
+        if (empty($nocss)) {
+            $page_output->addThemeStylesheet('embed.css');
+
+            Horde::startBuffer();
+            $page_output->includeStylesheetFiles(array('nobase' => true), true);
+            $css = Horde::endBuffer();
+        } else {
+            $css = '';
+        }
+
+        /* Escape the text and put together the javascript to send back */
+        $container = Horde_Serialize::serialize($container, Horde_Serialize::JSON);
+        $results = Horde_Serialize::serialize('<div class="kronolith_embedded"><div class="title">' . $title . '</div>' . $results . '</div>', Horde_Serialize::JSON);
+
+        $js = <<<EOT
+if (typeof kronolith == 'undefined') {
+    if (typeof Prototype == 'undefined') {
+        document.write('<script type="text/javascript" src="$pturl"></script>');
+    }
+    if (typeof Horde_ToolTips == 'undefined') {
+        Horde_ToolTips_Autoload = false;
+        document.write('<script type="text/javascript" src="$hjsurl"></script>');
+    }
+    kronolith = new Object();
+    kronolithNodes = new Array();
+    document.write('<script type="text/javascript" src="$jsurl"></script>');
+    document.write('$css');
+}
+kronolithNodes[kronolithNodes.length] = $container;
+kronolith['$container'] = $results;
+EOT;
+
+        return new Horde_Core_Ajax_Response_Javascript($js);
     }
 
     /**

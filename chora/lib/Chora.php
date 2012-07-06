@@ -90,9 +90,10 @@ class Chora
         $registry->pushApp('chora');
 
         $notification->push($message, 'horde.error');
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+
+        $page_output->header();
         require CHORA_TEMPLATES . '/menu.inc';
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
         exit;
     }
 

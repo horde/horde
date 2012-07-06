@@ -9,21 +9,11 @@
  * @package Kronolith
  */
 
-function _cleanupData()
-{
-    $GLOBALS['import_step'] = 1;
-    return Horde_Data::IMPORT_FILE;
-}
-
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('kronolith');
+$app_ob = Horde_Registry::appInit('kronolith');
 
-if (Kronolith::showAjaxView() && !(Horde_Util::getPost('import_ajax')) &&
-    (!Horde_Util::getFormData('actionID') == 'export')) {
-    Horde::url('', true)->redirect();
-}
-
-if (!$conf['menu']['import_export']) {
+if ((Kronolith::showAjaxView() && !(Horde_Util::getPost('import_ajax'))) ||
+    (!$conf['menu']['import_export'])) {
     Horde::url('', true)->redirect();
 }
 
@@ -77,137 +67,31 @@ $time_fields   = array('start_date'     => 'date',
 $param         = array('time_fields' => $time_fields,
                        'file_types'  => $file_types);
 $import_format = Horde_Util::getFormData('import_format', '');
-$error         = false;
+$storage = $injector->getInstance('Horde_Core_Data_Storage');
 
-/* Loop through the action handlers. */
 switch ($actionID) {
-case 'export':
-    if (Horde_Util::getFormData('all_events')) {
-        $start = null;
-        $end = null;
-    } else {
-        $start = new Horde_Date(Horde_Util::getFormData('start_year'),
-                                Horde_Util::getFormData('start_month'),
-                                Horde_Util::getFormData('start_day'));
-        $end = new Horde_Date(Horde_Util::getFormData('end_year'),
-                              Horde_Util::getFormData('end_month'),
-                              Horde_Util::getFormData('end_day'));
-    }
-
-    $events = array();
-    $calendars = Horde_Util::getFormData('exportCal', $display_calendars);
-    if (!is_array($calendars)) {
-        $calendars = array($calendars);
-    }
-
-    $exportID = Horde_Util::getFormData('exportID');
-    foreach ($calendars as $calendar) {
-        list($type, $cal) = explode('_', $calendar, 2);
-        $kronolith_driver = Kronolith::getDriver($type, $cal);
-        $events[$calendar] = $kronolith_driver->listEvents(
-            $start, // Start date
-            $end,   // End date
-            false,  // Only return recurrences once
-            false,  // Don't limit to alarms
-            false,  // Don't cache json
-            false,  // Don't add events to all days
-            ($exportID == Horde_Data::EXPORT_ICALENDAR) ? true : false);  // Don't return exception events
-    }
-
-    if (!$events) {
-        $notification->push(_("There were no events to export."), 'horde.message');
-        $error = true;
-        break;
-    }
-
-    switch ($exportID) {
-    case Horde_Data::EXPORT_CSV:
-        $data = array();
-        foreach ($events as $calevents) {
-            foreach ($calevents as $dayevents) {
-                foreach ($dayevents as $event) {
-                    $row = array();
-                    $row['title'] = $event->getTitle();
-                    $row['location'] = $event->location;
-                    $row['description'] = $event->description;
-                    $row['private'] = (int)$event->private;
-                    $row['start_date'] = sprintf('%d-%02d-%02d', $event->start->year, $event->start->month, $event->start->mday);
-                    $row['start_time'] = sprintf('%02d:%02d:%02d', $event->start->hour, $event->start->min, $event->start->sec);
-                    $row['end_date'] = sprintf('%d-%02d-%02d', $event->end->year, $event->end->month, $event->end->mday);
-                    $row['end_time'] = sprintf('%02d:%02d:%02d', $event->end->hour, $event->end->min, $event->end->sec);
-                    $row['alarm'] = $event->alarm;
-                    if ($event->recurs()) {
-                        $row['recur_type'] = $event->recurrence->getRecurType();
-                        $row['recur_end_date'] = sprintf('%d-%02d-%02d',
-                                                         $event->recurrence->recurEnd->year,
-                                                         $event->recurrence->recurEnd->month,
-                                                         $event->recurrence->recurEnd->mday);
-                        $row['recur_interval'] = $event->recurrence->getRecurInterval();
-                        $row['recur_data'] = $event->recurrence->recurData;
-                    } else {
-                        $row['recur_type'] = null;
-                        $row['recur_end_date'] = null;
-                        $row['recur_interval'] = null;
-                        $row['recur_data'] = null;
-                    }
-                    $row['tags'] = implode(', ', $event->tags);
-                    $data[] = $row;
-                }
-            }
-        }
-
-        $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("events.csv"), $data, true);
-        exit;
-
-    case Horde_Data::EXPORT_ICALENDAR:
-        $iCal = new Horde_Icalendar();
-
-        $calIds = array();
-        foreach ($events as $calevents) {
-            foreach ($calevents as $dayevents) {
-                foreach ($dayevents as $event) {
-                    $calIds[$event->calendar] = true;
-                    $iCal->addComponent($event->toiCalendar($iCal));
-                }
-            }
-        }
-
-        $calNames = array();
-        foreach (array_keys($calIds) as $calId) {
-            $share = $injector->getInstance('Kronolith_Shares')->getShare($calId);
-            $calNames[] = $share->get('name');
-        }
-
-        $iCal->setAttribute('X-WR-CALNAME', implode(', ', $calNames));
-        $data = $iCal->exportvCalendar();
-        $browser->downloadHeaders(_("events.ics"), 'text/calendar', false, strlen($data));
-        echo $data;
-        exit;
-    }
-    break;
-
 case Horde_Data::IMPORT_FILE:
-    $session->set('horde', 'import_data/import_cal', Horde_Util::getFormData('importCal'));
-    $session->set('horde', 'import_data/purge', Horde_Util::getFormData('purge'));
+    $storage->get('import_cal', Horde_Util::getFormData('importCal'));
+    $storage->get('purge', Horde_Util::getFormData('purge'));
     break;
 }
 
-if (!$error && $import_format) {
+if ($import_format) {
     $data = null;
     try {
-        $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => '_cleanupData'));
+        $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => array($app_ob, 'cleanupData')));
 
         if ($actionID == Horde_Data::IMPORT_FILE) {
             $cleanup = true;
             try {
-                if (!in_array($session->get('horde', 'import_data/import_cal'), array_keys(Kronolith::listCalendars(Horde_Perms::EDIT)))) {
-                    $notification->push(_("You do not have permission to add events to the selected calendar."), 'horde.error');
+                if (!in_array($storage->get('import_cal'), array_keys(Kronolith::listCalendars(Horde_Perms::EDIT)))) {
+                    $notification->push(_("You have specified an invalid calendar or you do not have permission to add events to the selected calendar."), 'horde.error');
                 } else {
                     $next_step = $data->nextStep($actionID, $param);
                     $cleanup = false;
                 }
             } catch (Exception $e) {
-                $notification->push(_("You have specified an invalid calendar."), 'horde.error');
+                $notification->push($e, 'horde.error');
             }
 
             if ($cleanup) {
@@ -227,8 +111,6 @@ if (!$error && $import_format) {
     }
 }
 
-$page_output = $injector->getInstance('Horde_PageOutput');
-
 /* We have a final result set. */
 if (is_array($next_step)) {
     $events = array();
@@ -237,16 +119,16 @@ if (is_array($next_step)) {
     if ($max_events !== true) {
         $num_events = Kronolith::countEvents();
     }
-    list($type, $calendar) = explode('_', $session->get('horde', 'import_data/import_cal'), 2);
+    list($type, $calendar) = explode('_', $storage->get('import_cal'), 2);
     $kronolith_driver = Kronolith::getDriver($type, $calendar);
 
     if (!count($next_step)) {
         $notification->push(sprintf(_("The %s file didn't contain any events."),
-                                    $file_types[$session->get('horde', 'import_data/format')]), 'horde.error');
+                                    $file_types[$storage->get('format')]), 'horde.error');
         $error = true;
     } else {
         /* Purge old calendar if requested. */
-        if ($session->get('horde', 'import_data/purge')) {
+        if ($storage->get('purge')) {
             try {
                 $kronolith_driver->delete($calendar);
                 $notification->push(_("Calendar successfully purged."), 'horde.success');
@@ -326,7 +208,7 @@ if (is_array($next_step)) {
 
     if (!$error) {
         $notification->push(sprintf(_("%s file successfully imported"),
-                                    $file_types[$session->get('horde', 'import_data/format')]), 'horde.success');
+                                    $file_types[$storage->get('format')]), 'horde.success');
         if (Horde_Util::getFormData('import_ajax')) {
             $page_output->includeScriptFiles();
             $page_output->addInlineScript('(function(window){window.KronolithCore.loading--;if(!window.KronolithCore.loading)window.$(\'kronolithLoading\').hide();window.KronolithCore.loadCalendar(\'' . $type . '\', \'' . $calendar . '\');})(window.parent)');
@@ -348,9 +230,10 @@ if ($GLOBALS['registry']->getAuth()) {
 }
 $export_calendars = Kronolith::listCalendars(Horde_Perms::READ, true);
 
-$title = _("Import/Export Calendar");
-$menu = Horde::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$menu = Kronolith::menu();
+$page_output->header(array(
+    'title' => _("Import/Export Calendar")
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
@@ -361,4 +244,4 @@ foreach ($templates[$next_step] as $template) {
 }
 echo '</div>';
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

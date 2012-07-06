@@ -65,34 +65,33 @@ class Turba_Driver_Favourites extends Turba_Driver
         $results = array();
 
         foreach ($this->_getAddressBook() as $key => $contact) {
-            $found = !isset($criteria['OR']);
+            if (!count($criteria)) {
+                $results[$key] = $contact;
+                continue;
+            }
             foreach ($criteria as $op => $vals) {
                 if ($op == 'AND') {
-                    foreach ($vals as $val) {
-                        if (isset($contact[$val['field']])) {
-                            switch ($val['op']) {
-                            case 'LIKE':
-                                if (stristr($contact[$val['field']], $val['test']) === false) {
-                                    continue 4;
-                                }
-                                $found = true;
+                    if (!count($vals)) {
+                        $found = false;
+                    } else {
+                        $found = true;
+                        foreach ($vals as $val) {
+                            if (!$this->_match($contact, $val)) {
+                                $found = false;
                                 break;
                             }
                         }
                     }
                 } elseif ($op == 'OR') {
+                    $found = false;
                     foreach ($vals as $val) {
-                        if (isset($contact[$val['field']])) {
-                            switch ($val['op']) {
-                            case 'LIKE':
-                                if (empty($val['test']) ||
-                                    stristr($contact[$val['field']], $val['test']) !== false) {
-                                    $found = true;
-                                    break 3;
-                                }
-                            }
+                        if ($this->_match($contact, $val)) {
+                            $found = true;
+                            break;
                         }
                     }
+                } else {
+                    $found = false;
                 }
             }
             if ($found) {
@@ -101,6 +100,28 @@ class Turba_Driver_Favourites extends Turba_Driver
         }
 
         return $results;
+    }
+
+    /**
+     * Returns whether a contact matches some criteria.
+     *
+     * @param array $contact  A contact hash.
+     * @param array $val      Some matching criterion, see _search().
+     *
+     * @return boolean  True if the contact matches.
+     */
+    protected function _match($contact, $val)
+    {
+        if (!isset($contact[$val['field']])) {
+            return false;
+        }
+        switch ($val['op']) {
+        case '=':
+            return (string)$contact[$val['field']] == (string)$val['test'];
+        case 'LIKE':
+            return empty($val['test']) ||
+                stristr($contact[$val['field']], $val['test']) !== false;
+        }
     }
 
     /**

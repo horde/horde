@@ -21,7 +21,7 @@ class Sesha_Forms_CategoryList extends Horde_Form {
         $categories = $sesha_driver->getCategories();
         $params = array();
         foreach ($categories as $category) {
-            $params[$category['category_id']] = $category['category'];
+            $params[$category->category_id] = $category->category;
         }
         $title = !empty($title) ? $title : _("Edit a category");
         $this->setTitle($title);

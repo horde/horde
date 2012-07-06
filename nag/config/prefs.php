@@ -152,7 +152,19 @@ $_prefs['default_due_days'] = array(
 $_prefs['default_due_time'] = array(
     'value' => 'now',
     'type' => 'enum',
-    'desc' => _("What do you want to be the default due time for tasks?")
+    'enum' => array(),
+    'desc' => _("What do you want to be the default due time for tasks?"),
+    'on_init' => function($ui) {
+        $enum = array('now' => _("The current hour"));
+        $twentyfour = $prefs->getValue('twentyFour');
+        for ($i = 0; $i < 24; ++$i) {
+            $value = sprintf('%02d:00', $i);
+            $enum[$value] = $twentyfour
+                ? $value
+                : sprintf('%02d:00 ' . ($i >= 12 ? _("pm") : _("am")), ($i % 12 ? $i % 12 : 12));
+        }
+        $ui->prefs['default_due_time']['enum'] = $enum;
+    }
 );
 
 // new task notifications
@@ -177,7 +189,11 @@ $_prefs['task_notification_exclude_self'] = array(
 
 // alarm methods
 $_prefs['task_alarms_select'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Nag_Prefs_Special_TaskAlarms',
+    'suppress' => function() {
+        return empty($GLOBALS['conf']['alarms']['driver']);
+    }
 );
 
 $_prefs['task_alarms'] = array(
@@ -188,7 +204,11 @@ $_prefs['task_alarms'] = array(
 $_prefs['show_external'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
+    'enum' => array('whups' => $GLOBALS['registry']->get('name', 'whups')),
     'desc' => _("Show data from any of these other applications in your task list?"),
+    'suppress' => function() {
+        return !$GLOBALS['registry']->hasMethod('getListTypes', 'whups');
+    }
 );
 
 // show complete/incomplete tasks?
@@ -214,7 +234,30 @@ $_prefs['task_categories'] = array(
 $_prefs['default_tasklist'] = array(
     'value' => $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : 0,
     'type' => 'enum',
-    'desc' => _("Your default task list:")
+    'enum' => array(),
+    'desc' => _("Your default task list:"),
+    'on_init' => function($ui) {
+        $enum = array();
+        foreach (Nag::listTasklists() as $key => $val) {
+            $enum[htmlspecialchars($key)] = htmlspecialchars($val->get('name'));
+        }
+        $ui->prefs['default_tasklist']['enum'] = $enum;
+    },
+    'on_change' => function() {
+        $sync = @unserialize($GLOBALS['prefs']->getValue('sync_lists'));
+        $haveDefault = false;
+        $default = Nag::getDefaultTasklist(Horde_Perms::EDIT);
+        foreach ($sync as $cid) {
+            if ($cid == $default) {
+                $haveDefault = true;
+                break;
+            }
+        }
+        if (!$haveDefault) {
+            $sync[] = $default;
+            $GLOBALS['prefs']->setValue('sync_lists', serialize($sync));
+        }
+    }
 );
 
 // store the task lists to diplay
@@ -226,5 +269,51 @@ $_prefs['display_tasklists'] = array(
 $_prefs['sync_lists'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
+    'enum' => array(),
     'desc' => _("Select the tasklists that, in addition to the default, should be used for synchronization with external devices:"),
+    'on_init' => function($ui) {
+        $enum = array();
+        $sync = @unserialize($GLOBALS['prefs']->getValue('sync_lists'));
+        if (empty($sync)) {
+            $GLOBALS['prefs']->setValue('sync_lists', serialize(array(Nag::getDefaultTasklist())));
+        }
+        foreach (Nag::listTasklists(false, Horde_Perms::EDIT) as $key => $list) {
+            if ($list->getName() != Nag::getDefaultTasklist(Horde_Perms::EDIT)) {
+                $enum[$key] = $list->get('name');
+            }
+        }
+        $ui->prefs['sync_lists']['enum'] = $enum;
+    },
+    'on_change' => function() {
+        $sync = @unserialize($GLOBALS['prefs']->getValue('sync_lists'));
+        $haveDefault = false;
+        $default = Nag::getDefaultTasklist(Horde_Perms::EDIT);
+        foreach ($sync as $cid) {
+            if ($cid == $default) {
+                $haveDefault = true;
+                break;
+            }
+        }
+        if (!$haveDefault) {
+            $sync[] = $default;
+            $GLOBALS['prefs']->setValue('sync_lists', serialize($sync));
+        }
+        if ($GLOBALS['conf']['activesync']['enabled']) {
+            try {
+                $sm = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+                $sm->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
+                $devices = $sm->listDevices($GLOBALS['registry']->getAuth());
+                foreach ($devices as $device) {
+                    $sm->removeState(array(
+                        'devId' => $device['device_id'],
+                        'id' => Horde_Core_ActiveSync_Driver::TASKS_FOLDER_UID,
+                        'user' => $GLOBALS['registry']->getAuth()
+                    ));
+                }
+                $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
+            } catch (Horde_ActiveSync_Exception $e) {
+                $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.error');
+            }
+        }
+    }
 );

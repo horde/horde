@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd 3.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-01 12:55+0100\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
 "PO-Revision-Date: 2011-11-01 12:57+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -143,7 +143,7 @@ msgstr "Neues Passwort ungültig (zu kurz, ungültige Zeichen, zu ähnlich, ...)
 msgid "New password:"
 msgstr "Neues Passwort:"
 
-#: lib/Passwd.php:46
+#: lib/Passwd.php:52
 msgid "No backend configured for this host"
 msgstr "Keine Backendkonfiguration für diesen Host angegeben"
 

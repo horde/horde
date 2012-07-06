@@ -39,7 +39,6 @@ $form = new Ingo_Form_Forward($vars);
 if ($form->validate($vars)) {
     $forward->setForwardAddresses($vars->addresses);
     $forward->setForwardKeep($vars->keep_copy == 'on');
-    $success = true;
     try {
         $ingo_storage->store($forward);
         $notification->push(_("Changes saved."), 'horde.success');
@@ -54,13 +53,11 @@ if ($form->validate($vars)) {
             $notification->push(_("Rule Disabled"), 'horde.success');
             $fwd_rule['disable'] = true;
         }
+        if ($prefs->getValue('auto_update')) {
+            Ingo::updateScript();
+        }
     } catch (Ingo_Exception $e) {
         $notification->push($e);
-        $success = false;
-    }
-
-    if ($success && $prefs->getValue('auto_update')) {
-        Ingo::updateScript();
     }
 }
 
@@ -81,10 +78,11 @@ if (!empty($fwd_rule['disable'])) {
 $form_title .= ' ' . Horde_Help::link('ingo', 'forward');
 $form->setTitle($form_title);
 
-$title = _("Forwards Edit");
 $menu = Ingo::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Forwards Edit")
+));
 echo $menu;
 Ingo::status();
 $form->renderActive(new Horde_Form_Renderer(array('encode_title' => false)), $vars, Horde::url('forward.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

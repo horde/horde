@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Turba H4 (3.0.11-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-23 12:10+0100\n"
-"PO-Revision-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-04-20 20:30+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -1399,7 +1399,7 @@ msgstr "El archivo %s no contenía ningún contacto."
 
 #: view.php:17
 msgid "The VFS backend needs to be configured to enable attachment uploads."
-msgstr "Para activar la carga de adjuntos hay que configurar el soporte VFS."
+msgstr "Para activar la carga de adjuntos hay que configurar el motor VFS."
 
 #: lib/Factory/Driver.php:56
 #, php-format

@@ -73,28 +73,25 @@ class Nag_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        global $conf, $injector;
+        global $conf, $injector, $page_output;
 
-        $menu->add(Horde::url('list.php'), _("_List Tasks"), 'nag.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('list.php'), _("_List Tasks"), 'nag-list', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
 
         if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
             ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_tasks') === true ||
-             $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_tasks') > Nag::countTasks())) {
-            $menu->add(Horde::url('task.php')->add('actionID', 'add_task'), _("_New Task"), 'add.png', null, null, null, Horde_Util::getFormData('task') ? '__noselection' : null);
-            if ($GLOBALS['browser']->hasFeature('dom')) {
-                $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-                $page_output->addScriptFile('effects.js', 'horde');
-                $page_output->addScriptFile('redbox.js', 'horde');
-                $menu->add(new Horde_Url(''), _("_Quick Add"), 'add.png', null, null, 'RedBox.showInline(\'quickAddInfoPanel\'); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');
-            }
+             $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_tasks') > Nag::countTasks()) &&
+            $GLOBALS['browser']->hasFeature('dom')) {
+            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+            $page_output->addScriptFile('redbox.js', 'horde');
+            $menu->add(new Horde_Url(''), _("_Quick Add"), 'nag-add', null, null, 'RedBox.showInline(\'quickAddInfoPanel\'); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');
         }
 
         /* Search. */
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
+        $menu->add(Horde::url('search.php'), _("_Search"), 'nag-search');
 
         /* Import/Export. */
         if ($conf['menu']['import_export']) {
-            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
+            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'horde-data');
         }
     }
 
@@ -110,151 +107,6 @@ class Nag_Application extends Horde_Registry_Application
             }
         }
         return $allowed;
-    }
-
-    public function prefsInit($ui)
-    {
-        global $registry;
-        if ($registry->hasMethod('getListTypes', 'whups')) {
-            $ui->override['show_external'] = array(
-                'whups' => $registry->get('name', 'whups')
-            );
-        } else {
-            $ui->suppress[] = 'show_external';
-        }
-    }
-
-    /**
-     */
-    public function prefsGroup($ui)
-    {
-        global $conf, $prefs, $registry;
-
-        foreach ($ui->getChangeablePrefs() as $val) {
-            switch ($val) {
-            case 'default_due_time':
-                $twentyfour = $prefs->getValue('twentyFour');
-
-                $vals = array('now' => _("The current hour"));
-                for ($i = 0; $i < 24; ++$i) {
-                    $value = sprintf('%02d:00', $i);
-                    $vals[$value] = ($twentyfour)
-                        ? $value
-                        : sprintf('%02d:00 ' . ($i >= 12 ? _("pm") : _("am")), ($i % 12 ? $i % 12 : 12));
-                }
-                $ui->override['default_due_time'] = $vals;
-                break;
-
-            case 'default_tasklist':
-                $vals = array();
-                foreach (Nag::listTasklists() as $id => $tasklist) {
-                    $vals[htmlspecialchars($id)] = htmlspecialchars($tasklist->get('name'));
-                }
-                $ui->override['default_tasklist'] = $vals;
-                break;
-
-            case 'sync_lists':
-                $sync = @unserialize($prefs->getValue('sync_lists'));
-                if (empty($sync)) {
-                    $prefs->setValue('sync_lists', serialize(array(Nag::getDefaultTasklist())));
-                }
-                $out = array();
-                foreach (Nag::listTasklists(false, Horde_Perms::EDIT) as $key => $list) {
-                    if ($list->getName() != Nag::getDefaultTasklist(Horde_Perms::EDIT)) {
-                        $out[$key] = $list->get('name');
-                    }
-                }
-                $ui->override['sync_lists'] = $out;
-                break;
-
-            case 'show_external':
-                if ($registry->hasMethod('getListTypes', 'whups')) {
-                    $ui->override['show_external'] = array(
-                        'whups' => $registry->get('name', 'whups')
-                    );
-                } else {
-                    $ui->suppress[] = 'show_external';
-                }
-                break;
-
-            case 'task_alarms_select':
-                if (empty($conf['alarms']['driver']) ||
-                    $prefs->isLocked('task_alarms_select')) {
-                    $ui->suppress[] = 'task_alarms';
-                } else {
-                    Horde_Core_Prefs_Ui_Widgets::alarmInit();
-                }
-                break;
-            }
-        }
-    }
-
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        switch ($item) {
-        case 'task_alarms_select':
-            return Horde_Core_Prefs_Ui_Widgets::alarm(array(
-                'label' => _("Choose how you want to receive reminders for tasks with alarms:"),
-                'pref' => 'task_alarms'
-            ));
-        }
-
-        return '';
-    }
-
-    /**
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-        switch ($item) {
-        case 'task_alarms_select':
-            $data = Horde_Core_Prefs_Ui_Widgets::alarmUpdate($ui, array('pref' => 'task_alarms'));
-            if (!is_null($data)) {
-                $GLOBALS['prefs']->setValue('task_alarms', serialize($data));
-                return true;
-            }
-            break;
-        }
-
-        return false;
-    }
-
-    /**
-     */
-    public function prefsCallback($ui)
-    {
-        // Ensure that the current default_share is included in sync_calendars
-        if ($GLOBALS['prefs']->isDirty('sync_lists') || $GLOBALS['prefs']->isDirty('default_tasklist')) {
-            $sync = @unserialize($GLOBALS['prefs']->getValue('sync_lists'));
-            $haveDefault = false;
-            $default = Nag::getDefaultTasklist(Horde_Perms::EDIT);
-            foreach ($sync as $cid) {
-                if ($cid == $default) {
-                    $haveDefault = true;
-                    break;
-                }
-            }
-            if (!$haveDefault) {
-                $sync[] = $default;
-                $GLOBALS['prefs']->setValue('sync_lists', serialize($sync));
-            }
-        }
-
-        if ($GLOBALS['conf']['activesync']['enabled'] && $GLOBALS['prefs']->isDirty('sync_lists')) {
-            try {
-                $stateMachine = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
-                $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
-                $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
-                foreach ($devices as $device) {
-                    $stateMachine->removeState(null, $device['device_id'], $GLOBALS['registry']->getAuth());
-                }
-                $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
-            } catch (Horde_ActiveSync_Exception $e) {
-                $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.err');
-            }
-        }
     }
 
     /**
@@ -351,12 +203,12 @@ class Nag_Application extends Horde_Registry_Application
     }
 
 
-    /* Sidebar method. */
+    /* Topbar method. */
 
     /**
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
     {
         global $registry;
 
@@ -382,18 +234,17 @@ class Nag_Application extends Horde_Registry_Application
                     'tasklist' => $task->tasklist
                 ));
 
-                $tree->addNode(
-                    $parent . $taskId,
-                    $parent,
-                    $task->name,
-                    1,
-                    false,
-                    array(
+                $tree->addNode(array(
+                    'id' => $parent . $taskId,
+                    'parent' => $parent,
+                    'label' => $task->name,
+                    'expanded' => false,
+                    'params' => array(
                         'icon' => Horde_Themes::img('alarm.png'),
                         'title' => $title,
                         'url' => $url
                     )
-                );
+                ));
             }
 
             if ($registry->get('url', $parent)) {
@@ -410,61 +261,128 @@ class Nag_Application extends Horde_Registry_Application
                 $pnode_name = '<strong>' . $pnode_name . '</strong>';
             }
 
-            $tree->addNode(
-                $parent,
-                $registry->get('menu_parent', $parent),
-                $pnode_name,
-                0,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent,
+                'parent' => $registry->get('menu_parent', $parent),
+                'label' => $pnode_name,
+                'expanded' => false,
+                'params' => array(
                     'icon' => strval($registry->get('icon', $parent)),
                     'url' => $purl
                 )
-            );
+            ));
             break;
 
         case 'menu':
             $add = Horde::url('task.php')->add('actionID', 'add_task');
 
-            $tree->addNode(
-                $parent . '__new',
-                $parent,
-                _("New Task"),
-                1,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent . '__new',
+                'parent' => $parent,
+                'label' => _("New Task"),
+                'expanded' => false,
+                'params' => array(
                     'icon' => Horde_Themes::img('add.png'),
                     'url' => $add
                 )
-            );
+            ));
 
             foreach (Nag::listTasklists() as $name => $tasklist) {
-                $tree->addNode(
-                    $parent . $name . '__new',
-                    $parent . '__new',
-                    sprintf(_("in %s"), $tasklist->get('name')),
-                    2,
-                    false,
-                    array(
+                $tree->addNode(array(
+                    'id' => $parent . $name . '__new',
+                    'parent' => $parent . '__new',
+                    'label' => sprintf(_("in %s"), $tasklist->get('name')),
+                    'expanded' => false,
+                    'params' => array(
                         'icon' => Horde_Themes::img('add.png'),
                         'url' => $add->copy()->add('tasklist_id', $name)
                     )
-                );
+                ));
             }
 
-            $tree->addNode(
-                $parent . '__search',
-                $parent,
-                _("Search"),
-                1,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent . '__search',
+                'parent' => $parent,
+                'label' => _("Search"),
+                'expanded' => false,
+                'params' => array(
                     'icon' => Horde_Themes::img('search.png'),
                     'url' => Horde::url('search.php')
                 )
-            );
+            ));
             break;
         }
+    }
+
+    /* Download data. */
+
+    /**
+     * @throws Nag_Exception
+     */
+    public function download(Horde_Variables $vars)
+    {
+        global $display_tasklists, $injector, $registry;
+
+        switch ($vars->actionID) {
+        case 'export':
+            $tasklists = $vars->get('exportList', $display_tasklists);
+            if (!is_array($tasklists)) {
+                $tasklists = array($tasklists);
+            }
+
+            /* Get the full, sorted task list. */
+            $tasks = Nag::listTasks(null, null, null, $tasklists, $vars->exportTasks);
+            if (!$tasks->hasTasks()) {
+                throw new Nag_Exception(_("There were no tasks to export."));
+            }
+
+            $tasks->reset();
+            switch ($vars->exportID) {
+            case Horde_Data::EXPORT_CSV:
+                $data = array();
+
+                while ($task = $tasks->each()) {
+                    $task = $task->toHash();
+                    $task['desc'] = str_replace(',', '', $task['desc']);
+                    unset(
+                        $task['complete_link'],
+                        $task['delete_link'],
+                        $task['edit_link'],
+                        $task['parent'],
+                        $task['task_id'],
+                        $task['tasklist_id'],
+                        $task['view_link']
+                    );
+                    $data[] = $task;
+                }
+
+                $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("tasks.csv"), $data, true);
+                exit;
+
+            case Horde_Data::EXPORT_ICALENDAR:
+                $iCal = new Horde_Icalendar();
+                $iCal->setAttribute(
+                    'PRODID',
+                    '-//The Horde Project//Nag ' . $registry->getVersion() . '//EN');
+                while ($task = $tasks->each()) {
+                    $iCal->addComponent($task->toiCalendar($iCal));
+                }
+
+                return array(
+                    'data' => $iCal->exportvCalendar(),
+                    'name' => _("tasks.ics"),
+                    'type' => 'text/calendar'
+                );
+            }
+        }
+    }
+
+    /**
+     */
+    public function cleanupData()
+    {
+        $GLOBALS['import_step'] = 1;
+        return Horde_Data::IMPORT_FILE;
     }
 
 }

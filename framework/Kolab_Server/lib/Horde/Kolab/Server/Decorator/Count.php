@@ -56,7 +56,7 @@ implements Horde_Kolab_Server_Interface
      *
      * @param Horde_Kolab_Server $server The base server connection.
      * @param mixed              $logger The log handler. The class must at
-     *                                   least provide the info() method.
+     *                                   least provide the debug() method.
      */
     public function __construct(
         Horde_Kolab_Server_Interface $server,
@@ -74,7 +74,7 @@ implements Horde_Kolab_Server_Interface
     public function __destruct()
     {
         foreach ($this->_count as $method => $count) {
-            $this->_logger->info(
+            $this->_logger->debug(
                 sprintf(
                     'Horde_Kolab_Server: Method %s called %s times.',
                     $method, $count

@@ -1,0 +1,71 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_ActiveSync package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_ActiveSync \n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2012-05-10 12:39+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:428
+#, php-format
+msgid "%s part"
+msgstr ""
+
+#: lib/Horde/ActiveSync/Imap/Message.php:407
+msgid "Audio part"
+msgstr ""
+
+#: lib/Horde/ActiveSync/Imap/Message.php:125
+msgid "Cc"
+msgstr ""
+
+#: lib/Horde/ActiveSync/Imap/Message.php:105
+msgid "Date"
+msgstr ""
+
+#: lib/Horde/ActiveSync/Imap/Message.php:109
+msgid "From"
+msgstr ""
+
+#: lib/Horde/ActiveSync/Imap/Message.php:410
+msgid "Image part"
+msgstr ""
+
+#: lib/Horde/ActiveSync/Imap/Message.php:414
+msgid "Message part"
+msgstr ""
+
+#: lib/Horde/ActiveSync/Imap/Message.php:417
+msgid "Multipart part"
+msgstr ""
+
+#: lib/Horde/ActiveSync/Imap/Message.php:113
+msgid "Reply-To"
+msgstr ""
+
+#: lib/Horde/ActiveSync/Imap/Message.php:117
+msgid "Subject"
+msgstr ""
+
+#: lib/Horde/ActiveSync/Imap/Message.php:420
+msgid "Text part"
+msgstr ""
+
+#: lib/Horde/ActiveSync/Imap/Message.php:121
+msgid "To"
+msgstr ""
+
+#: lib/Horde/ActiveSync/Imap/Message.php:423
+msgid "Video part"
+msgstr ""

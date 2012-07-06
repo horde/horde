@@ -16,9 +16,6 @@
  * @property string $raw  The raw thread data.
  * @property string $reverse_img  An image HTML tag of the thread (reversed).
  * @property string $reverse_raw  The raw thread data (reversed).
- * @property string $reverse_txt  A text representation of the thread icon
- *                                (reversed).
- * @property string $txt  A text representation of the thread icon.
  */
 class IMP_Mailbox_List_Thread
 {
@@ -53,7 +50,6 @@ class IMP_Mailbox_List_Thread
         switch ($name) {
         case 'reverse_img':
         case 'reverse_raw':
-        case 'reverse_txt':
             $ret = strtr($this->_data, array(
                 self::JOINBOTTOM_DOWN => self::JOINBOTTOM,
                 self::JOINBOTTOM => self::JOINBOTTOM_DOWN
@@ -79,16 +75,6 @@ class IMP_Mailbox_List_Thread
         case 'raw':
         case 'reverse_raw':
             return $ret;
-
-        case 'txt':
-        case 'reverse_txt':
-            return strtr($ret, array(
-                self::BLANK => '  ',
-                self::LINE => '| ',
-                self::JOIN => '|-',
-                self::JOINBOTTOM_DOWN => '/-',
-                self::JOINBOTTOM => '\-'
-            ));
         }
     }
 

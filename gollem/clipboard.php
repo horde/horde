@@ -41,9 +41,6 @@ foreach ($session->get('gollem', 'clipboard') as $key => $val) {
 }
 $template->set('entry', $entry, true);
 
-$title = _("Clipboard");
-
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('clipboard.js');
 $page_output->addScriptFile('tables.js', 'horde');
 $page_output->addInlineJsVars(array(
@@ -52,9 +49,11 @@ $page_output->addInlineJsVars(array(
 ));
 $menu = Gollem::menu();
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Clipboard")
+));
 require GOLLEM_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 Gollem::status();
 echo $template->fetch(GOLLEM_TEMPLATES . '/clipboard/clipboard.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -45,6 +45,7 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
      * Return a Horde_Alarm instance.
      *
      * @return Horde_Alarm
+     * @throws Horde_Exception
      */
     public function create()
     {
@@ -68,7 +69,7 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
             ? $params['ttl']
             : 300;
 
-        $class = 'Horde_Alarm_' . $driver;
+        $class = $this->_getDriverName($driver, 'Horde_Alarm');
         $this->_alarm = new $class($params);
         $this->_alarm->initialize();
         $this->_alarm->gc();

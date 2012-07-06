@@ -13,12 +13,13 @@ Horde_Registry::appInit('kronolith', array('nodynamicinit' => true));
 switch ($registry->getView()) {
 case Horde_Registry::VIEW_MINIMAL:
 case Horde_Registry::VIEW_SMARTMOBILE:
-    include KRONOLITH_BASE . '/mobile.php';
+    include KRONOLITH_BASE . '/smartmobile.php';
     exit;
 
 case Horde_Registry::VIEW_BASIC:
 case Horde_Registry::VIEW_DYNAMIC:
-    if ($prefs->getValue('dynamic_view')) {
+    if ($registry->getView() == Horde_Registry::VIEW_DYNAMIC &&
+        $prefs->getValue('dynamic_view')) {
         break;
     }
     include KRONOLITH_BASE . '/' . $prefs->getValue('defaultview') . '.php';
@@ -27,7 +28,7 @@ case Horde_Registry::VIEW_DYNAMIC:
 
 /* Load Ajax interface. */
 $menu = new Horde_Menu();
-$help_link = Horde::getServiceLink('help', 'kronolith');
+$help_link = $registry->getServiceLink('help', 'kronolith');
 if ($help_link) {
     $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;');
 }
@@ -94,62 +95,45 @@ foreach ($injector->getInstance('Horde_Alarm')->handlers() as $method => $handle
     $taskAlarmParams = substr($taskAlarmParams, 0, - 6) . '</div>';
 }
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create(
-    array('kronolith', 'TagAutoCompleter'),
-    array(
-        'box' => 'kronolithEventACBox',
-        'pretty' => true,
-        'triggerId' => 'kronolithEventTags',
-        'var' => 'KronolithCore.eventTagAc'
-    )
-);
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+    'box' => 'kronolithEventACBox',
+    'id' => 'kronolithEventTags',
+    'pretty' => true
+));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create(
-    array('kronolith', 'TagAutoCompleter'),
-    array(
-        'box' => 'kronolithCalendarinternalACBox',
-        'pretty' => true,
-        'triggerContainer' => 'kronolithACCalendarTriggerContainer',
-        'triggerId' => 'kronolithCalendarinternalTags',
-        'var' => 'KronolithCore.calendarTagAc'
-    )
-);
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+    'box' => 'kronolithCalendarinternalACBox',
+    'id' => 'kronolithCalendarinternalTags',
+    'pretty' => true,
+    'triggerContainer' => 'kronolithACCalendarTriggerContainer'
+));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create(
-    array('kronolith', 'ContactAutoCompleter'),
-    array(
-        'box' => 'kronolithAttendeesACBox',
-        'onAdd' => 'function(attendee) { KronolithCore.addAttendee(attendee); KronolithCore.checkOrganizerAsAttendee(); }',
-        'onRemove' => 'KronolithCore.removeAttendee.bind(KronolithCore)',
-        'pretty' => true,
-        'triggerContainer' => 'kronolithAttendeesACTriggerContainer',
-        'triggerId' => 'kronolithEventAttendees',
-        'var' => 'KronolithCore.attendeesAc'
-    )
-);
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ContactAutoCompleter', array(
+    'box' => 'kronolithAttendeesACBox',
+    'id' => 'kronolithEventAttendees',
+    'onAdd' => 'function(attendee) { KronolithCore.addAttendee(attendee); KronolithCore.checkOrganizerAsAttendee(); }',
+    'onRemove' => 'KronolithCore.removeAttendee.bind(KronolithCore)',
+    'pretty' => true,
+    'triggerContainer' => 'kronolithAttendeesACTriggerContainer'
+));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create(
-    array('kronolith', 'ResourceAutoCompleter'),
-    array(
-        'box' => 'kronolithResourceACBox',
-        'onAdd' => 'KronolithCore.addResource.bind(KronolithCore)',
-        'onRemove' => 'KronolithCore.removeResource.bind(KronolithCore)',
-        'pretty' => true,
-        'triggerContainer' => 'kronolithResourceACTriggerContainer',
-        'triggerId' => 'kronolithEventResources',
-        'var' => 'KronolithCore.resourceAc'
-    )
-);
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ResourceAutoCompleter', array(
+    'box' => 'kronolithResourceACBox',
+    'id' => 'kronolithEventResources',
+    'onAdd' => 'KronolithCore.addResource.bind(KronolithCore)',
+    'onRemove' => 'KronolithCore.removeResource.bind(KronolithCore)',
+    'pretty' => true,
+    'triggerContainer' => 'kronolithResourceACTriggerContainer'
+));
 
 if ($conf['maps']['driver']) {
     Kronolith::initEventMap($conf['maps']);
 }
 
-$injector->getInstance('Kronolith_Ajax')->header();
+$injector->getInstance('Kronolith_Ajax')->init();
 
 require KRONOLITH_TEMPLATES . '/index/index.inc';
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->includeScriptFiles();
 $page_output->outputInlineScript();
 

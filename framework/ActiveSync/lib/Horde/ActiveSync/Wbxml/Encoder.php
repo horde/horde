@@ -1,25 +1,39 @@
 <?php
 /**
- * ActiveSync specific WBXML encoding. No need to build xml document in memory
- * since we stream the actual binary data as we build it. Contains code from
- * the Z-Push project. Original file header below.
+ * Horde_ActiveSync_Wbxml_Encoder::
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Portions of this class were ported from the Z-Push project:
+ *   File      :   wbxml.php
+ *   Project   :   Z-Push
+ *   Descr     :   WBXML mapping file
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ *   Created   :   01.10.2007
+ *
+ *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   This file is distributed under GPL-2.0.
+ *   Consult COPYING file for details
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
-
 /**
- * File      :   wbxml.php
- * Project   :   Z-Push
- * Descr     :   WBXML mapping file
+ * Horde_ActiveSync_Wbxml_Encoder::  Encapsulates all Wbxml encoding from
+ * server to client.
  *
- * Created   :   01.10.2007
- *
- * © Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL-2.0.
- * Consult COPYING file for details
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
 {
@@ -34,9 +48,17 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     private $_stack = array();
 
     /**
+     * Flag to indicate if we are outputing multipart binary data during e.g.,
+     * ITEMOPERATION requests.
+     *
+     * @var boolean
+     */
+    public $multipart;
+
+    /**
      * Const'r
      *
-     * @param stream $output
+     * @param stream $output  The output stream
      *
      * @return Horde_ActiveSync_Wbxml_Encoder
      */
@@ -60,26 +82,22 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
-     * Setter for the logger
+     * Starts the wbxml output.
      *
-     * @param Horde_Log_Logger $logger  The logger instance
-     */
-    public function setLogger(Horde_Log_Logger $logger)
-    {
-        $this->_logger = $logger;
-    }
-
-    /**
-     * Starts the wbxml output
+     * @param boolean $multipart  Indicates we need to output mulitpart binary
+     *                            binary data. See MS-ASCMD 2.2.1.8.1
      *
-     * @return void
      */
-    public function startWBXML()
+    public function startWBXML($multipart = false)
     {
-        header('Content-Type: application/vnd.ms-sync.wbxml');
+        $this->multipart = $multipart;
         $this->outputWbxmlHeader();
     }
 
+    /**
+     * Output the Wbxml header to the output stream.
+     *
+     */
     public function outputWbxmlHeader()
     {
         $this->_outByte(0x03);   // WBXML 1.3
@@ -92,10 +110,9 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      * Start output for the specified tag
      *
      * @param string $tag            The name of the tag to start
-     * @param mixed $attributes     Any attributes for the start tag
+     * @param mixed $attributes      Any attributes for the start tag
      * @param boolean $output_empty  Force output of empty tags
      *
-     * @return void
      */
     public function startTag($tag, $attributes = false, $output_empty = false)
     {
@@ -116,46 +133,107 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Output the end tag
      *
-     * @return void
      */
     public function endTag()
     {
         $stackelem = array_pop($this->_stack);
-        /* Only output end tags for items that have had a start tag sent */
         if ($stackelem['sent']) {
             $this->_endTag();
+            if (count($this->_stack) == 0 && $this->multipart) {
+                $len = ob_get_length();
+                $data = ob_get_contents();
+                ob_end_clean();
+                ob_start();
+                $blockstart = ((count($this->_parts) + 1) * 2) * 4 + 4;
+                $sizeinfo = pack('iii', count($this->_parts) + 1, $blockstart, $len);
+                $this->_logger->debug('Multipart Debug Output Total parts ' . (count($this->_parts) + 1));
+                foreach ($this->_parts as $bp) {
+                    $blockstart = $blockstart + $len;
+                    if (is_resource($bp)) {
+                        rewind($bp);
+                        fseek($bp, 0, SEEK_END);
+                        $len = ftell($bp);
+                    } else {
+                        $len = strlen(bin2hex($bp)) / 2;
+                    }
+                    $sizeinfo .= pack('ii', $blockstart, $len);
+                }
+                fwrite($this->_stream, $sizeinfo);
+                fwrite($this->_stream, $data);
+                foreach($this->_parts as $bp) {
+                    if (is_resource($bp)) {
+                        rewind($bp);
+                        stream_copy_to_stream($bp, $this->_stream);
+                        fclose($bp);
+                    } else {
+                        fwrite($this->_stream, $bp);
+                    }
+                }
+            }
         }
     }
 
     /**
      * Output the tag content
      *
-     * @param string $content  The value to output for this tag
-     *
-     * @return void
+     * @param mixed $content  The value to output for this tag. A string or
+     *                        a stream resource.
      */
     public function content($content)
     {
-        /* Filter out \0 since it's a string terminator in wbxml. We cannot send
-         * \0 within the xml content */
-        $content = str_replace('\0', '', $content);
-        if ('x' . $content == 'x') {
-            return;
+        // Don't try to send a string containing \0 - it's the wbxml string
+        // terminator.
+        if (!is_resource($content)) {
+            $content = str_replace("\0", '', $content);
+            if ('x' . $content == 'x') {
+                return;
+            }
+        } else {
+            stream_filter_register('horde_null', Horde_Stream_Filter_Null);
+            $filter = stream_filter_prepend($content, 'horde_null', STREAM_FILTER_READ);
         }
         $this->_outputStack();
         $this->_content($content);
+        if (is_resource($content)) {
+            fclose($content);
+        }
+        if (isset($filter)) {
+            stream_filter_remove($filter);
+        }
+    }
+
+    /**
+     * Add a mulitpart part to be output.
+     *
+     * @param mixed $data  The part data. A string or stream resource.
+     */
+    public function addPart($data)
+    {
+        $this->_parts[] = $data;
+    }
+
+    /**
+     * Return the parts array.
+     *
+     * @return array
+     */
+    public function getParts()
+    {
+        return $this->_parts;
     }
 
     /**
      * Output any tags on the stack that haven't been output yet
      *
-     * @return void
      */
     private function _outputStack()
     {
         for ($i=0; $i < count($this->_stack); $i++) {
             if (!$this->_stack[$i]['sent']) {
-                $this->_startTag($this->_stack[$i]['tag'], $this->_stack[$i]['attributes'], $this->_stack[$i]['nocontent']);
+                $this->_startTag(
+                    $this->_stack[$i]['tag'],
+                    $this->_stack[$i]['attributes'],
+                    $this->_stack[$i]['nocontent']);
                 $this->_stack[$i]['sent'] = true;
             }
         }
@@ -167,8 +245,6 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      * @param string $tag @see Horde_ActiveSync_Wbxml_Encoder::startTag
      * @param mixed $attributes @see Horde_ActiveSync_Wbxml_Encoder::startTag
      * @param boolean $output_empty @see Horde_ActiveSync_Wbxml_Encoder::startTag
-     *
-     * @return void
      */
     private function _startTag($tag, $attributes = false, $output_empty = false)
     {
@@ -200,13 +276,15 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Outputs data
      *
-     * @param string $content  The content to send
-     *
-     * @return void
+     * @param mixed $content  A string or stream resource to write to the output
      */
     private function _content($content)
     {
-        $this->_logContent($content);
+        if (!is_resource($content)) {
+            $this->_logContent($content);
+        } else {
+            $this->_logContent('[STREAM]');
+        }
         $this->_outByte(Horde_ActiveSync_Wbxml::STR_I);
         $this->_outTermStr($content);
     }
@@ -214,9 +292,8 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Output the endtag
      *
-     * @return void
      */
-    function _endTag() {
+    private function _endTag() {
         $this->_logEndTag();
         $this->_outByte(Horde_ActiveSync_Wbxml::END);
     }
@@ -224,8 +301,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Output a single byte to the stream
      *
-     * @param byte $byte
-     * @return unknown_type
+     * @param byte $byte  The byte to output.
      */
     private function _outByte($byte)
     {
@@ -234,8 +310,8 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
 
     /**
      * Outputs an MBUInt to the stream
-     * @param $uint
-     * @return unknown_type
+     *
+     * @param $uint  The data to write.
      */
     private function _outMBUInt($uint)
     {
@@ -254,20 +330,21 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Output a string along with the terminator.
      *
-     * @param string $content  The string
-     *
-     * @return void
+     * @param mixed $content  A string or a stream resource.
      */
     private function _outTermStr($content)
     {
-        fwrite($this->_stream, $content);
+        if (is_resource($content)) {
+            rewind($content);
+            stream_copy_to_stream($content, $this->_stream);
+        } else {
+            fwrite($this->_stream, $content);
+        }
         fwrite($this->_stream, chr(0));
     }
 
     /**
      * Output attributes
-     *
-     * @return void
      */
     private function _outAttributes()
     {
@@ -279,9 +356,9 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Switch code page.
      *
-     * @param $page
-     * @return unknown_type
+     * @param integer $page  The code page to switch to.
      */
     private function _outSwitchPage($page)
     {

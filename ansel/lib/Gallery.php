@@ -914,9 +914,7 @@ class Ansel_Gallery implements Serializable
         // Check browser requirements. If we require PNG support, and do not
         // have it, revert to the basic ansel_default style.
         if ($style->requiresPng() &&
-            ($GLOBALS['browser']->hasQuirk('png_transparency') ||
-             $GLOBALS['conf']['image']['type'] != 'png')) {
-
+            $GLOBALS['conf']['image']['type'] != 'png') {
             $style = Ansel::getStyleDefinition('ansel_default');
         }
 
@@ -1060,7 +1058,7 @@ class Ansel_Gallery implements Serializable
 
         /* Call the parent class method */
         try {
-            $this->_share->setParent($parent->getShare());
+            $this->_share->setParent(!is_null($parent) ? $parent->getShare() : null);
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
         }

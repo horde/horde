@@ -73,6 +73,6 @@ $view->message_subject = $message['message_subject'];
 $view->message_author = $message['message_author'];
 $view->message_body = Agora_Driver::formatBody($message['body']);
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $view->render('messages/edit');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -11,11 +11,8 @@ class Horde_Core_Factory_AuthSignup extends Horde_Core_Factory_Injector
             ? 'Null'
             : $GLOBALS['conf']['signup']['driver'];
 
-        $class = 'Horde_Core_Auth_Signup_' . Horde_String::ucfirst($driver);
-        if (class_exists($class)) {
-            return new $class($GLOBALS['conf']['signup']['params']);
-        }
-        throw new Horde_Exception($class . ' driver not found');
+        $class = $this->_getDriverName($driver, 'Horde_Core_Auth_Signup');
+        return new $class($GLOBALS['conf']['signup']['params']);
     }
 
 }

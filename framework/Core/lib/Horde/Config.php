@@ -295,6 +295,7 @@ class Horde_Config
             fwrite($fp, $php);
             fclose($fp);
             $GLOBALS['registry']->rebuild();
+            $GLOBALS['notification']->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
             return true;
         }
 
@@ -353,6 +354,10 @@ class Horde_Config
         }
 
         foreach ($section as $name => $configitem) {
+            if (is_array($configitem) && isset($configitem['tab'])) {
+                continue;
+            }
+
             $prefixedname = empty($prefix)
                 ? $name
                 : $prefix . '|' . $name;
@@ -1548,8 +1553,12 @@ class Horde_Config
     protected function _handleSpecials($node)
     {
         $app = $node->getAttribute('application');
-        if (!in_array($app, $GLOBALS['registry']->listApps())) {
-            $app = $GLOBALS['registry']->hasInterface($app);
+        try {
+            if (!in_array($app, $GLOBALS['registry']->listApps())) {
+                $app = $GLOBALS['registry']->hasInterface($app);
+            }
+        } catch (Horde_Exception $e) {
+            return array();
         }
         if (!$app) {
             return array();

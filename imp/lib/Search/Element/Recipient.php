@@ -26,7 +26,7 @@ class IMP_Search_Element_Recipient extends IMP_Search_Element
          * n = (integer) Do a NOT search?
          * t = (string) The search text. */
         $this->_data = new stdClass;
-        $this->_data->n = intval($not);
+        $this->_data->n = intval(!empty($not));
         $this->_data->t = $text;
     }
 
@@ -34,21 +34,22 @@ class IMP_Search_Element_Recipient extends IMP_Search_Element
      */
     public function createQuery($mbox, $queryob)
     {
-        $and_ob = new Horde_Imap_Client_Search_Query();
+        $search_ob = new Horde_Imap_Client_Search_Query();
+        $and_ob = clone $search_ob;
 
-        $ob = new Horde_Imap_Client_Search_Query();
+        $ob = clone $search_ob;
         $ob->headerText('to', $this->_data->t, $this->_data->n);
-        $and_ob->orSearch(array($ob));
+        $and_ob->orSearch($ob);
 
-        $ob = new Horde_Imap_Client_Search_Query();
+        $ob = clone $search_ob;
         $ob->headerText('cc', $this->_data->t, $this->_data->n);
-        $and_ob->orSearch(array($ob));
+        $and_ob->orSearch($ob);
 
-        $ob = new Horde_Imap_Client_Search_Query();
+        $ob = clone $search_ob;
         $ob->headerText('bcc', $this->_data->t, $this->_data->n);
-        $and_ob->orSearch(array($ob));
+        $and_ob->orSearch($ob);
 
-        $queryob->andSearch(array($and_ob));
+        $queryob->andSearch($and_ob);
 
         return $queryob;
     }

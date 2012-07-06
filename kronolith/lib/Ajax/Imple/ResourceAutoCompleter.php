@@ -1,91 +1,71 @@
 <?php
 /**
- * Attach the resource auto completer to a javascript element.
+ * Imple to attach the resource autocompleter to a HTML element.
  *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Kronolith
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Kronolith
  */
 class Kronolith_Ajax_Imple_ResourceAutoCompleter extends Horde_Core_Ajax_Imple_AutoCompleter
 {
     /**
-     * Attach the Imple object to a javascript event.
-     *
-     * @param array $js_params  See
-     *                          Horde_Core_Ajax_Imple_AutoCompleter::_attach().
-     *
-     * @return array  See Horde_Core_Ajax_Imple_AutoCompleter::_attach().
      */
-    protected function _attach($js_params)
+    protected function _getAutoCompleter()
     {
-        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img';
+        $opts = array();
 
-        $ret = array(
-            'params' => $js_params,
-            'raw_params' => array(
-                'filterCallback' => 'function(c) {
-                    if (c) {
-                        KronolithCore.resourceACCache.choices = c;
-                        var r = [];
-                        c.each(function(i) {
-                            r.push(i.name);
-                        });
-                        return r;
-                    } else {
-                        return [];
-                    }
-                }'
-        ));
-
-        if (isset($this->_params['onAdd'])) {
-            $ret['raw_params']['onAdd'] = $this->_params['onAdd'];
-            $ret['raw_params']['onRemove'] = $this->_params['onRemove'];
+        foreach (array('box', 'onAdd', 'onRemove', 'triggerContainer') as $val) {
+            if (isset($this->_params[$val])) {
+                $opts[$val] = $this->_params[$val];
+            }
         }
-        $ret['raw_params']['requireSelection'] = true;
+
         if (empty($this->_params['pretty'])) {
-            $ret['ajax'] = 'ResourceAutoCompleter';
-        } else {
-            $ret['pretty'] = 'ResourceAutoCompleter';
+            return new Horde_Core_Ajax_Imple_AutoCompleter_Ajax($opts);
         }
 
-        if (!empty($this->_params['var'])) {
-            $ret['var'] = $this->_params['var'];
-        }
+        $opts['filterCallback'] = <<<EOT
+function(c) {
+   if (!c) {
+       return [];
+   }
 
-        return $ret;
+   var r = [];
+   KronolithCore.resourceACCache.choices = c;
+   c.each(function(i) {
+       r.push(i.name);
+   });
+   return r;
+}
+EOT;
+        $opts['requireSelection'] = true;
+
+        return new Horde_Core_Ajax_Imple_AutoCompleter_Pretty($opts);
     }
 
     /**
-     * TODO
-     *
-     * @param array $args  TODO
-     *
-     * @return string  TODO
      */
-    public function handle($args, $post)
+    protected function _handleAutoCompleter($input)
     {
-        // Avoid errors if 'input' isn't set and short-circuit empty searches.
-        if (empty($args['input']) ||
-            !($input = Horde_Util::getFormData($args['input']))) {
-            return array();
-        }
-        $return = array();
+        $ret = array();
+
         // For now, return all resources.
-        $resources = Kronolith::getDriver('Resource')
-            ->listResources(Horde_Perms::READ, array(), 'name');
+        $resources = Kronolith::getDriver('Resource')->listResources(Horde_Perms::READ, array(), 'name');
         foreach ($resources as $r) {
             if (strpos(Horde_String::lower($r->get('name')), Horde_String::lower($input)) !== false) {
-                $return[] = array(
+                $ret[] = array(
                     'name' => $r->get('name'),
                     'code' => $r->getId());
             }
         }
 
-        return $return;
+        return $ret;
     }
 
 }

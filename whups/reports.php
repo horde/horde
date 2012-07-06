@@ -34,10 +34,11 @@ if (!count($queues)) {
 
 $reporter = new Whups_Reports($whups_driver);
 
-$title = _("Reports");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Reports")
+));
 require WHUPS_TEMPLATES . '/menu.inc';
 if (count($queues)) {
     require WHUPS_TEMPLATES . '/reports/stats.inc';
 }
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

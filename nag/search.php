@@ -9,18 +9,17 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('nag');
 
-$injector->getInstance('Horde_PageOutput')->addInlineScript(array(
+$page_output->addInlineScript(array(
     '$("search_pattern")'
 ), true);
 
-if ($prefs->getValue('show_panel')) {
-    $bodyClass = 'rightPanel';
-}
-$title = _("Search");
+$page_output->header(array(
+    'body_class' => $prefs->getValue('show_panel') ? 'rightPanel' : null,
+    'title' => _("Search")
+));
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Nag::menu();
 Nag::status();
 require NAG_TEMPLATES . '/search/search.inc';
 require NAG_TEMPLATES . '/panel.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -57,16 +57,50 @@ class IMP
      */
     static public function header($title)
     {
-        switch ($view_mode = $GLOBALS['registry']->getView()) {
-        case Horde_Registry::VIEW_BASIC:
-            require IMP_TEMPLATES . '/imp/javascript_defs.php';
-            require IMP_TEMPLATES . '/common-header.inc';
-            break;
+        global $conf, $injector, $page_output, $registry;
 
-        default:
-            require IMP_TEMPLATES . '/common-header.inc';
+        switch ($registry->getView()) {
+        case Horde_Registry::VIEW_BASIC:
+            $code = array(
+                /* Variables used in core javascript files. */
+                'conf' => array(
+                    'pop3' => intval($injector->getInstance('IMP_Factory_Imap')->create()->pop3),
+                    'fixed_mboxes' => empty($conf['server']['fixed_folders'])
+                        ? array()
+                        : $conf['server']['fixed_folders']
+                ),
+
+                /* Gettext strings used in core javascript files. */
+                'text' => array(
+                    /* Strings used in imp.js */
+                    'popup_block' => _("A popup window could not be opened. Perhaps you have set your browser to block popup windows?"),
+
+                    /* Strings used in multiple pages. */
+                    'moveconfirm' => _("Are you sure you want to move the message(s)? (Some message information might get lost, like message headers, text formatting or attachments!)"),
+                    'spam_report' => _("Are you sure you wish to report this message as spam?"),
+                    'notspam_report' => _("Are you sure you wish to report this message as innocent?"),
+                    'newmbox' => _("You are copying/moving to a new mailbox.") . "\n" . _("Please enter a name for the new mailbox:") . "\n",
+                    'no' => _("No"),
+                    'target_mbox' => _("You must select a target mailbox first."),
+                    'yes' => _("Yes")
+                )
+            );
+
+            $page_output->addInlineJsVars(array(
+                'var IMP' => $code
+            ), array('top' => true));
+
+            $page_output->addLinkTag(array(
+                'href' => Horde::url('search.php'),
+                'rel' => 'search',
+                'type' => null
+            ));
             break;
         }
+
+        $GLOBALS['page_output']->header(array(
+            'title' => $title
+        ));
     }
 
     /**
@@ -108,17 +142,17 @@ class IMP
     static public function setMailboxInfo($mbox = null)
     {
         if (is_null($mbox)) {
-            $mbox = Horde_Util::getFormData('mailbox');
-            $mailbox = is_null($mbox)
-                ? IMP_Mailbox::get('INBOX')
-                : IMP_Mailbox::formFrom($mbox);
+            $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
 
-            $mbox = Horde_Util::getFormData('thismailbox');
-            $thismailbox = is_null($mbox)
-                ? $mailbox
-                : IMP_Mailbox::formFrom($mbox);
+            $mailbox = isset($vars->mailbox)
+                ? IMP_Mailbox::formFrom($vars->mailbox)
+                : IMP_Mailbox::get('INBOX');
 
-            $uid = Horde_Util::getFormData('uid');
+            $thismailbox = isset($vars->thismailbox)
+                ? IMP_Mailbox::formFrom($vars->thismailbox)
+                : $mailbox;
+
+            $uid = $vars->uid;
         } else {
             $mailbox = $thismailbox = IMP_Mailbox::get($mbox);
             $uid = null;
@@ -213,16 +247,18 @@ class IMP
      * Checks for To:, Subject:, Cc:, and other compose window arguments and
      * pass back an associative array of those that are present.
      *
+     * @param Horde_Variables $vars  Form variables.
+     *
      * @return string  An associative array with compose arguments.
      */
-    static public function getComposeArgs()
+    static public function getComposeArgs(Horde_Variables $vars)
     {
         $args = array();
         $fields = array('to', 'cc', 'bcc', 'message', 'body', 'subject');
 
         foreach ($fields as $val) {
-            if (($$val = Horde_Util::getFormData($val))) {
-                $args[$val] = $$val;
+            if (isset($vars->$val)) {
+                $args[$val] = $vars->$val;
             }
         }
 
@@ -265,8 +301,7 @@ class IMP
      *                          (mailto-style) string.
      * @param array $extra      Hash of extra, non-standard arguments to pass
      *                          to compose script.
-     * @param string $simplejs  Use simple JS (instead of Horde.popup() JS
-     *                          function)?
+     * @param string $simplejs  Use simple JS (instead of HordePopup JS)?
      *
      * @return Horde_Url  The link to the message composition script.
      */
@@ -295,7 +330,7 @@ class IMP
             $args['popup'] = 1;
 
             $url = ($view == Horde_Registry::VIEW_DYNAMIC)
-                ? 'compose-dimp.php'
+                ? IMP_Dynamic_Compose::url()
                 : 'compose.php';
             $raw = true;
             $callback = array(__CLASS__, 'composeLinkSimpleCallback');
@@ -306,7 +341,7 @@ class IMP
             $callback = array(__CLASS__, 'composeLinkJsCallback');
         } else {
             $url = ($view == Horde_Registry::VIEW_MINIMAL)
-                ? 'compose-mimp.php'
+                ? IMP_Minimal_Compose::url()
                 : 'compose.php';
         }
 
@@ -338,7 +373,7 @@ class IMP
      */
     static public function composeLinkSimpleCallback($url)
     {
-        return "javascript:void(window.open('" . strval($url) . "','','width=820,height=610,status=1,scrollbars=yes,resizable=yes'));";
+        return "javascript:void(window.open('" . strval($url) . "','','width=820,height=610,status=1,scrollbars=yes,resizable=yes'))";
     }
 
     /**
@@ -379,33 +414,34 @@ class IMP
      */
     static public function menu()
     {
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->set('form_url', Horde::url('mailbox.php'));
-        $t->set('forminput', Horde_Util::formInput());
-        $t->set('use_folders', $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS), true);
-        if ($t->get('use_folders')) {
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('imp.js');
-            $menu_view = $GLOBALS['prefs']->getValue('menu_view');
-            $ak = $GLOBALS['prefs']->getValue('widget_accesskey')
-                ? Horde::getAccessKey(_("Open Fo_lder"))
-                : '';
+        $sidebar = Horde::menu(array('app' => 'imp', 'menu_ob' => true))
+            ->render();
 
-            $t->set('ak', $ak);
-            $t->set('flist', self::flistSelect(array(
-                'inc_vfolder' => true,
-                'selected' => self::mailbox()
-            )));
-            $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? '<span class="iconImg folderImg" title="' . htmlspecialchars(_("Open Mailbox")) . '"></span>' : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Mai_lbox"), $ak) : ''));
+        if (self::canCompose()) {
+            $sidebar->addNewButton(_("_New Message"), self::composeLink());
         }
-        $t->set('menu_string', Horde::menu(array('app' => 'imp', 'menu_ob' => true))->render());
 
-        $menu = $t->fetch(IMP_TEMPLATES . '/imp/menu/menu.html');
+        /* Folders. */
+        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
+            $tree = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Tree')
+                ->create('imp_menu',
+                         'Horde_Tree_Renderer_Sidebar',
+                         array('nosession' => true));
+            $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+            $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
+            $tree = $imaptree->createTree($tree, array(
+                'open' => false,
+                'poll_info' => true
+            ));
+            $tree->addNodeParams(IMP_Mailbox::formTo(self::mailbox()), array('selected' => true));
+            $sidebar->containers['imp-menu'] = array('content' => $tree->getTree());
+        }
 
-        /* Need to buffer sidebar output here, because it may add things like
-         * cookies which need to be sent before output begins. */
-        Horde::startBuffer();
-        require HORDE_BASE . '/services/sidebar.php';
-        return $menu . Horde::endBuffer();
+        return $GLOBALS['injector']
+            ->getInstance('Horde_View_Topbar')
+            ->render()
+            . $sidebar;
     }
 
     /**

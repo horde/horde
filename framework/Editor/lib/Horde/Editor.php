@@ -33,15 +33,18 @@ class Horde_Editor
      * Constructor.
      *
      * @param array $params  The following configuration parameters:
-     * <pre>
-     * 'browser' - (Horde_Browser) A browser object.
-     * </pre>
+     *   - browser: (Horde_Browser) A browser object.
      */
     public function __construct(Horde_Browser $browser)
     {
         $this->_browser = $browser;
     }
 
+    /**
+     * Initialize the editor.
+     *
+     * @param array $params  Additional parameters.
+     */
     public function initialize(array $params = array())
     {
     }
@@ -49,7 +52,9 @@ class Horde_Editor
     /**
      * Returns the JS code needed to instantiate the editor.
      *
-     * @return string  Javascript code.
+     * @return array  Two keys:
+     *   - files: (array) Javascript files that need to be loaded by browser.
+     *   - scrips: (array) Code that needs to be run on the browser.
      */
     public function getJS()
     {
@@ -65,4 +70,5 @@ class Horde_Editor
     {
         return false;
     }
+
 }

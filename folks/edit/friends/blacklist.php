@@ -74,7 +74,9 @@ $actions = array(
 
 $friend_form = new Folks_AddFriend_Form($vars, _("Add or remove user"), 'blacklist');
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 
 echo $tabs->render('blacklist');
@@ -83,4 +85,4 @@ require FOLKS_TEMPLATES . '/edit/friends.php';
 $friend_form->renderActive();
 require FOLKS_TEMPLATES . '/edit/footer.php';
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

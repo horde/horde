@@ -107,7 +107,7 @@ class Hylax {
                         'preview' => 1);
 
         /* Set the params for the popup to view the full size pages. */
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('popup.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('popup.js', 'horde');
         $popup_w = 620;
         $popup_h = 860;
 

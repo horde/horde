@@ -16,6 +16,16 @@ Upgrading to 2.0.0
 
 The cclient drivers have been removed.
 
+Exception logging has been removed; the calling code is now responsible for
+logging any errors.
+
+  - Horde_Imap_Client
+
+    - factory()
+
+      The factory method has been removed. The client driver should instead
+      be directly instantiated.
+
   - Horde_Imap_Client_Base
 
     - append()
@@ -50,6 +60,7 @@ The cclient drivers have been removed.
       The 'vanished' option has been removed - use the vanished() method
       instead.
       The $mailbox parameter can no longer be a UTF7-IMAP string.
+      Results are now returned as a Horde_Imap_Client_Fetch_Results object.
 
     - fetchFromSectionString()
 
@@ -179,14 +190,27 @@ The cclient drivers have been removed.
       - CATENATE_BADURL
       - BADSEARCH
 
+  - Horde_Imap_Client_Exception_NoSupportExtension
+
+    The $extension property has been added.
+
   - Horde_Imap_Client_Mailbox
 
     get() no longer supports the null argument to the $utf7imap parameter.
 
+  - Horde_Imap_Client_Search_Query
+
+    The $queries argument to andSearch() and orSearch() can be a base query
+    in addition to an array of queries.
+
+    The second argument to charset() has been changed to a boolean indicating
+    whether the current text queries should be converted to the new charset
+    provided.
+
   - Horde_Imap_Client_Utf7imap
 
-   The default argument for the $force parameter to Utf8ToUtf7Imap() has
-   changed to boolean true.
+    The default argument for the $force parameter to Utf8ToUtf7Imap() has
+    changed to boolean true.
 
 
 

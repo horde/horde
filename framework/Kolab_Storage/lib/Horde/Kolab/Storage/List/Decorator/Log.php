@@ -45,13 +45,11 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_List $list   The original list handler.
-     * @param mixed                    $logger The log handler. This instance
-     *                                         must provide the debug()
-     *                                         and info() methods.
+     * @param Horde_Kolab_Storage_List $list  The original list handler.
+     * @param mixed $logger                   The log handler. This instance
+     *                                        must provide the debug() method.
      */
-    public function __construct(Horde_Kolab_Storage_List $list,
-                                $logger)
+    public function __construct(Horde_Kolab_Storage_List $list, $logger)
     {
         $this->_list = $list;
         $this->_logger = $logger;
@@ -97,9 +95,9 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      */
     public function createFolder($folder, $type = null)
     {
-        $this->_logger->info(sprintf('Creating folder %s.', $folder));
+        $this->_logger->debug(sprintf('Creating folder %s.', $folder));
         $result = $this->_list->createFolder($folder, $type);
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf('Successfully created folder %s [type: %s].', $folder, $type)
         );
     }
@@ -113,9 +111,9 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      */
     public function deleteFolder($folder)
     {
-        $this->_logger->info(sprintf('Deleting folder %s.', $folder));
+        $this->_logger->debug(sprintf('Deleting folder %s.', $folder));
         $result = $this->_list->deleteFolder($folder);
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf('Successfully deleted folder %s.', $folder)
         );
     }
@@ -130,9 +128,9 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      */
     public function renameFolder($old, $new)
     {
-        $this->_logger->info(sprintf('Renaming folder %s.', $old));
+        $this->_logger->debug(sprintf('Renaming folder %s.', $old));
         $result = $this->_list->renameFolder($old, $new);
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf('Successfully renamed folder %s to %s.', $old, $new)
         );
     }

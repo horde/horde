@@ -71,6 +71,8 @@ $view->notify = Horde::endBuffer();
 $view->banned = $banned;
 $view->forum = $forums->getForum();
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo $view->render('ban');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -33,14 +33,19 @@ if ($form->validate()) {
         $url = $vars->get('url');
         if (empty($url)) {
             $url = Horde::url('view.php')->add('gallery', $gallery->id);
+        } else {
+            $url = Horde::url($url);
         }
         $url->redirect();
         exit;
     }
 }
-require $registry->get('templates', 'horde') . '/common-header.inc';
+
+$page_output->header(array(
+    'title' => $title
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo '<div class="header">' . Ansel::getBreadCrumbs() . '</div>';
 $form->renderActive(null, null, null, 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

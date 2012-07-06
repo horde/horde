@@ -1,19 +1,22 @@
-# Passwd module translations.
+# Italian translations for Passwd module.
 # Copyright 2003 Free Software Foundation, Inc.
 # Gianrico Fichera <gianrico.fichera@itesys.it>, 2003.
 # Fabio Pedretti <fabio.pedretti@ing.unibs.it>, 2006-2008.
+# Massimo Malabotta <mmalabotta@units.it>, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Passwd 3.2\n"
+"Project-Id-Version: Passwd H4 (4.0.1)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2008-06-24 11:21+0200\n"
 "PO-Revision-Date: 2008-06-24 16:10+0200\n"
 "Last-Translator: Fabio Pedretti <fabio.pedretti@ing.unibs.it>\n"
-"Language-Team: Italian <i18n@lists.horde.org>\n"
+"Language-Team: <i18n@lists.horde.org>\n"
+"Language: Italian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/Driver/expect.php:34
 #, php-format

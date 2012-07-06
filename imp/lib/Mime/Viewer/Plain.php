@@ -33,7 +33,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         $data = $this->_impRender(false);
         $item = reset($data);
         Horde::startBuffer();
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->includeStylesheetFiles();
+        $GLOBALS['page_output']->includeStylesheetFiles();
         $item['data'] = '<html><head>' . Horde::endBuffer() . '</head><body>' . $item['data'] . '</body></html>';
         $data[key($data)] = $item;
         return $data;
@@ -101,6 +101,15 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         /* Done processing if in minimal mode. */
         if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL) {
+            $filters = array(
+                'text2html' => array(
+                    'charset' => $charset,
+                    'parselevel' => Horde_Text_Filter_Text2html::NOHTML_NOBREAK
+                )
+            );
+
+            $text = $this->_textFilter($text, array_keys($filters), array_values($filters));
+
             return array(
                 $mime_id => array(
                     'data' => $text,

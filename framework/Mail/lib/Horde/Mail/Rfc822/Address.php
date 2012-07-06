@@ -24,6 +24,7 @@
  * @property string $bare_address  The bare mailbox@host address.
  * @property string $encoded  The full MIME/IDN encoded address (UTF-8).
  * @property string $host_idn  Returns the IDN encoded host part.
+ * @property string $label  The shorthand label for this address.
  * @property string $personal_encoded  The MIME encoded personal part (UTF-8).
  * @property boolean $valid  Returns true if there is enough information in
  *                           object to create a valid address.
@@ -118,6 +119,11 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
             return function_exists('idn_to_ascii')
                 ? idn_to_ascii($this->_host)
                 : $this->host;
+
+        case 'label':
+            return is_null($this->_personal)
+                ? $this->bare_address
+                : $this->_personal;
 
         case 'personal':
             return $this->_personal;

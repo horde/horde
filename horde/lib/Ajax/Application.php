@@ -16,15 +16,10 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
      */
-    public function responseType()
+    protected function _init()
     {
-        switch ($this->_action) {
-        case 'blockAutoUpdate':
-        case 'blockRefresh':
-            return 'html';
-        }
-
-        return parent::responseType();
+        // Needed because Core contains Imples
+        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Imple());
     }
 
     /**
@@ -42,36 +37,45 @@ class Horde_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function blockAutoUpdate()
     {
+        $html = '';
+
         if (isset($this->_vars->app) && isset($this->_vars->blockid)) {
             try {
-                return $GLOBALS['injector']
+                $html = $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_BlockCollection')
                     ->create()
                     ->getBlock($this->_vars->app, $this->_vars->blockid)
                     ->getContent(isset($this->_vars->options) ? $this->_vars->options : null);
             } catch (Exception $e) {
-                return $e->getMessage();
+                $html = $e->getMessage();
             }
         }
 
-        return '';
+        return new Horde_Core_Ajax_Response_Raw($html, 'text/html');
     }
 
+    /**
+     * AJAX action: Refresh portal block.
+     */
     public function blockRefresh()
     {
-        if (isset($this->_vars->app) && isset($this->_vars->blockid)) {
+        $html = '';
+        if (!isset($this->_vars->app)) {
+            $this->_vars->set('app', 'horde');
+        }
+        if (isset($this->_vars->blockid)) {
             try {
-                return $GLOBALS['injector']
+                $html = $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_BlockCollection')
                     ->create()
                     ->getBlock($this->_vars->app, $this->_vars->blockid)
                     ->refreshContent($this->_vars);
             } catch (Exception $e) {
-                return $e->getMessage();
+                $html = $e->getMessage();
             }
         }
 
-        return '';
+        return new Horde_Core_Ajax_Response_Raw($html, 'text/html');
     }
 
     /**

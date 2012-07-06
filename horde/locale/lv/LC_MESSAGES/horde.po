@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 4.0.7-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-02-02 10:27+0200\n"
-"PO-Revision-Date: 2012-02-02 16:27+0300\n"
+"POT-Creation-Date: 2012-04-04 10:49+0300\n"
+"PO-Revision-Date: 2012-04-11 17:09+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -45,11 +45,6 @@ msgstr "\"%s\" nav izveidots: %s"
 #, php-format
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "izmantoti %.2fMB no atļautajiem %.2fMB  (%.2f%%)"
-
-#: lib/Block/Weather.php:194
-#, php-format
-msgid "%d %s"
-msgstr "%d %s"
 
 #: lib/Block/Weather.php:197 lib/Block/Weatherdotcom.php:221
 #, php-format
@@ -89,7 +84,7 @@ msgstr "%d-dienas prognoze"
 msgid "%s - Notice"
 msgstr "%s - Piezīme"
 
-#: admin/config/config.php:26 admin/config/index.php:355
+#: admin/config/config.php:26 admin/config/index.php:358
 #, php-format
 msgid "%s Configuration"
 msgstr "%s konfigurācija"
@@ -193,7 +188,7 @@ msgstr ""
 "Pieprasīta datu iztīrīšana noiekārtas. Tas tiks izdraīts nākošās "
 "sinhronizēšanas laikā."
 
-#: admin/config/index.php:147 admin/config/index.php:185
+#: admin/config/index.php:147 admin/config/index.php:188
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "Pieejama jaunāka (%s) versija."
@@ -287,7 +282,7 @@ msgstr "ActiveSync Iekārtas"
 msgid "ActiveSync not activated."
 msgstr "ActiveSync nav iespējots."
 
-#: templates/portal/add.inc:14 templates/admin/groups/add.inc:11
+#: templates/admin/groups/add.inc:11 templates/portal/add.inc:14
 msgid "Add"
 msgstr "Pievienot"
 
@@ -381,7 +376,7 @@ msgstr "Brīdinājumi"
 msgid "All"
 msgstr "Visi"
 
-#: templates/shares/edit.inc:58
+#: templates/shares/edit.inc:61
 msgid "All Authenticated Users"
 msgstr "Visi autentificētie lietotāji"
 
@@ -437,11 +432,11 @@ msgstr "Aplikācijas konteksts"
 msgid "Application List"
 msgstr "Aplikāciju saraksts"
 
-#: admin/config/index.php:225
+#: admin/config/index.php:228
 msgid "Application is ready."
 msgstr "Aplikācija gatava."
 
-#: admin/config/index.php:150 admin/config/index.php:188
+#: admin/config/index.php:150 admin/config/index.php:191
 msgid "Application is up-to-date."
 msgstr "Aplikācijas versija ir aktuālā."
 
@@ -605,8 +600,8 @@ msgstr "Mierīgs"
 msgid "Camouflage"
 msgstr "Kamuflāža"
 
-#: admin/user.php:120 admin/user.php:140 templates/admin/user/clear.inc:12
-#: templates/admin/user/remove.inc:12 templates/admin/groups/delete.inc:11
+#: admin/user.php:120 admin/user.php:140 templates/admin/groups/delete.inc:11
+#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
 msgid "Cancel"
 msgstr "Atcelt"
 
@@ -812,7 +807,7 @@ msgstr "konfigurācijas atšķirības"
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr "Sinhronizācijas konfigurācija PDA, viedtālruņiem un Outlook."
 
-#: admin/config/index.php:220
+#: admin/config/index.php:223
 msgid "Configuration is out of date."
 msgstr "Konfigurācija ir novecojusi"
 
@@ -971,15 +966,15 @@ msgstr "Cyrillic (Windows-1251)"
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Cyrillic/Ukrainian (KOI8-U)"
 
-#: admin/config/index.php:238 admin/config/index.php:276
+#: admin/config/index.php:241 admin/config/index.php:279
 msgid "DB access is not configured."
 msgstr "DB pieeja nav konfigurēta."
 
-#: admin/config/index.php:244 admin/config/index.php:283
+#: admin/config/index.php:247 admin/config/index.php:286
 msgid "DB schema is out of date."
 msgstr "Db shēma ir novecojusi."
 
-#: admin/config/index.php:249 admin/config/index.php:288
+#: admin/config/index.php:252 admin/config/index.php:291
 msgid "DB schema is ready."
 msgstr "Db shēma gatava."
 
@@ -1002,7 +997,7 @@ msgstr "Datu koks"
 msgid "DataTree Browser"
 msgstr "Datu koka pārlūks"
 
-#: templates/prefs/syncml.html:11 templates/admin/config/index.html:33
+#: templates/admin/config/index.html:33 templates/prefs/syncml.html:11
 msgid "Database"
 msgstr "Datubāze"
 
@@ -1050,14 +1045,14 @@ msgstr "Noklusētā atrašanās vieta dislokācijas jūtīgām funkcijām."
 msgid "Definitions"
 msgstr "Definīcijas"
 
-#: admin/groups.php:54 templates/shares/edit.inc:63
-#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
-#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
-#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
-#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
-#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
-#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
-#: templates/admin/user/list.inc:34 templates/admin/groups/delete.inc:10
+#: admin/groups.php:54 templates/admin/groups/delete.inc:10
+#: templates/admin/user/list.inc:34 templates/shares/edit.inc:66
+#: templates/shares/edit.inc:86 templates/shares/edit.inc:101
+#: templates/shares/edit.inc:121 templates/shares/edit.inc:137
+#: templates/shares/edit.inc:157 templates/shares/edit.inc:172
+#: templates/shares/edit.inc:196 templates/shares/edit.inc:231
+#: templates/shares/edit.inc:258 templates/shares/edit.inc:274
+#: templates/shares/edit.inc:299 templates/shares/edit.inc:328
 #: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
 #: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
 msgid "Delete"
@@ -1130,7 +1125,7 @@ msgstr "Rasas punkts"
 msgid "Dew Point for last hour: "
 msgstr "Rasas punkts pēdējā stundā:"
 
-#: lib/Block/Weather.php:178
+#: lib/Block/Weather.php:180
 msgid "Dew point"
 msgstr "Rasas punkts"
 
@@ -1168,12 +1163,12 @@ msgstr "Vai pirmā rinda satur lauku nosaukumus? Ja jā, ieķeksējiet šo rūti
 msgid "Don't have an account? Sign up."
 msgstr "Nav konta? Reģistrējieties."
 
-#: admin/config/index.php:147 admin/config/index.php:185
+#: admin/config/index.php:147 admin/config/index.php:188
 #, php-format
 msgid "Download %s"
 msgstr "Lejupielādēt %s"
 
-#: admin/config/index.php:306
+#: admin/config/index.php:309
 msgid "Download generated configuration as PHP script."
 msgstr "Lejuplādēt ģenerēto konfigurāciju kā PHP skriptu."
 
@@ -1205,13 +1200,13 @@ msgstr "ES PVN identifikācija"
 #
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: templates/shares/edit.inc:62 templates/shares/edit.inc:79
-#: templates/shares/edit.inc:97 templates/shares/edit.inc:114
-#: templates/shares/edit.inc:133 templates/shares/edit.inc:150
-#: templates/shares/edit.inc:168 templates/shares/edit.inc:189
-#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
-#: templates/shares/edit.inc:270 templates/shares/edit.inc:287
-#: templates/shares/edit.inc:316
+#: templates/shares/edit.inc:65 templates/shares/edit.inc:82
+#: templates/shares/edit.inc:100 templates/shares/edit.inc:117
+#: templates/shares/edit.inc:136 templates/shares/edit.inc:153
+#: templates/shares/edit.inc:171 templates/shares/edit.inc:192
+#: templates/shares/edit.inc:227 templates/shares/edit.inc:254
+#: templates/shares/edit.inc:273 templates/shares/edit.inc:295
+#: templates/shares/edit.inc:324
 msgid "Edit"
 msgstr "Labot"
 
@@ -1237,7 +1232,7 @@ msgstr "Labot pieejas tiesības \"%s\""
 msgid "Education"
 msgstr "Izglītība"
 
-#: templates/admin/user/update.inc:45 templates/admin/groups/edit.inc:12
+#: templates/admin/groups/edit.inc:12 templates/admin/user/update.inc:45
 msgid "Email Address"
 msgstr "E-pasta adrese"
 
@@ -1257,8 +1252,8 @@ msgstr ""
 "Ievadiet drošības jautājumu, kuru izmantot paroles maiņas nepieciešamības "
 "gadījumā, piemēram - 'kāds ir Jūsu mājdzīvnieka vārds?':"
 
-#: lib/Prefs/Ui.php:546 services/twitter/index.php:176
-#: services/twitter/index.php:199
+#: lib/Prefs/Ui.php:546 services/twitter/index.php:182
+#: services/twitter/index.php:205
 #, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
@@ -1478,7 +1473,7 @@ msgstr "No"
 msgid "From the %s (%s &deg;) at %s %s"
 msgstr "no %s (%s &deg;) plkst. %s %s"
 
-#: lib/Block/Weather.php:317
+#: lib/Block/Weather.php:316
 #, php-format
 msgid "From the %s at %s %s"
 msgstr "No %s plkst. %s %s"
@@ -1549,11 +1544,11 @@ msgstr "Grupas nosaukums"
 msgid "Group was not created: %s."
 msgstr "Grupa nav izveidota: %s."
 
-#: admin/groups.php:224 templates/shares/edit.inc:266
+#: admin/groups.php:224 templates/shares/edit.inc:269
 msgid "Groups"
 msgstr "Grupas"
 
-#: templates/shares/edit.inc:93
+#: templates/shares/edit.inc:96
 msgid "Guest Permissions"
 msgstr "Viesa pieejas tiesības"
 
@@ -1714,7 +1709,7 @@ msgstr ""
 "Nepareizs lietotāja vārds vai alternatīvā adrese. Sazinieties ar Jūsu "
 "sistēmas administratoru, ja nepieciešama palīdzība."
 
-#: templates/shares/edit.inc:164
+#: templates/shares/edit.inc:167
 msgid "Individual Users"
 msgstr "Individuālie lietotāji"
 
@@ -1778,6 +1773,10 @@ msgstr "Nepareizs partnera ID."
 #: lib/Block/Weatherdotcom.php:158
 msgid "Invalid product code."
 msgstr "Nepareizs produkta kods."
+
+#: config/registry.php:364
+msgid "Inventory"
+msgstr "Inventārs"
 
 #: lib/Block/WeatherdotcomStrings.php:37
 msgid "Isolated T-Storms"
@@ -1956,7 +1955,7 @@ msgstr "Lasa..."
 msgid "Local time: "
 msgstr "Vietējais laiks:"
 
-#: lib/Block/Weather.php:158
+#: lib/Block/Weather.php:159
 #, php-format
 msgid "Local time: %s %s"
 msgstr "Vietējais laiks: %s %s"
@@ -2114,7 +2113,7 @@ msgstr "Min. temp. pēdējās 6 stundās:"
 msgid "Miscellaneous"
 msgstr "Dažādi"
 
-#: admin/config/index.php:197
+#: admin/config/index.php:200
 msgid "Missing configuration."
 msgstr "Nav atrodama konfigurācija."
 
@@ -2186,8 +2185,8 @@ msgstr "Mans portāls"
 msgid "My Portal Layout"
 msgstr "Mans portāla izkārtojums"
 
-#: lib/Block/Weather.php:181 lib/Block/Weather.php:307
-#: lib/Block/Weather.php:311 lib/Block/Weather.php:327
+#: lib/Block/Weather.php:306 lib/Block/Weather.php:310
+#: lib/Block/Weather.php:326
 msgid "N/A"
 msgstr "Nav"
 
@@ -2294,7 +2293,7 @@ msgstr "Nav gaidošu pieteikumu."
 msgid "No security question has been set. Please contact your administrator."
 msgstr "Nav norādīts drošības jautājums. Sazinieties ar savu administratoru."
 
-#: admin/config/index.php:144 admin/config/index.php:182
+#: admin/config/index.php:144 admin/config/index.php:185
 msgid "No stable version exists yet."
 msgstr "Stabila versija pagaidām nepastāv."
 
@@ -2306,13 +2305,13 @@ msgstr "Nav pieejamas pagaidu katalogs kešatmiņai."
 msgid "No username specified."
 msgstr "Nav norādīts lietotājs."
 
-#: admin/config/index.php:203
+#: admin/config/index.php:206
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
 "Oriģinālajā konfigurācijā nav atrasta versijas informācija. Reģenerējam "
 "konfigurāciju."
 
-#: admin/config/index.php:212
+#: admin/config/index.php:215
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr ""
 "Konfigurācijā nav atrasta versijas informācija. Reģenerējam konfigurāciju."
@@ -2354,7 +2353,7 @@ msgstr "pēc cik sekundēm atsvaidzināt:"
 msgid "O characters"
 msgstr "O zīmes"
 
-#: templates/shares/edit.inc:129
+#: templates/shares/edit.inc:132
 msgid "Object Creator"
 msgstr "Objektu redaktors"
 
@@ -2398,7 +2397,7 @@ msgstr ""
 msgid "Operating System"
 msgstr "Operētājsistēma"
 
-#: templates/shares/edit.inc:236
+#: templates/shares/edit.inc:239
 msgid "Or enter a user name:"
 msgstr "Vai ievadiet lietotāja vārdu:"
 
@@ -2419,11 +2418,11 @@ msgstr "Cita informācija"
 msgid "Other characters"
 msgstr "Citas zīmes"
 
-#: templates/shares/edit.inc:30
+#: templates/shares/edit.inc:33
 msgid "Owner"
 msgstr "Īpašnieks"
 
-#: templates/shares/edit.inc:36 templates/shares/edit.inc:45
+#: templates/shares/edit.inc:39 templates/shares/edit.inc:48
 msgid "Owner:"
 msgstr "Īpašnieks:"
 
@@ -2499,8 +2498,8 @@ msgstr "P_HP čaula"
 msgid "Partly Cloudy"
 msgstr "Daļēji mākoņains"
 
-#: login.php:194 admin/user.php:40 admin/user.php:54
-#: admin/config/index.php:319 config/registry.php:322
+#: login.php:194 admin/config/index.php:322 admin/user.php:40
+#: admin/user.php:54 config/registry.php:322
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Parole"
@@ -2703,13 +2702,13 @@ msgstr "Lietus ar sniegu"
 msgid "Random Fortune"
 msgstr "Gadījuma citāts"
 
-#: templates/shares/edit.inc:61 templates/shares/edit.inc:75
-#: templates/shares/edit.inc:96 templates/shares/edit.inc:110
-#: templates/shares/edit.inc:132 templates/shares/edit.inc:146
-#: templates/shares/edit.inc:167 templates/shares/edit.inc:185
-#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
-#: templates/shares/edit.inc:269 templates/shares/edit.inc:283
-#: templates/shares/edit.inc:312
+#: templates/shares/edit.inc:64 templates/shares/edit.inc:78
+#: templates/shares/edit.inc:99 templates/shares/edit.inc:113
+#: templates/shares/edit.inc:135 templates/shares/edit.inc:149
+#: templates/shares/edit.inc:170 templates/shares/edit.inc:188
+#: templates/shares/edit.inc:223 templates/shares/edit.inc:250
+#: templates/shares/edit.inc:272 templates/shares/edit.inc:291
+#: templates/shares/edit.inc:320
 msgid "Read"
 msgstr "Lasīt"
 
@@ -2756,9 +2755,9 @@ msgstr "Attālinātā stacija:"
 msgid "Remote URL (http://www.example.com/horde):"
 msgstr "Attālinātā saite (URL, http://www.example.com/horde):"
 
-#: admin/activesync.php:187 templates/admin/user/approve.inc:40
-#: templates/admin/user/removequeued.inc:13 templates/admin/groups/edit.inc:26
-#: templates/prefs/activesync.html:33
+#: admin/activesync.php:187 templates/admin/groups/edit.inc:26
+#: templates/admin/user/approve.inc:40
+#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
 msgid "Remove"
 msgstr "Aizvākt"
 
@@ -2766,7 +2765,7 @@ msgstr "Aizvākt"
 msgid "Remove pair"
 msgstr "Izdzēst pāri"
 
-#: admin/config/index.php:338
+#: admin/config/index.php:341
 msgid "Remove saved script from server's temporary directory."
 msgstr "Izdzēsiet saglabāto skriptu no servera pagaidu kataloga."
 
@@ -2879,16 +2878,16 @@ msgstr "S_Ql čaula"
 msgid "Save"
 msgstr "Saglabāt"
 
-#: templates/shares/edit.inc:330 templates/admin/groups/edit.inc:70
+#: templates/admin/groups/edit.inc:70 templates/shares/edit.inc:338
 #, php-format
 msgid "Save \"%s\""
 msgstr "Saglabāt \"%s\""
 
-#: templates/shares/edit.inc:331
+#: templates/shares/edit.inc:339
 msgid "Save and Finish"
 msgstr "Saglabāt un beigt"
 
-#: admin/config/index.php:310
+#: admin/config/index.php:313
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
@@ -2928,11 +2927,11 @@ msgstr "Meklēt"
 msgid "Search:"
 msgstr "Meklēt:"
 
-#: templates/shares/edit.inc:298 templates/shares/edit.inc:300
+#: templates/shares/edit.inc:306 templates/shares/edit.inc:308
 msgid "Select a group to add:"
 msgstr "Izvēlieties pievienojamo grupu:"
 
-#: templates/shares/edit.inc:38
+#: templates/shares/edit.inc:41
 msgid "Select a new owner:"
 msgstr "Izvēlieties jaunu īpašnieku:"
 
@@ -2940,7 +2939,7 @@ msgstr "Izvēlieties jaunu īpašnieku:"
 msgid "Select a server"
 msgstr "Izvēlieties serveri"
 
-#: templates/shares/edit.inc:202 templates/shares/edit.inc:204
+#: templates/shares/edit.inc:205 templates/shares/edit.inc:207
 msgid "Select a user to add:"
 msgstr "Izvēlieties pievienojamo lietotāju:"
 
@@ -3058,13 +3057,13 @@ msgstr "Īss kopsavilkums"
 msgid "Should access keys be defined for most links?"
 msgstr "Vai vairuma saišu definēt pieejas taustiņus?"
 
-#: templates/shares/edit.inc:60 templates/shares/edit.inc:71
-#: templates/shares/edit.inc:95 templates/shares/edit.inc:106
-#: templates/shares/edit.inc:131 templates/shares/edit.inc:142
-#: templates/shares/edit.inc:166 templates/shares/edit.inc:181
-#: templates/shares/edit.inc:216 templates/shares/edit.inc:243
-#: templates/shares/edit.inc:268 templates/shares/edit.inc:279
-#: templates/shares/edit.inc:308
+#: templates/shares/edit.inc:63 templates/shares/edit.inc:74
+#: templates/shares/edit.inc:98 templates/shares/edit.inc:109
+#: templates/shares/edit.inc:134 templates/shares/edit.inc:145
+#: templates/shares/edit.inc:169 templates/shares/edit.inc:184
+#: templates/shares/edit.inc:219 templates/shares/edit.inc:246
+#: templates/shares/edit.inc:271 templates/shares/edit.inc:287
+#: templates/shares/edit.inc:316
 msgid "Show"
 msgstr "Rādīt"
 
@@ -3076,7 +3075,7 @@ msgstr "Rādīt paplašinātos iestatījumus"
 msgid "Show Sidebar"
 msgstr "Rādīt sānjoslu"
 
-#: admin/config/index.php:300
+#: admin/config/index.php:303
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
@@ -3205,8 +3204,8 @@ msgstr "Sākuma laiks"
 msgid "State Management"
 msgstr "Stāvokļa vadība"
 
-#: admin/activesync.php:114 templates/prefs/activesync.html:22
-#: templates/admin/config/index.html:39
+#: admin/activesync.php:114 templates/admin/config/index.html:39
+#: templates/prefs/activesync.html:22
 msgid "Status"
 msgstr "Statuss"
 
@@ -3301,7 +3300,7 @@ msgstr "Svētdiena"
 msgid "Sunny"
 msgstr "Saulains"
 
-#: lib/Block/Weather.php:163 lib/Block/Weather.php:164
+#: lib/Block/Weather.php:165 lib/Block/Weather.php:166
 #: lib/Block/Weatherdotcom.php:200
 msgid "Sunrise"
 msgstr "Saullēkts"
@@ -3314,7 +3313,7 @@ msgstr "Saullēkts/saulriets"
 msgid "Sunrise: "
 msgstr "Saullēkts:"
 
-#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
+#: lib/Block/Weather.php:168 lib/Block/Weather.php:169
 #: lib/Block/Weatherdotcom.php:203
 msgid "Sunset"
 msgstr "Saulriets"
@@ -3383,7 +3382,7 @@ msgstr "Krīklis"
 msgid "Temp for last hour: "
 msgstr "Temp. pēdējā stundā:"
 
-#: lib/Block/Metar.php:187 lib/Block/Weather.php:173
+#: lib/Block/Metar.php:187 lib/Block/Weather.php:175
 msgid "Temperature"
 msgstr "Temperatūra"
 
@@ -3642,11 +3641,11 @@ msgstr ""
 "Lai iezīmētu vairākus objektus, klikšķinot turiet nospiestu Control (PC) vai "
 "Command (MAC) pogu."
 
-#: lib/Block/Weather.php:279 lib/Block/Weatherdotcom.php:293
+#: lib/Block/Weather.php:278 lib/Block/Weatherdotcom.php:293
 msgid "Today"
 msgstr "Šodiena"
 
-#: lib/Block/Weather.php:281 lib/Block/Weatherdotcom.php:295
+#: lib/Block/Weather.php:280 lib/Block/Weatherdotcom.php:295
 msgid "Tomorrow"
 msgstr "Rītdiena"
 
@@ -3739,7 +3738,7 @@ msgstr "Mainīt"
 msgid "Update %s"
 msgstr "Mainīt %s"
 
-#: admin/config/index.php:168 admin/config/index.php:263
+#: admin/config/index.php:168 admin/config/index.php:266
 #, php-format
 msgid "Update %s schema"
 msgstr "Atsvaidzināt %s shēmu"
@@ -3766,11 +3765,11 @@ msgstr "\"%s\" mainīts."
 msgid "Updated schema for %s."
 msgstr "%s shēma atsvaidzināta."
 
-#: admin/config/index.php:317
+#: admin/config/index.php:320
 msgid "Upload"
 msgstr "Augšupielādēt"
 
-#: admin/config/index.php:325
+#: admin/config/index.php:328
 msgid "Uploaded all application configuration files to the server."
 msgstr "Visas aplikāciju konfigurācijas augšupielādētas."
 
@@ -3778,8 +3777,8 @@ msgstr "Visas aplikāciju konfigurācijas augšupielādētas."
 msgid "Use if name/password is different for IMSP server."
 msgstr "Lietot, ja lietotāja vārds/parole IMSP serverim atšķiras."
 
-#: templates/admin/locks/list.html.php:12 templates/admin/groups/edit.inc:24
-#: templates/admin/groups/edit.inc:67
+#: templates/admin/groups/edit.inc:24 templates/admin/groups/edit.inc:67
+#: templates/admin/locks/list.html.php:12
 msgid "User"
 msgstr "Lietotājs"
 
@@ -3811,12 +3810,12 @@ msgstr "Lietotāju reģistrācija nav korekti konfigurēta."
 msgid "User account not found"
 msgstr "Konts nav atrasts"
 
-#: templates/shares/edit.inc:238
+#: templates/shares/edit.inc:241
 msgid "User to add:"
 msgstr "Pievienojamais lietotājs:"
 
-#: login.php:189 admin/user.php:37 admin/user.php:53
-#: admin/config/index.php:318 services/resetpassword.php:30
+#: login.php:189 admin/config/index.php:321 admin/user.php:37
+#: admin/user.php:53 services/resetpassword.php:30
 #: templates/admin/user/approve.inc:22
 msgid "Username"
 msgstr "Lietotāja vārds"
@@ -3889,7 +3888,7 @@ msgstr "Laika apstākļi"
 msgid "Weather Forecast"
 msgstr "Laika prognoze"
 
-#: lib/Block/Weather.php:339 lib/Block/Weather.php:347
+#: lib/Block/Weather.php:338 lib/Block/Weather.php:346
 #: lib/Block/Weatherdotcom.php:409
 msgid "Weather data provided by"
 msgstr "Laika ziņu avots - "
@@ -4304,7 +4303,7 @@ msgstr "krīt"
 msgid "from the %s (%s) at %s %s"
 msgstr "no %s (%s) plkst. %s %s"
 
-#: lib/Block/Weather.php:213 lib/Block/Weather.php:322
+#: lib/Block/Weather.php:213 lib/Block/Weather.php:321
 #: lib/Block/Weatherdotcom.php:234
 msgid "gusting"
 msgstr "brāzmas"

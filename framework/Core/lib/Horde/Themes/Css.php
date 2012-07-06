@@ -62,18 +62,16 @@ class Horde_Themes_Css
      * Honors configuration choices as to stylesheet caching.
      *
      * @param array $opts  Additional options:
-     * <pre>
-     * 'app' - (string) The current application.
-     * 'nobase' - (boolean) If true, don't load base stylesheets.
-     * 'nohorde' - (boolean) If true, don't load files from Horde.
-     * 'nocache' - (boolean) If true, don't load files from Cache.
-     * 'sub' - (string) A subdirectory containing additional CSS files to
-     *         load as an overlay to the base CSS files.
-     * 'subonly' - (boolean) If true, only load the files in 'sub', not
-     *             the default theme files.
-     * 'theme' - (string) Use this theme instead of the default.
-     * 'themeonly' - (boolean) If true, only load the theme files.
-     * </pre>
+     *   - app: (string) The current application.
+     *   - nobase: (boolean) If true, don't load base stylesheets.
+     *   - nohorde: (boolean) If true, don't load files from Horde.
+     *   - nocache: (boolean) If true, don't load files from Cache.
+     *   - sub: (string) A subdirectory containing additional CSS files to
+     *          load as an overlay to the base CSS files.
+     *   - subonly: (boolean) If true, only load the files in 'sub', not
+     *              the default theme files.
+     *   - theme: (string) Use this theme instead of the default.
+     *   - themeonly: (boolean) If true, only load the theme files.
      *
      * @return array  The list of URLs to display (Horde_Url objects).
      */
@@ -157,22 +155,18 @@ class Horde_Themes_Css
      *                      retrieve the theme from user preferences, and
      *                      false for no theme.
      * @param array $opts   Additional options:
-     * <pre>
-     * 'app' - (string) The current application.
-     * 'nobase' - (boolean) If true, don't load base stylesheets.
-     * 'nohorde' - (boolean) If true, don't load files from Horde.
-     * 'sub' - (string) A subdirectory containing additional CSS files to
-     *         load as an overlay to the base CSS files.
-     * 'subonly' - (boolean) If true, only load the files in 'sub', not
-     *             the default theme files.
-     * 'themeonly' - (boolean) If true, only load the theme files.
-     * </pre>
+     *   - app: (string) The current application.
+     *   - nobase: (boolean) If true, don't load base stylesheets.
+     *   - nohorde: (boolean) If true, don't load files from Horde.
+     *   - sub: (string) A subdirectory containing additional CSS files to
+     *          load as an overlay to the base CSS files.
+     *   - subonly: (boolean) If true, only load the files in 'sub', not
+     *              the default theme files.
+     *   - themeonly: (boolean) If true, only load the theme files.
      *
      * @return array  An array of 2-element array arrays containing 2 keys:
-     * <pre>
-     * fs - (string) Filesystem location of stylesheet.
-     * uri - (string) URI of stylesheet.
-     * </pre>
+     *   - fs: (string) Filesystem location of stylesheet.
+     *   - uri: (string) URI of stylesheet.
      */
     public function getStylesheets($theme = '', array $opts = array())
     {
@@ -200,6 +194,18 @@ class Horde_Themes_Css
         $cache = $GLOBALS['injector']->getInstance('Horde_Core_Factory_ThemesCache')->create($curr_app, $theme);
         $this->_cacheid = $cache->getCacheId();
 
+        /* Add external stylesheets first, since they are ALWAYS overwritable
+         * by Horde code. */
+        foreach ($this->_cssFiles as $f => $u) {
+            if (file_exists($f)) {
+                $css_out[] = array(
+                    'fs' => $f,
+                    'uri' => $u
+                );
+            }
+        }
+
+        /* Add theme stylesheets. */
         foreach ($css_list as $css_name) {
             if (empty($opts['subonly'])) {
                 $css_out = array_merge($css_out, array_reverse($cache->getAll($css_name, $mask)));
@@ -210,24 +216,15 @@ class Horde_Themes_Css
             }
         }
 
-        /* Add additional stylesheets added by code. */
-        foreach ($this->_cssFiles as $f => $u) {
-            if (file_exists($f)) {
-                $add_css[$f] = $u;
-            }
-        }
-
         /* Add user-defined additional stylesheets. */
         try {
             $add_css = array_merge($add_css, Horde::callHook('cssfiles', array($theme), 'horde'));
-        } catch (Horde_Exception_HookNotSet $e) {
-        }
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         if ($curr_app != 'horde') {
             try {
                 $add_css = array_merge($add_css, Horde::callHook('cssfiles', array($theme), $curr_app));
-            } catch (Horde_Exception_HookNotSet $e) {
-            }
+            } catch (Horde_Exception_HookNotSet $e) {}
         }
 
         foreach ($add_css as $f => $u) {
@@ -262,8 +259,6 @@ class Horde_Themes_Css
                 $css_list[] = 'ie8.css';
             } elseif ($ie_major == 7) {
                 $css_list[] = 'ie7.css';
-            } elseif ($ie_major < 7) {
-                $css_list[] = 'ie6_or_less.css';
             }
             break;
 

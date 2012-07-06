@@ -97,58 +97,49 @@ var ImpContacts = {
         if ($('search').present()) {
             $('btn_clear').show();
         }
+
+        HordeCore.initHandler('click');
+        HordeCore.initHandler('dblclick');
         $('contacts').observe('submit', this._passAddresses.bind(this));
-        document.observe('click', this._clickHandler.bindAsEventListener(this));
-        document.observe('dblclick', this._dblclickHandler.bindAsEventListener(this));
     },
 
-    _clickHandler: function(e)
+    clickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
-        }
+        switch (e.element().readAttribute('id')) {
+        case 'btn_add_bcc':
+            this.addAddress('bcc');
+            break;
 
-        var elt = e.element(), id;
+        case 'btn_add_cc':
+            this.addAddress('cc');
+            break;
 
-        while (Object.isElement(elt)) {
-            id = elt.readAttribute('id');
+        case 'btn_add_to':
+            this.addAddress('to');
+            break;
 
-            switch (id) {
-            case 'btn_clear':
-                $('search').clear();
-                break;
+        case 'btn_cancel':
+            window.close();
+            e.memo.hordecore_stop = true;
+            break;
 
-            case 'btn_add_to':
-            case 'btn_add_cc':
-            case 'btn_add_bcc':
-                this.addAddress(id.substring(8));
-                break;
+        case 'btn_clear':
+            $('search').clear();
+            break;
 
-            case 'btn_update':
-                this.updateMessage();
-                break;
+        case 'btn_delete':
+            this.removeAddress();
+            break;
 
-            case 'btn_delete':
-                this.removeAddress();
-                break;
-
-            case 'btn_cancel':
-                window.close();
-                break;
-            }
-
-            elt = elt.up();
+        case 'btn_update':
+            this.updateMessage();
+            break;
         }
     },
 
     _dblclickHandler: function(e)
     {
-        var elt = e.element();
-        if (!elt.match('SELECT')) {
-            elt = elt.up('SELECT');
-        }
-
-        switch (elt.readAttribute('id')) {
+        switch (e.element().readAttribute('id')) {
         case 'search_results':
             this.addAddress('to');
             break;
@@ -162,3 +153,5 @@ var ImpContacts = {
 };
 
 document.observe('dom:loaded', ImpContacts.onDomLoad.bind(ImpContacts));
+document.observe('HordeCore:click', ImpContacts.clickHandler.bindAsEventListener(ImpContacts));
+document.observe('HordeCore:dblclick', ImpContats.dblclickHandler.bindAsEventListener(ImpContacts));

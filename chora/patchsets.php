@@ -42,10 +42,11 @@ if (empty($patchsets)) {
 
 $extraLink = Chora::getFileViews($where, 'patchsets');
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('tables.js', 'horde');
 $page_output->addScriptFile('quickfinder.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/patchsets/header_table.inc';
@@ -68,4 +69,4 @@ while (list($id, $patchset) = each($patchsets)) {
 }
 
 require CHORA_TEMPLATES . '/patchsets/footer.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

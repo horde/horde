@@ -11,12 +11,9 @@
  */
 
 require_once __DIR__ . '/../../lib/Application.php';
-$permission = 'configuration';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:configuration')
+));
 
 /**
  * Does an FTP upload to save the configuration.
@@ -93,11 +90,8 @@ if ($vars->action == 'config') {
         $form->setSubmitted(true);
         if ($form->validate($vars)) {
             $config = new Horde_Config($app);
-            $configFile = $config->configFile();
-            if ($config->writePHPConfig($vars)) {
-                $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
-            } else {
-                $notification->push(sprintf(_("Could not save the configuration file %s. Use one of the options below to save the code."), Horde_Util::realPath($configFile)), 'horde.warning', array('content.raw'));
+            if (!$config->writePHPConfig($vars)) {
+                $notification->push(sprintf(_("Could not save the configuration file %s. Use one of the options below to save the code."), Horde_Util::realPath($config->configFile())), 'horde.warning', array('content.raw', 'sticky'));
             }
         } else {
             $notification->push(sprintf(_("The configuration for %s cannot be updated automatically. Please update the configuration manually."), $app), 'horde.error');
@@ -355,9 +349,11 @@ $template->set('apps', $apps);
 $template->set('actions', $actions, true);
 $template->set('ftpform', $ftpform, true);
 
-$title = sprintf(_("%s Configuration"), $registry->get('name', 'horde'));
-$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+
+$page_output->header(array(
+    'title' => sprintf(_("%s Configuration"), $registry->get('name', 'horde'))
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 echo $template->fetch(HORDE_TEMPLATES . '/admin/config/index.html');
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

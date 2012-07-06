@@ -64,20 +64,19 @@ if ($face_id) {
 $height = $x2 - $x1;
 $width = $y2 - $y1;
 
-$title = _("Create a new face");
-
-$page_output = $injector->getInstance('Horde_PageOutput');
-$page_output->addScriptFile('builder.js', 'horde');
-$page_output->addScriptFile('effects.js', 'horde');
-$page_output->addScriptFile('controls.js', 'horde');
-$page_output->addScriptFile('dragdrop.js', 'horde');
+$page_output->addScriptFile('scriptaculous/builder.js', 'horde');
+$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+$page_output->addScriptFile('scriptaculous/controls.js', 'horde');
+$page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
 $page_output->addScriptFile('cropper.js');
 $page_output->addScriptFile('stripe.js', 'horde');
 
 $page_output->addThemeStylesheet('cropper.css');
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Create a new face")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/custom.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -1,25 +1,4 @@
 <?php
-
-// Sorting Constants
-
-/** Sort by stock id. */
-define('SESHA_SORT_STOCKID', 100);
-/** Sort by stock name. */
-define('SESHA_SORT_NAME', 101);
-/** Sort by stock note. */
-define('SESHA_SORT_NOTE', 102);
-/** Sort in ascending order. */
-define('SESHA_SORT_ASCEND', 0);
-/** Sort in descending order. */
-define('SESHA_SORT_DESCEND', 1);
-
-// Search Field Constants
-
-define('SESHA_SEARCH_ID', 1);
-define('SESHA_SEARCH_NAME', 2);
-define('SESHA_SEARCH_NOTE', 4);
-define('SESHA_SEARCH_PROPERTY', 8);
-
 /**
  * This is the base Sesha class.
  *
@@ -34,61 +13,23 @@ define('SESHA_SEARCH_PROPERTY', 8);
  */
 class Sesha
 {
-    /**
-     * This function will return the inventory based on current category
-     * filters.
-     *
-     * @param constant $sortby       The field to sort the inventory on.
-     * @param constant $sortdir      The direction to sort the inventory.
-     * @param integer  $category_id  The category ID of stock to fetch.
-     * @param string   $what         The criteria to search on.
-     * @param integer  $where        The locations to search in (bitmask).
-     *
-     * @return mixed  Array of inventory on success; PEAR_Error on failure.
-     */
-    function listStock($sortby = null, $sortdir = null, $category_id = null,
-                       $what = null, $where = null)
-    {
-        global $prefs;
+    /** Sort by stock id. */
+    const SORT_STOCKID = 100;
+    /** Sort by stock name. */
+    const SORT_NAME = 101;
+    /** Sort by stock note. */
+    const SORT_NOTE = 102;
+    /** Sort in ascending order. */
+    const SORT_ASCEND = 0;
+    /** Sort in descending order. */
+    const SORT_DESCEND = 1;
 
-        if (is_null($sortby)) {
-            $sortby = $prefs->getValue('sortby');
-        }
-        if (is_null($sortdir)) {
-            $sortdir = $prefs->getValue('sortdir');
-        }
+    // Search Field Constants
 
-        // Sorting functions
-        $sort_functions = array(
-            SESHA_SORT_STOCKID => 'ByStockID',
-            SESHA_SORT_NAME    => 'ByName',
-            SESHA_SORT_NOTE    => 'ByNote',
-        );
-
-        $list_property_ids = @unserialize($prefs->getValue('list_properties'));
-
-        // Retrieve the inventory from the storage driver
-        $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
-        if (!is_null($what) && !is_null($where)) {
-            $inventory = $sesha_driver->searchStock($what, $where, $list_property_ids);
-        } else {
-            $inventory = $sesha_driver->listStock($category_id, $list_property_ids);
-        }
-
-        // Sort the inventory if there is a sort function defined
-        if (count($inventory)) {
-            $prefix = ($sortdir == SESHA_SORT_DESCEND) ? '_rsort' : '_sort';
-            if (isset($sort_functions[$sortby])) {
-                uasort($inventory, array('Sesha', $prefix .
-                    $sort_functions[$sortby]));
-            } elseif (substr($sortby, 0, 1) == 'p' && in_array(substr($sortby, 1), $list_property_ids)) {
-                $GLOBALS['_sort_property'] = $sortby;
-                uasort($inventory, array('Sesha', $prefix . 'ByProperty'));
-            }
-        }
-
-        return $inventory;
-    }
+    const SEARCH_ID = 1;
+    const SEARCH_NAME = 2;
+    const SEARCH_NOTE = 4;
+    const SEARCH_PROPERTY = 8;
 
     /**
      * This function will return the list of available categories.

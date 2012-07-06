@@ -62,6 +62,7 @@ class Horde_Oauth_Consumer
     public function getRequestToken($params = array())
     {
         $params['oauth_consumer_key'] = $this->key;
+        $params['oauth_callback'] = $this->callbackUrl;
 
         $request = new Horde_Oauth_Request($this->requestTokenUrl, $params);
         $request->sign($this->signatureMethod, $this);

@@ -24,10 +24,17 @@ class Horde_Core_Notification_Listener_SmartmobileStatus extends Horde_Notificat
      */
     public function notify($events, $options = array())
     {
+        if (empty($events)) {
+            return;
+        }
+
+        // TODO: Need to add delay to allow browser to correctly populate
+        // location of original page, or else closing notification reloads
+        // previous page (Ticket #11103).
         $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(array(
-            'window.setTimeout(function(){HordeMobile.showNotifications(' .
+            '$(function() {HordeMobile.showNotifications(' .
             Horde_Serialize::serialize($events, Horde_Serialize::JSON) .
-            ');},0);'
+            ');});'
         ));
     }
 

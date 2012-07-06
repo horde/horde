@@ -3,19 +3,25 @@
  * Horde_ActiveSync_Request_Base::
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
- * @copyright 2009-2012 Horde LLC (http://www.horde.org/)
- * @link      http://pear.horde.org/index.php?package=ActiveSync
- * @author Michael J Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 /**
  * Base class for handlig ActiveSync requests.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
- * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
- * @link      http://pear.horde.org/index.php?package=ActiveSync
- * @author Michael J Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 abstract class Horde_ActiveSync_Request_Base
 {
@@ -69,7 +75,7 @@ abstract class Horde_ActiveSync_Request_Base
     /**
      * The ActiveSync Version
      *
-     * @var string
+     * @var float
      */
     protected $_version;
 
@@ -144,13 +150,10 @@ abstract class Horde_ActiveSync_Request_Base
     public function checkPolicyKey($sentKey)
     {
         $this->_logger->debug(sprintf(
-            "[%s] Checking policykey for Device %s User %s",
+            "[%s] Checking policykey for device: %s user: %s",
             $this->_device->id,
             $sentKey,
             $this->_driver->getUser()));
-
-        $this->_device = $this->_stateDriver->loadDeviceInfo(
-            $this->_device->id, $this->_driver->getUser());
 
         // Use looseprovisioning?
         if (empty($sentKey) && $this->_hasBrokenProvisioning() &&
@@ -168,7 +171,7 @@ abstract class Horde_ActiveSync_Request_Base
                ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_LOOSE ||
                ($this->_provisioning === Horde_ActiveSync::PROVISIONING_LOOSE && !is_null($sentKey)))) {
 
-                Horde_ActiveSync::provisioningRequired();
+                $this->_activeSync->provisioningRequired();
                 return false;
             }
         }
@@ -196,7 +199,12 @@ abstract class Horde_ActiveSync_Request_Base
             $this->_version)
         );
 
-        return $this->_handle();
+        try {
+            return $this->_handle();
+        } catch (Exception $e) {
+            $this->_logger->err($e->getMessage());
+            throw $e;
+        }
     }
 
     abstract protected function _handle();
@@ -274,7 +282,7 @@ abstract class Horde_ActiveSync_Request_Base
         // to avoid having 2 device entries for every android client.
         if ($this->_device->id == 'validate') {
             $this->_logger->debug('[' . $this->_device->id . '] Removing state for bogus VALIDATE device.');
-            $this->_stateDriver->removeState(null, 'validate');
+            $this->_stateDriver->removeState(array('devId' => 'validate'));
         }
     }
 

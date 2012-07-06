@@ -1,0 +1,71 @@
+# German translations for Horde_ActiveSync package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Horde_ActiveSync package.
+# Automatically generated, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_ActiveSync \n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2012-05-10 12:39+0200\n"
+"PO-Revision-Date: 2012-05-10 12:39+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:428
+#, php-format
+msgid "%s part"
+msgstr "%s-Nachrichtenteil"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:407
+msgid "Audio part"
+msgstr "Audio-Nachrichtenteil"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:125
+msgid "Cc"
+msgstr "Cc"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:105
+msgid "Date"
+msgstr "Datum"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:109
+msgid "From"
+msgstr "Von"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:410
+msgid "Image part"
+msgstr "Bild-Nachrichtenteil"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:414
+msgid "Message part"
+msgstr "Nachrichtenteil"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:417
+msgid "Multipart part"
+msgstr "Multipart-Nachrichtenteil"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:113
+msgid "Reply-To"
+msgstr "Antwort an"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:117
+msgid "Subject"
+msgstr "Betreff"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:420
+msgid "Text part"
+msgstr "Text-Nachrichtenteil"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:121
+msgid "To"
+msgstr "An"
+
+#: lib/Horde/ActiveSync/Imap/Message.php:423
+msgid "Video part"
+msgstr "Video-Nachrichtenteil"

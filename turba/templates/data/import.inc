@@ -33,6 +33,7 @@
 <?php endif; ?>
  <br />
 
+<?php if (!empty($charsets)): ?>
  <?php echo Horde::label('charset', _("Select the charset of the source file:")) ?><br />
  <select name="charset" id="charset" style="direction: ltr">
 <?php foreach ($charsets as $charset => $charset_name): ?>
@@ -40,6 +41,7 @@
 <?php endforeach; ?>
  </select>
  <br /><br />
+<?php endif; ?>
 
  <?php echo Horde::label('import_file', _("Select the file to import:")) ?><br />
  <input type="file" name="import_file" id="import_file" size="40" /><br /><br />

@@ -12,72 +12,56 @@
  * @license  http://www.horde.org/licenses/gpl21 GPL
  * @package  Hermes
  */
-class Hermes_Ajax extends Horde_Core_Ajax
+class Hermes_Ajax
 {
     /**
-     * Javascript variables to output to the page.
-     *
-     * @var array
      */
-    protected $_jsvars = array();
-
-    /**
-     */
-    public function init(array $opts = array())
+    public function init()
     {
-        parent::init(array_merge($opts, array('app' => 'hermes')));
-    }
-
-    /**
-     */
-    public function header()
-    {
-        $this->init(array(
-            'growler_log' => true
-        ));
-
-        $this->_addBaseVars();
+        global $page_output;
 
         $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
         if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
             $datejs = 'en-US.js';
         }
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-        $page_output->addScriptFile('effects.js', 'horde');
-        $page_output->addScriptFile('horde.js', 'horde');
-        $page_output->addScriptFile('growler.js', 'horde');
+
         $page_output->addScriptFile('redbox.js', 'horde');
         $page_output->addScriptFile('tooltips.js', 'horde');
         $page_output->addScriptFile('date/' . $datejs, 'horde');
         $page_output->addScriptFile('date/date.js', 'horde');
         $page_output->addScriptFile('quickfinder.js', 'horde');
         $page_output->addScriptFile('hermes.js');
+
         Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
 
         $page_output->addInlineJsVars(array(
-            'var Hermes' => $this->_jsvars
+            'var Hermes' => $this->_addBaseVars()
         ), array('top' => true));
 
-        parent::header(array(
-            'bodyid' => 'hermesAjax'
+        $page_output->header(array(
+            'body_id' => 'hermesAjax',
+            'growler_log' => true
         ));
     }
 
+    /**
+     */
     protected function _addBaseVars()
     {
         global $prefs, $injector, $conf, $registry;
 
-        $app_urls = array();
+        $app_urls = $js_vars = array();
+
         if (isset($conf['menu']['apps']) &&
             is_array($conf['menu']['apps'])) {
             foreach ($conf['menu']['apps'] as $app) {
-                $app_urls[$app] = (string)Horde::url($registry->getInitialPage($app), true)->add('ajaxui', 1);
+                $app_urls[$app] = strval(Horde::url($registry->getInitialPage($app), true));
             }
         }
         $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
 
         /* Variables used in core javascript files. */
-        $this->_jsvars['conf'] = array(
+        $js_vars['conf'] = array(
             'URI_HOME' => empty($conf['logo']['link']) ? null : $conf['logo']['link'],
             'images' => array(
                 'timerlog' => (string)Horde_Themes::img('log.png'),
@@ -85,10 +69,9 @@ class Hermes_Ajax extends Horde_Core_Ajax
                 'timerpause' => (string)Horde_Themes::img('pause.png')
             ),
             'user' => $registry->convertUsername($registry->getAuth(), false),
-            'prefs_url' => (string)Horde::getServiceLink('prefs', 'hermes')->setRaw(true)->add('ajaxui', 1),
+            'prefs_url' => strval($GLOBALS['registry']->getServiceLink('prefs', 'hermes')->setRaw(true)),
             'app_urls' => $app_urls,
             'name' => $identity->getName(),
-            'use_iframe' => intval(!empty($conf['menu']['apps_iframe'])),
             'login_view' => 'time',
             'date_format' => str_replace(
                 array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
@@ -98,7 +81,7 @@ class Hermes_Ajax extends Horde_Core_Ajax
         );
 
         /* Gettext strings used in core javascript files. */
-        $this->_jsvars['text'] = array(
+        $js_vars['text'] = array(
             'noalerts' => _("No Notifications"),
             'alerts' => sprintf(_("%s notifications"), '#{count}'),
             'hidelog' => _("Hide Notifications"),
@@ -106,6 +89,8 @@ class Hermes_Ajax extends Horde_Core_Ajax
             'prefs' => _("Preferences"),
             'fix_form_values' => _("Please enter correct values in the form first."),
         );
+
+        return $js_vars;
     }
 
 }

@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde:: class provides the functionality shared by all Horde
- * applications.
+ * Provides the base functionality shared by all Horde applications.
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
@@ -11,17 +10,11 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @package  Core
  */
 class Horde
 {
-    /**
-     * Has compression been started?
-     *
-     * @var boolean
-     */
-    static protected $_compressStart = false;
-
     /**
      * The access keys already used in this page.
      *
@@ -120,107 +113,6 @@ class Horde
 
         $logger->log(self::endBuffer(), Horde_Log::DEBUG);
         ini_set('html_errors', $html_ini);
-    }
-
-    /**
-     * Aborts with a fatal error, displaying debug information to the user.
-     *
-     * @param mixed $error   Either a string or an object with a getMessage()
-     *                       method (e.g. PEAR_Error, Exception).
-     * @param boolean $log   Log this message?
-     */
-    static public function fatal($error, $log = true)
-    {
-        // Log the error via logMessage() if requested.
-        if ($log) {
-            try {
-                self::logMessage($error, 'EMERG');
-            } catch (Exception $e) {}
-        }
-
-        header('Content-type: text/html; charset=UTF-8');
-        try {
-            $admin = $GLOBALS['registry']->isAdmin();
-            $cli = Horde_Cli::runningFromCLI();
-
-            $errortext = '<h1>' . Horde_Core_Translation::t("A fatal error has occurred") . '</h1>';
-
-            if (($error instanceof PEAR_Error) ||
-                (is_object($error) && method_exists($error, 'getMessage'))) {
-                $errortext .= '<h3>' . htmlspecialchars($error->getMessage()) . '</h3>';
-            } elseif (is_string($error)) {
-                $errortext .= '<h3>' . htmlspecialchars($error) . '</h3>';
-            }
-
-            if ($admin || $cli) {
-                $trace = ($error instanceof Exception)
-                    ? $error
-                    : debug_backtrace();
-                $errortext .= '<div id="backtrace"><pre>' .
-                    strval(new Horde_Support_Backtrace($trace)) .
-                    '</pre></div>';
-                if (is_object($error)) {
-                    $errortext .= '<h3>' . Horde_Core_Translation::t("Details") . '</h3>';
-                    $errortext .= '<h4>' . Horde_Core_Translation::t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
-                    $errortext .= '<div id="details"><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></div>';
-                }
-            } elseif ($log) {
-                $errortext .= '<h3>' . Horde_Core_Translation::t("Details have been logged for the administrator.") . '</h3>';
-            }
-        } catch (Exception $e) {
-            die($e);
-        }
-
-        if ($cli) {
-            echo html_entity_decode(strip_tags(str_replace(array('<br />', '<p>', '</p>', '<h1>', '</h1>', '<h3>', '</h3>'), "\n", $errortext)));
-        } else {
-            echo <<< HTML
-<html>
-<head><title>Horde :: Fatal Error</title></head>
-<body style="background:#fff; color:#000">$errortext</body>
-</html>
-HTML;
-        }
-        exit(1);
-    }
-
-    /**
-     * PHP legacy error handling (non-Exceptions).
-     *
-     * @param integer $errno     See set_error_handler().
-     * @param string $errstr     See set_error_handler().
-     * @param string $errfile    See set_error_handler().
-     * @param integer $errline   See set_error_handler().
-     * @param array $errcontext  See set_error_handler().
-     */
-    static public function errorHandler($errno, $errstr, $errfile, $errline,
-                                        $errcontext)
-    {
-        // Calls prefixed with '@'.
-        if (error_reporting() == 0) {
-            // Must return false to populate $php_errormsg (as of PHP 5.2).
-            return false;
-        }
-
-        if (class_exists('Horde_Log')) {
-            try {
-                switch ($errno) {
-                case E_WARNING:
-                    $priority = Horde_Log::WARN;
-                    break;
-
-                case E_NOTICE:
-                    $priority = Horde_Log::NOTICE;
-                    break;
-
-                default:
-                    $priority = Horde_Log::DEBUG;
-                    break;
-                }
-
-                self::logMessage(new ErrorException('PHP ERROR: ' . $errstr, 0, $errno, $errfile, $errline), $priority);
-            } catch (Exception $e) {}
-        }
     }
 
     /**
@@ -365,9 +257,11 @@ HTML;
             break;
 
         case 'portal':
-            return ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_SMARTMOBILE)
-                ? self::url('services/portal/mobile.php', false, $opts)
-                : self::url('services/portal/', false, $opts);
+            if ($GLOBALS['session']->get('horde', 'mode') == 'smartmobile' && self::ajaxAvailable()) {
+                return self::url('services/portal/mobile.php', false, $opts);
+            } else {
+                return self::url('services/portal/', false, $opts);
+            }
             break;
 
         case 'problem':
@@ -376,9 +270,90 @@ HTML;
 
         case 'sidebar':
             return self::url('services/sidebar.php', false, $opts);
+
+        case 'twitter':
+            return self::url('services/twitter/', true, $opts);
         }
 
         return false;
+    }
+
+    /**
+     * Returns a response object with added notification information.
+     *
+     * @param mixed $data      The 'response' data.
+     * @param boolean $notify  If true, adds notification info to object.
+     *
+     * @return object  The Horde JSON response.  It has the following
+     *                 properties:
+     *   - msgs: (array) [OPTIONAL] List of notification messages.
+     *   - response: (mixed) The response data for the request.
+     */
+    static public function prepareResponse($data = null, $notify = false)
+    {
+        $response = new stdClass();
+        $response->response = $data;
+
+        if ($notify) {
+            $stack = $GLOBALS['notification']->notify(array('listeners' => 'status', 'raw' => true));
+            if (!empty($stack)) {
+                $response->msgs = $stack;
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * Send response data to browser.
+     *
+     * @param mixed $data  The data to serialize and send to the browser.
+     * @param string $ct   The content-type to send the data with.  Either
+     *                     'json', 'js-json', 'html', 'plain', and 'xml'.
+     */
+    static public function sendHTTPResponse($data, $ct)
+    {
+        // Output headers and encoded response.
+        switch ($ct) {
+        case 'json':
+        case 'js-json':
+            /* JSON responses are a structured object which always
+             * includes the response in a member named 'response', and an
+             * additional array of messages in 'msgs' which may be updates
+             * for the server or notification messages.
+             *
+             * Make sure no null bytes sneak into the JSON output stream.
+             * Null bytes cause IE to stop reading from the input stream,
+             * causing malformed JSON data and a failed request.  These
+             * bytes don't seem to break any other browser, but might as
+             * well remove them anyway.
+             *
+             * Finally, add prototypejs security delimiters to returned
+             * JSON. */
+            $s_data = str_replace("\00", '', self::escapeJson($data));
+
+            if ($ct == 'json') {
+                header('Content-Type: application/json');
+                echo $s_data;
+            } else {
+                header('Content-Type: text/html; charset=UTF-8');
+                echo htmlspecialchars($s_data);
+            }
+            break;
+
+        case 'html':
+        case 'plain':
+        case 'xml':
+            $s_data = is_string($data) ? $data : $data->response;
+            header('Content-Type: text/' . $ct . '; charset=UTF-8');
+            echo $s_data;
+            break;
+
+        default:
+            echo $data;
+        }
+
+        exit;
     }
 
     /**
@@ -386,12 +361,10 @@ HTML;
      *
      * @param mixed $data     The data to JSON-ify.
      * @param array $options  Additional options:
-     * <pre>
-     * 'nodelimit' - (boolean) Don't add security delimiters?
-     *               DEFAULT: false
-     * 'urlencode' - (boolean) URL encode the json string
-     *               DEFAULT: false
-     * </pre>
+     *   - nodelimit: (boolean) Don't add security delimiters?
+     *                DEFAULT: false
+     *   - urlencode: (boolean) URL encode the json string
+     *                DEFAULT: false
      *
      * @return string  The escaped string.
      */
@@ -696,17 +669,13 @@ HTML;
      * @param mixed $opts     Additional options. If a string/integer, it is
      *                        taken to be the 'append_session' option.  If an
      *                        array, one of the following:
-     * <pre>
-     * 'app' - (string) Use this app for the webroot.
-     *         DEFAULT: current application
-     * 'append_session' - (integer) 0 = only if needed [DEFAULT], 1 = always,
-     *                    -1 = never.
-     * 'force_ssl' - (boolean) Ignore $conf['use_ssl'] and force creation of a
-     *               SSL URL?
-     *               DEFAULT: false
-     * 'noajax' - (boolean) Don't add AJAX UI parameter?
-     *            DEFAULT: false
-     * </pre>
+     *   - app: (string) Use this app for the webroot.
+     *          DEFAULT: current application
+     *   - append_session: (integer) 0 = only if needed [DEFAULT], 1 = always,
+     *                     -1 = never.
+     *   - force_ssl: (boolean) Ignore $conf['use_ssl'] and force creation of
+     *                a SSL URL?
+     *                DEFAULT: false
      *
      * @return Horde_Url  The URL with the session id appended (if needed).
      */
@@ -804,12 +773,6 @@ HTML;
             $ob->add(session_name(), session_id());
         }
 
-        if (empty($opts['noajax']) &&
-            ($append_session >= 0) &&
-            Horde_Util::getFormData('ajaxui')) {
-            $ob->add('ajaxui', 1);
-        }
-
         return $ob;
     }
 
@@ -830,7 +793,7 @@ HTML;
             Horde_String::substr($url, 0, 7) == 'mailto:') {
             $ext = $url;
         } else {
-            $ext = self::getServiceLink('go', 'horde');
+            $ext = $GLOBALS['registry']->getServiceLink('go', 'horde');
 
             /* We must make sure there are no &amp's in the URL. */
             $url = preg_replace(array('/(=?.*?)&amp;(.*?=)/', '/(=?.*?)&amp;(.*?=)/'), '$1&$2', $url);
@@ -842,83 +805,6 @@ HTML;
         }
 
         return $ext;
-    }
-
-    /**
-     * Returns a URL to be used for downloading, that takes into account any
-     * special browser quirks (i.e. IE's broken filename handling).
-     *
-     * @param string $filename  The filename of the download data.
-     * @param array $params     Any additional parameters needed.
-     * @param string $url       The URL to alter. If none passed in, will use
-     *                          the file 'view.php' located in the current
-     *                          app's base directory.
-     *
-     * @return Horde_Url  The download URL.
-     */
-    static public function downloadUrl($filename, $params = array(),
-                                       $url = null)
-    {
-        global $browser, $registry;
-
-        $horde_url = false;
-
-        if (is_null($url)) {
-            $url = self::getServiceLink('download', $registry->getApp());
-            $horde_url = true;
-        }
-
-        /* Add parameters. */
-        if (!is_null($params)) {
-            $url->add($params);
-        }
-
-        /* If we are using the default Horde download link, add the
-         * filename to the end of the URL. Although not necessary for
-         * many browsers, this should allow every browser to download
-         * correctly. */
-        if ($horde_url) {
-            $url->add('fn', '/' . rawurlencode($filename));
-        } elseif ($browser->hasQuirk('break_disposition_filename')) {
-            /* Some browsers will only obtain the filename correctly
-             * if the extension is the last argument in the query
-             * string and rest of the filename appears in the
-             * PATH_INFO element. */
-            $url = (string)$url;
-            $filename = rawurlencode($filename);
-
-            /* Get the webserver ID. */
-            $server = self::webServerID();
-
-            /* Get the name and extension of the file.  Apache 2 does
-             * NOT support PATH_INFO information being passed to the
-             * PHP module by default, so disable that
-             * functionality. */
-            if (($server != 'apache2')) {
-                if (($pos = strrpos($filename, '.'))) {
-                    $name = '/' . preg_replace('/\./', '%2E', substr($filename, 0, $pos));
-                    $ext = substr($filename, $pos);
-                } else {
-                    $name = '/' . $filename;
-                    $ext = '';
-                }
-
-                /* Enter the PATH_INFO information. */
-                if (($pos = strpos($url, '?'))) {
-                    $url = substr($url, 0, $pos) . $name . substr($url, $pos);
-                } else {
-                    $url .= $name;
-                }
-            }
-            $url = new Horde_Url($url);
-
-            /* Append the extension, if it exists. */
-            if (($server == 'apache2') || !empty($ext)) {
-                $url->add('fn_ext', '/' . $filename);
-            }
-        }
-
-        return $url;
     }
 
     /**
@@ -1260,7 +1146,7 @@ HTML;
      * @param boolean $secure          If deleting file, should we securely
      *                                 delete the file?
      * @param boolean $session_remove  Delete this file when session is
-     *                                 destroyed (since 1.7.0)?
+     *                                 destroyed?
      *
      * @return string   Returns the full path-name to the temporary file or
      *                  false if a temporary file could not be created.
@@ -1280,43 +1166,6 @@ HTML;
         }
 
         return $tmpfile;
-    }
-
-    /**
-     * Starts output compression, if requested.
-     */
-    static public function compressOutput()
-    {
-        if (self::$_compressStart) {
-            return;
-        }
-
-        /* Compress output if requested and possible. */
-        if ($GLOBALS['conf']['compress_pages'] &&
-            !$GLOBALS['browser']->hasQuirk('buggy_compression') &&
-            !(bool)ini_get('zlib.output_compression') &&
-            !(bool)ini_get('zend_accelerator.compress_all') &&
-            ini_get('output_handler') != 'ob_gzhandler') {
-            if (ob_get_level()) {
-                ob_end_clean();
-            }
-            ob_start('ob_gzhandler');
-        }
-
-        self::$_compressStart = true;
-    }
-
-    /**
-     * Determines if output compression can be used.
-     *
-     * @return boolean  True if output compression can be used, false if not.
-     */
-    static public function allowOutputCompression()
-    {
-        return !$GLOBALS['browser']->hasQuirk('buggy_compression') &&
-               (ini_get('zlib.output_compression') == '') &&
-               (ini_get('zend_accelerator.compress_all') == '') &&
-               (ini_get('output_handler') != 'ob_gzhandler');
     }
 
     /**
@@ -1441,23 +1290,33 @@ HTML;
      * Returns the appropriate "accesskey" and "title" attributes for an HTML
      * tag and the given label.
      *
-     * @param string $label     The title of an HTML element
-     * @param boolean $nocheck  Don't check if the access key already has been
-     *                          used?
+     * @param string $label          The title of an HTML element
+     * @param boolean $nocheck       Don't check if the access key already has
+     *                               been used?
+     * @param boolean $return_array  Return attributes as a hash?
      *
      * @return string  The title, and if appropriate, the accesskey attributes
      *                 for the element.
      */
-    static public function getAccessKeyAndTitle($label, $nocheck = false)
+    static public function getAccessKeyAndTitle($label, $nocheck = false,
+                                                $return_array = false)
     {
         $ak = self::getAccessKey($label, $nocheck);
-        $attributes = 'title="' . self::stripAccessKey($label);
+        $attributes = array('title' => self::stripAccessKey($label));
         if (!empty($ak)) {
-            $attributes .= sprintf(Horde_Core_Translation::t(" (Accesskey %s)"), strtoupper($ak))
-              . '" accesskey="' . $ak;
+            $attributes['title'] .= sprintf(Horde_Core_Translation::t(" (Accesskey %s)"), strtoupper($ak));
+            $attributes['accesskey'] = $ak;
         }
 
-        return $attributes . '"';
+        if ($return_array) {
+            return $attributes;
+        }
+
+        $html = '';
+        foreach ($attributes as $attribute => $value) {
+            $html .= sprintf(' %s="%s"', $attribute, $value);
+        }
+        return $html;
     }
 
     /**
@@ -1593,25 +1452,24 @@ HTML;
      *
      * @param string $type   The cache type ('app', 'css', 'js').
      * @param array $params  Optional parameters:
-     * <pre>
-     * RESERVED PARAMETERS:
-     * 'app' - REQUIRED for $type == 'app'. Identifies the application to
-     *         call the 'cacheOutput' API call, which is passed in the
-     *         value of the entire $params array (which may include parameters
-     *         other than those listed here). The return from cacheOutput
-     *         should be a 2-element array: 'data' (the cached data) and
-     *         'type' (the content-type of the data).
-     * 'cid' - REQUIRED for $type == 'css' || 'js'. The cacheid of the
-     *         data (stored in Horde_Cache).
-     * 'nocache' - If true, sets the cache limiter to 'nocache' instead of
-     *             the default 'public'.
-     * </pre>
+     *   - app: REQUIRED for $type == 'app'. Identifies the application to
+     *          call the 'cacheOutput' API call, which is passed in the
+     *          value of the entire $params array (which may include parameters
+     *          other than those listed here). The return from cacheOutput
+     *          should be a 2-element array: 'data' (the cached data) and
+     *          'type' (the content-type of the data).
+     *   - cid: REQUIRED for $type == 'css' || 'js'. The cacheid of the
+     *          data (stored in Horde_Cache).
+     *   - nocache: If true, sets the cache limiter to 'nocache' instead of
+     *              the default 'public'.
      *
      * @return Horde_Url  The URL to the cache page.
      */
     static public function getCacheUrl($type, $params = array())
     {
-        $url = self::getserviceLink('cache', 'horde')->add('cache', $type);
+        $url = $GLOBALS['registry']
+            ->getserviceLink('cache', 'horde')
+            ->add('cache', $type);
         foreach ($params as $key => $val) {
             $url .= '/' . $key . '=' . rawurlencode(strval($val));
         }
@@ -1624,27 +1482,25 @@ HTML;
      *
      * @param string|Horde_Url $url  The page to load.
      * @param array $options         Additional options:
-     * <pre>
-     * 'height' - (integer) The height of the popup window.
-     *            DEFAULT: 650px
-     * 'menu' - (boolean) Show the browser menu in the popup window?
-     *          DEFAULT: false
-     * 'onload' - (string) A JS function to call after the popup window is
-     *            fully loaded.
-     *            DEFAULT: None
-     * 'params' - (array) Additional parameters to pass to the URL.
-     *            DEFAULT: None
-     * 'urlencode' - (boolean) URL encode the json string?
-     *               DEFAULT: No
-     * 'width' - (integer) The width of the popup window.
-     *           DEFAULT: 700 px
-     * </pre>
+     *   - height: (integer) The height of the popup window.
+     *             DEFAULT: 650px
+     *   - menu: (boolean) Show the browser menu in the popup window?
+     *           DEFAULT: false
+     *   - onload: (string) A JS function to call after the popup window is
+     *             fully loaded.
+     *             DEFAULT: None
+     *   - params: (array) Additional parameters to pass to the URL.
+     *             DEFAULT: None
+     *   - urlencode: (boolean) URL encode the json string?
+     *                DEFAULT: No
+     *   - width: (integer) The width of the popup window.
+     *            DEFAULT: 700 px
      *
      * @return string  The javascript needed to call the popup code.
      */
     static public function popupJs($url, $options = array())
     {
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('popup.js', 'horde');
+        $GLOBALS['page_output']->addScriptPackage('Popup');
 
         $params = new stdClass;
 
@@ -1660,24 +1516,16 @@ HTML;
             $options['params'] = array_merge($url->parameters, $options['params']);
         }
 
-        if (!empty($options['height'])) {
-            $params->height = $options['height'];
-        }
         if (!empty($options['menu'])) {
             $params->menu = 1;
         }
-        if (!empty($options['onload'])) {
-            $params->onload = $options['onload'];
-        }
-        if (!empty($options['params'])) {
-            // Bug #9903: 3rd parameter must explicitly be '&'
-            $params->params = http_build_query(array_map('rawurlencode', $options['params']), '', '&');
-        }
-        if (!empty($options['width'])) {
-            $params->width = $options['width'];
+        foreach (array('height', 'onload', 'params', 'width') as $key) {
+            if (!empty($options[$key])) {
+                $params->$key = $options[$key];
+            }
         }
 
-        return 'void(Horde.popup(' . self::escapeJson($params, array('nodelimit' => true, 'urlencode' => !empty($options['urlencode']))) . '));';
+        return 'void(HordePopup.popup(' . self::escapeJson($params, array('nodelimit' => true, 'urlencode' => !empty($options['urlencode']))) . '));';
     }
 
     /**
@@ -1720,32 +1568,15 @@ HTML;
     }
 
     /**
-     * Is an AJAX view supported/available on the current browser?
-     *
-     * @return boolean  True if the AJAX view can be displayed.
-     */
-    static public function ajaxAvailable()
-    {
-        global $browser;
-
-        return $browser->hasFeature('javascript') &&
-            $browser->hasFeature('xmlhttpreq') &&
-            (!$browser->isBrowser('msie') || $browser->getMajor() >= 7) &&
-            (!$browser->hasFeature('issafari') || $browser->getMajor() >= 2);
-    }
-
-    /**
      * Generates the menu output.
      *
      * @param array $opts  Additional options:
-     * <pre>
-     * 'app' - (string) The application to generate the menu for.
-     *         DEFAULT: current application
-     * 'mask' - (integer) The Horde_Menu mask to use.
-     *          DEFAULT: Horde_Menu::MASK_ALL
-     * 'menu_ob' - (boolean) If true, returns the menu object
-     *               DEFAULT: false (renders menu)
-     * </pre>
+     *   - app: (string) The application to generate the menu for.
+     *          DEFAULT: current application
+     *   - mask: (integer) The Horde_Menu mask to use.
+     *           DEFAULT: Horde_Menu::MASK_ALL
+     *   - menu_ob: (boolean) If true, returns the menu object
+     *              DEFAULT: false (renders menu)
      * @param string $app  The application to generate the menu for. Defaults
      *                     to the current app.
      *
@@ -1763,7 +1594,7 @@ HTML;
             $opts['mask'] = Horde_Menu::MASK_ALL;
         }
 
-        $menu = new Horde_Menu(isset($opts['mask']) ? $opts['mask'] : Horde_Menu::MASK_ALL);
+        $menu = new Horde_Menu($opts['mask']);
 
         $registry->callAppMethod($opts['app'], 'menu', array(
             'args' => array($menu)

@@ -30,7 +30,7 @@ class Jonah_View_StoryList extends Jonah_View_Base
         $channel = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannel($channel_id);
         if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::EDIT, $channel_id)) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
-            $registry->authenticateFailure();
+            throw new Horde_Exception_AuthenticationFailure();
         }
 
         /* Check if a URL has been passed. */
@@ -108,10 +108,13 @@ class Jonah_View_StoryList extends Jonah_View_Base
         $view->stories = $stories;
         $view->read = true;
         $view->comments = $conf['comments']['allow'] && $registry->hasMethod('forums/numMessages') && $channel['channel_type'] == Jonah::INTERNAL_CHANNEL;
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+
+        $GLOBALS['page_output']->header(array(
+            'title' => $title
+        ));
         require JONAH_TEMPLATES . '/menu.inc';
         echo $view->render('index');
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $GLOBALS['page_output']->footer();
     }
 
 }

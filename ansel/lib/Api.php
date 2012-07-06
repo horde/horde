@@ -651,7 +651,7 @@ class Ansel_Api extends Horde_Registry_Api
             ->getGallery($image->gallery);
 
         // Check age and password
-        if (!$gallery->hasPasswd() || !$gallery->isOldEnough()) {
+        if ($gallery->hasPasswd() || !$gallery->isOldEnough()) {
             throw new Horde_Exception_PermissionDenied(
                 _("Locked galleries are not viewable via the api."));
         }

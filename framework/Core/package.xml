@@ -28,11 +28,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-03-14</date>
- <time>16:59:39</time>
+ <date>2012-07-05</date>
+ <time>23:44:20</time>
  <version>
-  <release>2.0.0</release>
-  <api>2.0.0</api>
+  <release>2.0.0beta1</release>
+  <api>2.0.0alpha1</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -40,17 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Added Horde_PageOutput.
-* [mms] Added Horde_Core_Ajax_Imple_ContactAutoCompleter.
-* [mjr] Use local member storage when no session is available (Bug # 9733).
-* [mms] Added AJAX core features.
-* [mms] Added view determination to Horde_Registry.
-* [mms] Performance improvements when initializing Alarm system.
-* [mms] Performance improvements to Alarm checking.
-* [mms] Performance improvements when initializing Notification system.
-* [mjr] Allow restricting pretty autocompleter to available choices.
-* [mms] Add language detection to AJAX spellchecker if no language is selected by the user (Request #7137).
-* [mms] Add Horde_Core_Block_Layout_View::getStylesheets().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -62,19 +52,109 @@
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="js">
+    <dir name="date">
+     <file name="ar-SY.js" role="horde" />
+     <file name="bg-BG.js" role="horde" />
+     <file name="bs-BA.js" role="horde" />
+     <file name="ca-ES.js" role="horde" />
+     <file name="cs-CZ.js" role="horde" />
+     <file name="da-DK.js" role="horde" />
+     <file name="date.js" role="horde" />
+     <file name="de-DE.js" role="horde" />
+     <file name="el-GR.js" role="horde" />
+     <file name="en-US.js" role="horde" />
+     <file name="es-ES.js" role="horde" />
+     <file name="et-EE.js" role="horde" />
+     <file name="eu-ES.js" role="horde" />
+     <file name="extras.js" role="horde" />
+     <file name="fa-IR.js" role="horde" />
+     <file name="fi-FI.js" role="horde" />
+     <file name="fr-FR.js" role="horde" />
+     <file name="gl-ES.js" role="horde" />
+     <file name="he-IL.js" role="horde" />
+     <file name="hu-HU.js" role="horde" />
+     <file name="id-ID.js" role="horde" />
+     <file name="is-IS.js" role="horde" />
+     <file name="it-IT.js" role="horde" />
+     <file name="ja-JP.js" role="horde" />
+     <file name="ko-KR.js" role="horde" />
+     <file name="lt-LT.js" role="horde" />
+     <file name="lv-LV.js" role="horde" />
+     <file name="mk-MK.js" role="horde" />
+     <file name="nb-NO.js" role="horde" />
+     <file name="nl-NL.js" role="horde" />
+     <file name="nn-NO.js" role="horde" />
+     <file name="pl-PL.js" role="horde" />
+     <file name="pt-BR.js" role="horde" />
+     <file name="pt-PT.js" role="horde" />
+     <file name="ro-RO.js" role="horde" />
+     <file name="ru-RU.js" role="horde" />
+     <file name="sk-SK.js" role="horde" />
+     <file name="sl-SI.js" role="horde" />
+     <file name="sv-SE.js" role="horde" />
+     <file name="time.js" role="horde" />
+     <file name="tr-TR.js" role="horde" />
+     <file name="uk-UA.js" role="horde" />
+     <file name="zh-CN.js" role="horde" />
+     <file name="zh-TW.js" role="horde" />
+    </dir> <!-- /js/date -->
+    <dir name="jquery.mobile">
+     <dir name="images">
+      <file name="ajax-loader.gif" role="horde" />
+      <file name="ajax-loader.png" role="horde" />
+      <file name="icons-18-black.png" role="horde" />
+      <file name="icons-18-white.png" role="horde" />
+      <file name="icons-36-black.png" role="horde" />
+      <file name="icons-36-white.png" role="horde" />
+     </dir> <!-- /js/jquery.mobile/images -->
+     <file name="jquery.js" role="horde" />
+     <file name="jquery.min.js" role="horde" />
+     <file name="jquery.mobile.js" role="horde" />
+     <file name="jquery.mobile.min.css" role="horde" />
+     <file name="jquery.mobile.min.js" role="horde" />
+    </dir> <!-- /js/jquery.mobile -->
+    <dir name="scriptaculous">
+     <file name="builder.js" role="horde" />
+     <file name="controls.js" role="horde" />
+     <file name="dragdrop.js" role="horde" />
+     <file name="effects.js" role="horde" />
+     <file name="scriptaculous.js" role="horde" />
+     <file name="slider.js" role="horde" />
+     <file name="sound.js" role="horde" />
+     <file name="unittest.js" role="horde" />
+    </dir> <!-- /js/scriptaculous -->
+    <file name="accesskeys.js" role="horde" />
     <file name="addressbooksprefs.js" role="horde" />
     <file name="alarmprefs.js" role="horde" />
     <file name="autocomplete.js" role="horde" />
     <file name="calendar.js" role="horde" />
+    <file name="colorpicker.js" role="horde" />
+    <file name="dialog.js" role="horde" />
+    <file name="form_assign.js" role="horde" />
+    <file name="form_helpers.js" role="horde" />
+    <file name="growler-jquery.js" role="horde" />
+    <file name="growler.js" role="horde" />
+    <file name="horde-jquery.js" role="horde" />
+    <file name="horde.js" role="horde" />
     <file name="hordecore.js" role="horde" />
     <file name="hordetree.js" role="horde" />
     <file name="identityselect.js" role="horde" />
+    <file name="image.js" role="horde" />
+    <file name="imple.js" role="horde" />
+    <file name="inplaceeditor.js" role="horde" />
+    <file name="keynavlist.js" role="horde" />
     <file name="liquidmetal.js" role="horde" />
     <file name="open_html_helper.js" role="horde" />
+    <file name="popup.js" role="horde" />
     <file name="prefs.js" role="horde" />
     <file name="prettyautocomplete.js" role="horde" />
+    <file name="prototype.js" role="horde" />
+    <file name="redbox.js" role="horde" />
+    <file name="smartmobile.js" role="horde" />
+    <file name="sorter.js" role="horde" />
     <file name="sourceselect.js" role="horde" />
     <file name="spellchecker.js" role="horde" />
+    <file name="tables.js" role="horde" />
     <file name="toggle_quotes.js" role="horde" />
     <file name="tooltips.js" role="horde" />
    </dir> <!-- /js -->
@@ -88,22 +168,47 @@
        <dir name="Imap">
         <file name="Factory.php" role="php" />
        </dir> <!-- /lib/Horde/Core/ActiveSync/Imap -->
+       <dir name="Logger">
+        <file name="Factory.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/ActiveSync/Logger -->
        <file name="Connector.php" role="php" />
        <file name="Driver.php" role="php" />
       </dir> <!-- /lib/Horde/Core/ActiveSync -->
       <dir name="Ajax">
+       <dir name="Application">
+        <dir name="Helper">
+         <file name="Chunk.php" role="php" />
+         <file name="Email.php" role="php" />
+         <file name="Groups.php" role="php" />
+         <file name="Imple.php" role="php" />
+         <file name="Prefs.php" role="php" />
+        </dir> <!-- /lib/Horde/Core/Ajax/Application/Helper -->
+       </dir> <!-- /lib/Horde/Core/Ajax/Application -->
        <dir name="Imple">
+        <dir name="AutoCompleter">
+         <file name="Ajax.php" role="php" />
+         <file name="Base.php" role="php" />
+         <file name="Local.php" role="php" />
+         <file name="Pretty.php" role="php" />
+        </dir> <!-- /lib/Horde/Core/Ajax/Imple/AutoCompleter -->
         <dir name="Geocoder">
          <file name="Geonames.php" role="php" />
         </dir> <!-- /lib/Horde/Core/Ajax/Imple/Geocoder -->
         <file name="AutoCompleter.php" role="php" />
         <file name="ContactAutoCompleter.php" role="php" />
+        <file name="InPlaceEditor.php" role="php" />
         <file name="SpellChecker.php" role="php" />
         <file name="WeatherLocationAutoCompleter.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Imple -->
        <dir name="Response">
+        <dir name="HordeCore">
+         <file name="JsonHtml.php" role="php" />
+         <file name="Reload.php" role="php" />
+         <file name="SessionTimeout.php" role="php" />
+        </dir> <!-- /lib/Horde/Core/Ajax/Response/HordeCore -->
         <file name="HordeCore.php" role="php" />
         <file name="Notifications.php" role="php" />
+        <file name="Prototypejs.php" role="php" />
         <file name="Raw.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Response -->
        <file name="Application.php" role="php" />
@@ -151,9 +256,15 @@
        <file name="RequestMapper.php" role="php" />
        <file name="SettingsFinder.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Controller -->
+      <dir name="Data">
+       <file name="Storage.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Data -->
       <dir name="Db">
        <file name="Migration.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Db -->
+      <dir name="Editor">
+       <file name="Ckeditor.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Editor -->
       <dir name="Factory">
        <file name="ActiveSyncBackend.php" role="php" />
        <file name="ActiveSyncServer.php" role="php" />
@@ -212,9 +323,11 @@
        <file name="ThemesCache.php" role="php" />
        <file name="Timezone.php" role="php" />
        <file name="Token.php" role="php" />
+       <file name="Topbar.php" role="php" />
        <file name="Tree.php" role="php" />
        <file name="Twitter.php" role="php" />
        <file name="UrlShortener.php" role="php" />
+       <file name="Variables.php" role="php" />
        <file name="Vfs.php" role="php" />
        <file name="View.php" role="php" />
        <file name="Weather.php" role="php" />
@@ -273,11 +386,20 @@
         <file name="Upgrade.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Prefs/Storage -->
        <dir name="Ui">
+        <file name="Special.php" role="php" />
         <file name="Widgets.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Prefs/Ui -->
        <file name="Identity.php" role="php" />
        <file name="Ui.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Prefs -->
+      <dir name="Script">
+       <dir name="Package">
+        <file name="Datejs.php" role="php" />
+        <file name="Dialog.php" role="php" />
+        <file name="Keynavlist.php" role="php" />
+        <file name="Popup.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Script/Package -->
+      </dir> <!-- /lib/Horde/Core/Script -->
       <dir name="Share">
        <file name="Driver.php" role="php" />
        <file name="FactoryCallback.php" role="php" />
@@ -291,9 +413,11 @@
        </dir> <!-- /lib/Horde/Core/Text/Filter -->
       </dir> <!-- /lib/Horde/Core/Text -->
       <dir name="Tree">
-       <file name="Html.php" role="php" />
-       <file name="Javascript.php" role="php" />
-       <file name="Simplehtml.php" role="php" />
+       <dir name="Renderer">
+        <file name="Html.php" role="php" />
+        <file name="Javascript.php" role="php" />
+        <file name="Simplehtml.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Tree/Renderer -->
       </dir> <!-- /lib/Horde/Core/Tree -->
       <dir name="Ui">
        <dir name="VarRenderer">
@@ -311,20 +435,22 @@
        <file name="VarRenderer.php" role="php" />
        <file name="Widget.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Ui -->
-      <file name="Ajax.php" role="php" />
       <file name="Block.php" role="php" />
       <file name="Browser.php" role="php" />
       <file name="Bundle.php" role="php" />
       <file name="Cli.php" role="php" />
       <file name="LoginTasks.php" role="php" />
       <file name="Perms.php" role="php" />
-      <file name="Sidebar.php" role="php" />
+      <file name="Topbar.php" role="php" />
+      <file name="Secret.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
       </file>
      </dir> <!-- /lib/Horde/Core -->
      <dir name="Exception">
+      <file name="AuthenticationFailure.php" role="php" />
       <file name="HookNotSet.php" role="php" />
+      <file name="PushApp.php" role="php" />
      </dir> <!-- /lib/Horde/Exception -->
      <dir name="Registry">
       <file name="Api.php" role="php" />
@@ -333,7 +459,14 @@
       <file name="Nlsconfig.php" role="php" />
      </dir> <!-- /lib/Horde/Registry -->
      <dir name="Script">
-      <file name="Files.php" role="php" />
+      <dir name="File">
+       <file name="External.php" role="php" />
+       <file name="JsDir.php" role="php" />
+       <file name="JsFramework.php" role="php" />
+      </dir> <!-- /lib/Horde/Script/File -->
+      <file name="File.php" role="php" />
+      <file name="List.php" role="php" />
+      <file name="Package.php" role="php" />
      </dir> <!-- /lib/Horde/Script -->
      <dir name="Session">
       <file name="Null.php" role="php" />
@@ -657,7 +790,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.0alpha1</min>
     <max>3.0.0</max>
     <exclude>3.0.0</exclude>
    </package>
@@ -928,7 +1061,7 @@
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -956,9 +1089,9 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0alpha1</min>
+    <max>3.0.0</max>
+    <exclude>3.0.0</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Server</name>
@@ -991,7 +1124,7 @@
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.0alpha1</min>
     <max>3.0.0</max>
     <exclude>3.0.0</exclude>
    </package>
@@ -1033,9 +1166,9 @@
    <package>
     <name>Horde_Tree</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0alpha1</min>
+    <max>3.0.0</max>
+    <exclude>3.0.0</exclude>
    </package>
    <package>
     <name>Horde_Vfs</name>
@@ -1087,21 +1220,103 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Core/COPYING" />
+   <install as="js/accesskeys.js" name="js/accesskeys.js" />
    <install as="js/addressbooksprefs.js" name="js/addressbooksprefs.js" />
    <install as="js/alarmprefs.js" name="js/alarmprefs.js" />
    <install as="js/autocomplete.js" name="js/autocomplete.js" />
    <install as="js/calendar.js" name="js/calendar.js" />
+   <install as="js/colorpicker.js" name="js/colorpicker.js" />
+   <install as="js/dialog.js" name="js/dialog.js" />
+   <install as="js/form_assign.js" name="js/form_assign.js" />
+   <install as="js/form_helpers.js" name="js/form_helpers.js" />
+   <install as="js/growler-jquery.js" name="js/growler-jquery.js" />
+   <install as="js/growler.js" name="js/growler.js" />
+   <install as="js/horde-jquery.js" name="js/horde-jquery.js" />
+   <install as="js/horde.js" name="js/horde.js" />
    <install as="js/hordecore.js" name="js/hordecore.js" />
    <install as="js/hordetree.js" name="js/hordetree.js" />
    <install as="js/identityselect.js" name="js/identityselect.js" />
+   <install as="js/image.js" name="js/image.js" />
+   <install as="js/imple.js" name="js/imple.js" />
+   <install as="js/inplaceeditor.js" name="js/inplaceeditor.js" />
+   <install as="js/keynavlist.js" name="js/keynavlist.js" />
    <install as="js/liquidmetal.js" name="js/liquidmetal.js" />
    <install as="js/open_html_helper.js" name="js/open_html_helper.js" />
+   <install as="js/popup.js" name="js/popup.js" />
    <install as="js/prefs.js" name="js/prefs.js" />
    <install as="js/prettyautocomplete.js" name="js/prettyautocomplete.js" />
+   <install as="js/prototype.js" name="js/prototype.js" />
+   <install as="js/redbox.js" name="js/redbox.js" />
+   <install as="js/smartmobile.js" name="js/smartmobile.js" />
+   <install as="js/sorter.js" name="js/sorter.js" />
    <install as="js/sourceselect.js" name="js/sourceselect.js" />
    <install as="js/spellchecker.js" name="js/spellchecker.js" />
+   <install as="js/tables.js" name="js/tables.js" />
    <install as="js/toggle_quotes.js" name="js/toggle_quotes.js" />
    <install as="js/tooltips.js" name="js/tooltips.js" />
+   <install as="js/date/ar-SY.js" name="js/date/ar-SY.js" />
+   <install as="js/date/bg-BG.js" name="js/date/bg-BG.js" />
+   <install as="js/date/bs-BA.js" name="js/date/bs-BA.js" />
+   <install as="js/date/ca-ES.js" name="js/date/ca-ES.js" />
+   <install as="js/date/cs-CZ.js" name="js/date/cs-CZ.js" />
+   <install as="js/date/da-DK.js" name="js/date/da-DK.js" />
+   <install as="js/date/date.js" name="js/date/date.js" />
+   <install as="js/date/de-DE.js" name="js/date/de-DE.js" />
+   <install as="js/date/el-GR.js" name="js/date/el-GR.js" />
+   <install as="js/date/en-US.js" name="js/date/en-US.js" />
+   <install as="js/date/es-ES.js" name="js/date/es-ES.js" />
+   <install as="js/date/et-EE.js" name="js/date/et-EE.js" />
+   <install as="js/date/eu-ES.js" name="js/date/eu-ES.js" />
+   <install as="js/date/extras.js" name="js/date/extras.js" />
+   <install as="js/date/fa-IR.js" name="js/date/fa-IR.js" />
+   <install as="js/date/fi-FI.js" name="js/date/fi-FI.js" />
+   <install as="js/date/fr-FR.js" name="js/date/fr-FR.js" />
+   <install as="js/date/gl-ES.js" name="js/date/gl-ES.js" />
+   <install as="js/date/he-IL.js" name="js/date/he-IL.js" />
+   <install as="js/date/hu-HU.js" name="js/date/hu-HU.js" />
+   <install as="js/date/id-ID.js" name="js/date/id-ID.js" />
+   <install as="js/date/is-IS.js" name="js/date/is-IS.js" />
+   <install as="js/date/it-IT.js" name="js/date/it-IT.js" />
+   <install as="js/date/ja-JP.js" name="js/date/ja-JP.js" />
+   <install as="js/date/ko-KR.js" name="js/date/ko-KR.js" />
+   <install as="js/date/lt-LT.js" name="js/date/lt-LT.js" />
+   <install as="js/date/lv-LV.js" name="js/date/lv-LV.js" />
+   <install as="js/date/mk-MK.js" name="js/date/mk-MK.js" />
+   <install as="js/date/nb-NO.js" name="js/date/nb-NO.js" />
+   <install as="js/date/nl-NL.js" name="js/date/nl-NL.js" />
+   <install as="js/date/nn-NO.js" name="js/date/nn-NO.js" />
+   <install as="js/date/pl-PL.js" name="js/date/pl-PL.js" />
+   <install as="js/date/pt-BR.js" name="js/date/pt-BR.js" />
+   <install as="js/date/pt-PT.js" name="js/date/pt-PT.js" />
+   <install as="js/date/ro-RO.js" name="js/date/ro-RO.js" />
+   <install as="js/date/ru-RU.js" name="js/date/ru-RU.js" />
+   <install as="js/date/sk-SK.js" name="js/date/sk-SK.js" />
+   <install as="js/date/sl-SI.js" name="js/date/sl-SI.js" />
+   <install as="js/date/sv-SE.js" name="js/date/sv-SE.js" />
+   <install as="js/date/time.js" name="js/date/time.js" />
+   <install as="js/date/tr-TR.js" name="js/date/tr-TR.js" />
+   <install as="js/date/uk-UA.js" name="js/date/uk-UA.js" />
+   <install as="js/date/zh-CN.js" name="js/date/zh-CN.js" />
+   <install as="js/date/zh-TW.js" name="js/date/zh-TW.js" />
+   <install as="js/jquery.mobile/jquery.js" name="js/jquery.mobile/jquery.js" />
+   <install as="js/jquery.mobile/jquery.min.js" name="js/jquery.mobile/jquery.min.js" />
+   <install as="js/jquery.mobile/jquery.mobile.js" name="js/jquery.mobile/jquery.mobile.js" />
+   <install as="js/jquery.mobile/jquery.mobile.min.css" name="js/jquery.mobile/jquery.mobile.min.css" />
+   <install as="js/jquery.mobile/jquery.mobile.min.js" name="js/jquery.mobile/jquery.mobile.min.js" />
+   <install as="js/jquery.mobile/images/ajax-loader.gif" name="js/jquery.mobile/images/ajax-loader.gif" />
+   <install as="js/jquery.mobile/images/ajax-loader.png" name="js/jquery.mobile/images/ajax-loader.png" />
+   <install as="js/jquery.mobile/images/icons-18-black.png" name="js/jquery.mobile/images/icons-18-black.png" />
+   <install as="js/jquery.mobile/images/icons-18-white.png" name="js/jquery.mobile/images/icons-18-white.png" />
+   <install as="js/jquery.mobile/images/icons-36-black.png" name="js/jquery.mobile/images/icons-36-black.png" />
+   <install as="js/jquery.mobile/images/icons-36-white.png" name="js/jquery.mobile/images/icons-36-white.png" />
+   <install as="js/scriptaculous/builder.js" name="js/scriptaculous/builder.js" />
+   <install as="js/scriptaculous/controls.js" name="js/scriptaculous/controls.js" />
+   <install as="js/scriptaculous/dragdrop.js" name="js/scriptaculous/dragdrop.js" />
+   <install as="js/scriptaculous/effects.js" name="js/scriptaculous/effects.js" />
+   <install as="js/scriptaculous/scriptaculous.js" name="js/scriptaculous/scriptaculous.js" />
+   <install as="js/scriptaculous/slider.js" name="js/scriptaculous/slider.js" />
+   <install as="js/scriptaculous/sound.js" name="js/scriptaculous/sound.js" />
+   <install as="js/scriptaculous/unittest.js" name="js/scriptaculous/unittest.js" />
    <install as="Horde.php" name="lib/Horde.php" />
    <install as="Horde/Config.php" name="lib/Horde/Config.php" />
    <install as="Horde/ErrorHandler.php" name="lib/Horde/ErrorHandler.php" />
@@ -1112,29 +1327,44 @@
    <install as="Horde/Session.php" name="lib/Horde/Session.php" />
    <install as="Horde/Themes.php" name="lib/Horde/Themes.php" />
    <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
-   <install as="Horde/Core/Ajax.php" name="lib/Horde/Core/Ajax.php" />
    <install as="Horde/Core/Block.php" name="lib/Horde/Core/Block.php" />
    <install as="Horde/Core/Browser.php" name="lib/Horde/Core/Browser.php" />
    <install as="Horde/Core/Bundle.php" name="lib/Horde/Core/Bundle.php" />
    <install as="Horde/Core/Cli.php" name="lib/Horde/Core/Cli.php" />
    <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
    <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
-   <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
+   <install as="Horde/Core/Topbar.php" name="lib/Horde/Core/Topbar.php" />
+   <install as="Horde/Core/Secret.php" name="lib/Horde/Core/Secret.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
    <install as="Horde/Core/ActiveSync/Connector.php" name="lib/Horde/Core/ActiveSync/Connector.php" />
    <install as="Horde/Core/ActiveSync/Driver.php" name="lib/Horde/Core/ActiveSync/Driver.php" />
    <install as="Horde/Core/ActiveSync/Imap/Factory.php" name="lib/Horde/Core/ActiveSync/Imap/Factory.php" />
+   <install as="Horde/Core/ActiveSync/Logger/Factory.php" name="lib/Horde/Core/ActiveSync/Logger/Factory.php" />
    <install as="Horde/Core/Ajax/Application.php" name="lib/Horde/Core/Ajax/Application.php" />
    <install as="Horde/Core/Ajax/Imple.php" name="lib/Horde/Core/Ajax/Imple.php" />
    <install as="Horde/Core/Ajax/Response.php" name="lib/Horde/Core/Ajax/Response.php" />
+   <install as="Horde/Core/Ajax/Application/Helper/Chunk.php" name="lib/Horde/Core/Ajax/Application/Helper/Chunk.php" />
+   <install as="Horde/Core/Ajax/Application/Helper/Email.php" name="lib/Horde/Core/Ajax/Application/Helper/Email.php" />
+   <install as="Horde/Core/Ajax/Application/Helper/Groups.php" name="lib/Horde/Core/Ajax/Application/Helper/Groups.php" />
+   <install as="Horde/Core/Ajax/Application/Helper/Imple.php" name="lib/Horde/Core/Ajax/Application/Helper/Imple.php" />
+   <install as="Horde/Core/Ajax/Application/Helper/Prefs.php" name="lib/Horde/Core/Ajax/Application/Helper/Prefs.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/ContactAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/ContactAutoCompleter.php" />
+   <install as="Horde/Core/Ajax/Imple/InPlaceEditor.php" name="lib/Horde/Core/Ajax/Imple/InPlaceEditor.php" />
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
    <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" />
+   <install as="Horde/Core/Ajax/Imple/AutoCompleter/Ajax.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Ajax.php" />
+   <install as="Horde/Core/Ajax/Imple/AutoCompleter/Base.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Base.php" />
+   <install as="Horde/Core/Ajax/Imple/AutoCompleter/Local.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Local.php" />
+   <install as="Horde/Core/Ajax/Imple/AutoCompleter/Pretty.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter/Pretty.php" />
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
    <install as="Horde/Core/Ajax/Response/HordeCore.php" name="lib/Horde/Core/Ajax/Response/HordeCore.php" />
    <install as="Horde/Core/Ajax/Response/Notifications.php" name="lib/Horde/Core/Ajax/Response/Notifications.php" />
+   <install as="Horde/Core/Ajax/Response/Prototypejs.php" name="lib/Horde/Core/Ajax/Response/Prototypejs.php" />
    <install as="Horde/Core/Ajax/Response/Raw.php" name="lib/Horde/Core/Ajax/Response/Raw.php" />
+   <install as="Horde/Core/Ajax/Response/HordeCore/JsonHtml.php" name="lib/Horde/Core/Ajax/Response/HordeCore/JsonHtml.php" />
+   <install as="Horde/Core/Ajax/Response/HordeCore/Reload.php" name="lib/Horde/Core/Ajax/Response/HordeCore/Reload.php" />
+   <install as="Horde/Core/Ajax/Response/HordeCore/SessionTimeout.php" name="lib/Horde/Core/Ajax/Response/HordeCore/SessionTimeout.php" />
    <install as="Horde/Core/Alarm/Handler/Notify.php" name="lib/Horde/Core/Alarm/Handler/Notify.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
    <install as="Horde/Core/Auth/Composite.php" name="lib/Horde/Core/Auth/Composite.php" />
@@ -1158,7 +1388,9 @@
    <install as="Horde/Core/Controller/RequestConfiguration.php" name="lib/Horde/Core/Controller/RequestConfiguration.php" />
    <install as="Horde/Core/Controller/RequestMapper.php" name="lib/Horde/Core/Controller/RequestMapper.php" />
    <install as="Horde/Core/Controller/SettingsFinder.php" name="lib/Horde/Core/Controller/SettingsFinder.php" />
+   <install as="Horde/Core/Data/Storage.php" name="lib/Horde/Core/Data/Storage.php" />
    <install as="Horde/Core/Db/Migration.php" name="lib/Horde/Core/Db/Migration.php" />
+   <install as="Horde/Core/Editor/Ckeditor.php" name="lib/Horde/Core/Editor/Ckeditor.php" />
    <install as="Horde/Core/Factory/ActiveSyncBackend.php" name="lib/Horde/Core/Factory/ActiveSyncBackend.php" />
    <install as="Horde/Core/Factory/ActiveSyncServer.php" name="lib/Horde/Core/Factory/ActiveSyncServer.php" />
    <install as="Horde/Core/Factory/ActiveSyncState.php" name="lib/Horde/Core/Factory/ActiveSyncState.php" />
@@ -1216,9 +1448,11 @@
    <install as="Horde/Core/Factory/ThemesCache.php" name="lib/Horde/Core/Factory/ThemesCache.php" />
    <install as="Horde/Core/Factory/Timezone.php" name="lib/Horde/Core/Factory/Timezone.php" />
    <install as="Horde/Core/Factory/Token.php" name="lib/Horde/Core/Factory/Token.php" />
+   <install as="Horde/Core/Factory/Topbar.php" name="lib/Horde/Core/Factory/Topbar.php" />
    <install as="Horde/Core/Factory/Tree.php" name="lib/Horde/Core/Factory/Tree.php" />
    <install as="Horde/Core/Factory/Twitter.php" name="lib/Horde/Core/Factory/Twitter.php" />
    <install as="Horde/Core/Factory/UrlShortener.php" name="lib/Horde/Core/Factory/UrlShortener.php" />
+   <install as="Horde/Core/Factory/Variables.php" name="lib/Horde/Core/Factory/Variables.php" />
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Factory/Weather.php" name="lib/Horde/Core/Factory/Weather.php" />
@@ -1242,16 +1476,21 @@
    <install as="Horde/Core/Prefs/Storage/Configuration.php" name="lib/Horde/Core/Prefs/Storage/Configuration.php" />
    <install as="Horde/Core/Prefs/Storage/Hooks.php" name="lib/Horde/Core/Prefs/Storage/Hooks.php" />
    <install as="Horde/Core/Prefs/Storage/Upgrade.php" name="lib/Horde/Core/Prefs/Storage/Upgrade.php" />
+   <install as="Horde/Core/Prefs/Ui/Special.php" name="lib/Horde/Core/Prefs/Ui/Special.php" />
    <install as="Horde/Core/Prefs/Ui/Widgets.php" name="lib/Horde/Core/Prefs/Ui/Widgets.php" />
+   <install as="Horde/Core/Script/Package/Datejs.php" name="lib/Horde/Core/Script/Package/Datejs.php" />
+   <install as="Horde/Core/Script/Package/Dialog.php" name="lib/Horde/Core/Script/Package/Dialog.php" />
+   <install as="Horde/Core/Script/Package/Keynavlist.php" name="lib/Horde/Core/Script/Package/Keynavlist.php" />
+   <install as="Horde/Core/Script/Package/Popup.php" name="lib/Horde/Core/Script/Package/Popup.php" />
    <install as="Horde/Core/Share/Driver.php" name="lib/Horde/Core/Share/Driver.php" />
    <install as="Horde/Core/Share/FactoryCallback.php" name="lib/Horde/Core/Share/FactoryCallback.php" />
    <install as="Horde/Core/Text/Filter/Bbcode.php" name="lib/Horde/Core/Text/Filter/Bbcode.php" />
    <install as="Horde/Core/Text/Filter/Emails.php" name="lib/Horde/Core/Text/Filter/Emails.php" />
    <install as="Horde/Core/Text/Filter/Emoticons.php" name="lib/Horde/Core/Text/Filter/Emoticons.php" />
    <install as="Horde/Core/Text/Filter/Highlightquotes.php" name="lib/Horde/Core/Text/Filter/Highlightquotes.php" />
-   <install as="Horde/Core/Tree/Html.php" name="lib/Horde/Core/Tree/Html.php" />
-   <install as="Horde/Core/Tree/Javascript.php" name="lib/Horde/Core/Tree/Javascript.php" />
-   <install as="Horde/Core/Tree/Simplehtml.php" name="lib/Horde/Core/Tree/Simplehtml.php" />
+   <install as="Horde/Core/Tree/Renderer/Html.php" name="lib/Horde/Core/Tree/Renderer/Html.php" />
+   <install as="Horde/Core/Tree/Renderer/Javascript.php" name="lib/Horde/Core/Tree/Renderer/Javascript.php" />
+   <install as="Horde/Core/Tree/Renderer/Simplehtml.php" name="lib/Horde/Core/Tree/Renderer/Simplehtml.php" />
    <install as="Horde/Core/Ui/FlagImage.php" name="lib/Horde/Core/Ui/FlagImage.php" />
    <install as="Horde/Core/Ui/JsCalendar.php" name="lib/Horde/Core/Ui/JsCalendar.php" />
    <install as="Horde/Core/Ui/Language.php" name="lib/Horde/Core/Ui/Language.php" />
@@ -1264,12 +1503,19 @@
    <install as="Horde/Core/Ui/Widget.php" name="lib/Horde/Core/Ui/Widget.php" />
    <install as="Horde/Core/Ui/VarRenderer/Html.php" name="lib/Horde/Core/Ui/VarRenderer/Html.php" />
    <install as="Horde/Core/Ui/VarRenderer/TablesetHtml.php" name="lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php" />
+   <install as="Horde/Exception/AuthenticationFailure.php" name="lib/Horde/Exception/AuthenticationFailure.php" />
    <install as="Horde/Exception/HookNotSet.php" name="lib/Horde/Exception/HookNotSet.php" />
+   <install as="Horde/Exception/PushApp.php" name="lib/Horde/Exception/PushApp.php" />
    <install as="Horde/Registry/Api.php" name="lib/Horde/Registry/Api.php" />
    <install as="Horde/Registry/Application.php" name="lib/Horde/Registry/Application.php" />
    <install as="Horde/Registry/Caller.php" name="lib/Horde/Registry/Caller.php" />
    <install as="Horde/Registry/Nlsconfig.php" name="lib/Horde/Registry/Nlsconfig.php" />
-   <install as="Horde/Script/Files.php" name="lib/Horde/Script/Files.php" />
+   <install as="Horde/Script/File.php" name="lib/Horde/Script/File.php" />
+   <install as="Horde/Script/List.php" name="lib/Horde/Script/List.php" />
+   <install as="Horde/Script/Package.php" name="lib/Horde/Script/Package.php" />
+   <install as="Horde/Script/File/External.php" name="lib/Horde/Script/File/External.php" />
+   <install as="Horde/Script/File/JsDir.php" name="lib/Horde/Script/File/JsDir.php" />
+   <install as="Horde/Script/File/JsFramework.php" name="lib/Horde/Script/File/JsFramework.php" />
    <install as="Horde/Session/Null.php" name="lib/Horde/Session/Null.php" />
    <install as="Horde/Themes/Cache.php" name="lib/Horde/Themes/Cache.php" />
    <install as="Horde/Themes/Css.php" name="lib/Horde/Themes/Css.php" />
@@ -1804,15 +2050,104 @@
   </release>
   <release>
    <version>
-    <release>1.8.6</release>
-    <api>1.8.0</api></version>
+    <release>1.9.0</release>
+    <api>1.9.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-28</date>
+   <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add parameters to specify field size of phone and email fields.
+* [jan] Log details too, if logging an exception.
 * [jan] Fix showing applications with &apos;admin&apos; status in the sidebar.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.9.1</release>
+    <api>1.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Swedish translation.
+* [gwr] Fixed session based preferences.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.9.2</release>
+    <api>1.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-06-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix cache maxsize preference (Bug #11224).
+* [jan] Update Turkish translation (İstanbul Technical University).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.9.3</release>
+    <api>1.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-06-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-05</date>
+   <time>12:25:25</time>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+* [jan] Update classes for the new user interface.
+* [mms] Move output compression code into Horde_PageOutput.
+* [mms] Removed Horde::ajaxAvailable().
+* [mms] Move Horde::getServiceLink() to Horde_Registry#getServiceLink().
+* [jan] Allow to use IMAP storage for shares and groupware data without a complete Kolab server.
+* [mms] Moved smartmobile core javascript from the Horde application.
+* [mms] Added Horde_PageOutput.
+* [mms] Added Horde_Core_Ajax_Imple_ContactAutoCompleter.
+* [mjr] Use local member storage when no session is available (Bug #9733).
+* [mms] Added AJAX core features.
+* [mms] Added view determination to Horde_Registry.
+* [mms] Performance improvements when initializing Alarm system.
+* [mms] Performance improvements to Alarm checking.
+* [mms] Performance improvements when initializing Notification system.
+* [mjr] Allow restricting pretty autocompleter to available choices.
+* [mms] Add language detection to AJAX spellchecker if no language is selected by the user (Request #7137).
+* [mms] Add Horde_Core_Block_Layout_View::getStylesheets().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0alpha1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

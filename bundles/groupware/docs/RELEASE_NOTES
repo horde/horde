@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORSECURITY, Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 4.0.6.
+version 4.0.8.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks and notes with the
@@ -27,24 +27,20 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
-The major changes compared to the Horde Groupware version 4.0.5 are:
+The major changes compared to the Horde Groupware version 4.0.7 are:
 
 General changes:
+    * Updated Czech, Hungarian, Italian, Slovak, and Swedish translations.
     * Small bugfixes and improvements.
 
 Calendar changes:
-    * Display event time in dynamic view if requested.
-
-Address book changes:
-    * Improved vCard compatibility.
-    * Updated Japanese translation.
+    * Fixed XSS vulnerabilities in tasks and search views.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Display event time in dynamic calendar view if requested.
-Improved vCard compatibility.
-Updated Japanese translation.
+Fixed XSS vulnerabilities.
+Updated Czech, Hungarian, Italian, Slovak, and Swedish translations.
 Small bugfixes and improvements.
 FM;
 

@@ -62,6 +62,20 @@ class Turba_Driver_Share extends Turba_Driver
     }
 
     /**
+     * Translates the keys of the first hash from the generalized Turba
+     * attributes to the driver-specific fields. The translation is based on
+     * the contents of $this->map.
+     *
+     * @param array $hash  Hash using Turba keys.
+     *
+     * @return array  Translated version of $hash.
+     */
+    public function toDriverKeys(array $hash)
+    {
+        return $this->_driver->toDriverKeys($hash);
+    }
+
+    /**
      * Checks if the current user has the requested permissions on this
      * address book.
      *

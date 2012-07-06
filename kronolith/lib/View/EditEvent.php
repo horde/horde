@@ -122,7 +122,7 @@ class Kronolith_View_EditEvent
             'full_weekdays' => true
         ));
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addScriptFile('edit.js');
         $page_output->addScriptFile('popup.js', 'horde');
 

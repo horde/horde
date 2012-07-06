@@ -1,16 +1,38 @@
 <?php
 /**
- * ActiveSync Handler for GetItemEstimate requests
+ * Horde_ActiveSync_Request_GetItemEstimate::
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Portions of this class were ported from the Z-Push project:
+ *   File      :   wbxml.php
+ *   Project   :   Z-Push
+ *   Descr     :   WBXML mapping file
  *
- * @author Michael J Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ *   Created   :   01.10.2007
+ *
+ *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   This file is distributed under GPL-2.0.
+ *   Consult COPYING file for details
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 /**
- * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL-2.0.
- * Consult COPYING file for details
+ * Handle GetItemEstimate requests.
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_Base
 {
@@ -44,94 +66,86 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             "[%s] Beginning GETITEMESTIMATE",
             $this->_device->id)
         );
-
-        /* Check policy */
         if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {
-            return false;
+            return true;
         }
 
         $status = array();
         $collections = array();
         if (!$this->_decoder->getElementStartTag(self::GETITEMESTIMATE) ||
             !$this->_decoder->getElementStartTag(self::FOLDERS)) {
-
-            // Not sure why the protocol doesn't have a status for this...
             return false;
         }
 
-        /* Obtain all the collections we are getting estimates for */
         while ($this->_decoder->getElementStartTag(self::FOLDER)) {
-
-            /* Status - Assume success */
+            $options = array();
             $cStatus = self::STATUS_SUCCESS;
-
-            /* Collection Class */
-            if (!$this->_decoder->getElementStartTag(self::FOLDERTYPE)) {
-                return false;
-            }
-            $class = $this->_decoder->getElementContent();
-            if (!$this->_decoder->getElementEndTag()) {
-                return false;
-            }
-
-            /* Collection Id */
-            if ($this->_decoder->getElementStartTag(self::FOLDERID)) {
-                $collectionid = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    return false;
+            while (($type = ($this->_decoder->getElementStartTag(self::FOLDERTYPE) ? self::FOLDERTYPE :
+                            ($this->_decoder->getElementStartTag(self::FOLDERID) ? self::FOLDERID :
+                            ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FILTERTYPE) ? Horde_ActiveSync::SYNC_FILTERTYPE :
+                            ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCKEY) ? Horde_ActiveSync::SYNC_SYNCKEY :
+                            ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_CONVERSATIONMODE) ? Horde_ActiveSync::SYNC_CONVERSATIONMODE :
+                            ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_OPTIONS) ? Horde_ActiveSync::SYNC_OPTIONS :
+                            -1))))))) != -1) {
+                switch ($type) {
+                case self::FOLDERTYPE:
+                    $class = $this->_decoder->getElementContent();
+                    if (!$this->_decoder->getElementEndTag()) {
+                        return false;
+                    }
+                    break;
+                case self::FOLDERID:
+                    $collectionid = $this->_decoder->getElementContent();
+                    if (!$this->_decoder->getElementEndTag()) {
+                        return false;
+                    }
+                    break;
+                case Horde_ActiveSync::SYNC_FILTERTYPE:
+                    $filtertype = $this->_decoder->getElementContent();
+                    if (!$this->_decoder->getElementEndTag()) {
+                        return false;
+                    }
+                    break;
+                case Horde_ActiveSync::SYNC_SYNCKEY:
+                    $synckey = $this->_decoder->getElementContent();
+                    if (empty($synckey)) {
+                        $cStatus = self::STATUS_NOTPRIMED;
+                    }
+                    if (!$this->_decoder->getElementEndTag()) {
+                        return false;
+                    }
                 }
             }
-
-            /* Filter Type */
-            if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FILTERTYPE)) {
-                return false;
-            }
-            $filtertype = $this->_decoder->getElementContent();
+            // End the FOLDER element
             if (!$this->_decoder->getElementEndTag()) {
                 return false;
             }
 
-            /* Sync Key */
-            if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCKEY)) {
-                return false;
-            }
-            $synckey = $this->_decoder->getElementContent();
-            if (empty($synckey)) {
-                $cStatus = self::STATUS_NOTPRIMED;
-            }
-            if (!$this->_decoder->getElementEndTag()) {
-                return false;
-            }
-
-            /* End the FOLDER element */
-            if (!$this->_decoder->getElementEndTag()) {
-                return false;
-            }
-
-            /* Build the collection array */
+            // Build the collection array
             $collection = array();
             $collection['synckey'] = $synckey;
             $collection['class'] = $class;
             $collection['filtertype'] = $filtertype;
-
-            /* compatibility mode - get id from state */
-            if (!isset($collectionid)) {
-                $collectionid = $this->_stateDriver>getFolderData($this->_device->id, $collection['class']);
-            }
             $collection['id'] = $collectionid;
             $status[$collection['id']] = $cStatus;
-
             array_push($collections, $collection);
         }
 
-        $this->_encoder->startWBXML();
+        // End Folders
+        $this->_decoder->getElementEndTag();
 
-        /* Start getting the actual esitmates and outputting the results */
+        // End GETITEMESTIMATE
+        $this->_decoder->getElementEndTag();
+
+        $this->_encoder->startWBXML();
         $this->_encoder->startTag(self::GETITEMESTIMATE);
         foreach ($collections as $collection) {
-            $this->_stateDriver->init($collection);
             try {
-                $this->_stateDriver->loadState($collection['synckey']);
+                $this->_stateDriver->loadState(
+                    $collection,
+                    $collection['synckey'],
+                    Horde_ActiveSync::REQUEST_TYPE_SYNC,
+                    $collection['id']);
             } catch (Horde_ActiveSync_Exception $e) {
                 $status[$collection['id']] = self::STATUS_KEYMISM;
             }
@@ -146,11 +160,13 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $this->_encoder->startTag(self::FOLDERID);
             $this->_encoder->content($collection['id']);
             $this->_encoder->endTag();
-            $this->_encoder->startTag(self::ESTIMATE);
-            $sync = $this->_getSyncObject();
-            $sync->init($this->_stateDriver, null, $collection);
-            $this->_encoder->content($sync->GetChangeCount());
-            $this->_encoder->endTag();
+            if ($status[$collection['id']] == self::STATUS_SUCCESS) {
+                $this->_encoder->startTag(self::ESTIMATE);
+                $sync = $this->_getSyncObject();
+                $sync->init($this->_stateDriver, null, $collection);
+                $this->_encoder->content($sync->GetChangeCount());
+                $this->_encoder->endTag();
+            }
             $this->_encoder->endTag();
             $this->_encoder->endTag();
         }

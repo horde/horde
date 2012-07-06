@@ -1,7 +1,30 @@
---------
-v6.0-git
---------
+-----------
+v6.0.0beta1
+-----------
 
+
+
+------------
+v6.0.0alpha1
+------------
+
+First alpha release for Horde 5.
+[mms] Only show Inbox, special mailboxes, and polled mailboxes by default in
+      smartmobile view.
+[mms] Add 'reply_strip_sig' preference (Request #11056).
+[mms] Move attachment strip icon to MIME part tree display.
+[mms] Convert dynamic view to Horde_View.
+[mms] Convert minimal view to Horde_View.
+[mms] Honor initial_page preference in smartmobile view (Request #11165).
+[mms] Lock mailbox sort to descending date when using minimal view.
+[mms] Pre-fetch next unseen message in INBOX in dynamic view.
+[mms] Allow Edit As New to be used as the default forward action (Request
+      #11135).
+[mms] Improved handling of messages with multiple From addresses in mailbox
+      views.
+[mms] Replying to a multipart/related message in HTML mode now correctly
+      attaches data from the original message.
+[mms] Allow deletion of all subfolders at once in dynamic view.
 [mms] Provide details of when search results were last refreshed.
 [mms] Dynamically update unseen message counts in folder list in smartmobile
       view.
@@ -64,9 +87,51 @@ v6.0-git
 
 
 -----------
-v5.0.20-git
+v5.0.23-git
 -----------
 
+
+
+-------
+v5.0.22
+-------
+
+[mms] SECURITY: Only allow display of basic image types directly in browser.
+[jan] Update Turkish translation (İstanbul Technical University).
+[jan] Re-add option to report messages as spam/ham through redirection.
+[jan] Update Swedish translation (Jakob Alvermark
+      <jakob.alvermark@bsdlabs.com>).
+
+
+-------
+v5.0.21
+-------
+
+[mms] SECURITY: Fix XSS vulnerabilities on the dynamic compose page and the
+      minimal mailbox and message pages.
+[jan] Re-add leading paragraph before HTML signatures to avoid writing into
+      the signature.
+[jan] Use preferred editor if not opening compose window from dynamic view.
+[jan] Update Italian translation (Emilien <emilien@wifi.e4a.it>).
+[mms] Save Bcc addresses when saving compose message as draft.
+[mms] Fix handling of RETURN keypress in the Subject input on the dynamic
+      compose page.
+[jan] Fix regression in sending PGP encrypted messages (Bug #11150).
+[jan] Update Slovak translation (Marika Schvarczova
+      <schvarczova.marika@domeny.sk>).
+[jan] Update Czech translation (Michal Foist <michal@foist.cz>).
+
+
+-------
+v5.0.20
+-------
+
+[mms] Added the 'delhide_trash' preference.
+[jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
+[mms] Ensure that PGP & S/MIME signed message bodies are not altered after the
+      signature is calculated (Bug #11058).
+[mms] Fix internal storage of date searches (Bug #11109).
+[mms] Fix regression in sending PGP encrypted messages (Bug #11085).
 [mms] Only poll mailboxes in dynamic view that exist in the browser folder
       tree.
 [mms] Fix regression in displaying From address on mailbox page in traditional

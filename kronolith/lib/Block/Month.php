@@ -128,7 +128,8 @@ class Kronolith_Block_Month extends Horde_Core_Block
                 $this->_params['calendar'] != '__all') {
                 list($type, $calendar) = explode('_', $this->_params['calendar'], 2);
                 $driver = Kronolith::getDriver($type, $calendar);
-                $all_events = $driver->listEvents($startDate, $endDate, true);
+                $all_events = $driver->listEvents($startDate, $endDate, array(
+                    'show_recurrence' => true));
             } else {
                 $all_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
             }
@@ -183,7 +184,7 @@ class Kronolith_Block_Month extends Horde_Core_Block
                         $day_events .= $event->start->strftime($prefs->getValue('twentyFour') ? '%R' : '%I:%M%p') . '-' . $event->end->strftime($prefs->getValue('twentyFour') ? '%R' : '%I:%M%p');
                     }
                     $day_events .= ':'
-                        . (($event->location) ? ' (' . $event->location . ')' : '')
+                        . (($event->getLocation()) ? ' (' . $event->getLocation() . ')' : '')
                         . ' ' . $event->getTitle() . "\n";
                 }
                 $cell = Horde::linkTooltip($url, _("View Day"), '', '', '', $day_events) . $date_ob->mday . '</a>';

@@ -1,21 +1,38 @@
 <?php
 /**
+ * Horde_ActiveSync_Wbxml_Decoder::
+ *
+ * Portions of this class were ported from the Z-Push project:
+ *   File      :   wbxml.php
+ *   Project   :   Z-Push
+ *   Descr     :   WBXML mapping file
+ *
+ *   Created   :   01.10.2007
+ *
+ *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   This file is distributed under GPL-2.0.
+ *   Consult COPYING file for details
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
+ */
+/**
  * ActiveSync specific WBXML decoder.
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
- */
-
-/**
- * File      :   wbxml.php
- * Project   :   Z-Push
- * Descr     :   WBXML mapping file
- *
- * Created   :   01.10.2007
- *
- * � Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL-2.0.
- * Consult COPYING file for details
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
 {
@@ -45,16 +62,6 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         }
         $this->charsetid = $this->_getMBUInt();
         $this->stringtable = $this->_getStringTable();
-    }
-
-    /**
-     * Set the logger instance
-     *
-     * @param Horde_Log_Logger $logger  The logger.
-     */
-    public function setLogger(Horde_Log_Logger $logger)
-    {
-        $this->_logger = $logger;
     }
 
     /**

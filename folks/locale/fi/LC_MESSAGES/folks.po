@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Folks H4 (0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-03-08 07:16:40+0200\n"
+"PO-Revision-Date: 2012-03-22 15:00:36+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -406,7 +406,7 @@ msgstr "Ei haittaa"
 
 #: account/tabs.php:21
 msgid "Don't have an account? Sign up."
-msgstr "Ei ole tili. Kirjaudu."
+msgstr "Ei ole tiliä. Kirjaudu."
 
 #: lib/Notification/mail.php:20
 msgid "E-mail"
@@ -1480,7 +1480,7 @@ msgstr "Kirjoitat tietoja liian nopeasti!"
 #: templates/user/user.php:377 templates/user/user.php:394
 #, php-format
 msgid "You are on %s blacklist."
-msgstr "Olet %s:n mustalla listalla."
+msgstr "Olet %s mustalla listalla."
 
 #: templates/user/friends.php:9 templates/user/private.php:10
 #, php-format

@@ -23,14 +23,14 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-20</date>
- <time>10:35:27</time>
+ <date>2012-07-05</date>
+ <time>23:46:02</time>
  <version>
-  <release>1.2.2</release>
+  <release>2.0.0beta1</release>
   <api>1.2.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
@@ -566,12 +566,25 @@
   </release>
   <release>
    <version>
-    <release>1.2.2</release>
+    <release>2.0.0alpha1</release>
     <api>1.2.0</api></version>
    <stability>
-    <release>stable</release>
+    <release>alpha</release>
     <api>stable</api></stability>
-   <date>2012-03-20</date>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-05</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

@@ -11,7 +11,7 @@ $var = array(
     'page_title' => $GLOBALS['registry']->get('name') . ' :: ',
     'twentyFour' => intval($GLOBALS['prefs']->getValue('twentyFour')),
     'view_url' => (string)Horde::url('view.php'),
-    'URI_AJAX' => Horde::getServiceLink('ajax', 'kronolith')->url
+    'URI_AJAX' => $GLOBALS['registry']->getServiceLink('ajax', 'kronolith')->url
 );
 
 /* Gettext strings used in core javascript files. */
@@ -21,7 +21,7 @@ $gettext = array(
     'loading' => _("Loading ..."),
 );
 
-$GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+$GLOBALS['page_output']->addInlineJsVars(array(
     '-var KronolithDate' => 'new Date(' . sprintf('%d, %d, %d', $currentDate->year, $currentDate->month - 1, $currentDate->mday) . ')',
     'var KronolithText' => $gettext,
     'var KronolithVar' => $var,

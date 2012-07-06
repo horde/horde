@@ -306,27 +306,24 @@ class IMP_Auth
             break;
 
         case Horde_Registry::VIEW_DYNAMIC:
-            if (is_null($mbox)) {
-                $result->mbox = IMP_Mailbox::get('INBOX');
-            }
-            $page = 'index-dimp.php';
+            $result->url = IMP_Dynamic_Mailbox::url(array(
+                'mailbox' => is_null($mbox) ? 'INBOX' : $mbox
+            ));
+            $page = 'dynamic.php';
             break;
 
         case Horde_Registry::VIEW_MINIMAL:
-            if (is_null($mbox)) {
-                $page = 'folders-mimp.php';
-            } else {
-                $page ='mailbox-mimp.php';
-                $result->url = $mbox->url($page);
-            }
+            $page = 'minimal.php';
+            $result->url = is_null($mbox)
+                ? IMP_Minimal_Folders::url()
+                : IMP_Minimal_Mailbox::url(array('mailbox' => $mbox));
             break;
 
         case Horde_Registry::VIEW_SMARTMOBILE:
-            // TODO: Folders for mobile page?
-            if (is_null($mbox)) {
-                $result->mbox = IMP_Mailbox::get('INBOX');
+            $page = 'smartmobile.php';
+            if (!is_null($mbox)) {
+                $result->url = $mbox->url('mailbox');
             }
-            $page = 'mobile.php';
             break;
         }
 
@@ -373,7 +370,7 @@ class IMP_Auth
             if (!empty($ptr['admin'])) {
                 $tmp = $ptr['admin'];
                 if (isset($tmp['password'])) {
-                    $tmp['password'] = $injector->getInstance('Horde_Secret')->write($secret->getKey('imp'), $tmp['password']);
+                    $tmp['password'] = $injector->getInstance('Horde_Secret')->write($secret->getKey(), $tmp['password']);
                 }
                 $session->set('imp', 'imap_admin', $tmp);
             }
@@ -385,7 +382,7 @@ class IMP_Auth
             if (!empty($ptr['quota'])) {
                 $tmp = $ptr['quota'];
                 if (isset($tmp['params']['password'])) {
-                    $tmp['params']['password'] = $injector->getInstance('Horde_Secret')->write($secret->getKey('imp'), $tmp['params']['password']);
+                    $tmp['params']['password'] = $injector->getInstance('Horde_Secret')->write($secret->getKey(), $tmp['params']['password']);
                 }
                 $session->set('imp', 'imap_quota', $tmp);
             }

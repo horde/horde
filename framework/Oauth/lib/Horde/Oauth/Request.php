@@ -104,8 +104,9 @@ class Horde_Oauth_Request
                 $header .= Horde_Oauth_Utils::urlencodeRfc3986($k) . '="' . Horde_Oauth_Utils::urlencodeRfc3986($v) . '",';
             }
         }
+        $header = substr($header, 0, -1);
         if (!empty($realm)) {
-            $header .= 'realm="' . Horde_Oauth_Utils::urlencodeRfc3986($realm) . '"';
+            $header .= ',realm="' . Horde_Oauth_Utils::urlencodeRfc3986($realm) . '"';
         }
         return 'OAuth ' . $header;
     }
@@ -182,9 +183,11 @@ class Horde_Oauth_Request
     protected function _getNormalizedUrl()
     {
         $parts = parse_url($this->_url);
-
-        $port = !empty($parts['port']) ? $parts['port'] : '80';
         $scheme = $parts['scheme'];
+        $port = !empty($parts['port'])
+            ? $parts['port']
+            : $scheme == 'https' ? '443' : '80';
+
         $host = $parts['host'];
         $path = !empty($parts['path']) ? $parts['path'] : '';
 

@@ -206,7 +206,6 @@ if ($view->showlist) {
 $menu = new Horde_Menu(Horde_Menu::MASK_ALL & ~Horde_Menu::MASK_PREFS);
 $view->menu = $menu->render();
 
-$page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->addScriptFile('passwd.js');
 $page_output->addInlineScript(array(
@@ -221,9 +220,10 @@ $page_output->addInlineJsVars(array(
     )
 ));
 
-$title = _("Change Password");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Change Password")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('index');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

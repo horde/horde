@@ -242,6 +242,19 @@ class Horde_Share_Datatree extends Horde_Share_Base
     }
 
     /**
+     * Renames a share in the shares system.
+     *
+     * @param Horde_Share_Object $share  The share to rename.
+     * @param string $name               The share's new name.
+     *
+     * @throws Horde_Share_Exception
+     */
+    protected function _renameShare(Horde_Share_Object $share, $name)
+    {
+        Horde_Exception_Pear::catchError($this->_datatree->rename($share->datatreeObject, $name));
+    }
+
+    /**
      * Checks if a share exists in the system.
      *
      * @param string $share  The share to check.

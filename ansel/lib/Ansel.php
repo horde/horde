@@ -64,7 +64,12 @@ class Ansel
             $treeparams['selected'] = $gallery_id == $params->selected;
             $parent = $gallery->getParent();
             $parent = empty($parent) ? null : $parent->id;
-            $tree->addNode($gallery->id, $parent, $label, null, true, $treeparams);
+            $tree->addNode(array(
+                'id' => $gallery->id,
+                'parent' => $parent,
+                'label' => $label,
+                'params' => $treeparams
+            ));
         }
 
         return $tree->getTree();
@@ -567,7 +572,7 @@ class Ansel
         // the path back to the top.  By constructing it backward we can treat
         // the last element (the current page) specially.
         $levels = 0;
-        $nav = '</span>';
+        $nav = '';
         $urlFlags = array(
             'havesearch' => $haveSearch,
             'force_grouping' => true);
@@ -818,12 +823,11 @@ class Ansel
             $domid = $options['container'];
         }
 
-        $imple = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Imple')
-            ->create(array('ansel', 'Embed'), $options);
+        $url = $GLOBALS['registry']->getServiceLink('ajax', 'ansel')->add($options);
+        $url->url .= 'embed';
 
-        return '<script type="text/javascript" src="' . $imple->getUrl()
-            . '"></script><div id="' . $domid . '"></div>';
+        return '<script type="text/javascript" src="' . $url .
+               '"></script><div id="' . $domid . '"></div>';
     }
 
     /**
@@ -873,14 +877,14 @@ class Ansel
 
             // IF
             $code['conf']['maps'] = $GLOBALS['conf']['maps'];
-            $code['conf']['pixeluri'] = (string)Horde::getServiceLink('pixel', 'ansel');
+            $code['conf']['pixeluri'] = (string)$GLOBALS['registry']->getServiceLink('pixel', 'ansel');
             $code['conf']['markeruri'] = (string)Horde_Themes::img('photomarker.png');
             $code['conf']['shadowuri'] = (string)Horde_Themes::img('photomarker-shadow.png');
             $code['conf']['havetwitter'] = !empty($GLOBALS['conf']['twitter']['enabled']);
             $code['ajax'] = new stdClass();
             $code['widgets'] = new stdClass();
 
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineJsVars(array(
+            $GLOBALS['page_output']->addInlineJsVars(array(
                 'var Ansel' => $code
             ));
         }
@@ -926,8 +930,6 @@ class Ansel
             case 'Mytopo':
                 $params['conf']['apikeys']['mytopo'] = $GLOBALS['conf']['api']['mytopo'];
                 break;
-            case 'Bing':
-                $params['conf']['apikeys']['bing'] = $GLOBALS['conf']['api']['bing'];
             }
         }
 
@@ -946,7 +948,7 @@ class Ansel
         }
         $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addScriptFile('map/map.js', 'horde');
         $page_output->addScriptFile('map.js');
         $page_output->addInlineScript(array(

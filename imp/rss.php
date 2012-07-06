@@ -66,13 +66,13 @@ if (count($ids)) {
     $overview = $imp_mailbox->getMailboxArray(array_slice($ids[strval($mailbox)], 0, 20), array('preview' => $prefs->getValue('preview_enabled')));
 
     foreach ($overview['overview'] as $ob) {
-        $from_addr = $imp_ui->getFrom($ob['envelope'], array('fullfrom' => true));
+        $from_addr = $imp_ui->getFrom($ob['envelope']);
         $items[] = array_map('htmlspecialchars', array(
             'title' => $imp_ui->getSubject($ob['envelope']->subject),
             'pubDate' => $ob['envelope']->date->format('r'),
             'description' => isset($ob['preview']) ? $ob['preview'] : '',
             'url' => Horde::url($mailbox->url('message.php', $ob['uid'], $mailbox), true, array('append_session' => -1)),
-            'fromAddr' => $from_addr['fullfrom'],
+            'fromAddr' => strval($from_addr['from_list']),
             'toAddr' => strval($ob['envelope']->to)
         ));
     }

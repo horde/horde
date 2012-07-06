@@ -79,7 +79,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     {
         switch ($this->_mimepart->getType()) {
         case 'application/pgp-keys':
-            $vars = Horde_Variables::getDefaultVariables();
+            $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
             if ($vars->pgp_view_key) {
                 // Throws exception on error.
                 return array(
@@ -235,13 +235,13 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
                     /* Ask for the correct passphrase if this is encrypted
                      * symmetrically. */
-                    $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
+                    $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_PassphraseDialog', array(
                         'params' => array(
                             'symmetricid' => $symmetric_id
                         ),
                         'type' => 'pgpSymmetric'
                     ));
-                    $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getPassphraseId())) . _("You must enter the passphrase used to encrypt this message to view it.") . '</a>');
+                    $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getDomId())) . _("You must enter the passphrase used to encrypt this message to view it.") . '</a>');
                     return null;
                 }
             }
@@ -270,10 +270,10 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
                     if (is_null($personal_pass)) {
                         /* Ask for the private key's passphrase if this is
                          * encrypted asymmetrically. */
-                        $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
+                        $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_PassphraseDialog', array(
                             'type' => 'pgpPersonal'
                         ));
-                        $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getPassphraseId())) . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>');
+                        $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getDomId())) . _("You must enter the passphrase for your PGP private key to view this message.") . '</a>');
                         return null;
                     }
                 } else {
@@ -352,13 +352,13 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             $GLOBALS['registry']->hasMethod('contacts/addField')) {
             // TODO: Check for key existence.
             $imp_contents = $this->getConfigParam('imp_contents');
-            $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'ImportEncryptKey'), array(
+            $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ImportEncryptKey', array(
                 'mailbox' => $imp_contents->getMailbox(),
                 'mime_id' => $mime_id,
                 'type' => 'pgp',
                 'uid' => $imp_contents->getUid()
             ));
-            $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getImportId())) . _("Save the key to your address book.") . '</a>');
+            $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getDomId())) . _("Save the key to your address book.") . '</a>');
         }
         $status->addText($this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View key details."), array('params' => array('mode' => IMP_Contents::RENDER_FULL, 'pgp_view_key' => 1))));
 
@@ -408,7 +408,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $status->addText(_("The data in this part has been digitally signed via PGP."));
 
         if ($GLOBALS['prefs']->getValue('pgp_verify') ||
-            Horde_Util::getFormData('pgp_verify_msg')) {
+            $GLOBALS['injector']->getInstance('Horde_Variables')->pgp_verify_msg) {
             $sig_part = $this->getConfigParam('imp_contents')->getMIMEPart($sig_id);
 
             $status2 = new IMP_Mime_Status();

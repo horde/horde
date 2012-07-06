@@ -1,21 +1,39 @@
 <?php
 /**
- * Horde_ActiveSync_Connector_Importer:: Class for importing message changes
- * from the PIM to the backend.
+ * Horde_ActiveSync_Connector_Importer::
  *
- * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
- * @author Michael J Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ * Portions of this class were ported from the Z-Push project:
+ *   File      :   wbxml.php
+ *   Project   :   Z-Push
+ *   Descr     :   WBXML mapping file
+ *
+ *   Created   :   01.10.2007
+ *
+ *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   This file is distributed under GPL-2.0.
+ *   Consult COPYING file for details
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2011-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 /**
- * Connector class for importing ActiveSync messages from the wbxml input stream.
+ * Horde_ActiveSync_Connector_Imports:: Receives Wbxml from device.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
- *
- * @author  Michael J Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2011-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
-
 class Horde_ActiveSync_Connector_Importer
 {
     /**
@@ -104,14 +122,12 @@ class Horde_ActiveSync_Connector_Importer
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
         }
-
         // Changing an existing object
         if ($id) {
             $conflict = $this->_isConflict(
                 Horde_ActiveSync::CHANGE_TYPE_CHANGE,
                 $this->_folderId,
                 $id);
-
             if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
                 return $id;
             }
@@ -121,7 +137,6 @@ class Horde_ActiveSync_Connector_Importer
                 return $uid;
             }
         }
-
         // Tell the backend about the change
         if (!$stat = $this->_backend->changeMessage($this->_folderId, $id, $message, $device)) {
             return false;
@@ -208,7 +223,6 @@ class Horde_ActiveSync_Connector_Importer
             Horde_ActiveSync::CHANGE_ORIGIN_PIM,
             $this->_backend->getUser());
 
-        // @TODO: These methods should be passed a Folder object.
         $this->_backend->setReadFlag($this->_folderId, $id, $flags);
 
         return true;

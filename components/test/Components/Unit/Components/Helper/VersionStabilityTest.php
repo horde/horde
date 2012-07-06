@@ -159,7 +159,7 @@ extends Components_TestCase
     {
         $this->assertNull(
             Components_Helper_Version::validateApiStability(
-                '4.0.0RC1', 'stable'
+                '4.0.0RC1', 'beta'
             )
         );
     }
@@ -168,12 +168,12 @@ extends Components_TestCase
     {
         try {
             Components_Helper_Version::validateApiStability(
-                '4.0.0RC1', 'beta'
+                '4.0.0RC1', 'stable'
             );
             $this->fail('No exception!');
         } catch (Components_Exception $e) {
             $this->assertEquals(
-                'stable version "4.0.0RC1" marked with invalid api stability "beta"!',
+                'beta version "4.0.0RC1" marked with invalid api stability "stable"!',
                 $e->getMessage()
             );
         }

@@ -35,6 +35,10 @@ class Horde_ListHeaders extends Horde_Mail_Rfc822
      */
     public function parse($id, $value)
     {
+        if (!strlen($value)) {
+            return false;
+        }
+
         $this->_data = $value;
         $this->_datalen = strlen($value);
         $this->_params['validate'] = true;

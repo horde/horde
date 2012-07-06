@@ -6,7 +6,7 @@
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
- * @author  Jan Schneider <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package webmail
  */
 class Horde_Bundle extends Horde_Core_Bundle
@@ -19,12 +19,17 @@ class Horde_Bundle extends Horde_Core_Bundle
     /**
      * The bundle version.
      */
-    const VERSION = '4.0.7-git';
+    const VERSION = '4.0.9-git';
 
     /**
      * The bundle descriptive name.
      */
     const FULLNAME = 'Horde Groupware Webmail Edition';
+
+    /**
+     * The short bundle descriptive name.
+     */
+    const SHORTNAME = 'Groupware';
 
     /**
      * Asks for the administrator settings.

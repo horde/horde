@@ -87,6 +87,8 @@ class Horde_Block_FbStream extends Horde_Core_Block
      */
     protected function _content()
     {
+        global $page_output;
+
         $instance = hash('md5', mt_rand());
         $endpoint = Horde::url('services/facebook/', true);
         $html = '';
@@ -94,12 +96,11 @@ class Horde_Block_FbStream extends Horde_Core_Block
         /* Init facebook driver, exit early if no prefs exist */
         $facebook = $this->_facebook;
         if (!($facebook->auth->getSessionKey())) {
-            return sprintf(_("You have not properly connected your Facebook account with Horde. You should check your Facebook settings in your %s."), Horde::getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
+            return sprintf(_("You have not properly connected your Facebook account with Horde. You should check your Facebook settings in your %s."), $GLOBALS['registry']->getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
         }
         $fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
 
         /* Add the client javascript / initialize it */
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $page_output->addThemeStylesheet('facebook.css');
         $page_output->addScriptFile('facebookclient.js');
         $script = <<<EOT
@@ -134,7 +135,7 @@ EOT;
             $status = $facebook->fql->run($fql);
         } catch (Horde_Service_Facebook_Exception $e) {
             $html = sprintf(_("There was an error making the request: %s"), $e->getMessage());
-            $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
+            $html .= sprintf(_("You can also check your Facebook settings in your %s."), $GLOBALS['registry']->getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
 
             return $html;
         }

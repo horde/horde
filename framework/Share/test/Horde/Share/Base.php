@@ -583,6 +583,13 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         }
     }
 
+    public function renameShare()
+    {
+        self::$share->renameShare(self::$shares['janeshare'], 'joeshare');
+        $this->assertArrayNotHasKey('janeshare', self::$share->listAllShares());
+        $this->assertArrayHasKey('joeshare', self::$share->listAllShares());
+    }
+
     public function callback($share)
     {
         $share->setShareOb(new Horde_Support_Stub());

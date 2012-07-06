@@ -31,18 +31,18 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function blacklistFrom($addresses)
     {
+        global $injector, $notification;
+
         if (!empty($addresses)) {
             try {
-                $ingo_storage = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create();
-                $blacklist = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
-                $blacklist->setBlacklist(array_merge($blacklist->getBlacklist(), $addresses));
-                $ingo_storage->store($blacklist);
+                $bl = $injector->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_BLACKLIST)->getBlacklist();
+                Ingo::updateListFilter(array_merge($bl, $addresses), Ingo_Storage::ACTION_BLACKLIST);
                 Ingo::updateScript();
                 foreach ($addresses as $from) {
-                    $GLOBALS['notification']->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
+                    $notification->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
                 }
             } catch (Ingo_Exception $e) {
-                $GLOBALS['notification']->push($e);
+                $notification->push($e);
             }
         }
     }
@@ -54,17 +54,17 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function whitelistFrom($addresses)
     {
+        global $injector, $notification;
+
         try {
-            $ingo_storage = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create();
-            $whitelist = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
-            $whitelist->setWhitelist(array_merge($whitelist->getWhitelist(), $addresses));
-            $ingo_storage->store($whitelist);
+            $wl = $injector->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_WHITELIST)->getWhitelist();
+            Ingo::updateListFilter(array_merge($wl, $addresses), Ingo_Storage::ACTION_WHITELIST);
             Ingo::updateScript();
             foreach ($addresses as $from) {
-                $GLOBALS['notification']->push(sprintf(_("The address \"%s\" has been added to your whitelist."), $from));
+                $notification->push(sprintf(_("The address \"%s\" has been added to your whitelist."), $from));
             }
         } catch (Ingo_Exception $e) {
-            $GLOBALS['notification']->push($e);
+            $notification->push($e);
         }
     }
 
@@ -110,36 +110,39 @@ class Ingo_Api extends Horde_Registry_Api
     /**
      * Set vacation
      *
-     * @param array $info  Vacation details.
+     * @param array $info      Vacation details.
+     * @param boolean $enable  Enable the filter?
      *
-     * @return boolean  True on success.
+     * @throws Ingo_Exception
      */
-    public function setVacation($info)
+    public function setVacation($info, $enable = true)
     {
         if (empty($info)) {
             return true;
         }
 
         /* Get vacation filter. */
-        $ingo_storage = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create();
-        $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
-        $vacation_rule_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
-
-        /* Set vacation object and rules. */
+        $ingo_storage = $GLOBALS['injector']
+            ->getInstance('Ingo_Factory_Storage')
+            ->create();
         $vacation = $ingo_storage->retrieve(Ingo_Storage::ACTION_VACATION);
+        $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $vacation_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
 
         /* Make sure we have at least one address. */
         if (empty($info['addresses'])) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
+            $identity = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Identity')
+                ->create();
             /* Remove empty lines. */
-            $info['addresses'] = preg_replace('/\n{2,}/', "\n", implode("\n", $identity->getAll('from_addr')));
-            if (empty($addresses)) {
+            $info['addresses'] = preg_replace(
+                '/\n{2,}/', "\n", implode("\n", $identity->getAll('from_addr')));
+            if (empty($info['addresses'])) {
                 $info['addresses'] = $GLOBALS['registry']->getAuth();
             }
         }
 
-        $vacation->setVacationAddresses($addresses);
-
+        $vacation->setVacationAddresses($info['addresses']);
         if (isset($info['days'])) {
             $vacation->setVacationDays($info['days']);
         }
@@ -162,52 +165,63 @@ class Ingo_Api extends Horde_Registry_Api
             $vacation->setVacationEnd($info['end']);
         }
 
-        $filters->ruleEnable($vacation_rule_id);
+        $ingo_storage->store($vacation);
+        if ($enable) {
+            $filters->ruleEnable($vacation_id);
+        } else {
+            $filters->ruleDisable($vacation_id);
+        }
+        $ingo_storage->store($filters);
+        if ($GLOBALS['prefs']->getValue('auto_update')) {
+            Ingo::updateScript();
+        }
 
-        try {
-            $ingo_storage->store($filters);
+        /* Update the timestamp for the rules. */
+        $GLOBALS['session']->set('ingo', 'change', time());
+    }
 
-            if ($GLOBALS['prefs']->getValue('auto_update')) {
-                Ingo::updateScript();
-            }
+    /**
+     * Return the vacation message properties.
+     *
+     * @return array  The property hash
+     */
+    public function getVacation()
+    {
+        /* Get vacation filter. */
+        $ingo_storage = $GLOBALS['injector']
+            ->getInstance('Ingo_Factory_Storage')
+            ->create();
+        $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $vacation_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
+        $rule = $filters->getRule($vacation_id);
+        $vacation = $ingo_storage->retrieve(Ingo_Storage::ACTION_VACATION);
+        $res = $vacation->toHash();
+        $res['disabled'] = $rule['disable'];
 
-            /* Update the timestamp for the rules. */
-            $GLOBALS['session']->set('ingo', 'change', time());
-
-            return true;
-        } catch (Ingo_Exception $e) {}
-
-        return false;
+        return $res;
     }
 
     /**
      * Disable vacation
      *
-     * @return boolean  True on success.
+     * @throws Ingo_Exception
      */
     public function disableVacation()
     {
         /* Get vacation filter. */
-        $ingo_storage = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create();
+        $ingo_storage = $GLOBALS['injector']
+            ->getInstance('Ingo_Factory_Storage')
+            ->create();
         $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
-        $vacation_rule_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
+        $vacation_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
+        $filters->ruleDisable($vacation_id);
+        $ingo_storage->store($filters);
+        if ($GLOBALS['prefs']->getValue('auto_update')) {
+            Ingo::updateScript();
+        }
 
-        $filters->ruleDisable($vacation_rule_id);
-
-        try {
-            $ingo_storage->store($filters);
-
-            if ($GLOBALS['prefs']->getValue('auto_update')) {
-                Ingo::updateScript();
-            }
-
-            /* Update the timestamp for the rules. */
-            $GLOBALS['session']->set('ingo', 'change', time());
-
-            return true;
-        } catch (Ingo_Exception $e) {}
-
-        return false;
+        /* Update the timestamp for the rules. */
+        $GLOBALS['session']->set('ingo', 'change', time());
     }
 
 }

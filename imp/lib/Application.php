@@ -59,7 +59,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (6.0-git)';
+    public $version = 'H5 (6.0.0beta1)';
 
     /**
      * Server key used in logged out session.
@@ -72,9 +72,11 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function appInitFailure($e)
     {
+        global $injector;
+
         if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
-            Horde_Util::getFormData('composeCache')) {
-            $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create()->sessionExpireDraft(Horde_Variables::getDefaultVariables());
+            $injector->getInstance('Horde_Variables')->composeCache) {
+            $injector->getInstance('IMP_Factory_Compose')->create()->sessionExpireDraft($injector->getInstance('Horde_Variables'));
         }
     }
 
@@ -120,9 +122,11 @@ class IMP_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        global $prefs, $registry;
+
         // Set default message character set.
-        if ($GLOBALS['registry']->getAuth()) {
-            if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
+        if ($registry->getAuth()) {
+            if ($def_charset = $prefs->getValue('default_msg_charset')) {
                 Horde_Mime_Part::$defaultCharset = $def_charset;
                 Horde_Mime_Headers::$defaultCharset = $def_charset;
             }
@@ -132,32 +136,10 @@ class IMP_Application extends Horde_Registry_Application
             Horde_Mime::$decodeWindows1252 = true;
         }
 
-        if ($GLOBALS['registry']->initialApp == 'imp') {
-            switch ($GLOBALS['registry']->getView()) {
-            case Horde_Registry::VIEW_BASIC:
-                $redirect = (!empty($this->initParams['impmode']) &&
-                             ($this->initParams['impmode'] != 'imp'));
-                break;
-
-            case Horde_Registry::VIEW_DYNAMIC:
-                $redirect = (!empty($this->initParams['impmode']) &&
-                             ($this->initParams['impmode'] != 'dimp'));
-                break;
-
-            case Horde_Registry::VIEW_MINIMAL:
-                $redirect = (empty($this->initParams['impmode']) ||
-                             ($this->initParams['impmode'] != 'mimp'));
-                break;
-
-            case Horde_Registry::VIEW_SMARTMOBILE:
-                $redirect = (!empty($this->initParams['impmode']) &&
-                             ($this->initParams['impmode'] != 'mobile'));
-                break;
-            }
-
-            if (!empty($redirect)) {
-                IMP_Auth::getInitialPage()->url->redirect();
-            }
+        if (($registry->initialApp == 'imp') &&
+            !empty($this->initParams['impmode']) &&
+            ($this->initParams['impmode'] != $registry->getView())) {
+            IMP_Auth::getInitialPage()->url->redirect();
         }
     }
 
@@ -266,12 +248,6 @@ class IMP_Application extends Horde_Registry_Application
         $menu_mailbox_url = Horde::url('mailbox.php');
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-        $menu->addArray(array(
-            'icon' => 'folders/inbox.png',
-            'text' => _("_Inbox"),
-            'url' => IMP_Mailbox::get('INBOX')->url($menu_mailbox_url)
-        ));
-
         if ($imp_imap->access(IMP_Imap::ACCESS_TRASH) &&
             $prefs->getValue('use_trash') &&
             $prefs->getValue('empty_trash_menu') &&
@@ -279,7 +255,7 @@ class IMP_Application extends Horde_Registry_Application
             ($trash->vtrash || $trash->access_expunge)) {
             $menu->addArray(array(
                 'class' => '__noselection',
-                'icon' => 'empty_trash.png',
+                'icon' => 'imp-empty-trash',
                 'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash mailbox?"), Horde_Serialize::JSON, 'UTF-8') . ')',
                 'text' => _("Empty _Trash"),
                 'url' => $trash->url($menu_mailbox_url)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
@@ -292,24 +268,16 @@ class IMP_Application extends Horde_Registry_Application
             $spam->access_expunge) {
             $menu->addArray(array(
                 'class' => '__noselection',
-                'icon' =>  'empty_spam.png',
+                'icon' =>  'imp-empty-spam',
                 'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your spam mailbox?"), Horde_Serialize::JSON, 'UTF-8') . ')',
                 'text' => _("Empty _Spam"),
                 'url' => $spam->url($menu_mailbox_url)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
             ));
         }
 
-        if (IMP::canCompose()) {
-            $menu->addArray(array(
-                'icon' => 'compose.png',
-                'text' => _("_New Message"),
-                'url' => IMP::composeLink()
-            ));
-        }
-
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $menu->addArray(array(
-                'icon' => 'folders/folder.png',
+                'icon' => 'imp-folder',
                 'text' => _("_Folders"),
                 'url' => Horde::url('folders.php')->unique()
             ));
@@ -317,7 +285,7 @@ class IMP_Application extends Horde_Registry_Application
 
         if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $menu->addArray(array(
-                'icon' => 'search.png',
+                'icon' => 'imp-search',
                 'text' =>_("_Search"),
                 'url' => Horde::url('search.php')
             ));
@@ -325,9 +293,9 @@ class IMP_Application extends Horde_Registry_Application
 
         if ($prefs->getValue('filter_menuitem')) {
             $menu->addArray(array(
-                'icon' => 'filters.png',
+                'icon' => 'imp-filters',
                 'text' => _("Fi_lters"),
-                'url' => Horde::getServiceLink('prefs', 'imp')->add('group', 'filters')
+                'url' => $registry->getServiceLink('prefs', 'imp')->add('group', 'filters')
             ));
         }
     }
@@ -359,7 +327,7 @@ class IMP_Application extends Horde_Registry_Application
             $servers = IMP_Imap::loadServerConfig();
             $server_list = array();
             $selected = is_null($this->_oldserver)
-                ? Horde_Util::getFormData('imp_server_key', IMP_Auth::getAutoLoginServer())
+                ? $GLOBALS['injector']->getInstance('Horde_Variables')->get('imp_server_key', IMP_Auth::getAutoLoginServer())
                 : $this->_oldserver;
 
             foreach ($servers as $key => $val) {
@@ -457,124 +425,43 @@ class IMP_Application extends Horde_Registry_Application
         }
     }
 
-    /* Preferences display/handling methods. Code is contained in
-     * IMP_Prefs_Ui so it doesn't have to be loaded on every page load. */
+    /* Topbar method. */
 
     /**
      */
-    public function prefsInit($ui)
-    {
-        $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsInit($ui);
-    }
-
-    /**
-     */
-    public function prefsGroup($ui)
-    {
-        $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsGroup($ui);
-    }
-
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        return $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsSpecial($ui, $item);
-    }
-
-    /**
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-        return $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsSpecialUpdate($ui, $item);
-    }
-
-    /**
-     */
-    public function prefsCallback($ui)
-    {
-        $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsCallback($ui);
-    }
-
-    /* Sidebar method. */
-
-    /**
-     */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
     {
         global $injector, $registry;
 
         IMP_Mailbox::get('INBOX')->filterOnDisplay();
 
         if (IMP::canCompose()) {
-            $tree->addNode(
-                strval($parent) . 'compose',
-                $parent,
-                _("New Message"),
-                0,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => strval($parent) . 'compose',
+                'parent' => $parent,
+                'label' => _("New Message"),
+                'expanded' => false,
+                'params' => array(
                     'icon' => Horde_Themes::img('compose.png'),
-                    'url' => IMP::composeLink()
+                    'url' => IMP::composeLink()->setRaw(false)
                 )
-            );
+            ));
         }
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
-            $tree->addNode(
-                strval($parent) . 'search',
-                $parent,
-                _("Search"),
-                0,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => strval($parent) . 'search',
+                'parent' => $parent,
+                'label' => _("Search"),
+                'expanded' => false,
+                'params' => array(
                     'icon' => Horde_Themes::img('search.png'),
                     'url' => Horde::url('search.php')
                 )
-            );
+            ));
         }
-
-        if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-            return;
-        }
-
-        $name_url = Horde::url('mailbox.php');
-
-        /* Initialize the IMP_Tree object. */
-        $imaptree = $injector->getInstance('IMP_Imap_Tree');
-        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
-        $imaptree->createTree($tree, array(
-            'open' => false,
-            'parent' => $parent,
-            'poll_info' => true
-        ));
-
-        if (!($url = $registry->get('url', $parent))) {
-            $url = (($registry->get('status', $parent) == 'heading') || !$registry->get('webroot'))
-                ? null
-                : $registry->getInitialPage($parent);
-        }
-
-        $node_params = array(
-            'icon' => $registry->get('icon', $parent),
-            'url' => $url
-        );
-        $name = $registry->get('name', $parent);
-
-        if ($imaptree->unseen) {
-            $node_params['icon'] = Horde_Themes::img('newmail.png');
-            $name = sprintf('<strong>%s</strong> (%s)', $name, $imaptree->unseen);
-        }
-
-        $tree->addNode(
-            strval($parent),
-            $registry->get('menu_parent', $parent),
-            $name,
-            0,
-            $imaptree->isOpen($parent),
-            $node_params
-        );
     }
 
     /* Language change callback. */
@@ -586,30 +473,77 @@ class IMP_Application extends Horde_Registry_Application
         $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
     }
 
-    /* Helper methods. */
+    /* Download data. */
 
     /**
-     * Callback, called from common-template-mobile.inc that sets up the jquery
-     * mobile init handler.
+     * URL parameters:
+     *   - actionID
+     *
+     * @throws IMP_Exception
      */
-    public function mobileInitCallback()
+    public function download(Horde_Variables $vars)
     {
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-        $page_output->addScriptFile('mobile.js');
+        global $injector, $registry;
 
-        require IMP_TEMPLATES . '/mobile/javascript_defs.php';
+        /* Check for an authenticated user. */
+        if (!$registry->isAuthenticated(array('app' => 'imp'))) {
+            $e = new IMP_Exception(_("User is not authenticated."));
+            $e->logged = true;
+            throw $e;
+        }
 
-        $GLOBALS['notification']->notify(array('listeners' => 'status'));
+        switch ($vars->actionID) {
+        case 'download_all':
+            $view_ob = new IMP_Contents_View(IMP::mailbox(true), IMP::uid());
+            return $view_ob->downloadAll();
 
-        /* Inline script. */
-        $page_output->addInlineScript(
-'$(window.document).bind("mobileinit", function() {
-    $.mobile.page.prototype.options.addBackBtn = true;
-    $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
-    $.mobile.dialog.prototype.options.closeBtnText = "' . _("Close") .'";
-    $.mobile.loadingMessage = "' . _("loading") . '";
-});'
-        );
+        case 'download_attach':
+            $view_ob = new IMP_Contents_View(IMP::mailbox(true), IMP::uid());
+            return $view_ob->downloadAttach($vars->id, $vars->zip);
+
+        case 'download_mbox':
+            $mlist = IMP_Mailbox::formFrom($vars->mbox_list);
+            $mbox = $injector->getInstance('IMP_Ui_Folder')->generateMbox($mlist);
+
+            if ($vars->zip) {
+                try {
+                    $data = Horde_Compress::factory('Zip')->compress(array(
+                        array(
+                            'data' => $mbox,
+                            'name' => reset($mlist) . '.mbox'
+                        )
+                    ), array(
+                        'stream' => true
+                    ));
+                    fclose($mbox);
+                } catch (Horde_Exception $e) {
+                    fclose($mbox);
+                    throw $e;
+                }
+
+                return array(
+                    'data' => $data,
+                    'name' => reset($mlist) . '.zip',
+                    'type' => 'application/zip'
+                );
+            }
+
+            return array(
+                'data' => $mbox,
+                'name' => reset($mlist) . '.mbox',
+                'type' => 'text/plain; charset=UTF-8'
+            );
+
+        case 'download_render':
+            $view_ob = new IMP_Contents_View(IMP::mailbox(true), IMP::uid());
+            return $view_ob->downloadRender($vars->id, $vars->mode, $vars->ctype);
+
+        case 'save_message':
+            $view_ob = new IMP_Contents_View(IMP::mailbox(true), IMP::uid());
+            return $view_ob->saveMessage();
+        }
+
+        return array();
     }
 
 }

@@ -35,8 +35,9 @@ class IMP_Factory_PrefsSort extends Horde_Core_Factory_Injector
     public function create(Horde_Injector $injector)
     {
         switch ($GLOBALS['registry']->getView()) {
+        case Horde_Registry::VIEW_MINIMAL:
         case Horde_Registry::VIEW_SMARTMOBILE:
-            return new IMP_Prefs_Sort_Mobile();
+            return new IMP_Prefs_Sort_Fixed();
 
         default:
             return new IMP_Prefs_Sort();

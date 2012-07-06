@@ -127,7 +127,6 @@ if (substr($pathname, -5) == '.html' ||
 
 $content = printfile($pathname);
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 if (substr($pathname, -1) == '/') {
     $title = sprintf(_("Directory Listing :: %s"), $pathname);
     $page_output->addScriptFile('tables.js', 'horde');
@@ -149,10 +148,12 @@ if (is_a($content, 'PEAR_Error')) {
     $notification->push($content->getMessage(), 'horde.error');
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require LUXOR_TEMPLATES . '/menu.inc';
 require LUXOR_TEMPLATES . '/headerbar.inc';
 if (!is_a($content, 'PEAR_Error')) {
     echo $content;
 }
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

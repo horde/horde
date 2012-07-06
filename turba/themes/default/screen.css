@@ -52,6 +52,15 @@ div.editGroupMembers span.iconImg {
 .vcardImg {
     background-image: url("graphics/mime/vcard.png");
 }
+.turba-addressbooks {
+    background-image: url("graphics/turba.png");
+}
+.turba-browse {
+    background-image: url("graphics/menu/browse.png");
+}
+.turba-search {
+    background-image: url("graphics/search.png");
+}
 
 /* Tables. */
 table#addressbook-list {

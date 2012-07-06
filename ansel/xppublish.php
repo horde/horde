@@ -28,8 +28,9 @@ $PUBLISH_ONBACK = '';
 $PUBLISH_ONNEXT = '';
 $PUBLISH_CMD = '';
 
-$title = sprintf(_("Publish to %s"), $registry->get('name'));
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => sprintf(_("Publish to %s"), $registry->get('name'))
+));
 
 // Check for a login.
 if ($cmd == 'login') {
@@ -58,7 +59,7 @@ if (!$registry->isAuthenticated()) {
     $PUBLISH_CMD = 'login.username.focus();';
     require ANSEL_TEMPLATES . '/xppublish/login.inc';
     require ANSEL_TEMPLATES . '/xppublish/javascript.inc';
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 }
 
@@ -136,7 +137,7 @@ if ($cmd == 'new') {
         $PUBLISH_BUTTONS = 'true,true,true';
         require ANSEL_TEMPLATES . '/xppublish/new.inc';
         require ANSEL_TEMPLATES . '/xppublish/javascript.inc';
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
         exit;
     }
 
@@ -211,4 +212,4 @@ if ($cmd == 'add') {
 }
 
 require ANSEL_TEMPLATES . '/xppublish/javascript.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

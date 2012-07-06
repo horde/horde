@@ -41,7 +41,7 @@ class Wicked_Page_BackLinks extends Wicked_Page {
     public function displayContents($isBlock)
     {
         $summaries = $GLOBALS['wicked']->getBackLinks($this->_referrer);
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
         ob_start();
         require WICKED_TEMPLATES . '/pagelist/header.inc';
         foreach ($summaries as $page) {

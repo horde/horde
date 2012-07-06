@@ -23,8 +23,9 @@ if (!$page->allows(Wicked::MODE_HISTORY)) {
     Wicked::url($page->pageName(), true)->add('actionID', 'history')->redirect();
 }
 
-$title = sprintf(_("History: %s"), $page->pageName());
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => sprintf(_("History: %s"), $page->pageName())
+));
 require WICKED_TEMPLATES . '/menu.inc';
 $page->render(Wicked::MODE_HISTORY);
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

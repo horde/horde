@@ -39,7 +39,6 @@ if (($face_id = Horde_Util::getGet('face_id')) !== null) {
     }
 }
 
-$title = _("Photo search");
 $vars = Horde_Variables::getDefaultVariables();
 $pager = new Horde_Core_Ui_Pager(
     'page',
@@ -51,8 +50,10 @@ $pager = new Horde_Core_Ui_Pager(
     )
 );
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Photo search")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/search.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

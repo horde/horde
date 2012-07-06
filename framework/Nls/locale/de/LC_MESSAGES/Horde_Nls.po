@@ -1,14 +1,14 @@
 # German translations for Horde_Nls module.
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Nls module.
-# Automatically generated, 2010.
+# Jan Schneider <jan@horde.org>, 2010-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Nls\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-01 11:29+0100\n"
-"PO-Revision-Date: 2011-11-21 18:25+0100\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
+"PO-Revision-Date: 2012-05-01 14:40+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -41,7 +41,7 @@ msgstr "Akan"
 msgid "Aland Islands"
 msgstr "Åland"
 
-#: lib/Horde/Nls/Countries.php:9 lib/Horde/Nls/Tld.php:19
+#: lib/Horde/Nls/Countries.php:10 lib/Horde/Nls/Tld.php:19
 msgid "Albania"
 msgstr "Albanien"
 
@@ -49,11 +49,11 @@ msgstr "Albanien"
 msgid "Albanian"
 msgstr "Albanisch"
 
-#: lib/Horde/Nls/Countries.php:10 lib/Horde/Nls/Tld.php:73
+#: lib/Horde/Nls/Countries.php:11 lib/Horde/Nls/Tld.php:73
 msgid "Algeria"
 msgstr "Algerien"
 
-#: lib/Horde/Nls/Countries.php:11 lib/Horde/Nls/Tld.php:25
+#: lib/Horde/Nls/Countries.php:12 lib/Horde/Nls/Tld.php:25
 msgid "American Samoa"
 msgstr "Amerikanisch-Samoa"
 
@@ -61,15 +61,15 @@ msgstr "Amerikanisch-Samoa"
 msgid "Amharic"
 msgstr "Amharisch"
 
-#: lib/Horde/Nls/Countries.php:12 lib/Horde/Nls/Tld.php:14
+#: lib/Horde/Nls/Countries.php:13 lib/Horde/Nls/Tld.php:14
 msgid "Andorra"
 msgstr "Andorra"
 
-#: lib/Horde/Nls/Countries.php:13 lib/Horde/Nls/Tld.php:22
+#: lib/Horde/Nls/Countries.php:14 lib/Horde/Nls/Tld.php:22
 msgid "Angola"
 msgstr "Angola"
 
-#: lib/Horde/Nls/Countries.php:14 lib/Horde/Nls/Tld.php:18
+#: lib/Horde/Nls/Countries.php:15 lib/Horde/Nls/Tld.php:18
 msgid "Anguilla"
 msgstr "Anguilla"
 
@@ -77,11 +77,11 @@ msgstr "Anguilla"
 msgid "Anonymous Proxy"
 msgstr "Anonymer Proxy"
 
-#: lib/Horde/Nls/Countries.php:15 lib/Horde/Nls/Tld.php:23
+#: lib/Horde/Nls/Countries.php:16 lib/Horde/Nls/Tld.php:23
 msgid "Antarctica"
 msgstr "Antarktis"
 
-#: lib/Horde/Nls/Countries.php:16 lib/Horde/Nls/Tld.php:17
+#: lib/Horde/Nls/Countries.php:17 lib/Horde/Nls/Tld.php:17
 msgid "Antigua and Barbuda"
 msgstr "Antigua und Barbuda"
 
@@ -93,11 +93,11 @@ msgstr "Arabisch"
 msgid "Aragonese"
 msgstr "Aragonesisch"
 
-#: lib/Horde/Nls/Countries.php:17 lib/Horde/Nls/Tld.php:24
+#: lib/Horde/Nls/Countries.php:18 lib/Horde/Nls/Tld.php:24
 msgid "Argentina"
 msgstr "Argentinien"
 
-#: lib/Horde/Nls/Countries.php:18 lib/Horde/Nls/Tld.php:20
+#: lib/Horde/Nls/Countries.php:19 lib/Horde/Nls/Tld.php:20
 msgid "Armenia"
 msgstr "Armenien"
 
@@ -105,7 +105,7 @@ msgstr "Armenien"
 msgid "Armenian"
 msgstr "Armenisch"
 
-#: lib/Horde/Nls/Countries.php:19 lib/Horde/Nls/Tld.php:28
+#: lib/Horde/Nls/Countries.php:20 lib/Horde/Nls/Tld.php:28
 msgid "Aruba"
 msgstr "Aruba"
 
@@ -121,11 +121,11 @@ msgstr "Asien/Pazifische Region"
 msgid "Assamese"
 msgstr "Assamesisch"
 
-#: lib/Horde/Nls/Countries.php:20 lib/Horde/Nls/Tld.php:27
+#: lib/Horde/Nls/Countries.php:21 lib/Horde/Nls/Tld.php:27
 msgid "Australia"
 msgstr "Australien"
 
-#: lib/Horde/Nls/Countries.php:21 lib/Horde/Nls/Tld.php:26
+#: lib/Horde/Nls/Countries.php:22 lib/Horde/Nls/Tld.php:26
 msgid "Austria"
 msgstr "Österreich"
 
@@ -141,7 +141,7 @@ msgstr "Avestisch"
 msgid "Aymara"
 msgstr "Aru"
 
-#: lib/Horde/Nls/Countries.php:22 lib/Horde/Nls/Tld.php:30
+#: lib/Horde/Nls/Countries.php:23 lib/Horde/Nls/Tld.php:30
 msgid "Azerbaijan"
 msgstr "Aserbaidschan"
 
@@ -149,11 +149,11 @@ msgstr "Aserbaidschan"
 msgid "Azerbaijani"
 msgstr "Aserbaidschanisch"
 
-#: lib/Horde/Nls/Countries.php:23 lib/Horde/Nls/Tld.php:44
+#: lib/Horde/Nls/Countries.php:24 lib/Horde/Nls/Tld.php:44
 msgid "Bahamas"
 msgstr "Bahamas"
 
-#: lib/Horde/Nls/Countries.php:24 lib/Horde/Nls/Tld.php:37
+#: lib/Horde/Nls/Countries.php:25 lib/Horde/Nls/Tld.php:37
 msgid "Bahrain"
 msgstr "Bahrein"
 
@@ -161,11 +161,11 @@ msgstr "Bahrein"
 msgid "Bambara"
 msgstr "Bambara"
 
-#: lib/Horde/Nls/Countries.php:25 lib/Horde/Nls/Tld.php:33
+#: lib/Horde/Nls/Countries.php:26 lib/Horde/Nls/Tld.php:33
 msgid "Bangladesh"
 msgstr "Bangladesch"
 
-#: lib/Horde/Nls/Countries.php:26 lib/Horde/Nls/Tld.php:32
+#: lib/Horde/Nls/Countries.php:27 lib/Horde/Nls/Tld.php:32
 msgid "Barbados"
 msgstr "Barbados"
 
@@ -177,7 +177,7 @@ msgstr "Baschkirisch"
 msgid "Basque"
 msgstr "Baskisch"
 
-#: lib/Horde/Nls/Countries.php:27 lib/Horde/Nls/Tld.php:48
+#: lib/Horde/Nls/Countries.php:28 lib/Horde/Nls/Tld.php:48
 msgid "Belarus"
 msgstr "Weißrussland"
 
@@ -185,11 +185,11 @@ msgstr "Weißrussland"
 msgid "Belarusian"
 msgstr "Weißrussisch"
 
-#: lib/Horde/Nls/Countries.php:28 lib/Horde/Nls/Tld.php:34
+#: lib/Horde/Nls/Countries.php:29 lib/Horde/Nls/Tld.php:34
 msgid "Belgium"
 msgstr "Belgien"
 
-#: lib/Horde/Nls/Countries.php:29 lib/Horde/Nls/Tld.php:49
+#: lib/Horde/Nls/Countries.php:30 lib/Horde/Nls/Tld.php:49
 msgid "Belize"
 msgstr "Belize"
 
@@ -197,15 +197,15 @@ msgstr "Belize"
 msgid "Bengali"
 msgstr "Bengalisch"
 
-#: lib/Horde/Nls/Countries.php:30 lib/Horde/Nls/Tld.php:39
+#: lib/Horde/Nls/Countries.php:31 lib/Horde/Nls/Tld.php:39
 msgid "Benin"
 msgstr "Benin"
 
-#: lib/Horde/Nls/Countries.php:31 lib/Horde/Nls/Tld.php:40
+#: lib/Horde/Nls/Countries.php:32 lib/Horde/Nls/Tld.php:40
 msgid "Bermuda"
 msgstr "Bermudas"
 
-#: lib/Horde/Nls/Countries.php:32 lib/Horde/Nls/Tld.php:45
+#: lib/Horde/Nls/Countries.php:33 lib/Horde/Nls/Tld.php:45
 msgid "Bhutan"
 msgstr "Bhutan"
 
@@ -217,11 +217,15 @@ msgstr "Bihari"
 msgid "Bislama"
 msgstr "Bislama"
 
-#: lib/Horde/Nls/Countries.php:33 lib/Horde/Nls/Tld.php:42
+#: lib/Horde/Nls/Countries.php:34 lib/Horde/Nls/Tld.php:42
 msgid "Bolivia"
 msgstr "Bolivien"
 
-#: lib/Horde/Nls/Countries.php:34 lib/Horde/Nls/Tld.php:31
+#: lib/Horde/Nls/Countries.php:35
+msgid "Bonaire, Sint Eustatius and Saba"
+msgstr "Bonaire, Sint Eustatius und Saba"
+
+#: lib/Horde/Nls/Countries.php:36 lib/Horde/Nls/Tld.php:31
 msgid "Bosnia and Herzegovina"
 msgstr "Bosnien-Herzegowina"
 
@@ -229,15 +233,15 @@ msgstr "Bosnien-Herzegowina"
 msgid "Bosnian"
 msgstr "Bosnisch"
 
-#: lib/Horde/Nls/Countries.php:35 lib/Horde/Nls/Tld.php:47
+#: lib/Horde/Nls/Countries.php:37 lib/Horde/Nls/Tld.php:47
 msgid "Botswana"
 msgstr "Botswana"
 
-#: lib/Horde/Nls/Countries.php:36 lib/Horde/Nls/Tld.php:46
+#: lib/Horde/Nls/Countries.php:38 lib/Horde/Nls/Tld.php:46
 msgid "Bouvet Island"
 msgstr "Bouvetinsel"
 
-#: lib/Horde/Nls/Countries.php:37 lib/Horde/Nls/Tld.php:43
+#: lib/Horde/Nls/Countries.php:39 lib/Horde/Nls/Tld.php:43
 msgid "Brazil"
 msgstr "Brasilien"
 
@@ -245,15 +249,15 @@ msgstr "Brasilien"
 msgid "Breton"
 msgstr "Bretonisch"
 
-#: lib/Horde/Nls/Countries.php:38 lib/Horde/Nls/Tld.php:118
+#: lib/Horde/Nls/Countries.php:40 lib/Horde/Nls/Tld.php:118
 msgid "British Indian Ocean Territory"
 msgstr "Britisches Territorium im Indischen Ozean"
 
-#: lib/Horde/Nls/Countries.php:39 lib/Horde/Nls/Tld.php:41
+#: lib/Horde/Nls/Countries.php:41 lib/Horde/Nls/Tld.php:41
 msgid "Brunei Darussalam"
 msgstr "Brunei Darussalam"
 
-#: lib/Horde/Nls/Countries.php:40 lib/Horde/Nls/Tld.php:36
+#: lib/Horde/Nls/Countries.php:42 lib/Horde/Nls/Tld.php:36
 msgid "Bulgaria"
 msgstr "Bulgarien"
 
@@ -261,7 +265,7 @@ msgstr "Bulgarien"
 msgid "Bulgarian"
 msgstr "Bulgarisch"
 
-#: lib/Horde/Nls/Countries.php:41 lib/Horde/Nls/Tld.php:35
+#: lib/Horde/Nls/Countries.php:43 lib/Horde/Nls/Tld.php:35
 msgid "Burkina Faso"
 msgstr "Burkina Faso"
 
@@ -269,23 +273,23 @@ msgstr "Burkina Faso"
 msgid "Burmese"
 msgstr "Birmanisch"
 
-#: lib/Horde/Nls/Countries.php:42 lib/Horde/Nls/Tld.php:38
+#: lib/Horde/Nls/Countries.php:44 lib/Horde/Nls/Tld.php:38
 msgid "Burundi"
 msgstr "Burundi"
 
-#: lib/Horde/Nls/Countries.php:43 lib/Horde/Nls/Tld.php:129
+#: lib/Horde/Nls/Countries.php:45 lib/Horde/Nls/Tld.php:129
 msgid "Cambodia"
 msgstr "Kambodscha"
 
-#: lib/Horde/Nls/Countries.php:44 lib/Horde/Nls/Tld.php:59
+#: lib/Horde/Nls/Countries.php:46 lib/Horde/Nls/Tld.php:59
 msgid "Cameroon"
 msgstr "Kamerun"
 
-#: lib/Horde/Nls/Countries.php:45 lib/Horde/Nls/Tld.php:50
+#: lib/Horde/Nls/Countries.php:47 lib/Horde/Nls/Tld.php:50
 msgid "Canada"
 msgstr "Kanada"
 
-#: lib/Horde/Nls/Countries.php:46 lib/Horde/Nls/Tld.php:64
+#: lib/Horde/Nls/Countries.php:48 lib/Horde/Nls/Tld.php:64
 msgid "Cape Verde"
 msgstr "Kap Verde"
 
@@ -293,15 +297,15 @@ msgstr "Kap Verde"
 msgid "Catalan; Valencian"
 msgstr "Katalanisch"
 
-#: lib/Horde/Nls/Countries.php:47 lib/Horde/Nls/Tld.php:136
+#: lib/Horde/Nls/Countries.php:49 lib/Horde/Nls/Tld.php:136
 msgid "Cayman Islands"
 msgstr "Cayman-Inseln"
 
-#: lib/Horde/Nls/Countries.php:48 lib/Horde/Nls/Tld.php:53
+#: lib/Horde/Nls/Countries.php:50 lib/Horde/Nls/Tld.php:53
 msgid "Central African Republic"
 msgstr "Zentralafrikanische Republik"
 
-#: lib/Horde/Nls/Countries.php:49 lib/Horde/Nls/Tld.php:225
+#: lib/Horde/Nls/Countries.php:51 lib/Horde/Nls/Tld.php:225
 msgid "Chad"
 msgstr "Tschad"
 
@@ -317,11 +321,11 @@ msgstr "Tschetschenisch"
 msgid "Chichewa; Chewa; Nyanja"
 msgstr "Chichewa; Chewa; Nyanja"
 
-#: lib/Horde/Nls/Countries.php:50 lib/Horde/Nls/Tld.php:58
+#: lib/Horde/Nls/Countries.php:52 lib/Horde/Nls/Tld.php:58
 msgid "Chile"
 msgstr "Chile"
 
-#: lib/Horde/Nls/Countries.php:51 lib/Horde/Nls/Tld.php:60
+#: lib/Horde/Nls/Countries.php:53 lib/Horde/Nls/Tld.php:60
 msgid "China"
 msgstr "China"
 
@@ -329,7 +333,7 @@ msgstr "China"
 msgid "Chinese"
 msgstr "Chinesisch"
 
-#: lib/Horde/Nls/Countries.php:52 lib/Horde/Nls/Tld.php:65
+#: lib/Horde/Nls/Countries.php:54 lib/Horde/Nls/Tld.php:65
 msgid "Christmas Island"
 msgstr "Weihnachtsinsel"
 
@@ -337,19 +341,19 @@ msgstr "Weihnachtsinsel"
 msgid "Chuvash"
 msgstr "Tschuwaschisch"
 
-#: lib/Horde/Nls/Countries.php:53 lib/Horde/Nls/Tld.php:51
+#: lib/Horde/Nls/Countries.php:55 lib/Horde/Nls/Tld.php:51
 msgid "Cocos (Keeling) Islands"
 msgstr "Kokosinseln"
 
-#: lib/Horde/Nls/Countries.php:54 lib/Horde/Nls/Tld.php:61
+#: lib/Horde/Nls/Countries.php:56 lib/Horde/Nls/Tld.php:61
 msgid "Colombia"
 msgstr "Kolumbien"
 
-#: lib/Horde/Nls/Countries.php:55 lib/Horde/Nls/Tld.php:131
+#: lib/Horde/Nls/Countries.php:57 lib/Horde/Nls/Tld.php:131
 msgid "Comoros"
 msgstr "Komoren"
 
-#: lib/Horde/Nls/Countries.php:56
+#: lib/Horde/Nls/Countries.php:58
 msgid "Congo"
 msgstr "Kongo"
 
@@ -357,11 +361,11 @@ msgstr "Kongo"
 msgid "Congo, Republic of"
 msgstr "Republik Kongo"
 
-#: lib/Horde/Nls/Countries.php:57 lib/Horde/Nls/Tld.php:52
+#: lib/Horde/Nls/Countries.php:59 lib/Horde/Nls/Tld.php:52
 msgid "Congo, The Democratic Republic of the"
 msgstr "Demokratische Republic Kongo"
 
-#: lib/Horde/Nls/Countries.php:58 lib/Horde/Nls/Tld.php:57
+#: lib/Horde/Nls/Countries.php:60 lib/Horde/Nls/Tld.php:57
 msgid "Cook Islands"
 msgstr "Cook-Inseln"
 
@@ -373,11 +377,11 @@ msgstr "Kornisch"
 msgid "Corsican"
 msgstr "Korsisch"
 
-#: lib/Horde/Nls/Countries.php:59 lib/Horde/Nls/Tld.php:62
+#: lib/Horde/Nls/Countries.php:61 lib/Horde/Nls/Tld.php:62
 msgid "Costa Rica"
 msgstr "Costa Rica"
 
-#: lib/Horde/Nls/Countries.php:60 lib/Horde/Nls/Tld.php:56
+#: lib/Horde/Nls/Tld.php:56
 msgid "Cote d'Ivoire"
 msgstr "Elfenbeinküste"
 
@@ -385,7 +389,7 @@ msgstr "Elfenbeinküste"
 msgid "Cree"
 msgstr "Cree"
 
-#: lib/Horde/Nls/Countries.php:61
+#: lib/Horde/Nls/Countries.php:63
 msgid "Croatia"
 msgstr "Kroatien"
 
@@ -397,11 +401,15 @@ msgstr "Kroatien"
 msgid "Croatian"
 msgstr "Kroatisch"
 
-#: lib/Horde/Nls/Countries.php:62 lib/Horde/Nls/Tld.php:63
+#: lib/Horde/Nls/Countries.php:64 lib/Horde/Nls/Tld.php:63
 msgid "Cuba"
 msgstr "Kuba"
 
-#: lib/Horde/Nls/Countries.php:63 lib/Horde/Nls/Tld.php:66
+#: lib/Horde/Nls/Countries.php:65
+msgid "Curaçao"
+msgstr "Curaçao"
+
+#: lib/Horde/Nls/Countries.php:66 lib/Horde/Nls/Tld.php:66
 msgid "Cyprus"
 msgstr "Zypern"
 
@@ -409,15 +417,19 @@ msgstr "Zypern"
 msgid "Czech"
 msgstr "Tschechisch"
 
-#: lib/Horde/Nls/Countries.php:64 lib/Horde/Nls/Tld.php:67
+#: lib/Horde/Nls/Countries.php:67 lib/Horde/Nls/Tld.php:67
 msgid "Czech Republic"
 msgstr "Tschechische Republik"
+
+#: lib/Horde/Nls/Countries.php:62
+msgid "Côte d'Ivoire"
+msgstr "Elfenbeinküste"
 
 #: lib/Horde/Nls/Languages.php:40
 msgid "Danish"
 msgstr "Dänisch"
 
-#: lib/Horde/Nls/Countries.php:65 lib/Horde/Nls/Tld.php:70
+#: lib/Horde/Nls/Countries.php:68 lib/Horde/Nls/Tld.php:70
 msgid "Denmark"
 msgstr "Dänemark"
 
@@ -425,15 +437,15 @@ msgstr "Dänemark"
 msgid "Divehi; Dhivehi; Maldivian;"
 msgstr "Dhivehi"
 
-#: lib/Horde/Nls/Countries.php:66 lib/Horde/Nls/Tld.php:69
+#: lib/Horde/Nls/Countries.php:69 lib/Horde/Nls/Tld.php:69
 msgid "Djibouti"
 msgstr "Dschibuti"
 
-#: lib/Horde/Nls/Countries.php:67 lib/Horde/Nls/Tld.php:71
+#: lib/Horde/Nls/Countries.php:70 lib/Horde/Nls/Tld.php:71
 msgid "Dominica"
 msgstr "Dominica"
 
-#: lib/Horde/Nls/Countries.php:68 lib/Horde/Nls/Tld.php:72
+#: lib/Horde/Nls/Countries.php:71 lib/Horde/Nls/Tld.php:72
 msgid "Dominican Republic"
 msgstr "Dominikanische Republik"
 
@@ -449,15 +461,15 @@ msgstr "Dzongkha"
 msgid "East Timor"
 msgstr "Osttimor"
 
-#: lib/Horde/Nls/Countries.php:69 lib/Horde/Nls/Tld.php:74
+#: lib/Horde/Nls/Countries.php:72 lib/Horde/Nls/Tld.php:74
 msgid "Ecuador"
 msgstr "Ecuador"
 
-#: lib/Horde/Nls/Countries.php:70 lib/Horde/Nls/Tld.php:76
+#: lib/Horde/Nls/Countries.php:73 lib/Horde/Nls/Tld.php:76
 msgid "Egypt"
 msgstr "Ägypten"
 
-#: lib/Horde/Nls/Countries.php:71 lib/Horde/Nls/Tld.php:221
+#: lib/Horde/Nls/Countries.php:74 lib/Horde/Nls/Tld.php:221
 msgid "El Salvador"
 msgstr "El Salvador"
 
@@ -465,11 +477,11 @@ msgstr "El Salvador"
 msgid "English"
 msgstr "Englisch"
 
-#: lib/Horde/Nls/Countries.php:72 lib/Horde/Nls/Tld.php:100
+#: lib/Horde/Nls/Countries.php:75 lib/Horde/Nls/Tld.php:100
 msgid "Equatorial Guinea"
 msgstr "Äquatorial-Guinea"
 
-#: lib/Horde/Nls/Countries.php:73 lib/Horde/Nls/Tld.php:78
+#: lib/Horde/Nls/Countries.php:76 lib/Horde/Nls/Tld.php:78
 msgid "Eritrea"
 msgstr "Eritrea"
 
@@ -477,7 +489,7 @@ msgstr "Eritrea"
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#: lib/Horde/Nls/Countries.php:74 lib/Horde/Nls/Tld.php:75
+#: lib/Horde/Nls/Countries.php:77 lib/Horde/Nls/Tld.php:75
 msgid "Estonia"
 msgstr "Estland"
 
@@ -485,7 +497,7 @@ msgstr "Estland"
 msgid "Estonian"
 msgstr "Estisch"
 
-#: lib/Horde/Nls/Countries.php:75 lib/Horde/Nls/Tld.php:80
+#: lib/Horde/Nls/Countries.php:78 lib/Horde/Nls/Tld.php:80
 msgid "Ethiopia"
 msgstr "Äthiopien"
 
@@ -501,11 +513,11 @@ msgstr "Europäische Union"
 msgid "Ewe"
 msgstr "Ewe"
 
-#: lib/Horde/Nls/Countries.php:76 lib/Horde/Nls/Tld.php:84
+#: lib/Horde/Nls/Countries.php:79 lib/Horde/Nls/Tld.php:84
 msgid "Falkland Islands (Malvinas)"
 msgstr "Falklandinseln"
 
-#: lib/Horde/Nls/Countries.php:77 lib/Horde/Nls/Tld.php:86
+#: lib/Horde/Nls/Countries.php:80 lib/Horde/Nls/Tld.php:86
 msgid "Faroe Islands"
 msgstr "Färöer"
 
@@ -513,7 +525,7 @@ msgstr "Färöer"
 msgid "Faroese"
 msgstr "Färöisch"
 
-#: lib/Horde/Nls/Countries.php:78 lib/Horde/Nls/Tld.php:83
+#: lib/Horde/Nls/Countries.php:81 lib/Horde/Nls/Tld.php:83
 msgid "Fiji"
 msgstr "Fidschi"
 
@@ -521,7 +533,7 @@ msgstr "Fidschi"
 msgid "Fijian"
 msgstr "Fidschi"
 
-#: lib/Horde/Nls/Countries.php:79 lib/Horde/Nls/Tld.php:82
+#: lib/Horde/Nls/Countries.php:82 lib/Horde/Nls/Tld.php:82
 msgid "Finland"
 msgstr "Finnland"
 
@@ -529,7 +541,7 @@ msgstr "Finnland"
 msgid "Finnish"
 msgstr "Finnisch"
 
-#: lib/Horde/Nls/Countries.php:80 lib/Horde/Nls/Tld.php:87
+#: lib/Horde/Nls/Countries.php:83 lib/Horde/Nls/Tld.php:87
 msgid "France"
 msgstr "Frankreich"
 
@@ -537,15 +549,15 @@ msgstr "Frankreich"
 msgid "French"
 msgstr "Französisch"
 
-#: lib/Horde/Nls/Countries.php:81 lib/Horde/Nls/Tld.php:92
+#: lib/Horde/Nls/Countries.php:84 lib/Horde/Nls/Tld.php:92
 msgid "French Guiana"
 msgstr "Französisch-Guayana"
 
-#: lib/Horde/Nls/Countries.php:82 lib/Horde/Nls/Tld.php:186
+#: lib/Horde/Nls/Countries.php:85 lib/Horde/Nls/Tld.php:186
 msgid "French Polynesia"
 msgstr "Französisch-Polynesien"
 
-#: lib/Horde/Nls/Countries.php:83 lib/Horde/Nls/Tld.php:226
+#: lib/Horde/Nls/Countries.php:86 lib/Horde/Nls/Tld.php:226
 msgid "French Southern Territories"
 msgstr "Französische Gebiete im südlichen Indischen Ozean"
 
@@ -553,7 +565,7 @@ msgstr "Französische Gebiete im südlichen Indischen Ozean"
 msgid "Fula; Fulah; Pulaar; Pular"
 msgstr "Fulfulde"
 
-#: lib/Horde/Nls/Countries.php:84 lib/Horde/Nls/Tld.php:88
+#: lib/Horde/Nls/Countries.php:87 lib/Horde/Nls/Tld.php:88
 msgid "Gabon"
 msgstr "Gabun"
 
@@ -561,11 +573,11 @@ msgstr "Gabun"
 msgid "Galician"
 msgstr "Galicisch"
 
-#: lib/Horde/Nls/Countries.php:85 lib/Horde/Nls/Tld.php:97
+#: lib/Horde/Nls/Countries.php:88 lib/Horde/Nls/Tld.php:97
 msgid "Gambia"
 msgstr "Gambia"
 
-#: lib/Horde/Nls/Countries.php:86 lib/Horde/Nls/Tld.php:91
+#: lib/Horde/Nls/Countries.php:89 lib/Horde/Nls/Tld.php:91
 msgid "Georgia"
 msgstr "Georgien"
 
@@ -577,19 +589,19 @@ msgstr "Georgisch"
 msgid "German"
 msgstr "Deutsch"
 
-#: lib/Horde/Nls/Countries.php:87 lib/Horde/Nls/Tld.php:68
+#: lib/Horde/Nls/Countries.php:90 lib/Horde/Nls/Tld.php:68
 msgid "Germany"
 msgstr "Deutschland"
 
-#: lib/Horde/Nls/Countries.php:88 lib/Horde/Nls/Tld.php:94
+#: lib/Horde/Nls/Countries.php:91 lib/Horde/Nls/Tld.php:94
 msgid "Ghana"
 msgstr "Ghana"
 
-#: lib/Horde/Nls/Countries.php:89 lib/Horde/Nls/Tld.php:95
+#: lib/Horde/Nls/Countries.php:92 lib/Horde/Nls/Tld.php:95
 msgid "Gibraltar"
 msgstr "Gibraltar"
 
-#: lib/Horde/Nls/Countries.php:90 lib/Horde/Nls/Tld.php:101
+#: lib/Horde/Nls/Countries.php:93 lib/Horde/Nls/Tld.php:101
 msgid "Greece"
 msgstr "Griechenland"
 
@@ -597,19 +609,19 @@ msgstr "Griechenland"
 msgid "Greek, Modern"
 msgstr "Griechisch"
 
-#: lib/Horde/Nls/Countries.php:91 lib/Horde/Nls/Tld.php:96
+#: lib/Horde/Nls/Countries.php:94 lib/Horde/Nls/Tld.php:96
 msgid "Greenland"
 msgstr "Grönland"
 
-#: lib/Horde/Nls/Countries.php:92 lib/Horde/Nls/Tld.php:90
+#: lib/Horde/Nls/Countries.php:95 lib/Horde/Nls/Tld.php:90
 msgid "Grenada"
 msgstr "Grenada"
 
-#: lib/Horde/Nls/Countries.php:93 lib/Horde/Nls/Tld.php:99
+#: lib/Horde/Nls/Countries.php:96 lib/Horde/Nls/Tld.php:99
 msgid "Guadeloupe"
 msgstr "Guadeloupe"
 
-#: lib/Horde/Nls/Countries.php:94 lib/Horde/Nls/Tld.php:104
+#: lib/Horde/Nls/Countries.php:97 lib/Horde/Nls/Tld.php:104
 msgid "Guam"
 msgstr "Guam"
 
@@ -617,19 +629,19 @@ msgstr "Guam"
 msgid "Guarani"
 msgstr "Guaraní"
 
-#: lib/Horde/Nls/Countries.php:95 lib/Horde/Nls/Tld.php:103
+#: lib/Horde/Nls/Countries.php:98 lib/Horde/Nls/Tld.php:103
 msgid "Guatemala"
 msgstr "Guatemala"
 
-#: lib/Horde/Nls/Tld.php:93
+#: lib/Horde/Nls/Countries.php:99 lib/Horde/Nls/Tld.php:93
 msgid "Guernsey"
 msgstr "Guernsey"
 
-#: lib/Horde/Nls/Countries.php:96 lib/Horde/Nls/Tld.php:98
+#: lib/Horde/Nls/Countries.php:100 lib/Horde/Nls/Tld.php:98
 msgid "Guinea"
 msgstr "Guinea"
 
-#: lib/Horde/Nls/Countries.php:97 lib/Horde/Nls/Tld.php:105
+#: lib/Horde/Nls/Countries.php:101 lib/Horde/Nls/Tld.php:105
 msgid "Guinea-Bissau"
 msgstr "Guinea-Bissau"
 
@@ -637,11 +649,11 @@ msgstr "Guinea-Bissau"
 msgid "Gujarati"
 msgstr "Gujarati"
 
-#: lib/Horde/Nls/Countries.php:98 lib/Horde/Nls/Tld.php:106
+#: lib/Horde/Nls/Countries.php:102 lib/Horde/Nls/Tld.php:106
 msgid "Guyana"
 msgstr "Guyana"
 
-#: lib/Horde/Nls/Countries.php:99 lib/Horde/Nls/Tld.php:111
+#: lib/Horde/Nls/Countries.php:103 lib/Horde/Nls/Tld.php:111
 msgid "Haiti"
 msgstr "Haiti"
 
@@ -653,7 +665,7 @@ msgstr "Haitianisch"
 msgid "Hausa"
 msgstr "Hausa"
 
-#: lib/Horde/Nls/Countries.php:100
+#: lib/Horde/Nls/Countries.php:104
 msgid "Heard Island and McDonald Islands"
 msgstr "Heard- und McDonaldinseln"
 
@@ -677,15 +689,15 @@ msgstr "Hindi"
 msgid "Hiri Motu"
 msgstr "Hiri Motu"
 
-#: lib/Horde/Nls/Countries.php:101 lib/Horde/Nls/Tld.php:248
+#: lib/Horde/Nls/Countries.php:105 lib/Horde/Nls/Tld.php:248
 msgid "Holy See (Vatican City State)"
 msgstr "Vatikanstadt"
 
-#: lib/Horde/Nls/Countries.php:102 lib/Horde/Nls/Tld.php:109
+#: lib/Horde/Nls/Countries.php:106 lib/Horde/Nls/Tld.php:109
 msgid "Honduras"
 msgstr "Honduras"
 
-#: lib/Horde/Nls/Countries.php:103 lib/Horde/Nls/Tld.php:107
+#: lib/Horde/Nls/Countries.php:107 lib/Horde/Nls/Tld.php:107
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
@@ -693,11 +705,11 @@ msgstr "Hong Kong"
 msgid "Hungarian"
 msgstr "Ungarisch"
 
-#: lib/Horde/Nls/Countries.php:104 lib/Horde/Nls/Tld.php:112
+#: lib/Horde/Nls/Countries.php:108 lib/Horde/Nls/Tld.php:112
 msgid "Hungary"
 msgstr "Ungarn"
 
-#: lib/Horde/Nls/Countries.php:105 lib/Horde/Nls/Tld.php:121
+#: lib/Horde/Nls/Countries.php:109 lib/Horde/Nls/Tld.php:121
 msgid "Iceland"
 msgstr "Island"
 
@@ -713,11 +725,11 @@ msgstr "Ido"
 msgid "Igbo"
 msgstr "Igbo"
 
-#: lib/Horde/Nls/Countries.php:106 lib/Horde/Nls/Tld.php:117
+#: lib/Horde/Nls/Countries.php:110 lib/Horde/Nls/Tld.php:117
 msgid "India"
 msgstr "Indien"
 
-#: lib/Horde/Nls/Countries.php:107 lib/Horde/Nls/Tld.php:113
+#: lib/Horde/Nls/Countries.php:111 lib/Horde/Nls/Tld.php:113
 msgid "Indonesia"
 msgstr "Indonesien"
 
@@ -741,15 +753,15 @@ msgstr "Inuktitut"
 msgid "Inupiaq"
 msgstr "Inupiaq"
 
-#: lib/Horde/Nls/Countries.php:108 lib/Horde/Nls/Tld.php:120
+#: lib/Horde/Nls/Countries.php:112 lib/Horde/Nls/Tld.php:120
 msgid "Iran, Islamic Republic of"
 msgstr "Islamische Republik Iran"
 
-#: lib/Horde/Nls/Countries.php:109 lib/Horde/Nls/Tld.php:119
+#: lib/Horde/Nls/Countries.php:113 lib/Horde/Nls/Tld.php:119
 msgid "Iraq"
 msgstr "Irak"
 
-#: lib/Horde/Nls/Countries.php:110 lib/Horde/Nls/Tld.php:114
+#: lib/Horde/Nls/Countries.php:114 lib/Horde/Nls/Tld.php:114
 msgid "Ireland"
 msgstr "Irland"
 
@@ -757,11 +769,11 @@ msgstr "Irland"
 msgid "Irish"
 msgstr "Irisch"
 
-#: lib/Horde/Nls/Tld.php:116
+#: lib/Horde/Nls/Countries.php:115 lib/Horde/Nls/Tld.php:116
 msgid "Isle of Man"
 msgstr "Isle of Man"
 
-#: lib/Horde/Nls/Countries.php:111 lib/Horde/Nls/Tld.php:115
+#: lib/Horde/Nls/Countries.php:116 lib/Horde/Nls/Tld.php:115
 msgid "Israel"
 msgstr "Israel"
 
@@ -769,15 +781,15 @@ msgstr "Israel"
 msgid "Italian"
 msgstr "Italienisch"
 
-#: lib/Horde/Nls/Countries.php:112 lib/Horde/Nls/Tld.php:122
+#: lib/Horde/Nls/Countries.php:117 lib/Horde/Nls/Tld.php:122
 msgid "Italy"
 msgstr "Italien"
 
-#: lib/Horde/Nls/Countries.php:113 lib/Horde/Nls/Tld.php:124
+#: lib/Horde/Nls/Countries.php:118 lib/Horde/Nls/Tld.php:124
 msgid "Jamaica"
 msgstr "Jamaika"
 
-#: lib/Horde/Nls/Countries.php:114 lib/Horde/Nls/Tld.php:126
+#: lib/Horde/Nls/Countries.php:119 lib/Horde/Nls/Tld.php:126
 msgid "Japan"
 msgstr "Japan"
 
@@ -789,11 +801,11 @@ msgstr "Japanisch"
 msgid "Javanese"
 msgstr "Javanisch"
 
-#: lib/Horde/Nls/Tld.php:123
+#: lib/Horde/Nls/Countries.php:120 lib/Horde/Nls/Tld.php:123
 msgid "Jersey"
 msgstr "Jersey"
 
-#: lib/Horde/Nls/Countries.php:115 lib/Horde/Nls/Tld.php:125
+#: lib/Horde/Nls/Countries.php:121 lib/Horde/Nls/Tld.php:125
 msgid "Jordan"
 msgstr "Jordanien"
 
@@ -817,11 +829,11 @@ msgstr "Kashmiri"
 msgid "Kazakh"
 msgstr "Kasachisch"
 
-#: lib/Horde/Nls/Countries.php:116 lib/Horde/Nls/Tld.php:137
+#: lib/Horde/Nls/Countries.php:122 lib/Horde/Nls/Tld.php:137
 msgid "Kazakhstan"
 msgstr "Kasachstan"
 
-#: lib/Horde/Nls/Countries.php:117 lib/Horde/Nls/Tld.php:127
+#: lib/Horde/Nls/Countries.php:123 lib/Horde/Nls/Tld.php:127
 msgid "Kenya"
 msgstr "Kenia"
 
@@ -841,7 +853,7 @@ msgstr "Kinyarwanda"
 msgid "Kirghiz, Kyrgyz"
 msgstr "Kirgisisch"
 
-#: lib/Horde/Nls/Countries.php:118 lib/Horde/Nls/Tld.php:130
+#: lib/Horde/Nls/Countries.php:124 lib/Horde/Nls/Tld.php:130
 msgid "Kiribati"
 msgstr "Kiribati"
 
@@ -857,11 +869,11 @@ msgstr "Komi"
 msgid "Kongo"
 msgstr "Kikongo"
 
-#: lib/Horde/Nls/Countries.php:119 lib/Horde/Nls/Tld.php:133
+#: lib/Horde/Nls/Countries.php:125 lib/Horde/Nls/Tld.php:133
 msgid "Korea, Democratic People's Republic of"
 msgstr "Demokratische Volksrepublic Korea"
 
-#: lib/Horde/Nls/Countries.php:120 lib/Horde/Nls/Tld.php:134
+#: lib/Horde/Nls/Countries.php:126 lib/Horde/Nls/Tld.php:134
 msgid "Korea, Republic of"
 msgstr "Republik Korea"
 
@@ -873,7 +885,7 @@ msgstr "Koreanisch"
 msgid "Kurdish"
 msgstr "Kurdisch"
 
-#: lib/Horde/Nls/Countries.php:121 lib/Horde/Nls/Tld.php:135
+#: lib/Horde/Nls/Countries.php:127 lib/Horde/Nls/Tld.php:135
 msgid "Kuwait"
 msgstr "Kuwait"
 
@@ -881,7 +893,7 @@ msgstr "Kuwait"
 msgid "Kwanyama, Kuanyama"
 msgstr "Kwanyama"
 
-#: lib/Horde/Nls/Countries.php:122 lib/Horde/Nls/Tld.php:128
+#: lib/Horde/Nls/Countries.php:128 lib/Horde/Nls/Tld.php:128
 msgid "Kyrgyzstan"
 msgstr "Kirgisistan"
 
@@ -889,7 +901,7 @@ msgstr "Kirgisistan"
 msgid "Lao"
 msgstr "Laotisch"
 
-#: lib/Horde/Nls/Countries.php:123 lib/Horde/Nls/Tld.php:138
+#: lib/Horde/Nls/Countries.php:129 lib/Horde/Nls/Tld.php:138
 msgid "Lao People's Democratic Republic"
 msgstr "Laos"
 
@@ -897,7 +909,7 @@ msgstr "Laos"
 msgid "Latin"
 msgstr "Latein"
 
-#: lib/Horde/Nls/Countries.php:124 lib/Horde/Nls/Tld.php:147
+#: lib/Horde/Nls/Countries.php:130 lib/Horde/Nls/Tld.php:147
 msgid "Latvia"
 msgstr "Lettland"
 
@@ -905,23 +917,27 @@ msgstr "Lettland"
 msgid "Latvian"
 msgstr "Lettisch"
 
-#: lib/Horde/Nls/Countries.php:125 lib/Horde/Nls/Tld.php:139
+#: lib/Horde/Nls/Countries.php:131 lib/Horde/Nls/Tld.php:139
 msgid "Lebanon"
 msgstr "Libanon"
 
-#: lib/Horde/Nls/Countries.php:126 lib/Horde/Nls/Tld.php:144
+#: lib/Horde/Nls/Countries.php:132 lib/Horde/Nls/Tld.php:144
 msgid "Lesotho"
 msgstr "Lesotho"
 
-#: lib/Horde/Nls/Countries.php:127 lib/Horde/Nls/Tld.php:143
+#: lib/Horde/Nls/Countries.php:133 lib/Horde/Nls/Tld.php:143
 msgid "Liberia"
 msgstr "Liberia"
 
-#: lib/Horde/Nls/Countries.php:128 lib/Horde/Nls/Tld.php:148
+#: lib/Horde/Nls/Countries.php:134
+msgid "Libya"
+msgstr "Lybien"
+
+#: lib/Horde/Nls/Tld.php:148
 msgid "Libyan Arab Jamahiriya"
 msgstr "Libyen"
 
-#: lib/Horde/Nls/Countries.php:129 lib/Horde/Nls/Tld.php:141
+#: lib/Horde/Nls/Countries.php:135 lib/Horde/Nls/Tld.php:141
 msgid "Liechtenstein"
 msgstr "Liechtenstein"
 
@@ -933,7 +949,7 @@ msgstr "Limburgisch"
 msgid "Lingala"
 msgstr "Lingála"
 
-#: lib/Horde/Nls/Countries.php:130 lib/Horde/Nls/Tld.php:145
+#: lib/Horde/Nls/Countries.php:136 lib/Horde/Nls/Tld.php:145
 msgid "Lithuania"
 msgstr "Litauen"
 
@@ -949,7 +965,7 @@ msgstr "Kiluba"
 msgid "Luganda"
 msgstr "Luganda"
 
-#: lib/Horde/Nls/Countries.php:131 lib/Horde/Nls/Tld.php:146
+#: lib/Horde/Nls/Countries.php:137 lib/Horde/Nls/Tld.php:146
 msgid "Luxembourg"
 msgstr "Luxemburg"
 
@@ -957,19 +973,23 @@ msgstr "Luxemburg"
 msgid "Luxembourgish, Letzeburgesch"
 msgstr "Luxemburgisch"
 
-#: lib/Horde/Nls/Countries.php:132 lib/Horde/Nls/Tld.php:159
+#: lib/Horde/Nls/Countries.php:138 lib/Horde/Nls/Tld.php:159
 msgid "Macao"
 msgstr "Macao"
 
-#: lib/Horde/Nls/Countries.php:133 lib/Horde/Nls/Tld.php:155
+#: lib/Horde/Nls/Tld.php:155
 msgid "Macedonia, The Former Yugoslav Republic of"
+msgstr "Die ehemalige Jugoslawische Republik Mazedonien"
+
+#: lib/Horde/Nls/Countries.php:139
+msgid "Macedonia, The former Yugoslav Republic of"
 msgstr "Die ehemalige Jugoslawische Republik Mazedonien"
 
 #: lib/Horde/Nls/Languages.php:112
 msgid "Macedonian"
 msgstr "Mazedonisch"
 
-#: lib/Horde/Nls/Countries.php:134 lib/Horde/Nls/Tld.php:153
+#: lib/Horde/Nls/Countries.php:140 lib/Horde/Nls/Tld.php:153
 msgid "Madagascar"
 msgstr "Madagaskar"
 
@@ -977,7 +997,7 @@ msgstr "Madagaskar"
 msgid "Malagasy"
 msgstr "Malagasy"
 
-#: lib/Horde/Nls/Countries.php:135 lib/Horde/Nls/Tld.php:167
+#: lib/Horde/Nls/Countries.php:141 lib/Horde/Nls/Tld.php:167
 msgid "Malawi"
 msgstr "Malawi"
 
@@ -989,19 +1009,19 @@ msgstr "Malaiisch"
 msgid "Malayalam"
 msgstr "Malayalam"
 
-#: lib/Horde/Nls/Countries.php:136 lib/Horde/Nls/Tld.php:169
+#: lib/Horde/Nls/Countries.php:142 lib/Horde/Nls/Tld.php:169
 msgid "Malaysia"
 msgstr "Malaysia"
 
-#: lib/Horde/Nls/Countries.php:137 lib/Horde/Nls/Tld.php:166
+#: lib/Horde/Nls/Countries.php:143 lib/Horde/Nls/Tld.php:166
 msgid "Maldives"
 msgstr "Malidiven"
 
-#: lib/Horde/Nls/Countries.php:138 lib/Horde/Nls/Tld.php:156
+#: lib/Horde/Nls/Countries.php:144 lib/Horde/Nls/Tld.php:156
 msgid "Mali"
 msgstr "Mali"
 
-#: lib/Horde/Nls/Countries.php:139 lib/Horde/Nls/Tld.php:164
+#: lib/Horde/Nls/Countries.php:145 lib/Horde/Nls/Tld.php:164
 msgid "Malta"
 msgstr "Malta"
 
@@ -1021,7 +1041,7 @@ msgstr "Maorisch"
 msgid "Marathi"
 msgstr "Marathi"
 
-#: lib/Horde/Nls/Countries.php:140 lib/Horde/Nls/Tld.php:154
+#: lib/Horde/Nls/Countries.php:146 lib/Horde/Nls/Tld.php:154
 msgid "Marshall Islands"
 msgstr "Marshallinseln"
 
@@ -1029,39 +1049,39 @@ msgstr "Marshallinseln"
 msgid "Marshallese"
 msgstr "Marshallesisch"
 
-#: lib/Horde/Nls/Countries.php:141 lib/Horde/Nls/Tld.php:161
+#: lib/Horde/Nls/Countries.php:147 lib/Horde/Nls/Tld.php:161
 msgid "Martinique"
 msgstr "Martinique"
 
-#: lib/Horde/Nls/Countries.php:142 lib/Horde/Nls/Tld.php:162
+#: lib/Horde/Nls/Countries.php:148 lib/Horde/Nls/Tld.php:162
 msgid "Mauritania"
 msgstr "Mauretanien"
 
-#: lib/Horde/Nls/Countries.php:143 lib/Horde/Nls/Tld.php:165
+#: lib/Horde/Nls/Countries.php:149 lib/Horde/Nls/Tld.php:165
 msgid "Mauritius"
 msgstr "Mauritius"
 
-#: lib/Horde/Nls/Countries.php:144 lib/Horde/Nls/Tld.php:258
+#: lib/Horde/Nls/Countries.php:150 lib/Horde/Nls/Tld.php:258
 msgid "Mayotte"
 msgstr "Mayotte Island"
 
-#: lib/Horde/Nls/Countries.php:145 lib/Horde/Nls/Tld.php:168
+#: lib/Horde/Nls/Countries.php:151 lib/Horde/Nls/Tld.php:168
 msgid "Mexico"
 msgstr "Mexiko"
 
-#: lib/Horde/Nls/Countries.php:146 lib/Horde/Nls/Tld.php:85
+#: lib/Horde/Nls/Countries.php:152 lib/Horde/Nls/Tld.php:85
 msgid "Micronesia, Federated States of"
 msgstr "Föderierte Staaten von Mikronesien"
 
-#: lib/Horde/Nls/Countries.php:147 lib/Horde/Nls/Tld.php:151
+#: lib/Horde/Nls/Countries.php:153 lib/Horde/Nls/Tld.php:151
 msgid "Moldova, Republic of"
 msgstr "Republik Moldau"
 
-#: lib/Horde/Nls/Countries.php:148 lib/Horde/Nls/Tld.php:150
+#: lib/Horde/Nls/Countries.php:154 lib/Horde/Nls/Tld.php:150
 msgid "Monaco"
 msgstr "Monaco"
 
-#: lib/Horde/Nls/Countries.php:149 lib/Horde/Nls/Tld.php:158
+#: lib/Horde/Nls/Countries.php:155 lib/Horde/Nls/Tld.php:158
 msgid "Mongolia"
 msgstr "Mongolei"
 
@@ -1069,31 +1089,31 @@ msgstr "Mongolei"
 msgid "Mongolian"
 msgstr "Mongolisch"
 
-#: lib/Horde/Nls/Tld.php:152
+#: lib/Horde/Nls/Countries.php:156 lib/Horde/Nls/Tld.php:152
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: lib/Horde/Nls/Countries.php:150 lib/Horde/Nls/Tld.php:163
+#: lib/Horde/Nls/Countries.php:157 lib/Horde/Nls/Tld.php:163
 msgid "Montserrat"
 msgstr "Montserrat"
 
-#: lib/Horde/Nls/Countries.php:151 lib/Horde/Nls/Tld.php:149
+#: lib/Horde/Nls/Countries.php:158 lib/Horde/Nls/Tld.php:149
 msgid "Morocco"
 msgstr "Marokko"
 
-#: lib/Horde/Nls/Countries.php:152 lib/Horde/Nls/Tld.php:170
+#: lib/Horde/Nls/Countries.php:159 lib/Horde/Nls/Tld.php:170
 msgid "Mozambique"
 msgstr "Mosambik"
 
-#: lib/Horde/Nls/Countries.php:153 lib/Horde/Nls/Tld.php:157
+#: lib/Horde/Nls/Countries.php:160 lib/Horde/Nls/Tld.php:157
 msgid "Myanmar"
 msgstr "Burma"
 
-#: lib/Horde/Nls/Countries.php:154 lib/Horde/Nls/Tld.php:171
+#: lib/Horde/Nls/Countries.php:161 lib/Horde/Nls/Tld.php:171
 msgid "Namibia"
 msgstr "Namibia"
 
-#: lib/Horde/Nls/Countries.php:155 lib/Horde/Nls/Languages.php:119
+#: lib/Horde/Nls/Countries.php:162 lib/Horde/Nls/Languages.php:119
 #: lib/Horde/Nls/Tld.php:180
 msgid "Nauru"
 msgstr "Nauru"
@@ -1106,7 +1126,7 @@ msgstr "Navajo"
 msgid "Ndonga"
 msgstr "Ndonga"
 
-#: lib/Horde/Nls/Countries.php:156 lib/Horde/Nls/Tld.php:179
+#: lib/Horde/Nls/Countries.php:163 lib/Horde/Nls/Tld.php:179
 msgid "Nepal"
 msgstr "Nepal"
 
@@ -1114,39 +1134,39 @@ msgstr "Nepal"
 msgid "Nepali"
 msgstr "Nepali"
 
-#: lib/Horde/Nls/Countries.php:157 lib/Horde/Nls/Tld.php:177
+#: lib/Horde/Nls/Countries.php:164 lib/Horde/Nls/Tld.php:177
 msgid "Netherlands"
 msgstr "Niederlande"
 
-#: lib/Horde/Nls/Countries.php:158 lib/Horde/Nls/Tld.php:21
+#: lib/Horde/Nls/Tld.php:21
 msgid "Netherlands Antilles"
 msgstr "Niederländische Antillen"
 
-#: lib/Horde/Nls/Countries.php:159 lib/Horde/Nls/Tld.php:172
+#: lib/Horde/Nls/Countries.php:165 lib/Horde/Nls/Tld.php:172
 msgid "New Caledonia"
 msgstr "Neukaledonien"
 
-#: lib/Horde/Nls/Countries.php:160 lib/Horde/Nls/Tld.php:182
+#: lib/Horde/Nls/Countries.php:166 lib/Horde/Nls/Tld.php:182
 msgid "New Zealand"
 msgstr "Neuseeland"
 
-#: lib/Horde/Nls/Countries.php:161 lib/Horde/Nls/Tld.php:176
+#: lib/Horde/Nls/Countries.php:167 lib/Horde/Nls/Tld.php:176
 msgid "Nicaragua"
 msgstr "Nicaragua"
 
-#: lib/Horde/Nls/Countries.php:162 lib/Horde/Nls/Tld.php:173
+#: lib/Horde/Nls/Countries.php:168 lib/Horde/Nls/Tld.php:173
 msgid "Niger"
 msgstr "Niger"
 
-#: lib/Horde/Nls/Countries.php:163 lib/Horde/Nls/Tld.php:175
+#: lib/Horde/Nls/Countries.php:169 lib/Horde/Nls/Tld.php:175
 msgid "Nigeria"
 msgstr "Nigeria"
 
-#: lib/Horde/Nls/Countries.php:164 lib/Horde/Nls/Tld.php:181
+#: lib/Horde/Nls/Countries.php:170 lib/Horde/Nls/Tld.php:181
 msgid "Niue"
 msgstr "Niue"
 
-#: lib/Horde/Nls/Countries.php:165 lib/Horde/Nls/Tld.php:174
+#: lib/Horde/Nls/Countries.php:171 lib/Horde/Nls/Tld.php:174
 msgid "Norfolk Island"
 msgstr "Norfolkinsel"
 
@@ -1154,7 +1174,7 @@ msgstr "Norfolkinsel"
 msgid "North Ndebele"
 msgstr "Ndebele"
 
-#: lib/Horde/Nls/Countries.php:166 lib/Horde/Nls/Tld.php:160
+#: lib/Horde/Nls/Countries.php:172 lib/Horde/Nls/Tld.php:160
 msgid "Northern Mariana Islands"
 msgstr "Nördliche Marianen"
 
@@ -1162,7 +1182,7 @@ msgstr "Nördliche Marianen"
 msgid "Northern Sami"
 msgstr "Nordsamisch"
 
-#: lib/Horde/Nls/Countries.php:167 lib/Horde/Nls/Tld.php:178
+#: lib/Horde/Nls/Countries.php:173 lib/Horde/Nls/Tld.php:178
 msgid "Norway"
 msgstr "Norwegen"
 
@@ -1196,7 +1216,7 @@ msgid ""
 "Slavonic"
 msgstr "Altkirchenslawisch"
 
-#: lib/Horde/Nls/Countries.php:168 lib/Horde/Nls/Tld.php:183
+#: lib/Horde/Nls/Countries.php:174 lib/Horde/Nls/Tld.php:183
 msgid "Oman"
 msgstr "Oman"
 
@@ -1216,15 +1236,15 @@ msgstr "Ossetisch"
 msgid "Other"
 msgstr "Sonstige"
 
-#: lib/Horde/Nls/Countries.php:169 lib/Horde/Nls/Tld.php:189
+#: lib/Horde/Nls/Countries.php:175 lib/Horde/Nls/Tld.php:189
 msgid "Pakistan"
 msgstr "Pakistan"
 
-#: lib/Horde/Nls/Countries.php:170 lib/Horde/Nls/Tld.php:196
+#: lib/Horde/Nls/Countries.php:176 lib/Horde/Nls/Tld.php:196
 msgid "Palau"
 msgstr "Palau"
 
-#: lib/Horde/Nls/Countries.php:171 lib/Horde/Nls/Tld.php:194
+#: lib/Horde/Nls/Countries.php:177 lib/Horde/Nls/Tld.php:194
 msgid "Palestinian Territory, Occupied"
 msgstr "Besetzte Palästinensische Gebiete"
 
@@ -1232,7 +1252,7 @@ msgstr "Besetzte Palästinensische Gebiete"
 msgid "Pali"
 msgstr "Pali"
 
-#: lib/Horde/Nls/Countries.php:172 lib/Horde/Nls/Tld.php:184
+#: lib/Horde/Nls/Countries.php:178 lib/Horde/Nls/Tld.php:184
 msgid "Panama"
 msgstr "Panama"
 
@@ -1240,11 +1260,11 @@ msgstr "Panama"
 msgid "Panjabi, Punjabi"
 msgstr "Panjabi"
 
-#: lib/Horde/Nls/Countries.php:173 lib/Horde/Nls/Tld.php:187
+#: lib/Horde/Nls/Countries.php:179 lib/Horde/Nls/Tld.php:187
 msgid "Papua New Guinea"
 msgstr "Papua-Neuguinea"
 
-#: lib/Horde/Nls/Countries.php:174 lib/Horde/Nls/Tld.php:197
+#: lib/Horde/Nls/Countries.php:180 lib/Horde/Nls/Tld.php:197
 msgid "Paraguay"
 msgstr "Paraguay"
 
@@ -1256,15 +1276,15 @@ msgstr "Paschtunisch"
 msgid "Persian"
 msgstr "Persisch"
 
-#: lib/Horde/Nls/Countries.php:175 lib/Horde/Nls/Tld.php:185
+#: lib/Horde/Nls/Countries.php:181 lib/Horde/Nls/Tld.php:185
 msgid "Peru"
 msgstr "Peru"
 
-#: lib/Horde/Nls/Countries.php:176 lib/Horde/Nls/Tld.php:188
+#: lib/Horde/Nls/Countries.php:182 lib/Horde/Nls/Tld.php:188
 msgid "Philippines"
 msgstr "Philippinen"
 
-#: lib/Horde/Nls/Countries.php:177
+#: lib/Horde/Nls/Countries.php:183
 msgid "Pitcairn"
 msgstr "Pitcairn"
 
@@ -1272,7 +1292,7 @@ msgstr "Pitcairn"
 msgid "Pitcairn Island"
 msgstr "Pitcairn Inseln"
 
-#: lib/Horde/Nls/Countries.php:178 lib/Horde/Nls/Tld.php:190
+#: lib/Horde/Nls/Countries.php:184 lib/Horde/Nls/Tld.php:190
 msgid "Poland"
 msgstr "Polen"
 
@@ -1280,7 +1300,7 @@ msgstr "Polen"
 msgid "Polish"
 msgstr "Polnisch"
 
-#: lib/Horde/Nls/Countries.php:179 lib/Horde/Nls/Tld.php:195
+#: lib/Horde/Nls/Countries.php:185 lib/Horde/Nls/Tld.php:195
 msgid "Portugal"
 msgstr "Portugal"
 
@@ -1288,11 +1308,11 @@ msgstr "Portugal"
 msgid "Portuguese"
 msgstr "Portugiesisch"
 
-#: lib/Horde/Nls/Countries.php:180 lib/Horde/Nls/Tld.php:193
+#: lib/Horde/Nls/Countries.php:186 lib/Horde/Nls/Tld.php:193
 msgid "Puerto Rico"
 msgstr "Puerto Rico"
 
-#: lib/Horde/Nls/Countries.php:181 lib/Horde/Nls/Tld.php:198
+#: lib/Horde/Nls/Countries.php:187 lib/Horde/Nls/Tld.php:198
 msgid "Qatar"
 msgstr "Katar"
 
@@ -1300,15 +1320,11 @@ msgstr "Katar"
 msgid "Quechua"
 msgstr "Quechua"
 
-#: lib/Horde/Nls/Countries.php:182
-msgid "Reunion"
-msgstr "Réunion"
-
 #: lib/Horde/Nls/Tld.php:199
 msgid "Reunion Island"
 msgstr "Réunion"
 
-#: lib/Horde/Nls/Countries.php:183 lib/Horde/Nls/Tld.php:200
+#: lib/Horde/Nls/Countries.php:189 lib/Horde/Nls/Tld.php:200
 msgid "Romania"
 msgstr "Rumänien"
 
@@ -1324,35 +1340,51 @@ msgstr "Bündnerromanisch"
 msgid "Russian"
 msgstr "Russisch"
 
-#: lib/Horde/Nls/Countries.php:184 lib/Horde/Nls/Tld.php:202
+#: lib/Horde/Nls/Countries.php:190 lib/Horde/Nls/Tld.php:202
 msgid "Russian Federation"
 msgstr "Russische Förderation"
 
-#: lib/Horde/Nls/Countries.php:185 lib/Horde/Nls/Tld.php:203
+#: lib/Horde/Nls/Countries.php:191 lib/Horde/Nls/Tld.php:203
 msgid "Rwanda"
 msgstr "Ruanda"
 
-#: lib/Horde/Nls/Countries.php:186 lib/Horde/Nls/Tld.php:210
+#: lib/Horde/Nls/Countries.php:188
+msgid "Réunion"
+msgstr "Réunion"
+
+#: lib/Horde/Nls/Countries.php:192
+msgid "Saint Barthélemy"
+msgstr "Saint-Barthélemy"
+
+#: lib/Horde/Nls/Tld.php:210
 msgid "Saint Helena"
 msgstr "Saint Helena"
 
-#: lib/Horde/Nls/Countries.php:187 lib/Horde/Nls/Tld.php:132
+#: lib/Horde/Nls/Countries.php:193
+msgid "Saint Helena, Ascension and Tristan da Cunha"
+msgstr "St. Helena, Ascension und Tristan da Cunha"
+
+#: lib/Horde/Nls/Countries.php:194 lib/Horde/Nls/Tld.php:132
 msgid "Saint Kitts and Nevis"
 msgstr "Saint Kitts und Nevis"
 
-#: lib/Horde/Nls/Countries.php:188 lib/Horde/Nls/Tld.php:140
+#: lib/Horde/Nls/Countries.php:195 lib/Horde/Nls/Tld.php:140
 msgid "Saint Lucia"
 msgstr "Saint Lucia"
 
-#: lib/Horde/Nls/Countries.php:189 lib/Horde/Nls/Tld.php:191
+#: lib/Horde/Nls/Countries.php:196
+msgid "Saint Martin (French part)"
+msgstr "Saint-Martin"
+
+#: lib/Horde/Nls/Countries.php:197 lib/Horde/Nls/Tld.php:191
 msgid "Saint Pierre and Miquelon"
 msgstr "Saint Pierre und Miquelon"
 
-#: lib/Horde/Nls/Countries.php:190 lib/Horde/Nls/Tld.php:249
+#: lib/Horde/Nls/Countries.php:198 lib/Horde/Nls/Tld.php:249
 msgid "Saint Vincent and the Grenadines"
 msgstr "Saint Vincent und die Grenadinen"
 
-#: lib/Horde/Nls/Countries.php:191 lib/Horde/Nls/Tld.php:256
+#: lib/Horde/Nls/Countries.php:199 lib/Horde/Nls/Tld.php:256
 msgid "Samoa"
 msgstr "Samoa"
 
@@ -1360,7 +1392,7 @@ msgstr "Samoa"
 msgid "Samoan"
 msgstr "Samoisch"
 
-#: lib/Horde/Nls/Countries.php:192 lib/Horde/Nls/Tld.php:215
+#: lib/Horde/Nls/Countries.php:200 lib/Horde/Nls/Tld.php:215
 msgid "San Marino"
 msgstr "San Marino"
 
@@ -1372,7 +1404,7 @@ msgstr "Sango"
 msgid "Sanskrit"
 msgstr "Sanskrit"
 
-#: lib/Horde/Nls/Countries.php:193 lib/Horde/Nls/Tld.php:219
+#: lib/Horde/Nls/Countries.php:201 lib/Horde/Nls/Tld.php:219
 msgid "Sao Tome and Principe"
 msgstr "Sao Tome und Principe"
 
@@ -1384,7 +1416,7 @@ msgstr "Sardisch"
 msgid "Satellite Provider"
 msgstr "Satellitenprovider"
 
-#: lib/Horde/Nls/Countries.php:194 lib/Horde/Nls/Tld.php:204
+#: lib/Horde/Nls/Countries.php:202 lib/Horde/Nls/Tld.php:204
 msgid "Saudi Arabia"
 msgstr "Saudi-Arabien"
 
@@ -1392,23 +1424,19 @@ msgstr "Saudi-Arabien"
 msgid "Scottish Gaelic; Gaelic"
 msgstr "Schottisch-Gälisch"
 
-#: lib/Horde/Nls/Countries.php:195 lib/Horde/Nls/Tld.php:216
+#: lib/Horde/Nls/Countries.php:203 lib/Horde/Nls/Tld.php:216
 msgid "Senegal"
 msgstr "Senegal"
 
-#: lib/Horde/Nls/Tld.php:201
+#: lib/Horde/Nls/Countries.php:204 lib/Horde/Nls/Tld.php:201
 msgid "Serbia"
 msgstr "Serbien"
-
-#: lib/Horde/Nls/Countries.php:196
-msgid "Serbia and Montenegro"
-msgstr "Serbien und Montenegro"
 
 #: lib/Horde/Nls/Languages.php:158
 msgid "Serbian"
 msgstr "Serbisch"
 
-#: lib/Horde/Nls/Countries.php:197 lib/Horde/Nls/Tld.php:206
+#: lib/Horde/Nls/Countries.php:205 lib/Horde/Nls/Tld.php:206
 msgid "Seychelles"
 msgstr "Seychellen"
 
@@ -1416,7 +1444,7 @@ msgstr "Seychellen"
 msgid "Shona"
 msgstr "Shona"
 
-#: lib/Horde/Nls/Countries.php:198 lib/Horde/Nls/Tld.php:214
+#: lib/Horde/Nls/Countries.php:206 lib/Horde/Nls/Tld.php:214
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
@@ -1424,7 +1452,7 @@ msgstr "Sierra Leone"
 msgid "Sindhi"
 msgstr "Sindhi"
 
-#: lib/Horde/Nls/Countries.php:199 lib/Horde/Nls/Tld.php:209
+#: lib/Horde/Nls/Countries.php:207 lib/Horde/Nls/Tld.php:209
 msgid "Singapore"
 msgstr "Singapur"
 
@@ -1432,11 +1460,15 @@ msgstr "Singapur"
 msgid "Sinhala, Sinhalese"
 msgstr "Singhalesisch"
 
+#: lib/Horde/Nls/Countries.php:208
+msgid "Sint Maarten (Dutch part)"
+msgstr "Sint Maarten"
+
 #: lib/Horde/Nls/Languages.php:152
 msgid "Slovak"
 msgstr "Slowakisch"
 
-#: lib/Horde/Nls/Countries.php:200 lib/Horde/Nls/Tld.php:213
+#: lib/Horde/Nls/Countries.php:209 lib/Horde/Nls/Tld.php:213
 msgid "Slovakia"
 msgstr "Slowakei"
 
@@ -1444,11 +1476,11 @@ msgstr "Slowakei"
 msgid "Slovene"
 msgstr "Slowenisch"
 
-#: lib/Horde/Nls/Countries.php:201 lib/Horde/Nls/Tld.php:211
+#: lib/Horde/Nls/Countries.php:210 lib/Horde/Nls/Tld.php:211
 msgid "Slovenia"
 msgstr "Slowenien"
 
-#: lib/Horde/Nls/Countries.php:202 lib/Horde/Nls/Tld.php:205
+#: lib/Horde/Nls/Countries.php:211 lib/Horde/Nls/Tld.php:205
 msgid "Solomon Islands"
 msgstr "Solomoninseln"
 
@@ -1456,21 +1488,25 @@ msgstr "Solomoninseln"
 msgid "Somali"
 msgstr "Somali"
 
-#: lib/Horde/Nls/Countries.php:203 lib/Horde/Nls/Tld.php:217
+#: lib/Horde/Nls/Countries.php:212 lib/Horde/Nls/Tld.php:217
 msgid "Somalia"
 msgstr "Somalien"
 
-#: lib/Horde/Nls/Countries.php:204 lib/Horde/Nls/Tld.php:260
+#: lib/Horde/Nls/Countries.php:213 lib/Horde/Nls/Tld.php:260
 msgid "South Africa"
 msgstr "Südafrika"
 
-#: lib/Horde/Nls/Countries.php:205 lib/Horde/Nls/Tld.php:102
+#: lib/Horde/Nls/Countries.php:214 lib/Horde/Nls/Tld.php:102
 msgid "South Georgia and the South Sandwich Islands"
 msgstr "Südgeorgien und die Südlichen Sandwichinseln"
 
 #: lib/Horde/Nls/Languages.php:127
 msgid "South Ndebele"
 msgstr "Süd-Ndebele"
+
+#: lib/Horde/Nls/Countries.php:215
+msgid "South Sudan"
+msgstr "Südsudan"
 
 #: lib/Horde/Nls/Languages.php:160
 msgid "Southern Sotho"
@@ -1480,7 +1516,7 @@ msgstr "Sesotho"
 msgid "Soviet Union"
 msgstr "Sowjetunion"
 
-#: lib/Horde/Nls/Countries.php:206 lib/Horde/Nls/Tld.php:79
+#: lib/Horde/Nls/Countries.php:216 lib/Horde/Nls/Tld.php:79
 msgid "Spain"
 msgstr "Spanien"
 
@@ -1488,11 +1524,11 @@ msgstr "Spanien"
 msgid "Spanish; Castilian"
 msgstr "Spanisch"
 
-#: lib/Horde/Nls/Countries.php:207 lib/Horde/Nls/Tld.php:142
+#: lib/Horde/Nls/Countries.php:217 lib/Horde/Nls/Tld.php:142
 msgid "Sri Lanka"
 msgstr "Sri Lanka"
 
-#: lib/Horde/Nls/Countries.php:208 lib/Horde/Nls/Tld.php:207
+#: lib/Horde/Nls/Countries.php:218 lib/Horde/Nls/Tld.php:207
 msgid "Sudan"
 msgstr "Sudan"
 
@@ -1500,11 +1536,11 @@ msgstr "Sudan"
 msgid "Sundanese"
 msgstr "Sundanesisch"
 
-#: lib/Horde/Nls/Countries.php:209 lib/Horde/Nls/Tld.php:218
+#: lib/Horde/Nls/Countries.php:219 lib/Horde/Nls/Tld.php:218
 msgid "Suriname"
 msgstr "Surinam"
 
-#: lib/Horde/Nls/Countries.php:210
+#: lib/Horde/Nls/Countries.php:220
 msgid "Svalbard and Jan Mayen"
 msgstr "Svalbard und Jan Mayen"
 
@@ -1520,11 +1556,11 @@ msgstr "Swahili"
 msgid "Swati"
 msgstr "Siswati"
 
-#: lib/Horde/Nls/Countries.php:211 lib/Horde/Nls/Tld.php:223
+#: lib/Horde/Nls/Countries.php:221 lib/Horde/Nls/Tld.php:223
 msgid "Swaziland"
 msgstr "Swasiland"
 
-#: lib/Horde/Nls/Countries.php:212 lib/Horde/Nls/Tld.php:208
+#: lib/Horde/Nls/Countries.php:222 lib/Horde/Nls/Tld.php:208
 msgid "Sweden"
 msgstr "Schweden"
 
@@ -1532,11 +1568,11 @@ msgstr "Schweden"
 msgid "Swedish"
 msgstr "Schwedisch"
 
-#: lib/Horde/Nls/Countries.php:213 lib/Horde/Nls/Tld.php:55
+#: lib/Horde/Nls/Countries.php:223 lib/Horde/Nls/Tld.php:55
 msgid "Switzerland"
 msgstr "Schweiz"
 
-#: lib/Horde/Nls/Countries.php:214 lib/Horde/Nls/Tld.php:222
+#: lib/Horde/Nls/Countries.php:224 lib/Horde/Nls/Tld.php:222
 msgid "Syrian Arab Republic"
 msgstr "Arabische Republik Syrien"
 
@@ -1552,7 +1588,7 @@ msgstr "Tahitianisch"
 msgid "Taiwan"
 msgstr "Taiwan"
 
-#: lib/Horde/Nls/Countries.php:215
+#: lib/Horde/Nls/Countries.php:225
 msgid "Taiwan, Province of China"
 msgstr "Taiwan, chinesische Provinz"
 
@@ -1560,7 +1596,7 @@ msgstr "Taiwan, chinesische Provinz"
 msgid "Tajik"
 msgstr "Tadschikisch"
 
-#: lib/Horde/Nls/Countries.php:216 lib/Horde/Nls/Tld.php:229
+#: lib/Horde/Nls/Countries.php:226 lib/Horde/Nls/Tld.php:229
 msgid "Tajikistan"
 msgstr "Tadschikistan"
 
@@ -1568,7 +1604,7 @@ msgstr "Tadschikistan"
 msgid "Tamil"
 msgstr "Tamil"
 
-#: lib/Horde/Nls/Countries.php:217 lib/Horde/Nls/Tld.php:240
+#: lib/Horde/Nls/Countries.php:227 lib/Horde/Nls/Tld.php:240
 msgid "Tanzania, United Republic of"
 msgstr "Vereinigte Republik Tansania"
 
@@ -1584,7 +1620,7 @@ msgstr "Telugu"
 msgid "Thai"
 msgstr "Thailändisch"
 
-#: lib/Horde/Nls/Countries.php:218 lib/Horde/Nls/Tld.php:228
+#: lib/Horde/Nls/Countries.php:228 lib/Horde/Nls/Tld.php:228
 msgid "Thailand"
 msgstr "Thailand"
 
@@ -1596,19 +1632,19 @@ msgstr "Tibetisch"
 msgid "Tigrinya"
 msgstr "Tigrinya"
 
-#: lib/Horde/Nls/Countries.php:219 lib/Horde/Nls/Tld.php:231
+#: lib/Horde/Nls/Countries.php:229 lib/Horde/Nls/Tld.php:231
 msgid "Timor-Leste"
 msgstr "Timor-Leste"
 
-#: lib/Horde/Nls/Countries.php:220 lib/Horde/Nls/Tld.php:227
+#: lib/Horde/Nls/Countries.php:230 lib/Horde/Nls/Tld.php:227
 msgid "Togo"
 msgstr "Togo"
 
-#: lib/Horde/Nls/Countries.php:221 lib/Horde/Nls/Tld.php:230
+#: lib/Horde/Nls/Countries.php:231 lib/Horde/Nls/Tld.php:230
 msgid "Tokelau"
 msgstr "Tokelau"
 
-#: lib/Horde/Nls/Countries.php:222 lib/Horde/Nls/Tld.php:234
+#: lib/Horde/Nls/Countries.php:232 lib/Horde/Nls/Tld.php:234
 msgid "Tonga"
 msgstr "Tonga"
 
@@ -1616,7 +1652,7 @@ msgstr "Tonga"
 msgid "Tonga (Tonga Islands)"
 msgstr "Tonga"
 
-#: lib/Horde/Nls/Countries.php:223 lib/Horde/Nls/Tld.php:237
+#: lib/Horde/Nls/Countries.php:233 lib/Horde/Nls/Tld.php:237
 msgid "Trinidad and Tobago"
 msgstr "Trinidad und Tobago"
 
@@ -1628,11 +1664,11 @@ msgstr "Xitsonga"
 msgid "Tswana"
 msgstr "Setswana"
 
-#: lib/Horde/Nls/Countries.php:224 lib/Horde/Nls/Tld.php:233
+#: lib/Horde/Nls/Countries.php:234 lib/Horde/Nls/Tld.php:233
 msgid "Tunisia"
 msgstr "Tunesien"
 
-#: lib/Horde/Nls/Countries.php:225 lib/Horde/Nls/Tld.php:236
+#: lib/Horde/Nls/Countries.php:235 lib/Horde/Nls/Tld.php:236
 msgid "Turkey"
 msgstr "Türkei"
 
@@ -1644,15 +1680,15 @@ msgstr "Türkisch"
 msgid "Turkmen"
 msgstr "Turkmenisch"
 
-#: lib/Horde/Nls/Countries.php:226 lib/Horde/Nls/Tld.php:232
+#: lib/Horde/Nls/Countries.php:236 lib/Horde/Nls/Tld.php:232
 msgid "Turkmenistan"
 msgstr "Turkmenistan"
 
-#: lib/Horde/Nls/Countries.php:227 lib/Horde/Nls/Tld.php:224
+#: lib/Horde/Nls/Countries.php:237 lib/Horde/Nls/Tld.php:224
 msgid "Turks and Caicos Islands"
 msgstr "Turks- und Caicosinseln"
 
-#: lib/Horde/Nls/Countries.php:228 lib/Horde/Nls/Tld.php:238
+#: lib/Horde/Nls/Countries.php:238 lib/Horde/Nls/Tld.php:238
 msgid "Tuvalu"
 msgstr "Tuvalu"
 
@@ -1660,7 +1696,7 @@ msgstr "Tuvalu"
 msgid "Twi"
 msgstr "Twi"
 
-#: lib/Horde/Nls/Countries.php:229 lib/Horde/Nls/Tld.php:242
+#: lib/Horde/Nls/Countries.php:239 lib/Horde/Nls/Tld.php:242
 msgid "Uganda"
 msgstr "Uganda"
 
@@ -1668,7 +1704,7 @@ msgstr "Uganda"
 msgid "Uighur, Uyghur"
 msgstr "Uigurisch"
 
-#: lib/Horde/Nls/Countries.php:230 lib/Horde/Nls/Tld.php:241
+#: lib/Horde/Nls/Countries.php:240 lib/Horde/Nls/Tld.php:241
 msgid "Ukraine"
 msgstr "Ukraine"
 
@@ -1676,20 +1712,20 @@ msgstr "Ukraine"
 msgid "Ukrainian"
 msgstr "Ukrainisch"
 
-#: lib/Horde/Nls/Countries.php:231 lib/Horde/Nls/Tld.php:15
+#: lib/Horde/Nls/Countries.php:241 lib/Horde/Nls/Tld.php:15
 msgid "United Arab Emirates"
 msgstr "Vereinigte Arabische Emirate"
 
-#: lib/Horde/Nls/Countries.php:232 lib/Horde/Nls/Tld.php:89
+#: lib/Horde/Nls/Countries.php:242 lib/Horde/Nls/Tld.php:89
 #: lib/Horde/Nls/Tld.php:243
 msgid "United Kingdom"
 msgstr "Vereinigtes Königreich"
 
-#: lib/Horde/Nls/Countries.php:233 lib/Horde/Nls/Tld.php:245
+#: lib/Horde/Nls/Countries.php:243 lib/Horde/Nls/Tld.php:245
 msgid "United States"
 msgstr "Vereinigte Staaten"
 
-#: lib/Horde/Nls/Countries.php:234 lib/Horde/Nls/Tld.php:244
+#: lib/Horde/Nls/Countries.php:244 lib/Horde/Nls/Tld.php:244
 msgid "United States Minor Outlying Islands"
 msgstr "Kleinere Amerikanische Überseeinseln"
 
@@ -1697,7 +1733,7 @@ msgstr "Kleinere Amerikanische Überseeinseln"
 msgid "Urdu"
 msgstr "Urdu"
 
-#: lib/Horde/Nls/Countries.php:235 lib/Horde/Nls/Tld.php:246
+#: lib/Horde/Nls/Countries.php:245 lib/Horde/Nls/Tld.php:246
 msgid "Uruguay"
 msgstr "Uruguay"
 
@@ -1705,11 +1741,11 @@ msgstr "Uruguay"
 msgid "Uzbek"
 msgstr "Usbekisch"
 
-#: lib/Horde/Nls/Countries.php:236 lib/Horde/Nls/Tld.php:247
+#: lib/Horde/Nls/Countries.php:246 lib/Horde/Nls/Tld.php:247
 msgid "Uzbekistan"
 msgstr "Usbekistan"
 
-#: lib/Horde/Nls/Countries.php:237 lib/Horde/Nls/Tld.php:254
+#: lib/Horde/Nls/Countries.php:247 lib/Horde/Nls/Tld.php:254
 msgid "Vanuatu"
 msgstr "Vanuatu"
 
@@ -1717,11 +1753,11 @@ msgstr "Vanuatu"
 msgid "Venda"
 msgstr "Tshivenda"
 
-#: lib/Horde/Nls/Countries.php:238 lib/Horde/Nls/Tld.php:250
+#: lib/Horde/Nls/Countries.php:248 lib/Horde/Nls/Tld.php:250
 msgid "Venezuela"
 msgstr "Venezuela"
 
-#: lib/Horde/Nls/Countries.php:239 lib/Horde/Nls/Tld.php:253
+#: lib/Horde/Nls/Countries.php:249 lib/Horde/Nls/Tld.php:253
 msgid "Viet Nam"
 msgstr "Vietnam"
 
@@ -1729,11 +1765,11 @@ msgstr "Vietnam"
 msgid "Vietnamese"
 msgstr "Vietnamesisch"
 
-#: lib/Horde/Nls/Countries.php:240 lib/Horde/Nls/Tld.php:251
+#: lib/Horde/Nls/Countries.php:250 lib/Horde/Nls/Tld.php:251
 msgid "Virgin Islands, British"
 msgstr "Britische Jungferninseln"
 
-#: lib/Horde/Nls/Countries.php:241 lib/Horde/Nls/Tld.php:252
+#: lib/Horde/Nls/Countries.php:251 lib/Horde/Nls/Tld.php:252
 msgid "Virgin Islands, U.S."
 msgstr "Amerikanische Jungferninseln"
 
@@ -1741,7 +1777,7 @@ msgstr "Amerikanische Jungferninseln"
 msgid "VolapÃ¼k"
 msgstr "Volapük"
 
-#: lib/Horde/Nls/Countries.php:242
+#: lib/Horde/Nls/Countries.php:252
 msgid "Wallis and Futuna"
 msgstr "Wallis und Futuna"
 
@@ -1761,7 +1797,7 @@ msgstr "Walisisch"
 msgid "Western Frisian"
 msgstr "Westfriesisch"
 
-#: lib/Horde/Nls/Countries.php:243 lib/Horde/Nls/Tld.php:77
+#: lib/Horde/Nls/Countries.php:253 lib/Horde/Nls/Tld.php:77
 msgid "Western Sahara"
 msgstr "Westsahara"
 
@@ -1773,7 +1809,7 @@ msgstr "Wolof"
 msgid "Xhosa"
 msgstr "Xhosa"
 
-#: lib/Horde/Nls/Countries.php:244 lib/Horde/Nls/Tld.php:257
+#: lib/Horde/Nls/Countries.php:254 lib/Horde/Nls/Tld.php:257
 msgid "Yemen"
 msgstr "Jemen"
 
@@ -1789,7 +1825,7 @@ msgstr "Yoruba"
 msgid "Yugoslavia"
 msgstr "Jugoslawien"
 
-#: lib/Horde/Nls/Countries.php:245 lib/Horde/Nls/Tld.php:261
+#: lib/Horde/Nls/Countries.php:255 lib/Horde/Nls/Tld.php:261
 msgid "Zambia"
 msgstr "Sambia"
 
@@ -1797,10 +1833,14 @@ msgstr "Sambia"
 msgid "Zhuang, Chuang"
 msgstr "Zhuang"
 
-#: lib/Horde/Nls/Countries.php:246 lib/Horde/Nls/Tld.php:262
+#: lib/Horde/Nls/Countries.php:256 lib/Horde/Nls/Tld.php:262
 msgid "Zimbabwe"
 msgstr "Simbabwe"
 
 #: lib/Horde/Nls/Languages.php:192
 msgid "Zulu"
 msgstr "Zulu"
+
+#: lib/Horde/Nls/Countries.php:9
+msgid "Åland Islands"
+msgstr "Åland"

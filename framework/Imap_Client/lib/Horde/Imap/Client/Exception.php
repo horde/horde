@@ -51,6 +51,9 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     // Thrown if read error for server response.
     const SERVER_READERROR = 12;
 
+    // Thrown on CATENATE if the URL is invalid.
+    const CATENATE_BADURL = 13;
+
     // Thrown on CATENATE if the message was too big.
     const CATENATE_TOOBIG = 14;
 
@@ -142,5 +145,16 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
 
     // Function/feature is not supported on this server.
     const NOT_SUPPORTED = 400;
+
+
+    /**
+     * Allow the error code to be altered.
+     *
+     * @param integer $code  Error code.
+     */
+    public function setCode($code)
+    {
+        $this->code = intval($code);
+    }
 
 }

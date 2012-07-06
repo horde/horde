@@ -106,7 +106,11 @@ case 'rule_enable':
     /* Save changes */
     $ingo_storage->store($filters);
     if ($prefs->getValue('auto_update')) {
-        Ingo::updateScript();
+        try {
+            Ingo::updateScript();
+        } catch (Ingo_Exception $e) {
+            $notification->push($e->getMessage(), 'horde.error');
+        }
     }
     break;
 
@@ -132,12 +136,13 @@ case 'apply_filters':
 /* Get the list of rules now. */
 $filter_list = $filters->getFilterList();
 
-$page_output = $injector->getInstance('Horde_PageOutput');
 $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->addScriptFile('filters.js');
 $menu = Ingo::menu();
-$title = _("Filter Rules");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+
+$page_output->header(array(
+    'title' => _("Filter Rules")
+));
 echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/filters/header.inc';
@@ -317,15 +322,10 @@ if (count($filter_list) == 0) {
     echo $template->fetch(INGO_TEMPLATES . '/filters/filter.html');
 }
 
-$actions = $ingo_script->availableActions();
-$createrule = (!empty($actions) &&
-               ($perms->hasAppPermission('allow_rules') &&
-                ($perms->hasAppPermission('max_rules') === true ||
-                 $perms->hasAppPermission('max_rules') > count($filter_list))));
 $canapply = $ingo_script->canApply();
 require INGO_TEMPLATES . '/filters/footer.inc';
 if ($on_demand && $edit_allowed) {
     require INGO_TEMPLATES . '/filters/settings.inc';
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

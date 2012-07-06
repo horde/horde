@@ -33,8 +33,6 @@ if (is_a($fax, 'PEAR_Error')) {
     $url->redirect();
 }
 
-$title = _("View Fax");
-
 /* Get the preview pages. */
 $pages = Hylax::getPages($fax_id, $fax['fax_pages']);
 
@@ -48,6 +46,8 @@ Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("View Fax")
+));
 echo $template->fetch(HYLAX_TEMPLATES . '/fax/fax.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

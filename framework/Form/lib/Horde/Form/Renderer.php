@@ -131,12 +131,13 @@ class Horde_Form_Renderer {
         $open_section = $form->getOpenSection();
 
         /* Add the javascript for the toggling the sections. */
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('form_sections.js', 'horde');
-        echo '<script type="text/javascript">' . "\n";
-        printf('var sections_%1$s = new Horde_Form_Sections(\'%1$s\', \'%2$s\');',
-               $form->getName(),
-               $open_section);
-        echo "\n" . '</script>';
+        $page = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page->deferScripts = false;
+        $page->addScriptFile('form_sections.js', 'horde');
+        $page->addInlineScript(
+            sprintf('var sections_%1$s = new Horde_Form_Sections(\'%1$s\', \'%2$s\');',
+                    $form->getName(),
+                    $open_section));
 
         /* Loop through the sections and print out a tab for each. */
         echo "<div class=\"tabset\"><ul>\n";

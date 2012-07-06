@@ -22,14 +22,14 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-02-22</date>
- <time>13:42:06</time>
+ <date>2012-07-06</date>
+ <time>00:04:31</time>
  <version>
-  <release>1.1.4</release>
+  <release>2.0.0beta1</release>
   <api>1.1.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>alpha</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
@@ -346,6 +346,9 @@
     <dir name="Horde">
      <dir name="Text">
       <dir name="Filter">
+       <dir name="fixtures">
+        <file name="bug_11116.txt" role="test" />
+       </dir> <!-- /test/Horde/Text/Filter/fixtures -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="EmailsTest.php" role="test" />
@@ -524,6 +527,7 @@
    <install as="Horde/Text/Filter/Space2htmlTest.php" name="test/Horde/Text/Filter/Space2htmlTest.php" />
    <install as="Horde/Text/Filter/Text2htmlTest.php" name="test/Horde/Text/Filter/Text2htmlTest.php" />
    <install as="Horde/Text/Filter/XssTest.php" name="test/Horde/Text/Filter/XssTest.php" />
+   <install as="Horde/Text/Filter/fixtures/bug_11116.txt" name="test/Horde/Text/Filter/fixtures/bug_11116.txt" />
   </filelist>
  </phprelease>
  <changelog>
@@ -763,7 +767,46 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-04-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix preg backtrack issue in the Linkurls filter (Bug #11116).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.5</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Support definition lists in HTML-to-text filter (Nathan Barhorst).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api></stability>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

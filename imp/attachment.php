@@ -27,7 +27,7 @@ if (!$conf['compose']['link_attachments']) {
 }
 
 // Gather required form variables.
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 if (!$vars->u || !$vars->t || !$vars->f) {
     throw new IMP_Exception(_("The attachment was not found."));
 }

@@ -87,7 +87,7 @@ if ($conf['login']['prelogin'] &&
  * Login parameters
  */
 $url_param = Horde_Util::getFormData('url');
-$login_url = Horde_Util::addParameter(Horde::getServiceLink('login', 'folks'), 'url', $url_param);
+$login_url = Horde_Util::addParameter($registry->getServiceLink('login', 'folks'), 'url', $url_param);
 
 /*
  * We are already logged in?
@@ -229,9 +229,9 @@ if ($form->isSubmitted()) {
     exit;
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
-
 require FOLKS_TEMPLATES . '/login/login.php';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

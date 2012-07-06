@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-10-30 20:30-0200\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
 "PO-Revision-Date: 2011-10-30 20:32-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
@@ -29,12 +29,12 @@ msgstr "\"%s\" renomeado para \"%s\""
 msgid "%.2fMB / %.2fMB  (%.2f%%)"
 msgstr "%.2fMB / %.2fMB  (%.2f%%)"
 
-#: manager.php:556
+#: manager.php:558
 #, php-format
 msgid "%d item"
 msgstr "%d item"
 
-#: manager.php:556
+#: manager.php:558
 #, php-format
 msgid "%d items"
 msgstr "%d itens"
@@ -54,8 +54,8 @@ msgstr "%s foi colado com sucesso."
 msgid "Access denied to %s"
 msgstr "Acesso negado a %s"
 
-#: lib/Gollem.php:48 lib/Gollem.php:294 lib/Gollem.php:341 lib/Gollem.php:363
-#: lib/Gollem.php:383
+#: lib/Gollem.php:48 lib/Gollem.php:299 lib/Gollem.php:348 lib/Gollem.php:370
+#: lib/Gollem.php:390
 #, php-format
 msgid "Access denied to folder \"%s\"."
 msgstr "Acesso negado à pasta \"%s\"."
@@ -92,7 +92,7 @@ msgstr "Perguntar"
 msgid "Attributes"
 msgstr "Atributos"
 
-#: lib/Application.php:124
+#: lib/Application.php:139
 msgid "Backend"
 msgstr "Estrutura"
 
@@ -104,7 +104,7 @@ msgstr "Estruturas"
 msgid "Below is the current contents of your clipboard."
 msgstr "Abaixo está o conteúdo atual da área de transferência."
 
-#: clipboard.php:24 manager.php:281 selectlist.php:81
+#: clipboard.php:24 manager.php:283 selectlist.php:81
 #: templates/edit/edit.inc:13
 msgid "Cancel"
 msgstr "Cancelar"
@@ -133,7 +133,7 @@ msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
 msgstr ""
 "Impossível colar \"%s\" (arquivo excluído da área de transferência): %s"
 
-#: manager.php:307 templates/manager/manager.html:70
+#: manager.php:309 templates/manager/manager.html:70
 msgid "Change Folder"
 msgstr "Mudar Pasta"
 
@@ -141,15 +141,15 @@ msgstr "Mudar Pasta"
 msgid "Change Permissions"
 msgstr "Alterar Permissões"
 
-#: lib/Gollem.php:585
+#: lib/Gollem.php:592
 msgid "Change Server"
 msgstr "Mudar Servidor"
 
-#: lib/Application.php:286
+#: lib/Application.php:301
 msgid "Check Quota"
 msgstr "Verificar Quota"
 
-#: manager.php:552
+#: manager.php:554
 msgid "Check _All/None"
 msgstr "Verific_ar Todos/Nenhum"
 
@@ -157,7 +157,7 @@ msgstr "Verific_ar Todos/Nenhum"
 msgid "Chmod done: "
 msgstr "Alteração de permissões terminada: "
 
-#: lib/Application.php:256
+#: lib/Application.php:271
 msgid "Choose which columns to display, and in what order:"
 msgstr "Escolha quais colunas para mostrar, e em qual ordem:"
 
@@ -173,7 +173,7 @@ msgstr "Área de Transferência"
 msgid "Close"
 msgstr "Fechar"
 
-#: lib/Application.php:260
+#: lib/Application.php:275
 msgid "Columns that will not be displayed:"
 msgstr "Colunas que não serão exibidas:"
 
@@ -181,7 +181,7 @@ msgstr "Colunas que não serão exibidas:"
 msgid "Copy"
 msgstr "Copiar"
 
-#: manager.php:300 templates/manager/manager.html:58
+#: manager.php:302 templates/manager/manager.html:58
 msgid "Create Folder"
 msgstr "Criar Pasta"
 
@@ -226,7 +226,7 @@ msgstr "Descendente"
 msgid "Done"
 msgstr "Feito"
 
-#: manager.php:427
+#: manager.php:429
 #, php-format
 msgid "Download %s"
 msgstr "Baixar %s"
@@ -289,7 +289,7 @@ msgstr "Preferências de exibição de arquivo."
 msgid "File received: %s"
 msgstr "Arquivo recebido: %s"
 
-#: lib/Api.php:124
+#: lib/Api.php:122
 msgid "Files must be written inside a VFS backend."
 msgstr "Arquivos devem ser gravados em uma estrutura VFS."
 
@@ -305,7 +305,7 @@ msgstr "Filtro:"
 msgid "Folder removed: "
 msgstr "Pasta removida: "
 
-#: lib/Api.php:155 lib/Api.php:186
+#: lib/Api.php:153 lib/Api.php:184
 msgid "Folders must be created inside a VFS backend."
 msgstr "Pastas devem ser criadas em uma estrutura VFS."
 
@@ -313,11 +313,11 @@ msgstr "Pastas devem ser criadas em uma estrutura VFS."
 msgid "Go to:"
 msgstr "Ir para:"
 
-#: manager.php:531 templates/manager/manager.html:10
+#: manager.php:533 templates/manager/manager.html:10
 msgid "Group"
 msgstr "Grupo"
 
-#: lib/Api.php:405
+#: lib/Api.php:403
 #, php-format
 msgid "Invalid backend requested: %s"
 msgstr "Pedido inválido à estrutura: %s"
@@ -344,11 +344,11 @@ msgstr "Idioma"
 msgid "List folders first?"
 msgstr "Listar pastas primeiro?"
 
-#: manager.php:501
+#: manager.php:503
 msgid "Modified"
 msgstr "Modificado"
 
-#: manager.php:479
+#: manager.php:481
 msgid "Name"
 msgstr "Nome"
 
@@ -368,11 +368,11 @@ msgstr "Não"
 msgid "No quota found."
 msgstr "Nenhuma quota encontrada."
 
-#: manager.php:282
+#: manager.php:284
 msgid "OK"
 msgstr "OK"
 
-#: manager.php:524 templates/manager/manager.html:9
+#: manager.php:526 templates/manager/manager.html:9
 msgid "Owner"
 msgstr "Dono"
 
@@ -380,7 +380,7 @@ msgstr "Dono"
 msgid "Paste"
 msgstr "Colar"
 
-#: manager.php:517
+#: manager.php:519
 msgid "Permission"
 msgstr "Permissão"
 
@@ -394,7 +394,7 @@ msgstr "Permissão negada para %s: %s"
 msgid "Permission denied to folder \"%s\": %s"
 msgstr "Permissão negada para a pasta \"%s\": %s"
 
-#: lib/Api.php:413
+#: lib/Api.php:411
 msgid "Permission denied to this backend."
 msgstr "Permissão negada para essa estrutura."
 
@@ -422,7 +422,7 @@ msgstr "Exibição de Quota"
 msgid "Read"
 msgstr "Ler"
 
-#: manager.php:287
+#: manager.php:289
 msgid "Refresh"
 msgstr "Atualizar"
 
@@ -430,11 +430,11 @@ msgstr "Atualizar"
 msgid "Rename"
 msgstr "Renomear"
 
-#: lib/Api.php:200
+#: lib/Api.php:198
 msgid "Renaming across backends is not supported."
 msgstr "Não é possível renomear entre estruturas."
 
-#: lib/Api.php:194
+#: lib/Api.php:192
 msgid "Renaming of backends is not allowed."
 msgstr "Não é permitido renomear estruturas."
 
@@ -442,7 +442,7 @@ msgstr "Não é permitido renomear estruturas."
 msgid "Reset"
 msgstr "Limpar"
 
-#: manager.php:280 templates/edit/edit.inc:11
+#: manager.php:282 templates/edit/edit.inc:11
 msgid "Save"
 msgstr "Gravar"
 
@@ -454,7 +454,7 @@ msgstr "Selecionar Todas"
 msgid "Select None"
 msgstr "Selecionar Nenhum"
 
-#: lib/Application.php:258
+#: lib/Application.php:273
 msgid "Select a backend:"
 msgstr "Selecione uma estrutura:"
 
@@ -466,11 +466,11 @@ msgstr "Servidor"
 msgid "Show dotfiles?"
 msgstr "Mostrar arquivos ocultos?"
 
-#: manager.php:509
+#: manager.php:511
 msgid "Size"
 msgstr "Tamanho"
 
-#: lib/Api.php:229
+#: lib/Api.php:227
 msgid "The application folder can not be deleted."
 msgstr "A pasta da aplicação não pode ser apagada."
 
@@ -490,7 +490,7 @@ msgstr "A janela original de abertura foi fechado. Saindo."
 msgid "There are no files in this folder."
 msgstr "Não existem arquivos nesta pasta."
 
-#: lib/Application.php:257
+#: lib/Application.php:272
 msgid "These columns will display in this order:"
 msgstr "Essas colunas serão exibidas nesta ordem:"
 
@@ -510,11 +510,11 @@ msgstr ""
 "Para colar itens da área de transferência na pasta atual, marque a caixa ao "
 "lado do arquivo e clique em &quot;Colar&quot;."
 
-#: manager.php:471
+#: manager.php:473
 msgid "Type"
 msgstr "Tipo"
 
-#: lib/Api.php:409
+#: lib/Api.php:407
 msgid "Unable to create Gollem session"
 msgstr "Não é possível criar sessão do Gollem"
 
@@ -533,12 +533,12 @@ msgstr "Não é possível apagar o arquivo %s: %s"
 msgid "Unable to delete folder %s: %s"
 msgstr "Não é possível apagar a pasta %s: %s"
 
-#: lib/Gollem.php:549 lib/Gollem.php:559
+#: lib/Gollem.php:556 lib/Gollem.php:566
 #, php-format
 msgid "Up to %s"
 msgstr "Até %s"
 
-#: manager.php:296
+#: manager.php:298
 msgid "Upload File(s)"
 msgstr "Enviar Arquivo(s)"
 
@@ -546,7 +546,7 @@ msgstr "Enviar Arquivo(s)"
 msgid "User Interface"
 msgstr "Interface do Usuário"
 
-#: manager.php:291
+#: manager.php:293
 msgid "View Clipboard"
 msgstr "Ver Área de Transferência"
 
@@ -563,14 +563,14 @@ msgid "You need at least one backend defined to set permissions."
 msgstr ""
 "Você precisa definir pelo menos uma estrutura para configurar permissões."
 
-#: lib/Gollem.php:583 lib/Gollem.php:586
+#: lib/Gollem.php:590 lib/Gollem.php:593
 msgid "_Change Server"
 msgstr "_Mudar Servidor"
 
-#: lib/Application.php:273
+#: lib/Application.php:288
 msgid "_My Home"
 msgstr "_Meu Início"
 
-#: lib/Application.php:276
+#: lib/Application.php:291
 msgid "_Permissions"
 msgstr "_Permissões"

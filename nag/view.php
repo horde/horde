@@ -88,9 +88,8 @@ if (!empty($task->uid)) {
     } catch (Exception $e) {}
 }
 
-$title = $task->name;
 $links = array();
-$injector->getInstance('Horde_PageOutput')->addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('stripe.js', 'horde');
 
 $taskurl = Horde_Util::addParameter('task.php',
                               array('task' => $task_id,
@@ -113,7 +112,9 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))
     $links[] = Horde::widget(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'delete_task')), _("Delete"), 'smallheader', '', $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', _("_Delete"));
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $task->name
+));
 echo Nag::menu();
 Nag::status();
 
@@ -124,4 +125,4 @@ if (!$task->due) {
 }
 $alarm_text = Nag::formatAlarm($task_alarm);
 require NAG_TEMPLATES . '/view/task.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

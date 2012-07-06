@@ -33,9 +33,9 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
         // Attach the script and CSS files here if we aren't being called via
         // the API
         if (empty($this->view->api)) {
-            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+            global $page_output;
             $page_output->addThemeStylesheet('lightbox.css');
-            $page_output->addScriptFile('effects.js', 'horde');
+            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
             $page_output->addScriptFile('popup.js', 'horde');
             $page_output->addScriptFile('lightbox.js');
         }
@@ -85,12 +85,17 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
         if (!$this->view->api) {
             $option_edit = $this->view->gallery->hasPermission(
                 $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
+
             $option_select = $option_delete = $this->view->gallery->hasPermission(
                 $GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
-            $option_move = $option_delete &&
-                $GLOBALS['injector']->getInstance('Ansel_Storage')->countGalleries(Horde_Perms::EDIT);
-            $option_copy = $option_edit &&
-                $GLOBALS['injector']->getInstance('Ansel_Storage')->countGalleries(Horde_Perms::EDIT);
+
+            $option_move = ($option_delete && $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->countGalleries($GLOBALS['registry']->getAuth(), array('perm' => Horde_Perms::EDIT)));
+
+            $option_copy = ($option_edit && $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->countGalleries($GLOBALS['registry']->getAuth(), array('perm' => Horde_Perms::EDIT)));
             /* See if we requested a show_actions change (fallback for non-js) */
             if (Horde_Util::getFormData('actionID', '') == 'show_actions') {
                 $prefs->setValue('show_actions', (int)!$prefs->getValue('show_actions'));
@@ -152,14 +157,17 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
 
         // Output js/css here if we are calling via the api
         if ($this->view->api) {
-            $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+            global $page_output;
             $page_output->addThemeStylesheet('lightbox.css');
             $page_output->includeStylesheetFiles(array('nobase' => true), true);
-            $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
-            $includes->add('accesskeys.js', 'horde', true);
-            $includes->add('effects.js', 'horde', true);
-            $includes->add('lightbox.js', 'ansel', true);
-            $includes->includeFiles();
+
+            foreach (array('prototype.js', 'accesskeys.js', 'scriptaculous/effects.js') as $val) {
+                $tmp = new Horde_Script_File_JsDir($val, 'horde');
+                echo $tmp->tag_full;
+            }
+
+            $tmp = new Horde_Script_File_JsDir('lightbox.js');
+            echo $tmp->tag_full;
         }
 
         // Needed in the template files

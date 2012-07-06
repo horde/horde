@@ -29,8 +29,9 @@ if ($layout->updated()) {
     }
 }
 
-$title = sprintf(_("My %s :: Add Content"), $registry->get('name'));
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => sprintf(_("My %s :: Add Content"), $registry->get('name'))
+));
 require WHUPS_TEMPLATES . '/menu.inc';
 require $registry->get('templates', 'horde') . '/portal/edit.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

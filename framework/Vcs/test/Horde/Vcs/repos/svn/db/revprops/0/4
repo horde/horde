@@ -1,0 +1,17 @@
+K 10
+svn:author
+V 3
+jan
+K 8
+svn:date
+V 27
+2012-03-23T12:39:47.699334Z
+K 7
+svn:log
+V 55
+Multiline commit message.
+
+More message here
+and here.
+
+END

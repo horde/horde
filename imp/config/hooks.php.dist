@@ -404,7 +404,7 @@ class IMP_Hooks
 //            return Horde::url('', false, array('app' => 'turba'));
 //
 //        case 'prefs':
-//            return Horde::getServiceLink('prefs', 'horde');
+//            return $GLOBALS['registry']->getServiceLink('prefs', 'horde');
 //
 //        default:
 //            return '';
@@ -634,7 +634,7 @@ class IMP_Hooks
      * reporting software (e.g. DSPAM) which has different e-mail aliases for
      * spam reporting for each user.
      *
-     * @param string $action  Either 'spam' or 'ham'.
+     * @param string $action  Either 'spam' or 'innocent'.
      *
      * @return string  An e-mail address.
      */
@@ -647,11 +647,11 @@ class IMP_Hooks
 
 
     /**
-     * Perform an action after messages have been reported as spam/ham.
+     * Perform an action after messages have been reported as spam/innocent.
      *
-     * @param string $action        Either 'spam' or 'ham'.
+     * @param string $action        Either 'spam' or 'innocent'.
      * @param IMP_Indices $indices  The list of indices that have been
-                                    reported as spam/ham.
+                                    reported as spam/innocent.
      */
 //    public function post_spam($action, $indices)
 //    {
@@ -839,25 +839,6 @@ class IMP_Hooks
 //        );
 //
 //        return array($msg, $js_code);
-//    }
-
-
-    /**
-     * DIMP: Allows alteration of address formatting in email message headers.
-     *
-     * @param Horde_Mail_Rfc822_Address $ob  An address object.
-     *
-     * @return string  The raw string to display for that address. This value
-     *                 must be properly escaped (i.e. htmlspecialchars() used
-     *                 on the portions of the string where appropriate).
-     */
-//    public function dimp_addressformatting($ob)
-//    {
-//         // Example #1: Display only the raw text of the personal name
-//         // or, if not set, the e-mail address.
-//         return is_null($ob->personal)
-//             ? htmlspecialchars($ob->bare_address)
-//             : htmlspecialchars($ob->personal);
 //    }
 
 

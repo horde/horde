@@ -10,12 +10,9 @@
  */
 
 require_once __DIR__ . '/../../lib/Application.php';
-$permission = 'configuration';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:configuration')
+));
 
 /* Set up the diff renderer. */
 $render_type = Horde_Util::getFormData('render', 'inline');
@@ -82,7 +79,8 @@ $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('diffs', $diffs, true);
 
-$title = _("Configuration Differences");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Configuration Differences")
+));
 echo $template->fetch(HORDE_TEMPLATES . '/admin/config/diff.html');
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

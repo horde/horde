@@ -1,3 +1,26 @@
 .striped tr td:first-child {
     padding-right: 8px;
 }
+
+/* Icons. */
+.ingo-rules {
+    background-image: url('graphics/ingo.png');
+}
+.ingo-vacation {
+    background-image: url('graphics/vacation.png');
+}
+.ingo-forward {
+    background-image: url('graphics/forward.png');
+}
+.ingo-spam {
+    background-image: url('graphics/spam.png');
+}
+.ingo-script {
+    background-image: url('graphics/script.png');
+}
+.ingo-whitelist {
+    background-image: url('graphics/whitelist.png');
+}
+.ingo-blacklist {
+    background-image: url('graphics/blacklist.png');
+}

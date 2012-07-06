@@ -43,12 +43,6 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             $noset = true;
             break;
 
-        case 'ldap':
-            $params['ldap'] = $injector
-                ->getInstances('Horde_Core_Factory_Ldap')
-                ->create('horde', 'sessionhandler');
-            break;
-
         case 'memcache':
             $params['memcache'] = $injector->getInstance('Horde_Memcache');
             break;
@@ -59,10 +53,7 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             break;
         }
 
-        $class = 'Horde_SessionHandler_Storage_' . Horde_String::ucfirst($driver);
-        if (!class_exists($class)) {
-            throw new Horde_SessionHandler_Exception('Driver not found: ' . $class);
-        }
+        $class = $this->_getDriverName($driver, 'Horde_SessionHandler_Storage');
         $storage = new $class($params);
 
         if (!empty($conf['sessionhandler']['memcache']) &&

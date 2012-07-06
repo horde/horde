@@ -62,7 +62,9 @@ if ($form->validate()) {
     Folks::getUrlFor('user', $user)->redirect();
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 $form->renderActive(null, null, null, 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

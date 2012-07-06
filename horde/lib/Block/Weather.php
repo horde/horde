@@ -72,7 +72,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                 'name' => _("Units"),
                 'default' => 'standard',
                 'values' => array(
-                    Horde_Service_Weather::UNITS_STANDARD => _("Standard"),
+                    Horde_Service_Weather::UNITS_STANDARD => _("English"),
                     Horde_Service_Weather::UNITS_METRIC =>  _("Metric")
                 )
             ),
@@ -104,6 +104,8 @@ class Horde_Block_Weather extends Horde_Core_Block
 
         if (!empty($this->_refreshParams) && !empty($this->_refreshParams->location)) {
             $location = $this->_refreshParams->location;
+            $html = '';
+            $instance = '';
         } else {
             $instance = hash('md5', mt_rand());
             $GLOBALS['injector']
@@ -111,7 +113,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                 ->create(
                     'WeatherLocationAutoCompleter',
                     array(
-                        'triggerId' => 'location' . $instance,
+                        'id' => 'location' . $instance,
                         'instance' => $instance
                     )
                 );

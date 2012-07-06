@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
 "PO-Revision-Date: 2012-03-07 15:05:01+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -22,8 +22,8 @@ msgstr ""
 msgid "Invalid RAR data."
 msgstr "Kelvotonta RAR-tietoa."
 
-#: lib/Horde/Compress/Zip.php:202 lib/Horde/Compress/Zip.php:229
-#: lib/Horde/Compress/Zip.php:249
+#: lib/Horde/Compress/Zip.php:202 lib/Horde/Compress/Zip.php:207
+#: lib/Horde/Compress/Zip.php:234 lib/Horde/Compress/Zip.php:254
 msgid "Invalid ZIP data"
 msgstr "Kelvotonta ZIP-tietoa."
 

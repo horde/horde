@@ -67,9 +67,13 @@ $form = new Turba_Form_AddContact($vars, $contact);
 if ($form->validate()) {
     $form->execute();
 }
-
-$title = _("New Contact");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+Horde::startBuffer();
 require TURBA_TEMPLATES . '/menu.inc';
 $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('add.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$formHtml = Horde::endBuffer();
+
+$page_output->header(array(
+    'title' => _("New Contact")
+));
+echo $formHtml;
+$page_output->footer();

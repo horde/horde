@@ -36,23 +36,27 @@ $params['gallery_slug'] = Horde_Util::getFormData('slug');
 $params['force_grouping'] = Horde_Util::getFormData('force_grouping');
 $params['image_id'] = Horde_Util::getFormData('image');
 
+// @TODO Need to refactor views to use Horde_View, and make it work with
+// defered scripts.
+$page_output->deferScripts = false;
 try {
     $view = new $view($params);
 } catch (Horde_Exception $e) {
-    require $registry->get('templates', 'horde') . '/common-header.inc';
+    $page_output->header();
     echo Horde::menu();
     $notification->notify(array('listeners' => 'status'));
     echo '<br /><em>' . htmlspecialchars($e->getMessage()) . '</em>';
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 }
 
 Ansel::initJSVariables();
 
-$title = $view->getTitle();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $view->getTitle()
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 $view_html = $view->html();
 echo $view_html;
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

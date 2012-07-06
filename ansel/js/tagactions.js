@@ -1,45 +1,47 @@
-function addTag()
-{
-    if (!$('addtag').value.blank()) {
-        var params = {};
-        params.params = "tags=" + encodeURIComponent($('addtag').value);
-        new Ajax.Request(Ansel.ajax.tagActions.url + "/action=add/post=params",
-                         {
-                            method: 'post',
-                            parameters: params,
-                            onComplete: function(r) {
-                                $('addtag').value = "";
-                                if (r.responseJSON.response == 1) {
-                                    $('tags').update(r.responseJSON.message);
-                                }
-                            }
-                         });
+/**
+ */
+
+var AnselTagActions = {
+
+    // Set by calling script: gallery, image
+
+    add: function()
+    {
+        if (!$('addtag').value.blank()) {
+            HordeCore.doAction('addTag', {
+                gallery: this.gallery,
+                image: this.image,
+                tags: $F('addtag')
+            }, {
+                callback: function(r) {
+                    $('addtag').value = "";
+                    $('tags').update(r.response);
+                }
+            });
+        }
+
+        return true;
+    },
+
+    remove: function(tagid)
+    {
+        HordeCore.doAction('removeTag', {
+            gallery: this.gallery,
+            image: this.image,
+            tags: tagid
+        }, {
+            callback: function(r) {
+                $('tags').update(r.response);
+            }
+        });
+
+        return true;
+    },
+
+    // Since onsubmit is never called when submitting programatically we
+    // can use this function to add tags when we press enter on the tag form.
+    submitcheck: function()
+        return !this.add();
     }
 
-    return true;
-}
-
-function removeTag(tagid)
-{
-    var params = {};
-    params.params = "tags=" + tagid;
-    new Ajax.Request(Ansel.ajax.tagActions.url + "/action=remove/post=params",
-                    {
-                        method: 'post',
-                        parameters: params,
-                        onComplete: function(r) {
-                            if (r.responseJSON.response == 1) {
-                                $('tags').update(r.responseJSON.message);
-                            }
-                        }
-                    });
-
-    return true;
-}
-
-// Since onsubmit is never called when submitting programatically we
-// can use this function to add tags when we press enter on the tag form.
-function submitcheck()
-{
-    return !addTag();
-}
+};

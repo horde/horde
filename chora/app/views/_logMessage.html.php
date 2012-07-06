@@ -25,7 +25,7 @@
   </ul>
   <?php endif; ?>
 
-  <?php if ($logMessage['tags']): ?>
+  <?php if (!empty($logMessage['tags'])): ?>
   <h4><?php echo _("Tags") ?></h4>
   <ul>
   <?php foreach ($logMessage['tags'] as $tag): ?>

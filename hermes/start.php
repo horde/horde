@@ -26,10 +26,8 @@ if ($form->validate($vars)) {
     exit;
 }
 
-$title = _("Stop Watch");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-
-$renderer = new Horde_Form_Renderer();
-$form->renderActive($renderer, $vars, Horde::url('start.php'), 'post');
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->header(array(
+    'title' => _("Stop Watch")
+));
+$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('start.php'), 'post');
+$page_output->footer();

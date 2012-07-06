@@ -99,11 +99,19 @@ if ($own_source == $source && $own_id == $contact->getValue('__key')) {
         . _("Mark this as your own contact") . '</a></span>';
 }
 
-$title = $view->getTitle();
+Horde::startBuffer();
+$view->html();
+$viewHtml = Horde::endBuffer();
 
-$injector->getInstance('Horde_PageOutput')->addScriptFile('contact_tabs.js');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+Horde::startBuffer();
 require TURBA_TEMPLATES . '/menu.inc';
+$menuHtml = Horde::endBuffer();
+
+$page_output->addScriptFile('contact_tabs.js');
+$page_output->header(array(
+    'title' => $view->getTitle()
+));
+echo $menuHtml;
 echo '<div id="page">';
 echo $tabs->render($viewName);
 echo '<h1 class="header">' . $own_link
@@ -111,6 +119,6 @@ echo '<h1 class="header">' . $own_link
        ? htmlspecialchars($contact->getValue('name'))
        : '<em>' . _("Blank name") . '</em>')
     . $own_icon . '</h1>';
-$view->html();
+echo $viewHtml;
 echo '</div>';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

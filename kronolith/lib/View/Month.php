@@ -208,8 +208,8 @@ class Kronolith_View_Month
                             if ($showTime) {
                                 $html .= '<div class="event-time">' . htmlspecialchars($event->getTimeRange()) . '</div>';
                             }
-                            if ($showLocation) {
-                                $html .= '<div class="event-location">' . htmlspecialchars($event->location) . '</div>';
+                            if (!$event->isPrivate() && $showLocation) {
+                                $html .= '<div class="event-location">' . htmlspecialchars($event->getLocation()) . '</div>';
                             }
                             $html .= '</div>';
                         }

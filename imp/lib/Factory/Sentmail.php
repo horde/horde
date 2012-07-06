@@ -46,12 +46,8 @@ class IMP_Factory_Sentmail extends Horde_Core_Factory_Injector
             $driver = 'Null';
         }
 
-        $class = 'IMP_Sentmail_' . $driver;
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new IMP_Exception('Sentmail driver not found: ' . $class);
+        $class = $this->_getDriverName($driver, 'IMP_Sentmail');
+        return new $class($params);
     }
 
 }

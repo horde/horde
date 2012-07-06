@@ -100,7 +100,7 @@ class IMP_Ui_Message
                 $res = $imp_imap->fetch($mailbox, $query, array(
                     'ids' => $imp_imap->getIdsOb($uid)
                 ));
-                $mdn_sent = in_array('$mdnsent', $res[$uid]->getFlags());
+                $mdn_sent = in_array('$mdnsent', $res->first()->getFlags());
             } catch (IMP_Imap_Exception $e) {}
         } else {
             /* 2nd test: Use Maillog as a fallback. */
@@ -297,7 +297,7 @@ class IMP_Ui_Message
         }
 
         $addrlist->setIteratorFilter();
-        foreach ($addrlist as $ob) {
+        foreach ($addrlist->base_addresses as $ob) {
             if ($ob instanceof Horde_Mail_Rfc822_Group) {
                 $group_array = array();
                 foreach ($ob->addresses as $ad) {
@@ -306,7 +306,7 @@ class IMP_Ui_Message
                         : htmlspecialchars(strval($ad));
 
                     if ($link) {
-                        $ret = Horde::link(IMP::composeLink(array('to' => $ad['address'])), sprintf(_("New Message to %s"), $ad['inner'])) . htmlspecialchars(strval($ad)) . '</a>';
+                        $ret = Horde::link(IMP::composeLink(array('to' => strval($ad))), sprintf(_("New Message to %s"), strval($ad))) . htmlspecialchars(strval($ad)) . '</a>';
                     }
 
                     /* Append the add address icon to every address if contact
@@ -330,8 +330,8 @@ class IMP_Ui_Message
                 $addr_array[] = $groupname . ':' . (count($group_array) ? ' ' . implode(', ', $group_array) : '');
             } else {
                 $ret = $mimp_view
-                    ? strval($ad)
-                    : htmlspecialchars(strval($ad));
+                    ? strval($ob)
+                    : htmlspecialchars(strval($ob));
 
                 if ($link) {
                     $ret = Horde::link(IMP::composeLink(array('to' => strval($ob))), sprintf(_("New Message to %s"), strval($ob))) . htmlspecialchars(strval($ob)) . '</a>';

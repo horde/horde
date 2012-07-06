@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chora 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-03-08 07:27:51+0200\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
+"PO-Revision-Date: 2012-03-28 20:09:16+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -45,13 +45,13 @@ msgstr "%s: Estetty palvelimen asetuksissa"
 #: cvsgraph.php:24
 #, php-format
 msgid "%s: no such file or directory"
-msgstr "%s ei tiedostoa tai hakemistoa"
+msgstr "%s: ei tiedostoa tai hakemistoa"
 
 #: app/views/diff/caption.html.php:4
 msgid "Added"
 msgstr "Lisätty"
 
-#: templates/directory/header.inc:7
+#: templates/directory/header.inc:7 templates/log/header.inc:23
 msgid "All Branches"
 msgstr "Kaikki haarat"
 
@@ -146,7 +146,7 @@ msgstr "Muutokset"
 #: diff.php:65
 #, php-format
 msgid "Diff for %s between version %s and %s"
-msgstr "Muutokset %s:ssä versioiden %s ja %s välillä"
+msgstr "Muutokset %s versioiden %s ja %s välillä"
 
 #: templates/annotate/line.inc:13
 #, php-format
@@ -190,7 +190,7 @@ msgstr "Hae muutokset"
 #: cvsgraph.php:53
 #, php-format
 msgid "Graph for %s"
-msgstr "Graafi %s:lle"
+msgstr "Graafi %s"
 
 #: browsedir.php:43
 msgid "Hide Deleted Files"
@@ -315,7 +315,7 @@ msgstr "Lähdekoodin selitysmerkinnät %s (revisio %s)"
 #: history.php:129
 #, php-format
 msgid "Source Branching View for %s"
-msgstr "Näkymä lähdekoodin haarautumiseen %s:lle"
+msgstr "Näkymä lähdekoodin haarautumiseen %s"
 
 #: lib/Application.php:165
 msgid ""
@@ -334,7 +334,7 @@ msgstr "Tilastot"
 #: stats.php:33
 #, php-format
 msgid "Statistics for %s"
-msgstr "Tilastot %s:lle"
+msgstr "Tilastot %s"
 
 #: app/views/_logMessage.html.php:29 templates/patchsets/ps.inc:8
 msgid "Tags"
@@ -363,7 +363,7 @@ msgid "Unmodified"
 msgstr "Muokkaamaton"
 
 #: annotate.php:47 templates/directory/header.inc:12
-#: templates/log/header.inc:25
+#: templates/log/header.inc:28
 msgid "View"
 msgstr "Näytä"
 

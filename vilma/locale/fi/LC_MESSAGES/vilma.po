@@ -1,0 +1,646 @@
+# Finnish translations for Vilma H4 package.
+# Copyright (C) 2012 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Vilma package.
+# Leena Heino <liinu@uta.fi>, 2011-2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Vilma H4 (1.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-03-12 23:23:58+0200\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: users/edit.php:62
+#, php-format
+msgid "\"%s\" already has the maximum number of users allowed."
+msgstr "\"%s\" on jo suurin sallittu määrä käyttäjiä."
+
+#: lib/Driver/Qmailldap.php:431
+msgid "Account Status"
+msgstr "Käyttäjätilin tila"
+
+#: users/delete.php:93
+#, php-format
+msgid "Account belongs to %d group."
+msgid_plural "Account belongs to %d groups."
+msgstr[0] "Käyttäjätili kuuluu %d ryhmään."
+msgstr[1] "Käyttäjätili kuuluu %d ryhmään."
+
+#: users/delete.php:87
+#, php-format
+msgid "Account has %d alias."
+msgid_plural "Account has %d aliases."
+msgstr[0] "Käyttäjätilillä on %d alias."
+msgstr[1] "Käyttäjätilillä on %d aliasta."
+
+#: lib/Driver/Qmailldap.php:439
+msgid "Account is active"
+msgstr "Käyttäjä tili ei ole aktiivisena"
+
+#: lib/Driver/Qmailldap.php:442
+msgid "Account is disabled"
+msgstr "Käyttäjätili on pois käytöstä"
+
+#: users/delete.php:90
+#, php-format
+msgid "Account is the target of %d forward."
+msgid_plural "Account is the target of %d forwards."
+msgstr[0] "Käyttäjätili on kohteena %d ohjaukselle."
+msgstr[1] "Käyttäjätili on kohteena %d ohjaukselle."
+
+#: templates/users/index.html:11
+msgid "Address"
+msgstr "Osoite"
+
+#: lib/Vilma.php:58
+msgid "Alias"
+msgstr "Alias"
+
+#: lib/Form/EditAlias.php:34
+msgid "Alias Address"
+msgstr "Aliasosoite"
+
+#: users/delete.php:114
+msgid "Alias deleted."
+msgstr "Alias poistettu."
+
+#: lib/Driver/Qmailldap.php:545
+#, php-format
+msgid "Alias for %s"
+msgstr "Alias - %s"
+
+#: users/editAlias.php:31
+msgid "Alias saved."
+msgstr "Alias tallennettu."
+
+#: lib/Vilma.php:59
+msgid "Aliases"
+msgstr "Aliakset"
+
+#: lib/Vilma.php:52 lib/Vilma.php:53
+msgid "All"
+msgstr "Kaikki"
+
+#: lib/Driver/Qmailldap.php:441
+msgid "Bounce Incoming Only"
+msgstr "Käännä vain tulevat"
+
+#: domains/delete.php:32 lib/Form/DeleteDomain.php:21 users/delete.php:75
+#: users/delete.php:104 virtuals/delete.php:37 virtuals/delete.php:41
+msgid "Delete"
+msgstr "Poista"
+
+#: users/delete.php:74
+#, php-format
+msgid "Delete %s"
+msgstr "Poista %s"
+
+#: users/delete.php:81
+#, php-format
+msgid "Delete %s \"%s\" and all dependencies?"
+msgstr "Poista %s \"%s\" ja kaikki riippuvuudet?"
+
+#: users/delete.php:83
+#, php-format
+msgid "Delete %s \"%s\"?"
+msgstr "Poista %s \"%s\"?"
+
+#: domains/index.php:48 lib/Form/DeleteDomain.php:15
+msgid "Delete Domain"
+msgstr "Poista toimialue"
+
+#: users/index.php:115 virtuals/index.php:61
+msgid "Delete User"
+msgstr "Poista käyttäjä"
+
+#: virtuals/delete.php:34
+msgid "Delete Virtual Email Address"
+msgstr "Poista virtuaaliosoite"
+
+#: lib/Form/DeleteDomain.php:23
+#, php-format
+msgid "Delete domain \"%s\" and all associated email addresses?"
+msgstr "Poista toimialue \"%s\" ja kaikki siihen liitetyt osoitteet?"
+
+#: virtuals/delete.php:39
+#, php-format
+msgid "Delete the virtual email address \"%s\" => \"%s\"?"
+msgstr "Poista virtuaaliosoite \"%s\" => \"%s\"?"
+
+#: virtuals/edit.php:58 templates/virtuals/index.html:18
+msgid "Destination"
+msgstr "Kohde"
+
+#: virtuals/edit.php:49
+msgid "Destination type"
+msgstr "Kohdetyyppi"
+
+#: lib/Driver/Qmailldap.php:440
+msgid "Disable Delivery Only"
+msgstr "Estä vain vastaanotto"
+
+#: config/prefs.php:13
+msgid "Display details"
+msgstr "Näytä yksityiskohdat"
+
+#: config/prefs.php:12
+msgid "Display listings"
+msgstr "Näytä listaus"
+
+#: domains/delete.php:27 lib/Form/DeleteDomain.php:21 users/delete.php:75
+#: users/delete.php:97 virtuals/delete.php:27 virtuals/delete.php:37
+msgid "Do not delete"
+msgstr "Älä poista"
+
+#: lib/Form/EditDomain.php:30 templates/domains/index.html:14
+msgid "Domain"
+msgstr "Toimialue"
+
+#: domains/delete.php:37
+msgid "Domain deleted."
+msgstr "Toimialue poistettu."
+
+#: domains/delete.php:28
+msgid "Domain not deleted."
+msgstr "Toimialuetta ei poistettu."
+
+#: domains/edit.php:32
+msgid "Domain saved."
+msgstr "Toimialue tallennettu."
+
+#: lib/Form/EditAlias.php:17
+#, php-format
+msgid "Edit Alias \"%s\" for \"%s\""
+msgstr "Muokkaa aliasta \"%s\" - \"%s\""
+
+#: domains/index.php:49 lib/Form/EditDomain.php:18
+msgid "Edit Domain"
+msgstr "Muokkaa toimialuetta"
+
+#: lib/Form/EditForward.php:17
+#, php-format
+msgid "Edit Forward \"%s\" for \"%s\""
+msgstr "Muokkaa toimialuetta \"%s\" - \"%s\""
+
+#: lib/Form/EditUser.php:23
+#, php-format
+msgid "Edit Forward for \"%s\""
+msgstr "Muokkaa ohjausta - \"%s\""
+
+#: lib/Form/EditUser.php:19
+#, php-format
+msgid "Edit Group for \"%s\""
+msgstr "Muokkaa ryhmää - \"%s\""
+
+#: users/index.php:116 virtuals/index.php:62
+msgid "Edit User"
+msgstr "Muokkaa käyttäjää"
+
+#: lib/Form/EditUser.php:27
+#, php-format
+msgid "Edit User for \"%s\""
+msgstr "Muokkaa käyttäjää - \"%s\""
+
+#: virtuals/edit.php:42
+msgid "Edit Virtual Email Address"
+msgstr "Muokkaa virtuaaliosoitetta"
+
+#: virtuals/edit.php:48
+#, php-format
+msgid ""
+"Enter a virtual email address @%s and then indicate below where mail sent to "
+"that address is to be delivered. The address must begin with an "
+"alphanumerical character, it must contain only alphanumerical and '._-' "
+"characters, and must end with an alphanumerical character."
+msgstr ""
+"Anna virtuaaliosoite @%s ja sen jälkeen anna alhaalla tieto mihin siihen "
+"osoitteeseen tullut sähköposti pitäisi osoittaa. Osoitteen pitää alkaa "
+"kirjaimella tai numerolla ja se saa sisältää vain kirjaimia, numeroita ja "
+"merkkejä '._-' ja sen pitää päättyä kirjaimeen tai numeroon."
+
+#: lib/Driver/Qmailldap.php:380
+#, php-format
+msgid "Error adding account to LDAP: %s"
+msgstr "Virhe lisättäessä käyttäjätiliä LDAP-kantaan: %s"
+
+#: lib/Driver/Qmailldap.php:424
+#, php-format
+msgid "Error deleting account from LDAP: %s"
+msgstr "Virhe poistettaessa käyttäjätiliä LDAP-kannsta: %s"
+
+#: users/delete.php:116
+#, php-format
+msgid "Error deleting alias. %s."
+msgstr "Virhe poistettaessa aliasta. %s."
+
+#: domains/delete.php:40
+#, php-format
+msgid "Error deleting domain. %s."
+msgstr "Virhe poistettaessa toimialuetta. %s."
+
+#: users/delete.php:129
+#, php-format
+msgid "Error deleting forward. %s."
+msgstr "Virhe poistettaessa ohjausta. %s."
+
+#: users/delete.php:140
+#, php-format
+msgid "Error deleting user. %s."
+msgstr "Virhe poistettaessa käyttäjää. %s."
+
+#: virtuals/delete.php:52
+#, php-format
+msgid "Error deleting virtual email. %s."
+msgstr "Virhe poistettaessa virtuaaliosoitetta. %s."
+
+#: lib/Driver/Qmailldap.php:139 lib/Driver/Qmailldap.php:144
+#, php-format
+msgid "Error in LDAP search: %s"
+msgstr "Virhe LDAP-haussa: %s"
+
+#: lib/Driver/Qmailldap.php:327 lib/Driver/Qmailldap.php:768
+#: lib/Driver/Qmailldap.php:823 lib/Driver/Qmailldap.php:899
+#: lib/Driver/Qmailldap.php:952
+#, php-format
+msgid "Error modifying account: %s"
+msgstr "Virhe muokattaessa käyttäjätiliä: %s"
+
+#: lib/Driver/Qmailldap.php:255 lib/Driver/Qmailldap.php:723
+#: lib/Driver/Qmailldap.php:790 lib/Driver/Qmailldap.php:854
+#: lib/Driver/Qmailldap.php:921
+msgid "Error reading address information from backend."
+msgstr "Virhe luettaessa osoitetietoja taustajärjestelmästä."
+
+#: users/delete.php:30 users/edit.php:33 users/editAlias.php:59
+#: users/editAlias.php:71 users/editForward.php:57
+#, php-format
+msgid "Error reading address information from backend: %s"
+msgstr "Virhe luettaessa tietoja taustajärjestelmästä: %s"
+
+#: lib/Driver/Qmailldap.php:411 lib/Driver/Qmailldap.php:981
+#, php-format
+msgid "Error retrieving LDAP results: %s"
+msgstr "Virhe haettaessa LDAP tuloksia: %s"
+
+#: lib/Driver/Qmailldap.php:523 lib/Driver/Qmailldap.php:602
+#: lib/Driver/Qmailldap.php:682
+#, php-format
+msgid "Error returning LDAP results: %s"
+msgstr "Virhe palautettaessa LDAP tuloksia: %s"
+
+#: lib/Driver.php:310
+msgid "Error running authentication update script."
+msgstr "Virhe ajettaessa autentikoinnin päivitysskriptiä."
+
+#: users/editAlias.php:37
+#, php-format
+msgid "Error saving alias. %s"
+msgstr "Virhe tallennettaessa aliasta. %s"
+
+#: domains/edit.php:35
+#, php-format
+msgid "Error saving domain: %s."
+msgstr "Virhe tallennettaessa toimialuetta: %s."
+
+#: users/editForward.php:35
+#, php-format
+msgid "Error saving forward. %s"
+msgstr "Virhe tallennettaessa ohjausta. %s"
+
+#: users/edit.php:89
+#, php-format
+msgid "Error saving user. %s"
+msgstr "Virhe tallennettaessa käyttäjää. %s"
+
+#: virtuals/edit.php:76
+#, php-format
+msgid "Error saving virtual email. %s."
+msgstr "Virhe tallennettaessa virtuaaliosoitetta. %s"
+
+#: lib/Driver/Qmailldap.php:407 lib/Driver/Qmailldap.php:518
+#: lib/Driver/Qmailldap.php:597 lib/Driver/Qmailldap.php:678
+#: lib/Driver/Qmailldap.php:977
+#, php-format
+msgid "Error searching LDAP: %s"
+msgstr "Virhe haettassa LDAP-kannasta: %s"
+
+#: lib/Driver/Qmailldap.php:747 lib/Driver/Qmailldap.php:878
+#, php-format
+msgid "Existing entry \"%s\" could not be found."
+msgstr "Olemassaolevaa tietoa \"%s\" ei löytynyt."
+
+#: lib/Vilma.php:64
+msgid "Forward"
+msgstr "Ohjaa"
+
+#: lib/Form/EditForward.php:34
+msgid "Forward Address"
+msgstr "Ohjauksen osoite"
+
+#: lib/Form/EditUser.php:24
+msgid "Forward Name"
+msgstr "Ohjauksen nimi"
+
+#: users/delete.php:127
+msgid "Forward deleted."
+msgstr "Ohjaus poistettu."
+
+#: lib/Vilma.php:65
+msgid "Forwards"
+msgstr "Ohjaukset"
+
+#: lib/Form/EditUser.php:51 templates/users/index.html:14
+msgid "Full Name"
+msgstr "Koko nimi"
+
+#: lib/Vilma.php:61
+msgid "Group"
+msgstr "Ryhmä"
+
+#: lib/Form/EditUser.php:20
+msgid "Group Name"
+msgstr "Ryhmänimi"
+
+#: lib/Vilma.php:62
+msgid "Groups"
+msgstr "Ryhmät"
+
+#: config/prefs.php:22
+msgid "How many domain to display per page."
+msgstr "Kuinka monta toimialuetta näytetään sivulla."
+
+#: virtuals/edit.php:51
+msgid "Local user"
+msgstr "Paikallinen käyttäjä"
+
+#: lib/MailboxDriver/Imap.php:86
+#, php-format
+msgid "Mailbox \"%s\" does not exist."
+msgstr "Postilaatikkoa \"%s\" ei ole olemassa."
+
+#: lib/MailboxDriver/Maildrop.php:64
+#, php-format
+msgid "Maildrop directory \"%s\" does not exist."
+msgstr "Postiohjauksen hakemistoa \"%s\" ei ole olemassa."
+
+#: templates/domains/index.html:17
+msgid "Max Users"
+msgstr "Maksimi käyttäjää"
+
+#: lib/Form/EditDomain.php:32
+msgid "Max users"
+msgstr "Maksimi käytttäjää"
+
+#: users/index.php:103
+msgid "Maximum Users"
+msgstr "Maksimi käyttäjiä"
+
+#: lib/Driver/Qmailldap.php:686
+msgid ""
+"More than one DN returned for this alias.  Please contact an administrator "
+"to resolve this error."
+msgstr ""
+"Tälle aliakselle palautui useampi kuin yksi DN.  Ota yhteyttä ylläpitoon "
+"tämän virhetilanteen selvittämiseksi."
+
+#: lib/Driver/Qmailldap.php:418 lib/Driver/Qmailldap.php:988
+msgid "More than one DN returned.  Aborting delete operation."
+msgstr "Palautui useampi kuin yksi DN. Peruutetaan poistotoiminto."
+
+#: lib/Form/EditUser.php:45
+msgid ""
+"Name must begin with an alphanumeric character, must contain only "
+"alphanumeric and '._-' characters, and must end with an alphanumeric "
+"character."
+msgstr ""
+"Nimen pitää alkaa aakkosnumeerisella merkillä, ja saa sisältää vain "
+"kirjaimia, numeroita ja merkkejä '._-', ja pitää päättyä aakkosnumeeriseen "
+"merkkiin."
+
+#: lib/Form/EditAlias.php:21
+#, php-format
+msgid "New Alias for %s"
+msgstr "Uusi alias - %s"
+
+#: lib/Form/EditDomain.php:18
+msgid "New Domain"
+msgstr "Uusi toimialue"
+
+#: lib/Form/EditForward.php:21
+#, php-format
+msgid "New Forward for %s"
+msgstr "Uusi ohjaus - %s"
+
+#: lib/Form/EditUser.php:32
+#, php-format
+msgid "New User @%s"
+msgstr "Uusi käyttäjä @%s"
+
+#: virtuals/index.php:51
+msgid "New Virtual Email"
+msgstr "Uusi virtuaaliosoite"
+
+#: virtuals/edit.php:42
+msgid "New Virtual Email Address"
+msgstr "Uusi virtuaaliosoite"
+
+#: lib/Application.php:97
+msgid "New _Address"
+msgstr "Uusi _osoite"
+
+#: lib/MailboxDriver/Maildrop.php:76
+msgid "No 'mail_dir_base' parameter specified to maildrop driver."
+msgstr "Ei annettu 'mail_dir_base' parametria määritellylle maildrop ajurille."
+
+#: lib/MailboxDriver/Maildrop.php:25
+msgid "No 'system_user' parameter specified to maildrop driver."
+msgstr "Ei annettu 'system_user' parametria maildrop ajurille."
+
+#: lib/Driver.php:400
+#, php-format
+msgid "No such address %s of type %s found."
+msgstr "Ei löytynyt osoitetta %s tyyppiä %s."
+
+#: lib/Driver.php:542
+#, php-format
+msgid "No such backend \"%s\" found"
+msgstr "Ei löytynyt taustajärjestelmää \"%s\""
+
+#: lib/Form/EditUser.php:47
+msgid "Only enter a password if you wish to change this user's password"
+msgstr "Anna salasana vain jos haluat muuttaa tämän käyttäjän salasanaa"
+
+#: lib/Form/EditUser.php:47 lib/Form/EditUser.php:49
+msgid "Password"
+msgstr "Salasana"
+
+#: lib/Driver/Sql.php:255
+msgid "Password must be supplied when creating a new user."
+msgstr "Uutta käyttäjää tehdessä pitää antaa salasana."
+
+#: lib/Form/EditDomain.php:33
+msgid "Quota"
+msgstr "Kiintiö"
+
+#: virtuals/edit.php:52
+msgid "Remote address"
+msgstr "Etäosoite"
+
+#: virtuals/edit.php:55
+msgid "Remote e-mail address"
+msgstr "Etäsähköpostiosoite"
+
+#: config/prefs.php:14
+msgid "Set default display parameters."
+msgstr "Aseta näkymän asetukset."
+
+#: templates/users/index.html:20
+msgid "Status"
+msgstr "Tila"
+
+#: lib/Application.php:73
+msgid "Super Administrator"
+msgstr "Super - ylläpitäjä"
+
+#: lib/Driver/Qmailldap.php:739
+msgid "That alias already exists!"
+msgstr "Tuo alias on jo olemassa!"
+
+#: lib/Driver/Qmailldap.php:870
+#, php-format
+msgid "That forward, \"%s\", already exists!"
+msgstr "Tuo ohjaus, \"%s\", on jo olemassa!"
+
+#: lib/Form/EditAlias.php:34
+msgid ""
+"The email address to add as an alias for this user.  Note that the server "
+"must be configured to receive mail for the domain contained in this address."
+msgstr ""
+"Tälle käyttäjälle lisättävä aliasosoite. Huomaathan, että osoitteessa "
+"mainitulle toimialueelle pitää olla palvelin, johon voi lähettää sähköpostia."
+
+#: lib/Form/EditForward.php:34
+msgid ""
+"The email address to add as an forward for this user.  Note that the server "
+"must be configured to receive mail for the domain contained in this address."
+msgstr ""
+"Tälle käyttäjälle lisättävä ohjausosoite. Huomaathan, että osoitteessa "
+"mainitulle toimialueelle pitää olla palvelin, johon voi lähettää sähköpostia."
+
+#: lib/Form/EditDomain.php:31
+msgid "Transport"
+msgstr "Kuljetus"
+
+#: templates/users/index.html:17
+msgid "Type"
+msgstr "Tyyppi"
+
+#: lib/Driver/Qmailldap.php:415 lib/Driver/Qmailldap.php:985
+msgid "Unable to acquire handle on DN.  Aborting delete operation."
+msgstr "Ei saatu kahvaa DN tiedolle. Peruutetaan poistotoiminto."
+
+#: lib/Driver/Qmailldap.php:243
+msgid "Unable to acquire handle on address."
+msgstr "Ei saatu saada kahvaa osoitteeseen."
+
+#: lib/Driver/Qmailldap.php:286 lib/Driver/Qmailldap.php:347
+#: lib/Driver/Qmailldap.php:1023
+msgid "Unable to bind to the LDAP server.  Check authentication credentials."
+msgstr "Ei saada yhteyttä LDAP-palvelimeen.  Tarkista autentikointitiedot."
+
+#: lib/Driver/Qmailldap.php:762 lib/Driver/Qmailldap.php:817
+#: lib/Driver/Qmailldap.php:893 lib/Driver/Qmailldap.php:946
+msgid "Unable to bind to the LDAP server. Check authentication credentials."
+msgstr "Ei saada yhteyttä LDAP-palvelimeen. Tarkista autentikointitiedot."
+
+#: lib/Driver/Qmailldap.php:205
+msgid "Unable to qualify address."
+msgstr "Ei voida tarkistaa osoitetta."
+
+#: lib/Driver/Qmailldap.php:250
+#, php-format
+msgid "Unable to save account of type \"%s\""
+msgstr "Ei voida tallentaa käyttäjätilien tyyppiä \"%s\""
+
+#: lib/Driver/Qmailldap.php:225
+msgid "Unable to save user information."
+msgstr "Ei voida tallentaa käyttäjätietoja."
+
+#: lib/Driver/Qmailldap.php:1018
+msgid "Unable to set LDAP protocol version"
+msgstr "Ei voida asettaa LDAP protokollan versiota"
+
+#: lib/Driver.php:313
+msgid "Unknown error running authentication update script."
+msgstr "Tuntematon virhe ajettaessa autentikoinnin päivitysskriptiä."
+
+#: lib/Vilma.php:55
+msgid "User"
+msgstr "Käyttäjä"
+
+#: lib/Form/EditUser.php:28
+msgid "User Name"
+msgstr "Käyttäjänimi"
+
+#: users/edit.php:72
+msgid "User details saved."
+msgstr "Käyttäjän tiedot tallennettiin."
+
+#: lib/Driver.php:258
+msgid "User disabled."
+msgstr "Käyttäjä estetty."
+
+#: users/delete.php:98
+msgid "User not deleted."
+msgstr "Käyttäjää ei poistettu."
+
+#: lib/Driver.php:276
+msgid "User ready."
+msgstr "Käyttäjä valmis."
+
+#: lib/Vilma.php:56 virtuals/index.php:57
+msgid "Users"
+msgstr "Käyttäjät"
+
+#: lib/Form/EditDomain.php:33
+msgid "Value in MB"
+msgstr "Määrä - MB"
+
+#: virtuals/edit.php:48
+msgid "Virtual Email"
+msgstr "Virtuaaliosoite"
+
+#: templates/virtuals/index.html:15
+msgid "Virtual Email Address"
+msgstr "Virtuaaliosoite"
+
+#: virtuals/delete.php:46
+msgid "Virtual email deleted."
+msgstr "Virtuaaliosoite poistettiin."
+
+#: virtuals/delete.php:28
+msgid "Virtual email not deleted."
+msgstr "Virtuaaliosoitetta ei poistettu."
+
+#: virtuals/edit.php:70
+msgid "Virtual email saved."
+msgstr "Virtuaaliosoite tallennettiin."
+
+#: lib/Application.php:93
+msgid "_Domains"
+msgstr "_Toimialueet"
+
+#: lib/Application.php:99
+msgid "_New Domain"
+msgstr "_Uusi toimialue"
+
+#: users/editForward.php:32
+msgid "forward saved."
+msgstr "ohjaus tallennettiin."

@@ -34,7 +34,7 @@ class Ingo_Form_Vacation extends Ingo_Form_Base
         $this->_end = $this->addVariable(_("End of vacation:"), 'end', 'monthdayyear', '');
         $v = $this->addVariable(_("Subject of vacation message:"), 'subject', 'text', false);
         $v->setHelp('vacation-subject');
-        $v = $this->addVariable(_("Reason:"), 'reason', 'longtext', false, false, null, array(10, 40));
+        $v = $this->addVariable(_("Reason:"), 'reason', 'longtext', false, false, _("You can use placeholders like %NAME% in the vacation message. See the online help for details."), array(10, 40));
         $v->setHelp('vacation-reason');
 
         $this->setSection('advanced', _("Advanced Settings"));

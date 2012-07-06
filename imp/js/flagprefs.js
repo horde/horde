@@ -25,45 +25,29 @@ var ImpFlagPrefs = {
 
     clickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
-        }
-
         var elt = e.element(), elt2;
 
-        while (Object.isElement(elt)) {
-            if (elt.hasClassName('flagcolorpicker')) {
-                elt2 = elt.previous('INPUT');
-                new ColorPicker({
-                    color: $F(elt2),
-                    draggable: true,
-                    offsetParent: elt,
-                    resizable: true,
-                    update: [
-                        [ elt2, 'value' ],
-                        [ elt2, 'background' ],
-                        [ elt.previous('DIV.flagUser'), 'background' ]
-                    ]
-                });
-                e.stop();
-                return;
+        if (elt.readAttribute('id') == 'new_button') {
+            this.addFlag();
+        } else if (elt.hasClassName('flagcolorpicker')) {
+            elt2 = elt.previous('INPUT');
+            new ColorPicker({
+                color: $F(elt2),
+                draggable: true,
+                offsetParent: elt,
+                resizable: true,
+                update: [
+                    [ elt2, 'value' ],
+                    [ elt2, 'background' ],
+                    [ elt.previous('DIV.flagUser'), 'background' ]
+                ]
+            });
+            e.memo.stop();
+        } else if (elt.hasClassName('flagdelete')) {
+            if (window.confirm(this.confirm_delete)) {
+                this._sendData('delete', elt.previous('INPUT').readAttribute('id'));
             }
-
-            if (elt.hasClassName('flagdelete')) {
-                if (window.confirm(this.confirm_delete)) {
-                    this._sendData('delete', elt.previous('INPUT').readAttribute('id'));
-                }
-                e.stop();
-                return;
-            }
-
-            switch (elt.readAttribute('id')) {
-            case 'new_button':
-                this.addFlag();
-                break;
-            }
-
-            elt = elt.up();
+            e.memo.stop();
         }
     },
 
@@ -74,12 +58,17 @@ var ImpFlagPrefs = {
                 i.setStyle({ backgroundColor: $F(i) });
             }
         });
+    },
+
+    onDomLoad: function()
+    {
+        HordeCore.initHandler('click');
+        $('prefs').observe('reset', function() {
+            this.resetHandler.defer();
+        }.bind(this));
     }
 
 };
 
-document.observe('dom:loaded', function() {
-    var fp = ImpFlagPrefs;
-    document.observe('click', fp.clickHandler.bindAsEventListener(fp));
-    $('prefs').observe('reset', function() { fp.resetHandler.defer(); });
-});
+document.observe('dom:loaded', ImpFlagPrefs.onDomLoad.bind(ImpFlagPrefs));
+document.observe('HordeCore:click', ImpFlagPrefs.clickHandler.bindAsEventListener(ImpFlagPrefs));

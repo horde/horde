@@ -147,30 +147,26 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
 
         if (!empty($config['hostspec'])) {
             $config['host'] = $config['hostspec'];
+            unset($config['hostspec']);
         }
 
         $adapter = str_replace(' ', '_', ucwords(str_replace('_', ' ', basename($config['adapter']))));
-        $class = 'Horde_Db_Adapter_' . $adapter;
+        $class = $this->_getDriverName($adapter, 'Horde_Db_Adapter');
 
-        if (class_exists($class)) {
-            unset($config['hostspec'], $config['splitread']);
-            $ob = new $class($config);
+        $ob = new $class($config);
 
-            if (!isset($config['cache'])) {
-                $injector = $this->_injector->createChildInjector();
-                $injector->setInstance('Horde_Db_Adapter', $ob);
-                $cacheFactory = $this->_injector->getInstance('Horde_Core_Factory_Cache');
-                $cache = $cacheFactory->create($injector);
-                $ob->setCache($cache);
-            }
-
-            if (!isset($config['logger'])) {
-                $ob->setLogger($this->_injector->getInstance('Horde_Log_Logger'));
-            }
-
-            return $ob;
+        if (!isset($config['cache'])) {
+            $injector = $this->_injector->createChildInjector();
+            $injector->setInstance('Horde_Db_Adapter', $ob);
+            $cacheFactory = $this->_injector->getInstance('Horde_Core_Factory_Cache');
+            $cache = $cacheFactory->create($injector);
+            $ob->setCache($cache);
         }
 
-        throw new Horde_Exception('Adapter class "' . $class . '" not found');
+        if (!isset($config['logger'])) {
+            $ob->setLogger($this->_injector->getInstance('Horde_Log_Logger'));
+        }
+
+        return $ob;
     }
 }

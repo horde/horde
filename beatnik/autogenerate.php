@@ -35,10 +35,9 @@ if ($form->validate($vars)) {
     $viewurl->redirect();
 }
 
-$title = _("Autogenerate");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Autogenerate")
+));
 require BEATNIK_BASE . '/templates/menu.inc';
-
 $form->renderActive(null, null, Horde::url('autogenerate.php'), 'post');
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

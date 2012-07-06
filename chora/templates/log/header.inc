@@ -15,12 +15,15 @@
  </div>
 -->
 
-<?php if (!empty($selAllBranches)): ?>
+<?php if (count($branches) > 1): ?>
  <div>
   <form method="get" action="<?php echo Chora::url('browsefile', Horde_Util::getFormData('f')) ?>">
    <?php echo _("Show Branch:") ?>
    <select name="onb" onchange="this.form.submit()">
-    <?php echo $selAllBranches ?>
+    <option value="0"<?php if (!isset($onb) || !$onb) echo ' selected="selected"' ?>><?php echo _("All Branches") ?></option>
+<?php foreach ($branches as $branch): ?>
+    <option value="<?php echo htmlspecialchars($branch) ?>"<?php echo ($branch == $onb) ? ' selected="selected"' : '' ?>><?php echo htmlspecialchars($branch) ?></option>
+<?php endforeach; ?>
    </select>
    <noscript><input class="button" type="submit" value="<?php echo _("View") ?>" /></noscript>
   </form>

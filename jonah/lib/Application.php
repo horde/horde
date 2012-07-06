@@ -45,7 +45,7 @@ class Jonah_Application extends Horde_Registry_Application
                 $url->add('tag_id', $tag_id);
             }
 
-            $GLOBALS['injector']->getInstance('Horde_PageOutput')->addLinkTag(array(
+            $GLOBALS['page_output']->addLinkTag(array(
                 'href' => $url,
                 'title' => 'RSS 0.91'
             ));
@@ -117,12 +117,12 @@ class Jonah_Application extends Horde_Registry_Application
         }
     }
 
-    /* Sidebar method. */
+    /* Topbar method. */
 
     /**
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
     {
         if (!Jonah::checkPermissions('jonah:news', Horde_Perms::EDIT) ||
             !in_array('internal', $GLOBALS['conf']['news']['enable'])) {
@@ -143,17 +143,16 @@ class Jonah_Application extends Horde_Registry_Application
         $story_img = Horde_Themes::img('editstory.png');
 
         foreach ($channels as $channel) {
-            $tree->addNode(
-                $parent . $channel['channel_id'],
-                $parent,
-                $channel['channel_name'],
-                1,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent . $channel['channel_id'],
+                'parent' => $parent,
+                'label' => $channel['channel_name'],
+                'expanded' => false,
+                'params' => array(
                     'icon' => $story_img,
                     'url' => $url->add('channel_id', $channel['channel_id'])
                 )
-            );
+            ));
         }
     }
 

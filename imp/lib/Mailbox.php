@@ -142,7 +142,6 @@ class IMP_Mailbox implements Serializable
     const CACHE_HASICONHOOK = 'ih';
     const CACHE_ICONHOOK = 'ic';
     const CACHE_HASLABELHOOK = 'lh';
-    const CACHE_HIDEDELETED = 'hd';
     const CACHE_READONLYHOOK = 'roh';
     const CACHE_SPECIALMBOXES = 's';
 
@@ -767,7 +766,7 @@ class IMP_Mailbox implements Serializable
         try {
             $injector->getInstance('IMP_Factory_Imap')->create()->createMailbox($this->_mbox, array('special_use' => $special_use));
         } catch (IMP_Imap_Exception $e) {
-            if ($e->getCode() == Horde_Imap_Client_Exception::USEATTR) {
+            if ($e->getCode() == $e::USEATTR) {
                 unset($opts['special_use']);
                 return $this->create($opts);
             }
@@ -793,11 +792,18 @@ class IMP_Mailbox implements Serializable
     /**
      * Deletes mailbox.
      *
-     * @param boolean $force  Delete even if fixed?
+     * @param array $opts  Addtional options:
+     *   - force: (boolean) Delete even if fixed?
+     *     DEFAULT: false
+     *   - subfolders: (boolean) Delete all subfolders?
+     *     DEFAULT: false
+     *   - subfolders_only: (boolean) If deleting subfolders, delete only
+     *                      subfolders (not current mailbox)?
+     *     DEFAULT: false
      *
      * @return boolean  True on success.
      */
-    public function delete($force = false)
+    public function delete(array $opts = array())
     {
         global $conf, $injector, $notification;
 
@@ -814,23 +820,38 @@ class IMP_Mailbox implements Serializable
             return false;
         }
 
-        if ((!$force && $this->fixed) || !$this->access_deletembox_acl)  {
-            $notification->push(sprintf(_("The mailbox \"%s\" may not be deleted."), $this->display), 'horde.error');
-            return false;
+        $deleted = array();
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        if (empty($opts['subfolders'])) {
+            $to_delete = array($this);
+        } else {
+            $to_delete = empty($opts['subfolders_only'])
+                ? $this->subfolders
+                : $this->subfolders_only;
         }
 
-        try {
-            $injector->getInstance('IMP_Factory_Imap')->create()->deleteMailbox($this->_mbox);
-            $notification->push(sprintf(_("The mailbox \"%s\" was successfully deleted."), $this->display), 'horde.success');
-        } catch (IMP_Imap_Exception $e) {
-            $e->notify(sprintf(_("The mailbox \"%s\" was not deleted. This is what the server said"), $this->display) . ': ' . $e->getMessage());
-            return false;
+        foreach ($to_delete as $val) {
+            if ((empty($opts['force']) && $val->fixed) ||
+                !$val->access_deletembox_acl)  {
+                $notification->push(sprintf(_("The mailbox \"%s\" may not be deleted."), $val->display), 'horde.error');
+                continue;
+            }
+
+            try {
+                $imp_imap->deleteMailbox($val->value);
+                $notification->push(sprintf(_("The mailbox \"%s\" was successfully deleted."), $val->display), 'horde.success');
+                $deleted[] = $val;
+            } catch (IMP_Imap_Exception $e) {
+                $e->notify(sprintf(_("The mailbox \"%s\" was not deleted. This is what the server said"), $val->display) . ': ' . $e->getMessage());
+            }
         }
 
-        $injector->getInstance('IMP_Imap_Tree')->delete($this->_mbox);
-        $this->_onDelete(array($this->_mbox));
+        if (!empty($deleted)) {
+            $injector->getInstance('IMP_Imap_Tree')->delete($deleted);
+            $this->_onDelete($deleted);
+        }
 
-        return true;
+        return (count($deleted) == count($to_delete));
     }
 
     /**
@@ -1045,38 +1066,15 @@ class IMP_Mailbox implements Serializable
             return $imp_imap->imap;
         }
 
-        $delhide = isset(self::$_temp[self::CACHE_HIDEDELETED])
-            ? self::$_temp[self::CACHE_HIDEDELETED]
-            : null;
-
-        if (is_null($delhide)) {
-            $use_trash = $prefs->getValue('use_trash');
-
-            if ($use_trash &&
-                $this->get($prefs->getValue('trash_folder'))->vtrash) {
-                if ($this->vtrash) {
-                    $delhide = false;
-                }
-            } elseif ($prefs->getValue('delhide') && !$use_trash) {
-                if ($this->search) {
-                    $delhide = true;
-                }
-            } else {
-                $delhide = $deleted
-                    ? $use_trash
-                    : false;
-            }
-
-            if (is_null($delhide)) {
-                $delhide = ($this->getSort()->sortby != Horde_Imap_Client::SORT_THREAD);
-            }
+        if ($prefs->getValue('use_trash')) {
+            /* If using Virtual Trash, only show deleted messages in
+             * the Virtual Trash mailbox. */
+            return $this->get($prefs->getValue('trash_folder'))->vtrash
+                ? $this->vtrash
+                : ($prefs->getValue('delhide_trash') ? true : $deleted);
         }
 
-        if (!$deleted) {
-            self::$_temp[self::CACHE_HIDEDELETED] = $delhide;
-        }
-
-        return $delhide;
+        return $prefs->getValue('delhide');
     }
 
     /**
@@ -1087,7 +1085,6 @@ class IMP_Mailbox implements Serializable
     public function setHideDeletedMsgs($value)
     {
         $GLOBALS['prefs']->setValue('delhide', $value);
-        $this->expire(IMP_Mailbox::CACHE_HIDEDELETED);
         $GLOBALS['injector']->getInstance('IMP_Factory_MailboxList')->expireAll();
     }
 
@@ -1174,10 +1171,12 @@ class IMP_Mailbox implements Serializable
                     return Horde::url('index.php')->setAnchor($anchor);
 
                 case Horde_Registry::VIEW_SMARTMOBILE:
+                    $url = Horde::url('smartmobile.php');
                     $anchor = is_null($uid)
                         ? ('mbox=' . $this->form_to)
                         : ('msg=' . $this->getIndicesOb($uid)->formTo());
-                    return '#mailbox?' . $anchor;
+                    $url->setAnchor('mailbox?' . $anchor);
+                    return $url;
                 }
             }
 
@@ -1783,7 +1782,7 @@ class IMP_Mailbox implements Serializable
      */
     protected function _onDelete($deleted)
     {
-        /* Clear the mailbox from the sort prefs. */
+        /* Clear the mailboxes from the sort prefs. */
         foreach ($this->get($deleted) as $val) {
             $val->setSort(null, null, true);
         }

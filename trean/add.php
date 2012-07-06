@@ -45,7 +45,7 @@ case 'add_bookmark':
         echo Horde::wrapInlineScript(array('window.close();'));
     } elseif (Horde_Util::getFormData('iframe')) {
         $notification->push(_("Bookmark Added"), 'horde.success');
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $page_output->header();
         $notification->notify();
     } else {
         Horde::url('browse.php', true)
@@ -55,38 +55,19 @@ case 'add_bookmark':
 }
 
 if (Horde_Util::getFormData('popup')) {
-    $injector->getInstance('Horde_PageOutput')->addInlineScript(array(
+    $page_output->addInlineScript(array(
         'window.focus()'
     ), true);
 }
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create(
-    array('trean', 'TagAutoCompleter'),
-    array(
-        // The name to give the (auto-generated) element that acts as the
-        // pseudo textarea.
-        'box' => 'treanEventACBox',
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Trean_Ajax_Imple_TagAutoCompleter');
 
-        // Make it spiffy
-        'pretty' => true,
-
-        // The dom id of the existing element to turn into a tag autocompleter
-        'triggerId' => 'treanBookmarkTags',
-
-        // A variable to assign the autocompleter object to
-        'var' => 'bookmarkTagAc'
-    )
-);
-
-$injector->getInstance('Horde_PageOutput')->addInlineScript(array(
-    'bookmarkTagAc.init()'
-), true);
-
-$title = _("New Bookmark");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("New Bookmark")
+));
 if (!Horde_Util::getFormData('popup') && !Horde_Util::getFormData('iframe')) {
     echo Horde::menu();
     $notification->notify(array('listeners' => 'status'));
 }
 require TREAN_TEMPLATES . '/add.html.php';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

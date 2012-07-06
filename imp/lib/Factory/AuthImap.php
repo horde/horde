@@ -44,7 +44,7 @@ class IMP_Factory_AuthImap extends Horde_Core_Factory_Injector
             switch ($key) {
             case 'password':
                 $secret = $injector->getInstance('Horde_Secret');
-                $params['admin_password'] = $secret->read($secret->getKey('imp'), $val);
+                $params['admin_password'] = $secret->read($secret->getKey(), $val);
                 break;
 
             case 'user':

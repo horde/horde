@@ -24,7 +24,7 @@ HermesCore = {
             $('hermesLoading').hide();
         }
         this.closeRedBox();
-        HordeCore.notify(HordeCoreText.ajax_error, 'horde.error');
+        HordeCore.notify(HordeCore.text.ajax_error, 'horde.error');
         parentfunc(r, e);
     },
 
@@ -91,32 +91,6 @@ HermesCore = {
                     }.bind(this)});
                 break;
             }
-            break;
-
-        case 'prefs':
-            var url = Hermes.conf.prefs_url;
-            if (data) {
-                url += (url.include('?') ? '&' : '?') + $H(data).toQueryString();
-            }
-            this.addHistory(loc);
-            this.inPrefs = true;
-            this.closeView('iframe');
-            this.iframeContent(url);
-            this.setTitle(Hermes.text.prefs);
-            this.loadNextView();
-            break;
-
-        case 'app':
-            this.addHistory(fullloc);
-            this.closeView('iframe');
-            var app = locParts.shift();
-            if (data) {
-                this.loadPage(data);
-            } else if (Hermes.conf.app_urls[app]) {
-                this.loadPage(Hermes.conf.app_urls[app]);
-            }
-            this.view = 'iframe';
-            this.loadNextView();
             break;
 
         default:
@@ -816,32 +790,7 @@ HermesCore = {
 
     loadPage: function(loc)
     {
-        if (Hermes.conf.use_iframe) {
-            this.iframeContent(loc);
-        } else {
-            window.location.assign(loc);
-        }
-    },
-
-    /**
-     * Loads an external page into the iframe view.
-     *
-     * @param string loc  The URL of the page to load.
-     */
-    iframeContent: function(loc)
-    {
-        var view = $('hermesViewIframe'), iframe = $('hermesIframe');
-        view.hide();
-        if (!iframe) {
-            view.insert(new Element('iframe', {id: 'hermesIframe', className: 'hermesIframe', frameBorder: 0}));
-            iframe = $('hermesIframe');
-        }
-        iframe.observe('load', function() {
-            view.appear({ duration: this.effectDur, queue: 'end' });
-            iframe.stopObserving('load');
-        }.bind(this));
-        iframe.src = HordeCore.addURLParam(loc, { ajaxui: 1 });
-        this.view = 'iframe';
+        window.location.assign(loc);
     },
 
     /**

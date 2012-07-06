@@ -1,11 +1,13 @@
-<table>
- <tr class="control">
-  <td>
-   <div class="leftFloat">
-    <label for="checkAll<tag:id />" class="hidden"><gettext>Check All/None</gettext></label>
-    &nbsp;<input type="checkbox" class="checkbox" id="checkAll<tag:id />" name="checkAll" <tag:check_ak /> />
-   </div>
-   <div class="leftFloat folderChoose">
+<div class="horde-buttonbar">
+ <ul class="rightFloat">
+  <li class="horde-nobutton"><tag:help /></li>
+ </ul>
+ <ul>
+  <li>
+    <input type="checkbox" class="checkbox" id="checkAll<tag:id />" name="checkAll" <tag:check_ak /> />&nbsp;
+    <label for="checkAll<tag:id />"><gettext>Check All/None</gettext></label>
+  </li>
+  <li>
     <label for="action_choose<tag:id />" class="hidden"><gettext>Choose Action</gettext></label>
     <select id="action_choose<tag:id />">
      <option selected="selected"><gettext>Choose Action</gettext></option>
@@ -39,16 +41,17 @@
      <option value="" disabled="disabled">--------------------</option>
      <option value="rebuild_tree"><gettext>Rebuild Folder Tree</gettext></option>
     </select>
-   </div>
-   <div class="leftFloat folderActions">
-    <ul class="msgactions">
+  </li>
+  <li>
 <if:subscribe>
-     <li><tag:toggle_subscribe /></li>
+    <tag:toggle_subscribe />
+  </li>
 </if:subscribe>
-     <li><tag:expand_all /></li>
-     <li class="lastnavbar"><tag:collapse_all /></li>
-    </ul>
-   </div>
-  </td>
- </tr>
-</table>
+  <li>
+    <tag:expand_all />
+  </li>
+  <li>
+     <tag:collapse_all />
+  </li>
+ </ul>
+</div>

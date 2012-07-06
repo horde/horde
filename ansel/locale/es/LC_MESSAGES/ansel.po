@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Ansel H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-04-14 17:07+0200\n"
+"PO-Revision-Date: 2012-04-20 20:30+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -853,11 +853,11 @@ msgstr "¿Seguro que desea eliminar ''%s''?"
 
 #: gallery/sort.php:84 scripts/all_images_exif_to_tags.php:86
 msgid "Done"
-msgstr "Terminado"
+msgstr "Hecho"
 
 #: scripts/ansel.php:135
 msgid "Done."
-msgstr "Terminado"
+msgstr "Hecho."
 
 #: templates/view/image.inc:70 templates/view/slideshow.inc:28
 msgid "Download Original Photo"
@@ -2048,7 +2048,7 @@ msgstr "Seleccionar todas"
 
 #: templates/view/gallerylightbox.inc:150 templates/view/results.inc:79
 msgid "Select None"
-msgstr "Seleccionar nada"
+msgstr "No seleccionar nada"
 
 #: templates/tile/image.inc:5
 msgid "Select for Action"

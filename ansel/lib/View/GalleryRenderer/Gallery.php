@@ -53,11 +53,11 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
 
             $option_move = ($option_delete && $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
-                ->countGalleries($GLOBALS['registry']->getAUth(), array('perm' => Horde_Perms::EDIT)));
+                ->countGalleries($GLOBALS['registry']->getAuth(), array('perm' => Horde_Perms::EDIT)));
 
             $option_copy = ($option_edit && $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
-                ->countGalleries($GLOBALS['registry']->getAUth(), array('perm' => Horde_Perms::EDIT)));
+                ->countGalleries($GLOBALS['registry']->getAuth(), array('perm' => Horde_Perms::EDIT)));
 
             // See if we requested a show_actions change
             if (Horde_Util::getFormData('actionID', '') == 'show_actions') {
@@ -101,9 +101,8 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
 
         Horde::startBuffer();
         if (!empty($this->view->api)) {
-            $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
-            $includes->add('prototype.js', 'horde', true, true);
-            $includes->includeFiles();
+            $prototypejs = new Horde_Script_File_JsDir('prototype.js', 'horde');
+            echo $prototypejs->tag_full;
         }
 
         // Needed in the template files
@@ -127,7 +126,7 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         if (!empty($option_copy)) {
             $action_links[] = $url->link(array('class' => 'widget', 'onclick.raw' => 'copySelected(); return false;')) . _("Copy") . '</a>';
         }
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('popup.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('popup.js', 'horde');
         include ANSEL_TEMPLATES . '/view/gallery.inc';
         return Horde::endBuffer();
     }

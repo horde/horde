@@ -106,7 +106,7 @@ class Horde_Kolab_Filter_Base
 
         $this->_parse($inh, $transport);
 
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 "%s successfully completed (sender=%s, recipients=%s, client_address=%s, id=%s)",
                 get_class($this),

@@ -202,6 +202,11 @@ class Horde_Compress_Zip extends Horde_Compress_Base
                 throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid ZIP data"));
             }
             $info = unpack('vMethod/VTime/VCRC32/VCompressed/VUncompressed/vLength', substr($data, $fhStart + 10, 20));
+
+            if (!isset($this->_methods[$info['Method']])) {
+                throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid ZIP data"));
+            }
+
             $name = substr($data, $fhStart + 46, $info['Length']);
 
             $entries[$name] = array(

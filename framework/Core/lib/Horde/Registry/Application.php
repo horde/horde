@@ -143,13 +143,14 @@ class Horde_Registry_Application
      * Application-specific code to run if application auth fails.
      * Called from Horde_Registry::appInit().
      *
-     * @param Horde_Exception $e  The exception object.
+     * @param Horde_Exception_PushApp $e  The exception object.
      */
     public function appInitFailure($e)
     {
     }
 
-    /* Menu generation methods. */
+
+    // Menu generation methods.
 
     /**
      * Add additional items to the menu.
@@ -181,6 +182,7 @@ class Horde_Registry_Application
     {
     }
 
+
     // Horde permissions.
 
     /**
@@ -205,6 +207,30 @@ class Horde_Registry_Application
     public function hasPermission($permission, $allowed, $opts = array())
     {
         return true;
+    }
+
+
+    // Horde service methods.
+
+    /**
+     * Prepare data to deliver to browser for download.
+     *
+     * @param Horde_Variables $vars  Form variables provided to download
+     *                               script. The filename is available in
+     *                               the 'filename' parameter.
+     *
+     * @return array  Download data:
+     *   - data: [REQUIRED] (mixed) Data. Either a stream or a string.
+     *   - name: (string) Filename that overrides 'filename' URL parameter.
+     *   - size: (integer) If set, used as size. If null, no size will be
+     *           sent to browser. If not set, size will be automatically
+     *           determined from data.
+     *   - type: (string) MIME type to send (default:
+     *           application/octet-stream).
+     */
+    public function download(Horde_Variables $vars)
+    {
+        return array();
     }
 
 
@@ -392,66 +418,6 @@ class Horde_Registry_Application
     }
 
 
-    // Horde_Core_Prefs_Ui functions.
-
-    /**
-     * Run on init when viewing prefs for an application.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    public function prefsInit($ui)
-    {
-    }
-
-    /**
-     * Determine active prefs when displaying a group. This is where all
-     * suppress/overrides should be defined.
-     *
-     * This function may be run multiple times in a single page - once on init
-     * and once after prefs are updated.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    public function prefsGroup($ui)
-    {
-    }
-
-    /**
-     * Called when preferences are changed.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    public function prefsCallback($ui)
-    {
-    }
-
-    /**
-     * Generate code used to display a special preference.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return string  The HTML code to display on the preferences page.
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        return '';
-    }
-
-    /**
-     * Special preferences handling on update.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return boolean  True if preference was updated.
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-        return false;
-    }
-
-
     // Horde_Config functions.
 
     /**
@@ -467,18 +433,18 @@ class Horde_Registry_Application
     }
 
 
-    // Horde_Core_Sidebar method.
+    // Horde_Core_Topbar method.
 
     /**
      * Add node(s) to the sidebar tree.
      *
-     * @param Horde_Tree_Base $tree  Tree object.
+     * @param Horde_Tree_Renderer_Base $tree  Tree object.
      * @param string $parent         The current parent element.
      * @param array $params          Additional parameters.
      *
      * @throws Horde_Exception
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
                                   array $params = array()) {}
 
 

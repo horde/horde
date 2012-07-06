@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORSECURITY, Horde_Re
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 4.0.6.
+Webmail Edition version 4.0.8.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with
@@ -29,29 +29,31 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-The major changes compared to the Horde Groupware Webmail Edition version 4.0.5
+The major changes compared to the Horde Groupware Webmail Edition version 4.0.7
 are:
 
 General changes:
+    * Updated Czech, Hungarian, Italian, Slovak, and Swedish translations.
     * Small bugfixes and improvements.
 
 Mail changes:
     * Fixed XSS vulnerabilities.
+    * Fixed regression in PGP support.
+    * Improved HTML editor support.
+
+Filters changes:
+    * Fixed folder names in Procmail rules if using Maildir.
 
 Calendar changes:
-    * Display event time in dynamic view if requested.
-
-Address book changes:
-    * Improved vCard compatibility.
-    * Updated Japanese translation.
+    * Fixed XSS vulnerabilities in tasks and search views.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
 Fixed XSS vulnerabilities.
-Display event time in dynamic calendar view if requested.
-Improved vCard compatibility.
-Updated Japanese translation.
+Fixed regression in PGP support.
+Improved HTML editor support.
+Updated Czech, Hungarian, Italian, Slovak, and Swedish translations.
 Small bugfixes and improvements.
 FM;
 

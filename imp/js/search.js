@@ -119,7 +119,7 @@ var ImpSearch = {
 
     getCriteriaLabel: function(id)
     {
-        return $('search_criteria_add').down('[value="' + RegExp.escape(id) + '"]').getText() + ': ';
+        return $('search_criteria_add').down('[value="' + RegExp.escape(id) + '"]').textContent + ': ';
     },
 
     deleteCriteria: function(div)
@@ -264,8 +264,11 @@ var ImpSearch = {
     updateDate: function(id, elt, data)
     {
         if (data) {
-            elt.down('SPAN').update(this.data.months[data.getMonth()] + ' ' + data.getDate() + ', ' + (data.getYear() + 1900));
+            elt.down('SPAN').update(this.data.months[data.getMonth()] + ' ' + data.getDate() + ', ' + data.getFullYear());
             elt.down('A.dateReset').show();
+
+            // Convert Date object to a UTC object, since JSON outputs in UTC.
+            data = new Date(Date.UTC(data.getFullYear(), data.getMonth(), data.getDate()));
         } else {
             elt.down('SPAN').update('-----');
             elt.down('A.dateReset').hide();
@@ -273,7 +276,8 @@ var ImpSearch = {
 
         // Need to store date information at all times in criteria, since
         // there is no other way to track this information (there is no
-        // form field for this type).
+        // form field for this type). Also, convert Date object to a UTC
+        // object, since JSON outputs in UTC.
         if (!this.criteria[id]) {
             this.criteria[id] = { t: 'date_range' };
         }
@@ -516,80 +520,65 @@ var ImpSearch = {
 
     clickHandler: function(e)
     {
-        if (e.isRightClick()) {
+        var elt = e.element(), tmp;
+
+        switch (elt.readAttribute('id')) {
+        case 'search_submit':
+            this.submit();
+            e.memo.stop();
+            break;
+
+        case 'search_reset':
+            this.resetCriteria();
+            this.resetMailboxes();
             return;
-        }
 
-        var id, tmp,
-            elt = e.element();
+        case 'search_dimp_return':
+            e.memo.hordecore_stop = true;
+            window.parent.DimpBase.go('mbox', this.data.searchmbox);
+            break;
 
-        while (Object.isElement(elt)) {
-            id = elt.readAttribute('id');
-
-            switch (id) {
-            case 'search_submit':
-                this.submit();
-                e.stop();
-                return;
-
-            case 'search_reset':
-                this.resetCriteria();
-                this.resetMailboxes();
-                return;
-
-            case 'search_dimp_return':
-                e.stop();
-                window.parent.DimpBase.go('mbox', this.data.searchmbox);
-                return;
-
-            case 'search_edit_query_cancel':
-                e.stop();
-                if (this.data.dimp) {
-                    window.parent.DimpBase.go();
-                } else {
-                    document.location.href = this.prefsurl;
-                }
-                return;
-
-            case 'show_unsub':
-                new Ajax.Request(this.ajaxurl + 'searchMailboxList', {
-                    onSuccess: this.showUnsubCallback.bind(this),
-                    parameters: {
-                        unsub: 1
-                    }
-                });
-                elt.remove();
-                e.stop();
-                return;
-
-            default:
-                if (elt.hasClassName('searchuiDelete')) {
-                    if (elt.up('#search_criteria')) {
-                        this.deleteCriteria(elt.up('DIV.searchId'));
-                    } else {
-                        this.deleteMailbox(elt.up('DIV.searchId'));
-                    }
-                    e.stop();
-                    return;
-                } else if (elt.hasClassName('calendarImg')) {
-                    Horde_Calendar.open(elt.identify(), this.criteria[elt.up('DIV.searchId').identify()].v);
-                    e.stop();
-                    return;
-                } else if (elt.hasClassName('closeImg') &&
-                           (elt.up('SPAN.beginDate') ||
-                            elt.up('SPAN.endDate'))) {
-                    this.updateDate(
-                        elt.up('DIV.searchId').identify(),
-                        elt.up('SPAN'),
-                        0
-                    );
-                    e.stop();
-                    return;
-                }
-                break;
+        case 'search_edit_query_cancel':
+            e.memo.hordecore_stop = true;
+            if (this.data.dimp) {
+                window.parent.DimpBase.go();
+            } else {
+                document.location.href = this.prefsurl;
             }
+            break;
 
-            elt = elt.up();
+        case 'show_unsub':
+            new Ajax.Request(this.ajaxurl + 'searchMailboxList', {
+                onSuccess: this.showUnsubCallback.bind(this),
+                parameters: {
+                    unsub: 1
+                }
+            });
+            elt.remove();
+            e.memo.stop();
+            break;
+
+        default:
+            if (elt.hasClassName('searchuiDelete')) {
+                if (elt.up('#search_criteria')) {
+                    this.deleteCriteria(elt.up('DIV.searchId'));
+                } else {
+                    this.deleteMailbox(elt.up('DIV.searchId'));
+                }
+                e.memo.stop();
+            } else if (elt.hasClassName('calendarImg')) {
+                Horde_Calendar.open(elt.identify(), this.criteria[elt.up('DIV.searchId').identify()].v);
+                e.memo.stop();
+            } else if (elt.hasClassName('closeImg') &&
+                       (elt.up('SPAN.beginDate') || elt.up('SPAN.endDate'))) {
+                this.updateDate(
+                    elt.up('DIV.searchId').identify(),
+                    elt.up('SPAN'),
+                    0
+                );
+                e.memo.stop();
+            }
+            break;
         }
     },
 
@@ -687,6 +676,8 @@ var ImpSearch = {
             return;
         }
 
+        HordeCore.initHandler('click');
+
         if (Prototype.Browser.IE) {
             $('recent_searches', 'search_criteria_add', 'search_mboxes_add').compact().invoke('observe', 'change', ImpSearch.changeHandler.bindAsEventListener(ImpSearch));
         } else {
@@ -713,6 +704,6 @@ var ImpSearch = {
 
 };
 
-document.observe('click', ImpSearch.clickHandler.bindAsEventListener(ImpSearch));
 document.observe('dom:loaded', ImpSearch.onDomLoad.bindAsEventListener(ImpSearch));
+document.observe('HordeCore:click', ImpSearch.clickHandler.bindAsEventListener(ImpSearch));
 document.observe('Horde_Calendar:select', ImpSearch.calendarSelectHandler.bindAsEventListener(ImpSearch));

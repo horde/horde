@@ -131,7 +131,7 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
                 ->getImageJson($images, $style, true, 'screen', true);
         }
 
-        $page_output = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        global $page_output;
         $page_output->addThemeStylesheet('embed.css');
 
         /* Some paths */
@@ -144,9 +144,9 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
 
         /* Lightbox specific URLs */
         if (!empty($this->_params['lightbox'])) {
-            $effectsurl = Horde::url($js_path . '/effects.js', true);
+            $effectsurl = Horde::url($js_path . '/scriptaculous/effects.js', true);
             $lbjsurl = Horde::url($ansel_js_path . '/lightbox.js', true);
-            $horde_css->addThemeStylesheet('lightbox.css');
+            $page_output->addThemeStylesheet('lightbox.css');
         }
 
         Horde::startBuffer();

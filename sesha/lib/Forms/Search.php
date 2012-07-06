@@ -28,10 +28,10 @@ class Sesha_Forms_Search extends Horde_Form {
 
         $this->addVariable(_("Search these properties"), 'location', 'multienum', true,
             false, null, array(array(
-                SESHA_SEARCH_ID            => _("Stock ID"),
-                SESHA_SEARCH_NAME          => _("Item Name"),
-                SESHA_SEARCH_NOTE          => _("Item Note"),
-                SESHA_SEARCH_PROPERTY      => _("Property Value"))));
+                Sesha::SEARCH_ID            => _("Stock ID"),
+                Sesha::SEARCH_NAME          => _("Item Name"),
+                Sesha::SEARCH_NOTE          => _("Item Note"),
+                Sesha::SEARCH_PROPERTY      => _("Property Value"))));
         $this->addVariable(_("For this value"), 'criteria', 'text', true);
     }
 

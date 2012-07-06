@@ -2,6 +2,7 @@
 v4.0-git
 --------
 
+[rla] Make system shares browseable in WebDAV (Request #10998).
 [jan] Make calendar lists collapsible (Request #10865).
 [jan] Delay calendar list loading to speed up initial display.
 [mjr] Implement resource scheduling in dynamic view (Request #9774).
@@ -23,9 +24,29 @@ v4.0-git
 
 
 -----------
-v3.0.17-git
+v3.0.18-git
 -----------
 
+[jan] Don't show location of private events (Bug #11235).
+[jan] Fix exporting multi-all-day events to iCalendar.
+[jan] Update Turkish translation (İstanbul Technical University).
+[jan] Update Swedish translation (Jakob Alvermark
+      <jakob.alvermark@bsdlabs.com>).
+
+
+-------
+v3.0.17
+-------
+
+[jan] SECURITY: Fix XSS vulnerabilities in tasks view and search view (Bug
+      #11189).
+[jan] Update Italian translation (Massimo Malabotta <mmalabotta@units.it>).
+[jan] Improve print styles.
+[jan] Catch if external client doesn't send LAST-MODIFIED attributes (Bug
+      #11130).
+[jan] Don't stop agenda script if there is an error with a single user (Bug
+      #11129).
+[jan] Update Hungarian translation (Zoltán Németh <nemeth.zoltan@etit.hu>).
 [jan] Show round corners only on the start and end of multi-day events
       (Request #11067).
 

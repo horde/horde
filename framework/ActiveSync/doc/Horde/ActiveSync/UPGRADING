@@ -54,3 +54,6 @@ Horde_ActiveSync_State_File was removed.
 
     - Internal state data is now stored as serialized Horde_ActiveSync_Folder_*
       objects.
+
+    - All code related to PING state has been removed. PING state is combined
+      with the new syncCache.

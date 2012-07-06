@@ -36,11 +36,7 @@ class WhupsUpgradeTransactions extends Horde_Db_Migration_Base
     public function down()
     {
         $this->_denormalize();
-        try {
-            $this->dropTable('whups_transactions');
-        } catch (Horde_Db_Exception $e) {
-            Horde::fatal($e->getMessage());
-        }
+        $this->dropTable('whups_transactions');
     }
 
     /**
@@ -73,7 +69,7 @@ class WhupsUpgradeTransactions extends Horde_Db_Migration_Base
             }
         } catch (Horde_Db_Exception $e) {
             $this->rollbackDbTransaction();
-            Horde::fatal($e->getMessage());
+            throw $e;
         }
 
         $this->removeColumn('whups_logs', 'user_id');
@@ -105,7 +101,7 @@ class WhupsUpgradeTransactions extends Horde_Db_Migration_Base
             }
         } catch (Horde_Db_Exception $e) {
             $this->rollbackDbTransaction();
-            Horde::fatal($e->getMessage());
+            throw $e;
         }
 
         $this->commitDbTransaction();

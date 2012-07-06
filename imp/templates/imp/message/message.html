@@ -1,11 +1,13 @@
 <div id="msgheaders">
+ <p class="p17 bold"><tag:label /></p>
+ <p>&nbsp;</p>
  <table>
 <loop:headers>
   <tr<if:headers.class> class="<tag:headers.class />"</if:headers.class>>
-   <td class="item<tag:headers.i /> rightAlign nowrap">
-    <strong><tag:headers.name />:</strong>
+   <td class="rightAlign nowrap">
+    <tag:headers.name />:
    </td>
-   <td class="item<tag:headers.i /> msgheader">
+   <td class="msgheader">
     <tag:headers.val />
    </td>
   </tr>

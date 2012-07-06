@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Mnemo 3.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-07 19:48:29+0200\n"
+"PO-Revision-Date: 2012-03-28 19:33:15+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -336,7 +336,7 @@ msgstr "Muistilistalistaus"
 #: lib/Notepads/Default.php:65
 #, php-format
 msgid "Notepad of %s"
-msgstr "%s:n muistilistat"
+msgstr "Muistilistat %s"
 
 #: templates/panel.inc:33 templates/panel.inc:34
 msgid "Notepads"
@@ -453,7 +453,7 @@ msgstr "Järjestä muistlistan mukaan"
 #: memo.php:221
 #, php-format
 msgid "Successfully saved \"%s\"."
-msgstr "'%s':n tallennus onnistui."
+msgstr "\"%s\" tallennus onnistui."
 
 #: data.php:190
 #, php-format
@@ -501,7 +501,7 @@ msgstr "Tapahtui virhe tuotaessa iCalendar tietoja."
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
-"Tapahtui virhe poistettaessa %s:n muistiinpanoja. Yksityiskohdat on kirjattu "
+"Tapahtui virhe poistettaessa %s muistiinpanoja. Yksityiskohdat on kirjattu "
 "lokiin."
 
 #: memo.php:245
@@ -668,7 +668,7 @@ msgstr "itse"
 #: lib/Application.php:141
 #, php-format
 msgid "in %s"
-msgstr "%s:ssä"
+msgstr "- %s"
 
 #: data.php:85 templates/data/export.inc:4
 msgid "notes.csv"

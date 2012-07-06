@@ -47,6 +47,7 @@ extends Components_TestCase
 
     public function testSimple()
     {
+        $this->markTestIncomplete();
         $do = __DIR__ . '/../../../fixture/docsorigin/simple';
         $docs_origin = new Components_Helper_DocsOrigin($do, $this->_getClient());
         $this->assertEquals(
@@ -57,6 +58,7 @@ extends Components_TestCase
 
     public function testMultiple()
     {
+        $this->markTestIncomplete();
         $do = __DIR__ . '/../../../fixture/docsorigin/multiple';
         $docs_origin = new Components_Helper_DocsOrigin($do, $this->_getClient());
         $this->assertEquals(

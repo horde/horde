@@ -643,7 +643,7 @@ abstract class Whups_Driver
                               strftime('%Y-%m-%d %H:%M', $comment['timestamp']),
                               $change['value'])
                     . "\n\n"
-                    . Horde::url(Horde::downloadUrl($change['value'], $url_params), true)
+                    . Horde::url($GLOBALS['registry']->downloadUrl($change['value'], $url_params), true)
                     . "\n\n\n";
             }
         }

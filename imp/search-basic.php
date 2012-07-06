@@ -15,13 +15,8 @@
 
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
-    'impmode' => 'imp'
+    'impmode' => Horde_Registry::VIEW_BASIC
 ));
-
-/* This is a basic-view only script. */
-if ($registry->getView() != Horde_Registry::VIEW_BASIC) {
-    exit;
-}
 
 if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_SEARCH)) {
     $notification->push(_("Searching is not available."), 'horde.error');
@@ -32,7 +27,7 @@ if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCE
 }
 
 $imp_search = $injector->getInstance('IMP_Search');
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* If search_basic is set, we are processing the search query. */
 if ($vars->search_basic) {
@@ -118,4 +113,4 @@ echo $menu;
 IMP::status();
 
 echo $t->fetch(IMP_TEMPLATES . '/imp/search/search-basic.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

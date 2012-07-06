@@ -24,8 +24,9 @@ function _open()
 
         $opened = true;
         $beendone = true;
-        $title = _("Administration");
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $page_output->header(array(
+            'title' => _("Administration")
+        ));
         echo Horde::menu();
         $notification->notify(array('listeners' => 'status'));
     }
@@ -251,4 +252,4 @@ if (!$beendone) {
     $form3->close($r);
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

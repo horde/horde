@@ -442,10 +442,16 @@ class Horde_Mime_Headers implements Serializable
         }
 
         $ptr = &$this->_headers[$header];
-        $base = (is_array($ptr['v']) &&
-                 in_array($header, $this->singleFields(true)))
-            ? $ptr['v'][0]
-            : $ptr['v'];
+        if (is_array($ptr['v']) &&
+            in_array($header, $this->singleFields(true))) {
+            if (in_array($header, $this->addressFields())) {
+                $base = str_replace(';,', ';', implode(', ', $ptr['v']));
+            } else {
+                $base = $ptr['v'][0];
+            }
+        } else {
+            $base = $ptr['v'];
+        }
         $params = isset($ptr['p']) ? $ptr['p'] : array();
 
         switch ($type) {
@@ -581,12 +587,16 @@ class Horde_Mime_Headers implements Serializable
     protected function _sanityCheck($data)
     {
         $charset_test = array(
-            'UTF-8',
             'windows-1252',
             self::$defaultCharset
         );
 
-        if (Horde_Mime::is8bit($data)) {
+        if (!Horde_String::validUtf8($data)) {
+            /* Appears to be a PHP error with the internal String structure
+             * which prevents accurate manipulation of the string. Copying
+             * the data to a new variable fixes things. */
+            $data = substr($data, 0);
+
             /* Assumption: broken charset in headers is generally either
              * UTF-8 or ISO-8859-1/Windows-1252. Test these charsets
              * first before using default charset. This may be a

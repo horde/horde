@@ -159,6 +159,11 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             break;
         }
 
+        /* Reset the sort direction for system queries. */
+        if ($this->isSystemQuery($ob)) {
+            $ob->mbox_ob->setSort(null, null, true);
+        }
+
         $this->changed = true;
 
         return $ob;

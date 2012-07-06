@@ -40,12 +40,10 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
      * @param string $scope  The scope for this set of preferences.
      * @param array $opts    See Horde_Prefs::__construct().  Additional
      *                       parameters:
-     * <pre>
-     * driver - (boolean) Use this driver instead of the value in the Horde
-     *          config.
-     * driver_params - (array) Use these driver parameters instead of the
-     *                 values in the Horde config.
-     * </pre>
+     *   - driver: (boolean) Use this driver instead of the value in the Horde
+     *             config.
+     *   - driver_params: (array) Use these driver parameters instead of the
+     *                    values in the Horde config.
      *
      * @return Horde_Prefs  The singleton instance.
      */
@@ -73,7 +71,6 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
             'sizecallback' => ((isset($GLOBALS['conf']['prefs']['maxsize'])) ? array($this, 'sizeCallback') : null),
             'user' => ''
         ), $opts);
-        ksort($opts);
 
         /* If $params['user_hook'] is defined, use it to retrieve the value to
          * use for the username. */
@@ -82,7 +79,14 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
             $opts['user'] = call_user_func($params['user_hook'], $opts['user']);
         }
 
-        $sig = hash('md5', serialize($opts));
+        /* To determine signature, don't serialize the logger or size
+         * callback, since they may contain unserializable components. */
+        $sig_opts = array_merge($opts, array(
+            'logger' => get_class($opts['logger']),
+            'sizecallback' => !is_null($opts['sizecallback'])
+        ));
+        ksort($sig_opts);
+        $sig = hash('md5', serialize($sig_opts));
 
         if (isset($this->_instances[$sig])) {
             $this->_instances[$sig]->retrieve($scope);
@@ -99,7 +103,6 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
 
             case 'Horde_Prefs_Storage_Session':
                 $driver = 'Horde_Prefs_Storage_Null';
-                $opts['cache'] = false;
                 break;
 
             case 'Horde_Prefs_Storage_Sql':

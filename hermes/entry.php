@@ -86,9 +86,10 @@ default:
 }
 $form->setCostObjects($vars);
 
-$title = $vars->exists('id') ? _("Edit Time") : _("New Time");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $vars->exists('id') ? _("Edit Time") : _("New Time")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('entry.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

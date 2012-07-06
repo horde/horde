@@ -42,9 +42,9 @@ extends Components_TestCase
         $package = $this->getComponent($tmp_dir);
         $tasks->run(array('NextSentinel'), $package, array('next_version' => '5.0.0-git'));
         $this->assertEquals(
-            '--------
-v5.0-git
---------
+            '----------
+v5.0.0-git
+----------
 
 
 
@@ -56,7 +56,7 @@ TEST',
         );
         $this->assertEquals(
             'class Application {
-public $version = \'5.0-git\';
+public $version = \'5.0.0-git\';
 }
 ',
             file_get_contents($tmp_dir . '/lib/Application.php')
@@ -82,8 +82,8 @@ public $version = \'5.0-git\';
         );
         $this->assertEquals(
             array(
-                sprintf('Would extend sentinel in %s/docs/CHANGES with "5.0-git" now.', $tmp_dir),
-                sprintf('Would replace sentinel in %s/lib/Application.php with "5.0-git" now.', $tmp_dir),
+                sprintf('Would extend sentinel in %s/docs/CHANGES with "5.0.0-git" now.', $tmp_dir),
+                sprintf('Would replace sentinel in %s/lib/Application.php with "5.0.0-git" now.', $tmp_dir),
                 sprintf('Would run "git add %s/docs/CHANGES" now.', $tmp_dir),
                 sprintf('Would run "git add %s/lib/Application.php" now.', $tmp_dir),
                 'Would run "git commit -m "Development mode for Horde-5.0.0"" now.'

@@ -89,13 +89,11 @@ if ($form->validate($vars)) {
             $notification->push(_("Rule Disabled"), 'horde.success');
             $spam_rule['disable'] = true;
         }
+        if ($prefs->getValue('auto_update')) {
+            Ingo::updateScript();
+        }
     } catch (Ingo_Exception $e) {
         $notification->push($result);
-        $success = false;
-    }
-
-    if ($success && $prefs->getValue('auto_update')) {
-        Ingo::updateScript();
     }
 
     /* Update the timestamp for the rules. */
@@ -121,10 +119,12 @@ if (!empty($spam_rule['disable'])) {
 $form_title .= ' ' . Horde_Help::link('ingo', 'spam');
 $form->setTitle($form_title);
 
-$title = _("Spam Filtering");
 $menu = Ingo::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+
+$page_output->header(array(
+    'title' => _("Spam Filtering")
+));
 echo $menu;
 Ingo::status();
 $form->renderActive($renderer, $vars, Horde::url('spam.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

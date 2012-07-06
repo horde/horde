@@ -357,9 +357,9 @@ class Nag
             }
 
             if (isset($task['parent'])) {
-                $newTask = $storage->add($name, '', 0, $due, 3, 0.0, 0, '', 0, null, null, $tasks[$task['parent']]['id']);
+                $newTask = $storage->add(array('name' => $name, 'due' => $due, 'parent' => $tasks[$task['parent']]['id']));
             } else {
-                $newTask = $storage->add($name, '', 0, $due, 3);
+                $newTask = $storage->add(array('name' => $name, 'due' => $due));
             }
             $uids[] = $newTask[1];
             $task['id'] = $newTask[0];
@@ -840,9 +840,19 @@ class Nag
 
     public static function menu()
     {
+        $sidebar = Horde::menu(array('menu_ob' => true))->render();
+        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+        if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
+            ($perms->hasAppPermission('max_tasks') === true ||
+             $perms->hasAppPermission('max_tasks') > Nag::countTasks())) {
+            $sidebar->addNewButton(
+                _("_New Task"),
+                Horde::url('task.php')->add('actionID', 'add_task'));
+        }
         Horde::startBuffer();
         include NAG_TEMPLATES . '/quick.inc';
-        return Horde::menu() . Horde::endBuffer();
+        return $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render()
+            . $sidebar . Horde::endBuffer();
     }
 
     /**

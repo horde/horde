@@ -49,6 +49,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
 
         case '6.0':
             $this->_upgradeComposeCursor();
+            $this->_upgradeInnocentPrefs();
             $this->_upgradeMailboxPrefs();
             $this->_upgradeStationeryToTemplates();
             $this->_upgradeVirtualFolders51();
@@ -476,7 +477,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
     }
 
     /**
-     * Upgrades the 'compose_cursor' preference (IMP 5.1).
+     * Upgrades the 'compose_cursor' preference (IMP 6).
      */
     protected function _upgradeComposeCursor()
     {
@@ -488,7 +489,19 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
     }
 
     /**
-     * As of 5.1, special mailboxes are stored in UTF-8, not UTF7-IMAP.
+     * Upgrades the 'move_ham_after_report' preference (IMP 6).
+     */
+    protected function _upgradeInnocentPrefs()
+    {
+        global $prefs;
+
+        if (!$prefs->isDefault('move_ham_after_report')) {
+            $prefs->setValue('move_innocent_after_report', $prefs->getValue('move_ham_after_report'));
+        }
+    }
+
+    /**
+     * As of IMP 6, special mailboxes are stored in UTF-8, not UTF7-IMAP.
      */
     protected function _upgradeMailboxPrefs()
     {
@@ -519,7 +532,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
     }
 
     /**
-     * For 5.1, upgrade stationery preference -> templates mailbox.
+     * For IMP 6, upgrade stationery preference -> templates mailbox.
      */
     protected function _upgradeStationeryToTemplates()
     {
