@@ -2999,7 +2999,10 @@ var DimpBase = {
             // don't need to parse through them.
             subs = base.ancestors().slice(0, -2).reverse().findAll(function(n) { return n.hasClassName('subfolders'); });
         } else {
-            subs = [ base.up().next('.subfolders') ];
+            if (!base.hasClassName('horde-subnavi')) {
+                base = base.up();
+            }
+            subs = [  base.next('.subfolders') ];
         }
 
         if (!subs) {
@@ -3026,7 +3029,7 @@ var DimpBase = {
             } else if (mode == 'tog') {
                 // Need to pass element here, since we might be working
                 // with 'special' mailboxes.
-                this.setMboxLabel(base.up());
+                this.setMboxLabel(base);
             }
         }
 
