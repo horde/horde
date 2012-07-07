@@ -1,0 +1,69 @@
+=================================
+ Upgrading Horde_Service_Facebook
+=================================
+
+:Contact: dev@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+
+This lists the API changes between releases of the package.
+
+
+Upgrading to 2.0.0
+==================
+
+  - Horde_Service_Facebook_Streams
+
+    - get()
+
+      This method has been removed and replaced by both getWall() and getStream().
+
+    - getComments()
+
+      This method has been removed. Comments are now returned in getWall() and
+      getStream() calls.
+
+    - publish()
+
+      This method has been removed. You should use e.g., post() instead.
+
+    - remove()
+
+      This method was renamed to delete() to match the GraphAPI method name.
+
+    - addComment(), removeComment(), addLike(), removeLike()
+
+      The $uid parameter has been removed since it is no longer possible to
+      post as another user from the GraphAPI.
+
+  - Horde_Service_Facebook_Users
+
+    - hasAppPermission()
+
+      This method has been removed. Use the new getAppPermissions() instead.
+      This returns an array of all application permissions.
+
+    - isAppUser()
+
+      This method has been removed. Use the new getAppPermissions() method
+      instead.
+
+    - getStandardInfo()
+
+      This method has been removed.
+
+    - getInfo()
+
+      This method now only request user info for a single user at a time.
+
+    - isVerified()
+
+      This method has been removed. Use getInfo() instead.
+
+    - setStatus()
+
+      This method was renamed to postStatus() and the $clear and $include_verb
+      parameters have been removed to reflect the current Facebook paradigm.
+

@@ -37,10 +37,8 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
         $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
         $t->set('app_name', $registry->get('name', 'horde'));
-
         // Ensure we have authorized horde.
         try {
-            // @TODO: FB is in the process of adding this to the Graph API.
             $session_uid = $facebook->auth->getLoggedInUser();
             $fbp = unserialize($prefs->getValue('facebook'));
             $uid = $fbp['uid'];
@@ -62,15 +60,10 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
         // We have a session, build the template.
         if (!empty($haveSession)) {
             try {
-                $facebook->batchBegin();
-                $publish = &$facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM, $uid);
-                $read = &$facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_READSTREAM, $uid);
-                $friends = &$facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_ABOUT, $uid);
-                $facebook->batchEnd();
-
-                $t->set('have_publish', $publish);
-                $t->set('have_read', $read);
-                $t->set('have_friends', $friends);
+                $perms = $facebook->users->getAppPermissions();
+                $t->set('have_publish', !empty($perms[Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM]));
+                $t->set('have_read', !empty($perms[Horde_Service_Facebook_Auth::EXTEND_PERMS_READSTREAM]));
+                $t->set('have_friends', !empty($perms[Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_ABOUT]));
             } catch (Horde_Service_Facebook_Exception $e) {
                 $notification->push($e->getMessage(), 'horde.error');
             }

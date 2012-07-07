@@ -136,9 +136,16 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
                 Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        return $this->_facebook->callMethod(
-            'Auth.revokeExtendedPermission', array('perm' => $perm));
+        $request = new Horde_Service_Facebook_Request_Graph(
+            $this->_facebook, 'me/permissions',
+            array('permission' => $perm),
+            array('request' => 'DELETE'));
 
+        $result = $request->run();
+        var_dump($result);
+        return $result;
+
+        return $request->run();
     }
 
     /**
@@ -147,7 +154,7 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
      * @throws Horde_Service_Facebook_Exception
      * @return string User id
      */
-    public function &getLoggedInUser()
+    public function getLoggedInUser()
     {
         if (empty($this->_sessionKey)) {
             throw new Horde_Service_Facebook_Exception(

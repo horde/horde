@@ -1434,6 +1434,7 @@ a.contextSelected:hover {
     padding: 2px 0 0;
     font-style: italic;
     font-size: 90%;
+    margin-left: 78px;
 }
 .hordeSmGetmore {
     text-align: center;

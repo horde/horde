@@ -203,9 +203,8 @@ class Horde_Service_Facebook
         $this->_logger->debug('Starting batch operation');
         if ($this->_batchRequest !== null) {
             $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_ALREADY_STARTED;
-            $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
-            $this->_logger->err($description);
-            throw new Horde_Service_Facebook_Exception($description, $code);
+            $this->_logger->err($code);
+            throw new Horde_Service_Facebook_Exception($code);
         }
 
         $this->_batchRequest = new Horde_Service_Facebook_BatchRequest($this);
@@ -219,13 +218,14 @@ class Horde_Service_Facebook
         $this->_logger->debug('Ending batch operation');
         if ($this->_batchRequest === null) {
             $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_NOT_STARTED;
-            $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
-            $this->_logger->err($description);
-            throw new Horde_Service_Facebook_Exception($description, $code);
+            $this->_logger->err($code);
+            throw new Horde_Service_Facebook_Exception($$code);
         }
 
-        $this->_batchRequest->run();
+        $results = $this->_batchRequest->run();
         $this->_batchRequest = null;
+
+        return $results;
     }
 
     /**
@@ -249,6 +249,18 @@ class Horde_Service_Facebook
         }
 
         return $results;
+    }
+
+
+    public function callGraphApi($method = '', array $params = array(), array $options = array())
+    {
+        $request = new Horde_Service_Facebook_Request_Graph(
+            $this,
+            $method,
+            $params,
+            $options);
+
+        return $request->run();
     }
 
     /**

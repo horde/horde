@@ -14,7 +14,7 @@
  <time>23:59:39</time>
  <version>
   <release>2.0.0beta1</release>
-  <api>1.0.0</api>
+  <api>2.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-*
+* [mjr] Update API to use the Graph API wherever possible.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -666,14 +666,14 @@
   <release>
    <version>
     <release>2.0.0beta1</release>
-    <api>1.0.0</api></version>
+    <api>2.0.0</api></version>
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
    <date>2012-07-05</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-*
+* [mjr] Update API to use the Graph API wherever possible.
    </notes>
   </release>
  </changelog>
