@@ -19,6 +19,7 @@ class Horde_Service_Facebook_Request_Graph extends Horde_Service_Facebook_Reques
         $facebook, $method = '', array $params = array(), array $options = array())
     {
         parent::__construct($facebook, $method, $params);
+
         $this->_endpoint = $facebook->getFacebookUrl('graph');
         if (!empty($options['request'])) {
             $this->_request = $options['request'];
@@ -41,6 +42,7 @@ class Horde_Service_Facebook_Request_Graph extends Horde_Service_Facebook_Reques
         } else {
             $params = $this->_params;
         }
+
         try {
             $result = $this->_http->request($this->_request, $url->toString(true), $params);
         } catch (Horde_Http_Client_Exception $e) {

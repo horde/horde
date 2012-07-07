@@ -13,19 +13,9 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
     /**
      * Get a user's wall stream
      *
-     * Note: This requires the READ_STREAM extended permission to be added for
-     *       the application.
-     *
-     * @param string $uid  The user id or page id of the page whose stream
-     *                     to read.
-     * @param array     $sourceIds
-     * @param timestamp $start
-     * @param timestamp $end
-     * @param integer   $limit
-     * @param string    $filterKey
+     * @param string $uid  The user id.
      *
      * @return mixed Method call results.
-     * @deprecated by the Graph API
      */
     public function getWall($uid = '')
     {
