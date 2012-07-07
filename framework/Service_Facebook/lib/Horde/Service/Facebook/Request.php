@@ -55,26 +55,24 @@ class Horde_Service_Facebook_Request
     /**
      * Run this request and return the data.
      *
-     * @return mixed Either raw JSON, or an array of decoded values.
+     * @return array  The results of the request.
+     *
      * @throws Horde_Service_Facebook_Exception
      */
     public function &run()
     {
         $data = $this->_postRequest($this->_method, $this->_params);
-        switch ($this->_facebook->dataFormat) {
-        case Horde_Service_Facebook::DATA_FORMAT_JSON:
-            return $data;
-        case Horde_Service_Facebook::DATA_FORMAT_ARRAY:
-            if (defined('JSON_BIGINT_AS_STRING')) {
-                $result = json_decode($data, true, constant('JSON_BIGINT_AS_STRING'));
+
+        if (defined('JSON_BIGINT_AS_STRING')) {
+            $result = json_decode($data, true, constant('JSON_BIGINT_AS_STRING'));
+        } else {
+            if (is_numeric($data)) {
+                $result = $data;
             } else {
-                if (is_numeric($data)) {
-                    $result = $data;
-                } else {
-                    $result = json_decode($data, true);
-                }
+                $result = json_decode($data, true);
             }
         }
+
         if (is_array($result) && isset($result['error_code'])) {
             throw new Horde_Service_Facebook_Exception($result['error_msg'], $result['error_code']);
         }
@@ -137,11 +135,7 @@ class Horde_Service_Facebook_Request
     protected function _addStandardParams(&$params)
     {
         $params['access_token'] = $this->_facebook->auth->getSessionKey();
-        if ($this->_facebook->dataFormat == Horde_Service_Facebook::DATA_FORMAT_ARRAY) {
-            $params['format'] = $this->_facebook->internalFormat;
-        } else {
-            $params['format'] = $this->_facebook->dataFormat;
-        }
+        $params['format'] = 'json';
         if (!isset($params['v'])) {
             $params['v'] = '1.0';
         }

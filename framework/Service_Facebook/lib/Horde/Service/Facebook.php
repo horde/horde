@@ -82,12 +82,6 @@ class Horde_Service_Facebook
      */
     protected $_http;
 
-    /**
-     * Return format
-     *
-     * @var Horde_Service_Facebook::DATA_FORMAT_* constant
-     */
-    public $dataFormat = self::DATA_FORMAT_ARRAY;
 
     /**
      * Cache for the various objects we lazy load in __get()
@@ -100,13 +94,6 @@ class Horde_Service_Facebook
     const API_VALIDATION_ERROR = 1;
     const REST_SERVER_ADDR = 'https://api.facebook.com/method/';
     const GRAPH_SERVER_ADDR = 'https://graph.facebook.com';
-
-    /**
-     * Data format returned to client code.
-     */
-    const DATA_FORMAT_JSON = 'json';
-    const DATA_FORMAT_XML = 'xml';
-    const DATA_FORMAT_ARRAY = 'array';
 
     /**
      * Const'r
@@ -158,8 +145,6 @@ class Horde_Service_Facebook
     {
         // First, see if it's an allowed protected value.
         switch ($value) {
-        case 'internalFormat':
-            return self::DATA_FORMAT_JSON;
         case 'appId':
             return $this->_appId;
         case 'secret':
