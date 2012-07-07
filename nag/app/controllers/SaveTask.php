@@ -43,6 +43,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
         if (!empty($info['task_id']) && !empty($info['old_tasklist'])) {
             $storage = Nag_Driver::singleton($info['old_tasklist']);
             $info['tasklist'] = $info['tasklist_id'];
+            $info['category'] = $info['category']['value'];
             $result = $storage->modify($info['task_id'], $info);
         } else {
             /* Check permissions. */
