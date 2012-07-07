@@ -32,8 +32,8 @@ class WickedSingleRevisions extends Horde_Db_Migration_Base
     {
         /* Pages */
         $this->removePrimaryKey('wicked_history');
-        $this->addColumn('wicked_pages', 'page_version', 'integer', array('null' => false));
-        $this->addColumn('wicked_history', 'page_version', 'integer', array('null' => false));
+        $this->addColumn('wicked_pages', 'page_version', 'integer', array('null' => false, 'default' => 0));
+        $this->addColumn('wicked_history', 'page_version', 'integer', array('null' => false, 'default' => 0));
 
         $id = $version = null;
         $query = 'UPDATE wicked_history SET page_version = ? WHERE '
@@ -67,8 +67,8 @@ class WickedSingleRevisions extends Horde_Db_Migration_Base
 
         /* Attachments */
         $this->removePrimaryKey('wicked_attachment_history');
-        $this->addColumn('wicked_attachments', 'attachment_version', 'integer', array('null' => false));
-        $this->addColumn('wicked_attachment_history', 'attachment_version', 'integer', array('null' => false));
+        $this->addColumn('wicked_attachments', 'attachment_version', 'integer', array('null' => false, 'default' => 0));
+        $this->addColumn('wicked_attachment_history', 'attachment_version', 'integer', array('null' => false, 'default' => 0));
 
         $id = $name = $version = null;
         $query = 'UPDATE wicked_attachment_history SET attachment_version = ? '
