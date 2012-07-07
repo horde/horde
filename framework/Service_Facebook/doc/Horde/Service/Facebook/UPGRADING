@@ -47,6 +47,14 @@ Batch processing has been removed until it can be ported to the Graph API.
 
       This method has been removed.
 
+  - Horde_Service_Facebook_Notifications
+
+    - send(), sendEmail()
+
+      These methods have been removed since they are no longer supported by
+      Facebook. The get() method is still supported, but is not yet available
+      in the Graph API so it is left untouched.
+
   - Horde_Service_Facebook_Streams
 
     - get()
