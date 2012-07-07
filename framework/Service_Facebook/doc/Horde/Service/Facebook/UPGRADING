@@ -38,6 +38,10 @@ Upgrading to 2.0.0
       The $uid parameter has been removed since it is no longer possible to
       post as another user from the GraphAPI.
 
+    - getFilters()
+
+      The $uid paramter is now required.
+
   - Horde_Service_Facebook_Users
 
     - hasAppPermission()
