@@ -45,10 +45,8 @@ class Horde_Block_FbStream extends Horde_Core_Block
     {
         $filters = array();
         if (!empty($this->_fbp['sid'])) {
-            $fql = 'SELECT filter_key, name FROM stream_filter WHERE uid="'
-                . $this->_fbp['uid'] . '"';
             try {
-                $stream_filters = $this->_facebook->fql->run($fql);
+                $stream_filters = $this->_facebook->streams->getFilters($this->_fbp['uid']);
                 foreach ($stream_filters as $filter) {
                     $filters[$filter['filter_key']] = $filter['name'];
                 }
