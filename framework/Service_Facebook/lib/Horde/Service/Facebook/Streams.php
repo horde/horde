@@ -71,8 +71,6 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
     /**
      * Get a user's stream filter.
      *
-     * http://wiki.developers.facebook.com/index.php/Stream.getFilters
-     *
      * @param integer $uid  The user id of whose filters we are requesting.
      *
      * @return array of filter data.

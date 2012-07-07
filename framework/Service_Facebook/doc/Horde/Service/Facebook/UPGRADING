@@ -14,6 +14,27 @@ This lists the API changes between releases of the package.
 Upgrading to 2.0.0
 ==================
 
+  - Horde_Service_Facebook_Events
+
+    - get()
+
+      This method now takes a parameter array in place of numerous default
+      parameters.
+
+    - getMembers()
+
+      This method now returns an array of objects representing all invited users
+      in place of separate arrays for each rsvp_status type.
+
+    - create()
+
+      This method now requires a $uid parameter.
+
+    - edit()
+
+      This method has been removed since Facebook no longer allows editng user
+      events via the API.
+
   - Horde_Service_Facebook_Streams
 
     - get()
