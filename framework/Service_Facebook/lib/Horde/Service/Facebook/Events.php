@@ -117,7 +117,7 @@
      */
     public function rsvp($eid, $rsvp)
     {
-        if (!in_array($rsvp, array('attending', 'maybe', or 'declined'))) {
+        if (!in_array($rsvp, array('attending', 'maybe', 'declined'))) {
             throw InvalidArgumentException();
         }
 
