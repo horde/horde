@@ -299,7 +299,7 @@ var HordeCore = {
                         className: m.type.replace('.', '-'),
                         life: (m.type == 'horde.error' ? 12 : 8),
                         log: 1,
-                        sticky: m.flags.include('sticky')
+                        sticky: m.flags && m.flags.include('sticky')
                     }
                 );
                 break;
