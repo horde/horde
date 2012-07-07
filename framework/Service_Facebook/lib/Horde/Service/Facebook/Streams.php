@@ -77,21 +77,18 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
      *
      * @return array of filter data.
      */
-    public function getFilters($uid = '')
+    public function getFilters($uid)
     {
-        if (empty($uid) && !$this->_facebook->auth->getSessionKey()) {
+        if (empty($uid) || !$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception(
-                'Streams.getFilters requires either a uid or a session_key',
+                'Streams.getFilters requires a uid and a session_key',
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
 
-        if (!empty($uid)) {
-            $params = array('uid' => $uid);
-        } else {
-            $params = array();
-        }
+        $fql = 'SELECT filter_key, name FROM stream_filter WHERE uid="'
+                . $uid . '"';
 
-        return $this->_facebook->callMethod('Streams.getFilters', $params);
+        return $this->_facebook->fql->run($fql);
     }
 
     /**
