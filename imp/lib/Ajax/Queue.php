@@ -106,9 +106,8 @@ class IMP_Ajax_Queue
                         'preview' => $val['preview']
                     ));
                     $msg->save_as = strval($msg->save_as);
+                    $messages[] = $msg;
                 } catch (Exception $e) {}
-
-                $messages[] = $msg;
             }
 
             $ajax->addTask('message', $messages);
