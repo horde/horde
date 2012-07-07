@@ -37,6 +37,16 @@ Batch processing has been removed until it can be ported to the Graph API.
       This method has been removed since Facebook no longer allows editng user
       events via the API.
 
+  - Horde_Service_Facebook_Notes
+
+    - delete()
+
+      This method no longer takes a $uid argument.
+
+    - edit()
+
+      This method has been removed.
+
   - Horde_Service_Facebook_Streams
 
     - get()
