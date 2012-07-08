@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-05</date>
- <time>23:59:39</time>
+ <date>2012-07-08</date>
+ <time>11:50:41</time>
  <version>
   <release>2.0.0beta1</release>
   <api>2.0.0</api>
@@ -32,6 +32,7 @@
       <dir name="Facebook">
        <file name="COPYING" role="doc" />
        <file name="facebook_example.php" role="doc" />
+       <file name="UPGRADING" role="doc" />
       </dir> <!-- /doc/Horde/Service/Facebook -->
      </dir> <!-- /doc/Horde/Service -->
     </dir> <!-- /doc/Horde -->
@@ -41,11 +42,12 @@
      <dir name="Service">
       <dir name="Facebook">
        <dir name="Request">
+        <file name="Base.php" role="php" />
         <file name="Graph.php" role="php" />
+        <file name="Rest.php" role="php" />
        </dir> <!-- /lib/Horde/Service/Facebook/Request -->
        <file name="Auth.php" role="php" />
        <file name="Base.php" role="php" />
-       <file name="BatchRequest.php" role="php" />
        <file name="ErrorCodes.php" role="php" />
        <file name="Events.php" role="php" />
        <file name="Exception.php" role="php" />
@@ -56,12 +58,10 @@
        <file name="Notes.php" role="php" />
        <file name="Notifications.php" role="php" />
        <file name="Photos.php" role="php" />
-       <file name="Request.php" role="php" />
        <file name="Streams.php" role="php" />
        <file name="Translation.php" role="php">
         <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
        </file>
-       <file name="UploadRequest.php" role="php" />
        <file name="Users.php" role="php" />
        <file name="Videos.php" role="php" />
       </dir> <!-- /lib/Horde/Service/Facebook -->
@@ -380,10 +380,10 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Service/Facebook/COPYING" />
    <install as="facebook_example.php" name="doc/Horde/Service/Facebook/facebook_example.php" />
+   <install as="UPGRADING" name="doc/Horde/Service/Facebook/UPGRADING" />
    <install as="Horde/Service/Facebook.php" name="lib/Horde/Service/Facebook.php" />
    <install as="Horde/Service/Facebook/Auth.php" name="lib/Horde/Service/Facebook/Auth.php" />
    <install as="Horde/Service/Facebook/Base.php" name="lib/Horde/Service/Facebook/Base.php" />
-   <install as="Horde/Service/Facebook/BatchRequest.php" name="lib/Horde/Service/Facebook/BatchRequest.php" />
    <install as="Horde/Service/Facebook/ErrorCodes.php" name="lib/Horde/Service/Facebook/ErrorCodes.php" />
    <install as="Horde/Service/Facebook/Events.php" name="lib/Horde/Service/Facebook/Events.php" />
    <install as="Horde/Service/Facebook/Exception.php" name="lib/Horde/Service/Facebook/Exception.php" />
@@ -394,13 +394,13 @@
    <install as="Horde/Service/Facebook/Notes.php" name="lib/Horde/Service/Facebook/Notes.php" />
    <install as="Horde/Service/Facebook/Notifications.php" name="lib/Horde/Service/Facebook/Notifications.php" />
    <install as="Horde/Service/Facebook/Photos.php" name="lib/Horde/Service/Facebook/Photos.php" />
-   <install as="Horde/Service/Facebook/Request.php" name="lib/Horde/Service/Facebook/Request.php" />
    <install as="Horde/Service/Facebook/Streams.php" name="lib/Horde/Service/Facebook/Streams.php" />
    <install as="Horde/Service/Facebook/Translation.php" name="lib/Horde/Service/Facebook/Translation.php" />
-   <install as="Horde/Service/Facebook/UploadRequest.php" name="lib/Horde/Service/Facebook/UploadRequest.php" />
    <install as="Horde/Service/Facebook/Users.php" name="lib/Horde/Service/Facebook/Users.php" />
    <install as="Horde/Service/Facebook/Videos.php" name="lib/Horde/Service/Facebook/Videos.php" />
+   <install as="Horde/Service/Facebook/Request/Base.php" name="lib/Horde/Service/Facebook/Request/Base.php" />
    <install as="Horde/Service/Facebook/Request/Graph.php" name="lib/Horde/Service/Facebook/Request/Graph.php" />
+   <install as="Horde/Service/Facebook/Request/Rest.php" name="lib/Horde/Service/Facebook/Request/Rest.php" />
    <install as="locale/Horde_Service_Facebook.pot" name="locale/Horde_Service_Facebook.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Service_Facebook.mo" name="locale/ar/LC_MESSAGES/Horde_Service_Facebook.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Service_Facebook.po" name="locale/ar/LC_MESSAGES/Horde_Service_Facebook.po" />
@@ -668,9 +668,9 @@
     <release>2.0.0beta1</release>
     <api>2.0.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>alpha</release>
     <api>stable</api></stability>
-   <date>2012-07-05</date>
+   <date>2012-07-08</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Update API to use the Graph API wherever possible.
