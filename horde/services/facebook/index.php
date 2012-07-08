@@ -13,6 +13,95 @@
 require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
+function build_post($post, $uid)
+{
+    global $facebook;
+
+    $postView = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
+    $postView->actorImgUrl = $facebook->users->getThumbnail($post->from->id);
+    $postView->actorProfileLink = Horde::externalUrl(
+        $facebook->users->getProfileLink($post->from->id), true);
+    $postView->actorName = $post->from->name;
+    $postView->message = empty($post->message) ? '' : $post->message;
+    $postView->likes = $post->likes->count;
+    $postView->postId = $post->id;
+    $postView->postInfo = sprintf(
+        _("Posted %s"),
+        Horde_Date_Utils::relativeDateTime(
+            $post->created_time,
+            $GLOBALS['prefs']->getValue('date_format'),
+            $GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M %P" : "%I %M %P"))
+        . ' ' . sprintf(_("Comments: %d"), $post->comments->count);
+
+    $postView->type = $post->type;
+    if (!empty($post->picture)) {
+        $postView->attachment = new stdClass();
+        $postView->attachment->image = $post->picture;
+        if (!empty($post->link)) {
+            $postView->attachment->link = Horde::externalUrl($post->link, true);
+        }
+        if (!empty($post->name)) {
+            $postView->attachment->name = $post->name;
+        }
+        if (!empty($post->caption)) {
+            $postView->attachment->caption = $post->caption;
+        }
+        if (!empty($post->icon)) {
+            $postView->icon = $post->icon;
+        }
+        if (!empty($post->description)) {
+            $postView->attachment->description = $post->description;
+        }
+    }
+    if (!empty($post->place)) {
+        $postView->place = array(
+            'name' => $post->place->name,
+            'link' => Horde::externalUrl($facebook->getFacebookUrl() . '/' . $post->place->id, true),
+            'location' => $post->place->location
+        );
+    }
+    if (!empty($post->with_tags)) {
+        $postView->with = array();
+        foreach ($post->with_tags->data as $with) {
+            $postView->with[] = array(
+                'name' => $with->name,
+                'link' => Horde::externalUrl($facebook->users->getProfileLink($with->id), true)
+            );
+        }
+    }
+
+    // Actions
+    $like = '';
+    foreach ($post->actions as $availableAction) {
+        if ($availableAction->name == 'Like') {
+            $like = '<a href="#" onclick="Horde[\'' . $instance . '_facebook\'].addLike(\'' . $post->id . '\');return false;">' . _("Like") . '</a>';
+        }
+    }
+    $likes = '';
+    if ($post->likes->count) {
+        foreach ($post->likes->data as $likeData) {
+            if ($likeData->id == $uid &&
+                $post->likes->count > 1) {
+                $likes = sprintf(ngettext("You and %d other person likes this", "You and %d other people like this", $post->likes->count - 1), $post->likes->count - 1);
+                break;
+            } elseif ($likeData->id == $uid) {
+                $likes = _("You like this");
+                break;
+            }
+        }
+        if (empty($likes)) {
+            $likes = sprintf(ngettext("%d person likes this", "%d persons like this", $post->likes->count), $post->likes->count) . (!empty($like) ? ' ' . $like : '');
+        } else {
+            $likes = $likes . !empty($like) ? ' ' . $like : '';
+        }
+    } else {
+        $likes = $like;
+    }
+    $postView->likesInfo = $likes;
+
+    return $postView->render('facebook_story');
+}
+
 // Get the facebook client.
 try {
     $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
@@ -115,82 +204,7 @@ if ($action = Horde_Util::getPost('actionID')) {
         $html = '';
         $uid = $facebook->auth->getLoggedInUser();
         foreach ($posts as $post) {
-            $postView = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
-            $postView->actorImgUrl = $facebook->users->getThumbnail($post->from->id);
-            $postView->actorProfileLink =  Horde::externalUrl($facebook->users->getProfileLink($post->from->id), true);
-            $postView->actorName = $post->from->name;
-            $postView->message = empty($post->message) ? '' : $post->message;
-            $postView->likes = $post->likes->count;
-            $postView->postId = $post->id;
-            $postView->postInfo = sprintf(_("Posted %s"), Horde_Date_Utils::relativeDateTime($post->created_time, $GLOBALS['prefs']->getValue('date_format'), $GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M %P" : "%I %M %P")) . ' ' . sprintf(_("Comments: %d"), $post->comments->count);
-            $postView->type = $post->type;
-
-            if (!empty($post->picture)) {
-                $postView->attachment = new stdClass();
-                $postView->attachment->image = $post->picture;
-                if (!empty($post->link)) {
-                    $postView->attachment->link = Horde::externalUrl($post->link, true);
-                }
-                if (!empty($post->name)) {
-                    $postView->attachment->name = $post->name;
-                }
-                if (!empty($post->caption)) {
-                    $postView->attachment->caption = $post->caption;
-                }
-                if (!empty($post->icon)) {
-                    $postView->icon = $post->icon;
-                }
-                if (!empty($post->description)) {
-                    $postView->attachment->description = $post->description;
-                }
-            }
-            if (!empty($post->place)) {
-                $postView->place = array(
-                    'name' => $post->place->name,
-                    'link' => Horde::externalUrl($facebook->getFacebookUrl() . '/' . $post->place->id, true),
-                    'location' => $post->place->location
-                );
-            }
-            if (!empty($post->with_tags)) {
-                $postView->with = array();
-                foreach ($post->with_tags->data as $with) {
-                    $postView->with[] = array(
-                        'name' => $with->name,
-                        'link' => Horde::externalUrl($facebook->users->getProfileLink($with->id), true)
-                    );
-                }
-            }
-
-            // Actions
-            $like = '';
-            foreach ($post->actions as $availableAction) {
-                if ($availableAction->name == 'Like') {
-                    $like = '<a href="#" onclick="Horde[\'' . $instance . '_facebook\'].addLike(\'' . $post->id . '\');return false;">' . _("Like") . '</a>';
-                }
-            }
-            $likes = '';
-            if ($post->likes->count) {
-                foreach ($post->likes->data as $likeData) {
-                    if ($likeData->id == $uid &&
-                        $post->likes->count > 1) {
-                        $likes = sprintf(ngettext("You and %d other person likes this", "You and %d other people like this", $post->likes->count - 1), $post->likes->count - 1);
-                        break;
-                    } elseif ($likeData->id == $uid) {
-                        $likes = _("You like this");
-                        break;
-                    }
-                }
-                if (empty($likes)) {
-                    $likes = sprintf(ngettext("%d person likes this", "%d persons like this", $post->likes->count), $post->likes->count) . (!empty($like) ? ' ' . $like : '');
-                } else {
-                    $likes = $likes . !empty($like) ? ' ' . $like : '';
-                }
-            } else {
-                $likes = $like;
-            }
-
-            $postView->likesInfo = $likes;
-            $html .= $postView->render('facebook_story');
+            $html .= build_post($post, $uid);
         }
 
         /* Build response structure */
@@ -207,8 +221,10 @@ if ($action = Horde_Util::getPost('actionID')) {
     case 'updateStatus':
         // This is an AJAX action, so just echo the result and return.
         $status = Horde_Util::getPost('statusText');
-        if ($facebook->users->postStatus($status)) {
-            echo htmlspecialchars($status);
+        if ($results = $facebook->streams->post('me', $status)) {
+            $uid = $facebook->auth->getLoggedInUser();
+            echo build_post($facebook->streams->getPost($results), $uid);
+            exit;
         } else {
             echo _("Status unable to be set.");
         }
