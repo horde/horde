@@ -38,7 +38,7 @@ class Horde_Service_Facebook_Videos extends Horde_Service_Facebook_Base
 
         // Build the data to send.
         $data = array(
-            'message' => empty($params['caption']) ? '' : $params['caption'];
+            'message' => empty($params['caption']) ? '' : $params['caption']
         );
 
         $uid = empty($params['uid']) ? 'me/videos' : $params['uid'] . '/videos';
