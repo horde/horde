@@ -1429,6 +1429,10 @@ a.contextSelected:hover {
 .hordeSmStreambody {
     min-height: 70px;
 }
+.hordeSmStreamMessage {
+    margin-top: 7px;
+    margin-left: 78px;
+}
 .hordeSmStreaminfo {
     color: #777777;
     padding: 2px 0 0;

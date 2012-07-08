@@ -125,24 +125,40 @@ if ($action = Horde_Util::getPost('actionID')) {
             $postView->postInfo = sprintf(_("Posted %s"), Horde_Date_Utils::relativeDateTime($post->created_time, $GLOBALS['prefs']->getValue('date_format'), $GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M %P" : "%I %M %P")) . ' ' . sprintf(_("Comments: %d"), $post->comments->count);
             $postView->type = $post->type;
 
-            $postView->attachment = new stdClass();
-            if (!empty($post->link)) {
-                $postView->attachment->link = $post->link;
-            }
-            if (!empty($post->name)) {
-                $postView->attachment->name = $post->name;
-            }
-            if (!empty($post->caption)) {
-                $postView->attachment->caption = $post->caption;
-            }
             if (!empty($post->picture)) {
+                $postView->attachment = new stdClass();
                 $postView->attachment->image = $post->picture;
+                if (!empty($post->link)) {
+                    $postView->attachment->link = Horde::externalUrl($post->link, true);
+                }
+                if (!empty($post->name)) {
+                    $postView->attachment->name = $post->name;
+                }
+                if (!empty($post->caption)) {
+                    $postView->attachment->caption = $post->caption;
+                }
+                if (!empty($post->icon)) {
+                    $postView->icon = $post->icon;
+                }
+                if (!empty($post->description)) {
+                    $postView->attachment->description = $post->description;
+                }
             }
-            if (!empty($post->icon)) {
-                $postView->icon = $post->icon;
+            if (!empty($post->place)) {
+                $postView->place = array(
+                    'name' => $post->place->name,
+                    'link' => Horde::externalUrl($facebook->getFacebookUrl() . '/' . $post->place->id, true),
+                    'location' => $post->place->location
+                );
             }
-            if (!empty($post->description)) {
-                $postView->attachment->description = $post->description;
+            if (!empty($post->with_tags)) {
+                $postView->with = array();
+                foreach ($post->with_tags->data as $with) {
+                    $postView->with[] = array(
+                        'name' => $with->name,
+                        'link' => Horde::externalUrl($facebook->users->getProfileLink($with->id), true)
+                    );
+                }
             }
 
             // Actions
