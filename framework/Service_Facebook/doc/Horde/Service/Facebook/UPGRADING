@@ -62,6 +62,13 @@ Batch processing has been removed until it can be ported to the Graph API.
       Facebook. The get() method is still supported, but is not yet available
       in the Graph API so it is left untouched.
 
+  - Horde_Service_Facebook_Photos
+
+    - upload()
+
+      This method now takes a parameter array in place of multiple, optional
+      parameters.
+
   - Horde_Service_Facebook_Streams
 
     - get()
