@@ -61,4 +61,12 @@ abstract class Horde_Service_Facebook_Request_Base
      */
     abstract public function run();
 
+    /**
+     * Perform a multipart/form-data upload.
+     *
+     * @param array $options  An options array:
+     *   - params: (array) Form parameters to pass
+     *   - file: (string) Local path to the file
+     */
+    abstract public function upload(array $options = array());
 }

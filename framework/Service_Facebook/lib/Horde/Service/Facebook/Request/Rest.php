@@ -39,6 +39,18 @@ class Horde_Service_Facebook_Request_Rest extends Horde_Service_Facebook_Request
     }
 
     /**
+     * Perform a multipart/form-data upload.
+     *
+     * @param array $options  An options array:
+     *   - params: (array) Form parameters to pass
+     *   - file: (string) Local path to the file
+     */
+    public function upload(array $options = array())
+    {
+        throw new Horde_Service_Facebook_Exception('Deprecated');
+    }
+
+    /**
      * Send a POST request
      *
      * @param string $method  The method to call.
