@@ -10,6 +10,19 @@
  */
 class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
 {
+
+    /**
+     * Get a specific post.
+     *
+     * @param string  The post UID.
+     *
+     * @return object  The post object.
+     */
+    public function getPost($uid)
+    {
+        return $this->_facebook->callGraphApi($uid);
+    }
+
     /**
      * Get a user's wall stream
      *
@@ -104,15 +117,17 @@ class Horde_Service_Facebook_Streams extends Horde_Service_Facebook_Base
      *                       in the user's photo albums to use as the thumbnail
      *                       image. User must be the owner of the photo.
      *
-     * @return boolean
+     * @return string  The UID of the new post.
      */
     public function post($uid, $message, array $options = array())
     {
         $options['message'] = $message;
-        return $this->_facebook->callGraphApi(
+        $results = $this->_facebook->callGraphApi(
             $uid . '/feed',
             $options,
             array('request' => 'POST'));
+
+        return $results->id;
     }
 
     /**

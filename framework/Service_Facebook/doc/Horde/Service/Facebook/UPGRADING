@@ -123,6 +123,9 @@ Batch processing has been removed until it can be ported to the Graph API.
 
     - setStatus()
 
-      This method was renamed to postStatus() and the $clear and $include_verb
-      parameters have been removed to reflect the current Facebook paradigm.
+      This method was removed. Use the Horde_Service_Facebook_Streams::post
+      method instead.
 
+    - getStatus()
+
+      This method was removed.
