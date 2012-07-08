@@ -210,31 +210,4 @@ class Horde_Service_Facebook
         return $request->run();
     }
 
-    /**
-     * Calls the specified file-upload POST method with the specified parameters
-     *
-     * @param string $method Name of the Facebook method to invoke
-     * @param array  $params A map of param names => param values
-     * @param string $file   A path to the file to upload (required)
-     *
-     * @return array A dictionary representing the response.
-     */
-    public function callUploadMethod($method, $params, $file)
-    {
-        if (!file_exists($file)) {
-            $code = Horde_Service_Facebook_ErrorCodes::API_EC_PARAM;
-            $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
-            throw new Horde_Service_Facebook_Exception($description, $code);
-        }
-
-        $request = new Horde_Service_Facebook_UploadRequest($this, $method, $file, $params);
-        $result = $request->run();
-        $result = json_decode($result, true);
-        if (is_array($result) && isset($result['error_code'])) {
-            throw new Horde_Service_Facebook_Exception($result['error_msg'], $result['error_code']);
-        }
-
-        return $result;
-    }
-
 }

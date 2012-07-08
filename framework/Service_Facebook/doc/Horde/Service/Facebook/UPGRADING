@@ -16,6 +16,13 @@ Upgrading to 2.0.0
 
 Batch processing has been removed until it can be ported to the Graph API.
 
+  - Horde_Service_Facebook
+
+    - callUploadMethod()
+
+      This method has been removed. You should use the upload method of the
+      request object directly.
+
   - Horde_Service_Facebook_Events
 
     - get()
