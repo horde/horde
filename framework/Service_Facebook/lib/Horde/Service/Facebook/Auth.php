@@ -136,16 +136,11 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
                 Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        $request = new Horde_Service_Facebook_Request_Graph(
-            $this->_facebook, 'me/permissions',
+        return $this->_facebook->callGraphApi(
+            'me/permissions',
             array('permission' => $perm),
-            array('request' => 'DELETE'));
-
-        $result = $request->run();
-        var_dump($result);
-        return $result;
-
-        return $request->run();
+            array('request' => 'DELETE')
+        );
     }
 
     /**
@@ -162,8 +157,7 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
 
-        $request = new Horde_Service_Facebook_Request_Graph($this->_facebook, 'me');
-        $results = $request->run();
+        $results = $this->_facebook->callGraphApi('me');
         return $results->id;
     }
 
