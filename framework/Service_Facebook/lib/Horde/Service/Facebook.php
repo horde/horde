@@ -174,7 +174,7 @@ class Horde_Service_Facebook
     }
 
     /**
-     * Calls the specified normal POST method with the specified parameters.
+     * Calls the specified normal REST API method.
      *
      * @param string $method  Name of the Facebook method to invoke
      * @param array $params   A map of param names => param values
@@ -184,7 +184,7 @@ class Horde_Service_Facebook
     public function callMethod($method, array $params = array())
     {
         $this->_logger->debug(sprintf('Calling method %s with parameters %s', $method, print_r($params, true)));
-        $request = new Horde_Service_Facebook_Request($this, $method, $params);
+        $request = new Horde_Service_Facebook_Request_Rest($this, $method, $params);
         return $request->run();
     }
 
@@ -193,11 +193,13 @@ class Horde_Service_Facebook
      *
      * @param string $method  The endpoint (method) to call.
      * @param array $params   An array of parameters to pass along with the call.
-     * @param array $options  Additional request options. E.g., 'request' => 'POST'
+     * @param array $options  Additional request options:
+     *   - request: (string) 'POST', 'GET', 'DELETE' etc..
      *
      * @return mixed  The results of the API call.
      */
-    public function callGraphApi($method = '', array $params = array(), array $options = array())
+    public function callGraphApi(
+        $method = '', array $params = array(), array $options = array())
     {
         $request = new Horde_Service_Facebook_Request_Graph(
             $this,

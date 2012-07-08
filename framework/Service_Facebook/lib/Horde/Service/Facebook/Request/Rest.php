@@ -8,50 +8,8 @@
  * @category Horde
  * @package Service_Facebook
  */
-class Horde_Service_Facebook_Request
+class Horde_Service_Facebook_Request_Rest extends Horde_Service_Facebook_Request_Base
 {
-    /**
-     *
-     * @var Horde_Service_Facebook
-     */
-    protected $_facebook;
-
-    /**
-     *
-     * @var Horde_Http_Client
-     */
-    protected $_http;
-
-    /**
-     * The current method being processed.
-     *
-     * @var string
-     */
-    protected $_method;
-
-    /**
-     * The method parameters for the current method call.
-     *
-     * @var array
-     */
-    protected $_params;
-
-    /**
-     * Const'r
-     *
-     * @param Horde_Service_Facebook $facebook
-     * @param string                 $method
-     * @param array                  $params
-     *
-     */
-    public function __construct($facebook, $method, array $params = array())
-    {
-        $this->_facebook = $facebook;
-        $this->_http = $facebook->http;
-        $this->_method = $method;
-        $this->_params = $params;
-    }
-
     /**
      * Run this request and return the data.
      *
@@ -59,7 +17,7 @@ class Horde_Service_Facebook_Request
      *
      * @throws Horde_Service_Facebook_Exception
      */
-    public function &run()
+    public function run()
     {
         $data = $this->_postRequest($this->_method, $this->_params);
 
