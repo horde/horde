@@ -25,6 +25,7 @@ function build_post($post, $uid)
     $postView->message = empty($post->message) ? '' : $post->message;
     $postView->likes = $post->likes->count;
     $postView->postId = $post->id;
+    $postView->privacy = $post->privacy;
     $postView->postInfo = sprintf(
         _("Posted %s"),
         Horde_Date_Utils::relativeDateTime(

@@ -10,15 +10,16 @@
  * $this->postInfo           Text to display for post info (post time etc...)
  * $this->likesInfo          Text to display for the Like info (You and one other person etc...)
  */
-//var_dump($this->with);
 ?>
-
 <div class="hordeSmStreamstory">
   <div class="hordeSmAvatar"><img width="48px" height="48px" src="<?php echo $this->actorImgUrl ?>" alt="<?php echo $this->actorName ?>" /></div>
   <div class="hordeSmStreambody">
     <?php if (!empty($this->icon)): ?>
       <img alt="[image]" src="<?php echo $this->icon ?>" />
     <?php endif;?>
+    <?php if ($this->privacy->value == 'SELF'): ?>
+     <img alt="[PRIVATE]" src="<?php echo Horde_Themes::img('locked.png') ?>" />
+    <?php endif; ?>
     <?php echo $this->actorProfileLink . $this->actorName?></a>
     <div class="hordeSmStreamMessage">
       <?php echo empty($this->message) ? '' : $this->message;?>
