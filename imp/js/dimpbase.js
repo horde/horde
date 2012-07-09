@@ -210,18 +210,6 @@ var DimpBase = {
             type = 'mbox';
         }
 
-        /* If switching from options, we need to reload page to pick up any
-         * prefs changes. */
-        if (type != 'prefs' &&
-            $('appprefs') &&
-            $('appprefs').hasClassName('on')) {
-            $('horde-page').hide();
-            $('dimpLoading').show();
-            this.setHash(type, data);
-            window.location.reload();
-            return;
-        }
-
         if (type == 'compose') {
             return;
         }
