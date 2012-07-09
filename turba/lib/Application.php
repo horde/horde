@@ -88,12 +88,11 @@ class Turba_Application extends Horde_Registry_Application
         $cfgSources = Turba::permissionsFilter($cfgSources);
 
         // Build the directory sources select widget.
-        $default_source = Horde_Util::nonInputVar('source');
-        if (empty($default_source)) {
-            if (!($default_source = $GLOBALS['session']->get('turba', 'source'))) {
-                $default_source = Turba::getDefaultAddressbook();
+        if (empty(Turba::$source)) {
+            if (!(Turba::$source = $GLOBALS['session']->get('turba', 'source'))) {
+                Turba::$source = Turba::getDefaultAddressbook();
             }
-            $default_source = Horde_Util::getFormData('source', $default_source);
+            Turba::$source = Horde_Util::getFormData('source', Turba::$source);
         }
 
         $GLOBALS['browse_source_count'] = 0;
@@ -101,26 +100,25 @@ class Turba_Application extends Horde_Registry_Application
 
         foreach (Turba::getAddressBooks() as $key => $curSource) {
             if (!empty($curSource['browse'])) {
-                $selected = ($key == $default_source) ? ' selected="selected"' : '';
+                $selected = ($key == Turba::$source) ? ' selected="selected"' : '';
                 $GLOBALS['browse_source_options'] .= '<option value="' . htmlspecialchars($key) . '" ' . $selected . '>' .
                     htmlspecialchars($curSource['title']) . '</option>';
 
                 ++$GLOBALS['browse_source_count'];
 
-                if (empty($default_source)) {
-                    $default_source = $key;
+                if (empty(Turba::$source)) {
+                    Turba::$source = $key;
                 }
             }
         }
 
-        if (empty($cfgSources[$default_source]['browse'])) {
-            $default_source = Turba::getDefaultAddressbook();
+        if (empty($cfgSources[Turba::$source]['browse'])) {
+            Turba::$source = Turba::getDefaultAddressbook();
         }
-        $GLOBALS['session']->set('turba', 'source', $default_source);
-        $GLOBALS['default_source'] = $default_source;
+        $GLOBALS['session']->set('turba', 'source', Turba::$source);
 
         $GLOBALS['addSources'] = Turba::getAddressBooks(Horde_Perms::EDIT, array('require_add' => true));
-        $GLOBALS['copymoveSources'] = array_diff($GLOBALS['addSources'], array($default_source));
+        $GLOBALS['copymoveSources'] = array_diff($GLOBALS['addSources'], array(Turba::$source));
     }
 
     /**

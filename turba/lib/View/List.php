@@ -163,18 +163,17 @@ class Turba_View_List implements Countable
      * @TODO: these should be injected when we refactor to Horde_View
      * @global $prefs
      * @global $session
-     * @global $default_source
      */
     public function display()
     {
-        global $prefs, $session, $default_source;
+        global $prefs, $session;
 
         $driver = $GLOBALS['injector']
             ->getInstance('Turba_Factory_Driver')
-            ->create($default_source);
+            ->create(Turba::$source);
         $hasDelete = $driver->hasPermission(Horde_Perms::DELETE);
         $hasEdit = $driver->hasPermission(Horde_Perms::EDIT);
-        $hasExport = ($GLOBALS['conf']['menu']['import_export'] && !empty($GLOBALS['cfgSources'][$default_source]['export']));
+        $hasExport = ($GLOBALS['conf']['menu']['import_export'] && !empty($GLOBALS['cfgSources'][Turba::$source]['export']));
         $vars = Horde_Variables::getDefaultVariables();
 
         list($addToList, $addToListSources) = $this->getAddSources();
@@ -205,7 +204,7 @@ class Turba_View_List implements Countable
             $params = array_merge($crit, array(
                 'criteria' => $vars->criteria,
                 'val' => $vars->val,
-                'source' => $vars->get('source', $default_source)
+                'source' => $vars->get('source', Turba::$source)
             ));
             $viewurl = Horde::url('search.php')->add($params);
             $pager = new Horde_Core_Ui_Pager('page', $vars, array(
@@ -241,7 +240,7 @@ class Turba_View_List implements Countable
         if ($numDisplayed) {
             $copymove_source_options = '';
             foreach ($GLOBALS['copymoveSources'] as $key => $curSource) {
-                if ($key != $GLOBALS['default_source']) {
+                if ($key != Turba::$source) {
                     $copymove_source_options .= '<option value="' . htmlspecialchars($key) . '">' . htmlspecialchars($curSource['title']) . '</option>';
                 }
             }

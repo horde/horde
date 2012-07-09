@@ -45,7 +45,7 @@
 <?php
 $browse_link = Horde::url('browse.php');
 if ($this->getType() == 'directory' &&
-    !empty($cfgSources[$default_source]['map']['__type'])) {
+    !empty($cfgSources[Turba::$source]['map']['__type'])) {
     printf(_("Show %s"), Horde::widget($browse_link->copy()->add('show', 'lists'), _("Show Lists"), 'widget', '', '', _("_Lists")) . ', ' .
         Horde::widget($browse_link->copy()->add('show', 'contacts'), _("Show Contacts"), 'widget', '', '', _("_Contacts")) . ', ' .
         Horde::widget($browse_link->copy()->add('show', 'all'), _("Show Both"), 'widget', '', '', _("Both")));

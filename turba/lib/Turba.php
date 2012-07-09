@@ -15,8 +15,17 @@
  */
 class Turba
 {
-    /* The virtual path to use for VFS data. */
+    /**
+     * The virtual path to use for VFS data.
+     */
     const VFS_PATH = '.horde/turba/documents';
+
+    /**
+     * The current source.
+     *
+     * @var string
+     */
+    static public $source;
 
     /**
      * Cached data.

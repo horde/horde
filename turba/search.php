@@ -65,7 +65,7 @@ $editableAddressBooks = Turba::getAddressBooks(Horde_Perms::EDIT & Horde_Perms::
 if ($search_mode == 'duplicate') {
     $addressBooks = $editableAddressBooks;
 }
-$source = Horde_Util::getFormData('source', $default_source);
+$source = Horde_Util::getFormData('source', Turba::$source);
 if (!isset($addressBooks[$source])) {
     $source = key($addressBooks);
 

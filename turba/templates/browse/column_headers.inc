@@ -1,5 +1,5 @@
 <form method="post" name="contacts" id="contacts" action="<?php echo Horde::url('browse.php') ?>">
-<input type="hidden" name="source" value="<?php echo htmlspecialchars($GLOBALS['default_source']) ?>" />
+<input type="hidden" name="source" value="<?php echo htmlspecialchars(Turba::$source) ?>" />
 <?php echo Horde_Util::formInput() ?>
 <table cellspacing="0" width="100%" class="linedRow">
 <thead>
