@@ -1,5 +1,9 @@
 <?php echo $this->status ?>
 
+<div id="dimpLoading">
+ <?php echo _("Loading...") ?>
+</div>
+
 <div id="msgData" style="display:none">
  <div class="horde-buttonbar">
   <div class="iconImg headercloseimg closeImg" id="windowclose" title="X"></div>

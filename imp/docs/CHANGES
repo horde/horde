@@ -2,6 +2,7 @@
 v6.0.0beta1
 -----------
 
+[jan] Fix displaying messages in a popup (Bug #11251).
 [jan] Fix automatic selection of the default identity if other identities
       contain the same address(es).
 [jan] Fix editing mailbox ACLs (Bug #11247).
