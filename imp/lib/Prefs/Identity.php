@@ -291,16 +291,16 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
 
     /**
      * Returns the list of identities with the default identity positioned
-     * last.
+     * first.
      *
-     * @return array  The identity keys with the default identity last.
+     * @return array  The identity keys with the default identity first.
      */
-    protected function _identitiesWithDefaultLast()
+    protected function _identitiesWithDefaultFirst()
     {
         $ids = $this->_identities;
         $default = $this->getDefault();
         unset($ids[$default]);
-        return array_merge(array_keys($ids), array($default));
+        return array_merge(array($default), array_keys($ids));
     }
 
     /**
@@ -331,7 +331,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     {
         $addresses = IMP::parseAddressList($addresses);
 
-        foreach ($this->_identitiesWithDefaultLast() as $key) {
+        foreach ($this->_identitiesWithDefaultFirst() as $key) {
             $tie_addr = $this->getTieAddresses($key);
 
             /* Search 'tieto' addresses first. Check for address first
