@@ -743,7 +743,8 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
      */
     protected function _getPath($path, $name)
     {
-        if (strlen($this->_params['vfsroot'])) {
+        if (isset($this->_params['vfsroot']) &&
+            strlen($this->_params['vfsroot'])) {
             if (strlen($path)) {
                 $path = $this->_params['vfsroot'] . '/' . $path;
             } else {
