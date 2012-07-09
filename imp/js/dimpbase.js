@@ -940,10 +940,13 @@ var DimpBase = {
             break;
 
         case 'ctx_mbox_acl':
-            this.go('prefs', {
-                group: 'acl',
-                mbox: e.findElement('DIV.horde-subnavi').retrieve('mbox')
-            });
+            HordeCore.redirect(HordeCore.addURLParam(
+                DimpCore.conf.URI_PREFS_IMP,
+                {
+                    group: 'acl',
+                    mbox: e.findElement('DIV.horde-subnavi').retrieve('mbox')
+                }
+            ));
             break;
 
         case 'ctx_folderopts_new':
