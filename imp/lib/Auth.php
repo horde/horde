@@ -367,10 +367,11 @@ class IMP_Auth
                 $session->set('imp', 'imap_acl', $ptr['acl']);
             }
 
+            $secret = $injector->getInstance('Horde_Secret');
             if (!empty($ptr['admin'])) {
                 $tmp = $ptr['admin'];
                 if (isset($tmp['password'])) {
-                    $tmp['password'] = $injector->getInstance('Horde_Secret')->write($secret->getKey(), $tmp['password']);
+                    $tmp['password'] = $secret->write($secret->getKey(), $tmp['password']);
                 }
                 $session->set('imp', 'imap_admin', $tmp);
             }
@@ -382,7 +383,7 @@ class IMP_Auth
             if (!empty($ptr['quota'])) {
                 $tmp = $ptr['quota'];
                 if (isset($tmp['params']['password'])) {
-                    $tmp['params']['password'] = $injector->getInstance('Horde_Secret')->write($secret->getKey(), $tmp['params']['password']);
+                    $tmp['params']['password'] = $secret->write($secret->getKey(), $tmp['params']['password']);
                 }
                 $session->set('imp', 'imap_quota', $tmp);
             }
