@@ -77,7 +77,7 @@ class Horde_Url
      * @param boolean $raw  Whether to output the URL in the raw URL format or
      *                      HTML-encoded.
      */
-    public function __construct($url, $raw = null)
+    public function __construct($url = '', $raw = null)
     {
         if ($url instanceof Horde_Url) {
             $this->anchor = $url->anchor;
