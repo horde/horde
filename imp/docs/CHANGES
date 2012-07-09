@@ -2,6 +2,7 @@
 v6.0.0beta1
 -----------
 
+[jan] Fix editing mailbox ACLs (Bug #11247).
 [jan] Fix using admin users and passwords for quota or mailbox management.
 
 
