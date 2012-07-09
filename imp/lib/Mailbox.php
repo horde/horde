@@ -652,19 +652,19 @@ class IMP_Mailbox implements Serializable
         }
 
         /* Check permissions. */
-        $perms = $injector->getInstance('Horde_Core_Perms');
-        if (!$perms->hasAppPermission('create_folders')) {
+        if (!IMP::hasPermission('create_folders')) {
             Horde::permissionDeniedError(
                 'imp',
                 'create_folders',
                 _("You are not allowed to create folders.")
             );
             return false;
-        } elseif (!$perms->hasAppPermission('max_folders')) {
+        }
+        if (!IMP::hasPermission('max_folders')) {
             Horde::permissionDeniedError(
                 'imp',
                 'max_folders',
-                sprintf(_("You are not allowed to create more than %d folders."), $injector->getInstance('Horde_Perms')->getPermissions('max_folders', $registry->getAuth()))
+                sprintf(_("You are not allowed to create more than %d folders."), $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'))
             );
             return false;
         }

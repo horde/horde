@@ -328,6 +328,57 @@ class IMP
     }
 
     /**
+     * Returns whether the specified permission is granted.
+     *
+     * @param string $permission  The permission to check.
+     * @param mixed $allowed      The allowed permissions.
+     * @param array $opts         Additional options:
+     *   - For 'max_recipients' and 'max_timelimit', 'value' is the number of
+     *     recipients in the current message.
+     *
+     * @return boolean  Whether the specified permission is allowed.
+     */
+    public function hasPermission($permission, $opts = array())
+    {
+        $allowed = $GLOBALS['injector']->getInstance('Horde_Core_Perms')
+            ->hasAppPermission($permission);
+
+        switch ($permission) {
+        case 'create_folders':
+            // No-op
+            break;
+
+        case 'max_folders':
+            return ($allowed >= count($GLOBALS['injector']->getInstance('IMP_Imap_Tree')));
+            break;
+
+        case 'max_recipients':
+            if (isset($opts['value'])) {
+                return ($allowed >= $opts['value']);
+            }
+            break;
+
+        case 'max_timelimit':
+            if (isset($opts['value'])) {
+                $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
+                if (!($sentmail instanceof IMP_Sentmail_Base)) {
+                    Horde::logMessage('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', 'ERR');
+                    return true;
+                }
+
+                try {
+                    $opts['value'] += $sentmail->numberOfRecipients($GLOBALS['conf']['sentmail']['params']['limit_period'], true);
+                } catch (IMP_Exception $e) {}
+
+                return ($allowed >= $opts['value']);
+            }
+            break;
+        }
+
+        return (bool)$allowed;
+    }
+
+    /**
      * Build IMP's menu.
      *
      * @return string  The menu output.
