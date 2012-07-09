@@ -1107,19 +1107,19 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     {
         global $conf, $injector, $registry;
 
-        $core_perms = $injector->getInstance('Horde_Core_Perms');
+        $perms = $injector->getInstance('Horde_Core_Perms');
         $email_count = count($email);
 
-        if (!$core_perms->hasAppPermission('max_timelimit', array('opts' => array('value' => $email_count)))) {
+        if (!IMP::hasPermission('max_timelimit', array('value' => $email_count))) {
             Horde::permissionDeniedError('imp', 'max_timelimit');
-            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $injector->getInstance('Horde_Perms')->getPermissions('imp:max_timelimit', $registry->getAuth()), $conf['sentmail']['params']['limit_period']));
+            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $perms->hasAppPermission('max_timelimit'), $conf['sentmail']['params']['limit_period']));
         }
 
         /* Count recipients if necessary. We need to split email groups
          * because the group members count as separate recipients. */
-        if (!$core_perms->hasAppPermission('max_recipients', array('opts' => array('value' => $email_count)))) {
+        if (!IMP::hasPermission('max_recipients', array('value' => $email_count))) {
             Horde::permissionDeniedError('imp', 'max_recipients');
-            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $injector->getInstance('Horde_Perms')->getPermissions('imp:max_recipients', $registry->getAuth())));
+            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $perms->hasAppPermission('max_recipients')));
         }
 
         /* Pass to hook to allow alteration of message details. */
