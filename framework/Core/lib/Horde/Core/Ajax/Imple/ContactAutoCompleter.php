@@ -58,11 +58,6 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
      */
     public function getAddressList($str = '', array $opts = array())
     {
-        $str = trim($str);
-        if (!strlen($str)) {
-            return new Horde_Mail_Rfc822_List();
-        }
-
         $searchpref = $this->_getAddressbookSearchParams();
 
         try {

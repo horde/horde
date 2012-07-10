@@ -321,7 +321,7 @@ Autocompleter.Local = Class.create(Autocompleter.Base, {
 
         choices = o.arr.findAll(function(t) {
             if (i == o.choices) {
-                throw $break;
+                return false;
             }
 
             if (o.ignoreCase) {

@@ -44,6 +44,8 @@ class Horde_Core_Ajax_Imple_AutoCompleter_Local extends Horde_Core_Ajax_Imple_Au
      */
     public function __construct($search, array $params = array())
     {
+        $this->_search = $search;
+
         parent::__construct(array_merge(array(
             'fullSearch' => 1,
             'partialSearch' => 1,
