@@ -1094,7 +1094,7 @@ class Turba_Api extends Horde_Registry_Api
 
             foreach ($names as $name) {
                 $trimname = trim($name);
-                $criteria = array();
+                $out = $criteria = array();
                 if (strlen($trimname)) {
                     if (isset($opts['fields'][$source])) {
                         foreach ($opts['fields'][$source] as $field) {
@@ -1122,7 +1122,7 @@ class Turba_Api extends Horde_Registry_Api
                 $rfc822 = new Horde_Mail_Rfc822();
 
                 while ($ob = $search->next()) {
-                    $emails = $out = $seen = array();
+                    $emails = $seen = array();
 
                     if ($ob->isGroup()) {
                         /* Is a distribution list. */
@@ -1219,10 +1219,10 @@ class Turba_Api extends Horde_Registry_Api
                             }
                         }
                     }
+                }
 
-                    if (!empty($out)) {
-                        $results[$name] = $out;
-                    }
+                if (!empty($out)) {
+                    $results[$name] = $out;
                 }
             }
         }
