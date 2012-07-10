@@ -193,7 +193,7 @@ class Sesha
         $menu->add(Horde::url('list.php'), _("_List Stock"), 'sesha.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
         if (Sesha::isAdmin(Horde_Perms::READ)|| $perms->hasPermission('sesha:addStock', $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             $menu->add(Horde::url(Horde_Util::addParameter('stock.php', 'actionId', 'add_stock')), _("_Add Stock"), 'stock.png');
-            $menu->add(Horde::url('admin.php'), _("Admin"), 'sesha.png');
+            $menu->add(Horde::url('admin.php'), _("Administration"), 'sesha.png');
         }
         $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
 
