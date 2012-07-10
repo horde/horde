@@ -29,12 +29,19 @@ class Sesha_View_List extends Sesha_View_Base
             $title = _("Search Inventory");
             $this->header = _("Matching Inventory");
         } else {
-            $this->header = $category_id ?
-                sprintf(_("Available Inventory in %s"), $selectedCategory->category) : _("Available Inventory");
+            $this->header = $category_id
+                ? sprintf(_("Available Inventory in %s"),
+                          $selectedCategory->category)
+                : _("Available Inventory");
         }
-        $this->title = _('Sesha List View');
-        $this->selectedCategories = (is_array($config['selectedCategories'])) ? $config['selectedCategories'] : array($config['selectedCategories']);
-        if (empty($this->selectedCategories[0])) {array_shift($this->selectedCategories);}
+
+        $this->title = _("Inventory List");
+        $this->selectedCategories = is_array($config['selectedCategories'])
+            ? $config['selectedCategories']
+            : array($config['selectedCategories']);
+        if (empty($this->selectedCategories[0])) {
+            array_shift($this->selectedCategories);
+        }
         $this->shownProperties = $this->properties($config['propertyIds']);
         $this->columnHeaders = $this->columnHeaders($config['sortDir'], $config['sortBy']);
         $filters = array();
