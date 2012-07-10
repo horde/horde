@@ -223,9 +223,9 @@ msgid "Item Note"
 msgstr "Notiz"
 
 #: stock.php:83
-#, fuzzy, php-format
+#, php-format
 msgid "Item number %d was successfully deleted"
-msgstr "Der Artikel \"%s\" wurde erfolgreich gelöscht."
+msgstr "Der Artikel \"%d\" wurde erfolgreich gelöscht."
 
 #: config/prefs.php:50
 msgid "List"
@@ -279,7 +279,7 @@ msgstr ""
 #: lib/Forms/CategoryList.php:32
 msgid "No categories are currently configured. Use the form below to add one."
 msgstr ""
-"Es sind keine Eigenschaften eingestellt. Fügen Sie welche über das Formular "
+"Es sind keine Kategorien eingestellt. Fügen Sie welche über das Formular "
 "hinzu"
 
 #: lib/Forms/Category.php:58
@@ -287,7 +287,7 @@ msgid ""
 "No properties are currently configured. Use the 'Manage Properties' tab "
 "(above) to add some."
 msgstr ""
-"Derzeit sind keine Kategorien eingestellt. Fügen Sie welche über "
+"Derzeit sind keine Eigenschaften eingestellt. Fügen Sie welche über "
 "'Administration' (oben) hinzu."
 
 #: lib/Forms/PropertyList.php:32
