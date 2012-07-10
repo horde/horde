@@ -386,6 +386,13 @@ span.iconImgSidebar {
 .dimpOptions a:hover {
     text-decoration: underline;
 }
+.dimpOptions .horde-subnavi-arrow {
+    display: inline-block;
+    float: none;
+    padding-left: 4px;
+    height: 16px;
+    width: 16px;
+}
 
 #encrypt_label, #priority_label, #sent_mail_label {
     cursor: default;
