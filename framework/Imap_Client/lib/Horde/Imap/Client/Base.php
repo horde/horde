@@ -2714,9 +2714,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param mixed $root  The quota root. Either a Horde_Imap_Client_Mailbox
      *                     object (as of 1.2.0) or a string (UTF-8).
      *
-     * @return mixed  An array with these possible keys: 'messages' and
-     *                'storage'; each key holds an array with 2 values:
-     *                'limit' and 'usage'.
+     * @return mixed  An array with resource keys. Each key holds an array
+     *                with 2 values: 'limit' and 'usage'.
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -2736,9 +2735,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @param Horde_Imap_Client_Mailbox $root  The quota root.
      *
-     * @return mixed  An array with these possible keys: 'messages' and
-     *                'storage'; each key holds an array with 2 values:
-     *                'limit' and 'usage'.
+     * @return mixed  An array with resource keys. Each key holds an array
+     *                with 2 values: 'limit' and 'usage'.
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -2752,9 +2750,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                        object (as of 1.2.0) or a string (UTF-8).
      *
      * @return mixed  An array with the keys being the quota roots. Each key
-     *                holds an array with two possible keys: 'messages' and
-     *                'storage'; each of these keys holds an array with 2
-     *                values: 'limit' and 'usage'.
+     *                holds an array with resource keys: each of these keys
+     *                holds an array with 2 values: 'limit' and 'usage'.
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -2775,9 +2772,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param Horde_Imap_Client_Mailbox $mailbox  A mailbox.
      *
      * @return mixed  An array with the keys being the quota roots. Each key
-     *                holds an array with two possible keys: 'messages' and
-     *                'storage'; each of these keys holds an array with 2
-     *                values: 'limit' and 'usage'.
+     *                holds an array with resource keys: each of these keys
+     *                holds an array with 2 values: 'limit' and 'usage'.
      *
      * @throws Horde_Imap_Client_Exception
      */
