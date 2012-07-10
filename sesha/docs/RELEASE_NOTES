@@ -26,7 +26,7 @@ http://www.horde.org/apps/sesha.
 
 ML;
 
-/* Freshmeat release notes. */
+/* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
 Initial Release of Sesha for Horde 5
 FM;

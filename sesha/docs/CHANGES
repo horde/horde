@@ -3,7 +3,7 @@ v1.0-git
 --------
 
 [rla] Use Horde_View in place of Horde_Template.
-[rla] change backend from Sql driver to Rdo driver with enhanced search
+[rla] Change backend from Sql driver to Rdo driver with enhanced search
       capabilities.
 [jan] Add Finnish translation (Leena Heino <liinu@uta.fi>).
 [rla] Convert to Horde 5 Framework.
