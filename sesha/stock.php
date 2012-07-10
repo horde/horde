@@ -64,8 +64,8 @@ case 'add_stock':
                                             $vars->get('property'));
 
         $url->add(array('actionId' => 'view_stock',
-                        'stock_id' => $stock_id));
-        header('Location: ' . $url);
+                        'stock_id' => $stock_id->stock_id));
+        header('Location: ' . $url->toString(true, true));
         exit;
     }
     break;
