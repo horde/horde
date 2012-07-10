@@ -136,9 +136,7 @@ and would then find Skeleton at the URL::
 Installing from Git
 ~~~~~~~~~~~~~~~~~~~
 
-See::
-
-   http://www.horde.org/source/git.php
+See http://www.horde.org/source/git.php
 
 
 Configuring Skeleton
