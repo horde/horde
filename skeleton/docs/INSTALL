@@ -69,11 +69,9 @@ The following items are not required, but are strongly **RECOMMENDED**:
 Installing Skeleton
 ===================
 
-There are several ways to install Skeleton. The recommended way to install
-Skeleton is using the PEAR installer. Alternatively it can be installed from
-tarballs. Finally, if you want to run the latest development code, or get the
-latest, not yet released, fixes, you can install Skeleton from Git.
-
+The **RECOMMENDED** way to install Skeleton is using the PEAR installer.
+Alternatively, if you want to run the latest development code or get the latest
+not yet released fixes, you can install Skeleton from Git.
 
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
@@ -98,7 +96,6 @@ extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/skeleton
-
 
 Installing from Release Tarballs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -136,6 +133,13 @@ and would then find Skeleton at the URL::
 
    http://your-server/horde/skeleton/
 
+Installing from Git
+~~~~~~~~~~~~~~~~~~~
+
+See::
+
+   http://www.horde.org/source/git.php
+
 
 Configuring Skeleton
 ====================
@@ -167,7 +171,7 @@ Configuring Skeleton
    Skeleton row of the configuration screen.
 
    Alternatively creating the Skeleton database tables can be accomplished with
-   horde's ``horde-db-migrate`` utility.  If your database is properly setup in
+   Horde's ``horde-db-migrate`` utility.  If your database is properly setup in
    the Horde configuration, just run the following::
 
       horde-db-migrate skeleton
