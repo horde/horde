@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-10</date>
- <time>11:54:17</time>
+ <time>11:54:49</time>
  <version>
-  <release>1.0.0alpha1</release>
+  <release>1.0.0</release>
   <api>1.0.0alpha1</api>
  </version>
  <stability>
@@ -28,11 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [rla] Use Horde_View in place of Horde_Template.
-* [rla] change backend from Sql driver to Rdo driver with enhanced search capabilities.
-* [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
-* [rla] Convert to Horde 5 Framework.
-* Initial release.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -345,6 +341,19 @@
 * [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
 * [rla] Convert to Horde 5 Framework.
 * Initial release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0alpha1</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2012-07-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
