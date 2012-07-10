@@ -3394,16 +3394,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
     /**
      */
-    protected function _setQuota(Horde_Imap_Client_Mailbox $root, $options)
+    protected function _setQuota(Horde_Imap_Client_Mailbox $root, $resources)
     {
         $limits = array();
-        if (isset($options['messages'])) {
-            $limits[] = 'MESSAGE';
-            $limits[] = array('t' => Horde_Imap_Client::DATA_NUMBER, 'v' => $options['messages']);
-        }
-        if (isset($options['storage'])) {
-            $limits[] = 'STORAGE';
-            $limits[] = array('t' => Horde_Imap_Client::DATA_NUMBER, 'v' => $options['storage']);
+
+        foreach ($resources as $key => $val) {
+            $limits[] = strtoupper($key);
+            $limits[] = array('t' => Horde_Imap_Client::DATA_NUMBER, 'v' => intval($val));
         }
 
         $this->_sendLine(array(
@@ -3438,8 +3435,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $c[$root] = array();
 
         for ($i = 0; isset($data[1][$i]); $i += 3) {
-            if (in_array($data[1][$i], array('MESSAGE', 'STORAGE'))) {
-                $c[$root][strtolower($data[1][$i])] = array('limit' => $data[1][$i + 2], 'usage' => $data[1][$i + 1]);
+            if (count($data[1][$i])) {
+                $c[$root][strtolower($data[1][$i])] = array(
+                    'limit' => $data[1][$i + 2],
+                    'usage' => $data[1][$i + 1]
+                );
             }
         }
     }
