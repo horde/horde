@@ -1,20 +1,14 @@
 <?php
 /**
- * The Sesha_View_List class wraps the list view logic to keep the client pages simple
+ * The Sesha_View_List class wraps the list view logic to keep the client pages
+ * simple.
  *
- * Copyright 2012-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
- *
- * @author   Ralf Lang <lang@b1-systems.de>
- * @category Horde
- * @package  Sesha
- * @license  http://www.horde.org/licenses/gpl GPL
- */
-
-/**
- * The Sesha_View_List class wraps the list view logic to keep the client pages simple
+ * Available fields:
+ * - header: (string) The header text related to the listing table.
+ * - selectedCategories: (array) The selected categories.
+ * - columnHeaders: (array) The columns structure for the result table.
+ * - shownProperties: (array) The list of property objects to use.
+ * - shownStock: (array) The stock display matrix
  *
  * Copyright 2012-2012 Horde LLC (http://www.horde.org/)
  *
@@ -29,42 +23,6 @@
 
 class Sesha_View_List extends Sesha_View_Base
 {
-
-    /**
-     * The header text related to the listing table
-     * @var string
-     * @access public
-     */
-    public $header;
-
-    /**
-     * The categories selected
-     * @var array of strings
-     * @access public
-     */
-    public $selectedCategories;
-
-    /**
-     * The columns structure for the result table
-     * @var array
-     * @access public
-     */
-    public $columnHeaders;
-
-    /**
-     * The list of Property objects to use
-     * @var array
-     * @access public
-     */
-    public $shownProperties;
-
-    /**
-     * The stock display matrix
-     * @var array
-     * @access public
-     */
-    public $shownStock;
-
     public function __construct(array $config)
     {
         if (!is_null($what) && !is_null($where)) {
