@@ -32,5 +32,6 @@ Initial Release of Sesha for Horde 5
 FM;
 
 $this->notes['name'] = 'Sesha';
+$this->notes['list'] = 'horde';
 $this->notes['fm']['project'] = 'sesha';
 $this->notes['fm']['branch'] = 'Horde 5';
