@@ -159,6 +159,10 @@ div.partsTreeDiv span span:last-child {
 
 /* Message flags definitions.
  * For background color, see config/prefs.php [msgflags preference]. */
+.msgflags {
+    margin-right: 1px;
+}
+
 .mboxheader .msgflags {
     vertical-align: sub;
 }
