@@ -165,13 +165,13 @@ class IMP_Dynamic_Compose_Common
         global $browser, $conf, $prefs, $session;
 
         /* Context menu definitions. */
-        $base->js_context['ctx_msg_other'] = array();
+        $base->js_context['ctx_msg_other'] = new stdClass;
 
         if ($prefs->getValue('request_mdn') == 'never') {
-            $base->js_context['ctx_msg_other']['rr'] = _("Read Receipt");
+            $base->js_context['ctx_msg_other']->rr = _("Read Receipt");
         }
         if (strpos($prefs->getValue('save_attachments'), 'prompt') === false) {
-            $base->js_context['ctx_msg_other']['saveatc'] = _("Save Attachments in Sent Mailbox");
+            $base->js_context['ctx_msg_other']->saveatc = _("Save Attachments in Sent Mailbox");
         }
 
         /* Variables used in compose page. */

@@ -1124,7 +1124,7 @@ var DimpCompose = {
             callback: this.uniqueSubmitCallback.bind(this)
         });
 
-        if (DimpCore.context.ctx_msg_other.size()) {
+        if ($H(DimpCore.context.ctx_msg_other).size()) {
             DimpCore.addPopdown($('msg_other_options').down('A'), 'msg_other', {
                 trigger: true
             });
