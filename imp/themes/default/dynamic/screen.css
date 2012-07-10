@@ -65,25 +65,25 @@ input {
     padding-right: 14px;
     margin-right: 0;
 }
-    .horde-table-header .horde-split-left,
-    .horde-table-header .horde-split-right {
-        width: 2px;
-        height: 21px;
-        margin: 0 5px;
-        padding: 0;
-    }
-    .horde-table-header .horde-split-left {
-        position: absolute;
-        top: 0;
-        margin-left: -6px;
-    }
-    .horde-table-header .horde-split-right {
-        float:right;
-        background-position: center left;
-    }
-    .horde-table-header .horde-subnavi-arrow {
-        margin-top: -4px;
-    }
+.horde-table-header .horde-split-left,
+.horde-table-header .horde-split-right {
+    width: 2px;
+    height: 21px;
+    margin: 0 5px;
+    padding: 0;
+}
+.horde-table-header .horde-split-left {
+    position: absolute;
+    top: 0;
+    margin-left: -6px;
+}
+.horde-table-header .horde-split-right {
+    float:right;
+    background-position: center left;
+}
+.horde-table-header .horde-subnavi-arrow {
+    margin-top: -4px;
+}
 
 /* Columns */
 div.msgStatus {
