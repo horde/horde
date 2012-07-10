@@ -25,7 +25,7 @@ accessing the Horde CVS repository.
 PREREQUISITES
 -------------
 
-To function properly, Luxor requires the following:
+To function properly, Luxor **requires** the following:
 
   1. A working Horde installation.
 

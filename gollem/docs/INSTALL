@@ -17,7 +17,7 @@ README_ in the top-level directory of the Gollem distribution.
 Prerequisites
 =============
 
-To function properly, Gollem **REQUIRES** the following:
+To function properly, Gollem **requires** the following:
 
 1. A working Horde installation.
 
@@ -96,7 +96,7 @@ Installing from Git
 
 See::
 
-   http://horde.org/source/git.php
+   http://www.horde.org/source/git.php
 
 
 Configuring Gollem

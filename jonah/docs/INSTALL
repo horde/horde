@@ -25,7 +25,7 @@ accessing the Horde CVS repository.
 PREREQUISITES
 ~~~~~~~~~~~~~
 
-To function properly, Jonah REQUIRES the following:
+To function properly, Jonah **requires** the following:
 
   1. A working Horde installation.
 
