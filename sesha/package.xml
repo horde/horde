@@ -5,15 +5,15 @@
  <summary>A simple Inventory App for Horde</summary>
  <description>Sesha allows you to define categories with a rich set of attributes to manage your inventory stock</description>
  <lead>
-  <name>Ralf Lang</name>
-  <user>rlang</user>
-  <email>lang@b1-systems.de</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Ralf Lang</name>
+  <user>rlang</user>
+  <email>lang@b1-systems.de</email>
   <active>yes</active>
  </lead>
  <date>2012-07-10</date>
@@ -336,11 +336,11 @@
    <date>2012-07-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* First alpha release.
 * [rla] Use Horde_View in place of Horde_Template.
 * [rla] change backend from Sql driver to Rdo driver with enhanced search capabilities.
 * [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
 * [rla] Convert to Horde 5 Framework.
-* Initial release.
    </notes>
   </release>
   <release>
