@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-27</date>
- <time>19:16:14</time>
+ <date>2012-07-10</date>
+ <time>11:54:17</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -337,7 +337,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-06-27</date>
+   <date>2012-07-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [rla] Use Horde_View in place of Horde_Template.
