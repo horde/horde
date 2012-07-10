@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-01</date>
- <time>14:21:43</time>
+ <date>2012-07-10</date>
+ <time>16:16:31</time>
  <version>
   <release>1.2.7</release>
   <api>1.2.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issue with setting time before screen lock.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -600,10 +600,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-05-01</date>
+   <date>2012-07-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue with setting time before screen lock.
    </notes>
   </release>
  </changelog>
