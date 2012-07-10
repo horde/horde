@@ -57,7 +57,7 @@ class Sesha_Form_Stock extends Horde_Form {
         $this->addVariable(_("Name"), 'stock_name', 'text', false, false);
         if (!count($cat)) {
             $fieldtype = 'invalid';
-            $cat = _("No categories are currently configured. Click 'Admin' (above) to add some.");
+            $cat = _("No categories are currently configured. Click \"Administration\" on the left to add some.");
         } else {
             $fieldtype = 'multienum';
         }
