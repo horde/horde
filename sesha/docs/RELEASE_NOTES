@@ -28,7 +28,7 @@ ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Initial Release of Sesha for Horde 5
+First alpha release of Sesha for Horde 5.
 FM;
 
 $this->notes['name'] = 'Sesha';
