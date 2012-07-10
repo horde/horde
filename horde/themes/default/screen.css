@@ -2227,6 +2227,11 @@ p{
     text-shadow: -1px -1px 0px #000;
 }
 
+/* Configuration page. */
+#update h1.header {
+    border: 1px solid #000;
+}
+
 /* Sidebar entries. */
 .horde-admin-config {
     background-image: url("graphics/config.png");
