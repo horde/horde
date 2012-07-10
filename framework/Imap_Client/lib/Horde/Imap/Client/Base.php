@@ -2672,20 +2672,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Set quota limits. The server must support the IMAP QUOTA extension
      * (RFC 2087).
      *
-     * @param mixed $root     The quota root. Either a
-     *                        Horde_Imap_Client_Mailbox object (as of 1.2.0)
-     *                        or a string (UTF-8).
-     * @param array $options  Additional options:
-     *   - messages: (integer) The limit to set on the number of messages
-     *               allowed.
-     *               DEFAULT: No limit set.
-     *   - storage: (integer) The limit (in units of 1 KB) to set for the
-     *              storage size.
-     *              DEFAULT: No limit set.
+     * @param mixed $root       The quota root. Either a
+     *                          Horde_Imap_Client_Mailbox object (as of 1.2.0)
+     *                          or a string (UTF-8).
+     * @param array $resources  The resource values to set. Keys are the
+     *                          resource atom name; value is the resource
+     *                          value.
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function setQuota($root, $options = array())
+    public function setQuota($root, array $resources = array())
     {
         $this->login();
 
@@ -2693,8 +2689,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $this->_exception('Server does not support the QUOTA extension.', 'NO_SUPPORT');
         }
 
-        if (isset($options['messages']) || isset($options['storage'])) {
-            $this->_setQuota(Horde_Imap_Client_Mailbox::get($root, null), $options);
+        if (!empty($resources)) {
+            $this->_setQuota(Horde_Imap_Client_Mailbox::get($root, null), $resources);
         }
     }
 
@@ -2702,14 +2698,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Set quota limits.
      *
      * @param Horde_Imap_Client_Mailbox $root  The quota root.
-     * @param array $options                   Additional options.
+     * @param array $resources                 The resource values to set.
      *
      * @return boolean  True on success.
      *
      * @throws Horde_Imap_Client_Exception
      */
     abstract protected function _setQuota(Horde_Imap_Client_Mailbox $root,
-                                          $options);
+                                          $resources);
 
     /**
      * Get quota limits. The server must support the IMAP QUOTA extension
