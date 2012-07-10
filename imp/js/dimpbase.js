@@ -842,7 +842,7 @@ var DimpBase = {
             DimpCore.doAction('createMailboxPrepare', {
                 mbox: tmp.retrieve('mbox')
             },{
-                callback: this._mailboxPromptCallback.bind(this, 'create', { elt: tmp, orig_elt: e.element() })
+                callback: this._mailboxPromptCallback.bind(this, 'create', tmp)
             });
             break;
 
@@ -853,7 +853,7 @@ var DimpBase = {
                 mbox: tmp.retrieve('mbox'),
                 type: 'rename'
             },{
-                callback: this._mailboxPromptCallback.bind(this, 'rename', { elt: tmp })
+                callback: this._mailboxPromptCallback.bind(this, 'rename', tmp)
             });
             break;
 
@@ -862,12 +862,12 @@ var DimpBase = {
             DimpCore.doAction('emptyMailboxPrepare', {
                 mbox: tmp.retrieve('mbox')
             },{
-                callback: this._mailboxPromptCallback.bind(this, 'empty', { elt: tmp })
+                callback: this._mailboxPromptCallback.bind(this, 'empty', tmp)
             });
             break;
 
         case 'ctx_container_delete':
-            this._mailboxPromptCallback('delete', { elt: e.findElement('DIV.horde-subnavi') });
+            this._mailboxPromptCallback('delete', e.findElement('DIV.horde-subnavi'));
             break;
 
         case 'ctx_mbox_delete':
@@ -877,7 +877,7 @@ var DimpBase = {
                 mbox: tmp.retrieve('mbox'),
                 type: 'delete'
             }, {
-                callback: this._mailboxPromptCallback.bind(this, 'delete', { elt: tmp })
+                callback: this._mailboxPromptCallback.bind(this, 'delete', tmp)
             });
             break;
 
@@ -2774,22 +2774,18 @@ var DimpBase = {
         });
     },
 
-    _mailboxPromptCallback: function(type, params, r)
+    _mailboxPromptCallback: function(type, elt, r)
     {
-        if (!params.elt) {
-            return;
-        }
-
         switch (type) {
         case 'create':
-            this._createMboxForm(params.orig_elt, 'createsub', DimpCore.text.createsub_prompt.sub('%s', this.fullMboxDisplay(params.elt)));
+            this._createMboxForm(elt, 'createsub', DimpCore.text.createsub_prompt.sub('%s', this.fullMboxDisplay(elt)));
             break;
 
         case 'delete':
             this.viewaction = function(e) {
                 DimpCore.doAction('deleteMailbox', {
-                    container: params.elt.hasClassName('container'),
-                    mbox: params.elt.retrieve('mbox'),
+                    container: elt.hasClassName('container'),
+                    mbox: elt.retrieve('mbox'),
                     subfolders: e.element().down('[name=delete_subfolders]').getValue()
                 });
             };
@@ -2797,28 +2793,28 @@ var DimpBase = {
                 form: new Element('DIV').insert(
                     new Element('INPUT', { name: 'delete_subfolders', type: 'checkbox' })
                 ).insert(
-                    DimpCore.text.delete_mbox_subfolders.sub('%s', this.fullMboxDisplay(params.elt))
+                    DimpCore.text.delete_mbox_subfolders.sub('%s', this.fullMboxDisplay(elt))
                 ),
                 form_id: 'dimpbase_confirm',
-                text: params.elt.hasClassName('container') ? null : DimpCore.text.delete_mbox.sub('%s', this.fullMboxDisplay(params.elt))
+                text: elt.hasClassName('container') ? null : DimpCore.text.delete_mbox.sub('%s', this.fullMboxDisplay(elt))
             });
             break;
 
         case 'empty':
             this.viewaction = function(e) {
                 DimpCore.doAction('emptyMailbox', {
-                    mbox: params.elt.retrieve('mbox')
+                    mbox: elt.retrieve('mbox')
                 });
             };
             HordeDialog.display({
                 form_id: 'dimpbase_confirm',
                 noinput: true,
-                text: DimpCore.text.empty_mbox.sub('%s', this.fullMboxDisplay(params.elt)).sub('%d', r)
+                text: DimpCore.text.empty_mbox.sub('%s', this.fullMboxDisplay(elt)).sub('%d', r)
             });
             break;
 
         case 'rename':
-            this._createMboxForm(params.elt, 'rename', DimpCore.text.rename_prompt.sub('%s', this.fullMboxDisplay(params.elt)), params.elt.retrieve('l').unescapeHTML());
+            this._createMboxForm(elt, 'rename', DimpCore.text.rename_prompt.sub('%s', this.fullMboxDisplay(elt)), elt.retrieve('l').unescapeHTML());
             break;
         }
     },
