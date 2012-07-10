@@ -50,15 +50,17 @@ class IMP_Quota_Imap extends IMP_Quota
             throw new IMP_Exception(_("Unable to retrieve quota"));
         }
 
-        if (empty($quota)) {
-            return array();
-        }
-
         $quota_val = reset($quota);
-        return array(
-            'limit' => $quota_val['storage']['limit'] * 1024,
-            'usage' => $quota_val['storage']['usage'] * 1024
-        );
+
+        return isset($quota_val['storage'])
+            ? array(
+                  'limit' => $quota_val['storage']['limit'] * 1024,
+                  'usage' => $quota_val['storage']['usage'] * 1024
+              )
+            : array(
+                'limit' => 0,
+                'usage' => 0
+              );
     }
 
 }
