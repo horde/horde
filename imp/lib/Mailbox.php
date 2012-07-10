@@ -1435,7 +1435,7 @@ class IMP_Mailbox implements Serializable
     {
         $tmp = array();
 
-        foreach (self::getSpecialMailboxes() as $val) {
+        foreach (array_filter(self::getSpecialMailboxes()) as $val) {
             if (!is_array($val)) {
                 $val = array($val);
             }
