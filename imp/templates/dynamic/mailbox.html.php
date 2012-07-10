@@ -88,7 +88,7 @@
       <div id="msgHeadersColl">
        <a id="msg_newwin"><span class="iconImg" title="<?php echo _("Open in new window") ?>"></span></a>
        <span class="date"></span>
-       <span id="th_expand" class="p17 subject" title="<?php echo _("Expand Headers") ?>"></span>
+       <span id="th_expand" class="subject" title="<?php echo _("Expand Headers") ?>"></span>
        <span class="fromcontainer"><?php echo _("from") ?>
         <span class="from"></span>
        </span>
@@ -121,7 +121,7 @@
         </div>
        </div>
        <div id="msgHeadersContent">
-        <p id="th_collapse" class="p17 bold subject" title="<?php echo _("Collapse Headers") ?>"></p>
+        <p id="th_collapse" class="bold subject" title="<?php echo _("Collapse Headers") ?>"></p>
         <table>
          <thead>
           <tr id="msgHeaderFrom">

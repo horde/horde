@@ -517,7 +517,6 @@ div.dimpActionsMsg #windowclose {
 #msgHeadersColl span.date {
     float: right;
     text-align: right;
-    padding-top: 5px;
 }
 #msgHeadersColl span.subject {
     float: left;
@@ -528,7 +527,6 @@ div.dimpActionsMsg #windowclose {
 #msgHeadersColl span.fromcontainer {
     float: left;
     padding-left: 5px;
-    padding-top: 5px;
 }
 /* end msg small header */
 
@@ -957,7 +955,7 @@ div.msgSubject span.treeImg {
 #msg_newwin span.iconImg {
     cursor: pointer;
     float: right;
-    margin: 5px 0 0 4px;
+    margin-left: 4px;
 }
 #th_expand span.iconImg, #partlist_col, #msgloglist_col {
     background-image: url("../graphics/arrow_collapsed.png");
