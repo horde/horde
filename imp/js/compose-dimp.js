@@ -1175,7 +1175,7 @@ var DimpCompose = {
         }
 
         $('dimpLoading').hide();
-        $('compose').show();
+        $('composeContainer', 'compose').compact().invoke('show');
 
         if (this.onload_show) {
             this.fillForm(this.onload_show);
