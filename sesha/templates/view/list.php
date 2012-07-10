@@ -8,7 +8,7 @@
 <form action="" method="get" name="stockcategoriesmenu">
  <tag:form_input />
  <select name="category_id" onchange="document.stockcategoriesmenu.submit()">
-  <option value=""><?php echo _('Show Category:'); ?></option>
+  <option value=""><?php echo _("Show Category:"); ?></option>
     <?php   foreach ($this->allCategories() as $category) {
                 $selected = in_array($category->category_id, $this->selectedCategories) ? ' selected="selected" ' : '';
                 printf('<option value="%s"%s/>%s</option>',

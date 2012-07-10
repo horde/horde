@@ -55,7 +55,7 @@ class Sesha_Form_Category extends Horde_Form
         $this->addVariable(_("Sort Weight"), 'priority', 'enum', false, false, _("When categories are displayed, they will be shown in weight order from highest to lowest"), array($priorities));
         if (!count($a)) {
             $fieldtype = 'invalid';
-            $a = _("No properties are currently configured. Use the 'Manage Properties' tab (above) to add some.");
+            $a = _("No properties are currently configured. Use the \"Manage Properties\" tab above to add some.");
         } else {
             $fieldtype = 'multienum';
         }
