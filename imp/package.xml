@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix browser-based AJAX autocompletion (Bug #11233).
 * [jan] Fix displaying messages in a popup (Bug #11251).
 * [jan] Fix automatic selection of the default identity if other identities contain the same address(es).
 * [jan] Fix editing mailbox ACLs (Bug #11247).
@@ -2578,6 +2579,7 @@
    <date>2012-07-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix browser-based AJAX autocompletion (Bug #11233).
 * [jan] Fix displaying messages in a popup (Bug #11251).
 * [jan] Fix automatic selection of the default identity if other identities contain the same address(es).
 * [jan] Fix editing mailbox ACLs (Bug #11247).

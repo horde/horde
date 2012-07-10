@@ -13,6 +13,7 @@ v6.0.0beta1
 v6.0.0alpha1
 ------------
 
+[mms] Fix browser-based AJAX autocompletion (Bug #11233).
 First alpha release for Horde 5.
 [mms] Only show Inbox, special mailboxes, and polled mailboxes by default in
       smartmobile view.

@@ -46,7 +46,6 @@ The major changes compared to the IMP version H4 are:
 
 Known issues:
    * The new user interface is not complete yet.
-   * Address autocompletion not always working.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */

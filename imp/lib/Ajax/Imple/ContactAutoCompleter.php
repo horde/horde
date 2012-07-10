@@ -60,7 +60,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactA
             self::$_listOutput = true;
         }
 
-        return new Horde_Core_Ajax_Imple_AutoCompleter_Local('IMP.ac_list', $params);
+        return new Horde_Core_Ajax_Imple_AutoCompleter_Local('IMP_ac_list', $params);
     }
 
     /**
