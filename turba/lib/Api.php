@@ -1493,12 +1493,13 @@ class Turba_Api extends Horde_Registry_Api
                                   array $fields = array(),
                                   $matchBegin = false)
     {
+        $abook = $GLOBALS['conf']['client']['addressbook'];
         return $this->search(
             $names,
-            array($GLOBALS['conf']['client']['addressbook']),
-            array($GLOBALS['conf']['client']['addressbook'] => $fields),
-            $matchBegin,
-            true
+            array('sources' => array($abook),
+                  'fields' => array($abook => $fields),
+                  'matchBegin' => $matchBegin,
+                  'forceSource' => true)
         );
     }
 
