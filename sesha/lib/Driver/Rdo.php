@@ -460,6 +460,9 @@ class Sesha_Driver_Rdo extends Sesha_Driver
      */
     public function updatePropertiesForStock($stock_id, $properties = array())
     {
+        if ($stock_id instanceof Sesha_Entity_Stock) {
+            $stock_id = $stock_id->stock_id;
+        }
         $vm = $this->_mappers->create('Sesha_Entity_ValueMapper');
         foreach ($properties as $property_id => $property_value) {
             $value = $vm->findOne(array('stock_id' => $stock_id, 'property_id' => $property_id));
