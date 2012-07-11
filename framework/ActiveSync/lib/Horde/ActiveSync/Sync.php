@@ -128,10 +128,10 @@ class Horde_ActiveSync_Sync
      *
      */
     public function init(
-        Horde_ActiveSync_State_Base &$stateDriver, $exporter, array $collection, $isPing = false)
+        Horde_ActiveSync_State_Base $stateDriver, $exporter, array $collection, $isPing = false)
     {
         $this->_collection = $collection;
-        $this->_stateDriver = &$stateDriver;
+        $this->_stateDriver = $stateDriver;
         $this->_exporter = $exporter;
         $this->_folderId = !empty($collection['id']) ? $collection['id'] : false;
         $this->_changes = $stateDriver->getChanges(array('ping' => $isPing));
