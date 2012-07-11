@@ -247,6 +247,7 @@
      <min>2.0.0alpha1</min>
      <max>3.0.0alpha1</max>
      <exclude>3.0.0alpha1</exclude>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
