@@ -292,7 +292,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
      */
     public function unserialize($data)
     {
-        list($this->_status, $this->_messages, $this->_servierid, $this->_class, $this->_min) = @unserialize($data);
+        list($this->_status, $this->_messages, $this->_serverid, $this->_class, $this->_min) = @unserialize($data);
     }
 
     /**
