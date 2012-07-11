@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-05</date>
- <time>23:31:02</time>
+ <date>2012-07-11</date>
+ <time>14:07:20</time>
  <version>
   <release>2.0.0beta1</release>
   <api>2.0.0alpha1</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [mjr] Fix issue where FILTERTYPE parameter was not being honored on some clients.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -735,12 +735,12 @@
     <release>2.0.0beta1</release>
     <api>2.0.0alpha1</api></version>
    <stability>
-    <release>beta</release>
+    <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-07-05</date>
+   <date>2012-07-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-*
+* [mjr] Fix issue where FILTERTYPE parameter was not being honored on some clients.
    </notes>
   </release>
  </changelog>
