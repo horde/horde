@@ -2009,9 +2009,6 @@ a.horde-mainnavi-active:link, a.horde-mainnavi-active:visited, a.horde-mainnavi-
     background-image:url('graphics/popdown.png');
     background-repeat:no-repeat;
 }
-.subfolders .horde-subnavi {
-    padding-left: 9px;
-}
 
 #horde-slideleft {
     position: absolute;
