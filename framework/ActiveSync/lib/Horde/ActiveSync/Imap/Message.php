@@ -202,6 +202,8 @@ class Horde_ActiveSync_Imap_Message
      *                     DEFAULT 2.5
      *
      * @return array  An array of 'plain' and 'html' content.
+     *
+     * @throws Horde_ActiveSync_Exception
      */
     public function getMessageBodyData(array $options = array())
     {
@@ -757,6 +759,8 @@ class Horde_ActiveSync_Imap_Message
 
     /**
      * Ensure that the envelope is available.
+     *
+     * @throws Horde_ActiveSync_Exception
      */
     protected function _fetchEnvelope()
     {

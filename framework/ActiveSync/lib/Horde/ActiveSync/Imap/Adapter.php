@@ -84,7 +84,7 @@ class Horde_ActiveSync_Imap_Adapter
      *
      * @param string $name  The new mailbox name.
      *
-     * @throws Horde_ActiveSync_Exception
+     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderExists
      */
     public function createMailbox($name)
     {
@@ -106,7 +106,7 @@ class Horde_ActiveSync_Imap_Adapter
      *
      * @param string $name  The mailbox name to delete.
      *
-     * @throws Horde_ActiveSync_Exception
+     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
      */
     public function deleteMailbox($name)
     {
@@ -122,6 +122,14 @@ class Horde_ActiveSync_Imap_Adapter
         }
     }
 
+    /**
+     * Rename a mailbox
+     *
+     * @param string $old  The old mailbox name.
+     * @param string $new  The new mailbox name.
+     *
+     * @throws Horde_ActiveSync_Exception
+     */
     public function renameMailbox($old, $new)
     {
         $imap = $this->_getImapOb();
@@ -144,7 +152,7 @@ class Horde_ActiveSync_Imap_Adapter
      * @param Horde_ActiveSync_Folder_Imap $folder  The folder object.
      *
      * @return boolean  True if changes were detected, otherwise false.
-     * @throws Horde_ActiveSync_Exception
+     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
      */
     public function ping(
         Horde_ActiveSync_Folder_Imap $folder)
@@ -196,7 +204,7 @@ class Horde_ActiveSync_Imap_Adapter
      * @return Horde_ActiveSync_Folder_Imap  The folder object, containing any
      *                                       change instructions for the device.
      *
-     * @throws Horde_Exception
+     * @throws Horde_ActiveSync_Exception_FolderGone, Horde_ActiveSync_Exception
      */
     public function getMessageChanges(
         Horde_ActiveSync_Folder_Imap $folder, array $options = array())
@@ -327,7 +335,7 @@ class Horde_ActiveSync_Imap_Adapter
      *                support UIDPLUS, then this is a best guess and might fail
      *                on busy folders.
      *
-     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
+     * @throws Horde_ActiveSync_Exception
      */
     public function moveMessage($folderid, array $ids, $newfolderid)
     {
@@ -385,7 +393,7 @@ class Horde_ActiveSync_Imap_Adapter
      * @param array $uids       The message UIDs
      * @param string $folderid  The folder id.
      *
-     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
+     * @throws Horde_ActiveSync_Exception
      */
     public function deleteMessages(array $uids, $folderid)
     {
@@ -446,6 +454,8 @@ class Horde_ActiveSync_Imap_Adapter
      * @param string $mailbox                      The mailbox name.
      * @param string $uid                          The message uid.
      * @param Horde_ActiveSync_Message_Flag $flag  The flag
+     *
+     * @throws Horde_ActiveSync_Exception
      */
     public function setMessageFlag($mailbox, $uid, $flag)
     {
@@ -479,6 +489,8 @@ class Horde_ActiveSync_Imap_Adapter
      * @param string $mailbox  The mailbox name.
      * @param string $uid      The message uid.
      * @param integer $flag  Horde_ActiveSync_Message_Mail::FLAG_* constant
+     *
+     * @throws Horde_ActiveSync_Exception
      */
     public function setReadFlag($mailbox, $uid, $flag)
     {
@@ -507,6 +519,8 @@ class Horde_ActiveSync_Imap_Adapter
      * @param string $part     The MIME part identifier.
      *
      * @return Horde_Mime_Part  The attachment data
+     *
+     * @throws Horde_ActiveSync_Exception
      */
     public function getAttachment($mailbox, $uid, $part)
     {
@@ -555,7 +569,6 @@ class Horde_ActiveSync_Imap_Adapter
      * @param array $query  The query array.
      *
      * @return array  An array of 'uniqueid', 'searchfolderid' hashes.
-     * @throws Horde_ActiveSync_Exception
      */
     public function queryMailbox($query)
     {
@@ -738,7 +751,6 @@ class Horde_ActiveSync_Imap_Adapter
      *
      * @return Horde_ActiveSync_Message_Mail  The message object suitable for
      *                                        streaming to the device.
-     * @throws Horde_Exception
      */
     protected function _buildMailMessage(
         Horde_Imap_Client_Mailbox $mbox,
