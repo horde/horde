@@ -650,7 +650,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
                 throw new Horde_Exception_NotFound($e);
-                // throw $e;
             }
             $this->_endBuffer();
             if (empty($messages)) {
