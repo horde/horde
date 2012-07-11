@@ -22,10 +22,6 @@ input {
 }
 
 /* SpellChecker styles. */
-#spellcheck {
-    font-size: 100%;
-    margin-left: 15px;
-}
 .spellcheckChecking, .spellcheckIncorrect {
     color: red;
 }
