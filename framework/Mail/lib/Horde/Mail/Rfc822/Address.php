@@ -171,7 +171,7 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
             $ob = new Horde_Mail_Rfc822_Address($ob);
         }
 
-        return (strtolower($this->bare_address) == strtolower($ob->bare_address));
+        return ($this->bare_address == $ob->bare_address);
     }
 
 }
