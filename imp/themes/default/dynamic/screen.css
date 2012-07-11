@@ -282,50 +282,6 @@ div.vpRowVert div.msgSubject span.flagUser {
 .subfolders {
     padding-left: 9px;
 }
-
-#sidebar .sepfull {
-    height: 1px !important;
-    margin: 5px 0;
-    background: silver;
-}
-#sidebar .sepfulllight {
-    background: lightgrey;
-}
-#sidebar .count {
-    color: silver;
-}
-#sidebar li {
-    list-style: none;
-    height: 16px;
-    line-height: 16px;
-    padding-top: 1px;
-    white-space: nowrap;
-}
-#sidebar li a, #sidebar li.mbox, #sidebar li.container, #sidebar li.custom, #sidebar li.servicelink {
-    color: #000;
-    font-size: 95%;
-    text-decoration: none;
-}
-#sidebar li.servicelink a {
-    font-weight: bold;
-}
-#sidebar li.custom {
-    background: transparent none;
-}
-#sidebar li.custom img {
-    float: left;
-    padding: 1px 4px 0 0;
-}
-#sidebar li.on {
-    background: #ffa;
-}
-#sidebar li.subfolders {
-    height: auto;
-    margin: 0;
-}
-#sidebar li.subfolders ul {
-    padding-left: 10px;
-}
 span.iconImgSidebar {
     background-position: left center;
     background-repeat: no-repeat;
