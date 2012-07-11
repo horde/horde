@@ -85,6 +85,10 @@ input {
     margin-top: -4px;
 }
 
+.horde-subnavi-arrow {
+    cursor: pointer;
+}
+
 /* Columns */
 div.msgStatus {
     padding-left: 10px;
