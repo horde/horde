@@ -18,7 +18,8 @@ class Horde_Block_Metar extends Horde_Core_Block
         parent::__construct($app, $params);
 
         $this->enabled = (!empty($GLOBALS['conf']['sql']['phptype']) &&
-                          class_exists('Services_Weather'));
+                          class_exists('Services_Weather') &&
+                          class_exists('DB'));
         $this->_name = _("Metar Weather");
     }
 
