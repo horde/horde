@@ -386,7 +386,7 @@ div.dimpActionsMsg #windowclose {
 
 /* Headers styles. */
 .msgHeaders {
-    padding: 10px;
+    padding: 10px 6px 10px 10px;
     background-color: #eceff0;
     border-bottom: 1px solid #d0d0d0;
     max-height: 300px;
