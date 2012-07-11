@@ -460,7 +460,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'listmsg_timeout' => _("The server was unable to generate the message list."),
             'message' => _("Message"),
             'messages' => _("Messages"),
-            'messagetitle' => _("%d - %d of %d Messages"),
             'moveto' => _("Move %s to %s"),
             'nomessages' => _("No Messages"),
             'onlogout' => _("Logging Out..."),

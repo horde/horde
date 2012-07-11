@@ -13,14 +13,6 @@
   <div id="dimpmain_iframe"><?php echo _("Loading...") ?></div>
   <div id="dimpmain_folder" style="display:none">
    <div id="dimpmain_folder_top">
-    <div class="header mboxheader" style="display:none">
-     <div>
-      <span class="rightFloat" id="msgHeader"></span>
-      <span id="mailboxName"></span>
-      <span class="iconImg readonlyImg" style="display:none" title="<?php echo $this->h(_("Read-Only")) ?>"></span>
-     </div>
-    </div>
-
     <div class="horde-buttonbar">
      <div>
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Reply', 'id' => 'button_reply', 'title' => _("Reply"))) ?>
@@ -63,11 +55,16 @@
       <div class="horde-button-split"></div>
      </div>
 <?php if ($this->show_search): ?>
+     <div id="mailboxLabel">
+      <?php echo _("Mailbox:")?>
+      <span id="mailboxName"><?php echo _("None") ?></span>
+      <span class="iconImg readonlyImg" style="display:none" title="<?php echo $this->h(_("Read-Only")) ?>"></span>
+     </div>
      <div id="filter">
       <?php echo $this->actionButton(array('id' => 'button_filter', 'title' => _("Filter"), 'right' => true)) ?>
      </div>
 <?php endif; ?>
-      <?php echo $this->actionButton(array('id' => 'button_other', 'title' => _("Other"), 'right' => true)) ?>
+     <?php echo $this->actionButton(array('id' => 'button_other', 'title' => _("Other"), 'right' => true)) ?>
     </div>
 
     <div id="searchbar" style="display:none">

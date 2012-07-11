@@ -392,7 +392,6 @@ var DimpBase = {
 
         if (this.view != f) {
             $('mailboxName').update(DimpCore.text.loading);
-            $('msgHeader').update();
             this.viewswitch = true;
 
             /* Don't cache results of search mailboxes - since we will need to
@@ -645,7 +644,7 @@ var DimpBase = {
                 delete this.rownum;
             }
 
-            this.updateTitle(true);
+            this.updateTitle();
 
             if (this.viewswitch) {
                 this.viewswitch = false;
@@ -700,7 +699,7 @@ var DimpBase = {
                 }
 
                 /* Read-only changes. */
-                [ $('mailboxName').next('.readonlyImg') ].invoke(this.viewport.getMetaData('readonly') ? 'show' : 'hide');
+                [ $('mailboxName').next('SPAN.readonlyImg') ].invoke(this.viewport.getMetaData('readonly') ? 'show' : 'hide');
 
                 /* ACL changes. */
                 if (tmp = $('button_delete')) {
@@ -1419,8 +1418,7 @@ var DimpBase = {
         a.store('flag', flag);
     },
 
-    // name: (boolean) If true, update the mailboxName label
-    updateTitle: function(name)
+    updateTitle: function()
     {
         var elt, unseen,
             label = this.viewport.getMetaData('label');
@@ -1440,9 +1438,6 @@ var DimpBase = {
         }
 
         this.setTitle(label, unseen);
-        if (name) {
-            $('mailboxName').update(label.escapeHTML());
-        }
     },
 
     sort: function(sortby)
@@ -1876,24 +1871,20 @@ var DimpBase = {
 
     setMessageListTitle: function()
     {
-        var range, text,
-            rows = this.viewport.getMetaData('total_rows');
+        var range,
+            rows = this.viewport.getMetaData('total_rows'),
+            text = this.viewport.getMetaData('label');
 
         if (rows) {
             range = this.viewport.currentViewableRange();
-
-            if (range.first == 1 && rows == range.last) {
-                text = (rows == 1)
-                    ? 1 + ' ' + DimpCore.text.message
-                    : rows + ' ' + DimpCore.text.messages;
-            } else {
-                text = DimpCore.text.messagetitle.sub('%d', range.first).sub('%d', range.last).sub('%d', rows);
-            }
-        } else {
-            text = DimpCore.text.nomessages;
+            text += ' (' + (
+                (rows == 1)
+                    ? 1 + ' ' + DimpCore.text.message :
+                    rows + ' ' + DimpCore.text.messages
+            ) + ')';
         }
 
-        $('msgHeader').update(text);
+        $('mailboxName').update(text);
     },
 
     // m = (string|Element) Mailbox element.
