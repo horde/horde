@@ -296,8 +296,8 @@
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <extension>
     <name>pcre</name>
@@ -308,8 +308,8 @@
     <name>Horde_Cache</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
