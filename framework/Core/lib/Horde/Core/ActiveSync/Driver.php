@@ -498,7 +498,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             } else {
                 try {
-                    $folder = &$this->_imap->getMessageChanges(
+                    $folder = $this->_imap->getMessageChanges(
                         $folder,
                         array(
                             'sincedate' => (int)$cutoffdate,
