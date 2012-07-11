@@ -178,7 +178,7 @@
   </div>
 
   <div id="composeMessageParent">
-   <textarea name="message" rows="20" id="composeMessage" class="fixed"></textarea>
+   <textarea name="message" id="composeMessage" class="fixed"></textarea>
   </div>
  </div>
 </form>

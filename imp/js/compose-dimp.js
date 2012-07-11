@@ -12,7 +12,7 @@ var DimpCompose = {
     // Variables defaulting to empty/false:
     //   auto_save_interval, compose_cursor, disabled, drafts_mbox,
     //   editor_wait, is_popup, knl, md5_hdrs, md5_msg, md5_msgOrig,
-    //   onload_show, old_action, old_identity, resizing, rte, rte_loaded,
+    //   onload_show, old_action, old_identity, rte, rte_loaded,
     //   sc_submit, skip_spellcheck, spellcheck, uploading
 
     knl: {},
@@ -764,10 +764,6 @@ var DimpCompose = {
 
     resizeMsgArea: function(e)
     {
-        if (this.resizing) {
-            return;
-        }
-
         if (!document.loaded || $('dimpLoading').visible()) {
             this.resizeMsgArea.bind(this).defer();
             return;
@@ -779,51 +775,18 @@ var DimpCompose = {
             return;
         }
 
-        var lh, mah, msg, msg_h, rows,
-            cmp = $('composeMessageParent'),
-            de = document.documentElement,
-            pad = 0;
-
-        /* Needed because IE 8 will trigger resize events when we change
-         * the rows attribute, which will cause an infinite loop. */
-        this.resizing = true;
-
-        mah = document.viewport.getHeight() - cmp.offsetTop;
+        var cmp = $('composeMessageParent').getLayout(),
+            mah = document.viewport.getHeight() - cmp.get('top') - cmp.get('margin-box-height') + cmp.get('height');
 
         if (this.rte_loaded) {
-            [ 'margin', 'padding', 'border' ].each(function(s) {
-                [ 'Top', 'Bottom' ].each(function(h) {
-                    var a = parseInt(cmp.getStyle(s + h), 10);
-                    if (!isNaN(a)) {
-                        pad += a;
-                    }
-                });
-            });
-
-            this.rte.resize('99%', mah - pad - 1, false);
+            this.rte.resize('99%', mah - 1, false);
         } else if (!ImpComposeBase.editor_on) {
-            /* Logic: Determine the size of a given textarea row, divide
-             * that size by the available height, round down to the lowest
-             * integer row, and resize the textarea. */
-            msg = $('composeMessage');
-            rows = Math.max(0, parseInt(mah / (msg.getHeight() / msg.readAttribute('rows')), 10));
-
-            if (!isNaN(rows)) {
-                /* Due to the funky (broken) way some browsers (FF) count
-                 * rows, we need to overshoot row estimate and decrement
-                 * until textarea size does not cause window scrolling. */
-                ++rows;
-                do {
-                    msg.writeAttribute({ rows: rows--, disabled: false });
-                } while (rows && (de.scrollHeight - de.clientHeight) > 0);
-            }
+            $('composeMessage').setStyle({ height: mah + 'px' });
         }
 
         if ($('rteloading') && $('rteloading').visible()) {
             this.RTELoading();
         }
-
-        this.resizing = false;
     },
 
     uploadAttachment: function()
