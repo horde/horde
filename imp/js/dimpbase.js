@@ -1243,7 +1243,7 @@ var DimpBase = {
                 break;
             }
 
-            tmp = [ $('ctx_oa_undeleted') ];
+            tmp = $('ctx_oa_undeleted', 'ctx_oa_blacklist', 'ctx_oa_whitelist');
             sel = this.viewport.getSelected();
 
             if ($('ctx_oa_setflag')) {
