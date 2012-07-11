@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -244,9 +244,9 @@
    <package>
      <name>Horde_Imap_Client</name>
      <channel>pear.horde.org</channel>
-     <min>2.0.0</min>
-     <max>3.0.0</max>
-     <exclude>3.0.0</exclude>
+     <min>2.0.0alpha1</min>
+     <max>3.0.0alpha1</max>
+     <exclude>3.0.0alpha1</exclude>
   </optional>
  </dependencies>
  <phprelease>
@@ -739,7 +739,7 @@
    <date>2012-07-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>
