@@ -241,6 +241,12 @@
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
+   <package>
+     <name>Horde_Imap_Client</name>
+     <channel>pear.horde.org</channel>
+     <min>2.0.0</min>
+     <max>3.0.0</max>
+     <exclude>3.0.0</exclude>
   </optional>
  </dependencies>
  <phprelease>
