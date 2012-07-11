@@ -729,8 +729,6 @@ a.address:hover img {
 .headercloseimg {
     float: right !important;
     cursor: pointer;
-}
-#compose_close {
     margin-top: 6px;
 }
 
