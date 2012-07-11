@@ -270,7 +270,7 @@ class Horde_ActiveSync_Imap_Message
                 array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
             );
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_ActiveSync_Exception($e);
         }
         $data = $fetch_ret[$this->_uid];
 
@@ -769,7 +769,7 @@ class Horde_ActiveSync_Imap_Message
                 array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
             );
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_ActiveSync_Exception($e);
         }
         $this->_envelope = $fetch_ret[$this->_uid]->getEnvelope();
     }
