@@ -2495,6 +2495,7 @@
    <date>2012-06-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix closing the compose window after redirecting (Bug #11259).
 * [jan] Display correct values in permission-denied error messages (Bug #11253).
    </notes>
   </release>

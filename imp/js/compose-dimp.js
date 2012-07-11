@@ -279,7 +279,6 @@ var DimpCompose = {
                     HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                 }
 
-                $('attach_list').childElements().invoke('remove');
                 return this.closeCompose();
 
             case 'addAttachment':
