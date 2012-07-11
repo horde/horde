@@ -309,7 +309,6 @@ var DimpCompose = {
                     }
                 }
 
-                $('attach_list').childElements().invoke('remove');
                 return this.closeCompose();
 
             case 'addAttachment':

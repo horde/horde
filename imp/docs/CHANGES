@@ -2,6 +2,7 @@
 v5.0.23-git
 -----------
 
+[jan] Fix closing the compose window after redirecting (Bug #11259).
 [jan] Display correct values in permission-denied error messages (Bug #11253).
 
 
