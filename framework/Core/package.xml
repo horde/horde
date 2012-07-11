@@ -775,13 +775,6 @@
     <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Horde_ActiveSync</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0alpha1</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
     <name>Horde_Alarm</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0alpha1</min>
@@ -1031,6 +1024,13 @@
    </extension>
   </required>
   <optional>
+   <package>
+    <name>Horde_ActiveSync</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0alpha1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <package>
     <name>Horde_Crypt</name>
     <channel>pear.horde.org</channel>
