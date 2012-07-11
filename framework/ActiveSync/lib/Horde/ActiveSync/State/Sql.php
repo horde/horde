@@ -190,7 +190,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     protected function _loadStateFromResults($results, $type = Horde_ActiveSync::REQUEST_TYPE_SYNC)
     {
-       if (!$results) {
+        if (!$results) {
             throw new Horde_ActiveSync_Exception_StateGone();
         }
 
