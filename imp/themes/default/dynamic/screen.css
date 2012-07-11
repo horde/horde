@@ -279,6 +279,10 @@ div.vpRowVert div.msgSubject span.flagUser {
 }
 
 /* Sidebar */
+#composelink {
+    font-size: 70%;
+    padding-top: 2px;
+}
 .subfolders {
     padding-left: 9px;
 }
