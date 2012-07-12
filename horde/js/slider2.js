@@ -19,8 +19,14 @@
  * Slider2:change
  *   Fired when slidebar is released and has moved from the original value.
  *
+ * Slider2:end
+ *   Fired when slidebar is released.
+ *
  * Slider2:slide
  *   Fired when slidebar is moved.
+ *
+ * Slider2:start
+ *   Fired when slidebar is clicked on.
  *
  *
  * Adapted from script.aculo.us slider.js v1.8.0
@@ -119,6 +125,7 @@ var Slider2 = Class.create({
             this.curroffsets = this.track.cumulativeOffset();
             this.offsetY = e.pointerY() - hoffsets[1] + this.sbup.offsetHeight;
             this.active = true;
+            this.track.fire('Slider2:start');
         }
 
         e.stop();
@@ -139,9 +146,12 @@ var Slider2 = Class.create({
 
     _endDrag: function(e)
     {
-        if (this.active && this.dragging) {
-            this._updateFinished();
-            e.stop();
+        if (this.active) {
+            if (this.dragging) {
+                this._updateFinished();
+                e.stop();
+            }
+            this.track.fire('Slider2:end');
         }
         this.active = this.dragging = false;
     },
