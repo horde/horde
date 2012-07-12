@@ -421,7 +421,9 @@ var ImpMobile = {
         document.title = $('#imp-message-title').text();
         $('#imp-message-subject').text(data.subject);
 
-        if (data.from.raw) {
+        if (!data.from) {
+            $('#imp-message-from').text(IMP.text.nofrom);
+        } else if (data.from.raw) {
             $('#imp-message-from').text(data.from.raw);
         } else if (data.from.addr[0].g) {
             $('#imp-message-from').text(data.from.addr[0].g);

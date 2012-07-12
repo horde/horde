@@ -39,6 +39,7 @@ $code['text'] = array(
     'copy' => _("Copy"),
     'nav' => _("%d to %d of %d"),
     'new_message' => _("New Message"),
+    'nofrom' => _("Invalid Address"),
     'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
 );
 
