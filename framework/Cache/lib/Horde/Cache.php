@@ -45,14 +45,12 @@ class Horde_Cache
      *
      * @param Horde_Cache_Storage $storage  The storage object.
      * @param array $params                 Parameter array:
-     * <pre>
-     * 'compress' - (boolean) Compress data? Requires the 'lzf' PECL
-     *              extension.
-     *              DEFAULT: false
-     * 'lifetime' - (integer) Lifetime of data, in seconds.
-     *              DEFAULT: 86400 seconds
-     * 'logger' - (Horde_Log_Logger) Log object to use for log/debug messages.
-     * </pre>
+     *   - compress: (boolean) Compress data? Requires the 'lzf' PECL
+     *               extension.
+     *               DEFAULT: false
+     *   - lifetime: (integer) Lifetime of data, in seconds.
+     *               DEFAULT: 86400 seconds
+     *   - logger: (Horde_Log_Logger) Log object to use for log/debug messages.
      */
     public function __construct(Horde_Cache_Storage_Base $storage,
                                 array $params = array())
