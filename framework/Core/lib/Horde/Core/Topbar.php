@@ -115,7 +115,8 @@ class Horde_Core_Topbar
                 'icon' => Horde_Themes::img('prefs.png'),
                 'menu_parent' => 'settings',
                 'name' => Horde_Core_Translation::t("Preferences"),
-                'status' => 'active'
+                'status' => 'active',
+                'url' => $registry->getServiceLink('prefs', $current)
             );
 
             /* Get a list of configurable applications. */
