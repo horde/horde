@@ -55,11 +55,6 @@
       <div class="horde-button-split"></div>
      </div>
 <?php if ($this->show_search): ?>
-     <div id="mailboxLabel">
-      <?php echo _("Mailbox:")?>
-      <span id="mailboxName"><?php echo _("None") ?></span>
-      <span class="iconImg readonlyImg" style="display:none" title="<?php echo $this->h(_("Read-Only")) ?>"></span>
-     </div>
      <div id="filter">
       <?php echo $this->actionButton(array('id' => 'button_filter', 'title' => _("Filter"), 'right' => true)) ?>
      </div>

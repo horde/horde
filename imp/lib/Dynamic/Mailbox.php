@@ -52,13 +52,17 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $this->view->is_opera = $browser->isBrowser('opera');
 
+        $impSubinfo = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/dynamic'
+        ));
+        $impSubinfo->addHelper('Text');
+        $impSubinfo->quota = $session->get('imp', 'imap_quota');
+
         $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
-        if ($session->get('imp', 'imap_quota')) {
-            $topbar->subinfo = '<span id="quota-text"></span>';
-        }
         $topbar->search = $this->view->show_search;
         $topbar->searchAction = '#';
         $topbar->searchMenu = true;
+        $topbar->subinfo = $impSubinfo->render('mailbox_subinfo');
         $this->view->topbar = $topbar->render();
 
         $blank = new Horde_Url();
