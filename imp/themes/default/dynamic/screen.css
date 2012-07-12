@@ -821,7 +821,7 @@ span.logoutIcon {
 #ctx_mbox_empty span.iconImg, #ctx_message_delete span.iconImg, #ctx_oa_purge_deleted span.iconImg {
     background-image: url("../graphics/delete.png");
 }
-#ctx_message_undelete span.iconImg, #ctx_oa_undeleted span.iconImg {
+#ctx_message_undelete span.iconImg, #ctx_oa_undelete span.iconImg {
     background-image: url("../graphics/undelete.png");
 }
 #ctx_mbox_flag_seen span.iconImg, #ctx_message_view span.iconImg, span.iconImg.flagSeen {
