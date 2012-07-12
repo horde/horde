@@ -105,11 +105,8 @@ $driver = $ob->getParam('cache');
 if (!isset($driver['cacheob'])) {
     $cli->fatal('Caching has been disabled for this server.');
 }
-try {
-    $driver['cacheob']->set('imap_cache_test', 1);
-    $driver['cacheob']->expire('imap_cache_test');
-} catch (Exception $e) {
-    $cli->fatal($e);
+if (!$driver['cacheob']->testReadWrite()) {
+    $cli->fatal('Could not access cache storage (read-only?).');
 }
 
 /* Make sure IMAP cache exists in the IMAP driver. */
