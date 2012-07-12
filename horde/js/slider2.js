@@ -7,23 +7,20 @@
  *
  * Usage:
  * ------
- * slider = new Slider2(track, opts);
+ * slider = new Slider2(track, { options });
  *
  *   track - (element|string) TODO
- *   opts - (object) TODO
+ *   options - (object) TODO
  *
  * Custom Events:
  * --------------
- * Custom events are triggered on the track element. The parameters given
- * below are available through the 'memo' property of the Event object.
+ * Custom events are triggered on the track element.
  *
  * Slider2:change
- *   Fired when slidebar is released.
- *   params: NONE
+ *   Fired when slidebar is released and has moved from the original value.
  *
  * Slider2:slide
  *   Fired when slidebar is moved.
- *   params: NONE
  *
  *
  * Adapted from script.aculo.us slider.js v1.8.0
