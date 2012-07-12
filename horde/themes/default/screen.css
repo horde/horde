@@ -1759,13 +1759,22 @@ a.horde-mainnavi-active:link, a.horde-mainnavi-active:visited, a.horde-mainnavi-
     padding:8px 0px 0px 0px;
 }
 .horde-point-arrow{
-    float:left;
+    float:right;
     width:20px;
     height:34px;
+    margin-top: -8px;
     background-image:url('graphics/navi-arrow-normal.png');
     background-repeat:no-repeat;
 }
-.horde-point-right{
+.horde-point-arrow-active{
+    float:right;
+    width:20px;
+    height:34px;
+    margin-top: -8px;
+    background-image:url('graphics/navi-arrow-active.png');
+    background-repeat:no-repeat;
+}
+left.horde-point-right{
     float:left;
     width:10px;
     height:34px;
@@ -1783,13 +1792,6 @@ a.horde-mainnavi-active:link, a.horde-mainnavi-active:visited, a.horde-mainnavi-
     padding:8px 0px 0px 0px;
     background-image: url('graphics/navi-center-active.png');
     background-repeat:repeat-x;
-}
-.horde-point-arrow-active{
-    float:left;
-    width:20px;
-    height:34px;
-    background-image:url('graphics/navi-arrow-active.png');
-    background-repeat:no-repeat;
 }
 .horde-point-right-active{
     float:left;
