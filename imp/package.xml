@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-07-13</date>
- <time>00:40:34</time>
+ <time>00:53:29</time>
  <version>
   <release>6.0.0beta1</release>
   <api>6.0.0alpha1</api>
@@ -865,14 +865,20 @@
      <dir name="graphics">
       <dir name="flags">
        <file name="answered.png" role="horde" />
+       <file name="attachment.png" role="horde" />
        <file name="deleted.png" role="horde" />
        <file name="draft.png" role="horde" />
+       <file name="encrypted.png" role="horde" />
        <file name="flagged.png" role="horde" />
        <file name="forwarded.png" role="horde" />
+       <file name="group.png" role="horde" />
+       <file name="innocent.png" role="horde" />
        <file name="personal.png" role="horde" />
        <file name="priority_high.png" role="horde" />
        <file name="priority_low.png" role="horde" />
        <file name="seen.png" role="horde" />
+       <file name="signed.png" role="horde" />
+       <file name="spam.png" role="horde" />
        <file name="unseen.png" role="horde" />
       </dir> <!-- /themes/default/graphics/flags -->
       <dir name="folders">
@@ -929,7 +935,6 @@
       <file name="edit.png" role="horde" />
       <file name="empty_spam.png" role="horde" />
       <file name="empty_trash.png" role="horde" />
-      <file name="encrypted.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="fetchmail.png" role="horde" />
       <file name="filters.png" role="horde" />
@@ -937,7 +942,6 @@
       <file name="forward.png" role="horde" />
       <file name="forwarded.png" role="horde" />
       <file name="gallery.png" role="horde" />
-      <file name="group.png" role="horde" />
       <file name="help.png" role="horde" />
       <file name="ico_message_off.png" role="horde" />
       <file name="imp.png" role="horde" />
@@ -967,7 +971,6 @@
       <file name="search.png" role="horde" />
       <file name="seen.png" role="horde" />
       <file name="shared.png" role="horde" />
-      <file name="signed.png" role="horde" />
       <file name="sortdown.png" role="horde" />
       <file name="sortup.png" role="horde" />
       <file name="spacer_red.png" role="horde" />
@@ -1786,7 +1789,6 @@
    <install as="imp/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="imp/themes/default/graphics/empty_spam.png" name="themes/default/graphics/empty_spam.png" />
    <install as="imp/themes/default/graphics/empty_trash.png" name="themes/default/graphics/empty_trash.png" />
-   <install as="imp/themes/default/graphics/encrypted.png" name="themes/default/graphics/encrypted.png" />
    <install as="imp/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="imp/themes/default/graphics/fetchmail.png" name="themes/default/graphics/fetchmail.png" />
    <install as="imp/themes/default/graphics/filters.png" name="themes/default/graphics/filters.png" />
@@ -1794,7 +1796,6 @@
    <install as="imp/themes/default/graphics/forward.png" name="themes/default/graphics/forward.png" />
    <install as="imp/themes/default/graphics/forwarded.png" name="themes/default/graphics/forwarded.png" />
    <install as="imp/themes/default/graphics/gallery.png" name="themes/default/graphics/gallery.png" />
-   <install as="imp/themes/default/graphics/group.png" name="themes/default/graphics/group.png" />
    <install as="imp/themes/default/graphics/help.png" name="themes/default/graphics/help.png" />
    <install as="imp/themes/default/graphics/ico_message_off.png" name="themes/default/graphics/ico_message_off.png" />
    <install as="imp/themes/default/graphics/imp.png" name="themes/default/graphics/imp.png" />
@@ -1824,7 +1825,6 @@
    <install as="imp/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="imp/themes/default/graphics/seen.png" name="themes/default/graphics/seen.png" />
    <install as="imp/themes/default/graphics/shared.png" name="themes/default/graphics/shared.png" />
-   <install as="imp/themes/default/graphics/signed.png" name="themes/default/graphics/signed.png" />
    <install as="imp/themes/default/graphics/sortdown.png" name="themes/default/graphics/sortdown.png" />
    <install as="imp/themes/default/graphics/sortup.png" name="themes/default/graphics/sortup.png" />
    <install as="imp/themes/default/graphics/spacer_red.png" name="themes/default/graphics/spacer_red.png" />
@@ -1835,14 +1835,20 @@
    <install as="imp/themes/default/graphics/warning.png" name="themes/default/graphics/warning.png" />
    <install as="imp/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
    <install as="imp/themes/default/graphics/flags/answered.png" name="themes/default/graphics/flags/answered.png" />
+   <install as="imp/themes/default/graphics/flags/attachment.png" name="themes/default/graphics/flags/attachment.png" />
    <install as="imp/themes/default/graphics/flags/deleted.png" name="themes/default/graphics/flags/deleted.png" />
    <install as="imp/themes/default/graphics/flags/draft.png" name="themes/default/graphics/flags/draft.png" />
+   <install as="imp/themes/default/graphics/flags/encrypted.png" name="themes/default/graphics/flags/encrypted.png" />
    <install as="imp/themes/default/graphics/flags/flagged.png" name="themes/default/graphics/flags/flagged.png" />
    <install as="imp/themes/default/graphics/flags/forwarded.png" name="themes/default/graphics/flags/forwarded.png" />
+   <install as="imp/themes/default/graphics/flags/group.png" name="themes/default/graphics/flags/group.png" />
+   <install as="imp/themes/default/graphics/flags/innocent.png" name="themes/default/graphics/flags/innocent.png" />
    <install as="imp/themes/default/graphics/flags/personal.png" name="themes/default/graphics/flags/personal.png" />
    <install as="imp/themes/default/graphics/flags/priority_high.png" name="themes/default/graphics/flags/priority_high.png" />
    <install as="imp/themes/default/graphics/flags/priority_low.png" name="themes/default/graphics/flags/priority_low.png" />
    <install as="imp/themes/default/graphics/flags/seen.png" name="themes/default/graphics/flags/seen.png" />
+   <install as="imp/themes/default/graphics/flags/signed.png" name="themes/default/graphics/flags/signed.png" />
+   <install as="imp/themes/default/graphics/flags/spam.png" name="themes/default/graphics/flags/spam.png" />
    <install as="imp/themes/default/graphics/flags/unseen.png" name="themes/default/graphics/flags/unseen.png" />
    <install as="imp/themes/default/graphics/folders/create.png" name="themes/default/graphics/folders/create.png" />
    <install as="imp/themes/default/graphics/folders/drafts.png" name="themes/default/graphics/folders/drafts.png" />
