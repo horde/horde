@@ -199,11 +199,11 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 $this->_device->id,
                 $lifetime)
             );
-            $expire = $now + $lifetime;
-            $syncCache->lastuntil = $expire;
+
+            $syncCache->lastuntil = $now + $lifetime;
             $syncCache->lasthbsyncstarted = time();
 
-            while (time() <= $expire) {
+            while (time() <= $syncCache->lastuntil) {
                 // Check the remote wipe status
                 if ($this->_provisioning === true) {
                     $rwstatus = $this->_stateDriver->getDeviceRWStatus($this->_device->id);
@@ -239,11 +239,10 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                             "[%s] PING terminating: %s",
                             $this->_device->id,
                             $e->getMessage()));
-                        $expire = time();
+                        $syncCache->lastuntil = time();
                         $this->_statusCode = self::STATUS_NEEDSYNC;
                         $dataavailable = true;
                         $changes[$collection['id']] = 1;
-                        $expire = time();
                         break;
                     } catch (Horde_ActiveSync_Exception_StateGone $e) {
                         $this->_logger->err(sprintf(
@@ -253,7 +252,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $this->_statusCode = self::STATUS_NEEDSYNC;
                         $dataavailable = true;
                         $changes[$collection['id']] = 1;
-                        $expire = time();
+                        $syncCache->lastuntil = time();
                         break;
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_logger->err(sprintf(
@@ -261,7 +260,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                             $this->_device->id,
                             $e->getMessage()));
                         $this->_statusCode = self::STATUS_SERVERERROR;
-                        $expire = time();
+                        $syncCache->lastuntil = time();
                         break;
                     }
                     try {
@@ -274,14 +273,14 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $this->_stateDriver->loadState(array(), null, $collection['id']);
                         $changes[$collection['id']] = 1;
                         $this->_statusCode = self::STATUS_NEEDSYNC;
-                        $expire = time();
+                        $syncCache->lastuntil = time();
                         break;
                     } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                         $this->_logger->err(sprintf(
                             "[%s] PING terminating and forcing a FOLDERSYNC",
                             $this->_device->id));
                         $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
-                        $expire = time();
+                        $syncCache->lastuntil = time();
                         break;
                     } catch (Horde_ActiveSync_Exception $e) {
                         // Stop ping if exporter cannot be configured
