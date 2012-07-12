@@ -806,13 +806,16 @@ span.logoutIcon {
 }
 
 /* Context menu images */
-#ctx_message_reply span.iconImg {
+#ctx_reply_reply span.iconImg, #ctx_message_reply span.iconImg {
     background-image: url("../graphics/reply.png");
 }
-#ctx_reply_reply span.iconImg, #ctx_reply_reply_all span.iconImg, #ctx_reply_reply_list span.iconImg {
+#ctx_reply_reply_all span.iconImg, #ctx_reply_reply_list span.iconImg {
     background-image: url("../graphics/replyall.png");
 }
-#ctx_message_forward span.iconImg, #ctx_forward_attach span.iconImg, #ctx_forward_body span.iconImg, #ctx_forward_both span.iconImg, #ctx_forward_redirect span.iconImg {
+#ctx_forward_attach span.iconImg {
+    background-image: url("../graphics/attachment.png");
+}
+#ctx_message_forward span.iconImg, #ctx_forward_body span.iconImg, #ctx_forward_both span.iconImg, #ctx_forward_redirect span.iconImg {
     background-image: url("../graphics/forward.png");
 }
 #ctx_mbox_empty span.iconImg, #ctx_message_delete span.iconImg, #ctx_oa_purge_deleted span.iconImg {
