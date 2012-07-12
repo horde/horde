@@ -25,13 +25,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
     const CACHE_SEARCH = 'HICsearch';
 
     /**
-     * The Horde_Imap_Client_Cache object.
-     *
-     * @var Horde_Imap_Client_Cache
-     */
-    public $cache = null;
-
-    /**
      * The list of fetch fields that can be cached, and their cache names.
      *
      * @var array
@@ -51,6 +44,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @var boolean
      */
     public $changed = false;
+
+    /**
+     * The Horde_Imap_Client_Cache object.
+     *
+     * @var Horde_Imap_Client_Cache
+     */
+    protected $_cache = null;
 
     /**
      * The debug stream.
@@ -422,9 +422,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return false;
         }
 
-        if (is_null($this->cache)) {
+        if (is_null($this->_cache)) {
             try {
-                $this->cache = new Horde_Imap_Client_Cache(array_merge($this->getParam('cache'), array(
+                $this->_cache = new Horde_Imap_Client_Cache(array_merge($this->getParam('cache'), array(
                     'baseob' => $this,
                     'debug' => (bool)$this->_debug
                 )));
@@ -514,7 +514,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function getCache()
     {
         $this->_initCache();
-        return $this->cache;
+        return $this->_cache;
     }
 
     /**
@@ -1043,7 +1043,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         /* Delete mailbox caches. */
         if ($this->_initCache()) {
-            $this->cache->deleteMailbox($mailbox);
+            $this->_cache->deleteMailbox($mailbox);
         }
         unset($this->_temp['statuscache'][strval($mailbox)]);
 
@@ -1103,7 +1103,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         /* Delete mailbox caches. */
         foreach ($all_mboxes as $val) {
             if ($this->_initCache()) {
-                $this->cache->deleteMailbox($val);
+                $this->_cache->deleteMailbox($val);
             }
             unset($this->_temp['statuscache'][strval($val)]);
         }
@@ -2377,10 +2377,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
                         !empty($status_res['highestmodseq'])) {
                         /* Grab all flags updated since the cached modseq
                          * val. */
-                        $metadata = $this->cache->getMetaData($this->_selected, $status_res['uidvalidity'], array(self::CACHE_MODSEQ));
+                        $metadata = $this->_cache->getMetaData($this->_selected, $status_res['uidvalidity'], array(self::CACHE_MODSEQ));
                         if (isset($metadata[self::CACHE_MODSEQ]) &&
                             ($metadata[self::CACHE_MODSEQ] != $status_res['highestmodseq'])) {
-                            $uids = $this->cache->get($this->_selected, array(), array(), $status_res['uidvalidity']);
+                            $uids = $this->_cache->get($this->_selected, array(), array(), $status_res['uidvalidity']);
                             if (!empty($uids)) {
                                 $flag_query = new Horde_Imap_Client_Fetch_Query();
                                 $flag_query->flags();
@@ -2453,7 +2453,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             : $res_seq['uids'];
 
         /* Get the cached values. */
-        $data = $this->cache->get($this->_selected, $res_seq['uids']->ids, array_values($cache_array), $status_res['uidvalidity']);
+        $data = $this->_cache->get($this->_selected, $res_seq['uids']->ids, array_values($cache_array), $status_res['uidvalidity']);
 
         /* Build a list of what we still need. */
         foreach ($ids as $val) {
@@ -3593,11 +3593,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
         }
 
-        $this->cache->set($mailbox, $tocache, $uidvalid);
+        $this->_cache->set($mailbox, $tocache, $uidvalid);
 
         if (!empty($highestmodseq)) {
             $modseq = max($highestmodseq);
-            $metadata = $this->cache->getMetaData($mailbox, $uidvalid, array(self::CACHE_MODSEQ));
+            $metadata = $this->_cache->getMetaData($mailbox, $uidvalid, array(self::CACHE_MODSEQ));
             if (!isset($metadata[self::CACHE_MODSEQ]) ||
                 ($metadata[self::CACHE_MODSEQ] != $modseq)) {
                     $this->_temp['lastmodseq'][strval($mailbox)] = isset($metadata[self::CACHE_MODSEQ])
@@ -3638,7 +3638,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $uidvalid = $status_res['uidvalidity'];
         }
 
-        $old_data = $this->cache->get($from, array_keys($map), null);
+        $old_data = $this->_cache->get($from, array_keys($map), null);
         $new_data = array();
 
         foreach ($map as $key => $val) {
@@ -3648,7 +3648,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         if (!empty($new_data)) {
-            $this->cache->set($to, $new_data, $uidvalid);
+            $this->_cache->set($to, $new_data, $uidvalid);
         }
     }
 
@@ -3662,7 +3662,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _deleteMsgs($mailbox, $uids)
     {
-        $this->cache->deleteMsgs($mailbox, $uids);
+        $this->_cache->deleteMsgs($mailbox, $uids);
     }
 
     /**
@@ -3684,7 +3684,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $search_id = $mailbox . $cache;
         $status = $this->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-        $metadata = $this->cache->getMetaData($mailbox, $status['uidvalidity'], array(self::CACHE_SEARCH));
+        $metadata = $this->_cache->getMetaData($mailbox, $status['uidvalidity'], array(self::CACHE_SEARCH));
 
         $cacheid = $this->getCacheId($mailbox);
         if (isset($metadata[self::CACHE_SEARCH]['cacheid']) &&
@@ -3749,7 +3749,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $status = $this->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
             $uidvalid = $status['uidvalidity'];
         }
-        $this->cache->setMetaData($mailbox, $uidvalid, $data);
+        $this->_cache->setMetaData($mailbox, $uidvalid, $data);
     }
 
     /**

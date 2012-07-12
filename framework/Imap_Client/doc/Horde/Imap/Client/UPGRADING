@@ -28,6 +28,11 @@ logging any errors.
 
   - Horde_Imap_Client_Base
 
+    - $cache
+
+      This public member variable has been removed. Obtain the cache object
+      by calling getCache() instead.
+
     - append()
 
       The $mailbox parameter can no longer be a UTF7-IMAP string.

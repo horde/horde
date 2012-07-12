@@ -868,10 +868,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* If QRESYNC is available, synchronize the mailbox. */
         if (!$reopen && $qresync) {
             $this->_initCache();
-            $metadata = $this->cache->getMetaData($mailbox, null, array(self::CACHE_MODSEQ, 'uidvalid'));
+            $metadata = $this->_cache->getMetaData($mailbox, null, array(self::CACHE_MODSEQ, 'uidvalid'));
 
             if (isset($metadata[self::CACHE_MODSEQ])) {
-                $uids = $this->cache->get($mailbox);
+                $uids = $this->_cache->get($mailbox);
                 if (!empty($uids)) {
                     /* This command may cause several things to happen.
                      * 1. UIDVALIDITY may have changed.  If so, we need
@@ -3307,7 +3307,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'add':
         case 'remove':
             /* Caching is guaranteed to be active if CONDSTORE is active. */
-            $data = $this->cache->get($this->_selected, array_values($uids), array('HICflags'), $this->_temp['mailbox']['uidvalidity']);
+            $data = $this->_cache->get($this->_selected, array_values($uids), array('HICflags'), $this->_temp['mailbox']['uidvalidity']);
 
             foreach ($uids as $key => $uid) {
                 $flags = isset($data[$uid]['HICflags'])
