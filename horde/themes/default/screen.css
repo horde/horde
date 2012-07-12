@@ -1610,27 +1610,12 @@ a.icon {
 }
 
 a.horde-mainnavi:link, a.horde-mainnavi:visited, a.horde-mainnavi:active {
-    font-size: 110%;
-    color: #fff;
-    font-weight:bold;
-    text-decoration:none;
-    text-shadow: 1px 1px 0px #000;
     display: block;
+    color: #fff;
 }
-a.horde-mainnavi:hover {
-    font-size: 110%;
+.horde-point-center:hover, a.horde-mainnavi:hover, a.horde-mainnavi-active:link, a.horde-mainnavi-active:visited, a.horde-mainnavi-active:active {
     color: #7eaa42;
-    font-weight:bold;
     text-decoration:none;
-    text-shadow: 1px 1px 0px #000;
-}
-
-a.horde-mainnavi-active:link, a.horde-mainnavi-active:visited, a.horde-mainnavi-active:active {
-    font-size: 110%;
-    color: #7eaa42;
-    font-weight:bold;
-    text-decoration:none;
-    text-shadow: 1px 1px 0px #000;
 }
 
 .horde-dropdown {
@@ -1738,6 +1723,12 @@ a.horde-mainnavi-active:link, a.horde-mainnavi-active:visited, a.horde-mainnavi-
 }
 #horde-navigation{
     float:left;
+    font-size: 110%;
+    color: #fff;
+    font-weight:bold;
+    text-decoration:none;
+    text-shadow: 1px 1px 0px #000;
+    cursor: default;
 }
 .horde-navipoint{
     float:left;
