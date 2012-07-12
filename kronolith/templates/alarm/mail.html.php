@@ -25,7 +25,7 @@
         <td width="100%"><font size="2"><strong><?php echo $this->h($this->event->getLocation($this->user)) ?></strong></font></td>
       </tr>
       <?php endif ?>
-      <?php if (!$this->isPrivate($this->user)): ?>
+      <?php if (!$this->event->isPrivate($this->user)): ?>
       <?php if ($this->attendees): ?>
 
       <tr<?php if ($i++ % 2) echo ' bgcolor="#f1f1f1"' ?>>
