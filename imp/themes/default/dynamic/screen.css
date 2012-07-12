@@ -894,7 +894,7 @@ span.logoutIcon {
     background-image: url("../graphics/reload.png");
 }
 #ctx_preview_allparts span.iconImg, #msg_all_parts span.iconImg {
-    background-image: url("../graphics/email_attach.png");
+    background-image: url("../graphics/attachment.png");
 }
 #ctx_flag span.iconImg.flagUser, #ctx_flag_search span.iconImg.flagUser {
     border: 1px black solid;
