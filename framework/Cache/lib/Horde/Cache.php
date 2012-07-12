@@ -165,4 +165,24 @@ class Horde_Cache
         return $this->_storage->clear();
     }
 
+    /**
+     * Tests the driver for read/write access.
+     *
+     * @return boolean  True if read/write is available.
+     */
+    public function testReadWrite()
+    {
+        $key = '__horde_cache_testkey';
+
+        try {
+            $this->_storage->set($key, 1);
+            if ($this->_storage->exists($key)) {
+                $this->_storage->expire($key);
+                return true;
+            }
+        } catch (Exception $e) {}
+
+        return false;
+    }
+
 }
