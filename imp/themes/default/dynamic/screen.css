@@ -154,12 +154,13 @@ div.vpRow div {
 }
 div.vpRow div.iconImg {
     position: relative;
-    margin-top: -3px
+    margin-top: -3px;
+    width: 16px;
 }
 div.vpRow div.horde-subnavi-arrow {
     position: relative;
     width: 16px;
-    margin-top: -4px
+    margin-top: -4px;
 }
 div.vpRowSelected {
     background-color: #36525d !important;

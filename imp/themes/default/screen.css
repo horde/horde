@@ -167,6 +167,9 @@ div.partsTreeDiv span span:last-child {
     vertical-align: sub;
 }
 
+.msgflags.iconImg {
+    width: 16px;
+}
 .msgflags.flagPersonal {
     background-image: url("graphics/flags/personal.png");
 }
