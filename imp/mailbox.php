@@ -404,6 +404,7 @@ if (empty($pageOb['end'])) {
     $topbar->subinfo = sprintf(_("%d Messages"), $pageOb['msgcount']);
 }
 
+$page_output->addScriptFile('hordecore.js', 'horde');
 $page_output->addScriptFile('mailbox.js');
 $page_output->addScriptPackage('Dialog');
 
