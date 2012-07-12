@@ -168,13 +168,13 @@ div.partsTreeDiv span span:last-child {
 }
 
 .msgflags.flagPersonal {
-    background-image: url("graphics/mail_personal.png");
+    background-image: url("graphics/flags/personal.png");
 }
 .msgflags.flagHighpriority {
-    background-image: url("graphics/mail_priority_high.png");
+    background-image: url("graphics/flags/priority_high.png");
 }
 .msgflags.flagLowpriority {
-    background-image: url("graphics/mail_priority_low.png");
+    background-image: url("graphics/flags/priority_low.png");
 }
 .msgflags.flagSignedmsg {
     background-image: url("graphics/signed.png");
@@ -195,25 +195,25 @@ div.partsTreeDiv span span:last-child {
     background-image: url("graphics/innocent.png");
 }
 span.iconImg.flagSeen {
-    background-image: url("graphics/mail_seen.png");
+    background-image: url("graphics/flags/seen.png");
 }
 .msgflags.flagUnseen, span.iconImg.flagUnseen {
-    background-image: url("graphics/mail_unseen.png");
+    background-image: url("graphics/flags/unseen.png");
 }
 .msgflags.flagAnswered, span.iconImg.flagAnswered {
-    background-image: url("graphics/mail_answered.png");
+    background-image: url("graphics/flags/answered.png");
 }
 .msgflags.flagDraft, span.iconImg.flagDraft {
-    background-image: url("graphics/mail_draft.png");
+    background-image: url("graphics/flags/draft.png");
 }
 .msgflags.flagForwarded, span.iconImg.flagForwarded {
-    background-image: url("graphics/mail_forwarded.png");
+    background-image: url("graphics/flags/forwarded.png");
 }
 .msgflags.flagFlagged, span.iconImg.flagFlagged {
-    background-image: url("graphics/mail_flagged.png");
+    background-image: url("graphics/flags/flagged.png");
 }
 .msgflags.flagDeleted, span.iconImg.flagDeleted {
-    background-image: url("graphics/mail_deleted.png");
+    background-image: url("graphics/flags/deleted.png");
 }
 
 /* Prefs management styles. */

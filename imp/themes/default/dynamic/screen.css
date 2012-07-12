@@ -798,7 +798,7 @@ span.logoutIcon {
     background-image: url("../graphics/edit.png");
 }
 .dimpactionResume {
-    background-image: url("../graphics/mail_draft.png");
+    background-image: url("../graphics/drafts.png");
 }
 .dimpactionFilter {
     background-image: url("../graphics/filters.png");
@@ -821,22 +821,22 @@ span.logoutIcon {
     background-image: url("../graphics/undelete.png");
 }
 #ctx_mbox_flag_seen span.iconImg, #ctx_message_view span.iconImg {
-    background-image: url("../graphics/mail_seen.png");
+    background-image: url("../graphics/seen.png");
 }
 #ctx_mbox_flag_unseen span.iconImg, #ctx_mbox_poll span.iconImg, #ctx_mbox_nopoll span.iconImg {
-    background-image: url("../graphics/mail_unseen.png");
+    background-image: url("../graphics/unseen.png");
 }
 #ctx_message_setflag span.iconImg, #ctx_oa_setflag span.iconImg, #ctx_mbox_setflag span.iconImg {
-    background-image: url("../graphics/mail_flagged.png");
+    background-image: url("../graphics/flagged.png");
 }
 #ctx_message_unsetflag span.iconImg, #ctx_oa_unsetflag span.iconImg {
-    background-image: url("../graphics/mail_clearflag.png");
+    background-image: url("../graphics/clearflag.png");
 }
 #ctx_message_source span.iconImg, #msg_view_source span.iconImg, #ctx_preview_viewsource span.iconImg {
     background-image: url("../graphics/message_source.png");
 }
 #ctx_message_resume span.iconImg, #ctx_message_template span.iconImg, #ctx_message_template_edit span.iconImg, #ctx_template_new span.iconImg, #ctx_template_edit span.iconImg, #msg_resume_draft span.iconImg, #msg_template span.iconImg {
-    background-image: url("../graphics/mail_draft.png");
+    background-image: url("../graphics/drafts.png");
 }
 #ctx_oa_preview_hide span.iconImg, #ctx_oa_preview_show span.iconImg {
     background-image: url("../graphics/preview.png");
@@ -952,13 +952,13 @@ span.readonlyImg {
 
 /* Growler notification styles. */
 .imp-reply {
-    background-image: url("../graphics/mail_answered.png");
+    background-image: url("../graphics/answered.png");
 }
 .imp-reply_all, .imp-reply_list {
     background-image: url("../graphics/replyall.png");
 }
 .imp-forward, .imp-redirect {
-    background-image: url("../graphics/mail_forwarded.png");
+    background-image: url("../graphics/forwarded.png");
 }
 
 /* Help screen */
