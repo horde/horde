@@ -197,9 +197,6 @@ div.partsTreeDiv span span:last-child {
 .msgflags.flagNotJunk, span.iconImg.flagNotJunk {
     background-image: url("graphics/innocent.png");
 }
-span.iconImg.flagSeen {
-    background-image: url("graphics/flags/seen.png");
-}
 .msgflags.flagUnseen, span.iconImg.flagUnseen {
     background-image: url("graphics/flags/unseen.png");
 }
@@ -212,7 +209,7 @@ span.iconImg.flagSeen {
 .msgflags.flagForwarded, span.iconImg.flagForwarded {
     background-image: url("graphics/flags/forwarded.png");
 }
-.msgflags.flagFlagged, span.iconImg.flagFlagged {
+.msgflags.flagFlagged {
     background-image: url("graphics/flags/flagged.png");
 }
 .msgflags.flagDeleted, span.iconImg.flagDeleted {

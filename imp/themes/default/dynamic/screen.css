@@ -821,13 +821,13 @@ span.logoutIcon {
 #ctx_message_undelete span.iconImg, #ctx_oa_undeleted span.iconImg {
     background-image: url("../graphics/undelete.png");
 }
-#ctx_mbox_flag_seen span.iconImg, #ctx_message_view span.iconImg {
+#ctx_mbox_flag_seen span.iconImg, #ctx_message_view span.iconImg, span.iconImg.flagSeen {
     background-image: url("../graphics/seen.png");
 }
 #ctx_mbox_flag_unseen span.iconImg, #ctx_mbox_poll span.iconImg, #ctx_mbox_nopoll span.iconImg {
     background-image: url("../graphics/unseen.png");
 }
-#ctx_message_setflag span.iconImg, #ctx_oa_setflag span.iconImg, #ctx_mbox_setflag span.iconImg {
+#ctx_message_setflag span.iconImg, #ctx_oa_setflag span.iconImg, #ctx_mbox_setflag span.iconImg, span.iconImg.flagFlagged {
     background-image: url("../graphics/flagged.png");
 }
 #ctx_message_unsetflag span.iconImg, #ctx_oa_unsetflag span.iconImg {
