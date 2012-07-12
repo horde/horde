@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix finding locale directory if installed with PEAR.
 * [mjr] Fix issue where FILTERTYPE parameter was not being honored on some clients.
  </notes>
  <contents>
@@ -119,7 +120,9 @@
       <file name="Sync.php" role="php" />
       <file name="SyncCache.php" role="php" />
       <file name="Timezone.php" role="php" />
-      <file name="Translation.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
       <file name="Utils.php" role="php" />
       <file name="Wbxml.php" role="php" />
      </dir> <!-- /lib/Horde/ActiveSync -->
@@ -733,6 +736,7 @@
    <date>2012-07-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix finding locale directory if installed with PEAR.
 * [mjr] Fix issue where FILTERTYPE parameter was not being honored on some clients.
    </notes>
   </release>

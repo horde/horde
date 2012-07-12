@@ -39,7 +39,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-*
+* [jan] Fix finding locale directory if installed with PEAR.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -69,7 +69,9 @@ Reading, writing and listing of files are all supported.</description>
       <file name="Sql.php" role="php" />
       <file name="SqlFile.php" role="php" />
       <file name="Ssh2.php" role="php" />
-      <file name="Translation.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/Vfs -->
      <file name="Vfs.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -1024,7 +1026,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2012-07-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* [jan] Fix finding locale directory if installed with PEAR.
    </notes>
   </release>
  </changelog>

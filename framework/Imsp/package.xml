@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-*
+* [jan] Fix finding locale directory if installed with PEAR.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -51,7 +51,9 @@
       <file name="Book.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Options.php" role="php" />
-      <file name="Translation.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/Imsp -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -725,7 +727,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2012-07-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* [jan] Fix finding locale directory if installed with PEAR.
    </notes>
   </release>
  </changelog>
