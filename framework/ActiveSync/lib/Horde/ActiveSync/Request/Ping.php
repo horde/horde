@@ -190,7 +190,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $changes = array();
         $dataavailable = false;
         if (!$syncCache->validateTimestamps()) {
-            $this->_logger->debug('Timestamp validatation failed.');
+            $this->_logger->err('Timestamp validatation failed.');
             return true;
         }
         if ($this->_statusCode == self::STATUS_NOCHANGES) {
