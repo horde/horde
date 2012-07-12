@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-06</date>
- <time>00:46:27</time>
+ <date>2012-07-13</date>
+ <time>00:40:34</time>
  <version>
   <release>6.0.0beta1</release>
   <api>6.0.0alpha1</api>
@@ -700,6 +700,7 @@
      <file name="compose.html.php" role="horde" />
      <file name="header.html.php" role="horde" />
      <file name="mailbox.html.php" role="horde" />
+     <file name="mailbox_subinfo.html.php" role="horde" />
      <file name="message.html.php" role="horde" />
      <file name="qreply.html.php" role="horde" />
      <file name="redirect.html.php" role="horde" />
@@ -862,6 +863,18 @@
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/dynamic -->
      <dir name="graphics">
+      <dir name="flags">
+       <file name="answered.png" role="horde" />
+       <file name="deleted.png" role="horde" />
+       <file name="draft.png" role="horde" />
+       <file name="flagged.png" role="horde" />
+       <file name="forwarded.png" role="horde" />
+       <file name="personal.png" role="horde" />
+       <file name="priority_high.png" role="horde" />
+       <file name="priority_low.png" role="horde" />
+       <file name="seen.png" role="horde" />
+       <file name="unseen.png" role="horde" />
+      </dir> <!-- /themes/default/graphics/flags -->
       <dir name="folders">
        <file name="create.png" role="horde" />
        <file name="drafts.png" role="horde" />
@@ -892,6 +905,7 @@
       </dir> <!-- /themes/default/graphics/nav -->
       <file name="addressbook_browse.png" role="horde" />
       <file name="add_contact.png" role="horde" />
+      <file name="answered.png" role="horde" />
       <file name="application_tile_horizontal.png" role="horde" />
       <file name="application_tile_vertical.png" role="horde" />
       <file name="arrow_collapsed.png" role="horde" />
@@ -906,20 +920,22 @@
       <file name="checkbox_on.png" role="horde" />
       <file name="checkbox_over.png" role="horde" />
       <file name="checkmail.png" role="horde" />
+      <file name="clearflag.png" role="horde" />
       <file name="close.png" role="horde" />
       <file name="compose.png" role="horde" />
       <file name="delete.png" role="horde" />
       <file name="download.png" role="horde" />
       <file name="drafts.png" role="horde" />
       <file name="edit.png" role="horde" />
-      <file name="email_attach.png" role="horde" />
       <file name="empty_spam.png" role="horde" />
       <file name="empty_trash.png" role="horde" />
       <file name="encrypted.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="fetchmail.png" role="horde" />
       <file name="filters.png" role="horde" />
+      <file name="flagged.png" role="horde" />
       <file name="forward.png" role="horde" />
+      <file name="forwarded.png" role="horde" />
       <file name="gallery.png" role="horde" />
       <file name="group.png" role="horde" />
       <file name="help.png" role="horde" />
@@ -932,17 +948,6 @@
       <file name="locked.png" role="horde" />
       <file name="logo.png" role="horde" />
       <file name="logout.png" role="horde" />
-      <file name="mail_answered.png" role="horde" />
-      <file name="mail_clearflag.png" role="horde" />
-      <file name="mail_deleted.png" role="horde" />
-      <file name="mail_draft.png" role="horde" />
-      <file name="mail_flagged.png" role="horde" />
-      <file name="mail_forwarded.png" role="horde" />
-      <file name="mail_personal.png" role="horde" />
-      <file name="mail_priority_high.png" role="horde" />
-      <file name="mail_priority_low.png" role="horde" />
-      <file name="mail_seen.png" role="horde" />
-      <file name="mail_unseen.png" role="horde" />
       <file name="message_source.png" role="horde" />
       <file name="mini-error.png" role="horde" />
       <file name="newmail.png" role="horde" />
@@ -960,6 +965,7 @@
       <file name="scroller.png" role="horde" />
       <file name="scroller_back.png" role="horde" />
       <file name="search.png" role="horde" />
+      <file name="seen.png" role="horde" />
       <file name="shared.png" role="horde" />
       <file name="signed.png" role="horde" />
       <file name="sortdown.png" role="horde" />
@@ -968,6 +974,7 @@
       <file name="spam.png" role="horde" />
       <file name="spellcheck.png" role="horde" />
       <file name="undelete.png" role="horde" />
+      <file name="unseen.png" role="horde" />
       <file name="warning.png" role="horde" />
       <file name="whitelist.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
@@ -1655,6 +1662,7 @@
    <install as="imp/templates/dynamic/compose.html.php" name="templates/dynamic/compose.html.php" />
    <install as="imp/templates/dynamic/header.html.php" name="templates/dynamic/header.html.php" />
    <install as="imp/templates/dynamic/mailbox.html.php" name="templates/dynamic/mailbox.html.php" />
+   <install as="imp/templates/dynamic/mailbox_subinfo.html.php" name="templates/dynamic/mailbox_subinfo.html.php" />
    <install as="imp/templates/dynamic/message.html.php" name="templates/dynamic/message.html.php" />
    <install as="imp/templates/dynamic/qreply.html.php" name="templates/dynamic/qreply.html.php" />
    <install as="imp/templates/dynamic/redirect.html.php" name="templates/dynamic/redirect.html.php" />
@@ -1754,6 +1762,7 @@
    <install as="imp/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
    <install as="imp/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
    <install as="imp/themes/default/graphics/add_contact.png" name="themes/default/graphics/add_contact.png" />
+   <install as="imp/themes/default/graphics/answered.png" name="themes/default/graphics/answered.png" />
    <install as="imp/themes/default/graphics/application_tile_horizontal.png" name="themes/default/graphics/application_tile_horizontal.png" />
    <install as="imp/themes/default/graphics/application_tile_vertical.png" name="themes/default/graphics/application_tile_vertical.png" />
    <install as="imp/themes/default/graphics/arrow_collapsed.png" name="themes/default/graphics/arrow_collapsed.png" />
@@ -1768,20 +1777,22 @@
    <install as="imp/themes/default/graphics/checkbox_on.png" name="themes/default/graphics/checkbox_on.png" />
    <install as="imp/themes/default/graphics/checkbox_over.png" name="themes/default/graphics/checkbox_over.png" />
    <install as="imp/themes/default/graphics/checkmail.png" name="themes/default/graphics/checkmail.png" />
+   <install as="imp/themes/default/graphics/clearflag.png" name="themes/default/graphics/clearflag.png" />
    <install as="imp/themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
    <install as="imp/themes/default/graphics/compose.png" name="themes/default/graphics/compose.png" />
    <install as="imp/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="imp/themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
    <install as="imp/themes/default/graphics/drafts.png" name="themes/default/graphics/drafts.png" />
    <install as="imp/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
-   <install as="imp/themes/default/graphics/email_attach.png" name="themes/default/graphics/email_attach.png" />
    <install as="imp/themes/default/graphics/empty_spam.png" name="themes/default/graphics/empty_spam.png" />
    <install as="imp/themes/default/graphics/empty_trash.png" name="themes/default/graphics/empty_trash.png" />
    <install as="imp/themes/default/graphics/encrypted.png" name="themes/default/graphics/encrypted.png" />
    <install as="imp/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="imp/themes/default/graphics/fetchmail.png" name="themes/default/graphics/fetchmail.png" />
    <install as="imp/themes/default/graphics/filters.png" name="themes/default/graphics/filters.png" />
+   <install as="imp/themes/default/graphics/flagged.png" name="themes/default/graphics/flagged.png" />
    <install as="imp/themes/default/graphics/forward.png" name="themes/default/graphics/forward.png" />
+   <install as="imp/themes/default/graphics/forwarded.png" name="themes/default/graphics/forwarded.png" />
    <install as="imp/themes/default/graphics/gallery.png" name="themes/default/graphics/gallery.png" />
    <install as="imp/themes/default/graphics/group.png" name="themes/default/graphics/group.png" />
    <install as="imp/themes/default/graphics/help.png" name="themes/default/graphics/help.png" />
@@ -1794,17 +1805,6 @@
    <install as="imp/themes/default/graphics/locked.png" name="themes/default/graphics/locked.png" />
    <install as="imp/themes/default/graphics/logo.png" name="themes/default/graphics/logo.png" />
    <install as="imp/themes/default/graphics/logout.png" name="themes/default/graphics/logout.png" />
-   <install as="imp/themes/default/graphics/mail_answered.png" name="themes/default/graphics/mail_answered.png" />
-   <install as="imp/themes/default/graphics/mail_clearflag.png" name="themes/default/graphics/mail_clearflag.png" />
-   <install as="imp/themes/default/graphics/mail_deleted.png" name="themes/default/graphics/mail_deleted.png" />
-   <install as="imp/themes/default/graphics/mail_draft.png" name="themes/default/graphics/mail_draft.png" />
-   <install as="imp/themes/default/graphics/mail_flagged.png" name="themes/default/graphics/mail_flagged.png" />
-   <install as="imp/themes/default/graphics/mail_forwarded.png" name="themes/default/graphics/mail_forwarded.png" />
-   <install as="imp/themes/default/graphics/mail_personal.png" name="themes/default/graphics/mail_personal.png" />
-   <install as="imp/themes/default/graphics/mail_priority_high.png" name="themes/default/graphics/mail_priority_high.png" />
-   <install as="imp/themes/default/graphics/mail_priority_low.png" name="themes/default/graphics/mail_priority_low.png" />
-   <install as="imp/themes/default/graphics/mail_seen.png" name="themes/default/graphics/mail_seen.png" />
-   <install as="imp/themes/default/graphics/mail_unseen.png" name="themes/default/graphics/mail_unseen.png" />
    <install as="imp/themes/default/graphics/message_source.png" name="themes/default/graphics/message_source.png" />
    <install as="imp/themes/default/graphics/mini-error.png" name="themes/default/graphics/mini-error.png" />
    <install as="imp/themes/default/graphics/newmail.png" name="themes/default/graphics/newmail.png" />
@@ -1822,6 +1822,7 @@
    <install as="imp/themes/default/graphics/scroller.png" name="themes/default/graphics/scroller.png" />
    <install as="imp/themes/default/graphics/scroller_back.png" name="themes/default/graphics/scroller_back.png" />
    <install as="imp/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
+   <install as="imp/themes/default/graphics/seen.png" name="themes/default/graphics/seen.png" />
    <install as="imp/themes/default/graphics/shared.png" name="themes/default/graphics/shared.png" />
    <install as="imp/themes/default/graphics/signed.png" name="themes/default/graphics/signed.png" />
    <install as="imp/themes/default/graphics/sortdown.png" name="themes/default/graphics/sortdown.png" />
@@ -1830,8 +1831,19 @@
    <install as="imp/themes/default/graphics/spam.png" name="themes/default/graphics/spam.png" />
    <install as="imp/themes/default/graphics/spellcheck.png" name="themes/default/graphics/spellcheck.png" />
    <install as="imp/themes/default/graphics/undelete.png" name="themes/default/graphics/undelete.png" />
+   <install as="imp/themes/default/graphics/unseen.png" name="themes/default/graphics/unseen.png" />
    <install as="imp/themes/default/graphics/warning.png" name="themes/default/graphics/warning.png" />
    <install as="imp/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
+   <install as="imp/themes/default/graphics/flags/answered.png" name="themes/default/graphics/flags/answered.png" />
+   <install as="imp/themes/default/graphics/flags/deleted.png" name="themes/default/graphics/flags/deleted.png" />
+   <install as="imp/themes/default/graphics/flags/draft.png" name="themes/default/graphics/flags/draft.png" />
+   <install as="imp/themes/default/graphics/flags/flagged.png" name="themes/default/graphics/flags/flagged.png" />
+   <install as="imp/themes/default/graphics/flags/forwarded.png" name="themes/default/graphics/flags/forwarded.png" />
+   <install as="imp/themes/default/graphics/flags/personal.png" name="themes/default/graphics/flags/personal.png" />
+   <install as="imp/themes/default/graphics/flags/priority_high.png" name="themes/default/graphics/flags/priority_high.png" />
+   <install as="imp/themes/default/graphics/flags/priority_low.png" name="themes/default/graphics/flags/priority_low.png" />
+   <install as="imp/themes/default/graphics/flags/seen.png" name="themes/default/graphics/flags/seen.png" />
+   <install as="imp/themes/default/graphics/flags/unseen.png" name="themes/default/graphics/flags/unseen.png" />
    <install as="imp/themes/default/graphics/folders/create.png" name="themes/default/graphics/folders/create.png" />
    <install as="imp/themes/default/graphics/folders/drafts.png" name="themes/default/graphics/folders/drafts.png" />
    <install as="imp/themes/default/graphics/folders/edit.png" name="themes/default/graphics/folders/edit.png" />
@@ -2577,9 +2589,9 @@
     <release>6.0.0beta1</release>
     <api>6.0.0alpha1</api></version>
    <stability>
-    <release>beta</release>
+    <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-07-06</date>
+   <date>2012-07-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix regression in IMAP cache query script preventing stats in all mailbox reports (Bug #11265).
