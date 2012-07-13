@@ -101,19 +101,14 @@ class Horde_ActiveSync_Connector_Exporter
      *
      * @param string $id                              The uid of the message
      * @param Horde_ActiveSync_Message_Base $message  The message object
-     *
-     * @return boolean
      */
     public function messageChange($id, Horde_ActiveSync_Message_Base $message)
     {
-        // Just ignore any messages that are not from this collection
-        if ($message->getClass() != $this->_class) {
-            return true;
-        }
-
+        // Just ignore any messages that are not from this collection and
         // Prevent sending the same object twice in one request
-        if (in_array($id, $this->_seenObjects)) {
-        	return true;
+        if ($message->getClass() != $this->_class ||
+            in_array($id, $this->_seenObjects)) {
+            return;
         }
 
         // Remember this message
@@ -134,16 +129,12 @@ class Horde_ActiveSync_Connector_Exporter
         $message->encodeStream($this->_encoder);
         $this->_encoder->endTag();
         $this->_encoder->endTag();
-
-        return true;
     }
 
     /**
      * Stream a message deletion to the PIM
      *
      * @param string $id  The uid of the message we are deleting.
-     *
-     * @return boolean
      */
     public function messageDeletion($id)
     {
@@ -152,8 +143,6 @@ class Horde_ActiveSync_Connector_Exporter
         $this->_encoder->content($id);
         $this->_encoder->endTag();
         $this->_encoder->endTag();
-
-        return true;
     }
 
     /**
@@ -161,15 +150,14 @@ class Horde_ActiveSync_Connector_Exporter
      *
      * @param string $id      The uid
      * @param integer $flags  The flag
-     *
-     * @return boolean
      */
     public function messageReadFlag($id, $flag)
     {
         // This only applies to mail folders
         if ($this->_class != Horde_ActiveSync::CLASS_EMAIL) {
-            return true;
+            return;
         }
+
         /* Encode and stream */
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
@@ -181,8 +169,6 @@ class Horde_ActiveSync_Connector_Exporter
         $this->_encoder->endTag();
         $this->_encoder->endTag();
         $this->_encoder->endTag();
-
-        return true;
     }
 
     public function messageFlag($id, $flag)
@@ -205,42 +191,31 @@ class Horde_ActiveSync_Connector_Exporter
      * Move a message to a different folder.
      *
      * @param Horde_ActiveSync_Message_Base $message  The message
-     *
-     * @return boolean
      */
     function messageMove($message)
     {
-        return true;
     }
 
     /**
      * Add a folder change to the cache (used during FolderSync requests).
      *
      * @param Horde_ActiveSync_Message_Folder $folder
-     *
-     * @return boolean
      */
     public function folderChange(Horde_ActiveSync_Message_Folder $folder)
     {
         array_push($this->changed, $folder);
         $this->count++;
-
-        return true;
     }
 
     /**
      * Add a folder deletion to the cache (used during FolderSync Requests).
      *
      * @param string $id  The folder id
-     *
-     * @return boolean
      */
     public function folderDeletion($id)
     {
         array_push($this->deleted, $id);
         $this->count++;
-
-        return true;
     }
 
 }
