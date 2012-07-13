@@ -1085,7 +1085,7 @@ class Horde_Registry
         }
 
         if ($result instanceof Horde_Exception) {
-            throw $e;
+            throw $result;
         }
 
         return $result;
