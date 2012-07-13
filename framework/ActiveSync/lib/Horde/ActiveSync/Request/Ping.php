@@ -215,13 +215,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     }
                 }
 
-                if (!$syncCache->validateCache()) {
-                    $this->_logger->debug(sprintf(
-                        '[%s] SyncCache was modified by other process, exiting.',
-                        $this->_device->id));
-                    return true;
-                }
-
                 foreach ($collections as $collection) {
                     $sync = $this->_getSyncObject();
                     try {
