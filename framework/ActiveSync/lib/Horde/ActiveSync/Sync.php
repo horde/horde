@@ -218,8 +218,9 @@ class Horde_ActiveSync_Sync
                     } catch (Horde_Exception_NotFound $e) {
                         $this->_logger->err('Message gone or error reading message from server: ' . $e->getMessage());
                         $this->_stateDriver->updateState(Horde_ActiveSync::CHANGE_TYPE_CHANGE, $change);
-                    } catch (Horde_Exception $e) {
-                        return false;
+                    } catch (Horde_ActiveSync_Exception $e) {
+                        $this->_logger->err('Unknown backend error skipping message: ' . $e->getMessage());
+                        $this->_stateDriver->updateState(Horde_ActiveSync::CHANGE_TYPE_CHANGE, $change);
                     }
                     break;
 
