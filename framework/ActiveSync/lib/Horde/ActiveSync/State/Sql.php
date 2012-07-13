@@ -959,7 +959,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
             $this->_logger->debug(sprintf(
                 '[%s] Removing device state for user %s.',
-                $this->_deviceInfo->id,
+                $options['devId'],
                 $options['user'])
             );
 
@@ -975,7 +975,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $state_values = $values = array($options['devId']);
             $this->_logger->debug(sprintf(
                 '[%s] Removing all device state for device %s.',
-                $this->_deviceInfo->id,
+                $options['devId'],
                 $options['devId'])
             );
         } elseif (!empty($options['user'])) {
@@ -986,7 +986,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $state_values = $values = array($options['user']);
             $this->_logger->debug(sprintf(
                 '[%s] Removing all device state for user %s.',
-                $this->_deviceInfo->id,
+                (!empty($this->_deviceInfo->id) ? $this->_deviceInfo->id : 'unknown'),
                 $options['user'])
             );
         } elseif (!empty($options['synckey'])) {
@@ -995,7 +995,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $state_values = $values = array($options['synckey']);
             $this->_logger->debug(sprintf(
                 '[%s] Removing device state for sync_key %s only.',
-                $this->_deviceInfo->id,
+                (!empty($this->_deviceInfo->id) ? $this->_deviceInfo->id : 'unknown'),
                 $options['synckey'])
             );
         } else {
