@@ -608,10 +608,6 @@ if ($pageOb['msgcount']) {
         );
     }
 
-    /* Hack since IE doesn't support :last-child CSS selector. */
-    if (!empty($mboxactions)) {
-        $mboxactions[count($mboxactions) - 1]['last'] = true;
-    }
     $a_template->set('mboxactions', $mboxactions);
 
     if ($registry->hasMethod('mail/blacklistFrom')) {
