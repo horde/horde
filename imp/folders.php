@@ -354,10 +354,11 @@ if (!empty($refresh_ak)) {
     $refresh_title .= sprintf(_(" (Accesskey %s)"), $refresh_ak);
 }
 $sidebar = $injector->getInstance('Horde_View_Sidebar');
-$sidebar->newRefresh = $folders_url_ob->link(array(
+$sidebar->refreshLink = $folders_url_ob->link(array(
     'accesskey' => $refresh_ak,
     'title' => $refresh_title
 ));
+$sidebar->refreshText = _("Refresh");
 
 /* Prepare the header template. */
 $head_template = $injector->createInstance('Horde_Template');
