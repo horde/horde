@@ -74,17 +74,29 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         ));
         $impSidebar->addHelper('Text');
         $impSidebar->containers = array(
-            array('id' => 'imp-specialmboxes'),
-            array('rows' => array(
-                array('id' => 'folderopts_link',
-                      'cssClass' => 'folderoptsImg',
-                      'dropDown' => true,
-                      'link' => $blank->link() . _("Folder Actions") . '</a>'),
-                array('id' => 'dropbase',
-                      'style' => 'display:none',
-                      'cssClass' => 'folderImg',
-                      'link' => $blank->link() . _("Move to Base Level") . '</a>'))),
-            array('id' => 'imp-normalmboxes'));
+            array(
+                'id' => 'imp-specialmboxes'
+            ),
+            array(
+                'rows' => array(
+                    array(
+                        'id' => 'folderopts_link',
+                        'cssClass' => 'folderoptsImg',
+                        'dropDown' => true,
+                        'link' => $blank->link() . _("Folder Actions") . '</a>'
+                    ),
+                    array(
+                        'id' => 'dropbase',
+                        'style' => 'display:none',
+                        'cssClass' => 'folderImg',
+                        'link' => $blank->link() . _("Move to Base Level") . '</a>'
+                    )
+                )
+            ),
+            array(
+                'id' => 'imp-normalmboxes'
+            )
+        );
         $impSidebar->containersCount = 3;
 
         $sidebar = $GLOBALS['injector']->getInstance('Horde_View_Sidebar');
