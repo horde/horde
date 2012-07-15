@@ -7,20 +7,8 @@
 
 var IMP_JS = {
 
-    // Defaulting to null: menumbox_load
     keydownhandler: null,
     imgs: {},
-
-    menuMailboxSubmit: function(clear)
-    {
-        var mf = $('menuform');
-
-        if ((!this.menumbox_load || clear) &&
-            $F(mf.down('SELECT[name="mailbox"]'))) {
-            this.menumbox_load = true;
-            mf.submit();
-        }
-    },
 
     /**
      * Use DOM manipulation to un-block images.
@@ -148,19 +136,6 @@ var IMP_JS = {
         }
         win.print();
         win.close();
-    },
-
-    onDomLoad: function()
-    {
-        // If menu is present, attach event handlers to mailbox switcher.
-        var tmp = $('openmboxicon');
-        if (tmp) {
-            // Observe actual element since IE does not bubble change events.
-            $('menu').down('[name=mailbox]').observe('change', this.menuMailboxSubmit.bind(this));
-            tmp.down().observe('click', this.menuMailboxSubmit.bind(this, true));
-        }
     }
 
 };
-
-document.observe('dom:loaded', IMP_JS.onDomLoad.bind(IMP_JS));
