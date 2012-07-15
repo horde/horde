@@ -942,7 +942,8 @@ span.keydownImg {
     background-image: url("../graphics/key_down.png");
 }
 span.readonlyImg {
-    vertical-align: sub;
+    background-color: white;
+    margin-top: -1px 0 0 3px;
 }
 
 /* Growler notification styles. */
