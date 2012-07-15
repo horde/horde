@@ -165,13 +165,16 @@ class Horde_ActiveSync_Sync
                 switch($change['type']) {
                 case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
                     // Get the new folder information
-                    $folder = $this->_backend->getFolder($change['id']);
-                    $stat = $this->_backend->statFolder(
-                        $change['id'],
-                        $folder->parentid,
-                        $folder->displayname);
-                    if (!$folder) {
-                        return false;
+                    if ($folder = $this->_backend->getFolder($change['id'])) {
+                        $stat = $this->_backend->statFolder(
+                            $change['id'],
+                            $folder->parentid,
+                            $folder->displayname);
+                    } else {
+                        $this->_logger->err(sprintf(
+                            'Error stating %s : ignoring.',
+                            $change['id']));
+                        $stat = array('id' => $change['id'], 'mod' => $change['id'], 0);
                     }
                     $this->_stateDriver->updateState(
                         Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC, $stat);
