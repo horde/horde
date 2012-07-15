@@ -170,6 +170,7 @@ class Horde_ActiveSync_Sync
                             $change['id'],
                             $folder->parentid,
                             $folder->displayname);
+                        $this->_exporter->folderChange($folder);
                     } else {
                         $this->_logger->err(sprintf(
                             'Error stating %s : ignoring.',
