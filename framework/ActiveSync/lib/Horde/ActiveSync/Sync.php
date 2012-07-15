@@ -56,7 +56,7 @@ class Horde_ActiveSync_Sync
      *
      * @var int
      */
-    protected $_step = 0;
+    protected $_step;
 
     /**
      * Server specific folder id
@@ -135,6 +135,7 @@ class Horde_ActiveSync_Sync
         $this->_exporter = $exporter;
         $this->_folderId = !empty($collection['id']) ? $collection['id'] : false;
         $this->_changes = $stateDriver->getChanges(array('ping' => $isPing));
+        $this->_step = 0;
     }
 
     /**
