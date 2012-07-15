@@ -594,7 +594,7 @@ if ($pageOb['msgcount']) {
         );
     }
 
-    if (!$sortpref->sotrby_locked &&
+    if (!$sortpref->sortby_locked &&
         ($sortpref->sortby != Horde_Imap_Client::SORT_SEQUENCE)) {
         $mboxactions[] = array(
             'v' => Horde::widget($mailbox_imp_url->copy()->add(array('sortby' => Horde_Imap_Client::SORT_SEQUENCE, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), _("Clear Sort"), '', '', '', _("Clear Sort"))
