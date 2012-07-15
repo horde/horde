@@ -1266,16 +1266,22 @@ abstract class Horde_Imap_Client_Base implements Serializable
             ? array_unique($pattern)
             : array($pattern);
 
+        /* Prepare patterns. */
+        $plist = array();
+        foreach (array_map(array('Horde_Imap_Client_Utf7imap', 'Utf8ToUtf7Imap'), $pattern) as $val) {
+            $plist[] = preg_replace(
+                array("/\*{2,}/", "/\%{2,}/"),
+                array('*', '%'),
+                $val
+            );
+        }
+
         if (isset($options['special_use']) &&
             !$this->queryCapability('SPECIAL-USE')) {
             unset($options['special_use']);
         }
 
-        $ret = $this->_listMailboxes(
-            array_map(array('Horde_Imap_Client_Utf7imap', 'Utf8ToUtf7Imap'), $pattern),
-            $mode,
-            $options
-        );
+        $ret = $this->_listMailboxes($plist, $mode, $options);
 
         if (!empty($options['sort'])) {
             Horde_Imap_Client_Sort::sortMailboxes($ret, array(
