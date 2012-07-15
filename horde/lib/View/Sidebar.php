@@ -87,14 +87,12 @@ class Horde_View_Sidebar extends Horde_View
      *
      * @param array $row         A hash with the row information. Possible
      *                           values:
-     *                           - cssClass: (string) CSS class for the icon.
-     *                           - id: (string) DOM ID for the row link.
-     *                           - label: (string) The row text.
-     *                           - selected: (boolean) Whether to mark the row
-     *                             as active.
-     *                           - style: (string) Additional CSS styles to
-     *                             apply to the row.
-     *                           - url (string) URL to link the row to.
+     *   - cssClass: (string) CSS class for the icon.
+     *   - id: (string) DOM ID for the row link.
+     *   - label: (string) The row text.
+     *   - selected: (boolean) Whether to mark the row as active.
+     *   - style: (string) Additional CSS styles to apply to the row.
+     *   - url (string) URL to link the row to.
      * @param string $container  If using multiple sidebar sections, the ID of
      *                           the section to add the row to. Sections will
      *                           be rendered in the order of their first usage.
@@ -124,4 +122,5 @@ class Horde_View_Sidebar extends Horde_View
 
         $this->containers[$container]['rows'][] = $row;
     }
+
 }
