@@ -97,7 +97,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 'id' => 'imp-normalmboxes'
             )
         );
-        $impSidebar->containersCount = 3;
 
         $sidebar = $GLOBALS['injector']->getInstance('Horde_View_Sidebar');
         $sidebar->newLink = $blank->link(array('id' => 'composelink',
