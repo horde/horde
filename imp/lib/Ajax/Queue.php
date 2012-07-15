@@ -132,11 +132,11 @@ class IMP_Ajax_Queue
             $maillog = array();
 
             foreach ($this->_maillog as $val) {
-                if ($tmp = IMP_Dimp::getMsgLogInfo($val->msg_id)) {
+                if ($tmp = IMP_Dimp::getMsgLogInfo($val['msg_id'])) {
                     $log_ob = new stdClass;
                     $log_ob->log = $tmp;
-                    $log_ob->mbox = $val->mbox->form_to;
-                    $log_ob->uid = $val->uid;
+                    $log_ob->mbox = $val['mbox']->form_to;
+                    $log_ob->uid = $val['uid'];
                     $maillog[] = $log_ob;
                 }
             }
@@ -236,7 +236,7 @@ class IMP_Ajax_Queue
     {
         if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
             $this->_maillog[] = array(
-                'mailbox' => $mailbox,
+                'mailbox' => IMP_Mailbox::get($mailbox),
                 'msg_id' => $msg_id,
                 'uid' => $uid
             );
