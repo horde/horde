@@ -215,22 +215,15 @@ var DimpCore = {
     /* Add message log info to message view. */
     updateMsgLog: function(log)
     {
-        var df, tmp;
-
-        if (log) {
-            df = document.createDocumentFragment();
-            log.each(function(entry) {
-                df.appendChild(new Element('LI').insert(new Element('SPAN', { className: 'iconImg imp-' + entry.t })).insert(entry.m));
-            });
-
+        var df = document.createDocumentFragment(),
             tmp = $('msgloglist').down('UL');
-            tmp.childElements().invoke('remove');
-            tmp.appendChild(df);
 
-            $('msgLogInfo').show();
-        } else {
-            $('msgLogInfo').hide();
-        }
+        log.each(function(entry) {
+            df.appendChild(new Element('LI').insert(new Element('SPAN', { className: 'iconImg imp-' + entry.t })).insert(entry.m));
+        });
+
+        tmp.childElements().invoke('remove');
+        tmp.appendChild(df);
     },
 
     // Abstract: define in any pages that need reloadMessage().

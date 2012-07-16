@@ -1657,7 +1657,10 @@ var DimpBase = {
         }
 
         // Add message log information
-        DimpCore.updateMsgLog(r.log);
+        if (r.log) {
+            DimpCore.updateMsgLog(r.log);
+            $('msgLogInfo').show();
+        }
 
         // Toggle resume link
         if (this.viewport.getMetaData('templates')) {
@@ -1771,10 +1774,12 @@ var DimpBase = {
             var tmp = this._getPPId(l.uid, l.mbox);
             if (this.ppcache[tmp]) {
                 this.ppcache[tmp].log = l.log;
-                if (this.pp &&
+                if (l.log &&
+                    this.pp &&
                     this.pp.uid == l.uid &&
                     this.pp.mbox == l.mbox) {
                     DimpCore.updateMsgLog(l.log);
+                    $('msgLogInfo').show();
                 }
             }
         }, this);

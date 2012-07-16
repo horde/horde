@@ -73,38 +73,23 @@
         <td><?php echo $val['val'] ?></td>
        </tr>
 <?php endforeach; ?>
-       <tr id="msgAtc"<?php if (!isset($this->atc_label)) echo ' style="display:none"'; ?>>
-        <td class="label" id="partlist_toggle">
-         <span class="iconImg attachmentImg attachmentImage"></span>
-         <span id="partlist_col" class="iconImg"></span>
-         <span id="partlist_exp" class="iconImg" style="display:none"></span>
+       <tr id="msgHeaderAtc"<?php if (!isset($this->atc_label)) echo ' style="display:none"'; ?>>
+        <td class="label">
+         <?php echo _("Attachments") ?>:
         </td>
         <td>
-         <span class="atcLabel"><?php echo $this->atc_label ?></span>
-         <?php echo $this->atc_download ?>
-         <div id="partlist" style="display:none">
+         <div id="partlist">
           <table>
            <?php echo $this->atc_list ?>
           </table>
          </div>
         </td>
        </tr>
-       <tr id="msgLogInfo" style="display:none">
-        <td class="label" id="msgloglist_toggle">
-         <span class="iconImg" id="msgloglist_col"></span>
-         <span class="iconImg" id="msgloglist_exp" style="display:none"></span>
-        </td>
-        <td>
-         <div>
-          <span class="msgLogLabel"><?php echo _("Message Log") ?></span>
-         </div>
-         <div id="msgloglist" style="display:none">
-          <ul></ul>
-         </div>
-        </td>
-       </tr>
       </thead>
      </table>
+     <div id="msgloglist" style="display:none">
+      <ul></ul>
+     </div>
     </div>
    </div>
   </div>

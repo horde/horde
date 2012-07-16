@@ -161,31 +161,6 @@ var DimpMessage = {
             e.memo.hordecore_stop = true;
             break;
 
-        case 'msgloglist_toggle':
-        case 'partlist_toggle':
-            tmp = (e.element().identify() == 'partlist_toggle') ? 'partlist' : 'msgloglist';
-            $(tmp + '_col', tmp + '_exp').invoke('toggle');
-            Effect.toggle(tmp, 'blind', {
-                afterFinish: function() {
-                    this.resizeWindow();
-                    $('msgData').down('DIV.messageBody').setStyle({
-                        overflowY: 'auto'
-                    })
-                }.bind(this),
-                beforeSetup: function() {
-                    $('msgData').down('DIV.messageBody').setStyle({
-                        overflowY: 'hidden'
-                    })
-                },
-                duration: 0.2,
-                queue: {
-                    position: 'end',
-                    scope: tmp,
-                    limit: 2
-                }
-            });
-            break;
-
         case 'msg_view_source':
             HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                 actionID: 'view_source',
@@ -314,7 +289,10 @@ var DimpMessage = {
         delete this.addr_limit;
 
         /* Add message log information. */
-        DimpCore.updateMsgLog(this.log);
+        if (this.log) {
+            DimpCore.updateMsgLog(this.log);
+            $('msgloglist').show();
+        }
 
         if (HordeCore.base.DimpBase) {
             if (this.strip) {

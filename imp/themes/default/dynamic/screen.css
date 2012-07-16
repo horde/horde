@@ -384,6 +384,12 @@ div.dimpActionsMsg #windowclose {
 .msgfullread .msgHeaders {
     cursor: default;
 }
+.msgfullread #msgloglist {
+    margin-top: 3px;
+}
+.msgfullread #partlist table {
+    margin: 0 0 -3px 0;
+}
 
 .msgHeaders .dimpOptions {
     padding: 0 0 5px 5px;
