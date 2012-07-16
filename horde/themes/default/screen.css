@@ -1734,7 +1734,7 @@ a.horde-mainnavi:link, a.horde-mainnavi:visited, a.horde-mainnavi:active {
     float:left;
 }
 .horde-navipoint:hover .horde-point-arrow{
-    background-image:url('graphics/navi-arrow-normal-hover.png');
+    background-image:url('graphics/navi-arrow-active.png');
 }
 .horde-navipoint:hover .horde-point-center a{
     color: #7eaa42;
