@@ -3,11 +3,10 @@
  * This is a view of the application-specific sidebar.
  *
  * Useful properties:
+ * - newLink: (string, optional) Link of the "New" button
+ *   - newText: (string) Text of the "New" button
+ * - newRefresh: (string, optional) HTML content of the refresh button
  * - containers: (array, optional) HTML content of any sidebar sections.
- * - newLink: (string, OPTIONAL) Link of the "New" button
- * - newText: (string) Text of the "New" button
- * - refreshLink: (string, OPTIONAL) HTML content of the refresh button
- * - refreshText: (string, OPTIONAL) Text of the refresh button
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *

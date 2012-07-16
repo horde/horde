@@ -374,9 +374,7 @@ if (!empty($refresh_ak)) {
     $refresh_title .= sprintf(_(" (Accesskey %s)"), $refresh_ak);
 }
 
-$sidebar = $injector->getInstance('Horde_View_Sidebar');
-$sidebar->refreshLink = Horde::link($refresh_url, $refresh_title, '', '', '', '', $refresh_ak);
-$sidebar->refreshText = _("Refresh");
+$injector->getInstance('Horde_View_Sidebar')->newRefresh = Horde::link($refresh_url, $refresh_title, '', '', '', '', $refresh_ak);
 
 if ($unread) {
     $pagetitle = $title .= ' (' . $unread . ')';

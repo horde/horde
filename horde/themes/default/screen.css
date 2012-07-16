@@ -1904,7 +1904,7 @@ left.horde-point-right{
     background-color:#bfc9cd;
 }
 
-.horde-new, .horde-refresh {
+.horde-new {
     height: 29px;
     background-image: url('graphics/sidebar-new-bg.png');
     background-repeat: repeat-x;
@@ -1919,20 +1919,36 @@ left.horde-point-right{
     float: left;
     border-right: 1px solid #787878;
 }
-#horde-sidebar .horde-new-link a, .horde-new-link a,
-#horde-sidebar .horde-refresh-link a, .horde-refresh-link a {
+#horde-sidebar .horde-new-link a, .horde-new-link a {
     padding-left: 28px;
     margin: 5px 10px 0 10px;
+    background-image:url('graphics/sidebar-new.png');
     background-repeat:no-repeat;
     background-position: left 1px;
     color: #fff;
     display: block;
 }
-#horde-sidebar .horde-new-link a, .horde-new-link a {
-    background-image:url('graphics/sidebar-new.png');
+.horde-new-split {
+    float: right;
+    width: 2px;
+    height: 29px;
+    margin-left: 10px;
+    background-image: url('graphics/sidebar-split.png');
+    background-repeat: no-repeat;
 }
-#horde-sidebar .horde-refresh-link a, .horde-refresh-link a {
+.horde-new-refresh {
+    float: right;
+    width: 20px;
+    height: 24px;
+    margin: 5px 6px 0px 7px;
     background-image: url('graphics/sidebar-refresh.png');
+    background-repeat: no-repeat;
+}
+.horde-new-refresh a {
+    display: block;
+}
+.horde-new-refresh a:hover {
+    text-decoration: none;
 }
 
 /*
