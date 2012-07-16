@@ -504,16 +504,14 @@ class IMP
     }
 
     /**
-     * Outputs IMP's quota information.
+     * Add IMP's quota information to the subinfo bar.
      */
-    static public function quota()
+    static public function quota(Horde_View $subinfo)
     {
         $quotadata = self::quotaData(true);
         if (!empty($quotadata)) {
-            $t = $GLOBALS['injector']->createInstance('Horde_Template');
-            $t->set('class', $quotadata['class']);
-            $t->set('message', $quotadata['message']);
-            echo $t->fetch(IMP_TEMPLATES . '/quota/quota.html');
+            $subinfo->quotaText = $quotadata['message'];
+            $subinfo->quotaClass = $quotadata['class'];
         }
     }
 

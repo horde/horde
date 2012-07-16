@@ -368,10 +368,6 @@ $page_output->addInlineJsVars(array(
 
 $pagetitle = $title = IMP::mailbox()->label;
 
-if ($unread) {
-    $pagetitle = $title .= ' (' . $unread . ')';
-}
-
 if (IMP::mailbox()->editvfolder) {
     $query_text = wordwrap($imp_search[IMP::mailbox()]->querytext);
     $pagetitle .= ' [' . Horde::linkTooltip('#', $query_text, '', '', '', $query_text) . _("Virtual Folder") . '</a>]';
@@ -384,17 +380,21 @@ if (IMP::mailbox()->editvfolder) {
 }
 
 /* Generate mailbox summary string. */
-$topbar = $injector->getInstance('Horde_View_Topbar');
+$subinfo = $injector->getInstance('IMP_View_Subinfo');
+$subinfo->label = _("Mailbox:");
+$subinfo->value = $pagetitle . ' (';
 if (empty($pageOb['end'])) {
-    $topbar->subinfo = _("No Messages");
+    $subinfo->value .= _("No Messages");
 } elseif ($pageOb['pagecount'] > 1) {
-    $topbar->subinfo = '('
-        . sprintf(_("Page %d of %d"), $pageOb['page'], $pageOb['pagecount'])
-        . ') '
-        . sprintf(_("%d - %d of %d Messages"), $pageOb['begin'], $pageOb['end'], $pageOb['msgcount']);
+    $subinfo->value .=
+          sprintf(_("%d Messages"), $pageOb['msgcount'])
+        . ' / '
+        .  sprintf(_("Page %d of %d"), $pageOb['page'], $pageOb['pagecount']);
 } else {
-    $topbar->subinfo = sprintf(_("%d Messages"), $pageOb['msgcount']);
+    $subinfo->value .= sprintf(_("%d Messages"), $pageOb['msgcount']);
 }
+$subinfo->value .= ')';
+$injector->getInstance('Horde_View_Topbar')->subinfo = $subinfo->render();
 
 $page_output->addScriptFile('hordecore.js', 'horde');
 $page_output->addScriptFile('mailbox.js');
@@ -405,14 +405,12 @@ $page_output->metaRefresh($prefs->getValue('refresh_time'), $refresh_url);
 IMP::header($title);
 echo $menu;
 IMP::status();
-IMP::quota();
 
 /* Prepare the header template. */
 $hdr_template = $injector->createInstance('Horde_Template');
 $hdr_template->setOption('gettext', true);
 
 $hdr_template->set('title', $title);
-$hdr_template->set('pagetitle', $pagetitle);
 if ($readonly) {
     $hdr_template->set('readonly', true);
 }

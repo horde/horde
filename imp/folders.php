@@ -293,6 +293,10 @@ case 'mbox_size':
             $loop[] = $data;
         }
 
+        /* Prepare the topbar. */
+        $injector->getInstance('Horde_View_Topbar')->subinfo =
+            $injector->getInstance('IMP_View_Subinfo')->render();
+
         $template = $injector->createInstance('Horde_Template');
         $template->setOption('gettext', true);
         $template->set('mboxes', $loop);
@@ -306,7 +310,6 @@ case 'mbox_size':
         IMP::header(_("Mailbox Sizes"));
         echo $menu;
         IMP::status();
-        IMP::quota();
 
         echo $template->fetch(IMP_TEMPLATES . '/imp/folders/folders_size.html');
 
@@ -328,13 +331,16 @@ case 'search':
 $folders_url_ob = new Horde_Url($folders_url);
 $folders_url_ob->add('folders_token', $folders_token);
 
+/* Prepare the topbar. */
+$injector->getInstance('Horde_View_Topbar')->subinfo =
+    $injector->getInstance('IMP_View_Subinfo')->render();
+
 if ($session->get('imp', 'file_upload') &&
     ($vars->actionID == 'import_mbox')) {
     $menu = IMP::menu();
     IMP::header(_("Folder Navigator"));
     echo $menu;
     IMP::status();
-    IMP::quota();
 
     /* Prepare import template. */
     $i_template = $injector->createInstance('Horde_Template');
@@ -350,7 +356,6 @@ if ($session->get('imp', 'file_upload') &&
 /* Prepare the header template. */
 $head_template = $injector->createInstance('Horde_Template');
 $head_template->setOption('gettext', true);
-$head_template->set('title', $refresh_title);
 $head_template->set('folders_url', $folders_url_ob);
 $head_template->set('folders_token', $folders_token);
 
@@ -405,7 +410,6 @@ $page_output->metaRefresh($refresh_time, Horde::url('folders.php', true));
 IMP::header(_("Folder Navigator"));
 echo $menu;
 IMP::status();
-IMP::quota();
 
 echo $head_template->fetch(IMP_TEMPLATES . '/imp/folders/head.html');
 echo $a_template->fetch(IMP_TEMPLATES . '/imp/folders/actions.html');

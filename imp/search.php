@@ -452,6 +452,10 @@ if (!$t->get('edit_query_filter')) {
     }
 }
 
+/* Prepare the topbar. */
+$injector->getInstance('Horde_View_Topbar')->subinfo =
+    $injector->getInstance('IMP_View_Subinfo')->render();
+
 Horde_Core_Ui_JsCalendar::init();
 $page_output->addScriptFile('hordecore.js', 'horde');
 $page_output->addScriptFile('horde.js', 'horde');

@@ -739,11 +739,11 @@ $m_template->set('label', $shortsub);
 $m_template->set('headers', $hdrs);
 $m_template->set('msgtext', $mdntext . $inlineout['msgtext']);
 
-$injector->getInstance('Horde_View_Topbar')->subinfo = sprintf(
-    '%s: %s %s',
-    $header_label,
-    sprintf(_("(%d&nbsp;of&nbsp;%d)"), $msgindex, count($imp_mailbox)),
-    $status);
+$subinfo = $injector->getInstance('IMP_View_Subinfo');
+$subinfo->label = $header_label;
+$subinfo->value = sprintf(_("(%d of %d)"), $msgindex, count($imp_mailbox))
+    . $status;
+$injector->getInstance('Horde_View_Topbar')->subinfo = $subinfo->render();
 
 /* Output message page now. */
 $page_output->addInlineScript($inlineout['js_onload'], true);
@@ -768,7 +768,6 @@ if (!empty($conf['maillog']['use_maillog'])) {
 }
 echo $menu;
 IMP::status();
-IMP::quota();
 
 echo $t_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_top.html');
 echo $n_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_navigate.html');
