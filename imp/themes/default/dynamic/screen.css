@@ -774,6 +774,9 @@ span.logoutIcon {
 .dimpactionRefresh {
     background-image: url("../graphics/reload.png");
 }
+.imp-loading {
+    background-image: url("../graphics/reload.gif");
+}
 .dimpactionDelete {
     background-image: url("../graphics/delete.png");
 }

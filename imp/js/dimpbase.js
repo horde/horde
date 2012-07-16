@@ -1978,7 +1978,7 @@ var DimpBase = {
             args.set('forceUpdate', 1);
         }
 
-        //$('checkmaillink').down('A').update('[' + DimpCore.text.check + ']');
+        $('checkmaillink').up().addClassName('imp-loading');
         DimpCore.doAction('poll', args);
     },
 
@@ -1994,7 +1994,7 @@ var DimpBase = {
             this.updateUnseenStatus(u.key, u.value);
         }, this);
 
-        //$('checkmaillink').down('A').update(DimpCore.text.getmail);
+        $('checkmaillink').up().removeClassName('imp-loading');
     },
 
     quotaCallback: function(r)
@@ -3624,7 +3624,6 @@ var DimpBase = {
         }
 
         /* Store these text strings for updating purposes. */
-        //DimpCore.text.getmail = $('checkmaillink').down('A').innerHTML;
         //DimpCore.text.showalog = $('alertsloglink').down('A').innerHTML;
 
         /* Initialize the starting page. */
