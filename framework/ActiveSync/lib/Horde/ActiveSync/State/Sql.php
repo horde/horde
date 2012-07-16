@@ -1139,7 +1139,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @throws Horde_ActiveSync_Exception
      */
-    public function deleteSyncCache($devid, $user == null)
+    public function deleteSyncCache($devid, $user = null)
     {
         $sql = 'DELETE FROM ' . $this->_syncCacheTable . ' WHERE ';
             . ' WHERE cache_user = ? AND cache_devid = ?';
