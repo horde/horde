@@ -126,15 +126,14 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                 $mboxname = $this->_mailbox->search
                     ? $this->_sortedMbox[$i - 1]
                     : strval($this->_mailbox);
-
-                // $uids - KEY: UID, VALUE: array index
-                $to_process[$mboxname][$this->_sorted[$i - 1]] = $i;
+                $to_process[$mboxname][] = $this->_sorted[$i - 1];
             }
         }
 
         $fetch_query = new Horde_Imap_Client_Fetch_Query();
         $fetch_query->envelope();
         $fetch_query->flags();
+        $fetch_query->seq();
         $fetch_query->size();
         $fetch_query->uid();
 
@@ -170,21 +169,21 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
         foreach ($to_process as $mbox => $ids) {
             try {
                 $fetch_res = $imp_imap->fetch($mbox, $fetch_query, array(
-                    'ids' => $imp_imap->getIdsOb(array_keys($ids))
+                    'ids' => $imp_imap->getIdsOb($ids)
                 ));
 
                 if ($options['preview']) {
                     $preview_info = $tostore = array();
                     if ($cache) {
                         try {
-                            $preview_info = $cache->get($mbox, array_keys($ids), array('IMPpreview', 'IMPpreviewc'));
+                            $preview_info = $cache->get($mbox, $ids, array('IMPpreview', 'IMPpreviewc'));
                         } catch (IMP_Imap_Exception $e) {}
                     }
                 }
 
                 $mbox_ids = array();
 
-                foreach (array_keys($ids) as $k) {
+                foreach ($ids as $k) {
                     if (!isset($fetch_res[$k])) {
                         continue;
                     }
@@ -194,7 +193,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                         'envelope' => $f->getEnvelope(),
                         'flags' => $f->getFlags(),
                         'headers' => $f->getHeaders('imp', Horde_Imap_Client_Data_Fetch::HEADER_PARSE),
-                        'idx' => $ids[$f->getUid()],
+                        'idx' => $f->getSeq(),
                         'mailbox' => $mbox,
                         'size' => $f->getSize(),
                         'uid' => $f->getUid()
