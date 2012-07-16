@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix some issues that were causing infinite loops on iOS
 * [jan] Fix finding locale directory if installed with PEAR.
 * [mjr] Fix issue where FILTERTYPE parameter was not being honored on some clients.
  </notes>
@@ -736,6 +737,7 @@
    <date>2012-07-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix some issues that were causing infinite loops on iOS
 * [jan] Fix finding locale directory if installed with PEAR.
 * [mjr] Fix issue where FILTERTYPE parameter was not being honored on some clients.
    </notes>
