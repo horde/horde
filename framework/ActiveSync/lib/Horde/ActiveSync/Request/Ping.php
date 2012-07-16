@@ -209,7 +209,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             $syncCache->lastuntil = $now + $lifetime;
             $syncCache->lasthbsyncstarted = time();
 
-            while (time() <= $syncCache->lastuntil) {
+            while (time() < $syncCache->lastuntil) {
                 // Check the remote wipe status
                 if ($this->_provisioning === true) {
                     $rwstatus = $this->_stateDriver->getDeviceRWStatus($this->_device->id);
