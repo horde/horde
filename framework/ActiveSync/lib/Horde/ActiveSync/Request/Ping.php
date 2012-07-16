@@ -245,7 +245,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         break;
                     } catch (Horde_ActiveSync_Exception_StateGone $e) {
                         $this->_logger->err(sprintf(
-                            "[%s] PING terminating, forcing a SYNC: %s",
+                            "[%s] State gone, PING terminating and forcing a SYNC: %s",
                             $this->_device->id,
                             $e->getMessage()));
                         $this->_statusCode = self::STATUS_NEEDSYNC;
