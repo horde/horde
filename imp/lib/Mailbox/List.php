@@ -182,7 +182,14 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                     }
                 }
 
-                foreach ($fetch_res as $k => $f) {
+                $mbox_ids = array();
+
+                foreach (array_keys($ids) as $k) {
+                    if (!isset($fetch_res[$k])) {
+                        continue;
+                    }
+
+                    $f = $fetch_res[$k];
                     $v = array(
                         'envelope' => $f->getEnvelope(),
                         'flags' => $f->getFlags(),
@@ -215,9 +222,10 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                     }
 
                     $overview[] = $v;
+                    $mbox_ids[] = $k;
                 }
 
-                $uids[$mbox] = $fetch_res->ids();
+                $uids[$mbox] = $mbox_ids;
 
                 if (!is_null($cache) && !empty($tostore)) {
                     $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
