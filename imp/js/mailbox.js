@@ -216,46 +216,71 @@ var ImpMailbox = {
     {
         var elt = e.element();
 
-        if (elt.match('.msgactions A.widget')) {
-            if (elt.hasClassName('moveAction')) {
+        $w(elt.className).each(function(c) {
+            switch (c) {
+            case 'moveAction':
                 this._transfer('move_messages');
                 e.memo.stop();
-            } else if (elt.hasClassName('copyAction')) {
+                break;
+
+            case 'copyAction':
                 this._transfer('copy_messages');
                 e.memo.stop();
-            } else if (elt.hasClassName('permdeleteAction')) {
+                break;
+
+            case 'permdeleteAction':
                 if (confirm(this.text.delete)) {
                     this.submit('delete_messages');
                 }
                 e.memo.stop();
-            } else if (elt.hasClassName('deleteAction')) {
+                break;
+
+            case 'deleteAction':
                 this.submit('delete_messages');
                 e.memo.stop();
-            } else if (elt.hasClassName('undeleteAction')) {
+                break;
+
+            case 'undeleteAction':
                 this.submit('undelete_messages');
                 e.memo.stop();
-            } else if (elt.hasClassName('blacklistAction')) {
+                break;
+
+            case 'blacklistAction':
                 this.submit('blacklist');
                 e.memo.stop();
-            } else if (elt.hasClassName('whitelistAction')) {
+                break;
+
+            case 'whitelistAction':
                 this.submit('whitelist');
                 e.memo.stop();
-            } else if (elt.hasClassName('forwardAction')) {
+                break;
+
+            case 'forwardAction':
                 this.submit('fwd_digest');
                 e.memo.stop();
-            } else if (elt.hasClassName('redirectAction')) {
+                break;
+
+            case 'redirectAction':
                 this.submit('redirect_messages');
                 e.memo.stop();
-            } else if (elt.hasClassName('spamAction')) {
+                break;
+
+            case 'spamAction':
                 this.submit('spam_report');
                 e.memo.stop();
-            } else if (elt.hasClassName('notspamAction')) {
+                break;
+
+            case 'notspamAction':
                 this.submit('notspam_report');
                 e.memo.stop();
-            } else if (elt.hasClassName('viewAction')) {
+                break;
+
+            case 'viewAction':
                 this.submit('view_messages');
                 e.memo.stop();
-            } else if (elt.hasClassName('templateeditAction')) {
+                break;
+
+            case 'templateeditAction':
                 switch (this.countSelected()) {
                 case 0:
                     alert(this.text.selectone);
@@ -270,45 +295,48 @@ var ImpMailbox = {
                     break;
                 }
                 e.memo.stop();
-            }
-        } else if (elt.hasClassName('checkbox')) {
-            this.selectRange(e.memo);
-        } else {
-            switch (elt.readAttribute('id')) {
-            case 'checkheader':
-                $('checkAll').checked = !$('checkAll').checked;
-                // Fall-through
-
-            case 'checkAll':
-                $('messages').select('TABLE.messageList TR[id]').each(function(i) {
-                    this.selectRow(i, $F('checkAll'));
-                }, this);
                 break;
 
-            case 'delete_vfolder':
-                this.lastclick = elt.readAttribute('href');
-                HordeDialog.display({
-                    cancel_text: this.text.no,
-                    form_id: 'RB_ImpMailbox',
-                    noinput: true,
-                    ok_text: this.text.yes,
-                    text: this.text.delete_vfolder
-                });
-                e.memo.stop();
-                break;
-
-            case 'empty_mailbox':
-                this.lastclick = elt.readAttribute('href');
-                HordeDialog.display({
-                    cancel_text: this.text.no,
-                    form_id: 'RB_ImpMailbox',
-                    noinput: true,
-                    ok_text: this.text.yes,
-                    text: this.text.delete_all
-                });
-                e.memo.stop();
+            case 'checkbox':
+                this.selectRange(e.memo);
                 break;
             }
+        }, this);
+
+        switch (elt.readAttribute('id')) {
+        case 'checkheader':
+            $('checkAll').checked = !$('checkAll').checked;
+            // Fall-through
+
+        case 'checkAll':
+            $('messages').select('TABLE.messageList TR[id]').each(function(i) {
+                this.selectRow(i, $F('checkAll'));
+            }, this);
+            break;
+
+        case 'delete_vfolder':
+            this.lastclick = elt.readAttribute('href');
+            HordeDialog.display({
+                cancel_text: this.text.no,
+                form_id: 'RB_ImpMailbox',
+                noinput: true,
+                ok_text: this.text.yes,
+                text: this.text.delete_vfolder
+            });
+            e.memo.stop();
+            break;
+
+        case 'empty_mailbox':
+            this.lastclick = elt.readAttribute('href');
+            HordeDialog.display({
+                cancel_text: this.text.no,
+                form_id: 'RB_ImpMailbox',
+                noinput: true,
+                ok_text: this.text.yes,
+                text: this.text.delete_all
+            });
+            e.memo.stop();
+            break;
         }
 
         if (elt.match('TH') &&
