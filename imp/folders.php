@@ -31,6 +31,7 @@ if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
 $subscribe = $prefs->getValue('subscribe');
 $showAll = (!$subscribe || $session->get('imp', 'showunsub'));
 
+$page_output->addScriptFile('hordecore.js', 'horde');
 $page_output->addScriptFile('folders.js');
 
 $vars = $injector->getInstance('Horde_Variables');

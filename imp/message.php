@@ -748,6 +748,7 @@ $injector->getInstance('Horde_View_Topbar')->subinfo = sprintf(
 /* Output message page now. */
 $page_output->addInlineScript($inlineout['js_onload'], true);
 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+$page_output->addScriptFile('hordecore.js', 'horde');
 $page_output->addScriptFile('imp.js');
 $page_output->addScriptFile('message.js');
 $page_output->addScriptFile('stripe.js', 'horde');

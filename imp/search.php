@@ -453,6 +453,7 @@ if (!$t->get('edit_query_filter')) {
 }
 
 Horde_Core_Ui_JsCalendar::init();
+$page_output->addScriptFile('hordecore.js', 'horde');
 $page_output->addScriptFile('horde.js', 'horde');
 $page_output->addScriptFile('search.js');
 
