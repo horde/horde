@@ -165,6 +165,10 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             if (!$this->_decoder->getElementEndTag()) {
                 throw new Horde_ActiveSync_Exception('Protocol Error');
             }
+        } elseif (empty($collections)) {
+                // If empty here, we have an empty PING request, but have no
+                // cached sync collections.
+                $this->_statusCode = self::STATUS_MISSING;
         } else {
             foreach ($collections as $key => $collection) {
                 $collections[$key]['synckey'] = !empty($collection['lastsynckey'])
@@ -181,9 +185,11 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             }
         }
 
-        if (count($collections) == 0) {
+        // If empty here, we have collections requested to be PINGed but have
+        // not sync'd any yet.
+        if (empty($collections)) {
             $this->_logger->err('0 collections');
-            throw new Horde_ActiveSync_Exception();
+            $this->_statusCode = self::STATUS_NEEDSYNC;
         }
 
         // Start waiting for changes, but only if we don't have any errors
