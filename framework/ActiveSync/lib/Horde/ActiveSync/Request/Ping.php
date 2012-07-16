@@ -217,6 +217,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
 
                         $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
+                        $syncCache->lastuntil = time();
                         break;
                     }
                 }
