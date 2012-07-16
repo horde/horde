@@ -24,8 +24,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
     {
         global $browser, $conf, $injector, $page_output, $prefs, $registry, $session;
 
-        $this->view->addHelper('IMP_Dynamic_Helper_Mailbox');
-
         $page_output->addScriptFile('dimpbase.js');
         $page_output->addScriptFile('imp.js');
         $page_output->addScriptFile('mailbox-dimp.js');
