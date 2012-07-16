@@ -200,7 +200,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     }
                     break;
                 case Horde_ActiveSync::SYNC_FOLDERS:
-                    $this->_parseSyncFolders();
+                    if (!$this->_parseSyncFolders()) {
+                        // Any errors are handled in _parseSyncFolders() and
+                        // appropriate error codes sent to device.
+                        return true;
+                    }
                 }
             }
 
