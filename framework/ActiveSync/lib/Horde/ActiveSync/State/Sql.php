@@ -962,7 +962,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $options['devId'],
                 $options['user'])
             );
-
             // Also need to remove the synccache
             $this->deleteSyncCache($options['devId'], $options['user']);
         } elseif (!empty($options['devId'])) {
@@ -978,6 +977,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $options['devId'],
                 $options['devId'])
             );
+            $this->deleteSyncCache($options['devId']);
         } elseif (!empty($options['user'])) {
             $state_query .= ' sync_user = ?';
             $map_query .= ' sync_user = ?';
@@ -989,6 +989,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 (!empty($this->_deviceInfo->id) ? $this->_deviceInfo->id : 'unknown'),
                 $options['user'])
             );
+            $this->deleteSyncCache(null, $options['user']);
         } elseif (!empty($options['synckey'])) {
             $state_query .= ' sync_key = ?';
             $map_query .= ' sync_key = ?';
@@ -1048,7 +1049,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      }
 
     /**
-     * Return a sync cache for 12.1 SYNC requests.
+     * Return the sync cache.
      *
      * @return array  The sync cache for the current device id and user.
      */
@@ -1138,13 +1139,22 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @throws Horde_ActiveSync_Exception
      */
-    public function deleteSyncCache($devid, $user)
+    public function deleteSyncCache($devid, $user == null)
     {
-        $sql = 'DELETE FROM ' . $this->_syncCacheTable
+        $sql = 'DELETE FROM ' . $this->_syncCacheTable . ' WHERE ';
             . ' WHERE cache_user = ? AND cache_devid = ?';
 
+        $params = array();
+        if (!empty($devid)) {
+            $sql .= 'cache_devid = ? ';
+            $params[] = $devid;
+        }
+        if (!empty($user)) {
+            $sql .= (!empty($devid) ? 'AND ' : '') . 'cache_user = ?';
+            $params[] = $user;
+        }
         try {
-            $this->_db->delete($sql, array($user, $devid));
+            $this->_db->delete($sql, $params);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -1366,6 +1376,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
+
+        // Remove the collection data from the synccache as well.
+        $cache = new Horde_ActiveSync_SyncCache($this, $this->_deviceInfo->id, $this->_deviceInfo->user);
+        $cache->removeCollection($id);
+        $cache->save();
     }
 
 }
