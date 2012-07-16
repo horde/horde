@@ -97,7 +97,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $this->_device->user);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_SERVERERROR;
-            $this->_handleGlobalSynError();
+            $this->_handleGlobalSyncError();
             return true;
         }
 
