@@ -908,6 +908,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $this->_logger->err('Parsing Error');
             return false;
         }
+
+        return true;
     }
 
     /**
