@@ -1749,21 +1749,16 @@ a.horde-mainnavi:link, a.horde-mainnavi:visited, a.horde-mainnavi:active {
     height:26px;
     padding:8px 0px 0px 0px;
 }
-.horde-point-arrow{
-    float:right;
-    width:20px;
-    height:34px;
-    margin-top: -8px;
-    background-image:url('graphics/navi-arrow-normal.png');
-    background-repeat:no-repeat;
+.horde-point-arrow, .horde-point-arrow-active {
+    float: right;
+    width: 13px;
+    height: 8px;
+    margin: 5px 2px 0 5px;
+    background-image: url('graphics/navi-arrow-normal.png');
+    background-repeat: no-repeat;
 }
 .horde-point-arrow-active{
-    float:right;
-    width:20px;
-    height:34px;
-    margin-top: -8px;
-    background-image:url('graphics/navi-arrow-active.png');
-    background-repeat:no-repeat;
+    background-image: url('graphics/navi-arrow-active.png');
 }
 left.horde-point-right{
     float:left;
