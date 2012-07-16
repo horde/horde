@@ -1918,6 +1918,7 @@ left.horde-point-right{
 .horde-portal-new {
     float: left;
     border-right: 1px solid #787878;
+    margin-right: 10px;
 }
 #horde-sidebar .horde-new-link a, .horde-new-link a {
     padding-left: 28px;
