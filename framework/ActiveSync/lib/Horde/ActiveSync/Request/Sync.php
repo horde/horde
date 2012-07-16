@@ -703,8 +703,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             $n >= $collection['windowsize']) {
 
                             $this->_logger->info(sprintf(
-                                "[%s] Exported maxItems of messages - more available.",
-                                $this->_device->id)
+                                "[%s] Exported maxItems of messages (%s) - more available.",
+                                $this->_device->id,
+                                $collection['windowsize'])
                             );
                             break;
                         }
