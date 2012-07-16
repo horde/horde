@@ -862,7 +862,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     break;
 
                 case Horde_ActiveSync::SYNC_GETCHANGES:
-                    $collection['getchanges'] = $this->_decoder->getElementContent();
                     if ($collection['getchanges'] = $this->_decoder->getElementContent() !== false) {
                         if (!$this->_decoder->getElementEndTag()) {
                             throw new Horde_ActiveSync_Exception('Protocol Error');
