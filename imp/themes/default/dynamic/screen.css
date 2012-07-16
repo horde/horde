@@ -277,18 +277,6 @@ div.vpRowVert div.msgSubject span.flagUser {
 }
 
 /* Sidebar */
-.subfolders {
-    padding-left: 9px;
-}
-span.iconImgSidebar {
-    background-position: left center;
-    background-repeat: no-repeat;
-    display: inline;
-    float: left;
-    height: 100%;
-    margin-right: 0;
-    width: 20px;
-}
 #ctx_mbox_sub span.iconImg, #ctx_mbox_unsub span.iconImg, #ctx_folderopts_sub span.iconImg, #ctx_folderopts_unsub span.iconImg, .folderoptsImg {
     background-image: url("../graphics/folders/folder.png");
 }
