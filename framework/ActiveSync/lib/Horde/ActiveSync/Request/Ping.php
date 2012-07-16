@@ -326,7 +326,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             $this->_encoder->startTag(self::HEARTBEATINTERVAL);
             $this->_encoder->content($lifetime);
             $this->_encoder->endTag();
-        } else {
+        } elseif (!empty($collections)) {
             $this->_encoder->startTag(self::FOLDERS);
             foreach ($collections as $collection) {
                 if (isset($changes[$collection['id']])) {
