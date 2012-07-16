@@ -88,9 +88,9 @@ class Horde_ActiveSync_Connector_Importer
      * @param string $folderId                    The collection's id.
      * @param integer $flags                      Conflict resolution flags.
      */
-    public function init(Horde_ActiveSync_State_Base &$state, $folderId = null, $flags = 0)
+    public function init(Horde_ActiveSync_State_Base $state, $folderId = null, $flags = 0)
     {
-        $this->_state = &$state;
+        $this->_state = $state;
         $this->_flags = $flags;
         $this->_folderId = $folderId;
     }
