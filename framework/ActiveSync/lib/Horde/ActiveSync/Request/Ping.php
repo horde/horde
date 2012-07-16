@@ -253,6 +253,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $dataavailable = true;
                         $changes[$collection['id']] = 1;
                         $syncCache->lastuntil = time();
+                        $syncCache->removeCollection($collection['id']);
                         break;
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_logger->err(sprintf(
@@ -261,6 +262,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                             $e->getMessage()));
                         $this->_statusCode = self::STATUS_SERVERERROR;
                         $syncCache->lastuntil = time();
+                        $syncCache->removeCollection($collection['id']);
                         break;
                     }
                     try {
