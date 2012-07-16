@@ -9,7 +9,7 @@
 <?php endif ?>
               <?php echo $this->items[$item]['label'] ?>
 <?php if (!empty($this->items[$item]['children']) && empty($this->items[$item]['noarrow'])): ?>
-              <div class="horde-point-arrow<?php if ($this->items[$item]['active']): ?>-active<?php endif ?>"></div>
+              <span class="horde-point-arrow<?php if ($this->items[$item]['active']): ?>-active<?php endif ?>"></span>
 <?php endif ?>
 <?php if (!empty($this->items[$item]['url'])): ?>
             </a>
