@@ -367,14 +367,6 @@ $page_output->addInlineJsVars(array(
 ));
 
 $pagetitle = $title = IMP::mailbox()->label;
-$refresh_title = sprintf(_("_Refresh %s"), $title);
-$refresh_ak = Horde::getAccessKey($refresh_title);
-$refresh_title = Horde::stripAccessKey($refresh_title);
-if (!empty($refresh_ak)) {
-    $refresh_title .= sprintf(_(" (Accesskey %s)"), $refresh_ak);
-}
-
-$injector->getInstance('Horde_View_Sidebar')->newRefresh = Horde::link($refresh_url, $refresh_title, '', '', '', '', $refresh_ak);
 
 if ($unread) {
     $pagetitle = $title .= ' (' . $unread . ')';
@@ -424,6 +416,7 @@ $hdr_template->set('pagetitle', $pagetitle);
 if ($readonly) {
     $hdr_template->set('readonly', true);
 }
+$hdr_template->set('refresh_url', $refresh_url);
 if (isset($filter_url)) {
     $hdr_template->set('filter_url', $filter_url);
 }

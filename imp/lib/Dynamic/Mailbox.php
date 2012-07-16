@@ -102,8 +102,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $sidebar->newLink = $blank->link(array('id' => 'composelink',
                                                'class' => 'icon'));
         $sidebar->newText = _("New Message");
-        $sidebar->newRefresh = $blank->link(array('id' => 'checkmaillink',
-                                                  'class' => 'icon'));
         $sidebar->content = $impSidebar->render('sidebar');
 
         $this->view->sidebar = $sidebar->render();

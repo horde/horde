@@ -15,6 +15,10 @@
    <div id="dimpmain_folder_top">
     <div class="horde-buttonbar">
      <div>
+      <?php echo $this->actionButton(array('icon' => 'Refresh', 'id' => 'checkmaillink', 'title' => _("Refresh"))) ?>
+      <div class="horde-button-split"></div>
+     </div>
+     <div>
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Reply', 'id' => 'button_reply', 'title' => _("Reply"))) ?>
       <div class="horde-button-split"></div>
      </div>

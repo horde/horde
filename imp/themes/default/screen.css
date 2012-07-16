@@ -464,9 +464,11 @@ span.mimePartInfoSize {
 .emptytrashImg, .horde-buttonbar li.emptytrashImg {
     background-image: url("graphics/empty_trash.png"), url('graphics/button-split.png');
 }
-
 .filtersIcon, .horde-buttonbar li.filtersIcon {
     background-image: url("graphics/filters.png"), url('graphics/button-split.png');
+}
+.refreshIcon, .horde-buttonbar li.refreshIcon {
+    background-image: url("graphics/reload.png"), url('graphics/button-split.png');
 }
 
 /* iTip styles. */

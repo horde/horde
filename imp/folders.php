@@ -347,19 +347,6 @@ if ($session->get('imp', 'file_upload') &&
     exit;
 }
 
-/* Prepare the sidebar. */
-$refresh_title = _("Reload View");
-$refresh_ak = Horde::getAccessKey($refresh_title);
-$refresh_title = Horde::stripAccessKey($refresh_title);
-if (!empty($refresh_ak)) {
-    $refresh_title .= sprintf(_(" (Accesskey %s)"), $refresh_ak);
-}
-$sidebar = $injector->getInstance('Horde_View_Sidebar');
-$sidebar->newRefresh = $folders_url_ob->link(array(
-    'accesskey' => $refresh_ak,
-    'title' => $refresh_title
-));
-
 /* Prepare the header template. */
 $head_template = $injector->createInstance('Horde_Template');
 $head_template->setOption('gettext', true);
@@ -372,6 +359,7 @@ $a_template = $injector->createInstance('Horde_Template');
 $a_template->setOption('gettext', true);
 $a_template->set('id', 0);
 
+$a_template->set('refresh', Horde::widget($folders_url_ob->copy(), _("_Refresh"), ''));
 $a_template->set('check_ak', Horde::getAccessKeyAndTitle(_("Check _All/None")));
 $a_template->set('create_mbox', $injector->getInstance('Horde_Core_Perms')->hasAppPermission('create_folders') && $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'));
 if ($prefs->getValue('subscribe')) {
