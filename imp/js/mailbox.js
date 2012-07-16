@@ -311,7 +311,9 @@ var ImpMailbox = {
             }
         }
 
-        if (elt.match('TH') && elt.up('TABLE.messageList')) {
+        if (elt.match('TH') &&
+            elt.up('TABLE.messageList') &&
+            !e.memo.element().match('A')) {
             document.location.href = elt.down('A').href;
             e.memo.hordecore_stop = true;
         }
