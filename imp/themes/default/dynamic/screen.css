@@ -371,7 +371,7 @@ div.dimpActionsMsg #windowclose {
 
 /* Headers styles. */
 .msgHeaders {
-    padding: 10px 6px 10px 10px;
+    padding: 10px 6px 10px 4px;
     background-color: #eceff0;
     border-bottom: 1px solid #d0d0d0;
     max-height: 300px;
@@ -459,9 +459,6 @@ div.dimpActionsMsg #windowclose {
 }
 #msgHeadersContent p.subject {
     margin-bottom: 10px;
-}
-#th_collapse {
-    cursor: pointer;
 }
 
 /* ini msg small header */
@@ -925,15 +922,19 @@ div.msgSubject span.treeImg {
     float: right;
     margin-left: 4px;
 }
-#th_expand span.iconImg, #partlist_col, #msgloglist_col {
+#th_expand, #partlist_col, #msgloglist_col {
     background-image: url("../graphics/arrow_collapsed.png");
     cursor: pointer;
     margin-right: 0;
 }
-#th_collapse span.iconImg, #partlist_exp, #msgloglist_exp {
+#th_collapse, #partlist_exp, #msgloglist_exp {
     background-image: url("../graphics/arrow_expanded.png");
     cursor: pointer;
     margin-right: 0;
+}
+
+#th_collapse, #th_expand {
+    float: left;
 }
 
 span.popdownImg, span.spellcheckPopdownImg {
