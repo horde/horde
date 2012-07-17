@@ -216,9 +216,9 @@ class Mnemo_Api extends Horde_Registry_Api
                     foreach ($components as $content) {
                         if ($content instanceof Horde_Icalendar_Vnote) {
                             $note = $storage->fromiCalendar($content);
-                            $noteId = $storage->add($note['desc'],
-                                                    $note['body'],
-                                                    !empty($note['category']) ? $note['category'] : '');
+                            $noteId = $storage->add(
+                                $note['desc'], $note['body'],
+                                !empty($note['category']) ? $note['category'] : '');
                             $ids[] = $noteId;
                         }
                     }
@@ -227,8 +227,9 @@ class Mnemo_Api extends Horde_Registry_Api
             }
 
             $note = $storage->fromiCalendar($content);
-            $noteId = $storage->add($note['desc'],
-                                    $note['body'], !empty($note['category']) ? $note['category'] : '');
+            $noteId = $storage->add(
+                $note['desc'], $note['body'],
+                !empty($note['category']) ? $note['category'] : '');
             break;
 
         default:
