@@ -117,7 +117,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         // Build the collection array from anything we have in the cache.
         $collections = array();
-        $collections = $syncCache->getCollections(false);
+        $cache_collections = $syncCache->getCollections(false);
         $lifetime = $this->_checkHeartbeat(empty($syncCache->pingheartbeat)
             ? 300
             : $syncCache->pingheartbeat);
@@ -149,28 +149,32 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $this->_decoder->getElementEndTag();
 
                     // Ensure we have a synckey, or force a resync.
-                    $collection['synckey'] = !empty($collections[$collection['id']]['lastsynckey'])
-                        ? $collections[$collection['id']]['lastsynckey']
+                    $collection['synckey'] = !empty($cache_collections[$collection['id']]['lastsynckey'])
+                        ? $cache_collections[$collection['id']]['lastsynckey']
                         : 0;
 
-                    $collections = array_merge(
-                        $collections,
-                        array($collection['id'] => $collection));
+                    $collections[$collection['id']] = $collection;
+                }
+                foreach (array_keys($cache_collections) as $key) {
+                    $syncCache->removeCollection($id);
+                }
+                foreach ($collections as $value) {
+                    $syncCache->addCollection($value);
                 }
                 if (!$this->_decoder->getElementEndTag()) {
                     throw new Horde_ActiveSync_Exception('Protocol Error');
                 }
             }
-
             if (!$this->_decoder->getElementEndTag()) {
                 throw new Horde_ActiveSync_Exception('Protocol Error');
             }
-        } elseif (empty($collections)) {
+        } elseif (empty($cache_collections)) {
                 // If empty here, we have an empty PING request, but have no
                 // cached sync collections.
                 $this->_statusCode = self::STATUS_MISSING;
         } else {
-            foreach ($collections as $key => $collection) {
+            foreach ($cache_collections as $key => $collection) {
+                $collections[$key] = $collection;
                 $collections[$key]['synckey'] = !empty($collection['lastsynckey'])
                     ? $collection['lastsynckey']
                     : 0;
