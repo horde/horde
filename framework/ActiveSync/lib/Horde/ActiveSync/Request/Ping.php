@@ -226,7 +226,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 $syncCache->refreshCollections();
                 $cacheCollections = $syncCache->getCollections();
                 foreach ($collections as $collection) {
-                    $collection['synckey'] = $cacheCollections[$collection['id']]['synckey'];
+                    $collection['synckey'] = $cacheCollections[$collection['id']]['lastsynckey'];
                     $sync = $this->_getSyncObject();
                     try {
                         $this->_initState($collection);
