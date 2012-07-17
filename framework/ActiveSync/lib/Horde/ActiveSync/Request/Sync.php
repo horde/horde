@@ -856,7 +856,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $collection['deletesasmoves'] = $this->_decoder->getElementContent();
                     if ($collection['deletesasmoves'] !== false && !$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol Error');
-                    } else {
+                    } elseif ($collection['deletesasmoves'] === false) {
                         $collection['deletesasmoves'] = true;
                     }
                     break;
@@ -865,7 +865,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $collection['getchanges'] = $this->_decoder->getElementContent();
                     if ($collection['getchanges'] !== false && !$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol Error');
-                    } else {
+                    } elseif ($collection['getchanges'] === false) {
                         $collection['getchanges'] = true;
                     }
                     break;
