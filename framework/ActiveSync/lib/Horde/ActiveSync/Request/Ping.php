@@ -224,8 +224,9 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 // PING if a SYNC is detected will cause the device to stop
                 // pushing.
                 $syncCache->refreshCollections();
-
+                $cacheCollections = $syncCache->getCollections();
                 foreach ($collections as $collection) {
+                    $collection['synckey'] = $cacheCollections[$collection['id']]['synckey'];
                     $sync = $this->_getSyncObject();
                     try {
                         $this->_initState($collection);
