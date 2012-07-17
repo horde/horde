@@ -478,18 +478,17 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
             case 'quoted-printable':
                 try {
-                    $stream = $this->_writeStream($fp, array(
+                    return $this->_writeStream($fp, array(
                         'error' => true,
                         'filter' => array(
                             'convert.quoted-printable-decode' => array()
                         )
                     ));
-                } catch (ErrorException $e) {
-                    // Workaround for Horde Bug #8747
-                    rewind($fp);
-                    $stream = $this->_writeStream(quoted_printable_decode(stream_get_contents($fp)));
-                }
-                return $stream;
+                } catch (ErrorException $e) {}
+
+                // Workaround for Horde Bug #8747
+                rewind($fp);
+                return $this->_writeStream(quoted_printable_decode(stream_get_contents($fp)));
 
             case 'uuencode':
             case 'x-uuencode':
