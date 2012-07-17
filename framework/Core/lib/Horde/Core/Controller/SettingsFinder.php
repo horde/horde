@@ -7,9 +7,8 @@ class Horde_Core_Controller_SettingsFinder
 {
     public function getSettingsExporterName($controllerName)
     {
-        $settingsName = $this->_mapName($controllerName);
         $current = $controllerName;
-        while (class_exists($current)) {
+        while ($current && class_exists($current)) {
             $settingsName = $this->_mapName($current);
             if (class_exists($settingsName)) {
                 return $settingsName;
@@ -30,6 +29,6 @@ class Horde_Core_Controller_SettingsFinder
     {
         $klass = new ReflectionClass($controllerName);
         $parent = $klass->getParentClass();
-        return $parent->name;
+        return $parent ? $parent->name : null;
     }
 }
