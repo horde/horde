@@ -1259,7 +1259,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         // Get new synckey if needed
         if ($this->_statusCode == self::STATUS_KEYMISM ||
             isset($collection['importedchanges']) ||
-            isset($collection['getchanges']) ||
+            !empty($collection['getchanges']) ||
             $collection['synckey'] == '0') {
 
             $collection['newsynckey'] = Horde_ActiveSync_State_Base::getNewSyncKey(($this->_statusCode == self::STATUS_KEYMISM) ? 0 : $collection['synckey']);
