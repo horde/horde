@@ -110,6 +110,8 @@ logging any errors.
       The 'mailbox' return value is returned as a Horde_Imap_Client_Mailbox
       object.
       The 'utf8' parameter has been removed.
+      The 'pattern' parameter now handles Horde_Imap_Client_Mailbox objects
+      differently than string patterns.
 
     - openMailbox()
 

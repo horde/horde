@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Allow auto-escaping of mailbox names in listMailboxes().
 * [mms] Add list_escape property to Horde_Imap_Client_Mailbox.
 * [mms] Remove public cache variable from IMAP driver.
  </notes>
@@ -916,6 +917,7 @@
    <date>2012-07-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Allow auto-escaping of mailbox names in listMailboxes().
 * [mms] Add list_escape property to Horde_Imap_Client_Mailbox.
 * [mms] Remove public cache variable from IMAP driver.
    </notes>
