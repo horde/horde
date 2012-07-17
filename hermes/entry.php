@@ -25,8 +25,10 @@ if (!$vars->exists('id') && $vars->exists('timer')) {
             $vars->set('note', sprintf(_("Using the \"%s\" stop watch from %s to %s"), $tname, date($tformat, $timer_id), date($tformat, time())));
         }
         $notification->push(sprintf(_("The stop watch \"%s\" has been stopped."), $tname), 'horde.success');
-        unset($timers[$timer_id]);
-        $prefs->setValue('running_timers', serialize($timers));
+        if ($timers = @unserialize($prefs->getValue('running_timers'))) {
+            unset($timers[$timer_id]);
+            $prefs->setValue('running_timers', serialize($timers));
+        }
     }
 }
 
