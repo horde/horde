@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Fix display of note title (Bug #11275).
 * [jan] Update Turkish translation (İstanbul Technical University).
  </notes>
  <contents>
