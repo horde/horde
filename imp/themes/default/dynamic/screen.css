@@ -478,7 +478,6 @@ div.dimpActionsMsg #windowclose {
     float: left;
     font-weight: bold;
     max-width: 60%;
-    cursor: pointer;
 }
 #msgHeadersColl span.fromcontainer {
     float: left;
