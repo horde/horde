@@ -927,7 +927,7 @@
    <date>2012-05-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* [mms] Workaround broken base64 data.
    </notes>
   </release>
   <release>
