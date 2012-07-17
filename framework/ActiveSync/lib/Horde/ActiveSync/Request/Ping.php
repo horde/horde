@@ -189,7 +189,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         // not sync'd any yet.
         if (empty($collections)) {
             $this->_logger->err('0 collections');
-            $this->_statusCode = self::STATUS_NEEDSYNC;
+            $this->_statusCode = self::STATUS_MISSING;
         }
 
         // Start waiting for changes, but only if we don't have any errors
