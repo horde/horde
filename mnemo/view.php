@@ -58,9 +58,9 @@ $userId = $GLOBALS['registry']->getAuth();
 $createdby = '';
 $modifiedby = '';
 if (!empty($memo['uid'])) {
-    $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('mnemo:' . $memolist_id . ':' . $memo['uid']);
-    if ($log) {
-    foreach ($log as $entry) {
+    try {
+        $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('mnemo:' . $memolist_id . ':' . $memo['uid']);
+        foreach ($log as $entry) {
             switch ($entry['action']) {
             case 'add':
                 $created = $entry['ts'];
@@ -81,6 +81,7 @@ if (!empty($memo['uid'])) {
                 break;
             }
         }
+    } catch (Horde_Exception $e) {
     }
 }
 
