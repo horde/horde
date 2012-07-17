@@ -346,8 +346,8 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     public function beginDbTransaction()
     {
-        $this->_transactionStarted = true;
         $this->_connection->autocommit(false);
+        $this->_transactionStarted++;
     }
 
     /**
@@ -356,7 +356,9 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
     public function commitDbTransaction()
     {
         parent::commitDbTransaction();
-        $this->_connection->autocommit(true);
+        if (!$this->_transactionStarted) {
+            $this->_connection->autocommit(true);
+        }
     }
 
     /**
@@ -366,7 +368,9 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
     public function rollbackDbTransaction()
     {
         parent::rollbackDbTransaction();
-        $this->_connection->autocommit(true);
+        if (!$this->_transactionStarted) {
+            $this->_connection->autocommit(true);
+        }
     }
 
 
