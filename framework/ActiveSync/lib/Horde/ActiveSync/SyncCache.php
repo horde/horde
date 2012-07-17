@@ -205,6 +205,14 @@ class Horde_ActiveSync_SyncCache
     }
 
     /**
+     * Remove all collection data.
+     */
+    public function clearCollections()
+    {
+        $this->_data['collections'] = array();
+    }
+
+    /**
      * Check for the existance of a specific collection in the cache.
      *
      * @param stirng $collectionid  The collection id to search for.
