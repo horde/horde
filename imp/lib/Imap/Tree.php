@@ -496,7 +496,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     $this->_insertElt($elt);
                 }
             } else {
-                $to_insert[] = $val;
+                $to_insert[] = Horde_Imap_Client_Mailbox::get($val);
             }
         }
 

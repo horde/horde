@@ -368,12 +368,6 @@ class IMP_Imap implements Serializable
             $params[1] = IMP_Mailbox::getImapMboxOb($params[1]);
             break;
 
-        case 'listMailboxes':
-            // Horde_Imap_Client_Mailbox: these calls all have the mailbox as
-            // their first parameter.
-            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
-            break;
-
         case 'search':
             $params = call_user_func_array(array($this, '_search'), $params);
             break;
