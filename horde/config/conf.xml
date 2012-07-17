@@ -278,7 +278,7 @@
       connect. IMAP is generally 143, while IMAP-SSL is generally
       993.">143</configinteger>
       <configenum name="secure" desc="The encryption to use to connect to
-      the IMAP server.">none
+      the IMAP server.">tls
        <values>
         <value>none</value>
         <value>tls</value>
