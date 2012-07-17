@@ -311,12 +311,12 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $this->_procid));
                     break;
                 }
+                sleep($timeout);
                 // Need to refresh collection data in case a SYNC was performed
                 // while the PING was still alive. Note that just killing the
                 // PING if a SYNC is detected will cause the device to stop
                 // pushing.
                 $syncCache->refreshCollections();
-                sleep($timeout);
             }
         }
 
