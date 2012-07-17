@@ -195,10 +195,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         // Start waiting for changes, but only if we don't have any errors
         $changes = array();
         $dataavailable = false;
-        if (!$syncCache->validateTimestamps()) {
-            $this->_logger->err('Timestamp validatation failed.');
-            $this->_statusCode == self::STATUS_NEEDSYNC;
-        }
         if ($this->_statusCode == self::STATUS_NOCHANGES) {
             $this->_logger->info(sprintf(
                 '[%s] Waiting for changes (heartbeat interval: %d)',
