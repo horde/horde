@@ -13,6 +13,8 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Imap_Client
  *
+ * @property string $list_escape  Escapes mailbox for use in LIST command.
+ *                                Returned in UTF-8.
  * @property string $utf7imap  Mailbox in UTF7-IMAP.
  * @property string $utf8      Mailbox in UTF-8.
  */
@@ -70,6 +72,9 @@ class Horde_Imap_Client_Mailbox implements Serializable
     public function __get($name)
     {
         switch ($name) {
+        case 'list_escape':
+            return preg_replace("/\*+/", '%', $this->utf8);
+
         case 'utf7imap':
             if (!isset($this->_utf7imap)) {
                 $n = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($this->_utf8);

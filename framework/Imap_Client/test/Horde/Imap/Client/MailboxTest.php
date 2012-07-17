@@ -88,4 +88,25 @@ class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testListEscape()
+    {
+        $orig = '***Foo***';
+
+        $mailbox = new Horde_Imap_Client_Mailbox($orig);
+
+        $this->assertEquals(
+            '%Foo%',
+            $mailbox->list_escape
+        );
+
+        $orig = 'IN.***Foo**.Bar.Test**';
+
+        $mailbox = new Horde_Imap_Client_Mailbox($orig);
+
+        $this->assertEquals(
+            'IN.%Foo%.Bar.Test%',
+            $mailbox->list_escape
+        );
+    }
+
 }
