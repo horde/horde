@@ -103,7 +103,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $now = time();
         $this->_logger->info(sprintf(
             "[%s] PING received at timestamp: %s.",
-            $this->_device->id,
+            $this->_procid,
             $now));
 
         // Get the settings for the server and load the syncCache
@@ -202,7 +202,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         if ($this->_statusCode == self::STATUS_NOCHANGES) {
             $this->_logger->info(sprintf(
                 '[%s] Waiting for changes (heartbeat interval: %d)',
-                $this->_device->id,
+                $this->_procid,
                 $lifetime)
             );
 
@@ -237,7 +237,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         // a SYNC next time it's pinged.
                         $this->_logger->err(sprintf(
                             "[%s] PING terminating: %s",
-                            $this->_device->id,
+                            $this->_procid,
                             $e->getMessage()));
                         $syncCache->lastuntil = time();
                         $this->_statusCode = self::STATUS_NEEDSYNC;
@@ -247,7 +247,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     } catch (Horde_ActiveSync_Exception_StateGone $e) {
                         $this->_logger->err(sprintf(
                             "[%s] State gone, PING terminating and forcing a SYNC: %s",
-                            $this->_device->id,
+                            $this->_procid,
                             $e->getMessage()));
                         $this->_statusCode = self::STATUS_NEEDSYNC;
                         $dataavailable = true;
@@ -258,7 +258,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_logger->err(sprintf(
                             "[%s] PING terminating unknown error: %s",
-                            $this->_device->id,
+                            $this->_procid,
                             $e->getMessage()));
                         $this->_statusCode = self::STATUS_SERVERERROR;
                         $syncCache->lastuntil = time();
@@ -270,7 +270,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     } catch (Horde_ActiveSync_Exception_StaleState $e) {
                         $this->_logger->err(sprintf(
                             "[%s] PING terminating and force-clearing device state: %s",
-                            $this->_device->id,
+                            $this->_procid,
                             $e->getMessage()));
                         $this->_stateDriver->loadState(array(), null, Horde_ActiveSync::REQUEST_TYPE_SYNC, $collection['id']);
                         $changes[$collection['id']] = 1;
@@ -280,7 +280,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                         $this->_logger->err(sprintf(
                             "[%s] PING terminating and forcing a FOLDERSYNC",
-                            $this->_device->id));
+                            $this->_procid));
                         $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
                         $syncCache->lastuntil = time();
                         break;
@@ -304,7 +304,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 if ($dataavailable) {
                     $this->_logger->info(sprintf(
                         "[%s] Changes available!",
-                        $this->_device->id));
+                        $this->_procid));
                     break;
                 }
 
@@ -318,7 +318,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         // Prepare for response
         $this->_logger->info(sprintf(
             "[%s] Sending response for PING.",
-            $this->_device->id));
+            $this->_procid));
 
         $this->_encoder->StartWBXML();
         $this->_encoder->startTag(self::PING);
