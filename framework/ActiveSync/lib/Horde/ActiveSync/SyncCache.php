@@ -191,16 +191,6 @@ class Horde_ActiveSync_SyncCache
     }
 
     /**
-     * Return the known collection keys from the cache.
-     *
-     * @return array  An array of collection keys (ids).
-     */
-    public function getCollectionKeys()
-    {
-        return array_keys($this->_data['collections']);
-    }
-
-    /**
      * Return the count of available collections in the cache
      *
      * @param integer  The count.
