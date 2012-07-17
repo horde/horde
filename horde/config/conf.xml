@@ -1822,6 +1822,14 @@
      <configstring name="server" desc="Server
      address:">localhost</configstring>
      <configinteger name="port" desc="Server port:">143</configinteger>
+      <configenum name="secure" desc="The encryption to use to connect to
+      the IMAP server.">tls
+       <values>
+        <value>none</value>
+        <value>tls</value>
+        <value>ssl</value>
+       </values>
+      </configenum>
      <configstring name="maildomain" desc="Default
      maildomain:">example.com</configstring>
      <configboolean name="cache_folders" desc="Cache IMAP folders:"

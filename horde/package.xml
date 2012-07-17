@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Allow to configure encryption in global IMAP configuration (Request #11272).
 * [jan] Update icon set.
 * [rla] Retrieve more detailed message from Horde_Auth when a user is temporarily or permanently locked out (Request #11254).
  </notes>
@@ -3840,6 +3841,7 @@
    <date>2012-07-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Allow to configure encryption in global IMAP configuration (Request #11272).
 * [jan] Update icon set.
 * [rla] Retrieve more detailed message from Horde_Auth when a user is temporarily or permanently locked out (Request #11254).
    </notes>

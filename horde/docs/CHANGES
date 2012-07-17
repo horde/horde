@@ -2,6 +2,8 @@
 v5.0.0beta1
 -----------
 
+[jan] Allow to configure encryption in global IMAP configuration (Request
+      #11272).
 [jan] Update icon set.
 [rla] Retrieve more detailed message from Horde_Auth when a user is temporarily
       or permanently locked out (Request #11254).
