@@ -854,8 +854,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     break;
 
                 case Horde_ActiveSync::SYNC_DELETESASMOVES:
-                    if ($collection['deletesasmoves'] = $this->_decoder->getElementContent() &&
-                        !$this->_decoder->getElementEndTag()) {
+                    $collection['deletesasmoves'] = $this->_decoder->getElementContent();
+                    if ($collection['deletesasmoves'] !== false && !$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol Error');
                     } else {
                         $collection['deletesasmoves'] = true;
@@ -863,10 +863,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     break;
 
                 case Horde_ActiveSync::SYNC_GETCHANGES:
-                    if ($collection['getchanges'] = $this->_decoder->getElementContent() !== false) {
-                        if (!$this->_decoder->getElementEndTag()) {
-                            throw new Horde_ActiveSync_Exception('Protocol Error');
-                        }
+                    $collection['getchanges'] = $this->_decoder->getElementContent();
+                    if ($collection['getchanges'] !== false && !$this->_decoder->getElementEndTag()) {
+                        throw new Horde_ActiveSync_Exception('Protocol Error');
                     } else {
                         $collection['getchanges'] = true;
                     }
