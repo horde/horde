@@ -1202,7 +1202,9 @@ var ViewPort = Class.create({
 
     _onDragDblClick: function(e)
     {
-        if (e.element() != this.split_pane.currbar) {
+        if (!Object.isElement(this.split_pane.currbar) ||
+            (e.element() != this.split_pane.currbar &&
+             !e.element().descendantOf(this.split_pane.currbar))) {
             return;
         }
 
