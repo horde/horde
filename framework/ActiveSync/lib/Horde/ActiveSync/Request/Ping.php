@@ -155,9 +155,9 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
                     $collections[$collection['id']] = $collection;
                 }
-                foreach (array_keys($cache_collections) as $key) {
-                    $syncCache->removeCollection($id);
-                }
+
+                // Update the synccache.
+                $syncCache->clearCollections();
                 foreach ($collections as $value) {
                     $syncCache->addCollection($value);
                 }
