@@ -291,6 +291,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         // Stop ping if exporter cannot be configured
                         $this->_logger->err(sprintf(
                             "[%s] PING error: Exporter can not be configured: %s Waiting 30 seconds before PING is retried.",
+                            $this->_procid,
                             $e->getMessage()));
                         sleep(30);
                         break;
