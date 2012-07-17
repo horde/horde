@@ -222,7 +222,7 @@ class Horde_ActiveSync_SyncCache
      */
     public function refreshCollections()
     {
-        $data = $this->_state->getSyncCache(
+        $syncCache = $this->_state->getSyncCache(
             $this->_devid, $this->_user);
         $this->_data['collections'] = array();
         $cache_collections = $syncCache['collections'];
@@ -232,7 +232,7 @@ class Horde_ActiveSync_SyncCache
             }
             $cache_collection['id'] = $id;
             $cache_collection['synckey'] = $cache_collection['lastsynckey'];
-            $this->_data['collections'][] = $cache_collection;
+            $this->_data['collections'][$id] = $cache_collection;
         }
     }
 
