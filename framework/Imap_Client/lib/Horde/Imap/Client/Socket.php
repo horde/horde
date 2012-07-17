@@ -2136,23 +2136,30 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::SORT_SIZE:
-            $query->size();
+                $query->size();
                 break;
             }
         }
 
-        /* Get the FETCH results now. */
         if (count($query)) {
             $fetch_res = $this->fetch($this->_selected, $query, array(
                 'ids' => $this->getIdsOb($res, !empty($opts['sequence']))
             ));
+            $res = $this->_clientSortProcess($res, $fetch_res, $opts['sort']);
         }
 
+        return $res;
+    }
+
+    /**
+     */
+    protected function _clientSortProcess($res, $fetch_res, $sort)
+    {
         /* The initial sort is on the entire set. */
         $slices = array(0 => $res);
-
         $reverse = false;
-        foreach ($opts['sort'] as $val) {
+
+        foreach ($sort as $val) {
             if ($val == Horde_Imap_Client::SORT_REVERSE) {
                 $reverse = true;
                 continue;
