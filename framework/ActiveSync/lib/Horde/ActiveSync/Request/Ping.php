@@ -202,6 +202,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 $lifetime)
             );
 
+            // Save the timestamps
             $syncCache->lastuntil = $now + $lifetime;
             $syncCache->lasthbsyncstarted = time();
 
@@ -217,6 +218,12 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         break;
                     }
                 }
+
+                // Need to refresh collection data in case a SYNC was performed
+                // while the PING was still alive. Note that just killing the
+                // PING if a SYNC is detected will cause the device to stop
+                // pushing.
+                $syncCache->refreshCollections();
 
                 foreach ($collections as $collection) {
                     $sync = $this->_getSyncObject();
