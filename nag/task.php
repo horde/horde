@@ -121,21 +121,21 @@ default:
     Horde::url('list.php', true)->redirect();
 }
 
-$datejs = str_replace('_', '-', $language) . '.js';
+$datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
 if (!file_exists($registry->get('jsfs', 'horde') . '/date/' . $datejs)) {
     $datejs = 'en-US.js';
 }
 
-$page_output->addScriptFile('date/' . $datejs, 'horde');
-$page_output->addScriptFile('date/date.js', 'horde');
-$page_output->addScriptFile('task.js');
-$page_output->addScriptPackage('Keynavlist');
+$GLOBALS['page_output']->addScriptFile('date/' . $datejs, 'horde');
+$GLOBALS['page_output']->addScriptFile('date/date.js', 'horde');
+$GLOBALS['page_output']->addScriptFile('task.js');
+$GLOBALS['page_output']->addScriptPackage('Keynavlist');
 
-$page_output->header(array(
+$GLOBALS['page_output']->header(array(
     'title' => $form->getTitle()
 ));
 require NAG_TEMPLATES . '/javascript_defs.php';
 echo Nag::menu();
 Nag::status();
 $form->renderActive();
-$page_output->footer();
+$GLOBALS['page_output']->footer();

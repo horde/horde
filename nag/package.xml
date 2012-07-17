@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix fatal error if the task form doesn&apos;t validate.
 * [jan] Add recurring tasks (Request #2150).
  </notes>
  <contents>
@@ -562,7 +563,7 @@
     <channel>pear.horde.org</channel>
     <min>2.0.0alpha1</min>
     <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>e>
+    <exclude>3.0.0alpha1</exclude>e&gt;
    </package>
    <package>
     <name>Horde_Date_Parser</name>
