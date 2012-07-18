@@ -1631,6 +1631,7 @@ var DimpBase = {
         // Add save link
         $('msg_save').down('A').writeAttribute('href', r.save_as);
 
+        $('messageBody').select('IFRAME').invoke('blur');
         $('messageBody').update(
             (r.msgtext === null)
                 ? $('messageBodyError').down().clone(true).show().writeAttribute('id', 'ppane_view_error')
