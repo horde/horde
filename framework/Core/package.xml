@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Allow to override configuration details of meta-configuration tags like &lt;configsql&gt; in custom configuration XML files.
 * [jan] Allow to configure encryption in global IMAP configuration (Request #11272).
 * [mms] Upgrade jQuery Mobile to v1.1.1 RC1.
 * [mms] Fix browser-based AJAX autocompletion (Bug #11233).
@@ -2149,6 +2150,7 @@
    <date>2012-07-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Allow to override configuration details of meta-configuration tags like &lt;configsql&gt; in custom configuration XML files.
 * [jan] Allow to configure encryption in global IMAP configuration (Request #11272).
 * [mms] Upgrade jQuery Mobile to v1.1.1 RC1.
 * [mms] Fix browser-based AJAX autocompletion (Bug #11233).
