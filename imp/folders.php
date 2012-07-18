@@ -128,7 +128,7 @@ case 'import_mbox':
     break;
 
 case 'create_mbox':
-    if (isset($vars->new_mailbox)) {
+    if (!empty($mbox_list) && isset($vars->new_mailbox)) {
         try {
             $new_mbox = $imaptree->createMailboxName(
                 $mbox_list[0],
