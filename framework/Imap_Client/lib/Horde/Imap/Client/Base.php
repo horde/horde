@@ -1562,40 +1562,56 @@ abstract class Horde_Imap_Client_Base implements Serializable
             'sort' => false,
             'sort_delimiter' => '.'
         ), $opts);
-        $ret = null;
+
+        $need_status = true;
+        $ret = array();
 
         /* Optimization: If there is one mailbox in list, and we are already
          * in that mailbox, we should just do a straight STATUS call. */
         if ($this->queryCapability('LIST-STATUS') &&
             ((count($mailboxes) != 1) ||
             !Horde_Imap_Client_Mailbox::get(reset($mailboxes), null)->equals($this->_selected))) {
+            $status = $to_process = array();
+            foreach ($mailboxes as $val) {
+                // Force mailboxes containing wildcards to be accessed via
+                // STATUS so that wildcards do not return a bunch of mailboxes
+                // in the LIST-STATUS response.
+                if (strpbrk($val, '*%') === false) {
+                    $to_process[] = $val;
+                }
+                $status[strval($val)] = 1;
+            }
+
             try {
-                $ret = array();
-                foreach ($this->listMailboxes($mailboxes, Horde_Imap_Client::MBOX_ALL, array_merge($opts, array('status' => $flags, 'utf8' => true))) as $val) {
+                foreach ($this->listMailboxes($to_process, Horde_Imap_Client::MBOX_ALL, array_merge($opts, array('status' => $flags, 'utf8' => true))) as $val) {
                     if (isset($val['status'])) {
                         $ret[$val['mailbox']->utf7imap] = $val['status'];
                     }
+                    unset($status[strval($val['mailbox'])]);
                 }
-            } catch (Horde_Imap_Client_Exception $e) {
-                $ret = null;
+            } catch (Horde_Imap_Client_Exception $e) {}
+
+            if (empty($status)) {
+                $need_status = false;
+            } else {
+                $mailboxes = array_keys($staus);
             }
         }
 
-        if (is_null($ret)) {
-            $ret = array();
+        if ($need_status) {
             foreach ($mailboxes as $val) {
                 $val = Horde_Imap_Client_Mailbox::get($val, null);
                 try {
                     $ret[$val->utf7imap] = $this->status($val, $flags);
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
+        }
 
-            if ($opts['sort']) {
-                Horde_Imap_Client_Sort::sortMailboxes($ret, array(
-                    'delimiter' => $opts['sort_delimiter'],
-                    'keysort' => true
-                ));
-            }
+        if ($opts['sort']) {
+            Horde_Imap_Client_Sort::sortMailboxes($ret, array(
+                'delimiter' => $opts['sort_delimiter'],
+                'keysort' => true
+            ));
         }
 
         return $ret;
