@@ -452,7 +452,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                 $new_folder
             )
         );
-        $this->_data->move($object_ids, $new_folder);
+        $this->_data->move($object_id, $new_folder);
         $this->_logger->debug(
             sprintf(
                 'Moved data object %s in %s to %s.',

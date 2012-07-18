@@ -548,7 +548,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             $uid = $this->getBackendId($object_id);
         } else {
             throw new Horde_Kolab_Storage_Exception(
-                sprintf('No such object %s!', $id)
+                sprintf('No such object %s!', $object_id)
             );
         }
         $this->_driver->moveMessage(
