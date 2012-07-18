@@ -1981,7 +1981,6 @@ var DimpBase = {
             args.set('forceUpdate', 1);
         }
 
-        $('checkmaillink').up().addClassName('imp-loading');
         DimpCore.doAction('poll', args);
     },
 
@@ -1997,7 +1996,7 @@ var DimpBase = {
             this.updateUnseenStatus(u.key, u.value);
         }, this);
 
-        $('checkmaillink').up().removeClassName('imp-loading');
+        this.loadingImg('viewport', false);
     },
 
     quotaCallback: function(r)
@@ -2533,6 +2532,7 @@ var DimpBase = {
             break;
 
         case 'checkmaillink':
+            this.loadingImg('viewport', true);
             this.poll(false);
             e.memo.stop();
             break;
@@ -3502,11 +3502,15 @@ var DimpBase = {
 
     loadingImg: function(id, show)
     {
-        HordeCore.loadingImg(
-            id + 'Loading',
-            (id == 'viewport') ? $('msgSplitPane').down('DIV.msglist') : 'previewPane',
-            show
-        );
+        if (id == 'viewport') {
+            if (show) {
+                $('checkmaillink').up().addClassName('imp-loading');
+            } else {
+                $('checkmaillink').up().removeClassName('imp-loading');
+            }
+            return;
+        }
+        HordeCore.loadingImg(id + 'Loading', 'previewPane', show);
     },
 
     // p = (element) Parent element
