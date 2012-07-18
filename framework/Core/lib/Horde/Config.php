@@ -1563,7 +1563,11 @@ class Horde_Config
         if (!$app) {
             return array();
         }
-        return $GLOBALS['registry']->callAppMethod($app, 'configSpecialValues', array('args' => array($node->getAttribute('name')), 'noperms' => true));
+        try {
+            return $GLOBALS['registry']->callAppMethod($app, 'configSpecialValues', array('args' => array($node->getAttribute('name')), 'noperms' => true));
+        } catch (Horde_Exception $e) {
+            return array();
+        }
     }
 
     /**
