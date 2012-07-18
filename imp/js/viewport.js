@@ -309,6 +309,7 @@ var ViewPort = Class.create({
         if (curr = this.views[view]) {
             this._updateContent(curr.getMetaData('offset') || 0, f_opts);
             if (!opts.background) {
+                this.opts.container.fire('ViewPort:fetch', view);
                 this.opts.ajax(this.addRequestParams({ checkcache: 1 }));
             }
             return;
