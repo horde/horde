@@ -1472,13 +1472,13 @@
    <configheader>Image Manipulation Settings</configheader>
    <configswitch name="driver" description="What driver should we use for
    manipulating images?">false
-   <case name="false" desc="None"></case>
-   <case name="Imagick" desc="The PECL Imagick Library (recommended)"></case>
-   <case name="Im" desc="Imagemagick">
-     <configstring name="convert" desc="Path to the 'convert' binary"></configstring>
-     <configstring name="identify" desc="Path the 'identify' binary"></configstring>
-   </case>
-   <case name="Gd" desc="The PHP GD2 extensions (not recommended)"></case>
+    <case name="false" desc="None"/>
+    <case name="Imagick" desc="The PECL Imagick Library (recommended)"/>
+    <case name="Im" desc="Imagemagick">
+     <configstring name="convert" desc="Path to the 'convert' binary"/>
+     <configstring name="identify" desc="Path the 'identify' binary"/>
+    </case>
+    <case name="Gd" desc="The PHP GD2 extensions (not recommended)"/>
    </configswitch>
   </configsection>
   <configsection name="exif" desc="Image Metadata">
