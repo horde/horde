@@ -1671,6 +1671,7 @@ var DimpBase = {
         this.pp.hide_all = r.onepart;
         this.pp.save_as = r.save_as;
 
+        $('messageBody').select('IFRAME').invoke('blur');
         $('messageBody').update(
             (r.msgtext === null)
                 ? $('messageBodyError').down().clone(true).show().writeAttribute('id', 'ppane_view_error')
