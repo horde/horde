@@ -204,7 +204,7 @@ var DimpBase = {
     //         default search mailbox
     go: function(type, data)
     {
-        var msg;
+        var msg, tmp;
 
         if (!type) {
             type = 'mbox';
@@ -231,10 +231,12 @@ var DimpBase = {
 
             if (this.view != data || !$('dimpmain_folder').visible()) {
                 this.highlightSidebar(data);
-                if (!$('dimpmain_folder').visible()) {
-                    $('dimpmain_iframe').hide();
-                    $('dimpmain_folder').show();
+                if ($('dimpmain_iframe').visible()) {
+                    tmp = $('dimpmain_iframe').hide().down();
+                    tmp.blur();
+                    tmp.remove();
                 }
+                $('dimpmain_folder').show();
             }
 
             this.loadMailbox(data);
