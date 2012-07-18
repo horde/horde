@@ -251,7 +251,14 @@ var DimpBase = {
             }
             this.highlightSidebar();
             this.setTitle(DimpCore.text.search);
-            this.iframeContent(type, HordeCore.addURLParam(DimpCore.conf.URI_SEARCH, data));
+            $('dimpmain_iframe').insert(
+                new Element('IFRAME', {
+                    className: 'iframe',
+                    src:  HordeCore.addURLParam(DimpCore.conf.URI_SEARCH, data)
+                }).setStyle({
+                    height: document.viewport.getHeight() + 'px'
+                })
+            );
             break;
         }
     },
@@ -342,18 +349,6 @@ var DimpBase = {
         $('horde-body').setStyle({
             left: (tmp.clientWidth) + 'px'
         });
-    },
-
-    iframeContent: function(name, loc)
-    {
-        var container = $('dimpmain_iframe'), iframe;
-        if (!container) {
-            HordeCore.notify('Bad portal!', 'horde.error');
-            return;
-        }
-
-        iframe = new Element('IFRAME', { id: 'iframe' + (name === null ? loc : name), className: 'iframe', frameBorder: 0, src: loc }).setStyle({ height: document.viewport.getHeight() + 'px' });
-        container.insert(iframe);
     },
 
     // r = ViewPort row data
