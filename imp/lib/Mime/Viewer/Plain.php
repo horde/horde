@@ -129,18 +129,24 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         // Highlight quoted parts of an email.
         if ($prefs->getValue('highlight_text')) {
-            $show = $prefs->getValue('show_quoteblocks');
-            $hideBlocks = $inline &&
-                (($show == 'hidden') ||
-                 (($show == 'thread') && (basename(Horde::selfUrl()) == 'thread.php')));
-            if (!$hideBlocks && in_array($show, array('list', 'listthread'))) {
-                $header = $this->getConfigParam('imp_contents')->getHeader();
-                $imp_ui = new IMP_Ui_Message();
-                $list_info = $imp_ui->getListInformation($header);
-                $hideBlocks = $list_info['exists'];
+            if ($registry->getView() == $registry::VIEW_SMARTMOBILE) {
+                $hideBlocks = $js_blocks = false;
+            } else {
+                $js_blocks = $inline;
+                $show = $prefs->getValue('show_quoteblocks');
+                $hideBlocks = $inline &&
+                    (($show == 'hidden') ||
+                     (($show == 'thread') && (basename(Horde::selfUrl()) == 'thread.php')));
+                if (!$hideBlocks &&
+                    in_array($show, array('list', 'listthread'))) {
+                    $header = $this->getConfigParam('imp_contents')->getHeader();
+                    $imp_ui = new IMP_Ui_Message();
+                    $list_info = $imp_ui->getListInformation($header);
+                    $hideBlocks = $list_info['exists'];
+                }
             }
 
-            if ($inline) {
+            if ($js_blocks) {
                 $filters['highlightquotes'] = array(
                     'hideBlocks' => $hideBlocks,
                     'noJS' => ($registry->getView() == Horde_Registry::VIEW_DYNAMIC)
