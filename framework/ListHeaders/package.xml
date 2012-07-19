@@ -10,15 +10,15 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-06</date>
- <time>01:04:15</time>
+ <date>2012-07-19</date>
+ <time>23:02:56</time>
  <version>
   <release>1.0.0beta1</release>
-  <api>1.0.0alpha1</api>
+  <api>1.0.0beta1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
@@ -103,11 +103,11 @@
   <release>
    <version>
     <release>1.0.0beta1</release>
-    <api>1.0.0alpha1</api></version>
+    <api>1.0.0beta1</api></version>
    <stability>
     <release>beta</release>
-    <api>alpha</api></stability>
-   <date>2012-07-06</date>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

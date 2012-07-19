@@ -562,9 +562,9 @@
    <package>
     <name>Text_Wiki</name>
     <channel>pear.php.net</channel>
-    <min>2.0.0beta1</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
+    <min>1.2.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <extension>
     <name>gettext</name>
