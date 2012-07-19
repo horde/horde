@@ -12,9 +12,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-19</date>
- <time>23:43:40</time>
+ <time>23:43:59</time>
  <version>
-  <release>2.0.0beta1</release>
+  <release>2.0.0beta2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -23,9 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First beta release for Horde 5.
-* [jan] Fix session handling (Bug #11242).
-* [jan] Fix finding locale directory if installed with PEAR.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1258,6 +1256,19 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
 * First beta release for Horde 5.
 * [jan] Fix session handling (Bug #11242).
 * [jan] Fix finding locale directory if installed with PEAR.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
