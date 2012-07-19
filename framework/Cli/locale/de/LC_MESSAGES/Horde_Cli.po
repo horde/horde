@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Cli\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
 "PO-Revision-Date: 2011-02-02 16:42+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Cli.php:368
+#: lib/Horde/Cli.php:369
 #, php-format
 msgid "\"%s\" is not a valid choice."
 msgstr "\"%s\" ist keine gültige Auswahl."
 
-#: lib/Horde/Cli.php:323
+#: lib/Horde/Cli.php:324
 msgid "Fatal Error:"
 msgstr "Schwerer Fehler:"
 
-#: lib/Horde/Cli.php:353
+#: lib/Horde/Cli.php:354
 msgid "Type your choice"
 msgstr "Ihre Auswahl"

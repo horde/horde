@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Facebook\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
 "PO-Revision-Date: 2011-08-02 15:37+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,13 +17,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Service/Facebook/Request.php:102
+#: lib/Horde/Service/Facebook/Request/Rest.php:70
 msgid "Facebook service is unavailable. Please try again later."
 msgstr ""
 "Die Facebook-Schnittstelle ist zur Zeit nicht verfügbar. Probieren Sie es "
 "später noch einmal."
 
-#: lib/Horde/Service/Facebook/UploadRequest.php:93
+#: lib/Horde/Service/Facebook/Request/Graph.php:106
 #, php-format
 msgid "Upload failed: %s"
 msgstr "Hochladen fehlgeschlagen: %s"

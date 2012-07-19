@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ulaform 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
 "PO-Revision-Date: 2011-08-02 15:51+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -106,7 +106,7 @@ msgstr "Feld bearbeiten"
 msgid "Edit Form"
 msgstr "Formular bearbeiten"
 
-#: edit.php:106
+#: edit.php:107
 msgid "Edit Forms"
 msgstr "Formulare bearbeiten"
 
@@ -182,7 +182,7 @@ msgstr "Formular"
 msgid "Form Details"
 msgstr "Formulardetails"
 
-#: fields.php:122
+#: fields.php:123
 msgid "Form Fields"
 msgstr "Formularfelder"
 
@@ -218,7 +218,7 @@ msgstr "Zum Verschicken benutztes Format"
 msgid "Forms"
 msgstr "Formulare"
 
-#: forms.php:37
+#: forms.php:38
 msgid "Forms List"
 msgstr "Formularliste"
 
@@ -312,7 +312,7 @@ msgstr "Notwendig"
 msgid "Rows"
 msgstr "Zeilen"
 
-#: lib/Action/Sql.php:115
+#: lib/Action/Sql.php:114
 msgid "SQL"
 msgstr "SQL"
 
@@ -364,7 +364,7 @@ msgstr "Startjahr"
 msgid "Subject"
 msgstr "Betreff"
 
-#: lib/Action/Sql.php:130
+#: lib/Action/Sql.php:129
 msgid "Table"
 msgstr "Tabelle"
 
@@ -381,7 +381,7 @@ msgstr ""
 "Dieser Treiber erlaubt das Verschicken der Formularergebnisse per Email an "
 "einen oder mehrere Empfänger."
 
-#: lib/Action/Sql.php:116
+#: lib/Action/Sql.php:115
 msgid "This driver allows to insertion of form results into a database."
 msgstr ""
 "Dieser Treiber erlaubt das Speichern der Formularergebnisse in eine Datebank."

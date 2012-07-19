@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Mime_Viewer\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
 "PO-Revision-Date: 2011-02-02 18:25+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -94,7 +94,7 @@ msgstr "An"
 msgid "Unable to translate this RTF document"
 msgstr "Dieses RTF-Dokument lässt sich nicht anzeigen"
 
-#: lib/Horde/Mime/Viewer/Msword.php:76
+#: lib/Horde/Mime/Viewer/Msword.php:82
 msgid "Unable to translate this Word document"
 msgstr "Dieses Word-Dokument lässt sich nicht anzeigen"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-01 12:58+0100\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
 "PO-Revision-Date: 2011-11-01 12:59+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -267,7 +267,7 @@ msgstr "Unterschiede von"
 msgid "Diff To"
 msgstr "Unterschiede zu"
 
-#: diff.php:53 templates/diff/diff.inc:2 templates/sync/diff.inc:101
+#: diff.php:54 templates/diff/diff.inc:2 templates/sync/diff.inc:101
 #, php-format
 msgid "Diff for %s between %s and %s"
 msgstr "Unterschiede in %s zwischen %s und %s"
@@ -310,7 +310,7 @@ msgstr "Treiber"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: preview.php:22 templates/display/standard.inc:24
+#: preview.php:23 templates/display/standard.inc:24
 #, php-format
 msgid "Edit %s"
 msgstr "%s Bearbeiten"
@@ -390,7 +390,7 @@ msgstr "Geschichte von %s"
 msgid "History page not found"
 msgstr "Geschichte nicht gefunden"
 
-#: history.php:26 templates/history/header.inc:7
+#: history.php:27 templates/history/header.inc:7
 #, php-format
 msgid "History: %s"
 msgstr "Geschichte: %s"
@@ -596,7 +596,7 @@ msgstr "Der Seitenname darf nicht leer sein."
 msgid "Page unlocked"
 msgstr "Seite freigegeben"
 
-#: lib/Application.php:59
+#: lib/Application.php:67
 msgid "Pages"
 msgstr "Seiten"
 
@@ -724,7 +724,7 @@ msgstr "Speichern"
 msgid "Save login info"
 msgstr "Anmeldedaten speichern"
 
-#: lib/Page/Search.php:195 templates/menu.inc:17
+#: lib/Page/Search.php:195 templates/menu.inc:18
 msgid "Search"
 msgstr "Suche"
 

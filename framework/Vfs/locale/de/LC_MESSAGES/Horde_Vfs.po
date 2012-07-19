@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_VFS\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Vfs/Smb.php:600
+#: lib/Horde/Vfs/Smb.php:565
 msgid "No such file"
 msgstr "Datei nicht gefunden"
 
-#: lib/Horde/Vfs/Smb.php:603
+#: lib/Horde/Vfs/Smb.php:568
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
 
