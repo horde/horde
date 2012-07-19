@@ -306,9 +306,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
             ->dataByType($this->_type);
 
         if (!isset($list[$this->_idDecode($id)])) {
-            $msg = sprintf('Share id %s not found', $id);
-            $this->_logger->err($msg);
-            throw new Horde_Exception_NotFound($msg);
+            throw new Horde_Exception_NotFound(sprintf('Share id %s not found', $id));
         }
 
         $query = $this->getList()
