@@ -5,7 +5,9 @@
 <?php echo $this->menu->getTree() ?>
     <div class="clear"></div>
   </div>
+<?php if ($this->logoutUrl): ?>
   <div id="horde-logout"><a class="icon" href="<?php echo $this->logoutUrl ?>"></a></div>
+<?php endif ?>
 <?php if ($this->search): ?>
   <div id="horde-search">
     <div id="horde-input">
