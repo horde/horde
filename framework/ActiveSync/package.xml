@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-19</date>
- <time>23:19:07</time>
+ <time>23:19:29</time>
  <version>
-  <release>2.0.0beta1</release>
+  <release>2.0.0beta2</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -22,10 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* First beta release for Horde 5.
-* [mjr] Fix some issues that were causing infinite loops on iOS
-* [jan] Fix finding locale directory if installed with PEAR.
-* [mjr] Fix issue where FILTERTYPE parameter was not being honored on some clients.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -742,6 +739,19 @@
 * [mjr] Fix some issues that were causing infinite loops on iOS
 * [jan] Fix finding locale directory if installed with PEAR.
 * [mjr] Fix issue where FILTERTYPE parameter was not being honored on some clients.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
