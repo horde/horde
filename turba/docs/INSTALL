@@ -76,18 +76,18 @@ install any dependencies of Turba too. If you want to install Turba with all
 optional dependencies, but without the binary PECL packages that need to be
 compiled, specify both the ``-a`` and the ``-B`` flag::
 
-   pear install -a -B horde/turba-alpha
+   pear install -a -B horde/turba-beta
 
 By default, only the required dependencies will be installed::
 
-   pear install horde/turba-alpha
+   pear install horde/turba-beta
 
 If you want to install Turba even with all binary dependencies, you need to
 remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
-   pear install -a horde/turba-alpha
+   pear install -a horde/turba-beta
 
 Installing from Git
 ~~~~~~~~~~~~~~~~~~~
