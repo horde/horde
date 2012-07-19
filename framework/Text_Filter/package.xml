@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2012-07-19</date>
- <time>23:45:24</time>
+ <time>23:45:40</time>
  <version>
-  <release>2.0.0beta1</release>
+  <release>2.0.0beta2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First beta release for Horde 5.
-* [mms] Merge upstream changes to jsmin filter that caused broken compression of jQuery Mobile file.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -812,6 +811,19 @@ Initial release as a PEAR package
    <notes>
 * First beta release for Horde 5.
 * [mms] Merge upstream changes to jsmin filter that caused broken compression of jQuery Mobile file.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
