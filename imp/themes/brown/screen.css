@@ -1,3 +1,6 @@
+.messageList tr {
+    background: #bba;
+}
 .unseen {
     background-color: #efeeee;
 }
