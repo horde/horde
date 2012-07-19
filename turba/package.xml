@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>22:51:55</time>
+ <date>2012-07-20</date>
+ <time>01:28:07</time>
  <version>
   <release>4.0.0beta1</release>
   <api>4.0.0beta1</api>
@@ -1409,7 +1409,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Add configuration example for Kolab/IMAP address books.
