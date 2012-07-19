@@ -693,7 +693,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
                     $notification->push(_("Your browser does not support the dynamic view. Using traditional view instead."), 'horde.warning');
                     $mode = 'traditional';
                 } else {
-                    $notification->push(_("Your browser does not support the dynmic view. Using minimal view instead."), 'horde.warning');
+                    $notification->push(_("Your browser does not support the dynamic view. Using minimal view instead."), 'horde.warning');
                     $mode = 'mobile';
                 }
             }
