@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-10</date>
- <time>12:14:47</time>
+ <date>2012-07-19</date>
+ <time>22:36:22</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -97,6 +97,13 @@
       <file name="ulaform.po" role="horde" />
      </dir> <!-- /locale/lt/LC_MESSAGES -->
     </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="ulaform.mo" role="horde" />
+      <file name="ulaform.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/lv -->
     <dir name="zh_TW">
      <dir name="LC_MESSAGES">
       <file name="ulaform.mo" role="horde" />
@@ -230,6 +237,9 @@
    <install as="ulaform/locale/it/LC_MESSAGES/ulaform.po" name="locale/it/LC_MESSAGES/ulaform.po" />
    <install as="ulaform/locale/lt/LC_MESSAGES/ulaform.mo" name="locale/lt/LC_MESSAGES/ulaform.mo" />
    <install as="ulaform/locale/lt/LC_MESSAGES/ulaform.po" name="locale/lt/LC_MESSAGES/ulaform.po" />
+   <install as="ulaform/locale/lv/help.xml" name="locale/lv/help.xml" />
+   <install as="ulaform/locale/lv/LC_MESSAGES/ulaform.mo" name="locale/lv/LC_MESSAGES/ulaform.mo" />
+   <install as="ulaform/locale/lv/LC_MESSAGES/ulaform.po" name="locale/lv/LC_MESSAGES/ulaform.po" />
    <install as="ulaform/locale/zh_TW/LC_MESSAGES/ulaform.mo" name="locale/zh_TW/LC_MESSAGES/ulaform.mo" />
    <install as="ulaform/locale/zh_TW/LC_MESSAGES/ulaform.po" name="locale/zh_TW/LC_MESSAGES/ulaform.po" />
    <install as="ulaform/migration/1_ulaform_base_tables.php" name="migration/1_ulaform_base_tables.php" />
@@ -260,7 +270,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-07-10</date>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/gpl.php">GPL-2.0</license>
    <notes>
 * First alpha release for Horde 4.

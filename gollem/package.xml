@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-04-11</date>
- <time>12:41:35</time>
+ <date>2012-07-19</date>
+ <time>22:36:15</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -64,6 +64,7 @@
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Factory">
+     <file name="Shares.php" role="horde" />
      <file name="Vfs.php" role="horde" />
      <file name="VfsDefault.php" role="horde" />
     </dir> <!-- /lib/Factory -->
@@ -72,6 +73,11 @@
       <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
+    <dir name="Prefs">
+     <dir name="Special">
+      <file name="Columnselect.php" role="horde" />
+     </dir> <!-- /lib/Prefs/Special -->
+    </dir> <!-- /lib/Prefs -->
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Auth.php" role="horde" />
@@ -263,6 +269,9 @@
     <file name=".htaccess" role="horde" />
     <file name="gollem.pot" role="horde" />
    </dir> <!-- /locale -->
+   <dir name="migration">
+    <file name="1_gollem_base_tables.php" role="horde" />
+   </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="clipboard">
      <file name="clipboard.html" role="horde" />
@@ -286,9 +295,6 @@
     <file name="menu.html" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
-    <dir name="brown">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/brown -->
     <dir name="default">
      <dir name="graphics">
       <file name="az.png" role="horde" />
@@ -304,33 +310,14 @@
       <file name="folder_home.png" role="horde" />
       <file name="folder_symlink.png" role="horde" />
       <file name="gollem.png" role="horde" />
+      <file name="perms.png" role="horde" />
+      <file name="perms_disabled.png" role="horde" />
       <file name="reload.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="purple">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/purple -->
-    <dir name="silver">
-     <dir name="graphics">
-      <file name="clipboard.png" role="horde" />
-      <file name="copy.png" role="horde" />
-      <file name="cut.png" role="horde" />
-      <file name="download.png" role="horde" />
-      <file name="edit.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="folder.png" role="horde" />
-      <file name="folder_create.png" role="horde" />
-      <file name="folder_goto.png" role="horde" />
-      <file name="folder_home.png" role="horde" />
-      <file name="folder_symlink.png" role="horde" />
-      <file name="gollem.png" role="horde" />
-      <file name="reload.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="clipboard.php" role="horde" />
    <file name="COPYING" role="doc" />
    <file name="edit.php" role="horde" />
@@ -340,6 +327,7 @@
    <file name="quota.php" role="horde" />
    <file name="README" role="doc" />
    <file name="selectlist.php" role="horde" />
+   <file name="share.php" role="horde" />
    <file name="view.php" role="horde" />
   </dir> <!-- / -->
  </contents>
@@ -505,6 +493,7 @@
    <install as="gollem/quota.php" name="quota.php" />
    <install as="README" name="README" />
    <install as="gollem/selectlist.php" name="selectlist.php" />
+   <install as="gollem/share.php" name="share.php" />
    <install as="gollem/view.php" name="view.php" />
    <install as="gollem/config/backends.php" name="config/backends.php" />
    <install as="gollem/config/conf.xml" name="config/conf.xml" />
@@ -527,9 +516,11 @@
    <install as="gollem/lib/Gollem.php" name="lib/Gollem.php" />
    <install as="gollem/lib/Test.php" name="lib/Test.php" />
    <install as="gollem/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="gollem/lib/Factory/Shares.php" name="lib/Factory/Shares.php" />
    <install as="gollem/lib/Factory/Vfs.php" name="lib/Factory/Vfs.php" />
    <install as="gollem/lib/Factory/VfsDefault.php" name="lib/Factory/VfsDefault.php" />
    <install as="gollem/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
+   <install as="gollem/lib/Prefs/Special/Columnselect.php" name="lib/Prefs/Special/Columnselect.php" />
    <install as="gollem/locale/.htaccess" name="locale/.htaccess" />
    <install as="gollem/locale/gollem.pot" name="locale/gollem.pot" />
    <install as="gollem/locale/bg/LC_MESSAGES/gollem.mo" name="locale/bg/LC_MESSAGES/gollem.mo" />
@@ -598,6 +589,7 @@
    <install as="gollem/locale/zh_TW/help.xml" name="locale/zh_TW/help.xml" />
    <install as="gollem/locale/zh_TW/LC_MESSAGES/gollem.mo" name="locale/zh_TW/LC_MESSAGES/gollem.mo" />
    <install as="gollem/locale/zh_TW/LC_MESSAGES/gollem.po" name="locale/zh_TW/LC_MESSAGES/gollem.po" />
+   <install as="gollem/migration/1_gollem_base_tables.php" name="migration/1_gollem_base_tables.php" />
    <install as="gollem/templates/javascript_defs.php" name="templates/javascript_defs.php" />
    <install as="gollem/templates/menu.html" name="templates/menu.html" />
    <install as="gollem/templates/clipboard/clipboard.html" name="templates/clipboard/clipboard.html" />
@@ -606,7 +598,6 @@
    <install as="gollem/templates/manager/manager.html" name="templates/manager/manager.html" />
    <install as="gollem/templates/quota/quota.html" name="templates/quota/quota.html" />
    <install as="gollem/templates/selectlist/selectlist.html" name="templates/selectlist/selectlist.html" />
-   <install as="gollem/themes/brown/screen.css" name="themes/brown/screen.css" />
    <install as="gollem/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="gollem/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="gollem/themes/default/graphics/clipboard.png" name="themes/default/graphics/clipboard.png" />
@@ -621,24 +612,11 @@
    <install as="gollem/themes/default/graphics/folder_home.png" name="themes/default/graphics/folder_home.png" />
    <install as="gollem/themes/default/graphics/folder_symlink.png" name="themes/default/graphics/folder_symlink.png" />
    <install as="gollem/themes/default/graphics/gollem.png" name="themes/default/graphics/gollem.png" />
+   <install as="gollem/themes/default/graphics/perms.png" name="themes/default/graphics/perms.png" />
+   <install as="gollem/themes/default/graphics/perms_disabled.png" name="themes/default/graphics/perms_disabled.png" />
    <install as="gollem/themes/default/graphics/reload.png" name="themes/default/graphics/reload.png" />
    <install as="gollem/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
-   <install as="gollem/themes/purple/screen.css" name="themes/purple/screen.css" />
-   <install as="gollem/themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="gollem/themes/silver/graphics/clipboard.png" name="themes/silver/graphics/clipboard.png" />
-   <install as="gollem/themes/silver/graphics/copy.png" name="themes/silver/graphics/copy.png" />
-   <install as="gollem/themes/silver/graphics/cut.png" name="themes/silver/graphics/cut.png" />
-   <install as="gollem/themes/silver/graphics/download.png" name="themes/silver/graphics/download.png" />
-   <install as="gollem/themes/silver/graphics/edit.png" name="themes/silver/graphics/edit.png" />
-   <install as="gollem/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
-   <install as="gollem/themes/silver/graphics/folder.png" name="themes/silver/graphics/folder.png" />
-   <install as="gollem/themes/silver/graphics/folder_create.png" name="themes/silver/graphics/folder_create.png" />
-   <install as="gollem/themes/silver/graphics/folder_goto.png" name="themes/silver/graphics/folder_goto.png" />
-   <install as="gollem/themes/silver/graphics/folder_home.png" name="themes/silver/graphics/folder_home.png" />
-   <install as="gollem/themes/silver/graphics/folder_symlink.png" name="themes/silver/graphics/folder_symlink.png" />
-   <install as="gollem/themes/silver/graphics/gollem.png" name="themes/silver/graphics/gollem.png" />
-   <install as="gollem/themes/silver/graphics/reload.png" name="themes/silver/graphics/reload.png" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -773,8 +751,8 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [jan] Fix sorting if using a pager.
-* [jan] Use standard Horde dialogs.
+* [jan] Fix getViewLink() API method (Bug #11226).
+* [jan] Update Turkish translation (İstanbul Technical University).
    </notes>
   </release>
  </changelog>

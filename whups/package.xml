@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>13:32:24</time>
+ <date>2012-07-19</date>
+ <time>22:26:49</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -185,6 +185,11 @@
       <file name="Zip.php" role="horde" />
      </dir> <!-- /lib/Mime/Viewer -->
     </dir> <!-- /lib/Mime -->
+    <dir name="Prefs">
+     <dir name="Special">
+      <file name="Sourceselect.php" role="horde" />
+     </dir> <!-- /lib/Prefs/Special -->
+    </dir> <!-- /lib/Prefs -->
     <dir name="Query">
      <file name="Manager.php" role="horde" />
     </dir> <!-- /lib/Query -->
@@ -419,31 +424,7 @@
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="hordeweb">
-     <dir name="graphics">
-      <file name="admin.png" role="horde" />
-      <file name="create.png" role="horde" />
-      <file name="query.png" role="horde" />
-      <file name="reports.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="whups.png" role="horde" />
-     </dir> <!-- /themes/hordeweb/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/hordeweb -->
-    <dir name="silver">
-     <dir name="graphics">
-      <file name="admin.png" role="horde" />
-      <file name="az.png" role="horde" />
-      <file name="create.png" role="horde" />
-      <file name="query.png" role="horde" />
-      <file name="reports.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="whups.png" role="horde" />
-      <file name="za.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <dir name="ticket">
     <file name=".htaccess" role="horde" />
     <file name="comment.php" role="horde" />
@@ -458,7 +439,6 @@
     <file name="update.php" role="horde" />
     <file name="watch.php" role="horde" />
    </dir> <!-- /ticket -->
-   <file name="data.php" role="horde" />
    <file name="index.php" role="horde" />
    <file name="LICENSE" role="horde" />
    <file name="mybugs.php" role="horde" />
@@ -649,7 +629,6 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="whups/data.php" name="data.php" />
    <install as="whups/index.php" name="index.php" />
    <install as="whups/LICENSE" name="LICENSE" />
    <install as="whups/mybugs.php" name="mybugs.php" />
@@ -779,6 +758,7 @@
    <install as="whups/lib/Form/Type/whupsemail.php" name="lib/Form/Type/whupsemail.php" />
    <install as="whups/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="whups/lib/Mime/Viewer/Zip.php" name="lib/Mime/Viewer/Zip.php" />
+   <install as="whups/lib/Prefs/Special/Sourceselect.php" name="lib/Prefs/Special/Sourceselect.php" />
    <install as="whups/lib/Query/Manager.php" name="lib/Query/Manager.php" />
    <install as="whups/lib/tests/ApiTest.php" name="lib/tests/ApiTest.php" />
    <install as="whups/lib/tests/TestBase.php" name="lib/tests/TestBase.php" />
@@ -874,22 +854,6 @@
    <install as="whups/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="whups/themes/default/graphics/whups.png" name="themes/default/graphics/whups.png" />
    <install as="whups/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
-   <install as="whups/themes/hordeweb/screen.css" name="themes/hordeweb/screen.css" />
-   <install as="whups/themes/hordeweb/graphics/admin.png" name="themes/hordeweb/graphics/admin.png" />
-   <install as="whups/themes/hordeweb/graphics/create.png" name="themes/hordeweb/graphics/create.png" />
-   <install as="whups/themes/hordeweb/graphics/query.png" name="themes/hordeweb/graphics/query.png" />
-   <install as="whups/themes/hordeweb/graphics/reports.png" name="themes/hordeweb/graphics/reports.png" />
-   <install as="whups/themes/hordeweb/graphics/search.png" name="themes/hordeweb/graphics/search.png" />
-   <install as="whups/themes/hordeweb/graphics/whups.png" name="themes/hordeweb/graphics/whups.png" />
-   <install as="whups/themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="whups/themes/silver/graphics/admin.png" name="themes/silver/graphics/admin.png" />
-   <install as="whups/themes/silver/graphics/az.png" name="themes/silver/graphics/az.png" />
-   <install as="whups/themes/silver/graphics/create.png" name="themes/silver/graphics/create.png" />
-   <install as="whups/themes/silver/graphics/query.png" name="themes/silver/graphics/query.png" />
-   <install as="whups/themes/silver/graphics/reports.png" name="themes/silver/graphics/reports.png" />
-   <install as="whups/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
-   <install as="whups/themes/silver/graphics/whups.png" name="themes/silver/graphics/whups.png" />
-   <install as="whups/themes/silver/graphics/za.png" name="themes/silver/graphics/za.png" />
    <install as="whups/ticket/.htaccess" name="ticket/.htaccess" />
    <install as="whups/ticket/comment.php" name="ticket/comment.php" />
    <install as="whups/ticket/create.php" name="ticket/create.php" />

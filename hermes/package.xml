@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-07</date>
- <time>21:35:42</time>
+ <date>2012-07-19</date>
+ <time>22:36:15</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -59,9 +59,6 @@
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
-     <dir name="Imple">
-      <file name="ClientAutoCompleter.php" role="horde" />
-     </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Data">
@@ -256,45 +253,7 @@
      </dir> <!-- /themes/default/print -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="silver">
-     <dir name="graphics">
-      <dir name="alerts">
-       <file name="alarm.png" role="horde" />
-       <file name="error.png" role="horde" />
-       <file name="message.png" role="horde" />
-       <file name="success.png" role="horde" />
-       <file name="warning.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/alerts -->
-      <file name="checkbox_off.png" role="horde" />
-      <file name="checkbox_on.png" role="horde" />
-      <file name="checkbox_over.png" role="horde" />
-      <file name="clients.png" role="horde" />
-      <file name="clockout.png" role="horde" />
-      <file name="deliverable.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="help.png" role="horde" />
-      <file name="hermes.png" role="horde" />
-      <file name="invoices.png" role="horde" />
-      <file name="left.png" role="horde" />
-      <file name="loading.gif" role="horde" />
-      <file name="logout.png" role="horde" />
-      <file name="menu-active.png" role="horde" />
-      <file name="menu.png" role="horde" />
-      <file name="minus.png" role="horde" />
-      <file name="newdeliverable.png" role="horde" />
-      <file name="picker.png" role="horde" />
-      <file name="plus.png" role="horde" />
-      <file name="prefs.png" role="horde" />
-      <file name="right.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="timer-start.png" role="horde" />
-      <file name="timer-stop.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="ie7.css" role="horde" />
-     <file name="ie8.css" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="admin.php" role="horde" />
    <file name="deliverables.php" role="horde" />
    <file name="entry.php" role="horde" />
@@ -470,7 +429,6 @@
    <install as="hermes/lib/Slice.php" name="lib/Slice.php" />
    <install as="hermes/lib/Table.php" name="lib/Table.php" />
    <install as="hermes/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
-   <install as="hermes/lib/Ajax/Imple/ClientAutoCompleter.php" name="lib/Ajax/Imple/ClientAutoCompleter.php" />
    <install as="hermes/lib/Data/Hermescsv.php" name="lib/Data/Hermescsv.php" />
    <install as="hermes/lib/Data/Hermestsv.php" name="lib/Data/Hermestsv.php" />
    <install as="hermes/lib/Data/Hermesxls.php" name="lib/Data/Hermesxls.php" />
@@ -567,39 +525,7 @@
    <install as="hermes/themes/default/graphics/timer-stop.png" name="themes/default/graphics/timer-stop.png" />
    <install as="hermes/themes/default/graphics/alerts/message.png" name="themes/default/graphics/alerts/message.png" />
    <install as="hermes/themes/default/print/screen.css" name="themes/default/print/screen.css" />
-   <install as="hermes/themes/silver/ie7.css" name="themes/silver/ie7.css" />
-   <install as="hermes/themes/silver/ie8.css" name="themes/silver/ie8.css" />
-   <install as="hermes/themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="hermes/themes/silver/graphics/checkbox_off.png" name="themes/silver/graphics/checkbox_off.png" />
-   <install as="hermes/themes/silver/graphics/checkbox_on.png" name="themes/silver/graphics/checkbox_on.png" />
-   <install as="hermes/themes/silver/graphics/checkbox_over.png" name="themes/silver/graphics/checkbox_over.png" />
-   <install as="hermes/themes/silver/graphics/clients.png" name="themes/silver/graphics/clients.png" />
-   <install as="hermes/themes/silver/graphics/clockout.png" name="themes/silver/graphics/clockout.png" />
-   <install as="hermes/themes/silver/graphics/deliverable.png" name="themes/silver/graphics/deliverable.png" />
-   <install as="hermes/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
-   <install as="hermes/themes/silver/graphics/help.png" name="themes/silver/graphics/help.png" />
-   <install as="hermes/themes/silver/graphics/hermes.png" name="themes/silver/graphics/hermes.png" />
-   <install as="hermes/themes/silver/graphics/invoices.png" name="themes/silver/graphics/invoices.png" />
-   <install as="hermes/themes/silver/graphics/left.png" name="themes/silver/graphics/left.png" />
-   <install as="hermes/themes/silver/graphics/loading.gif" name="themes/silver/graphics/loading.gif" />
-   <install as="hermes/themes/silver/graphics/logout.png" name="themes/silver/graphics/logout.png" />
-   <install as="hermes/themes/silver/graphics/menu-active.png" name="themes/silver/graphics/menu-active.png" />
-   <install as="hermes/themes/silver/graphics/menu.png" name="themes/silver/graphics/menu.png" />
-   <install as="hermes/themes/silver/graphics/minus.png" name="themes/silver/graphics/minus.png" />
-   <install as="hermes/themes/silver/graphics/newdeliverable.png" name="themes/silver/graphics/newdeliverable.png" />
-   <install as="hermes/themes/silver/graphics/picker.png" name="themes/silver/graphics/picker.png" />
-   <install as="hermes/themes/silver/graphics/plus.png" name="themes/silver/graphics/plus.png" />
-   <install as="hermes/themes/silver/graphics/prefs.png" name="themes/silver/graphics/prefs.png" />
-   <install as="hermes/themes/silver/graphics/right.png" name="themes/silver/graphics/right.png" />
-   <install as="hermes/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
-   <install as="hermes/themes/silver/graphics/timer-start.png" name="themes/silver/graphics/timer-start.png" />
-   <install as="hermes/themes/silver/graphics/timer-stop.png" name="themes/silver/graphics/timer-stop.png" />
-   <install as="hermes/themes/silver/graphics/alerts/alarm.png" name="themes/silver/graphics/alerts/alarm.png" />
-   <install as="hermes/themes/silver/graphics/alerts/error.png" name="themes/silver/graphics/alerts/error.png" />
-   <install as="hermes/themes/silver/graphics/alerts/message.png" name="themes/silver/graphics/alerts/message.png" />
-   <install as="hermes/themes/silver/graphics/alerts/success.png" name="themes/silver/graphics/alerts/success.png" />
-   <install as="hermes/themes/silver/graphics/alerts/warning.png" name="themes/silver/graphics/alerts/warning.png" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>

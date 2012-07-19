@@ -16,8 +16,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-14</date>
- <time>19:47:34</time>
+ <date>2012-07-19</date>
+ <time>22:36:15</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -61,10 +61,6 @@
     <file name="TODO.txt" role="doc" />
    </dir> <!-- /docs -->
    <dir name="lib">
-    <dir name="Index">
-     <file name="Index.php" role="horde" />
-     <file name="IndexMapper.php" role="horde" />
-    </dir> <!-- /lib/Index -->
     <dir name="Linkbacks">
      <file name="Linkback.php" role="horde" />
      <file name="LinkbackMapper.php" role="horde" />
@@ -90,6 +86,7 @@
     </dir> <!-- /lib/Users -->
     <file name="Application.php" role="horde" />
     <file name="Exception.php" role="horde" />
+    <file name="Indexer.php" role="horde" />
     <file name="Tagger.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="migration">
@@ -221,9 +218,8 @@
    <install as="TODO.txt" name="docs/TODO.txt" />
    <install as="content/lib/Application.php" name="lib/Application.php" />
    <install as="content/lib/Exception.php" name="lib/Exception.php" />
+   <install as="content/lib/Indexer.php" name="lib/Indexer.php" />
    <install as="content/lib/Tagger.php" name="lib/Tagger.php" />
-   <install as="content/lib/Index/Index.php" name="lib/Index/Index.php" />
-   <install as="content/lib/Index/IndexMapper.php" name="lib/Index/IndexMapper.php" />
    <install as="content/lib/Linkbacks/Linkback.php" name="lib/Linkbacks/Linkback.php" />
    <install as="content/lib/Linkbacks/LinkbackMapper.php" name="lib/Linkbacks/LinkbackMapper.php" />
    <install as="content/lib/Objects/Manager.php" name="lib/Objects/Manager.php" />

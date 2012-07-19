@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-30</date>
- <time>17:24:36</time>
+ <date>2012-07-19</date>
+ <time>22:27:05</time>
  <version>
   <release>4.0.0alpha1</release>
   <api>4.0.0alpha1</api>
@@ -190,6 +190,13 @@
       <file name="PurgeEvents.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/Task -->
     </dir> <!-- /lib/LoginTasks -->
+    <dir name="Prefs">
+     <dir name="Special">
+      <file name="DefaultAlarm.php" role="horde" />
+      <file name="EventAlarm.php" role="horde" />
+      <file name="Sourceselect.php" role="horde" />
+     </dir> <!-- /lib/Prefs/Special -->
+    </dir> <!-- /lib/Prefs -->
     <dir name="Resource">
      <file name="Base.php" role="horde" />
      <file name="Group.php" role="horde" />
@@ -649,9 +656,6 @@
     </dir> <!-- /test/Kronolith -->
    </dir> <!-- /test -->
    <dir name="themes">
-    <dir name="bluewhite">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/bluewhite -->
     <dir name="default">
      <dir name="graphics">
       <dir name="alerts">
@@ -733,129 +737,7 @@
      <file name="screen.css" role="horde" />
      <file name="webkit.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="silver">
-     <dir name="graphics">
-      <dir name="alerts">
-       <file name="alarm.png" role="horde" />
-       <file name="error.png" role="horde" />
-       <file name="message.png" role="horde" />
-       <file name="success.png" role="horde" />
-       <file name="warning.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/alerts -->
-      <file name="addressbook_browse.png" role="horde" />
-      <file name="agenda.png" role="horde" />
-      <file name="alarm-000.png" role="horde" />
-      <file name="alarm-fff.png" role="horde" />
-      <file name="alarm.png" role="horde" />
-      <file name="attendee-accepted.png" role="horde" />
-      <file name="attendee-declined.png" role="horde" />
-      <file name="attendee-none.png" role="horde" />
-      <file name="attendee-tentative.png" role="horde" />
-      <file name="attendees-000.png" role="horde" />
-      <file name="attendees-fff.png" role="horde" />
-      <file name="attendees.png" role="horde" />
-      <file name="calendars.png" role="horde" />
-      <file name="close.png" role="horde" />
-      <file name="dayview.png" role="horde" />
-      <file name="delete-000.png" role="horde" />
-      <file name="delete-fff.png" role="horde" />
-      <file name="down.png" role="horde" />
-      <file name="edit-000.png" role="horde" />
-      <file name="edit-fff.png" role="horde" />
-      <file name="exception-000.png" role="horde" />
-      <file name="exception-fff.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="goto.png" role="horde" />
-      <file name="help.png" role="horde" />
-      <file name="kronolith.png" role="horde" />
-      <file name="left.png" role="horde" />
-      <file name="loading.gif" role="horde" />
-      <file name="logout.png" role="horde" />
-      <file name="menu-active.png" role="horde" />
-      <file name="menu.png" role="horde" />
-      <file name="minus.png" role="horde" />
-      <file name="monthview.png" role="horde" />
-      <file name="new.png" role="horde" />
-      <file name="new_big.png" role="horde" />
-      <file name="new_small.png" role="horde" />
-      <file name="new_task.png" role="horde" />
-      <file name="picker.png" role="horde" />
-      <file name="plus.png" role="horde" />
-      <file name="prefs.png" role="horde" />
-      <file name="print.png" role="horde" />
-      <file name="private-000.png" role="horde" />
-      <file name="private-fff.png" role="horde" />
-      <file name="recur-000.png" role="horde" />
-      <file name="recur-fff.png" role="horde" />
-      <file name="right.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="tasks.png" role="horde" />
-      <file name="today.png" role="horde" />
-      <file name="unknown-background.png" role="horde" />
-      <file name="weekview.png" role="horde" />
-      <file name="workweekview.png" role="horde" />
-      <file name="yearview.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="ie7.css" role="horde" />
-     <file name="ie8.css" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-    <dir name="tango-blue">
-     <dir name="graphics">
-      <dir name="alerts">
-       <file name="alarm.png" role="horde" />
-       <file name="error.png" role="horde" />
-       <file name="message.png" role="horde" />
-       <file name="success.png" role="horde" />
-       <file name="warning.png" role="horde" />
-      </dir> <!-- /themes/tango-blue/graphics/alerts -->
-      <file name="addressbook_browse.png" role="horde" />
-      <file name="alarm-000.png" role="horde" />
-      <file name="alarm-fff.png" role="horde" />
-      <file name="alarm.png" role="horde" />
-      <file name="attendee-accepted.png" role="horde" />
-      <file name="attendee-declined.png" role="horde" />
-      <file name="attendee-none.png" role="horde" />
-      <file name="attendee-tentative.png" role="horde" />
-      <file name="attendees-000.png" role="horde" />
-      <file name="attendees-fff.png" role="horde" />
-      <file name="attendees.png" role="horde" />
-      <file name="calendars.png" role="horde" />
-      <file name="close.png" role="horde" />
-      <file name="dayview.png" role="horde" />
-      <file name="delete-000.png" role="horde" />
-      <file name="delete-fff.png" role="horde" />
-      <file name="down.png" role="horde" />
-      <file name="edit-000.png" role="horde" />
-      <file name="edit-fff.png" role="horde" />
-      <file name="exception-000.png" role="horde" />
-      <file name="exception-fff.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="goto.png" role="horde" />
-      <file name="kronolith.png" role="horde" />
-      <file name="loading.gif" role="horde" />
-      <file name="minus.png" role="horde" />
-      <file name="monthview.png" role="horde" />
-      <file name="new.png" role="horde" />
-      <file name="new_big.png" role="horde" />
-      <file name="new_small.png" role="horde" />
-      <file name="picker.png" role="horde" />
-      <file name="plus.png" role="horde" />
-      <file name="print.png" role="horde" />
-      <file name="private-000.png" role="horde" />
-      <file name="private-fff.png" role="horde" />
-      <file name="recur-000.png" role="horde" />
-      <file name="recur-fff.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="today.png" role="horde" />
-      <file name="unknown-background.png" role="horde" />
-      <file name="weekview.png" role="horde" />
-      <file name="workweekview.png" role="horde" />
-      <file name="yearview.png" role="horde" />
-     </dir> <!-- /themes/tango-blue/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/tango-blue -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="add.php" role="horde" />
    <file name="attend.php" role="horde" />
    <file name="attendees.php" role="horde" />
@@ -1261,6 +1143,9 @@
    <install as="kronolith/lib/Geo/Sql.php" name="lib/Geo/Sql.php" />
    <install as="kronolith/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="kronolith/lib/LoginTasks/Task/PurgeEvents.php" name="lib/LoginTasks/Task/PurgeEvents.php" />
+   <install as="kronolith/lib/Prefs/Special/DefaultAlarm.php" name="lib/Prefs/Special/DefaultAlarm.php" />
+   <install as="kronolith/lib/Prefs/Special/EventAlarm.php" name="lib/Prefs/Special/EventAlarm.php" />
+   <install as="kronolith/lib/Prefs/Special/Sourceselect.php" name="lib/Prefs/Special/Sourceselect.php" />
    <install as="kronolith/lib/Resource/Base.php" name="lib/Resource/Base.php" />
    <install as="kronolith/lib/Resource/Group.php" name="lib/Resource/Group.php" />
    <install as="kronolith/lib/Resource/Single.php" name="lib/Resource/Single.php" />
@@ -1481,7 +1366,6 @@
    <install as="Kronolith/Stub/ShareFactory.php" name="test/Kronolith/Stub/ShareFactory.php" />
    <install as="Kronolith/Stub/Tagger.php" name="test/Kronolith/Stub/Tagger.php" />
    <install as="Kronolith/Stub/Types.php" name="test/Kronolith/Stub/Types.php" />
-   <install as="kronolith/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="kronolith/themes/default/embed.css" name="themes/default/embed.css" />
    <install as="kronolith/themes/default/ie7.css" name="themes/default/ie7.css" />
    <install as="kronolith/themes/default/ie8.css" name="themes/default/ie8.css" />
@@ -1555,116 +1439,6 @@
    <install as="kronolith/themes/default/graphics/alerts/success.png" name="themes/default/graphics/alerts/success.png" />
    <install as="kronolith/themes/default/graphics/alerts/warning.png" name="themes/default/graphics/alerts/warning.png" />
    <install as="kronolith/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
-   <install as="kronolith/themes/silver/ie7.css" name="themes/silver/ie7.css" />
-   <install as="kronolith/themes/silver/ie8.css" name="themes/silver/ie8.css" />
-   <install as="kronolith/themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="kronolith/themes/silver/graphics/addressbook_browse.png" name="themes/silver/graphics/addressbook_browse.png" />
-   <install as="kronolith/themes/silver/graphics/agenda.png" name="themes/silver/graphics/agenda.png" />
-   <install as="kronolith/themes/silver/graphics/alarm-000.png" name="themes/silver/graphics/alarm-000.png" />
-   <install as="kronolith/themes/silver/graphics/alarm-fff.png" name="themes/silver/graphics/alarm-fff.png" />
-   <install as="kronolith/themes/silver/graphics/alarm.png" name="themes/silver/graphics/alarm.png" />
-   <install as="kronolith/themes/silver/graphics/attendee-accepted.png" name="themes/silver/graphics/attendee-accepted.png" />
-   <install as="kronolith/themes/silver/graphics/attendee-declined.png" name="themes/silver/graphics/attendee-declined.png" />
-   <install as="kronolith/themes/silver/graphics/attendee-none.png" name="themes/silver/graphics/attendee-none.png" />
-   <install as="kronolith/themes/silver/graphics/attendee-tentative.png" name="themes/silver/graphics/attendee-tentative.png" />
-   <install as="kronolith/themes/silver/graphics/attendees-000.png" name="themes/silver/graphics/attendees-000.png" />
-   <install as="kronolith/themes/silver/graphics/attendees-fff.png" name="themes/silver/graphics/attendees-fff.png" />
-   <install as="kronolith/themes/silver/graphics/attendees.png" name="themes/silver/graphics/attendees.png" />
-   <install as="kronolith/themes/silver/graphics/calendars.png" name="themes/silver/graphics/calendars.png" />
-   <install as="kronolith/themes/silver/graphics/close.png" name="themes/silver/graphics/close.png" />
-   <install as="kronolith/themes/silver/graphics/dayview.png" name="themes/silver/graphics/dayview.png" />
-   <install as="kronolith/themes/silver/graphics/delete-000.png" name="themes/silver/graphics/delete-000.png" />
-   <install as="kronolith/themes/silver/graphics/delete-fff.png" name="themes/silver/graphics/delete-fff.png" />
-   <install as="kronolith/themes/silver/graphics/down.png" name="themes/silver/graphics/down.png" />
-   <install as="kronolith/themes/silver/graphics/edit-000.png" name="themes/silver/graphics/edit-000.png" />
-   <install as="kronolith/themes/silver/graphics/edit-fff.png" name="themes/silver/graphics/edit-fff.png" />
-   <install as="kronolith/themes/silver/graphics/exception-000.png" name="themes/silver/graphics/exception-000.png" />
-   <install as="kronolith/themes/silver/graphics/exception-fff.png" name="themes/silver/graphics/exception-fff.png" />
-   <install as="kronolith/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
-   <install as="kronolith/themes/silver/graphics/goto.png" name="themes/silver/graphics/goto.png" />
-   <install as="kronolith/themes/silver/graphics/help.png" name="themes/silver/graphics/help.png" />
-   <install as="kronolith/themes/silver/graphics/kronolith.png" name="themes/silver/graphics/kronolith.png" />
-   <install as="kronolith/themes/silver/graphics/left.png" name="themes/silver/graphics/left.png" />
-   <install as="kronolith/themes/silver/graphics/loading.gif" name="themes/silver/graphics/loading.gif" />
-   <install as="kronolith/themes/silver/graphics/logout.png" name="themes/silver/graphics/logout.png" />
-   <install as="kronolith/themes/silver/graphics/menu-active.png" name="themes/silver/graphics/menu-active.png" />
-   <install as="kronolith/themes/silver/graphics/menu.png" name="themes/silver/graphics/menu.png" />
-   <install as="kronolith/themes/silver/graphics/minus.png" name="themes/silver/graphics/minus.png" />
-   <install as="kronolith/themes/silver/graphics/monthview.png" name="themes/silver/graphics/monthview.png" />
-   <install as="kronolith/themes/silver/graphics/new.png" name="themes/silver/graphics/new.png" />
-   <install as="kronolith/themes/silver/graphics/new_big.png" name="themes/silver/graphics/new_big.png" />
-   <install as="kronolith/themes/silver/graphics/new_small.png" name="themes/silver/graphics/new_small.png" />
-   <install as="kronolith/themes/silver/graphics/new_task.png" name="themes/silver/graphics/new_task.png" />
-   <install as="kronolith/themes/silver/graphics/picker.png" name="themes/silver/graphics/picker.png" />
-   <install as="kronolith/themes/silver/graphics/plus.png" name="themes/silver/graphics/plus.png" />
-   <install as="kronolith/themes/silver/graphics/prefs.png" name="themes/silver/graphics/prefs.png" />
-   <install as="kronolith/themes/silver/graphics/print.png" name="themes/silver/graphics/print.png" />
-   <install as="kronolith/themes/silver/graphics/private-000.png" name="themes/silver/graphics/private-000.png" />
-   <install as="kronolith/themes/silver/graphics/private-fff.png" name="themes/silver/graphics/private-fff.png" />
-   <install as="kronolith/themes/silver/graphics/recur-000.png" name="themes/silver/graphics/recur-000.png" />
-   <install as="kronolith/themes/silver/graphics/recur-fff.png" name="themes/silver/graphics/recur-fff.png" />
-   <install as="kronolith/themes/silver/graphics/right.png" name="themes/silver/graphics/right.png" />
-   <install as="kronolith/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
-   <install as="kronolith/themes/silver/graphics/tasks.png" name="themes/silver/graphics/tasks.png" />
-   <install as="kronolith/themes/silver/graphics/today.png" name="themes/silver/graphics/today.png" />
-   <install as="kronolith/themes/silver/graphics/unknown-background.png" name="themes/silver/graphics/unknown-background.png" />
-   <install as="kronolith/themes/silver/graphics/weekview.png" name="themes/silver/graphics/weekview.png" />
-   <install as="kronolith/themes/silver/graphics/workweekview.png" name="themes/silver/graphics/workweekview.png" />
-   <install as="kronolith/themes/silver/graphics/yearview.png" name="themes/silver/graphics/yearview.png" />
-   <install as="kronolith/themes/silver/graphics/alerts/alarm.png" name="themes/silver/graphics/alerts/alarm.png" />
-   <install as="kronolith/themes/silver/graphics/alerts/error.png" name="themes/silver/graphics/alerts/error.png" />
-   <install as="kronolith/themes/silver/graphics/alerts/message.png" name="themes/silver/graphics/alerts/message.png" />
-   <install as="kronolith/themes/silver/graphics/alerts/success.png" name="themes/silver/graphics/alerts/success.png" />
-   <install as="kronolith/themes/silver/graphics/alerts/warning.png" name="themes/silver/graphics/alerts/warning.png" />
-   <install as="kronolith/themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
-   <install as="kronolith/themes/tango-blue/graphics/addressbook_browse.png" name="themes/tango-blue/graphics/addressbook_browse.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alarm-000.png" name="themes/tango-blue/graphics/alarm-000.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alarm-fff.png" name="themes/tango-blue/graphics/alarm-fff.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alarm.png" name="themes/tango-blue/graphics/alarm.png" />
-   <install as="kronolith/themes/tango-blue/graphics/attendee-accepted.png" name="themes/tango-blue/graphics/attendee-accepted.png" />
-   <install as="kronolith/themes/tango-blue/graphics/attendee-declined.png" name="themes/tango-blue/graphics/attendee-declined.png" />
-   <install as="kronolith/themes/tango-blue/graphics/attendee-none.png" name="themes/tango-blue/graphics/attendee-none.png" />
-   <install as="kronolith/themes/tango-blue/graphics/attendee-tentative.png" name="themes/tango-blue/graphics/attendee-tentative.png" />
-   <install as="kronolith/themes/tango-blue/graphics/attendees-000.png" name="themes/tango-blue/graphics/attendees-000.png" />
-   <install as="kronolith/themes/tango-blue/graphics/attendees-fff.png" name="themes/tango-blue/graphics/attendees-fff.png" />
-   <install as="kronolith/themes/tango-blue/graphics/attendees.png" name="themes/tango-blue/graphics/attendees.png" />
-   <install as="kronolith/themes/tango-blue/graphics/calendars.png" name="themes/tango-blue/graphics/calendars.png" />
-   <install as="kronolith/themes/tango-blue/graphics/close.png" name="themes/tango-blue/graphics/close.png" />
-   <install as="kronolith/themes/tango-blue/graphics/dayview.png" name="themes/tango-blue/graphics/dayview.png" />
-   <install as="kronolith/themes/tango-blue/graphics/delete-000.png" name="themes/tango-blue/graphics/delete-000.png" />
-   <install as="kronolith/themes/tango-blue/graphics/delete-fff.png" name="themes/tango-blue/graphics/delete-fff.png" />
-   <install as="kronolith/themes/tango-blue/graphics/down.png" name="themes/tango-blue/graphics/down.png" />
-   <install as="kronolith/themes/tango-blue/graphics/edit-000.png" name="themes/tango-blue/graphics/edit-000.png" />
-   <install as="kronolith/themes/tango-blue/graphics/edit-fff.png" name="themes/tango-blue/graphics/edit-fff.png" />
-   <install as="kronolith/themes/tango-blue/graphics/exception-000.png" name="themes/tango-blue/graphics/exception-000.png" />
-   <install as="kronolith/themes/tango-blue/graphics/exception-fff.png" name="themes/tango-blue/graphics/exception-fff.png" />
-   <install as="kronolith/themes/tango-blue/graphics/favicon.ico" name="themes/tango-blue/graphics/favicon.ico" />
-   <install as="kronolith/themes/tango-blue/graphics/goto.png" name="themes/tango-blue/graphics/goto.png" />
-   <install as="kronolith/themes/tango-blue/graphics/kronolith.png" name="themes/tango-blue/graphics/kronolith.png" />
-   <install as="kronolith/themes/tango-blue/graphics/loading.gif" name="themes/tango-blue/graphics/loading.gif" />
-   <install as="kronolith/themes/tango-blue/graphics/minus.png" name="themes/tango-blue/graphics/minus.png" />
-   <install as="kronolith/themes/tango-blue/graphics/monthview.png" name="themes/tango-blue/graphics/monthview.png" />
-   <install as="kronolith/themes/tango-blue/graphics/new.png" name="themes/tango-blue/graphics/new.png" />
-   <install as="kronolith/themes/tango-blue/graphics/new_big.png" name="themes/tango-blue/graphics/new_big.png" />
-   <install as="kronolith/themes/tango-blue/graphics/new_small.png" name="themes/tango-blue/graphics/new_small.png" />
-   <install as="kronolith/themes/tango-blue/graphics/picker.png" name="themes/tango-blue/graphics/picker.png" />
-   <install as="kronolith/themes/tango-blue/graphics/plus.png" name="themes/tango-blue/graphics/plus.png" />
-   <install as="kronolith/themes/tango-blue/graphics/print.png" name="themes/tango-blue/graphics/print.png" />
-   <install as="kronolith/themes/tango-blue/graphics/private-000.png" name="themes/tango-blue/graphics/private-000.png" />
-   <install as="kronolith/themes/tango-blue/graphics/private-fff.png" name="themes/tango-blue/graphics/private-fff.png" />
-   <install as="kronolith/themes/tango-blue/graphics/recur-000.png" name="themes/tango-blue/graphics/recur-000.png" />
-   <install as="kronolith/themes/tango-blue/graphics/recur-fff.png" name="themes/tango-blue/graphics/recur-fff.png" />
-   <install as="kronolith/themes/tango-blue/graphics/search.png" name="themes/tango-blue/graphics/search.png" />
-   <install as="kronolith/themes/tango-blue/graphics/today.png" name="themes/tango-blue/graphics/today.png" />
-   <install as="kronolith/themes/tango-blue/graphics/unknown-background.png" name="themes/tango-blue/graphics/unknown-background.png" />
-   <install as="kronolith/themes/tango-blue/graphics/weekview.png" name="themes/tango-blue/graphics/weekview.png" />
-   <install as="kronolith/themes/tango-blue/graphics/workweekview.png" name="themes/tango-blue/graphics/workweekview.png" />
-   <install as="kronolith/themes/tango-blue/graphics/yearview.png" name="themes/tango-blue/graphics/yearview.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alerts/alarm.png" name="themes/tango-blue/graphics/alerts/alarm.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alerts/error.png" name="themes/tango-blue/graphics/alerts/error.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alerts/message.png" name="themes/tango-blue/graphics/alerts/message.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alerts/success.png" name="themes/tango-blue/graphics/alerts/success.png" />
-   <install as="kronolith/themes/tango-blue/graphics/alerts/warning.png" name="themes/tango-blue/graphics/alerts/warning.png" />
    <install as="kronolith/add.php" name="add.php" />
    <install as="kronolith/attend.php" name="attend.php" />
    <install as="kronolith/attendees.php" name="attendees.php" />
@@ -2101,7 +1875,7 @@
    </notes>
   </release>
   <release>
-   <date>2012-05-30</date>
+   <date>2012-07-19</date>
    <time>17:24:36</time>
    <version>
     <release>4.0.0alpha1</release>

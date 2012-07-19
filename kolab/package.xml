@@ -11,8 +11,8 @@
   <email>wrobel@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-28</date>
- <time>08:13:40</time>
+ <date>2012-07-19</date>
+ <time>22:36:19</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -58,6 +58,12 @@
     <dir name="en">
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/en -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="kolab.mo" role="horde" />
+      <file name="kolab.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
     <file name=".htaccess" role="horde" />
     <file name="kolab.pot" role="horde" />
    </dir> <!-- /locale -->
@@ -114,6 +120,8 @@
    <install as="kolab/locale/.htaccess" name="locale/.htaccess" />
    <install as="kolab/locale/kolab.pot" name="locale/kolab.pot" />
    <install as="kolab/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="kolab/locale/fi/LC_MESSAGES/kolab.mo" name="locale/fi/LC_MESSAGES/kolab.mo" />
+   <install as="kolab/locale/fi/LC_MESSAGES/kolab.po" name="locale/fi/LC_MESSAGES/kolab.po" />
    <install as="Kolab/AllTests.php" name="test/Kolab/AllTests.php" />
    <install as="Kolab/Autoload.php" name="test/Kolab/Autoload.php" />
    <install as="Kolab/ExampleTest.php" name="test/Kolab/ExampleTest.php" />
@@ -132,7 +140,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-11-28</date>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).

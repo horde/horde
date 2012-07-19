@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-28</date>
- <time>12:46:13</time>
+ <date>2012-07-19</date>
+ <time>22:36:20</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -321,13 +321,7 @@
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="silver">
-     <dir name="graphics">
-      <file name="favicon.ico" role="horde" />
-      <file name="passwd.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-    </dir> <!-- /themes/silver -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="COPYING" role="doc" />
    <file name="index.php" role="horde" />
    <file name="README" role="doc" />
@@ -561,9 +555,7 @@
    <install as="passwd/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="passwd/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="passwd/themes/default/graphics/passwd.png" name="themes/default/graphics/passwd.png" />
-   <install as="passwd/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
-   <install as="passwd/themes/silver/graphics/passwd.png" name="themes/silver/graphics/passwd.png" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>

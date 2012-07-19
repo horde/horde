@@ -1483,20 +1483,6 @@
        <file name="up-grey.png" role="horde" />
        <file name="up.png" role="horde" />
       </dir> <!-- /themes/default/graphics/nav -->
-      <dir name="smartmobile">
-       <dir name="alerts">
-        <file name="alarm.png" role="horde" />
-        <file name="error.png" role="horde" />
-        <file name="message.png" role="horde" />
-        <file name="success.png" role="horde" />
-        <file name="warning.png" role="horde" />
-       </dir> <!-- /themes/default/graphics/smartmobile/alerts -->
-       <file name="bottom.jpg" role="horde" />
-       <file name="display.jpg" role="horde" />
-       <file name="left.jpg" role="horde" />
-       <file name="right.jpg" role="horde" />
-       <file name="top.jpg" role="horde" />
-      </dir> <!-- /themes/default/graphics/smartmobile -->
       <dir name="tree">
        <file name="blank.png" role="horde" />
        <file name="folder.png" role="horde" />
@@ -1638,7 +1624,6 @@
         <file name="na.png" role="horde" />
        </dir> <!-- /themes/default/graphics/weather/32x32 -->
       </dir> <!-- /themes/default/graphics/weather -->
-      <file name="about.png" role="horde" />
       <file name="add_group.png" role="horde" />
       <file name="add_perm.png" role="horde" />
       <file name="administration.png" role="horde" />
@@ -1692,7 +1677,6 @@
       <file name="mobile.png" role="horde" />
       <file name="myaccount.png" role="horde" />
       <file name="navi-arrow-active.png" role="horde" />
-      <file name="navi-arrow-normal-hover.png" role="horde" />
       <file name="navi-arrow-normal.png" role="horde" />
       <file name="navi-center-active.png" role="horde" />
       <file name="navi-left-active.png" role="horde" />
@@ -1753,6 +1737,7 @@
      <file name="facebook.css" role="horde" />
      <file name="feed-rss.xsl" role="horde" />
      <file name="ie7.css" role="horde" />
+     <file name="info.php" role="horde" />
      <file name="opera.css" role="horde" />
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
@@ -2627,11 +2612,11 @@
    <install as="themes/default/facebook.css" name="themes/default/facebook.css" />
    <install as="themes/default/feed-rss.xsl" name="themes/default/feed-rss.xsl" />
    <install as="themes/default/ie7.css" name="themes/default/ie7.css" />
+   <install as="themes/default/info.php" name="themes/default/info.php" />
    <install as="themes/default/opera.css" name="themes/default/opera.css" />
    <install as="themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="themes/default/screen.css" name="themes/default/screen.css" />
    <install as="themes/default/webkit.css" name="themes/default/webkit.css" />
-   <install as="themes/default/graphics/about.png" name="themes/default/graphics/about.png" />
    <install as="themes/default/graphics/add_group.png" name="themes/default/graphics/add_group.png" />
    <install as="themes/default/graphics/add_perm.png" name="themes/default/graphics/add_perm.png" />
    <install as="themes/default/graphics/administration.png" name="themes/default/graphics/administration.png" />
@@ -2685,7 +2670,6 @@
    <install as="themes/default/graphics/mobile.png" name="themes/default/graphics/mobile.png" />
    <install as="themes/default/graphics/myaccount.png" name="themes/default/graphics/myaccount.png" />
    <install as="themes/default/graphics/navi-arrow-active.png" name="themes/default/graphics/navi-arrow-active.png" />
-   <install as="themes/default/graphics/navi-arrow-normal-hover.png" name="themes/default/graphics/navi-arrow-normal-hover.png" />
    <install as="themes/default/graphics/navi-arrow-normal.png" name="themes/default/graphics/navi-arrow-normal.png" />
    <install as="themes/default/graphics/navi-center-active.png" name="themes/default/graphics/navi-center-active.png" />
    <install as="themes/default/graphics/navi-left-active.png" name="themes/default/graphics/navi-left-active.png" />
@@ -3291,16 +3275,6 @@
    <install as="themes/default/graphics/nav/top.png" name="themes/default/graphics/nav/top.png" />
    <install as="themes/default/graphics/nav/up-grey.png" name="themes/default/graphics/nav/up-grey.png" />
    <install as="themes/default/graphics/nav/up.png" name="themes/default/graphics/nav/up.png" />
-   <install as="themes/default/graphics/smartmobile/bottom.jpg" name="themes/default/graphics/smartmobile/bottom.jpg" />
-   <install as="themes/default/graphics/smartmobile/display.jpg" name="themes/default/graphics/smartmobile/display.jpg" />
-   <install as="themes/default/graphics/smartmobile/left.jpg" name="themes/default/graphics/smartmobile/left.jpg" />
-   <install as="themes/default/graphics/smartmobile/right.jpg" name="themes/default/graphics/smartmobile/right.jpg" />
-   <install as="themes/default/graphics/smartmobile/top.jpg" name="themes/default/graphics/smartmobile/top.jpg" />
-   <install as="themes/default/graphics/smartmobile/alerts/alarm.png" name="themes/default/graphics/smartmobile/alerts/alarm.png" />
-   <install as="themes/default/graphics/smartmobile/alerts/error.png" name="themes/default/graphics/smartmobile/alerts/error.png" />
-   <install as="themes/default/graphics/smartmobile/alerts/message.png" name="themes/default/graphics/smartmobile/alerts/message.png" />
-   <install as="themes/default/graphics/smartmobile/alerts/success.png" name="themes/default/graphics/smartmobile/alerts/success.png" />
-   <install as="themes/default/graphics/smartmobile/alerts/warning.png" name="themes/default/graphics/smartmobile/alerts/warning.png" />
    <install as="themes/default/graphics/tree/blank.png" name="themes/default/graphics/tree/blank.png" />
    <install as="themes/default/graphics/tree/folder.png" name="themes/default/graphics/tree/folder.png" />
    <install as="themes/default/graphics/tree/folderopen.png" name="themes/default/graphics/tree/folderopen.png" />

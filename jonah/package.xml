@@ -18,8 +18,8 @@ Framework.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-12</date>
- <time>22:22:28</time>
+ <date>2012-07-19</date>
+ <time>22:36:18</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -129,6 +129,13 @@ Framework.</description>
       <file name="jonah.po" role="horde" />
      </dir> <!-- /locale/fr/LC_MESSAGES -->
     </dir> <!-- /locale/fr -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="jonah.mo" role="horde" />
+      <file name="jonah.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/lv -->
     <dir name="nl">
      <dir name="LC_MESSAGES">
       <file name="jonah.mo" role="horde" />
@@ -162,7 +169,6 @@ Framework.</description>
    </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="sql">
-     <file name="jonah.mssql.sql" role="horde" />
      <file name="jonah.sql" role="horde" />
     </dir> <!-- /scripts/sql -->
     <dir name="upgrades">
@@ -322,6 +328,9 @@ Framework.</description>
    <install as="jonah/locale/fi/LC_MESSAGES/jonah.po" name="locale/fi/LC_MESSAGES/jonah.po" />
    <install as="jonah/locale/fr/LC_MESSAGES/jonah.mo" name="locale/fr/LC_MESSAGES/jonah.mo" />
    <install as="jonah/locale/fr/LC_MESSAGES/jonah.po" name="locale/fr/LC_MESSAGES/jonah.po" />
+   <install as="jonah/locale/lv/help.xml" name="locale/lv/help.xml" />
+   <install as="jonah/locale/lv/LC_MESSAGES/jonah.mo" name="locale/lv/LC_MESSAGES/jonah.mo" />
+   <install as="jonah/locale/lv/LC_MESSAGES/jonah.po" name="locale/lv/LC_MESSAGES/jonah.po" />
    <install as="jonah/locale/nl/LC_MESSAGES/jonah.mo" name="locale/nl/LC_MESSAGES/jonah.mo" />
    <install as="jonah/locale/nl/LC_MESSAGES/jonah.po" name="locale/nl/LC_MESSAGES/jonah.po" />
    <install as="jonah/locale/ro/LC_MESSAGES/jonah.mo" name="locale/ro/LC_MESSAGES/jonah.mo" />
@@ -334,7 +343,6 @@ Framework.</description>
    <install as="jonah/migration/2_jonah_upgrade_autoincrement.php" name="migration/2_jonah_upgrade_autoincrement.php" />
    <install as="jonah/scripts/.htaccess" name="scripts/.htaccess" />
    <install as="jonah/scripts/feed_tester.php" name="scripts/feed_tester.php" />
-   <install as="jonah/scripts/sql/jonah.mssql.sql" name="scripts/sql/jonah.mssql.sql" />
    <install as="jonah/scripts/sql/jonah.sql" name="scripts/sql/jonah.sql" />
    <install as="jonah/scripts/upgrades/2005-03-13_release_date.sql" name="scripts/upgrades/2005-03-13_release_date.sql" />
    <install as="jonah/scripts/upgrades/2006-01-01_release_date.sql" name="scripts/upgrades/2006-01-01_release_date.sql" />
@@ -390,7 +398,7 @@ Framework.</description>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-04-12</date>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Initial release.

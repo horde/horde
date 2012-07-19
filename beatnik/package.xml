@@ -10,8 +10,8 @@
   <email>bklang@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-05</date>
- <time>17:15:14</time>
+ <date>2012-07-19</date>
+ <time>22:36:14</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -63,6 +63,12 @@
     <dir name="en">
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/en -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="beatnik.mo" role="horde" />
+      <file name="beatnik.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
     <dir name="lv">
      <dir name="LC_MESSAGES">
       <file name="beatnik.mo" role="horde" />
@@ -169,6 +175,8 @@
    <install as="beatnik/locale/.htaccess" name="locale/.htaccess" />
    <install as="beatnik/locale/beatnik.pot" name="locale/beatnik.pot" />
    <install as="beatnik/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="beatnik/locale/fi/LC_MESSAGES/beatnik.mo" name="locale/fi/LC_MESSAGES/beatnik.mo" />
+   <install as="beatnik/locale/fi/LC_MESSAGES/beatnik.po" name="locale/fi/LC_MESSAGES/beatnik.po" />
    <install as="beatnik/locale/lv/help.xml" name="locale/lv/help.xml" />
    <install as="beatnik/locale/lv/LC_MESSAGES/beatnik.mo" name="locale/lv/LC_MESSAGES/beatnik.mo" />
    <install as="beatnik/locale/lv/LC_MESSAGES/beatnik.po" name="locale/lv/LC_MESSAGES/beatnik.po" />
@@ -198,10 +206,9 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-10-05</date>
-   <license uri="TODO">TODO</license>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL</license>
    <notes>
-* [jan] Add Finnish translation (Leena Heino &lt;Leena.Heino@uta.fi&gt;).
 * Initial release.
    </notes>
   </release>

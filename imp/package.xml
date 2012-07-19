@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-13</date>
- <time>00:53:29</time>
+ <date>2012-07-19</date>
+ <time>22:36:18</time>
  <version>
   <release>6.0.0beta1</release>
   <api>6.0.0alpha1</api>
@@ -137,7 +137,6 @@
      </dir> <!-- /lib/Dynamic/Compose -->
      <dir name="Helper">
       <file name="Base.php" role="horde" />
-      <file name="Mailbox.php" role="horde" />
      </dir> <!-- /lib/Dynamic/Helper -->
      <file name="Base.php" role="horde" />
      <file name="Compose.php" role="horde" />
@@ -371,6 +370,9 @@
      <file name="Message.php" role="horde" />
      <file name="Search.php" role="horde" />
     </dir> <!-- /lib/Ui -->
+    <dir name="View">
+     <file name="Subinfo.php" role="horde" />
+    </dir> <!-- /lib/View -->
     <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
@@ -738,9 +740,6 @@
       <file name="navbar.html" role="horde" />
       <file name="searchmbox.html" role="horde" />
      </dir> <!-- /templates/imp/mailbox -->
-     <dir name="menu">
-      <file name="menu.html" role="horde" />
-     </dir> <!-- /templates/imp/menu -->
      <dir name="message">
       <file name="message.html" role="horde" />
       <file name="navbar_actions.html" role="horde" />
@@ -755,6 +754,7 @@
      <dir name="thread">
       <file name="thread.html" role="horde" />
      </dir> <!-- /templates/imp/thread -->
+     <file name="subinfo.html.php" role="horde" />
     </dir> <!-- /templates/imp -->
     <dir name="itip">
      <file name="base.html" role="horde" />
@@ -963,6 +963,7 @@
       <file name="prefs.png" role="horde" />
       <file name="preview.png" role="horde" />
       <file name="print.png" role="horde" />
+      <file name="reload.gif" role="horde" />
       <file name="reload.png" role="horde" />
       <file name="reply.png" role="horde" />
       <file name="replyall.png" role="horde" />
@@ -1375,7 +1376,6 @@
    <install as="imp/lib/Dynamic/Message.php" name="lib/Dynamic/Message.php" />
    <install as="imp/lib/Dynamic/Compose/Common.php" name="lib/Dynamic/Compose/Common.php" />
    <install as="imp/lib/Dynamic/Helper/Base.php" name="lib/Dynamic/Helper/Base.php" />
-   <install as="imp/lib/Dynamic/Helper/Mailbox.php" name="lib/Dynamic/Helper/Mailbox.php" />
    <install as="imp/lib/Factory/AuthImap.php" name="lib/Factory/AuthImap.php" />
    <install as="imp/lib/Factory/Compose.php" name="lib/Factory/Compose.php" />
    <install as="imp/lib/Factory/Contents.php" name="lib/Factory/Contents.php" />
@@ -1541,6 +1541,7 @@
    <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />
    <install as="imp/lib/Ui/Message.php" name="lib/Ui/Message.php" />
    <install as="imp/lib/Ui/Search.php" name="lib/Ui/Search.php" />
+   <install as="imp/lib/View/Subinfo.php" name="lib/View/Subinfo.php" />
    <install as="imp/locale/.htaccess" name="locale/.htaccess" />
    <install as="imp/locale/imp.pot" name="locale/imp.pot" />
    <install as="imp/locale/ar/LC_MESSAGES/imp.mo" name="locale/ar/LC_MESSAGES/imp.mo" />
@@ -1672,6 +1673,7 @@
    <install as="imp/templates/dynamic/qreply.html.php" name="templates/dynamic/qreply.html.php" />
    <install as="imp/templates/dynamic/redirect.html.php" name="templates/dynamic/redirect.html.php" />
    <install as="imp/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />
+   <install as="imp/templates/imp/subinfo.html.php" name="templates/imp/subinfo.html.php" />
    <install as="imp/templates/imp/compose/compose.html" name="templates/imp/compose/compose.html" />
    <install as="imp/templates/imp/compose/redirect.html" name="templates/imp/compose/redirect.html" />
    <install as="imp/templates/imp/compose/success.html" name="templates/imp/compose/success.html" />
@@ -1691,7 +1693,6 @@
    <install as="imp/templates/imp/mailbox/message_headers.html" name="templates/imp/mailbox/message_headers.html" />
    <install as="imp/templates/imp/mailbox/navbar.html" name="templates/imp/mailbox/navbar.html" />
    <install as="imp/templates/imp/mailbox/searchmbox.html" name="templates/imp/mailbox/searchmbox.html" />
-   <install as="imp/templates/imp/menu/menu.html" name="templates/imp/menu/menu.html" />
    <install as="imp/templates/imp/message/message.html" name="templates/imp/message/message.html" />
    <install as="imp/templates/imp/message/navbar_actions.html" name="templates/imp/message/navbar_actions.html" />
    <install as="imp/templates/imp/message/navbar_navigate.html" name="templates/imp/message/navbar_navigate.html" />
@@ -1817,6 +1818,7 @@
    <install as="imp/themes/default/graphics/prefs.png" name="themes/default/graphics/prefs.png" />
    <install as="imp/themes/default/graphics/preview.png" name="themes/default/graphics/preview.png" />
    <install as="imp/themes/default/graphics/print.png" name="themes/default/graphics/print.png" />
+   <install as="imp/themes/default/graphics/reload.gif" name="themes/default/graphics/reload.gif" />
    <install as="imp/themes/default/graphics/reload.png" name="themes/default/graphics/reload.png" />
    <install as="imp/themes/default/graphics/reply.png" name="themes/default/graphics/reply.png" />
    <install as="imp/themes/default/graphics/replyall.png" name="themes/default/graphics/replyall.png" />
@@ -2599,7 +2601,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-07-13</date>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix regression in sorting of special mailboxes (Bug #11241).

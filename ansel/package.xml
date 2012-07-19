@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-02</date>
- <time>15:01:33</time>
+ <date>2012-07-19</date>
+ <time>22:36:14</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -114,28 +114,20 @@
     <file name="lightbox.js" role="horde" />
     <file name="map.js" role="horde" />
     <file name="map_edit.js" role="horde" />
-    <file name="mobile.js" role="horde" />
     <file name="slideshow.js" role="horde" />
     <file name="slugcheck.js" role="horde" />
+    <file name="smartmobile.js" role="horde" />
     <file name="tagactions.js" role="horde" />
     <file name="togglewidget.js" role="horde" />
-    <file name="upload.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Imple">
       <file name="EditCaption.php" role="horde" />
       <file name="EditFaces.php" role="horde" />
-      <file name="EditGalleryFaces.php" role="horde" />
-      <file name="Embed.php" role="horde" />
-      <file name="GallerySlugCheck.php" role="horde" />
-      <file name="ImageSaveGeotag.php" role="horde" />
       <file name="LocationAutoCompleter.php" role="horde" />
-      <file name="MapLayerSelect.php" role="horde" />
-      <file name="TagActions.php" role="horde" />
       <file name="ToggleGalleryActions.php" role="horde" />
       <file name="ToggleOtherGalleries.php" role="horde" />
-      <file name="UploadNotification.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
@@ -193,6 +185,14 @@
       <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
+    <dir name="Prefs">
+     <dir name="Special">
+      <file name="GallerySelect.php" role="horde" />
+     </dir> <!-- /lib/Prefs/Special -->
+    </dir> <!-- /lib/Prefs -->
+    <dir name="Queue">
+     <file name="ProcessThumbs.php" role="horde" />
+    </dir> <!-- /lib/Queue -->
     <dir name="Report">
      <file name="letter.php" role="horde" />
      <file name="mail.php" role="horde" />
@@ -312,6 +312,7 @@
       <file name="ansel.mo" role="horde" />
       <file name="ansel.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/lv -->
     <dir name="sk">
      <dir name="LC_MESSAGES">
@@ -399,18 +400,16 @@
      <file name="header.inc" role="horde" />
      <file name="pager.inc" role="horde" />
     </dir> <!-- /templates/list -->
-    <dir name="mobile">
-     <file name="galleries.html.php" role="horde" />
-     <file name="gallery.html.php" role="horde" />
-     <file name="head.html.php" role="horde" />
-     <file name="image.html.php" role="horde" />
-     <file name="javascript_defs.php" role="horde" />
-     <file name="notice.html.php" role="horde" />
-    </dir> <!-- /templates/mobile -->
     <dir name="rss">
      <file name="rss.inc" role="horde" />
      <file name="rss2.inc" role="horde" />
     </dir> <!-- /templates/rss -->
+    <dir name="smartmobile">
+     <file name="galleries.html.php" role="horde" />
+     <file name="gallery.html.php" role="horde" />
+     <file name="image.html.php" role="horde" />
+     <file name="javascript_defs.php" role="horde" />
+    </dir> <!-- /templates/smartmobile -->
     <dir name="tile">
      <file name="dategallery.inc" role="horde" />
      <file name="face.inc" role="horde" />
@@ -504,64 +503,15 @@
       <file name="twitter.png" role="horde" />
       <file name="up.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
+     <dir name="smartmobile">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/smartmobile -->
      <file name="cropper.css" role="horde" />
      <file name="embed.css" role="horde" />
      <file name="lightbox.css" role="horde" />
-     <file name="mobile.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="silver">
-     <dir name="graphics">
-      <dir name="lightbox">
-       <file name="bullet.gif" role="horde" />
-       <file name="close.gif" role="horde" />
-       <file name="closelabel.gif" role="horde" />
-       <file name="loading.gif" role="horde" />
-       <file name="nextlabel.gif" role="horde" />
-       <file name="prevlabel.gif" role="horde" />
-      </dir> <!-- /themes/silver/graphics/lightbox -->
-      <file name="add.png" role="horde" />
-      <file name="ansel.png" role="horde" />
-      <file name="browse.png" role="horde" />
-      <file name="galleries.png" role="horde" />
-      <file name="image_add.png" role="horde" />
-      <file name="menu.png" role="horde" />
-      <file name="mygalleries.png" role="horde" />
-      <file name="photomarker-shadow.png" role="horde" />
-      <file name="photomarker.png" role="horde" />
-      <file name="slideshow_next.png" role="horde" />
-      <file name="slideshow_pause.png" role="horde" />
-      <file name="slideshow_play.png" role="horde" />
-      <file name="slideshow_prev.png" role="horde" />
-      <file name="twitter.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-    <dir name="tango-blue">
-     <dir name="graphics">
-      <dir name="lightbox">
-       <file name="bullet.gif" role="horde" />
-       <file name="close.gif" role="horde" />
-       <file name="closelabel.gif" role="horde" />
-       <file name="loading.gif" role="horde" />
-       <file name="nextlabel.gif" role="horde" />
-       <file name="prevlabel.gif" role="horde" />
-      </dir> <!-- /themes/tango-blue/graphics/lightbox -->
-      <file name="add.png" role="horde" />
-      <file name="ansel.png" role="horde" />
-      <file name="browse.png" role="horde" />
-      <file name="down.png" role="horde" />
-      <file name="galleries.png" role="horde" />
-      <file name="mygalleries.png" role="horde" />
-      <file name="slideshow_next.png" role="horde" />
-      <file name="slideshow_pause.png" role="horde" />
-      <file name="slideshow_play.png" role="horde" />
-      <file name="slideshow_prev.png" role="horde" />
-      <file name="up.png" role="horde" />
-     </dir> <!-- /themes/tango-blue/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/tango-blue -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name=".htaccess" role="horde" />
    <file name="browse.php" role="horde" />
    <file name="browse_edit.php" role="horde" />
@@ -573,13 +523,13 @@
    <file name="image.php" role="horde" />
    <file name="index.php" role="horde" />
    <file name="map_edit.php" role="horde" />
-   <file name="mobile.php" role="horde" />
    <file name="perms.php" role="horde" />
    <file name="preview.php" role="horde" />
    <file name="protect.php" role="horde" />
    <file name="README" role="doc" />
    <file name="report.php" role="horde" />
    <file name="rss.php" role="horde" />
+   <file name="smartmobile.php" role="horde" />
    <file name="view.php" role="horde" />
    <file name="xppublish.php" role="horde" />
   </dir> <!-- / -->
@@ -817,13 +767,13 @@
    <install as="ansel/image.php" name="image.php" />
    <install as="ansel/index.php" name="index.php" />
    <install as="ansel/map_edit.php" name="map_edit.php" />
-   <install as="ansel/mobile.php" name="mobile.php" />
    <install as="ansel/perms.php" name="perms.php" />
    <install as="ansel/preview.php" name="preview.php" />
    <install as="ansel/protect.php" name="protect.php" />
    <install as="README" name="README" />
    <install as="ansel/report.php" name="report.php" />
    <install as="ansel/rss.php" name="rss.php" />
+   <install as="ansel/smartmobile.php" name="smartmobile.php" />
    <install as="ansel/view.php" name="view.php" />
    <install as="ansel/xppublish.php" name="xppublish.php" />
    <install as="ansel" name="bin/ansel" />
@@ -882,12 +832,11 @@
    <install as="ansel/js/lightbox.js" name="js/lightbox.js" />
    <install as="ansel/js/map.js" name="js/map.js" />
    <install as="ansel/js/map_edit.js" name="js/map_edit.js" />
-   <install as="ansel/js/mobile.js" name="js/mobile.js" />
    <install as="ansel/js/slideshow.js" name="js/slideshow.js" />
    <install as="ansel/js/slugcheck.js" name="js/slugcheck.js" />
+   <install as="ansel/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="ansel/js/tagactions.js" name="js/tagactions.js" />
    <install as="ansel/js/togglewidget.js" name="js/togglewidget.js" />
-   <install as="ansel/js/upload.js" name="js/upload.js" />
    <install as="ansel/js/blocks/geotag.js" name="js/blocks/geotag.js" />
    <install as="ansel/js/widgets/geotag.js" name="js/widgets/geotag.js" />
    <install as="ansel/lib/Ansel.php" name="lib/Ansel.php" />
@@ -910,16 +859,9 @@
    <install as="ansel/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="ansel/lib/Ajax/Imple/EditCaption.php" name="lib/Ajax/Imple/EditCaption.php" />
    <install as="ansel/lib/Ajax/Imple/EditFaces.php" name="lib/Ajax/Imple/EditFaces.php" />
-   <install as="ansel/lib/Ajax/Imple/EditGalleryFaces.php" name="lib/Ajax/Imple/EditGalleryFaces.php" />
-   <install as="ansel/lib/Ajax/Imple/Embed.php" name="lib/Ajax/Imple/Embed.php" />
-   <install as="ansel/lib/Ajax/Imple/GallerySlugCheck.php" name="lib/Ajax/Imple/GallerySlugCheck.php" />
-   <install as="ansel/lib/Ajax/Imple/ImageSaveGeotag.php" name="lib/Ajax/Imple/ImageSaveGeotag.php" />
    <install as="ansel/lib/Ajax/Imple/LocationAutoCompleter.php" name="lib/Ajax/Imple/LocationAutoCompleter.php" />
-   <install as="ansel/lib/Ajax/Imple/MapLayerSelect.php" name="lib/Ajax/Imple/MapLayerSelect.php" />
-   <install as="ansel/lib/Ajax/Imple/TagActions.php" name="lib/Ajax/Imple/TagActions.php" />
    <install as="ansel/lib/Ajax/Imple/ToggleGalleryActions.php" name="lib/Ajax/Imple/ToggleGalleryActions.php" />
    <install as="ansel/lib/Ajax/Imple/ToggleOtherGalleries.php" name="lib/Ajax/Imple/ToggleOtherGalleries.php" />
-   <install as="ansel/lib/Ajax/Imple/UploadNotification.php" name="lib/Ajax/Imple/UploadNotification.php" />
    <install as="ansel/lib/Block/Cloud.php" name="lib/Block/Cloud.php" />
    <install as="ansel/lib/Block/Gallery.php" name="lib/Block/Gallery.php" />
    <install as="ansel/lib/Block/MyGalleries.php" name="lib/Block/MyGalleries.php" />
@@ -954,6 +896,8 @@
    <install as="ansel/lib/ImageGenerator/SquareThumb.php" name="lib/ImageGenerator/SquareThumb.php" />
    <install as="ansel/lib/ImageGenerator/Thumb.php" name="lib/ImageGenerator/Thumb.php" />
    <install as="ansel/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
+   <install as="ansel/lib/Prefs/Special/GallerySelect.php" name="lib/Prefs/Special/GallerySelect.php" />
+   <install as="ansel/lib/Queue/ProcessThumbs.php" name="lib/Queue/ProcessThumbs.php" />
    <install as="ansel/lib/Report/letter.php" name="lib/Report/letter.php" />
    <install as="ansel/lib/Report/mail.php" name="lib/Report/mail.php" />
    <install as="ansel/lib/Report/tickets.php" name="lib/Report/tickets.php" />
@@ -1007,6 +951,7 @@
    <install as="ansel/locale/ja/LC_MESSAGES/ansel.po" name="locale/ja/LC_MESSAGES/ansel.po" />
    <install as="ansel/locale/lt/LC_MESSAGES/ansel.mo" name="locale/lt/LC_MESSAGES/ansel.mo" />
    <install as="ansel/locale/lt/LC_MESSAGES/ansel.po" name="locale/lt/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/lv/help.xml" name="locale/lv/help.xml" />
    <install as="ansel/locale/lv/LC_MESSAGES/ansel.mo" name="locale/lv/LC_MESSAGES/ansel.mo" />
    <install as="ansel/locale/lv/LC_MESSAGES/ansel.po" name="locale/lv/LC_MESSAGES/ansel.po" />
    <install as="ansel/locale/sk/LC_MESSAGES/ansel.mo" name="locale/sk/LC_MESSAGES/ansel.mo" />
@@ -1055,14 +1000,12 @@
    <install as="ansel/templates/list/footer.inc" name="templates/list/footer.inc" />
    <install as="ansel/templates/list/header.inc" name="templates/list/header.inc" />
    <install as="ansel/templates/list/pager.inc" name="templates/list/pager.inc" />
-   <install as="ansel/templates/mobile/galleries.html.php" name="templates/mobile/galleries.html.php" />
-   <install as="ansel/templates/mobile/gallery.html.php" name="templates/mobile/gallery.html.php" />
-   <install as="ansel/templates/mobile/head.html.php" name="templates/mobile/head.html.php" />
-   <install as="ansel/templates/mobile/image.html.php" name="templates/mobile/image.html.php" />
-   <install as="ansel/templates/mobile/javascript_defs.php" name="templates/mobile/javascript_defs.php" />
-   <install as="ansel/templates/mobile/notice.html.php" name="templates/mobile/notice.html.php" />
    <install as="ansel/templates/rss/rss.inc" name="templates/rss/rss.inc" />
    <install as="ansel/templates/rss/rss2.inc" name="templates/rss/rss2.inc" />
+   <install as="ansel/templates/smartmobile/galleries.html.php" name="templates/smartmobile/galleries.html.php" />
+   <install as="ansel/templates/smartmobile/gallery.html.php" name="templates/smartmobile/gallery.html.php" />
+   <install as="ansel/templates/smartmobile/image.html.php" name="templates/smartmobile/image.html.php" />
+   <install as="ansel/templates/smartmobile/javascript_defs.php" name="templates/smartmobile/javascript_defs.php" />
    <install as="ansel/templates/tile/dategallery.inc" name="templates/tile/dategallery.inc" />
    <install as="ansel/templates/tile/face.inc" name="templates/tile/face.inc" />
    <install as="ansel/templates/tile/gallery.inc" name="templates/tile/gallery.inc" />
@@ -1088,7 +1031,6 @@
    <install as="ansel/themes/default/cropper.css" name="themes/default/cropper.css" />
    <install as="ansel/themes/default/embed.css" name="themes/default/embed.css" />
    <install as="ansel/themes/default/lightbox.css" name="themes/default/lightbox.css" />
-   <install as="ansel/themes/default/mobile.css" name="themes/default/mobile.css" />
    <install as="ansel/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="ansel/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="ansel/themes/default/graphics/ansel.png" name="themes/default/graphics/ansel.png" />
@@ -1128,46 +1070,8 @@
    <install as="ansel/themes/default/graphics/lightbox/loading.gif" name="themes/default/graphics/lightbox/loading.gif" />
    <install as="ansel/themes/default/graphics/lightbox/nextlabel.gif" name="themes/default/graphics/lightbox/nextlabel.gif" />
    <install as="ansel/themes/default/graphics/lightbox/prevlabel.gif" name="themes/default/graphics/lightbox/prevlabel.gif" />
-   <install as="ansel/themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="ansel/themes/silver/graphics/add.png" name="themes/silver/graphics/add.png" />
-   <install as="ansel/themes/silver/graphics/ansel.png" name="themes/silver/graphics/ansel.png" />
-   <install as="ansel/themes/silver/graphics/browse.png" name="themes/silver/graphics/browse.png" />
-   <install as="ansel/themes/silver/graphics/galleries.png" name="themes/silver/graphics/galleries.png" />
-   <install as="ansel/themes/silver/graphics/image_add.png" name="themes/silver/graphics/image_add.png" />
-   <install as="ansel/themes/silver/graphics/menu.png" name="themes/silver/graphics/menu.png" />
-   <install as="ansel/themes/silver/graphics/mygalleries.png" name="themes/silver/graphics/mygalleries.png" />
-   <install as="ansel/themes/silver/graphics/photomarker-shadow.png" name="themes/silver/graphics/photomarker-shadow.png" />
-   <install as="ansel/themes/silver/graphics/photomarker.png" name="themes/silver/graphics/photomarker.png" />
-   <install as="ansel/themes/silver/graphics/slideshow_next.png" name="themes/silver/graphics/slideshow_next.png" />
-   <install as="ansel/themes/silver/graphics/slideshow_pause.png" name="themes/silver/graphics/slideshow_pause.png" />
-   <install as="ansel/themes/silver/graphics/slideshow_play.png" name="themes/silver/graphics/slideshow_play.png" />
-   <install as="ansel/themes/silver/graphics/slideshow_prev.png" name="themes/silver/graphics/slideshow_prev.png" />
-   <install as="ansel/themes/silver/graphics/twitter.png" name="themes/silver/graphics/twitter.png" />
-   <install as="ansel/themes/silver/graphics/lightbox/bullet.gif" name="themes/silver/graphics/lightbox/bullet.gif" />
-   <install as="ansel/themes/silver/graphics/lightbox/close.gif" name="themes/silver/graphics/lightbox/close.gif" />
-   <install as="ansel/themes/silver/graphics/lightbox/closelabel.gif" name="themes/silver/graphics/lightbox/closelabel.gif" />
-   <install as="ansel/themes/silver/graphics/lightbox/loading.gif" name="themes/silver/graphics/lightbox/loading.gif" />
-   <install as="ansel/themes/silver/graphics/lightbox/nextlabel.gif" name="themes/silver/graphics/lightbox/nextlabel.gif" />
-   <install as="ansel/themes/silver/graphics/lightbox/prevlabel.gif" name="themes/silver/graphics/lightbox/prevlabel.gif" />
-   <install as="ansel/themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
-   <install as="ansel/themes/tango-blue/graphics/add.png" name="themes/tango-blue/graphics/add.png" />
-   <install as="ansel/themes/tango-blue/graphics/ansel.png" name="themes/tango-blue/graphics/ansel.png" />
-   <install as="ansel/themes/tango-blue/graphics/browse.png" name="themes/tango-blue/graphics/browse.png" />
-   <install as="ansel/themes/tango-blue/graphics/down.png" name="themes/tango-blue/graphics/down.png" />
-   <install as="ansel/themes/tango-blue/graphics/galleries.png" name="themes/tango-blue/graphics/galleries.png" />
-   <install as="ansel/themes/tango-blue/graphics/mygalleries.png" name="themes/tango-blue/graphics/mygalleries.png" />
-   <install as="ansel/themes/tango-blue/graphics/slideshow_next.png" name="themes/tango-blue/graphics/slideshow_next.png" />
-   <install as="ansel/themes/tango-blue/graphics/slideshow_pause.png" name="themes/tango-blue/graphics/slideshow_pause.png" />
-   <install as="ansel/themes/tango-blue/graphics/slideshow_play.png" name="themes/tango-blue/graphics/slideshow_play.png" />
-   <install as="ansel/themes/tango-blue/graphics/slideshow_prev.png" name="themes/tango-blue/graphics/slideshow_prev.png" />
-   <install as="ansel/themes/tango-blue/graphics/up.png" name="themes/tango-blue/graphics/up.png" />
-   <install as="ansel/themes/tango-blue/graphics/lightbox/bullet.gif" name="themes/tango-blue/graphics/lightbox/bullet.gif" />
-   <install as="ansel/themes/tango-blue/graphics/lightbox/close.gif" name="themes/tango-blue/graphics/lightbox/close.gif" />
-   <install as="ansel/themes/tango-blue/graphics/lightbox/closelabel.gif" name="themes/tango-blue/graphics/lightbox/closelabel.gif" />
-   <install as="ansel/themes/tango-blue/graphics/lightbox/loading.gif" name="themes/tango-blue/graphics/lightbox/loading.gif" />
-   <install as="ansel/themes/tango-blue/graphics/lightbox/nextlabel.gif" name="themes/tango-blue/graphics/lightbox/nextlabel.gif" />
-   <install as="ansel/themes/tango-blue/graphics/lightbox/prevlabel.gif" name="themes/tango-blue/graphics/lightbox/prevlabel.gif" />
-  </filelist>
+   <install as="ansel/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
+   </filelist>
  </phprelease>
  <changelog>
   <release>

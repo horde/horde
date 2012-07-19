@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-29</date>
- <time>18:16:54</time>
+ <date>2012-07-19</date>
+ <time>22:27:01</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -358,9 +358,6 @@
     </dir> <!-- /test/Mnemo -->
    </dir> <!-- /test -->
    <dir name="themes">
-    <dir name="bluewhite">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/bluewhite -->
     <dir name="default">
      <dir name="graphics">
       <file name="add.png" role="horde" />
@@ -376,34 +373,7 @@
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="fadetogreen">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/fadetogreen -->
-    <dir name="silver">
-     <dir name="graphics">
-      <file name="add.png" role="horde" />
-      <file name="az.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="minus.png" role="horde" />
-      <file name="mnemo.png" role="horde" />
-      <file name="notepads.png" role="horde" />
-      <file name="plus.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="za.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-    <dir name="tango-blue">
-     <dir name="graphics">
-      <file name="add.png" role="horde" />
-      <file name="az.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="mnemo.png" role="horde" />
-      <file name="notepads.png" role="horde" />
-      <file name="za.png" role="horde" />
-     </dir> <!-- /themes/tango-blue/graphics -->
-    </dir> <!-- /themes/tango-blue -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="data.php" role="horde" />
    <file name="index.php" role="horde" />
    <file name="LICENSE" role="doc" />
@@ -725,7 +695,6 @@
    <install as="Mnemo/Unit/Mnemo/KolabTest.php" name="test/Mnemo/Unit/Mnemo/KolabTest.php" />
    <install as="Mnemo/Unit/Mnemo/Sql/Base.php" name="test/Mnemo/Unit/Mnemo/Sql/Base.php" />
    <install as="Mnemo/Unit/Mnemo/Sql/Pdo/SqliteTest.php" name="test/Mnemo/Unit/Mnemo/Sql/Pdo/SqliteTest.php" />
-   <install as="mnemo/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="mnemo/themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="mnemo/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="mnemo/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
@@ -737,23 +706,6 @@
    <install as="mnemo/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
    <install as="mnemo/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="mnemo/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
-   <install as="mnemo/themes/fadetogreen/screen.css" name="themes/fadetogreen/screen.css" />
-   <install as="mnemo/themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="mnemo/themes/silver/graphics/add.png" name="themes/silver/graphics/add.png" />
-   <install as="mnemo/themes/silver/graphics/az.png" name="themes/silver/graphics/az.png" />
-   <install as="mnemo/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
-   <install as="mnemo/themes/silver/graphics/minus.png" name="themes/silver/graphics/minus.png" />
-   <install as="mnemo/themes/silver/graphics/mnemo.png" name="themes/silver/graphics/mnemo.png" />
-   <install as="mnemo/themes/silver/graphics/notepads.png" name="themes/silver/graphics/notepads.png" />
-   <install as="mnemo/themes/silver/graphics/plus.png" name="themes/silver/graphics/plus.png" />
-   <install as="mnemo/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
-   <install as="mnemo/themes/silver/graphics/za.png" name="themes/silver/graphics/za.png" />
-   <install as="mnemo/themes/tango-blue/graphics/add.png" name="themes/tango-blue/graphics/add.png" />
-   <install as="mnemo/themes/tango-blue/graphics/az.png" name="themes/tango-blue/graphics/az.png" />
-   <install as="mnemo/themes/tango-blue/graphics/favicon.ico" name="themes/tango-blue/graphics/favicon.ico" />
-   <install as="mnemo/themes/tango-blue/graphics/mnemo.png" name="themes/tango-blue/graphics/mnemo.png" />
-   <install as="mnemo/themes/tango-blue/graphics/notepads.png" name="themes/tango-blue/graphics/notepads.png" />
-   <install as="mnemo/themes/tango-blue/graphics/za.png" name="themes/tango-blue/graphics/za.png" />
    <install as="mnemo/data.php" name="data.php" />
    <install as="mnemo/index.php" name="index.php" />
    <install as="LICENSE" name="LICENSE" />

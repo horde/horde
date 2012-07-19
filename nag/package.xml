@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-03</date>
- <time>15:47:27</time>
+ <date>2012-07-19</date>
+ <time>22:26:58</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -100,6 +100,11 @@
      <file name="EditTaskList.php" role="horde" />
      <file name="Task.php" role="horde" />
     </dir> <!-- /lib/Form -->
+    <dir name="Prefs">
+     <dir name="Special">
+      <file name="TaskAlarms.php" role="horde" />
+     </dir> <!-- /lib/Prefs/Special -->
+    </dir> <!-- /lib/Prefs -->
     <dir name="Tasklists">
      <file name="Base.php" role="horde" />
      <file name="Default.php" role="horde" />
@@ -447,9 +452,6 @@
     </dir> <!-- /test/Nag -->
    </dir> <!-- /test -->
    <dir name="themes">
-    <dir name="bluewhite">
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/bluewhite -->
     <dir name="default">
      <dir name="graphics">
       <file name="add.png" role="horde" />
@@ -474,41 +476,7 @@
      </dir> <!-- /themes/default/smartmobile -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="silver">
-     <dir name="graphics">
-      <file name="add.png" role="horde" />
-      <file name="alarm.png" role="horde" />
-      <file name="alarm_small.png" role="horde" />
-      <file name="az.png" role="horde" />
-      <file name="checkbox.png" role="horde" />
-      <file name="checked.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="minus.png" role="horde" />
-      <file name="nag.png" role="horde" />
-      <file name="note.png" role="horde" />
-      <file name="plus.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="tasklists.png" role="horde" />
-      <file name="unchecked.png" role="horde" />
-      <file name="za.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-    <dir name="tango-blue">
-     <dir name="graphics">
-      <file name="add.png" role="horde" />
-      <file name="alarm.png" role="horde" />
-      <file name="alarm_small.png" role="horde" />
-      <file name="checkbox.png" role="horde" />
-      <file name="checked.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="nag.png" role="horde" />
-      <file name="note.png" role="horde" />
-      <file name="tasklists.png" role="horde" />
-      <file name="unchecked.png" role="horde" />
-     </dir> <!-- /themes/tango-blue/graphics -->
-    </dir> <!-- /themes/tango-blue -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="COPYING" role="doc" />
    <file name="data.php" role="horde" />
    <file name="index.php" role="horde" />
@@ -758,6 +726,7 @@
    <install as="nag/lib/Form/Type/NagDue.php" name="lib/Form/Type/NagDue.php" />
    <install as="nag/lib/Form/Type/NagMethod.php" name="lib/Form/Type/NagMethod.php" />
    <install as="nag/lib/Form/Type/NagStart.php" name="lib/Form/Type/NagStart.php" />
+   <install as="nag/lib/Prefs/Special/TaskAlarms.php" name="lib/Prefs/Special/TaskAlarms.php" />
    <install as="nag/lib/Tasklists/Base.php" name="lib/Tasklists/Base.php" />
    <install as="nag/lib/Tasklists/Default.php" name="lib/Tasklists/Default.php" />
    <install as="nag/lib/Tasklists/Kolab.php" name="lib/Tasklists/Kolab.php" />
@@ -897,7 +866,6 @@
    <install as="Nag/Unit/Nag/KolabTest.php" name="test/Nag/Unit/Nag/KolabTest.php" />
    <install as="Nag/Unit/Nag/Sql/Base.php" name="test/Nag/Unit/Nag/Sql/Base.php" />
    <install as="Nag/Unit/Nag/Sql/Pdo/SqliteTest.php" name="test/Nag/Unit/Nag/Sql/Pdo/SqliteTest.php" />
-   <install as="nag/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="nag/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="nag/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="nag/themes/default/graphics/alarm.png" name="themes/default/graphics/alarm.png" />
@@ -916,32 +884,6 @@
    <install as="nag/themes/default/graphics/unchecked.png" name="themes/default/graphics/unchecked.png" />
    <install as="nag/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
    <install as="nag/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
-   <install as="nag/themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="nag/themes/silver/graphics/add.png" name="themes/silver/graphics/add.png" />
-   <install as="nag/themes/silver/graphics/alarm.png" name="themes/silver/graphics/alarm.png" />
-   <install as="nag/themes/silver/graphics/alarm_small.png" name="themes/silver/graphics/alarm_small.png" />
-   <install as="nag/themes/silver/graphics/az.png" name="themes/silver/graphics/az.png" />
-   <install as="nag/themes/silver/graphics/checkbox.png" name="themes/silver/graphics/checkbox.png" />
-   <install as="nag/themes/silver/graphics/checked.png" name="themes/silver/graphics/checked.png" />
-   <install as="nag/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
-   <install as="nag/themes/silver/graphics/minus.png" name="themes/silver/graphics/minus.png" />
-   <install as="nag/themes/silver/graphics/nag.png" name="themes/silver/graphics/nag.png" />
-   <install as="nag/themes/silver/graphics/note.png" name="themes/silver/graphics/note.png" />
-   <install as="nag/themes/silver/graphics/plus.png" name="themes/silver/graphics/plus.png" />
-   <install as="nag/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
-   <install as="nag/themes/silver/graphics/tasklists.png" name="themes/silver/graphics/tasklists.png" />
-   <install as="nag/themes/silver/graphics/unchecked.png" name="themes/silver/graphics/unchecked.png" />
-   <install as="nag/themes/silver/graphics/za.png" name="themes/silver/graphics/za.png" />
-   <install as="nag/themes/tango-blue/graphics/add.png" name="themes/tango-blue/graphics/add.png" />
-   <install as="nag/themes/tango-blue/graphics/alarm.png" name="themes/tango-blue/graphics/alarm.png" />
-   <install as="nag/themes/tango-blue/graphics/alarm_small.png" name="themes/tango-blue/graphics/alarm_small.png" />
-   <install as="nag/themes/tango-blue/graphics/checkbox.png" name="themes/tango-blue/graphics/checkbox.png" />
-   <install as="nag/themes/tango-blue/graphics/checked.png" name="themes/tango-blue/graphics/checked.png" />
-   <install as="nag/themes/tango-blue/graphics/favicon.ico" name="themes/tango-blue/graphics/favicon.ico" />
-   <install as="nag/themes/tango-blue/graphics/nag.png" name="themes/tango-blue/graphics/nag.png" />
-   <install as="nag/themes/tango-blue/graphics/note.png" name="themes/tango-blue/graphics/note.png" />
-   <install as="nag/themes/tango-blue/graphics/tasklists.png" name="themes/tango-blue/graphics/tasklists.png" />
-   <install as="nag/themes/tango-blue/graphics/unchecked.png" name="themes/tango-blue/graphics/unchecked.png" />
    <install as="COPYING" name="COPYING" />
    <install as="nag/data.php" name="data.php" />
    <install as="nag/index.php" name="index.php" />
