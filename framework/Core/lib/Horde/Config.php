@@ -755,7 +755,7 @@ class Horde_Config
                 'desc' => 'LDAP server/hostname',
                 'default' => $this->_default(
                     $ctx . '|hostspec',
-                    $node ? ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: false) : ''
+                    $node ? ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: '') : ''
                 )
             ),
 
@@ -765,7 +765,7 @@ class Horde_Config
                 'desc' => 'Port on which LDAP is listening, if non-standard',
                 'default' => $this->_default(
                     $ctx . '|port',
-                    $node ? ($xpath->evaluate('string(configinteger[@name="port"])', $node) ?: false) : null
+                    $node ? ($xpath->evaluate('string(configinteger[@name="port"])', $node) ?: null) : null
                 )
             ),
 
@@ -786,7 +786,7 @@ class Horde_Config
                 'desc' => 'LDAP protocol version',
                 'default' => $this->_default(
                     $ctx . '|version',
-                    $node ? ($xpath->evaluate('normalize-space(configswitch[@name="version"]/text())', $node) ?: '') : 3
+                    $node ? ($xpath->evaluate('normalize-space(configswitch[@name="version"]/text())', $node) ?: 3) : 3
                 ),
                 'switch' => array(
                     '2' => array(
@@ -804,7 +804,7 @@ class Horde_Config
                 'desc' => 'Bind to LDAP as which user?',
                 'default' => $this->_default(
                     $ctx . '|bindas',
-                    $node ? ($xpath->evaluate('normalize-space(configswitch[@name="bindas"]/text())', $node) ?: '') : 'admin'
+                    $node ? ($xpath->evaluate('normalize-space(configswitch[@name="bindas"]/text())', $node) ?: 'admin') : 'admin'
                 ),
                 'switch' => array(
                     'anon' => array(
@@ -821,7 +821,7 @@ class Horde_Config
                                     'desc' => 'DN used to bind for searching the user\'s DN (leave empty for anonymous bind)',
                                     'default' => $this->_default(
                                         $ctx . '|user|binddn',
-                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="binddn"])', $node) ?: false) : ''
+                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="binddn"])', $node) ?: '') : ''
                                     )
                                 ),
                                 'bindpw' => array(
@@ -830,7 +830,7 @@ class Horde_Config
                                     'desc' => 'Password for bind DN',
                                     'default' => $this->_default(
                                         $ctx . '|user|bindpw',
-                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: false) : ''
+                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: '') : ''
                                     )
                                 ),
                                 'uid' => array(
@@ -839,7 +839,7 @@ class Horde_Config
                                     'desc' => 'The username search key (set to samaccountname for AD).',
                                     'default' => $this->_default(
                                         $ctx . '|user|uid',
-                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="uid"])', $node) ?: false) : 'uid'
+                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="uid"])', $node) ?: 'uid') : 'uid'
                                     )
                                 ),
                                 'filter_type' => array(
@@ -847,7 +847,7 @@ class Horde_Config
                                     'desc' => 'How to specify a filter for the user lists.',
                                     'default' => $this->_default(
                                         $ctx . '|user|filter_type',
-                                        $node ? ($xpath->evaluate('normalize-space(configsection/configswitch[@name="filter_type"]/text())', $node) ?: '') : 'objectclass'),
+                                        $node ? ($xpath->evaluate('normalize-space(configsection/configswitch[@name="filter_type"]/text())', $node) ?: 'objectclass') : 'objectclass'),
                                     'switch' => array(
                                         'filter' => array(
                                             'desc' => 'LDAP filter string',
@@ -858,7 +858,7 @@ class Horde_Config
                                                     'desc' => 'The LDAP filter string used to search for users.',
                                                     'default' => $this->_default(
                                                         $ctx . '|user|filter',
-                                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="filter"])', $node) ?: false) : '(objectClass=*)'
+                                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="filter"])', $node) ?: '(objectClass=*)') : '(objectClass=*)'
                                                     )
                                                 ),
                                             ),
@@ -872,7 +872,7 @@ class Horde_Config
                                                     'desc' => 'The objectclass filter used to search for users. Can be a single objectclass or a comma-separated list.',
                                                     'default' => implode(', ', $this->_default(
                                                         $ctx . '|user|objectclass',
-                                                        $node ? ($xpath->evaluate('string(configsection/configlist[@name="objectclass"])', $node) ?: false) : array('*')))
+                                                        $node ? ($xpath->evaluate('string(configsection/configlist[@name="objectclass"])', $node) ?: array('*')) : array('*')))
                                                 ),
                                             ),
                                         ),
@@ -890,7 +890,7 @@ class Horde_Config
                                 'desc' => 'DN used to bind to LDAP',
                                 'default' => $this->_default(
                                     $ctx . '|binddn',
-                                    $node ? ($xpath->evaluate('string(configsection/configstring[@name="binddn"])', $node) ?: false) : ''
+                                    $node ? ($xpath->evaluate('string(configsection/configstring[@name="binddn"])', $node) ?: '') : ''
                                 )
                             ),
                             'bindpw' => array(
@@ -899,7 +899,7 @@ class Horde_Config
                                 'desc' => 'Password for bind DN',
                                 'default' => $this->_default(
                                     $ctx . '|bindpw',
-                                    $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: false) : '')
+                                    $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: '') : '')
                             )
                         )
                     ),
@@ -919,7 +919,7 @@ class Horde_Config
                 'desc' => 'Use LDAP?',
                 'default' => $this->_default(
                     $ctx . '|' . $node->getAttribute('switchname'),
-                    $node ? ($xpath->evaluate('normalize-space(text())', $node) ?: '') : false
+                    $node ? ($xpath->evaluate('normalize-space(text())', $node) ?: false) : false
                 ),
                 'switch' => array(
                     'false' => array(
@@ -941,7 +941,7 @@ class Horde_Config
                 'desc' => 'Base DN',
                 'default' => $this->_default(
                     $ctx . '|basedn',
-                    $node ? ($xpath->evaluate('string(configstring[@name="basedn"])', $node) ?: false) : ''
+                    $node ? ($xpath->evaluate('string(configstring[@name="basedn"])', $node) ?: '') : ''
                 )
             ),
             'scope' => array(
@@ -1070,14 +1070,14 @@ class Horde_Config
             'desc' => 'Port the DB is running on, if non-standard',
             'default' => $this->_default(
                 $ctx . '|port',
-                $node ? ($xpath->evaluate('string(configinteger[@name="port"])', $node) ?: '') : null)
+                $node ? ($xpath->evaluate('string(configinteger[@name="port"])', $node) ?: null) : null)
         );
 
         $protocol = array(
             'desc' => 'How should we connect to the database?',
             'default' => $this->_default(
                 $ctx . '|protocol',
-                $node ? ($xpath->evaluate('normalize-space(configswitch[@name="protocol"]/text())', $node) ?: '') : 'unix'),
+                $node ? ($xpath->evaluate('normalize-space(configswitch[@name="protocol"]/text())', $node) ?: 'unix') : 'unix'),
             'switch' => array(
                 'unix' => array(
                     'desc' => 'UNIX Sockets',
@@ -1099,7 +1099,7 @@ class Horde_Config
         $mysql_protocol['switch']['tcp']['fields']['port']['default'] =
             $this->_default(
                 $ctx . '|port',
-                $node ? ($xpath->evaluate('string(configinteger[@name="port"])', $node) ?: '') : 3306
+                $node ? ($xpath->evaluate('string(configinteger[@name="port"])', $node) ?: 3306) : 3306
             );
 
         $charset = array(
@@ -1117,7 +1117,7 @@ class Horde_Config
             'desc' => 'Use SSL to connect to the server?',
             'default' => $this->_default(
                 $ctx . '|ssl',
-                $node ? ($xpath->evaluate('string(configboolean[@name="ssl"])', $node) ?: '') : false)
+                $node ? ($xpath->evaluate('string(configboolean[@name="ssl"])', $node) ?: false) : false)
         );
 
         $ca = array(
@@ -1136,7 +1136,7 @@ class Horde_Config
             'desc' => 'Split reads to a different server?',
             'default' => $this->_default(
                 $ctx . '|splitread',
-                $node ? ($xpath->evaluate('normalize-space(configswitch[@name="splitread"]/text())', $node) ?: '') : 'false'),
+                $node ? ($xpath->evaluate('normalize-space(configswitch[@name="splitread"]/text())', $node) ?: 'false') : 'false'),
             'switch' => array(
                 'false' => array(
                     'desc' => 'Disabled',
