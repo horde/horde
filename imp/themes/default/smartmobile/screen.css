@@ -46,7 +46,10 @@
     width: 100%;
 }
 
-/* MIME information. */
+/* MIME part display. */
 .mimePartInfo, .mimeStatusMessage {
     display: none;
+}
+.mimePartData .fixed {
+    font-size: 90%;
 }
