@@ -12,9 +12,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-19</date>
- <time>23:32:31</time>
+ <time>23:32:50</time>
  <version>
-  <release>2.0.0beta1</release>
+  <release>2.0.0beta2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -23,10 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First beta release for Horde 5.
-* [jan] Fix renaming of shares (Bug #11281).
-* [jan] Fix moving objects to a different folder (Bug #11280).
-* [jan] Fix listing and loading data from IMAP server (Bug #11273).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1094,6 +1091,19 @@
 * [jan] Fix renaming of shares (Bug #11281).
 * [jan] Fix moving objects to a different folder (Bug #11280).
 * [jan] Fix listing and loading data from IMAP server (Bug #11273).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
