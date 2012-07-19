@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-20</date>
- <time>01:28:07</time>
+ <time>01:29:02</time>
  <version>
-  <release>4.0.0beta1</release>
+  <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
  </version>
  <stability>
@@ -40,10 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Add configuration example for Kolab/IMAP address books.
-* [jan] Update icon set.
-* [jan] Fix searching multiple names via the API.
-* [jan] Fix searching and listing clients via the API.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1416,6 +1413,19 @@
 * [jan] Update icon set.
 * [jan] Fix searching multiple names via the API.
 * [jan] Fix searching and listing clients via the API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0beta2</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-20</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
