@@ -2,6 +2,7 @@
 v6.0.0beta1
 -----------
 
+[mms] Fix regression in sorting of special mailboxes (Bug #11241).
 [mms] Fix mailbox sorting in traditional view (Bug #11278).
 [mms] Fix regression in IMAP cache query script preventing stats in all mailbox
       reports (Bug #11265).
