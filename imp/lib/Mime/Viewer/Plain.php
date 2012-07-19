@@ -58,7 +58,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
      */
     protected function _impRender($inline)
     {
-        global $conf, $prefs;
+        global $conf, $prefs, $registry;
 
         $mime_id = $this->_mimepart->getMimeId();
 
@@ -100,7 +100,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         $text = IMP::filterText($text);
 
         /* Done processing if in minimal mode. */
-        if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL) {
+        if ($registry->getView() == Horde_Registry::VIEW_MINIMAL) {
             $filters = array(
                 'text2html' => array(
                     'charset' => $charset,
@@ -143,7 +143,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
             if ($inline) {
                 $filters['highlightquotes'] = array(
                     'hideBlocks' => $hideBlocks,
-                    'noJS' => ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC)
+                    'noJS' => ($registry->getView() == Horde_Registry::VIEW_DYNAMIC)
                 );
             } else {
                 $filters['Horde_Text_Filter_Highlightquotes'] = array(
