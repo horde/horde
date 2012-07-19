@@ -100,8 +100,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Connecting to server %s failed. Error: %s"
-                    ),
+                        "Connecting to server %s failed."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $this->_getHost(),
                     imap_last_error()
                 )
@@ -179,8 +181,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Listing folders for %s failed. Error: %s"
-                    ),
+                        "Listing folders for %s failed."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $this->_getBaseMbox(),
                     imap_last_error()
                 )
@@ -215,10 +219,11 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Creating folder %s%s failed. Error: %s"
-                    ),
-                    $this->_getBaseMbox(),
-                    $folder,
+                        "Creating folder %s failed."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
+                    $this->_getBaseMbox() . $folder,
                     imap_last_error()
                 )
             );
@@ -242,10 +247,11 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Deleting folder %s%s failed. Error: %s"
-                    ),
-                    $this->_getBaseMbox(),
-                    $folder,
+                        "Deleting folder %s failed."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
+                    $this->_getBaseMbox() . $folder,
                     imap_last_error()
                 )
             );
@@ -271,12 +277,12 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Renaming folder %s%s to %s%s failed. Error: %s"
-                    ),
-                    $this->_getBaseMbox(),
-                    $old,
-                    $this->_getBaseMbox(),
-                    $new,
+                        "Renaming folder %s to %s failed."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
+                    $this->_getBaseMbox() . $old,
+                    $this->_getBaseMbox() . $new,
                     imap_last_error()
                 )
             );
@@ -315,8 +321,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed reading ACL on folder %s. Error: %s"
-                    ),
+                        "Failed reading ACL on folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     imap_last_error()
                 )
@@ -343,8 +351,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed reading user rights on folder %s. Error: %s"
-                    ),
+                        "Failed reading user rights on folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     imap_last_error()
                 )
@@ -369,8 +379,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed setting ACL on folder %s for user %s to %s. Error: %s"
-                    ),
+                        "Failed setting ACL on folder %s for user %s to %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     $user,
                     $acl,
@@ -438,12 +450,13 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Retrieving annotation %s[%s] on folder %s%s failed. Error: %s"
-                    ),
+                        "Retrieving annotation %s[%s] on folder %s failed."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $entry,
                     $key,
-                    $this->_getBaseMbox(),
-                    $folder,
+                    $this->_getBaseMbox() . $folder,
                     imap_last_error()
                 )
             );
@@ -470,12 +483,13 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Setting annotation %s[%s] on folder %s%s to %s failed. Error: %s"
-                    ),
+                        "Setting annotation %s[%s] on folder %s to %s failed."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $entry,
                     $key,
-                    $this->_getBaseMbox(),
-                    $folder,
+                    $this->_getBaseMbox() . $folder,
                     $value,
                     imap_last_error()
                 )
@@ -499,10 +513,12 @@ extends Horde_Kolab_Storage_Driver_Base
                 throw new Horde_Kolab_Storage_Exception(
                     sprintf(
                         Horde_Kolab_Storage_Translation::t(
-                            "Failed opening folder %s%s. Error: %s"
+                            "Failed opening folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"
                         ),
-                        $this->_getBaseMbox(),
-                        $folder,
+                        $this->_getBaseMbox() . $folder,
                         imap_last_error()
                     )
                 );
@@ -529,10 +545,11 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed retrieving status information for folder %s%s. Error: %s"
-                    ),
-                    $this->_getBaseMbox(),
-                    $folder,
+                        "Failed retrieving status information for folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
+                    $this->_getBaseMbox() . $folder,
                     imap_last_error()
                 )
             );
@@ -587,11 +604,12 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed fetching message %s in folder %s%s. Error: %s"
-                    ),
-                    $this->_getBaseMbox(),
+                        "Failed fetching message %s in folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $uid,
-                    $folder,
+                    $this->_getBaseMbox() . $folder,
                     imap_last_error()
                 )
             );
@@ -622,11 +640,13 @@ extends Horde_Kolab_Storage_Driver_Base
                 throw new Horde_Kolab_Storage_Exception(
                     sprintf(
                         Horde_Kolab_Storage_Translation::t(
-                            "Failed fetching structure information for messages %s in folder %s%s. Error: %s"
+                            "Failed fetching structure information for messages %s in folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"
                         ),
-                        $this->_getBaseMbox(),
                         join(',', $uids),
-                        $folder,
+                        $this->_getBaseMbox() . $folder,
                         imap_last_error()
                     )
                 );
@@ -654,12 +674,13 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed fetching body part %s for message %s in folder %s%s. Error: %s"
-                    ),
-                    $this->_getBaseMbox(),
+                        "Failed fetching body part %s for message %s in folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $id,
                     $uid,
-                    $folder,
+                    $this->_getBaseMbox() . $folder,
                     imap_last_error()
                 )
             );
@@ -688,10 +709,11 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed appending new message to folder %s%s. Error: %s"
-                    ),
-                    $this->_getBaseMbox(),
-                    $folder,
+                        "Failed appending new message to folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
+                    $this->_getBaseMbox() . $folder,
                     imap_last_error()
                 )
             );
@@ -721,7 +743,10 @@ extends Horde_Kolab_Storage_Driver_Base
                 throw new Horde_Kolab_Storage_Exception(
                     sprintf(
                         Horde_Kolab_Storage_Translation::t(
-                            "Failed deleting message %s in folder %s. Error: %s"
+                            "Failed deleting message %s in folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"
                         ),
                         $uid,
                         $folder,
@@ -755,8 +780,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed message %s from folder %s to folder %s. Error: %s"
-                    ),
+                        "Failed moving message %s from folder %s to folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $uid,
                     $old_folder,
                     $new_folder,
@@ -782,8 +809,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed expunging folder %s. Error: %s"
-                    ),
+                        "Failed expunging folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     imap_last_error()
                 )
