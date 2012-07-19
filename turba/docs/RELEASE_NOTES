@@ -33,6 +33,7 @@ might still change before the release candidates are prepared.
 
 The major changes compared to the Turba version H5 (4.0.0alpha1) are:
     * Updated icon set.
+    * Added Kolab/IMAP configuration example.
     * Small bugfixes.
 ML;
 

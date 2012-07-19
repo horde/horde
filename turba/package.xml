@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Add configuration example for Kolab/IMAP address books.
 * [jan] Update icon set.
 * [jan] Fix searching multiple names via the API.
 * [jan] Fix searching and listing clients via the API.
@@ -1411,6 +1412,7 @@
    <date>2012-07-06</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Add configuration example for Kolab/IMAP address books.
 * [jan] Update icon set.
 * [jan] Fix searching multiple names via the API.
 * [jan] Fix searching and listing clients via the API.
