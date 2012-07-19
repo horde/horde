@@ -52,11 +52,6 @@ class Horde_Api extends Horde_Registry_Api
                 'name' => _("_Alarms"),
                 'icon' => 'alarm'
             ),
-            'datatree' => array(
-                'link' => '%application%/admin/datatree.php',
-                'name' => _("_DataTree"),
-                'icon' => 'datatree'
-            ),
             'sessions' => array(
                 'link' => '%application%/admin/sessions.php',
                 'name' => _("Sessions"),
@@ -85,11 +80,6 @@ class Horde_Api extends Horde_Registry_Api
                 'name' => _("ActiveSync Devices"),
                 'icon' => 'mobile'
             );
-        }
-
-        if (empty($GLOBALS['conf']['datatree']['driver']) ||
-            $GLOBALS['conf']['datatree']['driver'] == 'null') {
-            unset($admin['datatree']);
         }
 
         return $admin;

@@ -23,8 +23,8 @@ owns or has access to.</description>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-06</date>
- <time>00:01:22</time>
+ <date>2012-07-19</date>
+ <time>22:13:48</time>
  <version>
   <release>2.0.0beta1</release>
   <api>1.3.0</api>
@@ -35,7 +35,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-*
+* [jan] Remove DataTree driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -50,16 +50,11 @@ owns or has access to.</description>
     <dir name="Horde">
      <dir name="Share">
       <dir name="Object">
-       <dir name="Datatree">
-        <file name="Share.php" role="php" />
-       </dir> <!-- /lib/Horde/Share/Object/Datatree -->
-       <file name="Datatree.php" role="php" />
        <file name="Kolab.php" role="php" />
        <file name="Sql.php" role="php" />
        <file name="Sqlng.php" role="php" />
       </dir> <!-- /lib/Horde/Share/Object -->
       <file name="Base.php" role="php" />
-      <file name="Datatree.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Kolab.php" role="php" />
       <file name="Object.php" role="php" />
@@ -463,18 +458,15 @@ owns or has access to.</description>
   <filelist>
    <install as="COPYING" name="doc/Horde/Share/COPYING" />
    <install as="Horde/Share/Base.php" name="lib/Horde/Share/Base.php" />
-   <install as="Horde/Share/Datatree.php" name="lib/Horde/Share/Datatree.php" />
    <install as="Horde/Share/Exception.php" name="lib/Horde/Share/Exception.php" />
    <install as="Horde/Share/Kolab.php" name="lib/Horde/Share/Kolab.php" />
    <install as="Horde/Share/Object.php" name="lib/Horde/Share/Object.php" />
    <install as="Horde/Share/Sql.php" name="lib/Horde/Share/Sql.php" />
    <install as="Horde/Share/Sqlng.php" name="lib/Horde/Share/Sqlng.php" />
    <install as="Horde/Share/Translation.php" name="lib/Horde/Share/Translation.php" />
-   <install as="Horde/Share/Object/Datatree.php" name="lib/Horde/Share/Object/Datatree.php" />
    <install as="Horde/Share/Object/Kolab.php" name="lib/Horde/Share/Object/Kolab.php" />
    <install as="Horde/Share/Object/Sql.php" name="lib/Horde/Share/Object/Sql.php" />
    <install as="Horde/Share/Object/Sqlng.php" name="lib/Horde/Share/Object/Sqlng.php" />
-   <install as="Horde/Share/Object/Datatree/Share.php" name="lib/Horde/Share/Object/Datatree/Share.php" />
    <install as="locale/Horde_Share.pot" name="locale/Horde_Share.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Share.mo" name="locale/ar/LC_MESSAGES/Horde_Share.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Share.po" name="locale/ar/LC_MESSAGES/Horde_Share.po" />
@@ -847,12 +839,12 @@ Initial release as a PEAR package
     <release>2.0.0beta1</release>
     <api>1.3.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>alpha</release>
     <api>stable</api></stability>
-   <date>2012-07-06</date>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* [jan] Remove DataTree driver.
    </notes>
   </release>
  </changelog>

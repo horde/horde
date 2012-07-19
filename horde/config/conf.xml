@@ -870,27 +870,6 @@
   </configsection>
  </configtab>
 
- <configtab name="datatree" desc="DataTree System">
-  <configsection name="datatree">
-   <configheader>DataTree System Settings</configheader>
-   <configswitch name="driver" desc="What backend should we use for Horde
-   DataTree storage?">null
-     <case name="null" desc="None"/>
-     <case name="sql" desc="SQL Database">
-      <configsection name="params">
-       <configsql switchname="driverconfig">
-        <configstring name="table" required="false" desc="The name of the
-        data table in the database [horde_datatree]"/>
-        <configstring name="table_attributes" required="false" desc="The name
-        of the data attributes table in the database
-        [horde_datatree_attributes]"/>
-       </configsql>
-      </configsection>
-     </case>
-   </configswitch>
-  </configsection>
- </configtab>
-
  <configtab name="group" desc="Groups">
   <configsection name="group">
    <configheader>Groups Settings</configheader>

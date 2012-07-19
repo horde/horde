@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-05</date>
- <time>23:56:27</time>
+ <date>2012-07-19</date>
+ <time>22:12:07</time>
  <version>
   <release>2.0.0beta1</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-*
+* [jan] Remove DataTree driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -65,12 +65,10 @@
         <file name="ElementIterator.php" role="php" />
         <file name="Storage.php" role="php" />
        </dir> <!-- /lib/Horde/Perms/Permission/Kolab -->
-       <file name="Datatree.php" role="php" />
        <file name="Kolab.php" role="php" />
        <file name="Sql.php" role="php" />
       </dir> <!-- /lib/Horde/Perms/Permission -->
       <file name="Base.php" role="php" />
-      <file name="Datatree.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Null.php" role="php" />
       <file name="Permission.php" role="php" />
@@ -429,13 +427,11 @@
    <install as="COPYING" name="doc/Horde/Perms/COPYING" />
    <install as="Horde/Perms.php" name="lib/Horde/Perms.php" />
    <install as="Horde/Perms/Base.php" name="lib/Horde/Perms/Base.php" />
-   <install as="Horde/Perms/Datatree.php" name="lib/Horde/Perms/Datatree.php" />
    <install as="Horde/Perms/Exception.php" name="lib/Horde/Perms/Exception.php" />
    <install as="Horde/Perms/Null.php" name="lib/Horde/Perms/Null.php" />
    <install as="Horde/Perms/Permission.php" name="lib/Horde/Perms/Permission.php" />
    <install as="Horde/Perms/Sql.php" name="lib/Horde/Perms/Sql.php" />
    <install as="Horde/Perms/Translation.php" name="lib/Horde/Perms/Translation.php" />
-   <install as="Horde/Perms/Permission/Datatree.php" name="lib/Horde/Perms/Permission/Datatree.php" />
    <install as="Horde/Perms/Permission/Kolab.php" name="lib/Horde/Perms/Permission/Kolab.php" />
    <install as="Horde/Perms/Permission/Sql.php" name="lib/Horde/Perms/Permission/Sql.php" />
    <install as="Horde/Perms/Permission/Kolab/Acl.php" name="lib/Horde/Perms/Permission/Kolab/Acl.php" />
@@ -819,12 +815,12 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>2.0.0beta1</release>
     <api>1.0.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>alpha</release>
     <api>stable</api></stability>
-   <date>2012-07-05</date>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* [jan] Remove DataTree driver.
    </notes>
   </release>
  </changelog>

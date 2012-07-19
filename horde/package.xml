@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-06</date>
- <time>00:37:14</time>
+ <date>2012-07-19</date>
+ <time>22:29:07</time>
  <version>
   <release>5.0.0beta1</release>
   <api>5.0.0alpha1</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Remove DataTree support.
 * [jan] Allow to configure encryption in global IMAP configuration (Request #11272).
 * [jan] Update icon set.
 * [rla] Retrieve more detailed message from Horde_Auth when a user is temporarily or permanently locked out (Request #11254).
@@ -88,7 +89,6 @@
     <file name="activesync.php" role="horde" />
     <file name="alarms.php" role="horde" />
     <file name="cmdshell.php" role="horde" />
-    <file name="datatree.php" role="horde" />
     <file name="groups.php" role="horde" />
     <file name="index.html" role="horde" />
     <file name="locks.php" role="horde" />
@@ -103,13 +103,10 @@
     <file name="horde-alarms" role="script" />
     <file name="horde-check-logger" role="script" />
     <file name="horde-clear-cache" role="script" />
-    <file name="horde-convert-datatree-groups-to-sql" role="script" />
-    <file name="horde-convert-datatree-perms-to-sql" role="script" />
     <file name="horde-crond" role="script" />
     <file name="horde-db-migrate" role="script" />
     <file name="horde-import-squirrelmail-prefs" role="script" />
     <file name="horde-memcache-stats" role="script" />
-    <file name="horde-move-history-out-of-datatree" role="script" />
     <file name="horde-run-task" role="script" />
     <file name="horde-set-perms" role="script" />
     <file name="horde-themes" role="script" />
@@ -1660,7 +1657,6 @@
       <file name="colorscale.png" role="horde" />
       <file name="config.png" role="horde" />
       <file name="data.png" role="horde" />
-      <file name="datatree.png" role="horde" />
       <file name="delete-small.png" role="horde" />
       <file name="delete.png" role="horde" />
       <file name="devel.png" role="horde" />
@@ -2109,7 +2105,6 @@
    <install as="admin/activesync.php" name="admin/activesync.php" />
    <install as="admin/alarms.php" name="admin/alarms.php" />
    <install as="admin/cmdshell.php" name="admin/cmdshell.php" />
-   <install as="admin/datatree.php" name="admin/datatree.php" />
    <install as="admin/groups.php" name="admin/groups.php" />
    <install as="admin/index.html" name="admin/index.html" />
    <install as="admin/locks.php" name="admin/locks.php" />
@@ -2138,13 +2133,10 @@
    <install as="horde-alarms" name="bin/horde-alarms" />
    <install as="horde-check-logger" name="bin/horde-check-logger" />
    <install as="horde-clear-cache" name="bin/horde-clear-cache" />
-   <install as="horde-convert-datatree-groups-to-sql" name="bin/horde-convert-datatree-groups-to-sql" />
-   <install as="horde-convert-datatree-perms-to-sql" name="bin/horde-convert-datatree-perms-to-sql" />
    <install as="horde-crond" name="bin/horde-crond" />
    <install as="horde-db-migrate" name="bin/horde-db-migrate" />
    <install as="horde-import-squirrelmail-prefs" name="bin/horde-import-squirrelmail-prefs" />
    <install as="horde-memcache-stats" name="bin/horde-memcache-stats" />
-   <install as="horde-move-history-out-of-datatree" name="bin/horde-move-history-out-of-datatree" />
    <install as="horde-run-task" name="bin/horde-run-task" />
    <install as="horde-set-perms" name="bin/horde-set-perms" />
    <install as="horde-themes" name="bin/horde-themes" />
@@ -2658,7 +2650,6 @@
    <install as="themes/default/graphics/colorscale.png" name="themes/default/graphics/colorscale.png" />
    <install as="themes/default/graphics/config.png" name="themes/default/graphics/config.png" />
    <install as="themes/default/graphics/data.png" name="themes/default/graphics/data.png" />
-   <install as="themes/default/graphics/datatree.png" name="themes/default/graphics/datatree.png" />
    <install as="themes/default/graphics/delete-small.png" name="themes/default/graphics/delete-small.png" />
    <install as="themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="themes/default/graphics/devel.png" name="themes/default/graphics/devel.png" />
@@ -3836,11 +3827,12 @@
     <release>5.0.0beta1</release>
     <api>5.0.0alpha1</api></version>
    <stability>
-    <release>beta</release>
+    <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-07-06</date>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Remove DataTree support.
 * [jan] Allow to configure encryption in global IMAP configuration (Request #11272).
 * [jan] Update icon set.
 * [rla] Retrieve more detailed message from Horde_Auth when a user is temporarily or permanently locked out (Request #11254).
