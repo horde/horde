@@ -161,10 +161,6 @@ if ($static_group) {
     chgrp($web_dir . '/static', $static_group);
 }
 
-print "\nLINKING framework\n";
-mkdir($web_dir . '/libs');
-system(__DIR__ . '/install_framework --src ' . escapeshellarg($horde_git) . '/framework --dest ' . escapeshellarg($web_dir . '/libs') . ' --horde ' . escapeshellarg($web_dir));
-
 function link_app($app)
 {
     print "LINKING " . $app . "\n";
@@ -193,3 +189,7 @@ if ($apps) {
         }
     }
 }
+
+print "\nLINKING framework\n";
+mkdir($web_dir . '/libs');
+system(__DIR__ . '/install_framework --src ' . escapeshellarg($horde_git) . '/framework --dest ' . escapeshellarg($web_dir . '/libs') . ' --horde ' . escapeshellarg($web_dir));
