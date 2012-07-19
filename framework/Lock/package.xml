@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First beta release for Horde 5.
 * [rla] add handling of permanent locks.
  </notes>
  <contents>
@@ -219,6 +220,7 @@
    <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* First beta release for Horde 5.
 * [rla] add handling of permanent locks.
    </notes>
   </release>

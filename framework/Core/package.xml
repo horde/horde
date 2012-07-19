@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First beta release for Horde 5.
 * [jan] Fix hiding empty top menu entries in multi-level hierarchies.
 * [jan] Allow to override configuration details of meta-configuration tags like &lt;configsql&gt; in custom configuration XML files.
 * [jan] Allow to configure encryption in global IMAP configuration (Request #11272).
@@ -2151,6 +2152,7 @@
    <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* First beta release for Horde 5.
 * [jan] Fix hiding empty top menu entries in multi-level hierarchies.
 * [jan] Allow to override configuration details of meta-configuration tags like &lt;configsql&gt; in custom configuration XML files.
 * [jan] Allow to configure encryption in global IMAP configuration (Request #11272).
