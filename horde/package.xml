@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>22:51:32</time>
+ <date>2012-07-20</date>
+ <time>01:22:53</time>
  <version>
   <release>5.0.0beta1</release>
   <api>5.0.0beta1</api>
@@ -3803,7 +3803,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Remove DataTree support.
