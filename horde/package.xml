@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-20</date>
- <time>01:22:53</time>
+ <time>01:24:26</time>
  <version>
-  <release>5.0.0beta1</release>
+  <release>5.0.0beta2</release>
   <api>5.0.0beta1</api>
  </version>
  <stability>
@@ -40,10 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Remove DataTree support.
-* [jan] Allow to configure encryption in global IMAP configuration (Request #11272).
-* [jan] Update icon set.
-* [rla] Retrieve more detailed message from Horde_Auth when a user is temporarily or permanently locked out (Request #11254).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3810,6 +3807,19 @@
 * [jan] Allow to configure encryption in global IMAP configuration (Request #11272).
 * [jan] Update icon set.
 * [rla] Retrieve more detailed message from Horde_Auth when a user is temporarily or permanently locked out (Request #11254).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta2</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
