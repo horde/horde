@@ -22,14 +22,14 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-07-06</date>
- <time>00:04:31</time>
+ <date>2012-07-19</date>
+ <time>22:45:55</time>
  <version>
   <release>2.0.0beta1</release>
   <api>1.1.0</api>
  </version>
  <stability>
-  <release>alpha</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
@@ -806,7 +806,7 @@ Initial release as a PEAR package
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-06</date>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Merge upstream changes to jsmin filter that caused broken compression of jQuery Mobile file.

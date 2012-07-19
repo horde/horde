@@ -10,14 +10,14 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-05</date>
- <time>23:41:53</time>
+ <date>2012-07-19</date>
+ <time>22:45:38</time>
  <version>
   <release>2.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
@@ -683,7 +683,7 @@ Initial packaging
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-05</date>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 *

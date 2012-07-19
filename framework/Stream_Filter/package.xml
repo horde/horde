@@ -16,14 +16,14 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-06</date>
- <time>00:01:57</time>
+ <date>2012-07-19</date>
+ <time>22:45:54</time>
  <version>
   <release>2.0.0beta1</release>
   <api>1.1.0</api>
  </version>
  <stability>
-  <release>alpha</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
@@ -202,7 +202,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-06</date>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

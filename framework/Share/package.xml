@@ -24,13 +24,13 @@ owns or has access to.</description>
   <active>yes</active>
  </lead>
  <date>2012-07-19</date>
- <time>22:13:48</time>
+ <time>22:45:53</time>
  <version>
   <release>2.0.0beta1</release>
   <api>1.3.0</api>
  </version>
  <stability>
-  <release>alpha</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
@@ -839,7 +839,7 @@ Initial release as a PEAR package
     <release>2.0.0beta1</release>
     <api>1.3.0</api></version>
    <stability>
-    <release>alpha</release>
+    <release>beta</release>
     <api>stable</api></stability>
    <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
