@@ -1111,13 +1111,16 @@ class Turba_Api extends Horde_Registry_Api
      *                              preferences?
      * @param array $returnFields   Only return these fields. Returns all fields
      *                              if empty.
+     * @param boolean $count_only   Only return the count of matching entries,
+     *                              not the entries themselves.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
     public function search($names = array(), $sources = array(),
                            $fields = array(), $matchBegin = false,
-                           $forceSource = false, $returnFields = array())
+                           $forceSource = false, $returnFields = array(),
+                           $count_only = false)
     {
         global $cfgSources, $attributes, $prefs;
 
@@ -1147,7 +1150,11 @@ class Turba_Api extends Horde_Registry_Api
         // Read the columns to display from the preferences.
         $sort_columns = Turba::getColumns();
 
-        $results = array();
+        if ($count_only) {
+            $results = 0;
+        } else {
+            $results = array();
+        }
         $seen = array();
         foreach ($sources as $source) {
             // Skip invalid sources.
@@ -1182,10 +1189,12 @@ class Turba_Api extends Horde_Registry_Api
                         $criteria['name'] = $trimname;
                     }
                 }
-
                 $search = $driver->search(
-                    $criteria, Turba::getPreferredSortOrder(), 'OR', $returnFields, array(), $matchBegin);
-                if (!($search instanceof Turba_List)) {
+                    $criteria, Turba::getPreferredSortOrder(), 'OR', $returnFields, array(), $matchBegin, $count_only);
+                if ($count_only) {
+                    $results .= $search;
+                    continue;
+                } elseif (!($search instanceof Turba_List)) {
                     continue;
                 }
 

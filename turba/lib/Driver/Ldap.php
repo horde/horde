@@ -151,7 +151,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
         $this->_connect();
 
@@ -204,7 +204,7 @@ class Turba_Driver_Ldap extends Turba_Driver
             throw new Turba_Exception(sprintf(_("Query failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         }
 
-        return $this->_getResults($fields, $res);
+        return $count_only ? count($this->_getResults($fields, $res)) ? $this->_getResults($fields, $res);
     }
 
     /**

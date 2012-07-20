@@ -61,7 +61,7 @@ class Turba_Driver_Group extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
         $results = array();
 
@@ -101,7 +101,7 @@ class Turba_Driver_Group extends Turba_Driver
             }
         }
 
-        return $results;
+        return $count_only ? count($results) : $results;
     }
 
     /**

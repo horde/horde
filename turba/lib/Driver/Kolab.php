@@ -174,7 +174,7 @@ class Turba_Driver_Kolab extends Turba_Driver
      * @throws Turba_Exception
      */
     protected function _search(array $criteria, array $fields,
-                               array $blobFields = array())
+                               array $blobFields = array(), $count_only = false)
     {
         $this->connect();
 
@@ -195,7 +195,7 @@ class Turba_Driver_Kolab extends Turba_Driver
         Horde::logMessage(sprintf('Kolab returned %s results',
                                   count($result)), 'DEBUG');
 
-        return array_values($result);
+        return $count_only ? count($result) : array_values($result);
     }
 
     /**

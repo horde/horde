@@ -103,7 +103,7 @@ class Turba_Driver_Imsp extends Turba_Driver
      *
      * @return array  Hash containing the search results.
      */
-    protected function _search($criteria, $fields, $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only)
     {
         $query = $results = array();
 
@@ -128,14 +128,14 @@ class Turba_Driver_Imsp extends Turba_Driver
 
         Horde::logMessage(sprintf('IMSP returned %s results', count($results)), 'DEBUG');
 
-        return array_values($results);
+        return $count_only ? count($results) : array_values($results);
     }
 
     /**
      * Reads the given data from the address book and returns the results.
      *
      * @param string $key        The primary key field to use (always 'name'
-                                 for IMSP).
+     *                           for IMSP).
      * @param mixed $ids         The ids of the contacts to load.
      * @param string $owner      Only return contacts owned by this user.
      * @param array $fields      List of fields to return.
