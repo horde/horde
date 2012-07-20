@@ -204,7 +204,7 @@ class Turba_Driver_Ldap extends Turba_Driver
             throw new Turba_Exception(sprintf(_("Query failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         }
 
-        return $count_only ? count($this->_getResults($fields, $res)) ? $this->_getResults($fields, $res);
+        return $count_only ? count($this->_getResults($fields, $res)) : $this->_getResults($fields, $res);
     }
 
     /**
