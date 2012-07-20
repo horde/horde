@@ -1123,6 +1123,8 @@ class Turba_Api extends Horde_Registry_Api
                 );
                 if ($opts['count_only']) {
                     $results += $search;
+
+                    continue;
                 } elseif (!($search instanceof Turba_List)) {
                     continue;
                 }
