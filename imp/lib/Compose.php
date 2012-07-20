@@ -3075,18 +3075,26 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * @param string $search  The term to search by.
      * @param boolean $email  Return the e-mail only? Otherwise, returns
      *                        the full address.
+     * @param boolean $count  Only return the count of results.
      *
-     * @return array  All matching addresses.
+     * @return mixed array|integer  All matching addresses, or the count of
+     *                              matching results.
      */
-    static public function getAddressList($search = '', $email = false)
+    static public function getAddressList($search = '', $email = false, $count = false)
     {
         $sparams = IMP::getAddressbookSearchParams();
         try {
             $res = $GLOBALS['registry']->call(
-                'contacts/search', array($search, $sparams['sources'], $sparams['fields'], false, false, array('name', 'email')));
+                'contacts/search', array($search, $sparams['sources'], $sparams['fields'], false, false, array('name', 'email'), $count));
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
+        }
+
+        if ($count && is_array($res)) {
+            return count($res);
+        } elseif ($count) {
+            return $res;
         }
 
         if (!count($res)) {

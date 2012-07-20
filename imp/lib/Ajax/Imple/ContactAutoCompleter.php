@@ -52,8 +52,8 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoComp
                 }
             }
             if ($success) {
-                $addrlist = IMP_Compose::getAddressList();
-                $use_ajax = count($addrlist) > $ac_browser;
+                $addrlist_count = IMP_Compose::getAddressList('', false, true);
+                $use_ajax = $addrlist_count > $ac_browser;
             }
             $GLOBALS['session']->set('imp', 'ac_ajax', $use_ajax);
         }
@@ -63,9 +63,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoComp
             $ret['params']['minChars'] = intval($GLOBALS['conf']['compose']['ac_threshold'] ? $GLOBALS['conf']['compose']['ac_threshold'] : 1);
         } else {
             if (!self::$_listOutput) {
-                if (!isset($addrlist)) {
-                    $addrlist = IMP_Compose::getAddressList();
-                }
+                $addrlist = IMP_Compose::getAddressList();
                 Horde::addInlineScript(array_merge(array(
                     'if (!window.IMP) window.IMP = {}'
                 ), Horde::addInlineJsVars(array(
