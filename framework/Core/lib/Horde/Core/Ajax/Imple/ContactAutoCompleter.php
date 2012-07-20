@@ -74,6 +74,10 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
             return new Horde_Mail_Rfc822_List();
         }
 
+        if (!empty($opts['count_only'])) {
+            return $search;
+        }
+
         if (empty($levenshtein)) {
             return $search;
         }
