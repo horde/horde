@@ -1044,9 +1044,11 @@ class Turba_Api extends Horde_Registry_Api
             'count_only' => false,
         ), $opts);
 
-        $results = empty($opts['rfc822Return'])
-            ? array()
-            : new Horde_Mail_Rfc822_List();
+        $results = !empty($opts['count_only'])
+            ? 0
+            : (empty($opts['rfc822Return'])
+                ? array()
+                : new Horde_Mail_Rfc822_List());
 
         if (!isset($cfgSources) ||
             !is_array($cfgSources) ||
@@ -1078,12 +1080,6 @@ class Turba_Api extends Horde_Registry_Api
         $sort_columns = Turba::getColumns();
 
         $driver = $injector->getInstance('Turba_Factory_Driver');
-
-        if (!empty($opts['count_only'])) {
-            $results = 0;
-        } else {
-            $results = array();
-        }
         foreach ($opts['sources'] as $source) {
             // Skip invalid sources -or-
             // skip sources that aren't browseable if the search is empty.
