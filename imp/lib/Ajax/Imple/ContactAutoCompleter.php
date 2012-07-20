@@ -33,9 +33,17 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactA
         $params = $this->_getAutoCompleterParams();
 
         if ($ac_browser && !$session->get('imp', 'ac_ajax')) {
-            $use_ajax = true;
+            $have_fields = $use_ajax = true;
             $sparams = $this->_getAddressbookSearchParams();
-            if (!array_diff($sparams->fields, array('email', 'name'))) {
+            foreach ($sparams->fields as $val) {
+                array_map('strtolower', $val);
+                sort($val);
+                if ($val != array('email', 'name')) {
+                    $have_fields = false;
+                    break;
+                }
+            }
+            if ($have_fields) {
                 $addrlist_count = $this->getAddressList('', array('count_only' => true));
                 $use_ajax = $addrlist_count > $ac_browser;
             }
