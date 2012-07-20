@@ -2,6 +2,7 @@
 v5.0.0beta2
 -----------
 
+[jan] Remove optional dependency on Horde_DataTree.
 
 
 -----------

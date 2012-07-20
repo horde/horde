@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Remove optional dependency on Horde_DataTree.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2001,13 +2001,6 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_DataTree</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0beta1</min>
@@ -3819,7 +3812,7 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Remove optional dependency on Horde_DataTree.
    </notes>
   </release>
  </changelog>
