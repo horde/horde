@@ -587,7 +587,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
     /**
      * Save a template message on the IMAP server.
-
+     *
      * @param array $header   List of message headers (UTF-8).
      * @param mixed $message  Either the message text (string) or a
      *                        Horde_Mime_Part object that contains the text

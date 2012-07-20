@@ -36,8 +36,8 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactA
             $use_ajax = true;
             $sparams = $this->_getAddressbookSearchParams();
             if (!array_diff($sparams->fields, array('email', 'name'))) {
-                $addrlist = $this->getAddressList();
-                $use_ajax = count($addrlist) > $ac_browser;
+                $addrlist_count = $this->getAddressList('', array('count_only' => true));
+                $use_ajax = $addrlist_count > $ac_browser;
             }
             $session->set('imp', 'ac_ajax', $use_ajax);
         }
@@ -50,10 +50,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactA
         }
 
         if (!self::$_listOutput) {
-            if (!isset($addrlist)) {
-                $addrlist = $this->getAddressList();
-            }
-
+            $addrlist = $this->getAddressList();            }
             $page_output->addInlineJsVars(array(
                 'IMP_ac_list' => $addrlist->addresses
             ));
