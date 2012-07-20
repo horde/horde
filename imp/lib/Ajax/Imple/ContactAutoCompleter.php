@@ -50,7 +50,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactA
         }
 
         if (!self::$_listOutput) {
-            $addrlist = $this->getAddressList();            }
+            $addrlist = $this->getAddressList();
             $page_output->addInlineJsVars(array(
                 'IMP_ac_list' => $addrlist->addresses
             ));
