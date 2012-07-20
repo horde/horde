@@ -972,7 +972,10 @@ $_prefs['display_contact'] = array(
 $_prefs['sourceselect'] = array(
     'type' => 'special',
     'handler' => 'IMP_Prefs_Special_Sourceselect',
-    'requires_nolock' => array('search_sources')
+    'requires_nolock' => array('search_sources'),
+    'on_init' => function($ui) {
+        Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+    }
 );
 
 // Address book(s) to use when expanding addresses
