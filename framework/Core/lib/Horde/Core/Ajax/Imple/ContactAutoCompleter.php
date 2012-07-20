@@ -52,7 +52,8 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
      *
      * @param string $str  The name(s) or address(es) to expand.
      * @param array $opts  Additional options:
-     *   - levenshtein: (boolean)  Do levenshtein sorting.
+     *   - levenshtein: (boolean)  Do levenshtein sorting,
+     *   - count_only: (boolean) Only return the count of results.
      *
      * @return Horde_Mail_Rfc822_List  Expand results.
      */
@@ -65,7 +66,8 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
                 'fields' => $searchpref->fields,
                 'returnFields' => array('email', 'name'),
                 'rfc822Return' => true,
-                'sources' => $searchpref->sources
+                'sources' => $searchpref->sources,
+                'count_only' => !empty($opts['count_only'])
             )));
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
