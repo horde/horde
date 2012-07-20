@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mjr] Add ability to return count of objects matching search in place of full result set.
 * [jan] Update Turkish translation (İstanbul Technical University).
 * [jan] Fix strict searching in favourites driver (Bug #11207).
  </notes>
@@ -1430,6 +1431,7 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Add ability to return count of objects matching search in place of full result set.
 * [jan] Update Turkish translation (İstanbul Technical University).
 * [jan] Fix strict searching in favourites driver (Bug #11207).
    </notes>

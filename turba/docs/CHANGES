@@ -2,6 +2,8 @@
 v3.0.15-git
 -----------
 
+[mjr] Add ability to return count of objects matching search in place of full
+      result set.
 [jan] Update Turkish translation (İstanbul Technical University).
 [jan] Fix strict searching in favourites driver (Bug #11207).
 
