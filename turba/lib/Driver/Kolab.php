@@ -368,6 +368,7 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     protected function _removeDuplicated($ids)
     {
+        $unames = array();
         for ($i = 0; $i < count($ids); ++$i) {
             if (is_array($ids[$i])) {
                 $unames = array_merge($unames, $ids[$i]);
