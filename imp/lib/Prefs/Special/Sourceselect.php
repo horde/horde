@@ -18,7 +18,6 @@ class IMP_Prefs_Special_Sourceselect implements Horde_Core_Prefs_Ui_Special
      */
     public function init(Horde_Core_Prefs_Ui $ui)
     {
-        Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
     }
 
     /**
