@@ -128,9 +128,9 @@ class Turba_Driver_Share extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
-        return $this->_driver->_search($criteria, $fields, $blobFields);
+        return $this->_driver->_search($criteria, $fields, $blobFields, $count_only);
     }
 
     /**

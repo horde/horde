@@ -68,11 +68,11 @@ class Turba_Driver_Facebook extends Turba_Driver
      * @param array $criteria    Array containing the search criteria.
      * @param array $fields      List of fields to return.
      * @param array $blobFields  A list of fields that contain binary data.
-     *
+     * @param boolean $count_only  Only return the count of matching items.
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
         $results = $this->_getAddressBook($fields);
 
@@ -112,7 +112,7 @@ class Turba_Driver_Facebook extends Turba_Driver
             }
         }
 
-        return $results;
+        return $count_only ? count($results) : $results;
     }
 
     /**

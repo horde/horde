@@ -1021,6 +1021,9 @@ class Turba_Api extends Horde_Registry_Api
      *                   DEFAULT: Returns an array of search results.
      *   - sources: (array) The sources to search in.
      *              DEFAULT: Search the user's default address book
+     *   - count_only: (boolean) If true, only return the count of matching
+     *                           results.
+     *                 DEFAULT: false (Return the full data set).
      *
      * @return mixed  Either a hash containing the search results or a
      *                Rfc822 List object (if 'rfc822Return' is true).
@@ -1038,6 +1041,7 @@ class Turba_Api extends Horde_Registry_Api
             'rfc822Return' => false,
             'sources' => array(),
             'customStrict' => array(),
+            'count_only' => false,
         ), $opts);
 
         $results = empty($opts['rfc822Return'])
@@ -1075,6 +1079,11 @@ class Turba_Api extends Horde_Registry_Api
 
         $driver = $injector->getInstance('Turba_Factory_Driver');
 
+        if (!empty($opts['count_only'])) {
+            $results = 0;
+        } else {
+            $results = array();
+        }
         foreach ($opts['sources'] as $source) {
             // Skip invalid sources -or-
             // skip sources that aren't browseable if the search is empty.
@@ -1082,6 +1091,7 @@ class Turba_Api extends Horde_Registry_Api
                 (empty($cfgSources[$source]['browse']) &&
                  (!count($names) ||
                   ((count($names) == 1) && empty($names[0]))))) {
+
                 continue;
             }
 
@@ -1112,10 +1122,12 @@ class Turba_Api extends Horde_Registry_Api
                     'OR',
                     $opts['returnFields'],
                     $opts['customStrict'],
-                    $opts['matchBegin']
+                    $opts['matchBegin'],
+                    $opts['count_only']
                 );
-
-                if (!($search instanceof Turba_List)) {
+                if ($opts['count_only']) {
+                    $results += $search;
+                } elseif (!($search instanceof Turba_List)) {
                     continue;
                 }
 
