@@ -1192,7 +1192,7 @@ class Turba_Api extends Horde_Registry_Api
                 $search = $driver->search(
                     $criteria, Turba::getPreferredSortOrder(), 'OR', $returnFields, array(), $matchBegin, $count_only);
                 if ($count_only) {
-                    $results .= $search;
+                    $results += $search;
                     continue;
                 } elseif (!($search instanceof Turba_List)) {
                     continue;
