@@ -154,8 +154,7 @@ class Turba_Driver_Sql extends Turba_Driver
             $where = ' WHERE ' . $appendWhere['sql'];
             $values = array_merge($values, $appendWhere['params']);
         }
-        //echo '<pre>';
-        //debug_print_backtrace();
+
         /* Build up the full query. */
         if ($count_only) {
             $query = 'SELECT COUNT(*) FROM ' . $this->_params['table'] . $where;
