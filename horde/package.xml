@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-20</date>
- <time>01:24:26</time>
+ <date>2012-07-21</date>
+ <time>22:24:28</time>
  <version>
   <release>5.0.0beta2</release>
   <api>5.0.0beta1</api>
@@ -3810,7 +3810,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-07-20</date>
+   <date>2012-07-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Request SSL connection from map providers if using SSL (Bug #11193).
