@@ -1038,6 +1038,7 @@ class Kronolith
         }
 
         $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
+        $params['ssl'] = $GLOBALS['browser']->usingSSLConnection();
 
         global $page_output;
         $page_output->addScriptFile('map/map.js', 'horde');
