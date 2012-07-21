@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-21</date>
- <time>22:24:28</time>
+ <time>22:25:54</time>
  <version>
-  <release>5.0.0beta2</release>
+  <release>5.0.0beta3</release>
   <api>5.0.0beta1</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Request SSL connection from map providers if using SSL (Bug #11193).
-* [jan] Remove optional dependency on Horde_DataTree.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3815,6 +3814,19 @@
    <notes>
 * [mjr] Request SSL connection from map providers if using SSL (Bug #11193).
 * [jan] Remove optional dependency on Horde_DataTree.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta3</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
