@@ -167,7 +167,7 @@ class Ansel_Gallery implements Serializable
     public function canDownload()
     {
         if ($GLOBALS['registry']->getAuth() &&
-            ($GLOBALS['registry']->getAuth() == $this->data['share_owner'] ||
+            ($GLOBALS['registry']->getAuth() == $this->get('owner') ||
              $GLOBALS['registry']->isAdmin(array('permission' => 'ansel:admin')))) {
             return true;
         }
