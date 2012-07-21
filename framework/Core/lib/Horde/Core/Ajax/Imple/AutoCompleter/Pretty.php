@@ -34,10 +34,12 @@ class Horde_Core_Ajax_Imple_AutoCompleter_Pretty extends Horde_Core_Ajax_Imple_A
      */
     public function __construct(array $params = array())
     {
-        parent::__construct(array_merge(array(
-            'deleteIcon' => strval(Horde_Themes::img('delete-small.png')),
-            'triggerContainer' => strval(new Horde_Support_Randomid())
-        )));
+        parent::__construct(array_merge(
+            array(
+                'deleteIcon' => strval(Horde_Themes::img('delete-small.png')),
+                'triggerContainer' => strval(new Horde_Support_Randomid())
+            ), $params)
+        );
 
         $this->_raw = array_merge($this->_raw, array(
             'displayFilter',
