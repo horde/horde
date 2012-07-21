@@ -27,6 +27,7 @@ HordeMap = {
      *      'geocoder':  Geocoder driver to use
      *      'providers': Default provider layers to add (Google, Yahoo etc...)
      *      'jsuri':     The uri to the hordemap directory
+            'ssl':       Use SSL for provider endpoints if possible.
      *
      *      'conf': Any driver specific config settings such as:
      *          'language':
@@ -127,13 +128,14 @@ HordeMap = {
 
     _getProviderUrl: function(p)
     {
+        var prot = this._opts.ssl ? 'https' : 'http';
         switch (p) {
         case 'Google':
-           return  'http://maps.google.com/maps/api/js?v=3.5&amp;sensor=false';
+           return  prot + '://maps.google.com/maps/api/js?v=3.5&amp;sensor=false';
         case 'Yahoo':
-            return 'http://api.maps.yahoo.com/ajaxymap?v=3.8&appid=' + this.conf['apikeys']['yahoo'];
+            return prot + '://api.maps.yahoo.com/ajaxymap?v=3.8&appid=' + this.conf['apikeys']['yahoo'];
         case 'Ve':
-            return 'http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.1';
+            return prot + '://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.1';
 
         default:
             return '';

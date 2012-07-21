@@ -1255,6 +1255,7 @@ class Kronolith
             }
         }
         $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
+        $params['ssl'] = $GLOBALS['browser']->usingSSLConnection();
         Horde::addScriptFile('map/map.js', 'horde');
         $js = 'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');';
         Horde::addinlineScript($js);
