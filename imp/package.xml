@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-07-20</date>
- <time>20:10:34</time>
+ <time>20:11:03</time>
  <version>
-  <release>5.0.23</release>
+  <release>5.0.24</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Only ask for the count of matching contacts when determining to use browser vs ajax autocompletion.
-* [jan] Fix closing the compose window after redirecting (Bug #11259).
-* [jan] Display correct values in permission-denied error messages (Bug #11253).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2750,6 +2748,19 @@
 * [mjr] Only ask for the count of matching contacts when determining to use browser vs ajax autocompletion.
 * [jan] Fix closing the compose window after redirecting (Bug #11259).
 * [jan] Display correct values in permission-denied error messages (Bug #11253).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.24</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-07-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
