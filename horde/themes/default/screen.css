@@ -1430,6 +1430,7 @@ a.contextSelected:hover {
 .hordeSmStreamMessage {
     margin-top: 7px;
     margin-left: 78px;
+    overflow: auto;
 }
 .hordeSmStreaminfo {
     color: #777777;
