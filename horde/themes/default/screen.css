@@ -1398,6 +1398,9 @@ div.GrowlerNoticeExit:hover {
 .hordeSmStreambody {
     min-height: 70px;
 }
+.hordeSmStreamMessage {
+    overflow: auto;
+}
 .hordeSmStreaminfo {
     color: #777777;
     padding: 2px 0 0;

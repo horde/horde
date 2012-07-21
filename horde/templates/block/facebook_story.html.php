@@ -15,7 +15,7 @@
  <div class="hordeSmAvatar"><img width="48px" height="48px" src="<?php echo $this->actorImgUrl ?>" alt="<?php echo $this->actorName ?>" /></div>
  <div class="hordeSmStreambody">
   <?php echo $this->actorProfileLink . $this->actorName?></a><br />
-  <?php echo empty($this->message) ? '' : $this->message;?>
+  <div class="hordeSmStreamMessage"><?php echo empty($this->message) ? '' : $this->message;?></div>
   <?php if(!empty($this->attachment) &&
            (!empty($this->attachment['description']) ||
             !empty($this->attachment['media']) ||
