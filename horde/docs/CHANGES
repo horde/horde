@@ -2,6 +2,7 @@
 v5.0.0beta2
 -----------
 
+[mjr] Request SSL connection from map providers if using SSL (Bug #11193).
 [jan] Remove optional dependency on Horde_DataTree.
 
 

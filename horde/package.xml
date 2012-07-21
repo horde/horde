@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Request SSL connection from map providers if using SSL (Bug #11193).
 * [jan] Remove optional dependency on Horde_DataTree.
  </notes>
  <contents>
@@ -3812,6 +3813,7 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Request SSL connection from map providers if using SSL (Bug #11193).
 * [jan] Remove optional dependency on Horde_DataTree.
    </notes>
   </release>
