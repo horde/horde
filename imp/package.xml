@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-26</date>
- <time>13:32:02</time>
+ <date>2012-07-20</date>
+ <time>20:10:34</time>
  <version>
   <release>5.0.23</release>
   <api>5.0.0</api>
@@ -2744,7 +2744,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-06-26</date>
+   <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Only ask for the count of matching contacts when determining to use browser vs ajax autocompletion.
