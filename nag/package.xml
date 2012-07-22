@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>22:26:58</time>
+ <date>2012-07-22</date>
+ <time>14:31:27</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -122,6 +122,7 @@
     <file name="Exception.php" role="horde" />
     <file name="Nag.php" role="horde" />
     <file name="QuickParser.php" role="horde" />
+    <file name="Tagger.php" role="horde" />
     <file name="Task.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
@@ -711,6 +712,7 @@
    <install as="nag/lib/Exception.php" name="lib/Exception.php" />
    <install as="nag/lib/Nag.php" name="lib/Nag.php" />
    <install as="nag/lib/QuickParser.php" name="lib/QuickParser.php" />
+   <install as="nag/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="nag/lib/Task.php" name="lib/Task.php" />
    <install as="nag/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="nag/lib/Block/Summary.php" name="lib/Block/Summary.php" />
