@@ -125,6 +125,9 @@ $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
 if (!file_exists($registry->get('jsfs', 'horde') . '/date/' . $datejs)) {
     $datejs = 'en-US.js';
 }
+Horde::startBuffer();
+$form->renderActive();
+$formhtml = Horde::endBuffer();
 
 $GLOBALS['page_output']->addScriptFile('date/' . $datejs, 'horde');
 $GLOBALS['page_output']->addScriptFile('date/date.js', 'horde');
@@ -137,5 +140,5 @@ $GLOBALS['page_output']->header(array(
 require NAG_TEMPLATES . '/javascript_defs.php';
 echo Nag::menu();
 Nag::status();
-$form->renderActive();
+echo $formhtml;
 $GLOBALS['page_output']->footer();
