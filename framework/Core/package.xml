@@ -41,7 +41,6 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mjr] Fix autocompletion of tags in ajax views.
-* [jan] Fix default values for LDAP and SQL configuration.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2167,6 +2166,7 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix dependency on Horde_ElasticSearch.
+* [jan] Fix default values for LDAP and SQL configuration.
    </notes>
   </release>
   <release>
@@ -2193,7 +2193,6 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix autocompletion of tags in ajax views.
-* [jan] Fix default values for LDAP and SQL configuration.
    </notes>
   </release>
  </changelog>
