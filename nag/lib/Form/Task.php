@@ -44,6 +44,8 @@ class Nag_Form_Task extends Horde_Form
         $this->addHidden('', 'old_tasklist', 'text', false);
         $this->addHidden('', 'url', 'text', false);
         $this->addVariable(_("Name"), 'name', 'text', true);
+        $this->addHidden('', 'uid', 'text', false);
+        $this->addHidden('', 'owner', 'text', false);
 
         if (!$GLOBALS['prefs']->isLocked('default_tasklist') &&
             count($tasklist_enums) > 1) {
@@ -71,14 +73,7 @@ class Nag_Form_Task extends Horde_Form
             $v->setOption('htmlchars', true);
         }
 
-        if (class_exists('Horde_Form_Type_category')) {
-            $this->addVariable(_("Category"), 'category', 'category', false);
-        } else {
-            $values = Horde_Array::valuesToKeys(Horde_Prefs_CategoryManager::get());
-            $this->addVariable(
-                _("Category"), 'category', 'enum', false, false, false,
-                array($values, _("Unfiled")));
-        }
+        $this->addVariable(_("Tags"), 'tags', 'Nag:NagTags', false);
 
         if (!$vars->get('mobile')) {
             $users = array();

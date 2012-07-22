@@ -190,4 +190,18 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
                       $varname,
                       $options);
     }
+
+    /**
+     * Render tag field.
+     */
+    protected function _renderVarInput_NagTags($form, $var, $vars)
+    {
+
+        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $value = implode(',', $var->getValue($vars));
+
+        return sprintf('<input id="%s" type="text" name="%s" value="%s" />', $varname, $varname, $value);
+    }
+
+
 }

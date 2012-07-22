@@ -92,6 +92,8 @@ class Nag
      */
     const VIEW_FUTURE_INCOMPLETE = 4;
 
+    static protected $_tagger;
+
     /**
      *
      * @param integer $seconds
@@ -1632,6 +1634,18 @@ class Nag
         } else {
             return $diff;
         }
+    }
+    /**
+     * Obtain a Nag_Tagger instance
+     *
+     * @return Kronolith_Tagger
+     */
+    static public function getTagger()
+    {
+        if (empty(self::$_tagger)) {
+            self::$_tagger = new Nag_Tagger();
+        }
+        return self::$_tagger;
     }
 
     /**

@@ -706,9 +706,9 @@ class Nag_Task
      *
      * @return array  A task hash.
      */
-    public function toHash()
+    public function toHash($tags = true)
     {
-        return array('tasklist_id' => $this->tasklist,
+        $hash = array('tasklist_id' => $this->tasklist,
                      'task_id' => $this->id,
                      'uid' => $this->uid,
                      'parent' => $this->parent_id,
@@ -716,7 +716,6 @@ class Nag_Task
                      'assignee' => $this->assignee,
                      'name' => $this->name,
                      'desc' => $this->desc,
-                     'category' => $this->category,
                      'start' => $this->start,
                      'due' => $this->due,
                      'priority' => $this->priority,
@@ -727,6 +726,13 @@ class Nag_Task
                      'methods' => $this->methods,
                      'private' => $this->private,
                      'recurrence' => $this->recurrence);
+
+        if ($tags) {
+            $hash['tags'] = array_values(Nag::getTagger()->getTags($this->uid));
+        }
+
+        return $hash;
+
     }
 
     /**

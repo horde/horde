@@ -65,7 +65,7 @@ class Nag_Tagger extends Horde_Core_Tagger
             ->getTagIds($tags);
 
         $results = array();
-        $args['typeId'] = 'task'
+        $args['typeId'] = 'task';
 
         return array_values($GLOBALS['injector']->getInstance('Content_Tagger')->getObjects($args));
     }

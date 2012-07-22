@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2012-07-22</date>
- <time>14:31:27</time>
+ <time>17:50:08</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -94,6 +94,7 @@
       <file name="NagDue.php" role="horde" />
       <file name="NagMethod.php" role="horde" />
       <file name="NagStart.php" role="horde" />
+      <file name="NagTags.php" role="horde" />
      </dir> <!-- /lib/Form/Type -->
      <file name="CreateTaskList.php" role="horde" />
      <file name="DeleteTaskList.php" role="horde" />
@@ -363,6 +364,7 @@
     <file name="7_nag_upgrade_sqlhierarchical.php" role="horde" />
     <file name="8_nag_upgrade_sqlnghierarchical.php" role="horde" />
     <file name="9_nag_upgrade_recurrence.php" role="horde" />
+    <file name="10_nag_upgrade_categoriestotags.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="tasklists">
     <file name="create.php" role="horde" />
@@ -728,6 +730,7 @@
    <install as="nag/lib/Form/Type/NagDue.php" name="lib/Form/Type/NagDue.php" />
    <install as="nag/lib/Form/Type/NagMethod.php" name="lib/Form/Type/NagMethod.php" />
    <install as="nag/lib/Form/Type/NagStart.php" name="lib/Form/Type/NagStart.php" />
+   <install as="nag/lib/Form/Type/NagTags.php" name="lib/Form/Type/NagTags.php" />
    <install as="nag/lib/Prefs/Special/TaskAlarms.php" name="lib/Prefs/Special/TaskAlarms.php" />
    <install as="nag/lib/Tasklists/Base.php" name="lib/Tasklists/Base.php" />
    <install as="nag/lib/Tasklists/Default.php" name="lib/Tasklists/Default.php" />
@@ -826,6 +829,7 @@
    <install as="nag/migration/7_nag_upgrade_sqlhierarchical.php" name="migration/7_nag_upgrade_sqlhierarchical.php" />
    <install as="nag/migration/8_nag_upgrade_sqlnghierarchical.php" name="migration/8_nag_upgrade_sqlnghierarchical.php" />
    <install as="nag/migration/9_nag_upgrade_recurrence.php" name="migration/9_nag_upgrade_recurrence.php" />
+   <install as="nag/migration/10_nag_upgrade_categoriestotags.php" name="migration/10_nag_upgrade_categoriestotags.php" />
    <install as="nag/tasklists/create.php" name="tasklists/create.php" />
    <install as="nag/tasklists/delete.php" name="tasklists/delete.php" />
    <install as="nag/tasklists/edit.php" name="tasklists/edit.php" />

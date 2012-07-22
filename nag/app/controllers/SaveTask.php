@@ -32,18 +32,20 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             Horde::url('list.php', true)->redirect();
         }
 
-        /* Add new category. */
-        if ($info['category']['new']) {
-            $cManager = new Horde_Prefs_CategoryManager();
-            $cManager->add($info['category']['value']);
-        }
-
         /* If a task id is set, we're modifying an existing task.  Otherwise,
          * we're adding a new task with the provided attributes. */
         if (!empty($info['task_id']) && !empty($info['old_tasklist'])) {
             $storage = Nag_Driver::singleton($info['old_tasklist']);
             $info['tasklist'] = $info['tasklist_id'];
-            $info['category'] = $info['category']['value'];
+            if (empty($info['tags'])) {
+                $info['tags'] = array();
+            }
+            Nag::getTagger()->replaceTags(
+                $info['uid'],
+                $info['tags'],
+                $info['owner'],
+                'task');
+            unset ($info['uid'], $info['owner']);
             $result = $storage->modify($info['task_id'], $info);
         } else {
             /* Check permissions. */
@@ -56,12 +58,22 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             /* Creating a new task. */
             $storage = Nag_Driver::singleton($info['tasklist_id']);
             try {
-              $info['category'] = $info['category']['value'];
-              $storage->add($info);
+              $newid = $storage->add($info);
             } catch (Nag_Exception $e) {
                 $notification->push(sprintf(_("There was a problem saving the task: %s."), $result->getMessage()), 'horde.error');
                 Horde::url('list.php', true)->redirect();
             }
+
+            // Tags
+            if (empty($info['tags'])) {
+                $info['tags'] = array();
+            }
+            Nag::getTagger()->replaceTags(
+                $newid[1],
+                $info['tags'],
+                $registry->getAuth(),
+                'task'
+            );
         }
 
         /* Check our results. */
