@@ -39,7 +39,7 @@ For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
 The major changes compared to the Horde version 5.0.0beta2 are:
-    * Fixed dependency on Horde_Services_Weather.
+    * Fixed dependency on Horde_Service_Weather.
 
 Known issues:
    * The new user interface and icon theme is not complete yet.
@@ -47,7 +47,7 @@ ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed dependency on Horde_Services_Weather.
+Fixed dependency on Horde_Service_Weather.
 FM;
 
 $this->notes['name'] = 'Horde';
