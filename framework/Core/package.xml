@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix dependency on Horde_ElasticSearch.
 * [jan] Fix default values for LDAP and SQL configuration.
  </notes>
  <contents>
@@ -1054,9 +1055,9 @@
    <package>
     <name>Horde_ElasticSearch</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
+    <min>1.0.0beta1</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
@@ -2165,6 +2166,7 @@
    <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix dependency on Horde_ElasticSearch.
 * [jan] Fix default values for LDAP and SQL configuration.
    </notes>
   </release>
