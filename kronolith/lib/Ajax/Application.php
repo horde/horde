@@ -792,6 +792,68 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * Handle a tag action.
+     *  - action: (add, remove, list)
+     *  - tags:
+     *  - resource:
+     *  - type:
+     *
+     * @return string  HTML for all current tags for the current resource.
+     */
+    public function tagAction()
+    {
+        global $injector, $registry;
+
+        $res = new stdClass;
+
+        // Check perms; Only calendar owners my tag a calendar, and only
+        // event creator can tag an event.
+        if ($this->_vars->type == 'event') {
+            $event = Kronolith::getDriver()->getByUID($this->_vars->resource);
+            $cal = $injector->getInstance('Kronolith_Shares')
+                ->getShare($event->calendar);
+            $e_owner = $event->creator;
+        } else {
+            $cal = $injector->getInstance('Kronolith_Shares')
+                ->getShare($this->_vars->resource);
+        }
+        $c_owner = $cal->get('owner');
+
+        // $owner is null for system-owned shares, so an admin has perms.
+        // Otherwise, make sure the resource owner is the current user.
+        $perm = empty($c_owner)
+            ? $registry->isAdmin()
+            : ($c_owner == $registry->getAuth());
+
+        if ($perm) {
+            $tagger = Kronolith::getTagger();
+            $tags = rawurldecode($this->_vars->tags);
+
+            switch ($this->_vars->action) {
+            case 'remove':
+                $tagger->untag($this->_vars->resource, (integer)$tags, $this->_vars->type);
+                $res->removed = $tags;
+                break;
+            case 'add':
+                $tagger->tag(
+                    $this->_vars->resource, $tags, $c_owner, $this->_vars->type);
+                if (!empty($e_owner)) {
+                    $tagger->tag(
+                        $this->_vars->resource, $tags, $e_owner, $this->_vars->type);
+                }
+                // Fallthrough
+            case 'list':
+                $res->tags = $tagger->getTags($this->_vars->resource, $this->_vars->type);
+                if (empty($res->tags)) {
+                    $res->tags = new StdClass();
+                }
+            }
+        }
+
+        return $res;
+    }
+
+    /**
      * Return fb information for the requested attendee or resource.
      *
      * Uses the following request parameters:

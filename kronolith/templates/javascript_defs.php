@@ -11,7 +11,9 @@ $var = array(
     'page_title' => $GLOBALS['registry']->get('name') . ' :: ',
     'twentyFour' => intval($GLOBALS['prefs']->getValue('twentyFour')),
     'view_url' => (string)Horde::url('view.php'),
-    'URI_AJAX' => $GLOBALS['registry']->getServiceLink('ajax', 'kronolith')->url
+    'URI_AJAX' => $GLOBALS['registry']->getServiceLink('ajax', 'kronolith')->url,
+    'TOKEN' => $GLOBALS['session']->getToken(),
+    'deletetag_img' => (string)Horde_Themes::img('delete-small.png')
 );
 
 /* Gettext strings used in core javascript files. */
