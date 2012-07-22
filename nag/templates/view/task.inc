@@ -5,12 +5,8 @@
 
 <table cellspacing="0" width="100%" class="headerbox striped nowrap task">
  <tr>
-  <td class="rightAlign" valign="top"><strong><?php echo _("Category") ?></strong></td>
-  <td width="100%"><?php echo htmlspecialchars($task->category ? $task->category : _("Unfiled")) ?></td>
- </tr>
- <tr>
   <td class="rightAlign" valign="top"><strong><?php echo _("Assignee") ?></strong></td>
-  <td><?php echo Nag::formatAssignee($task->assignee, true) ?></td>
+  <td width="100%"><?php echo Nag::formatAssignee($task->assignee, true) ?></td>
  </tr>
  <tr>
   <td class="rightAlign"><strong><?php echo _("Private?") ?></strong></td>

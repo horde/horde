@@ -37,15 +37,6 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
         if (!empty($info['task_id']) && !empty($info['old_tasklist'])) {
             $storage = Nag_Driver::singleton($info['old_tasklist']);
             $info['tasklist'] = $info['tasklist_id'];
-            if (empty($info['tags'])) {
-                $info['tags'] = array();
-            }
-            Nag::getTagger()->replaceTags(
-                $info['uid'],
-                $info['tags'],
-                $info['owner'],
-                'task');
-            unset ($info['uid'], $info['owner']);
             $result = $storage->modify($info['task_id'], $info);
         } else {
             /* Check permissions. */
@@ -63,17 +54,6 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
                 $notification->push(sprintf(_("There was a problem saving the task: %s."), $result->getMessage()), 'horde.error');
                 Horde::url('list.php', true)->redirect();
             }
-
-            // Tags
-            if (empty($info['tags'])) {
-                $info['tags'] = array();
-            }
-            Nag::getTagger()->replaceTags(
-                $newid[1],
-                $info['tags'],
-                $registry->getAuth(),
-                'task'
-            );
         }
 
         /* Check our results. */

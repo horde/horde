@@ -59,7 +59,7 @@ $prefGroups['external'] = array(
 
 // columns in the list view
 $_prefs['tasklist_columns'] = array(
-    'value' => 'a:3:{i:0;s:8:"priority";i:1;s:3:"due";i:2;s:8:"category";}',
+    'value' => 'a:2:{i:0;s:8:"priority";i:1;s:3:"due";}',
     'type' => 'multienum',
     'enum' => array(
         'tasklist' => _("Task List"),
@@ -67,8 +67,7 @@ $_prefs['tasklist_columns'] = array(
         'assignee' => _("Assignee"),
         'due' => _("Due Date"),
         'start' => _("Start Date"),
-        'estimate' => _("Estimated Time"),
-        'category' => _("Category")
+        'estimate' => _("Estimated Time")
     ),
     'desc' => _("Select the columns that should be shown in the list view:")
 );
@@ -86,7 +85,6 @@ $_prefs['sortby'] = array(
     'enum' => array(
         Nag::SORT_PRIORITY => _("Priority"),
         Nag::SORT_NAME => _("Task Name"),
-        Nag::SORT_CATEGORY => _("Category"),
         Nag::SORT_DUE => _("Due Date"),
         Nag::SORT_START => _("Start Date"),
         Nag::SORT_COMPLETION => _("Completed?"),
@@ -99,12 +97,11 @@ $_prefs['sortby'] = array(
 
 // alternate sort column
 $_prefs['altsortby'] = array(
-    'value' => Nag::SORT_CATEGORY,
+    'value' => Nag::SORT_DUE,
     'type' => 'enum',
     'enum' => array(
         Nag::SORT_PRIORITY => _("Priority"),
         Nag::SORT_NAME => _("Task Name"),
-        Nag::SORT_CATEGORY => _("Category"),
         Nag::SORT_DUE => _("Due Date"),
         Nag::SORT_START => _("Start Date"),
         Nag::SORT_COMPLETION => _("Completed?"),
@@ -222,11 +219,6 @@ $_prefs['show_completed'] = array(
         Nag::VIEW_FUTURE => _("Future tasks")
     ),
     'desc' => _("Show complete, incomplete, or all tasks in the task list?"),
-);
-
-// user task categories
-$_prefs['task_categories'] = array(
-    'value' => ''
 );
 
 // default tasklists

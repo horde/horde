@@ -63,18 +63,6 @@ function doPrefsUpdate(column, sortDown)
   <th id="s<?php echo Nag::SORT_ASSIGNEE ?>"<?php if ($sortby == Nag::SORT_ASSIGNEE) echo ' class="' . $sortdirclass . '"' ?> width="10%">
    <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby', Nag::SORT_ASSIGNEE)), _("Sort by Assignee"), 'sortlink', '', '', _("Assignee")) ?>&nbsp;
   </th>
-<?php endif; if (in_array('category', $columns)): ?>
-  <th id="s<?php echo Nag::SORT_CATEGORY ?>"<?php if ($sortby == Nag::SORT_CATEGORY) echo ' class="' . $sortdirclass . '"' ?> width="10%">
-   <?php echo Horde::widget(Horde::url(Horde_Util::addParameter($baseurl, 'sortby', Nag::SORT_CATEGORY)), _("Sort by Category"), 'sortlink', '', '', _("Cat_egory")) ?>&nbsp;
-   <?php
-   if ($GLOBALS['registry']->getAuth() &&
-       (!$GLOBALS['prefs']->isLocked('categories') ||
-        !$GLOBALS['prefs']->isLocked('category_colors'))) {
-       $categoryUrl = Horde_Util::addParameter($GLOBALS['registry']->getServiceLink('prefs', 'horde'), array('group' => 'categories'));
-       echo ' ' . Horde::link($categoryUrl, _("Edit categories and colors"), '', '_blank', 'HordePopup.popup({url:this.href});Event.stop(event);return false;') . Horde::img('colorpicker.png', _("Edit categories and colors")) . '</a>';
-   }
-   ?>
-  </th>
 <?php endif; ?>
  </tr>
 </thead>

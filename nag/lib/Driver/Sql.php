@@ -106,7 +106,7 @@ class Nag_Driver_Sql extends Nag_Driver
      *     - estimate: (OPTIONAL, float) The estimated time to complete the
      *                 task.
      *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - category: (OPTIONAL, string) The category of the task.
+     *     - tags: (OPTIONAL, array) The task tags.
      *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - methods: (OPTIONAL, array) The overridden alarm notification
      *                methods.
@@ -128,12 +128,12 @@ class Nag_Driver_Sql extends Nag_Driver
         $query = sprintf(
             'INSERT INTO %s (task_owner, task_creator, task_assignee, '
             . 'task_id, task_name, task_uid, task_desc, task_start, task_due, '
-            . 'task_priority, task_estimate, task_completed, task_category, '
+            . 'task_priority, task_estimate, task_completed, '
             . 'task_alarm, task_alarm_methods, task_private, task_parent, '
             . 'task_recurtype, task_recurinterval, task_recurenddate, '
             . 'task_recurcount, task_recurdays, task_exceptions, '
             . 'task_completions) '
-            . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             $this->_params['table']);
 
         $values = array($this->_tasklist,
@@ -148,7 +148,6 @@ class Nag_Driver_Sql extends Nag_Driver
                         (int)$task['priority'],
                         number_format($task['estimate'], 2),
                         (int)$task['completed'],
-                        Horde_String::convertCharset($task['category'], 'UTF-8', $this->_params['charset']),
                         (int)$task['alarm'],
                         serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
                         (int)$task['private'],
@@ -161,6 +160,8 @@ class Nag_Driver_Sql extends Nag_Driver
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e);
         }
+
+        $this->_addTags($task);
 
         return $taskId;
     }
@@ -179,7 +180,7 @@ class Nag_Driver_Sql extends Nag_Driver
      *     - estimate: (OPTIONAL, float) The estimated time to complete the
      *                 task.
      *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - category: (OPTIONAL, string) The category of the task.
+     *     - tags: (OPTIONAL, array) The task tags.
      *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - methods: (OPTIONAL, array) The overridden alarm notification
      *                methods.
@@ -207,7 +208,6 @@ class Nag_Driver_Sql extends Nag_Driver
                          ' task_estimate = ?, ' .
                          ' task_completed = ?, ' .
                          ' task_completed_date = ?, ' .
-                         ' task_category = ?, ' .
                          ' task_alarm = ?, ' .
                          ' task_alarm_methods = ?, ' .
                          ' task_parent = ?, ' .
@@ -232,7 +232,6 @@ class Nag_Driver_Sql extends Nag_Driver
                         number_format($task['estimate'], 2),
                         (int)$task['completed'],
                         (int)$task['completed_date'],
-                        Horde_String::convertCharset($task['category'], 'UTF-8', $this->_params['charset']),
                         (int)$task['alarm'],
                         serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
                         $task['parent'],
@@ -245,6 +244,10 @@ class Nag_Driver_Sql extends Nag_Driver
             $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e->getMessage());
+        }
+
+        if (!empty($task['uid'])) {
+            $this->_updateTags($task);
         }
 
         return true;
@@ -503,6 +506,36 @@ class Nag_Driver_Sql extends Nag_Driver
     }
 
     /**
+     * Helper function to update an existing event's tags to tagger storage.
+     *
+     * @param array $task  The task to update
+     */
+    protected function _updateTags(array $task)
+    {
+        Nag::getTagger()->replaceTags(
+            $task['uid'],
+            $task['tags'],
+            $task['owner'],
+            'task'
+        );
+    }
+
+    /**
+     * Helper function to add tags from a newly creted event to the tagger.
+     *
+     * @param array $task  The task to save tags to storage for.
+     */
+    protected function _addTags(array $task)
+    {
+        Nag::getTagger()->tag(
+            $task['uid'],
+            $task['tags'],
+            $task['owner'],
+            'task'
+        );
+    }
+
+    /**
      */
     protected function _buildTask($row)
     {
@@ -556,7 +589,6 @@ class Nag_Driver_Sql extends Nag_Driver
             'assignee' => $row['task_assignee'],
             'name' => Horde_String::convertCharset($row['task_name'], $this->_params['charset'], 'UTF-8'),
             'desc' => Horde_String::convertCharset($row['task_desc'], $this->_params['charset'], 'UTF-8'),
-            'category' => Horde_String::convertCharset($row['task_category'], $this->_params['charset'], 'UTF-8'),
             'start' => $row['task_start'],
             'due' => $row['task_due'],
             'priority' => $row['task_priority'],

@@ -17,7 +17,6 @@
  <strong><?php echo _("Search In:") ?></strong><br />
  <input id="name" name="search_name" type="checkbox" checked="checked" /> <?php echo Horde::label('name', _("N_ame")) ?><br />
  <input id="desc" name="search_desc" type="checkbox" /> <?php echo Horde::label('desc', _("_Description")) ?><br />
- <input id="category" name="search_category" type="checkbox" /> <?php echo Horde::label('category', _("_Category")) ?>
 </p>
 
 <p>

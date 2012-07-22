@@ -46,7 +46,6 @@ if ($perms->hasAppPermission('max_tasks') !== true &&
 $app_fields = array(
     'name'           => _("Name"),
     'desc'           => _("Description"),
-    'category'       => _("Category"),
     'assignee'       => _("Assignee"),
     'due'            => _("Due By"),
     'alarm'          => _("Alarm"),
@@ -96,9 +95,6 @@ if ($import_format) {
 
 /* We have a final result set. */
 if (is_array($next_step)) {
-    /* Create a category manager. */
-    $cManager = new Horde_Prefs_CategoryManager();
-    $categories = $cManager->get();
 
     /* Create a Nag storage instance. */
     $storage = Nag_Driver::singleton($storage->set('target'));
@@ -136,12 +132,6 @@ if (is_array($next_step)) {
             $notification->push(sprintf(_("There was an error importing the data: %s"),
                                         $result->getMessage()), 'horde.error');
             break;
-        }
-
-        if (!empty($row['category']) &&
-            !in_array($row['category'], $categories)) {
-            $cManager->add($row['category']);
-            $categories[] = $row['category'];
         }
 
         $num_tasks++;

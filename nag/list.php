@@ -38,7 +38,6 @@ case 'search_tasks':
     $search_pattern = $vars->search_pattern;
     $search_name = ($vars->search_name == 'on');
     $search_desc = ($vars->search_desc == 'on');
-    $search_category = ($vars->search_category == 'on');
     $search_completed = $vars->search_completed;
 
     $vars->set('show_completed', $search_completed);
@@ -58,14 +57,13 @@ case 'search_tasks':
     }
 
     if (!empty($search_pattern) &&
-        ($search_name || $search_desc || $search_category)) {
+        ($search_name || $search_desc)) {
         $pattern = '/' . preg_quote($search_pattern, '/') . '/i';
         $search_results = new Nag_Task();
         $tasks->reset();
         while ($task = $tasks->each()) {
             if (($search_name && preg_match($pattern, $task->name)) ||
-                ($search_desc && preg_match($pattern, $task->desc)) ||
-                ($search_category && preg_match($pattern, $task->category))) {
+                ($search_desc && preg_match($pattern, $task->desc))) {
                 $search_results->add($task);
             }
         }

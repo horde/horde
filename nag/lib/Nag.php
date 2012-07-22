@@ -38,11 +38,6 @@ class Nag
     const SORT_COMPLETION = 'completed';
 
     /**
-     * Sort by category.
-     */
-    const SORT_CATEGORY = 'category';
-
-    /**
      * Sort by owner.
      */
     const SORT_OWNER = 'tasklist';
@@ -1038,11 +1033,6 @@ class Nag
                     } catch (Nag_Exception $e) {
                     }
                 }
-                if ($old_task->category != $task->category) {
-                    $notification_message .= "\n - "
-                        . sprintf(_("Changed category from \"%s\" to \"%s\""),
-                                  $old_task->category, $task->category);
-                }
                 if ($old_task->assignee != $task->assignee) {
                     $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($old_task->assignee);
                     $old_name = $identity->getValue('fullname');
@@ -1402,36 +1392,6 @@ class Nag
             return self::_sortByIdentity($b, $a);
         }
         return ($a_est > $b_est) ? -1 : 1;
-    }
-
-    /**
-     * Comparison function for sorting tasks by category.
-     *
-     * @param array $a  Task one.
-     * @param array $b  Task two.
-     *
-     * @return integer  1 if task one is greater, -1 if task two is greater;
-     *                  0 if they are equal.
-     */
-    public static function _sortByCategory($a, $b)
-    {
-        return strcasecmp($a->category ? $a->category : _("Unfiled"),
-                          $b->category ? $b->category : _("Unfiled"));
-    }
-
-    /**
-     * Comparison function for reverse sorting tasks by category.
-     *
-     * @param array $a  Task one.
-     * @param array $b  Task two.
-     *
-     * @return integer  -1 if task one is greater, 1 if task two is greater;
-     *                  0 if they are equal.
-     */
-    public static function _rsortByCategory($a, $b)
-    {
-        return strcasecmp($b->category ? $b->category : _("Unfiled"),
-                          $a->category ? $a->category : _("Unfiled"));
     }
 
     /**

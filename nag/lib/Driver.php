@@ -178,7 +178,7 @@ abstract class Nag_Driver
      *     - estimate: (OPTIONAL, float) The estimated time to complete the
      *                 task.
      *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - category: (OPTIONAL, string) The category of the task.
+     *     - tags: (OPTIONAL, string) The comma delimited list of tags.
      *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - methods: (OPTIONAL, array) The overridden alarm notification
      *                methods.
@@ -200,7 +200,7 @@ abstract class Nag_Driver
                   'priority' => 3,
                   'estimate' => 0.0,
                   'completed' => 0,
-                  'category' => '',
+                  'tags' => '',
                   'alarm' => 0,
                   'methods' => null,
                   'uid' => strval(new Horde_Support_Guid()),
@@ -212,6 +212,7 @@ abstract class Nag_Driver
             $task
         );
 
+        $task['tags'] = explode(',', $task['tags']);
         $taskId = $this->_add($task);
 
         $task = $this->get($taskId);
@@ -269,7 +270,7 @@ abstract class Nag_Driver
      *     - estimate: (OPTIONAL, float) The estimated time to complete the
      *                 task.
      *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - category: (OPTIONAL, string) The category of the task.
+     *     - tags: (OPTIONAL, string) The tags of the task.
      *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - methods: (OPTIONAL, array) The overridden alarm notification
      *                methods.
