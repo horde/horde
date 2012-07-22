@@ -2,6 +2,7 @@
 v5.0.0beta3
 -----------
 
+[jan] Fix dependency on Horde_Service_Weather.
 
 
 -----------
