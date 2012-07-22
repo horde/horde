@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [jan] Fix dependency on Horde_Http.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -74,7 +74,7 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_Http_Client</name>
+    <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0beta1</min>
     <max>3.0.0alpha1</max>
@@ -123,7 +123,7 @@
    <date>2012-07-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [jan] Fix dependency on Horde_Http.
    </notes>
   </release>
  </changelog>
