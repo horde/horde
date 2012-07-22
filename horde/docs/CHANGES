@@ -2,14 +2,13 @@
 v5.0.0beta4
 -----------
 
-
+[mjr] Fix autocompletion of tags in ajax views.
 
 -----------
 v5.0.0beta3
 -----------
 
 [jan] Fix dependency on Horde_Service_Weather.
-
 
 -----------
 v5.0.0beta2
