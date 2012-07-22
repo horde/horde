@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2012-07-22</date>
- <time>15:53:17</time>
+ <time>15:53:52</time>
  <version>
-  <release>2.0.0beta3</release>
+  <release>2.0.0beta4</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix dependency on Horde_Routes.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2180,6 +2180,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix dependency on Horde_Routes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta4</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
