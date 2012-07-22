@@ -29,7 +29,7 @@
   <active>yes</active>
  </developer>
  <date>2012-07-22</date>
- <time>15:53:52</time>
+ <time>14:09:39</time>
  <version>
   <release>2.0.0beta4</release>
   <api>2.0.0beta1</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Added Horde_Core_Tagger
 * [mjr] Fix autocompletion of tags in ajax views.
  </notes>
  <contents>
@@ -441,6 +442,7 @@
       <file name="Cli.php" role="php" />
       <file name="LoginTasks.php" role="php" />
       <file name="Perms.php" role="php" />
+      <file name="Tagger.php" role="php" />
       <file name="Topbar.php" role="php" />
       <file name="Secret.php" role="php" />
       <file name="Translation.php" role="php">
@@ -1333,6 +1335,7 @@
    <install as="Horde/Core/Cli.php" name="lib/Horde/Core/Cli.php" />
    <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
    <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
+   <install as="Horde/Core/Tagger.php" name="lib/Horde/Core/Tagger.php" />
    <install as="Horde/Core/Topbar.php" name="lib/Horde/Core/Topbar.php" />
    <install as="Horde/Core/Secret.php" name="lib/Horde/Core/Secret.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
@@ -2192,6 +2195,7 @@
    <date>2012-07-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Added Horde_Core_Tagger
 * [mjr] Fix autocompletion of tags in ajax views.
    </notes>
   </release>
