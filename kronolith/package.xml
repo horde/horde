@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>22:27:05</time>
+ <date>2012-07-22</date>
+ <time>11:26:54</time>
  <version>
   <release>4.0.0alpha1</release>
   <api>4.0.0alpha1</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix tagging in traditional interface.
 * [rla] Make system shares browseable in WebDAV (Request #10998).
 * [jan] Make calendar lists collapsible (Request #10865).
 * [jan] Delay calendar list loading to speed up initial display.
@@ -97,6 +98,7 @@
     <file name="goto.js" role="horde" />
     <file name="kronolith.js" role="horde" />
     <file name="smartmobile.js" role="horde" />
+    <file name="taghandler.js" role="horde" />
     <file name="views.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
@@ -1076,6 +1078,7 @@
    <install as="kronolith/js/goto.js" name="js/goto.js" />
    <install as="kronolith/js/kronolith.js" name="js/kronolith.js" />
    <install as="kronolith/js/smartmobile.js" name="js/smartmobile.js" />
+   <install as="kronolith/js/taghandler.js" name="js/taghandler.js" />
    <install as="kronolith/js/views.js" name="js/views.js" />
    <install as="kronolith/lib/.htaccess" name="lib/.htaccess" />
    <install as="kronolith/lib/Ajax.php" name="lib/Ajax.php" />
@@ -1883,7 +1886,7 @@
    </notes>
   </release>
   <release>
-   <date>2012-07-19</date>
+   <date>2012-07-22</date>
    <time>17:24:36</time>
    <version>
     <release>4.0.0alpha1</release>
@@ -1895,6 +1898,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix tagging in traditional interface.
 * [rla] Make system shares browseable in WebDAV (Request #10998).
 * [jan] Make calendar lists collapsible (Request #10865).
 * [jan] Delay calendar list loading to speed up initial display.
