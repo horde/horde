@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2012-07-22</date>
- <time>15:02:08</time>
+ <time>15:02:44</time>
  <version>
-  <release>2.0.0beta2</release>
+  <release>1.0.0beta3</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix dependency on Horde_ElasticSearch.
-* [jan] Fix default values for LDAP and SQL configuration.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2168,6 +2167,19 @@
    <notes>
 * [jan] Fix dependency on Horde_ElasticSearch.
 * [jan] Fix default values for LDAP and SQL configuration.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta3</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
