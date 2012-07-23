@@ -29,7 +29,6 @@
  <configsection name="menu">
   <configheader>Menu settings</configheader>
   <configboolean name="import_export" desc="Should we display an Import/Export
-  link in the Mnemo application menus?">true
-  </configboolean>
+  link in the Mnemo application menus?">true</configboolean>
  </configsection>
 </configuration>
