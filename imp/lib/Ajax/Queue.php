@@ -135,7 +135,7 @@ class IMP_Ajax_Queue
                 if ($tmp = IMP_Dimp::getMsgLogInfo($val['msg_id'])) {
                     $log_ob = new stdClass;
                     $log_ob->log = $tmp;
-                    $log_ob->mbox = $val['mbox']->form_to;
+                    $log_ob->mbox = $val['mailbox']->form_to;
                     $log_ob->uid = $val['uid'];
                     $maillog[] = $log_ob;
                 }
