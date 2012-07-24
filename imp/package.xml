@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix handling of identity tie-to addresses when searching for matching identities.
 * [mms] Fix recursive mailbox delete in dynamic view (Bug #11288).
  </notes>
  <contents>
@@ -2617,6 +2618,7 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix handling of identity tie-to addresses when searching for matching identities.
 * [mms] Fix recursive mailbox delete in dynamic view (Bug #11288).
    </notes>
   </release>

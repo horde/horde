@@ -2,6 +2,8 @@
 v6.0.0beta2
 -----------
 
+[mms] Fix handling of identity tie-to addresses when searching for matching
+      identities.
 [mms] Fix recursive mailbox delete in dynamic view (Bug #11288).
 
 

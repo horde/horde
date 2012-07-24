@@ -76,26 +76,6 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         }
 
         parent::verify($identity);
-
-        /* Clean up Reply-To, Alias, Tie-to, and BCC addresses. */
-        foreach (array('replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr') as $val) {
-            $ob = IMP::parseAddressList($this->getValue($val), array(
-                'limit' => ($val == 'replyto_addr') ? 1 : 0
-            ));
-
-            /* Validate addresses */
-            foreach ($ob as $address) {
-                try {
-                    IMP::parseAddressList($address, array(
-                        'validate' => true
-                    ));
-                } catch (Horde_Mail_Exception $e) {
-                    throw new Horde_Prefs_Exception(sprintf(_("\"%s\" is not a valid email address.", strval($address))));
-                }
-            }
-
-            $this->setValue($val, $ob->addresses, $identity);
-        }
     }
 
     /**
@@ -206,7 +186,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     public function getAliasAddress($ident)
     {
         if (!isset($this->_cached['aliases'][$ident])) {
-            $list = new Horde_Mail_Rfc822_List($this->getValue('alias_addr', $ident));
+            $list = IMP::parseAddressList($this->getValue('alias_addr', $ident));
             $list->add($this->getValue('replyto_addr', $ident));
             $this->_cached['aliases'][$ident] = $list;
         }
@@ -252,11 +232,11 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      * @param integer $ident  The identity to retrieve the tie-to addresses
      *                        from.
      *
-     * @return array  Tie-to addresses.
+     * @return Horde_Mail_Rfc822_List  A list of tie-to e-mail addresses.
      */
     public function getTieAddresses($ident = null)
     {
-        return $this->getValue('tieto_addr', $ident);
+        return IMP::parseAddressList($this->getValue('tieto_addr', $ident));
     }
 
     /**
@@ -330,16 +310,23 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     public function getMatchingIdentity($addresses, $search_own = true)
     {
         $addresses = IMP::parseAddressList($addresses);
+        if (!count($addresses)) {
+            return null;
+        }
 
         foreach ($this->_identitiesWithDefaultFirst() as $key) {
             $tie_addr = $this->getTieAddresses($key);
 
             /* Search 'tieto' addresses first. Check for address first
              * and, if not found, check for the domain. */
-            foreach ($addresses as $val) {
-                if ((array_search($val->bare_address, $tie_addr) !== false) ||
-                    (array_search('@' . $val->host, $tie_addr) !== false)) {
-                    return $key;
+            if (count($tie_addr)) {
+                foreach ($addresses as $val) {
+                    foreach ($tie_addr as $val2) {
+                        if (($val->bare_address == $val2->bare_address) ||
+                            (strcasecmp($val->host, $val2->host) === 0)) {
+                            return $key;
+                        }
+                    }
                 }
             }
 
@@ -474,14 +461,42 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     public function setValue($key, $val, $identity = null)
     {
-        if ($key == 'sent_mail_folder') {
+        switch ($key) {
+        case 'alias_addr':
+        case 'bcc_addr':
+        case 'replyto_addr':
+        case 'tieto_addr':
+            if (is_string($val) && (strpbrk($val, "\r\n") !== false)) {
+                $val = preg_split("/[\r\n]+/", $val);
+            }
+
+            /* Validate Reply-To, Alias, Tie-to, and BCC addresses. */
+            $ob = IMP::parseAddressList($val, array(
+                'limit' => ($val == 'replyto_addr') ? 1 : 0
+            ));
+
+            foreach ($ob as $address) {
+                try {
+                    IMP::parseAddressList($address, array(
+                        'validate' => true
+                    ));
+                } catch (Horde_Mail_Exception $e) {
+                    throw new Horde_Prefs_Exception(sprintf(_("\"%s\" is not a valid email address.", strval($address))));
+                }
+            }
+            $val = $ob->addresses;
+            break;
+
+        case 'sent_mail_folder':
             if ($val) {
                 $val->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
             } else {
                 IMP_Mailbox::get('INBOX')->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
             }
             $val = IMP_Mailbox::prefTo($val);
+            break;
         }
+
         return parent::setValue($key, $val, $identity);
     }
 
