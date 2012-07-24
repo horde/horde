@@ -51,7 +51,7 @@
       <div class="horde-button-split"></div>
      </div>
      <div id="button_compose">
-      <?php echo $this->actionButton(array('icon' => 'Compose', 'title' => _("Compose"))) ?>
+      <?php echo $this->actionButton(array('icon' => 'Compose', 'title' => _("New Message"))) ?>
       <div class="horde-button-split"></div>
      </div>
 <?php if ($this->show_search): ?>
