@@ -466,13 +466,16 @@ class IMP_Application extends Horde_Registry_Application
         case 'download_mbox':
             $mlist = IMP_Mailbox::formFrom($vars->mbox_list);
             $mbox = $injector->getInstance('IMP_Ui_Folder')->generateMbox($mlist);
+            $name = is_array($mlist)
+                ? reset($mlist)
+                : $mlist;
 
             if ($vars->zip) {
                 try {
                     $data = Horde_Compress::factory('Zip')->compress(array(
                         array(
                             'data' => $mbox,
-                            'name' => reset($mlist) . '.mbox'
+                            'name' => $name . '.mbox'
                         )
                     ), array(
                         'stream' => true
@@ -485,14 +488,14 @@ class IMP_Application extends Horde_Registry_Application
 
                 return array(
                     'data' => $data,
-                    'name' => reset($mlist) . '.zip',
+                    'name' => $name . '.zip',
                     'type' => 'application/zip'
                 );
             }
 
             return array(
                 'data' => $mbox,
-                'name' => reset($mlist) . '.mbox',
+                'name' => $name . '.mbox',
                 'type' => 'text/plain; charset=UTF-8'
             );
 
