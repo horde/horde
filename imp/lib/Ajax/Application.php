@@ -214,7 +214,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function deleteMailbox()
     {
-        return ($this->_vars->mbox && IMP_Mailbox::formFrom($this->_vars->mbox)->delete(array('subfolders' => !empty($this->_vars->subfolders), 'subfolders_only' => !empty($this->_vars->container))));
+        return ($this->_vars->mbox && IMP_Mailbox::formFrom($this->_vars->mbox)->delete(array(
+            'subfolders' => !empty($this->_vars->subfolders),
+            'subfolders_only' => !empty($this->_vars->container)
+        )));
     }
 
     /**
