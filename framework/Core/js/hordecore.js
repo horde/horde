@@ -376,7 +376,7 @@ var HordeCore = {
         var url = this.addURLParam(this.conf.URI_DLOAD, params);
         // Guaranteed to have at least one URL parameter, since download
         // URL requires the app name. So just append filename to end.
-        url += '&fn=/' . encodeURIComponent(name);
+        url += '&fn=/' + encodeURIComponent(name);
         window.location.assign(url);
     },
 
