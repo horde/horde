@@ -19,7 +19,6 @@ class IMP_Dynamic_Compose_Common
      *
      * @param IMP_Dynamic_Base $base  Base dynamic view object.
      * @param array $args             Configuration parameters:
-     *   - composeCache: (string) The cache ID of the IMP_Compose object.
      *   - redirect: (string) Display the redirect interface?
      *   - show_editor: (boolean) Show the HTML editor?
      *   - template: (string) Display the edit template interface?
@@ -74,8 +73,6 @@ class IMP_Dynamic_Compose_Common
 
         /* Generate identities list. */
         $injector->getInstance('IMP_Ui_Compose')->addIdentityJs();
-
-        $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create(isset($args['composeCache']) ? $args['composeCache'] : null);
 
         if ($session->get('imp', 'rteavail')) {
             $view->compose_html = !empty($args['show_editor']);

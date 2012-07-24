@@ -17,23 +17,24 @@ var DimpCompose = {
 
     knl: {},
 
+    getCacheElt: function()
+    {
+        var sbd = $('send_button_redirect');
+        return (sbd && sbd.visible())
+            ? $('composeCacheRedirect')
+            : $('composeCache');
+    },
+
     confirmCancel: function()
     {
-        var cc,
-            sbd = $('send_button_redirect');
-
         if (window.confirm(DimpCore.text.compose_cancel)) {
             if (!DimpCore.conf.qreply &&
                 this.baseAvailable()) {
                 HordeCore.base.focus();
             }
 
-            cc = (sbd && sbd.visible())
-                ? $F('composeCacheRedirect')
-                : $F('composeCache');
-
             DimpCore.doAction('cancelCompose', {
-                imp_compose: cc
+                imp_compose: $F(this.getCacheElt())
             });
             this.updateDraftsMailbox();
             return this.closeCompose();
@@ -64,7 +65,7 @@ var DimpCompose = {
         this.md5_hdrs = this.md5_msg = this.md5_msgOrig = '';
 
         $('attach_list').hide().childElements().invoke('remove');
-        $('composeCache').clear();
+        this.getCacheElt().clear();
         $('qreply', 'sendcc', 'sendbcc').compact().invoke('hide');
         $('noticerow').down('UL.notices').childElements().invoke('hide');
         $('msgData', 'togglecc', 'togglebcc').compact().invoke('show');
@@ -233,7 +234,7 @@ var DimpCompose = {
     uniqueSubmitCallback: function(d)
     {
         if (d.imp_compose) {
-            $('composeCache').setValue(d.imp_compose);
+            this.getCacheElt().setValue(d.imp_compose);
         }
 
         if (d.success || d.action == 'addAttachment') {
@@ -367,7 +368,7 @@ var DimpCompose = {
             DimpCore.doAction('html2Text', {
                 changed: Number(changed),
                 identity: $F('identity'),
-                imp_compose: $F('composeCache'),
+                imp_compose: $F(this.getCacheElt()),
                 text: text
             }, {
                 callback: this.setMessageText.bind(this, false)
@@ -382,7 +383,7 @@ var DimpCompose = {
                 DimpCore.doAction('text2Html', {
                     changed: Number(this.msgHash() != this.md5_msgOrig),
                     identity: $F('identity'),
-                    imp_compose: $F('composeCache'),
+                    imp_compose: $F(this.getCacheElt()),
                     text: $F('composeMessage')
                 }, {
                     callback: this.setMessageText.bind(this, true)
@@ -501,11 +502,16 @@ var DimpCompose = {
             return;
         }
 
-        ob.opts = ob.opts || {};
-
         if (ob.imp_compose) {
-            $('composeCache').setValue(ob.imp_compose);
+            this.getCacheElt().setValue(ob.imp_compose);
         }
+
+        switch (ob.type) {
+        case 'forward_redirect':
+            return;
+        }
+
+        ob.opts = ob.opts || {};
 
         $('to').setValue(ob.header.to);
         if (DimpCore.conf.cc && ob.header.cc) {
@@ -734,7 +740,7 @@ var DimpCompose = {
             $('attach_list').hide();
         }
 
-        DimpCore.doAction('deleteAttach', { atc_indices: Object.toJSON(ids), imp_compose: $F('composeCache') });
+        DimpCore.doAction('deleteAttach', { atc_indices: Object.toJSON(ids), imp_compose: $F(this.getCacheElt()) });
     },
 
     initAttachList: function()
@@ -918,10 +924,10 @@ var DimpCompose = {
                 atc_num = tmp.up('LI').retrieve('atc_id');
                 HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                     actionID: 'compose_attach_preview',
-                    composeCache: $F('composeCache'),
+                    composeCache: $F(this.getCacheElt()),
                     id: atc_num
                 }, {
-                    name: $F('composeCache') + '|' + atc_num
+                    name: $F(this.getCacheElt()) + '|' + atc_num
                 });
             }
             break;
@@ -935,7 +941,7 @@ var DimpCompose = {
             this.fadeNotice(e.element());
             DimpCore.doAction('GetForwardData', {
                 dataonly: 1,
-                imp_compose: $F('composeCache'),
+                imp_compose: $F(this.getCacheElt()),
                 type: (e.element().identify() == 'fwdattachnotice' ? 'forward_body' : 'forward_attach')
             }, {
                 callback: this.forwardAddCallback.bind(this)
@@ -957,7 +963,7 @@ var DimpCompose = {
             $('to_loading_img').show();
             DimpCore.doAction('getReplyData', {
                 headeronly: 1,
-                imp_compose: $F('composeCache'),
+                imp_compose: $F(this.getCacheElt()),
                 type: 'reply'
             }, {
                 callback: this.swapToAddressCallback.bind(this)
@@ -1069,6 +1075,11 @@ var DimpCompose = {
             }
             $('dimpLoading').hide();
             $('composeContainer', 'redirect').invoke('show');
+
+            if (this.onload_show) {
+                this.fillForm(this.onload_show);
+                delete this.onload_show;
+            }
             return;
         }
 

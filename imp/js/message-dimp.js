@@ -55,23 +55,8 @@ var DimpMessage = {
             type: type
         }, {
             uids: ob,
-            callback: this.msgTextCallback.bind(this)
+            callback: DimpCompose.fillForm.bind(DimpCompose)
         });
-    },
-
-    msgTextCallback: function(r)
-    {
-        switch (r.type) {
-        case 'forward_redirect':
-            if (r.imp_compose) {
-                $('composeCacheRedirect').setValue(r.imp_compose);
-            }
-            break;
-
-        default:
-            DimpCompose.fillForm(r);
-            break;
-        }
     },
 
     updateAddressHeader: function(e)
