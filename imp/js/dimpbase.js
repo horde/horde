@@ -2778,7 +2778,7 @@ var DimpBase = {
         case 'delete':
             this.viewaction = function(e) {
                 DimpCore.doAction('deleteMailbox', {
-                    container: elt.hasClassName('container'),
+                    container: Number(elt.hasClassName('container')),
                     mbox: elt.retrieve('mbox'),
                     subfolders: e.element().down('[name=delete_subfolders]').getValue()
                 });
