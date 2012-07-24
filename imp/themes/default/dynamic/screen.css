@@ -346,7 +346,7 @@ div.vpRowVert div.msgSubject span.flagUser {
 }
 
 /* Actions */
-#button_compose, #button_checkmail {
+#button_compose {
     display: none;
 }
 

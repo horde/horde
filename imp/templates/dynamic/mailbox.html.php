@@ -54,10 +54,6 @@
       <?php echo $this->actionButton(array('icon' => 'Compose', 'title' => _("Compose"))) ?>
       <div class="horde-button-split"></div>
      </div>
-     <div id="button_checkmail">
-      <?php echo $this->actionButton(array('icon' => 'Checkmail', 'title' => _("Get Mail"))) ?>
-      <div class="horde-button-split"></div>
-     </div>
 <?php if ($this->show_search): ?>
      <div id="filter">
       <?php echo $this->actionButton(array('id' => 'button_filter', 'title' => _("Filter"), 'right' => true)) ?>
