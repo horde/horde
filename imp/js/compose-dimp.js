@@ -19,8 +19,8 @@ var DimpCompose = {
 
     getCacheElt: function()
     {
-        var sbd = $('send_button_redirect');
-        return (sbd && sbd.visible())
+        var r = $('redirect');
+        return (r && r.visible())
             ? $('composeCacheRedirect')
             : $('composeCache');
     },
