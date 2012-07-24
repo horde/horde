@@ -142,14 +142,18 @@ class Horde_Prefs_Identity
      *
      * @param integer $identity  The identity to retrieve.
      *
-     * @return array  An identity hash.
+     * @return array  An identity hash. Returns null if the identity does not
+     *                exist.
      */
     public function get($identity = null)
     {
         if (is_null($identity) || !isset($this->_identities[$identity])) {
             $identity = $this->_default;
         }
-        return $this->_identities[$identity];
+
+        return isset($this->_identities[$identity])
+            ? $this->_identities[$identity]
+            : null;
     }
 
     /**
