@@ -25,8 +25,7 @@ class Nag_Tagger extends Horde_Core_Tagger
      *      - user: (array) - only include objects owned by these users.
      *      - list (array) - restrict to tasks contained in these task lists.
      *
-     * @return  A hash of 'calendars' and 'events' that each contain an array
-     *          of calendar_ids and event_uids respectively.
+     * @return  A hash of results.
      */
     public function search($tags, $filter = array())
     {
