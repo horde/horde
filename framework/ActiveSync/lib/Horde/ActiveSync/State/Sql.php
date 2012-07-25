@@ -1093,7 +1093,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     /**
      * Save the provided sync_cache.
      *
-     * @param array $cache  The cache to save.
+     * @param array $cache   The cache to save.
+     * @param string $devid  The device id.
+     * @param string $user   The user id.
      *
      * @throws Horde_ActiveSync_Exception
      */
