@@ -61,7 +61,7 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
         // 'ri' = report innocent
         case 'rs':
         case 'ri':
-            IMP_Spam::reportSpam(new IMP_Indices($vars->indices), $vars->actionID == 'rs' ? 'spam' : 'notspam');
+            IMP_Spam::reportSpam(new IMP_Indices($vars->indices), $vars->checkbox == 'rs' ? 'spam' : 'notspam');
             break;
         }
 
