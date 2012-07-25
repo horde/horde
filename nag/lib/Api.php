@@ -351,7 +351,7 @@ class Nag_Api extends Horde_Registry_Api
             if (!Nag::hasPermission($parts[1], Horde_Perms::READ)) {
                 throw new Nag_Exception(_("Invalid tasklist requested."), 404);
             }
-            $storage = Nag_Driver::singleton($parts[1]);
+            $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($parts[1]);
             try {
                 $storage->retrieve();
             } catch (Nag_Exception $e) {
@@ -401,7 +401,7 @@ class Nag_Api extends Horde_Registry_Api
                 // This request is for a specific item within a given task list.
                 //
                 /* Create a Nag storage instance. */
-                $storage = Nag_Driver::singleton($parts[1]);
+                $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($parts[1]);
                 $storage->retrieve();
                 try {
                     $storage->get($parts[2]);
@@ -481,7 +481,7 @@ class Nag_Api extends Horde_Registry_Api
         $ids = array();
         $uids_remove = array_flip($this->listUids($tasklist));
 
-        $storage = Nag_Driver::singleton($tasklist);
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
 
         switch ($content_type) {
         case 'text/calendar':
@@ -620,7 +620,7 @@ class Nag_Api extends Horde_Registry_Api
 
         /* Create a Nag storage instance. */
         try {
-            $storage = Nag_Driver::singleton($tasklistID);
+            $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklistID);
             $storage->retrieve();
         } catch (Nag_Exception $e) {
             throw new Nag_Exception(sprintf(_("Connection failed: %s"), $e->getMessage()), 500);
@@ -795,7 +795,7 @@ class Nag_Api extends Horde_Registry_Api
         }
 
         /* Create a Nag_Driver instance. */
-        $storage = Nag_Driver::singleton($tasklist);
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
 
         switch ($contentType) {
         case 'text/x-vcalendar':
@@ -869,7 +869,7 @@ class Nag_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $storage = Nag_Driver::singleton($task['tasklist']);
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($task['tasklist']);
         return $storage->add($task);
     }
 
@@ -946,7 +946,7 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function export($uid, $contentType, array $options = array())
     {
-        $storage = Nag_Driver::singleton();
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
         $task = $storage->getByUID($uid);
         if (!Nag::hasPermission($task->tasklist, Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied();
@@ -1057,7 +1057,7 @@ class Nag_Api extends Horde_Registry_Api
             return true;
         }
 
-        $storage = Nag_Driver::singleton();
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
         $task = $storage->getByUID($uid);
 
         if (!$GLOBALS['registry']->isAdmin() &&
@@ -1083,7 +1083,7 @@ class Nag_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $storage = Nag_Driver::singleton($tasklist);
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
         return $storage->delete($id);
     }
 
@@ -1106,7 +1106,7 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function replace($uid, $content, $contentType)
     {
-        $storage = Nag_Driver::singleton();
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
         $existing = $storage->getByUID($uid);
         $taskId = $existing->id;
         $owner = $existing->owner;
@@ -1172,7 +1172,7 @@ class Nag_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $storage = Nag_Driver::singleton($tasklist);
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
         $existing = $storage->get($id);
         $task['owner'] = $existing->owner;
 
@@ -1296,12 +1296,12 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function saveTimeObject(array $timeobject)
     {
-        $storage = Nag_Driver::singleton();
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
         $existing = $storage->get($timeobject['id']);
         if (!Nag::hasPermission($existing->tasklist, Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied();
         }
-        $storage = Nag_Driver::singleton($existing->tasklist);
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($existing->tasklist);
         $info = array();
         if (isset($timeobject['start'])) {
             $info['due'] = new Horde_Date($timeobject['start']);

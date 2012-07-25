@@ -83,90 +83,6 @@ abstract class Nag_Driver
     }
 
     /**
-     * Attempts to return a concrete Nag_Driver instance based on $driver.
-     *
-     * @param string    $tasklist   The name of the tasklist to load.
-     *
-     * @param string    $driver     The type of concrete Nag_Driver subclass
-     *                              to return.  The is based on the storage
-     *                              driver ($driver).  The code is dynamically
-     *                              included.
-     *
-     * @param array     $params     (optional) A hash containing any additional
-     *                              configuration or connection parameters a
-     *                              subclass might need.
-     *
-     * @return mixed    The newly created concrete Nag_Driver instance, or
-     *                  false on an error.
-     */
-    static public function factory($tasklist = '', $driver = null, $params = null)
-    {
-        if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['storage']['driver'];
-        }
-        $driver = ucfirst(basename($driver));
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('storage', $driver);
-        }
-        $class = 'Nag_Driver_' . $driver;
-        if (class_exists($class)) {
-            try {
-                $nag = new $class($tasklist, $params);
-            } catch (Nag_Exception $e) {
-                $nag = new Nag_Driver($params, sprintf(_("The Tasks backend is not currently available: %s"), $e->getMessage()));
-            }
-        } else {
-            $nag = new Nag_Driver($params, sprintf(_("Unable to load the definition of %s."), $class));
-        }
-
-        return $nag;
-    }
-
-    /**
-     * Attempts to return a reference to a concrete Nag_Driver
-     * instance based on $driver. It will only create a new instance
-     * if no Nag_Driver instance with the same parameters currently
-     * exists.
-     *
-     * This should be used if multiple storage sources are required.
-     *
-     * This method must be invoked as: $var =& Nag_Driver::singleton()
-     *
-     * @param string    $tasklist   The name of the tasklist to load.
-     *
-     * @param string    $driver     The type of concrete Nag_Driver subclass
-     *                              to return.  The is based on the storage
-     *                              driver ($driver).  The code is dynamically
-     *                              included.
-     *
-     * @param array     $params     (optional) A hash containing any additional
-     *                              configuration or connection parameters a
-     *                              subclass might need.
-     *
-     * @return mixed    The created concrete Nag_Driver instance, or false
-     *                  on error.
-     */
-    static public function &singleton($tasklist = '', $driver = null, array $params = null)
-    {
-        static $instances = array();
-
-        if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['storage']['driver'];
-        }
-
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('storage', $driver);
-        }
-
-        $signature = serialize(array($tasklist, $driver, $params));
-        if (!isset($instances[$signature])) {
-            $instances[$signature] = Nag_Driver::factory($tasklist, $driver, $params);
-        }
-
-        return $instances[$signature];
-    }
-
-    /**
      * Adds a task and handles notification.
      *
      * @param array $task  A hash with the following possible properties:
@@ -350,7 +266,7 @@ abstract class Nag_Driver
             }
 
             $moved = $this->_move($task->id, $properties['tasklist']);
-            $new_storage = Nag_Driver::singleton($properties['tasklist']);
+            $new_storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($properties['tasklist']);
             $new_task = $new_storage->get($task->id);
 
             /* Log the moving of this item in the history log. */

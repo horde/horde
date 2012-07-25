@@ -22,7 +22,7 @@ function _delete($task_id, $tasklist_id)
             if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
                 $GLOBALS['notification']->push(_("Access denied deleting task."), 'horde.error');
             } else {
-                $storage = Nag_Driver::singleton($tasklist_id);
+                $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist_id);
                 try {
                     $storage->delete($task_id);
                 } catch (Horde_Share_Exception $e) {

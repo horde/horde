@@ -97,7 +97,7 @@ if ($import_format) {
 if (is_array($next_step)) {
 
     /* Create a Nag storage instance. */
-    $storage = Nag_Driver::singleton($storage->set('target'));
+    $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($storage->set('target'));
     $max_tasks = $perms->hasAppPermission('max_tasks');
     $num_tasks = Nag::countTasks();
     $result = null;

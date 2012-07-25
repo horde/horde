@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-22</date>
- <time>17:50:08</time>
+ <date>2012-07-25</date>
+ <time>14:43:09</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -73,6 +73,9 @@
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
+     <dir name="Imple">
+      <file name="TagAutoCompleter.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
@@ -83,6 +86,7 @@
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Driver -->
     <dir name="Factory">
+     <file name="Driver.php" role="horde" />
      <file name="Tasklists.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
@@ -717,9 +721,11 @@
    <install as="nag/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="nag/lib/Task.php" name="lib/Task.php" />
    <install as="nag/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="nag/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="nag/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="nag/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="nag/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="nag/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="nag/lib/Factory/Tasklists.php" name="lib/Factory/Tasklists.php" />
    <install as="nag/lib/Form/CreateTaskList.php" name="lib/Form/CreateTaskList.php" />
    <install as="nag/lib/Form/DeleteTaskList.php" name="lib/Form/DeleteTaskList.php" />
