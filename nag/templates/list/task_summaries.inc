@@ -50,8 +50,9 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             . $task_name . '</a>';
     } else {
         echo $task_name;
-    }
-    ?>
+    }?>
+    <ul class='horde-tags'>
+    <?php foreach ($task->tags as $t): ?><li><?php echo $t ?></li><?php endforeach;?>
   </td>
   <td><?php echo strlen($task->desc) ? Horde::img('note.png', _("Task Note")) : '&nbsp;' ?></td>
   <td><?php echo ($task->alarm && $task->due) ?
