@@ -1660,8 +1660,9 @@ var DimpBase = {
 
         // Add message log information
         if (r.log) {
-            DimpCore.updateMsgLog(r.log);
-            $('msgLogInfo').show();
+            this.updateMsgLog(r.log);
+        } else {
+            $('msgLogInfo').hide();
         }
 
         // Toggle resume link
@@ -1747,6 +1748,12 @@ var DimpBase = {
         });
     },
 
+    updateMsgLog: function(log)
+    {
+        DimpCore.updateMsgLog(log);
+        $('msgLogInfo').show();
+    },
+
     _mimeTreeCallback: function(r)
     {
         this.pp.hide_all = true;
@@ -1781,8 +1788,7 @@ var DimpBase = {
                     this.pp &&
                     this.pp.uid == l.uid &&
                     this.pp.mbox == l.mbox) {
-                    DimpCore.updateMsgLog(l.log);
-                    $('msgLogInfo').show();
+                    this.updateMsgLog(l.log);
                 }
             }
         }, this);
