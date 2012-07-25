@@ -289,12 +289,14 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $data = '';
         }
 
+        // If we are setting the first synckey iteration, do not save the
+        // timestamp, otherwise we will never get the initial set of data.
         $params = array(
             $this->_syncKey,
             $data,
             $this->_deviceInfo->id,
-            $this->_thisSyncTS,
-            !empty($this->_collection['id']) ? $this->_collection['id'] : Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC,
+            (self::getSyncKeyCounter($this->_syncKey) == 1 ? 0 : $this->_thisSyncTS),
+            (!empty($this->_collection['id']) ? $this->_collection['id'] : Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC),
             $this->_deviceInfo->user,
             $pending);
         $this->_logger->debug(
