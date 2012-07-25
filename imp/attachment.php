@@ -60,7 +60,7 @@ if ($conf['compose']['link_attachments_notify']) {
                 exit;
             }
         } catch (Horde_Vfs_Exception $e) {
-            Horde::logMessage($read_id, 'ERR');
+            Horde::log($read_id, 'ERR');
         }
     } else {
         /* Create a random identifier for this file. */
@@ -109,7 +109,7 @@ if ($conf['compose']['link_attachments_notify']) {
                            $GLOBALS['injector']->getInstance('Horde_Mail'));
             }
         } catch (Horde_Vfs_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
     }
 }
@@ -118,7 +118,7 @@ if ($conf['compose']['link_attachments_notify']) {
 try {
     $file_data = $vfsroot->read($full_path, $file_name);
 } catch (Horde_Vfs_Exception $e) {
-    Horde::logMessage($file_data, 'ERR');
+    Horde::log($file_data, 'ERR');
     throw new IMP_Exception(_("The specified file cannot be read."));
 }
 $mime_type = Horde_Mime_Magic::analyzeData($file_data, isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);

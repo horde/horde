@@ -442,7 +442,7 @@ class IMP
             if (isset($opts['value'])) {
                 $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
                 if (!($sentmail instanceof IMP_Sentmail)) {
-                    Horde::logMessage('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', 'ERR');
+                    Horde::log('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', 'ERR');
                     return true;
                 }
 
@@ -532,7 +532,7 @@ class IMP
             $quotaDriver = $GLOBALS['injector']->getInstance('IMP_Quota');
             $quota = $quotaDriver->getQuota();
         } catch (IMP_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return false;
         }
 

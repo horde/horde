@@ -87,7 +87,7 @@ class IMP_Auth
             try {
                 $imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server']);
             } catch (IMP_Imap_Exception $e) {
-                self::_logMessage(false, $imp_imap);
+                self::_log(false, $imp_imap);
                 throw $e->authException();
             }
 
@@ -99,7 +99,7 @@ class IMP_Auth
         try {
             $imp_imap->login();
         } catch (IMP_Imap_Exception $e) {
-            self::_logMessage(false, $imp_imap);
+            self::_log(false, $imp_imap);
             throw $e->authException();
         }
 
@@ -144,7 +144,7 @@ class IMP_Auth
      * @param boolean $success   True on success, false on failure.
      * @param IMP_Imap $imap_ob  The IMP_Imap object to use.
      */
-    static protected function _logMessage($status, $imap_ob)
+    static protected function _log($status, $imap_ob)
     {
         if ($status) {
             $msg = 'Login success';
@@ -173,7 +173,7 @@ class IMP_Auth
             $protocol ? ' [' . $protocol . ']' : ''
         );
 
-        Horde::logMessage($msg, $level);
+        Horde::log($msg, $level);
     }
 
     /**
@@ -438,7 +438,7 @@ class IMP_Auth
         /* Is the HTML editor available? */
         $session->set('imp', 'rteavail', $injector->getInstance('Horde_Editor')->supportedByBrowser());
 
-        self::_logMessage(true, $imp_imap);
+        self::_log(true, $imp_imap);
     }
 
 }

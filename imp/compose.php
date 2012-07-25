@@ -619,7 +619,7 @@ if ($redirect) {
             $spellcheck = true;
             $imp_ui->attachSpellChecker();
         } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
     }
 

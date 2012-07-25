@@ -37,7 +37,7 @@ class IMP_Factory_Search extends Horde_Core_Factory_Injector
         try {
             $instance = $GLOBALS['session']->get('imp', 'search');
         } catch (Exception $e) {
-            Horde::logMessage('Could not unserialize stored IMP_Search object.', 'DEBUG');
+            Horde::log('Could not unserialize stored IMP_Search object.', 'DEBUG');
             $instance = null;
         }
 

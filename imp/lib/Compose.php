@@ -872,7 +872,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $registry->getAuth());
-        Horde::logMessage($entry, 'INFO');
+        Horde::log($entry, 'INFO');
 
         /* Should we save this message in the sent mail mailbox? */
         if (!empty($opts['sent_mail']) &&
@@ -2104,7 +2104,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
                 $recipients = strval($recip['list']);
 
-                Horde::logMessage(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth()), 'INFO');
+                Horde::log(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth()), 'INFO');
 
                 if ($log) {
                     /* Store history information. */
@@ -2777,7 +2777,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     $vfs->writeData($fullpath, escapeshellcmd($att['part']->getName()), $data, true);
                 }
             } catch (Horde_Vfs_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 return IMP_Compose_Exception($e);
             }
         }

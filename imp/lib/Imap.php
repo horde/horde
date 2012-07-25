@@ -104,7 +104,7 @@ class IMP_Imap implements Serializable
 
         if (($server = $this->loadServerConfig($key)) === false) {
             $error = new IMP_Imap_Exception('Could not load server configuration.');
-            Horde::logMessage($error);
+            Horde::log($error);
             throw $error;
         }
 
@@ -140,7 +140,7 @@ class IMP_Imap implements Serializable
                 : new Horde_Imap_Client_Socket_Pop3($imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
-            Horde::logMessage($error);
+            Horde::log($error);
             throw $error;
         }
 
@@ -377,7 +377,7 @@ class IMP_Imap implements Serializable
             $result = call_user_func_array(array($this->ob, $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
-            Horde::logMessage($error);
+            Horde::log($error);
 
             $auth_e = $error->authException(false);
             throw is_null($auth_e)
@@ -399,7 +399,7 @@ class IMP_Imap implements Serializable
                 if ($this->pop3 &&
                     !$this->queryCapability('UIDL')) {
                     $error = new IMP_Imap_Exception('The POP3 server does not support the REQUIRED UIDL capability.');
-                    Horde::logMessage($error);
+                    Horde::log($error);
                     throw $error;
                 }
 
@@ -488,7 +488,7 @@ class IMP_Imap implements Serializable
                     return false;
                 }
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 return false;
             }
 
@@ -507,7 +507,7 @@ class IMP_Imap implements Serializable
         /* Check for the existence of the server in the config file. */
         if (empty($servers[$server]) || !is_array($servers[$server])) {
             $entry = sprintf('Invalid server key "%s" from client [%s]', $server, $_SERVER['REMOTE_ADDR']);
-            Horde::logMessage($entry, 'ERR');
+            Horde::log($entry, 'ERR');
             return false;
         }
 

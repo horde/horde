@@ -194,7 +194,7 @@ class IMP_Hooks
 //
 //        case 2:
 //            // Error occurred.
-//            Horde::logMessage('Unknown error when scanning message for virus.', 'INFO');
+//            Horde::log('Unknown error when scanning message for virus.', 'INFO');
 //            break;
 //        }
 

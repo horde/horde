@@ -71,7 +71,7 @@ class IMP_Quota_Sql extends IMP_Quota
         );
 
         if (empty($this->_params['query_quota'])) {
-            Horde::logMessage(__CLASS__ . ': query_quota SQL query not set.', 'ERR');
+            Horde::log(__CLASS__ . ': query_quota SQL query not set.', 'ERR');
         } else {
             @list($bare_user, $domain) = explode('@', $this->_params['username'], 2);
             $query = str_replace(array('?', '%u', '%U', '%d'),
@@ -90,7 +90,7 @@ class IMP_Quota_Sql extends IMP_Quota
         }
 
         if (empty($this->_params['query_used'])) {
-            Horde::logMessage(__CLASS__ . ': query_used SQL query not set.', 'ERR');
+            Horde::log(__CLASS__ . ': query_used SQL query not set.', 'ERR');
         } else {
             @list($bare_user, $domain) = explode('@', $this->_params['username'], 2);
             $query = str_replace(array('?', '%u', '%U', '%d'),
