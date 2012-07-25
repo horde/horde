@@ -553,21 +553,21 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $statusCode = self::STATUS_SUCCESS;
             $changecount = 0;
 
+            try {
+                $this->_initState($collection);
+            } catch (Horde_ActiveSync_Exception_StateGone $e) {
+                $this->_logger->err(sprintf(
+                    '[%s] SYNC terminating, state not found',
+                    $this->_device->id)
+                );
+                $statusCode = self::STATUS_KEYMISM;
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err('UNKNOWN ERROR');
+                return false;
+            }
+
             if (!empty($collection['getchanges']) ||
                 (!isset($collection['getchanges']) && $collection['synckey'] != 0)) {
-
-                try {
-                    $this->_initState($collection);
-                } catch (Horde_ActiveSync_Exception_StateGone $e) {
-                    $this->_logger->err(sprintf(
-                        '[%s] SYNC terminating, state not found',
-                        $this->_device->id)
-                    );
-                    $statusCode = self::STATUS_KEYMISM;
-                } catch (Horde_ActiveSync_Exception $e) {
-                    $this->_logger->err('UNKNOWN ERROR');
-                    return false;
-                }
 
                 if ($statusCode == self::STATUS_SUCCESS) {
                     $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
