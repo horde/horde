@@ -156,11 +156,13 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $collections[$collection['id']] = $collection;
                 }
 
-                // Update the synccache.
-                $syncCache->clearCollections();
-                foreach ($collections as $value) {
-                    $syncCache->addCollection($value);
+                // Set the collections as PINGable.
+                foreach ($cache_collections as $value) {
+                    if (!empty($collections[$value['id']])) {
+                        $syncCache->setPingableCollection($value['id']);
+                    }
                 }
+
                 if (!$this->_decoder->getElementEndTag()) {
                     throw new Horde_ActiveSync_Exception('Protocol Error');
                 }
@@ -173,11 +175,14 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 // cached sync collections.
                 $this->_statusCode = self::STATUS_MISSING;
         } else {
+            // Build the list of PINGable collections from the cache.
             foreach ($cache_collections as $key => $collection) {
-                $collections[$key] = $collection;
-                $collections[$key]['synckey'] = !empty($collection['lastsynckey'])
-                    ? $collection['lastsynckey']
-                    : 0;
+                if ($syncCache->collectionIsPingable($key)) {
+                    $collections[$key] = $collection;
+                    $collections[$key]['synckey'] = !empty($collection['lastsynckey'])
+                        ? $collection['lastsynckey']
+                        : 0;
+                }
             }
             $this->_logger->debug(sprintf('Reusing PING state: %s', print_r($collections, true)));
         }
