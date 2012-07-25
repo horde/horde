@@ -2900,7 +2900,9 @@ var DimpBase = {
         this.expandmbox = false;
 
         if (base) {
-            this._toggleSubFolder(base, r.all ? 'expall' : 'tog', false, true);
+            this._toggleSubFolder(base, 'tog', false, true);
+        } else if (r.all) {
+            this._toggleSubFolder(nm, 'expall', true);
         }
 
         if (this.view) {
