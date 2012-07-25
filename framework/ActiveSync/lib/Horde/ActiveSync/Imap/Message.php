@@ -570,7 +570,7 @@ class Horde_ActiveSync_Imap_Message
         if (empty($this->_envelope)) {
             $this->_fetchEnvelope();
         }
-        $cc = array_pop($this->_envelope->cc->address);
+        $cc = array_pop($this->_envelope->cc->addresses);
         $a = new Horde_Mail_Rfc822_Address($cc);
 
         return $a->writeAddress(false);
@@ -586,7 +586,7 @@ class Horde_ActiveSync_Imap_Message
         if (empty($this->_envelope)) {
             $this->_fetchEnvelope();
         }
-        $r = array_pop($this->_envelope->reply_to->address);
+        $r = array_pop($this->_envelope->reply_to->addresses);
         $a = new Horde_Mail_Rfc822_Address($r);
 
         return $a->writeAddress(false);
