@@ -96,7 +96,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
         $mbox = '';
         $sorted = new IMP_Indices();
 
-        if (!($query_list = $this[$id]->query)) {
+        if (!isset($this[$id]) || !($query_list = $this[$id]->query)) {
             return $sorted;
         }
 
