@@ -160,6 +160,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 foreach ($cache_collections as $value) {
                     if (!empty($collections[$value['id']])) {
                         $syncCache->setPingableCollection($value['id']);
+                    } else {
+                        $syncCache->removePingableCollection($value['id']);
                     }
                 }
 

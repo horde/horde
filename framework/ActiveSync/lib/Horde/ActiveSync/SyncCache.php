@@ -238,6 +238,19 @@ class Horde_ActiveSync_SyncCache
     }
 
     /**
+     * Set a collection as non-PINGable.
+     *
+     * @param string $collectionid  The collection id.
+     */
+    public function removePingableCollection($collectionid)
+    {
+         if (empty($this->_data['collections'][$collectionid])) {
+            throw new InvalidArgumentException('Collection does not exist');
+        }
+        $this->_data['collections'][$collectionid]['pingable'] = false;
+    }
+
+    /**
      * Check if a specified collection is PINGable.
      *
      * @param string  The collection id.
