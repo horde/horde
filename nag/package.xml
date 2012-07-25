@@ -127,6 +127,7 @@
     <file name="Exception.php" role="horde" />
     <file name="Nag.php" role="horde" />
     <file name="QuickParser.php" role="horde" />
+    <file name="TagBrowser.php" role="horde" />
     <file name="Tagger.php" role="horde" />
     <file name="Task.php" role="horde" />
    </dir> <!-- /lib -->
@@ -718,6 +719,7 @@
    <install as="nag/lib/Exception.php" name="lib/Exception.php" />
    <install as="nag/lib/Nag.php" name="lib/Nag.php" />
    <install as="nag/lib/QuickParser.php" name="lib/QuickParser.php" />
+   <install as="nag/lib/TagBrowser.php" name="lib/TagBrowser.php" />
    <install as="nag/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="nag/lib/Task.php" name="lib/Task.php" />
    <install as="nag/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
