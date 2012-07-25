@@ -42,7 +42,7 @@ abstract class Horde_Core_Tagger
      *
      * @return Horde_Core_Tagger
      */
-    public function _construct()
+    public function __construct()
     {
         $key = $this->_app . '.tagger.type_ids';
         $ids = $GLOBALS['injector']->getInstance('Horde_Cache')
