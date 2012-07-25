@@ -8,6 +8,8 @@
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Nag
+ *
+ * @property tags array  An array of tags this task is tagged with.
  */
 class Nag_Task
 {

@@ -38,6 +38,7 @@ case 'search_tasks':
     $search_pattern = $vars->search_pattern;
     $search_name = ($vars->search_name == 'on');
     $search_desc = ($vars->search_desc == 'on');
+    $search_tags = ($vars->search_tags == 'on');
     $search_completed = $vars->search_completed;
 
     $vars->set('show_completed', $search_completed);
@@ -63,7 +64,9 @@ case 'search_tasks':
         $tasks->reset();
         while ($task = $tasks->each()) {
             if (($search_name && preg_match($pattern, $task->name)) ||
-                ($search_desc && preg_match($pattern, $task->desc))) {
+                ($search_desc && preg_match($pattern, $task->desc)) ||
+                ($search_tags && (array_search($search_pattern, $task->tags) !== false))) {
+
                 $search_results->add($task);
             }
         }
