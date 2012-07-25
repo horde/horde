@@ -2,6 +2,7 @@
 v6.0.0beta2
 -----------
 
+[mms] Hide empty MIME parts when displaying inline.
 [mms] Fix expanding all mailboxes in dynamic view (Bug #11289).
 [mms] Fix handling of identity tie-to addresses when searching for matching
       identities.

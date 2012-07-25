@@ -582,12 +582,12 @@ class IMP_Contents
             $ret[$mime_id]['name'] = $mime_part->getName(true);
         }
 
-        if (!is_null($ret[$mime_id]['data']) &&
-            ($textmode == 'inline') &&
+        /* Don't show empty parts. */
+        if (($textmode == 'inline') &&
+            !is_null($ret[$mime_id]['data']) &&
             !strlen($ret[$mime_id]['data']) &&
-            $this->isAttachment($type) &&
             !isset($ret[$mime_id]['status'])) {
-            $ret[$mime_id]['status'] = new IMP_Mime_Status(_("This part is empty."));
+            $ret[$mime_id] = null;
         }
 
         return $ret;
