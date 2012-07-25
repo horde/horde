@@ -161,7 +161,7 @@ class Trean_View_BookmarkList
         $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
         $GLOBALS['page_output']->header();
 
-        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
         $view->bookmarks = $bookmarks;
         $view->target = $GLOBALS['prefs']->getValue('show_in_new_window') ? '_blank' : '';
         $view->redirectUrl = Horde::url('redirect.php');
