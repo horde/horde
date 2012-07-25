@@ -190,7 +190,7 @@ var DimpCore = {
         df.removeChild(df.lastChild);
 
         if (alist.addr.size() > 15) {
-            tmp = $('largeaddrspan').clone(true).addClassName('largeaddrspan_active');
+            tmp = $('largeaddrspan').clone(true).addClassName('largeaddrspan_active').writeAttribute({ id: null });
             elt.insert(tmp);
             base = tmp.down('.dispaddrlist');
             tmp = tmp.down('.largeaddrlist');
