@@ -553,7 +553,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $statusCode = self::STATUS_SUCCESS;
             $changecount = 0;
 
-            if (!empty($collection['getchanges']) || !isset($collection['getchanges'])) {
+            if (!empty($collection['getchanges']) ||
+                (!isset($collection['getchanges']) && $collection['synckey'] != 0)) {
+
                 try {
                     $this->_initState($collection);
                 } catch (Horde_ActiveSync_Exception_StateGone $e) {
