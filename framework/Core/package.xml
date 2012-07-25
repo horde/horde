@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add a no authentication AJAX handler (Bug #11297).
 * [mms] Fix HordeCore javascript download action (Bug #11294).
 * [mms] Fix upgrade logintasks for pre-release major releases.
 * [mjr] Added Horde_Core_Tagger
@@ -2197,6 +2198,7 @@
    <date>2012-07-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add a no authentication AJAX handler (Bug #11297).
 * [mms] Fix HordeCore javascript download action (Bug #11294).
 * [mms] Fix upgrade logintasks for pre-release major releases.
 * [mjr] Added Horde_Core_Tagger

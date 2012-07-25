@@ -220,6 +220,7 @@ var HordeCore = {
 
             switch (m.type) {
             case 'horde.ajaxtimeout':
+            case 'horde.noauth':
                 this.logout(m.message);
                 return true;
 
