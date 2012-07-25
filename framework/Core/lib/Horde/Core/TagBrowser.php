@@ -1,8 +1,8 @@
 <?php
 /**
- * Trean_TagBrowse:: class provides logic for dealing with tag browsing.
+ * Horde_Core_TagBrowser:: class provides logic for dealing with tag browsing.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011 - 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -10,10 +10,16 @@
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/gpl GPL
- * @package  Trean
+ * @package  Core
  */
-class Trean_TagBrowse
+abstract class Horde_Core_TagBrowser
 {
+    /**
+     * The application this browser is for.
+     *
+     * @var string
+     */
+    protected $_app;
 
     /**
      * Array of tag_name => tag_id hashes for the current search.
@@ -52,21 +58,21 @@ class Trean_TagBrowse
     protected $_results = array();
 
     /**
-     * The Trean_Tagger object.
+     * The Tagger object.
      *
-     * @var Trean_Tagger
+     * @var Horde_Core_Tagger
      */
     protected $_tagger;
 
     /**
      * Const'r
      *
-     * @param Trean_Tagger $tagger  The trean tagger object.
-     * @param array $tags           Tags to add to initially search on.
-     * @param string $owner         Restrict to resources owned by owner.
+     * @param Horde_Core_Tagger $tagger  The tagger object.
+     * @param array $tags                Tags to add to initially search on.
+     * @param string $owner              Restrict to resources owned by owner.
      */
     public function __construct(
-        Trean_Tagger $tagger,
+        Horde_Core_Tagger $tagger,
         $tags = null,
         $owner = null)
     {
@@ -75,7 +81,7 @@ class Trean_TagBrowse
             $this->_tags = $this->_tagger->getTagIds($tags);
         } else {
             $this->_tags = $GLOBALS['session']->get(
-                'trean',
+                $this->_app,
                 'browsetags',
                 Horde_Session::TYPE_ARRAY);
         }
@@ -88,7 +94,7 @@ class Trean_TagBrowse
      */
     public function save()
     {
-        $GLOBALS['session']->set('trean', 'browsetags', $this->_tags);
+        $GLOBALS['session']->set($this->_app, 'browsetags', $this->_tags);
         $this->_dirty = false;
     }
 
@@ -130,16 +136,6 @@ class Trean_TagBrowse
     }
 
     /**
-     * Get breadcrumb style navigation html for choosen tags
-     *
-     * @return  Return information useful for building a tag trail.
-     */
-    public function getTagTrail()
-    {
-
-    }
-
-    /**
      * Get the total number of tags included in this search.
      *
      * @return integer  The number of tags used in the current search.
@@ -174,7 +170,8 @@ class Trean_TagBrowse
     public function getRelatedTags()
     {
         $tags = $this->_tagger->browseTags($this->getTags(), $this->_owner);
-        $search = new Trean_TagBrowse($this->_tagger, null, $this->_owner);
+        $class = get_class($this);
+        $search = new $class($this->_tagger, null, $this->_owner);
         $results = array();
         foreach ($tags as $id => $tag) {
             $search->addTag($tag);
@@ -209,50 +206,37 @@ class Trean_TagBrowse
     }
 
     /**
-     * Fetch the matching resources that should appear on the current page
-     *
-     * @return Array  An array of Trean_Bookmark objects.
-     */
-    public function getSlice($page, $perpage)
-    {
-        global $injector;
-
-        // Refresh the search
-        $this->runSearch();
-        $totals = $this->count();
-
-        $start = $page * $perpage;
-        $results = array_slice($this->_results, $start, $perpage);
-
-        $bookmarks = array();
-        foreach ($results as $id) {
-            try {
-                $bookmarks[] = $injector
-                    ->getInstance('Trean_Bookmarks')
-                    ->getBookmark($id);
-            } catch (Trean_Exception $e) {
-                Horde::logMessage('Bookmark not found: ' . $id, 'ERR');
-            }
-        }
-
-        return $bookmarks;
-    }
-
-    /**
      * Clears the session cache of tags currently included in the search.
      */
     static public function clearSearch()
     {
-        $GLOBALS['session']->remove('trean', 'browsetags');
+        $GLOBALS['session']->remove($this->_app, 'browsetags');
     }
 
     /**
      * Helper for uasort.  Sorts the results by count.
      *
      */
-    private function _sortTagInfo($a, $b)
+    protected function _sortTagInfo($a, $b)
     {
         return $a['total']  <  $b['total'];
     }
+
+    /**
+     * Fetch the matching resources that should appear on the current page
+     *
+     * @param integer $page     The page to get slice for.
+     * @param integer $perpage  The number of objects per page.
+     *
+     * @return array  An array of result objects.
+     */
+    abstract public function getSlice($page, $perpage);
+
+    /**
+     * Get breadcrumb style navigation html for choosen tags
+     *
+     * @return  Return information useful for building a tag trail.
+     */
+    abstract public function getTagTrail();
 
 }

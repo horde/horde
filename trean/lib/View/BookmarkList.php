@@ -15,7 +15,7 @@ class Trean_View_BookmarkList
     /**
      * Tag Browser
      *
-     * @var Trean_TagBrowse
+     * @var Trean_TagBrowser
      */
     protected $_browser;
 
@@ -60,7 +60,7 @@ class Trean_View_BookmarkList
     public function __construct($bookmarks = null)
     {
         $this->_bookmarks = $bookmarks;
-        $this->_browser = new Trean_TagBrowse(
+        $this->_browser = new Trean_TagBrowser(
             $GLOBALS['injector']->getInstance('Trean_Tagger'));
 
         $action = Horde_Util::getFormData('actionID', '');
