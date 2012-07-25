@@ -107,9 +107,17 @@ First alpha release for Horde 5.
 
 
 -----------
-v5.0.23-git
+v5.0.24-git
 -----------
 
+
+
+-------
+v5.0.23
+-------
+
+[mjr] Only ask for the count of matching contacts when determining to use
+      browser vs ajax autocompletion.
 [jan] Fix closing the compose window after redirecting (Bug #11259).
 [jan] Display correct values in permission-denied error messages (Bug #11253).
 
