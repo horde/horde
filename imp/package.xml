@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Fix spam reporting in minimal view.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2760,7 +2760,7 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Fix spam reporting in minimal view.
    </notes>
   </release>
  </changelog>
