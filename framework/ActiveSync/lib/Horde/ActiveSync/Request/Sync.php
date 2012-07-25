@@ -729,7 +729,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     }
 
                     // Do we need to add the new synckey to the syncCache?
-                    if (trim($collection['newsynckey']) != trim($collection['synckey'])) {
+                    if ($collection['newsynckey'] != $collection['synckey']) {
                         $this->_syncCache->addConfirmedKey($collection['newsynckey']);
                     }
                     $this->_syncCache->updateCollection(
