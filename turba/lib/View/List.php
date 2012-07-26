@@ -347,7 +347,7 @@ class Turba_View_List implements Countable
         $sortorder = Turba::getPreferredSortOrder();
         foreach ($sortorder as $elt) {
             $field = $elt['field'];
-            if ($field == 'lastname') {
+            if (!strlen($field) || ($field == 'lastname')) {
                 $field = 'name';
             }
             $description[] = $GLOBALS['attributes'][$field]['label'];
