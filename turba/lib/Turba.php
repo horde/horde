@@ -117,7 +117,55 @@ class Turba
     }
 
     /**
-     * Retrieves a column's field name
+     * Saves the sort order to the preferences backend.
+     *
+     * @param Horde_Variables $vars  Variables object.
+     * @param string $source         Source.
+     */
+    static public function setPreferredSetOrder(Horde_Variables $vars, $source)
+    {
+        if (!strlen($sortby = $vars->get('sortby'))) {
+            return;
+        }
+
+        $sources = self::getColumns();
+        $columns = isset($sources[$source])
+            ? $sources[$source]
+            : array();
+        $column_name = self::getColumnName($sortby, $columns);
+
+        $append = true;
+        $ascending = ($vars->get('sortdir') == 0);
+
+        if ($vars->get('sortadd')) {
+            $sortorder = self::getPreferredSortOrder();
+            foreach ($sortorder as $i => $elt) {
+                if ($elt['field'] == $column_name) {
+                    $sortorder[$i]['ascending'] = $ascending;
+                    $append = false;
+                }
+            }
+        } else {
+            $sortorder = array();
+        }
+
+        if ($append) {
+            $sortorder[] = array(
+                'ascending' => $ascending,
+                'field' => $column_name
+            );
+        }
+
+        $GLOBALS['prefs']->setValue('sortorder', serialize($sortorder));
+    }
+
+    /**
+     * Retrieves a column's field name.
+     *
+     * @param integer $i      TODO
+     * @param array $columns  TODO
+     *
+     * @return string  TODO
      */
     static public function getColumnName($i, $columns)
     {
