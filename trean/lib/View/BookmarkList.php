@@ -124,7 +124,7 @@ class Trean_View_BookmarkList
         if ($this->_showTagBrowser) {
             $html = $this->_getTagTrail() . $this->_getRelatedTags();
         }
-        return $html . '<h1 class="header">' . $title . '</h1>' . $this->_getBookmarkList($this->_bookmarks);
+        return $html . '<h1 class="header">' . $title . '</h1>' . $this->_getBookmarkList();
     }
 
     /**
@@ -156,13 +156,13 @@ class Trean_View_BookmarkList
      *
      * @return string  Bookmark list HTML.
      */
-    protected function _getBookmarkList($bookmarks)
+    protected function _getBookmarkList()
     {
         $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
         $GLOBALS['page_output']->header();
 
         $view = $GLOBALS['injector']->createInstance('Horde_View');
-        $view->bookmarks = $bookmarks;
+        $view->bookmarks = $this->_bookmarks;
         $view->target = $GLOBALS['prefs']->getValue('show_in_new_window') ? '_blank' : '';
         $view->redirectUrl = Horde::url('redirect.php');
 
