@@ -226,7 +226,9 @@ class Nag
         $tasks = new Nag_Task();
         foreach ($tasklists as $tasklist) {
             /* Create a Nag storage instance. */
-            $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
+            $storage = $GLOBALS['injector']
+                ->getInstance('Nag_Factory_Driver')
+                ->create($tasklist);
 
             /* Retrieve the tasklist from storage. */
             $result = $storage->retrieve($completed);
@@ -279,7 +281,9 @@ class Nag
      */
     public static function getTask($tasklist, $task)
     {
-        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
+        $storage = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Driver')
+            ->create($tasklist);
         $task = $storage->get($task);
         $task->process();
         return $task;
@@ -302,7 +306,9 @@ class Nag
         $count = 0;
         foreach (array_keys($tasklists) as $tasklist) {
             /* Create a Nag storage instance. */
-            $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
+            $storage = $GLOBALS['injector']
+                ->getInstance('Nag_Factory_Driver')
+                ->create($tasklist);
             $storage->retrieve();
 
             /* Retrieve the task list from storage. */
@@ -330,7 +336,9 @@ class Nag
             return PEAR::raiseError(_("Permission Denied"));
         }
 
-        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
+        $storage = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Driver')
+            ->create($tasklist);
         $dateParser = Horde_Date_Parser::factory(
             array('locale' => $GLOBALS['prefs']->getValue('language')) );
 
@@ -382,7 +390,9 @@ class Nag
         $tasks = array();
         foreach ($tasklists as $tasklist) {
             /* Create a Nag storage instance. */
-            $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
+            $storage = $GLOBALS['injector']
+                ->getInstance('Nag_Factory_Driver')
+                ->create($tasklist);
 
             /* Retrieve the alarms for the task list. */
             $newtasks = $storage->listAlarms($date);
