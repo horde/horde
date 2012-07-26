@@ -30,12 +30,23 @@ class Nag_Factory_Driver extends Horde_Core_Factory_Base
      */
     public function create($tasklist = '')
     {
-        $driver = $GLOBALS['conf']['storage']['driver'];
-        $params = Horde::getDriverConfig('storage', $driver);
-        $signature = serialize(array($tasklist, $driver, $params));
+        if (!empty($tasklist)) {
+            $signature = $tasklist;
+            $share = $GLOBALS['nag_shares']->getShare($tasklist);
+            if ($share->get('issmart')) {
+                $driver = 'Smartlist';
+            }
+        }
+        if (empty($driver)) {
+            $driver = $GLOBALS['conf']['storage']['driver'];
+            $params = Horde::getDriverConfig('storage', $driver);
+            $signature = serialize(array($tasklist, $driver, $params));
+        }
+
         if (isset($this->_instances[$signature])) {
             return $this->_instances[$signature];
         }
+
         $driver = ucfirst(basename($driver));
         $class = 'Nag_Driver_' . $driver;
         switch ($driver) {
@@ -47,7 +58,10 @@ class Nag_Factory_Driver extends Horde_Core_Factory_Base
         case 'Kolab':
             $params['kolab'] = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
             break;
+        case 'Smartlist':
+            $params['driver'] = $this->create();
         }
+
         if (class_exists($class)) {
             try {
                 $nag = new $class($tasklist, $params);

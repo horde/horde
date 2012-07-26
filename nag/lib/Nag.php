@@ -562,11 +562,19 @@ class Nag
     public static function addTasklist(array $info)
     {
         try {
-            $tasklist = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()), $info['name']);
+            $tasklist = $GLOBALS['nag_shares']->newShare(
+                $GLOBALS['registry']->getAuth(),
+                strval(new Horde_Support_Randomid()), $info['name']);
             $tasklist->set('color', $info['color']);
             $tasklist->set('desc', $info['description']);
             if (!empty($info['system'])) {
                 $tasklist->set('owner', null);
+            }
+
+            // Smartlist
+            if (!empty($info['search'])) {
+                $tasklist->set('search', serialize($info['search']));
+                $takslist->set('issmart', 1);
             }
 
             $GLOBALS['nag_shares']->addShare($tasklist);
@@ -602,7 +610,13 @@ class Nag
         $tasklist->set('color', $info['color']);
         $tasklist->set('desc', $info['description']);
         $tasklist->set('owner', empty($info['system']) ? $GLOBALS['registry']->getAuth() : null);
-
+        if (empty($info['search'])) {
+            $tasklist->set('issmart', 0);
+            $tasklist->set('search', '');
+        } else {
+            $tasklist->set('search', serialize($info['search']));
+            $tasklist->set('issmart', '1');
+        }
         try {
             $tasklist->save();
         } catch (Horde_Share_Exception $e) {
