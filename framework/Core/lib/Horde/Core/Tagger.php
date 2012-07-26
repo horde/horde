@@ -94,6 +94,7 @@ abstract class Horde_Core_Tagger
             throw new Horde_Exception($e);
         }
     }
+
     /**
      * Retrieves the tags on given object(s).
      *
