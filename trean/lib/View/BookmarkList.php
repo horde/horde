@@ -84,9 +84,7 @@ class Trean_View_BookmarkList
         }
 
         // Check for empty tag search.. then do what?
-        if ($this->_browser->tagCount() < 1) {
-            $this->_noSearch = true;
-        }
+        $this->_noSearch = $this->_browser->tagCount() < 1;
     }
 
     /**
