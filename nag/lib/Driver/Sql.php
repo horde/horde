@@ -32,11 +32,7 @@ class Nag_Driver_Sql extends Nag_Driver
         if (!isset($this->_params['table'])) {
             $this->_params['table'] = 'nag_tasks';
         }
-
-        // @TODO: Use a bound factory for Nag_Driver and inject this from there.
-        $this->_db = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Db')
-            ->create('nag', 'storage');
+        $this->_db = $this->_params['db'];
     }
 
     /**

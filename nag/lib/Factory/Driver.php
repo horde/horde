@@ -38,6 +38,16 @@ class Nag_Factory_Driver extends Horde_Core_Factory_Base
         }
         $driver = ucfirst(basename($driver));
         $class = 'Nag_Driver_' . $driver;
+        switch ($driver) {
+        case 'Sql':
+            $params['db'] = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Db')
+                ->create('nag', 'storage');
+                break;
+        case 'Kolab':
+            $params['kolab'] = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
+            break;
+        }
         if (class_exists($class)) {
             try {
                 $nag = new $class($tasklist, $params);

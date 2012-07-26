@@ -37,7 +37,7 @@ class Nag_Driver_Kolab extends Nag_Driver
     public function __construct($tasklist, $params = array())
     {
         $this->_tasklist = $tasklist;
-        $this->_kolab = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
+        $this->_kolab = $params['kolab'];
     }
 
     /**
