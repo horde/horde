@@ -1594,7 +1594,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             if (empty($status)) {
                 $need_status = false;
             } else {
-                $mailboxes = array_keys($staus);
+                $mailboxes = array_keys($status);
             }
         }
 
