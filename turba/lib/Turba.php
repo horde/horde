@@ -142,7 +142,8 @@ class Turba
      * @param Horde_Variables $vars  Variables object.
      * @param string $source         Source.
      */
-    static public function setPreferredSetOrder(Horde_Variables $vars, $source)
+    static public function setPreferredSortOrder(Horde_Variables $vars,
+                                                 $source)
     {
         if (!strlen($sortby = $vars->get('sortby'))) {
             return;
