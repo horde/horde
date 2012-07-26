@@ -11,47 +11,15 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-/**
- * Check for requested changes in sort order and apply to prefs.
- */
-function updateSortOrderFromVars()
-{
-    $vars = Horde_Variables::getDefaultVariables();
-    $source = Horde_Util::getFormData('source');
-
-    if (($sortby = $vars->get('sortby')) !== null && $sortby != '') {
-        $sources = Turba::getColumns();
-        $columns = isset($sources[$source]) ? $sources[$source] : array();
-        $column_name = Turba::getColumnName($sortby, $columns);
-
-        $append = true;
-        $ascending = ($vars->get('sortdir') == 0);
-        if ($vars->get('sortadd')) {
-            $sortorder = Turba::getPreferredSortOrder();
-            foreach ($sortorder as $i => $elt) {
-                if ($elt['field'] == $column_name) {
-                    $sortorder[$i]['ascending'] = $ascending;
-                    $append = false;
-                }
-            }
-        } else {
-            $sortorder = array();
-        }
-        if ($append) {
-            $sortorder[] = array('field' => $column_name,
-                                 'ascending' => $ascending);
-        }
-        $GLOBALS['prefs']->setValue('sortorder', serialize($sortorder));
-    }
-}
-
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
+$vars = Horde_Variables::getDefaultVariables();
+
 /* Verify if the search mode variable is passed in form or is registered in
  * the session. Always use basic search by default. */
-if (Horde_Util::getFormData('search_mode')) {
-    $session->set('turba', 'search_mode', Horde_Util::getFormData('search_mode'));
+if ($vars->search_mode) {
+    $session->set('turba', 'search_mode', $vars->search_mode);
 }
 if (!in_array($session->get('turba', 'search_mode'), array('basic', 'advanced', 'duplicate'))) {
     $session->set('turba', 'search_mode', 'basic');
@@ -65,7 +33,7 @@ $editableAddressBooks = Turba::getAddressBooks(Horde_Perms::EDIT & Horde_Perms::
 if ($search_mode == 'duplicate') {
     $addressBooks = $editableAddressBooks;
 }
-$source = Horde_Util::getFormData('source', Turba::$source);
+$source = $vars->get('source', Turba::$source);
 if (!isset($addressBooks[$source])) {
     $source = key($addressBooks);
 
@@ -79,10 +47,8 @@ if (!isset($addressBooks[$source])) {
     }
 }
 
-/* Grab the form data. */
-$criteria = Horde_Util::getFormData('criteria');
-$val = Horde_Util::getFormData('val');
-$action = Horde_Util::getFormData('actionID');
+$criteria = $vars->criteria;
+$val = $vars->val;
 
 try {
     $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
@@ -98,7 +64,7 @@ if ($driver) {
         $criteria = array();
         foreach (array_keys($map) as $key) {
             if ($key != '__key') {
-                $value = Horde_Util::getFormData($key);
+                $value = $vars->get($key);
                 if (strlen($value)) {
                     $criteria[$key] = $value;
                 }
@@ -107,20 +73,20 @@ if ($driver) {
     }
 
     /* Check for updated sort criteria */
-    updateSortOrderFromVars();
+    Turba::setPreferredSortOrder($vars, $source);
 
     /* Only try to perform a search if we actually have search criteria. */
     if ((is_array($criteria) && count($criteria)) ||
         !empty($val) ||
         ($search_mode == 'duplicate' &&
-         (Horde_Util::getFormData('search') ||
-          Horde_Util::getFormData('dupe') ||
+         ($vars->search ||
+          $vars->dupe ||
           count($addressBooks) == 1))) {
-        if (Horde_Util::getFormData('save_vbook')) {
+        if ($vars->save_vbook) {
             /* We create the vbook and redirect before we try to search
              * since we are not displaying the search results on this page
              * anyway. */
-            $vname = Horde_Util::getFormData('vbook_name');
+            $vname = $vars->vbook_name;
             if (empty($vname)) {
                 $notification->push(_("You must provide a name for virtual address books."), 'horde.error');
                 Horde::url('search.php', true)->redirect();
@@ -155,9 +121,7 @@ if ($driver) {
         if ($search_mode == 'duplicate') {
             try {
                 $duplicates = $driver->searchDuplicates();
-                $dupe = Horde_Util::getFormData('dupe');
-                $type = Horde_Util::getFormData('type');
-                $view = new Turba_View_Duplicates($duplicates, $driver, $type, $dupe);
+                $view = new Turba_View_Duplicates($duplicates, $driver, $vars->type, $vars->dupe);
                 $page_output->addScriptFile('tables.js', 'horde');
             } catch (Exception $e) {
                 $notification->push($e);
@@ -201,7 +165,6 @@ foreach ($addressBooks as $key => $entry) {
 
 /* Build search mode tabs. */
 $sUrl = Horde::url('search.php');
-$vars = Horde_Variables::getDefaultVariables();
 $tabs = new Horde_Core_Ui_Tabs('search_mode', $vars);
 $tabs->addTab(_("Basic Search"), $sUrl, 'basic');
 $tabs->addTab(_("Advanced Search"), $sUrl, 'advanced');
