@@ -51,6 +51,9 @@ class Nag_Driver_Sql extends Nag_Driver
                              $this->_params['table']);
             $values = array($taskIds);
         } else {
+            if (empty($taskIds)) {
+                throw new InvalidArgumentException('Must specify at least one task id');
+            }
             $query = sprintf('SELECT * FROM %s WHERE task_id IN ('
                 . implode(',', array_fill(0, count($taskIds), '?')) . ')',
                     $this->_params['table']
@@ -90,12 +93,15 @@ class Nag_Driver_Sql extends Nag_Driver
      */
     public function getByUID($uids)
     {
-        if (!is_array($uid)) {
+        if (!is_array($uids)) {
             $query = sprintf('SELECT * FROM %s WHERE task_uid = ?',
                          $this->_params['table']);
             $values = array($uids);
         } else {
-            $query = sprintf('SELECT * FROM %s WHERE taks_uid IN ('
+            if (empty($uids)) {
+                throw new InvalidArgumentException('Must specify at least one task id');
+            }
+            $query = sprintf('SELECT * FROM %s WHERE task_uid IN ('
                 . implode(',', array_fill(0, count($uids), '?')) . ')',
                 $this->_params['table']);
             $values = $uids;
