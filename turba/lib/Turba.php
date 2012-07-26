@@ -189,7 +189,7 @@ class Turba
      */
     static public function getColumnName($i, $columns)
     {
-        return ($i == 0)
+        return (($i == 0) || !isset($columns[$i - 1]))
             ? 'name'
             : $columns[$i - 1];
     }
