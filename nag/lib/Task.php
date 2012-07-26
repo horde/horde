@@ -265,7 +265,7 @@ class Nag_Task
 
         case 'tags':
             if (!isset($this->_tags)) {
-                $this->_tags = Nag::getTagger()->getTags($this->uid, 'event');
+                $this->_tags = Nag::getTagger()->getTags($this->uid, 'task');
             }
             return $this->_tags;
         }
