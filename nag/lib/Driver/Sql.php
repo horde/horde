@@ -38,28 +38,45 @@ class Nag_Driver_Sql extends Nag_Driver
     /**
      * Retrieves one task from the database.
      *
-     * @param string $taskId  The id of the task to retrieve.
+     * @param mixed string|array $taskIds  The ids of the task to retrieve.
      *
-     * @return Nag_Task  A Nag_Task object.
+     * @return Nag_Task A Nag_Task object.
      * @throws Horde_Exception_NotFound
      * @throws Nag_Exception
      */
-    public function get($taskId)
+    public function get($taskIds)
     {
-        $query = sprintf('SELECT * FROM %s WHERE task_id = ?',
-                         $this->_params['table']);
-        $values = array($taskId);
+        if (!is_array($taskIds)) {
+            $query = sprintf('SELECT * FROM %s WHERE task_id = ?',
+                             $this->_params['table']);
+            $values = array($taskIds);
+        } else {
+            $query = sprintf('SELECT * FROM %s WHERE task_id IN ('
+                . implode(',', array_fill(0, count($taskIds), '?')) . ')',
+                    $this->_params['table']
+            );
+            $values = $taskIds;
+        }
+
         try {
-            $row = $this->_db->selectOne($query, $values);
+            $rows = $this->_db->selectAll($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e);
         }
-        if (!$row) {
-            throw new Horde_Exception_NotFound("Task not found");
+        if (!$rows) {
+            throw new Horde_Exception_NotFound("Tasks not found");
         }
 
-        // Decode and return the task.
-        return new Nag_Task($this, $this->_buildTask($row));
+        if (!is_array($taskIds)) {
+            return new Nag_Task($this, $this->_buildTask(current($rows)));
+        }
+
+        $results = new Nag_Task();
+        foreach ($rows as $row) {
+            $results->add(new Nag_Task($this, $this->_buildTask($row)));
+        }
+
+        return $results;
     }
 
     /**
@@ -71,23 +88,39 @@ class Nag_Driver_Sql extends Nag_Driver
      * @throws Horde_Exception_NotFound
      * @throws Nag_Exception
      */
-    public function getByUID($uid)
+    public function getByUID($uids)
     {
-        $query = sprintf('SELECT * FROM %s WHERE task_uid = ?',
+        if (!is_array($uid)) {
+            $query = sprintf('SELECT * FROM %s WHERE task_uid = ?',
                          $this->_params['table']);
-        $values = array($uid);
+            $values = array($uids);
+        } else {
+            $query = sprintf('SELECT * FROM %s WHERE taks_uid IN ('
+                . implode(',', array_fill(0, count($uids), '?')) . ')',
+                $this->_params['table']);
+            $values = $uids;
+        }
         try {
-            $row = $this->_db->selectOne($query, $values);
+            $rows = $this->_db->selectAll($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e->getMessage());
         }
-        if (!$row) {
+        if (!$rows) {
             throw new Horde_Exception_NotFound(sprintf(_("Task UID %s not found"), $uid));
         }
-        $this->_tasklist = $row['task_owner'];
+        if (!is_array($uids)) {
+            // @TODO: Check this. Not sure why getByUID should have the side
+            //        effect of setting the tasklist while get() does not.
+            $this->_tasklist = $row['task_owner'];
+            return new Nag_Task($this, $this->_buildTask(current($rows)));
+        }
 
-        // Decode and return the task.
-        return new Nag_Task($this, $this->_buildTask($row));
+        $results = new Nag_Task();
+        foreach ($rows as $row) {
+            $results->add(new Nag_Task($this, $this->_buildTask($row)));
+        }
+
+        return $results;
     }
 
     /**
