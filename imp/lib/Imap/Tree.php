@@ -1977,7 +1977,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         return array(
             $p,
-            array_search($parent, $this->_parent[$p]) + ($inc ? 1 : 0)
+            array_search($parent, $this->_parent[$p], true) + ($inc ? 1 : 0)
         );
     }
 
