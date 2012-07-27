@@ -104,6 +104,8 @@ class Horde_Imap_Client_Sort
                 }
                 $cmp = strnatcasecmp($a_parts[$i], $b_parts[$i]);
                 return ($cmp == 0) ? strcmp($a_parts[$i], $b_parts[$i]) : $cmp;
+            } elseif ($a_parts[$i] !== $b_parts[$i]) {
+                return strlen($a_parts[$i]) - strlen($b_parts[$i]);
             }
         }
 

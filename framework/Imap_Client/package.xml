@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix sorting of numeric mailboxes with leading zeros.
 * [mms] Optimize statusMultiple() when polling mailboxes containing wildcard characters.
 * [mms] Correctly handle any resource key supported by the QUOTA extension.
  </notes>
@@ -878,6 +879,7 @@
    <date>2012-06-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix sorting of numeric mailboxes with leading zeros.
 * [mms] Optimize statusMultiple() when polling mailboxes containing wildcard characters.
 * [mms] Correctly handle any resource key supported by the QUOTA extension.
    </notes>
