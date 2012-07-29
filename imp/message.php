@@ -674,7 +674,7 @@ $inlineout = $imp_contents->getInlineOutput(array(
 $show_atc = false;
 switch ($show_parts) {
 case 'atc':
-    $a_template->set('show_parts_all', Horde::widget($headersURL->copy()->add(array('show_parts' => 'all')), _("Show All Message Parts"), '', '', '', _("Show All Message Parts"), true));
+    $a_template->set('show_parts_all', Horde::widget($headersURL->copy()->add(array('show_parts' => 'all')), _("Show All Parts"), '', '', '', _("Show All Parts"), true));
     $show_atc = true;
     break;
 

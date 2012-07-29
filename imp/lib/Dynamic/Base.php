@@ -168,7 +168,7 @@ abstract class IMP_Dynamic_Base
 
         /* Gettext strings used in core javascript files. */
         $this->js_text = array(
-            'allparts_label' => _("All Message Parts"),
+            'allparts_label' => _("Parts"),
             'loading' => _("Loading..."),
             'strip_warn' => _("Are you sure you wish to PERMANENTLY delete this attachment?"),
             'verify' => _("Verifying...")
