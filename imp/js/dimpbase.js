@@ -1486,11 +1486,11 @@ var DimpBase = {
         } else {
             ptr.each(function(s) {
                 if (s.value.t) {
-                    var elt = new Element('A').insert(s.value.t).store('sortby', s.value.v);
+                    var elt = new Element('A').insert(s.value.t);
                     if (s.value.ec) {
                         elt.addClassName(s.value.ec);
                     }
-                    m.down('.' + s.value.c).insert({
+                    m.down('.' + s.value.c).store('sortby', s.value.v).insert({
                         top: elt
                     });
                 }
@@ -1511,8 +1511,7 @@ var DimpBase = {
                 return false;
             }
             if (elt = m.down('.' + s.value.c)) {
-                elt.addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown');
-                elt.down('A').store('sortby', s.value.v);
+                elt.addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown').store('sortby', s.value.v);
             }
             return true;
         }, this);
@@ -2614,7 +2613,7 @@ var DimpBase = {
             break;
 
         case 'msglistHeaderHoriz':
-            tmp = e.memo.element();
+            tmp = e.memo.findElement('DIV');
             if (tmp.hasClassName('msCheckAll')) {
                 this.selectAll();
             } else {

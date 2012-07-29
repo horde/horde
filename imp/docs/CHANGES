@@ -2,6 +2,8 @@
 v6.0.0beta2
 -----------
 
+[mms] Fix regression in altering sort direction in dynamic mailbox view (Bug
+      #11300).
 [mms] Hide empty MIME parts when displaying inline.
 [mms] Fix expanding all mailboxes in dynamic view (Bug #11289).
 [mms] Fix handling of identity tie-to addresses when searching for matching
