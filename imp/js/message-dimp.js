@@ -245,8 +245,8 @@ var DimpMessage = {
         $('msg_all_parts').up().hide();
 
         $('partlist').update(r.tree);
-        $('msgAtc').down('SPAN.atcLabel').update(DimpCore.text.allparts_label);
-        $('msgAtc').show();
+        $('msgHeaderAtc').down('TD.label').update(DimpCore.text.allparts_label + ':');
+        $('msgHeaderAtc').show();
     },
 
     onDomLoad: function()
