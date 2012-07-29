@@ -192,7 +192,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
                     $cmds[] = array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $val['header']);
                     $imap4 = true;
                 }
-                $cmds[] = array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $val['text']);
+                $cmds[] = array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => isset($val['text']) ? $val['text'] : '');
                 $charset = is_null($this->_charset)
                     ? 'US-ASCII'
                     : $this->_charset;
