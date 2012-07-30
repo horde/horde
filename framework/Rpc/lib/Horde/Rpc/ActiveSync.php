@@ -116,6 +116,9 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
                 if (!$this->_server->handleRequest('Options', null, null)) {
                     throw new Horde_Exception('Unknown Error');
                 }
+            } catch (Horde_Exception_AuthenticationFailure $e) {
+                $this->_sendAuthenticationFailedHeaders();
+                exit;
             } catch (Horde_Exception $e) {
                 $this->_handleError($e);
             }
@@ -141,8 +144,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
                header('HTTP/1.1 400 Invalid Request ' . $e->getMessage());
                exit;
             } catch (Horde_Exception_AuthenticationFailure $e) {
-                header('HTTP/1.1 401 Unauthorized');
-                header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
+                $this->_sendAuthenticationFailedHeaders();
                 exit;
             } catch (Horde_Exception $e) {
                 $this->_logger->err('Returning HTTP 500');
@@ -201,4 +203,12 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         $this->_logger->err('Buffer contents: ' . $buffer);
     }
 
+    /**
+     * Send 401 Unauthorized headers.
+     */
+    protected function _sendAuthenticationFailedHeaders()
+    {
+        header('HTTP/1.1 401 Unauthorized');
+        header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
+    }
 }

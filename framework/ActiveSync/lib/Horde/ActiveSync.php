@@ -370,7 +370,7 @@ class Horde_ActiveSync
      * @param string $user  Override the username from the request.
      *
      * @return boolean  True on successful authentication to the backend.
-     * @throws Horde_ActiveSyncException
+     * @throws Horde_ActiveSync_Exception
      */
     public function authenticate($user = null)
     {
