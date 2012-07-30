@@ -2,6 +2,8 @@
 v6.0.0beta2
 -----------
 
+[mms] Fix regression preventing contacts popup window from working (Bug
+      #11324).
 [mms] Fix regression in select all checkbox on traditional mailbox page (Bug
       #11317).
 [mms] Fix regression in altering sort direction in dynamic mailbox view (Bug

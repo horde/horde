@@ -137,7 +137,7 @@ var ImpContacts = {
         }
     },
 
-    _dblclickHandler: function(e)
+    dblclickHandler: function(e)
     {
         switch (e.element().readAttribute('id')) {
         case 'search_results':
@@ -154,4 +154,4 @@ var ImpContacts = {
 
 document.observe('dom:loaded', ImpContacts.onDomLoad.bind(ImpContacts));
 document.observe('HordeCore:click', ImpContacts.clickHandler.bindAsEventListener(ImpContacts));
-document.observe('HordeCore:dblclick', ImpContats.dblclickHandler.bindAsEventListener(ImpContacts));
+document.observe('HordeCore:dblclick', ImpContacts.dblclickHandler.bindAsEventListener(ImpContacts));

@@ -89,6 +89,7 @@ $template->set('to_only', intval($vars->to_only));
 $template->set('sa', $selected_addresses);
 
 /* Display the form. */
+$page_output->addScriptFile('hordecore.js', 'horde');
 $page_output->addScriptFile('contacts.js');
 $page_output->addInlineJsVars(array(
     'ImpContacts.text' => array(
