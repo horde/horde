@@ -387,6 +387,7 @@ document.observe('dom:loaded', ImpCompose.onDomLoad.bind(ImpCompose));
 Event.observe(window, 'beforeunload', ImpCompose.onBeforeUnload.bind(ImpCompose));
 
 /* Attach event handlers. */
+document.observe('HordeCore:click', ImpCompose.clickHandler.bindAsEventListener(ImpCompose));
 document.observe('ImpContacts:update', ImpCompose.onContactsUpdate.bindAsEventListener(ImpCompose));
 
 /* Catch dialog actions. */
