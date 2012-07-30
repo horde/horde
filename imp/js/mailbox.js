@@ -305,10 +305,9 @@ var ImpMailbox = {
 
         switch (elt.readAttribute('id')) {
         case 'checkheader':
-            $('checkAll').checked = !$('checkAll').checked;
-            // Fall-through
-
-        case 'checkAll':
+            if (e.memo.element() == elt) {
+                $('checkAll').checked = !$('checkAll').checked;
+            }
             $('messages').select('TABLE.messageList TR[id]').each(function(i) {
                 this.selectRow(i, $F('checkAll'));
             }, this);
