@@ -1195,7 +1195,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             if ($this->_vars->dataonly) {
                 $result = $compose->ajax->getBaseResponse();
                 $result->body = $fwd_msg['body'];
-                $result->opts->atc = $compose->ajax->getAttachmentInfo();
+                $result->opts->atc = $compose->ajax->getAttachmentInfo($fwd_msg['type']);
             } else {
                 $result = $compose->ajax->getResponse($fwd_msg);
             }
