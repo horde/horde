@@ -564,19 +564,10 @@ var DimpCompose = {
             $('noticerow', 'langnotice').invoke('show');
         }
 
-        this.setBodyText(ob.body);
+        this.setBodyText(ob);
         this.resizeMsgArea();
 
         Field.focus(ob.opts.focus || 'to');
-
-        if (ob.format == 'html') {
-            if (!ImpComposeBase.editor_on) {
-                this.toggleHtmlEditor(true);
-            }
-            if (ob.opts.focus && (ob.opts.focus == 'composeMessage')) {
-                this.focusEditor();
-            }
-        }
 
         this.fillFormHash();
     },
@@ -636,14 +627,25 @@ var DimpCompose = {
         });
     },
 
-    setBodyText: function(msg)
+    setBodyText: function(ob)
     {
         if (ImpComposeBase.editor_on) {
             this.editor_wait = true;
-            this.rte.setData(msg, function() { this.editor_wait = false; }.bind(this));
+            this.rte.setData(ob.body, function() { this.editor_wait = false; }.bind(this));
         } else {
-            $('composeMessage').setValue(msg);
+            $('composeMessage').setValue(ob.body);
             ImpComposeBase.setCursorPosition('composeMessage', DimpCore.conf.compose_cursor);
+        }
+
+        if (ob.format == 'html') {
+            if (!ImpComposeBase.editor_on) {
+                this.toggleHtmlEditor(true);
+            }
+            if (ob.opts &&
+                ob.opts.focus &&
+                (ob.opts.focus == 'composeMessage')) {
+                this.focusEditor();
+            }
         }
     },
 
@@ -680,7 +682,7 @@ var DimpCompose = {
 
             case 'forward_body':
                 this.removeAttach([ $('attach_list').down() ]);
-                this.setBodyText(r.body);
+                this.setBodyText(r);
                 break;
             }
         }
