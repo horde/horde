@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix determining sequence numbers when caching is active (Bug #11294).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -894,7 +894,7 @@
    <date>2012-07-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix determining sequence numbers when caching is active (Bug #11294).
    </notes>
   </release>
  </changelog>
