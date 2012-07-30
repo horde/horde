@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-28</date>
- <time>14:33:03</time>
+ <date>2012-07-30</date>
+ <time>13:45:51</time>
  <version>
   <release>2.0.0beta2</release>
   <api>2.0.0beta1</api>
@@ -897,7 +897,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-07-28</date>
+   <date>2012-07-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix determining sequence numbers when caching is active (Bug #11294).
