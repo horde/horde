@@ -23,8 +23,8 @@ class IMP_Ui_Folder
      *
      * @author Didi Rieder <adrieder@sbox.tugraz.at>
      *
-     * @param array $mboxes  A list of mailbox names (UTF-8) to generate a
-     *                       mbox file for.
+     * @param mixed $mboxes  A mailbox name (UTF-8), or list of mailbox names,
+     *                       to generate a mbox file for.
      *
      * @return resource  A stream resource containing the text of a mbox
      *                   format mailbox file.
@@ -32,6 +32,13 @@ class IMP_Ui_Folder
     public function generateMbox($mboxes)
     {
         $body = fopen('php://temp', 'r+');
+
+        if (!is_array($mboxes)) {
+            if (!strlen($mboxes)) {
+                return $body;
+            }
+            $mboxes = array($mboxes);
+        }
 
         if (empty($mboxes)) {
             return $body;
