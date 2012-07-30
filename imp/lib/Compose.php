@@ -581,7 +581,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             'headers' => $header,
             'identity' => $identity_id,
             'priority' => $priority,
-            'readreceipt' => $readreceipt
+            'readreceipt' => $readreceipt,
+            'type' => $type
         );
     }
 
