@@ -680,7 +680,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     public function getFullThread($uid, $mbox = null)
     {
         if (empty($this->_thread)) {
-            $this->_rebuild();
+            $this->rebuild();
         }
 
         return new IMP_Indices($mbox, $this->_thread[strval($mbox)]->getThread($uid));
