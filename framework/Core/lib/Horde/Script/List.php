@@ -41,13 +41,17 @@ class Horde_Script_List implements Countable, Iterator
      *
      * @param Horde_Script_File $file  Script file object.
      *
-     * @return Horde_Script_File  The script file object.
+     * @return mixed  The Horde_Script_File object, or null if the script file
+     *                has already been output.
      */
     public function add(Horde_Script_File $file)
     {
         $id = $file->hash;
 
-        if (!isset($this->_files[$id]) && !isset($this->_output[$id])) {
+        if (!isset($this->_files[$id])) {
+            if (!empty($this->_output[$id])) {
+                return null;
+            }
             $this->_files[$id] = $file;
             $this->_output[$id] = true;
         }
