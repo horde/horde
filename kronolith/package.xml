@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [rla] Fix sender of appointment notification (Bug #11198)
 * [mjr] Fix tagging in traditional interface.
 * [rla] Make system shares browseable in WebDAV (Request #10998).
 * [jan] Make calendar lists collapsible (Request #10865).
@@ -1898,6 +1899,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [rla] Fix sender of appointment notification (Bug #11198)
 * [mjr] Fix tagging in traditional interface.
 * [rla] Make system shares browseable in WebDAV (Request #10998).
 * [jan] Make calendar lists collapsible (Request #10865).
