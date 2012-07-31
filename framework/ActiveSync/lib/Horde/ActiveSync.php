@@ -542,7 +542,7 @@ class Horde_ActiveSync
             $cmd = $get['Cmd'];
         }
         if (empty($devId)) {
-            $devId = $get['DeviceId'];
+            $devId = !empty($get['DeviceId']) ? $get['DeviceId'] : '';
         }
         $this->_setLogger($get);
 
