@@ -39,11 +39,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
         $username = $this->_driver->getUsernameFromEmail($email);
 
         if (!$this->_activeSync->authenticate($username)) {
-            fwrite(
-                $this->_encoder->getStream(),
-                $this->_buildFailureResponse($email, '401'));
-
-            return 'text/xml';
+            throw new Horde_Exception_AuthenticationFailure();
         }
 
         fwrite(
