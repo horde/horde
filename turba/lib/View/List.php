@@ -415,6 +415,9 @@ class Turba_View_List implements Countable
             $own_source = $own_id = null;
         }
 
+        $vars = Horde_Variables::getDefaultVariables();
+        $page = $vars->get('page', 'A');
+
         include TURBA_TEMPLATES . '/browse/column_headers.inc';
 
         $numDisplayed = 0;

@@ -28,6 +28,9 @@ First alpha release for Horde 5.
 v3.0.15-git
 -----------
 
+[mms] Return to same page when deleting contact from browse view.
+[mjr] Add ability to return count of objects matching search in place of full
+      result set.
 [jan] Update Turkish translation (İstanbul Technical University).
 [jan] Fix strict searching in favourites driver (Bug #11207).
 
