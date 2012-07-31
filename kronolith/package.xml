@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [rla] Fix sender of appointment notification (Bug #11198)
 * [jan] Don&apos;t show location of private events (Bug #11235).
 * [jan] Fix exporting multi-all-day events to iCalendar.
 * [jan] Update Turkish translation (İstanbul Technical University).
@@ -2099,6 +2100,7 @@
    <date>2012-05-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [rla] Fix sender of appointment notification (Bug #11198)
 * [jan] Don&apos;t show location of private events (Bug #11235).
 * [jan] Fix exporting multi-all-day events to iCalendar.
 * [jan] Update Turkish translation (İstanbul Technical University).
