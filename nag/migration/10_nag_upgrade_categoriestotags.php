@@ -67,12 +67,12 @@ class NagUpgradeCategoriesToTags extends Horde_Db_Migration_Base
             }
         }
         $this->announce('Task categories successfully migrated.');
-        $this->removeColumn('kronolith_events', 'event_category');
+        $this->removeColumn('nag_tasks', 'task_category');
     }
 
     public function down()
     {
-        $this->addColumn('kronolith_events', 'event_category', 'string', array('limit' => 80));
+        $this->addColumn('nag_tasks', 'nag_category', 'string', array('limit' => 80));
         $this->announce('Migrating task tags to categories.');
         $sql = 'UPDATE nag_tasks SET task_category = ? WHERE task_uid = ?';
         $rows = $this->select('SELECT task_uid, task_category, task_creator, task_owner FROM nag_tasks');
@@ -87,4 +87,5 @@ class NagUpgradeCategoriesToTags extends Horde_Db_Migration_Base
         }
         $this->announce('Task tags successfully migrated.');
     }
+
 }
