@@ -472,6 +472,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             case 'base64':
                 try {
                     return $this->_writeStream($fp, array(
+                        'error' => true,
                         'filter' => array(
                             'convert.base64-decode' => array()
                         )
