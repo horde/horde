@@ -3781,11 +3781,9 @@ DimpBase._mboxDropConfig = {
             break;
         }
 
-        if (drag.hasClassName('mbox')) {
-            return (ftype != 'special' && !DimpBase.isSubfolder(drag, drop)) ? m.sub('%s', d).sub('%s', l) : '';
-        }
-
-        return ftype != 'container' ? m.sub('%s', DimpBase.dragCaption()).sub('%s', l) : '';
+        return drag.hasClassName('imp-sidebar-mbox')
+            ? ((ftype != 'special' && !DimpBase.isSubfolder(drag, drop)) ? m.sub('%s', d).sub('%s', l) : '')
+            : ((ftype != 'container') ? m.sub('%s', DimpBase.dragCaption()).sub('%s', l) : '');
     },
     keypress: true
 };
