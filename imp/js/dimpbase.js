@@ -1178,7 +1178,7 @@ var DimpBase = {
                 }
             } else {
                 if ($('ctx_mbox_sub')) {
-                    tmp = baseelt.hasClassName('unsubMbox');
+                    tmp = baseelt.hasClassName('imp-sidebar-unsubmbox');
                     [ $('ctx_mbox_sub') ].invoke(tmp ? 'show' : 'hide');
                     [ $('ctx_mbox_unsub') ].invoke(tmp ? 'hide' : 'show');
                 }
@@ -2150,7 +2150,7 @@ var DimpBase = {
             mboxname = drop.retrieve('mbox'),
             ftype = drop.retrieve('ftype');
 
-        if (drag.hasClassName('mbox')) {
+        if (drag.hasClassName('imp-sidebar-mbox')) {
             dropbase = (drop == $('dropbase'));
             if (dropbase ||
                 (ftype != 'special' && !this.isSubfolder(drag, drop))) {
@@ -2218,7 +2218,7 @@ var DimpBase = {
             } else {
                 this.msgSelect(id, args);
             }
-        } else if (elt.hasClassName('mbox')) {
+        } else if (elt.hasClassName('imp-sidebar-mbox')) {
             d.opera = DimpCore.DMenu.operaCheck(e);
         }
     },
@@ -2788,7 +2788,7 @@ var DimpBase = {
         case 'delete':
             this.viewaction = function(e) {
                 DimpCore.doAction('deleteMailbox', {
-                    container: Number(elt.hasClassName('container')),
+                    container: Number(elt.hasClassName('imp-sidebar-container')),
                     mbox: elt.retrieve('mbox'),
                     subfolders: e.element().down('[name=delete_subfolders]').getValue()
                 });
@@ -2800,7 +2800,7 @@ var DimpBase = {
                     DimpCore.text.delete_mbox_subfolders.sub('%s', this.fullMboxDisplay(elt))
                 ),
                 form_id: 'dimpbase_confirm',
-                text: elt.hasClassName('container') ? null : DimpCore.text.delete_mbox.sub('%s', this.fullMboxDisplay(elt))
+                text: elt.hasClassName('imp-sidebar-container') ? null : DimpCore.text.delete_mbox.sub('%s', this.fullMboxDisplay(elt))
             });
             break;
 
@@ -3087,7 +3087,7 @@ var DimpBase = {
     createMbox: function(ob)
     {
         var div, f_node, ftype, li, ll, parent_e, tmp, tmp2,
-            cname = 'container',
+            cname = 'imp-sidebar-container',
             label = ob.l || ob.m,
             title = ob.t || ob.m;
 
@@ -3105,29 +3105,22 @@ var DimpBase = {
             } else {
                 ftype = 'container';
             }
-
-            /* This is a dummy container element to display child elements of
-             * a mailbox displayed in the 'imp-specialmboxes' section. */
-            if (ob.dummy) {
-                cname += ' specialContainer';
-            }
         } else {
-            cname = 'mbox';
+            cname = 'imp-sidebar-mbox';
             ftype = ob.s ? 'special' : 'mbox';
         }
 
         if (ob.un && this.showunsub) {
-            cname += ' unsubMbox';
+            cname += ' imp-sidebar-unsubmbox';
         }
 
-        //div = new Element('SPAN', { className: 'iconImgSidebar' });
         div = new Element('DIV', { className: 'horde-subnavi-icon-1' });
         if (ob.i) {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
         }
 
-        //li = new Element('LI', { className: cname, title: title }).store('l', label).store('mbox', ob.m).insert(div).insert(new Element('A').insert(label));
         li = new Element('DIV', { className: 'horde-subnavi', title: title })
+            .addClassName(cname)
             .store('l', label)
             .store('mbox', ob.m)
             .insert(div)
@@ -3141,7 +3134,8 @@ var DimpBase = {
             div.addClassName(ob.cl || 'folderImg');
             parent_e = $('imp-specialmboxes');
 
-            /* Create a dummy container element in 'imp-normalmboxes' section. */
+            /* Create a dummy container element in 'imp-normalmboxes'
+             * section. */
             if (ob.ch) {
                 div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
 
@@ -3182,9 +3176,7 @@ var DimpBase = {
             }
         }
 
-        // Make sure the sub<mbox> ul is created if necessary.
         if (!ob.s && ob.ch) {
-            //li.insert({ after: new Element('LI', { className: 'subfolders' }).insert(new Element('UL')).hide() });
             li.insert({ after: new Element('DIV', { className: 'subfolders' }).hide() });
             if (tmp) {
                 li.insert({ after: tmp });
@@ -3321,16 +3313,16 @@ var DimpBase = {
 
     subscribeMbox: function(m, sub)
     {
-        var m_elt = this.getMboxElt(m);
+        var m_elt = this.getMboxElt(m), tmp;
         DimpCore.doAction('subscribe', { mbox: m, sub: Number(sub) });
 
         if (this.showunsub) {
-            [ m_elt ].invoke(sub ? 'removeClassName' : 'addClassName', 'unsubMbox');
+            [ m_elt ].invoke(sub ? 'removeClassName' : 'addClassName', 'imp-sidebar-unsubmbox');
         } else if (!sub) {
             if (!this.showunsub &&
                 !m_elt.siblings().size() &&
-                m_elt.up('LI.subfolders')) {
-                m_elt.up('LI').previous().down('SPAN.iconImgSidebar').removeClassName('exp').removeClassName('col').addClassName('folderImg');
+                (tmp = m_elt.up('DIV.subfolders'))) {
+                tmp.previous().down('DIV.horde-subnavi-icon-1').removeClassName('exp').removeClassName('col').addClassName('folderImg');
             }
             this.deleteMboxElt(m);
         }
