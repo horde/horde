@@ -2,6 +2,7 @@
 v5.0.0beta4
 -----------
 
+[mms] Fix sidebar element wrapping.
 [mms] Better handling of backend authentication errors when returning AJAX data
       (Bug #11297).
 [mjr] Fix autocompletion of tags in ajax views.

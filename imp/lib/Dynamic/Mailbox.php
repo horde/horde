@@ -80,7 +80,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                     array(
                         'id' => 'folderopts_link',
                         'cssClass' => 'folderoptsImg',
-                        'dropDown' => true,
                         'link' => $blank->link() . _("Folder Actions") . '</a>'
                     ),
                     array(

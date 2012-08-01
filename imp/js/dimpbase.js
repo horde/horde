@@ -1948,7 +1948,7 @@ var DimpBase = {
         }
 
         m_elt = m_elt.next();
-        return (m_elt && m_elt.hasClassName('subfolders'))
+        return (m_elt && m_elt.hasClassName('horde-subnavi-sub'))
             ? m_elt
             : null;
     },
@@ -2981,21 +2981,21 @@ var DimpBase = {
         var collapse = [], expand = [], need = [], subs = [];
 
         if (mode == 'expall' || mode == 'colall') {
-            if (base.hasClassName('subfolders')) {
+            if (base.hasClassName('horde-subnavi-sub')) {
                 subs.push(base);
             }
-            subs = subs.concat(base.select('.subfolders'));
+            subs = subs.concat(base.select('.horde-subnavi-sub'));
         } else if (mode == 'exp') {
             // If we are explicitly expanding ('exp'), make sure all parent
             // subfolders are expanded.
             // The last 2 elements of ancestors() are the BODY and HTML tags -
             // don't need to parse through them.
-            subs = base.ancestors().slice(0, -2).reverse().findAll(function(n) { return n.hasClassName('subfolders'); });
+            subs = base.ancestors().slice(0, -2).reverse().findAll(function(n) { return n.hasClassName('horde-subnavi-sub'); });
         } else {
             if (!base.hasClassName('horde-subnavi')) {
                 base = base.up();
             }
-            subs = [  base.next('.subfolders') ];
+            subs = [  base.next('.horde-subnavi-sub') ];
         }
 
         if (!subs) {
@@ -3114,7 +3114,7 @@ var DimpBase = {
             cname += ' imp-sidebar-unsubmbox';
         }
 
-        div = new Element('DIV', { className: 'horde-subnavi-icon-1' });
+        div = new Element('DIV', { className: 'horde-subnavi-icon' });
         if (ob.i) {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
         }
@@ -3125,8 +3125,7 @@ var DimpBase = {
             .store('mbox', ob.m)
             .insert(div)
             .insert(new Element('DIV', { className: 'horde-subnavi-point' })
-                        .insert(new Element('A').insert(label)))
-            .insert(new Element('DIV', { className: 'clear' }));
+                        .insert(new Element('A').insert(label)));
 
         // Now walk through the parent <ul> to find the right place to
         // insert the new mailbox.
@@ -3177,7 +3176,7 @@ var DimpBase = {
         }
 
         if (!ob.s && ob.ch) {
-            li.insert({ after: new Element('DIV', { className: 'subfolders' }).hide() });
+            li.insert({ after: new Element('DIV', { className: 'horde-subnavi-sub' }).hide() });
             if (tmp) {
                 li.insert({ after: tmp });
             }
@@ -3321,8 +3320,8 @@ var DimpBase = {
         } else if (!sub) {
             if (!this.showunsub &&
                 !m_elt.siblings().size() &&
-                (tmp = m_elt.up('DIV.subfolders'))) {
-                tmp.previous().down('DIV.horde-subnavi-icon-1').removeClassName('exp').removeClassName('col').addClassName('folderImg');
+                (tmp = m_elt.up('DIV.horde-subnavi-sub'))) {
+                tmp.previous().down('DIV.horde-subnavi-icon').removeClassName('exp').removeClassName('col').addClassName('folderImg');
             }
             this.deleteMboxElt(m);
         }

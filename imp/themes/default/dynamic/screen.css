@@ -308,6 +308,14 @@ div.vpRowVert div.msgSubject span.flagUser {
     font-weight: normal !important;
 }
 
+#foldersSidebar .horde-subnavi-arrow {
+    display: -moz-inline-stack;
+    display: inline-block;
+    float: none;
+    height: 16px;
+    width: 16px;
+}
+
 /* Message options. */
 .dimpOptions {
     float: right;

@@ -2,6 +2,7 @@
 v6.0.0beta2
 -----------
 
+[mms] Fix sidebar element wrapping.
 [mms] Fix regression preventing contacts popup window from working (Bug
       #11324).
 [mms] Fix regression in select all checkbox on traditional mailbox page (Bug

@@ -118,7 +118,6 @@ var DimpCore = {
     {
         o = o || {};
 
-        //var elt = new Element('SPAN', { className: 'iconImg popdownImg popdown' }),
         var elt = new Element('DIV', { className: 'horde-subnavi-arrow horde-icon-arrow-subnavi' }),
             ins = {};
         p = $(p);
@@ -149,7 +148,6 @@ var DimpCore = {
     addPopdownButton: function(p, t, o)
     {
         this.addPopdown(p, t, o);
-        //$(p).next('SPAN.popdown').insert({ before: new Element('SPAN', { className: 'popdownSep' }) });
     },
 
     addContextMenu: function(p)

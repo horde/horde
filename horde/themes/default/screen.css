@@ -1884,23 +1884,11 @@ left.horde-point-right{
 /*
  * Sidebar (linke Seite)
  */
-#horde-sidebar{
-    background-color:#bfc9cd;
+#horde-sidebar {
+    background-color: #bfc9cd;
 }
 #horde-sidebar a {
     color: #000;
-}
-.horde-sidebar-folder{
-    background-color:#bfc9cd;
-}
-.horde-sidebar-subfolder{
-    position:relative;
-    bottom:0px;
-    overflow: auto;
-    background-color:#bfc9cd;
-}
-.subfolders {
-    padding-left: 9px;
 }
 
 .horde-new {
@@ -1954,53 +1942,49 @@ left.horde-point-right{
 /*
  * Sidebar -> Navigation (Icon, Link, Icon)
  */
-.horde-subnavi-split{
-    height:5px;
-    margin:0px 0px 6px 0px;
-    border-bottom:1px solid #858889;
+.horde-subnavi-split {
+    border-bottom: 1px solid #858889;
+    height: 5px;
+    margin: 0px 0px 6px 0px;
 }
-.horde-subnavi{
-    height:24px;
+.horde-subnavi {
+    height: 24px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .horde-subnavi-active, .horde-subnavi:hover{
-    height:24px;
-    background-image:url('graphics/sidebar-active-bg.png');
-    background-repeat:repeat-x;
+    height: 24px;
+    background-image: url('graphics/sidebar-active-bg.png');
+    background-repeat: repeat-x;
 }
-.horde-subnavi-icon-1 {
+.horde-subnavi-icon {
+    background-color: transparent;
     background-repeat: no-repeat;
-    background-position: center center;
-    float:left;
-    width: 20px;
+    background-position: center right;
+    display: -moz-inline-stack;
+    display: inline-block;
     height: 20px;
     margin: 2px 8px 0 10px;
+    vertical-align: sub;
+    width: 20px;
 }
-.horde-subnavi-icon-2{
-    float:left;
-    width:24px;
-    height:24px;
-    margin:0px 5px 0px 18px;
+.horde-subnavi-point {
+    display: inline;
 }
-.horde-subnavi-icon-3{
-    float:left;
-    width:24px;
-    height:24px;
-    margin:0px 5px 0px 27px;
-}
-.horde-subnavi-point{
-    float:left;
-    height:19px;
-    margin:5px 0px 0px 0px;
-}
-.horde-subnavi-arrow{
-    float:right;
-    width:24px;
-    height:24px;
+.horde-subnavi-arrow {
     background-position:top center;
+    float: right;
+    height: 24px;
+    width: 24px;
 }
-.horde-icon-arrow-subnavi{
-    background-image:url('graphics/popdown.png');
-    background-repeat:no-repeat;
+.horde-icon-arrow-subnavi {
+    background-image: url('graphics/popdown.png');
+    background-repeat: no-repeat;
+}
+.horde-subnavi-sub {
+    padding-left: 9px;
 }
 
 #horde-slideleft {
