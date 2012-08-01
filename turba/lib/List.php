@@ -195,22 +195,22 @@ class Turba_List implements Countable
                 }
             }
 
-            $field = $field['field'];
+            $f = $field['field'];
             switch ($sortmethod) {
             case 'int':
-                $result = ($a->getValue($field) > $b->getValue($field)) ? 1 : -1;
+                $result = ($a->getValue($f) > $b->getValue($f)) ? 1 : -1;
                 break;
 
             case 'text':
-                if (!isset($a->sortValue[$field])) {
-                    $a->sortValue[$field] = Horde_String::lower($a->getValue($field), true, 'UTF-8');
+                if (!isset($a->sortValue[$f])) {
+                    $a->sortValue[$f] = Horde_String::lower($a->getValue($f), true, 'UTF-8');
                 }
-                if (!isset($b->sortValue[$field])) {
-                    $b->sortValue[$field] = Horde_String::lower($b->getValue($field), true, 'UTF-8');
+                if (!isset($b->sortValue[$f])) {
+                    $b->sortValue[$f] = Horde_String::lower($b->getValue($f), true, 'UTF-8');
                 }
 
                 // Use strcoll for locale-safe comparisons.
-                $result = strcoll($a->sortValue[$field], $b->sortValue[$field]);
+                $result = strcoll($a->sortValue[$f], $b->sortValue[$f]);
                 break;
             }
 
