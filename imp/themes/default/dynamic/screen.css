@@ -289,6 +289,16 @@ div.vpRowVert div.msgSubject span.flagUser {
 #imp-normalmboxes div.imp-sidebar-unsubmbox {
     font-style: italic;
 }
+.imp-sidebar-container:hover {
+    background: none;
+}
+.imp-sidebar-container a:hover {
+    cursor: default;
+    text-decoration: none;
+}
+.horde-subnavi-icon.col, .horde-subnavi-icon.exp {
+    cursor: pointer;
+}
 #sidebar .over a, #sidebar li.mbox:hover, #sidebar li.custom:hover, #sidebar li.servicelink:hover {
     cursor: pointer;
     font-weight: bold;
