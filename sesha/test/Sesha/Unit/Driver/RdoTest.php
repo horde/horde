@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the Sql backend driver.
+ * Test the Rdo backend driver.
  *
  * PHP version 5
  *
@@ -17,7 +17,7 @@
 require_once __DIR__ . '/../../Autoload.php';
 
 
-class Sesha_Unit_Driver_SqlTest extends Sesha_TestCase
+class Sesha_Unit_Driver_RdoTest extends Sesha_TestCase
 {
 
     protected function setUp()

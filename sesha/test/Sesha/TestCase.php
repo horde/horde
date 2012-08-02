@@ -38,10 +38,10 @@ class Sesha_TestCase extends PHPUnit_Framework_TestCase
                   'schemaTableName' => 'sesha_test_schema'));
         self::$migrator->up();
         $driver_factory         = new Sesha_Factory_Driver(self::$injector);
-        self::$driver = $driver_factory->create('Sql', 
+        self::$driver = $driver_factory->create('Rdo', 
                             array(
                                 'db' => self::$db,
-                                'driver' => 'Sql'
+                                'driver' => 'Rdo'
                             )
                         );
     }
