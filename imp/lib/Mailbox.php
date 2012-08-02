@@ -906,6 +906,11 @@ class IMP_Mailbox implements Serializable
     {
         global $injector, $notification;
 
+        /* Skip non-IMAP/container mailboxes. */
+        if ($this->nonimap || $this->container) {
+            return false;
+        }
+
         if (!$sub && $this->inbox) {
             $notification->push(sprintf(_("You cannot unsubscribe from \"%s\"."), $this->display), 'horde.error');
             return false;
