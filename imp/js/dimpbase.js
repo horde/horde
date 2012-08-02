@@ -1772,7 +1772,6 @@ var DimpBase = {
         if (this.pp &&
             this.pp.uid == r.uid &&
             this.pp.mbox == r.mbox) {
-            this.loadingImg('msg', false);
             $('sendMdnMessage').up(1).fade({ duration: 0.2 });
         }
     },
@@ -2707,7 +2706,6 @@ var DimpBase = {
             break;
 
         case 'send_mdn_link':
-            this.loadingImg('msg', true);
             tmp = {};
             tmp[this.pp.mbox] = [ this.pp.uid ];
             DimpCore.doAction('sendMDN', {
