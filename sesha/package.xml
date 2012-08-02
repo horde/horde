@@ -16,8 +16,8 @@
   <email>lang@b1-systems.de</email>
   <active>yes</active>
  </lead>
- <date>2012-07-10</date>
- <time>11:54:49</time>
+ <date>2012-08-02</date>
+ <time>13:50:33</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0alpha1</api>
@@ -138,7 +138,7 @@
     <dir name="Sesha">
      <dir name="Unit">
       <dir name="Driver">
-       <file name="SqlTest.php" role="test" />
+       <file name="RdoTest.php" role="test" />
       </dir> <!-- /test/Sesha/Unit/Driver -->
      </dir> <!-- /test/Sesha/Unit -->
      <file name="AllTests.php" role="test" />
@@ -314,7 +314,7 @@
    <install as="Sesha/AllTests.php" name="test/Sesha/AllTests.php" />
    <install as="Sesha/Autoload.php" name="test/Sesha/Autoload.php" />
    <install as="Sesha/TestCase.php" name="test/Sesha/TestCase.php" />
-   <install as="Sesha/Unit/Driver/SqlTest.php" name="test/Sesha/Unit/Driver/SqlTest.php" />
+   <install as="Sesha/Unit/Driver/RdoTest.php" name="test/Sesha/Unit/Driver/RdoTest.php" />
    <install as="sesha/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="sesha/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="sesha/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
@@ -350,7 +350,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-07-10</date>
+   <date>2012-08-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 *
