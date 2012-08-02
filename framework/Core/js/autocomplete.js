@@ -235,7 +235,8 @@ Autocompleter.Base = Class.create({
     onSelect: function(entry)
     {
         if (entry) {
-            this.elt.setValue(this.opts.onSelect(this.getNewVal(entry))).focus();
+            this.elt.focus();
+            this.elt.setValue(this.opts.onSelect(this.getNewVal(entry)));
             if (this.knl) {
                 this.knl.markSelected();
             }
