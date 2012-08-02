@@ -11,7 +11,7 @@ var DimpCompose = {
 
     // Variables defaulting to empty/false:
     //   auto_save_interval, compose_cursor, disabled, drafts_mbox,
-    //   editor_wait, is_popup, knl, md5_hdrs, md5_msg, md5_msgOrig,
+    //   editor_wait, fwdattach, is_popup, knl, md5_hdrs, md5_msg, md5_msgOrig,
     //   onload_show, old_action, old_identity, rte, rte_loaded,
     //   sc_submit, skip_spellcheck, spellcheck, uploading
 
@@ -541,7 +541,7 @@ var DimpCompose = {
         switch (ob.opts.auto) {
         case 'forward_attach':
             $('noticerow', 'fwdattachnotice').invoke('show');
-            $('composeMessage').stopObserving('keydown').observe('keydown', this.fadeNotice.bind(this, 'fwdattachnotice'));
+            this.fwdattach = true;
             break
 
         case 'forward_body':
@@ -948,7 +948,7 @@ var DimpCompose = {
             }, {
                 callback: this.forwardAddCallback.bind(this)
             });
-            $('composeMessage').stopObserving('keydown');
+            this.fwdattach = false;
             e.memo.stop();
             break;
 
@@ -982,6 +982,25 @@ var DimpCompose = {
                 e.stop();
             }
             break;
+        }
+    },
+
+    keydownHandler: function(e)
+    {
+        switch (e.keyCode || e.charCode) {
+        case Event.KEY_ESC:
+            this.confirmCancel();
+            break;
+
+        case Event.KEY_RETURN:
+            if (!this.disabled && e.ctrlKey) {
+                this.uniqueSubmit('sendMessage');
+            }
+            break;
+        }
+
+        if (this.fwdattach && e.element() == $('composeMessage')) {
+            this.fadeNotice('fwdattachnotice');
         }
     },
 
@@ -1164,6 +1183,7 @@ var DimpCompose = {
 
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpCompose.onDomLoad.bind(DimpCompose));
+document.observe('keydown', DimpCompose.keydownHandler.bindAsEventListener(DimpCompose));
 document.observe('HordeCore:click', DimpCompose.clickHandler.bindAsEventListener(DimpCompose));
 Event.observe(window, 'resize', DimpCompose.resizeMsgArea.bindAsEventListener(DimpCompose));
 

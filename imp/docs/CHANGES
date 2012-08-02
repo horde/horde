@@ -2,6 +2,8 @@
 v6.0.0beta2
 -----------
 
+[mms] Add keyboard shortcuts to dynamic compose page (Michael Wing
+      <marsfurrycreature@gmail.com>).
 [mms] Fix sidebar element wrapping.
 [mms] Fix regression preventing contacts popup window from working (Bug
       #11324).
