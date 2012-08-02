@@ -286,6 +286,10 @@ div.vpRowVert div.msgSubject span.flagUser {
 #horde-sidebar .exp, #ctx_folderopts_expand span.iconImg, #ctx_container_expand span.iconImg, #ctx_mbox_expand span.iconImg {
     background-image: url("../graphics/folders/plus.png");
 }
+#imp-normalmboxes {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 #imp-normalmboxes div.imp-sidebar-unsubmbox {
     font-style: italic;
 }
@@ -303,11 +307,6 @@ div.vpRowVert div.msgSubject span.flagUser {
     cursor: pointer;
     font-weight: bold;
     text-decoration: underline;
-}
-
-#logo, #dimpbarActions, #serviceActions, #normalmboxes {
-    overflow-x: hidden;
-    overflow-y: auto;
 }
 
 #folderopts a, #dropbase a {
