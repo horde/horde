@@ -1790,8 +1790,14 @@ $_prefs['tree_view'] = array(
 
 // poll all mailboxes for new mail?
 $_prefs['nav_poll_all'] = array(
+    // This is locked and disabled by default. You almost certainly DO NOT
+    // want to poll all mailboxes by default: this can cause crippling load
+    // on your server and is generally NOT what users want (polling things
+    // such as Drafts, Sent-Mail, and Trash mailboxes is confusing to the
+    // average user).
     'value' => 0,
     'advanced' => true,
+    'locked' => true,
     'type' => 'checkbox',
     'desc' => _("Poll all mailboxes for new mail?"),
     'suppress' => function() {
