@@ -567,7 +567,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             if (!empty($collection['getchanges']) ||
-                (!isset($collection['getchanges']) && $collection['synckey'] != 0)) {
+                (!isset($collection['getchanges']) && $collection['synckey'] !== '0')) {
 
                 if ($statusCode == self::STATUS_SUCCESS) {
                     $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
@@ -832,7 +832,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                 case Horde_ActiveSync::SYNC_SUPPORTED:
                     // Only allowed on initial sync request
-                    if ($collection['synckey'] != 0) {
+                    if ($collection['synckey'] != '0') {
                         $this->_statusCode = self::STATUS_PROTERROR;
                         $this->_handleError($collection);
                         exit;
@@ -1265,7 +1265,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $collection['synckey'] == '0') {
 
             $collection['newsynckey'] = Horde_ActiveSync_State_Base::getNewSyncKey(($this->_statusCode == self::STATUS_KEYMISM) ? 0 : $collection['synckey']);
-            if ($collection['synckey'] != 0) {
+            if ($collection['synckey'] != '0') {
                 $this->_stateDriver->removeState(array('synckey' => $collection['synckey']));
             }
         }
