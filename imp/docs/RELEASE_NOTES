@@ -14,7 +14,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Rel
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first beta release of the Internet
+The Horde Team is pleased to announce the second beta release of the Internet
 Mail Program (IMP) version H5 (6.0.0).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
@@ -31,18 +31,15 @@ We encourage widespread testing and feedback via the mailing lists or our bug
 tracking system. Updated translations are very welcome, though some strings
 might still change before the release candidates are prepared.
 
-The major changes compared to the IMP version H5 (6.0.0alpha1) are:
-    * Further improved user interface.
-    * Many bugfixes.
-
-Known issues:
-   * The new user interface is not complete yet.
+The major changes compared to the IMP version H5 (6.0.0beta1) are:
+    * Added keyboard shortcuts to compose window.
+    * Further bugfixes.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Further improved user interface.
-Many bugfixes.
+Added keyboard shortcuts to compose window.
+Further bugfixes.
 FM;
 
 $this->notes['name'] = 'IMP';

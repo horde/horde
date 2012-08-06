@@ -14,7 +14,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the third beta release of the Horde
+The Horde Team is pleased to announce the fourth beta release of the Horde
 Application Framework version 5.0.0.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
@@ -38,16 +38,16 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-The major changes compared to the Horde version 5.0.0beta2 are:
-    * Fixed dependency on Horde_Service_Weather.
+The major changes compared to the Horde version 5.0.0beta3 are:
+    * Small bugfixes.
 
 Known issues:
-   * The new user interface and icon theme is not complete yet.
+   * The new user interface is not complete yet.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed dependency on Horde_Service_Weather.
+Small bugfixes.
 FM;
 
 $this->notes['name'] = 'Horde';
