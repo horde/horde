@@ -302,12 +302,12 @@ table.searchesmanagement .vfolderenabled {
     text-align: center;
 }
 .quotawarn {
-    color: #000;
-    background: yellow;
+    color: yellow;
+    font-weight:bold;
 }
 .quotaalert {
-    color: #fff;
-    background: #f00;
+    color: #f00;
+    font-weight:bold;
 }
 
 /* Contacts styles. */
