@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Increment release state instead of version after releasing unstable versions.
 * [jan] Use new version name scheme, matching PEAR&apos;s.
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.
 * [gwr] Better help display for context modules.
@@ -833,6 +834,7 @@
    <date>2011-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Increment release state instead of version after releasing unstable versions.
 * [jan] Use new version name scheme, matching PEAR&apos;s.
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.
 * [gwr] Better help display for context modules.
