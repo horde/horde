@@ -195,7 +195,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
      *
      * @param array $info  The new category's attributes.
      *
-     * @return integer  The ID of the new of the category on success
+     * @return Sesha_Entity_Category  The category on success
      * @throws Sesha_Exception
      */
     public function addCategory($info)

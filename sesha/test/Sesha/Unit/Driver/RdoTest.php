@@ -46,7 +46,7 @@ class Sesha_Unit_Driver_RdoTest extends Sesha_TestCase
             'description' => 'Frutti di mare',
             'priority' => '2'
         );
-        $this->assertStringMatchesFormat('%d',self::$driver->addCategory($category));
+        $this->assertInstanceOf('Sesha_Entity_Category',self::$driver->addCategory($category));
     }
 
 }
