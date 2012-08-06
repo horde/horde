@@ -555,11 +555,12 @@ class Nag
     /**
      * Creates a new share.
      *
-     * @param array $info  Hash with tasklist information.
+     * @param array $info       Hash with tasklist information.
+     * @param boolean $display  Add the new tasklist to display_tasklists
      *
      * @return Horde_Share  The new share.
      */
-    public static function addTasklist(array $info)
+    public static function addTasklist(array $info, $display = true)
     {
         try {
             $tasklist = $GLOBALS['nag_shares']->newShare(
@@ -582,8 +583,10 @@ class Nag
             throw new Nag_Exception($e);
         }
 
-        $GLOBALS['display_tasklists'][] = $tasklist->getName();
-        $GLOBALS['prefs']->setValue('display_tasklists', serialize($GLOBALS['display_tasklists']));
+        if ($display) {
+            $GLOBALS['display_tasklists'][] = $tasklist->getName();
+            $GLOBALS['prefs']->setValue('display_tasklists', serialize($GLOBALS['display_tasklists']));
+        }
 
         return $tasklist;
     }
