@@ -170,7 +170,10 @@ class IMP_Ajax_Queue
             ($quotadata = IMP::quotaData(false))) {
             $ajax->addTask('quota', array(
                 'm' => $quotadata['message'],
-                'p' => round($quotadata['percent'])
+                'p' => round($quotadata['percent']),
+                'l' => $quotadata['percent'] >= 90
+                    ? 'alert'
+                    : ($quotadata['percent'] >= 75 ? 'warn' : '')
             ));
             $this->_quota = false;
         }

@@ -2010,7 +2010,22 @@ var DimpBase = {
 
     quotaCallback: function(r)
     {
-        $('quota-text').setText(r.m);
+        var quota = $('quota-text');
+        quota.setText(r.m);
+        switch (r.l) {
+        case 'alert':
+            quota.removeClassName('quotawarn');
+            quota.addClassName('quotaalert');
+            break;
+        case 'warn':
+            quota.removeClassName('quotaalert');
+            quota.addClassName('quotawarn');
+            break;
+        case 'alert':
+            quota.removeClassName('quotawarn');
+            quota.removeClassName('quotaalert');
+            break;
+        }
     },
 
     setPoll: function()

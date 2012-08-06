@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Highlight quota level in dynamic mode.
 * [mms] Add keyboard shortcuts to dynamic compose page (Michael Wing &lt;marsfurrycreature@gmail.com&gt;).
 * [mms] Fix sidebar element wrapping.
 * [mms] Fix regression preventing contacts popup window from working (Bug #11324).
@@ -2625,6 +2626,7 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Highlight quota level in dynamic mode.
 * [mms] Add keyboard shortcuts to dynamic compose page (Michael Wing &lt;marsfurrycreature@gmail.com&gt;).
 * [mms] Fix sidebar element wrapping.
 * [mms] Fix regression preventing contacts popup window from working (Bug #11324).
