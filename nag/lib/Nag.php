@@ -231,7 +231,7 @@ class Nag
                 ->create($tasklist);
 
             /* Retrieve the tasklist from storage. */
-            $result = $storage->retrieve($completed);
+            $storage->retrieve($completed);
             $tasks->mergeChildren($storage->tasks->children);
         }
 
