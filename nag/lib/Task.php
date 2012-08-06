@@ -351,9 +351,11 @@ class Nag_Task
      */
     public function add(Nag_Task $task)
     {
-        $this->_dict[$task->id] = count($this->children);
-        $task->parent = $this;
-        $this->children[] = $task;
+        if (!isset($this->_dict[$task->id])) {
+            $this->_dict[$task->id] = count($this->children);
+            $task->parent = $this;
+            $this->children[] = $task;
+        }
     }
 
     /**
