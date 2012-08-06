@@ -422,11 +422,13 @@ class Nag
      * @param boolean $owneronly  Only return tasklists that this user owns?
      *                            Defaults to false.
      * @param integer $permission The permission to filter tasklists by.
+     * @param boolean $smart      Include SmartLists in the results.
      *
      * @return array  The task lists.
      */
     public static function listTasklists($owneronly = false,
-                                         $permission = Horde_Perms::SHOW)
+                                         $permission = Horde_Perms::SHOW,
+                                         $smart = true)
     {
         if ($owneronly && !$GLOBALS['registry']->getAuth()) {
             return array();
@@ -434,11 +436,23 @@ class Nag
 
         if ($owneronly || empty($GLOBALS['conf']['share']['hidden'])) {
             try {
-                $tasklists = $GLOBALS['nag_shares']->listShares(
-                    $GLOBALS['registry']->getAuth(),
-                    array('perm' => $permission,
-                          'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
-                          'sort_by' => 'name'));
+                if (!$smart) {
+                    $att = array('issmart' => '0');
+                    if ($owneronly) {
+                       $att['owner'] = $GLOBALS['registry']->getAuth();
+                    }
+                    $tasklists = $GLOBALS['nag_shares']->listShares(
+                        $GLOBALS['registry']->getAuth(),
+                        array('perm' => $permission,
+                              'attributes' => $att,
+                              'sort_by' => 'name'));
+                } else {
+                    $tasklists = $GLOBALS['nag_shares']->listShares(
+                        $GLOBALS['registry']->getAuth(),
+                        array('perm' => $permission,
+                              'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                              'sort_by' => 'name'));
+                }
             } catch (Horde_Share_Exception $e) {
                 Horde::logMessage($e->getMessage(), 'ERR');
                 return array();
