@@ -19,9 +19,9 @@ class NagUpgradesmartlists extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->addColumn('nag_shares', 'attribute_issmart', 'integer');
+        $this->addColumn('nag_shares', 'attribute_issmart', 'integer', array('default' => 0));
         $this->addColumn('nag_shares', 'attribute_search', 'text');
-        $this->addColumn('nag_sharesng', 'attribute_issmart', 'integer');
+        $this->addColumn('nag_sharesng', 'attribute_issmart', 'integer', array('default' => 0));
         $this->addColumn('nag_sharesng', 'attribute_search', 'text');
     }
 
