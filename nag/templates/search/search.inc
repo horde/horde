@@ -28,6 +28,13 @@
 </p>
 
 <p>
+  <input type="checkbox" id="save-smartlist" name="save_smartlist" />
+  <strong><label for="save-smartlist"><?php echo _("Save search as a Smart List?") ?></label></strong>
+  <label for="smartlist_name"><?php echo _("Name:") ?></label>
+  <input type="text" id="smartlist_name" name="smartlist_name" />
+</p>
+
+<p>
  <input type="submit" class="button" value="<?php echo _("Search") ?>" />
 </p>
 
