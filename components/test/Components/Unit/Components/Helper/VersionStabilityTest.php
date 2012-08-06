@@ -164,21 +164,6 @@ extends Components_TestCase
         );
     }
 
-    public function testInvalidApiRc()
-    {
-        try {
-            Components_Helper_Version::validateApiStability(
-                '4.0.0RC1', 'stable'
-            );
-            $this->fail('No exception!');
-        } catch (Components_Exception $e) {
-            $this->assertEquals(
-                'beta version "4.0.0RC1" marked with invalid api stability "stable"!',
-                $e->getMessage()
-            );
-        }
-    }
-
     public function testApiStable()
     {
         $this->assertNull(
