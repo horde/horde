@@ -574,8 +574,8 @@ class Nag
 
             // Smartlist
             if (!empty($info['search'])) {
-                $tasklist->set('search', serialize($info['search']));
-                $takslist->set('issmart', 1);
+                $tasklist->set('search', $info['search']);
+                $tasklist->set('issmart', 1);
             }
 
             $GLOBALS['nag_shares']->addShare($tasklist);
