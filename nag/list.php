@@ -36,44 +36,29 @@ switch ($actionID) {
 case 'search_tasks':
     /* Get the search parameters. */
     $search_pattern = $vars->search_pattern;
-    $search_name = ($vars->search_name == 'on');
-    $search_desc = ($vars->search_desc == 'on');
-    $search_tags = ($vars->search_tags == 'on');
+    $search_name = $vars->search_name == 'on' ? Nag_Search::MASK_NAME : 0;
+    $search_desc = $vars->search_desc == 'on' ? Nag_Search::MASK_DESC : 0;
+    $search_tags = $vars->search_tags == 'on' ? Nag_Search::MASK_TAGS : 0;
     $search_completed = $vars->search_completed;
-
     $vars->set('show_completed', $search_completed);
-
-    /* Get the full, sorted task list. */
+    $mask = $search_name | $search_desc | $search_tags;
+    $search = new Nag_Search($search_pattern, $mask, array('completed' => $search_completed));
     try {
-        $tasks = Nag::listTasks(
-            $prefs->getValue('sortby'),
-            $prefs->getValue('sortdir'),
-            $prefs->getValue('altsortby'),
-            null,
-            $search_completed
-        );
+        $tasks = $search->getSlice();
     } catch (Nag_Exception $e) {
         $notification->push($tasks, 'horde.error');
         $tasks = new Nag_Task();
     }
 
-    if (!empty($search_pattern) &&
-        ($search_name || $search_desc)) {
-        $pattern = '/' . preg_quote($search_pattern, '/') . '/i';
-        $search_results = new Nag_Task();
-        $tasks->reset();
-        while ($task = $tasks->each()) {
-            if (($search_name && preg_match($pattern, $task->name)) ||
-                ($search_desc && preg_match($pattern, $task->desc)) ||
-                ($search_tags && (array_search($search_pattern, $task->tags) !== false))) {
+    $title = sprintf(_("Search: Results for \"%s\""), $search_pattern);
 
-                $search_results->add($task);
-            }
-        }
-
-        /* Reassign $tasks to the search result. */
-        $tasks = $search_results;
-        $title = sprintf(_("Search: Results for \"%s\""), $search_pattern);
+    /* Save as a smart list? */
+    if ($vars->get('save_smartlist')) {
+        Nag::addTasklist(
+            array('name' => $vars->get('smartlist_name'),
+                  'search' => serialize($search)),
+            false
+        );
     }
     break;
 
