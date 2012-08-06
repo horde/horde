@@ -34,7 +34,8 @@ class Nag_Driver_Smartlist extends Nag_Driver
     {
         $this->_driver = $params['driver'];
         $this->_share = $GLOBALS['nag_shares']->getShare($tasklist);
-        //$this->_search = unserialize($share->get('search'));
+        $this->_search = unserialize($this->_share->get('search'));
+        $this->tasks = new Nag_Task();
     }
 
     public function add(array $task)
@@ -81,14 +82,11 @@ class Nag_Driver_Smartlist extends Nag_Driver
 
     /**
      * Return the list of tasks that match this smart list's search criteria.
-     * @TODO: For now, only supports tag searches.
      *
      */
     public function retrieve()
     {
-        $tags = $this->_search['tags'];
-        $ids = Nag::getTagger()->search($tags, array('user' => $this->_share->get('owner')));
-        $this->tasks = $this->_driver->getByUID($ids);
+        $this->tasks = $this->_search->getSlice();
 
     }
 
