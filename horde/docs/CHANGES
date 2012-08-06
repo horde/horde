@@ -2,6 +2,7 @@
 v5.0.0beta4
 -----------
 
+[jan] Fix logging in without JavaScript (Bug #11328).
 [mms] Fix sidebar element wrapping.
 [mms] Better handling of backend authentication errors when returning AJAX data
       (Bug #11297).

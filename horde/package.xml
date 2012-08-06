@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix logging in without JavaScript (Bug #11328).
 * [mms] Fix sidebar element wrapping.
 * [mms] Better handling of backend authentication errors when returning AJAX data (Bug #11297).
  </notes>
@@ -3840,6 +3841,7 @@
    <date>2012-07-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix logging in without JavaScript (Bug #11328).
 * [mms] Fix sidebar element wrapping.
 * [mms] Better handling of backend authentication errors when returning AJAX data (Bug #11297).
    </notes>
