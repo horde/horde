@@ -345,7 +345,7 @@ abstract class Horde_Rdo_Mapper implements Countable
         // here. We set updated_at to the initial creation time so it's
         // always set.
         if ($this->_setTimestamps) {
-            $time = gmmktime();
+            $time = time();
             $fields['created_at'] = $time;
             $fields['updated_at'] = $time;
         }
@@ -404,7 +404,7 @@ abstract class Horde_Rdo_Mapper implements Countable
 
         // If configured to record update time, set it here.
         if ($this->_setTimestamps) {
-            $fields['updated_at'] = gmmktime();
+            $fields['updated_at'] = time();
         }
 
         // Filter out any extra fields.
