@@ -3698,7 +3698,7 @@ var DimpBase = {
         }
 
         if (!$('GrowlerLog')) {
-            $('alertsloglink').remove();
+            //$('alertsloglink').remove();
         }
 
         /* Check for new mail. */
