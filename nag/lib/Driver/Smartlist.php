@@ -84,7 +84,7 @@ class Nag_Driver_Smartlist extends Nag_Driver
      * @TODO: For now, only supports tag searches.
      *
      */
-    public function retrieve($completed = Nag::VIEW_ALL)
+    public function retrieve()
     {
         $tags = $this->_search['tags'];
         $ids = Nag::getTagger()->search($tags, array('user' => $this->_share->get('owner')));
