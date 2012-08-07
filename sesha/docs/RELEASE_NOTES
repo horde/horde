@@ -14,7 +14,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_INITIAL);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first alpha release of the Sesha
+The Horde Team is pleased to announce the second alpha release of the Sesha
 Inventory Manager Application version H5 (1.0.0).
 
 Sesha is the Horde Inventory Manager. It is an application designed to track a
@@ -24,11 +24,17 @@ each with unique properties.
 For more information on Sesha, visit
 http://www.horde.org/apps/sesha.
 
+The major changes compared to the Sesha version H5 (1.0.0alpha1) are:
+    * Updated test suite
+    * Fixed version dependencies
+    * Various small bug fixes
+    * de and fi translations
+
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-First alpha release of Sesha for Horde 5.
+Second alpha release of Sesha for Horde 5.
 FM;
 
 $this->notes['name'] = 'Sesha';
