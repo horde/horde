@@ -67,13 +67,13 @@ class Sesha_Application extends Horde_Registry_Application
     {
         global $conf, $injector;
 
-        $menu->add(Horde::url('list.php'), _("_List Notes"), 'mnemo-list', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('list.php'), _("_List Stock"), 'sesha-list', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
 
         /* Search. */
-        $menu->add(Horde::url('search.php'), _("_Search"), 'mnemo-search');
+        $menu->add(Horde::url('search.php'), _("_Search"), 'sesha-search');
 
         if (Sesha::isAdmin(Horde_Perms::READ)|| $perms->hasPermission('sesha:addStock', $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-            $menu->add(Horde::url('admin.php'), _("Administration"), 'sesha.png');
+            $menu->add(Horde::url('admin.php'), _("Administration"), 'sesha-admin');
         }
     }
 }
