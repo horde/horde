@@ -56,4 +56,24 @@ class Sesha_Application extends Horde_Registry_Application
         );
         return $permissions;
     }
+
+    /**
+     * Sesha's application specific sidebar menu
+     * In earlier horde versions, this was a top menu
+     * Client pages amend and output this via Sesha::menu
+     * @param Horde_Menu  $menu  A menu object
+     */
+    public function menu($menu)
+    {
+        global $conf, $injector;
+
+        $menu->add(Horde::url('list.php'), _("_List Notes"), 'mnemo-list', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+
+        /* Search. */
+        $menu->add(Horde::url('search.php'), _("_Search"), 'mnemo-search');
+
+        if (Sesha::isAdmin(Horde_Perms::READ)|| $perms->hasPermission('sesha:addStock', $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+            $menu->add(Horde::url('admin.php'), _("Administration"), 'sesha.png');
+        }
+    }
 }

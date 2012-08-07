@@ -1,5 +1,4 @@
-<?php echo $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render(); ?>
-<?php echo Sesha::getMenu('string') ?>
+<?php echo Sesha::menu('string') ?>
 <form action="<?php echo Horde::url('stock.php') ?>" method="post" name="stockjumpform">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="actionId" value="update_stock" />

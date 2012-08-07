@@ -183,31 +183,24 @@ class Sesha
     }
 
     /**
-     * Build Sesha's list of menu items.
+     * Amend Sesha's list of menu items with a new button and generate output.
      */
-    public function getMenu($returnType = 'object')
+    public static function menu()
     {
-        global $registry, $conf, $browser, $print_link, $perms;
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-        $menu = new Horde_Menu();
-        $menu->add(Horde::url('list.php'), _("_List Stock"), 'sesha.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        if (Sesha::isAdmin(Horde_Perms::READ)|| $perms->hasPermission('sesha:addStock', $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-            $menu->add(Horde::url(Horde_Util::addParameter('stock.php', 'actionId', 'add_stock')), _("_Add Stock"), 'stock.png');
-            $menu->add(Horde::url('admin.php'), _("Administration"), 'sesha.png');
+        $sidebar = Horde::menu(array('menu_ob' => true))->render();
+        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+        if (Sesha::isAdmin(Horde_Perms::READ) ||
+            $perms->hasPermission('sesha:addStock', $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+            $sidebar->addNewButton(
+                _("_Add Stock"),
+                Horde::url('stock.php')->add('actionId', 'add_stock'));
         }
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
-
-        /* Print. */
-        if ($conf['menu']['print'] && isset($print_link) && $browser->hasFeature('javascript')) {
-            $menu->add("javascript:popup('$print_link'); return false;", _("_Print"), 'print.png');
-        }
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
+        Horde::startBuffer();
+        return $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render()
+            . $sidebar . Horde::endBuffer();
     }
+
+
 
     public static function isAdmin($permLevel = Horde_Perms::DELETE)
     {
