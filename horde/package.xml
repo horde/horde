@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2012-08-07</date>
- <time>16:15:56</time>
+ <time>16:17:25</time>
  <version>
-  <release>5.0.0beta4</release>
+  <release>5.0.0beta5</release>
   <api>5.0.0beta1</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix logging in without JavaScript (Bug #11328).
-* [mms] Fix sidebar element wrapping.
-* [mms] Better handling of backend authentication errors when returning AJAX data (Bug #11297).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3844,6 +3842,19 @@
 * [jan] Fix logging in without JavaScript (Bug #11328).
 * [mms] Fix sidebar element wrapping.
 * [mms] Better handling of backend authentication errors when returning AJAX data (Bug #11297).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta5</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
