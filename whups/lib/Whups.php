@@ -696,7 +696,7 @@ class Whups
                 self::$_users[$user]['name'] = '';
                 self::$_users[$user]['email'] = $whups_driver->getGuestEmail($user);
 
-                $addr_ob = new Horde_Mail_Rfc822_Address(self::$_user[$user]['email']);
+                $addr_ob = new Horde_Mail_Rfc822_Address(self::$_users[$user]['email']);
                 if ($addr_ob->valid) {
                     self::$_users[$user]['name'] = is_null($addr_ob->personal)
                         ? ''
