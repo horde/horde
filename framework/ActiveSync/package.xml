@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-08-07</date>
- <time>16:05:42</time>
+ <time>16:06:05</time>
  <version>
-  <release>2.0.0beta2</release>
+  <release>2.0.0beta3</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Properly send 401 responses in certain circumstances.
-* [mjr] Improvements to autoconfigure support.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -754,6 +753,19 @@
    <notes>
 * [mjr] Properly send 401 responses in certain circumstances.
 * [mjr] Improvements to autoconfigure support.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta3</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
