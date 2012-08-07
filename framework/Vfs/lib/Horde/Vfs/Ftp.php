@@ -2,29 +2,28 @@
 /**
  * VFS implementation for an FTP server.
  *
- * Required values for $params:<pre>
- * username - (string) The username with which to connect to the ftp server.
- * password - (string) The password with which to connect to the ftp server.
- * hostspec - (string) The ftp server to connect to.</pre>
+ * Required values for $params:
+ * - username: (string) The username with which to connect to the FTP server.
+ * - password: (string) The password with which to connect to the FTP server.
+ * - hostspec: (string) The FTP server to connect to.
  *
- * Optional values for $params:<pre>
- * lsformat - (string) The return formatting from the 'ls' command).
- *                       Values: 'aix', 'standard' (default)
- * maplocalids - (boolean) If true and the POSIX extension is available, the
- *               driver will map the user and group IDs returned from the FTP
- *               server with the local IDs from the local password file.  This
- *               is useful only if the FTP server is running on localhost or
- *               if the local user/group IDs are identical to the remote FTP
- *               server.
- * pasv - (boolean) If true, connection will be set to passive mode.
- * port - (integer) The port used to connect to the ftp server if other than
- *        21 (FTP default).
- * ssl - (boolean) If true, and PHP had been compiled with OpenSSL support,
+ * Optional values for $params:
+ * - lsformat: (string) The return formatting from the 'ls' command.
+ *             Possible values: 'aix', 'standard' (default).
+ * - maplocalids: (boolean) If true and the POSIX extension is available, the
+ *                driver will map the user and group IDs returned from the FTP
+ *                server with the local IDs from the local password file.  This
+ *                is useful only if the FTP server is running on localhost or
+ *                if the local user/group IDs are identical to the remote FTP
+ *                server.
+ * - pasv: (boolean) If true, connection will be set to passive mode.
+ * - port: (integer) The port used to connect to the ftp server if other than
+ *         21 (FTP default).
+ * - ssl: (boolean) If true, and PHP had been compiled with OpenSSL support,
  *        TLS transport-level encryption will be negotiated with the server.
- * timeout -(integer) The timeout for the server.
- * type - (string) The type of the remote FTP server.
- *        Possible values: 'unix', 'win', 'netware'
- *        By default, we attempt to auto-detect type.</pre>
+ * - timeout: (integer) The timeout for the server.
+ * - type: (string) The type of the remote FTP server. Possible values: 'unix',
+ *         'win', 'netware' By default, we attempt to auto-detect type.
  *
  * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  * Copyright 2002-2007 Michael Varghese <mike.varghese@ascellatech.com>
