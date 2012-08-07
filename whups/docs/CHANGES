@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Add configuration option to include raw processed message.
 [jan] Add due date to ticket columns (Request #10986).
 [jan] Make columns of portal block configurable (Request #10986).
 
