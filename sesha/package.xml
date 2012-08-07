@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [rla] Use Horde 5&apos;s css for sidebar icons
 * [rla] Use Horde 5&apos;s new button for the Add Stock menu entry
  </notes>
  <contents>
@@ -353,6 +354,7 @@
    <date>2012-08-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [rla] Use Horde 5&apos;s css for sidebar icons
 * [rla] Use Horde 5&apos;s new button for the Add Stock menu entry
    </notes>
   </release>
