@@ -1646,6 +1646,11 @@ class Horde_Form_Type_email extends Horde_Form_Type {
         return $this->_size;
     }
 
+    function allowMulti()
+    {
+        return $this->_allow_multi;
+    }
+
     /**
      * Return info about field type.
      */

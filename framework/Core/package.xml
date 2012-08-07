@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Set HTML 5 "multiple" attribute on email fields if necessary (Bug #11304).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1065,7 +1065,7 @@
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0beta2</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -2217,7 +2217,7 @@
    <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Set HTML 5 "multiple" attribute on email fields if necessary (Bug #11304).
    </notes>
   </release>
  </changelog>

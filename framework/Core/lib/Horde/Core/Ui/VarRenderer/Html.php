@@ -790,11 +790,12 @@ EOT;
 
     protected function _renderVarInput_email($form, &$var, &$vars)
     {
-        return sprintf('<input type="email" name="%s" id="%s" value="%s"%s%s />',
+        return sprintf('<input type="email" name="%s" id="%s" value="%s"%s%s%s />',
                        htmlspecialchars($var->getVarName()),
                        $this->_genID($var->getVarName(), false),
                        htmlspecialchars($var->getValue($vars)),
                        $var->type->getSize() ? ' size="' . $var->type->getSize() . '"' : '',
+                       $var->type->allowMulti() ? ' multiple="multiple"' : '',
                        $this->_getActionScripts($form, $var));
     }
 
