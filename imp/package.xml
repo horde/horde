@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-20</date>
- <time>01:27:22</time>
+ <date>2012-08-07</date>
+ <time>16:18:54</time>
  <version>
   <release>6.0.0beta2</release>
   <api>6.0.0beta1</api>
@@ -2623,7 +2623,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-07-20</date>
+   <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Highlight quota level in dynamic mode.
