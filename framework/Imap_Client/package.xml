@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-30</date>
- <time>13:45:51</time>
+ <date>2012-08-07</date>
+ <time>16:09:36</time>
  <version>
   <release>2.0.0beta2</release>
   <api>2.0.0beta1</api>
@@ -945,7 +945,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-08-07</date>
   </release>
  </changelog>
 </package>
