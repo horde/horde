@@ -5,11 +5,11 @@
  <?php echo $this->hiddenFieldTag('save_attachments_select', intval($this->save_attach_set)) ?>
 
  <div class="horde-buttonbar">
-  <div class="iconImg headercloseimg closeImg" id="compose_close"></div>
+  <div class="iconImg headercloseimg closeImg" id="compose_close" title="<?php echo _("Cancel (ESC)") ?>"></div>
 <?php if ($this->compose_enable): ?>
 <?php if (!$this->is_template): ?>
   <div>
-   <?php echo $this->actionButton(array('icon' => 'Forward', 'id' => 'send_button', 'title' => _("Send"))) ?>
+   <?php echo $this->actionButton(array('htmltitle' => _("Send (CTRL-ENTER)"), 'icon' => 'Forward', 'id' => 'send_button', 'title' => _("Send"))) ?>
    <div class="horde-button-split"></div>
   </div>
 <?php endif; ?>

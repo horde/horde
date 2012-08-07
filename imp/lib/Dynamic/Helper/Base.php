@@ -20,6 +20,8 @@ class IMP_Dynamic_Helper_Base extends Horde_View_Helper_Base
      * @param array $params  A list of parameters:
      *   - app: (string) The application to load the icon from.
      *   - class: (string) The CSS classname to use for the link.
+     *   - htmltitle: (string) The string to use for the HTML title attribute,
+     *                if different than 'title'.
      *   - icon: (string) The icon CSS classname.
      *   - id: (string) The DOM ID of the link.
      *   - title: (string) The title string.
@@ -45,8 +47,8 @@ class IMP_Dynamic_Helper_Base extends Horde_View_Helper_Base
                 '',
                 '',
                 '',
+                isset($params['htmltitle']) ? $params['htmltitle'] : $params['title'],
                 '',
-                Horde::getAccessKey($params['title']),
                 empty($params['id']) ? array() : array('id' => $params['id']),
                 true
             )
