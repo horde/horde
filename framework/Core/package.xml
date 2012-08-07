@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-07-25</date>
- <time>13:57:19</time>
+ <date>2012-08-07</date>
+ <time>16:07:54</time>
  <version>
   <release>2.0.0beta4</release>
   <api>2.0.0beta1</api>
@@ -43,7 +43,7 @@
 * [mms] Add a no authentication AJAX handler (Bug #11297).
 * [mms] Fix HordeCore javascript download action (Bug #11294).
 * [mms] Fix upgrade logintasks for pre-release major releases.
-* [mjr] Added Horde_Core_Tagger
+* [mjr] Add Horde_Core_Tagger.
 * [mjr] Fix autocompletion of tags in ajax views.
  </notes>
  <contents>
@@ -52,6 +52,7 @@
     <dir name="Horde">
      <dir name="Core">
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Core -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -1227,6 +1228,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Core/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Core/UPGRADING" />
    <install as="js/accesskeys.js" name="js/accesskeys.js" />
    <install as="js/addressbooksprefs.js" name="js/addressbooksprefs.js" />
    <install as="js/alarmprefs.js" name="js/alarmprefs.js" />
@@ -2199,13 +2201,13 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-07-25</date>
+   <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add a no authentication AJAX handler (Bug #11297).
 * [mms] Fix HordeCore javascript download action (Bug #11294).
 * [mms] Fix upgrade logintasks for pre-release major releases.
-* [mjr] Added Horde_Core_Tagger
+* [mjr] Add Horde_Core_Tagger.
 * [mjr] Fix autocompletion of tags in ajax views.
    </notes>
   </release>
