@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-22</date>
- <time>16:05:13</time>
+ <date>2012-08-07</date>
+ <time>16:15:56</time>
  <version>
   <release>5.0.0beta4</release>
   <api>5.0.0beta1</api>
@@ -3838,7 +3838,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-07-22</date>
+   <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix logging in without JavaScript (Bug #11328).
