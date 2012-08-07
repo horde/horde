@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>23:19:29</time>
+ <date>2012-08-07</date>
+ <time>16:05:42</time>
  <version>
   <release>2.0.0beta2</release>
   <api>2.0.0beta1</api>
@@ -749,7 +749,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Properly send 401 responses in certain circumstances.
