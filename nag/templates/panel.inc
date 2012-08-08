@@ -43,7 +43,9 @@ foreach (Nag::listTasklists() as $id => $tl) {
  <h4><?php echo _("My Task Lists:") ?></h4>
  <ul id="mytasklists">
 <?php foreach ($my_tasklists as $id => $tl): ?>
+<?php if (!$tl->get('issmart')): ?>
   <li><label><input type="checkbox" class="checkbox" name="display_tasklist[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_tasklists) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($tl->get('name')) ?></label> <?php echo $info_img ?></li>
+<?php endif; ?>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>
