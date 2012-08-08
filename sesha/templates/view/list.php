@@ -11,7 +11,7 @@
   <option value=""><?php echo _("Show Category:"); ?></option>
     <?php   foreach ($this->allCategories() as $category) {
                 $selected = in_array($category->category_id, $this->selectedCategories) ? ' selected="selected" ' : '';
-                printf('<option value="%s"%s/>%s</option>',
+                printf('<option value="%s"%s>%s</option>',
                             $category->category_id,
                             $selected,
                             $category->category
