@@ -42,7 +42,7 @@ class Sesha_Application extends Horde_Registry_Application
      *
      * @var string
      */
-    public $version = 'H5 (1.0.0beta1)';
+    public $version = 'H5 (1.0.0-git)';
 
     public function perms()
     {
