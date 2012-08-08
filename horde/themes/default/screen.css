@@ -1949,7 +1949,7 @@ left.horde-point-right{
 }
 .horde-subnavi {
     height: 20px;
-    padding: 3px 0;
+    padding: 3px 0 1px;
     overflow: hidden;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
@@ -1967,7 +1967,7 @@ left.horde-point-right{
     display: -moz-inline-stack;
     display: inline-block;
     height: 20px;
-    margin: 0 8px 0 10px;
+    margin: -1px 8px 0 10px;
     vertical-align: middle;
     width: 20px;
 }
