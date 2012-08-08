@@ -1948,14 +1948,15 @@ left.horde-point-right{
     margin: 0px 0px 6px 0px;
 }
 .horde-subnavi {
-    height: 24px;
+    height: 20px;
+    padding: 3px 0;
     overflow: hidden;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 .horde-subnavi-active, .horde-subnavi:hover{
-    height: 24px;
+    height: 20px;
     background-image: url('graphics/sidebar-active-bg.png');
     background-repeat: repeat-x;
 }
@@ -1966,7 +1967,7 @@ left.horde-point-right{
     display: -moz-inline-stack;
     display: inline-block;
     height: 20px;
-    margin: 2px 8px 0 10px;
+    margin: 0 8px 0 10px;
     vertical-align: middle;
     width: 20px;
 }

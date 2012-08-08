@@ -322,6 +322,7 @@ div.vpRowVert div.msgSubject span.flagUser {
     display: inline-block;
     float: none;
     height: 16px;
+    margin-top: -2px;
     width: 16px;
 }
 
