@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix polling for new mail from other applications.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2639,7 +2639,7 @@
    <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix polling for new mail from other applications.
    </notes>
   </release>
  </changelog>
