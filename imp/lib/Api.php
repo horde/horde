@@ -85,7 +85,7 @@ class IMP_Api extends Horde_Registry_Api
 
         $imap_tree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
         foreach ($imap_tree as $val) {
-            $e = $imap_tree->getElement($val->basename);
+            $e = $imap_tree->getElement($val->value);
             $mboxes[] = array(
                 'label' => $val->label,
                 'level' => $val->level,
