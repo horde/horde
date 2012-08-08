@@ -10,7 +10,7 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_INITIAL);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
@@ -21,21 +21,23 @@ Sesha is the Horde Inventory Manager. It is an application designed to track a
 multitude of items. It can organize stockable items into multiple categories,
 each with unique properties.
 
-For more information on Sesha, visit
-http://www.horde.org/apps/sesha.
+For more information on Sesha, visit http://www.horde.org/apps/sesha.
 
 The major changes compared to the Sesha version H5 (1.0.0alpha1) are:
-    * Updated test suite
-    * Fixed version dependencies
-    * Various small bug fixes
-    * de and fi translations
-    * Horde 5 style sidebar with icons and prominent add stock button
-
+    * Improved user interface.
+    * Updated Finnish and German translations.
+    * Updated test suite.
+    * Fixed dependencies.
+    * Small bugfixes.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-First beta release of Sesha for Horde 5.
+Improved user interface.
+Updated Finnish and German translations.
+Updated test suite.
+Fixed dependencies.
+Small bugfixes.
 FM;
 
 $this->notes['name'] = 'Sesha';
