@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Build a proper nested folder hierarchy when appropriate.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -765,7 +765,7 @@
    <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Build a proper nested folder hierarchy when appropriate.
    </notes>
   </release>
  </changelog>

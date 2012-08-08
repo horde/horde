@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Only subscribed mailboxes are returned by the ActiveSync imap factory.
 * [jan] Set HTML 5 "multiple" attribute on email fields if necessary (Bug #11304).
  </notes>
  <contents>
@@ -2217,6 +2218,7 @@
    <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Only subscribed mailboxes are returned by the ActiveSync imap factory.
 * [jan] Set HTML 5 "multiple" attribute on email fields if necessary (Bug #11304).
    </notes>
   </release>

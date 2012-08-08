@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] The mailboxList API call now returns delimiter and attribute information.
 * [jan] Fix polling for new mail from other applications.
  </notes>
  <contents>
@@ -2639,6 +2640,7 @@
    <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] The mailboxList API call now returns delimiter and attribute information.
 * [jan] Fix polling for new mail from other applications.
    </notes>
   </release>
