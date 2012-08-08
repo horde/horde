@@ -31,7 +31,7 @@ if ($vars->exists('show_completed')) {
 
 /* Page variables. */
 $title = _("My Tasks");
-
+$lists = null;
 switch ($actionID) {
 case 'search_tasks':
     /* Get the search parameters. */
@@ -62,13 +62,19 @@ case 'search_tasks':
     }
     break;
 
+case 'smart':
+    $lists = array($vars->get('list'));
+    $list = $nag_shares->getShare($vars->get('list'));
+    $title = $list->get('name');
+    // Fall through
 default:
     /* Get the full, sorted task list. */
     try {
         $tasks = Nag::listTasks(
             $prefs->getValue('sortby'),
             $prefs->getValue('sortdir'),
-            $prefs->getValue('altsortby')
+            $prefs->getValue('altsortby'),
+            $lists
         );
     } catch (Nag_Exception $e) {
         $notification->push($tasks, 'horde.error');
@@ -90,15 +96,21 @@ echo Nag::menu();
 Nag::status();
 echo '<div id="page">';
 
+$tabs = new Horde_Core_Ui_Tabs('show_completed', $vars);
 if (!$prefs->isLocked('show_completed')) {
     $listurl = Horde::url('list.php');
-    $tabs = new Horde_Core_Ui_Tabs('show_completed', $vars);
     $tabs->addTab(_("_All tasks"), $listurl, Nag::VIEW_ALL);
     $tabs->addTab(_("Incom_plete tasks"), $listurl, Nag::VIEW_INCOMPLETE);
     $tabs->addTab(_("_Future tasks"), $listurl, Nag::VIEW_FUTURE);
     $tabs->addTab(_("_Completed tasks"), $listurl, Nag::VIEW_COMPLETE);
-    echo $tabs->render($vars->get('show_completed'));
 }
+foreach (Nag::listTaskLists(true) as $list) {
+    if ($list->get('issmart')) {
+        $tabs->addTab($list->get('name'), $listurl->add(array('actionID' => 'smart', 'list' => $list->getName())));
+    }
+}
+
+echo $tabs->render($vars->get('show_completed'));
 
 require NAG_TEMPLATES . '/list.html.php';
 require NAG_TEMPLATES . '/panel.inc';
