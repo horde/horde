@@ -1832,7 +1832,7 @@ left.horde-point-right{
     width:21px;
     height:27px;
     margin:7px 0px 0px 0px;
-    background-image: url('graphics/search.png');
+    background-image: url('graphics/search-topbar.png');
     background-repeat:no-repeat;
 }
 #horde-logout{
