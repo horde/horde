@@ -28,6 +28,12 @@
 </p>
 
 <p>
+ <strong><?php echo Horde::label('due_within', _("Due date within")) ?></strong>
+ <input name="due_within" id="due_within" type="number" size="2" /> <?php echo Horde::label('due_of', _("days of")) ?>
+ <input name="due_of" id="due_of" type="text" /><br />
+</p>
+
+<p>
   <input type="checkbox" id="save-smartlist" name="save_smartlist" />
   <strong><label for="save-smartlist"><?php echo _("Save search as a Smart List?") ?></label></strong>
   <label for="smartlist_name"><?php echo _("Name:") ?></label>

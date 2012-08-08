@@ -42,7 +42,12 @@ case 'search_tasks':
     $search_completed = $vars->search_completed;
     $vars->set('show_completed', $search_completed);
     $mask = $search_name | $search_desc | $search_tags;
-    $search = new Nag_Search($search_pattern, $mask, array('completed' => $search_completed));
+    if (!empty($vars->due_within) && is_numeric($vars->due_within) && !empty($vars->due_of)) {
+        $date = array($vars->due_within, $vars->due_of);
+    } else {
+        $date = array();
+    }
+    $search = new Nag_Search($search_pattern, $mask, array('completed' => $search_completed, 'due' => $date));
     try {
         $tasks = $search->getSlice();
     } catch (Nag_Exception $e) {
@@ -51,6 +56,9 @@ case 'search_tasks':
     }
 
     $title = sprintf(_("Search: Results for \"%s\""), $search_pattern);
+    if (!empty($date)) {
+        $title .= ' ' . sprintf(_("and due date within %d days of %s"), $date[0], $date[1]);
+    }
 
     /* Save as a smart list? */
     if ($vars->get('save_smartlist')) {
