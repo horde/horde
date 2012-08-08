@@ -41,6 +41,13 @@ class Nag_Search implements Serializable
     protected $_completed;
 
     /**
+     * Duedate criteria
+     *
+     * @var array
+     */
+    protected $_due;
+
+    /**
      * Constructor
      *
      * @param string $search  The search string.
@@ -49,17 +56,23 @@ class Nag_Search implements Serializable
      *   - completed: (integer) Which tasks to include. A NAG::VIEW_* constant.
      *                DEFAULT: Nag::VIEW_INCOMPLETE
      *
+     *   - due: (array)  An array describing the due date portion of the search.
+     *          EXAMPLE: array('5', 'tomorrow') would be all tasks due within 5
+     *          days of tomorrow.
+     *          DEFAULT: No date filters.
+     *
      * @return Nag_Search
      */
     public function __construct($search, $mask, array $options = array())
     {
         $options = array_merge(
-            array('completed' => 0),
+            array('completed' => 0, 'due' => array()),
             $options);
 
         $this->_search = $search;
         $this->_mask = $mask;
         $this->_completed = $options['completed'];
+        $this->_due = $options['due'];
     }
 
     /**
@@ -88,6 +101,13 @@ class Nag_Search implements Serializable
         global $prefs;
 
         $pattern = $this->_search;
+        if (!empty($this->_due)) {
+            $date = Horde_Date_Parser::parse($this->_due[1]);
+            $date->mday += $this->_due[0];
+            $date = $date->timestamp();
+        } else {
+            $date = false;
+        }
 
         // Get the full, sorted task list.
         $tasks = Nag::listTasks(
@@ -98,11 +118,17 @@ class Nag_Search implements Serializable
             $this->_completed
         );
 
-        if (!empty($pattern) && $this->_mask & self::MASK_ALL) {
+        if ((!empty($pattern) && $this->_mask & self::MASK_ALL) || !empty($date)) {
             $pattern = '/' . preg_quote($pattern, '/') . '/i';
             $search_results = new Nag_Task();
             $tasks->reset();
+            $results = array();
             while ($task = $tasks->each()) {
+                if (!empty($date)) {
+                    if ($task->due > $date) {
+                        continue;
+                    }
+                }
                 if (($this->_mask & self::MASK_NAME && preg_match($pattern, $task->name)) ||
                     ($this->_mask & self::MASK_DESC && preg_match($pattern, $task->desc))) {
 
@@ -126,7 +152,8 @@ class Nag_Search implements Serializable
         return serialize(array(
             'search' => $this->_search,
             'mask' => $this->_mask,
-            'completed' => $this->_completed));
+            'completed' => $this->_completed,
+            'due' => $this->_due));
     }
 
     public function unserialize($data)
@@ -135,6 +162,7 @@ class Nag_Search implements Serializable
         $this->_search = $data['search'];
         $this->_mask = $data['mask'];
         $this->_completed = $data['completed'];
+        $this->_due = $data['due'];
     }
 
 }
