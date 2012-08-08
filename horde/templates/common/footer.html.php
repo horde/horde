@@ -11,6 +11,5 @@
 <?php endif; ?>
 <?php endif; ?>
 <?php endif; ?>
-  <?php echo implode("\n", $this->notifications) ?>
  </body>
 </html>

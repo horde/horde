@@ -827,9 +827,9 @@ class Horde_PageOutput
             'templatePath' => $registry->get('templates', 'horde') . '/common'
         ));
 
-        $view->notifications = $browser->isMobile()
-            ? ''
-            : $notification->notify(array('listeners' => array('audio')));
+        if (!$browser->isMobile()) {
+            $notification->notify(array('listeners' => array('audio')));
+        }
         $view->outputJs = $this->deferScripts;
         $view->pageOutput = $this;
         $view->sidebarLoaded = $this->sidebarLoaded;
