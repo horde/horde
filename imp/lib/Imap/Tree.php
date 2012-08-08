@@ -1703,7 +1703,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Returns the internal IMAP Tree element for a given mailbox.
      *
-     * @param mixed $elt  A mailbox name or a tree element.
+     * @param mixed $in  A mailbox name or a tree element.
      *
      * @return mixed  The element array, or null if not found.
      */
