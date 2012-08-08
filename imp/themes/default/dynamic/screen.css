@@ -704,6 +704,7 @@ a.address:hover img {
 #mailboxLabel {
     float: right;
     margin-left: 20px;
+    white-space: nowrap;
 }
 
 #searchbar {
