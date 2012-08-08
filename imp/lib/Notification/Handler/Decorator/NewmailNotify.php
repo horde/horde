@@ -41,6 +41,10 @@ extends Horde_Core_Notification_Handler_Decorator_Base
         if (!$prefs->getValue('newmail_notify') ||
             !($listener instanceof Horde_Notification_Listener_Status) ||
             !$imp_imap->imap) {
+
+            if ($pushed) {
+                $GLOBALS['registry']->popApp();
+            }
             return;
         }
 
@@ -64,6 +68,10 @@ extends Horde_Core_Notification_Handler_Decorator_Base
         if (empty($recent) ||
             !$session->get('imp', 'newmail_init')) {
             $session->set('imp', 'newmail_init', true);
+
+            if ($pushed) {
+                $GLOBALS['registry']->popApp();
+            }
             return;
         }
 
