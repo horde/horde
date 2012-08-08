@@ -1742,22 +1742,35 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * special folders appropriately.
      *
      * @param string $sid   The server name.
-     * @param array $f      An array describing the folder, as returned from
-     *                      mail/folderlist.
+     * @param array $fl     The complete folder list.
+     * @param array $f      An array describing the folder.
      *
      * @return Horde_ActiveSync_Message_Folder
      */
-    protected function _getMailFolder($sid, array $f)
+    protected function _getMailFolder($sid, array $fl, array $f)
     {
         $folder = new Horde_ActiveSync_Message_Folder();
         $folder->serverid = $sid;
-        $folder->displayname = $f['label'];
         $folder->parentid = '0';
+        $folder->displayname = $f['label'];
+
         // Short circuit for INBOX
         if (strcasecmp($sid, 'INBOX') === 0) {
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
             return $folder;
         }
+
+        // Check for nested folders. $fl will NEVER contain containers so we
+        // can assume that any entry in $fl is an actual mailbox.
+        if ($f['level'] != 0) {
+            $parts = split($f['d'], $f['label']);
+            $displayname = array_pop($parts);
+            if (!empty($fl[implode($f['d'], $parts)])) {
+                $folder->parentid = implode($f['d'], $parts);
+                $folder->displayname = $displayname;
+            }
+        }
+
         $specialFolders = $this->_imap->getSpecialMailboxes();
 
         // Check for known, supported special folders.
