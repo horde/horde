@@ -6,7 +6,7 @@
 </div>
 <div id="category-select">
 <form action="" method="get" name="stockcategoriesmenu">
- <tag:form_input />
+ <?php echo Horde_Util::formInput() ?>
  <select name="category_id" onchange="document.stockcategoriesmenu.submit()">
   <option value=""><?php echo _("Show Category:"); ?></option>
     <?php   foreach ($this->allCategories() as $category) {
