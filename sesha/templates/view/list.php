@@ -1,23 +1,17 @@
 <div class="header">
  <span class="smallheader" style="float:right">
-    <?php echo $this->count; ?>
+  <?php echo $this->count ?>
  </span>
-    <?php echo $this->header; ?>
+ <?php echo $this->header ?>
 </div>
 <div id="category-select">
 <form action="" method="get" name="stockcategoriesmenu">
  <?php echo Horde_Util::formInput() ?>
  <select name="category_id" onchange="document.stockcategoriesmenu.submit()">
   <option value=""><?php echo _("Show Category:"); ?></option>
-    <?php   foreach ($this->allCategories() as $category) {
-                $selected = in_array($category->category_id, $this->selectedCategories) ? ' selected="selected" ' : '';
-                printf('<option value="%s"%s>%s</option>',
-                            $category->category_id,
-                            $selected,
-                            $category->category
-                       );
-
-            } ?>
+<?php foreach ($this->allCategories() as $category): ?>
+  <option value="<?php echo $category->category_id ?>"<?php if (in_array($category->category_id, $this->selectedCategories)) echo ' selected="selected"' ?>><?php echo $category->category ?></option>
+<?php endforeach ?>
  </select>
 </form>
 </div>
@@ -26,30 +20,18 @@
 <thead>
  <tr class="item leftAlign">
   <th width="1%" class="nosort">&nbsp;</th>
-    <?php
-    foreach ($this->columnHeaders as $header) {
-        printf('  <th id="%s" %s %s>%s</th>',
-            $header['id'],
-            $header['class'],
-            $header['width'],
-            $header['link']
-        );
-    };
-    ?>
+<?php foreach ($this->columnHeaders as $header): ?>
+  <th id="<?php echo $header['id'] ?>" <?php echo $header['class'] ?> <?php echo $header['width'] ?>><?php echo $header['link'] ?></th>
+<?php endforeach ?>
  </tr>
 </thead>
 <tbody>
-<?php
-    foreach ($this->shownStock as $item) {
-        print '<tr>';
-        foreach ($item['columns'] as $column) {
-            printf('<td %s>%s</td>',
-                $column['class'],
-                $column['column']
-            );
-        }
-        print '</tr>';
-    }
-?>
+<?php foreach ($this->shownStock as $item): ?>
+ <tr>
+<?php foreach ($item['columns'] as $column): ?>
+  <td <?php echo $column['class'] ?>><?php echo $column['column'] ?></td>
+<?php endforeach ?>
+ </tr>
+<?php endforeach ?>
 </tbody>
 </table>
