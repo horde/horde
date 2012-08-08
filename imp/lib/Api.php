@@ -75,6 +75,7 @@ class IMP_Api extends Horde_Registry_Api
      *                following keys:
      *   - label: (string) Human readable label (UTF-8).
      *   - level: (integer) The child level of this element.
+     *   - att: (integer) The mailbox attributes.
      *   - ob: (Horde_Imap_Client_Mailbox) A mailbox object.
      */
     public function mailboxList()
@@ -84,10 +85,12 @@ class IMP_Api extends Horde_Registry_Api
 
         $imap_tree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
         foreach ($imap_tree as $val) {
+            $e = $imap_tree->getElement($val->basename);
             $mboxes[] = array(
                 'label' => $val->label,
                 'level' => $val->level,
-                'ob' => $val->imap_mbox_ob
+                'ob' => $val->imap_mbox_ob,
+                'a' => $e['a']
             );
         }
 
