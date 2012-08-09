@@ -703,7 +703,7 @@ class Content_Tagger
         $tagIds = array();
 
         // Anything already typed as an integer is assumed to be a tag id.
-        foreach ($tags as $tagIndex => $tag) {
+        foreach ($tags as $tag) {
             if (is_int($tag)) {
                 $tagIds[] = $tag;
                 continue;
