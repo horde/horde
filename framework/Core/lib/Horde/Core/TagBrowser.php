@@ -208,7 +208,7 @@ abstract class Horde_Core_TagBrowser
     /**
      * Clears the session cache of tags currently included in the search.
      */
-    static public function clearSearch()
+    public function clearSearch()
     {
         $GLOBALS['session']->remove($this->_app, 'browsetags');
     }
