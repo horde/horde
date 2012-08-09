@@ -778,40 +778,37 @@ class Nag_Task
      *
      * @return array  A task hash.
      */
-    public function toHash($tags = true)
+    public function toHash()
     {
-        $hash = array('tasklist_id' => $this->tasklist,
-                     'task_id' => $this->id,
-                     'uid' => $this->uid,
-                     'parent' => $this->parent_id,
-                     'owner' => $this->owner,
-                     'assignee' => $this->assignee,
-                     'name' => $this->name,
-                     'desc' => $this->desc,
-                     'start' => $this->start,
-                     'due' => $this->due,
-                     'priority' => $this->priority,
-                     'estimate' => $this->estimate,
-                     'completed' => $this->completed,
-                     'completed_date' => $this->completed_date,
-                     'alarm' => $this->alarm,
-                     'methods' => $this->methods,
-                     'private' => $this->private,
-                     'recurrence' => $this->recurrence);
-
-        if ($tags) {
-            $hash['tags'] = $this->tags;
-        }
+        $hash = array(
+            'tasklist_id' => $this->tasklist,
+            'task_id' => $this->id,
+            'uid' => $this->uid,
+            'parent' => $this->parent_id,
+            'owner' => $this->owner,
+            'assignee' => $this->assignee,
+            'name' => $this->name,
+            'desc' => $this->desc,
+            'start' => $this->start,
+            'due' => $this->due,
+            'priority' => $this->priority,
+            'estimate' => $this->estimate,
+            'completed' => $this->completed,
+            'completed_date' => $this->completed_date,
+            'alarm' => $this->alarm,
+            'methods' => $this->methods,
+            'private' => $this->private,
+            'recurrence' => $this->recurrence,
+            'tags' => $this->tags);
 
         return $hash;
-
     }
 
     /**
      * Returns a simple object suitable for json transport representing this
      * task.
      *
-     * @param boolean $full        Whether to return all event details.
+     * @param boolean $full        Whether to return all task details.
      * @param string $time_format  The date() format to use for time formatting.
      *
      * @return object  A simple object.
@@ -838,6 +835,7 @@ class Nag_Task
         if ($this->recurs()) {
             $json->r = $this->recurrence->getRecurType();
         }
+        $json->t = $this->tags;
 
         if ($full) {
             // @todo: do we really need all this?
