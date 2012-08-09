@@ -38,6 +38,21 @@ class Nag_Api extends Horde_Registry_Api
      * Retrieves the current user's task list from storage.
      *
      * This function will also sort the resulting list, if requested.
+     * @param arary $options  Options array:
+     *   - altsortby: (string) The secondary sort field. Same values as sortdir.
+     *                DEFAULT: altsortby pref is used.
+     *   - completed: (integer) Which task to retrieve.
+     *                DEFAULT: show_completed pref is used.
+     *   - sortby: (string)  A Nag::SORT_* constant for the field to sort by.
+     *             DEFAULT: sortby pref is used.
+     *   - sortdir: (string) Direction of sort. NAG::SORT_ASCEND or NAG::SORT_DESCEND.
+     *              DEFAULT: sortdir pref is used.
+     *   - include_tags: (boolean) Autoload all tags.
+     *                   DEFAULT: false (Tags are lazy loaded as needed.)
+     *   - json: (boolean) Return data as JSON.
+     *           DEFAULT: false (Data is returned as Nag_Task)
+     *   - tasklists: (array) An array of tasklists to include.
+     *                DEFAULT: Use $GLOBALS['display_tasklists'];
      *
      * @param string $sortby        The field by which to sort
      *                              (NAG_SORT_PRIORITY, NAG_SORT_NAME
@@ -52,41 +67,42 @@ class Nag_Api extends Horde_Registry_Api
      * @param boolean $json         Retrieve the results of the tasks in
      *                              'json format'.
      *
-     * @return Nag_Task  A list of the requested tasks.
+     * @return array  An array of the requested tasks.
      */
-    public function listTasks($sortby = null, $sortdir = null,
-                              $altsortby = null, $tasklists = null,
-                              $completed = null, $json = false)
+    public function listTasks(array $options = array())
     {
-        $completedArray = array('incomplete' => Nag::VIEW_INCOMPLETE,
-                                'all' => Nag::VIEW_ALL,
-                                'complete' => Nag::VIEW_COMPLETE,
-                                'future' => Nag::VIEW_FUTURE,
-                                'future_incomplete' => Nag::VIEW_FUTURE_INCOMPLETE);
+        global $prefs;
 
-        if (!isset($sortby)) {
-            $sortby = $GLOBALS['prefs']->getValue('sortby');
+        $completedArray = array(
+            'incomplete' => Nag::VIEW_INCOMPLETE,
+            'all' => Nag::VIEW_ALL,
+            'complete' => Nag::VIEW_COMPLETE,
+            'future' => Nag::VIEW_FUTURE,
+            'future_incomplete' => Nag::VIEW_FUTURE_INCOMPLETE);
+
+        // Prevent null tasklists value from obscuring the default value.
+        if (array_key_exists('tasklists', $options) && empty($options['tasklists'])) {
+            unset($options['tasklists']);
         }
-        if (!isset($sortdir)) {
-            $sortdir = $GLOBALS['prefs']->getValue('sortdir');
-        }
-        if (is_null($altsortby)) {
-            $altsortby =  $GLOBALS['prefs']->getValue('altsortby');
-        }
-        if (is_null($tasklists)) {
-            $tasklists = $GLOBALS['display_tasklists'];
-        }
-        if (is_null($completed) || !isset($completedArray[$completed])) {
-            $completed = $GLOBALS['prefs']->getValue('show_completed');
+        if (is_null($options['completed']) || !isset($completedArray[$options['completed']])) {
+            $options['completed'] = $prefs->getValue('show_completed');
         } else {
-            $completed = $completedArray[$completed];
+            $options['completed'] = $completedArray[$options['completed']];
         }
+        $options = array_merge(array(
+            'sortby' => $prefs->getValue('sortby'),
+            'sortdir' => $prefs->getValue('sortdir'),
+            'altsortby' => $prefs->getValue('altsortby'),
+            'tasklists' => $GLOBALS['display_tasklists'],
+            'include_tags' => false,
+            'json' => false),
+            $options);
 
-        $tasks = Nag::listTasks($sortby, $sortdir, $altsortby, $tasklists, $completed);
+        $tasks = Nag::listTasks($options);
         $tasks->reset();
         $list = array();
         while ($task = $tasks->each()) {
-            $list[$task->id] = $json ? $task->toJson() : $task->toHash();
+            $list[$task->id] = $options['json'] ? $task->toJson() : $task->toHash();
         }
 
         return $list;

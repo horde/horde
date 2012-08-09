@@ -594,9 +594,14 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         $result = new stdClass;
         $result->list = $this->_vars->list;
         $result->type = $this->_vars->type;
-
         try {
-            $tasks = $GLOBALS['registry']->tasks->listTasks(null, null, null, $this->_vars->list, $this->_vars->type == 'incomplete' ? 'future_incomplete' : $this->_vars->type, true);
+            $tasks = $GLOBALS['registry']->tasks
+                ->listTasks(array(
+                    'tasklists' => $this->_vars->list,
+                    'completed' => $this->_vars->type == 'incomplete' ? 'future_incomplete' : $this->_vars->type,
+                    'include_tags' => true,
+                    'json' => true)
+            );
             if (count($tasks)) {
                 $result->tasks = $tasks;
             }
