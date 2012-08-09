@@ -48,6 +48,13 @@ class Nag_Search implements Serializable
     protected $_due;
 
     /**
+     * Tag search criteria
+     *
+     * @var array
+     */
+    protected $_tags;
+
+    /**
      * Constructor
      *
      * @param string $search  The search string.
@@ -61,18 +68,21 @@ class Nag_Search implements Serializable
      *          days of tomorrow.
      *          DEFAULT: No date filters.
      *
+     *   - tags: (array) An array of tags to filter on.
+     *
      * @return Nag_Search
      */
     public function __construct($search, $mask, array $options = array())
     {
         $options = array_merge(
-            array('completed' => 0, 'due' => array()),
+            array('completed' => 0, 'due' => array(), 'tags' => array()),
             $options);
 
         $this->_search = $search;
         $this->_mask = $mask;
         $this->_completed = $options['completed'];
         $this->_due = $options['due'];
+        $this->_tags = $options['tags'];
     }
 
     /**
@@ -118,33 +128,37 @@ class Nag_Search implements Serializable
             $this->_completed
         );
 
-        if ((!empty($pattern) && $this->_mask & self::MASK_ALL) || !empty($date)) {
-            $pattern = '/' . preg_quote($pattern, '/') . '/i';
-            $search_results = new Nag_Task();
-            $tasks->reset();
-            $results = array();
-            while ($task = $tasks->each()) {
-                if (!empty($date)) {
-                    if ($task->due > $date) {
-                        continue;
-                    }
-                }
-                if (($this->_mask & self::MASK_NAME && preg_match($pattern, $task->name)) ||
-                    ($this->_mask & self::MASK_DESC && preg_match($pattern, $task->desc))) {
-
-                    $search_results->add($task);
-                } else {
-                    foreach (explode(',', $this->_search) as $tag) {
-                        if (array_search($tag, $task->tags) !== false) {
-                            $search_results->add($task);
-                            break;
-                        }
-                    }
+        $pattern = '/' . preg_quote($pattern, '/') . '/i';
+        $search_results = new Nag_Task();
+        $tasks->reset();
+        $results = array();
+        if (!empty($this->_tags)) {
+            $tagged_tasks = $GLOBALS['injector']->getInstance('Nag_Tagger')
+                ->search($this->_tags, array('user' => $GLOBALS['registry']->getAuth()));
+        }
+        while ($task = $tasks->each()) {
+            if (!empty($date)) {
+                if ($task->due > $date) {
+                    continue;
                 }
             }
 
-            return $search_results;
+            // If we have a search string and it doesn't match name|desc continue
+            if (!empty($this->_search) &&
+                !($this->_mask & self::MASK_NAME && preg_match($pattern, $task->name)) &&
+                !($this->_mask & self::MASK_DESC && preg_match($pattern, $task->desc))) {
+
+                continue;
+            }
+
+            // No tags to search? Add it to results. Otherwise, make sure it
+            // has the requested tags.
+            if (empty($this->_tags) || in_array($task->uid, $tagged_tasks)) {
+                $search_results->add($task);
+            }
         }
+
+        return $search_results;
     }
 
     public function serialize()
@@ -153,7 +167,8 @@ class Nag_Search implements Serializable
             'search' => $this->_search,
             'mask' => $this->_mask,
             'completed' => $this->_completed,
-            'due' => $this->_due));
+            'due' => $this->_due,
+            'tags' => $this->_tags));
     }
 
     public function unserialize($data)
@@ -163,6 +178,7 @@ class Nag_Search implements Serializable
         $this->_mask = $data['mask'];
         $this->_completed = $data['completed'];
         $this->_due = $data['due'];
+        $this->_tags = $data['tags'];
     }
 
 }
