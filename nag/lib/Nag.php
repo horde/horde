@@ -360,10 +360,21 @@ class Nag
                 $due = 0;
             }
 
-            if (isset($task['parent'])) {
-                $newTask = $storage->add(array('name' => $name, 'due' => $due, 'parent' => $tasks[$task['parent']]['id']));
+            // Look for tags to be added in the text.
+            $pattern = '/#\w+/';
+            $tags = array();
+            if (preg_match_all($pattern, $name, $results)) {
+                $tags = $results[0];
+                $name = str_replace($tags, '', $name);
+                $tags = array_map(function($x) { return substr($x, -(strlen($x) - 1)); }, $tags);
             } else {
-                $newTask = $storage->add(array('name' => $name, 'due' => $due));
+                $tags = '';
+            }
+
+            if (isset($task['parent'])) {
+                $newTask = $storage->add(array('name' => $name, 'due' => $due, 'parent' => $tasks[$task['parent']]['id'], 'tags' => $tags));
+            } else {
+                $newTask = $storage->add(array('name' => $name, 'due' => $due, 'tags' => $tags));
             }
             $uids[] = $newTask[1];
             $task['id'] = $newTask[0];
