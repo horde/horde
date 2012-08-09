@@ -301,12 +301,6 @@ class Nag_Api extends Horde_Registry_Api
                 array('perm' => Horde_Perms::SHOW,
                       'attributes' => $parts[0]));
 
-            // The last check returns all addressbooks for the requested user,
-            // but that does not mean the requesting user has access to them.
-            // Filter out those address books for which the requesting user has
-            // no access.
-            $tasklists = Nag::permissionsFilter($tasklists);
-
             $results = array();
             foreach ($tasklists as $tasklistId => $tasklist) {
                 $retpath = 'nag/' . $parts[0] . '/' . $tasklistId;

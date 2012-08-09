@@ -499,34 +499,6 @@ class Nag
     }
 
     /**
-     * Filters data based on permissions.
-     *
-     * @param array $in            The data we want filtered.
-     * @param integer $permission  The Horde_Perms::* constant we will filter
-     *                             on.
-     *
-     * @return array  The filtered data.
-     */
-    static public function permissionsFilter(array $in, $permission = Horde_Perms::READ)
-    {
-        // FIXME: Must find a way to check individual tasklists for
-        // permission.  Can't specify attributes as it does not check for the
-        // 'key' attribute, only 'name' and 'value'.
-        return $in;
-
-        // Broken code:
-        $out = array();
-
-        foreach ($in as $sourceId => $source) {
-            if ($in->hasPermission($permission)) {
-                $out[$sourceId] = $source;
-            }
-        }
-
-        return $out;
-    }
-
-    /**
      * Returns whether the current user has certain permissions on a tasklist.
      *
      * @since Nag 3.0.3
