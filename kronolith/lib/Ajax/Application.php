@@ -60,7 +60,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
             // Tasklists
             if (Kronolith::hasApiPermission('tasks')) {
-                foreach ($GLOBALS['registry']->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
+                foreach ($GLOBALS['registry']->tasks->listTasklists($my, Horde_Perms::SHOW, false) as $id => $tasklist) {
                     if (isset($GLOBALS['all_external_calendars']['tasks/' . $id])) {
                         $owner = ($auth_name &&
                                   ($tasklist->get('owner') == $auth_name));
