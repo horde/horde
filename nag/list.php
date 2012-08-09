@@ -87,11 +87,9 @@ case 'smart':
 default:
     /* Get the full, sorted task list. */
     try {
-        $tasks = Nag::listTasks(
-            $prefs->getValue('sortby'),
-            $prefs->getValue('sortdir'),
-            $prefs->getValue('altsortby'),
-            $lists
+        $tasks = Nag::listTasks(array(
+            'tasklists' => $lists,
+            'include_tags' => true)
         );
     } catch (Nag_Exception $e) {
         $notification->push($tasks, 'horde.error');

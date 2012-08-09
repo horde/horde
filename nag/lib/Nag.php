@@ -181,64 +181,54 @@ class Nag
      *
      * This function will also sort the resulting list, if requested.
      *
-     * @param string $sortby      The field by which to sort (Nag::SORT_*).
-     * @param integer $sortdir    The direction by which to sort
-     *                            (Nag::SORT_ASCEND, Nag::SORT_DESCEND).
-     * @param string $altsortby   The secondary sort field.
-     * @param array $tasklists    An array of tasklist to display or
-     *                            null/empty to display taskslists
-     *                            $GLOBALS['display_tasklists'].
-     * @param integer $completed  Which tasks to retrieve (1 = all tasks,
-     *                            0 = incomplete tasks, 2 = complete tasks,
-     *                            3 = future tasks, 4 = future and incomplete
-     *                            tasks).
+     * @param arary $options  Options array:
+     *   - altsortby: (string) The secondary sort field. Same values as sortdir.
+     *                DEFAULT: altsortby pref is used.
+     *   - completed: (integer) Which task to retrieve. A Nag::VIEW_* constant.
+     *                DEFAULT: show_completed pref is used.
+     *   - sortby: (string)  A Nag::SORT_* constant for the field to sort by.
+     *             DEFAULT: sortby pref is used.
+     *   - sortdir: (string) Direction of sort. NAG::SORT_ASCEND or NAG::SORT_DESCEND.
+     *              DEFAULT: sortdir pref is used.
+     *   - include_tags: (boolean) Autoload all tags.
+     *                   DEFAULT: false (Tags are lazy loaded as needed.)
+     *   - tasklists: (array) An array of tasklists to include.
+     *                DEFAULT: Use $GLOBALS['display_tasklists'];
      *
      * @return Nag_Task  A list of the requested tasks.
      */
-    public static function listTasks($sortby = null,
-                                     $sortdir = null,
-                                     $altsortby = null,
-                                     array $tasklists = null,
-                                     $completed = null)
+    public static function listTasks(array $options = array())
     {
         global $prefs, $registry;
 
-        if (is_null($sortby)) {
-            $sortby = $prefs->getValue('sortby');
-        }
-        if (is_null($sortdir)) {
-            $sortdir = $prefs->getValue('sortdir');
-        }
-        if (is_null($altsortby)) {
-            $altsortby = $prefs->getValue('altsortby');
+        // Prevent null tasklists value from obscuring the default value.
+        if (array_key_exists('tasklists', $options) && empty($options['tasklists'])) {
+            unset($options['tasklists']);
         }
 
-        if (is_null($tasklists)) {
-            $tasklists = $GLOBALS['display_tasklists'];
-        }
-        if (!is_array($tasklists)) {
-            $tasklists = array($tasklists);
-        }
-        if (is_null($completed)) {
-            $completed = $prefs->getValue('show_completed');
-        }
-
+        $options = array_merge(array(
+            'sortby' => $prefs->getValue('sortby'),
+            'sortdir' => $prefs->getValue('sortdir'),
+            'altsortby' => $prefs->getValue('altsortby'),
+            'tasklists' => $GLOBALS['display_tasklists'],
+            'completed' => $prefs->getValue('show_completed'),
+            'include_tags' => false),
+            $options);
         $tasks = new Nag_Task();
-        foreach ($tasklists as $tasklist) {
-            /* Create a Nag storage instance. */
+        foreach ($options['tasklists'] as $tasklist) {
             $storage = $GLOBALS['injector']
                 ->getInstance('Nag_Factory_Driver')
                 ->create($tasklist);
 
-            /* Retrieve the tasklist from storage. */
-            $storage->retrieve($completed);
+            // Retrieve the tasklist from storage.
+            $storage->retrieve($options['completed']);
             $tasks->mergeChildren($storage->tasks->children);
         }
 
-        /* Process all tasks. */
+        // Process all tasks.
         $tasks->process();
 
-        /* We look for registered apis that support listAs(taskHash). */
+        // We look for registered apis that support listAs(taskHash).
         $apps = @unserialize($prefs->getValue('show_external'));
         if (is_array($apps)) {
             foreach ($apps as $app) {
@@ -265,8 +255,13 @@ class Nag
             }
         }
 
-        /* Sort the array. */
-        $tasks->sort($sortby, $sortdir, $altsortby);
+        // Sort the array.
+        $tasks->sort($options['sortby'], $options['sortdir'], $options['altsortby']);
+
+        // Preload tags if requested.
+        if ($options['include_tags']) {
+            $tasks->loadTags();
+        }
 
         return $tasks;
     }

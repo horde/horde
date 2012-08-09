@@ -138,14 +138,14 @@ class Nag_Block_Summary extends Horde_Core_Block
 
         $i = 0;
         try {
-            $tasks = Nag::listTasks(
-                null, null, null,
-                isset($this->_params['show_tasklists']) ?
-                    $this->_params['show_tasklists'] :
-                    array_keys(Nag::listTasklists(false, Horde_Perms::READ)),
-                empty($this->_params['show_completed']) ?
-                        0 :
-                        1
+            $tasks = Nag::listTasks(array(
+                'tasklists' => isset($this->_params['show_tasklists'])
+                    ? $this->_params['show_tasklists']
+                    : array_keys(Nag::listTasklists(false, Horde_Perms::READ)),
+                'completed' => empty($this->_params['show_completed'])
+                    ? Nag::VIEW_INCOMPLETE,
+                    : Nag::VIEW_ALL,
+                'include_tags' => true)
             );
         } catch (Nag_Exception $e) {
             return '<em>' . htmlspecialchars($e->getMessage()) . '</em>';

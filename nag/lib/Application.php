@@ -331,7 +331,12 @@ class Nag_Application extends Horde_Registry_Application
             }
 
             /* Get the full, sorted task list. */
-            $tasks = Nag::listTasks(null, null, null, $tasklists, $vars->exportTasks);
+            $tasks = Nag::listTasks(array(
+                'tasklists' => $tasklists,
+                'completed' => $vars->exportTasks,
+                'include_tags' => true)
+            );
+
             if (!$tasks->hasTasks()) {
                 throw new Nag_Exception(_("There were no tasks to export."));
             }

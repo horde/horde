@@ -15,12 +15,8 @@ if (!$search) {
     exit;
 }
 
-$tasks = Nag::listTasks(
-    $prefs->getValue('sortby'),
-    $prefs->getValue('sortdir'),
-    $prefs->getValue('altsortby'),
-    null,
-    1
+$tasks = Nag::listTasks(array(
+    'completed' => Nag::VIEW_ALL)
 );
 $search_pattern = '/^' . preg_quote($search, '/') . '/i';
 $search_results = new Nag_Task();

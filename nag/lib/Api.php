@@ -101,9 +101,9 @@ class Nag_Api extends Horde_Registry_Api
      *
      * @return array  The task lists.
      */
-    public function listTasklists($owneronly = false, $permission = Horde_Perms::SHOW)
+    public function listTasklists($owneronly = false, $permission = Horde_Perms::SHOW, $smart = true)
     {
-        return Nag::listTasklists($owneronly, $permission);
+        return Nag::listTasklists($owneronly, $permission, $smart);
     }
 
     /**
@@ -677,7 +677,8 @@ class Nag_Api extends Horde_Registry_Api
             }
         }
 
-        $tasks = Nag::listTasks(null, null, null, $tasklists, 1);
+        $tasks = Nag::listTasks(
+            array('tasklists' => $tasklists, 'completed' => Nag::VIEW_ALL));
         $uids = array();
         $tasks->reset();
         while ($task = $tasks->each()) {
@@ -1014,7 +1015,10 @@ class Nag_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $tasks = Nag::listTasks(null, null, null, array($tasklist), 1);
+        $tasks = Nag::listTasks(array(
+            'tasklists' => array($tasklist),
+            'completed' => Nag::VIEW_ALL,
+            'include_tags' => true));
 
         $version = '2.0';
         switch ($contentType) {
@@ -1188,7 +1192,7 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listCostObjects($criteria)
     {
-        $tasks = Nag::listTasks(null, null, null, null, 1);
+        $tasks = Nag::listTasks(array('completed' => Nag::VIEW_ALL));
         $result = array();
         $tasks->reset();
         while ($task = $tasks->each()) {
@@ -1242,7 +1246,11 @@ class Nag_Api extends Horde_Registry_Api
         $end_ts = $end->timestamp();
 
         // List incomplete tasks.
-        $tasks = Nag::listTasks(null, null, null, $categories, 0);
+        $tasks = Nag::listTasks(array(
+            'tasklists' => $categories,
+            'completed' => Nag::VIEW_INCOMPLETE)
+        );
+
         $tasks->reset();
         while ($task = $tasks->each()) {
             // If there's no due date, it's not a time object.

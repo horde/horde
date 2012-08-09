@@ -692,6 +692,28 @@ class Nag_Task
     }
 
     /**
+     * Recursively loads tags for all tasks contained in this object.
+     */
+    public function loadTags()
+    {
+        $ids = array($this->uid);
+        foreach ($this->children as $task) {
+            $ids[] = $task->uid;
+        }
+        $results = $GLOBALS['injector']->getInstance('Nag_Tagger')
+            ->getTags($ids);
+
+        foreach ($this->children as $task) {
+            if (!empty($results[$task->uid])) {
+                $task->tags = $results[$task->uid];
+            }
+        }
+        if (!empty($results[$this->uid])) {
+            $this->_tags = $results[$this->uid];
+        }
+    }
+
+    /**
      * Sorts sub tasks by the given criteria.
      *
      * @param string $sortby     The field by which to sort

@@ -120,12 +120,9 @@ class Nag_Search implements Serializable
         }
 
         // Get the full, sorted task list.
-        $tasks = Nag::listTasks(
-            $prefs->getValue('sortby'),
-            $prefs->getValue('sortdir'),
-            $prefs->getValue('altsortby'),
-            array_keys(Nag::listTasklists(false, Horde_Perms::READ, false)),
-            $this->_completed
+        $tasks = Nag::listTasks(array(
+            'tasklists' => array_keys(Nag::listTasklists(false, Horde_Perms::READ, false)),
+            'completed' => $this->_completed)
         );
 
         $pattern = '/' . preg_quote($pattern, '/') . '/i';
@@ -157,6 +154,9 @@ class Nag_Search implements Serializable
                 $search_results->add($task);
             }
         }
+
+        // Now that we have filtered results, load all tags at once.
+        $search_results->loadTags();
 
         return $search_results;
     }
