@@ -131,8 +131,10 @@ class Nag_Search implements Serializable
         $tasks->reset();
         $results = array();
         if (!empty($this->_tags)) {
-            $tagged_tasks = $GLOBALS['injector']->getInstance('Nag_Tagger')
-                ->search($this->_tags, array('user' => $GLOBALS['registry']->getAuth()));
+            $tagged_tasks = Nag::getTagger()->search(
+                $this->_tags,
+                array('user' => $GLOBALS['registry']->getAuth())
+            );
         }
         while ($task = $tasks->each()) {
             if (!empty($date)) {

@@ -700,8 +700,7 @@ class Nag_Task
         foreach ($this->children as $task) {
             $ids[] = $task->uid;
         }
-        $results = $GLOBALS['injector']->getInstance('Nag_Tagger')
-            ->getTags($ids);
+        $results = Nag::getTagger()->getTags($ids);
 
         foreach ($this->children as $task) {
             if (!empty($results[$task->uid])) {
