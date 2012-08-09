@@ -72,6 +72,7 @@ First alpha release for Horde 5.
 v4.0.16-git
 -----------
 
+[jan] Fix adding attachments to problem tickets (Bug #10654).
 [jan] Update Turkish translation (İstanbul Technical University).
 [jan] Fix setting permissions on static/ directory with horde-set-perms (Bug
       #11219).
