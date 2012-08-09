@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix cancelling problem report.
 * [jan] Fix audio notification path printed in page output.
  </notes>
  <contents>
@@ -3854,6 +3855,7 @@
    <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix cancelling problem report.
 * [jan] Fix audio notification path printed in page output.
    </notes>
   </release>

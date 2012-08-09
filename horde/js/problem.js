@@ -2,6 +2,7 @@ var HordeProblem = {
 
     onSubmit: function(e)
     {
+        console.log (e.findElement());
         if ($F('subject').empty()) {
             window.alert(this.summary_text);
             $('subject').focus();
@@ -17,4 +18,4 @@ var HordeProblem = {
 
 };
 
-$('problem_report').observe('submit', HordeProblem.onSubmit.bindAsEventListener(HordeProblem));
+$('problem-report').observe('click', HordeProblem.onSubmit.bindAsEventListener(HordeProblem));

@@ -1,4 +1,4 @@
-<form method="post" enctype="multipart/form-data" id="problem_report" name="problem_report" action="problem.php">
+<form method="post" enctype="multipart/form-data" name="problem_report" action="problem.php">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" id="actionID" name="actionID" value="cancel_problem_report" />
 <input type="hidden" name="return_url" value="<?php echo htmlspecialchars(Horde_Util::getFormData('return_url')) ?>" />
@@ -33,7 +33,7 @@
  <tr>
   <td>&nbsp;</td>
   <td class="light">
-   <input class="button" type="submit" name="formsubmit" value="<?php echo _("Send Problem Report") ?>" />
+   <input id="problem-report" class="button" type="submit" name="formsubmit" value="<?php echo _("Send Problem Report") ?>" />
    <input class="button" type="submit" name="formsubmit" value="<?php echo _("Cancel Problem Report") ?>" />
   </td>
  </tr>
