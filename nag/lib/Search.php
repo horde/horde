@@ -138,7 +138,7 @@ class Nag_Search implements Serializable
         }
         while ($task = $tasks->each()) {
             if (!empty($date)) {
-                if ($task->due > $date) {
+                if (empty($task->due) || $task->due > $date) {
                     continue;
                 }
             }
