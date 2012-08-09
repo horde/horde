@@ -67,7 +67,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         $compose_ajax = new IMP_Ajax_Application_Compose($imp_compose, $this->vars->type);
 
         $compose_opts = array(
-            'title' => ''
+            'title' => _("New Message")
         );
 
         switch ($this->vars->type) {
