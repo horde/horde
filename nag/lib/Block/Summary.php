@@ -143,7 +143,7 @@ class Nag_Block_Summary extends Horde_Core_Block
                     ? $this->_params['show_tasklists']
                     : array_keys(Nag::listTasklists(false, Horde_Perms::READ)),
                 'completed' => empty($this->_params['show_completed'])
-                    ? Nag::VIEW_INCOMPLETE,
+                    ? Nag::VIEW_INCOMPLETE
                     : Nag::VIEW_ALL,
                 'include_tags' => true)
             );
