@@ -697,7 +697,7 @@ class Content_Tagger
         }
 
         if (!is_array($tags)) {
-            $tags = array($tags);
+            $tags = is_int($tags) ? array($tags) : $this->splitTags($tags);
         }
 
         $tagIds = array();
