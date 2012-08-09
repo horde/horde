@@ -129,7 +129,6 @@ abstract class Nag_Driver
         );
 
         $taskId = $this->_add($task);
-
         $task = $this->get($taskId);
         $task->process();
 
