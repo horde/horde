@@ -125,8 +125,6 @@ class Nag_Api extends Horde_Registry_Api
     /**
      * Returns a task list.
      *
-     * @since Nag 3.0.3
-     *
      * @param string $name   A task list name.
      *
      * @return Horde_Share_Object  The task list.
@@ -192,8 +190,6 @@ class Nag_Api extends Horde_Registry_Api
     /**
      * Returns the displayed task lists.
      *
-     * @since Nag 3.0.3
-     *
      * @return array  Displayed tasklists.
      */
     public function getDisplayedTasklists()
@@ -203,8 +199,6 @@ class Nag_Api extends Horde_Registry_Api
 
     /**
      * Sets the displayed task lists.
-     *
-     * @since Nag 3.0.3
      *
      * @param array $list  Displayed tasklists.
      */

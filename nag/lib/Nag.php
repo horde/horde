@@ -501,8 +501,6 @@ class Nag
     /**
      * Returns whether the current user has certain permissions on a tasklist.
      *
-     * @since Nag 3.0.3
-     *
      * @param string $tasklist  A tasklist id.
      * @param integer $perm     A Horde_Perms permission mask.
      *
