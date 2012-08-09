@@ -71,7 +71,7 @@ case 'send_problem_report':
                                       'user_email' => $email));
 
             try {
-                $registry->call('tickets/addTicket', array($info));
+                $ticketId = $registry->call('tickets/addTicket', array($info));
             } catch (Horde_Exception $e) {
                 $notification->push($e);
                 break;
@@ -83,7 +83,7 @@ case 'send_problem_report':
                     $registry->call(
                         'tickets/addAttachment',
                         array(
-                            'ticket_id' => $result,
+                            'ticket_id' => $ticketId,
                             'name' => $attachment['name'],
                             'data' => file_get_contents($attachment['tmp_name'])
                         )
