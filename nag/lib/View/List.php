@@ -27,6 +27,20 @@ class Nag_View_List
     protected $_title;
 
     /**
+     * Flag to indicate whether or not to show the tag browser
+     *
+     * @var boolean
+     */
+    protected $_showTagBrowser = true;
+
+    /**
+     * Tag browser
+     *
+     * @var Nag_TagBrowser
+     */
+    protected $_browser;
+
+    /**
      * Const'r
      *
      * @param Horde_Variables $vars  Variables for the view.
@@ -36,9 +50,12 @@ class Nag_View_List
     public function __construct($vars)
     {
         $this->_vars = $vars;
+        $this->_title = _("My Tasks");
+        $this->_browser = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_TagBrowser')
+            ->create();
         $this->_checkSortValue();
         $this->_handleActions();
-        $this->_title = _("My Tasks");
     }
 
     /**
@@ -77,6 +94,9 @@ class Nag_View_List
             }
         }
         echo $tabs->render($this->_vars->get('show_completed'));
+        if ($this->_showTagBrowser) {
+            echo $this->_getTagTrail() . $this->_getRelatedTags();
+        }
         require NAG_TEMPLATES . '/list.html.php';
         require NAG_TEMPLATES . '/panel.inc';
         $page_output->footer();
@@ -108,32 +128,34 @@ class Nag_View_List
     /**
      * Helper to handle any incoming actions.
      */
-    protected function _handleActions()
+    protected function _handleActions($action = null)
     {
         $lists = null;
-        switch ($this->_vars->actionID) {
+        if (is_null($action)) {
+            $action = $this->_vars->actionID;
+        }
+        switch ($action) {
         case 'search_tasks':
             $this->_doSearch();
             break;
         case 'browse_add':
         case 'browse_remove':
+        case 'browse':
             // The tag to add|remove from the browse search.
-            $tag = $this->_vars->get('tag');
-            $tb = $GLOBALS['injector']
-                ->getInstance('Nag_Factory_TagBrowser')
-                ->create();
+            $tag = trim($this->_vars->get('tag'));
             if (!empty($tag)) {
                 if ($this->_vars->actionID == 'browse_add') {
-                    $tb->addTag($tag);
+                    $this->_browser->addTag($tag);
                 } else {
-                    $tb->removeTag($tag);
+                    $this->_browser->removeTag($tag);
                 }
-                $tb->save();
+                $this->_browser->save();
             }
-            if ($tb->tagCount() < 1) {
+            if ($this->_browser->tagCount() < 1) {
+                $this->_browser->clearSearch();
                 $this->_loadTasks();
             } else {
-                $this->_tasks = $tb->getSlice();
+                $this->_tasks = $this->_browser->getSlice();
             }
             break;
         case 'smart':
@@ -142,7 +164,12 @@ class Nag_View_List
             $this->_title = $list->get('name');
             // Fall through
         default:
-            $this->_loadTasks($lists);
+            // If we have an active tag browse, use it.
+            if ($this->_browser->tagCount() >= 1) {
+                $this->_handleActions('browse');
+            } else {
+                $this->_loadTasks($lists);
+            }
             break;
         }
     }
@@ -221,6 +248,73 @@ class Nag_View_List
         }
 
         $this->_tasks = $tasks;
+    }
+
+    /**
+     * Get HTML to display the related tags links.
+     *
+     * @return string
+     */
+    protected function _getRelatedTags()
+    {
+        $rtags = $this->_browser->getRelatedTags();
+        if ($this->_browser->tagCount() >= 1) {
+            $t = _("Related Tags:");
+        } else {
+            $t = _("Tags:");
+        }
+        $html = sprintf('<div class="nag-tags-related">%s<ul class="horde-tags">', $t);
+        foreach ($rtags as $id => $taginfo) {
+            $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
+                . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
+        }
+        return $html . '</ul></div>';
+    }
+
+    /**
+     * Get HTML to represent the currently selected tags.
+     *
+     * @return string
+     */
+    protected function _getTagTrail()
+    {
+        if ($this->_browser->tagCount() >= 1) {
+            $html = '<div class="header">' . _("Browsing for tags:") . '<ul class="horde-tags">';
+            foreach ($this->_browser->getTags() as $tag => $id) {
+                $html .= '<li>' . htmlspecialchars($tag)
+                    . $this->_linkRemoveTag($tag)->link()
+                    . Horde::img('delete-small.png', _("Remove from search"))
+                    . '</a></li>';
+            }
+            return $html .= '</ul></div>';
+        }
+
+        return '';
+    }
+
+    /**
+     * Get HTML for a link to remove a tag from the current search.
+     *
+     * @param  string $tag  The tag we want the link for.
+     *
+     * @return string
+     */
+    protected function _linkRemoveTag($tag)
+    {
+        return Horde::url('list.php')
+            ->add(array('actionID' => 'browse_remove', 'tag' => $tag));
+    }
+
+    /**
+     * Get HTML for a link to add a new tag to the current search.
+     *
+     * @param string $tag  The tag we want to add.
+     *
+     * @return string
+     */
+    protected function _linkAddTag($tag)
+    {
+        return Horde::url('list.php')->add(array('actionID' => 'browse_add', 'tag' => $tag));
     }
 
 }
