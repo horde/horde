@@ -15,6 +15,7 @@
 class Trean_TagBrowser extends Horde_Core_TagBrowser
 {
 
+    protected $_app = 'trean';
 
     /**
      * Get breadcrumb style navigation html for choosen tags

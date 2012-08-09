@@ -14,6 +14,8 @@
  */
 class Nag_TagBrowser extends Horde_Core_TagBrowser
 {
+    protected $_app = 'nag';
+
     /**
      * Get breadcrumb style navigation html for choosen tags
      *
