@@ -1253,8 +1253,6 @@ class Nag
     /**
      * Returns whether a user wants email notifications for a tasklist.
      *
-     * @access private
-     *
      * @todo This method is causing a memory leak somewhere, noticeable if
      *       importing a large amount of events.
      *
@@ -1270,7 +1268,7 @@ class Nag
      *
      * @return boolean  True if the user wants notifications for the tasklist.
      */
-    static public function _notificationPref($user, $mode, $tasklist = null)
+    static protected function _notificationPref($user, $mode, $tasklist = null)
     {
         $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('nag', array(
             'cache' => false,
