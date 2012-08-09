@@ -2,7 +2,6 @@ var HordeProblem = {
 
     onSubmit: function(e)
     {
-        console.log (e.findElement());
         if ($F('subject').empty()) {
             window.alert(this.summary_text);
             $('subject').focus();
