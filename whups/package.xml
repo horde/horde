@@ -982,5 +982,23 @@
 * [jan] Improve error reporting in whups-mail-filter.
    </notes>
   </release>
+  <release>
+   <date>2012-07-19</date>
+   <time>22:26:49</time>
+   <version>
+    <release>3.0.0</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
+   <notes>
+* [jan] Add configuration option to include raw processed message.
+* [jan] Add due date to ticket columns (Request #10986).
+* [jan] Make columns of portal block configurable (Request #10986).
+   </notes>
+  </release>
  </changelog>
 </package>
