@@ -5,7 +5,7 @@ class Nag_Form_Type_NagTags extends Horde_Form_Type
 {
     public function getInfo(&$vars, &$var, &$info)
     {
-        $info = explode(',', $var->getValue($vars));
+        $info = $var->getValue($vars);
     }
 
     public function isValid(&$var, &$vars, $value, &$message)
