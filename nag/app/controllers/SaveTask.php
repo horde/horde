@@ -50,6 +50,9 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             /* Creating a new task. */
             $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')
                 ->create($info['tasklist_id']);
+            // These must be unset since the form sets them to NULL
+            unset($info['owner']);
+            unset($info['uid']);
             try {
               $newid = $storage->add($info);
             } catch (Nag_Exception $e) {
