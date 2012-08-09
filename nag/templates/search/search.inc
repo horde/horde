@@ -17,7 +17,12 @@
  <strong><?php echo _("Search In:") ?></strong><br />
  <input id="name" name="search_name" type="checkbox" checked="checked" /> <?php echo Horde::label('name', _("N_ame")) ?><br />
  <input id="desc" name="search_desc" type="checkbox" /> <?php echo Horde::label('desc', _("_Description")) ?><br />
- <input id="tag" name="search_tags" type="checkbox" /> <?php echo Horde::label('tag', _("_Tags")) ?><br />
+</p>
+
+<p>
+ <strong><?php echo Horde::label('search_tags', _("Tagged with:")) ?></strong>
+ <input id="search_tags" name="search_tags" type="text" />
+ <span id="search_tags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
 </p>
 
 <p>

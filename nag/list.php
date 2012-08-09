@@ -38,7 +38,7 @@ case 'search_tasks':
     $search_pattern = $vars->search_pattern;
     $search_name = $vars->search_name == 'on' ? Nag_Search::MASK_NAME : 0;
     $search_desc = $vars->search_desc == 'on' ? Nag_Search::MASK_DESC : 0;
-    $search_tags = $vars->search_tags == 'on' ? Nag_Search::MASK_TAGS : 0;
+    $search_tags = !empty($vars->search_tags) ? Nag_Search::MASK_TAGS : 0;
     $search_completed = $vars->search_completed;
     $vars->set('show_completed', $search_completed);
     $mask = $search_name | $search_desc | $search_tags;
@@ -47,7 +47,13 @@ case 'search_tasks':
     } else {
         $date = array();
     }
-    $search = new Nag_Search($search_pattern, $mask, array('completed' => $search_completed, 'due' => $date));
+    $search = new Nag_Search(
+        $search_pattern,
+        $mask,
+        array(
+            'completed' => $search_completed,
+            'due' => $date,
+            'tags' => $vars->search_tags));
     try {
         $tasks = $search->getSlice();
     } catch (Nag_Exception $e) {
@@ -58,6 +64,9 @@ case 'search_tasks':
     $title = sprintf(_("Search: Results for \"%s\""), $search_pattern);
     if (!empty($date)) {
         $title .= ' ' . sprintf(_("and due date within %d days of %s"), $date[0], $date[1]);
+    }
+    if (!empty($search_tags)) {
+        $title .= ' ' . sprintf(_("and tagged with %s"), $vars->search_tags);
     }
 
     /* Save as a smart list? */
