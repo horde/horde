@@ -214,6 +214,10 @@ class Nag
             'completed' => $prefs->getValue('show_completed'),
             'include_tags' => false),
             $options);
+
+        if (!is_array($options['tasklists'])) {
+            $options['tasklists'] = array($options['tasklists']);
+        }
         $tasks = new Nag_Task();
         foreach ($options['tasklists'] as $tasklist) {
             $storage = $GLOBALS['injector']
