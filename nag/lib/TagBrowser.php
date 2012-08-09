@@ -46,7 +46,7 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
                 $task = $GLOBALS['injector']
                     ->getInstance('Nag_Factory_Driver')
                     ->create()->getByUID($id);
-                $tasks->addTask($task);
+                $tasks->add($task);
             } catch (Nag_Exception $e) {
                 Horde::logMessage('Task not found: ' . $id, 'ERR');
             }

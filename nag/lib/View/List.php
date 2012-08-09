@@ -115,22 +115,51 @@ class Nag_View_List
         case 'search_tasks':
             $this->_doSearch();
             break;
+        case 'browse_add':
+        case 'browse_remove':
+            // The tag to add|remove from the browse search.
+            $tag = $this->_vars->get('tag');
+            $tb = $GLOBALS['injector']
+                ->getInstance('Nag_Factory_TagBrowser')
+                ->create();
+            if (!empty($tag)) {
+                if ($this->_vars->actionID == 'browse_add') {
+                    $tb->addTag($tag);
+                } else {
+                    $tb->removeTag($tag);
+                }
+                $tb->save();
+            }
+            if ($tb->tagCount() < 1) {
+                $this->_loadTasks();
+            } else {
+                $this->_tasks = $tb->getSlice();
+            }
+            break;
         case 'smart':
             $lists = array($this->_vars->get('list'));
             $list = $GLOBALS['nag_shares']->getShare($this->_vars->get('list'));
             $this->_title = $list->get('name');
             // Fall through
         default:
-            try {
-                $this->_tasks = Nag::listTasks(array(
-                    'tasklists' => $lists,
-                    'include_tags' => true)
-                );
-            } catch (Nag_Exception $e) {
-                $GLOBALS['notification']->push($e, 'horde.error');
-                $this->_tasks = new Nag_Task();
-            }
+            $this->_loadTasks($lists);
             break;
+        }
+    }
+
+    /**
+     * Load the full, sorted task list.
+     */
+    protected function _loadTasks($lists = null)
+    {
+        try {
+            $this->_tasks = Nag::listTasks(array(
+                'tasklists' => $lists,
+                'include_tags' => true)
+            );
+        } catch (Nag_Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
+            $this->_tasks = new Nag_Task();
         }
     }
 
