@@ -27,11 +27,11 @@ $vars = $injector->getInstance('Horde_Variables');
 if ($vars->actionID == 'mailto_link') {
     switch ($registry->getView()) {
     case Horde_Registry::VIEW_DYNAMIC:
-        IMP_Dynamic_Compose::url()->redirect();
+        IMP_Dynamic_Compose::url()->add($_GET)->redirect();
         exit;
 
     case Horde_Registry::VIEW_MINIMAL:
-        IMP_Minimal_Compose::url()->redirect();
+        IMP_Minimal_Compose::url()->add($_GET)->redirect();
         exit;
     }
 }
