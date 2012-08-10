@@ -23,6 +23,15 @@ var ImpFlagPrefs = {
         $('prefs').submit();
     },
 
+    changeHandler: function(e)
+    {
+        var elt = e.element(), elt2;
+
+        if (elt.tagName == 'INPUT' && elt.identify().startsWith('bg_')) {
+            elt.setStyle({'background': elt.getValue()});
+        }
+    },
+
     clickHandler: function(e)
     {
         var elt = e.element(), elt2;
@@ -38,8 +47,7 @@ var ImpFlagPrefs = {
                 resizable: true,
                 update: [
                     [ elt2, 'value' ],
-                    [ elt2, 'background' ],
-                    [ elt.previous('DIV.flagUser'), 'background' ]
+                    [ elt2, 'background' ]
                 ]
             });
             e.memo.stop();
@@ -72,3 +80,4 @@ var ImpFlagPrefs = {
 
 document.observe('dom:loaded', ImpFlagPrefs.onDomLoad.bind(ImpFlagPrefs));
 document.observe('HordeCore:click', ImpFlagPrefs.clickHandler.bindAsEventListener(ImpFlagPrefs));
+document.observe('change', ImpFlagPrefs.changeHandler.bindAsEventListener(ImpFlagPrefs));

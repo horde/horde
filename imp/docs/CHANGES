@@ -2,6 +2,7 @@
 v6.0.0-git
 ----------
 
+[jan] Allow to reset flag colors and to specify as HTML colors.
 [mjr] The mailboxList API call now returns delimiter and attribute information.
 [jan] Fix polling for new mail from other applications.
 
