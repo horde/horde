@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: IMP 5.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-05-01 15:02+0200\n"
-"PO-Revision-Date: 2012-05-01 15:04+0200\n"
+"PO-Revision-Date: 2012-08-10 16:51+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -1178,7 +1178,7 @@ msgstr "Nachrichtenkopf einklappen"
 
 #: templates/prefs/flags.html:8
 msgid "Color"
-msgstr "Farbig"
+msgstr "Farbe"
 
 #: lib/Prefs/Ui.php:871
 msgid "Color Picker"
@@ -3369,7 +3369,7 @@ msgstr "Sonstige"
 
 #: templates/dimp/index.inc:191 templates/dimp/compose/compose.html:64
 msgid "Other Options"
-msgstr "Andere Einstellungen"
+msgstr "Weitere Funktionen"
 
 #: lib/Mailbox.php:1560
 msgid "Other Users"
