@@ -476,6 +476,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
         case Horde_ActiveSync::CLASS_EMAIL:
             if (empty($this->_imap)) {
+                $this->_endBuffer();
                 return array();
             }
             if ($ping) {
