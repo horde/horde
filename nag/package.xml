@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-05</date>
- <time>23:06:09</time>
+ <date>2012-08-12</date>
+ <time>22:07:00</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -88,6 +88,7 @@
     </dir> <!-- /lib/Driver -->
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
+     <file name="TagBrowser.php" role="horde" />
      <file name="Tasklists.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
@@ -121,6 +122,9 @@
       <file name="Nag.php" role="horde" />
      </dir> <!-- /lib/Ui/VarRenderer -->
     </dir> <!-- /lib/Ui -->
+    <dir name="View">
+     <file name="List.php" role="horde" />
+    </dir> <!-- /lib/View -->
     <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
@@ -129,6 +133,7 @@
     <file name="Nag.php" role="horde" />
     <file name="QuickParser.php" role="horde" />
     <file name="Search.php" role="horde" />
+    <file name="TagBrowser.php" role="horde" />
     <file name="Tagger.php" role="horde" />
     <file name="Task.php" role="horde" />
    </dir> <!-- /lib -->
@@ -722,6 +727,7 @@
    <install as="nag/lib/Nag.php" name="lib/Nag.php" />
    <install as="nag/lib/QuickParser.php" name="lib/QuickParser.php" />
    <install as="nag/lib/Search.php" name="lib/Search.php" />
+   <install as="nag/lib/TagBrowser.php" name="lib/TagBrowser.php" />
    <install as="nag/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="nag/lib/Task.php" name="lib/Task.php" />
    <install as="nag/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
@@ -731,6 +737,7 @@
    <install as="nag/lib/Driver/Smartlist.php" name="lib/Driver/Smartlist.php" />
    <install as="nag/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="nag/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="nag/lib/Factory/TagBrowser.php" name="lib/Factory/TagBrowser.php" />
    <install as="nag/lib/Factory/Tasklists.php" name="lib/Factory/Tasklists.php" />
    <install as="nag/lib/Form/CreateTaskList.php" name="lib/Form/CreateTaskList.php" />
    <install as="nag/lib/Form/DeleteTaskList.php" name="lib/Form/DeleteTaskList.php" />
@@ -747,6 +754,7 @@
    <install as="nag/lib/Tasklists/Default.php" name="lib/Tasklists/Default.php" />
    <install as="nag/lib/Tasklists/Kolab.php" name="lib/Tasklists/Kolab.php" />
    <install as="nag/lib/Ui/VarRenderer/Nag.php" name="lib/Ui/VarRenderer/Nag.php" />
+   <install as="nag/lib/View/List.php" name="lib/View/List.php" />
    <install as="nag/locale/.htaccess" name="locale/.htaccess" />
    <install as="nag/locale/nag.pot" name="locale/nag.pot" />
    <install as="nag/locale/ar/LC_MESSAGES/nag.mo" name="locale/ar/LC_MESSAGES/nag.mo" />
