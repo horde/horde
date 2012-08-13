@@ -601,8 +601,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             // Get new synckey if needed
             if ($statusCode == self::STATUS_SUCCESS &&
                 (isset($collection['importedchanges']) ||
-                $changecount > 0 ||
-                $collection['synckey'] == 0 ||
+                !empty($changecount) ||
+                $collection['synckey'] == '0' ||
                 !empty($collection['fetchids']))) {
                 try {
                     $collection['newsynckey'] = $this->_stateDriver->getNewSyncKey($collection['synckey']);
