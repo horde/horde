@@ -68,7 +68,7 @@
      <table>
       <thead>
 <?php foreach ($this->hdrs as $val): ?>
-       <tr<?php if ($val['id']) echo ' id="' . $val['id'] . '"'; ?>>
+       <tr<?php if (!empty($val['id'])) echo ' id="' . $val['id'] . '"'; ?>>
         <td class="label"><?php echo $val['label'] ?>:</td>
         <td><?php echo $val['val'] ?></td>
        </tr>
