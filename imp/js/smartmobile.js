@@ -990,6 +990,10 @@ var ImpMobile = {
                 }
                 return;
 
+            case 'imp-compose-cancel':
+                ImpMobile.closeCompose();
+                return;
+
             case 'imp-compose-submit':
                 if (!ImpMobile.disabled) {
                     var action = $('#imp-compose-form').is(':hidden')
