@@ -697,26 +697,28 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     if (!empty($collection['windowsize']) && $changecount > $collection['windowsize']) {
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
                     }
-                    $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
-                    $n = 0;
-                    while (1) {
-                        $progress = $sync->syncronize();
-                        if (!is_array($progress)) {
-                            break;
-                        }
-                        $n++;
-                        if (!empty($collection['windowsize']) &&
-                            $n >= $collection['windowsize']) {
+                    if (!empty($changecount)) {
+                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
+                        $n = 0;
+                        while (1) {
+                            $progress = $sync->syncronize();
+                            if (!is_array($progress)) {
+                                break;
+                            }
+                            $n++;
+                            if (!empty($collection['windowsize']) &&
+                                $n >= $collection['windowsize']) {
 
-                            $this->_logger->info(sprintf(
-                                "[%s] Exported maxItems of messages (%s) - more available.",
-                                $this->_device->id,
-                                $collection['windowsize'])
-                            );
-                            break;
+                                $this->_logger->info(sprintf(
+                                    "[%s] Exported maxItems of messages (%s) - more available.",
+                                    $this->_device->id,
+                                    $collection['windowsize'])
+                                );
+                                break;
+                            }
                         }
+                        $this->_encoder->endTag();
                     }
-                    $this->_encoder->endTag();
                 }
 
                 // Save the sync state for the next time
