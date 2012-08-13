@@ -834,7 +834,7 @@ class Nag_Task
         if ($this->recurs()) {
             $json->r = $this->recurrence->getRecurType();
         }
-        $json->t = $this->tags;
+        $json->t = array_values($this->tags);
 
         if ($full) {
             // @todo: do we really need all this?
