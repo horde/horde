@@ -1724,13 +1724,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         if (empty($this->_mailFolders)) {
             if (empty($this->_imap)) {
-<<<<<<< HEAD
-                $this->_mailFolders = array($this->_getMailFolder('INBOX', array(), array('label' => 'INBOX')));
-=======
                 $this->_mailFolders = array($this->_buildDummyFolder(self::SPECIAL_INBOX));
                 $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_TRASH);
                 $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_SENT);
->>>>>>> Don't short circuit INBOX here.
             } else {
                 $this->_logger->debug('Polling Horde_ActiveSync_Driver_Horde::_getMailFolders()');
                 $folders = array();
