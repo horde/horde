@@ -129,7 +129,7 @@ class IMP_Ajax_Application_Compose
      *   - size: (string) The size of the attachment in KB
      *   - type: (string) The MIME type of the attachment
      */
-    public function getAttachmentInfo($type)
+    public function getAttachmentInfo($type = IMP_Compose::COMPOSE)
     {
         $atc = array();
 
