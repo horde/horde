@@ -694,9 +694,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 // Send server changes to PIM
                 if (!empty($collection['getchanges']) ||
                     (!isset($collection['getchanges']) && !empty($collection['synckey']))) {
-                    if (!empty($collection['windowsize']) && $changecount > $collection['windowsize']) {
+
+                    if (!empty($collection['windowsize']) && !empty($changecount) && $changecount > $collection['windowsize']) {
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
                     }
+
                     if (!empty($changecount)) {
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
                         $n = 0;
