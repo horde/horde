@@ -755,9 +755,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
 
             $this->_logger->debug(sprintf(
-                "[%s] Found %d message changes.",
+                "[%s] Found %d message changes in %s.",
                 $this->_procid,
-                count($changes)));
+                count($changes),
+                $this->_collection['id']));
 
             $this->_changes = array();
             if (count($changes) && $this->_havePIMChanges($this->_collection['class'])) {
