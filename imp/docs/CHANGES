@@ -2,6 +2,8 @@
 v6.0.0-git
 ----------
 
+[mms] Fix regression preventing compose messages from being sent in the
+      smartmobile view (Bug #11342).
 [jan] Allow to reset flag colors and to specify as HTML colors.
 [mjr] The mailboxList API call now returns delimiter and attribute information.
 [jan] Fix polling for new mail from other applications.
