@@ -322,7 +322,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             if (count($tie_addr)) {
                 foreach ($addresses as $val) {
                     foreach ($tie_addr as $val2) {
-                        if (($val->bare_address == $val2->bare_address) ||
+                        if (($val->bare_address == $val2->bare_address) &&
                             (strcasecmp($val->host, $val2->host) === 0)) {
                             return $key;
                         }
