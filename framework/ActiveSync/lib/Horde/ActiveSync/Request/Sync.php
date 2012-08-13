@@ -604,6 +604,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 !empty($changecount) ||
                 $collection['synckey'] == '0' ||
                 !empty($collection['fetchids']))) {
+
                 try {
                     $collection['newsynckey'] = $this->_stateDriver->getNewSyncKey($collection['synckey']);
                     $this->_logger->debug(sprintf(
