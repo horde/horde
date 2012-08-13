@@ -23,6 +23,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     const SPECIAL_SPAM   = 'spam';
     const SPECIAL_TRASH  = 'trash';
     const SPECIAL_DRAFTS = 'drafts';
+    const SPECIAL_INBOX  = 'inbox';
 
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
 
@@ -1722,7 +1723,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         if (empty($this->_mailFolders)) {
             if (empty($this->_imap)) {
+<<<<<<< HEAD
                 $this->_mailFolders = array($this->_getMailFolder('INBOX', array(), array('label' => 'INBOX')));
+=======
+                $this->_mailFolders = array($this->_buildDummyFolder(self::SPECIAL_INBOX));
+                $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_TRASH);
+                $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_SENT);
+>>>>>>> Don't short circuit INBOX here.
             } else {
                 $this->_logger->debug('Polling Horde_ActiveSync_Driver_Horde::_getMailFolders()');
                 $folders = array();
@@ -1735,6 +1742,31 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         return $this->_mailFolders;
+    }
+
+    protected function _buildDummyFolder($id)
+    {
+        $folder = new Horde_ActiveSync_Message_Folder();
+        $folder->parentid = '0';
+        switch ($id) {
+        case self::SPECIAL_TRASH:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET;
+            $folder->id = 'Trash';
+            $folder->displayname = _("Trash");
+            break;
+        case self::SPECIAL_SENT:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_SENTMAIL;
+            $folder->id = 'Sent';
+            $folder->displayname = _("Sent");
+            break;
+        case self::SPECIAL_INBOX:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
+            $folder->id = 'INBOX';
+            $folder->displayname = _("Inbox");
+            break;
+        }
+
+        return $folder;
     }
 
     /**
@@ -1753,12 +1785,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $folder->serverid = $sid;
         $folder->parentid = '0';
         $folder->displayname = $f['label'];
-
-        // Short circuit for INBOX
-        if (strcasecmp($sid, 'INBOX') === 0) {
-            $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
-            return $folder;
-        }
 
         // Check for nested folders. $fl will NEVER contain containers so we
         // can assume that any entry in $fl is an actual mailbox.
