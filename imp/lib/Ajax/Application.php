@@ -636,39 +636,38 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $changed = $this->_changed(true);
 
-        if (is_null($changed)) {
-            $vp = $GLOBALS['injector']->getInstance('IMP_Ajax_Application_ListMessages')->getBaseOb($this->_mbox);
+        if (!is_null($changed)) {
+            $this->_queue->poll($this->_mbox);
 
-            if (isset($vp_vars->requestid)) {
-                $vp->requestid = intval($vp_vars->requestid);
+            if ($changed || $vp_vars->rangeslice || !$vp_vars->checkcache) {
+                /* Ticket #7422: Listing messages may be a long-running
+                 * operation so close the session while we are doing it to
+                 * prevent deadlocks. */
+                $GLOBALS['session']->close();
+
+                $vp = $this->_viewPortData($changed);
+
+                /* Reopen the session. */
+                $GLOBALS['session']->start();
+
+                if (isset($vp_vars->delhide)) {
+                    $vp->metadata_reset = 1;
+                }
+
+                $this->addTask('viewport', $vp);
+                return true;
             }
-
-            $this->addTask('viewport', $vp);
-            return true;
         }
 
-        $this->_queue->poll($this->_mbox);
+        $vp = $GLOBALS['injector']->getInstance('IMP_Ajax_Application_ListMessages')->getBaseOb($this->_mbox);
 
-        if ($changed || $vp_vars->rangeslice || !$vp_vars->checkcache) {
-            /* Ticket #7422: Listing messages may be a long-running operation
-             * so close the session while we are doing it to prevent
-             * deadlocks. */
-            $GLOBALS['session']->close();
-
-            $vp = $this->_viewPortData($changed);
-
-            /* Reopen the session. */
-            $GLOBALS['session']->start();
-
-            if (isset($vp_vars->delhide)) {
-                $vp->metadata_reset = 1;
-            }
-
-            $this->addTask('viewport', $vp);
-            return true;
+        if (isset($vp_vars->requestid)) {
+            $vp->requestid = intval($vp_vars->requestid);
         }
 
-        return false;
+        $this->addTask('viewport', $vp);
+
+        return (bool)$vp_vars->checkcache;
     }
 
     /**
