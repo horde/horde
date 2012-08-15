@@ -24,6 +24,7 @@ var HordeCore = {
     alarms: [],
     base: null,
     handlers: {},
+    loading: {},
     notify_handler: function(m) { HordeCore.showNotifications(m); },
     server_error: 0,
     submit_frame: [],
@@ -58,7 +59,7 @@ var HordeCore = {
         document.fire('HordeCore:ajaxFailure', [ t, o ]);
     },
 
-    // opts: (Object) ajaxopts, callback
+    // opts: (Object) ajaxopts, callback, loading
     doAction: function(action, params, opts)
     {
         params = $H(params).clone();
@@ -71,22 +72,27 @@ var HordeCore = {
 
         ajaxopts.parameters = params;
 
+        this.initLoading(opts.loading);
+
         ajaxopts.onComplete = function(t, o) {
-            this.doActionComplete(t, opts.callback);
+            this.doActionComplete(t, opts.callback, opts.loading);
         }.bind(this);
 
         new Ajax.Request(this.conf.URI_AJAX + action, ajaxopts);
     },
 
     // form: (Element) DOM Element (or DOM ID)
-    // opts: (Object) ajaxopts, callback
+    // opts: (Object) ajaxopts, callback, loading
     submitForm: function(form, opts)
     {
         opts = opts || {};
 
         var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts || {});
+
+        this.initLoading(opts.loading);
+
         ajaxopts.onComplete = function(t, o) {
-            this.doActionComplete(t, opts.callback);
+            this.doActionComplete(t, opts.callback, opts.loading);
         }.bind(this);
 
         $(form).request(ajaxopts);
@@ -146,7 +152,7 @@ var HordeCore = {
         }
     },
 
-    doActionComplete: function(request, callback)
+    doActionComplete: function(request, callback, loading)
     {
         this.inAjaxCallback = true;
 
@@ -157,6 +163,7 @@ var HordeCore = {
             if (request.request) {
                 request.request.options.onFailure(request, {});
             }
+            this.endLoading(loading);
             this.inAjaxCallback = false;
             return;
         }
@@ -200,7 +207,33 @@ var HordeCore = {
 
         this.notify_handler(r.msgs);
 
+        this.endLoading(loading);
+
         this.inAjaxCallback = false;
+    },
+
+    initLoading: function(id)
+    {
+        if (id && id.length) {
+            if (this.loading[id]) {
+                ++this.loading[id];
+            } else {
+                this.loading[id] = 1;
+                document.fire('HordeCore:loadingStart', id);
+            }
+        }
+    },
+
+    endLoading: function(id)
+    {
+        if (id && id.length && this.loading[id]) {
+            if (this.loading[id] == 1) {
+                delete this.loading[id];
+                document.fire('HordeCore:loadingEnd', id);
+            } else {
+                --this.loading[id];
+            }
+        }
     },
 
     showNotifications: function(msgs)
