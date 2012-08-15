@@ -892,7 +892,7 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* Fix permission check when merging and renaming pages (Bug #11332).
+* [jan] Fix permission check when merging and renaming pages (Bug #11332).
    </notes>
   </release>
  </changelog>

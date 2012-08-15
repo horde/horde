@@ -2,7 +2,7 @@
 v2.0-git
 --------
 
-Fix permission check when merging and renaming pages (Bug #11332).
+[jan] Fix permission check when merging and renaming pages (Bug #11332).
 
 
 ------
