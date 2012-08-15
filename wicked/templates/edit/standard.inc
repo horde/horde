@@ -34,7 +34,7 @@ if (!empty($GLOBALS['conf']['wicked']['captcha']) && !$GLOBALS['registry']->getA
     require_once 'Text/Figlet.php';
     $figlet = new Text_Figlet();
     $result = $figlet->loadFont($GLOBALS['conf']['wicked']['figlet_font']);
-    if (!is_a($result, 'PEAR_Error')):
+    if (!($result instanceof PEAR_Error)):
 ?>
 <div class="control">
  <?php echo _("Spam Protection - Enter the letters below:") ?>
