@@ -1,5 +1,5 @@
 /**
- * Some general javascript code, prototypejs free, safe to use with jquery.
+ * Some general javascript code for use with jQuery.
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -100,24 +100,45 @@ String.prototype.toQueryParams = function()
 {
     var pList = this.substring(this.indexOf('?') + 1).split('#')[0].split('&'),
         params = {},
-        key, value, pair;
+        pair;
 
     $.map(pList, function(i) {
         pair = i.split('=');
-        key = decodeURIComponent(pair[0]);
-        value = pair[1]
-            ? decodeURIComponent(pair[1])
-            : undefined;
-
-        if (params[key]) {
-            if (typeof params[key] == "string") {
-                params[key] = [ params[key] ];
-            }
-            params[key].push(value);
-        } else {
-            params[key] = value;
-        }
+        HordeJquery.addToObject(
+            params,
+            decodeURIComponent(pair[0]),
+            pair[1] ? decodeURIComponent(pair[1]) : undefined
+        );
     });
 
     return params;
 }
+
+/**
+ */
+HordeJquery = {
+
+    formToObject: function(form)
+    {
+        var ob = {};
+
+        $.map(form.serializeArray(), function(v) {
+            HordeJquery.addToObject(ob, v.name, v.value);
+        });
+
+        return ob;
+    },
+
+    addToObject: function(ob, k, v)
+    {
+        if (ob[k]) {
+            if (typeof ob[k] == "string") {
+                ob[k] = [ ob[k] ];
+            }
+            ob[k].push(v);
+        } else {
+            ob[k] = v;
+        }
+    }
+
+};
