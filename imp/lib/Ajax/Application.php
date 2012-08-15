@@ -2020,7 +2020,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         /* Only update search mailboxes on forced refreshes. */
         if ($this->_mbox->search) {
-            return !empty($this->_vars->viewport->forceUpdate);
+            return !empty($this->_vars->forceUpdate);
         }
 
         /* We know we are going to be dealing with this mailbox, so select it
