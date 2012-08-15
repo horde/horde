@@ -626,7 +626,6 @@ var ImpMobile = {
             var id = (r.identity === null)
                 ? $('#imp-compose-identity').val()
                 : r.identity;
-            //i = ImpComposeBase.getIdentity(id, r.opts.show_editor);
 
             $('#imp-compose-identity').val(id);
             // The first selectmenu() call is necessary to actually create the
@@ -642,7 +641,6 @@ var ImpMobile = {
             $('#imp-compose-message').val(r.body);
 
             $('#imp-compose-' + (r.opts.focus || 'to').replace(/composeMessage/, 'message'))[0].focus();
-            //this.fillFormHash();
         }
 
         HordeMobile.changePage($('#compose'), options);
