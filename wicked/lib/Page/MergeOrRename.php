@@ -19,6 +19,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
      */
     public $supportedModes = array(
         Wicked::MODE_EDIT => true,
+        Wicked::MODE_REMOVE => true,
         Wicked::MODE_DISPLAY => true);
 
     /**
@@ -177,7 +178,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
         }
 
         $destPage = Wicked_Page::getPage($new_name);
-        if (!is_a($destPage, 'AddPage')) {
+        if (!($destPage instanceof Wicked_Page_AddPage)) {
             // Destination page exists.
             if ($collision != 'merge') {
                 // We don't want to overwrite.
