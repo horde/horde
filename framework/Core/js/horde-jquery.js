@@ -100,10 +100,10 @@ String.prototype.toQueryParams = function()
 {
     var pList = this.substring(this.indexOf('?') + 1).split('#')[0].split('&'),
         params = {},
-        i, j, key, value, pair;
+        key, value, pair;
 
-    for (i = 0, j = pList.length; i < j; ++i) {
-        pair = pList[i].split('=');
+    $.map(pList, function(i) {
+        pair = i.split('=');
         key = decodeURIComponent(pair[0]);
         value = pair[1]
             ? decodeURIComponent(pair[1])
@@ -117,7 +117,7 @@ String.prototype.toQueryParams = function()
         } else {
             params[key] = value;
         }
-    }
+    });
 
     return params;
 }
