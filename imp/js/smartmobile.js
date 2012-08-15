@@ -683,7 +683,7 @@ var ImpMobile = {
             // before having to close the window on success.
             HordeMobile.doAction(
                 action,
-                form.serialize().toQueryParams(),
+                HordeJquery.formToObject(form),
                 ImpMobile.uniqueSubmitCallback
             );
 
