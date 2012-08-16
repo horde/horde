@@ -3002,7 +3002,7 @@ var DimpBase = {
             if (!base.hasClassName('horde-subnavi')) {
                 base = base.up();
             }
-            subs = [  base.next('.horde-subnavi-sub') ];
+            subs = [ base.next('.horde-subnavi-sub') ];
         }
 
         if (!subs) {
@@ -3139,7 +3139,12 @@ var DimpBase = {
             .insert(new Element('DIV', { className: 'horde-subnavi-point' })
                         .insert(new Element('A').insert(label)));
 
-        // Now walk through the parent <ul> to find the right place to
+        this.mboxes[ob.m] = li;
+        if (ob.dummy) {
+            this.smboxes[ob.m] = li;
+        }
+
+        // Now walk through the parent container to find the right place to
         // insert the new mailbox.
         if (ob.s) {
             div.addClassName(ob.cl || 'folderImg');
@@ -3172,6 +3177,11 @@ var DimpBase = {
         }
 
         if (f_node) {
+            tmp2 = f_node.previous();
+            if (tmp2.hasClassName('horde-subnavi-sub') &&
+                tmp2.retrieve('m') == ob.m) {
+                f_node = tmp2;
+            }
             f_node.insert({ before: li });
         } else {
             parent_e.insert(li);
@@ -3186,8 +3196,10 @@ var DimpBase = {
             }
         }
 
-        if (!ob.s && ob.ch) {
-            li.insert({ after: new Element('DIV', { className: 'horde-subnavi-sub' }).hide() });
+        if (!ob.s && ob.ch && !this.getSubMboxElt(ob.m)) {
+            li.insert({
+                after: new Element('DIV', { className: 'horde-subnavi-sub' }).store('m', ob.m).hide()
+            });
             if (tmp) {
                 li.insert({ after: tmp });
             }
@@ -3232,11 +3244,6 @@ var DimpBase = {
             elt: li,
             type: ftype
         });
-
-        this.mboxes[ob.m] = li;
-        if (ob.dummy) {
-            this.smboxes[ob.m] = li;
-        }
     },
 
     deleteMbox: function(mbox)
@@ -3260,7 +3267,7 @@ var DimpBase = {
             return;
         }
 
-        tmp = this.getMboxElt(ob.m).down('SPAN');
+        tmp = this.getMboxElt(ob.m).down('DIV');
 
         this.deleteMboxElt(ob.m, !ob.ch);
         if (ob.co && this.view == ob.m) {
@@ -3268,7 +3275,7 @@ var DimpBase = {
         }
         this.createMbox(ob);
         if (ob.ch && tmp && tmp.hasClassName('col')) {
-            this.getMboxElt(ob.m).down('SPAN').removeClassName('exp').addClassName('col');
+            this.getMboxElt(ob.m).down('DIV').removeClassName('exp').addClassName('col');
         }
     },
 
