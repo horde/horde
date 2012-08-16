@@ -49,6 +49,9 @@ var HordeMobile = {
     {
         params = params || {};
         params.token = HordeMobile.conf.token;
+        if (HordeMobile.conf.sid) {
+            $.extend(params, HordeMobile.conf.sid.toQueryParams());
+        }
 
         $.mobile.showPageLoadingMsg();
 

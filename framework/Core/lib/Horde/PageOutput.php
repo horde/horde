@@ -660,6 +660,7 @@ class Horde_PageOutput
                 'HordeMobile.conf' => array(
                     'ajax_url' => $registry->getServiceLink('ajax', $registry->getApp())->url,
                     'logout_url' => strval($registry->getServiceLink('logout')),
+                    'sid' => defined('SID') ? SID : '',
                     'token' => $session->getToken()
                 )
             ));
