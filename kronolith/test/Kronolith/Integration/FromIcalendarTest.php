@@ -57,7 +57,7 @@ class Kronolith_Integration_FromIcalendarTest extends Kronolith_TestCase
     {
         $event = $this->_getFixture('fromicalendar.ics');
         $this->assertEquals(
-            'FREQ=WEEKLY;INTERVAL=1;BYDAY=MO;UNTIL=20101129T230000Z',
+            'FREQ=WEEKLY;INTERVAL=1;BYDAY=MO;UNTIL=20101129T090000Z',
             $event->recurrence->toRrule20(new Horde_Icalendar())
         );
     }
