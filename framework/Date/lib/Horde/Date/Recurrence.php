@@ -953,11 +953,15 @@ class Horde_Date_Recurrence
             if (strpos($remainder, '#') === 0) {
                 $this->setRecurCount(substr($remainder, 1));
             } else {
-                list($year, $month, $mday) = sscanf($remainder, '%04d%02d%02d');
+                list($year, $month, $mday, $hour, $min, $sec, $tz) =
+                    sscanf($remainder, '%04d%02d%02dT%02d%02d%02d%s');
                 $this->setRecurEnd(new Horde_Date(array('year' => $year,
                                                         'month' => $month,
-                                                        'mday' => $mday),
-                                                  $this->start->timezone));
+                                                        'mday' => $mday,
+                                                        'hour' => $hour,
+                                                        'min' => $min,
+                                                        'sec' => $sec),
+                                                  $tz == 'Z' ? 'UTC' : $this->start->timezone));
             }
         }
     }
