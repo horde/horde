@@ -133,6 +133,8 @@ First alpha release for Horde 5.
 v5.0.24-git
 -----------
 
+[mms] Fix regression in creating top-level mailbox in traditional view (Bug
+      #11326).
 [mms] Fix spam reporting in minimal view.
 
 
