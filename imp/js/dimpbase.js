@@ -422,7 +422,9 @@ var DimpBase = {
 
         this.viewport = new ViewPort({
             // Mandatory config
-            ajax: DimpCore.doAction.bind(DimpCore, 'viewPort'),
+            ajax: function(params) {
+                DimpCore.doAction('viewPort', params, { loading: 'viewport' });
+            },
             container: container,
             onContent: function(r, mode) {
                 var bg, re, u,
@@ -610,7 +612,6 @@ var DimpBase = {
 
             this.setMessageListTitle();
             this.setMsgHash();
-            this.loadingImg('viewport', false);
 
             if (this.isSearch()) {
                 tmp = this.viewport.getMetaData('slabel');
@@ -727,25 +728,14 @@ var DimpBase = {
             this.setMsgHash();
         }.bindAsEventListener(this));
 
-        container.observe('ViewPort:endRangeFetch', function(e) {
-            if (this.view == e.memo) {
-                this.loadingImg('viewport', false);
-            }
-        }.bindAsEventListener(this));
-
         container.observe('ViewPort:fetch', function(e) {
             if (!this.isSearch()) {
                 this.showSearchbar(false);
             }
-            this.loadingImg('viewport', true);
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:remove', function(e) {
             var v = e.memo.getBuffer().getView();
-
-            if (this.view == v) {
-                this.loadingImg('viewport', false);
-            }
 
             e.memo.get('dataob').each(function(d) {
                 this._expirePPCache([ this._getPPId(d.uid, d.mbox) ]);
@@ -1596,8 +1586,6 @@ var DimpBase = {
         }
         params.preview = 1;
 
-        this.loadingImg('msg', true);
-
         DimpCore.doAction('showMessage', this.addViewportParams(params), {
             callback: function(r) {
                 if (!r || r.error) {
@@ -1612,6 +1600,7 @@ var DimpBase = {
                     this._loadPreview(r.uid, r.mbox);
                 }
             }.bind(this),
+            loading: 'msg',
             uids: this.viewport.createSelection('dataob', this.pp)
         });
     },
@@ -1688,7 +1677,6 @@ var DimpBase = {
             $('messageBody').select('DIV.mimePartInfo A.downloadAtc').invoke('observe', 'dragstart', this._dragAtc);
         }
 
-        this.loadingImg('msg', false);
         $('previewInfo').hide();
         $('previewPane').scrollTop = 0;
         pm.show();
@@ -1723,18 +1711,17 @@ var DimpBase = {
 
     updateAddressHeader: function(e)
     {
-        this.loadingImg('msg', true);
         DimpCore.doAction('addressHeader', {
             header: $w(e.element().className).first()
         }, {
             callback: this._updateAddressHeaderCallback.bind(this),
+            loading: 'msg',
             uids: this.viewport.createSelection('dataob', this.pp)
         });
     },
 
     _updateAddressHeaderCallback: function(r)
     {
-        this.loadingImg('msg', false);
         $H(r.hdr_data).each(function(d) {
             this.updateHeader(d.key, d.value);
         }, this);
@@ -1761,8 +1748,6 @@ var DimpBase = {
         $('partlist_col').show();
         $('partlist_exp').hide();
         $('msgAtc').show();
-
-        this.loadingImg('msg', false);
     },
 
     _sendMdnCallback: function(r)
@@ -1962,7 +1947,8 @@ var DimpBase = {
     // search = (boolean) If true, update search results as well.
     poll: function(search)
     {
-        var args = $H();
+        var args = $H(),
+            opts = {};
 
         // Reset poll counter.
         this.setPoll();
@@ -1988,9 +1974,11 @@ var DimpBase = {
 
         if (search) {
             args.set('forceUpdate', 1);
+        } else {
+            opts.loading = 'viewport';
         }
 
-        DimpCore.doAction('poll', args);
+        DimpCore.doAction('poll', args, opts);
     },
 
     pollCallback: function(r)
@@ -2004,8 +1992,6 @@ var DimpBase = {
         $H(r).each(function(u) {
             this.updateUnseenStatus(u.key, u.value);
         }, this);
-
-        this.loadingImg('viewport', false);
     },
 
     quotaCallback: function(r)
@@ -2549,14 +2535,12 @@ var DimpBase = {
             break;
 
         case 'search_refresh':
-            this.loadingImg('viewport', true);
             this.searchbarTimeReset(true);
             this.poll(true);
             e.memo.stop();
             break;
 
         case 'checkmaillink':
-            this.loadingImg('viewport', true);
             this.poll(false);
             e.memo.stop();
             break;
@@ -2693,11 +2677,11 @@ var DimpBase = {
             break;
 
         case 'ctx_preview_allparts':
-            this.loadingImg('msg', true);
             DimpCore.doAction('messageMimeTree', {
                 preview: 1
             }, {
                 callback: this._mimeTreeCallback.bind(this),
+                loading: 'msg',
                 uids: this.viewport.createSelection('dataob', this.pp)
             });
             break;
@@ -2745,7 +2729,6 @@ var DimpBase = {
                 e.memo.stop();
             } else if (e.element().hasClassName('stripAtc')) {
                 if (window.confirm(DimpCore.text.strip_warn)) {
-                    this.loadingImg('msg', true);
                     DimpCore.doAction('stripAttachment', this.addViewportParams({
                         id: e.element().readAttribute('mimeid')
                     }), {
@@ -2761,6 +2744,7 @@ var DimpBase = {
                                 }).get('rownum'));
                             }
                         }.bind(this),
+                        loading: 'msg',
                         uids: this.viewport.createSelection('dataob', this.pp)
                     });
                 }
@@ -2777,6 +2761,16 @@ var DimpBase = {
                 this._toggleSubFolder(elt.up(), 'tog');
             }
         }
+    },
+
+    loadingStartHandler: function(e)
+    {
+        this.loadingImg(e.memo, true);
+    },
+
+    loadingEndHandler: function(e)
+    {
+        this.loadingImg(e.memo, false);
     },
 
     toggleHelp: function()
@@ -3358,7 +3352,7 @@ var DimpBase = {
     },
 
     // type = (string) AJAX action type
-    // opts = (Object) callback, mailbox, uid
+    // opts = (Object) loading, mailbox, uid
     // args = (Object) Parameters to pass to AJAX call
     _doMsgAction: function(type, opts, args)
     {
@@ -3370,7 +3364,7 @@ var DimpBase = {
             // callback function if the calling window has been closed.
             DimpCore.doAction(type, this.addViewportParams(args), {
                 ajaxopts: { asynchronous: !(opts.uid && opts.mailbox) },
-                callback: opts.callback,
+                loading: opts,
                 uids: vs
             });
             return vs;
@@ -3384,21 +3378,15 @@ var DimpBase = {
     reportSpam: function(spam, opts)
     {
         opts = opts || {};
-        opts.callback = this.loadingImg.bind(this, 'viewport', false);
-
-        if (this._doMsgAction('reportSpam', opts, { spam: Number(spam) })) {
-            // Indicate to the user that something is happening (since spam
-            // reporting may not be instantaneous).
-            this.loadingImg('viewport', true);
-        }
+        opts.loading = 'viewport';
+        this._doMsgAction('reportSpam', opts, { spam: Number(spam) });
     },
 
     // blacklist = (boolean) True for blacklist, false for whitelist
     // opts = 'mailbox', 'uid'
     blacklist: function(blacklist, opts)
     {
-        opts = opts || {};
-        this._doMsgAction('blacklist', opts, { blacklist: Number(blacklist) });
+        this._doMsgAction('blacklist', opts || {}, { blacklist: Number(blacklist) });
     },
 
     // opts = 'mailbox', 'uid'
@@ -3739,9 +3727,6 @@ var DimpBase = {
     /* AJAX exception handling. */
     onAjaxException: function()
     {
-        /* Make sure loading images are closed. */
-        this.loadingImg('msg', false);
-        this.loadingImg('viewport', false);
         HordeCore.notify(HordeCore.text.ajax_error, 'horde.error');
     }
 
@@ -3841,6 +3826,10 @@ document.observe('HordeCore:runTasks', function(e) {
 /* Click handlers. */
 document.observe('HordeCore:click', DimpBase.clickHandler.bindAsEventListener(DimpBase));
 document.observe('HordeCore:dblclick', DimpBase.dblclickHandler.bindAsEventListener(DimpBase));
+
+/* AJAX loading handlers. */
+document.observe('HordeCore:loadingStart', DimpBase.loadingStartHandler.bindAsEventListener(DimpBase));
+document.observe('HordeCore:loadingEnd', DimpBase.loadingEndHandler.bindAsEventListener(DimpBase));
 
 /* ContextSensitive handlers. */
 document.observe('ContextSensitive:click', DimpBase.contextOnClick.bindAsEventListener(DimpBase));
