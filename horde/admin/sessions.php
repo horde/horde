@@ -26,7 +26,7 @@ try {
     $session_info = $session->sessionHandler->getSessionsInfo();
 
     echo ' (' . count($session_info) . ')</h1>' .
-         '<ul class="headerbox linedRow">';
+         '<ul class="linedRow">';
 
     $plus = Horde::img('tree/plusonly.png', _("Expand"));
     $minus = Horde::img('tree/minusonly.png', _("Collapse"), 'style="display:none"');
