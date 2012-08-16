@@ -118,10 +118,10 @@ case 'import_mbox':
     break;
 
 case 'create_folder':
-    if (!empty($folder_list) && isset($vars->new_mailbox)) {
+    if (isset($vars->new_mailbox)) {
         try {
             $new_mbox = $imaptree->createMailboxName(
-                $folder_list[0],
+                empty($folder_list) ? null : $folder_list[0],
                 Horde_String::convertCharset($vars->new_mailbox, 'UTF-8', 'UTF7-IMAP')
             );
             if ($new_mbox->exists) {
