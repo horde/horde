@@ -118,6 +118,7 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
         $GLOBALS['conf']['calendars']['driver'] = 'kolab';
     }
+
     static protected function createKolabSetup()
     {
         $setup = new Horde_Test_Setup();
