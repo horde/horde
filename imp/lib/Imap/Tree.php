@@ -1836,6 +1836,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             if ($elt->nonimap) {
                 $ob->n = 1;
             }
+            if ($elt == self::VFOLDER_KEY) {
+                $ob->v = 1;
+            }
         } else {
             if ($elt->polled) {
                 $ob->po = 1;

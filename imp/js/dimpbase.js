@@ -3103,7 +3103,12 @@ var DimpBase = {
         }
 
         if (ob.v) {
-            ftype = ob.co ? 'vcontainer' : 'vfolder';
+            if (ob.co) {
+                ftype = 'vcontainer';
+            } else {
+                cname = 'imp-sidebar-mbox';
+                ftype = 'vfolder';
+            }
             title = label;
         } else if (ob.co) {
             if (ob.n) {
