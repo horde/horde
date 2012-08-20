@@ -62,16 +62,6 @@ var DimpBase = {
 
         this.lastrow = row;
 
-        // Some browsers need to stop the mousedown event before it propogates
-        // down to the browser level in order to prevent text selection on
-        // drag/drop actions.  Clicking on a message should always lose focus
-        // from the search input, because the user may immediately start
-        // keyboard navigation after that. Thus, we need to ensure that a
-        // message click loses focus on the search input.
-        if ($('horde-search')) {
-            $('horde-search-input').blur();
-        }
-
         this.resetSelectAll();
 
         if (opts.shift) {
@@ -2044,13 +2034,15 @@ var DimpBase = {
 
     quicksearchRun: function()
     {
-        var q = $F('horde-search-input');
+        var q = $('horde-search-input');
+
+        q.blur();
 
         if (this.isSearch()) {
             /* Search text has changed. */
-            if (this.search.query != q) {
+            if (this.search.query != $F(q)) {
                 this.viewswitch = true;
-                this.search.query = q;
+                this.search.query = $F(q);
             }
             this.resetSelected();
             this.viewport.reload();
@@ -2059,7 +2051,7 @@ var DimpBase = {
                 label: this.viewport.getMetaData('label'),
                 mbox: this.view,
                 qsearch: true,
-                query: q
+                query: $F(q)
             };
             this.go('mbox', DimpCore.conf.qsearchid);
         }
