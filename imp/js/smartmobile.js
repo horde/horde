@@ -565,7 +565,7 @@ var ImpMobile = {
             break;
 
         case 'forward_auto':
-            func = 'getForwardData';
+            func = 'smartmobileGetForwardData';
             cache = '#imp-compose-cache';
             break;
 

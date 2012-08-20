@@ -15,6 +15,18 @@
 class IMP_Ajax_Application_Helper_Smartmobile
 {
     /**
+     * AJAX action: Get forward compose data.
+     *
+     * @see IMP_Ajax_Application#getForwardData()
+     */
+    public function smartmobileGetForwardData(Horde_Core_Ajax_Application $app_ob)
+    {
+        $GLOBALS['notification']->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
+
+        return $app_ob->getForwardData();
+    }
+
+    /**
      * AJAX action: Check access rights for creation of a submailbox.
      *
      * Variables used:
