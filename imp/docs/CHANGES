@@ -2,6 +2,7 @@
 v6.0.0-git
 ----------
 
+[mms] Fix searching in smartmobile view (Bug #11365).
 [mms] Tweak smartmobile mailbox page to use mobile-style list clicking
       (Request #11364).
 [mms] Fix regression in updating dynamic folder list when deleting parent

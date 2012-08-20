@@ -41,6 +41,7 @@ $code['text'] = array(
     'new_message' => _("New Message"),
     'nofrom' => _("Invalid Address"),
     'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
+    'searchresults' => _("Search Results")
 );
 
 $page_output->addInlineJsVars(array(

@@ -345,10 +345,10 @@ var ImpMobile = {
         $.mobile.showPageLoadingMsg();
 
         HordeMobile.doAction(
-            'showMessage',
+            'smartmobileShowMessage',
             {
                 uid: ImpMobile.toUIDStringSingle(url.params.view, [ url.params.uid ]),
-                view: url.params.view
+                view: (ImpMobile.search ? IMP.conf.qsearchid : url.params.view)
             },
             ImpMobile.messageLoaded
         );
@@ -396,7 +396,10 @@ var ImpMobile = {
         $.mobile.hidePageLoadingMsg();
 
         // TODO: Error handling.
-        if (r.error || !ImpMobile.message || r.view != ImpMobile.mailbox) {
+        if (r.error ||
+            !ImpMobile.message ||
+            (r.view != ImpMobile.mailbox &&
+             ImpMobile.mailbox != IMP.conf.qsearchid)) {
             return;
         }
 
@@ -406,7 +409,7 @@ var ImpMobile = {
             args = '&mbox=' + data.mbox + '&uid=' + data.uid,
             innocent = 'show',
             spam = 'show',
-            tmp;
+            uid, tmp;
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
@@ -449,11 +452,18 @@ var ImpMobile = {
             }
         });
 
-        $('#imp-message-back').attr('href', '#mailbox?mbox=' + data.mbox);
-        $('#imp-message-back .ui-btn-text')
-            .text($('#imp-mailbox-' + data.mbox).text());
+        if (ImpMobile.mailbox == IMP.conf.qsearchid) {
+            $('#imp-message-back').attr('href', '#mailbox?mbox=' + IMP.conf.qsearchid);
+            $('#imp-message-back .ui-btn-text').text(IMP.text.searchresults);
+            uid = r.suid;
+        } else {
+            $('#imp-message-back').attr('href', '#mailbox?mbox=' + data.mbox);
+            $('#imp-message-back .ui-btn-text')
+                .text($('#imp-mailbox-' + data.mbox).text());
+            uid = data.uid;
+        }
 
-        if (cache.rowlist[data.uid] != 1) {
+        if (cache.rowlist[uid] != 1) {
             $('#imp-message-prev')
                 .removeClass('ui-disabled')
                 .attr('aria-disabled', false);
@@ -462,7 +472,7 @@ var ImpMobile = {
                 .addClass('ui-disabled')
                 .attr('aria-disabled', true);
         }
-        if (cache.rowlist[data.uid] != cache.totalrows) {
+        if (cache.rowlist[uid] != cache.totalrows) {
             $('#imp-message-next')
                 .removeClass('ui-disabled')
                 .attr('aria-disabled', false);
