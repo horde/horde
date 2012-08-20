@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Tweak smartmobile mailbox page to use mobile-style list clicking (Request #11364).
 * [mms] Fix regression in updating dynamic folder list when deleting parent mailboxes that contain children (Bug #11296).
 * [mms] Fix regression preventing compose messages from being sent in the smartmobile view (Bug #11342).
 * [jan] Allow to reset flag colors and to specify as HTML colors.
@@ -2657,6 +2658,7 @@
    <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Tweak smartmobile mailbox page to use mobile-style list clicking (Request #11364).
 * [mms] Fix regression in updating dynamic folder list when deleting parent mailboxes that contain children (Bug #11296).
 * [mms] Fix regression preventing compose messages from being sent in the smartmobile view (Bug #11342).
 * [jan] Allow to reset flag colors and to specify as HTML colors.

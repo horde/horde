@@ -2,6 +2,8 @@
 v6.0.0-git
 ----------
 
+[mms] Tweak smartmobile mailbox page to use mobile-style list clicking
+      (Request #11364).
 [mms] Fix regression in updating dynamic folder list when deleting parent
       mailboxes that contain children (Bug #11296).
 [mms] Fix regression preventing compose messages from being sent in the

@@ -10,7 +10,15 @@
     font-weight: normal;
     text-align: center;
 }
-.imp-message-seen h3 {
+.imp-message-date {
+    float: right;
+}
+.imp-message-secondrow {
+    font-size: 80%;
+    font-weight: normal;
+    padding: 0 40px 11px 15px;
+}
+.imp-message-seen a {
     font-weight: normal;
 }
 

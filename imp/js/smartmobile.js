@@ -236,7 +236,7 @@ var ImpMobile = {
         list.empty();
 
         $.each(ob.rows(), function(key, data) {
-            c = '';
+            c = $('<li class="imp-message">');
             url = '#message?view=' + data.mbox + '&uid=' + data.uid;
 
             if (data.flag) {
@@ -247,22 +247,23 @@ var ImpMobile = {
                         break;
 
                     case '\\seen':
-                        c += ' imp-message-seen';
+                        c.addClass('imp-message-seen');
                         break;
                     }
                 });
             }
 
             list.append(
-                $('<li class="imp-message' + c + '">').append(
-                    $('<h3>').append(
-                        $('<a href="' + url + '">').html(data.subject))).append(
-                    $('<div class="ui-grid-a">').append(
-                        $('<div class="ui-block-a">').append(
-                            $('<p>').text(data.from))).append(
-                        $('<div class="ui-block-b">').append(
-                            $('<p align="right">').text(data.date)))));
+                c.append(
+                    $('<a href="' + url + '">').html(data.subject)).append(
+                    $('<div class="imp-message-secondrow">').append(
+                        $('<span class="imp-message-date">').text(
+                            data.date)).append(
+                        $('<span class="imp-message-from">').text(
+                            data.from))));
         });
+
+        list.listview('refresh');
 
         if (ob.totalrows > ImpMobile.mbox_rows) {
             var navtext = IMP.text.nav
@@ -293,8 +294,6 @@ var ImpMobile = {
         } else {
             $('#imp-mailbox-navtop,#imp-mailbox-navbottom').hide();
         }
-
-        list.listview('refresh');
     },
 
     /**
