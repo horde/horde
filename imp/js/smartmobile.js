@@ -712,6 +712,9 @@ var ImpMobile = {
 
     closeCompose: function()
     {
+        HordeMobile.doAction('cancelCompose', {
+            imp_compose: $('#imp-compose-cache').val()
+        });
         ImpMobile.setDisabled(false);
         $('#imp-compose-form')[0].reset();
         window.setTimeout(ImpMobile.delayedCloseCompose, 0);
