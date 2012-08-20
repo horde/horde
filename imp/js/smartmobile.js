@@ -1004,6 +1004,7 @@ var ImpMobile = {
                     qsearchfield: $('#imp-search-by').val(),
                     qsearchmbox: ImpMobile.mailbox
                 };
+                delete ImpMobile.cache[IMP.conf.qsearchid];
                 $.mobile.changePage('#mailbox?mbox=' + IMP.conf.qsearchid);
                 return;
 
