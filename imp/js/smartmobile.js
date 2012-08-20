@@ -405,7 +405,7 @@ var ImpMobile = {
             args = '&mbox=' + data.mbox + '&uid=' + data.uid,
             innocent = 'show',
             spam = 'show',
-            spambar, tmp;
+            tmp;
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
@@ -514,17 +514,12 @@ var ImpMobile = {
             $('#imp-message-innocent').attr(
                 'href',
                 '#confirm?action=innocent' + args);
-            spambar = $('#imp-message-innocent').parent();
         }
         if ($('#imp-message-spam')) {
             $.fn[spam].call($('#imp-message-spam'));
             $('#imp-message-spam').attr(
                 'href',
                 '#confirm?action=spam' + args);
-            spambar = $('#imp-message-spam').parent();
-        }
-        if (spambar) {
-            spambar.controlgroup('refresh');
         }
 
         if (data.js) {
