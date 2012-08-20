@@ -126,8 +126,10 @@ var ImpMobile = {
         if (mailbox != IMP.conf.qsearchid) {
             delete ImpMobile.search;
             $('#imp-search-input').val('');
+            $('#imp-mailbox-search').show();
         } else if (ImpMobile.search) {
             params = ImpMobile.search;
+            $('#imp-mailbox-search').hide();
         }
 
         if (ob = ImpMobile.cache[mailbox]) {
