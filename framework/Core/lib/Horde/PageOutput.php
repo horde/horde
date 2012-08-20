@@ -583,6 +583,10 @@ class Horde_PageOutput
     {
         if ($this->_compress && (reset(ob_list_handlers()) == 'ob_gzhandler')) {
             ob_end_clean();
+            /* Removing the ob_gzhandler ADDS the below headers, which breaks
+             * display on the browser (as of PHP 5.3.15). */
+            header_remove('content-encoding');
+            header_remove('vary');
             $this->_compress = false;
         }
     }
