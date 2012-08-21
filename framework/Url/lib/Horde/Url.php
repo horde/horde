@@ -216,6 +216,8 @@ class Horde_Url
      * @param string $scheme    The URL scheme.
      * @param boolean $replace  Force using $scheme, even if it already
      *                          exists?
+     *
+     * @return Horde_Url  This object, to allow chaining.
      */
     public function setScheme($scheme = 'http', $replace = false)
     {
@@ -225,6 +227,7 @@ class Horde_Url
         } elseif ($replace) {
             $this->url = substr_replace($this->url, $scheme . '://', 0, $pos);
         }
+        return $this;
     }
 
     /**
