@@ -74,11 +74,10 @@ class IMP_Api extends Horde_Registry_Api
      * @return array  The list of IMAP mailboxes. A list of arrays with the
      *                following keys:
      *   - a: (integer) The mailbox attributes.
-     *   - d: (string)  The namespace delimiter.
+     *   - d: (string) The namespace delimiter.
      *   - label: (string) Human readable label (UTF-8).
      *   - level: (integer) The child level of this element.
      *   - ob: (Horde_Imap_Client_Mailbox) A mailbox object.
-     *
      */
     public function mailboxList()
     {
@@ -89,11 +88,11 @@ class IMP_Api extends Horde_Registry_Api
         foreach ($imap_tree as $val) {
             $e = $imap_tree->getElement($val->value);
             $mboxes[] = array(
+                'a' => $e['a'],
+                'd' => $val->namespace_delimiter,
                 'label' => $val->label,
                 'level' => $val->level,
-                'ob' => $val->imap_mbox_ob,
-                'a' => $e['a'],
-                'd' => $val->namespace_delimiter
+                'ob' => $val->imap_mbox_ob
             );
         }
 
