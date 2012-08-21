@@ -182,6 +182,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
                 $noteId,
                 $GLOBALS['mnemo_shares']->getShare($newNotepad)->get('folder')
             );
+            $this->_getDataForNotepad($newNotepad)->synchronize();
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
         }

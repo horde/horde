@@ -443,10 +443,9 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         $target = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($newCalendar);
         $folder = $target->getId();
 
-        $result = $this->_data->move($eventId, $folder);
-        if ($result) {
-            unset($this->_events_cache[$eventId]);
-        }
+        $this->_data->move($eventId, $folder);
+        unset($this->_events_cache[$eventId]);
+        $this->_kolab->getData($target->get('folder'), 'contact')->synchronize();
 
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
             //Kolab::triggerFreeBusyUpdate($this->_data->parseFolder($this->calendar));

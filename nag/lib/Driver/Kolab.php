@@ -339,10 +339,11 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _move($taskId, $newTasklist)
     {
-        return $this->_getData()->move(
+        $this->_getData()->move(
             $taskId,
             $GLOBALS['nag_shares']->getShare($newTasklist)->get('folder')
         );
+        $this->_getDataForTasklist($newTasklist)->synchronize();
     }
 
     /**
