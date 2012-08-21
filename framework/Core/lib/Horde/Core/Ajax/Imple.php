@@ -165,7 +165,7 @@ abstract class Horde_Core_Ajax_Imple
     }
 
     /**
-     * Javascript code to run on a successfult AJAX response.
+     * Javascript code to run on a successful AJAX response.
      * e.memo contains the AJAX response.
      *
      * @param string $js  JS code to run.
