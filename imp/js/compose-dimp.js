@@ -845,9 +845,12 @@ var DimpCompose = {
     /* Click observe handler. */
     clickHandler: function(e)
     {
+        var elt = e.memo.element();
+
         /* Needed because reply/forward buttons need to be of type="submit"
          * for FF to correctly size. */
-        if (e.memo.element().readAttribute('type') == 'submit') {
+        if ((elt.readAttribute('type') == 'submit') &&
+            (elt.descendantOf('compose') || elt.descendantOf('redirect'))) {
             e.memo.hordecore_stop = true;
             return;
         }
@@ -903,7 +906,7 @@ var DimpCompose = {
             break;
 
         case 'redirect_sendto':
-            if (e.memo.element().match('TD.label SPAN')) {
+            if (elt.match('TD.label SPAN')) {
                 this.openAddressbook({
                     to_only: 1
                 });
@@ -913,17 +916,16 @@ var DimpCompose = {
         case 'sendcc':
         case 'sendbcc':
         case 'sendto':
-            if (e.memo.element().match('TD.label SPAN')) {
+            if (elt.match('TD.label SPAN')) {
                 this.openAddressbook();
             }
             break;
 
         case 'attach_list':
-            tmp = e.memo.element();
-            if (tmp.match('SPAN.remove')) {
-                this.removeAttach([ tmp.up() ]);
-            } else if (tmp.match('SPAN.attachName')) {
-                atc_num = tmp.up('LI').retrieve('atc_id');
+            if (elt.match('SPAN.remove')) {
+                this.removeAttach([ elt.up() ]);
+            } else if (elt.match('SPAN.attachName')) {
+                atc_num = elt.up('LI').retrieve('atc_id');
                 HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                     actionID: 'compose_attach_preview',
                     composeCache: $F(this.getCacheElt()),
@@ -974,9 +976,8 @@ var DimpCompose = {
             break;
 
         case 'writemsg':
-            if (!this.disabled &&
-                e.memo.element().hasClassName('dimpOptionPopdown')) {
-                tmp = e.memo.element().retrieve('popdown_id');
+            if (!this.disabled && elt.hasClassName('dimpOptionPopdown')) {
+                tmp = elt.retrieve('popdown_id');
                 this.knl[tmp].knl.show();
                 this.knl[tmp].knl.ignoreClick(e.memo);
                 e.stop();
