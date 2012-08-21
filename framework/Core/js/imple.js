@@ -26,6 +26,9 @@ var HordeImple = {
         if (Object.isString(params)) {
             eval(params);
         } else {
+            if (e.type == 'submit' && e.element().match('FORM')) {
+                params.imple_submit = Object.toJSON(e.element().serialize(true));
+            }
             $(id).fire(params.imple + ':do', params);
             HordeCore.doAction('imple', params, this.impleCallback.bind(this, id));
         }
