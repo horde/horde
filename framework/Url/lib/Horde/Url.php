@@ -211,6 +211,23 @@ class Horde_Url
     }
 
     /**
+     * Sets the URL scheme.
+     *
+     * @param string $scheme    The URL scheme.
+     * @param boolean $replace  Force using $scheme, even if it already
+     *                          exists?
+     */
+    public function setScheme($scheme = 'http', $replace = false)
+    {
+        $pos = stripos($this->url, '://');
+        if ($pos === false) {
+            $this->url = $scheme . '://' . $this->url;
+        } elseif ($replace) {
+            $this->url = substr_replace($this->url, $scheme . '://', 0, $pos);
+        }
+    }
+
+    /**
      * Creates the full URL string.
      *
      * @param boolean $raw   Whether to output the URL in the raw URL format

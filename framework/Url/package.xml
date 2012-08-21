@@ -20,7 +20,7 @@
  <time>23:47:47</time>
  <version>
   <release>2.0.0beta2</release>
-  <api>1.0.0</api>
+  <api>2.0.0</api>
  </version>
  <stability>
   <release>beta</release>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add Horde_Url::setScheme().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -234,14 +234,14 @@
   <release>
    <version>
     <release>2.0.0beta2</release>
-    <api>1.0.0</api></version>
+    <api>2.0.0</api></version>
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
    <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add Horde_Url::setScheme().
    </notes>
   </release>
  </changelog>

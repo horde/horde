@@ -21,4 +21,20 @@ class Horde_Url_TostringTest extends PHPUnit_Framework_TestCase
             $url->toString(true, true)
         );
     }
+
+    public function testUrlMissingScheme()
+    {
+        $url = new Horde_Url('example.com/test?foo=1&bar=2');
+        $url->setScheme();
+
+        $this->assertEquals(
+            '/test?foo=1&bar=2',
+            $url->toString(true, false)
+        );
+        $this->assertEquals(
+            'http://example.com/test?foo=1&bar=2',
+            $url->toString(true, true)
+        );
+    }
+
 }
