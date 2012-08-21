@@ -14,43 +14,43 @@
   <div id="dimpmain_folder" style="display:none">
    <div id="dimpmain_folder_top">
     <div class="horde-buttonbar">
-     <div>
+     <div class="horde-button">
       <?php echo $this->actionButton(array('icon' => 'Refresh', 'id' => 'checkmaillink', 'title' => _("Refresh"))) ?>
       <div class="horde-button-split"></div>
      </div>
-     <div>
+     <div class="horde-button">
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Reply', 'id' => 'button_reply', 'title' => _("Reply"))) ?>
       <div class="horde-button-split"></div>
      </div>
-     <div>
+     <div class="horde-button">
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Forward', 'id' => 'button_forward', 'title' => _("Forward"))) ?>
       <div class="horde-button-split"></div>
      </div>
 <?php if ($this->show_spam): ?>
-     <div style="display:none">
+     <div class="horde-button" style="display:none">
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?>
       <div class="horde-button-split"></div>
      </div>
 <?php endif; ?>
 <?php if ($this->show_notspam): ?>
-     <div style="display:none">
+     <div class="horde-button" style="display:none">
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Ham', 'id' => 'button_ham', 'title' => _("Innocent"))) ?>
       <div class="horde-button-split"></div>
      </div>
 <?php endif; ?>
-     <div style="display:none">
+     <div class="horde-button" style="display:none">
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Resume', 'id' => 'button_resume', 'title' => _("Resume"))) ?>
       <div class="horde-button-split"></div>
      </div>
-     <div style="display:none">
+     <div class="horde-button" style="display:none">
       <?php echo $this->actionButton(array('icon' => 'Resume', 'id' => 'button_template', 'title' => _("Use Template"))) ?>
       <div class="horde-button-split"></div>
      </div>
-     <div>
+     <div class="horde-button">
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Delete', 'id' => 'button_delete', 'title' => _("Delete"))) ?>
       <div class="horde-button-split"></div>
      </div>
-     <div id="button_compose">
+     <div class="horde-button" id="button_compose">
       <?php echo $this->actionButton(array('icon' => 'Compose', 'title' => _("New Message"))) ?>
       <div class="horde-button-split"></div>
      </div>

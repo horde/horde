@@ -804,6 +804,9 @@ span.logoutIcon {
 .dimpactionDrafts, .dimpactionTemplates {
     background-image: url("../graphics/drafts.png");
 }
+.dimpactionSpellcheck {
+    background-image: url("../graphics/spellcheck.png");
+}
 .dimpactionEditsearch {
     background-image: url("../graphics/edit.png");
 }

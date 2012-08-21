@@ -68,7 +68,7 @@ var SpellChecker = Class.create({
                 onChoose: this.setLocale.bindAsEventListener(this)
             });
 
-            this.statusButton.insert({ after: new Element('SPAN', { className: 'iconImg spellcheckPopdownImg' }) });
+            this.statusButton.insert({ after: new Element('SPAN', { className: 'horde-subnavi-arrow horde-icon-arrow-subnavi' }) });
         }
 
         this.setStatus('CheckSpelling');
@@ -197,7 +197,7 @@ var SpellChecker = Class.create({
             }
 
             e.stop();
-        } else if (elt.hasClassName('spellcheckPopdownImg')) {
+        } else if (elt.hasClassName('horde-subnavi-arrow')) {
             this.lc.show();
             this.lc.ignoreClick(e);
             e.stop();
