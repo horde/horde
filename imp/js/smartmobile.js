@@ -119,7 +119,7 @@ var ImpMobile = {
         $('#imp-mailbox-header').text(title);
         if (ImpMobile.mailbox != mailbox) {
             $('#imp-mailbox-list').empty();
-            $('#imp-mailbox-navtop,#imp-mailbox-navbottom').hide();
+            $('#imp-mailbox-navtop').hide();
             ImpMobile.mailbox = mailbox;
         }
 
@@ -272,29 +272,28 @@ var ImpMobile = {
                 .replace(/%d/, ob.from)
                 .replace(/%d/, Math.min(ob.from + ImpMobile.mbox_rows - 1, ob.totalrows))
                 .replace(/%d/, ob.totalrows);
-            $('#imp-mailbox-navtop,#imp-mailbox-navbottom').show();
-            $('#imp-mailbox-navtop h2,#imp-mailbox-navbottom h2')
-                .text(navtext);
+            $('#imp-mailbox-navtop').show();
+            $('#imp-mailbox-navtop h2').text(navtext);
             if (ob.from == 1) {
-                $('#imp-mailbox-prev1,#imp-mailbox-prev2')
+                $('#imp-mailbox-prev')
                     .addClass('ui-disabled')
                     .attr('aria-disabled', true);
             } else {
-                $('#imp-mailbox-prev1,#imp-mailbox-prev2')
+                $('#imp-mailbox-prev')
                     .removeClass('ui-disabled')
                     .attr('aria-disabled', false);
             }
             if ((ob.from + ImpMobile.mbox_rows - 1) >= ob.totalrows) {
-                $('#imp-mailbox-next1,#imp-mailbox-next2')
+                $('#imp-mailbox-next')
                     .addClass('ui-disabled')
                     .attr('aria-disabled', true);
             } else {
-                $('#imp-mailbox-next1,#imp-mailbox-next2')
+                $('#imp-mailbox-next')
                     .removeClass('ui-disabled')
                     .attr('aria-disabled', false);
             }
         } else {
-            $('#imp-mailbox-navtop,#imp-mailbox-navbottom').hide();
+            $('#imp-mailbox-navtop').hide();
         }
     },
 
@@ -983,15 +982,17 @@ var ImpMobile = {
                 }
                 return;
 
-            case 'imp-mailbox-prev1':
-            case 'imp-mailbox-prev2':
+            case 'imp-mailbox-top':
+                $.mobile.silentScroll();
+                return;
+
+            case 'imp-mailbox-prev':
                 if (!elt.hasClass('ui-disabled')) {
                     ImpMobile.navigate(-1);
                 }
                 return;
 
-            case 'imp-mailbox-next1':
-            case 'imp-mailbox-next2':
+            case 'imp-mailbox-next':
                 if (!elt.hasClass('ui-disabled')) {
                     ImpMobile.navigate(1);
                 }

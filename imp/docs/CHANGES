@@ -2,6 +2,7 @@
 v6.0.0-git
 ----------
 
+[mms] Add Top link to smartmobile mailbox page.
 [mms] Fixes to the iTip Request handler (Bug #11264).
 [mms] Fix searching in smartmobile view (Bug #11365).
 [mms] Tweak smartmobile mailbox page to use mobile-style list clicking
