@@ -10,9 +10,6 @@
     font-weight: normal;
     text-align: center;
 }
-#imp-mailbox-navtop a.ui-btn-inline {
-    vertical-align: inherit;
-}
 .imp-message-date {
     float: right;
 }
