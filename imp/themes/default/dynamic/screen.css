@@ -465,7 +465,7 @@ div.dimpActionsMsg #windowclose {
     list-style-type: none;
 }
 #msgloglist li {
-    line-height: 18px;
+    padding-top: 4px;
 }
 
 #msgloglist_toggle, #partlist_toggle {
