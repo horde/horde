@@ -20,7 +20,7 @@
  <time>23:47:47</time>
  <version>
   <release>2.0.0beta2</release>
-  <api>2.0.0</api>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>beta</release>
@@ -234,7 +234,7 @@
   <release>
    <version>
     <release>2.0.0beta2</release>
-    <api>2.0.0</api></version>
+    <api>1.1.0</api></version>
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
