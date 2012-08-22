@@ -450,7 +450,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             }
         }
 
-        $this->js_context += $context;
+        $this->js_context = array_merge($context, $this->js_context);
 
         $this->js_text += array(
             'badaddr' => _("Invalid Address"),
