@@ -1646,7 +1646,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                         $label = '<strong>' . $label . '</strong>';
                     }
 
-                    $after = '&nbsp;(' . $poll_info->unseen . '/' . $poll_info->msgs . ')';
+                    $after = '&nbsp;(' . $poll_info->unseen . ')';
                 }
             }
 
