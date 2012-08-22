@@ -31,20 +31,18 @@ class IMP_Dynamic_Helper_Base extends Horde_View_Helper_Base
      */
     public function actionButton(array $params = array())
     {
-        $class = 'horde-button-';
-        $class .= empty($params['right']) ? 'left' : 'right';
+        $class = '';
         if (!empty($params['icon'])) {
-            $class .= ' horde-icon dimpaction' . $params['icon'];
+            $class .= 'dimpaction' . $params['icon'];
         }
         if (!empty($params['class'])) {
             $class .= ' ' . $params['class'];
         }
 
-        return '<div class="' . $class . '">'
-            . Horde::link(
+        return Horde::link(
                 '',
                 '',
-                '',
+                $class,
                 '',
                 '',
                 isset($params['htmltitle']) ? $params['htmltitle'] : $params['title'],
@@ -52,7 +50,7 @@ class IMP_Dynamic_Helper_Base extends Horde_View_Helper_Base
                 empty($params['id']) ? array() : array('id' => $params['id']),
                 true
             )
-          . $params['title'] . '</a></div>';
+          . $params['title'] . '</a>';
     }
 
 }

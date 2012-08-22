@@ -7,32 +7,29 @@
 <div id="msgData" style="display:none">
  <div class="horde-buttonbar">
   <div class="iconImg headercloseimg closeImg" id="windowclose" title="X"></div>
-  <div class="horde-button">
+  <ul>
+  <li class="horde-icon">
    <?php echo $this->actionButton(array('icon' => 'Reply', 'id' => 'reply_link', 'title' => _("Reply"))) ?>
-   <div class="horde-button-split"></div>
-  </div>
-  <div class="horde-button">
+  </li>
+  <li class="horde-icon">
    <?php echo $this->actionButton(array('icon' => 'Forward', 'id' => 'forward_link', 'title' => _("Forward"))) ?>
-   <div class="horde-button-split"></div>
-  </div>
+  </li>
 <?php if ($this->show_spam): ?>
-  <div class="horde-button">
+  <li class="horde-icon">
    <?php echo $this->actionButton(array('icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?>
-   <div class="horde-button-split"></div>
-  </div>
+  </li>
 <?php endif; ?>
 <?php if ($this->show_innocent): ?>
-  <div class="horde-button">
+  <li class="horde-icon">
    <?php echo $this->actionButton(array('icon' => 'Innocent', 'id' => 'button_innocent', 'title' => _("Innocent"))) ?>
-   <div class="horde-button-split"></div>
-  </div>
+  </li>
 <?php endif; ?>
 <?php if ($this->show_delete): ?>
-  <div class="horde-button">
+  <li class="horde-icon">
    <?php echo $this->actionButton(array('icon' => 'Delete', 'id' => 'button_delete', 'title' => _("Delete"))) ?>
-   <div class="horde-button-split"></div>
-  </div>
+  </li>
 <?php endif; ?>
+  </ul>
  </div>
 
  <div class="msgfullread">

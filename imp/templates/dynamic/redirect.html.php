@@ -3,10 +3,9 @@
 
  <div class="horde-buttonbar">
   <div class="iconImg headercloseimg closeImg" id="compose_close"></div>
-  <div class="horde-button">
+  <ul><li class="horde-icon">
    <?php echo $this->actionButton(array('icon' => 'Forward', 'id' => 'send_button_redirect', 'title' => _("Redirect"))) ?>
-   <div class="horde-button-split"></div>
-  </div>
+  </li></ul>
  </div>
 
  <table>

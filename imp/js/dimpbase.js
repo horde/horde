@@ -670,14 +670,14 @@ var DimpBase = {
                 }
 
                 if (this.viewport.getMetaData('drafts')) {
-                    $('button_resume').up().up().show();
-                    $('button_template', 'button_reply', 'button_forward', 'button_spam', 'button_innocent').compact().invoke('up').invoke('up').invoke('hide');
+                    $('button_resume').up().show();
+                    $('button_template', 'button_reply', 'button_forward', 'button_spam', 'button_innocent').compact().invoke('up').invoke('hide');
                 } else if (this.viewport.getMetaData('templates')) {
-                    $('button_template').up().up().show();
-                    $('button_resume', 'button_reply', 'button_forward', 'button_spam', 'button_innocent').compact().invoke('up').invoke('up').invoke('hide');
+                    $('button_template').up().show();
+                    $('button_resume', 'button_reply', 'button_forward', 'button_spam', 'button_innocent').compact().invoke('up').invoke('hide');
                 } else {
-                    $('button_resume', 'button_template').compact().invoke('up').invoke('up').invoke('hide');
-                    $('button_reply', 'button_forward').compact().invoke('up').invoke('up').invoke('show');
+                    $('button_resume', 'button_template').compact().invoke('up').invoke('hide');
+                    $('button_reply', 'button_forward').compact().invoke('up').invoke('show');
 
                     if (this.viewport.getMetaData('spam')) {
                         if (!DimpCore.conf.spam_spammbox) {
@@ -688,10 +688,10 @@ var DimpBase = {
                     }
 
                     if (tmp = $('button_innocent')) {
-                        [ tmp.up().up() ].invoke(innocent);
+                        [ tmp.up() ].invoke(innocent);
                     }
                     if (tmp = $('button_spam')) {
-                        [ tmp.up().up() ].invoke(spam);
+                        [ tmp.up() ].invoke(spam);
                     }
                 }
 
@@ -700,7 +700,7 @@ var DimpBase = {
 
                 /* ACL changes. */
                 if (tmp = $('button_delete')) {
-                    [ tmp.up().up() ].invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
+                    [ tmp.up() ].invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
                 }
             } else if (this.filtertoggle && this.isThreadSort()) {
                 ssc = DimpCore.conf.sort.get('date').v;
@@ -2152,7 +2152,7 @@ var DimpBase = {
     /* Enable/Disable DIMP action buttons as needed. */
     toggleButtons: function()
     {
-        DimpCore.toggleButtons($('dimpmain_folder_top').select('DIV.horde-buttonbar DIV.noselectDisable'), this.selectedCount() == 0);
+        DimpCore.toggleButtons($('dimpmain_folder_top').select('DIV.horde-buttonbar A.noselectDisable'), this.selectedCount() == 0);
     },
 
     /* Drag/Drop handler. */
@@ -3519,9 +3519,9 @@ var DimpBase = {
     {
         if (id == 'viewport') {
             if (show) {
-                $('checkmaillink').up().addClassName('imp-loading');
+                $('checkmaillink').addClassName('imp-loading');
             } else {
-                $('checkmaillink').up().removeClassName('imp-loading');
+                $('checkmaillink').removeClassName('imp-loading');
             }
             return;
         }
@@ -3700,7 +3700,7 @@ var DimpBase = {
         });
 
         if (DimpCore.conf.disable_compose) {
-            $('button_reply', 'button_forward').compact().invoke('up').invoke('up').concat($('button_compose', 'horde-new-link', 'ctx_contacts_new')).compact().invoke('remove');
+            $('button_reply', 'button_forward').compact().invoke('up').concat($('button_compose', 'horde-new-link', 'ctx_contacts_new')).compact().invoke('remove');
         } else {
             DimpCore.addPopdownButton('button_reply', 'reply');
             DimpCore.addPopdownButton('button_forward', 'forward');

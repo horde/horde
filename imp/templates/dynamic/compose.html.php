@@ -8,27 +8,25 @@
   <div class="iconImg headercloseimg closeImg" id="compose_close" title="<?php echo _("Accesskey Esc") ?>"></div>
 <?php if ($this->compose_enable): ?>
 <?php if (!$this->is_template): ?>
-  <div class="horde-button">
+  <ul>
+  <li class="horde-icon">
    <?php echo $this->actionButton(array('htmltitle' => _("Accesskey Ctrl-Enter"), 'icon' => 'Forward', 'id' => 'send_button', 'title' => _("Send"))) ?>
-   <div class="horde-button-split"></div>
-  </div>
+  </li>
 <?php endif; ?>
 <?php endif; ?>
 <?php if ($this->is_template): ?>
-  <div class="horde-button">
+  <li class="horde-icon">
    <?php echo $this->actionButton(array('icon' => 'Templates', 'id' => 'template_button', 'title' => _("Save Template"))) ?>
-   <div class="horde-button-split"></div>
-  </div>
+  </li>
 <?php else: ?>
-  <div class="horde-button">
+  <li class="horde-icon">
    <?php echo $this->actionButton(array('icon' => 'Spellcheck', 'id' => 'spellcheck', 'title' => _("Check Spelling"))) ?>
-   <div class="horde-button-split"></div>
-  </div>
-  <div class="horde-button">
+  </li>
+  <li class="horde-icon">
    <?php echo $this->actionButton(array('icon' => 'Drafts', 'id' => 'draft_button', 'title' => _("Save as Draft"))) ?>
-   <div class="horde-button-split"></div>
-  </div>
+  </li>
 <?php endif; ?>
+  </ul>
  </div>
 
  <div id="writemsg">
