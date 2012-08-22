@@ -1636,17 +1636,17 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             if (!empty($opts['poll_info']) && $val->polled) {
                 $poll_info = $val->poll_info;
 
-                if ($opts['render_type'] == 'IMP_Tree_Jquerymobile') {
-                    if ($poll_info->unseen) {
+                if ($poll_info->unseen) {
+                    switch ($opts['render_type']) {
+                    case 'IMP_Tree_Jquerymobile':
                         $after = $poll_info->unseen;
-                    }
-                } else {
-                    if ($poll_info->unseen) {
-                        $this->_unseen += $poll_info->unseen;
-                        $label = '<strong>' . $label . '</strong>';
-                    }
+                        break;
 
-                    $after = '&nbsp;(' . $poll_info->unseen . ')';
+                    default:
+                        $this->_unseen += $poll_info->unseen;
+                        $label = '<strong>' . $label . '</strong>&nbsp;(' .
+                            $poll_info->unseen . ')';
+                    }
                 }
             }
 
