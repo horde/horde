@@ -1504,7 +1504,7 @@ var DimpBase = {
         [ tmp2 ].invoke(tmp ? 'show' : 'hide');
         tmp2.siblings().invoke(tmp ? 'hide' : 'show');
 
-        [ m.down('.msgSubject .horde-subnavi-arrow'), m.down('.msgDate .horde-subnavi-arrow') ].invoke(this.viewport.getMetaData('sortbylock') ? 'hide' : 'show');
+        [ m.down('.msgSubject .horde-popdown'), m.down('.msgDate .horde-popdown') ].invoke(this.viewport.getMetaData('sortbylock') ? 'hide' : 'show');
 
         ptr.find(function(s) {
             if (sortby != s.value.v) {

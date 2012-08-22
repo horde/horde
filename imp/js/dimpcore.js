@@ -118,7 +118,7 @@ var DimpCore = {
     {
         o = o || {};
 
-        var elt = new Element('SPAN', { className: 'horde-subnavi-arrow horde-icon-arrow-subnavi' }),
+        var elt = new Element('SPAN', { className: 'horde-popdown' }),
             ins = {};
         p = $(p);
 

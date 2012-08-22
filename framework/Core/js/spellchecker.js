@@ -68,7 +68,7 @@ var SpellChecker = Class.create({
                 onChoose: this.setLocale.bindAsEventListener(this)
             });
 
-            this.statusButton.insert({ after: new Element('SPAN', { className: 'horde-subnavi-arrow horde-icon-arrow-subnavi horde-spellcheck-popdown' }) });
+            this.statusButton.insert({ after: new Element('SPAN', { className: 'horde-popdown horde-spellcheck-popdown' }) });
         }
 
         this.setStatus('CheckSpelling');

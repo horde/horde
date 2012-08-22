@@ -1972,15 +1972,14 @@ left.horde-point-right{
 .horde-subnavi-point {
     display: inline;
 }
-.horde-subnavi-arrow {
+.horde-popdown {
+    background-image: url('graphics/popdown.png');
+    background-repeat: no-repeat;
     background-position:top center;
     float: right;
     height: 24px;
     width: 24px;
-}
-.horde-icon-arrow-subnavi {
-    background-image: url('graphics/popdown.png');
-    background-repeat: no-repeat;
+    cursor: pointer;
 }
 .horde-subnavi-sub {
     padding-left: 9px;
@@ -2087,11 +2086,11 @@ left.horde-point-right{
     background-position: left center, right center;
     background-repeat: no-repeat;
 }
-.horde-buttonbar .horde-subnavi-arrow {
+.horde-buttonbar .horde-popdown {
     position: relative;
     margin: -5px 15px 0 -17px;
 }
-.horde-buttonbar .horde-nobutton .horde-subnavi-arrow {
+.horde-buttonbar .horde-nobutton .horde-popdown {
     margin-left: 0;
     margin-right: 0;
 }
