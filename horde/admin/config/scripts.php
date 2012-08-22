@@ -93,7 +93,7 @@ if ($fp = @fopen($tmp_dir . '/' . $filename, 'w')) {
     fwrite($fp, $data);
     fclose($fp);
     chmod($tmp_dir . '/' . $filename, 0777);
-    $notification->push(sprintf(_("Saved configuration upgrade script to: \"%s\"."), $path), 'horde.success');
+    $notification->push(sprintf(_("Saved configuration upgrade script to: \"%s\"."), $path), 'horde.success', array('sticky'));
 } else {
     $notification->push(sprintf(_("Could not save configuration upgrade script to: \"%s\"."), $path), 'horde.error');
 }

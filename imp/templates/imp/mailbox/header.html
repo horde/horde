@@ -6,21 +6,21 @@
   <li class="horde-nobutton"><tag:pagetitle /></li>
  </ul>
  <ul>
-  <li class="horde-icon refreshIcon"><a href="<tag:refresh_url />"><gettext>Refresh</gettext></a></li>
+  <li class="horde-icon"><a class="refreshIcon" href="<tag:refresh_url />"><gettext>Refresh</gettext></a></li>
 <if:filter_url>
-  <li class="horde-icon filtersIcon"><a href="<tag:filter_url />"><gettext>Apply Filters</gettext></a></li>
+  <li class="horde-icon"><a class="filtersIcon" href="<tag:filter_url />"><gettext>Apply Filters</gettext></a></li>
 </if:filter_url>
 <if:search_url>
-  <li class="horde-icon searchImg"><a href="<tag:search_url />"><gettext>Search</gettext></a></li>
+  <li class="horde-icon"><a class="searchImg" href="<tag:search_url />"><gettext>Search</gettext></a></li>
 <if:searchclose>
-  <li class="horde-icon closeImg"><a href="<tag:searchclose />"><gettext>Exit Search</gettext></a></li>
+  <li class="horde-icon"><a class="closeImg" href="<tag:searchclose />"><gettext>Exit Search</gettext></a></li>
 </if:searchclose>
 </if:search_url>
 <if:edit_search_url>
-  <li class="horde-icon editImg"><a href="<tag:edit_search_url />"><tag:edit_search_title /></a></li>
+  <li class="horde-icon"><a class="editImg" href="<tag:edit_search_url />"><tag:edit_search_title /></a></li>
 </if:edit_search_url>
 <if:empty>
-  <li class="horde-icon emptytrashImg"><a href="<tag:empty />" id="empty_mailbox"><gettext>Empty Mailbox</gettext></a></li>
+  <li class="horde-icon"><a class="emptytrashImg" href="<tag:empty />" id="empty_mailbox"><gettext>Empty Mailbox</gettext></a></li>
 </if:empty>
  </ul>
 </div>

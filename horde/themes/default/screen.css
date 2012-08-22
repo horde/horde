@@ -176,11 +176,9 @@ table.linedRow, ul.linedRow {
     background: #f3f3f3;
     border-bottom: 1px solid #ddd;
 }
-.selectedRow, tr.selectedRow td {
-    background: #ffc;
-}
-.selectedRow:hover, tr.selectedRow:hover td, .selectedRow-over, tr.selectedRow-over td {
-    background: #ffd;
+.selectedRow, tr.selectedRow td, .selectedRow a {
+    background-color: #36525d;
+    color: #fff;
 }
 table.nopadding td, table.nopadding th {
     padding: 0;
@@ -1977,15 +1975,14 @@ left.horde-point-right{
 .horde-subnavi-point {
     display: inline;
 }
-.horde-subnavi-arrow {
+.horde-popdown {
+    background-image: url('graphics/popdown.png');
+    background-repeat: no-repeat;
     background-position:top center;
     float: right;
     height: 24px;
     width: 24px;
-}
-.horde-icon-arrow-subnavi {
-    background-image: url('graphics/popdown.png');
-    background-repeat: no-repeat;
+    cursor: pointer;
 }
 .horde-subnavi-sub {
     padding-left: 9px;
@@ -2040,9 +2037,9 @@ left.horde-point-right{
  * Buttons
  */
 .horde-buttonbar{
-    min-height:30px;
-    background-image:url('graphics/buttonbar-bg.png');
-    background-repeat:repeat;
+    min-height: 30px;
+    background-image: url('graphics/buttonbar-bg.png');
+    background-repeat: repeat;
     overflow: hidden;
 }
 .horde-button-icon{
@@ -2052,14 +2049,22 @@ left.horde-point-right{
     margin:5px 5px 0px 15px;
 }
 .horde-button-left, .horde-button-left-arrow {
-    float:left;
-    height:22px;
-    margin:7px 15px 0px 15px;
+    float: left;
+    height: 22px;
+    margin: 4px 15px 0px 15px;
 }
 .horde-button-right, .horde-button-right-arrow {
-    float:right;
-    height:22px;
-    margin:7px 5px 0px 32px;
+    float: right;
+    height: 22px;
+    margin: 4px 5px 0px 32px;
+}
+.horde-button:hover, .horde-button-active {
+    background-image: url('graphics/button-active-bg.png');
+    background-repeat: repeat-x;
+    float: left;
+}
+.horde-button.rightFloat:hover, .horde-button-active.rightFloat {
+    float: right;
 }
 .horde-button-split{
     float:left;
@@ -2068,7 +2073,7 @@ left.horde-point-right{
     background-image:url('graphics/button-split.png');
     background-repeat:no-repeat;
 }
-.horde-buttonbar div.disabled {
+.horde-buttonbar .disabled {
     display: none;
 }
 .horde-buttonbar, .horde-buttonbar a, .horde-buttonbar a:link,
@@ -2084,8 +2089,13 @@ left.horde-point-right{
     background-position: left center, right center;
     background-repeat: no-repeat;
 }
-.horde-buttonbar .horde-subnavi-arrow {
-    margin-top: -5px;
+.horde-buttonbar .horde-popdown {
+    position: relative;
+    margin: -5px 15px 0 -17px;
+}
+.horde-buttonbar .horde-nobutton .horde-popdown {
+    margin-left: 0;
+    margin-right: 0;
 }
 .horde-buttonbar select {
     margin-left: -4px;
@@ -2096,20 +2106,48 @@ left.horde-point-right{
 }
 .horde-buttonbar ul {
     list-style: none;
+    height: 30px;
 }
 .horde-buttonbar li {
     float: left;
     height: 22px;
-    padding: 7px 17px 0 0;
-    margin: 0 0 1px 15px;
+    padding-top: 8px;
     background-image: url('graphics/button-split.png');
     background-repeat: no-repeat;
-    background-position: center right;
+    background-position: right top;
+}
+.horde-buttonbar li.horde-icon {
+    margin: 0;
+    padding: 8px 0 0 0;
+    background-position: right top;
+}
+.horde-buttonbar li a, .horde-buttonbar li select {
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    padding: 7px 17px 7px 15px;
+}
+.horde-buttonbar li select {
+    margin-top: -7px;
+    cursor: pointer;
+}
+.horde-buttonbar li.horde-icon a {
+    padding-left: 40px;
+}
+.horde-buttonbar li span.iconImg, .horde-buttonbar li input {
+    margin-top: -3px;
+}
+.horde-buttonbar li.horde-nobutton a {
+    padding: 0;
 }
 .horde-buttonbar .rightFloat li {
-    padding: 7px 0 0 17px;
-    margin: 0 15px 1px 2px;
     background-position: center left;
+}
+.horde-buttonbar li:hover {
+    background-image: url('graphics/button-split.png'), url('graphics/button-active-bg.png');
+    background-repeat: no-repeat, repeat-x;
+}
+.horde-buttonbar .rightFloat li:hover {
+    background-position: center left, center center;
 }
 .horde-buttonbar .horde-hasmenu {
     padding-right: 24px;
@@ -2255,7 +2293,7 @@ p{
         color: #000;
     }
 
-    a, .widget, .signature, .signature .fixed {
+    a, .signature, .signature .fixed {
         color: #000;
     }
 

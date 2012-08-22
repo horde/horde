@@ -74,12 +74,8 @@ input {
     float:right;
     background-position: center left;
 }
-.horde-table-header .horde-subnavi-arrow {
+.horde-table-header .horde-popdown {
     margin-top: -4px;
-}
-
-.horde-subnavi-arrow {
-    cursor: pointer;
 }
 
 /* Columns */
@@ -157,7 +153,7 @@ div.vpRow div.iconImg {
     margin-top: -3px;
     width: 16px;
 }
-div.vpRow div.horde-subnavi-arrow {
+div.vpRow div.horde-popdown {
     position: relative;
     width: 16px;
     margin-top: -4px;
@@ -173,7 +169,7 @@ div.vpRowHoriz div.sep {
 div.vpRowHoriz div.sep.sortup, div.vpRowHoriz div.sep.sortdown {
     background-position: left center;
 }
-#msglistHeaderHoriz div.horde-subnavi-arrow {
+#msglistHeaderHoriz div.horde-popdown {
     margin-right: -22px;
 }
 
@@ -320,7 +316,7 @@ div.vpRowVert div.msgSubject span.flagUser {
     font-weight: normal !important;
 }
 
-#foldersSidebar .horde-subnavi-arrow {
+#foldersSidebar .horde-popdown {
     display: -moz-inline-stack;
     display: inline-block;
     float: none;
@@ -350,7 +346,7 @@ div.vpRowVert div.msgSubject span.flagUser {
 .dimpOptions a:hover {
     text-decoration: underline;
 }
-.dimpOptions .horde-subnavi-arrow {
+.dimpOptions .horde-popdown {
     display: inline-block;
     float: none;
     padding-left: 4px;
@@ -806,6 +802,9 @@ span.logoutIcon {
 }
 .dimpactionDrafts, .dimpactionTemplates {
     background-image: url("../graphics/drafts.png");
+}
+.dimpactionSpellcheck {
+    background-image: url("../graphics/spellcheck.png");
 }
 .dimpactionEditsearch {
     background-image: url("../graphics/edit.png");

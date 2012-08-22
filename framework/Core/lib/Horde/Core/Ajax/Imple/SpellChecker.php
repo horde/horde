@@ -63,7 +63,6 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
 
         $opts = array(
             'locales' => $this->_params['locales'],
-            'sc' => 'widget',
             'statusButton' => $dom_id,
             'target' => $this->_params['targetId'],
             'url' => strval($this->getImpleUrl()->setRaw(true)->add(array('input' => $this->_params['targetId'])))

@@ -88,11 +88,13 @@ class IMP_Ui_Compose
     {
         global $injector, $prefs, $registry;
 
-        $br = ($registry->getView() == Horde_Registry::VIEW_BASIC)
-            ? '<br />'
-            : '';
+        if ($registry->getView() == Horde_Registry::VIEW_BASIC) {
+            $spell_img = '<span class="iconImg spellcheckImg"></span>';
+            $br = '<br />';
+        } else {
+            $spell_img = $br = '';
+        }
         $menu_view = $prefs->getValue('menu_view');
-        $spell_img = '<span class="iconImg spellcheckImg"></span>';
 
         $injector->getInstance('Horde_Core_Factory_Imple')->create('SpellChecker', array(
             'id' => 'spellcheck',

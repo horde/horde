@@ -446,8 +446,10 @@ span.mimePartInfoSize {
 .editImg {
     background-image: url("graphics/edit.png");
 }
-.searchImg, .horde-buttonbar li.searchImg {
-    background-image: url("graphics/search.png"), url('graphics/button-split.png');
+.searchImg {
+    background-image: url("graphics/search.png");
+    background-position: left center;
+    background-repeat: no-repeat;
 }
 .readonlyImg, .horde-buttonbar li.readonlyImg {
     background-image: url("graphics/locked.png");
@@ -461,14 +463,14 @@ span.mimePartInfoSize {
 .spellcheckImg {
     background-image: url("graphics/spellcheck.png");
 }
-.emptytrashImg, .horde-buttonbar li.emptytrashImg {
-    background-image: url("graphics/empty_trash.png"), url('graphics/button-split.png');
+.emptytrashImg {
+    background-image: url("graphics/empty_trash.png");
 }
-.filtersIcon, .horde-buttonbar li.filtersIcon {
-    background-image: url("graphics/filters.png"), url('graphics/button-split.png');
+.filtersIcon {
+    background-image: url("graphics/filters.png");
 }
-.refreshIcon, .horde-buttonbar li.refreshIcon {
-    background-image: url("graphics/reload.png"), url('graphics/button-split.png');
+.refreshIcon {
+    background-image: url("graphics/reload.png");
 }
 
 /* iTip styles. */
