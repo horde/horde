@@ -48,9 +48,16 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
     /**
      * The list of registered queries.
      *
-     * @var array
+     * @var Horde_Kolab_Storage_List_Queries
      */
-    private $_queries = array();
+    private $_queries;
+
+    /**
+     * The handler for list manipulations (like creating and deleting folders).
+     *
+     * @var Horde_Kolab_Storage_List_Modifier
+     */
+    private $_modifier;
 
     /**
      * Constructor.
@@ -63,6 +70,8 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
     {
         $this->_driver  = $driver;
         $this->_factory = $factory;
+        $this->_queries = new Horde_Kolab_Storage_List_Queries();
+        $this->_modifier = new Horde_Kolab_Storage_List_Modifier($this->_driver, $this->_queries);
     }
 
     /**
@@ -105,15 +114,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      */
     public function createFolder($folder, $type = null)
     {
-        $this->_driver->create($folder);
-        if ($type) {
-            $this->_driver->setAnnotation(
-                $folder, self::ANNOTATION_FOLDER_TYPE, $type
-            );
-        }
-        foreach ($this->_queries as $name => $query) {
-            $query->createFolder($folder, $type);
-        }
+        $this->_modifier->createFolder($folder, $type);
     }
 
     /**
@@ -131,10 +132,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      */
     public function deleteFolder($folder)
     {
-        $this->_driver->delete($folder);
-        foreach ($this->_queries as $name => $query) {
-            $query->deleteFolder($folder);
-        }
+        $this->_modifier->deleteFolder($folder);
     }
 
     /**
@@ -147,10 +145,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      */
     public function renameFolder($old, $new)
     {
-        $this->_driver->rename($old, $new);
-        foreach ($this->_queries as $name => $query) {
-            $query->renameFolder($old, $new);
-        }
+        $this->_modifier->renameFolder($old, $new);
     }
 
     /**
@@ -259,9 +254,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      */
     public function synchronize($params = array())
     {
-        foreach ($this->_queries as $name => $query) {
-            $query->synchronize($params);
-        }
+        $this->_queries->synchronize($params);
     }
 
     /**
@@ -274,12 +267,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      */
     public function registerQuery($name, Horde_Kolab_Storage_Query $query)
     {
-        if (!$query instanceOf Horde_Kolab_Storage_List_Query) {
-            throw new Horde_Kolab_Storage_Exception(
-                'The provided query is no list query.'
-            );
-        }
-        $this->_queries[$name] = $query;
+        $this->_queries->registerQuery($name, $query);
     }
 
     /**
@@ -294,13 +282,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      */
     public function getQuery($name = null)
     {
-        if ($name === null) {
-            $name = self::QUERY_BASE;
-        }
-        if (isset($this->_queries[$name])) {
-            return $this->_queries[$name];
-        } else {
-            throw new Horde_Kolab_Storage_List_Exception('No such query!');
-        }
+        return $this->_queries->getQuery($name);
     }
+
 }

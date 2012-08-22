@@ -35,7 +35,6 @@ require_once __DIR__ . '/../../Autoload.php';
 class Horde_Kolab_Storage_Unit_List_QueriesTest
 extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @expectedException Horde_Kolab_Storage_List_Exception
      */
@@ -46,5 +45,71 @@ extends PHPUnit_Framework_TestCase
             $this->getMock('Horde_Kolab_Storage_Factory')
         );
         $this->assertEquals(array(), $list->getQuery('TEST'));
+    }
+
+    public function testRegisterQuery()
+    {
+        $list = new Horde_Kolab_Storage_List_Base(
+            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->getMock('Horde_Kolab_Storage_Factory')
+        );
+        $query = $this->getMock('Horde_Kolab_Storage_List_QUery');
+        $list->registerQuery('TEST', $query);
+        $this->assertSame($query, $list->getQuery('TEST'));
+    }
+
+    public function testCreateFolder()
+    {
+        $list = new Horde_Kolab_Storage_List_Base(
+            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->getMock('Horde_Kolab_Storage_Factory')
+        );
+        $query = $this->getMock('Horde_Kolab_Storage_List_QUery');
+        $query->expects($this->once())
+            ->method('createFolder')
+            ->with('TEST');
+        $list->registerQuery('TEST', $query);
+        $list->createFolder('TEST');
+    }
+
+    public function testDeleteFolder()
+    {
+        $list = new Horde_Kolab_Storage_List_Base(
+            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->getMock('Horde_Kolab_Storage_Factory')
+        );
+        $query = $this->getMock('Horde_Kolab_Storage_List_QUery');
+        $query->expects($this->once())
+            ->method('deleteFolder')
+            ->with('TEST');
+        $list->registerQuery('TEST', $query);
+        $list->deleteFolder('TEST');
+    }
+
+    public function testRenameFolder()
+    {
+        $list = new Horde_Kolab_Storage_List_Base(
+            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->getMock('Horde_Kolab_Storage_Factory')
+        );
+        $query = $this->getMock('Horde_Kolab_Storage_List_QUery');
+        $query->expects($this->once())
+            ->method('renameFolder')
+            ->with('FOO', 'BAR');
+        $list->registerQuery('TEST', $query);
+        $list->renameFolder('FOO', 'BAR');
+    }
+
+    public function testSynchronize()
+    {
+        $list = new Horde_Kolab_Storage_List_Base(
+            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->getMock('Horde_Kolab_Storage_Factory')
+        );
+        $query = $this->getMock('Horde_Kolab_Storage_List_QUery');
+        $query->expects($this->once())
+            ->method('synchronize');
+        $list->registerQuery('TEST', $query);
+        $list->synchronize();
     }
 }
