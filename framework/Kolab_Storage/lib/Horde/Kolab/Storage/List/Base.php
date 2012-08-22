@@ -300,7 +300,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
         if (isset($this->_queries[$name])) {
             return $this->_queries[$name];
         } else {
-            throw new Horde_Kolab_Storage_Exception('No such query!');
+            throw new Horde_Kolab_Storage_List_Exception('No such query!');
         }
     }
 }
