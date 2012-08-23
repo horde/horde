@@ -1518,29 +1518,26 @@ var DimpBase = {
 
     loadPreview: function(data, params)
     {
-        var curr, msgload, row, rows, pp_uid;
+        var curr, msgload, p, rows, pp_uid;
 
         if (!this._getPref('preview')) {
             return;
         }
 
-        // If single message is loaded, and this is the INBOX, try to preload
-        // next unseen message that exists in current buffer.
-        if (data && data.mbox == this.INBOX) {
+        // If single message is loaded, and this mailbox is polled, try to
+        // preload next unseen messages that exists in current buffer.
+        if (data && !Object.isUndefined(this.getUnseenCount(data.mbox))) {
             curr = this.viewport.getSelected().get('rownum').first();
             rows = this.viewport.createSelectionBuffer().search({
                 flag: { notinclude: DimpCore.conf.FLAG_SEEN }
             }).get('rownum').diff([ curr ]).numericSort();
 
             if (rows.size()) {
-                row = rows.detect(function(r) {
+                p = rows.partition(function(r) {
                     return (r > curr);
                 });
-                if (!row) {
-                    row = rows.last();
-                }
 
-                msgload = DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('rownum', row)));
+                msgload = DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('rownum', [ p[1].last(), p[0].first() ].compact())));
             }
         }
 
