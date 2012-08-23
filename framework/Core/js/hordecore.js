@@ -194,12 +194,15 @@ var HordeCore = {
         this.server_error = 0;
 
         if (r.tasks) {
-            document.fire('HordeCore:runTasks', r.tasks);
+            document.fire('HordeCore:runTasks', {
+                response: resp,
+                tasks: r.tasks
+            });
         }
 
         if (r.response && Object.isFunction(opts.callback)) {
             try {
-                opts.callback(r.response);
+                opts.callback(r.response, resp);
             } catch (e) {
                 this.debug('doActionComplete', e);
             }
