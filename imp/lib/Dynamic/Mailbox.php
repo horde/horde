@@ -58,7 +58,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
         $topbar->search = $this->view->show_search;
-        $topbar->searchAction = '#';
         $topbar->searchMenu = true;
         $topbar->subinfo = $impSubinfo->render('mailbox_subinfo');
         $this->view->topbar = $topbar->render();

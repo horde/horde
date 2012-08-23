@@ -51,6 +51,10 @@ class Horde_View_Topbar extends Horde_View
             ->create('Horde_Tree_Renderer_Menu', array('nosession' => true))
             ->getTree();
 
+        /* Search form. */
+        $this->searchAction = '#';
+        $this->searchIcon = Horde_Themes::img('search-topbar.png');
+
         /* Login/Logout. */
         if ($registry->getAuth()) {
             if (Horde_Menu::showService('logout')) {
@@ -87,6 +91,10 @@ class Horde_View_Topbar extends Horde_View
      */
     public function render($name = 'topbar', $locals = array())
     {
+        if ($this->search) {
+            $GLOBALS['injector']->getInstance('Horde_PageOutput')
+                ->addScriptFile('form_ghost.js', 'horde');
+        }
         return parent::render($name, $locals);
     }
 }

@@ -2,6 +2,8 @@
  * Scripts for the Horde topbar.
  */
 var HordeTopbar = {
+    // Vars used and defaulting to null/false:
+    //   searchGhost
 
     /**
      * Date format.
@@ -21,7 +23,16 @@ var HordeTopbar = {
             d.update(Date.today().toString(this.format));
             this.updateDate.bind(this).delay(10);
         }
+    },
+
+    onDomLoad: function()
+    {
+        if ($('horde-search-input')) {
+            this.searchGhost = new FormGhost('horde-search-input');
+        }
+
+        this.updateDate();
     }
 }
 
-document.observe('dom:loaded', HordeTopbar.updateDate.bind(HordeTopbar));
+document.observe('dom:loaded', HordeTopbar.onDomLoad.bind(HordeTopbar));

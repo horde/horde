@@ -29,6 +29,7 @@ input[type=image] {
     border: none;
     vertical-align: middle;
     background: transparent;
+    padding: 0;
 }
 
 .iconImg {
@@ -1796,42 +1797,36 @@ left.horde-point-right{
     width:230px;
     padding:0px 20px 0px 0px;
 }
-#horde-search #horde-input{
-    float:left;
-    width:209px;
-    margin:6px 0px 0px 0px;
-}
 #horde-search form {
     display: inline;
 }
-#horde-search #horde-input input, #horde-search #horde-input .horde-fake-input {
-    width:195px;
+#horde-search #horde-search-input, #horde-search .horde-fake-input {
+    width:200px;
+    margin-top: 6px;
     background: #fff;
     height:20px;
-    font-size:115%;
+    font-size:100%;
     border:0px;
+    float: left;
 }
-#horde-search #horde-input input {
+#horde-search #horde-search-input {
     width:190px;
     padding:0px 5px 0px 5px;
 }
-#horde-search #horde-input .horde-fake-input input {
+#horde-search .horde-fake-input #horde-search-input {
     padding: 0 5px 0 0;
     width: 170px;
-    font-size: 87%;
+    margin: 0;
+    float: none;
 }
 #horde-search span.popdownImg {
     cursor: pointer;
-    height: 18px;
+    height: 20px;
     width: 16px;
 }
 #horde-search-icon {
-    float:left;
-    width:21px;
-    height:27px;
-    margin:7px 0px 0px 0px;
-    background-image: url('graphics/search-topbar.png');
-    background-repeat:no-repeat;
+    float: left;
+    margin: 7px 0 0 9px;
 }
 #horde-logout{
     float:right;
