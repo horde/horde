@@ -1917,7 +1917,7 @@ left.horde-point-right{
     background-image: url('graphics/sidebar-split.png');
     background-repeat: no-repeat;
 }
-.horde-new-refresh {
+.horde-new-extra {
     float: right;
     width: 20px;
     height: 24px;
@@ -1925,10 +1925,10 @@ left.horde-point-right{
     background-image: url('graphics/sidebar-refresh.png');
     background-repeat: no-repeat;
 }
-.horde-new-refresh a {
+.horde-new-extra a {
     display: block;
 }
-.horde-new-refresh a:hover {
+.horde-new-extra a:hover {
     text-decoration: none;
 }
 
