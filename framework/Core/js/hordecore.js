@@ -78,7 +78,7 @@ var HordeCore = {
             this.doActionComplete(t, opts.callback, opts.loading);
         }.bind(this);
 
-        new Ajax.Request(this.conf.URI_AJAX + action, ajaxopts);
+        return new Ajax.Request(this.conf.URI_AJAX + action, ajaxopts);
     },
 
     // form: (Element) DOM Element (or DOM ID)
