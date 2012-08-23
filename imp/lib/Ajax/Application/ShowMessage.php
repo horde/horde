@@ -114,6 +114,8 @@ class IMP_Ajax_Application_ShowMessage
      *   - replyTo (FULL): The Reply-to addresses
      *   - save_as: The save link
      *   - subject: The subject
+     *   - subjectlink: The subject with linked URLs/email addresses (defaults
+     *                  to 'subject')
      *   - title (FULL): The title of the page
      *   - to: The To addresses
      *   - uid: The message UID
@@ -219,7 +221,11 @@ class IMP_Ajax_Application_ShowMessage
         /* Process the subject. */
         $subject = $mime_headers->getValue('subject');
         if ($subject) {
-            $result['subject'] = $imp_ui->getDisplaySubject($subject);
+            $result['subject'] = $imp_ui->getDisplaySubject($subject, Horde_Text_Filter_Text2html::NOHTML);
+            $subjectlink = $imp_ui->getDisplaySubject($subject);
+            if ($subjectlink != $result['subject']) {
+                $result['subjectlink'] = $subjectlink;
+            }
             if (!$preview) {
                 $result['title'] = $subject;
             }

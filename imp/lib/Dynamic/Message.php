@@ -111,7 +111,9 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $this->view->show_view_source = !empty($conf['user']['allow_view_source']);
 
         $this->view->save_as = $msg_res['save_as'];
-        $this->view->subject = $msg_res['subject'];
+        $this->view->subject = isset($msg_res['subjectlink'])
+            ? $msg_res['subjectlink']
+            : $msg_res['subject'];
 
         $hdrs = array();
         foreach ($msg_res['headers'] as $val) {

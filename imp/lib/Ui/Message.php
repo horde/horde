@@ -380,13 +380,15 @@ class IMP_Ui_Message
      * Get the display subject (filtered, formatted, and linked).
      *
      * @param string $subject  The subject text.
+     * @param integer $level   HTML filtering level.
      *
      * @return string  The display subject string.
      */
-    public function getDisplaySubject($subject)
+    public function getDisplaySubject($subject,
+                                      $level = Horde_Text_Filter_Text2html::MICRO)
     {
         return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(preg_replace("/\b\s+\b/", ' ', IMP::filterText($subject)), 'text2html', array(
-            'parselevel' => Horde_Text_Filter_Text2html::MICRO
+            'parselevel' => $level
         ));
     }
 

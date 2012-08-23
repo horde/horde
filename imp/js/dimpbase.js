@@ -1608,7 +1608,7 @@ var DimpBase = {
         // Add subject. Subject was already html encoded on server (subject
         // may include links).
         tmp = pm.select('.subject');
-        tmp.invoke('update', r.subject === null ? '[' + DimpCore.text.badsubject + ']' : r.subject);
+        tmp.invoke('update', r.subject === null ? '[' + DimpCore.text.badsubject + ']' : (r.subjectlink || r.subject));
 
         // Add date
         [ $('msgHeaderDate') ].flatten().invoke(r.localdate ? 'show' : 'hide');

@@ -2,6 +2,8 @@
 v6.0.0-git
 ----------
 
+[mms] More complete handling of linked data in subject header across views
+      (Bug #11372).
 [mms] Add Top link to smartmobile mailbox page.
 [mms] Fixes to the iTip Request handler (Bug #11264).
 [mms] Fix searching in smartmobile view (Bug #11365).
