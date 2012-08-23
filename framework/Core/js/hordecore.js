@@ -74,8 +74,8 @@ var HordeCore = {
 
         this.initLoading(opts.loading);
 
-        ajaxopts.onComplete = function(t, o) {
-            this.doActionComplete(t, opts.callback, opts.loading);
+        ajaxopts.onComplete = function(t) {
+            this.doActionComplete(t, opts);
         }.bind(this);
 
         return new Ajax.Request(this.conf.URI_AJAX + action, ajaxopts);
@@ -92,7 +92,7 @@ var HordeCore = {
         this.initLoading(opts.loading);
 
         ajaxopts.onComplete = function(t, o) {
-            this.doActionComplete(t, opts.callback, opts.loading);
+            this.doActionComplete(t, opts);
         }.bind(this);
 
         $(form).request(ajaxopts);
@@ -138,7 +138,7 @@ var HordeCore = {
         sf.observe('load', function(sf) {
             this.doActionComplete({
                 responseJSON: (sf.contentDocument || sf.contentWindow.document).body.innerHTML.evalJSON(true)
-            }, opts.callback);
+            }, opts);
         }.bind(this, sf));
 
         this.submit_frame[form.identify()] = sf;
@@ -152,23 +152,25 @@ var HordeCore = {
         }
     },
 
-    doActionComplete: function(request, callback, loading)
+    // resp = Ajax.Response object
+    // opts = HordeCore options (callback, loading)
+    doActionComplete: function(resp, opts)
     {
         this.inAjaxCallback = true;
 
-        if (!request.responseJSON) {
+        if (!resp.responseJSON) {
             if (++this.server_error == 3) {
                 this.notify(this.text.ajax_timeout, 'horde.error');
             }
-            if (request.request) {
-                request.request.options.onFailure(request, {});
+            if (resp.request) {
+                resp.request.options.onFailure(resp, {});
             }
-            this.endLoading(loading);
+            this.endLoading(opts.loading);
             this.inAjaxCallback = false;
             return;
         }
 
-        var r = request.responseJSON;
+        var r = resp.responseJSON;
 
         if (r.reload) {
             if (r.reload === true) {
@@ -195,9 +197,9 @@ var HordeCore = {
             document.fire('HordeCore:runTasks', r.tasks);
         }
 
-        if (r.response && Object.isFunction(callback)) {
+        if (r.response && Object.isFunction(opts.callback)) {
             try {
-                callback(r.response);
+                opts.callback(r.response);
             } catch (e) {
                 this.debug('doActionComplete', e);
             }
@@ -207,7 +209,7 @@ var HordeCore = {
 
         this.notify_handler(r.msgs);
 
-        this.endLoading(loading);
+        this.endLoading(opts.loading);
 
         this.inAjaxCallback = false;
     },
