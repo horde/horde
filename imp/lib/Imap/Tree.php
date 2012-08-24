@@ -1721,7 +1721,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Prepares an AJAX Mailbox response.
+     * Prepares an AJAX mailbox response.
      *
      * @return array  The object used by JS code to update the tree.
      */
@@ -1737,6 +1737,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         if (!empty($changes['a'])) {
             $result['a'] = array();
+            Horde_Imap_Client_Sort::sortMailboxes($changes['a'], array(
+                'delimiter' => $this->_delimiter,
+                'keysort' => true
+            ));
             foreach (array_keys($changes['a']) as $val) {
                 $result['a'][] = $this->_ajaxElt($val);
             }
@@ -1744,6 +1748,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         if (!empty($changes['c'])) {
             $result['c'] = array();
+            Horde_Imap_Client_Sort::sortMailboxes($changes['c'], array(
+                'delimiter' => $this->_delimiter,
+                'keysort' => true
+            ));
             foreach (array_keys($changes['c']) as $val) {
                 // Skip the base element, since any change there won't ever be
                 // updated on-screen.
