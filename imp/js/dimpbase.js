@@ -668,16 +668,10 @@ var DimpBase = {
                     if (!this.search || !this.search.qsearch) {
                         $('qsearch').hide();
                     }
-                    if (!$('searchbar').visible()) {
-                        $('searchbar').show();
-                        this.viewport.onResize(true);
-                    }
+                    this.showSearchbar(true);
                 } else {
                     $('filter').show();
-                    if ($('searchbar').visible()) {
-                        $('searchbar').hide();
-                        this.viewport.onResize(true);
-                    }
+                    this.showSearchbar(false);
                 }
 
                 tmp = $('applyfilterlink');
@@ -772,7 +766,9 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:fetch', function(e) {
-            $('searchbar').hide();
+            if (!this.isSearch()) {
+                this.showSearchbar(false);
+            }
             this.loadingImg('viewport', true);
         }.bindAsEventListener(this));
 
@@ -2013,6 +2009,20 @@ var DimpBase = {
         $('qsearch_input').writeAttribute('title', DIMP.text.search + ' (' + $('ctx_qsearchby_' + DIMP.conf.qsearchfield).getText() + ')');
         if (this.qsearch_ghost) {
             this.qsearch_ghost.refresh();
+        }
+    },
+
+    /* Handle searchbar. */
+    showSearchbar: function(show)
+    {
+        if ($('searchbar').visible()) {
+            if (!show) {
+                $('searchbar').hide();
+                this.viewport.onResize(true);
+            }
+        } else if (show) {
+            $('searchbar').show();
+            this.viewport.onResize(true);
         }
     },
 
