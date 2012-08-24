@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Force IE &lt;= 7 to minimal view (Bug #11327).
 * [mms] Add loading triggers to HordeCore JS framework.
 * [mjr] Send dummy INBOX, Sent, and Trash folders to client when email sync support is not enabled.
 * [mjr] Fix broken ActiveSync behaviour when Email sync is not enabled.
@@ -2221,6 +2222,7 @@
    <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Force IE &lt;= 7 to minimal view (Bug #11327).
 * [mms] Add loading triggers to HordeCore JS framework.
 * [mjr] Send dummy INBOX, Sent, and Trash folders to client when email sync support is not enabled.
 * [mjr] Fix broken ActiveSync behaviour when Email sync is not enabled.
