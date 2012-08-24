@@ -22,6 +22,9 @@ var ImpMobile = {
     // /* The current message data. */
     // message,
     //
+    // /* Current row UID of the displayed message. */
+    // rowid,
+    //
     // /* Search parameters for the viewPort Ajax request. */
     // search,
     //
@@ -364,14 +367,14 @@ var ImpMobile = {
             dir = (dir.type == 'swipeleft') ? 1 : -1;
         }
 
-        var from, pos, uid,
+        var from, pos, rid,
             ob = ImpMobile.cache[ImpMobile.mailbox];
 
         if (HordeMobile.currentPage('message')) {
-            pos = ob.rowlist[ImpMobile.uid] + dir;
+            pos = ob.rowlist[ImpMobile.rowid] + dir;
             if (pos > 0 && pos <= ob.totalrows) {
-                if (uid = ob.rowToUid(pos)) {
-                    $.mobile.changePage('#message?view=' + ob.data[uid].mbox + '&uid=' + uid);
+                if (rid = ob.rowToUid(pos)) {
+                    $.mobile.changePage('#message?view=' + ob.data[rid].mbox + '&uid=' + ob.data[rid].uid);
                 } else {
                     // TODO: Load viewport slice
                 }
@@ -408,7 +411,7 @@ var ImpMobile = {
             args = '&mbox=' + data.mbox + '&uid=' + data.uid,
             innocent = 'show',
             spam = 'show',
-            uid, tmp;
+            tmp;
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
@@ -454,31 +457,12 @@ var ImpMobile = {
         if (ImpMobile.mailbox == IMP.conf.qsearchid) {
             $('#imp-message-back').attr('href', '#mailbox?mbox=' + IMP.conf.qsearchid);
             $('#imp-message-back .ui-btn-text').text(IMP.text.searchresults);
-            uid = r.suid;
+            ImpMobile.rowid = r.suid;
         } else {
             $('#imp-message-back').attr('href', '#mailbox?mbox=' + data.mbox);
             $('#imp-message-back .ui-btn-text')
                 .text($('#imp-mailbox-' + data.mbox).text());
-            uid = data.uid;
-        }
-
-        if (cache.rowlist[uid] != 1) {
-            $('#imp-message-prev')
-                .removeClass('ui-disabled')
-                .attr('aria-disabled', false);
-        } else {
-            $('#imp-message-prev')
-                .addClass('ui-disabled')
-                .attr('aria-disabled', true);
-        }
-        if (cache.rowlist[uid] != cache.totalrows) {
-            $('#imp-message-next')
-                .removeClass('ui-disabled')
-                .attr('aria-disabled', false);
-        } else {
-            $('#imp-message-next')
-                .addClass('ui-disabled')
-                .attr('aria-disabled', true);
+            ImpMobile.rowid = data.uid;
         }
 
         if (!IMP.conf.disable_compose) {
@@ -973,13 +957,6 @@ var ImpMobile = {
 
             case 'imp-message-header-toggle':
                 elt.children().toggle();
-                return;
-
-            case 'imp-message-prev':
-            case 'imp-message-next':
-                if (!elt.hasClass('ui-disabled')) {
-                    ImpMobile.navigate(id == 'imp-message-prev' ? -1 : 1);
-                }
                 return;
 
             case 'imp-mailbox-top':
