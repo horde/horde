@@ -29,8 +29,8 @@
    <a href="#" id="imp-message-redirect" data-role="button" data-icon="forward"><?php echo _("Redirect") ?></a>
    <a href="#" id="imp-message-resume" data-role="button" data-icon="plus"><?php echo _("Edit as New") ?></a>
   </div>
-<?php endif ?>
   <div class="imp-message-spacer"></div>
+<?php endif ?>
   <div data-role="controlgroup" data-type="horizontal">
    <a href="#" id="imp-message-delete" data-role="button" data-rel="dialog" data-icon="delete"><?php echo _("Delete") ?></a>
 <?php if ($this->allowFolders): ?>
