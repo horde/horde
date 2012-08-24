@@ -183,6 +183,51 @@ div.flagUnseen {
 div.flagDeleted * {
     text-decoration: line-through;
 }
+div.vpRowSelected .msgflags.flagPersonal {
+    background-image: url("../graphics/flags/personal-inv.png");
+}
+div.vpRowSelected .msgflags.flagHighpriority {
+    background-image: url("../graphics/flags/priority_high-inv.png");
+}
+div.vpRowSelected .msgflags.flagLowpriority {
+    background-image: url("../graphics/flags/priority_low-inv.png");
+}
+div.vpRowSelected .msgflags.flagSignedmsg {
+    background-image: url("../graphics/flags/signed-inv.png");
+}
+div.vpRowSelected .msgflags.flagEncryptmsg {
+    background-image: url("../graphics/flags/encrypted-inv.png");
+}
+div.vpRowSelected .msgflags.flagAttachmsg {
+    background-image: url("../graphics/flags/attachment-inv.png");
+}
+div.vpRowSelected .msgflags.flagList {
+    background-image: url("../graphics/flags/group-inv.png");
+}
+div.vpRowSelected .msgflags.flagJunk {
+    background-image: url("../graphics/flags/spam-inv.png");
+}
+div.vpRowSelected .msgflags.flagNotJunk {
+    background-image: url("../graphics/flags/innocent-inv.png");
+}
+div.vpRowSelected .msgflags.flagUnseen {
+    background-image: url("../graphics/flags/unseen-inv.png");
+}
+div.vpRowSelected .msgflags.flagAnswered {
+    background-image: url("../graphics/flags/answered-inv.png");
+}
+div.vpRowSelected .msgflags.flagDraft {
+    background-image: url("../graphics/flags/draft-inv.png");
+}
+div.vpRowSelected .msgflags.flagForwarded {
+    background-image: url("../graphics/flags/forwarded-inv.png");
+}
+div.vpRowSelected .msgflags.flagFlagged {
+    background-image: url("../graphics/flags/flagged-inv.png");
+}
+div.vpRowSelected .msgflags.flagDeleted {
+    background-image: url("../graphics/flags/deleted-inv.png");
+}
 
 /* Checkbox images */
 .msCheck {
