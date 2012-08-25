@@ -480,6 +480,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         global $registry, $prefs;
 
         $desc = $html = '';
+        $options = array();
         $sender = $vfb->getName();
 
         switch ($method) {
@@ -522,40 +523,59 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
-        $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>'
-            . '<select name="itip_action[' . $id . ']"><option value="">'
-            . _("-- select --") . '</option>';
-
         switch ($method) {
         case 'PUBLISH':
             if ($registry->hasMethod('calendar/import_vfreebusy')) {
-                $html .= '<option value="import">' .   _("Remember the free/busy information.") . '</option>';
+                $options['import'] = _("Remember the free/busy information.");
             } else {
-                $html .= '<option value="nosup">' . _("Reply with Not Supported Message") . '</option>';
+                $options['nosup'] = _("Reply with Not Supported Message");
             }
             break;
 
         case 'REQUEST':
             if ($registry->hasMethod('calendar/getFreeBusy')) {
-                $html .= '<option value="reply">' .   _("Reply with requested free/busy information.") . '</option>' .
-                    '<option value="reply2m">' . _("Reply with free/busy for next 2 months.") . '</option>';
+                $options['reply'] = _("Reply with requested free/busy information.");
+                $options['reply2m'] = _("Reply with free/busy for next 2 months.");
             } else {
-                $html .= '<option value="nosup">' . _("Reply with Not Supported Message") . '</option>';
+                $options['nosup'] = _("Reply with Not Supported Message");
             }
 
-            $html .= '<option value="deny">' . _("Deny request for free/busy information") . '</option>';
+            $options['deny'] = _("Deny request for free/busy information");
             break;
 
         case 'REPLY':
             if ($registry->hasMethod('calendar/import_vfreebusy')) {
-                $html .= '<option value="import">' .   _("Remember the free/busy information.") . '</option>';
+                $options['import'] = _("Remember the free/busy information.");
             } else {
-                $html .= '<option value="nosup">' . _("Reply with Not Supported Message") . '</option>';
+                $options['nosup'] = _("Reply with Not Supported Message");
             }
             break;
         }
 
-        return $html . '</select> <input type="submit" class="button" value="' . _("Go") . '/>';
+        switch (count($options)) {
+        case 0:
+            return $html;
+
+        case 1:
+            reset($options);
+            return $html .
+                '<input type="hidden" name="itip_action[' . $id . ']" value="' .
+                key($options) . '" />' .
+                '<input type="submit" class="button" value="' .
+                    current($options) . '" />';
+
+        default:
+            $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>'
+                . '<label for="action_' . $id . '" class="hidden">'
+                . _("Actions") . '</label>' . '<select id="action_' . $id
+                . '" name="itip_action[' . $id . ']"><option disabled="disabled" value="">'
+                . _("-- select --") . '</option>';
+            foreach ($options as $k => $v) {
+                $html .= '<option value="' . $k . '">' . $v . '</option>';
+            }
+            return $html . '</select>' .
+                '<input type="submit" class="button" value="' . _("Go") . '/>';
+        }
     }
 
     /**
@@ -586,7 +606,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         case 'PUBLISH':
             $desc = _("%s wishes to make you aware of \"%s\".");
             if ($registry->hasMethod('calendar/import')) {
-                $options[] = '<option value="import">' .   _("Add this to my calendar") . '</option>';
+                $options['import'] = _("Add this to my calendar");
             }
             break;
 
@@ -618,28 +638,27 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     : _("%s wishes to make you aware of \"%s\".");
             }
             if ($is_update && $registry->hasMethod('calendar/replace')) {
-                $options[] = '<option value="accept-import">' . _("Accept and update in my calendar") . '</option>';
-                $options[] = '<option value="import">' . _("Update in my calendar") . '</option>';
+                $options['accept-import'] = _("Accept and update in my calendar");
+                $options['import'] = _("Update in my calendar");
             } elseif ($registry->hasMethod('calendar/import')) {
-                $options[] = '<option value="accept-import">' . _("Accept and add to my calendar") . '</option>';
-                $options[] = '<option value="import">' . _("Add to my calendar") . '</option>';
+                $options['accept-import'] = _("Accept and add to my calendar");
+                $options['import'] = _("Add to my calendar");
             }
-            $options[] = '<option value="accept">' . _("Accept request") . '</option>';
-            $options[] = '<option value="tentative">' . _("Tentatively Accept request") . '</option>';
-            $options[] = '<option value="deny">' . _("Deny request") . '</option>';
-            // $options[] = '<option value="delegate">' . _("Delegate position") . '</option>';
+            $options['accept'] = _("Accept request");
+            $options['tentative'] = _("Tentatively Accept request");
+            $options['deny'] = _("Deny request");
             break;
 
         case 'ADD':
             $desc = _("%s wishes to amend \"%s\".");
             if ($registry->hasMethod('calendar/import')) {
-                $options[] = '<option value="import">' .   _("Update this event on my calendar") . '</option>';
+                $options['import'] = _("Update this event on my calendar");
             }
             break;
 
         case 'REFRESH':
             $desc = _("%s wishes to receive the latest information about \"%s\".");
-            $options[] = '<option value="send">' . _("Send Latest Information") . '</option>';
+            $options['send'] = _("Send Latest Information");
             break;
 
         case 'REPLY':
@@ -647,7 +666,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             $desc = _("%s has replied to the invitation to \"%s\".");
             $sender = $hdrs->getValue('From');
             if ($registry->hasMethod('calendar/updateAttendee')) {
-                $options[] = '<option value="update">' . _("Update respondent status") . '</option>';
+                $options['update'] = _("Update respondent status");
             }
             break;
 
@@ -656,12 +675,12 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 $vevent->getAttribute('RECURRENCE-ID');
                 $desc = _("%s has cancelled an instance of the recurring \"%s\".");
                 if ($registry->hasMethod('calendar/replace')) {
-                    $options[] = '<option value="delete">' . _("Update in my calendar") . '</option>';
+                    $options['delete'] = _("Update in my calendar");
                 }
             } catch (Horde_Icalendar_Exception $e) {
                 $desc = _("%s has cancelled \"%s\".");
                 if ($registry->hasMethod('calendar/delete')) {
-                    $options[] = '<option value="delete">' . _("Delete from my calendar") . '</option>';
+                    $options['delete'] = _("Delete from my calendar");
                 }
             }
             break;
@@ -821,17 +840,30 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             } catch (Horde_Exception $e) {}
         }
 
-        if ($options) {
+        switch (count($options)) {
+        case 0:
+            return $html;
+
+        case 1:
+            reset($options);
+            return $html .
+                '<input type="hidden" name="itip_action[' . $id . ']" value="' .
+                key($options) . '" />' .
+                '<input type="submit" class="button" value="' .
+                    current($options) . '" />';
+
+        default:
             $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>'
                 . '<label for="action_' . $id . '" class="hidden">'
                 . _("Actions") . '</label>' . '<select id="action_' . $id
-                . '" name="itip_action[' . $id . ']"><option value="">'
-                . _("-- select --") . '</option>' . implode("\n", $options)
-                . '</select> <input type="submit" class="button" value="'
-                . _("Go") . '" />';
+                . '" name="itip_action[' . $id . ']"><option disabled="disabled" value="">'
+                . _("-- select --") . '</option>';
+            foreach ($options as $k => $v) {
+                $html .= '<option value="' . $k . '">' . $v . '</option>';
+            }
+            return $html . '</select>' .
+                '<input type="submit" class="button" value="' . _("Go") . '/>';
         }
-
-        return $html;
     }
 
     /**
@@ -863,7 +895,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         case 'PUBLISH':
             $desc = _("%s wishes to make you aware of \"%s\".");
             if ($registry->hasMethod('tasks/import')) {
-                $options[] = '<option value="import">' . _("Add this to my tasklist") . '</option>';
+                $options['import'] = _("Add this to my tasklist");
             }
             break;
         }
@@ -952,15 +984,30 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             $html .= '</tbody></table>';
         }
 
-        if ($options) {
-            $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>'
-                . '<select name="itip_action[' . $id . ']"><option value="">'
-                . _("-- select --") . '</option>' . implode("\n", $options)
-                . '</select> <input type="submit" class="button" value="'
-                . _("Go") . '" />';
-        }
+        switch (count($options)) {
+        case 0:
+            return $html;
 
-        return $html;
+        case 1:
+            reset($options);
+            return $html .
+                '<input type="hidden" name="itip_action[' . $id . ']" value="' .
+                key($options) . '" />' .
+                '<input type="submit" class="button" value="' .
+                    current($options) . '" />';
+
+        default:
+            $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>'
+                . '<label for="action_' . $id . '" class="hidden">'
+                . _("Actions") . '</label>' . '<select id="action_' . $id
+                . '" name="itip_action[' . $id . ']"><option disabled="disabled" value="">'
+                . _("-- select --") . '</option>';
+            foreach ($options as $k => $v) {
+                $html .= '<option value="' . $k . '">' . $v . '</option>';
+            }
+            return $html . '</select>' .
+                '<input type="submit" class="button" value="' . _("Go") . '/>';
+        }
     }
 
     /**
