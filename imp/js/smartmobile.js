@@ -247,6 +247,10 @@ var ImpMobile = {
             if (data.flag) {
                 $.each(data.flag, function(k, flag) {
                     switch (flag) {
+                    case IMP.conf.flags.deleted:
+                        c.addClass('imp-message-deleted');
+                        break;
+
                     case IMP.conf.flags.draft:
                         url = '#compose?type=resume&mbox=' + data.mbox + '&uid=' + data.uid;
                         break;

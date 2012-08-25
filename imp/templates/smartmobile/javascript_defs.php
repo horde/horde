@@ -15,6 +15,7 @@ $code['conf'] = array_filter(array(
     'allow_folders' => $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS),
     'disable_compose' => !IMP::canCompose(),
     'flags' => array(
+        'deleted' => '\\deleted',
         'draft' => '\\draft',
         'seen' => '\\seen'
     ),
