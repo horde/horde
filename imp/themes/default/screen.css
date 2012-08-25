@@ -386,7 +386,7 @@ div.mimeStatusMessage, div.mimePartInfo {
     background-image: url("graphics/attachment.png");
     background-position: 2px 50%;
     background-repeat: no-repeat;
-    padding-left: 25px;
+    padding-left: 35px;
 }
 span.mimePartInfoSize {
     color: #666;
