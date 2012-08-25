@@ -567,7 +567,7 @@ class IMP_Hooks
      * Allow additional information to be added/edited from the data that is
      * passed to the mailbox display template:
      *   imp: imp/templates/mailbox/mailbox.html
-     *   dimp: imp/js/src/mailbox-dimp.js.
+     *   dimp: imp/templates/dynamic/msglist_[horiz|vert].html
      *
      * If you are going to add new columns, you also have to update these
      * fields:

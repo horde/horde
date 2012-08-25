@@ -12,8 +12,6 @@ var DimpBase = {
     //   expandmbox, pollPE, pp, qsearch_ghost, resize, rownum, search,
     //   searchbar_time, searchbar_time_mins, splitbar, sort_init, template,
     //   uid, view, viewaction, viewport, viewswitch
-    // msglist_template_horiz and msglist_template_vert set via
-    //   js/mailbox-dimp.js
 
     INBOX: 'SU5CT1g', // 'INBOX' base64url encoded
     lastrow: -1,
@@ -406,8 +404,8 @@ var DimpBase = {
         var container = $('msgSplitPane');
 
         this.template = {
-            horiz: new Template(this.msglist_template_horiz),
-            vert: new Template(this.msglist_template_vert)
+            horiz: new Template(DimpCore.conf.msglist_template_horiz),
+            vert: new Template(DimpCore.conf.msglist_template_vert)
         };
 
         this.viewport = new ViewPort({

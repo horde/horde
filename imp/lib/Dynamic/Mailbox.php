@@ -26,7 +26,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $page_output->addScriptFile('dimpbase.js');
         $page_output->addScriptFile('imp.js');
-        $page_output->addScriptFile('mailbox-dimp.js');
         $page_output->addScriptFile('passphrase.js');
         $page_output->addScriptFile('viewport.js');
         $page_output->addScriptFile('dragdrop2.js', 'horde');
@@ -158,6 +157,10 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'FLAG_DELETED' => Horde_Imap_Client::FLAG_DELETED,
             'FLAG_DRAFT' => Horde_Imap_Client::FLAG_DRAFT,
             'FLAG_SEEN' => Horde_Imap_Client::FLAG_SEEN,
+
+            // Message list templates
+            'msglist_template_horiz' => file_get_contents(IMP_TEMPLATES . '/dynamic/msglist_horiz.html'),
+            'msglist_template_vert' => file_get_contents(IMP_TEMPLATES . '/dynamic/msglist_vert.html'),
 
             // Other variables
             'acl' => $acl,
