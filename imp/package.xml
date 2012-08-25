@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-07</date>
- <time>16:20:44</time>
+ <date>2012-08-24</date>
+ <time>23:27:30</time>
  <version>
   <release>6.0.0beta3</release>
   <api>6.0.0beta1</api>
@@ -395,6 +395,7 @@
     <file name="Quota.php" role="horde" />
     <file name="Search.php" role="horde" />
     <file name="Sentmail.php" role="horde" />
+    <file name="Smartmobile.php" role="horde" />
     <file name="Spam.php" role="horde" />
     <file name="Test.php" role="horde" />
    </dir> <!-- /lib -->
@@ -760,10 +761,8 @@
      <file name="subinfo.html.php" role="horde" />
     </dir> <!-- /templates/imp -->
     <dir name="itip">
-     <file name="base.html" role="horde" />
-     <file name="vevent.html" role="horde" />
-     <file name="vfreebusy.html" role="horde" />
-     <file name="vtodo.html" role="horde" />
+     <file name="action.html.php" role="horde" />
+     <file name="base.html.php" role="horde" />
     </dir> <!-- /templates/itip -->
     <dir name="minimal">
      <file name="compose.html.php" role="horde" />
@@ -815,7 +814,6 @@
      <file name="compose.html.php" role="horde" />
      <file name="confirm.html.php" role="horde" />
      <file name="folders.html.php" role="horde" />
-     <file name="javascript_defs.php" role="horde" />
      <file name="mailbox.html.php" role="horde" />
      <file name="message.html.php" role="horde" />
      <file name="search.html.php" role="horde" />
@@ -1353,6 +1351,7 @@
    <install as="imp/lib/Quota.php" name="lib/Quota.php" />
    <install as="imp/lib/Search.php" name="lib/Search.php" />
    <install as="imp/lib/Sentmail.php" name="lib/Sentmail.php" />
+   <install as="imp/lib/Smartmobile.php" name="lib/Smartmobile.php" />
    <install as="imp/lib/Spam.php" name="lib/Spam.php" />
    <install as="imp/lib/Test.php" name="lib/Test.php" />
    <install as="imp/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
@@ -1704,10 +1703,8 @@
    <install as="imp/templates/imp/search/search-basic.html" name="templates/imp/search/search-basic.html" />
    <install as="imp/templates/imp/search/search.html" name="templates/imp/search/search.html" />
    <install as="imp/templates/imp/thread/thread.html" name="templates/imp/thread/thread.html" />
-   <install as="imp/templates/itip/base.html" name="templates/itip/base.html" />
-   <install as="imp/templates/itip/vevent.html" name="templates/itip/vevent.html" />
-   <install as="imp/templates/itip/vfreebusy.html" name="templates/itip/vfreebusy.html" />
-   <install as="imp/templates/itip/vtodo.html" name="templates/itip/vtodo.html" />
+   <install as="imp/templates/itip/action.html.php" name="templates/itip/action.html.php" />
+   <install as="imp/templates/itip/base.html.php" name="templates/itip/base.html.php" />
    <install as="imp/templates/minimal/compose.html.php" name="templates/minimal/compose.html.php" />
    <install as="imp/templates/minimal/folders.html.php" name="templates/minimal/folders.html.php" />
    <install as="imp/templates/minimal/header.html.php" name="templates/minimal/header.html.php" />
@@ -1743,7 +1740,6 @@
    <install as="imp/templates/smartmobile/compose.html.php" name="templates/smartmobile/compose.html.php" />
    <install as="imp/templates/smartmobile/confirm.html.php" name="templates/smartmobile/confirm.html.php" />
    <install as="imp/templates/smartmobile/folders.html.php" name="templates/smartmobile/folders.html.php" />
-   <install as="imp/templates/smartmobile/javascript_defs.php" name="templates/smartmobile/javascript_defs.php" />
    <install as="imp/templates/smartmobile/mailbox.html.php" name="templates/smartmobile/mailbox.html.php" />
    <install as="imp/templates/smartmobile/message.html.php" name="templates/smartmobile/message.html.php" />
    <install as="imp/templates/smartmobile/search.html.php" name="templates/smartmobile/search.html.php" />
@@ -2663,7 +2659,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-07</date>
+   <date>2012-08-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Indicate deleted messages with strikethrough in smartmobile mailbox listing (Request #11362).
