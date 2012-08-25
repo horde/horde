@@ -244,6 +244,7 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     /**
      *
      * @return SimplexmlElement
+     * @throws Horde_Service_Weather_Exception
      */
     protected function _makeRequest($url)
     {
@@ -265,7 +266,11 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
                $this->_cache->set($cachekey, $results);
             }
         }
-        return new SimplexmlElement($results);
+        try {
+            return new SimplexmlElement($results);
+        } catch (Exception $e) {
+            throw new Horde_Service_Weather_Exception($e);
+        }
     }
 
 }
