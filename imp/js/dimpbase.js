@@ -3542,8 +3542,10 @@ var DimpBase = {
     },
 
     /* AJAX tasks handler. */
-    tasksHandler: function(t)
+    tasksHandler: function(e)
     {
+        var t = e.tasks;
+
         if (this.viewport && t['imp:viewport']) {
             this.viewport.parseJSONResponse(t['imp:viewport']);
         }

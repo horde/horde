@@ -1067,8 +1067,10 @@ var DimpCompose = {
         ImpComposeBase.updateAddressField($(e.memo.field), e.memo.value);
     },
 
-    tasksHandler: function(t)
+    tasksHandler: function(e)
     {
+        var t = e.tasks;
+
         if (this.baseAvailable()) {
             if (t['imp:flag']) {
                 HordeCore.base.DimpBase.flagCallback(t['imp:flag']);
