@@ -2,6 +2,7 @@
 v2.0.2-git
 ----------
 
+[mjr] Honor locked default_download pref (Bug #11325).
 [mjr] Fix getting gallery data via the API (maxime@chavagne.net, Bug# 11229).
 [mjr] Fix carousel when viewing upload screen in an iFrame (Bug #10889).
 [mjr] Fix returning to gallery view after uploading images when viewing Ansel

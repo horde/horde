@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Honor locked default_download pref (Bug #11325).
 * [mjr] Fix getting gallery data via the API (maxime@chavagne.net, Bug #11229).
 * [mjr] Fix carousel when viewing upload screen in an iFrame (Bug #10889).
 * [mjr] Fix returning to gallery view after uploading images when viewing Ansel in an iFrame (Bug #11209).
@@ -1285,6 +1286,7 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Honor locked default_download pref (Bug #11325).
 * [mjr] Fix getting gallery data via the API (maxime@chavagne.net, Bug #11229).
 * [mjr] Fix carousel when viewing upload screen in an iFrame (Bug #10889).
 * [mjr] Fix returning to gallery view after uploading images when viewing Ansel in an iFrame (Bug #11209).
