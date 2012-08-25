@@ -138,10 +138,12 @@ var ImpMobile = {
         if (ob = ImpMobile.cache[mailbox]) {
             if (url.params.from) {
                 ob.from = Number(url.params.from);
+            } else if (options.noajax) {
+                ImpMobile.refreshMailbox(ob);
+                return;
             } else {
-                if (options.noajax) {
+                if (!ImpMobile.mailboxCache) {
                     ImpMobile.refreshMailbox(ob);
-                    return;
                 }
                 params.checkcache = 1;
             }
