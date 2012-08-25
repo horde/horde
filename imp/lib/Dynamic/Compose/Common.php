@@ -228,11 +228,11 @@ class IMP_Dynamic_Compose_Common
         /* Gettext strings used in compose page. */
         $base->js_text += array(
             'compose_cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
-            'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
+            'nosubject' => _("The message does not have a subject entered.") . "\n" . _("Send message without a subject?"),
             'remove' => _("Remove"),
             'replyall' => _("%d recipients"),
             'spell_noerror' => _("No spelling errors found."),
-            'toggle_html' => _("Really discard all formatting information? This operation cannot be undone."),
+            'toggle_html' => _("Discard all text formatting information (by converting from HTML to plain text)? This conversion cannot be reversed."),
             'uploading' => _("Uploading..."),
         );
     }
