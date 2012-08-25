@@ -106,6 +106,8 @@ class Ansel_View_GalleryProperties
         $view->url = $this->_params['url'];
         $view->availableThumbs = $this->_thumbStyles();
         $view->galleryViews = $this->_galleryViewStyles();
+        $view->locked = array('download' => $GLOBALS['prefs']->isLocked('default_download'));
+
         $js = array('$("gallery_name").focus()');
         if ($GLOBALS['conf']['image']['type'] != 'png') {
             $js[] = 'function checkStyleSelection()

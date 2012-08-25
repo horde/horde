@@ -100,8 +100,8 @@
 <?php endif; ?>
 
 <!-- Download ability -->
-<?php if ($GLOBALS['prefs']->isLocked('default_download')): ?>
-  <input type="hidden" name="default_download" value="<?php echo $GLOABLS['prefs']->getValue('default_download') ?>" />';
+<?php if ($this->locked['download']): ?>
+  <input type="hidden" name="default_download" value="<?php echo $this->properties['download'] ?>" />
 <?php else: ?>
   <tr>
     <td align="right" valign="top"><strong><?php echo _("Who should be allowed to download original photos?") ?></strong>&nbsp;</td>
