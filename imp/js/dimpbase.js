@@ -3126,28 +3126,26 @@ var DimpBase = {
             .insert(new Element('DIV', { className: 'horde-subnavi-point' })
                         .insert(new Element('A').insert(label)));
 
-        this.mboxes[ob.m] = li;
-        if (ob.dummy) {
-            this.smboxes[ob.m] = li;
-        }
-
-        // Now walk through the parent container to find the right place to
-        // insert the new mailbox.
         if (ob.s) {
-            div.addClassName(ob.cl || 'folderImg');
+            div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
             parent_e = $('imp-specialmboxes');
 
-            /* Create a dummy container element in 'imp-normalmboxes'
-             * section. */
+            /* Create a dummy container element in normal mailboxes section
+             * if special mailbox has children. */
             if (ob.ch) {
-                div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
-
                 tmp = Object.clone(ob);
                 tmp.co = tmp.dummy = true;
                 tmp.s = false;
                 this.createMbox(tmp);
             }
-        } else {
+        }
+
+        this.mboxes[ob.m] = li;
+        if (ob.dummy) {
+            this.smboxes[ob.m] = li;
+        }
+
+        if (!ob.s) {
             div.addClassName(ob.ch ? 'exp' : (ob.cl || 'folderImg'));
             parent_e = ob.pa
                 ? this.getSubMboxElt(ob.pa)
