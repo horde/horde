@@ -2,6 +2,8 @@
 v6.0.0-git
 ----------
 
+[mms] Show polled children in smartmobile folder list when parent mailbox is
+      not polled (Bug #11238).
 [mms] More complete handling of linked data in subject header across views
       (Bug #11372).
 [mms] Add Top link to smartmobile mailbox page.

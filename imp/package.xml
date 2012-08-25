@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Show polled children in smartmobile folder list when parent mailbox is not polled (Bug #11238).
 * [mms] More complete handling of linked data in subject header across views (Bug #11372).
 * [mms] Add Top link to smartmobile mailbox page.
 * [mms] Fixes to the iTip Request handler (Bug #11264).
@@ -2664,6 +2665,7 @@
    <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Show polled children in smartmobile folder list when parent mailbox is not polled (Bug #11238).
 * [mms] More complete handling of linked data in subject header across views (Bug #11372).
 * [mms] Add Top link to smartmobile mailbox page.
 * [mms] Fixes to the iTip Request handler (Bug #11264).

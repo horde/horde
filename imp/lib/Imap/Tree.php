@@ -1607,6 +1607,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $params['urlattributes'] = array(
                     'id' => 'imp-mailbox-' . $val->form_to
                 );
+
+                /* Force to flat tree so that non-polled parents don't cause
+                 * polled children to be skipped by renderer (see Bug
+                 * #11238). */
+                $elt['c'] = 0;
                 break;
 
             case 'IMP_Tree_Simplehtml':
