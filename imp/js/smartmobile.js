@@ -139,8 +139,8 @@ var ImpMobile = {
             if (url.params.from) {
                 ob.from = Number(url.params.from);
             } else {
-                ImpMobile.refreshMailbox(ob);
                 if (options.noajax) {
+                    ImpMobile.refreshMailbox(ob);
                     return;
                 }
                 params.checkcache = 1;
