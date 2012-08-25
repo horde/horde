@@ -191,8 +191,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         $status = array();
         if ($this->_phishWarn) {
             $status[] = new IMP_Mime_Status(array(
-                sprintf(_("%s: This message may not be from whom it claims to be. Beware of following any links in it or of providing the sender with any personal information."), _("Warning")),
-                _("The links that caused this warning have this background color:") . ' <span style="' . $this->_phishCss . '">' . _("EXAMPLE") . '</span>'
+                sprintf(_("%s: This message may not be from whom it claims to be."), _("WARNING")),
+                _("Beware of following any links in it or of providing the sender with any personal information."),
+                _("The links that caused this warning have this background color:") . ' <span style="' . $this->_phishCss . '">' . _("EXAMPLE LINK") . '</span>'
             ));
         }
 
