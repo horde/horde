@@ -247,11 +247,11 @@ var ImpMobile = {
             if (data.flag) {
                 $.each(data.flag, function(k, flag) {
                     switch (flag) {
-                    case '\\draft':
+                    case IMP.conf.flags.draft:
                         url = '#compose?type=resume&mbox=' + data.mbox + '&uid=' + data.uid;
                         break;
 
-                    case '\\seen':
+                    case IMP.conf.flags.seen:
                         c.addClass('imp-message-seen');
                         break;
                     }

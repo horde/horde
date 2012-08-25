@@ -14,6 +14,10 @@ $code = array();
 $code['conf'] = array_filter(array(
     'allow_folders' => $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS),
     'disable_compose' => !IMP::canCompose(),
+    'flags' => array(
+        'draft' => '\\draft',
+        'seen' => '\\seen'
+    ),
     'innocent_spammbox' => !empty($GLOBALS['conf']['notspam']['spamfolder']),
     'mailbox_return' => $GLOBALS['prefs']->getValue('mailbox_return'),
     'pop3' => intval($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3),
