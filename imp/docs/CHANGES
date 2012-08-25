@@ -2,6 +2,7 @@
 v5.0.24-git
 -----------
 
+[mms] Fix sending MDN notifications in traditional view (Bug #11311).
 [mms] Fix changing sort order in dynamic search mailboxes (Bug #11108).
 [mms] Fix regression in creating top-level mailbox in traditional view (Bug
       #11326).
