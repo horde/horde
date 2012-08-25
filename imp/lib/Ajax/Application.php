@@ -1983,25 +1983,25 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         if ($changed) {
             $vp = $this->_viewPortData(true);
-        } else {
+            $this->addTask('viewport', $vp);
+        } elseif ($force || $this->_mbox->hideDeletedMsgs(true)) {
             $vp = $this->_viewPortOb();
 
-            if ($force || $this->_mbox->hideDeletedMsgs(true)) {
-                if ($this->_mbox->search) {
-                    $disappear = array();
-                    foreach ($indices as $val) {
-                        foreach ($val->uids as $val2) {
-                            $disappear[] = IMP_Ajax_Application_ListMessages::searchUid($val->mbox, $val2);
-                        }
+            if ($this->_mbox->search) {
+                $disappear = array();
+                foreach ($indices as $val) {
+                    foreach ($val->uids as $val2) {
+                        $disappear[] = IMP_Ajax_Application_ListMessages::searchUid($val->mbox, $val2);
                     }
-                } else {
-                    $disappear = end($indices->getSingle(true));
                 }
-                $vp->disappear = $disappear;
+            } else {
+                $disappear = end($indices->getSingle(true));
             }
+            $vp->disappear = $disappear;
+
+            $this->addTask('viewport', $vp);
         }
 
-        $this->addTask('viewport', $vp);
         $this->_queue->poll(array_keys($indices->indices()));
     }
 
