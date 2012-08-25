@@ -481,7 +481,19 @@ span.mimePartInfoSize {
     background-color: #f00;
     color: #fff;
 }
-
 .itipconflicts tr.itipnearcollision {
     background-color: #ee0;
+}
+
+table.itipAttendees {
+    padding-bottom: 10px;
+}
+table.itipAttendees td {
+    padding-right: 10px;
+}
+table.itipSummary {
+    padding: 10px 0;
+}
+table.itipSummary td {
+    padding-right: 8px;
 }

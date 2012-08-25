@@ -136,14 +136,13 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             }
         }
 
-        $t = new Horde_Template();
-        $t->setOption('gettext', true);
-        $t->set('formid', $imple->getDomId());
-        $t->set('out', $out);
+        $view = $this->_getViewOb();
+        $view->formid = $imple->getDomId();
+        $view->out = implode('', $out);
 
         return array(
             $mime_id => array(
-                'data' => $t->fetch(IMP_TEMPLATES . '/itip/base.html'),
+                'data' => $view->render('base'),
                 'type' => 'text/html; charset=UTF-8'
             )
         );
@@ -174,87 +173,60 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             break;
         }
 
-        $t = new Horde_Template();
-        $t->setOption('gettext', true);
-
-        $t->set('desc', sprintf($desc, $sender));
+        $view = $this->_getViewOb();
+        $view->desc = sprintf($desc, $sender);
 
         try {
             $start = $vfb->getAttribute('DTSTART');
-            $t->set('start', is_array($start)
+            $view->start = is_array($start)
                 ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $start['month'], $start['mday'], $start['year']))
-                : strftime($prefs->getValue('date_format'), $start) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $start)
-            );
+                : strftime($prefs->getValue('date_format'), $start) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $start);
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
             $end = $vfb->getAttribute('DTEND');
-            $t->set('end', is_array($end)
+            $view->end = is_array($end)
                 ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $end['month'], $end['mday'], $end['year']))
-                : strftime($prefs->getValue('date_format'), $end) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end)
-            );
+                : strftime($prefs->getValue('date_format'), $end) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end);
         } catch (Horde_Icalendar_Exception $e) {}
 
         $options = array();
         switch ($method) {
         case 'PUBLISH':
             if ($registry->hasMethod('calendar/import_vfreebusy')) {
-                $options[] = array(
-                    'k' => 'import',
-                    'v' => _("Remember the free/busy information.")
-                );
+                $options['import'] = _("Remember the free/busy information.");
             } else {
-                $options[] = array(
-                    'k' => 'nosup',
-                    'v' => _("Reply with Not Supported Message")
-                );
+                $options['nosup'] = _("Reply with Not Supported Message");
             }
             break;
 
         case 'REQUEST':
             if ($registry->hasMethod('calendar/getFreeBusy')) {
-                $options[] = array(
-                    'k' => 'reply',
-                    'v' => _("Reply with requested free/busy information.")
-                );
-                $options[] = array(
-                    'k' => 'reply2m',
-                    'v' => _("Reply with free/busy for next 2 months.")
-                );
+                $options['reply'] = _("Reply with requested free/busy information.");
+                $options['reply2m'] = _("Reply with free/busy for next 2 months.");
             } else {
-                $options[] = array(
-                    'k' => 'nosup',
-                    'v' => _("Reply with Not Supported Message")
-                );
+                $options['nosup'] = _("Reply with Not Supported Message");
             }
 
-            $options[] = array(
-                'k' => 'deny',
-                'v' => _("Deny request for free/busy information")
-            );
+            $options['deny'] = _("Deny request for free/busy information");
             break;
 
         case 'REPLY':
             if ($registry->hasMethod('calendar/import_vfreebusy')) {
-                $options[] = array(
-                    'k' => 'import',
-                    'v' => _("Remember the free/busy information.")
-                );
+                $options['import'] = _("Remember the free/busy information.");
             } else {
-                $options[] = array(
-                    'k' => 'nosup',
-                    'v' => _("Reply with Not Supported Message")
-                );
+                $options['nosup'] = _("Reply with Not Supported Message");
             }
             break;
         }
 
         if (!empty($options)) {
-            $t->set('options_id', $id);
-            $t->set('options', $options);
+            reset($options);
+            $view->options = $options;
+            $view->options_id = $id;
         }
 
-        return $t->fetch(IMP_TEMPLATES . '/itip/vfreebusy.html');
+        return $view->render('action');
     }
 
     /**
@@ -274,7 +246,6 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 !is_array($attendees)) {
                 $attendees = array($attendees);
             }
-            $attendee_params = $vevent->getAttribute('ATTENDEE', true);
         } catch (Horde_Icalendar_Exception $e) {}
 
         switch ($method) {
@@ -360,99 +331,46 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             break;
         }
 
-        try {
-            $summary = htmlspecialchars($vevent->getAttribute('SUMMARY'));
-        } catch (Horde_Icalendar_Exception $e) {
-            $summary = _("Unknown Meeting");
-        }
-
-        $t = new Horde_Template();
-        $t->setOption('gettext', true);
-
-        $t->set('desc', sprintf($desc, htmlspecialchars($sender), htmlspecialchars($summary)));
+        $view = $this->_getViewOb();
 
         try {
             $start = $vevent->getAttribute('DTSTART');
-            $t->set('start', is_array($start)
+            $view->start = is_array($start)
                 ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $start['month'], $start['mday'], $start['year']))
-                : strftime($prefs->getValue('date_format'), $start) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $start)
-            );
+                : strftime($prefs->getValue('date_format'), $start) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $start);
         } catch (Horde_Icalendar_Exception $e) {
             $start = null;
         }
 
         try {
             $end = $vevent->getAttribute('DTEND');
-            $t->set('end', is_array($end)
+            $view->end = is_array($end)
                 ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $end['month'], $end['mday'], $end['year']))
-                : strftime($prefs->getValue('date_format'), $end) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end)
-            );
+                : strftime($prefs->getValue('date_format'), $end) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end);
         } catch (Horde_Icalendar_Exception $e) {
             $end = null;
         }
 
         try {
-            $t->set('summary', htmlspecialchars($vevent->getAttribute('SUMMARY')));
+            $summary = $vevent->getAttribute('SUMMARY');
+            $view->summary = $summary;
         } catch (Horde_Icalendar_Exception $e) {
-            $t->set('summary_error', _("None"));
+            $summary = _("Unknown Meeting");
+            $view->summary_error = _("None");
         }
 
+        $view->desc = sprintf($desc, $sender, $summary);
+
         try {
-            $t->set('desc2', nl2br(htmlspecialchars($vevent->getAttribute('DESCRIPTION'))));
+            $view->desc2 = $vevent->getAttribute('DESCRIPTION');
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
-            $t->set('loc', htmlspecialchars($vevent->getAttribute('LOCATION')));
+            $view->loc = $vevent->getAttribute('LOCATION');
         } catch (Horde_Icalendar_Exception $e) {}
 
         if (!empty($attendees)) {
-            $attendees_tmp = array();
-
-            foreach ($attendees as $key => $attendee) {
-                if (!empty($attendee_params[$key]['CN'])) {
-                    $attendee = $attendee_params[$key]['CN'];
-                } else {
-                    $attendee = parse_url($attendee);
-                    $attendee = empty($attendee['path'])
-                        ? _("Unknown")
-                        : $attendee['path'];
-                }
-
-                $role = _("Required Participant");
-                if (isset($attendee_params[$key]['ROLE'])) {
-                    switch ($attendee_params[$key]['ROLE']) {
-                    case 'CHAIR':
-                        $role = _("Chair Person");
-                        break;
-
-                    case 'OPT-PARTICIPANT':
-                        $role = _("Optional Participant");
-                        break;
-
-                    case 'NON-PARTICIPANT':
-                        $role = _("Non Participant");
-                        break;
-
-                    case 'REQ-PARTICIPANT':
-                    default:
-                        // Already set above.
-                        break;
-                    }
-                }
-
-                $status = _("Awaiting Response");
-                if (isset($attendee_params[$key]['PARTSTAT'])) {
-                    $status = $this->_partstatToString($attendee_params[$key]['PARTSTAT'], $status);
-                }
-
-                $attendees_tmp[] = array(
-                    'attendee' => $attendee,
-                    'role' => $role,
-                    'status' => $status
-                );
-            }
-
-            $t->set('attendees', $attendees_tmp);
+            $view->attendees = $this->_parseAttendees($vevent, $attendees);
         }
 
         if (!is_null($start) &&
@@ -509,24 +427,18 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 }
 
                 if (!empty($conflicts)) {
-                    $t->set('conflicts', $conflicts);
+                    $view->conflicts = $conflicts;
                 }
             } catch (Horde_Exception $e) {}
         }
 
         if (!empty($options)) {
-            $t->set('options_id', $id);
-            $tmp = array();
-            foreach ($options as $key => $val) {
-                $tmp[] = array(
-                    'k' => $key,
-                    'v' => $val
-                );
-            }
-            $t->set('options', $tmp);
+            reset($options);
+            $view->options = $options;
+            $view->options_id = $id;
         }
 
-        return $t->fetch(IMP_TEMPLATES . '/itip/vevent.html');
+        return $view->render('action');
     }
 
     /**
@@ -555,42 +467,32 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         case 'PUBLISH':
             $desc = _("%s wishes to make you aware of \"%s\".");
             if ($registry->hasMethod('tasks/import')) {
-                $options = array(
-                    'k' => 'import',
-                    'v' => _("Add this to my tasklist")
-                );
+                $options['import'] = _("Add this to my tasklist");
             }
             break;
         }
 
-        try {
-            $summary = htmlspecialchars($vtodo->getAttribute('SUMMARY'));
-        } catch (Horde_Icalendar_Exception $e) {
-            $summary = _("Unknown Task");
-        }
-
-        $t = new Horde_Template();
-        $t->setOption('gettext', true);
-
-        $t->set('desc', sprintf($desc, htmlspecialchars($sender), htmlspecialchars($summary)));
+        $view = $this->_getViewOb();
 
         try {
-            $t->set('priority', intval($vtodo->getAttribute('PRIORITY')));
+            $view->priority = intval($vtodo->getAttribute('PRIORITY'));
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
-            $t->set('summary', htmlspecialchars($vtodo->getAttribute('SUMMARY')));
+            $summary = $view->summary = $vtodo->getAttribute('SUMMARY');
         } catch (Horde_Icalendar_Exception $e) {
-            $t->set('summary_error', _("None"));
+            $summary = _("Unknown Task");
+            $view->summary_error = _("None");
         }
 
+        $view->desc = sprintf($desc, $sender, $summary);
+
         try {
-            $t->set('desc2', nl2br(htmlspecialchars($vtodo->getAttribute('DESCRIPTION'))));
+            $view->desc2 = $vtodo->getAttribute('DESCRIPTION');
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
             $attendees = $vtodo->getAttribute('ATTENDEE');
-            $params = $vtodo->getAttribute('ATTENDEE', true);
         } catch (Horde_Icalendar_Exception $e) {
             $attendees = null;
         }
@@ -599,59 +501,16 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             if (!is_array($attendees)) {
                 $attendees = array($attendees);
             }
-            $attendees_tmp = array();
-
-            foreach ($attendees as $key => $attendee) {
-                if (isset($params[$key]['CN'])) {
-                    $attendee = $params[$key]['CN'];
-                } else {
-                    $attendee = parse_url($attendee);
-                    $attendee = $attendee['path'];
-                }
-
-                $role = _("Required Participant");
-                if (isset($params[$key]['ROLE'])) {
-                    switch ($params[$key]['ROLE']) {
-                    case 'CHAIR':
-                        $role = _("Chair Person");
-                        break;
-
-                    case 'OPT-PARTICIPANT':
-                        $role = _("Optional Participant");
-                        break;
-
-                    case 'NON-PARTICIPANT':
-                        $role = _("Non Participant");
-                        break;
-
-                    case 'REQ-PARTICIPANT':
-                    default:
-                        // Already set above.
-                        break;
-                    }
-                }
-
-                $status = _("Awaiting Response");
-                if (isset($params[$key]['PARTSTAT'])) {
-                    $status = $this->_partstatToString($params[$key]['PARTSTAT'], $status);
-                }
-
-                $attendees_tmp[] = array(
-                    'attendee' => $attendee,
-                    'role' => $role,
-                    'status' => $status
-                );
-            }
-
-            $t->set('attendees', $attendees_tmp);
+            $view->attendees = $this->parseAttendees($vtodo, $attendees);
         }
 
         if (!empty($options)) {
-            $t->set('options_id', $id);
-            $t->set('options', $options);
+            reset($options);
+            $view->options = $options;
+            $view->options_id = $id;
         }
 
-        return $t->fetch(IMP_TEMPLATES . '/itip/vtodo.html');
+        return $view->render('action');
     }
 
     /**
@@ -689,6 +548,75 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 ? _("Needs Action")
                 : $default;
         }
+    }
+
+    /**
+     * Get a Horde_View object.
+     *
+     * @return Horde_View  View object.
+     */
+    protected function _getViewOb()
+    {
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/itip'
+        ));
+        $view->addHelper('Text');
+
+        return $view;
+    }
+
+    /**
+     */
+    protected function _parseAttendees($data, $attendees)
+    {
+        $params = $data->getAttribute('ATTENDEE', true);
+        $tmp = array();
+
+        foreach ($attendees as $key => $val) {
+            if (!empty($params[$key]['CN'])) {
+                $attendee = $params[$key]['CN'];
+            } else {
+                $val = parse_url($val);
+                $attendee = empty($val['path'])
+                    ? _("Unknown")
+                    : $val['path'];
+            }
+
+            $role = _("Required Participant");
+            if (isset($params[$key]['ROLE'])) {
+                switch ($params[$key]['ROLE']) {
+                case 'CHAIR':
+                    $role = _("Chair Person");
+                    break;
+
+                case 'OPT-PARTICIPANT':
+                    $role = _("Optional Participant");
+                    break;
+
+                case 'NON-PARTICIPANT':
+                    $role = _("Non Participant");
+                    break;
+
+                case 'REQ-PARTICIPANT':
+                default:
+                    // Already set above.
+                    break;
+                }
+            }
+
+            $status = _("Awaiting Response");
+            if (isset($params[$key]['PARTSTAT'])) {
+                $status = $this->_partstatToString($params[$key]['PARTSTAT'], $status);
+            }
+
+            $tmp[] = array(
+                'attendee' => $attendee,
+                'role' => $role,
+                'status' => $status
+            );
+        }
+
+        return $tmp;
     }
 
 }
