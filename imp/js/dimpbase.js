@@ -3167,7 +3167,8 @@ var DimpBase = {
 
         if (f_node) {
             tmp2 = f_node.previous();
-            if (tmp2.hasClassName('horde-subnavi-sub') &&
+            if (tmp2 &&
+                tmp2.hasClassName('horde-subnavi-sub') &&
                 tmp2.retrieve('m') == ob.m) {
                 f_node = tmp2;
             }
