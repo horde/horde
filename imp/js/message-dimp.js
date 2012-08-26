@@ -283,7 +283,7 @@ var DimpMessage = {
             if (this.strip) {
                 HordeCore.base.DimpBase.poll();
             } else if (this.tasks) {
-                HordeCore.base.DimpBase.tasksHandler(this.tasks);
+                HordeCore.base.DimpBase.tasksHandler({ tasks: this.tasks });
             }
         }
 
