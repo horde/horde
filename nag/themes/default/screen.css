@@ -102,9 +102,6 @@
     line-height: 20px;
 }
 
-body.rightPanel #page {
-    margin-right: 10em;
-}
 body #pageControlsInner {
     display: none;
 }
@@ -119,18 +116,6 @@ body #sbarShow {
 body #sbarHide {
     display: none;
     background: transparent url("graphics/minus.png") center left no-repeat;
-}
-body.rightPanel #pageControlsInner {
-    display: block;
-}
-body.rightPanel #sbarShow {
-    display: none;
-}
-body.rightPanel #sbarHide {
-    display: block;
-}
-body.rightPanel ul {
-    list-style-type: none;
 }
 
 #pageControls {

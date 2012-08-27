@@ -72,7 +72,6 @@ class Nag_View_List
         $output->addScriptFile('scriptaculous/effects.js', 'horde');
         $output->addScriptFile('quickfinder.js', 'horde');
         $output->header(array(
-            'body_class' => $GLOBALS['prefs']->getValue('show_panel') ? 'rightPanel' : null,
             'title' => $this->_title
         ));
         $tasks = $this->_tasks;

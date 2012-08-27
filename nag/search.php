@@ -14,14 +14,12 @@ $page_output->addInlineScript(array(
 ), true);
 
 $page_output->header(array(
-    'body_class' => $prefs->getValue('show_panel') ? 'rightPanel' : null,
     'title' => _("Search")
 ));
 
 echo Nag::menu();
 Nag::status();
 require NAG_TEMPLATES . '/search/search.inc';
-require NAG_TEMPLATES . '/panel.inc';
 $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Nag_Ajax_Imple_TagAutoCompleter', array(
   'id' => 'search_tags'));
 $page_output->footer();

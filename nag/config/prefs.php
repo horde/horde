@@ -72,12 +72,6 @@ $_prefs['tasklist_columns'] = array(
     'desc' => _("Select the columns that should be shown in the list view:")
 );
 
-// show the task list options panel?
-// a value of 0 = no, 1 = yes
-$_prefs['show_panel'] = array(
-    'value' => 1
-);
-
 // user preferred sorting column
 $_prefs['sortby'] = array(
     'value' => Nag::SORT_PRIORITY,
