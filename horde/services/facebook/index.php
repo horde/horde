@@ -13,7 +13,7 @@
 require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
-function build_post($post, $uid)
+function build_post($post, $uid, $instance)
 {
     global $facebook;
 
@@ -205,7 +205,7 @@ if ($action = Horde_Util::getPost('actionID')) {
         $html = '';
         $uid = $facebook->auth->getLoggedInUser();
         foreach ($posts as $post) {
-            $html .= build_post($post, $uid);
+            $html .= build_post($post, $uid, $instance);
         }
 
         /* Build response structure */
@@ -224,7 +224,7 @@ if ($action = Horde_Util::getPost('actionID')) {
         $status = Horde_Util::getPost('statusText');
         if ($results = $facebook->streams->post('me', $status)) {
             $uid = $facebook->auth->getLoggedInUser();
-            echo build_post($facebook->streams->getPost($results), $uid);
+            echo build_post($facebook->streams->getPost($results), $uid, Horde_Util::getPost('instance'));
             exit;
         } else {
             echo _("Status unable to be set.");
