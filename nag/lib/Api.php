@@ -935,19 +935,21 @@ class Nag_Api extends Horde_Registry_Api
      * @param string $uid          Identify the task to export.
      * @param string $contentType  What format should the data be in?
      *                             A string with one of:
-     * <pre>
-     * text/calendar    - (VCALENDAR 2.0. Recommended as this is specified in
-     *                    rfc2445)
-     * text/x-vcalendar - (old VCALENDAR 1.0 format. Still in wide use)
-     * </pre>
+     * - text/calendar:    iCalendar 2.0. Recommended as this is specified in
+     *                     RFC 2445.
+     * - text/x-vcalendar: vCalendar 1.0 format. Still in wide use.
+     * - activesync:       Horde_ActiveSync_Message_Task.
+     * - raw:              Nag_Task.
      * @param array $options      Any additional options for the exporter.
      *
      * @return string  The requested data.
      */
     public function export($uid, $contentType, array $options = array())
     {
-        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
-        $task = $storage->getByUID($uid);
+        $task = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Driver')
+            ->create()
+            ->getByUID($uid);
         if (!Nag::hasPermission($task->tasklist, Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied();
         }
@@ -971,6 +973,8 @@ class Nag_Api extends Horde_Registry_Api
             return $iCal->exportvCalendar();
         case 'activesync':
             return $task->toASTask($options);
+        case 'raw':
+            return $task;
         default:
             throw new Nag_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
         }
