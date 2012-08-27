@@ -4,7 +4,7 @@
 <br />
 <div>
  <?php echo $tabs->render($vars->side_show) ?>
- <div id="sidebarPanel">
+ <div>
   <?php echo $contents ?>
   <?php $tree->renderTree() ?>
  </div>

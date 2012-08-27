@@ -80,27 +80,6 @@ br.spacer {
 .headerbox form {
     padding: 2px;
 }
-.roundedBox {
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-    border-radius: 15px;
-}
-.roundedTop {
-    -moz-border-radius-topright: 15px;
-    -moz-border-radius-topleft: 15px;
-    -webkit-border-top-right-radius: 15px;
-    -webkit-border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
-}
-.roundedBottom {
-    -moz-border-radius-bottomright: 15px;
-    -moz-border-radius-bottomleft: 15px;
-    -webkit-border-bottom-right-radius: 15px;
-    -webkit-border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-}
 .header {
     text-align: left;
     font-weight: bold;
@@ -479,51 +458,6 @@ span.treeImg16 {
     background-image: url("graphics/tree/leaf.png");
 }
 
-/* Menu styles. */
-#menu {
-    overflow: hidden;
-    min-height: 50px;
-    padding-right: 8px;
-}
-#menu ul {
-    padding: 5px;
-}
-#menu li {
-    list-style-type: none;
-    text-align: center;
-    margin: 2px;
-    float: left;
-}
-#menu li.separator {
-    width: 40px;
-}
-#menu a {
-    display: block;
-    white-space: pre;
-    font-size: 90%;
-    text-decoration: none;
-    padding: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
-#menu h1 {
-    font-weight: bold;
-    font-size: 150%;
-    line-height: 48px;
-    vertical-align: bottom;
-}
-#menu input, #menu select {
-    margin-top: 16px;
-}
-#menuBottom {
-    margin: -8px 0 0 0;
-    padding: 4px;
-    float: right;
-    text-align: right;
-    font-size: 90%;
-}
-
 /* Modal forms */
 body.modal-form {
     background-color: #e9e9e9;
@@ -589,54 +523,6 @@ div.logintasks-item label {
 div.logintasks-item input {
     width: auto;
     margin-bottom: 0;
-}
-
-/* Sidebar styles. */
-.sidebar {
-    float: left;
-}
-#sidebarPanel {
-    -moz-border-radius-bottomright: 15px;
-    -webkit-border-bottom-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    padding-top: 5px;
-    padding-bottom: 10px;
-    background: #eee;
-    white-space: nowrap;
-    text-align: left;
-}
-#sidebarPanel a, #sidebarPanel span {
-    color: #000;
-    white-space: pre;
-    font-size: 90%;
-    text-decoration: none;
-}
-#sidebarPanel a a, #sidebarPanel a span, #sidebarPanel span a, #sidebarPanel span span {
-    font-size: 100%;
-}
-#sidebarPanel span.accessKey {
-    text-decoration: underline;
-}
-#sidebarPanel span.toggle {
-    cursor: pointer;
-}
-#sidebarPanel a:hover {
-    color: #000;
-}
-
-#expandedSidebar {
-    overflow: hidden;
-}
-#expandedSidebar #expandButton {
-    background-image: url("graphics/hide_panel.png");
-    cursor: pointer;
-    margin-right: 0.5em;
-    float: right;
-}
-#hiddenSidebar {
-    background-image: url("graphics/show_panel.png");
-    cursor: pointer;
-    margin-right: 2px;
 }
 
 /* Main body. */
