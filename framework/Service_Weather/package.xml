@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Fix fatal error caused by not catching bad XML returned from remote.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -587,7 +587,7 @@
    <date>2012-06-28</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Fix fatal error caused by not catching bad XML returned from remote.
    </notes>
   </release>
  </changelog>
