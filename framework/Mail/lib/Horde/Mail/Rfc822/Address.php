@@ -174,4 +174,23 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
         return ($this->bare_address == $ob->bare_address);
     }
 
+    /**
+     * Do a case-insensitive match on the address. Per RFC 822/2822/5322,
+     * although the host portion of an address is case-insensitive, the
+     * mailbox portion is platform dependent.
+     *
+     * @param mixed $ob  Address data.
+     *
+     * @return boolean  True if the data reflects the same case-insensitive
+     *                  address.
+     */
+    public function matchInsensitive($ob)
+    {
+        if (!($ob instanceof Horde_Mail_Rfc822_Address)) {
+            $ob = new Horde_Mail_Rfc822_Address($ob);
+        }
+
+        return (Horde_String::lower($this->bare_address) == Horde_String::lower($ob->bare_address));
+    }
+
 }
