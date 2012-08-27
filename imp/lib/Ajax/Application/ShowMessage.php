@@ -110,7 +110,6 @@ class IMP_Ajax_Application_ShowMessage
      *   - mbox: The mailbox (base64url encoded)
      *   - msgtext: The text of the message
      *   - onepart: True if message only contains one part.
-     *   - priority (FULL): The priority of the message (low, high, normal)
      *   - replyTo (FULL): The Reply-to addresses
      *   - save_as: The save link
      *   - subject: The subject
@@ -234,11 +233,6 @@ class IMP_Ajax_Application_ShowMessage
             if (!$preview) {
                 $result['title'] = _("[No Subject]");
             }
-        }
-
-        /* Get message priority. */
-        if (!$preview) {
-            $result['priority'] = $imp_hdr_ui->getPriority($mime_headers);
         }
 
         // Create message text and attachment list.
