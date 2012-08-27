@@ -54,19 +54,6 @@ class Nag_Api extends Horde_Registry_Api
      *   - tasklists: (array) An array of tasklists to include.
      *                DEFAULT: Use $GLOBALS['display_tasklists'];
      *
-     * @param string $sortby        The field by which to sort
-     *                              (NAG_SORT_PRIORITY, NAG_SORT_NAME
-     *                              NAG_SORT_DUE, NAG_SORT_COMPLETION).
-     * @param integer $sortdir      The direction by which to sort.
-     * @param string $altsortby     The secondary sort field.
-     * @param array $tasklists      An array of tasklist to display or
-     *                              null/empty to display taskslists
-     *                              $GLOBALS['display_tasklists'].
-     * @param string $completed     Which tasks to retrieve (all, incomplete,
-     *                              complete, future or future_incomplete).
-     * @param boolean $json         Retrieve the results of the tasks in
-     *                              'json format'.
-     *
      * @return array  An array of the requested tasks.
      */
     public function listTasks(array $options = array())
