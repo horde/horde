@@ -834,7 +834,9 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             $pubkey = $output;
         } elseif (strpos($output, 'pub:') !== false) {
             $output = explode("\n", $output);
-            $keyids = array();
+            $keyids = $keyuids = array();
+            $curid = null;
+
             foreach ($output as $line) {
                 if (substr($line, 0, 4) == 'pub:') {
                     $line = explode(':', $line);
@@ -843,13 +845,32 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                         (!empty($line[5]) && $line[5] <= time())) {
                         continue;
                     }
-                    $keyids[$line[4]] = $line[1];
+                    $curid = $line[4];
+                    $keyids[$curid] = $line[1];
+                } elseif (!is_null($curid) && substr($line, 0, 4) == 'uid:') {
+                    preg_match("/>([^>]+)>/", $line, $matches);
+                    $keyuids[$curid][] = $matches[1];
                 }
             }
+
+            /* Remove keys without a matching UID. */
+            foreach ($keyuids as $id => $uids) {
+                $match = false;
+                foreach ($uids as $uid) {
+                    if ($uid == $address) {
+                        $match = true;
+                        break;
+                    }
+                }
+                if (!$match) {
+                    unset($keyids[$id]);
+                }
+            }
+
             /* Sort by timestamp to use the newest key. */
             if (count($keyids)) {
                 ksort($keyids);
-                $pubkey = $this->getPublicKeyserver(array_pop($keyids));
+                $pubkey = $this->getPublicKeyserver(array_pop($keyids), $server, $timeout);
             }
         }
 
