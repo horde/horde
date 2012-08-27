@@ -276,7 +276,7 @@ class Nag
      * @param string $tasklist  A tasklist.
      * @param string $task      A task id.
      *
-     * @return array  The task hash.
+     * @return Nag_Task  The task hash.
      */
     static public function getTask($tasklist, $task)
     {
