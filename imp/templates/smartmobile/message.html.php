@@ -20,6 +20,8 @@
  <div data-role="footer" class="ui-bar">
   <div data-role="controlgroup" data-type="horizontal">
    <a href="" id="imp-message-top" data-role="button" data-icon="arrow-u"><?php echo _("Top") ?></a>
+   <a href="#" id="imp-message-prev" data-role="button" data-icon="arrow-l"><?php echo _("Previous") ?></a>
+   <a href="#" id="imp-message-next" data-role="button" data-icon="arrow-r"><?php echo _("Next") ?></a>
   </div>
   <div class="imp-message-spacer"></div>
 <?php if ($this->canCompose): ?>

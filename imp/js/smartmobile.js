@@ -416,7 +416,8 @@ var ImpMobile = {
             headers = $('#imp-message-headers tbody'),
             args = '&mbox=' + data.mbox + '&uid=' + data.uid,
             innocent = 'show',
-            spam = 'show';
+            spam = 'show',
+            rownum;
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
@@ -468,6 +469,10 @@ var ImpMobile = {
                 .text($('#imp-mailbox-' + data.mbox).text());
             ImpMobile.rowid = data.uid;
         }
+
+        rownum = cache.rowlist[ImpMobile.rowid];
+        ImpMobile.disableButton($('#imp-message-prev'), rownum == 1);
+        ImpMobile.disableButton($('#imp-message-next'), rownum == cache.totalrows);
 
         if (!IMP.conf.disable_compose) {
             $('#imp-message-reply').attr(
@@ -923,6 +928,17 @@ var ImpMobile = {
     },
 
     /**
+     */
+    disableButton: function(btn, disable)
+    {
+        if (disable) {
+            btn.addClass('ui-disabled').attr('aria-disabled', true);
+        } else {
+            btn.removeClass('ui-disabled').attr('aria-disabled', false);
+        }
+    },
+
+    /**
      * Catch-all event handler for the click event.
      *
      * @param object e  An event object.
@@ -951,6 +967,11 @@ var ImpMobile = {
             case 'imp-mailbox-top':
             case 'imp-message-top':
                 $.mobile.silentScroll();
+                return;
+
+            case 'imp-message-next':
+            case 'imp-message-prev':
+                ImpMobile.navigate(id == 'imp-message-prev' ? -1 : 1);
                 return;
 
             case 'imp-mailbox-prev':
