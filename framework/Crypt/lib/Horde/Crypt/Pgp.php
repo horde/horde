@@ -849,7 +849,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             /* Sort by timestamp to use the newest key. */
             if (count($keyids)) {
                 ksort($keyids);
-                $pubkey = $this->getPublicKeyserver(array_pop($keyids));
+                $pubkey = $this->getPublicKeyserver(array_pop($keyids),$server);
             }
         }
 
