@@ -949,6 +949,7 @@ var ImpMobile = {
                 return;
 
             case 'imp-mailbox-top':
+            case 'imp-message-top':
                 $.mobile.silentScroll();
                 return;
 

@@ -18,6 +18,10 @@
  <div id="imp-message-body" data-role="content"></div>
 
  <div data-role="footer" class="ui-bar">
+  <div data-role="controlgroup" data-type="horizontal">
+   <a href="" id="imp-message-top" data-role="button" data-icon="arrow-u"><?php echo _("Top") ?></a>
+  </div>
+  <div class="imp-message-spacer"></div>
 <?php if ($this->canCompose): ?>
   <div data-role="controlgroup" data-type="horizontal">
    <a href="#" id="imp-message-reply" data-role="button" data-icon="back"><?php echo _("Reply") ?></a>
