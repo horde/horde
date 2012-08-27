@@ -781,6 +781,8 @@ var ImpMobile = {
             url.params.mbox = url.params.view;
         }
 
+        $('#confirm').dialog('close');
+
         switch (url.params.action) {
         case 'innocent':
         case 'spam':
@@ -792,15 +794,11 @@ var ImpMobile = {
                 }), {
                     spam: Number(url.params.action == 'spam'),
                     uid: ImpMobile.toUIDStringSingle(url.params.mbox, [ url.params.uid ]),
-                }),
-                function() {
-                    HordeMobile.changePage('#mailbox?mbox=' + url.params.mbox);
-                }
+                })
             );
+            ImpMobile.toMailbox(HordeMobile.parseUrl('#mailbox?mbox=' + url.params.mbox), { noajax: true });
             break;
         }
-
-        $('#confirm').dialog('close');
     },
 
     /**
@@ -840,6 +838,8 @@ var ImpMobile = {
             ? 'copyMessages'
             : 'moveMessages';
 
+        $('#target').dialog('close');
+
         HordeMobile.doAction(
             func,
             $.extend(ImpMobile.addViewportParams({
@@ -849,15 +849,12 @@ var ImpMobile = {
                 mboxto: value,
                 newmbox: $('#imp-target-new').val(),
                 uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-target-uid').val() ]),
-            }),
-            (IMP.conf.mailbox_return || func == 'moveMessages')
-                ? function(r) {
-                      ImpMobile.toMailbox(HordeMobile.parseUrl('#mailbox?mbox=' + source), { noajax: true });
-                  }
-                : null
+            })
         );
 
-        $('#target').dialog('close');
+        if (IMP.conf.mailbox_return || func == 'moveMessages') {
+            ImpMobile.toMailbox(HordeMobile.parseUrl('#mailbox?mbox=' + source), { noajax: true });
+        }
     },
 
     /**
