@@ -761,6 +761,9 @@ table.kronolithView .kronolithAllDay td.kronolithFirstCol {
 #kronolithViewTasks .kronolithInfo {
     font-style: italic;
 }
+#kronolithViewTasks ul.horde-tags {
+    margin-left: 0.5em;
+}
 
 /* Tab sets */
 #kronolithViewTasks caption, #kronolithViewAgenda caption {
