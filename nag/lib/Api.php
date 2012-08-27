@@ -101,6 +101,7 @@ class Nag_Api extends Horde_Registry_Api
      * @param boolean $owneronly   Only return tasklists that this user owns?
      *                             Defaults to false.
      * @param integer $permission  The permission to filter tasklists by.
+     * @param boolean $smart       Include smart tasklists in results.
      *
      * @return array  The task lists.
      */
