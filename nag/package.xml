@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-12</date>
- <time>22:07:00</time>
+ <date>2012-08-27</date>
+ <time>13:48:18</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -69,7 +69,6 @@
     <file name="calendar.js" role="horde" />
     <file name="smartmobile.js" role="horde" />
     <file name="task.js" role="horde" />
-    <file name="tasklist-panel.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
@@ -416,7 +415,6 @@
     </dir> <!-- /templates/view -->
     <file name="javascript_defs.php" role="horde" />
     <file name="list.html.php" role="horde" />
-    <file name="panel.inc" role="horde" />
     <file name="quick.inc" role="horde" />
     <file name="tasklist_info.php" role="horde" />
     <file name="tasklist_list.php" role="horde" />
@@ -477,11 +475,13 @@
       <file name="checkbox.png" role="horde" />
       <file name="checked.png" role="horde" />
       <file name="favicon.ico" role="horde" />
+      <file name="manage.png" role="horde" />
       <file name="minus.png" role="horde" />
       <file name="nag.png" role="horde" />
       <file name="note.png" role="horde" />
       <file name="plus.png" role="horde" />
       <file name="search.png" role="horde" />
+      <file name="smart.png" role="horde" />
       <file name="tasklists.png" role="horde" />
       <file name="unchecked.png" role="horde" />
       <file name="za.png" role="horde" />
@@ -718,7 +718,6 @@
    <install as="nag/js/calendar.js" name="js/calendar.js" />
    <install as="nag/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="nag/js/task.js" name="js/task.js" />
-   <install as="nag/js/tasklist-panel.js" name="js/tasklist-panel.js" />
    <install as="nag/lib/.htaccess" name="lib/.htaccess" />
    <install as="nag/lib/Api.php" name="lib/Api.php" />
    <install as="nag/lib/Application.php" name="lib/Application.php" />
@@ -858,7 +857,6 @@
    <install as="nag/tasks/index.php" name="tasks/index.php" />
    <install as="nag/templates/javascript_defs.php" name="templates/javascript_defs.php" />
    <install as="nag/templates/list.html.php" name="templates/list.html.php" />
-   <install as="nag/templates/panel.inc" name="templates/panel.inc" />
    <install as="nag/templates/quick.inc" name="templates/quick.inc" />
    <install as="nag/templates/tasklist_info.php" name="templates/tasklist_info.php" />
    <install as="nag/templates/tasklist_list.php" name="templates/tasklist_list.php" />
@@ -901,11 +899,13 @@
    <install as="nag/themes/default/graphics/checkbox.png" name="themes/default/graphics/checkbox.png" />
    <install as="nag/themes/default/graphics/checked.png" name="themes/default/graphics/checked.png" />
    <install as="nag/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="nag/themes/default/graphics/manage.png" name="themes/default/graphics/manage.png" />
    <install as="nag/themes/default/graphics/minus.png" name="themes/default/graphics/minus.png" />
    <install as="nag/themes/default/graphics/nag.png" name="themes/default/graphics/nag.png" />
    <install as="nag/themes/default/graphics/note.png" name="themes/default/graphics/note.png" />
    <install as="nag/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
    <install as="nag/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
+   <install as="nag/themes/default/graphics/smart.png" name="themes/default/graphics/smart.png" />
    <install as="nag/themes/default/graphics/tasklists.png" name="themes/default/graphics/tasklists.png" />
    <install as="nag/themes/default/graphics/unchecked.png" name="themes/default/graphics/unchecked.png" />
    <install as="nag/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
