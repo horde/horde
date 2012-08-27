@@ -137,7 +137,7 @@ $topbar = $injector->getInstance('Horde_View_Topbar');
 $topbar->search = true;
 
 echo $topbar->render();
-require KRONOLITH_TEMPLATES . '/index/index.inc';
+require KRONOLITH_TEMPLATES . '/dynamic/index.inc';
 
 $page_output->includeScriptFiles();
 $page_output->outputInlineScript();

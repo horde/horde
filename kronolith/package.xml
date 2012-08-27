@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-08-27</date>
- <time>18:18:22</time>
+ <time>18:21:56</time>
  <version>
   <release>4.0.0alpha1</release>
   <api>4.0.0alpha1</api>
@@ -529,7 +529,17 @@
      <file name="one.inc" role="horde" />
     </dir> <!-- /templates/delete -->
     <dir name="dynamic">
+     <file name="agenda.inc" role="horde" />
+     <file name="day.inc" role="horde" />
+     <file name="edit.inc" role="horde" />
+     <file name="index.inc" role="horde" />
+     <file name="month.inc" role="horde" />
      <file name="sidebar.html.php" role="horde" />
+     <file name="task.inc" role="horde" />
+     <file name="tasks.inc" role="horde" />
+     <file name="week.inc" role="horde" />
+     <file name="workweek.inc" role="horde" />
+     <file name="year.inc" role="horde" />
     </dir> <!-- /templates/dynamic -->
     <dir name="edit">
      <file name="edit.inc" role="horde" />
@@ -548,18 +558,6 @@
     <dir name="feeds">
      <file name="atom.xml" role="horde" />
     </dir> <!-- /templates/feeds -->
-    <dir name="index">
-     <file name="agenda.inc" role="horde" />
-     <file name="day.inc" role="horde" />
-     <file name="edit.inc" role="horde" />
-     <file name="index.inc" role="horde" />
-     <file name="month.inc" role="horde" />
-     <file name="task.inc" role="horde" />
-     <file name="tasks.inc" role="horde" />
-     <file name="week.inc" role="horde" />
-     <file name="workweek.inc" role="horde" />
-     <file name="year.inc" role="horde" />
-    </dir> <!-- /templates/index -->
     <dir name="itip">
      <file name="notification.html.php" role="horde" />
      <file name="notification.plain.php" role="horde" />
@@ -1318,7 +1316,17 @@
    <install as="kronolith/templates/day/rows.html" name="templates/day/rows.html" />
    <install as="kronolith/templates/delete/delete.inc" name="templates/delete/delete.inc" />
    <install as="kronolith/templates/delete/one.inc" name="templates/delete/one.inc" />
+   <install as="kronolith/templates/dynamic/agenda.inc" name="templates/dynamic/agenda.inc" />
+   <install as="kronolith/templates/dynamic/day.inc" name="templates/dynamic/day.inc" />
+   <install as="kronolith/templates/dynamic/edit.inc" name="templates/dynamic/edit.inc" />
+   <install as="kronolith/templates/dynamic/index.inc" name="templates/dynamic/index.inc" />
+   <install as="kronolith/templates/dynamic/month.inc" name="templates/dynamic/month.inc" />
    <install as="kronolith/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />
+   <install as="kronolith/templates/dynamic/task.inc" name="templates/dynamic/task.inc" />
+   <install as="kronolith/templates/dynamic/tasks.inc" name="templates/dynamic/tasks.inc" />
+   <install as="kronolith/templates/dynamic/week.inc" name="templates/dynamic/week.inc" />
+   <install as="kronolith/templates/dynamic/workweek.inc" name="templates/dynamic/workweek.inc" />
+   <install as="kronolith/templates/dynamic/year.inc" name="templates/dynamic/year.inc" />
    <install as="kronolith/templates/edit/edit.inc" name="templates/edit/edit.inc" />
    <install as="kronolith/templates/edit/edit_timespan.inc" name="templates/edit/edit_timespan.inc" />
    <install as="kronolith/templates/fbview/busyblock.html" name="templates/fbview/busyblock.html" />
@@ -1330,16 +1338,6 @@
    <install as="kronolith/templates/fbview/section.html" name="templates/fbview/section.html" />
    <install as="kronolith/templates/fbview/unknownblock.html" name="templates/fbview/unknownblock.html" />
    <install as="kronolith/templates/feeds/atom.xml" name="templates/feeds/atom.xml" />
-   <install as="kronolith/templates/index/agenda.inc" name="templates/index/agenda.inc" />
-   <install as="kronolith/templates/index/day.inc" name="templates/index/day.inc" />
-   <install as="kronolith/templates/index/edit.inc" name="templates/index/edit.inc" />
-   <install as="kronolith/templates/index/index.inc" name="templates/index/index.inc" />
-   <install as="kronolith/templates/index/month.inc" name="templates/index/month.inc" />
-   <install as="kronolith/templates/index/task.inc" name="templates/index/task.inc" />
-   <install as="kronolith/templates/index/tasks.inc" name="templates/index/tasks.inc" />
-   <install as="kronolith/templates/index/week.inc" name="templates/index/week.inc" />
-   <install as="kronolith/templates/index/workweek.inc" name="templates/index/workweek.inc" />
-   <install as="kronolith/templates/index/year.inc" name="templates/index/year.inc" />
    <install as="kronolith/templates/itip/notification.html.php" name="templates/itip/notification.html.php" />
    <install as="kronolith/templates/itip/notification.plain.php" name="templates/itip/notification.plain.php" />
    <install as="kronolith/templates/month/head.inc" name="templates/month/head.inc" />
