@@ -95,6 +95,9 @@ class IMP
                 'rel' => 'search',
                 'type' => null
             ));
+
+            $mimecss = new Horde_Themes_Element('mime.css');
+            $page_output->addStylesheet($mimecss->fs, $mimecss->uri);
             break;
         }
 
