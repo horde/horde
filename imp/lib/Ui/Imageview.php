@@ -16,13 +16,6 @@
 class IMP_Ui_Imageview
 {
     /**
-     * List of safe addresses.
-     *
-     * @var Horde_Mail_Rfc822_List
-     */
-    protected $_safeAddrs;
-
-    /**
      * Show inline images in messages?
      *
      * @param IMP_Contents $contents  The contents object containing the
@@ -65,33 +58,14 @@ class IMP_Ui_Imageview
         }
 
         /* Check safe address list. */
-        $this->_initSafeAddrList();
+        $safeAddrs = $injector->getInstance('IMP_Prefs_Special_ImageReplacement')->safeAddrList();
         foreach ($from as $val) {
-            if ($this->_safeAddrs->contains($val)) {
+            if ($safeAddrs->contains($val)) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    /**
-     */
-    protected function _initSafeAddrList()
-    {
-        if (!isset($this->_safeAddrs)) {
-            $this->_safeAddrs = new Horde_Mail_Rfc822_List(json_decode($GLOBALS['prefs']->getValue('image_replacement_addrs')));
-        }
-    }
-
-    /**
-     */
-    public function addSafeAddress($address)
-    {
-        $this->_initSafeAddrList();
-        $this->_safeAddrs->add($address);
-        $this->_safeAddrs->unique();
-        $GLOBALS['prefs']->setValue('image_replacement_addrs', json_encode($this->_safeAddrs->bare_addresses));
     }
 
 }
