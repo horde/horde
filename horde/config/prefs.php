@@ -762,7 +762,7 @@ $_prefs['activesyncmanagement'] = array(
 
 $_prefs['activesync_replyposition'] = array(
     'type' => 'enum',
-    'desc' => _("Positioned of reply text when replying to email on your device."),
+    'desc' => _("Position of reply text when replying to email on your device."),
     'enum' => array('bottom' => _("Bottom"), 'top' => _("Top")),
     'value' => 'bottom',
     'suppress' => function() {
