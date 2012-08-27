@@ -7,6 +7,10 @@
   <form id="imp-target">
    <input id="imp-target-mbox" type="hidden" />
    <input id="imp-target-uid" type="hidden" />
+   <select id="imp-target-action">
+    <option value="copy"><?php echo _("Copy") ?></option>
+    <option value="move"><?php echo _("Move") ?></option>
+   </select>
    <select id="imp-target-list">
     <?php echo $this->options ?>
    </select>

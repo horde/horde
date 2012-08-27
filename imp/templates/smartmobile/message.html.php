@@ -34,8 +34,7 @@
   <div data-role="controlgroup" data-type="horizontal">
    <a href="#" id="imp-message-delete" data-role="button" data-rel="dialog" data-icon="delete"><?php echo _("Delete") ?></a>
 <?php if ($this->allowFolders): ?>
-   <a href="#" id="imp-message-copy" data-role="button" data-rel="dialog" data-icon="plus"><?php echo _("Copy") ?></a>
-   <a href="#" id="imp-message-move" data-role="button" data-rel="dialog" data-icon="minus"><?php echo _("Move") ?></a>
+   <a href="#" id="imp-message-copymove" data-role="button" data-rel="dialog" data-icon="plus"><?php echo _("Copy/Move") ?></a>
 <?php endif ?>
 <?php if ($this->canInnocent): ?>
    <a href="#" id="imp-message-innocent" data-role="button" data-rel="dialog" data-icon="check" style="display:none"><?php echo _("Innocent") ?></a>

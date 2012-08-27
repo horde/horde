@@ -160,7 +160,7 @@ class IMP_Smartmobile
                         'spam' => _("Report as Spam")
                     ),
                 ),
-                'copy' => _("Copy"),
+                'copymove' => _("Copy/Move"),
                 'nav' => _("%d to %d of %d"),
                 'new_message' => _("New Message"),
                 'nofrom' => _("Invalid Address"),
