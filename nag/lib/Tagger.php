@@ -16,7 +16,6 @@ class Nag_Tagger extends Horde_Core_Tagger
     protected $_app = 'nag';
     protected $_types = array('task');
 
-
     /**
      * Searches for resources that are tagged with all of the requested tags.
      *
