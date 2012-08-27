@@ -2561,11 +2561,15 @@ KronolithCore = {
             }, {
                 callback: this.editTaskCallback.bind(this)
             });
+            $('kronolithTaskTopTags').update();
         } else {
             $('kronolithTaskId').clear();
             $('kronolithTaskOldList').clear();
             $('kronolithTaskList').setValue(Kronolith.conf.tasks.default_tasklist);
             //$('kronolithTaskLocation').setValue('http://');
+            HordeCore.doAction('listTopTags', {}, {
+                callback: this.topTagsCallback.curry('kronolithTaskTopTags', 'kronolithTaskTag')
+            });
             $('kronolithTaskPriority').setValue(3);
             if (Kronolith.conf.tasks.default_due) {
                 this.setDefaultDue();
@@ -2660,7 +2664,12 @@ KronolithCore = {
         if (!task.pe) {
             $('kronolithTaskSave').hide();
             $('kronolithTaskForm').disable();
+        } else {
+            HordeCore.doAction('listTopTags', {}, {
+                callback: this.topTagsCallback.curry('kronolithTaskTopTags', 'kronolithTaskTag')
+            });
         }
+
         if (!task.pd) {
             $('kronolithTaskDelete').show();
         }
