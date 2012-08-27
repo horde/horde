@@ -226,7 +226,7 @@ var ImpMobile = {
      */
     refreshMailbox: function(ob)
     {
-        var c, list, ob, url,
+        var list, ob,
             cid = ImpMobile.mailbox + '|' + ob.cacheid + '|' + ob.from;
 
         if (cid == ImpMobile.mailboxCache) {
@@ -243,8 +243,8 @@ var ImpMobile = {
         list.empty();
 
         $.each(ob.rows(), function(key, data) {
-            c = $('<li class="imp-message">');
-            url = '#message?view=' + data.mbox + '&uid=' + data.uid;
+            var c = $('<li class="imp-message">'),
+                url = '#message?view=' + data.mbox + '&uid=' + data.uid;
 
             if (data.flag) {
                 $.each(data.flag, function(k, flag) {
