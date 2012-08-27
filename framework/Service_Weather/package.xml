@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-28</date>
- <time>21:06:58</time>
+ <date>2012-08-27</date>
+ <time>15:44:04</time>
  <version>
   <release>1.1.3</release>
   <api>1.1.0</api>
@@ -584,7 +584,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-06-28</date>
+   <date>2012-08-27</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Fix fatal error caused by not catching bad XML returned from remote.
