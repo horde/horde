@@ -283,24 +283,8 @@ var ImpMobile = {
                 .replace(/%d/, ob.totalrows);
             $('#imp-mailbox-navtop').show();
             $('#imp-mailbox-navtop h2').text(navtext);
-            if (ob.from == 1) {
-                $('#imp-mailbox-prev')
-                    .addClass('ui-disabled')
-                    .attr('aria-disabled', true);
-            } else {
-                $('#imp-mailbox-prev')
-                    .removeClass('ui-disabled')
-                    .attr('aria-disabled', false);
-            }
-            if ((ob.from + ImpMobile.mbox_rows - 1) >= ob.totalrows) {
-                $('#imp-mailbox-next')
-                    .addClass('ui-disabled')
-                    .attr('aria-disabled', true);
-            } else {
-                $('#imp-mailbox-next')
-                    .removeClass('ui-disabled')
-                    .attr('aria-disabled', false);
-            }
+            ImpMobile.disableButton($('#imp-mailbox-prev'), ob.from == 1);
+            ImpMobile.disableButton($('#imp-mailbox-next'), (ob.from + ImpMobile.mbox_rows - 1) >= ob.totalrows);
         } else {
             $('#imp-mailbox-navtop').hide();
         }
