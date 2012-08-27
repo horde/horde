@@ -26,37 +26,37 @@
 <div>
   <label for="kronolithEventTitle">
     <?php echo _("Event title") ?>:<br />
-    <input type="text" name="title" id="kronolithEventTitle" class="kronolithLongField" />
+    <input type="text" name="title" id="kronolithEventTitle" class="kronolithLongField" tabindex="1" />
   </label>
 </div>
 
 <div id="kronolithEventDates">
   <label for="kronolithEventStartDate">
     <?php echo _("From") ?>
-    <input type="text" name="start_date" id="kronolithEventStartDate" size="10" />
+    <input type="text" name="start_date" id="kronolithEventStartDate" size="10" tabindex="2" />
     <?php echo Horde::img('picker.png', _("Set start date"), 'id="kronolithEventStartPicker" class="kronolithDatePicker"') ?>
   </label>
   <label id="kronolithEventStartTimeLabel">
     <?php echo _("at") ?>
-    <input type="text" name="start_time" id="kronolithEventStartTime" size="8" />
+    <input type="text" name="start_time" id="kronolithEventStartTime" size="8" tabindex="3" />
   </label>
   <label for="kronolithEventEndDate">
     <?php echo _("to") ?>
-    <input type="text" name="end_date" id="kronolithEventEndDate" size="10" />
+    <input type="text" name="end_date" id="kronolithEventEndDate" size="10" tabindex="4" />
     <?php echo Horde::img('picker.png', _("Set end date"), 'id="kronolithEventEndPicker" class="kronolithDatePicker"') ?>
   </label>
   <label id="kronolithEventEndTimeLabel">
     <?php echo _("at") ?>
-    <input type="text" name="end_time" id="kronolithEventEndTime" size="8" />
+    <input type="text" name="end_time" id="kronolithEventEndTime" size="8" tabindex="5" />
   </label>
   <span class="kronolithSeparator">|</span>
   <label for="kronolithEventAllday">
-    <input type="checkbox" name="whole_day" id="kronolithEventAllday" />
+    <input type="checkbox" name="whole_day" id="kronolithEventAllday" tabindex="6" />
     <?php echo _("All-day event") ?>
   </label>
   <span class="kronolithSeparator">|</span>
   <label for="kronolithEventTimezone"><?php echo _("Timezone") ?>:</label>
-  <select name="timezone" id="kronolithEventTimezone">
+  <select name="timezone" id="kronolithEventTimezone" tabindex="7">
     <option value=""><?php echo _("Default") ?></option>
     <?php foreach (Horde_Nls::getTimezones() as $timezone): ?>
     <option value="<?php echo $timezone ?>"><?php echo $timezone ?></option>
@@ -66,7 +66,7 @@
 
 <div id="kronolithEventBasics">
   <label for="kronolithEventStatus"><?php echo _("Status") ?>:</label>
-  <select name="status" id="kronolithEventStatus">
+  <select name="status" id="kronolithEventStatus" tabindex="8">
     <option value="<?php echo Kronolith::STATUS_FREE ?>"><?php echo _("Free") ?></option>
     <option value="<?php echo Kronolith::STATUS_TENTATIVE ?>"><?php echo _("Tentative") ?></option>
     <option value="<?php echo Kronolith::STATUS_CONFIRMED ?>" selected="selected"><?php echo _("Confirmed") ?></option>
@@ -74,7 +74,7 @@
   </select>
   <span class="kronolithSeparator">|</span>
   <label for="kronolithEventLocation"><?php echo _("Location") ?>:</label>
-  <input type="text" name="location" id="kronolithEventLocation" size="25" />
+  <input type="text" name="location" id="kronolithEventLocation" size="25" tabindex="9" />
   <?php if ($GLOBALS['conf']['maps']['driver']): ?>
   <span id="kronolithEventMapLink" style="display:none">
     <span class="kronolithSeparator">|</span> <span><a href="#" class="kronolithEventGeo"><?php echo _("Find in Maps") ?></a></span>&nbsp;<span id="kronolithEventGeo_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
@@ -85,9 +85,9 @@
 <div>
   <label for="kronolithEventTarget"><?php echo _("Add event to") ?>:</label>
   <span id="kronolithEventTargetRO" style="display:none"></span>
-  <select name="targetcalendar" id="kronolithEventTarget"></select>
+  <select name="targetcalendar" id="kronolithEventTarget" tabindex="10"></select>
   <span class="kronolithSeparator">|</span>
-  <?php printf(_("%s Private %s &mdash; hides details if calendar is public %s"), '<input type="checkbox" name="private" id="kronolithEventPrivate" /> <label for="kronolithEventPrivate">', '</label> <span class="kronolithSeparator">', '</span>') ?>
+  <?php printf(_("%s Private %s &mdash; hides details if calendar is public %s"), '<input type="checkbox" name="private" id="kronolithEventPrivate" tabindex="11" /> <label for="kronolithEventPrivate">', '</label> <span class="kronolithSeparator">', '</span>') ?>
 </div>
 
 <div class="tabset">
@@ -115,7 +115,7 @@
 <br class="clear" />
 
 <div id="kronolithEventTabDescription" class="kronolithTabsOption">
-  <textarea name="description" id="kronolithEventDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+  <textarea name="description" id="kronolithEventDescription" rows="5" cols="40" class="kronolithLongField" tabindex="12"></textarea>
 </div>
 
 <div id="kronolithEventTabReminder" class="kronolithTabsOption" style="display:none">
@@ -270,9 +270,9 @@
 </div>
 
 <div class="kronolithFormActions">
-  <input id="kronolithEventSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
+  <input id="kronolithEventSave" type="button" value="<?php echo _("Save") ?>" class="button ok" tabindex="13" />
   <input id="kronolithEventSaveAsNew" type="button" value="<?php echo _("Save As New") ?>" class="button ok" />
-  <input id="kronolithEventDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
+  <input id="kronolithEventDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" tabindex="14" />
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>

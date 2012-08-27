@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-22</date>
- <time>11:26:54</time>
+ <date>2012-08-27</date>
+ <time>18:18:22</time>
  <version>
   <release>4.0.0alpha1</release>
   <api>4.0.0alpha1</api>
@@ -216,6 +216,8 @@
      <file name="Event.php" role="horde" />
      <file name="ExportEvent.php" role="horde" />
      <file name="Month.php" role="horde" />
+     <file name="Sidebar.php" role="horde" />
+     <file name="SidebarTasks.php" role="horde" />
      <file name="Week.php" role="horde" />
      <file name="WorkWeek.php" role="horde" />
      <file name="Year.php" role="horde" />
@@ -526,6 +528,9 @@
      <file name="delete.inc" role="horde" />
      <file name="one.inc" role="horde" />
     </dir> <!-- /templates/delete -->
+    <dir name="dynamic">
+     <file name="sidebar.html.php" role="horde" />
+    </dir> <!-- /templates/dynamic -->
     <dir name="edit">
      <file name="edit.inc" role="horde" />
      <file name="edit_timespan.inc" role="horde" />
@@ -660,6 +665,9 @@
    </dir> <!-- /test -->
    <dir name="themes">
     <dir name="default">
+     <dir name="dynamic">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/dynamic -->
      <dir name="graphics">
       <dir name="alerts">
        <file name="alarm.png" role="horde" />
@@ -690,6 +698,7 @@
       <file name="checkbox_on.png" role="horde" />
       <file name="checkbox_over.png" role="horde" />
       <file name="close.png" role="horde" />
+      <file name="collapse.png" role="horde" />
       <file name="dayview.png" role="horde" />
       <file name="delete-000.png" role="horde" />
       <file name="delete-fff.png" role="horde" />
@@ -697,8 +706,11 @@
       <file name="drag-handle.png" role="horde" />
       <file name="edit-000.png" role="horde" />
       <file name="edit-fff.png" role="horde" />
+      <file name="editbig-000.png" role="horde" />
+      <file name="editbig-fff.png" role="horde" />
       <file name="exception-000.png" role="horde" />
       <file name="exception-fff.png" role="horde" />
+      <file name="expand.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="goto.png" role="horde" />
       <file name="help.png" role="horde" />
@@ -714,6 +726,7 @@
       <file name="new_small_fade.png" role="horde" />
       <file name="new_task.png" role="horde" />
       <file name="picker.png" role="horde" />
+      <file name="plus-sidebar.png" role="horde" />
       <file name="plus.png" role="horde" />
       <file name="prefs.png" role="horde" />
       <file name="print.png" role="horde" />
@@ -1168,6 +1181,8 @@
    <install as="kronolith/lib/View/Event.php" name="lib/View/Event.php" />
    <install as="kronolith/lib/View/ExportEvent.php" name="lib/View/ExportEvent.php" />
    <install as="kronolith/lib/View/Month.php" name="lib/View/Month.php" />
+   <install as="kronolith/lib/View/Sidebar.php" name="lib/View/Sidebar.php" />
+   <install as="kronolith/lib/View/SidebarTasks.php" name="lib/View/SidebarTasks.php" />
    <install as="kronolith/lib/View/Week.php" name="lib/View/Week.php" />
    <install as="kronolith/lib/View/WorkWeek.php" name="lib/View/WorkWeek.php" />
    <install as="kronolith/lib/View/Year.php" name="lib/View/Year.php" />
@@ -1303,6 +1318,7 @@
    <install as="kronolith/templates/day/rows.html" name="templates/day/rows.html" />
    <install as="kronolith/templates/delete/delete.inc" name="templates/delete/delete.inc" />
    <install as="kronolith/templates/delete/one.inc" name="templates/delete/one.inc" />
+   <install as="kronolith/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />
    <install as="kronolith/templates/edit/edit.inc" name="templates/edit/edit.inc" />
    <install as="kronolith/templates/edit/edit_timespan.inc" name="templates/edit/edit_timespan.inc" />
    <install as="kronolith/templates/fbview/busyblock.html" name="templates/fbview/busyblock.html" />
@@ -1383,6 +1399,7 @@
    <install as="kronolith/themes/default/opera.css" name="themes/default/opera.css" />
    <install as="kronolith/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="kronolith/themes/default/webkit.css" name="themes/default/webkit.css" />
+   <install as="kronolith/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
    <install as="kronolith/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
    <install as="kronolith/themes/default/graphics/agenda.png" name="themes/default/graphics/agenda.png" />
    <install as="kronolith/themes/default/graphics/alarm-000.png" name="themes/default/graphics/alarm-000.png" />
@@ -1405,6 +1422,7 @@
    <install as="kronolith/themes/default/graphics/checkbox_on.png" name="themes/default/graphics/checkbox_on.png" />
    <install as="kronolith/themes/default/graphics/checkbox_over.png" name="themes/default/graphics/checkbox_over.png" />
    <install as="kronolith/themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
+   <install as="kronolith/themes/default/graphics/collapse.png" name="themes/default/graphics/collapse.png" />
    <install as="kronolith/themes/default/graphics/dayview.png" name="themes/default/graphics/dayview.png" />
    <install as="kronolith/themes/default/graphics/delete-000.png" name="themes/default/graphics/delete-000.png" />
    <install as="kronolith/themes/default/graphics/delete-fff.png" name="themes/default/graphics/delete-fff.png" />
@@ -1412,8 +1430,11 @@
    <install as="kronolith/themes/default/graphics/drag-handle.png" name="themes/default/graphics/drag-handle.png" />
    <install as="kronolith/themes/default/graphics/edit-000.png" name="themes/default/graphics/edit-000.png" />
    <install as="kronolith/themes/default/graphics/edit-fff.png" name="themes/default/graphics/edit-fff.png" />
+   <install as="kronolith/themes/default/graphics/editbig-000.png" name="themes/default/graphics/editbig-000.png" />
+   <install as="kronolith/themes/default/graphics/editbig-fff.png" name="themes/default/graphics/editbig-fff.png" />
    <install as="kronolith/themes/default/graphics/exception-000.png" name="themes/default/graphics/exception-000.png" />
    <install as="kronolith/themes/default/graphics/exception-fff.png" name="themes/default/graphics/exception-fff.png" />
+   <install as="kronolith/themes/default/graphics/expand.png" name="themes/default/graphics/expand.png" />
    <install as="kronolith/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="kronolith/themes/default/graphics/goto.png" name="themes/default/graphics/goto.png" />
    <install as="kronolith/themes/default/graphics/help.png" name="themes/default/graphics/help.png" />
@@ -1429,6 +1450,7 @@
    <install as="kronolith/themes/default/graphics/new_small_fade.png" name="themes/default/graphics/new_small_fade.png" />
    <install as="kronolith/themes/default/graphics/new_task.png" name="themes/default/graphics/new_task.png" />
    <install as="kronolith/themes/default/graphics/picker.png" name="themes/default/graphics/picker.png" />
+   <install as="kronolith/themes/default/graphics/plus-sidebar.png" name="themes/default/graphics/plus-sidebar.png" />
    <install as="kronolith/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
    <install as="kronolith/themes/default/graphics/prefs.png" name="themes/default/graphics/prefs.png" />
    <install as="kronolith/themes/default/graphics/print.png" name="themes/default/graphics/print.png" />
@@ -1887,7 +1909,7 @@
    </notes>
   </release>
   <release>
-   <date>2012-07-22</date>
+   <date>2012-08-27</date>
    <time>17:24:36</time>
    <version>
     <release>4.0.0alpha1</release>

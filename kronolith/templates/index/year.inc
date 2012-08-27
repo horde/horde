@@ -1,15 +1,6 @@
 <div id="kronolithViewYear" class="kronolithView kronolithViewYear" style="display:none">
-<table class="kronolithView kronolithViewYear">
-  <caption>
-    <span id="kronolithLoadingyear" class="kronolithLoading"></span>
-    <span id="kronolithYearDate"></span>
-    <span class="kronolithNavigation">
-      <a title="<?php echo _("Previous") ?>" class="kronolithPrev">&lt;</a>
-      <a class="kronolithGotoToday"><?php echo Horde::highlightAccessKey(_("_Today"), $todayAccessKey) ?></a>
-      <a title="<?php echo _("Next") ?>" class="kronolithNext">&gt;</a>
-    </span>
-  </caption>
-</table>
+
+<span id="kronolithLoadingyear" class="kronolithLoading"></span>
 
 <div id="kronolithYear0" class="kronolithMinical"></div>
 <div id="kronolithYear1" class="kronolithMinical"></div>
@@ -25,15 +16,17 @@
 <div id="kronolithYear11" class="kronolithMinical"></div>
 
 <table id="kronolithYearTemplate" style="display:none">
-  <caption>
-    <span class="kronolithMinicalDate">&nbsp;</span>
-  </caption>
-  <thead><tr>
-    <th class="kronolithMinicalEmpty">&nbsp;</th>
-    <?php for ($i = $prefs->getValue('week_start_monday'), $c = $i + 7; $i < $c; $i++): ?>
-    <th title="<?php echo Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?>"><?php echo Horde_String::substr(Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))), 0, 1) ?></th>
-    <?php endfor; ?>
-  </tr></thead>
+  <thead>
+    <tr class="kronolithMinicalNav">
+      <th class="kronolithMinicalDate" colspan="8">&nbsp;</th>
+    </tr>
+    <tr>
+      <th class="kronolithMinicalEmpty">&nbsp;</th>
+      <?php for ($i = $prefs->getValue('week_start_monday'), $c = $i + 7; $i < $c; $i++): ?>
+      <th title="<?php echo Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?>"><?php echo Horde_String::substr(Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))), 0, 1) ?></th>
+      <?php endfor; ?>
+    </tr>
+  </thead>
   <tbody><tr><td></td></tr></tbody>
 </table>
 
