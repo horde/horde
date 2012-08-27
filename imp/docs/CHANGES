@@ -2,6 +2,7 @@
 v6.0.0-git
 ----------
 
+[mms] Add attachment download links to smartmobile view (Request #11379).
 [mms] Indicate deleted messages with strikethrough in smartmobile mailbox
       listing (Request #11362).
 [mms] Show polled children in smartmobile folder list when parent mailbox is

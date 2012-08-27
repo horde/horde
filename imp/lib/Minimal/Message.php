@@ -290,10 +290,10 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
         $atc = array();
         foreach ($inlineout['atc_parts'] as $key) {
-            $summary = $imp_contents->getSummary($key, IMP_Contents::SUMMARY_BYTES | IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS | IMP_Contents::SUMMARY_DOWNLOAD_NOJS);
+            $summary = $imp_contents->getSummary($key, IMP_Contents::SUMMARY_BYTES | IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP | IMP_Contents::SUMMARY_DOWNLOAD);
 
             $tmp = array(
-                'descrip' => $summary['description'],
+                'descrip' => $summary['description_raw'],
                 'size' => $summary['size'],
                 'type' => $summary['type']
             );
@@ -303,7 +303,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
                  * if attachment over a certain size. */
                 $tmp['download'] = ($summary['bytes'] > $prefs->getValue('mimp_download_confirm'))
                     ? IMP_Minimal_Messagepart::url(array('mailbox' => $mailbox, 'uid' => $uid))->add('atc', $key)
-                    : $summary['download'];
+                    : $summary['download_url'];
             }
 
             if ($imp_contents->canDisplay($key, IMP_Contents::RENDER_INLINE)) {

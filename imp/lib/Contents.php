@@ -20,16 +20,14 @@ class IMP_Contents
     const SUMMARY_SIZE = 2;
     const SUMMARY_ICON = 4;
     const SUMMARY_ICON_RAW = 16384;
-    const SUMMARY_DESCRIP_LINK = 8;
-    const SUMMARY_DESCRIP_NOLINK = 16;
-    const SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS = 32;
-    const SUMMARY_DOWNLOAD = 64;
-    const SUMMARY_DOWNLOAD_NOJS = 128;
-    const SUMMARY_DOWNLOAD_ZIP = 256;
-    const SUMMARY_IMAGE_SAVE = 512;
-    const SUMMARY_PRINT = 1024;
-    const SUMMARY_PRINT_STUB = 2048;
-    const SUMMARY_STRIP = 4096;
+    const SUMMARY_DESCRIP = 8;
+    const SUMMARY_DESCRIP_LINK = 16;
+    const SUMMARY_DOWNLOAD = 32;
+    const SUMMARY_DOWNLOAD_ZIP = 64;
+    const SUMMARY_IMAGE_SAVE = 128;
+    const SUMMARY_PRINT = 256;
+    const SUMMARY_PRINT_STUB = 512;
+    const SUMMARY_STRIP = 1024;
 
     /* Rendering mask entries. */
     const RENDER_FULL = 1;
@@ -676,14 +674,14 @@ class IMP_Contents
      * IMP_Contents::SUMMARY_ICON_RAW
      *   Output: parts = 'icon'
      *
+     * IMP_Contents::SUMMARY_DESCRIP
+     *   Output: parts = 'description_raw'
+     *
      * IMP_Contents::SUMMARY_DESCRIP_LINK
-     * IMP_Contents::SUMMARY_DESCRIP_NOLINK
-     * IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS
      *   Output: parts = 'description'
      *
      * IMP_Contents::SUMMARY_DOWNLOAD
-     * IMP_Contents::SUMMARY_DOWNLOAD_NOJS
-     *   Output: parts = 'download'
+     *   Output: parts = 'download', 'download_url'
      *
      * IMP_Contents::SUMMARY_DOWNLOAD_ZIP
      *   Output: parts = 'download_zip'
@@ -772,20 +770,17 @@ class IMP_Contents
             } else {
                 $part['description'] = htmlspecialchars($description);
             }
-        } elseif ($mask & self::SUMMARY_DESCRIP_NOLINK) {
-            $part['description'] = htmlspecialchars($description);
-        } elseif ($mask & self::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS) {
-            $part['description'] = $description;
+        }
+        if ($mask & self::SUMMARY_DESCRIP) {
+            $part['description_raw'] = $description;
         }
 
         /* Download column. */
-        if ($is_atc &&
+        if (($mask & self::SUMMARY_DOWNLOAD) &&
+            $is_atc &&
             (is_null($part['bytes']) || $part['bytes'])) {
-            if ($mask & self::SUMMARY_DOWNLOAD) {
-                $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'iconImg downloadAtc', 'jstext' => _("Download")));
-            } elseif ($mask & self::SUMMARY_DOWNLOAD_NOJS) {
-                $part['download'] = $this->urlView($mime_part, 'download_attach');
-            }
+            $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'iconImg downloadAtc', 'jstext' => _("Download")));
+            $part['download_url'] = $this->urlView($mime_part, 'download_attach');
         }
 
         /* Display the compressed download link only if size is greater

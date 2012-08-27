@@ -401,7 +401,7 @@ var ImpMobile = {
             args = '&mbox=' + data.mbox + '&uid=' + data.uid,
             innocent = 'show',
             spam = 'show',
-            rownum;
+            list, rownum;
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
@@ -426,6 +426,30 @@ var ImpMobile = {
             $('#imp-message-from').text(data.from.addr[0].p);
         } else {
             $('#imp-message-from').text(data.from.addr[0].b);
+        }
+
+        if (data.atc_label) {
+            $('#imp-message-atc').show();
+            if ($('#imp-message-atc').children('div:visible').length) {
+                $('#imp-message-atc').children('h4').children('a').click();
+            }
+
+            $('#imp-message-atclabel').text(data.atc_label);
+
+            list = $('#imp-message-atclist');
+            list.empty();
+            $.each(data.atc_list, function(key, val) {
+                var a = $('<a>').attr({
+                        href: val.download_url,
+                        target: 'download'
+                    }),
+                    img = $(val.icon).appendTo(a).addClass('ui-li-icon');
+                a.append(val.description_raw + ' (' + val.size + ')');
+                list.append($('<li class="imp-message-atc">').append(a));
+            });
+            list.listview('refresh');
+        } else {
+            $('#imp-message-atc').hide();
         }
 
         $('#imp-message-body').html(data.msgtext);
@@ -510,7 +534,7 @@ var ImpMobile = {
             });
         }
 
-        $('#message').children().show();
+        $('#message').children().not('#imp-message-atc').show();
 
         delete ImpMobile.message;
     },

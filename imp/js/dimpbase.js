@@ -1625,7 +1625,23 @@ var DimpBase = {
             tmp = $('partlist');
             tmp.previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(r.atc_label)).insert(r.atc_download);
             if (r.atc_list) {
-                tmp.update(new Element('TABLE').insert(r.atc_list));
+                tmp.update(new Element('TABLE'));
+                tmp = tmp.down();
+
+                r.atc_list.each(function(a) {
+                    tmp.insert(
+                        new Element('TR').insert(
+                            new Element('TD').insert(a.icon)
+                        ).insert(
+                            new Element('TD').insert(a.description + ' (' + a.size + ')')
+                        ).insert(
+                            new Element('TD').insert(a.download)
+                        )
+                    );
+                    if (a.download_zip) {
+                        tmp.down('TD:last').insert(a.download_zip);
+                    }
+                });
             }
         } else {
             $('msgAtc').hide();

@@ -286,24 +286,30 @@ class IMP_Ajax_Application_ShowMessage
 
         /* Show attachment information in headers? */
         if (!empty($inlineout['atc_parts'])) {
-            $tmp = '';
+            $partlist = array();
 
             if ($show_parts == 'all') {
                 array_unshift($part_info, 'id');
             }
 
             foreach ($inlineout['atc_parts'] as $id) {
+                $contents_mask |= IMP_Contents::SUMMARY_DESCRIP;
+                $part_info[] = 'description_raw';
+                $part_info[] = 'download_url';
+
                 $summary = $this->_contents->getSummary($id, $contents_mask);
-                $tmp .= '<tr>';
+                $tmp = array();
                 foreach ($part_info as $val) {
-                    $tmp .= '<td' .
-                        (strlen($summary[$val]) ? '' : ' class="partlistempty"') .
-                        '>' . $summary[$val] . '</td>';
+                    if (strlen($summary[$val])) {
+                        $tmp[$val] = ($summary[$val] instanceof Horde_Url)
+                            ? strval($summary[$val]->setRaw(true))
+                            : $summary[$val];
+                    }
                 }
-                $tmp .= '</tr>';
+                $partlist[] = $tmp;
             }
 
-            $result['atc_list'] = $tmp;
+            $result['atc_list'] = $partlist;
         }
 
         $result['save_as'] = $GLOBALS['registry']->downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $this->_mbox->urlParams($this->_uid)));

@@ -10,6 +10,9 @@
     font-weight: normal;
     text-align: center;
 }
+.imp-message-atc {
+    margin-bottom: 0;
+}
 .imp-message-date {
     float: right;
 }
