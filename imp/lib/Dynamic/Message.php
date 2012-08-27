@@ -68,7 +68,9 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
                 $js_vars['DimpMessage.' . $val] = $msg_res[$val];
             }
         }
-        $js_vars['DimpMessage.reply_list'] = $msg_res['list_info']['exists'];
+        if (!empty($msg_res['list_info']['exists'])) {
+            $js_vars['DimpMessage.reply_list'] = true;
+        }
         $js_vars['DimpMessage.tasks'] = $injector->getInstance('Horde_Core_Factory_Ajax')->create('imp', $this->vars)->getTasks();
 
         $page_output->addInlineJsVars($js_vars);

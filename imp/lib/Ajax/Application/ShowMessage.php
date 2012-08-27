@@ -336,7 +336,10 @@ class IMP_Ajax_Application_ShowMessage
                 $result = Horde::callHook('dimp_messageview', array($result), 'imp');
             } catch (Horde_Exception_HookNotSet $e) {}
 
-            $result['list_info'] = $imp_ui->getListInformation($mime_headers);
+            $list_info = $imp_ui->getListInformation($mime_headers);
+            if (!empty($list_info['exists'])) {
+                $result['list_info'] = $list_info;
+            }
         }
 
         if (empty($result['js'])) {
