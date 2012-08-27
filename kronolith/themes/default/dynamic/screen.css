@@ -759,7 +759,7 @@ table.kronolithView .kronolithAllDay td.kronolithFirstCol {
     font-weight: bold;
 }
 #kronolithViewTasks .kronolithInfo {
-    color: #ccc;
+    font-style: italic;
 }
 
 /* Tab sets */
