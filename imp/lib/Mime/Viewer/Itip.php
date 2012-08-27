@@ -574,7 +574,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 $html .= '<option value="' . $k . '">' . $v . '</option>';
             }
             return $html . '</select>' .
-                '<input type="submit" class="button" value="' . _("Go") . '/>';
+                '<input type="submit" class="button" value="' . _("Go") . '"/>';
         }
     }
 
@@ -862,7 +862,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 $html .= '<option value="' . $k . '">' . $v . '</option>';
             }
             return $html . '</select>' .
-                '<input type="submit" class="button" value="' . _("Go") . '/>';
+                '<input type="submit" class="button" value="' . _("Go") . '"/>';
         }
     }
 
@@ -1006,7 +1006,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 $html .= '<option value="' . $k . '">' . $v . '</option>';
             }
             return $html . '</select>' .
-                '<input type="submit" class="button" value="' . _("Go") . '/>';
+                '<input type="submit" class="button" value="' . _("Go") . '"/>';
         }
     }
 
