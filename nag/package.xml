@@ -28,6 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add support for smart tasklists.
+* [mjr] Migrate categories to tags.
 * [jan] Fix fatal error if the task form doesn&apos;t validate.
 * [jan] Add recurring tasks (Request #2150).
  </notes>
