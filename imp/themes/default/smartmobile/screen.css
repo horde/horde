@@ -27,22 +27,14 @@
 }
 
 /* Message */
-#message .ui-body-c {
-    border-top-width: 0;
-}
 .imp-header-label {
     font-weight: bold;
     vertical-align: top;
 }
-#imp-message-subject {
-    font-weight: bold;
-}
-#imp-message-subject-from, #imp-message-date {
-    font-size: 80%;
-}
-#imp-message-header-toggle a {
-    float: right;
-    margin: 0;
+#imp-message-date {
+    font-size: 90%;
+    font-weight: normal;
+    padding-left: 8px;
 }
 .imp-message-spacer {
     margin: 12px;

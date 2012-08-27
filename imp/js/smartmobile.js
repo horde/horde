@@ -416,8 +416,7 @@ var ImpMobile = {
             headers = $('#imp-message-headers tbody'),
             args = '&mbox=' + data.mbox + '&uid=' + data.uid,
             innocent = 'show',
-            spam = 'show',
-            tmp;
+            spam = 'show';
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
@@ -431,7 +430,6 @@ var ImpMobile = {
 
         $('#imp-message-title').text(data.title);
         document.title = $('#imp-message-title').text();
-        $('#imp-message-subject').text(data.subject);
 
         if (!data.from) {
             $('#imp-message-from').text(IMP.text.nofrom);
@@ -448,7 +446,7 @@ var ImpMobile = {
         $('#imp-message-body').html(data.msgtext);
         $('#imp-message-date').text('');
 
-        data.headers.push({ name: 'Subject', value: $('#imp-message-subject').html() });
+        data.headers.push({ name: 'Subject', value: data.subject });
 
         headers.text('');
         $.each(data.headers, function(k, header) {
@@ -524,9 +522,6 @@ var ImpMobile = {
         }
 
         $('#message').children().show();
-        tmp = $('#imp-message-header-toggle').children();
-        tmp.eq(0).show();
-        tmp.eq(1).hide();
 
         delete ImpMobile.message;
     },
@@ -951,10 +946,6 @@ var ImpMobile = {
                     })
                 );
                 $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox);
-                return;
-
-            case 'imp-message-header-toggle':
-                elt.children().toggle();
                 return;
 
             case 'imp-mailbox-top':

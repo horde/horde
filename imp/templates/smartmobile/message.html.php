@@ -7,16 +7,12 @@
 <?php endif ?>
  </div>
 
- <div id="imp-message-header-toggle">
-  <div class="ui-body ui-body-c">
-   <span id="imp-message-subject"></span>
-   <span id="imp-message-subject-from">(<?php echo _("from") ?> <span id="imp-message-from"></span>)</span><br>
+ <div data-role="collapsible" data-iconpos="right" data-theme="b" data-content-theme="d">
+  <h4>
+   <span id="imp-message-from"></span>
    <span id="imp-message-date"></span>
-  </div>
-
-  <div class="ui-body ui-body-c" style="display:none">
-   <table id="imp-message-headers"><tbody></tbody></table>
-  </div>
+  </h4>
+  <table id="imp-message-headers"><tbody></tbody></table>
  </div>
 
  <div id="imp-message-body" data-role="content"></div>
