@@ -64,8 +64,8 @@ class Horde_Themes_Css
      * @param array $opts  Additional options:
      *   - app: (string) The current application.
      *   - nobase: (boolean) If true, don't load base stylesheets.
+     *   - nocache: (boolean) If true, don't load files from cache.
      *   - nohorde: (boolean) If true, don't load files from Horde.
-     *   - nocache: (boolean) If true, don't load files from Cache.
      *   - sub: (string) A subdirectory containing additional CSS files to
      *          load as an overlay to the base CSS files.
      *   - subonly: (boolean) If true, only load the files in 'sub', not

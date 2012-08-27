@@ -10,11 +10,12 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  *
  * @property $fs  (string) Filesystem location.
  * @property $fulluri  (Horde_Url) Full URI.
- * @property $uri (string) Relative URI.
+ * @property $uri  (string) Relative URI.
  */
 class Horde_Themes_Element
 {
@@ -59,15 +60,13 @@ class Horde_Themes_Element
      * @param string $name    The element name. If null, will return the
      *                        element directory.
      * @param array $options  Additional options:
-     * <pre>
-     * 'app' - (string) Use this application instead of the current app.
-     * 'data' - (array) Contains 2 elements: 'fs' - filesystem path,
-                        'uri' - the element URI. If set, use as the data
-                        values instead of auto determining.
-     * 'nohorde' - (boolean) If true, do not fallback to horde for element.
-     * 'theme' - (string) Use this theme instead of the Horde default.
-     * 'uri' - (string) Use this as the URI value.
-     * </pre>
+     *   - app: (string) Use this application instead of the current app.
+     *   - data' (array) Contains 2 elements: 'fs' - filesystem path,
+                         'uri' - the element URI. If set, use as the data
+                         values instead of auto determining.
+     *   - nohorde: (boolean) If true, do not fallback to horde for element.
+     *   - theme: (string) Use this theme instead of the Horde default.
+     *   - uri: (string) Use this as the URI value.
      */
     public function __construct($name = '', array $options = array())
     {
