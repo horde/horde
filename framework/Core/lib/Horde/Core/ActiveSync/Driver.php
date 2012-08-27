@@ -88,6 +88,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *   - imap: (Horde_ActiveSync_Imap_Adapter) The IMAP adapter if email
      *           support is desired.
      *           DEFAULT: none (No email support will be provided).
+     *   - reply_top: (boolean) Place email reply text above original.
+     *                DEFAULT: false (Place reply text below original).
      *
      * @return Horde_ActiveSync_Driver_Horde
      */
@@ -102,6 +104,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         if (empty($this->_params['auth']) ||
             !($this->_params['auth'] instanceof Horde_Auth_Base)) {
             throw new InvalidArgumentException('Missing required Auth object');
+        }
+
+        if (empty($this->_params['reply_top'])) {
+            $this->_params['reply_top'] = false;
         }
 
         $this->_connector = $params['connector'];
@@ -1054,13 +1060,17 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $smart_text = $smart_body[0] == 'plain'
                         ? self::text2html($smart_body[1])
                         : $smart_body[1];
-                    $newbody_text_html = $smart_text . $this->_replyText($imap_message, $html_id, true);
+                    $newbody_text_html = ($this->_params['reply_top'] ? $smart_text : '')
+                        . $this->_replyText($imap_message, $html_id, true)
+                        . ($this->_params['reply_top'] ? '' : $smart_text);
                 }
                 if ($plain_id) {
                     $smart_text = $smart_body[0] == 'html'
                         ? self::html2text($smart_body[1])
                         : $smart_body[1];
-                    $newbody_text_plain .= $smart_text . $this->_replyText($imap_message, $plain_id);
+                    $newbody_text_plain = ($this->_params['reply_top'] ? $smart_text : '')
+                        . $this->_replyText($imap_message, $plain_id)
+                        . ($this->_params['reply_top'] ? '' : $smart_text);
                 }
             } elseif ($forward) {
                 $this->_logger->debug('Preparing SMART_FORWARD');

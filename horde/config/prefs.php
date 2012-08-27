@@ -749,7 +749,7 @@ $prefGroups['activesync'] = array(
     'column' => _("Other Information"),
     'label' => _("ActiveSync"),
     'desc' => _("Manage your ActiveSync devices."),
-    'members' => array('activesyncmanagement'),
+    'members' => array('activesync_replyposition', 'activesyncmanagement'),
     'suppress' => function() {
         return empty($GLOBALS['conf']['activesync']['enabled']);
     }
@@ -760,6 +760,12 @@ $_prefs['activesyncmanagement'] = array(
     'handler' => 'Horde_Prefs_Special_Activesync'
 );
 
+$_prefs['activesync_replyposition'] = array(
+    'type' => 'enum',
+    'desc' => _("Positioned of reply text when replying to email on your device."),
+    'enum' => array('bottom' => _("Bottom"), 'top' => _("Top")),
+    'value' => 'bottom',
+);
 
 
 // *** Internal Preferences ***
