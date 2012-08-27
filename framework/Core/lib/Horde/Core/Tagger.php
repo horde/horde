@@ -250,11 +250,13 @@ abstract class Horde_Core_Tagger
      *
      * @param string $user    The user whose tags should be included.
      * @param integer $limit  The maximum number of tags to include.
+     * @param boolean $all    Return all tags, not just tags for the current
+     *                        types.
      *
      * @return An array of hashes, each containing tag_id, tag_name, and count.
      * @throws Horde_Exception
      */
-    public function getCloud($user, $limit = 5)
+    public function getCloud($user, $limit = 5, $all = false)
     {
         try {
             return $GLOBALS['injector']->getInstance('Content_Tagger')
@@ -262,7 +264,7 @@ abstract class Horde_Core_Tagger
                     array(
                         'userId' => $user,
                         'limit' => $limit,
-                        'typeId' => $this->_types
+                        'typeId' => ($all ? null : $this->_types)
                     )
                 );
         } catch (Content_Exception $e) {

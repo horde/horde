@@ -824,7 +824,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         $tagger = new Kronolith_Tagger();
         $result = new stdClass;
         $result->tags = array();
-        $tags = $tagger->getCloud($GLOBALS['registry']->getAuth(), 10);
+        $tags = $tagger->getCloud($GLOBALS['registry']->getAuth(), 10, true);
         foreach ($tags as $tag) {
             $result->tags[] = $tag['tag_name'];
         }
