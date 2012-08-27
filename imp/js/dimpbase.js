@@ -9,7 +9,7 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   expandmbox, pollPE, pp, qsearch_ghost, resize, rownum, search,
+    //   expandmbox, pollPE, pp, resize, rownum, search,
     //   searchbar_time, searchbar_time_mins, splitbar, sort_init, template,
     //   uid, view, viewaction, viewport, viewswitch
 
@@ -2027,6 +2027,20 @@ var DimpBase = {
         return ((id ? id : this.view) == DimpCore.conf.qsearchid);
     },
 
+    searchReset: function(e)
+    {
+        this.quicksearchClear();
+    },
+
+    searchSubmit: function(e)
+    {
+        if ($F('horde-search-input')) {
+            this.quicksearchRun();
+        } else {
+            this.quicksearchClear();
+        }
+    },
+
     quicksearchRun: function()
     {
         var q = $('horde-search-input');
@@ -2070,11 +2084,8 @@ var DimpBase = {
             delete this.search;
 
             $('horde-search-input').clear();
-            if (this.qsearch_ghost) {
-                // Needed because there is no reset method in ghost JS (as of
-                // H4).
-                this.qsearch_ghost.unghost();
-                this.qsearch_ghost.ghost();
+            if (HordeTopbar.searchGhost) {
+                HordeTopbar.searchGhost.reset();
             }
         }
     },
@@ -2083,8 +2094,8 @@ var DimpBase = {
     _setQsearchText: function()
     {
         $('horde-search-input').writeAttribute('title', DimpCore.text.search + ' (' + DimpCore.context.ctx_qsearchby['*' + this._getPref('qsearch_field')] + ')');
-        if (this.qsearch_ghost) {
-            this.qsearch_ghost.refresh();
+        if (HordeTopbar.searchGhost) {
+            HordeTopbar.searchGhost.refresh();
         }
     },
 
@@ -2253,7 +2264,7 @@ var DimpBase = {
     /* Keydown event handler */
     keydownHandler: function(e)
     {
-        var all, cnt, co, form, h, need, pp, ps, r, row, rownum, rowoff, sel,
+        var all, cnt, co, h, need, pp, ps, r, row, rownum, rowoff, sel,
             tmp, vsel, prev,
             elt = e.element(),
             kc = e.keyCode || e.charCode;
@@ -2263,35 +2274,8 @@ var DimpBase = {
             return;
         }
 
-        // Form catching - normally we will ignore, but certain cases we want
-        // to catch.
-        form = e.findElement('FORM');
-        if (form) {
-            switch (kc) {
-            case Event.KEY_ESC:
-            case Event.KEY_TAB:
-                // Catch escapes in search box
-                if (elt.readAttribute('id') == 'horde-search-input') {
-                    if (kc == Event.KEY_ESC || !elt.getValue()) {
-                        this.quicksearchClear();
-                    }
-                    elt.blur();
-                    e.stop();
-                }
-                break;
-
-            case Event.KEY_RETURN:
-                if (elt.readAttribute('id') == 'horde-search-input') {
-                    if ($F('horde-search-input')) {
-                        this.quicksearchRun();
-                    } else {
-                        this.quicksearchClear();
-                    }
-                    e.stop();
-                }
-                break;
-            }
-
+        // Form catching.
+        if (e.findElement('FORM')) {
             return;
         }
 
@@ -3605,7 +3589,6 @@ var DimpBase = {
          * list since it may be disabled if we are in a search mailbox. */
         if ($('horde-search')) {
             this._setQsearchText();
-            this.qsearch_ghost = new FormGhost('horde-search-input');
 
             DimpCore.addContextMenu({
                 elt: $('horde-search-dropdown'),
@@ -3835,6 +3818,10 @@ document.observe('HordeCore:loadingEnd', DimpBase.loadingEndHandler.bindAsEventL
 document.observe('ContextSensitive:click', DimpBase.contextOnClick.bindAsEventListener(DimpBase));
 document.observe('ContextSensitive:show', DimpBase.contextOnShow.bindAsEventListener(DimpBase));
 document.observe('ContextSensitive:trigger', DimpBase.contextOnTrigger.bindAsEventListener(DimpBase));
+
+/* Search handlers. */
+document.observe('FormGhost:reset', DimpBase.searchReset.bindAsEventListener(DimpBase));
+document.observe('FormGhost:submit', DimpBase.searchSubmit.bindAsEventListener(DimpBase));
 
 /* Initialize onload handler. */
 document.observe('dom:loaded', DimpBase.onDomLoad.bind(DimpBase));

@@ -1,16 +1,5 @@
 <div id="kronolithViewWeek" style="display:none">
 
-<table class="kronolithView kronolithViewDay">
-  <caption>
-    <span>&nbsp;</span>
-    <span class="kronolithNavigation">
-      <a class="kronolithPrev" title="<?php echo _("Previous") ?>">&lt;</a>
-      <a class="kronolithGotoToday"><?php echo Horde::highlightAccessKey(_("_Today"), $todayAccessKey) ?></a>
-      <a class="kronolithNext" title="<?php echo _("Next") ?>">&gt;</a>
-    </span>
-  </caption>
-</table>
-
 <div class="kronolithViewHead">
 <table id="kronolithViewWeekHead" class="kronolithView kronolithViewDay">
   <thead><tr>

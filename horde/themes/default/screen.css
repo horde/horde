@@ -29,6 +29,7 @@ input[type=image] {
     border: none;
     vertical-align: middle;
     background: transparent;
+    padding: 0;
 }
 
 .iconImg {
@@ -1799,29 +1800,27 @@ left.horde-point-right{
     width:230px;
     padding:0px 20px 0px 0px;
 }
-#horde-search #horde-input{
-    float:left;
-    width:209px;
-    margin:6px 0px 0px 0px;
-}
 #horde-search form {
     display: inline;
 }
-#horde-search #horde-input input, #horde-search #horde-input .horde-fake-input {
-    width:195px;
+#horde-search #horde-search-input, #horde-search .horde-fake-input {
+    width:200px;
+    margin-top: 6px;
     background: #fff;
     height:20px;
-    font-size:115%;
+    font-size:100%;
     border:0px;
+    float: left;
 }
-#horde-search #horde-input input {
+#horde-search #horde-search-input {
     width:190px;
     padding:0px 5px 0px 5px;
 }
-#horde-search #horde-input .horde-fake-input input {
+#horde-search .horde-fake-input #horde-search-input {
     padding: 0 5px 0 0;
     width: 170px;
-    font-size: 87%;
+    margin: 0;
+    float: none;
 }
 #horde-search span.popdownImg {
     cursor: pointer;
@@ -1829,12 +1828,8 @@ left.horde-point-right{
     width: 16px;
 }
 #horde-search-icon {
-    float:left;
-    width:21px;
-    height:27px;
-    margin:7px 0px 0px 0px;
-    background-image: url('graphics/search-topbar.png');
-    background-repeat:no-repeat;
+    float: left;
+    margin: 7px 0 0 9px;
 }
 #horde-logout{
     float:right;
@@ -1887,6 +1882,7 @@ left.horde-point-right{
  */
 #horde-sidebar {
     background-color: #bfc9cd;
+    padding-bottom: 10px;
 }
 #horde-sidebar a {
     color: #000;
@@ -1925,7 +1921,7 @@ left.horde-point-right{
     background-image: url('graphics/sidebar-split.png');
     background-repeat: no-repeat;
 }
-.horde-new-refresh {
+.horde-new-extra {
     float: right;
     width: 20px;
     height: 24px;
@@ -1933,10 +1929,10 @@ left.horde-point-right{
     background-image: url('graphics/sidebar-refresh.png');
     background-repeat: no-repeat;
 }
-.horde-new-refresh a {
+.horde-new-extra a {
     display: block;
 }
-.horde-new-refresh a:hover {
+.horde-new-extra a:hover {
     text-decoration: none;
 }
 
@@ -1944,9 +1940,9 @@ left.horde-point-right{
  * Sidebar -> Navigation (Icon, Link, Icon)
  */
 .horde-subnavi-split {
-    border-bottom: 1px solid #858889;
-    height: 5px;
-    margin: 0px 0px 6px 0px;
+    border-top: 1px solid #858889;
+    height: 10px;
+    margin: 10px 0 0;
 }
 .horde-subnavi {
     height: 20px;
@@ -2091,7 +2087,7 @@ left.horde-point-right{
 }
 .horde-buttonbar .horde-popdown {
     position: relative;
-    margin: -5px 15px 0 -17px;
+    margin: -5px 10px 0 -12px;
 }
 .horde-buttonbar .horde-nobutton .horde-popdown {
     margin-left: 0;
@@ -2121,17 +2117,17 @@ left.horde-point-right{
     padding: 8px 0 0 0;
     background-position: right top;
 }
-.horde-buttonbar li a, .horde-buttonbar li select {
+.horde-buttonbar li a, .horde-buttonbar li span, .horde-buttonbar li select {
     background-repeat: no-repeat;
-    background-position: 15px center;
-    padding: 7px 17px 7px 15px;
+    background-position: 10px center;
+    padding: 7px 12px 7px 10px;
 }
 .horde-buttonbar li select {
     margin-top: -7px;
     cursor: pointer;
 }
 .horde-buttonbar li.horde-icon a {
-    padding-left: 40px;
+    padding-left: 35px;
 }
 .horde-buttonbar li span.iconImg, .horde-buttonbar li input {
     margin-top: -3px;
@@ -2142,11 +2138,12 @@ left.horde-point-right{
 .horde-buttonbar .rightFloat li {
     background-position: center left;
 }
-.horde-buttonbar li:hover {
+.horde-buttonbar li:hover, .horde-buttonbar li.horde-active {
     background-image: url('graphics/button-split.png'), url('graphics/button-active-bg.png');
     background-repeat: no-repeat, repeat-x;
 }
-.horde-buttonbar .rightFloat li:hover {
+.horde-buttonbar .rightFloat li:hover,
+.horde-buttonbar .rightFloat li.horde-active {
     background-position: center left, center center;
 }
 .horde-buttonbar .horde-hasmenu {

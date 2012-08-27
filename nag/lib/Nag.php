@@ -332,7 +332,7 @@ class Nag
         if ($tasklist === null) {
             $tasklist = self::getDefaultTasklist(Horde_Perms::EDIT);
         } elseif (!self::hasPermission($tasklist, Horde_Perms::EDIT)) {
-            return PEAR::raiseError(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $storage = $GLOBALS['injector']

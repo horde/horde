@@ -342,7 +342,9 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             return $this->_saveEvent($event);
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
-            return $this->_signedResponse($this->_vars->cal);
+            $result = $this->_signedResponse($this->_vars->cal);
+            $result->error = true;
+            return $result;
         }
     }
 
@@ -733,6 +735,37 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
             }
+        }
+
+        return $result;
+    }
+
+    /**
+     * TODO
+     */
+    public function quickSaveTask()
+    {
+        if (!$GLOBALS['registry']->hasMethod('tasks/quickAdd')) {
+            return false;
+        }
+
+        $result = $this->_signedResponse(
+            'tasklists|tasks/' . $this->_vars->tasklist);
+
+        try {
+            $ids = $GLOBALS['registry']->tasks->quickAdd($this->_vars->text);
+            $result->type = 'incomplete';
+            $result->list = $this->_vars->tasklist;
+            $result->tasks = array();
+            foreach ($ids as $uid) {
+                $task = $GLOBALS['registry']->tasks->export($uid, 'raw');
+                $result->tasks[$task->id] = $task->toJson(
+                    false,
+                    $GLOBALS['prefs']->getValue('twentyFour') ? 'H:i' : 'h:i A'
+                );
+            }
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
         }
 
         return $result;

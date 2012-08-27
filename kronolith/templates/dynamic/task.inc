@@ -5,13 +5,13 @@
 
 <div>
   <label for="kronolithTaskTitle"><?php echo _("Task title") ?>:</label><br />
-  <input type="text" name="task[name]" id="kronolithTaskTitle" class="kronolithLongField" />
+  <input type="text" name="task[name]" id="kronolithTaskTitle" class="kronolithLongField" tabindex="1" />
 </div>
 
 <div>
   <label>
     <?php echo _("Priority") ?>:
-    <select name="task[priority]" id="kronolithTaskPriority">
+    <select name="task[priority]" id="kronolithTaskPriority" tabindex="2">
       <?php foreach (array(1 => _("Highest"), 2 => _("High"), 3 => _("Normal"), 4 => _("Low"), 5 => _("Lowest")) as $prio => $label): ?>
       <option value="<?php echo $prio ?>"><?php echo $label ?></option>
       <?php endforeach; ?>
@@ -30,14 +30,14 @@
   <span class="kronolithSeparator">|</span>
   <label>
     <?php echo _("Add to") ?>
-    <select name="task[tasklist]" id="kronolithTaskList">
+    <select name="task[tasklist]" id="kronolithTaskList" tabindex="3">
     </select>
   </label>
 </div>
 
 <div>
   <?php echo _("Mark task as") ?>
-  <input type="checkbox" name="task[completed]" id="kronolithTaskCompleted" value="1" />
+  <input type="checkbox" name="task[completed]" id="kronolithTaskCompleted" value="1" tabindex="4" />
   <label for="kronolithTaskCompleted"><?php echo _("completed") ?></label>
 </div>
 
@@ -51,7 +51,7 @@
 <br class="clear" />
 
 <div id="kronolithTaskTabDescription" class="kronolithTabsOption">
-  <textarea name="task[desc]" id="kronolithTaskDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+  <textarea name="task[desc]" id="kronolithTaskDescription" rows="5" cols="40" class="kronolithLongField" tabindex="5"></textarea>
 </div>
 
 <div id="kronolithTaskTabReminder" class="kronolithTabsOption" style="display:none">
@@ -134,10 +134,23 @@
 </div>
 
 <div class="kronolithFormActions">
-  <input id="kronolithTaskSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
-  <input id="kronolithTaskDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
+  <input id="kronolithTaskSave" type="button" value="<?php echo _("Save") ?>" class="button ok" tabindex="6" />
+  <input id="kronolithTaskDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" tabindex="7" />
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
 </div>
 
 </form>
+</div>
+
+<div id="kronolithQuicktask" class="kronolithQuick" style="display:none;">
+ <h2><?php echo _("Quick Task Creation") ?></h2>
+ <form id="kronolithQuicktaskForm" method="post" action="">
+  <p><?php echo _("Enter one task per line. Create child tasks by indenting them below their parent task. Include due dates like \"laundry tomorrow\" or \"get dry cleaning next Thursday\".") ?></p>
+  <textarea id="kronolithQuicktaskQ"></textarea>
+  <p>
+   <input type="button" id="kronolithQuicktaskSave" class="button ok" value="<?php echo _("Create") ?>" />
+   <span class="kronolithSeparator"><?php echo _("or") ?></span>
+   <a href="#" id="kronolithQuicktaskCancel" class="kronolithFormCancel"><?php echo _("Cancel") ?></a><br />
+  </p>
+ </form>
 </div>
