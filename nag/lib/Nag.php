@@ -818,15 +818,18 @@ class Nag
         if (!$GLOBALS['display_tasklists']) {
             $GLOBALS['display_tasklists'] = array();
         }
-        if (($tasklistId = Horde_Util::getFormData('display_tasklist')) !== null) {
-            if (is_array($tasklistId)) {
-                $GLOBALS['display_tasklists'] = $tasklistId;
-            } else {
+        if (($actionID = Horde_Util::getFormData('actionID')) !== null) {
+            $tasklistId = Horde_Util::getFormData('display_tasklist');
+            switch ($actionID) {
+            case 'add_displaylist':
+                if (!in_array($tasklistId, $GLOBALS['display_tasklists'])) {
+                    $GLOBALS['display_tasklists'][] = $tasklistId;
+                }
+                break;
+            case 'remove_displaylist':
                 if (in_array($tasklistId, $GLOBALS['display_tasklists'])) {
                     $key = array_search($tasklistId, $GLOBALS['display_tasklists']);
                     unset($GLOBALS['display_tasklists'][$key]);
-                } else {
-                    $GLOBALS['display_tasklists'][] = $tasklistId;
                 }
             }
         }
@@ -856,8 +859,16 @@ class Nag
         $GLOBALS['prefs']->setValue('display_tasklists', serialize($GLOBALS['display_tasklists']));
     }
 
+    /**
+     * Generate the Nag menu.
+     *
+     * @return string  The HTML for the menu.
+     */
     static public function menu()
     {
+        // @TODO: Implement an injector factory for this.
+        global $display_tasklists;
+
         $sidebar = Horde::menu(array('menu_ob' => true))->render();
         $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
         if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
@@ -867,6 +878,32 @@ class Nag
                 _("_New Task"),
                 Horde::url('task.php')->add('actionID', 'add_task'));
         }
+
+        $rows = array();
+
+        $sidebar->containers['lists'] = array('rows' => array());
+
+        foreach (Nag::listTaskLists() as $name => $tasklist) {
+            if ($tasklist->get('issmart')) {
+                $link = Horde::url('list.php')->add(array('actionID' => 'smart', 'list' => $name));
+                $sidebar->containers['smart']['rows'][] = array(
+                    'cssClass' => 'nag-smart',
+                    'link' => $link->link() . htmlspecialchars($tasklist->get('name')) . '</a>'
+                );
+            } else {
+                $link = Horde::url('list.php')->add('display_tasklist', $name);
+                if (in_array($name, $display_tasklists)) {
+                    $link->add('actionID', 'remove_displaylist');
+                } else {
+                    $link->add('actionID', 'add_displaylist');
+                }
+                $sidebar->containers['lists']['rows'][] = array(
+                    'cssClass' => (in_array($name, $display_tasklists) ? 'nag-listSelected' : 'nag-listUnselected'),
+                    'link' => $link->link() . htmlspecialchars($tasklist->get('name')) . '</a>');
+            }
+        }
+
+
         Horde::startBuffer();
         include NAG_TEMPLATES . '/quick.inc';
         return $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render()

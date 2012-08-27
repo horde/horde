@@ -77,12 +77,16 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
+     * Generate links in the sidebar.
+     *
+     * @param Horde_Menu  The menu object.
      */
-    public function menu($menu)
+    public function menu(Horde_Menu $menu)
     {
         global $conf, $injector, $page_output;
 
-        $menu->add(Horde::url('list.php'), _("_List Tasks"), 'nag-list', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('tasklists/'), _("Manage Tasklists"), 'nag-managelists', null, null, null, strpos($_SERVER['PHP_SELF'], 'tasklists/index.php') !== false ? 'current' : null);
+        $menu->add(Horde::url('list.php'), _("_List Tasks"), 'nag-list', null, null, null, (basename($_SERVER['PHP_SELF']) == 'list.php' || strpos($_SERVER['PHP_SELF'], 'nag/index.php') !== false) ? 'current' : null);
 
         if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
             ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_tasks') === true ||
