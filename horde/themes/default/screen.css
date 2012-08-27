@@ -365,18 +365,17 @@ pre, code, .fixed, table.lineNumbered * {
 }
 .tooltip, div.nicetitle {
     color: #000;
-    background: #ffc;
-    border: 1px solid #000;
     padding: 5px;
     z-index: 1001;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    background: #eceff0;
+    border: 1px solid #919293;
+    -moz-box-shadow: 3px 3px 3px #888;
+    -webkit-box-shadow: 3px 3px 3px #888;
+    box-shadow: 3px 3px 3px #888;
 }
 div.nicetitle {
     position: absolute;
     overflow: hidden;
-    opacity: .9;
 }
 .inProgress {
     font-size: 80%;
@@ -619,9 +618,6 @@ div.prefsErrorDiv {
     border: 1px solid red;
     display: inline-block;
     padding: 2px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
 }
 
 div.prefsError {
@@ -1060,9 +1056,6 @@ ul.horde-tags {
     margin-right: 4px;
     background-color: #fff;
     border: 1px #999 solid;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
     font-size: 90%;
     font-weight: normal;
     line-height: normal;
@@ -1088,9 +1081,6 @@ ul.horde-tags {
     margin: 5px auto;
     text-align: left;
     display: none;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
     min-height: 20px;
     border-width: 1px;
     border-style: solid;
@@ -1481,9 +1471,6 @@ form.inplaceeditor-form {
 span.loadingImg {
     background: #fff url("graphics/loading.gif") no-repeat center;
     border: 1px #e0e0e0 solid;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
     height: 16px;
     margin: 10px 0 0 10px;
     padding: 3px;

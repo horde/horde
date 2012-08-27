@@ -626,9 +626,6 @@ div.dimpActionsMsg #windowclose {
     display: -moz-inline-stack;
     display: inline-block;
     padding: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
 }
 
 #composeMessageParent {
