@@ -46,6 +46,7 @@
     <li class="activeTab"><a href="#" class="kronolithTabLink" id="kronolithTaskLinkDescription"><?php echo _("Description") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithTaskLinkReminder"><?php echo _("Reminder") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithTaskLinkRecur"><?php echo _("Repeat") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithTaskLinkTags"><?php echo _("Tags") ?></a></li>
   </ul>
 </div>
 <br class="clear" />
@@ -131,6 +132,14 @@
     <label><input type="text" name="recur_count" id="kronolithTaskRecurCount" value="" size="3" class="kronolithEventValue" />', '</label>') ?>
     <br />
   </div>
+</div>
+
+<div id="kronolithTaskTabTags" class="kronolithTabsOption" style="display:none">
+  <div class="kronolithDialogInfo"><?php echo _("To make it easier to find, you can enter comma separated tags related to the task subject.") ?></div>
+  <input id="kronolithTaskTags" name="tags" />
+  <label for="kronolithTaskTopTags"><?php echo _("Previously used tags") ?>:</label><br />
+  <span id="kronolithTaskTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
+  <div class="kronolithTopTags" id="kronolithTaskTopTags"></div>
 </div>
 
 <div class="kronolithFormActions">

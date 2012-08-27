@@ -2525,6 +2525,11 @@ KronolithCore = {
             return;
         }
 
+        if (Object.isUndefined(HordeImple.AutoCompleter.kronolithTaskTags)) {
+            this.editTask.bind(this, tasklist, id, desc).defer();
+            return;
+        }
+
         this.closeRedBox();
         this.quickClose();
         this.redBoxOnDisplay = RedBox.onDisplay;
@@ -2541,6 +2546,7 @@ KronolithCore = {
         this.openTab($('kronolithTaskForm').down('.tabset a.kronolithTabLink'));
         $('kronolithTaskForm').enable();
         $('kronolithTaskForm').reset();
+        HordeImple.AutoCompleter.kronolithTaskTags.reset();
         $('kronolithTaskSave').show().enable();
         $('kronolithTaskDelete').show().enable();
         $('kronolithTaskForm').down('.kronolithFormActions .kronolithSeparator').show();
@@ -2649,6 +2655,8 @@ KronolithCore = {
             this.toggleRecurrence(false, 'None');
         }
 
+        HordeImple.AutoCompleter.kronolithTaskTags.reset(task.t);
+
         if (!task.pe) {
             $('kronolithTaskSave').hide();
             $('kronolithTaskForm').disable();
@@ -2741,6 +2749,7 @@ KronolithCore = {
             start = viewDates[0].dateString(),
             end = viewDates[1].dateString();
 
+        HordeImple.AutoCompleter.kronolithTaskTags.shutdown();
         $('kronolithTaskSave').disable();
         this.startLoading('tasklists|tasks/' + target, start + end + this.tasktype);
         this.loading++;
@@ -4648,6 +4657,11 @@ KronolithCore = {
 
             case 'kronolithCalendarTag':
                 HordeImple.AutoCompleter.kronolithCalendarinternalTags.addNewItemNode(elt.getText());
+                e.stop();
+                break;
+
+            case 'kronolithTaskTag':
+                HordeImple.AutoCompleter.kronolithTaskTags.addNewItemNode(elt.getText());
                 e.stop();
                 break;
 

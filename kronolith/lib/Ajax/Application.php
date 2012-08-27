@@ -701,6 +701,8 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $task['recurrence'] = Kronolith_Event::readRecurrenceForm($due, 'UTC');
         }
 
+        $task['tags'] = Horde_Util::getFormData('tags');
+
         try {
             $ids = ($id && $list)
                 ? $GLOBALS['registry']->tasks->updateTask($list, $id, $task)

@@ -108,6 +108,12 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple
     'triggerContainer' => 'kronolithACCalendarTriggerContainer'
 ));
 
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+    'box' => 'kronolithTaskACBox',
+    'id' => 'kronolithTaskTags',
+    'pretty' => true
+));
+
 $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ContactAutoCompleter', array(
     'box' => 'kronolithAttendeesACBox',
     'id' => 'kronolithEventAttendees',
