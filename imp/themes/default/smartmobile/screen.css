@@ -10,22 +10,19 @@
     font-weight: normal;
     text-align: center;
 }
-.imp-message-atc {
-    margin-bottom: 0;
-}
-.imp-message-date {
+.imp-mailbox-date {
     float: right;
 }
-.imp-message-secondrow {
+.imp-mailbox-secondrow {
     font-size: 80%;
     font-weight: normal;
     padding: 0 40px 11px 15px;
 }
 
-.imp-message-deleted a {
+.imp-mailbox-deleted a {
     text-decoration: line-through !important;
 }
-.imp-message-seen a {
+.imp-mailbox-seen a {
     font-weight: normal;
 }
 
@@ -33,6 +30,9 @@
 .imp-header-label {
     font-weight: bold;
     vertical-align: top;
+}
+.imp-message-atc {
+    margin-bottom: 0;
 }
 #imp-message-date {
     font-size: 90%;

@@ -250,7 +250,7 @@ var ImpMobile = {
                 $.each(data.flag, function(k, flag) {
                     switch (flag) {
                     case IMP.conf.flags.deleted:
-                        c.addClass('imp-message-deleted');
+                        c.addClass('imp-mailbox-deleted');
                         break;
 
                     case IMP.conf.flags.draft:
@@ -258,7 +258,7 @@ var ImpMobile = {
                         break;
 
                     case IMP.conf.flags.seen:
-                        c.addClass('imp-message-seen');
+                        c.addClass('imp-mailbox-seen');
                         break;
                     }
                 });
@@ -267,10 +267,10 @@ var ImpMobile = {
             list.append(
                 c.append(
                     $('<a href="' + url + '">').html(data.subject)).append(
-                    $('<div class="imp-message-secondrow">').append(
-                        $('<span class="imp-message-date">').text(
+                    $('<div class="imp-mailbox-secondrow">').append(
+                        $('<span class="imp-mailbox-date">').text(
                             data.date)).append(
-                        $('<span class="imp-message-from">').text(
+                        $('<span class="imp-mailbox-from">').text(
                             data.from))));
         });
 
