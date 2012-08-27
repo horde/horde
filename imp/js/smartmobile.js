@@ -492,9 +492,6 @@ var ImpMobile = {
             $('#imp-message-redirect').attr(
                 'href',
                 '#compose?type=forward_redirect' + args);
-            $('#imp-message-resume').attr(
-                'href',
-                '#compose?type=editasnew' + args);
         }
 
         if (cache.readonly) {
@@ -580,7 +577,6 @@ var ImpMobile = {
             cache = '#imp-redirect-cache';
             break;
 
-        case 'editasnew':
         case 'resume':
         case 'template':
             func = 'getResumeData';
