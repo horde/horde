@@ -28,7 +28,11 @@ var RedBox = {
     appearWindow: function()
     {
         var loading = $('RB_loading'),
-            opts = { queue: 'end', duration: this.duration },
+            opts = {
+                queue: 'end',
+                duration: this.duration,
+                afterFinish: this.onAppear.bind(this)
+            },
             effects = [], effect;
 
         if (loading && loading.visible()) {
@@ -40,13 +44,20 @@ var RedBox = {
             }
         }
 
-        if (this.onDisplay) {
-            opts.afterFinish = this.onDisplay;
-        }
-
         effects.push(new Effect.Appear($('RB_window'), { sync: true, duration: this.duration }));
         new Effect.Parallel(effects, opts);
         $('RB_window').scrollTo();
+    },
+
+    onAppear: function()
+    {
+        var form = $('RB_window').down('form');
+        if (form) {
+            form.focusFirstElement();
+        }
+        if (this.onDisplay) {
+            this.onDisplay();
+        }
     },
 
     loading: function()
