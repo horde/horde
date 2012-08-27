@@ -124,7 +124,7 @@ class Horde_Themes_Element
                     ? 0
                     : Horde_Themes_Cache::APP_DEFAULT | Horde_Themes_Cache::APP_THEME;
 
-                $this->_data = $cache->get($this->_dirname . '/' . $this->_name, $mask);
+                $this->_data = $cache->get((strlen($this->_dirname) ? $this->_dirname . '/' : '') . $this->_name, $mask);
             }
         }
 
