@@ -14,7 +14,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first beta release of the Turba
+The Horde Team is pleased to announce the second beta release of the Turba
 Contact Manager version H5 (4.0.0).
 
 Turba is the Horde contact management application. Leveraging the Horde
@@ -31,16 +31,15 @@ We encourage widespread testing and feedback via the mailing lists or our bug
 tracking system. Updated translations are very welcome, though some strings
 might still change before the release candidates are prepared.
 
-The major changes compared to the Turba version H5 (4.0.0alpha1) are:
-    * Updated icon set.
-    * Added Kolab/IMAP configuration example.
-    * Small bugfixes.
+The major changes compared to the Turba version H5 (4.0.0beta1) are:
+    * More interface improvements.
+    * Further bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Updated icon set.
-Small bugfixes.
+More interface improvements.
+Further bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Turba';

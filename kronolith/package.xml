@@ -25,12 +25,12 @@
  <date>2012-08-28</date>
  <time>15:21:56</time>
  <version>
-  <release>4.0.0alpha1</release>
-  <api>4.0.0alpha1</api>
+  <release>4.0.0beta1</release>
+  <api>4.0.0beta1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -788,7 +788,7 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.0</min>
+    <min>5.0.0beta5</min>
     <max>6.0.0alpha1</max>
     <exclude>6.0.0alpha1</exclude>
    </package>
@@ -809,7 +809,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0beta5</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -963,7 +963,7 @@
    <package>
     <name>Horde_Timezone</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
+    <min>1.0.0beta1</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -1003,6 +1003,13 @@
    </extension>
   </required>
   <optional>
+   <package>
+    <name>nag</name>
+    <channel>pear.horde.org</channel>
+    <min>4.0.0beta1</min>
+    <max>5.0.0alpha1</max>
+    <exclude>5.0.0alpha1</exclude>
+   </package>
    <package>
     <name>timeobjects</name>
     <channel>pear.horde.org</channel>
@@ -1897,8 +1904,8 @@
    <date>2012-08-28</date>
    <time>17:24:36</time>
    <version>
-    <release>4.0.0alpha1</release>
-    <api>4.0.0alpha1</api>
+    <release>4.0.0beta1</release>
+    <api>4.0.0beta1</api>
    </version>
    <stability>
     <release>alpha</release>

@@ -97,18 +97,18 @@ install any dependencies of Kronolith too. If you want to install Kronolith
 with all optional dependencies, but without the binary PECL packages that need
 to be compiled, specify both the ``-a`` and the ``-B`` flag::
 
-   pear install -a -B horde/kronolith
+   pear install -a -B horde/kronolith-beta
 
 By default, only the required dependencies will be installed::
 
-   pear install horde/kronolith
+   pear install horde/kronolith-beta
 
 If you want to install Kronolith even with all binary dependencies, you need to
 remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
-   pear install -a horde/kronolith
+   pear install -a horde/kronolith-beta
 
 Installing from Git
 ~~~~~~~~~~~~~~~~~~~
