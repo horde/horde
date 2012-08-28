@@ -22,6 +22,8 @@
  * @package   Mail
  *
  * @property string $bare_address  The bare mailbox@host address.
+ * @property string $base_domain  The base domain of the host part (1st
+ *                                subdomain + TLD) (UTF-8).
  * @property string $encoded  The full MIME/IDN encoded address (UTF-8).
  * @property string $host  Returns the host part (UTF-8).
  * @property string $host_idn  Returns the IDN encoded host part.
@@ -110,6 +112,11 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
             return is_null($this->host)
                 ? $this->mailbox
                 : $this->mailbox . '@' . $this->host;
+
+        case 'base_domain':
+            return is_null($this->host)
+                ? ''
+                : implode('.', array_slice(explode('.', $this->host), -2));
 
         case 'encoded':
             return $this->writeAddress(true);
