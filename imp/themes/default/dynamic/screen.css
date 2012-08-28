@@ -82,6 +82,7 @@ input {
 div.msgStatus {
     padding-left: 10px;
     width: 70px;
+    text-decoration: none !important;
     text-indent: 0 !important;
 }
 div.msgFrom {
