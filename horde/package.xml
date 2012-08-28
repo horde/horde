@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-07</date>
- <time>16:17:25</time>
+ <date>2012-08-28</date>
+ <time>15:21:52</time>
  <version>
   <release>5.0.0beta5</release>
   <api>5.0.0beta1</api>
@@ -258,9 +258,6 @@
      <file name="OpenLayers-debug.js" role="horde" />
      <file name="OpenLayers.js" role="horde" />
      <file name="osm.js" role="horde" />
-     <file name="public.js" role="horde" />
-     <file name="tilesathome.js" role="horde" />
-     <file name="ve.js" role="horde" />
      <file name="yahoo.js" role="horde" />
     </dir> <!-- /js/map -->
     <dir name="plupload">
@@ -1629,10 +1626,14 @@
       <file name="az.png" role="horde" />
       <file name="blank.gif" role="horde" />
       <file name="block.png" role="horde" />
+      <file name="button-active-bg.png" role="horde" />
       <file name="button-split.png" role="horde" />
       <file name="buttonbar-bg.png" role="horde" />
       <file name="calendar.png" role="horde" />
+      <file name="checkbox_off.png" role="horde" />
+      <file name="checkbox_on.png" role="horde" />
       <file name="close.png" role="horde" />
+      <file name="collapse.png" role="horde" />
       <file name="color-picker-cursor.gif" role="horde" />
       <file name="color-picker-palette.png" role="horde" />
       <file name="color-picker-resize.gif" role="horde" />
@@ -1644,8 +1645,11 @@
       <file name="delete.png" role="horde" />
       <file name="devel.png" role="horde" />
       <file name="download.png" role="horde" />
+      <file name="edit-sidebar-000.png" role="horde" />
+      <file name="edit-sidebar-fff.png" role="horde" />
       <file name="edit-small.png" role="horde" />
       <file name="edit.png" role="horde" />
+      <file name="expand.png" role="horde" />
       <file name="external.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="feed.png" role="horde" />
@@ -1685,6 +1689,7 @@
       <file name="organizing.png" role="horde" />
       <file name="perms.png" role="horde" />
       <file name="phone.png" role="horde" />
+      <file name="plus-sidebar.png" role="horde" />
       <file name="plus.png" role="horde" />
       <file name="popdown.png" role="horde" />
       <file name="popright.png" role="horde" />
@@ -1696,6 +1701,7 @@
       <file name="required.png" role="horde" />
       <file name="rhand.png" role="horde" />
       <file name="save.png" role="horde" />
+      <file name="search-topbar.png" role="horde" />
       <file name="search.png" role="horde" />
       <file name="settings-active.png" role="horde" />
       <file name="settings.png" role="horde" />
@@ -2178,9 +2184,6 @@
    <install as="js/map/OpenLayers-debug.js" name="js/map/OpenLayers-debug.js" />
    <install as="js/map/OpenLayers.js" name="js/map/OpenLayers.js" />
    <install as="js/map/osm.js" name="js/map/osm.js" />
-   <install as="js/map/public.js" name="js/map/public.js" />
-   <install as="js/map/tilesathome.js" name="js/map/tilesathome.js" />
-   <install as="js/map/ve.js" name="js/map/ve.js" />
    <install as="js/map/yahoo.js" name="js/map/yahoo.js" />
    <install as="js/map/img/blank.gif" name="js/map/img/blank.gif" />
    <install as="js/map/img/cloud-popup-relative.png" name="js/map/img/cloud-popup-relative.png" />
@@ -2615,10 +2618,14 @@
    <install as="themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="themes/default/graphics/blank.gif" name="themes/default/graphics/blank.gif" />
    <install as="themes/default/graphics/block.png" name="themes/default/graphics/block.png" />
+   <install as="themes/default/graphics/button-active-bg.png" name="themes/default/graphics/button-active-bg.png" />
    <install as="themes/default/graphics/button-split.png" name="themes/default/graphics/button-split.png" />
    <install as="themes/default/graphics/buttonbar-bg.png" name="themes/default/graphics/buttonbar-bg.png" />
    <install as="themes/default/graphics/calendar.png" name="themes/default/graphics/calendar.png" />
+   <install as="themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
+   <install as="themes/default/graphics/checkbox_on.png" name="themes/default/graphics/checkbox_on.png" />
    <install as="themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
+   <install as="themes/default/graphics/collapse.png" name="themes/default/graphics/collapse.png" />
    <install as="themes/default/graphics/color-picker-cursor.gif" name="themes/default/graphics/color-picker-cursor.gif" />
    <install as="themes/default/graphics/color-picker-palette.png" name="themes/default/graphics/color-picker-palette.png" />
    <install as="themes/default/graphics/color-picker-resize.gif" name="themes/default/graphics/color-picker-resize.gif" />
@@ -2630,8 +2637,11 @@
    <install as="themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="themes/default/graphics/devel.png" name="themes/default/graphics/devel.png" />
    <install as="themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
+   <install as="themes/default/graphics/edit-sidebar-000.png" name="themes/default/graphics/edit-sidebar-000.png" />
+   <install as="themes/default/graphics/edit-sidebar-fff.png" name="themes/default/graphics/edit-sidebar-fff.png" />
    <install as="themes/default/graphics/edit-small.png" name="themes/default/graphics/edit-small.png" />
    <install as="themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
+   <install as="themes/default/graphics/expand.png" name="themes/default/graphics/expand.png" />
    <install as="themes/default/graphics/external.png" name="themes/default/graphics/external.png" />
    <install as="themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="themes/default/graphics/feed.png" name="themes/default/graphics/feed.png" />
@@ -2671,6 +2681,7 @@
    <install as="themes/default/graphics/organizing.png" name="themes/default/graphics/organizing.png" />
    <install as="themes/default/graphics/perms.png" name="themes/default/graphics/perms.png" />
    <install as="themes/default/graphics/phone.png" name="themes/default/graphics/phone.png" />
+   <install as="themes/default/graphics/plus-sidebar.png" name="themes/default/graphics/plus-sidebar.png" />
    <install as="themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
    <install as="themes/default/graphics/popdown.png" name="themes/default/graphics/popdown.png" />
    <install as="themes/default/graphics/popright.png" name="themes/default/graphics/popright.png" />
@@ -2682,6 +2693,7 @@
    <install as="themes/default/graphics/required.png" name="themes/default/graphics/required.png" />
    <install as="themes/default/graphics/rhand.png" name="themes/default/graphics/rhand.png" />
    <install as="themes/default/graphics/save.png" name="themes/default/graphics/save.png" />
+   <install as="themes/default/graphics/search-topbar.png" name="themes/default/graphics/search-topbar.png" />
    <install as="themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="themes/default/graphics/settings-active.png" name="themes/default/graphics/settings-active.png" />
    <install as="themes/default/graphics/settings.png" name="themes/default/graphics/settings.png" />
@@ -3853,7 +3865,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-07</date>
+   <date>2012-08-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix cancelling problem report.

@@ -1793,6 +1793,67 @@ left.horde-point-right {
     text-decoration: none;
 }
 
+#horde-sidebar h3 {
+    height: 12px;
+    margin: 0 10px;
+    font-size: 100%;
+    font-weight: bold;
+    cursor: default;
+}
+#horde-sidebar a.horde-add {
+    float: right;
+    margin-top: -2px;
+    height: 17px;
+    width: 16px;
+    background: transparent url("graphics/plus-sidebar.png") no-repeat right center;
+    text-indent: -10000px;
+    cursor: pointer;
+}
+.horde-collapse,
+.horde-expand {
+    padding-left: 26px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.horde-collapse {
+    background-image: url("graphics/collapse.png");
+    background-position: left 2px;
+}
+.horde-expand {
+    background-image: url("graphics/expand.png");
+    background-position: left 1px;
+}
+#horde-sidebar div.horde-resources {
+    margin-top: 10px;
+}
+#horde-sidebar div.horde-resources div {
+    min-height: 15px;
+    margin: 5px 0;
+    padding: 3px 0 3px 36px;
+    background: transparent url("graphics/checkbox_off.png") 10px 2px no-repeat;
+    cursor: pointer;
+}
+#horde-sidebar div.horde-resources div.horde-resource-on {
+    background-image: url("graphics/checkbox_on.png");
+}
+#horde-sidebar div.horde-resources div.horde-resource-over {
+    text-decoration: underline;
+}
+#horde-sidebar div.horde-resources .horde-resource-edit-000,
+#horde-sidebar div.horde-resources .horde-resource-edit-fff {
+    float: right;
+    display: block;
+    background: url("graphics/edit-sidebar-000.png") no-repeat;
+    margin: 2px 10px 0 0;
+    width: 17px;
+    height: 17px;
+    text-indent: -10000px;
+    cursor: pointer;
+}
+#horde-sidebar div.horde-resources .horde-resource-edit-fff {
+    background-image: url("graphics/edit-sidebar-fff.png");
+}
+
 .horde-subnavi-split {
     border-top: 1px solid #858889;
     height: 10px;

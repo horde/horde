@@ -42,6 +42,15 @@ class Horde_View_Sidebar extends Horde_View
 
         $this->containers = array();
         $this->width = $GLOBALS['prefs']->getValue('sidebar_width');
+
+        $pageOutput = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $pageOutput->addScriptFile('sidebar.js', 'horde');
+        $pageOutput->addInlineJsVars(array('HordeSidebar.text' =>
+            Horde_Serialize::serialize(array(
+                'collapse' => _("Collapse"),
+                'expand' => _("Expand"),
+            ), Horde_Serialize::JSON)
+        ));
     }
 
     /**

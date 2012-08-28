@@ -87,66 +87,6 @@ html, body {
 #kronolithLoadingCalendars {
     padding-left: 10px;
 }
-#kronolithMenu h3 {
-    height: 12px;
-    margin: 0 10px;
-    font-size: 100%;
-    font-weight: bold;
-    cursor: default;
-}
-.kronolithToggleCollapse,
-.kronolithToggleExpand {
-    padding-left: 26px;
-    background-repeat: no-repeat;
-    cursor: pointer;
-}
-.kronolithToggleCollapse {
-    background-image: url("../graphics/collapse.png");
-    background-position: left 2px;
-}
-.kronolithToggleExpand {
-    background-image: url("../graphics/expand.png");
-    background-position: left 1px;
-}
-#kronolithMenu a.kronolithAdd {
-    float: right;
-    margin-top: -2px;
-    height: 17px;
-    width: 16px;
-    background: transparent url("../graphics/plus-sidebar.png") no-repeat right center;
-    text-indent: -10000px;
-    cursor: pointer;
-}
-#kronolithMenu div.kronolithCalendars {
-    margin-top: 10px;
-}
-#kronolithMenu div.kronolithCalendars div {
-    min-height: 15px;
-    margin: 5px 0;
-    padding: 3px 0 3px 36px;
-    background: transparent url("../graphics/checkbox_off.png") 10px 2px no-repeat;
-    cursor: pointer;
-}
-#kronolithMenu div.kronolithCalendars div.kronolithCalOn {
-    background-image: url("../graphics/checkbox_on.png");
-}
-#kronolithMenu div.kronolithCalendars div.kronolithCalOver {
-    text-decoration: underline;
-}
-#kronolithMenu div.kronolithCalendars .kronolithCalEdit-000,
-#kronolithMenu div.kronolithCalendars .kronolithCalEdit-fff {
-    float: right;
-    display: block;
-    background: url("../graphics/editbig-000.png") no-repeat;
-    margin: 2px 10px 0 0;
-    width: 17px;
-    height: 17px;
-    text-indent: -10000px;
-    cursor: pointer;
-}
-#kronolithMenu div.kronolithCalendars .kronolithCalEdit-fff {
-    background-image: url("../graphics/editbig-fff.png");
-}
 .horde-new-extra {
     background: none;
 }

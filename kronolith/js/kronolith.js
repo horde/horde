@@ -948,11 +948,11 @@ KronolithCore = {
             noItems.hide();
         }
         if (type != 'holiday' && type != 'external') {
-            div.insert(new Element('span', { className: 'kronolithCalEdit-' + cal.fg.substring(1) })
+            div.insert(new Element('span', { className: 'horde-resource-edit-' + cal.fg.substring(1) })
                    .setStyle({ backgroundColor: cal.bg, color: cal.fg })
                    .insert('&#9658;'));
         }
-        calendar = new Element('div', { className: cal.show ? 'kronolithCalOn' : 'kronolithCalOff' })
+        calendar = new Element('div', { className: cal.show ? 'horde-resource-on' : 'horde-resource-off' })
             .store('calendar', id)
             .store('calendarclass', type)
             .setStyle({ backgroundColor: cal.bg, color: cal.fg })
@@ -1018,9 +1018,9 @@ KronolithCore = {
                 .insert(new Element('div', { className: 'horde-subnavi-split' }))
                 .insert(new Element('div', { className: 'horde-sidebar-folder' })
                         .insert(new Element('h3')
-                                .insert(new Element('span', { className: 'kronolithToggleExpand', title: Kronolith.text.expand })
+                                .insert(new Element('span', { className: 'horde-expand', title: HordeSidebar.text.expand })
                                         .insert({ bottom: extNames.get(api.key).escapeHTML() })))
-                        .insert(new Element('div', { id: 'kronolithExternalCalendar' + api.key, className: 'kronolithCalendars', style: 'display:none' })));
+                        .insert(new Element('div', { id: 'kronolithExternalCalendar' + api.key, className: 'horde-resources', style: 'display:none' })));
             api.value.each(function(cal) {
                 this.insertCalendarInList('external', api.key + '/' + cal.key, cal.value, $('kronolithExternalCalendar' + api.key));
             }, this);
@@ -1101,8 +1101,8 @@ KronolithCore = {
         });
 
         Kronolith.conf.calendars[type][calendar].show = !Kronolith.conf.calendars[type][calendar].show;
-        elt.toggleClassName('kronolithCalOn');
-        elt.toggleClassName('kronolithCalOff');
+        elt.toggleClassName('horde-resource-on');
+        elt.toggleClassName('horde-resource-off');
 
         switch (this.view) {
         case 'month':
@@ -1116,7 +1116,7 @@ KronolithCore = {
                 });
                 if (this.view == 'month' && Kronolith.conf.max_events) {
                     var dates = this.viewDates(this.date, this.view);
-                    if (elt.hasClassName('kronolithCalOff')) {
+                    if (elt.hasClassName('horde-resource-off')) {
                         var day, more, events, calendars = [];
                         $H(Kronolith.conf.calendars).each(function(type) {
                             $H(type.value).each(function(cal) {
@@ -1171,7 +1171,7 @@ KronolithCore = {
                 break;
             }
             var tasklist = calendar.substr(6);
-            if (elt.hasClassName('kronolithCalOff')) {
+            if (elt.hasClassName('horde-resource-off')) {
                 $('kronolithViewTasksBody').select('tr').findAll(function(el) {
                     return el.retrieve('tasklist') == tasklist;
                 }).invoke('remove');
@@ -4628,23 +4628,9 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithAdd':
+            case 'horde-add':
                 this.go('calendar:' + id.replace(/kronolithAdd/, ''));
                 e.stop();
-                return;
-
-            case 'kronolithToggleCollapse':
-                elt.up().next().blindUp();
-                elt.title = Kronolith.text.expand;
-                elt.removeClassName('kronolithToggleCollapse');
-                elt.addClassName('kronolithToggleExpand');
-                return;
-
-            case 'kronolithToggleExpand':
-                elt.up().next().blindDown();
-                elt.title = Kronolith.text.collapse;
-                elt.removeClassName('kronolithToggleExpand');
-                elt.addClassName('kronolithToggleCollapse');
                 return;
 
             case 'kronolithTabLink':
@@ -4687,8 +4673,8 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithCalEdit-000':
-            case 'kronolithCalEdit-fff':
+            case 'horde-resource-edit-000':
+            case 'horde-resource-edit-fff':
                 this.go('calendar:' + elt.next().retrieve('calendarclass') + '|' + elt.next().retrieve('calendar'));
                 e.stop();
                 return;
@@ -6527,11 +6513,7 @@ KronolithCore = {
     {
         Kronolith.conf.calendars = r.calendars;
         this.updateCalendarList();
-        $('kronolithMenu').select('div.kronolithCalendars div').each(function(s) {
-            console.log(s);
-            s.observe('mouseover', s.addClassName.curry('kronolithCalOver'));
-            s.observe('mouseout', s.removeClassName.curry('kronolithCalOver'));
-        });
+        HordeSidebar.refreshEvents();
         $('kronolithLoadingCalendars').hide();
         $('kronolithMenuCalendars').show();
 

@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-27</date>
- <time>18:21:56</time>
+ <date>2012-08-28</date>
+ <time>15:21:56</time>
  <version>
   <release>4.0.0alpha1</release>
   <api>4.0.0alpha1</api>
@@ -693,11 +693,8 @@
       <file name="big_invitation.png" role="horde" />
       <file name="big_share.png" role="horde" />
       <file name="calendars.png" role="horde" />
-      <file name="checkbox_off.png" role="horde" />
-      <file name="checkbox_on.png" role="horde" />
       <file name="checkbox_over.png" role="horde" />
       <file name="close.png" role="horde" />
-      <file name="collapse.png" role="horde" />
       <file name="dayview.png" role="horde" />
       <file name="delete-000.png" role="horde" />
       <file name="delete-fff.png" role="horde" />
@@ -705,11 +702,8 @@
       <file name="drag-handle.png" role="horde" />
       <file name="edit-000.png" role="horde" />
       <file name="edit-fff.png" role="horde" />
-      <file name="editbig-000.png" role="horde" />
-      <file name="editbig-fff.png" role="horde" />
       <file name="exception-000.png" role="horde" />
       <file name="exception-fff.png" role="horde" />
-      <file name="expand.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="goto.png" role="horde" />
       <file name="help.png" role="horde" />
@@ -725,7 +719,6 @@
       <file name="new_small_fade.png" role="horde" />
       <file name="new_task.png" role="horde" />
       <file name="picker.png" role="horde" />
-      <file name="plus-sidebar.png" role="horde" />
       <file name="plus.png" role="horde" />
       <file name="prefs.png" role="horde" />
       <file name="print.png" role="horde" />
@@ -1417,11 +1410,8 @@
    <install as="kronolith/themes/default/graphics/big_invitation.png" name="themes/default/graphics/big_invitation.png" />
    <install as="kronolith/themes/default/graphics/big_share.png" name="themes/default/graphics/big_share.png" />
    <install as="kronolith/themes/default/graphics/calendars.png" name="themes/default/graphics/calendars.png" />
-   <install as="kronolith/themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
-   <install as="kronolith/themes/default/graphics/checkbox_on.png" name="themes/default/graphics/checkbox_on.png" />
    <install as="kronolith/themes/default/graphics/checkbox_over.png" name="themes/default/graphics/checkbox_over.png" />
    <install as="kronolith/themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
-   <install as="kronolith/themes/default/graphics/collapse.png" name="themes/default/graphics/collapse.png" />
    <install as="kronolith/themes/default/graphics/dayview.png" name="themes/default/graphics/dayview.png" />
    <install as="kronolith/themes/default/graphics/delete-000.png" name="themes/default/graphics/delete-000.png" />
    <install as="kronolith/themes/default/graphics/delete-fff.png" name="themes/default/graphics/delete-fff.png" />
@@ -1429,11 +1419,8 @@
    <install as="kronolith/themes/default/graphics/drag-handle.png" name="themes/default/graphics/drag-handle.png" />
    <install as="kronolith/themes/default/graphics/edit-000.png" name="themes/default/graphics/edit-000.png" />
    <install as="kronolith/themes/default/graphics/edit-fff.png" name="themes/default/graphics/edit-fff.png" />
-   <install as="kronolith/themes/default/graphics/editbig-000.png" name="themes/default/graphics/editbig-000.png" />
-   <install as="kronolith/themes/default/graphics/editbig-fff.png" name="themes/default/graphics/editbig-fff.png" />
    <install as="kronolith/themes/default/graphics/exception-000.png" name="themes/default/graphics/exception-000.png" />
    <install as="kronolith/themes/default/graphics/exception-fff.png" name="themes/default/graphics/exception-fff.png" />
-   <install as="kronolith/themes/default/graphics/expand.png" name="themes/default/graphics/expand.png" />
    <install as="kronolith/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="kronolith/themes/default/graphics/goto.png" name="themes/default/graphics/goto.png" />
    <install as="kronolith/themes/default/graphics/help.png" name="themes/default/graphics/help.png" />
@@ -1449,7 +1436,6 @@
    <install as="kronolith/themes/default/graphics/new_small_fade.png" name="themes/default/graphics/new_small_fade.png" />
    <install as="kronolith/themes/default/graphics/new_task.png" name="themes/default/graphics/new_task.png" />
    <install as="kronolith/themes/default/graphics/picker.png" name="themes/default/graphics/picker.png" />
-   <install as="kronolith/themes/default/graphics/plus-sidebar.png" name="themes/default/graphics/plus-sidebar.png" />
    <install as="kronolith/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
    <install as="kronolith/themes/default/graphics/prefs.png" name="themes/default/graphics/prefs.png" />
    <install as="kronolith/themes/default/graphics/print.png" name="themes/default/graphics/print.png" />
@@ -1908,7 +1894,7 @@
    </notes>
   </release>
   <release>
-   <date>2012-08-27</date>
+   <date>2012-08-28</date>
    <time>17:24:36</time>
    <version>
     <release>4.0.0alpha1</release>
