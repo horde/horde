@@ -1,4 +1,4 @@
-<div class="horde-sidebar-folder">
+<div>
   <div id="kronolithMinical" class="kronolithMinical">
     <table>
       <thead>
@@ -22,7 +22,7 @@
 
 <div id="kronolithMenu">
   <div class="horde-subnavi-split"></div>
-  <div class="horde-sidebar-folder">
+  <div>
     <div id="kronolithLoadingCalendars">
       <?php echo _("Loading calendars...") ?>
     </div>
@@ -40,7 +40,7 @@
 
     <?php if (Kronolith::hasApiPermission('tasks')): ?>
     <div class="horde-subnavi-split"></div>
-    <div class="horde-sidebar-folder">
+    <div>
       <h3>
         <?php if ($this->newShares): ?>
         <a href="#" id="kronolithAddtasklists" class="horde-add" title="<?php echo _("New Task List") ?>">+</a>
@@ -53,7 +53,7 @@
     <?php endif; ?>
 
     <div class="horde-subnavi-split"></div>
-    <div class="horde-sidebar-folder">
+    <div>
       <h3>
         <!-- to be added when searching for shared calendars is implemented <a href="#" id="kronolithAddinternalshared" class="horde-add">+</a>-->
         <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Shared Calendars") ?></span>
@@ -67,7 +67,7 @@
 
     <?php if (Kronolith::hasApiPermission('tasks')): ?>
     <div class="horde-subnavi-split"></div>
-    <div class="horde-sidebar-folder">
+    <div>
       <h3>
         <!-- to be added when searching for shared calendars is implemented <a href="#" id="kronolithAddtasklistsshared" class="horde-add">+</a>-->
         <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Shared Task Lists") ?></span>
@@ -81,7 +81,7 @@
     <?php endif ?>
 
     <div class="horde-subnavi-split"></div>
-    <div class="horde-sidebar-folder">
+    <div>
       <h3>
         <?php if ($this->isAdmin): ?>
         <a href="#" id="kronolithAddresource" class="horde-add" title="<?php echo _("Add Resource") ?>">+</a>
@@ -94,7 +94,7 @@
     <div id="kronolithExternalCalendars"></div>
 
     <div class="horde-subnavi-split"></div>
-    <div class="horde-sidebar-folder">
+    <div>
       <h3>
         <a href="#" id="kronolithAddremote" class="horde-add" title="<?php echo _("Add Remote Calendar") ?>">+</a>
         <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Remote Calendars") ?></span>
@@ -107,7 +107,7 @@
     </div>
 
     <div class="horde-subnavi-split"></div>
-    <div class="horde-sidebar-folder">
+    <div>
       <h3>
         <a href="#" id="kronolithAddholiday" class="horde-add" title="<?php echo _("Add Holidays") ?>">+</a>
         <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Holidays") ?></span>

@@ -3183,7 +3183,8 @@ var DimpBase = {
         } else {
             parent_e.insert(li);
             if (this.expandmbox &&
-                !parent_e.hasClassName('horde-sidebar-folder')) {
+                parent_e.id != 'imp-specialmboxes' &&
+                parent_e.id != 'imp-normalmboxes') {
                 tmp2 = parent_e.previous();
                 if (!Object.isElement(this.expandmbox) ||
                     this.expandmbox != tmp2) {
