@@ -309,6 +309,7 @@ extends PHPUnit_Framework_TestCase
         $share->save();
         $this->assertEquals(
             array(
+                'namespace' => 'personal',
                 'other' => 'OTHER',
                 'share_name' => 'internal_id'
             ),
@@ -610,7 +611,7 @@ extends PHPUnit_Framework_TestCase
         $driver = $this->_getDriver('kronolith');
         $this->storage = $factory->create();
         $this->list = $this->storage->getList();
-        $this->list->synchronize();
+        $this->list->getListSynchronization()->synchronize();
         $driver->setStorage($this->storage);
         return $driver;
     }
