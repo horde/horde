@@ -68,8 +68,7 @@
    </div>
 
 <?php if (strlen($this->title)): ?>
-   <p><?php echo $this->h($this->title) ?></p>
-   <p>&nbsp;</p>
+   <div class="msgwritehdr"><?php echo $this->h($this->title) ?></div>
 <?php endif; ?>
 
    <table>
