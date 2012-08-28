@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>23:32:50</time>
+ <date>2012-08-28</date>
+ <time>09:06:13</time>
  <version>
   <release>2.0.0beta2</release>
   <api>1.1.0</api>
@@ -34,6 +34,10 @@
        <dir name="examples">
         <file name="list.php" role="doc" />
        </dir> <!-- /doc/Horde/Kolab/Storage/examples -->
+       <dir name="OLD">
+        <file name="Folder.php" role="doc" />
+        <file name="Trigger.php" role="doc" />
+       </dir> <!-- /doc/Horde/Kolab/Storage/OLD -->
        <file name="API.txt" role="doc" />
        <file name="COPYING" role="doc" />
        <file name="TODO" role="doc" />
@@ -48,7 +52,6 @@
       <dir name="Storage">
        <dir name="Cache">
         <file name="Data.php" role="php" />
-        <file name="List.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Cache -->
        <dir name="Data">
         <dir name="Decorator">
@@ -104,10 +107,6 @@
         <file name="Pear.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Exception -->
        <dir name="Folder">
-        <dir name="Decorator">
-         <file name="Base.php" role="php" />
-         <file name="Trigger.php" role="php" />
-        </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Decorator -->
         <dir name="Namespace">
          <dir name="Element">
           <file name="Other.php" role="php" />
@@ -124,15 +123,26 @@
          <file name="Uids.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Stamp -->
         <file name="Base.php" role="php" />
+        <file name="Data.php" role="php" />
         <file name="Namespace.php" role="php" />
         <file name="Stamp.php" role="php" />
         <file name="Type.php" role="php" />
+        <file name="Types.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Folder -->
        <dir name="List">
+        <dir name="Cache">
+         <file name="Base.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/List/Cache -->
         <dir name="Decorator">
          <file name="Cache.php" role="php" />
-         <file name="Log.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/List/Decorator -->
+        <dir name="Manipulation">
+         <dir name="Decorator">
+          <file name="Log.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Storage/List/Manipulation/Decorator -->
+         <file name="Base.php" role="php" />
+         <file name="Listener.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/List/Manipulation -->
         <dir name="Query">
          <dir name="Acl">
           <file name="Base.php" role="php" />
@@ -143,8 +153,16 @@
           <file name="Cache.php" role="php" />
          </dir> <!-- /lib/Horde/Kolab/Storage/List/Query/ActiveSync -->
          <dir name="List">
+          <dir name="Cache">
+           <file name="Synchronization.php" role="php" />
+          </dir> <!-- /lib/Horde/Kolab/Storage/List/Query/List/Cache -->
+          <dir name="Defaults">
+           <file name="Bail.php" role="php" />
+           <file name="Log.php" role="php" />
+          </dir> <!-- /lib/Horde/Kolab/Storage/List/Query/List/Defaults -->
           <file name="Base.php" role="php" />
           <file name="Cache.php" role="php" />
+          <file name="Defaults.php" role="php" />
          </dir> <!-- /lib/Horde/Kolab/Storage/List/Query/List -->
          <dir name="Share">
           <file name="Base.php" role="php" />
@@ -155,8 +173,19 @@
          <file name="List.php" role="php" />
          <file name="Share.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/List/Query -->
-        <file name="Base.php" role="php" />
+        <dir name="Synchronization">
+         <dir name="Decorator">
+          <file name="Log.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Storage/List/Synchronization/Decorator -->
+         <file name="Base.php" role="php" />
+         <file name="Listener.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/List/Synchronization -->
+        <file name="Cache.php" role="php" />
+        <file name="Exception.php" role="php" />
+        <file name="Manipulation.php" role="php" />
         <file name="Query.php" role="php" />
+        <file name="Synchronization.php" role="php" />
+        <file name="Tools.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/List -->
        <dir name="QuerySet">
         <file name="Base.php" role="php" />
@@ -452,6 +481,20 @@
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Storage">
+       <dir name="ComponentTest">
+        <dir name="List">
+         <dir name="Query">
+          <dir name="Acl">
+           <file name="BaseTest.php" role="test" />
+          </dir> <!-- /test/Horde/Kolab/Storage/ComponentTest/List/Query/Acl -->
+          <dir name="List">
+           <file name="BaseTest.php" role="test" />
+           <file name="CacheTest.php" role="test" />
+          </dir> <!-- /test/Horde/Kolab/Storage/ComponentTest/List/Query/List -->
+         </dir> <!-- /test/Horde/Kolab/Storage/ComponentTest/List/Query -->
+         <file name="CacheTest.php" role="test" />
+        </dir> <!-- /test/Horde/Kolab/Storage/ComponentTest/List -->
+       </dir> <!-- /test/Horde/Kolab/Storage/ComponentTest -->
        <dir name="fixtures">
         <file name="broken_note.eml" role="test" />
         <file name="event.1.xml.qp" role="test" />
@@ -472,7 +515,6 @@
        <dir name="Unit">
         <dir name="Cache">
          <file name="DataTest.php" role="test" />
-         <file name="ListTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Cache -->
         <dir name="Data">
          <dir name="Decorator">
@@ -515,14 +557,21 @@
           <file name="UidsTest.php" role="test" />
          </dir> <!-- /test/Horde/Kolab/Storage/Unit/Folder/Stamp -->
          <file name="BaseTest.php" role="test" />
+         <file name="DataTest.php" role="test" />
          <file name="NamespaceTest.php" role="test" />
+         <file name="TypesTest.php" role="test" />
          <file name="TypeTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Folder -->
         <dir name="List">
          <dir name="Decorator">
           <file name="CacheTest.php" role="test" />
-          <file name="LogTest.php" role="test" />
          </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Decorator -->
+         <dir name="Manipulation">
+          <dir name="Decorator">
+           <file name="LogTest.php" role="test" />
+          </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Manipulation/Decorator -->
+          <file name="BaseTest.php" role="test" />
+         </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Manipulation -->
          <dir name="Query">
           <dir name="Acl">
            <file name="BaseTest.php" role="test" />
@@ -533,15 +582,29 @@
            <file name="CacheTest.php" role="test" />
           </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Query/ActiveSync -->
           <dir name="List">
+           <dir name="Cache">
+            <file name="SynchronizationTest.php" role="test" />
+           </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Query/List/Cache -->
+           <dir name="Defaults">
+            <file name="BailTest.php" role="test" />
+            <file name="LogTest.php" role="test" />
+           </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Query/List/Defaults -->
            <file name="BaseTest.php" role="test" />
            <file name="CacheTest.php" role="test" />
+           <file name="DefaultsTest.php" role="test" />
           </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Query/List -->
           <dir name="Share">
            <file name="BaseTest.php" role="test" />
            <file name="CacheTest.php" role="test" />
           </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Query/Share -->
          </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Query -->
-         <file name="BaseTest.php" role="test" />
+         <dir name="Synchronization">
+          <dir name="Decorator">
+           <file name="LogTest.php" role="test" />
+          </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Synchronization/Decorator -->
+          <file name="BaseTest.php" role="test" />
+         </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Synchronization -->
+         <file name="ToolsTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/List -->
         <dir name="QuerySet">
          <file name="UncachedTest.php" role="test" />
@@ -659,6 +722,8 @@
    <install as="TODO" name="doc/Horde/Kolab/Storage/TODO" />
    <install as="usage.txt" name="doc/Horde/Kolab/Storage/usage.txt" />
    <install as="examples/list.php" name="doc/Horde/Kolab/Storage/examples/list.php" />
+   <install as="OLD/Folder.php" name="doc/Horde/Kolab/Storage/OLD/Folder.php" />
+   <install as="OLD/Trigger.php" name="doc/Horde/Kolab/Storage/OLD/Trigger.php" />
    <install as="Horde/Kolab/Storage.php" name="lib/Horde/Kolab/Storage.php" />
    <install as="Horde/Kolab/Storage/Base.php" name="lib/Horde/Kolab/Storage/Base.php" />
    <install as="Horde/Kolab/Storage/Cache.php" name="lib/Horde/Kolab/Storage/Cache.php" />
@@ -676,7 +741,6 @@
    <install as="Horde/Kolab/Storage/Translation.php" name="lib/Horde/Kolab/Storage/Translation.php" />
    <install as="Horde/Kolab/Storage/Uncached.php" name="lib/Horde/Kolab/Storage/Uncached.php" />
    <install as="Horde/Kolab/Storage/Cache/Data.php" name="lib/Horde/Kolab/Storage/Cache/Data.php" />
-   <install as="Horde/Kolab/Storage/Cache/List.php" name="lib/Horde/Kolab/Storage/Cache/List.php" />
    <install as="Horde/Kolab/Storage/Data/Base.php" name="lib/Horde/Kolab/Storage/Data/Base.php" />
    <install as="Horde/Kolab/Storage/Data/Cached.php" name="lib/Horde/Kolab/Storage/Data/Cached.php" />
    <install as="Horde/Kolab/Storage/Data/Format.php" name="lib/Horde/Kolab/Storage/Data/Format.php" />
@@ -707,11 +771,11 @@
    <install as="Horde/Kolab/Storage/Driver/Mock/Data.php" name="lib/Horde/Kolab/Storage/Driver/Mock/Data.php" />
    <install as="Horde/Kolab/Storage/Exception/Pear.php" name="lib/Horde/Kolab/Storage/Exception/Pear.php" />
    <install as="Horde/Kolab/Storage/Folder/Base.php" name="lib/Horde/Kolab/Storage/Folder/Base.php" />
+   <install as="Horde/Kolab/Storage/Folder/Data.php" name="lib/Horde/Kolab/Storage/Folder/Data.php" />
    <install as="Horde/Kolab/Storage/Folder/Namespace.php" name="lib/Horde/Kolab/Storage/Folder/Namespace.php" />
    <install as="Horde/Kolab/Storage/Folder/Stamp.php" name="lib/Horde/Kolab/Storage/Folder/Stamp.php" />
    <install as="Horde/Kolab/Storage/Folder/Type.php" name="lib/Horde/Kolab/Storage/Folder/Type.php" />
-   <install as="Horde/Kolab/Storage/Folder/Decorator/Base.php" name="lib/Horde/Kolab/Storage/Folder/Decorator/Base.php" />
-   <install as="Horde/Kolab/Storage/Folder/Decorator/Trigger.php" name="lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php" />
+   <install as="Horde/Kolab/Storage/Folder/Types.php" name="lib/Horde/Kolab/Storage/Folder/Types.php" />
    <install as="Horde/Kolab/Storage/Folder/Namespace/Config.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Config.php" />
    <install as="Horde/Kolab/Storage/Folder/Namespace/Element.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Element.php" />
    <install as="Horde/Kolab/Storage/Folder/Namespace/Fixed.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Fixed.php" />
@@ -721,10 +785,17 @@
    <install as="Horde/Kolab/Storage/Folder/Namespace/Element/Shared.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Element/Shared.php" />
    <install as="Horde/Kolab/Storage/Folder/Namespace/Element/SharedWithPrefix.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Element/SharedWithPrefix.php" />
    <install as="Horde/Kolab/Storage/Folder/Stamp/Uids.php" name="lib/Horde/Kolab/Storage/Folder/Stamp/Uids.php" />
-   <install as="Horde/Kolab/Storage/List/Base.php" name="lib/Horde/Kolab/Storage/List/Base.php" />
+   <install as="Horde/Kolab/Storage/List/Cache.php" name="lib/Horde/Kolab/Storage/List/Cache.php" />
+   <install as="Horde/Kolab/Storage/List/Exception.php" name="lib/Horde/Kolab/Storage/List/Exception.php" />
+   <install as="Horde/Kolab/Storage/List/Manipulation.php" name="lib/Horde/Kolab/Storage/List/Manipulation.php" />
    <install as="Horde/Kolab/Storage/List/Query.php" name="lib/Horde/Kolab/Storage/List/Query.php" />
+   <install as="Horde/Kolab/Storage/List/Synchronization.php" name="lib/Horde/Kolab/Storage/List/Synchronization.php" />
+   <install as="Horde/Kolab/Storage/List/Tools.php" name="lib/Horde/Kolab/Storage/List/Tools.php" />
+   <install as="Horde/Kolab/Storage/List/Cache/Base.php" name="lib/Horde/Kolab/Storage/List/Cache/Base.php" />
    <install as="Horde/Kolab/Storage/List/Decorator/Cache.php" name="lib/Horde/Kolab/Storage/List/Decorator/Cache.php" />
-   <install as="Horde/Kolab/Storage/List/Decorator/Log.php" name="lib/Horde/Kolab/Storage/List/Decorator/Log.php" />
+   <install as="Horde/Kolab/Storage/List/Manipulation/Base.php" name="lib/Horde/Kolab/Storage/List/Manipulation/Base.php" />
+   <install as="Horde/Kolab/Storage/List/Manipulation/Listener.php" name="lib/Horde/Kolab/Storage/List/Manipulation/Listener.php" />
+   <install as="Horde/Kolab/Storage/List/Manipulation/Decorator/Log.php" name="lib/Horde/Kolab/Storage/List/Manipulation/Decorator/Log.php" />
    <install as="Horde/Kolab/Storage/List/Query/Acl.php" name="lib/Horde/Kolab/Storage/List/Query/Acl.php" />
    <install as="Horde/Kolab/Storage/List/Query/ActiveSync.php" name="lib/Horde/Kolab/Storage/List/Query/ActiveSync.php" />
    <install as="Horde/Kolab/Storage/List/Query/List.php" name="lib/Horde/Kolab/Storage/List/Query/List.php" />
@@ -735,8 +806,15 @@
    <install as="Horde/Kolab/Storage/List/Query/ActiveSync/Cache.php" name="lib/Horde/Kolab/Storage/List/Query/ActiveSync/Cache.php" />
    <install as="Horde/Kolab/Storage/List/Query/List/Base.php" name="lib/Horde/Kolab/Storage/List/Query/List/Base.php" />
    <install as="Horde/Kolab/Storage/List/Query/List/Cache.php" name="lib/Horde/Kolab/Storage/List/Query/List/Cache.php" />
+   <install as="Horde/Kolab/Storage/List/Query/List/Defaults.php" name="lib/Horde/Kolab/Storage/List/Query/List/Defaults.php" />
+   <install as="Horde/Kolab/Storage/List/Query/List/Cache/Synchronization.php" name="lib/Horde/Kolab/Storage/List/Query/List/Cache/Synchronization.php" />
+   <install as="Horde/Kolab/Storage/List/Query/List/Defaults/Bail.php" name="lib/Horde/Kolab/Storage/List/Query/List/Defaults/Bail.php" />
+   <install as="Horde/Kolab/Storage/List/Query/List/Defaults/Log.php" name="lib/Horde/Kolab/Storage/List/Query/List/Defaults/Log.php" />
    <install as="Horde/Kolab/Storage/List/Query/Share/Base.php" name="lib/Horde/Kolab/Storage/List/Query/Share/Base.php" />
    <install as="Horde/Kolab/Storage/List/Query/Share/Cache.php" name="lib/Horde/Kolab/Storage/List/Query/Share/Cache.php" />
+   <install as="Horde/Kolab/Storage/List/Synchronization/Base.php" name="lib/Horde/Kolab/Storage/List/Synchronization/Base.php" />
+   <install as="Horde/Kolab/Storage/List/Synchronization/Listener.php" name="lib/Horde/Kolab/Storage/List/Synchronization/Listener.php" />
+   <install as="Horde/Kolab/Storage/List/Synchronization/Decorator/Log.php" name="lib/Horde/Kolab/Storage/List/Synchronization/Decorator/Log.php" />
    <install as="Horde/Kolab/Storage/QuerySet/Base.php" name="lib/Horde/Kolab/Storage/QuerySet/Base.php" />
    <install as="Horde/Kolab/Storage/QuerySet/Cached.php" name="lib/Horde/Kolab/Storage/QuerySet/Cached.php" />
    <install as="Horde/Kolab/Storage/QuerySet/Uncached.php" name="lib/Horde/Kolab/Storage/QuerySet/Uncached.php" />
@@ -834,6 +912,10 @@
    <install as="Horde/Kolab/Storage/phpunit.xml" name="test/Horde/Kolab/Storage/phpunit.xml" />
    <install as="Horde/Kolab/Storage/Scenario.php" name="test/Horde/Kolab/Storage/Scenario.php" />
    <install as="Horde/Kolab/Storage/TestCase.php" name="test/Horde/Kolab/Storage/TestCase.php" />
+   <install as="Horde/Kolab/Storage/ComponentTest/List/CacheTest.php" name="test/Horde/Kolab/Storage/ComponentTest/List/CacheTest.php" />
+   <install as="Horde/Kolab/Storage/ComponentTest/List/Query/Acl/BaseTest.php" name="test/Horde/Kolab/Storage/ComponentTest/List/Query/Acl/BaseTest.php" />
+   <install as="Horde/Kolab/Storage/ComponentTest/List/Query/List/BaseTest.php" name="test/Horde/Kolab/Storage/ComponentTest/List/Query/List/BaseTest.php" />
+   <install as="Horde/Kolab/Storage/ComponentTest/List/Query/List/CacheTest.php" name="test/Horde/Kolab/Storage/ComponentTest/List/Query/List/CacheTest.php" />
    <install as="Horde/Kolab/Storage/fixtures/broken_note.eml" name="test/Horde/Kolab/Storage/fixtures/broken_note.eml" />
    <install as="Horde/Kolab/Storage/fixtures/event.1.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.1.xml.qp" />
    <install as="Horde/Kolab/Storage/fixtures/event.2.xml.qp" name="test/Horde/Kolab/Storage/fixtures/event.2.xml.qp" />
@@ -851,7 +933,6 @@
    <install as="Horde/Kolab/Storage/Unit/SynchronizationTest.php" name="test/Horde/Kolab/Storage/Unit/SynchronizationTest.php" />
    <install as="Horde/Kolab/Storage/Unit/UncachedTest.php" name="test/Horde/Kolab/Storage/Unit/UncachedTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Cache/DataTest.php" name="test/Horde/Kolab/Storage/Unit/Cache/DataTest.php" />
-   <install as="Horde/Kolab/Storage/Unit/Cache/ListTest.php" name="test/Horde/Kolab/Storage/Unit/Cache/ListTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Data/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/Data/BaseTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Data/CachedTest.php" name="test/Horde/Kolab/Storage/Unit/Data/CachedTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Data/Decorator/LogTest.php" name="test/Horde/Kolab/Storage/Unit/Data/Decorator/LogTest.php" />
@@ -869,20 +950,29 @@
    <install as="Horde/Kolab/Storage/Unit/Driver/Decorator/LogTest.php" name="test/Horde/Kolab/Storage/Unit/Driver/Decorator/LogTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Driver/Decorator/TimerTest.php" name="test/Horde/Kolab/Storage/Unit/Driver/Decorator/TimerTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Folder/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/Folder/BaseTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/Folder/DataTest.php" name="test/Horde/Kolab/Storage/Unit/Folder/DataTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Folder/NamespaceTest.php" name="test/Horde/Kolab/Storage/Unit/Folder/NamespaceTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/Folder/TypesTest.php" name="test/Horde/Kolab/Storage/Unit/Folder/TypesTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Folder/TypeTest.php" name="test/Horde/Kolab/Storage/Unit/Folder/TypeTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Folder/Stamp/UidsTest.php" name="test/Horde/Kolab/Storage/Unit/Folder/Stamp/UidsTest.php" />
-   <install as="Horde/Kolab/Storage/Unit/List/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/BaseTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/List/ToolsTest.php" name="test/Horde/Kolab/Storage/Unit/List/ToolsTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Decorator/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/List/Decorator/CacheTest.php" />
-   <install as="Horde/Kolab/Storage/Unit/List/Decorator/LogTest.php" name="test/Horde/Kolab/Storage/Unit/List/Decorator/LogTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/List/Manipulation/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/Manipulation/BaseTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/List/Manipulation/Decorator/LogTest.php" name="test/Horde/Kolab/Storage/Unit/List/Manipulation/Decorator/LogTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/Acl/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/Acl/BaseTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/Acl/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/Acl/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/ActiveSync/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/ActiveSync/BaseTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/ActiveSync/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/ActiveSync/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/List/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/List/BaseTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/List/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/List/CacheTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/List/Query/List/DefaultsTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/List/DefaultsTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/List/Query/List/Cache/SynchronizationTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/List/Cache/SynchronizationTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/List/Query/List/Defaults/BailTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/List/Defaults/BailTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/List/Query/List/Defaults/LogTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/List/Defaults/LogTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/Share/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/Share/BaseTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/Share/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/Share/CacheTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/List/Synchronization/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/Synchronization/BaseTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/List/Synchronization/Decorator/LogTest.php" name="test/Horde/Kolab/Storage/Unit/List/Synchronization/Decorator/LogTest.php" />
    <install as="Horde/Kolab/Storage/Unit/QuerySet/UncachedTest.php" name="test/Horde/Kolab/Storage/Unit/QuerySet/UncachedTest.php" />
   </filelist>
  </phprelease>
@@ -1100,7 +1190,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-08-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Avoid overwriting unknown XML elements (Bug #11309)
