@@ -1854,7 +1854,7 @@ left.horde-point-right {
     background-image: url("graphics/edit-sidebar-fff.png");
 }
 
-.horde-subnavi-split {
+.horde-sidebar-split {
     border-top: 1px solid #858889;
     height: 10px;
     margin: 10px 0 0;

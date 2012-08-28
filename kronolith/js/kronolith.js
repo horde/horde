@@ -1015,7 +1015,7 @@ KronolithCore = {
         });
         ext.each(function(api) {
             extContainer
-                .insert(new Element('div', { className: 'horde-subnavi-split' }))
+                .insert(new Element('div', { className: 'horde-sidebar-split' }))
                 .insert(new Element('div')
                         .insert(new Element('h3')
                                 .insert(new Element('span', { className: 'horde-expand', title: HordeSidebar.text.expand })

@@ -1,5 +1,5 @@
 <?php if ($containerCounter > 0): ?>
-<div class="horde-subnavi-split"></div>
+<div class="horde-sidebar-split"></div>
 <?php endif ?>
 <div<?php if (!empty($container['id']) && !is_int($container['id'])) echo ' id="' . $container['id'] . '"' ?>>
 <?php if (isset($container['content'])): ?>

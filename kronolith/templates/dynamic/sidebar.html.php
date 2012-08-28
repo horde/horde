@@ -21,7 +21,7 @@
 </div>
 
 <div id="kronolithMenu">
-  <div class="horde-subnavi-split"></div>
+  <div class="horde-sidebar-split"></div>
   <div>
     <div id="kronolithLoadingCalendars">
       <?php echo _("Loading calendars...") ?>
@@ -39,7 +39,7 @@
 
 
     <?php if (Kronolith::hasApiPermission('tasks')): ?>
-    <div class="horde-subnavi-split"></div>
+    <div class="horde-sidebar-split"></div>
     <div>
       <h3>
         <?php if ($this->newShares): ?>
@@ -52,7 +52,7 @@
     </div>
     <?php endif; ?>
 
-    <div class="horde-subnavi-split"></div>
+    <div class="horde-sidebar-split"></div>
     <div>
       <h3>
         <!-- to be added when searching for shared calendars is implemented <a href="#" id="kronolithAddinternalshared" class="horde-add">+</a>-->
@@ -66,7 +66,7 @@
     </div>
 
     <?php if (Kronolith::hasApiPermission('tasks')): ?>
-    <div class="horde-subnavi-split"></div>
+    <div class="horde-sidebar-split"></div>
     <div>
       <h3>
         <!-- to be added when searching for shared calendars is implemented <a href="#" id="kronolithAddtasklistsshared" class="horde-add">+</a>-->
@@ -80,7 +80,7 @@
     </div>
     <?php endif ?>
 
-    <div class="horde-subnavi-split"></div>
+    <div class="horde-sidebar-split"></div>
     <div>
       <h3>
         <?php if ($this->isAdmin): ?>
@@ -93,7 +93,7 @@
 
     <div id="kronolithExternalCalendars"></div>
 
-    <div class="horde-subnavi-split"></div>
+    <div class="horde-sidebar-split"></div>
     <div>
       <h3>
         <a href="#" id="kronolithAddremote" class="horde-add" title="<?php echo _("Add Remote Calendar") ?>">+</a>
@@ -106,7 +106,7 @@
       </div>
     </div>
 
-    <div class="horde-subnavi-split"></div>
+    <div class="horde-sidebar-split"></div>
     <div>
       <h3>
         <a href="#" id="kronolithAddholiday" class="horde-add" title="<?php echo _("Add Holidays") ?>">+</a>
