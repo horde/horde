@@ -1,4 +1,8 @@
 <?php
+/** OLD Kolab f/b trigger code. Some parts mights still need to be salvaged into
+    the new code. Remove segments that have been verified to replace the old
+    code. */
+
 /**
  * This decorator triggers a URL following certain actions on the folder.
  *
