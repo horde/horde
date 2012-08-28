@@ -28,7 +28,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Add Horde_Mail_Rfc822_Address-&gt;base_domain property.
 * [mms] Add Horde_Mail_Rfc822_Address#matchInsensitive().
 * [mms] Fix parsing Return-Path header when using sendmail driver (Bug #11361).
  </notes>
@@ -354,7 +353,6 @@
    <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* [mms] Add Horde_Mail_Rfc822_Address-&gt;base_domain property.
 * [mms] Add Horde_Mail_Rfc822_Address#matchInsensitive().
 * [mms] Fix parsing Return-Path header when using sendmail driver (Bug #11361).
    </notes>
