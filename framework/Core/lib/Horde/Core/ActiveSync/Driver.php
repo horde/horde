@@ -1804,6 +1804,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
         }
 
+        if (strcasecmp($sid, 'INBOX') === 0) {
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
+            return $folder;
+        }
+
         $specialFolders = $this->_imap->getSpecialMailboxes();
 
         // Check for known, supported special folders.
@@ -1830,13 +1835,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     case self::SPECIAL_DRAFTS:
                         if ($sid == $mailbox->basename) {
                             $folder->type = Horde_ActiveSync::FOLDER_TYPE_DRAFTS;
-                            return $folder;
-                        }
-                        break;
-
-                    case self::SPECIAL_INBOX:
-                        if ($sid == $mailbox->basename) {
-                            $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
                             return $folder;
                         }
                         break;
