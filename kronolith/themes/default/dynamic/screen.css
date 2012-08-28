@@ -95,28 +95,6 @@ html, body {
     font-weight: bold;
     cursor: default;
 }
-#kronolithSearchForm {
-    position: relative;
-    top: 10px;
-}
-#kronolithSearchButton {
-    background: transparent url("../graphics/search.png");
-    border: none;
-    width: 16px;
-    height: 16px;
-    vertical-align: middle;
-    text-indent: -10000px;
-    cursor: pointer;
-}
-#kronolithSearchTerm {
-    vertical-align: middle;
-    width: 126px;
-    color: #ccc;
-}
-#kronolithSearchTerm:focus {
-    width: 126px;
-    color: #000;
-}
 .kronolithToggleCollapse,
 .kronolithToggleExpand {
     padding-left: 26px;
