@@ -59,7 +59,7 @@
         </h3>
 
         <div style="display:none">
-          <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
+          <div class="horde-info"><?php echo _("No items to display") ?></div>
           <div id="kronolithSharedCalendars" class="horde-resources"></div>
         </div>
       </div>
@@ -73,7 +73,7 @@
         </h3>
 
         <div style="display:none">
-          <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
+          <div class="horde-info"><?php echo _("No items to display") ?></div>
           <div id="kronolithSharedTasklists" class="horde-resources"></div>
         </div>
       </div>
@@ -100,7 +100,7 @@
         </h3>
 
         <div style="display:none">
-          <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
+          <div class="horde-info"><?php echo _("No items to display") ?></div>
           <div id="kronolithRemoteCalendars" class="horde-resources"></div>
         </div>
       </div>

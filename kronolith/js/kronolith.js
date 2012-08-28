@@ -944,7 +944,7 @@ KronolithCore = {
         noItems = div.previous();
         if (noItems &&
             noItems.tagName == 'DIV' &&
-            noItems.className == 'kronolithDialogInfo') {
+            noItems.className == 'horde-info') {
             noItems.hide();
         }
         if (type != 'holiday' && type != 'external') {
@@ -3623,7 +3623,7 @@ KronolithCore = {
         div.remove();
         if (noItems &&
             noItems.tagName == 'DIV' &&
-            noItems.className == 'kronolithDialogInfo' &&
+            noItems.className == 'horde-info' &&
             !container.childElements().size()) {
             noItems.show();
         }

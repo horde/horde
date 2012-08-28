@@ -132,10 +132,6 @@ a.kronolithFormCancel {
     padding-left: 23px;
     font-style: italic;
 }
-#kronolithMenu .kronolithDialogInfo {
-    padding: 10px 0 0 36px;
-    background-image: none;
-}
 .kronolithDialogWarning {
     background: transparent url("../graphics/alerts/warning.png") left 2px no-repeat;
     padding-left: 23px;
