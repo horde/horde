@@ -1034,6 +1034,10 @@ class Kronolith
             case 'Yahoo':
                 $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
                 break;
+
+            case 'Bing':
+                $params['conf']['apikeys']['bing'] = $GLOBALS['conf']['api']['bing'];
+                break;
             }
         }
 
