@@ -28,7 +28,7 @@
     </div>
 
     <div id="kronolithMenuCalendars" style="display:none">
-      <h3 id="kronolithCalendarsFirst">
+      <h3>
         <?php if ($this->newShares): ?>
         <a href="#" id="kronolithAddinternal" class="horde-add" title="<?php echo _("New Calendar") ?>">+</a>
         <?php endif; ?>
