@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-05-01 14:03+0200\n"
-"PO-Revision-Date: 2012-04-16 14:28:59+0300\n"
+"PO-Revision-Date: 2012-08-28 15:22:41+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -298,7 +298,7 @@ msgstr "Yksityiskohdat"
 
 #: lib/Horde.php:185
 msgid "Details have been logged for the administrator."
-msgstr "Tarkemmat tiedot on talletettu ylläpidon käsiteltäväksi."
+msgstr "Tarkemmat tiedot on tallennettu ylläpidon käsiteltäväksi."
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1168
 #, php-format
@@ -810,8 +810,8 @@ msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
 msgstr ""
-"Virheilmoitus kokonaisuudessaan on talletettu Horden lokitiedostoon ja näkyy "
-"alla vain ylläpitäjille. Tavalliset käyttäjät eivät näe virhetilanteen "
+"Virheilmoitus kokonaisuudessaan on tallennettu Horden lokitiedostoon ja "
+"näkyy alla vain ylläpitäjille. Tavalliset käyttäjät eivät näe virhetilanteen "
 "yksityiskohtia."
 
 #: lib/Horde/Core/Prefs/Ui.php:874

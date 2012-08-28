@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Imp 5.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-05-01 14:03+0200\n"
-"PO-Revision-Date: 2012-05-24 16:26:39+0300\n"
+"PO-Revision-Date: 2012-08-28 15:19:22+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -1681,11 +1681,11 @@ msgstr "Näytetään aluksi vain viestin 250 ensimmäistä merkkiä?"
 
 #: config/prefs.php:853
 msgid "Display the \"Empty Spam\" link in the menubar?"
-msgstr "Näytä '\"tyhjennä roskapostit\"-linkki muiden ikonien joukossa."
+msgstr "Näytä '\"Tyhjennä roskapostit\"-linkki muiden ikonien joukossa."
 
 #: config/prefs.php:768
 msgid "Display the \"Empty Trash\" link in the menubar?"
-msgstr "Näytä '\"tyhjennä roskakori\"-linkki muiden ikonien joukossa."
+msgstr "Näytä '\"Tyhjennä roskakori\"-linkki muiden ikonien joukossa."
 
 #: templates/mimp/mailbox/mailbox.html:44
 msgid "Do Action"
@@ -1830,7 +1830,7 @@ msgstr "Muokkaa valkoista listaasi"
 #: lib/Message.php:800
 #, php-format
 msgid "Emptied all messages from %s."
-msgstr "Tyjennettiin kaikki viestit lähettäjältä %s."
+msgstr "Poistettiin kaikki viestit %s."
 
 #: lib/Message.php:779
 msgid "Emptied all messages from Virtual Trash Folder."
@@ -1838,15 +1838,15 @@ msgstr "Poistettiin kaikki viestit virtuaalisesta roskakorikansiosta."
 
 #: templates/dimp/index.inc:274 templates/imp/folders/actions.html:20
 msgid "Empty"
-msgstr "Tyhjennä"
+msgstr "Poista kaikki"
 
 #: templates/imp/mailbox/header.html:29
 msgid "Empty Mailbox"
-msgstr "Tyhjennä viestit postilaatikosta"
+msgstr "Poista kaikki viestit kansiosta"
 
 #: templates/imp/folders/folders_confirm.html:23
 msgid "Empty Selected Folders"
-msgstr "Tyhjennä viestit valituista kansiot"
+msgstr "Poista kaikki viestit valituista kansiot"
 
 #: lib/Application.php:297
 msgid "Empty _Spam"
@@ -3676,7 +3676,7 @@ msgstr "_Tyhjennä poistetut"
 
 #: lib/Imap/Acl.php:168 templates/imp/folders/actions.html:22
 msgid "Purge"
-msgstr "Tyhjennä"
+msgstr "Tyhjennä poistetut"
 
 #: mailbox-mimp.php:215 mailbox.php:455 mailbox.php:575
 #: templates/dimp/index.inc:441

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Klutz 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-05-24 14:13:33+0300\n"
+"PO-Revision-Date: 2012-08-28 15:21:22+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -110,7 +110,7 @@ msgstr "Anna tagejä tälle kuvalle"
 
 #: backend.php:231
 msgid "Error storing the image"
-msgstr "Tapahtui virhe kuvan talletuksessa"
+msgstr "Tapahtui virhe kuvan tallennuksessa"
 
 #: templates/backend.html.php:13
 msgid "Fetch"
@@ -266,7 +266,7 @@ msgstr "Näytä sarjakuvat %s"
 #: backend.php:43 backend.php:46
 msgid "You must define a storage backend to use the administrative interface."
 msgstr ""
-"Sinun pitää määritellä talletuksen taustajärjestelmä, jotta voisit käyttää "
+"Sinun pitää määritellä tallennuksen taustajärjestelmä, jotta voisit käyttää "
 "ylläpitoliittymää."
 
 #: lib/Application.php:74
