@@ -250,10 +250,66 @@ small, .small {
 }
 
 /* Form styles. */
-.form table {
+.horde-form table {
     width: 100%;
     padding: 2px;
     border-collapse: collapse;
+    border-spacing: 0;
+}
+.horde-form td {
+    padding-bottom: 4px;
+}
+.htmlarea .statusBar .statusBarTree a {
+    font: inherit;
+}
+.htmlarea table {
+    width: auto;
+}
+.horde-form-header {
+    margin-bottom: 1em;
+    border-bottom: thin dashed #ccc;
+}
+.horde-form-buttons {
+    width: 100%;
+    height: 26px;
+    padding: 5px 0 0 15%;
+    margin: 10px 0 10px 0;
+    background-color: #ebeff0;
+}
+.horde-form td.horde-form-label {
+    padding: 5px 9px 0 0;
+    text-align: right;
+}
+.horde-form-error {
+    color: #f00;
+}
+.horde-form-field-description {
+    color: #666;
+    font-size: 70%;
+}
+input, select, textarea {
+    font-size: 100%;
+    font-weight: normal;
+}
+input, select {
+    background-color: #ebeff0;
+    border: 1px solid #d0d0d0;
+    height: 22px;
+}
+input, option {
+    padding: 1px 5px;
+}
+select {
+    padding: 2px 0 0 2px;
+}
+input:focus {
+    background-color: #fff;
+    border-color: #000;
+}
+input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
 }
 form[action^="https://"] input[type="submit"] {
     background-image: url("graphics/locked.png");
@@ -265,33 +321,6 @@ input[disabled], input[disabled]:hover, textarea[disabled] {
     background-color: #e9e9e9;
     color: #a8a8a8;
 }
-.htmlarea .statusBar .statusBarTree a {
-    font: inherit;
-}
-.htmlarea table {
-    width: auto;
-}
-.form-header {
-    margin-bottom: 1em;
-    border-bottom: thin dashed #ccc;
-}
-.form-error {
-    color: #f00;
-}
-.form-field-description {
-    color: #666;
-    font-size: 70%;
-}
-input, select, textarea {
-    font-size: 100%;
-    font-weight: normal;
-}
-input {
-    padding: 1px;
-}
-option {
-    padding: 0 5px 0 3px;
-}
 .checkbox, .radio {
     border: 0;
     height: 14px;
@@ -300,7 +329,6 @@ option {
 }
 .button {
     cursor: pointer;
-    font-size: 90%;
     padding: 1px 6px;
 }
 a.button {
