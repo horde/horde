@@ -318,6 +318,9 @@ div.vpRowVert div.msgSubject span.flagUser {
 }
 
 /* Sidebar */
+#foldersLoading {
+    padding: 10px;
+}
 #ctx_mbox_sub span.iconImg, #ctx_mbox_unsub span.iconImg, #ctx_folderopts_sub span.iconImg, #ctx_folderopts_unsub span.iconImg, .folderoptsImg {
     background-image: url("../graphics/folders/folder.png");
 }
