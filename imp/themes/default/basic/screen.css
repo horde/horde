@@ -128,6 +128,10 @@ div.msgActions, #fmanager div.folderActions {
     background-color: #eceff0;
     border-bottom: 1px solid #d0d0d0;
 }
+#msgheaders p {
+    font-size: 140%;
+    font-weight: bold;
+}
 #msgheaders table {
     border-collapse: collapse;
 }

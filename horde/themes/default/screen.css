@@ -1580,6 +1580,11 @@ a.horde-mainnavi-active:active {
     float: left;
     height: 16px;
     padding: 18px 10px 0px 0px;
+    font-size: 90%;
+    font-weight: bold;
+    font-style: italic;
+    color: #fff;
+    text-shadow: 1px 1px 0px #000;
 }
 #horde-navigation {
     float: left;
@@ -1714,10 +1719,12 @@ left.horde-point-right {
 #horde-date {
     float: left;
     padding: 2px 0 0 10px;
+    color: #fff;
 }
 #horde-info {
     float: right;
     padding: 2px 10px 0 0;
+    color: #fff;
 }
 
 /* Mainpage */
@@ -2037,46 +2044,6 @@ left.horde-point-right {
 }
 .horde-table-header .iconImg {
     vertical-align: middle;
-}
-
-/*
- * Schriften
- */
-p{
-    margin:0px;
-    padding:0px;
-    color: #000;
-    font-style: normal;
-}
-.p11{
-    font-size: 90%;
-}
-.p14{
-    font-size: 115%;
-}
-.p17{
-    font-size: 140%;
-}
-.bold{
-    font-weight: bold;
-}
-.italic{
-    font-style:italic;
-}
-.lineheight{
-    line-height: 20px;
-}
-.white{
-    color: #fff;
-}
-.green{
-    color: #7eaa42;
-}
-.shadow{
-    text-shadow: 1px 1px 0px #000;
-}
-.relief{
-    text-shadow: -1px -1px 0px #000;
 }
 
 /* Configuration page. */

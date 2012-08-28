@@ -516,8 +516,13 @@ div.dimpActionsMsg #windowclose {
 #msgHeadersContent {
     overflow: hidden;
 }
+#msgHeadersContent p {
+    font-size: 140%;
+    font-weight: bold;
+}
 #msgHeadersContent p.subject {
     margin-bottom: 10px;
+    font-size: 100%;
 }
 
 /* ini msg small header */
@@ -582,6 +587,10 @@ div.dimpActionsMsg #windowclose {
     border-bottom: 1px solid #d0d0d0;
     cursor: default;
     padding: 10px;
+}
+.msgwrite p {
+    font-size: 140%;
+    font-weight: bold;
 }
 .msgwrite .dimpOptions {
     padding: 8px 8px 0 0;

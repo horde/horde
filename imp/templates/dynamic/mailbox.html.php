@@ -112,7 +112,7 @@
        </div>
        <div id="msgHeadersContent">
         <span class="iconImg" id="th_collapse"></span>
-        <p class="bold subject" title="<?php echo _("Collapse Headers") ?>"></p>
+        <p class="subject" title="<?php echo _("Collapse Headers") ?>"></p>
         <table>
          <thead>
           <tr id="msgHeaderFrom">

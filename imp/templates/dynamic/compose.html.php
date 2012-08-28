@@ -68,7 +68,7 @@
    </div>
 
 <?php if (strlen($this->title)): ?>
-   <p class="p17 bold"><?php echo $this->h($this->title) ?></p>
+   <p><?php echo $this->h($this->title) ?></p>
    <p>&nbsp;</p>
 <?php endif; ?>
 
