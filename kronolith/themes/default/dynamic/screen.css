@@ -153,7 +153,6 @@ a.kronolithFormCancel {
 .kronolithDialog {
     width: 700px;
     padding: 10px 20px;
-    background: #efefef;
     border: 1px #999 solid;
 }
 .kronolithDialog div {
@@ -192,7 +191,6 @@ ul.horde-tags li:hover {
 .kronolithDialog .tabset {
     float: none;
     width: auto;
-    background: none;
     margin: 15px 0;
 }
 .kronolithDialog .tabset ul {
