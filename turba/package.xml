@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [jan] Use Horde 5 action bar.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1428,7 +1428,7 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [jan] Use Horde 5 action bar.
    </notes>
   </release>
  </changelog>
