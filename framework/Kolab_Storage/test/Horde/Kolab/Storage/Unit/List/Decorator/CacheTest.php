@@ -35,6 +35,11 @@ require_once __DIR__ . '/../../../Autoload.php';
 class Horde_Kolab_Storage_Unit_List_Decorator_CacheTest
 extends Horde_Kolab_Storage_TestCase
 {
+    public function setUp()
+    {
+        $this->markTestIncomplete();
+    }
+
     public function testListFolderIsArray()
     {
         $list = $this->_setupMockList();
