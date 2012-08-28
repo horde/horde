@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Allow certain iCalendar events to be configured to automatically update the local user&apos;s calendar (Request #11376).
 * [mms] Remember message selections when changing mailboxes in dynamic view.
 * [mms] Add ability to edit list of safe addresses used with the image_replacement preference.
 * [mms] Add attachment download links to smartmobile view (Request #11379).
@@ -2705,6 +2706,7 @@
    <date>2012-08-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Allow certain iCalendar events to be configured to automatically update the local user&apos;s calendar (Request #11376).
 * [mms] Remember message selections when changing mailboxes in dynamic view.
 * [mms] Add ability to edit list of safe addresses used with the image_replacement preference.
 * [mms] Add attachment download links to smartmobile view (Request #11379).

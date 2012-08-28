@@ -153,7 +153,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
      */
     protected function _vFreebusy($vfb, $id, $method)
     {
-        global $prefs, $registry;
+        global $notification, $prefs, $registry;
 
         $desc = '';
         $sender = $vfb->getName();
@@ -193,8 +193,18 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         $options = array();
         switch ($method) {
         case 'PUBLISH':
+        case 'REPLY':
             if ($registry->hasMethod('calendar/import_vfreebusy')) {
-                $options['import'] = _("Remember the free/busy information.");
+                if ($this->_autoUpdateReply(($method == 'PUBLISH') ? 'auto_update_fbpublish' : 'auto_update_fbreply', $sender)) {
+                    try {
+                        $registry->call('calendar/import_vfreebusy', array($vfb));
+                        $notification->push(_("The user's free/busy information was sucessfully stored."), 'horde.success');
+                    } catch (Horde_Exception $e) {
+                        $notification->push(sprintf(_("There was an error importing user's free/busy information: %s"), $e->getMessage()), 'horde.error');
+                    }
+                } else {
+                    $options['import'] = _("Remember the free/busy information.");
+                }
             } else {
                 $options['nosup'] = _("Reply with Not Supported Message");
             }
@@ -209,14 +219,6 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             }
 
             $options['deny'] = _("Deny request for free/busy information");
-            break;
-
-        case 'REPLY':
-            if ($registry->hasMethod('calendar/import_vfreebusy')) {
-                $options['import'] = _("Remember the free/busy information.");
-            } else {
-                $options['nosup'] = _("Reply with Not Supported Message");
-            }
             break;
         }
 
@@ -310,7 +312,18 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         case 'REPLY':
             $desc = _("%s has replied to the invitation to \"%s\".");
             $sender = $this->getConfigParam('imp_contents')->getHeader()->getValue('From');
-            if ($registry->hasMethod('calendar/updateAttendee')) {
+            if ($registry->hasMethod('calendar/updateAttendee') &&
+                $this->_autoUpdateReply('auto_update_eventreply', $sender)) {
+                try {
+                    $registry->call('calendar/updateAttendee', array(
+                        $vevent,
+                        IMP::bareAddress($sender)
+                    ));
+                    $notification->push(_("Respondent Status Updated."), 'horde.success');
+                } catch (Horde_Exception $e) {
+                    $notification->push(sprintf(_("There was an error updating the event: %s"), $e->getMessage()), 'horde.error');
+                }
+            } else {
                 $options['update'] = _("Update respondent status");
             }
             break;
@@ -617,6 +630,27 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         }
 
         return $tmp;
+    }
+
+    /**
+     */
+    protected function _autoUpdateReply($type, $sender)
+    {
+        if (!empty($this->_conf[$type])) {
+            if (is_array($this->_conf[$type])) {
+                $ob = new Horde_Mail_Rfc822_Address(IMP::bareAddress($sender));
+                $domain = $ob->base_domain;
+                foreach ($this->_conf[$type] as $val) {
+                    if (strcasecmp($val, $domain) === 0) {
+                        return true;
+                    }
+                }
+            } else {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

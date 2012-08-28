@@ -2,6 +2,8 @@
 v6.0.0-git
 ----------
 
+[mms] Allow certain iCalendar events to be configured to automatically update
+      the local user's calendar (Request #11376).
 [mms] Remember message selections when changing mailboxes in dynamic view.
 [mms] Add ability to edit list of safe addresses used with the
       image_replacement preference.

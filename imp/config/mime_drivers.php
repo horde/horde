@@ -195,7 +195,37 @@ $mime_drivers = array(
         ),
         'icons' => array(
             'default' => 'itip.png'
-        )
+        ),
+
+        /* How event replies are handled when a user opens the message.
+         *   - false: Reply status is never automatically updated; requires
+         *            explicit action by the user.
+         *   - true: Reply status is always automatically updated.
+         *   - Array: An array of domains for which replies are always
+         *            automatically updated. All other domains require the
+         *            reply status to be explicitly updated by user action. */
+        'auto_update_eventreply' => false,
+
+        /* How free/busy publish data is handled when a user opens the
+         * message.
+         *   - false: Free/busy data is never automatically updated; requires
+         *            explicit action by the user.
+         *   - true: Free/busy data is always automatically updated.
+         *   - Array: An array of domains for which free/busy data is always
+         *            automatically updated. All other domains require the
+         *            free/busy data to be explicitly updated by user
+         *            action. */
+        'auto_update_fbpublish' => false,
+
+        /* How free/busy replies are handled when a user opens the message.
+         *   - false: Free/busy data is never automatically updated; requires
+         *            explicit action by the user.
+         *   - true: Free/busy data is always automatically updated.
+         *   - Array: An array of domains for which free/busy data is always
+         *            automatically updated. All other domains require the
+         *            free/busy data to be explicitly updated by user
+         *            action. */
+        'auto_update_fbreply' => false
     ),
 
     /* Audio data. */
