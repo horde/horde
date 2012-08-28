@@ -25,24 +25,27 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-interface Horde_Kolab_Storage_List_Query_Acl
-extends Horde_Kolab_Storage_List_Query
+abstract class Horde_Kolab_Storage_List_Query_Acl
 {
     /**
      * Does the backend support ACL?
      *
      * @return boolean True if the backend supports ACLs.
      */
-    public function hasAclSupport();
+    abstract public function hasAclSupport();
 
     /**
-     * Retrieve the access rights for a folder.
+     * Retrieve the access rights for a folder. This method will use two calls
+     * to the backend. It will first get the individual user rights via
+     * getMyRights and will subsequently fetch all ACL if the user has admin
+     * rights on a folder. If you already know the user has admin rights on a
+     * folder it makes more sense to call getAllAcl() directly.
      *
      * @param string $folder The folder to retrieve the ACL for.
      *
      * @return array An array of rights.
      */
-    public function getAcl($folder);
+    abstract public function getAcl($folder);
 
     /**
      * Retrieve the access rights the current user has on a folder.
@@ -51,7 +54,7 @@ extends Horde_Kolab_Storage_List_Query
      *
      * @return string The user rights.
      */
-    public function getMyAcl($folder);
+    abstract public function getMyAcl($folder);
 
     /**
      * Retrieve the all access rights on a folder.
@@ -62,7 +65,7 @@ extends Horde_Kolab_Storage_List_Query
      *
      * @return string The folder rights.
      */
-    public function getAllAcl($folder);
+    abstract public function getAllAcl($folder);
 
     /**
      * Set the access rights for a folder.
@@ -73,7 +76,7 @@ extends Horde_Kolab_Storage_List_Query
      *
      * @return NULL
      */
-    public function setAcl($folder, $user, $acl);
+    abstract public function setAcl($folder, $user, $acl);
 
     /**
      * Delete the access rights for user on a folder.
@@ -83,5 +86,5 @@ extends Horde_Kolab_Storage_List_Query
      *
      * @return NULL
      */
-    public function deleteAcl($folder, $user);
+    abstract public function deleteAcl($folder, $user);
 }
