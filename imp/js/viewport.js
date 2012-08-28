@@ -321,7 +321,7 @@ var ViewPort = Class.create({
             this.scroller.clear();
         }
 
-        this.views[view] = buffer = this._getBuffer(view, true);
+        this.views[view] = this._getBuffer(view, true);
 
         if (opts.search) {
             f_opts.search = opts.search;
