@@ -314,7 +314,7 @@ extends PHPUnit_Framework_TestCase
                 'share_name' => 'internal_id'
             ),
             $this->list
-            ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
+            ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE)
             ->getParameters('INBOX/Calendar')
         );
     }
@@ -346,7 +346,7 @@ extends PHPUnit_Framework_TestCase
         $share->set('other', 'OTHER');
         $share->save();
         $result = $this->list
-            ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
+            ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE)
             ->getParameters('INBOX/test');
         $this->assertEquals(
             array(
@@ -511,7 +511,7 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'NEW',
             $this->list
-            ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
+            ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE)
             ->getDescription('INBOX/Calendar')
         );
     }
@@ -523,7 +523,7 @@ extends PHPUnit_Framework_TestCase
         $share->set('other', 'OTHER');
         $share->save();
         $result = $this->list
-            ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
+            ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE)
             ->getParameters('INBOX/Calendar');
         $this->assertEquals('OTHER', $result['other']);
         $this->assertEquals('internal_id', $result['share_name']);
@@ -532,7 +532,7 @@ extends PHPUnit_Framework_TestCase
     public function testListShareCache()
     {
         $storage = $this->getMock('Horde_Kolab_Storage');
-        $list = $this->getMock('Horde_Kolab_Storage_List');
+        $list = $this->getMock('Horde_Kolab_Storage_List_Tools', array(), array(), '', false, false);
         $query = $this->getMock('Horde_Kolab_Storage_List_Query_List');
         $query->expects($this->once())
             ->method('listByType')
