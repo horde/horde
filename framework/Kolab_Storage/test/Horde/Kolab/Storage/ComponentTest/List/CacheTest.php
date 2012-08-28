@@ -32,7 +32,7 @@ require_once __DIR__ . '/../../Autoload.php';
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Unit_Cache_ListTest
+class Horde_Kolab_Storage_ComponentTest_List_CacheTest
 extends Horde_Kolab_Storage_TestCase
 {
     public function testListId()
@@ -45,7 +45,7 @@ extends Horde_Kolab_Storage_TestCase
      */
     public function testMissingListId()
     {
-        $cache = new Horde_Kolab_Storage_Cache_List($this->getMockCache());
+        $cache = new Horde_Kolab_Storage_List_Cache_Base($this->getMockCache());
         $cache->getListId();
     }
 
@@ -68,7 +68,7 @@ extends Horde_Kolab_Storage_TestCase
         $cache = $this->getMockCache();
         $cache->storeList(
             'test', serialize(
-                array('V' => Horde_Kolab_Storage_Cache_List::VERSION)
+                array('V' => Horde_Kolab_Storage_List_Cache_Base::VERSION)
             )
         );
         $this->assertFalse($this->_getTestCache($cache)->isInitialized());
@@ -136,7 +136,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testID()
     {
         $cache = $this->getMockCache();
-        $list_cache = new Horde_Kolab_Storage_Cache_List(
+        $list_cache = new Horde_Kolab_Storage_List_Cache_Base(
             $cache,
             array('host' => 'test', 'port' => '0', 'user' => 'test')
         );
@@ -175,7 +175,7 @@ extends Horde_Kolab_Storage_TestCase
         if ($cache === null) {
             $cache = $this->getMockCache();
         }
-        $list_cache = new Horde_Kolab_Storage_Cache_List($cache);
+        $list_cache = new Horde_Kolab_Storage_List_Cache_Base($cache);
         $list_cache->setListId('test');
         return $list_cache;
     }

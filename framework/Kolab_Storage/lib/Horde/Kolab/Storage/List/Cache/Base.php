@@ -25,7 +25,8 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Cache_List
+class Horde_Kolab_Storage_List_Cache_Base
+extends Horde_Kolab_Storage_List_Cache
 {
     /** Key for the folder list. */
     const FOLDERS = 'F';

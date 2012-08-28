@@ -175,7 +175,7 @@ class Horde_Kolab_Storage_Cache
     {
         $list_id = $this->_getListId($connection_params);
         if (!isset($this->_list_caches[$list_id])) {
-            $this->_list_caches[$list_id] = new Horde_Kolab_Storage_Cache_List(
+            $this->_list_caches[$list_id] = new Horde_Kolab_Storage_List_Cache_Base(
                 $this, $connection_params
             );
             $this->_list_caches[$list_id]->setListId($list_id);
