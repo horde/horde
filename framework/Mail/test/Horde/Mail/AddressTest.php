@@ -20,19 +20,7 @@ class Horde_Mail_AddressTest extends PHPUnit_Framework_TestCase
         $address2 = new Horde_Mail_Rfc822_Address('Test <test@foo.bar.example.com>');
         $this->assertEquals(
             'example.com',
-            $address2->base_domain
-        );
-
-        $address3 = new Horde_Mail_Rfc822_Address('Test <test@example.co.uk>');
-        $this->assertEquals(
-            'example.co.uk',
-            $address3->base_domain
-        );
-
-        $address4 = new Horde_Mail_Rfc822_Address('Test <test@foo.bar.example.co.uk>');
-        $this->assertEquals(
-            'example.co.uk',
-            $address4->base_domain
+            $address->base_domain
         );
     }
 
