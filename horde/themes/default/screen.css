@@ -1961,6 +1961,8 @@ left.horde-point-right{
 .horde-buttonbar .horde-popdown {
     position: relative;
     margin: -5px 10px 0 -12px;
+    padding: 0;
+    background-position: center center;
 }
 .horde-buttonbar .horde-nobutton .horde-popdown {
     margin-left: 0;
