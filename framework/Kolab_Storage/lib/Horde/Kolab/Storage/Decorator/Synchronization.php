@@ -92,7 +92,7 @@ implements Horde_Kolab_Storage
      */
     public function getFolder($folder)
     {
-        return $this->getList()->getFolder($folder);
+        return $this->_storage->getFolder($folder);
     }
 
     /**

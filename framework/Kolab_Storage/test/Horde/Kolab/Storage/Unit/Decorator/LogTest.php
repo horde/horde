@@ -42,7 +42,7 @@ extends Horde_Kolab_Storage_TestCase
             $this->getMockLogger()
         );
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Decorator_Log',
+            'Horde_Kolab_Storage_List_Tools',
             $storage->getList()
         );
     }

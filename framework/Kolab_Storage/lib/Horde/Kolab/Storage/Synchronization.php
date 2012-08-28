@@ -35,11 +35,11 @@ class Horde_Kolab_Storage_Synchronization
      *
      * @return NULL
      */
-    public function synchronizeList(Horde_Kolab_Storage_List $list)
+    public function synchronizeList(Horde_Kolab_Storage_List_Tools $list)
     {
         $list_id = $list->getId();
         if (empty($_SESSION['kolab_storage']['synchronization']['list'][$list_id])) {
-            $list->synchronize();
+            $list->getListSynchronization()->synchronize();
             $_SESSION['kolab_storage']['synchronization']['list'][$list_id] = true;
         }
     }

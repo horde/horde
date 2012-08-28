@@ -42,7 +42,7 @@ extends Horde_Kolab_Storage_TestCase
             new Horde_Kolab_Storage_Synchronization()
         );
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List',
+            'Horde_Kolab_Storage_List_Tools',
             $storage->getList()
         );
     }

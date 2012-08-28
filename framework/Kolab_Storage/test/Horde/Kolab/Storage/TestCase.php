@@ -105,7 +105,9 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_List_Query_List_Base(
-            $this->getNullList($factory), array('factory' => $factory)
+            $this->getNullMock($factory),
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
     }
 
@@ -227,7 +229,9 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_List_Query_List_Base(
-            $this->getAnnotatedList($factory), array('factory' => $factory)
+            $this->getAnnotatedMock($factory),
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
     }
 
@@ -314,7 +318,9 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_List_Query_List_Base(
-            $this->getNamespaceList($factory), array('factory' => $factory)
+            $this->getNamespaceMock($factory),
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
     }
 
@@ -354,7 +360,9 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_List_Query_List_Base(
-            $this->getForeignDefaultList($factory), array('factory' => $factory)
+            $this->getForeignDefaultMock($factory),
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
     }
 
@@ -398,7 +406,9 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_List_Query_List_Base(
-            $this->getEventList($factory), array('factory' => $factory)
+            $this->getEventMock($factory),
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
     }
 
@@ -440,7 +450,9 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = $this->completeFactory($factory);
         return new Horde_Kolab_Storage_List_Query_List_Base(
-            $this->getDoubleEventList($factory), array('factory' => $factory)
+            $this->getDoubleEventMock($factory),
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
     }
 
@@ -538,23 +550,16 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    protected function getCachedQueryForList($bare_list, $factory)
+    protected function getCachedQueryForList($driver)
     {
-        $list_cache = $this->getMockListCache();
-        $list = new Horde_Kolab_Storage_List_Decorator_Cache(
-            $bare_list,
-            $list_cache
+        return new Horde_Kolab_Storage_List_Query_List_Cache(
+            new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+                $driver,
+                new Horde_Kolab_Storage_Folder_Types(),
+                new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+            ),
+            $this->getMockListCache()
         );
-        $query = new Horde_Kolab_Storage_List_Query_List_Cache(
-            $list,
-            array(
-                'factory' => $factory,
-                'cache' => $list_cache
-            )
-        );
-        $list->registerQuery('test', $query);
-        $list->synchronize();
-        return $query;
     }
 
     protected function getMockDriverList($factory = null)
@@ -580,7 +585,7 @@ extends PHPUnit_Framework_TestCase
 
     protected function getMockListCache()
     {
-        $cache = new Horde_Kolab_Storage_Cache_List(
+        $cache = new Horde_Kolab_Storage_List_Cache_Base(
             $this->getMockCache()
         );
         $cache->setListId('test');

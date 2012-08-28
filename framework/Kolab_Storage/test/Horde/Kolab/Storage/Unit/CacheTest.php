@@ -251,7 +251,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testGetListCache()
     {
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Cache_List',
+            'Horde_Kolab_Storage_List_Cache',
             $this->cache->getListCache($this->_getIdParameters())
         );
     }
