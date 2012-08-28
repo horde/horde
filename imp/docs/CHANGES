@@ -2,6 +2,7 @@
 v6.0.0-git
 ----------
 
+[mms] Remember message selections when changing mailboxes in dynamic view.
 [mms] Add ability to edit list of safe addresses used with the
       image_replacement preference.
 [mms] Add attachment download links to smartmobile view (Request #11379).

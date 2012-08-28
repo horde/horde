@@ -106,9 +106,9 @@ var DimpBase = {
         return (this.viewport) ? this.viewport.getSelected().size() : 0;
     },
 
-    resetSelected: function()
+    resetSelected: function(noviewport)
     {
-        if (this.viewport) {
+        if (!noviewport && this.viewport) {
             this.viewport.deselect(this.viewport.getSelected(), { clearall: true });
         }
         this.resetSelectAll();
@@ -369,8 +369,6 @@ var DimpBase = {
             this._createViewPort();
         }
 
-        this.resetSelected();
-
         if (!this.isSearch(f)) {
             this.quicksearchClear(true);
         }
@@ -383,6 +381,10 @@ var DimpBase = {
              * grab new copy if we ever return to it. */
             if (this.isSearch()) {
                 need_delete = this.view;
+            }
+
+            if (!this.viewport.bufferLoaded(f)) {
+                this.resetSelected(true);
             }
 
             this.view = f;
@@ -634,6 +636,15 @@ var DimpBase = {
 
             if (this.viewswitch) {
                 this.viewswitch = false;
+
+                if (this.selectedCount()) {
+                    if (this._getPref('preview')) {
+                        this.initPreviewPane();
+                    }
+                    this.toggleButtons();
+                } else {
+                    this.resetSelected();
+                }
 
                 if (this.isSearch()) {
                     $('filter').hide();
