@@ -101,11 +101,11 @@ class Horde_Application extends Horde_Registry_Application
                 'Google' => 'Google',
                 'Bing' => 'Bing',
                 'Yahoo' => 'Yahoo',
-                'CloudMade' => 'Cloudmade',
+                'Cloudmade' => 'CloudMade',
                 'MyTopo' => 'MyTopo',
-                'OpenStreetMap' => 'Osm',
-                'OpenCycleMap' => 'Ocm',
-                'OpenMapquest' => 'Mapquest'
+                'Osm' => 'OpenStreetMap',
+                'Ocm' => 'OpenCycleMap',
+                'Mapquest' => 'OpenMapquest'
             );
 
         case 'geocoders':
