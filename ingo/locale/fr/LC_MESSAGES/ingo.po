@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H4\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"POT-Creation-Date: 2012-08-25 11:07+0200\n"
 "PO-Revision-Date: 2012-01-16 11:13+0100\n"
 "Last-Translator: Laurent Foucher <laurent.foucher@iut-tlse3.fr>\n"
 "Language-Team: Français <i18n@lists.horde.org>\n"
@@ -116,7 +116,7 @@ msgstr "Éditer la Liste Noire"
 msgid "Blacklist is not supported in the current filtering driver."
 msgstr "La liste noire n'est pas supportée dans le filtre actuel."
 
-#: lib/Script/Maildrop.php:198 lib/Script/Procmail.php:219
+#: lib/Script/Maildrop.php:198 lib/Script/Procmail.php:240
 #: lib/Script/Sieve.php:281
 msgid "Blacklisted Addresses"
 msgstr "Adresses en liste Noire"
@@ -156,11 +156,11 @@ msgstr "Copier %s"
 msgid "Copy of %s"
 msgstr "Copie de %s"
 
-#: lib/Ingo.php:167
+#: lib/Ingo.php:166
 msgid "Could not validate IMAP mailbox."
 msgstr "Impossible de valider la boîte aux lettres IMAP"
 
-#: lib/Ingo.php:121
+#: lib/Ingo.php:120
 msgid "Create new folder"
 msgstr "Créer un nouveau dossier"
 
@@ -370,7 +370,7 @@ msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr ""
 "Activité du filtre : %s message(s) ont été déplacé(s) vers le dossier « %s »."
 
-#: lib/Script/Imap.php:191
+#: lib/Script/Imap.php:190
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr ""
@@ -429,7 +429,7 @@ msgstr "Garder l'action de transfert"
 msgid "Forward is not supported in the current filtering driver."
 msgstr "La redirection n'est pas supportée dans le pilote de filtres courant"
 
-#: lib/Script/Maildrop.php:247 lib/Script/Procmail.php:298
+#: lib/Script/Maildrop.php:247 lib/Script/Procmail.php:319
 #: lib/Script/Sieve.php:244
 msgid "Forwards"
 msgstr "Transferts"
@@ -581,16 +581,16 @@ msgstr "Mes adresses de courriel :"
 msgid "New Rule"
 msgstr "Nouvelle règle"
 
-#: lib/Ingo.php:318
+#: lib/Ingo.php:317
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
 msgstr "Le paramètre \"%s\" n'est pas spécifié dans la configuration."
 
-#: lib/Ingo.php:310
+#: lib/Ingo.php:309
 msgid "No backend configured for this host"
 msgstr "Pas de Backend configuré pour ce serveur"
 
-#: lib/Ingo.php:283
+#: lib/Ingo.php:282
 msgid "No backends configured in backends.php"
 msgstr "Pas de Backend configuré dans backend.php"
 
@@ -644,7 +644,7 @@ msgstr "Participants (De, A, etc)"
 msgid "Permission Denied"
 msgstr "Autorisation rejetée"
 
-#: lib/Ingo.php:136
+#: lib/Ingo.php:135
 msgid "Please enter the name of the new folder:"
 msgstr "Veuilez saisir le nom du nouveau dossier :"
 
@@ -774,15 +774,15 @@ msgstr "Script"
 msgid "Script Updating"
 msgstr "Mise à jour du script"
 
-#: lib/Ingo.php:263
+#: lib/Ingo.php:262
 msgid "Script not updated."
 msgstr "Script non mis à jour."
 
-#: lib/Ingo.php:233
+#: lib/Ingo.php:232
 msgid "Script successfully activated."
 msgstr "Script activé avec succès."
 
-#: lib/Ingo.php:232
+#: lib/Ingo.php:231
 msgid "Script successfully deactivated."
 msgstr "Script désactivé avec succès."
 
@@ -802,7 +802,7 @@ msgstr "Sélectionner les règles à afficher :"
 msgid "Select target folder"
 msgstr "Choisissez un dossier cible"
 
-#: lib/Ingo.php:117
+#: lib/Ingo.php:116
 msgid "Select target folder:"
 msgstr "Choisissez un dossier cible :"
 
@@ -883,15 +883,15 @@ msgstr "L'adresse \"%s\" a été ajoutée à votre liste noire."
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "L'adresse \"%s\" a été ajoutée à votre liste blanche."
 
-#: lib/Ingo.php:227
+#: lib/Ingo.php:226
 msgid "The driver said: "
 msgstr "Message du pilote (driver) :"
 
-#: lib/Ingo.php:226
+#: lib/Ingo.php:225
 msgid "There was an error activating the script."
 msgstr "Une erreur s'est produite lors de l'activation du script."
 
-#: lib/Ingo.php:225
+#: lib/Ingo.php:224
 msgid "There was an error deactivating the script."
 msgstr "Une erreur s'est produite lors de la désactivation du script."
 
@@ -913,7 +913,7 @@ msgid "User header"
 msgstr "En-tête utilisateur"
 
 #: filters.php:191 lib/Block/Overview.php:50 lib/Block/Overview.php:53
-#: lib/Script/Maildrop.php:278 lib/Script/Procmail.php:278
+#: lib/Script/Maildrop.php:278 lib/Script/Procmail.php:299
 #: lib/Script/Sieve.php:416 vacation.php:135
 msgid "Vacation"
 msgstr "Absence"
@@ -947,7 +947,7 @@ msgstr "Éditer Liste blanche"
 msgid "Whitelist is not supported in the current filtering driver."
 msgstr "Liste blanche n'est pas supportée pas le pilote de filtre courant."
 
-#: lib/Script/Maildrop.php:225 lib/Script/Procmail.php:246
+#: lib/Script/Maildrop.php:225 lib/Script/Procmail.php:267
 #: lib/Script/Sieve.php:341
 msgid "Whitelisted Addresses"
 msgstr "Adresse en liste blanche"
@@ -1065,6 +1065,6 @@ msgstr "Script maildrop généré par Ingo"
 msgid "or"
 msgstr "ou"
 
-#: lib/Script/Procmail.php:138
+#: lib/Script/Procmail.php:159
 msgid "procmail script generated by Ingo"
 msgstr "Script procmail généré par Ingo"

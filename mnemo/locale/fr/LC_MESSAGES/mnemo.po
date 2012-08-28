@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mnemo\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
 "PO-Revision-Date: 2011-05-17 11:05+0200\n"
 "Last-Translator:  Laurent Foucher <laurent.foucher@iut-tlse3.fr>\n"
 "Language-Team: \n"
@@ -70,7 +70,7 @@ msgstr "CSV"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: data.php:49 templates/view/memo.inc:26
+#: data.php:49 templates/view/memo.inc:24
 msgid "Category"
 msgstr "Catégorie"
 
@@ -106,7 +106,7 @@ msgstr "Créer un Bloc-notes"
 msgid "Create a new Notepad"
 msgstr "Créer un nouveau Bloc-notes"
 
-#: templates/view/memo.inc:32
+#: templates/view/memo.inc:30
 msgid "Created"
 msgstr "Créé"
 
@@ -114,7 +114,7 @@ msgstr "Créé"
 msgid "Date"
 msgstr "Date"
 
-#: templates/memo/memo.inc:23 templates/view/memo.inc:54
+#: templates/memo/memo.inc:23 templates/view/memo.inc:52
 msgid "Decrypt"
 msgstr "Décrypter"
 
@@ -131,7 +131,7 @@ msgid "Default sorting direction:"
 msgstr "Sens du tri par défaut :"
 
 #: lib/Form/DeleteNotepad.php:34 notepads/index.php:35
-#: templates/notepad_list.php:31 templates/view/memo.inc:16
+#: templates/notepad_list.php:31 templates/view/memo.inc:15
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -169,7 +169,7 @@ msgid "Do you want to confirm deleting entries?"
 msgstr "Voulez-vous confirmer la suppression des entrées ?"
 
 #: notepads/index.php:33 templates/notepad_list.php:27
-#: templates/view/memo.inc:13
+#: templates/view/memo.inc:12
 msgid "Edit"
 msgstr "Modifier"
 
@@ -234,7 +234,7 @@ msgstr "Importer/Exporter des notes"
 msgid "In: "
 msgstr "Dans :"
 
-#: templates/view/memo.inc:39
+#: templates/view/memo.inc:37
 msgid "Last Modified"
 msgstr "Dernière modification"
 
@@ -258,7 +258,7 @@ msgstr "Date de modification"
 msgid "More Options..."
 msgstr "Plus d'options..."
 
-#: lib/Api.php:346
+#: lib/Api.php:364
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 "Plusieurs composants iCalendar trouvés ; seulement une vNote est supportée."
@@ -283,7 +283,7 @@ msgstr "Nouvelle note"
 msgid "Next"
 msgstr "Suivant"
 
-#: lib/Api.php:190 lib/Api.php:339
+#: lib/Api.php:208 lib/Api.php:357
 msgid "No iCalendar data was found."
 msgstr "Aucune donnée iCalendar n'a été trouvée."
 
@@ -365,8 +365,8 @@ msgstr "Sommaire des notes"
 msgid "Ok"
 msgstr "Ok"
 
-#: lib/Api.php:73 lib/Api.php:106 lib/Api.php:138 lib/Api.php:169
-#: lib/Api.php:254 lib/Api.php:299 lib/Api.php:322
+#: lib/Api.php:73 lib/Api.php:124 lib/Api.php:156 lib/Api.php:187
+#: lib/Api.php:272 lib/Api.php:317 lib/Api.php:340
 msgid "Permission Denied"
 msgstr "Permission refusé"
 
@@ -384,7 +384,7 @@ msgstr ""
 "annulée et toutes les données de ce bloc-notes seront définitivement "
 "supprimées."
 
-#: templates/view/memo.inc:16
+#: templates/view/memo.inc:15
 msgid "Really delete this note?"
 msgstr "Supprimer cette note définitivement ?"
 
@@ -393,7 +393,7 @@ msgstr "Supprimer cette note définitivement ?"
 msgid "Save"
 msgstr "Enregistrer"
 
-#: templates/view/memo.inc:11
+#: templates/view/memo.inc:10
 msgid "Save as PDF"
 msgstr "Enregistrer comme PDF"
 
@@ -507,7 +507,7 @@ msgstr "Les mots de passe ne correspondent pas."
 msgid "There was an error importing the data: %s"
 msgstr "Une erreur est apparue lors de l'importation des données : %s"
 
-#: lib/Api.php:184 lib/Api.php:333
+#: lib/Api.php:202 lib/Api.php:351
 msgid "There was an error importing the iCalendar data."
 msgstr "Une erreur s'est produite lors de l'importation des données iCalendar."
 
@@ -558,17 +558,17 @@ msgid "This note has been encrypted, please provide the password below"
 msgstr ""
 "Cette note a été chiffrée, merci de fournir le mot de passe ci-dessous."
 
-#: lib/Api.php:248 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
+#: lib/Api.php:266 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "La note a été chiffrée."
 
 #: lib/Block/Summary.php:116 lib/Mnemo.php:310 lib/Mnemo.php:311
 #: lib/Mnemo.php:325 lib/Mnemo.php:326 templates/list/memo_summaries.inc:20
-#: templates/view/memo.inc:27
+#: templates/view/memo.inc:25
 msgid "Unfiled"
 msgstr "Hors catégorie"
 
-#: lib/Api.php:217 lib/Api.php:273 lib/Api.php:356
+#: lib/Api.php:235 lib/Api.php:291 lib/Api.php:374
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Type de contenu non-supporté : %s"
@@ -623,11 +623,11 @@ msgstr "_Catégorie"
 msgid "_Category:"
 msgstr "_Catégorie :"
 
-#: templates/view/memo.inc:16
+#: templates/view/memo.inc:15
 msgid "_Delete"
 msgstr "_Supprimer"
 
-#: templates/view/memo.inc:13
+#: templates/view/memo.inc:12
 msgid "_Edit"
 msgstr "Modifi_er"
 
@@ -651,7 +651,7 @@ msgstr "Afficher _les notes"
 msgid "_New Note"
 msgstr "_Nouvelle note"
 
-#: templates/memo/memo.inc:21 templates/view/memo.inc:52
+#: templates/memo/memo.inc:21 templates/view/memo.inc:50
 msgid "_Password"
 msgstr "_Mot de passe"
 

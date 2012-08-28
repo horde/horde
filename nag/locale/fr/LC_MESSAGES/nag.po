@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nag\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-12-23 14:31+0100\n"
+"POT-Creation-Date: 2012-08-25 14:34+0200\n"
 "PO-Revision-Date: 2011-05-17 11:35+0200\n"
 "Last-Translator:  Laurent Foucher <laurent.foucher@iut-tlse3.fr>\n"
 "Language-Team: \n"
@@ -180,6 +180,10 @@ msgid "An alarm must be set to specify a notification method"
 msgstr ""
 "Une alarme doit être configurée avant de spécifier une méthode de "
 "notification"
+
+#: mobile.php:46
+msgid "Applications"
+msgstr "Applications"
 
 #: config/prefs.php:123
 msgid "Ascending"
@@ -575,10 +579,6 @@ msgstr "Tâches à venir"
 #: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
 msgid "General Preferences"
 msgstr "Options générales"
-
-#: mobile.php:46
-msgid "Home"
-msgstr "Maison"
 
 #: lib/Nag.php:742 lib/Ui/VarRenderer/Nag.php:163
 msgid "Hour(s)"
@@ -1093,6 +1093,7 @@ msgid "Task Search"
 msgstr "Recherche de tâche"
 
 #: lib/Driver/Sql.php:89
+#, php-format
 msgid "Task UID %s not found"
 msgstr "L'identifiant de la tâche %s non trouvé"
 
