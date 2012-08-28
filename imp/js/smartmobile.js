@@ -43,6 +43,9 @@ var ImpMobile = {
     // Rows per mailbox page.
     mbox_rows: 25,
 
+    // 'INBOX' base64url encoded
+    INBOX: 'SU5CT1g',
+
 
     /**
      * Event handler for the pagebeforechange event that implements loading of
@@ -104,7 +107,7 @@ var ImpMobile = {
      */
     toMailbox: function(url, options)
     {
-        var mailbox = url.params.mbox || 'SU5CT1g',
+        var mailbox = url.params.mbox || ImpMobile.INBOX,
             title = $('#imp-mailbox-' + mailbox).text(),
             params = {}, ob;
 
