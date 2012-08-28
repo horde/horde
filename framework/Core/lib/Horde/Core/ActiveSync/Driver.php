@@ -1833,6 +1833,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             return $folder;
                         }
                         break;
+
+                    case self::SPECIAL_INBOX:
+                        if ($sid == $mailbox->basename) {
+                            $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
+                            return $folder;
+                        }
+                        break;
                     }
                 }
             }
