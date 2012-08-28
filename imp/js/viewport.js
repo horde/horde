@@ -1008,6 +1008,11 @@ var ViewPort = Class.create({
             : new ViewPort_Buffer(this, view);
     },
 
+    bufferLoaded: function(view)
+    {
+        return Boolean(this.views[view]);
+    },
+
     currentOffset: function()
     {
         return this.scroller.currentOffset();
