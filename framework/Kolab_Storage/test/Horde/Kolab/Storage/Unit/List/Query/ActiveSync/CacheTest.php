@@ -31,86 +31,154 @@ require_once __DIR__ . '/../../../../Autoload.php';
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Unit_List_Query_ActiveSync_CacheTest
-extends Horde_Kolab_Storage_TestCase
+extends PHPUnit_Framework_TestCase
 {
+    public function testInitActiveSync()
+    {
+        $this->query = $this->getMock('Horde_Kolab_Storage_List_Query_ActiveSync');
+        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache');
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_ActiveSync_Cache::ACTIVE_SYNC)
+            ->will($this->returnValue(true));
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_ActiveSync_Cache::ACTIVE_SYNC)
+            ->will(
+                $this->returnValue(
+                    array('INBOX' => array('x' => 'y'))
+                )
+            );
+        $this->query->expects($this->never())
+            ->method('getActiveSync');
+        $activesync = new Horde_Kolab_Storage_List_Query_ActiveSync_Cache(
+            $this->query, $this->cache
+        );
+        $this->assertEquals(array('x' => 'y'), $activesync->getActiveSync('INBOX'));
+    }
+
     public function testGetActiveSync()
     {
         $activesync = $this->_getActivesync();
-        $this->driver->expects($this->once())
-            ->method('getAnnotation')
-            ->with('INBOX', '/priv/vendor/kolab/activesync')
-            ->will($this->returnValue('eyJ4IjoieSJ9'));
+        $this->query->expects($this->once())
+            ->method('getActiveSync')
+            ->with('INBOX')
+            ->will($this->returnValue(array('x' => 'y')));
         $this->assertEquals(array('x' => 'y'), $activesync->getActiveSync('INBOX'));
     }
 
     public function testCachedGetActiveSync()
     {
         $activesync = $this->_getActivesync();
-        $this->driver->expects($this->once())
-            ->method('getAnnotation')
-            ->with('INBOX', '/priv/vendor/kolab/activesync')
-            ->will($this->returnValue('eyJ4IjoieSJ9'));
+        $this->query->expects($this->once())
+            ->method('getActiveSync')
+            ->with('INBOX')
+            ->will($this->returnValue(array('x' => 'y')));
         $activesync->getActiveSync('INBOX');
         $this->assertEquals(array('x' => 'y'), $activesync->getActiveSync('INBOX'));
     }
+
+    public function testStoredGetActiveSync()
+    {
+        $activesync = $this->_getActivesync();
+        $this->query->expects($this->once())
+            ->method('getActiveSync')
+            ->with('INBOX')
+            ->will($this->returnValue(array('x' => 'y')));
+        $this->cache->expects($this->once())
+            ->method('setQuery')
+            ->with(
+                Horde_Kolab_Storage_List_Query_ActiveSync_Cache::ACTIVE_SYNC,
+                array('INBOX' => array('x' => 'y'))
+            );
+        $this->cache->expects($this->once())
+            ->method('save');
+        $activesync->getActiveSync('INBOX');
+        $this->assertEquals(array('x' => 'y'), $activesync->getActiveSync('INBOX'));
+    }
+
 
     public function testSetActiveSync()
     {
         $activesync = $this->_getActivesync();
-        $this->driver->expects($this->once())
-            ->method('setAnnotation')
-            ->with('INBOX', '/priv/vendor/kolab/activesync', 'eyJ4IjoieSJ9');
+        $this->query->expects($this->once())
+            ->method('setActiveSync')
+            ->with('INBOX', array('x' => 'y'));
         $activesync->setActiveSync('INBOX', array('x' => 'y'));
     }
 
-    public function testCachedSetParameters()
+    public function testCacheSetActiveSync()
     {
         $activesync = $this->_getActivesync();
-        $this->driver->expects($this->never())
-            ->method('getAnnotation');
-        $this->driver->expects($this->once())
-            ->method('setAnnotation')
-            ->with('INBOX', '/priv/vendor/kolab/activesync', 'eyJ4IjoieSJ9');
+        $this->cache->expects($this->once())
+            ->method('setQuery')
+            ->with(
+                Horde_Kolab_Storage_List_Query_ActiveSync_Cache::ACTIVE_SYNC,
+                array('INBOX' => array('x' => 'y'))
+            );
+        $this->cache->expects($this->once())
+            ->method('save');
         $activesync->setActiveSync('INBOX', array('x' => 'y'));
+    }
+
+    public function testSetGetActiveSync()
+    {
+        $activesync = $this->_getActivesync();
+        $value = array('FOO' => 'BAR');
+        $activesync->setActiveSync('INBOX', $value);
+        $this->assertEquals($value, $activesync->getActiveSync('INBOX'));
+    }
+
+    public function testUpdateAfterCreateFolder()
+    {
+        $activesync = $this->_getActivesync();
+        $this->query->expects($this->never())
+            ->method('getActiveSync');
+        $activesync->updateAfterCreateFolder('INBOX');
+    }
+
+    public function testUpdateAfterDeleteFolder()
+    {
+        $activesync = $this->_getActivesync();
+        $this->query->expects($this->exactly(2))
+            ->method('getActiveSync')
+            ->with('INBOX')
+            ->will($this->returnValue(array('x' => 'y')));
+        $activesync->getActiveSync('INBOX');
+        $activesync->updateAfterDeleteFolder('INBOX');
         $this->assertEquals(array('x' => 'y'), $activesync->getActiveSync('INBOX'));
     }
 
-    public function testDeleteFolder()
+    public function testUpdateAfterRenameFolder()
     {
         $activesync = $this->_getActivesync();
-        $this->driver->expects($this->exactly(2))
-            ->method('getAnnotation')
-            ->with('INBOX', '/priv/vendor/kolab/activesync')
-            ->will($this->returnValue('eyJ4IjoieSJ9'));
-        $activesync->getActiveSync('INBOX');
-        $activesync->deleteFolder('INBOX');
-        $this->assertEquals(array('x' => 'y'), $activesync->getActiveSync('INBOX'));
+        $this->query->expects($this->once())
+            ->method('getActiveSync')
+            ->with('FOO')
+            ->will($this->returnValue(array('x' => 'y')));
+        $activesync->getActiveSync('FOO');
+        $activesync->updateAfterRenameFolder('FOO', 'BAR');
+        $this->assertEquals(array('x' => 'y'), $activesync->getActiveSync('BAR'));
     }
 
-    public function testRenameFolder()
+    public function testSynchronize()
     {
         $activesync = $this->_getActivesync();
-        $this->driver->expects($this->once())
-            ->method('getAnnotation')
-            ->with('INBOX', '/priv/vendor/kolab/activesync')
-            ->will($this->returnValue('eyJ4IjoieSJ9'));
+        $this->query->expects($this->exactly(2))
+            ->method('getActiveSync')
+            ->with('INBOX')
+            ->will($this->returnValue(array('x' => 'y')));
         $activesync->getActiveSync('INBOX');
-        $activesync->renameFolder('INBOX', 'TEST');
-        $this->assertEquals(array('x' => 'y'), $activesync->getActiveSync('TEST'));
+        $activesync->synchronize();
+        $this->assertEquals(array('x' => 'y'), $activesync->getActiveSync('INBOX'));
     }
 
     private function _getActivesync()
     {
-        $this->driver = $this->getMock('Horde_Kolab_Storage_Driver');
-        $this->list = new Horde_Kolab_Storage_List_Base(
-            $this->driver,
-            new Horde_Kolab_Storage_Factory()
-        );
+        $this->query = $this->getMock('Horde_Kolab_Storage_List_Query_ActiveSync');
+        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache');
         return new Horde_Kolab_Storage_List_Query_ActiveSync_Cache(
-            $this->list,
-            array(
-                'cache' => $this->getMockListCache()
-            )
+            $this->query, $this->cache
         );
     }
 }

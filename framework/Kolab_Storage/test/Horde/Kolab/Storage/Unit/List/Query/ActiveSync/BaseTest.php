@@ -31,7 +31,7 @@ require_once __DIR__ . '/../../../../Autoload.php';
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Unit_List_Query_Activesync_BaseTest
-extends Horde_Kolab_Storage_TestCase
+extends PHPUnit_Framework_TestCase
 {
     public function testGetEmptyActiveSync()
     {
@@ -85,12 +85,8 @@ extends Horde_Kolab_Storage_TestCase
     private function _getActivesync()
     {
         $this->driver = $this->getMock('Horde_Kolab_Storage_Driver');
-        $this->list = new Horde_Kolab_Storage_List_Base(
-            $this->driver,
-            new Horde_Kolab_Storage_Factory()
-        );
         return new Horde_Kolab_Storage_List_Query_ActiveSync_Base(
-            $this->list, array()
+            $this->driver
         );
     }
 }
