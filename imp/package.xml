@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-24</date>
- <time>23:27:30</time>
+ <date>2012-08-27</date>
+ <time>18:04:36</time>
  <version>
   <release>6.0.0beta3</release>
   <api>6.0.0beta1</api>
@@ -89,7 +89,6 @@
     <file name="imp.js" role="horde" />
     <file name="indices.js" role="horde" />
     <file name="login.js" role="horde" />
-    <file name="mailbox-dimp.js" role="horde" />
     <file name="mailbox.js" role="horde" />
     <file name="message-dimp.js" role="horde" />
     <file name="message.js" role="horde" />
@@ -292,6 +291,7 @@
       <file name="Encrypt.php" role="horde" />
       <file name="Flag.php" role="horde" />
       <file name="HtmlSignature.php" role="horde" />
+      <file name="ImageReplacement.php" role="horde" />
       <file name="InitialPage.php" role="horde" />
       <file name="Mailto.php" role="horde" />
       <file name="NewmailSound.php" role="horde" />
@@ -712,6 +712,8 @@
      <file name="mailbox.html.php" role="horde" />
      <file name="mailbox_subinfo.html.php" role="horde" />
      <file name="message.html.php" role="horde" />
+     <file name="msglist_horiz.html" role="horde" />
+     <file name="msglist_vert.html" role="horde" />
      <file name="qreply.html.php" role="horde" />
      <file name="redirect.html.php" role="horde" />
      <file name="sidebar.html.php" role="horde" />
@@ -786,6 +788,7 @@
      <file name="drafts.html" role="horde" />
      <file name="encrypt.html" role="horde" />
      <file name="flags.html" role="horde" />
+     <file name="imagereplacement.html" role="horde" />
      <file name="initialpage.html" role="horde" />
      <file name="mailto.html" role="horde" />
      <file name="newmailaudio.html" role="horde" />
@@ -869,21 +872,37 @@
      </dir> <!-- /themes/default/dynamic -->
      <dir name="graphics">
       <dir name="flags">
+       <file name="answered-inv.png" role="horde" />
        <file name="answered.png" role="horde" />
+       <file name="attachment-inv.png" role="horde" />
        <file name="attachment.png" role="horde" />
+       <file name="deleted-inv.png" role="horde" />
        <file name="deleted.png" role="horde" />
+       <file name="draft-inv.png" role="horde" />
        <file name="draft.png" role="horde" />
+       <file name="encrypted-inv.png" role="horde" />
        <file name="encrypted.png" role="horde" />
+       <file name="flagged-inv.png" role="horde" />
        <file name="flagged.png" role="horde" />
+       <file name="forwarded-inv.png" role="horde" />
        <file name="forwarded.png" role="horde" />
+       <file name="group-inv.png" role="horde" />
        <file name="group.png" role="horde" />
+       <file name="innocent-inv.png" role="horde" />
        <file name="innocent.png" role="horde" />
+       <file name="personal-inv.png" role="horde" />
        <file name="personal.png" role="horde" />
+       <file name="priority_high-inv.png" role="horde" />
        <file name="priority_high.png" role="horde" />
+       <file name="priority_low-inv.png" role="horde" />
        <file name="priority_low.png" role="horde" />
+       <file name="seen-inv.png" role="horde" />
        <file name="seen.png" role="horde" />
+       <file name="signed-inv.png" role="horde" />
        <file name="signed.png" role="horde" />
+       <file name="spam-inv.png" role="horde" />
        <file name="spam.png" role="horde" />
+       <file name="unseen-inv.png" role="horde" />
        <file name="unseen.png" role="horde" />
       </dir> <!-- /themes/default/graphics/flags -->
       <dir name="folders">
@@ -994,6 +1013,7 @@
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/smartmobile -->
      <file name="ie7.css" role="horde" />
+     <file name="mime.css" role="horde" />
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
@@ -1323,7 +1343,6 @@
    <install as="imp/js/imp.js" name="js/imp.js" />
    <install as="imp/js/indices.js" name="js/indices.js" />
    <install as="imp/js/login.js" name="js/login.js" />
-   <install as="imp/js/mailbox-dimp.js" name="js/mailbox-dimp.js" />
    <install as="imp/js/mailbox.js" name="js/mailbox.js" />
    <install as="imp/js/message-dimp.js" name="js/message-dimp.js" />
    <install as="imp/js/message.js" name="js/message.js" />
@@ -1482,6 +1501,7 @@
    <install as="imp/lib/Prefs/Special/Encrypt.php" name="lib/Prefs/Special/Encrypt.php" />
    <install as="imp/lib/Prefs/Special/Flag.php" name="lib/Prefs/Special/Flag.php" />
    <install as="imp/lib/Prefs/Special/HtmlSignature.php" name="lib/Prefs/Special/HtmlSignature.php" />
+   <install as="imp/lib/Prefs/Special/ImageReplacement.php" name="lib/Prefs/Special/ImageReplacement.php" />
    <install as="imp/lib/Prefs/Special/InitialPage.php" name="lib/Prefs/Special/InitialPage.php" />
    <install as="imp/lib/Prefs/Special/Mailto.php" name="lib/Prefs/Special/Mailto.php" />
    <install as="imp/lib/Prefs/Special/NewmailSound.php" name="lib/Prefs/Special/NewmailSound.php" />
@@ -1674,6 +1694,8 @@
    <install as="imp/templates/dynamic/mailbox.html.php" name="templates/dynamic/mailbox.html.php" />
    <install as="imp/templates/dynamic/mailbox_subinfo.html.php" name="templates/dynamic/mailbox_subinfo.html.php" />
    <install as="imp/templates/dynamic/message.html.php" name="templates/dynamic/message.html.php" />
+   <install as="imp/templates/dynamic/msglist_horiz.html" name="templates/dynamic/msglist_horiz.html" />
+   <install as="imp/templates/dynamic/msglist_vert.html" name="templates/dynamic/msglist_vert.html" />
    <install as="imp/templates/dynamic/qreply.html.php" name="templates/dynamic/qreply.html.php" />
    <install as="imp/templates/dynamic/redirect.html.php" name="templates/dynamic/redirect.html.php" />
    <install as="imp/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />
@@ -1722,6 +1744,7 @@
    <install as="imp/templates/prefs/drafts.html" name="templates/prefs/drafts.html" />
    <install as="imp/templates/prefs/encrypt.html" name="templates/prefs/encrypt.html" />
    <install as="imp/templates/prefs/flags.html" name="templates/prefs/flags.html" />
+   <install as="imp/templates/prefs/imagereplacement.html" name="templates/prefs/imagereplacement.html" />
    <install as="imp/templates/prefs/initialpage.html" name="templates/prefs/initialpage.html" />
    <install as="imp/templates/prefs/mailto.html" name="templates/prefs/mailto.html" />
    <install as="imp/templates/prefs/newmailaudio.html" name="templates/prefs/newmailaudio.html" />
@@ -1761,6 +1784,7 @@
    <install as="Imp/Unit/Mime/Viewer/HtmlTest.php" name="test/Imp/Unit/Mime/Viewer/HtmlTest.php" />
    <install as="Imp/Unit/Mime/Viewer/ItipTest.php" name="test/Imp/Unit/Mime/Viewer/ItipTest.php" />
    <install as="imp/themes/default/ie7.css" name="themes/default/ie7.css" />
+   <install as="imp/themes/default/mime.css" name="themes/default/mime.css" />
    <install as="imp/themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="imp/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="imp/themes/default/basic/screen.css" name="themes/default/basic/screen.css" />
@@ -1839,21 +1863,37 @@
    <install as="imp/themes/default/graphics/unseen.png" name="themes/default/graphics/unseen.png" />
    <install as="imp/themes/default/graphics/warning.png" name="themes/default/graphics/warning.png" />
    <install as="imp/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
+   <install as="imp/themes/default/graphics/flags/answered-inv.png" name="themes/default/graphics/flags/answered-inv.png" />
    <install as="imp/themes/default/graphics/flags/answered.png" name="themes/default/graphics/flags/answered.png" />
+   <install as="imp/themes/default/graphics/flags/attachment-inv.png" name="themes/default/graphics/flags/attachment-inv.png" />
    <install as="imp/themes/default/graphics/flags/attachment.png" name="themes/default/graphics/flags/attachment.png" />
+   <install as="imp/themes/default/graphics/flags/deleted-inv.png" name="themes/default/graphics/flags/deleted-inv.png" />
    <install as="imp/themes/default/graphics/flags/deleted.png" name="themes/default/graphics/flags/deleted.png" />
+   <install as="imp/themes/default/graphics/flags/draft-inv.png" name="themes/default/graphics/flags/draft-inv.png" />
    <install as="imp/themes/default/graphics/flags/draft.png" name="themes/default/graphics/flags/draft.png" />
+   <install as="imp/themes/default/graphics/flags/encrypted-inv.png" name="themes/default/graphics/flags/encrypted-inv.png" />
    <install as="imp/themes/default/graphics/flags/encrypted.png" name="themes/default/graphics/flags/encrypted.png" />
+   <install as="imp/themes/default/graphics/flags/flagged-inv.png" name="themes/default/graphics/flags/flagged-inv.png" />
    <install as="imp/themes/default/graphics/flags/flagged.png" name="themes/default/graphics/flags/flagged.png" />
+   <install as="imp/themes/default/graphics/flags/forwarded-inv.png" name="themes/default/graphics/flags/forwarded-inv.png" />
    <install as="imp/themes/default/graphics/flags/forwarded.png" name="themes/default/graphics/flags/forwarded.png" />
+   <install as="imp/themes/default/graphics/flags/group-inv.png" name="themes/default/graphics/flags/group-inv.png" />
    <install as="imp/themes/default/graphics/flags/group.png" name="themes/default/graphics/flags/group.png" />
+   <install as="imp/themes/default/graphics/flags/innocent-inv.png" name="themes/default/graphics/flags/innocent-inv.png" />
    <install as="imp/themes/default/graphics/flags/innocent.png" name="themes/default/graphics/flags/innocent.png" />
+   <install as="imp/themes/default/graphics/flags/personal-inv.png" name="themes/default/graphics/flags/personal-inv.png" />
    <install as="imp/themes/default/graphics/flags/personal.png" name="themes/default/graphics/flags/personal.png" />
+   <install as="imp/themes/default/graphics/flags/priority_high-inv.png" name="themes/default/graphics/flags/priority_high-inv.png" />
    <install as="imp/themes/default/graphics/flags/priority_high.png" name="themes/default/graphics/flags/priority_high.png" />
+   <install as="imp/themes/default/graphics/flags/priority_low-inv.png" name="themes/default/graphics/flags/priority_low-inv.png" />
    <install as="imp/themes/default/graphics/flags/priority_low.png" name="themes/default/graphics/flags/priority_low.png" />
+   <install as="imp/themes/default/graphics/flags/seen-inv.png" name="themes/default/graphics/flags/seen-inv.png" />
    <install as="imp/themes/default/graphics/flags/seen.png" name="themes/default/graphics/flags/seen.png" />
+   <install as="imp/themes/default/graphics/flags/signed-inv.png" name="themes/default/graphics/flags/signed-inv.png" />
    <install as="imp/themes/default/graphics/flags/signed.png" name="themes/default/graphics/flags/signed.png" />
+   <install as="imp/themes/default/graphics/flags/spam-inv.png" name="themes/default/graphics/flags/spam-inv.png" />
    <install as="imp/themes/default/graphics/flags/spam.png" name="themes/default/graphics/flags/spam.png" />
+   <install as="imp/themes/default/graphics/flags/unseen-inv.png" name="themes/default/graphics/flags/unseen-inv.png" />
    <install as="imp/themes/default/graphics/flags/unseen.png" name="themes/default/graphics/flags/unseen.png" />
    <install as="imp/themes/default/graphics/folders/create.png" name="themes/default/graphics/folders/create.png" />
    <install as="imp/themes/default/graphics/folders/drafts.png" name="themes/default/graphics/folders/drafts.png" />
@@ -2661,7 +2701,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-24</date>
+   <date>2012-08-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Add ability to edit list of safe addresses used with the image_replacement preference.
