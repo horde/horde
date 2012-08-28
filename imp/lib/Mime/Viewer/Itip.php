@@ -639,9 +639,8 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         if (!empty($this->_conf[$type])) {
             if (is_array($this->_conf[$type])) {
                 $ob = new Horde_Mail_Rfc822_Address(IMP::bareAddress($sender));
-                $domain = $ob->base_domain;
                 foreach ($this->_conf[$type] as $val) {
-                    if (strcasecmp($val, $domain) === 0) {
+                    if ($ob->matchDomain($val)) {
                         return true;
                     }
                 }
