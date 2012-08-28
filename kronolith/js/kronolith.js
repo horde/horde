@@ -6509,11 +6509,6 @@ KronolithCore = {
 
         this.updateMinical(this.date);
 
-        $('kronolithMenu').select('div.kronolithCalendars div').each(function(s) {
-            s.observe('mouseover', s.addClassName.curry('kronolithCalOver'));
-            s.observe('mouseout', s.removeClassName.curry('kronolithCalOver'));
-        });
-
         document.observe('Growler:toggled', function(e) {
             var button = $('kronolithNotifications');
             if (e.memo.visible) {
@@ -6532,6 +6527,11 @@ KronolithCore = {
     {
         Kronolith.conf.calendars = r.calendars;
         this.updateCalendarList();
+        $('kronolithMenu').select('div.kronolithCalendars div').each(function(s) {
+            console.log(s);
+            s.observe('mouseover', s.addClassName.curry('kronolithCalOver'));
+            s.observe('mouseout', s.removeClassName.curry('kronolithCalOver'));
+        });
         $('kronolithLoadingCalendars').hide();
         $('kronolithMenuCalendars').show();
 
