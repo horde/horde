@@ -568,27 +568,34 @@ div.logintasks-item input {
 
 /* Tab styles. */
 .tabset {
+    background: url("graphics/tabset.png") repeat-x;
     float: left;
+    height: 29px;
     width: 100%;
-    font-weight: bold;
+    margin-bottom: 25px;
 }
 .tabset ul {
-    margin-top: 4px;
-    padding-left: 8px;
     list-style: none;
 }
 .tabset li {
+    background: url("graphics/tab.png") repeat-x;
     float: left;
-    margin: -3px 2px 0 0;
+    margin-right: 10px;
+    padding: 11px 20px 0;
     white-space: nowrap;
 }
 .tabset li a {
-    padding: 2px 0.5em;
     display: block;
+    height: 18px;
+    color: #6d6d6d
 }
 .tabset li a:hover {
 }
+.tabset li.activeTab {
+    background-image: url("graphics/tab-active.png");
+}
 .tabset li.activeTab a {
+    color: #000;
 }
 .tabset li.activeTab a:hover {
 }

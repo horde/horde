@@ -29,7 +29,7 @@
   <active>yes</active>
  </lead>
  <date>2012-08-28</date>
- <time>15:21:52</time>
+ <time>21:50:10</time>
  <version>
   <release>5.0.0beta5</release>
   <api>5.0.0beta1</api>
@@ -1719,8 +1719,11 @@
       <file name="slidevert-bg.png" role="horde" />
       <file name="slidevert.png" role="horde" />
       <file name="sql.png" role="horde" />
+      <file name="tab-active.png" role="horde" />
+      <file name="tab.png" role="horde" />
       <file name="tablehead-bg.png" role="horde" />
       <file name="tablehead-split.png" role="horde" />
+      <file name="tabset.png" role="horde" />
       <file name="tab_bottom.gif" role="horde" />
       <file name="unlocked.png" role="horde" />
       <file name="user.png" role="horde" />
@@ -2711,8 +2714,11 @@
    <install as="themes/default/graphics/slidevert-bg.png" name="themes/default/graphics/slidevert-bg.png" />
    <install as="themes/default/graphics/slidevert.png" name="themes/default/graphics/slidevert.png" />
    <install as="themes/default/graphics/sql.png" name="themes/default/graphics/sql.png" />
+   <install as="themes/default/graphics/tab-active.png" name="themes/default/graphics/tab-active.png" />
+   <install as="themes/default/graphics/tab.png" name="themes/default/graphics/tab.png" />
    <install as="themes/default/graphics/tablehead-bg.png" name="themes/default/graphics/tablehead-bg.png" />
    <install as="themes/default/graphics/tablehead-split.png" name="themes/default/graphics/tablehead-split.png" />
+   <install as="themes/default/graphics/tabset.png" name="themes/default/graphics/tabset.png" />
    <install as="themes/default/graphics/tab_bottom.gif" name="themes/default/graphics/tab_bottom.gif" />
    <install as="themes/default/graphics/unlocked.png" name="themes/default/graphics/unlocked.png" />
    <install as="themes/default/graphics/user.png" name="themes/default/graphics/user.png" />
