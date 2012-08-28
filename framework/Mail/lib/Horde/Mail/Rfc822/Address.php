@@ -195,4 +195,26 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
         return (Horde_String::lower($this->bare_address) == Horde_String::lower($ob->bare_address));
     }
 
+    /**
+     * Do a case-insensitive match on the address for a given domain.
+     * Matches as many parts of the subdomain in the address as is given in
+     * the input.
+     *
+     * @param string $domain  Domain to match.
+     *
+     * @return boolean  True if the address matches the given domain.
+     */
+    public function matchDomain($domain)
+    {
+        $host = $this->host;
+        if (is_null($host)) {
+            return false;
+        }
+
+        $match_domain = explode('.', $domain);
+        $match_host = array_slice(explode('.', $host), count($match_domain) * -1);
+
+        return (strcasecmp($domain, implode('.', $match_host)) === 0);
+    }
+
 }
