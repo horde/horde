@@ -15,7 +15,7 @@
   <table id="imp-message-headers"><tbody></tbody></table>
  </div>
 
- <div id="imp-message-atc" data-role="collapsible" data-iconpos="right" data-theme="e" data-content-theme="d">
+ <div id="imp-message-atc" data-role="collapsible" data-iconpos="right" data-content-theme="d">
   <h4><span id="imp-message-atclabel"></span></h4>
   <ul data-inset="true" data-role="listview" id="imp-message-atclist"></ul>
  </div>
