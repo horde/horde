@@ -142,9 +142,7 @@ var ImpMobile = {
                 ImpMobile.refreshMailbox(ob);
                 return;
             } else {
-                if (!ImpMobile.mailboxCache) {
-                    ImpMobile.refreshMailbox(ob);
-                }
+                ImpMobile.refreshMailbox(ob);
                 params.checkcache = 1;
             }
         }
