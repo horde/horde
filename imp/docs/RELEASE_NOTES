@@ -33,6 +33,7 @@ might still change before the release candidates are prepared.
 
 The major changes compared to the IMP version H5 (6.0.0beta2) are:
     * Many improvements to the smartphone view.
+    * Allowed to automatically update calendar events from iTip messages.
     * Allowed to edit address whitelist for HTML message images.
     * Fixed iTip request handler.
     * Further bugfixes and improvements.
@@ -41,6 +42,7 @@ ML;
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
 Many improvements to the smartphone view.
+Allowed to automatically update calendar events from iTip messages.
 Allowed to edit address whitelist for HTML message images.
 Fixed iTip request handler.
 Further bugfixes and improvements.
