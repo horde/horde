@@ -225,6 +225,12 @@ table#tasklist-list th.sortdown {
 .nag-smart {
     background-image: url('graphics/smart.png');
 }
+.horde-new-extra {
+    background: none;
+}
+.horde-new-extra a {
+    background: url('graphics/add.png') no-repeat;
+}
 
 @media print {
     .header .smallheader, .tabset, .notices, #pageControls, #quicksearchL, #quicksearch {

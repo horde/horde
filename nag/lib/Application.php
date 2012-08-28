@@ -88,15 +88,6 @@ class Nag_Application extends Horde_Registry_Application
         $menu->add(Horde::url('tasklists/'), _("Manage Tasklists"), 'nag-managelists', null, null, null, strpos($_SERVER['PHP_SELF'], 'tasklists/index.php') !== false ? 'current' : null);
         $menu->add(Horde::url('list.php'), _("_List Tasks"), 'nag-list', null, null, null, (basename($_SERVER['PHP_SELF']) == 'list.php' || strpos($_SERVER['PHP_SELF'], 'nag/index.php') !== false) ? 'current' : null);
 
-        if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
-            ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_tasks') === true ||
-             $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_tasks') > Nag::countTasks()) &&
-            $GLOBALS['browser']->hasFeature('dom')) {
-            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
-            $page_output->addScriptFile('redbox.js', 'horde');
-            $menu->add(new Horde_Url(''), _("_Quick Add"), 'nag-add', null, null, 'RedBox.showInline(\'quickAddInfoPanel\'); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');
-        }
-
         /* Search. */
         $menu->add(Horde::url('search.php'), _("_Search"), 'nag-search');
 

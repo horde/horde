@@ -867,7 +867,7 @@ class Nag
     static public function menu()
     {
         // @TODO: Implement an injector factory for this.
-        global $display_tasklists;
+        global $display_tasklists, $page_output, $prefs;
 
         $sidebar = Horde::menu(array('menu_ob' => true))->render();
         $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
@@ -877,32 +877,82 @@ class Nag
             $sidebar->addNewButton(
                 _("_New Task"),
                 Horde::url('task.php')->add('actionID', 'add_task'));
-        }
 
-        $rows = array();
-
-        $sidebar->containers['lists'] = array('rows' => array());
-
-        foreach (Nag::listTaskLists() as $name => $tasklist) {
-            if ($tasklist->get('issmart')) {
-                $link = Horde::url('list.php')->add(array('actionID' => 'smart', 'list' => $name));
-                $sidebar->containers['smart']['rows'][] = array(
-                    'cssClass' => 'nag-smart',
-                    'link' => $link->link() . htmlspecialchars($tasklist->get('name')) . '</a>'
+            if ($GLOBALS['browser']->hasFeature('dom')) {
+                $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+                $page_output->addScriptFile('redbox.js', 'horde');
+                $blank = new Horde_Url();
+                $sidebar->newExtra = $blank->link(
+                    array_merge(
+                        array('onclick' => 'RedBox.showInline(\'quickAddInfoPanel\'); $(\'quickText\').focus(); return false;'),
+                        Horde::getAccessKeyAndTitle(_("_Quick Add"), false, true)
+                    )
                 );
-            } else {
-                $link = Horde::url('list.php')->add('display_tasklist', $name);
-                if (in_array($name, $display_tasklists)) {
-                    $link->add('actionID', 'remove_displaylist');
-                } else {
-                    $link->add('actionID', 'add_displaylist');
-                }
-                $sidebar->containers['lists']['rows'][] = array(
-                    'cssClass' => (in_array($name, $display_tasklists) ? 'nag-listSelected' : 'nag-listUnselected'),
-                    'link' => $link->link() . htmlspecialchars($tasklist->get('name')) . '</a>');
             }
         }
 
+        $content = $GLOBALS['injector']->createInstance('Horde_View');
+        $content->my = $content->shared = $content->smart = array();
+        $content->newShares = !$prefs->isLocked('default_tasklist');
+        $list  = Horde::url('list.php');
+        $smart = Horde::url('list.php')->add(array('actionID' => 'smart'));
+        $edit  = Horde::url('tasklists/edit.php');
+        $user  = $GLOBALS['registry']->getAuth();
+
+        foreach (Nag::listTaskLists() as $name => $tasklist) {
+            $class = in_array($name, $display_tasklists)
+                ? 'horde-resource-on'
+                : 'horde-resource-off';
+            $style = '';
+            $fg = '000';
+            if ($color = $tasklist->get('color')) {
+                if (Horde_Image::brightness($color) < 128) {
+                    $fg = 'fff';
+                }
+                $style = 'background-color:' . $color . ';color:#' . $fg;
+            }
+
+            if ($tasklist->get('issmart')) {
+                $content->smart[] = array(
+                    'link' => $smart->add('list', $name)->link()
+                              . htmlspecialchars($tasklist->get('name'))
+                              . '</a>',
+                    'class' => $class,
+                    'style' => $style,
+                );
+            } else {
+                $list->add('display_tasklist', $name);
+                if (in_array($name, $display_tasklists)) {
+                    $list->add('actionID', 'remove_displaylist');
+                } else {
+                    $list->add('actionID', 'add_displaylist');
+                }
+                if ($tasklist->get('owner') == $user) {
+                    $content->my[] = array(
+                        'link' => $list->link()
+                                  . htmlspecialchars($tasklist->get('name'))
+                                  . '</a>',
+                        'class' => $class,
+                        'style' => $style,
+                        'edit' => $edit->add('t', $tasklist->getName())
+                                      ->link(array(
+                                          'title' =>  _("Edit"),
+                                          'class' => 'horde-resource-edit-'
+                                                     . $fg))
+                                  . '&#9658;' . '</a>',
+                    );
+                } else {
+                    $content->shared[] = array(
+                        'link' => $list->link()
+                                  . htmlspecialchars($tasklist->get('name'))
+                                  . '</a>',
+                        'class' => $class,
+                        'style' => $style,
+                    );
+                }
+            }
+        }
+        $sidebar->containers[] = array('content' => $content->render('sidebar'));
 
         Horde::startBuffer();
         include NAG_TEMPLATES . '/quick.inc';

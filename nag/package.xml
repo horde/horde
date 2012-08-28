@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-27</date>
- <time>13:48:18</time>
+ <date>2012-08-28</date>
+ <time>19:17:48</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -418,6 +418,7 @@
     <file name="javascript_defs.php" role="horde" />
     <file name="list.html.php" role="horde" />
     <file name="quick.inc" role="horde" />
+    <file name="sidebar.html.php" role="horde" />
     <file name="tasklist_info.php" role="horde" />
     <file name="tasklist_list.php" role="horde" />
    </dir> <!-- /templates -->
@@ -860,6 +861,7 @@
    <install as="nag/templates/javascript_defs.php" name="templates/javascript_defs.php" />
    <install as="nag/templates/list.html.php" name="templates/list.html.php" />
    <install as="nag/templates/quick.inc" name="templates/quick.inc" />
+   <install as="nag/templates/sidebar.html.php" name="templates/sidebar.html.php" />
    <install as="nag/templates/tasklist_info.php" name="templates/tasklist_info.php" />
    <install as="nag/templates/tasklist_list.php" name="templates/tasklist_list.php" />
    <install as="nag/templates/alarm/mail.html.php" name="templates/alarm/mail.html.php" />
