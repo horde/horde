@@ -134,8 +134,6 @@ HordeMap = {
            return  prot + '://maps.google.com/maps/api/js?v=3.5&amp;sensor=false';
         case 'Yahoo':
             return prot + '://api.maps.yahoo.com/ajaxymap?v=3.8&appid=' + this.conf['apikeys']['yahoo'];
-        case 'Ve':
-            return prot + '://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.1';
 
         default:
             return '';
