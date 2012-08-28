@@ -858,6 +858,33 @@ var ImpMobile = {
     },
 
     /**
+     * Update message flags.
+     *
+     * @param object r  The Ajax response object.
+     */
+    updateFlags: function(r)
+    {
+        $.each(r, function(k, v) {
+            $.each(ImpIndices.parseUIDString(v.uids), function(k2, v2) {
+                if (ImpMobile.cache[k2] && ImpMobile.cache[k2].data[v2]) {
+                    var ob = $(ImpMobile.cache[k2].data[v2].flag);
+                    if (v.add) {
+                        $.merge(ob, v.add);
+                        ob.filter(function(i, itm) {
+                            return i == ob.index(itm);
+                        });
+                    }
+                    if (v.remove) {
+                        ob = $.grep(ob, function(n, i) {
+                            return $.inArray(n, v.remove) < 0;
+                        });
+                    }
+                }
+            });
+        });
+    },
+
+    /**
      * Update unseen message count for folders.
      *
      * @param object r  The Ajax response object.
@@ -1038,6 +1065,10 @@ var ImpMobile = {
     {
         $.each(d, function(key, value) {
             switch (key) {
+            case 'imp:flag':
+                ImpMobile.updateFlags(value);
+                break;
+
             case 'imp:message':
                 ImpMobile.message = value.shift();
                 break;

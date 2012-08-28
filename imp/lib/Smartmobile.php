@@ -41,6 +41,7 @@ class IMP_Smartmobile
         $this->_addBaseVars();
 
         $page_output->addScriptFile('smartmobile.js');
+        $page_output->addScriptFile('indices.js');
         $page_output->addScriptFile('json2.js', 'horde');
 
         $mimecss = new Horde_Themes_Element('mime.css');
