@@ -290,11 +290,11 @@ small, .small {
 input, select, textarea {
     font-size: 100%;
     font-weight: normal;
-}
-input, select {
     background-color: #ebeff0;
     border: 1px solid #d0d0d0;
-    height: 22px;
+}
+input, select {
+    height: 20px;
 }
 input, option {
     padding: 1px 5px;
@@ -302,7 +302,7 @@ input, option {
 select {
     padding: 2px 0 0 2px;
 }
-input:focus {
+input:focus, textarea:focus {
     background-color: #fff;
     border-color: #000;
 }
