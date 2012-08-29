@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-08-29</date>
- <time>15:20:16</time>
+ <time>15:20:34</time>
  <version>
-  <release>2.0.0beta3</release>
+  <release>2.0.0beta4</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Correctly handle any resource key supported by the QUOTA extension.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -958,6 +958,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Correctly handle any resource key supported by the QUOTA extension.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta4</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
