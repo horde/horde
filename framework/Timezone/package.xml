@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-05</date>
- <time>18:20:36</time>
+ <date>2012-08-29</date>
+ <time>16:10:46</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0beta1</api>
@@ -105,10 +105,10 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2012-07-05</date>
+   <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* Initial beta release.
+* First beta release for Horde 5.
    </notes>
   </release>
  </changelog>
