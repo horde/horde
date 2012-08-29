@@ -52,7 +52,7 @@ class Folks_Application extends Horde_Registry_Application
     }
 
     /**
-     * @param array $credentials  Array of criedentials (password requied)
+     * @param array $credentials  Array of credentials (password requied)
      */
     public function authAuthenticate($userID, $credentials)
     {
