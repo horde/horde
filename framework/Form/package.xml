@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>23:28:02</time>
+ <date>2012-08-29</date>
+ <time>15:18:21</time>
  <version>
-  <release>2.0.0beta2</release>
+  <release>2.0.0beta3</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add Horde_Form_Type_email#allowMultiple().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -739,10 +739,23 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Horde_Form_Type_email#allowMultiple().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

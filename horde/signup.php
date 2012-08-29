@@ -29,7 +29,15 @@ try {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$formsignup = new Horde_Core_Auth_Signup_Form($vars);
+$username = $vars->get('user_name');
+$email = $vars->get('email');
+if (!(bool)filter_var($username, FILTER_VALIDATE_EMAIL) && !empty($username) && !empty($conf['signup']['altemail'])) {
+    $showEmail = true;
+    if ($conf['signup']['altemail'] == 1) {
+        $requireEmail = true;
+    }
+}
+$formsignup = new Horde_Core_Auth_Signup_Form($vars,$showEmail,$requireEmail);
 if ($formsignup->validate()) {
     $formsignup->getInfo($vars, $info);
     $error = $success_message = null;
@@ -61,6 +69,17 @@ if ($formsignup->validate()) {
             $notification->push($success_message, 'horde.success');
             $registry->getServiceLink('login')->add('url', $info['url'])->redirect();
         }
+    }
+} else {
+    if(!empty($username)) {
+        try {
+            $signup->checkUsername($username);
+        } catch (Horde_Exception $e) {
+            $notification->push($e->getMessage(), 'horde.error');
+        }
+    }
+    if(!empty($email) && !$signup->checkEmail($email)) {
+        $notification->push(_("Email address not valid."), 'horde.error');
     }
 }
 

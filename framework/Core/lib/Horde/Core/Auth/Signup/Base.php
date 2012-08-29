@@ -33,6 +33,14 @@ abstract class Horde_Core_Auth_Signup_Base
         // Attempt to add the user to the system.
         $GLOBALS['auth']->addUser($info['user_name'], array('password' => $info['password']));
 
+        // Attempt to add email to prefs
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('horde', array('user' => $info['user_name']));
+        if ($this->checkEmail($info['user_name'])) {
+            $prefs->setValue('alternate_email',$info['user_name']);
+        } elseif ($this->checkEmail($info['email'])) {
+            $prefs->setValue('alternate_email',$info['email']);
+        }
+
         // Attempt to add/update any extra data handed in.
         if (!empty($info['extra'])) {
             try {
@@ -60,12 +68,16 @@ abstract class Horde_Core_Auth_Signup_Base
 
         // If it's a unique username, go ahead and queue the request.
         $signup = $this->newSignup($info['user_name']);
+        if ($this->checkEmail($info['user_name'])) {
+            $info['email'] = $info['user_name'];
+        }
         if (!empty($info['extra'])) {
             $signup->setData($info['extra']);
         }
         $signup->setData(array_merge($signup->getData(), array(
             'dateReceived' => time(),
             'password' => $info['password'],
+            'email' => $info['email'],
         )));
 
         $this->_queueSignup($signup);
@@ -96,6 +108,39 @@ abstract class Horde_Core_Auth_Signup_Base
     }
 
     /**
+     * Check a username against existing users and signups.
+     *
+     * @param string $username  Username to check.
+     *
+     * @throws Horde_Exception
+     */
+    public function checkUsername($username)
+    {
+        // Check to see if the username already exists in the auth backend or
+        // the signup queue.
+        if ($GLOBALS['auth']->exists($username) ||
+            $this->exists($username)) {
+            throw new Horde_Exception(sprintf(Horde_Core_Translation::t("Username \"%s\" already exists."), $username));
+        }
+    }
+
+    /**
+     * Check if an email address is valid.
+     *
+     * @param string $email  Email address to check.
+     *
+     * @returns boolean True if valid email address, false if invalid email address.
+     */
+    public function checkEmail($email)
+    {
+        if ((bool)filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
      * Perform common presignup actions.
      *
      * @param array $info  Reference to array of parameters.
@@ -109,12 +154,7 @@ abstract class Horde_Core_Auth_Signup_Base
         } catch (Horde_Exception_HookNotSet $e) {
         }
 
-        // Check to see if the username already exists in the auth backend or
-        // the signup queue.
-        if ($GLOBALS['auth']->exists($info['user_name']) ||
-            $this->exists($info['user_name'])) {
-            throw new Horde_Exception(sprintf(Horde_Core_Translation::t("Username \"%s\" already exists."), $info['user_name']));
-        }
+        $this->checkUsername($info['user_name']);
     }
 
     /**

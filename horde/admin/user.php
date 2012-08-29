@@ -50,6 +50,7 @@ if (empty($extra)) {
     $addForm->addVariable(_("Username"), 'user_name', 'text', true);
     $addForm->addVariable(_("Password"), 'password', 'passwordconfirm', false, false, _("type the password twice to confirm"));
 }
+$addForm->addHidden('', 'email', 'text', true);
 
 // Process forms. Use Horde_Util::getPost() instead of Horde_Util::getFormData()
 // for a lot of the data because we want to actively ignore GET data
@@ -85,6 +86,11 @@ case 'add':
             } catch (Horde_Auth_Exception $e) {
                 $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $e->getMessage()), 'horde.error');
                 break;
+            }
+
+            if (isset($info['email'])) {
+                $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('horde', array('user' => $info['user_name']));
+                $prefs->setValue('alternate_email', $info['email']);
             }
 
             if (isset($info['extra'])) {
@@ -204,8 +210,11 @@ case 'approve_f':
     unset($info['password']);
     $vars->set('extra', $info);
 
+    $vars->set('email', $info['email']);
+
     $vars->set('removeQueuedSignup', true);
     $addForm->addHidden('', 'removeQueuedSignup', 'boolean', true);
+
     break;
 
 case 'removequeued_f':
