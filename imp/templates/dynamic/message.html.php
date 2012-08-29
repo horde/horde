@@ -60,8 +60,7 @@
 <?php endif; ?>
     </div>
     <div id="msgHeadersContent">
-     <p><?php echo $this->subject ?></p>
-     <p>&nbsp;</p>
+     <div class="subject"><?php echo $this->subject ?></div>
      <table>
       <thead>
 <?php foreach ($this->hdrs as $val): ?>

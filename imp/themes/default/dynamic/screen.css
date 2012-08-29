@@ -559,6 +559,14 @@ div.dimpActionsMsg #windowclose {
 .msgfullread div.messageBody {
     overflow: auto;
 }
+.msgfullread div.subject {
+    font-size: 120%;
+    font-weight: bold;
+    max-height: 50px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 8px;
+}
 
 /* Message Composition. */
 .composeAddrbook, #togglebcc, #togglecc {
