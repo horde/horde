@@ -1777,7 +1777,6 @@ left.horde-point-right {
 /* Sidebar. */
 #horde-sidebar {
     background-color: #bfc9cd;
-    padding-bottom: 10px;
 }
 #horde-sidebar a {
     color: #000;
