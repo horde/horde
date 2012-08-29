@@ -15,6 +15,37 @@
 class IMP_Ajax_Application_Helper_Smartmobile
 {
     /**
+     * AJAX action: Get forward compose data.
+     *
+     * @see IMP_Ajax_Application#getForwardData()
+     */
+    public function smartmobileGetForwardData(Horde_Core_Ajax_Application $app_ob)
+    {
+        $GLOBALS['notification']->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
+
+        return $app_ob->getForwardData();
+    }
+
+    /**
+     * AJAX action: Generate data necessary to display a message.
+     *
+     * @see IMP_Ajax_Application#showMessage()
+     *
+     * @return object  Adds the following entries to the base object:
+     *   - suid: (string) The search mailbox UID.
+     */
+    public function smartmobileShowMessage(Horde_Core_Ajax_Application $app_ob)
+    {
+        $output = $app_ob->showMessage();
+
+        if (IMP_Mailbox::formFrom($app_ob->vars->view)->search) {
+            $output->suid = IMP_Ajax_Application_ListMessages::searchUid(IMP_Mailbox::formFrom($output->mbox), $output->uid);
+        }
+
+        return $output;
+    }
+
+    /**
      * AJAX action: Check access rights for creation of a submailbox.
      *
      * Variables used:

@@ -5,30 +5,28 @@
  <?php echo $this->hiddenFieldTag('save_attachments_select', intval($this->save_attach_set)) ?>
 
  <div class="horde-buttonbar">
-  <div class="iconImg headercloseimg closeImg" id="compose_close"></div>
+  <div class="iconImg headercloseimg closeImg" id="compose_close" title="<?php echo _("Accesskey Esc") ?>"></div>
 <?php if ($this->compose_enable): ?>
 <?php if (!$this->is_template): ?>
-  <div>
-   <?php echo $this->actionButton(array('icon' => 'Forward', 'id' => 'send_button', 'title' => _("Send"))) ?>
-   <div class="horde-button-split"></div>
-  </div>
+  <ul>
+  <li class="horde-icon">
+   <?php echo $this->actionButton(array('htmltitle' => _("Accesskey Ctrl-Enter"), 'icon' => 'Forward', 'id' => 'send_button', 'title' => _("Send"))) ?>
+  </li>
 <?php endif; ?>
 <?php endif; ?>
 <?php if ($this->is_template): ?>
-  <div>
+  <li class="horde-icon">
    <?php echo $this->actionButton(array('icon' => 'Templates', 'id' => 'template_button', 'title' => _("Save Template"))) ?>
-   <div class="horde-button-split"></div>
-  </div>
+  </li>
 <?php else: ?>
-  <div>
-   <?php echo $this->actionButton(array('id' => 'spellcheck', 'title' => _("Check Spelling"))) ?>
-   <div class="horde-button-split"></div>
-  </div>
-  <div>
+  <li class="horde-icon">
+   <?php echo $this->actionButton(array('icon' => 'Spellcheck', 'id' => 'spellcheck', 'title' => _("Check Spelling"))) ?>
+  </li>
+  <li class="horde-icon">
    <?php echo $this->actionButton(array('icon' => 'Drafts', 'id' => 'draft_button', 'title' => _("Save as Draft"))) ?>
-   <div class="horde-button-split"></div>
-  </div>
+  </li>
 <?php endif; ?>
+  </ul>
  </div>
 
  <div id="writemsg">
@@ -70,8 +68,7 @@
    </div>
 
 <?php if (strlen($this->title)): ?>
-   <p class="p17 bold"><?php echo $this->h($this->title) ?></p>
-   <p>&nbsp;</p>
+   <div class="msgwritehdr"><?php echo $this->h($this->title) ?></div>
 <?php endif; ?>
 
    <table>
@@ -178,7 +175,7 @@
   </div>
 
   <div id="composeMessageParent">
-   <textarea name="message" rows="20" id="composeMessage" class="fixed"></textarea>
+   <textarea name="message" id="composeMessage" class="fixed"></textarea>
   </div>
  </div>
 </form>

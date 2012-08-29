@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Koward</name>
  <channel>pear.horde.org</channel>
  <summary>An administration frontend for the Kolab server</summary>
@@ -14,7 +11,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2009-04-30</date>
+ <date>2012-07-19</date>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -29,6 +26,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </notes>
  <contents>
   <dir name="/">
+   <dir name="doc">
+    <file name="COPYING" role="horde" />
+    <file name="TODO" role="horde" />
+   </dir> <!-- /doc -->
    <dir name="lib">
     <file name="Koward.php" role="php" />
     <dir name="Koward">
@@ -86,7 +87,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="script">
     <dir name="Koward">
      <file name="koward.php" role="script">
-      <replace from="@php_bin@" to="php_bin" type="pear-config"/>
+      <replace from="@php_bin@" to="php_bin" type="pear-config" />
      </file>
     </dir> <!-- /Koward -->
    </dir> <!-- /script -->
@@ -101,7 +102,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="horde">
      <dir name="config">
       <file name="conf.php.dist" role="www" />
-      <file name="hooks.php.dist" role="www" />
       <file name="nls.php.dist" role="www" />
       <file name="prefs.php.dist" role="www" />
       <dir name="registry.d">
@@ -114,6 +114,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="config">
       <file name="conf.php.dist" role="www" />
       <file name="base.php.dist" role="www" />
+      <file name=".gitignore" role="horde" />
       <file name="attributes.php.dist" role="www" />
       <file name="labels.php.dist" role="www" />
       <file name="objects.php.dist" role="www" />
@@ -153,8 +154,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="tab_bottom.gif" role="www" />
         <file name="user.png" role="www" />
        </dir> <!-- /www/htdocs/horde/themes/graphics -->
-       <file name="ie5mac.css" role="www" />
-       <file name="ie6_or_less.css" role="www" />
        <file name="moz14.css" role="www" />
        <file name="opera.css" role="www" />
        <file name="rtl.css" role="www" />
@@ -183,7 +182,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
         </dir> <!-- /www/htdocs/horde/themes/silver/graphics -->
         <file name="info.php" role="www" />
         <file name="screen.css" role="www" />
-        <file name="themed_graphics" role="www" />
        </dir> <!-- /www/htdocs/horde/themes/silver -->
        <file name="webkit.css" role="www" />
       </dir> <!-- /www/htdocs/horde/themes -->
@@ -275,6 +273,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="koward/doc/COPYING" name="doc/COPYING" />
+   <install as="koward/doc/TODO" name="doc/TODO" />
    <install name="lib/Koward.php" as="Koward.php" />
    <install name="lib/Koward/Cli.php" as="Koward/Cli.php" />
    <install name="lib/Koward/Controller/Application.php" as="Koward/Controller/Application.php" />
@@ -310,7 +310,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Koward/KowardTest.php" as="Koward/KowardTest.php" />
    <install name="test/Koward/TestInit.php" as="Koward/TestInit.php" />
    <install name="www/horde/config/conf.php.dist" as="horde/config/conf.php.dist" />
-   <install name="www/horde/config/hooks.php.dist" as="horde/config/hooks.php.dist" />
    <install name="www/horde/config/nls.php.dist" as="horde/config/nls.php.dist" />
    <install name="www/horde/config/prefs.php.dist" as="horde/config/prefs.php.dist" />
    <install name="www/horde/config/registry.d/README" as="horde/config/registry.d/README" />
@@ -333,8 +332,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="www/htdocs/horde/themes/graphics/search.png" as="htdocs/horde/themes/graphics/search.png" />
    <install name="www/htdocs/horde/themes/graphics/tab_bottom.gif" as="htdocs/horde/themes/graphics/tab_bottom.gif" />
    <install name="www/htdocs/horde/themes/graphics/user.png" as="htdocs/horde/themes/graphics/user.png" />
-   <install name="www/htdocs/horde/themes/ie5mac.css" as="htdocs/horde/themes/ie5mac.css" />
-   <install name="www/htdocs/horde/themes/ie6_or_less.css" as="htdocs/horde/themes/ie6_or_less.css" />
    <install name="www/htdocs/horde/themes/moz14.css" as="htdocs/horde/themes/moz14.css" />
    <install name="www/htdocs/horde/themes/opera.css" as="htdocs/horde/themes/opera.css" />
    <install name="www/htdocs/horde/themes/rtl.css" as="htdocs/horde/themes/rtl.css" />
@@ -358,13 +355,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="www/htdocs/horde/themes/silver/graphics/user.png" as="htdocs/horde/themes/silver/graphics/user.png" />
    <install name="www/htdocs/horde/themes/silver/info.php" as="htdocs/horde/themes/silver/info.php" />
    <install name="www/htdocs/horde/themes/silver/screen.css" as="htdocs/horde/themes/silver/screen.css" />
-   <install name="www/htdocs/horde/themes/silver/themed_graphics" as="htdocs/horde/themes/silver/themed_graphics" />
    <install name="www/htdocs/horde/themes/webkit.css" as="htdocs/horde/themes/webkit.css" />
    <install name="www/htdocs/koward/koward.php" as="htdocs/koward/koward.php" />
    <install name="www/htdocs/koward/themes/graphics/favicon.ico" as="htdocs/koward/themes/graphics/favicon.ico" />
    <install name="www/htdocs/koward/themes/graphics/query.png" as="htdocs/koward/themes/graphics/query.png" />
    <install name="www/htdocs/koward/themes/kolab/screen.css" as="htdocs/koward/themes/kolab/screen.css" />
    <install name="www/htdocs/koward/themes/screen.css" as="htdocs/koward/themes/screen.css" />
+   <install as="koward/www/koward/config/.gitignore" name="www/koward/config/.gitignore" />
    <install name="www/koward/config/attributes.php.dist" as="koward/config/attributes.php.dist" />
    <install name="www/koward/config/base.php.dist" as="koward/config/base.php.dist" />
    <install name="www/koward/config/conf.php.dist" as="koward/config/conf.php.dist" />

@@ -110,10 +110,11 @@ class IMP_Ajax_Application_ShowMessage
      *   - mbox: The mailbox (base64url encoded)
      *   - msgtext: The text of the message
      *   - onepart: True if message only contains one part.
-     *   - priority (FULL): The priority of the message (low, high, normal)
      *   - replyTo (FULL): The Reply-to addresses
      *   - save_as: The save link
      *   - subject: The subject
+     *   - subjectlink: The subject with linked URLs/email addresses (defaults
+     *                  to 'subject')
      *   - title (FULL): The title of the page
      *   - to: The To addresses
      *   - uid: The message UID
@@ -219,7 +220,11 @@ class IMP_Ajax_Application_ShowMessage
         /* Process the subject. */
         $subject = $mime_headers->getValue('subject');
         if ($subject) {
-            $result['subject'] = $imp_ui->getDisplaySubject($subject);
+            $result['subject'] = $imp_ui->getDisplaySubject($subject, Horde_Text_Filter_Text2html::NOHTML);
+            $subjectlink = $imp_ui->getDisplaySubject($subject);
+            if ($subjectlink != $result['subject']) {
+                $result['subjectlink'] = $subjectlink;
+            }
             if (!$preview) {
                 $result['title'] = $subject;
             }
@@ -228,11 +233,6 @@ class IMP_Ajax_Application_ShowMessage
             if (!$preview) {
                 $result['title'] = _("[No Subject]");
             }
-        }
-
-        /* Get message priority. */
-        if (!$preview) {
-            $result['priority'] = $imp_hdr_ui->getPriority($mime_headers);
         }
 
         // Create message text and attachment list.
@@ -286,24 +286,30 @@ class IMP_Ajax_Application_ShowMessage
 
         /* Show attachment information in headers? */
         if (!empty($inlineout['atc_parts'])) {
-            $tmp = '';
+            $partlist = array();
 
             if ($show_parts == 'all') {
                 array_unshift($part_info, 'id');
             }
 
             foreach ($inlineout['atc_parts'] as $id) {
+                $contents_mask |= IMP_Contents::SUMMARY_DESCRIP;
+                $part_info[] = 'description_raw';
+                $part_info[] = 'download_url';
+
                 $summary = $this->_contents->getSummary($id, $contents_mask);
-                $tmp .= '<tr>';
+                $tmp = array();
                 foreach ($part_info as $val) {
-                    $tmp .= '<td' .
-                        (strlen($summary[$val]) ? '' : ' class="partlistempty"') .
-                        '>' . $summary[$val] . '</td>';
+                    if (strlen($summary[$val])) {
+                        $tmp[$val] = ($summary[$val] instanceof Horde_Url)
+                            ? strval($summary[$val]->setRaw(true))
+                            : $summary[$val];
+                    }
                 }
-                $tmp .= '</tr>';
+                $partlist[] = $tmp;
             }
 
-            $result['atc_list'] = $tmp;
+            $result['atc_list'] = $partlist;
         }
 
         $result['save_as'] = $GLOBALS['registry']->downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $this->_mbox->urlParams($this->_uid)));
@@ -330,7 +336,10 @@ class IMP_Ajax_Application_ShowMessage
                 $result = Horde::callHook('dimp_messageview', array($result), 'imp');
             } catch (Horde_Exception_HookNotSet $e) {}
 
-            $result['list_info'] = $imp_ui->getListInformation($mime_headers);
+            $list_info = $imp_ui->getListInformation($mime_headers);
+            if (!empty($list_info['exists'])) {
+                $result['list_info'] = $list_info;
+            }
         }
 
         if (empty($result['js'])) {

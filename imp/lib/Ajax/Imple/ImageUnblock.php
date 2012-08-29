@@ -54,9 +54,7 @@ class IMP_Ajax_Imple_ImageUnblock extends Horde_Core_Ajax_Imple
 
         try {
             $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices(IMP_Mailbox::formFrom($vars->mailbox), $vars->uid));
-
-            $imgview = new IMP_Ui_Imageview();
-            $imgview->addSafeAddress(IMP::bareAddress($contents->getHeader()->getValue('from')));
+            $injector->getInstance('IMP_Prefs_Special_ImageReplacement')->addSafeAddrList(IMP::bareAddress($contents->getHeader()->getValue('from')));
         } catch (Exception $e) {
             $notification->push($e, 'horde.error');
             return false;

@@ -338,8 +338,8 @@ $servers['advanced'] = array(
     //    'username' => null
     ),
     // 'admin' => array(
-    //     'admin_user' => 'cyrus',
-    //     'admin_password' => 'cyrus_pass',
+    //     'user' => 'cyrus',
+    //     'password' => 'cyrus_pass',
     //     'userhierarchy' => 'user.'
     // ),
     'quota' => array(

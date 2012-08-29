@@ -30,13 +30,6 @@ class Nag_Block_Summary extends Horde_Core_Block
      */
     protected function _params()
     {
-        $cManager = new Horde_Prefs_CategoryManager();
-        $categories = array();
-        foreach ($cManager->get() as $c) {
-            $categories[$c] = $c;
-        }
-        $categories['unfiled'] = _("Unfiled");
-
         $tasklists = array();
         foreach (Nag::listTasklists() as $id => $tasklist) {
             $tasklists[$id] = $tasklist->get('name');
@@ -73,11 +66,6 @@ class Nag_Block_Summary extends Horde_Core_Block
                 'name' => _("Show task alarms?"),
                 'default' => 1
             ),
-            'show_category' => array(
-                'type' => 'checkbox',
-                'name' => _("Show task category?"),
-                'default' => 1
-            ),
             'show_overdue' => array(
                 'type' => 'checkbox',
                 'name' => _("Always show overdue tasks?"),
@@ -93,12 +81,6 @@ class Nag_Block_Summary extends Horde_Core_Block
                 'name' => _("Show tasks from these tasklists"),
                 'default' => array($GLOBALS['registry']->getAuth()),
                 'values' => $tasklists
-            ),
-            'show_categories' => array(
-                'type' => 'multienum',
-                'name' => _("Show tasks from these categories"),
-                'default' => array(),
-                'values' => $categories
             )
         );
     }
@@ -156,14 +138,14 @@ class Nag_Block_Summary extends Horde_Core_Block
 
         $i = 0;
         try {
-            $tasks = Nag::listTasks(
-                null, null, null,
-                isset($this->_params['show_tasklists']) ?
-                    $this->_params['show_tasklists'] :
-                    array_keys(Nag::listTasklists(false, Horde_Perms::READ)),
-                empty($this->_params['show_completed']) ?
-                        0 :
-                        1
+            $tasks = Nag::listTasks(array(
+                'tasklists' => isset($this->_params['show_tasklists'])
+                    ? $this->_params['show_tasklists']
+                    : array_keys(Nag::listTasklists(false, Horde_Perms::READ)),
+                'completed' => empty($this->_params['show_completed'])
+                    ? Nag::VIEW_INCOMPLETE
+                    : Nag::VIEW_ALL,
+                'include_tags' => true)
             );
         } catch (Nag_Exception $e) {
             return '<em>' . htmlspecialchars($e->getMessage()) . '</em>';
@@ -171,15 +153,10 @@ class Nag_Block_Summary extends Horde_Core_Block
 
         $tasks->reset();
         while ($task = $tasks->each()) {
-            // Only print tasks due in the past if the show_overdue flag is
-            // on. Only display selected categories (possibly unfiled).
+            // Only print tasks due in the past if the show_overdue flag is on.
             if (($task->due > 0 &&
                  $now > $task->due &&
-                 empty($this->_params['show_overdue'])) ||
-                (!empty($this->_params['show_categories']) &&
-                 (!in_array($task->category, $this->_params['show_categories']) &&
-                  !(empty($task->category) &&
-                    in_array('unfiled', $this->_params['show_categories']))))) {
+                 empty($this->_params['show_overdue']))) {
                 continue;
             }
 
@@ -250,14 +227,6 @@ class Nag_Block_Summary extends Horde_Core_Block
             }
 
             $html .= '</td>';
-
-            if (!empty($this->_params['show_category'])) {
-                $html .= '<td class="base-category" width="1%" style="'
-                    . $task->getCssStyle() . '">'
-                    . htmlspecialchars($task->category
-                                       ? $task->category : _("Unfiled"))
-                    . '</td>';
-            }
             $html .= "</tr>\n";
         }
 

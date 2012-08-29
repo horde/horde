@@ -49,17 +49,20 @@ var HordeMobile = {
     {
         params = params || {};
         params.token = HordeMobile.conf.token;
+        if (HordeMobile.conf.sid) {
+            $.extend(params, HordeMobile.conf.sid.toQueryParams());
+        }
 
         $.mobile.showPageLoadingMsg();
 
         var options = $.extend({
-            'data': params,
-            'error': $.noop,
-            'success': function(d, t, x) {
+            data: params,
+            error: $.noop,
+            success: function(d, t, x) {
                 HordeMobile.doActionComplete(d, callback);
             },
-            'type': 'post',
-            'url': HordeMobile.conf.ajax_url + action,
+            type: 'post',
+            url: HordeMobile.conf.ajax_url + action,
         }, opts || {});
         $.ajax(options);
     },

@@ -15,8 +15,17 @@
  */
 class Turba
 {
-    /* The virtual path to use for VFS data. */
+    /**
+     * The virtual path to use for VFS data.
+     */
     const VFS_PATH = '.horde/turba/documents';
+
+    /**
+     * The current source.
+     *
+     * @var string
+     */
+    static public $source;
 
     /**
      * Cached data.
@@ -128,6 +137,50 @@ class Turba
     }
 
     /**
+     * Saves the sort order to the preferences backend.
+     *
+     * @param Horde_Variables $vars  Variables object.
+     * @param string $source         Source.
+     */
+    static public function setPreferredSortOrder(Horde_Variables $vars,
+                                                 $source)
+    {
+        if (!strlen($sortby = $vars->get('sortby'))) {
+            return;
+        }
+
+        $sources = self::getColumns();
+        $columns = isset($sources[$source])
+            ? $sources[$source]
+            : array();
+        $column_name = self::getColumnName($sortby, $columns);
+
+        $append = true;
+        $ascending = ($vars->get('sortdir') == 0);
+
+        if ($vars->get('sortadd')) {
+            $sortorder = self::getPreferredSortOrder();
+            foreach ($sortorder as $i => $elt) {
+                if ($elt['field'] == $column_name) {
+                    $sortorder[$i]['ascending'] = $ascending;
+                    $append = false;
+                }
+            }
+        } else {
+            $sortorder = array();
+        }
+
+        if ($append) {
+            $sortorder[] = array(
+                'ascending' => $ascending,
+                'field' => $column_name
+            );
+        }
+
+        $GLOBALS['prefs']->setValue('sortorder', serialize($sortorder));
+    }
+
+    /**
      * Retrieves a column's field name.
      *
      * @param integer $i      TODO
@@ -137,7 +190,7 @@ class Turba
      */
     static public function getColumnName($i, $columns)
     {
-        return ($i == 0)
+        return (($i == 0) || !isset($columns[$i - 1]))
             ? 'name'
             : $columns[$i - 1];
     }

@@ -422,8 +422,8 @@ extends Horde_Kolab_Storage_Driver_Base
             );
 
             $out = array();
-            foreach (array_keys($ret) as $key) {
-                $out[$key]['structure'] = $ret[$key]->getStructure();
+            foreach ($ret as $key => $result) {
+                $out[$key]['structure'] = $result->getStructure();
             }
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Kolab_Storage_Exception($e);

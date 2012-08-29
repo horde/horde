@@ -19,8 +19,7 @@ if ($tasks->hasTasks()) {
             array('actionID' => 'search_tasks',
                   'search_pattern' => $search_pattern,
                   'search_name' => $search_name ? 'on' : 'off',
-                  'search_desc' => $search_desc ? 'on' : 'off',
-                  'search_category' => $search_category ? 'on' : 'off'));
+                  'search_desc' => $search_desc ? 'on' : 'off'));
     }
 
     require NAG_TEMPLATES . '/list/task_headers.inc';

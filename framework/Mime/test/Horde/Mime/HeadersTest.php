@@ -148,4 +148,28 @@ To: recipient2@example.com"
         );
     }
 
+    public function testUndisclosedHeaderParsing()
+    {
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('To', 'undisclosed-recipients');
+        $this->assertEquals(
+            '',
+            $hdrs->getValue('To')
+        );
+
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('To', 'undisclosed-recipients:');
+        $this->assertEquals(
+            '',
+            $hdrs->getValue('To')
+        );
+
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('To', 'undisclosed-recipients:;');
+        $this->assertEquals(
+            '',
+            $hdrs->getValue('To')
+        );
+    }
+
 }

@@ -65,10 +65,7 @@ implements Horde_Kolab_Storage
      */
     public function getList()
     {
-        return new Horde_Kolab_Storage_List_Decorator_Log(
-            $this->_storage->getList(),
-            $this->_logger
-        );
+        return $this->_storage->getList();
     }
 
     /**
@@ -81,10 +78,7 @@ implements Horde_Kolab_Storage
      */
     public function getSystemList($type)
     {
-        return new Horde_Kolab_Storage_List_Decorator_Log(
-            $this->_storage->getSystemList($type),
-            $this->_logger
-        );
+        return $this->_storage->getSystemList($type);
     }
 
     /**

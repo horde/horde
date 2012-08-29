@@ -71,7 +71,7 @@ class Ingo_Factory_Storage extends Horde_Core_Factory_Base
             if (class_exists($class)) {
                 $this->_instances[$driver] = new $class($params);
             } else {
-                throw new Ingo_Exception(sprintf(_("Unable to load the storage driver \"%s.\""), $class));
+                throw new Ingo_Exception(sprintf(_("Unable to load the storage driver \"%s\"."), $class));
             }
         }
 

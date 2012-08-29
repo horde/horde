@@ -11,168 +11,101 @@
 class Horde_Service_Facebook_Users extends Horde_Service_Facebook_Base
 {
     /**
+     * Local cache of requested permissions
+     *
+     * @var array
+     */
+    protected $_permissions = array();
+
+    /**
+     * Local cache of requested user information
+     *
+     * @var array
+     */
+    protected $_users = array();
+
+    /**
+     * Return a URL to the facebook page of the requested user.
+     *
+     * @param string $uid  The Facebook user id.
+     *
+     * @return string  The URL to the user's Facebook page.
+     */
+    public function getProfileLink($uid)
+    {
+        return $this->_facebook->getFacebookUrl() . '/' . $uid;
+    }
+
+    /**
+     * Return a URL to the user's thumbnail image.
+     *
+     * @param string $uid  The Facebook user id.
+     *
+     * @return string  The URL to the user's Facebook thumbnail.
+     */
+    public function getThumbnail($uid)
+    {
+        return $this->_facebook->getFacebookUrl('graph') . '/' . $uid . '/picture';
+    }
+
+    /**
      * Returns the requested info fields for the requested set of users.
      *
-     * @param string $uids    A comma-separated list of user ids
-     * @param string $fields  A comma-separated list of info field names desired
+     * @param string $uids   A comma-separated list of user ids
+     * @param array $fields  An array of fields to return. If empty, all fields
+     *                       are returned.
      *
-     * @return array  An array of user objects
+     * @todo Better cache handling.
+     *
+     * @return object  The user information as a stdClass.
      */
-    public function &getInfo($uids, $fields)
+    public function getInfo($uid = null, array $fields = array())
     {
-        return $this->_facebook->callMethod('facebook.users.getInfo',
-            array('uids' => $uids,
-                  'fields' => $fields,
-                  'session_key' => $this->_facebook->auth->getSessionKey()));
+        if (empty($uid)) {
+            $uid = 'me';
+        }
+        if (!empty($fields)) {
+            $params = array('fields' => implode(',', $fields));
+        } else {
+            $params = array();
+        }
+        $key = md5($uid . implode(',', $fields));
+        if (empty($this->_users[$key])) {
+            $this->_users[$key] = $this->_facebook->callGraphApi($uid, $params);
+        }
+
+        return $this->_users[$key];
     }
 
     /**
-     * Returns the requested info fields for the requested set of users. A
-     * session key must not be specified. Only data about users that have
-     * authorized your application will be returned.
+     * Return the list of the current application permissions for the specified
+     * user.
      *
-     * Check the wiki for fields that can be queried through this API call.
-     * Data returned from here should *not* be used for rendering to application
-     * users, use users.getInfo instead, so that proper privacy rules will be
-     * applied.
+     * @param string $uid  The uid to request permissions for. If null, the
+     *                     currently authenticated user is used.
      *
-     * @param string $uids    A comma-separated list of user ids
-     * @param string $fields  A comma-separated list of info field names desired
-     *
-     * @return array  An array of user objects
+     * @return array  An array of permissions where the keys are permission
+     *                names and the values are '1' for yes or '0' for no.
      */
-    public function &getStandardInfo($uids, $fields)
-    {
-        return $this->_facebook->callMethod('facebook.users.getStandardInfo',
-            array('uids' => $uids, 'fields' => $fields));
-    }
-
-    /**
-     * Returns 1 if the user has the specified permission, 0 otherwise.
-     * http://wiki.developers.facebook.com/index.php/Users.hasAppPermission
-     *
-     * @param string $ext_perm  The perm to check for.
-     * @param string $uid       The facebook userid to check.
-     *
-     * @return integer  1 or 0
-     * @throws Horde_Service_Facebook_Exception
-     */
-    public function &hasAppPermission($ext_perm, $uid = null)
+    public function getAppPermissions($uid = null)
     {
         if (empty($uid) && !$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception('users.hasAppPermission requires either a uid or a session_key',
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
 
-        $params = array('ext_perm' => $ext_perm);
-        if (!empty($uid)) {
-            $params['uid'] = $uid;
+        if (empty($uid)) {
+            $uid = 'me';
         }
 
-        return $this->_facebook->callMethod('facebook.users.hasAppPermission', $params);
-    }
-
-    /**
-     * Returns whether or not the user corresponding to the current
-     * session object has the give the app basic authorization.
-     *
-     * @TODO Deprecate when Graph API provides this functionality.
-     *
-     * @param string $uid  Facebook userid
-     *
-     * @return boolean  true if the user has authorized the app
-     * @throws Horde_Service_Facebook_Exception
-     */
-    public function &isAppUser($uid = null)
-    {
-        if (empty($uid) && $this->_facebook->auth->getSessionKey()) {
-            $params = array('session_key' => $this->_facebook->auth->getSessionKey());
-        } elseif (!empty($uid)) {
-            $params = array('uid' => $uid);
+        if (empty($this->_permissions[$uid])) {
+            $results = $this->_facebook->callGraphApi($uid . '/permissions');
+            if (!empty($results) && !empty($results->data)) {
+                return $this->_permissions[$uid] = (array)$results->data[0];
+            }
         } else {
-            throw new Horde_Service_Facebook_Exception('users.isAppUser requires either a uid or a session_key',
-                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
+            return $this->_permissions[$uid];
         }
-
-        return $this->_facebook->callMethod('facebook.users.isAppUser', $params);
-    }
-
-    /**
-     * Returns whether or not the user corresponding to the current
-     * session object is verified by Facebook. See the documentation
-     * for Users.isVerified for details.
-     *
-     * @throws Horde_Service_Facebook_Exception
-     * @return boolean  true if the user is verified
-     */
-    public function &isVerified()
-    {
-       if (!$this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('users.isVerified requires a session_key',
-                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
-        }
-
-        return $this->callMethod('facebook.users.isVerified', array('session_key' => $this->_facebook->auth->getSessionKey()));
-    }
-
-    /**
-     * Sets the users' current status message. Message does NOT contain the
-     * word "is" , so make sure to include a verb.
-     *
-     * Example: setStatus("is loving the API!")
-     * will produce the status "Luke is loving the API!"
-     *
-     * @param string  $status      text-only message to set
-     * @param string  $uid         user to set for (defaults to the
-     *                             logged-in user)
-     * @param boolean $clear       whether or not to clear the status, instead
-     *                             of setting it
-     * @param boolean $includeVerb If true, the word "is" will *not* be
-     *                             prepended to the status message
-     *
-     * @return boolean
-     */
-    public function &setStatus($status, $uid = null, $clear = false, $includeVerb = true)
-    {
-        if (empty($uid) && !$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('users.setStatus requires a uid or a session_key',
-                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
-        }
-        $params  = array('status' => $status,
-                         'clear' => $clear,
-                         'status_includes_verb' => $includeVerb);
-
-        if (!empty($uid)) {
-            $params['uid'] = $uid;
-        } else {
-            $params['session_key']  = $skey;
-        }
-
-        return $this->_facebook->callMethod('facebook.users.setStatus', $params);
-    }
-
-    /**
-     * Get user's status
-     *
-     * @param string  $uid
-     * @param integer $limit
-     *
-     * @return mixed
-     */
-    public function &getStatus($uid = null, $limit = 1)
-    {
-        $skey = $this->_facebook->auth->getSessionKey();
-        if (empty($uid) && !$skey) {
-            throw new Horde_Service_Facebook_Exception('users.setStatus requires a uid or a session_key',
-                Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
-        }
-
-        $params = array('session_key' => $skey, 'limit' => $limit);
-        if (!empty($uid)) {
-            $params['uid'] = $uid;
-        }
-
-        return $this->_facebook->callMethod('Status.get', $params);
     }
 
 }

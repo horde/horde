@@ -108,6 +108,13 @@ abstract class Horde_ActiveSync_Request_Base
     protected $_device;
 
     /**
+     * The procid
+     *
+     * @var integer
+     */
+    protected $_procid;
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync $as                       The ActiveSync server.
@@ -138,6 +145,9 @@ abstract class Horde_ActiveSync_Request_Base
 
         // Device info
         $this->_device = $device;
+
+        // Procid
+        $this->_procid = getmypid();
     }
 
     /**

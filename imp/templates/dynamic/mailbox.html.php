@@ -10,64 +10,53 @@
 <div id="horde-page" style="display:none">
 <?php echo $this->sidebar ?>
  <div id="dimpmain">
-  <div id="dimpmain_iframe"><?php echo _("Loading...") ?></div>
+  <div id="dimpmain_iframe" style="display:none"></div>
   <div id="dimpmain_folder" style="display:none">
    <div id="dimpmain_folder_top">
-    <div class="header mboxheader" style="display:none">
-     <div>
-      <span class="rightFloat" id="msgHeader"></span>
-      <span id="mailboxName"></span>
-      <span class="iconImg readonlyImg" style="display:none" title="<?php echo $this->h(_("Read-Only")) ?>"></span>
-     </div>
-    </div>
-
     <div class="horde-buttonbar">
-     <div>
+    <ul class="rightFloat">
+<?php if ($this->show_search): ?>
+     <li class="horde-nobutton" id="filter">
+      <?php echo $this->actionButton(array('id' => 'button_filter', 'title' => _("Filter"), 'right' => true)) ?>
+     </li>
+<?php endif; ?>
+     <li class="horde-nobutton">
+      <?php echo $this->actionButton(array('id' => 'button_other', 'title' => _("Other"), 'right' => true)) ?>
+     </li>
+    </ul>
+    <ul>
+     <li class="horde-icon">
+      <?php echo $this->actionButton(array('icon' => 'Refresh', 'id' => 'checkmaillink', 'title' => _("Refresh"))) ?>
+     </li>
+     <li class="horde-icon">
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Reply', 'id' => 'button_reply', 'title' => _("Reply"))) ?>
-      <div class="horde-button-split"></div>
-     </div>
-     <div>
+     </li>
+     <li class="horde-icon">
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Forward', 'id' => 'button_forward', 'title' => _("Forward"))) ?>
-      <div class="horde-button-split"></div>
-     </div>
+     </li>
 <?php if ($this->show_spam): ?>
-     <div style="display:none">
+     <li class="horde-icon" style="display:none">
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?>
-      <div class="horde-button-split"></div>
-     </div>
+     </li>
 <?php endif; ?>
 <?php if ($this->show_notspam): ?>
-     <div style="display:none">
+     <li class="horde-icon" style="display:none">
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Ham', 'id' => 'button_ham', 'title' => _("Innocent"))) ?>
-      <div class="horde-button-split"></div>
-     </div>
+     </li>
 <?php endif; ?>
-     <div style="display:none">
+     <li class="horde-icon" style="display:none">
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Resume', 'id' => 'button_resume', 'title' => _("Resume"))) ?>
-      <div class="horde-button-split"></div>
-     </div>
-     <div style="display:none">
+     </li>
+     <li class="horde-icon" style="display:none">
       <?php echo $this->actionButton(array('icon' => 'Resume', 'id' => 'button_template', 'title' => _("Use Template"))) ?>
-      <div class="horde-button-split"></div>
-     </div>
-     <div>
+     </li>
+     <li class="horde-icon">
       <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Delete', 'id' => 'button_delete', 'title' => _("Delete"))) ?>
-      <div class="horde-button-split"></div>
-     </div>
-     <div id="button_compose">
-      <?php echo $this->actionButton(array('icon' => 'Compose', 'title' => _("Compose"))) ?>
-      <div class="horde-button-split"></div>
-     </div>
-     <div id="button_checkmail">
-      <?php echo $this->actionButton(array('icon' => 'Checkmail', 'title' => _("Get Mail"))) ?>
-      <div class="horde-button-split"></div>
-     </div>
-<?php if ($this->show_search): ?>
-     <div id="filter">
-      <?php echo $this->actionButton(array('id' => 'button_filter', 'title' => _("Filter"), 'right' => true)) ?>
-     </div>
-<?php endif; ?>
-      <?php echo $this->actionButton(array('id' => 'button_other', 'title' => _("Other"), 'right' => true)) ?>
+     </li>
+     <li class="horde-icon" id="button_compose">
+      <?php echo $this->actionButton(array('icon' => 'Compose', 'title' => _("New Message"))) ?>
+     </li>
+    </ul>
     </div>
 
     <div id="searchbar" style="display:none">
@@ -88,7 +77,8 @@
       <div id="msgHeadersColl">
        <a id="msg_newwin"><span class="iconImg" title="<?php echo _("Open in new window") ?>"></span></a>
        <span class="date"></span>
-       <span id="th_expand" class="p17 subject" title="<?php echo _("Expand Headers") ?>"></span>
+       <span class="iconImg" id="th_expand"></span>
+       <span class="subject" title="<?php echo _("Expand Headers") ?>"></span>
        <span class="fromcontainer"><?php echo _("from") ?>
         <span class="from"></span>
        </span>
@@ -121,7 +111,8 @@
         </div>
        </div>
        <div id="msgHeadersContent">
-        <p id="th_collapse" class="p17 bold subject" title="<?php echo _("Collapse Headers") ?>"></p>
+        <span class="iconImg" id="th_collapse"></span>
+        <p class="subject" title="<?php echo _("Collapse Headers") ?>"></p>
         <table>
          <thead>
           <tr id="msgHeaderFrom">

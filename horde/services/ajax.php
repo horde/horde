@@ -56,15 +56,21 @@ Horde::startBuffer();
 $ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, $vars, $action);
 try {
     $ajax->doAction();
+
+    // Clear the output buffer that we started above, and log any unexpected
+    // output at a DEBUG level.
+    if ($out = Horde::endBuffer()) {
+        Horde::logMessage('Unexpected output when creating AJAX reponse: ' . $out, 'DEBUG');
+    }
+
+    // Send the final result.
+    $ajax->send();
+} catch (Horde_Exception_AuthenticationFailure $e) {
+    // If we reach this, authentication to Horde was successful, but
+    // authentication to some underlying backend failed. Best to logout
+    // immediately, since no way of knowing if error is transient.
+    $response = new Horde_Core_Ajax_Response_HordeCore_NoAuth($app, $e->getCode());
+    $response->sendAndExit();
 } catch (Exception $e) {
     $notification->push($e->getMessage(), 'horde.error');
 }
-
-// Clear the output buffer that we started above, and log any unexpected
-// output at a DEBUG level.
-if ($out = Horde::endBuffer()) {
-    Horde::logMessage('Unexpected output when creating AJAX reponse: ' . $out, 'DEBUG');
-}
-
-// Send the final result.
-$ajax->send();

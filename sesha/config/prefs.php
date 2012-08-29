@@ -61,7 +61,7 @@ $_prefs['list_properties'] = array(
     'locked' => false,
     'type' => 'multienum',
     'enum' => array(),
-    'desc' => _("Select properties that you would like to see in the list view (all other properties are only shown on individual item screens):")
+    'desc' => _("Select properties that you would like to see in the list view. All other properties are only shown on individual item screens:")
 );
 $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
 foreach ($sesha_driver->getProperties() as $property) {

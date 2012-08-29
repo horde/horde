@@ -50,9 +50,9 @@ class IMP_Prefs_Special_Flag implements Horde_Core_Prefs_Ui_Special
         foreach ($flaglist as $val) {
             $hash = hash('sha1', $val->id);
             $bgid = 'bg_' . $hash;
-            $color = htmlspecialchars($val->bgcolor);
+            $color = htmlspecialchars($val->bgdefault ? '' : $val->bgcolor);
             $label = htmlspecialchars($val->label);
-            $bgstyle = 'background-color:' . $color;
+            $bgstyle = strlen($color) ? ('background-color:' . $color . ';') : '';
             $tmp = array();
 
             if ($val instanceof IMP_Flag_User) {
@@ -64,7 +64,7 @@ class IMP_Prefs_Special_Flag implements Horde_Core_Prefs_Ui_Special
                 $tmp['icon'] = $val->span;
             }
 
-            $tmp['colorstyle'] = $bgstyle . ';color:' . htmlspecialchars($val->fgcolor);
+            $tmp['colorstyle'] = $bgstyle . 'color:' . htmlspecialchars($val->fgcolor);
             $tmp['colorid'] = $bgid;
             $tmp['color'] = $color;
 

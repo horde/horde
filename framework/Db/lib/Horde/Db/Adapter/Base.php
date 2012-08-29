@@ -40,9 +40,9 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     /**
      * Has a transaction been started?
      *
-     * @var boolean
+     * @var integer
      */
-    protected $_transactionStarted = false;
+    protected $_transactionStarted = 0;
 
     /**
      * The last query sent to the database.
@@ -632,7 +632,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function transactionStarted()
     {
-        return $this->_transactionStarted;
+        return (bool)$this->_transactionStarted;
     }
 
     /**
@@ -640,8 +640,10 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function beginDbTransaction()
     {
-        $this->_transactionStarted = true;
-        $this->_connection->beginTransaction();
+        if (!$this->_transactionStarted) {
+            $this->_connection->beginTransaction();
+        }
+        $this->_transactionStarted++;
     }
 
     /**
@@ -649,8 +651,10 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function commitDbTransaction()
     {
-        $this->_connection->commit();
-        $this->_transactionStarted = false;
+        $this->_transactionStarted--;
+        if (!$this->_transactionStarted) {
+            $this->_connection->commit();
+        }
     }
 
     /**
@@ -664,7 +668,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         }
 
         $this->_connection->rollBack();
-        $this->_transactionStarted = false;
+        $this->_transactionStarted = 0;
     }
 
     /**

@@ -40,7 +40,7 @@ class Nag_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (4.0-git)';
+    public $version = 'H4 (4.0.0-git)';
 
     /**
      * Global variables defined:
@@ -50,6 +50,13 @@ class Nag_Application extends Horde_Registry_Application
     {
         // Set the timezone variable.
         $GLOBALS['registry']->setTimeZone();
+
+        /* For now, autoloading the Content_* classes depend on there being a
+         * registry entry for the 'content' application that contains at least
+         * the fileroot entry. */
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')
+            ->addClassPathMapper(
+                new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
 
         // Create a share instance.
         $GLOBALS['nag_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
@@ -70,21 +77,16 @@ class Nag_Application extends Horde_Registry_Application
     }
 
     /**
+     * Generate links in the sidebar.
+     *
+     * @param Horde_Menu  The menu object.
      */
-    public function menu($menu)
+    public function menu(Horde_Menu $menu)
     {
         global $conf, $injector, $page_output;
 
-        $menu->add(Horde::url('list.php'), _("_List Tasks"), 'nag-list', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-
-        if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
-            ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_tasks') === true ||
-             $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_tasks') > Nag::countTasks()) &&
-            $GLOBALS['browser']->hasFeature('dom')) {
-            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
-            $page_output->addScriptFile('redbox.js', 'horde');
-            $menu->add(new Horde_Url(''), _("_Quick Add"), 'nag-add', null, null, 'RedBox.showInline(\'quickAddInfoPanel\'); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');
-        }
+        $menu->add(Horde::url('tasklists/'), _("Manage Task Lists"), 'nag-managelists', null, null, null, strpos($_SERVER['PHP_SELF'], 'tasklists/index.php') !== false ? 'current' : null);
+        $menu->add(Horde::url('list.php'), _("_List Tasks"), 'nag-list', null, null, null, (basename($_SERVER['PHP_SELF']) == 'list.php' || strpos($_SERVER['PHP_SELF'], 'nag/index.php') !== false) ? 'current' : null);
 
         /* Search. */
         $menu->add(Horde::url('search.php'), _("_Search"), 'nag-search');
@@ -127,7 +129,7 @@ class Nag_Application extends Horde_Registry_Application
 
         $error = false;
         foreach ($shares as $share) {
-            $storage = Nag_Driver::singleton($share->getName());
+            $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($share->getName());
             $result = $storage->deleteAll();
             try {
                 $GLOBALS['nag_shares']->removeShare($share);
@@ -165,7 +167,7 @@ class Nag_Application extends Horde_Registry_Application
             throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
-        $storage = Nag_Driver::singleton();
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
         $group = $GLOBALS['injector']->getInstance('Horde_Group');
         $alarm_list = array();
         $tasklists = is_null($user) ?
@@ -331,7 +333,12 @@ class Nag_Application extends Horde_Registry_Application
             }
 
             /* Get the full, sorted task list. */
-            $tasks = Nag::listTasks(null, null, null, $tasklists, $vars->exportTasks);
+            $tasks = Nag::listTasks(array(
+                'tasklists' => $tasklists,
+                'completed' => $vars->exportTasks,
+                'include_tags' => true)
+            );
+
             if (!$tasks->hasTasks()) {
                 throw new Nag_Exception(_("There were no tasks to export."));
             }

@@ -21,7 +21,7 @@ class Horde_Form_Renderer {
     var $_cols = 2;
     var $_varRenderer = null;
     var $_firstField = null;
-    var $_stripedRows = true;
+    var $_stripedRows = false;
 
     /**
      * Does the title of the form contain HTML? If so, you are responsible for
@@ -168,7 +168,7 @@ class Horde_Form_Renderer {
         if (is_null($open_section)) {
             $open_section = '__base';
         }
-        printf('<div id="%s" style="display:%s;"><table%s cellspacing="0">',
+        printf('<div id="%s" style="display:%s;"><table%s>',
                htmlspecialchars($form->getName() . '_section_' . $section),
                ($open_section == $section ? 'block' : 'none'),
                $class);
@@ -236,12 +236,12 @@ try {
 
         /* Check for a form token error. */
         if (($tokenError = $form->getError('_formToken')) !== null) {
-            echo '<p class="form-error">' . htmlspecialchars($tokenError) . '</p>';
+            echo '<p class="horde-form-error">' . htmlspecialchars($tokenError) . '</p>';
         }
 
         /* Check for a form secret error. */
         if (($secretError = $form->getError('_formSecret')) !== null) {
-            echo '<p class="form-error">' . htmlspecialchars($secretError) . '</p>';
+            echo '<p class="horde-form-error">' . htmlspecialchars($secretError) . '</p>';
         }
 
         if (count($form->_sections)) {
@@ -323,12 +323,12 @@ try {
      */
     function _renderBeginActive($name, $extra)
     {
-        echo '<div class="form" id="' . htmlspecialchars($this->_name) . '_active">';
+        echo '<div class="horde-form" id="' . htmlspecialchars($this->_name) . '_active">';
         if ($this->_showHeader) {
             $this->_sectionHeader($name, $extra);
         }
         if ($this->_requiredLegend) {
-            echo '<span class="form-error">' . $this->_requiredMarker . '</span> = ' . Horde_Form_Translation::t("Required Field");
+            echo '<span class="horde-form-error">' . $this->_requiredMarker . '</span> = ' . Horde_Form_Translation::t("Required Field");
         }
     }
 
@@ -337,7 +337,7 @@ try {
      */
     function _renderBeginInactive($name, $extra)
     {
-        echo '<div class="form" id="' . htmlspecialchars($this->_name) . '_inactive">';
+        echo '<div class="horde-form" id="' . htmlspecialchars($this->_name) . '_inactive">';
         if ($this->_showHeader) {
             $this->_sectionHeader($name, $extra);
         }
@@ -355,7 +355,7 @@ try {
     {
 ?><tr><td class="control" width="100%" colspan="<?php echo $this->_cols ?>" valign="bottom"><strong><?php echo $header ?></strong><?php
         if (!empty($error)) {
-?><br /><span class="form-error"><?php echo $error ?></span><?php
+?><br /><span class="horde-form-error"><?php echo $error ?></span><?php
         }
 ?></td></tr>
 <?php
@@ -375,7 +375,7 @@ try {
 
     function _renderSubmit($submit, $reset)
     {
-?><div class="control">
+?><div class="horde-form-buttons">
   <?php if (!is_array($submit)) $submit = array($submit); foreach ($submit as $submitbutton): ?>
     <input class="button" name="submitbutton" type="submit" value="<?php echo $submitbutton ?>" />
   <?php endforeach; ?>
@@ -392,15 +392,15 @@ try {
         $message = $form->getError($var);
         $isvalid = empty($message);
         echo "<tr valign=\"top\">\n";
-        printf('  <td%s align="right">%s%s%s%s</td>' . "\n",
+        printf('  <td class="horde-form-label"%s>%s%s%s%s</td>' . "\n",
                empty($this->_attrColumnWidth) ? '' : ' width="' . $this->_attrColumnWidth . '"',
-               $isvalid ? '' : '<span class="form-error">',
-               $var->isRequired() ? '<span class="form-error">' . $this->_requiredMarker . '</span>&nbsp;' : '',
+               $isvalid ? '' : '<span class="horde-form-error">',
+               $var->isRequired() ? '<span class="horde-form-error">' . $this->_requiredMarker . '</span>&nbsp;' : '',
                $var->getHumanName(),
                $isvalid ? '' : '<br />' . $message . '</span>');
         printf('  <td%s%s>',
                ((!$var->hasHelp() && $form->hasHelp()) ? ' colspan="2"' : ''),
-               ($var->isDisabled() ? ' class="form-disabled"' : ''));
+               ($var->isDisabled() ? ' class="horde-form-disabled"' : ''));
     }
 
     function _renderVarInputEnd(&$form, &$var, &$vars)
@@ -432,7 +432,7 @@ try {
         echo "<tr valign=\"top\">\n";
         printf('  <td%s align="right">%s<strong>%s</strong>%s</td>' . "\n",
                empty($this->_attrColumnWidth) ? '' : ' width="' . $this->_attrColumnWidth . '"',
-               $isvalid ? '' : '<span class="form-error">',
+               $isvalid ? '' : '<span class="horde-form-error">',
                $var->getHumanName(),
                $isvalid ? '' : '<br />' . $message . '</span>');
         echo '  <td>';

@@ -76,12 +76,13 @@ case 'add_memo':
         );
         Horde::url('list.php', true)->redirect();
     }
+
     /* Set up the note attributes. */
     if (empty($memolist_id)) {
         try {
             $memolist_id = Mnemo::getDefaultNotepad();
         } catch (Mnemo_Exception $e) {
-            $notification->push($memolist_id, 'horde.error');
+            $notification->push($e);
         }
     }
     $memo_id = null;
@@ -206,9 +207,8 @@ case 'save_memo':
             $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad_target);
             $memo_desc = $storage->getMemoDescription($memo_body);
             try {
-                $result = $memo_id = $storage->add($memo_desc, $memo_body,
-                                                   $memo_category, null,
-                                                   $memo_passphrase);
+                $memo_id = $storage->add($memo_desc, $memo_body,
+                                         $memo_category, $memo_passphrase);
             } catch (Mnemo_Exception $e) {
                 $haveError = $e->getMessage();
             }

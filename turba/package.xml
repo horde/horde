@@ -28,15 +28,15 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-06</date>
- <time>00:42:17</time>
+ <date>2012-08-29</date>
+ <time>16:04:41</time>
  <version>
-  <release>4.0.0beta1</release>
-  <api>4.0.0alpha1</api>
+  <release>4.0.0beta3</release>
+  <api>4.0.0beta1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
@@ -587,149 +587,149 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.0alpha1</min>
-    <max>6.0.0</max>
-    <exclude>6.0.0</exclude>
+    <min>5.0.0beta1</min>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.4</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.9.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Data</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Group</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_History</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+     <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0alpha1</min>
-    <max>3.0.0</max>
-    <exclude>3.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Serialize</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Share</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_View</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>gettext</name>
@@ -745,37 +745,37 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0alpha</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Imsp</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Ldap</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Service_Facebook</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -1377,6 +1377,9 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mms] Fix descending sorting of result lists.
+* [mms] Return to same page when deleting contact from browse view.
+* [mjr] Add ability to return count of objects matching search in place of full result set.
 * [jan] Update Turkish translation (İstanbul Technical University).
 * [jan] Fix strict searching in favourites driver (Bug #11207).
    </notes>
@@ -1402,11 +1405,40 @@
   <release>
    <version>
     <release>4.0.0beta1</release>
-    <api>4.0.0alpha1</api></version>
+    <api>4.0.0beta1</api></version>
    <stability>
     <release>beta</release>
-    <api>alpha</api></stability>
-   <date>2012-07-06</date>
+    <api>beta</api></stability>
+   <date>2012-07-20</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [jan] Add configuration example for Kolab/IMAP address books.
+* [jan] Update icon set.
+* [jan] Fix searching multiple names via the API.
+* [jan] Fix searching and listing clients via the API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0beta2</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [jan] Use Horde 5 action bar.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0beta3</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * 

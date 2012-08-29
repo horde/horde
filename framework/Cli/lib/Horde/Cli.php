@@ -315,7 +315,21 @@ class Horde_Cli
             $trace = debug_backtrace();
         }
         $backtrace = new Horde_Support_Backtrace($trace);
+        $details = '';
         if (is_object($error) && method_exists($error, 'getMessage')) {
+            $first = $error;
+            while (method_exists($first, 'getPrevious') &&
+                   $previous = $first->getPrevious()) {
+                $first = $previous;
+            }
+            $file = method_exists($first, 'getFile') ? $first->getFile() : null;
+            $line = method_exists($first, 'getLine') ? $first->getLine() : null;
+            if ($file) {
+                $details .= sprintf(Horde_Cli_Translation::t("In %s"), $file);
+            }
+            if ($line) {
+                $details .= sprintf(Horde_Cli_Translation::t(" on line %d"), $line);
+            }
             $error = $error->getMessage();
         }
         $this->writeln();
@@ -323,6 +337,9 @@ class Horde_Cli
         $this->writeln();
         $this->writeln($this->red(Horde_Cli_Translation::t("Fatal Error:")));
         $this->writeln($this->red($error));
+        if ($details) {
+            $this->writeln($this->red($details));
+        }
         $this->writeln();
         $this->writeln((string)$backtrace);
         $this->writeln($this->red('===================='));

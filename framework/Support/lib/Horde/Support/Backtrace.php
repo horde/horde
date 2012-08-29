@@ -15,8 +15,15 @@ class Horde_Support_Backtrace
      *
      * @var array
      */
-    protected $_backtrace;
+    public $backtrace;
 
+    /**
+     * Constructor.
+     *
+     * @param Exception|array $backtrace  The backtrace source. Either an
+     *                                    exception or an existing backtrace.
+     *                                    Defaults to the current stack.
+     */
     public function __construct($backtrace = null)
     {
         if ($backtrace instanceof Exception) {
@@ -47,7 +54,7 @@ class Horde_Support_Backtrace
             --$nestingLevel;
         }
 
-        $this->_backtrace = $backtrace;
+        $this->backtrace = $backtrace;
     }
 
     /**
@@ -57,7 +64,12 @@ class Horde_Support_Backtrace
      */
     public function createFromException(Exception $e)
     {
-        $this->_backtrace = $e->getTrace();
+        $this->backtrace = $e->getTrace();
+        if ($previous = $e->getPrevious()) {
+            $backtrace = new self($previous);
+            $this->backtrace = array_merge($backtrace->backtrace,
+                                           $this->backtrace);
+        }
     }
 
     /**
@@ -67,7 +79,7 @@ class Horde_Support_Backtrace
      */
     public function getNestingLevel()
     {
-        return count($this->_backtrace);
+        return count($this->backtrace);
     }
 
     /**
@@ -79,10 +91,10 @@ class Horde_Support_Backtrace
      */
     public function getContext($nestingLevel)
     {
-        if (!isset($this->_backtrace[$nestingLevel])) {
+        if (!isset($this->backtrace[$nestingLevel])) {
             throw new Horde_Exception('Unknown nesting level');
         }
-        return $this->_backtrace[$nestingLevel];
+        return $this->backtrace[$nestingLevel];
     }
 
     /**
@@ -113,19 +125,19 @@ class Horde_Support_Backtrace
      */
     public function __toString()
     {
-        $count = count($this->_backtrace);
+        $count = count($this->backtrace);
         $pad = strlen($count);
         $map = '';
         for ($i = $count - 1; $i >= 0; $i--) {
             $map .= str_pad($count - $i, $pad, ' ', STR_PAD_LEFT) . '. ';
-            if (isset($this->_backtrace[$i]['class'])) {
-                $map .= $this->_backtrace[$i]['class']
-                    . $this->_backtrace[$i]['type'];
+            if (isset($this->backtrace[$i]['class'])) {
+                $map .= $this->backtrace[$i]['class']
+                    . $this->backtrace[$i]['type'];
             }
-            $map .= $this->_backtrace[$i]['function'] . '()';
-            if (isset($this->_backtrace[$i]['file'])) {
-                $map .= ' ' . $this->_backtrace[$i]['file']
-                    . ':' . $this->_backtrace[$i]['line'];
+            $map .= $this->backtrace[$i]['function'] . '()';
+            if (isset($this->backtrace[$i]['file'])) {
+                $map .= ' ' . $this->backtrace[$i]['file']
+                    . ':' . $this->backtrace[$i]['line'];
             }
             $map .= "\n";
         }

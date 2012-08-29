@@ -75,7 +75,7 @@ case 'send_problem_report':
                 ));
 
             try {
-                $registry->call('tickets/addTicket', array($info));
+                $ticketId = $registry->call('tickets/addTicket', array($info));
             } catch (Horde_Exception $e) {
                 $notification->push($e);
                 break;
@@ -85,7 +85,7 @@ case 'send_problem_report':
                 $registry->hasMethod('tickets/addAttachment')) {
                 try {
                     $registry->call('tickets/addAttachment', array(
-                        'ticket_id' => $result,
+                        'ticket_id' => $ticketId,
                         'name' => $attachment['name'],
                         'data' => file_get_contents($attachment['tmp_name'])
                     ));

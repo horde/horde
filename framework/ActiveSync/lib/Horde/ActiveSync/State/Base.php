@@ -255,6 +255,21 @@ abstract class Horde_ActiveSync_State_Base
         }
     }
 
+    /**
+     * Return the counter for the specified syncKey.
+     *
+     * @return mixed integer|boolean
+     */
+    static public function getSyncKeyCounter($syncKey)
+    {
+       if (preg_match('/^s{0,1}\{([a-fA-F0-9-]+)\}([0-9]+)$/', $syncKey, $matches)) {
+            $n = $matches[2];
+            return $n;
+        }
+
+        return false;
+    }
+
    /**
     * Returns the timestamp of the earliest modification time to consider
     *

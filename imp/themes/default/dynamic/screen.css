@@ -22,10 +22,6 @@ input {
 }
 
 /* SpellChecker styles. */
-#spellcheck {
-    font-size: 100%;
-    margin-left: 15px;
-}
 .spellcheckChecking, .spellcheckIncorrect {
     color: red;
 }
@@ -58,32 +54,29 @@ input {
 .horde-buttonbar {
     padding-right: 18px;
 }
-.mboxheader {
-    clear: left;
-}
 #msglistHeaderHoriz {
     padding-right: 14px;
     margin-right: 0;
 }
-    .horde-table-header .horde-split-left,
-    .horde-table-header .horde-split-right {
-        width: 2px;
-        height: 21px;
-        margin: 0 5px;
-        padding: 0;
-    }
-    .horde-table-header .horde-split-left {
-        position: absolute;
-        top: 0;
-        margin-left: -6px;
-    }
-    .horde-table-header .horde-split-right {
-        float:right;
-        background-position: center left;
-    }
-    .horde-table-header .horde-subnavi-arrow {
-        margin-top: -4px;
-    }
+.horde-table-header .horde-split-left,
+.horde-table-header .horde-split-right {
+    width: 2px;
+    height: 21px;
+    margin: 0 5px;
+    padding: 0;
+}
+.horde-table-header .horde-split-left {
+    position: absolute;
+    top: 0;
+    margin-left: -6px;
+}
+.horde-table-header .horde-split-right {
+    float:right;
+    background-position: center left;
+}
+.horde-table-header .horde-popdown {
+    margin-top: -4px;
+}
 
 /* Columns */
 div.msgStatus {
@@ -157,12 +150,13 @@ div.vpRow div {
 }
 div.vpRow div.iconImg {
     position: relative;
-    margin-top: -3px
+    margin-top: -3px;
+    width: 16px;
 }
-div.vpRow div.horde-subnavi-arrow {
+div.vpRow div.horde-popdown {
     position: relative;
     width: 16px;
-    margin-top: -4px
+    margin-top: -4px;
 }
 div.vpRowSelected {
     background-color: #36525d !important;
@@ -175,7 +169,7 @@ div.vpRowHoriz div.sep {
 div.vpRowHoriz div.sep.sortup, div.vpRowHoriz div.sep.sortdown {
     background-position: left center;
 }
-#msglistHeaderHoriz div.horde-subnavi-arrow {
+#msglistHeaderHoriz div.horde-popdown {
     margin-right: -22px;
 }
 
@@ -188,6 +182,51 @@ div.flagUnseen {
 }
 div.flagDeleted * {
     text-decoration: line-through;
+}
+div.vpRowSelected .msgflags.flagPersonal {
+    background-image: url("../graphics/flags/personal-inv.png");
+}
+div.vpRowSelected .msgflags.flagHighpriority {
+    background-image: url("../graphics/flags/priority_high-inv.png");
+}
+div.vpRowSelected .msgflags.flagLowpriority {
+    background-image: url("../graphics/flags/priority_low-inv.png");
+}
+div.vpRowSelected .msgflags.flagSignedmsg {
+    background-image: url("../graphics/flags/signed-inv.png");
+}
+div.vpRowSelected .msgflags.flagEncryptmsg {
+    background-image: url("../graphics/flags/encrypted-inv.png");
+}
+div.vpRowSelected .msgflags.flagAttachmsg {
+    background-image: url("../graphics/flags/attachment-inv.png");
+}
+div.vpRowSelected .msgflags.flagList {
+    background-image: url("../graphics/flags/group-inv.png");
+}
+div.vpRowSelected .msgflags.flagJunk {
+    background-image: url("../graphics/flags/spam-inv.png");
+}
+div.vpRowSelected .msgflags.flagNotJunk {
+    background-image: url("../graphics/flags/innocent-inv.png");
+}
+div.vpRowSelected .msgflags.flagUnseen {
+    background-image: url("../graphics/flags/unseen-inv.png");
+}
+div.vpRowSelected .msgflags.flagAnswered {
+    background-image: url("../graphics/flags/answered-inv.png");
+}
+div.vpRowSelected .msgflags.flagDraft {
+    background-image: url("../graphics/flags/draft-inv.png");
+}
+div.vpRowSelected .msgflags.flagForwarded {
+    background-image: url("../graphics/flags/forwarded-inv.png");
+}
+div.vpRowSelected .msgflags.flagFlagged {
+    background-image: url("../graphics/flags/flagged-inv.png");
+}
+div.vpRowSelected .msgflags.flagDeleted {
+    background-image: url("../graphics/flags/deleted-inv.png");
 }
 
 /* Checkbox images */
@@ -279,57 +318,8 @@ div.vpRowVert div.msgSubject span.flagUser {
 }
 
 /* Sidebar */
-#sidebar .sepfull {
-    height: 1px !important;
-    margin: 5px 0;
-    background: silver;
-}
-#sidebar .sepfulllight {
-    background: lightgrey;
-}
-#sidebar .count {
-    color: silver;
-}
-#sidebar li {
-    list-style: none;
-    height: 16px;
-    line-height: 16px;
-    padding-top: 1px;
-    white-space: nowrap;
-}
-#sidebar li a, #sidebar li.mbox, #sidebar li.container, #sidebar li.custom, #sidebar li.servicelink {
-    color: #000;
-    font-size: 95%;
-    text-decoration: none;
-}
-#sidebar li.servicelink a {
-    font-weight: bold;
-}
-#sidebar li.custom {
-    background: transparent none;
-}
-#sidebar li.custom img {
-    float: left;
-    padding: 1px 4px 0 0;
-}
-#sidebar li.on {
-    background: #ffa;
-}
-#sidebar li.subfolders {
-    height: auto;
-    margin: 0;
-}
-#sidebar li.subfolders ul {
-    padding-left: 10px;
-}
-span.iconImgSidebar {
-    background-position: left center;
-    background-repeat: no-repeat;
-    display: inline;
-    float: left;
-    height: 100%;
-    margin-right: 0;
-    width: 20px;
+#foldersLoading {
+    padding: 10px;
 }
 #ctx_mbox_sub span.iconImg, #ctx_mbox_unsub span.iconImg, #ctx_folderopts_sub span.iconImg, #ctx_folderopts_unsub span.iconImg, .folderoptsImg {
     background-image: url("../graphics/folders/folder.png");
@@ -340,21 +330,30 @@ span.iconImgSidebar {
 #horde-sidebar .exp, #ctx_folderopts_expand span.iconImg, #ctx_container_expand span.iconImg, #ctx_mbox_expand span.iconImg {
     background-image: url("../graphics/folders/plus.png");
 }
-#normalmboxes li.unsubMbox {
+#imp-normalmboxes {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#imp-normalmboxes div.imp-sidebar-unsubmbox {
     font-style: italic;
+}
+.imp-sidebar-container:hover {
+    background: none;
+}
+.imp-sidebar-container a {
+    color: #555 !important;
+}
+.imp-sidebar-container a:hover {
+    cursor: default;
+    text-decoration: none;
+}
+.horde-subnavi-icon.col, .horde-subnavi-icon.exp {
+    cursor: pointer;
 }
 #sidebar .over a, #sidebar li.mbox:hover, #sidebar li.custom:hover, #sidebar li.servicelink:hover {
     cursor: pointer;
     font-weight: bold;
     text-decoration: underline;
-}
-#sidebar .container span.iconImgSidebar {
-    cursor: pointer;
-}
-
-#logo, #dimpbarActions, #serviceActions, #normalmboxes {
-    overflow-x: hidden;
-    overflow-y: auto;
 }
 
 #folderopts a, #dropbase a {
@@ -363,6 +362,15 @@ span.iconImgSidebar {
 }
 #folderopts:hover, #dropbase:hover {
     font-weight: normal !important;
+}
+
+#foldersSidebar .horde-popdown {
+    display: -moz-inline-stack;
+    display: inline-block;
+    float: none;
+    height: 16px;
+    margin-top: -2px;
+    width: 16px;
 }
 
 /* Message options. */
@@ -386,6 +394,13 @@ span.iconImgSidebar {
 .dimpOptions a:hover {
     text-decoration: underline;
 }
+.dimpOptions .horde-popdown {
+    display: inline-block;
+    float: none;
+    padding-left: 4px;
+    height: 14px;
+    width: 16px;
+}
 
 #encrypt_label, #priority_label, #sent_mail_label {
     cursor: default;
@@ -393,7 +408,7 @@ span.iconImgSidebar {
 }
 
 /* Actions */
-#button_compose, #button_checkmail {
+#button_compose {
     display: none;
 }
 
@@ -418,7 +433,7 @@ div.dimpActionsMsg #windowclose {
 
 /* Headers styles. */
 .msgHeaders {
-    padding: 10px;
+    padding: 10px 6px 10px 4px;
     background-color: #eceff0;
     border-bottom: 1px solid #d0d0d0;
     max-height: 300px;
@@ -430,6 +445,12 @@ div.dimpActionsMsg #windowclose {
 }
 .msgfullread .msgHeaders {
     cursor: default;
+}
+.msgfullread #msgloglist {
+    margin-top: 3px;
+}
+.msgfullread #partlist table {
+    margin: 0 0 -3px 0;
 }
 
 .msgHeaders .dimpOptions {
@@ -488,7 +509,7 @@ div.dimpActionsMsg #windowclose {
     list-style-type: none;
 }
 #msgloglist li {
-    line-height: 18px;
+    padding-top: 4px;
 }
 
 #msgloglist_toggle, #partlist_toggle {
@@ -498,11 +519,13 @@ div.dimpActionsMsg #windowclose {
 #msgHeadersContent {
     overflow: hidden;
 }
+#msgHeadersContent p {
+    font-size: 140%;
+    font-weight: bold;
+}
 #msgHeadersContent p.subject {
     margin-bottom: 10px;
-}
-#th_collapse {
-    cursor: pointer;
+    font-size: 100%;
 }
 
 /* ini msg small header */
@@ -517,18 +540,15 @@ div.dimpActionsMsg #windowclose {
 #msgHeadersColl span.date {
     float: right;
     text-align: right;
-    padding-top: 5px;
 }
 #msgHeadersColl span.subject {
     float: left;
     font-weight: bold;
     max-width: 60%;
-    cursor: pointer;
 }
 #msgHeadersColl span.fromcontainer {
     float: left;
     padding-left: 5px;
-    padding-top: 5px;
 }
 /* end msg small header */
 
@@ -570,6 +590,15 @@ div.dimpActionsMsg #windowclose {
     border-bottom: 1px solid #d0d0d0;
     cursor: default;
     padding: 10px;
+}
+.msgwrite .msgwritehdr {
+    font-size: 120%;
+    font-weight: bold;
+    overflow: hidden;
+    padding: 0 10px 8px 0;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .msgwrite .dimpOptions {
     padding: 8px 8px 0 0;
@@ -614,13 +643,10 @@ div.dimpActionsMsg #windowclose {
     display: -moz-inline-stack;
     display: inline-block;
     padding: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
 }
 
 #composeMessageParent {
-    padding: 10px 5px 5px;
+    padding: 5px;
 }
 #composeMessage {
     border: none;
@@ -733,6 +759,12 @@ a.address:hover img {
     float: right;
 }
 
+#mailboxLabel {
+    float: right;
+    margin-left: 20px;
+    white-space: nowrap;
+}
+
 #searchbar {
     background-color: #ffa;
     padding: 8px 10px;
@@ -764,8 +796,6 @@ a.address:hover img {
 .headercloseimg {
     float: right !important;
     cursor: pointer;
-}
-#compose_close {
     margin-top: 6px;
 }
 
@@ -820,6 +850,9 @@ span.logoutIcon {
 .dimpactionRefresh {
     background-image: url("../graphics/reload.png");
 }
+.imp-loading {
+    background-image: url("../graphics/reload.gif");
+}
 .dimpactionDelete {
     background-image: url("../graphics/delete.png");
 }
@@ -829,49 +862,55 @@ span.logoutIcon {
 .dimpactionDrafts, .dimpactionTemplates {
     background-image: url("../graphics/drafts.png");
 }
+.dimpactionSpellcheck {
+    background-image: url("../graphics/spellcheck.png");
+}
 .dimpactionEditsearch {
     background-image: url("../graphics/edit.png");
 }
 .dimpactionResume {
-    background-image: url("../graphics/mail_draft.png");
+    background-image: url("../graphics/drafts.png");
 }
 .dimpactionFilter {
     background-image: url("../graphics/filters.png");
 }
 
 /* Context menu images */
-#ctx_message_reply span.iconImg {
+#ctx_reply_reply span.iconImg, #ctx_message_reply span.iconImg {
     background-image: url("../graphics/reply.png");
 }
-#ctx_reply_reply span.iconImg, #ctx_reply_reply_all span.iconImg, #ctx_reply_reply_list span.iconImg {
+#ctx_reply_reply_all span.iconImg, #ctx_reply_reply_list span.iconImg {
     background-image: url("../graphics/replyall.png");
 }
-#ctx_message_forward span.iconImg, #ctx_forward_attach span.iconImg, #ctx_forward_body span.iconImg, #ctx_forward_both span.iconImg, #ctx_forward_redirect span.iconImg {
+#ctx_forward_attach span.iconImg {
+    background-image: url("../graphics/attachment.png");
+}
+#ctx_message_forward span.iconImg, #ctx_forward_body span.iconImg, #ctx_forward_both span.iconImg, #ctx_forward_redirect span.iconImg {
     background-image: url("../graphics/forward.png");
 }
 #ctx_mbox_empty span.iconImg, #ctx_message_delete span.iconImg, #ctx_oa_purge_deleted span.iconImg {
     background-image: url("../graphics/delete.png");
 }
-#ctx_message_undelete span.iconImg, #ctx_oa_undeleted span.iconImg {
+#ctx_message_undelete span.iconImg, #ctx_oa_undelete span.iconImg {
     background-image: url("../graphics/undelete.png");
 }
-#ctx_mbox_flag_seen span.iconImg, #ctx_message_view span.iconImg {
-    background-image: url("../graphics/mail_seen.png");
+#ctx_message_view span.iconImg, span.iconImg.flagSeen {
+    background-image: url("../graphics/seen.png");
 }
-#ctx_mbox_flag_unseen span.iconImg, #ctx_mbox_poll span.iconImg, #ctx_mbox_nopoll span.iconImg {
-    background-image: url("../graphics/mail_unseen.png");
+#ctx_mbox_poll span.iconImg, #ctx_mbox_nopoll span.iconImg {
+    background-image: url("../graphics/unseen.png");
 }
-#ctx_message_setflag span.iconImg, #ctx_oa_setflag span.iconImg, #ctx_mbox_setflag span.iconImg {
-    background-image: url("../graphics/mail_flagged.png");
+#ctx_message_setflag span.iconImg, #ctx_oa_setflag span.iconImg, #ctx_mbox_setflag span.iconImg, span.iconImg.flagFlagged {
+    background-image: url("../graphics/flagged.png");
 }
 #ctx_message_unsetflag span.iconImg, #ctx_oa_unsetflag span.iconImg {
-    background-image: url("../graphics/mail_clearflag.png");
+    background-image: url("../graphics/clearflag.png");
 }
 #ctx_message_source span.iconImg, #msg_view_source span.iconImg, #ctx_preview_viewsource span.iconImg {
     background-image: url("../graphics/message_source.png");
 }
 #ctx_message_resume span.iconImg, #ctx_message_template span.iconImg, #ctx_message_template_edit span.iconImg, #ctx_template_new span.iconImg, #ctx_template_edit span.iconImg, #msg_resume_draft span.iconImg, #msg_template span.iconImg {
-    background-image: url("../graphics/mail_draft.png");
+    background-image: url("../graphics/drafts.png");
 }
 #ctx_oa_preview_hide span.iconImg, #ctx_oa_preview_show span.iconImg {
     background-image: url("../graphics/preview.png");
@@ -925,7 +964,7 @@ span.logoutIcon {
     background-image: url("../graphics/reload.png");
 }
 #ctx_preview_allparts span.iconImg, #msg_all_parts span.iconImg {
-    background-image: url("../graphics/email_attach.png");
+    background-image: url("../graphics/attachment.png");
 }
 #ctx_flag span.iconImg.flagUser, #ctx_flag_search span.iconImg.flagUser {
     border: 1px black solid;
@@ -957,17 +996,21 @@ div.msgSubject span.treeImg {
 #msg_newwin span.iconImg {
     cursor: pointer;
     float: right;
-    margin: 5px 0 0 4px;
+    margin-left: 4px;
 }
-#th_expand span.iconImg, #partlist_col, #msgloglist_col {
+#th_expand, #partlist_col, #msgloglist_col {
     background-image: url("../graphics/arrow_collapsed.png");
     cursor: pointer;
     margin-right: 0;
 }
-#th_collapse span.iconImg, #partlist_exp, #msgloglist_exp {
+#th_collapse, #partlist_exp, #msgloglist_exp {
     background-image: url("../graphics/arrow_expanded.png");
     cursor: pointer;
     margin-right: 0;
+}
+
+#th_collapse, #th_expand {
+    float: left;
 }
 
 span.popdownImg, span.spellcheckPopdownImg {
@@ -982,18 +1025,19 @@ span.keydownImg {
     background-image: url("../graphics/key_down.png");
 }
 span.readonlyImg {
-    vertical-align: sub;
+    background-color: white;
+    margin-top: -1px 0 0 3px;
 }
 
 /* Growler notification styles. */
 .imp-reply {
-    background-image: url("../graphics/mail_answered.png");
+    background-image: url("../graphics/answered.png");
 }
 .imp-reply_all, .imp-reply_list {
     background-image: url("../graphics/replyall.png");
 }
 .imp-forward, .imp-redirect {
-    background-image: url("../graphics/mail_forwarded.png");
+    background-image: url("../graphics/forwarded.png");
 }
 
 /* Help screen */

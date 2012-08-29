@@ -55,7 +55,30 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
     }
 
     /**
-     * Retrieve one note from the database.
+     * Retrieves all of the notes of the current notepad from the backend.
+     *
+     * @throws Mnemo_Exception
+     */
+    public function retrieve()
+    {
+        $query = sprintf('SELECT * FROM %s WHERE memo_owner = ?', $this->_table);
+        $values = array($this->_notepad);
+
+        try {
+            $rows = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Mnemo_Exception($e->getMessage());
+        }
+
+        // Store the retrieved values in a fresh list.
+        $this->_memos = array();
+        foreach ($rows as $row) {
+            $this->_memos[$row['memo_id']] = $this->_buildNote($row);
+        }
+    }
+
+    /**
+     * Retrieves one note from the backend.
      *
      * @param string $noteId      The ID of the note to retrieve.
      * @param string $passphrase  A passphrase with which this note was
@@ -84,7 +107,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
     }
 
     /**
-     * Retrieve one note from the database by UID.
+     * Retrieves one note from the backend by UID.
      *
      * @param string $uid         The UID of the note to retrieve.
      * @param string $passphrase  A passphrase with which this note was
@@ -113,75 +136,58 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
     }
 
     /**
-     * Add a note to the backend storage.
+     * Adds a note to the backend storage.
      *
-     * @param string $desc        The first line of the note.
-     * @param string $body        The whole note body.
-     * @param string $category    The category of the note.
-     * @param string $uid         A Unique Identifier for the note.
-     * @param string $passphrase  The passphrase to encrypt the note with.
+     * @param string $noteId    The ID of the new note.
+     * @param string $desc      The first line of the note.
+     * @param string $body      The whole note body.
+     * @param string $category  The category of the note.
      *
      * @return string  The unique ID of the new note.
      * @throws Mnemo_Exception
      */
-    public function add($desc, $body, $category = '', $uid = null, $passphrase = null)
+    protected function _add($noteId, $desc, $body, $category)
     {
-        $noteId = strval(new Horde_Support_Randomid());
+        $uid = strval(new Horde_Support_Uuid());
 
-        if ($passphrase) {
-            $body = $this->_encrypt($body, $passphrase);
-            Mnemo::storePassphrase($noteId, $passphrase);
-        }
-
-        if (is_null($uid)) {
-            $uid = strval(new Horde_Support_Uuid());
-        }
-
-        $query = 'INSERT INTO ' . $this->_table .
-                 ' (memo_owner, memo_id, memo_desc, memo_body, memo_category, memo_uid)' .
-                 ' VALUES (?, ?, ?, ?, ?, ?)';
-        $values = array($this->_notepad,
-                        $noteId,
-                        Horde_String::convertCharset($desc, 'UTF-8', $this->_charset),
-                        Horde_String::convertCharset($body, 'UTF-8', $this->_charset),
-                        Horde_String::convertCharset($category, 'UTF-8', $this->_charset),
-                        Horde_String::convertCharset($uid, 'UTF-8', $this->_charset));
+        $query = 'INSERT INTO ' . $this->_table
+            . ' (memo_owner, memo_id, memo_desc, memo_body, memo_category, memo_uid)'
+            . ' VALUES (?, ?, ?, ?, ?, ?)';
+        $values = array(
+            $this->_notepad,
+            $noteId,
+            Horde_String::convertCharset($desc, 'UTF-8', $this->_charset),
+            Horde_String::convertCharset($body, 'UTF-8', $this->_charset),
+            Horde_String::convertCharset($category, 'UTF-8', $this->_charset),
+            Horde_String::convertCharset($uid, 'UTF-8', $this->_charset)
+        );
 
         try {
             $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Mnemo_Exception($e->getMessage());
+            throw new Mnemo_Exception($e);
         }
 
-        // Log the creation of this item in the history log.
-        // @TODO: Inject the history driver
-        $history = $GLOBALS['injector']->getInstance('Horde_History');
-        $history->log('mnemo:' . $this->_notepad . ':' . $uid, array('action' => 'add'), true);
-
-        return $noteId;
+        return $uid;
     }
 
     /**
-     * Modify an existing note.
+     * Modifies an existing note.
      *
-     * @param string $noteId      The note to modify.
-     * @param string $desc        The description (long) of the note.
-     * @param string $body        The description (long) of the note.
-     * @param string $category    The category of the note.
-     * @param string $passphrase  The passphrase to encrypt the note with.
+     * @param string $noteId    The note to modify.
+     * @param string $desc      The first line of the note.
+     * @param string $body      The whole note body.
+     * @param string $category  The category of the note.
      *
      * @throws Mnemo_Exception
      */
-    public function modify($noteId, $desc, $body, $category = null, $passphrase = null)
+    protected function _modify($noteId, $desc, $body, $category)
     {
-        if ($passphrase) {
-            $body = $this->_encrypt($body, $passphrase);
-            Mnemo::storePassphrase($noteId, $passphrase);
-        }
-
-        $query  = 'UPDATE ' . $this->_table . ' SET memo_desc = ?, memo_body = ?';
-        $values = array(Horde_String::convertCharset($desc, 'UTF-8', $this->_charset),
-                        Horde_String::convertCharset($body, 'UTF-8', $this->_charset));
+        $query  = 'UPDATE ' . $this->_table
+            . ' SET memo_desc = ?, memo_body = ?';
+        $values = array(
+            Horde_String::convertCharset($desc, 'UTF-8', $this->_charset),
+            Horde_String::convertCharset($body, 'UTF-8', $this->_charset));
 
         // Don't change the category if it isn't provided.
         // @TODO: Category -> Tags
@@ -195,25 +201,24 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         try {
             $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
-            throw new Mnemo_Exception($e->getMessage());
+            throw new Mnemo_Exception($e);
         }
-        // Log the modification of this item in the history log.
+
         $note = $this->get($noteId);
-        if (!empty($note['uid'])) {
-            $history = $GLOBALS['injector']->getInstance('Horde_History');
-            $history->log('mnemo:' . $this->_notepad . ':' . $note['uid'], array('action' => 'modify'), true);
-        }
+
+        return $note['uid'];
     }
 
     /**
-     * Move a note to a new notepad.
+     * Moves a note to a new notepad.
      *
      * @param string $noteId      The note to move.
      * @param string $newNotepad  The new notepad.
      *
+     * @return string  The note's UID.
      * @throws Mnemo_Exception
      */
-    public function move($noteId, $newNotepad)
+    protected function _move($noteId, $newNotepad)
     {
         // Get the note's details for use later.
         $note = $this->get($noteId);
@@ -228,22 +233,18 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
             throw new Mnemo_Exception($e->getMessage());
         }
 
-        // Log the moving of this item in the history log.
-        if (!empty($note['uid'])) {
-            $history = $GLOBALS['injector']->getInstance('Horde_History');
-            $history->log('mnemo:' . $this->_notepad . ':' . $note['uid'], array('action' => 'delete'), true);
-            $history->log('mnemo:' . $newNotepad . ':' . $note['uid'], array('action' => 'add'), true);
-        }
+        return $note['uid'];
     }
 
     /**
-     * Delete a note permanently
+     * Deletes a note permanently.
      *
-     * @param string $noteId  The note to delete.
+     * @param array $note  The note to delete.
      *
+     * @return string  The note's UID.
      * @throws Mnemo_Exception
      */
-    public function delete($noteId)
+    protected function _delete($noteId)
     {
         // Get the note's details for use later.
         $note = $this->get($noteId);
@@ -258,23 +259,20 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
             throw new Mnemo_Exception($e->getMessage());
         }
 
-        // Log the deletion of this item in the history log.
-        if (!empty($note['uid'])) {
-            $history = $GLOBALS['injector']->getInstance('Horde_History');
-            $history->log('mnemo:' . $this->_notepad . ':' . $note['uid'], array('action' => 'delete'), true);
-        }
+        return $note['uid'];
     }
 
     /**
-     * Remove ALL notes belonging to the curernt user.
+     * Deletes all notes from the current notepad.
      *
-     * @return array  An array of note uids that have been removed.
+     * @return array  An array of uids that have been removed.
      * @throws Mnemo_Exception
      */
     protected function _deleteAll()
     {
         // Get list of notes we are removing so we can tell history about it.
-        $query = sprintf('SELECT memo_uid FROM %s WHERE memo_owner = ?', $this->_table);
+        $query = sprintf('SELECT memo_uid FROM %s WHERE memo_owner = ?',
+                         $this->_table);
         $values = array($this->_notepad);
         try {
             $ids = $this->_db->selectValues($query, $values);
@@ -290,30 +288,6 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         }
 
         return $ids;
-    }
-
-    /**
-     * Retrieves all of the notes from $this->_notepad from the
-     * database.
-     *
-     * @throws Mnemo_Exception
-     */
-    public function retrieve()
-    {
-        $query = sprintf('SELECT * FROM %s WHERE memo_owner = ?', $this->_table);
-        $values = array($this->_notepad);
-
-        try {
-            $rows = $this->_db->selectAll($query, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Mnemo_Exception($e->getMessage());
-        }
-
-        // Store the retrieved values in a fresh $memos list.
-        $this->_memos = array();
-        foreach ($rows as $row) {
-            $this->_memos[$row['memo_id']] = $this->_buildNote($row);
-        }
     }
 
     /**
@@ -370,5 +344,15 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
                      'body' => $body,
                      'category' => Horde_String::convertCharset($row['memo_category'], $this->_charset, 'UTF-8'),
                      'encrypted' => $encrypted);
+    }
+
+    /**
+     * Generates a local note ID.
+     *
+     * @return string  A new note ID.
+     */
+    protected function _generateId()
+    {
+        return strval(new Horde_Support_Randomid());
     }
 }

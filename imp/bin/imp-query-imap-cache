@@ -100,22 +100,19 @@ if (!$ob) {
     $cli->fatal('Could not create Imap Client object.');
 }
 
-if ($ob->cache) {
-    $cli->fatal('Caching not setup for this server.');
-} else {
-    $driver = $ob->getParam('cache');
-    if (!isset($driver['cacheob'])) {
-        $cli->message('Caching has been disabled for this server.', 'cli.error');
-        exit;
-    }
+/* Test raw cache driver. */
+$driver = $ob->getParam('cache');
+if (!isset($driver['cacheob'])) {
+    $cli->fatal('Caching has been disabled for this server.');
+}
+if (!$driver['cacheob']->testReadWrite()) {
+    $cli->fatal('Could not access cache storage (read-only?).');
+}
 
-    try {
-        $driver['cacheob']->set('imap_cache_test', 1);
-        $driver['cacheob']->expire('imap_cache_test');
-    } catch (Exception $e) {
-        $cli->message($e, 'cli.error');
-        exit;
-    }
+/* Make sure IMAP cache exists in the IMAP driver. */
+$cache = $ob->getCache();
+if (is_null($cache)) {
+    $cli->fatal('Could not get cache object from IMAP driver.');
 }
 
 try {
@@ -154,14 +151,14 @@ while (true) {
         $mbox_list = array();
         $msg_cnt = $search_cnt = 0;
 
-        foreach ($mboxes as $val) {
-            if ($res = $ob->cache->get($val)) {
+        foreach (array_map('strval', $mboxes) as $val) {
+            if ($res = $cache->get($val)) {
                 $mbox_list[$val] = array(
                     'msgs' => count($res)
                 );
                 $msg_cnt += $mbox_list[$val]['msgs'];
 
-                if ($res = $ob->cache->getMetaData($val, null, array('HICsearch'))) {
+                if ($res = $cache->getMetaData($val, null, array('HICsearch'))) {
                     $mbox_list[$val]['search'] = count($res['HICsearch']) - 1;
                     $search_cnt += $mbox_list[$val]['search'];
                 }
@@ -183,18 +180,18 @@ while (true) {
             }
             $mbox_list = array($prompt);
         } else {
-            $mbox_list = $mboxes;
+            $mbox_list = array_map('strval', $mboxes);
         }
 
         foreach ($mbox_list as $mbox) {
-            if ($res = $ob->cache->get($mbox)) {
+            if ($res = $cache->get($mbox)) {
                 $cli->writeln();
 
                 $cli->message('Mailbox: ' . $cli->green($mbox));
                 $cli->message('Cached messages: ' . count($res) . ' [' . $ob->utils->toSequenceString($res) . ']');
 
                 $lzf_size = $total_size = 0;
-                foreach ($ob->cache->get($mbox, $res, null) as $val) {
+                foreach ($cache->get($mbox, $res, null) as $val) {
                     $data = serialize($val);
                     $total_size += strlen($data);
                     if ($use_lzf) {
@@ -207,7 +204,7 @@ while (true) {
                     $cli->message('Approximate size - LZF (bytes): ' . $lzf_size . ' [' . $cli->red(100 - round($lzf_size / $total_size * 100, 1) . '% savings') . ']');
                 }
 
-                if ($res = $ob->cache->getMetaData($mbox)) {
+                if ($res = $cache->getMetaData($mbox)) {
                     try {
                         $status = $ob->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY | Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
                     } catch (Horde_Imap_Client_Exception $e) {
@@ -239,7 +236,7 @@ while (true) {
         if (!strlen($uid)) {
             break;
         }
-        if ($res = $ob->cache->get($mbox, array($uid), null)) {
+        if ($res = $cache->get($mbox, array($uid), null)) {
             $cli->writeln();
             $cli->message(sprintf('Message information [%s:%d]', $mbox, $uid));
             $cli->message('Cached fields: ' . implode(', ', array_keys($res[$uid])));
@@ -272,13 +269,13 @@ while (true) {
             }
             $mbox_list = array($prompt);
         } else {
-            $mbox_list = $mboxes;
+            $mbox_list = array_map('strval', $mboxes);
         }
 
         if ($cli->prompt('Delete mailbox cache(s)?', array('1' => 'No', '2' => 'Yes'), 1) == 2) {
             $cli->writeln();
             foreach ($mbox_list as $val) {
-                $ob->cache->deleteMailbox($val);
+                $cache->deleteMailbox($val);
                 $cli->message('Deleted cache: ' . $val, 'cli.success');
             }
         }
@@ -303,7 +300,7 @@ while (true) {
         $cli->writeln();
 
         try {
-            $ob->cache->deleteMsgs($mbox, $uids);
+            $cache->deleteMsgs($mbox, $uids);
             $cli->message(sprintf('Deleted %d UIDs from cache.', count($uids)), 'cli.success');
         } catch (Horde_Imap_Client_Exception $e) {
             $cli->writeln();

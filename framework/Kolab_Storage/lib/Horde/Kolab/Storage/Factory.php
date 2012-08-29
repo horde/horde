@@ -56,6 +56,16 @@ class Horde_Kolab_Storage_Factory
     private $_format_factory;
 
     /**
+     * Stores the driver once created.
+     *
+     * @todo Cleanup. Extract a driver factory to be placed in the driver
+     * namespace and allow to inject the driver within the storage factory.
+     *
+     * @var Horde_Kolab_Storage_Driver
+     */
+    private $_driver;
+
+    /**
      * Constructor.
      *
      * @param array $params A set of parameters.
@@ -86,11 +96,6 @@ class Horde_Kolab_Storage_Factory
      */
     public function create()
     {
-        if (isset($this->_params['queryset'])) {
-            $queryset = $this->_params['queryset'];
-        } else {
-            $queryset = array();
-        }
         if (isset($this->_params['storage'])) {
             $sparams = $this->_params['storage'];
         } else {
@@ -98,6 +103,14 @@ class Horde_Kolab_Storage_Factory
         }
         if (!empty($this->_params['logger'])) {
             $sparams['logger'] = $this->_params['logger'];
+        }
+        if (isset($this->_params['queryset'])) {
+            $queryset = $this->_params['queryset'];
+            if (isset($this->_params['queryset']['list']['queryset'])) {
+                $sparams['queryset'] = $this->_params['queryset']['list']['queryset'];
+            }
+        } else {
+            $queryset = array();
         }
         if (!empty($this->_params['cache'])) {
             $cache = $this->createCache();
@@ -205,23 +218,8 @@ class Horde_Kolab_Storage_Factory
                 $driver, $timer, $params['timelog']
             );
         }
+        $this->_driver = $driver;
         return $driver;
-    }
-
-    /**
-     * Returns a representation for the requested folder.
-     *
-     * @param Horde_Kolab_Storage_List $list   The folder list handler.
-     * @param string                   $folder The path of the folder to return.
-     *
-     * @return Horde_Kolab_Storage_Folder The folder representation.
-     */
-    public function createFolder(Horde_Kolab_Storage_List $list,
-                                 $folder)
-    {
-        return new Horde_Kolab_Storage_Folder_Base(
-            $list, $folder
-        );
     }
 
     /**
@@ -247,21 +245,6 @@ class Horde_Kolab_Storage_Factory
             );
         }
         return new $class($user, $params);
-    }
-
-    /**
-     * Create a folder type handler.
-     *
-     * @param string $annotation The folder type annotation value.
-     *
-     * @return Horde_Kolab_Storage_Folder_Type The folder type handler.
-     */
-    public function createFoldertype($annotation)
-    {
-        if (!isset($this->_folder_types[$annotation])) {
-            $this->_folder_types[$annotation] = new Horde_Kolab_Storage_Folder_Type($annotation);
-        }
-        return $this->_folder_types[$annotation];
     }
 
     /**
@@ -329,5 +312,10 @@ class Horde_Kolab_Storage_Factory
             );
         }
         return $this->_formats[$key];
+    }
+
+    public function getDriver()
+    {
+        return $this->_driver;
     }
 }

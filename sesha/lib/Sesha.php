@@ -36,7 +36,7 @@ class Sesha
      *
      * @return mixed  Array of categories on success; PEAR_Error on failure.
      */
-    function listCategories()
+    public function listCategories()
     {
         $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
         return $sesha_driver->getCategories();
@@ -49,7 +49,7 @@ class Sesha
      *
      * @return array  The string list as an array.
      */
-    function getStringlistArray($string)
+    public function getStringlistArray($string)
     {
         $string = str_replace("'", "\'", $string);
         $values = explode(',', $string);
@@ -62,7 +62,7 @@ class Sesha
         return $value_array;
     }
 
-   /**
+    /**
      * Comparison function for sorting inventory stock by id.
      *
      * @param array $a  Item one.
@@ -71,7 +71,7 @@ class Sesha
      * @return integer  1 if item one is greater, -1 if item two is greater;
      *                  0 if they are equal.
      */
-    function _sortByStockID($a, $b)
+    protected function _sortByStockID($a, $b)
     {
         if ($a['stock_id'] == $b['stock_id']) return 0;
         return ($a['stock_id'] > $b['stock_id']) ? 1 : -1;
@@ -86,7 +86,7 @@ class Sesha
      * @return integer  -1 if item one is greater, 1 if item two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByStockID($a, $b)
+    protected function _rsortByStockID($a, $b)
     {
         if ($a['stock_id'] == $b['stock_id']) return 0;
         return ($a['stock_id'] > $b['stock_id']) ? -1 : 1;
@@ -101,7 +101,7 @@ class Sesha
      * @return integer  1 if item one is greater, -1 if item two is greater;
      *                  0 if they are equal.
      */
-    function _sortByName($a, $b)
+    protected function _sortByName($a, $b)
     {
         if ($a['stock_name'] == $b['stock_name']) return 0;
         return ($a['stock_name'] > $b['stock_name']) ? 1 : -1;
@@ -116,7 +116,7 @@ class Sesha
      * @return integer  -1 if item one is greater, 1 if item two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByName($a, $b)
+    protected function _rsortByName($a, $b)
     {
         if ($a['stock_name'] == $b['stock_name']) return 0;
         return ($a['stock_name'] > $b['stock_name']) ? -1 : 1;
@@ -131,7 +131,7 @@ class Sesha
      * @return integer  1 if item one is greater, -1 if item two is greater;
      *                  0 if they are equal.
      */
-    function _sortByProperty($a, $b)
+    protected function _sortByProperty($a, $b)
     {
         if ($a[$GLOBALS['_sort_property']] == $b[$GLOBALS['_sort_property']]) return 0;
         return ($a[$GLOBALS['_sort_property']] > $b[$GLOBALS['_sort_property']]) ? 1 : -1;
@@ -146,7 +146,7 @@ class Sesha
      * @return integer  -1 if item one is greater, 1 if item two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByProperty($a, $b)
+    protected function _rsortByProperty($a, $b)
     {
         if ($a[$GLOBALS['_sort_property']] == $b[$GLOBALS['_sort_property']]) return 0;
         return ($a[$GLOBALS['_sort_property']] > $b[$GLOBALS['_sort_property']]) ? -1 : 1;
@@ -161,7 +161,7 @@ class Sesha
      * @return integer  1 if item one is greater, -1 if item two is greater;
      *                  0 if they are equal.
      */
-    function _sortByNote($a, $b)
+    protected function _sortByNote($a, $b)
     {
         if ($a['note'] == $b['note']) return 0;
         return ($a['note'] > $b['note']) ? 1 : -1;
@@ -176,38 +176,31 @@ class Sesha
      * @return integer  -1 if item one is greater, 1 if item two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByNote($a, $b)
+    protected function _rsortByNote($a, $b)
     {
         if ($a['note'] == $b['note']) return 0;
         return ($a['note'] > $b['note']) ? -1 : 1;
     }
 
     /**
-     * Build Sesha's list of menu items.
+     * Amend Sesha's list of menu items with a new button and generate output.
      */
-    function getMenu($returnType = 'object')
+    public static function menu()
     {
-        global $registry, $conf, $browser, $print_link, $perms;
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-        $menu = new Horde_Menu();
-        $menu->add(Horde::url('list.php'), _("_List Stock"), 'sesha.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        if (Sesha::isAdmin(Horde_Perms::READ)|| $perms->hasPermission('sesha:addStock', $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-            $menu->add(Horde::url(Horde_Util::addParameter('stock.php', 'actionId', 'add_stock')), _("_Add Stock"), 'stock.png');
-            $menu->add(Horde::url('admin.php'), _("Admin"), 'sesha.png');
+        $sidebar = Horde::menu(array('menu_ob' => true))->render();
+        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+        if (Sesha::isAdmin(Horde_Perms::READ) ||
+            $perms->hasPermission('sesha:addStock', $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+            $sidebar->addNewButton(
+                _("_Add Stock"),
+                Horde::url('stock.php')->add('actionId', 'add_stock'));
         }
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
-
-        /* Print. */
-        if ($conf['menu']['print'] && isset($print_link) && $browser->hasFeature('javascript')) {
-            $menu->add("javascript:popup('$print_link'); return false;", _("_Print"), 'print.png');
-        }
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
+        Horde::startBuffer();
+        return $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render()
+            . $sidebar . Horde::endBuffer();
     }
+
+
 
     public static function isAdmin($permLevel = Horde_Perms::DELETE)
     {

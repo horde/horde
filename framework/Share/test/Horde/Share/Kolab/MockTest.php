@@ -76,7 +76,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
                 )
             );
             $storage = $factory->create();
-            $storage->getList()->getDriver()->setGroups(
+            $factory->getDriver()->setGroups(
                 array('john' => array('mygroup'))
             );
             self::$_shares[$user]->setStorage($storage);
@@ -89,7 +89,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
             $this->markTestSkipped('The Kolab_Storage package seems to be unavailable.');
         }
         self::$share = self::$_shares['john'];
-        self::$share->getStorage()->getList()->synchronize();
+        self::$share->getStorage()->getList()->getListSynchronization()->synchronize();
     }
 
     public function testGetApp()
@@ -224,7 +224,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
     protected function switchAuth($user)
     {
         self::$share = self::$_shares[$user];
-        self::$share->getStorage()->getList()->synchronize();
+        self::$share->getStorage()->getList()->getListSynchronization()->synchronize();
     }
 
     protected function getCache()

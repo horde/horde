@@ -697,13 +697,13 @@ class Content_Tagger
         }
 
         if (!is_array($tags)) {
-            $tags = array($tags);
+            $tags = is_int($tags) ? array($tags) : $this->splitTags($tags);
         }
 
         $tagIds = array();
 
         // Anything already typed as an integer is assumed to be a tag id.
-        foreach ($tags as $tagIndex => $tag) {
+        foreach ($tags as $tag) {
             if (is_int($tag)) {
                 $tagIds[] = $tag;
                 continue;

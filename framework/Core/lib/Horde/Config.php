@@ -201,6 +201,7 @@ class Horde_Config
 
         /* Parse additional config files. */
         foreach (glob($path . '/conf.d/*.xml') as $additional) {
+            $dom = new DOMDocument();
             $dom->load($additional);
             $root = $dom->documentElement;
             if ($root->hasChildNodes()) {
@@ -743,26 +744,39 @@ class Horde_Config
     protected function _configLDAP($ctx, $node = null,
                                    $switchname = 'driverconfig')
     {
+        if ($node) {
+            $xpath = new DOMXPath($node->ownerDocument);
+        }
+
         $fields = array(
             'hostspec' => array(
                 '_type' => 'text',
                 'required' => true,
                 'desc' => 'LDAP server/hostname',
-                'default' => $this->_default($ctx . '|hostspec', '')
+                'default' => $this->_default(
+                    $ctx . '|hostspec',
+                    $node ? ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: '') : ''
+                )
             ),
 
             'port' => array(
                 '_type' => 'int',
                 'required' => false,
                 'desc' => 'Port on which LDAP is listening, if non-standard',
-                'default' => $this->_default($ctx . '|port', null)
+                'default' => $this->_default(
+                    $ctx . '|port',
+                    $node ? ($xpath->evaluate('string(configinteger[@name="port"])', $node) ?: null) : null
+                )
             ),
 
             'tls' => array(
                 '_type' => 'boolean',
                 'required' => false,
                 'desc' => 'Use TLS to connect to the server?',
-                'default' => $this->_default($ctx . '|tls', false)
+                'default' => $this->_default(
+                    $ctx . '|tls',
+                    $node ? ($xpath->evaluate('string(configboolean[@name="tls"])', $node) ?: false) : false
+                )
             ),
 
             'version' => array(
@@ -770,6 +784,10 @@ class Horde_Config
                 'required' => true,
                 'quote' => false,
                 'desc' => 'LDAP protocol version',
+                'default' => $this->_default(
+                    $ctx . '|version',
+                    $node ? ($xpath->evaluate('normalize-space(configswitch[@name="version"]/text())', $node) ?: 3) : 3
+                ),
                 'switch' => array(
                     '2' => array(
                         'desc' => '2 (deprecated)',
@@ -780,12 +798,14 @@ class Horde_Config
                         'fields' => array()
                     )
                 ),
-                'default' => $this->_default($ctx . '|version', 3)
             ),
 
             'bindas' => array(
                 'desc' => 'Bind to LDAP as which user?',
-                'default' => $this->_default($ctx . '|bindas', 'admin'),
+                'default' => $this->_default(
+                    $ctx . '|bindas',
+                    $node ? ($xpath->evaluate('normalize-space(configswitch[@name="bindas"]/text())', $node) ?: 'admin') : 'admin'
+                ),
                 'switch' => array(
                     'anon' => array(
                         'desc' => 'Bind anonymously',
@@ -799,24 +819,35 @@ class Horde_Config
                                     '_type' => 'text',
                                     'required' => false,
                                     'desc' => 'DN used to bind for searching the user\'s DN (leave empty for anonymous bind)',
-                                    'default' => $this->_default($ctx . '|binddn', '')
+                                    'default' => $this->_default(
+                                        $ctx . '|user|binddn',
+                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="binddn"])', $node) ?: '') : ''
+                                    )
                                 ),
                                 'bindpw' => array(
                                     '_type' => 'text',
                                     'required' => false,
                                     'desc' => 'Password for bind DN',
-                                    'default' => $this->_default($ctx . '|bindpw', '')
+                                    'default' => $this->_default(
+                                        $ctx . '|user|bindpw',
+                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: '') : ''
+                                    )
                                 ),
                                 'uid' => array(
                                     '_type' => 'text',
                                     'required' => true,
                                     'desc' => 'The username search key (set to samaccountname for AD).',
-                                    'default' => $this->_default($ctx . '|user|uid', 'uid')
+                                    'default' => $this->_default(
+                                        $ctx . '|user|uid',
+                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="uid"])', $node) ?: 'uid') : 'uid'
+                                    )
                                 ),
                                 'filter_type' => array(
                                     'required' => false,
                                     'desc' => 'How to specify a filter for the user lists.',
-                                    'default' => $this->_default($ctx . '|user|filter_type', 'objectclass'),
+                                    'default' => $this->_default(
+                                        $ctx . '|user|filter_type',
+                                        $node ? ($xpath->evaluate('normalize-space(configsection/configswitch[@name="filter_type"]/text())', $node) ?: 'objectclass') : 'objectclass'),
                                     'switch' => array(
                                         'filter' => array(
                                             'desc' => 'LDAP filter string',
@@ -825,7 +856,10 @@ class Horde_Config
                                                     '_type' => 'text',
                                                     'required' => true,
                                                     'desc' => 'The LDAP filter string used to search for users.',
-                                                    'default' => $this->_default($ctx . '|user|filter', '(objectClass=*)')
+                                                    'default' => $this->_default(
+                                                        $ctx . '|user|filter',
+                                                        $node ? ($xpath->evaluate('string(configsection/configstring[@name="filter"])', $node) ?: '(objectClass=*)') : '(objectClass=*)'
+                                                    )
                                                 ),
                                             ),
                                         ),
@@ -836,7 +870,9 @@ class Horde_Config
                                                     '_type' => 'stringlist',
                                                     'required' => true,
                                                     'desc' => 'The objectclass filter used to search for users. Can be a single objectclass or a comma-separated list.',
-                                                    'default' => implode(', ', $this->_default($ctx . '|user|objectclass', array('*')))
+                                                    'default' => implode(', ', $this->_default(
+                                                        $ctx . '|user|objectclass',
+                                                        $node ? ($xpath->evaluate('string(configsection/configlist[@name="objectclass"])', $node) ?: array('*')) : array('*')))
                                                 ),
                                             ),
                                         ),
@@ -852,13 +888,18 @@ class Horde_Config
                                 '_type' => 'text',
                                 'required' => true,
                                 'desc' => 'DN used to bind to LDAP',
-                                'default' => $this->_default($ctx . '|binddn', '')
+                                'default' => $this->_default(
+                                    $ctx . '|binddn',
+                                    $node ? ($xpath->evaluate('string(configsection/configstring[@name="binddn"])', $node) ?: '') : ''
+                                )
                             ),
                             'bindpw' => array(
                                 '_type' => 'text',
                                 'required' => true,
                                 'desc' => 'Password for bind DN',
-                                'default' => $this->_default($ctx . '|bindpw', '')
+                                'default' => $this->_default(
+                                    $ctx . '|bindpw',
+                                    $node ? ($xpath->evaluate('string(configsection/configstring[@name="bindpw"])', $node) ?: '') : '')
                             )
                         )
                     ),
@@ -876,7 +917,10 @@ class Horde_Config
         if (isset($node) && $node->getAttribute('baseconfig') == 'true') {
             return array(
                 'desc' => 'Use LDAP?',
-                'default' => $this->_default($ctx . '|' . $node->getAttribute('switchname'), false),
+                'default' => $this->_default(
+                    $ctx . '|' . $node->getAttribute('switchname'),
+                    $node ? ($xpath->evaluate('normalize-space(text())', $node) ?: false) : false
+                ),
                 'switch' => array(
                     'false' => array(
                         'desc' => 'No',
@@ -895,13 +939,18 @@ class Horde_Config
                 '_type' => 'text',
                 'required' => true,
                 'desc' => 'Base DN',
-                'default' => $this->_default($ctx . '|basedn', '')
+                'default' => $this->_default(
+                    $ctx . '|basedn',
+                    $node ? ($xpath->evaluate('string(configstring[@name="basedn"])', $node) ?: '') : ''
+                )
             ),
             'scope' => array(
                 '_type' => 'enum',
                 'required' => true,
                 'desc' => 'Search scope',
-                'default' => $this->_default($ctx . '|scope', ''),
+                'default' => $this->_default(
+                    $ctx . '|scope',
+                    $node ? ($xpath->evaluate('normalize-space(configenum[@name="scope"]/text())', $node) ?: '') : ''),
                 'values' => array(
                     'sub' => 'Subtree search',
                     'one' => 'One level'),
@@ -951,58 +1000,84 @@ class Horde_Config
      */
     public function configSQL($ctx, $node = null, $switchname = 'driverconfig')
     {
+        if ($node) {
+            $xpath = new DOMXPath($node->ownerDocument);
+        }
+
         $persistent = array(
             '_type' => 'boolean',
             'required' => false,
             'desc' => 'Request persistent connections?',
-            'default' => $this->_default($ctx . '|persistent', false)
+            'default' => $this->_default(
+                $ctx . '|persistent',
+                $node ? ($xpath->evaluate('string(configboolean[@name="persistent"])', $node) ?: false) : false
+            )
         );
 
         $hostspec = array(
             '_type' => 'text',
             'required' => true,
             'desc' => 'Database server/host',
-            'default' => $this->_default($ctx . '|hostspec', '')
+            'default' => $this->_default(
+                $ctx . '|hostspec',
+                $node ? ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: '') : ''
+            )
         );
 
         $username = array(
             '_type' => 'text',
             'required' => true,
             'desc' => 'Username to connect to the database as',
-            'default' => $this->_default($ctx . '|username', '')
+            'default' => $this->_default(
+                $ctx . '|username',
+                $node ? ($xpath->evaluate('string(configstring[@name="username"])', $node) ?: '') : ''
+            )
         );
 
         $password = array(
             '_type' => 'text',
             'required' => false,
             'desc' => 'Password to connect with',
-            'default' => $this->_default($ctx . '|password', '')
+            'default' => $this->_default(
+                $ctx . '|password',
+                $node ? ($xpath->evaluate('string(configstring[@name="password"])', $node) ?: '') :  ''
+            )
         );
 
         $database = array(
             '_type' => 'text',
             'required' => true,
             'desc' => 'Database name to use',
-            'default' => $this->_default($ctx . '|database', '')
+            'default' => $this->_default(
+                $ctx . '|database',
+                $node ? ($xpath->evaluate('string(configstring[@name="database"])', $node) ?: '') : ''
+            )
         );
 
         $socket = array(
             '_type' => 'text',
             'required' => false,
             'desc' => 'Location of UNIX socket',
-            'default' => $this->_default($ctx . '|socket', '')
+            'default' => $this->_default(
+                $ctx . '|socket',
+                $node ? ($xpath->evaluate('string(configstring[@name="socket"])', $node) ?: '') : ''
+            )
         );
 
         $port = array(
             '_type' => 'int',
             'required' => false,
             'desc' => 'Port the DB is running on, if non-standard',
-            'default' => $this->_default($ctx . '|port', null)
+            'default' => $this->_default(
+                $ctx . '|port',
+                $node ? ($xpath->evaluate('string(configinteger[@name="port"])', $node) ?: null) : null)
         );
 
         $protocol = array(
             'desc' => 'How should we connect to the database?',
-            'default' => $this->_default($ctx . '|protocol', 'unix'),
+            'default' => $this->_default(
+                $ctx . '|protocol',
+                $node ? ($xpath->evaluate('normalize-space(configswitch[@name="protocol"]/text())', $node) ?: 'unix') : 'unix'),
             'switch' => array(
                 'unix' => array(
                     'desc' => 'UNIX Sockets',
@@ -1021,48 +1096,47 @@ class Horde_Config
         );
 
         $mysql_protocol = $protocol;
-        $mysql_protocol['switch']['tcp']['fields']['port']['default'] = $this->_default($ctx . '|port', 3306);
+        $mysql_protocol['switch']['tcp']['fields']['port']['default'] =
+            $this->_default(
+                $ctx . '|port',
+                $node ? ($xpath->evaluate('string(configinteger[@name="port"])', $node) ?: 3306) : 3306
+            );
 
         $charset = array(
             '_type' => 'text',
             'required' => true,
             'desc' => 'Internally used charset',
-            'default' => $this->_default($ctx . '|charset', 'utf-8')
+            'default' => $this->_default(
+                $ctx . '|charset',
+                $node ? ($xpath->evaluate('string(configstring[@name="charset"])', $node) ?: 'utf-8') : 'utf-8')
         );
 
         $ssl = array(
             '_type' => 'boolean',
             'required' => false,
             'desc' => 'Use SSL to connect to the server?',
-            'default' => $this->_default($ctx . '|ssl', false)
+            'default' => $this->_default(
+                $ctx . '|ssl',
+                $node ? ($xpath->evaluate('string(configboolean[@name="ssl"])', $node) ?: false) : false)
         );
 
         $ca = array(
             '_type' => 'text',
             'required' => false,
             'desc' => 'Certification Authority to use for SSL connections',
-            'default' => $this->_default($ctx . '|ca', '')
-        );
-
-        $read_hostspec = array(
-            '_type' => 'text',
-            'required' => true,
-            'desc' => 'Read database server/host',
-            'default' => $this->_default($ctx . '|read|hostspec', '')
-        );
-
-        $read_port = array(
-            '_type' => 'int',
-            'required' => false,
-            'desc' => 'Port the read DB is running on, if non-standard',
-            'default' => $this->_default($ctx . '|read|port', null)
+            'default' => $this->_default(
+                $ctx . '|ca',
+                $node ? ($xpath->evaluate('string(configstring[@name="ca"])', $node) ?: '') : ''
+            )
         );
 
         $splitread = array(
             '_type' => 'boolean',
             'required' => false,
             'desc' => 'Split reads to a different server?',
-            'default' => $this->_default($ctx . '|splitread', 'false'),
+            'default' => $this->_default(
+                $ctx . '|splitread',
+                $node ? ($xpath->evaluate('normalize-space(configswitch[@name="splitread"]/text())', $node) ?: 'false') : 'false'),
             'switch' => array(
                 'false' => array(
                     'desc' => 'Disabled',
@@ -1087,7 +1161,10 @@ class Horde_Config
         $custom_fields = array(
             'required' => true,
             'desc' => 'What database backend should we use?',
-            'default' => $this->_default($ctx . '|phptype', ''),
+            'default' => $this->_default(
+                $ctx . '|phptype',
+                $node ? $node->getAttribute('default') : ''
+            ),
             'switch' => array(
                 'false' => array(
                     'desc' => '[None]',
@@ -1165,7 +1242,10 @@ class Horde_Config
                             '_type' => 'text',
                             'required' => true,
                             'desc' => 'Absolute path to the database file',
-                            'default' => $this->_default($ctx . '|database', '')
+                            'default' => $this->_default(
+                                $ctx . '|database',
+                                $node ? ($xpath->evaluate('string(configstring[@name="database"])', $node) ?: '') : ''
+                            )
                         ),
                         'charset' => $charset
                     )
@@ -1224,6 +1304,7 @@ class Horde_Config
         $default = $node->getAttribute('default');
         $default = empty($default) ? 'horde' : $default;
         list($default, $isDefault) = $this->__default($ctx . '|' . $node->getAttribute('switchname'), $default);
+        $xpath = new DOMXPath($node->ownerDocument);
 
         $config = array(
             'desc' => 'What VFS driver should we use?',
@@ -1237,7 +1318,10 @@ class Horde_Config
                             'vfsroot' => array(
                                 '_type' => 'text',
                                 'desc' => 'Where on the real filesystem should Horde use as root of the virtual filesystem?',
-                                'default' => $this->_default($ctx . '|params|vfsroot', '/tmp')
+                                'default' => $this->_default(
+                                    $ctx . '|params|vfsroot',
+                                    $xpath->evaluate('string(configsection/configstring[@name="vfsroot"])', $node) ?: '/tmp'
+                                )
                             )
                         )
                     )
@@ -1258,30 +1342,44 @@ class Horde_Config
                                 '_type' => 'text',
                                 'required' => true,
                                 'desc' => 'SSH server/host',
-                                'default' => $this->_default($ctx . '|hostspec', '')
+                                'default' => $this->_default(
+                                    $ctx . '|hostspec',
+                                    $xpath->evaluate('string(configsection/configstring[@name="hostspec"])', $node) ?: ''
+                                )
                             ),
                             'port' => array(
                                 '_type' => 'text',
                                 'required' => false,
                                 'desc' => 'Port number on which SSH listens',
-                                'default' => $this->_default($ctx . '|port', '22')
+                                'default' => $this->_default(
+                                    $ctx . '|port',
+                                    $xpath->evaluate('string(configsection/configstring[@name="port"])', $node) ?: '22'
+                                )
                             ),
                             'username' => array(
                                 '_type' => 'text',
                                 'required' => true,
                                 'desc' => 'Username to connect to the SSH server',
-                                'default' => $this->_default($ctx . '|username', '')
+                                'default' => $this->_default(
+                                    $ctx . '|username',
+                                    $xpath->evaluate('string(configsection/configstring[@name="username"])', $node) ?: ''
+                                )
                             ),
                             'password' => array(
                                 '_type' => 'text',
                                 'required' => true,
                                 'desc' => 'Password with which to connect',
-                                'default' => $this->_default($ctx . '|password', '')
+                                'default' => $this->_default(
+                                    $ctx . '|password',
+                                    $xpath->evaluate('string(configsection/configstring[@name="password"])', $node) ?: ''
+                                )
                             ),
                             'vfsroot' => array(
                                 '_type' => 'text',
                                 'desc' => 'Where on the real filesystem should Horde use as root of the virtual filesystem?',
-                                'default' => $this->_default($ctx . '|vfsroot', '/tmp')
+                                'default' => $this->_default(
+                                    $ctx . '|vfsroot',
+                                    $xpath->evaluate('string(configsection/configstring[@name="vfsroot"])', $node) ?: '/tmp')
                             )
                         )
                     )
@@ -1563,7 +1661,11 @@ class Horde_Config
         if (!$app) {
             return array();
         }
-        return $GLOBALS['registry']->callAppMethod($app, 'configSpecialValues', array('args' => array($node->getAttribute('name')), 'noperms' => true));
+        try {
+            return $GLOBALS['registry']->callAppMethod($app, 'configSpecialValues', array('args' => array($node->getAttribute('name')), 'noperms' => true));
+        } catch (Horde_Exception $e) {
+            return array();
+        }
     }
 
     /**

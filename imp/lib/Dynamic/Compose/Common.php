@@ -19,7 +19,6 @@ class IMP_Dynamic_Compose_Common
      *
      * @param IMP_Dynamic_Base $base  Base dynamic view object.
      * @param array $args             Configuration parameters:
-     *   - composeCache: (string) The cache ID of the IMP_Compose object.
      *   - redirect: (string) Display the redirect interface?
      *   - show_editor: (boolean) Show the HTML editor?
      *   - template: (string) Display the edit template interface?
@@ -75,8 +74,6 @@ class IMP_Dynamic_Compose_Common
         /* Generate identities list. */
         $injector->getInstance('IMP_Ui_Compose')->addIdentityJs();
 
-        $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create(isset($args['composeCache']) ? $args['composeCache'] : null);
-
         if ($session->get('imp', 'rteavail')) {
             $view->compose_html = !empty($args['show_editor']);
             $view->rte = true;
@@ -101,6 +98,7 @@ class IMP_Dynamic_Compose_Common
 
                 $flist = array();
                 $imaptree = $injector->getInstance('IMP_Imap_Tree');
+                $imaptree->setIteratorFilter();
 
                 foreach ($imaptree as $val) {
                     $tmp = array(
@@ -165,13 +163,13 @@ class IMP_Dynamic_Compose_Common
         global $browser, $conf, $prefs, $session;
 
         /* Context menu definitions. */
-        $base->js_context['ctx_msg_other'] = array();
+        $base->js_context['ctx_msg_other'] = new stdClass;
 
         if ($prefs->getValue('request_mdn') == 'never') {
-            $base->js_context['ctx_msg_other']['rr'] = _("Read Receipt");
+            $base->js_context['ctx_msg_other']->rr = _("Read Receipt");
         }
         if (strpos($prefs->getValue('save_attachments'), 'prompt') === false) {
-            $base->js_context['ctx_msg_other']['saveatc'] = _("Save Attachments in Sent Mailbox");
+            $base->js_context['ctx_msg_other']->saveatc = _("Save Attachments in Sent Mailbox");
         }
 
         /* Variables used in compose page. */
@@ -230,11 +228,11 @@ class IMP_Dynamic_Compose_Common
         /* Gettext strings used in compose page. */
         $base->js_text += array(
             'compose_cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
-            'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
+            'nosubject' => _("The message does not have a subject entered.") . "\n" . _("Send message without a subject?"),
             'remove' => _("Remove"),
             'replyall' => _("%d recipients"),
             'spell_noerror' => _("No spelling errors found."),
-            'toggle_html' => _("Really discard all formatting information? This operation cannot be undone."),
+            'toggle_html' => _("Discard all text formatting information (by converting from HTML to plain text)? This conversion cannot be reversed."),
             'uploading' => _("Uploading..."),
         );
     }

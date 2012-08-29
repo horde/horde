@@ -38,8 +38,8 @@ class IMP_Quota_Imap extends IMP_Quota
      * Get quota information (used/allocated), in bytes.
      *
      * @return array  An array with the following keys:
-     *                'limit' = Maximum quota allowed
-     *                'usage' = Currently used portion of quota (in bytes)
+     *   - limit: Maximum quota allowed
+     *   - usage: Currently used portion of quota (in bytes)
      * @throws IMP_Exception
      */
     public function getQuota()
@@ -50,15 +50,17 @@ class IMP_Quota_Imap extends IMP_Quota
             throw new IMP_Exception(_("Unable to retrieve quota"));
         }
 
-        if (empty($quota)) {
-            return array();
-        }
-
         $quota_val = reset($quota);
-        return array(
-            'limit' => $quota_val['storage']['limit'] * 1024,
-            'usage' => $quota_val['storage']['usage'] * 1024
-        );
+
+        return isset($quota_val['storage'])
+            ? array(
+                  'limit' => $quota_val['storage']['limit'] * 1024,
+                  'usage' => $quota_val['storage']['usage'] * 1024
+              )
+            : array(
+                'limit' => 0,
+                'usage' => 0
+              );
     }
 
 }

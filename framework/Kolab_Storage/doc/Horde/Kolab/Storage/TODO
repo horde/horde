@@ -52,8 +52,6 @@
 
  - Support servers without annotation support
 
- - Do not overwrite the previous XML part (should only be modified)
-
  - Split the "Driver" part into a separate package.
 
  - Common folder listing UI: http://wiki.kolab.org/UI-Concepts/Folder-Listing

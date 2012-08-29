@@ -62,26 +62,49 @@ class Horde
      *
      * @see Horde_Core_Log_Logger
      */
-    static public function logMessage($event, $priority = null,
-                                      array $options = array())
+    static public function log($event, $priority = null,
+                               array $options = array())
     {
         /* Chicken/egg: wait until we have basic framework setup before we
          * start logging. */
         if (isset($GLOBALS['conf']) && isset($GLOBALS['injector'])) {
-            $options['trace'] = 2;
+            if (!isset($options['trace'])) {
+                $options['trace'] = 0;
+            }
+            $options['trace'] += 2;
+
             $GLOBALS['injector']->getInstance('Horde_Log_Logger')->log($event, $priority, $options);
         }
+    }
+
+    /**
+     * Shortcut to logging method.
+     *
+     * @deprecated Use log() instead
+     * @see log()
+     */
+    static public function logMessage($event, $priority = null,
+                                      array $options = array())
+    {
+        if (!isset($options['trace'])) {
+            $options['trace'] = 0;
+        }
+        $options['trace'] += 1;
+        self::log($event, $priority, $options);
     }
 
     /**
      * Debug method.  Allows quick shortcut to produce debug output into a
      * temporary file.
      *
-     * @param mixed $event   Item to log.
-     * @param string $fname  Filename to log to. If empty, logs to
-     *                       'horde_debug.txt' in the temporary directory.
+     * @param mixed $event        Item to log.
+     * @param string $fname       Filename to log to. If empty, logs to
+     *                            'horde_debug.txt' in the PHP temporary
+     *                            directory.
+     * @param boolean $backtrace  Include backtrace information?
      */
-    static public function debug($event = null, $fname = null)
+    static public function debug($event = null, $fname = null,
+                                 $backtrace = true)
     {
         if (is_null($fname)) {
             $fname = self::getTempDir() . '/horde_debug.txt';
@@ -108,8 +131,10 @@ class Horde
             echo "\n";
         }
 
-        echo "Backtrace:\n";
-        echo strval(new Horde_Support_Backtrace());
+        if ($backtrace) {
+            echo "Backtrace:\n";
+            echo strval(new Horde_Support_Backtrace());
+        }
 
         $logger->log(self::endBuffer(), Horde_Log::DEBUG);
         ini_set('html_errors', $html_ini);

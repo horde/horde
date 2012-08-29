@@ -102,9 +102,6 @@
     line-height: 20px;
 }
 
-body.rightPanel #page {
-    margin-right: 10em;
-}
 body #pageControlsInner {
     display: none;
 }
@@ -119,18 +116,6 @@ body #sbarShow {
 body #sbarHide {
     display: none;
     background: transparent url("graphics/minus.png") center left no-repeat;
-}
-body.rightPanel #pageControlsInner {
-    display: block;
-}
-body.rightPanel #sbarShow {
-    display: none;
-}
-body.rightPanel #sbarHide {
-    display: block;
-}
-body.rightPanel ul {
-    list-style-type: none;
 }
 
 #pageControls {
@@ -219,6 +204,9 @@ table#tasklist-list th.sortdown {
 }
 
 /* Icons. */
+.nag-managelists {
+    background-image: url('graphics/manage.png');
+}
 .nag-list {
     background-image: url('graphics/nag.png');
 }
@@ -227,6 +215,21 @@ table#tasklist-list th.sortdown {
 }
 .nag-search {
     background-image: url('graphics/search.png');
+}
+.nag-listSelected {
+    background-image: url('graphics/checked.png');
+}
+.nag-listUnselected {
+    background-image: url('graphics/unchecked.png');
+}
+.nag-smart {
+    background-image: url('graphics/smart.png');
+}
+.horde-new-extra {
+    background: none;
+}
+.horde-new-extra a {
+    background: url('graphics/add.png') no-repeat;
 }
 
 @media print {

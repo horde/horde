@@ -14,76 +14,46 @@ class Horde_Service_Facebook_Friends extends Horde_Service_Facebook_Base
      * Returns whether or not pairs of users are friends.
      * Note that the Facebook friend relationship is symmetric.
      *
-     * @param string $uids1  comma-separated list of ids (id_1, id_2,...)
-     *                       of some length X
-     * @param string $uids2  comma-separated list of ids (id_A, id_B,...)
-     *                       of SAME length X
+     * @param string $uid        user id to check
+     * @param string $friend_id  Id of user to check for friend status.
      *
-     * @return array  An array with uid1, uid2, and bool if friends, e.g.:
-     *   array(0 => array('uid1' => id_1, 'uid2' => id_A, 'are_friends' => 1),
-     *         1 => array('uid1' => id_2, 'uid2' => id_B, 'are_friends' => 0)
-     *         ...)
-     * @error
-     *    API_EC_PARAM_USER_ID_LIST
+     * @return boolean
      */
-    public function &areFriends($uids1, $uids2)
+    public function areFriends($uid, $friend_id)
     {
-        // Session key is *required*
-        if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception(
-                'session_key is required',
-                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
-        }
+        $results = $this->_facebook->callGraphApi($uid . '/friends/' . $friend_id);
 
-        return $this->_facebook->callMethod(
-            'facebook.friends.areFriends',
-            array('uids1' => $uids1,
-                  'uids2' => $uids2));
+        return !empty($results->data);
     }
 
     /**
      * Returns the friends of the current session user.
      *
-     * @param integer $flid  (Optional) Only return friends on this friend list.
-     * @param integer $uid   (Optional) Return friends for this user.
+     * @param string $uid   The uid to obtain friends for.
+     * @param string $list  Return only friends in the specified list.
      *
-     * @return array  An array of friends
+     * @return array  An array of friend objects containing 'name' and 'id'
+     *                properties.
      */
-    public function &get($flid = null, $uid = null)
+    public function get($uid, $list = null)
     {
-        // Session key is *required*
-        if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception(
-                'session_key is required',
-                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
-        }
-        $params = array();
-        if (!empty($uid)) {
-          $params['uid'] = $uid;
-        }
-        if (!empty($flid)) {
-          $params['flid'] = $flid;
+        if (!empty($list)) {
+            return $this->_facebook->callGraphApi($list);
         }
 
-        return $this->_facebook->callMethod('facebook.friends.get', $params);
+        return $this->_facebook->callGraphApi($uid . '/friends');
     }
 
     /**
      * Returns the set of friend lists for the current session user.
      *
+     * @param string $uid  The uid to obtain friend lists for.
+     *
      * @return array  An array of friend list objects
      */
-    public function &getLists()
+    public function getLists($uid)
     {
-        // Session key is *required*
-        if (!$this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception(
-                'session_key is required',
-                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
-        }
-        return $this->_facebook->callMethod(
-            'facebook.friends.getLists',
-             array());
+        return $this->_facebook->callGraphApi($uid . '/friendlists');
     }
 
 }

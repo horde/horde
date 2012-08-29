@@ -2,7 +2,6 @@
 /**
  * Hermes Base Class.
  *
- *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
@@ -12,39 +11,44 @@
 class Hermes
 {
     /**
-     * Get a list of available clients
+     * List of available clients.
      *
-     * @param string $name  The string to search for in the client name
+     * @var array
+     */
+    protected static $_clients = array();
+
+    /**
+     * Returns a list of available clients.
      *
-     * @staticvar array $clients
-     * @return array  A hash of client_id => client_name
+     * @param string $name  The string to search for in the client name.
+     *
+     * @return array  A hash of client_id => client_name.
      */
     public static function listClients($name = '')
     {
-        static $clients;
-
-        if (is_null($clients) || empty($clients[$name])) {
-            try {
-                $result = $GLOBALS['registry']->clients->searchClients(array($name), array('name'), true);
-            } catch (Horde_Exception $e) {
-                // No client backend
-            }
-            $client_name_field = $GLOBALS['conf']['client']['field'];
-            $clients = is_null($clients) ?  array() : $clients;
-            if (!empty($result)) {
-                $result = $result[$name];
-                foreach ($result as $client) {
-                    $clients[$name][$client['id']] = $client[$client_name_field];
-                }
-            }
-            if (!empty($clients[$name])) {
-                uasort($clients[$name], 'strcoll');
-            } else {
-                $clients[$name] = array();
-            }
+        if (isset(self::$_clients['name'])) {
+            return self::$_clients['name'];
         }
 
-        return $clients[$name];
+        self::$_clients[$name] = array();
+
+        try {
+            $result = $GLOBALS['registry']->clients->searchClients(array($name), array('name'), true);
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, 'WARN');
+            return self::$_clients[$name];
+        }
+
+        if (!empty($result)) {
+            $result = $result[$name];
+            foreach ($result as $client) {
+                self::$_clients[$name][$client['id']] =
+                    $client[$GLOBALS['conf']['client']['field']];
+            }
+        }
+        uasort(self::$_clients[$name], 'strcoll');
+
+        return self::$_clients[$name];
     }
 
     public static function getClientSelect($id)

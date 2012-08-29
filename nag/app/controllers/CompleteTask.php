@@ -37,7 +37,8 @@ class Nag_CompleteTask_Controller extends Horde_Controller_Base
         }
 
         $requestVars = $request->getGetVars();
-        if ($requestVars['format'] == 'json') {
+        if (!empty($requestVars['format']) &&
+            $requestVars['format'] == 'json') {
             $response->setContentType('application/json');
             $response->setBody(json_encode($result));
         } elseif ($requestVars['url']) {

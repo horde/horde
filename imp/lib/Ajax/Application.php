@@ -214,7 +214,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function deleteMailbox()
     {
-        return ($this->_vars->mbox && IMP_Mailbox::formFrom($this->_vars->mbox)->delete(array('subfolders' => !empty($this->_vars->subfolders), 'subfolders_only' => !empty($this->_vars->container))));
+        return ($this->_vars->mbox && IMP_Mailbox::formFrom($this->_vars->mbox)->delete(array(
+            'subfolders' => !empty($this->_vars->subfolders),
+            'subfolders_only' => !empty($this->_vars->container)
+        )));
     }
 
     /**
@@ -362,7 +365,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $initreload = ($this->_vars->initial || $this->_vars->reload);
 
-        $mask = IMP_Imap_Tree::FLIST_VFOLDER | IMP_Imap_Tree::FLIST_NOSPECIALMBOXES;
+        $mask = IMP_Imap_Tree::FLIST_VFOLDER;
         if ($this->_vars->unsub) {
             $mask |= IMP_Imap_Tree::FLIST_UNSUB;
         }
@@ -1192,7 +1195,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             if ($this->_vars->dataonly) {
                 $result = $compose->ajax->getBaseResponse();
                 $result->body = $fwd_msg['body'];
-                $result->opts->atc = $compose->ajax->getAttachmentInfo();
+                $result->format = $fwd_msg['format'];
+                $result->opts->atc = $compose->ajax->getAttachmentInfo($fwd_msg['type']);
             } else {
                 $result = $compose->ajax->getResponse($fwd_msg);
             }
@@ -1979,25 +1983,25 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         if ($changed) {
             $vp = $this->_viewPortData(true);
-        } else {
+            $this->addTask('viewport', $vp);
+        } elseif ($force || $this->_mbox->hideDeletedMsgs(true)) {
             $vp = $this->_viewPortOb();
 
-            if ($force || $this->_mbox->hideDeletedMsgs(true)) {
-                if ($this->_mbox->search) {
-                    $disappear = array();
-                    foreach ($indices as $val) {
-                        foreach ($val->uids as $val2) {
-                            $disappear[] = IMP_Ajax_Application_ListMessages::searchUid($val->mbox, $val2);
-                        }
+            if ($this->_mbox->search) {
+                $disappear = array();
+                foreach ($indices as $val) {
+                    foreach ($val->uids as $val2) {
+                        $disappear[] = IMP_Ajax_Application_ListMessages::searchUid($val->mbox, $val2);
                     }
-                } else {
-                    $disappear = end($indices->getSingle(true));
                 }
-                $vp->disappear = $disappear;
+            } else {
+                $disappear = end($indices->getSingle(true));
             }
+            $vp->disappear = $disappear;
+
+            $this->addTask('viewport', $vp);
         }
 
-        $this->addTask('viewport', $vp);
         $this->_queue->poll(array_keys($indices->indices()));
     }
 
@@ -2017,7 +2021,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         /* Only update search mailboxes on forced refreshes. */
         if ($this->_mbox->search) {
-            return !empty($this->_vars->viewport->forceUpdate);
+            return !empty($this->_vars->forceUpdate);
         }
 
         /* We know we are going to be dealing with this mailbox, so select it

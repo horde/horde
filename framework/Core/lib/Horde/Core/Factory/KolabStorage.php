@@ -84,11 +84,11 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
         $params = array(
             'driver' => 'horde',
             'params' => array(
-                'host' => $session->getImapServer(),
+                'host' => $configuration['server'],
                 'username' => $GLOBALS['registry']->getAuth(),
                 'password' => $GLOBALS['registry']->getAuthCredential('password'),
                 'port'     => $configuration['port'],
-                'secure'   => 'tls'
+                'secure'   => $configuration['secure']
             ),
             'queryset' => array(
                 'list' => array('queryset' => 'horde'),

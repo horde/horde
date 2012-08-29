@@ -110,8 +110,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Creating folder %s failed. Error: %s"
-                    ),
+                        "Creating folder %s failed."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     $this->getBackend()->error
                 )
@@ -133,8 +135,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Deleting folder %s failed. Error: %s"
-                    ),
+                        "Deleting folder %s failed."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     $this->getBackend()->error
                 )
@@ -160,8 +164,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Renaming folder %s to %s failed. Error: %s"
-                    ),
+                        "Renaming folder %s to %s failed."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $old,
                     $new,
                     $this->getBackend()->error
@@ -194,8 +200,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed reading ACL on folder %s. Error: %s"
-                    ),
+                        "Failed reading ACL on folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     $this->getBackend()->error
                 )
@@ -222,8 +230,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed reading user rights on folder %s. Error: %s"
-                    ),
+                        "Failed reading user rights on folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     $this->getBackend()->error
                 )
@@ -248,8 +258,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed setting ACL on folder %s for user %s to %s. Error: %s"
-                    ),
+                        "Failed setting ACL on folder %s for user %s to %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     $user,
                     $acl,
@@ -274,8 +286,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed deleting ACL on folder %s for user %s. Error: %s"
-                    ),
+                        "Failed deleting ACL on folder %s for user %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     $user,
                     $this->getBackend()->error
@@ -326,8 +340,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Setting annotation %s[%s] on folder %s failed. Error: %s"
-                    ),
+                        "Setting annotation %s[%s] on folder %s failed."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $attr,
                     $type,
                     $folder,
@@ -357,8 +373,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Setting annotation %s[%s] on folder %s to %s failed. Error: %s"
-                    ),
+                        "Setting annotation %s[%s] on folder %s to %s failed."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $attr,
                     $type,
                     $folder,
@@ -407,8 +425,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Selecting folder %s failed. Error: %s"
-                    ),
+                        "Selecting folder %s failed."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     $this->getBackend()->error
                 )
@@ -433,8 +453,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Retrieving the status for folder %s failed. Error: %s"
-                    ),
+                        "Retrieving the status for folder %s failed."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     $this->getBackend()->error
                 )
@@ -464,8 +486,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed retrieving UIDs for folder %s. Error: %s"
-                    ),
+                        "Failed retrieving UIDs for folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     $this->getBackend()->error
                 )
@@ -495,8 +519,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed retrieving message %s in folder %s. Error: %s"
-                    ),
+                        "Failed fetching message %s in folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $uid,
                     $folder,
                     $this->getBackend()->error
@@ -534,7 +560,10 @@ extends Horde_Kolab_Storage_Driver_Base
                 throw new Horde_Kolab_Storage_Exception(
                     sprintf(
                         Horde_Kolab_Storage_Translation::t(
-                            "Failed retrieving structure of message %s in folder %s. Error: %s"
+                            "Failed retrieving structure of message %s in folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"
                         ),
                         $uid,
                         $folder,
@@ -568,8 +597,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed retrieving mime part %s of message %s in folder %s. Error: %s"
-                    ),
+                        "Failed fetching body part %s for message %s in folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $id,
                     $uid,
                     $folder,
@@ -599,8 +630,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed appending new message to folder %s. Error: %s"
-                    ),
+                        "Failed appending new message to folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     $this->getBackend()->error
                 )
@@ -626,8 +659,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed deleting messages from folder %s. Error: %s"
-                    ),
+                        "Failed deleting messages from folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     $this->getBackend()->error
                 )
@@ -655,8 +690,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed moving message %s from folder %s to folder %s. Error: %s"
-                    ),
+                        "Failed moving message %s from folder %s to folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $uid,
                     $old_folder,
                     $new_folder,
@@ -679,8 +716,10 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
                     Horde_Kolab_Storage_Translation::t(
-                        "Failed expunging folder %s. Error: %s"
-                    ),
+                        "Failed expunging folder %s."
+                    )
+                    . ' '
+                    . Horde_Kolab_Storage_Translation::t("Error: %s"),
                     $folder,
                     $this->getBackend()->error
                 )

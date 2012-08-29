@@ -38,55 +38,58 @@ class Nag_Api extends Horde_Registry_Api
      * Retrieves the current user's task list from storage.
      *
      * This function will also sort the resulting list, if requested.
+     * @param arary $options  Options array:
+     *   - altsortby: (string) The secondary sort field. Same values as sortdir.
+     *                DEFAULT: altsortby pref is used.
+     *   - completed: (integer) Which task to retrieve.
+     *                DEFAULT: show_completed pref is used.
+     *   - sortby: (string)  A Nag::SORT_* constant for the field to sort by.
+     *             DEFAULT: sortby pref is used.
+     *   - sortdir: (string) Direction of sort. NAG::SORT_ASCEND or NAG::SORT_DESCEND.
+     *              DEFAULT: sortdir pref is used.
+     *   - include_tags: (boolean) Autoload all tags.
+     *                   DEFAULT: false (Tags are lazy loaded as needed.)
+     *   - json: (boolean) Return data as JSON.
+     *           DEFAULT: false (Data is returned as Nag_Task)
+     *   - tasklists: (array) An array of tasklists to include.
+     *                DEFAULT: Use $GLOBALS['display_tasklists'];
      *
-     * @param string $sortby        The field by which to sort
-     *                              (NAG_SORT_PRIORITY, NAG_SORT_NAME
-     *                              NAG_SORT_DUE, NAG_SORT_COMPLETION).
-     * @param integer $sortdir      The direction by which to sort.
-     * @param string $altsortby     The secondary sort field.
-     * @param array $tasklists      An array of tasklist to display or
-     *                              null/empty to display taskslists
-     *                              $GLOBALS['display_tasklists'].
-     * @param string $completed     Which tasks to retrieve (all, incomplete,
-     *                              complete, future or future_incomplete).
-     * @param boolean $json         Retrieve the results of the tasks in
-     *                              'json format'.
-     *
-     * @return Nag_Task  A list of the requested tasks.
+     * @return array  An array of the requested tasks.
      */
-    public function listTasks($sortby = null, $sortdir = null,
-                              $altsortby = null, $tasklists = null,
-                              $completed = null, $json = false)
+    public function listTasks(array $options = array())
     {
-        $completedArray = array('incomplete' => Nag::VIEW_INCOMPLETE,
-                                'all' => Nag::VIEW_ALL,
-                                'complete' => Nag::VIEW_COMPLETE,
-                                'future' => Nag::VIEW_FUTURE,
-                                'future_incomplete' => Nag::VIEW_FUTURE_INCOMPLETE);
+        global $prefs;
 
-        if (!isset($sortby)) {
-            $sortby = $GLOBALS['prefs']->getValue('sortby');
+        $completedArray = array(
+            'incomplete' => Nag::VIEW_INCOMPLETE,
+            'all' => Nag::VIEW_ALL,
+            'complete' => Nag::VIEW_COMPLETE,
+            'future' => Nag::VIEW_FUTURE,
+            'future_incomplete' => Nag::VIEW_FUTURE_INCOMPLETE);
+
+        // Prevent null tasklists value from obscuring the default value.
+        if (array_key_exists('tasklists', $options) && empty($options['tasklists'])) {
+            unset($options['tasklists']);
         }
-        if (!isset($sortdir)) {
-            $sortdir = $GLOBALS['prefs']->getValue('sortdir');
-        }
-        if (is_null($altsortby)) {
-            $altsortby =  $GLOBALS['prefs']->getValue('altsortby');
-        }
-        if (is_null($tasklists)) {
-            $tasklists = $GLOBALS['display_tasklists'];
-        }
-        if (is_null($completed) || !isset($completedArray[$completed])) {
-            $completed = $GLOBALS['prefs']->getValue('show_completed');
+        if (is_null($options['completed']) || !isset($completedArray[$options['completed']])) {
+            $options['completed'] = $prefs->getValue('show_completed');
         } else {
-            $completed = $completedArray[$completed];
+            $options['completed'] = $completedArray[$options['completed']];
         }
+        $options = array_merge(array(
+            'sortby' => $prefs->getValue('sortby'),
+            'sortdir' => $prefs->getValue('sortdir'),
+            'altsortby' => $prefs->getValue('altsortby'),
+            'tasklists' => $GLOBALS['display_tasklists'],
+            'include_tags' => false,
+            'json' => false),
+            $options);
 
-        $tasks = Nag::listTasks($sortby, $sortdir, $altsortby, $tasklists, $completed);
+        $tasks = Nag::listTasks($options);
         $tasks->reset();
         $list = array();
         while ($task = $tasks->each()) {
-            $list[$task->id] = $json ? $task->toJson() : $task->toHash();
+            $list[$task->id] = $options['json'] ? $task->toJson() : $task->toHash();
         }
 
         return $list;
@@ -98,18 +101,17 @@ class Nag_Api extends Horde_Registry_Api
      * @param boolean $owneronly   Only return tasklists that this user owns?
      *                             Defaults to false.
      * @param integer $permission  The permission to filter tasklists by.
+     * @param boolean $smart       Include smart tasklists in results.
      *
      * @return array  The task lists.
      */
-    public function listTasklists($owneronly = false, $permission = Horde_Perms::SHOW)
+    public function listTasklists($owneronly = false, $permission = Horde_Perms::SHOW, $smart = true)
     {
-        return Nag::listTasklists($owneronly, $permission);
+        return Nag::listTasklists($owneronly, $permission, $smart);
     }
 
     /**
      * Returns a task list.
-     *
-     * @since Nag 3.0.3
      *
      * @param string $name   A task list name.
      *
@@ -176,8 +178,6 @@ class Nag_Api extends Horde_Registry_Api
     /**
      * Returns the displayed task lists.
      *
-     * @since Nag 3.0.3
-     *
      * @return array  Displayed tasklists.
      */
     public function getDisplayedTasklists()
@@ -187,8 +187,6 @@ class Nag_Api extends Horde_Registry_Api
 
     /**
      * Sets the displayed task lists.
-     *
-     * @since Nag 3.0.3
      *
      * @param array $list  Displayed tasklists.
      */
@@ -285,12 +283,6 @@ class Nag_Api extends Horde_Registry_Api
                 array('perm' => Horde_Perms::SHOW,
                       'attributes' => $parts[0]));
 
-            // The last check returns all addressbooks for the requested user,
-            // but that does not mean the requesting user has access to them.
-            // Filter out those address books for which the requesting user has
-            // no access.
-            $tasklists = Nag::permissionsFilter($tasklists);
-
             $results = array();
             foreach ($tasklists as $tasklistId => $tasklist) {
                 $retpath = 'nag/' . $parts[0] . '/' . $tasklistId;
@@ -351,7 +343,7 @@ class Nag_Api extends Horde_Registry_Api
             if (!Nag::hasPermission($parts[1], Horde_Perms::READ)) {
                 throw new Nag_Exception(_("Invalid tasklist requested."), 404);
             }
-            $storage = Nag_Driver::singleton($parts[1]);
+            $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($parts[1]);
             try {
                 $storage->retrieve();
             } catch (Nag_Exception $e) {
@@ -401,7 +393,7 @@ class Nag_Api extends Horde_Registry_Api
                 // This request is for a specific item within a given task list.
                 //
                 /* Create a Nag storage instance. */
-                $storage = Nag_Driver::singleton($parts[1]);
+                $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($parts[1]);
                 $storage->retrieve();
                 try {
                     $storage->get($parts[2]);
@@ -481,7 +473,7 @@ class Nag_Api extends Horde_Registry_Api
         $ids = array();
         $uids_remove = array_flip($this->listUids($tasklist));
 
-        $storage = Nag_Driver::singleton($tasklist);
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
 
         switch ($content_type) {
         case 'text/calendar':
@@ -620,7 +612,7 @@ class Nag_Api extends Horde_Registry_Api
 
         /* Create a Nag storage instance. */
         try {
-            $storage = Nag_Driver::singleton($tasklistID);
+            $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklistID);
             $storage->retrieve();
         } catch (Nag_Exception $e) {
             throw new Nag_Exception(sprintf(_("Connection failed: %s"), $e->getMessage()), 500);
@@ -677,7 +669,8 @@ class Nag_Api extends Horde_Registry_Api
             }
         }
 
-        $tasks = Nag::listTasks(null, null, null, $tasklists, 1);
+        $tasks = Nag::listTasks(
+            array('tasklists' => $tasklists, 'completed' => Nag::VIEW_ALL));
         $uids = array();
         $tasks->reset();
         while ($task = $tasks->each()) {
@@ -795,7 +788,7 @@ class Nag_Api extends Horde_Registry_Api
         }
 
         /* Create a Nag_Driver instance. */
-        $storage = Nag_Driver::singleton($tasklist);
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
 
         switch ($contentType) {
         case 'text/x-vcalendar':
@@ -869,7 +862,7 @@ class Nag_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $storage = Nag_Driver::singleton($task['tasklist']);
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($task['tasklist']);
         return $storage->add($task);
     }
 
@@ -935,19 +928,21 @@ class Nag_Api extends Horde_Registry_Api
      * @param string $uid          Identify the task to export.
      * @param string $contentType  What format should the data be in?
      *                             A string with one of:
-     * <pre>
-     * text/calendar    - (VCALENDAR 2.0. Recommended as this is specified in
-     *                    rfc2445)
-     * text/x-vcalendar - (old VCALENDAR 1.0 format. Still in wide use)
-     * </pre>
+     * - text/calendar:    iCalendar 2.0. Recommended as this is specified in
+     *                     RFC 2445.
+     * - text/x-vcalendar: vCalendar 1.0 format. Still in wide use.
+     * - activesync:       Horde_ActiveSync_Message_Task.
+     * - raw:              Nag_Task.
      * @param array $options      Any additional options for the exporter.
      *
      * @return string  The requested data.
      */
     public function export($uid, $contentType, array $options = array())
     {
-        $storage = Nag_Driver::singleton();
-        $task = $storage->getByUID($uid);
+        $task = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Driver')
+            ->create()
+            ->getByUID($uid);
         if (!Nag::hasPermission($task->tasklist, Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied();
         }
@@ -971,6 +966,8 @@ class Nag_Api extends Horde_Registry_Api
             return $iCal->exportvCalendar();
         case 'activesync':
             return $task->toASTask($options);
+        case 'raw':
+            return $task;
         default:
             throw new Nag_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
         }
@@ -1014,7 +1011,10 @@ class Nag_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $tasks = Nag::listTasks(null, null, null, array($tasklist), 1);
+        $tasks = Nag::listTasks(array(
+            'tasklists' => array($tasklist),
+            'completed' => Nag::VIEW_ALL,
+            'include_tags' => true));
 
         $version = '2.0';
         switch ($contentType) {
@@ -1057,7 +1057,7 @@ class Nag_Api extends Horde_Registry_Api
             return true;
         }
 
-        $storage = Nag_Driver::singleton();
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
         $task = $storage->getByUID($uid);
 
         if (!$GLOBALS['registry']->isAdmin() &&
@@ -1083,7 +1083,7 @@ class Nag_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $storage = Nag_Driver::singleton($tasklist);
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
         return $storage->delete($id);
     }
 
@@ -1106,7 +1106,7 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function replace($uid, $content, $contentType)
     {
-        $storage = Nag_Driver::singleton();
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
         $existing = $storage->getByUID($uid);
         $taskId = $existing->id;
         $owner = $existing->owner;
@@ -1172,7 +1172,7 @@ class Nag_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $storage = Nag_Driver::singleton($tasklist);
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
         $existing = $storage->get($id);
         $task['owner'] = $existing->owner;
 
@@ -1188,7 +1188,7 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listCostObjects($criteria)
     {
-        $tasks = Nag::listTasks(null, null, null, null, 1);
+        $tasks = Nag::listTasks(array('completed' => Nag::VIEW_ALL));
         $result = array();
         $tasks->reset();
         while ($task = $tasks->each()) {
@@ -1242,7 +1242,11 @@ class Nag_Api extends Horde_Registry_Api
         $end_ts = $end->timestamp();
 
         // List incomplete tasks.
-        $tasks = Nag::listTasks(null, null, null, $categories, 0);
+        $tasks = Nag::listTasks(array(
+            'tasklists' => $categories,
+            'completed' => Nag::VIEW_INCOMPLETE)
+        );
+
         $tasks->reset();
         while ($task = $tasks->each()) {
             // If there's no due date, it's not a time object.
@@ -1268,7 +1272,6 @@ class Nag_Api extends Horde_Registry_Api
                 'start' => $due_date,
                 'end' => $due_date,
                 'recurrence' => $recurrence,
-                'category' => $task->category,
                 'color' => $allowed_tasklists[$task->tasklist]->get('color'),
                 'owner' => $allowed_tasklists[$task->tasklist]->get('owner'),
                 'permissions' => $GLOBALS['nag_shares']->getPermissions($task->tasklist, $GLOBALS['registry']->getAuth()),
@@ -1297,12 +1300,12 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function saveTimeObject(array $timeobject)
     {
-        $storage = Nag_Driver::singleton();
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
         $existing = $storage->get($timeobject['id']);
         if (!Nag::hasPermission($existing->tasklist, Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied();
         }
-        $storage = Nag_Driver::singleton($existing->tasklist);
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($existing->tasklist);
         $info = array();
         if (isset($timeobject['start'])) {
             $info['due'] = new Horde_Date($timeobject['start']);

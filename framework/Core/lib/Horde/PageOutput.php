@@ -583,6 +583,10 @@ class Horde_PageOutput
     {
         if ($this->_compress && (reset(ob_list_handlers()) == 'ob_gzhandler')) {
             ob_end_clean();
+            /* Removing the ob_gzhandler ADDS the below headers, which breaks
+             * display on the browser (as of PHP 5.3.15). */
+            header_remove('content-encoding');
+            header_remove('vary');
             $this->_compress = false;
         }
     }
@@ -660,6 +664,7 @@ class Horde_PageOutput
                 'HordeMobile.conf' => array(
                     'ajax_url' => $registry->getServiceLink('ajax', $registry->getApp())->url,
                     'logout_url' => strval($registry->getServiceLink('logout')),
+                    'sid' => defined('SID') ? SID : '',
                     'token' => $session->getToken()
                 )
             ));
@@ -691,7 +696,7 @@ class Horde_PageOutput
             $js_conf = array_filter(array(
                 /* URLs */
                 'URI_AJAX' => $registry->getServiceLink('ajax', $registry->getApp())->url,
-                'URI_DLOAD' => $registry->getServiceLink('download', $registry->getApp())->url,
+                'URI_DLOAD' => strval($registry->getServiceLink('download', $registry->getApp())),
                 'URI_LOGOUT' => strval($registry->getServiceLink('logout')),
                 'URI_SNOOZE' => strval(Horde::url($registry->get('webroot', 'horde') . '/services/snooze.php', true, -1)),
 
@@ -827,9 +832,9 @@ class Horde_PageOutput
             'templatePath' => $registry->get('templates', 'horde') . '/common'
         ));
 
-        $view->notifications = $browser->isMobile()
-            ? ''
-            : $notification->notify(array('listeners' => array('audio')));
+        if (!$browser->isMobile()) {
+            $notification->notify(array('listeners' => array('audio')));
+        }
         $view->outputJs = $this->deferScripts;
         $view->pageOutput = $this;
         $view->sidebarLoaded = $this->sidebarLoaded;

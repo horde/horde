@@ -23,15 +23,15 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-05</date>
- <time>23:31:44</time>
+ <date>2012-07-19</date>
+ <time>23:20:40</time>
  <version>
-  <release>2.0.0beta1</release>
-  <api>2.0.0alpha1</api>
+  <release>2.0.0beta2</release>
+  <api>2.0.0beta1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
@@ -166,16 +166,16 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>hash</name>
@@ -185,58 +185,58 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_History</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Lock</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0alpha1</min>
-    <max>3.0.0</max>
-    <exclude>3.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Session</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Ldap</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Imsp</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>pam</name>
@@ -695,7 +695,7 @@
    <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+*
    </notes>
   </release>
   <release>
@@ -718,11 +718,25 @@
   <release>
    <version>
     <release>2.0.0beta1</release>
-    <api>2.0.0alpha1</api></version>
+    <api>2.0.0beta1</api></version>
    <stability>
     <release>beta</release>
-    <api>alpha</api></stability>
-   <date>2012-07-05</date>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+* [rla] Use constant for permanent lock and provide more verbose feedback (Request #11254).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

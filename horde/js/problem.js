@@ -17,4 +17,4 @@ var HordeProblem = {
 
 };
 
-$('problem_report').observe('submit', HordeProblem.onSubmit.bindAsEventListener(HordeProblem));
+$('problem-report').observe('click', HordeProblem.onSubmit.bindAsEventListener(HordeProblem));

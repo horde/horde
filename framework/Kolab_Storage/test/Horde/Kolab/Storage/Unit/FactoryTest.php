@@ -110,39 +110,6 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
-    public function testLogDecoration()
-    {
-        $factory = new Horde_Kolab_Storage_Factory(
-            array(
-                'driver' => 'mock',
-                'logger' => $this->getMockLogger()
-            )
-        );
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Decorator_Log',
-            $factory->create()->getList()
-        );
-    }
-
-    public function testCacheDecoration()
-    {
-        $factory = new Horde_Kolab_Storage_Factory(
-            array(
-                'driver' => 'mock',
-                'params' => array(
-                    'username' => 'test',
-                    'host' => 'localhost',
-                    'port' => 143,
-                ),
-                'cache' => new Horde_Cache(new Horde_Cache_Storage_Mock())
-            )
-        );
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Decorator_Cache',
-            $factory->create()->getList()
-        );
-    }
-
     public function testTimerDecoration()
     {
         $logger = $this->getMockLogger();
@@ -161,6 +128,8 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testCreateTypeReturnsType()
     {
+        $this->markTestIncomplete();
+
         $factory = new Horde_Kolab_Storage_Factory();
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder_Type',
@@ -208,6 +177,8 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testFolder()
     {
+        $this->markTestIncomplete();
+
         $factory = new Horde_Kolab_Storage_Factory();
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder',

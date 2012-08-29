@@ -126,9 +126,9 @@ try {
 // as needed. Must reset the authentication argument since we delegate
 // auth to the RPC server.
 $GLOBALS['registry']->setAuthenticationSetting(
-    (array_key_exists($params, 'requireAuthorization') && $params['requireAuthorization'] === false)
-     ? 'none'
-     : 'Authenticate');
+    (array_key_exists('requireAuthorization', $params) && $params['requireAuthorization'] === false)
+    ? 'none'
+    : 'Authenticate');
 
 try {
     $server->authorize();

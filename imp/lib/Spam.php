@@ -83,7 +83,7 @@ class IMP_Spam
                             2 => array('pipe', 'w')
                         ), $pipes);
                     if (!is_resource($proc)) {
-                        Horde::logMessage('Cannot open process ' . $prog, 'ERR');
+                        Horde::log('Cannot open process ' . $prog, 'ERR');
                         return 0;
                     }
                     stream_copy_to_stream($raw_msg, $pipes[0]);
@@ -94,7 +94,7 @@ class IMP_Spam
                     }
                     fclose($pipes[2]);
                     if (!empty($stderr)) {
-                        Horde::logMessage('Error reporting spam: ' . $stderr, 'ERR');
+                        Horde::log('Error reporting spam: ' . $stderr, 'ERR');
                     }
                     proc_close($proc);
                     $report_flag = true;

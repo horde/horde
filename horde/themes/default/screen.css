@@ -29,6 +29,7 @@ input[type=image] {
     border: none;
     vertical-align: middle;
     background: transparent;
+    padding: 0;
 }
 
 .iconImg {
@@ -79,32 +80,13 @@ br.spacer {
 .headerbox form {
     padding: 2px;
 }
-.roundedBox {
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-    border-radius: 15px;
-}
-.roundedTop {
-    -moz-border-radius-topright: 15px;
-    -moz-border-radius-topleft: 15px;
-    -webkit-border-top-right-radius: 15px;
-    -webkit-border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
-}
-.roundedBottom {
-    -moz-border-radius-bottomright: 15px;
-    -moz-border-radius-bottomleft: 15px;
-    -webkit-border-bottom-right-radius: 15px;
-    -webkit-border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-}
 .header {
+    background: url("graphics/tabset.png") repeat-x;
     text-align: left;
     font-weight: bold;
     font-size: 140%;
-    padding: 3px;
+    padding: 3px 10px;
+    min-height: 24px;
 }
 .header a:hover, a.header:hover {
     color: #333;
@@ -116,7 +98,7 @@ br.spacer {
     font-size: 80%;
 }
 .header .smallheader input, .header .smallheader select {
-    font-size: 100%;
+    font-size: 89%;
 }
 .header .button, .header .smallheader .button {
     font-size: 72%;
@@ -160,8 +142,6 @@ td, th {
 th {
     color: #333;
 }
-td {
-}
 ul.linedRow {
     list-style-type: none;
 }
@@ -178,11 +158,9 @@ table.linedRow, ul.linedRow {
     background: #f3f3f3;
     border-bottom: 1px solid #ddd;
 }
-.selectedRow, tr.selectedRow td {
-    background: #ffc;
-}
-.selectedRow:hover, tr.selectedRow:hover td, .selectedRow-over, tr.selectedRow-over td {
-    background: #ffd;
+.selectedRow, tr.selectedRow td, .selectedRow a {
+    background-color: #36525d;
+    color: #fff;
 }
 table.nopadding td, table.nopadding th {
     padding: 0;
@@ -229,6 +207,7 @@ table.horde-table th.sortdown {
     background: #bbcbff url("graphics/az.png") center left no-repeat;
     padding-left: 10px;
 }
+
 /* Alternating styles. */
 .striped, .rowEven {
     background-color: #eee;
@@ -260,10 +239,6 @@ small, .small {
     border-bottom: 1px solid #999;
     padding: 1px;
 }
-.item {
-    color: #000;
-    background: #eee;
-}
 .accessKey {
     text-decoration: underline;
 }
@@ -273,20 +248,14 @@ small, .small {
 }
 
 /* Form styles. */
-.form table {
+.horde-form table {
     width: 100%;
     padding: 2px;
     border-collapse: collapse;
+    border-spacing: 0;
 }
-form[action^="https://"] input[type="submit"] {
-    background-image: url("graphics/locked.png");
-    background-position: right center;
-    background-repeat: no-repeat;
-    padding-right: 18px;
-}
-input[disabled], input[disabled]:hover, textarea[disabled] {
-    background-color: #e9e9e9;
-    color: #a8a8a8;
+.horde-form td {
+    padding-bottom: 4px;
 }
 .htmlarea .statusBar .statusBarTree a {
     font: inherit;
@@ -294,26 +263,61 @@ input[disabled], input[disabled]:hover, textarea[disabled] {
 .htmlarea table {
     width: auto;
 }
-.form-header {
+.horde-form-header {
     margin-bottom: 1em;
     border-bottom: thin dashed #ccc;
 }
-.form-error {
+.horde-form-buttons {
+    width: 100%;
+    height: 26px;
+    padding: 5px 0 0 15%;
+    margin: 10px 0 10px 0;
+    background-color: #ebeff0;
+}
+.horde-form td.horde-form-label {
+    padding: 5px 9px 0 0;
+    text-align: right;
+}
+.horde-form-error {
     color: #f00;
 }
-.form-field-description {
+.horde-form-field-description {
     color: #666;
     font-size: 70%;
 }
 input, select, textarea {
     font-size: 100%;
     font-weight: normal;
+    background-color: #ebeff0;
+    border: 1px solid #d0d0d0;
 }
-input {
-    padding: 1px;
+input, select {
+    min-height: 20px;
 }
-option {
-    padding: 0 5px 0 3px;
+input, option {
+    padding: 1px 5px;
+}
+select {
+    padding: 2px 0 0 2px;
+}
+input:focus, textarea:focus, select:focus {
+    background-color: #fff;
+    border-color: #000;
+}
+input[type="submit"] {
+    background: #333 url("graphics/button.png") repeat-x;
+    color: #fff;
+    font-weight: bold;
+}
+form[action^="https://"] input[type="submit"] {
+    background-image: url("graphics/locked.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding-right: 18px;
+}
+input[disabled], input[disabled]:hover, textarea[disabled], option[disabled] {
+    background-color: #e9e9e9;
+    color: #a8a8a8;
 }
 .checkbox, .radio {
     border: 0;
@@ -323,8 +327,7 @@ option {
 }
 .button {
     cursor: pointer;
-    font-size: 90%;
-    padding: 1px 6px;
+    padding: 1px 6px 3px;
 }
 a.button {
     padding: 2px 8px;
@@ -389,18 +392,17 @@ pre, code, .fixed, table.lineNumbered * {
 }
 .tooltip, div.nicetitle {
     color: #000;
-    background: #ffc;
-    border: 1px solid #000;
     padding: 5px;
     z-index: 1001;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    background: #eceff0;
+    border: 1px solid #919293;
+    -moz-box-shadow: 3px 3px 3px #888;
+    -webkit-box-shadow: 3px 3px 3px #888;
+    box-shadow: 3px 3px 3px #888;
 }
 div.nicetitle {
     position: absolute;
     overflow: hidden;
-    opacity: .9;
 }
 .inProgress {
     font-size: 80%;
@@ -482,51 +484,6 @@ span.treeImg16 {
     background-image: url("graphics/tree/leaf.png");
 }
 
-/* Menu styles. */
-#menu {
-    overflow: hidden;
-    min-height: 50px;
-    padding-right: 8px;
-}
-#menu ul {
-    padding: 5px;
-}
-#menu li {
-    list-style-type: none;
-    text-align: center;
-    margin: 2px;
-    float: left;
-}
-#menu li.separator {
-    width: 40px;
-}
-#menu a {
-    display: block;
-    white-space: pre;
-    font-size: 90%;
-    text-decoration: none;
-    padding: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
-#menu h1 {
-    font-weight: bold;
-    font-size: 150%;
-    line-height: 48px;
-    vertical-align: bottom;
-}
-#menu input, #menu select {
-    margin-top: 16px;
-}
-#menuBottom {
-    margin: -8px 0 0 0;
-    padding: 4px;
-    float: right;
-    text-align: right;
-    font-size: 90%;
-}
-
 /* Modal forms */
 body.modal-form {
     background-color: #e9e9e9;
@@ -549,6 +506,9 @@ div.modal-form {
 div.modal-form .notices {
     padding-top: 1em;
     font-size: 75%;
+}
+div.modal-form .notices li:first-child {
+    border-top: 1px solid #d0d0d0;
 }
 div.modal-form a {
     color: #00f;
@@ -591,54 +551,6 @@ div.logintasks-item input {
     margin-bottom: 0;
 }
 
-/* Sidebar styles. */
-.sidebar {
-    float: left;
-}
-#sidebarPanel {
-    -moz-border-radius-bottomright: 15px;
-    -webkit-border-bottom-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    padding-top: 5px;
-    padding-bottom: 10px;
-    background: #eee;
-    white-space: nowrap;
-    text-align: left;
-}
-#sidebarPanel a, #sidebarPanel span {
-    color: #000;
-    white-space: pre;
-    font-size: 90%;
-    text-decoration: none;
-}
-#sidebarPanel a a, #sidebarPanel a span, #sidebarPanel span a, #sidebarPanel span span {
-    font-size: 100%;
-}
-#sidebarPanel span.accessKey {
-    text-decoration: underline;
-}
-#sidebarPanel span.toggle {
-    cursor: pointer;
-}
-#sidebarPanel a:hover {
-    color: #000;
-}
-
-#expandedSidebar {
-    overflow: hidden;
-}
-#expandedSidebar #expandButton {
-    background-image: url("graphics/hide_panel.png");
-    cursor: pointer;
-    margin-right: 0.5em;
-    float: right;
-}
-#hiddenSidebar {
-    background-image: url("graphics/show_panel.png");
-    cursor: pointer;
-    margin-right: 2px;
-}
-
 /* Main body. */
 #horde-body {
     position: absolute;
@@ -654,27 +566,35 @@ div.logintasks-item input {
 
 /* Tab styles. */
 .tabset {
+    background: #c2ccce url("graphics/tabset.png") repeat-x;
     float: left;
+    min-height: 29px;
     width: 100%;
-    font-weight: bold;
+    margin-bottom: 25px;
 }
 .tabset ul {
-    margin-top: 4px;
-    padding-left: 8px;
     list-style: none;
+    background-color: #c2ccce;
 }
 .tabset li {
+    background: url("graphics/tab.png") repeat-x;
     float: left;
-    margin: -3px 2px 0 0;
+    margin-right: 10px;
+    padding: 11px 20px 0;
     white-space: nowrap;
 }
 .tabset li a {
-    padding: 2px 0.5em;
     display: block;
+    height: 18px;
+    color: #6d6d6d
 }
 .tabset li a:hover {
 }
+.tabset li.activeTab {
+    background-image: url("graphics/tab-active.png");
+}
 .tabset li.activeTab a {
+    color: #000;
 }
 .tabset li.activeTab a:hover {
 }
@@ -694,6 +614,9 @@ div.logintasks-item input {
     list-style: none;
     display: inline;
 }
+#services_prefs .header img {
+    vertical-align: middle;
+}
 .prefsOverview div {
     float: left;
 }
@@ -702,16 +625,17 @@ div.logintasks-item input {
     width: 95%;
 }
 .prefsOverview h2 {
-    font-size: 150%;
+    font-size: 140%;
     font-weight: bold;
+    margin-bottom: 8px;
 }
 .prefsOverview dt a {
     display: block;
-    padding: 2px;
+    padding: 2px 2px 2px 0;
     font-weight: bold;
 }
 .prefsOverview dd {
-    padding: 2px;
+    padding: 2px 2px 2px 0;
     margin-bottom: 10px;
 }
 div.prefsContainer {
@@ -724,8 +648,8 @@ img.prefsLinkImg {
     padding-right: 1px;
 }
 span.prefsAdvanced {
-    padding: 3px 10px 0 0;
-    font-size: 80%;
+    padding: 6px 10px 0 0;
+    font-size: 71%;
     font-weight: normal;
 }
 
@@ -733,9 +657,6 @@ div.prefsErrorDiv {
     border: 1px solid red;
     display: inline-block;
     padding: 2px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
 }
 
 div.prefsError {
@@ -1174,9 +1095,6 @@ ul.horde-tags {
     margin-right: 4px;
     background-color: #fff;
     border: 1px #999 solid;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
     font-size: 90%;
     font-weight: normal;
     line-height: normal;
@@ -1202,9 +1120,6 @@ ul.horde-tags {
     margin: 5px auto;
     text-align: left;
     display: none;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
     min-height: 20px;
     border-width: 1px;
     border-style: solid;
@@ -1429,11 +1344,17 @@ a.contextSelected:hover {
 .hordeSmStreambody {
     min-height: 70px;
 }
+.hordeSmStreamMessage {
+    margin-top: 7px;
+    margin-left: 78px;
+    overflow: auto;
+}
 .hordeSmStreaminfo {
     color: #777777;
     padding: 2px 0 0;
     font-style: italic;
     font-size: 90%;
+    margin-left: 78px;
 }
 .hordeSmGetmore {
     text-align: center;
@@ -1589,9 +1510,6 @@ form.inplaceeditor-form {
 span.loadingImg {
     background: #fff url("graphics/loading.gif") no-repeat center;
     border: 1px #e0e0e0 solid;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
     height: 16px;
     margin: 10px 0 0 10px;
     padding: 3px;
@@ -1600,296 +1518,251 @@ span.loadingImg {
     z-index: 1000;
 }
 
-/* Link für ein Background-Icon */
-a.icon{
-display:block;
-width:100%;
-height:100%;
+a.icon {
+    display:block;
+    width:100%;
+    height:100%;
 }
 
-/*
-* Links für das Mainmenü,
-*/
-a.horde-mainnavi:link, a.horde-mainnavi:visited, a.horde-mainnavi:active{
-font-size: 110%;
-color: #fff;
-font-weight:bold;
-text-decoration:none;
-text-shadow: 1px 1px 0px #000;
-display: block;
+/* Topbar. */
+a.horde-mainnavi:link, a.horde-mainnavi:visited, a.horde-mainnavi:active {
+    display: block;
+    color: #fff;
 }
-a.horde-mainnavi:hover{
-font-size: 110%;
-color: #7eaa42;
-font-weight:bold;
-text-decoration:none;
-text-shadow: 1px 1px 0px #000;
+.horde-point-center:hover, a.horde-mainnavi:hover,
+a.horde-mainnavi-active:link, a.horde-mainnavi-active:visited,
+a.horde-mainnavi-active:active {
+    color: #7eaa42;
+    text-decoration: none;
 }
 
-a.horde-mainnavi-active:link, a.horde-mainnavi-active:visited, a.horde-mainnavi-active:active{
-font-size: 110%;
-color: #7eaa42;
-font-weight:bold;
-text-decoration:none;
-text-shadow: 1px 1px 0px #000;
-}
-a.horde-mainnavi-active:hover{
-}
-
-
-/*
-* Dropdown für das Mainmenü
-*/
 .horde-dropdown {
-  float:left;
-  list-style:none;
-  padding:0;
-  margin:0;
-  z-index:10;
+    float: left;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 10;
 }
 .horde-dropdown ul {
-  list-style:none;
-  padding:0;
-  margin:0;
-  z-index:10;
-  background-color:#162329;
-  border:1px solid #090e11;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 10;
+    background-color: #162329;
+    border: 1px solid #090e11;
 }
 .horde-dropdown ul li {
-  position:relative;
-  border-bottom:1px solid #919294;
-  white-space: nowrap;
+    position: relative;
+    border-bottom: 1px solid #919294;
+    white-space: nowrap;
 }
 .horde-dropdown ul li:last-child {
-  position:relative;
-  border-bottom:0px solid #919294;
+    position: relative;
+    border-bottom: 0px solid #919294;
 }
 .horde-dropdown ul li.arrow {
-  background-image:url('graphics/navi-subnavi.png');
-  background-repeat:no-repeat;
-  background-position:center right;
+    background-image: url("graphics/navi-subnavi.png");
+    background-repeat: no-repeat;
+    background-position: center right;
 }
 .horde-dropdown ul li.arrow:hover {
-  background-image:url('graphics/navi-subnavi-active.png');
-  background-repeat:no-repeat;
-  background-position:center right;
+    background-image: url("graphics/navi-subnavi-active.png");
+    background-repeat: no-repeat;
+    background-position: center right;
 }
 .horde-dropdown li ul {
-  position:absolute;
-  display:none;
-  top:34px;
-  margin-left:-10px;
+    position: absolute;
+    display: none;
+    top: 34px;
+    margin-left: -10px;
 }
 .horde-dropdown ul li ul {
-  margin-top:-25px;
-  margin-left:100%;
-  top:24px;
+    margin-top: -25px;
+    margin-left: 100%;
+    top: 24px;
 }
 .horde-dropdown li:hover ul, .horde-dropdown li.over ul {
-  display:block;
+    display: block;
 }
 .horde-dropdown li:hover ul ul, .horde-dropdown li.over ul ul {
-  display:none;
+    display: none;
 }
 .horde-dropdown ul li:hover ul, .horde-dropdown ul li.over ul {
-  display:block;
+    display: block;
 }
-.horde-drowdown-str{
-height:19px;
-padding:5px 15px 0px 0px;
-margin:0px 0px 0px 10px;
+.horde-drowdown-str {
+    height: 19px;
+    padding: 5px 15px 0px 0px;
+    margin: 0 0 0 10px;
 }
-.horde-drowdown-str:hover a{
-color: #7eaa42;
-}
-.horde-drowdown-icon-str{
-height:19px;
-padding:5px 10px 0px 30px;
-margin:0px 0px 0px 10px;
-background-image:url('img/icons/glyphicons_144_1_folder_open.png');
-background-repeat:no-repeat;
-}
-.horde-drowdown-icon-str:hover a{
-color: #7eaa42;
-}
-.horde-drowdown-icon-str:hover{
-height:19px;
-padding:5px 10px 0px 30px;
-margin:0px 0px 0px 10px;
-background-image:url('img/icons/glyphicons_144_2_folder_open.png');
-background-repeat:no-repeat;
+.horde-drowdown-str:hover a {
+    color: #7eaa42;
 }
 
-
-/*
- * Head -> Logo, Hauptnavigation, Suche, Logout
- */
-#horde-head{
-width:100%;
-height:34px;
-background-color:#2e464f;
-background-image: url('graphics/head-bg.png');
-background-repeat:repeat-x;
-border-bottom:2px solid #000;
+#horde-head {
+    width: 100%;
+    height: 34px;
+    background-color: #2e464f;
+    background-image: url("graphics/head-bg.png");
+    background-repeat: repeat-x;
+    border-bottom: 2px solid #000;
 }
-  #horde-logo{
-  float:left;
-  width:88px;
-  height:34px;
-  background-image: url('graphics/logo.png');
-  background-repeat:no-repeat;
-  }
-  #horde-version{
-  float:left;
-  height:16px;
-  padding:18px 10px 0px 0px;
-  }
-  #horde-navigation{
-  float:left;
-  }
-    .horde-navipoint{
-    float:left;
-    }
-    .horde-navipoint:hover .horde-point-arrow{
-     background-image:url('graphics/navi-arrow-normal-hover.png');
-    }
-    .horde-navipoint:hover .horde-point-center a{
-     color: #7eaa42;
-    }
-    .horde-point-left{
-    float:left;
-    width:10px;
-    height:34px;
-    }
-    .horde-point-center{
-    float:left;
-    height:26px;
-    padding:8px 0px 0px 0px;
-    }
-    .horde-point-arrow{
-    float:left;
-    width:20px;
-    height:34px;
-    background-image:url('graphics/navi-arrow-normal.png');
-    background-repeat:no-repeat;
-    }
-    .horde-point-right{
-    float:left;
-    width:10px;
-    height:34px;
-    }
-    .horde-point-left-active{
-    float:left;
-    width:10px;
-    height:34px;
-    background-image: url('graphics/navi-left-active.png');
-    background-repeat:no-repeat;
-    }
-    .horde-point-center-active{
-    float:left;
-    height:26px;
-    padding:8px 0px 0px 0px;
-    background-image: url('graphics/navi-center-active.png');
-    background-repeat:repeat-x;
-    }
-    .horde-point-arrow-active{
-    float:left;
-    width:20px;
-    height:34px;
-    background-image:url('graphics/navi-arrow-active.png');
-    background-repeat:no-repeat;
-    }
-    .horde-point-right-active{
-    float:left;
-    width:10px;
-    height:34px;
-    background-image: url('graphics/navi-right-active.png');
-    background-repeat:no-repeat;
-    }
-    .horde-settings{
-    float:left;
-    width:22px;
-    height:27px;
-    margin:7px 0px 0px 0px;
-    }
-  #horde-search{
-  float:right;
-  width:230px;
-  padding:0px 20px 0px 0px;
-  }
-    #horde-search #horde-input{
-    float:left;
-    width:209px;
-    margin:6px 0px 0px 0px;
-    }
-    #horde-search form {
+#horde-logo {
+    float: left;
+    width: 88px;
+    height: 34px;
+    background-image: url("graphics/logo.png");
+    background-repeat: no-repeat;
+}
+#horde-version {
+    float: left;
+    height: 16px;
+    padding: 18px 10px 0px 0px;
+    font-size: 90%;
+    font-weight: bold;
+    font-style: italic;
+    color: #fff;
+    text-shadow: 1px 1px 0px #000;
+}
+#horde-navigation {
+    float: left;
+    font-size: 110%;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 1px 1px 0px #000;
+    cursor: default;
+}
+.horde-navipoint {
+    float: left;
+}
+.horde-navipoint:hover .horde-point-arrow {
+    background-image: url("graphics/navi-arrow-active.png");
+}
+.horde-navipoint:hover .horde-point-center a {
+    color: #7eaa42;
+}
+.horde-point-left {
+    float: left;
+    width: 10px;
+    height: 34px;
+}
+.horde-point-center {
+    float: left;
+    height: 26px;
+    padding: 8px 0px 0px 0px;
+}
+.horde-point-arrow, .horde-point-arrow-active {
+    float: right;
+    width: 13px;
+    height: 8px;
+    margin: 5px 2px 0 5px;
+    background-image: url("graphics/navi-arrow-normal.png");
+    background-repeat: no-repeat;
+}
+.horde-point-arrow-active {
+    background-image: url("graphics/navi-arrow-active.png");
+}
+left.horde-point-right {
+    float: left;
+    width: 10px;
+    height: 34px;
+}
+.horde-point-left-active {
+    float: left;
+    width: 10px;
+    height: 34px;
+    background-image: url("graphics/navi-left-active.png");
+    background-repeat: no-repeat;
+}
+.horde-point-center-active {
+    float: left;
+    height: 26px;
+    padding: 8px 0 0 0;
+    background-image: url("graphics/navi-center-active.png");
+    background-repeat: repeat-x;
+}
+.horde-point-right-active {
+    float: left;
+    width: 10px;
+    height: 34px;
+    background-image: url("graphics/navi-right-active.png");
+    background-repeat: no-repeat;
+}
+.horde-settings {
+    float: left;
+    width: 22px;
+    height: 27px;
+    margin: 7px 0 0 0;
+}
+#horde-search {
+    float: right;
+    width: 230px;
+    padding: 0 20px 0 0;
+}
+#horde-search form {
     display: inline;
-    }
-      #horde-search #horde-input input, #horde-search #horde-input .horde-fake-input {
-      width:195px;
-      background: #fff;
-      height:20px;
-      font-size:115%;
-      border:0px;
-      }
-      #horde-search #horde-input input {
-      width:190px;
-      padding:0px 5px 0px 5px;
-      }
-      #horde-search #horde-input .horde-fake-input input {
-      padding: 0 5px 0 0;
-      width: 170px;
-      font-size: 87%;
-      }
-      #horde-search span.popdownImg {
-          cursor: pointer;
-          width: 16px;
-      }
-    #horde-search-icon {
-    float:left;
-    width:21px;
-    height:27px;
-    margin:7px 0px 0px 0px;
-    background-image: url('graphics/search.png');
-    background-repeat:no-repeat;
-    }
-  #horde-logout{
-  float:right;
-  width:20px;
-  height:29px;
-  margin:6px 10px 0px 0px;
-  background-image: url('graphics/logout.png');
-  background-repeat:no-repeat;
-  }
-
-
-/*
- * Sub -> Datum, Info
- */
-#horde-sub{
-width:100%;
-height:20px;
-background-color:#333333;
 }
-  #horde-date{
-  float:left;
-  padding:2px 0px 0px 10px;
-  }
-  #horde-info{
-  float:right;
-  padding:2px 10px 0px 0px;
-  }
+#horde-search #horde-search-input, #horde-search .horde-fake-input {
+    width: 200px;
+    margin-top: 6px;
+    background: #fff;
+    height: 20px;
+    font-size: 100%;
+    border: 0;
+    float: left;
+}
+#horde-search #horde-search-input {
+    width: 190px;
+    padding: 0 5px 0 5px;
+}
+#horde-search .horde-fake-input #horde-search-input {
+    padding: 0 5px 0 0;
+    width: 170px;
+    margin: 0;
+    float: none;
+}
+#horde-search span.popdownImg {
+    cursor: pointer;
+    height: 20px;
+    width: 16px;
+}
+#horde-search-icon {
+    float: left;
+    margin: 7px 0 0 7px;
+}
+#horde-logout {
+    float: right;
+    width: 20px;
+    height: 29px;
+    margin: 6px 10px 0 0;
+    background-image: url("graphics/logout.png");
+    background-repeat: no-repeat;
+}
 
-
-/*
- * Icons
- */
 .horde-icon-settings {
-background-image:url('graphics/settings.png');
-background-repeat:no-repeat;
+    background-image: url("graphics/settings.png");
+    background-repeat: no-repeat;
 }
 .horde-icon-settings:hover {
-background-image:url('graphics/settings-active.png');
+    background-image: url("graphics/settings-active.png");
+}
+
+/* Sub bar. */
+#horde-sub {
+    width: 100%;
+    height: 20px;
+    background-color: #333333;
+}
+#horde-date {
+    float: left;
+    padding: 2px 0 0 10px;
+    color: #fff;
+}
+#horde-info {
+    float: right;
+    padding: 2px 10px 0 0;
+    color: #fff;
 }
 
 /* Mainpage */
@@ -1901,28 +1774,18 @@ background-image:url('graphics/settings-active.png');
     left: 0;
 }
 
-/*
- * Sidebar (linke Seite)
- */
-#horde-sidebar{
-background-color:#bfc9cd;
+/* Sidebar. */
+#horde-sidebar {
+    background-color: #bfc9cd;
+    padding-bottom: 10px;
 }
-  #horde-sidebar a {
-      color: #000;
-  }
-  .horde-sidebar-folder{
-  background-color:#bfc9cd;
-  }
-  .horde-sidebar-subfolder{
-  position:relative;
-  bottom:0px;
-  overflow: auto;
-  background-color:#bfc9cd;
-  }
+#horde-sidebar a {
+    color: #000;
+}
 
 .horde-new {
     height: 29px;
-    background-image: url('graphics/sidebar-new-bg.png');
+    background-image: url("graphics/sidebar-new-bg.png");
     background-repeat: repeat-x;
     border-bottom: 1px solid #787878;
     overflow: hidden;
@@ -1934,94 +1797,154 @@ background-color:#bfc9cd;
 .horde-portal-new {
     float: left;
     border-right: 1px solid #787878;
+    margin-right: 10px;
 }
-    #horde-sidebar .horde-new-link a, .horde-new-link a {
-        padding-left: 28px;
-        margin: 5px 10px 0 10px;
-        background-image:url('graphics/sidebar-new.png');
-        background-repeat:no-repeat;
-        background-position: left 1px;
-        color: #fff;
-        display: block;
-    }
-    .horde-new-split {
-        float: right;
-        width: 2px;
-        height: 29px;
-        margin-left: 10px;
-        background-image: url('graphics/sidebar-split.png');
-        background-repeat: no-repeat;
-    }
-    .horde-new-refresh {
-        float: right;
-        width: 20px;
-        height: 24px;
-        margin: 5px 6px 0px 7px;
-        background-image: url('graphics/sidebar-refresh.png');
-        background-repeat: no-repeat;
-    }
-    .horde-new-refresh a {
-        display: block;
-    }
-    .horde-new-refresh a:hover {
-        text-decoration: none;
-    }
+#horde-sidebar .horde-new-link a, .horde-new-link a {
+    padding-left: 28px;
+    margin: 5px 10px 0 10px;
+    background-image: url("graphics/sidebar-new.png");
+    background-repeat: no-repeat;
+    background-position: left 1px;
+    color: #fff;
+    display: block;
+}
+.horde-new-split {
+    float: right;
+    width: 2px;
+    height: 29px;
+    margin-left: 10px;
+    background-image: url("graphics/sidebar-split.png");
+    background-repeat: no-repeat;
+}
+.horde-new-extra {
+    float: right;
+    width: 20px;
+    height: 24px;
+    margin: 5px 6px 0 7px;
+    background-image: url("graphics/sidebar-refresh.png");
+    background-repeat: no-repeat;
+}
+.horde-new-extra a {
+    display: block;
+}
+.horde-new-extra a:hover {
+    text-decoration: none;
+}
 
-/*
- * Sidebar -> Navigation (Icon, Link, Icon)
- */
-.horde-subnavi-split{
-height:5px;
-margin:0px 0px 6px 0px;
-border-bottom:1px solid #858889;
+#horde-sidebar h3 {
+    height: 12px;
+    margin: 0 10px;
+    font-size: 100%;
+    font-weight: bold;
+    cursor: default;
 }
-.horde-subnavi{
-height:24px;
+#horde-sidebar a.horde-add {
+    float: right;
+    margin-top: -2px;
+    height: 17px;
+    width: 16px;
+    background: transparent url("graphics/plus-sidebar.png") no-repeat right center;
+    text-indent: -10000px;
+    cursor: pointer;
+}
+.horde-collapse,
+.horde-expand {
+    padding-left: 26px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.horde-collapse {
+    background-image: url("graphics/collapse.png");
+    background-position: left 2px;
+}
+.horde-expand {
+    background-image: url("graphics/expand.png");
+    background-position: left 1px;
+}
+#horde-sidebar div.horde-resources {
+    margin-top: 10px;
+}
+#horde-sidebar div.horde-resources div {
+    min-height: 15px;
+    margin: 5px 0;
+    padding: 3px 0 3px 36px;
+    background: transparent url("graphics/checkbox_off.png") 10px 2px no-repeat;
+    cursor: pointer;
+}
+#horde-sidebar div.horde-resources div.horde-resource-on {
+    background-image: url("graphics/checkbox_on.png");
+}
+#horde-sidebar div.horde-resources div.horde-resource-over {
+    text-decoration: underline;
+}
+#horde-sidebar div.horde-resources .horde-resource-edit-000,
+#horde-sidebar div.horde-resources .horde-resource-edit-fff {
+    float: right;
+    display: block;
+    background: url("graphics/edit-sidebar-000.png") no-repeat;
+    margin: 2px 10px 0 0;
+    width: 17px;
+    height: 17px;
+    text-indent: -10000px;
+    cursor: pointer;
+}
+#horde-sidebar div.horde-resources .horde-resource-edit-fff {
+    background-image: url("graphics/edit-sidebar-fff.png");
+}
+#horde-sidebar div.horde-resources div a {
+    color: inherit;
+}
+#horde-sidebar .horde-info {
+    font-style: italic;
+    padding: 10px 0 0 36px;
+}
+
+.horde-sidebar-split {
+    border-top: 1px solid #858889;
+    height: 10px;
+    margin: 10px 0 0;
+}
+.horde-subnavi {
+    height: 20px;
+    padding: 3px 0 1px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .horde-subnavi-active, .horde-subnavi:hover{
-height:24px;
-background-image:url('graphics/sidebar-active-bg.png');
-background-repeat:repeat-x;
+    height: 20px;
+    background-image: url("graphics/sidebar-active-bg.png");
+    background-repeat: repeat-x;
 }
-  .horde-subnavi-icon-1 {
-      background-repeat: no-repeat;
-      background-position: center center;
-      float:left;
-      width: 20px;
-      height: 20px;
-      margin: 2px 8px 0 10px;
-  }
-  .horde-subnavi-icon-2{
-  float:left;
-  width:24px;
-  height:24px;
-  margin:0px 5px 0px 18px;
-  }
-  .horde-subnavi-icon-3{
-  float:left;
-  width:24px;
-  height:24px;
-  margin:0px 5px 0px 27px;
-  }
-  .horde-subnavi-point{
-  float:left;
-  height:19px;
-  margin:5px 0px 0px 0px;
-  }
-  .horde-subnavi-arrow{
-  float:right;
-  width:24px;
-  height:24px;
-  background-position:top center;
-  }
-  .horde-icon-arrow-subnavi{
-  background-image:url('graphics/popdown.png');
-  background-repeat:no-repeat;
-  }
-  .subfolders .horde-subnavi {
-      padding-left: 9px;
-  }
+.horde-subnavi-icon {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center right;
+    display: -moz-inline-stack;
+    display: inline-block;
+    height: 20px;
+    margin: -1px 8px 0 10px;
+    vertical-align: middle;
+    width: 20px;
+}
+.horde-subnavi-point {
+    display: inline;
+}
+.horde-popdown {
+    background-image: url("graphics/popdown.png");
+    background-repeat: no-repeat;
+    background-position: top center;
+    float: right;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+}
+.horde-subnavi-sub {
+    padding-left: 9px;
+}
 
+/* Slider. */
 #horde-slideleft {
     position: absolute;
     top: 56px;
@@ -2032,208 +1955,213 @@ background-repeat:repeat-x;
 }
 .horde-splitbar-vert {
     width: 8px;
-    background-image: url('graphics/slidevert-bg.png');
+    background-image: url("graphics/slidevert-bg.png");
     background-repeat: repeat-y;
 }
 .horde-splitbar-vert.DragElt {
     cursor: col-resize;
 }
-  .horde-splitbar-vert-handle {
-      display: none;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 8px;
-      background-image: url('graphics/slidevert.png');
-      background-repeat: no-repeat;
-      background-position: center center;
-  }
-  .DragElt .horde-splitbar-vert-handle {
-      display: block;
-  }
+.horde-splitbar-vert-handle {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    background-image: url("graphics/slidevert.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.DragElt .horde-splitbar-vert-handle {
+    display: block;
+}
 .horde-splitbar-horiz {
     height: 8px;
-    background-image: url('graphics/slidehoriz-bg.png');
+    background-image: url("graphics/slidehoriz-bg.png");
     background-repeat: repeat-x;
     cursor: row-resize;
 }
-  .horde-splitbar-horiz-handle {
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background-image: url('graphics/slidehoriz.png');
-      background-repeat: no-repeat;
-      background-position: center center;
-  }
-
-/*
- * Obere Buttons -> Reply, All Reply, Forward, Delete, Filters, Others
- */
-.horde-buttonbar{
-min-height:30px;
-background-image:url('graphics/buttonbar-bg.png');
-background-repeat:repeat;
-overflow: hidden;
+.horde-splitbar-horiz-handle {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background-image: url("graphics/slidehoriz.png");
+    background-repeat: no-repeat;
+    background-position: center center;
 }
-  .horde-button-icon{
-  float:left;
-  width:20px;
-  height:24px;
-  margin:5px 5px 0px 15px;
-  }
-  .horde-button-left, .horde-button-left-arrow {
-  float:left;
-  height:22px;
-  margin:7px 15px 0px 15px;
-  }
-  .horde-button-right, .horde-button-right-arrow {
-  float:right;
-  height:22px;
-  margin:7px 5px 0px 32px;
-  }
-  .horde-button-split{
-  float:left;
-  width:2px;
-  height:29px;
-  background-image:url('graphics/button-split.png');
-  background-repeat:no-repeat;
-  }
-  .horde-buttonbar div.disabled {
-      display: none;
-  }
-  .horde-buttonbar, .horde-buttonbar a, .horde-buttonbar a:link,
-  .horde-buttonbar a:visited, .horde-buttonbar a:active {
-      color: #616161;
-      font-weight:bold;
-      text-decoration:none;
-  }
-  .horde-buttonbar .horde-icon {
-      margin-top: 2px;
-      padding-top: 6px;
-      padding-left: 25px;
-      background-position: left center, right center;
-      background-repeat: no-repeat;
-  }
-  .horde-buttonbar .horde-subnavi-arrow {
-      margin-top: -5px;
-  }
-  .horde-buttonbar select {
-      margin-left: -4px;
-      background-color: transparent;
-      border-width: 0;
-      color: #616161;
-      font-weight: bold;
-  }
-  .horde-buttonbar ul {
-      list-style: none;
-  }
-  .horde-buttonbar li {
-      float: left;
-      height: 22px;
-      padding: 7px 17px 0 0;
-      margin: 0 0 1px 15px;
-      background-image: url('graphics/button-split.png');
-      background-repeat: no-repeat;
-      background-position: center right;
-  }
-  .horde-buttonbar .rightFloat li {
-      padding: 7px 0 0 17px;
-      margin: 0 15px 1px 2px;
-      background-position: center left;
-  }
-  .horde-buttonbar .horde-hasmenu {
-      padding-right: 24px;
-      background: url('graphics/popdown.png') no-repeat right center;
-  }
-  .horde-buttonbar li div {
-      display: none;
-  }
-  .horde-buttonbar li:hover div {
-      display: block;
-  }
-  .horde-buttonbar li ul li {
-      float: none;
-      background: transparent;
-      height: auto;
-      margin: 0;
-      padding: 0;
-  }
-  .horde-buttonbar li ul li a, .horde-buttonbar li ul li a:link {
-      font-weight: normal;
-      color: #000;
-  }
-  .horde-buttonbar li.horde-nobutton {
-      background-image: none;
-      padding-left: 15px;
-      margin-left: 0;
-  }
-  .horde-buttonbar .rightFloat li.horde-nobutton {
-      margin-right: 5px;
-  }
 
-/*
- * Tabellenkopf
- */
+/* Buttonbar. */
+.horde-buttonbar {
+    min-height: 30px;
+    background-image: url("graphics/buttonbar-bg.png");
+    background-repeat: repeat;
+    overflow: hidden;
+}
+.horde-button-icon {
+    float: left;
+    width: 20px;
+    height: 24px;
+    margin: 5px 5px 0 15px;
+}
+.horde-button-left, .horde-button-left-arrow {
+    float: left;
+    height: 22px;
+    margin: 4px 15px 0 15px;
+}
+.horde-button-right, .horde-button-right-arrow {
+    float: right;
+    height: 22px;
+    margin: 4px 5px 0 32px;
+}
+.horde-button:hover, .horde-button-active {
+    background-image: url("graphics/button-active-bg.png");
+    background-repeat: repeat-x;
+    float: left;
+}
+.horde-button.rightFloat:hover, .horde-button-active.rightFloat {
+    float: right;
+}
+.horde-buttonbar .disabled {
+    display: none;
+}
+.horde-buttonbar, .horde-buttonbar a, .horde-buttonbar a:link,
+.horde-buttonbar a:visited, .horde-buttonbar a:active {
+    color: #616161;
+    font-weight: bold;
+    text-decoration: none;
+}
+.horde-buttonbar .horde-icon {
+    margin-top: 2px;
+    padding-top: 6px;
+    padding-left: 25px;
+    background-position: left center, right center;
+    background-repeat: no-repeat;
+}
+.horde-buttonbar .horde-popdown {
+    position: relative;
+    margin: -5px 10px 0 -12px;
+    padding: 0;
+    background-position: center center;
+}
+.horde-buttonbar .horde-nobutton .horde-popdown {
+    margin-left: 0;
+    margin-right: 0;
+}
+.horde-buttonbar select {
+    margin-left: -4px;
+    background-color: transparent;
+    border-width: 0;
+    color: #616161;
+    font-weight: bold;
+}
+.horde-buttonbar ul {
+    list-style: none;
+    height: 30px;
+}
+.horde-buttonbar li {
+    float: left;
+    height: 22px;
+    padding-top: 8px;
+    background-image: url("graphics/button-split.png");
+    background-repeat: no-repeat;
+    background-position: right top;
+}
+.horde-buttonbar li.horde-icon {
+    margin: 0;
+    padding: 8px 0 0 0;
+    background-position: right top;
+}
+.horde-buttonbar li a, .horde-buttonbar li span, .horde-buttonbar li select {
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    padding: 7px 12px 7px 10px;
+}
+.horde-buttonbar li span.accessKey {
+    padding: 0;
+}
+.horde-buttonbar li select {
+    margin-top: -7px;
+    cursor: pointer;
+    height: auto;
+}
+.horde-buttonbar li option {
+    padding: 0;
+}
+.horde-buttonbar li.horde-icon a {
+    padding-left: 35px;
+}
+.horde-buttonbar li span.iconImg, .horde-buttonbar li input {
+    margin-top: -3px;
+}
+.horde-buttonbar li.horde-nobutton a {
+    padding: 0;
+}
+.horde-buttonbar .rightFloat li {
+    background-position: center left;
+}
+.horde-buttonbar li:hover, .horde-buttonbar li.horde-active {
+    background-image: url("graphics/button-split.png"), url("graphics/button-active-bg.png");
+    background-repeat: no-repeat, repeat-x;
+}
+.horde-buttonbar .rightFloat li:hover,
+.horde-buttonbar .rightFloat li.horde-active {
+    background-position: center left, center center;
+}
+.horde-buttonbar .horde-hasmenu {
+    padding-right: 24px;
+    background: url("graphics/popdown.png") no-repeat right center;
+}
+.horde-buttonbar li div {
+    display: none;
+}
+.horde-buttonbar li:hover div {
+    display: block;
+}
+.horde-buttonbar li ul li {
+    float: none;
+    background: transparent;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+.horde-buttonbar li ul li a, .horde-buttonbar li ul li a:link {
+    font-weight: normal;
+    color: #000;
+}
+.horde-buttonbar li.horde-nobutton {
+    background-image: none;
+    padding-left: 15px;
+    margin-left: 0;
+}
+.horde-buttonbar .rightFloat li.horde-nobutton {
+    margin-right: 5px;
+}
+
+/* Tables. */
 .horde-table-header {
     height: 21px;
-    background-image: url('graphics/tablehead-bg.png');
+    background-image: url("graphics/tablehead-bg.png");
     background-repeat: repeat-x;
 }
-    .horde-table-header a {
-        color: #000;
-    }
-    .horde-table-header .horde-split-left,
-    .horde-table-header .horde-split-right {
-        background-image: url('graphics/tablehead-split.png');
-        background-repeat: no-repeat;
-        padding: 0 5px;
-    }
-    .horde-table-header .horde-split-right {
-        background-position: center right;
-    }
-    .horde-table-header .iconImg {
-        vertical-align: middle;
-    }
+.horde-table-header a {
+    color: #000;
+}
+.horde-table-header .horde-split-left,
+.horde-table-header .horde-split-right {
+    background-image: url("graphics/tablehead-split.png");
+    background-repeat: no-repeat;
+    padding: 0 5px;
+}
+.horde-table-header .horde-split-right {
+    background-position: center right;
+}
+.horde-table-header .iconImg {
+    vertical-align: middle;
+}
 
-/*
- * Schriften
- */
-p{
-margin:0px;
-padding:0px;
-color: #000;
-font-style: normal;
-}
-.p11{
-font-size: 90%;
-}
-.p14{
-font-size: 115%;
-}
-.p17{
-font-size: 140%;
-}
-.bold{
-font-weight: bold;
-}
-.italic{
-font-style:italic;
-}
-.lineheight{
-line-height: 20px;
-}
-.white{
-color: #fff;
-}
-.green{
-color: #7eaa42;
-}
-.shadow{
-text-shadow: 1px 1px 0px #000;
-}
-.relief{
-text-shadow: -1px -1px 0px #000;
+/* Configuration page. */
+#update h1.header {
+    border: 1px solid #000;
 }
 
 /* Sidebar entries. */
@@ -2255,9 +2183,6 @@ text-shadow: -1px -1px 0px #000;
 .horde-admin-alarm {
     background-image: url("graphics/alerts/alarm.png");
 }
-.horde-admin-datatree {
-    background-image: url("graphics/datatree.png");
-}
 .horde-admin-php {
     background-image: url("graphics/mime/php.png");
 }
@@ -2271,10 +2196,10 @@ text-shadow: -1px -1px 0px #000;
     background-image: url("graphics/mobile.png");
 }
 .horde-data {
-    background-image: url('graphics/data.png');
+    background-image: url("graphics/data.png");
 }
 .horde-perms {
-    background-image: url('graphics/perms.png');
+    background-image: url("graphics/perms.png");
 }
 
 /* Print CSS. */
@@ -2284,7 +2209,7 @@ text-shadow: -1px -1px 0px #000;
         color: #000;
     }
 
-    a, .widget, .signature, .signature .fixed {
+    a, .signature, .signature .fixed {
         color: #000;
     }
 

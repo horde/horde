@@ -87,7 +87,7 @@ class IMP_Auth
             try {
                 $imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server']);
             } catch (IMP_Imap_Exception $e) {
-                self::_logMessage(false, $imp_imap);
+                self::_log(false, $imp_imap);
                 throw $e->authException();
             }
 
@@ -99,7 +99,7 @@ class IMP_Auth
         try {
             $imp_imap->login();
         } catch (IMP_Imap_Exception $e) {
-            self::_logMessage(false, $imp_imap);
+            self::_log(false, $imp_imap);
             throw $e->authException();
         }
 
@@ -144,7 +144,7 @@ class IMP_Auth
      * @param boolean $success   True on success, false on failure.
      * @param IMP_Imap $imap_ob  The IMP_Imap object to use.
      */
-    static protected function _logMessage($status, $imap_ob)
+    static protected function _log($status, $imap_ob)
     {
         if ($status) {
             $msg = 'Login success';
@@ -173,7 +173,7 @@ class IMP_Auth
             $protocol ? ' [' . $protocol . ']' : ''
         );
 
-        Horde::logMessage($msg, $level);
+        Horde::log($msg, $level);
     }
 
     /**
@@ -367,10 +367,11 @@ class IMP_Auth
                 $session->set('imp', 'imap_acl', $ptr['acl']);
             }
 
+            $secret = $injector->getInstance('Horde_Secret');
             if (!empty($ptr['admin'])) {
                 $tmp = $ptr['admin'];
                 if (isset($tmp['password'])) {
-                    $tmp['password'] = $injector->getInstance('Horde_Secret')->write($secret->getKey(), $tmp['password']);
+                    $tmp['password'] = $secret->write($secret->getKey(), $tmp['password']);
                 }
                 $session->set('imp', 'imap_admin', $tmp);
             }
@@ -382,7 +383,7 @@ class IMP_Auth
             if (!empty($ptr['quota'])) {
                 $tmp = $ptr['quota'];
                 if (isset($tmp['params']['password'])) {
-                    $tmp['params']['password'] = $injector->getInstance('Horde_Secret')->write($secret->getKey(), $tmp['params']['password']);
+                    $tmp['params']['password'] = $secret->write($secret->getKey(), $tmp['params']['password']);
                 }
                 $session->set('imp', 'imap_quota', $tmp);
             }
@@ -437,7 +438,7 @@ class IMP_Auth
         /* Is the HTML editor available? */
         $session->set('imp', 'rteavail', $injector->getInstance('Horde_Editor')->supportedByBrowser());
 
-        self::_logMessage(true, $imp_imap);
+        self::_log(true, $imp_imap);
     }
 
 }

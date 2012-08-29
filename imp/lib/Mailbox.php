@@ -394,7 +394,7 @@ class IMP_Mailbox implements Serializable
             }
 
             try {
-                return (bool)$injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox, null, array('flat' => true));
+                return (bool)$injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes(Horde_Imap_Client_Mailbox::get($this->_mbox), null, array('flat' => true));
             } catch (IMP_Imap_Exception $e) {
                 return false;
             }
@@ -648,7 +648,7 @@ class IMP_Mailbox implements Serializable
             return $this->get(array_merge(array($this->_mbox), $this->subfolders_only));
 
         case 'subfolders_only':
-            return $this->get($injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox . $this->namespace_delimiter . '*', null, array('flat' => true)));
+            return $this->get($injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes(Horde_Imap_Client_Mailbox::get($this->_mbox)->list_escape . $this->namespace_delimiter . '*', null, array('flat' => true)));
 
         case 'systemquery':
             return $injector->getInstance('IMP_Search')->isSystemQuery($this->_mbox);
@@ -740,19 +740,19 @@ class IMP_Mailbox implements Serializable
         }
 
         /* Check permissions. */
-        $perms = $injector->getInstance('Horde_Core_Perms');
-        if (!$perms->hasAppPermission('create_folders')) {
+        if (!IMP::hasPermission('create_folders')) {
             Horde::permissionDeniedError(
                 'imp',
                 'create_folders',
                 _("You are not allowed to create mailboxes.")
             );
             return false;
-        } elseif (!$perms->hasAppPermission('max_folders')) {
+        }
+        if (!IMP::hasPermission('max_folders')) {
             Horde::permissionDeniedError(
                 'imp',
                 'max_folders',
-                sprintf(_("You are not allowed to create more than %d mailboxes."), $injector->getInstance('Horde_Perms')->getPermissions('max_folders', $registry->getAuth()))
+                sprintf(_("You are not allowed to create more than %d mailboxes."), $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'))
             );
             return false;
         }
@@ -905,6 +905,11 @@ class IMP_Mailbox implements Serializable
     public function subscribe($sub)
     {
         global $injector, $notification;
+
+        /* Skip non-IMAP/container mailboxes. */
+        if ($this->nonimap || $this->container) {
+            return false;
+        }
 
         if (!$sub && $this->inbox) {
             $notification->push(sprintf(_("You cannot unsubscribe from \"%s\"."), $this->display), 'horde.error');
@@ -1433,19 +1438,22 @@ class IMP_Mailbox implements Serializable
      */
     static public function getSpecialMailboxesSort()
     {
-        $tmp = array();
+        $out = array();
 
-        foreach (self::getSpecialMailboxes() as $val) {
-            if (!is_array($val)) {
-                $val = array($val);
-            }
-            foreach ($val as $val2) {
-                $tmp[strval($val2)] = $val2->abbrev_label;
+        foreach (array_filter(self::getSpecialMailboxes()) as $val) {
+            if (is_array($val)) {
+                $tmp = array();
+                foreach ($val as $val2) {
+                    $tmp[strval($val2)] = $val2->abbrev_label;
+                }
+                asort($tmp, SORT_LOCALE_STRING);
+                $out = array_merge($out, array_keys($tmp));
+            } else {
+                $out[] = $val;
             }
         }
 
-        asort($tmp, SORT_LOCALE_STRING);
-        return self::get(array_keys($tmp));
+        return self::get($out);
     }
 
     /**

@@ -61,14 +61,21 @@ class Kronolith_Ajax
         $js_vars['conf'] = array_filter(array(
             'URI_CALENDAR_EXPORT' => strval($registry->downloadUrl('', array('actionID' => 'export', 'all_events' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportCal' => 'internal_'))),
             'URI_EVENT_EXPORT' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('event.php', true)->add(array('view' => 'ExportEvent', 'eventID' => '#{id}', 'calendar' => '#{calendar}', 'type' => '#{type}'))),
-            'URI_HOME' => empty($conf['logo']['link']) ? null : $conf['logo']['link'],
 
             'images' => array(
-                'attendees' => strval(Horde_Themes::img('attendees-fff.png')),
                 'alarm'     => strval(Horde_Themes::img('alarm-fff.png')),
-                'recur'     => strval(Horde_Themes::img('recur-fff.png')),
+                'attendees' => strval(Horde_Themes::img('attendees-fff.png')),
                 'exception' => strval(Horde_Themes::img('exception-fff.png')),
+                'new_event' => strval(Horde_Themes::img('new.png')),
+                'new_task'  => strval(Horde_Themes::img('new_task.png')),
+                'recur'     => strval(Horde_Themes::img('recur-fff.png')),
             ),
+            'new_event' => $injector->getInstance('Kronolith_View_Sidebar')->newLink
+                . $injector->getInstance('Kronolith_View_Sidebar')->newText
+                . '</a>',
+            'new_task' => $injector->getInstance('Kronolith_View_SidebarTasks')->newLink
+                . $injector->getInstance('Kronolith_View_SidebarTasks')->newText
+                . '</a>',
             'user' => $registry->convertUsername($auth_name, false),
             'name' => $identity->getName(),
             'email' => $identity->getDefaultFromAddress(),
@@ -117,14 +124,11 @@ class Kronolith_Ajax
 
         /* Gettext strings. */
         $js_vars['text'] = array(
-            'agenda' => _("Agenda"),
             'alarm' => _("Alarm:"),
             'alerts' => _("Notifications"),
             'allday' => _("All day"),
-            'collapse' => _("Collapse"),
             'delete_calendar' => _("Are you sure you want to delete this calendar and all the events in it?"),
             'delete_tasklist' => _("Are you sure you want to delete this task list and all the tasks in it?"),
-            'expand' => _("Expand"),
             'external_category' => _("Other events"),
             'fix_form_values' => _("Please enter correct values in the form first."),
             'geocode_error' => _("Unable to locate requested address"),

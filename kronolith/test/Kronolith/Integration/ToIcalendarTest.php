@@ -40,6 +40,7 @@ class Kronolith_Integration_ToIcalendarTest extends Kronolith_TestCase
         $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());
         $GLOBALS['conf']['prefs']['driver'] = 'Null';
         $GLOBALS['injector']->bindFactory('Kronolith_Geo', 'Kronolith_Factory_Geo', 'create');
+        $GLOBALS['injector']->bindFactory('Horde_Alarm', 'Horde_Test_Factory_Alarm', 'create');
         $logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
         $GLOBALS['injector']->setInstance('Horde_Log_Logger', $logger);
         $GLOBALS['conf']['calendar']['driver'] = 'Mock';
@@ -54,25 +55,21 @@ class Kronolith_Integration_ToIcalendarTest extends Kronolith_TestCase
 
     public function testBasicVersion1()
     {
-        $this->markTestIncomplete('Fails because of quoting and recurrence exceptions.');
         $this->_testExport($this->_getEvent(), '1.0', 'export1.ics');
     }
 
     public function testBasicVersion2()
     {
-        $this->markTestIncomplete('Fails because of recurrence exceptions.');
         $this->_testExport($this->_getEvent(), '2.0', 'export2.ics');
     }
 
     public function testPrivateVersion1()
     {
-        $this->markTestIncomplete('Fails because of recurrence exceptions.');
         $this->_testExport($this->_getPrivateEvent(), '1.0', 'export3.ics');
     }
 
     public function testPrivateVersion2()
     {
-        $this->markTestIncomplete('Fails because of recurrence exceptions.');
         $this->_testExport($this->_getPrivateEvent(), '2.0', 'export4.ics');
     }
 
@@ -98,10 +95,10 @@ class Kronolith_Integration_ToIcalendarTest extends Kronolith_TestCase
 
     private function _getEvent()
     {
+        $GLOBALS['registry']->admin = true;
         $event = new Kronolith_Event_Sql(new Kronolith_Stub_Driver(''));
         $event->start = new Horde_Date('2007-03-15 13:10:20');
         $event->end = new Horde_Date('2007-03-15 14:20:00');
-        $event->creator = 'joe';
         $event->uid = '20070315143732.4wlenqz3edq8@horde.org';
         $event->title = 'Hübscher Termin';
         $event->description = "Schöne Bescherung\nNew line";
@@ -119,6 +116,8 @@ class Kronolith_Integration_ToIcalendarTest extends Kronolith_TestCase
     private function _getPrivateEvent()
     {
         $event = $this->_getEvent();
+        $GLOBALS['registry']->admin = false;
+        $event->creator = 'joe';
         $event->private = true;
         $event->status = Kronolith::STATUS_TENTATIVE;
         $event->recurrence = new Horde_Date_Recurrence($event->start);

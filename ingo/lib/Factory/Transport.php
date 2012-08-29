@@ -53,7 +53,7 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Injector
             return new $class($params);
         }
 
-        throw new Ingo_Exception(sprintf(_("Unable to load the transport driver \"%s.\""), $class));
+        throw new Ingo_Exception(sprintf(_("Unable to load the transport driver \"%s\"."), $class));
     }
 
 }

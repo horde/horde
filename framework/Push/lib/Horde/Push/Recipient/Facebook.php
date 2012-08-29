@@ -66,8 +66,12 @@ extends Horde_Push_Recipient_Base
     {
         $text = $content->getSummary();
         if (empty($options['pretend'])) {
-            $streams = new Horde_Service_Facebook_Streams($this->_facebook);
-            $streams->publish($text, array(), '', '', '', $this->getAcl());
+            $options = array();
+            $acl = $this->getAcl();
+            if (!empty($acl)) {
+                $options['privacy'] = $acl;
+            }
+            $this->_facebook->streams->post('me', $text, $options);
             return 'Pushed to facebook stream.';
         } else {
             return sprintf(

@@ -316,10 +316,12 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     }
 
     /**
+     * Make the remote API call.
      *
-     * @param Horde_Url $url
+     * @param Horde_Url $url  The endpoint.
      *
-     * @return SimplexmlElement
+     * @return mixed  The unserialized results form the remote API call.
+     * @throws Horde_Service_Weather_Exception
      */
     protected function _makeRequest(Horde_Url $url)
     {

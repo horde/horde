@@ -1,9 +1,8 @@
-What is Sesha?
-==============
+================
+ What is Sesha?
+================
 
-:Last update:   $Date: 2007/04/11 15:19:34 $
-:Revision:      $Revision: 1.1 $
-:Contact:       horde@lists.horde.org
+:Contact: horde@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
@@ -19,15 +18,15 @@ certification mark of the `Open Source Initiative`_.
 
 
 Obtaining Sesha
----------------
+===============
 
 Further information on Sesha and the latest version can be obtained at
 
-  http://www.horde.org/sesha/
+  http://www.horde.org/apps/sesha
 
 
 Documentation
--------------
+=============
 
 The following documentation is available in the Sesha distribution:
 
@@ -37,50 +36,52 @@ The following documentation is available in the Sesha distribution:
 :`docs/CREDITS`_:    Project developers
 :`docs/INSTALL`_:    Installation instructions and notes
 :`docs/TODO`_:       Development TODO list
+:`docs/UPGRADING`_:  Pointers on upgrading from previous Sesha versions
 
 
 Installation
-------------
+============
 
 Instructions for installing Sesha can be found in the file INSTALL_ in the
 ``docs/`` directory of the Sesha distribution.
 
 
 Assistance
-----------
+==========
 
 If you encounter problems with Sesha, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
 Horde LLC runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
-appearances on IRC, on the channel #horde on the freenode Network
+appearances on IRC, on the channel #horde on the Freenode Network
 (irc.freenode.net).
 
 
 Licensing
----------
+=========
 
 For licensing and copyright information, please see the file COPYING_ in the
 Sesha distribution.
 
 Thanks,
 
-The Sesha team
+The Sesha Team
 
 
-.. _README: ?f=README.html
-.. _COPYING: http://www.horde.org/licenses/gpl.php
-.. _docs/CHANGES: ?f=CHANGES.html
-.. _docs/CREDITS: ?f=CREDITS.html
+.. _README: README
+.. _COPYING: http://www.horde.org/licenses/gpl
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
 .. _INSTALL:
-.. _docs/INSTALL: ?f=INSTALL.html
-.. _docs/TODO: ?f=TODO.html
+.. _docs/INSTALL: INSTALL
+.. _docs/TODO: TODO
+.. _docs/UPGRADING: UPGRADING

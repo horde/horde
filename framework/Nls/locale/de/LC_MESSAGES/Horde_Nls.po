@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Nls\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
 "PO-Revision-Date: 2012-05-01 14:40+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -406,7 +406,7 @@ msgid "Cuba"
 msgstr "Kuba"
 
 #: lib/Horde/Nls/Countries.php:65
-msgid "Curaçao"
+msgid "CuraÃ§ao"
 msgstr "Curaçao"
 
 #: lib/Horde/Nls/Countries.php:66 lib/Horde/Nls/Tld.php:66
@@ -422,7 +422,7 @@ msgid "Czech Republic"
 msgstr "Tschechische Republik"
 
 #: lib/Horde/Nls/Countries.php:62
-msgid "Côte d'Ivoire"
+msgid "CÃ´te d'Ivoire"
 msgstr "Elfenbeinküste"
 
 #: lib/Horde/Nls/Languages.php:40
@@ -1349,11 +1349,11 @@ msgid "Rwanda"
 msgstr "Ruanda"
 
 #: lib/Horde/Nls/Countries.php:188
-msgid "Réunion"
+msgid "RÃ©union"
 msgstr "Réunion"
 
 #: lib/Horde/Nls/Countries.php:192
-msgid "Saint Barthélemy"
+msgid "Saint BarthÃ©lemy"
 msgstr "Saint-Barthélemy"
 
 #: lib/Horde/Nls/Tld.php:210
@@ -1842,5 +1842,5 @@ msgid "Zulu"
 msgstr "Zulu"
 
 #: lib/Horde/Nls/Countries.php:9
-msgid "Åland Islands"
+msgid "Ãland Islands"
 msgstr "Åland"

@@ -36,7 +36,7 @@ class IMP_Quota_Hook extends IMP_Quota
         }
 
         if (count($quota) != 2) {
-            Horde::logMessage('Incorrect number of return values from quota hook.', 'ERR');
+            Horde::log('Incorrect number of return values from quota hook.', 'ERR');
             throw new IMP_Exception(_("Unable to retrieve quota"));
         }
 

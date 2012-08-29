@@ -81,7 +81,7 @@ $view = new Agora_View();
 $view->menu = Horde::menu();
 
 Horde::startBuffer();
-$form->renderActive(null, $vars, Horde::url('message/merge.php'), 'post');
+$form->renderActive(null, $vars, Horde::url('messages/merge.php'), 'post');
 $view->main = Horde::endBuffer();
 
 $view->message_subject = $message['message_subject'];

@@ -161,14 +161,13 @@ if ($static_group) {
     chgrp($web_dir . '/static', $static_group);
 }
 
-print "\nLINKING framework\n";
-mkdir($web_dir . '/libs');
-system(__DIR__ . '/install_framework --src ' . escapeshellarg($horde_git) . '/framework --dest ' . escapeshellarg($web_dir . '/libs') . ' --horde ' . escapeshellarg($web_dir));
-
 function link_app($app)
 {
     print "LINKING " . $app . "\n";
-    symlink($GLOBALS['horde_git'] . '/' . $app, $GLOBALS['web_dir'] . '/' . $app);
+    if (!symlink($GLOBALS['horde_git'] . '/' . $app, $GLOBALS['web_dir'] . '/' . $app)) {
+        echo 'Cannot link ' . $GLOBALS['web_dir'] . '/' . $app . ' to '
+            . $GLOBALS['horde_git'] . '/' . $app . "\n";
+    }
     file_put_contents($GLOBALS['horde_git'] . '/' . $app . '/config/horde.local.php', '<?php define(\'HORDE_BASE\', \'' . $GLOBALS['web_dir'] . '\');');
 }
 
@@ -190,3 +189,7 @@ if ($apps) {
         }
     }
 }
+
+print "\nLINKING framework\n";
+mkdir($web_dir . '/libs');
+system(__DIR__ . '/install_framework --src ' . escapeshellarg($horde_git) . '/framework --dest ' . escapeshellarg($web_dir . '/libs') . ' --horde ' . escapeshellarg($web_dir));

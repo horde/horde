@@ -111,11 +111,29 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
                 throw new Horde_Rpc_Exception(
                     Horde_Rpc_Translation::t('Trying to access the ActiveSync endpoint from a browser. Not Supported.'));
             }
+
+            if ($serverVars['REQUEST_URI'] == '/autodiscover/autodiscover.xml') {
+                try {
+                    if (!$this->_server->handleRequest('Autodiscover', null)) {
+                        throw new Horde_Exception('Unknown Error');
+                    }
+                } catch (Horde_Exception_AuthenticationFailure $e) {
+                    $this->_sendAuthenticationFailedHeaders();
+                    exit;
+                } catch (Horde_Exception $e) {
+                    $this->_handleError($e);
+                }
+                break;
+            }
+
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for OPTIONS');
             try {
-                if (!$this->_server->handleRequest('Options', null, null)) {
+                if (!$this->_server->handleRequest('Options', null)) {
                     throw new Horde_Exception('Unknown Error');
                 }
+            } catch (Horde_Exception_AuthenticationFailure $e) {
+                $this->_sendAuthenticationFailedHeaders();
+                exit;
             } catch (Horde_Exception $e) {
                 $this->_handleError($e);
             }
@@ -141,8 +159,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
                header('HTTP/1.1 400 Invalid Request ' . $e->getMessage());
                exit;
             } catch (Horde_Exception_AuthenticationFailure $e) {
-                header('HTTP/1.1 401 Unauthorized');
-                header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
+                $this->_sendAuthenticationFailedHeaders();
                 exit;
             } catch (Horde_Exception $e) {
                 $this->_logger->err('Returning HTTP 500');
@@ -201,4 +218,12 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         $this->_logger->err('Buffer contents: ' . $buffer);
     }
 
+    /**
+     * Send 401 Unauthorized headers.
+     */
+    protected function _sendAuthenticationFailedHeaders()
+    {
+        header('HTTP/1.1 401 Unauthorized');
+        header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
+    }
 }

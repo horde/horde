@@ -21,7 +21,7 @@ $actionId = Horde_Util::getFormData('actionId');
 // Form creation.
 $vars = Horde_Variables::getDefaultVariables();
 $renderer = new Horde_Form_Renderer();
-$form = new Sesha_Forms_Search($vars);
+$form = new Sesha_Form_Search($vars);
 $vars->set('location', array(Sesha::SEARCH_NAME));
 
 // Page display.

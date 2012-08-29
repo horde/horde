@@ -31,6 +31,7 @@ if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
 $subscribe = $prefs->getValue('subscribe');
 $showAll = (!$subscribe || $session->get('imp', 'showunsub'));
 
+$page_output->addScriptFile('hordecore.js', 'horde');
 $page_output->addScriptFile('folders.js');
 
 $vars = $injector->getInstance('Horde_Variables');
@@ -130,7 +131,7 @@ case 'create_mbox':
     if (isset($vars->new_mailbox)) {
         try {
             $new_mbox = $imaptree->createMailboxName(
-                $mbox_list[0],
+                empty($mbox_list) ? null : $mbox_list[0],
                 $vars->new_mailbox
             );
             if ($new_mbox->exists) {
@@ -292,6 +293,10 @@ case 'mbox_size':
             $loop[] = $data;
         }
 
+        /* Prepare the topbar. */
+        $injector->getInstance('Horde_View_Topbar')->subinfo =
+            $injector->getInstance('IMP_View_Subinfo')->render();
+
         $template = $injector->createInstance('Horde_Template');
         $template->setOption('gettext', true);
         $template->set('mboxes', $loop);
@@ -305,7 +310,6 @@ case 'mbox_size':
         IMP::header(_("Mailbox Sizes"));
         echo $menu;
         IMP::status();
-        IMP::quota();
 
         echo $template->fetch(IMP_TEMPLATES . '/imp/folders/folders_size.html');
 
@@ -327,13 +331,16 @@ case 'search':
 $folders_url_ob = new Horde_Url($folders_url);
 $folders_url_ob->add('folders_token', $folders_token);
 
+/* Prepare the topbar. */
+$injector->getInstance('Horde_View_Topbar')->subinfo =
+    $injector->getInstance('IMP_View_Subinfo')->render();
+
 if ($session->get('imp', 'file_upload') &&
     ($vars->actionID == 'import_mbox')) {
     $menu = IMP::menu();
     IMP::header(_("Folder Navigator"));
     echo $menu;
     IMP::status();
-    IMP::quota();
 
     /* Prepare import template. */
     $i_template = $injector->createInstance('Horde_Template');
@@ -346,23 +353,9 @@ if ($session->get('imp', 'file_upload') &&
     exit;
 }
 
-/* Prepare the sidebar. */
-$refresh_title = _("Reload View");
-$refresh_ak = Horde::getAccessKey($refresh_title);
-$refresh_title = Horde::stripAccessKey($refresh_title);
-if (!empty($refresh_ak)) {
-    $refresh_title .= sprintf(_(" (Accesskey %s)"), $refresh_ak);
-}
-$sidebar = $injector->getInstance('Horde_View_Sidebar');
-$sidebar->newRefresh = $folders_url_ob->link(array(
-    'accesskey' => $refresh_ak,
-    'title' => $refresh_title
-));
-
 /* Prepare the header template. */
 $head_template = $injector->createInstance('Horde_Template');
 $head_template->setOption('gettext', true);
-$head_template->set('title', $refresh_title);
 $head_template->set('folders_url', $folders_url_ob);
 $head_template->set('folders_token', $folders_token);
 
@@ -371,6 +364,7 @@ $a_template = $injector->createInstance('Horde_Template');
 $a_template->setOption('gettext', true);
 $a_template->set('id', 0);
 
+$a_template->set('refresh', Horde::widget($folders_url_ob->copy(), _("_Refresh"), ''));
 $a_template->set('check_ak', Horde::getAccessKeyAndTitle(_("Check _All/None")));
 $a_template->set('create_mbox', $injector->getInstance('Horde_Core_Perms')->hasAppPermission('create_folders') && $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'));
 if ($prefs->getValue('subscribe')) {
@@ -416,7 +410,6 @@ $page_output->metaRefresh($refresh_time, Horde::url('folders.php', true));
 IMP::header(_("Folder Navigator"));
 echo $menu;
 IMP::status();
-IMP::quota();
 
 echo $head_template->fetch(IMP_TEMPLATES . '/imp/folders/head.html');
 echo $a_template->fetch(IMP_TEMPLATES . '/imp/folders/actions.html');

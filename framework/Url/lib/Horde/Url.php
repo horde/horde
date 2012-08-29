@@ -77,7 +77,7 @@ class Horde_Url
      * @param boolean $raw  Whether to output the URL in the raw URL format or
      *                      HTML-encoded.
      */
-    public function __construct($url, $raw = null)
+    public function __construct($url = '', $raw = null)
     {
         if ($url instanceof Horde_Url) {
             $this->anchor = $url->anchor;
@@ -207,6 +207,26 @@ class Horde_Url
     public function setRaw($raw)
     {
         $this->raw = $raw;
+        return $this;
+    }
+
+    /**
+     * Sets the URL scheme.
+     *
+     * @param string $scheme    The URL scheme.
+     * @param boolean $replace  Force using $scheme, even if it already
+     *                          exists?
+     *
+     * @return Horde_Url  This object, to allow chaining.
+     */
+    public function setScheme($scheme = 'http', $replace = false)
+    {
+        $pos = stripos($this->url, '://');
+        if ($pos === false) {
+            $this->url = $scheme . '://' . $this->url;
+        } elseif ($replace) {
+            $this->url = substr_replace($this->url, $scheme . '://', 0, $pos);
+        }
         return $this;
     }
 

@@ -309,6 +309,7 @@ var ViewPort = Class.create({
         if (curr = this.views[view]) {
             this._updateContent(curr.getMetaData('offset') || 0, f_opts);
             if (!opts.background) {
+                this.opts.container.fire('ViewPort:fetch', view);
                 this.opts.ajax(this.addRequestParams({ checkcache: 1 }));
             }
             return;
@@ -320,7 +321,7 @@ var ViewPort = Class.create({
             this.scroller.clear();
         }
 
-        this.views[view] = buffer = this._getBuffer(view, true);
+        this.views[view] = this._getBuffer(view, true);
 
         if (opts.search) {
             f_opts.search = opts.search;
@@ -491,7 +492,7 @@ var ViewPort = Class.create({
             });
             this.opts.content.setStyle({ width: '100%' });
             sp.currbar.show();
-            this.opts.pane_data.setStyle({ height: Math.max(this._getMaxHeight() - h, 0) + 'px' }).show();
+            this.opts.pane_data.show().setStyle({ height: Math.max(document.viewport.getHeight() - this.opts.pane_data.viewportOffset()[1], 0) + 'px' });
             break;
 
         case 'vert':
@@ -1007,6 +1008,11 @@ var ViewPort = Class.create({
             : new ViewPort_Buffer(this, view);
     },
 
+    bufferLoaded: function(view)
+    {
+        return Boolean(this.views[view]);
+    },
+
     currentOffset: function()
     {
         return this.scroller.currentOffset();
@@ -1054,16 +1060,11 @@ var ViewPort = Class.create({
                 : Math.max(parseInt(this.getPageSize('max') * 0.45, 10), 5);
 
         case 'max':
-            return parseInt(this._getMaxHeight() / this._getLineHeight());
+            return parseInt((document.viewport.getHeight() - this.opts.content.viewportOffset()[1]) / this._getLineHeight(), 10);
 
         default:
             return this.page_size;
         }
-    },
-
-    _getMaxHeight: function()
-    {
-        return document.viewport.getHeight() - this.opts.content.viewportOffset()[1];
     },
 
     bufferSize: function()
@@ -1207,7 +1208,9 @@ var ViewPort = Class.create({
 
     _onDragDblClick: function(e)
     {
-        if (e.element() != this.split_pane.currbar) {
+        if (!Object.isElement(this.split_pane.currbar) ||
+            (e.element() != this.split_pane.currbar &&
+             !e.element().descendantOf(this.split_pane.currbar))) {
             return;
         }
 

@@ -24,6 +24,7 @@
 
 class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_ImapFactory
 {
+    const MASK_SUBSCRIBED = 8;
 
     protected $_adapter;
     protected $_mailboxlist;
@@ -40,8 +41,13 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
     public function getMailboxes($force = false)
     {
         if (empty($this->_mailboxlist) || $force) {
-            $this->_mailboxlist = $GLOBALS['registry']->mail->mailboxList();
+            foreach ($GLOBALS['registry']->mail->mailboxList() as $mbox) {
+                if ($mbox['a'] & self::MASK_SUBSCRIBED) {
+                    $this->_mailboxlist[$mbox['ob']->utf8] = $mbox;
+                }
+            }
         }
+
         return $this->_mailboxlist;
     }
 

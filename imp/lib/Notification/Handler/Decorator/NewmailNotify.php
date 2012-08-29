@@ -31,12 +31,20 @@ extends Horde_Core_Notification_Handler_Decorator_Base
     {
         global $injector, $prefs, $session;
 
+        $pushed = $GLOBALS['registry']->pushApp($this->_app, array(
+            'check_perms' => true,
+            'logintasks' => false
+        ));
+
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         if (!$prefs->getValue('newmail_notify') ||
             !($listener instanceof Horde_Notification_Listener_Status) ||
-            !$imp_imap->imap ||
-            !$imp_imap->ob) {
+            !$imp_imap->imap) {
+
+            if ($pushed) {
+                $GLOBALS['registry']->popApp();
+            }
             return;
         }
 
@@ -60,6 +68,10 @@ extends Horde_Core_Notification_Handler_Decorator_Base
         if (empty($recent) ||
             !$session->get('imp', 'newmail_init')) {
             $session->set('imp', 'newmail_init', true);
+
+            if ($pushed) {
+                $GLOBALS['registry']->popApp();
+            }
             return;
         }
 
@@ -89,6 +101,10 @@ extends Horde_Core_Notification_Handler_Decorator_Base
         if ($audio = $prefs->getValue('newmail_audio')) {
             $handler->attach('audio');
             $handler->push(Horde_Themes::sound($audio), 'audio');
+        }
+
+        if ($pushed) {
+            $GLOBALS['registry']->popApp();
         }
     }
 

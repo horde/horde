@@ -65,23 +65,6 @@ implements Horde_Kolab_Storage_QuerySet
      *
      * @var array
      */
-    private $_list_query_sets = array(
-        self::BASIC => array(
-            Horde_Kolab_Storage_List::QUERY_BASE,
-            Horde_Kolab_Storage_List::QUERY_ACL
-        ),
-        self::HORDE => array(
-            Horde_Kolab_Storage_List::QUERY_BASE,
-            Horde_Kolab_Storage_List::QUERY_ACL,
-            Horde_Kolab_Storage_List::QUERY_SHARE
-        )
-    );
-
-    /**
-     * Predefined query sets.
-     *
-     * @var array
-     */
     private $_data_query_sets = array(
         self::HORDE => array(
             Horde_Kolab_Storage_Data::QUERY_PREFS => 'h-prefs',
@@ -107,30 +90,6 @@ implements Horde_Kolab_Storage_QuerySet
     {
         $this->_factory = $factory;
 
-        if (isset($params['list']['classmap'])) {
-            $this->_class_map = array_merge(
-                $this->_class_map, $params['list']['classmap']
-            );
-        }
-        if (isset($params['list']['queryset'])) {
-            if (isset($this->_list_query_sets[$params['list']['queryset']])) {
-                $this->_list_queries = $this->_list_query_sets[$params['list']['queryset']];
-            } else {
-                throw new Horde_Kolab_Storage_Exception(
-                    sprintf(
-                        'List query set %s not supported!',
-                        $params['list']['queryset']
-                    )
-                );
-            }
-        }
-        if (isset($params['list']['myset'])) {
-            $this->_list_queries = array_merge($this->_list_queries, $params['list']['myset']);
-        }
-        if (empty($this->_list_queries)) {
-            $this->_list_queries = $this->_list_query_sets[self::BASIC];
-        }
-
         if (isset($params['data']['queryset'])) {
             if (isset($this->_data_query_sets[$params['data']['queryset']])) {
                 $this->_data_queries = $this->_data_query_sets[$params['data']['queryset']];
@@ -148,77 +107,6 @@ implements Horde_Kolab_Storage_QuerySet
         }
     }
 
-    /**
-     * Add the set of list queries.
-     *
-     * @param Horde_Kolab_Storage_List $list   The list.
-     * @param array                    $params Additional query parameters.
-     *
-     * @return NULL
-     */
-    public function addListQuerySet(Horde_Kolab_Storage_List $list, $params = array())
-    {
-        foreach ($this->_list_queries as $query) {
-            $this->_addListQuery($list, $query, $params);
-        }
-    }
-
-    /**
-     * Add a list query.
-     *
-     * @param Horde_Kolab_Storage_List $list   The list.
-     * @param string                   $type   The query type.
-     * @param array                    $params Additional query parameters.
-     *
-     * @return NULL
-     */
-    private function _addListQuery(Horde_Kolab_Storage_List $list, $type, $params = array())
-    {
-        if (isset($this->_class_map[$type])) {
-            $params = array_merge(
-                $this->_getListQueryParameters($list),
-                $params
-            );
-            $list->registerQuery(
-                $type,
-                $this->_createListQuery(
-                    $this->_class_map[$type], $list, $params
-                )
-            );
-        } else {
-            throw new Horde_Kolab_Storage_Exception(
-                sprintf('Query type %s not supported!', $type)
-            );
-        }
-    }
-
-    /**
-     * Fetch any additional parameters required when creating list queries.
-     *
-     * @param Horde_Kolab_Storage_List $list   The list.
-     *
-     * @return array The parameters for list queries.
-     */
-    abstract protected function _getListQueryParameters(
-        Horde_Kolab_Storage_List $list
-    );
-
-    /**
-     * Create the specified list query type.
-     *
-     * @param string                   $name   The query name.
-     * @param Horde_Kolab_Storage_List $list   The list that should be queried.
-     * @param array                    $params Additional parameters provided
-     *                                         to the query constructor.
-     *
-     * @return Horde_Kolab_Storage_Query A query handler.
-     *
-     * @throws Horde_Kolab_Storage_Exception In case the requested query is not supported.
-     */
-    private function _createListQuery($name, Horde_Kolab_Storage_List $list, $params = array())
-    {
-        return $this->_createQuery($name, $list, $params);
-    }
 
     /**
      * Add the set of data queries.

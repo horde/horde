@@ -26,7 +26,7 @@ accessing the Horde CVS repository.
 PREREQUISITES
 -------------
 
-To function properly, the SpamAssassin Module requires the following:
+To function properly, the SpamAssassin Module **requires** the following:
 
   1. A working Horde installation.
 

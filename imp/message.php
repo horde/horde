@@ -658,7 +658,7 @@ $contents_mask = IMP_Contents::SUMMARY_BYTES |
 $mdntext = $imp_ui->MDNCheck($mailbox, $uid, $mime_headers, $vars->mdn_confirm)
     ? strval(new IMP_Mime_Status(array(
         _("The sender of this message is requesting a notification from you when you have read this message."),
-        sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars($selfURL->copy()->add('mdn_confirm', 1))) . _("HERE") . '</a>')
+        sprintf(_("Click %s to send the notification message."), Horde::link($selfURL->copy()->add('mdn_confirm', 1)) . _("HERE") . '</a>')
         )))
     : '';
 
@@ -674,7 +674,7 @@ $inlineout = $imp_contents->getInlineOutput(array(
 $show_atc = false;
 switch ($show_parts) {
 case 'atc':
-    $a_template->set('show_parts_all', Horde::widget($headersURL->copy()->add(array('show_parts' => 'all')), _("Show All Message Parts"), '', '', '', _("Show All Message Parts"), true));
+    $a_template->set('show_parts_all', Horde::widget($headersURL->copy()->add(array('show_parts' => 'all')), _("Show All Parts"), '', '', '', _("Show All Parts"), true));
     $show_atc = true;
     break;
 
@@ -739,15 +739,16 @@ $m_template->set('label', $shortsub);
 $m_template->set('headers', $hdrs);
 $m_template->set('msgtext', $mdntext . $inlineout['msgtext']);
 
-$injector->getInstance('Horde_View_Topbar')->subinfo = sprintf(
-    '%s: %s %s',
-    $header_label,
-    sprintf(_("(%d&nbsp;of&nbsp;%d)"), $msgindex, count($imp_mailbox)),
-    $status);
+$subinfo = $injector->getInstance('IMP_View_Subinfo');
+$subinfo->label = $header_label;
+$subinfo->value = sprintf(_("(%d of %d)"), $msgindex, count($imp_mailbox))
+    . $status;
+$injector->getInstance('Horde_View_Topbar')->subinfo = $subinfo->render();
 
 /* Output message page now. */
 $page_output->addInlineScript($inlineout['js_onload'], true);
 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+$page_output->addScriptFile('hordecore.js', 'horde');
 $page_output->addScriptFile('imp.js');
 $page_output->addScriptFile('message.js');
 $page_output->addScriptFile('stripe.js', 'horde');
@@ -767,7 +768,6 @@ if (!empty($conf['maillog']['use_maillog'])) {
 }
 echo $menu;
 IMP::status();
-IMP::quota();
 
 echo $t_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_top.html');
 echo $n_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_navigate.html');

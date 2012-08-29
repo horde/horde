@@ -11,29 +11,30 @@ var DimpCompose = {
 
     // Variables defaulting to empty/false:
     //   auto_save_interval, compose_cursor, disabled, drafts_mbox,
-    //   editor_wait, is_popup, knl, md5_hdrs, md5_msg, md5_msgOrig,
-    //   onload_show, old_action, old_identity, resizing, rte, rte_loaded,
+    //   editor_wait, fwdattach, is_popup, knl, md5_hdrs, md5_msg, md5_msgOrig,
+    //   onload_show, old_action, old_identity, rte, rte_loaded,
     //   sc_submit, skip_spellcheck, spellcheck, uploading
 
     knl: {},
 
+    getCacheElt: function()
+    {
+        var r = $('redirect');
+        return (r && r.visible())
+            ? $('composeCacheRedirect')
+            : $('composeCache');
+    },
+
     confirmCancel: function()
     {
-        var cc,
-            sbd = $('send_button_redirect');
-
         if (window.confirm(DimpCore.text.compose_cancel)) {
             if (!DimpCore.conf.qreply &&
                 this.baseAvailable()) {
                 HordeCore.base.focus();
             }
 
-            cc = (sbd && sbd.visible())
-                ? $F('composeCacheRedirect')
-                : $F('composeCache');
-
             DimpCore.doAction('cancelCompose', {
-                imp_compose: cc
+                imp_compose: $F(this.getCacheElt())
             });
             this.updateDraftsMailbox();
             return this.closeCompose();
@@ -64,7 +65,7 @@ var DimpCompose = {
         this.md5_hdrs = this.md5_msg = this.md5_msgOrig = '';
 
         $('attach_list').hide().childElements().invoke('remove');
-        $('composeCache').clear();
+        this.getCacheElt().clear();
         $('qreply', 'sendcc', 'sendbcc').compact().invoke('hide');
         $('noticerow').down('UL.notices').childElements().invoke('hide');
         $('msgData', 'togglecc', 'togglebcc').compact().invoke('show');
@@ -233,7 +234,7 @@ var DimpCompose = {
     uniqueSubmitCallback: function(d)
     {
         if (d.imp_compose) {
-            $('composeCache').setValue(d.imp_compose);
+            this.getCacheElt().setValue(d.imp_compose);
         }
 
         if (d.success || d.action == 'addAttachment') {
@@ -279,7 +280,6 @@ var DimpCompose = {
                     HordeCore.notify_handler = HordeCore.base.HordeCore.showNotifications.bind(HordeCore.base.HordeCore);
                 }
 
-                $('attach_list').childElements().invoke('remove');
                 return this.closeCompose();
 
             case 'addAttachment':
@@ -368,7 +368,7 @@ var DimpCompose = {
             DimpCore.doAction('html2Text', {
                 changed: Number(changed),
                 identity: $F('identity'),
-                imp_compose: $F('composeCache'),
+                imp_compose: $F(this.getCacheElt()),
                 text: text
             }, {
                 callback: this.setMessageText.bind(this, false)
@@ -383,7 +383,7 @@ var DimpCompose = {
                 DimpCore.doAction('text2Html', {
                     changed: Number(this.msgHash() != this.md5_msgOrig),
                     identity: $F('identity'),
-                    imp_compose: $F('composeCache'),
+                    imp_compose: $F(this.getCacheElt()),
                     text: $F('composeMessage')
                 }, {
                     callback: this.setMessageText.bind(this, true)
@@ -502,11 +502,16 @@ var DimpCompose = {
             return;
         }
 
-        ob.opts = ob.opts || {};
-
         if (ob.imp_compose) {
-            $('composeCache').setValue(ob.imp_compose);
+            this.getCacheElt().setValue(ob.imp_compose);
         }
+
+        switch (ob.type) {
+        case 'forward_redirect':
+            return;
+        }
+
+        ob.opts = ob.opts || {};
 
         $('to').setValue(ob.header.to);
         if (DimpCore.conf.cc && ob.header.cc) {
@@ -536,7 +541,7 @@ var DimpCompose = {
         switch (ob.opts.auto) {
         case 'forward_attach':
             $('noticerow', 'fwdattachnotice').invoke('show');
-            $('composeMessage').stopObserving('keydown').observe('keydown', this.fadeNotice.bind(this, 'fwdattachnotice'));
+            this.fwdattach = true;
             break
 
         case 'forward_body':
@@ -559,19 +564,10 @@ var DimpCompose = {
             $('noticerow', 'langnotice').invoke('show');
         }
 
-        this.setBodyText(ob.body);
+        this.setBodyText(ob);
         this.resizeMsgArea();
 
         Field.focus(ob.opts.focus || 'to');
-
-        if (ob.format == 'html') {
-            if (!ImpComposeBase.editor_on) {
-                this.toggleHtmlEditor(true);
-            }
-            if (ob.opts.focus && (ob.opts.focus == 'composeMessage')) {
-                this.focusEditor();
-            }
-        }
 
         this.fillFormHash();
     },
@@ -631,14 +627,25 @@ var DimpCompose = {
         });
     },
 
-    setBodyText: function(msg)
+    setBodyText: function(ob)
     {
         if (ImpComposeBase.editor_on) {
             this.editor_wait = true;
-            this.rte.setData(msg, function() { this.editor_wait = false; }.bind(this));
+            this.rte.setData(ob.body, function() { this.editor_wait = false; }.bind(this));
         } else {
-            $('composeMessage').setValue(msg);
+            $('composeMessage').setValue(ob.body);
             ImpComposeBase.setCursorPosition('composeMessage', DimpCore.conf.compose_cursor);
+        }
+
+        if (ob.format == 'html') {
+            if (!ImpComposeBase.editor_on) {
+                this.toggleHtmlEditor(true);
+            }
+            if (ob.opts &&
+                ob.opts.focus &&
+                (ob.opts.focus == 'composeMessage')) {
+                this.focusEditor();
+            }
         }
     },
 
@@ -675,7 +682,7 @@ var DimpCompose = {
 
             case 'forward_body':
                 this.removeAttach([ $('attach_list').down() ]);
-                this.setBodyText(r.body);
+                this.setBodyText(r);
                 break;
             }
         }
@@ -735,7 +742,7 @@ var DimpCompose = {
             $('attach_list').hide();
         }
 
-        DimpCore.doAction('deleteAttach', { atc_indices: Object.toJSON(ids), imp_compose: $F('composeCache') });
+        DimpCore.doAction('deleteAttach', { atc_indices: Object.toJSON(ids), imp_compose: $F(this.getCacheElt()) });
     },
 
     initAttachList: function()
@@ -765,10 +772,6 @@ var DimpCompose = {
 
     resizeMsgArea: function(e)
     {
-        if (this.resizing) {
-            return;
-        }
-
         if (!document.loaded || $('dimpLoading').visible()) {
             this.resizeMsgArea.bind(this).defer();
             return;
@@ -780,51 +783,18 @@ var DimpCompose = {
             return;
         }
 
-        var lh, mah, msg, msg_h, rows,
-            cmp = $('composeMessageParent'),
-            de = document.documentElement,
-            pad = 0;
-
-        /* Needed because IE 8 will trigger resize events when we change
-         * the rows attribute, which will cause an infinite loop. */
-        this.resizing = true;
-
-        mah = document.viewport.getHeight() - cmp.offsetTop;
+        var cmp = $('composeMessageParent').getLayout(),
+            mah = document.viewport.getHeight() - cmp.get('top') - cmp.get('margin-box-height') + cmp.get('height');
 
         if (this.rte_loaded) {
-            [ 'margin', 'padding', 'border' ].each(function(s) {
-                [ 'Top', 'Bottom' ].each(function(h) {
-                    var a = parseInt(cmp.getStyle(s + h), 10);
-                    if (!isNaN(a)) {
-                        pad += a;
-                    }
-                });
-            });
-
-            this.rte.resize('99%', mah - pad - 1, false);
+            this.rte.resize('99%', mah - 1, false);
         } else if (!ImpComposeBase.editor_on) {
-            /* Logic: Determine the size of a given textarea row, divide
-             * that size by the available height, round down to the lowest
-             * integer row, and resize the textarea. */
-            msg = $('composeMessage');
-            rows = Math.max(0, parseInt(mah / (msg.getHeight() / msg.readAttribute('rows')), 10));
-
-            if (!isNaN(rows)) {
-                /* Due to the funky (broken) way some browsers (FF) count
-                 * rows, we need to overshoot row estimate and decrement
-                 * until textarea size does not cause window scrolling. */
-                ++rows;
-                do {
-                    msg.writeAttribute({ rows: rows--, disabled: false });
-                } while (rows && (de.scrollHeight - de.clientHeight) > 0);
-            }
+            $('composeMessage').setStyle({ height: mah + 'px' });
         }
 
         if ($('rteloading') && $('rteloading').visible()) {
             this.RTELoading();
         }
-
-        this.resizing = false;
     },
 
     uploadAttachment: function()
@@ -875,9 +845,12 @@ var DimpCompose = {
     /* Click observe handler. */
     clickHandler: function(e)
     {
+        var elt = e.memo.element();
+
         /* Needed because reply/forward buttons need to be of type="submit"
          * for FF to correctly size. */
-        if (e.memo.element().readAttribute('type') == 'submit') {
+        if ((elt.readAttribute('type') == 'submit') &&
+            (elt.descendantOf('compose') || elt.descendantOf('redirect'))) {
             e.memo.hordecore_stop = true;
             return;
         }
@@ -933,7 +906,7 @@ var DimpCompose = {
             break;
 
         case 'redirect_sendto':
-            if (e.memo.element().match('TD.label SPAN')) {
+            if (elt.match('TD.label SPAN')) {
                 this.openAddressbook({
                     to_only: 1
                 });
@@ -943,23 +916,22 @@ var DimpCompose = {
         case 'sendcc':
         case 'sendbcc':
         case 'sendto':
-            if (e.memo.element().match('TD.label SPAN')) {
+            if (elt.match('TD.label SPAN')) {
                 this.openAddressbook();
             }
             break;
 
         case 'attach_list':
-            tmp = e.memo.element();
-            if (tmp.match('SPAN.remove')) {
-                this.removeAttach([ tmp.up() ]);
-            } else if (tmp.match('SPAN.attachName')) {
-                atc_num = tmp.up('LI').retrieve('atc_id');
+            if (elt.match('SPAN.remove')) {
+                this.removeAttach([ elt.up() ]);
+            } else if (elt.match('SPAN.attachName')) {
+                atc_num = elt.up('LI').retrieve('atc_id');
                 HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                     actionID: 'compose_attach_preview',
-                    composeCache: $F('composeCache'),
+                    composeCache: $F(this.getCacheElt()),
                     id: atc_num
                 }, {
-                    name: $F('composeCache') + '|' + atc_num
+                    name: $F(this.getCacheElt()) + '|' + atc_num
                 });
             }
             break;
@@ -973,12 +945,12 @@ var DimpCompose = {
             this.fadeNotice(e.element());
             DimpCore.doAction('GetForwardData', {
                 dataonly: 1,
-                imp_compose: $F('composeCache'),
+                imp_compose: $F(this.getCacheElt()),
                 type: (e.element().identify() == 'fwdattachnotice' ? 'forward_body' : 'forward_attach')
             }, {
                 callback: this.forwardAddCallback.bind(this)
             });
-            $('composeMessage').stopObserving('keydown');
+            this.fwdattach = false;
             e.memo.stop();
             break;
 
@@ -995,7 +967,7 @@ var DimpCompose = {
             $('to_loading_img').show();
             DimpCore.doAction('getReplyData', {
                 headeronly: 1,
-                imp_compose: $F('composeCache'),
+                imp_compose: $F(this.getCacheElt()),
                 type: 'reply'
             }, {
                 callback: this.swapToAddressCallback.bind(this)
@@ -1004,14 +976,32 @@ var DimpCompose = {
             break;
 
         case 'writemsg':
-            if (!this.disabled &&
-                e.memo.element().hasClassName('dimpOptionPopdown')) {
-                tmp = e.memo.element().retrieve('popdown_id');
+            if (!this.disabled && elt.hasClassName('dimpOptionPopdown')) {
+                tmp = elt.retrieve('popdown_id');
                 this.knl[tmp].knl.show();
                 this.knl[tmp].knl.ignoreClick(e.memo);
                 e.stop();
             }
             break;
+        }
+    },
+
+    keydownHandler: function(e)
+    {
+        switch (e.keyCode || e.charCode) {
+        case Event.KEY_ESC:
+            this.confirmCancel();
+            break;
+
+        case Event.KEY_RETURN:
+            if (!this.disabled && e.ctrlKey) {
+                this.uniqueSubmit('sendMessage');
+            }
+            break;
+        }
+
+        if (this.fwdattach && e.element() == $('composeMessage')) {
+            this.fadeNotice('fwdattachnotice');
         }
     },
 
@@ -1077,8 +1067,10 @@ var DimpCompose = {
         ImpComposeBase.updateAddressField($(e.memo.field), e.memo.value);
     },
 
-    tasksHandler: function(t)
+    tasksHandler: function(e)
     {
+        var t = e.tasks;
+
         if (this.baseAvailable()) {
             if (t['imp:flag']) {
                 HordeCore.base.DimpBase.flagCallback(t['imp:flag']);
@@ -1107,6 +1099,11 @@ var DimpCompose = {
             }
             $('dimpLoading').hide();
             $('composeContainer', 'redirect').invoke('show');
+
+            if (this.onload_show) {
+                this.fillForm(this.onload_show);
+                delete this.onload_show;
+            }
             return;
         }
 
@@ -1124,7 +1121,7 @@ var DimpCompose = {
             callback: this.uniqueSubmitCallback.bind(this)
         });
 
-        if (DimpCore.context.ctx_msg_other.size()) {
+        if ($H(DimpCore.context.ctx_msg_other).size()) {
             DimpCore.addPopdown($('msg_other_options').down('A'), 'msg_other', {
                 trigger: true
             });
@@ -1175,7 +1172,7 @@ var DimpCompose = {
         }
 
         $('dimpLoading').hide();
-        $('composeContainer', 'compose').invoke('show');
+        $('composeContainer', 'compose').compact().invoke('show');
 
         if (this.onload_show) {
             this.fillForm(this.onload_show);
@@ -1189,6 +1186,7 @@ var DimpCompose = {
 
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpCompose.onDomLoad.bind(DimpCompose));
+document.observe('keydown', DimpCompose.keydownHandler.bindAsEventListener(DimpCompose));
 document.observe('HordeCore:click', DimpCompose.clickHandler.bindAsEventListener(DimpCompose));
 Event.observe(window, 'resize', DimpCompose.resizeMsgArea.bindAsEventListener(DimpCompose));
 

@@ -56,6 +56,11 @@ class Horde_Kolab_Storage_Data_Modifiable
         $this->_object[1]->buildMimeIds();
     }
 
+    public function getOriginalPart($mime_id)
+    {
+        return $this->_object[1]->getPart($mime_id);
+    }
+
     public function store()
     {
         $result = $this->_driver->appendMessage(

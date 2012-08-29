@@ -27,15 +27,15 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-06</date>
- <time>00:15:35</time>
+ <date>2012-07-19</date>
+ <time>23:48:30</time>
  <version>
-  <release>2.0.0beta1</release>
-  <api>2.0.0alpha1</api>
+  <release>2.0.0beta2</release>
+  <api>2.0.0beta1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
@@ -69,7 +69,9 @@ Reading, writing and listing of files are all supported.</description>
       <file name="Sql.php" role="php" />
       <file name="SqlFile.php" role="php" />
       <file name="Ssh2.php" role="php" />
-      <file name="Translation.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/Vfs -->
      <file name="Vfs.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -395,67 +397,67 @@ Reading, writing and listing of files are all supported.</description>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.4</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Session</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>ssh2</name>
@@ -992,7 +994,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2012-03-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+*
    </notes>
   </release>
   <release>
@@ -1017,11 +1019,25 @@ Added a class for providing garbage collection; removed all Horde dependancies.
   <release>
    <version>
     <release>2.0.0beta1</release>
-    <api>2.0.0alpha1</api></version>
+    <api>2.0.0beta1</api></version>
    <stability>
     <release>beta</release>
-    <api>alpha</api></stability>
-   <date>2012-07-06</date>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+* [jan] Fix finding locale directory if installed with PEAR.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

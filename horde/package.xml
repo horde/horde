@@ -28,15 +28,15 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-06</date>
- <time>00:37:14</time>
+ <date>2012-08-29</date>
+ <time>16:00:44</time>
  <version>
-  <release>5.0.0beta1</release>
-  <api>5.0.0alpha1</api>
+  <release>5.0.0beta6</release>
+  <api>5.0.0beta1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
@@ -86,7 +86,6 @@
     <file name="activesync.php" role="horde" />
     <file name="alarms.php" role="horde" />
     <file name="cmdshell.php" role="horde" />
-    <file name="datatree.php" role="horde" />
     <file name="groups.php" role="horde" />
     <file name="index.html" role="horde" />
     <file name="locks.php" role="horde" />
@@ -101,13 +100,10 @@
     <file name="horde-alarms" role="script" />
     <file name="horde-check-logger" role="script" />
     <file name="horde-clear-cache" role="script" />
-    <file name="horde-convert-datatree-groups-to-sql" role="script" />
-    <file name="horde-convert-datatree-perms-to-sql" role="script" />
     <file name="horde-crond" role="script" />
     <file name="horde-db-migrate" role="script" />
     <file name="horde-import-squirrelmail-prefs" role="script" />
     <file name="horde-memcache-stats" role="script" />
-    <file name="horde-move-history-out-of-datatree" role="script" />
     <file name="horde-run-task" role="script" />
     <file name="horde-set-perms" role="script" />
     <file name="horde-themes" role="script" />
@@ -261,9 +257,6 @@
      <file name="OpenLayers-debug.js" role="horde" />
      <file name="OpenLayers.js" role="horde" />
      <file name="osm.js" role="horde" />
-     <file name="public.js" role="horde" />
-     <file name="tilesathome.js" role="horde" />
-     <file name="ve.js" role="horde" />
      <file name="yahoo.js" role="horde" />
     </dir> <!-- /js/map -->
     <dir name="plupload">
@@ -1484,20 +1477,6 @@
        <file name="up-grey.png" role="horde" />
        <file name="up.png" role="horde" />
       </dir> <!-- /themes/default/graphics/nav -->
-      <dir name="smartmobile">
-       <dir name="alerts">
-        <file name="alarm.png" role="horde" />
-        <file name="error.png" role="horde" />
-        <file name="message.png" role="horde" />
-        <file name="success.png" role="horde" />
-        <file name="warning.png" role="horde" />
-       </dir> <!-- /themes/default/graphics/smartmobile/alerts -->
-       <file name="bottom.jpg" role="horde" />
-       <file name="display.jpg" role="horde" />
-       <file name="left.jpg" role="horde" />
-       <file name="right.jpg" role="horde" />
-       <file name="top.jpg" role="horde" />
-      </dir> <!-- /themes/default/graphics/smartmobile -->
       <dir name="tree">
        <file name="blank.png" role="horde" />
        <file name="folder.png" role="horde" />
@@ -1639,7 +1618,6 @@
         <file name="na.png" role="horde" />
        </dir> <!-- /themes/default/graphics/weather/32x32 -->
       </dir> <!-- /themes/default/graphics/weather -->
-      <file name="about.png" role="horde" />
       <file name="add_group.png" role="horde" />
       <file name="add_perm.png" role="horde" />
       <file name="administration.png" role="horde" />
@@ -1647,10 +1625,15 @@
       <file name="az.png" role="horde" />
       <file name="blank.gif" role="horde" />
       <file name="block.png" role="horde" />
+      <file name="button-active-bg.png" role="horde" />
       <file name="button-split.png" role="horde" />
+      <file name="button.png" role="horde" />
       <file name="buttonbar-bg.png" role="horde" />
       <file name="calendar.png" role="horde" />
+      <file name="checkbox_off.png" role="horde" />
+      <file name="checkbox_on.png" role="horde" />
       <file name="close.png" role="horde" />
+      <file name="collapse.png" role="horde" />
       <file name="color-picker-cursor.gif" role="horde" />
       <file name="color-picker-palette.png" role="horde" />
       <file name="color-picker-resize.gif" role="horde" />
@@ -1658,13 +1641,15 @@
       <file name="colorscale.png" role="horde" />
       <file name="config.png" role="horde" />
       <file name="data.png" role="horde" />
-      <file name="datatree.png" role="horde" />
       <file name="delete-small.png" role="horde" />
       <file name="delete.png" role="horde" />
       <file name="devel.png" role="horde" />
       <file name="download.png" role="horde" />
+      <file name="edit-sidebar-000.png" role="horde" />
+      <file name="edit-sidebar-fff.png" role="horde" />
       <file name="edit-small.png" role="horde" />
       <file name="edit.png" role="horde" />
+      <file name="expand.png" role="horde" />
       <file name="external.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="feed.png" role="horde" />
@@ -1694,7 +1679,6 @@
       <file name="mobile.png" role="horde" />
       <file name="myaccount.png" role="horde" />
       <file name="navi-arrow-active.png" role="horde" />
-      <file name="navi-arrow-normal-hover.png" role="horde" />
       <file name="navi-arrow-normal.png" role="horde" />
       <file name="navi-center-active.png" role="horde" />
       <file name="navi-left-active.png" role="horde" />
@@ -1705,6 +1689,7 @@
       <file name="organizing.png" role="horde" />
       <file name="perms.png" role="horde" />
       <file name="phone.png" role="horde" />
+      <file name="plus-sidebar.png" role="horde" />
       <file name="plus.png" role="horde" />
       <file name="popdown.png" role="horde" />
       <file name="popright.png" role="horde" />
@@ -1716,6 +1701,7 @@
       <file name="required.png" role="horde" />
       <file name="rhand.png" role="horde" />
       <file name="save.png" role="horde" />
+      <file name="search-topbar.png" role="horde" />
       <file name="search.png" role="horde" />
       <file name="settings-active.png" role="horde" />
       <file name="settings.png" role="horde" />
@@ -1733,8 +1719,11 @@
       <file name="slidevert-bg.png" role="horde" />
       <file name="slidevert.png" role="horde" />
       <file name="sql.png" role="horde" />
+      <file name="tab-active.png" role="horde" />
+      <file name="tab.png" role="horde" />
       <file name="tablehead-bg.png" role="horde" />
       <file name="tablehead-split.png" role="horde" />
+      <file name="tabset.png" role="horde" />
       <file name="tab_bottom.gif" role="horde" />
       <file name="unlocked.png" role="horde" />
       <file name="user.png" role="horde" />
@@ -1755,6 +1744,7 @@
      <file name="facebook.css" role="horde" />
      <file name="feed-rss.xsl" role="horde" />
      <file name="ie7.css" role="horde" />
+     <file name="info.php" role="horde" />
      <file name="opera.css" role="horde" />
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
@@ -1787,212 +1777,212 @@
    <package>
     <name>Horde_Alarm</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Argv</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.2.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Browser</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Group</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Image</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_LoginTasks</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0alpha1</min>
-    <max>3.0.0</max>
-    <exclude>3.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Rpc</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Serialize</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Template</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Diff</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Token</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Tree</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0alpha1</min>
-    <max>3.0.0</max>
-    <exclude>3.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_View</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>filter</name>
@@ -2016,65 +2006,58 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_DataTree</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0alpha</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Feed</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Oauth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Service_Facebook</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Service_Twitter</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Service_Weather</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_SyncMl</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Console_Getopt</name>
@@ -2107,7 +2090,6 @@
    <install as="admin/activesync.php" name="admin/activesync.php" />
    <install as="admin/alarms.php" name="admin/alarms.php" />
    <install as="admin/cmdshell.php" name="admin/cmdshell.php" />
-   <install as="admin/datatree.php" name="admin/datatree.php" />
    <install as="admin/groups.php" name="admin/groups.php" />
    <install as="admin/index.html" name="admin/index.html" />
    <install as="admin/locks.php" name="admin/locks.php" />
@@ -2136,13 +2118,10 @@
    <install as="horde-alarms" name="bin/horde-alarms" />
    <install as="horde-check-logger" name="bin/horde-check-logger" />
    <install as="horde-clear-cache" name="bin/horde-clear-cache" />
-   <install as="horde-convert-datatree-groups-to-sql" name="bin/horde-convert-datatree-groups-to-sql" />
-   <install as="horde-convert-datatree-perms-to-sql" name="bin/horde-convert-datatree-perms-to-sql" />
    <install as="horde-crond" name="bin/horde-crond" />
    <install as="horde-db-migrate" name="bin/horde-db-migrate" />
    <install as="horde-import-squirrelmail-prefs" name="bin/horde-import-squirrelmail-prefs" />
    <install as="horde-memcache-stats" name="bin/horde-memcache-stats" />
-   <install as="horde-move-history-out-of-datatree" name="bin/horde-move-history-out-of-datatree" />
    <install as="horde-run-task" name="bin/horde-run-task" />
    <install as="horde-set-perms" name="bin/horde-set-perms" />
    <install as="horde-themes" name="bin/horde-themes" />
@@ -2208,9 +2187,6 @@
    <install as="js/map/OpenLayers-debug.js" name="js/map/OpenLayers-debug.js" />
    <install as="js/map/OpenLayers.js" name="js/map/OpenLayers.js" />
    <install as="js/map/osm.js" name="js/map/osm.js" />
-   <install as="js/map/public.js" name="js/map/public.js" />
-   <install as="js/map/tilesathome.js" name="js/map/tilesathome.js" />
-   <install as="js/map/ve.js" name="js/map/ve.js" />
    <install as="js/map/yahoo.js" name="js/map/yahoo.js" />
    <install as="js/map/img/blank.gif" name="js/map/img/blank.gif" />
    <install as="js/map/img/cloud-popup-relative.png" name="js/map/img/cloud-popup-relative.png" />
@@ -2633,11 +2609,11 @@
    <install as="themes/default/facebook.css" name="themes/default/facebook.css" />
    <install as="themes/default/feed-rss.xsl" name="themes/default/feed-rss.xsl" />
    <install as="themes/default/ie7.css" name="themes/default/ie7.css" />
+   <install as="themes/default/info.php" name="themes/default/info.php" />
    <install as="themes/default/opera.css" name="themes/default/opera.css" />
    <install as="themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="themes/default/screen.css" name="themes/default/screen.css" />
    <install as="themes/default/webkit.css" name="themes/default/webkit.css" />
-   <install as="themes/default/graphics/about.png" name="themes/default/graphics/about.png" />
    <install as="themes/default/graphics/add_group.png" name="themes/default/graphics/add_group.png" />
    <install as="themes/default/graphics/add_perm.png" name="themes/default/graphics/add_perm.png" />
    <install as="themes/default/graphics/administration.png" name="themes/default/graphics/administration.png" />
@@ -2645,10 +2621,15 @@
    <install as="themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="themes/default/graphics/blank.gif" name="themes/default/graphics/blank.gif" />
    <install as="themes/default/graphics/block.png" name="themes/default/graphics/block.png" />
+   <install as="themes/default/graphics/button-active-bg.png" name="themes/default/graphics/button-active-bg.png" />
    <install as="themes/default/graphics/button-split.png" name="themes/default/graphics/button-split.png" />
+   <install as="themes/default/graphics/button.png" name="themes/default/graphics/button.png" />
    <install as="themes/default/graphics/buttonbar-bg.png" name="themes/default/graphics/buttonbar-bg.png" />
    <install as="themes/default/graphics/calendar.png" name="themes/default/graphics/calendar.png" />
+   <install as="themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
+   <install as="themes/default/graphics/checkbox_on.png" name="themes/default/graphics/checkbox_on.png" />
    <install as="themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
+   <install as="themes/default/graphics/collapse.png" name="themes/default/graphics/collapse.png" />
    <install as="themes/default/graphics/color-picker-cursor.gif" name="themes/default/graphics/color-picker-cursor.gif" />
    <install as="themes/default/graphics/color-picker-palette.png" name="themes/default/graphics/color-picker-palette.png" />
    <install as="themes/default/graphics/color-picker-resize.gif" name="themes/default/graphics/color-picker-resize.gif" />
@@ -2656,13 +2637,15 @@
    <install as="themes/default/graphics/colorscale.png" name="themes/default/graphics/colorscale.png" />
    <install as="themes/default/graphics/config.png" name="themes/default/graphics/config.png" />
    <install as="themes/default/graphics/data.png" name="themes/default/graphics/data.png" />
-   <install as="themes/default/graphics/datatree.png" name="themes/default/graphics/datatree.png" />
    <install as="themes/default/graphics/delete-small.png" name="themes/default/graphics/delete-small.png" />
    <install as="themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="themes/default/graphics/devel.png" name="themes/default/graphics/devel.png" />
    <install as="themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
+   <install as="themes/default/graphics/edit-sidebar-000.png" name="themes/default/graphics/edit-sidebar-000.png" />
+   <install as="themes/default/graphics/edit-sidebar-fff.png" name="themes/default/graphics/edit-sidebar-fff.png" />
    <install as="themes/default/graphics/edit-small.png" name="themes/default/graphics/edit-small.png" />
    <install as="themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
+   <install as="themes/default/graphics/expand.png" name="themes/default/graphics/expand.png" />
    <install as="themes/default/graphics/external.png" name="themes/default/graphics/external.png" />
    <install as="themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="themes/default/graphics/feed.png" name="themes/default/graphics/feed.png" />
@@ -2692,7 +2675,6 @@
    <install as="themes/default/graphics/mobile.png" name="themes/default/graphics/mobile.png" />
    <install as="themes/default/graphics/myaccount.png" name="themes/default/graphics/myaccount.png" />
    <install as="themes/default/graphics/navi-arrow-active.png" name="themes/default/graphics/navi-arrow-active.png" />
-   <install as="themes/default/graphics/navi-arrow-normal-hover.png" name="themes/default/graphics/navi-arrow-normal-hover.png" />
    <install as="themes/default/graphics/navi-arrow-normal.png" name="themes/default/graphics/navi-arrow-normal.png" />
    <install as="themes/default/graphics/navi-center-active.png" name="themes/default/graphics/navi-center-active.png" />
    <install as="themes/default/graphics/navi-left-active.png" name="themes/default/graphics/navi-left-active.png" />
@@ -2703,6 +2685,7 @@
    <install as="themes/default/graphics/organizing.png" name="themes/default/graphics/organizing.png" />
    <install as="themes/default/graphics/perms.png" name="themes/default/graphics/perms.png" />
    <install as="themes/default/graphics/phone.png" name="themes/default/graphics/phone.png" />
+   <install as="themes/default/graphics/plus-sidebar.png" name="themes/default/graphics/plus-sidebar.png" />
    <install as="themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
    <install as="themes/default/graphics/popdown.png" name="themes/default/graphics/popdown.png" />
    <install as="themes/default/graphics/popright.png" name="themes/default/graphics/popright.png" />
@@ -2714,6 +2697,7 @@
    <install as="themes/default/graphics/required.png" name="themes/default/graphics/required.png" />
    <install as="themes/default/graphics/rhand.png" name="themes/default/graphics/rhand.png" />
    <install as="themes/default/graphics/save.png" name="themes/default/graphics/save.png" />
+   <install as="themes/default/graphics/search-topbar.png" name="themes/default/graphics/search-topbar.png" />
    <install as="themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="themes/default/graphics/settings-active.png" name="themes/default/graphics/settings-active.png" />
    <install as="themes/default/graphics/settings.png" name="themes/default/graphics/settings.png" />
@@ -2731,8 +2715,11 @@
    <install as="themes/default/graphics/slidevert-bg.png" name="themes/default/graphics/slidevert-bg.png" />
    <install as="themes/default/graphics/slidevert.png" name="themes/default/graphics/slidevert.png" />
    <install as="themes/default/graphics/sql.png" name="themes/default/graphics/sql.png" />
+   <install as="themes/default/graphics/tab-active.png" name="themes/default/graphics/tab-active.png" />
+   <install as="themes/default/graphics/tab.png" name="themes/default/graphics/tab.png" />
    <install as="themes/default/graphics/tablehead-bg.png" name="themes/default/graphics/tablehead-bg.png" />
    <install as="themes/default/graphics/tablehead-split.png" name="themes/default/graphics/tablehead-split.png" />
+   <install as="themes/default/graphics/tabset.png" name="themes/default/graphics/tabset.png" />
    <install as="themes/default/graphics/tab_bottom.gif" name="themes/default/graphics/tab_bottom.gif" />
    <install as="themes/default/graphics/unlocked.png" name="themes/default/graphics/unlocked.png" />
    <install as="themes/default/graphics/user.png" name="themes/default/graphics/user.png" />
@@ -3298,16 +3285,6 @@
    <install as="themes/default/graphics/nav/top.png" name="themes/default/graphics/nav/top.png" />
    <install as="themes/default/graphics/nav/up-grey.png" name="themes/default/graphics/nav/up-grey.png" />
    <install as="themes/default/graphics/nav/up.png" name="themes/default/graphics/nav/up.png" />
-   <install as="themes/default/graphics/smartmobile/bottom.jpg" name="themes/default/graphics/smartmobile/bottom.jpg" />
-   <install as="themes/default/graphics/smartmobile/display.jpg" name="themes/default/graphics/smartmobile/display.jpg" />
-   <install as="themes/default/graphics/smartmobile/left.jpg" name="themes/default/graphics/smartmobile/left.jpg" />
-   <install as="themes/default/graphics/smartmobile/right.jpg" name="themes/default/graphics/smartmobile/right.jpg" />
-   <install as="themes/default/graphics/smartmobile/top.jpg" name="themes/default/graphics/smartmobile/top.jpg" />
-   <install as="themes/default/graphics/smartmobile/alerts/alarm.png" name="themes/default/graphics/smartmobile/alerts/alarm.png" />
-   <install as="themes/default/graphics/smartmobile/alerts/error.png" name="themes/default/graphics/smartmobile/alerts/error.png" />
-   <install as="themes/default/graphics/smartmobile/alerts/message.png" name="themes/default/graphics/smartmobile/alerts/message.png" />
-   <install as="themes/default/graphics/smartmobile/alerts/success.png" name="themes/default/graphics/smartmobile/alerts/success.png" />
-   <install as="themes/default/graphics/smartmobile/alerts/warning.png" name="themes/default/graphics/smartmobile/alerts/warning.png" />
    <install as="themes/default/graphics/tree/blank.png" name="themes/default/graphics/tree/blank.png" />
    <install as="themes/default/graphics/tree/folder.png" name="themes/default/graphics/tree/folder.png" />
    <install as="themes/default/graphics/tree/folderopen.png" name="themes/default/graphics/tree/folderopen.png" />
@@ -3795,6 +3772,7 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix adding attachments to problem tickets (Bug #10654).
 * [jan] Update Turkish translation (İstanbul Technical University).
 * [jan] Fix setting permissions on static/ directory with horde-set-perms (Bug #11219).
    </notes>
@@ -3832,11 +3810,83 @@
   <release>
    <version>
     <release>5.0.0beta1</release>
-    <api>5.0.0alpha1</api></version>
+    <api>5.0.0beta1</api></version>
    <stability>
     <release>beta</release>
-    <api>alpha</api></stability>
-   <date>2012-07-06</date>
+    <api>beta</api></stability>
+   <date>2012-07-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Remove DataTree support.
+* [jan] Allow to configure encryption in global IMAP configuration (Request #11272).
+* [jan] Update icon set.
+* [rla] Retrieve more detailed message from Horde_Auth when a user is temporarily or permanently locked out (Request #11254).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta2</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Request SSL connection from map providers if using SSL (Bug #11193).
+* [jan] Remove optional dependency on Horde_DataTree.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta3</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix dependency on Horde_Service_Weather.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta4</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix logging in without JavaScript (Bug #11328).
+* [mms] Fix sidebar element wrapping.
+* [mms] Better handling of backend authentication errors when returning AJAX data (Bug #11297).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta5</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix cancelling problem report.
+* [jan] Fix audio notification path printed in page output.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta6</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

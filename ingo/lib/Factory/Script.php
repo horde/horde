@@ -69,7 +69,7 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Injector
             return new $class($params);
         }
 
-        throw new Ingo_Exception(sprintf(_("Unable to load the script driver \"%s.\""), $class));
+        throw new Ingo_Exception(sprintf(_("Unable to load the script driver \"%s\"."), $class));
     }
 
 }

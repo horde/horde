@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Add configuration option to include raw processed message.
 [jan] Add due date to ticket columns (Request #10986).
 [jan] Make columns of portal block configurable (Request #10986).
 
@@ -10,6 +11,7 @@ v3.0-git
 v2.0.3-git
 ----------
 
+[jan] Fix auto-submitting of tickets if using groups (Bug #10654).
 [jan] Improve error reporting in whups-mail-filter.
 
 

@@ -341,9 +341,6 @@ case Horde_Auth::REASON_EXPIRED:
     break;
 
 case Horde_Auth::REASON_LOCKED:
-    $reason = _("Your login has been locked.");
-    break;
-
 case Horde_Auth::REASON_MESSAGE:
     if (!($reason = $auth->getError(true))) {
         $reason = $vars->logout_msg;
@@ -390,11 +387,11 @@ if ($browser->isMobile() &&
 
     $page_output->header(array(
         'title' => $title,
-        'view' => $registry::VIEW_SMARTMOBILE
+        'view' => $browser->hasFeature('javascript') ? $registry::VIEW_SMARTMOBILE : $registry::VIEW_MINIMAL
     ));
     require $registry->get('templates', 'horde') . '/login/smartmobile.inc';
     $page_output->footer(array(
-        'view' => $registry::VIEW_SMARTMOBILE
+        'view' => $browser->hasFeature('javascript') ? $registry::VIEW_SMARTMOBILE : $registry::VIEW_MINIMAL
     ));
 } else {
     if (!empty($js_files)) {

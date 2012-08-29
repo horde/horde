@@ -18,7 +18,7 @@ README_ in the top-level directory of the Chora distribution.
 Prerequisites
 =============
 
-To function properly, Chora requires the following:
+To function properly, Chora **requires** the following:
 
 1. A working Horde installation.
 

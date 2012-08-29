@@ -40,13 +40,12 @@ $forums_per_page = $prefs->getValue('forums_per_page');
 $forum_start = $forum_page * $forums_per_page;
 
 /* Get the list of forums. */
-$forums_list = $forums->getForums(0, true, $sort_by, $sort_dir, true, $forum_start, $forums_per_page);
-if ($forums_list instanceof PEAR_Error) {
-    throw new Horde_Exception($forums_list);
-} elseif (empty($forums_list)) {
-    $forums_count = 0;
-} else {
+
+try {
+    $forums_list = $forums->getForums(0, true, $sort_by, $sort_dir, true, $forum_start, $forums_per_page);
     $forums_count = $forums->countForums();
+} catch (Horde_Exception_NotFound $e) {
+    $forums_count = 0;
 }
 
 /* Set up the column headers. */

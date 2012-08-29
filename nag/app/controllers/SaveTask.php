@@ -32,16 +32,11 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             Horde::url('list.php', true)->redirect();
         }
 
-        /* Add new category. */
-        if ($info['category']['new']) {
-            $cManager = new Horde_Prefs_CategoryManager();
-            $cManager->add($info['category']['value']);
-        }
-
         /* If a task id is set, we're modifying an existing task.  Otherwise,
          * we're adding a new task with the provided attributes. */
         if (!empty($info['task_id']) && !empty($info['old_tasklist'])) {
-            $storage = Nag_Driver::singleton($info['old_tasklist']);
+            $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')
+                ->create($info['old_tasklist']);
             $info['tasklist'] = $info['tasklist_id'];
             $result = $storage->modify($info['task_id'], $info);
         } else {
@@ -53,12 +48,15 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             }
 
             /* Creating a new task. */
-            $storage = Nag_Driver::singleton($info['tasklist_id']);
+            $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')
+                ->create($info['tasklist_id']);
+            // These must be unset since the form sets them to NULL
+            unset($info['owner']);
+            unset($info['uid']);
             try {
-              $info['category'] = $info['category']['value'];
-              $storage->add($info);
+              $newid = $storage->add($info);
             } catch (Nag_Exception $e) {
-                $notification->push(sprintf(_("There was a problem saving the task: %s."), $result->getMessage()), 'horde.error');
+                $notification->push(sprintf(_("There was a problem saving the task: %s."), $e->getMessage()), 'horde.error');
                 Horde::url('list.php', true)->redirect();
             }
         }

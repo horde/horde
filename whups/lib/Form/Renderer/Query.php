@@ -45,7 +45,7 @@ class Whups_Form_Renderer_Query extends Horde_Form_Renderer
     }
 
     /**
-     * @TODO: this is public becuase the parent:: method is public
+     * @TODO: this is public because the parent:: method is public
      */
     public function _renderForm(&$query, &$vars, $active)
     {

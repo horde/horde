@@ -47,11 +47,191 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     }
 
     /**
+     * Retrieves all of the notes of the current notepad from the backend.
+     *
+     * @throws Mnemo_Exception
+     */
+    public function retrieve()
+    {
+        $this->_memos = array();
+
+        try {
+            $note_list = $this->_getData()->getObjects();
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Mnemo_Exception($e);
+        }
+        if (empty($note_list)) {
+            return;
+        }
+
+        foreach ($note_list as $note) {
+            $this->_memos[$note['uid']] = $this->_buildNote($note);
+        }
+    }
+
+    /**
+     * Retrieves one note from the backend.
+     *
+     * @param string $noteId      The ID of the note to retrieve.
+     * @param string $passphrase  A passphrase with which this note was
+     *                            supposed to be encrypted.
+     *
+     * @return array  The array of note attributes.
+     * @throws Mnemo_Exception
+     * @throws Horde_Exception_NotFound
+     */
+    public function get($noteId, $passphrase = null)
+    {
+        try {
+            if ($this->_getData()->objectIdExists($noteId)) {
+                $note = $this->_getData()->getObject($noteId);
+                return $this->_buildNote($note, $passphrase);
+            } else {
+                throw new Horde_Exception_NotFound(_("Not Found"));
+            }
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Mnemo_Exception($e);
+        }
+    }
+
+    /**
+     * Retrieves one note from the backend by UID.
+     *
+     * @param string $uid         The UID of the note to retrieve.
+     * @param string $passphrase  A passphrase with which this note was
+     *                            supposed to be encrypted.
+     *
+     * @return array  The array of note attributes.
+     * @throws Mnemo_Exception
+     * @throws Horde_Exception_NotFound
+     */
+    public function getByUID($uid, $passphrase = null)
+    {
+        //@todo: search across notepads
+        return $this->get($uid, $passphrase);
+    }
+
+    /**
+     * Adds a note to the backend storage.
+     *
+     * @param string $noteId    The ID of the new note.
+     * @param string $desc      The first line of the note.
+     * @param string $body      The whole note body.
+     * @param string $category  The category of the note.
+     *
+     * @return string  The unique ID of the new note.
+     * @throws Mnemo_Exception
+     */
+    protected function _add($noteId, $desc, $body, $category)
+    {
+        $object = array(
+            'uid' => $noteId,
+            'summary' => $desc,
+            'body' => $body,
+            'categories' => $category,
+        );
+        try {
+            $this->_getData()->create($object);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Mnemo_Exception($e);
+        }
+        return $noteId;
+    }
+
+    /**
+     * Modifies an existing note.
+     *
+     * @param string $noteId    The note to modify.
+     * @param string $desc      The first line of the note.
+     * @param string $body      The whole note body.
+     * @param string $category  The category of the note.
+     *
+     * @return string  The note's UID.
+     * @throws Mnemo_Exception
+     */
+    protected function _modify($noteId, $desc, $body, $category)
+    {
+        try {
+            $this->_getData()->modify(
+                array(
+                    'uid' => $noteId,
+                    'summary' => $desc,
+                    'body' => $body,
+                    'categories' => $category,
+                )
+            );
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Mnemo_Exception($e);
+        }
+        return $noteId;
+    }
+
+    /**
+     * Moves a note to a new notepad.
+     *
+     * @param string $noteId      The note to move.
+     * @param string $newNotepad  The new notepad.
+     *
+     * @return string  The note's UID.
+     * @throws Mnemo_Exception
+     */
+    protected function _move($noteId, $newNotepad)
+    {
+        try {
+            $this->_getData()->move(
+                $noteId,
+                $GLOBALS['mnemo_shares']->getShare($newNotepad)->get('folder')
+            );
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Mnemo_Exception($e);
+        }
+        return $noteId;
+    }
+
+    /**
+     * Deletes a note permanently.
+     *
+     * @param array $note  The note to delete.
+     *
+     * @return string  The note's UID.
+     * @throws Mnemo_Exception
+     */
+    protected function _delete($noteId)
+    {
+        $note = $this->get($noteId);
+        try {
+            $this->_getData()->delete($noteId);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Mnemo_Exception($e);
+        }
+        return $noteId;
+    }
+
+    /**
+     * Deletes all notes from the current notepad.
+     *
+     * @return array  An array of uids that have been removed.
+     * @throws Mnemo_Exception
+     */
+    protected function _deleteAll()
+    {
+        try {
+            $this->_retrieve();
+            $ids = array_keys($this->_memos);
+            $this->_getData()->deleteAll();
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Mnemo_Exception($e);
+        }
+
+        return $ids;
+    }
+
+    /**
      * Return the Kolab data handler for the current notepad.
      *
-     * @return Horde_Kolab_Storage_Date The data handler.
+     * @return Horde_Kolab_Storage_Data The data handler.
      */
-    private function _getData()
+    protected function _getData()
     {
         if (empty($this->_notepad)) {
             throw new Mnemo_Exception(
@@ -69,9 +249,9 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      *
      * @param string $notepad The notepad name.
      *
-     * @return Horde_Kolab_Storage_Date The data handler.
+     * @return Horde_Kolab_Storage_Data The data handler.
      */
-    private function _getDataForNotepad($notepad)
+    protected function _getDataForNotepad($notepad)
     {
         try {
             return $this->_kolab->getData(
@@ -92,180 +272,6 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     }
 
     /**
-     * Retrieve one note from the store.
-     *
-     * @param string $noteId      The ID of the note to retrieve.
-     * @param string $passphrase  A passphrase with which this note was
-     *                            supposed to be encrypted.
-     *
-     * @return array  The array of note attributes.
-     */
-    function get($noteId, $passphrase = null)
-    {
-        if ($this->_getData()->objectIdExists($noteId)) {
-            $note = $this->_getData()->getObject($noteId);
-            return $this->_buildNote($note, $passphrase);
-        } else {
-            throw new Horde_Exception_NotFound(_("Not Found"));
-        }
-    }
-
-    /**
-     * Retrieve one note by UID.
-     *
-     * @param string $uid         The UID of the note to retrieve.
-     * @param string $passphrase  A passphrase with which this note was
-     *                            supposed to be encrypted.
-     *
-     * @return array  The array of note attributes.
-     */
-    function getByUID($uid, $passphrase = null)
-    {
-        //@todo: search across notepads
-        return $this->get($uid, $passphrase);
-    }
-
-    /**
-     * Add a note to the backend storage.
-     *
-     * @param string $desc        The first line of the note.
-     * @param string $body        The whole note body.
-     * @param string $category    The category of the note.
-     * @param string $uid         A Unique Identifier for the note.
-     * @param string $passphrase  The passphrase to encrypt the note with.
-     *
-     * @return string  The unique ID of the new note.
-     * @throws Mnemo_Exception
-     */
-    public function add($desc, $body, $category = '', $uid = null, $passphrase = null)
-    {
-        if (is_null($uid)) {
-            $uid = $this->_getData()->generateUid();
-        }
-
-        if ($passphrase) {
-            $body = $this->_encrypt($body, $passphrase);
-            Mnemo::storePassphrase($uid, $passphrase);
-        }
-
-        $object = array(
-            'uid' => $uid,
-            'summary' => $desc,
-            'body' => $body,
-            'categories' => $category,
-        );
-        $this->_getData()->create($object);
-
-        // Log the creation of this item in the history log.
-        // @TODO: Inject the history driver
-        $history = $GLOBALS['injector']->getInstance('Horde_History');
-        $history->log('mnemo:' . $this->_notepad . ':' . $uid, array('action' => 'add'), true);
-
-        return $uid;
-    }
-
-    /**
-     * Modify an existing note.
-     *
-     * @param integer $noteId   The note to modify.
-     * @param string $desc      The description (long) of the note.
-     * @param string $body      The description (long) of the note.
-     * @param string $category  The category of the note.
-     * @param string $passphrase  The passphrase to encrypt the note with.
-     *
-     * @return booelan
-     */
-    function modify($noteId, $desc, $body, $category = '', $passphrase = null)
-    {
-        if ($passphrase) {
-            $body = $this->_encrypt($body, $passphrase);
-            Mnemo::storePassphrase($uid, $passphrase);
-        }
-
-        $this->_getData()->modify(
-            array(
-                'uid' => $noteId,
-                'summary' => $desc,
-                'body' => $body,
-                'categories' => $category,
-            )
-        );
-
-        // Log the creation of this item in the history log.
-        // @TODO: Inject the history driver
-        $history = $GLOBALS['injector']->getInstance('Horde_History');
-        $history->log('mnemo:' . $this->_notepad . ':' . $uid, array('action' => 'modify'), true);
-
-        return $uid;
-    }
-
-    /**
-     * Move a note to a new notepad.
-     *
-     * @param string $noteId      The note to move.
-     * @param string $newNotepad  The new notepad.
-     *
-     * @return mixed  True on success, PEAR_Error on failure.
-     */
-    function move($noteId, $newNotepad)
-    {
-        return $this->_getData()->move(
-            $noteId,
-            $GLOBALS['mnemo_shares']->getShare($newNotepad)->get('folder')
-        );
-    }
-
-    /**
-     * Delete the specified note from the current notepad
-     *
-     * @param string $noteId The note to delete.
-     *
-     * @return NULL
-     */
-    function delete($noteId)
-    {
-        $note = $this->get($noteId);
-        $this->_getData()->delete($noteId);
-        $history = $GLOBALS['injector']->getInstance('Horde_History');
-        $history->log('mnemo:' . $this->_notepad . ':' . $note['uid'], array('action' => 'delete'), true);
-    }
-
-    /**
-     * Delete all notes from the current notepad
-     *
-     * @return array  An array of uids that have been removed.
-     */
-    protected function _deleteAll()
-    {
-        $this->_retrieve();
-        $ids = array_keys($this->_memos);
-        $this->_getData()->deleteAll();
-
-        return $ids;
-    }
-
-    /**
-     * Retrieves all of the notes from $this->_notepad from the database.
-     *
-     * @return NULL
-     *
-     * @throws Mnemo_Exception
-     */
-    function retrieve()
-    {
-        $this->_memos = array();
-
-        $note_list = $this->_getData()->getObjects();
-        if (empty($note_list)) {
-            return;
-        }
-
-        foreach ($note_list as $note) {
-            $this->_memos[$note['uid']] = $this->_buildNote($note);
-        }
-    }
-
-    /**
      * Build a note based on data array
      *
      * @param array  $note     The data for the note
@@ -273,7 +279,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      *
      * @return array  The converted data array representing the note
      */
-    function _buildNote($note, $passphrase = null)
+    protected function _buildNote($note, $passphrase = null)
     {
         $note['memolist_id'] = $this->_notepad;
         $note['memo_id'] = $note['uid'];
@@ -307,5 +313,15 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
         $note['body'] = $body;
 
         return $note;
+    }
+
+    /**
+     * Generates a local note ID.
+     *
+     * @return string  A new note ID.
+     */
+    protected function _generateId()
+    {
+        return $this->_getData()->generateUid();
     }
 }

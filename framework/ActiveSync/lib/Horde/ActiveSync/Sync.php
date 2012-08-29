@@ -56,7 +56,7 @@ class Horde_ActiveSync_Sync
      *
      * @var int
      */
-    protected $_step = 0;
+    protected $_step;
 
     /**
      * Server specific folder id
@@ -128,13 +128,14 @@ class Horde_ActiveSync_Sync
      *
      */
     public function init(
-        Horde_ActiveSync_State_Base &$stateDriver, $exporter, array $collection, $isPing = false)
+        Horde_ActiveSync_State_Base $stateDriver, $exporter, array $collection, $isPing = false)
     {
         $this->_collection = $collection;
-        $this->_stateDriver = &$stateDriver;
+        $this->_stateDriver = $stateDriver;
         $this->_exporter = $exporter;
         $this->_folderId = !empty($collection['id']) ? $collection['id'] : false;
         $this->_changes = $stateDriver->getChanges(array('ping' => $isPing));
+        $this->_step = 0;
     }
 
     /**
@@ -164,24 +165,24 @@ class Horde_ActiveSync_Sync
                 switch($change['type']) {
                 case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
                     // Get the new folder information
-                    $folder = $this->_backend->getFolder($change['id']);
-                    $stat = $this->_backend->statFolder(
-                        $change['id'],
-                        $folder->parentid,
-                        $folder->displayname);
-                    if (!$folder) {
-                        return false;
+                    if ($folder = $this->_backend->getFolder($change['id'])) {
+                        $stat = $this->_backend->statFolder(
+                            $change['id'],
+                            $folder->parentid,
+                            $folder->displayname);
+                        $this->_exporter->folderChange($folder);
+                    } else {
+                        $this->_logger->err(sprintf(
+                            'Error stating %s : ignoring.',
+                            $change['id']));
+                        $stat = array('id' => $change['id'], 'mod' => $change['id'], 0);
                     }
-                    if ($this->_exporter->folderChange($folder)) {
-                        $this->_stateDriver->updateState(
-                            Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC, $stat);
-                    }
+                    $this->_stateDriver->updateState(
+                        Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC, $stat);
                     break;
                 case Horde_ActiveSync::CHANGE_TYPE_DELETE:
-                    if ($this->_exporter->folderDeletion($change['id'])) {
-                        $this->_stateDriver->updateState(
-                            Horde_ActiveSync::CHANGE_TYPE_DELETE, $change);
-                    }
+                    $this->_stateDriver->updateState(
+                        Horde_ActiveSync::CHANGE_TYPE_DELETE, $change);
                     break;
                 }
                 $this->_step++;
@@ -211,54 +212,34 @@ class Horde_ActiveSync_Sync
                         // copy the flag to the message
                         // @TODO: Rename this to ->new or ->status or *anything* other than flags!!
                         $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
-                        if ($this->_exporter->messageChange($change['id'], $message) == true) {
-                            $this->_stateDriver->updateState(
-                                Horde_ActiveSync::CHANGE_TYPE_CHANGE, $change);
-                        }
+                        $this->_exporter->messageChange($change['id'], $message);
                     } catch (Horde_Exception_NotFound $e) {
-                        $this->_logger->debug('Message gone? Possibly a MoreItems that has since disappeared.');
-                        $this->_stateDriver->updateState(Horde_ActiveSync::CHANGE_TYPE_CHANGE, $change);
-                    } catch (Horde_Exception $e) {
-                        return false;
+                        $this->_logger->err('Message gone or error reading message from server: ' . $e->getMessage());
+                    } catch (Horde_ActiveSync_Exception $e) {
+                        $this->_logger->err('Unknown backend error skipping message: ' . $e->getMessage());
                     }
                     break;
-
                 case Horde_ActiveSync::CHANGE_TYPE_DELETE:
-                    if ($this->_exporter->messageDeletion($change['id']) == true) {
-                        $this->_stateDriver->updateState(
-                            Horde_ActiveSync::CHANGE_TYPE_DELETE, $change);
-                    }
+                    $this->_exporter->messageDeletion($change['id']);
                     break;
-
                 case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
                     if (isset($change['flags']['read'])) {
-                        if ($this->_exporter->messageReadFlag($change['id'], $change['flags']['read']) == true) {
-                            $this->_stateDriver->updateState(
-                                Horde_ActiveSync::CHANGE_TYPE_FLAGS, $change);
-                        }
+                        $this->_exporter->messageReadFlag($change['id'], $change['flags']['read']);
                     }
                     if (isset($change['flags']['flagged'])) {
-                        if ($this->_exporter->messageFlag($change['id'], $change['flags']['flagged']) == true) {
-                            $this->_stateDriver->updateState(
-                                Horde_ActiveSync::CHANGE_TYPE_FLAGS, $change);
-                        }
+                        $this->_exporter->messageFlag($change['id'], $change['flags']['flagged']);
                     }
                     break;
-
                 case Horde_ActiveSync::CHANGE_TYPE_MOVE:
-                    if ($this->_exporter->messageMove($change['id'], $change['parent']) == true) {
-                        $this->_stateDriver->updateState(
-                            Horde_ActiveSync::CHANGE_TYPE_MOVE, $change);
-                    }
+                    $this->_exporter->messageMove($change['id'], $change['parent']);
                     break;
                 }
 
+                $this->_stateDriver->updateState($change['type'], $change);
                 $this->_step++;
-
                 $progress = array();
                 $progress['steps'] = count($this->_changes);
                 $progress['progress'] = $this->_step;
-
                 return $progress;
             } else {
                 return false;

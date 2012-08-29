@@ -24,7 +24,7 @@ class IMP_Tree_Simplehtml extends Horde_Core_Tree_Renderer_Simplehtml
      */
     public function shouldToggle($id)
     {
-        return ($this->_tree->nodeId($id) == $GLOBALS['injector']->getInstance('Horde_Variables')->get(Horde_Tree::TOGGLE . $this->_instance));
+        return ($this->_tree->nodeId($id) == $GLOBALS['injector']->getInstance('Horde_Variables')->get(Horde_Tree::TOGGLE . $this->_tree->instance));
     }
 
 }

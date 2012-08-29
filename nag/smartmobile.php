@@ -24,11 +24,7 @@ $view->logout = $registry->getServiceLink('logout')->setRaw(false);
 
 /* Get the full, sorted task list. */
 try {
-    $tasks = Nag::listTasks(
-        $prefs->getValue('sortby'),
-        $prefs->getValue('sortdir'),
-        $prefs->getValue('altsortby')
-     );
+    $tasks = Nag::listTasks(array('include_tags' => true));
 } catch (Nag_Exception $e) {
     $notification->push($tasks, 'horde.error');
     $tasks = new Nag_Task();

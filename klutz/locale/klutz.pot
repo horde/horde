@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Klutz H4 (2.0.0-git)\n"
+"Project-Id-Version: Klutz H5 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: comics.php:301 templates/comics/comic.inc:5 templates/comics/comic.inc:8
+#: comics.php:307 templates/comics/comic.inc:5 templates/comics/comic.inc:8
 #: templates/comics/main.inc:45 templates/comics/missing.inc:5
 #: templates/comics/missing.inc:8
 #, php-format
@@ -36,7 +36,7 @@ msgstr ""
 msgid "All Dates"
 msgstr ""
 
-#: backend.php:256
+#: backend.php:259
 #, php-format
 msgid "An error occurred removing %s for %s<br />\n"
 msgstr ""
@@ -59,11 +59,11 @@ msgstr ""
 msgid "Comics"
 msgstr ""
 
-#: backend.php:127 backend.php:137
+#: backend.php:129 backend.php:140
 msgid "Comics Update"
 msgstr ""
 
-#: backend.php:255
+#: backend.php:258
 #, php-format
 msgid "Could not find %s for %s<br />\n"
 msgstr ""
@@ -96,7 +96,7 @@ msgstr ""
 msgid "Don't check for uniqueness"
 msgstr ""
 
-#: backend.php:225
+#: backend.php:228
 msgid "Done"
 msgstr ""
 
@@ -108,7 +108,7 @@ msgstr ""
 msgid "Enter any tags for this image"
 msgstr ""
 
-#: backend.php:231
+#: backend.php:234
 msgid "Error storing the image"
 msgstr ""
 
@@ -120,12 +120,12 @@ msgstr ""
 msgid "Fetch Comics"
 msgstr ""
 
-#: backend.php:209
+#: backend.php:212
 #, php-format
 msgid "Fetching %s for date %s..."
 msgstr ""
 
-#: backend.php:227
+#: backend.php:230
 #, php-format
 msgid "Fetching %s for date %s...Done"
 msgstr ""
@@ -162,11 +162,11 @@ msgstr ""
 msgid "Rebuild Unique Identifiers file."
 msgstr ""
 
-#: comics.php:216 comics.php:218 comics.php:313 comics.php:315
+#: comics.php:220 comics.php:222 comics.php:319 comics.php:321
 msgid "Save Comic to Gallery"
 msgstr ""
 
-#: savecomic.php:63
+#: savecomic.php:64
 msgid "Save Image"
 msgstr ""
 
@@ -190,12 +190,12 @@ msgstr ""
 msgid "Show comics you haven't selected on the browse page?"
 msgstr ""
 
-#: backend.php:234
+#: backend.php:237
 #, php-format
 msgid "Skipping %s for %s"
 msgstr ""
 
-#: backend.php:206
+#: backend.php:209
 #, php-format
 msgid "Skipping %s for %s - no historical fetching"
 msgstr ""
@@ -204,7 +204,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: backend.php:254
+#: backend.php:257
 #, php-format
 msgid "Successfully removed %s for %s<br />\n"
 msgstr ""
@@ -213,7 +213,7 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: backend.php:216 backend.php:218
+#: backend.php:219 backend.php:221
 msgid "The image doesn't exist or can't be retrieved"
 msgstr ""
 
@@ -225,11 +225,11 @@ msgstr ""
 msgid "There was an error retrieving the comic."
 msgstr ""
 
-#: comics.php:242
+#: comics.php:246
 msgid "This comic doesn't exist or is disabled."
 msgstr ""
 
-#: backend.php:222
+#: backend.php:225
 #, php-format
 msgid "This image appears to be a repeat (%s)"
 msgstr ""
@@ -277,15 +277,15 @@ msgstr ""
 msgid "_Update"
 msgstr ""
 
-#: backend.php:275 backend.php:277
+#: backend.php:278 backend.php:280
 msgid "all comics"
 msgstr ""
 
-#: backend.php:271
+#: backend.php:274
 msgid "any comics"
 msgstr ""
 
-#: backend.php:271
+#: backend.php:274
 msgid "any dates"
 msgstr ""
 

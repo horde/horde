@@ -26,7 +26,9 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_List_Query_Acl_Cache
-extends Horde_Kolab_Storage_List_Query_Acl_Base
+extends Horde_Kolab_Storage_List_Query_Acl
+implements Horde_Kolab_Storage_List_Manipulation_Listener,
+Horde_Kolab_Storage_List_Synchronization_Listener
 {
     /** The acl support */
     const CAPABILITY = 'ACL';
@@ -39,6 +41,13 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
 
     /** All rights */
     const ALLRIGHTS = 'ALLRIGHTS';
+
+    /**
+     * The underlying ACL query.
+     *
+     * @param Horde_Kolab_Storage_List_Query_Acl
+     */
+    private $_query;
 
     /**
      * The list cache.
@@ -71,14 +80,14 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_List $list   The queriable list.
-     * @param array                    $params Additional parameters.
+     * @param Horde_Kolab_Storage_List_Query_Acl $acl The underlying acl query.
+     * @param Horde_Kolab_Storage_List_Cache $cache The list cache.
      */
-    public function __construct(Horde_Kolab_Storage_List $list,
-                                $params)
+    public function __construct(Horde_Kolab_Storage_List_Query_Acl $query,
+                                Horde_Kolab_Storage_List_Cache $cache)
     {
-        parent::__construct($list, $params);
-        $this->_list_cache = $params['cache'];
+        $this->_query = $query;
+        $this->_list_cache = $cache;
         if ($this->_list_cache->hasQuery(self::ACL)) {
             $this->_acl = $this->_list_cache->getQuery(self::ACL);
         } else {
@@ -88,6 +97,11 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
             $this->_my_rights = $this->_list_cache->getQuery(self::MYRIGHTS);
         } else {
             $this->_my_rights = array();
+        }
+        if ($this->_list_cache->hasQuery(self::ALLRIGHTS)) {
+            $this->_all_rights = $this->_list_cache->getQuery(self::ALLRIGHTS);
+        } else {
+            $this->_all_rights = array();
         }
     }
 
@@ -101,7 +115,7 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
         if (!$this->_list_cache->issetSupport(self::CAPABILITY)) {
              $this->_list_cache->setSupport(
                  self::CAPABILITY,
-                 parent::hasAclSupport()
+                 $this->_query->hasAclSupport()
              );
              $this->_list_cache->save();
         }
@@ -109,7 +123,11 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
     }
 
     /**
-     * Retrieve the access rights for a folder.
+     * Retrieve the access rights for a folder. This method will use two calls
+     * to the backend. It will first get the individual user rights via
+     * getMyRights and will subsequently fetch all ACL if the user has admin
+     * rights on a folder. If you already know the user has admin rights on a
+     * folder it makes more sense to call getAllAcl() directly.
      *
      * @param string $folder The folder to retrieve the ACL for.
      *
@@ -118,7 +136,7 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
     public function getAcl($folder)
     {
         if (!isset($this->_acl[$folder])) {
-            $this->_acl[$folder] = parent::getAcl($folder);
+            $this->_acl[$folder] = $this->_query->getAcl($folder);
             $this->_list_cache->setQuery(self::ACL, $this->_acl);
             $this->_list_cache->save();
         }
@@ -135,7 +153,7 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
     public function getMyAcl($folder)
     {
         if (!isset($this->_my_rights[$folder])) {
-            $this->_my_rights[$folder] = parent::getMyAcl($folder);
+            $this->_my_rights[$folder] = $this->_query->getMyAcl($folder);
             $this->_list_cache->setQuery(self::MYRIGHTS, $this->_my_rights);
             $this->_list_cache->save();
         }
@@ -154,7 +172,7 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
     public function getAllAcl($folder)
     {
         if (!isset($this->_all_rights[$folder])) {
-            $this->_all_rights[$folder] = parent::getAllAcl($folder);
+            $this->_all_rights[$folder] = $this->_query->getAllAcl($folder);
             $this->_list_cache->setQuery(self::ALLRIGHTS, $this->_all_rights);
             $this->_list_cache->save();
         }
@@ -172,7 +190,7 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
      */
     public function setAcl($folder, $user, $acl)
     {
-        parent::setAcl($folder, $user, $acl);
+        $this->_query->setAcl($folder, $user, $acl);
         $this->_purgeFolder($folder);
     }
 
@@ -186,65 +204,53 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
      */
     public function deleteAcl($folder, $user)
     {
-        parent::deleteAcl($folder, $user);
+        $this->_query->deleteAcl($folder, $user);
         $this->_purgeFolder($folder);
     }
 
     /**
-     * Create a new folder.
+     * Update the listener after creating a new folder.
      *
-     * @param string $folder The path of the folder to create.
+     * @param string $folder The path of the folder that has been created.
      * @param string $type   An optional type for the folder.
      *
      * @return NULL
      */
-    public function createFolder($folder, $type = null)
+    public function updateAfterCreateFolder($folder, $type = null)
     {
     }
 
     /**
-     * Delete a folder.
+     * Update the listener after deleting folder.
      *
-     * @param string $folder The path of the folder to delete.
+     * @param string $folder The path of the folder that has been deleted.
      *
      * @return NULL
      */
-    public function deleteFolder($folder)
+    public function updateAfterDeleteFolder($folder)
     {
         $this->_purgeFolder($folder);
     }
 
     /**
-     * Rename a folder.
+     * Update the listener after renaming a folder.
      *
      * @param string $old The old path of the folder.
      * @param string $new The new path of the folder.
      *
      * @return NULL
      */
-    public function renameFolder($old, $new)
+    public function updateAfterRenameFolder($old, $new)
     {
         $this->_purgeFolder($old);
     }
 
     /**
-     * Return the last sync stamp.
-     *
-     * @return string The stamp.
-     */
-    public function getStamp()
-    {
-        return $this->_list->getStamp();
-    }
-
-    /**
      * Synchronize the ACL information with the information from the backend.
-     *
-     * @param array $params Additional parameters.
      *
      * @return NULL
      */
-    public function synchronize($params = array())
+    public function synchronize()
     {
         $this->_acl = array();
         $this->_my_rights = array();

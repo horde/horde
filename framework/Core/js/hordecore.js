@@ -24,6 +24,7 @@ var HordeCore = {
     alarms: [],
     base: null,
     handlers: {},
+    loading: {},
     notify_handler: function(m) { HordeCore.showNotifications(m); },
     server_error: 0,
     submit_frame: [],
@@ -58,7 +59,7 @@ var HordeCore = {
         document.fire('HordeCore:ajaxFailure', [ t, o ]);
     },
 
-    // opts: (Object) ajaxopts, callback
+    // opts: (Object) ajaxopts, callback, loading
     doAction: function(action, params, opts)
     {
         params = $H(params).clone();
@@ -71,22 +72,27 @@ var HordeCore = {
 
         ajaxopts.parameters = params;
 
-        ajaxopts.onComplete = function(t, o) {
-            this.doActionComplete(t, opts.callback);
+        this.initLoading(opts.loading);
+
+        ajaxopts.onComplete = function(t) {
+            this.doActionComplete(t, opts);
         }.bind(this);
 
-        new Ajax.Request(this.conf.URI_AJAX + action, ajaxopts);
+        return new Ajax.Request(this.conf.URI_AJAX + action, ajaxopts);
     },
 
     // form: (Element) DOM Element (or DOM ID)
-    // opts: (Object) ajaxopts, callback
+    // opts: (Object) ajaxopts, callback, loading
     submitForm: function(form, opts)
     {
         opts = opts || {};
 
         var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts || {});
+
+        this.initLoading(opts.loading);
+
         ajaxopts.onComplete = function(t, o) {
-            this.doActionComplete(t, opts.callback);
+            this.doActionComplete(t, opts);
         }.bind(this);
 
         $(form).request(ajaxopts);
@@ -132,7 +138,7 @@ var HordeCore = {
         sf.observe('load', function(sf) {
             this.doActionComplete({
                 responseJSON: (sf.contentDocument || sf.contentWindow.document).body.innerHTML.evalJSON(true)
-            }, opts.callback);
+            }, opts);
         }.bind(this, sf));
 
         this.submit_frame[form.identify()] = sf;
@@ -146,22 +152,25 @@ var HordeCore = {
         }
     },
 
-    doActionComplete: function(request, callback)
+    // resp = Ajax.Response object
+    // opts = HordeCore options (callback, loading)
+    doActionComplete: function(resp, opts)
     {
         this.inAjaxCallback = true;
 
-        if (!request.responseJSON) {
+        if (!resp.responseJSON) {
             if (++this.server_error == 3) {
                 this.notify(this.text.ajax_timeout, 'horde.error');
             }
-            if (request.request) {
-                request.request.options.onFailure(request, {});
+            if (resp.request) {
+                resp.request.options.onFailure(resp, {});
             }
+            this.endLoading(opts.loading);
             this.inAjaxCallback = false;
             return;
         }
 
-        var r = request.responseJSON;
+        var r = resp.responseJSON;
 
         if (r.reload) {
             if (r.reload === true) {
@@ -185,12 +194,15 @@ var HordeCore = {
         this.server_error = 0;
 
         if (r.tasks) {
-            document.fire('HordeCore:runTasks', r.tasks);
+            document.fire('HordeCore:runTasks', {
+                response: resp,
+                tasks: r.tasks
+            });
         }
 
-        if (r.response && Object.isFunction(callback)) {
+        if (r.response && Object.isFunction(opts.callback)) {
             try {
-                callback(r.response);
+                opts.callback(r.response, resp);
             } catch (e) {
                 this.debug('doActionComplete', e);
             }
@@ -200,7 +212,33 @@ var HordeCore = {
 
         this.notify_handler(r.msgs);
 
+        this.endLoading(opts.loading);
+
         this.inAjaxCallback = false;
+    },
+
+    initLoading: function(id)
+    {
+        if (id && id.length) {
+            if (this.loading[id]) {
+                ++this.loading[id];
+            } else {
+                this.loading[id] = 1;
+                document.fire('HordeCore:loadingStart', id);
+            }
+        }
+    },
+
+    endLoading: function(id)
+    {
+        if (id && id.length && this.loading[id]) {
+            if (this.loading[id] == 1) {
+                delete this.loading[id];
+                document.fire('HordeCore:loadingEnd', id);
+            } else {
+                --this.loading[id];
+            }
+        }
     },
 
     showNotifications: function(msgs)
@@ -220,6 +258,7 @@ var HordeCore = {
 
             switch (m.type) {
             case 'horde.ajaxtimeout':
+            case 'horde.noauth':
                 this.logout(m.message);
                 return true;
 
@@ -299,7 +338,7 @@ var HordeCore = {
                         className: m.type.replace('.', '-'),
                         life: (m.type == 'horde.error' ? 12 : 8),
                         log: 1,
-                        sticky: m.flags.include('sticky')
+                        sticky: m.flags && m.flags.include('sticky')
                     }
                 );
                 break;
@@ -376,7 +415,7 @@ var HordeCore = {
         var url = this.addURLParam(this.conf.URI_DLOAD, params);
         // Guaranteed to have at least one URL parameter, since download
         // URL requires the app name. So just append filename to end.
-        url += '&fn=/' . encodeURIComponent(name);
+        url += '&fn=/' + encodeURIComponent(name);
         window.location.assign(url);
     },
 

@@ -15,7 +15,7 @@ $argv = new Horde_Argv_Parser(array('description' => $description));
 $argv->addOption(
     '-b', '--backend',
     array('type' => 'choice',
-          'choices' => array('sql', 'sqlng', 'kolab', 'datatree'),
+          'choices' => array('sql', 'sqlng', 'kolab'),
           'help' => 'The backend to test. Must be configured in the conf.php configuration file.'));
 $argv->addOption(
     '-c', '--configuration',

@@ -63,7 +63,7 @@ var ImpComposeBase = {
             pos = v.lastIndexOf(',');
 
         if (pos != -1) {
-            v = v.substring(0, pos) + ' ';
+            v = v.substring(0, pos) + ', ';
         }
 
         elt.setValue(v + address + ', ');

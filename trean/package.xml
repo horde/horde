@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-03-26</date>
- <time>21:44:58</time>
+ <date>2012-07-25</date>
+ <time>13:57:26</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -51,6 +51,7 @@
     <file name="CHANGES" role="doc" />
     <file name="CREDITS" role="doc" />
     <file name="INSTALL" role="doc" />
+    <file name="lighttpd-trean.conf" role="doc" />
    </dir> <!-- /docs -->
    <dir name="lib">
     <dir name="Ajax">
@@ -67,14 +68,14 @@
      <file name="Search.php" role="horde" />
     </dir> <!-- /lib/Forms -->
     <dir name="View">
-     <file name="Browse.php" role="horde" />
+     <file name="BookmarkList.php" role="horde" />
     </dir> <!-- /lib/View -->
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Bookmark.php" role="horde" />
     <file name="Bookmarks.php" role="horde" />
     <file name="Exception.php" role="horde" />
-    <file name="TagBrowse.php" role="horde" />
+    <file name="TagBrowser.php" role="horde" />
     <file name="Tagger.php" role="horde" />
     <file name="Trean.php" role="horde" />
    </dir> <!-- /lib -->
@@ -222,43 +223,7 @@
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="silver">
-     <dir name="graphics">
-      <dir name="folders">
-       <file name="folder_create.png" role="horde" />
-       <file name="folder_delete.png" role="horde" />
-       <file name="folder_edit.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/folders -->
-      <dir name="http">
-       <file name="1xx.png" role="horde" />
-       <file name="2xx.png" role="horde" />
-       <file name="3xx.png" role="horde" />
-       <file name="4xx.png" role="horde" />
-       <file name="5xx.png" role="horde" />
-       <file name="error.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/http -->
-      <dir name="protocol">
-       <file name="ftp.png" role="horde" />
-       <file name="http.png" role="horde" />
-       <file name="https.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/protocol -->
-      <file name="add.png" role="horde" />
-      <file name="az.png" role="horde" />
-      <file name="data.png" role="horde" />
-      <file name="delete.png" role="horde" />
-      <file name="edit.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="minus.png" role="horde" />
-      <file name="perms.png" role="horde" />
-      <file name="plus.png" role="horde" />
-      <file name="rating-star.gif" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="trean.png" role="horde" />
-      <file name="za.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="add.php" role="horde" />
    <file name="browse.php" role="horde" />
    <file name="edit.php" role="horde" />
@@ -303,12 +268,13 @@
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
+   <install as="lighttpd-trean.conf" name="docs/lighttpd-trean.conf" />
    <install as="trean/lib/Api.php" name="lib/Api.php" />
    <install as="trean/lib/Application.php" name="lib/Application.php" />
    <install as="trean/lib/Bookmark.php" name="lib/Bookmark.php" />
    <install as="trean/lib/Bookmarks.php" name="lib/Bookmarks.php" />
    <install as="trean/lib/Exception.php" name="lib/Exception.php" />
-   <install as="trean/lib/TagBrowse.php" name="lib/TagBrowse.php" />
+   <install as="trean/lib/TagBrowser.php" name="lib/TagBrowser.php" />
    <install as="trean/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="trean/lib/Trean.php" name="lib/Trean.php" />
    <install as="trean/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
@@ -316,7 +282,7 @@
    <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
    <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
    <install as="trean/lib/Forms/Search.php" name="lib/Forms/Search.php" />
-   <install as="trean/lib/View/Browse.php" name="lib/View/Browse.php" />
+   <install as="trean/lib/View/BookmarkList.php" name="lib/View/BookmarkList.php" />
    <install as="trean/locale/.htaccess" name="locale/.htaccess" />
    <install as="trean/locale/trean.pot" name="locale/trean.pot" />
    <install as="trean/locale/de/help.xml" name="locale/de/help.xml" />
@@ -388,33 +354,7 @@
    <install as="trean/themes/default/graphics/protocol/ftp.png" name="themes/default/graphics/protocol/ftp.png" />
    <install as="trean/themes/default/graphics/protocol/http.png" name="themes/default/graphics/protocol/http.png" />
    <install as="trean/themes/default/graphics/protocol/https.png" name="themes/default/graphics/protocol/https.png" />
-   <install as="trean/themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="trean/themes/silver/graphics/add.png" name="themes/silver/graphics/add.png" />
-   <install as="trean/themes/silver/graphics/az.png" name="themes/silver/graphics/az.png" />
-   <install as="trean/themes/silver/graphics/data.png" name="themes/silver/graphics/data.png" />
-   <install as="trean/themes/silver/graphics/delete.png" name="themes/silver/graphics/delete.png" />
-   <install as="trean/themes/silver/graphics/edit.png" name="themes/silver/graphics/edit.png" />
-   <install as="trean/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
-   <install as="trean/themes/silver/graphics/minus.png" name="themes/silver/graphics/minus.png" />
-   <install as="trean/themes/silver/graphics/perms.png" name="themes/silver/graphics/perms.png" />
-   <install as="trean/themes/silver/graphics/plus.png" name="themes/silver/graphics/plus.png" />
-   <install as="trean/themes/silver/graphics/rating-star.gif" name="themes/silver/graphics/rating-star.gif" />
-   <install as="trean/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
-   <install as="trean/themes/silver/graphics/trean.png" name="themes/silver/graphics/trean.png" />
-   <install as="trean/themes/silver/graphics/za.png" name="themes/silver/graphics/za.png" />
-   <install as="trean/themes/silver/graphics/folders/folder_create.png" name="themes/silver/graphics/folders/folder_create.png" />
-   <install as="trean/themes/silver/graphics/folders/folder_delete.png" name="themes/silver/graphics/folders/folder_delete.png" />
-   <install as="trean/themes/silver/graphics/folders/folder_edit.png" name="themes/silver/graphics/folders/folder_edit.png" />
-   <install as="trean/themes/silver/graphics/http/1xx.png" name="themes/silver/graphics/http/1xx.png" />
-   <install as="trean/themes/silver/graphics/http/2xx.png" name="themes/silver/graphics/http/2xx.png" />
-   <install as="trean/themes/silver/graphics/http/3xx.png" name="themes/silver/graphics/http/3xx.png" />
-   <install as="trean/themes/silver/graphics/http/4xx.png" name="themes/silver/graphics/http/4xx.png" />
-   <install as="trean/themes/silver/graphics/http/5xx.png" name="themes/silver/graphics/http/5xx.png" />
-   <install as="trean/themes/silver/graphics/http/error.png" name="themes/silver/graphics/http/error.png" />
-   <install as="trean/themes/silver/graphics/protocol/ftp.png" name="themes/silver/graphics/protocol/ftp.png" />
-   <install as="trean/themes/silver/graphics/protocol/http.png" name="themes/silver/graphics/protocol/http.png" />
-   <install as="trean/themes/silver/graphics/protocol/https.png" name="themes/silver/graphics/protocol/https.png" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -426,7 +366,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-03-26</date>
+   <date>2012-07-25</date>
    <license uri="TODO">TODO</license>
    <notes>
 * Initial release.

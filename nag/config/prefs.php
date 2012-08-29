@@ -59,7 +59,7 @@ $prefGroups['external'] = array(
 
 // columns in the list view
 $_prefs['tasklist_columns'] = array(
-    'value' => 'a:3:{i:0;s:8:"priority";i:1;s:3:"due";i:2;s:8:"category";}',
+    'value' => 'a:2:{i:0;s:8:"priority";i:1;s:3:"due";}',
     'type' => 'multienum',
     'enum' => array(
         'tasklist' => _("Task List"),
@@ -67,16 +67,9 @@ $_prefs['tasklist_columns'] = array(
         'assignee' => _("Assignee"),
         'due' => _("Due Date"),
         'start' => _("Start Date"),
-        'estimate' => _("Estimated Time"),
-        'category' => _("Category")
+        'estimate' => _("Estimated Time")
     ),
     'desc' => _("Select the columns that should be shown in the list view:")
-);
-
-// show the task list options panel?
-// a value of 0 = no, 1 = yes
-$_prefs['show_panel'] = array(
-    'value' => 1
 );
 
 // user preferred sorting column
@@ -86,7 +79,6 @@ $_prefs['sortby'] = array(
     'enum' => array(
         Nag::SORT_PRIORITY => _("Priority"),
         Nag::SORT_NAME => _("Task Name"),
-        Nag::SORT_CATEGORY => _("Category"),
         Nag::SORT_DUE => _("Due Date"),
         Nag::SORT_START => _("Start Date"),
         Nag::SORT_COMPLETION => _("Completed?"),
@@ -99,12 +91,11 @@ $_prefs['sortby'] = array(
 
 // alternate sort column
 $_prefs['altsortby'] = array(
-    'value' => Nag::SORT_CATEGORY,
+    'value' => Nag::SORT_DUE,
     'type' => 'enum',
     'enum' => array(
         Nag::SORT_PRIORITY => _("Priority"),
         Nag::SORT_NAME => _("Task Name"),
-        Nag::SORT_CATEGORY => _("Category"),
         Nag::SORT_DUE => _("Due Date"),
         Nag::SORT_START => _("Start Date"),
         Nag::SORT_COMPLETION => _("Completed?"),
@@ -224,11 +215,6 @@ $_prefs['show_completed'] = array(
     'desc' => _("Show complete, incomplete, or all tasks in the task list?"),
 );
 
-// user task categories
-$_prefs['task_categories'] = array(
-    'value' => ''
-);
-
 // default tasklists
 // Set locked to true if you don't want users to have multiple task lists.
 $_prefs['default_tasklist'] = array(
@@ -238,7 +224,7 @@ $_prefs['default_tasklist'] = array(
     'desc' => _("Your default task list:"),
     'on_init' => function($ui) {
         $enum = array();
-        foreach (Nag::listTasklists() as $key => $val) {
+        foreach (Nag::listTasklists(false, Horde_Perms::EDIT, false) as $key => $val) {
             $enum[htmlspecialchars($key)] = htmlspecialchars($val->get('name'));
         }
         $ui->prefs['default_tasklist']['enum'] = $enum;
@@ -277,7 +263,7 @@ $_prefs['sync_lists'] = array(
         if (empty($sync)) {
             $GLOBALS['prefs']->setValue('sync_lists', serialize(array(Nag::getDefaultTasklist())));
         }
-        foreach (Nag::listTasklists(false, Horde_Perms::EDIT) as $key => $list) {
+        foreach (Nag::listTasklists(false, Horde_Perms::EDIT, false) as $key => $list) {
             if ($list->getName() != Nag::getDefaultTasklist(Horde_Perms::EDIT)) {
                 $enum[$key] = $list->get('name');
             }

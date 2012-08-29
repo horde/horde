@@ -43,7 +43,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testGetList()
     {
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Decorator_Cache',
+            'Horde_Kolab_Storage_List_Tools',
             $this->createCachedStorage()->getList()
         );
     }

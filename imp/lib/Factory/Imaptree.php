@@ -51,7 +51,7 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
                 try {
                     $instance = @unserialize($cache->get($session->get('imp', 'treeob'), 86400));
                 } catch (Exception $e) {
-                    Horde::logMessage('Could not unserialize stored IMP_Imap_Tree object.', 'DEBUG');
+                    Horde::log('Could not unserialize stored IMP_Imap_Tree object.', 'DEBUG');
                 }
             }
         } else {

@@ -139,31 +139,10 @@ implements Horde_Kolab_Storage
             $driver = $this->_master;
         }
         if (!isset($this->_lists[$driver->getId()])) {
-            $list = $this->_createList($driver, $this->_factory);
-            if (isset($this->_params['logger'])) {
-                $list = new Horde_Kolab_Storage_List_Decorator_Log(
-                    $list, $this->_params['logger']
-                );
-            }
-            $this->_query_set->addListQuerySet($list);
-            $this->_lists[$driver->getId()] = $list;
+            $this->_lists[$driver->getId()] = new Horde_Kolab_Storage_List_Tools($driver, $this->_params);
         }
         return $this->_lists[$driver->getId()];
     }
-
-    /**
-     * Create the folder list object.
-     *
-     * @param Horde_Kolab_Storage_Driver  $master  The primary connection driver.
-     * @param Horde_Kolab_Storage_Factory $factory The factory.
-     *
-     * @return Horde_Kolab_Storage_List The handler for the list of folders
-     *                                  present in the Kolab backend.
-     */
-    abstract protected function _createList(
-        Horde_Kolab_Storage_Driver $master,
-        Horde_Kolab_Storage_Factory $factory
-    );
 
     /**
      * Get a Folder object.
@@ -174,7 +153,12 @@ implements Horde_Kolab_Storage
      */
     public function getFolder($folder)
     {
-        return $this->getList()->getFolder($folder);
+        return new Horde_Kolab_Storage_Folder_Base(
+            $this->getList()->getQuery(
+                Horde_Kolab_Storage_List_Tools::QUERY_BASE
+            ),
+            $folder
+        );
     }
 
     /**
@@ -206,7 +190,7 @@ implements Horde_Kolab_Storage
         );
         if (!isset($this->_data[$key])) {
             if (!$folder instanceOf Horde_Kolab_Storage_Folder) {
-                $folder = $this->getList()->getFolder($folder);
+                $folder = $this->getFolder($folder);
             }
             $this->_data[$key] = $this->_createData(
                 $folder,

@@ -41,12 +41,12 @@ class IMP_Minimal_Messagepart extends IMP_Minimal_Base
         }
 
         if (isset($this->vars->atc)) {
-            $summary = $imp_contents->getSummary($this->vars->atc, IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS | IMP_Contents::SUMMARY_DOWNLOAD_NOJS);
+            $summary = $imp_contents->getSummary($this->vars->atc, IMP_Contents::SUMMARY_SIZE | IMP_Contents::SUMMARY_DESCRIP | IMP_Contents::SUMMARY_DOWNLOAD);
 
             $this->title = _("Download Attachment");
 
-            $this->view->descrip = $summary['description'];
-            $this->view->download = $summary['download'];
+            $this->view->descrip = $summary['description_raw'];
+            $this->view->download = $summary['download_url'];
             $this->view->size = $summary['size'];
             $this->view->type = $summary['type'];
         } else {

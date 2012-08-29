@@ -37,7 +37,7 @@ class Nag_Driver_Kolab extends Nag_Driver
     public function __construct($tasklist, $params = array())
     {
         $this->_tasklist = $tasklist;
-        $this->_kolab = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
+        $this->_kolab = $params['kolab'];
     }
 
     /**
@@ -303,7 +303,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             $object['completed_date'] = $task['completed_date'];
         }
         if ($task['estimate'] !== 0.0) {
-            $object['estimate'] = number_format($task['estimate'], 2);
+            $object['estimate'] = number_format((float)$task['estimate'], 2);
         }
         if ($task['methods'] !== null) {
             $object['horde-alarm-methods'] = serialize($task['methods']);

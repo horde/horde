@@ -191,16 +191,6 @@ class Horde_ActiveSync_SyncCache
     }
 
     /**
-     * Return the known collection keys from the cache.
-     *
-     * @return array  An array of collection keys (ids).
-     */
-    public function getCollectionKeys()
-    {
-        return array_keys($this->_data['collections']);
-    }
-
-    /**
      * Return the count of available collections in the cache
      *
      * @param integer  The count.
@@ -212,6 +202,14 @@ class Horde_ActiveSync_SyncCache
         }
 
         return count($this->_data['collections']);
+    }
+
+    /**
+     * Remove all collection data.
+     */
+    public function clearCollections()
+    {
+        $this->_data['collections'] = array();
     }
 
     /**
@@ -227,12 +225,51 @@ class Horde_ActiveSync_SyncCache
     }
 
     /**
+     * Set a specific collection to be PINGable.
+     *
+     * @param string  $collectionid  The collection id.
+     */
+    public function setPingableCollection($collectionid)
+    {
+        if (empty($this->_data['collections'][$collectionid])) {
+            throw new InvalidArgumentException('Collection does not exist');
+        }
+        $this->_data['collections'][$collectionid]['pingable'] = true;
+    }
+
+    /**
+     * Set a collection as non-PINGable.
+     *
+     * @param string $collectionid  The collection id.
+     */
+    public function removePingableCollection($collectionid)
+    {
+         if (empty($this->_data['collections'][$collectionid])) {
+            throw new InvalidArgumentException('Collection does not exist');
+        }
+        $this->_data['collections'][$collectionid]['pingable'] = false;
+    }
+
+    /**
+     * Check if a specified collection is PINGable.
+     *
+     * @param string  The collection id.
+     *
+     * @return boolean
+     */
+    public function collectionIsPingable($collectionid)
+    {
+        return !empty($this->_data['collections'][$collectionid]) &&
+               !empty($this->_data['collections'][$collectionid]['pingable']);
+    }
+
+    /**
      * Refresh the cached collections from the state backend.
      *
      */
     public function refreshCollections()
     {
-        $data = $this->_state->getSyncCache(
+        $syncCache = $this->_state->getSyncCache(
             $this->_devid, $this->_user);
         $this->_data['collections'] = array();
         $cache_collections = $syncCache['collections'];
@@ -242,7 +279,7 @@ class Horde_ActiveSync_SyncCache
             }
             $cache_collection['id'] = $id;
             $cache_collection['synckey'] = $cache_collection['lastsynckey'];
-            $this->_data['collections'][] = $cache_collection;
+            $this->_data['collections'][$id] = $cache_collection;
         }
     }
 
@@ -385,9 +422,13 @@ class Horde_ActiveSync_SyncCache
             if (isset($collection['bodyprefs'])) {
                 $this->_data['collections'][$collection['id']]['bodyprefs'] = $collection['bodyprefs'];
             }
+            if (isset($collection['pingable'])) {
+                $this->_data['collections'][$collection['id']]['pingable'] = $collection['pingable'];
+            }
             if ($options['unsetChanges']) {
                 unset($this->_data['collections'][$collection['id']]['getchanges']);
             }
+
         } else {
             $this->_logger->debug(sprintf(
                 'Collection without id found: %s',

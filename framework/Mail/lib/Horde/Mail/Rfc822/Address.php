@@ -23,8 +23,10 @@
  *
  * @property string $bare_address  The bare mailbox@host address.
  * @property string $encoded  The full MIME/IDN encoded address (UTF-8).
+ * @property string $host  Returns the host part (UTF-8).
  * @property string $host_idn  Returns the IDN encoded host part.
  * @property string $label  The shorthand label for this address.
+ * @property string $personal  The personal part (UTF-8).
  * @property string $personal_encoded  The MIME encoded personal part (UTF-8).
  * @property boolean $valid  Returns true if there is enough information in
  *                           object to create a valid address.
@@ -172,6 +174,47 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
         }
 
         return ($this->bare_address == $ob->bare_address);
+    }
+
+    /**
+     * Do a case-insensitive match on the address. Per RFC 822/2822/5322,
+     * although the host portion of an address is case-insensitive, the
+     * mailbox portion is platform dependent.
+     *
+     * @param mixed $ob  Address data.
+     *
+     * @return boolean  True if the data reflects the same case-insensitive
+     *                  address.
+     */
+    public function matchInsensitive($ob)
+    {
+        if (!($ob instanceof Horde_Mail_Rfc822_Address)) {
+            $ob = new Horde_Mail_Rfc822_Address($ob);
+        }
+
+        return (Horde_String::lower($this->bare_address) == Horde_String::lower($ob->bare_address));
+    }
+
+    /**
+     * Do a case-insensitive match on the address for a given domain.
+     * Matches as many parts of the subdomain in the address as is given in
+     * the input.
+     *
+     * @param string $domain  Domain to match.
+     *
+     * @return boolean  True if the address matches the given domain.
+     */
+    public function matchDomain($domain)
+    {
+        $host = $this->host;
+        if (is_null($host)) {
+            return false;
+        }
+
+        $match_domain = explode('.', $domain);
+        $match_host = array_slice(explode('.', $host), count($match_domain) * -1);
+
+        return (strcasecmp($domain, implode('.', $match_host)) === 0);
     }
 
 }

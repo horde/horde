@@ -54,7 +54,7 @@ class IMP_LoginTasks_SystemTask_UpgradeAuth extends Horde_Core_LoginTasks_System
                 $mboxes = $ob->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array('flat' => true));
 
                 foreach ($mboxes as $val) {
-                    $ob->cache->deleteMailbox($val);
+                    $cache->deleteMailbox($val);
                 }
             }
         } catch (Exception $e) {}

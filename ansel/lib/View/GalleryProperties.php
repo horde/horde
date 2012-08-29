@@ -106,6 +106,13 @@ class Ansel_View_GalleryProperties
         $view->url = $this->_params['url'];
         $view->availableThumbs = $this->_thumbStyles();
         $view->galleryViews = $this->_galleryViewStyles();
+        $view->locked = array('download' => $GLOBALS['prefs']->isLocked('default_download'));
+        $view->isOwner = $GLOBALS['registry']->getAuth() &&
+                         $GLOBALS['registry']->getAuth() == $this->_properties['owner'];
+
+        $view->havePretty = $GLOBALS['conf']['image']['prettythumbs'];
+        $view->ages = $GLOBALS['conf']['ages']['limits'];
+
         $js = array('$("gallery_name").focus()');
         if ($GLOBALS['conf']['image']['type'] != 'png') {
             $js[] = 'function checkStyleSelection()

@@ -38,22 +38,22 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
         $mailbox_url = self::url();
 
         /* Perform message actions (via advanced UI). */
-        switch ($vars->checkbox) {
+        switch ($this->vars->checkbox) {
         // 'd' = delete message
         // 'u' = undelete message
         case 'd':
         case 'u':
             $imp_message = $injector->getInstance('IMP_Message');
 
-            if ($vars->checkbox == 'd') {
+            if ($this->vars->checkbox == 'd') {
                 try {
-                    $injector->getInstance('Horde_Token')->validate($vars->mt, 'imp.message-mimp');
-                    $imp_message->delete(new IMP_Indices($vars->indices));
+                    $injector->getInstance('Horde_Token')->validate($this->vars->mt, 'imp.message-mimp');
+                    $imp_message->delete(new IMP_Indices($this->vars->indices));
                 } catch (Horde_Token_Exception $e) {
                     $notification->push($e);
                 }
             } else {
-                $imp_message->undelete(new IMP_Indices($vars->indices));
+                $imp_message->undelete(new IMP_Indices($this->vars->indices));
             }
             break;
 
@@ -61,12 +61,12 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
         // 'ri' = report innocent
         case 'rs':
         case 'ri':
-            IMP_Spam::reportSpam(new IMP_Indices($vars->indices), $vars->actionID == 'rs' ? 'spam' : 'notspam');
+            IMP_Spam::reportSpam(new IMP_Indices($this->vars->indices), $this->vars->checkbox == 'rs' ? 'spam' : 'notspam');
             break;
         }
 
         /* Run through the action handlers. */
-        switch ($vars->actionID) {
+        switch ($this->vars->actionID) {
         // 'm' = message missing
         case 'm':
             $notification->push(_("There was an error viewing the requested message."), 'horde.error');
@@ -79,11 +79,11 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
 
         // 'ds' = do search
         case 'ds':
-            if (!empty($vars->search) &&
+            if (!empty($this->vars->search) &&
                 $imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
                 /* Create the search query and reset the global mailbox
                  * variable. */
-                $q_ob = $imp_search->createQuery(array(new IMP_Search_Element_Text($vars->search, false)), array(
+                $q_ob = $imp_search->createQuery(array(new IMP_Search_Element_Text($this->vars->search, false)), array(
                     'mboxes' => array(IMP::mailbox())
                 ));
                 IMP::setMailboxInfo($q_ob);
@@ -97,7 +97,7 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
 
         /* Build the list of messages in the mailbox. */
         $imp_mailbox = IMP::mailbox()->getListOb();
-        $pageOb = $imp_mailbox->buildMailboxPage($vars->p, $vars->start);
+        $pageOb = $imp_mailbox->buildMailboxPage($this->vars->p, $this->vars->start);
 
         /* Generate page title. */
         $this->title = IMP::mailbox()->display;

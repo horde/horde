@@ -13,9 +13,6 @@
     border-right: 0;
     border-left: 1px solid #888;
 }
-.msgactions li.lastnavbar {
-    border-left: 0;
-}
 .msgactions a.hasmenu {
     padding-right: 0;
     padding-left: 11px;

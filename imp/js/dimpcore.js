@@ -118,8 +118,7 @@ var DimpCore = {
     {
         o = o || {};
 
-        //var elt = new Element('SPAN', { className: 'iconImg popdownImg popdown' }),
-        var elt = new Element('DIV', { className: 'horde-subnavi-arrow horde-icon-arrow-subnavi' }),
+        var elt = new Element('SPAN', { className: 'horde-popdown' }),
             ins = {};
         p = $(p);
 
@@ -149,7 +148,6 @@ var DimpCore = {
     addPopdownButton: function(p, t, o)
     {
         this.addPopdown(p, t, o);
-        //$(p).next('SPAN.popdown').insert({ before: new Element('SPAN', { className: 'popdownSep' }) });
     },
 
     addContextMenu: function(p)
@@ -190,7 +188,7 @@ var DimpCore = {
         df.removeChild(df.lastChild);
 
         if (alist.addr.size() > 15) {
-            tmp = $('largeaddrspan').clone(true).addClassName('largeaddrspan_active');
+            tmp = $('largeaddrspan').clone(true).addClassName('largeaddrspan_active').writeAttribute({ id: null });
             elt.insert(tmp);
             base = tmp.down('.dispaddrlist');
             tmp = tmp.down('.largeaddrlist');
@@ -215,22 +213,15 @@ var DimpCore = {
     /* Add message log info to message view. */
     updateMsgLog: function(log)
     {
-        var df, tmp;
-
-        if (log) {
-            df = document.createDocumentFragment();
-            log.each(function(entry) {
-                df.appendChild(new Element('LI').insert(new Element('SPAN', { className: 'iconImg imp-' + entry.t })).insert(entry.m));
-            });
-
+        var df = document.createDocumentFragment(),
             tmp = $('msgloglist').down('UL');
-            tmp.childElements().invoke('remove');
-            tmp.appendChild(df);
 
-            $('msgLogInfo').show();
-        } else {
-            $('msgLogInfo').hide();
-        }
+        log.each(function(entry) {
+            df.appendChild(new Element('LI').insert(new Element('SPAN', { className: 'iconImg imp-' + entry.t })).insert(entry.m));
+        });
+
+        tmp.childElements().invoke('remove');
+        tmp.appendChild(df);
     },
 
     // Abstract: define in any pages that need reloadMessage().

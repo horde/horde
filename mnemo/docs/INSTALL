@@ -12,7 +12,7 @@ README_ in the top-level directory of the Mnemo distribution.
 Prerequisites
 =============
 
-To function properly, Mnemo requires the following:
+To function properly, Mnemo **requires** the following:
 
 1. A working Horde installation.
 
@@ -72,9 +72,7 @@ your PHP configuration::
 Installing from Git
 ~~~~~~~~~~~~~~~~~~~
 
-See::
-
-   http://horde.org/source/git.php
+See http://www.horde.org/source/git.php
 
 
 Configuring Mnemo

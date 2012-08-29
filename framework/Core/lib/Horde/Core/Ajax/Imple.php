@@ -108,6 +108,13 @@ abstract class Horde_Core_Ajax_Imple
      */
     public function handle(Horde_Variables $vars)
     {
+        if (isset($vars->imple_submit)) {
+            $submit = Horde_Serialize::unserialize($vars->imple_submit, Horde_Serialize::JSON);
+            $vars->imple_submit = is_object($submit)
+                ? $submit
+                : new stdClass();
+        }
+
         return ($this->_auth && !$GLOBALS['registry']->getAuth())
             ? false
             : $this->_handle($vars);
@@ -165,7 +172,7 @@ abstract class Horde_Core_Ajax_Imple
     }
 
     /**
-     * Javascript code to run on a successfult AJAX response.
+     * Javascript code to run on a successful AJAX response.
      * e.memo contains the AJAX response.
      *
      * @param string $js  JS code to run.

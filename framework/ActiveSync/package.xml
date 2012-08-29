@@ -10,15 +10,15 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-05</date>
- <time>23:31:02</time>
+ <date>2012-08-29</date>
+ <time>15:10:20</time>
  <version>
-  <release>2.0.0beta1</release>
-  <api>2.0.0alpha1</api>
+  <release>2.0.0beta4</release>
+  <api>2.0.0beta1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -119,7 +119,9 @@
       <file name="Sync.php" role="php" />
       <file name="SyncCache.php" role="php" />
       <file name="Timezone.php" role="php" />
-      <file name="Translation.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
       <file name="Utils.php" role="php" />
       <file name="Wbxml.php" role="php" />
      </dir> <!-- /lib/Horde/ActiveSync -->
@@ -193,53 +195,53 @@
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.8</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_ICalendar</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
    <package>
-    <name>Horde_Core</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.2.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+     <name>Horde_Imap_Client</name>
+     <channel>pear.horde.org</channel>
+     <min>2.0.0beta1</min>
+     <max>3.0.0alpha1</max>
+     <exclude>3.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -726,11 +728,56 @@
   <release>
    <version>
     <release>2.0.0beta1</release>
-    <api>2.0.0alpha1</api></version>
+    <api>2.0.0beta1</api></version>
    <stability>
     <release>beta</release>
-    <api>alpha</api></stability>
-   <date>2012-07-05</date>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* First beta release for Horde 5.
+* [mjr] Fix some issues that were causing infinite loops on iOS
+* [jan] Fix finding locale directory if installed with PEAR.
+* [mjr] Fix issue where FILTERTYPE parameter was not being honored on some clients.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Properly send 401 responses in certain circumstances.
+* [mjr] Improvements to autoconfigure support.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta3</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] SyncKey is no longer incremented when there are no imported or exported changes after the initial SYNC.
+* [mjr] No longer send unnecessary SYNC_COMMANDS tag.
+* [mjr] Build a proper nested folder hierarchy when appropriate.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta4</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 

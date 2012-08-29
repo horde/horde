@@ -60,7 +60,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
             // Tasklists
             if (Kronolith::hasApiPermission('tasks')) {
-                foreach ($GLOBALS['registry']->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
+                foreach ($GLOBALS['registry']->tasks->listTasklists($my, Horde_Perms::SHOW, false) as $id => $tasklist) {
                     if (isset($GLOBALS['all_external_calendars']['tasks/' . $id])) {
                         $owner = ($auth_name &&
                                   ($tasklist->get('owner') == $auth_name));
@@ -342,7 +342,9 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             return $this->_saveEvent($event);
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
-            return $this->_signedResponse($this->_vars->cal);
+            $result = $this->_signedResponse($this->_vars->cal);
+            $result->error = true;
+            return $result;
         }
     }
 
@@ -594,9 +596,14 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         $result = new stdClass;
         $result->list = $this->_vars->list;
         $result->type = $this->_vars->type;
-
         try {
-            $tasks = $GLOBALS['registry']->tasks->listTasks(null, null, null, $this->_vars->list, $this->_vars->type == 'incomplete' ? 'future_incomplete' : $this->_vars->type, true);
+            $tasks = $GLOBALS['registry']->tasks
+                ->listTasks(array(
+                    'tasklists' => $this->_vars->list,
+                    'completed' => $this->_vars->type == 'incomplete' ? 'future_incomplete' : $this->_vars->type,
+                    'include_tags' => true,
+                    'json' => true)
+            );
             if (count($tasks)) {
                 $result->tasks = $tasks;
             }
@@ -694,6 +701,8 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $task['recurrence'] = Kronolith_Event::readRecurrenceForm($due, 'UTC');
         }
 
+        $task['tags'] = Horde_Util::getFormData('tags');
+
         try {
             $ids = ($id && $list)
                 ? $GLOBALS['registry']->tasks->updateTask($list, $id, $task)
@@ -728,6 +737,37 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
             }
+        }
+
+        return $result;
+    }
+
+    /**
+     * TODO
+     */
+    public function quickSaveTask()
+    {
+        if (!$GLOBALS['registry']->hasMethod('tasks/quickAdd')) {
+            return false;
+        }
+
+        $result = $this->_signedResponse(
+            'tasklists|tasks/' . $this->_vars->tasklist);
+
+        try {
+            $ids = $GLOBALS['registry']->tasks->quickAdd($this->_vars->text);
+            $result->type = 'incomplete';
+            $result->list = $this->_vars->tasklist;
+            $result->tasks = array();
+            foreach ($ids as $uid) {
+                $task = $GLOBALS['registry']->tasks->export($uid, 'raw');
+                $result->tasks[$task->id] = $task->toJson(
+                    false,
+                    $GLOBALS['prefs']->getValue('twentyFour') ? 'H:i' : 'h:i A'
+                );
+            }
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
         }
 
         return $result;
@@ -784,11 +824,73 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         $tagger = new Kronolith_Tagger();
         $result = new stdClass;
         $result->tags = array();
-        $tags = $tagger->getCloud($GLOBALS['registry']->getAuth(), 10);
+        $tags = $tagger->getCloud($GLOBALS['registry']->getAuth(), 10, true);
         foreach ($tags as $tag) {
             $result->tags[] = $tag['tag_name'];
         }
         return $result;
+    }
+
+    /**
+     * Handle a tag action.
+     *  - action: (add, remove, list)
+     *  - tags:
+     *  - resource:
+     *  - type:
+     *
+     * @return string  HTML for all current tags for the current resource.
+     */
+    public function tagAction()
+    {
+        global $injector, $registry;
+
+        $res = new stdClass;
+
+        // Check perms; Only calendar owners my tag a calendar, and only
+        // event creator can tag an event.
+        if ($this->_vars->type == 'event') {
+            $event = Kronolith::getDriver()->getByUID($this->_vars->resource);
+            $cal = $injector->getInstance('Kronolith_Shares')
+                ->getShare($event->calendar);
+            $e_owner = $event->creator;
+        } else {
+            $cal = $injector->getInstance('Kronolith_Shares')
+                ->getShare($this->_vars->resource);
+        }
+        $c_owner = $cal->get('owner');
+
+        // $owner is null for system-owned shares, so an admin has perms.
+        // Otherwise, make sure the resource owner is the current user.
+        $perm = empty($c_owner)
+            ? $registry->isAdmin()
+            : ($c_owner == $registry->getAuth());
+
+        if ($perm) {
+            $tagger = Kronolith::getTagger();
+            $tags = rawurldecode($this->_vars->tags);
+
+            switch ($this->_vars->action) {
+            case 'remove':
+                $tagger->untag($this->_vars->resource, (integer)$tags, $this->_vars->type);
+                $res->removed = $tags;
+                break;
+            case 'add':
+                $tagger->tag(
+                    $this->_vars->resource, $tags, $c_owner, $this->_vars->type);
+                if (!empty($e_owner)) {
+                    $tagger->tag(
+                        $this->_vars->resource, $tags, $e_owner, $this->_vars->type);
+                }
+                // Fallthrough
+            case 'list':
+                $res->tags = $tagger->getTags($this->_vars->resource, $this->_vars->type);
+                if (empty($res->tags)) {
+                    $res->tags = new StdClass();
+                }
+            }
+        }
+
+        return $res;
     }
 
     /**

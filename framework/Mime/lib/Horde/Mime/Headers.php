@@ -348,7 +348,21 @@ class Horde_Mime_Headers implements Serializable
         // Fields defined in RFC 2822 that contain address information
         if (in_array($lcHeader, $this->addressFields())) {
             $rfc822 = new Horde_Mail_Rfc822();
-            $value = strval($rfc822->parseAddressList($value));
+            $addr_list = $rfc822->parseAddressList($value);
+
+            switch ($lcHeader) {
+            case 'bcc':
+            case 'cc':
+            case 'from':
+            case 'to':
+                /* Catch malformed undisclosed-recipients entries. */
+                if ((count($addr_list) == 1) &&
+                    preg_match("/^\s*undisclosed-recipients:?\s*$/i", $addr_list[0]->bare_address)) {
+                    $addr_list = new Horde_Mail_Rfc822_List('undisclosed-recipients:;');
+                }
+                break;
+            }
+            $value = strval($addr_list);
         } else {
             $value = Horde_Mime::decode($value);
         }

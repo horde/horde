@@ -283,11 +283,31 @@ class Horde_Browser
 
         if (strpos($lowerAgent, 'iemobile') !== false ||
             strpos($lowerAgent, 'mobileexplorer') !== false ||
-            strpos($lowerAgent, 'openwave') !== false ||
-            strpos($lowerAgent, 'opera mini') !== false ||
-            strpos($lowerAgent, 'operamini') !== false) {
+            strpos($lowerAgent, 'openwave') !== false) {
             $this->setFeature('frames', false);
             $this->setFeature('javascript', false);
+            $this->setQuirk('avoid_popup_windows');
+            $this->setMobile(true);
+
+            if (preg_match('|iemobile[/ ]([0-9.]+)|', $lowerAgent, $version)) {
+                list($this->_majorVersion, $this->_minorVersion) = explode('.', $version[1]);
+                if ($this->_majorVersion >= 7) {
+                    // Windows Phone, Modern Browser
+                    $this->setBrowser('msie');
+                    $this->setFeature('javascript');
+                    $this->setFeature('xmlhttpreq');
+                    $this->setFeature('ajax');
+                    $this->setFeature('dom');
+                    $this->setFeature('utf');
+                    $this->setFeature('rte');
+                    $this->setFeature('cite');
+                }
+            }
+        } elseif (strpos($lowerAgent, 'opera mini') !== false ||
+                  strpos($lowerAgent, 'operamini') !== false) {
+            $this->setBrowser('opera');
+            $this->setFeature('frames', false);
+            $this->setFeature('javascript');
             $this->setQuirk('avoid_popup_windows');
             $this->setMobile(true);
         } elseif (preg_match('|Opera[/ ]([0-9.]+)|', $agent, $version)) {
@@ -361,6 +381,7 @@ class Horde_Browser
 
             switch ($this->_majorVersion) {
             default:
+            case 10:
             case 9:
             case 8:
             case 7:
@@ -447,9 +468,19 @@ class Horde_Browser
             $this->setFeature('dataurl');
 
             if (strpos($agent, 'Mobile') !== false ||
-                strpos($agent, 'NokiaN') !== false ||
-                strpos($agent, 'SymbianOS') !== false) {
+                strpos($agent, 'Android') !== false ||
+                strpos($agent, 'SAMSUNG-GT') !== false ||
+                ((strpos($agent, 'Nokia') !== false ||
+                 strpos($agent, 'Symbian') !== false) &&
+                 strpos($agent, 'WebKit') !== false) ||
+                (strpos($agent, 'N900') !== false &&
+                 strpos($agent, 'Maemo Browser') !== false) ||
+                (strpos($agent, 'MeeGo') !== false &&
+                strpos($agent, 'NokiaN9') !== false)) {
                 // WebKit Mobile
+                $this->setFeature('frames', false);
+                $this->setFeature('javascript');
+                $this->setQuirk('avoid_popup_windows');
                 $this->setMobile(true);
             }
 

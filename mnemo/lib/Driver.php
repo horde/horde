@@ -36,6 +36,13 @@ abstract class Mnemo_Driver
     protected $_pgp;
 
     /**
+     * Retrieves all of the notes of the current notepad from the backend.
+     *
+     * @thows Mnemo_Exception
+     */
+    abstract public function retrieve();
+
+    /**
      * Lists memos based on the given criteria. All memos will be
      * returned by default.
      *
@@ -75,7 +82,192 @@ abstract class Mnemo_Driver
     }
 
     /**
-     * Remove ALL notes belonging to current user.
+     * Retrieves one note from the backend.
+     *
+     * @param string $noteId      The ID of the note to retrieve.
+     * @param string $passphrase  A passphrase with which this note was
+     *                            supposed to be encrypted.
+     *
+     * @return array  The array of note attributes.
+     * @throws Mnemo_Exception
+     * @throws Horde_Exception_NotFound
+     */
+    abstract public function get($noteId, $passphrase = null);
+
+    /**
+     * Retrieves one note from the backend by UID.
+     *
+     * @param string $uid         The UID of the note to retrieve.
+     * @param string $passphrase  A passphrase with which this note was
+     *                            supposed to be encrypted.
+     *
+     * @return array  The array of note attributes.
+     * @throws Mnemo_Exception
+     * @throws Horde_Exception_NotFound
+     */
+    abstract public function getByUID($uid, $passphrase = null);
+
+    /**
+     * Adds a note to the backend storage.
+     *
+     * @param string $desc        The first line of the note.
+     * @param string $body        The whole note body.
+     * @param string $category    The category of the note.
+     * @param string $passphrase  The passphrase to encrypt the note with.
+     *
+     * @return string  The ID of the new note.
+     * @throws Mnemo_Exception
+     */
+    public function add($desc, $body, $category = '', $passphrase = null)
+    {
+        $noteId = $this->_generateId();
+
+        if ($passphrase) {
+            $body = $this->_encrypt($body, $passphrase);
+            Mnemo::storePassphrase($noteId, $passphrase);
+        }
+
+        $uid = $this->_add($noteId, $desc, $body, $category);
+
+        // Log the creation of this item in the history log.
+        try {
+            $GLOBALS['injector']->getInstance('Horde_History')
+                ->log('mnemo:' . $this->_notepad . ':' . $uid,
+                      array('action' => 'add'), true);
+        } catch (Horde_Exception $e) {
+        }
+
+        return $noteId;
+    }
+
+    /**
+     * Adds a note to the backend storage.
+     *
+     * @param string $noteId    The ID of the new note.
+     * @param string $desc      The first line of the note.
+     * @param string $body      The whole note body.
+     * @param string $category  The category of the note.
+     *
+     * @return string  The unique ID of the new note.
+     * @throws Mnemo_Exception
+     */
+    abstract protected function _add($noteId, $desc, $body, $category);
+
+    /**
+     * Modifies an existing note.
+     *
+     * @param string $noteId      The note to modify.
+     * @param string $desc        The first line of the note.
+     * @param string $body        The whole note body.
+     * @param string $category    The category of the note.
+     * @param string $passphrase  The passphrase to encrypt the note with.
+     *
+     * @throws Mnemo_Exception
+     */
+    public function modify($noteId, $desc, $body, $category = null,
+                           $passphrase = null)
+    {
+        if ($passphrase) {
+            $body = $this->_encrypt($body, $passphrase);
+            Mnemo::storePassphrase($noteId, $passphrase);
+        }
+
+        $uid = $this->_modify($noteId, $desc, $body, $category);
+
+        // Log the modification of this item in the history log.
+        if ($uid) {
+            try {
+                $GLOBALS['injector']->getInstance('Horde_History')
+                    ->log('mnemo:' . $this->_notepad . ':' . $uid,
+                          array('action' => 'modify'), true);
+            } catch (Horde_Exception $e) {
+            }
+        }
+    }
+
+    /**
+     * Modifies an existing note.
+     *
+     * @param string $noteId    The note to modify.
+     * @param string $desc      The first line of the note.
+     * @param string $body      The whole note body.
+     * @param string $category  The category of the note.
+     *
+     * @return string  The note's UID.
+     * @throws Mnemo_Exception
+     */
+    abstract protected function _modify($noteId, $desc, $body, $category);
+
+    /**
+     * Moves a note to a new notepad.
+     *
+     * @param string $noteId      The note to move.
+     * @param string $newNotepad  The new notepad.
+     *
+     * @throws Mnemo_Exception
+     */
+    public function move($noteId, $newNotepad)
+    {
+        $uid = $this->_move($noteId, $newNotepad);
+
+        // Log the moving of this item in the history log.
+        if ($uid) {
+            try {
+                $history = $GLOBALS['injector']->getInstance('Horde_History');
+                $history->log('mnemo:' . $this->_notepad . ':' . $uid,
+                              array('action' => 'delete'), true);
+                $history->log('mnemo:' . $newNotepad . ':' . $uid,
+                              array('action' => 'add'), true);
+            } catch (Horde_Exception $e) {
+            }
+        }
+    }
+
+    /**
+     * Moves a note to a new notepad.
+     *
+     * @param string $noteId      The note to move.
+     * @param string $newNotepad  The new notepad.
+     *
+     * @return string  The note's UID.
+     * @throws Mnemo_Exception
+     */
+    abstract protected function _move($noteId, $newNotepad);
+
+    /**
+     * Deletes a note permanently.
+     *
+     * @param string $noteId  The note to delete.
+     *
+     * @throws Mnemo_Exception
+     */
+    public function delete($noteId)
+    {
+        $uid = $this->_delete($noteId);
+
+        // Log the deletion of this item in the history log.
+        if ($uid) {
+            try {
+                $GLOBALS['injector']->getInstance('Horde_History')
+                    ->log('mnemo:' . $this->_notepad . ':' . $uid,
+                          array('action' => 'delete'), true);
+            } catch (Horde_Exception $e) {
+            }
+        }
+    }
+
+    /**
+     * Deletes a note permanently.
+     *
+     * @param array $note  The note to delete.
+     *
+     * @return string  The note's UID.
+     * @throws Mnemo_Exception
+     */
+    abstract protected function _delete($noteId);
+
+    /**
+     * Deletes all notes from the current notepad.
      *
      * @throws Mnemo_Exception
      */
@@ -92,10 +284,17 @@ abstract class Mnemo_Driver
                     array('action' => 'delete'),
                     true);
             }
-        } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
+        } catch (Horde_Exception $e) {
         }
     }
+
+    /**
+     * Deletes all notes from the current notepad.
+     *
+     * @return array  An array of uids that have been removed.
+     * @throws Mnemo_Exception
+     */
+    abstract protected function _deleteAll();
 
     /**
      * Loads the PGP encryption driver.
@@ -249,17 +448,9 @@ abstract class Mnemo_Driver
     }
 
     /**
-     * Retrieves notes from the database.
+     * Generates a local note ID.
      *
-     * @thows Mnemo_Exception
+     * @return string  A new note ID.
      */
-    abstract public function retrieve();
-
-    /**
-     * Remove all notes belonging to the current notepad.
-     *
-     * @return array  An array of note uids that have been removed.
-     * @throws Mnemo_Exception
-     */
-    abstract protected function _deleteAll();
+    abstract protected function _generateId();
 }

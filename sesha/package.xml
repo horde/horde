@@ -2,37 +2,33 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>sesha</name>
  <channel>pear.horde.org</channel>
- <summary>A simple inventory app for horde 4</summary>
+ <summary>A simple Inventory App for Horde</summary>
  <description>Sesha allows you to define categories with a rich set of attributes to manage your inventory stock</description>
- <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-10</date>
- <time>19:52:03</time>
+ <lead>
+  <name>Ralf Lang</name>
+  <user>rlang</user>
+  <email>lang@b1-systems.de</email>
+  <active>yes</active>
+ </lead>
+ <date>2012-08-08</date>
+ <time>13:43:26</time>
  <version>
-  <release>1.0.0alpha1</release>
-  <api>1.0.0alpha1</api>
+  <release>1.0.0beta2</release>
+  <api>1.0.0beta1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [rla] Use Horde_View in place of Horde_Template
-* [rla] change backend from Sql driver to Rdo driver with enhanced search capabilities
-* [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
-* [rla] Convert to Horde 5 Framework
-* Initial release.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -46,6 +42,8 @@
    <dir name="docs">
     <file name="CHANGES" role="doc" />
     <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
     <file name="TODO" role="doc" />
    </dir> <!-- /docs -->
    <dir name="lib">
@@ -65,10 +63,10 @@
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
     </dir> <!-- /lib/Factory -->
-    <dir name="Forms">
+    <dir name="Form">
      <dir name="Type">
       <file name="Client.php" role="horde" />
-     </dir> <!-- /lib/Forms/Type -->
+     </dir> <!-- /lib/Form/Type -->
      <file name="Category.php" role="horde" />
      <file name="CategoryDelete.php" role="horde" />
      <file name="CategoryList.php" role="horde" />
@@ -77,7 +75,7 @@
      <file name="PropertyList.php" role="horde" />
      <file name="Search.php" role="horde" />
      <file name="Stock.php" role="horde" />
-    </dir> <!-- /lib/Forms -->
+    </dir> <!-- /lib/Form -->
     <dir name="Ui">
      <dir name="VarRenderer">
       <file name="Stockedit_Html.php" role="horde" />
@@ -140,7 +138,7 @@
     <dir name="Sesha">
      <dir name="Unit">
       <dir name="Driver">
-       <file name="SqlTest.php" role="test" />
+       <file name="RdoTest.php" role="test" />
       </dir> <!-- /test/Sesha/Unit/Driver -->
      </dir> <!-- /test/Sesha/Unit -->
      <file name="AllTests.php" role="test" />
@@ -151,8 +149,10 @@
    <dir name="themes">
     <dir name="default">
      <dir name="graphics">
+      <file name="administration.png" role="horde" />
       <file name="az.png" role="horde" />
       <file name="favicon.ico" role="horde" />
+      <file name="search.png" role="horde" />
       <file name="sesha.png" role="horde" />
       <file name="stock.png" role="horde" />
       <file name="za.png" role="horde" />
@@ -180,73 +180,72 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.0</min>
-    <max>6.0.0</max>
-    <exclude>6.0.0</exclude>
+    <min>5.0.0beta1</min>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.4.7</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.8.3</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.2.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.8</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.5</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.6</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.7</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
-  </required>
    <package>
     <name>Horde_Rdo</name>
     <channel>pear.horde.org</channel>
-    <min>1.2.2</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
  </dependencies>
@@ -269,6 +268,8 @@
    <install as="sesha/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="sesha/lib/Api.php" name="lib/Api.php" />
    <install as="sesha/lib/Application.php" name="lib/Application.php" />
@@ -285,15 +286,15 @@
    <install as="sesha/lib/Entity/Value.php" name="lib/Entity/Value.php" />
    <install as="sesha/lib/Entity/ValueMapper.php" name="lib/Entity/ValueMapper.php" />
    <install as="sesha/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
-   <install as="sesha/lib/Forms/Category.php" name="lib/Forms/Category.php" />
-   <install as="sesha/lib/Forms/CategoryDelete.php" name="lib/Forms/CategoryDelete.php" />
-   <install as="sesha/lib/Forms/CategoryList.php" name="lib/Forms/CategoryList.php" />
-   <install as="sesha/lib/Forms/Property.php" name="lib/Forms/Property.php" />
-   <install as="sesha/lib/Forms/PropertyDelete.php" name="lib/Forms/PropertyDelete.php" />
-   <install as="sesha/lib/Forms/PropertyList.php" name="lib/Forms/PropertyList.php" />
-   <install as="sesha/lib/Forms/Search.php" name="lib/Forms/Search.php" />
-   <install as="sesha/lib/Forms/Stock.php" name="lib/Forms/Stock.php" />
-   <install as="sesha/lib/Forms/Type/Client.php" name="lib/Forms/Type/Client.php" />
+   <install as="sesha/lib/Form/Category.php" name="lib/Form/Category.php" />
+   <install as="sesha/lib/Form/CategoryDelete.php" name="lib/Form/CategoryDelete.php" />
+   <install as="sesha/lib/Form/CategoryList.php" name="lib/Form/CategoryList.php" />
+   <install as="sesha/lib/Form/Property.php" name="lib/Form/Property.php" />
+   <install as="sesha/lib/Form/PropertyDelete.php" name="lib/Form/PropertyDelete.php" />
+   <install as="sesha/lib/Form/PropertyList.php" name="lib/Form/PropertyList.php" />
+   <install as="sesha/lib/Form/Search.php" name="lib/Form/Search.php" />
+   <install as="sesha/lib/Form/Stock.php" name="lib/Form/Stock.php" />
+   <install as="sesha/lib/Form/Type/Client.php" name="lib/Form/Type/Client.php" />
    <install as="sesha/lib/Ui/VarRenderer/Stockedit_Html.php" name="lib/Ui/VarRenderer/Stockedit_Html.php" />
    <install as="sesha/lib/View/Base.php" name="lib/View/Base.php" />
    <install as="sesha/lib/View/List.php" name="lib/View/List.php" />
@@ -315,10 +316,12 @@
    <install as="Sesha/AllTests.php" name="test/Sesha/AllTests.php" />
    <install as="Sesha/Autoload.php" name="test/Sesha/Autoload.php" />
    <install as="Sesha/TestCase.php" name="test/Sesha/TestCase.php" />
-   <install as="Sesha/Unit/Driver/SqlTest.php" name="test/Sesha/Unit/Driver/SqlTest.php" />
+   <install as="Sesha/Unit/Driver/RdoTest.php" name="test/Sesha/Unit/Driver/RdoTest.php" />
    <install as="sesha/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="sesha/themes/default/graphics/administration.png" name="themes/default/graphics/administration.png" />
    <install as="sesha/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="sesha/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="sesha/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="sesha/themes/default/graphics/sesha.png" name="themes/default/graphics/sesha.png" />
    <install as="sesha/themes/default/graphics/stock.png" name="themes/default/graphics/stock.png" />
    <install as="sesha/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
@@ -334,14 +337,43 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-05-10</date>
+   <date>2012-07-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [rla] Use Horde_View in place of Horde_Template
-* [rla] change backend from Sql driver to Rdo driver with enhanced search capabilities
+* First alpha release.
+* [rla] Use Horde_View in place of Horde_Template.
+* [rla] change backend from Sql driver to Rdo driver with enhanced search capabilities.
 * [jan] Add Finnish translation (Leena Heino &lt;liinu@uta.fi&gt;).
-* [rla] Convert to Horde 5 Framework
-* Initial release.
+* [rla] Convert to Horde 5 Framework.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0beta1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2012-08-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [rla] Use Horde 5&apos;s CSS for sidebar icons.
+* [rla] Use Horde 5&apos;s New button for the Add Stock menu entry.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta2</release>
+    <api>1.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

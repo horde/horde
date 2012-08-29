@@ -51,7 +51,7 @@ class IMP_Factory_MimeViewer extends Horde_Core_Factory_Base
     {
         $sig = implode('|', array(
             spl_object_hash($mime),
-            spl_object_hash($contents),
+            !is_null($contents) ? spl_object_hash($contents) : '',
             strval($type)
         ));
 

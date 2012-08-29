@@ -108,6 +108,12 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple
     'triggerContainer' => 'kronolithACCalendarTriggerContainer'
 ));
 
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+    'box' => 'kronolithTaskACBox',
+    'id' => 'kronolithTaskTags',
+    'pretty' => true
+));
+
 $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ContactAutoCompleter', array(
     'box' => 'kronolithAttendeesACBox',
     'id' => 'kronolithEventAttendees',
@@ -132,7 +138,12 @@ if ($conf['maps']['driver']) {
 
 $injector->getInstance('Kronolith_Ajax')->init();
 
-require KRONOLITH_TEMPLATES . '/index/index.inc';
+$sidebar = $injector->getInstance('Kronolith_View_Sidebar');
+$topbar = $injector->getInstance('Horde_View_Topbar');
+$topbar->search = true;
+
+echo $topbar->render();
+require KRONOLITH_TEMPLATES . '/dynamic/index.inc';
 
 $page_output->includeScriptFiles();
 $page_output->outputInlineScript();

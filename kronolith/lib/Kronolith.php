@@ -1034,10 +1034,15 @@ class Kronolith
             case 'Yahoo':
                 $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
                 break;
+
+            case 'Bing':
+                $params['conf']['apikeys']['bing'] = $GLOBALS['conf']['api']['bing'];
+                break;
             }
         }
 
         $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
+        $params['ssl'] = $GLOBALS['browser']->usingSSLConnection();
 
         global $page_output;
         $page_output->addScriptFile('map/map.js', 'horde');
@@ -2249,7 +2254,7 @@ class Kronolith
             throw new Kronolith_Exception($e);
         }
 
-        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
+        $senderIdentity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
 
         $owner = $share->get('owner');
         if ($owner) {
@@ -2333,7 +2338,7 @@ class Kronolith
                     $mime_mail = new Horde_Mime_Mail(array(
                         'Subject' => $subject . ' ' . $event->title,
                         'To' => implode(',', $df_recipients),
-                        'From' => $identity->getDefaultFromAddress(true),
+                        'From' => $senderIdentity->getDefaultFromAddress(true),
                         'User-Agent' => 'Kronolith ' . $GLOBALS['registry']->getVersion(),
                         'body' => $message));
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), 'DEBUG');

@@ -23,6 +23,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     const SPECIAL_SPAM   = 'spam';
     const SPECIAL_TRASH  = 'trash';
     const SPECIAL_DRAFTS = 'drafts';
+    const SPECIAL_INBOX  = 'inbox';
 
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
 
@@ -87,6 +88,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *   - imap: (Horde_ActiveSync_Imap_Adapter) The IMAP adapter if email
      *           support is desired.
      *           DEFAULT: none (No email support will be provided).
+     *   - reply_top: (boolean) Place email reply text above original.
+     *                DEFAULT: false (Place reply text below original).
      *
      * @return Horde_ActiveSync_Driver_Horde
      */
@@ -101,6 +104,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         if (empty($this->_params['auth']) ||
             !($this->_params['auth'] instanceof Horde_Auth_Base)) {
             throw new InvalidArgumentException('Missing required Auth object');
+        }
+
+        if (empty($this->_params['reply_top'])) {
+            $this->_params['reply_top'] = false;
         }
 
         $this->_connector = $params['connector'];
@@ -475,6 +482,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
         case Horde_ActiveSync::CLASS_EMAIL:
             if (empty($this->_imap)) {
+                $this->_endBuffer();
                 return array();
             }
             if ($ping) {
@@ -498,7 +506,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             } else {
                 try {
-                    $folder = &$this->_imap->getMessageChanges(
+                    $folder = $this->_imap->getMessageChanges(
                         $folder,
                         array(
                             'sincedate' => (int)$cutoffdate,
@@ -596,7 +604,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw $e;
+                throw new Horde_ActiveSync_Exception($e->getMessage());
             }
             break;
 
@@ -610,7 +618,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw $e;
+                throw new Horde_ActiveSync_Exception($e->getMessage());
             }
             break;
 
@@ -624,7 +632,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw $e;
+                throw new Horde_ActiveSync_Exception($e->getMessage);
             }
             break;
 
@@ -646,10 +654,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         'mimesupport' => $collection['mimesupport']
                     )
                 );
-            } catch (Horde_Exception $e) {
+            } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
-                throw new Horde_ActiveSync_Exception($e);
+                throw $e;
             }
             $this->_endBuffer();
             if (empty($messages)) {
@@ -1052,13 +1060,17 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $smart_text = $smart_body[0] == 'plain'
                         ? self::text2html($smart_body[1])
                         : $smart_body[1];
-                    $newbody_text_html = $smart_text . $this->_replyText($imap_message, $html_id, true);
+                    $newbody_text_html = ($this->_params['reply_top'] ? $smart_text : '')
+                        . $this->_replyText($imap_message, $html_id, true)
+                        . ($this->_params['reply_top'] ? '' : $smart_text);
                 }
                 if ($plain_id) {
                     $smart_text = $smart_body[0] == 'html'
                         ? self::html2text($smart_body[1])
                         : $smart_body[1];
-                    $newbody_text_plain .= $smart_text . $this->_replyText($imap_message, $plain_id);
+                    $newbody_text_plain = ($this->_params['reply_top'] ? $smart_text : '')
+                        . $this->_replyText($imap_message, $plain_id)
+                        . ($this->_params['reply_top'] ? '' : $smart_text);
                 }
             } elseif ($forward) {
                 $this->_logger->debug('Preparing SMART_FORWARD');
@@ -1722,13 +1734,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         if (empty($this->_mailFolders)) {
             if (empty($this->_imap)) {
-                $this->_mailFolders = array($this->_getMailFolder('INBOX', array('label' => 'Inbox')));
+                $this->_mailFolders = array($this->_buildDummyFolder(self::SPECIAL_INBOX));
+                $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_TRASH);
+                $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_SENT);
             } else {
                 $this->_logger->debug('Polling Horde_ActiveSync_Driver_Horde::_getMailFolders()');
                 $folders = array();
                 $imap_folders = $this->_imap->getMailboxes();
-                foreach ($imap_folders as $folder) {
-                    $folders[] = $this->_getMailFolder($folder['ob']->utf8, $folder);
+                foreach ($imap_folders as $id => $folder) {
+                    $folders[] = $this->_getMailFolder($id, $imap_folders, $folder);
                 }
                 $this->_mailFolders = $folders;
             }
@@ -1737,27 +1751,64 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         return $this->_mailFolders;
     }
 
+    protected function _buildDummyFolder($id)
+    {
+        $folder = new Horde_ActiveSync_Message_Folder();
+        $folder->parentid = '0';
+        switch ($id) {
+        case self::SPECIAL_TRASH:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET;
+            $folder->serverid = 'Trash';
+            $folder->displayname = _("Trash");
+            break;
+        case self::SPECIAL_SENT:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_SENTMAIL;
+            $folder->serverid = 'Sent';
+            $folder->displayname = _("Sent");
+            break;
+        case self::SPECIAL_INBOX:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
+            $folder->serverid = 'INBOX';
+            $folder->displayname = _("Inbox");
+            break;
+        }
+
+        return $folder;
+    }
+
     /**
      * Return a folder object representing an email folder. Attempt to detect
      * special folders appropriately.
      *
      * @param string $sid   The server name.
-     * @param array $f      An array describing the folder, as returned from
-     *                      mail/folderlist.
+     * @param array $fl     The complete folder list.
+     * @param array $f      An array describing the folder.
      *
      * @return Horde_ActiveSync_Message_Folder
      */
-    protected function _getMailFolder($sid, array $f)
+    protected function _getMailFolder($sid, array $fl, array $f)
     {
         $folder = new Horde_ActiveSync_Message_Folder();
         $folder->serverid = $sid;
-        $folder->displayname = $f['label'];
         $folder->parentid = '0';
-        // Short circuit for INBOX
+        $folder->displayname = $f['label'];
+
+        // Check for nested folders. $fl will NEVER contain containers so we
+        // can assume that any entry in $fl is an actual mailbox.
+        if ($f['level'] != 0) {
+            $parts = split($f['d'], $f['label']);
+            $displayname = array_pop($parts);
+            if (!empty($fl[implode($f['d'], $parts)])) {
+                $folder->parentid = implode($f['d'], $parts);
+                $folder->displayname = $displayname;
+            }
+        }
+
         if (strcasecmp($sid, 'INBOX') === 0) {
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
             return $folder;
         }
+
         $specialFolders = $this->_imap->getSpecialMailboxes();
 
         // Check for known, supported special folders.

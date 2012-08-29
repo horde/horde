@@ -27,7 +27,7 @@ foreach ($tasklists as $tasklist => $share) {
     $cli->writeln("Creating default histories for $tasklist ...");
 
     // List all tasks.
-    $storage = Nag_Driver::singleton($tasklist);
+    $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
     $storage->retrieve();
     $tasks = $storage->listTasks();
 

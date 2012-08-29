@@ -118,11 +118,19 @@ div.msgActions, #fmanager div.folderActions {
     padding-left: 15px;
 }
 
+#mailboxLabel .iconImg {
+    vertical-align: top;
+}
+
 /* Message headers styling. */
 #msgheaders {
     padding: 18px;
     background-color: #eceff0;
     border-bottom: 1px solid #d0d0d0;
+}
+#msgheaders p {
+    font-size: 140%;
+    font-weight: bold;
 }
 #msgheaders table {
     border-collapse: collapse;
@@ -202,7 +210,7 @@ td.msgheader {
 }
 .msgheader img {
     padding: 0 1px 0 2px;
-    vertical-align: bottom;
+    vertical-align: middle;
 }
 
 /* Thread page */

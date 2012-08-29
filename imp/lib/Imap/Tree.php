@@ -496,7 +496,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     $this->_insertElt($elt);
                 }
             } else {
-                $to_insert[] = $val;
+                $to_insert[] = Horde_Imap_Client_Mailbox::get($val);
             }
         }
 
@@ -1607,6 +1607,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $params['urlattributes'] = array(
                     'id' => 'imp-mailbox-' . $val->form_to
                 );
+
+                /* Force to flat tree so that non-polled parents don't cause
+                 * polled children to be skipped by renderer (see Bug
+                 * #11238). */
+                $elt['c'] = 0;
                 break;
 
             case 'IMP_Tree_Simplehtml':
@@ -1636,17 +1641,17 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             if (!empty($opts['poll_info']) && $val->polled) {
                 $poll_info = $val->poll_info;
 
-                if ($opts['render_type'] == 'IMP_Tree_Jquerymobile') {
-                    if ($poll_info->unseen) {
+                if ($poll_info->unseen) {
+                    switch ($opts['render_type']) {
+                    case 'IMP_Tree_Jquerymobile':
                         $after = $poll_info->unseen;
-                    }
-                } else {
-                    if ($poll_info->unseen) {
-                        $this->_unseen += $poll_info->unseen;
-                        $label = '<strong>' . $label . '</strong>';
-                    }
+                        break;
 
-                    $after = '&nbsp;(' . $poll_info->unseen . '/' . $poll_info->msgs . ')';
+                    default:
+                        $this->_unseen += $poll_info->unseen;
+                        $label = '<strong>' . $label . '</strong>&nbsp;(' .
+                            $poll_info->unseen . ')';
+                    }
                 }
             }
 
@@ -1703,7 +1708,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Returns the internal IMAP Tree element for a given mailbox.
      *
-     * @param mixed $elt  A mailbox name or a tree element.
+     * @param mixed $in  A mailbox name or a tree element.
      *
      * @return mixed  The element array, or null if not found.
      */
@@ -1835,6 +1840,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $ob->co = 1;
             if ($elt->nonimap) {
                 $ob->n = 1;
+            }
+            if ($elt == self::VFOLDER_KEY) {
+                $ob->v = 1;
             }
         } else {
             if ($elt->polled) {
@@ -2180,7 +2188,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         return array(
             $p,
-            array_search($parent, $this->_parent[$p]) + ($inc ? 1 : 0)
+            array_search($parent, $this->_parent[$p], true) + ($inc ? 1 : 0)
         );
     }
 

@@ -33,349 +33,450 @@ require_once __DIR__ . '/../../../../Autoload.php';
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Unit_List_Query_List_BaseTest
-extends Horde_Kolab_Storage_TestCase
+extends PHPUnit_Framework_TestCase
 {
-    public function testByTypeReturnsArray()
+    public function testListTypes()
     {
-        $this->assertInternalType('array', $this->getNullQuery()->listByType('test'));
-    }
-
-    public function testListCalendarsListsCalendars()
-    {
+        $list = $this->_getList();
+        $this->driver->expects($this->once())
+            ->method('listAnnotation')
+            ->with(Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE)
+            ->will($this->returnValue(array('a' => 'a')));
+        $this->types->expects($this->once())
+            ->method('create')
+            ->with('a')
+            ->will($this->returnValue($this->mock_type));
+        $this->mock_type->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue('A'));
         $this->assertEquals(
-            array('INBOX/Calendar'),
-            $this->getAnnotatedQuery()->listByType('event')
+            array('a' => 'A'),
+            $list->listTypes()
         );
     }
 
-    public function testListTasklistsListsTasklists()
+    public function testListByType()
     {
-        $this->assertEquals(
-            array('INBOX/Tasks'),
-            $this->getAnnotatedQuery()->listByType('task')
-        );
+        $list = $this->_getList();
+        $this->driver->expects($this->once())
+            ->method('listAnnotation')
+            ->with(Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE)
+            ->will($this->returnValue(array('a' => 'a')));
+        $this->types->expects($this->once())
+            ->method('create')
+            ->with('a')
+            ->will($this->returnValue($this->mock_type));
+        $this->mock_type->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue('A'));
+        $this->assertEquals(array('a'), $list->listByType('A'));
     }
 
-    public function testTypeReturnsArray()
+    public function testDataByType()
     {
-        $this->assertInternalType('array', $this->getNullQuery()->listTypes());
-    }
-
-    public function testTypeReturnsAnnotations()
-    {
+        $list = $this->_getList();
+        $this->driver->expects($this->once())
+            ->method('listAnnotation')
+            ->with(Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE)
+            ->will($this->returnValue(array('INBOX/Test' => 'a')));
+        $this->types->expects($this->once())
+            ->method('create')
+            ->with('a')
+            ->will($this->returnValue($this->mock_type));
+        $this->mock_type->expects($this->exactly(2))
+            ->method('getType')
+            ->will($this->returnValue('test'));
+        $this->mock_type->expects($this->once())
+            ->method('isDefault')
+            ->will($this->returnValue(true));
+        $ns = $this->getMock('Horde_Kolab_Storage_Folder_Namespace_Element', array(), array('A', 'B', 'C'));
+        $namespace = $this->getMock('Horde_Kolab_Storage_Folder_Namespace', array(), array(array()));
+        $namespace->expects($this->once())
+            ->method('getOwner')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('owner'));
+        $namespace->expects($this->once())
+            ->method('getTitle')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('Test'));
+        $namespace->expects($this->once())
+            ->method('getSubpath')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('INBOX/Test'));
+        $namespace->expects($this->once())
+            ->method('getParent')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('INBOX'));
+        $namespace->expects($this->exactly(3))
+            ->method('matchNamespace')
+            ->with('INBOX/Test')
+            ->will($this->returnValue($ns));
+        $ns->expects($this->once())
+            ->method('getName')
+            ->will($this->returnValue(''));
+        $ns->expects($this->once())
+            ->method('getDelimiter')
+            ->will($this->returnValue('/'));
+        $ns->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue('private'));
+        $this->driver->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue($namespace));
         $this->assertEquals(
             array(
-                'INBOX/Calendar' => 'event',
-                'INBOX/Contacts' => 'contact',
-                'INBOX/Notes' => 'note',
-                'INBOX/Tasks' => 'task',
+                'INBOX/Test' => array(
+                    'folder' => 'INBOX/Test',
+                    'type' => 'test',
+                    'default' => true,
+                    'owner' => 'owner',
+                    'name' => 'Test',
+                    'subpath' => 'INBOX/Test',
+                    'parent' => 'INBOX',
+                    'namespace' => 'private',
+                    'prefix' => '',
+                    'delimiter' => '/',
+                )
             ),
-            $this->getAnnotatedQuery()->listTypes()
+            $list->dataByType('test')
         );
     }
 
-    public function testAnnotationsReturnsHandlers()
+    public function testFolderData()
     {
-        $query = $this->getAnnotatedQuery();
-        foreach ($query->listFolderTypeAnnotations() as $folder => $type) {
-            $this->assertInstanceOf('Horde_Kolab_Storage_Folder_Type', $type);
-        };
-    }
-
-    public function testListOwnersReturn()
-    {
-        $this->assertInternalType(
-            'array',
-            $this->getAnnotatedQuery()->listOwners()
-        );
-    }
-
-    public function testListOwnerList()
-    {
+        $list = $this->_getList();
+        $this->driver->expects($this->once())
+            ->method('listAnnotation')
+            ->with(Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE)
+            ->will($this->returnValue(array('INBOX/Test' => 'a')));
+        $this->driver->expects($this->once())
+            ->method('listFolders')
+            ->will($this->returnValue(array('INBOX/Test')));
+        $this->types->expects($this->once())
+            ->method('create')
+            ->with('a')
+            ->will($this->returnValue($this->mock_type));
+        $this->mock_type->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue('test'));
+        $this->mock_type->expects($this->once())
+            ->method('isDefault')
+            ->will($this->returnValue(true));
+        $ns = $this->getMock('Horde_Kolab_Storage_Folder_Namespace_Element', array(), array('A', 'B', 'C'));
+        $namespace = $this->getMock('Horde_Kolab_Storage_Folder_Namespace', array(), array(array()));
+        $namespace->expects($this->once())
+            ->method('getOwner')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('owner'));
+        $namespace->expects($this->once())
+            ->method('getTitle')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('Test'));
+        $namespace->expects($this->once())
+            ->method('getSubpath')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('INBOX/Test'));
+        $namespace->expects($this->once())
+            ->method('getParent')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('INBOX'));
+        $namespace->expects($this->exactly(3))
+            ->method('matchNamespace')
+            ->with('INBOX/Test')
+            ->will($this->returnValue($ns));
+        $ns->expects($this->once())
+            ->method('getName')
+            ->will($this->returnValue(''));
+        $ns->expects($this->once())
+            ->method('getDelimiter')
+            ->will($this->returnValue('/'));
+        $ns->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue('private'));
+        $this->driver->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue($namespace));
         $this->assertEquals(
             array(
-                'INBOX' => 'test@example.com',
-                'INBOX/Calendar' => 'test@example.com',
-                'INBOX/Contacts' => 'test@example.com',
-                'INBOX/Notes' => 'test@example.com',
-                'INBOX/Tasks' => 'test@example.com',
-                'INBOX/a' => 'test@example.com',
+                'folder' => 'INBOX/Test',
+                'type' => 'test',
+                'default' => true,
+                'owner' => 'owner',
+                'name' => 'Test',
+                'subpath' => 'INBOX/Test',
+                'parent' => 'INBOX',
+                'namespace' => 'private',
+                'prefix' => '',
+                'delimiter' => '/',
             ),
-            $this->getAnnotatedQuery()->listOwners()
+            $list->folderData('INBOX/Test')
         );
     }
 
-    public function testListOwnerNamespace()
+    public function testMailFolderData()
     {
+        $list = $this->_getList();
+        $this->driver->expects($this->once())
+            ->method('listAnnotation')
+            ->with(Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE)
+            ->will($this->returnValue(array()));
+        $this->driver->expects($this->once())
+            ->method('listFolders')
+            ->will($this->returnValue(array('INBOX/Test')));
+        $this->types->expects($this->once())
+            ->method('create')
+            ->with('mail')
+            ->will($this->returnValue($this->mock_type));
+        $this->mock_type->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue('mail'));
+        $this->mock_type->expects($this->once())
+            ->method('isDefault')
+            ->will($this->returnValue(false));
+        $ns = $this->getMock('Horde_Kolab_Storage_Folder_Namespace_Element', array(), array('A', 'B', 'C'));
+        $namespace = $this->getMock('Horde_Kolab_Storage_Folder_Namespace', array(), array(array()));
+        $namespace->expects($this->once())
+            ->method('getOwner')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('owner'));
+        $namespace->expects($this->once())
+            ->method('getTitle')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('Test'));
+        $namespace->expects($this->once())
+            ->method('getSubpath')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('INBOX/Test'));
+        $namespace->expects($this->once())
+            ->method('getParent')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('INBOX'));
+        $namespace->expects($this->exactly(3))
+            ->method('matchNamespace')
+            ->with('INBOX/Test')
+            ->will($this->returnValue($ns));
+        $ns->expects($this->once())
+            ->method('getName')
+            ->will($this->returnValue(''));
+        $ns->expects($this->once())
+            ->method('getDelimiter')
+            ->will($this->returnValue('/'));
+        $ns->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue('private'));
+        $this->driver->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue($namespace));
         $this->assertEquals(
             array(
-                'INBOX' => 'test@example.com',
-                'INBOX/Calendar' => 'test@example.com',
-                'INBOX/Contacts' => 'test@example.com',
-                'INBOX/Notes' => 'test@example.com',
-                'INBOX/Tasks' => 'test@example.com',
-                'INBOX/a' => 'test@example.com',
-                'shared.Calendars/All' => null,
-                'shared.Calendars/Others' => null,
-                'user/example/Calendar' => 'example@example.com',
-                'user/example/Notes' => 'example@example.com',
-                'user/someone/Calendars/Events' => 'someone@example.com',
-                'user/someone/Calendars/Party' => 'someone@example.com',
+                'folder' => 'INBOX/Test',
+                'type' => 'mail',
+                'default' => false,
+                'owner' => 'owner',
+                'name' => 'Test',
+                'subpath' => 'INBOX/Test',
+                'parent' => 'INBOX',
+                'namespace' => 'private',
+                'prefix' => '',
+                'delimiter' => '/',
             ),
-            $this->getNamespaceQuery()->listOwners()
-        );
-    }
-
-    public function testDefaultReturn()
-    {
-        $this->assertInternalType(
-            'string',
-            $this->getNamespaceQuery()->getDefault('event')
-        );
-    }
-
-    public function testDefaultCalendar()
-    {
-        $this->assertEquals(
-            'INBOX/Calendar',
-            $this->getAnnotatedQuery()->getDefault('event')
-        );
-    }
-
-    public function testDefaultNotes()
-    {
-        $this->assertEquals(
-            'INBOX/Notes',
-            $this->getAnnotatedQuery()->getDefault('note')
-        );
-    }
-
-    public function testMissingDefault()
-    {
-        $this->assertFalse(
-            $this->getNullQuery()->getDefault('note')
-        );
-    }
-
-    public function testIgnoreForeignDefault()
-    {
-        $this->assertFalse(
-            $this->getForeignDefaultQuery()->getDefault('event')
-        );
-    }
-
-    public function testIdentifyDefault()
-    {
-        $this->assertEquals(
-            'INBOX/Events',
-            $this->getEventQuery()->getDefault('event')
+            $list->folderData('INBOX/Test')
         );
     }
 
     /**
-     * @expectedException Horde_Kolab_Storage_Exception
+     * @expectedException Horde_Kolab_Storage_List_Exception
      */
-    public function testBailOnDoubleDefault()
+    public function testMissingFolderData()
     {
-        $this->getDoubleEventQuery()->getDefault('event');
+        $list = $this->_getList();
+        $this->driver->expects($this->once())
+            ->method('listFolders')
+            ->will($this->returnValue(array('INBOX/Test')));
+        $list->folderData('INBOX/NO');
     }
 
-    public function testForeignDefaultReturn()
+    public function testListOwners()
     {
-        $this->assertInternalType(
-            'string',
-            $this->getEventQuery()->getForeignDefault(
-                'someone@example.com', 'event'
-            )
-        );
-    }
-
-    public function testForeignDefaultCalendar()
-    {
+        $list = $this->_getList();
+        $this->driver->expects($this->once())
+            ->method('listFolders')
+            ->will($this->returnValue(array('INBOX/Test')));
+        $namespace = $this->getMock('Horde_Kolab_Storage_Folder_Namespace', array(), array(array()));
+        $namespace->expects($this->once())
+            ->method('getOwner')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('owner'));
+        $this->driver->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue($namespace));
         $this->assertEquals(
-            'user/someone/Calendar',
-            $this->getEventQuery()->getForeignDefault(
-                'someone@example.com', 'event'
-            )
-        );
-    }
-
-    public function testForeignDefaultNotes()
-    {
-        $this->assertEquals(
-            'user/someone/Notes',
-            $this->getEventQuery()->getForeignDefault(
-                'someone@example.com', 'note'
-            )
-        );
-    }
-
-    public function testMissingForeignDefault()
-    {
-        $this->assertFalse(
-            $this->getNullQuery()->getForeignDefault(
-                'someone@example.com', 'contact'
-            )
-        );
-    }
-
-    public function testIdentifyForeignDefault()
-    {
-        $this->assertEquals(
-            'user/someone/Calendar',
-            $this->getEventQuery()->getForeignDefault(
-                'someone@example.com', 'event'
-            )
-        );
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testBailOnDoubleForeignDefault()
-    {
-        $this->getDoubleEventQuery()->getForeignDefault(
-            'someone@example.com', 'event'
+            array('INBOX/Test' => 'owner'),
+            $list->listOwners()
         );
     }
 
     public function testListPersonalDefaults()
     {
+        $list = $this->_getList();
+        $this->driver->expects($this->once())
+            ->method('listAnnotation')
+            ->with(Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE)
+            ->will($this->returnValue(array('INBOX/Test' => 'test')));
+        $this->types->expects($this->once())
+            ->method('create')
+            ->with('test')
+            ->will($this->returnValue($this->mock_type));
+        $this->mock_type->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue('test'));
+        $this->mock_type->expects($this->once())
+            ->method('isDefault')
+            ->will($this->returnValue(true));
+        $ns = $this->getMock('Horde_Kolab_Storage_Folder_Namespace_Element', array(), array('A', 'B', 'C'));
+        $namespace = $this->getMock('Horde_Kolab_Storage_Folder_Namespace', array(), array(array()));
+        $ns->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue(Horde_Kolab_Storage_Folder_Namespace::PERSONAL));
+        $namespace->expects($this->once())
+            ->method('matchNamespace')
+            ->with('INBOX/Test')
+            ->will($this->returnValue($ns));
+        $namespace->expects($this->once())
+            ->method('getOwner')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('owner'));
+        $this->driver->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue($namespace));
         $this->assertEquals(
-            array(
-                'contact' => 'INBOX/Contacts',
-                'event' => 'INBOX/Calendar',
-                'note' => 'INBOX/Notes',
-                'task' => 'INBOX/Tasks'
-            ),
-            $this->getAnnotatedQuery()->listPersonalDefaults()
+            array('test' => 'INBOX/Test'),
+            $list->listPersonalDefaults()
         );
     }
 
     public function testListDefaults()
     {
+        $list = $this->_getList();
+        $this->driver->expects($this->once())
+            ->method('listAnnotation')
+            ->with(Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE)
+            ->will($this->returnValue(array('INBOX/Test' => 'test')));
+        $this->types->expects($this->once())
+            ->method('create')
+            ->with('test')
+            ->will($this->returnValue($this->mock_type));
+        $this->mock_type->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue('test'));
+        $this->mock_type->expects($this->once())
+            ->method('isDefault')
+            ->will($this->returnValue(true));
+        $ns = $this->getMock('Horde_Kolab_Storage_Folder_Namespace_Element', array(), array('A', 'B', 'C'));
+        $ns->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue(Horde_Kolab_Storage_Folder_Namespace::PERSONAL));
+        $namespace = $this->getMock('Horde_Kolab_Storage_Folder_Namespace', array(), array(array()));
+        $namespace->expects($this->once())
+            ->method('matchNamespace')
+            ->with('INBOX/Test')
+            ->will($this->returnValue($ns));
+        $namespace->expects($this->once())
+            ->method('getOwner')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('owner'));
+        $this->driver->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue($namespace));
         $this->assertEquals(
-            array(
-                'example@example.com' => array(
-                    'event' => 'user/example/Calendar'
-                ),
-                'someone@example.com' => array(
-                    'event' => 'user/someone/Calendars/Events'
-                )
-            ),
-            $this->getForeignDefaultQuery()->listDefaults()
+            array('owner' => array('test' => 'INBOX/Test')),
+            $list->listDefaults()
         );
     }
 
-    public function testDataByTypeReturnsArray()
+    public function testGetDefault()
     {
-        $this->assertInternalType('array', $this->getNullQuery()->dataByType('test'));
-    }
-
-    public function testListCalendarsListsCalendarData()
-    {
+        $list = $this->_getList();
+        $this->driver->expects($this->once())
+            ->method('listAnnotation')
+            ->with(Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE)
+            ->will($this->returnValue(array('INBOX/Test' => 'test')));
+        $this->types->expects($this->once())
+            ->method('create')
+            ->with('test')
+            ->will($this->returnValue($this->mock_type));
+        $this->mock_type->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue('test'));
+        $this->mock_type->expects($this->once())
+            ->method('isDefault')
+            ->will($this->returnValue(true));
+        $ns = $this->getMock('Horde_Kolab_Storage_Folder_Namespace_Element', array(), array('A', 'B', 'C'));
+        $namespace = $this->getMock('Horde_Kolab_Storage_Folder_Namespace', array(), array(array()));
+        $ns->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue(Horde_Kolab_Storage_Folder_Namespace::PERSONAL));
+        $namespace->expects($this->once())
+            ->method('matchNamespace')
+            ->with('INBOX/Test')
+            ->will($this->returnValue($ns));
+        $this->driver->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue($namespace));
         $this->assertEquals(
-            array('INBOX/Calendar'),
-            array_keys($this->getAnnotatedQuery()->dataByType('event'))
+            'INBOX/Test',
+            $list->getDefault('test')
         );
     }
 
-    public function testListTasklistsListsTasklistData()
+    public function testGetForeignDefault()
     {
+        $list = $this->_getList();
+        $this->driver->expects($this->once())
+            ->method('listAnnotation')
+            ->with(Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE)
+            ->will($this->returnValue(array('INBOX/Test' => 'test')));
+        $this->types->expects($this->once())
+            ->method('create')
+            ->with('test')
+            ->will($this->returnValue($this->mock_type));
+        $this->mock_type->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue('test'));
+        $this->mock_type->expects($this->once())
+            ->method('isDefault')
+            ->will($this->returnValue(true));
+        $ns = $this->getMock('Horde_Kolab_Storage_Folder_Namespace_Element', array(), array('A', 'B', 'C'));
+        $ns->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue(Horde_Kolab_Storage_Folder_Namespace::PERSONAL));
+        $namespace = $this->getMock('Horde_Kolab_Storage_Folder_Namespace', array(), array(array()));
+        $namespace->expects($this->once())
+            ->method('getOwner')
+            ->with('INBOX/Test')
+            ->will($this->returnValue('owner'));
+        $namespace->expects($this->once())
+            ->method('matchNamespace')
+            ->with('INBOX/Test')
+            ->will($this->returnValue($ns));
+        $this->driver->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue($namespace));
         $this->assertEquals(
-            array('INBOX/Tasks'),
-            array_keys($this->getAnnotatedQuery()->dataByType('task'))
+            'INBOX/Test',
+            $list->getForeignDefault('owner', 'test')
         );
     }
 
-    public function testListDataHasOwner()
+    private function _getList()
     {
-        $data = $this->getAnnotatedQuery()->dataByType('event');
-        $this->assertEquals(
-            'test@example.com',
-            $data['INBOX/Calendar']['owner']
+        $this->driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $this->types = $this->getMock('Horde_Kolab_Storage_Folder_Types');
+        $this->mock_type = $this->getMock('Horde_Kolab_Storage_Folder_Type', array(), array('event.default'));
+        return new Horde_Kolab_Storage_List_Query_List_Base(
+            $this->driver,
+            $this->types,
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
-    }
-
-    public function testListDataHasTitle()
-    {
-        $data = $this->getAnnotatedQuery()->dataByType('event');
-        $this->assertEquals(
-            'Calendar',
-            $data['INBOX/Calendar']['name']
-        );
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testMissingFolderData()
-    {
-        $this->assertInternalType('array', $this->getNullQuery()->folderData('INBOX/Calendar'));
-    }
-
-    public function testFolderDataReturnsArray()
-    {
-        $this->assertInternalType('array', $this->getAnnotatedQuery()->folderData('INBOX/Calendar'));
-    }
-
-    public function testFolderDataHasOwner()
-    {
-        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
-        $this->assertEquals('test@example.com', $data['owner']);
-    }
-
-    public function testFolderDataHasTitle()
-    {
-        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
-        $this->assertEquals('Calendar', $data['name']);
-    }
-
-    public function testFolderDataHasType()
-    {
-        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
-        $this->assertEquals('event', $data['type']);
-    }
-
-    public function testFolderDataHasDefault()
-    {
-        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
-        $this->assertTrue($data['default']);
-    }
-
-    public function testMailFolderDataType()
-    {
-        $data = $this->getAnnotatedQuery()->folderData('INBOX');
-        $this->assertEquals('mail', $data['type']);
-    }
-
-    public function testMailFolderDataNoDefault()
-    {
-        $data = $this->getAnnotatedQuery()->folderData('INBOX');
-        $this->assertFalse($data['default']);
-    }
-
-    public function testFolderDataHasNamespace()
-    {
-        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
-        $this->assertEquals('personal', $data['namespace']);
-    }
-
-    public function testFolderDataHasNamespacePrefix()
-    {
-        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
-        $this->assertEquals('INBOX', $data['prefix']);
-    }
-
-    public function testFolderDataHasSubpath()
-    {
-        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
-        $this->assertEquals('Calendar', $data['subpath']);
-    }
-
-    public function testFolderDataHasDelimiter()
-    {
-        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
-        $this->assertEquals('/', $data['delimiter']);
     }
 }

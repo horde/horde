@@ -1072,7 +1072,7 @@ class Horde_Registry
         try {
             $result = call_user_func_array(array($api, $call), $args);
             if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception_Wrapped($result);
+                $result = new Horde_Exception_Wrapped($result);
             }
         } catch (Horde_Exception $e) {
             $result = $e;
@@ -1085,7 +1085,7 @@ class Horde_Registry
         }
 
         if ($result instanceof Horde_Exception) {
-            throw $e;
+            throw $result;
         }
 
         return $result;

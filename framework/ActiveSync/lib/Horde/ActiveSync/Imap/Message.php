@@ -202,6 +202,8 @@ class Horde_ActiveSync_Imap_Message
      *                     DEFAULT 2.5
      *
      * @return array  An array of 'plain' and 'html' content.
+     *
+     * @throws Horde_ActiveSync_Exception
      */
     public function getMessageBodyData(array $options = array())
     {
@@ -270,7 +272,7 @@ class Horde_ActiveSync_Imap_Message
                 array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
             );
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_ActiveSync_Exception($e);
         }
         $data = $fetch_ret[$this->_uid];
 
@@ -568,7 +570,7 @@ class Horde_ActiveSync_Imap_Message
         if (empty($this->_envelope)) {
             $this->_fetchEnvelope();
         }
-        $cc = array_pop($this->_envelope->cc->address);
+        $cc = array_pop($this->_envelope->cc->addresses);
         $a = new Horde_Mail_Rfc822_Address($cc);
 
         return $a->writeAddress(false);
@@ -584,7 +586,7 @@ class Horde_ActiveSync_Imap_Message
         if (empty($this->_envelope)) {
             $this->_fetchEnvelope();
         }
-        $r = array_pop($this->_envelope->reply_to->address);
+        $r = array_pop($this->_envelope->reply_to->addresses);
         $a = new Horde_Mail_Rfc822_Address($r);
 
         return $a->writeAddress(false);
@@ -757,6 +759,8 @@ class Horde_ActiveSync_Imap_Message
 
     /**
      * Ensure that the envelope is available.
+     *
+     * @throws Horde_ActiveSync_Exception
      */
     protected function _fetchEnvelope()
     {
@@ -769,7 +773,7 @@ class Horde_ActiveSync_Imap_Message
                 array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
             );
         } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_ActiveSync_Exception($e);
         }
         $this->_envelope = $fetch_ret[$this->_uid]->getEnvelope();
     }

@@ -95,6 +95,9 @@ class IMP
                 'rel' => 'search',
                 'type' => null
             ));
+
+            $mimecss = new Horde_Themes_Element('mime.css');
+            $page_output->addStylesheet($mimecss->fs, $mimecss->uri);
             break;
         }
 
@@ -408,6 +411,57 @@ class IMP
     }
 
     /**
+     * Returns whether the specified permission is granted.
+     *
+     * @param string $permission  The permission to check.
+     * @param mixed $allowed      The allowed permissions.
+     * @param array $opts         Additional options:
+     *   - For 'max_recipients' and 'max_timelimit', 'value' is the number of
+     *     recipients in the current message.
+     *
+     * @return boolean  Whether the specified permission is allowed.
+     */
+    public function hasPermission($permission, $opts = array())
+    {
+        $allowed = $GLOBALS['injector']->getInstance('Horde_Core_Perms')
+            ->hasAppPermission($permission);
+
+        switch ($permission) {
+        case 'create_folders':
+            // No-op
+            break;
+
+        case 'max_folders':
+            return ($allowed >= count($GLOBALS['injector']->getInstance('IMP_Imap_Tree')));
+            break;
+
+        case 'max_recipients':
+            if (isset($opts['value'])) {
+                return ($allowed >= $opts['value']);
+            }
+            break;
+
+        case 'max_timelimit':
+            if (isset($opts['value'])) {
+                $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
+                if (!($sentmail instanceof IMP_Sentmail)) {
+                    Horde::log('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', 'ERR');
+                    return true;
+                }
+
+                try {
+                    $opts['value'] += $sentmail->numberOfRecipients($GLOBALS['conf']['sentmail']['params']['limit_period'], true);
+                } catch (IMP_Exception $e) {}
+
+                return ($allowed >= $opts['value']);
+            }
+            break;
+        }
+
+        return (bool)$allowed;
+    }
+
+    /**
      * Build IMP's menu.
      *
      * @return string  The menu output.
@@ -453,16 +507,14 @@ class IMP
     }
 
     /**
-     * Outputs IMP's quota information.
+     * Add IMP's quota information to the subinfo bar.
      */
-    static public function quota()
+    static public function quota(Horde_View $subinfo)
     {
         $quotadata = self::quotaData(true);
         if (!empty($quotadata)) {
-            $t = $GLOBALS['injector']->createInstance('Horde_Template');
-            $t->set('class', $quotadata['class']);
-            $t->set('message', $quotadata['message']);
-            echo $t->fetch(IMP_TEMPLATES . '/quota/quota.html');
+            $subinfo->quotaText = $quotadata['message'];
+            $subinfo->quotaClass = $quotadata['class'];
         }
     }
 
@@ -483,7 +535,7 @@ class IMP
             $quotaDriver = $GLOBALS['injector']->getInstance('IMP_Quota');
             $quota = $quotaDriver->getQuota();
         } catch (IMP_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return false;
         }
 

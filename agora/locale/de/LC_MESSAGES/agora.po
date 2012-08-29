@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Agora 1.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-12-21 18:23+0100\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
 "PO-Revision-Date: 2011-02-02 17:35+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -75,7 +75,7 @@ msgstr "Administration"
 msgid "After Message: "
 msgstr "Nach Beitrag: "
 
-#: forums.php:74
+#: forums.php:78
 msgid "All Forums"
 msgstr "Alle Foren"
 
@@ -87,16 +87,16 @@ msgstr "Anhänge in diesem Forum erlauben?"
 msgid "Allow replies in this thread"
 msgstr "Antworten zu diesem Thema zulassen"
 
-#: moderate.php:29 moderate.php:64
+#: moderate.php:29 moderate.php:63
 msgid "Approve"
 msgstr "Freigeben"
 
-#: config/prefs.php:103 config/prefs.php:142 config/prefs.php:185
-#: config/prefs.php:269 lib/Comments.php:71
+#: config/prefs.php:113 config/prefs.php:152 config/prefs.php:195
+#: config/prefs.php:279 lib/Comments.php:71
 msgid "Ascending"
 msgstr "Aufsteigend"
 
-#: lib/Driver.php:1562
+#: lib/Driver.php:1560
 msgid "Attachment"
 msgstr "Anhang"
 
@@ -104,17 +104,17 @@ msgstr "Anhang"
 msgid "Author"
 msgstr "Autor"
 
-#: config/prefs.php:14
+#: config/prefs.php:13
 msgid "Avatar"
 msgstr "Avatar"
 
-#: config/prefs.php:73
+#: config/prefs.php:74
 #, php-format
 msgid ""
 "Avatars must be smaller than %s by %s pixels and less than %sKb in size."
 msgstr "Avatare müssen kleiner als %s mal %s Pixel und kleiner als %sKB sein."
 
-#: ban.php:51 lib/Driver.php:1508
+#: ban.php:51 lib/Driver.php:1506
 msgid "Ban"
 msgstr "Verbannen"
 
@@ -122,7 +122,7 @@ msgstr "Verbannen"
 msgid "Banned"
 msgstr "Verbannt"
 
-#: moderate.php:57
+#: moderate.php:56
 msgid "Body"
 msgstr "Text"
 
@@ -132,7 +132,7 @@ msgstr "Text"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: lib/Driver.php:1938
+#: lib/Driver.php:1936
 msgid "Cannot create a forum with an empty name."
 msgstr "Foren mit leeren Namen können nicht erstellt werden."
 
@@ -145,7 +145,7 @@ msgstr "Kommentare"
 msgid "Comments on %s"
 msgstr "Kommentar zu %s"
 
-#: config/prefs.php:56
+#: config/prefs.php:57
 msgid "Comments view"
 msgstr "Kommentaranzeige"
 
@@ -189,46 +189,46 @@ msgstr "Beitrag konnte nicht gespeichert werden:"
 msgid "Couldn't read command-line options."
 msgstr "Die Kommandozeilenparameter konnten nicht gelesen werden."
 
-#: lib/Form/Forum.php:24
+#: lib/Form/Forum.php:29
 msgid "Create"
 msgstr "Erstellen"
 
-#: lib/Driver.php:1558
+#: lib/Driver.php:1556
 msgid "Current attachment"
 msgstr "Aktueller Anhang"
 
-#: config/prefs.php:94 config/prefs.php:132 config/prefs.php:176
-#: config/prefs.php:260 forums.php:53 lib/Api.php:300 lib/Block/Forums.php:91
+#: config/prefs.php:104 config/prefs.php:142 config/prefs.php:186
+#: config/prefs.php:270 forums.php:52 lib/Api.php:300 lib/Block/Forums.php:91
 #: lib/Block/Thread.php:78 lib/Block/Threads.php:119 lib/Comments.php:65
-#: lib/Comments.php:86 messages/index.php:139 moderate.php:57 owner.php:56
+#: lib/Comments.php:86 messages/index.php:139 moderate.php:56 owner.php:56
 msgid "Date"
 msgstr "Datum"
 
-#: config/prefs.php:262
+#: config/prefs.php:272
 msgid "Default comments view sort:"
 msgstr "Standard-Sortierreihenfolge der Kommentare:"
 
-#: config/prefs.php:96
+#: config/prefs.php:106
 msgid "Default forums view sort:"
 msgstr "Standard-Sortierreihenfolge der Foren:"
 
-#: config/prefs.php:106 config/prefs.php:145 config/prefs.php:188
-#: config/prefs.php:272
+#: config/prefs.php:116 config/prefs.php:155 config/prefs.php:198
+#: config/prefs.php:282
 msgid "Default sorting direction:"
 msgstr "Sortierrichtung:"
 
-#: config/prefs.php:178
+#: config/prefs.php:188
 msgid "Default thread view sort:"
 msgstr "Standard-Sortierreihenfolge in Themen:"
 
-#: config/prefs.php:135
+#: config/prefs.php:145
 msgid "Default threads view sort:"
 msgstr "Standard-Sortierreihenfolge der Themen:"
 
 #: ban.php:48 deleteforum.php:40 deleteforum.php:58 lib/Api.php:600
-#: lib/Api.php:605 lib/Driver.php:913 lib/Driver.php:1837
+#: lib/Api.php:605 lib/Driver.php:913 lib/Driver.php:1835
 #: messages/delete.php:42 messages/delete.php:47 messages/index.php:116
-#: moderate.php:35 moderate.php:64 moderators.php:58
+#: moderate.php:35 moderate.php:63 moderators.php:59
 msgid "Delete"
 msgstr "Löschen"
 
@@ -237,11 +237,11 @@ msgstr "Löschen"
 msgid "Delete \"%s\" and all replies?"
 msgstr "\"%s\" und alle Antworten löschen?"
 
-#: deleteforum.php:37 lib/Driver.php:1506
+#: deleteforum.php:37 lib/Driver.php:1504
 msgid "Delete Forum"
 msgstr "Forum löschen"
 
-#: lib/Driver.php:1837
+#: lib/Driver.php:1835
 msgid "Delete forum"
 msgstr "Forum löschen"
 
@@ -249,41 +249,41 @@ msgstr "Forum löschen"
 msgid "Delete message"
 msgstr "Beitrag löschen"
 
-#: lib/Driver.php:1557
+#: lib/Driver.php:1555
 msgid "Delete the existing attachment?"
 msgstr "Den aktuellen Anhang löschen?"
 
-#: config/prefs.php:104 config/prefs.php:143 config/prefs.php:186
-#: config/prefs.php:270 lib/Comments.php:72
+#: config/prefs.php:114 config/prefs.php:153 config/prefs.php:196
+#: config/prefs.php:280 lib/Comments.php:72
 msgid "Descending"
 msgstr "Absteigend"
 
-#: forums.php:53
+#: forums.php:52
 msgid "Description"
 msgstr "Beschreibung"
 
-#: config/prefs.php:21 config/prefs.php:28 config/prefs.php:38
-#: config/prefs.php:48 config/prefs.php:55
+#: config/prefs.php:22 config/prefs.php:29 config/prefs.php:39
+#: config/prefs.php:49 config/prefs.php:56
 msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
-#: config/prefs.php:251
+#: config/prefs.php:261
 msgid "Display full message bodies in the comments view?"
 msgstr "Kompletten Beitragstext in der Kommentaransicht anzeigen?"
 
-#: config/prefs.php:199
+#: config/prefs.php:209
 msgid "Display full message bodies in the thread list view?"
 msgstr "Kompletten Beitragstext in der Themenliste anzeigen?"
 
-#: config/prefs.php:222
+#: config/prefs.php:232
 msgid "Display graphical emoticons?"
 msgstr "Emoticons anzeigen?"
 
-#: lib/Driver.php:909 lib/Driver.php:1830 messages/index.php:113
+#: lib/Driver.php:909 lib/Driver.php:1828 messages/index.php:113
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: editforum.php:34 lib/Driver.php:1503
+#: editforum.php:34 lib/Driver.php:1501
 msgid "Edit Forum"
 msgstr "Forum bearbeiten"
 
@@ -300,7 +300,7 @@ msgstr "Beitrag in \"%s\" bearbeiten"
 msgid "Edit a comment"
 msgstr "Kommentar bearbeiten"
 
-#: lib/Driver.php:1830
+#: lib/Driver.php:1828
 msgid "Edit forum"
 msgstr "Forum bearbeiten"
 
@@ -312,17 +312,17 @@ msgstr "Beitrag bearbeiten"
 msgid "Enter a brief description of this forum"
 msgstr "Geben Sie eine kurze Beschreibung für dieses Forum ein"
 
-#: config/prefs.php:248 lib/Comments.php:58 messages/index.php:160
+#: config/prefs.php:258 lib/Comments.php:58 messages/index.php:160
 msgid "Flat"
 msgstr "Flach"
 
-#: config/prefs.php:90 forums.php:53 lib/Block/Forums.php:91
-#: lib/Block/Threads.php:48 messages/move.php:45 moderate.php:57
-#: moderators.php:70 moderators.php:73 templates/moderators.html.php:8
+#: config/prefs.php:100 forums.php:52 lib/Block/Forums.php:91
+#: lib/Block/Threads.php:48 messages/move.php:45 moderate.php:56
+#: moderators.php:71 moderators.php:74 templates/moderators.html.php:8
 msgid "Forum"
 msgstr "Forum"
 
-#: lib/Api.php:577 lib/Driver.php:1729
+#: lib/Api.php:577 lib/Driver.php:1727
 #, php-format
 msgid "Forum %s does not exist."
 msgstr "Das Forum %s existiert nicht."
@@ -339,7 +339,7 @@ msgstr "Forum erstellt."
 msgid "Forum deleted."
 msgstr "Forum gelöscht."
 
-#: deleteforum.php:44 lib/Form/Forum.php:27 templates/moderators.html.php:9
+#: deleteforum.php:44 lib/Form/Forum.php:32 templates/moderators.html.php:9
 msgid "Forum name"
 msgstr "Forumsname"
 
@@ -352,7 +352,7 @@ msgstr "Forum nicht gelöscht."
 msgid "Forums"
 msgstr "Foren"
 
-#: config/prefs.php:22
+#: config/prefs.php:23
 msgid "Forums View"
 msgstr "Forenansicht"
 
@@ -361,7 +361,7 @@ msgstr "Forenansicht"
 msgid "Forums in %s"
 msgstr "Foren in %s"
 
-#: lib/Driver.php:1539
+#: lib/Driver.php:1537
 msgid "From"
 msgstr "Von"
 
@@ -395,15 +395,15 @@ msgstr "Ist dies ein moderiertes Forum?"
 msgid "Keywords"
 msgstr "Stichwörter"
 
-#: config/prefs.php:92
+#: config/prefs.php:102
 msgid "Last Message"
 msgstr "Letzter Beitrag"
 
-#: forums.php:53 lib/Block/Forums.php:91
+#: forums.php:52 lib/Block/Forums.php:91
 msgid "Last Post"
 msgstr "Letzter Beitrag"
 
-#: config/prefs.php:133 threads.php:54
+#: config/prefs.php:143 threads.php:54
 msgid "Last post"
 msgstr "Letzter Beitrag"
 
@@ -448,7 +448,7 @@ msgstr "Zusammenfügen"
 msgid "Merge \"%s\" with another thread"
 msgstr "\"%s\" mit anderem Thema zusammenfügen"
 
-#: lib/Driver.php:1552
+#: lib/Driver.php:1550
 msgid "Message"
 msgstr "Beitrag"
 
@@ -462,7 +462,7 @@ msgstr "Beitrag %s als Spam gemeldet"
 msgid "Message ID \"%d\" not found"
 msgstr "Beitrags-ID \"%d\" nicht gefunden"
 
-#: config/prefs.php:49
+#: config/prefs.php:50
 msgid "Message View"
 msgstr "Beitragsansicht"
 
@@ -478,25 +478,25 @@ msgstr "Der Beitrag wurde nicht gelöscht."
 msgid "Message posted."
 msgstr "Beitrag gespeichert."
 
-#: config/prefs.php:91 templates/messages/index.html.php:1
+#: config/prefs.php:101 templates/messages/index.html.php:1
 msgid "Messages"
 msgstr "Beiträge"
 
-#: moderate.php:80 templates/moderate.html.php:11
+#: moderate.php:82 templates/moderate.html.php:11
 msgid "Messages Awaiting Moderation"
 msgstr "Zu moderierende Beiträge"
 
-#: lib/Driver.php:1851
+#: lib/Driver.php:1849
 msgid "Moderate"
 msgstr "Mäßig"
 
-#: lib/Tree/Flat.php:115 moderators.php:68 templates/messages/flat.html.php:11
+#: lib/Tree/Flat.php:36 moderators.php:69 templates/messages/flat.html.php:11
 #: templates/messages/flat_thread.html.php:10
 #: templates/messages/message.html.php:21
 msgid "Moderator"
 msgstr "Moderator"
 
-#: moderators.php:62 templates/forums.html.php:39
+#: moderators.php:63 templates/forums.html.php:39
 #: templates/moderators.html.php:4 templates/moderators.html.php:10
 msgid "Moderators"
 msgstr "Moderatoren"
@@ -510,7 +510,7 @@ msgstr "Verschieben"
 msgid "Move \"%s\" to another forum"
 msgstr "\"%s\" in ein anderes Forum verschieben"
 
-#: config/prefs.php:13
+#: config/prefs.php:12
 msgid "My Information"
 msgstr "Meine Informationen"
 
@@ -518,7 +518,7 @@ msgstr "Meine Informationen"
 msgid "New Forum"
 msgstr "Neues Forum"
 
-#: lib/Driver.php:1825
+#: lib/Driver.php:1823
 msgid "New Post"
 msgstr "Neuer Beitrag"
 
@@ -530,7 +530,7 @@ msgstr "Neues Thema"
 msgid "New posts"
 msgstr "Neue Beiträge"
 
-#: config/prefs.php:195
+#: config/prefs.php:205
 msgid "No"
 msgstr "Nein"
 
@@ -546,7 +546,7 @@ msgstr "Kein Forum ausgewählt."
 msgid "No forums have been created."
 msgstr "Es wurden keine Foren erstellt."
 
-#: config/prefs.php:219
+#: config/prefs.php:229
 msgid "No graphical emoticons"
 msgstr "Emoticons nicht anzeigen"
 
@@ -570,19 +570,19 @@ msgstr "Keine Themen"
 msgid "No, do not allow replies"
 msgstr "Nein, Antworten nicht zulassen"
 
-#: config/prefs.php:119
+#: config/prefs.php:129
 msgid "Number of forums to display on each page"
 msgstr "Anzahl der Foren pro Seite"
 
-#: config/prefs.php:212
+#: config/prefs.php:222
 msgid "Number of message to display on each page"
 msgstr "Anzahl der Beiträge pro Seite"
 
-#: config/prefs.php:164 config/prefs.php:285
+#: config/prefs.php:174 config/prefs.php:295
 msgid "Number of messages to display on each page"
 msgstr "Anzahl der Beiträge pro Seite"
 
-#: config/prefs.php:151
+#: config/prefs.php:161
 msgid "Number of views in 24hrs to trigger a 'hot-thread':"
 msgstr ""
 "Anzahl der Seitenaufrufe innerhalb von 24 Stunden, um ein Thema als \"heiß\" "
@@ -611,11 +611,11 @@ msgstr "Einstellungen"
 msgid "Page %d"
 msgstr "Seite %d"
 
-#: lib/Form/Forum.php:30
+#: lib/Form/Forum.php:34
 msgid "Parent forum"
 msgstr "Übergeordnetes Forum"
 
-#: lib/Driver.php:1521
+#: lib/Driver.php:1519
 msgid "Post"
 msgstr "Abschicken"
 
@@ -628,19 +628,19 @@ msgstr "Neuen Beitrag erstellen"
 msgid "Post a New Message to \"%s\""
 msgstr "Neuen Beitrag in \"%s\" erstellen"
 
-#: messages/edit.php:65 messages/index.php:205
+#: messages/edit.php:65 messages/index.php:209
 #, php-format
 msgid "Post a Reply to \"%s\""
 msgstr "Antwort auf \"%s\" schreiben"
 
-#: lib/Driver.php:1497 lib/Driver.php:1825
+#: lib/Driver.php:1495 lib/Driver.php:1823
 msgid "Post message"
 msgstr "Neuer Beitrag"
 
-#: config/prefs.php:93 config/prefs.php:130 config/prefs.php:175
-#: config/prefs.php:259 forums.php:53 lib/Api.php:298 lib/Block/Forums.php:91
+#: config/prefs.php:103 config/prefs.php:140 config/prefs.php:185
+#: config/prefs.php:269 forums.php:52 lib/Api.php:298 lib/Block/Forums.php:91
 #: lib/Block/Thread.php:78 lib/Block/Threads.php:119 lib/Comments.php:84
-#: lib/Tree/Flat.php:110 messages/index.php:139 moderate.php:57 owner.php:56
+#: lib/Tree/Flat.php:31 messages/index.php:139 moderate.php:56 owner.php:56
 #: templates/messages/flat_thread.html.php:7
 msgid "Posted by"
 msgstr "Geschrieben von"
@@ -650,11 +650,11 @@ msgstr "Geschrieben von"
 msgid "Posted by %s on %s"
 msgstr "Geschrieben von %s am %s"
 
-#: config/prefs.php:131 forums.php:53 lib/Block/Forums.php:91 threads.php:54
+#: config/prefs.php:141 forums.php:52 lib/Block/Forums.php:91 threads.php:54
 msgid "Posts"
 msgstr "Beiträge"
 
-#: lib/Driver.php:1544
+#: lib/Driver.php:1542
 msgid "Quote"
 msgstr "Zitieren"
 
@@ -674,7 +674,7 @@ msgstr "Missbrauch melden"
 msgid "Require all keywords?"
 msgstr "Nach allen Wörtern suchen?"
 
-#: lib/Driver.php:1521
+#: lib/Driver.php:1519
 msgid "Save"
 msgstr "Speichern"
 
@@ -682,7 +682,7 @@ msgstr "Speichern"
 msgid "Search"
 msgstr "Suche"
 
-#: lib/Form/Search.php:31 search.php:71
+#: lib/Form/Search.php:31 search.php:72
 msgid "Search Forums"
 msgstr "Foren durchsuchen"
 
@@ -702,7 +702,7 @@ msgstr "In Betreffs suchen?"
 msgid "Search in these forums"
 msgstr "Diese Foren durchsuchen"
 
-#: config/prefs.php:15
+#: config/prefs.php:14
 msgid "Set the avatar image that is shown with your posts."
 msgstr ""
 "Legen Sie das Avatarbild fest, das neben Ihren Beiträgen angezeigt wird."
@@ -715,23 +715,23 @@ msgstr ""
 "Markieren Sie diese Einstellung, wenn alle Beiträge von einem Moderator "
 "kontrolliert werden sollen, bevor sie erscheinen."
 
-#: config/prefs.php:23
+#: config/prefs.php:24
 msgid "Set your preferences for the forums view."
 msgstr "Legen Sie Ihre Einstellungen für die Forenansicht fest."
 
-#: config/prefs.php:50
+#: config/prefs.php:51
 msgid "Set your preferences for the message view."
 msgstr "Legen Sie Ihre Einstellungen für die Beitragsansicht fest."
 
-#: config/prefs.php:40 config/prefs.php:57
+#: config/prefs.php:41 config/prefs.php:58
 msgid "Set your preferences for the single thread view."
 msgstr "Legen Sie Ihre Einstellungen für die Ansicht einzelner Themen fest."
 
-#: config/prefs.php:30
+#: config/prefs.php:31
 msgid "Set your preferences for the threads view."
 msgstr "Legen Sie Ihre Einstellungen für die Themenansicht fest."
 
-#: config/prefs.php:220
+#: config/prefs.php:230
 msgid "Show graphical emoticons"
 msgstr "Emoticons anzeigen"
 
@@ -739,7 +739,7 @@ msgstr "Emoticons anzeigen"
 msgid "Single Thread"
 msgstr "Einzelnes Thema"
 
-#: config/prefs.php:39
+#: config/prefs.php:40
 msgid "Single Thread View"
 msgstr "Ansicht einzelner Themen"
 
@@ -764,7 +764,7 @@ msgstr "Sortieren nach %s"
 msgid "Sort direction"
 msgstr "Sortierrichtung"
 
-#: lib/Driver.php:1566 lib/Form/Message.php:22
+#: lib/Driver.php:1564 lib/Form/Message.php:22
 msgid "Spam protection"
 msgstr "Spamschutz"
 
@@ -785,10 +785,10 @@ msgstr "Erster"
 msgid "Subforums"
 msgstr "Unterforen"
 
-#: config/prefs.php:129 config/prefs.php:174 config/prefs.php:258
+#: config/prefs.php:139 config/prefs.php:184 config/prefs.php:268
 #: lib/Api.php:296 lib/Block/Thread.php:78 lib/Block/Threads.php:119
-#: lib/Comments.php:67 lib/Comments.php:82 lib/Driver.php:1546
-#: lib/Driver.php:1549 messages/index.php:139 moderate.php:57 owner.php:56
+#: lib/Comments.php:67 lib/Comments.php:82 lib/Driver.php:1544
+#: lib/Driver.php:1547 messages/index.php:139 moderate.php:56 owner.php:56
 #: threads.php:54
 msgid "Subject"
 msgstr "Betreff"
@@ -799,7 +799,7 @@ msgstr ""
 "Das VFS-Backend muss konfiguriert sein, um das Hochladen von Dateien zu "
 "erlauben."
 
-#: config/prefs.php:69
+#: config/prefs.php:70
 msgid "The location of your avatar image."
 msgstr "Der Ort Ihres Avatarbildes."
 
@@ -821,7 +821,7 @@ msgstr ""
 "Damit wird das Forum, alle Unterforen und alle dazugehörigen Beiträge "
 "gelöscht."
 
-#: config/prefs.php:128 config/prefs.php:173 config/prefs.php:249
+#: config/prefs.php:138 config/prefs.php:183 config/prefs.php:259
 #: lib/Block/Thread.php:32 lib/Block/Thread.php:78 lib/Comments.php:59
 #: messages/index.php:139 messages/index.php:151
 msgid "Thread"
@@ -849,7 +849,7 @@ msgstr "Themenübersicht"
 msgid "Thread deleted."
 msgstr "Thema gelöscht."
 
-#: messages/index.php:197 messages/lock.php:56
+#: messages/index.php:201 messages/lock.php:56
 msgid "Thread locked."
 msgstr "Thema gesperrt."
 
@@ -862,12 +862,12 @@ msgstr "Thema ab Beitrag %s geteilt."
 msgid "Thread unlocked."
 msgstr "Thema freigegeben."
 
-#: forums.php:53 lib/Block/Threads.php:29 lib/Comments.php:75
+#: forums.php:52 lib/Block/Threads.php:29 lib/Comments.php:75
 #: templates/threads.html.php:1
 msgid "Threads"
 msgstr "Themen"
 
-#: config/prefs.php:29
+#: config/prefs.php:30
 msgid "Threads View"
 msgstr "Themenansicht"
 
@@ -876,7 +876,7 @@ msgstr "Themenansicht"
 msgid "Threads in \"%s\""
 msgstr "Themen in \"%s\""
 
-#: rss/threads.php:51 threads.php:61 threads.php:78
+#: rss/threads.php:51 threads.php:61 threads.php:79
 #, php-format
 msgid "Threads in %s"
 msgstr "Themen in %s"
@@ -897,7 +897,7 @@ msgstr "Freigeben"
 msgid "Unlock thread"
 msgstr "Thema freigeben"
 
-#: lib/Form/Forum.php:24 messages/lock.php:42
+#: lib/Form/Forum.php:29 messages/lock.php:42
 msgid "Update"
 msgstr "Aktualisierung"
 
@@ -914,7 +914,7 @@ msgstr "Benutzer"
 msgid "View"
 msgstr "Anzeigen"
 
-#: messages/index.php:175
+#: messages/index.php:179
 msgid "View bodies"
 msgstr "Beitragstexte anzeigen"
 
@@ -926,7 +926,7 @@ msgstr "Gelesen"
 msgid "With Thread: "
 msgstr "Mit Thema: "
 
-#: config/prefs.php:196
+#: config/prefs.php:206
 msgid "Yes"
 msgstr "Ja"
 
@@ -934,11 +934,11 @@ msgstr "Ja"
 msgid "Yes, allow replies"
 msgstr "Ja, Antworten zulassen"
 
-#: config/prefs.php:197
+#: config/prefs.php:207
 msgid "Yes, and don't thread them"
 msgstr "Ja, ohne einzurücken"
 
-#: lib/Driver.php:1711
+#: lib/Driver.php:1709
 #, php-format
 msgid "You don't have permission to access messages in forum %s."
 msgstr "Sie haben nicht genügend Rechte, um Beiträge im Forum %s anzuzeigen."
@@ -951,7 +951,7 @@ msgid "You don't have permission to delete messages in forum %s."
 msgstr "Sie haben nicht genügend Rechte, um Beiträge im Forum %s zu löschen."
 
 #: lib/Api.php:456 lib/Driver.php:122 messages/edit.php:35
-#: messages/index.php:195
+#: messages/index.php:199
 #, php-format
 msgid "You don't have permission to post messages in forum %s."
 msgstr "Sie haben nicht genügend Rechte, um Beiträge im Forum %s zu erstellen."
@@ -1018,20 +1018,20 @@ msgstr "_Themen"
 msgid "by"
 msgstr "von"
 
-#: lib/Driver.php:1655
+#: lib/Driver.php:1653
 msgid "download"
 msgstr "Herunterladen"
 
-#: lib/Tree/Flat.php:111 templates/messages/flat_thread.html.php:8
+#: lib/Tree/Flat.php:32 templates/messages/flat_thread.html.php:8
 msgid "on: "
 msgstr "am: "
 
-#: lib/Driver.php:1656
+#: lib/Driver.php:1654
 #, php-format
 msgid "size: %s"
 msgstr "Größe: %s"
 
-#: lib/Driver.php:1656
+#: lib/Driver.php:1654
 #, php-format
 msgid "type: %s"
 msgstr "Typ: %s"

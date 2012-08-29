@@ -59,7 +59,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (6.0.0beta1)';
+    public $version = 'H5 (6.0.0-git)';
 
     /**
      * Server key used in logged out session.
@@ -190,51 +190,13 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * @param array $opts  Additional options:
-     *   - For 'max_recipients' and 'max_timelimit', 'value' is the number of
-     *     recipients in the current message.
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
         if (is_array($allowed)) {
             $allowed = max($allowed);
         }
-
-        switch ($permission) {
-        case 'create_folders':
-            // No-op
-            break;
-
-        case 'max_folders':
-            if (empty($opts['value'])) {
-                return ($allowed >= count($GLOBALS['injector']->getInstance('IMP_Imap_Tree')));
-            }
-            break;
-
-        case 'max_recipients':
-            if (isset($opts['value'])) {
-                return ($allowed >= $opts['value']);
-            }
-            break;
-
-        case 'max_timelimit':
-            if (isset($opts['value'])) {
-                $sentmail = $GLOBALS['injector']->getInstance('IMP_Sentmail');
-                if (!($sentmail instanceof IMP_Sentmail)) {
-                    Horde::logMessage('The permission for the maximum number of recipients per time period has been enabled, but no backend for the sent-mail logging has been configured for IMP.', 'ERR');
-                    return true;
-                }
-
-                try {
-                    $opts['value'] += $sentmail->numberOfRecipients($GLOBALS['conf']['sentmail']['params']['limit_period'], true);
-                } catch (IMP_Exception $e) {}
-
-                return ($allowed >= $opts['value']);
-            }
-            break;
-        }
-
-        return (bool)$allowed;
+        return $allowed;
     }
 
     /* Menu methods. */
@@ -504,13 +466,16 @@ class IMP_Application extends Horde_Registry_Application
         case 'download_mbox':
             $mlist = IMP_Mailbox::formFrom($vars->mbox_list);
             $mbox = $injector->getInstance('IMP_Ui_Folder')->generateMbox($mlist);
+            $name = is_array($mlist)
+                ? reset($mlist)
+                : $mlist;
 
             if ($vars->zip) {
                 try {
                     $data = Horde_Compress::factory('Zip')->compress(array(
                         array(
                             'data' => $mbox,
-                            'name' => reset($mlist) . '.mbox'
+                            'name' => $name . '.mbox'
                         )
                     ), array(
                         'stream' => true
@@ -523,14 +488,14 @@ class IMP_Application extends Horde_Registry_Application
 
                 return array(
                     'data' => $data,
-                    'name' => reset($mlist) . '.zip',
+                    'name' => $name . '.zip',
                     'type' => 'application/zip'
                 );
             }
 
             return array(
                 'data' => $mbox,
-                'name' => reset($mlist) . '.mbox',
+                'name' => $name . '.mbox',
                 'type' => 'text/plain; charset=UTF-8'
             );
 

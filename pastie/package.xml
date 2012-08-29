@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>pastie</name>
+ <channel>pear.horde.org</channel>
+ <summary>Pastie Pastebin application</summary>
+ <description>An application for pasting and sharing syntax-highlighted snippets of arbitrary text or program code</description>
+ <lead>
+  <name>Ralf Lang</name>
+  <user>lang</user>
+  <email>lang@b1-systems.de</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Ben Klang</name>
+  <user>bklang</user>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2012-07-19</date>
+ <time>22:36:20</time>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+ <notes>
+* [rla] Minimal conversion for Horde 5.
+* [rla] Add Rdo storage driver.
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <file name="conf.xml" role="horde" />
+    <file name="prefs.php" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="lighttpd-pastie.conf" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="TODO" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="lib">
+    <dir name="Driver">
+     <file name="Rdo.php" role="horde" />
+     <file name="Sql.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Entity">
+     <file name="Paste.php" role="horde" />
+     <file name="PasteMapper.php" role="horde" />
+    </dir> <!-- /lib/Entity -->
+    <dir name="Factory">
+     <file name="Driver.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
+    <dir name="Forms">
+     <file name="Paste.php" role="horde" />
+    </dir> <!-- /lib/Forms -->
+    <dir name="Highlighter">
+     <file name="LibGeshi.php" role="horde" />
+     <file name="TextHighlighter.php" role="horde" />
+    </dir> <!-- /lib/Highlighter -->
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="Highlighter.php" role="horde" />
+    <file name="Pastie.php" role="horde" />
+    <file name="Test.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="migration">
+    <file name="1_pastie_base_tables.php" role="horde" />
+   </dir> <!-- /migration -->
+   <dir name="scripts">
+    <dir name="sql">
+     <file name="pastie.sql" role="horde" />
+    </dir> <!-- /scripts/sql -->
+   </dir> <!-- /scripts -->
+   <dir name="templates">
+    <file name="menu.inc" role="horde" />
+    <file name="paste.inc" role="horde" />
+    <file name="recent.inc" role="horde" />
+    <file name="view.inc" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <file name="pastie.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+   </dir> <!-- /themes -->
+   <file name=".htaccess" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="LICENSE" role="horde" />
+   <file name="paste.php" role="horde" />
+   <file name="view.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="pastie/.htaccess" name=".htaccess" />
+   <install as="pastie/index.php" name="index.php" />
+   <install as="pastie/LICENSE" name="LICENSE" />
+   <install as="pastie/paste.php" name="paste.php" />
+   <install as="pastie/view.php" name="view.php" />
+   <install as="pastie/config/conf.xml" name="config/conf.xml" />
+   <install as="pastie/config/prefs.php" name="config/prefs.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="lighttpd-pastie.conf" name="docs/lighttpd-pastie.conf" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="TODO" name="docs/TODO" />
+   <install as="pastie/lib/Api.php" name="lib/Api.php" />
+   <install as="pastie/lib/Application.php" name="lib/Application.php" />
+   <install as="pastie/lib/Driver.php" name="lib/Driver.php" />
+   <install as="pastie/lib/Exception.php" name="lib/Exception.php" />
+   <install as="pastie/lib/Highlighter.php" name="lib/Highlighter.php" />
+   <install as="pastie/lib/Pastie.php" name="lib/Pastie.php" />
+   <install as="pastie/lib/Test.php" name="lib/Test.php" />
+   <install as="pastie/lib/Driver/Rdo.php" name="lib/Driver/Rdo.php" />
+   <install as="pastie/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="pastie/lib/Entity/Paste.php" name="lib/Entity/Paste.php" />
+   <install as="pastie/lib/Entity/PasteMapper.php" name="lib/Entity/PasteMapper.php" />
+   <install as="pastie/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="pastie/lib/Forms/Paste.php" name="lib/Forms/Paste.php" />
+   <install as="pastie/lib/Highlighter/LibGeshi.php" name="lib/Highlighter/LibGeshi.php" />
+   <install as="pastie/lib/Highlighter/TextHighlighter.php" name="lib/Highlighter/TextHighlighter.php" />
+   <install as="pastie/migration/1_pastie_base_tables.php" name="migration/1_pastie_base_tables.php" />
+   <install as="pastie/scripts/sql/pastie.sql" name="scripts/sql/pastie.sql" />
+   <install as="pastie/templates/menu.inc" name="templates/menu.inc" />
+   <install as="pastie/templates/paste.inc" name="templates/paste.inc" />
+   <install as="pastie/templates/recent.inc" name="templates/recent.inc" />
+   <install as="pastie/templates/view.inc" name="templates/view.inc" />
+   <install as="pastie/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="pastie/themes/default/graphics/pastie.png" name="themes/default/graphics/pastie.png" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [rla] Minimal conversion for Horde 5.
+* [rla] Add Rdo storage driver.
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

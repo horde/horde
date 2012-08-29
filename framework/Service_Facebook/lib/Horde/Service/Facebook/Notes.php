@@ -22,68 +22,41 @@ class Horde_Service_Facebook_Notes extends Horde_Service_Facebook_Base
      *
      * @return integer         The ID of the note that was just created.
      */
-    public function &create($title, $content, $uid = null)
+    public function create($title, $content, $uid = 'me')
     {
         // Session key is *required*
-        if (!$skey = $this->_facebook->auth->getSessionKey()) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception(
                 'session_key is required',
                 Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        return $this->_facebook->callMethod(
-            'notes.create',
-            array('uid' => $uid,
-                  'title' => $title,
-                  'content' => $content));
+
+        return $this->_facebook->callGraphApi(
+            $uid . '/notes',
+            array('message' => $content, 'subject' => $title),
+            array('request' => 'POST'));
     }
 
     /**
      * Deletes the specified note.
      *
      * @param integer  $note_id  ID of the note you wish to delete
-     * @param integer  $uid      Owner of the note you wish to delete;
-     *                           defaults to current session user
      *
      * @return boolean
      */
-    public function &delete($note_id, $uid = null)
+    public function delete($note_id)
     {
         // Session key is *required*
-        if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception(
-                'session_key is required',
-                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
-        }
-        return $this->_facebook->callMethod(
-            'notes.delete',
-            array('uid' => $uid,
-                  'note_id' => $note_id));
-    }
-
-    /**
-     * Edits a note, replacing its title and contents with the title
-     * and contents specified.
-     *
-     * @param integer $note_id  ID of the note you wish to edit
-     * @param string  $title    Replacement title for the note
-     * @param string  $content  Replacement content for the note
-     *
-     * @return boolean
-     */
-    public function &edit($note_id, $title, $content)
-    {
-        // Session key is *required*
-        if (!$skey = $this->_facebook->auth->getSessionKey()) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception(
                 'session_key is required',
                 Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        return $this->_facebook->callMethod(
-            'notes.edit',
-            array('note_id' => $note_id,
-                  'title' => $title,
-                  'content' => $content));
+        return $this->_facebook->callGraphApi(
+            $note_id,
+            array(),
+            array('request' => 'DELETE'));
     }
 
     /**
@@ -98,19 +71,20 @@ class Horde_Service_Facebook_Notes extends Horde_Service_Facebook_Base
      *               if the viewer lacks permissions or if there are no visible
      *               notes.
      */
-    public function &get($uid, $note_ids = null)
+    public function get($uid = 'me', $note_ids = null)
     {
         // Session key is *required*
-        if (!$skey = $this->_facebook->auth->getSessionKey()) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception(
                 'session_key is required',
                 Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        return $this->_facebook->callMethod(
-            'notes.get',
-            array('uid' => $uid,
-                  'note_ids' => json_encode($note_ids)));
+        if (empty($note_ids)) {
+            return $this->_facebook->callGraphApi($uid . '/notes');
+        }
+
+        return $this->_facebook->callMethod('', array('ids' => $note_ids));
     }
 
 }

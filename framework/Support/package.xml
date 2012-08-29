@@ -16,14 +16,14 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-06</date>
- <time>00:02:32</time>
+ <date>2012-08-29</date>
+ <time>15:29:47</time>
  <version>
-  <release>2.0.0beta1</release>
-  <api>1.1.0</api>
+  <release>2.0.0beta3</release>
+  <api>1.2.0</api>
  </version>
  <stability>
-  <release>alpha</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
@@ -108,16 +108,16 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Stream_Wrapper</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
  </dependencies>
@@ -313,7 +313,34 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-06</date>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [jan] If creating Horde_Support_Backtrace from an Exception, include any previous exceptions.
+* [jan] Make Horde_Support_Backtrace#backtrace a public property.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta3</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

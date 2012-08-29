@@ -15,6 +15,9 @@ class Sesha_Entity_Value extends Horde_Rdo_Base
      */
     public function getDataValue()
     {
+        if ($this->property->datatype == 'image') {
+            return array('hash' => $this->txt_datavalue);
+        }
         return $this->txt_datavalue;
     }
 
@@ -23,6 +26,9 @@ class Sesha_Entity_Value extends Horde_Rdo_Base
      */
     public function setDataValue($value)
     {
+        if ($this->property->datatype == 'image') {
+            $value = $value['hash'];
+        }
         return $this->txt_datavalue = $value;
     }
 }

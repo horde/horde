@@ -1594,7 +1594,7 @@ abstract class Kronolith_Event
                     case Kronolith::RESPONSE_ACCEPTED:
                         $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_ACCEPT;
                         break;
-                    case Kronolith::RESPONE_DECLINED:
+                    case Kronolith::RESPONSE_DECLINED:
                         $attendee->status = Horde_ActiveSync_Message_Attendee::STATUS_DECLINE;
                         break;
                     case Kronolith::RESPONSE_TENTATIVE:

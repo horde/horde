@@ -54,6 +54,10 @@
    adding ticket comments from email messages, should we include the basic
    email headers into the ticket comment?"
    required="false">false</configboolean>
+   <configboolean name="attach_message" desc="When generating new tickets or
+   adding ticket comments from email messages, should we include the raw
+   message as an attachment into the ticket comment?"
+   required="false">false</configboolean>
    <configenum name="commenthistory" desc="When someone adds a comment to a
    ticket, how should we send the comments?">new
     <values>

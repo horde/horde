@@ -22,7 +22,7 @@ function _delete($task_id, $tasklist_id)
             if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
                 $GLOBALS['notification']->push(_("Access denied deleting task."), 'horde.error');
             } else {
-                $storage = Nag_Driver::singleton($tasklist_id);
+                $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist_id);
                 try {
                     $storage->delete($task_id);
                 } catch (Horde_Share_Exception $e) {
@@ -121,21 +121,24 @@ default:
     Horde::url('list.php', true)->redirect();
 }
 
-$datejs = str_replace('_', '-', $language) . '.js';
+$datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
 if (!file_exists($registry->get('jsfs', 'horde') . '/date/' . $datejs)) {
     $datejs = 'en-US.js';
 }
+Horde::startBuffer();
+$form->renderActive();
+$formhtml = Horde::endBuffer();
 
-$page_output->addScriptFile('date/' . $datejs, 'horde');
-$page_output->addScriptFile('date/date.js', 'horde');
-$page_output->addScriptFile('task.js');
-$page_output->addScriptPackage('Keynavlist');
+$GLOBALS['page_output']->addScriptFile('date/' . $datejs, 'horde');
+$GLOBALS['page_output']->addScriptFile('date/date.js', 'horde');
+$GLOBALS['page_output']->addScriptFile('task.js');
+$GLOBALS['page_output']->addScriptPackage('Keynavlist');
 
-$page_output->header(array(
+$GLOBALS['page_output']->header(array(
     'title' => $form->getTitle()
 ));
 require NAG_TEMPLATES . '/javascript_defs.php';
 echo Nag::menu();
 Nag::status();
-$form->renderActive();
-$page_output->footer();
+echo $formhtml;
+$GLOBALS['page_output']->footer();

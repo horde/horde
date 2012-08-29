@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Passwd H4 (4.0.2-git)\n"
+"Project-Id-Version: Passwd H5 (5.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,24 +44,24 @@ msgstr ""
 msgid "Cannot send command to server."
 msgstr ""
 
-#: index.php:226 templates/index.html.php:84
+#: index.php:224 templates/index.html.php:84
 msgid "Change Password"
 msgstr ""
 
-#: index.php:187
+#: index.php:184
 msgid "Change password for:"
 msgstr ""
 
-#: index.php:203
+#: index.php:200
 msgid "Change your password"
 msgstr ""
 
-#: index.php:205
+#: index.php:202
 #, php-format
 msgid "Changing password for %s"
 msgstr ""
 
-#: index.php:186
+#: index.php:183
 msgid "Confirm new password:"
 msgstr ""
 
@@ -109,7 +109,7 @@ msgstr ""
 msgid "Failed to verify old password."
 msgstr ""
 
-#: index.php:147 lib/Driver/Composite.php:100
+#: index.php:144 lib/Driver/Composite.php:100
 #, php-format
 msgid "Failure in changing password for %s: %s"
 msgstr ""
@@ -136,7 +136,7 @@ msgstr ""
 msgid "New password not valid (too short, bad password, too similar, ...)"
 msgstr ""
 
-#: index.php:185
+#: index.php:182
 msgid "New password:"
 msgstr ""
 
@@ -152,7 +152,7 @@ msgstr ""
 msgid "No prompt returned from server."
 msgstr ""
 
-#: index.php:184
+#: index.php:181
 msgid "Old password:"
 msgstr ""
 
@@ -164,7 +164,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: index.php:134
+#: index.php:131
 #, php-format
 msgid "Password changed on %s."
 msgstr ""
@@ -181,19 +181,19 @@ msgstr ""
 msgid "Password module is missing target parameter."
 msgstr ""
 
-#: index.php:115
+#: index.php:112
 msgid "Password module is not properly configured"
 msgstr ""
 
-#: index.php:220
+#: index.php:217
 msgid "Please provide a new password"
 msgstr ""
 
-#: index.php:219
+#: index.php:216
 msgid "Please provide your current password"
 msgstr ""
 
-#: index.php:221
+#: index.php:218
 msgid "Please verify your new password"
 msgstr ""
 
@@ -248,32 +248,32 @@ msgstr ""
 msgid "User not found."
 msgstr ""
 
-#: index.php:183
+#: index.php:180
 msgid "Username:"
 msgstr ""
 
-#: index.php:58
+#: index.php:55
 #, php-format
 msgid "You can't change password for user %s"
 msgstr ""
 
-#: index.php:66
+#: index.php:63
 msgid "You must give your current password"
 msgstr ""
 
-#: index.php:75
+#: index.php:72
 msgid "You must give your new password"
 msgstr ""
 
-#: index.php:79
+#: index.php:76
 msgid "You must verify your new password"
 msgstr ""
 
-#: index.php:87
+#: index.php:84
 msgid "Your new password must be different from your current password"
 msgstr ""
 
-#: index.php:83
+#: index.php:80
 msgid "Your new passwords didn't match"
 msgstr ""
 
@@ -281,7 +281,7 @@ msgstr ""
 msgid "Your password could not be changed."
 msgstr ""
 
-#: index.php:222
+#: index.php:219
 msgid "Your passwords do not match"
 msgstr ""
 

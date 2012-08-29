@@ -4,6 +4,7 @@ $page_output->addScriptFile('quickfinder.js', 'horde');
 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('redbox.js', 'horde');
 $page_output->addScriptFile('calendar-panel.js');
+$page_output->addScriptFile('taghandler.js');
 
 $info_img = Horde::img('info_icon.png', _("Calendar Information"), array('class' => 'calendar-info'));
 
@@ -63,23 +64,10 @@ $tagger = Kronolith::getTagger();
 <?php foreach ($my_calendars as $id => $cal): ?>
   <li<?php echo Kronolith::getCSSColors($cal) ?>><label><input type="checkbox" class="checkbox" name="display_cal[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_calendars) ? ' checked="checked"' : '') . ' /> ' . htmlspecialchars($cal->get('name')) ?></label> <?php echo $info_img ?>
    <div class="panel-tags">
-   <?php $tags = $tagger->getTags($id, 'calendar'); ?>
     <span style="cursor:pointer;" class="toggleTags" title="<?php echo _("Add new tags")?>"><?php echo Horde::img('plus.png')?></span><span class="toggleTags" style="display:none;cursor:pointer;"><?php echo Horde::img('minus.png')?></span>
     <h5 style="display: inline;"><?php echo _("Tags")?></h5>
     <div class="toggleTags" style="display:none;">
-      <ul id="tags_<?php echo $id?>">
-        <?php foreach ($tags as $tag_id => $tag): ?>
-         <li class="panel-tags">
-<?php
-echo htmlspecialchars($tag);
-if ($cal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-    echo '<a href="#">'
-        . Horde::img('delete-small.png', _("Remove Tag"))
-        . '</a>';
-}
-        echo '</li>';
-        endforeach;?>
-      </ul>
+      <ul id="tags_<?php echo $id?>"></ul>
       <div class="clear">&nbsp;</div>
       <input type="text" name="newtags-input_<?php echo $id?>" id="newtags-input_<?php echo $id?>" size="10" /><input type="button" class="button" value="add" name="newtags-button_<?php echo $id?>" id="newtags-button_<?php echo $id?>" />
       <span id="newtags-input_<?php echo $id?>_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
@@ -87,11 +75,13 @@ if ($cal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
       $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
           'id' => 'newtags-input_' . $id
       ));
+      $tag_script[] = 'new KronolithTagHandler("' . $id . '");';
 ?>
   </div>
   </div>
   </li>
 <?php endforeach; ?>
+<?php $page_output->addInlineScript($tag_script, true);?>
  </ul>
 <?php endif; ?>
 

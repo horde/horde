@@ -1021,6 +1021,9 @@ class Turba_Api extends Horde_Registry_Api
      *                   DEFAULT: Returns an array of search results.
      *   - sources: (array) The sources to search in.
      *              DEFAULT: Search the user's default address book
+     *   - count_only: (boolean) If true, only return the count of matching
+     *                           results.
+     *                 DEFAULT: false (Return the full data set).
      *
      * @return mixed  Either a hash containing the search results or a
      *                Rfc822 List object (if 'rfc822Return' is true).
@@ -1038,11 +1041,14 @@ class Turba_Api extends Horde_Registry_Api
             'rfc822Return' => false,
             'sources' => array(),
             'customStrict' => array(),
+            'count_only' => false,
         ), $opts);
 
-        $results = empty($opts['rfc822Return'])
-            ? array()
-            : new Horde_Mail_Rfc822_List();
+        $results = !empty($opts['count_only'])
+            ? 0
+            : (empty($opts['rfc822Return'])
+                ? array()
+                : new Horde_Mail_Rfc822_List());
 
         if (!isset($cfgSources) ||
             !is_array($cfgSources) ||
@@ -1074,7 +1080,6 @@ class Turba_Api extends Horde_Registry_Api
         $sort_columns = Turba::getColumns();
 
         $driver = $injector->getInstance('Turba_Factory_Driver');
-
         foreach ($opts['sources'] as $source) {
             // Skip invalid sources -or-
             // skip sources that aren't browseable if the search is empty.
@@ -1082,6 +1087,7 @@ class Turba_Api extends Horde_Registry_Api
                 (empty($cfgSources[$source]['browse']) &&
                  (!count($names) ||
                   ((count($names) == 1) && empty($names[0]))))) {
+
                 continue;
             }
 
@@ -1094,7 +1100,7 @@ class Turba_Api extends Horde_Registry_Api
 
             foreach ($names as $name) {
                 $trimname = trim($name);
-                $criteria = array();
+                $out = $criteria = array();
                 if (strlen($trimname)) {
                     if (isset($opts['fields'][$source])) {
                         foreach ($opts['fields'][$source] as $field) {
@@ -1112,17 +1118,21 @@ class Turba_Api extends Horde_Registry_Api
                     'OR',
                     $opts['returnFields'],
                     $opts['customStrict'],
-                    $opts['matchBegin']
+                    $opts['matchBegin'],
+                    $opts['count_only']
                 );
+                if ($opts['count_only']) {
+                    $results += $search;
 
-                if (!($search instanceof Turba_List)) {
+                    continue;
+                } elseif (!($search instanceof Turba_List)) {
                     continue;
                 }
 
                 $rfc822 = new Horde_Mail_Rfc822();
 
                 while ($ob = $search->next()) {
-                    $emails = $out = $seen = array();
+                    $emails = $seen = array();
 
                     if ($ob->isGroup()) {
                         /* Is a distribution list. */
@@ -1219,10 +1229,10 @@ class Turba_Api extends Horde_Registry_Api
                             }
                         }
                     }
+                }
 
-                    if (!empty($out)) {
-                        $results[$name] = $out;
-                    }
+                if (!empty($out)) {
+                    $results[$name] = $out;
                 }
             }
         }
@@ -1493,12 +1503,13 @@ class Turba_Api extends Horde_Registry_Api
                                   array $fields = array(),
                                   $matchBegin = false)
     {
+        $abook = $GLOBALS['conf']['client']['addressbook'];
         return $this->search(
             $names,
-            array($GLOBALS['conf']['client']['addressbook']),
-            array($GLOBALS['conf']['client']['addressbook'] => $fields),
-            $matchBegin,
-            true
+            array('sources' => array($abook),
+                  'fields' => array($abook => $fields),
+                  'matchBegin' => $matchBegin,
+                  'forceSource' => true)
         );
     }
 

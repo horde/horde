@@ -278,7 +278,7 @@
       connect. IMAP is generally 143, while IMAP-SSL is generally
       993.">143</configinteger>
       <configenum name="secure" desc="The encryption to use to connect to
-      the IMAP server.">none
+      the IMAP server.">tls
        <values>
         <value>none</value>
         <value>tls</value>
@@ -878,27 +878,6 @@
   </configsection>
  </configtab>
 
- <configtab name="datatree" desc="DataTree System">
-  <configsection name="datatree">
-   <configheader>DataTree System Settings</configheader>
-   <configswitch name="driver" desc="What backend should we use for Horde
-   DataTree storage?">null
-     <case name="null" desc="None"/>
-     <case name="sql" desc="SQL Database">
-      <configsection name="params">
-       <configsql switchname="driverconfig">
-        <configstring name="table" required="false" desc="The name of the
-        data table in the database [horde_datatree]"/>
-        <configstring name="table_attributes" required="false" desc="The name
-        of the data attributes table in the database
-        [horde_datatree_attributes]"/>
-       </configsql>
-      </configsection>
-     </case>
-   </configswitch>
-  </configsection>
- </configtab>
-
  <configtab name="group" desc="Groups">
   <configsection name="group">
    <configheader>Groups Settings</configheader>
@@ -1480,13 +1459,13 @@
    <configheader>Image Manipulation Settings</configheader>
    <configswitch name="driver" description="What driver should we use for
    manipulating images?">false
-   <case name="false" desc="None"></case>
-   <case name="Imagick" desc="The PECL Imagick Library (recommended)"></case>
-   <case name="Im" desc="Imagemagick">
-     <configstring name="convert" desc="Path to the 'convert' binary"></configstring>
-     <configstring name="identify" desc="Path the 'identify' binary"></configstring>
-   </case>
-   <case name="Gd" desc="The PHP GD2 extensions (not recommended)"></case>
+    <case name="false" desc="None"/>
+    <case name="Imagick" desc="The PECL Imagick Library (recommended)"/>
+    <case name="Im" desc="Imagemagick">
+     <configstring name="convert" desc="Path to the 'convert' binary"/>
+     <configstring name="identify" desc="Path the 'identify' binary"/>
+    </case>
+    <case name="Gd" desc="The PHP GD2 extensions (not recommended)"/>
    </configswitch>
   </configsection>
   <configsection name="exif" desc="Image Metadata">
@@ -1740,6 +1719,7 @@
    <configstring name="yahoomaps" desc="Yahoo Maps API Key" required="false" />
    <configstring name="cloudmade" desc="Cloudmade API Key" required="false" />
    <configstring name="mytopo" desc="Mytopo Maps API Key" required="false" />
+   <configstring name="bing" desc="Bing Maps API Key" required="false" />
   </configsection>
   <configsection name="facebook">
    <configheader>Facebook Integration Settings</configheader>
@@ -1830,6 +1810,14 @@
      <configstring name="server" desc="Server
      address:">localhost</configstring>
      <configinteger name="port" desc="Server port:">143</configinteger>
+      <configenum name="secure" desc="The encryption to use to connect to
+      the IMAP server.">tls
+       <values>
+        <value>none</value>
+        <value>tls</value>
+        <value>ssl</value>
+       </values>
+      </configenum>
      <configstring name="maildomain" desc="Default
      maildomain:">example.com</configstring>
      <configboolean name="cache_folders" desc="Cache IMAP folders:"

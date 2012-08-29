@@ -106,9 +106,8 @@ class IMP_Ajax_Queue
                         'preview' => $val['preview']
                     ));
                     $msg->save_as = strval($msg->save_as);
+                    $messages[] = $msg;
                 } catch (Exception $e) {}
-
-                $messages[] = $msg;
             }
 
             $ajax->addTask('message', $messages);
@@ -133,11 +132,11 @@ class IMP_Ajax_Queue
             $maillog = array();
 
             foreach ($this->_maillog as $val) {
-                if ($tmp = IMP_Dimp::getMsgLogInfo($val->msg_id)) {
+                if ($tmp = IMP_Dimp::getMsgLogInfo($val['msg_id'])) {
                     $log_ob = new stdClass;
                     $log_ob->log = $tmp;
-                    $log_ob->mbox = $val->mbox->form_to;
-                    $log_ob->uid = $val->uid;
+                    $log_ob->mbox = $val['mailbox']->form_to;
+                    $log_ob->uid = $val['uid'];
                     $maillog[] = $log_ob;
                 }
             }
@@ -171,7 +170,10 @@ class IMP_Ajax_Queue
             ($quotadata = IMP::quotaData(false))) {
             $ajax->addTask('quota', array(
                 'm' => $quotadata['message'],
-                'p' => round($quotadata['percent'])
+                'p' => round($quotadata['percent']),
+                'l' => $quotadata['percent'] >= 90
+                    ? 'alert'
+                    : ($quotadata['percent'] >= 75 ? 'warn' : '')
             ));
             $this->_quota = false;
         }
@@ -237,7 +239,7 @@ class IMP_Ajax_Queue
     {
         if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
             $this->_maillog[] = array(
-                'mailbox' => $mailbox,
+                'mailbox' => IMP_Mailbox::get($mailbox),
                 'msg_id' => $msg_id,
                 'uid' => $uid
             );

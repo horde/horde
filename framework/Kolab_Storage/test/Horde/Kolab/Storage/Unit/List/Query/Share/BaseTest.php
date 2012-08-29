@@ -31,7 +31,7 @@ require_once __DIR__ . '/../../../../Autoload.php';
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Unit_List_Query_Share_BaseTest
-extends Horde_Kolab_Storage_TestCase
+extends PHPUnit_Framework_TestCase
 {
     public function testGetDescription()
     {
@@ -51,6 +51,16 @@ extends Horde_Kolab_Storage_TestCase
             ->with('INBOX', '/shared/vendor/horde/share-params')
             ->will($this->returnValue(base64_encode(serialize(array('params')))));
         $this->assertEquals(array('params'), $share->getParameters('INBOX'));
+    }
+
+    public function testGetEmptyParameters()
+    {
+        $share = $this->_getShare();
+        $this->driver->expects($this->once())
+            ->method('getAnnotation')
+            ->with('INBOX', '/shared/vendor/horde/share-params')
+            ->will($this->returnValue(''));
+        $this->assertEquals(array(), $share->getParameters('INBOX'));
     }
 
     public function testSetDescription()
@@ -78,12 +88,8 @@ extends Horde_Kolab_Storage_TestCase
     private function _getShare()
     {
         $this->driver = $this->getMock('Horde_Kolab_Storage_Driver');
-        $this->list = new Horde_Kolab_Storage_List_Base(
-            $this->driver,
-            new Horde_Kolab_Storage_Factory()
-        );
         return new Horde_Kolab_Storage_List_Query_Share_Base(
-            $this->list, array()
+            $this->driver
         );
     }
 }

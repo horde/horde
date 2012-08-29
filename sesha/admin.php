@@ -39,7 +39,7 @@ case 'add_category':
     $title = _("Add a category");
     $vars->set('actionID', $actionID);
     $renderer = new Horde_Form_Renderer();
-    $form = new Sesha_Forms_Category($vars);
+    $form = new Sesha_Form_Category($vars);
     if ($form->validate($vars)) {
         $form->getInfo($vars, $info);
         // Save category details.
@@ -78,7 +78,7 @@ case 'edit_category':
         $vars->get('submitbutton') == _("Save Category")) {
         $title = sprintf(_("Modifying %s"), $category['category']);
         $vars->set('actionID', $actionID);
-        $form = new Sesha_Forms_Category($vars);
+        $form = new Sesha_Form_Category($vars);
         $form->setTitle($title);
         if ($form->validate($vars)) {
             // Save category details.
@@ -108,7 +108,7 @@ case 'edit_category':
     } elseif ($vars->get('submitbutton') == _("Delete Category")) {
         $title = sprintf(_("Delete Category \"%s\""), $category['category']);
         $vars->set('actionID', 'delete_category');
-        $form = new Sesha_Forms_CategoryDelete($vars);
+        $form = new Sesha_Form_CategoryDelete($vars);
         $form->setTitle($title);
     }
     break;
@@ -143,12 +143,12 @@ case 'edit_property':
     if ($vars->get('submitbutton') == _("Delete Property")) {
         $title = sprintf(_("Delete Property \"%s\""), $property['property']);
         $vars->set('actionID', 'delete_property');
-        $form = new Sesha_Forms_PropertyDelete($vars);
+        $form = new Sesha_Form_PropertyDelete($vars);
         $form->setTitle($title);
     } else {
         $title = sprintf(_("Modifying property \"%s\""), $property['property']);
         $vars->set('actionID', $actionID);
-        $form = new Sesha_Forms_Property($vars);
+        $form = new Sesha_Form_Property($vars);
         $form->setTitle($title);
         if ($form->validate($vars)) {
             // Save property details.
@@ -194,7 +194,7 @@ case 'add_property':
     $title = _("Add a property");
     $vars->set('actionID', $actionID);
     $renderer = new Horde_Form_Renderer();
-    $form = new Sesha_Forms_Property($vars);
+    $form = new Sesha_Form_Property($vars);
     $form->setTitle(_("Add a new property"));
     if ($form->validate($vars)) {
         // Save property details.
@@ -217,7 +217,7 @@ case 'list_categories':
     $url = Horde_Util::addParameter($baseUrl . '/admin.php', 'actionID', 'edit_category');
     $vars->set('actionID', 'edit_category');
     $renderer = new Horde_Form_Renderer();
-    $form = new Sesha_Forms_CategoryList($vars, 'admin.php', 'post');
+    $form = new Sesha_Form_CategoryList($vars, 'admin.php', 'post');
     $valid = $form->validate($vars);
     if ($valid) {
         // Redirect to the category list form.
@@ -226,7 +226,7 @@ case 'list_categories':
         exit;
     }
     $vars2 = Horde_Variables::getDefaultVariables();
-    $form2 = new Sesha_Forms_Category($vars2, 'admin.php', 'post');
+    $form2 = new Sesha_Form_Category($vars2, 'admin.php', 'post');
     $form2->setTitle(_("Add a new category"));
     $vars2->set('actionID', 'add_category');
     $valid = $form2->validate($vars2);
@@ -241,7 +241,7 @@ case 'list_categories':
 case 'list_properties':
     $vars->set('actionID', 'edit_property');
     $renderer = new Horde_Form_Renderer();
-    $form = new Sesha_Forms_PropertyList($vars, 'admin.php', 'post');
+    $form = new Sesha_Form_PropertyList($vars, 'admin.php', 'post');
     $valid = $form->validate($vars);
     if ($valid) {
         // Redirect to the property list form.
@@ -252,7 +252,7 @@ case 'list_properties':
     }
     $vars2 = Horde_Variables::getDefaultVariables();
     $vars2->set('actionID', 'add_property');
-    $form2 = new Sesha_Forms_Property($vars2, 'admin.php', 'post');
+    $form2 = new Sesha_Form_Property($vars2, 'admin.php', 'post');
     $form2->setTitle(_("Add a new property"));
     $valid = $form2->validate($vars2);
     if ($valid) {

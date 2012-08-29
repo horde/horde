@@ -196,7 +196,7 @@ implements Horde_Kolab_Storage_Driver
      */
     public function rename($old, $new)
     {
-        return $this->_driver->listFolders();
+        return $this->_driver->rename($old, $new);
     }
 
     /**

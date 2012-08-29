@@ -305,16 +305,18 @@ var ContextSensitive = Class.create({
             });
         }
 
-        // Get window/element dimensions
-        var eltL, h, w,
-            id = elt.identify(),
-            v = document.viewport.getDimensions();
+        var eltL, h, v, w,
+            id = elt.identify();
 
+        this.baseelt.fire('ContextSensitive:show', id);
+
+        // Get window/element dimensions
         elt.setStyle({ visibility: 'hidden' }).show();
         eltL = elt.getLayout(),
         h = eltL.get('border-box-height');
         w = eltL.get('border-box-width');
         elt.hide().setStyle({ visibility: 'visible' });
+        v = document.viewport.getDimensions();
 
         // Make sure context window is entirely on screen
         if ((y + h) > v.height) {
@@ -326,8 +328,6 @@ var ContextSensitive = Class.create({
                 ? ($(this.current.last()).viewportOffset()[0] - w)
                 : (v.width - w - 2);
         }
-
-        this.baseelt.fire('ContextSensitive:show', id);
 
         elt.setStyle({ left: x + 'px', top: y + 'px' })
 

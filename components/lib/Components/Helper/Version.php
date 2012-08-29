@@ -67,6 +67,24 @@ class Components_Helper_Version
                 )
             );
         }
+        $requires = array(
+            'alpha' => 'alpha',
+            'beta' => 'beta',
+            'RC' => 'beta',
+            'dev' => 'devel'
+        );
+        foreach ($requires as $m => $s) {
+            if (isset($match[2]) && $match[2] == $m && $stability != $s) {
+                throw new Components_Exception(
+                    sprintf(
+                        '%s version "%s" marked with invalid release stability "%s"!',
+                        $s,
+                        $version,
+                        $stability
+                    )
+                );
+            }
+        }
     }
 
     /**
@@ -144,6 +162,9 @@ class Components_Helper_Version
     /**
      * Increments the last part of a version number by one.
      *
+     * Also attaches -git suffix and increments only if the old version is a
+     * stable version.
+     *
      * @param string $version  A version number.
      *
      * @return string  The incremented version number.
@@ -159,5 +180,33 @@ class Components_Helper_Version
             $match[2]++;
         }
         return $match[1] . $match[2] . '-git';
+    }
+
+    /**
+     * Increments the last part of a version number by one.
+     *
+     * Only increments if the old version is a stable version. Increments the
+     * release state suffix instead otherwise.
+     *
+     * @param string $version  A version number.
+     *
+     * @return string  The incremented version number.
+     *
+     * @throws Components_Exception on invalid version string.
+     */
+    static public function nextPearVersion($version)
+    {
+        if (!preg_match('/^(\d+\.\d+\.)(\d+)(alpha|beta|RC|dev)?(\d*)$/', $version, $match)) {
+            throw new Components_Exception('Invalid version number ' . $version);
+        }
+        if (empty($match[3])) {
+            $match[2]++;
+            $match[3] = '';
+        } elseif (empty($match[4])) {
+            $match[4] = '';
+        } else {
+            $match[4]++;
+        }
+        return $match[1] . $match[2] . $match[3] . $match[4];
     }
 }

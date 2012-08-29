@@ -29,8 +29,7 @@
    </td>
    <td>
 <if:locked><else:locked>
-    <input type="hidden" id="<tag:flags.colorid />" name="<tag:flags.colorid />" value="<tag:flags.color />" />
-    <div class="iconImg msgflags flagUser" style="<tag:flags.colorstyle />"></div>
+    <input type="input" size="5" id="<tag:flags.colorid />" name="<tag:flags.colorid />" value="<tag:flags.color />" style="<tag:flags.colorstyle />" />
     <a class="flagcolorpicker" href="#"><tag:picker_img /></a>
 <if:flags.user>
     <a class="flagdelete" href="#"><span class="iconImg deleteImg"></span></a>

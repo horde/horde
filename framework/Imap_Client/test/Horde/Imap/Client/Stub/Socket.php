@@ -31,7 +31,7 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
 {
     public function getClientSort($data, $sort)
     {
-        $this->_temp['fetchresp'] = $this->_newFetchResult();
+        $this->_temp['fetchresp'] = new Horde_Imap_Client_Fetch_Results();
 
         $ids = array();
 
@@ -44,9 +44,6 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
             }
         }
 
-        return $this->_clientSort($ids, array(
-            'fetch_res' => $this->_temp['fetchresp']->seq,
-            'sort' => $sort
-        ));
+        return $this->_clientSortProcess($ids, $this->_temp['fetchresp'], $sort);
     }
 }

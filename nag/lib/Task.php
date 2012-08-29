@@ -8,6 +8,8 @@
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Nag
+ *
+ * @property tags array  An array of tags this task is tagged with.
  */
 class Nag_Task
 {
@@ -108,13 +110,6 @@ class Nag_Task
      * @var integer
      */
     public $completed_date;
-
-    /**
-     * The task category
-     *
-     * @var string
-     */
-    public $category;
 
     /**
      * The task alarm threshold.
@@ -231,6 +226,13 @@ class Nag_Task
     protected $_dict = array();
 
     /**
+     * Task tags (lazy loaded).
+     *
+     * @var array
+     */
+    protected $_tags;
+
+    /**
      * Constructor.
      *
      * Takes a hash and returns a nice wrapper around it.
@@ -246,6 +248,54 @@ class Nag_Task
         if ($task) {
             $this->merge($task);
         }
+    }
+
+    /**
+     * Getter.
+     *
+     * Returns the 'id' and 'creator' properties.
+     *
+     * @param string $name  Property name.
+     *
+     * @return mixed  Property value.
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+
+        case 'tags':
+            if (!isset($this->_tags)) {
+                $this->_tags = Nag::getTagger()->getTags($this->uid, 'task');
+            }
+            return $this->_tags;
+        }
+
+        $trace = debug_backtrace();
+        trigger_error('Undefined property via __set(): ' . $name
+                      . ' in ' . $trace[0]['file']
+                      . ' on line ' . $trace[0]['line'],
+                      E_USER_NOTICE);
+        return null;
+    }
+
+    /**
+     * Setter.
+     *
+     * @param string $name  Property name.
+     * @param mixed $value  Property value.
+     */
+    public function __set($name, $value)
+    {
+        switch ($name) {
+        case 'tags':
+            $this->{'_' . $name} = $value;
+            return;
+        }
+        $trace = debug_backtrace();
+        trigger_error('Undefined property via __set(): ' . $name
+                      . ' in ' . $trace[0]['file']
+                      . ' on line ' . $trace[0]['line'],
+                      E_USER_NOTICE);
     }
 
     /**
@@ -278,7 +328,7 @@ class Nag_Task
      */
     public function save()
     {
-        $this->_storage->modify($this->id, $this->toHash());
+        $this->_storage->modify($this->id, $this->toHash(true));
     }
 
     /**
@@ -301,9 +351,11 @@ class Nag_Task
      */
     public function add(Nag_Task $task)
     {
-        $this->_dict[$task->id] = count($this->children);
-        $task->parent = $this;
-        $this->children[] = $task;
+        if (!isset($this->_dict[$task->id])) {
+            $this->_dict[$task->id] = count($this->children);
+            $task->parent = $this;
+            $this->children[] = $task;
+        }
     }
 
     /**
@@ -598,7 +650,6 @@ class Nag_Task
         if ($this->private && $this->owner != $GLOBALS['registry']->getAuth()) {
             $this->name = _("Private Task");
             $this->desc = '';
-            $this->category = _("Private");
         }
 
         /* Create task links. */
@@ -641,6 +692,27 @@ class Nag_Task
     }
 
     /**
+     * Recursively loads tags for all tasks contained in this object.
+     */
+    public function loadTags()
+    {
+        $ids = array($this->uid);
+        foreach ($this->children as $task) {
+            $ids[] = $task->uid;
+        }
+        $results = Nag::getTagger()->getTags($ids);
+
+        foreach ($this->children as $task) {
+            if (!empty($results[$task->uid])) {
+                $task->tags = $results[$task->uid];
+            }
+        }
+        if (!empty($results[$this->uid])) {
+            $this->_tags = $results[$this->uid];
+        }
+    }
+
+    /**
      * Sorts sub tasks by the given criteria.
      *
      * @param string $sortby     The field by which to sort
@@ -656,7 +728,6 @@ class Nag_Task
         $sort_functions = array(
             Nag::SORT_PRIORITY => 'ByPriority',
             Nag::SORT_NAME => 'ByName',
-            Nag::SORT_CATEGORY => 'ByCategory',
             Nag::SORT_DUE => 'ByDue',
             Nag::SORT_START => 'ByStart',
             Nag::SORT_COMPLETION => 'ByCompletion',
@@ -708,32 +779,35 @@ class Nag_Task
      */
     public function toHash()
     {
-        return array('tasklist_id' => $this->tasklist,
-                     'task_id' => $this->id,
-                     'uid' => $this->uid,
-                     'parent' => $this->parent_id,
-                     'owner' => $this->owner,
-                     'assignee' => $this->assignee,
-                     'name' => $this->name,
-                     'desc' => $this->desc,
-                     'category' => $this->category,
-                     'start' => $this->start,
-                     'due' => $this->due,
-                     'priority' => $this->priority,
-                     'estimate' => $this->estimate,
-                     'completed' => $this->completed,
-                     'completed_date' => $this->completed_date,
-                     'alarm' => $this->alarm,
-                     'methods' => $this->methods,
-                     'private' => $this->private,
-                     'recurrence' => $this->recurrence);
+        $hash = array(
+            'tasklist_id' => $this->tasklist,
+            'task_id' => $this->id,
+            'uid' => $this->uid,
+            'parent' => $this->parent_id,
+            'owner' => $this->owner,
+            'assignee' => $this->assignee,
+            'name' => $this->name,
+            'desc' => $this->desc,
+            'start' => $this->start,
+            'due' => $this->due,
+            'priority' => $this->priority,
+            'estimate' => $this->estimate,
+            'completed' => $this->completed,
+            'completed_date' => $this->completed_date,
+            'alarm' => $this->alarm,
+            'methods' => $this->methods,
+            'private' => $this->private,
+            'recurrence' => $this->recurrence,
+            'tags' => $this->tags);
+
+        return $hash;
     }
 
     /**
      * Returns a simple object suitable for json transport representing this
      * task.
      *
-     * @param boolean $full        Whether to return all event details.
+     * @param boolean $full        Whether to return all task details.
      * @param string $time_format  The date() format to use for time formatting.
      *
      * @return object  A simple object.
@@ -760,6 +834,7 @@ class Nag_Task
         if ($this->recurs()) {
             $json->r = $this->recurrence->getRecurType();
         }
+        $json->t = array_values($this->tags);
 
         if ($full) {
             // @todo: do we really need all this?
@@ -941,8 +1016,8 @@ class Nag_Task
             }
         }
 
-        if (!empty($this->category)) {
-            $vTodo->setAttribute('CATEGORIES', $this->category);
+        if ($this->tags) {
+            $vTodo->setAttribute('CATEGORIES', implode(', ', $this->tags));
         }
 
         /* Get the task's history. */
@@ -987,7 +1062,7 @@ class Nag_Task
      *
      * @return Horde_ActiveSync_Message_Task
      */
-    function toASTask(array $options = array())
+    public function toASTask(array $options = array())
     {
         $message = new Horde_ActiveSync_Message_Task(array(
             'protocolversion' => $options['protocolversion'])
@@ -1067,7 +1142,7 @@ class Nag_Task
      *
      * @param Horde_Icalendar_Vtodo $vTodo  The iCalendar data to update from.
      */
-    function fromiCalendar(Horde_Icalendar_Vtodo $vTodo)
+    public function fromiCalendar(Horde_Icalendar_Vtodo $vTodo)
     {
         try {
             $name = $vTodo->getAttribute('SUMMARY');
@@ -1147,7 +1222,9 @@ class Nag_Task
 
         try {
             $cat = $vTodo->getAttribute('CATEGORIES');
-            if (!is_array($cat)) { $this->category = $cat; }
+            if (!is_array($cat)) {
+                $this->tags = $cat;
+            }
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
@@ -1169,7 +1246,7 @@ class Nag_Task
      *
      * @param Horde_ActiveSync_Message_Task $message  The task object
      */
-    function fromASTask(Horde_ActiveSync_Message_Task $message)
+    public function fromASTask(Horde_ActiveSync_Message_Task $message)
     {
         /* Owner is always current user for ActiveSync */
         $this->owner = $GLOBALS['registry']->getAuth();
@@ -1223,24 +1300,6 @@ class Nag_Task
         }
 
         $this->tasklist = $GLOBALS['prefs']->getValue('default_tasklist');
-    }
-
-    /**
-     * CSS formatting.
-     *
-     * @return string  CSS formatting.
-     */
-    public function getCssStyle()
-    {
-        $cManager = new Horde_Prefs_CategoryManager();
-        $colors = $cManager->colors();
-        if (!isset($colors[$this->category])) {
-            return '';
-        }
-        $fgColors = $cManager->fgColors();
-
-        return 'color:' . (isset($fgColors[$this->category]) ? $fgColors[$this->category] : $fgColors['_default_']) . ';' .
-            'background:' . $colors[$this->category] . ';';
     }
 
 }

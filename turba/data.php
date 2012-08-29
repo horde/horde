@@ -209,30 +209,32 @@ if (!$error && $vars->import_format) {
 
     if ($data) {
         try {
-            $next_step = $data->nextStep($vars->actionID, $param);
-
-            /* Raise warnings if some exist. */
-            if (method_exists($data, 'warnings')) {
-                $warnings = $data->warnings();
-                if (count($warnings)) {
-                    foreach ($warnings as $warning) {
-                        $notification->push($warning, 'horde.warning');
-                    }
-                    $notification->push(_("The import can be finished despite the warnings."), 'horde.message');
-                }
-            }
-        } catch (Horde_Data_Exception_Charset $e) {
-            if ($e->badCharset != 'UTF-8') {
-                $bad_charset[] = $e->badCharset;
-                throw $e;
-            }
-
-            $param['charset'] = 'windows-1252';
             try {
                 $next_step = $data->nextStep($vars->actionID, $param);
+
+                /* Raise warnings if some exist. */
+                if (method_exists($data, 'warnings')) {
+                    $warnings = $data->warnings();
+                    if (count($warnings)) {
+                        foreach ($warnings as $warning) {
+                            $notification->push($warning, 'horde.warning');
+                        }
+                        $notification->push(_("The import can be finished despite the warnings."), 'horde.message');
+                    }
+                }
             } catch (Horde_Data_Exception_Charset $e) {
-                $bad_charset = array('UTF-8', 'windows-1252');
-                throw $e;
+                if ($e->badCharset != 'UTF-8') {
+                    $bad_charset[] = $e->badCharset;
+                    throw $e;
+                }
+
+                $param['charset'] = 'windows-1252';
+                try {
+                    $next_step = $data->nextStep($vars->actionID, $param);
+                } catch (Horde_Data_Exception_Charset $e) {
+                    $bad_charset = array('UTF-8', 'windows-1252');
+                    throw $e;
+                }
             }
         } catch (Horde_Data_Exception $e) {
             $notification->push($e, 'horde.error');

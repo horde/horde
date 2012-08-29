@@ -27,14 +27,5 @@
  */
 interface Horde_Kolab_Storage_QuerySet
 {
-    /**
-     * Add the set of list queries.
-     *
-     * @param Horde_Kolab_Storage_List $list   The list.
-     * @param array                    $params Additional query parameters.
-     *
-     * @return NULL
-     */
-    public function addListQuerySet(Horde_Kolab_Storage_List $list, $params = array());
 }
 

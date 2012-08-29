@@ -195,7 +195,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
      *
      * @param array $info  The new category's attributes.
      *
-     * @return integer  The ID of the new of the category on success
+     * @return Sesha_Entity_Category  The category on success
      * @throws Sesha_Exception
      */
     public function addCategory($info)
@@ -331,7 +331,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
     public function setPropertiesForCategory($category_id, $properties = array())
     {
         $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
-        if ($category_id instanceof Insysgui_Entity_Category) {
+        if ($category_id instanceof Sesha_Entity_Category) {
             $category = $category_id;
         } else {
             $category = $cm->findOne($category_id);
@@ -357,7 +357,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
     public function clearPropertiesForCategory($category_id)
     {
         $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
-        if ($category_id instanceof Insysgui_Entity_Category) {
+        if ($category_id instanceof Sesha_Entity_Category) {
             $category = $category_id;
         } else {
             $category = $cm->findOne($category_id);
@@ -460,6 +460,9 @@ class Sesha_Driver_Rdo extends Sesha_Driver
      */
     public function updatePropertiesForStock($stock_id, $properties = array())
     {
+        if ($stock_id instanceof Sesha_Entity_Stock) {
+            $stock_id = $stock_id->stock_id;
+        }
         $vm = $this->_mappers->create('Sesha_Entity_ValueMapper');
         foreach ($properties as $property_id => $property_value) {
             $value = $vm->findOne(array('stock_id' => $stock_id, 'property_id' => $property_id));
@@ -534,7 +537,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
                     $categories = is_array($filter['value']) ? $filter['value'] : array($filter['value']);
                     $items = array();
                     foreach ($categories as $category) {
-                        if ($category instanceof Insysgui_Entity_Category) {
+                        if ($category instanceof Sesha_Entity_Category) {
                             $category_id = $category->category_id;
                         } else {
                             $category_id = $category;

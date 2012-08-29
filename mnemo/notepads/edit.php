@@ -44,7 +44,7 @@ if ($form->validate($vars)) {
             $notification->push(sprintf(_("The notepad \"%s\" has been saved."), $original_name), 'horde.success');
         }
     } catch (Exception $e) {
-        $notification->push($result, 'horde.error');
+        $notification->push($e);
     }
     Horde::url('notepads/', true)->redirect();
 }

@@ -89,18 +89,25 @@
    </form>
   </li>
 </if:filtermsg>
+ </ul>
 <if:move>
+ <form method="post" action="<tag:mailbox_url />">
+ <input type="hidden" name="mailbox" value="<tag:mailbox />" />
+ <ul>
   <li>
-   <form method="post" action="<tag:mailbox_url />">
-   <input type="hidden" name="mailbox" value="<tag:mailbox />" />
-   <tag:move /> | <tag:copy />
+   <tag:move />
+  </li>
+  <li>
+   <tag:copy />
+  </li>
+  <li>
    <label for="targetMailbox<tag:id />" class="hidden"><gettext>Target Mailbox:</gettext></label>
    <select id="targetMailbox<tag:id />" name="targetMailbox">
     <tag:folder_options />
    </select>
-   </form>
   </li>
-</if:move>
  </ul>
+ </form>
+</if:move>
 </else:readonly></if:readonly>
 </div>

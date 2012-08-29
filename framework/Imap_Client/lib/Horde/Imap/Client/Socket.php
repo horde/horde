@@ -868,10 +868,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* If QRESYNC is available, synchronize the mailbox. */
         if (!$reopen && $qresync) {
             $this->_initCache();
-            $metadata = $this->cache->getMetaData($mailbox, null, array(self::CACHE_MODSEQ, 'uidvalid'));
+            $metadata = $this->_cache->getMetaData($mailbox, null, array(self::CACHE_MODSEQ, 'uidvalid'));
 
             if (isset($metadata[self::CACHE_MODSEQ])) {
-                $uids = $this->cache->get($mailbox);
+                $uids = $this->_cache->get($mailbox);
                 if (!empty($uids)) {
                     /* This command may cause several things to happen.
                      * 1. UIDVALIDITY may have changed.  If so, we need
@@ -2136,23 +2136,30 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::SORT_SIZE:
-            $query->size();
+                $query->size();
                 break;
             }
         }
 
-        /* Get the FETCH results now. */
         if (count($query)) {
             $fetch_res = $this->fetch($this->_selected, $query, array(
                 'ids' => $this->getIdsOb($res, !empty($opts['sequence']))
             ));
+            $res = $this->_clientSortProcess($res, $fetch_res, $opts['sort']);
         }
 
+        return $res;
+    }
+
+    /**
+     */
+    protected function _clientSortProcess($res, $fetch_res, $sort)
+    {
         /* The initial sort is on the entire set. */
         $slices = array(0 => $res);
-
         $reverse = false;
-        foreach ($opts['sort'] as $val) {
+
+        foreach ($sort as $val) {
             if ($val == Horde_Imap_Client::SORT_REVERSE) {
                 $reverse = true;
                 continue;
@@ -3307,7 +3314,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'add':
         case 'remove':
             /* Caching is guaranteed to be active if CONDSTORE is active. */
-            $data = $this->cache->get($this->_selected, array_values($uids), array('HICflags'), $this->_temp['mailbox']['uidvalidity']);
+            $data = $this->_cache->get($this->_selected, array_values($uids), array('HICflags'), $this->_temp['mailbox']['uidvalidity']);
 
             foreach ($uids as $key => $uid) {
                 $flags = isset($data[$uid]['HICflags'])
@@ -3394,16 +3401,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
     /**
      */
-    protected function _setQuota(Horde_Imap_Client_Mailbox $root, $options)
+    protected function _setQuota(Horde_Imap_Client_Mailbox $root, $resources)
     {
         $limits = array();
-        if (isset($options['messages'])) {
-            $limits[] = 'MESSAGE';
-            $limits[] = array('t' => Horde_Imap_Client::DATA_NUMBER, 'v' => $options['messages']);
-        }
-        if (isset($options['storage'])) {
-            $limits[] = 'STORAGE';
-            $limits[] = array('t' => Horde_Imap_Client::DATA_NUMBER, 'v' => $options['storage']);
+
+        foreach ($resources as $key => $val) {
+            $limits[] = strtoupper($key);
+            $limits[] = array('t' => Horde_Imap_Client::DATA_NUMBER, 'v' => intval($val));
         }
 
         $this->_sendLine(array(
@@ -3438,8 +3442,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $c[$root] = array();
 
         for ($i = 0; isset($data[1][$i]); $i += 3) {
-            if (in_array($data[1][$i], array('MESSAGE', 'STORAGE'))) {
-                $c[$root][strtolower($data[1][$i])] = array('limit' => $data[1][$i + 2], 'usage' => $data[1][$i + 1]);
+            if (count($data[1][$i])) {
+                $c[$root][strtolower($data[1][$i])] = array(
+                    'limit' => $data[1][$i + 2],
+                    'usage' => $data[1][$i + 1]
+                );
             }
         }
     }
@@ -3798,7 +3805,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $res = parent::_getSeqUidLookup($ids, $reverse);
 
         if (!empty($res['lookup'])) {
-            $ob['lookup'] = array_merge($ob['lookup'], $res['lookup']);
+            $ob['lookup'] = $ob['lookup'] + $res['lookup'];
         }
         if (isset($res['uids'])) {
             $ob['uids']->add($res['uids']);

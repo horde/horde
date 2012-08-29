@@ -4,10 +4,10 @@
  </div>
  <div data-role="content" style="max-width:480px; margin:0 auto;">
   <form action="<?php echo Horde::url('login.php') ?>" method="post" data-ajax="false">
-   <input type="hidden" name="anchor_string" value="<?php echo htmlspecialchars(strval($vars->anchor_string)) ?>">
-   <input type="hidden" name="app" value="<?php echo htmlspecialchars($vars->app) ?>">
-   <input type="hidden" name="url" value="<?php echo htmlspecialchars($vars->url) ?>">
-   <input type="hidden" id="horde-login-post" name="login_post">
+   <input type="hidden" name="anchor_string" value="<?php echo htmlspecialchars(strval($vars->anchor_string)) ?>" />
+   <input type="hidden" name="app" value="<?php echo htmlspecialchars($vars->app) ?>" />
+   <input type="hidden" name="url" value="<?php echo htmlspecialchars($vars->url) ?>" />
+   <input type="hidden" id="horde-login-post" name="login_post" />
 
    <fieldset>
 <?php
@@ -17,7 +17,7 @@ foreach ($loginparams as $key => $val) {
     }
     switch ($val['type']) {
     case 'hidden':
-        echo '<input type="hidden" name="' . $key . '" value="' . (isset($val['value']) ? $val['value'] : '') . '">';
+        echo '<input type="hidden" name="' . $key . '" value="' . (isset($val['value']) ? $val['value'] : '') . '" />';
         break;
 
     case 'text':
@@ -35,7 +35,7 @@ foreach ($loginparams as $key => $val) {
             }
             echo '</select>';
         } else {
-            echo '<input id="' . $key . '" name="' . $key . '" ' . (($val['type'] == 'password') ? 'type="password" ' : 'type="text" ') . 'value="' . (isset($val['value']) ? $val['value'] : '') . '">';
+            echo '<input id="' . $key . '" name="' . $key . '" ' . (($val['type'] == 'password') ? 'type="password" ' : 'type="text" ') . 'value="' . (isset($val['value']) ? $val['value'] : '') . '" />';
         }
         echo '</div>';
         break;
@@ -45,7 +45,7 @@ foreach ($loginparams as $key => $val) {
    </fieldset>
 
    <fieldset data-role="controlgroup">
-    <input type="button" data-theme="a" id="horde-login-button" value="<?php echo htmlspecialchars($title) ?>">
+    <input type="submit" data-theme="a" id="horde-login-button" name="login_button" value="<?php echo htmlspecialchars($title) ?>" />
    </fieldset>
   </form>
  </div>

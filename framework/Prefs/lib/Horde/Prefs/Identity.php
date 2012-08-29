@@ -62,24 +62,22 @@ class Horde_Prefs_Identity
      * Constructor.
      *
      * @param array $params  Parameters:
-     * <pre>
-     * default_identity: (string) The preference name for the default
-     *                   identity.
-     *                   DEFAULT: 'default_identity'
-     * from_addr: (string) The preference name for the user's from e-mail
-     *            address.
-     *            DEFAULT: 'from_addr'
-     * fullname: (string) The preference name for the user's full name.
-     *           DEFAULT: 'fullname'
-     * id: (string) The preference name for the identity name.
-     *     DEFAULT: 'id'
-     * identities: (string) The preference name for the identity store.
-     *             DEFAULT: 'identities'
-     * prefs: (Horde_Prefs) [REQUIRED] The prefs object to use.
-     * properties: (array) The list of properties for the identity.
-     *             DEFAULT: array('from_addr', 'fullname', 'id')
-     * user: (string) [REQUIRED] The user whose prefs we are handling.
-     * </pre>
+     *   - default_identity: (string) The preference name for the default
+     *                       identity.
+     *                       DEFAULT: 'default_identity'
+     *   - from_addr: (string) The preference name for the user's from e-mail
+     *                address.
+     *                DEFAULT: 'from_addr'
+     *   - fullname: (string) The preference name for the user's full name.
+     *               DEFAULT: 'fullname'
+     *   - id: (string) The preference name for the identity name.
+     *         DEFAULT: 'id'
+     *   - identities: (string) The preference name for the identity store.
+     *                 DEFAULT: 'identities'
+     *   - prefs: (Horde_Prefs) [REQUIRED] The prefs object to use.
+     *   - properties: (array) The list of properties for the identity.
+     *                 DEFAULT: array('from_addr', 'fullname', 'id')
+     *   - user: (string) [REQUIRED] The user whose prefs we are handling.
      */
     public function __construct($params = array())
     {
@@ -144,14 +142,18 @@ class Horde_Prefs_Identity
      *
      * @param integer $identity  The identity to retrieve.
      *
-     * @return array  An identity hash.
+     * @return array  An identity hash. Returns null if the identity does not
+     *                exist.
      */
     public function get($identity = null)
     {
         if (is_null($identity) || !isset($this->_identities[$identity])) {
             $identity = $this->_default;
         }
-        return $this->_identities[$identity];
+
+        return isset($this->_identities[$identity])
+            ? $this->_identities[$identity]
+            : null;
     }
 
     /**

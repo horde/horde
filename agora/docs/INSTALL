@@ -17,7 +17,7 @@ README_ in the top-level directory of the Agora distribution.
 Prerequisites
 =============
 
-To function properly, Agora requires the following:
+To function properly, Agora **requires** the following:
 
 1. A working Horde installation.
 

@@ -367,12 +367,10 @@ class Horde_ActiveSync
     /**
      * Authenticate to the backend.
      *
-     * @param string $user  Override the username from the request.
-     *
      * @return boolean  True on successful authentication to the backend.
-     * @throws Horde_ActiveSyncException
+     * @throws Horde_ActiveSync_Exception
      */
-    public function authenticate($user = null)
+    public function authenticate()
     {
         // Get credentials
         $serverVars = $this->_request->getServerVars();
@@ -542,7 +540,7 @@ class Horde_ActiveSync
             $cmd = $get['Cmd'];
         }
         if (empty($devId)) {
-            $devId = $get['DeviceId'];
+            $devId = !empty($get['DeviceId']) ? $get['DeviceId'] : null;
         }
         $this->_setLogger($get);
 
@@ -654,6 +652,8 @@ class Horde_ActiveSync
         case self::VERSION_TWELVE:
             header('MS-Server-ActiveSync: 12.0');
             break;
+        case self::VERSION_TWELVEONE:
+            header('MS-Server-ActiveSync: 12.1');
         }
     }
 

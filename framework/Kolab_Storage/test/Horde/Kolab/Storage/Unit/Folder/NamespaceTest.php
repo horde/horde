@@ -294,17 +294,12 @@ extends Horde_Kolab_Storage_TestCase
         $this->_connection->expects($this->any())
             ->method('listAnnotation')
             ->will($this->returnValue(array($name => 'mail')));
-        $list = new Horde_Kolab_Storage_List_Base(
+        $list = new Horde_Kolab_Storage_List_Query_List_Base(
             $this->_connection,
-            $factory
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
-        $list->registerQuery(
-            Horde_Kolab_Storage_List::QUERY_BASE,
-            new Horde_Kolab_Storage_List_Query_List_Base(
-                $list, array('factory' => $factory)
-            )
-        );
-        return $list->getFolder($name);
+        return new Horde_Kolab_Storage_Folder_Base($list, $name);
     }
 
     private function _getNamespaces($user = 'test')

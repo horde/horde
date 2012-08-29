@@ -50,4 +50,20 @@ extends Components_TestCase
             Components_Helper_Version::nextVersion('5.0.0alpha1')
         );
     }
+
+    public function testNextPearVersion()
+    {
+        $this->assertEquals(
+            '5.0.1',
+            Components_Helper_Version::nextPearVersion('5.0.0')
+        );
+        $this->assertEquals(
+            '5.0.0RC2',
+            Components_Helper_Version::nextPearVersion('5.0.0RC1')
+        );
+        $this->assertEquals(
+            '5.0.0alpha2',
+            Components_Helper_Version::nextPearVersion('5.0.0alpha1')
+        );
+    }
 }

@@ -24,11 +24,8 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
     {
         global $browser, $conf, $injector, $page_output, $prefs, $registry, $session;
 
-        $this->view->addHelper('IMP_Dynamic_Helper_Mailbox');
-
         $page_output->addScriptFile('dimpbase.js');
         $page_output->addScriptFile('imp.js');
-        $page_output->addScriptFile('mailbox-dimp.js');
         $page_output->addScriptFile('passphrase.js');
         $page_output->addScriptFile('viewport.js');
         $page_output->addScriptFile('dragdrop2.js', 'horde');
@@ -52,13 +49,16 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $this->view->is_opera = $browser->isBrowser('opera');
 
+        $impSubinfo = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/dynamic'
+        ));
+        $impSubinfo->addHelper('Text');
+        $impSubinfo->quota = $session->get('imp', 'imap_quota');
+
         $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
-        if ($session->get('imp', 'imap_quota')) {
-            $topbar->subinfo = '<span id="quota-text"></span>';
-        }
         $topbar->search = $this->view->show_search;
-        $topbar->searchAction = '#';
         $topbar->searchMenu = true;
+        $topbar->subinfo = $impSubinfo->render('mailbox_subinfo');
         $this->view->topbar = $topbar->render();
 
         $blank = new Horde_Url();
@@ -70,25 +70,33 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         ));
         $impSidebar->addHelper('Text');
         $impSidebar->containers = array(
-            array('id' => 'imp-specialmboxes'),
-            array('rows' => array(
-                array('id' => 'folderopts_link',
-                      'cssClass' => 'folderoptsImg',
-                      'dropDown' => true,
-                      'link' => $blank->link() . _("Folder Actions") . '</a>'),
-                array('id' => 'dropbase',
-                      'style' => 'display:none',
-                      'cssClass' => 'folderImg',
-                      'link' => $blank->link() . _("Move to Base Level") . '</a>'))),
-            array('id' => 'imp-normalmboxes'));
-        $impSidebar->containersCount = 3;
+            array(
+                'id' => 'imp-specialmboxes'
+            ),
+            array(
+                'rows' => array(
+                    array(
+                        'id' => 'folderopts_link',
+                        'cssClass' => 'folderoptsImg',
+                        'link' => $blank->link() . _("Folder Actions") . '</a>'
+                    ),
+                    array(
+                        'id' => 'dropbase',
+                        'style' => 'display:none',
+                        'cssClass' => 'folderImg',
+                        'link' => $blank->link() . _("Move to Base Level") . '</a>'
+                    )
+                )
+            ),
+            array(
+                'id' => 'imp-normalmboxes'
+            )
+        );
 
         $sidebar = $GLOBALS['injector']->getInstance('Horde_View_Sidebar');
         $sidebar->newLink = $blank->link(array('id' => 'composelink',
                                                'class' => 'icon'));
         $sidebar->newText = _("New Message");
-        $sidebar->newRefresh = $blank->link(array('id' => 'checkmaillink',
-                                                  'class' => 'icon'));
         $sidebar->content = $impSidebar->render('sidebar');
 
         $this->view->sidebar = $sidebar->render();
@@ -148,6 +156,10 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'FLAG_DELETED' => Horde_Imap_Client::FLAG_DELETED,
             'FLAG_DRAFT' => Horde_Imap_Client::FLAG_DRAFT,
             'FLAG_SEEN' => Horde_Imap_Client::FLAG_SEEN,
+
+            // Message list templates
+            'msglist_template_horiz' => file_get_contents(IMP_TEMPLATES . '/dynamic/msglist_horiz.html'),
+            'msglist_template_vert' => file_get_contents(IMP_TEMPLATES . '/dynamic/msglist_vert.html'),
 
             // Other variables
             'acl' => $acl,
@@ -440,7 +452,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             }
         }
 
-        $this->js_context += $context;
+        $this->js_context = array_merge($context, $this->js_context);
 
         $this->js_text += array(
             'badaddr' => _("Invalid Address"),
@@ -460,7 +472,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'listmsg_timeout' => _("The server was unable to generate the message list."),
             'message' => _("Message"),
             'messages' => _("Messages"),
-            'messagetitle' => _("%d - %d of %d Messages"),
             'moveto' => _("Move %s to %s"),
             'nomessages' => _("No Messages"),
             'onlogout' => _("Logging Out..."),

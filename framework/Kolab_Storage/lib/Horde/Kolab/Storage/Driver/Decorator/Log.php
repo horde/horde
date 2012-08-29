@@ -68,6 +68,86 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
     }
 
     /**
+     * Create the specified folder.
+     *
+     * @param string $folder The folder to create.
+     *
+     * @return NULL
+     */
+    public function create($folder)
+    {
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Creating folder %s.',
+                $this->getDriverName(),
+                $folder
+            )
+        );
+        $result = parent::create($folder);
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Successfully created folder %s.',
+                $this->getDriverName(),
+                $folder
+            )
+        );
+    }
+
+    /**
+     * Delete the specified folder.
+     *
+     * @param string $folder  The folder to delete.
+     *
+     * @return NULL
+     */
+    public function delete($folder)
+    {
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Deleting folder %s.',
+                $this->getDriverName(),
+                $folder
+            )
+        );
+        $result = parent::delete($folder);
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Successfully deleted folder %s.',
+                $this->getDriverName(),
+                $folder
+            )
+        );
+    }
+
+    /**
+     * Rename the specified folder.
+     *
+     * @param string $old  The folder to rename.
+     * @param string $new  The new name of the folder.
+     *
+     * @return NULL
+     */
+    public function rename($old, $new)
+    {
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Renaming folder %s.',
+                $this->getDriverName(),
+                $old
+            )
+        );
+        $result = parent::rename($old, $new);
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Successfully renamed folder %s to %s.',
+                $this->getDriverName(),
+                $old,
+                $new
+            )
+        );
+    }
+
+    /**
      * Retrieves a list of mailboxes from the server.
      *
      * @return array The list of mailboxes.

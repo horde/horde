@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
 "PO-Revision-Date: 2011-02-02 17:34+0100\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -67,7 +67,7 @@ msgstr "Neuen Beitrag hinzufügen"
 msgid "Add story"
 msgstr "Beitrag hinzufügen"
 
-#: lib/Application.php:54
+#: lib/Application.php:61
 msgid "Administrator"
 msgstr "Administrator"
 
@@ -112,7 +112,7 @@ msgstr "Kanal-ID \"%s\" nicht gefunden."
 msgid "Channel refreshed."
 msgstr "Kanal aktualisiert."
 
-#: lib/Application.php:60
+#: lib/Application.php:67
 msgid "Channels"
 msgstr "Sender"
 
@@ -216,7 +216,7 @@ msgstr "Zusätzliche Informationen für diesen Feedtyp"
 msgid "Feed"
 msgstr "Feed"
 
-#: lib/Block/Delivery.php:20 lib/View/ChannelList.php:64
+#: lib/Block/Delivery.php:20 lib/View/ChannelList.php:69
 msgid "Feeds"
 msgstr "Feeds"
 
@@ -316,11 +316,11 @@ msgstr "Populärste Beiträge"
 msgid "Name"
 msgstr "Name"
 
-#: lib/Application.php:93 lib/Form/Feed.php:24
+#: lib/Application.php:100 lib/Form/Feed.php:24
 msgid "New Feed"
 msgstr "Neuer Feed"
 
-#: lib/Application.php:57
+#: lib/Application.php:64
 msgid "News"
 msgstr "Nachrichten"
 
@@ -328,7 +328,7 @@ msgstr "Nachrichten"
 msgid "News Source"
 msgstr "Nachrichtenquelle"
 
-#: channels/index.php:24
+#: channels/index.php:21
 msgid "News is not enabled."
 msgstr "Nachrichten sind nicht aktiviert."
 
@@ -632,18 +632,17 @@ msgstr "Der Beitrag konnte nicht versendet werden: %s"
 msgid "View"
 msgstr "Anzeigen"
 
-#: channels/index.php:18 lib/Api.php:111 lib/View/ChannelDelete.php:47
-#: lib/View/ChannelEdit.php:41 lib/View/StoryDelete.php:39
-#: lib/View/StoryEdit.php:46 lib/View/StoryList.php:32
-#: lib/View/TagSearchList.php:34
+#: lib/Api.php:111 lib/View/ChannelDelete.php:47 lib/View/ChannelEdit.php:41
+#: lib/View/StoryDelete.php:39 lib/View/StoryEdit.php:46
+#: lib/View/StoryList.php:32 lib/View/TagSearchList.php:34
 msgid "You are not authorised for this action."
 msgstr "Sie sind zu dieser Aktion nicht autorisiert."
 
-#: lib/Application.php:85
+#: lib/Application.php:92
 msgid "_Feeds"
 msgstr "_Feeds"
 
-#: lib/Application.php:106
+#: lib/Application.php:113
 msgid "_New Story"
 msgstr "_Neuer Beitrag"
 

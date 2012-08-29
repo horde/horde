@@ -972,7 +972,10 @@ $_prefs['display_contact'] = array(
 $_prefs['sourceselect'] = array(
     'type' => 'special',
     'handler' => 'IMP_Prefs_Special_Sourceselect',
-    'requires_nolock' => array('search_sources')
+    'requires_nolock' => array('search_sources'),
+    'on_init' => function($ui) {
+        Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+    }
 );
 
 // Address book(s) to use when expanding addresses
@@ -1031,10 +1034,10 @@ $prefGroups['viewing'] = array(
     'desc' => _("Configure how messages are displayed."),
     'members' => array(
         'filtering', 'strip_attachments', 'alternative_display',
-        'image_replacement', 'highlight_text', 'highlight_simple_markup',
-        'show_quoteblocks', 'dim_signature', 'emoticons', 'parts_display',
-        'mail_hdr', 'default_msg_charset', 'send_mdn', 'mimp_message',
-        'mimp_download_confirm', 'mimp_inline_all'
+        'image_replacement', 'image_replacement_manage', 'highlight_text',
+        'highlight_simple_markup', 'show_quoteblocks', 'dim_signature',
+        'emoticons', 'parts_display', 'mail_hdr', 'default_msg_charset',
+        'send_mdn', 'mimp_message', 'mimp_download_confirm', 'mimp_inline_all'
     )
 );
 
@@ -1073,8 +1076,15 @@ $_prefs['alternative_display'] = array(
 $_prefs['image_replacement'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Block images in messages unless they are specifically requested?"),
+    'desc' => _("Block images in messages unless they are specifically requested to be loaded?"),
     'help' => 'prefs-image_replacement'
+);
+
+$_prefs['image_replacement_manage'] = array(
+    'type' => 'special',
+    'advanced' => true,
+    'handler' => 'IMP_Prefs_Special_ImageReplacement',
+    'requires' => 'image_replacement'
 );
 
 // List of e-mail addresses to allow images from (in addition to e-mail
@@ -1082,6 +1092,7 @@ $_prefs['image_replacement'] = array(
 // You can provide default values this way:
 //   'value' => json_encode(array('foo@example.com', 'foo2@example.com'))
 $_prefs['image_replacement_addrs'] = array(
+    // Value is a JSON encoded array of email addresses.
     'value' => '[]'
 );
 
@@ -1787,8 +1798,14 @@ $_prefs['tree_view'] = array(
 
 // poll all mailboxes for new mail?
 $_prefs['nav_poll_all'] = array(
+    // This is locked and disabled by default. You almost certainly DO NOT
+    // want to poll all mailboxes by default: this can cause crippling load
+    // on your server and is generally NOT what users want (polling things
+    // such as Drafts, Sent-Mail, and Trash mailboxes is confusing to the
+    // average user).
     'value' => 0,
     'advanced' => true,
+    'locked' => true,
     'type' => 'checkbox',
     'desc' => _("Poll all mailboxes for new mail?"),
     'suppress' => function() {

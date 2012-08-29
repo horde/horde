@@ -247,7 +247,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             }
             return $img;
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'DEBUG');
+            Horde::log($e, 'DEBUG');
         }
 
         return false;

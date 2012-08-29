@@ -21,7 +21,7 @@ class Horde_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = '5.0.0beta1';
+    public $version = '5.0.0-git';
 
     /**
      */
@@ -95,6 +95,25 @@ class Horde_Application extends Horde_Registry_Application
 
         case 'blocks':
             return $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlocksList();
+
+        case 'mapsources':
+            return array(
+                'Google' => 'Google',
+                'Bing' => 'Bing',
+                'Yahoo' => 'Yahoo',
+                'Cloudmade' => 'CloudMade',
+                'MyTopo' => 'MyTopo',
+                'Osm' => 'OpenStreetMap',
+                'Ocm' => 'OpenCycleMap',
+                'Mapquest' => 'OpenMapquest'
+            );
+
+        case 'geocoders':
+            return array(
+                'None' => null,
+                'Google' => 'Google',
+                'Yahoo' => 'Yahoo'
+            );
         }
     }
 

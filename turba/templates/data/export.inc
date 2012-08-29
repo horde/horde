@@ -17,7 +17,7 @@
   <option value="ldif"><?php echo _("LDIF Address Book") ?></option>
  </select><br />
 
-<?php if ($actionID == 'select' && Horde_Util::getFormData('objectkeys')): ?>
+<?php if ($vars->actionID == 'select' && Horde_Util::getFormData('objectkeys')): ?>
  <br />
  <input type="radio" name="selected" id="selected1" value="1" checked="checked" />
  <?php echo Horde::label('selected1', _("Export only the selected contacts.")) ?>

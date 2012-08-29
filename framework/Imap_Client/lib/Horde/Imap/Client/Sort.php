@@ -54,7 +54,7 @@ class Horde_Imap_Client_Sort
             self::$_sortinbox = false;
         }
 
-        $cmp = array('Horde_Imap_Client_Sort', 'mboxCompare');
+        $cmp = array(__CLASS__, 'mboxCompare');
         if (!empty($options['keysort'])) {
             uksort($mbox, $cmp);
         } elseif (!empty($options['index'])) {
@@ -102,8 +102,13 @@ class Horde_Imap_Client_Sort
                         return 1;
                     }
                 }
+
                 $cmp = strnatcasecmp($a_parts[$i], $b_parts[$i]);
-                return ($cmp == 0) ? strcmp($a_parts[$i], $b_parts[$i]) : $cmp;
+                return ($cmp == 0)
+                    ? strcmp($a_parts[$i], $b_parts[$i])
+                    : $cmp;
+            } elseif ($a_parts[$i] !== $b_parts[$i]) {
+                return strlen($a_parts[$i]) - strlen($b_parts[$i]);
             }
         }
 

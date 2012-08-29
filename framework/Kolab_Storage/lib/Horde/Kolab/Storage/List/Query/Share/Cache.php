@@ -26,13 +26,22 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_List_Query_Share_Cache
-extends Horde_Kolab_Storage_List_Query_Share_Base
+extends Horde_Kolab_Storage_List_Query_Share
+implements Horde_Kolab_Storage_List_Manipulation_Listener,
+Horde_Kolab_Storage_List_Synchronization_Listener
 {
     /** The share description */
     const DESCRIPTIONS = 'SHARE_DESCRIPTIONS';
 
     /** The share parameters */
     const PARAMETERS = 'SHARE_PARAMETERS';
+
+    /**
+     * The underlying Share query.
+     *
+     * @param Horde_Kolab_Storage_List_Query_Share
+     */
+    private $_query;
 
     /**
      * The list cache.
@@ -58,14 +67,14 @@ extends Horde_Kolab_Storage_List_Query_Share_Base
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_List $list   The queriable list.
-     * @param array                    $params Additional parameters.
+     * @param Horde_Kolab_Storage_List_Query_Share $query The underlying share query.
+     * @param Horde_Kolab_Storage_List_Cache $cache The list cache.
      */
-    public function __construct(Horde_Kolab_Storage_List $list,
-                                $params)
+    public function __construct(Horde_Kolab_Storage_List_Query_Share $query,
+                                Horde_Kolab_Storage_List_Cache $cache)
     {
-        parent::__construct($list, $params);
-        $this->_list_cache = $params['cache'];
+        $this->_query = $query;
+        $this->_list_cache = $cache;
         if ($this->_list_cache->hasQuery(self::DESCRIPTIONS)) {
             $this->_descriptions = $this->_list_cache->getQuery(self::DESCRIPTIONS);
         } else {
@@ -88,7 +97,7 @@ extends Horde_Kolab_Storage_List_Query_Share_Base
     public function getDescription($folder)
     {
         if (!isset($this->_descriptions[$folder])) {
-            $this->_descriptions[$folder] = parent::getDescription($folder);
+            $this->_descriptions[$folder] = $this->_query->getDescription($folder);
             $this->_list_cache->setQuery(self::DESCRIPTIONS, $this->_descriptions);
             $this->_list_cache->save();
         }
@@ -105,8 +114,8 @@ extends Horde_Kolab_Storage_List_Query_Share_Base
     public function getParameters($folder)
     {
         if (!isset($this->_parameters[$folder])) {
-            $this->_parameters[$folder] = parent::getParameters($folder);
-            //@todo: This would only be long term data in case it is made private.
+            $this->_parameters[$folder] = $this->_query->getParameters($folder);
+            //@todo: This would only be long term data in case the IMAP is made private on the IMAP server
             $this->_list_cache->setLongTerm(self::PARAMETERS, $this->_parameters);
             $this->_list_cache->save();
         }
@@ -123,7 +132,7 @@ extends Horde_Kolab_Storage_List_Query_Share_Base
      */
     public function setDescription($folder, $description)
     {
-        parent::setDescription($folder, $description);
+        $this->_query->setDescription($folder, $description);
         $this->_descriptions[$folder] = $description;
         $this->_list_cache->setQuery(self::DESCRIPTIONS, $this->_descriptions);
         $this->_list_cache->save();
@@ -139,32 +148,32 @@ extends Horde_Kolab_Storage_List_Query_Share_Base
      */
     public function setParameters($folder, array $parameters)
     {
-        parent::setParameters($folder, $parameters);
+        $this->_query->setParameters($folder, $parameters);
         $this->_parameters[$folder] = $parameters;
         $this->_list_cache->setLongTerm(self::PARAMETERS, $this->_parameters);
         $this->_list_cache->save();
     }
 
     /**
-     * Create a new folder.
+     * Update the listener after creating a new folder.
      *
-     * @param string $folder The path of the folder to create.
+     * @param string $folder The path of the folder that has been created.
      * @param string $type   An optional type for the folder.
      *
      * @return NULL
      */
-    public function createFolder($folder, $type = null)
+    public function updateAfterCreateFolder($folder, $type = null)
     {
     }
 
     /**
-     * Delete a folder.
+     * Update the listener after deleting folder.
      *
-     * @param string $folder The path of the folder to delete.
+     * @param string $folder The path of the folder that has been deleted.
      *
      * @return NULL
      */
-    public function deleteFolder($folder)
+    public function updateAfterDeleteFolder($folder)
     {
         unset($this->_descriptions[$folder]);
         unset($this->_parameters[$folder]);
@@ -174,14 +183,14 @@ extends Horde_Kolab_Storage_List_Query_Share_Base
     }
 
     /**
-     * Rename a folder.
+     * Update the listener after renaming a folder.
      *
      * @param string $old The old path of the folder.
      * @param string $new The new path of the folder.
      *
      * @return NULL
      */
-    public function renameFolder($old, $new)
+    public function updateAfterRenameFolder($old, $new)
     {
         if (isset($this->_descriptions[$old])) {
             $this->_descriptions[$new] = $this->_descriptions[$old];
@@ -194,16 +203,6 @@ extends Horde_Kolab_Storage_List_Query_Share_Base
             $this->_list_cache->setLongTerm(self::PARAMETERS, $this->_parameters);
         }
         $this->_list_cache->save();
-    }
-
-    /**
-     * Return the last sync stamp.
-     *
-     * @return string The stamp.
-     */
-    public function getStamp()
-    {
-        return $this->_list->getStamp();
     }
 
     /**

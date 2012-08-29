@@ -1,7 +1,53 @@
+----------
+v5.0.0-git
+----------
+
+
+
+-----------
+v5.0.0beta5
+-----------
+
+[jan] Fix cancelling problem report.
+[jan] Fix audio notification path printed in page output.
+
+
+-----------
+v5.0.0beta4
+-----------
+
+[jan] Fix logging in without JavaScript (Bug #11328).
+[mms] Fix sidebar element wrapping.
+[mms] Better handling of backend authentication errors when returning AJAX data
+      (Bug #11297).
+[mjr] Fix autocompletion of tags in ajax views.
+
+
+-----------
+v5.0.0beta3
+-----------
+
+[jan] Fix dependency on Horde_Service_Weather.
+
+
+-----------
+v5.0.0beta2
+-----------
+
+[mjr] Request SSL connection from map providers if using SSL (Bug #11193).
+[jan] Remove optional dependency on Horde_DataTree.
+
+
 -----------
 v5.0.0beta1
 -----------
 
+[jan] Remove DataTree support.
+[jan] Allow to configure encryption in global IMAP configuration (Request
+      #11272).
+[jan] Update icon set.
+[rla] Retrieve more detailed message from Horde_Auth when a user is temporarily
+      or permanently locked out (Request #11254).
 
 
 ------------
@@ -32,6 +78,7 @@ First alpha release for Horde 5.
 v4.0.16-git
 -----------
 
+[jan] Fix adding attachments to problem tickets (Bug #10654).
 [jan] Update Turkish translation (İstanbul Technical University).
 [jan] Fix setting permissions on static/ directory with horde-set-perms (Bug
       #11219).

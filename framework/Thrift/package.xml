@@ -10,14 +10,14 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-06</date>
- <time>00:05:10</time>
+ <date>2012-07-19</date>
+ <time>23:46:23</time>
  <version>
-  <release>2.0.0beta1</release>
+  <release>2.0.0beta2</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</license>
@@ -151,7 +151,20 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-06</date>
+   <date>2012-07-19</date>
+   <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
    <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</license>
    <notes>
 * 

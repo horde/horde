@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_ActiveSync \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-10 12:39+0200\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
 "PO-Revision-Date: 2012-05-10 12:39+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,55 +17,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:428
+#: lib/Horde/ActiveSync/Imap/Message.php:471
 #, php-format
 msgid "%s part"
 msgstr "%s-Nachrichtenteil"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:407
+#: lib/Horde/ActiveSync/Imap/Message.php:450
 msgid "Audio part"
 msgstr "Audio-Nachrichtenteil"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:125
+#: lib/Horde/ActiveSync/Imap/Message.php:135
 msgid "Cc"
 msgstr "Cc"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:105
+#: lib/Horde/ActiveSync/Imap/Message.php:115
 msgid "Date"
 msgstr "Datum"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:109
+#: lib/Horde/ActiveSync/Imap/Message.php:119
 msgid "From"
 msgstr "Von"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:410
+#: lib/Horde/ActiveSync/Imap/Message.php:453
 msgid "Image part"
 msgstr "Bild-Nachrichtenteil"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:414
+#: lib/Horde/ActiveSync/Imap/Message.php:457
 msgid "Message part"
 msgstr "Nachrichtenteil"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:417
+#: lib/Horde/ActiveSync/Imap/Message.php:460
 msgid "Multipart part"
 msgstr "Multipart-Nachrichtenteil"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:113
+#: lib/Horde/ActiveSync/Imap/Message.php:123
 msgid "Reply-To"
 msgstr "Antwort an"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:117
+#: lib/Horde/ActiveSync/Imap/Message.php:127
 msgid "Subject"
 msgstr "Betreff"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:420
+#: lib/Horde/ActiveSync/Imap/Message.php:463
 msgid "Text part"
 msgstr "Text-Nachrichtenteil"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:121
+#: lib/Horde/ActiveSync/Imap/Message.php:131
 msgid "To"
 msgstr "An"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:423
+#: lib/Horde/ActiveSync/Imap/Message.php:466
 msgid "Video part"
 msgstr "Video-Nachrichtenteil"

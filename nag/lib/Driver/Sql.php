@@ -32,38 +32,54 @@ class Nag_Driver_Sql extends Nag_Driver
         if (!isset($this->_params['table'])) {
             $this->_params['table'] = 'nag_tasks';
         }
-
-        // @TODO: Use a bound factory for Nag_Driver and inject this from there.
-        $this->_db = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Db')
-            ->create('nag', 'storage');
+        $this->_db = $this->_params['db'];
     }
 
     /**
      * Retrieves one task from the database.
      *
-     * @param string $taskId  The id of the task to retrieve.
+     * @param mixed string|array $taskIds  The ids of the task to retrieve.
      *
-     * @return Nag_Task  A Nag_Task object.
+     * @return Nag_Task A Nag_Task object.
      * @throws Horde_Exception_NotFound
      * @throws Nag_Exception
      */
-    public function get($taskId)
+    public function get($taskIds)
     {
-        $query = sprintf('SELECT * FROM %s WHERE task_id = ?',
-                         $this->_params['table']);
-        $values = array($taskId);
+        if (!is_array($taskIds)) {
+            $query = sprintf('SELECT * FROM %s WHERE task_id = ?',
+                             $this->_params['table']);
+            $values = array($taskIds);
+        } else {
+            if (empty($taskIds)) {
+                throw new InvalidArgumentException('Must specify at least one task id');
+            }
+            $query = sprintf('SELECT * FROM %s WHERE task_id IN ('
+                . implode(',', array_fill(0, count($taskIds), '?')) . ')',
+                    $this->_params['table']
+            );
+            $values = $taskIds;
+        }
+
         try {
-            $row = $this->_db->selectOne($query, $values);
+            $rows = $this->_db->selectAll($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e);
         }
-        if (!$row) {
-            throw new Horde_Exception_NotFound("Task not found");
+        if (!$rows) {
+            throw new Horde_Exception_NotFound("Tasks not found");
         }
 
-        // Decode and return the task.
-        return new Nag_Task($this, $this->_buildTask($row));
+        if (!is_array($taskIds)) {
+            return new Nag_Task($this, $this->_buildTask(current($rows)));
+        }
+
+        $results = new Nag_Task();
+        foreach ($rows as $row) {
+            $results->add(new Nag_Task($this, $this->_buildTask($row)));
+        }
+
+        return $results;
     }
 
     /**
@@ -75,23 +91,42 @@ class Nag_Driver_Sql extends Nag_Driver
      * @throws Horde_Exception_NotFound
      * @throws Nag_Exception
      */
-    public function getByUID($uid)
+    public function getByUID($uids)
     {
-        $query = sprintf('SELECT * FROM %s WHERE task_uid = ?',
+        if (!is_array($uids)) {
+            $query = sprintf('SELECT * FROM %s WHERE task_uid = ?',
                          $this->_params['table']);
-        $values = array($uid);
+            $values = array($uids);
+        } else {
+            if (empty($uids)) {
+                throw new InvalidArgumentException('Must specify at least one task id');
+            }
+            $query = sprintf('SELECT * FROM %s WHERE task_uid IN ('
+                . implode(',', array_fill(0, count($uids), '?')) . ')',
+                $this->_params['table']);
+            $values = $uids;
+        }
         try {
-            $row = $this->_db->selectOne($query, $values);
+            $rows = $this->_db->selectAll($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e->getMessage());
         }
-        if (!$row) {
+        if (!$rows) {
             throw new Horde_Exception_NotFound(sprintf(_("Task UID %s not found"), $uid));
         }
-        $this->_tasklist = $row['task_owner'];
+        if (!is_array($uids)) {
+            // @TODO: Check this. Not sure why getByUID should have the side
+            //        effect of setting the tasklist while get() does not.
+            $this->_tasklist = $row['task_owner'];
+            return new Nag_Task($this, $this->_buildTask(current($rows)));
+        }
 
-        // Decode and return the task.
-        return new Nag_Task($this, $this->_buildTask($row));
+        $results = new Nag_Task();
+        foreach ($rows as $row) {
+            $results->add(new Nag_Task($this, $this->_buildTask($row)));
+        }
+
+        return $results;
     }
 
     /**
@@ -106,7 +141,7 @@ class Nag_Driver_Sql extends Nag_Driver
      *     - estimate: (OPTIONAL, float) The estimated time to complete the
      *                 task.
      *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - category: (OPTIONAL, string) The category of the task.
+     *     - tags: (OPTIONAL, array) The task tags.
      *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - methods: (OPTIONAL, array) The overridden alarm notification
      *                methods.
@@ -128,12 +163,12 @@ class Nag_Driver_Sql extends Nag_Driver
         $query = sprintf(
             'INSERT INTO %s (task_owner, task_creator, task_assignee, '
             . 'task_id, task_name, task_uid, task_desc, task_start, task_due, '
-            . 'task_priority, task_estimate, task_completed, task_category, '
+            . 'task_priority, task_estimate, task_completed, '
             . 'task_alarm, task_alarm_methods, task_private, task_parent, '
             . 'task_recurtype, task_recurinterval, task_recurenddate, '
             . 'task_recurcount, task_recurdays, task_exceptions, '
             . 'task_completions) '
-            . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             $this->_params['table']);
 
         $values = array($this->_tasklist,
@@ -148,7 +183,6 @@ class Nag_Driver_Sql extends Nag_Driver
                         (int)$task['priority'],
                         number_format($task['estimate'], 2),
                         (int)$task['completed'],
-                        Horde_String::convertCharset($task['category'], 'UTF-8', $this->_params['charset']),
                         (int)$task['alarm'],
                         serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
                         (int)$task['private'],
@@ -161,6 +195,8 @@ class Nag_Driver_Sql extends Nag_Driver
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e);
         }
+
+        $this->_addTags($task);
 
         return $taskId;
     }
@@ -179,7 +215,7 @@ class Nag_Driver_Sql extends Nag_Driver
      *     - estimate: (OPTIONAL, float) The estimated time to complete the
      *                 task.
      *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - category: (OPTIONAL, string) The category of the task.
+     *     - tags: (OPTIONAL, array) The task tags.
      *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - methods: (OPTIONAL, array) The overridden alarm notification
      *                methods.
@@ -207,7 +243,6 @@ class Nag_Driver_Sql extends Nag_Driver
                          ' task_estimate = ?, ' .
                          ' task_completed = ?, ' .
                          ' task_completed_date = ?, ' .
-                         ' task_category = ?, ' .
                          ' task_alarm = ?, ' .
                          ' task_alarm_methods = ?, ' .
                          ' task_parent = ?, ' .
@@ -232,7 +267,6 @@ class Nag_Driver_Sql extends Nag_Driver
                         number_format($task['estimate'], 2),
                         (int)$task['completed'],
                         (int)$task['completed_date'],
-                        Horde_String::convertCharset($task['category'], 'UTF-8', $this->_params['charset']),
                         (int)$task['alarm'],
                         serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
                         $task['parent'],
@@ -245,6 +279,10 @@ class Nag_Driver_Sql extends Nag_Driver
             $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Nag_Exception($e->getMessage());
+        }
+
+        if (!empty($task['uid'])) {
+            $this->_updateTags($task);
         }
 
         return true;
@@ -503,6 +541,36 @@ class Nag_Driver_Sql extends Nag_Driver
     }
 
     /**
+     * Helper function to update an existing event's tags to tagger storage.
+     *
+     * @param array $task  The task to update
+     */
+    protected function _updateTags(array $task)
+    {
+        Nag::getTagger()->replaceTags(
+            $task['uid'],
+            $task['tags'],
+            $task['owner'],
+            'task'
+        );
+    }
+
+    /**
+     * Helper function to add tags from a newly creted event to the tagger.
+     *
+     * @param array $task  The task to save tags to storage for.
+     */
+    protected function _addTags(array $task)
+    {
+        Nag::getTagger()->tag(
+            $task['uid'],
+            $task['tags'],
+            $task['owner'],
+            'task'
+        );
+    }
+
+    /**
      */
     protected function _buildTask($row)
     {
@@ -556,7 +624,6 @@ class Nag_Driver_Sql extends Nag_Driver
             'assignee' => $row['task_assignee'],
             'name' => Horde_String::convertCharset($row['task_name'], $this->_params['charset'], 'UTF-8'),
             'desc' => Horde_String::convertCharset($row['task_desc'], $this->_params['charset'], 'UTF-8'),
-            'category' => Horde_String::convertCharset($row['task_category'], $this->_params['charset'], 'UTF-8'),
             'start' => $row['task_start'],
             'due' => $row['task_due'],
             'priority' => $row['task_priority'],

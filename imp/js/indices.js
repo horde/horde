@@ -1,8 +1,6 @@
 /**
  * indices.js - Code to generate/parse UID strings.
  *
- * Requires prototype.js.
- *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -15,6 +13,8 @@ var ImpIndices = {
 
     /**
      * Convert object to an IMP UID range string.
+     *
+     * This method requires prototype.js.
      *
      * @param object ob    Mailbox name as keys, values are array of uids.
      * @param object opts  Additional options:
@@ -62,6 +62,8 @@ var ImpIndices = {
     /**
      * Parses an IMP UID range string.
      *
+     * This method requires either prototypejs or jQuery.
+     *
      * @param string str   An IMP UID range string.
      * @param object opts  Additional options:
      *   - pop3: (boolean) Output POP3 string?
@@ -70,10 +72,12 @@ var ImpIndices = {
      */
     parseUIDString: function(str, opts)
     {
-        var end, i, initial, mbox, size, uidstr,
+        var arr, end, i, initial, j, len, mbox, size, uidstr,
             mlist = {},
             uids = [];
-        str = str.strip();
+
+        opts = opts || {};
+        str = str.replace(/^\s+/, '').replace(/\s+$/, '');
 
         if (opts.pop3) {
             initial = '{P';
@@ -82,8 +86,8 @@ var ImpIndices = {
             initial = '{';
         }
 
-        while (!str.blank()) {
-            if (!str.startsWith(initial)) {
+        while (str.length) {
+            if (str.lastIndexOf(initial, 0) !== 0) {
                 break;
             }
             i = str.indexOf('}');
@@ -104,15 +108,18 @@ var ImpIndices = {
                     str = str.substr(end);
                 }
 
-                uidstr.split(',').each(function(e) {
-                    var r = e.split(':');
-                    if (r.size() == 1) {
-                        uids.push(Number(e));
+                arr = uidstr.split(',');
+                for (j = 0, len = arr.length; j < len; ++j) {
+                    var k, r = arr[j].split(':');
+                    if (r.length == 1) {
+                        uids.push(Number(arr[j]));
                     } else {
                         // POP3 will never exist in range here.
-                        uids = uids.concat($A($R(Number(r[0]), Number(r[1]))));
+                        for (k = Number(r[0]); k <= Number(r[1]); ++k) {
+                            uids.push(k);
+                        }
                     }
-                });
+                }
 
                 mlist[mbox] = uids;
             }

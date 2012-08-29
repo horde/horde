@@ -581,13 +581,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             'headers' => $header,
             'identity' => $identity_id,
             'priority' => $priority,
-            'readreceipt' => $readreceipt
+            'readreceipt' => $readreceipt,
+            'type' => $type
         );
     }
 
     /**
      * Save a template message on the IMAP server.
-
+     *
      * @param array $header   List of message headers (UTF-8).
      * @param mixed $message  Either the message text (string) or a
      *                        Horde_Mime_Part object that contains the text
@@ -872,7 +873,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $entry = sprintf("%s Message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $registry->getAuth());
-        Horde::logMessage($entry, 'INFO');
+        Horde::log($entry, 'INFO');
 
         /* Should we save this message in the sent mail mailbox? */
         if (!empty($opts['sent_mail']) &&
@@ -1107,19 +1108,19 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     {
         global $conf, $injector, $registry;
 
-        $core_perms = $injector->getInstance('Horde_Core_Perms');
+        $perms = $injector->getInstance('Horde_Core_Perms');
         $email_count = count($email);
 
-        if (!$core_perms->hasAppPermission('max_timelimit', array('opts' => array('value' => $email_count)))) {
+        if (!IMP::hasPermission('max_timelimit', array('value' => $email_count))) {
             Horde::permissionDeniedError('imp', 'max_timelimit');
-            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $injector->getInstance('Horde_Perms')->getPermissions('imp:max_timelimit', $registry->getAuth()), $conf['sentmail']['params']['limit_period']));
+            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $perms->hasAppPermission('max_timelimit'), $conf['sentmail']['params']['limit_period']));
         }
 
         /* Count recipients if necessary. We need to split email groups
          * because the group members count as separate recipients. */
-        if (!$core_perms->hasAppPermission('max_recipients', array('opts' => array('value' => $email_count)))) {
+        if (!IMP::hasPermission('max_recipients', array('value' => $email_count))) {
             Horde::permissionDeniedError('imp', 'max_recipients');
-            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $injector->getInstance('Horde_Perms')->getPermissions('imp:max_recipients', $registry->getAuth())));
+            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $perms->hasAppPermission('max_recipients')));
         }
 
         /* Pass to hook to allow alteration of message details. */
@@ -2104,7 +2105,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
                 $recipients = strval($recip['list']);
 
-                Horde::logMessage(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth()), 'INFO');
+                Horde::log(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth()), 'INFO');
 
                 if ($log) {
                     /* Store history information. */
@@ -2777,7 +2778,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     $vfs->writeData($fullpath, escapeshellcmd($att['part']->getName()), $data, true);
                 }
             } catch (Horde_Vfs_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 return IMP_Compose_Exception($e);
             }
         }

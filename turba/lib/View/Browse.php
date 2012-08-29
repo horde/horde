@@ -31,30 +31,7 @@ class Turba_View_Browse
     public function updateSortOrderFromVars()
     {
         extract($this->_params, EXTR_REFS);
-
-        if (strlen($sortby = $vars->get('sortby'))) {
-            $sources = Turba::getColumns();
-            $columns = isset($sources[$source]) ? $sources[$source] : array();
-            $column_name = Turba::getColumnName($sortby, $columns);
-            $append = true;
-            $ascending = ($vars->get('sortdir') == 0);
-            if ($vars->get('sortadd')) {
-                $sortorder = Turba::getPreferredSortOrder();
-                foreach ($sortorder as $i => $elt) {
-                    if ($elt['field'] == $column_name) {
-                        $sortorder[$i]['ascending'] = $ascending;
-                        $append = false;
-                    }
-                }
-            } else {
-                $sortorder = array();
-            }
-            if ($append) {
-                $sortorder[] = array('field' => $column_name,
-                                     'ascending' => $ascending);
-            }
-            $prefs->setValue('sortorder', serialize($sortorder));
-        }
+        Turba::setPreferredSortOrder($vars, $source);
     }
 
     public function run()

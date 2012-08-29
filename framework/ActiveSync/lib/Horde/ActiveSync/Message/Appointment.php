@@ -75,7 +75,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     const POOMCAL_SUBJECT            = 'POOMCAL:Subject';
     const POOMCAL_STARTTIME          = 'POOMCAL:StartTime';
     const POOMCAL_UID                = 'POOMCAL:UID';
-    const POOMCAL_RESPONSETYPE       =  'POOMCAL:ResponseType';
+    const POOMCAL_RESPONSETYPE       = 'POOMCAL:ResponseType';
 
     /* Sensitivity */
     const SENSITIVITY_NORMAL         = 0;

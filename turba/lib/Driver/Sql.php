@@ -90,16 +90,18 @@ class Turba_Driver_Sql extends Turba_Driver
      * filtered list of results. If the criteria parameter is an empty array,
      * all records will be returned.
      *
-     * @param array $criteria      Array containing the search criteria.
-     * @param array $fields        List of fields to return.
-     * @param array $blobFields    TODO
+     * @param array $criteria       Array containing the search criteria.
+     * @param array $fields         List of fields to return.
+     * @param array $blobFields     TODO
+     * @param boolean $count_only   Only return the count of matching entries,
+     *                              not the entries themselves.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
-        return $this->_internalSearch($criteria, $fields, $blobFields);
+        return $this->_internalSearch($criteria, $fields, $blobFields, array(), $count_only);
     }
 
     /**
@@ -107,17 +109,20 @@ class Turba_Driver_Sql extends Turba_Driver
      * filtered list of results. If the criteria parameter is an empty array,
      * all records will be returned.
      *
-     * @param array $criteria      Array containing the search criteria.
-     * @param array $fields        List of fields to return.
-     * @param array $blobFields    TODO
-     * @param array $appendWhere   An additional where clause to append.
-     *                             Array should contain 'sql' and 'params'
-     *                             params are used as bind parameters.
+     * @param array $criteria        Array containing the search criteria.
+     * @param array $fields          List of fields to return.
+     * @param array $blobFields      TODO
+     * @param array $appendWhere     An additional where clause to append.
+     *                               Array should contain 'sql' and 'params'
+     *                               params are used as bind parameters.
+     * @param boolean $count_only   Only return the count of matching entries,
+     *                              not the entries themselves.
      *
-     * @return array  Hash containing the search results.
+     * @return mixed array|integer  Hash containing the search results or the
+     *                              count of matching entries.
      * @throws Turba_Exception
      */
-    protected function _internalSearch(array $criteria, array $fields, $blobFields = array(), $appendWhere = array())
+    protected function _internalSearch(array $criteria, array $fields, $blobFields = array(), $appendWhere = array(), $count_only = false)
     {
         /* Build the WHERE clause. */
         $where = '';
@@ -151,12 +156,20 @@ class Turba_Driver_Sql extends Turba_Driver
         }
 
         /* Build up the full query. */
-        $query = 'SELECT ' . implode(', ', $fields) . ' FROM ' . $this->_params['table'] . $where;
-
-        try {
-            return $this->_parseRead($blobFields, $this->_db->selectAll($query, $values));
-        } catch (Horde_Db_Exception $e) {
-            throw new Turba_Exception($e);
+        if ($count_only) {
+            $query = 'SELECT COUNT(*) FROM ' . $this->_params['table'] . $where;
+            try {
+                return $this->_db->selectValue($query, $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Turba_Exception($e);
+            }
+        } else {
+            $query = 'SELECT ' . implode(', ', $fields) . ' FROM ' . $this->_params['table'] . $where;
+            try {
+               return $this->_parseRead($blobFields, $this->_db->selectAll($query, $values));
+            } catch (Horde_Db_Exception $e) {
+                throw new Turba_Exception($e);
+            }
         }
     }
 

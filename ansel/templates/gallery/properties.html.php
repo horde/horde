@@ -71,7 +71,7 @@
   <td align="right" valign="top"><strong id="slug_flag"><?php echo _("Gallery Slug") ?></strong>&nbsp;</td>
   <td>
    <input name="gallery_slug" id="gallery_slug" type="text" value="<?php echo $this->h($this->properties['slug']) ?>" size="50" /><br />
-   <?php if ($GLOBALS['conf']['urls']['pretty'] == 'rewrite'): echo _("Slugs allows direct access to this gallery by visiting:") . ': ' . Horde::url('gallery/slugname', true) ?><br /> <?php endif; ?>
+   <?php if ($this->havePretty == 'rewrite'): echo _("Slugs allows direct access to this gallery by visiting:") . ': ' . Horde::url('gallery/slugname', true) ?><br /> <?php endif; ?>
    <?php echo _("Slug names may contain only letters, numbers, @, or _ (underscore).") ?>
   </td>
  </tr>
@@ -85,13 +85,13 @@
 </tr>
 
 <!-- Age Limit -->
-<?php if (!empty($conf['ages']['limits'])): ?>
+<?php if (!empty($this->ages)): ?>
 <tr>
   <td align="right" valign="top"><strong><?php echo _("Gallery Ages") ?></strong>&nbsp;</td>
   <td>
    <select name="gallery_age">
      <option value="0" <?php echo (empty($this->properties['age']) ? 'selected="selected"' : '') ?>><?php echo _("Allow all ages") ?></option>
-     <?php foreach ($GLOBALS['conf']['ages']['limits'] as $age): ?>
+     <?php foreach ($this->ages as $age): ?>
        <option value="<?php echo $age ?>" <?php echo ($this->properties['age'] == $age ? ' selected="selected"' : '' ) ?>> <?php echo sprintf(_("User must be over %d"), $age) ?> </option>
      <?php endforeach; ?>
    </select>
@@ -100,8 +100,8 @@
 <?php endif; ?>
 
 <!-- Download ability -->
-<?php if ($GLOBALS['prefs']->isLocked('default_download')): ?>
-  <input type="hidden" name="default_download" value="<?php echo $GLOABLS['prefs']->getValue('default_download') ?>" />';
+<?php if ($this->locked['download']): ?>
+  <input type="hidden" name="default_download" value="<?php echo $this->properties['download'] ?>" />
 <?php else: ?>
   <tr>
     <td align="right" valign="top"><strong><?php echo _("Who should be allowed to download original photos?") ?></strong>&nbsp;</td>
@@ -116,7 +116,7 @@
 <?php endif; ?>
 
 <!-- Password -->
-<?php if ($GLOBALS['registry']->getAuth() && $GLOBALS['registry']->getAuth() == $this->properties['owner']): ?>
+<?php if ($this->isOwner): ?>
   <tr>
     <td align="right" valign="top"><strong><?php echo _("Gallery Password") ?></strong>&nbsp;</td>
     <td><input name="gallery_passwd" type="password" value="<?php echo $this->h($this->properties['passwd']) ?>" size="50" /></td>
@@ -124,7 +124,7 @@
 <?php endif; ?>
 
 <!-- Gallery Style -->
-<?php if ($GLOBALS['conf']['image']['prettythumbs']) { echo $this->renderPartial('styles'); }?>
+<?php if ($this->havePretty) { echo $this->renderPartial('styles'); }?>
 
 <!-- Submission -->
 <tr>

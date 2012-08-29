@@ -693,7 +693,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
                     $notification->push(_("Your browser does not support the dynamic view. Using traditional view instead."), 'horde.warning');
                     $mode = 'traditional';
                 } else {
-                    $notification->push(_("Your browser does not support the dynmic view. Using minimal view instead."), 'horde.warning');
+                    $notification->push(_("Your browser does not support the dynamic view. Using minimal view instead."), 'horde.warning');
                     $mode = 'mobile';
                 }
             }
@@ -720,9 +720,10 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         if (($browser->getBrowser() == 'msie') &&
-            ($browser->getMajor() < 7) &&
-            ($mode != 'traditional')) {
-            $notification->push(_("You are using an old, unsupported version of Internet Explorer. Various page formatting and features may not work properly until you upgrade your browser or, alternatively, use the minimal view instead."), 'horde.warning');
+            ($browser->getMajor() < 8) &&
+            ($mode != 'mobile')) {
+            $notification->push(_("You are using an old, unsupported version of Internet Explorer. You must use the minimal view until you upgrade your browser."));
+            $mode = 'mobile';
         }
 
         $registry_map = array(

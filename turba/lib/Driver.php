@@ -489,13 +489,18 @@ class Turba_Driver implements Countable
      * @param array $custom_strict    A list of fields that must match exactly.
      * @param boolean $match_begin    Whether to match only at beginning of
      *                                words.
+     * @param boolean $count_only   Only return the count of matching entries,
+     *                              not the entries themselves.
      *
-     * @return Turba_List  The sorted, filtered list of search results.
+     * @return mixed Turba_List|integer  The sorted, filtered list of search
+     *                                   results or the number of matching
+     *                                   entries (if $count_only is true).
      * @throws Turba_Exception
      */
     public function search(array $search_criteria, $sort_order = null,
                            $search_type = 'AND', array $return_fields = array(),
-                           array $custom_strict = array(), $match_begin = false)
+                           array $custom_strict = array(), $match_begin = false,
+                           $count_only = false)
     {
         /* If we are not using Horde_Share, enforce the requirement that the
          * current user must be the owner of the addressbook. */
@@ -540,8 +545,10 @@ class Turba_Driver implements Countable
         }
 
         /* Retrieve the search results from the driver. */
-        $objects = $this->_search($fields, $return_fields, $this->toDriverKeys($this->getBlobs()));
-
+        $objects = $this->_search($fields, $return_fields, $this->toDriverKeys($this->getBlobs()), $count_only);
+        if ($count_only) {
+            return $objects;
+        }
         return $this->_toTurbaObjects($objects, $sort_order);
     }
 
@@ -2918,14 +2925,16 @@ class Turba_Driver implements Countable
      * filtered list of results. If the criteria parameter is an empty array,
      * all records will be returned.
      *
-     * @param array $criteria    Array containing the search criteria.
-     * @param array $fields      List of fields to return.
-     * @param array $blobFields  Array of fields containing binary data.
+     * @param array $criteria       Array containing the search criteria.
+     * @param array $fields         List of fields to return.
+     * @param array $blobFields     Array of fields containing binary data.
+     * @param boolean $count_only   Only return the count of matching entries,
+     *                              not the entries themselves.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
         throw new Turba_Exception(_("Searching is not available."));
     }

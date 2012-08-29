@@ -5,8 +5,15 @@
  * Useful properties:
  * - newLink: (string, optional) Link of the "New" button
  *   - newText: (string) Text of the "New" button
- * - newRefresh: (string, optional) HTML content of the refresh button
- * - containers: (array, optional) HTML content of any sidebar sections.
+ * - newExtra: (string, optional) HTML content of the extra link
+ * - containers: (array, optional) HTML content of any sidebar sections. A list
+ *               of hashes with the following properties:
+ *               - id: (string, optional) The container's DOM ID.
+ *               - content: (string, optional) The container's HTML content.
+ *               - rows: (array, optional) A list of row hashes, if 'content'
+ *                       is not specified. @see addRow().
+ * - content: (string, optional) HTML content of the sidebar, if 'containers'
+ *            is not specified.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
@@ -35,6 +42,15 @@ class Horde_View_Sidebar extends Horde_View
 
         $this->containers = array();
         $this->width = $GLOBALS['prefs']->getValue('sidebar_width');
+
+        $pageOutput = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $pageOutput->addScriptFile('sidebar.js', 'horde');
+        $pageOutput->addInlineJsVars(array('HordeSidebar.text' =>
+            Horde_Serialize::serialize(array(
+                'collapse' => _("Collapse"),
+                'expand' => _("Expand"),
+            ), Horde_Serialize::JSON)
+        ));
     }
 
     /**
@@ -66,14 +82,15 @@ class Horde_View_Sidebar extends Horde_View
      *
      * @param string $label  The button text, including access key.
      * @param string $url    The button URL.
+     * @param array $extra   Extra attributes for the link tag.
      */
-    public function addNewButton($label, $url)
+    public function addNewButton($label, $url, $extra = array())
     {
         $ak = Horde::getAccessKey($label);
         $attributes = $ak
             ? Horde::getAccessKeyAndTitle($label, true, true)
             : array();
-        $this->newLink = $url->link($attributes);
+        $this->newLink = $url->link($attributes + $extra);
         $this->newText = Horde::highlightAccessKey($label, $ak);
     }
 
@@ -86,14 +103,12 @@ class Horde_View_Sidebar extends Horde_View
      *
      * @param array $row         A hash with the row information. Possible
      *                           values:
-     *                           - cssClass: (string) CSS class for the icon.
-     *                           - id: (string) DOM ID for the row link.
-     *                           - label: (string) The row text.
-     *                           - selected: (boolean) Whether to mark the row
-     *                             as active.
-     *                           - style: (string) Additional CSS styles to
-     *                             apply to the row.
-     *                           - url (string) URL to link the row to.
+     *   - cssClass: (string) CSS class for the icon.
+     *   - id: (string) DOM ID for the row link.
+     *   - label: (string) The row text.
+     *   - selected: (boolean) Whether to mark the row as active.
+     *   - style: (string) Additional CSS styles to apply to the row.
+     *   - url (string) URL to link the row to.
      * @param string $container  If using multiple sidebar sections, the ID of
      *                           the section to add the row to. Sections will
      *                           be rendered in the order of their first usage.
@@ -123,4 +138,5 @@ class Horde_View_Sidebar extends Horde_View
 
         $this->containers[$container]['rows'][] = $row;
     }
+
 }

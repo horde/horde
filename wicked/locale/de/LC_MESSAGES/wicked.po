@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-01 12:58+0100\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
 "PO-Revision-Date: 2011-11-01 12:59+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -156,7 +156,7 @@ msgstr "Wiederherstellung einer unbekannten Version nicht möglich."
 msgid "Can't update \"%s\": no such attachment."
 msgstr "\"%s\" konnte nicht aktualisiert werden: Kein Anhang mit diesem Namen."
 
-#: lib/Page/DeletePage.php:95 lib/Page/MergeOrRename.php:152
+#: lib/Page/DeletePage.php:95 lib/Page/MergeOrRename.php:153
 #: lib/Page/RevertPage.php:82 templates/edit/create.inc:47
 #: templates/edit/standard.inc:27 templates/display/MergeOrRename.html:62
 msgid "Cancel"
@@ -180,7 +180,7 @@ msgstr "Änderungseintrag"
 msgid "Change references to this page from:"
 msgstr "Verweise von folgenden Seiten ändern:"
 
-#: lib/Page/MergeOrRename.php:239
+#: lib/Page/MergeOrRename.php:240
 #, php-format
 msgid "Changed references from %s to %s"
 msgstr "Verweise von %s nach %s geändert"
@@ -267,7 +267,7 @@ msgstr "Unterschiede von"
 msgid "Diff To"
 msgstr "Unterschiede zu"
 
-#: diff.php:53 templates/diff/diff.inc:2 templates/sync/diff.inc:101
+#: diff.php:54 templates/diff/diff.inc:2 templates/sync/diff.inc:101
 #, php-format
 msgid "Diff for %s between %s and %s"
 msgstr "Unterschiede in %s zwischen %s und %s"
@@ -310,7 +310,7 @@ msgstr "Treiber"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: preview.php:22 templates/display/standard.inc:24
+#: preview.php:23 templates/display/standard.inc:24
 #, php-format
 msgid "Edit %s"
 msgstr "%s Bearbeiten"
@@ -342,7 +342,7 @@ msgstr ""
 "Geben Sie einen Namen für diese Datei an (Dateiname wird verwendet, falls "
 "nichts anderen angegeben)"
 
-#: lib/Page/MergeOrRename.php:233
+#: lib/Page/MergeOrRename.php:234
 #, php-format
 msgid "Error retrieving %s: %s"
 msgstr "Fehler beim Lesen von %s: %s"
@@ -390,7 +390,7 @@ msgstr "Geschichte von %s"
 msgid "History page not found"
 msgstr "Geschichte nicht gefunden"
 
-#: history.php:26 templates/history/header.inc:7
+#: history.php:27 templates/history/header.inc:7
 #, php-format
 msgid "History: %s"
 msgstr "Geschichte: %s"
@@ -456,22 +456,22 @@ msgstr "Gesperrt"
 msgid "Merge/Rename"
 msgstr "Umbenennen"
 
-#: lib/Page/MergeOrRename.php:137
+#: lib/Page/MergeOrRename.php:138
 #, php-format
 msgid "Merge/Rename: %s"
 msgstr "Umbenennen: %s"
 
-#: lib/Page/MergeOrRename.php:198
+#: lib/Page/MergeOrRename.php:199
 #, php-format
 msgid "Merged \"%s\" into \"%s\"."
 msgstr "\"%s\" mit \"%s\" zusammengeführt."
 
-#: lib/Page/MergeOrRename.php:201
+#: lib/Page/MergeOrRename.php:202
 #, php-format
 msgid "Merged \"%s\" into \"%s\". New page: %s\n"
 msgstr "\"%s\" mit \"%s\" zusammengeführt. Neue Seite: %s\n"
 
-#: lib/Page/MergeOrRename.php:194
+#: lib/Page/MergeOrRename.php:195
 #, php-format
 msgid "Merged from %s"
 msgstr "Zusammengeführt von %s:"
@@ -506,7 +506,7 @@ msgstr "Neuer Anhang \"%s\" für Seite \"%s\"."
 msgid "New name"
 msgstr "Neuer Name"
 
-#: lib/Page/MergeOrRename.php:162
+#: lib/Page/MergeOrRename.php:163
 msgid "New name is the same as old name."
 msgstr "Neuer Name ist der gleiche wie der alte."
 
@@ -536,7 +536,7 @@ msgstr "Keine Seiten zu synchronisieren"
 msgid "Page"
 msgstr "Seite"
 
-#: lib/Page/MergeOrRename.php:184
+#: lib/Page/MergeOrRename.php:185
 #, php-format
 msgid "Page \"%s\" already exists."
 msgstr "Die Seite \"%s\" existiert bereits."
@@ -596,7 +596,7 @@ msgstr "Der Seitenname darf nicht leer sein."
 msgid "Page unlocked"
 msgstr "Seite freigegeben"
 
-#: lib/Application.php:59
+#: lib/Application.php:67
 msgid "Pages"
 msgstr "Seiten"
 
@@ -667,12 +667,12 @@ msgstr "Extern"
 msgid "Remove login info"
 msgstr "Anmeldedaten entfernen"
 
-#: lib/Page/MergeOrRename.php:207
+#: lib/Page/MergeOrRename.php:208
 #, php-format
 msgid "Renamed \"%s\" to \"%s\"."
 msgstr "\"%s\" nach \"%s\" umbenannt."
 
-#: lib/Page/MergeOrRename.php:210
+#: lib/Page/MergeOrRename.php:211
 #, php-format
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
 msgstr "\"%s\" nach \"%s\" umbenannt. Neue Seite: %s\n"
@@ -724,7 +724,7 @@ msgstr "Speichern"
 msgid "Save login info"
 msgstr "Anmeldedaten speichern"
 
-#: lib/Page/Search.php:195 templates/menu.inc:17
+#: lib/Page/Search.php:195 templates/menu.inc:18
 msgid "Search"
 msgstr "Suche"
 
@@ -832,7 +832,7 @@ msgstr "Die Seite ist bereits gesperrt."
 msgid "There is already an attachment named \"%s\"."
 msgstr "Es existiert bereits ein Anhang mit dem Namen \"%s\"."
 
-#: lib/Page/MergeOrRename.php:160 lib/Page/MergeOrRename.php:166
+#: lib/Page/MergeOrRename.php:161 lib/Page/MergeOrRename.php:167
 msgid "This is a required field."
 msgstr "Dies ist ein Pflichtfeld."
 
@@ -845,7 +845,7 @@ msgstr "Diese Seite hat keine Geschichte"
 msgid "This page is locked by %s for %d Minutes."
 msgstr "Diese Seite wurde von %s für %d Minuten gesperrt."
 
-#: lib/Page/MergeOrRename.php:112
+#: lib/Page/MergeOrRename.php:113
 #, php-format
 msgid "This page is referenced from %d other page(s)."
 msgstr "Auf diese Seite wird von %d anderen Seite(n) verwiesen."
@@ -945,8 +945,8 @@ msgid "You do not have permission to delete attachments from this page."
 msgstr ""
 "Sie haben nicht genügend Rechte, um Anhänge von dieser Seite zu löschen."
 
-#: lib/Page/AttachedFiles.php:221 lib/Page/MergeOrRename.php:175
-#: lib/Page/MergeOrRename.php:188
+#: lib/Page/AttachedFiles.php:221 lib/Page/MergeOrRename.php:176
+#: lib/Page/MergeOrRename.php:189
 #, php-format
 msgid "You do not have permission to edit \"%s\""
 msgstr "Sie haben nicht genügend Rechte, um \"%s\" zu bearbeiten"

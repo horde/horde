@@ -2,8 +2,8 @@
 
 <?php if ($this->newLink): ?>
   <div class="horde-new">
-<?php if ($this->newRefresh): ?>
-    <div class="horde-new-refresh"><?php echo $this->newRefresh ?>&nbsp;</a></div>
+<?php if ($this->newExtra): ?>
+    <div class="horde-new-extra"><?php echo $this->newExtra ?>&nbsp;</a></div>
     <div class="horde-new-split"></div>
 <?php endif ?>
     <span class="horde-new-link"><?php echo $this->newLink ?><?php echo $this->newText ?></a></span>

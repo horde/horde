@@ -1031,9 +1031,15 @@ class Horde_Form_Type_image extends Horde_Form_Type {
         }
     }
 
+    /**
+     * @param Horde_Form_Variable $var  The Form field object to check
+     * @param Horde_Variables $vars     The form state to check this field for
+     * @param array $value              The field value array - should contain a key ['hash'] which holds the key for the image on temp storage
+     * @param something  $message       Not clear what this field does
+     */
+
     function isValid(&$var, &$vars, $value, &$message)
     {
-
         if ($vars->get('remove_' . $var->getVarName())) {
             return true;
         }
@@ -1123,8 +1129,11 @@ class Horde_Form_Type_image extends Horde_Form_Type {
 
     /**
      * Gets the upload and sets up the upload data array. Either
-     * fetches an upload done with this submit or retries stored
+     * fetches an upload done with this submit or retrieves stored
      * upload info.
+     * @param Horde_Variables $vars     The form state to check this field for
+     * @param Horde_Form_Variable $var  The Form field object to check
+     *
      */
     function _getUpload(&$vars, &$var)
     {
@@ -1255,6 +1264,8 @@ class Horde_Form_Type_image extends Horde_Form_Type {
     /**
      * Returns the current image information.
      *
+     * @param Horde_Variables $vars     The form state to check this field for
+     * @param Horde_Form_Variable $var  The Form field object to check
      * @return array  The current image hash.
      */
     function getImage($vars, $var)
@@ -1334,7 +1345,7 @@ class Horde_Form_Type_boolean extends Horde_Form_Type {
 
     function getInfo(&$vars, &$var, &$info)
     {
-        $info = Horde_String::lower($vars->get($var->getVarName())) == 'on';
+        $info = is_bool($var->getValue($vars)) ? $var->getValue($vars) : Horde_String::lower($vars->get($var->getVarName())) == 'on';
     }
 
     /**
@@ -1644,6 +1655,11 @@ class Horde_Form_Type_email extends Horde_Form_Type {
     function getSize()
     {
         return $this->_size;
+    }
+
+    function allowMulti()
+    {
+        return $this->_allow_multi;
     }
 
     /**

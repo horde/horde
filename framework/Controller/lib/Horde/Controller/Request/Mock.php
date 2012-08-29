@@ -53,4 +53,34 @@ class Horde_Controller_Request_Mock extends Horde_Controller_Request_Http
             return $this->_vars[$name];
         }
     }
+
+    public function getGetVars()
+    {
+        return $this->getVars('GET');
+    }
+
+    public function getFileVars()
+    {
+        return $this->getVars('FILES');
+    }
+
+    public function getServerVars()
+    {
+        return $this->getVars('SERVER');
+    }
+
+    public function getPostVars()
+    {
+        return $this->getVars('POST');
+    }
+
+    public function getCookieVars()
+    {
+        return $this->getVars('COOKIE');
+    }
+
+    public function getRequestVars()
+    {
+        return $this->getVars('REQUEST');
+    }
 }

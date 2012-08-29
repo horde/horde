@@ -35,151 +35,6 @@ require_once __DIR__ . '/../../Autoload.php';
 class Horde_Kolab_Storage_Unit_QuerySet_UncachedTest
 extends Horde_Kolab_Storage_TestCase
 {
-    public function testAddListQuery()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query_set = new Horde_Kolab_Storage_QuerySet_Uncached(
-            $factory
-        );
-        $query_set->addListQuerySet($list);
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Query',
-            $list->getQuery()
-        );
-    }
-
-    public function testHordeset()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query_set = new Horde_Kolab_Storage_QuerySet_Uncached(
-            $factory, array('list' => array('queryset' => Horde_Kolab_Storage_QuerySet_Uncached::HORDE))
-        );
-        $query_set->addListQuerySet($list);
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Query_Share',
-            $list->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
-        );
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testNoSuchSet()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        new Horde_Kolab_Storage_QuerySet_Uncached(
-            $factory, array('list' => array('queryset' => 'NO_SUCH_SET'))
-        );
-    }
-
-    public function testMySet()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query_set = new Horde_Kolab_Storage_QuerySet_Uncached(
-            $factory, array('list' => array('myset' => array(Horde_Kolab_Storage_List::QUERY_ACL)))
-        );
-        $query_set->addListQuerySet($list);
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Query_ACL',
-            $list->getQuery(Horde_Kolab_Storage_List::QUERY_ACL)
-        );
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testMissingMySet()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query_set = new Horde_Kolab_Storage_QuerySet_Uncached(
-            $factory, array('list' => array('myset' => array(Horde_Kolab_Storage_List::QUERY_ACL)))
-        );
-        $query_set->addListQuerySet($list);
-        $list->getQuery(Horde_Kolab_Storage_List::QUERY_BASE);
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testUnsupported()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query_set = new Horde_Kolab_Storage_QuerySet_Uncached(
-            $factory, array('list' => array('myset' => array('UNSUPPORTED')))
-        );
-        $query_set->addListQuerySet($list);
-    }
-
-    public function testQueryStub()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query_set = new Horde_Kolab_Storage_QuerySet_Uncached(
-            $factory,
-            array(
-                'list' => array(
-                    'classmap' => array(
-                        'Stub' => 'Horde_Kolab_Storage_Stub_ListQuery'
-                    ),
-                    'myset' => array('Stub')
-                )
-            )
-        );
-        $query_set->addListQuerySet($list);
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Stub_ListQuery',
-            $list->getQuery('Stub')
-        );
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testInvalidClass()
-    {
-        $list = new Horde_Kolab_Storage_List_Base(
-            $this->getNullMock(),
-            new Horde_Kolab_Storage_Factory()
-        );
-        $factory = new Horde_Kolab_Storage_Factory();
-        $query_set = new Horde_Kolab_Storage_QuerySet_Uncached(
-            $factory,
-            array(
-                'list' => array(
-                    'classmap' => array(
-                        'Stub' => 'NON_EXISTING_CLASS'
-                    ),
-                    'myset' => array('Stub')
-                )
-            )
-        );
-        $query_set->addListQuerySet($list);
-        $list->getQuery('Stub');
-    }
-
     public function testAddDataQuery()
     {
         $this->_assertDataQuery(array('data' => array('queryset' => 'horde')));
@@ -196,8 +51,10 @@ extends Horde_Kolab_Storage_TestCase
     {
         $driver = $this->getNullMock();
         $factory = new Horde_Kolab_Storage_Factory();
-        $list = new Horde_Kolab_Storage_List_Base(
-            $driver, $factory
+        $list = new Horde_Kolab_Storage_List_Query_List_Base(
+            $driver,
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
         $data = new Horde_Kolab_Storage_Data_Base(
             new Horde_Kolab_Storage_Folder_Base(
