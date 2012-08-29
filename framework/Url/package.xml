@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>23:47:47</time>
+ <date>2012-08-29</date>
+ <time>15:31:35</time>
  <version>
   <release>2.0.0beta2</release>
   <api>1.1.0</api>
@@ -238,7 +238,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add Horde_Url::setScheme().
