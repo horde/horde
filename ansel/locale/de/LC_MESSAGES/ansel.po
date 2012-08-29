@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
 "PO-Revision-Date: 2012-02-22 12:25+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -146,7 +146,7 @@ msgstr ""
 "Die Galerie, zu der dieses Foto hinzugefügt werden soll, muss angegeben "
 "werden."
 
-#: lib/View/GalleryProperties.php:178
+#: lib/View/GalleryProperties.php:185
 #, php-format
 msgid "Access denied adding a gallery to \"%s\"."
 msgstr "Zugriff verweigert beim Hinzufügen der Galerie zu \"%s\"."
@@ -197,7 +197,7 @@ msgstr "Zugriff verweigert beim Herunterladen der Originalfotos von \"%s\"."
 msgid "Access denied downloading photos from \"%s\"."
 msgstr "Zugriff verweigert beim Herunterladen der Fotos von \"%s\"."
 
-#: lib/View/GalleryProperties.php:238
+#: lib/View/GalleryProperties.php:245
 msgid "Access denied editing galleries."
 msgstr "Zugriff verweigert beim Bearbeiten der Galerien."
 
@@ -220,7 +220,7 @@ msgstr "Zugriff verweigert beim Verschieben der Fotos nach \"%s\"."
 msgid "Access denied removing photos from \"%s\"."
 msgstr "Zugriff verweigert beim Entfernen der Fotos aus \"%s\"."
 
-#: lib/View/GalleryProperties.php:282
+#: lib/View/GalleryProperties.php:289
 #, php-format
 msgid "Access denied saving gallery \"%s\"."
 msgstr "Zugriff verweigert beim Speichern der Galerie \"%s\"."
@@ -287,16 +287,16 @@ msgstr ""
 msgid "Add to bookmarks"
 msgstr "Zu Lesezeichen hinzufügen"
 
-#: lib/View/GalleryProperties.php:354
+#: lib/View/GalleryProperties.php:361
 msgid "Adding A New Gallery"
 msgstr "Neue Galerie hinzufügen"
 
-#: lib/View/GalleryProperties.php:187
+#: lib/View/GalleryProperties.php:194
 #, php-format
 msgid "Adding A Subgallery to %s"
 msgstr "Untergalerie zu %s hinzufügen"
 
-#: lib/View/GalleryProperties.php:153
+#: lib/View/GalleryProperties.php:160
 msgid "Adding a New Gallery"
 msgstr "Neue Galerie hinzufügen"
 
@@ -1173,7 +1173,7 @@ msgstr "Mittel"
 msgid "Mirror"
 msgstr "Spiegeln"
 
-#: lib/View/GalleryProperties.php:199
+#: lib/View/GalleryProperties.php:206
 msgid "Missing gallery parameter"
 msgstr "Galerie-Parameter fehlt"
 
@@ -1185,7 +1185,7 @@ msgstr "Mobile Ansicht"
 msgid "Modified"
 msgstr "Geändert"
 
-#: lib/View/GalleryProperties.php:219
+#: lib/View/GalleryProperties.php:226
 #, php-format
 msgid "Modifying: %s"
 msgstr "Bearbeite: %s"
@@ -2016,17 +2016,17 @@ msgstr ""
 msgid "The gallery \"%s\" could not be created: %s"
 msgstr "Die Galerie \"%s\" konnte nicht erstellt werden: %s"
 
-#: lib/View/GalleryProperties.php:380 xppublish.php:124
+#: lib/View/GalleryProperties.php:387 xppublish.php:124
 #, php-format
 msgid "The gallery \"%s\" couldn't be created: %s"
 msgstr "Die Galerie \"%s\" konnte nicht erstellt werden: %s"
 
-#: lib/View/GalleryProperties.php:375 xppublish.php:121
+#: lib/View/GalleryProperties.php:382 xppublish.php:121
 #, php-format
 msgid "The gallery \"%s\" was created successfully."
 msgstr "Die Galerie \"%s\" wurde erfolgreich erstellt."
 
-#: lib/View/GalleryProperties.php:323
+#: lib/View/GalleryProperties.php:330
 msgid "The gallery was saved."
 msgstr "Die Galerie wurde gespeichert."
 
@@ -2191,7 +2191,7 @@ msgstr "Der gewünschte Feed konnte nicht gelesen werden"
 msgid "Undo Changes"
 msgstr "Änderungen rückgängig machen"
 
-#: lib/View/GalleryProperties.php:221
+#: lib/View/GalleryProperties.php:228
 msgid "Unknown Gallery"
 msgstr "Unbekannte Galerie"
 
@@ -2365,7 +2365,7 @@ msgstr "Sie dürfen keine Fotos in diese Galerie hochladen."
 msgid "You did not select any photos to upload."
 msgstr "Sie haben keine Fotos zum Hochladen ausgewählt."
 
-#: lib/View/GalleryProperties.php:340
+#: lib/View/GalleryProperties.php:347
 #, php-format
 msgid "You do not have permission to add children to %s."
 msgstr "Sie haben nicht genügend Rechte, um Unterpunkte zu %s hinzuzufügen."
@@ -2420,7 +2420,7 @@ msgstr ""
 msgid "You must enter your e-mail address."
 msgstr "Sie müssen Ihre Emailadresse angeben."
 
-#: lib/View/GalleryProperties.php:351
+#: lib/View/GalleryProperties.php:358
 msgid "You must provide a display name for your new gallery."
 msgstr "Sie müssen einen Anzeigenamen für die neue Galerie angeben."
 
@@ -2437,7 +2437,7 @@ msgstr "Sie müssen Bilder zum Herunterladen auswählen."
 msgid "You must upload the search photo first"
 msgstr "Sie müssen erst das Suchfoto hochladen"
 
-#: lib/View/GalleryProperties.php:120
+#: lib/View/GalleryProperties.php:127
 msgid ""
 "Your server does not support thumbnails with transparent backgrounds.  "
 "Either select a background color or use the 'Basic Thumbnail' type. Please "

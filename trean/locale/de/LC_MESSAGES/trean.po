@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
 "PO-Revision-Date: 2012-07-19 19:38+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -67,7 +67,7 @@ msgid "Bookmarked on"
 msgstr "Datum"
 
 #: lib/Block/Bookmarks.php:20 lib/Block/Bookmarks.php:65
-#: lib/View/BookmarkList.php:118
+#: lib/View/BookmarkList.php:116
 msgid "Bookmarks"
 msgstr "Lesezeichen"
 
@@ -79,7 +79,7 @@ msgstr "Lesezeichen-Feed"
 msgid "Browse"
 msgstr "Liste"
 
-#: lib/View/BookmarkList.php:199
+#: lib/View/BookmarkList.php:197
 msgid "Browsing for tags:"
 msgstr "Tags anzeigen:"
 
@@ -213,11 +213,11 @@ msgstr "Andere Einstellungen"
 msgid "Previously used tags"
 msgstr "Bisher verwendete Tags"
 
-#: lib/View/BookmarkList.php:183
+#: lib/View/BookmarkList.php:181
 msgid "Related Tags:"
 msgstr "Ähnliche Tags:"
 
-#: lib/View/BookmarkList.php:203
+#: lib/View/BookmarkList.php:201
 msgid "Remove from search"
 msgstr "Aus der Suche entfernen"
 

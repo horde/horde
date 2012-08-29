@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 21:31+0200\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
 "PO-Revision-Date: 2012-07-19 21:32+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -162,8 +162,8 @@ msgid "Failed retrieving structure of message %s in folder %s."
 msgstr ""
 "Fehler beim Laden der Nachrichtenstruktur für Nachricht %s vom Ordner %s."
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:842
-#: lib/Horde/Kolab/Storage/Folder/Base.php:848
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:846
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:852
 #, php-format
 msgid "Failed retrieving the message with ID %s. Original error: %s."
 msgstr ""
@@ -176,12 +176,12 @@ msgstr ""
 msgid "Failed setting ACL on folder %s for user %s to %s."
 msgstr "Fehler beim Setzen der ACL im Ordner %s für Benutzer %s nach %s."
 
-#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:224
+#: doc/Horde/Kolab/Storage/OLD/Trigger.php:228
 #, php-format
 msgid "Failed triggering folder %s. Error was: %s"
 msgstr "Fehler beim Anlegen des Ordners %s. Fehlermeldung des Servers: %s"
 
-#: lib/Horde/Kolab/Storage/Factory.php:182
+#: lib/Horde/Kolab/Storage/Factory.php:195
 #, php-format
 msgid ""
 "Invalid \"driver\" parameter \"%s\". Please use one of \"mock\", \"php\", "
@@ -190,7 +190,7 @@ msgstr ""
 "Ungülter \"driver\"-Parameter \"%s\". Bitte benutzen Sie einen aus \"mock\", "
 "\"php\", \"pear\", \"horde\", \"horde-php\", und \"roundcube\"!"
 
-#: lib/Horde/Kolab/Storage/Factory.php:243
+#: lib/Horde/Kolab/Storage/Factory.php:241
 #, php-format
 msgid "Invalid \"namespace\" type \"%s\"!"
 msgstr "Ungültiger \"namespace\"-Typ \"%s\"!"
@@ -200,7 +200,7 @@ msgstr "Ungültiger \"namespace\"-Typ \"%s\"!"
 msgid "Listing folders for %s failed."
 msgstr "Fehler beim Laden der Ordner von %s."
 
-#: lib/Horde/Kolab/Storage/Factory.php:139
+#: lib/Horde/Kolab/Storage/Factory.php:152
 msgid "Missing \"driver\" parameter!"
 msgstr "\"driver\"-Parameter fehlt!"
 
@@ -261,7 +261,7 @@ msgstr ""
 "dass dieses Kolab-Objekt von jemand anderem verändert wurde, während Sie es "
 "bearbeitet haben. Orginalfehlermeldung: %s"
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:681
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:685
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -283,14 +283,14 @@ msgstr ""
 "Sie ein E-Mail-Programm, das das Kolab-Groupware-Format unterstützt. Eine "
 "Liste solcher Programme finden Sie unter %s"
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:364
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:368
 #, php-format
 msgid "Unable to rename %s to %s: destination folder already exists"
 msgstr ""
 "%s konnte nicht nach %s umbenannt werden: Das Zielverzeichnis existiert "
 "bereits"
 
-#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:257
+#: doc/Horde/Kolab/Storage/OLD/Trigger.php:261
 #, php-format
 msgid "Unable to trigger URL %s. Response: %s"
 msgstr "Die URL %s konnte nicht angesprochen werden. Antwort: %s"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
-"PO-Revision-Date: 2012-07-19 19:24+0200\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
+"PO-Revision-Date: 2012-08-29 13:53+0200\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -900,17 +900,17 @@ msgstr "Nach:"
 
 #: lib/Factory/Script.php:72
 #, php-format
-msgid "Unable to load the script driver \"%s.\""
+msgid "Unable to load the script driver \"%s\"."
 msgstr "Der Skript-Treiber \"%s\" konnte nicht geladen werden."
 
 #: lib/Factory/Storage.php:74
 #, php-format
-msgid "Unable to load the storage driver \"%s.\""
+msgid "Unable to load the storage driver \"%s\"."
 msgstr "Der Storage-Treiber \"%s\" konnte nicht geladen werden."
 
 #: lib/Factory/Transport.php:56
 #, php-format
-msgid "Unable to load the transport driver \"%s.\""
+msgid "Unable to load the transport driver \"%s\"."
 msgstr "Der Transport-Treiber \"%s\" konnte nicht geladen werden."
 
 #: templates/rule/filter.inc:15

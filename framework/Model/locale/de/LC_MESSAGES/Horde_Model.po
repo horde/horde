@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Model\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-07-19 18:34+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2012-08-28 15:42+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -91,7 +91,7 @@ msgstr "Checkbox-Gruppe"
 
 #: www/test.php:32
 msgid "Color"
-msgstr "Farbig"
+msgstr "Farbe"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:537
 #: lib/Horde/Core/Form/daterendererchanges.php:539

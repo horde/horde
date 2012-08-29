@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
-"PO-Revision-Date: 2012-07-19 19:20+0200\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
+"PO-Revision-Date: 2012-08-29 13:43+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -117,15 +117,15 @@ msgstr ", böig %s %s"
 msgid ", variable from %s to %s"
 msgstr ", schwankend von %s bis %s"
 
-#: lib/Application.php:274
+#: lib/Application.php:293
 msgid "1 Day"
 msgstr "1 Tag"
 
-#: lib/Application.php:278
+#: lib/Application.php:297
 msgid "1 Month"
 msgstr "1 Monat"
 
-#: lib/Application.php:276
+#: lib/Application.php:295
 msgid "1 Week"
 msgstr "1 Woche"
 
@@ -133,7 +133,7 @@ msgstr "1 Woche"
 msgid "12 Hour Format"
 msgstr "12-Stunden-Format"
 
-#: lib/Application.php:277
+#: lib/Application.php:296
 msgid "2 Weeks"
 msgstr "2 Wochen"
 
@@ -149,7 +149,7 @@ msgstr "24 Stunden"
 msgid "24-hour format"
 msgstr "24-Stunden-Format"
 
-#: lib/Application.php:275
+#: lib/Application.php:294
 msgid "3 Days"
 msgstr "3 Tage"
 
@@ -221,7 +221,7 @@ msgstr "Kontopasswort"
 msgid "Actions"
 msgstr "Aktionen"
 
-#: config/prefs.php:750 lib/Application.php:154
+#: config/prefs.php:750 lib/Application.php:173
 msgid "ActiveSync"
 msgstr "ActiveSync"
 
@@ -229,7 +229,7 @@ msgstr "ActiveSync"
 msgid "ActiveSync Device Administration"
 msgstr "ActiveSync-Geräteverwaltung"
 
-#: admin/activesync.php:199 lib/Api.php:85
+#: admin/activesync.php:199 lib/Api.php:80
 msgid "ActiveSync Devices"
 msgstr "ActiveSync-Geräte"
 
@@ -351,19 +351,19 @@ msgstr ""
 msgid "All synchronization sessions deleted."
 msgstr "Alle Synchronisationssitzungen gelöscht."
 
-#: lib/Application.php:165
+#: lib/Application.php:184
 msgid "Allow"
 msgstr "Erlauben"
 
-#: lib/Application.php:185
+#: lib/Application.php:204
 msgid "Allow alphanumeric"
 msgstr "Alphanumerisch erlauben"
 
-#: lib/Application.php:186
+#: lib/Application.php:205
 msgid "Allow any"
 msgstr "Alle erlauben"
 
-#: lib/Application.php:184
+#: lib/Application.php:203
 msgid "Allow only numeric"
 msgstr "Nur numerisch erlauben"
 
@@ -452,7 +452,7 @@ msgstr "Mindestens ein Datenbank-Schema ist nicht mehr aktuell."
 msgid "Attachment"
 msgstr "Anhang"
 
-#: lib/Application.php:208
+#: lib/Application.php:227
 msgid "Attachment Download"
 msgstr "Anhänge herunterladen"
 
@@ -517,7 +517,7 @@ msgstr "Blockeinstellungen"
 msgid "Block Type"
 msgstr "Blocktyp"
 
-#: lib/Application.php:241
+#: lib/Application.php:260
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
@@ -529,6 +529,10 @@ msgstr "Lesezeichen"
 msgid "Both"
 msgstr "Beides"
 
+#: config/prefs.php:766
+msgid "Bottom"
+msgstr "Unten"
+
 #: admin/sessions.php:39
 msgid "Browser:"
 msgstr "Browser:"
@@ -537,7 +541,7 @@ msgstr "Browser:"
 msgid "Calendar"
 msgstr "Kalender"
 
-#: lib/Application.php:229
+#: lib/Application.php:248
 msgid "Camera"
 msgstr "Kamera"
 
@@ -675,11 +679,11 @@ msgstr "Fenster schließen"
 msgid "Clouds"
 msgstr "Wolken"
 
-#: lib/Application.php:201
+#: lib/Application.php:220
 msgid "Codeword frequency"
 msgstr "Codewort-Häufigkeit"
 
-#: admin/sessions.php:32
+#: admin/sessions.php:32 lib/View/Sidebar.php:50
 msgid "Collapse"
 msgstr "Schließen"
 
@@ -900,14 +904,6 @@ msgstr "TT"
 msgid "Data"
 msgstr "Daten"
 
-#: admin/datatree.php:73
-msgid "DataTree"
-msgstr "DataTree"
-
-#: admin/datatree.php:70
-msgid "DataTree Browser"
-msgstr "DataTree Browser"
-
 #: templates/admin/config/index.html:33 templates/prefs/syncml.html:11
 msgid "Database"
 msgstr "Datenbank"
@@ -1011,7 +1007,7 @@ msgstr "Geräte-ID"
 msgid "Device Management"
 msgstr "Geräteverwaltung"
 
-#: lib/Application.php:261
+#: lib/Application.php:280
 msgid "Device encryption"
 msgstr "Geräteverschlüsselung"
 
@@ -1223,7 +1219,7 @@ msgstr "Beispielwerte:"
 msgid "Execute"
 msgstr "Ausführen"
 
-#: admin/sessions.php:31
+#: admin/sessions.php:31 lib/View/Sidebar.php:51
 msgid "Expand"
 msgstr "Vergrößern"
 
@@ -1239,7 +1235,7 @@ msgstr "Konfiguration per FTP hochladen"
 msgid "Facebook Integration"
 msgstr "Facebook-Integration"
 
-#: lib/Application.php:196
+#: lib/Application.php:215
 msgid "Failed unlock attempts before device is wiped"
 msgstr "Fehlgeschlagene Entsperrungsversuche bis Gerätelöschung"
 
@@ -1283,7 +1279,7 @@ msgstr "Erstes Viertel"
 msgid "Food"
 msgstr "Essen"
 
-#: lib/Application.php:164
+#: lib/Application.php:183
 msgid "Force"
 msgstr "Erzwingen"
 
@@ -1411,7 +1407,7 @@ msgstr "Gruppen"
 msgid "Guest Permissions"
 msgstr "Gastrechte"
 
-#: lib/Application.php:265
+#: lib/Application.php:284
 msgid "HTML Email"
 msgstr "HTML-Nachrichten"
 
@@ -1796,7 +1792,7 @@ msgstr "Höchsttemperatur der letzten 24 Stunden: "
 msgid "Max temp last 6 hours: "
 msgstr "Höchsttemperatur der letzten 6 Stunden: "
 
-#: lib/Application.php:269
+#: lib/Application.php:288
 msgid "Maximum Email age"
 msgstr "Maximales Nachrichtenalter"
 
@@ -1804,7 +1800,7 @@ msgstr "Maximales Nachrichtenalter"
 msgid "Maximum Number of Portal Blocks"
 msgstr "Maximale Anzahl an Portalblöcken"
 
-#: lib/Application.php:213
+#: lib/Application.php:232
 msgid "Maximum attachment size"
 msgstr "Maximale Anhanggröße"
 
@@ -1844,11 +1840,11 @@ msgstr "Tiefsttemperatur der letzten 24 Stunden: "
 msgid "Min temp last 6 hours: "
 msgstr "Tiefsttemperatur der letzten 6 Stunden: "
 
-#: lib/Application.php:175
+#: lib/Application.php:194
 msgid "Minimum PIN length"
 msgstr "Minimale PIN-Länge"
 
-#: lib/Application.php:191
+#: lib/Application.php:210
 msgid "Minutes of inactivity before device should lock"
 msgstr "Minuten der Inaktivität vor Gerätesperrung"
 
@@ -1923,7 +1919,7 @@ msgstr ""
 msgid "Name"
 msgstr "Name"
 
-#: config/prefs.php:613 config/prefs.php:633 lib/Application.php:163
+#: config/prefs.php:613 config/prefs.php:633 lib/Application.php:182
 #: templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Nie"
@@ -1993,7 +1989,7 @@ msgstr "Keine anstößigen Glückskekse"
 msgid "No pending signups."
 msgstr "Keine ausstehenden Registrierungen."
 
-#: lib/Application.php:282
+#: lib/Application.php:301
 msgid "No push while roaming"
 msgstr "Kein Push während Roaming"
 
@@ -2145,7 +2141,7 @@ msgstr "PHP Code"
 msgid "PHP Shell"
 msgstr "PHP Shell"
 
-#: lib/Application.php:245
+#: lib/Application.php:264
 msgid "POP/IMAP Email accounts"
 msgstr "POP/IMAP-E-Mail-Konten"
 
@@ -2153,7 +2149,7 @@ msgstr "POP/IMAP-E-Mail-Konten"
 msgid "POSIX extension is missing"
 msgstr "Die POSIX-Erweiterung fehlt"
 
-#: lib/Api.php:67
+#: lib/Api.php:62
 msgid "P_HP Shell"
 msgstr "_PHP Shell"
 
@@ -2163,7 +2159,7 @@ msgstr "_PHP Shell"
 msgid "Password"
 msgstr "Passwort"
 
-#: lib/Application.php:180
+#: lib/Application.php:199
 msgid "Password Complexity"
 msgstr "Passwortkomplexität"
 
@@ -2257,6 +2253,12 @@ msgstr "Richtlinien-Schlüssel:"
 msgid "Politics"
 msgstr "Politik"
 
+#: config/prefs.php:765
+msgid "Position of reply text when replying to email on your device."
+msgstr ""
+"Position des Antworttextes, when Sie über Ihr Gerät auf eine Nachricht "
+"antworten."
+
 #: services/facebook/index.php:30
 #, php-format
 msgid "Posted %s"
@@ -2299,7 +2301,7 @@ msgstr "Problembeschreibung"
 msgid "Provisioned"
 msgstr "Verknüpft"
 
-#: lib/Application.php:159
+#: lib/Application.php:178
 msgid "Provisioning"
 msgstr "Verknüpfung"
 
@@ -2402,15 +2404,15 @@ msgstr "Antworten"
 msgid "Reprovision All Devices"
 msgstr "Alle Geräte neu verknüpfen"
 
-#: lib/Application.php:170
+#: lib/Application.php:189
 msgid "Require PIN"
 msgstr "PIN verlangen"
 
-#: lib/Application.php:253
+#: lib/Application.php:272
 msgid "Require S/MIME Encryption"
 msgstr "S/MIME-Unterstützung verlangen"
 
-#: lib/Application.php:257
+#: lib/Application.php:276
 msgid "Require S/MIME Signature"
 msgstr "S/MIME-Signatur verlangen"
 
@@ -2481,15 +2483,15 @@ msgstr "Starten"
 msgid "Run Login Tasks"
 msgstr "Anmeldeaufgaben durchführen"
 
-#: lib/Application.php:225
+#: lib/Application.php:244
 msgid "SD card"
 msgstr "SD-Karte"
 
-#: lib/Application.php:218
+#: lib/Application.php:237
 msgid "SD card encryption"
 msgstr "SD-Karten-Verschlüsselung"
 
-#: lib/Application.php:233
+#: lib/Application.php:252
 msgid "SMS Text messages"
 msgstr "SMS-Nachrichten"
 
@@ -2497,7 +2499,7 @@ msgstr "SMS-Nachrichten"
 msgid "SQL Shell"
 msgstr "SQL Shell"
 
-#: lib/Api.php:72
+#: lib/Api.php:67
 msgid "S_QL Shell"
 msgstr "S_QL Shell"
 
@@ -2540,7 +2542,7 @@ msgid "Sea_rch"
 msgstr "_Suche"
 
 #: services/help/index.php:138 templates/admin/user/list.inc:16
-#: templates/topbar/_menubar.html.php:23
+#: templates/topbar/_menubar.html.php:22
 msgid "Search"
 msgstr "Suche"
 
@@ -2628,7 +2630,7 @@ msgstr "Sitzungsverwaltung"
 msgid "Session Timestamp:"
 msgstr "Sitzungs-Zeitstempel:"
 
-#: lib/Api.php:62
+#: lib/Api.php:57
 msgid "Sessions"
 msgstr "Sitzungen"
 
@@ -2864,7 +2866,7 @@ msgstr "Sonnenauf/untergang"
 msgid "Sunset"
 msgstr "Sonnenuntergang"
 
-#: lib/Application.php:273
+#: lib/Application.php:292
 msgid "Sync all"
 msgstr "Alle synchronisieren"
 
@@ -3075,7 +3077,7 @@ msgstr ""
 "Bei der Facebook-Anmeldung ist ein Fehler aufgetreten. Bitte versuchen Sie "
 "es später noch einmal."
 
-#: lib/Application.php:145
+#: lib/Application.php:164
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
@@ -3143,6 +3145,10 @@ msgstr "Heute"
 #: lib/Block/Weather.php:282
 msgid "Tomorrow"
 msgstr "Morgen"
+
+#: config/prefs.php:766
+msgid "Top"
+msgstr "Oben"
 
 #: login.php:231
 msgid "Traditional"
@@ -3375,7 +3381,7 @@ msgstr "Wetterdaten von"
 msgid "Web Site"
 msgstr "Website"
 
-#: lib/Application.php:249
+#: lib/Application.php:268
 msgid "Web browser"
 msgstr "Web-Browser"
 
@@ -3426,7 +3432,7 @@ msgstr "Welche Phasen"
 msgid "Width of the %s menu on the left:"
 msgstr "Breite des %s-Menüs links:"
 
-#: lib/Application.php:237
+#: lib/Application.php:256
 msgid "Wifi"
 msgstr "WLAN"
 
@@ -3489,47 +3495,47 @@ msgid_plural "You and %d other people like this"
 msgstr[0] "Dir und %d anderen Person gefällt das"
 msgstr[1] "Dir und %d anderen Personen gefällt das"
 
-#: lib/Api.php:257
+#: lib/Api.php:247
 msgid "You are not allowed to add groups."
 msgstr "Sie dürfen keine Gruppen erstellen."
 
-#: lib/Api.php:374
+#: lib/Api.php:364
 msgid "You are not allowed to add shares."
 msgstr "Sie dürfen keine Shares erstellen."
 
-#: lib/Api.php:300 lib/Api.php:323
+#: lib/Api.php:290 lib/Api.php:313
 msgid "You are not allowed to change groups."
 msgstr "Sie dürfen keine Gruppen ändern."
 
-#: lib/Api.php:455 lib/Api.php:492 lib/Api.php:526 lib/Api.php:551
+#: lib/Api.php:445 lib/Api.php:482 lib/Api.php:516 lib/Api.php:541
 msgid "You are not allowed to change shares."
 msgstr "Sie dürfen keine Shares ändern."
 
-#: lib/Api.php:279
+#: lib/Api.php:269
 msgid "You are not allowed to delete groups."
 msgstr "Sie dürfen keine Gruppen löschen."
 
-#: lib/Api.php:399
+#: lib/Api.php:389
 msgid "You are not allowed to delete shares."
 msgstr "Sie dürfen keine Shares löschen."
 
-#: lib/Api.php:683
+#: lib/Api.php:673
 msgid "You are not allowed to list groups of shares."
 msgstr "Sie dürfen die Gruppen eines Shares nicht anzeigen."
 
-#: lib/Api.php:577 lib/Api.php:615
+#: lib/Api.php:567 lib/Api.php:605
 msgid "You are not allowed to list share permissions."
 msgstr "Sie dürfen die Rechte eines Shares nicht anzeigen."
 
-#: lib/Api.php:424
+#: lib/Api.php:414
 msgid "You are not allowed to list shares."
 msgstr "Sie dürfen Shares nicht anzeigen."
 
-#: lib/Api.php:346
+#: lib/Api.php:336
 msgid "You are not allowed to list users of groups."
 msgstr "Sie dürfen die Benutzer von Gruppen nicht anzeigen."
 
-#: lib/Api.php:653
+#: lib/Api.php:643
 msgid "You are not allowed to list users of shares."
 msgstr "Sie dürfen die Benutzer eines Shares nicht anzeigen."
 
@@ -3715,17 +3721,13 @@ msgstr "[Unbekannt]"
 msgid "_Alarms"
 msgstr "_Alarme"
 
-#: lib/Api.php:77
+#: lib/Api.php:72
 msgid "_CLI"
 msgstr "Be_fehlszeile"
 
 #: lib/Api.php:27
 msgid "_Configuration"
 msgstr "_Konfiguration"
-
-#: lib/Api.php:57
-msgid "_DataTree"
-msgstr "_DataTree"
 
 #: lib/Api.php:37
 msgid "_Groups"

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
-"PO-Revision-Date: 2012-02-14 11:44+0100\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
+"PO-Revision-Date: 2012-08-29 14:01+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
 "Language: de\n"
@@ -74,7 +74,7 @@ msgstr "%s Tage"
 msgid "%s deleted this ticket."
 msgstr "%s hat dieses Ticket gelöscht."
 
-#: lib/Mail.php:161 lib/Mail.php:164
+#: lib/Mail.php:175 lib/Mail.php:178
 #, php-format
 msgid "%s part"
 msgstr "%s-Teil"
@@ -431,7 +431,7 @@ msgstr "Kopie von %s"
 msgid "Could not find any groups."
 msgstr "Keine Gruppen gefunden."
 
-#: lib/Mail.php:188
+#: lib/Mail.php:202
 #, php-format
 msgid "Could not find ticket \"%s\"."
 msgstr "Ticket \"%s\" nicht gefunden."
@@ -991,7 +991,7 @@ msgstr "MM/TT/JJ HH:MM"
 msgid "Make a clone of %s"
 msgstr "Kopie von %s erstellen"
 
-#: lib/Form/AddComment.php:45 lib/Form/Ticket/CreateStepThree.php:98
+#: lib/Form/AddComment.php:45 lib/Form/Ticket/CreateStepThree.php:94
 #: lib/Form/Ticket/Edit.php:184
 msgid "Make this comment visible only to members of a group?"
 msgstr ""
@@ -1249,6 +1249,10 @@ msgstr "Erstellt:"
 #: lib/Form/InsertBranch.php:23 lib/Form/Renderer/Query.php:82
 msgid "Or"
 msgstr "Oder"
+
+#: lib/Mail.php:148
+msgid "Original Message"
+msgstr "Orginalnachricht"
 
 #: lib/Form/Renderer/Query.php:88 lib/Form/Ticket/CreateStepFour.php:52
 #: lib/Form/Ticket/CreateStepFour.php:67 lib/Form/Ticket/Edit.php:118
@@ -1693,7 +1697,7 @@ msgstr "Sortieren nach %s"
 
 #: lib/Form/AddComment.php:20 lib/Form/AddComment.php:58
 #: lib/Form/Ticket/CreateStepThree.php:49
-#: lib/Form/Ticket/CreateStepThree.php:112
+#: lib/Form/Ticket/CreateStepThree.php:109
 msgid "Spam protection"
 msgstr "Spamschutz"
 
@@ -2137,7 +2141,7 @@ msgstr "Beim Festlegen der Standard-Priorität ist ein Fehler aufgetreten:"
 msgid "There was an error setting the default state:"
 msgstr "Beim Festlegen des Standard-Status ist ein Fehler aufgetreten:"
 
-#: lib/Form/AddComment.php:44 lib/Form/Ticket/CreateStepThree.php:96
+#: lib/Form/AddComment.php:44 lib/Form/Ticket/CreateStepThree.php:92
 #: lib/Form/Ticket/Edit.php:182
 msgid "This comment is visible to everyone"
 msgstr "Dieser Kommentar ist für jedermann sichtbar"

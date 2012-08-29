@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sesha H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-10 21:48+0200\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
 "PO-Revision-Date: 2012-07-10 21:52+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -41,7 +41,7 @@ msgstr "Neue Eigenschaft hinzufügen"
 msgid "Add a property"
 msgstr "Eigenschaft hinzufügen"
 
-#: lib/Application.php:51 lib/Sesha.php:196
+#: lib/Application.php:51 lib/Application.php:76
 msgid "Administration"
 msgstr "Administration"
 
@@ -189,7 +189,7 @@ msgstr "Nach diesem Wert"
 msgid "General Options"
 msgstr "Allgemeine Einstellungen"
 
-#: templates/menu.inc:8
+#: templates/menu.inc:7
 msgid "Go"
 msgstr "Los"
 
@@ -385,7 +385,7 @@ msgid "Stock"
 msgstr "Bestand"
 
 #: config/prefs.php:28 lib/Form/Search.php:31 lib/Form/Stock.php:51
-#: lib/Form/Stock.php:53 lib/View/List.php:96 templates/menu.inc:7
+#: lib/Form/Stock.php:53 lib/View/List.php:96 templates/menu.inc:6
 msgid "Stock ID"
 msgstr "Artikelnummer"
 
@@ -512,14 +512,10 @@ msgstr "Sie haben nicht genügend Rechte, um \"%s\" zu löschen."
 msgid "_Add Stock"
 msgstr "_Neuer Artikel"
 
-#: lib/Sesha.php:193
+#: lib/Application.php:70
 msgid "_List Stock"
 msgstr "_Bestand anzeigen"
 
-#: lib/Sesha.php:202
-msgid "_Print"
-msgstr "_Drucken"
-
-#: lib/Sesha.php:198
+#: lib/Application.php:73
 msgid "_Search"
 msgstr "_Suche"
