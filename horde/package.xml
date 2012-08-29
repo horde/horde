@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2012-08-29</date>
- <time>15:59:14</time>
+ <time>16:00:44</time>
  <version>
-  <release>5.0.0beta5</release>
+  <release>5.0.0beta6</release>
   <api>5.0.0beta1</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix cancelling problem report.
-* [jan] Fix audio notification path printed in page output.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3878,6 +3877,19 @@
    <notes>
 * [jan] Fix cancelling problem report.
 * [jan] Fix audio notification path printed in page output.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta6</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
