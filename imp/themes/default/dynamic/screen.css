@@ -722,7 +722,9 @@ span.attachmentImg {
 
 /* Email Addresses. */
 a.address {
+    background: #cecece;
     cursor: pointer;
+    padding: 1px;
     white-space: nowrap;
 }
 a.address img {
