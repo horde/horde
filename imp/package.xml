@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-08-29</date>
- <time>16:01:32</time>
+ <time>16:03:12</time>
  <version>
-  <release>6.0.0beta3</release>
+  <release>6.0.0beta4</release>
   <api>6.0.0beta1</api>
  </version>
  <stability>
@@ -34,22 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Allow certain iCalendar events to be configured to automatically update the local user&apos;s calendar (Request #11376).
-* [mms] Remember message selections when changing mailboxes in dynamic view.
-* [mms] Add ability to edit list of safe addresses used with the image_replacement preference.
-* [mms] Add attachment download links to smartmobile view (Request #11379).
-* [mms] Indicate deleted messages with strikethrough in smartmobile mailbox listing (Request #11362).
-* [mms] Show polled children in smartmobile folder list when parent mailbox is not polled (Bug #11238).
-* [mms] More complete handling of linked data in subject header across views (Bug #11372).
-* [mms] Add Top link to smartmobile mailbox page.
-* [mms] Fixes to the iTip Request handler (Bug #11264).
-* [mms] Fix searching in smartmobile view (Bug #11365).
-* [mms] Tweak smartmobile mailbox page to use mobile-style list clicking (Request #11364).
-* [mms] Fix regression in updating dynamic folder list when deleting parent mailboxes that contain children (Bug #11296).
-* [mms] Fix regression preventing compose messages from being sent in the smartmobile view (Bug #11342).
-* [jan] Allow to reset flag colors and to specify as HTML colors.
-* [mjr] The mailboxList API call now returns delimiter and attribute information.
-* [jan] Fix polling for new mail from other applications.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2722,6 +2707,19 @@
 * [jan] Allow to reset flag colors and to specify as HTML colors.
 * [mjr] The mailboxList API call now returns delimiter and attribute information.
 * [jan] Fix polling for new mail from other applications.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.0.0beta4</release>
+    <api>6.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
