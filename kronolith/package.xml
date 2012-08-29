@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-28</date>
- <time>15:21:56</time>
+ <date>2012-08-29</date>
+ <time>16:20:06</time>
  <version>
   <release>4.0.0beta1</release>
   <api>4.0.0beta1</api>
@@ -1901,15 +1901,15 @@
    </notes>
   </release>
   <release>
-   <date>2012-08-28</date>
+   <date>2012-08-29</date>
    <time>17:24:36</time>
    <version>
     <release>4.0.0beta1</release>
     <api>4.0.0beta1</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>

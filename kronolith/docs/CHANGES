@@ -1,6 +1,6 @@
---------
-v4.0-git
---------
+-----------
+v4.0.0beta1
+-----------
 
 [jan] Add quick task adding to dynamic view.
 [rla] Fix sender of appointment notification (Bug #11198)
