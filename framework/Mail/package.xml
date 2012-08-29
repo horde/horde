@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2012-08-29</date>
- <time>15:24:26</time>
+ <time>15:24:41</time>
  <version>
-  <release>2.0.0beta2</release>
+  <release>2.0.0beta3</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Add Horde_Mail_Rfc822_Address#matchDomain().
-* [mms] Add Horde_Mail_Rfc822_Address#matchInsensitive().
-* [mms] Fix parsing Return-Path header when using sendmail driver (Bug #11361).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -361,6 +359,19 @@
 * [mms] Add Horde_Mail_Rfc822_Address#matchDomain().
 * [mms] Add Horde_Mail_Rfc822_Address#matchInsensitive().
 * [mms] Fix parsing Return-Path header when using sendmail driver (Bug #11361).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta3</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
