@@ -28,6 +28,8 @@ First alpha release for Horde 5.
 v2.0.10-git
 -----------
 
+[mms] Disable blacklist, vacation, and whitelist API methods if the preference
+      is locked.
 
 
 ------

@@ -25,6 +25,26 @@ class Ingo_Api extends Horde_Registry_Api
     );
 
     /**
+     */
+    public function __construct()
+    {
+        global $prefs;
+
+        if ($prefs->isLocked('blacklist')) {
+            $this->disabled[] = 'blacklistFrom';
+        }
+
+        if ($prefs->isLocked('whitelist')) {
+            $this->disabled[] = 'whitelistFrom';
+        }
+
+        if ($prefs->isLocked('vacation')) {
+            $this->disabled[] = 'setVacation';
+            $this->disabled[] = 'disableVacation';
+        }
+    }
+
+    /**
      * Add addresses to the blacklist.
      *
      * @param string $addresses  The addresses to add to the blacklist.
