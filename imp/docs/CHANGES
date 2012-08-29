@@ -1,6 +1,6 @@
-----------
-v6.0.0-git
-----------
+-----------
+v6.0.0beta3
+-----------
 
 [mms] Allow certain iCalendar events to be configured to automatically update
       the local user's calendar (Request #11376).
