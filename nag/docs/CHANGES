@@ -1,6 +1,6 @@
---------
-v4.0-git
---------
+-----------
+v4.0.0beta1
+-----------
 
 [mjr] Add support for smart tasklists.
 [mjr] Migrate categories to tags.
