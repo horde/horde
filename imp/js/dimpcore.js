@@ -420,5 +420,12 @@ document.observe(Prototype.Browser.IE ? 'selectstart' : 'mousedown', function(e)
         !e.element().match('TEXTAREA') &&
         !e.element().match('INPUT')) {
         e.stop();
+
+        if (document.activeElement) {
+            var ae = $(document.activeElement);
+            if (ae.match('TEXTAREA') || ae.match('INPUT')) {
+                ae.blur();
+            }
+        }
     }
 });
