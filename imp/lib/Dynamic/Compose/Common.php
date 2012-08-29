@@ -174,6 +174,9 @@ class IMP_Dynamic_Compose_Common
 
         /* Variables used in compose page. */
         $compose_cursor = $prefs->getValue('compose_cursor');
+        $drafts_mbox = IMP_Mailbox::getPref('drafts_folder');
+        $templates_mbox = IMP_Mailbox::getPref('composetemplates_mbox');
+
         $base->js_conf += array_filter(array(
             'URI_MAILBOX' => strval(IMP_Dynamic_Mailbox::url()),
 
@@ -183,10 +186,10 @@ class IMP_Dynamic_Compose_Common
             'cc' => intval($prefs->getValue('compose_cc')),
             'close_draft' => intval($prefs->getValue('close_draft')),
             'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
-            'drafts_mbox' => IMP_Mailbox::getPref('drafts_folder')->form_to,
+            'drafts_mbox' => $drafts_mbox ? $drafs_mbox->form_to : null,
             'rte_avail' => intval($browser->hasFeature('rte')),
             'spellcheck' => intval($prefs->getValue('compose_spellcheck')),
-            'templates_mbox' => IMP_Mailbox::getPref('composetemplates_mbox')->form_to
+            'templates_mbox' => $templates_mbox ? $templates_mbox->form_to : null
         ));
 
         if ($session->get('imp', 'csearchavail')) {

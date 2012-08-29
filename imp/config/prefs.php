@@ -1254,7 +1254,9 @@ $_prefs['use_trash'] = array(
     'type' => 'checkbox',
     'desc' => _("When deleting messages, move them to your Trash mailbox instead of marking them as deleted?"),
     'on_change' => function() {
-        IMP_Mailbox::getPref('trash_folder')->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+        if ($trash_mbox = IMP_Mailbox::getPref('trash_folder')) {
+            $trash_mbox->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+        }
         if ($GLOBALS['prefs']->getValue('use_trash') &&
             !$GLOBALS['prefs']->getValue('trash_folder')) {
             $GLOBALS['notification']->push(_("You have activated move to Trash but no Trash mailbox is defined. You will be unable to delete messages until you set a Trash mailbox in the preferences."), 'horde.warning');
