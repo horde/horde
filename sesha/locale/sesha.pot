@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sesha H5 (1.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-10 21:48+0200\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Add a property"
 msgstr ""
 
-#: lib/Application.php:51 lib/Sesha.php:196
+#: lib/Application.php:51 lib/Application.php:76
 msgid "Administration"
 msgstr ""
 
@@ -189,7 +189,7 @@ msgstr ""
 msgid "General Options"
 msgstr ""
 
-#: templates/menu.inc:8
+#: templates/menu.inc:7
 msgid "Go"
 msgstr ""
 
@@ -372,7 +372,7 @@ msgid "Stock"
 msgstr ""
 
 #: config/prefs.php:28 lib/Form/Search.php:31 lib/Form/Stock.php:51
-#: lib/Form/Stock.php:53 lib/View/List.php:96 templates/menu.inc:7
+#: lib/Form/Stock.php:53 lib/View/List.php:96 templates/menu.inc:6
 msgid "Stock ID"
 msgstr ""
 
@@ -495,14 +495,10 @@ msgstr ""
 msgid "_Add Stock"
 msgstr ""
 
-#: lib/Sesha.php:193
+#: lib/Application.php:70
 msgid "_List Stock"
 msgstr ""
 
-#: lib/Sesha.php:202
-msgid "_Print"
-msgstr ""
-
-#: lib/Sesha.php:198
+#: lib/Application.php:73
 msgid "_Search"
 msgstr ""

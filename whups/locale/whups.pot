@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups H5 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,7 +71,7 @@ msgstr ""
 msgid "%s deleted this ticket."
 msgstr ""
 
-#: lib/Mail.php:161 lib/Mail.php:164
+#: lib/Mail.php:175 lib/Mail.php:178
 #, php-format
 msgid "%s part"
 msgstr ""
@@ -424,7 +424,7 @@ msgstr ""
 msgid "Could not find any groups."
 msgstr ""
 
-#: lib/Mail.php:188
+#: lib/Mail.php:202
 #, php-format
 msgid "Could not find ticket \"%s\"."
 msgstr ""
@@ -977,7 +977,7 @@ msgstr ""
 msgid "Make a clone of %s"
 msgstr ""
 
-#: lib/Form/AddComment.php:45 lib/Form/Ticket/CreateStepThree.php:98
+#: lib/Form/AddComment.php:45 lib/Form/Ticket/CreateStepThree.php:94
 #: lib/Form/Ticket/Edit.php:184
 msgid "Make this comment visible only to members of a group?"
 msgstr ""
@@ -1227,6 +1227,10 @@ msgstr ""
 
 #: lib/Form/InsertBranch.php:23 lib/Form/Renderer/Query.php:82
 msgid "Or"
+msgstr ""
+
+#: lib/Mail.php:148
+msgid "Original Message"
 msgstr ""
 
 #: lib/Form/Renderer/Query.php:88 lib/Form/Ticket/CreateStepFour.php:52
@@ -1648,7 +1652,7 @@ msgstr ""
 
 #: lib/Form/AddComment.php:20 lib/Form/AddComment.php:58
 #: lib/Form/Ticket/CreateStepThree.php:49
-#: lib/Form/Ticket/CreateStepThree.php:112
+#: lib/Form/Ticket/CreateStepThree.php:109
 msgid "Spam protection"
 msgstr ""
 
@@ -2082,7 +2086,7 @@ msgstr ""
 msgid "There was an error setting the default state:"
 msgstr ""
 
-#: lib/Form/AddComment.php:44 lib/Form/Ticket/CreateStepThree.php:96
+#: lib/Form/AddComment.php:44 lib/Form/Ticket/CreateStepThree.php:92
 #: lib/Form/Ticket/Edit.php:182
 msgid "This comment is visible to everyone"
 msgstr ""

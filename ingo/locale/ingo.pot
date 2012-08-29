@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Ingo H5 (3.0.0beta1)\n"
+"Project-Id-Version: Ingo H5 (3.0.0beta2)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -877,17 +877,17 @@ msgstr ""
 
 #: lib/Factory/Script.php:72
 #, php-format
-msgid "Unable to load the script driver \"%s.\""
+msgid "Unable to load the script driver \"%s\"."
 msgstr ""
 
 #: lib/Factory/Storage.php:74
 #, php-format
-msgid "Unable to load the storage driver \"%s.\""
+msgid "Unable to load the storage driver \"%s\"."
 msgstr ""
 
 #: lib/Factory/Transport.php:56
 #, php-format
-msgid "Unable to load the transport driver \"%s.\""
+msgid "Unable to load the transport driver \"%s\"."
 msgstr ""
 
 #: templates/rule/filter.inc:15

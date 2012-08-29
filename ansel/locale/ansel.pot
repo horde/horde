@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel H5 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,7 +144,7 @@ msgstr ""
 msgid "A gallery to add this photo to is required."
 msgstr ""
 
-#: lib/View/GalleryProperties.php:178
+#: lib/View/GalleryProperties.php:185
 #, php-format
 msgid "Access denied adding a gallery to \"%s\"."
 msgstr ""
@@ -195,7 +195,7 @@ msgstr ""
 msgid "Access denied downloading photos from \"%s\"."
 msgstr ""
 
-#: lib/View/GalleryProperties.php:238
+#: lib/View/GalleryProperties.php:245
 msgid "Access denied editing galleries."
 msgstr ""
 
@@ -218,7 +218,7 @@ msgstr ""
 msgid "Access denied removing photos from \"%s\"."
 msgstr ""
 
-#: lib/View/GalleryProperties.php:282
+#: lib/View/GalleryProperties.php:289
 #, php-format
 msgid "Access denied saving gallery \"%s\"."
 msgstr ""
@@ -284,16 +284,16 @@ msgstr ""
 msgid "Add to bookmarks"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:354
+#: lib/View/GalleryProperties.php:361
 msgid "Adding A New Gallery"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:187
+#: lib/View/GalleryProperties.php:194
 #, php-format
 msgid "Adding A Subgallery to %s"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:153
+#: lib/View/GalleryProperties.php:160
 msgid "Adding a New Gallery"
 msgstr ""
 
@@ -1151,7 +1151,7 @@ msgstr ""
 msgid "Mirror"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:199
+#: lib/View/GalleryProperties.php:206
 msgid "Missing gallery parameter"
 msgstr ""
 
@@ -1163,7 +1163,7 @@ msgstr ""
 msgid "Modified"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:219
+#: lib/View/GalleryProperties.php:226
 #, php-format
 msgid "Modifying: %s"
 msgstr ""
@@ -1971,17 +1971,17 @@ msgstr ""
 msgid "The gallery \"%s\" could not be created: %s"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:380 xppublish.php:124
+#: lib/View/GalleryProperties.php:387 xppublish.php:124
 #, php-format
 msgid "The gallery \"%s\" couldn't be created: %s"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:375 xppublish.php:121
+#: lib/View/GalleryProperties.php:382 xppublish.php:121
 #, php-format
 msgid "The gallery \"%s\" was created successfully."
 msgstr ""
 
-#: lib/View/GalleryProperties.php:323
+#: lib/View/GalleryProperties.php:330
 msgid "The gallery was saved."
 msgstr ""
 
@@ -2137,7 +2137,7 @@ msgstr ""
 msgid "Undo Changes"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:221
+#: lib/View/GalleryProperties.php:228
 msgid "Unknown Gallery"
 msgstr ""
 
@@ -2303,7 +2303,7 @@ msgstr ""
 msgid "You did not select any photos to upload."
 msgstr ""
 
-#: lib/View/GalleryProperties.php:340
+#: lib/View/GalleryProperties.php:347
 #, php-format
 msgid "You do not have permission to add children to %s."
 msgstr ""
@@ -2349,7 +2349,7 @@ msgstr ""
 msgid "You must enter your e-mail address."
 msgstr ""
 
-#: lib/View/GalleryProperties.php:351
+#: lib/View/GalleryProperties.php:358
 msgid "You must provide a display name for your new gallery."
 msgstr ""
 
@@ -2366,7 +2366,7 @@ msgstr ""
 msgid "You must upload the search photo first"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:120
+#: lib/View/GalleryProperties.php:127
 msgid ""
 "Your server does not support thumbnails with transparent backgrounds.  "
 "Either select a background color or use the 'Basic Thumbnail' type. Please "

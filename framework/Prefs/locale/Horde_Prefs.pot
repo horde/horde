@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Prefs \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Prefs/Identity.php:333
+#: lib/Horde/Prefs/Identity.php:335
 #, php-format
 msgid "\"%s\" is not a valid email address."
 msgstr ""
 
-#: lib/Horde/Prefs/Identity.php:112
+#: lib/Horde/Prefs/Identity.php:110
 msgid "Default Identity"
 msgstr ""
 
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Unfiled"
 msgstr ""
 
-#: lib/Horde/Prefs/Identity.php:322
+#: lib/Horde/Prefs/Identity.php:324
 msgid "Unnamed"
 msgstr ""
 
