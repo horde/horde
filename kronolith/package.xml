@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-08-29</date>
- <time>16:20:06</time>
+ <time>16:21:11</time>
  <version>
-  <release>4.0.0beta1</release>
+  <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
  </version>
  <stability>
@@ -34,22 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Add quick task adding to dynamic view.
-* [rla] Fix sender of appointment notification (Bug #11198)
-* [mjr] Fix tagging in traditional interface.
-* [rla] Make system shares browseable in WebDAV (Request #10998).
-* [jan] Make calendar lists collapsible (Request #10865).
-* [jan] Delay calendar list loading to speed up initial display.
-* [mjr] Implement resource scheduling in dynamic view (Request #9774).
-* [mjr] Fix issue that could cause incorrect freebusy data to be displayed in certain circumstances.
-* [mjr] Prompt to send updates when modifying an event with attendees (Request #10724).
-* [mjr] Add heatmap to year view (Request #10658).
-* [mjr] Implement proper editing and deleting of recurrence series and exceptions in ajax view (Request #9926).
-* [jan] Remove print buttons.
-* [jan] Add work week view to dynamic interface (rsalmon@mbpgroup.com, Request #10519).
-* [jan] Support importing of iCalendar events with non-local timezones (Request #7156).
-* [jan] Include timezone information when exporting events to iCalendar (Request #7156).
-* [jan] Allow to set individual timezones for each event (Request #10727).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1929,6 +1914,19 @@
 * [jan] Support importing of iCalendar events with non-local timezones (Request #7156).
 * [jan] Include timezone information when exporting events to iCalendar (Request #7156).
 * [jan] Allow to set individual timezones for each event (Request #10727).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0beta2</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
