@@ -549,7 +549,7 @@
     <channel>pear.horde.org</channel>
     <min>2.0.0beta1</min>
     <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>e&gt;
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Date_Parser</name>
