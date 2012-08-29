@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2012-08-29</date>
- <time>15:28:50</time>
+ <time>15:29:47</time>
  <version>
-  <release>2.0.0beta2</release>
+  <release>2.0.0beta3</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] If creating Horde_Support_Backtrace from an Exception, include any previous exceptions.
-* [jan] Make Horde_Support_Backtrace#backtrace a public property.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -332,6 +331,19 @@
    <notes>
 * [jan] If creating Horde_Support_Backtrace from an Exception, include any previous exceptions.
 * [jan] Make Horde_Support_Backtrace#backtrace a public property.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta3</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
