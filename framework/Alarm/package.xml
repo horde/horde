@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix Desktop notifications (Bug #10810).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -732,7 +732,7 @@
    <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix Desktop notifications (Bug #10810).
    </notes>
   </release>
  </changelog>
