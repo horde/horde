@@ -35,7 +35,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [gwr] Adapt to API changes in Kolab_Storage.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -864,7 +864,7 @@ Initial release as a PEAR package
    <date>2012-07-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [gwr] Adapt to API changes in Kolab_Storage.
    </notes>
   </release>
  </changelog>
