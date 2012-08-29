@@ -1,6 +1,6 @@
-----------
-v5.0.0-git
-----------
+-----------
+v5.0.0beta5
+-----------
 
 [jan] Fix cancelling problem report.
 [jan] Fix audio notification path printed in page output.
