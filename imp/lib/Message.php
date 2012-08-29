@@ -288,7 +288,7 @@ class IMP_Message
                         }
                     }
 
-                    IMP_Maillog::deleteLog($msg_ids);
+                    $injector->getInstance('IMP_Maillog')->deleteLog($msg_ids);
                 }
             }
         }

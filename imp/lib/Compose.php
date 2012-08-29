@@ -850,7 +850,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             /* Log the reply. */
             if ($this->getMetadata('in_reply_to') &&
                 !empty($conf['maillog']['use_maillog'])) {
-                IMP_Maillog::log($this->_replytype, $this->getMetadata('in_reply_to'), $recipients);
+                $injector->getInstance('IMP_Maillog')->log($this->_replytype, $this->getMetadata('in_reply_to'), $recipients);
             }
 
             $imp_message = $injector->getInstance('IMP_Message');
@@ -2060,9 +2060,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function sendRedirectMessage($to, $log = true)
     {
+        global $conf, $injector, $registry;
+
         $recip = $this->recipientList(array('to' => $to));
 
-        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+        $identity = $injector->getInstance('IMP_Identity');
         $from_addr = $identity->getFromAddress();
 
         $out = array();
@@ -2070,7 +2072,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         foreach ($this->getMetadata('redirect_indices') as $val) {
             foreach ($val->uids as $val2) {
                 try {
-                    $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($val->mbox->getIndicesOb($val2));
+                    $contents = $injector->getInstance('IMP_Factory_Contents')->create($val->mbox->getIndicesOb($val2));
                 } catch (IMP_Exception $e) {
                     throw new IMP_Compose_Exception(_("Error when redirecting message."));
                 }
@@ -2098,22 +2100,22 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 $hdr_array['_raw'] = $header_text;
 
                 try {
-                    $GLOBALS['injector']->getInstance('IMP_Mail')->send($to, $hdr_array, $contents->getBody());
+                    $injector->getInstance('IMP_Mail')->send($to, $hdr_array, $contents->getBody());
                 } catch (Horde_Mail_Exception $e) {
                     throw new IMP_Compose_Exception($e);
                 }
 
                 $recipients = strval($recip['list']);
 
-                Horde::log(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth()), 'INFO');
+                Horde::log(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $registry->getAuth()), 'INFO');
 
                 if ($log) {
                     /* Store history information. */
-                    if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-                        IMP_Maillog::log(self::REDIRECT, $headers->getValue('message-id'), $recipients);
+                    if (!empty($conf['maillog']['use_maillog'])) {
+                        $injector->getInstance('IMP_Maillog')->log(self::REDIRECT, $headers->getValue('message-id'), $recipients);
                     }
 
-                    $GLOBALS['injector']->getInstance('IMP_Sentmail')->log(IMP_Sentmail::REDIRECT, $headers->getValue('message-id'), $recipients);
+                    $injector->getInstance('IMP_Sentmail')->log(IMP_Sentmail::REDIRECT, $headers->getValue('message-id'), $recipients);
                 }
 
                 $tmp = new stdClass;

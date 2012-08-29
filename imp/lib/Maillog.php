@@ -35,7 +35,7 @@ class IMP_Maillog
      *                        message was sent to. For mdn this is the
      *                        MDN-type of the message that was sent.
      */
-    static public function log($type, $msg_ids, $data = null)
+    public function log($type, $msg_ids, $data = null)
     {
         $history = $GLOBALS['injector']->getInstance('Horde_History');
 
@@ -116,7 +116,7 @@ class IMP_Maillog
      * @return Horde_History_Log  The object containing the log information.
      * @throws Horde_Exception
      */
-    static public function getLog($msg_id)
+    public function getLog($msg_id)
     {
         return $GLOBALS['injector']->getInstance('Horde_History')->getHistory(self::_getUniqueHistoryId($msg_id));
     }
@@ -131,7 +131,7 @@ class IMP_Maillog
      * @return boolean  True if a MDN has been sent for this message with
      *                  the given type.
      */
-    static public function sentMDN($msg_id, $type)
+    public function sentMDN($msg_id, $type)
     {
         try {
             $msg_history = self::getLog($msg_id);
@@ -156,7 +156,7 @@ class IMP_Maillog
      *
      * @param string $msg_id  The Message-ID of the message.
      */
-    static public function displayLog($msg_id)
+    public function displayLog($msg_id)
     {
         foreach (self::parseLog($msg_id) as $entry) {
             $GLOBALS['notification']->push($entry['msg'], 'imp.' . $entry['action']);
@@ -173,7 +173,7 @@ class IMP_Maillog
      *   - action: (string) The log action.
      *   - msg: (string) The log message.
      */
-    static public function parseLog($msg_id)
+    public function parseLog($msg_id)
     {
         try {
             if (!$msg_history = self::getLog($msg_id)) {
@@ -239,13 +239,13 @@ class IMP_Maillog
      * @param mixed $msg_ids  Either a single Message-ID or an array
      *                        of Message-IDs to delete.
      */
-    static public function deleteLog($msg_ids)
+    public function deleteLog($msg_ids)
     {
         if (!is_array($msg_ids)) {
             $msg_ids = array($msg_ids);
         }
         $GLOBALS['injector']->getInstance('Horde_History')->removeByNames(
-            array_map(array('IMP_Maillog', '_getUniqueHistoryId'), $msg_ids)
+            array_map(array($this, '_getUniqueHistoryId'), $msg_ids)
         );
     }
 
@@ -256,7 +256,7 @@ class IMP_Maillog
      *
      * @return string  The unique log ID to use with Horde_History::.
      */
-    static protected function _getUniqueHistoryId($msgid)
+    protected function _getUniqueHistoryId($msgid)
     {
         return is_array($msgid)
             ? ''

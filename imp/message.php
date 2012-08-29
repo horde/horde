@@ -764,7 +764,7 @@ $page_output->noDnsPrefetch();
 IMP::header($title);
 
 if (!empty($conf['maillog']['use_maillog'])) {
-    IMP_Maillog::displayLog($envelope->message_id);
+    $injector->getInstance('IMP_Maillog')->displayLog($envelope->message_id);
 }
 echo $menu;
 IMP::status();

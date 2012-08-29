@@ -71,8 +71,10 @@ class IMP_Ui_Message
     public function MDNCheck(IMP_Mailbox $mailbox, $uid, $headers,
                              $confirmed = false)
     {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-        $pref_val = $GLOBALS['prefs']->getValue('send_mdn');
+        global $conf, $injector, $prefs;
+
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $pref_val = $prefs->getValue('send_mdn');
 
         if (!$pref_val || $mailbox->readonly) {
             return false;
@@ -104,7 +106,7 @@ class IMP_Ui_Message
             } catch (IMP_Imap_Exception $e) {}
         } else {
             /* 2nd test: Use Maillog as a fallback. */
-            $mdn_sent = IMP_Maillog::sentMDN($msg_id, 'displayed');
+            $mdn_sent = $injector->getInstance('IMP_Maillog')->sentMDN($msg_id, 'displayed');
         }
 
         if ($mdn_sent) {
@@ -130,24 +132,24 @@ class IMP_Ui_Message
                 false,
                 $confirmed,
                 'displayed',
-                $GLOBALS['conf']['server']['name'],
-                $GLOBALS['injector']->getInstance('IMP_Mail'),
+                $conf['server']['name'],
+                $injector->getInstance('IMP_Mail'),
                 array(
                     'charset' => 'UTF-8',
-                    'from_addr' => $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create()->getDefaultFromAddress()
+                    'from_addr' => $injector->getInstance('Horde_Core_Factory_Identity')->create()->getDefaultFromAddress()
                 )
             );
-            IMP_Maillog::log(IMP_Maillog::MDN, $msg_id, 'displayed');
+            $injector->getInstance('IMP_Maillog')->log(IMP_Maillog::MDN, $msg_id, 'displayed');
             $success = true;
 
             if ($mdn_flag) {
-                $GLOBALS['injector']->getInstance('IMP_Message')->flag(array(Horde_Imap_Client::FLAG_MDNSENT), $mailbox->getIndicesOb($uid), true);
+                $injector->getInstance('IMP_Message')->flag(array(Horde_Imap_Client::FLAG_MDNSENT), $mailbox->getIndicesOb($uid), true);
             }
         } catch (Exception $e) {
             $success = false;
         }
 
-        $GLOBALS['injector']->getInstance('IMP_Sentmail')->log(IMP_Sentmail::MDN, '', $return_addr, $success);
+        $injector->getInstance('IMP_Sentmail')->log(IMP_Sentmail::MDN, '', $return_addr, $success);
 
         return false;
     }
