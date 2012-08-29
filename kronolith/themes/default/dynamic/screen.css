@@ -84,6 +84,9 @@ html, body {
 }
 
 /* Left menu column */
+#kronolithMenu {
+    padding-bottom: 10px;
+}
 #kronolithLoadingCalendars {
     padding-left: 10px;
 }

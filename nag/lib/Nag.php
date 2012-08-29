@@ -952,7 +952,9 @@ class Nag
                 }
             }
         }
-        $sidebar->containers[] = array('content' => $content->render('sidebar'));
+        $sidebar->containers[] = array(
+            'id' => 'nag-menu',
+            'content' => $content->render('sidebar'));
 
         Horde::startBuffer();
         include NAG_TEMPLATES . '/quick.inc';
