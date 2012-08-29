@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-07</date>
- <time>16:09:54</time>
+ <date>2012-08-29</date>
+ <time>15:20:16</time>
  <version>
   <release>2.0.0beta3</release>
   <api>2.0.0beta1</api>
@@ -954,7 +954,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-07</date>
+   <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Correctly handle any resource key supported by the QUOTA extension.
