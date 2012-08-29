@@ -33,6 +33,9 @@
     background: #bbcbff url("graphics/az.png") center left no-repeat;
     padding-left: 10px;
 }
+#filelist a.sortlink {
+    display: block;
+}
 
 #filelist_upload, #filelist_actions {
     margin: 0 0 8px 5px;
@@ -42,12 +45,8 @@
     width: 99%;
 }
 
-.managerpopup {
-    background-color: #000;
-    position: absolute;
-    left: 200px;
-    top: 20px;
-    padding: 1px;
+#attributes table.horde-table th {
+    text-align: center;
 }
 
 table.clipboard {
@@ -89,6 +88,12 @@ table.clipboard td {
 }
 .folderImg {
     background-image: url("graphics/folder.png");
+}
+.foldershareImg {
+    background-image: url("graphics/perms.png");
+}
+.foldershareDisabledImg {
+    background-image: url("graphics/perms_disabled.png");
 }
 .foldercreateImg {
     background-image: url("graphics/folder_create.png");

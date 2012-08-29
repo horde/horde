@@ -21,7 +21,7 @@ function shorten_url($url, $separator = '...', $first_chunk_length = 35, $last_c
     return $url;
 }
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('nag');
 
 /* Exit if this isn't an authenticated user. */
@@ -60,10 +60,11 @@ $edit_img = Horde::img('edit.png', _("Edit"));
 $perms_img = Horde::img('perms.png', _("Change Permissions"));
 $delete_img = Horde::img('delete.png', _("Delete"));
 
-Horde::addScriptFile('tables.js', 'horde');
-$title = _("Manage Task Lists");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->header(array(
+    'title' => _("Manage Task Lists")
+));
 echo Nag::menu();
 Nag::status();
 require NAG_TEMPLATES . '/tasklist_list.php';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

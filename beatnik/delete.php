@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $beatnik = Horde_Registry::appInit('beatnik');
 
 require_once BEATNIK_BASE . '/lib/Forms/DeleteRecord.php';
@@ -43,11 +43,9 @@ if ($form->validate($vars)) {
     }
 }
 
-
-$title = _("Delete");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Delete")
+));
 require BEATNIK_BASE . '/templates/menu.inc';
-
 $form->renderActive(null, null, Horde::url('delete.php'), 'post');
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

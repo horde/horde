@@ -2,8 +2,6 @@
 /**
  * Object representation of an RFC 822 element.
  *
- * @since 1.2.0
- *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you
@@ -23,7 +21,7 @@
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
-class Horde_Mail_Rfc822_Object
+abstract class Horde_Mail_Rfc822_Object
 {
     /**
      * String representation of object.
@@ -34,5 +32,56 @@ class Horde_Mail_Rfc822_Object
     {
         return $this->writeAddress();
     }
+
+    /**
+     * Write an address given information in this part.
+     *
+     * @param mixed $opts  If boolean true, is equivalent to passing true for
+     *                     both 'encode' and 'idn'. If an array, these
+     *                     keys are supported:
+     *   - encode: (mixed) MIME encode the personal/groupname parts?
+     *             If boolean true, encodes in 'UTF-8'.
+     *             If a string, encodes using this charset.
+     *             DEFAULT: false
+     *   - idn: (boolean) If true, encodes IDN domain names
+     *          (Punycode/RFC 3490).
+     *          Requires the idn or intl PHP module.
+     *          DEFAULT: false
+     *
+     * @return string  The correctly escaped/quoted address.
+     */
+    public function writeAddress($opts = array())
+    {
+        if ($opts === true) {
+            $opts = array(
+                'encode' => 'UTF-8',
+                'idn' => true
+            );
+        } elseif (!empty($opts['encode']) && ($opts['encode'] === true)) {
+            $opts['encode'] = 'UTF-8';
+        }
+
+        return $this->_writeAddress($opts);
+    }
+
+    /**
+     * Class-specific implementation of writeAddress().
+     *
+     * @see writeAddress()
+     *
+     * @param array $opts  See writeAddress().
+     *
+     * @return string  The correctly escaped/quoted address.
+     */
+    abstract protected function _writeAddress($opts);
+
+    /**
+     * Compare this object against other data.
+     *
+     * @param mixed $ob  Address data.
+     *
+     * @return boolean  True if the data reflects the same canonical address.
+     */
+    abstract public function match($ob);
 
 }

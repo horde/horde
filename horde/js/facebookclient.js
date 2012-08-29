@@ -55,18 +55,16 @@ var Horde_Facebook = Class.create({
         params = new Object();
         params.actionID = 'updateStatus';
         params.statusText = $F(this.opts.input);
-        new Ajax.Updater({success:'currentStatus'},
-             this.opts.endpoint,
-             {
-                 method: 'post',
-                 parameters: params,
-                 onComplete: function() {
-                     $(this.opts.input).value = '';
-                     $(this.opts.spinner).toggle()
-                 },
-                 onFailure: function() {$(this.opts.spinner).toggle()}
-             }
-       );
+        new Ajax.Request(this.opts.endpoint, {
+            method: 'post',
+            parameters: params,
+            onSuccess: function(response) {
+                $(this.opts.input).value = '';
+                $(this.opts.spinner).toggle();
+                $(this.opts.content).insert({ 'top': response.responseText });
+            }.bind(this),
+            onFailure: function() {$(this.opts.spinner).toggle()}
+        });
     },
 
     addLike: function(post_id)

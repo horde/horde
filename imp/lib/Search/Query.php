@@ -124,9 +124,7 @@ class IMP_Search_Query implements Serializable
     {
         $this->enabled = empty($opts['disable']);
         if (isset($opts['add'])) {
-            foreach ($opts['add'] as $val) {
-                $this->add($val);
-            }
+            $this->replace($opts['add']);
         }
 
         $this->_id = isset($opts['id'])
@@ -195,8 +193,7 @@ class IMP_Search_Query implements Serializable
                     }
                 }
 
-                // TODO: array_unique() for objects (requires 5.2.9)
-                $this->_cache['mboxes'] = $out;
+                $this->_cache['mboxes'] = array_unique($out, SORT_REGULAR);
             }
 
             return $this->_cache['mboxes'];
@@ -291,6 +288,21 @@ class IMP_Search_Query implements Serializable
     public function add(IMP_Search_Element $elt)
     {
         $this->_criteria[] = $elt;
+    }
+
+    /**
+     * Replace the search query with the given query.
+     *
+     * @param array $criteria  A list of criteria to add (Horde_Search_Element
+     *                         objects).
+     */
+    public function replace(array $criteria = array())
+    {
+        $this->_criteria = array();
+
+        foreach ($criteria as $val) {
+            $this->add($val);
+        }
     }
 
     /* Serializable methods. */

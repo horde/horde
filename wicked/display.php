@@ -8,7 +8,7 @@
  * @author Tyler Colbert <tyler@colberts.us>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('wicked');
 
 $actionID = Horde_Util::getFormData('actionID');
@@ -119,7 +119,7 @@ default:
 
 if (!$page->allows(Wicked::MODE_DISPLAY)) {
     if ($page->pageName() == 'Wiki/Home') {
-        Horde::fatal(_("You don't have permission to view this page."));
+        throw new Wicked_Exception(_("You don't have permission to view this page."));
     }
     $notification->push(_("You don't have permission to view this page."),
                         'horde.error');
@@ -135,15 +135,16 @@ if ($page->isLocked()) {
 
 $history = $session->get('wicked', 'history', Horde_Session::TYPE_ARRAY);
 
-$title = $page->pageTitle();
 Horde::startBuffer();
 $page->render(Wicked::MODE_DISPLAY, $params);
 $content = Horde::endBuffer();
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $page->pageTitle()
+));
 require WICKED_TEMPLATES . '/menu.inc';
 echo $content;
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
 
 if ($page instanceof Wicked_Page_StandardPage &&
     (!isset($history[0]) ||

@@ -14,8 +14,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-if (file_exists(dirname(__FILE__) . '/../../kronolith/lib/Application.php')) {
-    $baseDir = dirname(__FILE__) . '/../';
+if (file_exists(__DIR__ . '/../../kronolith/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
 } else {
     require_once 'PEAR/Config.php';
     $baseDir = PEAR_Config::singleton()
@@ -44,6 +44,8 @@ foreach ($users as $row) {
     $user = $row['owner_name'];
     $registry->setAuth($user, array());
     $cli->message('Creating calendar ' . $row['name']);
+
+    $kronolith_shares = $injector->getInstance('Kronolith_Shares');
     $share = $kronolith_shares->newShare($GLOBALS['registry']->getAuth(), $row['id'], $row['name']);
     $kronolith_shares->addShare($share);
 

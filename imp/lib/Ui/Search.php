@@ -21,8 +21,8 @@ class IMP_Ui_Search
      * @param boolean $unsub  Include unsubcribed mailboxes?
      *
      * @return object  Object with the following properties:
-     *   - folder_list: (array) Mapping of mailbox name (key) to display
-     *                  string (values).
+     *   - mbox_list: (array) Mapping of mailbox name (key) to display
+     *                string (values).
      *   - tree: (IMP_Tree_Flist) Tree object.
      */
     public function getSearchMboxList($unsub = false)
@@ -43,16 +43,16 @@ class IMP_Ui_Search
                 'abbrev' => 0,
                 'container_select' => true,
                 'customhtml' => $t2->fetch(IMP_TEMPLATES . '/imp/search/search-all.html'),
-                'heading' => _("Add search folder:")
+                'heading' => _("Add search mailbox:")
             ),
             'render_type' => 'IMP_Tree_Flist'
         ));
 
-        $folder_list = array();
+        $mbox_list = array();
         foreach ($imap_tree as $val) {
-            $folder_list[$val->form_to] = $val->display;
+            $mbox_list[$val->form_to] = $val->display;
         }
-        $ob->folder_list = $folder_list;
+        $ob->mbox_list = $mbox_list;
 
         return $ob;
     }

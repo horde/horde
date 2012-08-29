@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
@@ -66,13 +66,13 @@ $view = new Agora_View();
 $view->menu = Horde::menu();
 
 Horde::startBuffer();
-$form->renderActive(null, $vars, Horde::url('message/move.php'), 'post');
+$form->renderActive(null, $vars, Horde::url('messages/move.php'), 'post');
 $view->formbox = Horde::endBuffer();
 
 $view->message_subject = $message['message_subject'];
 $view->message_author = $message['message_author'];
 $view->message_body = Agora_Driver::formatBody($message['body']);
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $view->render('messages/edit');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

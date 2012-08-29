@@ -6,21 +6,20 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('nag');
 
-Horde::addInlineScript(array(
+$page_output->addInlineScript(array(
     '$("search_pattern")'
-), 'dom');
+), true);
 
-if ($prefs->getValue('show_panel')) {
-    $bodyClass = 'rightPanel';
-}
-$title = _("Search");
+$page_output->header(array(
+    'title' => _("Search")
+));
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Nag::menu();
 Nag::status();
 require NAG_TEMPLATES . '/search/search.inc';
-require NAG_TEMPLATES . '/panel.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Nag_Ajax_Imple_TagAutoCompleter', array(
+  'id' => 'search_tags'));
+$page_output->footer();

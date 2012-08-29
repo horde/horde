@@ -10,7 +10,7 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
@@ -27,7 +27,12 @@ if (($reload || empty($results))) {
         ->getInstance('Ansel_Storage')
         ->getImage($image_id);
     try {
-        $image->createView('screen');
+        $image->createView(
+            'screen',
+            null,
+            ($GLOBALS['prefs']->getValue('watermark_auto') ?
+                $GLOBALS['prefs']->getValue('watermark_text', '') : '')
+            );
         $results = $faces->getFromPicture($image_id, true);
     } catch (Horde_Exception $e) {
         Horde::logMessage($e, 'ERR');

@@ -13,7 +13,7 @@ class Ingo_TestBase extends PHPUnit_Framework_TestCase {
 
     function _enableRule($rule)
     {
-        $filters = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $filters = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_FILTERS);
         foreach ($filters->getFilterList() as $k => $v) {
             if ($v['action'] == $rule) {
                 $v['disable'] = false;

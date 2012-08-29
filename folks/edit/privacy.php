@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-define('FOLKS_BASE', dirname(__FILE__) . '/..');
+define('FOLKS_BASE', __DIR__ . '/..');
 require_once FOLKS_BASE . '/lib/base.php';
 require_once 'tabs.php';
 
@@ -65,8 +65,10 @@ if ($form->validate()) {
 
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 echo $tabs->render('privacy');
 $form->renderActive(null, null, null, 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

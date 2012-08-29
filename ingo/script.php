@@ -8,7 +8,7 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Redirect if script updating is not available. */
@@ -16,32 +16,35 @@ if (!$session->get('ingo', 'script_generate')) {
     Horde::url('filters.php', true)->redirect();
 }
 
-$script = '';
-
-/* Get the Ingo_Script:: backend. */
-$scriptor = Ingo::loadIngoScript();
-
 /* Generate the script. */
-$script = $scriptor->generate();
-$additional = $scriptor->additionalScripts();
+$ingo_script = $injector->getInstance('Ingo_Script');
+$script = $ingo_script->generate();
+$additional = $ingo_script->additionalScripts();
 
-/* Activate/deactivate script if requested.
-   activateScript() does its own $notification->push() on error. */
+/* Activate/deactivate script if requested. */
 $actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'action_activate':
     if (!empty($script)) {
-        Ingo::activateScript($script, false, $additional);
+        try {
+            Ingo::activateScript($script, false, $additional);
+        } catch (Ingo_Exception $e) {
+            $notification->push($e);
+        }
     }
     break;
 
 case 'action_deactivate':
-    Ingo::activateScript('', true, $additional);
+    try {
+        Ingo::activateScript('', true, $additional);
+    } catch (Ingo_Exception $e) {
+        $notification->push($e);
+    }
     break;
 
 case 'show_active':
     try {
-        $script = Ingo::getScript();
+        $script = $injector->getInstance('Ingo_Transport')->getScript();
     } catch (Ingo_Exception $e) {
         $notification->push($e);
         $script = '';
@@ -49,9 +52,10 @@ case 'show_active':
     break;
 }
 
-$title = _("Filter Script Display");
 $menu = Ingo::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Filter Script Display")
+));
 echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/script/header.inc';
@@ -70,4 +74,4 @@ if (!empty($script)) {
 }
 
 require INGO_TEMPLATES . '/script/footer.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

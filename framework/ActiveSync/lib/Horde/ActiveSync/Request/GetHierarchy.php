@@ -1,18 +1,38 @@
 <?php
 /**
- * Handle GetHierarchy requests from older activesync clients.
- * 
- * Logic adapted from Z-Push, original copyright notices below.
+ * Horde_ActiveSync_Request_GetHierarchy::
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Portions of this class were ported from the Z-Push project:
+ *   File      :   wbxml.php
+ *   Project   :   Z-Push
+ *   Descr     :   WBXML mapping file
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ *   Created   :   01.10.2007
+ *
+ *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   This file is distributed under GPL-2.0.
+ *   Consult COPYING file for details
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 /**
- * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL-2.0.
- * Consult COPYING file for details
+ * Handle GetHierarchy requests.
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 class Horde_ActiveSync_Request_GetHierarchy extends Horde_ActiveSync_Request_Base
 {
@@ -23,13 +43,10 @@ class Horde_ActiveSync_Request_GetHierarchy extends Horde_ActiveSync_Request_Bas
      */
     public function handle()
     {
-        $folders = $this->_driver->getHierarchy();
+        $folders = $this->_driver->getFolders();
         if (!$folders) {
             return false;
         }
-
-        /* save folder-ids for fourther syncing */
-        $this->_stateMachine->setFolderData($this->_device, $folders);
 
         $this->_encoder->StartWBXML();
         $this->_encoder->startTag(self::FOLDERHIERARCHY_FOLDERS);
@@ -43,4 +60,5 @@ class Horde_ActiveSync_Request_GetHierarchy extends Horde_ActiveSync_Request_Bas
 
         return true;
     }
+
 }

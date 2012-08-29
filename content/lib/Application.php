@@ -13,7 +13,7 @@
 
 /* Determine the base directories. */
 if (!defined('CONTENT_BASE')) {
-    define('CONTENT_BASE', dirname(__FILE__) . '/..');
+    define('CONTENT_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -34,5 +34,5 @@ class Content_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = '1.0.4-git';
+    public $version = 'H5 (2.0-git)';
 }

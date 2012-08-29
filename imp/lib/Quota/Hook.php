@@ -5,9 +5,7 @@
  *
  * You must configure this driver in imp/config/backends.php.  The driver
  * supports the following parameters:
- * <pre>
- * 'params' - (array) Parameters to pass to the quota function.
- * </pre>
+ *   - params: (array) Parameters to pass to the quota function.
  *
  * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
@@ -19,7 +17,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Quota_Hook extends IMP_Quota_Base
+class IMP_Quota_Hook extends IMP_Quota
 {
     /**
      * Get quota information (used/allocated), in bytes.
@@ -38,7 +36,7 @@ class IMP_Quota_Hook extends IMP_Quota_Base
         }
 
         if (count($quota) != 2) {
-            Horde::logMessage('Incorrect number of return values from quota hook.', 'ERR');
+            Horde::log('Incorrect number of return values from quota hook.', 'ERR');
             throw new IMP_Exception(_("Unable to retrieve quota"));
         }
 

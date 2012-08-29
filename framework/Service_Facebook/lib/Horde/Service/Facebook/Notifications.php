@@ -19,73 +19,16 @@ class Horde_Service_Facebook_Notifications extends Horde_Service_Facebook_Base
      *               and an eid list of 'event_invites'
      * @throws Horde_Service_Facebook_Exception
      */
-    public function &get()
+    public function get()
     {
         // Session key is *required*
-        if (!$skey = $this->_facebook->auth->getSessionKey()) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception(
                 'session_key is required',
                 Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
         return $this->_facebook->callMethod('facebook.notifications.get');
-    }
-
-    /**
-     * Sends a notification to the specified users.
-     *
-     * @param mixed $to_ids         Either an array of uids or a string
-     *                              list of uids.
-     * @param string $notification  A FBML string for the notification.
-     * @param string $type          Either 'user_to_user' or 'app_to_user'
-     *
-     * @throws Horde_Service_Facebook_Exception
-     *
-     * @return string A comma separated list of successful recipients
-     */
-    public function &send($to_ids, $notification, $type)
-    {
-        // Session key is *required*
-        if (!$this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception(
-                'session_key is required',
-                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
-        }
-
-        return $this->_facebook->callMethod(
-            'facebook.notifications.send',
-            array('to_ids' => $to_ids,
-                  'notification' => $notification,
-                  'type' => $type));
-    }
-
-    /**
-     * Sends an email to the specified user of the application.
-     *
-     * @param string $recipients comma-separated ids of the recipients
-     * @param string $subject    subject of the email
-     * @param string $text       (plain text) body of the email
-     * @param string $fbml       fbml markup for an html version of the email
-     *
-     * @throws Horde_Service_Facebook_Exception
-     * @return string  A comma separated list of successful recipients
-     * @error
-     *    API_EC_PARAM_USER_ID_LIST
-     */
-    public function &sendEmail($recipients, $subject, $text, $fbml)
-    {
-        // Session key is *required*
-        if (!$this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception(
-                'session_key is required',
-                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
-        }
-        return $this->_facebook->callMethod(
-            'facebook.notifications.sendEmail',
-            array('recipients' => $recipients,
-                  'subject' => $subject,
-                  'text' => $text,
-                  'fbml' => $fbml));
     }
 
 }

@@ -14,33 +14,39 @@ class Horde_Block_FbStream extends Horde_Core_Block
     /**
      * @var Horde_Service_Facebook
      */
-    private $_facebook;
+    protected $_facebook;
 
+    /**
+     * Cache the uid/sid
+     *
+     * @var string
+     */
+    protected $_fbp = array();
     /**
      */
     public function __construct($app, $params = array())
     {
         try {
-            $this->_facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
+            $this->_facebook = $GLOBALS['injector']
+                ->getInstance('Horde_Service_Facebook');
         } catch (Horde_Exception $e) {
             $this->enabled = false;
             return;
         }
         parent::__construct($app, $params);
         $this->_name = _("My Facebook Stream");
+        $this->_fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
+
     }
 
     /**
      */
     protected function _params()
     {
-        $fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
         $filters = array();
-        if (!empty($fbp['sid'])) {
-            $fql = 'SELECT filter_key, name FROM stream_filter WHERE uid="'
-                . $fbp['uid'] . '"';
+        if (!empty($this->_fbp['sid'])) {
             try {
-                $stream_filters = $this->_facebook->fql->run($fql);
+                $stream_filters = $this->_facebook->streams->getFilters($this->_fbp['uid']);
                 foreach ($stream_filters as $filter) {
                     $filters[$filter['filter_key']] = $filter['name'];
                 }
@@ -87,20 +93,24 @@ class Horde_Block_FbStream extends Horde_Core_Block
      */
     protected function _content()
     {
+        global $page_output;
+
         $instance = hash('md5', mt_rand());
         $endpoint = Horde::url('services/facebook/', true);
         $html = '';
 
-        /* Init facebook driver, exit early if no prefs exist */
+        // Init facebook driver, exit early if no prefs exist
         $facebook = $this->_facebook;
         if (!($facebook->auth->getSessionKey())) {
-            return sprintf(_("You have not properly connected your Facebook account with Horde. You should check your Facebook settings in your %s."), Horde::getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
+            return sprintf(
+                _("You are not connected to your Facebook account. You should check your Facebook settings in your %s."),
+                $GLOBALS['registry']->getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>'
+            );
         }
-        $fbp = unserialize($GLOBALS['prefs']->getValue('facebook'));
 
-        /* Add the client javascript / initialize it */
-        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('facebook.css');
-        Horde::addScriptFile('facebookclient.js');
+        // Add the client javascript / initialize it
+        $page_output->addThemeStylesheet('facebook.css');
+        $page_output->addScriptFile('facebookclient.js');
         $script = <<<EOT
             var Horde = window.Horde || {};
             Horde['{$instance}_facebook'] = new Horde_Facebook({
@@ -117,53 +127,28 @@ class Horde_Block_FbStream extends Horde_Core_Block
                'count': '{$this->_params['count']}'
             });
 EOT;
-        Horde::addInlineScript($script, 'dom');
+        $page_output->addInlineScript($script, true);
 
-        /* Build the UI */
+        // Start building the block UI.
         $html .= '<div style="padding: 8px 8px 0 8px">';
-
-        /* Build the Notification Section */
         if (!empty($this->_params['notifications'])) {
             $html .= '<div class="fbinfobox" id="' . $instance . '_fbnotifications"></div>';
         }
 
-        /* User's current status and input box to change it. */
-        $fql = 'SELECT first_name, last_name, status, pic_square_with_logo from user where uid=' . $fbp['uid'] . ' LIMIT 1';
         try {
-            $status = $facebook->fql->run($fql);
-        } catch (Horde_Service_Facebook_Exception $e) {
-            $html = sprintf(_("There was an error making the request: %s"), $e->getMessage());
-            $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
-
-            return $html;
-        }
-
-        $status = array_pop($status);
-        if (empty($status['status']['message'])) {
-            $status['status']['message'] = _("What's on your mind?");
-            $class = 'fbemptystatus';
-        } else {
-            $class = '';
-        }
-        $html .= '<div class="fbgreybox fbboxfont">'
-            . '<img style="float:left;" src="' . $status['pic_square_with_logo'] . '" />'
-            . '<div id="' . $instance . '_currentStatus" class="' . $class . '" style="margin-left:55px;">'
-            . $status['status']['message']
-            . '</div>';
-
-        try {
-            if ($facebook->users->hasAppPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM)) {
-                $html .= '<input style="width:100%;margin-top:4px;margin-bottom:4px;" type="text" class="fbinput" id="' . $instance . '_newStatus" name="newStatus" />'
+            $fbperms = $facebook->users->getAppPermissions();
+            if (!empty($fbperms[Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM])) {
+                $html .= '<input style="width:98%;margin-top:4px;margin-bottom:4px;" type="text" class="fbinput" id="' . $instance . '_newStatus" name="newStatus" />'
                     . '<div><a class="button" href="#" id="' . $instance . '_button">' . _("Update") . '</a></div>'
                     . Horde::img('loading.gif', '', array('id' => $instance. '_loading', 'style' => 'display:none;'));
             }
         } catch (Horde_Service_Facebook_Exception $e) {
+            $prefs = Horde::getServiceLink('prefs');
             $html .= sprintf(_("There was an error making the request: %s"), $e->getMessage());
-            $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::link($endpoint) . _("preferences") . '</a>');
+            $html .= sprintf(_("You can also check your Facebook settings in your %s."), $prefs->add('group', 'facebook')->link() . _("preferences") . '</a>');
             return $html;
         }
         $html .= '</div>'; // Close the fbgreybox node that wraps the status
-
 
        // Build the stream feed.
         $html .= '<br /><div id="' . $instance . '_fbcontent" style="height:' . (empty($this->_params['height']) ? 300 : $this->_params['height']) . 'px;overflow-y:auto;overflow-x:hidden;"></div><br />';

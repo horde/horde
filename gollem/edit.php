@@ -13,7 +13,7 @@
  * @package  Gollem
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('gollem');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -60,13 +60,15 @@ case 'edit_file':
         $injector->getInstance('Horde_Editor')->initialize(array('id' => 'content'));
     }
 
-    Horde::addScriptFile('edit.js', 'gollem');
+    $page_output->addScriptFile('edit.js');
 
-    require $registry->get('templates', 'horde') . '/common-header.inc';
+    $page_output->header(array(
+        'title' => $title
+    ));
     require GOLLEM_TEMPLATES . '/javascript_defs.php';
     Gollem::status();
     require GOLLEM_TEMPLATES . '/edit/edit.inc';
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
     exit;
 }
 

@@ -19,17 +19,17 @@ class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * URL parameters used by this function:
-     * <pre>
-     * 'c' - (integer) The VCARD component that contains an image.
-     * 'p' - (integer) The index of image inside the component to display.
-     * </pre>
+     *   - c: (integer) The VCARD component that contains an image.
+     *   - p: (integer) The index of image inside the component to display.
      *
      * @return array  See parent::render().
      * @throws Horde_Exception
      */
     protected function _render()
     {
-        if (is_null(Horde_Util::getFormData('p'))) {
+        $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
+
+        if (!isset($vars->p)) {
             $this->_imageUrl = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'download_render');
             return parent::_render();
         }
@@ -42,30 +42,28 @@ class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
             return array();
         }
         $components = $ical->getComponents();
-        $c = Horde_Util::getFormData('c');
-        $p = Horde_Util::getFormData('p');
-        if (!isset($components[$c])) {
+        if (!isset($components[$vars->c])) {
             // TODO: Error reporting
             return array();
         }
-        $name = $components[$c]->getAttributeDefault('FN', false);
+        $name = $components[$vars->c]->getAttributeDefault('FN', false);
         if ($name === false) {
-            $name = $components[$c]->printableName();
+            $name = $components[$vars->c]->printableName();
         }
         if (empty($name)) {
             $name = preg_replace('/\..*?$/', '', $this->_mimepart->getName());
         }
 
-        $photos = $components[$c]->getAllAttributes('PHOTO');
-        if (!isset($photos[$p])) {
+        $photos = $components[$vars->c]->getAllAttributes('PHOTO');
+        if (!isset($photos[$vars->p])) {
             // TODO: Error reporting
             return array();
         }
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => base64_decode($photos[$p]['value']),
-                'name' => $name . '.' . Horde_Mime_Magic::mimeToExt($photos[$p]['params']['TYPE']),
-                'type' => $photos[$p]['params']['TYPE'],
+                'data' => base64_decode($photos[$vars->p]['value']),
+                'name' => $name . '.' . Horde_Mime_Magic::mimeToExt($photos[$vars->p]['params']['TYPE']),
+                'type' => $photos[$vars->p]['params']['TYPE'],
             )
         );
     }

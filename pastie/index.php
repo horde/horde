@@ -4,10 +4,10 @@
  *
  * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
- * @author Your Name <you@example.com>
+ * @author Ben Klang <bklang@horde.org>
  */
 
-require dirname(__FILE__) . '/paste.php';
+require __DIR__ . '/paste.php';

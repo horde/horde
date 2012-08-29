@@ -55,6 +55,9 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
         $configuration = array();
 
         //@todo: Update configuration parameters
+        if (!empty($GLOBALS['conf']['imap'])) {
+            $configuration = $GLOBALS['conf']['imap'];
+        }
         if (!empty($GLOBALS['conf']['kolab']['imap'])) {
             $configuration = $GLOBALS['conf']['kolab']['imap'];
         }
@@ -78,19 +81,14 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
 
         $session = $this->_injector->getInstance('Horde_Kolab_Session');
 
-        $mail = $session->getMail();
-        if (empty($mail)) {
-            return false;
-        }
-
         $params = array(
             'driver' => 'horde',
             'params' => array(
-                'host' => $session->getImapServer(),
+                'host' => $configuration['server'],
                 'username' => $GLOBALS['registry']->getAuth(),
                 'password' => $GLOBALS['registry']->getAuthCredential('password'),
                 'port'     => $configuration['port'],
-                'secure'   => 'tls'
+                'secure'   => $configuration['secure']
             ),
             'queryset' => array(
                 'list' => array('queryset' => 'horde'),

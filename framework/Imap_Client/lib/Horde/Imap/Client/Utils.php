@@ -213,8 +213,8 @@ class Horde_Imap_Client_Utils
      */
     public function getBaseSubject($str, $options = array())
     {
-        // Rule 1a: MIME decode to UTF-8.
-        $str = Horde_Mime::decode($str, 'UTF-8');
+        // Rule 1a: MIME decode.
+        $str = Horde_Mime::decode($str);
 
         // Rule 1b: Remove superfluous whitespace.
         $str = preg_replace("/[\t\r\n ]+/", ' ', $str);
@@ -414,8 +414,6 @@ class Horde_Imap_Client_Utils
 
     /**
      * Parses a client command array to create a server command string.
-     *
-     * @since 1.2.0
      *
      * @param string $out         The unprocessed command string.
      * @param callback $callback  A callback function to use if literal data

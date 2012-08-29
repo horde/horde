@@ -12,15 +12,13 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Quota_Mdaemon extends IMP_Quota_Base
+class IMP_Quota_Mdaemon extends IMP_Quota
 {
     /**
      * Constructor.
      *
      * @param array $params  Parameters:
-     * <pre>
-     * 'app_location' - (string) [REQUIRED] Location of the application.
-     * </pre>
+     *   - app_location: (string) [REQUIRED] Location of the application.
      *
      * @throws IMP_Exception
      */

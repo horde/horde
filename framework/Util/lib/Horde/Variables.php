@@ -304,8 +304,6 @@ class Horde_Variables implements Countable, Iterator, ArrayAccess
     /**
      * Filters a form value so that it can be used in HTML output.
      *
-     * @since Horde_Util 1.2.0
-     *
      * @param string $varname  The form variable name.
      *
      * @return mixed  The filtered variable, or null if it doesn't exist.

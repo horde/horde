@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the version/stability check.
@@ -159,24 +159,9 @@ extends Components_TestCase
     {
         $this->assertNull(
             Components_Helper_Version::validateApiStability(
-                '4.0.0RC1', 'stable'
+                '4.0.0RC1', 'beta'
             )
         );
-    }
-
-    public function testInvalidApiRc()
-    {
-        try {
-            Components_Helper_Version::validateApiStability(
-                '4.0.0RC1', 'beta'
-            );
-            $this->fail('No exception!');
-        } catch (Components_Exception $e) {
-            $this->assertEquals(
-                'stable version "4.0.0RC1" marked with invalid api stability "beta"!',
-                $e->getMessage()
-            );
-        }
     }
 
     public function testApiStable()

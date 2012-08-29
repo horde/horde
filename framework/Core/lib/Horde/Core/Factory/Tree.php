@@ -46,7 +46,7 @@ class Horde_Core_Factory_Tree extends Horde_Core_Factory_Base
      *               DEFAULT: false
      * </pre>
      *
-     * @return Horde_Tree_Base  The singleton instance.
+     * @return Horde_Tree_Renderer_Base  The singleton instance.
      * @throws Horde_Tree_Exception
      */
     public function create($name, $renderer, array $params = array())
@@ -57,17 +57,19 @@ class Horde_Core_Factory_Tree extends Horde_Core_Factory_Base
         if (!isset($this->_instances[$id])) {
             switch ($lc_renderer) {
             case 'html':
-                $renderer = 'Horde_Core_Tree_Html';
+                $renderer = 'Horde_Core_Tree_Renderer_Html';
                 break;
 
             case 'javascript':
-                $renderer = 'Horde_Core_Tree_Javascript';
+                $renderer = 'Horde_Core_Tree_Renderer_Javascript';
                 break;
 
             case 'simplehtml':
-                $renderer = 'Horde_Core_Tree_Simplehtml';
+                $renderer = 'Horde_Core_Tree_Renderer_Simplehtml';
                 break;
             }
+
+            $params['name'] = $name;
 
             if (empty($params['nosession'])) {
                 $params['session'] = array(
@@ -76,7 +78,7 @@ class Horde_Core_Factory_Tree extends Horde_Core_Factory_Base
                 );
             }
 
-            $this->_instances[$id] = Horde_Tree::factory($name, $renderer, $params);
+            $this->_instances[$id] = Horde_Tree_Renderer::factory($renderer, $params);
         }
 
         return $this->_instances[$id];

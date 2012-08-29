@@ -253,7 +253,7 @@ implements  Horde_Kolab_Storage_Data_Parser
     public function modify($folder, $object, $obid, $options = array())
     {
         $modifiable = $this->_driver->getModifiable($folder, $obid, $object);
-        $new_uid = $this->_format->modify($modifiable, $object, $options);
+        $new_uid = $this->_format->modify($modifiable, $object, $options, $folder, $obid);
         $this->_driver->deleteMessages($folder, array($obid));
         $this->_driver->expunge($folder);
         return $new_uid;

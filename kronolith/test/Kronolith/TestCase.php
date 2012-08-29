@@ -87,14 +87,9 @@ extends PHPUnit_Framework_TestCase
                 'Horde_Share_Base' => 'Share',
             )
         );
-        $setup->makeGlobal(
-            array(
-                'kronolith_shares' => 'Horde_Share_Base',
-            )
-        );
         $GLOBALS['injector']->setInstance(
-            'Horde_Core_Factory_Share',
-            new Kronolith_Stub_ShareFactory($GLOBALS['kronolith_shares'])
+            'Kronolith_Shares',
+            new Kronolith_Stub_ShareFactory('Horde_Share_Base')
         );
         $GLOBALS['conf']['storage']['driver'] = 'sql';
         $GLOBALS['conf']['calendars']['driver'] = 'default';
@@ -116,25 +111,21 @@ extends PHPUnit_Framework_TestCase
                 ),
             )
         );
-        $setup->makeGlobal(
-            array(
-                'kronolith_shares' => 'Horde_Share_Base',
-            )
-        );
         $GLOBALS['injector']->setInstance(
-            'Horde_Core_Factory_Share',
-            new Kronolith_Stub_ShareFactory($GLOBALS['kronolith_shares'])
+            'Kronolith_Shares',
+            new Kronolith_Stub_ShareFactory('Horde_Share_Base')
         );
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
         $GLOBALS['conf']['calendars']['driver'] = 'kolab';
     }
+
     static protected function createKolabSetup()
     {
         $setup = new Horde_Test_Setup();
         self::createBasicKronolithSetup($setup);
         self::createKolabShares($setup);
         self::_createDefaultShares();
-       
+
         return $setup;
     }
 
@@ -151,10 +142,10 @@ extends PHPUnit_Framework_TestCase
 
     static private function _createShare($name, $owner)
     {
-        $share = $GLOBALS['kronolith_shares']->newShare(
+        $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->newShare(
             $owner, strval(new Horde_Support_Randomid()), $name
         );
-        $GLOBALS['kronolith_shares']->addShare($share);
+        $GLOBALS['injector']->getInstance('Kronolith_Shares')->addShare($share);
         $GLOBALS['all_calendars'][$share->getName()] = new Kronolith_Calendar_Internal(array('share' => $share));
         return $share;
     }

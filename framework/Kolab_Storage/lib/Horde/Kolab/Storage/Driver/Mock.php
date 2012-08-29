@@ -351,8 +351,10 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $result = array();
         foreach ($this->_data->arrayKeys() as $folder) {
-            if ($this->_data->hasAnnotation($folder, $annotation)) {
-                $result[$this->_convertToExternal($folder)] = $this->_data->getAnnotation($folder, $annotation);
+            if ($this->_folderVisible($folder, $this->getAuth())) {
+                if ($this->_data->hasAnnotation($folder, $annotation)) {
+                    $result[$this->_convertToExternal($folder)] = $this->_data->getAnnotation($folder, $annotation);
+                }
             }
         }
         return $result;

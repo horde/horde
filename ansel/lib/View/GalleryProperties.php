@@ -106,6 +106,13 @@ class Ansel_View_GalleryProperties
         $view->url = $this->_params['url'];
         $view->availableThumbs = $this->_thumbStyles();
         $view->galleryViews = $this->_galleryViewStyles();
+        $view->locked = array('download' => $GLOBALS['prefs']->isLocked('default_download'));
+        $view->isOwner = $GLOBALS['registry']->getAuth() &&
+                         $GLOBALS['registry']->getAuth() == $this->_properties['owner'];
+
+        $view->havePretty = $GLOBALS['conf']['image']['prettythumbs'];
+        $view->ages = $GLOBALS['conf']['ages']['limits'];
+
         $js = array('$("gallery_name").focus()');
         if ($GLOBALS['conf']['image']['type'] != 'png') {
             $js[] = 'function checkStyleSelection()
@@ -127,21 +134,19 @@ class Ansel_View_GalleryProperties
                 }';
             $js[] = '$("background_color").observe("change", checkStyleSelection); $("thumbnail_style").observe("change", checkStyleSelection);';
         }
-        Horde::addInlineScript($js, 'dom');
-        Horde::addScriptFile('stripe.js', 'horde');
-        Horde::addScriptFile('popup.js', 'horde');
 
-        /* Attach the slug check action to the form */
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'GallerySlugCheck'), array(
-            'bindTo' => 'gallery_slug',
-            'slug' => $this->_properties['slug']
+        global $page_output;
+        $page_output->addInlineScript($js, true);
+        $page_output->addScriptFile('stripe.js', 'horde');
+        $page_output->addScriptFile('popup.js', 'horde');
+        $page_output->addScriptFile('slugcheck.js');
+        $page_output->addInlineJsVars(array(
+            'AnselSlugCheck.text' => $this->_properties['slug']
         ));
 
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc';
-        echo Horde::menu();
-        $GLOBALS['notification']->notify(array('listeners' => 'status'));
+        $page_output->header();
         echo $view->render('properties');
-        require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
     }
 
     /**

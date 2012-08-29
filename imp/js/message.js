@@ -15,7 +15,7 @@ var ImpMessage = {
 
     // Set in message.php: pop3delete, stripatc
 
-    _arrowHandler: function(e)
+    arrowHandler: function(e)
     {
         if (e.altKey || e.shiftKey || e.ctrlKey) {
             return;
@@ -69,7 +69,7 @@ var ImpMessage = {
 
     _transfer: function(actID)
     {
-        var newFolder,
+        var newMbox,
             elt = $('target1'),
             target = $F(elt),
             tmbox = $('targetMbox');
@@ -78,10 +78,10 @@ var ImpMessage = {
 
         // Check for a mailbox actually being selected.
         if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
-            newFolder = window.prompt(IMP.text.newfolder, '');
-            if (newFolder != null && newFolder != '') {
+            newMbox = window.prompt(IMP.text.newmbox, '');
+            if (newMbox != null && newMbox != '') {
                 $('newMbox').setValue(1);
-                tmbox.setValue(newFolder);
+                tmbox.setValue(newMbox);
                 this.submit(actID);
             }
         } else if (target.empty()) {
@@ -89,11 +89,9 @@ var ImpMessage = {
         } else if (target.startsWith("notepad\0") ||
                    target.startsWith("tasklist\0")) {
             this.actIDconfirm = actID;
-            IMPDialog.display({
-                cancel_text: IMP.text.no,
+            HordeDialog.display({
                 form_id: 'RB_ImpMessageConfirm',
                 noinput: true,
-                ok_text: IMP.text.yes,
                 text: IMP.text.moveconfirm
             });
         } else {
@@ -101,7 +99,7 @@ var ImpMessage = {
         }
     },
 
-    updateFolders: function(form)
+    updateMailboxes: function(form)
     {
         var f = (form == 1) ? 2 : 1;
         $('target' + f).selectedIndex = $('target' + form).selectedIndex;
@@ -146,9 +144,7 @@ var ImpMessage = {
 
     onDomLoad: function()
     {
-        // Set up left and right arrows to go to the previous/next page.
-        document.observe('keydown', this._arrowHandler.bindAsEventListener(this));
-        document.observe('click', this._clickHandler.bindAsEventListener(this));
+        HordeCore.initHandler('click');
 
         if (Prototype.Browser.IE) {
             $('flag1', 'target1', 'flag2', 'target2').compact().invoke('observe', 'change', this._changeHandler.bindAsEventListener(this));
@@ -178,49 +174,58 @@ var ImpMessage = {
         if (id.startsWith('flag')) {
             this.flagMessage(id.substring(4));
         } else if (id.startsWith('target')) {
-            this.updateFolders(id.substring(6));
+            this.updateMailboxes(id.substring(6));
         }
     },
 
-    _clickHandler: function(e)
+    clickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
-        }
-
-        var elt = e.element();
-
-        while (Object.isElement(elt)) {
-            if (elt.match('.msgactions A.widget')) {
-                if (this.pop3delete && elt.hasClassName('deleteAction')) {
-                    if (!window.confirm(this.pop3delete)) {
-                        e.stop();
-                        return;
-                    }
+        $w(e.element().className).each(function(c) {
+            switch (c) {
+            case 'deleteAction':
+                if (this.pop3delete && !window.confirm(this.pop3delete)) {
+                    e.memo.stop();
                 }
-                if (elt.hasClassName('moveAction')) {
-                    this._transfer('move_message');
-                } else if (elt.hasClassName('copyAction')) {
-                    this._transfer('copy_message');
-                } else if (elt.hasClassName('spamAction')) {
-                    this.submit('spam_report');
-                } else if (elt.hasClassName('notspamAction')) {
-                    this.submit('notspam_report');
-                } else if (elt.hasClassName('stripAllAtc')) {
-                    if (!window.confirm(this.stripatc)) {
-                        e.stop();
-                        return;
-                    }
+                break;
+
+            case 'moveAction':
+                this._transfer('move_message');
+                break;
+
+            case 'copyAction':
+                this._transfer('copy_message');
+                break;
+
+            case 'spamAction':
+                this.submit('spam_report');
+                break;
+
+            case 'notspamAction':
+                this.submit('notspam_report');
+                break;
+
+            case 'stripAllAtc':
+                if (!window.confirm(this.stripallwarn)) {
+                    e.memo.stop();
                 }
-            } else if (elt.hasClassName('unblockImageLink')) {
-                IMP_JS.unblockImages(e);
+                break;
+
+             case 'unblockImageLink':
+                IMP_JS.unblockImages(e.memo);
+                break;
+
+            case 'stripAtc':
+                if (!window.confirm(this.stripwarn)) {
+                    e.memo.stop();
+                }
+                break;
             }
-
-            elt = elt.up();
-        }
+        }, this);
     }
 
 };
 
 document.observe('dom:loaded', ImpMessage.onDomLoad.bind(ImpMessage));
-document.observe('IMPDialog:onClick', ImpMessage.onDialogClick.bind(ImpMessage));
+document.observe('keydown', ImpMessage.arrowHandler.bindAsEventListener(ImpMessage));
+document.observe('HordeCore:click', ImpMessage.clickHandler.bindAsEventListener(ImpMessage));
+document.observe('HordeDialog:onClick', ImpMessage.onDialogClick.bind(ImpMessage));

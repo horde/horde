@@ -9,11 +9,11 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 $ticket = Whups::getCurrentTicket();
-$linkTags[] = $ticket->feedLink();
+$page_output->addLinkTag($ticket->feedLink());
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
 $form = $vars->get('formname');
@@ -99,8 +99,9 @@ if ($form == 'whups_form_queue_stepthree') {
     }
 }
 
-$title = sprintf(_("Set Queue for %s"), '[#' . $id . '] ' . $ticket->get('summary'));
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => sprintf(_("Set Queue for %s"), '[#' . $id . '] ' . $ticket->get('summary'))
+));
 require WHUPS_TEMPLATES . '/menu.inc';
 require WHUPS_TEMPLATES . '/prevnext.inc';
 
@@ -137,4 +138,4 @@ default:
     break;
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -51,6 +51,9 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     // Thrown if read error for server response.
     const SERVER_READERROR = 12;
 
+    // Thrown on CATENATE if the URL is invalid.
+    const CATENATE_BADURL = 13;
+
     // Thrown on CATENATE if the message was too big.
     const CATENATE_TOOBIG = 14;
 
@@ -142,14 +145,6 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
 
     // Function/feature is not supported on this server.
     const NOT_SUPPORTED = 400;
-
-
-    // Deprecated
-    const DRIVER_NOT_FOUND = 1;
-    const POP3_NOTSUPPORTED = 2;
-    const NOSUPPORTIMAPEXT = 8;
-    const CATENATE_BADURL = 13;
-    const BADSEARCH = 16;
 
 
     /**

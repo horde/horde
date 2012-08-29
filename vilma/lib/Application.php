@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('VILMA_BASE')) {
-    define('VILMA_BASE', dirname(__FILE__) . '/..');
+    define('VILMA_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -39,7 +39,7 @@ class Vilma_Application extends Horde_Registry_Application
      *
      * @var string
      */
-    public $version = 'H4 (1.0-git)';
+    public $version = 'H5 (1.0-git)';
 
     public $driver = null;
     public $curdomain = null;

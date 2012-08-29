@@ -144,7 +144,7 @@ class Hylax_Storage {
     function &factory($driver, $params = array())
     {
         $driver = basename($driver);
-        include_once dirname(__FILE__) . '/Storage/' . $driver . '.php';
+        include_once __DIR__ . '/Storage/' . $driver . '.php';
         $class = 'Hylax_Storage_' . $driver;
         if (class_exists($class)) {
             $storage = new $class($params);

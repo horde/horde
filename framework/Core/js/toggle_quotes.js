@@ -14,12 +14,7 @@
 
 var Horde_ToggleQuotes = {
 
-    onDomLoad: function()
-    {
-        document.observe('click', this._clickHandler.bindAsEventListener(this));
-    },
-
-    _clickHandler: function(e)
+    clickHandler: function(e)
     {
         if (e.isRightClick()) {
             return;
@@ -42,4 +37,4 @@ var Horde_ToggleQuotes = {
 
 };
 
-document.observe('dom:loaded', Horde_ToggleQuotes.onDomLoad.bind(Horde_ToggleQuotes));
+document.observe('click', Horde_ToggleQuotes.clickHandler.bindAsEventListener(Horde_ToggleQuotes));

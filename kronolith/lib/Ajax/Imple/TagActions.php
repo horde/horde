@@ -1,83 +1,109 @@
 <?php
 /**
- * Kronolith_Ajax_Imple_TagActions:: handles ajax requests for adding and
- * removing tags from kronolith objects.
+ * Imple for adding and removing tags from kronolith objects.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Kronolith
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @package  Kronolith
  */
 class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
 {
+    /*
+     * Constructor parameters:
+     *   - action
+     *   - resource
+     *   - tagId
+     *   - type
+     */
+
     /**
      */
-    public function attach()
+    protected function _attach($init)
     {
-        Horde::addScriptFile('tagactions.js');
-        $dom_id = $this->_params['triggerId'];
-        $action = $this->_params['action'];
-        $content_id = $this->_params['resource'];
-        $content_type = $this->_params['type'];
-        $tag_id = !empty($this->_params['tagId']) ? $this->_params['tagId'] : null;
-        $endpoint = $this->_getUrl('TagActions', 'kronolith');
+        global $page_output;
 
-        if ($action == 'add') {
-            $js = "Event.observe('" . $dom_id . "_" . $content_id . "', 'click', function(event) {addTag('" . $content_id . "', '" . $content_type . "', '" . $endpoint . "'); Event.stop(event)});";
-        } elseif ($action == 'delete') {
-            $js = "Event.observe('" . $dom_id . "', 'click', function(event) {removeTag('" . $content_id . "', '" . $content_type . "', " . $tag_id . ", '" . $endpoint . "'); Event.stop(event)});";
+        if ($init) {
+            $page_output->addInlineScript(array(
+                'document.observe("ImpleParams:' . get_class() . '", function(e) {
+                     if (e.memo.action == "add") {
+                         e.memo.tags = $F("newtags-input_" + e.memo.resource);
+                     }
+                 })',
+                'document.observe("Imple:' . get_class() . '", function(e) {
+                    $(e.memo.tags).update(e.memo.html);
+                    if (e.memo.clear) {
+                        $(e.memo.clear).setValue("");
+                    }
+                 })'
+            ));
         }
-        Horde::addInlineScript($js, 'window');
+
+        $args = array(
+            'action' => $this->_params['action'],
+            'resource' => $this->_params['resource'],
+            'type' => $this->_params['type']
+        );
+
+        return array_filter(array(
+            'tag_id' => empty($this->_params['tagId']) ? null : $this->_params['tagId']
+        ));
     }
 
     /**
-     * Handle the tag related action.
-     *
      * If removing a tag, needs a 'resource' which is the local identifier of
      * the kronolith object, a 'type' which should be the string reprentation
      * of the type of object (event/calendar) and 'tags' should be the integer
      * tag_id of the tag to remove.
      *
      * @throws Kronolith_Exception
-     * @throws Horde_Exception_NotFound
      */
-    public function handle($args, $post)
+    protected function _handle(Horde_Variables $vars)
     {
-        $request = $args['action'];
-        $content = array('id' => $post['resource'], 'type' => $post['type']);
-        $tags = rawurldecode($post['tags']);
+        global $injector, $registry;
+
+        $content = array(
+            'id' => $vars->resource,
+            'type' => $vars->type
+        );
+        $request = $vars->action;
+        $tags = rawurldecode($vars->tags);
 
         // Check perms only calendar owners may tag a calendar, only event
         // creator can tag an event.
-        $cal = $GLOBALS['kronolith_shares']->getShare($post['resource']);
+        $cal = $injector->getInstance('Kronolith_Shares')->getShare($vars->resource);
         $cal_owner = $cal->get('owner');
-        if($post['type'] == 'event') {
-            $event = Kronolith::getDriver()->getByUID($post['resource']);
+        if ($vars->type == 'event') {
+            $event = Kronolith::getDriver()->getByUID($vars->resource);
             $event_owner = $event->creator;
         }
 
         // $owner is null for system-owned shares, so an admin has perms,
         // otherwise, make sure the resource owner is the current user
         $perm = empty($owner)
-            ? $GLOBALS['registry']->isAdmin()
-            : $owner == $GLOBALS['registry']->getAuth();
+            ? $registry->isAdmin()
+            : ($owner == $registry->getAuth());
 
         if ($perm) {
             $tagger = Kronolith::getTagger();
+
             switch ($request) {
             case 'add':
-                $tagger->tag($post['resource'], $tags, $cal_owner, $post['type']);
+                $tagger->tag($vars->resource, $tags, $cal_owner, $vars->type);
                 if (!empty($event_owner)) {
-                    $tagger->tag($post['resource'], $tags, $event_owner, $post['type']);
+                    $tagger->tag($vars->resource, $tags, $event_owner, $vars->type);
                 }
                 break;
+
             case 'remove':
-                $tagger->untag($post['resource'], (int)$tags, $post['type']);
+                $tagger->untag($vars->resource, intval($tags), $vars->type);
                 break;
             }
         }
-        return $this->_getTagHtml($tagger, $post['resource'], $post['type']);
 
+        $res = new stdClass;
+        $res->html = $this->_getTagHtml($tagger, $post['resource'], $post['type']);
     }
 
     /**
@@ -86,22 +112,21 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
      * TODO: This should be made a view helper when we move to using Horde_View
      *
      * @param Kronolith_Tagger $tagger  The tagger object
-     * @param string $id                The identifier (share name or event uid)
+     * @param string $id                The identifier (share name or event
+     *                                  uid).
      * @param string $type              The type of resource (calendar/event)
      *
-     * @return string  The HTML
+     * @return string  The HTML.
      *
      * @throws Kronolith_Exception
-     * @throws Horde_Exception_NotFound
      */
     private function _getTagHtml($tagger, $id, $type)
     {
         $tags = $tagger->getTags($id, 'calendar');
-        $js = '';
         $html = '';
 
         if ($type == 'calendar') {
-            $cal = $GLOBALS['kronolith_shares']->getShare($id);
+            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($id);
             $hasEdit = $cal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
         } elseif ($type == 'event') {
             $event = Kronolith::getDriver()->getByUID($id);

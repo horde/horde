@@ -96,7 +96,7 @@ $cwd = getcwd();
 if (is_null($srcDir) && is_null($pkg)) {
     $srcDir = is_dir($cwd . '/framework')
         ? $cwd . DIRECTORY_SEPARATOR . 'framework'
-        : dirname(__FILE__) . '/..';
+        : __DIR__ . '/..';
 }
 if (is_null($destDir) && is_dir($cwd . '/lib')) {
     $destDir = $cwd . DIRECTORY_SEPARATOR . 'lib';
@@ -136,7 +136,7 @@ if (strpos(ini_get('include_path'), $destDir) === false) {
 }
 
 // Do CLI checks and environment setup first.
-if ((!@include_once dirname(__FILE__) . '/../Cli/lib/Horde/Cli.php') &&
+if ((!@include_once __DIR__ . '/../Cli/lib/Horde/Cli.php') &&
     (!@include_once 'Horde/Cli.php')  &&
     (!@include_once $srcDir . '/Cli/lib/Horde/Cli.php') &&
     (!@include_once $cwd . '/../Cli/lib/Horde/Cli.php')) {
@@ -199,6 +199,10 @@ foreach ($pkgs as $key => $val) {
         continue;
     }
     foreach ($pkg_ob->getInstallationFilelist() as $file) {
+        if (!isset($file['attribs']['name'])) {
+            $cli->message('Invalid <install> entry: ' . print_r($file['attribs'], true), 'cli.error');
+            continue;
+        }
         $orig = realpath($val . '/' . $file['attribs']['name']);
         if (empty($orig)) {
             $cli->message('Install file does not seem to exist: ' . $val . '/' . $file['attribs']['name'], 'cli.error');

@@ -74,9 +74,9 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
 
             reset($ret);
             Horde::startBuffer();
-            include $templates . '/common-header.inc';
+            $GLOBALS['page_output']->header();
             echo $ret[key($ret)]['data'];
-            include $templates . '/common-footer.inc';
+            $GLOBALS['page_output']->footer();
             $ret[key($ret)]['data'] = Horde::endBuffer();
         }
 

@@ -11,7 +11,7 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ulaform', array('admin' => true));
 
 /* Get some variables. */
@@ -103,8 +103,10 @@ $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('genhtml.php'),
 $view->inputform = Horde::endBuffer();
 $view->html = $html;
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('genhtml');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

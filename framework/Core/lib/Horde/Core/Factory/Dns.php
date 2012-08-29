@@ -15,8 +15,7 @@ class Horde_Core_Factory_Dns extends Horde_Core_Factory_Injector
         if (is_readable('/etc/resolv.conf')) {
             try {
                 $resolver->setServers('/etc/resolv.conf');
-            } catch (Net_DNS2_Exception $e) {
-            }
+            } catch (Net_DNS2_Exception $e) {}
         }
 
         // TODO: Fixes for Net_DNS2 v1.0.0

@@ -101,9 +101,8 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
 
         Horde::startBuffer();
         if (!empty($this->view->api)) {
-            $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
-            $includes->add('prototype.js', 'horde', true, true);
-            $includes->includeFiles();
+            $prototypejs = new Horde_Script_File_JsDir('prototype.js', 'horde');
+            echo $prototypejs->tag_full;
         }
 
         // Needed in the template files
@@ -127,7 +126,7 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         if (!empty($option_copy)) {
             $action_links[] = $url->link(array('class' => 'widget', 'onclick.raw' => 'copySelected(); return false;')) . _("Copy") . '</a>';
         }
-        Horde::addScriptFile('popup.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('popup.js', 'horde');
         include ANSEL_TEMPLATES . '/view/gallery.inc';
         return Horde::endBuffer();
     }

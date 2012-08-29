@@ -5,11 +5,11 @@ Turba_Driver::toHash() test.
 
 require_once 'PEAR.php';
 require_once 'Horde/Icalendar.php';
-require dirname(__FILE__) . '/../Object.php';
-require dirname(__FILE__) . '/../Driver.php';
+require __DIR__ . '/../Object.php';
+require __DIR__ . '/../Driver.php';
 
 setlocale(LC_ALL, 'de_DE.ISO-8859-1');
-bindtextdomain('turba', dirname(__FILE__) . '/../../locale');
+bindtextdomain('turba', __DIR__ . '/../../locale');
 textdomain('turba');
 
 $vcard1 = '
@@ -230,7 +230,7 @@ echo "\n";
 
 $iCal->parsevCalendar($vcard7);
 $hash = $driver->toHash($iCal->getComponent(0));
-var_export($hash['photo'] == file_get_contents(dirname(__FILE__) . '/az.png'));
+var_export($hash['photo'] == file_get_contents(__DIR__ . '/az.png'));
 echo "\n";
 
 $iCal->parsevCalendar($vcard8);

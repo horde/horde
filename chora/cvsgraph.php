@@ -12,7 +12,7 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('chora');
 
 // Exit if cvsgraph isn't active or it's not supported.
@@ -53,7 +53,9 @@ if (Horde_Util::getFormData('show_image')) {
 $title = sprintf(_("Graph for %s"), $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)));
 $extraLink = Chora::getFileViews($where, 'cvsgraph');
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 
@@ -84,4 +86,4 @@ if (!strncasecmp(PHP_OS, 'WIN', 3)) {
 $map = shell_exec($conf['paths']['cvsgraph'] . ' ' . $argstr . ' -i ' . $file);
 
 require CHORA_TEMPLATES . '/cvsgraph/cvsgraph.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

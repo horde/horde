@@ -45,7 +45,7 @@ class Jonah_View_ChannelDelete extends Jonah_View_Base
         /* Check permissions and deny if not allowed. */
         if (!Jonah::checkPermissions(Jonah::typeToPermName($channel['channel_type']), Horde_Perms::DELETE, $channel_id)) {
             $notification->push(_("You are not authorised for this action."), 'horde.warning');
-            $registry->authenticateFailure();
+            throw new Horde_Exception_AuthenticationFailure();
         }
 
         $title = sprintf(_("Delete News Channel \"%s\"?"), $vars->get('channel_name'));
@@ -72,10 +72,12 @@ class Jonah_View_ChannelDelete extends Jonah_View_Base
             exit;
         }
 
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $GLOBALS['page_output']->header(array(
+            'title' => $title
+        ));
         require JONAH_TEMPLATES . '/menu.inc';
         $form->renderActive(null, $vars, Horde::selfUrl(), 'post');
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $GLOBALS['page_output']->footer();
     }
 
 }

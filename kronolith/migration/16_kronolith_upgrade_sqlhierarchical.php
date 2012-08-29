@@ -6,7 +6,7 @@
  * @package  Kronolith
  */
 
-require_once dirname(__FILE__) . '/../lib/Kronolith.php';
+require_once __DIR__ . '/../lib/Kronolith.php';
 
 /**
  * Add hierarchcal related columns to the legacy sql share driver

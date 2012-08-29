@@ -8,4 +8,4 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require dirname(__FILE__) . '/../rpc.php';
+require __DIR__ . '/../rpc.php';

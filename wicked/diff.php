@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('wicked');
 
 $v1 = Horde_Util::getFormData('v1');
@@ -50,8 +50,9 @@ if (!$page->allows(Wicked::MODE_DIFF)) {
         ->redirect();
 }
 
-$title = sprintf(_("Diff for %s between %s and %s"), $page->pageName(), $v1, $page->version());
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => sprintf(_("Diff for %s between %s and %s"), $page->pageName(), $v1, $page->version())
+));
 require WICKED_TEMPLATES . '/menu.inc';
 $page->render(Wicked::MODE_DIFF, $v1);
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

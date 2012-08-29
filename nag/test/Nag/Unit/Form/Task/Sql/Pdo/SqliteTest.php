@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../../../Autoload.php';
+require_once __DIR__ . '/../../../../../Autoload.php';
 
 /**
  * Test the task form with a sqlite DB.
@@ -35,12 +35,6 @@ require_once dirname(__FILE__) . '/../../../../../Autoload.php';
 class Nag_Unit_Form_Task_Sql_Pdo_SqliteTest extends Nag_Unit_Form_Task_Sql_Base
 {
     protected $backupGlobals = false;
-
-    static public function setUpBeforeClass()
-    {
-        self::$callback = array(__CLASS__, 'getDb');
-        parent::setUpBeforeClass();
-    }
 
     static protected function getDb()
     {

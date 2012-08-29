@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-define('FOLKS_BASE', dirname(__FILE__));
+define('FOLKS_BASE', __DIR__);
 require_once FOLKS_BASE . '/lib/base.php';
 
 if (Horde_Util::getFormData('submitbutton') == _("Close")) {

@@ -10,7 +10,7 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
 /* Set up the forums object. */
@@ -67,6 +67,8 @@ Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $view->notify = Horde::endBuffer();
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo $view->render('main');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -11,7 +11,7 @@
  * @package Ulaform
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ulaform');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -97,8 +97,8 @@ case 'php':
 
 default:
     /* No special embedding, output with regular header/footer. */
-    require $registry->get('templates', 'horde') . '/common-header.inc';
+    $page_output->header();
     $notification->notify(array('listeners' => 'status'));
     echo $view->render('display');
-    require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->footer();
 }

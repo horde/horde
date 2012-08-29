@@ -21,7 +21,7 @@
 
 /* Determine the base directories. */
 if (!defined('GOLLEM_BASE')) {
-    define('GOLLEM_BASE', dirname(__FILE__) . '/..');
+    define('GOLLEM_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -50,14 +50,7 @@ class Gollem_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (2.0.3-git)';
-
-    /**
-     * Cached values to add to the session after authentication.
-     *
-     * @var array
-     */
-    protected $_cacheSess = array();
+    public $version = 'H5 (3.0-git)';
 
     /**
      * Server key used in logged out session.
@@ -66,12 +59,16 @@ class Gollem_Application extends Horde_Registry_Application
      */
     protected $_oldbackend = null;
 
+    protected function _bootstrap()
+    {
+        $GLOBALS['injector']->bindFactory('Gollem_Vfs', 'Gollem_Factory_VfsDefault', 'create');
+        $GLOBALS['injector']->bindFactory('Gollem_Shares', 'Gollem_Factory_Shares', 'create');
+    }
+
     /**
      */
     protected function _init()
     {
-        $GLOBALS['injector']->bindFactory('Gollem_Vfs', 'Gollem_Factory_VfsDefault', 'create');
-
         if ($backend_key = $GLOBALS['session']->get('gollem', 'backend_key')) {
             Gollem_Auth::changeBackend($backend_key);
         }
@@ -162,15 +159,11 @@ class Gollem_Application extends Horde_Registry_Application
     {
         $this->init();
 
-        $new_session = Gollem_Auth::authenticate(array(
+        $this->_addSessVars(Gollem_Auth::authenticate(array(
             'password' => $credentials['password'],
-            'backend_key' => empty($credentials['backend']) ? Gollem_Auth::getPreferredBackend() : $credentials['backend'],
+            'backend_key' => empty($credentials['backend_key']) ? Gollem_Auth::getPreferredBackend() : $credentials['backend_key'],
             'userId' => $userId
-        ));
-
-        if ($new_session) {
-            $this->_cacheSess = $new_session;
-        }
+        )));
     }
 
     /**
@@ -187,28 +180,11 @@ class Gollem_Application extends Horde_Registry_Application
         $this->init();
 
         if ($result = Gollem_Auth::transparent($auth_ob)) {
-            $this->_cacheSess = $result;
+            $this->_addSessVars($result);
             return true;
         }
 
         return false;
-    }
-
-    /**
-     * Does necessary authentication tasks reliant on a full app environment.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    public function authAuthenticateCallback()
-    {
-        if ($GLOBALS['registry']->getAuth()) {
-            $this->init();
-
-            foreach ($this->_cacheSess as $key => $val) {
-                $GLOBALS['session']->set('gollem', $key, $val);
-            }
-            $this->_cacheSess = array();
-        }
     }
 
     /**
@@ -224,59 +200,6 @@ class Gollem_Application extends Horde_Registry_Application
         }
 
         return !empty(Gollem::$backend['auth']);
-    }
-
-    /**
-     */
-    public function prefsGroup($ui)
-    {
-        foreach ($ui->getChangeablePrefs() as $val) {
-            switch ($val) {
-            case 'columnselect':
-                Horde_Core_Prefs_Ui_Widgets::sourceInit();
-                break;
-            }
-        }
-    }
-
-    /**
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        switch ($item) {
-        case 'columnselect':
-            $cols = json_decode($GLOBALS['prefs']->getValue('columns'));
-            $sources = array();
-
-            foreach (Gollem_Auth::getBackend() as $source => $info) {
-                $selected = $unselected = array();
-                $selected_list = isset($cols[$source])
-                    ? array_flip($cols[$source])
-                    : array();
-
-                foreach ($info['attributes'] as $column) {
-                    if (isset($selected_list[$column])) {
-                        $selected[$column] = $column;
-                    } else {
-                        $unselected[$column] = $column;
-                    }
-                }
-                $sources[$source] = array(
-                    'selected' => $selected,
-                    'unselected' => $unselected,
-                );
-            }
-
-            return Horde_Core_Prefs_Ui_Widgets::source(array(
-                'mainlabel' => _("Choose which columns to display, and in what order:"),
-                'selectlabel' => _("These columns will display in this order:"),
-                'sourcelabel' => _("Select a backend:"),
-                'sources' => $sources,
-                'unselectlabel' => _("Columns that will not be displayed:")
-            ));
-        }
-
-        return '';
     }
 
     /**
@@ -302,29 +225,53 @@ class Gollem_Application extends Horde_Registry_Application
         }
     }
 
-    /* Sidebar method. */
+    /* Topbar method. */
 
     /**
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
     {
         $icon = Horde_Themes::img('gollem.png');
         $url = Horde::url('manager.php');
 
         foreach (Gollem_Auth::getBackend() as $key => $val) {
-            $tree->addNode(
-                $parent . $key,
-                $parent,
-                $val['name'],
-                1,
-                false,
-                array(
+            $tree->addNode(array(
+                'id' => $parent . $key,
+                'parent' => $parent,
+                'label' => $val['name'],
+                'expanded' => false,
+                'params' => array(
                     'icon' => $icon,
                     'url' => $url->add(array('backend_key' => $key))
                 )
-            );
+            ));
         }
+    }
+
+    /* Download data. */
+
+    /**
+     * URL parameters needed:
+     *   - dir
+     *   - driver
+     *
+     * @throws Horde_Vfs_Exception
+     */
+    public function download(Horde_Variables $vars)
+    {
+        $vfs = $GLOBALS['injector']->getInstance('Gollem_Factory_Vfs')->create($vars->driver);
+        $res = array(
+            'data' => is_callable(array($vfs, 'readStream'))
+                ? $vfs->readStream($vars->dir, $vars->filename)
+                : $vfs->read($vars->dir, $vars->filename)
+        );
+
+        try {
+            $res['size'] = $vfs->size($vars->dir, $vars->filename);
+        } catch (Horde_Vfs_Exception $e) {}
+
+        return $res;
     }
 
 }

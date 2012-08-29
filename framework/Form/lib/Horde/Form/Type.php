@@ -1031,9 +1031,15 @@ class Horde_Form_Type_image extends Horde_Form_Type {
         }
     }
 
+    /**
+     * @param Horde_Form_Variable $var  The Form field object to check
+     * @param Horde_Variables $vars     The form state to check this field for
+     * @param array $value              The field value array - should contain a key ['hash'] which holds the key for the image on temp storage
+     * @param something  $message       Not clear what this field does
+     */
+
     function isValid(&$var, &$vars, $value, &$message)
     {
-
         if ($vars->get('remove_' . $var->getVarName())) {
             return true;
         }
@@ -1123,8 +1129,11 @@ class Horde_Form_Type_image extends Horde_Form_Type {
 
     /**
      * Gets the upload and sets up the upload data array. Either
-     * fetches an upload done with this submit or retries stored
+     * fetches an upload done with this submit or retrieves stored
      * upload info.
+     * @param Horde_Variables $vars     The form state to check this field for
+     * @param Horde_Form_Variable $var  The Form field object to check
+     *
      */
     function _getUpload(&$vars, &$var)
     {
@@ -1255,6 +1264,8 @@ class Horde_Form_Type_image extends Horde_Form_Type {
     /**
      * Returns the current image information.
      *
+     * @param Horde_Variables $vars     The form state to check this field for
+     * @param Horde_Form_Variable $var  The Form field object to check
      * @return array  The current image hash.
      */
     function getImage($vars, $var)
@@ -1334,7 +1345,7 @@ class Horde_Form_Type_boolean extends Horde_Form_Type {
 
     function getInfo(&$vars, &$var, &$info)
     {
-        $info = Horde_String::lower($vars->get($var->getVarName())) == 'on';
+        $info = is_bool($var->getValue($vars)) ? $var->getValue($vars) : Horde_String::lower($vars->get($var->getVarName())) == 'on';
     }
 
     /**
@@ -1646,6 +1657,11 @@ class Horde_Form_Type_email extends Horde_Form_Type {
         return $this->_size;
     }
 
+    function allowMulti()
+    {
+        return $this->_allow_multi;
+    }
+
     /**
      * Return info about field type.
      */
@@ -1916,7 +1932,7 @@ class Horde_Form_Type_email extends Horde_Form_Type {
 
 
         #
-        # restrictuions on domain-literals from RFC2821 section 4.1.3
+        # restrictions on domain-literals from RFC2821 section 4.1.3
         #
 
         if (strlen($bits['domain-literal'])){
@@ -2128,24 +2144,22 @@ class Horde_Form_Type_emailConfirm extends Horde_Form_Type {
         if ($value['original'] != $value['confirm']) {
             $message = Horde_Form_Translation::t("Email addresses must match.");
             return false;
-        } else {
-            try {
-                $parsed_email = Horde_Mime_Address::parseAddressList($value['original'], array('validate' => true));
-            } catch (Horde_Mime_Exception $e) {
-                $message = $e->getMessage();
-                return false;
-            }
-            if (count($parsed_email) > 1) {
-                $message = Horde_Form_Translation::t("Only one email address allowed.");
-                return false;
-            }
-            if (empty($parsed_email[0]->mailbox)) {
-                $message = Horde_Form_Translation::t("You did not enter a valid email address.");
-                return false;
-            }
         }
 
-        return true;
+        $addr_ob = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822')->parseAddressList($value['original']);
+
+        switch (count($addr_ob)) {
+        case 0:
+            $message = Horde_Form_Translation::t("You did not enter a valid email address.");
+            return false;
+
+        case 1:
+            return true;
+
+        default:
+            $message = Horde_Form_Translation::t("Only one email address allowed.");
+            return false;
+        }
     }
 
     /**

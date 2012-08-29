@@ -3,9 +3,9 @@
 /**
  * Stores queue tasks in Amazon's SQS.
  */
-class Horde_Queue_Storage_Sqs extends Horde_Queue_Storage_Base
+class Horde_Queue_Storage_Sqs extends Horde_Queue_Storage
 {
-    public function add($task)
+    public function add(Horde_Queue_Storage $task)
     {
     }
 

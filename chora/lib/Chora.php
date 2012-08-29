@@ -90,9 +90,10 @@ class Chora
         $registry->pushApp('chora');
 
         $notification->push($message, 'horde.error');
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+
+        $page_output->header();
         require CHORA_TEMPLATES . '/menu.inc';
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
         exit;
     }
 
@@ -456,9 +457,9 @@ class Chora
 
         try {
             $parser = new Horde_Mail_Rfc822();
-            $results = $parser->parseAddressList($name);
-            if (count($results)) {
-                return $results[0]->mailbox . '@' . $results[0]->host;
+            $res = $parser->parseAddressList($name);
+            if ($tmp = $res[0]) {
+                return $tmp->bare_address;
             }
         } catch (Horde_Mail_Exception $e) {
             try {

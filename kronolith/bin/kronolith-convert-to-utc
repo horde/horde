@@ -4,8 +4,8 @@
  * This script converts all dates from the user's timezone to UTC.
  */
 
-if (file_exists(dirname(__FILE__) . '/../../kronolith/lib/Application.php')) {
-    $baseDir = dirname(__FILE__) . '/../';
+if (file_exists(__DIR__ . '/../../kronolith/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
 } else {
     require_once 'PEAR/Config.php';
     $baseDir = PEAR_Config::singleton()
@@ -17,13 +17,13 @@ Horde_Registry::appInit('kronolith', array('cli' => true));
 /* Prepare DB stuff. */
 $db = $injector->getInstance('Horde_Db_Adapter');
 try {
-    $result = $db->selectAll('SELECT event_title, event_id, event_creator_id, event_start, event_end, event_allday, event_recurenddate FROM ' . $conf['calendar']['params']['table'] . ' ORDER BY event_creator_id');
+    $result = $db->selectAll('SELECT event_title, event_id, event_creator_id, event_start, event_end, event_allday, event_recurenddate, event_exceptionoriginaldate FROM ' . $conf['calendar']['params']['table'] . ' ORDER BY event_creator_id');
 } catch (Horde_Db_Exception $e) {
     echo $e->getMessage() . "\n";
     exit;
 }
 
-$stmt = 'UPDATE kronolith_events SET event_start = ?, event_end = ?, event_recurenddate = ? WHERE event_id = ?';
+$stmt = 'UPDATE kronolith_events SET event_start = ?, event_end = ?, event_recurenddate = ?, event_exceptionoriginaldate = ? WHERE event_id = ?';
 
 /* Confirm changes. */
 if (!isset($argv[1]) || $argv[1] != '--yes') {
@@ -37,6 +37,7 @@ if (!isset($argv[1]) || $argv[1] != '--yes') {
 $creator = null;
 $utc = new DateTimeZone('UTC');
 echo "Converting events for:\n";
+$timezone = new DateTimeZone(date_default_timezone_get());
 foreach ($result as $row) {
     if ($row['event_allday']) {
         continue;
@@ -63,11 +64,22 @@ foreach ($result as $row) {
     $start->setTimezone($utc);
     $end = new DateTime($row['event_end'], $timezone);
     $end->setTimezone($utc);
-    $recur_end = new DateTime($row['event_recurenddate'], $timezone);
-    $recur_end->setTimezone($utc);
+    if (!empty($row['event_recurenddate'])) {
+        $recur_end = new DateTime($row['event_recurenddate'], $timezone);
+        $recur_end->setTimezone($utc);
+    }
+    if (!empty($row['event_exceptionoriginaldate'])) {
+        $eod = new DateTime($row['event_exceptionoriginaldate'], $timezone);
+        $eod->setTimezone($utc);
+    }
 
     try {
-        $db->update($stmt, array($start->format('Y-m-d H:i:s'), $end->format('Y-m-d H:i:s'), $recur_end->format('Y-m-d H:i:s'), $row['event_id']));
+        $db->update($stmt, array(
+            $start->format('Y-m-d H:i:s'),
+            $end->format('Y-m-d H:i:s'),
+            !empty($row['event_recurenddate']) ? $recur_end->format('Y-m-d H:i:s') : null,
+            !empty($row['event_exceptionoriginaldate']) ? $eod->format('Y-m-d H:i:s') : null,
+            $row['event_id']));
     } catch (Horde_Db_Exception $e) {
         echo $e->getMessage() . "\n";
         exit;

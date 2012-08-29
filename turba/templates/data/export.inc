@@ -1,4 +1,4 @@
-<form method="post" name="export" action="<?php echo Horde::downloadUrl(_("contacts.csv"), null, Horde::url('data.php')) ?>">
+<form method="post" name="export" action="<?php echo $GLOBALS['registry']->downloadUrl(_("contacts.csv")) ?>">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="actionID" value="export" />
 
@@ -17,7 +17,7 @@
   <option value="ldif"><?php echo _("LDIF Address Book") ?></option>
  </select><br />
 
-<?php if ($actionID == 'select' && Horde_Util::getFormData('objectkeys')): ?>
+<?php if ($vars->actionID == 'select' && Horde_Util::getFormData('objectkeys')): ?>
  <br />
  <input type="radio" name="selected" id="selected1" value="1" checked="checked" />
  <?php echo Horde::label('selected1', _("Export only the selected contacts.")) ?>

@@ -69,7 +69,7 @@ class IMP_Compose_Exception extends IMP_Exception
             return false;
         }
 
-        Horde::logMessage($this, $level);
+        Horde::log($this, $level);
         $this->_logged = true;
 
         return true;

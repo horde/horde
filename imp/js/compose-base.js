@@ -10,15 +10,14 @@ var ImpComposeBase = {
 
     // Vars defaulting to null: editor_on, identities
 
-    getIdentity: function(id, editor_on)
+    getSpellChecker: function()
     {
-        return {
-            id: this.identities[id],
-            sig: this.identities[id][((editor_on || this.editor_on) ? 'sig_html' : 'sig')].replace(/^\n/, '')
-        };
+        return (HordeImple.SpellChecker && HordeImple.SpellChecker.spellcheck)
+            ? HordeImple.SpellChecker.spellcheck
+            : null;
     },
 
-    setCursorPosition: function(input, type, sig)
+    setCursorPosition: function(input, type)
     {
         var pos, range;
 
@@ -34,10 +33,6 @@ var ImpComposeBase = {
 
         case 'bottom':
             pos = $F(input).length;
-            break;
-
-        case 'sig':
-            pos = $F(input).replace(/\r\n/g, '\n').lastIndexOf(sig) - 1;
             break;
 
         default:
@@ -62,74 +57,16 @@ var ImpComposeBase = {
         }
     },
 
-    replaceSignature: function(id)
-    {
-        var lastsig, msg, nextsig, pos, tmp, tmp2,
-            next = this.getIdentity(id);
-
-        // If the rich text editor is on, we'll use a regexp to find the
-        // signature comment and replace its contents.
-        if (this.editor_on) {
-            // Create a temporary element, import the data from the editor,
-            // search/replace the current imp signature data, and reinsert
-            // into the editor.
-            tmp = new Element('DIV').hide();
-            $(document.body).insert(tmp);
-            tmp.update(CKEDITOR.instances['composeMessage'].getData());
-            tmp2 = tmp.select('DIV.impComposeSignature');
-            if (tmp2.size()) {
-                tmp2.last().update(next.sig);
-            } else if (next.id.sig_loc) {
-                tmp.insert({ top: next.sig });
-            } else {
-                tmp.insert({ bottom: next.sig });
-            }
-            CKEDITOR.instances['composeMessage'].setData(tmp.innerHTML);
-            tmp.remove();
-        } else {
-            msg = $F('composeMessage').replace(/\r\n/g, '\n');
-            last = this.getIdentity($F('last_identity'));
-            lastsig = last.sig.replace(/^\n/, '');
-            nextsig = next.sig.replace(/^\n/, '');
-
-            pos = last.id.sig_loc
-                ? msg.indexOf(lastsig)
-                : msg.lastIndexOf(lastsig);
-
-            if (pos != -1) {
-                if (next.id.sig_loc == last.id.sig_loc) {
-                    msg = msg.substring(0, pos) + next.sig + msg.substring(pos + lastsig.length, msg.length);
-                } else if (next.id.sig_loc) {
-                    msg = next.sig + msg.substring(0, pos) + msg.substring(pos + lastsig.length, msg.length);
-                } else {
-                    msg = msg.substring(0, pos) + msg.substring(pos + lastsig.length, msg.length) + next.sig;
-                }
-
-                $('composeMessage').setValue(msg.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n'));
-            }
-        }
-
-        $('last_identity').setValue(id);
-    },
-
     updateAddressField: function(elt, address)
     {
-        var v;
+        var v = $F(elt).strip(),
+            pos = v.lastIndexOf(',');
 
-        if (elt.value.length) {
-            v = elt.value.replace(/, +/g, ',').split(',').findAll(function(s) { return s; });
-            elt.value = v.join(', ');
-            if (elt.value.lastIndexOf(';') != elt.value.length - 1) {
-                elt.value += ',';
-            }
-            elt.value += ' ' + address;
-        } else {
-            elt.value = address;
+        if (pos != -1) {
+            v = v.substring(0, pos) + ', ';
         }
 
-        if (address.lastIndexOf(';') != address.length - 1) {
-            elt.value += ', ';
-        }
+        elt.setValue(v + address + ', ');
     }
 
 };

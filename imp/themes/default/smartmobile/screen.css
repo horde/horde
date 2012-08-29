@@ -1,0 +1,62 @@
+/* Mailbox */
+#mailbox .ui-btn-innner {
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+}
+#mailbox .ui-grid-a .ui-li-desc {
+    margin: 0;
+}
+#imp-mailbox-more {
+    font-weight: normal;
+    text-align: center;
+}
+.imp-mailbox-date {
+    float: right;
+}
+.imp-mailbox-secondrow {
+    font-size: 80%;
+    font-weight: normal;
+    padding: 0 40px 11px 15px;
+}
+
+.imp-mailbox-deleted a {
+    text-decoration: line-through !important;
+}
+.imp-mailbox-seen a {
+    font-weight: normal;
+}
+
+/* Message */
+.imp-header-label {
+    font-weight: bold;
+    vertical-align: top;
+}
+.imp-message-atc {
+    margin-bottom: 0;
+}
+#imp-message-date {
+    font-size: 90%;
+    font-weight: normal;
+    padding-left: 8px;
+}
+.imp-message-spacer {
+    margin: 12px;
+}
+
+/* Compose */
+#imp-compose-message {
+    height: auto;
+}
+
+/* Style for HTML data iframe. */
+.htmlMsgData {
+    width: 100%;
+}
+
+/* MIME part display. */
+.mimePartInfo, .mimeStatusMessage {
+    display: none;
+}
+.mimePartData .fixed {
+    font-size: 90%;
+}

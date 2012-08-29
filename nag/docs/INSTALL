@@ -1,5 +1,5 @@
 ====================
- Installing Nag 3.0
+ Installing Nag 4.0
 ====================
 
 :Contact: nag@lists.horde.org
@@ -17,7 +17,7 @@ in the top-level directory of the Nag distribution.
 Prerequisites
 =============
 
-To function properly, Nag requires the following:
+To function properly, Nag **requires** the following:
 
 1. A working Horde installation.
 
@@ -25,7 +25,7 @@ To function properly, Nag requires the following:
    for web applications written in PHP.  You must install Horde before
    installing Nag.
 
-   .. Important:: Nag 3.0 requires version 4.0+ of the Horde Framework -
+   .. Important:: Nag 4.0 requires version 5.0+ of the Horde Framework -
                   earlier versions of Horde will **not** work.
 
    .. Important:: Be sure to have completed all of the steps in the
@@ -61,25 +61,23 @@ any dependencies of Nag too. If you want to install Nag with all optional
 dependencies, but without the binary PECL packages that need to be compiled,
 specify both the ``-a`` and the ``-B`` flag::
 
-   pear install -a -B horde/nag
+   pear install -a -B horde/nag-beta
 
 By default, only the required dependencies will be installed::
 
-   pear install horde/nag
+   pear install horde/nag-beta
 
 If you want to install Nag even with all binary dependencies, you need to
 remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
-   pear install -a horde/nag
+   pear install -a horde/nag-beta
 
 Installing from Git
 ~~~~~~~~~~~~~~~~~~~
 
-See::
-
-   http://horde.org/source/git.php
+See http://www.horde.org/source/git.php
 
 
 Configuring Nag

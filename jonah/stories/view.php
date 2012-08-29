@@ -9,7 +9,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Jonah
  */
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('jonah', array('authentication' => 'none'));
 
 $channel_id = Horde_Util::getFormData('channel_id');
@@ -19,9 +19,9 @@ if (!$story_id) {
         $story_id = $injector->getInstance('Jonah_Driver')->getLatestStoryId($channel_id);
     } catch (Exception $e) {
         $notification->push(sprintf(_("Error fetching story: %s"), $e->getMessage()), 'horde.warning');
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $page_output->header();
         require JONAH_TEMPLATES . '/menu.inc';
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
         exit;
     }
 }

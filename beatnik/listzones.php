@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $beatnik = Horde_Registry::appInit('beatnik');
 
 // Unset the current domain since we are generating a zone list
@@ -46,14 +46,14 @@ foreach ($fields as $field_id => $field) {
 }
 
 // Add javascript navigation and striping
-Horde::addScriptFile('beatnik.js');
-Horde::addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('beatnik.js');
+$page_output->addScriptFile('stripe.js', 'horde');
 
 // Initialization complete.  Render the page.
 Beatnik::notifyCommits();
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require BEATNIK_TEMPLATES . '/menu.inc';
 
+$page_output->header();
+require BEATNIK_TEMPLATES . '/menu.inc';
 require BEATNIK_TEMPLATES . '/listzones/header.inc';
 foreach ($domains as $domain) {
     $autourl = Horde_Util::addParameter(Horde::url('autogenerate.php'), array('rectype' => 'soa', 'curdomain' => $domain['zonename']));
@@ -64,4 +64,4 @@ foreach ($domains as $domain) {
 }
 require BEATNIK_TEMPLATES . '/listzones/footer.inc';
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

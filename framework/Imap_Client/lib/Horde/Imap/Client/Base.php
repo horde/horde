@@ -18,18 +18,11 @@
 abstract class Horde_Imap_Client_Base implements Serializable
 {
     /* Serialized version. */
-    const VERSION = 1;
+    const VERSION = 2;
 
     /* Cache names for miscellaneous data. */
     const CACHE_MODSEQ = 'HICmodseq';
     const CACHE_SEARCH = 'HICsearch';
-
-    /**
-     * The Horde_Imap_Client_Cache object.
-     *
-     * @var Horde_Imap_Client_Cache
-     */
-    public $cache = null;
 
     /**
      * The list of fetch fields that can be cached, and their cache names.
@@ -51,6 +44,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @var boolean
      */
     public $changed = false;
+
+    /**
+     * The Horde_Imap_Client_Cache object.
+     *
+     * @var Horde_Imap_Client_Cache
+     */
+    protected $_cache = null;
 
     /**
      * The debug stream.
@@ -137,10 +137,127 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Constructor.
      *
-     * @see Horde_Imap_Client::factory()
-     *
-     * @param array $params  A hash containing configuration parameters.
-     *                       See Horde_Imap_Client::factory().
+     * @param array $params   Configuration parameters:
+     * <ul>
+     *  <li>REQUIRED Parameters
+     *   <ul>
+     *    <li>password: (string) The IMAP user password.</li>
+     *    <li>username: (string) The IMAP username.</li>
+     *   </ul>
+     *  </li>
+     *  <li>Optional Parameters
+     *   <ul>
+     *    <li>
+     *     cache: (array) If set, caches data from fetch(), search(), and
+     *            thread() calls. Requires the horde/Cache package to be
+     *            installed. The array can contain the following keys (see
+     *            Horde_Imap_Client_Cache for default values):
+     *     <ul>
+     *      <li>
+     *       cacheob: [REQUIRED] (Horde_Cache) The cache object to
+     *                use.
+     *      </li>
+     *      <li>
+     *       fetch_ignore: (array) A list of mailboxes to ignore when storing
+     *                     fetch data.
+     *      </li>
+     *      <li>
+     *       fields: (array) The fetch criteria to cache. If not defined, all
+     *               cacheable data is cached. The following is a list of
+     *               criteria that can be cached:
+     *       <ul>
+     *        <li>Horde_Imap_Client::FETCH_ENVELOPE</li>
+     *        <li>Horde_Imap_Client::FETCH_FLAGS
+     *         <ul>
+     *          <li>
+     *           Only if server supports CONDSTORE extension
+     *          </li>
+     *         </ul>
+     *        </li>
+     *        <li>Horde_Imap_Client::FETCH_HEADERS
+     *         <ul>
+     *          <li>
+     *           Only for queries that specifically request caching
+     *          </li>
+     *         </ul>
+     *        </li>
+     *        <li>Horde_Imap_Client::FETCH_IMAPDATE</li>
+     *        <li>Horde_Imap_Client::FETCH_SIZE</li>
+     *        <li>Horde_Imap_Client::FETCH_STRUCTURE</li>
+     *       </ul>
+     *      </li>
+     *      <li>
+     *       lifetime: (integer) Lifetime of the cache data (in seconds).
+     *      </li>
+     *      <li>
+     *       slicesize: (integer) The slicesize to use.
+     *      </li>
+     *     </ul>
+     *    </li>
+     *    <li>
+     *     capability_ignore: (array) A list of IMAP capabilites to ignore,
+     *                        even if they are supported on the server.
+     *                        DEFAULT: No supported capabilities are ignored.
+     *    </li>
+     *    <li>
+     *     comparator: (string) The search comparator to use instead of the
+     *                 default IMAP server comparator. See
+     *                 Horde_Imap_Client_Base#setComparator() for format.
+     *                 DEFAULT: Use the server default
+     *    </li>
+     *    <li>
+     *     debug: (string) If set, will output debug information to the stream
+     *            provided. The value can be any PHP supported wrapper that
+     *            can be opened via fopen().
+     *            DEFAULT: No debug output
+     *    </li>
+     *    <li>
+     *     encryptKey: (array) A callback to a function that returns the key
+     *                 used to encrypt the password. This function MUST be
+     *                 static.
+     *                 DEFAULT: No encryption
+     *    </li>
+     *    <li>
+     *     hostspec: (string) The hostname or IP address of the server.
+     *               DEFAULT: 'localhost'
+     *    </li>
+     *    <li>
+     *     id: (array) Send ID information to the IMAP server (only if server
+     *         supports the ID extension). An array with the keys as the
+     *         fields to send and the values being the associated values. See
+     *         RFC 2971 [3.3] for a list of defined standard field values.
+     *         DEFAULT: No info sent to server
+     *    </li>
+     *    <li>
+     *     lang: (array) A list of languages (in priority order) to be used to
+     *           display human readable messages.
+     *           DEFAULT: Messages output in IMAP server default language
+     *    </li>
+     *    <li>
+     *     port: (integer) The server port to which we will connect.
+     *           DEFAULT: 143 (imap or imap w/TLS) or 993 (imaps)
+     *    </li>
+     *    <li>
+     *     secure: (string) Use SSL or TLS to connect.
+     *             VALUES:
+     *     <ul>
+     *      <li>false</li>
+     *      <li>'ssl'</li>
+     *      <li>'tls'</li>
+     *     </ul>
+     *             DEFAULT: No encryption</li>
+     *    </li>
+     *    <li>
+     *     statuscache: (boolean) Cache STATUS responses?
+     *                  DEFAULT: False
+     *    </li>
+     *    <li>
+     *     timeout: (integer)  Connection timeout, in seconds.
+     *              DEFAULT: 30 seconds
+     *    </li>
+     *   </ul>
+     *  </li>
+     * </ul>
      */
     public function __construct(array $params = array())
     {
@@ -152,7 +269,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $params = array_merge(array(
             'encryptKey' => null,
             'hostspec' => 'localhost',
-            'log' => null,
             'port' => ((isset($params['secure']) && ($params['secure'] == 'ssl')) ? 993 : 143),
             'secure' => false,
             'timeout' => 30
@@ -189,57 +305,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         throw new InvalidArgumentException('encryptKey parameter is not a valid callback.');
-    }
-
-    /**
-     * Exception wrapper - logs an error message before (optionally) throwing
-     * exception.
-     *
-     * Server debug information, if present, will be stored in the 'details'
-     * property of the exception object.
-     *
-     * @param mixed $msg            Error message/error object. If an array,
-     *                              the first entry is used as the exception
-     *                              message and the second entry is taken
-     *                              to be server debug information.
-     * @param integer|string $code  Error code. If string, will convert from
-     *                              the Exception constant of the same name.
-     *                              If 'NO_SUPPORT', throws a non-supported
-     *                              extension exception.
-     * @param boolean $logonly      If true, log only and don't throw
-     *                              exception.
-     *
-     * @throws Horde_Imap_Client_Exception
-     * @throws Horde_Imap_Client_Exception_NoSupportExtension
-     */
-    protected function _exception($msg, $code = 0, $logonly = false)
-    {
-        if (is_array($msg)) {
-            $details = $msg[1];
-            $msg = $msg[0];
-        } else {
-            $details = null;
-        }
-
-        if (is_integer($code)) {
-            $e = new Horde_Imap_Client_Exception($msg, $code);
-        } elseif ($code == 'NO_SUPPORT') {
-            $e = new Horde_Imap_Client_Exception_NoSupportExtension($msg);
-        } else {
-            $e = new Horde_Imap_Client_Exception($msg, constant('Horde_Imap_Client_Exception::' . $code));
-        }
-
-        if (!is_null($details)) {
-            $e->details = $details;
-        }
-
-        if (is_callable($this->_params['log'])) {
-            call_user_func($this->_params['log'], $e);
-        }
-
-        if (!$logonly) {
-            throw $e;
-        }
     }
 
     /**
@@ -357,9 +422,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return false;
         }
 
-        if (is_null($this->cache)) {
+        if (is_null($this->_cache)) {
             try {
-                $this->cache = new Horde_Imap_Client_Cache(array_merge($this->getParam('cache'), array(
+                $this->_cache = new Horde_Imap_Client_Cache(array_merge($this->getParam('cache'), array(
                     'baseob' => $this,
                     'debug' => (bool)$this->_debug
                 )));
@@ -416,8 +481,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Sets a configuration parameter value.
      *
-     * @since 1.5.0
-     *
      * @param string $key   The param key.
      * @param mixed $value  The param value.
      */
@@ -451,7 +514,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function getCache()
     {
         $this->_initCache();
-        return $this->cache;
+        return $this->_cache;
     }
 
     /**
@@ -560,11 +623,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                           strings.
      *
      * @return array  An array of namespace information with the name as the
-     *                key (UTF7-IMAP) and the following values:
+     *                key (UTF-8) and the following values:
      * <ul>
      *  <li>delimiter: (string) The namespace delimiter.</li>
      *  <li>hidden: (boolean) Is this a hidden namespace?</li>
-     *  <li>name: (string) The namespace name (UTF7-IMAP).</li>
+     *  <li>name: (string) The namespace name (UTF-8).</li>
      *  <li>
      *   translation: (string) Returns the translated name of the namespace
      *   (UTF-8). Requires RFC 5255 and a previous call to setLanguage().
@@ -585,6 +648,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         $this->login();
 
+        $additional = array_map('strval', $additional);
         $sig = hash('md5', serialize($additional));
 
         if (isset($this->_init['namespace'][$sig])) {
@@ -593,21 +657,21 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $ns = $this->_getNamespaces();
 
-        foreach (array_map(array('Horde_Imap_Client_Utf7imap', 'Utf8ToUtf7Imap'), $additional) as $val) {
+        foreach ($additional as $val) {
             /* Skip namespaces if we have already auto-detected them. Also,
              * hidden namespaces cannot be empty. */
-            if (!strlen($val) || isset($ns[$val->utf7imap])) {
+            if (!strlen($val) || isset($ns[$val])) {
                 continue;
             }
 
-            $mbox = $this->listMailboxes($val, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true, 'utf8' => true));
+            $mbox = $this->listMailboxes($val, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true));
             $first = reset($mbox);
 
             if ($first && ($first['mailbox'] == $val)) {
-                $ns[$val->utf7imap] = array(
+                $ns[$val] = array(
                     'delimiter' => $first['delimiter'],
                     'hidden' => true,
-                    'name' => $val->utf7imap,
+                    'name' => $val,
                     'translation' => '',
                     'type' => Horde_Imap_Client::NS_SHARED
                 );
@@ -618,7 +682,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             /* This accurately determines the namespace information of the
              * base namespace if the NAMESPACE command is not supported.
              * See: RFC 3501 [6.3.8] */
-            $mbox = $this->listMailboxes('', Horde_Imap_Client::MBOX_ALL, array('delimiter' => true, 'utf8' => true));
+            $mbox = $this->listMailboxes('', Horde_Imap_Client::MBOX_ALL, array('delimiter' => true));
             $first = reset($mbox);
             $ns[''] = array(
                 'delimiter' => $first['delimiter'],
@@ -738,7 +802,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function sendID($info = null)
     {
         if (!$this->queryCapability('ID')) {
-            $this->_exception('The IMAP server does not support the ID extension.', 'NO_SUPPORT');
+            throw new Horde_Imap_Client_Exception_NoSupportExtension('ID');
         }
 
         $this->_sendID(is_null($info) ? (empty($this->_params['id']) ? array() : $this->_params['id']) : $info);
@@ -760,11 +824,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                'field' and the values as the 'value'.
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
     public function getID()
     {
         if (!$this->queryCapability('ID')) {
-            $this->_exception('The IMAP server does not support the ID extension.', 'NO_SUPPORT');
+            throw new Horde_Imap_Client_Exception_NoSupportExtension('ID');
         }
 
         return $this->_getID();
@@ -857,8 +922,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Open a mailbox.
      *
      * @param mixed $mailbox  The mailbox to open. Either a
-     *                        Horde_Imap_Client_Mailbox object (as of 1.2.0)
-     *                        or a string (UTF-8).
+     *                        Horde_Imap_Client_Mailbox object or a string
+     *                        (UTF-8).
      * @param integer $mode   The access mode. Either
      *   - Horde_Imap_Client::OPEN_READONLY
      *   - Horde_Imap_Client::OPEN_READWRITE
@@ -871,7 +936,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->login();
 
         $change = false;
-        $mailbox = Horde_Imap_Client_Mailbox::get($mailbox, null);
+        $mailbox = Horde_Imap_Client_Mailbox::get($mailbox);
 
         if ($mode == Horde_Imap_Client::OPEN_AUTO) {
             if (is_null($this->_selected) ||
@@ -907,15 +972,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Return the currently opened mailbox and access mode.
      *
-     * @param array $options  Additional options:
-     *   - utf8: (boolean) True if 'mailbox' should be in UTF-8 [DEPRECATED].
-     *           DEFAULT: 'mailbox' returned in UTF7-IMAP.
-     *
      * @return mixed  Null if no mailbox selected, or an array with two
      *                elements:
-     *   - mailbox: (mixed) If 'utf8' is true, returns a
-     *              Horde_Imap_Client_Mailbox object. Otherwise, returns a
-     *              string (UTF7-IMAP; DEPRECATED).
+     *   - mailbox: (Horde_Imap_Client_Mailbox) The mailbox object.
      *   - mode: (integer) Current mode.
      *
      * @throws Horde_Imap_Client_Exception
@@ -925,7 +984,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         return is_null($this->_selected)
             ? null
             : array(
-                'mailbox' => (empty($options['utf8']) ? $this->_selected->utf7imap : clone($this->_selected)),
+                'mailbox' => clone $this->_selected,
                 'mode' => $this->_mode
             );
     }
@@ -934,8 +993,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Create a mailbox.
      *
      * @param mixed $mailbox  The mailbox to create. Either a
-     *                        Horde_Imap_Client_Mailbox object (as of 1.2.0)
-     *                        or a string (UTF-8).
+     *                        Horde_Imap_Client_Mailbox object or a string
+     *                        (UTF-8).
      * @param array $opts     Additional options:
      *   - special_use: (array) An array of special-use flags to mark the
      *                  mailbox with. The server MUST support RFC 6154.
@@ -950,7 +1009,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             unset($opts['special_use']);
         }
 
-        $this->_createMailbox(Horde_Imap_Client_Mailbox::get($mailbox, null), $opts);
+        $this->_createMailbox(Horde_Imap_Client_Mailbox::get($mailbox), $opts);
     }
 
     /**
@@ -969,8 +1028,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Delete a mailbox.
      *
      * @param mixed $mailbox  The mailbox to delete. Either a
-     *                        Horde_Imap_Client_Mailbox object (as of 1.2.0)
-     *                        or a string (UTF-8).
+     *                        Horde_Imap_Client_Mailbox object or a string
+     *                        (UTF-8).
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -978,13 +1037,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         $this->login();
 
-        $mailbox = Horde_Imap_Client_Mailbox::get($mailbox, null);
+        $mailbox = Horde_Imap_Client_Mailbox::get($mailbox);
 
         $this->_deleteMailbox($mailbox);
 
         /* Delete mailbox caches. */
         if ($this->_initCache()) {
-            $this->cache->deleteMailbox($mailbox);
+            $this->_cache->deleteMailbox($mailbox);
         }
         unset($this->_temp['statuscache'][strval($mailbox)]);
 
@@ -1009,11 +1068,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Rename a mailbox.
      *
      * @param mixed $old  The old mailbox name. Either a
-     *                    Horde_Imap_Client_Mailbox object (as of 1.2.0) or a
-     *                    string (UTF-8).
+     *                    Horde_Imap_Client_Mailbox object or a string (UTF-8).
      * @param mixed $new  The new mailbox name. Either a
-     *                    Horde_Imap_Client_Mailbox object (as of 1.2.0) or a
-     *                    string (UTF-8).
+     *                    Horde_Imap_Client_Mailbox object or a string (UTF-8).
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -1021,13 +1078,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         // Login will be handled by first listMailboxes() call.
 
-        $old = Horde_Imap_Client_Mailbox::get($old, null);
-        $new = Horde_Imap_Client_Mailbox::get($new, null);
+        $old = Horde_Imap_Client_Mailbox::get($old);
+        $new = Horde_Imap_Client_Mailbox::get($new);
 
         /* Check if old mailbox(es) were subscribed to. */
-        $base = $this->listMailboxes($old, Horde_Imap_Client::MBOX_SUBSCRIBED, array('delimiter' => true, 'utf8' => true));
+        $base = $this->listMailboxes($old, Horde_Imap_Client::MBOX_SUBSCRIBED, array('delimiter' => true));
         if (empty($base)) {
-            $base = $this->listMailboxes($old, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true, 'utf8' => true));
+            $base = $this->listMailboxes($old, Horde_Imap_Client::MBOX_ALL, array('delimiter' => true));
             $base = reset($base);
             $subscribed = array();
         } else {
@@ -1037,8 +1094,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $all_mboxes = array($base['mailbox']);
         if (strlen($base['delimiter'])) {
-            $all_mboxes = array_merge($all_mboxes, $this->listMailboxes($old . $base['delimiter'] . '*', Horde_Imap_Client::MBOX_ALL, array('flat' => true, 'utf8' => true)));
-            $subscribed = array_merge($subscribed, $this->listMailboxes($old . $base['delimiter'] . '*', Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true, 'utf8' => true)));
+            $all_mboxes = array_merge($all_mboxes, $this->listMailboxes($old->list_escape . $base['delimiter'] . '*', Horde_Imap_Client::MBOX_ALL, array('flat' => true)));
+            $subscribed = array_merge($subscribed, $this->listMailboxes($old->list_escape . $base['delimiter'] . '*', Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true)));
         }
 
         $this->_renameMailbox($old, $new);
@@ -1046,7 +1103,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         /* Delete mailbox caches. */
         foreach ($all_mboxes as $val) {
             if ($this->_initCache()) {
-                $this->cache->deleteMailbox($val);
+                $this->_cache->deleteMailbox($val);
             }
             unset($this->_temp['statuscache'][strval($val)]);
         }
@@ -1070,15 +1127,15 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @throws Horde_Imap_Client_Exception
      */
-    abstract protected function _renameMailbox(Horde_Imap_Client_Mailbox$old,
+    abstract protected function _renameMailbox(Horde_Imap_Client_Mailbox $old,
                                                Horde_Imap_Client_Mailbox $new);
 
     /**
      * Manage subscription status for a mailbox.
      *
      * @param mixed $mailbox      The mailbox to [un]subscribe to. Either a
-     *                            Horde_Imap_Client_Mailbox object (as of
-     *                            1.2.0) or a string (UTF-8).
+     *                            Horde_Imap_Client_Mailbox object or a string
+     *                            (UTF-8).
      * @param boolean $subscribe  True to subscribe, false to unsubscribe.
      *
      * @throws Horde_Imap_Client_Exception
@@ -1086,7 +1143,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function subscribeMailbox($mailbox, $subscribe = true)
     {
         $this->login();
-        $this->_subscribeMailbox(Horde_Imap_Client_Mailbox::get($mailbox, null), (bool)$subscribe);
+        $this->_subscribeMailbox(Horde_Imap_Client_Mailbox::get($mailbox), (bool)$subscribe);
     }
 
     /**
@@ -1107,7 +1164,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @param mixed $pattern   The mailbox search pattern(s) (see RFC 3501
      *                         [6.3.8] for the format). A UTF-8 string or an
-     *                         array of strings.
+     *                         array of strings. If a Horde_Imap_Client_Mailbox
+     *                         object is given, it is escaped (i.e. wildcard
+     *                         patterns are converted to return the miminal
+     *                         number of matches possible).
      * @param integer $mode    Which mailboxes to return.  Either:
      *   - Horde_Imap_Client::MBOX_SUBSCRIBED
      *   - Horde_Imap_Client::MBOX_SUBSCRIBED_EXISTS
@@ -1181,36 +1241,45 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *   used to sort the mailboxes.
      *   DEFAULT: '.'
      *  </li>
-     *  <li>
-     *   utf8: (boolean) True to return mailbox names in UTF-8.
-     *   DEFAULT: Names are returned in UTF7-IMAP.
-     *  </li>
      * </ul>
      *
      * @return array  If 'flat' option is true, the array values are a list
-     *                of Horde_Imap_Client_Mailbox objects (if the 'utf8'
-     *                parameter is true) or a list of UTF7-IMAP strings.
-     *                Otherwise, the array values are arrays with these keys:
+     *                of Horde_Imap_Client_Mailbox objects. Otherwise, the
+     *                keys are UTF-8 mailbox names and the values are arrays
+     *                with these keys:
      *   - attributes: (array) List of lower-cased attributes [only if
      *                 'attributes' option is true].
      *   - delimiter: (string) The delimiter for the mailbox [only if
      *                'delimiter' option is true].
      *   - extended: (TODO) TODO [only if 'recursivematch' option is true and
      *               LIST-EXTENDED extension is supported on the server].
-     *   - mailbox: (mixed) The mailbox. A Horde_Imap_Client_Mailbox object if
-     *              the 'utf8' parameter is true, or a UTF7-IMAP string.
+     *   - mailbox: (Horde_Imap_Client_Mailbox) The mailbox object.
      *   - status: (array) See status() [only if 'status' option is true and
      *             LIST-STATUS extension is supported on the server].
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function listMailboxes($pattern, $mode = Horde_Imap_Client::MBOX_ALL,
-                                  $options = array())
+    public function listMailboxes($pattern,
+                                  $mode = Horde_Imap_Client::MBOX_ALL,
+                                  array $options = array())
     {
         $this->login();
 
-        if (!is_array($pattern)) {
-            $pattern = array($pattern);
+        $pattern = is_array($pattern)
+            ? array_unique($pattern)
+            : array($pattern);
+
+        /* Prepare patterns. */
+        $plist = array();
+        foreach ($pattern as $val) {
+            if ($val instanceof Horde_Imap_Client_Mailbox) {
+                $val = $val->list_escape;
+            }
+            $plist[] = preg_replace(
+                array("/\*{2,}/", "/\%{2,}/"),
+                array('*', '%'),
+                Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($val)
+            );
         }
 
         if (isset($options['special_use']) &&
@@ -1218,14 +1287,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
             unset($options['special_use']);
         }
 
-        $ret = $this->_listMailboxes(
-            array_map(array('Horde_Imap_Client_Utf7imap', 'Utf8ToUtf7Imap'), $pattern, array_fill(0, count($pattern), null)),
-            $mode,
-            $options
-        );
+        $ret = $this->_listMailboxes($plist, $mode, $options);
 
         if (!empty($options['sort'])) {
-            Horde_Imap_Client_Sort::sortMailboxes($ret, array('delimiter' => empty($options['sort_delimiter']) ? '.' : $options['sort_delimiter'], 'index' => false, 'keysort' => empty($options['flat'])));
+            Horde_Imap_Client_Sort::sortMailboxes($ret, array(
+                'delimiter' => empty($options['sort_delimiter']) ? '.' : $options['sort_delimiter'],
+                'index' => false,
+                'keysort' => empty($options['flat'])
+            ));
         }
 
         return $ret;
@@ -1248,8 +1317,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Obtain status information for a mailbox.
      *
      * @param mixed $mailbox  The mailbox to query. Either a
-     *                        Horde_Imap_Client_Mailbox object (as of 1.2.0)
-     *                        or a string (UTF-8).
+     *                        Horde_Imap_Client_Mailbox object or a string
+     *                        (UTF-8).
      * @param integer $flags  A bitmask of information requested from the
      *                        server. Allowed flags:
      * <ul>
@@ -1439,7 +1508,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
         }
 
-        $mailbox = Horde_Imap_Client_Mailbox::get($mailbox, null);
+        $mailbox = Horde_Imap_Client_Mailbox::get($mailbox);
         $ret = array();
 
         /* Check for cached information. */
@@ -1533,9 +1602,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * the IMAP server to improve the efficiency of this operation.
      *
      * @param array $mailboxes  The mailboxes to query. Either
-     *                          Horde_Imap_Client_Mailbox objects (as of
-     *                          1.2.0), strings (UTF-8), or a combination of
-     *                          the two.
+     *                          Horde_Imap_Client_Mailbox objects, strings
+     *                          (UTF-8), or a combination of the two.
      * @param integer $flags    See status().
      * @param array $opts       Additional options:
      *   - sort: (boolean) If true, sort the list of mailboxes?
@@ -1544,9 +1612,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                     used to sort the mailboxes.
      *                     DEFAULT: '.'
      *
-     * @return array  An array with the keys as the mailbox names (UTF7-IMAP)
-     *                and the values as arrays with the requested keys (from
-     *                the mask given in $flags).
+     * @return array  An array with the keys as the mailbox names (UTF-8) and
+     *                the values as arrays with the requested keys (from the
+     *                mask given in $flags).
      */
     public function statusMultiple($mailboxes,
                                    $flags = Horde_Imap_Client::STATUS_ALL,
@@ -1562,40 +1630,56 @@ abstract class Horde_Imap_Client_Base implements Serializable
             'sort' => false,
             'sort_delimiter' => '.'
         ), $opts);
-        $ret = null;
+
+        $need_status = true;
+        $ret = array();
 
         /* Optimization: If there is one mailbox in list, and we are already
          * in that mailbox, we should just do a straight STATUS call. */
         if ($this->queryCapability('LIST-STATUS') &&
             ((count($mailboxes) != 1) ||
-            !Horde_Imap_Client_Mailbox::get(reset($mailboxes), null)->equals($this->_selected))) {
-            try {
-                $ret = array();
-                foreach ($this->listMailboxes($mailboxes, Horde_Imap_Client::MBOX_ALL, array_merge($opts, array('status' => $flags, 'utf8' => true))) as $val) {
-                    if (isset($val['status'])) {
-                        $ret[$val['mailbox']->utf7imap] = $val['status'];
-                    }
+            !Horde_Imap_Client_Mailbox::get(reset($mailboxes))->equals($this->_selected))) {
+            $status = $to_process = array();
+            foreach ($mailboxes as $val) {
+                // Force mailboxes containing wildcards to be accessed via
+                // STATUS so that wildcards do not return a bunch of mailboxes
+                // in the LIST-STATUS response.
+                if (strpbrk($val, '*%') === false) {
+                    $to_process[] = $val;
                 }
-            } catch (Horde_Imap_Client_Exception $e) {
-                $ret = null;
+                $status[strval($val)] = 1;
+            }
+
+            try {
+                foreach ($this->listMailboxes($to_process, Horde_Imap_Client::MBOX_ALL, array_merge($opts, array('status' => $flags))) as $val) {
+                    if (isset($val['status'])) {
+                        $ret[strval($val['mailbox'])] = $val['status'];
+                    }
+                    unset($status[strval($val['mailbox'])]);
+                }
+            } catch (Horde_Imap_Client_Exception $e) {}
+
+            if (empty($status)) {
+                $need_status = false;
+            } else {
+                $mailboxes = array_keys($status);
             }
         }
 
-        if (is_null($ret)) {
-            $ret = array();
+        if ($need_status) {
             foreach ($mailboxes as $val) {
-                $val = Horde_Imap_Client_Mailbox::get($val, null);
+                $val = Horde_Imap_Client_Mailbox::get($val);
                 try {
-                    $ret[$val->utf7imap] = $this->status($val, $flags);
+                    $ret[strval($val)] = $this->status($val, $flags);
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
+        }
 
-            if ($opts['sort']) {
-                Horde_Imap_Client_Sort::sortMailboxes($ret, array(
-                    'delimiter' => $opts['sort_delimiter'],
-                    'keysort' => true
-                ));
-            }
+        if ($opts['sort']) {
+            Horde_Imap_Client_Sort::sortMailboxes($ret, array(
+                'delimiter' => $opts['sort_delimiter'],
+                'keysort' => true
+            ));
         }
 
         return $ret;
@@ -1605,8 +1689,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Append message(s) to a mailbox.
      *
      * @param mixed $mailbox  The mailbox to append the message(s) to. Either
-     *                        a Horde_Imap_Client_Mailbox object (as of 1.2.0)
-     *                        or a string (UTF-8).
+     *                        a Horde_Imap_Client_Mailbox object or a string
+     *                        (UTF-8).
      * @param array $data     The message data to append, along with
      *                        additional options. An array of arrays with
      *                        each embedded array having the following
@@ -1649,11 +1733,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function append($mailbox, $data, $options = array())
+    public function append($mailbox, $data, array $options = array())
     {
         $this->login();
 
-        $mailbox = Horde_Imap_Client_Mailbox::get($mailbox, null);
+        $mailbox = Horde_Imap_Client_Mailbox::get($mailbox);
 
         $ret = $this->_append($mailbox, $data, $options);
         unset($this->_temp['statuscache'][strval($mailbox)]);
@@ -1781,8 +1865,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Expunge deleted messages from the given mailbox.
      *
      * @param mixed $mailbox  The mailbox to expunge. Either a
-     *                        Horde_Imap_Client_Mailbox object (as of 1.2.0)
-     *                        or a string (UTF-8).
+     *                        Horde_Imap_Client_Mailbox object or a string
+     *                        (UTF-8).
      * @param array $options  Additional options:
      *   - ids: (Horde_Imap_Client_Ids) A list of messages to expunge, but
      *          only if they are also flagged as deleted.
@@ -1795,7 +1879,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function expunge($mailbox, $options = array())
+    public function expunge($mailbox, array $options = array())
     {
         // Open mailbox call will handle the login.
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
@@ -1827,8 +1911,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param mixed $mailbox                         The mailbox to search.
      *                                               Either a
      *                                               Horde_Imap_Client_Mailbox
-     *                                               object (as of 1.2.0) or a
-     *                                               string (UTF-8).
+     *                                               object or a string
+     *                                               (UTF-8).
      * @param Horde_Imap_Client_Search_Query $query  The search query.
      *                                               Defaults to an ALL
      *                                               search.
@@ -1923,7 +2007,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function search($mailbox, $query = null, $options = array())
+    public function search($mailbox, $query = null, array $options = array())
     {
         $this->login();
 
@@ -1939,7 +2023,28 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $query = new Horde_Imap_Client_Search_Query();
         }
 
+        // Check for supported charset.
         $options['_query'] = $query->build($this->capability());
+        if (!is_null($options['_query']['charset']) &&
+            array_key_exists($options['_query']['charset'], $this->_init['s_charset']) &&
+            !$this->_init['s_charset'][$options['_query']['charset']]) {
+            foreach (array_merge(array_keys(array_filter($this->_init['s_charset'])), array('US-ASCII')) as $val) {
+                try {
+                    $new_query = clone $query;
+                    $new_query->charset($val);
+                    break;
+                } catch (Horde_Imap_Client_Exception_SearchCharset $e) {
+                    unset($new_query);
+                }
+            }
+
+            if (!isset($new_query)) {
+                throw $e;
+            }
+
+            $query = $new_query;
+            $options['_query'] = $query->build($this->capability());
+        }
 
         /* RFC 6203: MUST NOT request relevancy results if we are not using
          * FUZZY searching. */
@@ -2072,7 +2177,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $i18n = $this->queryCapability('I18NLEVEL');
         if (empty($i18n) || (max($i18n) < 2)) {
-            $this->_exception('The IMAP server does not support changing SEARCH/SORT comparators.', 'NO_SUPPORT');
+            throw new Horde_Imap_Client_Exception_NoSupportExtension(
+                'I18NLEVEL',
+                'The IMAP server does not support changing SEARCH/SORT comparators.'
+            );
         }
 
         $this->_setComparator($comp);
@@ -2124,8 +2232,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Thread sort a given list of messages (RFC 5256).
      *
      * @param mixed $mailbox  The mailbox to query. Either a
-     *                        Horde_Imap_Client_Mailbox object (as of 1.2.0)
-     *                        or a string (UTF-8).
+     *                        Horde_Imap_Client_Mailbox object or a string
+     *                        (UTF-8).
      * @param array $options  Additional options:
      * <ul>
      *  <li>
@@ -2156,7 +2264,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function thread($mailbox, $options = array())
+    public function thread($mailbox, array $options = array())
     {
         // Open mailbox call will handle the login.
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
@@ -2199,7 +2307,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                with the key being either the UID (default) or the
      *                message sequence number (if 'sequence' is true). Values
      *                of each entry:
-     *   - b (base): (integer) [OPTIONAL] The ID of the base message. Is not
+     *   - b (base): (integer) [OPTIONAL] The ID of the base message. If not
      *               set, this is the only message in the thread.
      *               DEFAULT: Only message in thread
      *   - l (level): (integer) [OPTIONAL] The thread level of this
@@ -2219,8 +2327,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param mixed $mailbox                        The mailbox to search.
      *                                              Either a
      *                                              Horde_Imap_Client_Mailbox
-     *                                              object (as of 1.2.0) or a
-     *                                              string (UTF-8).
+     *                                              object or a string (UTF-8).
      * @param Horde_Imap_Client_Fetch_Query $query  Fetch query object.
      * @param array $options                        Additional options:
      *   - changedsince: (integer) Only return messages that have a
@@ -2231,57 +2338,31 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                   thrown. If valid, this option implicity adds the
      *                   mod-sequence fetch criteria to the fetch command.
      *                   DEFAULT: Mod-sequence values are ignored.
-     *   - fetch_res: (array) A partial results array to have fetch results
-     *                added to. [DEPRECATED]
      *   - ids: (Horde_Imap_Client_Ids) A list of messages to fetch data from.
      *          DEFAULT: All messages in $mailbox will be fetched.
-     *   - vanished: (boolean) Only return messages from the UID set parameter
-     *               that have been expunged and whose associated mod-sequence
-     *               is larger than the specified mod-sequence. This option
-     *               requires the QRESYNC IMAP extension and requires
-     *               'changedsince' to be set, and requires 'ids' to be UIDs.
-     *               [DEPRECATED]
-     *               DEFAULT: Vanished search ignored.
      *
-     * @return array  An array of fetch results. The array consists of
-     *                keys that correspond to 'ids', and values that
-     *                contain Horde_Imap_Query_Data_Fetch objects.
+     * @return Horde_Imap_Client_Fetch_Results  A results object.
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
-    public function fetch($mailbox, $query, $options = array())
+    public function fetch($mailbox, $query, array $options = array())
     {
         $this->login();
 
         $query = clone $query;
 
         $cache_array = $header_cache = $new_query = array();
-        $qresync = isset($this->_init['enabled']['QRESYNC']);
         $res_seq = null;
 
         if (empty($options['ids'])) {
-            $options['ids'] = $this->getIdsOb(empty($options['fetch_res']) ? Horde_Imap_Client_Ids::ALL : array_keys($options['fetch_res']));
-            if ($options['ids']->isEmpty()) {
-                return array();
-            }
+            $options['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);
         } elseif ($options['ids']->isEmpty()) {
-            return array();
+            return new Horde_Imap_Client_Fetch_Results($this->_fetchDataClass);
         } elseif ($options['ids']->search_res &&
                   !$this->queryCapability('SEARCHRES')) {
             /* SEARCHRES requires server support. */
-            $this->_exception('Server does not support saved searches.', 'NO_SUPPORT');
-        }
-
-        /* The 'vanished' modifier requires QRESYNC, 'changedsince', and IDs
-         * that are not sequence numbers. */
-        if (!empty($options['vanished'])) {
-            if (!$qresync) {
-                $this->_exception('Server does not support the QRESYNC extension.', 'NO_SUPPORT');
-            } elseif ($options['ids']->sequence) {
-                throw new InvalidArgumentException('The vanished FETCH modifier requires UIDs.');
-            } elseif (empty($options['changedsince'])) {
-                throw new InvalidArgumentException('The vanished FETCH modifier requires the changedsince parameter.');
-            }
+            throw new Horde_Imap_Client_Exception_NoSupportExtension('SEARCHRES');
         }
 
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
@@ -2320,19 +2401,20 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     /* QRESYNC would have already done syncing on mailbox
                      * open, so no need to do again. Only can cache if MODSEQ
                      * is available in the mailbox. */
-                    if (!$qresync && !empty($status_res['highestmodseq'])) {
+                    if (!isset($this->_init['enabled']['QRESYNC']) &&
+                        !empty($status_res['highestmodseq'])) {
                         /* Grab all flags updated since the cached modseq
                          * val. */
-                        $metadata = $this->cache->getMetaData($this->_selected, $status_res['uidvalidity'], array(self::CACHE_MODSEQ));
+                        $metadata = $this->_cache->getMetaData($this->_selected, $status_res['uidvalidity'], array(self::CACHE_MODSEQ));
                         if (isset($metadata[self::CACHE_MODSEQ]) &&
                             ($metadata[self::CACHE_MODSEQ] != $status_res['highestmodseq'])) {
-                            $uids = $this->cache->get($this->_selected, array(), array(), $status_res['uidvalidity']);
+                            $uids = $this->_cache->get($this->_selected, array(), array(), $status_res['uidvalidity']);
                             if (!empty($uids)) {
                                 $flag_query = new Horde_Imap_Client_Fetch_Query();
                                 $flag_query->flags();
 
                                 /* Update flags in cache. */
-                                $this->_fetch($flag_query, array(), array(
+                                $this->_fetch(new Horde_Imap_Client_Fetch_Results(), $flag_query, array(
                                     'changedsince' => $metadata[self::CACHE_MODSEQ],
                                     'ids' => $this->getIdsOb($uids)
                                 ));
@@ -2361,71 +2443,48 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
         }
 
-        /* Build the default fetch entries. */
-        if (empty($options['fetch_res'])) {
-            $fetch_ob = new $this->_fetchDataClass();
-            $ret = array();
-
-            $res_seq = $this->_getSeqUidLookup($options['ids']);
-            $ids = $options['ids']->sequence
-                ? array_keys($res_seq['lookup'])
-                : $res_seq['uids'];
-
-            foreach ($ids as $val) {
-                $ret[$val] = clone $fetch_ob;
-            }
-        } else {
-            $ret = &$options['fetch_res'];
-        }
+        $ret = new Horde_Imap_Client_Fetch_Results(
+            $this->_fetchDataClass,
+            $options['ids']->sequence ? Horde_Imap_Client_Fetch_Results::SEQUENCE : Horde_Imap_Client_Fetch_Results::UID
+        );
 
         /* If nothing is cacheable, we can do a straight search. */
         if (empty($cache_array)) {
-            $ret = $this->_fetch($query, $ret, $options);
-            foreach ($ret as $key => $val) {
-                if ($val->isDefault()) {
-                    unset($ret[$key]);
-                }
-            }
+            $this->_fetch($ret, $query, $options);
             return $ret;
         }
 
-        /* If doing a changedsince/vanished search, limit the UIDs now. */
+        /* If doing a changedsince search, limit the UIDs now. */
         if (!empty($options['changedsince'])) {
             $changed_query = new Horde_Imap_Client_Fetch_Query();
-            if (empty($options['vanished']) && $options['ids']->sequence) {
+            if ($options['ids']->sequence) {
                 $changed_query->seq();
             } else {
                 $changed_query->uid();
             }
 
-            $cs_res = $this->_fetch($changed_query, array(), array(
+            $this->_fetch($ret, $changed_query, array(
                 'changedsince' => $options['changedsince'],
-                'ids' => $options['ids'],
-                'vanished' => !empty($options['vanished'])
+                'ids' => $options['ids']
             ));
-
-            if (!empty($options['vanished'])) {
-                return $cs_res;
-            }
-
-            $ret = array_intersect_key($ret, $cs_res);
-            if (empty($ret)) {
+            if (!count($ret)) {
                 return $ret;
             }
 
-            $options['ids'] = $this->getIdsOb(array_keys($ret), $options['ids']->sequence);
+            $options['ids'] = $this->getIdsOb($ret->ids(), $options['ids']->sequence);
         }
 
-        /* Need Seq -> UID lookup if we haven't already grabbed it. */
-        if (is_null($res_seq)) {
-            $res_seq = $this->_getSeqUidLookup($options['ids']);
-        }
+        /* Grab Seq -> UID lookup. */
+        $res_seq = $this->_getSeqUidLookup($options['ids']);
+        $ids = $options['ids']->sequence
+            ? array_keys($res_seq['lookup'])
+            : $res_seq['uids'];
 
         /* Get the cached values. */
-        $data = $this->cache->get($this->_selected, $res_seq['uids']->ids, array_values($cache_array), $status_res['uidvalidity']);
+        $data = $this->_cache->get($this->_selected, $res_seq['uids']->ids, array_values($cache_array), $status_res['uidvalidity']);
 
         /* Build a list of what we still need. */
-        foreach (array_keys($ret) as $val) {
+        foreach ($ids as $val) {
             $crit = clone $query;
 
             if ($options['ids']->sequence) {
@@ -2443,7 +2502,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 case Horde_Imap_Client::FETCH_ENVELOPE:
                     if (isset($data[$uid][$cid]) &&
                         ($data[$uid][$cid] instanceof Horde_Imap_Client_Data_Envelope)) {
-                        $ret[$val]->setEnvelope($data[$uid][$cid]);
+                        $ret->get($val)->setEnvelope($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
@@ -2451,7 +2510,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 case Horde_Imap_Client::FETCH_FLAGS:
                     if (isset($data[$uid][$cid]) &&
                         is_array($data[$uid][$cid])) {
-                        $ret[$val]->setFlags($data[$uid][$cid]);
+                        $ret->get($val)->setFlags($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
@@ -2462,7 +2521,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                         if (isset($data[$uid][$cid][$hval])) {
                             /* We have found a cached entry with the same MD5
                              * sum. */
-                            $ret[$val]->setHeaders($hkey, $data[$uid][$cid][$hval]);
+                            $ret->get($val)->setHeaders($hkey, $data[$uid][$cid][$hval]);
                             $crit->remove($key, $hkey);
                         } else {
                             $this->_temp['headers_caching'][$hkey] = $hval;
@@ -2473,14 +2532,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 case Horde_Imap_Client::FETCH_IMAPDATE:
                     if (isset($data[$uid][$cid]) &&
                         ($data[$uid][$cid] instanceof Horde_Imap_Client_DateTime)) {
-                        $ret[$val]->setImapDate($data[$uid][$cid]);
+                        $ret->get($val)->setImapDate($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
 
                 case Horde_Imap_Client::FETCH_SIZE:
                     if (isset($data[$uid][$cid])) {
-                        $ret[$val]->setSize($data[$uid][$cid]);
+                        $ret->get($val)->setSize($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
@@ -2488,7 +2547,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 case Horde_Imap_Client::FETCH_STRUCTURE:
                     if (isset($data[$uid][$cid]) &&
                         ($data[$uid][$cid] instanceof Horde_Mime_Part)) {
-                        $ret[$val]->setStructure($data[$uid][$cid]);
+                        $ret->get($val)->setStructure($data[$uid][$cid]);
                         unset($crit[$key]);
                     }
                     break;
@@ -2509,21 +2568,17 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         foreach ($new_query as $val) {
-            $ret = $this->_fetch($val['c'], $ret, array_merge($options, array(
+            $this->_fetch($ret, $val['c'], array_merge($options, array(
                 'ids' => $val['i']
             )));
         }
 
         foreach ($ret as $key => $val) {
-            if ($val->isDefault() && !empty($new_query)) {
-                /* If $new_query is empty, this means that the fetch requested
-                 * was for UIDs only. Need to add that info below. */
-                unset($ret[$key]);
-            } elseif ($options['ids']->sequence) {
-                $ret[$key]->setSeq($key);
-                $ret[$key]->setUid($res_seq['lookup'][$key]);
+            if ($options['ids']->sequence) {
+                $val->setSeq($key);
+                $val->setUid($res_seq['lookup'][$key]);
             } else {
-                $ret[$key]->setUid($key);
+                $val->setUid($key);
             }
         }
 
@@ -2533,24 +2588,71 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Fetch message data.
      *
-     * @param Horde_Imap_Client_Fetch_Query $query  Fetch query object.
-     * @param array $results                        Partial results.
-     * @param array $options                        Additional options.
-     *
-     * @return array  An array of fetch results. The array consists of
-     *                keys that correspond to 'ids', and values that
-     *                contain Horde_Imap_Query_Data_Fetch objects.
+     * @param Horde_Imap_Client_Fetch_Results $results  Fetch results.
+     * @param Horde_Imap_Client_Fetch_Query $query      Fetch query object.
+     * @param array $options                            Additional options.
      *
      * @throws Horde_Imap_Client_Exception
      */
-    abstract protected function _fetch($query, $results, $options);
+    abstract protected function _fetch(Horde_Imap_Client_Fetch_Results $results,
+                                       Horde_Imap_Client_Fetch_Query $query,
+                                       $options);
+
+    /**
+     * Get the list of vanished messages (UIDs that have been expunged since a
+     * given mod-sequence value).
+     *
+     * This method requires the QRESYNC IMAP extension.
+     *
+     * @param mixed $mailbox   The mailbox to query. Either a
+     *                         Horde_Imap_Client_Mailbox object or a string
+     *                         (UTF-8).
+     * @param integer $modseq  Search for expunged messages after this
+     *                         mod-sequence value.
+     * @param array $opts      Additional options:
+     *   - ids: (Horde_Imap_Client_Ids)  Restrict to these UIDs.
+     *          DEFAULT: Returns full list of UIDs.
+     *
+     * @return Horde_Imap_Client_Ids  List of UIDs that have vanished.
+     *
+     * @throws Horde_Imap_Client_NoSupportExtension
+     */
+    public function vanished($mailbox, $modseq, array $opts = array())
+    {
+        $this->login();
+
+        /* Requires QRESYNC and UIDs. */
+        if (!isset($this->_init['enabled']['QRESYNC'])) {
+            throw new Horde_Imap_Client_Exception_NoSupportExtension('QRESYNC');
+        }
+
+        if (empty($opts['ids'])) {
+            $opts['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);
+        } elseif ($opts['ids']->sequence) {
+            throw new InvalidArgumentException('Vanished requires UIDs.');
+        }
+
+        $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
+
+        return $this->_vanished($modseq, $opts['ids']);
+    }
+
+    /**
+     * Get the list of vanished messages.
+     *
+     * @param integer $modseq             Mod-sequence value.
+     * @param Horde_Imap_Client_Ids $ids  UIDs.
+     *
+     * @return Horde_Imap_Client_Ids  List of UIDs that have vanished.
+     */
+    abstract protected function _vanished($modseq, Horde_Imap_Client_Ids $ids);
 
     /**
      * Store message flag data (see RFC 3501 [6.4.6]).
      *
      * @param mixed $mailbox  The mailbox containing the messages to modify.
-     *                        Either a Horde_Imap_Client_Mailbox object (as of
-     *                        1.2.0) or a string (UTF-8).
+     *                        Either a Horde_Imap_Client_Mailbox object or a
+     *                        string (UTF-8).
      * @param array $options  Additional options:
      *   - add: (array) An array of flags to add.
      *          DEFAULT: No flags added.
@@ -2575,8 +2677,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                                the 'unchangedsince' test.
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
-    public function store($mailbox, $options = array())
+    public function store($mailbox, array $options = array())
     {
         // Open mailbox call will handle the login.
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
@@ -2588,12 +2691,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return $this->getIdsOb();
         } elseif ($options['ids']->search_res &&
                   !$this->queryCapability('SEARCHRES')) {
-            $this->_exception('Server does not support saved searches.', 'NO_SUPPORT');
+            throw new Horde_Imap_Client_Exception_NoSupportExtension('SEARCHRES');
         }
 
         if (!empty($options['unchangedsince']) &&
             !isset($this->_init['enabled']['CONDSTORE'])) {
-            $this->_exception('Server does not support the CONDSTORE extension.', 'NO_SUPPORT');
+            throw new Horde_Imap_Client_Exception_NoSupportExtension('CONDSTORE');
         }
 
         return $this->_store($options);
@@ -2616,11 +2719,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Copy messages to another mailbox.
      *
      * @param mixed $source   The source mailbox. Either a
-     *                        Horde_Imap_Client_Mailbox object (as of 1.2.0)
-     *                        or a string (UTF-8).
+     *                        Horde_Imap_Client_Mailbox object or a string
+     *                        (UTF-8).
      * @param mixed $dest     The destination mailbox. Either a
-     *                        Horde_Imap_Client_Mailbox object (as of 1.2.0)
-     *                        or a string (UTF-8).
+     *                        Horde_Imap_Client_Mailbox object or a string
+     *                        (UTF-8).
      * @param array $options  Additional options:
      *   - create: (boolean) Try to create $dest if it does not exist?
      *             DEFAULT: No.
@@ -2634,8 +2737,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                UIDPLUS extension) or true.
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
-    public function copy($source, $dest, $options = array())
+    public function copy($source, $dest, array $options = array())
     {
         // Open mailbox call will handle the login.
         $this->openMailbox($source, empty($options['move']) ? Horde_Imap_Client::OPEN_AUTO : Horde_Imap_Client::OPEN_READWRITE);
@@ -2647,10 +2751,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return array();
         } elseif ($options['ids']->search_res &&
                   !$this->queryCapability('SEARCHRES')) {
-            $this->_exception('Server does not support saved searches.', 'NO_SUPPORT');
+            throw new Horde_Imap_Client_Exception_NoSupportExtension('SEARCHRES');
         }
 
-        return $this->_copy(Horde_Imap_Client_Mailbox::get($dest, null), $options);
+        return $this->_copy(Horde_Imap_Client_Mailbox::get($dest), $options);
     }
 
     /**
@@ -2673,24 +2777,25 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * (RFC 2087).
      *
      * @param mixed $root       The quota root. Either a
-     *                          Horde_Imap_Client_Mailbox object (as of 1.2.0)
-     *                          or a string (UTF-8).
+     *                          Horde_Imap_Client_Mailbox object or a string
+     *                          (UTF-8).
      * @param array $resources  The resource values to set. Keys are the
      *                          resource atom name; value is the resource
      *                          value.
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
     public function setQuota($root, array $resources = array())
     {
         $this->login();
 
         if (!$this->queryCapability('QUOTA')) {
-            $this->_exception('Server does not support the QUOTA extension.', 'NO_SUPPORT');
+            throw new Horde_Imap_Client_Exception_NoSupportExtension('QUOTA');
         }
 
         if (!empty($resources)) {
-            $this->_setQuota(Horde_Imap_Client_Mailbox::get($root, null), $resources);
+            $this->_setQuota(Horde_Imap_Client_Mailbox::get($root), $resources);
         }
     }
 
@@ -2712,22 +2817,23 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * (RFC 2087).
      *
      * @param mixed $root  The quota root. Either a Horde_Imap_Client_Mailbox
-     *                     object (as of 1.2.0) or a string (UTF-8).
+     *                     object or a string (UTF-8).
      *
      * @return mixed  An array with resource keys. Each key holds an array
      *                with 2 values: 'limit' and 'usage'.
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
     public function getQuota($root)
     {
         $this->login();
 
         if (!$this->queryCapability('QUOTA')) {
-            $this->_exception('Server does not support the QUOTA extension.', 'NO_SUPPORT');
+            throw new Horde_Imap_Client_Exception_NoSupportExtension('QUOTA');
         }
 
-        return $this->_getQuota(Horde_Imap_Client_Mailbox::get($root, null));
+        return $this->_getQuota(Horde_Imap_Client_Mailbox::get($root));
     }
 
     /**
@@ -2747,23 +2853,24 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * extension (RFC 2087).
      *
      * @param mixed $mailbox  A mailbox. Either a Horde_Imap_Client_Mailbox
-     *                        object (as of 1.2.0) or a string (UTF-8).
+     *                        object or a string (UTF-8).
      *
      * @return mixed  An array with the keys being the quota roots. Each key
      *                holds an array with resource keys: each of these keys
      *                holds an array with 2 values: 'limit' and 'usage'.
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
     public function getQuotaRoot($mailbox)
     {
         $this->login();
 
         if (!$this->queryCapability('QUOTA')) {
-            $this->_exception('Server does not support the QUOTA extension.', 'NO_SUPPORT');
+            throw new Horde_Imap_Client_Exception_NoSupportExtension('QUOTA');
         }
 
-        return $this->_getQuotaRoot(Horde_Imap_Client_Mailbox::get($mailbox, null));
+        return $this->_getQuotaRoot(Horde_Imap_Client_Mailbox::get($mailbox));
     }
 
     /**
@@ -2784,7 +2891,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * IMAP ACL extension (RFC 2086/4314).
      *
      * @param mixed $mailbox  A mailbox. Either a Horde_Imap_Client_Mailbox
-     *                        object (as of 1.2.0) or a string (UTF-8).
+     *                        object or a string (UTF-8).
      *
      * @return array  An array with identifiers as the keys and
      *                Horde_Imap_Client_Data_Acl objects as the values.
@@ -2794,7 +2901,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function getACL($mailbox)
     {
         $this->login();
-        return $this->_getACL(Horde_Imap_Client_Mailbox::get($mailbox, null));
+        return $this->_getACL(Horde_Imap_Client_Mailbox::get($mailbox));
     }
 
     /**
@@ -2813,7 +2920,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Set ACL rights for a given mailbox/identifier.
      *
      * @param mixed $mailbox      A mailbox. Either a Horde_Imap_Client_Mailbox
-     *                            object (as of 1.2.0) or a string (UTF-8).
+     *                            object or a string (UTF-8).
      * @param string $identifier  The identifier to alter (UTF-8).
      * @param array $options      Additional options:
      *   - remove: (boolean) If true, removes rights for $identifier.
@@ -2823,13 +2930,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                      'remove' is false, no rights are altered.
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
     public function setACL($mailbox, $identifier, $options)
     {
         $this->login();
 
         if (!$this->queryCapability('ACL')) {
-            $this->_exception('Server does not support the ACL extension.', 'NO_SUPPORT');
+            throw new Horde_Imap_Client_Exception_NoSupportExtension('ACL');
         }
 
         if (!empty($options['rights'])) {
@@ -2847,8 +2955,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         return $this->_setACL(
-            Horde_Imap_Client_Mailbox::get($mailbox, null),
-            Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($identifier, true),
+            Horde_Imap_Client_Mailbox::get($mailbox),
+            Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($identifier),
             $options
         );
     }
@@ -2873,24 +2981,25 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * support the IMAP ACL extension (RFC 2086/4314).
      *
      * @param mixed $mailbox      A mailbox. Either a Horde_Imap_Client_Mailbox
-     *                            object (as of 1.2.0) or a string (UTF-8).
+     *                            object or a string (UTF-8).
      * @param string $identifier  The identifier to query (UTF-8).
      *
      * @return Horde_Imap_Client_Data_AclRights  An ACL data rights object.
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
     public function listACLRights($mailbox, $identifier)
     {
         $this->login();
 
         if (!$this->queryCapability('ACL')) {
-            $this->_exception('Server does not support the ACL extension.', 'NO_SUPPORT');
+            throw new Horde_Imap_Client_Exception_NoSupportExtension('ACL');
         }
 
         return $this->_listACLRights(
-            Horde_Imap_Client_Mailbox::get($mailbox, null),
-            Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($identifier, true)
+            Horde_Imap_Client_Mailbox::get($mailbox),
+            Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($identifier)
         );
     }
 
@@ -2913,21 +3022,22 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * server must support the IMAP ACL extension (RFC 2086/4314).
      *
      * @param mixed $mailbox  A mailbox. Either a Horde_Imap_Client_Mailbox
-     *                        object (as of 1.2.0) or a string (UTF-8).
+     *                        object or a string (UTF-8).
      *
      * @return Horde_Imap_Client_Data_Acl  An ACL data object.
      *
      * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
     public function getMyACLRights($mailbox)
     {
         $this->login();
 
         if (!$this->queryCapability('ACL')) {
-            $this->_exception('Server does not support the ACL extension.', 'NO_SUPPORT');
+            throw new Horde_Imap_Client_Exception_NoSupportExtension('ACL');
         }
 
-        return $this->_getMyACLRights(Horde_Imap_Client_Mailbox::get($mailbox, null));
+        return $this->_getMyACLRights(Horde_Imap_Client_Mailbox::get($mailbox));
     }
 
     /**
@@ -2965,7 +3075,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return array_merge($rights, str_split(reset($capability)));
         }
 
-        // Add RFC 2086 rights (DEPRECATED)
+        // Add RFC 2086 rights (deprecated by RFC 4314, but need to keep for
+        // compatibility with old servers).
         return array_merge($rights, array(
             Horde_Imap_Client::ACL_CREATE,
             Horde_Imap_Client::ACL_DELETE
@@ -2978,7 +3089,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * (http://ietfreport.isoc.org/idref/draft-daboo-imap-annotatemore/).
      *
      * @param mixed $mailbox  A mailbox. Either a Horde_Imap_Client_Mailbox
-     *                        object (as of 1.2.0) or a string (UTF-8).
+     *                        object or a string (UTF-8).
      * @param array $entries  The entries to fetch (UTF-8 strings).
      * @param array $options  Additional options:
      *   - depth: (string) Either "0", "1" or "infinity". Returns only the
@@ -2995,7 +3106,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function getMetadata($mailbox, $entries, $options = array())
+    public function getMetadata($mailbox, $entries, array $options = array())
     {
         $this->login();
 
@@ -3003,7 +3114,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $entries = array($entries);
         }
 
-        return $this->_getMetadata(Horde_Imap_Client_Mailbox::get($mailbox, null), array_map(array('Horde_Imap_Client_Utf7imap', 'Utf8ToUtf7Imap'), $entries, array_fill(0, count($entries), null)), $options);
+        return $this->_getMetadata(Horde_Imap_Client_Mailbox::get($mailbox), array_map(array('Horde_Imap_Client_Utf7imap', 'Utf8ToUtf7Imap'), $entries), $options);
     }
 
     /**
@@ -3026,8 +3137,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Set metadata for a given mailbox/identifier.
      *
      * @param mixed $mailbox  A mailbox. Either a Horde_Imap_Client_Mailbox
-     *                        object (as of 1.2.0) or a string (UTF-8). If
-     *                        empty, sets a server annotation.
+     *                        object or a string (UTF-8). If empty, sets a
+     *                        server annotation.
      * @param array $data     A set of data values. The metadata values
      *                        corresponding to the keys of the array will
      *                        be set to the values in the array.
@@ -3037,7 +3148,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     public function setMetadata($mailbox, $data)
     {
         $this->login();
-        $this->_setMetadata(Horde_Imap_Client_Mailbox::get($mailbox, null), $data);
+        $this->_setMetadata(Horde_Imap_Client_Mailbox::get($mailbox), $data);
     }
 
     /**
@@ -3045,7 +3156,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @param Horde_Imap_Client_Mailbox $mailbox  A mailbox.
      * @param array $data                         A set of data values. See
-     *                                            setMetaData() for format.
+     *                                            setMetadata() for format.
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -3058,7 +3169,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Returns a unique identifier for the current mailbox status.
      *
      * @param mixed $mailbox  A mailbox. Either a Horde_Imap_Client_Mailbox
-     *                        object (as of 1.2.0) or a string (UTF-8).
+     *                        object or a string (UTF-8).
      * @param array $addl     Additional cache info to add to the cache ID
      *                        string.
      *
@@ -3069,7 +3180,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function getCacheId($mailbox, $addl = array())
+    public function getCacheId($mailbox, array $addl = array())
     {
         $query = Horde_Imap_Client::STATUS_UIDVALIDITY | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_UIDNEXT;
 
@@ -3142,21 +3253,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
     }
 
     /**
-     * Parses a client command array to create a server command string.
-     *
-     * @deprecated
-     * @see Horde_Imap_Client_Utils#parseCommandArray()
-     */
-    public function parseCommandArray($query, $callback = null, $out = '')
-    {
-        return $this->parseCommandArray($query, $callback, $out);
-    }
-
-    /**
      * Given an IMAP body section string, fetches the corresponding part.
      *
      * @param mixed $mailbox   A mailbox. Either a Horde_Imap_Client_Mailbox
-     *                         object (as of 1.2.0) or a string (UTF-8).
+     *                         object or a string (UTF-8).
      * @param integer $uid     The IMAP UID.
      * @param string $section  The IMAP section string.
      *
@@ -3274,37 +3374,27 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         $charset = strtoupper($charset);
 
+        if ($charset == 'US-ASCII') {
+            return true;
+        }
+
         if (!isset($this->_init['s_charset'][$charset])) {
-            $support = null;
-
-            switch ($charset) {
-            case 'US-ASCII';
-                /* US-ASCII is always supported (RFC 3501 [6.4.4]). */
-                $support = true;
-                break;
-            }
-
-            /* Use a dummy search query and search for BADCHARSET
-             * response. */
-            if (is_null($support)) {
-                $query = new Horde_Imap_Client_Search_Query();
-                $query->charset($charset);
-                $query->ids($this->getIdsOb(1, true));
-                $query->text('a');
-                try {
-                    $this->search('INBOX', $query, array(
-                        'sequence' => true
-                    ));
-                    $support = true;
-                } catch (Horde_Imap_Client_Exception $e) {
-                    /* BADCHARSET is only a MAY return - but there is no
-                     * other way of determining charset support. */
-                    $support = ($e->getCode() != Horde_Imap_Client_Exception::BADCHARSET);
-                }
-            }
-
             $s_charset = $this->_init['s_charset'];
-            $s_charset[$charset] = $support;
+
+            /* Use a dummy search query and search for BADCHARSET response. */
+            $query = new Horde_Imap_Client_Search_Query();
+            $query->charset($charset, false);
+            $query->ids($this->getIdsOb(1, true));
+            $query->text('a');
+            try {
+                $this->search('INBOX', $query, array(
+                    'sequence' => true
+                ));
+                $s_charset[$charset] = true;
+            } catch (Horde_Imap_Client_Exception $e) {
+                $s_charset[$charset] = ($e->getCode() != Horde_Imap_Client_Exception::BADCHARSET);
+            }
+
             $this->_setInit('s_charset', $s_charset);
         }
 
@@ -3421,20 +3511,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Store FETCH data in cache.
      *
-     * @param array $data     The data array.
-     * @param array $options  Additional options:
+     * @param Horde_Imap_Client_Fetch_Results $data  The fetch results.
+     * @param array $options                         Additional options:
      *   - fields: (array) Only update these cache fields.
      *             DEFAULT: Update all cache fields.
      *   - mailbox: (Horde_Imap_Client_Mailbox) The mailbox to update.
      *              DEFAULT: The selected mailbox.
-     *   - seq: (boolean) Is data stored with sequence numbers?
-     *          DEFAULT: Data stored with UIDs.
      *   - uidvalid: (integer) The UID Validity number.
      *               DEFAULT: UIDVALIDITY discovered via a status() call.
      *
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _updateCache($data, array $options = array())
+    protected function _updateCache(Horde_Imap_Client_Fetch_Results $data,
+                                    array $options = array())
     {
         $mailbox = empty($options['mailbox'])
             ? $this->_selected
@@ -3449,9 +3538,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return;
         }
 
-        $seq_res = empty($options['seq'])
+        $seq_res = ($data->key_type == $data::UID)
             ? null
-            : $this->_getSeqUidLookup($this->getIdsOb(array_keys($data), true));
+            : $this->_getSeqUidLookup($this->getIdsOb($data->ids(), true));
 
         $cf = empty($options['fields'])
             ? $this->_params['cache']['fields']
@@ -3475,8 +3564,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             ? $status_res['uidvalidity']
             : $options['uidvalid'];
 
-        reset($data);
-        while (list($k, $v) = each($data)) {
+        foreach ($data as $k => $v) {
             $tmp = array();
 
             foreach ($cf as $key => $val) {
@@ -3533,11 +3621,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
         }
 
-        $this->cache->set($mailbox, $tocache, $uidvalid);
+        $this->_cache->set($mailbox, $tocache, $uidvalid);
 
         if (!empty($highestmodseq)) {
             $modseq = max($highestmodseq);
-            $metadata = $this->cache->getMetaData($mailbox, $uidvalid, array(self::CACHE_MODSEQ));
+            $metadata = $this->_cache->getMetaData($mailbox, $uidvalid, array(self::CACHE_MODSEQ));
             if (!isset($metadata[self::CACHE_MODSEQ]) ||
                 ($metadata[self::CACHE_MODSEQ] != $modseq)) {
                     $this->_temp['lastmodseq'][strval($mailbox)] = isset($metadata[self::CACHE_MODSEQ])
@@ -3578,7 +3666,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $uidvalid = $status_res['uidvalidity'];
         }
 
-        $old_data = $this->cache->get($from, array_keys($map), null);
+        $old_data = $this->_cache->get($from, array_keys($map), null);
         $new_data = array();
 
         foreach ($map as $key => $val) {
@@ -3588,7 +3676,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         if (!empty($new_data)) {
-            $this->cache->set($to, $new_data, $uidvalid);
+            $this->_cache->set($to, $new_data, $uidvalid);
         }
     }
 
@@ -3602,7 +3690,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _deleteMsgs($mailbox, $uids)
     {
-        $this->cache->deleteMsgs($mailbox, $uids);
+        $this->_cache->deleteMsgs($mailbox, $uids);
     }
 
     /**
@@ -3624,7 +3712,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $search_id = $mailbox . $cache;
         $status = $this->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-        $metadata = $this->cache->getMetaData($mailbox, $status['uidvalidity'], array(self::CACHE_SEARCH));
+        $metadata = $this->_cache->getMetaData($mailbox, $status['uidvalidity'], array(self::CACHE_SEARCH));
 
         $cacheid = $this->getCacheId($mailbox);
         if (isset($metadata[self::CACHE_SEARCH]['cacheid']) &&
@@ -3689,7 +3777,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $status = $this->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
             $uidvalid = $status['uidvalidity'];
         }
-        $this->cache->setMetaData($mailbox, $uidvalid, $data);
+        $this->_cache->setMetaData($mailbox, $uidvalid, $data);
     }
 
     /**

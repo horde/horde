@@ -284,9 +284,9 @@ $_attributes['banned_extension'] = array(
 //
 // Existing folders example:
 
-//if ($GLOBALS['registry']->hasMethod('mail/folderlist')) {
+//if ($GLOBALS['registry']->hasMethod('mail/mailboxList')) {
 //    try {
-//        $mailboxes = $GLOBALS['registry']->call('mail/folderlist');
+//        $mailboxes = $GLOBALS['registry']->call('mail/mailboxList');
 //        if ($mailboxes) {
 //            $_attributes['spam_extension'] = array(
 //                'label' => _("File spam Into Mailbox:"),

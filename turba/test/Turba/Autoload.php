@@ -12,7 +12,7 @@
  * @license    http://www.horde.org/licenses/apache Apache-like
  */
 
-$mappings = array('Turba' => dirname(__FILE__) . '/../../lib/');
+$mappings = array('Turba' => __DIR__ . '/../../lib/');
 require_once 'Horde/Test/Autoload.php';
 
 /** Catch strict standards */

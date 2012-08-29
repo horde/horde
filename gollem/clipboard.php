@@ -13,7 +13,7 @@
  * @package  Gollem
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('gollem');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -41,18 +41,19 @@ foreach ($session->get('gollem', 'clipboard') as $key => $val) {
 }
 $template->set('entry', $entry, true);
 
-$title = _("Clipboard");
-Horde::addScriptFile('clipboard.js', 'gollem');
-Horde::addScriptFile('tables.js', 'horde');
-Horde::addInlineJsVars(array(
+$page_output->addScriptFile('clipboard.js');
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->addInlineJsVars(array(
     'GollemClipboard.selectall' => _("Select All"),
     'GollemClipboard.selectnone' => _("Select None")
 ));
 $menu = Gollem::menu();
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Clipboard")
+));
 require GOLLEM_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 Gollem::status();
 echo $template->fetch(GOLLEM_TEMPLATES . '/clipboard/clipboard.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

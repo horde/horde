@@ -1,18 +1,38 @@
 <?php
 /**
- * Handle PROVISION requests
+ * Horde_ActiveSync_Request_Provision::
  *
- * Logic adapted from Z-Push, original copyright notices below.
+ * Portions of this class were ported from the Z-Push project:
+ *   File      :   wbxml.php
+ *   Project   :   Z-Push
+ *   Descr     :   WBXML mapping file
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ *   Created   :   01.10.2007
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   This file is distributed under GPL-2.0.
+ *   Consult COPYING file for details
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 /**
- * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL-2.0.
- * Consult COPYING file for details
+ * Hanlde Provision requests.
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
 {
@@ -36,9 +56,6 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
     const STATUS_CLIENT_FAILED     = 3; // No policies applied at all.
     const STATUS_CLIENT_THIRDPARTY = 4; // Client provisioned by 3rd party?
 
-    const POLICYTYPE_XML           = 'MS-WAP-Provisioning-XML';
-    const POLICYTYPE_WBXML         = 'MS-EAS-Provisioning-WBXML';
-
     /**
      * Handle the Provision request. This is a 3-phase process. Phase 1 is
      * actually the enforcement, when the server rejects a request and forces
@@ -48,10 +65,8 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    public function handle()
+    protected function _handle()
     {
-        parent::handle();
-
         // Be optimistic
         $status = self::STATUS_SUCCESS;
         $policyStatus = self::STATUS_SUCCESS;
@@ -73,11 +88,9 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 return $this->_globalError(self::STATUS_PROTERROR);
             }
             if ($status == self::STATUS_CLIENT_SUCCESS) {
-                $this->_state->setDeviceRWStatus($this->_devId, Horde_ActiveSync::RWSTATUS_WIPED);
+                $this->_stateDriver->setDeviceRWStatus($this->_devId, Horde_ActiveSync::RWSTATUS_WIPED);
             }
-
-            // Need to send *something* in the policytype field even if wiping
-            $policytype = self::POLICYTYPE_XML;
+            $policytype = Horde_ActiveSync::POLICYTYPE_XML;
         } else {
             if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICIES) ||
                 !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICY)) {
@@ -94,18 +107,15 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 }
             } else {
                 $policytype = $this->_decoder->getElementContent();
-                if ($policytype != self::POLICYTYPE_XML) {
+                if ($this->_version < Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_XML) {
+                    $policyStatus = self::STATUS_POLICYUNKNOWN;
+                }
+                if ($this->_version >= Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_WBXML) {
                     $policyStatus = self::STATUS_POLICYUNKNOWN;
                 }
                 if (!$this->_decoder->getElementEndTag()) {//policytype
                     return $this->_globalError(self::STATUS_PROTERROR);
                 }
-            }
-
-            // Check to be sure that we *need* to PROVISION
-            if ($this->_provisioning === false) {
-                $this->_sendNoProvisionNeededResponse($status);
-                return true;
             }
 
             // POLICYKEY is only sent by client in phase 3
@@ -152,13 +162,19 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                     return $this->_globalError(self::STATUS_PROTERROR);
                 }
                 if ($status == self::STATUS_CLIENT_SUCCESS) {
-                    $this->_state->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_WIPED);
+                    $this->_stateDriver->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_WIPED);
                 }
             }
         }
 
         if (!$this->_decoder->getElementEndTag()) { //provision
             return $this->_globalError(self::STATUS_PROTERROR);
+        }
+
+        // Check to be sure that we *need* to PROVISION
+        if ($this->_provisioning === false) {
+            $this->_sendNoProvisionNeededResponse($status);
+            return true;
         }
 
         // Start handling request and sending output
@@ -168,19 +184,19 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         // send it to the client.
         if (!$phase2) {
             // Verify intermediate key
-            if ($this->_state->getPolicyKey($this->_device->id) != $policykey) {
+            if ($this->_stateDriver->getPolicyKey($this->_device->id) != $policykey) {
                 $policyStatus = self::STATUS_POLKEYMISM;
             } else {
                 // Set the final key
-                $policykey = $this->_state->generatePolicyKey();
-                $this->_state->setPolicyKey($this->_device->id, $policykey);
-                $this->_state->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_OK);
+                $policykey = $this->_stateDriver->generatePolicyKey();
+                $this->_stateDriver->setPolicyKey($this->_device->id, $policykey);
+                $this->_stateDriver->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_OK);
             }
             $this->_cleanUpAfterPairing();
         } elseif (empty($policykey)) {
             // This is phase2 - we need to set the intermediate key
-            $policykey = $this->_state->generatePolicyKey();
-            $this->_state->setPolicyKey($this->_device->id, $policykey);
+            $policykey = $this->_stateDriver->generatePolicyKey();
+            $this->_stateDriver->setPolicyKey($this->_device->id, $policykey);
         }
 
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
@@ -201,29 +217,37 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->content($policykey);
         $this->_encoder->endTag();
 
-        // Send security policies - configure this/move to it's own method.
+        // Send security policies.
         if ($phase2 && $status == self::STATUS_SUCCESS && $policyStatus == self::STATUS_SUCCESS) {
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_DATA);
-            if ($policytype == self::POLICYTYPE_XML) {
-                $this->_encoder->content($this->_driver->getCurrentPolicy(self::POLICYTYPE_XML));
+            $policyHandler = new Horde_ActiveSync_Policies(
+                $this->_encoder, $this->_version, $this->_driver->getCurrentPolicy());
+            if ($policytype == Horde_ActiveSync::POLICYTYPE_XML) {
+                $policyHandler->toXml();
             } else {
-                // TODO wbxml for 12.0
+                $policyHandler->toWbxml();
             }
             $this->_encoder->endTag(); //data
         }
         $this->_encoder->endTag();     //policy
         $this->_encoder->endTag();     //policies
-        $rwstatus = $this->_state->getDeviceRWStatus($this->_device->id);
+        $rwstatus = $this->_stateDriver->getDeviceRWStatus($this->_device->id);
         if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_REMOTEWIPE, false, true);
-            $this->_state->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_WIPED);
+            $this->_stateDriver->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_WIPED);
         }
-        $this->_encoder->endTag();         //provision
+        $this->_encoder->endTag();     //provision
 
         return true;
     }
 
-    private function _sendNoProvisionNeededResponse($status)
+    /**
+     * Send a WBXML response to the output stream indicating that no
+     * provision requests are necessary.
+     *
+     * @param integer $status  The status code to send along with the response.
+     */
+    protected function _sendNoProvisionNeededResponse($status)
     {
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
@@ -240,7 +264,13 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
     }
 
-    private function _globalError($status)
+    /**
+     * Handle global provision request errors, and send the output to the
+     * output stream.
+     *
+     * @param integer $status  The status code to send.
+     */
+    protected function _globalError($status)
     {
         $this->_encoder->StartWBXML();
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);

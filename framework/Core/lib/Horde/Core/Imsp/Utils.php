@@ -209,8 +209,8 @@ class Horde_Core_Imsp_Utils
     /**
      * Translates IMSP acl into share permissions and sets them in share.
      *
-     * @param Datatree_Object_Share $share  The share to assign perms to
-     * @param string $acl                   The IMSP acl string.
+     * @param Horde_Share_Object $share  The share to assign perms to
+     * @param string $acl                The IMSP acl string.
      */
     static protected function _setPerms(&$share, $acl)
     {

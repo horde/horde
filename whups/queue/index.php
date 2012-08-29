@@ -10,7 +10,7 @@
  * @author Michael J. Rubinsk <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 // See if we were passed a slug or id. Slug is tried first.
@@ -40,8 +40,9 @@ if (Horde_Util::getFormData('isajax') !== null) {
     exit;
 }
 
-$title = sprintf(_("Open tickets in %s"), $queue['name']);
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => sprintf(_("Open tickets in %s"), $queue['name'])
+));
 require WHUPS_TEMPLATES . '/menu.inc';
 
 $criteria = array('queue' => $id,
@@ -64,4 +65,4 @@ try {
         'horde.error');
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

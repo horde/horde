@@ -53,7 +53,6 @@ class Horde_Config_Form extends Horde_Form
      *                                configuration form is for.
      * @param boolean $fillvars       Whether to fill the $vars object with
      *                                values from the existing configuration.
-     *                                @since Horde_Core 1.1.
      */
     public function __construct(&$vars, $app, $fillvars = false)
     {

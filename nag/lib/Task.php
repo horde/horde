@@ -8,6 +8,8 @@
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Nag
+ *
+ * @property tags array  An array of tags this task is tagged with.
  */
 class Nag_Task
 {
@@ -75,6 +77,13 @@ class Nag_Task
     public $due;
 
     /**
+     * Recurrence rules for recurring tasks.
+     *
+     * @var Horde_Date_Recurrence
+     */
+    public $recurrence;
+
+    /**
      * The task priority.
      *
      * @var integer
@@ -101,13 +110,6 @@ class Nag_Task
      * @var integer
      */
     public $completed_date;
-
-    /**
-     * The task category
-     *
-     * @var string
-     */
-    public $category;
 
     /**
      * The task alarm threshold.
@@ -194,6 +196,13 @@ class Nag_Task
     public $lastChild;
 
     /**
+     * A storage driver.
+     *
+     * @var Nag_Driver
+     */
+    protected $_storage;
+
+    /**
      * Internal flag.
      *
      * @var boolean
@@ -217,17 +226,76 @@ class Nag_Task
     protected $_dict = array();
 
     /**
+     * Task tags (lazy loaded).
+     *
+     * @var array
+     */
+    protected $_tags;
+
+    /**
      * Constructor.
      *
      * Takes a hash and returns a nice wrapper around it.
      *
-     * @param array $task  A task hash.
+     * @param Nag_Driver $storage  A storage driver.
+     * @param array $task          A task hash.
      */
-    public function __construct(array $task = null)
+    public function __construct(Nag_Driver $storage = null, array $task = null)
     {
+        if ($storage) {
+            $this->_storage = $storage;
+        }
         if ($task) {
             $this->merge($task);
         }
+    }
+
+    /**
+     * Getter.
+     *
+     * Returns the 'id' and 'creator' properties.
+     *
+     * @param string $name  Property name.
+     *
+     * @return mixed  Property value.
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+
+        case 'tags':
+            if (!isset($this->_tags)) {
+                $this->_tags = Nag::getTagger()->getTags($this->uid, 'task');
+            }
+            return $this->_tags;
+        }
+
+        $trace = debug_backtrace();
+        trigger_error('Undefined property via __set(): ' . $name
+                      . ' in ' . $trace[0]['file']
+                      . ' on line ' . $trace[0]['line'],
+                      E_USER_NOTICE);
+        return null;
+    }
+
+    /**
+     * Setter.
+     *
+     * @param string $name  Property name.
+     * @param mixed $value  Property value.
+     */
+    public function __set($name, $value)
+    {
+        switch ($name) {
+        case 'tags':
+            $this->{'_' . $name} = $value;
+            return;
+        }
+        $trace = debug_backtrace();
+        trigger_error('Undefined property via __set(): ' . $name
+                      . ' in ' . $trace[0]['file']
+                      . ' on line ' . $trace[0]['line'],
+                      E_USER_NOTICE);
     }
 
     /**
@@ -238,12 +306,16 @@ class Nag_Task
     public function merge(array $task)
     {
         foreach ($task as $key => $val) {
-            if ($key == 'tasklist_id') {
+            switch ($key) {
+            case 'tasklist_id':
                 $key = 'tasklist';
-            } elseif ($key == 'task_id') {
+                break;
+            case 'task_id':
                 $key = 'id';
-            } elseif ($key == 'parent') {
+                break;
+            case 'parent':
                 $key = 'parent_id';
+                break;
             }
             $this->$key = $val;
         }
@@ -251,26 +323,12 @@ class Nag_Task
 
     /**
      * Saves this task in the storage backend.
+     *
+     * @throws Nag_Exception
      */
     public function save()
     {
-        $storage = Nag_Driver::singleton($this->tasklist);
-        return $storage->modify($this->id,
-                                $this->name,
-                                $this->desc,
-                                $this->start,
-                                $this->due,
-                                $this->priority,
-                                $this->estimate,
-                                $this->completed,
-                                $this->category,
-                                $this->alarm,
-                                $this->methods,
-                                $this->parent_id,
-                                $this->private,
-                                $this->owner,
-                                $this->assignee,
-                                $this->completed_date);
+        $this->_storage->modify($this->id, $this->toHash(true));
     }
 
     /**
@@ -293,9 +351,11 @@ class Nag_Task
      */
     public function add(Nag_Task $task)
     {
-        $this->_dict[$task->id] = count($this->children);
-        $task->parent = $this;
-        $this->children[] = $task;
+        if (!isset($this->_dict[$task->id])) {
+            $this->_dict[$task->id] = count($this->children);
+            $task->parent = $this;
+            $this->children[] = $task;
+        }
     }
 
     /**
@@ -303,9 +363,8 @@ class Nag_Task
      */
     public function loadChildren()
     {
-        $storage = Nag_Driver::singleton($this->tasklist);
         try {
-            $this->children = $storage->getChildren($this->id);
+            $this->children = $this->_storage->getChildren($this->id);
         } catch (Nag_Exception $e) {}
     }
 
@@ -406,6 +465,82 @@ class Nag_Task
             $estimate += $task->estimation();
         }
         return $estimate;
+    }
+
+    /**
+     * Returns whether this task is a recurring task.
+     *
+     * @return boolean  True if this is a recurring task.
+     */
+    public function recurs()
+    {
+        return isset($this->recurrence) &&
+            !$this->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_NONE);
+    }
+
+    /**
+     * Toggles completion status of this task. Moves a recurring task
+     * to the next occurence on completion.
+     */
+    public function toggleComplete()
+    {
+        if ($this->completed) {
+            $this->completed_date = null;
+            $this->completed = false;
+            if ($this->recurs()) {
+                /* What do we want do delete here? All completions?
+                 * The latest completion? Any completion in the
+                 * future?. */
+                foreach ($this->recurrence->getCompletions() as $completion) {
+                    $this->recurrence->deleteCompletion(
+                        substr($completion, 0, 4),
+                        substr($completion, 4, 2),
+                        substr($completion, 6, 2));
+                }
+            }
+            return;
+        }
+
+        if ($this->recurs()) {
+            /* Get current occurrence (task due date) */
+            $current = $this->recurrence->nextActiveRecurrence(new Horde_Date($this->due));
+            if ($current) {
+                $this->recurrence->addCompletion($current->year,
+                                                 $current->month,
+                                                 $current->mday);
+                /* Advance this occurence by a day to indicate that we
+                 * want the following occurence (Recurrence uses days
+                 * as minimal time duration between occurrences). */
+                $current->mday++;
+                /* Only mark this due date completed if there is another
+                 * occurence. */
+                if ($this->recurrence->nextActiveRecurrence($current)) {
+                    $this->completed = false;
+                    return;
+                }
+            }
+        }
+
+        $this->completed_date = time();
+        $this->completed = true;
+    }
+
+    /**
+     * Returns the next due date of this task.
+     *
+     * Takes recurring tasks into account.
+     *
+     * @return Horde_Date  The next due date.
+     */
+    public function getNextDue()
+    {
+        if (!$this->due) {
+            return null;
+        }
+        if (!$this->recurs()) {
+            return new Horde_Date($this->due);
+        }
+        return $this->recurrence->nextActiveRecurrence($this->due);
     }
 
     /**
@@ -515,14 +650,13 @@ class Nag_Task
         if ($this->private && $this->owner != $GLOBALS['registry']->getAuth()) {
             $this->name = _("Private Task");
             $this->desc = '';
-            $this->category = _("Private");
         }
 
         /* Create task links. */
         $this->view_link = Horde_Util::addParameter($view_url_list[$this->tasklist], 'task', $this->id);
 
         $task_url_task = Horde_Util::addParameter($task_url_list[$this->tasklist], 'task', $this->id);
-        $this->complete_link = Horde_Util::addParameter($task_url_task, 'actionID', 'complete_task');
+        $this->complete_link = Horde::url('t/complete')->add(array('url' => Horde::url('list.php'), 'task' => $this->id, 'tasklist' => $this->tasklist));
         $this->edit_link = Horde_Util::addParameter($task_url_task, 'actionID', 'modify_task');
         $this->delete_link = Horde_Util::addParameter($task_url_task, 'actionID', 'delete_task');
     }
@@ -558,6 +692,27 @@ class Nag_Task
     }
 
     /**
+     * Recursively loads tags for all tasks contained in this object.
+     */
+    public function loadTags()
+    {
+        $ids = array($this->uid);
+        foreach ($this->children as $task) {
+            $ids[] = $task->uid;
+        }
+        $results = Nag::getTagger()->getTags($ids);
+
+        foreach ($this->children as $task) {
+            if (!empty($results[$task->uid])) {
+                $task->tags = $results[$task->uid];
+            }
+        }
+        if (!empty($results[$this->uid])) {
+            $this->_tags = $results[$this->uid];
+        }
+    }
+
+    /**
      * Sorts sub tasks by the given criteria.
      *
      * @param string $sortby     The field by which to sort
@@ -573,7 +728,6 @@ class Nag_Task
         $sort_functions = array(
             Nag::SORT_PRIORITY => 'ByPriority',
             Nag::SORT_NAME => 'ByName',
-            Nag::SORT_CATEGORY => 'ByCategory',
             Nag::SORT_DUE => 'ByDue',
             Nag::SORT_START => 'ByStart',
             Nag::SORT_COMPLETION => 'ByCompletion',
@@ -625,31 +779,35 @@ class Nag_Task
      */
     public function toHash()
     {
-        return array('tasklist_id' => $this->tasklist,
-                     'task_id' => $this->id,
-                     'uid' => $this->uid,
-                     'parent' => $this->parent_id,
-                     'owner' => $this->owner,
-                     'assignee' => $this->assignee,
-                     'name' => $this->name,
-                     'desc' => $this->desc,
-                     'category' => $this->category,
-                     'start' => $this->start,
-                     'due' => $this->due,
-                     'priority' => $this->priority,
-                     'estimate' => $this->estimate,
-                     'completed' => $this->completed,
-                     'completed_date' => $this->completed_date,
-                     'alarm' => $this->alarm,
-                     'methods' => $this->methods,
-                     'private' => $this->private);
+        $hash = array(
+            'tasklist_id' => $this->tasklist,
+            'task_id' => $this->id,
+            'uid' => $this->uid,
+            'parent' => $this->parent_id,
+            'owner' => $this->owner,
+            'assignee' => $this->assignee,
+            'name' => $this->name,
+            'desc' => $this->desc,
+            'start' => $this->start,
+            'due' => $this->due,
+            'priority' => $this->priority,
+            'estimate' => $this->estimate,
+            'completed' => $this->completed,
+            'completed_date' => $this->completed_date,
+            'alarm' => $this->alarm,
+            'methods' => $this->methods,
+            'private' => $this->private,
+            'recurrence' => $this->recurrence,
+            'tags' => $this->tags);
+
+        return $hash;
     }
 
     /**
      * Returns a simple object suitable for json transport representing this
      * task.
      *
-     * @param boolean $full        Whether to return all event details.
+     * @param boolean $full        Whether to return all task details.
      * @param string $time_format  The date() format to use for time formatting.
      *
      * @return object  A simple object.
@@ -665,15 +823,18 @@ class Nag_Task
             $json->sd = Horde_String::substr($this->desc, 0, 80);
         }
         $json->cp = (boolean)$this->completed;
-        if ($this->due) {
-            $date = new Horde_Date($this->due);
-            $json->du = $date->toJson();
+        if ($this->due && ($due = $this->getNextDue())) {
+            $json->du = $due->toJson();
         }
         if ($this->start) {
             $date = new Horde_Date($this->start);
             $json->s = $date->toJson();
         }
         $json->pr = (int)$this->priority;
+        if ($this->recurs()) {
+            $json->r = $this->recurrence->getRecurType();
+        }
+        $json->t = array_values($this->tags);
 
         if ($full) {
             // @todo: do we really need all this?
@@ -700,6 +861,9 @@ class Nag_Task
             $json->a = (int)$this->alarm;
             $json->m = $this->methods;
             //$json->pv = (boolean)$this->private;
+            if ($this->recurs()) {
+                $json->r = $this->recurrence->toJson();
+            }
 
             try {
                 $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
@@ -768,7 +932,7 @@ class Nag_Task
             $view->dateFormat = $prefs->getValue('date_format');
             $view->timeFormat = $prefs->getValue('twentyFour') ? 'H:i' : 'h:ia';
             if (!$prefs->isLocked('task_alarms')) {
-                $view->prefsUrl = Horde::url(Horde::getServiceLink('prefs', 'nag'), true)->remove(session_name());
+                $view->prefsUrl = Horde::url($GLOBALS['registry']->getServiceLink('prefs', 'nag'), true)->remove(session_name());
             }
 
             $methods['mail']['mimepart'] = Nag::buildMimeMessage($view, 'mail', $image);
@@ -852,8 +1016,8 @@ class Nag_Task
             }
         }
 
-        if (!empty($this->category)) {
-            $vTodo->setAttribute('CATEGORIES', $this->category);
+        if ($this->tags) {
+            $vTodo->setAttribute('CATEGORIES', implode(', ', $this->tags));
         }
 
         /* Get the task's history. */
@@ -888,32 +1052,58 @@ class Nag_Task
     /**
      * Create an AS message from this task
      *
+     * @param array $options  Options:
+     *   - protocolversion: (float)  The EAS version to support
+     *                      DEFAULT: 2.5
+     *   - bodyprefs: (array)  A BODYPREFERENCE array.
+     *                DEFAULT: none (No body prefs enforced).
+     *   - truncation: (integer)  Truncate event body to this length
+     *                 DEFAULT: none (No truncation).
+     *
      * @return Horde_ActiveSync_Message_Task
      */
-    function toASTask()
+    public function toASTask(array $options = array())
     {
-        $message = new Horde_ActiveSync_Message_Task();
+        $message = new Horde_ActiveSync_Message_Task(array(
+            'protocolversion' => $options['protocolversion'])
+        );
 
         /* Notes and Title */
-        $message->setBody($this->desc);
-        $message->setSubject($this->name);
+        if ($options['protocolversion'] >= Horde_ActiveSync::VERSION_TWELVE) {
+            $bp = $options['bodyprefs'];
+            $body = new Horde_ActiveSync_Message_AirSyncBaseBody();
+            $body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
+            if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+                if (Horde_String::length($this->desc) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
+                    $body->data = Horde_String::substr($this->desc, 0, $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
+                    $body->truncated = 1;
+                } else {
+                    $body->data = $this->desc;
+                }
+                $body->estimateddatasize = Horde_String::length($this->desc);
+            }
+            $message->airsyncbasebody = $body;
+        } else {
+            $message->body = $this->desc;
+        }
+        $message->subject = $this->name;
 
         /* Completion */
         if ($this->completed) {
-            $message->SetDateCompleted(new Horde_Date($this->completed_date));
-            $message->setComplete(Horde_ActiveSync_Message_Task::TASK_COMPLETE_TRUE);
+            $message->datecompleted = new Horde_Date($this->completed_date);
+            $message->complete = Horde_ActiveSync_Message_Task::TASK_COMPLETE_TRUE;
         } else {
-            $message->setComplete(Horde_ActiveSync_Message_Task::TASK_COMPLETE_FALSE);
+            $message->complete = Horde_ActiveSync_Message_Task::TASK_COMPLETE_FALSE;
         }
 
         /* Due Date */
         if (!empty($this->due)) {
-            $message->setDueDate(new Horde_Date($this->due));
+            $message->utcduedate = new Horde_Date($this->due);
         }
 
         /* Start Date */
         if (!empty($this->start)) {
-            $message->setStartDate(new Horde_Date($this->start));
+            $message->utcstartdate = new Horde_Date($this->start);
         }
 
         /* Priority */
@@ -939,6 +1129,11 @@ class Nag_Task
             $message->setReminder(new Horde_Date($this->due - $this->alarm));
         }
 
+        /* Recurrence */
+        if ($this->recurs()) {
+            $message->setRecurrence($this->recurrence);
+        }
+
         return $message;
     }
 
@@ -947,7 +1142,7 @@ class Nag_Task
      *
      * @param Horde_Icalendar_Vtodo $vTodo  The iCalendar data to update from.
      */
-    function fromiCalendar(Horde_Icalendar_Vtodo $vTodo)
+    public function fromiCalendar(Horde_Icalendar_Vtodo $vTodo)
     {
         try {
             $name = $vTodo->getAttribute('SUMMARY');
@@ -974,8 +1169,7 @@ class Nag_Task
                 if (empty($params[$id]['RELTYPE']) ||
                     Horde_String::upper($params[$id]['RELTYPE']) == 'PARENT') {
 
-                    $storage = Nag_Driver::singleton($this->tasklist);
-                    $parent = $storage->getByUID($relation);
+                    $parent = $this->_storage->getByUID($relation);
                     $this->parent_id = $parent->id;
                     break;
                 }
@@ -1028,7 +1222,9 @@ class Nag_Task
 
         try {
             $cat = $vTodo->getAttribute('CATEGORIES');
-            if (!is_array($cat)) { $this->category = $cat; }
+            if (!is_array($cat)) {
+                $this->tags = $cat;
+            }
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
@@ -1050,25 +1246,33 @@ class Nag_Task
      *
      * @param Horde_ActiveSync_Message_Task $message  The task object
      */
-    function fromASTask(Horde_ActiveSync_Message_Task $message)
+    public function fromASTask(Horde_ActiveSync_Message_Task $message)
     {
+        /* Owner is always current user for ActiveSync */
+        $this->owner = $GLOBALS['registry']->getAuth();
+
         /* Notes and Title */
-        $this->desc = $message->getBody();
-        $this->name = $message->getSubject();
+        if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
+            $this->desc = $message->airsyncbasebody->data;
+        } else {
+            $this->desc = $message->body;
+        }
+
+        $this->name = $message->subject;
 
         /* Completion */
-        if ($this->completed = $message->getComplete()) {
-            $dateCompleted = $message->getDateCompleted();
+        if ($this->completed = $message->complete) {
+            $dateCompleted = $message->datecompleted;
             $this->completed_date = empty($dateCompleted) ? null : $dateCompleted;
         }
 
         /* Due Date */
-        if ($due = $message->getDueDate()) {
+        if ($due = $message->utcduedate) {
             $this->due = $due->timestamp();
         }
 
         /* Start Date */
-        if ($start = $message->getStartDate()) {
+        if ($start = $message->utcstartdate) {
             $this->start = $start->timestamp();
         }
 
@@ -1091,25 +1295,11 @@ class Nag_Task
             $this->alarm = $this->due - $alarm->timestamp();
         }
 
-        $this->tasklist = $GLOBALS['prefs']->getValue('default_tasklist');
-    }
-
-    /**
-     * CSS formatting.
-     *
-     * @return string  CSS formatting.
-     */
-    public function getCssStyle()
-    {
-        $cManager = new Horde_Prefs_CategoryManager();
-        $colors = $cManager->colors();
-        if (!isset($colors[$this->category])) {
-            return '';
+        if ($rrule = $message->getRecurrence()) {
+            $this->recurrence = $rrule;
         }
-        $fgColors = $cManager->fgColors();
 
-        return 'color:' . (isset($fgColors[$this->category]) ? $fgColors[$this->category] : $fgColors['_default_']) . ';' .
-            'background:' . $colors[$this->category] . ';';
+        $this->tasklist = $GLOBALS['prefs']->getValue('default_tasklist');
     }
 
 }

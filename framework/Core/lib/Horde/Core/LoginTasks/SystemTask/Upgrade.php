@@ -58,7 +58,13 @@ abstract class Horde_Core_LoginTasks_SystemTask_Upgrade extends Horde_LoginTasks
 
         if ($vers = $this->_pref('get')) {
             foreach ($this->_versions as $val) {
-                if (version_compare($vers, $val) === -1) {
+                /* Our versioning system is not compatible with PHP's
+                 * version_compare, since x.0.foo is ALWAYS greater than
+                 * x.0foo. */
+                $compare = (substr_count($val, '.') != substr_count($vers, '.'))
+                    ? preg_replace("/(\.0)((?:alpha|beta|RC)\d+)/i", "$2", $vers)
+                    : $vers;
+                if (version_compare($compare, $val) === -1) {
                     $this->_toupgrade[] = $val;
                 }
             }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Cli:: API for basic command-line functionality/checks.
+ * Horde_Cli API for basic command-line functionality/checks.
  *
  * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
@@ -122,7 +122,8 @@ class Horde_Cli
      * Detect the current environment (web server or console) and sets
      * internal values accordingly.
      *
-     * The constructor must not be called after init().
+     * Use init() if you also want to set environment variables that may be
+     * missing in a CLI environment.
      */
     public function __construct()
     {
@@ -314,7 +315,21 @@ class Horde_Cli
             $trace = debug_backtrace();
         }
         $backtrace = new Horde_Support_Backtrace($trace);
+        $details = '';
         if (is_object($error) && method_exists($error, 'getMessage')) {
+            $first = $error;
+            while (method_exists($first, 'getPrevious') &&
+                   $previous = $first->getPrevious()) {
+                $first = $previous;
+            }
+            $file = method_exists($first, 'getFile') ? $first->getFile() : null;
+            $line = method_exists($first, 'getLine') ? $first->getLine() : null;
+            if ($file) {
+                $details .= sprintf(Horde_Cli_Translation::t("In %s"), $file);
+            }
+            if ($line) {
+                $details .= sprintf(Horde_Cli_Translation::t(" on line %d"), $line);
+            }
             $error = $error->getMessage();
         }
         $this->writeln();
@@ -322,6 +337,9 @@ class Horde_Cli
         $this->writeln();
         $this->writeln($this->red(Horde_Cli_Translation::t("Fatal Error:")));
         $this->writeln($this->red($error));
+        if ($details) {
+            $this->writeln($this->red($details));
+        }
         $this->writeln();
         $this->writeln((string)$backtrace);
         $this->writeln($this->red('===================='));
@@ -439,17 +457,13 @@ class Horde_Cli
      * none. Also initialize a few variables in $_SERVER that aren't present
      * from the CLI.
      *
-     * You must not call init() statically before calling the constructor.
-     * Either use the singleton() method to retrieve a Horde_Cli object after
-     * calling init(), or don't call init() statically.
-     *
      * @return Horde_Cli  A Horde_Cli instance.
      */
     static public function init()
     {
         /* Run constructor now because it requires $_SERVER['SERVER_NAME'] to
          * be empty if called with a CGI SAPI. */
-        $cli = new self();
+        $cli = new static();
 
         @set_time_limit(0);
         ob_implicit_flush(true);

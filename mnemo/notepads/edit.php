@@ -9,7 +9,7 @@
  * @package @Mnemo
  */
 
-@define('MNEMO_BASE', dirname(dirname(__FILE__)));
+@define('MNEMO_BASE', dirname(__DIR__));
 require_once MNEMO_BASE . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
@@ -44,16 +44,18 @@ if ($form->validate($vars)) {
             $notification->push(sprintf(_("The notepad \"%s\" has been saved."), $original_name), 'horde.success');
         }
     } catch (Exception $e) {
-        $notification->push($result, 'horde.error');
+        $notification->push($e);
     }
     Horde::url('notepads/', true)->redirect();
 }
 
 $vars->set('name', $notepad->get('name'));
 $vars->set('description', $notepad->get('desc'));
-$title = $form->getTitle();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+
+$page_output->header(array(
+    'title' => $form->getTitle()
+));
 echo Horde::menu();
 $notification->notify();
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('notepads/edit.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

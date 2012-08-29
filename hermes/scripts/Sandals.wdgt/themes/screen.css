@@ -194,11 +194,11 @@ table.nopadding td, table.nopadding th {
     background: #bbcbff url("graphics/az.png") center left no-repeat;
     padding-left: 10px;
 }
-/* Alternating styles. item0, item1 are deprecated. */
-.striped, .rowEven, .item0 {
+/* Alternating styles. */
+.striped, .rowEven {
     background-color: #eee;
 }
-.rowOdd, .item1 {
+.rowOdd {
     background-color: #ddd;
 }
 

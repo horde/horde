@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once __DIR__ . '/../../Autoload.php';
 
 /**
  * Test the CLI.
@@ -45,7 +45,7 @@ extends Horde_Push_TestCase
         ob_start();
         $_SERVER['argv'] = array(
             'test',
-            'yaml://' . dirname(__FILE__) . '/../../fixtures/push.yaml'
+            'yaml://' . __DIR__ . '/../../fixtures/push.yaml'
         );
         Horde_Push_Cli::main(array('no_exit' => true));
         $output = ob_get_clean();

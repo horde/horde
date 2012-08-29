@@ -37,7 +37,7 @@ class IMP_Factory_Flags extends Horde_Core_Factory_Injector
         try {
             $instance = $GLOBALS['session']->get('imp', 'flags');
         } catch (Exception $e) {
-            Horde::logMessage('Could not unserialize stored IMP_Flags object.', 'DEBUG');
+            Horde::log('Could not unserialize stored IMP_Flags object.', 'DEBUG');
             $instance = null;
         }
 

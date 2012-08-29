@@ -10,25 +10,41 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the final release of the Nag Task List
-Manager version H4 (3.0.8).
+The Horde Team is pleased to announce the first beta release of the Nag Task
+List Manager version H5 (4.0.0).
 
 Nag is a web-based application built upon the Horde Application Framework which
 provides a simple, clean interface for managing online task lists (i.e., todo
 lists). It also includes strong integration with the other Horde applications
 and allows users to share task lists or enable light-weight project management.
 
-The major changes compared to the Nag version H4 (3.0.7) are:
-    * Updated Hungarian, Italian, and Swedish translations.
+IMPORTANT! This is a preview version that should not be used on production
+systems. This version is not feature complete yet and there are likely to be
+bugs. You should not use this preview version with existing production data.
+
+We encourage widespread testing and feedback via the mailing lists or our bug
+tracking system. Updated translations are very welcome, though some strings
+might still change before the release candidates are prepared.
+
+The major changes compared to the Nag version H4 (3.0) are:
+    * Completely redesigned user interface.
+    * Added recurring tasks.
+    * Added smart tasks lists.
+    * Converted categories to tags.
+    * Further bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Updated Hungarian, Italian, and Swedish translations.
+Completely redesigned user interface.
+Added recurring tasks.
+Added smart tasks lists.
+Converted categories to tags.
+Further bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Nag';

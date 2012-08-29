@@ -1,5 +1,5 @@
 ================================
- Installing Horde Framework 4.0
+ Installing Horde Framework 5.0
 ================================
 
 :Contact: horde@lists.horde.org
@@ -65,7 +65,7 @@ detailed instructions, start reading below at Prerequisites_.
 
 6. Install Horde::
 
-     pear install -a -B horde/horde
+     pear install -a -B horde/horde-beta
 
 7. Configure Horde::
 
@@ -111,7 +111,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       - http://httpd.apache.org/
       - http://www.lighttpd.net/
 
-2. PHP 5.2.0 or above.
+2. PHP 5.3.0 or above.
 
    PHP is the interpreted language in which Horde is written.
 
@@ -254,6 +254,21 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
                   also. Please check ``docs/INSTALL`` for all applications you
                   wish to use to see if other PHP options are needed.
 
+   f. fileinfo
+
+      Allows Horde modules to guess the MIME type of files by analyzing
+      their contents.
+
+      This module is automatically enabled by default.
+
+   g. intl
+
+      The intl module is required to handle display of Internationalized
+      Domain Names (see RFC 3490), e.g in e-mail addresses.
+
+      This module can be enabled by adding the ``--enable-intl`` option when
+      compiling PHP.
+
 
 3. PEAR Modules
 
@@ -362,30 +377,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    These PECL modules are **RECOMMENDED** to be installed:
 
-   a. fileinfo
-
-      Allows Horde modules to guess the MIME type of files by analyzing
-      their contents.
-
-      To install, enter the following at the command prompt::
-
-        pecl install fileinfo
-
-      As of PHP 5.3.0, this module is automatically enabled by default.
-
-   b. intl
-
-      The intl module is required to handle display of Internationalized
-      Domain Names (see RFC 3490), e.g in e-mail addresses.
-
-      To install, enter the following at the command prompt::
-
-        pecl install intl
-
-      Alternatively, this module is shipped with PHP 5.3.0+ and can be
-      enabled by adding the ``--enable-intl`` option when compiling PHP.
-
-   c. imagick
+   a. imagick
 
       The imagick module can be used by Horde's image library to provide all
       kind of image manipulations.
@@ -397,7 +389,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       The imagick extension **must** be compiled against ImageMagick version
       6.2.9 or better, though version 6.5.7 or better is recommended.
 
-   d. lzf
+   b. lzf
 
       If the lzf module is available, Horde can compress cached data within
       the current session, thus reducing the size of the current session.
@@ -406,7 +398,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
         pecl install lzf
 
-   e. memcache
+   c. memcache
 
       If using memcache, the memcache PECL extension must be installed.
 
@@ -481,18 +473,18 @@ install any dependencies of Horde too.  If you want to install Horde with all
 optional dependencies, but without the binary PECL packages that have to be
 compiled, specify both the ``-a`` and the ``-B`` flag::
 
-   pear install -a -B horde/horde
+   pear install -a -B horde/horde-beta
 
 By default, only the required dependencies will be installed::
 
-   pear install horde/horde
+   pear install horde/horde-beta
 
 If you want to install Horde even with all binary dependencies, you need to
 remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
-   pear install -a horde/horde
+   pear install -a horde/horde-beta
 
 
 Installing into separate PEAR
@@ -529,9 +521,7 @@ root::
 Installing from Git
 ~~~~~~~~~~~~~~~~~~~
 
-See::
-
-   http://horde.org/source/git.php
+See http://www.horde.org/development/git
 
 
 Configuring Horde

@@ -31,7 +31,7 @@ class Folks_Block_Activities extends Horde_Core_Block
      */
     protected function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
+        require_once __DIR__ . '/../base.php';
 
         $friends_driver = Folks_Friends::singleton();
         $friend_list = $friends_driver->getFriends();
@@ -53,7 +53,7 @@ class Folks_Block_Activities extends Horde_Core_Block
         krsort($list);
         $list = array_slice($list, 0, $this->_params['limit']);
 
-        Horde::addScriptFile('stripe.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('stripe.js', 'horde');
 
         ob_start();
         require FOLKS_TEMPLATES . '/block/activities.php';

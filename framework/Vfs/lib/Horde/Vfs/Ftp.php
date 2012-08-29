@@ -2,29 +2,28 @@
 /**
  * VFS implementation for an FTP server.
  *
- * Required values for $params:<pre>
- * username - (string) The username with which to connect to the ftp server.
- * password - (string) The password with which to connect to the ftp server.
- * hostspec - (string) The ftp server to connect to.</pre>
+ * Required values for $params:
+ * - username: (string) The username with which to connect to the FTP server.
+ * - password: (string) The password with which to connect to the FTP server.
+ * - hostspec: (string) The FTP server to connect to.
  *
- * Optional values for $params:<pre>
- * lsformat - (string) The return formatting from the 'ls' command).
- *                       Values: 'aix', 'standard' (default)
- * maplocalids - (boolean) If true and the POSIX extension is available, the
- *               driver will map the user and group IDs returned from the FTP
- *               server with the local IDs from the local password file.  This
- *               is useful only if the FTP server is running on localhost or
- *               if the local user/group IDs are identical to the remote FTP
- *               server.
- * pasv - (boolean) If true, connection will be set to passive mode.
- * port - (integer) The port used to connect to the ftp server if other than
- *        21 (FTP default).
- * ssl - (boolean) If true, and PHP had been compiled with OpenSSL support,
+ * Optional values for $params:
+ * - lsformat: (string) The return formatting from the 'ls' command.
+ *             Possible values: 'aix', 'standard' (default).
+ * - maplocalids: (boolean) If true and the POSIX extension is available, the
+ *                driver will map the user and group IDs returned from the FTP
+ *                server with the local IDs from the local password file.  This
+ *                is useful only if the FTP server is running on localhost or
+ *                if the local user/group IDs are identical to the remote FTP
+ *                server.
+ * - pasv: (boolean) If true, connection will be set to passive mode.
+ * - port: (integer) The port used to connect to the ftp server if other than
+ *         21 (FTP default).
+ * - ssl: (boolean) If true, and PHP had been compiled with OpenSSL support,
  *        TLS transport-level encryption will be negotiated with the server.
- * timeout -(integer) The timeout for the server.
- * type - (string) The type of the remote FTP server.
- *        Possible values: 'unix', 'win', 'netware'
- *        By default, we attempt to auto-detect type.</pre>
+ * - timeout: (integer) The timeout for the server.
+ * - type: (string) The type of the remote FTP server. Possible values: 'unix',
+ *         'win', 'netware' By default, we attempt to auto-detect type.
  *
  * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  * Copyright 2002-2007 Michael Varghese <mike.varghese@ascellatech.com>
@@ -191,7 +190,23 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
      */
     public function readStream($path, $name)
     {
-        return fopen($this->readFile($path, $name), OS_WINDOWS ? 'rb' : 'r');
+        if (!empty($this->_params['ssl'])) {
+            if (function_exists('ftp_ssl_connect')) {
+                $url = 'ftps://';
+            } else {
+                throw new Horde_Vfs_Exception('Unable to connect with SSL.');
+            }
+        } else {
+            $url = 'ftp://';
+        }
+        $url .= $this->_params['username'] . ':' . $this->_params['password']
+            . '@' . $this->_params['hostspec'] . ':' . $this->_params['port']
+            . '/' . $this->_getPath($path, $name);
+        $stream = @fopen($url, 'r');
+        if (!is_resource($stream)) {
+            throw new Horde_Vfs_Exception('Unable to open VFS file.');
+        }
+        return $stream;
     }
 
     /**
@@ -391,12 +406,13 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
     }
 
     /**
-     * Returns an an unsorted file list of the specified directory.
+     * Returns an unsorted file list of the specified directory.
      *
-     * @param string $path       The path of the directory.
-     * @param mixed $filter      String/hash to filter file/dirname on.
-     * @param boolean $dotfiles  Show dotfiles?
-     * @param boolean $dironly   Show only directories?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
@@ -620,42 +636,6 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
     }
 
     /**
-     * Returns a sorted list of folders in the specified directory.
-     *
-     * @param string $path         The path of the directory to get the
-     *                             directory list for.
-     * @param mixed $filter        Hash of items to filter based on folderlist.
-     * @param boolean $dotfolders  Include dotfolders?
-     *
-     * @return array  Folder list.
-     * @throws Horde_Vfs_Exception
-     */
-    public function listFolders($path = '', $filter = null, $dotfolders = true)
-    {
-        $this->_connect();
-
-        $folder = array(
-            'abbrev' => '..',
-            'label' => '..',
-            'val' => $this->_parentDir($path)
-        );
-        $folders = array($folder['val'] => $folder);
-
-        $folderList = $this->listFolder($path, null, $dotfolders, true);
-        foreach ($folderList as $files) {
-            $folders[$folder['val']] = array(
-                'abbrev' => $files['name'],
-                'label' => $folder['val'],
-                'val' => $this->_getPath($path, $files['name'])
-            );
-        }
-
-        ksort($folders);
-
-        return $folders;
-    }
-
-    /**
      * Copies a file through the backend.
      *
      * @param string $path         The path of the original file.
@@ -762,7 +742,8 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
      */
     protected function _getPath($path, $name)
     {
-        if (strlen($this->_params['vfsroot'])) {
+        if (isset($this->_params['vfsroot']) &&
+            strlen($this->_params['vfsroot'])) {
             if (strlen($path)) {
                 $path = $this->_params['vfsroot'] . '/' . $path;
             } else {

@@ -69,59 +69,66 @@ class IMP_Api extends Horde_Registry_Api
     }
 
     /**
-     * Returns the list of folders.
+     * Returns the list of mailboxes.
      *
-     * @return array  The list of IMAP folders.  Keys are the IMAP mailbox
-     *                name (UTF7-IMAP).  Values have the following keys:
-     * - label: (string) Human readable label.
-     * - level: (integer) The child level of this element.
+     * @return array  The list of IMAP mailboxes. A list of arrays with the
+     *                following keys:
+     *   - a: (integer) The mailbox attributes.
+     *   - d: (string) The namespace delimiter.
+     *   - label: (string) Human readable label (UTF-8).
+     *   - level: (integer) The child level of this element.
+     *   - ob: (Horde_Imap_Client_Mailbox) A mailbox object.
      */
-    public function folderlist()
+    public function mailboxList()
     {
-        $folders = array();
+        $mboxes = array();
         $imap_tree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
 
         $imap_tree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
         foreach ($imap_tree as $val) {
-            $folders[$val->value] = array(
+            $e = $imap_tree->getElement($val->value);
+            $mboxes[] = array(
+                'a' => $e['a'],
+                'd' => $val->namespace_delimiter,
                 'label' => $val->label,
-                'level' => $val->level
+                'level' => $val->level,
+                'ob' => $val->imap_mbox_ob
             );
         }
 
-        return $folders;
+        return $mboxes;
     }
 
     /**
-     * Creates a new folder.
+     * Creates a new mailbox.
      *
-     * @param string $folder  The name of the folder to create (UTF7-IMAP).
+     * @param string $mbox    The name of the mailbox to create (UTF-8).
      * @param array $options  Additional options:
-     *   - full: (boolean) If true, $folder is a full mailbox name. If false,
-     *           $folder will be created in the default namespace.
-     *           Available since IMP 5.0.11
+     *   - full: (boolean) If true, $mbox is a full mailbox name. If false,
+     *           $mbox will be created in the default namespace.
      *           DEFAULT: false
      *
-     * @return string  The full folder name created or false on failure.
+     * @return Horde_Imap_Client_Mailbox  The mailbox name created or false on
+     *                                    failure.
      *
      * @throws IMP_Exception
      */
-    public function createFolder($folder, array $options = array())
+    public function createMailbox($mbox, array $options = array())
     {
-        $fname = IMP_Mailbox::get($folder);
+        $fname = IMP_Mailbox::get($mbox);
         if (empty($options['full'])) {
             $fname = $fname->namespace_append;
         }
 
         return $fname->create()
-            ? strval($fname)
+            ? $fname->imap_mbox_ob
             : false;
     }
 
     /**
      * Deletes messages from a mailbox.
      *
-     * @param string $mailbox  The name of the mailbox (UTF7-IMAP).
+     * @param string $mailbox  The name of the mailbox (UTF-8).
      * @param array $indices   The list of UIDs to delete.
      *
      * @return integer|boolean  The number of messages deleted if successful,
@@ -138,9 +145,9 @@ class IMP_Api extends Horde_Registry_Api
     /**
      * Copies messages to a mailbox.
      *
-     * @param string $mailbox  The name of the source mailbox (UTF7-IMAP).
+     * @param string $mailbox  The name of the source mailbox (UTF-8).
      * @param array $indices   The list of UIDs to copy.
-     * @param string $target   The name of the target mailbox (UTF7-IMAP).
+     * @param string $target   The name of the target mailbox (UTF-8).
      *
      * @return boolean  True if successful, false if not.
      */
@@ -157,9 +164,9 @@ class IMP_Api extends Horde_Registry_Api
     /**
      * Moves messages to a mailbox.
      *
-     * @param string $mailbox  The name of the source mailbox (UTF7-IMAP).
+     * @param string $mailbox  The name of the source mailbox (UTF-8).
      * @param array $indices   The list of UIDs to move.
-     * @param string $target   The name of the target mailbox (UTF7-IMAP).
+     * @param string $target   The name of the target mailbox (UTF-8).
      *
      * @return boolean  True if successful, false if not.
      */
@@ -176,7 +183,7 @@ class IMP_Api extends Horde_Registry_Api
     /**
      * Flag messages.
      *
-     * @param string $mailbox  The name of the source mailbox (UTF7-IMAP).
+     * @param string $mailbox  The name of the source mailbox (UTF-8).
      * @param array $indices   The list of UIDs to flag.
      * @param array $flags     The flags to set.
      * @param boolean $set     True to set flags, false to clear flags.
@@ -196,7 +203,7 @@ class IMP_Api extends Horde_Registry_Api
      * Perform a search query on the remote IMAP server.
      *
      * @param string $mailbox                        The name of the source
-     *                                               mailbox (UTF7-IMAP).
+     *                                               mailbox (UTF-8).
      * @param Horde_Imap_Client_Search_Query $query  The query object.
      *
      * @return array  The search results (UID list).
@@ -213,12 +220,10 @@ class IMP_Api extends Horde_Registry_Api
      * Returns information on the currently logged on IMAP server.
      *
      * @return mixed  An array with the following entries:
-     * <pre>
-     * 'hostspec' - (string) The server hostname.
-     * 'port' - (integer) The server port.
-     * 'protocol' - (string) Either 'imap' or 'pop'.
-     * 'secure' - (string) Either 'none', 'ssl', or 'tls'.
-     * </pre>
+     *   - hostspec: (string) The server hostname.
+     *   - port: (integer) The server port.
+     *   - protocol: (string) Either 'imap' or 'pop'.
+     *   - secure: (string) Either 'none', 'ssl', or 'tls'.
      */
     public function server()
     {
@@ -293,7 +298,7 @@ class IMP_Api extends Horde_Registry_Api
      * Return the list of user-settable IMAP flags.
      *
      * @param string $mailbox  If set, returns the list of flags filtered by
-     *                         what the mailbox allows.
+     *                         what the mailbox allows (UTF-8).
      *
      * @return array  A list of IMP_Flag_Base objects.
      */
@@ -307,6 +312,16 @@ class IMP_Api extends Horde_Registry_Api
             'imap' => true,
             'mailbox' => $mailbox
         ));
+    }
+
+    /**
+     * Return the list of special mailboxes.
+     *
+     * @return @see IMP_Mailbox::getSpecialMailboxes()
+     */
+    public function getSpecialMailboxes()
+    {
+        return IMP_Mailbox::getSpecialMailboxes();
     }
 
 }

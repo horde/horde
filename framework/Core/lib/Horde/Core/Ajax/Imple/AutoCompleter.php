@@ -1,6 +1,6 @@
 <?php
 /**
- * Attach an auto completer to a javascript element.
+ * Attach an auto completer to a HTML element.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
@@ -15,108 +15,69 @@
 abstract class Horde_Core_Ajax_Imple_AutoCompleter extends Horde_Core_Ajax_Imple
 {
     /**
-     * Constructor.
+     * Since this is shared code, we need to keep global init status here.
      *
-     * @param array $params  Configuration parameters.
-     * <pre>
-     * 'triggerId' => (string) [optional] TODO
-     * 'no_onload' => (boolean) [optional] Don't wait for dom:onload to attach
-     * </pre>
+     * @var boolean
      */
-    public function __construct($params)
+    static protected $_initAc = false;
+
+    /**
+     */
+    protected function _attach($init)
     {
-        if (empty($params['triggerId'])) {
-            $params['triggerId'] = $this->_randomid();
+        global $page_output;
+
+        if (!self::$_initAc) {
+            $page_output->addScriptFile('autocomplete.js', 'horde');
+            $page_output->addScriptFile('liquidmetal.js', 'horde');
+            $page_output->addScriptPackage('Keynavlist');
+
+            $page_output->addInlineJsVars(array(
+                'HordeImple.AutoCompleter' => new stdClass
+            ));
+
+            self::$_initAc = true;
         }
 
-        if (empty($params['triggerContainer'])) {
-            $params['triggerContainer'] = $this->_randomid();
-        }
+        $page_output->addInlineScript(array(
+            'HordeImple.AutoCompleter["' . $this->getDomId() . '"]=' . $this->_getAutoCompleter()->generate($this)
+        ), true);
 
-        parent::__construct($params);
+        return false;
     }
 
     /**
-     * Attach the object to a javascript event.
      */
-    public function attach()
+    protected function _handle(Horde_Variables $vars)
     {
-        $params = array(
-            '"' . $this->_params['triggerId'] . '"'
-        );
-
-        $config = $this->_attach(array('tokens' => array(',', ';')));
-
-        Horde::addScriptFile('autocomplete.js', 'horde');
-        Horde::addScriptFile('keynavlist.js', 'horde');
-        Horde::addScriptFile('liquidmetal.js', 'horde');
-        if (isset($config['ajax'])) {
-            $func = 'Ajax.Autocompleter';
-            $params[] = '"' . $this->_getUrl($config['ajax'], $GLOBALS['registry']->getApp(), array('input' => $this->_params['triggerId'])) . '"';
-        } elseif (isset($config['browser'])) {
-            $func = 'Autocompleter.Local';
-            $params[] = $config['browser'];
-            $config['params'] = array_merge(array(
-                'partialSearch' => 1,
-                'fullSearch' => 1,
-                'score' => 1
-            ), $config['params']);
-        } elseif (isset($config['pretty'])) {
-            Horde::addScriptFile('prettyautocomplete.js', 'horde');
-            $func = 'PrettyAutocompleter';
-            $config['params'] = array_merge(array(
-                'boxClass' => 'hordeACBox kronolithLongField',
-                'trigger' => $this->_params['triggerId'],
-                'triggerContainer' => $this->_params['triggerContainer'],
-                'uri' => (string)$this->_getUrl($config['pretty'], $GLOBALS['registry']->getApp()),
-                'deleteIcon' => (string)Horde_Themes::img('delete-small.png'),
-                'box' => !empty($this->_params['box']) ? $this->_params['box'] : ''
-            ), $config['params']);
-
-            if (!empty($this->_params['existing'])) {
-                $config['params']['existing'] = $this->_params['existing'];
-            }
+        // Avoid errors if 'input' isn't set and short-circuit empty searches.
+        if (!isset($vars->input)) {
+            $result = array();
         } else {
-            return;
+            $input = $vars->get($vars->input);
+            $result = strlen($input)
+                ? $this->_handleAutoCompleter($input)
+                : array();
         }
 
-        $config['raw_params'] = !empty($config['raw_params']) ? $config['raw_params'] : array();
-        foreach ($config['raw_params'] as $name => $val) {
-            $config['params'][$name] = 1;
-        }
-
-        $js_params = Horde_Serialize::serialize($config['params'], Horde_Serialize::JSON);
-
-        foreach ($config['raw_params'] as $name => $val) {
-            $js_params = str_replace('"' . $name . '":1', '"' . $name . '":' . $val, $js_params);
-        }
-
-        Horde::addScriptFile('effects.js', 'horde');
-
-        Horde::addInlineScript((isset($config['var']) ? $config['var'] . ' = ' : '') . 'new ' . $func . '(' . implode(',', $params) . ',' . $js_params . ')', empty($this->_params['no_onload']) ? 'dom' : null);
+        return new Horde_Core_Ajax_Response_Prototypejs($result);
     }
 
     /**
-     * Attach the object to a javascript event.
+     * Get the autocompleter object to use on the browser.
      *
-     * @return array  An array with the following elements:
-     * <pre>
-     * ONE of the following:
-     * 'ajax' - (string) Use 'Ajax.Autocompleter' class. Value is the AJAX
-     *          function name.
-     * 'browser' - (string) Use 'Autocompleter.Local' class. Value is the
-     *             javascript list of items to search.
-     * 'pretty' - (string) Use 'PrettyAutocompleter' class. Value is the AJAX
-     *            function name.
-     *
-     * Additional Options:
-     * 'params' - (array) The list of javascript parameters to pass to the
-     *            autocomplete libraries.
-     * 'raw_params' - (array) Adds raw javascript to the 'params' array.
-     * 'var' - (string) If set, the autocomplete object will be assigned to
-     *         this variable.
-     * </pre>
+     * @return Horde_Core_Ajax_Imple_AutoCompleter_Base  The autocompleter
+     *                                                   object to use.
      */
-    abstract protected function _attach($js_params);
+    abstract protected function _getAutoCompleter();
+
+    /**
+     * Do the auto-completion on the server.
+     *
+     * @param string $input  Input received from the browser.
+     *
+     * @return mixed  Raw data to return to the javascript code.
+     */
+    abstract protected function _handleAutoCompleter($input);
 
 }

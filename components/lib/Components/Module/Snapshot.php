@@ -83,7 +83,7 @@ extends Components_Module_Base
      */
     public function getUsage()
     {
-        return '  snapshot    - Generate a develpment snapshot.
+        return '  snapshot    - Generate a development snapshot.
 ';
     }
 

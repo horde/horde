@@ -410,19 +410,21 @@ class Turba_Object
      */
     public function vfsDisplayUrl($file)
     {
-        global $registry, $mime_drivers_map, $mime_drivers;
+        global $registry;
 
         $mime_part = new Horde_Mime_Part();
         $mime_part->setType(Horde_Mime_Magic::extToMime($file['type']));
         $viewer = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part);
 
         // We can always download files.
-        $url_params = array('actionID' => 'download_file',
-                            'file' => $file['name'],
-                            'type' => $file['type'],
-                            'source' => $this->driver->getName(),
-                            'key' => $this->getValue('__key'));
-        $dl = Horde::link(Horde::downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download")) . '</a>';
+        $url_params = array(
+            'actionID' => 'download_file',
+            'file' => $file['name'],
+            'type' => $file['type'],
+            'source' => $this->driver->getName(),
+            'key' => $this->getValue('__key')
+        );
+        $dl = Horde::link($registry->downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download")) . '</a>';
 
         // Let's see if we can view this one, too.
         if ($viewer && !($viewer instanceof Horde_Mime_Viewer_Default)) {

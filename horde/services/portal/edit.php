@@ -10,7 +10,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 $blocks = $injector->getInstance('Horde_Core_Factory_BlockCollection')->create();
@@ -29,9 +29,10 @@ if ($layout->updated()) {
     }
 }
 
-$title = _("My Portal Layout");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("My Portal Layout")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require HORDE_TEMPLATES . '/portal/edit.inc';
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

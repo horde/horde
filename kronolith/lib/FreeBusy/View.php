@@ -27,9 +27,9 @@ abstract class Kronolith_FreeBusy_View
     /**
      * Adds a required attendee
      *
-     * @param Kronolith_Freebusy $vFreebusy
+     * @param Horde_Icalendar_Vfreebusy $vFreebusy
      */
-    public function addRequiredMember(Kronolith_Freebusy $vFreebusy)
+    public function addRequiredMember(Horde_Icalendar_Vfreebusy $vFreebusy)
     {
         $this->_requiredMembers[] = clone $vFreebusy;
     }
@@ -37,9 +37,9 @@ abstract class Kronolith_FreeBusy_View
     /**
      * Adds an optional attendee
      *
-     * @param Kronolith_Freebusy $vFreebusy
+     * @param Horde_Icalendar_Vfreebusy $vFreebusy
      */
-    public function addOptionalMember(Kronoolith_Freebusy $vFreebusy)
+    public function addOptionalMember(Horde_Icalendar_Vfreebusy $vFreebusy)
     {
         $this->_optionalMembers[] = clone $vFreebusy;
     }
@@ -47,9 +47,9 @@ abstract class Kronolith_FreeBusy_View
     /**
      * Adds an optional resource
      *
-     * @param Kronolith_Freebusy $vFreebusy
+     * @param Horde_Icalendar_Vfreebusy $vFreebusy
      */
-    public function addOptionalResourceMember(Kronolith_Freebusy $vFreebusy)
+    public function addOptionalResourceMember(Horde_Icalendar_Vfreebusy $vFreebusy)
     {
         $this->_optionalResourceMembers[] = clone $vFreebusy;
     }
@@ -57,9 +57,9 @@ abstract class Kronolith_FreeBusy_View
     /**
      * Adds a required resource
      *
-     * @param Kronolith_Freebusy $vFreebusy
+     * @param Horde_Icalendar_Vfreebusy $vFreebusy
      */
-    public function addRequiredResourceMember(Kronolith_Freebusy $vFreebusy)
+    public function addRequiredResourceMember(Horde_Icalendar_Vfreebusy $vFreebusy)
     {
         $this->_requiredResourceMembers[] = clone $vFreebusy;
     }

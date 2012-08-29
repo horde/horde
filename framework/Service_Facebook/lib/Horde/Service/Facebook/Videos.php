@@ -13,45 +13,38 @@ class Horde_Service_Facebook_Videos extends Horde_Service_Facebook_Base
     /**
      * Uploads a video.
      *
-     * @param  string $file        The location of the video on the local filesystem.
-     * @param  string $title       (Optional) A title for the video. Titles over 65 characters in length will be truncated.
-     * @param  string $description (Optional) A description for the video.
-     *
-     * @return array  An array with the video's ID, title, description, and a link to view it on Facebook.
+     * @param array $params  The parameter array.
+     *  - file: (string)  A local path to the file to upload.
+     *         DEFAULT: none REQUIRED
+     *  - caption: (string)  The photo caption.
+     *             DEFAULT: None.
+     *  - uid: (string) The Facebook UID of where to post the video to. Normally
+     *         a user id.
+     *         DEFAULT: None (Will upload on behalf of the current user).
+     * @return array  An array of user objects
      */
-    public function upload($file, $title = null, $description = null)
+    public function upload(array $params = array())
     {
-        // Session key is *required*
-        if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('session_key is required',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+        // Requires either a owner_uid or a session_key
+        if (!$this->_facebook->auth->getSessionKey()) {
+            throw new Horde_Service_Facebook_Exception(
+                'photos.addTag requires either a uid or a session_key',
+                Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        return $this->_facebook->call_upload_method('facebook.video.upload',
-            array('title' => $title,
-                  'description' => $description,
-                  'session_key' => $skey),
-            $file,
-            Horde_Service_Facebook::getFacebookUrl('api-video') . '/restserver.php');
-    }
-
-    /**
-     * Returns an array with the video limitations imposed on the current session's
-     * associated user. Maximum length is measured in seconds; maximum size is
-     * measured in bytes.
-     *
-     * @return array  Array with "length" and "size" keys
-     */
-    public function &getUploadLimits()
-    {
-        // Session key is *required*
-        if (!$skey = $this->_facebook->auth->getSessionKey()) {
-            throw new Horde_Service_Facebook_Exception('session_key is required',
-                                               Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
+        if (empty($params['file'])) {
+            throw new InvalidArgumentException('Missing required file parameter.');
         }
 
-        return $this->_facebook->callMethod('facebook.video.getUploadLimits',
-            array('session_key' => $skey));
+        // Build the data to send.
+        $data = array(
+            'message' => empty($params['caption']) ? '' : $params['caption']
+        );
+
+        $uid = empty($params['uid']) ? 'me/videos' : $params['uid'] . '/videos';
+        $request = new Horde_Service_Facebook_Request_Graph($this->_facebook, $uid);
+
+        return $request->upload(array('params' => $data, 'file' => $params['file']));
     }
 
 }

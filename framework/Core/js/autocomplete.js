@@ -235,7 +235,8 @@ Autocompleter.Base = Class.create({
     onSelect: function(entry)
     {
         if (entry) {
-            this.elt.setValue(this.opts.onSelect(this.getNewVal(entry))).focus();
+            this.elt.focus();
+            this.elt.setValue(this.opts.onSelect(this.getNewVal(entry)));
             if (this.knl) {
                 this.knl.markSelected();
             }
@@ -321,7 +322,7 @@ Autocompleter.Local = Class.create(Autocompleter.Base, {
 
         choices = o.arr.findAll(function(t) {
             if (i == o.choices) {
-                throw $break;
+                return false;
             }
 
             if (o.ignoreCase) {

@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
@@ -32,19 +32,18 @@ if (empty($source) || !isset($source_list[$source])) {
 
 /* Get the search as submitted (defaults to '' which should list everyone). */
 $search = Horde_Util::getFormData('search');
-$apiargs = array();
-$apiargs['addresses'] = array($search);
-$apiargs['addressbooks'] = array($source);
-$apiargs['fields'] = array();
-
-$searchpref = Kronolith::getAddressbookSearchParams();
-if (isset($searchpref[$source])) {
-    $apiargs['fields'][$source] = $searchpref[$source];
-}
 
 if ($search || $prefs->getValue('display_contact')) {
+    $searchpref = Kronolith::getAddressbookSearchParams();
+    $fields = isset($searchpref[$source])
+        ? array($source => $searchpref[$source])
+        : array();
+
     try {
-        $results = $registry->call('contacts/search', $apiargs);
+        $results = $registry->call('contacts/search', array($search, array(
+            'fields' => $fields,
+            'sources' => array($source)
+        )));
     } catch (Exception $e) {
         $results = array();
     }
@@ -71,8 +70,9 @@ for ($i = 0; $i < count($sa) - 1; $i += 2) {
 $display = Horde_Util::getFormData('display', 'name');
 
 /* Display the form. */
-$title = _("Address Book");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Address Book")
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 require KRONOLITH_TEMPLATES . '/contacts/contacts.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

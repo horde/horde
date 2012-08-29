@@ -13,7 +13,7 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('chora');
 
 // Exit if patchset feature is not available.
@@ -42,9 +42,11 @@ if (empty($patchsets)) {
 
 $extraLink = Chora::getFileViews($where, 'patchsets');
 
-Horde::addScriptFile('tables.js', 'horde');
-Horde::addScriptFile('quickfinder.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->addScriptFile('quickfinder.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/patchsets/header_table.inc';
@@ -67,4 +69,4 @@ while (list($id, $patchset) = each($patchsets)) {
 }
 
 require CHORA_TEMPLATES . '/patchsets/footer.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -1,0 +1,10 @@
+TODO
+=====
+
+- After kronolith gets support for different organizer/owner fields, must
+  properly set the organizer for meeting responses. Currently, the event
+  created from a meeting response does not contain the organizer of the original
+  event. So when the event is sync'd back to the device, it allows the user
+  to cancel the event and send updates to all attendees. Also, it will then be
+  possible to automatically add responses to the kronolith event from the
+  incoming activesync response message.

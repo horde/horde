@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../../Autoload.php';
+require_once __DIR__ . '/../../../../Autoload.php';
 
 /**
  * Test the handling of the preference data query.
@@ -61,8 +61,8 @@ extends Horde_Kolab_Storage_TestCase
                     'user/test/Preferences' => array(
                         't' => 'h-prefs.default',
                         'm' => array(
-                            1 => array('file' => dirname(__FILE__) . '/../../../../fixtures/preferences.1'),
-                            2 => array('file' => dirname(__FILE__) . '/../../../../fixtures/preferences.2'),
+                            1 => array('file' => __DIR__ . '/../../../../fixtures/preferences.1'),
+                            2 => array('file' => __DIR__ . '/../../../../fixtures/preferences.2'),
                         ),
                     )
                 )

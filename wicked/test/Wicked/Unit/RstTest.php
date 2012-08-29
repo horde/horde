@@ -21,7 +21,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test the restructured text renderer.
@@ -358,7 +358,7 @@ test
 
     public function testFixtureCliModular()
     {
-        $fixture = dirname(__FILE__) . '/../fixtures/cli_modular';
+        $fixture = __DIR__ . '/../fixtures/cli_modular';
         $wiki = new Text_Wiki_Default();
         $this->assertEquals(
             file_get_contents($fixture . '.rst'),

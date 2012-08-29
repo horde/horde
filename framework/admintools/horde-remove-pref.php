@@ -13,7 +13,7 @@
 /* Set this to true if you want DB modifications done.*/
 $live = false;
 
-require_once dirname(__FILE__) . '/horde-base.php';
+require_once __DIR__ . '/horde-base.php';
 Horde_Registry::appInit('horde', array(
     'authentication' => 'none',
     'cli' => true

@@ -1,35 +1,30 @@
 <?php
 /**
- * Base class for ActiveSync backends. Provides the communication between
- * the ActiveSync classes and the actual backend data that is being sync'd.
+ * Horde_ActiveSync_Driver_Base::
  *
- * Also responsible for providing objects to the command objects that can
- * generate the delta between the PIM and server.
- *
- * Based, in part, on code by the Z-Push project. Original copyright notices
- * appear below.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
- *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 /**
- * File      :   diffbackend.php
- * Project   :   Z-Push
- * Descr     :   We do a standard differential
- *               change detection by sorting both
- *               lists of items by their unique id,
- *               and then traversing both arrays
- *               of items at once. Changes can be
- *               detected by comparing items at
- *               the same position in both arrays.
+ * Base ActiveSync Driver backend. Provides communication with the actual
+ * server backend that ActiveSync will be syncing devices with. This is an
+ * abstract class, servers must implement their own backend to provide
+ * the needed data.
  *
- * Created   :   01.10.2007
- *
- * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL-2.0.
- * Consult COPYING file for details
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 abstract class Horde_ActiveSync_Driver_Base
 {
@@ -69,65 +64,36 @@ abstract class Horde_ActiveSync_Driver_Base
     protected $_params;
 
     /**
-     * Secuirity Policies. These settings can be overridden by the backend
-     * provider by passing in a 'policies' key in the const'r params array. This
-     * way the server can provide user-specific policies.
+     * Protocol version
      *
-     * <pre>
-     * Currently supported settings are:
-     *   pin      - Device must have a pin lock enabled.
-     *   computerunlock  - Device can be unlocked by a computer.
-     *   AEFrequencyValue - Time (in minutes) of inactivity before device locks
-     *   DeviceWipeThreshold - Number of failed unlock attempts before the
-     *                         device should wipe on devices that support this.
-     *   CodewordFrequency   - Number of failed unlock attempts before needing
-     *                         to verify that a person who can read and write is
-     *                         using the PIM.
-     *   MinimumPasswordLength
-     *   PasswordComplexity     - 0 - alphanumeric, 1 - numeric, 2 - anything
-     * </pre>
+     * @var float
      */
-    protected $_policies = array(
-        'pin' => true,
-        'extended_policies' => true,
-        'inactivity' => 5,
-        'wipethreshold' => 10,
-        'codewordfrequency' => 0,
-        'minimumlength' => 5,
-        'complexity' => 2,
-        );
+    protected $_version;
 
     /**
-     * The state object for this request. Needs to be injected into this class.
-     * Different Sync objects may require more then one type of stateObject.
-     * For instance, Horde can sync contacts and caledar data with a history
-     * based state engine, but cannot due the same for email.
+     * The state driver for this request. Needs to be injected into this class.
      *
      * @var Horde_ActiveSync_State_Base
      */
-    protected $_stateObject;
+    protected $_stateDriver;
 
     /**
      * Const'r
      *
      * @param array $params  Any configuration parameters or injected objects
      *                       the concrete driver may need.
-     *  <pre>
-     *     (optional) logger       Horde_Log_Logger instance
-     *     (required) state_basic  A Horde_ActiveSync_State_Base object that is
-     *                             capable of handling all collections except
-     *                             email.
-     *     (optional) state_email  A Horde_ActiveSync_State_Base object that is
-     *                             capable of handling email collections.
-     *  </pre>
+     *  - logger: (Horde_Log_Logger) The logger.
+     *            DEFAULT: none (No logging).
+     *  - state: (Horde_ActiveSync_State_Base) The state driver.
+     *           DEFAULT: none (REQUIRED).
      *
      * @return Horde_ActiveSync_Driver
      */
     public function __construct($params = array())
     {
         $this->_params = $params;
-        if (empty($params['state_basic']) ||
-            !($params['state_basic'] instanceof Horde_ActiveSync_State_Base)) {
+        if (empty($params['state']) ||
+            !($params['state'] instanceof Horde_ActiveSync_State_Base)) {
 
             throw new InvalidArgumentException('Missing required state object');
         }
@@ -141,31 +107,39 @@ abstract class Horde_ActiveSync_Driver_Base
             $this->_logger = new Horde_Support_Stub;
         }
 
-        $this->_stateObject = $params['state_basic'];
-        $this->_stateObject->setLogger($this->_logger);
-        $this->_stateObject->setBackend($this);
-
-        /* Override any security policies */
-        if (!empty($params['policies'])) {
-            $this->_policies = array_merge($this->_policies, $params['policies']);
-        }
+        $this->_stateDriver = $params['state'];
+        $this->_stateDriver->setLogger($this->_logger);
+        $this->_stateDriver->setBackend($this);
     }
 
+    /**
+     * Prevent circular dependency issues.
+     */
     public function __destruct()
     {
-        unset($this->_stateObject);
+        unset($this->_stateDriver);
+        unset($this->_logger);
     }
 
     /**
      * Setter for the logger instance
      *
      * @param Horde_Log_Logger $logger  The logger
-     *
-     * @void
      */
-    public function setLogger(Horde_Log_Logger $logger)
+    public function setLogger($logger)
     {
         $this->_logger = $logger;
+    }
+
+    /**
+     * Set the protocol version. Can't do it in constructer since we
+     * don't know the version at the time this driver is instantiated.
+     *
+     * @param float $version  The EAS protocol version to use.
+     */
+    public function setProtocolVersion($version)
+    {
+        $this->_version = $version;
     }
 
     /**
@@ -179,110 +153,15 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Get folder stat
-     *  "id" => The server ID that will be used to identify the folder.
-     *          It must be unique, and not too long. How long exactly is not
-     *          known, but try keeping it under 20 chars or so.
-     *          It must be a string.
-     *  "parent" => The server ID of the parent of the folder. Same restrictions
-     *              as 'id' apply.
-     *  "mod" => This is the modification signature. It is any arbitrary string
-     *           which is constant as long as the folder has not changed. In
-     *           practice this means that 'mod' can be equal to the folder name
-     *           as this is the only thing that ever changes in folders.
-     */
-    abstract public function statFolder($id);
-
-    /**
-     * Get a folder from the backend
-     *
-     * To be implemented by concrete backend driver.
-     */
-    abstract public function getFolder($id);
-
-    /**
-     * Get the list of folders from the backend.
-     */
-    abstract public function getFolderList();
-
-    /**
-     * Get a full list of messages on the server
-     *
-     * @param string $folderId       The folder id
-     * @param timestamp $cutOffDate  The timestamp of the earliest date for
-     *                               calendar or mail entries
-     *
-     * @return array  A list of messages
-     */
-    abstract public function getMessageList($folderId, $cutOffDate);
-
-    /**
-     * Get a list of server changes that occured during the specified time
-     * period.
-     *
-     * @param string $folderId    The server id of the collection to check.
-     * @param timestamp $from_ts  The starting timestamp
-     * @param timestamp $to_ts    The ending timestamp
-     *
-     * @return array A list of messge uids that have chnaged in the specified
-     *               time period.
-     */
-    abstract public function getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate);
-
-    /**
-     * Get a message stat.
-     *
-     * @param string $folderId  The folder id
-     * @param string $id        The message id (??)
-     *
-     * @return hash with 'id', 'mod', and 'flags' members
-     */
-    abstract public function statMessage($folderId, $id);
-
-    /**
-     * Obtain an ActiveSync message from the backend.
-     *
-     * @param string $folderid      The server's folder id this message is from
-     * @param string $id            The server's message id
-     * @param integer $truncsize    A TRUNCATION_* constant
-     * @param integer $mimesupport  Mime support for this message
-     *
-     * @return Horde_ActiveSync_Message_Base The message data
-     */
-    abstract public function getMessage($folderid, $id, $truncsize, $mimesupport = 0);
-
-    /**
-     * Delete a message
-     *
-     * @param string $folderId  Folder id
-     * @param string $id        Message id
-     *
-     * @return boolean
-     */
-    abstract public function deleteMessage($folderid, $id);
-
-    /**
-     * Add/Edit a message
-     *
-     * @param string $folderid  The server id for the folder the message belongs
-     *                          to.
-     * @param string $id        The server's uid for the message if this is a
-     *                          change to an existing message.
-     * @param Horde_ActiveSync_Message_Base $message  The activesync message
-     * @param stdClass $device  The device information
-     */
-    abstract public function changeMessage($folderid, $id, $message, $device);
-
-    /**
      * Any code needed to authenticate to backend as the actual user.
      *
      * @param string $username  The username to authenticate as
      * @param string $password  The password
-     * @param string $domain    The user domain
+     * @param string $domain    The user domain (unused in this driver).
      *
      * @return boolean
      */
-    public function logon($username, $password, $domain = null)
+    public function authenticate($username, $password, $domain = null)
     {
         $this->_authUser = $username;
         $this->_authPass = $password;
@@ -301,11 +180,11 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Any code to run on log off
+     * Clear authentication
      *
      * @return boolean
      */
-    public function logOff()
+    public function clearAuthentication()
     {
         return true;
     }
@@ -327,315 +206,390 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Return the helper for importing hierarchy changes from the PIM.
-     *
-     * @return Horde_ActiveSync_DiffState_ImportHierarchy
-     */
-    public function getHierarchyImporter()
-    {
-        $importer = new Horde_ActiveSync_DiffState_ImportHierarchy($this);
-        $importer->setLogger($this->_logger);
-
-        return $importer;
-    }
-
-    /**
-     * Return the helper for importing message changes from the PIM.
-     *
-     * @param string $folderid
-     *
-     * @return Horde_ActiveSync_DiffState_ImportContents
-     */
-    public function getContentsImporter($folderId)
-    {
-        $importer = new Horde_ActiveSync_DiffState_ImportContents($this, $folderId);
-        $importer->setLogger($this->_logger);
-
-        return $importer;
-    }
-
-    /**
-     * @TODO: This will replace the above two methods. (They are still called
-     * from the (unused/unsupported MoveItems and CreateFolder Requests).
-     *
-     * @return Horde_ActiveSync_Connector_Importer
-     */
-    public function getImporter()
-    {
-        $importer = new Horde_ActiveSync_Connector_Importer($this);
-        return $importer;
-    }
-
-    /**
-     * Return helper for performing the actual sync operation.
-     *
-     * @param string $folderId
-     *
-     * @return Horde_ActiveSync_Sync
-     */
-    public function getSyncObject()
-    {
-        $exporter = new Horde_ActiveSync_Sync($this);
-        $exporter->setLogger($this->_logger);
-
-        return $exporter;
-    }
-
-    /**
-     * Will (eventually) return an appropriate state object based on the class
-     * being sync'd.
-     *
-     * @param array $collection
-     */
-    public function &getStateObject($collection = array())
-    {
-        $this->_stateObject->init($collection);
-        $this->_stateObject->setLogger($this->_logger);
-        return $this->_stateObject;
-    }
-
-    /**
-     * Get the full folder hierarchy from the backend.
-     *
-     * @return array
-     */
-    public function getHierarchy()
-    {
-        $folders = array();
-
-        $fl = $this->getFolderList();
-        foreach ($fl as $f) {
-            $folders[] = $this->getFolder($f['id']);
-        }
-
-        return $folders;
-    }
-
-    /**
      * Obtain a message from the backend.
      *
-     * @param string $folderid
-     * @param string $id
-     * @param ?? $mimesupport  (Not sure what this was supposed to do)
+     * @param string $folderid   Folder id containing data to fetch.
+     * @param string $id         Server id of data to fetch.
+     * @param array $collection  The collection data.
      *
      * @return Horde_ActiveSync_Message_Base The message data
      */
-    public function fetch($folderid, $id, $mimesupport = 0)
+    public function fetch($folderid, $id, array $collection)
     {
-        // Forces entire message (up to 1Mb)
-        return $this->getMessage($folderid, $id, 1024 * 1024, $mimesupport);
+        // Forces entire message
+        $collection['truncation'] = 0;
+        if (!empty($collection['bodyprefs'])) {
+            foreach ($collection['bodyprefs'] as &$bodypref) {
+                if (isset($bodypref['truncationsize'])) {
+                    $bodypref['truncationsize'] = 0;
+                }
+            }
+        }
+        return $this->getMessage($folderid, $id, $collection);
     }
 
     /**
+     * Add default truncation values for this driver.
      *
-     * @param $attname
-     * @return unknown_type
+     * @param array $bodyprefs  BODYPREFERENCE data.
+     *
+     * @return array  THe BODYPREFERENCE data, with default truncationsize values.
      */
-    public function getAttachmentData($attname)
+    public function addDefaultBodyPrefTruncation(array $bodyprefs)
     {
-        return false;
-    }
+        if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) &&
+            !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'] = 1048576; // 1024 * 1024
+        }
+        if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]) &&
+            !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
+            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'] = 1048576; // 1024 * 1024
+        }
+        if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_RTF]) &&
+            !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_RTF]['truncationsize'])) {
+            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_RTF]['truncationsize'] = 1048576; // 1024 * 1024
+        }
+        if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME]) &&
+            !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'])) {
+            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'] = 1048576; // 1024 * 1024
+        }
 
-    /**
-     * Sends the email represented by the rfc822 string received by the PIM.
-     *
-     * @param string $rfc822    The rfc822 mime message
-     * @param boolean $forward  Is this a message forward?
-     * @param boolean $reply    Is this a reply?
-     * @param boolean $parent   Parent message in thread.
-     *
-     * @return boolean
-     */
-    abstract function sendMail($rfc822, $forward = false, $reply = false, $parent = false);
-
-    /**
-     * @return unknown_type
-     */
-    public function getWasteBasket()
-    {
-        return false;
+        return $bodyprefs;
     }
 
     /**
      * Delete a folder on the server.
      *
-     * @param string $parent  The parent folder.
-     * @param string $id      The folder to delete.
-     *
-     * @return boolean
-     * @throws Horde_ActiveSync_Exception
+     * @param string $id  The server's folder id.
+     * @param string $parent  The folder's parent, if needed.
      */
-    public function deleteFolder($parent, $id)
-    {
-        throw new Horde_ActiveSync_Exception('DeleteFolder not yet implemented');
-    }
+    abstract public function deleteFolder($id, $parent = Horde_ActiveSync::FOLDER_ROOT);
 
     /**
+     * Change a folder on the server.
      *
-     * @param $folderid
-     * @param $id
-     * @param $flags
-     * @return unknown_type
+     * @param string $id           The server's folder id
+     * @param string $displayname  The new display name.
+     * @param string $parent       The folder's parent, if needed.
      */
-    public function setReadFlag($folderid, $id, $flags)
-    {
-        return false;
-    }
+    abstract public function changeFolder($id, $displayname, $parent);
 
     /**
-     * Change the name and/or type of a folder.
+     * Move message
      *
-     * @param string $parent
-     * @param string $id
-     * @param string $displayname
-     * @param string $type
+     * @param string $folderid     Existing folder id
+     * @param array $ids           Message UIDs
+     * @param string $newfolderid  The new folder id
      *
-     * @return boolean
+     * @return array  The new uids for the message.
      */
-    public function changeFolder($parent, $id, $displayname, $type)
-    {
-        throw new Horde_ActiveSync_Exception('changeFolder not yet implemented.');
-    }
-
-    /**
-     * @todo
-     *
-     * @param $folderid
-     * @param $id
-     * @param $newfolderid
-     * @return unknown_type
-     */
-    public function moveMessage($folderid, $id, $newfolderid)
-    {
-        throw new Horde_ActiveSync_Exception('moveMessage not yet implemented.');
-    }
-
-    /**
-     * @todo
-     *
-     * @param $requestid
-     * @param $folderid
-     * @param $error
-     * @param $calendarid
-     * @return unknown_type
-     */
-    public function meetingResponse($requestid, $folderid, $error, &$calendarid)
-    {
-        throw new Horde_ActiveSync_Exception('meetingResponse not yet implemented.');
-    }
+    abstract public function moveMessage($folderid, array $ids, $newfolderid);
 
     /**
      * Returns array of items which contain contact information
      *
-     * @param string $query
-     * @param string $range
+     * @param string $type   The search type; ['gal'|'mailbox']
+     * @param array $query   The search query. An array containing:
+     *  - query: (string) The search term.
+     *           DEFAULT: none, REQUIRED
+     *  - range: (string)   A range limiter.
+     *           DEFAULT: none (No range used).
      *
-     * @return array
+     * @return array  An array containing:
+     *  - rows:   An array of search results
+     *  - status: The search store status code.
      */
-    public function getSearchResults($query, $range)
-    {
-        throw new Horde_ActiveSync_Exception('getSearchResults not implemented.');
-    }
+    abstract public function getSearchResults($type, array $query);
 
     /**
-     * Specifies if this driver has an alternate way of checking for changes
-     * when PING is used.
+     * Stat folder. Note that since the only thing that can ever change for a
+     * folder is the name, we use that as the 'mod' value.
+     *
+     * @param string $id     The folder id
+     * @param mixed $parent  The parent folder (or 0 if none).
+     * @param mixed $mod     Modification indicator. For folders, this is the
+     *                       name of the folder, since that's the only thing
+     *                       that can change.
+     * @return a stat hash
+     */
+    abstract public function statFolder($id, $parent = 0, $mod = null);
+
+    /**
+     * Return the ActiveSync message object for the specified folder.
+     *
+     * @param string $id  The folder's server id.
+     *
+     * @return Horde_ActiveSync_Message_Folder object.
+     */
+    abstract public function getFolder($id);
+
+    /**
+     * Get the list of folder stat arrays @see self::statFolder()
+     *
+     * @return array  An array of folder stat arrays.
+     */
+    abstract public function getFolderList();
+
+    /**
+     * Return an array of folder objects.
+     *
+     * @return array  An array of Horde_ActiveSync_Message_Folder objects.
+     */
+    abstract public function getFolders();
+
+    /**
+     * Get a list of server changes that occured during the specified time
+     * period.
+     *
+     * @param string $folderId     The server id of the collection to check.
+     * @param integer $from_ts     The starting timestamp.
+     * @param integer $to_ts       The ending timestamp.
+     * @param integer $cutoffdate  The earliest date to retrieve back to.
+     * @param boolean $ping        If true, returned changeset may
+     *                             not contain the full changeset, may only
+     *                             contain a single change, designed only to
+     *                             indicate *some* change has taken place. The
+     *                             value should not be used to determine *what*
+     *                             change has taken place.
+     *
+     * @return array A list of messge uids that have chnaged in the specified
+     *               time period.
+     */
+    abstract public function getServerChanges(
+        $folderId, $from_ts, $to_ts, $cutoffdate, $ping);
+
+    /**
+     * Get a message stat.
+     *
+     * @param string $folderId  The folder id
+     * @param string $id        The message id (??)
+     *
+     * @return hash with 'id', 'mod', and 'flags' members
+     */
+    abstract public function statMessage($folderId, $id);
+
+    /**
+     * Obtain an ActiveSync message from the backend.
+     *
+     * @param string $folderid    The server's folder id this message is from
+     * @param string $id          The server's message id
+     * @param array  $collection  The colletion data. May contain things like:
+     *   - mimesupport: (boolean) Indicates if the device has MIME support.
+     *                  DEFAULT: false (No MIME support)
+     *   - truncation: (integer)  The truncation constant, if sent by the device.
+     *                 DEFAULT: 0 (No truncation)
+     *   - bodyprefs: (array)  The bodypref array from the device.
+     *
+     * @return Horde_ActiveSync_Message_Base The message data
+     * @throws Horde_ActiveSync_Exception
+     */
+    abstract public function getMessage($folderid, $id, array $collection);
+
+    /**
+     * Delete a message
+     *
+     * @param string $folderId  Folder id
+     * @param array $ids        Message ids
+     */
+    abstract public function deleteMessage($folderid, array $ids);
+
+    /**
+     * Get the wastebasket folder.
+     *
+     * @param string $class  The collection class.
+     *
+     * @return string|boolean  Returns name of the trash folder, or false
+     *                         if not using a trash folder.
+     */
+    abstract public function getWasteBasket($class);
+
+    /**
+     * Add/Edit a message
+     *
+     * @param string $folderid  The server id for the folder the message belongs
+     *                          to.
+     * @param string $id        The server's uid for the message if this is a
+     *                          change to an existing message, null if new.
+     * @param Horde_ActiveSync_Message_Base $message
+     *                          The activesync message
+     * @param stdClass $device  The device information
+     *
+     * @return array|boolean    A stat array if successful, otherwise false.
+     */
+    abstract public function changeMessage($folderid, $id, Horde_ActiveSync_Message_Base $message, $device);
+
+    /**
+     * Set the read (\seen) flag on the specified message.
+     *
+     * @param string $folderid  The folder id containing the message.
+     * @param string $uid       The message uid.
+     * @param integer $flag     The value to set the flag to.
+     */
+    abstract public function setReadFlag($folderid, $id, $flags);
+
+    /**
+     * Sends the email represented by the rfc822 string received by the PIM.
+     *
+     * @param mixed $rfc822     The rfc822 mime message, a string or stream
+     *                          resource.
+     * @param integer $forward  The UID of the message, if forwarding.
+     * @param integer $reply    The UID of the message if replying.
+     * @param string $parent    The collection id of parent message if
+     *                          forwarding/replying.
+     * @param boolean $save     Save in sent messages.
      *
      * @return boolean
      */
-    public function alterPing()
-    {
-        return false;
-    }
+    abstract public function sendMail(
+        $rfc822, $forward = null, $reply = null, $parent = null, $save = true);
 
     /**
-     * If this driver can check for changes in an alternate way for PING then
-     * for SYNC, this method is used to do so. Also, alterPing() should return
-     * true in this case.
+     * Return the specified attachment.
      *
-     * @param string $folderid  The folder id
-     * @param array $syncstate  The syncstate
+     * @param string $name  The attachment identifier. For this driver, this
+     *                      consists of 'mailbox:uid:mimepart'
      *
-     * @deprecated - This will probably be removed.
-     * @return array  An array of changes, the same as retunred from getChanges
+     * @param array $options  Any options requested. Currently supported:
+     *  - stream: (boolean) Return a stream resource for the mime contents.
+     *
+     * @return array  The attachment in the form of an array with the following
+     *                structure:
+     * array('content-type' => {the content-type of the attachement},
+     *       'data'         => {the raw attachment data})
      */
-    public function alterPingChanges($folderid, &$syncstate)
-    {
-        return array();
-    }
+    abstract public function getAttachment($name, array $options = array());
 
     /**
-     * Build a <wap-provisioningdoc> for the given security settings provided
-     * by the backend.
+     * Return the specified attachement data for an ITEMOPERATIONS request.
      *
-     * 4131 (Enforce password on device) 0: enabled 1: disabled
-     * AEFrequencyType 0: no inactivity time 1: inactivity time is set
-     * AEFrequencyValue inactivity time in minutes
-     * DeviceWipeThreshold after how many wrong password to device should get wiped
-     * CodewordFrequency validate every x wrong passwords, that a person is using the device which is able to read and write. should be half of DeviceWipeThreshold
-     * MinimumPasswordLength minimum password length
-     * PasswordComplexity 0: Require alphanumeric 1: Require only numeric, 2: anything goes
+     * @param string $filereference  The attachment identifier.
      *
-     * @param string  The type of policy to return.
-     *
-     * @return string
+     * @return
      */
-    public function getCurrentPolicy($policyType = 'MS-WAP-Provisioning-XML')
-    {
-        $xml = '<wap-provisioningdoc><characteristic type="SecurityPolicy">'
-            . '<parm name="4131" value="' . ($this->_policies['pin'] ? 0 : 1) . '"/>'
-            . '</characteristic>';
-
-        if ($this->_policies['pin'] && $this->_policies['extended_policies']) {
-            $xml .= '<characteristic type="Registry">'
-            .   '<characteristic type="HKLM\Comm\Security\Policy\LASSD\AE\{50C13377-C66D-400C-889E-C316FC4AB374}">'
-            .        '<parm name="AEFrequencyType" value="' . (!empty($this->_policies['inactivity']) ? 1 : 0) . '"/>'
-            .        (!empty($this->_policies['inactivity']) ? '<parm name="AEFrequencyValue" value="' . $this->_policies['inactivity'] . '"/>' : '')
-            .    '</characteristic>';
-
-            if (!empty($this->_policies['wipethreshold'])) {
-                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="DeviceWipeThreshold" value="' . $this->_policies['wipethreshold'] . '"/></characteristic>';
-            }
-            if (!empty($this->_policies['codewordfrequency'])) {
-                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD"><parm name="CodewordFrequency" value="' . $this->_policies['codewordfrequency'] . '"/></characteristic>';
-            }
-            if (!empty($this->_policies['minimumlength'])) {
-                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="MinimumPasswordLength" value="' . $this->_policies['minimumlength'] . '"/></characteristic>';
-            }
-            if ($this->_policies['complexity'] !== false) {
-                $xml .= '<characteristic type="HKLM\Comm\Security\Policy\LASSD\LAP\lap_pw"><parm name="PasswordComplexity" value="' . $this->_policies['complexity'] . '"/></characteristic>';
-            }
-            $xml .= '</characteristic>';
-        }
-
-        $xml .= '</wap-provisioningdoc>';
-
-        return $xml;
-    }
+    abstract public function itemOperationsGetAttachmentData($filereference);
 
     /**
-     * Truncate an UTF-8 encoded sting correctly
+     * Returnmail object represented by the specified longid. Used to fetch
+     * email objects from a search result, which only returns a 'longid'.
      *
-     * If it's not possible to truncate properly, an empty string is returned
+     * @param string $longid   The unique search result identifier.
+     * @param array $bodypref  The bodypreference array.
+     * @param boolean $mime    Mimesupport flag.
      *
-     * @param string $string  The string to truncate
-     * @param string $length  The length of the returned string
-     *
-     * @return string  The truncated string
+     * @return Horde_ActiveSync_Message_Base  The message requested.
      */
-    static public function truncate($string, $length)
-    {
-        if (strlen($string) <= $length) {
-            return $string;
-        }
-        while($length >= 0) {
-            if ((ord($string[$length]) < 0x80) || (ord($string[$length]) >= 0xC0)) {
-                return substr($string, 0, $length);
-            }
-            $length--;
-        }
+    abstract public function itemOperationsFetchMailbox($searchlongid, array $bodypreference, $mimesupport);
 
-        return "";
-    }
+    /**
+     * Return a documentlibrary item.
+     *
+     * @param string $linkid  The linkid
+     * @param array $cred     A credential array:
+     *   - username: A hash with 'username' and 'domain' key/values.
+     *   - password: User password
+     *
+     * @return array An array containing the data and metadata:
+     */
+    abstract public function itemOperationsGetDocumentLibraryLink($linkid, $cred);
 
+    /**
+     * Build a stat structure for an email message.
+     *
+     * @return array
+     */
+    abstract public function statMailMessage($folderid, $id);
+
+    /**
+     * Return the server id of the specified special folder type.
+     *
+     * @param string $type  The self::SPECIAL_* constant.
+     *
+     * @return string  The folder's server id.
+     */
+    abstract public function getSpecialFolderNameByType($type);
+
+    /**
+     * Return the security policies.
+     *
+     * @return array  An array of provisionable properties and values.
+     */
+    abstract public function getCurrentPolicy();
+
+    /**
+     * Return settings from the backend for a SETTINGS request.
+     *
+     * @param array $settings  An array of settings to return.
+     * @param stdClass $devId  The device to obtain settings for.
+     *
+     * @return array  The requested settigns.
+     */
+    abstract public function getSettings(array $settings, $device);
+
+    /**
+     * Set backend settings from a SETTINGS request.
+     *
+     * @param array $settings   The settings to store.
+     * @param stdClass $device  The device to store settings for.
+     *
+     * @return array  An array of status responses for each set request. e.g.,:
+     *   array('oof' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS,
+     *         'deviceinformation' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS);
+     */
+    abstract public function setSettings(array $settings, $device);
+
+    /**
+     * Return properties for an AUTODISCOVER request.
+     *
+     * @return array  An array of properties.
+     */
+    abstract public function autoDiscover();
+
+    /**
+     * Attempt to guess a username based on the email address passed from
+     * EAS Autodiscover requests.
+     *
+     * @param string $email  The email address
+     *
+     * @return string  The username to use to authenticate to Horde with.
+     */
+    abstract public function getUsernameFromEmail($email);
+
+    /**
+     * Handle ResolveRecipient requests
+     *
+     * @param string $type    The type of recipient request. e.g., 'certificate'
+     * @param string $search  The email to resolve.
+     * @param array $options  Any options required to perform the resolution.
+     *
+     * @return array  The results.
+     */
+    abstract public function resolveRecipient($type, $search, array $options = array());
+
+    /**
+     * Returns the provisioning support for the current request.
+     *
+     * @return mixed  The value of the provisiong support flag.
+     */
+    abstract public function getProvisioning();
+
+    /**
+     * Hanlde meeting responses.
+     *
+     * @param array $response  The response data. Contains:
+     *   - requestid: The identifier of the meeting request. Used by the server
+     *                to fetch the original meeting request details.
+     *   - response:  The user's response to the request. One of the response
+     *                code constants.
+     *   - folderid:  The collection id that contains the meeting request.
+     *
+     *
+     * @return string  The UID of any created calendar entries, otherwise false.
+     * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
+     */
+    abstract public function meetingResponse(array $response);
+
+    /**
+     * Request freebusy information from the server
+     */
+    abstract public function getFreebusy($user, array $options = array());
 }

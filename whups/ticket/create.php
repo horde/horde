@@ -7,7 +7,7 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 $empty = '';
@@ -58,8 +58,9 @@ if ($valid1 && $valid2 && $valid3 &&
 }
 
 // Start the page.
-$title = _("New Ticket");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("New Ticket")
+));
 require WHUPS_TEMPLATES . '/menu.inc';
 
 if ($valid3 && $valid2 && $valid1) {
@@ -178,4 +179,4 @@ if ($valid3 && $valid2 && $valid1) {
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

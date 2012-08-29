@@ -64,7 +64,12 @@ class Ansel
             $treeparams['selected'] = $gallery_id == $params->selected;
             $parent = $gallery->getParent();
             $parent = empty($parent) ? null : $parent->id;
-            $tree->addNode($gallery->id, $parent, $label, null, true, $treeparams);
+            $tree->addNode(array(
+                'id' => $gallery->id,
+                'parent' => $parent,
+                'label' => $label,
+                'params' => $treeparams
+            ));
         }
 
         return $tree->getTree();
@@ -361,7 +366,12 @@ class Ansel
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
             try {
-                $image->createView($view, $style);
+                $image->createView(
+                    $view,
+                    $style,
+                    (($GLOBALS['prefs']->getValue('watermark_auto') && $view == 'screen') ?
+                        $GLOBALS['prefs']->getValue('watermark_text', '') : '')
+                );
             } catch (Ansel_Exception $e) {
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
@@ -813,12 +823,11 @@ class Ansel
             $domid = $options['container'];
         }
 
-        $imple = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Imple')
-            ->create(array('ansel', 'Embed'), $options);
+        $url = $GLOBALS['registry']->getServiceLink('ajax', 'ansel')->add($options);
+        $url->url .= 'embed';
 
-        return '<script type="text/javascript" src="' . $imple->getUrl()
-            . '"></script><div id="' . $domid . '"></div>';
+        return '<script type="text/javascript" src="' . $url .
+               '"></script><div id="' . $domid . '"></div>';
     }
 
     /**
@@ -868,14 +877,16 @@ class Ansel
 
             // IF
             $code['conf']['maps'] = $GLOBALS['conf']['maps'];
-            $code['conf']['pixeluri'] = (string)Horde::getServiceLink('pixel', 'ansel');
+            $code['conf']['pixeluri'] = (string)$GLOBALS['registry']->getServiceLink('pixel', 'ansel');
             $code['conf']['markeruri'] = (string)Horde_Themes::img('photomarker.png');
             $code['conf']['shadowuri'] = (string)Horde_Themes::img('photomarker-shadow.png');
             $code['conf']['havetwitter'] = !empty($GLOBALS['conf']['twitter']['enabled']);
             $code['ajax'] = new stdClass();
             $code['widgets'] = new stdClass();
-            Horde::addInlineJsVars(array(
-                'var Ansel' => $code));
+
+            $GLOBALS['page_output']->addInlineJsVars(array(
+                'var Ansel' => $code
+            ));
         }
     }
 
@@ -936,10 +947,13 @@ class Ansel
             }
         }
         $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
-        Horde::addScriptFile('map/map.js', 'horde');
-        Horde::addScriptFile('map.js');
-        $js = 'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');';
-        Horde::addinlineScript($js);
+
+        global $page_output;
+        $page_output->addScriptFile('map/map.js', 'horde');
+        $page_output->addScriptFile('map.js');
+        $page_output->addInlineScript(array(
+            'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');'
+        ));
     }
 
 }

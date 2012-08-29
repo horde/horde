@@ -11,14 +11,14 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-06</date>
- <time>11:19:58</time>
+ <date>2012-07-19</date>
+ <time>23:30:41</time>
  <version>
-  <release>1.0.7</release>
+  <release>2.0.0beta2</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
@@ -51,7 +51,9 @@
       <file name="Book.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Options.php" role="php" />
-      <file name="Translation.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/Imsp -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -321,7 +323,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -329,9 +331,9 @@
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
  </dependencies>
@@ -704,12 +706,39 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>1.0.7</release>
+    <release>2.0.0alpha1</release>
     <api>1.0.0</api></version>
    <stability>
-    <release>stable</release>
+    <release>alpha</release>
     <api>stable</api></stability>
-   <date>2011-12-06</date>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+* [jan] Fix finding locale directory if installed with PEAR.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

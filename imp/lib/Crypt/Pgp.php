@@ -53,18 +53,20 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     /**
      * Generate the personal Public/Private keypair and store in prefs.
      *
-     * @param string $realname    See Horde_Crypt_Pgp::
-     * @param string $email       See Horde_Crypt_Pgp::
-     * @param string $passphrase  See Horde_Crypt_Pgp::
-     * @param string $comment     See Horde_Crypt_Pgp::
-     * @param string $keylength   See Horde_Crypt_Pgp::
+     * @param string $realname    See Horde_Crypt_Pgp::.
+     * @param string $email       See Horde_Crypt_Pgp::.
+     * @param string $passphrase  See Horde_Crypt_Pgp::.
+     * @param string $comment     See Horde_Crypt_Pgp::.
+     * @param string $keylength   See Horde_Crypt_Pgp::.
+     * @param integer $expire     See Horde_Crypt_Pgp::.
      *
      * @throws Horde_Crypt_Exception
      */
     public function generatePersonalKeys($name, $email, $passphrase,
-                                         $comment = '', $keylength = 1024)
+                                         $comment = '', $keylength = 1024,
+                                         $expire = null)
     {
-        $keys = $this->generateKey($name, $email, $passphrase, $comment, $keylength);
+        $keys = $this->generateKey($name, $email, $passphrase, $comment, $keylength, $expire);
 
         /* Store the keys in the user's preferences. */
         $this->addPersonalPublicKey($keys['public']);
@@ -79,7 +81,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function addPersonalPublicKey($public_key)
     {
-        $GLOBALS['prefs']->setValue('pgp_public_key', (is_array($public_key)) ? implode('', $public_key) : $public_key);
+        $GLOBALS['prefs']->setValue('pgp_public_key', trim(is_array($public_key) ? implode('', $public_key) : $public_key));
     }
 
     /**
@@ -90,7 +92,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function addPersonalPrivateKey($private_key)
     {
-        $GLOBALS['prefs']->setValue('pgp_private_key', (is_array($private_key)) ? implode('', $private_key) : $private_key);
+        $GLOBALS['prefs']->setValue('pgp_private_key', trim(is_array($private_key) ? implode('', $private_key) : $private_key));
     }
 
     /**
@@ -174,15 +176,13 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *
      * @param string $address  The e-mail address to search by.
      * @param array $options   Additional options:
-     * <pre>
-     * 'keyid' - (string) The key ID of the user's key.
-     *           DEFAULT: key ID not used
-     * 'nocache' - (boolean) Don't retrieve from cache?
-     *             DEFAULT: false
-     * 'noserver' - (boolean) Whether to check the public key servers for the
-     *              key.
+     *   - keyid: (string) The key ID of the user's key.
+     *            DEFAULT: key ID not used
+     *   - nocache: (boolean) Don't retrieve from cache?
      *              DEFAULT: false
-     * </pre>
+     *   - noserver: (boolean) Whether to check the public key servers for the
+     *               key.
+     *               DEFAULT: false
      *
      * @return string  The PGP public key requested.
      * @throws Horde_Crypt_Exception
@@ -198,7 +198,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         if (empty($options['nocache']) && ($cache = $GLOBALS['injector']->getInstance('Horde_Cache'))) {
             $result = $cache->get("PGPpublicKey_" . $address . $keyid, 3600);
             if ($result) {
-                Horde::logMessage('PGPpublicKey: ' . serialize($result), 'DEBUG');
+                Horde::log('PGPpublicKey: ' . serialize($result), 'DEBUG');
                 return $result;
             }
         }
@@ -237,7 +237,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
                     }
                 } catch (Horde_Crypt_Exception $e) {
                     /* Return now, if no public key found at all. */
-                    Horde::logMessage('PGPpublicKey: ' . $e->getMessage(), 'DEBUG');
+                    Horde::log('PGPpublicKey: ' . $e->getMessage(), 'DEBUG');
                     throw new Horde_Crypt_Exception(sprintf(_("Could not retrieve public key for %s."), $address));
                 }
             } else {
@@ -438,7 +438,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        return $secret->read($secret->getKey('imp'), $cache[$type][$id]);
+        return $secret->read($secret->getKey(), $cache[$type][$id]);
     }
 
     /**
@@ -464,7 +464,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
 
         $cache = $GLOBALS['session']->get('imp', 'pgp', Horde_Session::TYPE_ARRAY);
-        $cache[$type][$id] = $secret->write($secret->getKey('imp'), $passphrase);
+        $cache[$type][$id] = $secret->write($secret->getKey(), $passphrase);
         $GLOBALS['session']->set('imp', 'pgp', $cache);
 
         return true;
@@ -506,26 +506,6 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     }
 
     /**
-     * Generates the javascript code for saving public keys.
-     *
-     * @param string $mailbox  The mailbox of the message.
-     * @param integer $uid     The UID of the message.
-     * @param string $id       The MIME ID of the message.
-     *
-     * @return string  The URL for saving public keys.
-     */
-    public function savePublicKeyUrl($mailbox, $uid, $id)
-    {
-        $params = array(
-            'actionID' => 'save_attachment_public_key',
-            'mailbox' => $mailbox,
-            'uid' => $uid,
-            'mime_id' => $id
-        );
-        return Horde::popupJs(Horde::url('pgp.php'), array('params' => $params, 'height' => 200, 'width' => 450));
-    }
-
-    /**
      * Provide the list of parameters needed for signing a message.
      *
      * @return array  The list of parameters needed by encrypt().
@@ -542,15 +522,18 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     /**
      * Provide the list of parameters needed for encrypting a message.
      *
-     * @param array $addresses   The e-mail address of the keys to use for
-     *                           encryption.
-     * @param string $symmetric  If true, the symmetric password to use for
-     *                           encrypting. If null, uses the personal key.
+     * @param Horde_Mail_Rfc822_List $addresses  The e-mail address of the
+     *                                           keys to use for encryption.
+     * @param string $symmetric                  If true, the symmetric
+     *                                           password to use for
+     *                                           encrypting. If null, uses the
+     *                                           personal key.
      *
      * @return array  The list of parameters needed by encrypt().
      * @throws Horde_Crypt_Exception
      */
-    protected function _encryptParameters($addresses, $symmetric)
+    protected function _encryptParameters(Horde_Mail_Rfc822_List $addresses,
+                                          $symmetric)
     {
         if (!is_null($symmetric)) {
             return array(
@@ -562,11 +545,9 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         $addr_list = array();
 
         foreach ($addresses as $val) {
-            $addrOb = Horde_Mime_Address::bareAddress($val, $GLOBALS['session']->get('imp', 'maildomain'), true);
-            $key_addr = array_pop($addrOb);
-
             /* Get the public key for the address. */
-            $addr_list[$key_addr] = $this->getPublicKey($key_addr);
+            $bare_addr = $val->bare_address;
+            $addr_list[$bare_addr] = $this->getPublicKey($bare_addr);
         }
 
         return array('recips' => $addr_list);
@@ -588,17 +569,19 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     /**
      * Encrypt a Horde_Mime_Part using PGP using IMP default parameters.
      *
-     * @param Horde_Mime_Part $mime_part  The object to encrypt.
-     * @param array $addresses            The e-mail address of the keys to
-     *                                    use for encryption.
-     * @param string $symmetric           If true, the symmetric password to
-     *                                    use for encrypting. If null, uses
-     *                                    the personal key.
+     * @param Horde_Mime_Part $mime_part         The object to encrypt.
+     * @param Horde_Mail_Rfc822_List $addresses  The e-mail address of the
+     *                                           keys to use for encryption.
+     * @param string $symmetric                  If true, the symmetric
+     *                                           password to use for
+     *                                           encrypting. If null, uses the
+     *                                           personal key.
      *
      * @return Horde_Mime_Part  See Horde_Crypt_Pgp::encryptMimePart().
      * @throws Horde_Crypt_Exception
      */
-    public function impEncryptMimePart($mime_part, $addresses,
+    public function impEncryptMimePart($mime_part,
+                                       Horde_Mail_Rfc822_List $addresses,
                                        $symmetric = null)
     {
         return $this->encryptMimePart($mime_part, $this->_encryptParameters($addresses, $symmetric));
@@ -608,17 +591,20 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * Sign and Encrypt a Horde_Mime_Part using PGP using IMP default
      * parameters.
      *
-     * @param Horde_Mime_Part $mime_part  The object to sign and encrypt.
-     * @param array $addresses            The e-mail address of the keys to
-     *                                    use for encryption.
-     * @param string $symmetric           If true, the symmetric password to
-     *                                    use for encrypting. If null, uses
-     *                                    the personal key.
+     * @param Horde_Mime_Part $mime_part         The object to sign and
+     *                                           encrypt.
+     * @param Horde_Mail_Rfc822_List $addresses  The e-mail address of the
+     *                                           keys to use for encryption.
+     * @param string $symmetric                  If true, the symmetric
+     *                                           password to use for
+     *                                           encrypting. If null, uses the
+     *                                           personal key.
      *
      * @return Horde_Mime_Part  See Horde_Crypt_Pgp::signAndencryptMimePart().
      * @throws Horde_Crypt_Exception
      */
-    public function impSignAndEncryptMimePart($mime_part, $addresses,
+    public function impSignAndEncryptMimePart($mime_part,
+                                              Horde_Mail_Rfc822_List $addresses,
                                               $symmetric = null)
     {
         return $this->signAndEncryptMimePart($mime_part, $this->_signParameters(), $this->_encryptParameters($addresses, $symmetric));
@@ -647,7 +633,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         try {
             $key_info = $this->pgpPrettyKey($key);
         } catch (Horde_Crypt_Exception $e) {
-            Horde::logMessage($e, 'INFO');
+            Horde::log($e, 'INFO');
             $key_info = $e->getMessage();
         }
 
@@ -674,46 +660,29 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function importKeyDialog($target, $reload)
     {
-        $title = _("Import PGP Key");
-        require IMP_TEMPLATES . '/common-header.inc';
+        global $injector, $notification, $registry;
+
+        IMP::header(_("Import PGP Key"));
 
         /* Need to use regular status notification - AJAX notifications won't
          * show in popup windows. */
-        if (IMP::getViewMode() == 'dimp') {
-            $GLOBALS['notification']->detach('status');
-            $GLOBALS['notification']->attach('status');
+        if ($registry->getView() == Horde_Registry::VIEW_DYNAMIC) {
+            $notification->detach('status');
+            $notification->attach('status');
         }
         IMP::status();
 
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
+
         $t->set('selfurl', Horde::url('pgp.php'));
-        $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
         $t->set('reload', htmlspecialchars($reload));
         $t->set('target', $target);
         $t->set('forminput', Horde_Util::formInput());
         $t->set('import_public_key', $target == 'process_import_public_key');
-        $t->set('import_personal_public_key', $target == 'process_import_personal_public_key');
-        $t->set('import_personal_private_key', $target == 'process_import_personal_private_key');
+        $t->set('import_personal_key', $target == 'process_import_personal_key');
+
         echo $t->fetch(IMP_TEMPLATES . '/pgp/import_key.html');
-    }
-
-    /**
-     * Attempt to import a key from form/uploaded data.
-     *
-     * @param string $key  Key string.
-     *
-     * @return string  The key contents.
-     * @throws Horde_Browser_Exception
-     */
-    public function getImportKey($key)
-    {
-        if (!empty($key)) {
-            return $key;
-        }
-
-        $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
-        return file_get_contents($_FILES['upload_key']['tmp_name']);
     }
 
     /**
@@ -733,6 +702,43 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             'opener.location.href="' . $href . '";',
             'window.close();'
         ));
+    }
+
+    /**
+     * Extracts public/private keys from armor data.
+     *
+     * @param string $data  Armor text.
+     *
+     * @return array  Array with these keys:
+     *   - public: (array) Array of public keys.
+     *   - private: (array) Array of private keys.
+     */
+    public function getKeys($data)
+    {
+        $out = array(
+            'public' => array(),
+            'private' => array()
+        );
+
+        foreach ($this->parsePGPData($data) as $val) {
+            switch ($val['type']) {
+            case Horde_Crypt_Pgp::ARMOR_PUBLIC_KEY:
+            case Horde_Crypt_Pgp::ARMOR_PRIVATE_KEY:
+                $key = implode("\n", $val['data']);
+                if ($key_info = $this->pgpPacketInformation($key)) {
+                    if (($val['type'] == Horde_Crypt_Pgp::ARMOR_PUBLIC_KEY) &&
+                        !empty($key_info['public_key'])) {
+                        $out['public'][] = $key;
+                    } elseif (($val['type'] == Horde_Crypt_Pgp::ARMOR_PRIVATE_KEY) &&
+                        !empty($key_info['secret_key'])) {
+                        $out['private'][] = $key;
+                    }
+                }
+                break;
+            }
+        }
+
+        return $out;
     }
 
 }

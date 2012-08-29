@@ -35,14 +35,7 @@ class IMP_Factory_Mail extends Horde_Core_Factory_Injector
      */
     public function create(Horde_Injector $injector)
     {
-        /* We don't actually want to alter the contents of the $conf['mailer']
-         * array, so we make a copy of the current settings. We will apply our
-         * modifications (if any) to the copy, instead. */
-        $params = $GLOBALS['conf']['mailer']['params'];
-
-        /* Force the SMTP host and port value to the current SMTP server if
-         * one has been selected for this connection. */
-        $params = array_merge($params, $GLOBALS['session']->get('imp', 'smtp', Horde_Session::TYPE_ARRAY));
+        $params = $GLOBALS['session']->get('imp', 'smtp', Horde_Session::TYPE_ARRAY);
 
         /* If SMTP authentication has been requested, use either the username
          * and password provided in the configuration or populate the username
@@ -50,19 +43,18 @@ class IMP_Factory_Mail extends Horde_Core_Factory_Injector
          * that we assume that the username and password values from the
          * current IMAP / POP3 connection are valid for SMTP authentication as
          * well. */
-        if (!empty($params['auth']) && empty($params['username'])) {
+        if (!empty($params['auth'])) {
             $imap_ob = $injector->getInstance('IMP_Factory_Imap')->create();
-            $params['username'] = $imap_ob->getParam('username');
-            $params['password'] = $imap_ob->getParam('password');
+            if (empty($params['username'])) {
+                $params['username'] = $imap_ob->getParam('username');
+            }
+            if (empty($params['password'])) {
+                $params['password'] = $imap_ob->getParam('password');
+            }
         }
 
-        $transport = $GLOBALS['conf']['mailer']['type'];
-        $class = 'Horde_Mail_Transport_' . ucfirst($transport);
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Horde_Exception('Unable to find class for transport ' . $transport);
+        $class = $this->_getDriverName($GLOBALS['conf']['mailer']['type'], 'Horde_Mail_Transport');
+        return new $class($params);
     }
 
 }

@@ -127,7 +127,8 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
      */
     static function getBareEmail($address)
     {
-        return Horde_Mime_Address::bareAddress($address);
+        $ob = new Horde_Mail_Rfc822_Address($address);
+        return $ob->bare_address;
     }
 
 }

@@ -18,37 +18,11 @@
 class IMP_Imap_Exception extends Horde_Imap_Client_Exception
 {
     /**
-     * Logged the error.
-     *
-     * @var boolean
-     */
-    protected $_logged = false;
-
-    /**
      * Sent the error to the notification system.
      *
      * @var boolean
      */
     public $_notified = false;
-
-    /**
-     * Log the error.
-     *
-     * @param string $msg     Log message.
-     * @param integer $level  Log level.
-     * @param boolean $force  Force logging, even if already done?
-     */
-    public function log($msg = null, $level = 'ERR', $force = false)
-    {
-        if (!$this->_logged || $force) {
-            Horde::logMessage(
-                is_null($msg) ? $this : $msg,
-                $level
-            );
-
-            $this->_logged = true;
-        }
-    }
 
     /**
      * Send notification of the error.
@@ -72,37 +46,45 @@ class IMP_Imap_Exception extends Horde_Imap_Client_Exception
     /**
      * Generates an authentication exception.
      *
+     * @param boolean $default  Return exception, even if no code exists?
+     *
      * @return Horde_Auth_Exception  An authentication exception.
      */
-    public function authException()
+    public function authException($default = true)
     {
         $e = $this;
 
         switch ($this->getCode()) {
-        case Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED:
-        case Horde_Imap_Client_Exception::LOGIN_AUTHORIZATIONFAILED:
+        case self::LOGIN_AUTHENTICATIONFAILED:
+        case self::LOGIN_AUTHORIZATIONFAILED:
             $code = Horde_Auth::REASON_BADLOGIN;
             break;
 
-        case Horde_Imap_Client_Exception::LOGIN_EXPIRED:
+        case self::LOGIN_EXPIRED:
             $code = Horde_Auth::REASON_EXPIRED;
             break;
 
-        case Horde_Imap_Client_Exception::SERVER_CONNECT:
-        case Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE:
+        case self::SERVER_CONNECT:
+        case self::LOGIN_UNAVAILABLE:
             $code = Horde_Auth::REASON_MESSAGE;
-            $e = _("Remote server is down. Please try again later.");
             break;
 
-        case Horde_Imap_Client_Exception::LOGIN_NOAUTHMETHOD:
-        case Horde_Imap_Client_Exception::LOGIN_PRIVACYREQUIRED:
-        case Horde_Imap_Client_Exception::LOGIN_TLSFAILURE:
-        default:
+        case self::LOGIN_NOAUTHMETHOD:
+        case self::LOGIN_PRIVACYREQUIRED:
+        case self::LOGIN_TLSFAILURE:
             $code = Horde_Auth::REASON_FAILED;
+            break;
+
+        default:
+            $code = $default
+                ? Horde_Auth::REASON_FAILED
+                : null;
             break;
         }
 
-        return new Horde_Auth_Exception($e, $code);
+        return is_null($code)
+            ? null
+            : new Horde_Auth_Exception($e, $code);
     }
 
     /**
@@ -110,9 +92,6 @@ class IMP_Imap_Exception extends Horde_Imap_Client_Exception
     public function __get($name)
     {
         switch ($name) {
-        case 'logged':
-            return $this->_logged;
-
         case 'notified':
             return $this->_notified;
         }

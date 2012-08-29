@@ -10,4 +10,4 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require dirname(__FILE__) . '/filters.php';
+require __DIR__ . '/filters.php';

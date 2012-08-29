@@ -39,14 +39,4 @@
   <configheader>Story Comments</configheader>
   <configboolean name="allow" desc="Can users comment on stories?">true</configboolean>
  </configsection>
-
- <configsection name="menu">
-  <configheader>Menu Settings</configheader>
-  <configmultienum name="apps" desc="Select any applications that should be linked in Jonah's menu" required="false">
-   <values>
-    <configspecial application="horde" name="apps" />
-   </values>
-  </configmultienum>
- </configsection>
-
 </configuration>

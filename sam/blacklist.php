@@ -9,7 +9,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('sam');
 
 /* Request retrieval of related user data. */
@@ -64,8 +64,10 @@ if ($form->validate($vars)) {
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive($renderer, $vars, Horde::url('blacklist.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

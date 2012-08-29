@@ -8,13 +8,10 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
-$permission = 'locks';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() &&
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:' . $permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:locks')
+));
 
 $horde_lock = $injector->getInstance('Horde_Lock');
 
@@ -49,15 +46,15 @@ try {
         $lock['end'] = strftime($format, $lock['lock_expiry_timestamp']);
     }
     $view->locks = $locks;
-    Horde::addScriptFile('tables.js', 'horde');
+    $page_output->addScriptFile('tables.js', 'horde');
 } catch (Horde_Lock_Exception $e) {
     $view->locks = array();
     $view->error = sprintf(_("Listing locks failed: %s"), $e->getMessage());
 }
 
-$title = _("Locks");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Locks")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 echo $view->render('list');
-
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

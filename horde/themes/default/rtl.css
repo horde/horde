@@ -57,38 +57,6 @@ option {
     margin-left: .5em;
 }
 
-/* Menu styles. */
-#menu {
-    padding-right: 0;
-    padding-left: 8px;
-}
-#menu li {
-    float: right;
-}
-#menu li.rightFloat {
-    float: left;
-}
-#menuBottom {
-    float: left;
-    text-align: left;
-}
-
-/* Sidebar styles. */
-.sidebar {
-    float: right;
-}
-#sidebarPanel {
-    -moz-border-radius-bottomright: 0;
-    -moz-border-radius-bottomleft: 15px;
-    -webkit-border-bottom-right-radius: 0;
-    -webkit-border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 15px;
-}
-#expandedSidebar #expandButton {
-    float: left;
-}
-
 /* Tab styles. */
 .tabset {
     float: right;
@@ -218,4 +186,30 @@ span.treeImg16 {
 }
 .rightFloat {
     float: left;
+}
+
+/* Nav images. */
+.navfirstgreyImg {
+    background-image: url("graphics/nav/last-grey.png");
+}
+.navfirstImg {
+    background-image: url("graphics/nav/last.png");
+}
+.navlastgreyImg {
+    background-image: url("graphics/nav/first-grey.png");
+}
+.navlastImg {
+    background-image: url("graphics/nav/first.png");
+}
+.navleftgreyImg {
+    background-image: url("graphics/nav/right-grey.png");
+}
+.navleftImg {
+    background-image: url("graphics/nav/right.png");
+}
+.navrightgreyImg {
+    background-image: url("graphics/nav/left-grey.png");
+}
+.navrightImg {
+    background-image: url("graphics/nav/left.png");
 }

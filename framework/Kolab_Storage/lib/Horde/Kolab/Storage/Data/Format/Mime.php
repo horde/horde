@@ -240,11 +240,16 @@ implements Horde_Kolab_Storage_Data_Format
         $kolab = new Horde_Mime_Part();
         $kolab->setType($this->getMimeType($options['type']));
         if (empty($options['raw'])) {
+            if (isset($options['previous'])) {
+                $previous = array('previous' => $options['previous']);
+            } else {
+                $previous = array();
+            }
             try {
                 $kolab->setContents(
                     $this->_factory->createFormat(
                         'Xml', $options['type'], $options['version']
-                    )->save($object),
+                    )->save($object, $previous),
                     array('encoding' => 'quoted-printable')
                 );
             } catch (Horde_Kolab_Format_Exception $e) {
@@ -277,11 +282,18 @@ implements Horde_Kolab_Storage_Data_Format
      */
     public function modify(Horde_Kolab_Storage_Data_Modifiable $modifiable,
                            $object,
-                           array $options)
+                           array $options,
+                           $folder,
+                           $obid)
     {
         $mime_id = $this->matchMimeId(
             $options['type'], $modifiable->getStructure()->contentTypeMap()
         );
+        $original = $modifiable->getOriginalPart($mime_id);
+        $original->setContents(
+            $this->_structure->fetchId($folder, $obid, $mime_id)
+        );
+        $options['previous'] = $original->getContents(array('stream' => true));
         $modifiable->setPart(
             $mime_id, $this->createKolabPart($object, $options)
         );

@@ -10,7 +10,7 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ulaform', array('admin' => true));
 
 try {
@@ -34,9 +34,10 @@ $view->listheaders = array(_("Form Name"), _("Action"));
 $view->forms = $forms;
 $view->images = $images;
 
-$title = _("Forms List");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Forms List")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('forms');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

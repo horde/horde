@@ -1,6 +1,5 @@
 <?php
 /**
- * $Horde: trean/search.php,v 1.32 2009/06/10 17:33:43 slusarz Exp $
  *
  * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
@@ -10,14 +9,14 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('trean');
 
 require_once TREAN_BASE . '/lib/Forms/Search.php';
-require_once TREAN_BASE . '/lib/Views/BookmarkList.php';
 
-$title = _("Search");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Search")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 
@@ -30,29 +29,10 @@ $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::selfUrl(), 'post');
 echo '<br />';
 
 if ($form->validate($vars)) {
-    // Create the filter.
-    $combine = Horde_Util::getFormData('combine', 'OR');
-    $op = Horde_Util::getFormData('op', 'LIKE');
-    $criteria = array();
-
-    // Searching for URL?
-    if (strlen($u = Horde_Util::getFormData('url'))) {
-        $criteria[] = array('url', $op, $u);
-    }
-
-    // Searching title?
-    if (strlen($t = Horde_Util::getFormData('title'))) {
-        $criteria[] = array('title', $op, $t);
-    }
-
-    // Searching description?
-    if (strlen($d = Horde_Util::getFormData('description'))) {
-        $criteria[] = array('description', $op, $d);
-    }
-
-    if ($criteria) {
+    $q = Horde_Util::getFormData('q');
+    if ($q) {
         // Get the bookmarks.
-        $bookmarks = $trean_shares->searchBookmarks($criteria, $combine);
+        $bookmarks = $trean_gateway->searchBookmarks($q);
         $search_title = sprintf(_("Search Results (%s)"), count($bookmarks));
 
         // Display the results.
@@ -60,4 +40,4 @@ if ($form->validate($vars)) {
     }
 }
 
-require_once $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

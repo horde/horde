@@ -40,10 +40,10 @@ $pager = new Horde_Core_Ui_Pager(
             'url' => 'faces/search/name.php',
             'perpage' => $perpage));
 
-$title = _("Search by name");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Search by name")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 include ANSEL_TEMPLATES . '/faces/faces.inc';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

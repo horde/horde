@@ -1,7 +1,78 @@
+----------
+v5.0.0-git
+----------
+
+[jan] Fix cancelling problem report.
+[jan] Fix audio notification path printed in page output.
+
+
+-----------
+v5.0.0beta4
+-----------
+
+[jan] Fix logging in without JavaScript (Bug #11328).
+[mms] Fix sidebar element wrapping.
+[mms] Better handling of backend authentication errors when returning AJAX data
+      (Bug #11297).
+[mjr] Fix autocompletion of tags in ajax views.
+
+
+-----------
+v5.0.0beta3
+-----------
+
+[jan] Fix dependency on Horde_Service_Weather.
+
+
+-----------
+v5.0.0beta2
+-----------
+
+[mjr] Request SSL connection from map providers if using SSL (Bug #11193).
+[jan] Remove optional dependency on Horde_DataTree.
+
+
+-----------
+v5.0.0beta1
+-----------
+
+[jan] Remove DataTree support.
+[jan] Allow to configure encryption in global IMAP configuration (Request
+      #11272).
+[jan] Update icon set.
+[rla] Retrieve more detailed message from Horde_Auth when a user is temporarily
+      or permanently locked out (Request #11254).
+
+
+------------
+v5.0.0alpha1
+------------
+
+First alpha release for Horde 5.
+[jan] Implement new user interface.
+[mms] Add 'suppress' option to prefs.php group entries.
+[mms] Add 'on_change', 'on_init', 'requires', 'requires_nolock', and
+     'suppress' options to prefs.php preference entries.
+[mms] Remove support for IE 6.
+[mms] Token protect all AJAX actions.
+[jan] Allow to use IMAP storage for shares and groupware data without a
+      complete Kolab server.
+[mms] Implement growler-like notifications for smartmobile view.
+[mms] Modified pushapp hook behavior.
+[mms] Removed pushapp_post hook.
+[mms] AJAX core features now contained within Horde_Core.
+[mms] E-mail sending charset now defaults to UTF-8.
+[mms] Add post-install script for the Horde application
+[mms] Portal blocks can now load just the CSS necessary to display an
+      application's blocks.
+[jan] Show notifications during logging into Smartphone mode.
+
+
 -----------
 v4.0.16-git
 -----------
 
+[jan] Fix adding attachments to problem tickets (Bug #10654).
 [jan] Update Turkish translation (İstanbul Technical University).
 [jan] Fix setting permissions on static/ directory with horde-set-perms (Bug
       #11219).

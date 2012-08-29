@@ -168,7 +168,11 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      */
     public function readStream($path, $name)
     {
-        return fopen($this->readFile($path, $name), OS_WINDOWS ? 'rb' : 'r');
+        $stream = @fopen($this->_wrap($this->_getPath($path, $name)), 'r');
+        if (!is_resource($stream)) {
+            throw new Horde_Vfs_Exception('Unable to open VFS file.');
+        }
+        return $stream;
     }
 
     /**
@@ -357,12 +361,13 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
     }
 
     /**
-     * Returns an an unsorted file list of the specified directory.
+     * Returns an unsorted file list of the specified directory.
      *
-     * @param string $path       The path of the directory.
-     * @param mixed $filter      String/hash to filter file/dirname on.
-     * @param boolean $dotfiles  Show dotfiles?
-     * @param boolean $dironly   Show only directories?
+     * @param string $path          The path of the directory.
+     * @param string|array $filter  Regular expression(s) to filter
+     *                              file/directory name on.
+     * @param boolean $dotfiles     Show dotfiles?
+     * @param boolean $dironly      Show only directories?
      *
      * @return array  File list.
      * @throws Horde_Vfs_Exception
@@ -590,10 +595,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
         }
 
         if (isset($olddir)) {
-            $res = $this->_setPath($olddir);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
+            $this->_setPath($olddir);
         }
 
         return $files;
@@ -609,47 +611,8 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      */
     public function exists($path, $name)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
-
-        return @ssh2_sftp_stat($this->_sftp, $this->_getPath($path, $name)) !== false;
-    }
-
-    /**
-     * Returns a sorted list of folders in the specified directory.
-     *
-     * @param string $path         The path of the directory to get the
-     *                             directory list for.
-     * @param mixed $filter        Hash of items to filter based on folderlist.
-     * @param boolean $dotfolders  Include dotfolders?
-     *
-     * @return array  Folder list.
-     * @throws Horde_Vfs_Exception
-     */
-    public function listFolders($path = '', $filter = null, $dotfolders = true)
-    {
         $this->_connect();
-
-        $folder = array(
-            'abbrev' => '..',
-            'val' => $this->_parentDir($path),
-            'label' => '..'
-        );
-        $folders[$folder['val']] = $folder;
-
-        $folderList = $this->listFolder($path, null, $dotfolders, true);
-        foreach ($folderList as $files) {
-            $folders[$folder['val']] = array(
-                'val' => $this->_getPath($path, $files['name']),
-                'abbrev' => $files['name'],
-                'label' => $folder['val']
-            );
-        }
-
-        ksort($folders);
-        return $folders;
+        return @ssh2_sftp_stat($this->_sftp, $this->_getPath($path, $name)) !== false;
     }
 
     /**

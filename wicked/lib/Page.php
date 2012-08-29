@@ -466,7 +466,7 @@ class Wicked_Page
 
             $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Render_Xhtml/', WICKED_BASE . '/lib/Text_Wiki/Render/Xhtml'));
         } elseif ($output_format == 'Rst') {
-            require_once dirname(__FILE__) . '/Text_Wiki/Render/Rst.php';
+            require_once __DIR__ . '/Text_Wiki/Render/Rst.php';
             $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Render_Rst/', WICKED_BASE . '/lib/Text_Wiki/Render/Rst'));
         }
 

@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $blocks = $injector->getInstance('Horde_Core_Factory_BlockCollection')->create(array('ansel'), 'myansel_layout');
@@ -24,9 +24,10 @@ if ($layout->updated()) {
     }
 }
 
-$title = _("My Photos :: Add Content");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("My Photos :: Add Content")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require $registry->get('templates', 'horde') . '/portal/edit.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

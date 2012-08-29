@@ -100,7 +100,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div id="kronolithCalendarinternalTabPerms" class="kronolithTabsOption" style="display:none">
-<?php $type = 'internal'; include dirname(__FILE__) . '/permissions.inc'; ?>
+<?php $type = 'internal'; include __DIR__ . '/permissions.inc'; ?>
 </div>
 
 <div id="kronolithCalendarinternalTabImport" class="kronolithTabsOption" style="display:none">
@@ -189,7 +189,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div id="kronolithCalendartasklistsTabPerms" class="kronolithTabsOption" style="display:none">
-<?php $type = 'tasklists'; include dirname(__FILE__) . '/permissions.inc'; ?>
+<?php $type = 'tasklists'; include __DIR__ . '/permissions.inc'; ?>
 </div>
 
 <div id="kronolithCalendartasklistsTabExport" class="kronolithTabsOption" style="display:none">
@@ -303,5 +303,41 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 
 </form>
 <?php endif ?>
+
+<form id="kronolithCalendarFormresource" action="">
+<input type="hidden" name="type" value="resource" />
+<input id="kronolithCalendarresourceId" type="hidden" name="calendar" />
+<div class="kronolithCalendarDiv" id="kronolithCalendarresource1">
+<div>
+  <label><?php echo _("Name") ?>:<br />
+    <input type="text" name="name" id="kronolithCalendarresourceName" class="kronolithLongField" />
+  </label>
+</div>
+
+<div>
+  <label><?php echo _("Description") ?>:<br />
+    <textarea name="description" id="kronolithCalendarresourceDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+  </label>
+</div>
+<div>
+  <label><?php echo _("Resource Response Type")?>:<br />
+    <select id="kronolithCalendarresourceResponseType" name="response_type">
+      <option value="0"><?php echo _("None") ?></option>
+      <option value="1"><?php echo _("Auto") ?></option>
+      <option value="2"><?php echo _("Always Accept") ?></option>
+      <option value="3"><?php echo _("Always Decline") ?></option>
+      <option value="4"><?php echo _("Manual") ?></option>
+    </select>
+  </label>
+<input id="kronolithCalendarresourceColor" type="hidden" name="color" />
+<input class="kronolithColorPicker" type="hidden" />
+<div class="kronolithFormActions">
+  <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave button ok" />
+  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+</div>
+</div>
+
+</form>
 
 </div>

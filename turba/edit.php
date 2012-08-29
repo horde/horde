@@ -13,7 +13,7 @@
  * @package  Turba
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
 $listView = null;
@@ -83,9 +83,14 @@ try {
 } catch (Turba_Exception $e) {}
 
 $title = sprintf($contact->isGroup() ? _("Edit Group \"%s\"") : _("Edit \"%s\""), $contact->getValue('name'));
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+Horde::startBuffer();
 require TURBA_TEMPLATES . '/menu.inc';
 $form->setTitle($title);
 $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('edit.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$formHtml = Horde::endBuffer();
+
+$page_output->header(array(
+    'title' => $title
+));
+echo $formHtml;
+$page_output->footer();

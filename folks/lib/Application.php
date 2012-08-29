@@ -23,11 +23,9 @@ class Folks_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (0.1-git)';
+    public $version = 'H5 (0.1-git)';
 
     /**
-     * Global variables defined:
-     * - $linkTags: <link> tags for common-header.inc.
      */
     protected function _init()
     {
@@ -38,9 +36,11 @@ class Folks_Application extends Horde_Registry_Application
             $links[Folks::getUrlFor('feed', 'know')] = _("People you might know");
         }
 
-        $GLOBALS['linkTags'] = array();
         foreach ($links as $url => $label) {
-            $GLOBALS['linkTags'][] = '<link rel="alternate" type="application/rss+xml" href="' . $url . '" title="' . $label . '" />';
+            $GLOBALS['page_output']->addLinkTag(array(
+                'href' => $url,
+                'title' => $label
+            ));
         }
     }
 
@@ -56,7 +56,7 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function authAuthenticate($userID, $credentials)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         $result = $GLOBALS['folks_driver']->comparePassword($userID, $credentials['password']);
         if ($result !== true) {
@@ -73,7 +73,7 @@ class Folks_Application extends Horde_Registry_Application
             return false;
         }
 
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
         $GLOBALS['folks_driver'] = Folks_Driver::factory();
         if ($_COOKIE['folks_login_code'] == $GLOBALS['folks_driver']->getCookie($_COOKIE['folks_login_user'])) {
             $GLOBALS['registry']->setAuth($_COOKIE['folks_login_user']);
@@ -89,7 +89,7 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function authUserExists($userId)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         return $GLOBALS['folks_driver']->userExists($userId);
     }
@@ -98,7 +98,7 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function authUserList()
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         $users = array();
         foreach ($GLOBALS['folks_driver']->getUsers() as $user) {
@@ -112,7 +112,7 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function authAddUser($userId, $credentials)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         $result = $GLOBALS['folks_driver']->addUser($userId, $credentials);
         if ($result instanceof PEAR_Error) {
@@ -128,7 +128,7 @@ class Folks_Application extends Horde_Registry_Application
         $password = Horde_Auth::genRandomPassword();
 
         /* Update password in DB. */
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
         $result = $GLOBALS['folks_driver']->changePassword($password, $userId);
         if ($result instanceof PEAR_Error) {
             throw new Horde_Auth_Exception($result);
@@ -141,7 +141,7 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function authRemoveUser($userId)
     {
-        require_once dirname(__FILE__) . '/base.php';
+        require_once __DIR__ . '/base.php';
 
         return $GLOBALS['folks_driver']->deleteUser($userId);
     }

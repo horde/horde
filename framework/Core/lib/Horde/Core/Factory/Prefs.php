@@ -40,12 +40,10 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
      * @param string $scope  The scope for this set of preferences.
      * @param array $opts    See Horde_Prefs::__construct().  Additional
      *                       parameters:
-     * <pre>
-     * driver - (boolean) Use this driver instead of the value in the Horde
-     *          config.
-     * driver_params - (array) Use these driver parameters instead of the
-     *                 values in the Horde config.
-     * </pre>
+     *   - driver: (boolean) Use this driver instead of the value in the Horde
+     *             config.
+     *   - driver_params: (array) Use these driver parameters instead of the
+     *                    values in the Horde config.
      *
      * @return Horde_Prefs  The singleton instance.
      */

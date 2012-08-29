@@ -1,6 +1,6 @@
 <?php
 
- require_once dirname(__FILE__) . '/../Base.php';
+ require_once __DIR__ . '/../Base.php';
 
 /**
  *
@@ -179,7 +179,7 @@ class Content_Test_Sql_Base extends Content_Test_Base
         self::$migrator = new Horde_Db_Migration_Migrator(
             self::$db,
             null, //$logger,
-            array('migrationsPath' => dirname(__FILE__) . '/../../../migration',
+            array('migrationsPath' => __DIR__ . '/../../../migration',
                   'schemaTableName' => 'content_test_schema'));
 
         self::$migrator->up();

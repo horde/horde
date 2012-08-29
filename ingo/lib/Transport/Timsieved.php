@@ -24,10 +24,8 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
     /**
      * Constructor.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        $this->_support_shares = true;
-
         $default_params = array(
             'hostspec'   => 'localhost',
             'logintype'  => 'PLAIN',
@@ -37,6 +35,8 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
             'usetls'     => true,
             'debug'      => false
         );
+
+        $this->_supportShares = true;
 
         parent::__construct(array_merge($default_params, $params));
     }
@@ -56,17 +56,18 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
             ? $this->_params['username']
             : $this->_params['admin'];
 
-        $this->_sieve = new Net_Sieve($auth,
-                                      $this->_params['password'],
-                                      $this->_params['hostspec'],
-                                      $this->_params['port'],
-                                      $this->_params['logintype'],
-                                      Ingo::getUser(false),
-                                      $this->_params['debug'],
-                                      false,
-                                      $this->_params['usetls'],
-                                      null,
-                                      array($this, 'debug'));
+        $this->_sieve = new Net_Sieve(
+            $auth,
+            $this->_params['password'],
+            $this->_params['hostspec'],
+            $this->_params['port'],
+            $this->_params['logintype'],
+            Ingo::getUser(false),
+            $this->_params['debug'],
+            false,
+            $this->_params['usetls'],
+            null,
+            array($this, 'debug'));
 
         $res = $this->_sieve->getError();
         if ($res instanceof PEAR_Error) {
@@ -158,4 +159,5 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
             ? ''
             : Ingo_Exception_Pear::catchError($this->_sieve->getScript($active));
     }
+
 }

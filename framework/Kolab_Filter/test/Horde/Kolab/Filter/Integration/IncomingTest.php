@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test the incoming filter.
@@ -43,9 +43,9 @@ extends Horde_Kolab_Filter_StoryTestCase
         $this->given('an incoming message on host', 'home.example.org')
             ->and('the SMTP sender address is', 'wrobel@example.org')
             ->and('the SMTP recipient address is', 'me@example.org')
-            ->and('the unmodified message content is', dirname(__FILE__) . '/../fixtures/simple.eml')
+            ->and('the unmodified message content is', __DIR__ . '/../fixtures/simple.eml')
             ->when('handling the message')
-            ->then('the result will be the same as the content in', dirname(__FILE__) . '/../fixtures/simple2.ret');
+            ->then('the result will be the same as the content in', __DIR__ . '/../fixtures/simple2.ret');
     }
 
     /**
@@ -58,8 +58,8 @@ extends Horde_Kolab_Filter_StoryTestCase
             ->and('the SMTP recipient address is', 'me@example.org')
             ->and('the client address is', '127.0.0.1')
             ->and('the hostname is', 'home.example.com')
-            ->and('the unmodified message content is', dirname(__FILE__) . '/../fixtures/empty.eml')
+            ->and('the unmodified message content is', __DIR__ . '/../fixtures/empty.eml')
             ->when('handling the message')
-            ->then('the result will be the same as the content in', dirname(__FILE__) . '/../fixtures/empty2.ret');
+            ->then('the result will be the same as the content in', __DIR__ . '/../fixtures/empty2.ret');
     }
 }

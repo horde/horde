@@ -16,19 +16,21 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-04-10</date>
- <time>19:35:51</time>
+ <date>2012-07-19</date>
+ <time>23:34:33</time>
  <version>
-  <release>1.2.1</release>
-  <api>1.2.0</api>
+  <release>2.0.0beta2</release>
+  <api>2.0.0beta1</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mms] Add Horde_Mail_Rfc822_Address#matchDomain().
+* [mms] Add Horde_Mail_Rfc822_Address#matchInsensitive().
+* [mms] Fix parsing Return-Path header when using sendmail driver (Bug #11361).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -36,7 +38,6 @@
     <dir name="Horde">
      <dir name="Mail">
       <file name="COPYING" role="doc" />
-      <file name="TODO" role="doc" />
       <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Mail -->
     </dir> <!-- /doc/Horde -->
@@ -47,6 +48,8 @@
       <dir name="Rfc822">
        <file name="Address.php" role="php" />
        <file name="Group.php" role="php" />
+       <file name="GroupList.php" role="php" />
+       <file name="List.php" role="php" />
        <file name="Object.php" role="php" />
       </dir> <!-- /lib/Horde/Mail/Rfc822 -->
       <dir name="Transport">
@@ -61,7 +64,6 @@
       <file name="Rfc822.php" role="php" />
       <file name="Transport.php" role="php" />
      </dir> <!-- /lib/Horde/Mail -->
-     <file name="Mail.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="test">
@@ -69,6 +71,7 @@
      <dir name="Mail">
       <file name="AllTests.php" role="test" />
       <file name="GroupTest.php" role="test" />
+      <file name="ListTest.php" role="test" />
       <file name="ObjectTest.php" role="test" />
       <file name="ParseTest.php" role="test" />
       <file name="SendTest.php" role="test" />
@@ -80,7 +83,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -88,23 +91,23 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.5.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Stream_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
@@ -122,14 +125,14 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Mail/COPYING" />
-   <install as="TODO" name="doc/Horde/Mail/TODO" />
    <install as="UPGRADING" name="doc/Horde/Mail/UPGRADING" />
-   <install as="Horde/Mail.php" name="lib/Horde/Mail.php" />
    <install as="Horde/Mail/Exception.php" name="lib/Horde/Mail/Exception.php" />
    <install as="Horde/Mail/Rfc822.php" name="lib/Horde/Mail/Rfc822.php" />
    <install as="Horde/Mail/Transport.php" name="lib/Horde/Mail/Transport.php" />
    <install as="Horde/Mail/Rfc822/Address.php" name="lib/Horde/Mail/Rfc822/Address.php" />
    <install as="Horde/Mail/Rfc822/Group.php" name="lib/Horde/Mail/Rfc822/Group.php" />
+   <install as="Horde/Mail/Rfc822/GroupList.php" name="lib/Horde/Mail/Rfc822/GroupList.php" />
+   <install as="Horde/Mail/Rfc822/List.php" name="lib/Horde/Mail/Rfc822/List.php" />
    <install as="Horde/Mail/Rfc822/Object.php" name="lib/Horde/Mail/Rfc822/Object.php" />
    <install as="Horde/Mail/Transport/Mail.php" name="lib/Horde/Mail/Transport/Mail.php" />
    <install as="Horde/Mail/Transport/Mock.php" name="lib/Horde/Mail/Transport/Mock.php" />
@@ -139,6 +142,7 @@
    <install as="Horde/Mail/Transport/Smtpmx.php" name="lib/Horde/Mail/Transport/Smtpmx.php" />
    <install as="Horde/Mail/AllTests.php" name="test/Horde/Mail/AllTests.php" />
    <install as="Horde/Mail/GroupTest.php" name="test/Horde/Mail/GroupTest.php" />
+   <install as="Horde/Mail/ListTest.php" name="test/Horde/Mail/ListTest.php" />
    <install as="Horde/Mail/ObjectTest.php" name="test/Horde/Mail/ObjectTest.php" />
    <install as="Horde/Mail/ParseTest.php" name="test/Horde/Mail/ParseTest.php" />
    <install as="Horde/Mail/SendTest.php" name="test/Horde/Mail/SendTest.php" />
@@ -307,7 +311,52 @@
    <date>2012-04-10</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+*
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-05</date>
+   <time>17:29:46</time>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First alpha release for Horde 5.
+* [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Add Horde_Mail_Rfc822_Address#matchDomain().
+* [mms] Add Horde_Mail_Rfc822_Address#matchInsensitive().
+* [mms] Fix parsing Return-Path header when using sendmail driver (Bug #11361).
    </notes>
   </release>
  </changelog>

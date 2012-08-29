@@ -5,6 +5,7 @@
  * The following is the list of IMP session variables:
  *   - compose_cache: (array) List of compose objects that have not yet been
  *                    garbage collected.
+ *   - csearchavail: (boolean) True if contacts search is available.
  *   - file_upload: (integer) If file uploads are allowed, the max size.
  *   - filteravail: (boolean) Can we apply filters manually?
  *   - imap_acl: (boolean) See 'acl' entry in config/backends.php.
@@ -21,11 +22,10 @@
  *   - search: (IMP_Search) The IMP_Search object.
  *   - server_key: (string) Server used to login.
  *   - smime: (array) Settings related to the S/MIME viewer.
- *   - smtp: (array) SMTP options ('host' and 'port')
+ *   - smtp: (array) SMTP configuration.
  *   - showunsub: (boolean) Show unsusubscribed mailboxes on the folders
  *                screen.
  *   - tasklistavail: (boolean) Is listing of tasklists available?
- *   - view: (string) Either 'dimp', 'imp', 'mimp', or 'mobile'.
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
@@ -87,7 +87,7 @@ class IMP_Auth
             try {
                 $imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server']);
             } catch (IMP_Imap_Exception $e) {
-                self::_logMessage(false, $imp_imap);
+                self::_log(false, $imp_imap);
                 throw $e->authException();
             }
 
@@ -99,7 +99,7 @@ class IMP_Auth
         try {
             $imp_imap->login();
         } catch (IMP_Imap_Exception $e) {
-            self::_logMessage(false, $imp_imap);
+            self::_log(false, $imp_imap);
             throw $e->authException();
         }
 
@@ -144,7 +144,7 @@ class IMP_Auth
      * @param boolean $success   True on success, false on failure.
      * @param IMP_Imap $imap_ob  The IMP_Imap object to use.
      */
-    static protected function _logMessage($status, $imap_ob)
+    static protected function _log($status, $imap_ob)
     {
         if ($status) {
             $msg = 'Login success';
@@ -173,7 +173,7 @@ class IMP_Auth
             $protocol ? ' [' . $protocol . ']' : ''
         );
 
-        Horde::logMessage($msg, $level);
+        Horde::log($msg, $level);
     }
 
     /**
@@ -289,21 +289,14 @@ class IMP_Auth
                 $mbox = IMP_Mailbox::get('INBOX');
             }
 
-            IMP::setCurrentMailboxInfo($mbox);
+            IMP::setMailboxInfo($mbox);
         }
 
         $result = new stdClass;
         $result->mbox = $mbox;
 
-        switch (IMP::getViewMode()) {
-        case 'dimp':
-            if (is_null($mbox)) {
-                $result->mbox = IMP_Mailbox::get('INBOX');
-            }
-            $page = 'index-dimp.php';
-            break;
-
-        case 'imp':
+        switch ($GLOBALS['registry']->getView()) {
+        case Horde_Registry::VIEW_BASIC:
             if (is_null($mbox)) {
                 $page = 'folders.php';
             } else {
@@ -312,21 +305,25 @@ class IMP_Auth
             }
             break;
 
-        case 'mimp':
-            if (is_null($mbox)) {
-                $page = 'folders-mimp.php';
-            } else {
-                $page ='mailbox-mimp.php';
-                $result->url = $mbox->url($page);
-            }
+        case Horde_Registry::VIEW_DYNAMIC:
+            $result->url = IMP_Dynamic_Mailbox::url(array(
+                'mailbox' => is_null($mbox) ? 'INBOX' : $mbox
+            ));
+            $page = 'dynamic.php';
             break;
 
-        case 'mobile':
-            // TODO: Folders for mobile page?
-            if (is_null($mbox)) {
-                $result->mbox = IMP_Mailbox::get('INBOX');
+        case Horde_Registry::VIEW_MINIMAL:
+            $page = 'minimal.php';
+            $result->url = is_null($mbox)
+                ? IMP_Minimal_Folders::url()
+                : IMP_Minimal_Mailbox::url(array('mailbox' => $mbox));
+            break;
+
+        case Horde_Registry::VIEW_SMARTMOBILE:
+            $page = 'smartmobile.php';
+            if (!is_null($mbox)) {
+                $result->url = $mbox->url('mailbox');
             }
-            $page = 'mobile.php';
             break;
         }
 
@@ -344,16 +341,16 @@ class IMP_Auth
      * Perform post-login tasks. Session creation requires the full IMP
      * environment, which is not available until this callback.
      *
-     * @throws Horde_Auth_Exception
+     * @throws Horde_Exception
      */
     static public function authenticateCallback()
     {
         global $browser, $conf, $injector, $prefs, $registry, $session;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create(null, true);
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         $ptr = $imp_imap->loadServerConfig($session->get('imp', 'server_key'));
         if ($ptr === false) {
-            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
+            throw new Horde_Exception(_("Could not initialize mail server configuration."));
         }
 
         /* Set the maildomain. */
@@ -366,21 +363,29 @@ class IMP_Auth
              * loaded to grab the special mailboxes information. */
             $imp_imap->updateFetchIgnore();
 
-            foreach (array('acl', 'admin', 'namespace', 'quota') as $val) {
-                if (!empty($ptr[$val])) {
-                    $tmp = $ptr[$val];
+            if (!empty($ptr['acl'])) {
+                $session->set('imp', 'imap_acl', $ptr['acl']);
+            }
 
-                    /* 'admin' and 'quota' have password entries - encrypt
-                     * these entries in the session if they exist. */
-                    foreach (array('password', 'admin_password') as $key) {
-                        if (isset($ptr[$val]['params'][$key])) {
-                            $secret = $injector->getInstance('Horde_Secret');
-                            $tmp['params'][$key] = $secret->write($secret->getKey('imp'), $ptr[$val]['params'][$key]);
-                        }
-                    }
-
-                    $session->set('imp', 'imap_' . $val, $tmp);
+            $secret = $injector->getInstance('Horde_Secret');
+            if (!empty($ptr['admin'])) {
+                $tmp = $ptr['admin'];
+                if (isset($tmp['password'])) {
+                    $tmp['password'] = $secret->write($secret->getKey(), $tmp['password']);
                 }
+                $session->set('imp', 'imap_admin', $tmp);
+            }
+
+            if (!empty($ptr['namespace'])) {
+                $session->set('imp', 'imap_namespace', $ptr['namespace']);
+            }
+
+            if (!empty($ptr['quota'])) {
+                $tmp = $ptr['quota'];
+                if (isset($tmp['params']['password'])) {
+                    $tmp['params']['password'] = $secret->write($secret->getKey(), $tmp['params']['password']);
+                }
+                $session->set('imp', 'imap_quota', $tmp);
             }
 
             /* Set the IMAP threading algorithm. */
@@ -394,23 +399,22 @@ class IMP_Auth
             );
         }
 
-        /* Set the SMTP options, if needed. */
+        /* Set the SMTP configuration. */
         if ($conf['mailer']['type'] == 'smtp') {
-            $smtp = array();
-            foreach (array('smtphost' => 'host', 'smtpport' => 'port') as $key => $val) {
-                if (!empty($ptr[$key])) {
-                    $smtp[$val] = $ptr[$key];
-                }
-            }
-
-            if (!empty($smtp)) {
-                $session->set('imp', 'smtp', $smtp);
-            }
+            $session->set('imp', 'smtp', array_merge(
+                $conf['mailer']['params'],
+                empty($ptr['smtp']) ? array() : $ptr['smtp']
+            ));
         }
 
         /* Does the server allow file uploads? If yes, store the
          * value, in bytes, of the maximum file size. */
         $session->set('imp', 'file_upload', $browser->allowFileUploads());
+
+        /* Is the 'contacts/search' API call available? */
+        if ($registry->hasMethod('contacts/search')) {
+            $session->set('imp', 'csearchavail', true);
+        }
 
         /* Is the 'mail/canApplyFilters' API call available? */
         try {
@@ -431,51 +435,10 @@ class IMP_Auth
             $session->set('imp', 'notepadavail', true);
         }
 
-        /* Determine View */
-        $mode = $session->get('horde', 'mode');
-        if (!IMP::showAjaxView() && !$mode == 'smartmobile') {
-            if ($mode == 'dynamic' || ($mode == 'auto' && $prefs->getValue('dynamic_view'))) {
-                $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
-            }
-            $session->set('imp', 'view', 'imp');
-        } else {
-            /* Map to IMP view */
-            switch($mode) {
-            case 'auto':
-            case 'dynamic':
-            case 'traditional':
-                $impview = IMP::showAjaxView() ? 'dimp' : 'imp';
-                break;
-
-            case 'smartmobile':
-                $impview = Horde::ajaxAvailable() ? 'mobile' : 'mimp';
-                break;
-
-            case 'mobile':
-                $impview = 'mimp';
-                break;
-            }
-
-            $session->set('imp', 'view', $impview);
-        }
-
-        /* Indicate that notifications should use AJAX mode. */
-        if ($session->get('imp', 'view') == 'dimp') {
-            $session->set(
-                'horde',
-                'notification_override',
-                array(
-                    IMP_BASE . '/lib/Notification/Listener/AjaxStatus.php',
-                    'IMP_Notification_Listener_AjaxStatus'
-                )
-            );
-        }
-
         /* Is the HTML editor available? */
-        $imp_ui = new IMP_Ui_Compose();
         $session->set('imp', 'rteavail', $injector->getInstance('Horde_Editor')->supportedByBrowser());
 
-        self::_logMessage(true, $imp_imap);
+        self::_log(true, $imp_imap);
     }
 
 }

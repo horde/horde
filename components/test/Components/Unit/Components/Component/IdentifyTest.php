@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the identification of the selected component.
@@ -57,7 +57,7 @@ extends Components_TestCase
     public function testNoArgument()
     {
         $this->oldcwd = getcwd();
-        chdir(dirname(__FILE__) . '/../../../fixture/');
+        chdir(__DIR__ . '/../../../fixture/');
         $this->_initIdentify(array());
         chdir($this->oldcwd);
     }
@@ -65,7 +65,7 @@ extends Components_TestCase
     public function testWithPackageXml()
     {
         $this->_initIdentify(
-            array(dirname(__FILE__) . '/../../../fixture/framework/Install/package.xml')
+            array(__DIR__ . '/../../../fixture/framework/Install/package.xml')
         );
         $this->assertInstanceOf(
             'Components_Component_Source',
@@ -76,7 +76,7 @@ extends Components_TestCase
     public function testWithPackageXmlDirectory()
     {
         $this->_initIdentify(
-            array(dirname(__FILE__) . '/../../../fixture/framework/Install')
+            array(__DIR__ . '/../../../fixture/framework/Install')
         );
         $this->assertInstanceOf(
             'Components_Component_Source',
@@ -87,7 +87,7 @@ extends Components_TestCase
     public function testWithPackageXmlDirectoryAndSlash()
     {
         $this->_initIdentify(
-            array(dirname(__FILE__) . '/../../../fixture/framework/Install/')
+            array(__DIR__ . '/../../../fixture/framework/Install/')
         );
         $this->assertInstanceOf(
             'Components_Component_Source',
@@ -98,7 +98,7 @@ extends Components_TestCase
     public function testWithinComponent()
     {
         $this->oldcwd = getcwd();
-        chdir(dirname(__FILE__) . '/../../../fixture/framework/Install');
+        chdir(__DIR__ . '/../../../fixture/framework/Install');
         $this->_initIdentify(array('test'));
         chdir($this->oldcwd);
         $this->assertInstanceOf(
@@ -110,7 +110,7 @@ extends Components_TestCase
     public function testWithinComponentNoAction()
     {
         $this->oldcwd = getcwd();
-        chdir(dirname(__FILE__) . '/../../../fixture/framework/Install');
+        chdir(__DIR__ . '/../../../fixture/framework/Install');
         $this->_initIdentify(array());
         chdir($this->oldcwd);
         $this->assertInstanceOf(
@@ -125,7 +125,7 @@ extends Components_TestCase
     public function testWithoutValidComponent()
     {
         $this->_initIdentify(
-            array(dirname(__FILE__) . '/../../../fixture/DOESNOTEXIST')
+            array(__DIR__ . '/../../../fixture/DOESNOTEXIST')
         );
     }
 

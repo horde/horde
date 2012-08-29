@@ -16,7 +16,7 @@
  */
 
 if (!defined('OPERATOR_BASE')) {
-    define('OPERATOR_BASE', dirname(__FILE__). '/..');
+    define('OPERATOR_BASE', __DIR__. '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -37,7 +37,7 @@ class Operator_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (1.0-git)';
+    public $version = 'H5 (1.0-git)';
 
     /**
      * TODO

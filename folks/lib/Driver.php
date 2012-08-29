@@ -49,7 +49,7 @@ class Folks_Driver {
 
         $clas = 'Folks_Driver_' . $driver;
         if (!class_exists($clas)) {
-            include dirname(__FILE__) . '/Driver/' . $driver . '.php';
+            include __DIR__ . '/Driver/' . $driver . '.php';
         }
         if (class_exists($clas)) {
             return new $clas($params);

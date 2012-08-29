@@ -25,8 +25,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-interface Horde_Kolab_Storage_List_Query_Share
-extends Horde_Kolab_Storage_List_Query
+abstract class Horde_Kolab_Storage_List_Query_Share
 {
     /**
      * Returns the share description.
@@ -35,7 +34,7 @@ extends Horde_Kolab_Storage_List_Query
      *
      * @return string The folder/share description.
      */
-    public function getDescription($folder);
+    abstract public function getDescription($folder);
 
     /**
      * Returns the share parameters.
@@ -44,7 +43,7 @@ extends Horde_Kolab_Storage_List_Query
      *
      * @return string The folder/share parameters.
      */
-    public function getParameters($folder);
+    abstract public function getParameters($folder);
 
     /**
      * Returns the share description.
@@ -54,7 +53,7 @@ extends Horde_Kolab_Storage_List_Query
      *
      * @return string The folder/share description.
      */
-    public function setDescription($folder, $description);
+    abstract public function setDescription($folder, $description);
 
     /**
      * Returns the share parameters.
@@ -64,5 +63,5 @@ extends Horde_Kolab_Storage_List_Query
      *
      * @return string The folder/share parameters.
      */
-    public function setParameters($folder, array $parameters);
+    abstract public function setParameters($folder, array $parameters);
 }

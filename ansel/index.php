@@ -8,14 +8,13 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 
 /* Load mobile? */
-$mode = $session->get('horde', 'mode');
-if ($mode == 'smartmobile' || $mode == 'mobile') {
-    include ANSEL_BASE . '/mobile.php';
+if (in_array($registry->getView(), array(Horde_Registry::VIEW_MINIMAL, Horde_Registry::VIEW_SMARTMOBILE))) {
+    include ANSEL_BASE . '/smartmobile.php';
     exit;
 }
 

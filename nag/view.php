@@ -6,13 +6,13 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('nag');
 
 /* We can either have a UID or a taskId and a tasklist. Check for
  * UID first. */
 if ($uid = Horde_Util::getFormData('uid')) {
-    $storage = Nag_Driver::singleton();
+    $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
     try {
         $task = $storage->getByUID($uid);
     } catch (Nag_Exception $e) {
@@ -88,9 +88,8 @@ if (!empty($task->uid)) {
     } catch (Exception $e) {}
 }
 
-$title = $task->name;
 $links = array();
-Horde::addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('stripe.js', 'horde');
 
 $taskurl = Horde_Util::addParameter('task.php',
                               array('task' => $task_id,
@@ -103,7 +102,7 @@ try {
 }
 if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     if (!$task->completed) {
-        $links[] = Horde::widget(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Complete"), 'smallheader', '', '', _("_Complete"));
+        $links[] = Horde::widget($task->complete_link, _("Complete"), 'smallheader', '', '', _("_Complete"));
     }
     if (!$task->private || $task->owner == $GLOBALS['registry']->getAuth()) {
         $links[] = Horde::widget(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'modify_task')), _("Edit"), 'smallheader', '', '', _("_Edit"));
@@ -113,7 +112,9 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))
     $links[] = Horde::widget(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'delete_task')), _("Delete"), 'smallheader', '', $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', _("_Delete"));
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $task->name
+));
 echo Nag::menu();
 Nag::status();
 
@@ -124,4 +125,4 @@ if (!$task->due) {
 }
 $alarm_text = Nag::formatAlarm($task_alarm);
 require NAG_TEMPLATES . '/view/task.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

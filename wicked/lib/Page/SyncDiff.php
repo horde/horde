@@ -68,7 +68,7 @@ class Wicked_Page_SyncDiff extends Wicked_Page_SyncPages {
 
         $renderer = new Horde_Text_Diff_Renderer_Inline();
 
-        Horde::addScriptFile('tables.js', 'horde', true);
+        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
 
         ob_start();
         require WICKED_TEMPLATES . '/sync/diff.inc';

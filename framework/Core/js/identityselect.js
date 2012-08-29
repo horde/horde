@@ -15,18 +15,6 @@ var HordeIdentitySelect = {
         var identity = $('identity'),
             id = Number($F(identity));
 
-        if (id < 0) {
-            identity.up('FORM').reset();
-            identity.setValue(id);
-            // This is a hotfix that cannot be properly solved without BC
-            // breakage.
-            if (!Object.isUndefined(CKEDITOR) &&
-                CKEDITOR.instances['signature_html']) {
-                CKEDITOR.instances['signature_html'].setData($('signature_html').getValue());
-            }
-            return;
-        }
-
         this.identities[id].each(function(a) {
             var field = $(a[0]);
 

@@ -8,21 +8,19 @@
  * @author  Jon Parise <jon@horde.org>
  * @package Mnemo
  */
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
-Horde::addInlineScript(array(
+$page_output->addInlineScript(array(
     '$("search_pattern").focus()'
-), 'dom');
+), true);
 
-if ($prefs->getValue('show_panel')) {
-    $bodyClass = 'rightPanel';
-}
-
-$title = _("Search");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+$page_output->header(array(
+    'body_class' => $prefs->getValue('show_panel') ? 'rightPanel' : null,
+    'title' => _("Search")
+));
+echo Mnemo::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/search/search.inc';
 require MNEMO_TEMPLATES . '/panel.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

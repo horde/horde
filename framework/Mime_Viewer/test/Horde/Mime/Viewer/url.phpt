@@ -5,7 +5,7 @@ skip: Horde_Mime_Viewer has too many dependencies.
 --FILE--
 <?php
 
-$dirname = dirname(__FILE__);
+$dirname = __DIR__;
 require_once $dirname . '/../../../lib/Horde/Mime/Part.php';
 require_once $dirname . '/../../../lib/Horde/Mime/Viewer.php';
 require_once 'Horde.php';

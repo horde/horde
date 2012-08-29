@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-10</date>
- <time>12:14:47</time>
+ <date>2012-07-19</date>
+ <time>22:36:22</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -97,6 +97,13 @@
       <file name="ulaform.po" role="horde" />
      </dir> <!-- /locale/lt/LC_MESSAGES -->
     </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="ulaform.mo" role="horde" />
+      <file name="ulaform.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/lv -->
     <dir name="zh_TW">
      <dir name="LC_MESSAGES">
       <file name="ulaform.mo" role="horde" />
@@ -148,7 +155,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -156,23 +163,23 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.7</min>
-    <max>5.0.0</max>
-    <exclude>5.0.0</exclude>
+    <min>5.0.0</min>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.3.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
  </dependencies>
@@ -230,6 +237,9 @@
    <install as="ulaform/locale/it/LC_MESSAGES/ulaform.po" name="locale/it/LC_MESSAGES/ulaform.po" />
    <install as="ulaform/locale/lt/LC_MESSAGES/ulaform.mo" name="locale/lt/LC_MESSAGES/ulaform.mo" />
    <install as="ulaform/locale/lt/LC_MESSAGES/ulaform.po" name="locale/lt/LC_MESSAGES/ulaform.po" />
+   <install as="ulaform/locale/lv/help.xml" name="locale/lv/help.xml" />
+   <install as="ulaform/locale/lv/LC_MESSAGES/ulaform.mo" name="locale/lv/LC_MESSAGES/ulaform.mo" />
+   <install as="ulaform/locale/lv/LC_MESSAGES/ulaform.po" name="locale/lv/LC_MESSAGES/ulaform.po" />
    <install as="ulaform/locale/zh_TW/LC_MESSAGES/ulaform.mo" name="locale/zh_TW/LC_MESSAGES/ulaform.mo" />
    <install as="ulaform/locale/zh_TW/LC_MESSAGES/ulaform.po" name="locale/zh_TW/LC_MESSAGES/ulaform.po" />
    <install as="ulaform/migration/1_ulaform_base_tables.php" name="migration/1_ulaform_base_tables.php" />
@@ -260,7 +270,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-07-10</date>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/gpl.php">GPL-2.0</license>
    <notes>
 * First alpha release for Horde 4.

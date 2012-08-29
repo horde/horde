@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
 /* Make sure we have a forum id. */
@@ -71,6 +71,8 @@ $view->notify = Horde::endBuffer();
 $view->banned = $banned;
 $view->forum = $forums->getForum();
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo $view->render('ban');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -18,7 +18,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 /**
  * Prepare the test setup.
  */
-@define('INGO_BASE', dirname(__FILE__) . '/../..');
+@define('INGO_BASE', __DIR__ . '/../..');
 require_once 'Horde/Autoloader/Default.php';
 date_default_timezone_set('Europe/Berlin');
 
@@ -39,7 +39,7 @@ class Ingo_AllTests extends Horde_Test_AllTests
         error_reporting(E_ALL);
 
         // Set up autoload
-        $basedir = dirname(__FILE__);
+        $basedir = __DIR__;
         $GLOBALS['__autoloader']->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Ingo(?:$|_)/', $basedir . '/../'));
 
         $suite = new PHPUnit_Framework_TestSuite('Ingo');

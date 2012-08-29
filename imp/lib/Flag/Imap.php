@@ -23,9 +23,7 @@ abstract class IMP_Flag_Imap extends IMP_Flag_Base
 
     /**
      * @param string $name  Additional properties:
-     * <pre>
-     * 'imapflag' - (string) The IMAP flag string.
-     * </pre>
+     *   - imapflag: (string) The IMAP flag string.
      */
     public function __get($name)
     {

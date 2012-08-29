@@ -1,0 +1,59 @@
+============================
+ Upgrading Horde_ActiveSync
+============================
+
+:Contact: dev@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+
+This lists the API changes between releases of the package.
+
+
+Upgrading to 2.0
+================
+
+Horde_ActiveSync_State_File was removed.
+
+  - Horde_ActiveSync_Driver
+
+    - __construct()
+
+      No longer plan on accepting multiple state objects. Rename the
+      'state_basic' parameter to 'state'. This should still contain a
+      Horde_ActiveSync_State_* object.
+
+    - getMessageList()
+
+      This deprecated method has been removed, getServerChanges() should be used
+      instead.
+
+    - getServerChanges()
+
+      Now requires a Horde_ActiveSync_Folder_Base object as the first parameter.
+
+    - alterPingChanges()
+
+      This deprecated method has been removed.
+
+    - truncate()
+
+      This method has been removed.
+
+    - getSyncObject()
+
+      This method has been removed. The Sync object is now built by the request
+      object itself. See Horde_ActiveSync_Request_Base#_getSyncObject.
+
+  - Horde_ActiveSync_State_History
+
+    - Renamed to Horde_ActiveSync_State_Sql
+
+    - SQL table names are no longer configurable.
+
+    - Internal state data is now stored as serialized Horde_ActiveSync_Folder_*
+      objects.
+
+    - All code related to PING state has been removed. PING state is combined
+      with the new syncCache.

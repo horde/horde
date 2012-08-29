@@ -18,7 +18,7 @@
 
 // We do not need to be authenticated to get the file. Most users won't send
 // linked attachments just to other IMP users.
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('authentication' => 'none', 'session_control' => 'none'));
 
 // Lets see if we are even able to send the user an attachment.
@@ -27,7 +27,7 @@ if (!$conf['compose']['link_attachments']) {
 }
 
 // Gather required form variables.
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 if (!$vars->u || !$vars->t || !$vars->f) {
     throw new IMP_Exception(_("The attachment was not found."));
 }
@@ -60,7 +60,7 @@ if ($conf['compose']['link_attachments_notify']) {
                 exit;
             }
         } catch (Horde_Vfs_Exception $e) {
-            Horde::logMessage($read_id, 'ERR');
+            Horde::log($read_id, 'ERR');
         }
     } else {
         /* Create a random identifier for this file. */
@@ -109,7 +109,7 @@ if ($conf['compose']['link_attachments_notify']) {
                            $GLOBALS['injector']->getInstance('Horde_Mail'));
             }
         } catch (Horde_Vfs_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
         }
     }
 }
@@ -118,7 +118,7 @@ if ($conf['compose']['link_attachments_notify']) {
 try {
     $file_data = $vfsroot->read($full_path, $file_name);
 } catch (Horde_Vfs_Exception $e) {
-    Horde::logMessage($file_data, 'ERR');
+    Horde::log($file_data, 'ERR');
     throw new IMP_Exception(_("The specified file cannot be read."));
 }
 $mime_type = Horde_Mime_Magic::analyzeData($file_data, isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);

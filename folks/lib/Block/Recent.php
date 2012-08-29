@@ -31,7 +31,7 @@ class Folks_Block_Recent extends Horde_Core_Block
      */
     protected function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
+        require_once __DIR__ . '/../base.php';
 
         $list = $GLOBALS['folks_driver']->getRecentVisitors($this->_params['limit']);
         if ($list instanceof PEAR_Error) {
@@ -49,7 +49,7 @@ class Folks_Block_Recent extends Horde_Core_Block
                                 'name' => _("Send message"));
         }
 
-        Horde::addScriptFile('stripe.js', 'horde');
+        $GLOBALS['page_output']->addScriptFile('stripe.js', 'horde');
 
         ob_start();
         require FOLKS_TEMPLATES . '/block/users.php';

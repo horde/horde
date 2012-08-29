@@ -8,7 +8,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('luxor');
 
 function printdir($dir)
@@ -96,11 +96,11 @@ function printfile_raw($pathname)
     extract($result);
     $result = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), 'luxor');
     if (isset($result['mime_drivers'])) {
-        $mime_drivers = Horde_Array::replaceRecursive(
+        $mime_drivers = array_replace_recursive(
             $mime_drivers, $result['mime_drivers']);
     }
     if (isset($result['mime_drivers_map'])) {
-        $mime_drivers_map = Horde_Array::replaceRecursive(
+        $mime_drivers_map = array_replace_recursive(
             $mime_drivers_map, $result['mime_drivers_map']);
     }
 
@@ -129,7 +129,7 @@ $content = printfile($pathname);
 
 if (substr($pathname, -1) == '/') {
     $title = sprintf(_("Directory Listing :: %s"), $pathname);
-    Horde::addScriptFile('tables.js', 'horde', true);
+    $page_output->addScriptFile('tables.js', 'horde');
 } else {
     $title = sprintf(_("Markup of %s"), $pathname);
     $lastmod = $index->getLastModified($pathname);
@@ -140,7 +140,7 @@ if (substr($pathname, -1) == '/') {
     }
 
     if (!empty($conf['options']['use_show_var'])) {
-        Horde::addScriptFile('show_var.js', 'luxor', true);
+        $page_output->addScriptFile('show_var.js');
     }
 }
 
@@ -148,10 +148,12 @@ if (is_a($content, 'PEAR_Error')) {
     $notification->push($content->getMessage(), 'horde.error');
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require LUXOR_TEMPLATES . '/menu.inc';
 require LUXOR_TEMPLATES . '/headerbar.inc';
 if (!is_a($content, 'PEAR_Error')) {
     echo $content;
 }
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

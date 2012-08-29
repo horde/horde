@@ -10,19 +10,21 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-10</date>
- <time>16:16:50</time>
+ <date>2012-08-07</date>
+ <time>16:06:05</time>
  <version>
-  <release>1.2.8</release>
-  <api>1.2.0</api>
+  <release>2.0.0beta3</release>
+  <api>2.0.0beta1</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] SyncKey is no longer incremented when there are no imported or exported changes after the initial SYNC.
+* [mjr] No longer send unnecessary SYNC_COMMANDS tag.
+* [mjr] Build a proper nested folder hierarchy when appropriate.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -30,6 +32,8 @@
     <dir name="Horde">
      <dir name="ActiveSync">
       <file name="COPYING" role="doc" />
+      <file name="TODO" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/ActiveSync -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -44,54 +48,97 @@
        <file name="Base.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Driver -->
       <dir name="Exception">
+       <file name="FolderExists.php" role="php" />
+       <file name="FolderGone.php" role="php" />
        <file name="InvalidRequest.php" role="php" />
+       <file name="StaleState.php" role="php" />
        <file name="StateGone.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Exception -->
+      <dir name="Folder">
+       <file name="Base.php" role="php" />
+       <file name="Collection.php" role="php" />
+       <file name="Imap.php" role="php" />
+      </dir> <!-- /lib/Horde/ActiveSync/Folder -->
+      <dir name="Imap">
+       <file name="Adapter.php" role="php" />
+       <file name="Message.php" role="php" />
+      </dir> <!-- /lib/Horde/ActiveSync/Imap -->
+      <dir name="Interface">
+       <file name="ImapFactory.php" role="php" />
+       <file name="LoggerFactory.php" role="php" />
+      </dir> <!-- /lib/Horde/ActiveSync/Interface -->
       <dir name="Message">
+       <file name="AirSyncBaseAttachment.php" role="php" />
+       <file name="AirSyncBaseBody.php" role="php" />
+       <file name="AirSyncBaseFileAttachment.php" role="php" />
        <file name="Appointment.php" role="php" />
+       <file name="Attachment.php" role="php" />
        <file name="Attendee.php" role="php" />
        <file name="Base.php" role="php" />
        <file name="Contact.php" role="php" />
        <file name="Exception.php" role="php" />
+       <file name="Flag.php" role="php" />
        <file name="Folder.php" role="php" />
+       <file name="Mail.php" role="php" />
+       <file name="MeetingRequest.php" role="php" />
        <file name="Recurrence.php" role="php" />
        <file name="Task.php" role="php" />
+       <file name="TaskRecurrence.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Message -->
       <dir name="Request">
+       <file name="Autodiscover.php" role="php" />
        <file name="Base.php" role="php" />
        <file name="FolderCreate.php" role="php" />
        <file name="FolderSync.php" role="php" />
-       <file name="GetAttachment" role="php" />
+       <file name="GetAttachment.php" role="php" />
        <file name="GetHierarchy.php" role="php" />
        <file name="GetItemEstimate.php" role="php" />
+       <file name="ItemOperations.php" role="php" />
        <file name="MeetingResponse.php" role="php" />
        <file name="MoveItems.php" role="php" />
-       <file name="Notify.php" role="php" />
        <file name="Ping.php" role="php" />
        <file name="Provision.php" role="php" />
+       <file name="ResolveRecipients.php" role="php" />
        <file name="Search.php" role="php" />
        <file name="SendMail.php" role="php" />
+       <file name="Settings.php" role="php" />
        <file name="SmartForward.php" role="php" />
        <file name="SmartReply.php" role="php" />
        <file name="Sync.php" role="php" />
+       <file name="ValidateCert.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Request -->
       <dir name="State">
        <file name="Base.php" role="php" />
-       <file name="File.php" role="php" />
-       <file name="History.php" role="php" />
+       <file name="Sql.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/State -->
       <dir name="Wbxml">
        <file name="Decoder.php" role="php" />
        <file name="Encoder.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Wbxml -->
       <file name="Exception.php" role="php" />
+      <file name="Policies.php" role="php" />
+      <file name="Rfc822.php" role="php" />
       <file name="Sync.php" role="php" />
+      <file name="SyncCache.php" role="php" />
       <file name="Timezone.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
+      <file name="Utils.php" role="php" />
       <file name="Wbxml.php" role="php" />
      </dir> <!-- /lib/Horde/ActiveSync -->
      <file name="ActiveSync.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_ActiveSync.mo" role="data" />
+      <file name="Horde_ActiveSync.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <file name="Horde_ActiveSync.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="migration">
     <dir name="Horde">
      <dir name="ActiveSync">
@@ -99,6 +146,13 @@
       <file name="2_horde_activesync_peruserpolicykey.php" role="data" />
       <file name="3_horde_activesync_clientidmap.php" role="data" />
       <file name="4_horde_activesync_longtextstatefield.php" role="data" />
+      <file name="5_horde_activesync_addpendingfield.php" role="data" />
+      <file name="6_horde_activesync_addmailmap.php" role="data" />
+      <file name="7_horde_activesync_clearstate.php" role="data" />
+      <file name="8_horde_activesync_addmailflagged.php" role="data" />
+      <file name="9_horde_activesync_add_cache.php" role="data" />
+      <file name="10_horde_activesync_add_deviceproperties.php" role="data" />
+      <file name="11_horde_activesync_removepingstate.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -107,17 +161,25 @@
      <dir name="ActiveSync">
       <dir name="fixtures">
        <file name="appointment.wbxml" role="test" />
+       <file name="default_policies.wbxml" role="test" />
+       <file name="default_policies.xml" role="test" />
        <file name="dst.wbxml" role="test" />
        <file name="FolderSyncRequest.txt" role="test" />
+       <file name="invitation_one.eml" role="test" />
+       <file name="meeting_request_one.wbxml" role="test" />
        <file name="recurrence.wbxml" role="test" />
        <file name="simpleexception.wbxml" role="test" />
       </dir> <!-- /test/Horde/ActiveSync/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="AppointmentTest.php" role="test" />
+      <file name="CacheTest.php" role="test" />
       <file name="ContactTest.php" role="test" />
       <file name="FolderSyncTest.php" role="test" />
       <file name="HordeDriverTest.php" role="test" />
+      <file name="InviteTest.php" role="test" />
+      <file name="PolicyTest.php" role="test" />
       <file name="TimezoneTest.php" role="test" />
+      <file name="UtilsTest.php" role="test" />
       <file name="{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" role="test" />
      </dir> <!-- /test/Horde/ActiveSync -->
     </dir> <!-- /test/Horde -->
@@ -127,7 +189,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -135,105 +197,158 @@
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.8</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_ICalendar</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
    <package>
-    <name>Horde_Core</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.2.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+     <name>Horde_Imap_Client</name>
+     <channel>pear.horde.org</channel>
+     <min>2.0.0beta1</min>
+     <max>3.0.0alpha1</max>
+     <exclude>3.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/ActiveSync/COPYING" />
+   <install as="TODO" name="doc/Horde/ActiveSync/TODO" />
+   <install as="UPGRADING" name="doc/Horde/ActiveSync/UPGRADING" />
    <install as="Horde/ActiveSync.php" name="lib/Horde/ActiveSync.php" />
    <install as="Horde/ActiveSync/Exception.php" name="lib/Horde/ActiveSync/Exception.php" />
+   <install as="Horde/ActiveSync/Policies.php" name="lib/Horde/ActiveSync/Policies.php" />
+   <install as="Horde/ActiveSync/Rfc822.php" name="lib/Horde/ActiveSync/Rfc822.php" />
    <install as="Horde/ActiveSync/Sync.php" name="lib/Horde/ActiveSync/Sync.php" />
+   <install as="Horde/ActiveSync/SyncCache.php" name="lib/Horde/ActiveSync/SyncCache.php" />
    <install as="Horde/ActiveSync/Timezone.php" name="lib/Horde/ActiveSync/Timezone.php" />
+   <install as="Horde/ActiveSync/Translation.php" name="lib/Horde/ActiveSync/Translation.php" />
+   <install as="Horde/ActiveSync/Utils.php" name="lib/Horde/ActiveSync/Utils.php" />
    <install as="Horde/ActiveSync/Wbxml.php" name="lib/Horde/ActiveSync/Wbxml.php" />
    <install as="Horde/ActiveSync/Connector/Exporter.php" name="lib/Horde/ActiveSync/Connector/Exporter.php" />
    <install as="Horde/ActiveSync/Connector/Importer.php" name="lib/Horde/ActiveSync/Connector/Importer.php" />
    <install as="Horde/ActiveSync/Driver/Base.php" name="lib/Horde/ActiveSync/Driver/Base.php" />
+   <install as="Horde/ActiveSync/Exception/FolderExists.php" name="lib/Horde/ActiveSync/Exception/FolderExists.php" />
+   <install as="Horde/ActiveSync/Exception/FolderGone.php" name="lib/Horde/ActiveSync/Exception/FolderGone.php" />
    <install as="Horde/ActiveSync/Exception/InvalidRequest.php" name="lib/Horde/ActiveSync/Exception/InvalidRequest.php" />
+   <install as="Horde/ActiveSync/Exception/StaleState.php" name="lib/Horde/ActiveSync/Exception/StaleState.php" />
    <install as="Horde/ActiveSync/Exception/StateGone.php" name="lib/Horde/ActiveSync/Exception/StateGone.php" />
+   <install as="Horde/ActiveSync/Folder/Base.php" name="lib/Horde/ActiveSync/Folder/Base.php" />
+   <install as="Horde/ActiveSync/Folder/Collection.php" name="lib/Horde/ActiveSync/Folder/Collection.php" />
+   <install as="Horde/ActiveSync/Folder/Imap.php" name="lib/Horde/ActiveSync/Folder/Imap.php" />
+   <install as="Horde/ActiveSync/Imap/Adapter.php" name="lib/Horde/ActiveSync/Imap/Adapter.php" />
+   <install as="Horde/ActiveSync/Imap/Message.php" name="lib/Horde/ActiveSync/Imap/Message.php" />
+   <install as="Horde/ActiveSync/Interface/ImapFactory.php" name="lib/Horde/ActiveSync/Interface/ImapFactory.php" />
+   <install as="Horde/ActiveSync/Interface/LoggerFactory.php" name="lib/Horde/ActiveSync/Interface/LoggerFactory.php" />
+   <install as="Horde/ActiveSync/Message/AirSyncBaseAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAttachment.php" />
+   <install as="Horde/ActiveSync/Message/AirSyncBaseBody.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBody.php" />
+   <install as="Horde/ActiveSync/Message/AirSyncBaseFileAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseFileAttachment.php" />
    <install as="Horde/ActiveSync/Message/Appointment.php" name="lib/Horde/ActiveSync/Message/Appointment.php" />
+   <install as="Horde/ActiveSync/Message/Attachment.php" name="lib/Horde/ActiveSync/Message/Attachment.php" />
    <install as="Horde/ActiveSync/Message/Attendee.php" name="lib/Horde/ActiveSync/Message/Attendee.php" />
    <install as="Horde/ActiveSync/Message/Base.php" name="lib/Horde/ActiveSync/Message/Base.php" />
    <install as="Horde/ActiveSync/Message/Contact.php" name="lib/Horde/ActiveSync/Message/Contact.php" />
    <install as="Horde/ActiveSync/Message/Exception.php" name="lib/Horde/ActiveSync/Message/Exception.php" />
+   <install as="Horde/ActiveSync/Message/Flag.php" name="lib/Horde/ActiveSync/Message/Flag.php" />
    <install as="Horde/ActiveSync/Message/Folder.php" name="lib/Horde/ActiveSync/Message/Folder.php" />
+   <install as="Horde/ActiveSync/Message/Mail.php" name="lib/Horde/ActiveSync/Message/Mail.php" />
+   <install as="Horde/ActiveSync/Message/MeetingRequest.php" name="lib/Horde/ActiveSync/Message/MeetingRequest.php" />
    <install as="Horde/ActiveSync/Message/Recurrence.php" name="lib/Horde/ActiveSync/Message/Recurrence.php" />
    <install as="Horde/ActiveSync/Message/Task.php" name="lib/Horde/ActiveSync/Message/Task.php" />
+   <install as="Horde/ActiveSync/Message/TaskRecurrence.php" name="lib/Horde/ActiveSync/Message/TaskRecurrence.php" />
+   <install as="Horde/ActiveSync/Request/Autodiscover.php" name="lib/Horde/ActiveSync/Request/Autodiscover.php" />
    <install as="Horde/ActiveSync/Request/Base.php" name="lib/Horde/ActiveSync/Request/Base.php" />
    <install as="Horde/ActiveSync/Request/FolderCreate.php" name="lib/Horde/ActiveSync/Request/FolderCreate.php" />
    <install as="Horde/ActiveSync/Request/FolderSync.php" name="lib/Horde/ActiveSync/Request/FolderSync.php" />
-   <install as="Horde/ActiveSync/Request/GetAttachment" name="lib/Horde/ActiveSync/Request/GetAttachment" />
+   <install as="Horde/ActiveSync/Request/GetAttachment.php" name="lib/Horde/ActiveSync/Request/GetAttachment.php" />
    <install as="Horde/ActiveSync/Request/GetHierarchy.php" name="lib/Horde/ActiveSync/Request/GetHierarchy.php" />
    <install as="Horde/ActiveSync/Request/GetItemEstimate.php" name="lib/Horde/ActiveSync/Request/GetItemEstimate.php" />
+   <install as="Horde/ActiveSync/Request/ItemOperations.php" name="lib/Horde/ActiveSync/Request/ItemOperations.php" />
    <install as="Horde/ActiveSync/Request/MeetingResponse.php" name="lib/Horde/ActiveSync/Request/MeetingResponse.php" />
    <install as="Horde/ActiveSync/Request/MoveItems.php" name="lib/Horde/ActiveSync/Request/MoveItems.php" />
-   <install as="Horde/ActiveSync/Request/Notify.php" name="lib/Horde/ActiveSync/Request/Notify.php" />
    <install as="Horde/ActiveSync/Request/Ping.php" name="lib/Horde/ActiveSync/Request/Ping.php" />
    <install as="Horde/ActiveSync/Request/Provision.php" name="lib/Horde/ActiveSync/Request/Provision.php" />
+   <install as="Horde/ActiveSync/Request/ResolveRecipients.php" name="lib/Horde/ActiveSync/Request/ResolveRecipients.php" />
    <install as="Horde/ActiveSync/Request/Search.php" name="lib/Horde/ActiveSync/Request/Search.php" />
    <install as="Horde/ActiveSync/Request/SendMail.php" name="lib/Horde/ActiveSync/Request/SendMail.php" />
+   <install as="Horde/ActiveSync/Request/Settings.php" name="lib/Horde/ActiveSync/Request/Settings.php" />
    <install as="Horde/ActiveSync/Request/SmartForward.php" name="lib/Horde/ActiveSync/Request/SmartForward.php" />
    <install as="Horde/ActiveSync/Request/SmartReply.php" name="lib/Horde/ActiveSync/Request/SmartReply.php" />
    <install as="Horde/ActiveSync/Request/Sync.php" name="lib/Horde/ActiveSync/Request/Sync.php" />
+   <install as="Horde/ActiveSync/Request/ValidateCert.php" name="lib/Horde/ActiveSync/Request/ValidateCert.php" />
    <install as="Horde/ActiveSync/State/Base.php" name="lib/Horde/ActiveSync/State/Base.php" />
-   <install as="Horde/ActiveSync/State/File.php" name="lib/Horde/ActiveSync/State/File.php" />
-   <install as="Horde/ActiveSync/State/History.php" name="lib/Horde/ActiveSync/State/History.php" />
+   <install as="Horde/ActiveSync/State/Sql.php" name="lib/Horde/ActiveSync/State/Sql.php" />
    <install as="Horde/ActiveSync/Wbxml/Decoder.php" name="lib/Horde/ActiveSync/Wbxml/Decoder.php" />
    <install as="Horde/ActiveSync/Wbxml/Encoder.php" name="lib/Horde/ActiveSync/Wbxml/Encoder.php" />
+   <install as="locale/Horde_ActiveSync.pot" name="locale/Horde_ActiveSync.pot" />
+   <install as="locale/de/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/de/LC_MESSAGES/Horde_ActiveSync.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_ActiveSync.po" name="locale/de/LC_MESSAGES/Horde_ActiveSync.po" />
    <install as="migration/1_horde_activesync_base_tables.php" name="migration/Horde/ActiveSync/1_horde_activesync_base_tables.php" />
    <install as="migration/2_horde_activesync_peruserpolicykey.php" name="migration/Horde/ActiveSync/2_horde_activesync_peruserpolicykey.php" />
    <install as="migration/3_horde_activesync_clientidmap.php" name="migration/Horde/ActiveSync/3_horde_activesync_clientidmap.php" />
    <install as="migration/4_horde_activesync_longtextstatefield.php" name="migration/Horde/ActiveSync/4_horde_activesync_longtextstatefield.php" />
+   <install as="migration/5_horde_activesync_addpendingfield.php" name="migration/Horde/ActiveSync/5_horde_activesync_addpendingfield.php" />
+   <install as="migration/6_horde_activesync_addmailmap.php" name="migration/Horde/ActiveSync/6_horde_activesync_addmailmap.php" />
+   <install as="migration/7_horde_activesync_clearstate.php" name="migration/Horde/ActiveSync/7_horde_activesync_clearstate.php" />
+   <install as="migration/8_horde_activesync_addmailflagged.php" name="migration/Horde/ActiveSync/8_horde_activesync_addmailflagged.php" />
+   <install as="migration/9_horde_activesync_add_cache.php" name="migration/Horde/ActiveSync/9_horde_activesync_add_cache.php" />
+   <install as="migration/10_horde_activesync_add_deviceproperties.php" name="migration/Horde/ActiveSync/10_horde_activesync_add_deviceproperties.php" />
+   <install as="migration/11_horde_activesync_removepingstate.php" name="migration/Horde/ActiveSync/11_horde_activesync_removepingstate.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
+   <install as="Horde/ActiveSync/CacheTest.php" name="test/Horde/ActiveSync/CacheTest.php" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
    <install as="Horde/ActiveSync/FolderSyncTest.php" name="test/Horde/ActiveSync/FolderSyncTest.php" />
    <install as="Horde/ActiveSync/HordeDriverTest.php" name="test/Horde/ActiveSync/HordeDriverTest.php" />
+   <install as="Horde/ActiveSync/InviteTest.php" name="test/Horde/ActiveSync/InviteTest.php" />
+   <install as="Horde/ActiveSync/PolicyTest.php" name="test/Horde/ActiveSync/PolicyTest.php" />
    <install as="Horde/ActiveSync/TimezoneTest.php" name="test/Horde/ActiveSync/TimezoneTest.php" />
+   <install as="Horde/ActiveSync/UtilsTest.php" name="test/Horde/ActiveSync/UtilsTest.php" />
    <install as="Horde/ActiveSync/{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" name="test/Horde/ActiveSync/{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" />
    <install as="Horde/ActiveSync/fixtures/appointment.wbxml" name="test/Horde/ActiveSync/fixtures/appointment.wbxml" />
+   <install as="Horde/ActiveSync/fixtures/default_policies.wbxml" name="test/Horde/ActiveSync/fixtures/default_policies.wbxml" />
+   <install as="Horde/ActiveSync/fixtures/default_policies.xml" name="test/Horde/ActiveSync/fixtures/default_policies.xml" />
    <install as="Horde/ActiveSync/fixtures/dst.wbxml" name="test/Horde/ActiveSync/fixtures/dst.wbxml" />
    <install as="Horde/ActiveSync/fixtures/FolderSyncRequest.txt" name="test/Horde/ActiveSync/fixtures/FolderSyncRequest.txt" />
+   <install as="Horde/ActiveSync/fixtures/invitation_one.eml" name="test/Horde/ActiveSync/fixtures/invitation_one.eml" />
+   <install as="Horde/ActiveSync/fixtures/meeting_request_one.wbxml" name="test/Horde/ActiveSync/fixtures/meeting_request_one.wbxml" />
    <install as="Horde/ActiveSync/fixtures/recurrence.wbxml" name="test/Horde/ActiveSync/fixtures/recurrence.wbxml" />
    <install as="Horde/ActiveSync/fixtures/simpleexception.wbxml" name="test/Horde/ActiveSync/fixtures/simpleexception.wbxml" />
   </filelist>
@@ -574,7 +689,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-03-20</date>
+   <date>2012-03-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix parsing incoming timezones under certain conditions (Bug #11068).
@@ -595,28 +710,66 @@
   </release>
   <release>
    <version>
-    <release>1.2.7</release>
-    <api>1.2.0</api></version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0alpha1</api></version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2012-07-10</date>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2012-07-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mjr] Fix issue with setting time before screen lock.
+* First alpha release for Horde 5.
+* [mjr] Add support for ActiveSync native meeting requests and responses.
+* [mjr] Security policy support now allows for per user configuration.
+* [mjr] Add basic Autoconfigure support.
+* [mjr] Add EAS version 12.1 support.
+* [mjr] Add EAS version 12.0 support.
+* [mjr] Add email support.
    </notes>
   </release>
   <release>
    <version>
-    <release>1.2.8</release>
-    <api>1.2.0</api></version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0beta1</api></version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2012-07-10</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* First beta release for Horde 5.
+* [mjr] Fix some issues that were causing infinite loops on iOS
+* [jan] Fix finding locale directory if installed with PEAR.
+* [mjr] Fix issue where FILTERTYPE parameter was not being honored on some clients.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Properly send 401 responses in certain circumstances.
+* [mjr] Improvements to autoconfigure support.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta3</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] SyncKey is no longer incremented when there are no imported or exported changes after the initial SYNC.
+* [mjr] No longer send unnecessary SYNC_COMMANDS tag.
+* [mjr] Build a proper nested folder hierarchy when appropriate.
    </notes>
   </release>
  </changelog>

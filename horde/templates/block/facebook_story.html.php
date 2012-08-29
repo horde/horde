@@ -12,39 +12,51 @@
  */
 ?>
 <div class="hordeSmStreamstory">
- <div class="hordeSmAvatar"><img width="48px" height="48px" src="<?php echo $this->actorImgUrl ?>" alt="<?php echo $this->actorName ?>" /></div>
- <div class="hordeSmStreambody">
-  <?php echo $this->actorProfileLink . $this->actorName?></a><br />
-  <?php echo empty($this->message) ? '' : $this->message;?>
-  <?php if(!empty($this->attachment) &&
-           (!empty($this->attachment['description']) ||
-            !empty($this->attachment['media']) ||
-            !empty($this->attachment['caption']))):?>
-    <div class="fbattachment solidbox">
-      <?php if (!empty($this->attachment['media']) && count($this->attachment['media'])):?>
-        <div class="fbmedia<?php echo count($this->attachment['media']) > 1 ? ' fbmediawide' : ''?>">
-          <?php foreach($this->attachment['media'] as $item): ?>
-            <div class="fbmediaitem<?php echo (count($this->attachement['media']) > 1) ? ' fbmediaitemmultiple' : ' fbmediaitemsingle'?>">
-              <?php echo Horde::externalUrl($item['href'], true) ?><img alt="[image]"src="<?php echo htmlspecialchars($item['src'])?>" /></a>
+  <div class="hordeSmAvatar"><img width="48px" height="48px" src="<?php echo $this->actorImgUrl ?>" alt="<?php echo $this->actorName ?>" /></div>
+  <div class="hordeSmStreambody">
+    <?php if (!empty($this->icon)): ?>
+      <img alt="[image]" src="<?php echo $this->icon ?>" />
+    <?php endif;?>
+    <?php if ($this->privacy->value == 'SELF'): ?>
+     <img alt="[PRIVATE]" src="<?php echo Horde_Themes::img('locked.png') ?>" />
+    <?php endif; ?>
+    <?php echo $this->actorProfileLink . $this->actorName?></a>
+    <div class="hordeSmStreamMessage">
+      <?php echo empty($this->message) ? '' : $this->message;?>
+      <div class="fbattachment <?php echo !empty($this->attachment->description) ? 'solidbox' : '' ?>">
+        <?php if (!empty($this->attachment)): ?>
+          <div class="fbmedia">
+            <div class="fbmediaitem fbmediaitemsingle">
+              <?php echo $this->attachment->link ?><img alt="[image]" src="<?php echo htmlspecialchars($this->attachment->image) ?>" /></a>
             </div>
-          <?php endforeach;?>
-        </div>
-      <?php endif;?>
-      <?php if (!empty($this->attachment['name'])):?>
-        <div class="fbattachmenttitle">
-          <?php echo Horde::externalUrl($this->attachment['href'], true) . $this->attachment['name']?></a>
-        </div>
-      <?php endif;?>
-      <?php if (!empty($this->attachment['caption'])):?>
-        <div class="fbattachmentcaption"><?php echo $this->attachment['caption']?></div>
-      <?php endif;?>
-      <?php if (!empty($this->attachment['description'])):?>
-        <div class="fbattachmentcopy"><?php echo $this->attachment['description']?></div>
-      <?php endif;?>
+          </div>
+          <?php if (!empty($this->attachment->name)):?>
+            <div class="fbattachmenttitle">
+              <?php $this->attachment->link . $this->attachment->name?></a>
+            </div>
+          <?php endif;?>
+          <?php if (!empty($this->attachment->caption)):?>
+            <div class="fbattachmentcaption"><?php echo $this->attachment->caption?></div>
+          <?php endif;?>
+          <?php if (!empty($this->attachment->description)):?>
+            <div class="fbattachmentcopy"><?php echo $this->attachment->description?></div>
+          <?php endif;?>
+          <?php if (!empty($this->place)): ?>
+            <div class="fbattachmentcopy">
+              <?php echo $this->place['link'] . $this->place['name'] ?></a>
+              <?php if (!empty($this->with)): ?>
+                <?php echo _("With "); ?>
+                <?php foreach($this->with as $with): ?>
+                  <?php echo $with['link'] . $with['name']?></a>
+                <?php endforeach; ?>
+              <?php endif; ?>
+            </div>
+          <?php endif; ?>
+        <?php endif; ?>
+      </div>
     </div>
-  <?php endif;?>
-  <div class="hordeSmStreaminfo"><?php echo $this->postInfo?></div>
-  <div class="hordeSmStreaminfo" id="fb<?php echo $this->postId?>"><?php echo $this->likesInfo?></div>
- </div>
+    <div class="hordeSmStreaminfo"><?php echo $this->postInfo?></div>
+    <div class="hordeSmStreaminfo" id="fb<?php echo $this->postId?>"><?php echo $this->likesInfo?></div>
+  </div>
 </div>
 <div class="fbcontentdivider">&nbsp;</div>

@@ -1,3 +1,13 @@
+--------
+v4.0-git
+--------
+
+[mjr] Add support for smart tasklists.
+[mjr] Migrate categories to tags.
+[jan] Fix fatal error if the task form doesn't validate.
+[jan] Add recurring tasks (Request #2150).
+
+
 ----------
 v3.0.9-git
 ----------

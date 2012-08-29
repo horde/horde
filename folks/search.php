@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once __DIR__ . '/lib/base.php';
 require_once FOLKS_BASE . '/lib/Forms/Search.php';
 
 $title = _("Search");
@@ -80,12 +80,14 @@ if ($registry->isAuthenticated()) {
     }
 }
 
-Horde::addScriptFile('stripe.js', 'horde');
-Horde::addScriptFile('effects.js', 'horde');
-Horde::addScriptFile('redbox.js', 'horde');
-Horde::addScriptFile('search.js', 'folks');
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+$page_output->addScriptFile('redbox.js', 'horde');
+$page_output->addScriptFile('search.js');
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 require FOLKS_TEMPLATES . '/list/list.php';
 
@@ -95,4 +97,4 @@ if ($registry->isAuthenticated()) {
     require FOLKS_TEMPLATES . '/list/search.php';
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -8,12 +8,10 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('whups');
-
-if (!$registry->isAdmin(array('permission' => 'whups:admin'))) {
-    $registry->authenticateFailure('whups', $e);
-}
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit('whups', array(
+    'permission' => array('whups:admin', Horde_Perms::EDIT)
+));
 
 // Set up the page config vars.
 $showExtraForm = null;
@@ -49,7 +47,9 @@ function _open($isopened = false)
 
         $opened = true;
         $title = _("Administration");
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $GLOBALS['page_output']->header(array(
+            'title' => $title
+        ));
         require WHUPS_TEMPLATES . '/menu.inc';
         echo $tabs->render($vars->get('action'));
     }
@@ -1218,4 +1218,4 @@ if (!_open(true)) {
 }
 
 _open();
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
@@ -73,6 +73,21 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testHeaderCharsetConversion()
+    {
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('To', 'Empfänger <recipient@example.com>');
+
+        $hdr_array = $hdrs->toArray(array(
+            'charset' => 'iso-8859-1'
+        ));
+
+        $this->assertEquals(
+            '=?iso-8859-1?b?RW1wZuRuZ2Vy?= <recipient@example.com>',
+            $hdr_array['To']
+        );
+    }
+
     public function testMultipleContentType()
     {
         $hdrs = Horde_Mime_Headers::parseHeaders(
@@ -105,4 +120,56 @@ To: recipient2@example.com"
             $hdrs->getValue('to')
         );
     }
+
+    public function testAddHeaderWithGroup()
+    {
+        $email = 'Test: foo@example.com, bar@example.com;';
+
+        $rfc822 = new Horde_Mail_Rfc822();
+        $ob = $rfc822->parseAddressList($email);
+
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('To', $ob);
+
+        $this->assertEquals(
+            $email,
+            $hdrs->getValue('to')
+        );
+    }
+
+    public function testUnencodedMimeHeader()
+    {
+        // The header is base64 encoded to preserve charset data.
+        $hdr = 'RnJvbTogqSBWSUFHUkEgriBPZmZpY2lhbCBTaXRlIDxzbHVzYXJza2lAZ29sZGVud2FyZS5jb20+DQo=';
+        $hdrs = Horde_Mime_Headers::parseHeaders(base64_decode($hdr));
+        $this->assertEquals(
+            '© VIAGRA ® Official Site <slusarski@goldenware.com>',
+            $hdrs->getValue('from')
+        );
+    }
+
+    public function testUndisclosedHeaderParsing()
+    {
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('To', 'undisclosed-recipients');
+        $this->assertEquals(
+            '',
+            $hdrs->getValue('To')
+        );
+
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('To', 'undisclosed-recipients:');
+        $this->assertEquals(
+            '',
+            $hdrs->getValue('To')
+        );
+
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('To', 'undisclosed-recipients:;');
+        $this->assertEquals(
+            '',
+            $hdrs->getValue('To')
+        );
+    }
+
 }

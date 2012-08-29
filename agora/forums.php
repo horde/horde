@@ -11,7 +11,7 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
 /* Set up the forums object. */
@@ -40,13 +40,12 @@ $forums_per_page = $prefs->getValue('forums_per_page');
 $forum_start = $forum_page * $forums_per_page;
 
 /* Get the list of forums. */
-$forums_list = $forums->getForums(0, true, $sort_by, $sort_dir, true, $forum_start, $forums_per_page);
-if ($forums_list instanceof PEAR_Error) {
-    throw new Horde_Exception($forums_list);
-} elseif (empty($forums_list)) {
-    $forums_count = 0;
-} else {
+
+try {
+    $forums_list = $forums->getForums(0, true, $sort_by, $sort_dir, true, $forum_start, $forums_per_page);
     $forums_count = $forums->countForums();
+} catch (Horde_Exception_NotFound $e) {
+    $forums_count = 0;
 }
 
 /* Set up the column headers. */
@@ -71,8 +70,12 @@ $pager_ob = new Horde_Core_Ui_Pager('forum_page', $vars, array('num' => $forums_
 $pager_ob->preserve('scope', $scope);
 $view->pager_link = $pager_ob->render();
 
-$title = _("All Forums");
-$linkTags = array('<link rel="alternate" title="' . _("Forums") . '" href="' . Horde::url('rss/index.php', true, -1)->add('scope', $scope) . '" type="application/rss+xml" />');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addLinkTag(array(
+    'href' => Horde::url('rss/index.php', true, -1)->add('scope', $scope),
+    'title' => _("Forums")
+));
+$page_output->header(array(
+    'title' => _("All Forums")
+));
 echo $view->render('forums');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

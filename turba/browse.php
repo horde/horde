@@ -11,15 +11,15 @@
  * @package Turba
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
 /* If default source is not browsable, try one from the addressbooks pref */
-if (empty($cfgSources[$default_source]['browse'])) {
+if (empty($cfgSources[Turba::$source]['browse'])) {
     $addressbooks = Turba::getAddressBooks();
     foreach ($addressbooks as $source) {
         if (!empty($cfgSources[$source]['browse'])) {
-            $default_source = $source;
+            Turba::$source = $source;
             break;
         }
     }
@@ -32,14 +32,13 @@ $params = array(
     'registry' => &$registry,
     'browse_source_count' => $browse_source_count,
     'browse_source_options' => $browse_source_options,
-    'copymove_source_options' => $copymove_source_options,
     'copymoveSources' => $copymoveSources,
     'addSources' => $addSources,
     'cfgSources' => $cfgSources,
     'attributes' => $attributes,
-    'turba_shares' => isset($turba_shares) ? $turba_shares : null,
+    'turba_shares' => $injector->getInstance('Turba_Shares'),
     'conf' => $conf,
-    'source' => $default_source,
+    'source' => Turba::$source,
     'browser' => $browser
 );
 

@@ -682,15 +682,12 @@ class Whups
                 self::$_users[$user]['name'] = '';
                 self::$_users[$user]['email'] = '';
 
-                try {
-                    $addr_arr = Horde_Mime_Address::parseAddressList($user);
-                    if (isset($addr_arr[0])) {
-                        self::$_users[$user]['name'] = isset($addr_arr[0]['personal'])
-                            ? $addr_arr[0]['personal'] : '';
-                        self::$_users[$user]['email'] = $addr_arr[0]['mailbox'] . '@'
-                            . $addr_arr[0]['host'];
-                    }
-                } catch (Horde_Mime_Exception $e) {
+                $addr_ob = new Horde_Mail_Rfc822_Address($user);
+                if ($addr_ob->valid) {
+                    self::$_users[$user]['name'] = is_null($addr_ob->personal)
+                        ? ''
+                        : $addr_ob->personal;
+                    self::$_users[$user]['email'] = $addr_ob->bare_address;
                 }
             } elseif ($user < 0) {
                 global $whups_driver;
@@ -699,15 +696,12 @@ class Whups
                 self::$_users[$user]['name'] = '';
                 self::$_users[$user]['email'] = $whups_driver->getGuestEmail($user);
 
-                try {
-                    $addr_arr = Horde_Mime_Address::parseAddressList(self::$_users[$user]['email']);
-                    if (isset($addr_arr[0])) {
-                        self::$_users[$user]['name'] = isset($addr_arr[0]['personal'])
-                            ? $addr_arr[0]['personal'] : '';
-                        self::$_users[$user]['email'] = $addr_arr[0]['mailbox'] . '@'
-                            . $addr_arr[0]['host'];
-                    }
-                } catch (Horde_Mime_Exception $e) {
+                $addr_ob = new Horde_Mail_Rfc822_Address(self::$_users[$user]['email']);
+                if ($addr_ob->valid) {
+                    self::$_users[$user]['name'] = is_null($addr_ob->personal)
+                        ? ''
+                        : $addr_ob->personal;
+                    self::$_users[$user]['email'] = $addr_ob->bare_address;
                 }
             } else {
                 $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
@@ -794,26 +788,54 @@ class Whups
     }
 
     /**
+     * Formats a ticket property for a tabular ticket listing.
+     *
+     * @param array $info    A ticket information hash.
+     * @param string $value  The column/property to format.
+     *
+     * @return string  The formatted property.
+     */
+    static public function formatColumn($info, $value)
+    {
+        $url = Whups::urlFor('ticket', $info['id']);
+        $thevalue = isset($info[$value]) ? $info[$value] : '';
+
+        if ($value == 'timestamp' || $value == 'due' ||
+            substr($value, 0, 5) == 'date_') {
+            require_once 'Horde/Form/Type.php';
+            $thevalue = Horde_Form_Type_date::getFormattedTime(
+                $thevalue,
+                $GLOBALS['prefs']->getValue('report_time_format'),
+                false);
+        } elseif ($value == 'user_id_requester') {
+            $thevalue = $info['requester_formatted'];
+        } elseif ($value == 'id' || $value == 'summary') {
+            $thevalue = Horde::link($url) . '<strong>' . htmlspecialchars($thevalue) . '</strong></a>';
+        } elseif ($value == 'owners') {
+            if (!empty($info['owners_formatted'])) {
+                $thevalue = implode(', ', $info['owners_formatted']);
+            }
+        }
+
+        return $thevalue;
+    }
+
+    /**
      * Returns the set of columns and their associated parameter from the
      * backend that should be displayed to the user.
      *
-     * The results can depend on the current user preferences and which search
-     * function was executed.
+     * The results can depend on the current user preferences, which search
+     * function was executed, and the $columns parameter.
      *
      * @param integer $search_type  The type of search that was executed.
      *                              Currently only 'block' is supported.
+     * @param array $columns        The columns to return, overriding the
+     *                              defaults for some $search_type.
      */
-    static public function getSearchResultColumns($search_type = null)
+    static public function getSearchResultColumns($search_type = null,
+                                                  $columns = null)
     {
-        if ($search_type == 'block') {
-            return array(
-                _("Id")       => 'id',
-                _("Summary")  => 'summary',
-                _("Priority") => 'priority_name',
-                _("State")    => 'state_name');
-        }
-
-        return array(
+        $all = array(
             _("Id")        => 'id',
             _("Summary")   => 'summary',
             _("State")     => 'state_name',
@@ -825,8 +847,26 @@ class Whups
             _("Created")   => 'timestamp',
             _("Updated")   => 'date_updated',
             _("Assigned")  => 'date_assigned',
+            _("Due")       => 'due',
             _("Resolved")  => 'date_resolved',
         );
+
+        if ($search_type != 'block') {
+            return $all;
+        }
+
+        if (is_null($columns)) {
+            $columns = array('summary', 'priority_name', 'state_name');
+        }
+
+        $result = array(_("Id") => 'id');
+        foreach ($columns as $param) {
+            if (($label = array_search($param, $all)) !== false) {
+                $result[$label] = $param;
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -981,7 +1021,7 @@ class Whups
         $url_params = array('actionID' => 'download_file',
                             'file' => $file['name'],
                             'ticket' => $ticket);
-        $link .= ' ' . Horde::link(Horde::downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download")) . '</a>';
+        $link .= ' ' . Horde::link($GLOBALS['registry']->downloadUrl($file['name'], $url_params), $file['name']) . Horde::img('download.png', _("Download")) . '</a>';
 
         // Admins can delete attachments.
         if (self::hasPermission($queue, 'queue', Horde_Perms::DELETE)) {

@@ -9,7 +9,7 @@
  * @package Folks
  */
 
-define('FOLKS_BASE', dirname(__FILE__) . '/..');
+define('FOLKS_BASE', __DIR__ . '/..');
 require_once FOLKS_BASE . '/lib/base.php';
 require_once 'tabs.php';
 
@@ -29,8 +29,10 @@ try {
     Horde::url('user.php')->redirect();
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require FOLKS_TEMPLATES . '/menu.inc';
 echo $tabs->render('facebook');
 echo $block;
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Vilma 0.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
 "PO-Revision-Date: 2011-02-02 18:19+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -381,7 +381,7 @@ msgstr "Anzahl der Domains pro Seite."
 msgid "Local user"
 msgstr "Lokaler Benutzer"
 
-#: lib/MailboxDriver/Imap.php:86
+#: lib/MailboxDriver/Imap.php:88
 #, php-format
 msgid "Mailbox \"%s\" does not exist."
 msgstr "Mailbox \"%s\" existiert nicht."

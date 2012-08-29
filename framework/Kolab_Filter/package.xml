@@ -13,7 +13,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-11-13</date>
+ <date>2012-03-19</date>
  <version>
   <release>0.2.0</release>
   <api>0.1.0</api>
@@ -35,6 +35,7 @@
        <file name="COPYING" role="doc" />
        <file name="kolabfilter.1" role="doc" />
        <file name="kolabfilter.pod" role="doc" />
+       <file name="TODO" role="doc" />
       </dir> <!-- /doc/Horde/Kolab/Filter -->
      </dir> <!-- /doc/Horde/Kolab -->
     </dir> <!-- /doc/Horde -->
@@ -164,13 +165,12 @@
      </dir> <!-- /test/Horde/Kolab -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
-   <file name="TODO" role="php" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -178,51 +178,51 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_iCalendar</name>
+    <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Argv</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Server</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
@@ -230,26 +230,26 @@
    <package>
     <name>Horde_Notification</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="" name="TODO" />
    <install as="COPYING" name="doc/Horde/Kolab/Filter/COPYING" />
    <install name="doc/Horde/Kolab/Filter/kolabfilter.1" as="man/man1/kolabfilter.1" />
    <install name="lib/Horde/Kolab/Test/Filter.php" as="Horde/Kolab/Test/Filter.php" />
    <install as="kolabfilter.pod" name="doc/Horde/Kolab/Filter/kolabfilter.pod" />
+   <install as="TODO" name="doc/Horde/Kolab/Filter/TODO" />
    <install name="lib/Horde/Kolab/Filter.php" as="Horde/Kolab/Filter.php" />
    <install name="lib/Horde/Kolab/Filter/Cli.php" as="Horde/Kolab/Filter/Cli.php" />
    <install name="lib/Horde/Kolab/Filter/Cli/Parser.php" as="Horde/Kolab/Filter/Cli/Parser.php" />
@@ -529,7 +529,7 @@
    </notes>
   </release>
   <release>
-   <date>2011-11-13</date>
+   <date>2012-03-19</date>
    <version>
     <release>0.2.0</release>
     <api>0.1.0</api>

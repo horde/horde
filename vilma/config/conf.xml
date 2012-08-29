@@ -165,15 +165,4 @@
    to MTA)">maildrop</configlist>
   </configsection>
  </configtab>
-
- <configtab name="menu" desc="Menu Settings">
-  <configsection name="menu">
-   <configmultienum name="apps" desc="Select any applications that should be
-   linked in Vilma's menu" required="false">
-    <values>
-     <configspecial application="horde" name="apps" />
-    </values>
-   </configmultienum>
-  </configsection>
- </configtab>
 </configuration>

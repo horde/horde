@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once __DIR__ . '/../../Autoload.php';
 
 /**
  * Test the package information parser.
@@ -84,14 +84,14 @@ extends Horde_Pear_TestCase
     private function _getStreamPackage()
     {
         return new Horde_Pear_Rest_Package(
-            fopen(dirname(__FILE__) . '/../../fixture/rest/package.xml', 'r')
+            fopen(__DIR__ . '/../../fixture/rest/package.xml', 'r')
         );
     }
 
     private function _getInformation()
     {
         return file_get_contents(
-            dirname(__FILE__) . '/../../fixture/rest/package.xml'
+            __DIR__ . '/../../fixture/rest/package.xml'
         );
     }
 }

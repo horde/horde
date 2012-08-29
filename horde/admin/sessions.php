@@ -8,20 +8,17 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
-$permission = 'sessions';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:sessions')
+));
 
-$title = _("Session Admin");
-Horde::addInlineScript(array(
+$page_output->addInlineScript(array(
     '$$("DIV.sesstoggle").invoke("observe", "click", function() { [ this.nextSiblings(), this.immediateDescendants() ].flatten().compact().invoke("toggle"); })'
-), 'dom');
-
-require HORDE_TEMPLATES . '/common-header.inc';
+), true);
+$page_output->header(array(
+    'title' => _("Session Administration")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 echo '<h1 class="header">' . _("Current Sessions");
@@ -29,7 +26,7 @@ try {
     $session_info = $session->sessionHandler->getSessionsInfo();
 
     echo ' (' . count($session_info) . ')</h1>' .
-         '<ul class="headerbox linedRow">';
+         '<ul class="linedRow">';
 
     $plus = Horde::img('tree/plusonly.png', _("Expand"));
     $minus = Horde::img('tree/minusonly.png', _("Collapse"), 'style="display:none"');
@@ -71,4 +68,4 @@ try {
     echo '</h1><p class="headerbox"><em>' . sprintf(_("Listing sessions failed: %s"), $e->getMessage()) . '</em></p>';
 }
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

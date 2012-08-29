@@ -11,7 +11,7 @@
  * @package @horde
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 if (empty($conf['twitter']['enabled'])) {
@@ -183,7 +183,7 @@ if (!empty($auth_token)) {
     } catch (Horde_Service_Twitter_Exception $e) {
         echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
         echo '</form>';
-        require HORDE_TEMPLATES . '/common-footer.inc';
+        $page_output->footer();
         exit;
     }
 
@@ -206,7 +206,7 @@ if (!empty($auth_token)) {
         } catch (Horde_Service_Twitter_Exception $e) {
             echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
             echo '</form>';
-            require HORDE_TEMPLATES . '/common-footer.inc';
+            $page_output->footer();
             exit;
         }
         if (!empty($profile->error)) {
@@ -214,8 +214,9 @@ if (!empty($auth_token)) {
             die;
         }
         if (!empty($profile)) {
-            require HORDE_TEMPLATES . '/common-header.inc';
+            $page_output->header();
             echo '<script type="text/javascript">window.opener.location.reload(true);window.close();</script>';
+            $page_output->footer();
         }
     }
 }

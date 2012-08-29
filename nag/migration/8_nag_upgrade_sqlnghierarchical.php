@@ -1,15 +1,6 @@
 <?php
 /**
- * @author   Michael J. Rubinsky <mrubinsk@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  Nag
- */
-
-require_once dirname(__FILE__) . '/../lib/Nag.php';
-
-/**
- * Add hierarchcal related columns to the legacy sql share driver
+ * Adds hierarchy related columns to the SQL-NG share driver.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *

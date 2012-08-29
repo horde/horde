@@ -28,6 +28,11 @@
  *   Fired before a contextmenu is displayed.
  *   params: (string) The DOM ID of the context menu.
  *
+ * ContextSensitive:trigger
+ *   Fired when a context menu is triggered and the element does not exist on
+ *   the page.
+ *   params: (string) The DOM ID of the context menu element.
+ *
  *
  * Original code by Havard Eide (http://eide.org/) released under the MIT
  * license.
@@ -59,12 +64,14 @@ var ContextSensitive = Class.create({
         this.current = [];
         this.elements = $H();
         this.submenus = $H();
+        this.submenus_cache = [];
         this.triggers = [];
 
         if (!Prototype.Browser.Opera) {
             document.observe('contextmenu', this._rightClickHandler.bindAsEventListener(this));
         }
         document.observe('click', this._leftClickHandler.bindAsEventListener(this));
+        document.observe('mouseover', this._mouseoverHandler.bindAsEventListener(this));
         document.observe(Prototype.Browser.Gecko ? 'DOMMouseScroll' : 'mousescroll', this.close.bind(this));
     },
 
@@ -225,7 +232,7 @@ var ContextSensitive = Class.create({
      */
     trigger: function(target, leftclick, x, y)
     {
-        var ctx, def_ctx, el, offset, offsets, tmp, voffsets;
+        var ctx, def_ctx, offset, offsets, tmp, voffsets;
 
         if (!Object.isElement(target)) {
             return false;
@@ -240,7 +247,6 @@ var ContextSensitive = Class.create({
         // display. If we can't find it we just return.
         if (!ctx ||
             ctx.disable ||
-            !(el = $(ctx.ctx)) ||
             (leftclick && target == this.baseelt)) {
             tmp = target.up('.contextMenu');
             def_ctx = tmp && this.current.include(tmp.readAttribute('id'));
@@ -266,8 +272,11 @@ var ContextSensitive = Class.create({
             y = offsets[1] + offset.getHeight() + voffsets.top;
         }
 
-        this._displayMenu(el, x, y);
-        this.triggers.push(el.identify());
+        if (!this._displayMenu(ctx.ctx, x, y)) {
+            return false;
+        }
+
+        this.triggers.push(ctx.ctx);
 
         return true;
     },
@@ -275,18 +284,39 @@ var ContextSensitive = Class.create({
     /**
      * Display the [sub]menu on the screen.
      */
-    _displayMenu: function(elt, x, y)
+    _displayMenu: function(elt_id, x, y)
     {
-        // Get window/element dimensions
-        var eltL, h, w,
-            id = elt.identify(),
-            v = document.viewport.getDimensions();
+        var elt = $(elt_id);
 
+        if (!elt) {
+            document.fire('ContextSensitive:trigger', elt_id);
+            elt = $(elt_id);
+            if (!elt) {
+                return false;
+            }
+
+            elt.addClassName('contextMenu');
+
+            // Attempt to attach submenus now.
+            this.submenus_cache = this.submenus_cache.reject(function(s) {
+                return $(s)
+                    ? $(s).addClassName('contextSubmenu')
+                    : false;
+            });
+        }
+
+        var eltL, h, v, w,
+            id = elt.identify();
+
+        this.baseelt.fire('ContextSensitive:show', id);
+
+        // Get window/element dimensions
         elt.setStyle({ visibility: 'hidden' }).show();
         eltL = elt.getLayout(),
         h = eltL.get('border-box-height');
         w = eltL.get('border-box-width');
         elt.hide().setStyle({ visibility: 'visible' });
+        v = document.viewport.getDimensions();
 
         // Make sure context window is entirely on screen
         if ((y + h) > v.height) {
@@ -299,8 +329,6 @@ var ContextSensitive = Class.create({
                 : (v.width - w - 2);
         }
 
-        this.baseelt.fire('ContextSensitive:show', id);
-
         elt.setStyle({ left: x + 'px', top: y + 'px' })
 
         if (this.current.size()) {
@@ -311,6 +339,8 @@ var ContextSensitive = Class.create({
         }
 
         this.current.push(id);
+
+        return true;
     },
 
     /**
@@ -319,12 +349,8 @@ var ContextSensitive = Class.create({
     addSubMenu: function(id, submenu)
     {
         if (!this.submenus.get(id)) {
-            if (!this.submenus.size()) {
-                document.observe('mouseover', this._mouseoverHandler.bindAsEventListener(this));
-            }
             this.submenus.set(id, submenu);
-            $(submenu).addClassName('contextMenu');
-            $(id).addClassName('contextSubmenu');
+            this.submenus_cache.push(id);
         }
     },
 
@@ -360,9 +386,10 @@ var ContextSensitive = Class.create({
                 voffsets = document.viewport.getScrollOffsets();
                 x = offsets[0] + voffsets.left + elt.getWidth();
                 y = offsets[1] + voffsets.top;
-                this._displayMenu($(sub), x, y, id);
-                this.triggers.push(id);
-                elt.addClassName('contextHover');
+                if (this._displayMenu(sub, x, y, id)) {
+                    this.triggers.push(id);
+                    elt.addClassName('contextHover');
+                }
             }
         } else if ((this.current.size() > 1) &&
                    id_div != cm) {
@@ -383,11 +410,6 @@ ContextSensitive.Element = Class.create({
         this.opts = opts;
         this.opts.left = Boolean(opts.left);
         this.disable = opts.disable;
-
-        target = $(target);
-        if (target) {
-            target.addClassName('contextMenu');
-        }
     }
 
 });

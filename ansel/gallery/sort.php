@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 /* If we aren't provided with a gallery, redirect to the gallery
@@ -57,13 +57,14 @@ case 'Sort':
     exit;
 }
 
-Horde::addInlineScript(array(
+$page_output->addInlineScript(array(
     'jQuery("#sortContainer").sortable()',
     'jQuery("#sortContainer").disableSelection()',
-), 'dom');
-
+), true);
 $title = sprintf(_("%s :: Sort"), $gallery->get('name'));
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Search Forums")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 ?>
@@ -101,4 +102,4 @@ echo '</div>';
 <script>jQuery.noConflict();</script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js" type="text/javascript"></script>
 <?php
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

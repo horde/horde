@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('turba');
 
 // Exit if this isn't an authenticated user, or if there's no source
@@ -27,7 +27,7 @@ if ($addressbook_id == $GLOBALS['registry']->getAuth()) {
 }
 
 try {
-    $addressbook = $turba_shares->getShare($addressbook_id);
+    $addressbook = $injector->getInstance('Turba_Shares')->getShare($addressbook_id);
 } catch (Horde_Share_Exception $e) {
     $notification->push($e, 'horde.error');
     Horde::url('addressbooks/', true)->redirect();
@@ -53,8 +53,9 @@ if ($form->validate(new Horde_Variables($_POST))) {
     Horde::url('addressbooks/', true)->redirect();
 }
 
-$title = $form->getTitle();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $form->getTitle()
+));
 require TURBA_TEMPLATES . '/menu.inc';
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('addressbooks/delete.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

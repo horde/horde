@@ -14,7 +14,7 @@
  */
 
 if (!defined('CHORA_BASE')) {
-    define('CHORA_BASE', dirname(__FILE__) . '/..');
+    define('CHORA_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -35,7 +35,7 @@ class Chora_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (3.0-git)';
+    public $version = 'H5 (3.0-git)';
 
     /**
      * Global variables defined:
@@ -50,7 +50,7 @@ class Chora_Application extends Horde_Registry_Application
             $GLOBALS['sourceroots'] = Horde::loadConfiguration('backends.php', 'sourceroots');
         } catch (Horde_Exception $e) {
             $GLOBALS['sourceroots'] = array();
-            // If chora isn't fully/properly setup, _init() will throw fatal
+            // If chora isn't fully/properly setup, init() will throw fatal
             // errors. Don't want that if this class is being loaded simply to
             // obtain basic chora application information.
             if ($GLOBALS['registry']->initialApp != 'chora') {
@@ -93,9 +93,8 @@ class Chora_Application extends Horde_Registry_Application
         /* Use the value of the 'rt' form value for the sourceroot. If not
          * present, use the last sourceroot used as the default value if the
          * user has that preference. Otherwise, use default sourceroot. */
+        $last_sourceroot = $GLOBALS['prefs']->getValue('last_sourceroot');
         if (is_null($acts['rt'])) {
-            $last_sourceroot = $GLOBALS['prefs']->getValue('last_sourceroot');
-
             if (!empty($last_sourceroot) &&
                 !empty($sourceroots[$last_sourceroot]) &&
                 is_array($sourceroots[$last_sourceroot])) {
@@ -120,6 +119,11 @@ class Chora_Application extends Horde_Registry_Application
 
         $sourcerootopts = $sourceroots[$acts['rt']];
         $sourceroot = $acts['rt'];
+
+        /* Store last repository viewed */
+        if ($acts['rt'] != $last_sourceroot) {
+            $GLOBALS['prefs']->setValue('last_sourceroot', $acts['rt']);
+        }
 
         // Cache.
         $cache = empty($conf['caching'])
@@ -146,9 +150,6 @@ class Chora_Application extends Horde_Registry_Application
 
         /* Location relative to the sourceroot. */
         $where = preg_replace(array('|^/|', '|\.\.|'), '', $where);
-
-        /* Store last repository viewed */
-        $GLOBALS['prefs']->setValue('last_sourceroot', $acts['rt']);
 
         $fullname = $sourcerootopts['location'] . (substr($sourcerootopts['location'], -1) == '/' ? '' : '/') . $where;
 
@@ -181,7 +182,7 @@ class Chora_Application extends Horde_Registry_Application
         );
 
         // Run through every source repository
-        require dirname(__FILE__) . '/../config/backends.php';
+        require __DIR__ . '/../config/backends.php';
         foreach ($sourceroots as $sourceroot => $srconfig) {
             $perms['sourceroots:' . $sourceroot] = array(
                 'title' => $srconfig['name']
@@ -198,27 +199,27 @@ class Chora_Application extends Horde_Registry_Application
         $menu->add(Chora::url('browsedir'), _("_Browse"), 'chora.png');
     }
 
-    /* Sidebar method. */
+    /* Topbar method. */
 
     /**
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
+                                 array $params = array())
     {
         asort($GLOBALS['sourceroots']);
 
         foreach ($GLOBALS['sourceroots'] as $key => $val) {
             if (Chora::checkPerms($key)) {
-                $tree->addNode($parent . $key,
-                    $parent,
-                    $val['name'],
-                    1,
-                    false,
-                    array(
+                $tree->addNode(array(
+                    'id' => $parent . $key,
+                    'parent' => $parent,
+                    'label' => $val['name'],
+                    'expanded' => false,
+                    'params' => array(
                         'icon' => Horde_Themes::img('tree/folder.png'),
                         'url' => Chora::url('browsedir', '', array('rt' => $key))->setRaw(true)
                     )
-                );
+                ));
             }
         }
     }

@@ -10,7 +10,7 @@ class BackendStub {
 $backend = new BackendStub();
 
 // Load device handler.
-require_once dirname(__FILE__) . '/../SyncML/Device.php';
+require_once __DIR__ . '/../SyncML/Device.php';
 $device = Horde_SyncMl_Device::factory('Sync4j');
 
 $data = <<<EVENT

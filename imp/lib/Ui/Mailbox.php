@@ -46,96 +46,57 @@ class IMP_Ui_Mailbox
      * Get From address information for display on mailbox page.
      *
      * @param Horde_Imap_Client_Data_Envelope $ob  An envelope object.
-     * @param array $options                       Additional options:
-     *   - fullfrom: (boolean) If true, returns 'fullfrom' information.
-     *               DEFAULT: false
-     *   - specialchars: (string) If set, run 'from' return through
-     *                   htmlspecialchars() using the given charset.
      *
      * @return array  An array of information:
-     * <pre>
-     * 'error' - (boolean) True on error.
-     * 'from' - (string) The personal part of the From address.
-     * 'fullfrom' - (string) The full From address.
-     * 'to' - (boolean) True if this is who the message was sent to.
-     * </pre>
+     *   - from: (string) The personal part(s) of the From address.
+     *   - from_list: (Horde_Mail_Rfc822_List) From address list.
+     *   - to: (boolean) True if this is who the message was sent to.
      */
-    public function getFrom($ob, $options = array())
+    public function getFrom($ob)
     {
-        $ret = array('error' => false, 'to' => false);
-
-        if (empty($ob->from)) {
-            $ret['from'] = $ret['fullfrom'] = _("Invalid Address");
-            $ret['error'] = true;
-            return $ret;
-        }
+        $ret = array(
+            'from' => '',
+            'to' => false
+        );
 
         if (!isset($this->_cache['drafts_sm_folder'])) {
             $this->_cache['drafts_sm_folder'] = $this->_mailbox->special_outgoing;
         }
 
-        $from = Horde_Mime_Address::getAddressesFromObject($ob->from, array('charset' => 'UTF-8'));
-        $from = reset($from);
+        if ($GLOBALS['injector']->getInstance('IMP_Identity')->hasAddress($ob->from)) {
+            if (!$this->_cache['drafts_sm_folder']) {
+                $ret['from'] = _("To:") . ' ';
+            }
+            $ret['to'] = true;
+            $addrs = $ob->to;
 
-        if (!empty($from) && !isset($from['inner'])) {
-            $from = (isset($from['addresses']) && count($from['addresses']))
-                ? $from['addresses'][0]
-                : null;
-        }
-
-        if (empty($from)) {
-            $ret['from'] = _("Invalid Address");
-            $ret['error'] = true;
+            if (!count($addrs)) {
+                $ret['from'] .= _("Undisclosed Recipients");
+                $ret['from_list'] = new Horde_Mail_Rfc822_List();
+                return $ret;
+            }
         } else {
-            if ($GLOBALS['injector']->getInstance('IMP_Identity')->hasAddress($from['inner'])) {
-                /* This message was sent by one of the user's identity
-                 * addresses - show To: information instead. */
-                if (empty($ob->to)) {
-                    $ret['from'] = _("Undisclosed Recipients");
-                    $ret['error'] = true;
-                } else {
-                    $to = Horde_Mime_Address::getAddressesFromObject($ob->to, array('charset' => 'UTF-8'));
-                    $first_to = reset($to);
-                    if (empty($first_to)) {
-                        $ret['from'] = _("Undisclosed Recipients");
-                        $ret['error'] = true;
-                    } else {
-                        $ret['from'] = empty($first_to['personal'])
-                            ? $first_to['inner']
-                            : $first_to['personal'];
-                        if (!empty($options['fullfrom'])) {
-                            $ret['fullfrom'] = $first_to['display'];
-                        }
-                    }
-                }
-                if (!$this->_cache['drafts_sm_folder']) {
-                    $ret['from'] = _("To") . ': ' . $ret['from'];
-                }
-                $ret['to'] = true;
-            } else {
-                $ret['from'] = empty($from['personal'])
-                    ? $from['inner']
-                    : $from['personal'];
-                if ($this->_cache['drafts_sm_folder']) {
-                    $ret['from'] = _("From") . ': ' . $ret['from'];
-                }
-                if (!empty($options['fullfrom'])) {
-                    $ret['fullfrom'] = $from['display'];
-                }
+            $addrs = $ob->from;
+            if ($this->_cache['drafts_sm_folder']) {
+                $ret['from'] = _("From:") . ' ';
+            }
+
+            if (!count($addrs)) {
+                $ret['from'] = _("Invalid Address");
+                $ret['from_list'] = new Horde_Mail_Rfc822_List();
+                return $ret;
             }
         }
 
-        if (!empty($options['fullfrom']) && !isset($ret['fullfrom'])) {
-            $ret['fullfrom'] = $ret['from'];
+        $parts = array();
+
+        $addrs->unique();
+        foreach ($addrs->base_addresses as $val) {
+            $parts[] = $val->label;
         }
 
-        if (!empty($ret['from']) && !empty($options['specialchars'])) {
-            $res = @htmlspecialchars($ret['from'], ENT_QUOTES, $options['specialchars']);
-            if (empty($res)) {
-                $res = @htmlspecialchars($ret['from']);
-            }
-            $ret['from'] = $res;
-        }
+        $ret['from'] .= implode(', ', $parts);
+        $ret['from_list'] = $addrs;
 
         return $ret;
     }
@@ -209,15 +170,14 @@ class IMP_Ui_Mailbox
     /**
      * Formats the subject header.
      *
-     * @param string $subject     The MIME encoded subject header.
+     * @param string $subject     The subject header.
      * @param string $htmlspaces  HTML-ize spaces?
      *
      * @return string  The formatted subject header.
      */
     public function getSubject($subject, $htmlspaces = false)
     {
-        $subject = Horde_Mime::decode($subject, 'UTF-8');
-        if (empty($subject)) {
+        if (!strlen($subject)) {
             return _("[No Subject]");
         }
 

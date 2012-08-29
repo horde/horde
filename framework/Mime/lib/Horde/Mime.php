@@ -116,19 +116,19 @@ class Horde_Mime
     }
 
     /**
-     * Encodes a string containing non-ASCII characters according to RFC 2047.
+     * MIME encodes a string (RFC 2047).
      *
-     * @param string $text     The text to encode.
-     * @param string $charset  The character set of the text.
+     * @param string $text     The text to encode (UTF-8).
+     * @param string $charset  The character set to encode to.
      *
-     * @return string  The text, encoded only if it contains non-ASCII
-     *                 characters.
+     * @return string  The MIME encoded string (US-ASCII).
      */
-    static public function encode($text, $charset)
+    static public function encode($text, $charset = 'UTF-8')
     {
         $charset = Horde_String::lower($charset);
+        $text = Horde_String::convertCharset($text, 'UTF-8', $charset);
 
-        if (($charset == 'us-ascii') || !self::is8bit($text, $charset)) {
+        if (!self::is8bit($text, $charset)) {
             return $text;
         }
 
@@ -155,13 +155,12 @@ class Horde_Mime
     }
 
     /**
-     * Internal recursive function to RFC 2047 encode a string.
+     * Internal helper function to MIME encode a string.
      *
      * @param string $text     The text to encode.
      * @param string $charset  The character set of the text.
      *
-     * @return string  The text, encoded only if it contains non-ASCII
-     *                 characters.
+     * @return string  The MIME encoded text.
      */
     static protected function _encode($text, $charset)
     {
@@ -193,7 +192,7 @@ class Horde_Mime
     /**
      * Encodes a line via quoted-printable encoding.
      *
-     * @param string $text   The text to encode.
+     * @param string $text   The text to encode (UTF-8).
      * @param string $eol    The EOL sequence to use.
      * @param integer $wrap  Wrap a line at this many characters.
      *
@@ -202,8 +201,8 @@ class Horde_Mime
     static public function quotedPrintableEncode($text, $eol = self::EOL,
                                                  $wrap = 76)
     {
-        $output = '';
         $curr_length = 0;
+        $output = '';
 
         /* We need to go character by character through the data. */
         for ($i = 0, $length = strlen($text); $i < $length; ++$i) {
@@ -245,69 +244,13 @@ class Horde_Mime
     }
 
     /**
-     * Encodes a string containing email addresses according to RFC 2047.
+     * Decodes a MIME encoded (RFC 2047) string.
      *
-     * This differs from encode() because it keeps email addresses legal, only
-     * encoding the personal information.
-     *
-     * @param mixed $addresses   The email addresses to encode (either a
-     *                           string or an array of addresses).
-     * @param string $charset    The character set of the text.
-     * @param string $defserver  The default domain to append to mailboxes.
-     *
-     * @return string  The text, encoded only if it contains non-ASCII
-     *                 characters.
-     * @throws Horde_Mime_Exception
-     */
-    static public function encodeAddress($addresses, $charset,
-                                         $defserver = null)
-    {
-        if (!is_array($addresses)) {
-            $addresses = trim($addresses);
-            $addresses = Horde_Mime_Address::parseAddressList($addresses, array(
-                'defserver' => $defserver,
-                'nestgroups' => true
-            ));
-        }
-
-        $text = array();
-        foreach ($addresses as $addr) {
-            $addrobs = empty($addr['groupname'])
-                ? array($addr)
-                : $addr['addresses'];
-            $addrlist = array();
-
-            foreach ($addrobs as $val) {
-                if (empty($val['personal'])) {
-                    $personal = '';
-                } else {
-                    if (($val['personal'][0] == '"') &&
-                        (substr($val['personal'], -1) == '"')) {
-                        $val['personal'] = stripslashes(substr($val['personal'], 1, -1));
-                    }
-                    $personal = self::encode($val['personal'], $charset);
-                }
-                $addrlist[] = Horde_Mime_Address::writeAddress($val['mailbox'], $val['host'], $personal);
-            }
-
-            $text[] = empty($addr['groupname'])
-                ? reset($addrlist)
-                : Horde_Mime_Address::writeGroupAddress($addr['groupname'], $addrlist);
-        }
-
-        return implode(', ', $text);
-    }
-
-    /**
-     * Decodes an RFC 2047-encoded string.
-     *
-     * @param string $string      The text to decode.
-     * @param string $to_charset  The charset that the text should be decoded
-     *                            to.
+     * @param string $string  The MIME encoded text.
      *
      * @return string  The decoded text.
      */
-    static public function decode($string, $to_charset)
+    static public function decode($string)
     {
         /* Take out any spaces between multiple encoded words. */
         $string = preg_replace('|\?=\s+=\?|', '?==?', $string);
@@ -350,7 +293,7 @@ class Horde_Mime
                 $out .= Horde_String::convertCharset(
                     preg_replace('/=([0-9a-f]{2})/ie', 'chr(0x\1)', str_replace('_', ' ', $encoded_text)),
                     $orig_charset,
-                    $to_charset
+                    'UTF-8'
                 );
             break;
 
@@ -359,7 +302,7 @@ class Horde_Mime
                 $out .= Horde_String::convertCharset(
                     base64_decode($encoded_text),
                     $orig_charset,
-                    $to_charset
+                    'UTF-8'
                 );
             break;
 
@@ -375,51 +318,33 @@ class Horde_Mime
     }
 
     /**
-     * Decodes an RFC 2047-encoded address string.
-     *
-     * @param string $string      The text to decode.
-     * @param string $to_charset  The charset that the text should be decoded
-     *                            to.
-     *
-     * @return string  The decoded text.
-     * @throws Horde_Mime_Exception
-     */
-    static public function decodeAddrString($string, $to_charset)
-    {
-        $addr_list = array();
-        foreach (Horde_Mime_Address::parseAddressList($string) as $ob) {
-            $ob['personal'] = isset($ob['personal'])
-                ? self::decode($ob['personal'], $to_charset)
-                : '';
-            $addr_list[] = $ob;
-        }
-
-        return Horde_Mime_Address::addrArray2String($addr_list);
-    }
-
-    /**
      * Encodes a MIME parameter string pursuant to RFC 2183 & 2231
      * (Content-Type and Content-Disposition headers).
      *
      * @param string $name     The parameter name.
-     * @param string $val      The parameter value.
-     * @param string $charset  The charset the text should be encoded with.
+     * @param string $val      The parameter value (UTF-8).
      * @param array $opts      Additional options:
-     * <pre>
-     * 'escape' - (boolean) If true, escape param values as described in
-     *            RFC 2045 [Appendix A].
-     *            DEFAULT: false
-     * 'lang' - (string) The language to use when encoding.
-     *          DEFAULT: None specified
-     * </pre>
+     *   - charset: (string) The charset to encode to.
+     *              DEFAULT: UTF-8
+     *   - escape: (boolean) If true, escape param values as described in
+     *             RFC 2045 [Appendix A].
+     *             DEFAULT: false
+     *   - lang: (string) The language to use when encoding.
+     *           DEFAULT: None specified
      *
-     * @return array  The encoded parameter string.
+     * @return array  The encoded parameter string (US-ASCII).
      */
-    static public function encodeParam($name, $val, $charset, $opts = array())
+    static public function encodeParam($name, $val, array $opts = array())
     {
+        $curr = 0;
         $encode = $wrap = false;
         $output = array();
-        $curr = 0;
+
+        $charset = isset($opts['charset'])
+            ? $opts['charset']
+            : 'UTF-8';
+
+        $val = Horde_String::convertCharset($val, 'UTF-8', $charset);
 
         // 2 = '=', ';'
         $pre_len = strlen($name) + 2;
@@ -488,15 +413,13 @@ class Horde_Mime
      *                         (case-insensitive).
      * @param mixed $data      The text of the header or an array of
      *                         param name => param values.
-     * @param string $charset  The charset the text should be decoded to.
      *
-     * @return array  An array with the following entries:
-     * <pre>
-     * 'params' - (array) The header's parameter values.
-     * 'val' - (string) The header's "base" value.
-     * </pre>
+     * @return array  An array with the following entries (all strings in
+     *                UTF-8):
+     *   - params: (array) The header's parameter values.
+     *   - val: (string) The header's "base" value.
      */
-    static public function decodeParam($type, $data, $charset)
+    static public function decodeParam($type, $data)
     {
         $convert = array();
         $ret = array('params' => array(), 'val' => '');
@@ -588,7 +511,7 @@ class Horde_Mime
             /* Ignore language. */
             $quote = strpos($val, "'", $quote + 1);
             substr($val, $quote + 1);
-            $ret['params'][$name] = Horde_String::convertCharset(urldecode(substr($val, $quote + 1)), $orig_charset, $charset);
+            $ret['params'][$name] = Horde_String::convertCharset(urldecode(substr($val, $quote + 1)), $orig_charset, 'UTF-8');
         }
 
         /* MIME parameters are supposed to be encoded via RFC 2231, but many
@@ -597,7 +520,7 @@ class Horde_Mime
          * it was doing. */
         if (empty($convert)) {
             foreach (array_diff(array_keys($ret['params']), array_keys($convert)) as $name) {
-                $ret['params'][$name] = self::decode($ret['params'][$name], $charset);
+                $ret['params'][$name] = self::decode($ret['params'][$name]);
             }
         }
 
@@ -620,25 +543,21 @@ class Horde_Mime
      *
      * @param string $id      The MIME ID string.
      * @param string $action  One of the following:
-     * <pre>
-     * 'down' - ID of child. Note: down will first traverse to "$id.0" if
-     *          given an ID *NOT* of the form "$id.0". If given an ID of the
-     *          form "$id.0", down will traverse to "$id.1". This behavior
-     *          can be avoided if 'norfc822' option is set.
-     * 'next' - ID of next sibling.
-     * 'prev' - ID of previous sibling.
-     * 'up' - ID of parent. Note: up will first traverse to "$id.0" if
-     *        given an ID *NOT* of the form "$id.0". If given an ID of the
-     *        form "$id.0", down will traverse to "$id". This behavior can be
-     *        avoided if 'norfc822' option is set.
-     * </pre>
+     *   - down: ID of child. Note: down will first traverse to "$id.0" if
+     *           given an ID *NOT* of the form "$id.0". If given an ID of the
+     *           form "$id.0", down will traverse to "$id.1". This behavior
+     *           can be avoided if 'norfc822' option is set.
+     *   - next: ID of next sibling.
+     *   - prev: ID of previous sibling.
+     *   - up: ID of parent. Note: up will first traverse to "$id.0" if
+     *         given an ID *NOT* of the form "$id.0". If given an ID of the
+     *         form "$id.0", down will traverse to "$id". This behavior can be
+     *         avoided if 'norfc822' option is set.
      * @param array $options  Additional options:
-     * <pre>
-     * 'count' - (integer) How many levels to traverse.
-     *           DEFAULT: 1
-     * 'norfc822' - (boolean) Don't traverse rfc822 sub-levels
-     *              DEFAULT: false
-     * </pre>
+     *   - count: (integer) How many levels to traverse.
+     *            DEFAULT: 1
+     *   - norfc822: (boolean) Don't traverse rfc822 sub-levels
+     *               DEFAULT: false
      *
      * @return mixed  The resulting ID string, or null if that ID can not
      *                exist.
@@ -714,11 +633,9 @@ class Horde_Mime
      *
      * @return array  A list of arrays, with each array corresponding to
      *                a file in the input and containing the following keys:
-     * <pre>
-     * 'data' - (string) Unencoded data.
-     * 'name' - (string) Filename.
-     * 'perms' - (string) Octal permissions.
-     * </pre>
+     *   - data: (string) Unencoded data.
+     *   - name: (string) Filename.
+     *   - perms: (string) Octal permissions.
      */
     static public function uudecode($input)
     {

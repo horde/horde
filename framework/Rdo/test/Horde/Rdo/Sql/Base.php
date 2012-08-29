@@ -2,7 +2,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Base.php';
+require_once __DIR__ . '/../Base.php';
 
 /**
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
@@ -19,6 +19,8 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
     protected static $EagerBaseObjectMapper;
     protected static $LazyBaseObjectMapper;
     protected static $RelatedThingMapper;
+    protected static $MtmaMapper;
+    protected static $MtmbMapper;
 
     protected static function _migrate_sql_rdo($db)
     {
@@ -29,6 +31,9 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
             $migration->dropTable('test_someeagerbaseobjects');
             $migration->dropTable('test_somelazybaseobjects');
             $migration->dropTable('test_relatedthings');
+            $migration->dropTable('test_manytomanya');
+            $migration->dropTable('test_manytomanyb');
+            $migration->dropTable('test_manythrough');
         } catch (Horde_Db_Exception $e) {
         }
 
@@ -47,6 +52,20 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
         $t->column('relatedthing_intproperty', 'integer', array('null' => false));
         $t->end();
 
+        $t = $migration->createTable('test_manytomanya', array('autoincrementKey' => 'a_id'));
+        $t->column('a_intproperty', 'integer', array('null' => false));
+        $t->end();
+
+        $t = $migration->createTable('test_manytomanyb', array('autoincrementKey' => 'b_id'));
+        $t->column('b_intproperty', 'integer', array('null' => false));
+        $t->end();
+
+
+        $t = $migration->createTable('test_manythrough');
+        $t->column('a_id', 'integer');
+        $t->column('b_id', 'integer');
+        $t->end();
+
         $migration->migrate('up');
     }
 
@@ -57,7 +76,7 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
         // read sql file for statements
         $statements = array();
         $current_stmt = '';
-        $fp = fopen(dirname(__FILE__) . '/../fixtures/unit_tests.sql', 'r');
+        $fp = fopen(__DIR__ . '/../fixtures/unit_tests.sql', 'r');
         while ($line = fgets($fp, 8192)) {
             $line = rtrim(preg_replace('/^(.*)--.*$/s', '\1', $line));
             if (!$line) {
@@ -78,6 +97,134 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
             self::$db->execute($stmt);
         }
 
+    }
+
+    public function testListOffsetExistsReturnFalseForTooBigOffset()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        $this->assertFalse(isset($list[$list->count()]), "return false for index not in list");
+    }
+
+    public function testListOffsetExistsReturnFalseFor0inemptylist()
+    {
+        $list = self::$LazyBaseObjectMapper->find(5000);
+        $this->assertFalse(isset($list[0]), "return false for first index in empty list");
+    }
+
+    public function testHasRelationManyToManyAny()
+    {
+        $objectA = self::$MtmaMapper->findOne(2);
+        $this->assertTrue($objectA->hasRelation('manybs'));
+    }
+
+    public function testHasRelationManyToManyAnyButEmpty()
+    {
+        $objectA = self::$MtmaMapper->findOne(1);
+        $this->assertFalse($objectA->hasRelation('manybs'));
+    }
+
+    public function testHasRelationManyToManyWrongPeer()
+    {
+        $objectA = self::$MtmaMapper->findOne(2);
+        $objectB = self::$MtmbMapper->findOne(11);
+        $this->assertFalse($objectA->hasRelation('manybs', $objectB));
+    }
+
+    public function testHasRelationManyToManyRightPeer()
+    {
+        $objectA = self::$MtmaMapper->findOne(2);
+        $objectB = self::$MtmbMapper->findOne(12);
+        $this->assertTrue($objectA->hasRelation('manybs', $objectB));
+    }
+
+    public function testHasRelationOneToOne()
+    {
+        $objectA1 = self::$LazyBaseObjectMapper->findOne(1);
+        $objectA2 = self::$LazyBaseObjectMapper->findOne(4);
+        $objectB1 = self::$LazyBaseObjectMapper->findOne(1);
+
+        $this->assertTrue($objectA1->hasRelation('lazyRelatedThing', $objectB1));
+        $this->assertFalse($objectA2->hasRelation('lazyRelatedThing', $objectB1));
+        $this->assertTrue($objectA1->hasRelation('lazyRelatedThing'));
+        $this->assertFalse($objectA2->hasRelation('lazyRelatedThing'));
+    }
+
+    public function testAddRelationManyToMany()
+    {
+        $objectA = self::$MtmaMapper->findOne(1);
+        $objectB = self::$MtmbMapper->findOne(11);
+        $objectA->addRelation('manybs', $objectB);
+        $this->assertTrue($objectA->hasRelation('manybs', $objectB));
+    }
+
+    public function testRemoveRelationManyToManyOne()
+    {
+        $objectA = self::$MtmaMapper->findOne(2);
+        $objectB1 = self::$MtmbMapper->findOne(12);
+        $objectB2 = self::$MtmbMapper->findOne(14);
+        $objectA->removeRelation('manybs', $objectB1);
+        $this->assertFalse($objectA->hasRelation('manybs', $objectB1));
+        $this->assertTrue($objectA->hasRelation('manybs', $objectB2));
+    }
+
+    public function testRemoveRelationManyToManyAll()
+    {
+        $objectA = self::$MtmaMapper->findOne(2);
+        $objectB1 = self::$MtmbMapper->findOne(12);
+        $objectB2 = self::$MtmbMapper->findOne(14);
+        $objectA->removeRelation('manybs');
+        $this->assertFalse($objectA->hasRelation('manybs', $objectB1));
+        $this->assertFalse($objectA->hasRelation('manybs', $objectB2));
+    }
+
+    public function testListOffsetExistsReturnTrueForFirst()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        $this->assertTrue(isset($list[0]), "return true for first index in list");
+    }
+
+    public function testListOffsetExistsReturnTrueForLast()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        $this->assertTrue(isset($list[$list->count() - 1]), "return true for last index in list");
+    }
+
+    public function testListOffsetGetReturnNullForTooBig()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        $this->assertNull($list[$list->count()], "return Null for one after last index in list");
+    }
+
+    public function testListOffsetGetReturnObjectForLast()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        $this->assertTrue($list[$list->count()-1] instanceof Horde_Rdo_Test_Objects_SomeLazyBaseObject, "return Object for last index in list");
+    }
+
+    public function testListOffsetGetReturnObjectForFirst()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        $this->assertTrue($list[0] instanceof Horde_Rdo_Test_Objects_SomeLazyBaseObject, "return Object for first index in list");
+    }
+
+   /**
+    * @expectedException Horde_Rdo_Exception
+    */
+    public function testListOffsetSetThrowException()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        $list[0] = $list[0];
+        $this->assertTrue($list[0] instanceof Horde_Rdo_Test_Objects_SomeLazyBaseObject, "Throw exception when trying to set a new element to the list");
+    }
+
+   /**
+    * @expectedException Horde_Rdo_Exception
+    */
+    public function testListOffsetUnsetThrowException()
+    {
+        $list = self::$LazyBaseObjectMapper->find();
+        unset($list[0]);
+        $this->assertTrue($list[0] instanceof Horde_Rdo_Test_Objects_SomeLazyBaseObject, "Throw exception when trying to unset an element");
     }
 
     public function testFindReturnsHordeRdoList()
@@ -143,6 +290,9 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
             $migration->dropTable('test_someeagerbaseobjects');
             $migration->dropTable('test_somelazybaseobjects');
             $migration->dropTable('test_relatedthings');
+            $migration->dropTable('test_manytomanya');
+            $migration->dropTable('test_manytomanyb');
+            $migration->dropTable('test_manythrough');
             self::$db = null;
         }
     }
@@ -155,5 +305,7 @@ class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
 
        self::$LazyBaseObjectMapper = new Horde_Rdo_Test_Objects_SomeLazyBaseObjectMapper(self::$db);
        self::$EagerBaseObjectMapper = new Horde_Rdo_Test_Objects_SomeEagerBaseObjectMapper(self::$db);
+       self::$MtmaMapper = new Horde_Rdo_Test_Objects_ManyToManyAMapper(self::$db);
+       self::$MtmbMapper = new Horde_Rdo_Test_Objects_ManyToManyBMapper(self::$db);
     }
 }

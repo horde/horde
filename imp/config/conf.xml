@@ -3,46 +3,43 @@
 <configuration>
  <configtab name="user" desc="User Capabilities and Constraints">
   <configsection name="user">
-   <configswitch name="allow_folders" desc="Should we allow users to use
-   folders at all? NOTE: setting this to false will mean there is no place to
-   save sent-mail or postponed messages, along with the obvious effects of
-   restricting the user to their INBOX.">true
+   <configswitch name="allow_folders" desc="Are users allowed to use folders?
+   NOTE: setting this to false will mean there is no place to save sent-mail
+   or postponed messages, along with the obvious effects of restricting the
+   user exclusively to their INBOX.">true
     <case name="true" desc="Yes">
      <configboolean name="autocreate_special" required="false"
      desc="Automatically create special mailboxes (Drafts, Sent Mail, Spam,
      Trash) on login?">false</configboolean>
-     <configboolean name="select_sentmail_folder" desc="If this is true, then
-     users will be given a drop down menu in the compose window allowing them
-     to choose which folder to save their sent messages to. If this is false,
-     then messages will be saved to the folder defined in their
+     <configboolean name="select_sentmail_folder" desc="If true, users will be
+     given a drop down menu in the compose window allowing them to choose
+     which mailbox to save their sent messages to. If this is false, messages
+     will be saved to the mailbox defined in their
      preferences.">false</configboolean>
     </case>
     <case name="false" desc="No" />
    </configswitch>
-   <configboolean name="allow_view_source" desc="If this is true, then there
-   will be a 'Message Source' link in the parts list of every message, allowing
-   the user to view the entire raw message, or to download it and save it to
-   disk.">true</configboolean>
+   <configboolean name="allow_view_source" desc="If true, there will be a
+   link when viewing a message allowing the user to view the raw contents of
+   the message.">true</configboolean>
   </configsection>
  </configtab>
 
  <configtab name="server" desc="Server">
   <configsection name="server">
-   <configswitch name="server_list" desc="Should we display a list of servers
-   for users to choose from? The options are 'shown', 'hidden', and 'none'. If
-   the server list is hidden then you can use the 'preferred' mechanism to
-   auto-select from it based on an HTTP virtualhost or another piece of
-   data. If it is shown, the user will be able to pick from any of the
-   options. If none, no server list will be shown and the defaults will be used
-   unless another mechanism changes them.">none
+   <configswitch name="server_list" desc="Display a list of servers for users
+   to choose from? If the server list is hidden then you can use the
+   'preferred' mechanism (in config/backends.php) to auto-select a server.
+   If shown, the user will be able to pick from any of the options. If none,
+   no server list will be shown and the defaults will be used unless another
+   mechanism changes them.">none
     <case name="none" desc="None" />
     <case name="shown" desc="Shown" />
     <case name="hidden" desc="Hidden" />
    </configswitch>
    <configlist name="fixed_folders" required="false" desc="A comma separated
-   list of folders that can't be modified (deleted, renamed, etc) by the user,
-   e.g.: &quot;Drafts, Trash&quot;. (The mailbox value must be encoded in the
-   UTF7-IMAP charset; see RFC 3501 [5.1.3])"/>
+   list of mailboxes that can't be modified (deleted, renamed, etc) by the
+   user, e.g.: &quot;Drafts, Trash&quot;."/>
   </configsection>
  </configtab>
 
@@ -51,24 +48,25 @@
   <configsection name="msgsettings">
    <configsection name="filtering">
     <configstring name="words" desc="If filtering of message content is turned
-    on, where should we find the list of words to filter out? An example file
-    can be found at config/filter.txt.dist">./config/filter.txt</configstring>
-    <configstring name="replacement" desc="What should we replace filtered
-    words with?">****</configstring>
+    on (see 'filtering' preference value), this is the filesystem location
+    of the filtered words list. An example file can be found at
+    config/filter.txt.dist">./config/filter.txt</configstring>
+    <configstring name="replacement" desc="What should filtered words be
+    replaced with?">****</configstring>
    </configsection>
   </configsection>
 
   <configsection name="spam">
    <configheader>Spam Reporting</configheader>
-   <configswitch name="reporting" desc="Should we display a 'report this
-   message as spam' link?">false
+   <configswitch name="reporting" desc="Should a spam reporting link be
+   displayed?">false
     <case name="true" desc="Yes">
-     <configboolean name="spamfolder" desc="Should the link also appear in the
-     user's spam folder?">false</configboolean>
-     <configstring name="email" required="false" desc="Should we report spam
-     messages via email? If you need to dynamically set the email address for
-     each user (e.g. DSPAM), this setting should be empty and you should look
-     at the spam_email hook instead."/>
+     <configboolean name="spamfolder" desc="Should the spam link also appear
+     in the user's spam mailbox?">false</configboolean>
+     <configstring name="email" required="false" desc="Should spam messages be
+     reported via e-mail? If you need to dynamically set the e-mail address for
+     each user (e.g. DSPAM), leave this setting empty and look at the
+     spam_email hook instead."/>
      <configswitch name="email_format" required="false" desc="If reporting
      via email, what format should the spam messages be sent as? The default
      and recommended value is 'digest', which packages the raw data of all
@@ -79,28 +77,27 @@
       <case name="digest" desc="Digest" />
       <case name="redirect" desc="Redirect" />
      </configswitch>
-     <configstring name="program" required="false" desc="Should we report the
-     spam message via an external program (e.g. /usr/local/bin/spamassassin
-     -r)? If you include the placeholder %u in this string, it will be replaced
-     with the current username. If you include the placeholder %l in this
-     string, it will be replaced with the current short username. If you
-     include the placeholder %d in this string, it will be replaced with the
-     current domain name."/>
+     <configstring name="program" required="false" desc="Should spam messages
+     be reported via an external program (e.g. the spamassassin binary)? The
+     placeholder %u in this string will be replaced with the current Horde
+     username. The placeholder %l in this string will be replaced with the
+     current short username. The placeholder %d in this string will be
+     replaced with the current domain name."/>
     </case>
     <case name="false" desc="No" />
    </configswitch>
   </configsection>
 
   <configsection name="notspam">
-   <configswitch name="reporting" desc="Should we display a 'report this
-   message as innocent' link?">false
+   <configswitch name="reporting" desc="Should a innocent message (non-spam)
+   reporting link be displayed?">false
     <case name="true" desc="Yes">
      <configboolean name="spamfolder" desc="Should the link only appear in the
-     user's spam folder?">true</configboolean>
-     <configstring name="email" required="false" desc="Should we report innocent
-     messages via email? If you need to dynamically set the email address for
-     each user (e.g. DSPAM), this setting should be empty and you should look
-     at the spam_email hook instead."/>
+     user's spam mailbox?">true</configboolean>
+     <configstring name="email" required="false" desc="Should innocent messages
+     be reported via e-mail? If you need to dynamically set the e-mail address
+     for each user (e.g. DSPAM), leave this setting empty and look at the
+     spam_email hook instead."/>
      <configswitch name="email_format" required="false" desc="If reporting
      via email, what format should the innocent messages be sent as? The
      default and recommended value is 'digest', which packages the raw data of
@@ -111,96 +108,93 @@
       <case name="digest" desc="Digest" />
       <case name="redirect" desc="Redirect" />
      </configswitch>
-     <configstring name="program" required="false" desc="Should we report the
-     innocent message via an external program (e.g. /usr/local/bin/spamassassin
-     -k)? If you include the placeholder %u in this string, it will be replaced
-     with the current username."/>
+     <configstring name="program" required="false" desc="Should innocent
+     messages be reported via an external program (e.g. the spamassasin
+     binary)? The placeholder %u in this string will be replaced with the
+     current username."/>
     </case>
     <case name="false" desc="No" />
    </configswitch>
   </configsection>
  </configtab>
 
- <configsection name="print">
-  <configheader>Print Options</configheader>
-  <configboolean name="add_printedby" desc="Should we add a &quot;Printed
-  By&quot; header to the top of all printed messages?">false</configboolean>
- </configsection>
-
  <configtab name="compose" desc="Compose">
   <configsection name="compose">
-   <configboolean name="use_vfs" desc="Should we use the Horde VFS system for
+   <configboolean name="use_vfs" desc="Should the Horde VFS system be used for
    storing uploaded attachments?">false</configboolean>
-   <configswitch name="link_attachments" desc="Should we allow the users to
-   send attachments as links?">true
+   <configswitch name="link_attachments" desc="Should users be allowed to send
+   attachments as links?">true
     <case name="true" desc="Yes">
-     <configboolean name="link_all_attachments" desc="Should IMP send all
-     attachments as links? If this is false the user will be given the option
-     to link any attachment.">false</configboolean>
-     <configboolean name="link_attachments_notify" desc="Should IMP send an
-     e-mail notification to the sender when the first person attempts to
-     download the linked attachment? This notification will include a link
-     to delete the file.">true</configboolean>
+     <configboolean name="link_all_attachments" desc="Send all attachments as
+     links? If false, the user will be given the option to individually link
+     any attachment.">false</configboolean>
+     <configboolean name="link_attachments_notify" desc="Send an e-mail
+     notification to the sender when the first person attempts to download the
+     linked attachment? This notification includes a link to delete the
+     file.">true</configboolean>
+     <configinteger name="link_attach_size_limit" desc="The maximum total size
+     of linked attachments allowed per message (in bytes)? Set to 0 for no
+     limit.">0</configinteger>
     </case>
     <case name="false" desc="No" />
    </configswitch>
-   <configinteger name="attach_size_limit" desc="What is the maximum total size
-   of attachments per message (in bytes)? Set this value to 0 for no
-   limit. [Note, the maximum allowable size of any individual attachment is set
-   via the PHP 'upload_max_filesize' parameter - see
-   imp/docs/INSTALL]">0</configinteger>
-   <configinteger name="attach_count_limit" desc="What is the maximum total
-   number of attachments per message? Set this value to 0 for no
-   limit.">0</configinteger>
+   <configinteger name="attach_size_limit" desc="The maximum total size of
+   attachments allowed per message (in bytes)? Set to 0 for no limit. [The
+   maximum allowable size of any individual attachment is set via the PHP
+   'upload_max_filesize' parameter - see imp/docs/INSTALL]">0</configinteger>
+   <configinteger name="attach_count_limit" desc="The maximum total number of
+   attachments allowed per message? Set to 0 for no limit.">0</configinteger>
    <configboolean name="convert_to_related" desc="When composing a message in
-   HTML mode, should we download the data for any images contained in the
-   message and directly attach to the message? This is highly recommended as
-   the image data may not otherwise be available when the recipient views
-   the message in the future. This should be turned off for servers that are
-   firewalled or otherwise have limited Internet
-   connectivity.">true</configboolean>
-   <configinteger name="reply_limit" desc="What is the maximum total size of
-   text (in bytes) to use when replying or forwarding a message. Set this value
-   to 0 for no limit.">200000</configinteger>
+   HTML mode, download the data for images contained in the message and
+   and directly attach this data to the message? This is highly recommended as
+   the image data can not otherwise be guaranteed to be available when the
+   recipient views the message. This should be turned off for servers that are
+   firewalled or have limited network connectivity.">true</configboolean>
+   <configinteger name="reply_limit" desc="The maximum total size of text (in
+   bytes) to use when replying or forwarding a message. Set to 0 for no
+   no limit.">200000</configinteger>
    <configinteger name="ac_browser" desc="For autocompletion of addresses,
-   if the addressbook is below this many entries, the user's address book will
-   be transmitted to the browser. This will result in faster lookups and less
-   server load, but requires additional processing on compose creation. Set to 0
-   to disable.">50</configinteger>
-   <configinteger name="ac_threshold" desc="When autocompleting addresses in
-   the compose screen, this is the minimum number of characters required
-   before the search is performed on the server.">3</configinteger>
+   the maximum number of entries present in the user's addressbook before the
+   queries will be handled by the server. For addressbooks with less than this
+   value, the entire addressbook will be transmitted to the browser in the
+   compose page. The latter results in faster lookups, but requires additional
+   processing when generating the compose page. Set to 0 to
+   disable.">50</configinteger>
+   <configinteger name="ac_threshold" desc="When autocompleting addresses on
+   the compose screen, the minimum number of characters required before the
+   the addressbook is searched.">3</configinteger>
   </configsection>
  </configtab>
 
  <configtab name="other" desc="Other settings">
   <configheader>Mail History</configheader>
   <configsection name="maillog">
-   <configboolean name="use_maillog" desc="By default, IMP will keep track of
-   both who a message was sent to and the date it was sent when forwarding,
-   replying, or redirecting a message. This information is stored using the
-   History class provided by Horde. These entries are deleted when the mail is
-   deleted using IMP in an attempt to keep the number of entries to the
-   minimum required - if not deleted the maillog entry will persist
-   forever.">true</configboolean>
+   <configboolean name="use_maillog" desc="Who a message was sent to and the
+   date it was sent when forwarding, replying, or redirecting a message is
+   tracked by default. This information is stored using the History framework
+   provided by Horde. These entries could potentially be stored forever, so
+   sufficient storage space is required.">true</configboolean>
   </configsection>
   <configheader>Outgoing Email Logging</configheader>
   <configsection name="sentmail">
-   <configswitch name="driver" desc="IMP can log all attempts to send messages
-   including who has sent, when, to which recipients. This information might
-   be used to configure message limits or create favourite recipients
-   lists. Enable this feature only if it doesn't violate privacy rules or laws
-   in your country. What storage driver should we use?">Sql
+   <configdescription>All attempts to send messages can be logged, including
+   who has sent a message, when the message was sent, and to which recipients.
+   This information can be used to configure message sending limits, create
+   favorite recipient lists, or assist in tracking down malicious use.
+   Enable this feature only if it doesn't violate privacy rules or laws in
+   your country.</configdescription>
+   <configswitch name="driver" desc="The sentmail log storage driver to
+   use?">Sql
     <case name="Null" desc="None"/>
     <case name="Sql" desc="SQL">
      <configsection name="params">
-      <configinteger name="threshold" desc="How many days should we keep old
-      log entries?">60</configinteger>
+      <configinteger name="threshold" desc="How many days should old log
+      entries be kept?">60</configinteger>
       <configinteger name="limit_period" desc="If limiting users to a certain
       number of recipients per time period, how many hours should this time
       period last?">24</configinteger>
       <configsql switchname="driverconfig">
-       <configstring name="table" desc="Database table">imp_sentmail
+       <configstring name="table" desc="Database table name.">imp_sentmail
        </configstring>
       </configsql>
      </configsection>
@@ -211,47 +205,18 @@
   <configheader>External Applications</configheader>
   <configsection name="tasklist">
    <configboolean name="use_tasklist" desc="If Nag is installed on the local
-   system, IMP can allow users to add the details of mail messages to a new
-   task. If you do not want this functionality enabled (it will add to server
-   load because the list of available task categories must be generated on
-   every page load), you should disable this checkbox.">true</configboolean>
+   system, it can be used to allow the details of mail messages to be added
+   to a new task. This feature will add to server load because the list of
+   available task categories must be generated on every page load. Enable
+   tasklist support?">true</configboolean>
   </configsection>
 
   <configsection name="notepad">
    <configboolean name="use_notepad" desc="If Mnemo is installed on the local
-   system, IMP can allow users to add the details of mail messages to a new
-   note. If you do not want this functionality enabled (it will add to server
-   load because the list of available note categories must be generated on
-   every page load), you should disable this checkbox.">true</configboolean>
-  </configsection>
- </configtab>
-
- <configtab name="dimp" desc="Dynamic View (dimp) Options">
-  <configsection name="dimp">
-   <configheader>ViewPort Settings</configheader>
-   <configsection name="viewport">
-    <configinteger name="buffer_pages" desc="The number of viewable pages to
-    send to the browser per server access when listing
-    messages.">10</configinteger>
-    <configinteger name="viewport_wait" desc="How long, in seconds, to wait
-    before displaying an informational message to users that the message list is
-    still being built. Set to 0 to disable messages.">10</configinteger>
-   </configsection>
-  </configsection>
- </configtab>
-
- <configtab name="menu" desc="Menu">
-  <configsection name="menu">
-   <configheader>Menu settings</configheader>
-   <configmultienum name="apps" desc="Select any applications that should be
-   linked in IMP's menu" required="false">
-    <values>
-     <configspecial application="horde" name="apps" />
-    </values>
-   </configmultienum>
-   <configboolean name="apps_iframe" desc="Should linked applications be loaded
-   in an IFRAME within the Ajax interface?"
-   required="false">false</configboolean>
+   system, it can be used to allow the details of mail messages to be added
+   to a new note. This feature will add to server load because the list of
+   available note categories must be generated on every page load. Enable
+   notepad support?">true</configboolean>
   </configsection>
  </configtab>
 </configuration>

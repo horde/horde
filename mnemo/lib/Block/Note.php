@@ -1,5 +1,12 @@
 <?php
 /**
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @package Mnemo
  */
 class Mnemo_Block_Note extends Horde_Core_Block
 {
@@ -12,7 +19,6 @@ class Mnemo_Block_Note extends Horde_Core_Block
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
-
         $this->_name = _("View note");
     }
 
@@ -50,16 +56,21 @@ class Mnemo_Block_Note extends Horde_Core_Block
     {
         $memo = $this->_getNote();
         $html = '<div id="noteBody' . $memo['memo_id'] . '" class="noteBody">';
-        $body = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($memo['body'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+        $body = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_TextFilter')
+            ->filter(
+                $memo['body'],
+                'text2html',
+                array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         try {
             $body = Horde::callHook('format_description', array($body), 'mnemo', $body);
         } catch (Horde_Exception_HookNotSet $e) {}
         $html .= $body . '</div>';
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('mnemo', 'EditNote'), array(
-            'domid' => 'noteBody' . $memo['memo_id'],
-            'id' => $this->_params['note_uid'],
-            'rows' => substr_count($memo['body'], "\n"),
-        ));
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')
+            ->create('Mnemo_Ajax_Imple_EditNote', array(
+                'dataid' => $this->_params['note_uid'],
+                'id' => 'noteBody' . $memo['memo_id'],
+                'rows' => substr_count($memo['body'], "\n")));
         return $html;
     }
 

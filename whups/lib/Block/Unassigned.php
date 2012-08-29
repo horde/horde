@@ -2,14 +2,20 @@
 /**
  * Display a summary of unassigned tickets.
  */
-class Whups_Block_Unassigned extends Horde_Core_Block
+class Whups_Block_Unassigned extends Whups_Block_Tickets
 {
+    /**
+     * Is this block enabled?
+     *
+     * @var boolean
+     */
+    public $enabled = true;
+
     /**
      */
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
-
         $this->_name = _("Unassigned Tickets");
     }
 
@@ -17,37 +23,16 @@ class Whups_Block_Unassigned extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $whups_driver, $prefs;
-
-        $queue_ids = array_keys(Whups::permissionsFilter($whups_driver->getQueues(), 'queue', Horde_Perms::READ));
+        $queue_ids = array_keys(Whups::permissionsFilter($GLOBALS['whups_driver']->getQueues(), 'queue', Horde_Perms::READ));
         $info = array('notowner' => true,
                       'nores' => true,
                       'queue' => $queue_ids);
-        $unassigned = $whups_driver->getTicketsByProperties($info);
+        $unassigned = $GLOBALS['whups_driver']->getTicketsByProperties($info);
         if (!$unassigned) {
             return '<p><em>' . _("No tickets are unassigned!") . '</em></p>';
         }
 
-        $html = '<thead><tr>';
-        $sortby = $prefs->getValue('sortby');
-        $sortdirclass = ' class="' . ($prefs->getValue('sortdir') ? 'sortup' : 'sortdown') . '"';
-        foreach (Whups::getSearchResultColumns('block') as $name => $column) {
-            $html .= '<th' . ($sortby == $column ? $sortdirclass : '') . '>' . $name . '</th>';
-        }
-        $html .= '</tr></thead><tbody>';
-
-        Whups::sortTickets($unassigned);
-        foreach ($unassigned as $ticket) {
-            $link = Horde::link(Whups::urlFor('ticket', $ticket['id'], true));
-            $html .= '<tr><td>' . $link . htmlspecialchars($ticket['id']) . '</a></td>' .
-                '<td>' . $link . htmlspecialchars($ticket['summary']) . '</a></td>' .
-                '<td>' . htmlspecialchars($ticket['priority_name']) . '</td>' .
-                '<td>' . htmlspecialchars($ticket['state_name']) . '</td></tr>';
-        }
-
-        Horde::addScriptFile('tables.js', 'horde', true);
-
-        return '<table id="whups_block_mytickets" cellspacing="0" class="tickets striped sortable">' . $html . '</tbody></table>';
+        return $this->_table($unassigned);
     }
 
 }

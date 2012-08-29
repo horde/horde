@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Folks H4 (0.1-git)\n"
+"Project-Id-Version: Folks H5 (0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -514,7 +514,7 @@ msgstr ""
 msgid "Friends activities"
 msgstr ""
 
-#: lib/Application.php:37 templates/edit/header.php:46
+#: lib/Application.php:35 templates/edit/header.php:46
 msgid "Friends activity"
 msgstr ""
 
@@ -799,11 +799,11 @@ msgstr ""
 msgid "Online"
 msgstr ""
 
-#: lib/Application.php:36 rss/friends.php:46 templates/edit/header.php:45
+#: lib/Application.php:34 rss/friends.php:46 templates/edit/header.php:45
 msgid "Online friends"
 msgstr ""
 
-#: lib/Application.php:34 rss/online.php:22 templates/edit/header.php:44
+#: lib/Application.php:32 rss/online.php:22 templates/edit/header.php:44
 msgid "Online users"
 msgstr ""
 
@@ -844,7 +844,7 @@ msgstr ""
 msgid "Password changed."
 msgstr ""
 
-#: edit/friends/know.php:15 lib/Application.php:38 lib/Block/Know.php:14
+#: edit/friends/know.php:15 lib/Application.php:36 lib/Block/Know.php:14
 #: rss/know.php:59 templates/edit/header.php:47
 #: templates/friends/friends.php:19
 msgid "People you might know"
@@ -1057,7 +1057,7 @@ msgstr ""
 msgid "Show friends that are"
 msgstr ""
 
-#: account/signup.php:50
+#: account/signup.php:51
 msgid "Sign up"
 msgstr ""
 

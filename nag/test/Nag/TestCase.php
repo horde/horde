@@ -43,7 +43,7 @@ extends PHPUnit_Framework_TestCase
                     'factory' => 'Db',
                     'params' => array(
                         'migrations' => array(
-                            'migrationsPath' => dirname(__FILE__) . '/../../migration',
+                            'migrationsPath' => __DIR__ . '/../../migration',
                             'schemaTableName' => 'nag_test_schema'
                         )
                     )
@@ -60,6 +60,7 @@ extends PHPUnit_Framework_TestCase
                     'user' => 'test@example.com',
                     'app' => 'nag'
                 ),
+                'Horde_Alarm' => 'Alarm',
                 'Horde_Prefs' => 'Prefs',
                 'Horde_Perms' => 'Perms',
                 'Horde_Group' => 'Group',

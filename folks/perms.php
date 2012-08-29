@@ -9,7 +9,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once __DIR__ . '/lib/base.php';
 
 $shares = $injector->getInstance('Horde_Core_Factory_Share')->create();
 $groups = $injector->getInstance('Horde_Group');
@@ -243,7 +243,9 @@ try {
     Horde::logMessage($e, 'NOTICE');
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 $notification->notify(array('listeners' => 'status'));
 require $registry->get('templates', 'horde') . '/shares/edit.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

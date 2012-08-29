@@ -10,7 +10,7 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $image_id = (int)Horde_Util::getFormData('image');
@@ -64,19 +64,19 @@ if ($face_id) {
 $height = $x2 - $x1;
 $width = $y2 - $y1;
 
-$title = _("Create a new face");
+$page_output->addScriptFile('scriptaculous/builder.js', 'horde');
+$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+$page_output->addScriptFile('scriptaculous/controls.js', 'horde');
+$page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
+$page_output->addScriptFile('cropper.js');
+$page_output->addScriptFile('stripe.js', 'horde');
 
-Horde::addScriptFile('builder.js', 'horde');
-Horde::addScriptFile('effects.js', 'horde');
-Horde::addScriptFile('controls.js', 'horde');
-Horde::addScriptFile('dragdrop.js', 'horde');
-Horde::addScriptFile('cropper.js');
-Horde::addScriptFile('stripe.js', 'horde');
+$page_output->addThemeStylesheet('cropper.css');
 
-$injector->getInstance('Horde_Themes_Css')->addThemeStylesheet('cropper.css');
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Create a new face")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/custom.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

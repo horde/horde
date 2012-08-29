@@ -174,10 +174,14 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
         }
 
         if (!empty($this->_vars['subject'])) {
-            $code .= ':subject "' . Horde_Mime::encode(Ingo_Script_Sieve::escapeString($this->_vars['subject']), 'UTF-8') . '" ';
+            $code .= ':subject "' . Horde_Mime::encode(Ingo_Script_Sieve::escapeString($this->_vars['subject'])) . '" ';
         }
         return $code
-            . '"' . Ingo_Script_Sieve::escapeString($this->_vars['reason'])
+            . '"'
+            . Ingo_Script_Sieve::escapeString(
+                  Ingo::getReason($this->_vars['reason'],
+                                  $this->_vars['start'],
+                                  $this->_vars['end']))
             . '";';
     }
 

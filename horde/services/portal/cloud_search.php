@@ -14,7 +14,7 @@
  * @author Michael J. Rubinksy <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintaks' => true));
 
 $tag = Horde_Util::getFormData('tag');

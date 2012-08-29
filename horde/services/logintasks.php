@@ -14,7 +14,7 @@
  * @package  Horde
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintasks' => true));
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -107,17 +107,22 @@ $template->set('header', $header);
 $template->set('tasks', $display_tasks, true);
 $template->set('logintasks_url', $tasks->getLoginTasksUrl());
 
-Horde::addScriptFile('logintasks.js', 'horde');
+$page_output->addScriptFile('logintasks.js', 'horde');
+$page_output->header(array(
+    'body_class' => 'modal-form',
+    'body_id' => 'services_logintasks',
+    'title' => $title,
+    'view' => $registry->getView()
+));
 
-$bodyId = 'services_logintasks';
-$bodyClass = 'modal-form';
+switch ($registry->getView()) {
+case Horde_Registry::VIEW_SMARTMOBILE:
+    echo $template->fetch(HORDE_TEMPLATES . '/logintasks/smartmobile.html');
+    break;
 
-if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
-    require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
-    echo $template->fetch(HORDE_TEMPLATES . '/logintasks/mobile.html');
-    require $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
-} else {
-    require HORDE_TEMPLATES . '/common-header.inc';
+default:
     echo $template->fetch(HORDE_TEMPLATES . '/logintasks/logintasks.html');
-    require HORDE_TEMPLATES . '/common-footer.inc';
+    break;
 }
+
+$page_output->footer();

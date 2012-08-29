@@ -1,7 +1,7 @@
 <?php
 /**
  * This class provides a place to store common code shared among IMP's various
- * UI views for folder manipulation.
+ * UI views for folder tree manipulation.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
@@ -16,80 +16,39 @@
 class IMP_Ui_Folder
 {
     /**
-     * Download folder(s) into a MBOX file.
-     *
-     * @param array $flist  The folder list.
-     * @param boolean $zip  Compress with zip?
-     *
-     * @throws Horde_Exception
-     */
-    public function downloadMbox($flist, $zip = false)
-    {
-        global $browser, $injector;
-
-        $mbox = $this->generateMbox($flist);
-
-        if ($zip) {
-            $horde_compress = Horde_Compress::factory('zip');
-            try {
-                $data = $horde_compress->compress(array(array(
-                    'data' => $mbox,
-                    'name' => reset($flist) . '.mbox'
-                )), array(
-                    'stream' => true
-                ));
-                fclose($mbox);
-            } catch (Horde_Exception $e) {
-                fclose($mbox);
-                throw $e;
-            }
-
-            $suffix = '.zip';
-            $type = 'application/zip';
-        } else {
-            $data = $mbox;
-            $suffix = '.mbox';
-            $type = null;
-        }
-
-        fseek($data, 0, SEEK_END);
-        $browser->downloadHeaders(reset($flist) . $suffix, $type, false, ftell($data));
-
-        rewind($data);
-        while (!feof($data)) {
-            echo fread($data, 8192);
-        }
-        fclose($data);
-        exit;
-    }
-
-    /**
      * Generates a string that can be saved out to an mbox format mailbox file
-     * for a folder or set of folders, optionally including all subfolders of
-     * the selected folders as well. All folders will be put into the same
-     * string.
+     * for a mailbox (or set of mailboxes), optionally including all
+     * subfolders of the selected mailbox(es) as well. All mailboxes will be
+     * output in the same string.
      *
      * @author Didi Rieder <adrieder@sbox.tugraz.at>
      *
-     * @param array $folder_list  A list of folder names to generate a mbox
-     *                            file for (UTF7-IMAP).
+     * @param mixed $mboxes  A mailbox name (UTF-8), or list of mailbox names,
+     *                       to generate a mbox file for.
      *
      * @return resource  A stream resource containing the text of a mbox
      *                   format mailbox file.
      */
-    public function generateMbox($folder_list)
+    public function generateMbox($mboxes)
     {
         $body = fopen('php://temp', 'r+');
 
-        if (empty($folder_list)) {
+        if (!is_array($mboxes)) {
+            if (!strlen($mboxes)) {
+                return $body;
+            }
+            $mboxes = array($mboxes);
+        }
+
+        if (empty($mboxes)) {
             return $body;
         }
 
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
-        foreach ($folder_list as $folder) {
+        foreach ($mboxes as $val) {
             try {
-                $status = $imp_imap->status($folder, Horde_Imap_Client::STATUS_MESSAGES);
+                $status = $imp_imap->status($val, Horde_Imap_Client::STATUS_MESSAGES);
             } catch (IMP_Imap_Exception $e) {
                 continue;
             }
@@ -98,7 +57,7 @@ class IMP_Ui_Folder
             $query->size();
 
             try {
-                $size = $imp_imap->fetch($folder, $query, array(
+                $size = $imp_imap->fetch($val, $query, array(
                     'ids' => $imp_imap->getIdsOb(Horde_Imap_Client_Ids::ALL, true)
                 ));
             } catch (IMP_Imap_Exception $e) {
@@ -134,15 +93,14 @@ class IMP_Ui_Folder
 
             foreach ($slices as $slice) {
                 try {
-                    $res = $imp_imap->fetch($folder, $query, array(
+                    $res = $imp_imap->fetch($val, $query, array(
                         'ids' => $slice
                     ));
                 } catch (IMP_Imap_Exception $e) {
                     continue;
                 }
 
-                reset($res);
-                while (list(,$ptr) = each($res)) {
+                foreach ($res as $ptr) {
                     $from = '<>';
                     if ($from_env = $ptr->getEnvelope()->from) {
                         $ptr2 = reset($from_env);
@@ -168,7 +126,7 @@ class IMP_Ui_Folder
     /**
      * Import a MBOX file into a mailbox.
      *
-     * @param string $mbox       The mailbox name to import into.
+     * @param string $mbox       The mailbox name to import into (UTF-8).
      * @param string $form_name  The form field name that contains the MBOX
      *                           data.
      *
@@ -179,8 +137,7 @@ class IMP_Ui_Folder
     {
         $GLOBALS['browser']->wasFileUploaded($form_name, _("mailbox file"));
 
-        $mbox = IMP_Mailbox::get(Horde_String::convertCharset($mbox, 'UTF-8', 'UTF7-IMAP'));
-        $res = $mbox->importMbox($_FILES[$form_name]['tmp_name'], $_FILES[$form_name]['type']);
+        $res = IMP_Mailbox::get($mbox)->importMbox($_FILES[$form_name]['tmp_name'], $_FILES[$form_name]['type']);
         $mbox_name = basename(Horde_Util::dispelMagicQuotes($_FILES[$form_name]['name']));
 
         if ($res === false) {

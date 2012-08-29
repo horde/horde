@@ -211,7 +211,6 @@ abstract class Horde_Service_Weather_Base
             'rain' => Horde_Service_Weather_Translation::t('millimeters'),
             'snow' => Horde_Service_Weather_Translation::t('centimeters'),
         );
-
     }
 
     /**

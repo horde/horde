@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 // Exit if this isn't an authenticated administrative user.
@@ -50,11 +50,12 @@ $vars->set('name', $group->get('name'));
 $vars->set('description', $group->get('description'));
 $vars->set('members', $group->get('members'));
 
-$title = $form->getTitle();
-$menu = Horde::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$menu = Kronolith::menu();
+$page_output->header(array(
+    'title' => $form->getTitle()
+));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo $menu;
 $notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('resources/groups/edit.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

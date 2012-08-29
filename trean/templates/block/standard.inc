@@ -17,8 +17,6 @@ if ($bookmark->http_status == 'error') {
   </td>
 
   <td valign="top" width="100%">
-   <div class="rating"><?php echo static_star_rating_helper($bookmark) ?></div>
-
    <div class="bookmark-title">
     <?php echo Horde::link($bookmark_url, '', '', $target) . htmlspecialchars($bookmark->title) ?></a>
     <span class="small">(<?php echo $bookmark->clicks . ' ' . ($bookmark->clicks == 1 ? _("click") : _("clicks")) ?>)</span>

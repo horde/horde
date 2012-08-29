@@ -10,7 +10,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none', 'nologintasks' => true));
 
 $main_page = Horde_Util::nonInputVar('horde_login_url', Horde_Util::getFormData('url'));
@@ -59,13 +59,10 @@ if ($main_page) {
         if (!empty($initial_app) &&
             $initial_app != 'horde' &&
             $registry->hasPermission($initial_app)) {
-
-            if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
-                if ($registry->getApiInstance($initial_app, 'application')->mobileView) {
-                    $main_page = Horde::url(rtrim($initial_app, '/') . '/', true);
-                } else {
-                    $main_page = Horde::getServiceLink('portal');
-                }
+            if ($registry->getView() == Horde_Registry::VIEW_SMARTMOBILE) {
+                $main_page = $registry->hasView(Horde_Registry::VIEW_MINIMAL, $initial_app)
+                    ? Horde::url(rtrim($initial_app, '/') . '/', true)
+                    : $registry->getServiceLink('portal');
             } else {
                 $main_page = Horde::url(rtrim($initial_app, '/') . '/', true);
             }
@@ -73,14 +70,14 @@ if ($main_page) {
             /* Next, try the initial horde page if it is something other than
              * index.php or login.php, since that would lead to inifinite
              * loops. */
-            if ($session->get('horde', 'mode') == 'smartmobile' && Horde::ajaxAvailable()) {
-                $main_page = Horde::getServiceLink('portal');
+            if ($registry->getView() == Horde_Registry::VIEW_SMARTMOBILE) {
+                $main_page = $registry->getServiceLink('portal');
             } elseif (!empty($registry->applications['horde']['initial_page']) &&
                 !in_array($registry->applications['horde']['initial_page'], array('index.php', 'login.php'))) {
                 $main_page = Horde::url($registry->applications['horde']['initial_page'], true);
             } else {
                 /* Finally, fallback to the portal page. */
-                $main_page = Horde::getServiceLink('portal');
+                $main_page = $registry->getServiceLink('portal');
             }
         }
     }

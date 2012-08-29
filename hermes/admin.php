@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('hermes', array('admin' => true));
 
 $r = new Horde_Form_Renderer();
@@ -24,8 +24,9 @@ function _open()
 
         $opened = true;
         $beendone = true;
-        $title = _("Administration");
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        $page_output->header(array(
+            'title' => _("Administration")
+        ));
         echo Horde::menu();
         $notification->notify(array('listeners' => 'status'));
     }
@@ -251,4 +252,4 @@ if (!$beendone) {
     $form3->close($r);
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

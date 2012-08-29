@@ -8,14 +8,13 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
 // Get refresh interval.
-if ($r_time = $prefs->getValue('summary_refresh_time')) {
-    if (!$browser->hasFeature('xmlhttpreq')) {
-        Horde::metaRefresh($r_time, Horde::url('mybugs.php'));
-    }
+if ($r_time = $prefs->getValue('summary_refresh_time') &&
+    !$browser->hasFeature('xmlhttpreq')) {
+    $page_output->metaRefresh($r_time, Horde::url('mybugs.php'));
 }
 
 // Load layout from preferences for authenticated users, and a default
@@ -40,9 +39,10 @@ $layout = new Horde_Core_Block_Layout_View(
 );
 $layout_html = $layout->toHtml();
 
-$title = sprintf(_("My %s"), $registry->get('name'));
 $menuBottom = '<div id="menuBottom"><a href="' . Horde::url('mybugs_edit.php') . '">' . _("Add Content") . '</a></div><div class="clear">&nbsp;</div>';
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => sprintf(_("My %s"), $registry->get('name'))
+));
 require WHUPS_TEMPLATES . '/menu.inc';
 echo $layout_html;
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

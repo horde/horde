@@ -8,13 +8,10 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
-$permission = 'sqlshell';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() &&
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:sqlshell')
+));
 
 $db = $injector->getInstance('Horde_Db_Adapter');
 $q_cache = $session->get('horde', 'sql_query_cache', Horde_Session::TYPE_ARRAY);
@@ -41,8 +38,10 @@ if (Horde_Util::getFormData('list-tables')) {
 }
 
 $title = _("SQL Shell");
-Horde::addScriptFile('stripe.js', 'horde');
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 ?>
@@ -131,4 +130,4 @@ if (isset($result)) {
 </div>
 <?php
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

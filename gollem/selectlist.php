@@ -13,7 +13,7 @@
  * @package  Gollem
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('gollem', array(
     'authentication' => 'selectlist'
 ));
@@ -165,7 +165,7 @@ if (is_array($info['list']) &&
             $item['selected'] = true;
         }
 
-        $item['item'] = (++$rowct % 2) ? 'item0' : 'item1';
+        $item['item'] = (++$rowct % 2) ? 'rowEven' : 'rowOdd';
 
         $entry[] = $item;
     }
@@ -176,10 +176,11 @@ if (is_array($info['list']) &&
     $t->set('nofiles', _("There are no files in this folder."), true);
 }
 
-$title = $info['title'];
-Horde::addScriptFile('selectlist.js', 'gollem');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('selectlist.js');
+$page_output->header(array(
+    'title' => $info['title']
+));
 require GOLLEM_TEMPLATES . '/javascript_defs.php';
 Gollem::status();
 echo $t->fetch(GOLLEM_TEMPLATES . '/selectlist/selectlist.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -28,10 +28,19 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_List_Query_ActiveSync_Cache
-extends Horde_Kolab_Storage_List_Query_ActiveSync_Base
+extends Horde_Kolab_Storage_List_Query_ActiveSync
+implements Horde_Kolab_Storage_List_Manipulation_Listener,
+Horde_Kolab_Storage_List_Synchronization_Listener
 {
     /** The active sync information */
     const ACTIVE_SYNC = 'ACTIVE_SYNC';
+
+    /**
+     * The underlying ActiveSync query.
+     *
+     * @param Horde_Kolab_Storage_List_Query_ActiveSync
+     */
+    private $_query;
 
     /**
      * The list cache.
@@ -50,14 +59,14 @@ extends Horde_Kolab_Storage_List_Query_ActiveSync_Base
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_List $list   The queriable list.
-     * @param array                    $params Additional parameters.
+     * @param Horde_Kolab_Storage_List_Query_ActiveSync $query The underlying ActiveSync query.
+     * @param Horde_Kolab_Storage_List_Cache $cache The list cache.
      */
-    public function __construct(Horde_Kolab_Storage_List $list,
-                                $params)
+    public function __construct(Horde_Kolab_Storage_List_Query_ActiveSync $query,
+                                Horde_Kolab_Storage_List_Cache $cache)
     {
-        parent::__construct($list, $params);
-        $this->_list_cache = $params['cache'];
+        $this->_query = $query;
+        $this->_list_cache = $cache;
         if ($this->_list_cache->hasQuery(self::ACTIVE_SYNC)) {
             $this->_active_sync = $this->_list_cache->getQuery(self::ACTIVE_SYNC);
         } else {
@@ -75,7 +84,7 @@ extends Horde_Kolab_Storage_List_Query_ActiveSync_Base
     public function getActiveSync($folder)
     {
         if (!isset($this->_active_sync[$folder])) {
-            $this->_active_sync[$folder] = parent::getActiveSync($folder);
+            $this->_active_sync[$folder] = $this->_query->getActiveSync($folder);
             $this->_list_cache->setQuery(self::ACTIVE_SYNC, $this->_active_sync);
             $this->_list_cache->save();
         }
@@ -92,32 +101,32 @@ extends Horde_Kolab_Storage_List_Query_ActiveSync_Base
      */
     public function setActiveSync($folder, array $data)
     {
-        parent::setActiveSync($folder, $data);
+        $this->_query->setActiveSync($folder, $data);
         $this->_active_sync[$folder] = $data;
         $this->_list_cache->setQuery(self::ACTIVE_SYNC, $this->_active_sync);
         $this->_list_cache->save();
     }
 
     /**
-     * Create a new folder.
+     * Update the listener after creating a new folder.
      *
-     * @param string $folder The path of the folder to create.
+     * @param string $folder The path of the folder that has been created.
      * @param string $type   An optional type for the folder.
      *
      * @return NULL
      */
-    public function createFolder($folder, $type = null)
+    public function updateAfterCreateFolder($folder, $type = null)
     {
     }
 
     /**
-     * Delete a folder.
+     * Update the listener after deleting folder.
      *
-     * @param string $folder The path of the folder to delete.
+     * @param string $folder The path of the folder that has been deleted.
      *
      * @return NULL
      */
-    public function deleteFolder($folder)
+    public function updateAfterDeleteFolder($folder)
     {
         unset($this->_active_sync[$folder]);
         $this->_list_cache->setQuery(self::ACTIVE_SYNC, $this->_active_sync);
@@ -125,14 +134,14 @@ extends Horde_Kolab_Storage_List_Query_ActiveSync_Base
     }
 
     /**
-     * Rename a folder.
+     * Update the listener after renaming a folder.
      *
      * @param string $old The old path of the folder.
      * @param string $new The new path of the folder.
      *
      * @return NULL
      */
-    public function renameFolder($old, $new)
+    public function updateAfterRenameFolder($old, $new)
     {
         if (isset($this->_active_sync[$old])) {
             $this->_active_sync[$new] = $this->_active_sync[$old];
@@ -143,23 +152,11 @@ extends Horde_Kolab_Storage_List_Query_ActiveSync_Base
     }
 
     /**
-     * Return the last sync stamp.
-     *
-     * @return string The stamp.
-     */
-    public function getStamp()
-    {
-        return $this->_list->getStamp();
-    }
-
-    /**
-     * Synchronize the ACL information with the information from the backend.
-     *
-     * @param array $params Additional parameters.
+     * Purge all ActiveSync data and restart querying the backend.
      *
      * @return NULL
      */
-    public function synchronize($params = array())
+    public function synchronize()
     {
         $this->_active_sync = array();
     }

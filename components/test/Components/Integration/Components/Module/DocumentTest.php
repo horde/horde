@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the Document module.
@@ -40,6 +40,7 @@ extends Components_StoryTestCase
      */
     public function theDocumentModuleAddsTheOOptionInTheHelpOutput()
     {
+        $this->markTestIncomplete();
         $this->given('the default Components setup')
             ->when('calling the package with the help option')
             ->then('the help will contain the option', '-O\s*DOCUMENT,\s*--document=DOCUMENT');
@@ -50,6 +51,7 @@ extends Components_StoryTestCase
      */
     public function theTheOOptionGeneratesHtmlDocumentation()
     {
+        $this->markTestIncomplete();
         $this->given('the default Components setup')
             ->when('calling the package with the document option and a path to a Horde framework component')
             ->then('the package documentation will be generated at the indicated location');

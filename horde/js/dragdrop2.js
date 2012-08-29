@@ -360,11 +360,9 @@ Drag = Class.create({
 
                 // Create the "ghost", i.e. the moving element, a clone of the
                 // original element, if it doesn't exist yet.
-                layout = this.element.getLayout();
                 elt = $(this.element.clone(true))
                     .writeAttribute('id', null)
-                    .addClassName(this.options.classname)
-                    .setStyle({ position: 'absolute', height: layout.get('height') + 'px', width: layout.get('width') + 'px' });
+                    .addClassName(this.options.classname);
 
                 if (this.options.ghosting) {
                     z = parseInt(this.element.getStyle('zIndex'), 10);
@@ -378,7 +376,14 @@ Drag = Class.create({
 
                 $(document.body).insert(elt);
 
-                elt.clonePosition(this.element);
+                elt.clonePosition(this.element, {
+                    setWidth: false
+                });
+                layout = elt.getLayout();
+                elt.setStyle({
+                    position: 'absolute',
+                    width: (this.element.getWidth() - (layout.get('margin-box-width') - layout.get('width'))) + 'px'
+                });
 
                 this.ghost = this._prepareHover(elt, xy[0], xy[1], 'ghost');
             }

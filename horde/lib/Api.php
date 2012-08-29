@@ -25,57 +25,52 @@ class Horde_Api extends Horde_Registry_Api
             'configuration' => array(
                 'link' => '%application%/admin/config/',
                 'name' => _("_Configuration"),
-                'icon' => Horde_Themes::img('config.png')
+                'icon' => 'config'
             ),
             'users' => array(
                 'link' => '%application%/admin/user.php',
                 'name' => _("_Users"),
-                'icon' => Horde_Themes::img('user.png')
+                'icon' => 'user'
             ),
             'groups' => array(
                 'link' => '%application%/admin/groups.php',
                 'name' => _("_Groups"),
-                'icon' => Horde_Themes::img('group.png')
+                'icon' => 'group'
             ),
             'perms' => array(
-                'link' => '%application%/admin/perms/index.php',
+                'link' => '%application%/admin/perms/',
                 'name' => _("_Permissions"),
-                'icon' => Horde_Themes::img('perms.png')
+                'icon' => 'perms'
             ),
             'locks' => array(
                 'link' => '%application%/admin/locks.php',
                 'name' => _("_Locks"),
-                'icon' => Horde_Themes::img('locked.png')
+                'icon' => 'locked'
             ),
             'alarms' => array(
                 'link' => '%application%/admin/alarms.php',
                 'name' => _("_Alarms"),
-                'icon' => Horde_Themes::img('alerts/alarm.png')
-            ),
-            'datatree' => array(
-                'link' => '%application%/admin/datatree.php',
-                'name' => _("_DataTree"),
-                'icon' => Horde_Themes::img('datatree.png')
+                'icon' => 'alarm'
             ),
             'sessions' => array(
                 'link' => '%application%/admin/sessions.php',
                 'name' => _("Sessions"),
-                'icon' => Horde_Themes::img('user.png')
+                'icon' => 'user'
             ),
             'phpshell' => array(
                 'link' => '%application%/admin/phpshell.php',
                 'name' => _("P_HP Shell"),
-                'icon' => Horde_Themes::img('mime/php.png')
+                'icon' => 'php'
             ),
             'sqlshell' => array(
                 'link' => '%application%/admin/sqlshell.php',
                 'name' => _("S_QL Shell"),
-                'icon' => Horde_Themes::img('sql.png')
+                'icon' => 'sql'
             ),
             'cmdshell' => array(
                 'link' => '%application%/admin/cmdshell.php',
                 'name' => _("_CLI"),
-                'icon' => Horde_Themes::img('shell.png')
+                'icon' => 'shell'
             )
         );
 
@@ -83,13 +78,8 @@ class Horde_Api extends Horde_Registry_Api
             $admin['activesync'] = array(
                 'link' => '%application%/admin/activesync.php',
                 'name' => _("ActiveSync Devices"),
-                'icon' => Horde_Themes::img('mobile.png')
+                'icon' => 'mobile'
             );
-        }
-
-        if (empty($GLOBALS['conf']['datatree']['driver']) ||
-            $GLOBALS['conf']['datatree']['driver'] == 'null') {
-            unset($admin['datatree']);
         }
 
         return $admin;
@@ -229,6 +219,15 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         $GLOBALS['registry']->removeUserData($user, $app);
+
+        if ($GLOBALS['conf']['activesync']['enabled']) {
+            try {
+                $GLOBALS['injector']->getInstance('Horde_ActiveSyncState')
+                    ->removeState(array('user' => $user));
+            } catch (Horde_ActiveSync_Exception $e) {
+                throw Horde_Exception($e);
+            }
+        }
     }
 
     /* Groups. */

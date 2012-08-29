@@ -8,7 +8,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once __DIR__ . '/../lib/base.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 // Make sure signups are enabled before proceeding

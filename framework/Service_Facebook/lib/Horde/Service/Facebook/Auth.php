@@ -37,7 +37,6 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
     const EXTEND_PERMS_FRIENDS_PHOTOS = 'friends_photos';
 
     /** Misc **/
-    const EXTEND_PERMS_OFFLINE = 'offline_access';
     const EXTEND_PERMS_PUBLISHSTREAM = 'publish_stream';
     const EXTEND_PERMS_READSTREAM = 'read_stream';
 
@@ -47,14 +46,18 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
      *
      * @param string $callback  The callback url. FB will redirect back to here.
      * @param array $perms      An array of FB permissions to request.
+     * @param string $state     A random, but unique string for FB to return
+     *                          to ensure security.
      *
      * @return string  The URL.
      */
-    public function getOAuthUrl($callback, array $perms = array())
+    public function getOAuthUrl($callback, array $perms = array(), $state = null)
     {
         return $this->_facebook->getFacebookUrl()
             . '/dialog/oauth?client_id=' . $this->_facebook->appId
-            . '&redirect_uri=' . urlencode($callback) . '&scope=' . implode(',', $perms);
+            . '&redirect_uri=' . urlencode($callback)
+            . '&scope=' . implode(',', $perms)
+            . (!empty($state) ? '&state=' . $state : '');
     }
 
     /**
@@ -133,9 +136,11 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
                 Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        return $this->_facebook->callMethod(
-            'Auth.revokeExtendedPermission', array('perm' => $perm));
-
+        return $this->_facebook->callGraphApi(
+            'me/permissions',
+            array('permission' => $perm),
+            array('request' => 'DELETE')
+        );
     }
 
     /**
@@ -144,7 +149,7 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
      * @throws Horde_Service_Facebook_Exception
      * @return string User id
      */
-    public function &getLoggedInUser()
+    public function getLoggedInUser()
     {
         if (empty($this->_sessionKey)) {
             throw new Horde_Service_Facebook_Exception(
@@ -152,11 +157,8 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
 
-        $user = (string)$this->_facebook->callMethod(
-            'facebook.users.getLoggedInUser',
-            array('session_key' => $this->_sessionKey));
-
-        return $user;
+        $results = $this->_facebook->callGraphApi('me');
+        return $results->id;
     }
 
 }

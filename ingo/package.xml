@@ -22,15 +22,15 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-26</date>
- <time>12:04:17</time>
+ <date>2012-07-20</date>
+ <time>01:30:28</time>
  <version>
-  <release>2.0.10</release>
-  <api>2.0.0</api>
+  <release>3.0.0beta2</release>
+  <api>3.0.0beta1</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
@@ -73,6 +73,17 @@
     <dir name="Exception">
      <file name="Pear.php" role="horde" />
     </dir> <!-- /lib/Exception -->
+    <dir name="Factory">
+     <file name="Script.php" role="horde" />
+     <file name="Storage.php" role="horde" />
+     <file name="Transport.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
+    <dir name="Form">
+     <file name="Base.php" role="horde" />
+     <file name="Forward.php" role="horde" />
+     <file name="Spam.php" role="horde" />
+     <file name="Vacation.php" role="horde" />
+    </dir> <!-- /lib/Form -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="Upgrade.php" role="horde" />
@@ -421,6 +432,9 @@
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="default">
+     <dir name="block">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/block -->
      <dir name="graphics">
       <file name="blacklist.png" role="horde" />
       <file name="copy.png" role="horde" />
@@ -436,29 +450,7 @@
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="silver">
-     <dir name="graphics">
-      <file name="blacklist.png" role="horde" />
-      <file name="copy.png" role="horde" />
-      <file name="disable.png" role="horde" />
-      <file name="enable.png" role="horde" />
-      <file name="forward.png" role="horde" />
-      <file name="ingo.png" role="horde" />
-      <file name="script.png" role="horde" />
-      <file name="spam.png" role="horde" />
-      <file name="vacation.png" role="horde" />
-      <file name="whitelist.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-    </dir> <!-- /themes/silver -->
-    <dir name="tango-blue">
-     <dir name="graphics">
-      <file name="copy.png" role="horde" />
-      <file name="forward.png" role="horde" />
-      <file name="ingo.png" role="horde" />
-      <file name="spam.png" role="horde" />
-     </dir> <!-- /themes/tango-blue/graphics -->
-    </dir> <!-- /themes/tango-blue -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="blacklist.php" role="horde" />
    <file name="filters.php" role="horde" />
    <file name="forward.php" role="horde" />
@@ -475,7 +467,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -483,86 +475,86 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0</min>
-    <max>5.0.0</max>
-    <exclude>5.0.0</exclude>
+    <min>5.0.0beta1</min>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.4</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Group</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Share</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>gettext</name>
@@ -572,9 +564,9 @@
    <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Net_Sieve</name>
@@ -624,6 +616,13 @@
    <install as="ingo/lib/Transport.php" name="lib/Transport.php" />
    <install as="ingo/lib/Block/Overview.php" name="lib/Block/Overview.php" />
    <install as="ingo/lib/Exception/Pear.php" name="lib/Exception/Pear.php" />
+   <install as="ingo/lib/Factory/Script.php" name="lib/Factory/Script.php" />
+   <install as="ingo/lib/Factory/Storage.php" name="lib/Factory/Storage.php" />
+   <install as="ingo/lib/Factory/Transport.php" name="lib/Factory/Transport.php" />
+   <install as="ingo/lib/Form/Base.php" name="lib/Form/Base.php" />
+   <install as="ingo/lib/Form/Forward.php" name="lib/Form/Forward.php" />
+   <install as="ingo/lib/Form/Spam.php" name="lib/Form/Spam.php" />
+   <install as="ingo/lib/Form/Vacation.php" name="lib/Form/Vacation.php" />
    <install as="ingo/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="ingo/lib/Script/Imap.php" name="lib/Script/Imap.php" />
    <install as="ingo/lib/Script/Maildrop.php" name="lib/Script/Maildrop.php" />
@@ -786,6 +785,7 @@
    <install as="ingo/templates/script/script.inc" name="templates/script/script.inc" />
    <install as="ingo/templates/whitelist/whitelist.inc" name="templates/whitelist/whitelist.inc" />
    <install as="ingo/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="ingo/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="ingo/themes/default/graphics/blacklist.png" name="themes/default/graphics/blacklist.png" />
    <install as="ingo/themes/default/graphics/copy.png" name="themes/default/graphics/copy.png" />
    <install as="ingo/themes/default/graphics/disable.png" name="themes/default/graphics/disable.png" />
@@ -797,20 +797,6 @@
    <install as="ingo/themes/default/graphics/spam.png" name="themes/default/graphics/spam.png" />
    <install as="ingo/themes/default/graphics/vacation.png" name="themes/default/graphics/vacation.png" />
    <install as="ingo/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
-   <install as="ingo/themes/silver/graphics/blacklist.png" name="themes/silver/graphics/blacklist.png" />
-   <install as="ingo/themes/silver/graphics/copy.png" name="themes/silver/graphics/copy.png" />
-   <install as="ingo/themes/silver/graphics/disable.png" name="themes/silver/graphics/disable.png" />
-   <install as="ingo/themes/silver/graphics/enable.png" name="themes/silver/graphics/enable.png" />
-   <install as="ingo/themes/silver/graphics/forward.png" name="themes/silver/graphics/forward.png" />
-   <install as="ingo/themes/silver/graphics/ingo.png" name="themes/silver/graphics/ingo.png" />
-   <install as="ingo/themes/silver/graphics/script.png" name="themes/silver/graphics/script.png" />
-   <install as="ingo/themes/silver/graphics/spam.png" name="themes/silver/graphics/spam.png" />
-   <install as="ingo/themes/silver/graphics/vacation.png" name="themes/silver/graphics/vacation.png" />
-   <install as="ingo/themes/silver/graphics/whitelist.png" name="themes/silver/graphics/whitelist.png" />
-   <install as="ingo/themes/tango-blue/graphics/copy.png" name="themes/tango-blue/graphics/copy.png" />
-   <install as="ingo/themes/tango-blue/graphics/forward.png" name="themes/tango-blue/graphics/forward.png" />
-   <install as="ingo/themes/tango-blue/graphics/ingo.png" name="themes/tango-blue/graphics/ingo.png" />
-   <install as="ingo/themes/tango-blue/graphics/spam.png" name="themes/tango-blue/graphics/spam.png" />
    <install as="ingo/blacklist.php" name="blacklist.php" />
    <install as="ingo/filters.php" name="filters.php" />
    <install as="ingo/forward.php" name="forward.php" />
@@ -1055,6 +1041,53 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-06-26</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+*
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-06</date>
+   <time>17:25:14</time>
+   <version>
+    <release>3.0.0alpha1</release>
+    <api>3.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First alpha release for Horde 5.
+* [mms] When adding to blacklist/whitelist, remove added addresses from the other list.
+* [jan] Allow to use placeholder variables in vacation messages (Request #10316).
+* [mjr] Add ability to retrieve vacation message details from the API.
+* [jan] Validate start and end dates of vacation rules (Request #10879).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0beta1</release>
+    <api>3.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-20</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [jan] Update icon set.
+* [mms] Fix javascript actions on the vacation page.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0beta2</release>
+    <api>3.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

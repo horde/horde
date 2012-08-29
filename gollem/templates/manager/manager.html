@@ -1,81 +1,35 @@
 <if:list_count>
 <if:perms_chmod>
-<div id="attributes" class="managerpopup" style="display:none;">
-<form id="chmodfrm" name="chmodfrm" action="<tag:action />">
-<h1 class="header"><gettext>Attributes</gettext></h1>
-<table width="100%" cellspacing="0" class="text">
- <tr class="control">
-  <td align="center" width="25%"></td>
-  <td align="center" width="25%" class="smallheader"><gettext>Owner</gettext></td>
-  <td align="center" width="25%" class="smallheader"><gettext>Group</gettext></td>
-  <td align="center" width="25%" class="smallheader"><gettext>All</gettext></td>
+<div id="attributes" style="display:none;">
+<table class="horde-table">
+ <tr>
+  <th width="25%">&nbsp;</th>
+  <th width="25%" align="center"><gettext>Owner</gettext></th>
+  <th width="25%" align="center"><gettext>Group</gettext></th>
+  <th width="25%" align="center"><gettext>All</gettext></th>
  </tr>
- <tr class="control">
-  <td align="center" width="25%"><gettext>Read</gettext></td>
-  <td align="center" width="25%"><input name="owner[]" type="checkbox" value="4" <if:owner_read>disabled="disabled" </if:owner_read>/></td>
-  <td align="center" width="25%"><input name="group[]" type="checkbox" value="4" <if:group_read>disabled="disabled" </if:group_read>/></td>
-  <td align="center" width="25%"><input name="all[]" type="checkbox" value="4" <if:all_read>disabled="disabled" </if:all_read>/></td>
+ <tr>
+  <td><gettext>Read</gettext></td>
+  <td align="center"><input name="owner[]" type="checkbox" value="4" <if:owner_read>disabled="disabled" </if:owner_read>/></td>
+  <td align="center"><input name="group[]" type="checkbox" value="4" <if:group_read>disabled="disabled" </if:group_read>/></td>
+  <td align="center"><input name="all[]" type="checkbox" value="4" <if:all_read>disabled="disabled" </if:all_read>/></td>
  </tr>
- <tr class="control">
-  <td align="center" width="25%"><gettext>Write</gettext></td>
-  <td align="center" width="25%"><input name="owner[]" type="checkbox" value="2" <if:owner_write>disabled="disabled" </if:owner_write>/></td>
-  <td align="center" width="25%"><input name="group[]" type="checkbox" value="2" <if:group_write>disabled="disabled" </if:group_write>/></td>
-  <td align="center" width="25%"><input name="all[]" type="checkbox" value="2" <if:all_write>disabled="disabled" </if:all_write>/></td>
+ <tr>
+  <td><gettext>Write</gettext></td>
+  <td align="center"><input name="owner[]" type="checkbox" value="2" <if:owner_write>disabled="disabled" </if:owner_write>/></td>
+  <td align="center"><input name="group[]" type="checkbox" value="2" <if:group_write>disabled="disabled" </if:group_write>/></td>
+  <td align="center"><input name="all[]" type="checkbox" value="2" <if:all_write>disabled="disabled" </if:all_write>/></td>
  </tr>
- <tr class="control">
-  <td align="center" width="25%"><gettext>Execute</gettext></td>
-  <td align="center" width="25%"><input name="owner[]" type="checkbox" value="1" <if:owner_execute>disabled="disabled" </if:owner_execute>/></td>
-  <td align="center" width="25%"><input name="group[]" type="checkbox" value="1" <if:group_execute>disabled="disabled" </if:group_execute>/></td>
-  <td align="center" width="25%"><input name="all[]" type="checkbox" value="1" <if:all_execute>disabled="disabled" </if:all_execute>/></td>
- </tr>
- <tr class="control">
-  <td align="center" width="50%" colspan="2"><input class="button" type="button" name="Save" id="chmodsave" value="<tag:save />" /></td>
-  <td align="center" width="50%" colspan="2"><input class="button" type="button" name="Cancel" id="chmodcancel" value="<tag:cancel />" /></td>
+ <tr>
+  <td><gettext>Execute</gettext></td>
+  <td align="center"><input name="owner[]" type="checkbox" value="1" <if:owner_execute>disabled="disabled" </if:owner_execute>/></td>
+  <td align="center"><input name="group[]" type="checkbox" value="1" <if:group_execute>disabled="disabled" </if:group_execute>/></td>
+  <td align="center"><input name="all[]" type="checkbox" value="1" <if:all_execute>disabled="disabled" </if:all_execute>/></td>
  </tr>
 </table>
-</form>
 </div>
 </if:perms_chmod>
-
-<if:perms_edit>
-<div id="rename" class="managerpopup" style="display:none;">
-<form id="renamefrm" action="<tag:action />">
-<input type="hidden" id="renamefrm_oldname" name="oldname" value="" />
-<h1 class="header"><gettext>Rename</gettext></h1>
-<div class="control nowrap" style="padding:3px">
- <gettext>Name:</gettext>
- <input class="input" type="text" id="renamefrm_newname" name="newname" value="" />
- <input class="button" type="button" id="renamesave" value="<tag:ok />" />
- <input class="button" type="button" id="renamecancel" value="<tag:cancel />" />
-</div>
-</form>
-</div>
-</if:perms_edit>
 </if:list_count>
-
-<div id="createFolder" class="managerpopup" style="display:none;">
-<form id="createfrm" action="<tag:action />">
-<h1 class="header"><gettext>Create Folder</gettext></h1>
-<div class="control nowrap" style="padding:3px">
- <gettext>Name:</gettext>
- <input class="input" type="text" id="createfrm_fname" name="foldername" value="" />
- <input class="button" type="button" id="createok" value="<tag:ok />" />
- <input class="button" type="button" id="createcancel" value="<tag:cancel />" />
-</div>
-</form>
-</div>
-
-<div id="changeDirectory" class="managerpopup" style="display:none;">
-<form id="cdfrm" action="<tag:action />">
-<h1 class="header"><gettext>Change Folder</gettext></h1>
-<div class="control nowrap" style="padding:3px">
- <gettext>Go to:</gettext>
- <input class="input" type="text" id="cdfrm_fname" name="foldername" value="" />
- <input class="button" type="button" id="cdfrmok" value="<tag:ok />" />
- <input class="button" type="button" id="cdfrmcancel" value="<tag:cancel />" />
-</div>
-</form>
-</div>
 
 <form method="post" id="manager" name="manager" enctype="multipart/form-data" action="<tag:action />">
 <tag:forminput />
@@ -83,6 +37,7 @@
 <input type="hidden" id="new_folder" name="new_folder" value="" />
 <input type="hidden" id="new_names" name="new_names" value="" />
 <input type="hidden" id="old_names" name="old_names" value="" />
+<input type="hidden" id="renamefrm_oldname" name="oldname" value="" />
 <input type="hidden" id="chmod" name="chmod" value="" />
 <input type="hidden" id="dir" name="dir" value="<tag:dir />" />
 <input type="hidden" name="targetFolder" value="" />
@@ -94,6 +49,9 @@
 <if:clipboard>
  <tag:clipboard /><span class="iconImg clipboardImg"></span></a>
 </if:clipboard>
+<if:share_folder>
+ <tag:share_folder /><span class="iconImg foldershareImg"></span></a>
+</if:share_folder>
 <if:create_folder>
  <tag:create_folder /><span class="iconImg foldercreateImg"></span></a>
 </if:create_folder>
@@ -106,6 +64,7 @@
 <table id="filelist_actions" cellspacing="0">
  <tr class="control">
   <td class="leftAlign">
+<if:actions>
    <select id="action1" name="action1">
     <option selected="selected"><gettext>Actions:</gettext></option>
 <if:perms_chmod>
@@ -113,7 +72,9 @@
 </if:perms_chmod>
 <if:hasclipboard>
     <option value="copy_items"><gettext>Copy</gettext></option>
+<if:perms_delete>
     <option value="cut_items"><gettext>Cut</gettext></option>
+</if:perms_delete>
 </if:hasclipboard>
 <if:perms_delete>
     <option value="delete_items"><gettext>Delete</gettext></option>
@@ -123,6 +84,7 @@
 </if:perms_edit>
    </select>
    <tag:actions_help />
+</if:actions>
   </td>
   <td class="rightAlign">
    <strong><gettext>Filter:</gettext></strong><input id="filter" name="filter" type="text" size="25" value="<tag:filter_val />" />
@@ -140,10 +102,10 @@
  <em><gettext>There are no files in this folder.</gettext></em>
 </p>
 <else:empty_dir>
-<table id="filelist" class="striped sortable" cellspacing="0">
+<table id="filelist" class="striped hover" cellspacing="0">
 <thead>
  <tr>
-  <th class="nosort" style="text-align:center" width="1%"><input type="checkbox" class="checkbox" id="checkall" name="checkAll" <tag:checkall /> /></th>
+  <th style="text-align:center" width="1%"><input type="checkbox" class="checkbox" id="checkall" name="checkAll" <tag:checkall /> /></th>
 <loop:headers>
   <th<if:headers.id> id="<tag:headers.id />"</if:headers.id><if:headers.class> class="<tag:headers.class />"</if:headers.class> style="text-align:<tag:headers.align />" width="<tag:headers.width />"><tag:headers.sort /><tag:headers.label /></th>
 </loop:headers>
@@ -154,11 +116,16 @@
  <tr>
   <td style="text-align:center"><if:entry.on_clipboard>&nbsp;<else:entry.on_clipboard><input type="checkbox" class="checkbox" name="items[]" value="<tag:entry.name />" /></else:entry.on_clipboard></if:entry.on_clipboard></td>
 <if:columns_type>
-  <td sortval="<tag:entry.type_sort />" class="rightAlign"><input type="hidden" name="itemTypes[]" value="<tag:entry.type />" /><tag:entry.graphic />&nbsp;</td>
+  <td class="rightAlign"><input type="hidden" name="itemTypes[]" value="<tag:entry.type />" /><tag:entry.graphic />&nbsp;</td>
 </if:columns_type>
 <if:columns_name>
   <td><tag:entry.link /></td>
 </if:columns_name>
+<if:columns_share>
+  <td>
+   <if:entry.share><tag:entry.share /><span class="iconImg <if:entry.share_disabled>foldershareDisabledImg<else:entry.share_disabled>foldershareImg</else:entry.share_disabled></if:entry.share_disabled>"></span></a></if:entry.share>
+  </td>
+</if:columns_share>
 <if:columns_edit>
   <td>
    <if:entry.edit><tag:entry.edit /><span class="iconImg editImg"></span></a></if:entry.edit>
@@ -170,7 +137,7 @@
   </td>
 </if:columns_download>
 <if:columns_modified>
-  <td sortval="<tag:entry.date_sort />"><tag:entry.date /></td>
+  <td><tag:entry.date /></td>
 </if:columns_modified>
 <if:columns_size>
   <td class="rightAlign"><tag:entry.size /></td>

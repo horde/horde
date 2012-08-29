@@ -2,14 +2,14 @@
 /**
  * Horde login page.
  *
- * Valid parameters in:
- * 'app' - The app to login to.
- * 'horde_logout_token' - TODO
- * 'horde_user' - TODO
- * 'logout_msg' - Logout message.
- * 'logout_reason' - Logout reason (Horde_Auth or Horde_Core_Auth_Wrapper
- *                   constant).
- * 'url' - The url to redirect to after auth.
+ * URL Parameters:
+ *   - app: The app to login to.
+ *   - horde_logout_token: TODO
+ *   - horde_user: TODO
+ *   - logout_msg: Logout message.
+ *   - logout_reason: Logout reason (Horde_Auth or Horde_Core_Auth_Wrapper
+ *                    constant).
+ *   - url: The url to redirect to after auth.
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
@@ -51,7 +51,7 @@ function _addAnchor($url, $type, $vars, $url_anchor = null)
  * Horde first or else we will lose the session. Ignore any auth errors.
  * Transparent authentication is handled by the Horde_Application::
  * constructor. */
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 try {
     Horde_Registry::appInit('horde', array('authentication' => 'none', 'nologintasks' => true));
 } catch (Horde_Exception $e) {}
@@ -64,7 +64,7 @@ $horde_login_url = '';
 
 /* Initialize the Auth credentials key. */
 if (!$is_auth) {
-    $injector->getInstance('Horde_Secret')->setKey('auth');
+    $injector->getInstance('Horde_Secret')->setKey();
 }
 
 /* Get an Auth object. */
@@ -102,7 +102,7 @@ if (!$is_auth && !$prefs->isLocked('language') && $vars->new_lang) {
 if ($logout_reason) {
     if ($is_auth) {
         try {
-            $injector->getInstance('Horde_Token')->validate($vars->horde_logout_token, 'horde.logout', -1);
+            $session->checkToken($vars->horde_logout_token);
         } catch (Horde_Exception $e) {
             $notification->push($e, 'horde.error');
             require HORDE_BASE . '/index.php';
@@ -114,6 +114,11 @@ if ($logout_reason) {
     $entry = sprintf('User %s [%s] logged out of Horde', $registry->getAuth(), $_SERVER['REMOTE_ADDR']);
     Horde::logMessage($entry, 'NOTICE');
     $registry->clearAuth();
+
+    /* Reset notification handler now, since it may still be using a status
+     * handler that is no longer valid. */
+    $notification->detach('status');
+    $notification->attach('status');
 
     /* Redirect the user on logout if redirection is enabled and this is an
      * an intended logout. */
@@ -127,6 +132,11 @@ if ($logout_reason) {
     }
 
     $session->setup();
+
+    $secret = $injector->getInstance('Horde_Secret');
+    if ($secret->clearKey()) {
+        $secret->setKey();
+    }
 
     /* Explicitly set language in un-authenticated session. */
     $registry->setLanguage($GLOBALS['language']);
@@ -145,9 +155,6 @@ if ($logout_reason) {
         }
     } catch (Horde_Exception $e) {}
 
-    if ($vars->ie_version) {
-        $browser->setIEVersion($vars->ie_version);
-    }
     if ($auth->authenticate(Horde_Util::getPost('horde_user'), $auth_params)) {
         $entry = sprintf('Login success for %s [%s] to %s.', $registry->getAuth(), $_SERVER['REMOTE_ADDR'], ($vars->app && $is_auth) ? $vars->app : 'horde');
         Horde::logMessage($entry, 'NOTICE');
@@ -219,6 +226,7 @@ if (!empty($GLOBALS['conf']['user']['select_view'])) {
                 'name' => _("Automatic"),
                 'selected' => $view_cookie == 'auto',
             ),
+            'spacer' => null,
             'traditional' => array(
                 'name' => _("Traditional"),
                 'selected' => $view_cookie == 'traditional'
@@ -232,7 +240,7 @@ if (!empty($GLOBALS['conf']['user']['select_view'])) {
                 'hidden' => true,
             ),
             'mobile' => array(
-                'name' => _("Mobile"),
+                'name' => _("Mobile (Minimal)"),
                 'selected' => $view_cookie == 'mobile'
             )
         )
@@ -333,9 +341,6 @@ case Horde_Auth::REASON_EXPIRED:
     break;
 
 case Horde_Auth::REASON_LOCKED:
-    $reason = _("Your login has been locked.");
-    break;
-
 case Horde_Auth::REASON_MESSAGE:
     if (!($reason = $auth->getError(true))) {
         $reason = $vars->logout_msg;
@@ -348,8 +353,7 @@ if ($reason) {
 
 if ($browser->isMobile() &&
     (!isset($conf['user']['force_view']) ||
-     ($conf['user']['force_view'] != 'traditional' &&
-      $conf['user']['force_view'] != 'dynamic'))) {
+     !in_array($conf['user']['force_view'], array('dynamic', 'traditional')))) {
     /* Build the <select> widget containing the available languages. */
     if (!$is_auth && !$prefs->isLocked('language')) {
         $tmp = array();
@@ -366,20 +370,41 @@ if ($browser->isMobile() &&
         );
     }
 
-    require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
-    require $registry->get('templates', 'horde') . '/login/mobile.inc';
-    require $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
-    exit;
-}
+    $page_output->addInlineScript(array(
+        '$(document).bind("pageinit", function() {' .
+             '$("#horde-login-button").click(function() {' .
+                 '$("#horde-login-post").val(1);' .
+                 '$(this).closest("form").submit();' .
+             '});' .
+         '})'
+    ));
 
-if (!empty($js_files)) {
-    foreach ($js_files as $val) {
-        Horde::addScriptFile($val[0], $val[1]);
+    /* Ensure that we are using the smartmobile status listener. */
+    $notification->detach('status');
+    $notification->attach('status', null, 'Horde_Core_Notification_Listener_SmartmobileStatus');
+
+    $notification->notify(array('listeners' => 'status'));
+
+    $page_output->header(array(
+        'title' => $title,
+        'view' => $browser->hasFeature('javascript') ? $registry::VIEW_SMARTMOBILE : $registry::VIEW_MINIMAL
+    ));
+    require $registry->get('templates', 'horde') . '/login/smartmobile.inc';
+    $page_output->footer(array(
+        'view' => $browser->hasFeature('javascript') ? $registry::VIEW_SMARTMOBILE : $registry::VIEW_MINIMAL
+    ));
+} else {
+    if (!empty($js_files)) {
+        foreach ($js_files as $val) {
+            $page_output->addScriptFile($val[0], $val[1]);
+        }
     }
-}
 
-Horde::addInlineJsVars($js_code);
-$bodyClass = 'modal-form';
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require $registry->get('templates', 'horde') . '/login/login.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+    $page_output->addInlineJsVars($js_code);
+    $page_output->header(array(
+        'body_class' => 'modal-form',
+        'title' => $title
+    ));
+    require $registry->get('templates', 'horde') . '/login/login.inc';
+    $page_output->footer();
+}

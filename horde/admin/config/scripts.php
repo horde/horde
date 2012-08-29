@@ -14,13 +14,10 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
-$permission = 'configuration';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:configuration')
+));
 
 /* Get form data. */
 $setup = Horde_Util::getFormData('setup');
@@ -96,7 +93,7 @@ if ($fp = @fopen($tmp_dir . '/' . $filename, 'w')) {
     fwrite($fp, $data);
     fclose($fp);
     chmod($tmp_dir . '/' . $filename, 0777);
-    $notification->push(sprintf(_("Saved configuration upgrade script to: \"%s\"."), $path), 'horde.success');
+    $notification->push(sprintf(_("Saved configuration upgrade script to: \"%s\"."), $path), 'horde.success', array('sticky'));
 } else {
     $notification->push(sprintf(_("Could not save configuration upgrade script to: \"%s\"."), $path), 'horde.error');
 }

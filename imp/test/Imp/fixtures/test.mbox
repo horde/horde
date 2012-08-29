@@ -1,0 +1,155 @@
+From bugs@horde.org Wed Jul 27 05:03:26 2011
+Return-Path: <bugs@horde.org>
+X-Original-To: slusarz@curecanti.org
+Delivered-To: slusarz@curecanti.org
+Received: from mail-33-ewr.dyndns.com (mxout-019-ewr.mailhop.org [216.146.33.19])
+	by bigworm.curecanti.org (Postfix) with ESMTP id 4335618012
+	for <slusarz@curecanti.org>; Wed, 27 Jul 2011 05:03:26 -0600 (MDT)
+X-Mail-Handler: MailHop by DynDNS
+X-Originating-IP: 200.46.204.188
+Received: from lists.horde.org (lists.horde.org [200.46.204.188])
+	by mail-33-ewr.dyndns.com (Postfix) with ESMTP id ACB786FA2B9
+	for <slusarz@curecanti.org>; Wed, 27 Jul 2011 11:03:25 +0000 (UTC)
+Received: by lists.horde.org (Postfix)
+	id 752B24255376; Wed, 27 Jul 2011 11:03:24 +0000 (UTC)
+Delivered-To: slusarz@horde.org
+Received: from maia.hub.org (maia-5.hub.org [200.46.204.29])
+	by lists.horde.org (Postfix) with ESMTP id 5C56E4255375
+	for <slusarz@horde.org>; Wed, 27 Jul 2011 11:03:24 +0000 (UTC)
+Received: from lists.horde.org ([200.46.204.188])
+ by maia.hub.org (mx1.hub.org [200.46.204.29]) (amavisd-maia, port 10024)
+ with ESMTP id 28768-01-2 for <slusarz@horde.org>;
+ Wed, 27 Jul 2011 11:03:24 +0000 (UTC)
+X-Greylist: domain auto-whitelisted by SQLgrey-1.7.6
+Received: from simon.horde.org (simon.horde.org [208.52.151.194])
+	by lists.horde.org (Postfix) with ESMTP id 0448D4255371
+	for <slusarz@horde.org>; Wed, 27 Jul 2011 11:03:23 +0000 (UTC)
+Received: from simon.horde.org (simon.horde.org [127.0.0.1])
+	by simon.horde.org (8.14.3/8.14.3/Debian-9.1ubuntu1) with ESMTP id p6RB3Nf2010449
+	for <slusarz@horde.org>; Wed, 27 Jul 2011 11:03:24 GMT
+Received: (from www-data@localhost)
+	by simon.horde.org (8.14.3/8.14.3/Submit) id p6RB3NRC010448
+	for slusarz@horde.org; Wed, 27 Jul 2011 11:03:23 GMT
+X-Authentication-Warning: simon.horde.org: www-data set sender to bugs@horde.org using -f
+X-Whups-Generated: 1
+User-Agent: Whups H4 (2.0-git)
+Precedence: bulk
+Auto-Submitted: auto-replied
+From: bugs@horde.org
+Subject: [Tickets #10390] Add "save to same folder" for sent messages
+Date: Wed, 27 Jul 2011 11:03:22 +0000
+Content-Type: text/plain; charset=UTF-8; format=flowed; DelSp=Yes
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Message-ID: <whups-10390-2f7b503faa2b1c626aec71065f72e6d2@bugs.horde.org>
+To: Michael Slusarz <slusarz@horde.org>
+X-DSPAM-Result: Whitelisted
+X-DSPAM-Processed: Wed Jul 27 05:03:26 2011
+X-DSPAM-Confidence: 0.9990
+X-DSPAM-Probability: 0.0000
+X-DSPAM-Signature: 4e2ff07e31264432239041
+
+BITTE NICHT AUF DIESE NACHRICHT ANTWORTEN. NACHRICHTEN AN DIESE  
+E-MAIL-ADRESSE WERDEN NICHT GELESEN.
+
+Ticket-URL: http://bugs.horde.org/ticket/10390
+---------------------------------------------------------------------------=
+---
+  Ticket           | 10390
+  Erstellt Von     | dirk@deimeke.net
+  Zusammenfassung  | Add "save to same folder" for sent messages
+  Warteschlange    | IMP
+  Version          | 5.0.8
+  Typ              | Enhancement
+  Status           | New
+  Priorit=C3=A4t        | 1. Low
+  Milestone        |
+  Patch            |
+  Zust=C3=A4ndige       |
+---------------------------------------------------------------------------=
+---
+
+
+dirk@deimeke.net (2011-07-27 11:03) hat geschrieben:
+
+In case I write (or answer) a messages there should be an additional  
+option "safe to same folder" and a possibility to make this the  
+default behaviour.
+
+
+
+
+
+From bugs@horde.org Mon Oct 31 12:42:48 2011
+Return-Path: <bugs@horde.org>
+X-Original-To: slusarz@curecanti.org
+Delivered-To: slusarz@curecanti.org
+Received: from mail-12-ewr.dyndns.com (mxout-022-ewr.mailhop.org [216.146.33.22])
+	by bigworm.curecanti.org (Postfix) with ESMTP id 7FBF24B00F
+	for <slusarz@curecanti.org>; Mon, 31 Oct 2011 12:42:48 -0600 (MDT)
+X-Mail-Handler: MailHop by DynDNS
+X-Originating-IP: 200.46.204.188
+Received: from lists.horde.org (lists.horde.org [200.46.204.188])
+	by mail-12-ewr.dyndns.com (Postfix) with ESMTP id C3897933916
+	for <slusarz@curecanti.org>; Mon, 31 Oct 2011 18:42:47 +0000 (UTC)
+Received: by lists.horde.org (Postfix)
+	id 6995B4255038; Mon, 31 Oct 2011 18:42:46 +0000 (UTC)
+Delivered-To: slusarz@horde.org
+Received: from maia.hub.org (maia-5.hub.org [200.46.204.29])
+	by lists.horde.org (Postfix) with ESMTP id 50ACB425501D
+	for <slusarz@horde.org>; Mon, 31 Oct 2011 18:42:46 +0000 (UTC)
+Received: from lists.horde.org ([200.46.204.188])
+ by maia.hub.org (mx1.hub.org [200.46.204.29]) (amavisd-maia, port 10024)
+ with ESMTP id 67473-07 for <slusarz@horde.org>;
+ Mon, 31 Oct 2011 18:42:46 +0000 (UTC)
+X-Greylist: domain auto-whitelisted by SQLgrey-1.8.0-rc2
+Received: from simon.horde.org (simon.horde.org [208.52.151.194])
+	by lists.horde.org (Postfix) with ESMTP id E79F44254F78
+	for <slusarz@horde.org>; Mon, 31 Oct 2011 18:42:45 +0000 (UTC)
+Received: from simon.horde.org (simon.horde.org [127.0.0.1])
+	by simon.horde.org (8.14.3/8.14.3/Debian-9.1ubuntu1) with ESMTP id p9VIgj3C015634
+	for <slusarz@horde.org>; Mon, 31 Oct 2011 18:42:45 GMT
+Received: (from www-data@localhost)
+	by simon.horde.org (8.14.3/8.14.3/Submit) id p9VIgjE8015633
+	for slusarz@horde.org; Mon, 31 Oct 2011 18:42:45 GMT
+X-Authentication-Warning: simon.horde.org: www-data set sender to bugs@horde.org using -f
+X-Whups-Generated: 1
+User-Agent: Whups H4 (2.0-git)
+Precedence: bulk
+Auto-Submitted: auto-replied
+From: bugs@horde.org
+Subject: [Tickets #10648] Re: predefined rights for acl
+Date: Mon, 31 Oct 2011 19:42:44 +0100
+Message-ID: <20111031194245.Horde.XHryaRha3zhOruwldQojvaA@bugs.horde.org>
+In-Reply-To: <whups-10648-2f7b503faa2b1c626aec71065f72e6d2@bugs.horde.org>
+References: <whups-10648-2f7b503faa2b1c626aec71065f72e6d2@bugs.horde.org>
+To: Michael Slusarz <slusarz@horde.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed; DelSp=Yes
+MIME-Version: 1.0
+X-DSPAM-Result: Whitelisted
+X-DSPAM-Processed: Mon Oct 31 12:42:48 2011
+X-DSPAM-Confidence: 0.9996
+X-DSPAM-Probability: 0.0000
+X-DSPAM-Signature: 4eaeec28260831286917729
+
+DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED.
+
+Ticket URL: http://bugs.horde.org/ticket/10648
+------------------------------------------------------------------------------
+  Ticket             | 10648
+  Updated By         | Jan Schneider <jan@horde.org>
+  Summary            | predefined rights for acl
+  Queue              | IMP
+-Version            | 5.0.13
++Version            | Git master
+  Type               | Enhancement
+-State              | New
++State              | Accepted
+  Priority           | 1. Low
+  Milestone          |
+  Patch              |
+  Owners             |
+------------------------------------------------------------------------------
+
+
+

@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test task handling.
@@ -44,7 +44,7 @@ extends Horde_Kolab_Format_TestCase
         $xml = $this->getFactory()->create('XML', 'task');
 
         // Load XML
-        $task = file_get_contents(dirname(__FILE__) . '/../fixtures/task.xml');
+        $task = file_get_contents(__DIR__ . '/../fixtures/task.xml');
         $result = $xml->load($task);
         // Check that the xml loads fine
         $this->assertEquals($result['body'], 'TEST');

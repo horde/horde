@@ -22,4 +22,4 @@ require_once 'Horde/Test/Autoload.php';
 error_reporting(E_ALL | E_STRICT);
 
 /** Load stub definitions */
-require_once dirname(__FILE__) . '/Stub/Group.php';
+require_once __DIR__ . '/Stub/Group.php';

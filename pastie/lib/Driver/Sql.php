@@ -21,13 +21,13 @@
  * 'port' - The port on which to connect to the database.
  * </pre>
  *
- * The table structure can be created by the scripts/sql/pastie_foo.sql
+ * The table structure can be created by the scripts/sql/pastie.sql
  * script.
  *
  * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (BSD). If you
- * did not receive this file, see http://www.fsf.org/copyleft/bsd.html.
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
  * @author  Ben Klang <ben@alkaloid.net>
  * @package Pastie

@@ -21,7 +21,7 @@ class Whups_View_Results extends Whups_View_Base
 
     public function html()
     {
-        Horde::addScriptFile('tables.js', 'horde', true);
+        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
 
         global $prefs, $registry, $session;
 

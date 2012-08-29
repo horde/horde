@@ -12,7 +12,7 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $gallery_id = (int)Horde_Util::getFormData('gallery');
@@ -57,10 +57,13 @@ $pager = new Horde_Core_Ui_Pager(
 $pager->preserve('gallery',  $gallery_id);
 
 $title = sprintf(_("Searching for faces in %s"),Ansel::getUrlFor('view', array('gallery' => $gallery_id, 'view' => 'Gallery'))->link() . $gallery->get('name') . '</a>');
-Horde::addScriptFile('stripe.js', 'horde');
-Horde::addScriptFile('popup.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('popup.js', 'horde');
+
+$page_output->header(array(
+    'title' => $title
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/gallery.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -14,7 +14,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test the SQL based token backend.
@@ -43,7 +43,7 @@ class Horde_Token_Unit_SqlTest extends Horde_Token_BackendTestCase
         }
         self::$_db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:', 'charset' => 'utf-8'));
 
-        $dir = dirname(__FILE__) . '/../../../../migration/Horde/Token';
+        $dir = __DIR__ . '/../../../../migration/Horde/Token';
         if (!is_dir($dir)) {
             error_reporting(E_ALL & ~E_DEPRECATED);
             $dir = PEAR_Config::singleton()

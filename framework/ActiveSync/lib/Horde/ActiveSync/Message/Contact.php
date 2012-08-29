@@ -1,20 +1,41 @@
 <?php
 /**
- * Horde_ActiveSync_Message_Contact class represents a single ActiveSync
- * Contact object.
+ * Horde_ActiveSync_Message_Contact::
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Portions of this class were ported from the Z-Push project:
+ *   File      :   wbxml.php
+ *   Project   :   Z-Push
+ *   Descr     :   WBXML mapping file
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ *   Created   :   01.10.2007
+ *
+ *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   This file is distributed under GPL-2.0.
+ *   Consult COPYING file for details
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
+ */
+/**
+ * Horde_ActiveSync_Message_Contact::
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
 {
-    /* Workaround for issues with arrays from __get() */
-    public $categories    = array();
-    public $children      = array();
-    public $bodytruncated = 0;
-
     /* POOMCONTACTS */
     const ANNIVERSARY           = "POOMCONTACTS:Anniversary";
     const ASSISTANTNAME         = "POOMCONTACTS:AssistantName";
@@ -90,9 +111,6 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
         self::ASSISTANTNAME         => array(self::KEY_ATTRIBUTE => 'assistantname'),
         self::ASSISTNAMEPHONENUMBER => array(self::KEY_ATTRIBUTE => 'assistnamephonenumber'),
         self::BIRTHDAY              => array(self::KEY_ATTRIBUTE => 'birthday', self::KEY_TYPE => self::TYPE_DATE_DASHES),
-        self::BODY                  => array(self::KEY_ATTRIBUTE => 'body'),
-        self::BODYSIZE              => array(self::KEY_ATTRIBUTE => 'bodysize'),
-        self::BODYTRUNCATED         => array(self::KEY_ATTRIBUTE => 'bodytruncated'),
         self::BUSINESS2PHONENUMBER  => array(self::KEY_ATTRIBUTE => 'business2phonenumber'),
         self::BUSINESSCITY          => array(self::KEY_ATTRIBUTE => 'businesscity'),
         self::BUSINESSCOUNTRY       => array(self::KEY_ATTRIBUTE => 'businesscountry'),
@@ -137,7 +155,6 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
         self::YOMICOMPANYNAME       => array(self::KEY_ATTRIBUTE => 'yomicompanyname'),
         self::YOMIFIRSTNAME         => array(self::KEY_ATTRIBUTE => 'yomifirstname'),
         self::YOMILASTNAME          => array(self::KEY_ATTRIBUTE => 'yomilastname'),
-        self::RTF                   => array(self::KEY_ATTRIBUTE => 'rtf'),
         self::PICTURE               => array(self::KEY_ATTRIBUTE => 'picture'),
         self::CATEGORIES            => array(self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::CATEGORY),
 
@@ -159,9 +176,6 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
             'assistantname'         => false,
             'assistnamephonenumber' => false,
             'birthday'              => false,
-            'body'                  => false,
-            'bodysize'              => false,
-            'bodytruncated'         => false,
             'business2phonenumber'  => false,
             'businesscity'          => false,
             'businesscountry'       => false,
@@ -171,7 +185,8 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
             'businessfaxnumber'     => false,
             'businessphonenumber'   => false,
             'carphonenumber'        => false,
-            'children'              => false,
+            'categories'            => array(),
+            'children'              => array(),
             'companyname'           => false,
             'department'            => false,
             'email1address'         => false,
@@ -206,7 +221,6 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
             'yomicompanyname'       => false,
             'yomifirstname'         => false,
             'yomilastname'          => false,
-            'rtf'                   => false,
             'picture'               => false,
             'categories'            => false,
 
@@ -222,6 +236,44 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
             'nickname'              => false,
             'mms'                   => false,
     );
+
+    /**
+     * Const'r
+     *
+     * @param array $options  Configuration options for the message:
+     *   - logger: (Horde_Log_Logger)  A logger instance
+     *             DEFAULT: none (No logging).
+     *   - protocolversion: (float)  The version of EAS to support.
+     *              DEFAULT: Horde_ActiveSync::VERSION_TWOFIVE (2.5)
+     *
+     * @return Horde_ActiveSync_Message_Base
+     */
+    public function __construct(array $options = array())
+    {
+        parent::__construct($options);
+        if ($this->_version < Horde_ActiveSync::VERSION_TWELVE) {
+            $this->_mapping += array(
+                self::BODY                  => array(self::KEY_ATTRIBUTE => 'body'),
+                self::BODYSIZE              => array(self::KEY_ATTRIBUTE => 'bodysize'),
+                self::BODYTRUNCATED         => array(self::KEY_ATTRIBUTE => 'bodytruncated'),
+                self::RTF                   => array(self::KEY_ATTRIBUTE => 'rtf'),
+            );
+
+            $this->_properties += array(
+                'body'                  => false,
+                'bodysize'              => false,
+                'bodytruncated'         => 0,
+                'rtf'                   => false
+            );
+        } else {
+            $this->_mapping += array(
+                Horde_ActiveSync::AIRSYNCBASE_BODY => array(self::KEY_ATTRIBUTE => 'airsyncbasebody', self::KEY_TYPE => 'Horde_ActiveSync_Message_AirSyncBaseBody')
+            );
+            $this->_properties += array(
+                'airsyncbasebody' => false
+            );
+        }
+    }
 
     public function getClass()
     {

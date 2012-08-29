@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_ElasticSearch</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde ElasticSearch client</summary>
+ <description>Lightweight API for ElasticSearch (http://www.elasticsearch.org/).</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2012-07-22</date>
+ <time>15:13:11</time>
+ <version>
+  <release>1.0.0beta3</release>
+  <api>1.0.0beta1</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+ <notes>
+* 
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="ElasticSearch">
+      <dir name="examples">
+       <file name="add.php" role="doc" />
+       <file name="count.php" role="doc" />
+       <file name="get.php" role="doc" />
+       <file name="map.php" role="doc" />
+       <file name="search.php" role="doc" />
+       <file name="status.php" role="doc" />
+      </dir> <!-- /doc/Horde/ElasticSearch/examples -->
+     </dir> <!-- /doc/Horde/ElasticSearch -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="ElasticSearch">
+      <file name="Client.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="Index.php" role="php" />
+      <file name="Type.php" role="php" />
+     </dir> <!-- /lib/Horde/ElasticSearch -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="examples/add.php" name="doc/Horde/ElasticSearch/examples/add.php" />
+   <install as="examples/count.php" name="doc/Horde/ElasticSearch/examples/count.php" />
+   <install as="examples/get.php" name="doc/Horde/ElasticSearch/examples/get.php" />
+   <install as="examples/map.php" name="doc/Horde/ElasticSearch/examples/map.php" />
+   <install as="examples/search.php" name="doc/Horde/ElasticSearch/examples/search.php" />
+   <install as="examples/status.php" name="doc/Horde/ElasticSearch/examples/status.php" />
+   <install as="Horde/ElasticSearch/Client.php" name="lib/Horde/ElasticSearch/Client.php" />
+   <install as="Horde/ElasticSearch/Exception.php" name="lib/Horde/ElasticSearch/Exception.php" />
+   <install as="Horde/ElasticSearch/Index.php" name="lib/Horde/ElasticSearch/Index.php" />
+   <install as="Horde/ElasticSearch/Type.php" name="lib/Horde/ElasticSearch/Type.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2012-07-22</date>
+   <time>15:00:00</time>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0beta1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta2</release>
+    <api>1.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-22</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [jan] Fix dependency on Horde_Http.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta3</release>
+    <api>1.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-22</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
+   </notes>
+  </release>
+ </changelog>
+</package>

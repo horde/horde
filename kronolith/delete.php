@@ -9,7 +9,7 @@
  * @package Kronolith
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
@@ -35,7 +35,7 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
             /* The remote server is doing the permission checks for us. */
             $have_perms = true;
         } else {
-            $share = $kronolith_shares->getShare($event->calendar);
+            $share = $injector->getInstance('Kronolith_Shares')->getShare($event->calendar);
             if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE, $event->creator)) {
                 $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
             } else {

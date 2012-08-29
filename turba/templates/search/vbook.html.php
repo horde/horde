@@ -5,11 +5,6 @@
 
   <label for="vbook_name"><?php echo _("Name:") ?></label>
   <input type="text" id="vbook_name" name="vbook_name" />
-  <script type="text/javascript">
-  $('vbook_name').observe('keyup', function() {
-      $('save-vbook').checked = !!$F('vbook_name');
-  });
-  </script>
 </div>
 <?php endif; ?>
 </form>

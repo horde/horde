@@ -1,5 +1,17 @@
 <?php
 /**
+ * Horde_ActiveSync_Timezone::
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
+ */
+/**
  * Utility functions for dealing with Microsoft ActiveSync's Timezone format.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
@@ -10,10 +22,14 @@
  * Code dealing with searching for a timezone identifier from an AS timezone
  * blob inspired by code in the Tine20 Project (http://tine20.org).
  *
- * @author   Michael J. Rubinsky <mrubinsk@horde.org>
- *
- * @category Horde
- * @package  ActiveSync
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 class Horde_ActiveSync_Timezone
 {
@@ -94,6 +110,8 @@ class Horde_ActiveSync_Timezone
      *
      * @param Horde_Date $date  A date object representing the date to base the
      *                          the tz data on.
+     *
+     * @return array  An offset hash.
      */
     static public function getOffsetsFromDate(Horde_Date $date)
     {
@@ -148,15 +166,13 @@ class Horde_ActiveSync_Timezone
      */
     static protected function _getTransitions(DateTimeZone $timezone, Horde_Date $date)
     {
+
         $std = $dst = array();
-        if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
-            $transitions = $timezone->getTransitions(
-                mktime(0, 0, 0, 12, 1, $date->year - 1),
-                mktime(24, 0, 0, 12, 31, $date->year)
-            );
-        } else {
-            $transitions = $timezone->getTransitions();
-        }
+        $transitions = $timezone->getTransitions(
+            mktime(0, 0, 0, 12, 1, $date->year - 1),
+            mktime(24, 0, 0, 12, 31, $date->year)
+        );
+
         foreach ($transitions as $i => $transition) {
             try {
                $d = new Horde_Date($transition['time']);
@@ -223,7 +239,7 @@ class Horde_ActiveSync_Timezone
      * @param string $expectedTimezone  The expected timezone. If not empty, and
      *                                  present in the results, will return.
      *
-     * @return array
+     * @return string  The timezone identifier
      */
     public function getTimezone($offsets, $expectedTimezone = null)
     {

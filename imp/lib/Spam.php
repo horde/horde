@@ -83,7 +83,7 @@ class IMP_Spam
                             2 => array('pipe', 'w')
                         ), $pipes);
                     if (!is_resource($proc)) {
-                        Horde::logMessage('Cannot open process ' . $prog, 'ERR');
+                        Horde::log('Cannot open process ' . $prog, 'ERR');
                         return 0;
                     }
                     stream_copy_to_stream($raw_msg, $pipes[0]);
@@ -94,7 +94,7 @@ class IMP_Spam
                     }
                     fclose($pipes[2]);
                     if (!empty($stderr)) {
-                        Horde::logMessage('Error reporting spam: ' . $stderr, 'ERR');
+                        Horde::log('Error reporting spam: ' . $stderr, 'ERR');
                     }
                     proc_close($proc);
                     $report_flag = true;
@@ -274,7 +274,7 @@ class IMP_Spam
             $imp_message->flag(array('$notjunk'), $indices, true);
             $imp_message->flag(array('$junk'), $indices, false);
 
-            if (($result = $prefs->getValue('move_ham_after_report')) &&
+            if (($result = $prefs->getValue('move_innocent_after_report')) &&
                 !$imp_message->copy('INBOX', 'move', $indices, $mbox_args)) {
                 $result = 0;
             }

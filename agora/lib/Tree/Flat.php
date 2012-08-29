@@ -1,6 +1,6 @@
 <?php
 /**
- * The Agora_Tree_Flat:: class extends the Horde_Tree_Base class to provide
+ * The Agora_Tree_Flat:: class extends the Horde_Tree_Renderer_Base class to provide
  * agora flat threded view.
  *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
@@ -11,87 +11,8 @@
  * @author Ben Chavet <ben@horde.org>
  * @author Duck <duck@obala.net>
  */
-class Agora_Tree_Flat extends Horde_Tree_Base {
-
-    /**
-     * TODO
-     *
-     * @var array
-     */
-    var $_nodes = array();
-
-    /**
-     * Constructor.
-     */
-    public function __construct($tree_name, array $params = array())
-    {
-        parent::__construct($tree_name, 'Html', $params);
-        $this->_static = true;
-    }
-
-    /**
-     * Returns the tree.
-     *
-     * @return string  The HTML code of the rendered tree.
-     */
-    public function getTree($static = false)
-    {
-        $this->_buildIndents($this->_root_nodes);
-
-        $tree = '';
-        foreach ($this->_root_nodes as $node_id) {
-            $tree .= $this->_buildTree($node_id);
-        }
-        return $tree;
-    }
-
-    /**
-     * Checks the current environment to see if we can render the HTML tree.
-     * HTML is always renderable, at least until we add a php-gtk tree
-     * backend, in which case this implementation will actually need a body.
-     *
-     * @static
-     *
-     * @return boolean  Whether or not this Tree:: backend will function.
-     */
-    public function isSupported()
-    {
-        return true;
-    }
-
-    /**
-     * Returns just the JS node definitions as a string. This is a no-op for
-     * the select renderer.
-     */
-    public function renderNodeDefinitions()
-    {
-    }
-
-    /**
-     * Adds additional parameters to a node.
-     *
-     * @param string $id     The unique node id.
-     * @param array $params  Any other parameters to set.
-     * <pre>
-     * selected --  Whether this node is selected
-     * </pre>
-     */
-    public function addNodeParams($id, $params = array())
-    {
-        if (!is_array($params)) {
-            $params = array($params);
-        }
-
-        $allowed = array('selected');
-
-        foreach ($params as $param_id => $param_val) {
-            /* Set only allowed and non-null params. */
-            if (in_array($param_id, $allowed) && !is_null($param_val)) {
-                $this->_nodes[$id][$param_id] = $param_val;
-            }
-        }
-    }
-
+class Agora_Tree_Flat extends Horde_Tree_Renderer_Html
+{
     /**
      * Recursive function to walk through the tree array and build the output.
      *

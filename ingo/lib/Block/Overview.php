@@ -30,10 +30,9 @@ class Ingo_Block_Overview extends Horde_Core_Block
     protected function _content()
     {
         /* Get list of filters */
-        $filters = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
-        $html = '<table width="100%" height="100%">';
-        $html_pre = '<tr><td valign="top">';
-        $html_post = '</td></tr>';
+        $filters = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $html = '<table class="ingoBlockSummary">';
+
         foreach ($filters->getFilterList() as $filter) {
             if (!empty($filter['disable'])) {
                 $active = _("inactive");
@@ -46,55 +45,60 @@ class Ingo_Block_Overview extends Horde_Core_Block
             switch ($filter['name']) {
             case 'Vacation':
                 if (in_array(Ingo_Storage::ACTION_VACATION, $s_categories)) {
-                    $html .= $html_pre .
-                        Horde::img('vacation.png', _("Vacation")) .
+                    $html .= '<tr><td>' .
+                        '<span class="iconImg vacationImg"></span>' .
                         '</td><td>' .
                         Horde::url('vacation.php')->link(array('title' => _("Edit"))) .
-                        _("Vacation") . '</a> ' . $active . $html_post;
+                        _("Vacation") . '</a> ' . $active .
+                        '</td></tr>';
                 }
                 break;
 
             case 'Forward':
                 if (in_array(Ingo_Storage::ACTION_FORWARD, $s_categories)) {
-                    $html .= $html_pre .
-                        Horde::img('forward.png', _("Forward")) . '</td><td>' .
+                    $html .= '<tr><td>' .
+                        '<span class="iconImg forwardImg"></span>' .
+                        '</td><td>' .
                         Horde::url('forward.php')->link(array('title' => _("Edit"))) .
                         _("Forward") . '</a> ' . $active;
                     $data = unserialize($GLOBALS['prefs']->getValue('forward'));
                     if (!empty($data['a'])) {
                         $html .= ':<br />' . implode('<br />', $data['a']);
                     }
-                    $html .= $html_post;
+                    $html .= '</td></tr>';
                 }
                 break;
 
             case 'Whitelist':
                 if (in_array(Ingo_Storage::ACTION_WHITELIST, $s_categories)) {
-                    $html .= $html_pre .
-                        Horde::img('whitelist.png', _("Whitelist")) .
+                    $html .= '<tr><td>' .
+                        '<span class="iconImg whitelistImg"></span>' .
                         '</td><td>' .
                         Horde::url('whitelist.php')->link(array('title' => _("Edit"))) .
-                        _("Whitelist") . '</a> ' . $active . $html_post;
+                        _("Whitelist") . '</a> ' . $active .
+                       '</td></tr>';
                 }
                 break;
 
             case 'Blacklist':
                 if (in_array(Ingo_Storage::ACTION_BLACKLIST, $s_categories)) {
-                    $html .= $html_pre .
-                        Horde::img('blacklist.png', _("Blacklist")) .
+                    $html .= '<tr><td>' .
+                        '<span class="iconImg blacklistImg"></span>' .
                         '</td><td>' .
                         Horde::url('blacklist.php')->link(array('title' => _("Edit"))) .
-                        _("Blacklist") . '</a> ' . $active . $html_post;
+                        _("Blacklist") . '</a> ' . $active .
+                        '</td></tr>';
                 }
                 break;
 
             case 'Spam Filter':
                 if (in_array(Ingo_Storage::ACTION_SPAM, $s_categories)) {
-                    $html .= $html_pre .
-                        Horde::img('spam.png', _("Spam Filter")) .
+                    $html .= '<tr><td>' .
+                        '<span class="iconImg spamImg"></span>' .
                         '</td><td>' .
                         Horde::url('spam.php')->link(array('title' => _("Edit"))) .
-                        _("Spam Filter") . '</a> ' . $active . $html_post;
+                        _("Spam Filter") . '</a> ' . $active .
+                        '</td></tr>';
                 }
                 break;
             }

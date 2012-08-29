@@ -44,18 +44,18 @@ extends PHPUnit_Extensions_Story_TestCase
         switch($action) {
         case 'that no Kolab server configuration file can be found':
             $world['config'] = new Horde_Kolab_Config(
-                dirname(__FILE__) . '/fixture/empty'
+                __DIR__ . '/fixture/empty'
             );
             break;
         case 'that a global configuration file was specified as a combination of a directory path and a file name':
             $world['config'] = new Horde_Kolab_Config(
-                dirname(__FILE__) . '/fixture/global',
+                __DIR__ . '/fixture/global',
                 'globals.conf'
             );
             break;
         case 'that the location of the configuration files were specified with a directory path':
             $world['config'] = new Horde_Kolab_Config(
-                dirname(__FILE__) . '/fixture/local'
+                __DIR__ . '/fixture/local'
             );
             break;
         default:

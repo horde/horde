@@ -17,8 +17,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-11-13</date>
- <time>22:07:24</time>
+ <date>2012-03-19</date>
+ <time>15:58:17</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -39,6 +39,7 @@
      <dir name="Kolab">
       <dir name="FreeBusy">
        <file name="COPYING" role="doc" />
+       <file name="TODO" role="doc" />
       </dir> <!-- /doc/Horde/Kolab/FreeBusy -->
      </dir> <!-- /doc/Horde/Kolab -->
     </dir> <!-- /doc/Horde -->
@@ -539,13 +540,12 @@
      </dir> <!-- /www/Horde/Kolab -->
     </dir> <!-- /www/Horde -->
    </dir> <!-- /www -->
-   <file name="TODO" role="php" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -553,51 +553,51 @@
    <package>
     <name>Horde_Kolab_Format</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Server</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="" name="TODO" />
    <install as="COPYING" name="doc/Horde/Kolab/FreeBusy/COPYING" />
+   <install as="TODO" name="doc/Horde/Kolab/FreeBusy/TODO" />
    <install as="Horde/Kolab/FreeBusy.php" name="lib/Horde/Kolab/FreeBusy.php" />
    <install as="Horde/Kolab/FreeBusy/Cache.php" name="lib/Horde/Kolab/FreeBusy/Cache.php" />
    <install as="Horde/Kolab/FreeBusy/Exception.php" name="lib/Horde/Kolab/FreeBusy/Exception.php" />
@@ -815,7 +815,7 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fixed handling of extended free/busy information.
-* Fixed storing acl values when the folder is triggered by a foreign user 
+* Fixed storing acl values when the folder is triggered by a foreign user
   kolab/issue3208 (Free/Busy list is always empty)
 * Fixed identification of the corresponding free/busy server.
 * Implemented extended free/busy access concept.
@@ -903,7 +903,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-11-13</date>
+   <date>2012-03-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix tests to work with PHPUnit 3.6.

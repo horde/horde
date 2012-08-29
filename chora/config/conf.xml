@@ -22,7 +22,7 @@
    executable, e.g. /usr/bin/cvsgraph"/>
    <configphp name="cvsgraph_conf" desc="CvsGraph configuration file. An
    example file can be found at
-   config/cvsgraph.conf.dist">dirname(__FILE__) . '/cvsgraph.conf'</configphp>
+   config/cvsgraph.conf.dist">__DIR__ . '/cvsgraph.conf'</configphp>
 
    <configheader>Paths for use with Subversion</configheader>
    <configstring name="svn" desc="svn">/usr/bin/svn</configstring>
@@ -109,17 +109,5 @@
  <configtab name="cache" desc="Caching">
   <configboolean name="caching" desc="Allow caching of views? This requires
   that a caching backend be configured in Horde.">false</configboolean>
- </configtab>
-
- <configtab name="menu" desc="Menu Settings">
-  <configsection name="menu">
-   <configheader>Menu Settings</configheader>
-   <configmultienum name="apps" desc="Select any applications that should be
-   linked in Chora's menu" required="false">
-    <values>
-     <configspecial application="horde" name="apps" />
-    </values>
-   </configmultienum>
-  </configsection>
  </configtab>
 </configuration>

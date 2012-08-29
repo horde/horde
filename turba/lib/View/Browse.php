@@ -31,30 +31,7 @@ class Turba_View_Browse
     public function updateSortOrderFromVars()
     {
         extract($this->_params, EXTR_REFS);
-
-        if (strlen($sortby = $vars->get('sortby'))) {
-            $sources = Turba::getColumns();
-            $columns = isset($sources[$source]) ? $sources[$source] : array();
-            $column_name = Turba::getColumnName($sortby, $columns);
-            $append = true;
-            $ascending = ($vars->get('sortdir') == 0);
-            if ($vars->get('sortadd')) {
-                $sortorder = Turba::getPreferredSortOrder();
-                foreach ($sortorder as $i => $elt) {
-                    if ($elt['field'] == $column_name) {
-                        $sortorder[$i]['ascending'] = $ascending;
-                        $append = false;
-                    }
-                }
-            } else {
-                $sortorder = array();
-            }
-            if ($append) {
-                $sortorder[] = array('field' => $column_name,
-                                     'ascending' => $ascending);
-            }
-            $prefs->setValue('sortorder', serialize($sortorder));
-        }
+        Turba::setPreferredSortOrder($vars, $source);
     }
 
     public function run()
@@ -512,10 +489,13 @@ class Turba_View_Browse
             $templates[] = '/browse/header.inc';
         }
 
-        Horde::addScriptFile('quickfinder.js', 'horde');
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('redbox.js', 'horde');
-        require $registry->get('templates', 'horde') . '/common-header.inc';
+        global $page_output;
+        $page_output->addScriptFile('quickfinder.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+        $page_output->addScriptFile('redbox.js', 'horde');
+        $page_output->header(array(
+            'title' => $title
+        ));
         require TURBA_TEMPLATES . '/menu.inc';
         foreach ($templates as $template) {
             require TURBA_TEMPLATES . $template;
@@ -525,7 +505,7 @@ class Turba_View_Browse
             $view->display();
         }
 
-        require $registry->get('templates', 'horde') . '/common-footer.inc';
+        $page_output->footer();
     }
 
 }

@@ -16,6 +16,8 @@
  * ----------------------------------
  * 'FormGhost:ghost'
  * 'FormGhost:unghost'
+ * 'FormGhost:reset'
+ * 'FormGhost:submit'
  *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -36,6 +38,7 @@
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @package  Horde
  */
@@ -51,9 +54,10 @@ var FormGhost = Class.create({
             css: 'formGhost'
         }, opts || {});
 
+        this.elt.observe('keydown', this.keydownHandler.bindAsEventListener(this));
         this.elt.observe('focus', this.unghost.bind(this));
         this.elt.observe('blur', this.ghost.bind(this));
-        this.elt.up('FORM').observe('submit', this.unghost.bind(this));
+        this.elt.up('FORM').observe('submit', this.submit.bind(this));
 
         this.ghost();
     },
@@ -96,6 +100,48 @@ var FormGhost = Class.create({
         this.elt.clear();
         this.isghost = false;
         this.ghost();
-    }
+    },
 
+    submit: function(e)
+    {
+        var action = this.elt.up('FORM').readAttribute('action');
+
+        this.unghost();
+        this.elt.fire('FormGhost:submit');
+        if (action == '' || action == '#') {
+            e.stop();
+        }
+    },
+
+    /* Keydown event handler */
+    keydownHandler: function(e)
+    {
+        var action,
+            elt = e.element(),
+            kc = e.keyCode || e.charCode,
+            form = e.findElement('FORM');
+
+        if (form && elt == this.elt) {
+            switch (kc) {
+            case Event.KEY_ESC:
+            case Event.KEY_TAB:
+                // Catch escapes.
+                if (kc == Event.KEY_ESC || !elt.getValue()) {
+                    this.elt.fire('FormGhost:reset');
+                    e.stop();
+                }
+                elt.blur();
+                break;
+
+            case Event.KEY_RETURN:
+                //this.unghost();
+                this.elt.fire('FormGhost:submit');
+                action = form.readAttribute('action');
+                if (action == '' || action == '#') {
+                    e.stop();
+                }
+                break;
+            }
+        }
+    }
 });

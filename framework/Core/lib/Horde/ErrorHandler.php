@@ -1,202 +1,147 @@
 <?php
 /**
- * Horde_ErrorHandler: simple error_handler implementation for
- * handling PHP errors, generating backtraces for them, etc.
+ * Provides methods used to handle error reporting.
  *
- * @TODO Split dump() off into a Horde_Log backend, and make this more
- * general-purpose. Also make it configurable whether or not to honor
- * suppression of errors with @.
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Core
  */
 class Horde_ErrorHandler
 {
     /**
-     * Mapping of error codes to error code names.
+     * Aborts with a fatal error, displaying debug information to the user.
      *
-     * @var array
+     * @param mixed $error  Either a string or an object with a getMessage()
+     *                      method (e.g. PEAR_Error, Exception).
      */
-    public static $errorTypes = array(
-        1 => 'ERROR',
-        2 => 'WARNING',
-        4 => 'PARSE',
-        8 => 'NOTICE',
-        16 => 'CORE_ERROR',
-        32 => 'CORE_WARNING',
-        64 => 'COMPILE_ERROR',
-        128 => 'COMPILE_WARNING',
-        256 => 'USER_ERROR',
-        512 => 'USER_WARNING',
-        1024 => 'USER_NOTICE',
-        2047 => 'ALL',
-        2048 => 'STRICT',
-        4096 => 'RECOVERABLE_ERROR',
-    );
-
-    /**
-     * error_reporting mask
-     *
-     * @var integer
-     */
-    protected static $_mask = E_ALL;
-
-    /**
-     * Array of errors that have been caught.
-     *
-     * @var array
-     */
-    protected static $_errors = array();
-
-    /**
-     * Configurable function to run on shutdown.
-     *
-     * @var callable
-     */
-    protected static $_shutdownFunc;
-
-    /**
-     * Set the error handler and shutdown functions.
-     *
-     * @param TODO
-     */
-    public static function register($shutdownFunc = null)
+    static public function fatal($error)
     {
-        set_error_handler(array(__CLASS__, 'handleError'));
+        global $registry;
 
-        if (is_null($shutdownFunc)) {
-            $shutdownFunc = array(__CLASS__, 'dump');
+        try {
+            Horde::logMessage($error, 'EMERG');
+        } catch (Exception $e) {}
+
+        if (is_object($error)) {
+            switch (get_class($error)) {
+            case 'Horde_Exception_AuthenticationFailure':
+                if ($registry->isAuthenticated(array('app' => $error->application, 'notransparent' => true)) &&
+                    $registry->clearAuthApp($error->applicaton)) {
+                    break;
+                }
+
+                if (Horde_Cli::runningFromCLI()) {
+                    $cli = new Horde_Cli();
+                    $cli->fatal($error);
+                }
+
+                $params = array(
+                    'app' => $error->application,
+                    'reason' => $error->getCode()
+                );
+
+                switch ($error->getCode()) {
+                case Horde_Auth::REASON_MESSAGE:
+                    $params['msg'] = $error->getMessage();
+                    break;
+                }
+
+                header('Location: ' . $registry->getLogoutUrl($params));
+                exit;
+            }
         }
 
-        self::$_shutdownFunc = $shutdownFunc;
-    }
+        header('Content-type: text/html; charset=UTF-8');
+        try {
+            $admin = $registry->isAdmin();
+            $cli = Horde_Cli::runningFromCLI();
 
-    /**
-     * Call the shutdown func, passing in accumulated errors.
-     */
-    public function __destruct()
-    {
-        if (self::$_errors) {
-            call_user_func(self::$_shutdownFunc, self::$_errors);
-        }
-    }
+            $errortext = '<h1>' . Horde_Core_Translation::t("A fatal error has occurred") . '</h1>';
 
-    /**
-     * Process and handle/store an error.
-     *
-     * @param integer $errno    TODO
-     * @param string $errstr    TODO
-     * @param string $errfile   TODO
-     * @param integer $errline  TODO
-     */
-    public static function handleError($errno, $errstr, $errfile, $errline)
-    {
-        // Was the error suppressed?
-        if (!error_reporting()) {
-            // @TODO
-            // ...
-        }
+            if (($error instanceof PEAR_Error) ||
+                (is_object($error) && method_exists($error, 'getMessage'))) {
+                $errortext .= '<h3>' . htmlspecialchars($error->getMessage()) . '</h3>';
+            } elseif (is_string($error)) {
+                $errortext .= '<h3>' . htmlspecialchars($error) . '</h3>';
+            }
 
-        // Check the mask.
-        if ($errno & self::$_mask) {
-            self::$_errors[] = array(
-                'no' => $errno,
-                'str' => self::_cleanErrorString($errstr),
-                'file' => $errfile,
-                'line' => $errline,
-                'trace' => self::_errorBacktrace(),
-            );
-        }
-    }
-
-    /**
-     * Include the context of the error in the debug
-     * information. Takes more (and could be much more) memory.
-     *
-     * @param integer $errno    TODO
-     * @param string $errstr    TODO
-     * @param string $errfile   TODO
-     * @param integer $errline  TODO
-     * @param TODO $errcontext  TODO
-     */
-    public static function handleErrorWithContext($errno, $errstr, $errfile,
-                                                  $errline, $errcontext)
-    {
-        self::$_errors[] = array(
-            'no' => $errno,
-            'str' => self::_cleanErrorString($errstr),
-            'file' => $errfile,
-            'line' => $errline,
-            'context' => $errcontext,
-            'trace' => self::_errorBacktrace(),
-        );
-    }
-
-    /**
-     * Remove function documentation links from an error string.
-     *
-     * @param string $errstr  TODO
-     *
-     * @return string  TODO
-     */
-    protected static function _cleanErrorString($errstr)
-    {
-        return preg_replace("%\s\[<a href='function\.[\d\w-_]+'>function\.[\d\w-_]+</a>\]%", '', $errstr);
-    }
-
-    /**
-     * Generate an exception-like backtrace from the debug_backtrace()
-     * function for errors.
-     *
-     * @return array  TODO
-     */
-    protected static function _errorBacktrace()
-    {
-        // Skip two levels of backtrace
-        $skip = 2;
-
-        $backtrace = debug_backtrace();
-        $trace = array();
-        for ($i = $skip, $i_max = count($backtrace); $i < $i_max; $i++) {
-            $frame = $backtrace[$i];
-            $trace[$i - $skip] = array(
-                'file' => isset($frame['file']) ? $frame['file'] : null,
-                'line' => isset($frame['line']) ? $frame['line'] : null,
-                'function' => isset($frame['function']) ? $frame['function'] : null,
-                'class' => isset($frame['class']) ? $frame['class'] : null,
-                'type' => isset($frame['type']) ? $frame['type'] : null,
-                'args' => isset($frame['args']) ? $frame['args'] : null,
-            );
+            if ($admin || $cli) {
+                $trace = ($error instanceof Exception)
+                    ? $error
+                    : debug_backtrace();
+                $errortext .= '<div id="backtrace"><pre>' .
+                    strval(new Horde_Support_Backtrace($trace)) .
+                    '</pre></div>';
+                if (is_object($error)) {
+                    $errortext .= '<h3>' . Horde_Core_Translation::t("Details") . '</h3>';
+                    $errortext .= '<h4>' . Horde_Core_Translation::t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
+                    $errortext .= '<div id="details"><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></div>';
+                }
+            } else {
+                $errortext .= '<h3>' . Horde_Core_Translation::t("Details have been logged for the administrator.") . '</h3>';
+            }
+        } catch (Exception $e) {
+            die($e);
         }
 
-        return $trace;
+        if ($cli) {
+            echo html_entity_decode(strip_tags(str_replace(array('<br />', '<p>', '</p>', '<h1>', '</h1>', '<h3>', '</h3>'), "\n", $errortext)));
+        } else {
+            echo <<< HTML
+<html>
+<head><title>Horde :: Fatal Error</title></head>
+<body style="background:#fff; color:#000">$errortext</body>
+</html>
+HTML;
+        }
+        exit(1);
     }
 
     /**
-     * On text/html pages, if the user is an administrator, show all
-     * errors that occurred during the request.
+     * PHP legacy error handling (non-Exceptions).
      *
-     * @param array $errors  Accumulated errors.
+     * @param integer $errno     See set_error_handler().
+     * @param string $errstr     See set_error_handler().
+     * @param string $errfile    See set_error_handler().
+     * @param integer $errline   See set_error_handler().
+     * @param array $errcontext  See set_error_handler().
      */
-    public static function dump($errors)
+    static public function errorHandler($errno, $errstr, $errfile, $errline,
+                                        $errcontext)
     {
-        if (!$GLOBALS['registry']->isAdmin()) {
+        // Calls prefixed with '@'.
+        if (error_reporting() == 0) {
+            // Must return false to populate $php_errormsg (as of PHP 5.2).
+            return false;
+        }
+
+        if (!class_exists('Horde_Log')) {
             return;
         }
 
-        $dump = false;
-        foreach (headers_list() as $header) {
-            if (strpos($header, 'Content-type: text/html') !== false) {
-                $dump = true;
+        try {
+            switch ($errno) {
+            case E_WARNING:
+                $priority = Horde_Log::WARN;
+                break;
+
+            case E_NOTICE:
+                $priority = Horde_Log::NOTICE;
+                break;
+
+            default:
+                $priority = Horde_Log::DEBUG;
                 break;
             }
-        }
 
-        if ($dump) {
-            foreach ($errors as $error) {
-                echo '<p>' . htmlspecialchars($error['file']) . ':' . htmlspecialchars($error['line']) . ': ' . htmlspecialchars($error['str']) . '</p>';
-            }
-        }
+            Horde::logMessage(new ErrorException('PHP ERROR: ' . $errstr, 0, $errno, $errfile, $errline), $priority);
+        } catch (Exception $e) {}
     }
 
 }

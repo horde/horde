@@ -1,5 +1,5 @@
 =======================
- Installing Passwd 4.0
+ Installing Passwd 5.0
 =======================
 
 :Contact: sork@lists.horde.org
@@ -25,7 +25,7 @@ To function properly, Passwd **requires** the following:
    for web applications written in PHP.  You must install Horde before
    installing Passwd.
 
-   .. Important:: Passwd 4.0 requires version 4.0+ of the Horde Framework -
+   .. Important:: Passwd 5.0 requires version 5.0+ of the Horde Framework -
                   earlier versions of Horde will **not** work.
 
    .. Important:: Be sure to have completed all of the steps in the
@@ -122,9 +122,7 @@ your PHP configuration::
 Installing from Git
 ~~~~~~~~~~~~~~~~~~~
 
-See::
-
-   http://horde.org/source/git.php
+See http://www.horde.org/source/git.php
 
 
 Configuring Passwd

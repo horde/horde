@@ -98,7 +98,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
             $conflict = false;
             $resource = $this->_driver->getResource($resource_id);
             $busy = Kronolith::getDriver('Resource', $resource->get('calendar'))
-                ->listEvents($start, $end, true);
+                ->listEvents($start, $end, array('show_recurrence' => true));
 
             /* No events at all during time period for requested event */
             if (!count($busy)) {
@@ -125,7 +125,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
 
                             // Not free, continue to the next resource
                             $conflict = true;
-                            break;
+                            break 2;
                          }
                     }
                 }
@@ -151,7 +151,11 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
      */
     public function addEvent($event)
     {
-        throw new Horde_Exception('Events should be added to the Single resource object, not directly to the Group object.');
+        if (!empty($this->_selectedResource)) {
+            $this->_selectedResource->addEvent($event);
+        } else {
+            throw new Horde_Exception('Events should be added to the Single resource object, not directly to the Group object.');
+        }
     }
 
     /**

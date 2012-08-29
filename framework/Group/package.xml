@@ -17,14 +17,14 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-22</date>
- <time>13:06:54</time>
+ <date>2012-07-19</date>
+ <time>23:28:20</time>
  <version>
-  <release>1.0.6</release>
+  <release>2.0.0beta2</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
@@ -44,7 +44,6 @@
     <dir name="Horde">
      <dir name="Group">
       <file name="Base.php" role="php" />
-      <file name="Contactlists.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Kolab.php" role="php" />
       <file name="Ldap.php" role="php" />
@@ -81,7 +80,6 @@
       <file name="Autoload.php" role="test" />
       <file name="Base.php" role="test" />
       <file name="conf.php.dist" role="test" />
-      <file name="ContactlistTest.php" role="test" />
       <file name="LdapTest.php" role="test" />
       <file name="MockTest.php" role="test" />
      </dir> <!-- /test/Horde/Group -->
@@ -92,7 +90,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -100,32 +98,32 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Ldap</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -133,7 +131,6 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Group/COPYING" />
    <install as="Horde/Group/Base.php" name="lib/Horde/Group/Base.php" />
-   <install as="Horde/Group/Contactlists.php" name="lib/Horde/Group/Contactlists.php" />
    <install as="Horde/Group/Exception.php" name="lib/Horde/Group/Exception.php" />
    <install as="Horde/Group/Kolab.php" name="lib/Horde/Group/Kolab.php" />
    <install as="Horde/Group/Ldap.php" name="lib/Horde/Group/Ldap.php" />
@@ -145,7 +142,6 @@
    <install as="Horde/Group/Autoload.php" name="test/Horde/Group/Autoload.php" />
    <install as="Horde/Group/Base.php" name="test/Horde/Group/Base.php" />
    <install as="Horde/Group/conf.php.dist" name="test/Horde/Group/conf.php.dist" />
-   <install as="Horde/Group/ContactlistTest.php" name="test/Horde/Group/ContactlistTest.php" />
    <install as="Horde/Group/LdapTest.php" name="test/Horde/Group/LdapTest.php" />
    <install as="Horde/Group/MockTest.php" name="test/Horde/Group/MockTest.php" />
    <install as="Horde/Group/Sql/Base.php" name="test/Horde/Group/Sql/Base.php" />
@@ -364,12 +360,39 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>1.0.6</release>
+    <release>2.0.0alpha1</release>
     <api>1.0.0</api></version>
    <stability>
-    <release>stable</release>
+    <release>alpha</release>
     <api>stable</api></stability>
-   <date>2012-02-22</date>
+   <date>2012-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+* [mms] Remove Contactlists driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -99,7 +99,7 @@ class Kronolith_Integration_Driver_Base extends Kronolith_TestCase
         $end   = new Horde_Date(345600);
         $this->assertEquals(
             1,
-            count(self::$driver->listEvents($start, $end, true))
+            count(self::$driver->listEvents($start, $end, array('show_recurrence' => true)))
         );
     }
 
@@ -110,7 +110,7 @@ class Kronolith_Integration_Driver_Base extends Kronolith_TestCase
         $end   = new Horde_Date(172800);
         $this->assertEquals(
             array(),
-            self::$driver->listEvents($start, $end, true)
+            self::$driver->listEvents($start, $end, array('show_recurrence' => true))
         );
     }
 

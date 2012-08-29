@@ -7,7 +7,7 @@
  *
  * @package Mnemo
  */
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
 /* Get the current action ID. */
@@ -54,14 +54,13 @@ case 'search_memos':
     break;
 }
 
-if ($prefs->getValue('show_panel')) {
-    $bodyClass = 'rightPanel';
-}
-
-Horde::addScriptFile('tables.js', 'horde', true);
-Horde::addScriptFile('quickfinder.js', 'horde', true);
-require $registry->get('templates', 'horde') . '/common-header.inc';
-echo Horde::menu();
+$page_output->addScriptFile('tables.js', 'horde');
+$page_output->addScriptFile('quickfinder.js', 'horde');
+$page_output->header(array(
+    'body_class' => $prefs->getValue('show_panel') ? 'rightPanel' : null,
+    'title' => $title
+));
+echo Mnemo::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/list/header.inc';
 
@@ -118,4 +117,4 @@ if (count($memos)) {
 }
 
 require MNEMO_TEMPLATES . '/panel.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

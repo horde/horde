@@ -29,6 +29,22 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading Turba from 3.x to 4.x
+===============================
+
+API Changes
+-----------
+
+  - search
+
+    The $sources, $fields, $matchBegin, $forceSource and $returnFields
+    parameters have been removed and replaced by the $opts parameter.
+
+    Added a 'rfc822Return' option to return a Horde_Mail_Rfc822_List object
+    instead of the search results array (which remains the default).
+
+
+
 Upgrading Turba from 2.x to 3.x
 ===============================
 

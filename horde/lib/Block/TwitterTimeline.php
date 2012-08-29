@@ -83,7 +83,7 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $conf;
+        global $conf, $page_output;
 
         /* Get the twitter driver */
         try {
@@ -121,10 +121,10 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
         $refresh = empty($this->_params['refresh_rate']) ? 300 : $this->_params['refresh_rate'];
 
         /* Add the client javascript / initialize it */
-        Horde::addScriptFile('twitterclient.js');
-        Horde::addScriptFile('effects.js');
+        $page_output->addScriptFile('twitterclient.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $script = <<<EOT
-            var Horde = window.Horde || {};
+            Horde = window.Horde || {};
             Horde['twitter{$instance}'] = new Horde_Twitter({
                instanceid: '{$instance}',
                getmore: '{$instance}_getmore',
@@ -141,7 +141,7 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
                strings: { inreplyto: '{$inReplyToText}', defaultText: '{$defaultText}', justnow: '{$justNowText}' }
             });
 EOT;
-        Horde::addInlineScript($script, 'dom');
+        $page_output->addInlineScript($script, true);
 
         /* Get the user's most recent tweet */
 
@@ -165,7 +165,7 @@ EOT;
     {
         $token = unserialize($GLOBALS['prefs']->getValue('twitter'));
         if (empty($token['key']) && empty($token['secret'])) {
-            $pref_link = Horde::getServiceLink('prefs', 'horde')->add('group', 'twitter')->link();
+            $pref_link = $GLOBALS['registry']->getServiceLink('prefs', 'horde')->add('group', 'twitter')->link();
             throw new Horde_Exception(sprintf(_("You have not properly connected your Twitter account with Horde. You should check your Twitter settings in your %s."), $pref_link . _("preferences") . '</a>'));
         }
 

@@ -29,16 +29,16 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        require_once dirname(__FILE__) . '/Stub/Socket.php';
+        require_once __DIR__ . '/Stub/Socket.php';
     }
 
     public function testBug10503()
     {
         // Test file is base64 encoded to obfuscate the data.
-        $fetch_data = base64_decode(file_get_contents(dirname(__FILE__) . '/fixtures/bug_10503.txt'));
+        $fetch_data = base64_decode(file_get_contents(__DIR__ . '/fixtures/bug_10503.txt'));
         $imap_test_ob = new Horde_Imap_Client_Stub_Socket(array(
-            'password' => 'stub',
-            'username' => 'stub'
+            'password' => 'foo',
+            'username' => 'bar'
         ));
 
         $sorted = $imap_test_ob->getClientSort(

@@ -7,11 +7,11 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 $ticket = Whups::getCurrentTicket();
-$linkTags[] = $ticket->feedLink();
+$page_output->addLinkTag($ticket->feedLink());
 
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
@@ -80,7 +80,9 @@ if ($vars->get('formname') == 'whups_form_addcomment' &&
     }
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require WHUPS_TEMPLATES . '/menu.inc';
 require WHUPS_TEMPLATES . '/prevnext.inc';
 
@@ -89,4 +91,4 @@ echo $tabs->render('comment');
 
 $commentForm->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('ticket/comment.php'), 'post');
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

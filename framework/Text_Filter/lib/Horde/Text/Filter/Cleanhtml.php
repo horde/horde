@@ -3,14 +3,12 @@
  * This filter attempts to sanitize HTML by cleaning up malformed HTML tags.
  *
  * Parameters:
- * <pre>
- * body_only - (boolean) Only return the body data?
- *             DEFAULT: Return the whole HTML document
- * charset - (string) Charset of the data.
- *           DEFAULT: UTF-8
- * size - (integer) Only filter if data is below this size.
- *        DEFAULT: No default
- * </pre>
+ *   - body_only: (boolean) Only return the body data?
+ *                DEFAULT: Return the whole HTML document
+ *   - charset: (string) Charset of the data.
+ *              DEFAULT: UTF-8
+ *   - size: (integer) Only filter if data is below this size.
+ *           DEFAULT: No default
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *

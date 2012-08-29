@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the version helper.
@@ -38,7 +38,7 @@ extends Components_TestCase
     public function testAlpha()
     {
         $this->assertEquals(
-            '4.0 Alpha',
+            '4.0.0 Alpha 1',
             Components_Helper_Version::pearToTicketDescription('4.0.0alpha1')
         );
     }
@@ -46,7 +46,7 @@ extends Components_TestCase
     public function testBeta()
     {
         $this->assertEquals(
-            '4.0 Beta',
+            '4.0.0 Beta 1',
             Components_Helper_Version::pearToTicketDescription('4.0.0beta1')
         );
     }
@@ -54,7 +54,7 @@ extends Components_TestCase
     public function testRc1()
     {
         $this->assertEquals(
-            '4.0 Release Candidate 1',
+            '4.0.0 Release Candidate 1',
             Components_Helper_Version::pearToTicketDescription('4.0.0RC1')
         );
     }
@@ -62,7 +62,7 @@ extends Components_TestCase
     public function testRc2()
     {
         $this->assertEquals(
-            '4.0 Release Candidate 2',
+            '4.0.0 Release Candidate 2',
             Components_Helper_Version::pearToTicketDescription('4.0.0RC2')
         );
     }
@@ -70,7 +70,7 @@ extends Components_TestCase
     public function testFourOh()
     {
         $this->assertEquals(
-            '4.0 Final',
+            '4.0.0 Final',
             Components_Helper_Version::pearToTicketDescription('4.0.0')
         );
     }
@@ -78,7 +78,7 @@ extends Components_TestCase
     public function testFourOneOh()
     {
         $this->assertEquals(
-            '4.1 Final',
+            '4.1.0 Final',
             Components_Helper_Version::pearToTicketDescription('4.1.0')
         );
     }
@@ -86,7 +86,7 @@ extends Components_TestCase
     public function testFourOneOhBeta1()
     {
         $this->assertEquals(
-            '4.1 Beta',
+            '4.1.0 Beta 1',
             Components_Helper_Version::pearToTicketDescription('4.1.0beta1')
         );
     }
@@ -94,7 +94,7 @@ extends Components_TestCase
     public function testFiveOh()
     {
         $this->assertEquals(
-            '5.0 Final',
+            '5.0.0 Final',
             Components_Helper_Version::pearToTicketDescription('5.0.0')
         );
     }
@@ -102,7 +102,7 @@ extends Components_TestCase
     public function testFiveTwoOhRc2()
     {
         $this->assertEquals(
-            '5.2 Release Candidate 2',
+            '5.2.0 Release Candidate 2',
             Components_Helper_Version::pearToTicketDescription('5.2.0RC2')
         );
     }

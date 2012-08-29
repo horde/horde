@@ -25,7 +25,7 @@ class Horde_Core_Ui_VarRenderer_TablesetHtml extends Horde_Core_Ui_VarRenderer_H
         $disable = Horde_Core_Translation::t("Select none");
         $invert = Horde_Core_Translation::t("Invert selection");
 
-        Horde::addScriptFile('tables.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
 
         $html = <<<EOT
 <script type="text/javascript">
@@ -92,7 +92,7 @@ EOT;
         $checkedValues = $var->getValue($vars);
         $actions = $this->_getActionScripts($form, $var);
 
-        Horde::addScriptFile('tables.js', 'horde');
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
         $html = '<table style="width: 100%" class="sortable striped" id="tableset_' . $name . '"><thead><tr>' .
             '<th>&nbsp;</th>';
         foreach ($header as $col_title) {

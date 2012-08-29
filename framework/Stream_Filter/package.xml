@@ -16,14 +16,14 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>21:11:16</time>
+ <date>2012-07-19</date>
+ <time>23:42:56</time>
  <version>
-  <release>1.1.1</release>
+  <release>2.0.0beta2</release>
   <api>1.1.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
@@ -48,6 +48,7 @@
        <file name="Bin2hex.php" role="php" />
        <file name="Crc32.php" role="php" />
        <file name="Eol.php" role="php" />
+       <file name="Null.php" role="php" />
       </dir> <!-- /lib/Horde/Stream/Filter -->
      </dir> <!-- /lib/Horde/Stream -->
     </dir> <!-- /lib/Horde -->
@@ -60,6 +61,7 @@
        <file name="Bin2hexTest.php" role="test" />
        <file name="Crc32Test.php" role="test" />
        <file name="EolTest.php" role="test" />
+       <file name="NullTest.php" role="test" />
       </dir> <!-- /test/Horde/Stream/Filter -->
      </dir> <!-- /test/Horde/Stream -->
     </dir> <!-- /test/Horde -->
@@ -69,7 +71,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -82,10 +84,12 @@
    <install as="Horde/Stream/Filter/Bin2hex.php" name="lib/Horde/Stream/Filter/Bin2hex.php" />
    <install as="Horde/Stream/Filter/Crc32.php" name="lib/Horde/Stream/Filter/Crc32.php" />
    <install as="Horde/Stream/Filter/Eol.php" name="lib/Horde/Stream/Filter/Eol.php" />
+   <install as="Horde/Stream/Filter/Null.php" name="lib/Horde/Stream/Filter/Null.php" />
    <install as="Horde/Stream/Filter/AllTests.php" name="test/Horde/Stream/Filter/AllTests.php" />
    <install as="Horde/Stream/Filter/Bin2hexTest.php" name="test/Horde/Stream/Filter/Bin2hexTest.php" />
    <install as="Horde/Stream/Filter/Crc32Test.php" name="test/Horde/Stream/Filter/Crc32Test.php" />
    <install as="Horde/Stream/Filter/EolTest.php" name="test/Horde/Stream/Filter/EolTest.php" />
+   <install as="Horde/Stream/Filter/NullTest.php" name="test/Horde/Stream/Filter/NullTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -180,12 +184,38 @@
   </release>
   <release>
    <version>
-    <release>1.1.1</release>
+    <release>2.0.0alpha1</release>
     <api>1.1.0</api></version>
    <stability>
-    <release>stable</release>
+    <release>alpha</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

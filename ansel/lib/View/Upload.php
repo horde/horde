@@ -59,9 +59,11 @@ class Ansel_View_Upload
         }
 
         Ansel::initJSVariables();
-        Horde::addScriptFile('effects.js', 'horde', true);
-        Horde::addScriptFile('carousel.js', 'ansel', true);
-        Horde::addScriptFile('upload.js', 'ansel');
+
+        global $page_output;
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+        $page_output->addScriptFile('carousel.js');
+        $page_output->addScriptFile('upload.js');
     }
 
     public function run()
@@ -70,12 +72,13 @@ class Ansel_View_Upload
         $this->_handleFileUpload();
 
         // TODO: Configure which runtimes to allow?
-        Horde::addScriptFile('plupload/plupload.js', 'horde');
-        Horde::addScriptFile('plupload/plupload.flash.js', 'horde');
-        Horde::addScriptFile('plupload/plupload.silverlight.js', 'horde');
-        Horde::addScriptFile('plupload/plupload.html5.js', 'horde');
-        Horde::addScriptFile('plupload/plupload.browserplus.js', 'horde');
-        Horde::addScriptFile('plupload/uploader.js', 'horde');
+        global $page_output;
+        $page_output->addScriptFile('plupload/plupload.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.flash.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.silverlight.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.html5.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.browserplus.js', 'horde');
+        $page_output->addScriptFile('plupload/uploader.js', 'horde');
 
         $startText = _("Upload");
         $addText = _("Add Images");
@@ -87,7 +90,7 @@ class Ansel_View_Upload
 
         $imple = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Imple')
-            ->create(array('ansel', 'UploadNotification'));
+            ->create('Ansel_Ajax_Imple_UploadNotification');
         $notificationUrl = (string)$imple->getUrl();
         $this->_params['target']->add('gallery', $this->_params['gallery']->id);
         $jsuri = $GLOBALS['registry']->get('jsuri', 'horde');
@@ -128,12 +131,19 @@ class Ansel_View_Upload
         });
         uploader.init();
         $('twitter').observe('click', function() {
-            AnselUpload.doUploadNotification('twitter', '{$this->_gallery->id}');
+            HordeCore.doAction('uploadNotification', {
+                s: 'twitter',
+                g: '{$this->_gallery->id}'
+            }, {
+                callback: function(r) {
+                    $('twitter').hide();
+                }
+            );
         });
 EOT;
 
         $js .= $this->_doCarouselSetup();
-        Horde::addInlineScript($js, 'load');
+        $page_output->addInlineScript($js, true);
     }
 
     /**
@@ -141,7 +151,7 @@ EOT;
      */
     public function handleLegacy()
     {
-        global $conf, $notification, $browser;
+        global $conf, $notification, $page_output, $browser;
 
         $vars = Horde_Variables::getDefaultVariables();
         $form = new Ansel_Form_Upload($vars, _("Upload photos"));
@@ -150,7 +160,7 @@ EOT;
         // explicitly selected the old uploader.
         $js = $this->_doCarouselSetup();
         if (!empty($js)) {
-            Horde::addInlineScript($js, 'load');
+            $page_output->addInlineScript($js, true);
         }
 
         if ($form->validate($vars)) {
@@ -193,7 +203,6 @@ EOT;
                     $this->_handleZip($info['file' . $i]['name']);
 
                 } else {
-
                     // Read in the uploaded data.
                     $data = file_get_contents($info['file' . $i]['file']);
 
@@ -223,28 +232,20 @@ EOT;
                             'horde.error');
                         $valid = false;
                     }
-                    unset($data);
                 }
             }
 
             // Try to autogenerate some views and tell the user what happened.
             if ($uploaded) {
-                $cnt = count($image_ids);
-                for ($i = 0; $i < $conf['image']['autogen'] && $cnt > $i; $i++) {
-                    $image_id = $image_ids[$i];
-                    $image = $GLOBALS['injector']
-                        ->getInstance('Ansel_Storage')
-                        ->getImage($image_id);
-                    $image->createView('screen');
-                    $image->createView('thumb');
-                    $image->createView('mini');
-                    unset($image);
-                }
+                $qtask = new Ansel_Queue_ProcessThumbs($image_ids);
+                $queue = $GLOBALS['injector']->getInstance('Horde_Queue_Storage');
+                $queue->add($qtask);
 
                 // postupload hook if needed
                 try {
                     Horde::callHook('postupload', array($image_ids), 'ansel');
                 } catch (Horde_Exception_HookNotSet $e) {}
+
                 $notification->push(sprintf(ngettext("%d photo was uploaded.", "%d photos were uploaded.", $uploaded), $uploaded), 'horde.success');
             } elseif ($vars->get('submitbutton') != _("Cancel")) {
                 $notification->push(_("You did not select any photos to upload."), 'horde.error');
@@ -338,14 +339,14 @@ EOT;
 
             if (empty($type) || $type == 'application/octet-stream') {
                 $temp = Horde_Util::getTempFile('', true);
-                $out = fopen($temp, 'wb');
+                $out = fopen($temp, 'w+');
                 if ($out) {
                     // Read binary input stream and append it to temp file
                     $in = fopen("php://input", "rb");
                     if ($in) {
-                        while ($buff = fread($in, 4096)) {
-                            fwrite($out, $buff);
-                        }
+                        stream_copy_to_stream($in, $out);
+                        rewind($out);
+                        fclose($in);
                     } else {
                         fclose($out);
                         header('Content-Type: application/json');
@@ -358,20 +359,20 @@ EOT;
                     exit;
                 }
 
-                // Don't know type. Try to deduce it.
+                // // Don't know type. Try to deduce it.
                 if (!($type = Horde_Mime_Magic::analyzeFile($temp, isset($GLOBALS['conf']['mime']['magic_db']) ? $GLOBALS['conf']['mime']['magic_db'] : null))) {
                     $type = Horde_Mime_Magic::filenameToMime($filename);
                 }
             } elseif (strpos($type, "multipart") !== false) {
                 // Handle mulitpart uploads
                 $temp = Horde_Util::getTempFile('', true);
-                $out = fopen($temp, 'wb');
+                $out = fopen($temp, 'w+');
                 if ($out) {
                     $in = fopen($_FILES['file']['tmp_name'], 'rb');
                     if ($in) {
-                        while ($buff = fread($in, 4096)) {
-                            fwrite($out, $buff);
-                        }
+                        stream_copy_to_stream($in, $out);
+                        rewind($out);
+                        fclose($in);
                     } else {
                         fclose($out);
                         header('Content-Type: application/json');
@@ -403,12 +404,8 @@ EOT;
                         sprintf(_("There was an error processing the uploaded archive: %s"), $e->getMessage()), 'horde.error');
                 }
 
-                header('Content-Type: application/json');
-                echo('{ "status" : "200", "error" : {} }');
-                exit;
             } else {
                 // Try and make sure the image is in a recognizeable format.
-                $data = file_get_contents($temp);
                 if (getimagesize($temp) === false) {
                     header('Content-Type: application/json');
                     echo('{ "status" : "400", "error" : { "message": "Not a valid, supported image file." }, "id" : "id" }');
@@ -419,22 +416,28 @@ EOT;
                 $image_data = array(
                     'image_filename' => $filename,
                     'image_type' => $type,
-                    'data' => $data);
+                    'data' => stream_get_contents($out));
 
+                fclose($out);
                 try {
-                    $image_id = $this->_gallery->addImage($image_data);
-                    $image_ids[] = $image_id;
+                    $image_ids = array($this->_gallery->addImage($image_data));
                 } catch (Ansel_Exception $e) {
                     header('Content-Type: application/json');
                     echo('{ "status" : "400", "error" : { "message": "Not a valid, supported image file." }, "id" : "id" }');
                     exit;
                 }
-
                 unset($data);
-                header('Content-Type: application/json');
-                echo('{ "status" : "200", "error" : {} }');
-                exit;
             }
+
+            // Try to auto generate some thumbnails.
+            $qtask = new Ansel_Queue_ProcessThumbs($image_ids);
+            $queue = $GLOBALS['injector']->getInstance('Horde_Queue_Storage');
+            $queue->add($qtask);
+
+            header('Content-Type: application/json');
+            echo('{ "status" : "200", "error" : {} }');
+            exit;
+
         }
     }
 
@@ -495,9 +498,11 @@ EOT;
                 }
 
                 /* Save the image */
-                $image_id = $this->_gallery->addImage(array('image_filename' => $zinfo['name'],
-                                                     'image_caption' => '',
-                                                     'data' => $zdata));
+                $image_id = $this->_gallery->addImage(
+                    array(
+                        'image_filename' => $zinfo['name'],
+                        'image_caption' => '',
+                        'data' => $zdata));
                 $image_ids[] = $image_id;
                 unset($zdata);
             }
@@ -524,18 +529,22 @@ EOT;
 
                 /* Extract the image */
                 try {
-                    $zdata = $zip->decompress($data,
-                                              array('action' => Horde_Compress_Zip::ZIP_DATA,
-                                                    'info' => $files,
-                                                    'key' => $key));
+                    $zdata = $zip->decompress(
+                        $data,
+                        array(
+                            'action' => Horde_Compress_Zip::ZIP_DATA,
+                            'info' => $files,
+                            'key' => $key));
                 } catch (Horde_Exception $e) {
                     throw new Ansel_Exception($e);
                 }
 
                 /* Add the image */
-                $image_id = $this->_gallery->addImage(array('image_filename' => $zinfo['name'],
-                                                     'image_caption' => '',
-                                                     'data' => $zdata));
+                $image_id = $this->_gallery->addImage(
+                    array(
+                        'image_filename' => $zinfo['name'],
+                        'image_caption' => '',
+                        'data' => $zdata));
                 $image_ids[] = $image_id;
                 unset($zdata);
             }

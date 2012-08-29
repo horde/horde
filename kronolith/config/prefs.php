@@ -39,7 +39,7 @@ $prefGroups['event_options'] = array(
     'column' => _("Events"),
     'label' => _("Event Defaults"),
     'desc' => _("Set default values for new events."),
-    'members' => array('default_alarm_management'),
+    'members' => array('default_alarm_management')
 );
 
 $prefGroups['logintasks'] = array(
@@ -73,6 +73,9 @@ $prefGroups['addressbooks'] = array(
     'label' => _("Address Books"),
     'desc' => _("Select address book sources for adding and searching for addresses."),
     'members' => array('display_contact', 'sourceselect'),
+    'suppress' => function() {
+        return !$GLOBALS['registry']->hasMethod('contacts/sources');
+    }
 );
 
 // Show dynamic view?
@@ -132,7 +135,18 @@ $_prefs['week_start_monday'] = array(
 $_prefs['day_hour_start'] = array(
     'value' => 16,
     'type' => 'enum',
-    'desc' => _("What time should day and week views start, when there are no earlier events?")
+    'enum' => array(),
+    'desc' => _("What time should day and week views start, when there are no earlier events?"),
+    'on_init' => function($ui) {
+        $enum = array();
+        $fmt = $GLOBALS['prefs']->getValue('twentyFour')
+            ? 'G:i'
+            : 'g:ia';
+        for ($i = 0; $i <= 48; ++$i) {
+            $enum[$i] = date($fmt, mktime(0, $i * 30, 0));
+        }
+        $ui->prefs['day_hour_start']['enum'] = $enum;
+    }
 );
 
 // end of the time range in day/week views:
@@ -140,7 +154,18 @@ $_prefs['day_hour_start'] = array(
 $_prefs['day_hour_end'] = array(
     'value' => 48,
     'type' => 'enum',
-    'desc' => _("What time should day and week views end, when there are no later events?")
+    'enum' => array(),
+    'desc' => _("What time should day and week views end, when there are no later events?"),
+    'on_init' => function($ui) {
+        $enum = array();
+        $fmt = $GLOBALS['prefs']->getValue('twentyFour')
+            ? 'G:i'
+            : 'g:ia';
+        for ($i = 0; $i <= 48; ++$i) {
+            $enum[$i] = date($fmt, mktime(0, $i * 30, 0));
+        }
+        $ui->prefs['day_hour_end']['enum'] = $enum;
+    }
 );
 
 // enforce hour slots?
@@ -218,13 +243,82 @@ $_prefs['show_shared_side_by_side'] = array(
 $_prefs['default_share'] = array(
     'value' => $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : 0,
     'type' => 'enum',
-    'desc' => _("Your default calendar:")
+    'enum' => array(),
+    'desc' => _("Your default calendar:"),
+    'on_init' => function($ui) {
+        $enum = array();
+        foreach (Kronolith::listInternalCalendars(false, Horde_Perms::EDIT) as $id => $calendar) {
+            $enum[$id] = $calendar->get('name');
+        }
+        $ui->prefs['default_share']['enum'] = $enum;
+    },
+    'on_change' => function() {
+        $sync = @unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
+        $haveDefault = false;
+        $default = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
+        foreach ($sync as $cid) {
+            if ($cid == $default) {
+                $haveDefault = true;
+                break;
+            }
+        }
+        if (!$haveDefault) {
+            $sync[] = $default;
+            $GLOBALS['prefs']->setValue('sync_calendars', serialize($sync));
+        }
+    }
 );
 // Calendars use for synchronization
 $_prefs['sync_calendars'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
+    'enum' => array(),
     'desc' => _("Select the calendars that, in addition to the default, should be used for synchronization with external devices:"),
+    'on_init' => function($ui) {
+        $enum = array();
+        $sync = @unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
+        if (empty($sync)) {
+            $GLOBALS['prefs']->setValue('sync_calendars', serialize(array(Kronolith::getDefaultCalendar())));
+        }
+        foreach (Kronolith::listInternalCalendars(true, Horde_Perms::EDIT) as $key => $cal) {
+            if ($cal->getName() != Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
+                $enum[$key] = $cal->get('name');
+            }
+        }
+        $ui->prefs['sync_calendars']['enum'] = $enum;
+    },
+    'on_change' => function() {
+        $sync = @unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
+        $haveDefault = false;
+        $default = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
+        foreach ($sync as $cid) {
+            if ($cid == $default) {
+                $haveDefault = true;
+                break;
+            }
+        }
+        if (!$haveDefault) {
+            $sync[] = $default;
+            $GLOBALS['prefs']->setValue('sync_calendars', serialize($sync));
+        }
+        if ($GLOBALS['conf']['activesync']['enabled']) {
+            try {
+                $sm = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+                $sm->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
+                $devices = $sm->listDevices($GLOBALS['registry']->getAuth());
+                foreach ($devices as $device) {
+                    $sm->removeState(array(
+                        'devId' =>$device['device_id'],
+                        'id' => Horde_Core_ActiveSync_Driver::APPOINTMENTS_FOLDER_UID,
+                        'user' => $GLOBALS['registry']->getAuth()
+                    ));
+                }
+                $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
+            } catch (Horde_ActiveSync_Exception $e) {
+                $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.error');
+            }
+        }
+    }
 );
 
 // Which drivers are we supposed to use to examine holidays?
@@ -242,7 +336,11 @@ $_prefs['default_alarm'] = array(
     'value' => ''
 );
 
-$_prefs['default_alarm_management'] = array('type' => 'special');
+$_prefs['default_alarm_management'] = array(
+    'type' => 'special',
+    'handler' => 'Kronolith_Prefs_Special_DefaultAlarm',
+    'requires_nolock' => array('default_alarm')
+);
 
 // remote calendars
 $_prefs['remote_cals'] = array(
@@ -306,7 +404,11 @@ $_prefs['event_reminder'] = array(
 
 // alarm methods
 $_prefs['event_alarms_select'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Kronolith_Prefs_Special_EventAlarms',
+    'suppress' => function() {
+        return empty($GLOBALS['conf']['alarms']['driver']);
+    }
 );
 
 $_prefs['event_alarms'] = array(
@@ -330,7 +432,11 @@ $_prefs['display_contact'] = array(
 );
 
 // address book selection widget
-$_prefs['sourceselect'] = array('type' => 'special');
+$_prefs['sourceselect'] = array(
+    'type' => 'special',
+    'handler' => 'Kronolith_Prefs_Special_Sourceselect',
+    'requires_nolock' => array('search_sources')
+);
 
 // Address book(s) to use when expanding addresses
 // Refer to turba/config/sources.php for possible source values
@@ -365,7 +471,17 @@ $_prefs['fb_url'] = array(
 $_prefs['fb_cals'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
+    'enum' => array(),
     'desc' => _("Choose the calendars to include in the above Free/Busy URL:"),
+    'on_init' => function($ui) {
+        $enum = array();
+        foreach (Kronolith::listCalendars() as $fb_cal => $cal) {
+            if ($cal->display()) {
+                $enum[htmlspecialchars($fb_cal)] = htmlspecialchars($cal->name());
+            }
+        }
+        $ui->prefs['fb_cals']['enum'] = $enum;
+    }
 );
 
 // Login Tasks preferences

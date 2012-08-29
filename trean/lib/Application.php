@@ -12,7 +12,7 @@
 
 /* Determine the base directories. */
 if (!defined('TREAN_BASE')) {
-    define('TREAN_BASE', dirname(__FILE__) . '/..');
+    define('TREAN_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -33,35 +33,43 @@ class Trean_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (1.0-git)';
+    public $version = 'H5 (1.0-git)';
 
     /**
      * Global variables defined:
-     * - $trean_db:     TODO
-     * - $trean_shares: TODO
-     * - $linkTags:     <link> tags for common-header.inc.
-     * - $bodyClass:    <body> CSS class for common-header.inc.
+     * - $trean_db:      TODO
+     * - $trean_gateway: TODO
      */
     protected function _init()
     {
+        /* For now, autoloading the Content_* classes depend on there being a
+         * registry entry for the 'content' application that contains at least
+         * the fileroot entry. */
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+        if (!class_exists('Content_Tagger')) {
+            throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
+        }
+
         // Set the timezone variable.
         $GLOBALS['registry']->setTimeZone();
 
-        // Create db and share instances.
-        $GLOBALS['trean_db'] = Trean::getDb();
-        if ($GLOBALS['trean_db'] instanceof PEAR_Error) {
-            throw new Horde_Exception($GLOBALS['trean_db']);
+        // Create db and gateway instances.
+        $GLOBALS['trean_db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('trean');
+        try {
+            $GLOBALS['trean_gateway'] = $GLOBALS['injector']->getInstance('Trean_Bookmarks');
+        } catch (Exception $e) {
+            var_dump($e);
         }
-        $GLOBALS['trean_shares'] = new Trean_Bookmarks();
 
-        Trean::initialize();
-
-        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('grids-min.css');
         $rss = Horde::url('rss.php', true, -1);
-        if (Horde_Util::getFormData('f')) {
-            $rss->add('f', Horde_Util::getFormData('f'));
+        if ($label = Horde_Util::getFormData('label')) {
+            $rss->add('label', $label);
         }
-        $GLOBALS['linkTags'] = array('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars(_("Bookmarks Feed")) . '" href="' . $rss . '" />');
+
+        $GLOBALS['page_output']->addLinkTag(array(
+            'href' => $rss,
+            'title' => _("Bookmarks Feed")
+        ));
     }
 
     /**
@@ -73,10 +81,6 @@ class Trean_Application extends Horde_Registry_Application
                 'title' => _("Maximum Number of Bookmarks"),
                 'type' => 'int'
             ),
-            'max_folders' => array(
-                'title' => _("Maximum Number of Folders"),
-                'type' => 'int'
-            )
         );
     }
 
@@ -85,65 +89,7 @@ class Trean_Application extends Horde_Registry_Application
     public function menu($menu)
     {
         $menu->add(Horde::url('browse.php'), _("_Browse"), 'trean.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('add.php'), _("_New Bookmark"), 'add.png');
         $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
-        $menu->add(Horde::url('reports.php'), _("_Reports"), 'reports.png');
-
-        /* Import/Export. */
-        if ($GLOBALS['conf']['menu']['import_export']) {
-            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
-        }
     }
-
-    /* Sidebar method. */
-
-    /**
-     */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
-    {
-        $tree->addNode(
-            $parent . '__new',
-            $parent,
-            _("Add"),
-            1,
-            false,
-            array(
-                'icon' => Horde_Themes::img('add.png'),
-                'url' => Horde::url('add.php')
-            )
-        );
-
-        $tree->addNode(
-            $parent . '__search',
-            $parent,
-            _("Search"),
-            1,
-            false,
-            array(
-                'icon' => Horde_Themes::img('search.png'),
-                'url' => Horde::url('search.php')
-            )
-        );
-
-        $folders = Trean::listFolders();
-        if (!($folders instanceof PEAR_Error)) {
-            $browse = Horde::url('browse.php');
-
-            foreach ($folders as $folder) {
-                $parent_id = $folder->getParent();
-                $tree->addNode(
-                    $parent . $folder->getId(),
-                    $parent . $parent_id,
-                    $folder->get('name'),
-                    substr_count($folder->getName(), ':') + 1,
-                    false,
-                    array(
-                        'icon' => Horde_Themes::img('tree/folder.png'),
-                        'url' => $browse->copy()->add('f', $folder->getId())
-                    )
-                );
-            }
-        }
-    }
-
 }

@@ -9,7 +9,7 @@
  * @author  Ben Klang <ben@alkaloid.net>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $shout = Horde_Registry::appInit('shout');
 
 require_once SHOUT_BASE . '/lib/Forms/AccountForm.php';
@@ -97,9 +97,10 @@ try {
     $extensions = array();
 }
 
-Horde::addScriptFile('stripe.js', 'horde');
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
 require SHOUT_TEMPLATES . '/menu.inc';
 
 $notification->notify();
@@ -107,5 +108,4 @@ $notification->notify();
 Shout::getAdminTabs();
 
 require SHOUT_TEMPLATES . '/admin/accounts/' . $action . '.inc';
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

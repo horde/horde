@@ -35,7 +35,7 @@ class Shout
      */
     static public function getMenu($returnType = 'object')
     {
-        $mask = Horde_Menu::MASK_PROBLEM | Horde_Menu::MASK_LOGIN;
+        $mask = Horde_Menu::MASK_PROBLEM;
         $menu = new Horde_Menu($mask);
 
         $menu->add(Horde::url('dialplan.php'), _("Call Menus"), "dialplan.png");

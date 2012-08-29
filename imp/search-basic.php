@@ -13,15 +13,10 @@
  * @package  IMP
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
-    'impmode' => 'imp'
+    'impmode' => Horde_Registry::VIEW_BASIC
 ));
-
-/* This is an IMP-only script. */
-if (IMP::getViewMode() != 'imp') {
-    exit;
-}
 
 if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_SEARCH)) {
     $notification->push(_("Searching is not available."), 'horde.error');
@@ -32,7 +27,7 @@ if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCE
 }
 
 $imp_search = $injector->getInstance('IMP_Search');
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* If search_basic is set, we are processing the search query. */
 if ($vars->search_basic) {
@@ -81,7 +76,7 @@ if ($vars->search_basic) {
         /* Store the search in the session. */
         $q_ob = $imp_search->createQuery($c_list, array(
             'id' => IMP_Search::BASIC_SEARCH,
-            'mboxes' => array(IMP::$mailbox),
+            'mboxes' => array(IMP::mailbox()),
             'type' => IMP_Search::CREATE_QUERY
         ));
 
@@ -92,7 +87,7 @@ if ($vars->search_basic) {
 
 $flist = $injector->getInstance('IMP_Flags')->getList(array(
     'imap' => true,
-    'mailbox' => IMP::$mailbox
+    'mailbox' => IMP::mailbox()
 ));
 $flag_set = array();
 foreach ($flist as $val) {
@@ -107,19 +102,15 @@ $t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
 
 $t->set('action', Horde::url('search-basic.php'));
-$t->set('mbox', IMP::$mailbox->form_to);
-$t->set('search_title', sprintf(_("Search %s"), IMP::$mailbox->display_html));
+$t->set('advsearch', Horde::link(IMP::mailbox()->url('search.php')));
+$t->set('mbox', IMP::mailbox()->form_to);
+$t->set('search_title', sprintf(_("Search %s"), IMP::mailbox()->display_html));
 $t->set('flist', $flag_set);
 
-$title = _("Search");
 $menu = IMP::menu();
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header(_("Search"));
 echo $menu;
 IMP::status();
 
-if ($browser->hasFeature('javascript')) {
-    $t->set('advsearch', Horde::link(IMP::$mailbox->url('search.php')));
-}
-
 echo $t->fetch(IMP_TEMPLATES . '/imp/search/search-basic.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

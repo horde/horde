@@ -1,5 +1,6 @@
 <?php
 /**
+ * Add color attribute to shares.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *

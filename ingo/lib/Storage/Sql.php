@@ -12,35 +12,6 @@
 class Ingo_Storage_Sql extends Ingo_Storage
 {
     /**
-     * Handle for the current database connection.
-     *
-     * @var Horde_Db_Adapter
-     */
-    protected $_db;
-
-    /**
-     * Constructor.
-     *
-     * @param array $params  Additional parameters for the subclass.
-     *
-     * @throws Horde_Exception
-     */
-    public function __construct($params = array())
-    {
-        // @TODO: Inject
-        $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');;
-        $this->_params = array_merge($params, array(
-            'table_rules' => 'ingo_rules',
-            'table_lists' => 'ingo_lists',
-            'table_vacations' => 'ingo_vacations',
-            'table_forwards' => 'ingo_forwards',
-            'table_spam' => 'ingo_spam'
-        ));
-
-        parent::__construct();
-    }
-
-    /**
      * Retrieves the specified data from the storage backend.
      *
      * @param integer $field     The field name of the desired data.
@@ -70,20 +41,20 @@ class Ingo_Storage_Sql extends Ingo_Storage
             $values = array(Ingo::getUser(),
                             (int)($field == self::ACTION_BLACKLIST));
             try {
-                $addresses = $this->_db->selectValues($query, $values);
+                $addresses = $this->_params['db']->selectValues($query, $values);
             } catch (Horde_Db_Exception $e) {
                 Horde::logMessage($e->getMessage(), 'ERR');
                 throw new Ingo_Exception($e);
             }
             if ($field == self::ACTION_BLACKLIST) {
-                $ob->setBlacklist($addresses, true);
+                $ob->setBlacklist($addresses);
             } else {
-                $ob->setWhitelist($addresses, true);
+                $ob->setWhitelist($addresses);
             }
             break;
 
         case self::ACTION_FILTERS:
-            $ob = new Ingo_Storage_Filters_Sql($this->_db, $this->_params);
+            $ob = new Ingo_Storage_Filters_Sql($this->_params['db'], $this->_params);
             $ob->init($readonly);
             break;
 
@@ -92,17 +63,17 @@ class Ingo_Storage_Sql extends Ingo_Storage
                              $this->_params['table_forwards']);
 
             try {
-                $data = $this->_db->selectOne($query, array(Ingo::getUser()));
+                $data = $this->_params['db']->selectOne($query, array(Ingo::getUser()));
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
             $ob = new Ingo_Storage_Forward();
             if (!empty($data)) {
-                $ob->setForwardAddresses(explode("\n", $data['forward_addresses']), false);
+                $ob->setForwardAddresses(explode("\n", $data['forward_addresses']));
                 $ob->setForwardKeep((bool)$data['forward_keep']);
                 $ob->setSaved(true);
             } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('forward'))) {
-                $ob->setForwardAddresses($data['a'], false);
+                $ob->setForwardAddresses($data['a']);
                 $ob->setForwardKeep($data['k']);
             }
             break;
@@ -112,17 +83,17 @@ class Ingo_Storage_Sql extends Ingo_Storage
                              $this->_params['table_vacations']);
 
             try {
-                $data = $this->_db->selectOne($query, array(Ingo::getUser()));
+                $data = $this->_params['db']->selectOne($query, array(Ingo::getUser()));
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
             $ob = new Ingo_Storage_Vacation();
             if (!empty($data)) {
-                $ob->setVacationAddresses(explode("\n", $data['vacation_addresses']), false);
+                $ob->setVacationAddresses(explode("\n", $data['vacation_addresses']));
                 $ob->setVacationDays((int)$data['vacation_days']);
                 $ob->setVacationStart((int)$data['vacation_start']);
                 $ob->setVacationEnd((int)$data['vacation_end']);
-                $ob->setVacationExcludes(explode("\n", $data['vacation_excludes']), false);
+                $ob->setVacationExcludes(explode("\n", $data['vacation_excludes']));
                 $ob->setVacationIgnorelist((bool)$data['vacation_ignorelists']);
                 $ob->setVacationReason(Horde_String::convertCharset($data['vacation_reason'], $this->_params['charset'], 'UTF-8'));
                 $ob->setVacationSubject(Horde_String::convertCharset($data['vacation_subject'], $this->_params['charset'], 'UTF-8'));
@@ -130,7 +101,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('vacation'))) {
                 $ob->setVacationAddresses($data['addresses'], false);
                 $ob->setVacationDays($data['days']);
-                $ob->setVacationExcludes($data['excludes'], false);
+                $ob->setVacationExcludes($data['excludes']);
                 $ob->setVacationIgnorelist($data['ignorelist']);
                 $ob->setVacationReason($data['reason']);
                 $ob->setVacationSubject($data['subject']);
@@ -148,7 +119,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                              $this->_params['table_spam']);
 
             try {
-                $data = $this->_db->selectOne($query, array(Ingo::getUser()));
+                $data = $this->_params['db']->selectOne($query, array(Ingo::getUser()));
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
@@ -199,7 +170,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                              $this->_params['table_lists']);
             $values = array(Ingo::getUser(), $is_blacklist);
             try {
-                $this->_db->delete($query, $values);
+                $this->_params['db']->delete($query, $values);
             } catch (Horde_Db_Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 throw new Ingo_Exception($e);
@@ -210,7 +181,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             $addresses = $is_blacklist ? $ob->getBlacklist() : $ob->getWhitelist();
             foreach ($addresses as $address) {
                 try {
-                    $result = $this->_db->insert(
+                    $result = $this->_params['db']->insert(
                         $query,
                         array(Ingo::getUser(),
                               $is_blacklist,
@@ -231,10 +202,10 @@ class Ingo_Storage_Sql extends Ingo_Storage
             try {
                 if ($ob->isSaved()) {
                     $query = sprintf('UPDATE %s SET forward_addresses = ?, forward_keep = ? WHERE forward_owner = ?', $this->_params['table_forwards']);
-                    $this->_db->update($query, $values);
+                    $this->_params['db']->update($query, $values);
                 } else {
                     $query = sprintf('INSERT INTO %s (forward_addresses, forward_keep, forward_owner) VALUES (?, ?, ?)', $this->_params['table_forwards']);
-                    $this->_db->insert($query, $values);
+                    $this->_params['db']->insert($query, $values);
                 }
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
@@ -261,10 +232,10 @@ class Ingo_Storage_Sql extends Ingo_Storage
             try {
                 if ($ob->isSaved()) {
                     $query = sprintf('UPDATE %s SET vacation_addresses = ?, vacation_subject = ?, vacation_reason = ?, vacation_days = ?, vacation_start = ?, vacation_end = ?, vacation_excludes = ?, vacation_ignorelists = ? WHERE vacation_owner = ?', $this->_params['table_vacations']);
-                    $this->_db->update($query, $values);
+                    $this->_params['db']->update($query, $values);
                 } else {
                     $query = sprintf('INSERT INTO %s (vacation_addresses, vacation_subject, vacation_reason, vacation_days, vacation_start, vacation_end, vacation_excludes, vacation_ignorelists, vacation_owner) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', $this->_params['table_vacations']);
-                    $this->_db->insert($query, $values); 
+                    $this->_params['db']->insert($query, $values);
                 }
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
@@ -280,10 +251,10 @@ class Ingo_Storage_Sql extends Ingo_Storage
             try {
                 if ($ob->isSaved()) {
                     $query = sprintf('UPDATE %s SET spam_level = ?, spam_folder = ? WHERE spam_owner = ?', $this->_params['table_spam']);
-                    $this->_db->update($query, $values);
+                    $this->_params['db']->update($query, $values);
                 } else {
                     $query = sprintf('INSERT INTO %s (spam_level, spam_folder, spam_owner) VALUES (?, ?, ?)', $this->_params['table_spam']);
-                    $this->_db->insert($query, $values);
+                    $this->_params['db']->insert($query, $values);
                 }
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
@@ -321,7 +292,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
         $values = array($user);
         foreach ($queries as $query) {
             try {
-                $this->_db->delete($query, $values);
+                $this->_params['db']->delete($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }

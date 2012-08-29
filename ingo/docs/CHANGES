@@ -1,4 +1,30 @@
 -----------
+v3.0.0beta2
+-----------
+
+
+
+-----------
+v3.0.0beta1
+-----------
+
+[jan] Update icon set.
+[mms] Fix javascript actions on the vacation page.
+
+
+------------
+v3.0.0alpha1
+------------
+
+First alpha release for Horde 5.
+[mms] When adding to blacklist/whitelist, remove added addresses from the
+      other list.
+[jan] Allow to use placeholder variables in vacation messages (Request #10316).
+[mjr] Add ability to retrieve vacation message details from the API.
+[jan] Validate start and end dates of vacation rules (Request #10879).
+
+
+-----------
 v2.0.10-git
 -----------
 

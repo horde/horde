@@ -10,7 +10,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $jonah = Horde_Registry::appInit('jonah', array(
     'authentication' => 'none',
     'session_control' => 'readonly'
@@ -60,6 +60,6 @@ Horde::startBuffer();
 $GLOBALS['notification']->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $template->fetch(JONAH_TEMPLATES . '/delivery/html.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

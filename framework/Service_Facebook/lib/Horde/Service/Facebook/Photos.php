@@ -15,52 +15,33 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
      *
      *  http://wiki.developers.facebook.com/index.php/Photos.addTag
      *
-     * @param integer $pid      The ID of the photo to be tagged
-     * @param integer $tag_uid  The ID of the user being tagged. You must specify
-     *                          either the $tag_uid or the $tag_text parameter
-     *                          (unless $tags is specified).
-     * @param string $tag_text  Some text identifying the person being tagged.
-     *                          You must specify either the $tag_uid or $tag_text
-     *                          parameter (unless $tags is specified).
-     * @param float $x          The horizontal position of the tag, as a
-     *                          percentage from 0 to 100, from the left of the
-     *                          photo.
-     * @param float $y          The vertical position of the tag, as a percentage
-     *                          from 0 to 100, from the top of the photo.
-     * @param array $tags       (Optional) An array of maps, where each map
-     *                          can contain the tag_uid, tag_text, x, and y
-     *                          parameters defined above.  If specified, the
-     *                          individual arguments are ignored.
-     * @param integer $owner_uid    (Optional)  The user ID of the user whose photo
-     *                              you are tagging. If this parameter is not
-     *                              specified, then it defaults to the session user.
+     * @param string $pid  The ID of the photo to be tagged
+     * @param array $options  An options array:
+     *   - to: (string)    A UID of the user being tagged.
+     *   - text: (string)  Text to name the user if UID is not known/available.
+     *   - x: (float)  The horizontal position of the tag as a percentage from
+     *                 the left of the photo.
+     *   - y: (float)  The vertical position of the tag as a percentage from the
+     *                 top of the photo.
+     *
      *
      * @return boolean
      */
-    public function &addTag($pid, $tag_uid, $tag_text, $x, $y, array $tags, $uid = 0)
+    public function addTag($pid, array $options = array())
     {
         // Requires either a owner_uid or a session_key
-        if (empty($uid) && !$this->_facebook->auth->getSessionKey()) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception(
                 'photos.addTag requires either a uid or a session_key',
                 Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        $params = array(
-            'pid' => $pid,
-            'tag_uid' => $tag_uid,
-            'tag_text' => $tag_text,
-            'x' => $x,
-            'y' => $y,
-            'tags' => (is_array($tags)) ? json_encode($tags) : null);
-
-        if (!empty($owner_uid)) {
-            $params['owner_uid'] = $uid;
-        }
-        $results = $this->_facebook->callMethod('facebook.photos.addTag', $params);
+        return $this->_facebook->callGraphApi(
+            $pid,
+            $options,
+            array('request' => 'POST'));
 
         return $results;
-
     }
 
     /**
@@ -69,77 +50,64 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
      *
      * @param string $name         The name of the album.
      * @param string $description  (Optional) A description of the album.
-     * @param string $location     (Optional) A description of the location.
-     * @param string $visible      (Optional) A privacy setting for the album.
-     *                             One of 'friends', 'friends-of-friends',
-     *                             'networks', or 'everyone'.  Default 'everyone'.
-     * @param integer $uid         (Optional) User id for creating the album; if
+     * @param string $uid         (Optional) User id for creating the album; if
      *                             not specified, the session user is used.
      *
      * @return array  An album object
      */
-    public function &createAlbum($name, $description = '', $location = '',
-                                 $visible = '', $uid = 0)
+    public function createAlbum($name, $description = '', $uid = 'me')
     {
         // Requires either a owner_uid or a session_key
-        if (empty($owner_uid) && !$this->_facebook->auth->getSessionKey()) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception(
                 'photos.addTag requires either a owner_uid or a session_key',
                 Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-
-        $params = array(
-          'name' => $name,
-          'description' => $description,
-          'location' => $location,
-          'visible' => $visible);
-
-        // Yes, this method uses 'uid' while some of the others use
-        // 'owner_uid' - don't ask me...
-        if (!empty($uid)) {
-            $params['uid'] = $uid;
-        }
-        $results = $this->_facebook->callMethod(
-            'facebook.photos.createAlbum', $params);
-
-        return $results;
+        return $this->_facebook->callGraphApi(
+            $uid . '/albums',
+            array('name' => $name, 'message' => $description),
+            array('request' => 'POST'));
     }
 
     /**
      * Returns photos according to the filters specified.
      *
-     * Note that at least one of these parameters needs to be specified, or an
-     * error is returned.
+     * @param array $filter  An options array containing a maximum of ONE of
+     *                       the following values:
+     *  - tagged:  Filter by photos tagged with this user.
+     *  - album:   Filter by photos in these albums.
+     *  - photos:  Only return indicated photos.
      *
-     * @param integer $subj_id  (Optional) Filter by uid of user tagged in the photos.
-     * @param integer $aid      (Optional) Filter by an album, as returned by
-     *                          photos_getAlbums.
-     * @param string $pids      (Optional) Restrict to a comma-separated list of pids
+     * @param array $options  Additional options:
+     *   - limit: (integer)  The maximum number of posts to return.
+     *   - offset: (integer)  The post to start returning from.
      *
      * @return array  An array of photo objects.
      */
-    public function &get($subj_id = null, $aid = null, $pids = null)
+    public function get(array $filter = array(), array $options = array())
     {
         // Requires a session_key
-        if (!$skey = $this->_facebook->auth->getSessionKey()) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception(
                 'photos.addTag requires a session_key',
                 Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        $params = array();
-        if ($subj_id) {
-            $params['subj_id'] = $subj_id;
-        }
-        if ($aid) {
-            $params['aid'] = $aid;
-        }
-        if ($pids) {
-            $params['pids'] = $pids;
-        }
-        $results = $this->_facebook->callMethod('facebook.photos.get', $params);
 
-        return $results;
+        $params = array();
+        if (!empty($filter['tagged'])) {
+            $uid = $filter['tagged'] . '/photos';
+        } elseif (!empty($filter['album'])) {
+            $uid = $filter['album'];
+        } elseif (!empty($filter['photos'])) {
+            $uid = '';
+            $params = array('ids' => $filter['photos']);
+        } else {
+            $uid = 'me/photos';
+        }
+        $params = array_merge($options, $params);
+
+        return $this->_facebook->callGraphApi($uid, $params);
     }
 
     /**
@@ -154,76 +122,110 @@ class Horde_Service_Facebook_Photos extends Horde_Service_Facebook_Base
      *
      * @return array of album objects.
      */
-    public function &getAlbums($uid = null, $aids = null)
+    public function getAlbums($uid = 'me', $aids = null)
     {
         // Requires a session_key
-        if (!$skey = $this->_facebook->auth->getSessionKey()) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception(
                 'photos.addTag requires a session_key',
                 Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
+        if (empty($aids)) {
+            $params = array();
+            $uid = $uid . '/albums';
+        } else {
+            $params = array('ids' => $aids);
+            $uid = '';
+        }
 
-        $results = $this->_facebook->callMethod(
-            'facebook.photos.getAlbums',
-             array('uid' => $uid,
-                   'aids' => $aids));
-
-       return $results;
+        return $this->_facebook->callGraphApi($uid, $params);
     }
 
     /**
-     * Returns the tags on all photos specified.
+     * Return the tags for a photo.
      *
-     * @param string $pids  A list of pids to query
+     * @param string $pid The photo id
      *
      * @return array  An array of photo tag objects, which include pid,
      *                subject uid, and two floating-point numbers (xcoord, ycoord)
      *                for tag pixel location.
      */
-    public function &getTags($pids)
+    public function getTags($pid)
     {
         // Requires a session_key
-        if (!$skey = $this->_facebook->auth->getSessionKey()) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception(
                 'photos.addTag requires a session_key',
                 Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
-        $results = $this->_facebook->callMethod(
-            'facebook.photos.getTags',
-            array('pids' => $pids));
 
-        return $results;
+        return $this->_facebook->graphApi($pid . '/tags');
     }
 
     /**
      * Uploads a photo.
      *
-     * @param string  $file     The location of the photo on the local filesystem.
-     * @param integer $aid      (Optional) The album into which to upload the
-     *                          photo.
-     * @param string  $caption  (Optional) A caption for the photo.
-     * @param integer $uid      (Optional) The user ID of the user whose photo you
-     *                          are uploading
-     *
+     * @param array $params  The parameter array.
+     *  - file: (string)  A local path to the file to upload.
+     *         DEFAULT: None, but either 'file' or 'url' is required.
+     *  - url: (string) A URL to an image to upload.
+     *        DEFAULT: None, but either 'file' or 'url' is required.
+     *  - aid: (string)  The album id.
+     *         DEFAULT: None (Will upload to the application's album).
+     *  - caption: (string)  The photo caption.
+     *             DEFAULT: None.
+     *  - place: (string)  A Facebook UID of the place the photo was taken near.
+     *           DEFAULT: None.
+     *  - uid: (string) The Facebook UID of the user we are uploading on behalf
+     *                  of.
+     *         DEFAULT: None (Will upload on behalf of the current user).
      * @return array  An array of user objects
      */
-    public function upload($file, $aid = null, $caption = null, $uid = null)
+    public function upload(array $params = array())
     {
         // Requires either a owner_uid or a session_key
-        if (empty($uid) && !$skey = $this->_facebook->auth->getSessionKey()) {
+        if (!$this->_facebook->auth->getSessionKey()) {
             throw new Horde_Service_Facebook_Exception(
                 'photos.addTag requires either a uid or a session_key',
                 Horde_Service_Facebook_ErrorCodes::API_EC_SESSION_REQUIRED);
         }
 
-        $params = array('aid' => $aid, 'caption' => $caption);
-        if (!empty($uid)) {
-            $params['uid'] = $uid;
-        }
-        $results = $this->_facebook->callUploadMethod(
-            'facebook.photos.upload', $params, $file);
+        // Defaults
+        $params = array_merge(
+            array(
+                'caption' => '',
+                'aid' => '',
+                'place' => ''
+            ),
+            $params
+        );
 
-        return $results;
+        // Build the data to send.
+        $data = array(
+            'message' => $params['caption'],
+            'place' => $params['place']
+        );
+
+        // Uploading to the application gallery or other?
+        if (!empty($params['aid'])) {
+            $uid = $params['aid'] . '/photos';
+        } else {
+            $uid = empty($params['uid']) ? 'me/photos' : $params['uid'] . '/photos';
+        }
+
+        // Uploading image or providing URL?
+        if (!empty($params['file'])) {
+            $request = new Horde_Service_Facebook_Request_Graph($this->_facebook, $uid);
+            return $request->upload(array('params' => $data, 'file' => $params['file']));
+        } elseif (!empty($params['url'])) {
+            $data['url'] = $params['url'];
+        }
+
+        return $this->_facebook->callGraphApi(
+            $uid,
+            $data,
+            array('request' => 'POST')
+        );
     }
 
 }

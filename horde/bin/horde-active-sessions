@@ -18,7 +18,7 @@
  * @package  Horde
  */
 
-$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+$baseFile = __DIR__ . '/../lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {
@@ -30,9 +30,9 @@ Horde_Registry::appInit('horde', array(
     'authentication' => 'none',
     'cli' => true
 ));
-
+$sessionHandler = $GLOBALS['injector']->createInstance('Horde_SessionHandler');
 try {
-    $sessions = $session->sessionHandler->getSessionsInfo();
+    $sessions = $sessionHandler->getSessionsInfo();
 } catch (Horde_SessionHandler_Exception $e) {
     $cli->fatal('Session counting is not supported with the current session handler.');
 }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd 3.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
 "PO-Revision-Date: 2011-11-01 12:57+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -45,24 +45,24 @@ msgstr "Passwort konnte nicht geändert werden"
 msgid "Cannot send command to server."
 msgstr "Kommando konnte nicht an den Server geschickt werden."
 
-#: index.php:226 templates/index.html.php:84
+#: index.php:224 templates/index.html.php:84
 msgid "Change Password"
 msgstr "Passwort ändern"
 
-#: index.php:187
+#: index.php:184
 msgid "Change password for:"
 msgstr "Passwort ändern für:"
 
-#: index.php:203
+#: index.php:200
 msgid "Change your password"
 msgstr "Ändern Sie Ihr Passwort"
 
-#: index.php:205
+#: index.php:202
 #, php-format
 msgid "Changing password for %s"
 msgstr "Passwort für %s ändern"
 
-#: index.php:186
+#: index.php:183
 msgid "Confirm new password:"
 msgstr "Neues Passwort bestätigen:"
 
@@ -112,7 +112,7 @@ msgstr "Beim Versenden von Daten zu smbpasswd ist ein Fehler aufgetreten."
 msgid "Failed to verify old password."
 msgstr "Das alte Passwort konnte nicht bestätigt werden."
 
-#: index.php:147 lib/Driver/Composite.php:100
+#: index.php:144 lib/Driver/Composite.php:100
 #, php-format
 msgid "Failure in changing password for %s: %s"
 msgstr "Fehler beim Ändern des Passworts für %s: %s"
@@ -139,7 +139,7 @@ msgstr "Das minimale Passwortalter ist noch nicht abgelaufen"
 msgid "New password not valid (too short, bad password, too similar, ...)"
 msgstr "Neues Passwort ungültig (zu kurz, ungültige Zeichen, zu ähnlich, ...)"
 
-#: index.php:185
+#: index.php:182
 msgid "New password:"
 msgstr "Neues Passwort:"
 
@@ -155,7 +155,7 @@ msgstr "Keine Backends in backends.php konfiguriert"
 msgid "No prompt returned from server."
 msgstr "Kein Prompt vom Server zurückgeliefert."
 
-#: index.php:184
+#: index.php:181
 msgid "Old password:"
 msgstr "Altes Passwort:"
 
@@ -167,7 +167,7 @@ msgstr "Passwd ist nicht vollständig konfiguriert."
 msgid "Password"
 msgstr "Passwort"
 
-#: index.php:134
+#: index.php:131
 #, php-format
 msgid "Password changed on %s."
 msgstr "Passwort auf %s geändert."
@@ -184,19 +184,19 @@ msgstr "Passwd fehlen benötigte Parameter."
 msgid "Password module is missing target parameter."
 msgstr "Passwd fehlt der \"Ziel\"-Parameter."
 
-#: index.php:115
+#: index.php:112
 msgid "Password module is not properly configured"
 msgstr "Passwd ist nicht vollständig konfiguriert"
 
-#: index.php:220
+#: index.php:217
 msgid "Please provide a new password"
 msgstr "Bitte geben Sie ein neues Passwort an"
 
-#: index.php:219
+#: index.php:216
 msgid "Please provide your current password"
 msgstr "Bitte geben Sie Ihr aktuelles Passwort an"
 
-#: index.php:221
+#: index.php:218
 msgid "Please verify your new password"
 msgstr "Bitte bestätigen Sie Ihr neues Passwort"
 
@@ -252,32 +252,32 @@ msgstr "Benutzer nicht gefunden"
 msgid "User not found."
 msgstr "Benutzer nicht gefunden."
 
-#: index.php:183
+#: index.php:180
 msgid "Username:"
 msgstr "Benutzername:"
 
-#: index.php:58
+#: index.php:55
 #, php-format
 msgid "You can't change password for user %s"
 msgstr "Sie können das Passwort von Benutzer %s nicht ändern"
 
-#: index.php:66
+#: index.php:63
 msgid "You must give your current password"
 msgstr "Sie müssen Ihr altes Passwort angeben"
 
-#: index.php:75
+#: index.php:72
 msgid "You must give your new password"
 msgstr "Sie müssen Ihr neues Passwort angeben"
 
-#: index.php:79
+#: index.php:76
 msgid "You must verify your new password"
 msgstr "Sie müssen Ihr neues Passwort bestätigen"
 
-#: index.php:87
+#: index.php:84
 msgid "Your new password must be different from your current password"
 msgstr "Ihr neues Passwort muss sich von Ihrem alten unterscheiden"
 
-#: index.php:83
+#: index.php:80
 msgid "Your new passwords didn't match"
 msgstr "Ihre neuen Passwörter stimmen nicht überein"
 
@@ -285,7 +285,7 @@ msgstr "Ihre neuen Passwörter stimmen nicht überein"
 msgid "Your password could not be changed."
 msgstr "Ihr Passwort konnte nicht geändert werden."
 
-#: index.php:222
+#: index.php:219
 msgid "Your passwords do not match"
 msgstr "Ihre Passwörter stimmen nicht überein"
 

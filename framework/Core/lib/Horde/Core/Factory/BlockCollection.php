@@ -50,12 +50,9 @@ class Horde_Core_Factory_BlockCollection extends Horde_Core_Factory_Base
     {
         global $registry, $session;
 
-        if (empty($apps)) {
-            $apps = $registry->listApps();
-        } else {
-            $apps = array_intersect($registry->listApps(), $apps);
-        }
-
+        $apps = empty($apps)
+            ? $registry->listApps()
+            : array_intersect($registry->listApps(), $apps);
         sort($apps);
         $sig = hash('md5', serialize(array($apps, $layout)));
 
@@ -63,7 +60,6 @@ class Horde_Core_Factory_BlockCollection extends Horde_Core_Factory_Base
             if (!($ob = $session->retrieve('horde', 'blocks/' . $sig))) {
                 $ob = new Horde_Core_Block_Collection($apps, $layout);
                 $session->set('horde', 'blocks/' . $sig, $ob);
-
             }
 
             $this->_instances[$sig] = $ob;

@@ -71,12 +71,14 @@ AnselMapEdit = Class.create({
 
     save: function()
     {
-        var params = {
-            'values': 'img=' + this._opts.image_id + '/lat=' + this._marker.getLonLat().lat + '/lng=' + this._marker.getLonLat().lon
-        };
-        new Ajax.Request(this._opts.ajaxuri + '/action=geotag/post=values', {
+        new Ajax.Request(this._opts.ajaxuri, {
             method: 'post',
-            parameters: params,
+            parameters: {
+                action: 'geotag',
+                img: this._opts.image_id,
+                lat: this._marker.getLonLat().lat,
+                lng: this._marker.getLonLat().lon
+            },
             onComplete: function(transport) {
                 if (transport.responseJSON.response > 0) {
                     window.opener.location.href = window.opener.location.href;

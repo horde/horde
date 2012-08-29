@@ -7,11 +7,11 @@
 
 var ImpMailbox = {
     // The following variables are defined in mailbox.php:
-    //  unread
+    //  text, unread
 
-    anySelected: function()
+    countSelected: function()
     {
-        return $('messages').select('[name="indices[]"]').detect(Form.Element.getValue);
+        return $('messages').select('[name="indices[]"]').findAll(Form.Element.getValue).size();
     },
 
     selectRow: function(id, select)
@@ -30,8 +30,8 @@ var ImpMailbox = {
             break;
 
         default:
-            if (!this.anySelected()) {
-                alert(IMP.text.mailbox_submit);
+            if (!this.countSelected()) {
+                alert(this.text.submit);
                 return;
             }
             break;
@@ -39,7 +39,7 @@ var ImpMailbox = {
 
         switch (actID) {
         case 'delete_messages':
-            if (IMP.conf.pop3 && !confirm(IMP.text.mailbox_delete)) {
+            if (IMP.conf.pop3 && !confirm(this.text.delete)) {
                 return;
             }
             break;
@@ -97,7 +97,7 @@ var ImpMailbox = {
         this.startrange = tr;
     },
 
-    updateFolders: function(form)
+    updateMboxes: function(form)
     {
         var tm1 = $('targetMailbox1'),
             tm2 = $('targetMailbox2');
@@ -111,9 +111,9 @@ var ImpMailbox = {
 
     _transfer: function(actID)
     {
-        var elt, newFolder, target, tmbox;
+        var elt, newMbox, target, tmbox;
 
-        if (this.anySelected()) {
+        if (this.countSelected()) {
             elt = $('targetMailbox1');
             target = $F(elt);
             tmbox = $('targetMbox');
@@ -121,10 +121,10 @@ var ImpMailbox = {
 
             // Check for a mailbox actually being selected.
             if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
-                newFolder = prompt(IMP.text.newfolder, '');
-                if (newFolder != null && newFolder != '') {
+                newMbox = prompt(IMP.text.newmbox, '');
+                if (newMbox != null && newMbox != '') {
                     $('newMbox').setValue(1);
-                    tmbox.setValue(newFolder);
+                    tmbox.setValue(newMbox);
                     this.submit(actID);
                 }
             } else if (target.empty()) {
@@ -132,7 +132,7 @@ var ImpMailbox = {
             } else if (target.startsWith("notepad\0") ||
                        target.startsWith("tasklist\0")) {
                 this.actIDconfirm = actID;
-                IMPDialog.display({
+                HordeDialog.display({
                     cancel_text: IMP.text.no,
                     form_id: 'RB_ImpMailboxConfirm',
                     noinput: true,
@@ -143,7 +143,7 @@ var ImpMailbox = {
                 this.submit(actID);
             }
         } else {
-            alert(IMP.text.mailbox_selectone);
+            alert(this.text.selectone);
         }
     },
 
@@ -153,7 +153,7 @@ var ImpMailbox = {
 
         if ((form == 1 && $F(f1) != "") ||
             (form == 2 && $F(f2) != "")) {
-            if (this.anySelected()) {
+            if (this.countSelected()) {
                 $('messages').down('[name=flag]').setValue((form == 1) ? $F(f1) : $F(f2));
                 this.submit('flag_messages');
             } else {
@@ -162,7 +162,7 @@ var ImpMailbox = {
                 } else {
                     f2.selectedIndex = 0;
                 }
-                alert(IMP.text.mailbox_selectone);
+                alert(this.text.selectone);
             }
         }
     },
@@ -207,115 +207,142 @@ var ImpMailbox = {
             } else if (id.startsWith('filter')) {
                 this.filterMessages(id.substring(6));
             } else if (id.startsWith('targetMailbox')) {
-                this.updateFolders(id.substring(13));
+                this.updateMboxes(id.substring(13));
             }
         }
     },
 
     clickHandler: function(e)
     {
-        if (e.isRightClick()) {
-            return;
+        var elt = e.element();
+
+        $w(elt.className).each(function(c) {
+            switch (c) {
+            case 'moveAction':
+                this._transfer('move_messages');
+                e.memo.stop();
+                break;
+
+            case 'copyAction':
+                this._transfer('copy_messages');
+                e.memo.stop();
+                break;
+
+            case 'permdeleteAction':
+                if (confirm(this.text.delete)) {
+                    this.submit('delete_messages');
+                }
+                e.memo.stop();
+                break;
+
+            case 'deleteAction':
+                this.submit('delete_messages');
+                e.memo.stop();
+                break;
+
+            case 'undeleteAction':
+                this.submit('undelete_messages');
+                e.memo.stop();
+                break;
+
+            case 'blacklistAction':
+                this.submit('blacklist');
+                e.memo.stop();
+                break;
+
+            case 'whitelistAction':
+                this.submit('whitelist');
+                e.memo.stop();
+                break;
+
+            case 'forwardAction':
+                this.submit('fwd_digest');
+                e.memo.stop();
+                break;
+
+            case 'redirectAction':
+                this.submit('redirect_messages');
+                e.memo.stop();
+                break;
+
+            case 'spamAction':
+                this.submit('spam_report');
+                e.memo.stop();
+                break;
+
+            case 'notspamAction':
+                this.submit('notspam_report');
+                e.memo.stop();
+                break;
+
+            case 'viewAction':
+                this.submit('view_messages');
+                e.memo.stop();
+                break;
+
+            case 'templateeditAction':
+                switch (this.countSelected()) {
+                case 0:
+                    alert(this.text.selectone);
+                    break;
+
+                case 1:
+                    this.submit('template_edit');
+                    break;
+
+                default:
+                    alert(this.text.selectonlyone);
+                    break;
+                }
+                e.memo.stop();
+                break;
+
+            case 'checkbox':
+                this.selectRange(e.memo);
+                break;
+            }
+        }, this);
+
+        switch (elt.readAttribute('id')) {
+        case 'checkheader':
+            if (e.memo.element() == elt) {
+                $('checkAll').checked = !$('checkAll').checked;
+            }
+            $('messages').select('TABLE.messageList TR[id]').each(function(i) {
+                this.selectRow(i, $F('checkAll'));
+            }, this);
+            break;
+
+        case 'delete_vfolder':
+            this.lastclick = elt.readAttribute('href');
+            HordeDialog.display({
+                cancel_text: this.text.no,
+                form_id: 'RB_ImpMailbox',
+                noinput: true,
+                ok_text: this.text.yes,
+                text: this.text.delete_vfolder
+            });
+            e.memo.stop();
+            break;
+
+        case 'empty_mailbox':
+            this.lastclick = elt.readAttribute('href');
+            HordeDialog.display({
+                cancel_text: this.text.no,
+                form_id: 'RB_ImpMailbox',
+                noinput: true,
+                ok_text: this.text.yes,
+                text: this.text.delete_all
+            });
+            e.memo.stop();
+            break;
         }
 
-        var elt = e.element(), id;
-
-        while (Object.isElement(elt)) {
-            if (elt.match('.msgactions A.widget')) {
-                if (elt.hasClassName('moveAction')) {
-                    this._transfer('move_messages');
-                    e.stop();
-                } else if (elt.hasClassName('copyAction')) {
-                    this._transfer('copy_messages');
-                    e.stop();
-                } else if (elt.hasClassName('permdeleteAction')) {
-                    if (confirm(IMP.text.mailbox_delete)) {
-                        this.submit('delete_messages');
-                    }
-                    e.stop();
-                } else if (elt.hasClassName('deleteAction')) {
-                    this.submit('delete_messages');
-                    e.stop();
-                } else if (elt.hasClassName('undeleteAction')) {
-                    this.submit('undelete_messages');
-                    e.stop();
-                } else if (elt.hasClassName('blacklistAction')) {
-                    this.submit('blacklist');
-                    e.stop();
-                } else if (elt.hasClassName('whitelistAction')) {
-                    this.submit('whitelist');
-                    e.stop();
-                } else if (elt.hasClassName('forwardAction')) {
-                    this.submit('fwd_digest');
-                    e.stop();
-                } else if (elt.hasClassName('redirectAction')) {
-                    this.submit('redirect_messages');
-                    e.stop();
-                } else if (elt.hasClassName('spamAction')) {
-                    this.submit('spam_report');
-                    e.stop();
-                } else if (elt.hasClassName('notspamAction')) {
-                    this.submit('notspam_report');
-                    e.stop();
-                } else if (elt.hasClassName('viewAction')) {
-                    this.submit('view_messages');
-                    e.stop();
-                }
-                return;
-            } else if (elt.hasClassName('checkbox')) {
-                this.selectRange(e);
-                // Fall through to elt.up() call below.
-            }
-
-            id = elt.readAttribute('id');
-            if (!id) {
-                elt = elt.up();
-                continue;
-            }
-
-            switch (id) {
-            case 'checkheader':
-            case 'checkAll':
-                if (id == 'checkheader') {
-                    $('checkAll').checked = !$('checkAll').checked;
-                }
-
-                $('messages').select('TABLE.messageList TR[id]').each(function(i, s) {
-                    this.selectRow(i, $F('checkAll'));
-                }, this);
-                return;
-
-            case 'delete_vfolder':
-                this.lastclick = elt.readAttribute('href');
-                IMPDialog.display({
-                    cancel_text: IMP.text.no,
-                    form_id: 'RB_ImpMailbox',
-                    noinput: true,
-                    ok_text: IMP.text.yes,
-                    text: IMP.text.mailbox_delete_vfolder
-                });
-                e.stop();
-                return;
-
-            case 'empty_mailbox':
-                this.lastclick = elt.readAttribute('href');
-                IMPDialog.display({
-                    cancel_text: IMP.text.no,
-                    form_id: 'RB_ImpMailbox',
-                    noinput: true,
-                    ok_text: IMP.text.yes,
-                    text: IMP.text.mailbox_delete_all
-                });
-                e.stop();
-                return;
-            }
-
-            if (elt.match('TH') &&
-                elt.up('TABLE.messageList')) {
-                document.location.href = elt.down('A').href;
-            }
-
-            elt = elt.up();
+        if (elt.match('TH') &&
+            elt.up('TABLE.messageList') &&
+            !e.memo.element().match('A')) {
+            document.location.href = elt.down('A').href;
+            e.memo.hordecore_stop = true;
         }
     },
 
@@ -400,31 +427,34 @@ var ImpMailbox = {
         if (e.element().hasClassName('navbarselect')) {
             e.stop();
         }
+    },
+
+    onDomLoad: function()
+    {
+        HordeCore.initHandler('click');
+
+        if (Prototype.Browser.IE) {
+            $('flag1', 'filter1', 'targetMailbox1', 'flag2', 'filter2', 'targetMailbox2').compact().invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
+        } else {
+            document.observe('change', this.changeHandler.bindAsEventListener(this));
+        }
+
+        if (window.fluid) {
+            try {
+                window.fluid.setDockBadge(this.unread);
+            } catch (e) {}
+        }
     }
 
 };
 
-document.observe('dom:loaded', function() {
-    var im = ImpMailbox;
+document.observe('dom:loaded', ImpMailbox.onDomLoad.bind(ImpMailbox));
 
-    document.observe('click', im.clickHandler.bindAsEventListener(im));
-    document.observe('keydown', im.keyDownHandler.bindAsEventListener(im));
-    document.observe('submit', im.submitHandler.bindAsEventListener(im));
+document.observe('HordeCore:click', ImpMailbox.clickHandler.bindAsEventListener(ImpMailbox));
+document.observe('keydown', ImpMailbox.keyDownHandler.bindAsEventListener(ImpMailbox));
+document.observe('submit', ImpMailbox.submitHandler.bindAsEventListener(ImpMailbox));
 
-    if (Prototype.Browser.IE) {
-        $('flag1', 'filter1', 'targetMailbox1', 'flag2', 'filter2', 'targetMailbox2').compact().invoke('observe', 'change', im.changeHandler.bindAsEventListener(im));
-    } else {
-        document.observe('change', im.changeHandler.bindAsEventListener(im));
-    }
-
-    if (window.fluid) {
-        try {
-            window.fluid.setDockBadge(ImpMailbox.unread);
-        } catch (e) {}
-    }
-});
-
-document.observe('IMPDialog:onClick', function(e) {
+document.observe('HordeDialog:onClick', function(e) {
     switch (e.element().identify()) {
     case 'RB_ImpMailbox':
         window.location = this.lastclick;

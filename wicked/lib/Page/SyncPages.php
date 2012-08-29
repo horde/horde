@@ -116,12 +116,12 @@ class Wicked_Page_SyncPages extends Wicked_Page {
         }
 
         // Output
-        Horde::addScriptFile('tables.js', 'horde', true);
-        ob_start();
+        $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
+        Horde::startBuffer();
         require WICKED_TEMPLATES . '/sync/header.inc';
         require WICKED_TEMPLATES . '/sync/list.inc';
         require WICKED_TEMPLATES . '/sync/footer.inc';
-        return ob_get_clean();
+        return Horde::endBuffer();
     }
 
     /**

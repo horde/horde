@@ -17,7 +17,12 @@
  <strong><?php echo _("Search In:") ?></strong><br />
  <input id="name" name="search_name" type="checkbox" checked="checked" /> <?php echo Horde::label('name', _("N_ame")) ?><br />
  <input id="desc" name="search_desc" type="checkbox" /> <?php echo Horde::label('desc', _("_Description")) ?><br />
- <input id="category" name="search_category" type="checkbox" /> <?php echo Horde::label('category', _("_Category")) ?>
+</p>
+
+<p>
+ <strong><?php echo Horde::label('search_tags', _("Tagged with:")) ?></strong>
+ <input id="search_tags" name="search_tags" type="text" />
+ <span id="search_tags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
 </p>
 
 <p>
@@ -25,6 +30,19 @@
  <input id="all" name="search_completed" type="radio" value="1" checked="checked" /> <?php echo Horde::label('all', _("_All Tasks")) ?><br />
  <input id="incomplete" name="search_completed" type="radio" value="0" /> <?php echo Horde::label('incomplete', _("Incomplete Tasks")) ?><br />
  <input id="complete" name="search_completed" type="radio" value="2" /> <?php echo Horde::label('complete', _("Completed Tasks")) ?><br />
+</p>
+
+<p>
+ <strong><?php echo Horde::label('due_within', _("Due date within")) ?></strong>
+ <input name="due_within" id="due_within" type="number" size="2" /> <?php echo Horde::label('due_of', _("days of")) ?>
+ <input name="due_of" id="due_of" type="text" /><br />
+</p>
+
+<p>
+  <input type="checkbox" id="save-smartlist" name="save_smartlist" />
+  <strong><label for="save-smartlist"><?php echo _("Save search as a Smart List?") ?></label></strong>
+  <label for="smartlist_name"><?php echo _("Name:") ?></label>
+  <input type="text" id="smartlist_name" name="smartlist_name" />
 </p>
 
 <p>

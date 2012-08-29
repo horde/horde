@@ -13,10 +13,6 @@ class Trean_Block_Bookmarks extends Horde_Core_Block
 {
     /**
      */
-    private $_folder = null;
-
-    /**
-     */
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
@@ -28,36 +24,13 @@ class Trean_Block_Bookmarks extends Horde_Core_Block
      */
     protected  function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
-        /* Get folders to display. */
-        $folders = Trean::listFolders(Horde_Perms::READ);
-        $default = null;
-        if ($folders instanceof PEAR_Error) {
-            $GLOBALS['notification']->push(sprintf(_("An error occured listing folders: %s"), $folders->getMessage()), 'horde.error');
-        } else {
-            foreach ($folders as $key => $folder) {
-                if (is_null($default)) {
-                    $default = $folder->getId();
-                }
-                $values[$folder->getId()] = $folder->get('name');
-            }
-        }
-
         return array(
-            'folder' => array(
-                'name' => _("Folder"),
-                'type' => 'enum',
-                'default' => $default,
-                'values' => $values
-            ),
             'bookmarks' => array(
                 'name' => _("Sort by"),
                 'type' => 'enum',
                 'default' => 'title',
                 'values' => array(
                     'title' => _("Title"),
-                    'highest_rated' => _("Highest Rated"),
                     'most_clicked' => _("Most Clicked")
                 )
             ),
@@ -89,42 +62,20 @@ class Trean_Block_Bookmarks extends Horde_Core_Block
     protected function _title()
     {
         global $registry;
-
-        $folder = $this->_getFolder();
-        if ($folder instanceof PEAR_Error) {
-            $name = $registry->get('name');
-        } else {
-            $name = $folder->get('name');
-            if (!$name) {
-                $name = $this->getName();
-            }
-        }
-
-        return Horde::url($registry->getInitialPage(), true)->link() . $name . '</a>';
+        return Horde::url($registry->getInitialPage(), true)->link() . _("Bookmarks") . '</a>';
     }
 
     /**
      */
     protected function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-        require_once TREAN_TEMPLATES . '/star_rating_helper.php';
+        require_once __DIR__ . '/../base.php';
 
         $template = TREAN_TEMPLATES . '/block/' . $this->_params['template'] . '.inc';
-
-        $folder = $this->_getFolder();
-        if ($folder instanceof PEAR_Error) {
-            return $folder;
-        }
 
         $sortby = 'title';
         $sortdir = 0;
         switch ($this->_params['bookmarks']) {
-        case 'highest_rated':
-            $sortby = 'rating';
-            $sortdir = 1;
-            break;
-
         case 'most_clicked':
             $sortby = 'clicks';
             $sortdir = 1;
@@ -132,7 +83,7 @@ class Trean_Block_Bookmarks extends Horde_Core_Block
         }
 
         $html = '';
-        $bookmarks = $folder->listBookmarks($sortby, $sortdir, 0, $this->_params['rows']);
+        $bookmarks = $GLOBALS['trean_gateway']->listBookmarks($sortby, $sortdir, 0, $this->_params['rows']);
         foreach ($bookmarks as $bookmark) {
             ob_start();
             require $template;
@@ -145,18 +96,4 @@ class Trean_Block_Bookmarks extends Horde_Core_Block
 
         return $html;
     }
-
-    /**
-     */
-    private function _getFolder()
-    {
-        require_once dirname(__FILE__) . '/../base.php';
-
-        if ($this->_folder == null) {
-            $this->_folder = $GLOBALS['trean_shares']->getFolder($this->_params['folder']);
-        }
-
-        return $this->_folder;
-    }
-
 }

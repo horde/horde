@@ -1,5 +1,5 @@
 ====================
- Installing IMP 5.0
+ Installing IMP 6.0
 ====================
 
 :Contact: imp@lists.horde.org
@@ -25,7 +25,7 @@ To function properly, IMP **requires** the following:
    for web applications written in PHP. You must install Horde before
    installing IMP.
 
-   .. Important:: IMP 5.0 requires version 4.0+ of the Horde Framework -
+   .. Important:: IMP 6.0 requires version 5.0+ of the Horde Framework -
                   earlier versions of Horde will not work.
 
    .. Important:: Be sure to have completed all of the steps in the
@@ -196,25 +196,23 @@ any dependencies of IMP too. If you want to install IMP with all optional
 dependencies, but without the binary PECL packages that need to be compiled,
 specify both the ``-a`` and the ``-B`` flag::
 
-   pear install -a -B horde/imp
+   pear install -a -B horde/imp-beta
 
 By default, only the required dependencies will be installed::
 
-   pear install horde/imp
+   pear install horde/imp-beta
 
 If you want to install IMP even with all binary dependencies, you need to
 remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
-   pear install -a horde/imp
+   pear install -a horde/imp-beta
 
 Installing from Git
 ~~~~~~~~~~~~~~~~~~~
 
-See:
-
-   http://horde.org/source/git.php
+See http://www.horde.org/source/git.php
 
 
 Configuring IMP
@@ -344,7 +342,7 @@ Configuring IMP
    - Reading mail.
    - Deleting mail.
    - Flagging mail (if using IMAP).
-   - Changing folders (if using IMAP).
+   - Changing mailboxes (if using IMAP).
 
 6. Tuning IMP (Performance)
 

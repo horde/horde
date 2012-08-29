@@ -49,7 +49,7 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
          * session so we need to decrypt. */
         if (isset($params['password'])) {
             $secret = $injector->getInstance('Horde_Secret');
-            $params['password'] = $secret->read($secret->getKey('imp'), $params['password']);
+            $params['password'] = $secret->read($secret->getKey(), $params['password']);
         }
 
         $imap_ob = $injector->getInstance('IMP_Factory_Imap')->create();
@@ -57,9 +57,9 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
         switch (Horde_String::lower($driver)) {
         case 'imap':
             $params['imap_ob'] = $imap_ob;
-            $params['mbox'] = IMP::$mailbox->search
+            $params['mbox'] = IMP::mailbox()->search
                 ? 'INBOX'
-                : IMP::$mailbox;
+                : IMP::mailbox();
             break;
 
         case 'sql':
@@ -69,7 +69,8 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
 
         $params['username'] = $imap_ob->getParam('username');
 
-        return IMP_Quota::factory($driver, $params);
+        $class = $this->_getDriverName($driver, 'IMP_Quota');
+        return new $class($params);
     }
 
 }

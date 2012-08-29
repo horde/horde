@@ -53,6 +53,10 @@ class Kronolith_Event_Sql extends Kronolith_Event
     {
         $driver = $this->getDriver();
 
+        if (isset($SQLEvent['event_timezone'])) {
+            $this->timezone = $SQLEvent['event_timezone'];
+        }
+
         $this->allday = (bool)$SQLEvent['event_allday'];
         if (!$this->allday && $driver->getParam('utc')) {
             $tz_local = date_default_timezone_get();
@@ -139,7 +143,12 @@ class Kronolith_Event_Sql extends Kronolith_Event
             $this->baseid = $SQLEvent['event_baseid'];
         }
         if (isset($SQLEvent['event_exceptionoriginaldate'])) {
-            $this->exceptionoriginaldate = new Horde_Date($SQLEvent['event_exceptionoriginaldate']);
+            if ($driver->getParam('utc')) {
+               $this->exceptionoriginaldate = new Horde_Date($SQLEvent['event_exceptionoriginaldate'], 'UTC');
+            } else {
+                $this->exceptionoriginaldate = new Horde_Date($SQLEvent['event_exceptionoriginaldate']);
+            }
+
         }
 
         $this->initialized = true;
@@ -159,6 +168,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
         $properties['event_title'] = $driver->convertToDriver($this->title);
         $properties['event_description'] = $driver->convertToDriver($this->description);
         $properties['event_location'] = $driver->convertToDriver($this->location);
+        $properties['event_timezone'] = $this->timezone;
         $properties['event_url'] = (string)$this->url;
         $properties['event_private'] = (int)$this->private;
         $properties['event_status'] = $this->status;
@@ -223,7 +233,13 @@ class Kronolith_Event_Sql extends Kronolith_Event
         /* Exception information */
         if (!empty($this->baseid)) {
             $properties['event_baseid'] = $this->baseid;
-            $properties['event_exceptionoriginaldate'] = $this->exceptionoriginaldate;
+            if ($driver->getParam('utc')) {
+                $eod = clone $this->exceptionoriginaldate;
+                $eod->setTimezone('UTC');
+            } else {
+                $eod = $this->exceptionoriginaldate;
+            }
+            $properties['event_exceptionoriginaldate'] = $eod->strftime('%Y-%m-%d %H:%M:%S');
         }
 
         return $properties;

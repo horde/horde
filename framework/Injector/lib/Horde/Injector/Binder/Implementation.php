@@ -68,7 +68,7 @@ class Horde_Injector_Binder_Implementation implements Horde_Injector_Binder
     protected function _validateImplementation(ReflectionClass $reflectionClass)
     {
         if ($reflectionClass->isAbstract() || $reflectionClass->isInterface()) {
-            throw new Horde_Injector_Exception('Cannot bind interfaces or abstract classes "' . $this->_implementation . '" to an interface.');
+            throw new Horde_Injector_Exception('Cannot bind interface or abstract class "' . $this->_implementation . '" to an interface.');
         }
     }
 

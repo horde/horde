@@ -1,45 +1,31 @@
 <?xml version="1.0"?>
 <!-- $Id$ -->
 <configuration>
- <configtab name="manager" desc="File Manager Settings">
-  <configsection name="backend">
-   <configheader>Backend Settings</configheader>
-   <configenum name="backend_list" desc="Should we display a list of backends
-   (defined in config/backends.php) for users to choose from? The options are
-   'none', 'hidden', and 'shown'. If 'none', no server list will be shown and
-   and the defaults will be used unless another mechanism changes them. If the
-   the backend list is 'hidden' then you can use the 'preferred' mechanism to
-   auto-select from it based on an HTTP virtualhost or another piece of data.
-   If it is 'shown', the user will be able to pick from any of the
-   options.">none
-    <values>
-     <value desc="None">none</value>
-     <value desc="Hidden">hidden</value>
-     <value desc="Shown">shown</value>
-    </values>
-   </configenum>
-  </configsection>
-  <configsection name="foldercache">
-   <configheader>Caching</configheader>
-   <configswitch name="use_cache" desc="Cache the folder list?">false
-    <case name="false" desc="No" />
-    <case name="true" desc="Yes">
-     <configinteger name="lifetime" desc="Cache lifetime, in
-     seconds.">120</configinteger>
-    </case>
-   </configswitch>
-  </configsection>
- </configtab>
-
- <configtab name="menu" desc="Menu Settings">
-  <configsection name="menu">
-   <configheader>Menu Settings</configheader>
-   <configmultienum name="apps" desc="Select any applications that should be
-   linked in Gollem's menu" required="false">
+ <configsection name="backend">
+  <configheader>Backend Settings</configheader>
+  <configenum name="backend_list" desc="Should we display a list of backends
+  (defined in config/backends.php) for users to choose from? The options are
+  'none', 'hidden', and 'shown'. If 'none', no server list will be shown and
+  and the defaults will be used unless another mechanism changes them. If the
+  the backend list is 'hidden' then you can use the 'preferred' mechanism to
+  auto-select from it based on an HTTP virtualhost or another piece of data.
+  If it is 'shown', the user will be able to pick from any of the
+  options.">none
    <values>
-    <configspecial application="horde" name="apps" />
+    <value desc="None">none</value>
+    <value desc="Hidden">hidden</value>
+    <value desc="Shown">shown</value>
    </values>
-   </configmultienum>
-  </configsection>
- </configtab>
+  </configenum>
+ </configsection>
+ <configsection name="foldercache">
+  <configheader>Caching</configheader>
+  <configswitch name="use_cache" desc="Cache the folder list?">false
+   <case name="false" desc="No" />
+   <case name="true" desc="Yes">
+    <configinteger name="lifetime" desc="Cache lifetime, in
+    seconds.">120</configinteger>
+   </case>
+  </configswitch>
+ </configsection>
 </configuration>

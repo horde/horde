@@ -3,7 +3,7 @@
  * The Kronolith_View_ExportEvent:: class provides an API for exporting
  * events.
  *
- * @author  Jan Schneider <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
  */
 class Kronolith_View_ExportEvent
@@ -26,7 +26,7 @@ class Kronolith_View_ExportEvent
 
         if ($event->calendarType == 'internal') {
             try {
-                $share = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+                $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
                 $iCal->setAttribute('X-WR-CALNAME', $share->get('name'));
             } catch (Exception $e) {
             }

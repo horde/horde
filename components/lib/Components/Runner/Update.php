@@ -61,8 +61,10 @@ class Components_Runner_Update
     {
         $arguments = $this->_config->getArguments();
         $options = array_merge(array(
+            'new_version' => false,
             'new_api' => false,
-            'new_version' => false
+            'new_state' => false,
+            'new_apistate' => false,
         ), $this->_config->getOptions());
 
         if (!empty($options['updatexml'])
@@ -82,6 +84,11 @@ class Components_Runner_Update
             if (!empty($options['new_version']) || !empty($options['new_api'])) {
                 $this->_config->getComponent()->setVersion(
                     $options['new_version'], $options['new_api'], $options
+                );
+            }
+            if (!empty($options['new_state']) || !empty($options['new_apistate'])) {
+                $this->_config->getComponent()->setState(
+                    $options['new_state'], $options['new_apistate'], $options
                 );
             }
             if (!empty($options['commit'])) {

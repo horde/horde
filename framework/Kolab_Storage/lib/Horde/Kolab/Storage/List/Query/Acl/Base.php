@@ -26,15 +26,8 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_List_Query_Acl_Base
-implements Horde_Kolab_Storage_List_Query_Acl
+extends Horde_Kolab_Storage_List_Query_Acl
 {
-    /**
-     * The queriable list.
-     *
-     * @var Horde_Kolab_Storage_List
-     */
-    private $_list;
-
     /**
      * The driver for accessing the Kolab storage system.
      *
@@ -45,14 +38,11 @@ implements Horde_Kolab_Storage_List_Query_Acl
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_List $list   The queriable list.
-     * @param array                    $params Additional parameters.
+     * @param Horde_Kolab_Storage_Driver $driver The driver to access the backend.
      */
-    public function __construct(Horde_Kolab_Storage_List $list,
-                                $params)
+    public function __construct(Horde_Kolab_Storage_Driver $driver)
     {
-        $this->_list = $list;
-        $this->_driver = $this->_list->getDriver();
+        $this->_driver = $driver;
     }
 
     /**
@@ -66,7 +56,11 @@ implements Horde_Kolab_Storage_List_Query_Acl
     }
 
     /**
-     * Retrieve the access rights for a folder.
+     * Retrieve the access rights for a folder. This method will use two calls
+     * to the backend. It will first get the individual user rights via
+     * getMyRights and will subsequently fetch all ACL if the user has admin
+     * rights on a folder. If you already know the user has admin rights on a
+     * folder it makes more sense to call getAllAcl() directly.
      *
      * @param string $folder The folder to retrieve the ACL for.
      *
@@ -155,61 +149,5 @@ implements Horde_Kolab_Storage_List_Query_Acl
         if (!$this->hasAclSupport()) {
             throw new Horde_Kolab_Storage_Exception('The backend does not support ACL.');
         }
-    }
-
-    /**
-     * Create a new folder.
-     *
-     * @param string $folder The path of the folder to create.
-     * @param string $type   An optional type for the folder.
-     *
-     * @return NULL
-     */
-    public function createFolder($folder, $type = null)
-    {
-    }
-
-    /**
-     * Delete a folder.
-     *
-     * @param string $folder The path of the folder to delete.
-     *
-     * @return NULL
-     */
-    public function deleteFolder($folder)
-    {
-    }
-
-    /**
-     * Rename a folder.
-     *
-     * @param string $old The old path of the folder.
-     * @param string $new The new path of the folder.
-     *
-     * @return NULL
-     */
-    public function renameFolder($old, $new)
-    {
-    }
-
-    /**
-     * Return the last sync stamp.
-     *
-     * @return string The stamp.
-     */
-    public function getStamp()
-    {
-        return $this->_list->getStamp();
-    }
-
-    /**
-     * Synchronize the ACL information with the information from the backend.
-     *
-     * @param array $params Additional parameters.
-     *
-     * @return NULL
-     */
-    public function synchronize($params = array())
-    {
     }
 }

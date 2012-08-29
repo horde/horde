@@ -489,13 +489,18 @@ class Turba_Driver implements Countable
      * @param array $custom_strict    A list of fields that must match exactly.
      * @param boolean $match_begin    Whether to match only at beginning of
      *                                words.
+     * @param boolean $count_only   Only return the count of matching entries,
+     *                              not the entries themselves.
      *
-     * @return Turba_List  The sorted, filtered list of search results.
+     * @return mixed Turba_List|integer  The sorted, filtered list of search
+     *                                   results or the number of matching
+     *                                   entries (if $count_only is true).
      * @throws Turba_Exception
      */
     public function search(array $search_criteria, $sort_order = null,
                            $search_type = 'AND', array $return_fields = array(),
-                           array $custom_strict = array(), $match_begin = false)
+                           array $custom_strict = array(), $match_begin = false,
+                           $count_only = false)
     {
         /* If we are not using Horde_Share, enforce the requirement that the
          * current user must be the owner of the addressbook. */
@@ -540,8 +545,10 @@ class Turba_Driver implements Countable
         }
 
         /* Retrieve the search results from the driver. */
-        $objects = $this->_search($fields, $return_fields, $this->toDriverKeys($this->getBlobs()));
-
+        $objects = $this->_search($fields, $return_fields, $this->toDriverKeys($this->getBlobs()), $count_only);
+        if ($count_only) {
+            return $objects;
+        }
         return $this->_toTurbaObjects($objects, $sort_order);
     }
 
@@ -899,7 +906,22 @@ class Turba_Driver implements Countable
             throw new Turba_Exception('Not supported');
         }
 
-        $this->_deleteAll($sourceName);
+        $ids = $this->_deleteAll($sourceName);
+
+        // Update Horde_History
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
+        try {
+            foreach ($ids as $id) {
+                // This is slightly hackish, but it saves us from having to
+                // create and save an array of Turba_Objects before we delete
+                // them, just to be able to calculate this using
+                // Turba_Object#getGuid
+                $guid = 'turba:' . $this->getName() . ':' . $id;
+                $history->log($guid, array('action' => 'delete'), true);
+            }
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
+        }
     }
 
     /**
@@ -2311,12 +2333,22 @@ class Turba_Driver implements Countable
      * Convert the contact to an ActiveSync contact message
      *
      * @param Turba_Object $object  The turba object to convert
+     * @param array $options        Options:
+     *   - protocolversion: (float)  The EAS version to support
+     *                      DEFAULT: 2.5
+     *   - bodyprefs: (array)  A BODYPREFERENCE array.
+     *                DEFAULT: none (No body prefs enforced).
+     *   - truncation: (integer)  Truncate event body to this length
+     *                 DEFAULT: none (No truncation).
      *
      * @return Horde_ActiveSync_Message_Contact
      */
-    public function toASContact(Turba_Object $object)
+    public function toASContact(Turba_Object $object, array $options = array())
     {
-        $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
+        $message = new Horde_ActiveSync_Message_Contact(array(
+            'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
+            'protocolversion' => $options['protocolversion'])
+        );
         $hash = $object->getAttributes();
         if (!isset($hash['lastname']) && isset($hash['name'])) {
             $this->_guessName($hash);
@@ -2554,11 +2586,29 @@ class Turba_Driver implements Countable
             case 'spouse':
                 $message->spouse = $value;
                 break;
+
             case 'notes':
-                /* Assume no truncation - AS server will truncate as needed */
-                $message->body = $value;
-                $message->bodysize = strlen($message->body);
-                $message->bodytruncated = false;
+                if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
+                    $bp = $options['bodyprefs'];
+                    $note = new Horde_ActiveSync_Message_AirSyncBaseBody();
+                    // No HTML supported in Turba's notes. Always use plaintext.
+                    $note->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
+                    if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+                        if (Horde_String::length($value) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
+                            $note->data = Horde_String::substr($value, 0, $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
+                            $note->truncated = 1;
+                        } else {
+                            $note->data = $value;
+                        }
+                        $note->estimateddatasize = Horde_String::length($value);
+                    }
+                    $message->airsyncbasebody = $note;
+                } else {
+                    // EAS 2.5
+                    $message->body = $value;
+                    $message->bodysize = strlen($message->body);
+                    $message->bodytruncated = 0;
+                }
                 break;
 
             case 'website':
@@ -2626,7 +2676,6 @@ class Turba_Driver implements Countable
             'companyname' => 'company',
             'department' => 'department',
             'spouse' => 'spouse',
-            'body' => 'notes',
             'webpage' => 'website',
             'assistantname' => 'assistant',
             'imaddress' => 'imaddress',
@@ -2641,6 +2690,14 @@ class Turba_Driver implements Countable
                 }
             }
         }
+
+        try {
+            if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
+                $hash['notes'] = $message->airsyncbasebody->data;
+            } else {
+                $hash['notes'] = $message->body;
+            }
+        } catch (InvalidArgumentException $e) {}
 
         $nonTextMap = array(
             'homephonenumber' => 'homePhone',
@@ -2868,14 +2925,16 @@ class Turba_Driver implements Countable
      * filtered list of results. If the criteria parameter is an empty array,
      * all records will be returned.
      *
-     * @param array $criteria    Array containing the search criteria.
-     * @param array $fields      List of fields to return.
-     * @param array $blobFields  Array of fields containing binary data.
+     * @param array $criteria       Array containing the search criteria.
+     * @param array $fields         List of fields to return.
+     * @param array $blobFields     Array of fields containing binary data.
+     * @param boolean $count_only   Only return the count of matching entries,
+     *                              not the entries themselves.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
         throw new Turba_Exception(_("Searching is not available."));
     }

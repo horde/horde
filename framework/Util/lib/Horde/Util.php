@@ -31,16 +31,6 @@ class Horde_Util
     );
 
     /**
-     * Temp directory locations.
-     *
-     * @var array
-     */
-    static public $tmpLocations = array(
-        '/tmp/', '/var/tmp/', 'c:\WUTemp\\', 'c:\temp\\', 'c:\windows\temp\\',
-        'c:\winnt\temp\\'
-    );
-
-    /**
      * Are magic quotes in use?
      *
      * @var boolean
@@ -281,45 +271,6 @@ class Horde_Util
     }
 
     /**
-     * Determines the location of the system temporary directory.
-     *
-     * @return string  A directory name which can be used for temp files.
-     *                 Returns false if one could not be found.
-     */
-    static public function getTempDir()
-    {
-        $tmp = false;
-
-        // Try sys_get_temp_dir() - only available in PHP 5.2.1+.
-        if (function_exists('sys_get_temp_dir')) {
-            $tmp = sys_get_temp_dir();
-        }
-
-        // First, try PHP's upload_tmp_dir directive.
-        if (!$tmp) {
-            $tmp = ini_get('upload_tmp_dir');
-
-            // Otherwise, try to determine the TMPDIR environment
-            // variable.
-            if (!$tmp) {
-                $tmp = getenv('TMPDIR');
-
-                // If we still cannot determine a value, then cycle through a
-                // list of preset possibilities.
-                if (!$tmp) {
-                    foreach (self::$tmpLocations as $tmp_check) {
-                        if (@is_dir($tmp_check)) {
-                            return $tmp_check;
-                        }
-                    }
-                }
-            }
-        }
-
-        return $tmp ? $tmp : false;
-    }
-
-    /**
      * Creates a temporary filename for the lifetime of the script, and
      * (optionally) registers it to be deleted at request shutdown.
      *
@@ -337,7 +288,7 @@ class Horde_Util
                                        $secure = false)
     {
         $tempDir = (empty($dir) || !is_dir($dir))
-            ? self::getTempDir()
+            ? sys_get_temp_dir()
             : $dir;
 
         $tempFile = tempnam($tempDir, $prefix);
@@ -376,7 +327,7 @@ class Horde_Util
                                                     $secure = false)
     {
         $tempDir = (empty($dir) || !is_dir($dir))
-            ? self::getTempDir()
+            ? sys_get_temp_dir()
             : $dir;
 
         if (empty($tempDir)) {
@@ -434,7 +385,7 @@ class Horde_Util
     static public function createTempDir($delete = true, $temp_dir = null)
     {
         if (is_null($temp_dir)) {
-            $temp_dir = self::getTempDir();
+            $temp_dir = sys_get_temp_dir();
         }
 
         if (empty($temp_dir)) {
@@ -456,66 +407,6 @@ class Horde_Util
         umask($old_umask);
 
         return $new_dir;
-    }
-
-    /**
-     * Wrapper around fgetcsv().
-     *
-     * Empty lines will be skipped. If the 'length' parameter is provided, all
-     * rows are filled up with empty strings up to this length, or stripped
-     * down to this length.
-     *
-     * @param resource $file  A file pointer.
-     * @param array $params   Optional parameters. Possible values:
-     *                        - 'separator': The field delimiter.
-     *                        - 'quote': The quote character.
-     *                        - 'escape': The escape character.
-     *                        - 'length': The expected number of fields.
-     *
-     * @return array|boolean  A row from the CSV file or false on error or end
-     *                        of file.
-     */
-    static public function getCsv($file, $params = array())
-    {
-        $params += array('separator' => ',', 'quote' => '"', 'escape' => '\\');
-
-        // Detect Mac line endings.
-        $old = ini_get('auto_detect_line_endings');
-        ini_set('auto_detect_line_endings', 1);
-
-        do {
-            // fgetcsv() throws a warning if the quote character is empty.
-            if (!strlen($params['quote']) && $params['escape'] != '\\') {
-                $params['quote'] = '"';
-            }
-            if (!strlen($params['quote'])) {
-                $row = fgetcsv($file, 0, $params['separator']);
-            } elseif (version_compare(PHP_VERSION, '5.3.0', '<')) {
-                $row = fgetcsv($file, 0, $params['separator'], $params['quote']);
-            } else {
-                $row = fgetcsv($file, 0, $params['separator'], $params['quote'], $params['escape']);
-            }
-        } while ($row && $row[0] === null);
-
-        ini_set('auto_detect_line_endings', $old);
-
-        if ($row) {
-            if (strlen($params['quote']) && strlen($params['escape'])) {
-                $row = array_map(create_function('$a', 'return str_replace(\'' . str_replace('\'', '\\\'', $params['escape'] . $params['quote']) . '\', \'' . str_replace('\'', '\\\'', $params['quote']) . '\', $a);'), $row);
-            } else {
-                $row = array_map('trim', $row);
-            }
-            if (!empty($params['length'])) {
-                $length = count($row);
-                if ($length < $params['length']) {
-                    $row += array_fill($length, $params['length'] - $length, '');
-                } elseif ($length > $params['length']) {
-                    array_splice($row, $params['length']);
-                }
-            }
-        }
-
-        return $row;
     }
 
     /**

@@ -1,0 +1,20 @@
+======================
+ Upgrading Horde_Date
+======================
+
+:Contact: dev@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+
+This lists the API changes between releases of the package.
+
+
+Upgrading to 2.0
+================
+
+  - Horde_Date_Recurrence#toHash()/Horde_Date_Recurrence#fromHash()
+
+    These method have been renamed to toKolab() and fromKolab(),
+    because the hash format is really Kolab-specific.

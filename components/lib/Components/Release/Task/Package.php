@@ -67,14 +67,6 @@ extends Components_Release_Task_Base
         } catch (Horde_Http_Exception $e) {
                 $errors[] = 'Failed accessing the remote PEAR server.';
         }
-        if ($this->getComponent()->getState('api') != $this->getComponent()->getState('release') &&
-            !preg_match('/^(\d+\.\d+\.\d+)RC\d+$/', $this->getComponent()->getVersion())) {
-            $errors[] = sprintf(
-                'The release stability "%s" does not match the api stability "%s".',
-                $this->getComponent()->getState('api'),
-                $this->getComponent()->getState('release')
-            );
-        }
         try {
             Components_Helper_Version::validateReleaseStability(
                 $this->getComponent()->getVersion(),

@@ -5,7 +5,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  *
  * @category Horde
  * @package  Rpc
@@ -17,67 +17,60 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      *
      * @var array
      */
-    private $_get;
+    protected $_get = array();
 
     /**
      * The ActiveSync server object
      *
      * @var Horde_ActiveSync
      */
-    private $_server;
+    protected $_server;
 
     /**
-     * ActiveSync's backend target (the datastore it syncs the PDA with)
+     * Content type header to send in response.
      *
-     * @var Horde_ActiveSync_Driver
+     * @var string
      */
-    private $_backend;
+    protected $_contentType = 'application/vnd.ms-sync.wbxml';
+
+    /**
+     * Do we need an authenticated user?
+     *
+     * ActiveSync handles the authentication directly.
+     *
+     * @var boolean
+     */
+    protected $_requireAuthorization = false;
 
     /**
      * Constructor.
-     * Parameters in addition to Horde_Rpc's:
-     *   (required) 'backend'      = Horde_ActiveSync_Driver
-     *   (required) 'server'       = Horde_ActiveSync
-     *   (optional) 'provisioning' = Require device provisioning?
      *
      * @param Horde_Controller_Request_Http  The request object.
-     * @param array $config  A hash containing any additional configuration or
-     *                       connection parameters this class might need.
+     *
+     * @param array $params  A hash containing configuration parameters:
+     *   - server: (Horde_ActiveSync) The ActiveSync server object.
+     *             DEFAULT: none, REQUIRED
+     *   - provisioning: (mixed) Require device provisioning? Takes a
+     *                   Horde_ActiveSync::PROVISIONING_* constant.
+     *                   DEFAULT: Horde_ActiveSync::PROVISIONING_NONE
+     *                   (do not require provisioning).
      */
     public function __construct(Horde_Controller_Request_Http $request, array $params = array())
     {
         parent::__construct($request, $params);
-
-        // Check for requirements
-        $this->_get = $request->getGetVars();
+        // Use the server's getGetVars() method since they might be transmitted
+        // as base64 encoded binary data.
+        $serverVars = $request->getServerVars();
+        $this->_get = $params['server']->getGetVars();
         if ($request->getMethod() == 'POST' &&
-            (empty($this->_get['Cmd']) || empty($this->_get['DeviceId']) || empty($this->_get['DeviceType']))) {
+            (((empty($this->_get['Cmd']) || empty($this->_get['DeviceId']) ||
+              empty($this->_get['DeviceType'])) && empty($serverVars['QUERY_STRING'])) &&
+             $serverVars['REQUEST_URI'] != '/autodiscover/autodiscover.xml')) {
 
             $this->_logger->err('Missing required parameters.');
             throw new Horde_Rpc_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
         }
-
-        // Some devices (incorrectly) only send the username in the httpauth
-        if ($request->getMethod() == 'POST' &&  empty($this->_get['User'])) {
-            $serverVars = $this->_request->getServerVars();
-            if ($serverVars['PHP_AUTH_USER']) {
-                $this->_get['User'] = $serverVars['PHP_AUTH_USER'];
-            } elseif ($serverVars['Authorization']) {
-                $hash = str_replace('Basic ', '', $serverVars['Authorization']);
-                $hash = base64_decode($hash);
-                if (strpos($hash, ':') !== false) {
-                    list($this->_get['User'], $pass) = explode(':', $hash, 2);
-                }
-            }
-            if (empty($this->_get['User'])) {
-                $this->_logger->err('Missing required parameters.');
-                throw new Horde_Rpc_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
-            }
-        }
-
-        $this->_backend = $params['backend'];
         $this->_server = $params['server'];
-        $this->_server->setProvisioning(empty($params['provisioning']) ? false : $params['provisioning']);
     }
 
     /**
@@ -87,7 +80,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      */
     public function getResponseContentType()
     {
-        return 'application/vnd.ms-sync.wbxml';
+        return $this->_contentType;
     }
 
     /**
@@ -105,12 +98,9 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      * Sends an RPC request to the server and returns the result.
      *
      * @param string $request  PHP input stream (ignored).
-     *
-     * @return void
      */
     public function getResponse($request)
     {
-        /* Not sure about this, but it's what zpush did so... */
         ob_start(null, 1048576);
         $serverVars = $this->_request->getServerVars();
         switch ($serverVars['REQUEST_METHOD']) {
@@ -118,23 +108,64 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         case 'GET':
             if ($serverVars['REQUEST_METHOD'] == 'GET' &&
                 $this->_get['Cmd'] != 'OPTIONS') {
-                throw new Horde_Rpc_Exception('Trying to access the ActiveSync endpoint from a browser. Not Supported.');
+                throw new Horde_Rpc_Exception(
+                    Horde_Rpc_Translation::t('Trying to access the ActiveSync endpoint from a browser. Not Supported.'));
             }
+
+            if ($serverVars['REQUEST_URI'] == '/autodiscover/autodiscover.xml') {
+                try {
+                    if (!$this->_server->handleRequest('Autodiscover', null)) {
+                        throw new Horde_Exception('Unknown Error');
+                    }
+                } catch (Horde_Exception_AuthenticationFailure $e) {
+                    $this->_sendAuthenticationFailedHeaders();
+                    exit;
+                } catch (Horde_Exception $e) {
+                    $this->_handleError($e);
+                }
+                break;
+            }
+
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for OPTIONS');
             try {
-                $this->_server->handleRequest('Options', null, null);
-            } catch (Horde_ActiveSync_Exception $e) {
+                if (!$this->_server->handleRequest('Options', null)) {
+                    throw new Horde_Exception('Unknown Error');
+                }
+            } catch (Horde_Exception_AuthenticationFailure $e) {
+                $this->_sendAuthenticationFailedHeaders();
+                exit;
+            } catch (Horde_Exception $e) {
                 $this->_handleError($e);
             }
             break;
 
         case 'POST':
-            Horde_ActiveSync::activeSyncHeader();
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for ' . $this->_get['Cmd']);
+            // Autodiscover Request
+            if ($serverVars['REQUEST_URI'] == '/autodiscover/autodiscover.xml') {
+                $this->_get['Cmd'] = 'Autodiscover';
+                $this->_get['DeviceId'] = null;
+            }
             try {
-                $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
-            } catch (Horde_ActiveSync_Exception $e) {
+                $ret = $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
+                if ($ret === false) {
+                    throw new Horde_ActiveSync_Exception('Unknown Error');
+                } elseif ($ret !== true) {
+                    $this->_contentType = $ret;
+                }
+            } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
+               $this->_logger->err('Returning HTTP 400');
+               $this->_handleError($e);
+               header('HTTP/1.1 400 Invalid Request ' . $e->getMessage());
+               exit;
+            } catch (Horde_Exception_AuthenticationFailure $e) {
+                $this->_sendAuthenticationFailedHeaders();
+                exit;
+            } catch (Horde_Exception $e) {
+                $this->_logger->err('Returning HTTP 500');
                 $this->_handleError($e);
+                header('HTTP/1.1 500 ' . $e->getMessage());
+                exit;
             }
             break;
         }
@@ -156,79 +187,17 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         $data = ob_get_contents();
         ob_end_clean();
 
-        // TODO: Figure this out...Z-Push had two possible paths for outputting
-        // to the client, 1) if the ob reached it's capacity, and here...but
-        // it didn't originally output the Content-Type header
-        header('Content-Type: application/vnd.ms-sync.wbxml');
-        header('Content-Length: ' . $len);
-        echo $data;
-    }
-
-    /**
-     * Check authentication. Different backends may handle
-     * authentication in different ways. The base class implementation
-     * checks for HTTP Authentication against the Horde auth setup.
-     *
-     * @TODO should the realm be configurable - since Horde is only one of the
-     * possible backends?
-     *
-     * @return boolean  Returns true if authentication is successful.
-     *                  Should send appropriate "not authorized" headers
-     *                  or other response codes/body if auth fails,
-     *                  and take care of exiting.
-     */
-    public function authorize()
-    {
-        $this->_logger->debug('Horde_Rpc_ActiveSync::authorize() starting');
-        if (!$this->_requireAuthorization) {
-            return true;
-        }
-
-        /* Get user and password */
-        $serverVars = $this->_request->getServerVars();
-        $user = $pass = '';
-        if (!empty($serverVars['PHP_AUTH_USER'])) {
-            $user = $serverVars['PHP_AUTH_USER'];
-            $pass = $serverVars['PHP_AUTH_PW'];
-        } elseif (!empty($serverVars['Authorization'])) {
-            $hash = str_replace('Basic ', '', $serverVars['Authorization']);
-            $hash = base64_decode($hash);
-            if (strpos($hash, ':') !== false) {
-                list($user, $pass) = explode(':', $hash, 2);
-            }
-        }
-
-        /* Get possibly domain */
-        $pos = strrpos($user, '\\');
-        if ($pos !== false) {
-            $domain = substr($user, 0, $pos);
-            $user = substr($user, $pos + 1);
+        if (!headers_sent()) {
+            header('Content-Length: ' . $len);
+            header('Content-Type: ' . $this->_contentType);
+            flush();
+            echo $data;
         } else {
-            $domain = null;
+            flush();
+            sleep(2);
+            $this->_logger->debug('Output ' . $len . ' Bytes of data found in content buffer since output started');
+            echo $data;
         }
-
-        /* Attempt to auth to backend */
-        $results = $this->_backend->logon($user, $pass, $domain);
-        if (!$results && empty($this->_policykey)) {
-            header('HTTP/1.1 401 Unauthorized');
-            header('WWW-Authenticate: Basic realm="Horde RPC"');
-            $this->_logger->info('Access denied for user: ' . $user . '. Username or password incorrect.');
-        }
-
-        /* Successfully authenticated to backend, try to setup the backend */
-        if (empty($this->_get['User'])) {
-            return false;
-        }
-        $results = $this->_backend->setup($this->_get['User']);
-        if (!$results) {
-            header('HTTP/1.1 401 Unauthorized');
-            header('WWW-Authenticate: Basic realm="Horde RPC"');
-            echo 'Access denied or user ' . $this->_get['User'] . ' unknown.';
-        }
-
-        $this->_logger->debug('Horde_Rpc_ActiveSync::authorize() exiting');
-
-        return true;
     }
 
     /**
@@ -247,7 +216,14 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         $this->_logger->err('Error in communicating with ActiveSync server: ' . $m);
         $this->_logger->err($trace);
         $this->_logger->err('Buffer contents: ' . $buffer);
-        throw new Horde_Rpc_Exception($e);
     }
 
+    /**
+     * Send 401 Unauthorized headers.
+     */
+    protected function _sendAuthenticationFailedHeaders()
+    {
+        header('HTTP/1.1 401 Unauthorized');
+        header('WWW-Authenticate: Basic realm="Horde ActiveSync"');
+    }
 }

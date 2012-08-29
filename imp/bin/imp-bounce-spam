@@ -19,7 +19,7 @@
  * @package  IMP
  */
 
-$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+$baseFile = __DIR__ . '/../lib/Application.php';
 if (file_exists($baseFile)) {
     require_once $baseFile;
 } else {
@@ -54,10 +54,10 @@ $data = $cli->readStdin();
 
 /* Who's the spammer? */
 $headers = Horde_Mime_Headers::parseHeaders($data);
-$return_path = Horde_Mime_Address::bareAddress($headers->getValue('return-path'));
+$return_path = IMP::bareAddress($headers->getValue('return-path'));
 
 /* Who's the target? */
-$delivered_to = Horde_Mime_Address::bareAddress($headers->getValue('delivered-to'));
+$delivered_to = IMP::bareAddress($headers->getValue('delivered-to'));
 
 /* Read the bounce template and construct the mail */
 $bounce = str_replace(

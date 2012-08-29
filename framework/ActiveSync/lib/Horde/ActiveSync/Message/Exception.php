@@ -1,12 +1,38 @@
 <?php
 /**
- * Horde_ActiveSync_Message_Exception class represents a single exception to a
- * recurring event. This is basically a Appointment object with some tweaks.
+ * Horde_ActiveSync_Message_Exception::
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Portions of this class were ported from the Z-Push project:
+ *   File      :   wbxml.php
+ *   Project   :   Z-Push
+ *   Descr     :   WBXML mapping file
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ *   Created   :   01.10.2007
+ *
+ *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   This file is distributed under GPL-2.0.
+ *   Consult COPYING file for details
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
+ */
+/**
+ * Horde_ActiveSync_Message_Exception::
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
 class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appointment
 {
@@ -22,10 +48,8 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
         Horde_ActiveSync_Message_Appointment::POOMCAL_BUSYSTATUS         => array(self::KEY_ATTRIBUTE => 'busystatus'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_ALLDAYEVENT        => array(self::KEY_ATTRIBUTE => 'alldayevent'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_REMINDER           => array(self::KEY_ATTRIBUTE => 'reminder'),
-        Horde_ActiveSync_Message_Appointment::POOMCAL_RTF                => array(self::KEY_ATTRIBUTE => 'rtf'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_MEETINGSTATUS      => array(self::KEY_ATTRIBUTE => 'meetingstatus'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_ATTENDEES          => array(self::KEY_ATTRIBUTE => 'attendees', self::KEY_TYPE => 'Horde_ActiveSync_Message_Attendee', self::KEY_VALUES => Horde_ActiveSync_Message_Appointment::POOMCAL_ATTENDEE),
-        Horde_ActiveSync_Message_Appointment::POOMCAL_BODY               => array(self::KEY_ATTRIBUTE => 'body'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_CATEGORIES         => array(self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => Horde_ActiveSync_Message_Appointment::POOMCAL_CATEGORY),
         Horde_ActiveSync_Message_Appointment::POOMCAL_EXCEPTIONSTARTTIME => array(self::KEY_ATTRIBUTE => 'exceptionstarttime', self::KEY_TYPE => self::TYPE_DATE),
         Horde_ActiveSync_Message_Appointment::POOMCAL_DELETED            => array(self::KEY_ATTRIBUTE => 'deleted'),
@@ -43,9 +67,7 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
         'busystatus'         => false,
         'alldayevent'        => false,
         'reminder'           => false,
-        'rtf'                => false,
         'meetingstatus'      => false,
-        'body'               => false,
         'exceptionstarttime' => false,
         'deleted'            => false,
     );

@@ -6,23 +6,21 @@
  * not receive such a file, see also http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('kronolith');
+require_once __DIR__ . '/lib/Application.php';
+Horde_Registry::appInit('kronolith', array('nodynamicinit' => true));
 
 /* Determine View */
-$mode = $session->get('horde', 'mode');
-
-/* Load mobile? */
-if ($mode == 'smartmobile' || $mode == 'mobile') {
-    include KRONOLITH_BASE . '/mobile.php';
+switch ($registry->getView()) {
+case Horde_Registry::VIEW_MINIMAL:
+case Horde_Registry::VIEW_SMARTMOBILE:
+    include KRONOLITH_BASE . '/smartmobile.php';
     exit;
-}
 
-/* Traditional? */
-if (!Kronolith::showAjaxView()) {
-    if ($mode == 'dynamic' || ($mode == 'auto' && $prefs->getValue('dynamic_view'))) {
-        $notification->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
-        $session->set('horde', 'mode', 'traditional');
+case Horde_Registry::VIEW_BASIC:
+case Horde_Registry::VIEW_DYNAMIC:
+    if ($registry->getView() == Horde_Registry::VIEW_DYNAMIC &&
+        $prefs->getValue('dynamic_view')) {
+        break;
     }
     include KRONOLITH_BASE . '/' . $prefs->getValue('defaultview') . '.php';
     exit;
@@ -30,18 +28,12 @@ if (!Kronolith::showAjaxView()) {
 
 /* Load Ajax interface. */
 $menu = new Horde_Menu();
-$help_link = Horde::getServiceLink('help', 'kronolith');
+$help_link = $registry->getServiceLink('help', 'kronolith');
 if ($help_link) {
     $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;');
 }
 $today = new Horde_Date($_SERVER['REQUEST_TIME']);
 $ampm = !$prefs->getValue('twentyFour');
-
-/* Suppress menus in prefs screen and indicate that notifications should use
- * the ajax mode. */
-$session->set('horde', 'notification_override',
-              array(KRONOLITH_BASE . '/lib/Notification/Listener/AjaxStatus.php',
-                    'Kronolith_Notification_Listener_AjaxStatus'));
 
 $eventAlarmMethods = $eventAlarmParams = $taskAlarmMethods = $taskAlarmParams = '';
 foreach ($injector->getInstance('Horde_Alarm')->handlers() as $method => $handler) {
@@ -103,50 +95,57 @@ foreach ($injector->getInstance('Horde_Alarm')->handlers() as $method => $handle
     $taskAlarmParams = substr($taskAlarmParams, 0, - 6) . '</div>';
 }
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create(
-    array('kronolith', 'TagAutoCompleter'),
-    array(
-        'box' => 'kronolithEventACBox',
-        'pretty' => true,
-        'triggerId' => 'kronolithEventTags',
-        'var' => 'KronolithCore.eventTagAc'
-    )
-);
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+    'box' => 'kronolithEventACBox',
+    'id' => 'kronolithEventTags',
+    'pretty' => true
+));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create(
-    array('kronolith', 'TagAutoCompleter'),
-    array(
-        'box' => 'kronolithCalendarinternalACBox',
-        'pretty' => true,
-        'triggerContainer' => 'kronolithACCalendarTriggerContainer',
-        'triggerId' => 'kronolithCalendarinternalTags',
-        'var' => 'KronolithCore.calendarTagAc'
-    )
-);
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+    'box' => 'kronolithCalendarinternalACBox',
+    'id' => 'kronolithCalendarinternalTags',
+    'pretty' => true,
+    'triggerContainer' => 'kronolithACCalendarTriggerContainer'
+));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create(
-    array('kronolith', 'ContactAutoCompleter'),
-    array(
-        'box' => 'kronolithAttendeesACBox',
-        'onAdd' => 'KronolithCore.addAttendee.bind(KronolithCore)',
-        'onRemove' => 'KronolithCore.removeAttendee.bind(KronolithCore)',
-        'pretty' => true,
-        'triggerContainer' => 'kronolithAttendeesACTriggerContainer',
-        'triggerId' => 'kronolithEventAttendees',
-        'var' => 'KronolithCore.attendeesAc'
-    )
-);
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+    'box' => 'kronolithTaskACBox',
+    'id' => 'kronolithTaskTags',
+    'pretty' => true
+));
+
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ContactAutoCompleter', array(
+    'box' => 'kronolithAttendeesACBox',
+    'id' => 'kronolithEventAttendees',
+    'onAdd' => 'function(attendee) { KronolithCore.addAttendee(attendee); KronolithCore.checkOrganizerAsAttendee(); }',
+    'onRemove' => 'KronolithCore.removeAttendee.bind(KronolithCore)',
+    'pretty' => true,
+    'triggerContainer' => 'kronolithAttendeesACTriggerContainer'
+));
+
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ResourceAutoCompleter', array(
+    'box' => 'kronolithResourceACBox',
+    'id' => 'kronolithEventResources',
+    'onAdd' => 'KronolithCore.addResource.bind(KronolithCore)',
+    'onRemove' => 'KronolithCore.removeResource.bind(KronolithCore)',
+    'pretty' => true,
+    'triggerContainer' => 'kronolithResourceACTriggerContainer'
+));
 
 if ($conf['maps']['driver']) {
     Kronolith::initEventMap($conf['maps']);
 }
 
-Kronolith::header();
+$injector->getInstance('Kronolith_Ajax')->init();
 
-echo "<body class=\"kronolithAjax\">\n";
+$sidebar = $injector->getInstance('Kronolith_View_Sidebar');
+$topbar = $injector->getInstance('Horde_View_Topbar');
+$topbar->search = true;
 
-require KRONOLITH_TEMPLATES . '/index/index.inc';
-Horde::includeScriptFiles();
-Horde::outputInlineScript();
+echo $topbar->render();
+require KRONOLITH_TEMPLATES . '/dynamic/index.inc';
+
+$page_output->includeScriptFiles();
+$page_output->outputInlineScript();
 
 echo "</body>\n</html>";

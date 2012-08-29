@@ -15,7 +15,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Quota_Sql extends IMP_Quota_Base
+class IMP_Quota_Sql extends IMP_Quota
 {
     /**
      * DB object.
@@ -28,16 +28,14 @@ class IMP_Quota_Sql extends IMP_Quota_Base
      * Constructor.
      *
      * @param array $params  Parameters:
-     * <pre>
-     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
-     * 'query_quota' - (string) SQL query which returns single row/column with
-     *                 user quota (in bytes). %u is replaced with current user
-     *                 name, %U with the user name without the domain part, %d
-     *                 with the domain.
-     * 'query_used' - (string) SQL query which returns single row/column with
-     *                user used space (in bytes). Placeholders are the same
-     *                as in 'query_quota'.
-     * </pre>
+     *   - db: (Horde_Db_Adapter) [REQUIRED] The DB instance.
+     *   - query_quota: (string) SQL query which returns single row/column with
+     *                  user quota (in bytes). %u is replaced with current user
+     *                  name, %U with the user name without the domain part, %d
+     *                  with the domain.
+     *   - query_used: (string) SQL query which returns single row/column with
+     *                 user used space (in bytes). Placeholders are the same
+     *                 as in 'query_quota'.
      *
      * @throws InvalidArgumentException
      */
@@ -61,10 +59,8 @@ class IMP_Quota_Sql extends IMP_Quota_Base
      * Returns quota information.
      *
      * @return array  An array with the following keys:
-     * <pre>
-     * 'limit' - Maximum quota allowed
-     * 'usage' - Currently used portion of quota (in bytes)
-     * </pre>
+     *   - limit: Maximum quota allowed
+     *   - usage: Currently used portion of quota (in bytes)
      * @throws IMP_Exception
      */
     public function getQuota()
@@ -75,7 +71,7 @@ class IMP_Quota_Sql extends IMP_Quota_Base
         );
 
         if (empty($this->_params['query_quota'])) {
-            Horde::logMessage(__CLASS__ . ': query_quota SQL query not set.', 'ERR');
+            Horde::log(__CLASS__ . ': query_quota SQL query not set.', 'ERR');
         } else {
             @list($bare_user, $domain) = explode('@', $this->_params['username'], 2);
             $query = str_replace(array('?', '%u', '%U', '%d'),
@@ -94,7 +90,7 @@ class IMP_Quota_Sql extends IMP_Quota_Base
         }
 
         if (empty($this->_params['query_used'])) {
-            Horde::logMessage(__CLASS__ . ': query_used SQL query not set.', 'ERR');
+            Horde::log(__CLASS__ . ': query_used SQL query not set.', 'ERR');
         } else {
             @list($bare_user, $domain) = explode('@', $this->_params['username'], 2);
             $query = str_replace(array('?', '%u', '%U', '%d'),

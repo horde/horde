@@ -39,6 +39,7 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
      *                       from conf.php.
      *
      * @return Horde_Vfs  The VFS object.
+     * @throws Horde_Exception
      */
     public function create($scope = 'horde', $params = null)
     {
@@ -47,11 +48,7 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
                 $params = $this->getConfig($scope);
             }
 
-            $class = 'Horde_Vfs_' . basename(Horde_String::ucfirst($params['type']));
-            if (!class_exists($class)) {
-                throw new Horde_Exception('Class definition of ' . $class . ' not found.');
-            }
-
+            $class = $this->_getDriverName($params['type'], 'Horde_Vfs');
             $this->_instances[$scope] = new $class($params['params']);
         }
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chora 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
 "PO-Revision-Date: 2011-02-02 18:08+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "%s Revision %s (%s ago)"
 msgstr "%s Version %s (vor %s)"
 
-#: lib/Application.php:169
+#: lib/Application.php:170
 #, php-format
 msgid "%s: Forbidden by server configuration"
 msgstr "%s: Zugriff per Serverkonfiguration verweigert"
@@ -66,8 +66,8 @@ msgstr "Autor"
 msgid "Back"
 msgstr "Zurück"
 
-#: app/views/_logMessage.html.php:20 lib/Chora.php:332 lib/Chora.php:333
-#: lib/Chora.php:336 lib/Chora.php:337
+#: app/views/_logMessage.html.php:20 lib/Chora.php:333 lib/Chora.php:334
+#: lib/Chora.php:337 lib/Chora.php:338
 msgid "Branches"
 msgstr "Branches"
 
@@ -75,7 +75,7 @@ msgstr "Branches"
 msgid "Branching to"
 msgstr "Branching nach"
 
-#: lib/Chora.php:234
+#: lib/Chora.php:235
 msgid "Change repositories:"
 msgstr "Repository ändern:"
 
@@ -135,7 +135,7 @@ msgstr "Gelöschte Dateien"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: app/views/_logMessage.html.php:10 patchsets.php:52
+#: app/views/_logMessage.html.php:10 patchsets.php:54
 #: templates/log/header.inc:11
 msgid "Diff"
 msgstr "Unterschiede"
@@ -205,7 +205,7 @@ msgstr "Letzter Eintrag"
 msgid "Line"
 msgstr "Zeile"
 
-#: annotate.php:53
+#: annotate.php:54
 msgid "Loading..."
 msgstr "Lade..."
 
@@ -213,7 +213,7 @@ msgstr "Lade..."
 msgid "Location:"
 msgstr "Position:"
 
-#: lib/Chora.php:319 lib/Chora.php:320
+#: lib/Chora.php:320 lib/Chora.php:321
 msgid "Logs"
 msgstr "Änderungen"
 
@@ -229,7 +229,7 @@ msgstr "Geändert"
 msgid "No commit ID given"
 msgstr "Keine Commit-ID angegeben"
 
-#: lib/Application.php:112
+#: lib/Application.php:111
 msgid "No repositories found."
 msgstr "Keine Repositories gefunden."
 
@@ -237,7 +237,7 @@ msgstr "Keine Repositories gefunden."
 msgid "Parent Directory"
 msgstr "Verzeichnis hoch"
 
-#: lib/Chora.php:324 lib/Chora.php:325
+#: lib/Chora.php:325 lib/Chora.php:326
 msgid "Patchsets"
 msgstr "Patchsätze"
 
@@ -253,7 +253,7 @@ msgstr "Vorige"
 msgid "Removed"
 msgstr "Entfernt"
 
-#: lib/Application.php:179
+#: lib/Application.php:180
 msgid "Repositories"
 msgstr "Repositories"
 
@@ -314,7 +314,7 @@ msgstr "Quell-Kommentar von %s (Version %s)"
 msgid "Source Branching View for %s"
 msgstr "Branch Ansicht für %s"
 
-#: lib/Application.php:165
+#: lib/Application.php:166
 msgid ""
 "Sourceroot not found. This could be a misconfiguration by the server "
 "administrator, or the server could be having temporary problems. Please try "
@@ -324,7 +324,7 @@ msgstr ""
 "durch den Administrator oder vorübergehende Probleme mit dem Server "
 "verursacht sein. Bitte versuchen Sie es später noch einmal."
 
-#: lib/Chora.php:342 lib/Chora.php:343
+#: lib/Chora.php:343 lib/Chora.php:344
 msgid "Statistics"
 msgstr "Statistiken"
 
@@ -337,7 +337,7 @@ msgstr "Statistik für %s"
 msgid "Tags"
 msgstr "Tags"
 
-#: lib/Application.php:118
+#: lib/Application.php:117
 #, php-format
 msgid "The repository with the slug '%s' was not found"
 msgstr "Repository mit dem Kurznamen '%s' nicht gefunden"
@@ -372,7 +372,7 @@ msgstr "Branch anzeigen:"
 msgid "View commit"
 msgstr "Commit anzeigen"
 
-#: co.php:95 lib/Chora.php:345
+#: co.php:95 lib/Chora.php:346
 msgid "View:"
 msgstr "Anzeigen:"
 
@@ -384,11 +384,11 @@ msgstr "_Kommentiert"
 msgid "_Author"
 msgstr "_Autor"
 
-#: lib/Chora.php:333 lib/Chora.php:337
+#: lib/Chora.php:334 lib/Chora.php:338
 msgid "_Branches"
 msgstr "_Branches"
 
-#: lib/Application.php:198
+#: lib/Application.php:199
 msgid "_Browse"
 msgstr "_Liste"
 
@@ -400,11 +400,11 @@ msgstr "He_runterladen"
 msgid "_File"
 msgstr "_Datei"
 
-#: lib/Chora.php:320
+#: lib/Chora.php:321
 msgid "_Logs"
 msgstr "_Logs"
 
-#: lib/Chora.php:325
+#: lib/Chora.php:326
 msgid "_Patchsets"
 msgstr "_Patchsätze"
 
@@ -416,7 +416,7 @@ msgstr "_Rev"
 msgid "_Snapshot"
 msgstr "_Schnappschuss"
 
-#: lib/Chora.php:343
+#: lib/Chora.php:344
 msgid "_Statistics"
 msgstr "_Statistiken"
 
@@ -425,11 +425,11 @@ msgstr "_Statistiken"
 msgid "by %s"
 msgstr "von %s"
 
-#: lib/Chora.php:388
+#: lib/Chora.php:389
 msgid "day"
 msgstr "Tag"
 
-#: lib/Chora.php:388
+#: lib/Chora.php:389
 msgid "days"
 msgstr "Tage"
 
@@ -437,27 +437,27 @@ msgstr "Tage"
 msgid "for further information."
 msgstr "für weitere Informationen."
 
-#: lib/Chora.php:387
+#: lib/Chora.php:388
 msgid "hour"
 msgstr "Stunde"
 
-#: lib/Chora.php:387
+#: lib/Chora.php:388
 msgid "hours"
 msgstr "Stunden"
 
-#: lib/Chora.php:386
+#: lib/Chora.php:387
 msgid "minute"
 msgstr "Minute"
 
-#: lib/Chora.php:386
+#: lib/Chora.php:387
 msgid "minutes"
 msgstr "Minuten"
 
-#: lib/Chora.php:390
+#: lib/Chora.php:391
 msgid "month"
 msgstr "Monat"
 
-#: lib/Chora.php:390
+#: lib/Chora.php:391
 msgid "months"
 msgstr "Monaten"
 
@@ -466,30 +466,30 @@ msgstr "Monaten"
 msgid "revision %s"
 msgstr "Version %s"
 
-#: lib/Chora.php:385
+#: lib/Chora.php:386
 msgid "second"
 msgstr "Sekunde"
 
-#: lib/Chora.php:385
+#: lib/Chora.php:386
 msgid "seconds"
 msgstr "Sekunden"
 
-#: lib/Chora.php:406
+#: lib/Chora.php:407
 msgid "very little time"
 msgstr "sehr kurze Zeit"
 
-#: lib/Chora.php:389
+#: lib/Chora.php:390
 msgid "week"
 msgstr "Woche"
 
-#: lib/Chora.php:389
+#: lib/Chora.php:390
 msgid "weeks"
 msgstr "Wochen"
 
-#: lib/Chora.php:391
+#: lib/Chora.php:392
 msgid "year"
 msgstr "Jahr"
 
-#: lib/Chora.php:391
+#: lib/Chora.php:392
 msgid "years"
 msgstr "Jahre"

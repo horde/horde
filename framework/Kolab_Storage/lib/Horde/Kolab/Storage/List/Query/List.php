@@ -25,24 +25,18 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-interface Horde_Kolab_Storage_List_Query_List
-extends Horde_Kolab_Storage_List_Query
+abstract class Horde_Kolab_Storage_List_Query_List
 {
+    /** The folder type annotation */
+    const ANNOTATION_FOLDER_TYPE = '/shared/vendor/kolab/folder-type';
+
     /**
      * Returns the folder types as associative array.
      *
      * @return array The list folder types with the folder names as key and the
      *               type as values.
      */
-    public function listTypes();
-
-    /**
-     * Returns the folder type annotation as associative array.
-     *
-     * @return array The list folder types with the folder names as key and the
-     *               type handler as values.
-     */
-    public function listFolderTypeAnnotations();
+    abstract public function listTypes();
 
     /**
      * List basic folder data for the folders of a specific type.
@@ -51,7 +45,7 @@ extends Horde_Kolab_Storage_List_Query
      *
      * @return array The list of folders.
      */
-    public function dataByType($type);
+    abstract public function dataByType($type);
 
     /**
      * List basic folder data for the specified folder.
@@ -60,7 +54,7 @@ extends Horde_Kolab_Storage_List_Query
      *
      * @return array The folder data.
      */
-    public function folderData($folder);
+    abstract public function folderData($folder);
 
     /**
      * List all folders of a specific type.
@@ -69,7 +63,7 @@ extends Horde_Kolab_Storage_List_Query
      *
      * @return array The list of folders.
      */
-    public function listByType($type);
+    abstract public function listByType($type);
 
     /**
      * Get the folder owners.
@@ -77,7 +71,7 @@ extends Horde_Kolab_Storage_List_Query
      * @return array The folder owners with the folder names as key and the
      *               owner as values.
      */
-    public function listOwners();
+    abstract public function listOwners();
 
     /**
      * Return the list of default folders.
@@ -86,7 +80,7 @@ extends Horde_Kolab_Storage_List_Query
      *               value. The second array associates type (key) with the
      *               corresponding default folder (value).
      */
-    public function listDefaults();
+    abstract public function listDefaults();
 
     /**
      * Get the default folder for a certain type.
@@ -95,7 +89,7 @@ extends Horde_Kolab_Storage_List_Query
      *
      * @return string|boolean The name of the default folder, false if there is no default.
      */
-    public function getDefault($type);
+    abstract public function getDefault($type);
 
     /**
      * Get the default folder for a certain type from a different owner.
@@ -105,5 +99,12 @@ extends Horde_Kolab_Storage_List_Query
      *
      * @return string|boolean The name of the default folder, false if there is no default.
      */
-    public function getForeignDefault($owner, $type);
+    abstract public function getForeignDefault($owner, $type);
+
+    /**
+     * Return the last sync stamp.
+     *
+     * @return string The stamp.
+     */
+    abstract public function getStamp();
 }

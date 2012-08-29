@@ -1,6 +1,0 @@
-table.tickets th.sortup {
-    background: #ccc url("graphics/za.png") center left no-repeat;
-}
-table.tickets th.sortdown {
-    background: #ccc url("graphics/az.png") center left no-repeat;
-}

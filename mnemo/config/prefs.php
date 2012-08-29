@@ -82,7 +82,15 @@ $_prefs['memo_colors'] = array(
 $_prefs['default_notepad'] = array(
     'value' => $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : 0,
     'type' => 'enum',
-    'desc' => _("Your default notepad:")
+    'enum' => array(),
+    'desc' => _("Your default notepad:"),
+    'on_init' => function($ui) {
+        $enum = array();
+        foreach (Mnemo::listNotepads() as $key => $val) {
+            $enum[htmlspecialchars($key)] = htmlspecialchars($val->get('name'));
+        }
+        $ui->prefs['default_notepad']['enum'] = $enum;
+    },
 );
 
 // store the notepads to diplay

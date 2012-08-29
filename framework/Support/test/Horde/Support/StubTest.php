@@ -11,7 +11,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * @category   Horde
@@ -39,9 +39,6 @@ class Horde_Support_StubTest extends PHPUnit_Framework_TestCase
 
     public function testAnyStaticMethodIsCallable()
     {
-        if (version_compare(PHP_VERSION, '5.3', '<')) {
-            $this->markTestSkipped();
-        }
         $this->assertTrue(is_callable(array('Horde_Support_Stub', uniqid())));
         $unique = uniqid();
         $this->assertNull(Horde_Support_Stub::$unique());

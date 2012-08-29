@@ -7,7 +7,7 @@
  *
  * @package Mnemo
  */
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
 
 /* Check if a passphrase has been sent. */
@@ -58,9 +58,9 @@ $userId = $GLOBALS['registry']->getAuth();
 $createdby = '';
 $modifiedby = '';
 if (!empty($memo['uid'])) {
-    $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('mnemo:' . $memolist_id . ':' . $memo['uid']);
-    if ($log) {
-    foreach ($log as $entry) {
+    try {
+        $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('mnemo:' . $memolist_id . ':' . $memo['uid']);
+        foreach ($log as $entry) {
             switch ($entry['action']) {
             case 'add':
                 $created = $entry['ts'];
@@ -81,6 +81,7 @@ if (!empty($memo['uid'])) {
                 break;
             }
         }
+    } catch (Horde_Exception $e) {
     }
 }
 
@@ -112,12 +113,11 @@ if ($memo['body'] instanceof Mnemo_Exception) {
 }
 
 /* Set the page title to the current note's name, if it exists. */
-$title = $memo ? $memo['desc'] : _("Note Details");
-require $registry->get('templates', 'horde') . '/common-header.inc';
-
-Horde::addScriptFile('stripe.js', 'horde', true);
-echo Horde::menu();
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => $memo ? $memo['desc'] : _("Note Details")
+));
+echo Mnemo::menu();
 $notification->notify();
-
 require MNEMO_TEMPLATES . '/view/memo.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

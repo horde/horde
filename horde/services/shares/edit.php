@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 // Exit if the user shouldn't be able to change share permissions.
@@ -278,10 +278,11 @@ try {
     $groupList = array();
 }
 
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 $notification->notify(array('listeners' => 'status'));
 if (!empty($form)) {
     require HORDE_TEMPLATES . '/shares/' . $form;
 }
-
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

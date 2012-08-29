@@ -194,7 +194,7 @@ class IMP_Hooks
 //
 //        case 2:
 //            // Error occurred.
-//            Horde::logMessage('Unknown error when scanning message for virus.', 'INFO');
+//            Horde::log('Unknown error when scanning message for virus.', 'INFO');
 //            break;
 //        }
 
@@ -344,9 +344,8 @@ class IMP_Hooks
 //        // the same domain.
 //        $flags = array();
 //
-//        $from_ob = Horde_Mime_Address::getAddressesFromObject($data['envelope']->from, array('charset' => 'UTF-8'));
-//        if (!empty($from_ob) &&
-//            (strcasecmp($from_ob[0]['host'], 'example.com') === 0)) {
+//        if (($from_ob = $data['envelope']->from[0]) &&
+//            ($from_ob->host == 'example.com')) {
 //            /* The '$indomain' flag in this example must have already been
 //             * created in the 'msgflags' preference. */
 //            $flags = array('$indomain');
@@ -405,7 +404,7 @@ class IMP_Hooks
 //            return Horde::url('', false, array('app' => 'turba'));
 //
 //        case 'prefs':
-//            return Horde::getServiceLink('prefs', 'horde');
+//            return $GLOBALS['registry']->getServiceLink('prefs', 'horde');
 //
 //        default:
 //            return '';
@@ -414,9 +413,9 @@ class IMP_Hooks
 
 
     /**
-     * Allow a custom folder icon to be specified for "standard" mailboxes
-     * ("Standard" means all folders except the INBOX, sent-mail folders and
-     * trash folders.)
+     * Allow a custom mailbox icon to be specified for "standard" mailboxes
+     * ("Standard" means all mailboxes except the INBOX, sent-mail, and
+     * trash mailboxes.)
      *
      * @return array  A list of mailboxes, with the name as keys and the
      *                values an array with 'icon' and 'alt' entries.
@@ -430,9 +429,8 @@ class IMP_Hooks
 //            ->getList()->listFolderTypes();
 //
 //        $icons = array();
-//        foreach ($types as $folder => $type) {
+//        foreach ($types as $f => $type) {
 //            $t = preg_replace('/\.default$/', '', $type);
-//            $f = Horde_String::convertCharset($folder, 'UTF-8', 'UTF7-IMAP');
 //            switch ($t) {
 //            case 'event':
 //                $icons[$f] = array(
@@ -476,6 +474,22 @@ class IMP_Hooks
 
 
     /**
+     * Provide additional mailboxes to be treated as "special".
+     *
+     * @return array  An array of mailboxes to be treated as special. Keys
+     *                are the IMAP mailbox name (in UTF-8), values are the
+     *                mailbox display label.
+     */
+//    public function mbox_special()
+//    {
+//        // Example #1: Mark the 'Foo' mailbox as a special mailbox.
+//        return array(
+//            'Foo' => _("Foo Special Mailbox")
+//        );
+//    }
+
+
+    /**
      * Dynamically alter a mailbox display label.
      *
      * @param string $mbox   The mailbox name.
@@ -507,6 +521,28 @@ class IMP_Hooks
 
 
     /**
+     * Override sort preferences for a mailbox.
+     *
+     * @param IMP_Prefs_Sort_Sortpref $ob  A sortpref object.
+     */
+//    public function mbox_sort($ob)
+//    {
+//        // The sortpref object has two properties that can be set - 'sortby'
+//        // and 'sortdir'. These properties will already contain the default
+//        // values if there is no specific sort preferences defined for a
+//        // mailbox (the mailbox can be found in the 'mbox' property).
+//
+//        // Example #1: Assume that the 'sortdir' preference defaults to an
+//        // ascending sort. However, the sort direction is desired to be
+//        // descending for date searches (i.e. newest messages first).
+//        if ($ob->sortdir_default &&
+//            in_array($ob->sortby, array(Horde_Imap_Client::SORT_SEQUENCE, IMP::IMAP_SORT_DATE))) {
+//             $ob->sortdir = 1;
+//        }
+//    }
+
+
+    /**
      * Determine whether to prompt a user to send a Message Disposition
      * Notification (MDN; a/k/a read-receipt) if their preferences require
      * a prompt.  Useful if MDNs should automatically be sent for a certain
@@ -531,7 +567,7 @@ class IMP_Hooks
      * Allow additional information to be added/edited from the data that is
      * passed to the mailbox display template:
      *   imp: imp/templates/mailbox/mailbox.html
-     *   dimp: imp/js/src/mailbox-dimp.js.
+     *   dimp: imp/templates/dynamic/msglist_[horiz|vert].html
      *
      * If you are going to add new columns, you also have to update these
      * fields:
@@ -576,7 +612,7 @@ class IMP_Hooks
     /**
      * Hide specified IMAP mailboxes in folder listings.
      *
-     * @param string $mailbox  The mailbox name (UTF7-IMAP).
+     * @param string $mailbox  The mailbox name.
      *
      * @return boolean  If false, do not display the mailbox.
      */
@@ -589,8 +625,7 @@ class IMP_Hooks
 //        // Example #2: Kolab default
 //        $types = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage')
 //            ->getList()->listFolderTypes();
-//        $f = Horde_String::convertCharset($mailbox, 'UTF7-IMAP', 'UTF-8');
-//        return empty($types[$f]) || ($types[$f] == 'mail');
+//        return empty($types[$mailbox]) || ($types[$mailbox] == 'mail');
 //    }
 
 
@@ -599,7 +634,7 @@ class IMP_Hooks
      * reporting software (e.g. DSPAM) which has different e-mail aliases for
      * spam reporting for each user.
      *
-     * @param string $action  Either 'spam' or 'ham'.
+     * @param string $action  Either 'spam' or 'innocent'.
      *
      * @return string  An e-mail address.
      */
@@ -612,11 +647,11 @@ class IMP_Hooks
 
 
     /**
-     * Perform an action after messages have been reported as spam/ham.
+     * Perform an action after messages have been reported as spam/innocent.
      *
-     * @param string $action        Either 'spam' or 'ham'.
+     * @param string $action        Either 'spam' or 'innocent'.
      * @param IMP_Indices $indices  The list of indices that have been
-                                    reported as spam/ham.
+                                    reported as spam/innocent.
      */
 //    public function post_spam($action, $indices)
 //    {
@@ -635,10 +670,8 @@ class IMP_Hooks
      * @param array $params  Parameters for the function, set in backends.php.
      *
      * @return array  Tuple with two members:
-     * <pre>
-     * first: disk space used (in bytes)
-     * second: maximum disk space (in bytes)
-     * </pre>
+     *   - first: disk space used (in bytes)
+     *   - second: maximum disk space (in bytes)
      */
 //    public function quota($params = null)
 //    {
@@ -810,30 +843,6 @@ class IMP_Hooks
 
 
     /**
-     * DIMP: Allows alteration of address formatting in email message headers.
-     *
-     * @param stdClass $ob  Object with the following possible properties:
-     * <pre>
-     * 'address' - Full address
-     * 'display' - Display address
-     * 'host' - Host name
-     * 'inner' - Trimmed, bare address
-     * 'personal' - Personal string
-     * </pre>
-     *
-     * @return string  The raw string to display for that address. This value
-     *                 must be properly escaped (i.e. htmlspecialchars() used
-     *                 on the portions of the string where appropriate).
-     */
-//    public function dimp_addressformatting($ob)
-//    {
-//         // Example #1: Display only the raw text of the personal name
-//         // or, if not set, the e-mail address.
-//         return empty($ob['personal']) ? $ob['address'] : $ob['personal'];
-//    }
-
-
-    /**
      * MIMP: Activate various advanced features in the mobile view.
      *
      * The combination of the rapid pace of development for both mobile
@@ -846,10 +855,8 @@ class IMP_Hooks
      * advanced functionality to be available in the mobile view.
      *
      * @param string $feature  The advanced feature. One of the following:
-     * <pre>
-     * 'checkbox' - Adds a checkbox interface to selecting messages on the
-     *              mailbox listing page.
-     * </pre>
+     *   - checkbox: Adds a checkbox interface to selecting messages on the
+     *               mailbox listing page.
      *
      * @return boolean  If true, activates the feature. By default, these
      *                  advanced features are NOT active.

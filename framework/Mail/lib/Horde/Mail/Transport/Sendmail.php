@@ -122,7 +122,8 @@ class Horde_Mail_Transport_Sendmail extends Horde_Mail_Transport
          * instead of From: if it's set. */
         foreach (array_keys($headers) as $hdr) {
             if (strcasecmp($hdr, 'Return-Path') === 0) {
-                $from = $headers[$hdr];
+                $ob = new Horde_Mail_Rfc822_Address($headers[$hdr]);
+                $from = $ob->bare_address;
                 break;
             }
         }

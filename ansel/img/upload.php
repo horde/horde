@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $gallery_id = Horde_Util::getFormData('gallery');
@@ -51,9 +51,10 @@ if (!$prefs->getValue('force_old_uploader', 'false')) {
 }
 $nojs = $view->handleLegacy();
 
-$title = _("Add Photo");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Add Photo")
+));
 echo Horde::menu();
 echo '<div class="header" id="galleryHeader"><span class="breadcrumbs">' . Ansel::getBreadCrumbs($gallery) . '</span></div>';
 require ANSEL_TEMPLATES . '/image/plupload.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

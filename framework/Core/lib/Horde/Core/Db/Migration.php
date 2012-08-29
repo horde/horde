@@ -46,7 +46,7 @@ class Horde_Core_Db_Migration
     public function __construct($basedir = null, $pearconf = null)
     {
         // Loop through all applications.
-        foreach ($GLOBALS['registry']->listApps(array('hidden', 'notoolbar', 'admin', 'noadmin', 'active', 'inactive'), false, null) as $app) {
+        foreach ($GLOBALS['registry']->listAllApps() as $app) {
             $dir = $GLOBALS['registry']->get('fileroot', $app) . '/migration';
             if (is_dir($dir)) {
                 $this->apps[] = $app;
@@ -67,7 +67,7 @@ class Horde_Core_Db_Migration
         error_reporting($old_error_reporting & ~E_STRICT);
         $pear = new PEAR_Config($pearconf);
         foreach (glob($pear->get('data_dir') . '/*/migration') as $dir) {
-            $app = Horde_String::lower(basename(dirname($dir)));;
+            $app = Horde_String::lower(basename(dirname($dir)));
             if (!in_array($app, $this->apps)) {
                 $this->apps[] = $app;
                 $this->dirs[] = realpath($dir);
@@ -89,7 +89,9 @@ class Horde_Core_Db_Migration
         return new Horde_Db_Migration_Migrator(
             $GLOBALS['injector']->getInstance('Horde_Db_Adapter'),
             $logger,
-            array('migrationsPath' => $this->dirs[array_search($app, $this->apps)],
-                  'schemaTableName' => $app . '_schema_info'));
+            array(
+                'migrationsPath' => $this->dirs[array_search($app, $this->apps)],
+                'schemaTableName' => $app . '_schema_info')
+            );
     }
 }

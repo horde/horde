@@ -62,6 +62,20 @@ class Turba_Driver_Share extends Turba_Driver
     }
 
     /**
+     * Translates the keys of the first hash from the generalized Turba
+     * attributes to the driver-specific fields. The translation is based on
+     * the contents of $this->map.
+     *
+     * @param array $hash  Hash using Turba keys.
+     *
+     * @return array  Translated version of $hash.
+     */
+    public function toDriverKeys(array $hash)
+    {
+        return $this->_driver->toDriverKeys($hash);
+    }
+
+    /**
      * Checks if the current user has the requested permissions on this
      * address book.
      *
@@ -114,9 +128,9 @@ class Turba_Driver_Share extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
-        return $this->_driver->_search($criteria, $fields, $blobFields);
+        return $this->_driver->_search($criteria, $fields, $blobFields, $count_only);
     }
 
     /**
@@ -223,7 +237,9 @@ class Turba_Driver_Share extends Turba_Driver
             throw new Horde_Exception_PermissionDenied(_("Permission denied"));
         }
         $this->_deleteAll();
-        $GLOBALS['turba_shares']->removeShare($this->_share);
+        $GLOBALS['injector']
+            ->getInstance('Turba_Shares')
+            ->removeShare($this->_share);
         unset($this->_share);
     }
 

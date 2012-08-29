@@ -1,7 +1,11 @@
-----
-v0.1
-----
+--------
+v0.1-git
+--------
 
+[jan] Merge tag browser into bookmark listing.
+[mjr] Add tagging support.
+[cjh] Remove folders.
+[cjh] Remove star ratings.
 [jan] Provide default configuration files instead of .dist versions.
 [jan] Enable output compression (horde@albasoft.com, Bug #8649).
 [cjh] Check folder name as well as id for the pre-selected folder
@@ -42,7 +46,7 @@ v0.1
       screens.
 [ben] Include standard editing controls in the search results screen.
 [ben] Show bookmark's parent category in the search results screen.
-[ben] cron script to check for broken links and retrieve favicons.
+[ben] Add cron script to check for broken links and retrieve favicons.
 [ben] Add Horde_Share support.
 [cjh] Fix links to click-tracking script when user has cookies disabled
       (Bug #1675).

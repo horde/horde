@@ -81,50 +81,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     }
 
     /**
-     * Run a search.
-     *
-     * @param object $ob  An optional search query to add (via 'AND') to the
-     *                    active search (Horde_Imap_Client_Search_Query).
-     * @param string $id  The search query id.
-     *
-     * @return IMP_Indices  An indices object.
-     * @throws IMP_Imap_Exception
-     */
-    public function runSearch($ob, $id)
-    {
-        $id = $this->_strip($id);
-        $mbox = '';
-        $sorted = new IMP_Indices();
-
-        if (!($query_list = $this[$id]->query)) {
-            return $sorted;
-        }
-
-        /* How do we want to sort results? */
-        $sortpref = IMP_Mailbox::get($this[$id])->getSort(true);
-        if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
-            $sortpref['by'] = $GLOBALS['prefs']->getValue('sortdate');
-        }
-
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-
-        foreach ($query_list as $mbox => $query) {
-            if (!empty($ob)) {
-                $query->andSearch(array($ob));
-            }
-            $results = $imp_imap->search($mbox, $query, array(
-                'sort' => array($sortpref['by'])
-            ));
-            if ($sortpref['dir']) {
-                $results['match']->reverse();
-            }
-            $sorted->add($mbox, $results['match']);
-        }
-
-        return $sorted;
-    }
-
-    /**
      * Creates the IMAP search query in the IMP session.
      *
      * @param array $criteria  The search criteria array.
@@ -199,7 +155,13 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             /* This will overwrite previous value, if it exists. */
             $this->_search['vfolders'][$ob->id] = $ob;
             $this->setVFolders($this->_search['vfolders']);
+            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->insert($ob);
             break;
+        }
+
+        /* Reset the sort direction for system queries. */
+        if ($this->isSystemQuery($ob)) {
+            $ob->mbox_ob->setSort(null, null, true);
         }
 
         $this->changed = true;
@@ -253,7 +215,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
         $this->changed = true;
     }
 
-
     /**
      * Is a mailbox a filter query?
      *
@@ -303,7 +264,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     public function setVFolders($vfolders)
     {
         $GLOBALS['prefs']->setValue('vfolder', serialize(array_values($vfolders)));
-        $this->_getVFolders();
     }
 
     /**
@@ -339,12 +299,6 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
                     }
                 }
             }
-        }
-
-        /* Only update if IMP_Imap_Tree is already initialized; otherwise,
-         * we have a cyclic dependency. */
-        if (IMP_Factory_Imaptree::initialized()) {
-            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->updateVFolders($vf);
         }
 
         $this->_search['vfolders'] = $vf;
@@ -398,12 +352,26 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      * @param string $id         The mailbox ID.
      * @param boolean $editable  Is this an editable (i.e. not built-in)
      *                           search query?
+     *
+     * @return boolean  True if a search query.
      */
     public function isQuery($id, $editable = false)
     {
         return (isset($this->_search['query'][$this->_strip($id)]) &&
-                (!$editable ||
-                 !in_array($this[$id]->id, array(self::BASIC_SEARCH, self::DIMP_FILTERSEARCH, self::DIMP_QUICKSEARCH))));
+                (!$editable || !$this->isSystemQuery($id)));
+    }
+
+    /**
+     * Is a mailbox a system (built-in) search query?
+     *
+     * @param string $id  The mailbox ID.
+     *
+     * @return boolean  True if a system search query.
+     */
+    public function isSystemQuery($id)
+    {
+        return (isset($this->_search['query'][$this->_strip($id)]) &&
+                in_array($this[$id]->id, array(self::BASIC_SEARCH, self::DIMP_FILTERSEARCH, self::DIMP_QUICKSEARCH)));
     }
 
     /**
@@ -508,6 +476,10 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
                 if ($key == 'vfolders') {
                     $this->setVFolders($this->_search['vfolders']);
+
+                    $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+                    $imaptree->delete($value);
+                    $imaptree->insert($value);
                 }
                 return;
             }
@@ -527,11 +499,13 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
         foreach (array_keys($this->_search) as $val) {
             if (isset($this->_search[$val][$id])) {
+                $value = $this->_search[$val][$id];
                 unset($this->_search[$val][$id]);
                 $this->changed = true;
 
                 if ($val == 'vfolders') {
                     $this->setVFolders($this->_search['vfolders']);
+                    $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->delete($value);
                 }
                 break;
             }
@@ -599,11 +573,10 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      * Set the current iterator filter and reset the internal pointer.
      *
      * @param integer $mask  A mask with the following possible elements:
-     * <pre>
-     * IMP_Search::LIST_FILTER
-     * IMP_Search::LIST_QUERY
-     * IMP_Search::LIST_VFOLDER
-     * </pre>
+     *   - IMP_Search::LIST_DISABLED: List even if disabled.
+     *   - IMP_Search::LIST_FILTER: List filters.
+     *   - IMP_Search::LIST_QUERY: List search queries.
+     *   - IMP_Search::LIST_VFOLDER: List virtual folders.
      */
     public function setIteratorFilter($mask = 0)
     {

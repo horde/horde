@@ -8,13 +8,10 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
-$permission = 'groups';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:groups')
+));
 
 $groups = $injector->getInstance('Horde_Group');
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
@@ -122,9 +119,9 @@ case 'editform':
 
 switch ($form) {
 case 'addchild.inc':
-    Horde::addInlineScript(array(
+    $page_output->addInlineScript(array(
         '$("child").focus()'
-    ), 'dom');
+    ), true);
     break;
 
 case 'edit.inc':
@@ -162,8 +159,9 @@ case 'edit.inc':
 
 }
 
-$title = _("Group Administration");
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Group Administration")
+));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 if (!empty($form)) {
     require HORDE_TEMPLATES . '/admin/groups/' . $form;
@@ -210,17 +208,16 @@ foreach ($nodes as $id => $node) {
         $delete_link = Horde::link($delete->copy()->add('gid', $id), sprintf(_("Delete \"%s\""), $node)) . $delete_img . '</a>';
     }
 
-    $tree->addNode(
-        $id,
-        null,
-        $node,
-        0,
-        false,
-        $group_node + $node_params,
-        array($spacer, $delete_link)
-    );
+    $tree->addNode(array(
+        'id' => $id,
+        'parent' => null,
+        'label' => $node,
+        'expanded' => false,
+        'params' => $group_node + $node_params,
+        'right' => array($spacer, $delete_link)
+    ));
 }
 
 echo '<h1 class="header">' . Horde::img('group.png') . ' ' . _("Groups") . '</h1>';
 $tree->renderTree();
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

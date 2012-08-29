@@ -63,13 +63,6 @@ class Horde_Service_Facebook
     protected $_secret;
 
     /**
-     * Holds the batch object when building a batch request.
-     *
-     * @var Horde_Service_Facebook_Batch
-     */
-    protected $_batchRequest;
-
-    /**
      * Holds an optional logger object
      *
      * @var Horde_Log_Logger
@@ -82,12 +75,6 @@ class Horde_Service_Facebook
      */
     protected $_http;
 
-    /**
-     * Return format
-     *
-     * @var Horde_Service_Facebook::DATA_FORMAT_* constant
-     */
-    public $dataFormat = self::DATA_FORMAT_ARRAY;
 
     /**
      * Cache for the various objects we lazy load in __get()
@@ -100,13 +87,6 @@ class Horde_Service_Facebook
     const API_VALIDATION_ERROR = 1;
     const REST_SERVER_ADDR = 'https://api.facebook.com/method/';
     const GRAPH_SERVER_ADDR = 'https://graph.facebook.com';
-
-    /**
-     * Data format returned to client code.
-     */
-    const DATA_FORMAT_JSON = 'json';
-    const DATA_FORMAT_XML = 'xml';
-    const DATA_FORMAT_ARRAY = 'array';
 
     /**
      * Const'r
@@ -158,8 +138,6 @@ class Horde_Service_Facebook
     {
         // First, see if it's an allowed protected value.
         switch ($value) {
-        case 'internalFormat':
-            return self::DATA_FORMAT_JSON;
         case 'appId':
             return $this->_appId;
         case 'secret':
@@ -196,91 +174,40 @@ class Horde_Service_Facebook
     }
 
     /**
-     * Start a batch operation.
-     */
-    public function batchBegin()
-    {
-        $this->_logger->debug('Starting batch operation');
-        if ($this->_batchRequest !== null) {
-            $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_ALREADY_STARTED;
-            $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
-            $this->_logger->err($description);
-            throw new Horde_Service_Facebook_Exception($description, $code);
-        }
-
-        $this->_batchRequest = new Horde_Service_Facebook_BatchRequest($this);
-    }
-
-    /**
-     * End current batch operation
-     */
-    public function batchEnd()
-    {
-        $this->_logger->debug('Ending batch operation');
-        if ($this->_batchRequest === null) {
-            $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_NOT_STARTED;
-            $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
-            $this->_logger->err($description);
-            throw new Horde_Service_Facebook_Exception($description, $code);
-        }
-
-        $this->_batchRequest->run();
-        $this->_batchRequest = null;
-    }
-
-    /**
-     * Calls the specified normal POST method with the specified parameters.
+     * Calls the specified normal REST API method.
      *
      * @param string $method  Name of the Facebook method to invoke
      * @param array $params   A map of param names => param values
      *
-     * @return mixed  Result of method call; this returns a reference to support
-     *                'delayed returns' when in a batch context.
-     *     See: http://wiki.developers.facebook.com/index.php/Using_batching_API
+     * @return mixed  Result of method call
      */
-    public function &callMethod($method, array $params = array())
+    public function callMethod($method, array $params = array())
     {
         $this->_logger->debug(sprintf('Calling method %s with parameters %s', $method, print_r($params, true)));
-        if ($this->_batchRequest === null) {
-            $request = new Horde_Service_Facebook_Request($this, $method, $params);
-            $results = &$request->run();
-        } else {
-            $results = &$this->_batchRequest->add($method, $params);
-        }
-
-        return $results;
+        $request = new Horde_Service_Facebook_Request_Rest($this, $method, $params);
+        return $request->run();
     }
 
     /**
-     * Calls the specified file-upload POST method with the specified parameters
+     * Call the Facebook Graph API.
      *
-     * @param string $method Name of the Facebook method to invoke
-     * @param array  $params A map of param names => param values
-     * @param string $file   A path to the file to upload (required)
+     * @param string $method  The endpoint (method) to call.
+     * @param array $params   An array of parameters to pass along with the call.
+     * @param array $options  Additional request options:
+     *   - request: (string) 'POST', 'GET', 'DELETE' etc..
      *
-     * @return array A dictionary representing the response.
+     * @return mixed  The results of the API call.
      */
-    public function callUploadMethod($method, $params, $file)
+    public function callGraphApi(
+        $method = '', array $params = array(), array $options = array())
     {
-        if ($this->_batchRequest === null) {
-            if (!file_exists($file)) {
-                $code = Horde_Service_Facebook_ErrorCodes::API_EC_PARAM;
-                $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
-                throw new Horde_Service_Facebook_Exception($description, $code);
-            }
-        } else {
-            $code = Horde_Service_Facebook_ErrorCodes::API_EC_BATCH_METHOD_NOT_ALLOWED_IN_BATCH_MODE;
-            $description = Horde_Service_Facebook_ErrorCodes::$api_error_descriptions[$code];
-            throw new Horde_Service_Facebook_Exception($description, $code);
-        }
-        $request = new Horde_Service_Facebook_UploadRequest($this, $method, $file, $params);
-        $result = $request->run();
-        $result = json_decode($result, true);
-        if (is_array($result) && isset($result['error_code'])) {
-            throw new Horde_Service_Facebook_Exception($result['error_msg'], $result['error_code']);
-        }
+        $request = new Horde_Service_Facebook_Request_Graph(
+            $this,
+            $method,
+            $params,
+            $options);
 
-        return $result;
+        return $request->run();
     }
 
 }

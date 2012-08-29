@@ -107,8 +107,8 @@ if ($blocks->isEditable($blockInfo['app'], $blockInfo['block'])):
 <?php endif; ?>
 <?php $i = 0; foreach ($blocks->getParams($blockInfo['app'], $blockInfo['block']) as $id): $i++; ?>
           <tr>
-            <td class="<?php echo ($i % 2) ? 'text' : 'item0' ?> rightAlign" valign="top"><?php echo $blocks->getParamName($blockInfo['app'], $blockInfo['block'], $id) ?>:&nbsp;</td>
-            <td class="<?php echo ($i % 2) ? 'text' : 'item0' ?>" valign="top"><?php echo $blocks->getOptionsWidget($blockInfo['app'], $blockInfo['block'], $id, $defaults) ?></td>
+            <td class="<?php echo ($i % 2) ? 'text' : 'rowEven' ?> rightAlign" valign="top"><?php echo $blocks->getParamName($blockInfo['app'], $blockInfo['block'], $id) ?>:&nbsp;</td>
+            <td class="<?php echo ($i % 2) ? 'text' : 'rowEven' ?>" valign="top"><?php echo $blocks->getOptionsWidget($blockInfo['app'], $blockInfo['block'], $id, $defaults) ?></td>
           </tr>
 <?php endforeach; endif; ?>
         </table>

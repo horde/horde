@@ -9,7 +9,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -166,10 +166,12 @@ $qops = array(
 
 // Start the page.
 if ($whups_query->id) {
-    $linkTags[] = $whups_query->feedLink();
+    $page_output->addLinkTag($whups_query->feedLink());
 }
-$title = _("Query Builder");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+
+$page_output->header(array(
+    'title' => _("Query Builder")
+));
 require WHUPS_TEMPLATES . '/menu.inc';
 
 echo $queryTabs->render(Horde_Util::getFormData('action', 'edit'));
@@ -241,6 +243,6 @@ if ($showEditQuery) {
     $renderer->end();
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();
 
 $session->set('whups', 'query', $whups_query);

@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('ULAFORM_BASE')) {
-    define('ULAFORM_BASE', dirname(__FILE__) . '/..');
+    define('ULAFORM_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -34,7 +34,7 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Ulaform_Application extends Horde_Registry_Application
 {
-    public $version = 'H4 (1.0-git)';
+    public $version = 'H5 (1.0-git)';
 
     /**
      * Global variables defined:

@@ -10,7 +10,7 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Redirect if vacation is not available. */
@@ -20,6 +20,7 @@ if (!in_array(Ingo_Storage::ACTION_VACATION, $session->get('ingo', 'script_categ
 }
 
 /* Get vacation object and rules. */
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $vacation = $ingo_storage->retrieve(Ingo_Storage::ACTION_VACATION);
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 $vac_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
@@ -32,26 +33,7 @@ if ($vars->submitbutton == _("Return to Rules List")) {
 }
 
 /* Build form. */
-$form = new Horde_Form($vars);
-$form->setSection('basic', _("Basic Settings"));
-
-$v = $form->addVariable(_("Start of vacation:"), 'start', 'monthdayyear', '');
-$v->setHelp('vacation-period');
-$form->addVariable(_("End of vacation:"), 'end', 'monthdayyear', '');
-$v = $form->addVariable(_("Subject of vacation message:"), 'subject', 'text', false);
-$v->setHelp('vacation-subject');
-$v = $form->addVariable(_("Reason:"), 'reason', 'longtext', false, false, null, array(10, 40));
-$v->setHelp('vacation-reason');
-$form->setSection('advanced', _("Advanced Settings"));
-$v = $form->addVariable(_("My email addresses:"), 'addresses', 'longtext', true, false, null, array(5, 40));
-$v->setHelp('vacation-myemail');
-$v = $form->addVariable(_("Addresses to not send responses to:"), 'excludes', 'longtext', false, false, null, array(10, 40));
-$v->setHelp('vacation-noresponse');
-$v = $form->addVariable(_("Do not send responses to bulk or list messages?"), 'ignorelist', 'boolean', false);
-$v->setHelp('vacation-bulk');
-$v = $form->addVariable(_("Number of days between vacation replies:"), 'days', 'int', false);
-$v->setHelp('vacation-days');
-$form->setButtons(_("Save"));
+$form = new Ingo_Form_Vacation($vars);
 
 /* Perform requested actions. */
 if ($form->validate($vars)) {
@@ -65,7 +47,6 @@ if ($form->validate($vars)) {
     $vacation->setVacationStart($info['start']);
     $vacation->setVacationEnd($info['end']);
 
-    $success = true;
     try {
         $ingo_storage->store($vacation);
         $notification->push(_("Changes saved."), 'horde.success');
@@ -80,13 +61,11 @@ if ($form->validate($vars)) {
             $notification->push(_("Rule Disabled"), 'horde.success');
             $vac_rule['disable'] = true;
         }
+        if ($prefs->getValue('auto_update')) {
+            Ingo::updateScript();
+        }
     } catch (Ingo_Exception $e) {
         $notification->push($result);
-        $success = false;
-    }
-
-    if ($success && $prefs->getValue('auto_update')) {
-        Ingo::updateScript();
     }
 
     /* Update the timestamp for the rules. */
@@ -94,12 +73,7 @@ if ($form->validate($vars)) {
 }
 
 /* Add buttons depending on the above actions. */
-if (empty($vac_rule['disable'])) {
-    $form->appendButtons(_("Save and Disable"));
-} else {
-    $form->appendButtons(_("Save and Enable"));
-}
-$form->appendButtons(_("Return to Rules List"));
+$form->setCustomButtons($vac_rule['disable']);
 
 /* Make sure we have at least one address. */
 if (!$vacation->getVacationAddresses()) {
@@ -139,10 +113,15 @@ if (!empty($vac_rule['disable'])) {
 $form_title .= ' ' . Horde_Help::link('ingo', 'vacation');
 $form->setTitle($form_title);
 
-$title = _("Vacation Edit");
+Horde::startBuffer();
+$form->renderActive(new Horde_Form_Renderer(array('encode_title' => false)), $vars, Horde::url('vacation.php'), 'post');
+$form_output = Horde::endBuffer();
+
 $menu = Ingo::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Vacation Edit")
+));
 echo $menu;
 Ingo::status();
-$form->renderActive(new Horde_Form_Renderer(array('encode_title' => false)), $vars, Horde::url('vacation.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+echo $form_output;
+$page_output->footer();

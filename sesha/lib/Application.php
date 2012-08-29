@@ -15,7 +15,7 @@
 
 /* Determine the base directories. */
 if (!defined('SESHA_BASE')) {
-    define('SESHA_BASE', dirname(__FILE__) . '/..');
+    define('SESHA_BASE', __DIR__ . '/..');
 }
 
 if (!defined('HORDE_BASE')) {
@@ -42,7 +42,7 @@ class Sesha_Application extends Horde_Registry_Application
      *
      * @var string
      */
-    public $version = 'H4 (1.0-git)';
+    public $version = 'H5 (1.0.0-git)';
 
     public function perms()
     {
@@ -55,5 +55,25 @@ class Sesha_Application extends Horde_Registry_Application
             )
         );
         return $permissions;
+    }
+
+    /**
+     * Sesha's application specific sidebar menu
+     * In earlier horde versions, this was a top menu
+     * Client pages amend and output this via Sesha::menu
+     * @param Horde_Menu  $menu  A menu object
+     */
+    public function menu($menu)
+    {
+        global $conf, $injector;
+
+        $menu->add(Horde::url('list.php'), _("_List Stock"), 'sesha-list', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+
+        /* Search. */
+        $menu->add(Horde::url('search.php'), _("_Search"), 'sesha-search');
+
+        if (Sesha::isAdmin(Horde_Perms::READ)|| $perms->hasPermission('sesha:addStock', $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+            $menu->add(Horde::url('admin.php'), _("Administration"), 'sesha-admin');
+        }
     }
 }

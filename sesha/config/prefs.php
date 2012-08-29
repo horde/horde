@@ -22,22 +22,22 @@ $prefGroups['display'] = array(
 
 // user preferred sorting column
 $_prefs['sortby'] = array(
-    'value' => SESHA_SORT_STOCKID,
+    'value' => Sesha::SORT_STOCKID,
     'locked' => false,
     'type' => 'enum',
-    'enum' => array(SESHA_SORT_STOCKID => _("Stock ID"),
-                    SESHA_SORT_NAME => _("Item Name"),
-                    SESHA_SORT_NOTE => _("Note")),
+    'enum' => array(Sesha::SORT_STOCKID => _("Stock ID"),
+                    Sesha::SORT_NAME => _("Item Name"),
+                    Sesha::SORT_NOTE => _("Note")),
     'desc' => _("Default sorting criteria:")
 );
 
 // user preferred sorting direction
 $_prefs['sortdir'] = array(
-    'value' => SESHA_SORT_ASCEND,
+    'value' => Sesha::SORT_ASCEND,
     'locked' => false,
     'type' => 'enum',
-    'enum' => array(SESHA_SORT_ASCEND => _("Ascending"),
-                    SESHA_SORT_DESCEND => _("Descending")),
+    'enum' => array(Sesha::SORT_ASCEND => _("Ascending"),
+                    Sesha::SORT_DESCEND => _("Descending")),
     'desc' => _("Default sorting direction:")
 );
 
@@ -61,7 +61,7 @@ $_prefs['list_properties'] = array(
     'locked' => false,
     'type' => 'multienum',
     'enum' => array(),
-    'desc' => _("Select properties that you would like to see in the list view (all other properties are only shown on individual item screens):")
+    'desc' => _("Select properties that you would like to see in the list view. All other properties are only shown on individual item screens:")
 );
 $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
 foreach ($sesha_driver->getProperties() as $property) {

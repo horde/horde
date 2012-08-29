@@ -10,7 +10,7 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
@@ -163,7 +163,11 @@ case '1':
     /* Resort messages by thread */
     $tree = new Agora_Tree_Flat('flatthread');
     foreach ($threads_list as &$node) {
-        $tree->addNode($node['message_id'], $node['parent'], $node['body'], $node['indent'], true, array(), $node);
+        $tree->addNode(
+            array('id' => $node['message_id'],
+                  'parent' => $node['parent'],
+                  'label' => $node['body'],
+                  'right' => $node));
     }
 
     $threads = $tree->getTree();
@@ -204,10 +208,10 @@ if (!$messages->hasPermission(Horde_Perms::EDIT)) {
     $vars->set('message_body_old', $reply['body']);
     $form = $messages->getForm($vars, sprintf(_("Post a Reply to \"%s\""), $reply['message_subject']));
     Horde::startBuffer();
-    $form->renderActive(null, null, Horde::url('message/edit.php'), 'post', null, false);
+    $form->renderActive(null, null, Horde::url('messages/edit.php'), 'post', null, false);
     $view->form = Horde::endBuffer();
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $view->render($template_file);
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

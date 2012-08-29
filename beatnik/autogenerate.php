@@ -10,7 +10,7 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $beatnik = Horde_Registry::appInit('beatnik');
 
 require_once BEATNIK_BASE . '/lib/Forms/Autogenerate.php';
@@ -35,10 +35,9 @@ if ($form->validate($vars)) {
     $viewurl->redirect();
 }
 
-$title = _("Autogenerate");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Autogenerate")
+));
 require BEATNIK_BASE . '/templates/menu.inc';
-
 $form->renderActive(null, null, Horde::url('autogenerate.php'), 'post');
-
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

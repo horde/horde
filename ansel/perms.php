@@ -15,7 +15,7 @@ $fieldsList = array(
     'delete' => 3
 );
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
 $groups = $injector->getInstance('Horde_Group');
@@ -277,7 +277,9 @@ try {
     Horde::logMessage($e, 'NOTICE');
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 $notification->notify(array('listeners' => 'status'));
 if (!empty($form)) {
     /* Need to temporarily put the gallery name in the share so the form
@@ -286,4 +288,4 @@ if (!empty($form)) {
     require $registry->get('templates', 'horde') . '/shares/' . $form;
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

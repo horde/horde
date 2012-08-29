@@ -8,12 +8,12 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 $vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
 if (!$registry->isAdmin()) {
-    $registry->authenticateFailure('vilma');
+    throw new Horde_Exception_AuthenticationFailure();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -67,6 +67,6 @@ Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $template->set('notify', Horde::endBuffer());
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header();
 echo $template->fetch(VILMA_TEMPLATES . '/main/main.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

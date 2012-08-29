@@ -56,7 +56,7 @@ class Kronolith_Factory_Calendars
                     break;
                 }
                 $this->_instances[$driver] = new $class(
-                    $GLOBALS['kronolith_shares'],
+                    $GLOBALS['injector']->getInstance('Kronolith_Shares'),
                     $GLOBALS['registry']->getAuth(),
                     $params
                 );

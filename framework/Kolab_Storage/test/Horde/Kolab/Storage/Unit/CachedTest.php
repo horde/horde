@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../Autoload.php';
+require_once __DIR__ . '/../Autoload.php';
 
 /**
  * Test the cache decorator for the storage handler.
@@ -43,7 +43,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testGetList()
     {
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Decorator_Cache',
+            'Horde_Kolab_Storage_List_Tools',
             $this->createCachedStorage()->getList()
         );
     }

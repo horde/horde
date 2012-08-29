@@ -49,7 +49,7 @@ class IMP_Search_Element_Attachment extends IMP_Search_Element
 
         /* ...but the combined search must be AND'd with the rest of the
          * search terms. */
-        $queryob->andSearch(array($ob3));
+        $queryob->andSearch($ob3);
 
         return $queryob;
     }

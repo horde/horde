@@ -5,12 +5,8 @@
 
 <table cellspacing="0" width="100%" class="headerbox striped nowrap task">
  <tr>
-  <td class="rightAlign" valign="top"><strong><?php echo _("Category") ?></strong></td>
-  <td width="100%"><?php echo htmlspecialchars($task->category ? $task->category : _("Unfiled")) ?></td>
- </tr>
- <tr>
   <td class="rightAlign" valign="top"><strong><?php echo _("Assignee") ?></strong></td>
-  <td><?php echo Nag::formatAssignee($task->assignee, true) ?></td>
+  <td width="100%"><?php echo Nag::formatAssignee($task->assignee, true) ?></td>
  </tr>
  <tr>
   <td class="rightAlign"><strong><?php echo _("Private?") ?></strong></td>
@@ -43,9 +39,9 @@
   <td>
   <?php if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             if (empty($task->completed)) {
-                echo Horde::link(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Complete Task"), 'widget') . Horde::img('unchecked.png', _("Complete Task")) . '</a>';
+                echo Horde::link($task->complete_link, _("Complete Task"), 'widget') . Horde::img('unchecked.png', _("Complete Task")) . '</a>';
             } else {
-                echo Horde::link(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Mark as incomplete"), 'widget') . Horde::img('checked.png', _("Mark as incomplete")) . '</a>';
+                echo Horde::link($task->complete_link, _("Mark as incomplete"), 'widget') . Horde::img('checked.png', _("Mark as incomplete")) . '</a>';
             }
         } else {
             echo Nag::formatCompletion($task->completed) . '</a>';

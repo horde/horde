@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Wicked H4 (1.0.2-git)\n"
+"Project-Id-Version: Wicked H5 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,7 +149,7 @@ msgstr ""
 msgid "Can't update \"%s\": no such attachment."
 msgstr ""
 
-#: lib/Page/DeletePage.php:95 lib/Page/MergeOrRename.php:152
+#: lib/Page/DeletePage.php:95 lib/Page/MergeOrRename.php:153
 #: lib/Page/RevertPage.php:82 templates/edit/create.inc:47
 #: templates/edit/standard.inc:27 templates/display/MergeOrRename.html:62
 msgid "Cancel"
@@ -173,7 +173,7 @@ msgstr ""
 msgid "Change references to this page from:"
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:239
+#: lib/Page/MergeOrRename.php:240
 #, php-format
 msgid "Changed references from %s to %s"
 msgstr ""
@@ -258,7 +258,7 @@ msgstr ""
 msgid "Diff To"
 msgstr ""
 
-#: diff.php:53 templates/diff/diff.inc:2 templates/sync/diff.inc:101
+#: diff.php:54 templates/diff/diff.inc:2 templates/sync/diff.inc:101
 #, php-format
 msgid "Diff for %s between %s and %s"
 msgstr ""
@@ -301,7 +301,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: preview.php:22 templates/display/standard.inc:24
+#: preview.php:23 templates/display/standard.inc:24
 #, php-format
 msgid "Edit %s"
 msgstr ""
@@ -331,7 +331,7 @@ msgstr ""
 msgid "Enter a name for this file (if blank, will use the file's current name)"
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:233
+#: lib/Page/MergeOrRename.php:234
 #, php-format
 msgid "Error retrieving %s: %s"
 msgstr ""
@@ -379,7 +379,7 @@ msgstr ""
 msgid "History page not found"
 msgstr ""
 
-#: history.php:26 templates/history/header.inc:7
+#: history.php:27 templates/history/header.inc:7
 #, php-format
 msgid "History: %s"
 msgstr ""
@@ -445,22 +445,22 @@ msgstr ""
 msgid "Merge/Rename"
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:137
+#: lib/Page/MergeOrRename.php:138
 #, php-format
 msgid "Merge/Rename: %s"
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:198
+#: lib/Page/MergeOrRename.php:199
 #, php-format
 msgid "Merged \"%s\" into \"%s\"."
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:201
+#: lib/Page/MergeOrRename.php:202
 #, php-format
 msgid "Merged \"%s\" into \"%s\". New page: %s\n"
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:194
+#: lib/Page/MergeOrRename.php:195
 #, php-format
 msgid "Merged from %s"
 msgstr ""
@@ -495,7 +495,7 @@ msgstr ""
 msgid "New name"
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:162
+#: lib/Page/MergeOrRename.php:163
 msgid "New name is the same as old name."
 msgstr ""
 
@@ -525,7 +525,7 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:184
+#: lib/Page/MergeOrRename.php:185
 #, php-format
 msgid "Page \"%s\" already exists."
 msgstr ""
@@ -582,7 +582,7 @@ msgstr ""
 msgid "Page unlocked"
 msgstr ""
 
-#: lib/Application.php:59
+#: lib/Application.php:67
 msgid "Pages"
 msgstr ""
 
@@ -653,12 +653,12 @@ msgstr ""
 msgid "Remove login info"
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:207
+#: lib/Page/MergeOrRename.php:208
 #, php-format
 msgid "Renamed \"%s\" to \"%s\"."
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:210
+#: lib/Page/MergeOrRename.php:211
 #, php-format
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
 msgstr ""
@@ -710,7 +710,7 @@ msgstr ""
 msgid "Save login info"
 msgstr ""
 
-#: lib/Page/Search.php:195 templates/menu.inc:17
+#: lib/Page/Search.php:195 templates/menu.inc:18
 msgid "Search"
 msgstr ""
 
@@ -818,7 +818,7 @@ msgstr ""
 msgid "There is already an attachment named \"%s\"."
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:160 lib/Page/MergeOrRename.php:166
+#: lib/Page/MergeOrRename.php:161 lib/Page/MergeOrRename.php:167
 msgid "This is a required field."
 msgstr ""
 
@@ -831,7 +831,7 @@ msgstr ""
 msgid "This page is locked by %s for %d Minutes."
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:112
+#: lib/Page/MergeOrRename.php:113
 #, php-format
 msgid "This page is referenced from %d other page(s)."
 msgstr ""
@@ -929,8 +929,8 @@ msgstr ""
 msgid "You do not have permission to delete attachments from this page."
 msgstr ""
 
-#: lib/Page/AttachedFiles.php:221 lib/Page/MergeOrRename.php:175
-#: lib/Page/MergeOrRename.php:188
+#: lib/Page/AttachedFiles.php:221 lib/Page/MergeOrRename.php:176
+#: lib/Page/MergeOrRename.php:189
 #, php-format
 msgid "You do not have permission to edit \"%s\""
 msgstr ""

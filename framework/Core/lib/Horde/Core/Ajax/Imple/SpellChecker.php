@@ -1,6 +1,6 @@
 <?php
 /**
- * Attach the spellchecker to a javascript element.
+ * Imple to attach the spellchecker to an HTML element.
  *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
@@ -15,38 +15,29 @@
 class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
 {
     /**
-     * Constructor.
-     *
-     * @param array $params  Configuration parameters.
-     * <pre>
-     * 'id' => TODO (optional)
-     * 'locales' => TODO (optional)
-     * 'states' => TODO (optional)
-     * 'targetId' => TODO (optional)
-     * 'triggerId' => TODO (optional)
-     * </pre>
+     * @param array $params  OPTIONAL configuration parameters:
+     *   - locales: (array) List of supported locales.
+     *   - states: (array) TODO
+     *   - targetId: (string) TODO
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        if (empty($params['id'])) {
-            $params['id'] = $this->_randomid();
+        global $registry;
+
+        if (!isset($params['targetId'])) {
+            $params['targetId'] = strval(new Horde_Support_Randomid());
         }
 
-        if (empty($params['targetId'])) {
-            $params['targetId'] = $this->_randomid();
-        }
-
-        if (empty($params['triggerId'])) {
-            $params['triggerId'] = $params['targetId'] . '_trigger';
-        }
-
-        if (empty($params['locales'])) {
-            $key_list = array_keys($GLOBALS['registry']->nlsconfig->spelling);
+        if (!isset($params['locales'])) {
+            $key_list = array_keys($registry->nlsconfig->spelling);
             asort($key_list, SORT_LOCALE_STRING);
-            $params['locales'] = array();
 
+            $params['locales'] = array();
             foreach ($key_list as $lcode) {
-                $params['locales'][] = array('l' => $GLOBALS['registry']->nlsconfig->languages[$lcode], 'v' => $lcode);
+                $params['locales'][] = array(
+                    'l' => $registry->nlsconfig->languages[$lcode],
+                    'v' => $lcode
+                );
             }
         }
 
@@ -55,66 +46,77 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
 
     /**
      */
-    public function attach()
+    protected function _attach($init)
     {
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('keynavlist.js', 'horde');
-        Horde::addScriptFile('spellchecker.js', 'horde');
+        global $page_output;
+
+        if ($init) {
+            $page_output->addScriptFile('spellchecker.js', 'horde');
+            $page_output->addScriptPackage('Keynavlist');
+
+            $page_output->addInlineJsVars(array(
+                'HordeImple.SpellChecker' => new stdClass
+            ));
+        }
+
+        $dom_id = $this->getDomId();
 
         $opts = array(
             'locales' => $this->_params['locales'],
-            'sc' => 'widget',
-            'statusButton' => $this->_params['triggerId'],
+            'statusButton' => $dom_id,
             'target' => $this->_params['targetId'],
-            'url' => strval($this->_getUrl('SpellChecker', 'horde', array('input' => $this->_params['targetId'])))
+            'url' => strval($this->getImpleUrl()->setRaw(true)->add(array('input' => $this->_params['targetId'])))
         );
         if (isset($this->_params['states'])) {
             $opts['bs'] = $this->_params['states'];
         }
 
-        Horde::addInlineScript(array(
-            $this->_params['id'] . ' = new SpellChecker(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON) . ')'
-        ), 'dom');
+        $page_output->addInlineScript(array(
+            'HordeImple.SpellChecker.' . $dom_id . '=new SpellChecker(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON) . ')'
+        ), true);
+
+        return false;
     }
 
     /**
+     * Form variables used:
+     *   - input
      */
-    public function handle($args, $post)
+    protected function _handle(Horde_Variables $vars)
     {
-        $spellArgs = array();
+        global $conf, $injector, $language;
 
-        if (!empty($GLOBALS['conf']['spell']['params'])) {
-            $spellArgs = $GLOBALS['conf']['spell']['params'];
+        $args = Horde::getDriverConfig('spell', null);
+        $input = $vars->get($vars->input);
+
+        if (isset($vars->locale)) {
+            $args['locale'] = $vars->locale;
+        } elseif (empty($args['locale'])) {
+            try {
+                $args['locale'] = $injector->getInstance('Horde_Core_Factory_LanguageDetect')->getLanguageCode($input);
+            } catch (Horde_Exception $e) {}
         }
 
-        if (isset($args['locale'])) {
-            $spellArgs['locale'] = $args['locale'];
-        } elseif (isset($GLOBALS['language'])) {
-            $spellArgs['locale'] = $GLOBALS['language'];
+        if (empty($args['locale']) && isset($language)) {
+            $args['locale'] = $language;
         }
 
         /* Add local dictionary words. */
         try {
             $result = Horde::loadConfiguration('spelling.php', 'ignore_list', 'horde');
-            $spellArgs['localDict'] = $result;
+            $args['localDict'] = $result;
         } catch (Horde_Exception $e) {}
 
-        if (!empty($args['html'])) {
-            $spellArgs['html'] = true;
-        }
-
         try {
-            $speller = Horde_SpellChecker::factory($GLOBALS['conf']['spell']['driver'], $spellArgs);
+            return new Horde_Core_Ajax_Response_Prototypejs(
+                Horde_SpellChecker::factory($conf['spell']['driver'], $args)->spellCheck($input)
+            );
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
-            return array();
-        }
-
-        try {
-            return $speller->spellCheck(Horde_Util::getPost($args['input']));
-        } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            return array('bad' => array(), 'suggestions' => array());
+            return array(
+                'bad' => array(),
+                'suggestions' => array()
+            );
         }
     }
 

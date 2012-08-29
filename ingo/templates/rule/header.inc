@@ -24,7 +24,7 @@
     </td>
   </tr>
 
-  <tr class="item0">
+  <tr class="rowEven">
     <td>
       <em><?php echo _("For an incoming message that matches:") ?></em>
       <br />
@@ -36,6 +36,6 @@
     </td>
   </tr>
 
-  <tr class="item0">
+  <tr class="rowEven">
     <td>
       <table width="100%" cellspacing="0">

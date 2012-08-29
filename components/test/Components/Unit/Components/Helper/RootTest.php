@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the root helper.
@@ -47,7 +47,7 @@ extends Components_TestCase
 
     public function testValidCwd()
     {
-        $path = dirname(__FILE__) . '/../../../fixture';
+        $path = __DIR__ . '/../../../fixture';
         $this->changeDirectory($path);
         $root = new Components_Helper_Root();
         $this->assertEquals(realpath($path), realpath($root->getRoot()));
@@ -55,7 +55,7 @@ extends Components_TestCase
 
     public function testValidSubCwd()
     {
-        $path = dirname(__FILE__) . '/../../../fixture';
+        $path = __DIR__ . '/../../../fixture';
         $this->changeDirectory($path . '/horde');
         $root = new Components_Helper_Root();
         $this->assertEquals(realpath($path), realpath($root->getRoot()));
@@ -73,14 +73,14 @@ extends Components_TestCase
 
     public function testDetermineRootInTestFixture()
     {
-        $path = dirname(__FILE__) . '/../../../fixture';
+        $path = __DIR__ . '/../../../fixture';
         $root = new Components_Helper_Root(null, null, $path);
         $this->assertEquals($path, $root->getRoot());
     }
 
     public function testDetermineRootInSubdirectory()
     {
-        $path = dirname(__FILE__) . '/../../../fixture';
+        $path = __DIR__ . '/../../../fixture';
         $root = new Components_Helper_Root(null, null, $path . '/horde');
         $this->assertEquals($path, $root->getRoot());
     }
@@ -99,7 +99,7 @@ extends Components_TestCase
 
     public function testDetermineRootViaOption()
     {
-        $path = dirname(__FILE__) . '/../../../fixture';
+        $path = __DIR__ . '/../../../fixture';
         $root = new Components_Helper_Root(
             array('horde_root' => $path)
         );
@@ -112,7 +112,7 @@ extends Components_TestCase
     public function testDetermineRootViaOptionSubdirectory()
     {
         $this->changeDirectory('/');
-        $path = dirname(__FILE__) . '/../../../fixture';
+        $path = __DIR__ . '/../../../fixture';
         $root = new Components_Helper_Root(
             array('horde_root' => $path . '/horde')
         );
@@ -131,7 +131,7 @@ extends Components_TestCase
 
     public function testDetermineRootViaComponent()
     {
-        $path = dirname(__FILE__) . '/../../../fixture';
+        $path = __DIR__ . '/../../../fixture';
         $root = new Components_Helper_Root(
             null, $this->getComponent($path . '/framework/Install')
         );
@@ -140,7 +140,7 @@ extends Components_TestCase
 
     public function testFrameworkComponent()
     {
-        $path = dirname(__FILE__) . '/../../../fixture';
+        $path = __DIR__ . '/../../../fixture';
         $root = new Components_Helper_Root(array('horde_root' => $path));
         $this->assertEquals(
             $path . '/framework/Old/package.xml',
@@ -150,7 +150,7 @@ extends Components_TestCase
 
     public function testFrameworkComponentTwo()
     {
-        $path = dirname(__FILE__) . '/../../../fixture';
+        $path = __DIR__ . '/../../../fixture';
         $root = new Components_Helper_Root(array('horde_root' => $path));
         $this->assertEquals(
             $path . '/framework/Old/package.xml',
@@ -160,7 +160,7 @@ extends Components_TestCase
 
     public function testBundleComponent()
     {
-        $path = dirname(__FILE__) . '/../../../fixture';
+        $path = __DIR__ . '/../../../fixture';
         $root = new Components_Helper_Root(array('horde_root' => $path));
         $this->assertEquals(
             $path . '/bundles/Bundle/package.xml',
@@ -170,7 +170,7 @@ extends Components_TestCase
 
     public function testApplicationComponent()
     {
-        $path = dirname(__FILE__) . '/../../../fixture';
+        $path = __DIR__ . '/../../../fixture';
         $root = new Components_Helper_Root(array('horde_root' => $path));
         $this->assertEquals(
             $path . '/horde/package.xml',

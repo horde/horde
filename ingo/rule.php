@@ -11,7 +11,7 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Check rule permissions. */
@@ -26,7 +26,7 @@ if (!$perms->hasAppPermission('allow_rules')) {
 }
 
 /* Load the Ingo_Script:: driver. */
-$ingo_script = Ingo::loadIngoScript();
+$ingo_script = $injector->getInstance('Ingo_Script');
 
 /* Redirect if no rules are available. */
 $availActions = $ingo_script->availableActions();
@@ -39,6 +39,7 @@ if (empty($availActions)) {
 $ingo_fields = Horde::loadConfiguration('fields.php', 'ingo_fields', 'ingo');
 
 /* Get the current rules. */
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
 /* Run through action handlers. */
@@ -117,9 +118,9 @@ case 'rule_delete':
         } else {
             $rule['action-value'] = $vars->actionvalue;
             if (!$vars->actionvalue && isset($vars->actionvalue_new)) {
-                Horde::addInlineScript(array(
+                $page_output->addInlineScript(array(
                     'IngoNewFolder.setNewFolder("actionvalue", ' . Horde_Serialize::serialize($vars->actionvalue_new, Horde_Serialize::JSON) . ')'
-                ), 'dom');
+                ), true);
             }
         }
         break;
@@ -156,7 +157,11 @@ case 'rule_delete':
         $notification->push(_("Changes saved."), 'horde.success');
 
         if ($prefs->getValue('auto_update')) {
-            Ingo::updateScript();
+            try {
+                Ingo::updateScript();
+            } catch (Ingo_Exception $e) {
+                $notification->push($e->getMessage(), 'horde.error');
+            }
         }
 
         header('Location: ' . Horde::url('filters.php'));
@@ -206,10 +211,11 @@ if (!$rule) {
     exit;
 }
 
-$title = $rule['name'];
-Horde::addScriptFile('rule.js', 'ingo');
+$page_output->addScriptFile('rule.js');
 $menu = Ingo::menu();
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $rule['name']
+));
 echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/rule/header.inc';
@@ -370,4 +376,4 @@ case 'int':
 }
 
 require INGO_TEMPLATES . '/rule/footer.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

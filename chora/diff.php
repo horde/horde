@@ -19,7 +19,7 @@
  * @package  Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('chora');
 
 /* Spawn the repository and file objects */
@@ -74,8 +74,10 @@ foreach ($VC->getRevisionRange($fl, $vars->r1, $vars->r2) as $val) {
     }
 }
 
-Horde::addScriptFile('stripe.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => $title
+));
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/diff/header.inc';
@@ -95,4 +97,4 @@ if (substr($mime_type, 0, 6) == 'image/') {
     echo $view->diffCaption();
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

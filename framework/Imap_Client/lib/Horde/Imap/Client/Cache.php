@@ -16,16 +16,7 @@
 class Horde_Imap_Client_Cache
 {
     /** Cache structure version. */
-    const VERSION = 2;
-
-    /**
-     * Singleton instances.
-     *
-     * @deprecated
-     *
-     * @var array
-     */
-    static protected $_instances = array();
+    const VERSION = 3;
 
     /**
      * The base driver object.
@@ -81,26 +72,6 @@ class Horde_Imap_Client_Cache
     protected $_update = array();
 
     /**
-     * Return a reference to a concrete cache instance.
-     *
-     * @deprecated  As of 1.2.0
-     *
-     * @param array $params  The configuration parameters.
-     *
-     * @return Horde_Imap_Client_Cache  The global instance.
-     */
-    static public function singleton($params = array())
-    {
-        ksort($params);
-        $sig = hash('md5', serialize($params));
-        if (!isset(self::$_instances[$sig])) {
-            self::$_instances[$sig] = new self($params);
-        }
-
-        return self::$_instances[$sig];
-    }
-
-    /**
      * Constructor.
      *
      * @param array $params  Configuration parameters:
@@ -109,24 +80,10 @@ class Horde_Imap_Client_Cache
      *   REQUIRED Parameters:
      *   <ul>
      *    <li>
-     *     baseob: (Horde_Imap_Client_Base) The driver object (@since 1.2.0).
+     *     baseob: (Horde_Imap_Client_Base) The driver object.
      *    </li>
      *    <li>
      *     cacheob: (Horde_Cache) The cache object to use.
-     *    </li>
-     *   </ul>
-     *  </li>
-     *  <li>
-     *   DEPRECATED Parameters (as of 1.2.0; replaced by 'baseob'):
-     *   <ul>
-     *    <li>
-     *     hostspec: (string) The IMAP hostspec.
-     *    </li>
-     *    <li>
-     *     port: (string) The IMAP port.
-     *    </li>
-     *    <li>
-     *     username: (string) The IMAP username.
      *    </li>
      *   </ul>
      *  </li>
@@ -151,8 +108,7 @@ class Horde_Imap_Client_Cache
      */
     public function __construct(array $params = array())
     {
-        // Don't mark 'baseob' as required yet.
-        $required = array('cacheob');
+        $required = array('baseob', 'cacheob');
         foreach ($required as $val) {
             if (empty($params[$val])) {
                 throw new InvalidArgumentException('Missing required parameter for ' . __CLASS__ . ': ' . $val);
@@ -166,21 +122,12 @@ class Horde_Imap_Client_Cache
             'slicesize' => 50
         ), array_filter($params));
 
-        if (isset($params['baseob'])) {
-            $this->_base = $params['baseob'];
-            $this->_params = array(
-                'hostspec' => $this->_base->getParam('hostspec'),
-                'port' => $this->_base->getParam('port'),
-                'username' => $this->_base->getParam('username')
-            );
-        } else {
-            $this->_params = array(
-                'hostspec' => $params['hostspec'],
-                'port' => $params['port'],
-                'username' => $params['username']
-            );
-            $params['debug'] = false;
-        }
+        $this->_base = $params['baseob'];
+        $this->_params = array(
+            'hostspec' => $this->_base->getParam('hostspec'),
+            'port' => $this->_base->getParam('port'),
+            'username' => $this->_base->getParam('username')
+        );
 
         $this->_cache = $params['cacheob'];
 

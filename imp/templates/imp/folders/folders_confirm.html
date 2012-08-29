@@ -1,5 +1,5 @@
 <form name="fmanager" method="post" action="<tag:folders_url />">
-<input type="hidden" name="actionID" value="<if:delete>delete_folder</if:delete><if:empty>folders_empty_mailbox</if:empty>" />
+<input type="hidden" name="actionID" value="<if:delete>delete_mbox</if:delete><if:empty>empty_mbox</if:empty>" />
 <input type="hidden" id="folders_token" name="folders_token" value="<tag:folders_token />" />
 
 <div class="header leftAlign">
@@ -7,20 +7,20 @@
 </div>
 
 <div class="control leftAlign">
- <if:delete><gettext>You are attempting to delete the following folder(s).</gettext></if:delete>
- <if:empty><gettext>You are attempting to delete all messages contained in the following folder(s).</gettext></if:empty>
+ <if:delete><gettext>You are attempting to delete the following mailbox(es).</gettext></if:delete>
+ <if:empty><gettext>You are attempting to delete all messages contained in the following mailbox(es).</gettext></if:empty>
  <br />
- <gettext>If you continue, all messages in the folder(s) will be lost!</gettext>
+ <gettext>If you continue, all messages in the mailbox(es) will be lost!</gettext>
 </div>
 
-<loop:folders>
-<div class="<tag:folders.class />">
- &nbsp;<label><input type="checkbox" class="checkbox" name="folder_list[]" value="<tag:folders.val />" checked="checked" /> <tag:folders.name /> (<tag:folders.msgs /> <gettext>messages</gettext>)</label>
+<loop:mboxes>
+<div class="striped">
+ &nbsp;<label><input type="checkbox" class="checkbox" name="mbox_list[]" value="<tag:mboxes.val />" checked="checked" /> <tag:mboxes.name /> (<tag:mboxes.msgs /> <gettext>messages</gettext>)</label>
 </div>
-</loop:folders>
+</loop:mboxes>
 
 <div class="control leftAlign">
- <input type="submit" name="submit" class="button" value="<if:delete><gettext>Delete Selected Folders</gettext></if:delete><if:empty><gettext>Empty Selected Folders</gettext></if:empty>" />&nbsp;
+ <input type="submit" name="submit" class="button" value="<if:delete><gettext>Delete Selected Mailboxes</gettext></if:delete><if:empty><gettext>Empty Selected Mailboxes</gettext></if:empty>" />&nbsp;
  <input id="btn_return" type="button" class="button" value="<gettext>Cancel</gettext>" />
 </div>
 

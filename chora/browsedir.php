@@ -10,7 +10,7 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('chora');
 
 if (!$atdir) {
@@ -67,8 +67,11 @@ if ($VC->hasFeature('branches')) {
 $printAllCols = count($fileList);
 $sortdirclass = $acts['sbt'] ? 'sortdown' : 'sortup';
 
-Horde::addScriptFile('tables.js', 'horde');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('tables.js', 'horde');
+
+$page_output->header(array(
+    'title' => $title
+));
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/directory/header.inc';
@@ -137,4 +140,4 @@ if ($readmes) {
     $readmeRenderer = new Chora_Renderer_File_Html($injector->createInstance('Horde_View'), $readmeFile, $readmeFile->getRevision());
     echo $readmeRenderer->render();
 }
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

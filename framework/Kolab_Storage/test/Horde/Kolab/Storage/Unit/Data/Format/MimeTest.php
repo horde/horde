@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the MIME based format parsing.
@@ -59,7 +59,7 @@ extends Horde_Kolab_Storage_TestCase
         $mime = $this->_getMime();
 
         $event = fopen(
-            dirname(__FILE__) . '/../../../fixtures/event.xml.qp',
+            __DIR__ . '/../../../fixtures/event.xml.qp',
             'r'
         );
         $this->parser->expects($this->once())
@@ -286,7 +286,7 @@ clients please visit http://www.kolab.org/kolab2-clients.html",
 
     private function _getStructure()
     {
-        $fixture = dirname(__FILE__) . '/../../../fixtures/event.struct';
+        $fixture = __DIR__ . '/../../../fixtures/event.struct';
         return unserialize(base64_decode(file_get_contents($fixture)));
     }
 }

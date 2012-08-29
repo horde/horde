@@ -11,7 +11,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('sesha');
 
 // Page variables.
@@ -21,12 +21,14 @@ $actionId = Horde_Util::getFormData('actionId');
 // Form creation.
 $vars = Horde_Variables::getDefaultVariables();
 $renderer = new Horde_Form_Renderer();
-$form = new Sesha_Forms_Search($vars);
-$vars->set('location', array(SESHA_SEARCH_NAME));
+$form = new Sesha_Form_Search($vars);
+$vars->set('location', array(Sesha::SEARCH_NAME));
 
 // Page display.
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 require SESHA_TEMPLATES . '/menu.inc';
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive($renderer, $vars, Horde::url('list.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

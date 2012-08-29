@@ -24,11 +24,9 @@ class IMP_Search_Element_Within extends IMP_Search_Element
      *
      * @param integer $interval  Interval value.
      * @param integer $type      Interval type. Either:
-     * <pre>
-     * IMP_Search_Element_Within::INTERVAL_DAYS
-     * IMP_Search_Element_Within::INTERVAL_MONTHS
-     * IMP_Search_Element_Within::INTERVAL_YEARS
-     * </pre>
+     *   - IMP_Search_Element_Within::INTERVAL_DAYS
+     *   - IMP_Search_Element_Within::INTERVAL_MONTHS
+     *   - IMP_Search_Element_Within::INTERVAL_YEARS
      * @param boolean $older     Do an older search?
      */
     public function __construct($interval, $type, $older = true)

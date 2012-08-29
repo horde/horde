@@ -49,31 +49,4 @@ class Horde_Data
     /* Export Outlook CSV data. */
     const EXPORT_OUTLOOKCSV = 104;
 
-    /**
-     * Attempts to return a concrete instance based on $format.
-     *
-     * @param string $format  The type of concrete subclass to return.
-     * @param array $params   Parameters to pass to the format driver.
-     *
-     * @return Horde_Data_Driver  The newly created concrete instance.
-     * @throws Horde_Data_Exception
-     */
-    static public function factory($format, array $params = array())
-    {
-        if (is_array($format)) {
-            $app = ucfirst($format[0]);
-            $format = ucfirst(strtolower(basename($format[1])));
-            $class = $app . '_Data_' . $format;
-        } else {
-            $format = ucfirst(strtolower(basename($format)));
-            $class = __CLASS__ . '_' . $format;
-        }
-
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Horde_Data_Exception('Driver not found: ' . $class);
-    }
-
 }

@@ -17,19 +17,19 @@
 
 /* Turn PHP stuff off that can really screw things up. */
 ini_set('allow_url_include', 0);
+ini_set('tidy.clean_output', 0);
+
+// TODO: Removed from PHP as of 5.4.0
 ini_set('magic_quotes_runtime', 0);
 ini_set('magic_quotes_sybase', 0);
-ini_set('tidy.clean_output', 0);
-ini_set('zend.ze1_compatibility_mode', 0);
 
 /* Exit immediately if register_globals is active.
  * register_globals may return 'Off' on some systems. See Bug #10062. */
-if (($rg = ini_get('register_globals')) &&
-    (strcasecmp($rg, 'off') !== 0)) {
+if (($rg = ini_get('register_globals')) && (strcasecmp($rg, 'off') !== 0)) {
     exit('Register globals is enabled. Exiting.');
 }
 
-$dirname = dirname(__FILE__);
+$dirname = __DIR__;
 
 if (!defined('HORDE_BASE')) {
     define('HORDE_BASE', $dirname . '/..');
@@ -51,7 +51,7 @@ $__autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/
 /* Default exception handler for uncaught exceptions. The default fatal
  * exception handler output may include things like passwords, etc. so don't
  * output this unless an admin. */
-set_exception_handler(array('Horde', 'fatal'));
+set_exception_handler(array('Horde_ErrorHandler', 'fatal'));
 
 /* Catch errors. */
-set_error_handler(array('Horde', 'errorHandler'), E_ALL);
+set_error_handler(array('Horde_ErrorHandler', 'errorHandler'), E_ALL);

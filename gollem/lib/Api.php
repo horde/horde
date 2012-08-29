@@ -48,6 +48,8 @@ class Gollem_Api extends Horde_Registry_Api
         } else {
             $backend_key = $this->_getBackend($path);
 
+            throw new Gollem_Exception('Permssion checks not implemented yet.');
+
             // Trim off the backend_key (and '/') to get the VFS relative path
             $fullpath = substr($path, strlen($backend_key) + 1);
 
@@ -124,6 +126,8 @@ class Gollem_Api extends Horde_Registry_Api
 
         $backend_key = $this->_getBackend($path);
 
+        throw new Gollem_Exception('Permssion checks not implemented yet.');
+
         // Trim off the backend_key (and '/') to get the VFS relative path
         $fullpath = substr($path, strlen($backend_key) + 1);
 
@@ -154,6 +158,8 @@ class Gollem_Api extends Horde_Registry_Api
         }
 
         $backend_key = $this->_getBackend($path);
+
+        throw new Gollem_Exception('Permssion checks not implemented yet.');
 
         // Trim off the backend_key (and '/') to get the VFS relative path
         $fullpath = substr($path, strlen($backend_key) + 1);
@@ -193,6 +199,8 @@ class Gollem_Api extends Horde_Registry_Api
         }
 
         $backend_key = $this->_getBackend($path);
+
+        throw new Gollem_Exception('Permssion checks not implemented yet.');
         $dest_backend_key = substr($path, 0, strpos($path, '/'));
         if ($dest_backend_key != $backend_key) {
             throw new Gollem_Exception(_('Renaming across backends is not supported.'));
@@ -229,6 +237,8 @@ class Gollem_Api extends Horde_Registry_Api
 
         $backend_key = $this->_getBackend($path);
 
+        throw new Gollem_Exception('Permssion checks not implemented yet.');
+
         // Trim off the backend_key (and '/') to get the VFS relative path
         $fullpath = substr($path, strlen($backend_key) + 1);
 
@@ -264,7 +274,6 @@ class Gollem_Api extends Horde_Registry_Api
         $backend = Gollem_Auth::getBackend($backend_key);
 
         return Horde::url('view.php')->add(array(
-            'actionID' => 'view_file',
             'dir' => $dir,
             'driver' => $backend['driver'],
             'file' => $file,

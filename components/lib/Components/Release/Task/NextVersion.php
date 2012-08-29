@@ -58,11 +58,12 @@ extends Components_Release_Task_Base
     {
         $api_state = isset($options['next_apistate']) ? $options['next_apistate'] : null;
         $rel_state = isset($options['next_relstate']) ? $options['next_relstate'] : null;
-        if (empty($options['next_version'])) {
-            $options['next_version'] = Components_Helper_Version::nextVersion($this->getComponent()->getVersion());
-        }
+        $next_version = empty($options['next_version'])
+            ? Components_Helper_Version::nextPearVersion(
+                $this->getComponent()->getVersion())
+            : $options['next_version'];
         $result = $this->getComponent()->nextVersion(
-            Components_Helper_Version::validatePear($options['next_version']),
+            Components_Helper_Version::validatePear($next_version),
             $options['next_note'],
             $api_state,
             $rel_state,

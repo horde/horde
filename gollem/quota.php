@@ -13,7 +13,7 @@
  * @package  Gollem
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('gollem');
 
 /* Is this a popup window? */
@@ -24,9 +24,9 @@ $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 if ($isPopup) {
     $template->set('closebutton', _("Close"));
-    Horde::addInlineScript(array(
+    $page_output->addInlineScript(array(
         '$("closebutton").observe("click", function() { window.close(); })'
-    ), 'dom');
+    ), true);
 }
 
 /* Get the quota information. */
@@ -54,12 +54,13 @@ if (Gollem::$backend['quota_val'] > -1) {
     }
 }
 
-$title = _("Quota Display");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Quota Display")
+));
 require GOLLEM_TEMPLATES . '/javascript_defs.php';
 if (!$isPopup) {
     Gollem::menu();
     Gollem::status();
 }
 echo $template->fetch(GOLLEM_TEMPLATES . '/quota/quota.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

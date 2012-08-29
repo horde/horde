@@ -16,8 +16,8 @@
         <?php endforeach; ?>
         <?php foreach ($GLOBALS['conf']['menu']['apps'] as $app): ?>
         <?php if ($app == 'horde'): ?>
-          <li><a href="<?php echo Horde::getServiceLink('portal');?>" id="hermesApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
-        <?php elseif (empty($GLOBALS['conf']['menu']['apps_iframe']) || $GLOBALS['registry']->hasAjaxView($app)): ?>
+          <li><a href="<?php echo $GLOBALS['registry']->getServiceLink('portal');?>" id="hermesApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
+        <?php elseif ($GLOBALS['registry']->hasView(Horde_Registry::VIEW_DYNAMIC, $app)): ?>
           <li><a href="<?php echo $GLOBALS['registry']->get('webroot', $app) ?>" id="hermesApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
         <?php else: ?>
           <li><a href="#" onclick="HermesCore.go('app:<?php echo $app ?>')" id="hermesApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
@@ -114,15 +114,14 @@
 </div>
 <!-- end left menu -->
 
-<?php require dirname(__FILE__) . '/timer.inc'; ?>
+<?php require __DIR__ . '/timer.inc'; ?>
 
 <!-- begin body -->
 <div id="hermesBody">
 <?php
-require dirname(__FILE__) . '/timeedit.inc';
-require dirname(__FILE__) . '/search.inc';
+require __DIR__ . '/timeedit.inc';
+require __DIR__ . '/search.inc';
 ?>
-<div id="hermesViewIframe" style="display:none"></div>
 </div>
 <!-- end body -->
 

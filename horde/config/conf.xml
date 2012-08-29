@@ -278,7 +278,7 @@
       connect. IMAP is generally 143, while IMAP-SSL is generally
       993.">143</configinteger>
       <configenum name="secure" desc="The encryption to use to connect to
-      the IMAP server.">none
+      the IMAP server.">tls
        <values>
         <value>none</value>
         <value>tls</value>
@@ -514,11 +514,9 @@
      <configsection name="params">
       <configenum name="phptype" desc="The name of the database">mysql
        <values>
-        <value desc="Microsoft SQL Server">mssql</value>
         <value desc="MySQL">mysql</value>
         <value desc="MySQL (mysqli)">mysqli</value>
         <value desc="ODBC">odbc</value>
-        <value desc="Oracle 8">oci8</value>
         <value desc="PostgreSQL">pgsql</value>
        </values>
       </configenum>
@@ -602,10 +600,8 @@
       </configenum>
       <configenum name="phptype" desc="The name of the database">mysql
        <values>
-        <value desc="Microsoft SQL Server">mssql</value>
         <value desc="MySQL">mysql</value>
         <value desc="ODBC">odbc</value>
-        <value desc="Oracle 8">oci8</value>
         <value desc="PostgreSQL">pgsql</value>
        </values>
       </configenum>
@@ -687,11 +683,9 @@
    </configswitch>
    <configsection name="params">
     <configboolean name="count_bad_logins" required="false" desc="Should Horde
-    count the number of bad logins? Requires Horde_Auth 1.2.0 or
-    higher">false</configboolean>
+    count the number of bad logins?">false</configboolean>
     <configboolean name="login_block" required="false" desc="Allow to block
-    logins for certain users? Requires Horde_Auth 1.2.0 or
-    higher">false</configboolean>
+    logins for certain users?">false</configboolean>
     <configinteger name="login_block_count" required="false" desc="After how
     many failed logins the login should be blocked? Setting 0 disables the
     feature">5</configinteger>
@@ -850,7 +844,7 @@
       </configsection>
      </case>
      <case name="Session" desc="PHP Sessions"/>
-     <case name="KolabImap" desc="Kolab (IMAP)" />
+     <case name="KolabImap" desc="IMAP/Kolab Server" />
      <case name="Imsp" desc="IMSP Server" />
    </configswitch>
   </configsection>
@@ -870,27 +864,6 @@
        </configsql>
        <configinteger name="ttl" desc="How often should the applications be
        queried for new alarms, in seconds?">300</configinteger>
-      </configsection>
-     </case>
-   </configswitch>
-  </configsection>
- </configtab>
-
- <configtab name="datatree" desc="DataTree System">
-  <configsection name="datatree">
-   <configheader>DataTree System Settings</configheader>
-   <configswitch name="driver" desc="What backend should we use for Horde
-   DataTree storage?">null
-     <case name="null" desc="None"/>
-     <case name="sql" desc="SQL Database">
-      <configsection name="params">
-       <configsql switchname="driverconfig">
-        <configstring name="table" required="false" desc="The name of the
-        data table in the database [horde_datatree]"/>
-        <configstring name="table_attributes" required="false" desc="The name
-        of the data attributes table in the database
-        [horde_datatree_attributes]"/>
-       </configsql>
       </configsection>
      </case>
    </configswitch>
@@ -1003,12 +976,14 @@
      You can use different driver types for the Horde Share
      system. The default driver is the SQL-NG driver.
    </configdescription>
-   <configswitch name="driver" desc="What backend should we use for Horde
+   <configenum name="driver" desc="What backend should we use for Horde
    Shares?">Sqlng
-     <case name="Kolab" desc="Kolab"/>
-     <case name="Sqlng" desc="Next-Generation SQL"/>
-     <case name="Sql" desc="SQL"/>
-   </configswitch>
+    <values>
+     <value desc="IMAP/Kolab">Kolab</value>
+     <value desc="Next-Generation SQL">Sqlng</value>
+     <value desc="SQL">Sql</value>
+    </values>
+   </configenum>
   </configsection>
  </configtab>
 
@@ -1476,13 +1451,13 @@
    <configheader>Image Manipulation Settings</configheader>
    <configswitch name="driver" description="What driver should we use for
    manipulating images?">false
-   <case name="false" desc="None"></case>
-   <case name="Imagick" desc="The PECL Imagick Library (recommended)"></case>
-   <case name="Im" desc="Imagemagick">
-     <configstring name="convert" desc="Path to the 'convert' binary"></configstring>
-     <configstring name="identify" desc="Path the 'identify' binary"></configstring>
-   </case>
-   <case name="Gd" desc="The PHP GD2 extensions (not recommended)"></case>
+    <case name="false" desc="None"/>
+    <case name="Imagick" desc="The PECL Imagick Library (recommended)"/>
+    <case name="Im" desc="Imagemagick">
+     <configstring name="convert" desc="Path to the 'convert' binary"/>
+     <configstring name="identify" desc="Path the 'identify' binary"/>
+    </case>
+    <case name="Gd" desc="The PHP GD2 extensions (not recommended)"/>
    </configswitch>
   </configsection>
   <configsection name="exif" desc="Image Metadata">
@@ -1527,6 +1502,17 @@
   </configsection>
  </configtab>
 
+ <configtab name="timezone" desc="Timezone Lookup">
+  <configsection name="timezone">
+   <configheader>Timezone Lookup Settings</configheader>
+   <configstring name="location" required="false" desc="Horde may
+   lookup timezone information from a global timezone database, also
+   known as Olson database. You can enter any http://, ftp:// or
+   file:// location
+   here.">ftp://ftp.iana.org/tz/tzdata-latest.tar.gz</configstring>
+  </configsection>
+ </configtab>
+
  <configtab name="problems" desc="Problem Reporting">
   <configsection name="problems">
    <configheader>Problem Reporting Settings</configheader>
@@ -1563,16 +1549,6 @@
  <configtab name="menu" desc="Menu">
   <configheader>Menu Settings</configheader>
   <configsection name="menu">
-   <configmultienum name="apps" desc="Select any applications that should be
-   linked in Horde's menu" required="false">
-    <values>
-     <configspecial application="horde" name="apps" />
-    </values>
-   </configmultienum>
-
-   <configboolean name="always" desc="Should we &lt;strong&gt;always
-   &lt;/strong&gt; display the Horde sidebar menu?">false</configboolean>
-
    <configsection name="links">
     <configenum name="help" desc="Should we display help links in the
     menu?">all
@@ -1735,6 +1711,7 @@
    <configstring name="yahoomaps" desc="Yahoo Maps API Key" required="false" />
    <configstring name="cloudmade" desc="Cloudmade API Key" required="false" />
    <configstring name="mytopo" desc="Mytopo Maps API Key" required="false" />
+   <configstring name="bing" desc="Bing Maps API Key" required="false" />
   </configsection>
   <configsection name="facebook">
    <configheader>Facebook Integration Settings</configheader>
@@ -1803,6 +1780,40 @@
        <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
        </configinteger>
       </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+ </configtab>
+
+ <configtab name="imap" desc="IMAP Server">
+  <configsection name="imap">
+   <configheader>IMAP Server Settings</configheader>
+   <configdescription>
+    If you intend to store user data like shares and groupware data on an IMAP
+    server then you will need to ensure that the following fields correspond to
+    your IMAP server setup. The IMAP groupware storage will use version 2 of
+    the Kolab XML format. See http://wiki.kolab.org/Kolab_Format_Intro for
+    details.
+   </configdescription>
+   <configswitch name="enabled" quote="false" desc="Use an IMAP server?">false
+    <case name="false" desc="Disabled" />
+    <case name="true" desc="Enabled">
+     <configheader>IMAP Server Settings</configheader>
+     <configstring name="server" desc="Server
+     address:">localhost</configstring>
+     <configinteger name="port" desc="Server port:">143</configinteger>
+      <configenum name="secure" desc="The encryption to use to connect to
+      the IMAP server.">tls
+       <values>
+        <value>none</value>
+        <value>tls</value>
+        <value>ssl</value>
+       </values>
+      </configenum>
+     <configstring name="maildomain" desc="Default
+     maildomain:">example.com</configstring>
+     <configboolean name="cache_folders" desc="Cache IMAP folders:"
+      required="true">true</configboolean>
     </case>
    </configswitch>
   </configsection>
@@ -1953,34 +1964,52 @@
  </configtab>
  <configtab name="activesync" desc="ActiveSync">
   <configsection name="activesync">
-   <configdescription>To enable ActiveSync support, you must create an alias on
-   your webserver to redirect /Microsoft-Servers-ActiveSync to /horde/rpc.php.
+   <configdescription>The use of ActiveSync in the United States is PROHIBITED
+   due to patent issues. If you are NOT in the United States, or you have a
+   license to use ActiveSync, you may enable ActiveSync below and create an
+   alias on your webserver to redirect /Microsoft-Servers-ActiveSync to
+   /horde/rpc.php.
    See http://wiki.horde.org/ActiveSync for more information.
    </configdescription>
-   <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">true
+   <configswitch name="enabled" quote="false" desc="Enable ActiveSync server?">false
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
-     <configsection name="state">
-      <configheader>State Storage Settings</configheader>
-       <configsection name="params">
-        <configstring name="devicetable" desc="Name of table to hold device
-        information:">horde_activesync_device</configstring>
-        <configstring name="statetable" desc="Name of table to hold state
-        data:">horde_activesync_state</configstring>
-        <configstring name="maptable" desc="Name of table to hold mapping data
-        for device-sent changes.">horde_activesync_map</configstring>
-        <configstring name="userstable" desc="Name of table to hold user-device
-        data:">horde_activesync_device_users</configstring>
-       </configsection>
-     </configsection>
+     <configheader>Capabilities</configheader>
+      <configboolean name="emailsync" desc="Enable Email support?">true
+      </configboolean>
+      <configenum name="version" desc="What is the highest version of EAS that
+      Horde should support? All versions are backwards compatible so selecting
+      a higher version also includes support for the lower versions as well.">
+      <values>
+       <value desc="Exchange 2003 (EAS 2.5)">2.5</value>
+       <value desc="Exchange 2007 (EAS 12.0)">12</value>
+       <value desc="Exchange 2007sp1 (EAS 12.1)">12.1</value>
+      </values>
+     </configenum>
+     <configheader>Autodiscovery</configheader>
+     <configenum name="autodiscovery" desc="Some devices attempt to use an
+     Autodiscovery service to configure the device's account using only the
+     user's email address and password. For this to work you must create an
+     alias on your webserver to point /autodiscover/autodiscover.xml to
+     /horde/rpc.php. Also, Horde must be able to determine the user's username
+     given the email address. Set the method you want Horde to use to attempt to
+     determine this below. If this fails, the device will fall back to requiring
+     manual account configuration. See http://wiki.horde.org/ActiveSync for more
+     information">
+      <values>
+       <value desc="Use the full email address as the username">full</value>
+       <value desc="Use only the username - everything after and including the
+       first @ will be stripped.">user</value>
+       <value desc="Use a custom hook. You must create this hook in the
+       hooks.php file.">hook</value>
+      </values>
+     </configenum>
      <configheader>Logging</configheader>
      <configsection name="logging">
       <configswitch name="type" desc="For debugging, it may be useful to send
       activesync-related log messages to a seperate log. If you want to do this,
-      set this to Custom and enter the path to the log file to use. Horde will
-      attempt to create device specific log files in the same directory as the
-      filepath you provide here. If it is unable to do so, all log entries will
-      be sent to the filename you provide.">
+      set this to Custom and enter the path to the directory to place log files
+      in. Horde will create device specific log files in this directory.">
         <case name="horde" desc="Horde" />
         <case name="custom" desc="Custom">
          <configstring name="path" desc="Path to logfile" />
@@ -2023,71 +2052,6 @@
       essentially reducing the number of checks done during each heartbeat.
       Lowering this value will increase the number of checks that are down
       during each heartbeat.">5</configinteger>
-     </configsection>
-     <configsection name="securitypolicies">
-     <configheader>Security Policies</configheader>
-      <configswitch name="provisioning" desc="How should device provisioning be
-      handled? Set to DISABLE to ignore provisioning. Set to ALLOW to force
-      devices that CAN be provisioned to use provisioning, but allow older
-      devices with no support for provisioning to still be used. Set to FORCE
-      to only allow devices that are provisioned to connect to your
-      server.">false
-       <case name="false" desc="Disable" />
-       <case name="loose" desc="Allow">
-        <configswitch name="pin" desc="Force device to use a PIN to unlock
-        the device.">false
-         <case name="false" desc="No" />
-         <case name="true" desc="Yes">
-          <configinteger name="wipethreshold" desc="How many unlock attempts
-          before device should get wiped? Set to 0 to disable this policy.">10
-          </configinteger>
-          <configinteger name="codewordfrequency" desc="How many unlock attempts
-          before validating that an actual person is using the device is able to
-          read and write. This should typically be half of thewipethreshold
-          setting above. Set to 0 to disable this policy.">5</configinteger>
-          <configinteger name="minimumlength" desc="Minimum PIN
-          size">5</configinteger>
-          <configenum name="complexity" desc="PIN/Password complexity. Some
-          devices may be able to ONLY support numeric PINs.">
-           <values>
-            <value desc="Require alphanumeric">0</value>
-            <value desc="Allow only numeric">1</value>
-            <value desc="Allow any">2</value>
-         </values>
-        </configenum>
-        <configinteger name="inactivity" desc="Number of minutes of inactivity
-        before device should lock.">3</configinteger>
-         </case>
-        </configswitch>
-       </case>
-       <case name="true" desc="Force">
-        <configswitch name="pin" desc="Force device to use a PIN to unlock
-        the device.">false
-         <case name="false" desc="No" />
-         <case name="true" desc="Yes">
-          <configinteger name="wipethreshold" desc="How many unlock attempts
-          before device should get wiped? Set to 0 to disable this policy.">10
-          </configinteger>
-          <configinteger name="codewordfrequency" desc="How many unlock attempts
-          before validating that an actual person is using the device is able to
-          read and write. This should typically be half of thewipethreshold
-          setting above. Set to 0 to disable this policy.">5</configinteger>
-          <configinteger name="minimumlength" desc="Minimum PIN
-          size">5</configinteger>
-          <configenum name="complexity" desc="PIN/Password complexity. Some
-          devices may be able to ONLY support numeric PINs.">
-           <values>
-            <value desc="Require alphanumeric">0</value>
-            <value desc="Allow only numeric">1</value>
-            <value desc="Allow any">2</value>
-           </values>
-          </configenum>
-          <configinteger name="inactivity" desc="Number of minutes of
-          inactivity before device should lock.">3</configinteger>
-         </case>
-        </configswitch>
-       </case>
-      </configswitch>
      </configsection>
     </case>
    </configswitch>

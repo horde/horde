@@ -8,7 +8,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
+require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 $path = Horde_Util::getFormData('path');
@@ -99,7 +99,7 @@ $template->setOption('gettext', true);
 $template->set('rows', $rows);
 $template->set('close', '<a href="#" onclick="window.close(); return false;">' . Horde::img('close.png') . '</a>');
 
-Horde::addScriptFile('stripe.js', 'horde');
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header();
 echo $template->parse($tpl);
-require HORDE_TEMPLATES . '/common-footer.inc';
+$page_output->footer();

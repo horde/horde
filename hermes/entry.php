@@ -9,7 +9,7 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('hermes');
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -25,8 +25,10 @@ if (!$vars->exists('id') && $vars->exists('timer')) {
             $vars->set('note', sprintf(_("Using the \"%s\" stop watch from %s to %s"), $tname, date($tformat, $timer_id), date($tformat, time())));
         }
         $notification->push(sprintf(_("The stop watch \"%s\" has been stopped."), $tname), 'horde.success');
-        unset($timers[$timer_id]);
-        $prefs->setValue('running_timers', serialize($timers));
+        if ($timers = @unserialize($prefs->getValue('running_timers'))) {
+            unset($timers[$timer_id]);
+            $prefs->setValue('running_timers', serialize($timers));
+        }
     }
 }
 
@@ -86,9 +88,10 @@ default:
 }
 $form->setCostObjects($vars);
 
-$title = $vars->exists('id') ? _("Edit Time") : _("New Time");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $vars->exists('id') ? _("Edit Time") : _("New Time")
+));
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('entry.php'), 'post');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

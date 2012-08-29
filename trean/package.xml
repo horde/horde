@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>trean</name>
+ <channel>pear.horde.org</channel>
+ <summary>TODO</summary>
+ <description>TODO</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2012-07-25</date>
+ <time>13:57:26</time>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="TODO">TODO</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="app">
+    <dir name="controllers">
+     <file name="DeleteBookmark.php" role="horde" />
+     <file name="SaveBookmark.php" role="horde" />
+    </dir> <!-- /app/controllers -->
+   </dir> <!-- /app -->
+   <dir name="bin">
+    <file name="trean-url-checker" role="script" />
+   </dir> <!-- /bin -->
+   <dir name="config">
+    <file name=".htaccess" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="prefs.php" role="horde" />
+    <file name="routes.php" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="lighttpd-trean.conf" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="lib">
+    <dir name="Ajax">
+     <dir name="Imple">
+      <file name="TagAutoCompleter.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Imple -->
+     <file name="Application.php" role="horde" />
+    </dir> <!-- /lib/Ajax -->
+    <dir name="Block">
+     <file name="Bookmarks.php" role="horde" />
+     <file name="Mostclicked.php" role="horde" />
+    </dir> <!-- /lib/Block -->
+    <dir name="Forms">
+     <file name="Search.php" role="horde" />
+    </dir> <!-- /lib/Forms -->
+    <dir name="View">
+     <file name="BookmarkList.php" role="horde" />
+    </dir> <!-- /lib/View -->
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Bookmark.php" role="horde" />
+    <file name="Bookmarks.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="TagBrowser.php" role="horde" />
+    <file name="Tagger.php" role="horde" />
+    <file name="Trean.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/de -->
+    <dir name="en">
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/es -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/lv -->
+    <dir name="nb">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/nb/LC_MESSAGES -->
+    </dir> <!-- /locale/nb -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+    </dir> <!-- /locale/pl -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="trean.mo" role="horde" />
+      <file name="trean.po" role="horde" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name=".htaccess" role="horde" />
+    <file name="trean.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="migration">
+    <file name="1_trean_base_tables.php" role="horde" />
+    <file name="2_trean_upgrade_folders_to_tags_pre.php" role="horde" />
+    <file name="3_trean_upgrade_folders_to_tags.php" role="horde" />
+    <file name="4_trean_upgrade_folders_to_tags_post.php" role="horde" />
+   </dir> <!-- /migration -->
+   <dir name="templates">
+    <dir name="block">
+     <file name="1line.inc" role="horde" />
+     <file name="2line.inc" role="horde" />
+     <file name="standard.inc" role="horde" />
+    </dir> <!-- /templates/block -->
+    <file name="add.html.php" role="horde" />
+    <file name="bookmarklet.html.php" role="horde" />
+    <file name="edit.html.php" role="horde" />
+    <file name="list.html.php" role="horde" />
+    <file name="search.php" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <dir name="folders">
+       <file name="folder_create.png" role="horde" />
+       <file name="folder_delete.png" role="horde" />
+       <file name="folder_edit.png" role="horde" />
+      </dir> <!-- /themes/default/graphics/folders -->
+      <dir name="http">
+       <file name="1xx.png" role="horde" />
+       <file name="2xx.png" role="horde" />
+       <file name="3xx.png" role="horde" />
+       <file name="4xx.png" role="horde" />
+       <file name="5xx.png" role="horde" />
+       <file name="error.png" role="horde" />
+      </dir> <!-- /themes/default/graphics/http -->
+      <dir name="protocol">
+       <file name="ftp.png" role="horde" />
+       <file name="http.png" role="horde" />
+       <file name="https.png" role="horde" />
+      </dir> <!-- /themes/default/graphics/protocol -->
+      <file name="add.png" role="horde" />
+      <file name="az.png" role="horde" />
+      <file name="data.png" role="horde" />
+      <file name="delete.png" role="horde" />
+      <file name="edit.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="minus.png" role="horde" />
+      <file name="perms.png" role="horde" />
+      <file name="plus.png" role="horde" />
+      <file name="rating-star.gif" role="horde" />
+      <file name="search.png" role="horde" />
+      <file name="trean.png" role="horde" />
+      <file name="za.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+    </dir> <!-- /themes -->
+   <file name="add.php" role="horde" />
+   <file name="browse.php" role="horde" />
+   <file name="edit.php" role="horde" />
+   <file name="favicon.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="LICENSE" role="horde" />
+   <file name="README" role="doc" />
+   <file name="redirect.php" role="horde" />
+   <file name="rss.php" role="horde" />
+   <file name="search.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="trean/add.php" name="add.php" />
+   <install as="trean/browse.php" name="browse.php" />
+   <install as="trean/edit.php" name="edit.php" />
+   <install as="trean/favicon.php" name="favicon.php" />
+   <install as="trean/index.php" name="index.php" />
+   <install as="trean/LICENSE" name="LICENSE" />
+   <install as="README" name="README" />
+   <install as="trean/redirect.php" name="redirect.php" />
+   <install as="trean/rss.php" name="rss.php" />
+   <install as="trean/search.php" name="search.php" />
+   <install as="trean/app/controllers/DeleteBookmark.php" name="app/controllers/DeleteBookmark.php" />
+   <install as="trean/app/controllers/SaveBookmark.php" name="app/controllers/SaveBookmark.php" />
+   <install as="trean-url-checker" name="bin/trean-url-checker" />
+   <install as="trean/config/.htaccess" name="config/.htaccess" />
+   <install as="trean/config/conf.xml" name="config/conf.xml" />
+   <install as="trean/config/prefs.php" name="config/prefs.php" />
+   <install as="trean/config/routes.php" name="config/routes.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="lighttpd-trean.conf" name="docs/lighttpd-trean.conf" />
+   <install as="trean/lib/Api.php" name="lib/Api.php" />
+   <install as="trean/lib/Application.php" name="lib/Application.php" />
+   <install as="trean/lib/Bookmark.php" name="lib/Bookmark.php" />
+   <install as="trean/lib/Bookmarks.php" name="lib/Bookmarks.php" />
+   <install as="trean/lib/Exception.php" name="lib/Exception.php" />
+   <install as="trean/lib/TagBrowser.php" name="lib/TagBrowser.php" />
+   <install as="trean/lib/Tagger.php" name="lib/Tagger.php" />
+   <install as="trean/lib/Trean.php" name="lib/Trean.php" />
+   <install as="trean/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="trean/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
+   <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
+   <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
+   <install as="trean/lib/Forms/Search.php" name="lib/Forms/Search.php" />
+   <install as="trean/lib/View/BookmarkList.php" name="lib/View/BookmarkList.php" />
+   <install as="trean/locale/.htaccess" name="locale/.htaccess" />
+   <install as="trean/locale/trean.pot" name="locale/trean.pot" />
+   <install as="trean/locale/de/help.xml" name="locale/de/help.xml" />
+   <install as="trean/locale/de/LC_MESSAGES/trean.mo" name="locale/de/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/de/LC_MESSAGES/trean.po" name="locale/de/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="trean/locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="trean/locale/es/LC_MESSAGES/trean.mo" name="locale/es/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/es/LC_MESSAGES/trean.po" name="locale/es/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/fi/help.xml" name="locale/fi/help.xml" />
+   <install as="trean/locale/fi/LC_MESSAGES/trean.mo" name="locale/fi/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/fi/LC_MESSAGES/trean.po" name="locale/fi/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/fr/LC_MESSAGES/trean.mo" name="locale/fr/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/fr/LC_MESSAGES/trean.po" name="locale/fr/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/it/LC_MESSAGES/trean.mo" name="locale/it/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/it/LC_MESSAGES/trean.po" name="locale/it/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/lv/help.xml" name="locale/lv/help.xml" />
+   <install as="trean/locale/lv/LC_MESSAGES/trean.mo" name="locale/lv/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/lv/LC_MESSAGES/trean.po" name="locale/lv/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/nb/LC_MESSAGES/trean.mo" name="locale/nb/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/nb/LC_MESSAGES/trean.po" name="locale/nb/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/nl/LC_MESSAGES/trean.mo" name="locale/nl/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/nl/LC_MESSAGES/trean.po" name="locale/nl/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/pl/LC_MESSAGES/trean.mo" name="locale/pl/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/pl/LC_MESSAGES/trean.po" name="locale/pl/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/sl/LC_MESSAGES/trean.mo" name="locale/sl/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/sl/LC_MESSAGES/trean.po" name="locale/sl/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/sv/LC_MESSAGES/trean.mo" name="locale/sv/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/sv/LC_MESSAGES/trean.po" name="locale/sv/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/tr/LC_MESSAGES/trean.mo" name="locale/tr/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/tr/LC_MESSAGES/trean.po" name="locale/tr/LC_MESSAGES/trean.po" />
+   <install as="trean/locale/zh_TW/LC_MESSAGES/trean.mo" name="locale/zh_TW/LC_MESSAGES/trean.mo" />
+   <install as="trean/locale/zh_TW/LC_MESSAGES/trean.po" name="locale/zh_TW/LC_MESSAGES/trean.po" />
+   <install as="trean/migration/1_trean_base_tables.php" name="migration/1_trean_base_tables.php" />
+   <install as="trean/migration/2_trean_upgrade_folders_to_tags_pre.php" name="migration/2_trean_upgrade_folders_to_tags_pre.php" />
+   <install as="trean/migration/3_trean_upgrade_folders_to_tags.php" name="migration/3_trean_upgrade_folders_to_tags.php" />
+   <install as="trean/migration/4_trean_upgrade_folders_to_tags_post.php" name="migration/4_trean_upgrade_folders_to_tags_post.php" />
+   <install as="trean/templates/add.html.php" name="templates/add.html.php" />
+   <install as="trean/templates/bookmarklet.html.php" name="templates/bookmarklet.html.php" />
+   <install as="trean/templates/edit.html.php" name="templates/edit.html.php" />
+   <install as="trean/templates/list.html.php" name="templates/list.html.php" />
+   <install as="trean/templates/search.php" name="templates/search.php" />
+   <install as="trean/templates/block/1line.inc" name="templates/block/1line.inc" />
+   <install as="trean/templates/block/2line.inc" name="templates/block/2line.inc" />
+   <install as="trean/templates/block/standard.inc" name="templates/block/standard.inc" />
+   <install as="trean/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="trean/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
+   <install as="trean/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
+   <install as="trean/themes/default/graphics/data.png" name="themes/default/graphics/data.png" />
+   <install as="trean/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
+   <install as="trean/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
+   <install as="trean/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="trean/themes/default/graphics/minus.png" name="themes/default/graphics/minus.png" />
+   <install as="trean/themes/default/graphics/perms.png" name="themes/default/graphics/perms.png" />
+   <install as="trean/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
+   <install as="trean/themes/default/graphics/rating-star.gif" name="themes/default/graphics/rating-star.gif" />
+   <install as="trean/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
+   <install as="trean/themes/default/graphics/trean.png" name="themes/default/graphics/trean.png" />
+   <install as="trean/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
+   <install as="trean/themes/default/graphics/folders/folder_create.png" name="themes/default/graphics/folders/folder_create.png" />
+   <install as="trean/themes/default/graphics/folders/folder_delete.png" name="themes/default/graphics/folders/folder_delete.png" />
+   <install as="trean/themes/default/graphics/folders/folder_edit.png" name="themes/default/graphics/folders/folder_edit.png" />
+   <install as="trean/themes/default/graphics/http/1xx.png" name="themes/default/graphics/http/1xx.png" />
+   <install as="trean/themes/default/graphics/http/2xx.png" name="themes/default/graphics/http/2xx.png" />
+   <install as="trean/themes/default/graphics/http/3xx.png" name="themes/default/graphics/http/3xx.png" />
+   <install as="trean/themes/default/graphics/http/4xx.png" name="themes/default/graphics/http/4xx.png" />
+   <install as="trean/themes/default/graphics/http/5xx.png" name="themes/default/graphics/http/5xx.png" />
+   <install as="trean/themes/default/graphics/http/error.png" name="themes/default/graphics/http/error.png" />
+   <install as="trean/themes/default/graphics/protocol/ftp.png" name="themes/default/graphics/protocol/ftp.png" />
+   <install as="trean/themes/default/graphics/protocol/http.png" name="themes/default/graphics/protocol/http.png" />
+   <install as="trean/themes/default/graphics/protocol/https.png" name="themes/default/graphics/protocol/https.png" />
+   </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2012-07-25</date>
+   <license uri="TODO">TODO</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

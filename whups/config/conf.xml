@@ -54,6 +54,10 @@
    adding ticket comments from email messages, should we include the basic
    email headers into the ticket comment?"
    required="false">false</configboolean>
+   <configboolean name="attach_message" desc="When generating new tickets or
+   adding ticket comments from email messages, should we include the raw
+   message as an attachment into the ticket comment?"
+   required="false">false</configboolean>
    <configenum name="commenthistory" desc="When someone adds a comment to a
    ticket, how should we send the comments?">new
     <values>
@@ -91,15 +95,6 @@
    <configboolean name="assign_all_groups" desc="Allow assignment to any
    group? Assignment of bugs to groups can be limited to groups that users are
    members of by disabling this option" required="false">false</configboolean>
-  </configsection>
-  <configsection name="menu">
-   <configheader>Menu Settings</configheader>
-   <configmultienum name="apps" desc="Select any applications that should be
-   linked in Whups' menu" required="false">
-    <values>
-     <configspecial application="horde" name="apps" />
-    </values>
-   </configmultienum>
   </configsection>
  </configtab>
 

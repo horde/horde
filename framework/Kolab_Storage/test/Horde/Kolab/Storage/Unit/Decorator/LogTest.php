@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once __DIR__ . '/../../Autoload.php';
 
 /**
  * Test the log decorator for the storage handler.
@@ -42,7 +42,7 @@ extends Horde_Kolab_Storage_TestCase
             $this->getMockLogger()
         );
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Decorator_Log',
+            'Horde_Kolab_Storage_List_Tools',
             $storage->getList()
         );
     }

@@ -1,7 +1,7 @@
+<tag:menu_string />
+<if:options>
 <form action="<tag:form_url />" method="post" name="rulesetsmenu">
  <tag:forminput />
- <div id="menu">
-<if:options>
   <div style="float:right">
    <label for="ruleset" class="hidden"><gettext>Select ruleset to display:</gettext></label>
    <select id="ruleset" name="ruleset" onchange="document.rulesetsmenu.submit(); return false;">
@@ -11,7 +11,5 @@
 </loop:options>
    </select>
   </div>
-</if:options>
-  <tag:menu_string />
- </div>
 </form>
+</if:options>

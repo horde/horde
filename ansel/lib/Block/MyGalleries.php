@@ -49,7 +49,7 @@ class Ansel_Block_MyGalleries extends Horde_Core_Block
      */
     protected function _content()
     {
-        Horde::addScriptFile('block.js');
+        $GLOBALS['page_output']->addScriptFile('block.js');
 
         /* Get the top level galleries */
         try {

@@ -14,7 +14,7 @@
  * @package  Chora
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('chora');
 
 if ($atdir) {
@@ -48,8 +48,10 @@ if ($VC->hasFeature('branches')) {
     $branches = $fl->getBranches();
 }
 
-Horde::addScriptFile('revlog.js', 'chora');
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('revlog.js');
+$page_output->header(array(
+    'title' => $title
+));
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/log/header.inc';
@@ -69,4 +71,4 @@ foreach ($logs as $log) {
 }
 
 echo '</div>';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

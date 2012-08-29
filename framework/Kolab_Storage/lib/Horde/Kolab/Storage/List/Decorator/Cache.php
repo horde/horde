@@ -306,7 +306,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      *
      * @return NULL
      */
-    public function registerQuery($name, Horde_Kolab_Storage_Query $query)
+    public function registerQuery($name, $query)
     {
         $this->_list->registerQuery($name, $query);
     }

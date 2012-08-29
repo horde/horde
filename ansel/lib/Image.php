@@ -312,7 +312,12 @@ class Ansel_Image Implements Iterator
             if (!empty($this->_loaded[$viewHash])) {
                 return;
             }
-            $this->createView($view, $style);
+            $this->createView(
+                $view,
+                $style,
+                (($view == 'screen' && $GLOBALS['prefs']->getValue('watermark_auto')) ?
+                    $GLOBALS['prefs']->getValue('watermark_text', '') : '')
+            );
 
             // If createView() had to resize the full image, we've already
             // loaded the data, so return now.
@@ -388,7 +393,7 @@ class Ansel_Image Implements Iterator
      *
      * @throws Ansel_Exception
      */
-    public function createView($view, Ansel_Style $style = null)
+    public function createView($view, Ansel_Style $style = null, $watermark = '')
     {
         // Default to the gallery's style
         if (empty($style)) {
@@ -466,13 +471,11 @@ class Ansel_Image Implements Iterator
             ->create('images')
             ->writeData($vfspath, $this->getVFSName($vHash), $this->_data[$vHash], true);
 
-        // Autowatermark the screen view
-        if ($view == 'screen' &&
-            $GLOBALS['prefs']->getValue('watermark_auto') &&
-            $GLOBALS['prefs']->getValue('watermark_text') != '') {
-
-            $this->watermark('screen');
-            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
+        // Watermark
+        if (!empty($watermark)) {
+            $this->watermark($view);
+            $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Vfs')
                 ->create('images')
                 ->writeData($vfspath, $this->getVFSName($view), $this->_image->_data);
         }

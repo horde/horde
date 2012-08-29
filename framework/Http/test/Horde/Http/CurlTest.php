@@ -11,7 +11,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * Copyright 2007-2012 Horde LLC (http://www.horde.org/)

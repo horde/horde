@@ -9,17 +9,11 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Registry_Application
 {
-    /**
-     * Does this application support an ajax view?
-     *
-     * @var boolean
-     */
-    public $ajaxView = false;
-
     /**
      * The list of available authentication capabilities handled by this
      * application.
@@ -30,18 +24,27 @@ class Horde_Registry_Application
     public $auth = array();
 
     /**
+     * List of features supported by this application.
+     *
+     * @var array
+     */
+    public $features = array(
+        // View Handlers
+        'dynamicView' => false,
+        'minimalView' => false,
+        'smartmobileView' => false,
+        // Notification Handler
+        'notificationHandler' => false,
+        // Alarm Handler
+        'alarmHandler' => false
+    );
+
+    /**
      * The init params used.
      *
      * @var array
      */
     public $initParams = array();
-
-    /**
-     * Does this application support a mobile view?
-     *
-     * @var boolean
-     */
-    public $mobileView = false;
 
     /**
      * The application's version.
@@ -51,51 +54,103 @@ class Horde_Registry_Application
     public $version = 'unknown';
 
     /**
-     * Has init() previously been called?
+     * Application identifier.
      *
-     * @var boolean
+     * @var string
      */
-    protected $_initDone = false;
+    protected $_app;
+
+    /**
+     * Cached values to add to the session after authentication.
+     *
+     * @var array
+     */
+    protected $_sessVars = array();
+
+    /**
+     * Constructor.
+     *
+     * Global constants defined:
+     *   - [APPNAME]_TEMPLATES - (string) Location of template files.
+     *
+     * @param string $app  Application identifier.
+     */
+    final public function __construct($app)
+    {
+        $this->_app = $app;
+
+        $appname = Horde_String::upper($app);
+        if (!defined($appname . '_TEMPLATES')) {
+            define($appname . '_TEMPLATES', $GLOBALS['registry']->get('templates', $app));
+        }
+
+        $this->_bootstrap();
+    }
+
+    /**
+     * Code run on successful authentication.
+     */
+    final public function authenticated()
+    {
+        $this->updateSessVars();
+        $this->_authenticated();
+    }
+
+    /**
+     * Code run when the application is pushed on the stack for the first
+     * time in a page access.
+     */
+    final public function init()
+    {
+        $this->_init();
+    }
+
+
+    /* Initialization methods. */
+
+    /**
+     * Bootstrap code for an application. This is run when the application
+     * object is being created. The full Horde environment is not available in
+     * this method, and the user may not yet be authenticated. Only tasks
+     * necessary to setup the base application environment should be done here.
+     */
+    protected function _bootstrap()
+    {
+    }
+
+    /**
+     * Code to run on successful authentication. This will be called once
+     * per session, and the entire Horde framework will be available.
+     *
+     * @throws Horde_Exception
+     */
+    protected function _authenticated()
+    {
+    }
+
+    /**
+     * Code run when the application is pushed on the stack for the first
+     * time in a page access. The entire Horde framework will be available,
+     * but the user may not be authenticated.
+     *
+     * @throws Horde_Exception
+     */
+    protected function _init()
+    {
+    }
 
     /**
      * Application-specific code to run if application auth fails.
      * Called from Horde_Registry::appInit().
      *
-     * @param Horde_Exception $e  The exception object.
+     * @param Horde_Exception_PushApp $e  The exception object.
      */
     public function appInitFailure($e)
     {
     }
 
-    /**
-     * Initialization. Does any necessary init needed to setup the full
-     * environment for the application.
-     *
-     * Global constants defined:
-     * <pre>
-     * [APPNAME]_TEMPLATES - (string) Location of template files.
-     * </pre>
-     */
-    final public function init()
-    {
-        if (!$this->_initDone) {
-            $this->_initDone = true;
 
-            $appname = Horde_String::upper($GLOBALS['registry']->getApp());
-            if (!defined($appname . '_TEMPLATES')) {
-                define($appname . '_TEMPLATES', $GLOBALS['registry']->get('templates'));
-            }
-
-            $this->_init();
-        }
-    }
-
-    /**
-     * Initialization code for an application.
-     */
-    protected function _init()
-    {
-    }
+    // Menu generation methods.
 
     /**
      * Add additional items to the menu.
@@ -127,6 +182,7 @@ class Horde_Registry_Application
     {
     }
 
+
     // Horde permissions.
 
     /**
@@ -154,6 +210,30 @@ class Horde_Registry_Application
     }
 
 
+    // Horde service methods.
+
+    /**
+     * Prepare data to deliver to browser for download.
+     *
+     * @param Horde_Variables $vars  Form variables provided to download
+     *                               script. The filename is available in
+     *                               the 'filename' parameter.
+     *
+     * @return array  Download data:
+     *   - data: [REQUIRED] (mixed) Data. Either a stream or a string.
+     *   - name: (string) Filename that overrides 'filename' URL parameter.
+     *   - size: (integer) If set, used as size. If null, no size will be
+     *           sent to browser. If not set, size will be automatically
+     *           determined from data.
+     *   - type: (string) MIME type to send (default:
+     *           application/octet-stream).
+     */
+    public function download(Horde_Variables $vars)
+    {
+        return array();
+    }
+
+
     // Horde_Notification methods.
 
     /**
@@ -175,7 +255,7 @@ class Horde_Registry_Application
      * @param string $user   The user to retreive alarms for. All users if
      *                       null.
      *
-     * @return array  An array of UIDs
+     * @return array  An array of UIDs.
      */
     public function listAlarms($time, $user = null)
     {
@@ -201,6 +281,8 @@ class Horde_Registry_Application
 
     /**
      * Tries to authenticate with the server and create a session.
+     * Any session variables you want added should be set by calling
+     * _addSessVars() internally within this method.
      *
      * @param string $userId      The username of the user.
      * @param array $credentials  Credentials of the user.
@@ -215,6 +297,8 @@ class Horde_Registry_Application
     /**
      * Tries to transparently authenticate with the server and create a
      * session.
+     * Any session variables you want added should be set by calling
+     * _addSessVars() internally within this method.
      *
      * @param Horde_Core_Auth_Application $auth_ob  The authentication object.
      *
@@ -227,18 +311,7 @@ class Horde_Registry_Application
     }
 
     /**
-     * Does necessary authentication tasks reliant on a full app environment.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    public function authAuthenticateCallback()
-    {
-    }
-
-    /**
      * Validates an existing authentication.
-     *
-     * @since Horde_Core 1.4.0
      *
      * @return boolean  Whether the authentication is still valid.
      */
@@ -319,64 +392,29 @@ class Horde_Registry_Application
         return '';
     }
 
-
-    // Horde_Core_Prefs_Ui functions.
-
     /**
-     * Run on init when viewing prefs for an application.
+     * Add session variables to the session.
      *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param array $vars  Array of session variables to add to the session,
+     *                     once it becomes available.
      */
-    public function prefsInit($ui)
+    final protected function _addSessVars($vars)
     {
+        if (!empty($vars)) {
+            $this->_sessVars = array_merge($this->_sessVars, $vars);
+            register_shutdown_function(array($this, 'updateSessVars'));
+        }
     }
 
     /**
-     * Determine active prefs when displaying a group. This is where all
-     * suppress/overrides should be defined.
-     *
-     * This function may be run multiple times in a single page - once on init
-     * and once after prefs are updated.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * Updates cached session variable information into the active session.
      */
-    public function prefsGroup($ui)
+    final public function updateSessVars()
     {
-    }
-
-    /**
-     * Called when preferences are changed.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    public function prefsCallback($ui)
-    {
-    }
-
-    /**
-     * Generate code used to display a special preference.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return string  The HTML code to display on the preferences page.
-     */
-    public function prefsSpecial($ui, $item)
-    {
-        return '';
-    }
-
-    /**
-     * Special preferences handling on update.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     * @param string $item             The preference name.
-     *
-     * @return boolean  True if preference was updated.
-     */
-    public function prefsSpecialUpdate($ui, $item)
-    {
-        return false;
+        foreach ($this->_sessVars as $key => $val) {
+            $GLOBALS['session']->set($this->_app, $key, $val);
+        }
+        $this->_sessVars = array();
     }
 
 
@@ -395,18 +433,18 @@ class Horde_Registry_Application
     }
 
 
-    // Horde_Core_Sidebar method.
+    // Horde_Core_Topbar method.
 
     /**
      * Add node(s) to the sidebar tree.
      *
-     * @param Horde_Tree_Base $tree  Tree object.
+     * @param Horde_Tree_Renderer_Base $tree  Tree object.
      * @param string $parent         The current parent element.
      * @param array $params          Additional parameters.
      *
      * @throws Horde_Exception
      */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
                                   array $params = array()) {}
 
 

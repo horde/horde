@@ -8,7 +8,7 @@
  * @author Ben Klang <ben@alkaloid.net>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 $operator = Horde_Registry::appInit('operator');
 
 require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
@@ -81,10 +81,10 @@ if ($stats['numcalls'] > $GLOBALS['conf']['storage']['searchlimit']) {
     $notification->push(sprintf($msg, $GLOBALS['conf']['storage']['searchlimit']), 'horde.warning');
 }
 
-$title = _("Search Call Detail Records");
-Horde::addScriptFile('stripe.js', 'horde', true);
-
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->header(array(
+    'title' => _("Search Call Detail Records")
+));
 require OPERATOR_TEMPLATES . '/menu.inc';
 $notification->notify();
 $form->renderActive($renderer, $vars, Horde::url('search.php'), 'post');
@@ -94,4 +94,4 @@ if (!empty($data)) {
     require OPERATOR_TEMPLATES . '/search.inc';
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

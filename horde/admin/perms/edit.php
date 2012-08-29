@@ -9,13 +9,10 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/Application.php';
-$permission = 'perms';
-Horde_Registry::appInit('horde');
-if (!$registry->isAdmin() && 
-    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
-    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
-}
+require_once __DIR__ . '/../../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'permission' => array('horde:administration:perms')
+));
 
 /* Set up the form variables. */
 $vars = Horde_Variables::getDefaultVariables();
@@ -113,13 +110,23 @@ if ($ui->validateEditForm($info)) {
         ->redirect();
 }
 
-$title = _("Permissions Administration");
-require HORDE_TEMPLATES . '/common-header.inc';
-require HORDE_TEMPLATES . '/admin/menu.inc';
-
-/* Render the form and tree. */
+// Buffer the tree rendering
+Horde::startBuffer();
 $ui->renderForm('edit.php');
 echo '<br />';
 $ui->renderTree($perm_id);
+$tree_output = Horde::endBuffer();
 
-require HORDE_TEMPLATES . '/common-footer.inc';
+// Buffer the menu output
+Horde::startBuffer();
+require HORDE_TEMPLATES . '/admin/menu.inc';
+$menu_output = Horde::endBuffer();
+
+$page_output->header(array(
+    'title' => _("Permissions Administration")
+));
+
+/* Render the form and tree. */
+echo $menu_output;
+echo $tree_output;
+$page_output->footer();

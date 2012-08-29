@@ -1,0 +1,42 @@
+<div data-role="page" data-theme="a"><div data-role="header" data-nobackbtn="true"><h1><tag:title /></h1></div>
+
+<div data-role="content" style="max-width:480px; margin:0 auto;">
+
+<h3><tag:header /></h3>
+
+<form method="post" action="<tag:logintasks_url />" id="logintasks_confirm" name="logintasks_confirm" data-ajax="false">
+<input type="hidden" name="logintasks_page" value="1" />
+<tag:maint_postdata />
+
+<loop:tasks>
+<div class="logintasks-item">
+<if:confirm>
+   <input type="checkbox" class="checkbox" name="logintasks_confirm_<tag:tasks.key />" id="logintasks_confirm_<tag:tasks.key />"<if:tasks.checked> checked="checked"</if:tasks.checked>>
+</if:confirm>
+   <if:confirm><label for="logintasks_confirm_<tag:tasks.key />"></if:confirm><tag:tasks.descrip /><if:confirm></label></if:confirm>
+</div>
+</loop:tasks>
+
+<if:confirm>
+ <fieldset class="ui-grid-a">
+  <div class="ui-block-a"><button type="submit" data-theme="c" id="logintasks_skip" style="display:none"><gettext>Skip Login Tasks</gettext></button></div>
+  <div class="ui-block-b"><button type="submit" data-theme="b" name="ok"><gettext>Run Login Tasks</gettext></button></div>
+ </fieldset>
+</if:confirm>
+<if:agree>
+ <fieldset class="ui-grid-a">
+  <div class="ui-block-a"><button type="submit" data-theme="c" name="not_agree"><gettext>NO, I Do NOT Agree</gettext></button></div>
+  <div class="ui-block-b"><button type="submit" data-theme="b" name="agree"><gettext>Yes, I Agree</gettext></button></div>
+ </fieldset>
+</if:agree>
+<if:notice>
+ <fieldset>
+  <button type="submit" name="ok"><gettext>Click to Continue</gettext></button>
+ </fieldset>
+</if:notice>
+
+</form>
+
+</div>
+
+</div>

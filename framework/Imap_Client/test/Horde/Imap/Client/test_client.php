@@ -24,7 +24,7 @@
  */
 
 /** Configuration **/
-$driver = 'Socket';
+$driver = 'Horde_Imap_Client_Socket';
 $params = array(
     'username' => '',
     'password' => '',
@@ -51,7 +51,7 @@ $test_mbox_utf8 = 'TestMailboxTest1è';
 /** End Configuration **/
 
 require_once 'Horde/Autoloader.php';
-$currdir = dirname(__FILE__);
+$currdir = __DIR__;
 
 /* Check for Horde_Cache::. */
 if (@include_once 'Horde/Cache.php') {
@@ -108,8 +108,8 @@ if (require_once 'Horde/Secret.php') {
 // Add an ID field to send to server (ID extension)
 $params['id'] = array('name' => 'Horde_Imap_Client test program');
 
-$imap_client = Horde_Imap_Client::factory($driver, $params);
-if ($driver == 'Socket_Pop3') {
+$imap_client = new $driver($params);
+if ($driver == 'Horde_Imap_Client_Socket_Pop3') {
     $pop3 = true;
     $test_mbox = $test_mbox_utf8 = 'INBOX';
 

@@ -2,7 +2,7 @@
 /**
  * Require our basic test case definition
  */
-require_once dirname(__FILE__) . '/Autoload.php';
+require_once __DIR__ . '/Autoload.php';
 
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
@@ -74,6 +74,52 @@ EOT;
             Horde_String::convertCharset($expected, 'UTF-8', 'iso-8859-2'),
             trim($dom->returnBody())
         );
+    }
+
+    public function testIterator()
+    {
+        $text = file_get_contents(__DIR__ . '/fixtures/domhtml_test.html');
+        $dom = new Horde_Domhtml($text);
+
+        $tags = array(
+            'html',
+            'body',
+            'div',
+            'head',
+            'title'
+        );
+
+        foreach ($dom as $node) {
+            if ($node instanceof DOMElement) {
+                if ($node->tagName != reset($tags)) {
+                    $this->fail('Wrong tag name.');
+                }
+                array_shift($tags);
+            }
+        }
+    }
+
+    public function testHrefSpaces()
+    {
+        $text = <<<EOT
+<html>
+ <body>
+  <a href="  http://foo.example.com/">Foo</a>
+ </body>
+</html>
+EOT;
+
+        $dom = new Horde_Domhtml($text, 'UTF-8');
+
+        foreach ($dom as $val) {
+            if (($val instanceof DOMElement) &&
+                ($val->tagName == 'a')) {
+                $this->assertEquals(
+                    '  http://foo.example.com/',
+                    $val->getAttribute('href')
+                );
+            }
+        }
     }
 
 }

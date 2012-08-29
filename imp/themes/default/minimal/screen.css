@@ -1,0 +1,31 @@
+/**
+ * Minimal view (mimp) core CSS.
+ */
+
+body {
+    font-family: sans-serif;
+    font-size: 90%;
+}
+
+.fixed, .mimePartData {
+    font-family: monospace;
+}
+
+.mimeStatusMessage {
+    padding-bottom: 10px;
+}
+
+.mimeStatusMessageTable {
+    border-collapse: collapse;
+}
+
+.notices img {
+    display: none;
+}
+.notices {
+    border: 1px solid black;
+}
+
+ul.mimpMenu li {
+    padding-bottom: 4px;
+}

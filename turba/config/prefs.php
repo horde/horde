@@ -46,6 +46,7 @@ $prefGroups['format'] = array(
 // Address Book selection widget
 $_prefs['addressbookselect'] = array(
     'type' => 'special',
+    'handler' => 'Turba_Prefs_Special_Addressbook'
 );
 
 // Address books to be displayed in the address book selection widget
@@ -63,12 +64,48 @@ $_prefs['addressbooks'] = array(
 $_prefs['sync_books'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
+    'enum' => array(),
     'desc' => _("Select the address books that should be used for synchronization with external devices:"),
+    'on_init' => function($ui) {
+        Horde_Core_Prefs_Ui_Widgets::sourceInit();
+        $enum = array();
+        $sync_books = @unserialize($GLOBALS['prefs']->getValue('sync_books'));
+        if (empty($sync_books)) {
+            $GLOBALS['prefs']->setValue('sync_books', serialize(array(Turba::getDefaultAddressbook())));
+        }
+        foreach (Turba::getAddressBooks() as $key => $val) {
+            if (!empty($val['map']['__uid']) &&
+                !empty($val['browse'])) {
+                $enum[$key] = $val['title'];
+            }
+        }
+        $ui->prefs['sync_books']['enum'] = $enum;
+    },
+    'on_change' => function() {
+        if ($GLOBALS['conf']['activesync']['enabled']) {
+            try {
+                $sm = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+                $sm->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
+                $devices = $sm->listDevices($GLOBALS['registry']->getAuth());
+                foreach ($devices as $device) {
+                    $sm->removeState(array(
+                        'devId' => $device['device_id'],
+                        'id' => Horde_Core_ActiveSync_Driver::CONTACTS_FOLDER_UID,
+                        'user' => $GLOBALS['registry']->getAuth()
+                    ));
+                }
+                $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
+            } catch (Horde_ActiveSync_Exception $e) {
+                $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.error');
+            }
+        }
+    }
 );
 
 // Columns selection widget
 $_prefs['columnselect'] = array(
-    'type' => 'special'
+    'type' => 'special',
+    'handler' => 'Turba_Prefs_Special_Addressbook'
 );
 
 // Columns to be displayed in Browse and Search results, with entries
@@ -135,12 +172,20 @@ $_prefs['name_sort'] = array(
 );
 
 // Default directory
-// Addressbook list array is dynamically built when prefs screen is displayed
 $_prefs['default_dir'] = array(
     'value' => '',
     // 'value' => 'localsql',
     'type' => 'enum',
+    'enum' => array(),
     'desc' => _("This will be the default address book when adding or importing contacts."),
+    'on_init' => function($ui) {
+        Horde_Core_Prefs_Ui_Widgets::sourceInit();
+        $enum = array();
+        foreach ($GLOBALS['cfgSources'] as $key => $info) {
+            $enum[$key] = $info['title'];
+        }
+        $ui->prefs['default_dir']['enum'] = $enum;
+    }
 );
 
 // preference for holding any preferences-based addressbooks.

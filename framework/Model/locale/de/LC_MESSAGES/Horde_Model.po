@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Model\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"PO-Revision-Date: 2012-08-28 15:42+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -44,8 +44,8 @@ msgstr " (gestern)"
 msgid "\"%s\" is not a valid email address."
 msgstr "\"%s\" ist keine gültige E-Mail-Adresse."
 
-#: lib/Horde/Core/Form/daterendererchanges.php:782
-#: lib/Horde/Form/VarRenderer/Xhtml.php:631
+#: lib/Horde/Core/Form/daterendererchanges.php:783
+#: lib/Horde/Form/VarRenderer/Xhtml.php:632
 msgid "-- select --"
 msgstr "-- Auswählen --"
 
@@ -53,23 +53,23 @@ msgstr "-- Auswählen --"
 msgid "A Date"
 msgstr "Ein Datum"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:587
+#: lib/Horde/Core/Form/daterendererchanges.php:588
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:437
+#: lib/Horde/Form/VarRenderer/Xhtml.php:438
 msgid "Add column"
 msgstr "Spalte hinzufügen"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:435
-#: lib/Horde/Form/VarRenderer/Xhtml.php:282
-#: lib/Horde/Form/VarRenderer/Xhtml.php:321
+#: lib/Horde/Core/Form/daterendererchanges.php:436
+#: lib/Horde/Form/VarRenderer/Xhtml.php:283
+#: lib/Horde/Form/VarRenderer/Xhtml.php:322
 msgid "April"
 msgstr "April"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:439
-#: lib/Horde/Form/VarRenderer/Xhtml.php:286
-#: lib/Horde/Form/VarRenderer/Xhtml.php:325
+#: lib/Horde/Core/Form/daterendererchanges.php:440
+#: lib/Horde/Form/VarRenderer/Xhtml.php:287
+#: lib/Horde/Form/VarRenderer/Xhtml.php:326
 msgid "August"
 msgstr "August"
 
@@ -81,7 +81,7 @@ msgstr "Balkenfeld"
 msgid "Boolean"
 msgstr "Boolean"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:489
+#: lib/Horde/Core/Form/daterendererchanges.php:490
 msgid "Calendar"
 msgstr "Kalender"
 
@@ -91,12 +91,12 @@ msgstr "Checkbox-Gruppe"
 
 #: www/test.php:32
 msgid "Color"
-msgstr "Farbig"
+msgstr "Farbe"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:536
-#: lib/Horde/Core/Form/daterendererchanges.php:538
-#: lib/Horde/Form/VarRenderer/Xhtml.php:379
+#: lib/Horde/Core/Form/daterendererchanges.php:537
+#: lib/Horde/Core/Form/daterendererchanges.php:539
 #: lib/Horde/Form/VarRenderer/Xhtml.php:380
+#: lib/Horde/Form/VarRenderer/Xhtml.php:381
 msgid "Color Picker"
 msgstr "Farbauswahl"
 
@@ -104,18 +104,18 @@ msgstr "Farbauswahl"
 msgid "Credit Card"
 msgstr "Kreditkarte"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:330
+#: lib/Horde/Form/VarRenderer/Xhtml.php:331
 msgid "DD"
 msgstr "TT"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:443
-#: lib/Horde/Form/VarRenderer/Xhtml.php:290
-#: lib/Horde/Form/VarRenderer/Xhtml.php:329
+#: lib/Horde/Core/Form/daterendererchanges.php:444
+#: lib/Horde/Form/VarRenderer/Xhtml.php:291
+#: lib/Horde/Form/VarRenderer/Xhtml.php:330
 msgid "December"
 msgstr "Dezember"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:1116
-#: lib/Horde/Form/VarRenderer/Xhtml.php:913
+#: lib/Horde/Core/Form/daterendererchanges.php:1103
+#: lib/Horde/Form/VarRenderer/Xhtml.php:914
 #, php-format
 msgid "Dial %s"
 msgstr "%s wählen"
@@ -132,21 +132,21 @@ msgstr "Die E-Mail-Adressen müssen gleich sein."
 msgid "Email2"
 msgstr "E-Mail-Adresse 2"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:313
-#: lib/Horde/Form/VarRenderer/Xhtml.php:181
+#: lib/Horde/Core/Form/daterendererchanges.php:314
 #: lib/Horde/Form/VarRenderer/Xhtml.php:182
+#: lib/Horde/Form/VarRenderer/Xhtml.php:183
 msgid "Emoticons"
 msgstr "Smileys"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:917
-#: lib/Horde/Core/Form/daterendererchanges.php:928
-#: lib/Horde/Form/VarRenderer/Xhtml.php:775
+#: lib/Horde/Core/Form/daterendererchanges.php:918
+#: lib/Horde/Core/Form/daterendererchanges.php:929
+#: lib/Horde/Form/VarRenderer/Xhtml.php:776
 msgid "Enter the letters below:"
 msgstr "Geben Sie die folgenden Buchstaben ein:"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:433
-#: lib/Horde/Form/VarRenderer/Xhtml.php:280
-#: lib/Horde/Form/VarRenderer/Xhtml.php:319
+#: lib/Horde/Core/Form/daterendererchanges.php:434
+#: lib/Horde/Form/VarRenderer/Xhtml.php:281
+#: lib/Horde/Form/VarRenderer/Xhtml.php:320
 msgid "February"
 msgstr "Februar"
 
@@ -158,8 +158,8 @@ msgstr "Verhältnis zurücksetzen"
 msgid "Flip"
 msgstr "Umdrehen"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:1261
-#: lib/Horde/Form/VarRenderer/Xhtml.php:1018
+#: lib/Horde/Core/Form/daterendererchanges.php:1248
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1019
 msgid "Google Maps"
 msgstr "Google Maps"
 
@@ -189,26 +189,26 @@ msgstr "Ganzzahl"
 msgid "Invalid data."
 msgstr "Ungültige Daten."
 
-#: lib/Horde/Core/Form/daterendererchanges.php:712
-#: lib/Horde/Form/VarRenderer/Xhtml.php:562
+#: lib/Horde/Core/Form/daterendererchanges.php:713
+#: lib/Horde/Form/VarRenderer/Xhtml.php:563
 msgid "Invert selection"
 msgstr "Auswahl umkehren"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:432
-#: lib/Horde/Form/VarRenderer/Xhtml.php:279
-#: lib/Horde/Form/VarRenderer/Xhtml.php:318
+#: lib/Horde/Core/Form/daterendererchanges.php:433
+#: lib/Horde/Form/VarRenderer/Xhtml.php:280
+#: lib/Horde/Form/VarRenderer/Xhtml.php:319
 msgid "January"
 msgstr "Januar"
+
+#: lib/Horde/Core/Form/daterendererchanges.php:439
+#: lib/Horde/Form/VarRenderer/Xhtml.php:286
+#: lib/Horde/Form/VarRenderer/Xhtml.php:325
+msgid "July"
+msgstr "Juli"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:438
 #: lib/Horde/Form/VarRenderer/Xhtml.php:285
 #: lib/Horde/Form/VarRenderer/Xhtml.php:324
-msgid "July"
-msgstr "Juli"
-
-#: lib/Horde/Core/Form/daterendererchanges.php:437
-#: lib/Horde/Form/VarRenderer/Xhtml.php:284
-#: lib/Horde/Form/VarRenderer/Xhtml.php:323
 msgid "June"
 msgstr "Juni"
 
@@ -216,32 +216,32 @@ msgstr "Juni"
 msgid "Keep original?"
 msgstr "Original beibehalten?"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:431
-#: lib/Horde/Form/VarRenderer/Xhtml.php:278
-#: lib/Horde/Form/VarRenderer/Xhtml.php:317
+#: lib/Horde/Core/Form/daterendererchanges.php:432
+#: lib/Horde/Form/VarRenderer/Xhtml.php:279
+#: lib/Horde/Form/VarRenderer/Xhtml.php:318
 msgid "MM"
 msgstr "MM"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:1043
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1044
 msgid "Map24 map"
 msgstr "Map24-Karte"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:1187
-#: lib/Horde/Core/Form/daterendererchanges.php:1236
-#: lib/Horde/Form/VarRenderer/Xhtml.php:974
-#: lib/Horde/Form/VarRenderer/Xhtml.php:1058
+#: lib/Horde/Core/Form/daterendererchanges.php:1174
+#: lib/Horde/Core/Form/daterendererchanges.php:1223
+#: lib/Horde/Form/VarRenderer/Xhtml.php:975
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1059
 msgid "MapQuest map"
 msgstr "MapQuest-Karte"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:434
-#: lib/Horde/Form/VarRenderer/Xhtml.php:281
-#: lib/Horde/Form/VarRenderer/Xhtml.php:320
+#: lib/Horde/Core/Form/daterendererchanges.php:435
+#: lib/Horde/Form/VarRenderer/Xhtml.php:282
+#: lib/Horde/Form/VarRenderer/Xhtml.php:321
 msgid "March"
 msgstr "März"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:436
-#: lib/Horde/Form/VarRenderer/Xhtml.php:283
-#: lib/Horde/Form/VarRenderer/Xhtml.php:322
+#: lib/Horde/Core/Form/daterendererchanges.php:437
+#: lib/Horde/Form/VarRenderer/Xhtml.php:284
+#: lib/Horde/Form/VarRenderer/Xhtml.php:323
 msgid "May"
 msgstr "Mai"
 
@@ -249,52 +249,52 @@ msgstr "Mai"
 msgid "Mirror"
 msgstr "Spiegeln"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:559
-#: lib/Horde/Form/VarRenderer/Xhtml.php:407
+#: lib/Horde/Core/Form/daterendererchanges.php:560
+#: lib/Horde/Form/VarRenderer/Xhtml.php:408
 msgid "Move down"
 msgstr "Nach unten"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:558
 #: lib/Horde/Core/Form/daterendererchanges.php:559
-#: lib/Horde/Form/VarRenderer/Xhtml.php:403
+#: lib/Horde/Core/Form/daterendererchanges.php:560
 #: lib/Horde/Form/VarRenderer/Xhtml.php:404
-#: lib/Horde/Form/VarRenderer/Xhtml.php:406
+#: lib/Horde/Form/VarRenderer/Xhtml.php:405
+#: lib/Horde/Form/VarRenderer/Xhtml.php:407
 msgid "Move up"
 msgstr "Nach oben"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:1156
-#: lib/Horde/Form/VarRenderer/Xhtml.php:945
+#: lib/Horde/Core/Form/daterendererchanges.php:1143
+#: lib/Horde/Form/VarRenderer/Xhtml.php:946
 msgid "Multimap UK map"
 msgstr "Multimap-UK-Karte"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:1021
-#: lib/Horde/Form/VarRenderer/Xhtml.php:846 www/test.php:37
+#: lib/Horde/Core/Form/daterendererchanges.php:1008
+#: lib/Horde/Form/VarRenderer/Xhtml.php:847 www/test.php:37
 msgid "No"
 msgstr "Nein"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:506
+#: lib/Horde/Core/Form/daterendererchanges.php:507
 msgid "No Sound"
 msgstr "Kein Ton"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:1029
-#: lib/Horde/Core/Form/daterendererchanges.php:1039
-#: lib/Horde/Core/Form/daterendererchanges.php:1050
-#: lib/Horde/Core/Form/daterendererchanges.php:1067
-#: lib/Horde/Form/VarRenderer/Xhtml.php:854
-#: lib/Horde/Form/VarRenderer/Xhtml.php:864
-#: lib/Horde/Form/VarRenderer/Xhtml.php:875
-#: lib/Horde/Form/VarRenderer/Xhtml.php:892
+#: lib/Horde/Core/Form/daterendererchanges.php:1016
+#: lib/Horde/Core/Form/daterendererchanges.php:1026
+#: lib/Horde/Core/Form/daterendererchanges.php:1037
+#: lib/Horde/Core/Form/daterendererchanges.php:1054
+#: lib/Horde/Form/VarRenderer/Xhtml.php:855
+#: lib/Horde/Form/VarRenderer/Xhtml.php:865
+#: lib/Horde/Form/VarRenderer/Xhtml.php:876
+#: lib/Horde/Form/VarRenderer/Xhtml.php:893
 msgid "No values"
 msgstr "Keine Werte"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:442
-#: lib/Horde/Form/VarRenderer/Xhtml.php:289
-#: lib/Horde/Form/VarRenderer/Xhtml.php:328
+#: lib/Horde/Core/Form/daterendererchanges.php:443
+#: lib/Horde/Form/VarRenderer/Xhtml.php:290
+#: lib/Horde/Form/VarRenderer/Xhtml.php:329
 msgid "November"
 msgstr "November"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:899
-#: lib/Horde/Form/VarRenderer/Xhtml.php:758
+#: lib/Horde/Core/Form/daterendererchanges.php:900
+#: lib/Horde/Form/VarRenderer/Xhtml.php:759
 msgid "Object"
 msgstr "Objekt"
 
@@ -302,13 +302,13 @@ msgstr "Objekt"
 msgid "Octal"
 msgstr "Oktalzahl"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:441
-#: lib/Horde/Form/VarRenderer/Xhtml.php:288
-#: lib/Horde/Form/VarRenderer/Xhtml.php:327
+#: lib/Horde/Core/Form/daterendererchanges.php:442
+#: lib/Horde/Form/VarRenderer/Xhtml.php:289
+#: lib/Horde/Form/VarRenderer/Xhtml.php:328
 msgid "October"
 msgstr "Oktober"
 
-#: lib/Horde/Core/Form/Type/EmailConfirm.php:27
+#: lib/Horde/Core/Form/Type/EmailConfirm.php:31
 msgid "Only one email address allowed."
 msgstr "Nur eine E-Mail-Adresse erlaubt."
 
@@ -328,8 +328,8 @@ msgstr "Passwort mit Bestätigung"
 msgid "Passwords must match."
 msgstr "Die Passwörter müssen gleich sein."
 
-#: lib/Horde/Core/Form/daterendererchanges.php:1465
-#: lib/Horde/Form/VarRenderer/Xhtml.php:1199
+#: lib/Horde/Core/Form/daterendererchanges.php:1452
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1200
 msgid "Preview"
 msgstr "Vorschau"
 
@@ -338,11 +338,11 @@ msgid "Radio Group"
 msgstr "Auswahlknopf-Gruppe"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:199
-#: lib/Horde/Core/Form/daterendererchanges.php:590
+#: lib/Horde/Core/Form/daterendererchanges.php:591
 msgid "Remove"
 msgstr "Entfernen"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:440
+#: lib/Horde/Form/VarRenderer/Xhtml.php:441
 msgid "Remove column"
 msgstr "Spalte löschen"
 
@@ -368,22 +368,22 @@ msgstr "Nach links drehen"
 msgid "Rotate Right"
 msgstr "Nach rechts drehen"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:489
+#: lib/Horde/Core/Form/daterendererchanges.php:490
 msgid "Select a date"
 msgstr "Datum auswählen"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:710
-#: lib/Horde/Form/VarRenderer/Xhtml.php:560
+#: lib/Horde/Core/Form/daterendererchanges.php:711
+#: lib/Horde/Form/VarRenderer/Xhtml.php:561
 msgid "Select all"
 msgstr "Alle auswählen"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:899
-#: lib/Horde/Form/VarRenderer/Xhtml.php:758
+#: lib/Horde/Core/Form/daterendererchanges.php:900
+#: lib/Horde/Form/VarRenderer/Xhtml.php:759
 msgid "Select an object"
 msgstr "Objekt auswählen"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:711
-#: lib/Horde/Form/VarRenderer/Xhtml.php:561
+#: lib/Horde/Core/Form/daterendererchanges.php:712
+#: lib/Horde/Form/VarRenderer/Xhtml.php:562
 msgid "Select none"
 msgstr "Keinen auswählen"
 
@@ -399,14 +399,14 @@ msgstr "Etwas auswählen 2"
 msgid "Select:"
 msgstr "Auswahl:"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:1132
-#: lib/Horde/Form/VarRenderer/Xhtml.php:929
+#: lib/Horde/Core/Form/daterendererchanges.php:1119
+#: lib/Horde/Form/VarRenderer/Xhtml.php:930
 msgid "Send SMS"
 msgstr "SMS verschicken"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:440
-#: lib/Horde/Form/VarRenderer/Xhtml.php:287
-#: lib/Horde/Form/VarRenderer/Xhtml.php:326
+#: lib/Horde/Core/Form/daterendererchanges.php:441
+#: lib/Horde/Form/VarRenderer/Xhtml.php:288
+#: lib/Horde/Form/VarRenderer/Xhtml.php:327
 msgid "September"
 msgstr "September"
 
@@ -467,8 +467,8 @@ msgstr ""
 msgid "This form has already been processed."
 msgstr "Dieses Formular wurde bereits verarbeitet."
 
-#: lib/Horde/Core/Form/daterendererchanges.php:683
-#: lib/Horde/Form/VarRenderer/Xhtml.php:532
+#: lib/Horde/Core/Form/daterendererchanges.php:684
+#: lib/Horde/Form/VarRenderer/Xhtml.php:533
 msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
@@ -489,28 +489,28 @@ msgstr "Benutzername"
 msgid "Value is over the maximum length of %s."
 msgstr "Der Wert ist über der maximalen Länge von %s."
 
-#: lib/Horde/Core/Form/daterendererchanges.php:1163
-#: lib/Horde/Form/VarRenderer/Xhtml.php:951
+#: lib/Horde/Core/Form/daterendererchanges.php:1150
+#: lib/Horde/Form/VarRenderer/Xhtml.php:952
 msgid "Whereis Australia map"
 msgstr "Whereis-Australia-Karte"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:444
-#: lib/Horde/Form/VarRenderer/Xhtml.php:291
-#: lib/Horde/Form/VarRenderer/Xhtml.php:334
+#: lib/Horde/Core/Form/daterendererchanges.php:445
+#: lib/Horde/Form/VarRenderer/Xhtml.php:292
+#: lib/Horde/Form/VarRenderer/Xhtml.php:335
 msgid "YYYY"
 msgstr "JJJJ"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:1207
-#: lib/Horde/Form/VarRenderer/Xhtml.php:998
+#: lib/Horde/Core/Form/daterendererchanges.php:1194
+#: lib/Horde/Form/VarRenderer/Xhtml.php:999
 msgid "Yahoo! map"
 msgstr "Yahoo! Karte"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:1021
-#: lib/Horde/Form/VarRenderer/Xhtml.php:846 www/test.php:36
+#: lib/Horde/Core/Form/daterendererchanges.php:1008
+#: lib/Horde/Form/VarRenderer/Xhtml.php:847 www/test.php:36
 msgid "Yes"
 msgstr "Ja"
 
-#: lib/Horde/Core/Form/Type/EmailConfirm.php:31
+#: lib/Horde/Core/Form/Type/EmailConfirm.php:24
 msgid "You did not enter a valid email address."
 msgstr "Sie haben keine gültige E-Mail-Adresse angegeben."
 
@@ -542,18 +542,18 @@ msgstr "Sie müssen mindestens eine E-Mail-Adresse angeben."
 msgid "h:"
 msgstr "h:"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:388
-#: lib/Horde/Form/VarRenderer/Xhtml.php:240
+#: lib/Horde/Core/Form/daterendererchanges.php:389
+#: lib/Horde/Form/VarRenderer/Xhtml.php:241
 msgid "hh"
 msgstr "hh"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:399
-#: lib/Horde/Form/VarRenderer/Xhtml.php:250
+#: lib/Horde/Core/Form/daterendererchanges.php:400
+#: lib/Horde/Form/VarRenderer/Xhtml.php:251
 msgid "mm"
 msgstr "mm"
 
-#: lib/Horde/Core/Form/daterendererchanges.php:416
-#: lib/Horde/Form/VarRenderer/Xhtml.php:262
+#: lib/Horde/Core/Form/daterendererchanges.php:417
+#: lib/Horde/Form/VarRenderer/Xhtml.php:263
 msgid "ss"
 msgstr "ss"
 

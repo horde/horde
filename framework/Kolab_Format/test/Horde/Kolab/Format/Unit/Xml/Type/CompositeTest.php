@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../Autoload.php';
 
 /**
  * Test the handler for attributes with composite values.
@@ -111,6 +111,26 @@ extends Horde_Kolab_Format_TestCase
                         'test' => 'Horde_Kolab_Format_Xml_Type_String_Empty',
                     ),
                     'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
+                )
+            )
+        );
+    }
+
+    public function testSaveMaybeMissing()
+    {
+        $this->assertEquals(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0"><composite><uid>1</uid><test>&amp;</test></composite></kolab>
+',
+            $this->saveToXml(
+                null,
+                array('composite' => array('uid' => 1, 'test' => '&')),
+                array(
+                    'array' => array(
+                        'uid' => 'Horde_Kolab_Format_Xml_Type_String_Empty',
+                        'test' => 'Horde_Kolab_Format_Xml_Type_String_Empty',
+                    ),
+                    'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
                 )
             )
         );

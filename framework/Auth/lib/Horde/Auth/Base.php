@@ -141,7 +141,13 @@ abstract class Horde_Auth_Base
             $this->_credentials['userId'] = $userId;
             if (($this->hasCapability('lock')) &&
                 $this->isLocked($userId)) {
-                throw new Horde_Auth_Exception('', Horde_Auth::REASON_LOCKED);
+                $details = $this->isLocked($userId, true);
+                if ($details['lock_timeout'] == Horde_Lock::PERMANENT) {
+                    $message = Horde_Auth_Translation::t("Your account has been permanently locked");
+                } else {
+                    $message = sprintf(Horde_Auth_Translation::t("Your account has been locked for %d minutes"), ceil(($details['lock_timeout'] - time()) / 60));
+                }
+                throw new Horde_Auth_Exception($message, Horde_Auth::REASON_LOCKED);
             }
             $this->_authenticate($userId, $credentials);
             $this->setCredential('userId', $this->_credentials['userId']);
@@ -157,7 +163,7 @@ abstract class Horde_Auth_Base
                     $this->hasCapability('badlogincount')) {
                     $this->_badLogin($userId);
                 }
-                $this->setError($code);
+                $this->setError($code, $e->getMessage());
             } else {
                 $this->setError(Horde_Auth::REASON_MESSAGE, $e->getMessage());
             }
@@ -240,8 +246,7 @@ abstract class Horde_Auth_Base
         }
 
         if ($time == 0) {
-            /* Roughly max timestamp32. */
-            $time = pow(2, 32) - time();
+            $time = Horde_Lock::PERMANENT;
         } else {
             $time *= 60;
         }

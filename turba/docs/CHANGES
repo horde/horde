@@ -1,7 +1,38 @@
 -----------
+v4.0.0beta2
+-----------
+
+[jan] Use Horde 5 action bar.
+
+
+-----------
+v4.0.0beta1
+-----------
+
+[jan] Add configuration example for Kolab/IMAP address books.
+[jan] Update icon set.
+[jan] Fix searching multiple names via the API.
+[jan] Fix searching and listing clients via the API.
+
+
+------------
+v4.0.0alpha1
+------------
+
+First alpha release for Horde 5.
+[mms] Import API call now throws an ObjectExists exception when a duplicate is
+      found.
+[jan] Add parameters to specify field size of phone and email fields.
+
+
+-----------
 v3.0.15-git
 -----------
 
+[mms] Fix descending sorting of result lists.
+[mms] Return to same page when deleting contact from browse view.
+[mjr] Add ability to return count of objects matching search in place of full
+      result set.
 [jan] Update Turkish translation (İstanbul Technical University).
 [jan] Fix strict searching in favourites driver (Bug #11207).
 

@@ -757,20 +757,23 @@ class Horde_Date_Recurrence
     /**
      * Adds an exception to a recurring event.
      *
-     * @param integer $year   The year of the execption.
-     * @param integer $month  The month of the execption.
+     * @param integer $year   The year of the exception.
+     * @param integer $month  The month of the exception.
      * @param integer $mday   The day of the month of the exception.
      */
     public function addException($year, $month, $mday)
     {
-        $this->exceptions[] = sprintf('%04d%02d%02d', $year, $month, $mday);
+        $key = sprintf('%04d%02d%02d', $year, $month, $mday);
+        if (array_search($key, $this->exceptions) === false) {
+            $this->exceptions[] = sprintf('%04d%02d%02d', $year, $month, $mday);
+        }
     }
 
     /**
      * Deletes an exception from a recurring event.
      *
-     * @param integer $year   The year of the execption.
-     * @param integer $month  The month of the execption.
+     * @param integer $year   The year of the exception.
+     * @param integer $month  The month of the exception.
      * @param integer $mday   The day of the month of the exception.
      */
     public function deleteException($year, $month, $mday)
@@ -810,8 +813,8 @@ class Horde_Date_Recurrence
     /**
      * Adds a completion to a recurring event.
      *
-     * @param integer $year   The year of the execption.
-     * @param integer $month  The month of the execption.
+     * @param integer $year   The year of the exception.
+     * @param integer $month  The month of the exception.
      * @param integer $mday   The day of the month of the completion.
      */
     public function addCompletion($year, $month, $mday)
@@ -822,8 +825,8 @@ class Horde_Date_Recurrence
     /**
      * Deletes a completion from a recurring event.
      *
-     * @param integer $year   The year of the execption.
-     * @param integer $month  The month of the execption.
+     * @param integer $year   The year of the exception.
+     * @param integer $month  The month of the exception.
      * @param integer $mday   The day of the month of the completion.
      */
     public function deleteCompletion($year, $month, $mday)
@@ -837,7 +840,7 @@ class Horde_Date_Recurrence
     /**
      * Checks if a completion exists for a given reccurence of an event.
      *
-     * @param integer $year   The year of the reucrance.
+     * @param integer $year   The year of the recurrance.
      * @param integer $month  The month of the recurrance.
      * @param integer $mday   The day of the month of the recurrance.
      *
@@ -950,10 +953,15 @@ class Horde_Date_Recurrence
             if (strpos($remainder, '#') === 0) {
                 $this->setRecurCount(substr($remainder, 1));
             } else {
-                list($year, $month, $mday) = sscanf($remainder, '%04d%02d%02d');
+                list($year, $month, $mday, $hour, $min, $sec, $tz) =
+                    sscanf($remainder, '%04d%02d%02dT%02d%02d%02d%s');
                 $this->setRecurEnd(new Horde_Date(array('year' => $year,
                                                         'month' => $month,
-                                                        'mday' => $mday)));
+                                                        'mday' => $mday,
+                                                        'hour' => $hour,
+                                                        'min' => $min,
+                                                        'sec' => $sec),
+                                                  $tz == 'Z' ? 'UTC' : $this->start->timezone));
             }
         }
     }
@@ -1111,7 +1119,8 @@ class Horde_Date_Recurrence
                                                     '%04d%02d%02d');
                 $this->setRecurEnd(new Horde_Date(array('year' => $year,
                                                         'month' => $month,
-                                                        'mday' => $mday)));
+                                                        'mday' => $mday),
+                                                  $this->start->timezone));
             }
             if (isset($rdata['COUNT'])) {
                 $this->setRecurCount($rdata['COUNT']);
@@ -1208,13 +1217,13 @@ class Horde_Date_Recurrence
     }
 
     /**
-     * Parses the recurrence data from a hash.
+     * Parses the recurrence data from a Kolab hash.
      *
      * @param array $hash  The hash to convert.
      *
      * @return boolean  True if the hash seemed valid, false otherwise.
      */
-    public function fromHash($hash)
+    public function fromKolab($hash)
     {
         $this->reset();
 
@@ -1405,23 +1414,23 @@ class Horde_Date_Recurrence
         }
 
         // Exceptions.
-        if (isset($hash['exceptions'])) {
-            $this->exceptions = $hash['exceptions'];
+        if (isset($hash['exclusion'])) {
+            $this->exceptions = $hash['exclusion'];
         }
 
-        if (isset($hash['completions'])) {
-            $this->completions = $hash['completions'];
+        if (isset($hash['complete'])) {
+            $this->completions = $hash['complete'];
         }
 
         return true;
     }
 
     /**
-     * Export this object into a hash.
+     * Export this object into a Kolab hash.
      *
      * @return array  The recurrence hash.
      */
-    public function toHash()
+    public function toKolab()
     {
         if ($this->getRecurType() == self::RECUR_NONE) {
             return array();
@@ -1526,8 +1535,8 @@ class Horde_Date_Recurrence
         }
 
         // Recurrence exceptions
-        $hash['exceptions'] = $this->exceptions;
-        $hash['completions'] = $this->completions;
+        $hash['exclusion'] = $this->exceptions;
+        $hash['complete'] = $this->completions;
 
         return $hash;
     }

@@ -13,9 +13,9 @@
  * @package  IMP
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
-    'impmode' => 'imp',
+    'impmode' => Horde_Registry::VIEW_BASIC,
     'timezone' => true
 ));
 
@@ -23,13 +23,13 @@ Horde_Registry::appInit('imp', array(
  * DEFAULT/'thread' - Thread mode
  * 'msgview' - Multiple message view
  */
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 $mode = $vars->mode
     ? $vars->mode
     : 'thread';
 
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-$imp_mailbox = IMP::$mailbox->getListOb(IMP::$thismailbox->getIndicesOb(IMP::$uid));
+$imp_mailbox = IMP::mailbox()->getListOb(IMP::mailbox(true)->getIndicesOb(IMP::uid()));
 
 $error = false;
 if ($mode == 'thread') {
@@ -70,16 +70,11 @@ $msgs = $tree = array();
 $rowct = 0;
 
 $subject = '';
-$page_label = IMP::$mailbox->label;
+$page_label = IMP::mailbox()->label;
 
 if ($mode == 'thread') {
-    $threadob = $imp_mailbox->getThreadOb();
-    $index_array = $imp_mailbox->getIMAPIndex();
-    $thread = $threadob->getThread($index_array['uid']);
-
-    $imp_thread = new IMP_Imap_Thread($threadob);
-    $threadtree = $imp_thread->getThreadImageTree($thread, false);
-    $imp_indices = IMP::$mailbox->getIndicesOb($thread);
+    $index = $imp_mailbox->getIMAPIndex();
+    $imp_indices = $imp_mailbox->getFullThread($index['uid'], $index['mailbox']);
 }
 
 $charset = 'UTF-8';
@@ -112,15 +107,15 @@ foreach ($imp_indices as $ob) {
         /* Get headers for the message. */
         $curr_msg['date'] = $imp_ui->getLocalTime($envelope->date);
 
-        if (IMP::$mailbox->special_outgoing) {
+        if (IMP::mailbox()->special_outgoing) {
             $curr_msg['addr_to'] = true;
             $curr_msg['addr'] = _("To:") . ' ' . $imp_ui->buildAddressLinks($envelope->to, Horde::selfUrl(true));
-            $addr = _("To:") . ' ' . htmlspecialchars(Horde_Mime_Address::addrObject2String(reset($envelope->to), array('charset' => $charset)), ENT_COMPAT, $charset);
+            $addr = _("To:") . ' ' . htmlspecialchars(strval($envelope->to[0]), ENT_COMPAT, $charset);
         } else {
             $from = $envelope->from;
             $curr_msg['addr_to'] = false;
             $curr_msg['addr'] = $imp_ui->buildAddressLinks($from, Horde::selfUrl(true));
-            $addr = htmlspecialchars(Horde_Mime_Address::addrObject2String(reset($from), array('charset' => $charset)), ENT_COMPAT, $charset);
+            $addr = htmlspecialchars(strval($from), ENT_COMPAT, $charset);
         }
 
         $subject_header = htmlspecialchars($envelope->subject, ENT_COMPAT, $charset);
@@ -134,10 +129,13 @@ foreach ($imp_indices as $ob) {
         } else {
             $curr_msg['link'] = Horde::widget('#display', _("Back to Multiple Message View Index"), 'widget', '', '', _("Back to Multiple Message View Index"), true);
         }
-        $curr_msg['link'] .= ' | ' . Horde::widget(IMP::$mailbox->url('message.php', $idx, $ob->mbox), _("Go to Message"), 'widget', '', '', _("Go to Message"), true);
-        $curr_msg['link'] .= ' | ' . Horde::widget(IMP::$mailbox->url('mailbox.php')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), sprintf(_("Back to %s"), $page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $page_label));
+        $curr_msg['link'] .= ' | ' . Horde::widget(IMP::mailbox()->url('message.php', $idx, $ob->mbox), _("Go to Message"), 'widget', '', '', _("Go to Message"), true);
+        $curr_msg['link'] .= ' | ' . Horde::widget(IMP::mailbox()->url('mailbox.php')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), sprintf(_("Back to %s"), $page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $page_label));
 
-        $curr_tree['subject'] = (($mode == 'thread') ? $threadtree[$idx] : null) . ' ' . Horde::link('#i' . $idx) . Horde_String::truncate($subject_header, 60) . '</a> (' . $addr . ')';
+        $curr_tree['subject'] = ($mode == 'thread')
+            ? $imp_mailbox[$imp_mailbox->getArrayIndex($fetch_res[$idx]->getUid(), $ob->mbox) + 1]['t']->img
+            : ' ';
+        $curr_tree['subject'] .= Horde::link('#i' . $idx) . Horde_String::truncate($subject_header, 60) . '</a> (' . $addr . ')';
 
         $msgs[] = $curr_msg;
         $tree[] = $curr_tree;
@@ -153,29 +151,28 @@ $template->set(
     'subject',
     $mode == 'thread' ? $subject : sprintf(_("%d Messages"), count($msgs)));
 if ($mode == 'thread') {
-    $delete_link = IMP::$mailbox->url('mailbox.php')->add(array(
+    $delete_link = IMP::mailbox()->url('mailbox.php')->add(array(
         'actionID' => 'delete_messages',
         'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')
     ));
     foreach ($thread as $val) {
-        $delete_link->add(array('indices[]' => strval(IMP::$mailbox->getIndicesOb($val)), 'start' => $imp_mailbox->getArrayIndex($val)));
+        $delete_link->add(array('indices[]' => strval(IMP::mailbox()->getIndicesOb($val)), 'start' => $imp_mailbox->getArrayIndex($val)));
     }
     $template->set('delete', Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete')));
-    Horde::addInlineScript(array(
+    $page_output->addInlineScript(array(
         '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete all messages in this thread?"), Horde_Serialize::JSON, $charset) . ')) { e.stop(); } })'
-    ), 'dom');
+    ), true);
 }
 $template->set('thread', $mode == 'thread');
 $template->set('messages', $msgs);
 $template->set('tree', $tree);
 
 /* Output page. */
-$title = ($mode == 'thread') ? _("Thread View") : _("Multiple Message View");
-Horde::addScriptFile('stripe.js', 'horde');
-Horde::noDnsPrefetch();
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->noDnsPrefetch();
 $menu = IMP::menu();
-require IMP_TEMPLATES . '/common-header.inc';
+IMP::header($mode == 'thread' ? _("Thread View") : _("Multiple Message View"));
 echo $menu;
 IMP::status();
 echo $template->fetch(IMP_TEMPLATES . '/imp/thread/thread.html');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -103,8 +103,8 @@ class Horde_Lock_Sql extends Horde_Lock
         $sql = 'SELECT lock_id, lock_owner, lock_scope, lock_principal, ' .
                'lock_origin_timestamp, lock_update_timestamp, ' .
                'lock_expiry_timestamp, lock_type FROM ' .
-               $this->_params['table'] . ' WHERE lock_expiry_timestamp >= ?';
-        $values = array($now);
+               $this->_params['table'] . ' WHERE lock_expiry_timestamp >= ? OR lock_expiry_timestamp = ?';
+        $values = array($now, Horde_Lock::PERMANENT);
 
         // Check to see if we need to filter the results
         if (!empty($principal)) {
@@ -135,11 +135,11 @@ class Horde_Lock_Sql extends Horde_Lock
     }
 
     /**
-     * Extend the valid lifetime of a valid lock to now + $newtimeout.
+     * Extend the valid lifetime of a valid lock to now + $lifetime.
      *
      * @see Horde_Lock_Base::resetLock()
      */
-    public function resetLock($lockid, $extend)
+    public function resetLock($lockid, $lifetime)
     {
         $now = time();
 
@@ -147,11 +147,12 @@ class Horde_Lock_Sql extends Horde_Lock
             return false;
         }
 
-        $expiry = $now + $extend;
+        $expiration = $lifetime == Horde_Lock::PERMANENT ? Horde_Lock::PERMANENT : $now + $lifetime;
+
         $sql = 'UPDATE ' . $this->_params['table'] . ' SET ' .
                'lock_update_timestamp = ?, lock_expiry_timestamp = ? ' .
                'WHERE lock_id = ?';
-        $values = array($now, $expiry, $lockid);
+        $values = array($now, $expiration, $lockid);
 
         try {
             $this->_db->update($sql, $values);
@@ -184,7 +185,7 @@ class Horde_Lock_Sql extends Horde_Lock
         $lockid = (string)new Horde_Support_Uuid();
 
         $now = time();
-        $expiration = $now + $lifetime;
+        $expiration = $lifetime == Horde_Lock::PERMANENT ? Horde_Lock::PERMANENT : $now + $lifetime;
         $sql = 'INSERT INTO ' . $this->_params['table'] . ' (lock_id, lock_owner, lock_scope, lock_principal, lock_origin_timestamp, lock_update_timestamp, lock_expiry_timestamp, lock_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
         $values = array($lockid, $requestor, $scope, $principal, $now, $now,
                         $expiration, $type);
@@ -239,8 +240,8 @@ class Horde_Lock_Sql extends Horde_Lock
     {
         $now = time();
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE ' .
-                 'lock_expiry_timestamp < ? AND lock_expiry_timestamp != 0';
-        $values = array($now);
+                 'lock_expiry_timestamp < ? AND lock_expiry_timestamp != ?';
+        $values = array($now, Horde_Lock::PERMANENT);
 
         try {
             $result = $this->_db->delete($query, $values);

@@ -28,20 +28,20 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-29</date>
- <time>18:13:24</time>
+ <date>2012-08-29</date>
+ <time>12:18:29</time>
  <version>
-  <release>4.0.16</release>
-  <api>4.0.0</api>
+  <release>5.0.0beta5</release>
+  <api>5.0.0beta1</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Turkish translation (İstanbul Technical University).
-* [jan] Fix setting permissions on static/ directory with horde-set-perms (Bug #11219).
+* [jan] Fix cancelling problem report.
+* [jan] Fix audio notification path printed in page output.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -87,7 +87,6 @@
     <file name="activesync.php" role="horde" />
     <file name="alarms.php" role="horde" />
     <file name="cmdshell.php" role="horde" />
-    <file name="datatree.php" role="horde" />
     <file name="groups.php" role="horde" />
     <file name="index.html" role="horde" />
     <file name="locks.php" role="horde" />
@@ -102,13 +101,10 @@
     <file name="horde-alarms" role="script" />
     <file name="horde-check-logger" role="script" />
     <file name="horde-clear-cache" role="script" />
-    <file name="horde-convert-datatree-groups-to-sql" role="script" />
-    <file name="horde-convert-datatree-perms-to-sql" role="script" />
     <file name="horde-crond" role="script" />
     <file name="horde-db-migrate" role="script" />
     <file name="horde-import-squirrelmail-prefs" role="script" />
     <file name="horde-memcache-stats" role="script" />
-    <file name="horde-move-history-out-of-datatree" role="script" />
     <file name="horde-run-task" role="script" />
     <file name="horde-set-perms" role="script" />
     <file name="horde-themes" role="script" />
@@ -143,70 +139,10 @@
     <file name="TRANSLATIONS" role="doc" />
     <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
+   <dir name="install">
+    <file name="horde.php" role="horde" />
+   </dir> <!-- /install -->
    <dir name="js">
-    <dir name="date">
-     <file name="ar-SY.js" role="horde" />
-     <file name="bg-BG.js" role="horde" />
-     <file name="bs-BA.js" role="horde" />
-     <file name="ca-ES.js" role="horde" />
-     <file name="cs-CZ.js" role="horde" />
-     <file name="da-DK.js" role="horde" />
-     <file name="date.js" role="horde" />
-     <file name="de-DE.js" role="horde" />
-     <file name="el-GR.js" role="horde" />
-     <file name="en-US.js" role="horde" />
-     <file name="es-ES.js" role="horde" />
-     <file name="et-EE.js" role="horde" />
-     <file name="eu-ES.js" role="horde" />
-     <file name="extras.js" role="horde" />
-     <file name="fa-IR.js" role="horde" />
-     <file name="fi-FI.js" role="horde" />
-     <file name="fr-FR.js" role="horde" />
-     <file name="gl-ES.js" role="horde" />
-     <file name="he-IL.js" role="horde" />
-     <file name="hu-HU.js" role="horde" />
-     <file name="id-ID.js" role="horde" />
-     <file name="is-IS.js" role="horde" />
-     <file name="it-IT.js" role="horde" />
-     <file name="ja-JP.js" role="horde" />
-     <file name="ko-KR.js" role="horde" />
-     <file name="lt-LT.js" role="horde" />
-     <file name="lv-LV.js" role="horde" />
-     <file name="mk-MK.js" role="horde" />
-     <file name="nb-NO.js" role="horde" />
-     <file name="nl-NL.js" role="horde" />
-     <file name="nn-NO.js" role="horde" />
-     <file name="pl-PL.js" role="horde" />
-     <file name="pt-BR.js" role="horde" />
-     <file name="pt-PT.js" role="horde" />
-     <file name="ro-RO.js" role="horde" />
-     <file name="ru-RU.js" role="horde" />
-     <file name="sk-SK.js" role="horde" />
-     <file name="sl-SI.js" role="horde" />
-     <file name="sv-SE.js" role="horde" />
-     <file name="time.js" role="horde" />
-     <file name="tr-TR.js" role="horde" />
-     <file name="uk-UA.js" role="horde" />
-     <file name="zh-CN.js" role="horde" />
-     <file name="zh-TW.js" role="horde" />
-    </dir> <!-- /js/date -->
-    <dir name="jquery.mobile">
-     <dir name="images">
-      <file name="ajax-loader.png" role="horde" />
-      <file name="form-check-off.png" role="horde" />
-      <file name="form-check-on.png" role="horde" />
-      <file name="form-radio-off.png" role="horde" />
-      <file name="form-radio-on.png" role="horde" />
-      <file name="icon-search-black.png" role="horde" />
-      <file name="icons-18-black.png" role="horde" />
-      <file name="icons-18-white.png" role="horde" />
-      <file name="icons-36-black.png" role="horde" />
-      <file name="icons-36-white.png" role="horde" />
-     </dir> <!-- /js/jquery.mobile/images -->
-     <file name="jquery.min.js" role="horde" />
-     <file name="jquery.mobile.min.css" role="horde" />
-     <file name="jquery.mobile.min.js" role="horde" />
-    </dir> <!-- /js/jquery.mobile -->
     <dir name="map">
      <dir name="img">
       <file name="blank.gif" role="horde" />
@@ -322,9 +258,6 @@
      <file name="OpenLayers-debug.js" role="horde" />
      <file name="OpenLayers.js" role="horde" />
      <file name="osm.js" role="horde" />
-     <file name="public.js" role="horde" />
-     <file name="tilesathome.js" role="horde" />
-     <file name="ve.js" role="horde" />
      <file name="yahoo.js" role="horde" />
     </dir> <!-- /js/map -->
     <dir name="plupload">
@@ -355,49 +288,28 @@
      <file name="plupload.silverlight.xap" role="horde" />
      <file name="uploader.js" role="horde" />
     </dir> <!-- /js/plupload -->
-    <file name="accesskeys.html" role="horde" />
-    <file name="accesskeys.js" role="horde" />
     <file name="activesyncadmin.js" role="horde" />
     <file name="activesyncprefs.js" role="horde" />
-    <file name="builder.js" role="horde" />
     <file name="categoryprefs.js" role="horde" />
-    <file name="colorpicker.js" role="horde" />
     <file name="contextsensitive.js" role="horde" />
-    <file name="controls.js" role="horde" />
-    <file name="dragdrop.js" role="horde" />
     <file name="dragdrop2.js" role="horde" />
-    <file name="effects.js" role="horde" />
     <file name="facebookclient.js" role="horde" />
-    <file name="form_assign.js" role="horde" />
     <file name="form_ghost.js" role="horde" />
-    <file name="form_helpers.js" role="horde" />
     <file name="form_sections.js" role="horde" />
-    <file name="growler.js" role="horde" />
-    <file name="horde-jquery.js" role="horde" />
-    <file name="horde.js" role="horde" />
     <file name="ieescguard.js" role="horde" />
-    <file name="image.js" role="horde" />
-    <file name="inplaceeditor.js" role="horde" />
-    <file name="keynavlist.js" role="horde" />
+    <file name="json2.js" role="horde" />
+    <file name="jstorage.js" role="horde" />
     <file name="login.js" role="horde" />
     <file name="logintasks.js" role="horde" />
     <file name="md5.js" role="horde" />
-    <file name="mobile.js" role="horde" />
-    <file name="popup.js" role="horde" />
-    <file name="prototype.js" role="horde" />
+    <file name="problem.js" role="horde" />
     <file name="quickfinder.js" role="horde" />
-    <file name="redbox.js" role="horde" />
-    <file name="rpcprefs.js" role="horde" />
-    <file name="scriptaculous.js" role="horde" />
     <file name="sidebar.js" role="horde" />
-    <file name="slider.js" role="horde" />
     <file name="slider2.js" role="horde" />
-    <file name="sorter.js" role="horde" />
-    <file name="sound.js" role="horde" />
     <file name="stripe.js" role="horde" />
     <file name="syncmlprefs.js" role="horde" />
-    <file name="tables.js" role="horde" />
     <file name="textarearesize.js" role="horde" />
+    <file name="topbar.js" role="horde" />
     <file name="twitterclient.js" role="horde" />
     <file name="userupdate.js" role="horde" />
     <file name="vatid.js" role="horde" />
@@ -440,11 +352,27 @@
      </dir> <!-- /lib/LoginTasks/Task -->
     </dir> <!-- /lib/LoginTasks -->
     <dir name="Prefs">
-     <file name="Ui.php" role="horde" />
+     <dir name="Special">
+      <file name="Activesync.php" role="horde" />
+      <file name="Category.php" role="horde" />
+      <file name="Facebook.php" role="horde" />
+      <file name="Syncml.php" role="horde" />
+      <file name="Twitter.php" role="horde" />
+     </dir> <!-- /lib/Prefs/Special -->
     </dir> <!-- /lib/Prefs -->
     <dir name="tests">
      <file name="webroot.phpt" role="horde" />
     </dir> <!-- /lib/tests -->
+    <dir name="Tree">
+     <dir name="Renderer">
+      <file name="Menu.php" role="horde" />
+      <file name="Sidebar.php" role="horde" />
+     </dir> <!-- /lib/Tree/Renderer -->
+    </dir> <!-- /lib/Tree -->
+    <dir name="View">
+     <file name="Sidebar.php" role="horde" />
+     <file name="Topbar.php" role="horde" />
+    </dir> <!-- /lib/View -->
     <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
@@ -760,11 +688,8 @@
     </dir> <!-- /scripts/sql -->
     <dir name="upgrades">
      <file name="3.0_to_3.1.mysql.sql" role="data" />
-     <file name="3.0_to_3.1.oci8.sql" role="data" />
      <file name="3.0_to_3.1.sql" role="data" />
-     <file name="3.1_to_3.2.mssql.sql" role="data" />
      <file name="3.1_to_3.2.mysql.sql" role="data" />
-     <file name="3.1_to_3.2.oci8.sql" role="data" />
      <file name="3.1_to_3.2.pgsql.sql" role="data" />
      <file name="3.1_to_3.2.sql" role="data" />
      <file name="3.1_to_3.2.sybase.sql" role="data" />
@@ -801,7 +726,7 @@
      <file name="cloud_search.php" role="horde" />
      <file name="edit.php" role="horde" />
      <file name="index.php" role="horde" />
-     <file name="mobile.php" role="horde" />
+     <file name="smartmobile.php" role="horde" />
     </dir> <!-- /services/portal -->
     <dir name="shares">
      <file name="edit.php" role="horde" />
@@ -815,7 +740,6 @@
     <file name="changepassword.php" role="horde" />
     <file name="confirm.php" role="horde" />
     <file name="go.php" role="horde" />
-    <file name="imple.php" role="horde" />
     <file name="keyboard.php" role="horde" />
     <file name="language.php" role="horde" />
     <file name="logintasks.php" role="horde" />
@@ -865,6 +789,10 @@
      <file name="twitter-layout.html.php" role="horde" />
      <file name="twitter_tweet.html.php" role="horde" />
     </dir> <!-- /templates/block -->
+    <dir name="common">
+     <file name="footer.html.php" role="horde" />
+     <file name="header.html.php" role="horde" />
+    </dir> <!-- /templates/common -->
     <dir name="data">
      <file name="csvinfo.inc" role="horde" />
      <file name="csvmap.inc" role="horde" />
@@ -881,13 +809,13 @@
     </dir> <!-- /templates/help -->
     <dir name="login">
      <file name="login.inc" role="horde" />
-     <file name="mobile.inc" role="horde" />
      <file name="resetpassword.inc" role="horde" />
      <file name="signup.inc" role="horde" />
+     <file name="smartmobile.inc" role="horde" />
     </dir> <!-- /templates/login -->
     <dir name="logintasks">
      <file name="logintasks.html" role="horde" />
-     <file name="mobile.html" role="horde" />
+     <file name="smartmobile.html" role="horde" />
     </dir> <!-- /templates/logintasks -->
     <dir name="menu">
      <file name="menu.inc" role="horde" />
@@ -897,7 +825,8 @@
      <file name="block.inc" role="horde" />
      <file name="edit.inc" role="horde" />
      <file name="layout.inc" role="horde" />
-     <file name="mobile.inc" role="horde" />
+     <file name="new.inc" role="horde" />
+     <file name="smartmobile.inc" role="horde" />
     </dir> <!-- /templates/portal -->
     <dir name="prefs">
      <file name="activesync.html" role="horde" />
@@ -933,7 +862,9 @@
      <file name="edit.inc" role="horde" />
     </dir> <!-- /templates/shares -->
     <dir name="sidebar">
-     <file name="sidebar.inc" role="horde" />
+     <file name="sidebar.html.php" role="horde" />
+     <file name="_container.html.php" role="horde" />
+     <file name="_row.html.php" role="horde" />
     </dir> <!-- /templates/sidebar -->
     <dir name="test">
      <file name="extensions.inc" role="horde" />
@@ -943,59 +874,20 @@
      <file name="test.css" role="horde" />
      <file name="version.inc" role="horde" />
     </dir> <!-- /templates/test -->
+    <dir name="topbar">
+     <file name="topbar.html.php" role="horde" />
+     <file name="_menubar.html.php" role="horde" />
+     <file name="_subbar.html.php" role="horde" />
+    </dir> <!-- /templates/topbar -->
+    <dir name="tree">
+     <file name="menu.html.php" role="horde" />
+     <file name="sidebar.html.php" role="horde" />
+     <file name="_row.html.php" role="horde" />
+     <file name="_submenu.html.php" role="horde" />
+    </dir> <!-- /templates/tree -->
     <file name=".htaccess" role="horde" />
-    <file name="common-footer-mobile.inc" role="horde" />
-    <file name="common-footer.inc" role="horde" />
-    <file name="common-header-mobile.inc" role="horde" />
-    <file name="common-header.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
-    <dir name="azur">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/azur -->
-    <dir name="barbie">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/barbie -->
-    <dir name="bluemoon">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/bluemoon -->
-    <dir name="bluewhite">
-     <file name="info.php" role="horde" />
-     <file name="rtl.css" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/bluewhite -->
-    <dir name="brown">
-     <dir name="graphics">
-      <file name="button.gif" role="horde" />
-     </dir> <!-- /themes/brown/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/brown -->
-    <dir name="burntorange">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/burntorange -->
-    <dir name="camouflage">
-     <dir name="graphics">
-      <file name="menu.png" role="horde" />
-     </dir> <!-- /themes/camouflage/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/camouflage -->
-    <dir name="cornflower">
-     <dir name="graphics">
-      <file name="active_tab_left.gif" role="horde" />
-      <file name="active_tab_right.gif" role="horde" />
-      <file name="tab_bottom.gif" role="horde" />
-      <file name="tab_left.gif" role="horde" />
-      <file name="tab_right.gif" role="horde" />
-     </dir> <!-- /themes/cornflower/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/cornflower -->
     <dir name="default">
      <dir name="graphics">
       <dir name="alerts">
@@ -1568,13 +1460,6 @@
        <file name="wordperfect.png" role="horde" />
        <file name="xml.png" role="horde" />
       </dir> <!-- /themes/default/graphics/mime -->
-      <dir name="mobile">
-       <file name="bottom.jpg" role="horde" />
-       <file name="display.jpg" role="horde" />
-       <file name="left.jpg" role="horde" />
-       <file name="right.jpg" role="horde" />
-       <file name="top.jpg" role="horde" />
-      </dir> <!-- /themes/default/graphics/mobile -->
       <dir name="nav">
        <file name="bottom-grey.png" role="horde" />
        <file name="bottom.png" role="horde" />
@@ -1630,7 +1515,110 @@
        <file name="backgrounds.gif" role="horde" />
        <file name="up.png" role="horde" />
       </dir> <!-- /themes/default/graphics/uploader -->
-      <file name="about.png" role="horde" />
+      <dir name="weather">
+       <dir name="23x23">
+        <file name="0.png" role="horde" />
+        <file name="1.png" role="horde" />
+        <file name="2.png" role="horde" />
+        <file name="3.png" role="horde" />
+        <file name="4.png" role="horde" />
+        <file name="5.png" role="horde" />
+        <file name="6.png" role="horde" />
+        <file name="7.png" role="horde" />
+        <file name="8.png" role="horde" />
+        <file name="9.png" role="horde" />
+        <file name="10.png" role="horde" />
+        <file name="11.png" role="horde" />
+        <file name="12.png" role="horde" />
+        <file name="13.png" role="horde" />
+        <file name="14.png" role="horde" />
+        <file name="15.png" role="horde" />
+        <file name="16.png" role="horde" />
+        <file name="17.png" role="horde" />
+        <file name="18.png" role="horde" />
+        <file name="19.png" role="horde" />
+        <file name="20.png" role="horde" />
+        <file name="21.png" role="horde" />
+        <file name="22.png" role="horde" />
+        <file name="23.png" role="horde" />
+        <file name="24.png" role="horde" />
+        <file name="25.png" role="horde" />
+        <file name="26.png" role="horde" />
+        <file name="27.png" role="horde" />
+        <file name="28.png" role="horde" />
+        <file name="29.png" role="horde" />
+        <file name="30.png" role="horde" />
+        <file name="31.png" role="horde" />
+        <file name="32.png" role="horde" />
+        <file name="33.png" role="horde" />
+        <file name="34.png" role="horde" />
+        <file name="35.png" role="horde" />
+        <file name="36.png" role="horde" />
+        <file name="37.png" role="horde" />
+        <file name="38.png" role="horde" />
+        <file name="39.png" role="horde" />
+        <file name="40.png" role="horde" />
+        <file name="41.png" role="horde" />
+        <file name="42.png" role="horde" />
+        <file name="43.png" role="horde" />
+        <file name="44.png" role="horde" />
+        <file name="45.png" role="horde" />
+        <file name="46.png" role="horde" />
+        <file name="47.png" role="horde" />
+        <file name="na.png" role="horde" />
+       </dir> <!-- /themes/default/graphics/weather/23x23 -->
+       <dir name="32x32">
+        <file name="0.png" role="horde" />
+        <file name="1.png" role="horde" />
+        <file name="2.png" role="horde" />
+        <file name="3.png" role="horde" />
+        <file name="4.png" role="horde" />
+        <file name="5.png" role="horde" />
+        <file name="6.png" role="horde" />
+        <file name="7.png" role="horde" />
+        <file name="8.png" role="horde" />
+        <file name="9.png" role="horde" />
+        <file name="10.png" role="horde" />
+        <file name="11.png" role="horde" />
+        <file name="12.png" role="horde" />
+        <file name="13.png" role="horde" />
+        <file name="14.png" role="horde" />
+        <file name="15.png" role="horde" />
+        <file name="16.png" role="horde" />
+        <file name="17.png" role="horde" />
+        <file name="18.png" role="horde" />
+        <file name="19.png" role="horde" />
+        <file name="20.png" role="horde" />
+        <file name="21.png" role="horde" />
+        <file name="22.png" role="horde" />
+        <file name="23.png" role="horde" />
+        <file name="24.png" role="horde" />
+        <file name="25.png" role="horde" />
+        <file name="26.png" role="horde" />
+        <file name="27.png" role="horde" />
+        <file name="28.png" role="horde" />
+        <file name="29.png" role="horde" />
+        <file name="30.png" role="horde" />
+        <file name="31.png" role="horde" />
+        <file name="32.png" role="horde" />
+        <file name="33.png" role="horde" />
+        <file name="34.png" role="horde" />
+        <file name="35.png" role="horde" />
+        <file name="36.png" role="horde" />
+        <file name="37.png" role="horde" />
+        <file name="38.png" role="horde" />
+        <file name="39.png" role="horde" />
+        <file name="40.png" role="horde" />
+        <file name="41.png" role="horde" />
+        <file name="42.png" role="horde" />
+        <file name="43.png" role="horde" />
+        <file name="44.png" role="horde" />
+        <file name="45.png" role="horde" />
+        <file name="46.png" role="horde" />
+        <file name="47.png" role="horde" />
+        <file name="na.png" role="horde" />
+       </dir> <!-- /themes/default/graphics/weather/32x32 -->
+      </dir> <!-- /themes/default/graphics/weather -->
       <file name="add_group.png" role="horde" />
       <file name="add_perm.png" role="horde" />
       <file name="administration.png" role="horde" />
@@ -1638,8 +1626,15 @@
       <file name="az.png" role="horde" />
       <file name="blank.gif" role="horde" />
       <file name="block.png" role="horde" />
+      <file name="button-active-bg.png" role="horde" />
+      <file name="button-split.png" role="horde" />
+      <file name="button.png" role="horde" />
+      <file name="buttonbar-bg.png" role="horde" />
       <file name="calendar.png" role="horde" />
+      <file name="checkbox_off.png" role="horde" />
+      <file name="checkbox_on.png" role="horde" />
       <file name="close.png" role="horde" />
+      <file name="collapse.png" role="horde" />
       <file name="color-picker-cursor.gif" role="horde" />
       <file name="color-picker-palette.png" role="horde" />
       <file name="color-picker-resize.gif" role="horde" />
@@ -1647,18 +1642,21 @@
       <file name="colorscale.png" role="horde" />
       <file name="config.png" role="horde" />
       <file name="data.png" role="horde" />
-      <file name="datatree.png" role="horde" />
       <file name="delete-small.png" role="horde" />
       <file name="delete.png" role="horde" />
       <file name="devel.png" role="horde" />
       <file name="download.png" role="horde" />
+      <file name="edit-sidebar-000.png" role="horde" />
+      <file name="edit-sidebar-fff.png" role="horde" />
       <file name="edit-small.png" role="horde" />
       <file name="edit.png" role="horde" />
+      <file name="expand.png" role="horde" />
       <file name="external.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="feed.png" role="horde" />
       <file name="google.png" role="horde" />
       <file name="group.png" role="horde" />
+      <file name="head-bg.png" role="horde" />
       <file name="help.png" role="horde" />
       <file name="help_index.png" role="horde" />
       <file name="hide_panel.png" role="horde" />
@@ -1674,17 +1672,27 @@
       <file name="loading.gif" role="horde" />
       <file name="locked.png" role="horde" />
       <file name="login.png" role="horde" />
+      <file name="logo.png" role="horde" />
       <file name="logout.png" role="horde" />
       <file name="map.png" role="horde" />
       <file name="map_eu.png" role="horde" />
       <file name="minus.png" role="horde" />
       <file name="mobile.png" role="horde" />
       <file name="myaccount.png" role="horde" />
+      <file name="navi-arrow-active.png" role="horde" />
+      <file name="navi-arrow-normal.png" role="horde" />
+      <file name="navi-center-active.png" role="horde" />
+      <file name="navi-left-active.png" role="horde" />
+      <file name="navi-right-active.png" role="horde" />
+      <file name="navi-subnavi-active.png" role="horde" />
+      <file name="navi-subnavi.png" role="horde" />
       <file name="office.png" role="horde" />
       <file name="organizing.png" role="horde" />
       <file name="perms.png" role="horde" />
       <file name="phone.png" role="horde" />
+      <file name="plus-sidebar.png" role="horde" />
       <file name="plus.png" role="horde" />
+      <file name="popdown.png" role="horde" />
       <file name="popright.png" role="horde" />
       <file name="prefs.png" role="horde" />
       <file name="print.png" role="horde" />
@@ -1694,18 +1702,38 @@
       <file name="required.png" role="horde" />
       <file name="rhand.png" role="horde" />
       <file name="save.png" role="horde" />
+      <file name="search-topbar.png" role="horde" />
       <file name="search.png" role="horde" />
+      <file name="settings-active.png" role="horde" />
+      <file name="settings.png" role="horde" />
       <file name="shadow.gif" role="horde" />
       <file name="shadow.png" role="horde" />
       <file name="shell.png" role="horde" />
       <file name="show_panel.png" role="horde" />
+      <file name="sidebar-active-bg.png" role="horde" />
+      <file name="sidebar-new-bg.png" role="horde" />
+      <file name="sidebar-new.png" role="horde" />
+      <file name="sidebar-refresh.png" role="horde" />
+      <file name="sidebar-split.png" role="horde" />
+      <file name="slidehoriz-bg.png" role="horde" />
+      <file name="slidehoriz.png" role="horde" />
+      <file name="slidevert-bg.png" role="horde" />
+      <file name="slidevert.png" role="horde" />
       <file name="sql.png" role="horde" />
+      <file name="tab-active.png" role="horde" />
+      <file name="tab.png" role="horde" />
+      <file name="tablehead-bg.png" role="horde" />
+      <file name="tablehead-split.png" role="horde" />
+      <file name="tabset.png" role="horde" />
       <file name="tab_bottom.gif" role="horde" />
       <file name="unlocked.png" role="horde" />
       <file name="user.png" role="horde" />
       <file name="website.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
+     <dir name="smartmobile">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/smartmobile -->
      <dir name="sounds">
       <file name="doorbell.wav" role="horde" />
       <file name="gnid3.wav" role="horde" />
@@ -1716,555 +1744,14 @@
      <file name="embed.css" role="horde" />
      <file name="facebook.css" role="horde" />
      <file name="feed-rss.xsl" role="horde" />
-     <file name="ie6_or_less.css" role="horde" />
      <file name="ie7.css" role="horde" />
-     <file name="mobile.css" role="horde" />
+     <file name="info.php" role="horde" />
      <file name="opera.css" role="horde" />
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
      <file name="webkit.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="fadetogreen">
-     <dir name="graphics">
-      <file name="control.png" role="horde" />
-      <file name="header.png" role="horde" />
-      <file name="headerbox.png" role="horde" />
-      <file name="menucurrent.png" role="horde" />
-      <file name="menuhover.png" role="horde" />
-      <file name="message.png" role="horde" />
-      <file name="notice.png" role="horde" />
-      <file name="sidebar.png" role="horde" />
-      <file name="sidebarhover.png" role="horde" />
-     </dir> <!-- /themes/fadetogreen/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/fadetogreen -->
-    <dir name="gennevilliers">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/gennevilliers -->
-    <dir name="green">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/green -->
-    <dir name="grey">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/grey -->
-    <dir name="hi-contrast">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/hi-contrast -->
-    <dir name="hordevetica">
-     <dir name="graphics">
-      <dir name="alerts">
-       <file name="alarm.png" role="horde" />
-       <file name="error.png" role="horde" />
-       <file name="message.png" role="horde" />
-       <file name="success.png" role="horde" />
-       <file name="warning.png" role="horde" />
-      </dir> <!-- /themes/hordevetica/graphics/alerts -->
-      <dir name="block">
-       <file name="large_up.png" role="horde" />
-      </dir> <!-- /themes/hordevetica/graphics/block -->
-      <dir name="image">
-       <file name="crop.png" role="horde" />
-      </dir> <!-- /themes/hordevetica/graphics/image -->
-      <dir name="map">
-       <file name="marker-blue.png" role="horde" />
-       <file name="marker-gold.png" role="horde" />
-       <file name="marker-green.png" role="horde" />
-       <file name="marker-shadow.png" role="horde" />
-       <file name="marker.png" role="horde" />
-      </dir> <!-- /themes/hordevetica/graphics/map -->
-      <dir name="mime">
-       <file name="audio.png" role="horde" />
-       <file name="binary.png" role="horde" />
-       <file name="compressed.png" role="horde" />
-       <file name="deb.png" role="horde" />
-       <file name="encryption.png" role="horde" />
-       <file name="html.png" role="horde" />
-       <file name="icalendar.png" role="horde" />
-       <file name="image.png" role="horde" />
-       <file name="mail.png" role="horde" />
-       <file name="msexcel.png" role="horde" />
-       <file name="mspowerpoint.png" role="horde" />
-       <file name="msword.png" role="horde" />
-       <file name="ooo_calc.png" role="horde" />
-       <file name="ooo_draw.png" role="horde" />
-       <file name="ooo_impress.png" role="horde" />
-       <file name="ooo_math.png" role="horde" />
-       <file name="ooo_writer.png" role="horde" />
-       <file name="pdf.png" role="horde" />
-       <file name="php.png" role="horde" />
-       <file name="rpm.png" role="horde" />
-       <file name="script-js.png" role="horde" />
-       <file name="source-c.png" role="horde" />
-       <file name="source-cpp.png" role="horde" />
-       <file name="source-h.png" role="horde" />
-       <file name="source-java.png" role="horde" />
-       <file name="source-python.png" role="horde" />
-       <file name="text.png" role="horde" />
-       <file name="vcard.png" role="horde" />
-       <file name="video.png" role="horde" />
-       <file name="xml.png" role="horde" />
-      </dir> <!-- /themes/hordevetica/graphics/mime -->
-      <dir name="nav">
-       <file name="bottom-grey.png" role="horde" />
-       <file name="bottom.png" role="horde" />
-       <file name="down-grey.png" role="horde" />
-       <file name="down.png" role="horde" />
-       <file name="first-grey.png" role="horde" />
-       <file name="first.png" role="horde" />
-       <file name="last-grey.png" role="horde" />
-       <file name="last.png" role="horde" />
-       <file name="left-grey.png" role="horde" />
-       <file name="left.png" role="horde" />
-       <file name="right-grey.png" role="horde" />
-       <file name="right.png" role="horde" />
-       <file name="top-grey.png" role="horde" />
-       <file name="top.png" role="horde" />
-       <file name="up-grey.png" role="horde" />
-       <file name="up.png" role="horde" />
-      </dir> <!-- /themes/hordevetica/graphics/nav -->
-      <dir name="tree">
-       <file name="folder.png" role="horde" />
-       <file name="folderopen.png" role="horde" />
-       <file name="leaf.png" role="horde" />
-       <file name="rev-leaf.png" role="horde" />
-      </dir> <!-- /themes/hordevetica/graphics/tree -->
-      <dir name="uploader">
-       <file name="up.png" role="horde" />
-      </dir> <!-- /themes/hordevetica/graphics/uploader -->
-      <file name="about.png" role="horde" />
-      <file name="add_group.png" role="horde" />
-      <file name="add_perm.png" role="horde" />
-      <file name="administration.png" role="horde" />
-      <file name="az.png" role="horde" />
-      <file name="block.png" role="horde" />
-      <file name="calendar.png" role="horde" />
-      <file name="close.png" role="horde" />
-      <file name="colorpicker.png" role="horde" />
-      <file name="config.png" role="horde" />
-      <file name="data.png" role="horde" />
-      <file name="datatree.png" role="horde" />
-      <file name="delete-small.png" role="horde" />
-      <file name="delete.png" role="horde" />
-      <file name="devel.png" role="horde" />
-      <file name="download.png" role="horde" />
-      <file name="edit-small.png" role="horde" />
-      <file name="edit.png" role="horde" />
-      <file name="external.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="feed.png" role="horde" />
-      <file name="group.png" role="horde" />
-      <file name="help.png" role="horde" />
-      <file name="help_index.png" role="horde" />
-      <file name="hide_panel.png" role="horde" />
-      <file name="horde.png" role="horde" />
-      <file name="info.png" role="horde" />
-      <file name="info_icon.png" role="horde" />
-      <file name="keyboard.png" role="horde" />
-      <file name="layout.png" role="horde" />
-      <file name="lhand.png" role="horde" />
-      <file name="locked.png" role="horde" />
-      <file name="login.png" role="horde" />
-      <file name="logout.png" role="horde" />
-      <file name="map.png" role="horde" />
-      <file name="map_eu.png" role="horde" />
-      <file name="menu-active.png" role="horde" />
-      <file name="menu.png" role="horde" />
-      <file name="minus.png" role="horde" />
-      <file name="mobile.png" role="horde" />
-      <file name="myaccount.png" role="horde" />
-      <file name="office.png" role="horde" />
-      <file name="organizing.png" role="horde" />
-      <file name="perms.png" role="horde" />
-      <file name="phone.png" role="horde" />
-      <file name="plus.png" role="horde" />
-      <file name="popright.png" role="horde" />
-      <file name="prefs.png" role="horde" />
-      <file name="print.png" role="horde" />
-      <file name="problem.png" role="horde" />
-      <file name="reload.png" role="horde" />
-      <file name="required.png" role="horde" />
-      <file name="rhand.png" role="horde" />
-      <file name="save.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="shell.png" role="horde" />
-      <file name="show_panel.png" role="horde" />
-      <file name="sql.png" role="horde" />
-      <file name="unlocked.png" role="horde" />
-      <file name="user.png" role="horde" />
-      <file name="website.png" role="horde" />
-      <file name="za.png" role="horde" />
-     </dir> <!-- /themes/hordevetica/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/hordevetica -->
-    <dir name="hordeweb">
-     <dir name="graphics">
-      <file name="background.jpg" role="horde" />
-      <file name="help_index.png" role="horde" />
-      <file name="login.png" role="horde" />
-      <file name="logout.png" role="horde" />
-      <file name="prefs.png" role="horde" />
-      <file name="problem.png" role="horde" />
-      <file name="ribbon.png" role="horde" />
-     </dir> <!-- /themes/hordeweb/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-     <file name="webkit.css" role="horde" />
-    </dir> <!-- /themes/hordeweb -->
-    <dir name="hordeweb1">
-     <dir name="graphics">
-      <file name="horde-halfgear-ie.png" role="horde" />
-      <file name="horde-halfgear.png" role="horde" />
-     </dir> <!-- /themes/hordeweb1/graphics -->
-     <file name="ie6_or_less.css" role="horde" />
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/hordeweb1 -->
-    <dir name="ideas">
-     <dir name="graphics">
-      <file name="background.png" role="horde" />
-      <file name="left_menu_bottom.png" role="horde" />
-      <file name="left_menu_top.png" role="horde" />
-      <file name="menu_top.png" role="horde" />
-     </dir> <!-- /themes/ideas/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/ideas -->
-    <dir name="kolab">
-     <dir name="graphics">
-      <file name="bg.png" role="horde" />
-      <file name="kolab.png" role="horde" />
-      <file name="kolablogo.png" role="horde" />
-     </dir> <!-- /themes/kolab/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/kolab -->
-    <dir name="lavander">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/lavander -->
-    <dir name="lightblue">
-     <dir name="graphics">
-      <file name="menu.png" role="horde" />
-     </dir> <!-- /themes/lightblue/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/lightblue -->
-    <dir name="luc">
-     <dir name="graphics">
-      <file name="currentTab_left.gif" role="horde" />
-      <file name="currentTab_right.gif" role="horde" />
-      <file name="tab_bottom.gif" role="horde" />
-      <file name="tab_left.gif" role="horde" />
-      <file name="tab_right.gif" role="horde" />
-     </dir> <!-- /themes/luc/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/luc -->
-    <dir name="lucblue">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/lucblue -->
-    <dir name="mozilla">
-     <dir name="graphics">
-      <file name="header.png" role="horde" />
-      <file name="menu-active.png" role="horde" />
-      <file name="menu.png" role="horde" />
-     </dir> <!-- /themes/mozilla/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/mozilla -->
-    <dir name="NeXTgrey">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/NeXTgrey -->
-    <dir name="postnuke">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/postnuke -->
-    <dir name="purple">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/purple -->
-    <dir name="silver">
-     <dir name="graphics">
-      <dir name="alerts">
-       <file name="alarm.png" role="horde" />
-       <file name="error.png" role="horde" />
-       <file name="message.png" role="horde" />
-       <file name="success.png" role="horde" />
-       <file name="warning.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/alerts -->
-      <dir name="block">
-       <file name="large_up.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/block -->
-      <dir name="image">
-       <file name="crop.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/image -->
-      <dir name="map">
-       <file name="marker-blue.png" role="horde" />
-       <file name="marker-gold.png" role="horde" />
-       <file name="marker-green.png" role="horde" />
-       <file name="marker-shadow.png" role="horde" />
-       <file name="marker.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/map -->
-      <dir name="mime">
-       <file name="audio.png" role="horde" />
-       <file name="binary.png" role="horde" />
-       <file name="compressed.png" role="horde" />
-       <file name="deb.png" role="horde" />
-       <file name="encryption.png" role="horde" />
-       <file name="html.png" role="horde" />
-       <file name="icalendar.png" role="horde" />
-       <file name="image.png" role="horde" />
-       <file name="mail.png" role="horde" />
-       <file name="msexcel.png" role="horde" />
-       <file name="mspowerpoint.png" role="horde" />
-       <file name="msword.png" role="horde" />
-       <file name="ooo_calc.png" role="horde" />
-       <file name="ooo_draw.png" role="horde" />
-       <file name="ooo_impress.png" role="horde" />
-       <file name="ooo_math.png" role="horde" />
-       <file name="ooo_writer.png" role="horde" />
-       <file name="pdf.png" role="horde" />
-       <file name="php.png" role="horde" />
-       <file name="rpm.png" role="horde" />
-       <file name="script-js.png" role="horde" />
-       <file name="source-c.png" role="horde" />
-       <file name="source-cpp.png" role="horde" />
-       <file name="source-h.png" role="horde" />
-       <file name="source-java.png" role="horde" />
-       <file name="source-python.png" role="horde" />
-       <file name="text.png" role="horde" />
-       <file name="vcard.png" role="horde" />
-       <file name="video.png" role="horde" />
-       <file name="xml.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/mime -->
-      <dir name="nav">
-       <file name="bottom-grey.png" role="horde" />
-       <file name="bottom.png" role="horde" />
-       <file name="down-grey.png" role="horde" />
-       <file name="down.png" role="horde" />
-       <file name="first-grey.png" role="horde" />
-       <file name="first.png" role="horde" />
-       <file name="last-grey.png" role="horde" />
-       <file name="last.png" role="horde" />
-       <file name="left-grey.png" role="horde" />
-       <file name="left.png" role="horde" />
-       <file name="right-grey.png" role="horde" />
-       <file name="right.png" role="horde" />
-       <file name="top-grey.png" role="horde" />
-       <file name="top.png" role="horde" />
-       <file name="up-grey.png" role="horde" />
-       <file name="up.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/nav -->
-      <dir name="tree">
-       <file name="folder.png" role="horde" />
-       <file name="folderopen.png" role="horde" />
-       <file name="leaf.png" role="horde" />
-       <file name="rev-leaf.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/tree -->
-      <dir name="uploader">
-       <file name="up.png" role="horde" />
-      </dir> <!-- /themes/silver/graphics/uploader -->
-      <file name="about.png" role="horde" />
-      <file name="add_group.png" role="horde" />
-      <file name="add_perm.png" role="horde" />
-      <file name="administration.png" role="horde" />
-      <file name="az.png" role="horde" />
-      <file name="block.png" role="horde" />
-      <file name="calendar.png" role="horde" />
-      <file name="close.png" role="horde" />
-      <file name="colorpicker.png" role="horde" />
-      <file name="config.png" role="horde" />
-      <file name="currentTab_left.png" role="horde" />
-      <file name="currentTab_right.png" role="horde" />
-      <file name="data.png" role="horde" />
-      <file name="datatree.png" role="horde" />
-      <file name="delete-small.png" role="horde" />
-      <file name="delete.png" role="horde" />
-      <file name="devel.png" role="horde" />
-      <file name="download.png" role="horde" />
-      <file name="edit-small.png" role="horde" />
-      <file name="edit.png" role="horde" />
-      <file name="external.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="feed.png" role="horde" />
-      <file name="group.png" role="horde" />
-      <file name="help.png" role="horde" />
-      <file name="help_index.png" role="horde" />
-      <file name="hide_panel.png" role="horde" />
-      <file name="horde.png" role="horde" />
-      <file name="info.png" role="horde" />
-      <file name="info_icon.png" role="horde" />
-      <file name="keyboard.png" role="horde" />
-      <file name="layout.png" role="horde" />
-      <file name="lhand.png" role="horde" />
-      <file name="locked.png" role="horde" />
-      <file name="login.png" role="horde" />
-      <file name="logout.png" role="horde" />
-      <file name="map.png" role="horde" />
-      <file name="map_eu.png" role="horde" />
-      <file name="menu-active.png" role="horde" />
-      <file name="menu.png" role="horde" />
-      <file name="minus.png" role="horde" />
-      <file name="mobile.png" role="horde" />
-      <file name="myaccount.png" role="horde" />
-      <file name="office.png" role="horde" />
-      <file name="organizing.png" role="horde" />
-      <file name="perms.png" role="horde" />
-      <file name="phone.png" role="horde" />
-      <file name="plus.png" role="horde" />
-      <file name="popright.png" role="horde" />
-      <file name="prefs.png" role="horde" />
-      <file name="print.png" role="horde" />
-      <file name="problem.png" role="horde" />
-      <file name="reload.png" role="horde" />
-      <file name="required.png" role="horde" />
-      <file name="rhand.png" role="horde" />
-      <file name="save.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="shell.png" role="horde" />
-      <file name="show_panel.png" role="horde" />
-      <file name="sql.png" role="horde" />
-      <file name="tab_left.png" role="horde" />
-      <file name="tab_right.png" role="horde" />
-      <file name="unlocked.png" role="horde" />
-      <file name="user.png" role="horde" />
-      <file name="website.png" role="horde" />
-      <file name="za.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/silver -->
-    <dir name="simplex">
-     <dir name="graphics">
-      <file name="background.png" role="horde" />
-     </dir> <!-- /themes/simplex/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/simplex -->
-    <dir name="tango-blue">
-     <dir name="graphics">
-      <dir name="alerts">
-       <file name="error.png" role="horde" />
-       <file name="message.png" role="horde" />
-       <file name="success.png" role="horde" />
-       <file name="warning.png" role="horde" />
-      </dir> <!-- /themes/tango-blue/graphics/alerts -->
-      <dir name="block">
-       <dir name="sunrise">
-        <file name="sunrise.png" role="horde" />
-        <file name="sunset.png" role="horde" />
-       </dir> <!-- /themes/tango-blue/graphics/block/sunrise -->
-       <file name="down.png" role="horde" />
-       <file name="large_down.png" role="horde" />
-       <file name="large_left.png" role="horde" />
-       <file name="large_right.png" role="horde" />
-       <file name="large_up.png" role="horde" />
-       <file name="left.png" role="horde" />
-       <file name="right.png" role="horde" />
-       <file name="up.png" role="horde" />
-      </dir> <!-- /themes/tango-blue/graphics/block -->
-      <dir name="image">
-       <file name="crop.png" role="horde" />
-       <file name="flip.png" role="horde" />
-       <file name="mirror.png" role="horde" />
-       <file name="refresh.png" role="horde" />
-       <file name="rotate-90.png" role="horde" />
-       <file name="rotate-270.png" role="horde" />
-      </dir> <!-- /themes/tango-blue/graphics/image -->
-      <dir name="mime">
-       <file name="audio.png" role="horde" />
-       <file name="binary.png" role="horde" />
-       <file name="compressed.png" role="horde" />
-       <file name="deb.png" role="horde" />
-       <file name="encryption.png" role="horde" />
-       <file name="html.png" role="horde" />
-       <file name="icalendar.png" role="horde" />
-       <file name="image.png" role="horde" />
-       <file name="mail.png" role="horde" />
-       <file name="msword.png" role="horde" />
-       <file name="ooo_calc.png" role="horde" />
-       <file name="ooo_impress.png" role="horde" />
-       <file name="ooo_math.png" role="horde" />
-       <file name="ooo_writer.png" role="horde" />
-       <file name="pdf.png" role="horde" />
-       <file name="php.png" role="horde" />
-       <file name="rpm.png" role="horde" />
-       <file name="source-python.png" role="horde" />
-       <file name="text.png" role="horde" />
-       <file name="vcard.png" role="horde" />
-       <file name="video.png" role="horde" />
-      </dir> <!-- /themes/tango-blue/graphics/mime -->
-      <dir name="nav">
-       <file name="bottom.png" role="horde" />
-       <file name="down.png" role="horde" />
-       <file name="first.png" role="horde" />
-       <file name="last.png" role="horde" />
-       <file name="left.png" role="horde" />
-       <file name="right.png" role="horde" />
-       <file name="top.png" role="horde" />
-       <file name="up.png" role="horde" />
-      </dir> <!-- /themes/tango-blue/graphics/nav -->
-      <dir name="tree">
-       <file name="folder.png" role="horde" />
-       <file name="folderopen.png" role="horde" />
-       <file name="leaf.png" role="horde" />
-       <file name="rev-leaf.png" role="horde" />
-      </dir> <!-- /themes/tango-blue/graphics/tree -->
-      <file name="add_group.png" role="horde" />
-      <file name="add_perm.png" role="horde" />
-      <file name="administration.png" role="horde" />
-      <file name="az.png" role="horde" />
-      <file name="calendar.png" role="horde" />
-      <file name="close.png" role="horde" />
-      <file name="colorpicker.png" role="horde" />
-      <file name="config.png" role="horde" />
-      <file name="data.png" role="horde" />
-      <file name="delete-small.png" role="horde" />
-      <file name="delete.png" role="horde" />
-      <file name="devel.png" role="horde" />
-      <file name="download.png" role="horde" />
-      <file name="edit-small.png" role="horde" />
-      <file name="edit.png" role="horde" />
-      <file name="group.png" role="horde" />
-      <file name="help.png" role="horde" />
-      <file name="help_index.png" role="horde" />
-      <file name="info.png" role="horde" />
-      <file name="info_icon.png" role="horde" />
-      <file name="keyboard.png" role="horde" />
-      <file name="lhand.png" role="horde" />
-      <file name="locked.png" role="horde" />
-      <file name="login.png" role="horde" />
-      <file name="logout.png" role="horde" />
-      <file name="myaccount.png" role="horde" />
-      <file name="office.png" role="horde" />
-      <file name="organizing.png" role="horde" />
-      <file name="perms.png" role="horde" />
-      <file name="prefs.png" role="horde" />
-      <file name="print.png" role="horde" />
-      <file name="problem.png" role="horde" />
-      <file name="reload.png" role="horde" />
-      <file name="required.png" role="horde" />
-      <file name="rhand.png" role="horde" />
-      <file name="search.png" role="horde" />
-      <file name="shell.png" role="horde" />
-      <file name="sql.png" role="horde" />
-      <file name="unlocked.png" role="horde" />
-      <file name="user.png" role="horde" />
-      <file name="website.png" role="horde" />
-      <file name="za.png" role="horde" />
-     </dir> <!-- /themes/tango-blue/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/tango-blue -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <dir name="util">
     <file name="barcode.php" role="horde" />
     <file name="icon_browser.php" role="horde" />
@@ -2283,7 +1770,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -2291,205 +1778,212 @@
    <package>
     <name>Horde_Alarm</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Argv</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.4</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Browser</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Group</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Image</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_LoginTasks</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Rpc</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Serialize</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Template</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Diff</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Token</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Tree</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_View</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>filter</name>
@@ -2513,65 +2007,58 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_DataTree</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0alpha</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Feed</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Oauth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Service_Facebook</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Service_Twitter</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Service_Weather</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_SyncMl</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Console_Getopt</name>
@@ -2604,7 +2091,6 @@
    <install as="admin/activesync.php" name="admin/activesync.php" />
    <install as="admin/alarms.php" name="admin/alarms.php" />
    <install as="admin/cmdshell.php" name="admin/cmdshell.php" />
-   <install as="admin/datatree.php" name="admin/datatree.php" />
    <install as="admin/groups.php" name="admin/groups.php" />
    <install as="admin/index.html" name="admin/index.html" />
    <install as="admin/locks.php" name="admin/locks.php" />
@@ -2633,13 +2119,10 @@
    <install as="horde-alarms" name="bin/horde-alarms" />
    <install as="horde-check-logger" name="bin/horde-check-logger" />
    <install as="horde-clear-cache" name="bin/horde-clear-cache" />
-   <install as="horde-convert-datatree-groups-to-sql" name="bin/horde-convert-datatree-groups-to-sql" />
-   <install as="horde-convert-datatree-perms-to-sql" name="bin/horde-convert-datatree-perms-to-sql" />
    <install as="horde-crond" name="bin/horde-crond" />
    <install as="horde-db-migrate" name="bin/horde-db-migrate" />
    <install as="horde-import-squirrelmail-prefs" name="bin/horde-import-squirrelmail-prefs" />
    <install as="horde-memcache-stats" name="bin/horde-memcache-stats" />
-   <install as="horde-move-history-out-of-datatree" name="bin/horde-move-history-out-of-datatree" />
    <install as="horde-run-task" name="bin/horde-run-task" />
    <install as="horde-set-perms" name="bin/horde-set-perms" />
    <install as="horde-themes" name="bin/horde-themes" />
@@ -2667,109 +2150,32 @@
    <install as="SECURITY" name="docs/SECURITY" />
    <install as="TRANSLATIONS" name="docs/TRANSLATIONS" />
    <install as="UPGRADING" name="docs/UPGRADING" />
-   <install as="js/accesskeys.html" name="js/accesskeys.html" />
-   <install as="js/accesskeys.js" name="js/accesskeys.js" />
+   <install as="install/horde.php" name="install/horde.php" />
    <install as="js/activesyncadmin.js" name="js/activesyncadmin.js" />
    <install as="js/activesyncprefs.js" name="js/activesyncprefs.js" />
-   <install as="js/builder.js" name="js/builder.js" />
    <install as="js/categoryprefs.js" name="js/categoryprefs.js" />
-   <install as="js/colorpicker.js" name="js/colorpicker.js" />
    <install as="js/contextsensitive.js" name="js/contextsensitive.js" />
-   <install as="js/controls.js" name="js/controls.js" />
-   <install as="js/dragdrop.js" name="js/dragdrop.js" />
    <install as="js/dragdrop2.js" name="js/dragdrop2.js" />
-   <install as="js/effects.js" name="js/effects.js" />
    <install as="js/facebookclient.js" name="js/facebookclient.js" />
-   <install as="js/form_assign.js" name="js/form_assign.js" />
    <install as="js/form_ghost.js" name="js/form_ghost.js" />
-   <install as="js/form_helpers.js" name="js/form_helpers.js" />
    <install as="js/form_sections.js" name="js/form_sections.js" />
-   <install as="js/growler.js" name="js/growler.js" />
-   <install as="js/horde-jquery.js" name="js/horde-jquery.js" />
-   <install as="js/horde.js" name="js/horde.js" />
    <install as="js/ieescguard.js" name="js/ieescguard.js" />
-   <install as="js/image.js" name="js/image.js" />
-   <install as="js/inplaceeditor.js" name="js/inplaceeditor.js" />
-   <install as="js/keynavlist.js" name="js/keynavlist.js" />
+   <install as="js/json2.js" name="js/json2.js" />
+   <install as="js/jstorage.js" name="js/jstorage.js" />
    <install as="js/login.js" name="js/login.js" />
    <install as="js/logintasks.js" name="js/logintasks.js" />
    <install as="js/md5.js" name="js/md5.js" />
-   <install as="js/mobile.js" name="js/mobile.js" />
-   <install as="js/popup.js" name="js/popup.js" />
-   <install as="js/prototype.js" name="js/prototype.js" />
+   <install as="js/problem.js" name="js/problem.js" />
    <install as="js/quickfinder.js" name="js/quickfinder.js" />
-   <install as="js/redbox.js" name="js/redbox.js" />
-   <install as="js/rpcprefs.js" name="js/rpcprefs.js" />
-   <install as="js/scriptaculous.js" name="js/scriptaculous.js" />
    <install as="js/sidebar.js" name="js/sidebar.js" />
-   <install as="js/slider.js" name="js/slider.js" />
    <install as="js/slider2.js" name="js/slider2.js" />
-   <install as="js/sorter.js" name="js/sorter.js" />
-   <install as="js/sound.js" name="js/sound.js" />
    <install as="js/stripe.js" name="js/stripe.js" />
    <install as="js/syncmlprefs.js" name="js/syncmlprefs.js" />
-   <install as="js/tables.js" name="js/tables.js" />
    <install as="js/textarearesize.js" name="js/textarearesize.js" />
+   <install as="js/topbar.js" name="js/topbar.js" />
    <install as="js/twitterclient.js" name="js/twitterclient.js" />
    <install as="js/userupdate.js" name="js/userupdate.js" />
    <install as="js/vatid.js" name="js/vatid.js" />
-   <install as="js/date/ar-SY.js" name="js/date/ar-SY.js" />
-   <install as="js/date/bg-BG.js" name="js/date/bg-BG.js" />
-   <install as="js/date/bs-BA.js" name="js/date/bs-BA.js" />
-   <install as="js/date/ca-ES.js" name="js/date/ca-ES.js" />
-   <install as="js/date/cs-CZ.js" name="js/date/cs-CZ.js" />
-   <install as="js/date/da-DK.js" name="js/date/da-DK.js" />
-   <install as="js/date/date.js" name="js/date/date.js" />
-   <install as="js/date/de-DE.js" name="js/date/de-DE.js" />
-   <install as="js/date/el-GR.js" name="js/date/el-GR.js" />
-   <install as="js/date/en-US.js" name="js/date/en-US.js" />
-   <install as="js/date/es-ES.js" name="js/date/es-ES.js" />
-   <install as="js/date/et-EE.js" name="js/date/et-EE.js" />
-   <install as="js/date/eu-ES.js" name="js/date/eu-ES.js" />
-   <install as="js/date/extras.js" name="js/date/extras.js" />
-   <install as="js/date/fa-IR.js" name="js/date/fa-IR.js" />
-   <install as="js/date/fi-FI.js" name="js/date/fi-FI.js" />
-   <install as="js/date/fr-FR.js" name="js/date/fr-FR.js" />
-   <install as="js/date/gl-ES.js" name="js/date/gl-ES.js" />
-   <install as="js/date/he-IL.js" name="js/date/he-IL.js" />
-   <install as="js/date/hu-HU.js" name="js/date/hu-HU.js" />
-   <install as="js/date/id-ID.js" name="js/date/id-ID.js" />
-   <install as="js/date/is-IS.js" name="js/date/is-IS.js" />
-   <install as="js/date/it-IT.js" name="js/date/it-IT.js" />
-   <install as="js/date/ja-JP.js" name="js/date/ja-JP.js" />
-   <install as="js/date/ko-KR.js" name="js/date/ko-KR.js" />
-   <install as="js/date/lt-LT.js" name="js/date/lt-LT.js" />
-   <install as="js/date/lv-LV.js" name="js/date/lv-LV.js" />
-   <install as="js/date/mk-MK.js" name="js/date/mk-MK.js" />
-   <install as="js/date/nb-NO.js" name="js/date/nb-NO.js" />
-   <install as="js/date/nl-NL.js" name="js/date/nl-NL.js" />
-   <install as="js/date/nn-NO.js" name="js/date/nn-NO.js" />
-   <install as="js/date/pl-PL.js" name="js/date/pl-PL.js" />
-   <install as="js/date/pt-BR.js" name="js/date/pt-BR.js" />
-   <install as="js/date/pt-PT.js" name="js/date/pt-PT.js" />
-   <install as="js/date/ro-RO.js" name="js/date/ro-RO.js" />
-   <install as="js/date/ru-RU.js" name="js/date/ru-RU.js" />
-   <install as="js/date/sk-SK.js" name="js/date/sk-SK.js" />
-   <install as="js/date/sl-SI.js" name="js/date/sl-SI.js" />
-   <install as="js/date/sv-SE.js" name="js/date/sv-SE.js" />
-   <install as="js/date/time.js" name="js/date/time.js" />
-   <install as="js/date/tr-TR.js" name="js/date/tr-TR.js" />
-   <install as="js/date/uk-UA.js" name="js/date/uk-UA.js" />
-   <install as="js/date/zh-CN.js" name="js/date/zh-CN.js" />
-   <install as="js/date/zh-TW.js" name="js/date/zh-TW.js" />
-   <install as="js/jquery.mobile/jquery.min.js" name="js/jquery.mobile/jquery.min.js" />
-   <install as="js/jquery.mobile/jquery.mobile.min.css" name="js/jquery.mobile/jquery.mobile.min.css" />
-   <install as="js/jquery.mobile/jquery.mobile.min.js" name="js/jquery.mobile/jquery.mobile.min.js" />
-   <install as="js/jquery.mobile/images/ajax-loader.png" name="js/jquery.mobile/images/ajax-loader.png" />
-   <install as="js/jquery.mobile/images/form-check-off.png" name="js/jquery.mobile/images/form-check-off.png" />
-   <install as="js/jquery.mobile/images/form-check-on.png" name="js/jquery.mobile/images/form-check-on.png" />
-   <install as="js/jquery.mobile/images/form-radio-off.png" name="js/jquery.mobile/images/form-radio-off.png" />
-   <install as="js/jquery.mobile/images/form-radio-on.png" name="js/jquery.mobile/images/form-radio-on.png" />
-   <install as="js/jquery.mobile/images/icon-search-black.png" name="js/jquery.mobile/images/icon-search-black.png" />
-   <install as="js/jquery.mobile/images/icons-18-black.png" name="js/jquery.mobile/images/icons-18-black.png" />
-   <install as="js/jquery.mobile/images/icons-18-white.png" name="js/jquery.mobile/images/icons-18-white.png" />
-   <install as="js/jquery.mobile/images/icons-36-black.png" name="js/jquery.mobile/images/icons-36-black.png" />
-   <install as="js/jquery.mobile/images/icons-36-white.png" name="js/jquery.mobile/images/icons-36-white.png" />
    <install as="js/map/bing.js" name="js/map/bing.js" />
    <install as="js/map/cloudmade.js" name="js/map/cloudmade.js" />
    <install as="js/map/google.js" name="js/map/google.js" />
@@ -2782,9 +2188,6 @@
    <install as="js/map/OpenLayers-debug.js" name="js/map/OpenLayers-debug.js" />
    <install as="js/map/OpenLayers.js" name="js/map/OpenLayers.js" />
    <install as="js/map/osm.js" name="js/map/osm.js" />
-   <install as="js/map/public.js" name="js/map/public.js" />
-   <install as="js/map/tilesathome.js" name="js/map/tilesathome.js" />
-   <install as="js/map/ve.js" name="js/map/ve.js" />
    <install as="js/map/yahoo.js" name="js/map/yahoo.js" />
    <install as="js/map/img/blank.gif" name="js/map/img/blank.gif" />
    <install as="js/map/img/cloud-popup-relative.png" name="js/map/img/cloud-popup-relative.png" />
@@ -2931,8 +2334,16 @@
    <install as="lib/LoginTasks/Task/AdminCheck.php" name="lib/LoginTasks/Task/AdminCheck.php" />
    <install as="lib/LoginTasks/Task/LastLogin.php" name="lib/LoginTasks/Task/LastLogin.php" />
    <install as="lib/LoginTasks/Task/TosAgreement.php" name="lib/LoginTasks/Task/TosAgreement.php" />
-   <install as="lib/Prefs/Ui.php" name="lib/Prefs/Ui.php" />
+   <install as="lib/Prefs/Special/Activesync.php" name="lib/Prefs/Special/Activesync.php" />
+   <install as="lib/Prefs/Special/Category.php" name="lib/Prefs/Special/Category.php" />
+   <install as="lib/Prefs/Special/Facebook.php" name="lib/Prefs/Special/Facebook.php" />
+   <install as="lib/Prefs/Special/Syncml.php" name="lib/Prefs/Special/Syncml.php" />
+   <install as="lib/Prefs/Special/Twitter.php" name="lib/Prefs/Special/Twitter.php" />
    <install as="lib/tests/webroot.phpt" name="lib/tests/webroot.phpt" />
+   <install as="lib/Tree/Renderer/Menu.php" name="lib/Tree/Renderer/Menu.php" />
+   <install as="lib/Tree/Renderer/Sidebar.php" name="lib/Tree/Renderer/Sidebar.php" />
+   <install as="lib/View/Sidebar.php" name="lib/View/Sidebar.php" />
+   <install as="lib/View/Topbar.php" name="lib/View/Topbar.php" />
    <install as="locale/.htaccess" name="locale/.htaccess" />
    <install as="locale/horde.pot" name="locale/horde.pot" />
    <install as="locale/ar/LC_MESSAGES/horde.mo" name="locale/ar/LC_MESSAGES/horde.mo" />
@@ -3069,11 +2480,8 @@
    <install as="scripts/ldap/rfc2739.schema" name="scripts/ldap/rfc2739.schema" />
    <install as="scripts/sql/script.initial_horde_user.sql" name="scripts/sql/script.initial_horde_user.sql" />
    <install as="scripts/upgrades/3.0_to_3.1.mysql.sql" name="scripts/upgrades/3.0_to_3.1.mysql.sql" />
-   <install as="scripts/upgrades/3.0_to_3.1.oci8.sql" name="scripts/upgrades/3.0_to_3.1.oci8.sql" />
    <install as="scripts/upgrades/3.0_to_3.1.sql" name="scripts/upgrades/3.0_to_3.1.sql" />
-   <install as="scripts/upgrades/3.1_to_3.2.mssql.sql" name="scripts/upgrades/3.1_to_3.2.mssql.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.mysql.sql" name="scripts/upgrades/3.1_to_3.2.mysql.sql" />
-   <install as="scripts/upgrades/3.1_to_3.2.oci8.sql" name="scripts/upgrades/3.1_to_3.2.oci8.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.pgsql.sql" name="scripts/upgrades/3.1_to_3.2.pgsql.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.sql" name="scripts/upgrades/3.1_to_3.2.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.sybase.sql" name="scripts/upgrades/3.1_to_3.2.sybase.sql" />
@@ -3086,7 +2494,6 @@
    <install as="services/changepassword.php" name="services/changepassword.php" />
    <install as="services/confirm.php" name="services/confirm.php" />
    <install as="services/go.php" name="services/go.php" />
-   <install as="services/imple.php" name="services/imple.php" />
    <install as="services/keyboard.php" name="services/keyboard.php" />
    <install as="services/language.php" name="services/language.php" />
    <install as="services/logintasks.php" name="services/logintasks.php" />
@@ -3104,15 +2511,11 @@
    <install as="services/portal/cloud_search.php" name="services/portal/cloud_search.php" />
    <install as="services/portal/edit.php" name="services/portal/edit.php" />
    <install as="services/portal/index.php" name="services/portal/index.php" />
-   <install as="services/portal/mobile.php" name="services/portal/mobile.php" />
+   <install as="services/portal/smartmobile.php" name="services/portal/smartmobile.php" />
    <install as="services/shares/edit.php" name="services/shares/edit.php" />
    <install as="services/twitter/index.php" name="services/twitter/index.php" />
    <install as="static/README" name="static/README" />
    <install as="templates/.htaccess" name="templates/.htaccess" />
-   <install as="templates/common-footer-mobile.inc" name="templates/common-footer-mobile.inc" />
-   <install as="templates/common-footer.inc" name="templates/common-footer.inc" />
-   <install as="templates/common-header-mobile.inc" name="templates/common-header-mobile.inc" />
-   <install as="templates/common-header.inc" name="templates/common-header.inc" />
    <install as="templates/admin/menu.inc" name="templates/admin/menu.inc" />
    <install as="templates/admin/alarms/list.html.php" name="templates/admin/alarms/list.html.php" />
    <install as="templates/admin/config/config.html" name="templates/admin/config/config.html" />
@@ -3135,6 +2538,8 @@
    <install as="templates/block/facebook_story.html.php" name="templates/block/facebook_story.html.php" />
    <install as="templates/block/twitter-layout.html.php" name="templates/block/twitter-layout.html.php" />
    <install as="templates/block/twitter_tweet.html.php" name="templates/block/twitter_tweet.html.php" />
+   <install as="templates/common/footer.html.php" name="templates/common/footer.html.php" />
+   <install as="templates/common/header.html.php" name="templates/common/header.html.php" />
    <install as="templates/data/csvinfo.inc" name="templates/data/csvinfo.inc" />
    <install as="templates/data/csvmap.inc" name="templates/data/csvmap.inc" />
    <install as="templates/data/date.inc" name="templates/data/date.inc" />
@@ -3146,17 +2551,18 @@
    <install as="templates/help/menu.inc" name="templates/help/menu.inc" />
    <install as="templates/help/sidebar.inc" name="templates/help/sidebar.inc" />
    <install as="templates/login/login.inc" name="templates/login/login.inc" />
-   <install as="templates/login/mobile.inc" name="templates/login/mobile.inc" />
    <install as="templates/login/resetpassword.inc" name="templates/login/resetpassword.inc" />
    <install as="templates/login/signup.inc" name="templates/login/signup.inc" />
+   <install as="templates/login/smartmobile.inc" name="templates/login/smartmobile.inc" />
    <install as="templates/logintasks/logintasks.html" name="templates/logintasks/logintasks.html" />
-   <install as="templates/logintasks/mobile.html" name="templates/logintasks/mobile.html" />
+   <install as="templates/logintasks/smartmobile.html" name="templates/logintasks/smartmobile.html" />
    <install as="templates/menu/menu.inc" name="templates/menu/menu.inc" />
    <install as="templates/portal/add.inc" name="templates/portal/add.inc" />
    <install as="templates/portal/block.inc" name="templates/portal/block.inc" />
    <install as="templates/portal/edit.inc" name="templates/portal/edit.inc" />
    <install as="templates/portal/layout.inc" name="templates/portal/layout.inc" />
-   <install as="templates/portal/mobile.inc" name="templates/portal/mobile.inc" />
+   <install as="templates/portal/new.inc" name="templates/portal/new.inc" />
+   <install as="templates/portal/smartmobile.inc" name="templates/portal/smartmobile.inc" />
    <install as="templates/prefs/activesync.html" name="templates/prefs/activesync.html" />
    <install as="templates/prefs/addressbooks.html" name="templates/prefs/addressbooks.html" />
    <install as="templates/prefs/alarm.html" name="templates/prefs/alarm.html" />
@@ -3184,48 +2590,31 @@
    <install as="templates/prefs/twitter.html" name="templates/prefs/twitter.html" />
    <install as="templates/problem/problem.inc" name="templates/problem/problem.inc" />
    <install as="templates/shares/edit.inc" name="templates/shares/edit.inc" />
-   <install as="templates/sidebar/sidebar.inc" name="templates/sidebar/sidebar.inc" />
+   <install as="templates/sidebar/sidebar.html.php" name="templates/sidebar/sidebar.html.php" />
+   <install as="templates/sidebar/_container.html.php" name="templates/sidebar/_container.html.php" />
+   <install as="templates/sidebar/_row.html.php" name="templates/sidebar/_row.html.php" />
    <install as="templates/test/extensions.inc" name="templates/test/extensions.inc" />
    <install as="templates/test/footer.inc" name="templates/test/footer.inc" />
    <install as="templates/test/header.inc" name="templates/test/header.inc" />
    <install as="templates/test/php_version.inc" name="templates/test/php_version.inc" />
    <install as="templates/test/test.css" name="templates/test/test.css" />
    <install as="templates/test/version.inc" name="templates/test/version.inc" />
-   <install as="themes/azur/info.php" name="themes/azur/info.php" />
-   <install as="themes/azur/screen.css" name="themes/azur/screen.css" />
-   <install as="themes/barbie/info.php" name="themes/barbie/info.php" />
-   <install as="themes/barbie/screen.css" name="themes/barbie/screen.css" />
-   <install as="themes/bluemoon/info.php" name="themes/bluemoon/info.php" />
-   <install as="themes/bluemoon/screen.css" name="themes/bluemoon/screen.css" />
-   <install as="themes/bluewhite/info.php" name="themes/bluewhite/info.php" />
-   <install as="themes/bluewhite/rtl.css" name="themes/bluewhite/rtl.css" />
-   <install as="themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
-   <install as="themes/brown/info.php" name="themes/brown/info.php" />
-   <install as="themes/brown/screen.css" name="themes/brown/screen.css" />
-   <install as="themes/brown/graphics/button.gif" name="themes/brown/graphics/button.gif" />
-   <install as="themes/burntorange/info.php" name="themes/burntorange/info.php" />
-   <install as="themes/burntorange/screen.css" name="themes/burntorange/screen.css" />
-   <install as="themes/camouflage/info.php" name="themes/camouflage/info.php" />
-   <install as="themes/camouflage/screen.css" name="themes/camouflage/screen.css" />
-   <install as="themes/camouflage/graphics/menu.png" name="themes/camouflage/graphics/menu.png" />
-   <install as="themes/cornflower/info.php" name="themes/cornflower/info.php" />
-   <install as="themes/cornflower/screen.css" name="themes/cornflower/screen.css" />
-   <install as="themes/cornflower/graphics/active_tab_left.gif" name="themes/cornflower/graphics/active_tab_left.gif" />
-   <install as="themes/cornflower/graphics/active_tab_right.gif" name="themes/cornflower/graphics/active_tab_right.gif" />
-   <install as="themes/cornflower/graphics/tab_bottom.gif" name="themes/cornflower/graphics/tab_bottom.gif" />
-   <install as="themes/cornflower/graphics/tab_left.gif" name="themes/cornflower/graphics/tab_left.gif" />
-   <install as="themes/cornflower/graphics/tab_right.gif" name="themes/cornflower/graphics/tab_right.gif" />
+   <install as="templates/topbar/topbar.html.php" name="templates/topbar/topbar.html.php" />
+   <install as="templates/topbar/_menubar.html.php" name="templates/topbar/_menubar.html.php" />
+   <install as="templates/topbar/_subbar.html.php" name="templates/topbar/_subbar.html.php" />
+   <install as="templates/tree/menu.html.php" name="templates/tree/menu.html.php" />
+   <install as="templates/tree/sidebar.html.php" name="templates/tree/sidebar.html.php" />
+   <install as="templates/tree/_row.html.php" name="templates/tree/_row.html.php" />
+   <install as="templates/tree/_submenu.html.php" name="templates/tree/_submenu.html.php" />
    <install as="themes/default/embed.css" name="themes/default/embed.css" />
    <install as="themes/default/facebook.css" name="themes/default/facebook.css" />
    <install as="themes/default/feed-rss.xsl" name="themes/default/feed-rss.xsl" />
-   <install as="themes/default/ie6_or_less.css" name="themes/default/ie6_or_less.css" />
    <install as="themes/default/ie7.css" name="themes/default/ie7.css" />
-   <install as="themes/default/mobile.css" name="themes/default/mobile.css" />
+   <install as="themes/default/info.php" name="themes/default/info.php" />
    <install as="themes/default/opera.css" name="themes/default/opera.css" />
    <install as="themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="themes/default/screen.css" name="themes/default/screen.css" />
    <install as="themes/default/webkit.css" name="themes/default/webkit.css" />
-   <install as="themes/default/graphics/about.png" name="themes/default/graphics/about.png" />
    <install as="themes/default/graphics/add_group.png" name="themes/default/graphics/add_group.png" />
    <install as="themes/default/graphics/add_perm.png" name="themes/default/graphics/add_perm.png" />
    <install as="themes/default/graphics/administration.png" name="themes/default/graphics/administration.png" />
@@ -3233,8 +2622,15 @@
    <install as="themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="themes/default/graphics/blank.gif" name="themes/default/graphics/blank.gif" />
    <install as="themes/default/graphics/block.png" name="themes/default/graphics/block.png" />
+   <install as="themes/default/graphics/button-active-bg.png" name="themes/default/graphics/button-active-bg.png" />
+   <install as="themes/default/graphics/button-split.png" name="themes/default/graphics/button-split.png" />
+   <install as="themes/default/graphics/button.png" name="themes/default/graphics/button.png" />
+   <install as="themes/default/graphics/buttonbar-bg.png" name="themes/default/graphics/buttonbar-bg.png" />
    <install as="themes/default/graphics/calendar.png" name="themes/default/graphics/calendar.png" />
+   <install as="themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
+   <install as="themes/default/graphics/checkbox_on.png" name="themes/default/graphics/checkbox_on.png" />
    <install as="themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
+   <install as="themes/default/graphics/collapse.png" name="themes/default/graphics/collapse.png" />
    <install as="themes/default/graphics/color-picker-cursor.gif" name="themes/default/graphics/color-picker-cursor.gif" />
    <install as="themes/default/graphics/color-picker-palette.png" name="themes/default/graphics/color-picker-palette.png" />
    <install as="themes/default/graphics/color-picker-resize.gif" name="themes/default/graphics/color-picker-resize.gif" />
@@ -3242,18 +2638,21 @@
    <install as="themes/default/graphics/colorscale.png" name="themes/default/graphics/colorscale.png" />
    <install as="themes/default/graphics/config.png" name="themes/default/graphics/config.png" />
    <install as="themes/default/graphics/data.png" name="themes/default/graphics/data.png" />
-   <install as="themes/default/graphics/datatree.png" name="themes/default/graphics/datatree.png" />
    <install as="themes/default/graphics/delete-small.png" name="themes/default/graphics/delete-small.png" />
    <install as="themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="themes/default/graphics/devel.png" name="themes/default/graphics/devel.png" />
    <install as="themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
+   <install as="themes/default/graphics/edit-sidebar-000.png" name="themes/default/graphics/edit-sidebar-000.png" />
+   <install as="themes/default/graphics/edit-sidebar-fff.png" name="themes/default/graphics/edit-sidebar-fff.png" />
    <install as="themes/default/graphics/edit-small.png" name="themes/default/graphics/edit-small.png" />
    <install as="themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
+   <install as="themes/default/graphics/expand.png" name="themes/default/graphics/expand.png" />
    <install as="themes/default/graphics/external.png" name="themes/default/graphics/external.png" />
    <install as="themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="themes/default/graphics/feed.png" name="themes/default/graphics/feed.png" />
    <install as="themes/default/graphics/google.png" name="themes/default/graphics/google.png" />
    <install as="themes/default/graphics/group.png" name="themes/default/graphics/group.png" />
+   <install as="themes/default/graphics/head-bg.png" name="themes/default/graphics/head-bg.png" />
    <install as="themes/default/graphics/help.png" name="themes/default/graphics/help.png" />
    <install as="themes/default/graphics/help_index.png" name="themes/default/graphics/help_index.png" />
    <install as="themes/default/graphics/hide_panel.png" name="themes/default/graphics/hide_panel.png" />
@@ -3269,17 +2668,27 @@
    <install as="themes/default/graphics/loading.gif" name="themes/default/graphics/loading.gif" />
    <install as="themes/default/graphics/locked.png" name="themes/default/graphics/locked.png" />
    <install as="themes/default/graphics/login.png" name="themes/default/graphics/login.png" />
+   <install as="themes/default/graphics/logo.png" name="themes/default/graphics/logo.png" />
    <install as="themes/default/graphics/logout.png" name="themes/default/graphics/logout.png" />
    <install as="themes/default/graphics/map.png" name="themes/default/graphics/map.png" />
    <install as="themes/default/graphics/map_eu.png" name="themes/default/graphics/map_eu.png" />
    <install as="themes/default/graphics/minus.png" name="themes/default/graphics/minus.png" />
    <install as="themes/default/graphics/mobile.png" name="themes/default/graphics/mobile.png" />
    <install as="themes/default/graphics/myaccount.png" name="themes/default/graphics/myaccount.png" />
+   <install as="themes/default/graphics/navi-arrow-active.png" name="themes/default/graphics/navi-arrow-active.png" />
+   <install as="themes/default/graphics/navi-arrow-normal.png" name="themes/default/graphics/navi-arrow-normal.png" />
+   <install as="themes/default/graphics/navi-center-active.png" name="themes/default/graphics/navi-center-active.png" />
+   <install as="themes/default/graphics/navi-left-active.png" name="themes/default/graphics/navi-left-active.png" />
+   <install as="themes/default/graphics/navi-right-active.png" name="themes/default/graphics/navi-right-active.png" />
+   <install as="themes/default/graphics/navi-subnavi-active.png" name="themes/default/graphics/navi-subnavi-active.png" />
+   <install as="themes/default/graphics/navi-subnavi.png" name="themes/default/graphics/navi-subnavi.png" />
    <install as="themes/default/graphics/office.png" name="themes/default/graphics/office.png" />
    <install as="themes/default/graphics/organizing.png" name="themes/default/graphics/organizing.png" />
    <install as="themes/default/graphics/perms.png" name="themes/default/graphics/perms.png" />
    <install as="themes/default/graphics/phone.png" name="themes/default/graphics/phone.png" />
+   <install as="themes/default/graphics/plus-sidebar.png" name="themes/default/graphics/plus-sidebar.png" />
    <install as="themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
+   <install as="themes/default/graphics/popdown.png" name="themes/default/graphics/popdown.png" />
    <install as="themes/default/graphics/popright.png" name="themes/default/graphics/popright.png" />
    <install as="themes/default/graphics/prefs.png" name="themes/default/graphics/prefs.png" />
    <install as="themes/default/graphics/print.png" name="themes/default/graphics/print.png" />
@@ -3289,12 +2698,29 @@
    <install as="themes/default/graphics/required.png" name="themes/default/graphics/required.png" />
    <install as="themes/default/graphics/rhand.png" name="themes/default/graphics/rhand.png" />
    <install as="themes/default/graphics/save.png" name="themes/default/graphics/save.png" />
+   <install as="themes/default/graphics/search-topbar.png" name="themes/default/graphics/search-topbar.png" />
    <install as="themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
+   <install as="themes/default/graphics/settings-active.png" name="themes/default/graphics/settings-active.png" />
+   <install as="themes/default/graphics/settings.png" name="themes/default/graphics/settings.png" />
    <install as="themes/default/graphics/shadow.gif" name="themes/default/graphics/shadow.gif" />
    <install as="themes/default/graphics/shadow.png" name="themes/default/graphics/shadow.png" />
    <install as="themes/default/graphics/shell.png" name="themes/default/graphics/shell.png" />
    <install as="themes/default/graphics/show_panel.png" name="themes/default/graphics/show_panel.png" />
+   <install as="themes/default/graphics/sidebar-active-bg.png" name="themes/default/graphics/sidebar-active-bg.png" />
+   <install as="themes/default/graphics/sidebar-new-bg.png" name="themes/default/graphics/sidebar-new-bg.png" />
+   <install as="themes/default/graphics/sidebar-new.png" name="themes/default/graphics/sidebar-new.png" />
+   <install as="themes/default/graphics/sidebar-refresh.png" name="themes/default/graphics/sidebar-refresh.png" />
+   <install as="themes/default/graphics/sidebar-split.png" name="themes/default/graphics/sidebar-split.png" />
+   <install as="themes/default/graphics/slidehoriz-bg.png" name="themes/default/graphics/slidehoriz-bg.png" />
+   <install as="themes/default/graphics/slidehoriz.png" name="themes/default/graphics/slidehoriz.png" />
+   <install as="themes/default/graphics/slidevert-bg.png" name="themes/default/graphics/slidevert-bg.png" />
+   <install as="themes/default/graphics/slidevert.png" name="themes/default/graphics/slidevert.png" />
    <install as="themes/default/graphics/sql.png" name="themes/default/graphics/sql.png" />
+   <install as="themes/default/graphics/tab-active.png" name="themes/default/graphics/tab-active.png" />
+   <install as="themes/default/graphics/tab.png" name="themes/default/graphics/tab.png" />
+   <install as="themes/default/graphics/tablehead-bg.png" name="themes/default/graphics/tablehead-bg.png" />
+   <install as="themes/default/graphics/tablehead-split.png" name="themes/default/graphics/tablehead-split.png" />
+   <install as="themes/default/graphics/tabset.png" name="themes/default/graphics/tabset.png" />
    <install as="themes/default/graphics/tab_bottom.gif" name="themes/default/graphics/tab_bottom.gif" />
    <install as="themes/default/graphics/unlocked.png" name="themes/default/graphics/unlocked.png" />
    <install as="themes/default/graphics/user.png" name="themes/default/graphics/user.png" />
@@ -3844,11 +3270,6 @@
    <install as="themes/default/graphics/mime/video.png" name="themes/default/graphics/mime/video.png" />
    <install as="themes/default/graphics/mime/wordperfect.png" name="themes/default/graphics/mime/wordperfect.png" />
    <install as="themes/default/graphics/mime/xml.png" name="themes/default/graphics/mime/xml.png" />
-   <install as="themes/default/graphics/mobile/bottom.jpg" name="themes/default/graphics/mobile/bottom.jpg" />
-   <install as="themes/default/graphics/mobile/display.jpg" name="themes/default/graphics/mobile/display.jpg" />
-   <install as="themes/default/graphics/mobile/left.jpg" name="themes/default/graphics/mobile/left.jpg" />
-   <install as="themes/default/graphics/mobile/right.jpg" name="themes/default/graphics/mobile/right.jpg" />
-   <install as="themes/default/graphics/mobile/top.jpg" name="themes/default/graphics/mobile/top.jpg" />
    <install as="themes/default/graphics/nav/bottom-grey.png" name="themes/default/graphics/nav/bottom-grey.png" />
    <install as="themes/default/graphics/nav/bottom.png" name="themes/default/graphics/nav/bottom.png" />
    <install as="themes/default/graphics/nav/down-grey.png" name="themes/default/graphics/nav/down-grey.png" />
@@ -3898,439 +3319,110 @@
    <install as="themes/default/graphics/tree/rev-plustop.png" name="themes/default/graphics/tree/rev-plustop.png" />
    <install as="themes/default/graphics/uploader/backgrounds.gif" name="themes/default/graphics/uploader/backgrounds.gif" />
    <install as="themes/default/graphics/uploader/up.png" name="themes/default/graphics/uploader/up.png" />
+   <install as="themes/default/graphics/weather/23x23/0.png" name="themes/default/graphics/weather/23x23/0.png" />
+   <install as="themes/default/graphics/weather/23x23/1.png" name="themes/default/graphics/weather/23x23/1.png" />
+   <install as="themes/default/graphics/weather/23x23/2.png" name="themes/default/graphics/weather/23x23/2.png" />
+   <install as="themes/default/graphics/weather/23x23/3.png" name="themes/default/graphics/weather/23x23/3.png" />
+   <install as="themes/default/graphics/weather/23x23/4.png" name="themes/default/graphics/weather/23x23/4.png" />
+   <install as="themes/default/graphics/weather/23x23/5.png" name="themes/default/graphics/weather/23x23/5.png" />
+   <install as="themes/default/graphics/weather/23x23/6.png" name="themes/default/graphics/weather/23x23/6.png" />
+   <install as="themes/default/graphics/weather/23x23/7.png" name="themes/default/graphics/weather/23x23/7.png" />
+   <install as="themes/default/graphics/weather/23x23/8.png" name="themes/default/graphics/weather/23x23/8.png" />
+   <install as="themes/default/graphics/weather/23x23/9.png" name="themes/default/graphics/weather/23x23/9.png" />
+   <install as="themes/default/graphics/weather/23x23/10.png" name="themes/default/graphics/weather/23x23/10.png" />
+   <install as="themes/default/graphics/weather/23x23/11.png" name="themes/default/graphics/weather/23x23/11.png" />
+   <install as="themes/default/graphics/weather/23x23/12.png" name="themes/default/graphics/weather/23x23/12.png" />
+   <install as="themes/default/graphics/weather/23x23/13.png" name="themes/default/graphics/weather/23x23/13.png" />
+   <install as="themes/default/graphics/weather/23x23/14.png" name="themes/default/graphics/weather/23x23/14.png" />
+   <install as="themes/default/graphics/weather/23x23/15.png" name="themes/default/graphics/weather/23x23/15.png" />
+   <install as="themes/default/graphics/weather/23x23/16.png" name="themes/default/graphics/weather/23x23/16.png" />
+   <install as="themes/default/graphics/weather/23x23/17.png" name="themes/default/graphics/weather/23x23/17.png" />
+   <install as="themes/default/graphics/weather/23x23/18.png" name="themes/default/graphics/weather/23x23/18.png" />
+   <install as="themes/default/graphics/weather/23x23/19.png" name="themes/default/graphics/weather/23x23/19.png" />
+   <install as="themes/default/graphics/weather/23x23/20.png" name="themes/default/graphics/weather/23x23/20.png" />
+   <install as="themes/default/graphics/weather/23x23/21.png" name="themes/default/graphics/weather/23x23/21.png" />
+   <install as="themes/default/graphics/weather/23x23/22.png" name="themes/default/graphics/weather/23x23/22.png" />
+   <install as="themes/default/graphics/weather/23x23/23.png" name="themes/default/graphics/weather/23x23/23.png" />
+   <install as="themes/default/graphics/weather/23x23/24.png" name="themes/default/graphics/weather/23x23/24.png" />
+   <install as="themes/default/graphics/weather/23x23/25.png" name="themes/default/graphics/weather/23x23/25.png" />
+   <install as="themes/default/graphics/weather/23x23/26.png" name="themes/default/graphics/weather/23x23/26.png" />
+   <install as="themes/default/graphics/weather/23x23/27.png" name="themes/default/graphics/weather/23x23/27.png" />
+   <install as="themes/default/graphics/weather/23x23/28.png" name="themes/default/graphics/weather/23x23/28.png" />
+   <install as="themes/default/graphics/weather/23x23/29.png" name="themes/default/graphics/weather/23x23/29.png" />
+   <install as="themes/default/graphics/weather/23x23/30.png" name="themes/default/graphics/weather/23x23/30.png" />
+   <install as="themes/default/graphics/weather/23x23/31.png" name="themes/default/graphics/weather/23x23/31.png" />
+   <install as="themes/default/graphics/weather/23x23/32.png" name="themes/default/graphics/weather/23x23/32.png" />
+   <install as="themes/default/graphics/weather/23x23/33.png" name="themes/default/graphics/weather/23x23/33.png" />
+   <install as="themes/default/graphics/weather/23x23/34.png" name="themes/default/graphics/weather/23x23/34.png" />
+   <install as="themes/default/graphics/weather/23x23/35.png" name="themes/default/graphics/weather/23x23/35.png" />
+   <install as="themes/default/graphics/weather/23x23/36.png" name="themes/default/graphics/weather/23x23/36.png" />
+   <install as="themes/default/graphics/weather/23x23/37.png" name="themes/default/graphics/weather/23x23/37.png" />
+   <install as="themes/default/graphics/weather/23x23/38.png" name="themes/default/graphics/weather/23x23/38.png" />
+   <install as="themes/default/graphics/weather/23x23/39.png" name="themes/default/graphics/weather/23x23/39.png" />
+   <install as="themes/default/graphics/weather/23x23/40.png" name="themes/default/graphics/weather/23x23/40.png" />
+   <install as="themes/default/graphics/weather/23x23/41.png" name="themes/default/graphics/weather/23x23/41.png" />
+   <install as="themes/default/graphics/weather/23x23/42.png" name="themes/default/graphics/weather/23x23/42.png" />
+   <install as="themes/default/graphics/weather/23x23/43.png" name="themes/default/graphics/weather/23x23/43.png" />
+   <install as="themes/default/graphics/weather/23x23/44.png" name="themes/default/graphics/weather/23x23/44.png" />
+   <install as="themes/default/graphics/weather/23x23/45.png" name="themes/default/graphics/weather/23x23/45.png" />
+   <install as="themes/default/graphics/weather/23x23/46.png" name="themes/default/graphics/weather/23x23/46.png" />
+   <install as="themes/default/graphics/weather/23x23/47.png" name="themes/default/graphics/weather/23x23/47.png" />
+   <install as="themes/default/graphics/weather/23x23/na.png" name="themes/default/graphics/weather/23x23/na.png" />
+   <install as="themes/default/graphics/weather/32x32/0.png" name="themes/default/graphics/weather/32x32/0.png" />
+   <install as="themes/default/graphics/weather/32x32/1.png" name="themes/default/graphics/weather/32x32/1.png" />
+   <install as="themes/default/graphics/weather/32x32/2.png" name="themes/default/graphics/weather/32x32/2.png" />
+   <install as="themes/default/graphics/weather/32x32/3.png" name="themes/default/graphics/weather/32x32/3.png" />
+   <install as="themes/default/graphics/weather/32x32/4.png" name="themes/default/graphics/weather/32x32/4.png" />
+   <install as="themes/default/graphics/weather/32x32/5.png" name="themes/default/graphics/weather/32x32/5.png" />
+   <install as="themes/default/graphics/weather/32x32/6.png" name="themes/default/graphics/weather/32x32/6.png" />
+   <install as="themes/default/graphics/weather/32x32/7.png" name="themes/default/graphics/weather/32x32/7.png" />
+   <install as="themes/default/graphics/weather/32x32/8.png" name="themes/default/graphics/weather/32x32/8.png" />
+   <install as="themes/default/graphics/weather/32x32/9.png" name="themes/default/graphics/weather/32x32/9.png" />
+   <install as="themes/default/graphics/weather/32x32/10.png" name="themes/default/graphics/weather/32x32/10.png" />
+   <install as="themes/default/graphics/weather/32x32/11.png" name="themes/default/graphics/weather/32x32/11.png" />
+   <install as="themes/default/graphics/weather/32x32/12.png" name="themes/default/graphics/weather/32x32/12.png" />
+   <install as="themes/default/graphics/weather/32x32/13.png" name="themes/default/graphics/weather/32x32/13.png" />
+   <install as="themes/default/graphics/weather/32x32/14.png" name="themes/default/graphics/weather/32x32/14.png" />
+   <install as="themes/default/graphics/weather/32x32/15.png" name="themes/default/graphics/weather/32x32/15.png" />
+   <install as="themes/default/graphics/weather/32x32/16.png" name="themes/default/graphics/weather/32x32/16.png" />
+   <install as="themes/default/graphics/weather/32x32/17.png" name="themes/default/graphics/weather/32x32/17.png" />
+   <install as="themes/default/graphics/weather/32x32/18.png" name="themes/default/graphics/weather/32x32/18.png" />
+   <install as="themes/default/graphics/weather/32x32/19.png" name="themes/default/graphics/weather/32x32/19.png" />
+   <install as="themes/default/graphics/weather/32x32/20.png" name="themes/default/graphics/weather/32x32/20.png" />
+   <install as="themes/default/graphics/weather/32x32/21.png" name="themes/default/graphics/weather/32x32/21.png" />
+   <install as="themes/default/graphics/weather/32x32/22.png" name="themes/default/graphics/weather/32x32/22.png" />
+   <install as="themes/default/graphics/weather/32x32/23.png" name="themes/default/graphics/weather/32x32/23.png" />
+   <install as="themes/default/graphics/weather/32x32/24.png" name="themes/default/graphics/weather/32x32/24.png" />
+   <install as="themes/default/graphics/weather/32x32/25.png" name="themes/default/graphics/weather/32x32/25.png" />
+   <install as="themes/default/graphics/weather/32x32/26.png" name="themes/default/graphics/weather/32x32/26.png" />
+   <install as="themes/default/graphics/weather/32x32/27.png" name="themes/default/graphics/weather/32x32/27.png" />
+   <install as="themes/default/graphics/weather/32x32/28.png" name="themes/default/graphics/weather/32x32/28.png" />
+   <install as="themes/default/graphics/weather/32x32/29.png" name="themes/default/graphics/weather/32x32/29.png" />
+   <install as="themes/default/graphics/weather/32x32/30.png" name="themes/default/graphics/weather/32x32/30.png" />
+   <install as="themes/default/graphics/weather/32x32/31.png" name="themes/default/graphics/weather/32x32/31.png" />
+   <install as="themes/default/graphics/weather/32x32/32.png" name="themes/default/graphics/weather/32x32/32.png" />
+   <install as="themes/default/graphics/weather/32x32/33.png" name="themes/default/graphics/weather/32x32/33.png" />
+   <install as="themes/default/graphics/weather/32x32/34.png" name="themes/default/graphics/weather/32x32/34.png" />
+   <install as="themes/default/graphics/weather/32x32/35.png" name="themes/default/graphics/weather/32x32/35.png" />
+   <install as="themes/default/graphics/weather/32x32/36.png" name="themes/default/graphics/weather/32x32/36.png" />
+   <install as="themes/default/graphics/weather/32x32/37.png" name="themes/default/graphics/weather/32x32/37.png" />
+   <install as="themes/default/graphics/weather/32x32/38.png" name="themes/default/graphics/weather/32x32/38.png" />
+   <install as="themes/default/graphics/weather/32x32/39.png" name="themes/default/graphics/weather/32x32/39.png" />
+   <install as="themes/default/graphics/weather/32x32/40.png" name="themes/default/graphics/weather/32x32/40.png" />
+   <install as="themes/default/graphics/weather/32x32/41.png" name="themes/default/graphics/weather/32x32/41.png" />
+   <install as="themes/default/graphics/weather/32x32/42.png" name="themes/default/graphics/weather/32x32/42.png" />
+   <install as="themes/default/graphics/weather/32x32/43.png" name="themes/default/graphics/weather/32x32/43.png" />
+   <install as="themes/default/graphics/weather/32x32/44.png" name="themes/default/graphics/weather/32x32/44.png" />
+   <install as="themes/default/graphics/weather/32x32/45.png" name="themes/default/graphics/weather/32x32/45.png" />
+   <install as="themes/default/graphics/weather/32x32/46.png" name="themes/default/graphics/weather/32x32/46.png" />
+   <install as="themes/default/graphics/weather/32x32/47.png" name="themes/default/graphics/weather/32x32/47.png" />
+   <install as="themes/default/graphics/weather/32x32/na.png" name="themes/default/graphics/weather/32x32/na.png" />
+   <install as="themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
    <install as="themes/default/sounds/doorbell.wav" name="themes/default/sounds/doorbell.wav" />
    <install as="themes/default/sounds/gnid3.wav" name="themes/default/sounds/gnid3.wav" />
    <install as="themes/default/sounds/jetsndb.wav" name="themes/default/sounds/jetsndb.wav" />
    <install as="themes/default/sounds/reminder.wav" name="themes/default/sounds/reminder.wav" />
    <install as="themes/default/sounds/theetone.wav" name="themes/default/sounds/theetone.wav" />
-   <install as="themes/fadetogreen/info.php" name="themes/fadetogreen/info.php" />
-   <install as="themes/fadetogreen/screen.css" name="themes/fadetogreen/screen.css" />
-   <install as="themes/fadetogreen/graphics/control.png" name="themes/fadetogreen/graphics/control.png" />
-   <install as="themes/fadetogreen/graphics/header.png" name="themes/fadetogreen/graphics/header.png" />
-   <install as="themes/fadetogreen/graphics/headerbox.png" name="themes/fadetogreen/graphics/headerbox.png" />
-   <install as="themes/fadetogreen/graphics/menucurrent.png" name="themes/fadetogreen/graphics/menucurrent.png" />
-   <install as="themes/fadetogreen/graphics/menuhover.png" name="themes/fadetogreen/graphics/menuhover.png" />
-   <install as="themes/fadetogreen/graphics/message.png" name="themes/fadetogreen/graphics/message.png" />
-   <install as="themes/fadetogreen/graphics/notice.png" name="themes/fadetogreen/graphics/notice.png" />
-   <install as="themes/fadetogreen/graphics/sidebar.png" name="themes/fadetogreen/graphics/sidebar.png" />
-   <install as="themes/fadetogreen/graphics/sidebarhover.png" name="themes/fadetogreen/graphics/sidebarhover.png" />
-   <install as="themes/gennevilliers/info.php" name="themes/gennevilliers/info.php" />
-   <install as="themes/gennevilliers/screen.css" name="themes/gennevilliers/screen.css" />
-   <install as="themes/green/info.php" name="themes/green/info.php" />
-   <install as="themes/green/screen.css" name="themes/green/screen.css" />
-   <install as="themes/grey/info.php" name="themes/grey/info.php" />
-   <install as="themes/grey/screen.css" name="themes/grey/screen.css" />
-   <install as="themes/hi-contrast/info.php" name="themes/hi-contrast/info.php" />
-   <install as="themes/hi-contrast/screen.css" name="themes/hi-contrast/screen.css" />
-   <install as="themes/hordevetica/info.php" name="themes/hordevetica/info.php" />
-   <install as="themes/hordevetica/screen.css" name="themes/hordevetica/screen.css" />
-   <install as="themes/hordevetica/graphics/about.png" name="themes/hordevetica/graphics/about.png" />
-   <install as="themes/hordevetica/graphics/add_group.png" name="themes/hordevetica/graphics/add_group.png" />
-   <install as="themes/hordevetica/graphics/add_perm.png" name="themes/hordevetica/graphics/add_perm.png" />
-   <install as="themes/hordevetica/graphics/administration.png" name="themes/hordevetica/graphics/administration.png" />
-   <install as="themes/hordevetica/graphics/az.png" name="themes/hordevetica/graphics/az.png" />
-   <install as="themes/hordevetica/graphics/block.png" name="themes/hordevetica/graphics/block.png" />
-   <install as="themes/hordevetica/graphics/calendar.png" name="themes/hordevetica/graphics/calendar.png" />
-   <install as="themes/hordevetica/graphics/close.png" name="themes/hordevetica/graphics/close.png" />
-   <install as="themes/hordevetica/graphics/colorpicker.png" name="themes/hordevetica/graphics/colorpicker.png" />
-   <install as="themes/hordevetica/graphics/config.png" name="themes/hordevetica/graphics/config.png" />
-   <install as="themes/hordevetica/graphics/data.png" name="themes/hordevetica/graphics/data.png" />
-   <install as="themes/hordevetica/graphics/datatree.png" name="themes/hordevetica/graphics/datatree.png" />
-   <install as="themes/hordevetica/graphics/delete-small.png" name="themes/hordevetica/graphics/delete-small.png" />
-   <install as="themes/hordevetica/graphics/delete.png" name="themes/hordevetica/graphics/delete.png" />
-   <install as="themes/hordevetica/graphics/devel.png" name="themes/hordevetica/graphics/devel.png" />
-   <install as="themes/hordevetica/graphics/download.png" name="themes/hordevetica/graphics/download.png" />
-   <install as="themes/hordevetica/graphics/edit-small.png" name="themes/hordevetica/graphics/edit-small.png" />
-   <install as="themes/hordevetica/graphics/edit.png" name="themes/hordevetica/graphics/edit.png" />
-   <install as="themes/hordevetica/graphics/external.png" name="themes/hordevetica/graphics/external.png" />
-   <install as="themes/hordevetica/graphics/favicon.ico" name="themes/hordevetica/graphics/favicon.ico" />
-   <install as="themes/hordevetica/graphics/feed.png" name="themes/hordevetica/graphics/feed.png" />
-   <install as="themes/hordevetica/graphics/group.png" name="themes/hordevetica/graphics/group.png" />
-   <install as="themes/hordevetica/graphics/help.png" name="themes/hordevetica/graphics/help.png" />
-   <install as="themes/hordevetica/graphics/help_index.png" name="themes/hordevetica/graphics/help_index.png" />
-   <install as="themes/hordevetica/graphics/hide_panel.png" name="themes/hordevetica/graphics/hide_panel.png" />
-   <install as="themes/hordevetica/graphics/horde.png" name="themes/hordevetica/graphics/horde.png" />
-   <install as="themes/hordevetica/graphics/info.png" name="themes/hordevetica/graphics/info.png" />
-   <install as="themes/hordevetica/graphics/info_icon.png" name="themes/hordevetica/graphics/info_icon.png" />
-   <install as="themes/hordevetica/graphics/keyboard.png" name="themes/hordevetica/graphics/keyboard.png" />
-   <install as="themes/hordevetica/graphics/layout.png" name="themes/hordevetica/graphics/layout.png" />
-   <install as="themes/hordevetica/graphics/lhand.png" name="themes/hordevetica/graphics/lhand.png" />
-   <install as="themes/hordevetica/graphics/locked.png" name="themes/hordevetica/graphics/locked.png" />
-   <install as="themes/hordevetica/graphics/login.png" name="themes/hordevetica/graphics/login.png" />
-   <install as="themes/hordevetica/graphics/logout.png" name="themes/hordevetica/graphics/logout.png" />
-   <install as="themes/hordevetica/graphics/map.png" name="themes/hordevetica/graphics/map.png" />
-   <install as="themes/hordevetica/graphics/map_eu.png" name="themes/hordevetica/graphics/map_eu.png" />
-   <install as="themes/hordevetica/graphics/menu-active.png" name="themes/hordevetica/graphics/menu-active.png" />
-   <install as="themes/hordevetica/graphics/menu.png" name="themes/hordevetica/graphics/menu.png" />
-   <install as="themes/hordevetica/graphics/minus.png" name="themes/hordevetica/graphics/minus.png" />
-   <install as="themes/hordevetica/graphics/mobile.png" name="themes/hordevetica/graphics/mobile.png" />
-   <install as="themes/hordevetica/graphics/myaccount.png" name="themes/hordevetica/graphics/myaccount.png" />
-   <install as="themes/hordevetica/graphics/office.png" name="themes/hordevetica/graphics/office.png" />
-   <install as="themes/hordevetica/graphics/organizing.png" name="themes/hordevetica/graphics/organizing.png" />
-   <install as="themes/hordevetica/graphics/perms.png" name="themes/hordevetica/graphics/perms.png" />
-   <install as="themes/hordevetica/graphics/phone.png" name="themes/hordevetica/graphics/phone.png" />
-   <install as="themes/hordevetica/graphics/plus.png" name="themes/hordevetica/graphics/plus.png" />
-   <install as="themes/hordevetica/graphics/popright.png" name="themes/hordevetica/graphics/popright.png" />
-   <install as="themes/hordevetica/graphics/prefs.png" name="themes/hordevetica/graphics/prefs.png" />
-   <install as="themes/hordevetica/graphics/print.png" name="themes/hordevetica/graphics/print.png" />
-   <install as="themes/hordevetica/graphics/problem.png" name="themes/hordevetica/graphics/problem.png" />
-   <install as="themes/hordevetica/graphics/reload.png" name="themes/hordevetica/graphics/reload.png" />
-   <install as="themes/hordevetica/graphics/required.png" name="themes/hordevetica/graphics/required.png" />
-   <install as="themes/hordevetica/graphics/rhand.png" name="themes/hordevetica/graphics/rhand.png" />
-   <install as="themes/hordevetica/graphics/save.png" name="themes/hordevetica/graphics/save.png" />
-   <install as="themes/hordevetica/graphics/search.png" name="themes/hordevetica/graphics/search.png" />
-   <install as="themes/hordevetica/graphics/shell.png" name="themes/hordevetica/graphics/shell.png" />
-   <install as="themes/hordevetica/graphics/show_panel.png" name="themes/hordevetica/graphics/show_panel.png" />
-   <install as="themes/hordevetica/graphics/sql.png" name="themes/hordevetica/graphics/sql.png" />
-   <install as="themes/hordevetica/graphics/unlocked.png" name="themes/hordevetica/graphics/unlocked.png" />
-   <install as="themes/hordevetica/graphics/user.png" name="themes/hordevetica/graphics/user.png" />
-   <install as="themes/hordevetica/graphics/website.png" name="themes/hordevetica/graphics/website.png" />
-   <install as="themes/hordevetica/graphics/za.png" name="themes/hordevetica/graphics/za.png" />
-   <install as="themes/hordevetica/graphics/alerts/alarm.png" name="themes/hordevetica/graphics/alerts/alarm.png" />
-   <install as="themes/hordevetica/graphics/alerts/error.png" name="themes/hordevetica/graphics/alerts/error.png" />
-   <install as="themes/hordevetica/graphics/alerts/message.png" name="themes/hordevetica/graphics/alerts/message.png" />
-   <install as="themes/hordevetica/graphics/alerts/success.png" name="themes/hordevetica/graphics/alerts/success.png" />
-   <install as="themes/hordevetica/graphics/alerts/warning.png" name="themes/hordevetica/graphics/alerts/warning.png" />
-   <install as="themes/hordevetica/graphics/block/large_up.png" name="themes/hordevetica/graphics/block/large_up.png" />
-   <install as="themes/hordevetica/graphics/image/crop.png" name="themes/hordevetica/graphics/image/crop.png" />
-   <install as="themes/hordevetica/graphics/map/marker-blue.png" name="themes/hordevetica/graphics/map/marker-blue.png" />
-   <install as="themes/hordevetica/graphics/map/marker-gold.png" name="themes/hordevetica/graphics/map/marker-gold.png" />
-   <install as="themes/hordevetica/graphics/map/marker-green.png" name="themes/hordevetica/graphics/map/marker-green.png" />
-   <install as="themes/hordevetica/graphics/map/marker-shadow.png" name="themes/hordevetica/graphics/map/marker-shadow.png" />
-   <install as="themes/hordevetica/graphics/map/marker.png" name="themes/hordevetica/graphics/map/marker.png" />
-   <install as="themes/hordevetica/graphics/mime/audio.png" name="themes/hordevetica/graphics/mime/audio.png" />
-   <install as="themes/hordevetica/graphics/mime/binary.png" name="themes/hordevetica/graphics/mime/binary.png" />
-   <install as="themes/hordevetica/graphics/mime/compressed.png" name="themes/hordevetica/graphics/mime/compressed.png" />
-   <install as="themes/hordevetica/graphics/mime/deb.png" name="themes/hordevetica/graphics/mime/deb.png" />
-   <install as="themes/hordevetica/graphics/mime/encryption.png" name="themes/hordevetica/graphics/mime/encryption.png" />
-   <install as="themes/hordevetica/graphics/mime/html.png" name="themes/hordevetica/graphics/mime/html.png" />
-   <install as="themes/hordevetica/graphics/mime/icalendar.png" name="themes/hordevetica/graphics/mime/icalendar.png" />
-   <install as="themes/hordevetica/graphics/mime/image.png" name="themes/hordevetica/graphics/mime/image.png" />
-   <install as="themes/hordevetica/graphics/mime/mail.png" name="themes/hordevetica/graphics/mime/mail.png" />
-   <install as="themes/hordevetica/graphics/mime/msexcel.png" name="themes/hordevetica/graphics/mime/msexcel.png" />
-   <install as="themes/hordevetica/graphics/mime/mspowerpoint.png" name="themes/hordevetica/graphics/mime/mspowerpoint.png" />
-   <install as="themes/hordevetica/graphics/mime/msword.png" name="themes/hordevetica/graphics/mime/msword.png" />
-   <install as="themes/hordevetica/graphics/mime/ooo_calc.png" name="themes/hordevetica/graphics/mime/ooo_calc.png" />
-   <install as="themes/hordevetica/graphics/mime/ooo_draw.png" name="themes/hordevetica/graphics/mime/ooo_draw.png" />
-   <install as="themes/hordevetica/graphics/mime/ooo_impress.png" name="themes/hordevetica/graphics/mime/ooo_impress.png" />
-   <install as="themes/hordevetica/graphics/mime/ooo_math.png" name="themes/hordevetica/graphics/mime/ooo_math.png" />
-   <install as="themes/hordevetica/graphics/mime/ooo_writer.png" name="themes/hordevetica/graphics/mime/ooo_writer.png" />
-   <install as="themes/hordevetica/graphics/mime/pdf.png" name="themes/hordevetica/graphics/mime/pdf.png" />
-   <install as="themes/hordevetica/graphics/mime/php.png" name="themes/hordevetica/graphics/mime/php.png" />
-   <install as="themes/hordevetica/graphics/mime/rpm.png" name="themes/hordevetica/graphics/mime/rpm.png" />
-   <install as="themes/hordevetica/graphics/mime/script-js.png" name="themes/hordevetica/graphics/mime/script-js.png" />
-   <install as="themes/hordevetica/graphics/mime/source-c.png" name="themes/hordevetica/graphics/mime/source-c.png" />
-   <install as="themes/hordevetica/graphics/mime/source-cpp.png" name="themes/hordevetica/graphics/mime/source-cpp.png" />
-   <install as="themes/hordevetica/graphics/mime/source-h.png" name="themes/hordevetica/graphics/mime/source-h.png" />
-   <install as="themes/hordevetica/graphics/mime/source-java.png" name="themes/hordevetica/graphics/mime/source-java.png" />
-   <install as="themes/hordevetica/graphics/mime/source-python.png" name="themes/hordevetica/graphics/mime/source-python.png" />
-   <install as="themes/hordevetica/graphics/mime/text.png" name="themes/hordevetica/graphics/mime/text.png" />
-   <install as="themes/hordevetica/graphics/mime/vcard.png" name="themes/hordevetica/graphics/mime/vcard.png" />
-   <install as="themes/hordevetica/graphics/mime/video.png" name="themes/hordevetica/graphics/mime/video.png" />
-   <install as="themes/hordevetica/graphics/mime/xml.png" name="themes/hordevetica/graphics/mime/xml.png" />
-   <install as="themes/hordevetica/graphics/nav/bottom-grey.png" name="themes/hordevetica/graphics/nav/bottom-grey.png" />
-   <install as="themes/hordevetica/graphics/nav/bottom.png" name="themes/hordevetica/graphics/nav/bottom.png" />
-   <install as="themes/hordevetica/graphics/nav/down-grey.png" name="themes/hordevetica/graphics/nav/down-grey.png" />
-   <install as="themes/hordevetica/graphics/nav/down.png" name="themes/hordevetica/graphics/nav/down.png" />
-   <install as="themes/hordevetica/graphics/nav/first-grey.png" name="themes/hordevetica/graphics/nav/first-grey.png" />
-   <install as="themes/hordevetica/graphics/nav/first.png" name="themes/hordevetica/graphics/nav/first.png" />
-   <install as="themes/hordevetica/graphics/nav/last-grey.png" name="themes/hordevetica/graphics/nav/last-grey.png" />
-   <install as="themes/hordevetica/graphics/nav/last.png" name="themes/hordevetica/graphics/nav/last.png" />
-   <install as="themes/hordevetica/graphics/nav/left-grey.png" name="themes/hordevetica/graphics/nav/left-grey.png" />
-   <install as="themes/hordevetica/graphics/nav/left.png" name="themes/hordevetica/graphics/nav/left.png" />
-   <install as="themes/hordevetica/graphics/nav/right-grey.png" name="themes/hordevetica/graphics/nav/right-grey.png" />
-   <install as="themes/hordevetica/graphics/nav/right.png" name="themes/hordevetica/graphics/nav/right.png" />
-   <install as="themes/hordevetica/graphics/nav/top-grey.png" name="themes/hordevetica/graphics/nav/top-grey.png" />
-   <install as="themes/hordevetica/graphics/nav/top.png" name="themes/hordevetica/graphics/nav/top.png" />
-   <install as="themes/hordevetica/graphics/nav/up-grey.png" name="themes/hordevetica/graphics/nav/up-grey.png" />
-   <install as="themes/hordevetica/graphics/nav/up.png" name="themes/hordevetica/graphics/nav/up.png" />
-   <install as="themes/hordevetica/graphics/tree/folder.png" name="themes/hordevetica/graphics/tree/folder.png" />
-   <install as="themes/hordevetica/graphics/tree/folderopen.png" name="themes/hordevetica/graphics/tree/folderopen.png" />
-   <install as="themes/hordevetica/graphics/tree/leaf.png" name="themes/hordevetica/graphics/tree/leaf.png" />
-   <install as="themes/hordevetica/graphics/tree/rev-leaf.png" name="themes/hordevetica/graphics/tree/rev-leaf.png" />
-   <install as="themes/hordevetica/graphics/uploader/up.png" name="themes/hordevetica/graphics/uploader/up.png" />
-   <install as="themes/hordeweb/info.php" name="themes/hordeweb/info.php" />
-   <install as="themes/hordeweb/screen.css" name="themes/hordeweb/screen.css" />
-   <install as="themes/hordeweb/webkit.css" name="themes/hordeweb/webkit.css" />
-   <install as="themes/hordeweb/graphics/background.jpg" name="themes/hordeweb/graphics/background.jpg" />
-   <install as="themes/hordeweb/graphics/help_index.png" name="themes/hordeweb/graphics/help_index.png" />
-   <install as="themes/hordeweb/graphics/login.png" name="themes/hordeweb/graphics/login.png" />
-   <install as="themes/hordeweb/graphics/logout.png" name="themes/hordeweb/graphics/logout.png" />
-   <install as="themes/hordeweb/graphics/prefs.png" name="themes/hordeweb/graphics/prefs.png" />
-   <install as="themes/hordeweb/graphics/problem.png" name="themes/hordeweb/graphics/problem.png" />
-   <install as="themes/hordeweb/graphics/ribbon.png" name="themes/hordeweb/graphics/ribbon.png" />
-   <install as="themes/hordeweb1/ie6_or_less.css" name="themes/hordeweb1/ie6_or_less.css" />
-   <install as="themes/hordeweb1/info.php" name="themes/hordeweb1/info.php" />
-   <install as="themes/hordeweb1/screen.css" name="themes/hordeweb1/screen.css" />
-   <install as="themes/hordeweb1/graphics/horde-halfgear-ie.png" name="themes/hordeweb1/graphics/horde-halfgear-ie.png" />
-   <install as="themes/hordeweb1/graphics/horde-halfgear.png" name="themes/hordeweb1/graphics/horde-halfgear.png" />
-   <install as="themes/ideas/info.php" name="themes/ideas/info.php" />
-   <install as="themes/ideas/screen.css" name="themes/ideas/screen.css" />
-   <install as="themes/ideas/graphics/background.png" name="themes/ideas/graphics/background.png" />
-   <install as="themes/ideas/graphics/left_menu_bottom.png" name="themes/ideas/graphics/left_menu_bottom.png" />
-   <install as="themes/ideas/graphics/left_menu_top.png" name="themes/ideas/graphics/left_menu_top.png" />
-   <install as="themes/ideas/graphics/menu_top.png" name="themes/ideas/graphics/menu_top.png" />
-   <install as="themes/kolab/info.php" name="themes/kolab/info.php" />
-   <install as="themes/kolab/screen.css" name="themes/kolab/screen.css" />
-   <install as="themes/kolab/graphics/bg.png" name="themes/kolab/graphics/bg.png" />
-   <install as="themes/kolab/graphics/kolab.png" name="themes/kolab/graphics/kolab.png" />
-   <install as="themes/kolab/graphics/kolablogo.png" name="themes/kolab/graphics/kolablogo.png" />
-   <install as="themes/lavander/info.php" name="themes/lavander/info.php" />
-   <install as="themes/lavander/screen.css" name="themes/lavander/screen.css" />
-   <install as="themes/lightblue/info.php" name="themes/lightblue/info.php" />
-   <install as="themes/lightblue/screen.css" name="themes/lightblue/screen.css" />
-   <install as="themes/lightblue/graphics/menu.png" name="themes/lightblue/graphics/menu.png" />
-   <install as="themes/luc/info.php" name="themes/luc/info.php" />
-   <install as="themes/luc/screen.css" name="themes/luc/screen.css" />
-   <install as="themes/luc/graphics/currentTab_left.gif" name="themes/luc/graphics/currentTab_left.gif" />
-   <install as="themes/luc/graphics/currentTab_right.gif" name="themes/luc/graphics/currentTab_right.gif" />
-   <install as="themes/luc/graphics/tab_bottom.gif" name="themes/luc/graphics/tab_bottom.gif" />
-   <install as="themes/luc/graphics/tab_left.gif" name="themes/luc/graphics/tab_left.gif" />
-   <install as="themes/luc/graphics/tab_right.gif" name="themes/luc/graphics/tab_right.gif" />
-   <install as="themes/lucblue/info.php" name="themes/lucblue/info.php" />
-   <install as="themes/lucblue/screen.css" name="themes/lucblue/screen.css" />
-   <install as="themes/mozilla/info.php" name="themes/mozilla/info.php" />
-   <install as="themes/mozilla/screen.css" name="themes/mozilla/screen.css" />
-   <install as="themes/mozilla/graphics/header.png" name="themes/mozilla/graphics/header.png" />
-   <install as="themes/mozilla/graphics/menu-active.png" name="themes/mozilla/graphics/menu-active.png" />
-   <install as="themes/mozilla/graphics/menu.png" name="themes/mozilla/graphics/menu.png" />
-   <install as="themes/NeXTgrey/info.php" name="themes/NeXTgrey/info.php" />
-   <install as="themes/NeXTgrey/screen.css" name="themes/NeXTgrey/screen.css" />
-   <install as="themes/postnuke/info.php" name="themes/postnuke/info.php" />
-   <install as="themes/postnuke/screen.css" name="themes/postnuke/screen.css" />
-   <install as="themes/purple/info.php" name="themes/purple/info.php" />
-   <install as="themes/purple/screen.css" name="themes/purple/screen.css" />
-   <install as="themes/silver/info.php" name="themes/silver/info.php" />
-   <install as="themes/silver/screen.css" name="themes/silver/screen.css" />
-   <install as="themes/silver/graphics/about.png" name="themes/silver/graphics/about.png" />
-   <install as="themes/silver/graphics/add_group.png" name="themes/silver/graphics/add_group.png" />
-   <install as="themes/silver/graphics/add_perm.png" name="themes/silver/graphics/add_perm.png" />
-   <install as="themes/silver/graphics/administration.png" name="themes/silver/graphics/administration.png" />
-   <install as="themes/silver/graphics/az.png" name="themes/silver/graphics/az.png" />
-   <install as="themes/silver/graphics/block.png" name="themes/silver/graphics/block.png" />
-   <install as="themes/silver/graphics/calendar.png" name="themes/silver/graphics/calendar.png" />
-   <install as="themes/silver/graphics/close.png" name="themes/silver/graphics/close.png" />
-   <install as="themes/silver/graphics/colorpicker.png" name="themes/silver/graphics/colorpicker.png" />
-   <install as="themes/silver/graphics/config.png" name="themes/silver/graphics/config.png" />
-   <install as="themes/silver/graphics/currentTab_left.png" name="themes/silver/graphics/currentTab_left.png" />
-   <install as="themes/silver/graphics/currentTab_right.png" name="themes/silver/graphics/currentTab_right.png" />
-   <install as="themes/silver/graphics/data.png" name="themes/silver/graphics/data.png" />
-   <install as="themes/silver/graphics/datatree.png" name="themes/silver/graphics/datatree.png" />
-   <install as="themes/silver/graphics/delete-small.png" name="themes/silver/graphics/delete-small.png" />
-   <install as="themes/silver/graphics/delete.png" name="themes/silver/graphics/delete.png" />
-   <install as="themes/silver/graphics/devel.png" name="themes/silver/graphics/devel.png" />
-   <install as="themes/silver/graphics/download.png" name="themes/silver/graphics/download.png" />
-   <install as="themes/silver/graphics/edit-small.png" name="themes/silver/graphics/edit-small.png" />
-   <install as="themes/silver/graphics/edit.png" name="themes/silver/graphics/edit.png" />
-   <install as="themes/silver/graphics/external.png" name="themes/silver/graphics/external.png" />
-   <install as="themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
-   <install as="themes/silver/graphics/feed.png" name="themes/silver/graphics/feed.png" />
-   <install as="themes/silver/graphics/group.png" name="themes/silver/graphics/group.png" />
-   <install as="themes/silver/graphics/help.png" name="themes/silver/graphics/help.png" />
-   <install as="themes/silver/graphics/help_index.png" name="themes/silver/graphics/help_index.png" />
-   <install as="themes/silver/graphics/hide_panel.png" name="themes/silver/graphics/hide_panel.png" />
-   <install as="themes/silver/graphics/horde.png" name="themes/silver/graphics/horde.png" />
-   <install as="themes/silver/graphics/info.png" name="themes/silver/graphics/info.png" />
-   <install as="themes/silver/graphics/info_icon.png" name="themes/silver/graphics/info_icon.png" />
-   <install as="themes/silver/graphics/keyboard.png" name="themes/silver/graphics/keyboard.png" />
-   <install as="themes/silver/graphics/layout.png" name="themes/silver/graphics/layout.png" />
-   <install as="themes/silver/graphics/lhand.png" name="themes/silver/graphics/lhand.png" />
-   <install as="themes/silver/graphics/locked.png" name="themes/silver/graphics/locked.png" />
-   <install as="themes/silver/graphics/login.png" name="themes/silver/graphics/login.png" />
-   <install as="themes/silver/graphics/logout.png" name="themes/silver/graphics/logout.png" />
-   <install as="themes/silver/graphics/map.png" name="themes/silver/graphics/map.png" />
-   <install as="themes/silver/graphics/map_eu.png" name="themes/silver/graphics/map_eu.png" />
-   <install as="themes/silver/graphics/menu-active.png" name="themes/silver/graphics/menu-active.png" />
-   <install as="themes/silver/graphics/menu.png" name="themes/silver/graphics/menu.png" />
-   <install as="themes/silver/graphics/minus.png" name="themes/silver/graphics/minus.png" />
-   <install as="themes/silver/graphics/mobile.png" name="themes/silver/graphics/mobile.png" />
-   <install as="themes/silver/graphics/myaccount.png" name="themes/silver/graphics/myaccount.png" />
-   <install as="themes/silver/graphics/office.png" name="themes/silver/graphics/office.png" />
-   <install as="themes/silver/graphics/organizing.png" name="themes/silver/graphics/organizing.png" />
-   <install as="themes/silver/graphics/perms.png" name="themes/silver/graphics/perms.png" />
-   <install as="themes/silver/graphics/phone.png" name="themes/silver/graphics/phone.png" />
-   <install as="themes/silver/graphics/plus.png" name="themes/silver/graphics/plus.png" />
-   <install as="themes/silver/graphics/popright.png" name="themes/silver/graphics/popright.png" />
-   <install as="themes/silver/graphics/prefs.png" name="themes/silver/graphics/prefs.png" />
-   <install as="themes/silver/graphics/print.png" name="themes/silver/graphics/print.png" />
-   <install as="themes/silver/graphics/problem.png" name="themes/silver/graphics/problem.png" />
-   <install as="themes/silver/graphics/reload.png" name="themes/silver/graphics/reload.png" />
-   <install as="themes/silver/graphics/required.png" name="themes/silver/graphics/required.png" />
-   <install as="themes/silver/graphics/rhand.png" name="themes/silver/graphics/rhand.png" />
-   <install as="themes/silver/graphics/save.png" name="themes/silver/graphics/save.png" />
-   <install as="themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
-   <install as="themes/silver/graphics/shell.png" name="themes/silver/graphics/shell.png" />
-   <install as="themes/silver/graphics/show_panel.png" name="themes/silver/graphics/show_panel.png" />
-   <install as="themes/silver/graphics/sql.png" name="themes/silver/graphics/sql.png" />
-   <install as="themes/silver/graphics/tab_left.png" name="themes/silver/graphics/tab_left.png" />
-   <install as="themes/silver/graphics/tab_right.png" name="themes/silver/graphics/tab_right.png" />
-   <install as="themes/silver/graphics/unlocked.png" name="themes/silver/graphics/unlocked.png" />
-   <install as="themes/silver/graphics/user.png" name="themes/silver/graphics/user.png" />
-   <install as="themes/silver/graphics/website.png" name="themes/silver/graphics/website.png" />
-   <install as="themes/silver/graphics/za.png" name="themes/silver/graphics/za.png" />
-   <install as="themes/silver/graphics/alerts/alarm.png" name="themes/silver/graphics/alerts/alarm.png" />
-   <install as="themes/silver/graphics/alerts/error.png" name="themes/silver/graphics/alerts/error.png" />
-   <install as="themes/silver/graphics/alerts/message.png" name="themes/silver/graphics/alerts/message.png" />
-   <install as="themes/silver/graphics/alerts/success.png" name="themes/silver/graphics/alerts/success.png" />
-   <install as="themes/silver/graphics/alerts/warning.png" name="themes/silver/graphics/alerts/warning.png" />
-   <install as="themes/silver/graphics/block/large_up.png" name="themes/silver/graphics/block/large_up.png" />
-   <install as="themes/silver/graphics/image/crop.png" name="themes/silver/graphics/image/crop.png" />
-   <install as="themes/silver/graphics/map/marker-blue.png" name="themes/silver/graphics/map/marker-blue.png" />
-   <install as="themes/silver/graphics/map/marker-gold.png" name="themes/silver/graphics/map/marker-gold.png" />
-   <install as="themes/silver/graphics/map/marker-green.png" name="themes/silver/graphics/map/marker-green.png" />
-   <install as="themes/silver/graphics/map/marker-shadow.png" name="themes/silver/graphics/map/marker-shadow.png" />
-   <install as="themes/silver/graphics/map/marker.png" name="themes/silver/graphics/map/marker.png" />
-   <install as="themes/silver/graphics/mime/audio.png" name="themes/silver/graphics/mime/audio.png" />
-   <install as="themes/silver/graphics/mime/binary.png" name="themes/silver/graphics/mime/binary.png" />
-   <install as="themes/silver/graphics/mime/compressed.png" name="themes/silver/graphics/mime/compressed.png" />
-   <install as="themes/silver/graphics/mime/deb.png" name="themes/silver/graphics/mime/deb.png" />
-   <install as="themes/silver/graphics/mime/encryption.png" name="themes/silver/graphics/mime/encryption.png" />
-   <install as="themes/silver/graphics/mime/html.png" name="themes/silver/graphics/mime/html.png" />
-   <install as="themes/silver/graphics/mime/icalendar.png" name="themes/silver/graphics/mime/icalendar.png" />
-   <install as="themes/silver/graphics/mime/image.png" name="themes/silver/graphics/mime/image.png" />
-   <install as="themes/silver/graphics/mime/mail.png" name="themes/silver/graphics/mime/mail.png" />
-   <install as="themes/silver/graphics/mime/msexcel.png" name="themes/silver/graphics/mime/msexcel.png" />
-   <install as="themes/silver/graphics/mime/mspowerpoint.png" name="themes/silver/graphics/mime/mspowerpoint.png" />
-   <install as="themes/silver/graphics/mime/msword.png" name="themes/silver/graphics/mime/msword.png" />
-   <install as="themes/silver/graphics/mime/ooo_calc.png" name="themes/silver/graphics/mime/ooo_calc.png" />
-   <install as="themes/silver/graphics/mime/ooo_draw.png" name="themes/silver/graphics/mime/ooo_draw.png" />
-   <install as="themes/silver/graphics/mime/ooo_impress.png" name="themes/silver/graphics/mime/ooo_impress.png" />
-   <install as="themes/silver/graphics/mime/ooo_math.png" name="themes/silver/graphics/mime/ooo_math.png" />
-   <install as="themes/silver/graphics/mime/ooo_writer.png" name="themes/silver/graphics/mime/ooo_writer.png" />
-   <install as="themes/silver/graphics/mime/pdf.png" name="themes/silver/graphics/mime/pdf.png" />
-   <install as="themes/silver/graphics/mime/php.png" name="themes/silver/graphics/mime/php.png" />
-   <install as="themes/silver/graphics/mime/rpm.png" name="themes/silver/graphics/mime/rpm.png" />
-   <install as="themes/silver/graphics/mime/script-js.png" name="themes/silver/graphics/mime/script-js.png" />
-   <install as="themes/silver/graphics/mime/source-c.png" name="themes/silver/graphics/mime/source-c.png" />
-   <install as="themes/silver/graphics/mime/source-cpp.png" name="themes/silver/graphics/mime/source-cpp.png" />
-   <install as="themes/silver/graphics/mime/source-h.png" name="themes/silver/graphics/mime/source-h.png" />
-   <install as="themes/silver/graphics/mime/source-java.png" name="themes/silver/graphics/mime/source-java.png" />
-   <install as="themes/silver/graphics/mime/source-python.png" name="themes/silver/graphics/mime/source-python.png" />
-   <install as="themes/silver/graphics/mime/text.png" name="themes/silver/graphics/mime/text.png" />
-   <install as="themes/silver/graphics/mime/vcard.png" name="themes/silver/graphics/mime/vcard.png" />
-   <install as="themes/silver/graphics/mime/video.png" name="themes/silver/graphics/mime/video.png" />
-   <install as="themes/silver/graphics/mime/xml.png" name="themes/silver/graphics/mime/xml.png" />
-   <install as="themes/silver/graphics/nav/bottom-grey.png" name="themes/silver/graphics/nav/bottom-grey.png" />
-   <install as="themes/silver/graphics/nav/bottom.png" name="themes/silver/graphics/nav/bottom.png" />
-   <install as="themes/silver/graphics/nav/down-grey.png" name="themes/silver/graphics/nav/down-grey.png" />
-   <install as="themes/silver/graphics/nav/down.png" name="themes/silver/graphics/nav/down.png" />
-   <install as="themes/silver/graphics/nav/first-grey.png" name="themes/silver/graphics/nav/first-grey.png" />
-   <install as="themes/silver/graphics/nav/first.png" name="themes/silver/graphics/nav/first.png" />
-   <install as="themes/silver/graphics/nav/last-grey.png" name="themes/silver/graphics/nav/last-grey.png" />
-   <install as="themes/silver/graphics/nav/last.png" name="themes/silver/graphics/nav/last.png" />
-   <install as="themes/silver/graphics/nav/left-grey.png" name="themes/silver/graphics/nav/left-grey.png" />
-   <install as="themes/silver/graphics/nav/left.png" name="themes/silver/graphics/nav/left.png" />
-   <install as="themes/silver/graphics/nav/right-grey.png" name="themes/silver/graphics/nav/right-grey.png" />
-   <install as="themes/silver/graphics/nav/right.png" name="themes/silver/graphics/nav/right.png" />
-   <install as="themes/silver/graphics/nav/top-grey.png" name="themes/silver/graphics/nav/top-grey.png" />
-   <install as="themes/silver/graphics/nav/top.png" name="themes/silver/graphics/nav/top.png" />
-   <install as="themes/silver/graphics/nav/up-grey.png" name="themes/silver/graphics/nav/up-grey.png" />
-   <install as="themes/silver/graphics/nav/up.png" name="themes/silver/graphics/nav/up.png" />
-   <install as="themes/silver/graphics/tree/folder.png" name="themes/silver/graphics/tree/folder.png" />
-   <install as="themes/silver/graphics/tree/folderopen.png" name="themes/silver/graphics/tree/folderopen.png" />
-   <install as="themes/silver/graphics/tree/leaf.png" name="themes/silver/graphics/tree/leaf.png" />
-   <install as="themes/silver/graphics/tree/rev-leaf.png" name="themes/silver/graphics/tree/rev-leaf.png" />
-   <install as="themes/silver/graphics/uploader/up.png" name="themes/silver/graphics/uploader/up.png" />
-   <install as="themes/simplex/info.php" name="themes/simplex/info.php" />
-   <install as="themes/simplex/screen.css" name="themes/simplex/screen.css" />
-   <install as="themes/simplex/graphics/background.png" name="themes/simplex/graphics/background.png" />
-   <install as="themes/tango-blue/info.php" name="themes/tango-blue/info.php" />
-   <install as="themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
-   <install as="themes/tango-blue/graphics/add_group.png" name="themes/tango-blue/graphics/add_group.png" />
-   <install as="themes/tango-blue/graphics/add_perm.png" name="themes/tango-blue/graphics/add_perm.png" />
-   <install as="themes/tango-blue/graphics/administration.png" name="themes/tango-blue/graphics/administration.png" />
-   <install as="themes/tango-blue/graphics/az.png" name="themes/tango-blue/graphics/az.png" />
-   <install as="themes/tango-blue/graphics/calendar.png" name="themes/tango-blue/graphics/calendar.png" />
-   <install as="themes/tango-blue/graphics/close.png" name="themes/tango-blue/graphics/close.png" />
-   <install as="themes/tango-blue/graphics/colorpicker.png" name="themes/tango-blue/graphics/colorpicker.png" />
-   <install as="themes/tango-blue/graphics/config.png" name="themes/tango-blue/graphics/config.png" />
-   <install as="themes/tango-blue/graphics/data.png" name="themes/tango-blue/graphics/data.png" />
-   <install as="themes/tango-blue/graphics/delete-small.png" name="themes/tango-blue/graphics/delete-small.png" />
-   <install as="themes/tango-blue/graphics/delete.png" name="themes/tango-blue/graphics/delete.png" />
-   <install as="themes/tango-blue/graphics/devel.png" name="themes/tango-blue/graphics/devel.png" />
-   <install as="themes/tango-blue/graphics/download.png" name="themes/tango-blue/graphics/download.png" />
-   <install as="themes/tango-blue/graphics/edit-small.png" name="themes/tango-blue/graphics/edit-small.png" />
-   <install as="themes/tango-blue/graphics/edit.png" name="themes/tango-blue/graphics/edit.png" />
-   <install as="themes/tango-blue/graphics/group.png" name="themes/tango-blue/graphics/group.png" />
-   <install as="themes/tango-blue/graphics/help.png" name="themes/tango-blue/graphics/help.png" />
-   <install as="themes/tango-blue/graphics/help_index.png" name="themes/tango-blue/graphics/help_index.png" />
-   <install as="themes/tango-blue/graphics/info.png" name="themes/tango-blue/graphics/info.png" />
-   <install as="themes/tango-blue/graphics/info_icon.png" name="themes/tango-blue/graphics/info_icon.png" />
-   <install as="themes/tango-blue/graphics/keyboard.png" name="themes/tango-blue/graphics/keyboard.png" />
-   <install as="themes/tango-blue/graphics/lhand.png" name="themes/tango-blue/graphics/lhand.png" />
-   <install as="themes/tango-blue/graphics/locked.png" name="themes/tango-blue/graphics/locked.png" />
-   <install as="themes/tango-blue/graphics/login.png" name="themes/tango-blue/graphics/login.png" />
-   <install as="themes/tango-blue/graphics/logout.png" name="themes/tango-blue/graphics/logout.png" />
-   <install as="themes/tango-blue/graphics/myaccount.png" name="themes/tango-blue/graphics/myaccount.png" />
-   <install as="themes/tango-blue/graphics/office.png" name="themes/tango-blue/graphics/office.png" />
-   <install as="themes/tango-blue/graphics/organizing.png" name="themes/tango-blue/graphics/organizing.png" />
-   <install as="themes/tango-blue/graphics/perms.png" name="themes/tango-blue/graphics/perms.png" />
-   <install as="themes/tango-blue/graphics/prefs.png" name="themes/tango-blue/graphics/prefs.png" />
-   <install as="themes/tango-blue/graphics/print.png" name="themes/tango-blue/graphics/print.png" />
-   <install as="themes/tango-blue/graphics/problem.png" name="themes/tango-blue/graphics/problem.png" />
-   <install as="themes/tango-blue/graphics/reload.png" name="themes/tango-blue/graphics/reload.png" />
-   <install as="themes/tango-blue/graphics/required.png" name="themes/tango-blue/graphics/required.png" />
-   <install as="themes/tango-blue/graphics/rhand.png" name="themes/tango-blue/graphics/rhand.png" />
-   <install as="themes/tango-blue/graphics/search.png" name="themes/tango-blue/graphics/search.png" />
-   <install as="themes/tango-blue/graphics/shell.png" name="themes/tango-blue/graphics/shell.png" />
-   <install as="themes/tango-blue/graphics/sql.png" name="themes/tango-blue/graphics/sql.png" />
-   <install as="themes/tango-blue/graphics/unlocked.png" name="themes/tango-blue/graphics/unlocked.png" />
-   <install as="themes/tango-blue/graphics/user.png" name="themes/tango-blue/graphics/user.png" />
-   <install as="themes/tango-blue/graphics/website.png" name="themes/tango-blue/graphics/website.png" />
-   <install as="themes/tango-blue/graphics/za.png" name="themes/tango-blue/graphics/za.png" />
-   <install as="themes/tango-blue/graphics/alerts/error.png" name="themes/tango-blue/graphics/alerts/error.png" />
-   <install as="themes/tango-blue/graphics/alerts/message.png" name="themes/tango-blue/graphics/alerts/message.png" />
-   <install as="themes/tango-blue/graphics/alerts/success.png" name="themes/tango-blue/graphics/alerts/success.png" />
-   <install as="themes/tango-blue/graphics/alerts/warning.png" name="themes/tango-blue/graphics/alerts/warning.png" />
-   <install as="themes/tango-blue/graphics/block/down.png" name="themes/tango-blue/graphics/block/down.png" />
-   <install as="themes/tango-blue/graphics/block/large_down.png" name="themes/tango-blue/graphics/block/large_down.png" />
-   <install as="themes/tango-blue/graphics/block/large_left.png" name="themes/tango-blue/graphics/block/large_left.png" />
-   <install as="themes/tango-blue/graphics/block/large_right.png" name="themes/tango-blue/graphics/block/large_right.png" />
-   <install as="themes/tango-blue/graphics/block/large_up.png" name="themes/tango-blue/graphics/block/large_up.png" />
-   <install as="themes/tango-blue/graphics/block/left.png" name="themes/tango-blue/graphics/block/left.png" />
-   <install as="themes/tango-blue/graphics/block/right.png" name="themes/tango-blue/graphics/block/right.png" />
-   <install as="themes/tango-blue/graphics/block/up.png" name="themes/tango-blue/graphics/block/up.png" />
-   <install as="themes/tango-blue/graphics/block/sunrise/sunrise.png" name="themes/tango-blue/graphics/block/sunrise/sunrise.png" />
-   <install as="themes/tango-blue/graphics/block/sunrise/sunset.png" name="themes/tango-blue/graphics/block/sunrise/sunset.png" />
-   <install as="themes/tango-blue/graphics/image/crop.png" name="themes/tango-blue/graphics/image/crop.png" />
-   <install as="themes/tango-blue/graphics/image/flip.png" name="themes/tango-blue/graphics/image/flip.png" />
-   <install as="themes/tango-blue/graphics/image/mirror.png" name="themes/tango-blue/graphics/image/mirror.png" />
-   <install as="themes/tango-blue/graphics/image/refresh.png" name="themes/tango-blue/graphics/image/refresh.png" />
-   <install as="themes/tango-blue/graphics/image/rotate-90.png" name="themes/tango-blue/graphics/image/rotate-90.png" />
-   <install as="themes/tango-blue/graphics/image/rotate-270.png" name="themes/tango-blue/graphics/image/rotate-270.png" />
-   <install as="themes/tango-blue/graphics/mime/audio.png" name="themes/tango-blue/graphics/mime/audio.png" />
-   <install as="themes/tango-blue/graphics/mime/binary.png" name="themes/tango-blue/graphics/mime/binary.png" />
-   <install as="themes/tango-blue/graphics/mime/compressed.png" name="themes/tango-blue/graphics/mime/compressed.png" />
-   <install as="themes/tango-blue/graphics/mime/deb.png" name="themes/tango-blue/graphics/mime/deb.png" />
-   <install as="themes/tango-blue/graphics/mime/encryption.png" name="themes/tango-blue/graphics/mime/encryption.png" />
-   <install as="themes/tango-blue/graphics/mime/html.png" name="themes/tango-blue/graphics/mime/html.png" />
-   <install as="themes/tango-blue/graphics/mime/icalendar.png" name="themes/tango-blue/graphics/mime/icalendar.png" />
-   <install as="themes/tango-blue/graphics/mime/image.png" name="themes/tango-blue/graphics/mime/image.png" />
-   <install as="themes/tango-blue/graphics/mime/mail.png" name="themes/tango-blue/graphics/mime/mail.png" />
-   <install as="themes/tango-blue/graphics/mime/msword.png" name="themes/tango-blue/graphics/mime/msword.png" />
-   <install as="themes/tango-blue/graphics/mime/ooo_calc.png" name="themes/tango-blue/graphics/mime/ooo_calc.png" />
-   <install as="themes/tango-blue/graphics/mime/ooo_impress.png" name="themes/tango-blue/graphics/mime/ooo_impress.png" />
-   <install as="themes/tango-blue/graphics/mime/ooo_math.png" name="themes/tango-blue/graphics/mime/ooo_math.png" />
-   <install as="themes/tango-blue/graphics/mime/ooo_writer.png" name="themes/tango-blue/graphics/mime/ooo_writer.png" />
-   <install as="themes/tango-blue/graphics/mime/pdf.png" name="themes/tango-blue/graphics/mime/pdf.png" />
-   <install as="themes/tango-blue/graphics/mime/php.png" name="themes/tango-blue/graphics/mime/php.png" />
-   <install as="themes/tango-blue/graphics/mime/rpm.png" name="themes/tango-blue/graphics/mime/rpm.png" />
-   <install as="themes/tango-blue/graphics/mime/source-python.png" name="themes/tango-blue/graphics/mime/source-python.png" />
-   <install as="themes/tango-blue/graphics/mime/text.png" name="themes/tango-blue/graphics/mime/text.png" />
-   <install as="themes/tango-blue/graphics/mime/vcard.png" name="themes/tango-blue/graphics/mime/vcard.png" />
-   <install as="themes/tango-blue/graphics/mime/video.png" name="themes/tango-blue/graphics/mime/video.png" />
-   <install as="themes/tango-blue/graphics/nav/bottom.png" name="themes/tango-blue/graphics/nav/bottom.png" />
-   <install as="themes/tango-blue/graphics/nav/down.png" name="themes/tango-blue/graphics/nav/down.png" />
-   <install as="themes/tango-blue/graphics/nav/first.png" name="themes/tango-blue/graphics/nav/first.png" />
-   <install as="themes/tango-blue/graphics/nav/last.png" name="themes/tango-blue/graphics/nav/last.png" />
-   <install as="themes/tango-blue/graphics/nav/left.png" name="themes/tango-blue/graphics/nav/left.png" />
-   <install as="themes/tango-blue/graphics/nav/right.png" name="themes/tango-blue/graphics/nav/right.png" />
-   <install as="themes/tango-blue/graphics/nav/top.png" name="themes/tango-blue/graphics/nav/top.png" />
-   <install as="themes/tango-blue/graphics/nav/up.png" name="themes/tango-blue/graphics/nav/up.png" />
-   <install as="themes/tango-blue/graphics/tree/folder.png" name="themes/tango-blue/graphics/tree/folder.png" />
-   <install as="themes/tango-blue/graphics/tree/folderopen.png" name="themes/tango-blue/graphics/tree/folderopen.png" />
-   <install as="themes/tango-blue/graphics/tree/leaf.png" name="themes/tango-blue/graphics/tree/leaf.png" />
-   <install as="themes/tango-blue/graphics/tree/rev-leaf.png" name="themes/tango-blue/graphics/tree/rev-leaf.png" />
    <install as="util/barcode.php" name="util/barcode.php" />
    <install as="util/icon_browser.php" name="util/icon_browser.php" />
    <install as=".htaccess" name=".htaccess" />
@@ -4681,8 +3773,111 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix adding attachments to problem tickets (Bug #10654).
 * [jan] Update Turkish translation (İstanbul Technical University).
 * [jan] Fix setting permissions on static/ directory with horde-set-perms (Bug #11219).
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-06</date>
+   <time>12:26:28</time>
+   <version>
+    <release>5.0.0alpha1</release>
+    <api>5.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+* [jan] Implement new user interface.
+* [mms] Add &apos;suppress&apos; option to prefs.php group entries.
+* [mms] Add &apos;on_change&apos;, &apos;on_init&apos;, &apos;requires&apos;, &apos;requires_nolock&apos;, and &apos;suppress&apos; options to prefs.php preference entries.
+* [mms] Remove support for IE 6.
+* [mms] Token protect all AJAX actions.
+* [jan] Allow to use IMAP storage for shares and groupware data without a complete Kolab server.
+* [mms] Implement growler-like notifications for smartmobile view.
+* [mms] Modified pushapp hook behavior.
+* [mms] Removed pushapp_post hook.
+* [mms] AJAX core features now contained within Horde_Core.
+* [mms] E-mail sending charset now defaults to UTF-8.
+* [mms] Add post-install script for the Horde application
+* [mms] Portal blocks can now load just the CSS necessary to display an application&apos;s blocks.
+* [jan] Show notifications during logging into Smartphone mode.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta1</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Remove DataTree support.
+* [jan] Allow to configure encryption in global IMAP configuration (Request #11272).
+* [jan] Update icon set.
+* [rla] Retrieve more detailed message from Horde_Auth when a user is temporarily or permanently locked out (Request #11254).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta2</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Request SSL connection from map providers if using SSL (Bug #11193).
+* [jan] Remove optional dependency on Horde_DataTree.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta3</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-07-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix dependency on Horde_Service_Weather.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta4</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix logging in without JavaScript (Bug #11328).
+* [mms] Fix sidebar element wrapping.
+* [mms] Better handling of backend authentication errors when returning AJAX data (Bug #11297).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta5</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix cancelling problem report.
+* [jan] Fix audio notification path printed in page output.
    </notes>
   </release>
  </changelog>

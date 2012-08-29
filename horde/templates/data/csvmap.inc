@@ -59,11 +59,11 @@ function removePair()
   <?php echo Horde::label('select1', _("Imported fields:")) ?> <br />
   <select id="select1" name="select1" size="10">
    <?php
-   $data = $GLOBALS['session']->get('horde', 'import_data/data');
+   $data = $storage->get('data');
    foreach ($data[0] as $key => $value):
    if (!isset($app_fields[$key])):
    ?>
-   <option value="<?php echo htmlspecialchars($key) ?>"><?php echo ($GLOBALS['session']->get('horde', 'import_data/header')) ? htmlspecialchars($key) : htmlspecialchars($value) ?></option>
+   <option value="<?php echo htmlspecialchars($key) ?>"><?php echo ($storage->get('header')) ? htmlspecialchars($key) : htmlspecialchars($value) ?></option>
    <?php endif; endforeach; ?>
   </select>
  </div>
@@ -107,7 +107,7 @@ function removePair()
   if (isset($app_fields[$key])):
   $matching[] = array($key, $app_fields[$key]);
   ?>
-  <option value="<?php echo htmlspecialchars($key) ?>"><?php echo ($GLOBALS['session']->get('horde', 'import_data/header')) ? htmlspecialchars($key) : htmlspecialchars($value) ?></option>
+  <option value="<?php echo htmlspecialchars($key) ?>"><?php echo ($storage->get('header')) ? htmlspecialchars($key) : htmlspecialchars($value) ?></option>
   <?php endif; endforeach; ?>
  </select>
  <label for="selectApp" class="hidden"><?php echo _("Application") ?></label>

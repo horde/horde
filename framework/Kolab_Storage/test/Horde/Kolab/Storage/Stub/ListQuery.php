@@ -10,7 +10,7 @@ implements Horde_Kolab_Storage_List_Query
      *
      * @param Horde_Kolab_Storage_Queriable $queriable The queriable object.
      */
-    public function __construct(Horde_Kolab_Storage_Queriable $queriable)
+    public function __construct($queriable)
     {
     }
 

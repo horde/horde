@@ -165,7 +165,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
         }
 
         if ($this->_params['lock']) {
-            $this->_fplock = fopen(Horde_Util::getTempDir() . '/passwd.lock', 'w');
+            $this->_fplock = fopen(sys_get_temp_dir() . '/passwd.lock', 'w');
             flock($this->_fplock, LOCK_EX);
             $this->_locked = true;
         }

@@ -10,14 +10,15 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Get the list of filter rules. */
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
 /* Load the Ingo_Script:: driver. */
-$ingo_script = Ingo::loadIngoScript();
+$ingo_script = $injector->getInstance('Ingo_Script');
 
 /* Determine if we need to show the on-demand settings. */
 $on_demand = $ingo_script->performAvailable();
@@ -105,7 +106,11 @@ case 'rule_enable':
     /* Save changes */
     $ingo_storage->store($filters);
     if ($prefs->getValue('auto_update')) {
-        Ingo::updateScript();
+        try {
+            Ingo::updateScript();
+        } catch (Ingo_Exception $e) {
+            $notification->push($e->getMessage(), 'horde.error');
+        }
     }
     break;
 
@@ -131,11 +136,13 @@ case 'apply_filters':
 /* Get the list of rules now. */
 $filter_list = $filters->getFilterList();
 
-Horde::addScriptFile('stripe.js', 'horde');
-Horde::addScriptFile('filters.js', 'ingo');
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('filters.js');
 $menu = Ingo::menu();
-$title = _("Filter Rules");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+
+$page_output->header(array(
+    'title' => _("Filter Rules")
+));
 echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/filters/header.inc';
@@ -315,15 +322,10 @@ if (count($filter_list) == 0) {
     echo $template->fetch(INGO_TEMPLATES . '/filters/filter.html');
 }
 
-$actions = $ingo_script->availableActions();
-$createrule = (!empty($actions) &&
-               ($perms->hasAppPermission('allow_rules') &&
-                ($perms->hasAppPermission('max_rules') === true ||
-                 $perms->hasAppPermission('max_rules') > count($filter_list))));
 $canapply = $ingo_script->canApply();
 require INGO_TEMPLATES . '/filters/footer.inc';
 if ($on_demand && $edit_allowed) {
     require INGO_TEMPLATES . '/filters/settings.inc';
 }
 
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

@@ -9,7 +9,7 @@
 <?php endif; ?>
 </h1>
 <table cellspacing="0" cellpadding="0">
-  <tr class="item0">
+  <tr class="rowEven">
     <td align="left">
       <?php echo Horde::label('whitelist', _("Wh_itelist addresses:")) ?><br />
       <textarea name="whitelist" id="whitelist" rows="15" cols="80"><?php echo htmlspecialchars(implode("\n", $whitelist->getWhitelist())) ?></textarea>

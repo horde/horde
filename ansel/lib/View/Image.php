@@ -92,10 +92,10 @@ class Ansel_View_Image extends Ansel_View_Ansel
 
         /* Any script files we may need if not calling via the api */
         if (empty($this->_params['api'])) {
-            Horde::addScriptFile('effects.js', 'horde');
-            Horde::addScriptFile('stripe.js', 'horde');
+            global $page_output;
+            $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+            $page_output->addScriptFile('stripe.js', 'horde');
         }
-
     }
 
     public function getGalleryCrumbData()
@@ -362,20 +362,20 @@ class Ansel_View_Image extends Ansel_View_Ansel
 
             /* In line caption editing */
             if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-                $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'EditCaption'), array(
+                $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Ansel_Ajax_Imple_EditCaption', array(
                     'width' => $this->_geometry['width'],
-                    'domid' => "Caption",
-                    'id' => $this->resource->id
+                    'id' => "Caption",
+                    'dataid' => $this->resource->id
                 ));
             }
         }
 
         /* Output the js if we are calling via the api */
         if (!empty($this->_params['api'])) {
-            $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
-            $includes->add('effects.js', 'horde',true, true);
-            $includes->add('stripe.js', 'horde', true, true);
-            $includes->includeFiles();
+            foreach (array('prototype.js', 'stripe.js', 'scriptaculous/effects.js') as $val) {
+                $tmp = new Horde_Script_File_JsDir($val, 'horde');
+                echo $tmp->tag_full;
+            }
         }
 
         require ANSEL_TEMPLATES . '/view/image.inc';

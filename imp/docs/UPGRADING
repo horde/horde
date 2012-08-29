@@ -29,6 +29,133 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading IMP From 5.x To 6.x
+=============================
+
+Traditional mode now requires javascript support on the browser. If not
+available, the user will automatically be redirected to the mobile (minimal)
+view.
+
+
+Server Options (backends.php)
+-----------------------------
+
+The 'namespace' option now requires the namespaces to be in the UTF-8 charset,
+not UTF7-IMAP.
+
+The 'smtphost' and 'smtpport' options have been removed. They have been
+replaced by the 'smtp' option, which allows ALL available SMTP configuration
+options to be overriden.
+
+The 'admin' option has been changed: optional configuration parameters should
+live within the base 'admin' array rather than a 'params' array within the
+base.
+
+
+Configuration Options (conf.php)
+--------------------------------
+
+The $conf['fixed_folders'] option now requires the mailboxes to be in the
+UTF-8 charset, not UTF7-IMAP.
+
+The $conf['compose']['link_attach_size_limit'] option was added.
+
+The $conf['print']['add_printedby'] option was removed and replaced by the
+'add_printedby' preference.
+
+The following configuration options were removed::
+
+   $conf['dimp']['viewport']['buffer_pages']
+   $conf['dimp']['viewport']['viewport_wait']
+
+
+MIME Viewer Options (mime_drivers.php)
+--------------------------------------
+
+The 'safe_addrs' option has been removed from the Images driver config.
+To set the default list of e-mail addresses that should be considered "safe",
+the 'image_replacement_addrs' preference can now be used.
+
+
+Hooks (hooks.php)
+-----------------
+
+The 'mbox_sort' and 'mbox_special' hooks have been added.
+
+The 'dimp_addressformatting' hook has been removed.
+
+The $action parameter for reporting not spam message to the 'spam_email' and
+'post_spam' hooks has been changed from 'ham' to 'innocent'.
+
+
+Preferences (prefs.php)
+-----------------------
+
+The default values for these preferences have been changed::
+
+   drafts_folder
+   sent_mail_folder
+   spam_folder
+   trash_folder
+
+The following preferences are no longer used and may be safely removed from
+your preference backend (only after all users have logged in - these
+preferences MAY be used to automatically upgrade to new preferences when
+a user logs into IMP 6 for the first time)::
+
+   dimp_qsearch_field
+   dimp_show_preview
+   dimp_splitbar
+   dimp_splitbar_vert
+   dimp_toggle_headers
+   dynamic_view
+   image_addrbook
+   move_ham_after_report
+   sig_first
+   stationery
+
+The 'cursor_compose' preference removed the 'sig' option. Existing preferences
+will automatically be converted to 'bottom'.
+
+The 'add_printedby', 'image_replacement_addrs', 'reply_charset', and
+'reply_strip_sig' preferences were added.
+
+The 'forward_default' preference now contains the 'editasnew' option.
+
+
+API Changes
+-----------
+
+  - copyMessages
+
+    The $mailbox and $target parameters are now required to be UTF-8 strings.
+
+  - createFolder
+
+    This call has been removed (replaced with 'createMailbox').
+
+  - deleteMessages
+
+    The $mailbox parameter is now required to be a UTF-8 string.
+
+  - flagMessages
+
+    The $mailbox parameter is now required to be a UTF-8 string.
+
+  - folderlist
+
+    This call has been removed (replaced with 'mailboxList').
+
+  - moveMessages
+
+    The $mailbox and $target parameters are now required to be UTF-8 strings.
+
+  - searchMailbox
+
+    The $mailbox parameter is now required to be a UTF-8 string.
+
+
+
 Upgrading IMP From 5.0.x To 5.0.22
 ==================================
 
@@ -294,10 +421,10 @@ value.
 Changed Preferences
 -------------------
 
-The default values for the folder preferences 'sent_mail_folder',
+The default values for the mailbox preferences 'sent_mail_folder',
 'drafts_folder', and 'trash_folder' have been changed and localized. Use the
-old values to prohibit the creation of duplicate folders for users that
-didn't explicitly set the folders in their preferences.
+old values to prohibit the creation of duplicate mailboxes for users that
+didn't explicitly set the mailboxes in their preferences.
 
 The following preferences are no longer used and may be safely removed from
 your ``config/prefs.php`` file and your preferences backend::

@@ -45,4 +45,4 @@ FM;
 
 $this->notes['name'] = 'Skeleton';
 $this->notes['fm']['project'] = 'skeleton';
-$this->notes['fm']['branch'] = 'Horde 4';
+$this->notes['fm']['branch'] = 'Horde 5';

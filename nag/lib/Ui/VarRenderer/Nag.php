@@ -79,7 +79,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             Horde_Core_Ui_JsCalendar::init(array(
                 'full_weekdays' => true
             ));
-            Horde::addScriptFile('calendar.js', 'nag');
+            $GLOBALS['page_output']->addScriptFile('calendar.js');
             echo '<span id="start_wday"></span>' .
                 Horde::img('calendar.png', _("Calendar"), 'id="startimg"');
         }
@@ -129,7 +129,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             Horde_Core_Ui_JsCalendar::init(array(
                 'full_weekdays' => true
             ));
-            Horde::addScriptFile('calendar.js', 'nag');
+            $GLOBALS['page_output']->addScriptFile('calendar.js');
             echo '<span id="due_wday"></span>' .
                 Horde::img('calendar.png', _("Calendar"), 'id="dueimg"');
         }
@@ -190,4 +190,24 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
                       $varname,
                       $options);
     }
+
+    /**
+     * Render tag field.
+     */
+    protected function _renderVarInput_NagTags($form, $var, $vars)
+    {
+
+        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $value = implode(',', $var->getValue($vars));
+
+        $html = sprintf('<input id="%s" type="text" name="%s" value="%s" />', $varname, $varname, $value);
+        $html .= sprintf('<span id="%s_loading_img" style="display:none;">%s</span>',
+            $varname,
+            Horde::img('loading.gif', _("Loading...")));
+
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Nag_Ajax_Imple_TagAutoCompleter', array('id' => 'tags'));
+        return $html;
+    }
+
+
 }

@@ -12,7 +12,7 @@
  * @author Michael Rubinsky <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('klutz');
 
 $index = Horde_Util::getFormData('index');
@@ -60,7 +60,8 @@ $gallerylist = $registry->call('images/selectGalleries',
                                     array(null, PERMS_EDIT, null,
                                             true, 0, 0, $id));
 
-$title = _("Save Image");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Save Image")
+));
 require KLUTZ_TEMPLATES . '/savecomic.html.php';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

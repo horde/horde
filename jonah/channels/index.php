@@ -11,13 +11,10 @@
  * @package Jonah
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('jonah');
-
-if (!Jonah::checkPermissions('jonah:news', Horde_Perms::EDIT)) {
-    $notification->push(_("You are not authorised for this action."), 'horde.warning');
-    $registry->authenticateFailure();
-}
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit('jonah', array(
+    'permission' => array('jonah:news', Horde_Perms::EDIT)
+));
 
 $have_news = Jonah::getAvailableTypes();
 if (empty($have_news)) {

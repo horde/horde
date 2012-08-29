@@ -11,7 +11,7 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
 if (!$registry->isAdmin()) {
@@ -40,9 +40,10 @@ if ($action) {
 }
 
 /* Get the list of forums. */
-$forums_list = $messages->getForums(0, true, 'forum_name');
-if ($forums_list instanceof PEAR_Error) {
-    $notification->push($forums_list->getMessage(), 'horde.error');
+try {
+    $forums_list = $messages->getForums(0, true, 'forum_name');
+} catch (Horde_Exception_NotFound $e) {
+    $notification->push($e->getMessage(), 'horde.error');
     Horde::url('forums.php', true)->redirect();
 }
 
@@ -84,9 +85,10 @@ $view->formbox = Horde::endBuffer();
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $view->notify = Horde::endBuffer();
-
 $view->forums = $forums_list;
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 echo $view->render('moderators');
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

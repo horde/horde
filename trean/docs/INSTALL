@@ -24,7 +24,7 @@ To function properly, Trean **requires** the following:
    for web applications written in PHP.  You must install Horde before
    installing Trean.
 
-   .. Important:: Trean 1.0 requires version 4.0+ of the Horde Framework -
+   .. Important:: Trean 1.0 requires version 5.0+ of the Horde Framework -
                   earlier versions of Horde will **not** work.
 
    .. Important:: Be sure to have completed all of the steps in the
@@ -39,18 +39,7 @@ To function properly, Trean **requires** the following:
 Configuring Trean
 =================
 
-1. Configuring Horde for Trean
-
-   Trean requires a permanent ``DataTree`` backend in Horde to manage
-   bookmarks.  If you didn't setup a DataTree backend yet, go to the
-   configuration interface, select Horde from the list of applications and
-   select a driver different than ``None`` on the ``DataTree System`` tab.
-   Make sure that you ran the necessary scripts to create a storage backend for
-   the DataTree system, e.g. one of the ``create.*.sql`` or
-   ``horde_datatree.*.sql`` SQL scripts in ``horde/scripts/sql/``.  You should
-   have done this already during the installation of Horde.
-
-2. Configuring Trean
+1. Configuring Trean
 
    To configure Trean, you must login to Horde as a Horde Administrator.  Use
    the Horde ``Administration`` menu item to get to the administration page,
@@ -69,10 +58,6 @@ Configuring Trean
    ``*.local.php`` versions of these files if you wish to customize Trean's
    appearance and behavior. See the header of the configuration files for
    details and examples. The defaults will be correct for most sites.
-
-3. Testing
-
-    It needs lots so just start playing.
 
 
 Obtaining Support

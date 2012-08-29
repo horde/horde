@@ -1,72 +1,6 @@
-<table width="100%" cellspacing="0">
- <tr class="mboxcontrol">
-  <td<if:isbottom> class="bottomborder"</if:isbottom>>
-<if:readonly><else:readonly>
-<if:flaglist_set>
-   <div class="leftFloat">
-    <form class="navbarselect">
-     <label for="flag<tag:id />" class="hidden"><gettext>Mark Messages</gettext></label>
-     <select id="flag<tag:id />" name="flag">
-      <option value="" selected="selected"><gettext>Mark Messages</gettext></option>
-      <option value="" disabled="disabled">- - - - - - - -</option>
-      <option class="actionsSelectSection" value=""><gettext>Mark as:</gettext></option>
-<loop:flaglist_set>
-      <option value="<tag:flaglist_set.f />">&nbsp;&nbsp;<tag:flaglist_set.l /></option>
-</loop:flaglist_set>
-      <option value="" disabled="disabled">- - - - - - - -</option>
-      <option class="actionsSelectSection" value=""><gettext>Unmark as:</gettext></option>
-<loop:flaglist_unset>
-      <option value="<tag:flaglist_unset.f />">&nbsp;&nbsp;<tag:flaglist_unset.l /></option>
-</loop:flaglist_unset>
-     </select>
-    </form>
-   </div>
-</if:flaglist_set>
-<if:filtermsg>
-   <div class="leftFloat">
-    <form class="navbarselect">
-     <label for="filter<tag:id />" class="hidden"><gettext>Filter Messages</gettext></label>
-     <select id="filter<tag:id />" name="filter">
-      <option value="" selected="selected"><gettext>Filter Messages</gettext></option>
-<if:flag_filter>
-      <option value="" disabled="disabled">- - - - - - - -</option>
-      <option class="actionsSelectSection" value=""><gettext>Show Only:</gettext></option>
-<loop:flaglist_set>
-      <option value="<tag:flaglist_set.v />">&nbsp;&nbsp;<tag:flaglist_set.l /></option>
-</loop:flaglist_set>
-      <option value="" disabled="disabled">- - - - - - - -</option>
-      <option class="actionsSelectSection" value=""><gettext>Don't Show:</gettext></option>
-<loop:flaglist_unset>
-      <option value="<tag:flaglist_unset.v />">&nbsp;&nbsp;<tag:flaglist_unset.l /></option>
-</loop:flaglist_unset>
-</if:flag_filter>
-<if:filters>
-      <option value="" disabled="disabled">- - - - - - - -</option>
-<loop:filters>
-      <option value="<tag:filters.v />"><tag:filters.l /></option>
-</loop:filters>
-</if:filters>
-     </select>
-    </form>
-   </div>
-</if:filtermsg>
-<if:move>
-   <div class="leftFloat" style="padding-left:10px">
-    <form method="post" action="<tag:mailbox_url />">
-    <input type="hidden" name="mailbox" value="<tag:mailbox />" />
-    <ul class="msgactions" style="display:inline">
-     <li><tag:move /></li>
-     <li class="lastnavbar"><tag:copy /></li>
-    </ul>
-    <label for="targetMailbox<tag:id />" class="hidden"><gettext>Target Mailbox:</gettext></label>
-    <select id="targetMailbox<tag:id />" name="targetMailbox">
-     <tag:folder_options />
-    </select>
-    </form>
-   </div>
-</if:move>
-</else:readonly></if:readonly>
-   <div class="rightFloat">
+<div class="horde-buttonbar">
+ <ul class="rightFloat">
+  <li class="horde-nobutton">
 <if:multiple_page>
     <form method="get" action="<tag:mailbox_url />">
     <input type="hidden" name="mailbox" value="<tag:mailbox />" />
@@ -103,7 +37,77 @@
 </if:url_last>
     </form>
 </if:multiple_page>
-   </div>
-  </td>
- </tr>
-</table>
+  </li>
+ </ul>
+<if:readonly><else:readonly>
+ <ul>
+<if:flaglist_set>
+  <li>
+    <form class="navbarselect">
+     <label for="flag<tag:id />" class="hidden"><gettext>Mark Messages</gettext></label>
+     <select id="flag<tag:id />" name="flag">
+      <option value="" selected="selected"><gettext>Mark Messages</gettext></option>
+      <option value="" disabled="disabled">- - - - - - - -</option>
+      <option class="actionsSelectSection" value=""><gettext>Mark as:</gettext></option>
+<loop:flaglist_set>
+      <option value="<tag:flaglist_set.f />">&nbsp;&nbsp;<tag:flaglist_set.l /></option>
+</loop:flaglist_set>
+      <option value="" disabled="disabled">- - - - - - - -</option>
+      <option class="actionsSelectSection" value=""><gettext>Unmark as:</gettext></option>
+<loop:flaglist_unset>
+      <option value="<tag:flaglist_unset.f />">&nbsp;&nbsp;<tag:flaglist_unset.l /></option>
+</loop:flaglist_unset>
+    </select>
+   </form>
+  </li>
+</if:flaglist_set>
+<if:filtermsg>
+  <li>
+    <form class="navbarselect">
+     <label for="filter<tag:id />" class="hidden"><gettext>Filter Messages</gettext></label>
+     <select id="filter<tag:id />" name="filter">
+      <option value="" selected="selected"><gettext>Filter Messages</gettext></option>
+<if:flag_filter>
+      <option value="" disabled="disabled">- - - - - - - -</option>
+      <option class="actionsSelectSection" value=""><gettext>Show Only:</gettext></option>
+<loop:flaglist_set>
+      <option value="<tag:flaglist_set.v />">&nbsp;&nbsp;<tag:flaglist_set.l /></option>
+</loop:flaglist_set>
+      <option value="" disabled="disabled">- - - - - - - -</option>
+      <option class="actionsSelectSection" value=""><gettext>Don't Show:</gettext></option>
+<loop:flaglist_unset>
+      <option value="<tag:flaglist_unset.v />">&nbsp;&nbsp;<tag:flaglist_unset.l /></option>
+</loop:flaglist_unset>
+</if:flag_filter>
+<if:filters>
+      <option value="" disabled="disabled">- - - - - - - -</option>
+<loop:filters>
+      <option value="<tag:filters.v />"><tag:filters.l /></option>
+</loop:filters>
+</if:filters>
+    </select>
+   </form>
+  </li>
+</if:filtermsg>
+ </ul>
+<if:move>
+ <form method="post" action="<tag:mailbox_url />">
+ <input type="hidden" name="mailbox" value="<tag:mailbox />" />
+ <ul>
+  <li>
+   <tag:move />
+  </li>
+  <li>
+   <tag:copy />
+  </li>
+  <li>
+   <label for="targetMailbox<tag:id />" class="hidden"><gettext>Target Mailbox:</gettext></label>
+   <select id="targetMailbox<tag:id />" name="targetMailbox">
+    <tag:folder_options />
+   </select>
+  </li>
+ </ul>
+ </form>
+</if:move>
+</else:readonly></if:readonly>
+</div>

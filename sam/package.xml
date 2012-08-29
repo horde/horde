@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-31</date>
- <time>16:06:09</time>
+ <date>2012-07-19</date>
+ <time>22:36:21</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -115,6 +115,12 @@
       <file name="sam.po" role="horde" />
      </dir> <!-- /locale/it/LC_MESSAGES -->
     </dir> <!-- /locale/it -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="sam.mo" role="horde" />
+      <file name="sam.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
     <dir name="nn">
      <dir name="LC_MESSAGES">
       <file name="sam.mo" role="horde" />
@@ -147,15 +153,7 @@
       <file name="whitelist.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
     </dir> <!-- /themes/default -->
-    <dir name="silver">
-     <dir name="graphics">
-      <file name="blacklist.png" role="horde" />
-      <file name="favicon.ico" role="horde" />
-      <file name="sam.png" role="horde" />
-      <file name="whitelist.png" role="horde" />
-     </dir> <!-- /themes/silver/graphics -->
-    </dir> <!-- /themes/silver -->
-   </dir> <!-- /themes -->
+    </dir> <!-- /themes -->
    <file name="blacklist.php" role="horde" />
    <file name="COPYING" role="doc" />
    <file name="index.php" role="horde" />
@@ -167,7 +165,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -175,16 +173,16 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.9</min>
-    <max>5.0.0</max>
-    <exclude>5.0.0</exclude>
+    <min>5.0.0</min>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.5.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
  </dependencies>
@@ -238,6 +236,8 @@
    <install as="sam/locale/fr/LC_MESSAGES/sam.po" name="locale/fr/LC_MESSAGES/sam.po" />
    <install as="sam/locale/it/LC_MESSAGES/sam.mo" name="locale/it/LC_MESSAGES/sam.mo" />
    <install as="sam/locale/it/LC_MESSAGES/sam.po" name="locale/it/LC_MESSAGES/sam.po" />
+   <install as="sam/locale/lv/LC_MESSAGES/sam.mo" name="locale/lv/LC_MESSAGES/sam.mo" />
+   <install as="sam/locale/lv/LC_MESSAGES/sam.po" name="locale/lv/LC_MESSAGES/sam.po" />
    <install as="sam/locale/nn/LC_MESSAGES/sam.mo" name="locale/nn/LC_MESSAGES/sam.mo" />
    <install as="sam/locale/nn/LC_MESSAGES/sam.po" name="locale/nn/LC_MESSAGES/sam.po" />
    <install as="sam/locale/ro/LC_MESSAGES/sam.mo" name="locale/ro/LC_MESSAGES/sam.mo" />
@@ -249,11 +249,7 @@
    <install as="sam/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="sam/themes/default/graphics/sam.png" name="themes/default/graphics/sam.png" />
    <install as="sam/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
-   <install as="sam/themes/silver/graphics/blacklist.png" name="themes/silver/graphics/blacklist.png" />
-   <install as="sam/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
-   <install as="sam/themes/silver/graphics/sam.png" name="themes/silver/graphics/sam.png" />
-   <install as="sam/themes/silver/graphics/whitelist.png" name="themes/silver/graphics/whitelist.png" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -265,8 +261,8 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-08-31</date>
-   <license uri="TODO">TODO</license>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add Latvian translation (Jānis Eisaks).
 * Initial release.

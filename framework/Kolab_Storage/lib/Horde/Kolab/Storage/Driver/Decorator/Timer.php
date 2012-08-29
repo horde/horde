@@ -48,7 +48,7 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
      * @param Horde_Kolab_Storage_Driver $driver The decorated driver.
      * @param Horde_Support_Timer        $timer  A stop watch.
      * @param mixed                      $logger The log handler. This instance
-     *                                           must provide the info() method.
+     *                                           must provide the debug() method.
      */
     public function __construct(Horde_Kolab_Storage_Driver $driver,
                                 Horde_Support_Timer $timer,
@@ -68,7 +68,7 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
     {
         $this->_timer->push();
         $result = parent::createBackend();
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'REQUEST OUT IMAP: %s ms [construct]',
                 floor($this->_timer->pop() * 1000)
@@ -86,7 +86,7 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
     {
         $this->_timer->push();
         $result = parent::listFolders();
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'REQUEST OUT IMAP: %s ms [listFolders]',
                 floor($this->_timer->pop() * 1000)
@@ -107,7 +107,7 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
     {
         $this->_timer->push();
         $result = parent::listAnnotation($annotation);
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'REQUEST OUT IMAP: %s ms [listAnnotation]',
                 floor($this->_timer->pop() * 1000)
@@ -125,7 +125,7 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
     {
         $this->_timer->push();
         $result = parent::getNamespace();
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'REQUEST OUT IMAP: %s ms [getNamespace]',
                 floor($this->_timer->pop() * 1000)

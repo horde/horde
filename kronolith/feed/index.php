@@ -21,12 +21,12 @@ function _no_access($status, $reason, $body)
     exit;
 }
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'session_control' => 'readonly'));
 
 $calendar = Horde_Util::getFormData('c');
 try {
-    $share = $kronolith_shares->getShare($calendar);
+    $share = $injector->getInstance('Kronolith_Shares')->getShare($calendar);
 } catch (Exception $e) {
     _no_access(404, 'Not Found',
                sprintf(_("The requested feed (%s) was not found on this server."),
@@ -129,12 +129,9 @@ foreach ($events as $day_events) {
         }
         /* Attendees. */
         if (!$event->isPrivate()) {
-            $attendees = array();
-            foreach ($event->attendees as $attendee => $status) {
-                $attendees[] = empty($status['name']) ? $attendee : Horde_Mime_Address::trimAddress($status['name'] . (strpos($attendee, '@') === false ? '' : ' <' . $attendee . '>'));
-            }
+            $attendees = Kronolith::getAttendeeEmailList($event->attendees);
             if (count($attendees)) {
-                $desc .= '<br />' . _("Who:") . ' ' . htmlspecialchars(implode(', ', $attendees));
+                $desc .= '<br />' . _("Who:") . ' ' . htmlspecialchars(strval($attendees));
             }
             if (strlen($event->location)) {
                 $desc .= '<br />' . _("Where:") . ' ' . htmlspecialchars($event->location);

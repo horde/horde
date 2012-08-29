@@ -68,7 +68,7 @@ class Folks_Friends {
 
         $class = 'Folks_Friends_' . $driver;
         if (!class_exists($class)) {
-            include dirname(__FILE__) . '/Friends/' . $driver . '.php';
+            include __DIR__ . '/Friends/' . $driver . '.php';
         }
         if (class_exists($class)) {
             return new $class($params);

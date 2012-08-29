@@ -29,6 +29,26 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading Gollem From 2.x To 3.x
+================================
+
+This is a non-exhaustive, quick explanation of what has changed between a
+Gollem 2.x installation to Gollem 3.x.
+
+
+File sharing
+------------
+
+File sharing support has been added and is enabled by default for the
+"file" and "sqlhome" backend configuration examples.
+
+File sharing allows more flexible sharing of folders between Horde
+users and groups, independent from the backend's permission system. To
+correctly work it actually **needs** a backend type that does not
+enforce per-user permissions.
+
+See the comments for the "shares" parameter in `backends.php` for details.
+
 
 Upgrading Gollem From 1.x To 2.x
 ================================

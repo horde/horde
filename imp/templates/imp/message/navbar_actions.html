@@ -1,13 +1,11 @@
-<table class="navbaractions">
- <tr>
-  <td class="mboxcontrol <if:isbottom>topborder<else:isbottom>bottomborder</else:isbottom></if:isbottom>">
-   <ul class="msgactions">
+<div class="horde-buttonbar">
+  <ul class="msgactions">
 <if:delete>
     <li><tag:delete /></li>
 </if:delete>
 <if:reply>
     <li><tag:reply />
-     <ul>
+     <div><ul>
       <li><tag:reply_sender /></li>
 <if:reply_list>
       <li><tag:reply_list /></li>
@@ -15,15 +13,15 @@
 <if:show_reply_all>
       <li><tag:show_reply_all /></li>
 </if:show_reply_all>
-     </ul>
+     </ul></div>
     </li>
     <li><tag:forward />
 <if:forward_attach>
-     <ul>
+     <div><ul>
       <li><tag:forward_attach /></li>
       <li><tag:forward_body /></li>
       <li><tag:forward_both /></li>
-     </ul>
+     </ul></div>
 </if:forward_attach>
     </li>
     <li><tag:redirect /></li>
@@ -51,8 +49,8 @@
 <if:notspam>
     <li><tag:notspam /></li>
 </if:notspam>
-    <li<if:atc><else:atc> class="lastnavbar"</else:atc></if:atc>><tag:headers />
-     <ul>
+    <li><tag:headers />
+     <div><ul>
 <if:common_headers>
       <li><tag:common_headers /></li>
 </if:common_headers>
@@ -62,11 +60,11 @@
 <if:list_headers>
       <li><tag:list_headers /></li>
 </if:list_headers>
-     </ul>
+     </ul></div>
     </li>
 <if:atc>
-    <li class="lastnavbar"><tag:atc />
-     <ul>
+    <li><tag:atc />
+     <div><ul>
 <if:show_parts_all>
       <li><tag:show_parts_all /></li>
 </if:show_parts_all>
@@ -76,10 +74,8 @@
 <if:strip_all>
       <li><tag:strip_all /></li>
 </if:strip_all>
-     </ul>
+     </ul></div>
     </li>
 </if:atc>
-   </ul>
-  </td>
- </tr>
-</table>
+  </ul>
+</div>

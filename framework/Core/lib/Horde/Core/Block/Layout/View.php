@@ -30,13 +30,6 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
     protected $_layout = array();
 
     /**
-     * CSS link tags pulled out of block content.
-     *
-     * @var array
-     */
-    protected $_linkTags = array();
-
-    /**
      * Constructor.
      *
      * @param array $layout
@@ -107,12 +100,12 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
                                     : $interval;
 
                                 if (!empty($refresh_time)) {
-                                    $updateurl = Horde::getServiceLink('ajax', 'horde')->setRaw(true);
+                                    $updateurl = $GLOBALS['registry']->getServiceLink('ajax')->setRaw(true);
                                     $updateurl->pathInfo = 'blockAutoUpdate';
                                     $updateurl->add('app', $block->getApp())
                                               ->add('blockid', get_class($block));
 
-                                    Horde::addInlineScript(
+                                    $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(
                                         'setTimeout(function() {' .
                                           'new Ajax.PeriodicalUpdater(' .
                                             '"' . $block_id . '",' .
@@ -120,7 +113,7 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
                                             '{ method: "get", evalScripts: true, frequency: ' . intval($refresh_time) . ' }' .
                                           ');' .
                                         '}, ' . intval($refresh_time * 1000) . ')',
-                                        'dom'
+                                        true
                                     );
                                 }
                             }
@@ -142,24 +135,7 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
         }
         $html .= '</table>';
 
-        // Strip any CSS <link> tags out of the returned content so
-        // they can be handled seperately.
-        if (preg_match_all('/<link .*?rel="stylesheet".*?\/>/', $html, $links)) {
-            $html = str_replace($links[0], '', $html);
-            $this->_linkTags = $links[0];
-        }
-
         return $html;
-    }
-
-    /**
-     * Get any link tags found in the view.
-     *
-     * @return TODO
-     */
-    public function getLinkTags()
-    {
-        return $this->_linkTags;
     }
 
     /**
@@ -170,6 +146,37 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
     public function getApplications()
     {
         return array_keys($this->_applications);
+    }
+
+    /**
+     * @return array  List of stylesheet information.
+     */
+    public function getStylesheets()
+    {
+        $css = $GLOBALS['injector']->getInstance('Horde_PageOutput')->css;
+        $stylesheets = array();
+
+        foreach ($this->getApplications() as $app) {
+            $app_css = $css->getStylesheets('', array(
+                'app' => $app,
+                'nohorde' => true,
+                'sub' => 'block',
+                'subonly' => true
+            ));
+
+            // TODO: BC - fallback to loading full app stylesheets if the
+            // 'block' subdirectory is not found.
+            if (empty($app_css)) {
+                $app_css = $css->getStylesheets('', array(
+                    'app' => $app,
+                    'nohorde' => true
+                ));
+            }
+
+            $stylesheets = array_merge($stylesheets, $app_css);
+        }
+
+        return $stylesheets;
     }
 
 }

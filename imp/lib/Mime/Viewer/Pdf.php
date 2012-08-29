@@ -31,16 +31,14 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * URL parameters used by this function:
-     * <pre>
-     * 'pdf_view_thumbnail' - (boolean) Output the thumbnail info.
-     * </pre>
+     *   - pdf_view_thumbnail: (boolean) Output the thumbnail info.
      *
      * @return array  See parent::render().
      */
     protected function _render()
     {
         /* Create the thumbnail and display. */
-        if (!Horde_Util::getFormData('pdf_view_thumbnail')) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Variables')->pdf_view_thumbnail) {
             return parent::_render();
         }
 
@@ -81,10 +79,14 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
         $status = new IMP_Mime_Status(_("This is a thumbnail of a PDF file attachment."));
         $status->icon('mime/image.png');
 
-        if ($GLOBALS['browser']->hasFeature('javascript')) {
-            $status->addText($this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag(), null, null, null));
-        } else {
+        switch ($GLOBALS['registry']->getView()) {
+        case Horde_Registry::VIEW_MINIMAL:
             $status->addText(Horde::link($this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag() . '</a>');
+            break;
+
+        default:
+            $status->addText($this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag(), null, null, null));
+            break;
         }
 
         return array(

@@ -8,14 +8,14 @@
  * @author Jason Felice <jason.m.felice@gmail.com>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintasks' => true));
 
 // Make sure auth backend allows passwords to be reset.
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if (!$auth->hasCapability('update')) {
     $notification->push(_("Changing your password is not supported with the current configuration.  Contact your administrator."), 'horde.error');
-    Horde::getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->redirect();
+    $registry->getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -68,8 +68,9 @@ $vars->remove('old_password');
 $vars->remove('password_1');
 $vars->remove('password_2');
 
-require HORDE_TEMPLATES . '/common-header.inc';
+$page_output->header(array(
+    'title' => $title
+));
 $notification->notify(array('listeners' => 'status'));
-$renderer = new Horde_Form_Renderer();
-$form->renderActive($renderer, $vars, Horde::url('services/changepassword.php'), 'post');
-require HORDE_TEMPLATES . '/common-footer.inc';
+$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('services/changepassword.php'), 'post');
+$page_output->footer();

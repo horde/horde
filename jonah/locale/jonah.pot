@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Jonah H4 (1.0-git)\n"
+"Project-Id-Version: Jonah H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Add story"
 msgstr ""
 
-#: lib/Application.php:54
+#: lib/Application.php:61
 msgid "Administrator"
 msgstr ""
 
@@ -108,7 +108,7 @@ msgstr ""
 msgid "Channel refreshed."
 msgstr ""
 
-#: lib/Application.php:60
+#: lib/Application.php:67
 msgid "Channels"
 msgstr ""
 
@@ -211,7 +211,7 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
-#: lib/Block/Delivery.php:20 lib/View/ChannelList.php:64
+#: lib/Block/Delivery.php:20 lib/View/ChannelList.php:69
 msgid "Feeds"
 msgstr ""
 
@@ -308,11 +308,11 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: lib/Application.php:93 lib/Form/Feed.php:24
+#: lib/Application.php:100 lib/Form/Feed.php:24
 msgid "New Feed"
 msgstr ""
 
-#: lib/Application.php:57
+#: lib/Application.php:64
 msgid "News"
 msgstr ""
 
@@ -320,7 +320,7 @@ msgstr ""
 msgid "News Source"
 msgstr ""
 
-#: channels/index.php:24
+#: channels/index.php:21
 msgid "News is not enabled."
 msgstr ""
 
@@ -618,18 +618,17 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: channels/index.php:18 lib/Api.php:111 lib/View/ChannelDelete.php:47
-#: lib/View/ChannelEdit.php:41 lib/View/StoryDelete.php:39
-#: lib/View/StoryEdit.php:46 lib/View/StoryList.php:32
-#: lib/View/TagSearchList.php:34
+#: lib/Api.php:111 lib/View/ChannelDelete.php:47 lib/View/ChannelEdit.php:41
+#: lib/View/StoryDelete.php:39 lib/View/StoryEdit.php:46
+#: lib/View/StoryList.php:32 lib/View/TagSearchList.php:34
 msgid "You are not authorised for this action."
 msgstr ""
 
-#: lib/Application.php:85
+#: lib/Application.php:92
 msgid "_Feeds"
 msgstr ""
 
-#: lib/Application.php:106
+#: lib/Application.php:113
 msgid "_New Story"
 msgstr ""
 

@@ -16,7 +16,7 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))
 }
 ?>
  </div>
- <?php echo htmlspecialchars($title) ?>
+ <?php echo htmlspecialchars($memo['desc']) ?>
 </div>
 
 <table cellspacing="0" width="100%" class="headerbox striped nowrap">

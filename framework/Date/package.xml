@@ -16,19 +16,19 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-29</date>
- <time>14:38:55</time>
+ <date>2012-07-19</date>
+ <time>23:25:18</time>
  <version>
-  <release>1.0.12</release>
-  <api>1.0.0</api>
+  <release>2.0.0beta2</release>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Include time when parsing recurrence end date from vCalendar/iCalendar.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -36,6 +36,7 @@
     <dir name="Horde">
      <dir name="Date">
       <file name="COPYING" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Date -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -351,7 +352,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -359,32 +360,32 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Translation</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
    <package>
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <extension>
     <name>calendar</name>
@@ -394,6 +395,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Date/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Date/UPGRADING" />
    <install as="Horde/Date.php" name="lib/Horde/Date.php" />
    <install as="Horde/Date/Exception.php" name="lib/Horde/Date/Exception.php" />
    <install as="Horde/Date/Recurrence.php" name="lib/Horde/Date/Recurrence.php" />
@@ -745,6 +747,48 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-06-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Include time when parsing recurrence end date from vCalendar/iCalendar.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2012-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First alpha release for Horde 5.
+* [jan] Rename fromHash()/toHash() to fromKolab()/toKolab().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-07-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First beta release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>alpha</api></stability>
+   <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

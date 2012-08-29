@@ -39,7 +39,7 @@ class Horde_Date_Parser
      */
     public static function getLocales()
     {
-        $dir = dirname(__FILE__) . '/Parser/Locale';
+        $dir = __DIR__ . '/Parser/Locale';
         $locales = array();
         foreach (new DirectoryIterator($dir) as $f) {
             if ($f->isFile()) {

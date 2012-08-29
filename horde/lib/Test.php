@@ -39,7 +39,7 @@ class Horde_Test
      * @var array
      */
     protected $_supported = array(
-        '5.2', '5.3'
+        '5.3'
     );
 
     /**
@@ -71,7 +71,7 @@ class Horde_Test
         ),
         'fileinfo' => array(
             'descrip' => 'MIME Magic Support (fileinfo)',
-            'error' => 'The fileinfo PECL module is used to provide MIME Magic scanning on unknown data. See horde/docs/INSTALL for information on how to install PECL extensions.'
+            'error' => 'The fileinfo extension is used to provide MIME Magic scanning on unknown data. Don\'t compile PHP with <code>--disable-all/--disable-fileinfo</code>, or enable the fileinfo extension individually before continuing.'
         ),
         'fileinfo_check' => array(
             'descrip' => 'MIME Magic Support (fileinfo) - Configuration',
@@ -111,7 +111,7 @@ class Horde_Test
         ),
         'intl' => array(
             'descrip' => 'Internationalization Support',
-            'error' => 'Horde requires the intl module to handle Internationalized Domain Names. This module can either be compiled with PHP 5.3.0+ (requires <code>--enable-intl</code>) or can be installed via PECL.'
+            'error' => 'Horde requires the intl extension to handle Internationalized Domain Names.'
         ),
         'imagick' => array(
             'descrip' => 'Imagick Library',
@@ -806,7 +806,7 @@ class Horde_Test
         $output->class = $this->_phpver['class'];
 
         $output->status_color = 'red';
-        if ($output->major < '5.2') {
+        if ($output->major < '5.3') {
             $output->status = 'This version of PHP is not supported. You need to upgrade to a more recent version.';
             $vers_check = false;
         } elseif (in_array($output->major, $this->_supported)) {
@@ -818,7 +818,7 @@ class Horde_Test
         }
 
         if (!$vers_check) {
-            $output->version_check = 'Horde requires PHP 5.2.0 or greater.';
+            $output->version_check = 'Horde requires PHP 5.3.0 or greater.';
         }
 
         return $output;

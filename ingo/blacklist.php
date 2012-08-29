@@ -11,7 +11,7 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/Application.php';
+require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Redirect if blacklist is not available. */
@@ -20,16 +20,7 @@ if (!in_array(Ingo_Storage::ACTION_BLACKLIST, $session->get('ingo', 'script_cate
     Horde::url('filters.php', true)->redirect();
 }
 
-/* Get the backend. */
-$scriptor = Ingo::loadIngoScript();
-
-/* Get the blacklist object. */
-try {
-    $blacklist = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
-} catch (Ingo_Exception $e) {
-    $notification->push($e);
-    $blacklist = new Ingo_Storage_Blacklist();
-}
+$ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $folder = $blacklist_folder = null;
 
 /* Perform requested actions. */
@@ -51,18 +42,16 @@ case 'rule_update':
     }
 
     if ($folder == Ingo::BLACKLIST_MARKER &&
-        (!$scriptor ||
-         !in_array(Ingo_Storage::ACTION_FLAGONLY, $scriptor->availableActions()))) {
-
+        (!$injector->getInstance('Ingo_Script') ||
+         !in_array(Ingo_Storage::ACTION_FLAGONLY, $injector->getInstance('Ingo_Script')->availableActions()))) {
         $notification->push("Not supported by this script generator.", 'horde.error');
     } else {
         try {
-            $blacklist->setBlacklist($vars->blacklist);
+            $blacklist = Ingo::updateListFilter($vars->blacklist, Ingo_Storage::ACTION_BLACKLIST);
             $blacklist->setBlacklistFolder($folder);
             $ingo_storage->store($blacklist);
             $notification->push(_("Changes saved."), 'horde.success');
             if ($prefs->getValue('auto_update')) {
-                /* This does its own $notification->push() on error: */
                 Ingo::updateScript();
             }
         } catch (Ingo_Exception $e) {
@@ -75,6 +64,16 @@ case 'rule_update':
     break;
 }
 
+/* Get the blacklist object. */
+if (!isset($blacklist)) {
+    try {
+        $blacklist = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
+    } catch (Ingo_Exception $e) {
+        $notification->push($e);
+        $blacklist = new Ingo_Storage_Blacklist();
+    }
+}
+
 /* Create the folder listing. */
 if (!isset($blacklist_folder)) {
     $blacklist_folder = $blacklist->getBlacklistFolder();
@@ -85,12 +84,13 @@ $folder_list = Ingo::flistSelect($blacklist_folder, 'filters', 'actionvalue');
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 $bl_rule = $filters->findRule(Ingo_Storage::ACTION_BLACKLIST);
 
-Horde::addScriptFile('blacklist.js', 'ingo');
+$page_output->addScriptFile('blacklist.js');
 
 $menu = Ingo::menu();
-$title = _("Blacklist Edit");
-require $registry->get('templates', 'horde') . '/common-header.inc';
+$page_output->header(array(
+    'title' => _("Blacklist Edit")
+));
 echo $menu;
 Ingo::status();
 require INGO_TEMPLATES . '/blacklist/blacklist.inc';
-require $registry->get('templates', 'horde') . '/common-footer.inc';
+$page_output->footer();

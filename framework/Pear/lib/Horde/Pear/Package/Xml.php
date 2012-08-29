@@ -428,7 +428,7 @@ class Horde_Pear_Package_Xml
             $this->_requireCurrentRelease()
         );
         $version = $this->findNode('/p:package/p:version');
-        if ($rel_version !== null) {
+        if ($rel_version) {
             $this->replaceTextNodeRelativeTo(
                 './p:release', $version, $rel_version
             );
@@ -436,12 +436,45 @@ class Horde_Pear_Package_Xml
                 './p:release', $release, $rel_version
             );
         }
-        if ($api_version !== null) {
+        if ($api_version) {
             $this->replaceTextNodeRelativeTo(
                 './p:api', $version, $api_version
             );
             $this->replaceTextNodeRelativeTo(
                 './p:api', $release, $api_version
+            );
+        }
+    }
+
+    /**
+     * Set the state in the package.xml
+     *
+     * @param string $rel_state The new release state number.
+     * @param string $api_state The new api state number.
+     *
+     * @return NULL
+     */
+    public function setState($rel_state = null, $api_state = null)
+    {
+        $release = $this->findNodeRelativeTo(
+            './p:stability',
+            $this->_requireCurrentRelease()
+        );
+        $stability = $this->findNode('/p:package/p:stability');
+        if ($rel_state) {
+            $this->replaceTextNodeRelativeTo(
+                './p:release', $stability, $rel_state
+            );
+            $this->replaceTextNodeRelativeTo(
+                './p:release', $release, $rel_state
+            );
+        }
+        if ($api_state) {
+            $this->replaceTextNodeRelativeTo(
+                './p:api', $stability, $api_state
+            );
+            $this->replaceTextNodeRelativeTo(
+                './p:api', $release, $api_state
             );
         }
     }

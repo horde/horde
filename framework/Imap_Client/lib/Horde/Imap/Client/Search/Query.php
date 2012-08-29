@@ -63,26 +63,28 @@ class Horde_Imap_Client_Search_Query implements Serializable
     /**
      * Sets the charset of the search text.
      *
-     * @param string $charset     The charset to use for the search.
-     * @param callback $callback  A callback function to run on all text
-     *                            values when the charset changes.  It must
-     *                            accept three parameters: the text, the old
-     *                            charset (will be null if no charset was
-     *                            previously given), and the new charset. It
-     *                            should return the converted text value.
+     * @param string $charset   The charset to use for the search.
+     * @param boolean $convert  Convert existing text values?
+     *
+     * @throws Horde_Imap_Client_Exception_SearchCharset
      */
-    public function charset($charset, $callback = null)
+    public function charset($charset, $convert = true)
     {
         $oldcharset = $this->_charset;
         $this->_charset = strtoupper($charset);
-        if (is_null($callback) || ($oldcharset == $this->_charset)) {
+
+        if (!$convert || ($oldcharset == $this->_charset)) {
             return;
         }
 
         foreach (array('header', 'text') as $item) {
             if (isset($this->_search[$item])) {
-                foreach (array_keys($this->_search[$item]) as $key) {
-                    $this->_search[$item][$key]['text'] = call_user_func_array($callback, array($this->_search[$item][$key]['text'], $oldcharset, $this->_charset));
+                foreach ($this->_search[$item] as $key => $val) {
+                    $new_val = Horde_String::convertCharset($val['text'], $oldcharset, $this->_charset);
+                    if (Horde_String::convertCharset($new_val, $this->_charset, $oldcharset) != $val['text']) {
+                        throw new Horde_Imap_Client_Exception_SearchCharset($this->_charset);
+                    }
+                    $this->_search[$item][$key]['text'] = $new_val;
                 }
             }
         }
@@ -190,7 +192,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
                     $cmds[] = array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $val['header']);
                     $imap4 = true;
                 }
-                $cmds[] = array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $val['text']);
+                $cmds[] = array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => isset($val['text']) ? $val['text'] : '');
                 $charset = is_null($this->_charset)
                     ? 'US-ASCII'
                     : $this->_charset;
@@ -611,36 +613,44 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
     /**
      * AND queries - the contents of this query will be AND'ed (in its
-     * entirety) with the contents of each of the queries passed in.  All
+     * entirety) with the contents of EACH of the queries passed in.  All
      * AND'd queries must share the same charset as this query.
      *
-     * @param array $queries  An array of queries to AND with this one.  Each
-     *                        query is a Horde_Imap_Client_Search_Query
-     *                        object.
+     * @param mixed $queries  A query, or an array of queries, to AND with the
+     *                        current query.
      */
     public function andSearch($queries)
     {
         if (!isset($this->_search['and'])) {
             $this->_search['and'] = array();
         }
+
+        if ($queries instanceof Horde_Imap_Client_Search_Query) {
+            $queries = array($queries);
+        }
+
         $this->_search['and'] = array_merge($this->_search['and'], $queries);
     }
 
     /**
      * OR a query - the contents of this query will be OR'ed (in its entirety)
-     * with the contents of each of the queries passed in.  All OR'd queries
+     * with the contents of EACH of the queries passed in.  All OR'd queries
      * must share the same charset as this query.  All contents of any single
      * query will be AND'ed together.
      *
-     * @param array $queries  An array of queries to OR with this one.  Each
-     *                        query is a Horde_Imap_Client_Search_Query
-     *                        object.
+     * @param mixed $queries  A query, or an array of queries, to OR with the
+     *                        current query.
      */
     public function orSearch($queries)
     {
         if (!isset($this->_search['or'])) {
             $this->_search['or'] = array();
         }
+
+        if ($queries instanceof Horde_Imap_Client_Search_Query) {
+            $queries = array($queries);
+        }
+
         $this->_search['or'] = array_merge($this->_search['or'], $queries);
     }
 

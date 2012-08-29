@@ -8,14 +8,6 @@
  * @category Horde
  * @package  Horde_Content
  */
-
-/**
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Michael Rubinsky <mrubinsk@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
- * @category Horde
- * @package  Horde_Content
- */
 class Content_Users_Manager
 {
     /**
@@ -105,5 +97,4 @@ class Content_Users_Manager
     {
         return $this->_db->quoteString(Horde_String::convertCharset($value, 'UTF-8', $this->_db->getOption('charset')));
     }
-
 }

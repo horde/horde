@@ -1,34 +1,47 @@
 <?php
 /**
+ * Horde_ActiveSync_Sync::
+ *
+ * Some code adapted from the Z-Push project:
+ *   File      :   diffbackend.php
+ *   Project   :   Z-Push
+ *   Descr     :   We do a standard differential
+ *                 change detection by sorting both
+ *                 lists of items by their unique id,
+ *                 and then traversing both arrays
+ *                 of items at once. Changes can be
+ *                 detected by comparing items at
+ *                 the same position in both arrays.
+ *
+ *    Created   :   01.10.2007
+ *
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   This file is distributed under GPL-2.0.
+ *   Consult COPYING file for details
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
+ */
+/**
  * Syncronizer object. Responsible for performing syncronization of the PIM
  * state with the server state. Sends each change to the exporter and updates
  * state accordingly.
  *
- * Some code adapted from the Z-Push project. Original file header below.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
- *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package ActiveSync
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
  */
-
-/***********************************************
-* File      :   diffbackend.php
-* Project   :   Z-Push
-* Descr     :   We do a standard differential
-*               change detection by sorting both
-*               lists of items by their unique id,
-*               and then traversing both arrays
-*               of items at once. Changes can be
-*               detected by comparing items at
-*               the same position in both arrays.
-*
-* Created   :   01.10.2007
-*
-* © Zarafa Deutschland GmbH, www.zarafaserver.de
-* This file is distributed under GPL-2.0.
-* Consult COPYING file for details
-************************************************/
 class Horde_ActiveSync_Sync
 {
     /**
@@ -43,7 +56,7 @@ class Horde_ActiveSync_Sync
      *
      * @var int
      */
-    protected $_step = 0;
+    protected $_step;
 
     /**
      * Server specific folder id
@@ -53,9 +66,9 @@ class Horde_ActiveSync_Sync
     protected $_folderId;
 
     /**
-     * The collection type for this folder
+     * The collection data
      *
-     * @var string
+     * @var array
      */
     protected $_collection;
 
@@ -74,11 +87,11 @@ class Horde_ActiveSync_Sync
     protected $_flags;
 
     /**
-     * The statemachine
+     * The stateDriver
      *
-     * @var Horde_ActiveSynce_StateMachine_Base
+     * @var Horde_ActiveSynce_State_Base
      */
-    protected $_state;
+    protected $_stateDriver;
 
     /**
      * The change streamer
@@ -105,40 +118,42 @@ class Horde_ActiveSync_Sync
     }
 
     /**
-     * Initialize the sync
+     * Initialize the sync. Causes the backend to be polled for changes, and
+     * the changes to be populated in the local cache.
      *
-     * @param Horde_ActiveSync_State_Base $stateMachine      The state machine
+     * @param Horde_ActiveSync_State_Base $stateDriver       The state driver
      * @param Horde_ActiveSync_Connector_Exporter $exporter  The exporter object
      * @param array $collection                              Collection data
+     * @param boolean $isPing                                This is a PING request.
      *
-     * @return void
      */
-    public function init(Horde_ActiveSync_State_Base &$stateMachine,
-                         Horde_ActiveSync_Connector_Exporter $exporter = null,
-                         array $collection = array())
+    public function init(
+        Horde_ActiveSync_State_Base $stateDriver, $exporter, array $collection, $isPing = false)
     {
-        $this->_stateMachine = &$stateMachine;
-
-        // We might not need an exporter, like e.g., when we are handling a PING
-        // request the changes are never exported.
+        $this->_collection = $collection;
+        $this->_stateDriver = $stateDriver;
         $this->_exporter = $exporter;
         $this->_folderId = !empty($collection['id']) ? $collection['id'] : false;
-        $this->_changes = $stateMachine->getChanges();
-        $this->_truncation = !empty($collection['truncation']) ? $collection['truncation'] : 0;
+        $this->_changes = $stateDriver->getChanges(array('ping' => $isPing));
+        $this->_step = 0;
     }
 
-    public function setLogger($logger)
+    /**
+     * Set a logger.
+     *
+     * @param Horde_Log_Logger $logger  The logger
+     */
+    public function setLogger(Horde_Log_Logger $logger)
     {
         $this->_logger = $logger;
     }
 
     /**
-     * Sends the next change in the set and updates the stateMachine if
-     * successful
+     * Sends the next change in the set and updates the device state.
      *
      * @param integer $flags  A Horde_ActiveSync:: flag constant
      *
-     * @return mixed  A progress array or false if no more changes
+     * @return array|boolean  A progress array or false if no more changes
      */
     public function syncronize($flags = 0)
     {
@@ -148,24 +163,26 @@ class Horde_ActiveSync_Sync
             if ($this->_step < count($this->_changes)) {
                 $change = $this->_changes[$this->_step];
                 switch($change['type']) {
-                case 'change':
-                    $folder = $this->_backend->getFolder($change['id']);
-                    $stat = $this->_backend->statFolder($change['id']);
-                    if (!$folder) {
-                        return;
+                case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
+                    // Get the new folder information
+                    if ($folder = $this->_backend->getFolder($change['id'])) {
+                        $stat = $this->_backend->statFolder(
+                            $change['id'],
+                            $folder->parentid,
+                            $folder->displayname);
+                        $this->_exporter->folderChange($folder);
+                    } else {
+                        $this->_logger->err(sprintf(
+                            'Error stating %s : ignoring.',
+                            $change['id']));
+                        $stat = array('id' => $change['id'], 'mod' => $change['id'], 0);
                     }
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA ||
-                        $this->_exporter->folderChange($folder)) {
-
-                        $this->_stateMachine->updateState('foldersync', $stat);
-                    }
+                    $this->_stateDriver->updateState(
+                        Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC, $stat);
                     break;
-                case 'delete':
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA ||
-                        $this->_exporter->folderDeletion($change['id'])) {
-
-                        $this->_stateMachine->updateState('foldersync', $change);
-                    }
+                case Horde_ActiveSync::CHANGE_TYPE_DELETE:
+                    $this->_stateDriver->updateState(
+                        Horde_ActiveSync::CHANGE_TYPE_DELETE, $change);
                     break;
                 }
                 $this->_step++;
@@ -181,7 +198,6 @@ class Horde_ActiveSync_Sync
                 $change = $this->_changes[$this->_step];
 
                 // Prevent corrupt server entries from causing infinite sync
-                // attempts.
                 while (empty($change['id']) && $this->_step < count($this->_changes) - 1) {
                     $this->_logger->err('Missing UID value for an entry in: ' . $this->_folderId);
                     $this->_step++;
@@ -189,44 +205,41 @@ class Horde_ActiveSync_Sync
                 }
 
                 switch($change['type']) {
-                case 'change':
-                    $truncsize = self::_getTruncSize($this->_truncation);
-                    if (!$message = $this->_backend->getMessage($this->_folderId, $change['id'], $truncsize)) {
-                        return false;
-                    }
-
-                    // copy the flag to the message
-                    $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageChange($change['id'], $message) == true) {
-                        $this->_stateMachine->updateState('change', $change);
-                    }
-                    break;
-
-                case 'delete':
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageDeletion($change['id']) == true) {
-                        $this->_stateMachine->updateState('delete', $change);
+                case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
+                    try {
+                        $message = $this->_backend->getMessage(
+                            $this->_folderId, $change['id'], $this->_collection);
+                        // copy the flag to the message
+                        // @TODO: Rename this to ->new or ->status or *anything* other than flags!!
+                        $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
+                        $this->_exporter->messageChange($change['id'], $message);
+                    } catch (Horde_Exception_NotFound $e) {
+                        $this->_logger->err('Message gone or error reading message from server: ' . $e->getMessage());
+                    } catch (Horde_ActiveSync_Exception $e) {
+                        $this->_logger->err('Unknown backend error skipping message: ' . $e->getMessage());
                     }
                     break;
-
-                case 'flags':
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageReadFlag($change['id'], $change['flags']) == true) {
-                        $this->_stateMachine->updateState('flags', $change);
+                case Horde_ActiveSync::CHANGE_TYPE_DELETE:
+                    $this->_exporter->messageDeletion($change['id']);
+                    break;
+                case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
+                    if (isset($change['flags']['read'])) {
+                        $this->_exporter->messageReadFlag($change['id'], $change['flags']['read']);
+                    }
+                    if (isset($change['flags']['flagged'])) {
+                        $this->_exporter->messageFlag($change['id'], $change['flags']['flagged']);
                     }
                     break;
-
-                case 'move':
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->messageMove($change['id'], $change['parent']) == true) {
-                        $this->_stateMachine->updateState('move', $change);
-                    }
+                case Horde_ActiveSync::CHANGE_TYPE_MOVE:
+                    $this->_exporter->messageMove($change['id'], $change['parent']);
                     break;
                 }
 
+                $this->_stateDriver->updateState($change['type'], $change);
                 $this->_step++;
-
                 $progress = array();
                 $progress['steps'] = count($this->_changes);
                 $progress['progress'] = $this->_step;
-
                 return $progress;
             } else {
                 return false;
@@ -237,30 +250,6 @@ class Horde_ActiveSync_Sync
     public function getChangeCount()
     {
         return count($this->_changes);
-    }
-
-    /**
-     *
-     * @param $truncation
-     * @return unknown_type
-     */
-    private static function _getTruncSize($truncation)
-    {
-        switch($truncation) {
-        case Horde_ActiveSync::TRUNCATION_HEADERS:
-            return 0;
-        case Horde_ActiveSync::TRUNCATION_512B:
-            return 512;
-        case Horde_ActiveSync::TRUNCATION_1K:
-            return 1024;
-        case Horde_ActiveSync::TRUNCATION_5K:
-            return 5 * 1024;
-        case Horde_ActiveSync::TRUNCATION_SEVEN:
-        case Horde_ActiveSync::TRUNCATION_ALL:
-            return 1024 * 1024; // We'll limit to 1MB anyway
-        default:
-            return 1024; // Default to 1Kb
-        }
     }
 
 }

@@ -12,16 +12,14 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Quota_Imap extends IMP_Quota_Base
+class IMP_Quota_Imap extends IMP_Quota
 {
     /**
      * Constructor.
      *
      * @param array $params  Parameters:
-     * <pre>
-     * 'imap_ob' - (Horde_Imap_Client_Base) IMAP client object.
-     * 'mbox' - (string) IMAP mailbox to query.
-     * </pre>
+     *   - imap_ob: (Horde_Imap_Client_Base) IMAP client object.
+     *   - mbox: (string) IMAP mailbox to query.
      *
      * @throws InvalidArgumentException
      */
@@ -40,8 +38,8 @@ class IMP_Quota_Imap extends IMP_Quota_Base
      * Get quota information (used/allocated), in bytes.
      *
      * @return array  An array with the following keys:
-     *                'limit' = Maximum quota allowed
-     *                'usage' = Currently used portion of quota (in bytes)
+     *   - limit: Maximum quota allowed
+     *   - usage: Currently used portion of quota (in bytes)
      * @throws IMP_Exception
      */
     public function getQuota()

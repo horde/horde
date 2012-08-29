@@ -133,6 +133,16 @@ class Kronolith_Driver
     }
 
     /**
+     * Returns whether this driver supports per-event timezones.
+     *
+     * @return boolean  Whether this drivers suppports per-event timezones.
+     */
+    public function supportsTimezones()
+    {
+        return false;
+    }
+
+    /**
      * Searches a calendar.
      *
      * @param object $query  An object with the criteria to search for.
@@ -254,11 +264,73 @@ class Kronolith_Driver
     }
 
     /**
-     * Stub to be overridden in the child class.
+     * Lists all events in the time range, optionally restricting results to
+     * only events with alarms.
+     *
+     * @param Horde_Date $startDate  The start of range date.
+     * @param Horde_Date $endDate    The end of date range.
+     * @param array $options         Additional options:
+     *   - show_recurrence: (boolean) Return every instance of a recurring
+     *                       event?
+     *                      DEFAULT: false (Only return recurring events once
+     *                      inside $startDate - $endDate range)
+     *   - has_alarm:       (boolean) Only return events with alarms.
+     *                      DEFAULT: false (Return all events)
+     *   - json:            (boolean) Store the results of the event's toJson()
+     *                      method?
+     *                      DEFAULT: false
+     *   - cover_dates:     (boolean) Add the events to all days that they
+     *                      cover?
+     *                      DEFAULT: true
+     *   - hide_exceptions: (boolean) Hide events that represent exceptions to
+     *                      a recurring event.
+     *                      DEFAULT: false (Do not hide exception events)
+     *   - fetch_tags:      (boolean) Fetch tags for all events.
+     *                      DEFAULT: false (Do not fetch event tags)
      *
      * @throws Kronolith_Exception
      */
-    public function listEvents()
+    public function listEvents(Horde_Date $startDate = null,
+                               Horde_Date $endDate = null,
+                               array $options = array())
+    {
+        // Defaults
+        $options = array_merge(array(
+            'show_recurrence' => false,
+            'has_alarm' => false,
+            'json' => false,
+            'cover_dates' => true,
+            'hide_exceptions' => false,
+            'fetch_tags' => false), $options);
+
+        return $this->_listEvents($startDate, $endDate, $options);
+    }
+
+    /**
+     * Stub to be overridden in concrete class.
+     *
+     * @param Horde_Date $startDate  The start of range date.
+     * @param Horde_Date $endDate    The end of date range.
+     * @param array $options         Additional options:
+     *   - show_recurrence: (boolean) Return every instance of a recurring event?
+     *                      DEFAULT: false (Only return recurring events once
+     *                      inside $startDate - $endDate range).
+     *   - has_alarm: (boolean) Only return events with alarms.
+     *                DEFAULT: false (Return all events)
+     *   - json: (boolean) Store the results of the event's toJson() method?
+     *           DEFAULT: false
+     *   - cover_dates: (boolean) Add the events to all days that they cover?
+     *                  DEFAULT: true
+     *   - hide_exceptions: (boolean) Hide events that represent exceptions to
+     *                      a recurring event.
+     *                      DEFAULT: false (Do not hide exception events)
+     *   - fetch_tags: (boolean) Fetch tags for all events.
+     *                 DEFAULT: false (Do not fetch event tags)
+     *
+     * @throws Kronolith_Exception
+     */
+    protected function _listEvents(
+        Horde_Date $startDate = null, Horde_Date $endDate = null, array $options = array())
     {
         throw new Kronolith_Exception($this->_errormsg);
     }
@@ -379,7 +451,7 @@ class Kronolith_Driver
      * Stub for child class to override if it can implement.
      *
      * @todo Remove in Kronolith 4.0
-     * @deprecated  Now lives in Kronolith::
+     * @deprecated  Now lives in Kronolith_Application::
      * @throws Kronolith_Exception
      */
     public function removeUserData($user)
