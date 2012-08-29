@@ -273,16 +273,20 @@ var DimpMessage = {
         }, this);
         delete this.addr_limit;
 
-        /* Add message log information. */
-        if (this.log) {
-            DimpCore.updateMsgLog(this.log);
-            $('msgloglist').show();
-        }
-
         if (HordeCore.base.DimpBase) {
             if (this.strip) {
                 HordeCore.base.DimpBase.poll();
             } else if (this.tasks) {
+                if (this.tasks['imp:maillog']) {
+                    this.tasks['imp:maillog'].each(function(l) {
+                        if (this.mbox == l.mbox &&
+                            this.uid == l.uid) {
+                            DimpCore.updateMsgLog(l.log);
+                            $('msgloglist').show();
+                        }
+                    }, this);
+                    delete this.tasks['imp:maillog'];
+                }
                 HordeCore.base.DimpBase.tasksHandler({ tasks: this.tasks });
             }
         }

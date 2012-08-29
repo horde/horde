@@ -106,7 +106,6 @@ class IMP_Ajax_Application_ShowMessage
      *   - js: Javascript code to run on display
      *   - list_info (FULL): List information.
      *   - localdate (PREVIEW): The date formatted to the user's timezone
-     *   - log: Log information
      *   - mbox: The mailbox (base64url encoded)
      *   - msgtext: The text of the message
      *   - onepart: True if message only contains one part.
@@ -199,11 +198,8 @@ class IMP_Ajax_Application_ShowMessage
             unset($result['reply-to']);
         }
 
-        /* Grab maillog information. */
-        if (!empty($GLOBALS['conf']['maillog']['use_maillog']) &&
-            ($tmp = IMP_Dimp::getMsgLogInfo($this->_envelope->message_id))) {
-            $result['log'] = $tmp;
-        }
+        /* Maillog information. */
+        $GLOBALS['injector']->getInstance('IMP_Ajax_Queue')->maillog($this->_mbox, $this->_uid, $this->_envelope->message_id);
 
         if (!$preview) {
             /* Display the user-specified headers for the current identity. */
