@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-28</date>
- <time>21:50:10</time>
+ <date>2012-08-29</date>
+ <time>12:18:29</time>
  <version>
   <release>5.0.0beta5</release>
   <api>5.0.0beta1</api>
@@ -1628,6 +1628,7 @@
       <file name="block.png" role="horde" />
       <file name="button-active-bg.png" role="horde" />
       <file name="button-split.png" role="horde" />
+      <file name="button.png" role="horde" />
       <file name="buttonbar-bg.png" role="horde" />
       <file name="calendar.png" role="horde" />
       <file name="checkbox_off.png" role="horde" />
@@ -2623,6 +2624,7 @@
    <install as="themes/default/graphics/block.png" name="themes/default/graphics/block.png" />
    <install as="themes/default/graphics/button-active-bg.png" name="themes/default/graphics/button-active-bg.png" />
    <install as="themes/default/graphics/button-split.png" name="themes/default/graphics/button-split.png" />
+   <install as="themes/default/graphics/button.png" name="themes/default/graphics/button.png" />
    <install as="themes/default/graphics/buttonbar-bg.png" name="themes/default/graphics/buttonbar-bg.png" />
    <install as="themes/default/graphics/calendar.png" name="themes/default/graphics/calendar.png" />
    <install as="themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
@@ -3871,7 +3873,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-28</date>
+   <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix cancelling problem report.

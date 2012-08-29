@@ -305,7 +305,7 @@ input:focus, textarea:focus, select:focus {
     border-color: #000;
 }
 input[type="submit"] {
-    background-color: #333;
+    background: #333 url("graphics/button.png") repeat-x;
     color: #fff;
     font-weight: bold;
 }
