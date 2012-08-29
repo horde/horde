@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-08-29</date>
- <time>15:09:57</time>
+ <time>15:10:20</time>
  <version>
-  <release>2.0.0beta3</release>
+  <release>2.0.0beta4</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] SyncKey is no longer incremented when there are no imported or exported changes after the initial SYNC.
-* [mjr] No longer send unnecessary SYNC_COMMANDS tag.
-* [mjr] Build a proper nested folder hierarchy when appropriate.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -770,6 +768,19 @@
 * [mjr] SyncKey is no longer incremented when there are no imported or exported changes after the initial SYNC.
 * [mjr] No longer send unnecessary SYNC_COMMANDS tag.
 * [mjr] Build a proper nested folder hierarchy when appropriate.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0beta4</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-08-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
