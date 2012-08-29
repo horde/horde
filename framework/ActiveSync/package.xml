@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-07</date>
- <time>16:06:05</time>
+ <date>2012-08-29</date>
+ <time>15:09:57</time>
  <version>
   <release>2.0.0beta3</release>
   <api>2.0.0beta1</api>
@@ -764,7 +764,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-07</date>
+   <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] SyncKey is no longer incremented when there are no imported or exported changes after the initial SYNC.
