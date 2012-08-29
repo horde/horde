@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>23:21:41</time>
+ <date>2012-08-29</date>
+ <time>15:13:09</time>
  <version>
   <release>2.0.0beta2</release>
   <api>1.0.0</api>
@@ -696,7 +696,7 @@ Initial packaging
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Improved detection of mobile browsers (leena.heino@uta.fi, Request #11328).
