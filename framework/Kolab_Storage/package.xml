@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-08-28</date>
- <time>09:06:13</time>
+ <date>2012-08-29</date>
+ <time>15:22:45</time>
  <version>
   <release>2.0.0beta2</release>
   <api>1.1.0</api>
@@ -200,7 +200,6 @@
        <file name="Exception.php" role="php" />
        <file name="Factory.php" role="php" />
        <file name="Folder.php" role="php" />
-       <file name="List.php" role="php" />
        <file name="Queriable.php" role="php" />
        <file name="Query.php" role="php" />
        <file name="QuerySet.php" role="php" />
@@ -585,10 +584,6 @@
            <dir name="Cache">
             <file name="SynchronizationTest.php" role="test" />
            </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Query/List/Cache -->
-           <dir name="Defaults">
-            <file name="BailTest.php" role="test" />
-            <file name="LogTest.php" role="test" />
-           </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Query/List/Defaults -->
            <file name="BaseTest.php" role="test" />
            <file name="CacheTest.php" role="test" />
            <file name="DefaultsTest.php" role="test" />
@@ -733,7 +728,6 @@
    <install as="Horde/Kolab/Storage/Exception.php" name="lib/Horde/Kolab/Storage/Exception.php" />
    <install as="Horde/Kolab/Storage/Factory.php" name="lib/Horde/Kolab/Storage/Factory.php" />
    <install as="Horde/Kolab/Storage/Folder.php" name="lib/Horde/Kolab/Storage/Folder.php" />
-   <install as="Horde/Kolab/Storage/List.php" name="lib/Horde/Kolab/Storage/List.php" />
    <install as="Horde/Kolab/Storage/Queriable.php" name="lib/Horde/Kolab/Storage/Queriable.php" />
    <install as="Horde/Kolab/Storage/Query.php" name="lib/Horde/Kolab/Storage/Query.php" />
    <install as="Horde/Kolab/Storage/QuerySet.php" name="lib/Horde/Kolab/Storage/QuerySet.php" />
@@ -967,8 +961,6 @@
    <install as="Horde/Kolab/Storage/Unit/List/Query/List/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/List/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/List/DefaultsTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/List/DefaultsTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/List/Cache/SynchronizationTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/List/Cache/SynchronizationTest.php" />
-   <install as="Horde/Kolab/Storage/Unit/List/Query/List/Defaults/BailTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/List/Defaults/BailTest.php" />
-   <install as="Horde/Kolab/Storage/Unit/List/Query/List/Defaults/LogTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/List/Defaults/LogTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/Share/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/Share/BaseTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/Share/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/Share/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Synchronization/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/Synchronization/BaseTest.php" />
@@ -1190,7 +1182,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-08-28</date>
+   <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Avoid overwriting unknown XML elements (Bug #11309)
