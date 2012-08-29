@@ -47,9 +47,10 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
 
         /* Check for JSON encoded information. */
         foreach (array('to', 'cc', 'bcc') as $val) {
+            $alist = $injector->getInstance('IMP_Dynamic_AddressList');
             $var_name = $val . '_json';
             if (isset($this->vars->$var_name)) {
-                $header[$val] = strval(IMP_Dimp::parseDimpAddressList($this->vars->$var_name));
+                $header[$val] = strval($alist->parseAddressList($this->vars->$var_name));
             }
         }
 

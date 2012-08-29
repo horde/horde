@@ -122,6 +122,30 @@ class IMP_Maillog
     }
 
     /**
+     * Retrieve history for a given Message-ID and return as a list of
+     *  objects.
+     *
+     * @param string $msg_id  The Message-ID header of the message.
+     *
+     * @return array  An array of arrays with the following information:
+     *   - m: (string) Log message
+     *   - t: (string) Log type
+     */
+    public function getLogObs($msg_id)
+    {
+        $ret = array();
+
+        foreach ($this->parseLog($msg_id) as $val) {
+            $ret[] = array_map('htmlspecialchars', array(
+                'm' => $val['msg'],
+                't' => $val['action']
+            ));
+        }
+
+        return $ret;
+    }
+
+    /**
      * Determines if an MDN notification of a certain type has been sent
      * previously for this message-ID.
      *

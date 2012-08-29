@@ -129,10 +129,11 @@ class IMP_Ajax_Queue
 
         /* Add mail log information. */
         if (!empty($this->_maillog)) {
+            $imp_maillog = $GLOBALS['injector']->getInstance('IMP_Maillog');
             $maillog = array();
 
             foreach ($this->_maillog as $val) {
-                if ($tmp = IMP_Dimp::getMsgLogInfo($val['msg_id'])) {
+                if ($tmp = $imp_maillog->getLogObs($val['msg_id'])) {
                     $log_ob = new stdClass;
                     $log_ob->log = $tmp;
                     $log_ob->mbox = $val['mailbox']->form_to;

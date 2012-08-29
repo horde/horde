@@ -1,8 +1,8 @@
 <?php
 /**
- * DIMP Base Class - provides dynamic view functions.
+ * Utility methods to parse address lists used by dynamic code.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -12,31 +12,8 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Dimp
+class IMP_Dynamic_AddressList
 {
-    /**
-     * Build data structure needed by DimpCore javascript to display message
-     * log information.
-     *
-     * @var string $msg_id  The Message-ID header of the message.
-     *
-     * @return array  An array of information that can be parsed by
-     *                DimpCore.updateInfoList().
-     */
-    static public function getMsgLogInfo($msg_id)
-    {
-        $ret = array();
-
-        foreach (IMP_Maillog::parseLog($msg_id) as $val) {
-            $ret[] = array_map('htmlspecialchars', array(
-                'm' => $val['msg'],
-                't' => $val['action']
-            ));
-        }
-
-        return $ret;
-    }
-
     /**
      * Parse an address list created by the dynamic view JS code.
      *
@@ -44,7 +21,7 @@ class IMP_Dimp
      *
      * @return Horde_Mail_Rfc822_List  A list of addresses.
      */
-    static public function parseDimpAddressList($json)
+    public function parseAddressList($json)
     {
         $data = Horde_Serialize::unserialize($json, Horde_Serialize::JSON);
         $out = new Horde_Mail_Rfc822_List();

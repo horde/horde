@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-08-29</date>
- <time>16:03:12</time>
+ <time>15:18:05</time>
  <version>
   <release>6.0.0beta4</release>
   <api>6.0.0beta1</api>
@@ -129,6 +129,7 @@
      <dir name="Helper">
       <file name="Base.php" role="horde" />
      </dir> <!-- /lib/Dynamic/Helper -->
+     <file name="AddressList.php" role="horde" />
      <file name="Base.php" role="horde" />
      <file name="Compose.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
@@ -371,7 +372,6 @@
     <file name="Auth.php" role="horde" />
     <file name="Compose.php" role="horde" />
     <file name="Contents.php" role="horde" />
-    <file name="Dimp.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Filter.php" role="horde" />
     <file name="Flags.php" role="horde" />
@@ -1346,7 +1346,6 @@
    <install as="imp/lib/Auth.php" name="lib/Auth.php" />
    <install as="imp/lib/Compose.php" name="lib/Compose.php" />
    <install as="imp/lib/Contents.php" name="lib/Contents.php" />
-   <install as="imp/lib/Dimp.php" name="lib/Dimp.php" />
    <install as="imp/lib/Exception.php" name="lib/Exception.php" />
    <install as="imp/lib/Filter.php" name="lib/Filter.php" />
    <install as="imp/lib/Flags.php" name="lib/Flags.php" />
@@ -1380,6 +1379,7 @@
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
+   <install as="imp/lib/Dynamic/AddressList.php" name="lib/Dynamic/AddressList.php" />
    <install as="imp/lib/Dynamic/Base.php" name="lib/Dynamic/Base.php" />
    <install as="imp/lib/Dynamic/Compose.php" name="lib/Dynamic/Compose.php" />
    <install as="imp/lib/Dynamic/Mailbox.php" name="lib/Dynamic/Mailbox.php" />

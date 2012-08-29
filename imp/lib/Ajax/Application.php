@@ -844,7 +844,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function addContact()
     {
-        $addr_ob = IMP_Dimp::parseDimpAddressList($this->_vars->addr);
+        $addr_ob = $GLOBALS['injector']->getInstance('IMP_Dynamic_AddressList')->parseAddressList($this->_vars->addr);
 
         // TODO: Currently supports only a single, non-group contact.
         $ob = $addr_ob[0];
