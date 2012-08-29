@@ -149,9 +149,11 @@ $t->set('forward_button', IMP_Dimp::actionButton(array(
     'title' => _("Forward")
 )));
 
+$spam_folder = IMP_Mailbox::getPref('spam_folder');
+
 if (!empty($conf['spam']['reporting']) &&
-    (!$conf['spam']['spamfolder'] ||
-     !IMP_Mailbox::getPref('spam_folder')->equals(IMP::$mailbox))) {
+    $spam_folder &&
+    (!$conf['spam']['spamfolder'] || !$spam_folder->equals(IMP::$mailbox))) {
     $t->set('spam_button', IMP_Dimp::actionButton(array(
         'icon' => 'Spam',
         'id' => 'button_spam',
@@ -160,8 +162,8 @@ if (!empty($conf['spam']['reporting']) &&
 }
 
 if (!empty($conf['notspam']['reporting']) &&
-    (!$conf['notspam']['spamfolder'] ||
-     IMP_Mailbox::getPref('spam_folder')->equals(IMP::$mailbox))) {
+    $spam_folder &&
+    (!$conf['notspam']['spamfolder'] || $spam_folder->equals(IMP::$mailbox))) {
     $t->set('ham_button', IMP_Dimp::actionButton(array(
         'icon' => 'Ham',
         'id' => 'button_ham',

@@ -581,15 +581,17 @@ if (!$disable_compose &&
 $imp_params = IMP::$mailbox->urlParams($uid, $mailbox);
 $a_template->set('save_as', Horde::widget(Horde::downloadUrl($subject, array_merge(array('actionID' => 'save_message'), $imp_params)), _("Save as"), 'widget', '', '', _("Sa_ve as"), 2));
 
+$spam_folder = IMP_Mailbox::getPref('spam_folder');
+
 if ($conf['spam']['reporting'] &&
-    ($conf['spam']['spamfolder'] ||
-     !IMP_Mailbox::getPref('spam_folder')->equals($mailbox))) {
+    $spam_folder &&
+    ($conf['spam']['spamfolder'] || !$spam_folder->equals($mailbox))) {
     $a_template->set('spam', Horde::widget('#', _("Report as Spam"), 'widget spamAction', '', '', _("Report as Spam"), true));
 }
 
 if ($conf['notspam']['reporting'] &&
-    (!$conf['notspam']['spamfolder'] ||
-     IMP_Mailbox::getPref('spam_folder')->equals($mailbox))) {
+    $spam_folder &&
+    (!$conf['notspam']['spamfolder'] || $spam_folder->equals($mailbox))) {
     $a_template->set('notspam', Horde::widget('#', _("Report as Innocent"), 'widget notspamAction', '', '', _("Report as Innocent"), true));
 }
 

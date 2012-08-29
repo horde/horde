@@ -193,6 +193,7 @@ if ($compose_page) {
     $compose_cursor = $GLOBALS['prefs']->getValue('compose_cursor');
 
     /* Variables used in compose page. */
+    $drafts_mbox = IMP_Mailbox::getPref('drafts_folder');
     $code['conf_compose'] = array_filter(array(
         'attach_limit' => ($GLOBALS['conf']['compose']['attach_count_limit'] ? intval($GLOBALS['conf']['compose']['attach_count_limit']) : -1),
         'auto_save_interval_val' => intval($GLOBALS['prefs']->getValue('auto_save_drafts')),
@@ -200,7 +201,7 @@ if ($compose_page) {
         'cc' => intval($GLOBALS['prefs']->getValue('compose_cc')),
         'close_draft' => intval($GLOBALS['prefs']->getValue('close_draft')),
         'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
-        'drafts_mbox' => IMP_Mailbox::getPref('drafts_folder')->form_to,
+        'drafts_mbox' => $drafts_mbox ? $drafts_mbox->form_to : null,
         'rte_avail' => intval($GLOBALS['browser']->hasFeature('rte')),
         'spellcheck' => intval($GLOBALS['prefs']->getValue('compose_spellcheck')),
     ));
