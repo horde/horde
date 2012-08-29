@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>23:34:33</time>
+ <date>2012-08-29</date>
+ <time>15:24:26</time>
  <version>
   <release>2.0.0beta2</release>
   <api>2.0.0beta1</api>
@@ -69,9 +69,11 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Mail">
+      <file name="AddressTest.php" role="test" />
       <file name="AllTests.php" role="test" />
       <file name="GroupTest.php" role="test" />
       <file name="ListTest.php" role="test" />
+      <file name="MatchTest.php" role="test" />
       <file name="ObjectTest.php" role="test" />
       <file name="ParseTest.php" role="test" />
       <file name="SendTest.php" role="test" />
@@ -140,9 +142,11 @@
    <install as="Horde/Mail/Transport/Sendmail.php" name="lib/Horde/Mail/Transport/Sendmail.php" />
    <install as="Horde/Mail/Transport/Smtp.php" name="lib/Horde/Mail/Transport/Smtp.php" />
    <install as="Horde/Mail/Transport/Smtpmx.php" name="lib/Horde/Mail/Transport/Smtpmx.php" />
+   <install as="Horde/Mail/AddressTest.php" name="test/Horde/Mail/AddressTest.php" />
    <install as="Horde/Mail/AllTests.php" name="test/Horde/Mail/AllTests.php" />
    <install as="Horde/Mail/GroupTest.php" name="test/Horde/Mail/GroupTest.php" />
    <install as="Horde/Mail/ListTest.php" name="test/Horde/Mail/ListTest.php" />
+   <install as="Horde/Mail/MatchTest.php" name="test/Horde/Mail/MatchTest.php" />
    <install as="Horde/Mail/ObjectTest.php" name="test/Horde/Mail/ObjectTest.php" />
    <install as="Horde/Mail/ParseTest.php" name="test/Horde/Mail/ParseTest.php" />
    <install as="Horde/Mail/SendTest.php" name="test/Horde/Mail/SendTest.php" />
@@ -351,7 +355,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Add Horde_Mail_Rfc822_Address#matchDomain().
