@@ -2293,7 +2293,6 @@ var DimpBase = {
     {
         var all, cnt, co, h, need, pp, ps, r, row, rownum, rowoff, sel,
             tmp, vsel, prev,
-            elt = e.element(),
             kc = e.keyCode || e.charCode;
 
         // Only catch keyboard shortcuts in message list view.
@@ -2388,11 +2387,9 @@ var DimpBase = {
             break;
 
         case Event.KEY_RETURN:
-            if (!elt.match('input')) {
+            if (!e.element().match('INPUT') && sel.size() == 1) {
                 // Popup message window if single message is selected.
-                if (sel.size() == 1) {
-                    this.msgWindow(sel.get('dataob').first());
-                }
+                this.msgWindow(sel.get('dataob').first());
             }
             e.stop();
             break;
