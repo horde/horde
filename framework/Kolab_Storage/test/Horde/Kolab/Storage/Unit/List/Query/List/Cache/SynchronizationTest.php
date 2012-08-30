@@ -120,7 +120,7 @@ extends PHPUnit_Framework_TestCase
     private function _getSynchronization()
     {
         $this->driver = $this->getMock('Horde_Kolab_Storage_Driver');
-        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache_Base', array(), array(), '', false, false);
+        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
         $this->driver->expects($this->once())
             ->method('listFolders')
             ->will($this->returnValue(array('INBOX/Test')));
@@ -167,5 +167,18 @@ extends PHPUnit_Framework_TestCase
             new Horde_Kolab_Storage_Folder_Types(),
             new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
         );
+    }
+
+    public function testGetDuplicateDefaults()
+    {
+        $duplicates = array('a' => 'b');
+        $defaults = $this->getMock('Horde_Kolab_Storage_List_Query_List_Defaults_Bail');
+        $defaults->expects($this->once())
+            ->method('getDuplicates')
+            ->will($this->returnValue($duplicates));
+        $synchronization = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+            $this->getMock('Horde_Kolab_Storage_Driver'), new Horde_Kolab_Storage_Folder_Types(), $defaults
+        );
+        $this->assertEquals($duplicates, $synchronization->getDuplicateDefaults());
     }
 }

@@ -73,6 +73,7 @@ class Horde_Kolab_Storage_List_Query_List_Cache_Synchronization
      */
     public function synchronize(Horde_Kolab_Storage_List_Cache $cache)
     {
+        $this->_defaults->reset();
         $namespace = $this->_driver->getNamespace();
         if (!$cache->hasNamespace()) {
             $cache->setNamespace(serialize($namespace));
@@ -133,5 +134,15 @@ class Horde_Kolab_Storage_List_Query_List_Cache_Synchronization
         );
 
         $cache->save();
+    }
+
+    /**
+     * Return any default folder duplicates.
+     *
+     * @return array The list of duplicate default folders accessible to the current user.
+     */
+    public function getDuplicateDefaults()
+    {
+        return $this->_defaults->getDuplicates();
     }
 }
