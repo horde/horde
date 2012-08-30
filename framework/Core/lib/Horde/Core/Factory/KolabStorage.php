@@ -90,12 +90,24 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
                 'port'     => $configuration['port'],
                 'secure'   => $configuration['secure']
             ),
+            'queries' => array(
+                'list' => array(
+                    Horde_Kolab_Storage_List_Tools::QUERY_BASE => array(
+                        'cache' => true
+                    ),
+                    Horde_Kolab_Storage_List_Tools::QUERY_ACL => array(
+                        'cache' => true
+                    ),
+                    Horde_Kolab_Storage_List_Tools::QUERY_SHARE => array(
+                        'cache' => true
+                    ),
+                )
+            ),
             'queryset' => array(
-                'list' => array('queryset' => 'horde'),
                 'data' => array('queryset' => 'horde'),
             ),
             'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
-            'timelog' => $this->_injector->getInstance('Horde_Log_Logger'),
+            'log' => array('debug'),
             'cache' => $this->_injector->getInstance('Horde_Cache'),
         );
 

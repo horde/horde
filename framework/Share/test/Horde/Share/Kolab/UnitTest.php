@@ -601,11 +601,24 @@ extends PHPUnit_Framework_TestCase
         $factory = new Horde_Kolab_Storage_Factory(
             array(
                 'driver' => 'mock',
-                'queryset' => array('list' => array('queryset' => 'horde')),
+                'queries' => array(
+                    'list' => array(
+                        Horde_Kolab_Storage_List_Tools::QUERY_BASE => array(
+                            'cache' => true
+                        ),
+                        Horde_Kolab_Storage_List_Tools::QUERY_ACL => array(
+                            'cache' => true
+                        ),
+                        Horde_Kolab_Storage_List_Tools::QUERY_SHARE => array(
+                            'cache' => true
+                        ),
+                    )
+                ),
                 'params' => $data,
                 'cache'  => new Horde_Cache(
                     new Horde_Cache_Storage_Mock()
                 ),
+                'logger' => new Horde_Log_Logger()
             )
         );
         $driver = $this->_getDriver('kronolith');
