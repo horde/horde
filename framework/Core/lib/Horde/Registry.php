@@ -794,9 +794,9 @@ class Horde_Registry
      * @return Horde_Registry_Api|Horde_Registry_Application  The API object.
      * @throws Horde_Exception
      */
-    public function getApiInstance($app, $type, $force_new = false)
+    public function getApiInstance($app, $type)
     {
-        if (isset($this->_obCache[$app][$type]) && !$force_new) {
+        if (isset($this->_obCache[$app][$type])) {
             return $this->_obCache[$app][$type];
         }
 
