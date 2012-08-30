@@ -10,8 +10,12 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('nag');
 
-if ($registry->getView() == Horde_Registry::VIEW_SMARTMOBILE) {
-    require __DIR__ . '/smartmobile.php';
-} else {
+switch ($registry->getView()) {
+case $registry::VIEW_SMARTMOBILE:
+    Horde::url('smartmobile.php')->redirect();
+    break;
+
+default:
     require __DIR__ . '/list.php';
+    break;
 }
