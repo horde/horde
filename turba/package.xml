@@ -29,7 +29,7 @@
   <active>yes</active>
  </lead>
  <date>2012-08-29</date>
- <time>16:04:41</time>
+ <time>23:58:15</time>
  <version>
   <release>4.0.0beta3</release>
   <api>4.0.0beta1</api>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [mms] Initial implementation of smartmobile view.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -94,8 +94,17 @@
     <file name="contact_tabs.js" role="horde" />
     <file name="minisearch.js" role="horde" />
     <file name="search.js" role="horde" />
+    <file name="smartmobile.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
+    <dir name="Ajax">
+     <dir name="Application">
+      <dir name="Helper">
+       <file name="Smartmobile.php" role="horde" />
+      </dir> <!-- /lib/Ajax/Application/Helper -->
+     </dir> <!-- /lib/Ajax/Application -->
+     <file name="Application.php" role="horde" />
+    </dir> <!-- /lib/Ajax -->
     <dir name="Block">
      <file name="Minisearch.php" role="horde" />
     </dir> <!-- /lib/Block -->
@@ -165,6 +174,7 @@
     <file name="Exception.php" role="horde" />
     <file name="List.php" role="horde" />
     <file name="Object.php" role="horde" />
+    <file name="Smartmobile.php" role="horde" />
     <file name="Test.php" role="horde" />
     <file name="Turba.php" role="horde" />
    </dir> <!-- /lib -->
@@ -468,6 +478,10 @@
      <file name="header.html.php" role="horde" />
      <file name="vbook.html.php" role="horde" />
     </dir> <!-- /templates/search -->
+    <dir name="smartmobile">
+     <file name="browse.html.php" role="horde" />
+     <file name="entry.html.php" role="horde" />
+    </dir> <!-- /templates/smartmobile -->
     <dir name="test">
      <file name="ldapserver.inc" role="horde" />
     </dir> <!-- /templates/test -->
@@ -555,6 +569,9 @@
       <file name="za.png" role="horde" />
       <file name="za_secondary.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
+     <dir name="smartmobile">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/smartmobile -->
      <file name="ie7.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
@@ -572,6 +589,7 @@
    <file name="minisearch.php" role="horde" />
    <file name="README" role="doc" />
    <file name="search.php" role="horde" />
+   <file name="smartmobile.php" role="horde" />
    <file name="vcard.php" role="horde" />
    <file name="view.php" role="horde" />
   </dir> <!-- / -->
@@ -825,6 +843,7 @@
    <install as="turba/js/contact_tabs.js" name="js/contact_tabs.js" />
    <install as="turba/js/minisearch.js" name="js/minisearch.js" />
    <install as="turba/js/search.js" name="js/search.js" />
+   <install as="turba/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="turba/lib/.htaccess" name="lib/.htaccess" />
    <install as="turba/lib/Api.php" name="lib/Api.php" />
    <install as="turba/lib/Application.php" name="lib/Application.php" />
@@ -832,8 +851,11 @@
    <install as="turba/lib/Exception.php" name="lib/Exception.php" />
    <install as="turba/lib/List.php" name="lib/List.php" />
    <install as="turba/lib/Object.php" name="lib/Object.php" />
+   <install as="turba/lib/Smartmobile.php" name="lib/Smartmobile.php" />
    <install as="turba/lib/Test.php" name="lib/Test.php" />
    <install as="turba/lib/Turba.php" name="lib/Turba.php" />
+   <install as="turba/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="turba/lib/Ajax/Application/Helper/Smartmobile.php" name="lib/Ajax/Application/Helper/Smartmobile.php" />
    <install as="turba/lib/Block/Minisearch.php" name="lib/Block/Minisearch.php" />
    <install as="turba/lib/Data/Ldif.php" name="lib/Data/Ldif.php" />
    <install as="turba/lib/Driver/Facebook.php" name="lib/Driver/Facebook.php" />
@@ -996,6 +1018,8 @@
    <install as="turba/templates/search/duplicate/footer.html.php" name="templates/search/duplicate/footer.html.php" />
    <install as="turba/templates/search/duplicate/header.html.php" name="templates/search/duplicate/header.html.php" />
    <install as="turba/templates/search/duplicate/list.html.php" name="templates/search/duplicate/list.html.php" />
+   <install as="turba/templates/smartmobile/browse.html.php" name="templates/smartmobile/browse.html.php" />
+   <install as="turba/templates/smartmobile/entry.html.php" name="templates/smartmobile/entry.html.php" />
    <install as="turba/templates/test/ldapserver.inc" name="templates/test/ldapserver.inc" />
    <install as="Turba/AllTests.php" name="test/Turba/AllTests.php" />
    <install as="Turba/Autoload.php" name="test/Turba/Autoload.php" />
@@ -1060,8 +1084,10 @@
    <install as="turba/minisearch.php" name="minisearch.php" />
    <install as="README" name="README" />
    <install as="turba/search.php" name="search.php" />
+   <install as="turba/smartmobile.php" name="smartmobile.php" />
    <install as="turba/vcard.php" name="vcard.php" />
    <install as="turba/view.php" name="view.php" />
+   <install as="turba/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
   </filelist>
  </phprelease>
  <changelog>
@@ -1441,7 +1467,7 @@
    <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [mms] Initial implementation of smartmobile view.
    </notes>
   </release>
  </changelog>
