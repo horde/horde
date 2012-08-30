@@ -1,5 +1,22 @@
 <?php
 
+function _headerWidget($by, $title, $content)
+{
+    global $baseurl, $sortdir, $sortby;
+
+    return Horde::widget(
+        $baseurl->add(array(
+            'sortby' => $by,
+            'sortdir' => $sortby == $by ? 1 - $sortdir : $sortdir)),
+        $title,
+        'sortlink',
+        '',
+        '',
+        $content
+    )
+    . '&nbsp;';
+}
+
 require NAG_TEMPLATES . '/list/header.inc';
 
 if ($tasks->hasTasks()) {
@@ -12,14 +29,14 @@ if ($tasks->hasTasks()) {
     }
     $dynamic_sort = true;
 
-    $baseurl = 'list.php';
+    $baseurl = Horde::url('list.php');
     if ($actionID == 'search_tasks') {
-        $baseurl = Horde_Util::addParameter(
-            $baseurl,
+        $baseurl->add(
             array('actionID' => 'search_tasks',
                   'search_pattern' => $search_pattern,
                   'search_name' => $search_name ? 'on' : 'off',
-                  'search_desc' => $search_desc ? 'on' : 'off'));
+                  'search_desc' => $search_desc ? 'on' : 'off')
+        );
     }
 
     require NAG_TEMPLATES . '/list/task_headers.inc';
