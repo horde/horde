@@ -18,6 +18,7 @@ v4.0.0beta1
 v3.0.9-git
 ----------
 
+[jan] Fix sorting by owner if displaying external task sources.
 [jan] Update Turkish translation (İstanbul Technical University).
 
 
