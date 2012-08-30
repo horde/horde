@@ -58,13 +58,6 @@ class Horde_Registry
     public $nlsconfig;
 
     /**
-     * The list of external services.
-     *
-     * @var array
-     */
-    protected $_apis;
-
-    /**
      * The list of APIs.
      *
      * @var array
@@ -569,12 +562,10 @@ class Horde_Registry
     {
         $app = $this->getApp();
 
-        $this->applications = $this->_apiList = $this->_confCache = $this->_interfaces = array();
-        unset($this->_apis);
+        $this->applications = $this->_apiList = $this->_confCache = $this->_interfaces = $this->_obCache = array();
 
         $GLOBALS['session']->remove('horde', 'nls/');
         $GLOBALS['session']->remove('horde', 'registry/');
-        $this->_saveCache('apis');
         $this->_saveCache('app');
 
         $this->_loadApplications();
@@ -746,43 +737,35 @@ class Horde_Registry
     }
 
     /**
-     * Load the list of available external services.
+     * Load an application's API object.
      *
-     * @throws Horde_Exception
+     * @param string $app  The application to load.
+     *
+     * @return Horde_Registry_Api  The API object, or null if not available.
      */
-    protected function _loadApis()
+    protected function _loadApi($app)
     {
-        if (isset($this->_apis) ||
-            ($this->_apis = $this->_loadCache('apis'))) {
-            return;
+        if (isset($this->_obCache[$app]['api'])) {
+            return $this->_obCache[$app]['api'];
         }
 
-        /* Generate api/type cache. */
+        $api = null;
         $status = array('active', 'notoolbar', 'hidden');
-        if ($this->isAdmin()) {
-            $status[] = 'admin';
-        } else {
-            $status[] = 'noadmin';
-        }
+        $status[] = $this->isAdmin()
+            ? 'admin'
+            : 'noadmin';
 
-        $this->_apis = array();
-
-        foreach (array_keys($this->applications) as $app) {
-            if (in_array($this->applications[$app]['status'], $status)) {
-                try {
-                    $api = $this->getApiInstance($app, 'api');
-                    $this->_apis[$app] = array(
-                        'api' => array_diff(get_class_methods($api), array('__construct')),
-                        'links' => $api->links,
-                        'noperms' => $api->noPerms
-                    );
-                } catch (Horde_Exception $e) {
-                    Horde::logMessage($e, 'DEBUG');
-                }
+        if (in_array($this->applications[$app]['status'], $status)) {
+            try {
+                $api = $this->getApiInstance($app, 'api');
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, 'DEBUG');
             }
         }
 
-        $this->_saveCache('apis', $this->_api);
+        $this->_obCache[$app]['api'] = $api;
+
+        return $api;
     }
 
     /**
@@ -924,15 +907,13 @@ class Horde_Registry
      * only those for a specified API.
      *
      * @param string $api  Defines the API for which the methods shall be
-     *                     returned.
+     *                     returned. If null, returns all methods.
      *
      * @return array  The method list.
      */
     public function listMethods($api = null)
     {
         $methods = array();
-
-        $this->_loadApis();
 
         foreach (array_keys($this->applications) as $app) {
             if (isset($this->applications[$app]['provides'])) {
@@ -947,9 +928,9 @@ class Horde_Registry
                             (substr($method, 0, strlen($api)) == $api)) {
                             $methods[$method] = true;
                         }
-                    } elseif (isset($this->_apis[$app]) &&
+                    } elseif (($api_ob = $this->_loadApi($app)) &&
                               (is_null($api) || ($method == $api))) {
-                        foreach ($this->_apis[$app]['api'] as $service) {
+                        foreach ($api_ob->methods as $service) {
                             $methods[$method . '/' . $service] = true;
                         }
                     }
@@ -999,9 +980,9 @@ class Horde_Registry
             $call = $method;
         }
 
-        $this->_loadApis();
+        $api_ob = $this->_loadApi($app);
 
-        return (isset($this->_apis[$app]) && in_array($call, $this->_apis[$app]['api']))
+        return ($api_ob && in_array($call, $api_ob->methods))
             ? $app
             : false;
     }
@@ -1055,10 +1036,12 @@ class Horde_Registry
         }
 
         /* Load the API now. */
-        $api = $this->getApiInstance($app, 'api');
+        $methods = ($api_ob = $this->_loadApi($app))
+            ? $api_ob->methods
+            : array();
 
         /* Make sure that the function actually exists. */
-        if (!method_exists($api, $call)) {
+        if (!in_array($call, $methods)) {
             throw new Horde_Exception('The function implementing ' . $call . ' is not defined in ' . $app . '\'s API.');
         }
 
@@ -1066,11 +1049,11 @@ class Horde_Registry
          * including any files which might do it for us. Return an
          * error immediately if pushApp() fails. */
         $pushed = $this->pushApp($app, array(
-            'check_perms' => !in_array($call, $this->_apis[$app]['noperms']) && empty($options['noperms']) && $this->_args['authentication'] != 'none'
+            'check_perms' => !in_array($call, $api_ob->noPerms) && empty($options['noperms']) && $this->_args['authentication'] != 'none'
         ));
 
         try {
-            $result = call_user_func_array(array($api, $call), $args);
+            $result = call_user_func_array(array($api_ob, $call), $args);
             if ($result instanceof PEAR_Error) {
                 $result = new Horde_Exception_Wrapped($result);
             }
@@ -1193,14 +1176,17 @@ class Horde_Registry
      */
     public function linkByPackage($app, $call, $args = array(), $extra = '')
     {
+        $links = ($api_ob = $this->_loadApi($app))
+            ? $api_ob->links
+            : array();
+
         /* Make sure the link is defined. */
-        $this->_loadApis();
-        if (empty($this->_apis[$app]['links'][$call])) {
+        if (!isset($links[$call])) {
             throw new Horde_Exception('The link ' . $call . ' is not defined in ' . $app . '\'s API.');
         }
 
         /* Initial link value. */
-        $link = $this->_apis[$app]['links'][$call];
+        $link = $links[$call];
 
         /* Fill in html-encoded arguments. */
         foreach ($args as $key => $val) {

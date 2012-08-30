@@ -14,7 +14,7 @@ class Timeobjects_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $links = array(
+    protected $_links = array(
         // @TODO: Probably implement a URL endpoint or something so we can
         // link to the correct external site depending on what time object
         // category we are referring to.

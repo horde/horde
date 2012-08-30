@@ -14,7 +14,7 @@ class Nag_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $links = array(
+    protected $_links = array(
         'show' => '%application%/view.php?tasklist=|tasklist|&task=|task|&uid=|uid|'
     );
 

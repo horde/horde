@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Allow application API interface to dynamically alter properties (Bug #11388).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2235,7 +2235,7 @@
    <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Allow application API interface to dynamically alter properties (Bug #11388).
    </notes>
   </release>
  </changelog>

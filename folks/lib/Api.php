@@ -17,15 +17,17 @@ class Folks_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $links = array(
+    protected $_links = array(
         'show' => '%application%/user.php?user=|user|'
     );
 
-    public function __construct()
+    /**
+     */
+    public function __get($name)
     {
-        if (!$GLOBALS['registry']->isAdmin()) {
-            $this->disabled = array('removeUser', 'userList');
-        }
+        return (($name == 'disabled') && !$GLOBALS['registry']->isAdmin())
+            ? array('removeUser', 'userList')
+            : parent::__get($name);
     }
 
     /**
@@ -61,7 +63,6 @@ class Folks_Api extends Horde_Registry_Api
         require_once __DIR__ . '/base.php';
 
         switch ($type) {
-
         case 'owner':
             return $id;
 

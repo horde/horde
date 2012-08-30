@@ -14,7 +14,7 @@ class Kronolith_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $links = array(
+    protected $_links = array(
         'show' => '%application%/event.php?calendar=|calendar|&eventID=|event|&uid=|uid|'
     );
 

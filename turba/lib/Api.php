@@ -22,7 +22,7 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $links = array(
+    protected $_links = array(
         'show' => '%application%/contact.php?source=|source|&key=|key|&uid=|uid|'
     );
 
@@ -31,7 +31,7 @@ class Turba_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $noPerms = array(
+    protected $_noPerms = array(
         'getClientSource', 'getClient', 'getClients', 'searchClients'
     );
 

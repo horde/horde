@@ -22,7 +22,7 @@ class IMP_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $noPerms = array(
+    protected $_noPerms = array(
         'compose', 'batchCompose'
     );
 

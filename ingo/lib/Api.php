@@ -17,7 +17,7 @@ class Ingo_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $links = array(
+    protected $_links = array(
         'showBlacklist' => '%application%/blacklist.php',
         'showWhitelist' => '%application%/whitelist.php',
         'showFilters' => '%application%/filters.php',
@@ -26,21 +26,34 @@ class Ingo_Api extends Horde_Registry_Api
 
     /**
      */
-    public function __construct()
+    public function __get($name)
     {
-        global $prefs;
+        global $prefs, $registry;
 
-        if ($prefs->isLocked('blacklist')) {
-            $this->disabled[] = 'blacklistFrom';
-        }
+        switch ($name) {
+        case 'disabled':
+            $pushed = $registry->pushApp('ingo');
 
-        if ($prefs->isLocked('whitelist')) {
-            $this->disabled[] = 'whitelistFrom';
-        }
+            $disabled = array();
+            if ($prefs->isLocked('blacklist')) {
+                $disabled[] = 'blacklistFrom';
+            }
+            if ($prefs->isLocked('whitelist')) {
+                $disabled[] = 'whitelistFrom';
+            }
+            if ($prefs->isLocked('vacation')) {
+                $disabled[] = 'setVacation';
+                $disabled[] = 'disableVacation';
+            }
 
-        if ($prefs->isLocked('vacation')) {
-            $this->disabled[] = 'setVacation';
-            $this->disabled[] = 'disableVacation';
+            if ($pushed) {
+                $registry->popApp();
+            }
+
+            return array_merge(parent::__get('disabled'), $disabled);
+
+        default:
+            return parent::__get($name);
         }
     }
 
