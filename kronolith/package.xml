@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix sending alarm emails.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1926,7 +1926,7 @@
    <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix sending alarm emails.
    </notes>
   </release>
  </changelog>

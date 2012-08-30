@@ -1837,10 +1837,8 @@ abstract class Kronolith_Event
             if (!$prefs->isLocked('event_reminder')) {
                 $view->prefsUrl = Horde::url($GLOBALS['registry']->getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
             }
-            if (!$this->isPrivate() && $this->attendees) {
-                if ($this->attendees) {
-                    $view->attendees = Kronolith::getAttendeeEmailList($this->attendees)->addresses;
-                }
+            if ($this->attendees) {
+                $view->attendees = Kronolith::getAttendeeEmailList($this->attendees)->addresses;
             }
 
             $methods['mail']['mimepart'] = Kronolith::buildMimeMessage($view, 'mail', $image);
