@@ -978,6 +978,7 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Group active and inactive versions in queue adminstration.
 * [jan] Fix auto-submitting of tickets if using groups (Bug #10654).
 * [jan] Improve error reporting in whups-mail-filter.
    </notes>
