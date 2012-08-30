@@ -36,7 +36,7 @@ extends PHPUnit_Framework_TestCase
     public function testInitGetAcl()
     {
         $this->query = $this->getMock('Horde_Kolab_Storage_List_Query_Acl');
-        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache');
+        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
         $this->cache->expects($this->exactly(3))
             ->method('hasQuery')
             ->with(
@@ -346,7 +346,7 @@ extends PHPUnit_Framework_TestCase
     private function _getAcl()
     {
         $this->query = $this->getMock('Horde_Kolab_Storage_List_Query_Acl');
-        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache');
+        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
         return new Horde_Kolab_Storage_List_Query_Acl_Cache(
             $this->query, $this->cache
         );

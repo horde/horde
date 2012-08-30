@@ -275,7 +275,17 @@ Horde_Kolab_Storage_List_Synchronization_Listener
      */
     public function getStamp()
     {
-        return $this->_driver->getStamp();
+        return $this->_list_cache->getStamp();
+    }
+
+    /**
+     * Return any default folder duplicates.
+     *
+     * @return array The list of duplicate default folders accessible to the current user.
+     */
+    public function getDuplicateDefaults()
+    {
+        return $this->_sync->getDuplicateDefaults();
     }
 
     /**
@@ -283,6 +293,6 @@ Horde_Kolab_Storage_List_Synchronization_Listener
      */
     public function synchronize()
     {
-        $this->_synchronization->synchronize();
+        $this->_sync->synchronize($this->_list_cache);
     }
 }

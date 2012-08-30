@@ -290,9 +290,39 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testGetStamp()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getStamp')
+            ->will($this->returnValue('STAMP'));
+        $this->assertEquals(
+            'STAMP', $list->getStamp()
+        );
+    }
+
+    public function testSynchronize()
+    {
+        $list = $this->_getList();
+        $this->sync->expects($this->once())
+            ->method('synchronize')
+            ->with($this->cache);
+        $list->synchronize();
+    }
+
+    public function testDuplicateDefaults()
+    {
+        $duplicates = array('a' => 'b');
+        $list = $this->_getList();
+        $this->sync->expects($this->once())
+            ->method('getDuplicateDefaults')
+            ->will($this->returnValue($duplicates));
+        $this->assertEquals($duplicates, $list->getDuplicateDefaults());
+    }
+
     private function _getList()
     {
-        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache');
+        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
         $this->sync = $this->getMock('Horde_Kolab_Storage_List_Query_List_Cache_Synchronization', array(), array(), '', false, false);
         return new Horde_Kolab_Storage_List_Query_List_Cache(
             $this->sync, $this->cache

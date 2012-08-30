@@ -36,7 +36,7 @@ extends PHPUnit_Framework_TestCase
     public function testInitActiveSync()
     {
         $this->query = $this->getMock('Horde_Kolab_Storage_List_Query_ActiveSync');
-        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache');
+        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
         $this->cache->expects($this->once())
             ->method('hasQuery')
             ->with(Horde_Kolab_Storage_List_Query_ActiveSync_Cache::ACTIVE_SYNC)
@@ -176,7 +176,7 @@ extends PHPUnit_Framework_TestCase
     private function _getActivesync()
     {
         $this->query = $this->getMock('Horde_Kolab_Storage_List_Query_ActiveSync');
-        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache');
+        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
         return new Horde_Kolab_Storage_List_Query_ActiveSync_Cache(
             $this->query, $this->cache
         );
