@@ -37,7 +37,10 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testListId()
     {
-        $this->assertEquals('test', $this->_getTestCache()->getListId());
+        $this->assertEquals(
+            '933029c877625645eaa074e95727db52',
+            $this->_getTestCache()->getListId()
+        );
     }
 
     /**
@@ -45,7 +48,7 @@ extends Horde_Kolab_Storage_TestCase
      */
     public function testMissingListId()
     {
-        $cache = new Horde_Kolab_Storage_List_Cache_Base($this->getMockCache());
+        $cache = new Horde_Kolab_Storage_List_Cache($this->getMockCache());
         $cache->getListId();
     }
 
@@ -68,7 +71,7 @@ extends Horde_Kolab_Storage_TestCase
         $cache = $this->getMockCache();
         $cache->storeList(
             'test', serialize(
-                array('V' => Horde_Kolab_Storage_List_Cache_Base::VERSION)
+                array('V' => Horde_Kolab_Storage_List_Cache::VERSION)
             )
         );
         $this->assertFalse($this->_getTestCache($cache)->isInitialized());
@@ -136,11 +139,11 @@ extends Horde_Kolab_Storage_TestCase
     public function testID()
     {
         $cache = $this->getMockCache();
-        $list_cache = new Horde_Kolab_Storage_List_Cache_Base(
+        $list_cache = new Horde_Kolab_Storage_List_Cache(
             $cache,
             array('host' => 'test', 'port' => '0', 'user' => 'test')
         );
-        $list_cache->setListId('test');
+        //$list_cache->setListId('test');
         $list_cache->store(array(), array());
         $list_cache->save();
         $data = unserialize($cache->loadList($list_cache->getListId()));
@@ -170,13 +173,85 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
-    private function _getTestCache($cache = null)
+    public function testNewHost()
+    {
+        $this->assertNotSame(
+            $this->_getTestCache(
+                null,
+                array('host' => 'a', 'port' => 1, 'user' => 'x')
+            )->getListId(),
+            $this->_getTestCache(
+                null,
+                array('host' => 'b', 'port' => 1, 'user' => 'x')
+            )->getListId()
+        );
+    }
+
+    public function testNewPort()
+    {
+        $this->assertNotSame(
+            $this->_getTestCache(
+                null,
+                array('host' => 'a', 'port' => 1, 'user' => 'x')
+            )->getListId(),
+            $this->_getTestCache(
+                null,
+                array('host' => 'a', 'port' => 2, 'user' => 'x')
+            )->getListId()
+        );
+    }
+
+    public function testNewUser()
+    {
+        $this->assertNotSame(
+            $this->_getTestCache(
+                null,
+                array('host' => 'a', 'port' => 1, 'user' => 'x')
+            )->getListId(),
+            $this->_getTestCache(
+                null,
+                array('host' => 'a', 'port' => 1, 'user' => 'y')
+            )->getListId()
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingHost()
+    {
+        $this->_getTestCache(null, array('port' => 1, 'user' => 'x'));
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingPort()
+    {
+        $this->_getTestCache(null, array('host' => 'a', 'user' => 'x'));
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingUser()
+    {
+        $this->_getTestCache(null, array('host' => 'a', 'port' => 1));
+    }
+
+
+    private function _getTestCache($cache = null, $params = null)
     {
         if ($cache === null) {
             $cache = $this->getMockCache();
         }
-        $list_cache = new Horde_Kolab_Storage_List_Cache_Base($cache);
-        $list_cache->setListId('test');
+        if ($params === null) {
+            $params = array('host' => 'a', 'port' => 1, 'user' => 'b');
+        }
+        $list_cache = new Horde_Kolab_Storage_List_Cache(
+            $cache,
+            $params
+        );
         return $list_cache;
     }
 
