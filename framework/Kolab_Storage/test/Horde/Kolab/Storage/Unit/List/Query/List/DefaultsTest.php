@@ -102,4 +102,51 @@ extends PHPUnit_Framework_TestCase
         $log->rememberDefault('FooC', 'TypeFOO', 'Mr. Foo', false);
     }
 
+    public function testDuplicates()
+    {
+        $logger = $this->getMock('Horde_Log_Logger', array('err'));
+        $log = new Horde_Kolab_Storage_List_Query_List_Defaults_Log(
+            $logger
+        );
+        $log->rememberDefault('FooA', 'TypeFOO', 'Mr. Foo', false);
+        $log->rememberDefault('FooC', 'TypeFOO', 'Mr. Foo', false);
+        $this->assertEquals(
+            array(
+                'TypeFOO' => array(
+                    'Mr. Foo' => array('FooA', 'FooC')
+                )
+            ),
+            $log->getDuplicates()
+        );
+    }
+
+    public function testTriplicate()
+    {
+        $logger = $this->getMock('Horde_Log_Logger', array('err'));
+        $log = new Horde_Kolab_Storage_List_Query_List_Defaults_Log(
+            $logger
+        );
+        $log->rememberDefault('FooA', 'TypeFOO', 'Mr. Foo', false);
+        $log->rememberDefault('FooB', 'TypeFOO', 'Mr. Foo', false);
+        $log->rememberDefault('FooC', 'TypeFOO', 'Mr. Foo', false);
+        $this->assertEquals(
+            array(
+                'TypeFOO' => array(
+                    'Mr. Foo' => array('FooA', 'FooB', 'FooC')
+                )
+            ),
+            $log->getDuplicates()
+        );
+    }
+
+    public function testReset()
+    {
+        $defaults = new Horde_Kolab_Storage_List_Query_List_Defaults_Bail();
+        $defaults->rememberDefault('FooA', 'TypeFOO', 'Mr. Foo', false);
+        $defaults->rememberDefault('FooC', 'TypeFOOBAR', 'Mr. Foo', false);
+        $defaults->rememberDefault('BarA', 'TypeBAR', 'Mr. Bar', false);
+        $defaults->rememberDefault('BarC', 'TypeFOOBAR', 'Mr. Bar', false);
+        $defaults->reset();
+        $this->assertEquals(array(), $defaults->getDefaults());
+    }
 }

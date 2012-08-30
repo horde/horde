@@ -51,6 +51,13 @@ abstract class Horde_Kolab_Storage_List_Query_List_Defaults
     private $_personal_defaults = array();
 
     /**
+     * A list of duplicate personal defaults.
+     *
+     * @var array
+     */
+    private $_duplicate_defaults = array();
+
+    /**
      * Remember a default folder.
      *
      * @param string  $folder   The folder name.
@@ -62,6 +69,13 @@ abstract class Horde_Kolab_Storage_List_Query_List_Defaults
     {
         if (isset($this->_defaults[$owner][$type])) {
             $this->doubleDefault($this->_defaults[$owner][$type], $folder, $owner, $type);
+            if (!isset($this->_duplicate_defaults[$type][$owner])) {
+                $this->_duplicate_defaults[$type][$owner] = array(
+                    $this->_defaults[$owner][$type], $folder
+                );
+            } else {
+                $this->_duplicate_defaults[$type][$owner][] = $folder;
+            }
         }
         $this->_defaults[$owner][$type] = $folder;
         if ($personal) {
@@ -77,6 +91,14 @@ abstract class Horde_Kolab_Storage_List_Query_List_Defaults
     public function getDefaults()
     {
         return $this->_defaults;
+    }
+
+    /**
+     * Reset the list of defaults.
+     */
+    public function reset()
+    {
+        $this->_defaults = array();
     }
 
     /**
@@ -105,6 +127,16 @@ abstract class Horde_Kolab_Storage_List_Query_List_Defaults
     public function isComplete()
     {
         return $this->_complete;
+    }
+
+    /**
+     * Return any duplicates.
+     *
+     * @return array The list of duplicate default folders accessible to the current user.
+     */
+    public function getDuplicates()
+    {
+        return $this->_duplicate_defaults;
     }
 
     /**
