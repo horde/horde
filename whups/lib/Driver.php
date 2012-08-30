@@ -247,7 +247,7 @@ abstract class Whups_Driver
         if ($old_versions && !$all) {
             $versions[key($old_versions)] = _("Older? Please update first!");
         } else {
-            $versions = array_merge($versions, $old_versions);
+            $versions += $old_versions;
         }
 
         return $versions;
