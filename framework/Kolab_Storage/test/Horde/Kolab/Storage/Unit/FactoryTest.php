@@ -37,7 +37,7 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testCreationFromParams()
     {
-        $factory = new Horde_Kolab_Storage_Factory(array('driver' => 'mock'));
+        $factory = new Horde_Kolab_Storage_Factory(array('driver' => 'mock', 'logger' => $this->getMock('Horde_Log_Logger')));
         $this->assertInstanceOf(
             'Horde_Kolab_Storage',
             $factory->create()
@@ -117,25 +117,12 @@ extends Horde_Kolab_Storage_TestCase
             array(
                 'driver' => 'mock',
                 'logger' => $logger,
-                'timelog' => $logger,
+                'log' => array('driver_time'),
             )
         );
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Driver_Decorator_Timer',
             $factory->createDriver()
-        );
-    }
-
-    public function testCreateTypeReturnsType()
-    {
-        $this->markTestIncomplete();
-
-        $factory = new Horde_Kolab_Storage_Factory();
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Folder_Type',
-            $factory->createFolderType(
-                'event'
-            )
         );
     }
 
@@ -172,20 +159,6 @@ extends Horde_Kolab_Storage_TestCase
         );
         $this->assertSame(
             $history, $factory->createHistory('test')
-        );
-    }
-
-    public function testFolder()
-    {
-        $this->markTestIncomplete();
-
-        $factory = new Horde_Kolab_Storage_Factory();
-        $this->assertInstanceOf(
-            'Horde_Kolab_Storage_Folder',
-            $factory->createFolder(
-                $this->getMock('Horde_Kolab_Storage_List'),
-                'INBOX'
-            )
         );
     }
 

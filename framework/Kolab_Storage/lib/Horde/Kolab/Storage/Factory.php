@@ -101,24 +101,23 @@ class Horde_Kolab_Storage_Factory
         } else {
             $sparams = array();
         }
-        if (!empty($this->_params['logger'])) {
-            $sparams['logger'] = $this->_params['logger'];
+        if (isset($this->_params['queries'])) {
+            $sparams['queries'] = $this->_params['queries'];
         }
         if (isset($this->_params['queryset'])) {
             $queryset = $this->_params['queryset'];
-            if (isset($this->_params['queryset']['list']['queryset'])) {
-                $sparams['queryset'] = $this->_params['queryset']['list']['queryset'];
-            }
+            $sparams['queryset'] = $this->_params['queryset'];
         } else {
             $queryset = array();
         }
+        $cache = $this->createCache();
         if (!empty($this->_params['cache'])) {
-            $cache = $this->createCache();
             $storage = new Horde_Kolab_Storage_Cached(
                 $this->createDriver(),
                 new Horde_Kolab_Storage_QuerySet_Cached($this, $queryset, $cache),
                 $this,
                 $cache,
+                $this->_params['logger'],
                 $sparams
             );
         } else {
@@ -126,6 +125,8 @@ class Horde_Kolab_Storage_Factory
                 $this->createDriver(),
                 new Horde_Kolab_Storage_QuerySet_Uncached($this, $queryset),
                 $this,
+                $cache,
+                $this->_params['logger'],
                 $sparams
             );
         }
@@ -164,7 +165,9 @@ class Horde_Kolab_Storage_Factory
         if (empty($config['port'])) {
             $config['port'] = 143;
         }
-        if (!empty($params['timelog'])) {
+        if (isset($this->_params['log'])
+            && (in_array('debug', $this->_params['log'])
+                || in_array('driver_time', $this->_params['log']))) {
             $timer = new Horde_Support_Timer();
             $timer->push();
         }
@@ -204,7 +207,9 @@ class Horde_Kolab_Storage_Factory
         $parser->setFormat($format);
         $driver->setParser($parser);
 
-        if (!empty($params['logger'])) {
+        if (isset($this->_params['log'])
+            && (in_array('debug', $this->_params['log'])
+                || in_array('driver', $this->_params['log']))) {
             $driver = new Horde_Kolab_Storage_Driver_Decorator_Log(
                 $driver, $params['logger']
             );
@@ -213,9 +218,11 @@ class Horde_Kolab_Storage_Factory
         if (!empty($params['ignore_parse_errors'])) {
             $parser->setLogger(false);
         }
-        if (!empty($params['timelog'])) {
+        if (isset($this->_params['log'])
+            && (in_array('debug', $this->_params['log'])
+                || in_array('driver_time', $this->_params['log']))) {
             $driver = new Horde_Kolab_Storage_Driver_Decorator_Timer(
-                $driver, $timer, $params['timelog']
+                $driver, $timer, $params['logger']
             );
         }
         $this->_driver = $driver;

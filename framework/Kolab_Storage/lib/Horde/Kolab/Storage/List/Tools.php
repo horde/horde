@@ -36,30 +36,11 @@ class Horde_Kolab_Storage_List_Tools
     /** Identifies the share query */
     const QUERY_SHARE = 'Share';
 
-    /** Identifies the basic query_set */
-    const QUERYSET_BASIC  = 'basic';
-
-    /** Identifies the Horde specific query_set */
-    const QUERYSET_HORDE  = 'horde';
-
     /** The collection of list queries currently supported */
     static private $_supported_queries = array(
         self::QUERY_BASE,
         self::QUERY_ACL,
         self::QUERY_SHARE
-    );
-
-    /** The collection of list queries currently supported */
-    static private $_querysets = array(
-        self::QUERYSET_BASIC => array(
-            self::QUERY_BASE,
-            self::QUERY_ACL,
-        ),
-        self::QUERYSET_HORDE => array(
-            self::QUERY_BASE,
-            self::QUERY_ACL,
-            self::QUERY_SHARE,
-        )
     );
 
     /**
@@ -68,6 +49,27 @@ class Horde_Kolab_Storage_List_Tools
      * @var Horde_Kolab_Storage_Driver
      */
     private $_driver;
+
+    /**
+     * The Kolab Storage data cache.
+     *
+     * @var Horde_Kolab_Storage_Cache
+     */
+    private $_cache;
+
+    /**
+     * The list specific cache.
+     *
+     * @var Horde_Kolab_Storage_List_Cache
+     */
+    private $_list_cache;
+
+    /**
+     * A logger.
+     *
+     * @var Horde_Log_Logger
+     */
+    private $_logger;
 
     /**
      * Parameters for constructing the various tools.
@@ -100,15 +102,23 @@ class Horde_Kolab_Storage_List_Tools
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Driver $driver  The primary connection driver.
+     * @param Horde_Kolab_Storage_Driver $driver  The backend driver.
+     * @param Horde_Kolab_Storage_Cache  $cache   The cache.
+     * @param Horde_Log_Logger           $logger  A logger.
      * @param array                      $params  
      */
-    public function __construct(Horde_Kolab_Storage_Driver $driver, $params = array())
+    public function __construct(Horde_Kolab_Storage_Driver $driver,
+                                Horde_Kolab_Storage_Cache $cache,
+                                $logger,
+                                $params = array())
     {
         $this->_driver = $driver;
+        $this->_cache  = $cache;
+        $this->_logger = $logger;
         $this->_params = $params;
         $this->_prepareManipulationHandler();
         $this->_prepareSynchronizationHandler();
+        $this->_prepareListCache();
         $this->_prepareQueries();
     }
 
@@ -117,12 +127,12 @@ class Horde_Kolab_Storage_List_Tools
      */
     private function _prepareManipulationHandler()
     {
-        $manipulation = new Horde_Kolab_Storage_List_Manipulation_Base(
-            $this->_driver
-        );
-        if (isset($this->_params['logger'])) {
+        $manipulation = new Horde_Kolab_Storage_List_Manipulation_Base($this->_driver);
+        if (isset($this->_params['log'])
+            && (in_array('debug', $this->_params['log'])
+                || in_array('list_manipulation', $this->_params['log']))) {
             $manipulation = new Horde_Kolab_Storage_List_Manipulation_Decorator_Log(
-                $manipulation, $this->_params['logger']
+                $manipulation, $this->_logger
             );
         }
         $this->_manipulation = $manipulation;
@@ -133,15 +143,25 @@ class Horde_Kolab_Storage_List_Tools
      */
     private function _prepareSynchronizationHandler()
     {
-        $synchronization = new Horde_Kolab_Storage_List_Synchronization_Base(
-            $this->_driver
-        );
-        if (isset($this->_params['logger'])) {
+        $synchronization = new Horde_Kolab_Storage_List_Synchronization_Base($this->_driver);
+        if (isset($this->_params['log'])
+            && (in_array('debug', $this->_params['log'])
+                || in_array('list_synchronization', $this->_params['log']))) {
             $synchronization = new Horde_Kolab_Storage_List_Synchronization_Decorator_Log(
-                $synchronization, $this->_params['logger']
+                $synchronization, $this->_logger
             );
         }
         $this->_synchronization = $synchronization;
+    }
+
+    /**
+     * Setup the list cache.
+     */
+    private function _prepareListCache()
+    {
+        $this->_list_cache = new Horde_Kolab_Storage_List_Cache(
+            $this->_cache, $this->_driver->getParameters()
+        );
     }
 
     /**
@@ -149,59 +169,91 @@ class Horde_Kolab_Storage_List_Tools
      */
     private function _prepareQueries()
     {
-        $query_list = array();
-        if (isset($this->_params['queryset'])) {
-            if (empty(self::$_querysets[$this->_params['queryset']])) {
-                throw new Horde_Kolab_Storage_List_Exception(
-                    sprintf("Invalid queryset '%s'!", $this->_params['queryset'])
-                );
-            }
-            $query_list = array_merge(
-                $query_list, self::$_querysets[$this->_params['queryset']]
-            );
-        }
-        if (isset($this->_params['queries'])) {
-            $query_list = array_merge($query_list, $this->_params['queries']);
-        }
-        if (empty($query_list)) {
-            $query_list = self::$_querysets[self::QUERYSET_BASIC];
+        if (isset($this->_params['queries']['list'])) {
+            $query_list = array_keys($this->_params['queries']['list']);
+        } else {
+            $query_list = array(self::QUERY_BASE);
         }
         foreach ($query_list as $query) {
             $method = '_prepare' . $query . 'Query';
-            $this->{$method}();
+            if (isset($this->_params['queries']['list'][$query])) {
+                $this->{$method}($this->_params['queries']['list'][$query]);
+            } else {
+                $this->{$method}();
+            }
         }
     }
 
     /**
      * Prepare the general list query.
+     *
+     * @param array $params Query specific configuration parameters.
      */
-    private function _prepareListQuery()
+    private function _prepareListQuery($params = null)
     {
-        $this->_queries[self::QUERY_BASE] = new Horde_Kolab_Storage_List_Query_List_Base(
-            $this->_driver,
-            new Horde_Kolab_Storage_Folder_Types(),
-            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
-        );
+        if (!empty($params['defaults_bail'])) {
+            $defaults = new Horde_Kolab_Storage_List_Query_List_Defaults_Bail();
+        } else {
+            $defaults = new Horde_Kolab_Storage_List_Query_List_Defaults_Log(
+                $this->_logger
+            );
+        }
+        if (empty($params['cache'])) {
+            $this->_queries[self::QUERY_BASE] = new Horde_Kolab_Storage_List_Query_List_Base(
+                $this->_driver,
+                new Horde_Kolab_Storage_Folder_Types(),
+                $defaults
+            );
+        } else {
+            $this->_queries[self::QUERY_BASE] = new Horde_Kolab_Storage_List_Query_List_Cache(
+                new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+                    $this->_driver,
+                    new Horde_Kolab_Storage_Folder_Types(),
+                    $defaults
+                ),
+                $this->_list_cache
+            );
+            $this->_synchronization->registerListener($this->_queries[self::QUERY_BASE]);
+            $this->_manipulation->registerListener($this->_queries[self::QUERY_BASE]);
+        }
     }
 
     /**
      * Prepare the ACL query.
+     *
+     * @param array $params Query specific configuration parameters.
      */
-    private function _prepareAclQuery()
+    private function _prepareAclQuery($params = null)
     {
         $this->_queries[self::QUERY_ACL] = new Horde_Kolab_Storage_List_Query_Acl_Base(
             $this->_driver
         );
+        if (!empty($params['cache'])) {
+            $this->_queries[self::QUERY_ACL] = new Horde_Kolab_Storage_List_Query_Acl_Cache(
+                $this->_queries[self::QUERY_ACL], $this->_list_cache
+            );
+            $this->_synchronization->registerListener($this->_queries[self::QUERY_ACL]);
+            $this->_manipulation->registerListener($this->_queries[self::QUERY_ACL]);
+        }
     }
 
     /**
      * Prepare the query for shares.
+     *
+     * @param array $params Query specific configuration parameters.
      */
-    private function _prepareShareQuery()
+    private function _prepareShareQuery($params = null)
     {
         $this->_queries[self::QUERY_SHARE] = new Horde_Kolab_Storage_List_Query_Share_Base(
             $this->_driver
         );
+        if (!empty($params['cache'])) {
+            $this->_queries[self::QUERY_SHARE] = new Horde_Kolab_Storage_List_Query_Share_Cache(
+                $this->_queries[self::QUERY_SHARE], $this->_list_cache
+            );
+            $this->_synchronization->registerListener($this->_queries[self::QUERY_SHARE]);
+            $this->_manipulation->registerListener($this->_queries[self::QUERY_SHARE]);
+        }
     }
 
     /**

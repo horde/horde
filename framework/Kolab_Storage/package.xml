@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-08-29</date>
- <time>15:23:04</time>
+ <date>2012-08-30</date>
+ <time>19:34:03</time>
  <version>
   <release>2.0.0beta3</release>
   <api>1.1.0</api>
@@ -130,9 +130,6 @@
         <file name="Types.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Folder -->
        <dir name="List">
-        <dir name="Cache">
-         <file name="Base.php" role="php" />
-        </dir> <!-- /lib/Horde/Kolab/Storage/List/Cache -->
         <dir name="Decorator">
          <file name="Cache.php" role="php" />
         </dir> <!-- /lib/Horde/Kolab/Storage/List/Decorator -->
@@ -183,7 +180,6 @@
         <file name="Cache.php" role="php" />
         <file name="Exception.php" role="php" />
         <file name="Manipulation.php" role="php" />
-        <file name="Query.php" role="php" />
         <file name="Synchronization.php" role="php" />
         <file name="Tools.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/List -->
@@ -509,7 +505,6 @@
        </dir> <!-- /test/Horde/Kolab/Storage/Server -->
        <dir name="Stub">
         <file name="DataQuery.php" role="test" />
-        <file name="ListQuery.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Storage/Stub -->
        <dir name="Unit">
         <dir name="Cache">
@@ -782,10 +777,8 @@
    <install as="Horde/Kolab/Storage/List/Cache.php" name="lib/Horde/Kolab/Storage/List/Cache.php" />
    <install as="Horde/Kolab/Storage/List/Exception.php" name="lib/Horde/Kolab/Storage/List/Exception.php" />
    <install as="Horde/Kolab/Storage/List/Manipulation.php" name="lib/Horde/Kolab/Storage/List/Manipulation.php" />
-   <install as="Horde/Kolab/Storage/List/Query.php" name="lib/Horde/Kolab/Storage/List/Query.php" />
    <install as="Horde/Kolab/Storage/List/Synchronization.php" name="lib/Horde/Kolab/Storage/List/Synchronization.php" />
    <install as="Horde/Kolab/Storage/List/Tools.php" name="lib/Horde/Kolab/Storage/List/Tools.php" />
-   <install as="Horde/Kolab/Storage/List/Cache/Base.php" name="lib/Horde/Kolab/Storage/List/Cache/Base.php" />
    <install as="Horde/Kolab/Storage/List/Decorator/Cache.php" name="lib/Horde/Kolab/Storage/List/Decorator/Cache.php" />
    <install as="Horde/Kolab/Storage/List/Manipulation/Base.php" name="lib/Horde/Kolab/Storage/List/Manipulation/Base.php" />
    <install as="Horde/Kolab/Storage/List/Manipulation/Listener.php" name="lib/Horde/Kolab/Storage/List/Manipulation/Listener.php" />
@@ -920,7 +913,6 @@
    <install as="Horde/Kolab/Storage/fixtures/preferences.2" name="test/Horde/Kolab/Storage/fixtures/preferences.2" />
    <install as="Horde/Kolab/Storage/Server/DriverTest.php" name="test/Horde/Kolab/Storage/Server/DriverTest.php" />
    <install as="Horde/Kolab/Storage/Stub/DataQuery.php" name="test/Horde/Kolab/Storage/Stub/DataQuery.php" />
-   <install as="Horde/Kolab/Storage/Stub/ListQuery.php" name="test/Horde/Kolab/Storage/Stub/ListQuery.php" />
    <install as="Horde/Kolab/Storage/Unit/CachedTest.php" name="test/Horde/Kolab/Storage/Unit/CachedTest.php" />
    <install as="Horde/Kolab/Storage/Unit/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/FactoryTest.php" name="test/Horde/Kolab/Storage/Unit/FactoryTest.php" />
@@ -1195,7 +1187,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-08-29</date>
+   <date>2012-08-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

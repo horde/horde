@@ -48,7 +48,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testBrokenObjectLog()
     {
-        $this->_getBrokenStore(array('logger' => $this->getMockLogger()))
+        $this->_getBrokenStore(array('logger' => $this->getMockLogger(), 'log' => array('debug')))
             ->fetch(array('1'));
         $this->assertLogContains('Unable to identify Kolab mime part in message 1 in folder INBOX/Notes!');
     }
@@ -172,24 +172,6 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Stub_DataQuery',
             $data->getQuery(Horde_Kolab_Storage_Data::QUERY_PREFS)
-        );
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testRegisterInvalid()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getMessageStorage()
-            ->getData('INBOX/Calendar');
-        $data->registerQuery(
-            Horde_Kolab_Storage_Data::QUERY_PREFS,
-            new Horde_Kolab_Storage_Stub_ListQuery(
-                $this->getMessageStorage()
-                ->getList(),
-                array('factory' => $factory)
-            )
         );
     }
 
