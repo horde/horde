@@ -1569,20 +1569,7 @@ class Nag
      */
     public static function _sortByOwner($a, $b)
     {
-        $ashare = $GLOBALS['nag_shares']->getShare($a->tasklist);
-        $bshare = $GLOBALS['nag_shares']->getShare($b->tasklist);
-
-        $aowner = $a->tasklist;
-        $bowner = $b->tasklist;
-
-        if ($aowner != $ashare->get('owner')) {
-            $aowner = $ashare->get('name');
-        }
-        if ($bowner != $bshare->get('owner')) {
-            $bowner = $bshare->get('name');
-        }
-
-        $diff = strcasecmp($aowner, $bowner);
+        $diff = strcasecmp(self::_getOwner($a), self::_getOwner($b));
         if ($diff == 0) {
             return self::_sortByIdentity($a, $b);
         } else {
@@ -1601,25 +1588,27 @@ class Nag
      */
     public static function _rsortByOwner($a, $b)
     {
-        $ashare = $GLOBALS['nag_shares']->getShare($a->tasklist);
-        $bshare = $GLOBALS['nag_shares']->getShare($b->tasklist);
+        return self::_sortByOwner($b, $a);
+    }
 
-        $aowner = $a->tasklist;
-        $bowner = $b->tasklist;
-
-        if ($aowner != $ashare->get('owner')) {
-            $aowner = $ashare->get('name');
+    /**
+     * Returns the owner of a taksk.
+     *
+     * @param Nag_Task $task  A task.
+     *
+     * @return string  The task's owner.
+     */
+    static protected function _getOwner($task)
+    {
+        if ($task->tasklist == '**EXTERNAL**') {
+            return $GLOBALS['registry']->getAuth();
         }
-        if ($bowner != $bshare->get('owner')) {
-            $bowner = $bshare->get('name');
+        $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
+        $owner = $task->tasklist;
+        if ($owner != $share->get('owner')) {
+            $owner = $share->get('name');
         }
-
-        $diff = strcasecmp($bowner, $aowner);
-        if ($diff == 0) {
-            return self::_sortByIdentity($b, $a);
-        } else {
-            return $diff;
-        }
+        return $owner;
     }
 
     /**
