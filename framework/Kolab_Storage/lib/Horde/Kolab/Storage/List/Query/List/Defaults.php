@@ -99,6 +99,8 @@ abstract class Horde_Kolab_Storage_List_Query_List_Defaults
     public function reset()
     {
         $this->_defaults = array();
+        $this->_personal_defaults = array();
+        $this->_duplicate_defaults = array();
     }
 
     /**
