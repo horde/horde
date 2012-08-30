@@ -75,7 +75,7 @@ input {
     background-position: center left;
 }
 .horde-table-header .horde-popdown {
-    margin-top: -4px;
+    margin-top: -19px;
 }
 
 /* Columns */
@@ -103,8 +103,10 @@ div.msgDate {
     width: 130px;
 }
 #msglistHeaderHoriz div.msgDate {
-    padding-right: 20px;
     width: 110px;
+}
+#msglistHeaderHoriz div.msgDate a {
+    margin-right: 24px;
 }
 div.msgSize {
     text-align: right;
