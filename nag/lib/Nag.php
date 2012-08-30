@@ -1402,10 +1402,7 @@ class Nag
      */
     static public function _rsortByPriority($a, $b)
     {
-        if ($a->priority == $b->priority) {
-            return self::_sortByIdentity($b, $a);
-        }
-        return ($a->priority > $b->priority) ? -1 : 1;
+        return self::_sortByPriority($b, $a);
     }
 
     /**
@@ -1494,12 +1491,7 @@ class Nag
      */
     static public function _rsortByEstimate($a, $b)
     {
-        $a_est = $a->estimation();
-        $b_est = $b->estimation();
-        if ($a_est == $b_est) {
-            return self::_sortByIdentity($b, $a);
-        }
-        return ($a_est > $b_est) ? -1 : 1;
+        return self::_sortByEstimate($b, $a);
     }
 
     /**
@@ -1539,19 +1531,7 @@ class Nag
      */
     static public function _rsortByDue($a, $b)
     {
-        if ($a->due == $b->due) {
-            return self::_sortByIdentity($b, $a);
-        }
-
-        // Treat empty due dates as farthest into the future.
-        if ($a->due == 0) {
-            return -1;
-        }
-        if ($b->due == 0) {
-            return 1;
-        }
-
-        return ($a->due < $b->due) ? 1 : -1;
+        return self::_sortByDue($b, $a);
     }
 
     /**
@@ -1591,19 +1571,7 @@ class Nag
      */
     static public function _rsortByStart($a, $b)
     {
-        if ($a->start == $b->start) {
-            return self::_sortByIdentity($b, $a);
-        }
-
-        // Treat empty start dates as farthest into the future.
-        if ($a->start == 0) {
-            return -1;
-        }
-        if ($b->start == 0) {
-            return 1;
-        }
-
-        return ($a->start < $b->start) ? 1 : -1;
+        return self::_sortByStart($b, $a);
     }
 
     /**
@@ -1634,10 +1602,7 @@ class Nag
      */
     static public function _rsortByCompletion($a, $b)
     {
-        if ($a->completed == $b->completed) {
-            return self::_sortByIdentity($b, $a);
-        }
-        return ($a->completed < $b->completed) ? -1 : 1;
+        return self::_sortByCompletion($b, $a);
     }
 
     /**
