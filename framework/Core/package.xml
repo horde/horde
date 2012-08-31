@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-08-29</date>
- <time>15:15:24</time>
+ <date>2012-08-31</date>
+ <time>14:46:03</time>
  <version>
   <release>2.0.0beta6</release>
   <api>2.0.0beta1</api>
@@ -108,6 +108,9 @@
       <file name="icons-36-black.png" role="horde" />
       <file name="icons-36-white.png" role="horde" />
      </dir> <!-- /js/jquery.mobile/images -->
+     <dir name="plugins">
+      <file name="autocomplete.js" role="horde" />
+     </dir> <!-- /js/jquery.mobile/plugins -->
      <file name="jquery.js" role="horde" />
      <file name="jquery.min.js" role="horde" />
      <file name="jquery.mobile.js" role="horde" />
@@ -1314,6 +1317,7 @@
    <install as="js/jquery.mobile/images/icons-18-white.png" name="js/jquery.mobile/images/icons-18-white.png" />
    <install as="js/jquery.mobile/images/icons-36-black.png" name="js/jquery.mobile/images/icons-36-black.png" />
    <install as="js/jquery.mobile/images/icons-36-white.png" name="js/jquery.mobile/images/icons-36-white.png" />
+   <install as="js/jquery.mobile/plugins/autocomplete.js" name="js/jquery.mobile/plugins/autocomplete.js" />
    <install as="js/scriptaculous/builder.js" name="js/scriptaculous/builder.js" />
    <install as="js/scriptaculous/controls.js" name="js/scriptaculous/controls.js" />
    <install as="js/scriptaculous/dragdrop.js" name="js/scriptaculous/dragdrop.js" />
@@ -2232,7 +2236,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-29</date>
+   <date>2012-08-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Allow application API interface to dynamically alter properties (Bug #11388).
