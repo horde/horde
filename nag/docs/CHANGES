@@ -2,6 +2,7 @@
 v4.0.0-git
 ----------
 
+[jan] Allow to edit task list color in traditional view.
 [mjr] Tweak display of smartlist links in list view.
 [mjr] Fix fatal recursion error when searching with smartlists were present.
 

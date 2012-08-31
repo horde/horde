@@ -34,14 +34,15 @@ class Nag_Form_EditTaskList extends Horde_Form
         $this->_tasklist = $tasklist;
         parent::__construct($vars, sprintf(_("Edit %s"), $tasklist->get('name')));
         $this->addHidden('', 't', 'text', true);
-        $this->addVariable(_("Task List Name"), 'name', 'text', true);
-        $this->addVariable(_("Task List Description"), 'description', 'longtext', false, false, null, array(4, 60));
+        $this->addVariable(_("Name"), 'name', 'text', true);
+        $this->addVariable(_("Color"), 'color', 'colorpicker', false);
         if ($GLOBALS['registry']->isAdmin()) {
             $this->addVariable(
-                _("System Task List"), 'system', 'boolean', false, false,
+                _("System List"), 'system', 'boolean', false, false,
                 _("System task lists don't have an owner. Only administrators can change the task list settings and permissions.")
             );
         }
+        $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
         $this->setButtons(array(_("Save")));
     }
 

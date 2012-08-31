@@ -48,6 +48,7 @@ if ($form->validate($vars)) {
 $vars->set('name', $tasklist->get('name'));
 $vars->set('description', $tasklist->get('desc'));
 $vars->set('system', is_null($tasklist->get('owner')));
+$vars->set('color', $tasklist->get('color'));
 
 $page_output->header(array(
     'title' => $form->getTitle()
