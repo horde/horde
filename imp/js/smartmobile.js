@@ -912,6 +912,16 @@ var ImpMobile = {
     },
 
     /**
+     * Are all folders shown?
+     *
+     * @return integer  1 if all folders are shown.
+     */
+    showAllFolders: function()
+    {
+        return $('#imp-folders-showpoll').filter(':visible').size();
+    },
+
+    /**
      * Converts an object to an IMP UID range string.
      *
      * @param object ob  Mailbox name as keys, values are array of uids.
@@ -1050,13 +1060,27 @@ var ImpMobile = {
                 HordeMobile.doAction(
                     'smartmobileFolderTree',
                     {
-                        all: $('#imp-folders-showall').filter(':visible').size()
+                        all: Number(!ImpMobile.showAllFolders())
                     },
                     function(r) {
                         $('#imp-folders-list').html(r).listview('refresh');
                     }
                 );
                 $('#imp-folders-showall,#imp-folders-showpoll').toggle();
+                elt.blur();
+                return;
+
+            case 'imp-folders-refresh':
+                HordeMobile.doAction(
+                    'smartmobileFolderTree',
+                    {
+                        all: ImpMobile.showAllFolders()
+                    },
+                    function(r) {
+                        $('#imp-folders-list').html(r).listview('refresh');
+                    }
+                );
+                elt.blur();
                 return;
             }
 

@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add refresh button to smartmobile folder page.
 * [jan] Fix popdown positioning in mailbox table header (Bug #11384).
  </notes>
  <contents>
@@ -2719,6 +2720,7 @@
    <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add refresh button to smartmobile folder page.
 * [jan] Fix popdown positioning in mailbox table header (Bug #11384).
    </notes>
   </release>
