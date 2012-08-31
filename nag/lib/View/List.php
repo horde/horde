@@ -67,7 +67,8 @@ class Nag_View_List
      */
     public function render($output)
     {
-        global $prefs;
+        // Remove $baseurl once this has been converted to Horde_View.
+        global $prefs, $baseurl;
         $output->addScriptFile('tooltips.js', 'horde');
         $output->addScriptFile('scriptaculous/effects.js', 'horde');
         $output->addScriptFile('quickfinder.js', 'horde');
