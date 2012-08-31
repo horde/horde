@@ -337,6 +337,9 @@ class IMP
                 : 'compose.php';
             $raw = true;
             $callback = array(__CLASS__, 'composeLinkSimpleCallback');
+        } elseif ($view == Horde_Registry::VIEW_SMARTMOBILE) {
+            $url = Horde::url('smartmobile.php');
+            $url->setAnchor('compose');
         } elseif (($view != Horde_Registry::VIEW_MINIMAL) &&
                   $GLOBALS['prefs']->getValue('compose_popup') &&
                   $GLOBALS['browser']->hasFeature('javascript')) {
@@ -352,7 +355,7 @@ class IMP
             $url = IMP_Mailbox::get($args['thismailbox'])->url($url, $uid);
         } elseif (isset($args['mailbox'])) {
             $url = IMP_Mailbox::get($args['mailbox'])->url($url, $uid);
-        } else {
+        } elseif (!($url instanceof Horde_Url)) {
             $url = Horde::url($url);
         }
 

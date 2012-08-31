@@ -56,14 +56,16 @@ var ImpMobile = {
      */
     toPage: function(e, data)
     {
-        var url = HordeMobile.parseUrl(data.toPage);
+        var url = HordeMobile.parseUrl($.mobile.activePage ? data.toPage : location.href);
 
         switch (url.view) {
         case 'compose':
-            if (!IMP.conf.disable_compose) {
-                ImpMobile.compose(url, data.options);
+            if (IMP.conf.disable_compose ||
+                !ImpMobile.compose(url, data.options)) {
+                e.preventDefault();
+            } else {
+                data.toPage = $('#compose');
             }
-            e.preventDefault();
             break;
 
         case 'confirm':
@@ -543,6 +545,8 @@ var ImpMobile = {
      *
      * @param object url      Parsed URL object.
      * @param object options  Page change options.
+     *
+     * @return boolean  True if the page has been loaded.
      */
     compose: function(url, options)
     {
@@ -551,9 +555,11 @@ var ImpMobile = {
 
         $('#imp-compose-title').html(IMP.text.new_message);
 
-        if (!url.params.mbox) {
-            $.mobile.changePage($('#compose'));
-            return;
+        if ($.isEmptyObject(url.params)) {
+            return true;
+        } else if (url.params.to) {
+            $('#imp-compose-to').val(url.params.to);
+            return true;
         }
 
         $('#imp-compose-form').show();
@@ -594,7 +600,10 @@ var ImpMobile = {
                 type: url.params.type,
                 uid: ImpMobile.toUIDStringSingle(url.params.mbox, [ url.params.uid ])
             }),
-            function(r) { ImpMobile.composeLoaded(r, options); });
+            function(r) { ImpMobile.composeLoaded(r, options); }
+        );
+
+        return false;
     },
 
     /**
