@@ -15,6 +15,7 @@
   <span id="turba-entry-email-block">
    <dt><?php echo _("Email") ?></dt>
    <dd id="turba-entry-email"></dd>
+   <ul id="turba-entry-email-list" data-role="listview" data-inset="true"></ul>
   </span>
  </dl>
 

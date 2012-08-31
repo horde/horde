@@ -62,7 +62,15 @@ var TurbaMobile = {
 
         if (r.email) {
             $('#turba-entry-email-block').show();
-            $('#turba-entry-email').text(r.email);
+            if (r.email_link) {
+                $('#turba-entry-email').hide();
+                $('#turba-entry-email-list').html(
+                    '<li><a data-ajax="false" href=' + r.email_link + '>' + r.email + '</a></li>'
+                ).listview('refresh');
+            } else {
+                $('#turba-entry-email').text(r.email).show();
+                $('#turba-entry-email-list').html('').listview('refresh');
+            }
         } else {
             $('#turba-entry-email-block').hide();
         }

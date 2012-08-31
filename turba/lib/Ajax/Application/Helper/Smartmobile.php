@@ -23,12 +23,13 @@ class Turba_Ajax_Application_Helper_Smartmobile
      *
      * @return object  An object with the following properties:
      *   - email: (string) If exists, the e-mail address of the entry.
+     *   - email_link: (string) URL to email compose page.
      *   - error: (boolean) If true, viewing entry was unsuccessful.
      *   - name: (string) The name associated with the entry.
      */
     public function smartmobileEntry(Horde_Core_Ajax_Application $app_ob)
     {
-        global $cfgSources, $injector, $notification;
+        global $cfgSources, $injector, $notification, $registry;
 
         $contact = null;
         $out = new stdClass;
@@ -46,6 +47,11 @@ class Turba_Ajax_Application_Helper_Smartmobile
         } else {
             if ($contact->hasValue('email')) {
                 $out->email = $contact->getValue('email');
+                try {
+                    $out->email_link = strval($registry->call('mail/compose', array(
+                        array('to' => $out->email)
+                    )));
+                } catch (Horde_Exception $e) {}
             }
             $out->name = Turba::formatName($contact);
         }
