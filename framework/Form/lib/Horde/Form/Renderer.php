@@ -375,15 +375,44 @@ try {
 
     function _renderSubmit($submit, $reset)
     {
+        $buildAttribute = function(&$value, $attribute)
+        {
+            $value = sprintf('%s="%s"', $attribute, $value);
+        };
+
+        if (!is_array($submit)) {
+            $submit = array($submit);
+        }
+
+        $first = true;
+        foreach ($submit as &$submitbutton) {
+            $default = array(
+                'class' => $first ? 'horde-default' : 'horde-button',
+                'name' => 'submitbutton',
+                'type' => 'submit',
+            );
+            if (is_array($submitbutton)) {
+                $submitbutton = array_merge($default,
+                                            $submitbutton);
+            } else {
+                $submitbutton = array_merge($default,
+                                            array('value' => $submitbutton));
+            }
+            array_walk($submitbutton, $buildAttribute);
+            $submitbutton = implode(' ', $submitbutton);
+            $first = false;
+        }
+
 ?><div class="horde-form-buttons">
-  <?php if (!is_array($submit)) $submit = array($submit); $first = true; foreach ($submit as $submitbutton): ?>
-    <input<?php if ($first) echo ' class="horde-default"' ?> name="submitbutton" type="submit" value="<?php echo $submitbutton ?>" />
-  <?php $first = false; endforeach; ?>
-  <?php if (!empty($reset)): ?>
+<?php foreach ($submit as $button): ?>
+    <input type="submit" <?php echo $button ?> />
+<?php endforeach ?>
+<?php if (!empty($reset)): ?>
     <input name="resetbutton" type="reset" value="<?php echo $reset ?>" />
-  <?php endif; ?>
+<?php endif; ?>
 </div>
 <?php
+
     }
 
     // Implementation specifics -- input variables.
