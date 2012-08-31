@@ -60,3 +60,18 @@
 .mimePartData .fixed {
     font-size: 90%;
 }
+
+/* Mime Viewer styles. */
+.mimeHeaders {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    display: -moz-inline-stack;
+    display: inline-block;
+    margin: 5px 0 3px 0;
+    padding: 5px;
+}
+.mimePartWrap, .mimePartWrapValid, .mimePartWrapInvalid {
+    border: 1px solid #d0d0d0;
+    margin: 2px 0;
+    padding: 10px;
+}
