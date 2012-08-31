@@ -83,13 +83,15 @@ var ImpMobile = {
             break;
 
         case 'mailbox':
-            ImpMobile.toMailbox(url, { opts: data.options });
-            e.preventDefault();
+            if (!ImpMobile.toMailbox(url, { opts: data.options })) {
+                e.preventDefault();
+            }
             break;
 
         case 'message':
-            ImpMobile.toMessage(url, data.options);
-            e.preventDefault();
+            if (!ImpMobile.toMessage(url, data.options)) {
+                e.preventDefault();
+            }
             break;
 
         case 'target':
@@ -106,22 +108,14 @@ var ImpMobile = {
      *
      * @param object url      Parsed URL object.
      * @param object options  Page change options.
+     *
+     * @return boolean  True if the page needs to be loaded.
      */
     toMailbox: function(url, options)
     {
         var mailbox = url.params.mbox || ImpMobile.INBOX,
             title = $('#imp-mailbox-' + mailbox).text(),
             params = {}, ob;
-
-        if (HordeMobile.currentPage('mailbox')) {
-            HordeMobile.updateHash(url);
-        } else {
-            if (!options.opts) {
-                options.opts = {};
-            }
-            options.opts.dataUrl = url.parsed.href;
-            $.mobile.changePage($('#mailbox'), options.opts);
-        }
 
         document.title = title;
         $('#imp-mailbox-header').text(title);
@@ -159,6 +153,13 @@ var ImpMobile = {
                 view: mailbox
             }))
         );
+
+        if (HordeMobile.currentPage('mailbox')) {
+            HordeMobile.updateHash(url);
+            return false;
+        }
+
+        return true;
     },
 
     /**
@@ -298,6 +299,8 @@ var ImpMobile = {
      *
      * @param object url      Parsed URL object.
      * @param object options  Page change options.
+     *
+     * @return boolean  True if the page needs to be loaded.
      */
     toMessage: function(url, options)
     {
@@ -320,18 +323,11 @@ var ImpMobile = {
             ImpMobile.mailbox = url.params.view;
         }
 
-        if (HordeMobile.currentPage('message')) {
-            HordeMobile.updateHash(url);
-        } else {
-            options.dataUrl = url.parsed.href;
-            $.mobile.changePage($('#message'), options);
-        }
-
         // Page is cached.
         if (ImpMobile.uid == url.params.uid &&
             ImpMobile.uid_mbox == url.params.view) {
             document.title = $('#imp-message-title').text();
-            return;
+            return true;
         }
 
         $('#message').children().not('.ui-header').hide();
@@ -347,6 +343,13 @@ var ImpMobile = {
             },
             ImpMobile.messageLoaded
         );
+
+        if (HordeMobile.currentPage('message')) {
+            HordeMobile.updateHash(url);
+            return false;
+        }
+
+        return true;
     },
 
     /**
@@ -546,7 +549,7 @@ var ImpMobile = {
      * @param object url      Parsed URL object.
      * @param object options  Page change options.
      *
-     * @return boolean  True if the page has been loaded.
+     * @return boolean  True if the page needs to be loaded.
      */
     compose: function(url, options)
     {
@@ -592,7 +595,6 @@ var ImpMobile = {
             break;
         }
 
-        options.dataUrl = url.parsed.href;
         HordeMobile.doAction(
             func,
             $.extend(params, {
