@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Tweak display of smartlist links in list view.
 * [mjr] Fix fatal recursion error when searching with smartlists were present.
  </notes>
  <contents>
@@ -1172,6 +1173,7 @@
    <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Tweak display of smartlist links in list view.
 * [mjr] Fix fatal recursion error when searching with smartlists were present.
    </notes>
   </release>
