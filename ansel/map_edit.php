@@ -13,7 +13,7 @@ Horde_Registry::appInit('ansel');
 
 // Init the map
 Ansel::initJSVariables();
-Ansel::initHordeMap();
+Horde::initHordeMap();
 
 $page_output->addScriptFile('map_edit.js');
 
@@ -104,7 +104,6 @@ if (count($imgs) > 0) {
 } else {
     $other_images = '';
 }
-
 
 /* Build the HTML */
 $html = <<<EOT

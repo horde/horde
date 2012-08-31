@@ -133,7 +133,7 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple
 ));
 
 if ($conf['maps']['driver']) {
-    Kronolith::initEventMap($conf['maps']);
+    Horde::initMap();
 }
 
 $injector->getInstance('Kronolith_Ajax')->init();

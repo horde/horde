@@ -1654,4 +1654,68 @@ class Horde
         }
     }
 
+    /**
+     * Initialize a HordeMap.
+     *
+     */
+    static public function initMap(array $params = array())
+    {
+        global $conf, $page_output;
+
+        if (empty($params['providers'])) {
+            $params['providers'] = $conf['maps']['providers'];
+        }
+        if (empty($params['geocoder'])) {
+            $params['geocoder'] = $conf['maps']['geocoder'];
+        }
+
+        // Language specific file needed?
+        $language = str_replace('_', '-', $GLOBALS['language']);
+        if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/lang/' . $language . '.js')) {
+            $language = 'en-US';
+        }
+        $params['conf'] = array(
+            'language' => $language
+        );
+
+        $params['driver'] = 'Horde';
+        foreach ($params['providers'] as $layer) {
+            switch ($layer) {
+            case 'Google':
+                $params['conf']['apikeys']['google'] = $conf['api']['googlemaps'];
+                break;
+            case 'Yahoo':
+                $params['conf']['apikeys']['yahoo'] = $conf['api']['yahoomaps'];
+                break;
+            case 'Cloudmade':
+                $params['conf']['apikeys']['cloudmade'] = $conf['api']['cloudmade'];
+                break;
+            case 'Mytopo':
+                $params['conf']['apikeys']['mytopo'] = $conf['api']['mytopo'];
+                break;
+            }
+        }
+
+        if (!empty($params['geocoder'])) {
+            switch ($params['geocoder']) {
+            case 'Google':
+                $params['conf']['apikeys']['google'] = $conf['api']['googlemaps'];
+                break;
+            case 'Yahoo':
+                $params['conf']['apikeys']['yahoo'] = $conf['api']['yahoomaps'];
+                break;
+            case 'Cloudmade':
+                $params['conf']['apikeys']['cloudmade'] = $conf['api']['cloudmade'];
+                break;
+            }
+        }
+        $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
+
+        $page_output->addScriptFile('map/map.js', 'horde');
+        $page_output->addScriptFile('map.js');
+        $page_output->addInlineScript(array(
+            'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');'
+        ));
+    }
+
 }
