@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix fatal recursion error when searching with smartlists were present.
 * [mjr] Add support for smart tasklists.
 * [mjr] Migrate categories to tags.
 * [jan] Fix fatal error if the task form doesn&apos;t validate.
@@ -1151,6 +1152,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix fatal recursion error when searching with smartlists were present.
 * [mjr] Add support for smart tasklists.
 * [mjr] Migrate categories to tags.
 * [jan] Fix fatal error if the task form doesn&apos;t validate.
