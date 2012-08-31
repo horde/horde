@@ -880,7 +880,7 @@ class Nag
         $edit  = Horde::url('tasklists/edit.php');
         $user  = $GLOBALS['registry']->getAuth();
 
-        foreach (Nag::listTaskLists() as $name => $tasklist) {
+        foreach (Nag::listTaskLists(false, Horde_Perms::SHOW, false) as $name => $tasklist) {
             $class = in_array($name, $display_tasklists)
                 ? 'horde-resource-on'
                 : 'horde-resource-off';
