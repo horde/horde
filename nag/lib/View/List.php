@@ -90,7 +90,10 @@ class Nag_View_List
         }
         foreach (Nag::listTasklists() as $list) {
             if ($list->get('issmart')) {
-                $tabs->addTab($list->get('name'), $listurl->add(array('actionID' => 'smart', 'list' => $list->getName())));
+                $tabs->addTab(
+                    $list->get('name'),
+                    $listurl->add(array('actionID' => 'smart', 'list' => $list->getName())),
+                    array('img' => 'search.png'));
             }
         }
         echo $tabs->render($this->_vars->get('show_completed'));
