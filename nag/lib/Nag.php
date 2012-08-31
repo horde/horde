@@ -444,53 +444,35 @@ class Nag
             return array();
         }
 
-        if ($owneronly || empty($GLOBALS['conf']['share']['hidden'])) {
-            try {
-                if (!$smart) {
-                    $att = array('issmart' => '0');
-                    if ($owneronly) {
-                       $att['owner'] = $GLOBALS['registry']->getAuth();
+        $att = array('owner' => $GLOBALS['registry']->getAuth());
+        if (!$smart) {
+            $att['issmart'] = '0';
+        }
+
+        try {
+            $tasklists = $GLOBALS['nag_shares']->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => $permission,
+                      'attributes' => $att,
+                      'sort_by' => 'name'));
+
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            return array();
+        }
+
+        $display_tasklists = @unserialize($GLOBALS['prefs']->getValue('display_tasklists'));
+        if (is_array($display_tasklists)) {
+            foreach ($display_tasklists as $id) {
+                try {
+                    $tasklist = $GLOBALS['nag_shares']->getShare($id);
+                    if ($tasklist->hasPermission($GLOBALS['registry']->getAuth(), $permission)) {
+                        $tasklists[$id] = $tasklist;
                     }
-                    $tasklists = $GLOBALS['nag_shares']->listShares(
-                        $GLOBALS['registry']->getAuth(),
-                        array('perm' => $permission,
-                              'attributes' => $att,
-                              'sort_by' => 'name'));
-                } else {
-                    $tasklists = $GLOBALS['nag_shares']->listShares(
-                        $GLOBALS['registry']->getAuth(),
-                        array('perm' => $permission,
-                              'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
-                              'sort_by' => 'name'));
-                }
-            } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e->getMessage(), 'ERR');
-                return array();
-            }
-        } else {
-            try {
-                $tasklists = $GLOBALS['nag_shares']->listShares(
-                    $GLOBALS['registry']->getAuth(),
-                    array('perm' => $permission,
-                          'attributes' => $GLOBALS['registry']->getAuth(),
-                          'sort_by' => 'name'));
-            } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e);
-                return array();
-            }
-            $display_tasklists = @unserialize($GLOBALS['prefs']->getValue('display_tasklists'));
-            if (is_array($display_tasklists)) {
-                foreach ($display_tasklists as $id) {
-                    try {
-                        $tasklist = $GLOBALS['nag_shares']->getShare($id);
-                        if ($tasklist->hasPermission($GLOBALS['registry']->getAuth(), $permission)) {
-                            $tasklists[$id] = $tasklist;
-                        }
-                    } catch (Horde_Exception_NotFound $e) {
-                    } catch (Horde_Share_Exception $e) {
-                        Horde::logMessage($e);
-                        return array();
-                    }
+                } catch (Horde_Exception_NotFound $e) {
+                } catch (Horde_Share_Exception $e) {
+                    Horde::logMessage($e);
+                    return array();
                 }
             }
         }
