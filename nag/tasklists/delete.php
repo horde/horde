@@ -20,12 +20,12 @@ try {
     $tasklist = $nag_shares->getShare($tasklist_id);
 } catch (Horde_Share_Exception $e) {
     $notification->push($tasklist, 'horde.error');
-    Horde::url('tasklists/', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
     (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin())) {
     $notification->push(_("You are not allowed to delete this task list."), 'horde.error');
-    Horde::url('tasklists/', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 
 $form = new Nag_Form_DeleteTaskList($vars, $tasklist);

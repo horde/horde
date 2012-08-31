@@ -21,13 +21,15 @@ $form = new Nag_Form_CreateTaskList($vars);
 // Execute if the form is valid.
 if ($form->validate($vars)) {
     try {
-        $result = $form->execute();
+        $tasklist = $form->execute();
         $notification->push(sprintf(_("The task list \"%s\" has been created."), $vars->get('name')), 'horde.success');
     } catch (Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
     }
 
-    Horde::url('tasklists/', true)->redirect();
+    Horde::url('tasklists/edit.php')
+        ->add('t', $tasklist->getName())
+        ->redirect();
 }
 
 $page_output->header(array(

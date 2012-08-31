@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-29</date>
- <time>16:23:46</time>
+ <date>2012-08-31</date>
+ <time>22:40:15</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Move complete task list management into the sidebar.
 * [jan] Allow to edit task list color in traditional view.
 * [mjr] Tweak display of smartlist links in list view.
 * [mjr] Fix fatal recursion error when searching with smartlists were present.
@@ -388,8 +389,6 @@
     <file name="create.php" role="horde" />
     <file name="delete.php" role="horde" />
     <file name="edit.php" role="horde" />
-    <file name="index.php" role="horde" />
-    <file name="info.php" role="horde" />
    </dir> <!-- /tasklists -->
    <dir name="tasks">
     <file name="index.php" role="horde" />
@@ -424,7 +423,6 @@
     <file name="list.html.php" role="horde" />
     <file name="quick.inc" role="horde" />
     <file name="sidebar.html.php" role="horde" />
-    <file name="tasklist_info.php" role="horde" />
     <file name="tasklist_list.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
@@ -860,14 +858,11 @@
    <install as="nag/tasklists/create.php" name="tasklists/create.php" />
    <install as="nag/tasklists/delete.php" name="tasklists/delete.php" />
    <install as="nag/tasklists/edit.php" name="tasklists/edit.php" />
-   <install as="nag/tasklists/index.php" name="tasklists/index.php" />
-   <install as="nag/tasklists/info.php" name="tasklists/info.php" />
    <install as="nag/tasks/index.php" name="tasks/index.php" />
    <install as="nag/templates/javascript_defs.php" name="templates/javascript_defs.php" />
    <install as="nag/templates/list.html.php" name="templates/list.html.php" />
    <install as="nag/templates/quick.inc" name="templates/quick.inc" />
    <install as="nag/templates/sidebar.html.php" name="templates/sidebar.html.php" />
-   <install as="nag/templates/tasklist_info.php" name="templates/tasklist_info.php" />
    <install as="nag/templates/tasklist_list.php" name="templates/tasklist_list.php" />
    <install as="nag/templates/alarm/mail.html.php" name="templates/alarm/mail.html.php" />
    <install as="nag/templates/alarm/mail.plain.php" name="templates/alarm/mail.plain.php" />
@@ -1171,9 +1166,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-29</date>
+   <date>2012-08-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Move complete task list management into the sidebar.
 * [jan] Allow to edit task list color in traditional view.
 * [mjr] Tweak display of smartlist links in list view.
 * [mjr] Fix fatal recursion error when searching with smartlists were present.

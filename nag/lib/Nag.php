@@ -885,12 +885,14 @@ class Nag
                 : 'horde-resource-off';
             $style = '';
             $fg = '000';
-            if ($color = $tasklist->get('color')) {
-                if (Horde_Image::brightness($color) < 128) {
-                    $fg = 'fff';
-                }
-                $style = 'background-color:' . $color . ';color:#' . $fg;
+            $color = $tasklist->get('color');
+            if (!$color) {
+                $color = '#dddddd';
             }
+            if (Horde_Image::brightness($color) < 128) {
+                $fg = 'fff';
+            }
+            $style = 'background-color:' . $color . ';color:#' . $fg;
 
             $list->add('display_tasklist', $name);
             if (in_array($name, $display_tasklists)) {
@@ -898,28 +900,23 @@ class Nag
             } else {
                 $list->add('actionID', 'add_displaylist');
             }
+            $link = array(
+                'link' => $list->link()
+                          . htmlspecialchars($tasklist->get('name'))
+                          . '</a>',
+                'class' => $class,
+                'style' => $style,
+                'edit' => $edit->add('t', $tasklist->getName())
+                              ->link(array(
+                                  'title' =>  _("Edit"),
+                                  'class' => 'horde-resource-edit-'
+                                             . $fg))
+                          . '&#9658;' . '</a>',
+            );
             if ($tasklist->get('owner') == $user) {
-                $content->my[] = array(
-                    'link' => $list->link()
-                              . htmlspecialchars($tasklist->get('name'))
-                              . '</a>',
-                    'class' => $class,
-                    'style' => $style,
-                    'edit' => $edit->add('t', $tasklist->getName())
-                                  ->link(array(
-                                      'title' =>  _("Edit"),
-                                      'class' => 'horde-resource-edit-'
-                                                 . $fg))
-                              . '&#9658;' . '</a>',
-                );
+                $content->my[] = $link;
             } else {
-                $content->shared[] = array(
-                    'link' => $list->link()
-                              . htmlspecialchars($tasklist->get('name'))
-                              . '</a>',
-                    'class' => $class,
-                    'style' => $style,
-                );
+                $content->shared[] = $link;
             }
         }
         $sidebar->containers[] = array(

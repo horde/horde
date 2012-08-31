@@ -28,6 +28,7 @@
     <div class="horde-resources">
 <?php foreach ($this->shared as $list): ?>
       <div class="<?php echo $list['class'] ?>" style="<?php echo $list['style'] ?>">
+        <?php echo $list['edit'] ?>
         <?php echo $list['link'] ?>
       </div>
 <?php endforeach ?>

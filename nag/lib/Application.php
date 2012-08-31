@@ -85,7 +85,6 @@ class Nag_Application extends Horde_Registry_Application
     {
         global $conf, $injector, $page_output;
 
-        $menu->add(Horde::url('tasklists/'), _("Manage Task Lists"), 'nag-managelists', null, null, null, strpos($_SERVER['PHP_SELF'], 'tasklists/index.php') !== false ? 'current' : null);
         $menu->add(Horde::url('list.php'), _("_List Tasks"), 'nag-list', null, null, null, (basename($_SERVER['PHP_SELF']) == 'list.php' || strpos($_SERVER['PHP_SELF'], 'nag/index.php') !== false) ? 'current' : null);
 
         /* Search. */
