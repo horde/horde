@@ -567,19 +567,18 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         } else {
             $style = '';
         }
-        $html = '<table cellspacing="0"><tr><td>'
-            . '<input type="text" size="10" maxlength="7" name="'
+        $html = '<input type="text" size="10" maxlength="7" name="'
             . htmlspecialchars($var->getVarName()) . '" id="' . $varname . '"' . $style
             . ' value="' . htmlspecialchars($color)
-            . '" /></td>';
+            . '" />';
         if ($browser->hasFeature('javascript')) {
             $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('colorpicker.js', 'horde');
-            $html .= '<td>'
+            $html .= ' '
                 . Horde::link('#', Horde_Core_Translation::t("Color Picker"), '', '',
                               'new ColorPicker({ color: \'' . htmlspecialchars($color) . '\', offsetParent: Event.element(event), update: [[\'' . $varname . '\', \'value\'], [\'' . $varname . '\', \'background\']] }); return false;')
-                . Horde::img('colorpicker.png', Horde_Core_Translation::t("Color Picker"), 'height="16"') . '</a></td>';
+                . Horde::img('colorpicker.png', Horde_Core_Translation::t("Color Picker"), 'height="16"') . '</a>';
         }
-        return $html . '</tr></table>';
+        return $html;
     }
 
     protected function _renderVarInput_sorter($form, &$var, &$vars)
