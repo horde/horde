@@ -88,6 +88,11 @@ class Nag_View_List
             $tabs->addTab(_("_Future tasks"), $listurl, Nag::VIEW_FUTURE);
             $tabs->addTab(_("_Completed tasks"), $listurl, Nag::VIEW_COMPLETE);
         }
+        foreach (Nag::listTasklists() as $list) {
+            if ($list->get('issmart')) {
+                $tabs->addTab($list->get('name'), $listurl->add(array('actionID' => 'smart', 'list' => $list->getName())));
+            }
+        }
         echo $tabs->render($this->_vars->get('show_completed'));
         if ($this->_showTagBrowser) {
             echo $this->_getTagTrail() . $this->_getRelatedTags();

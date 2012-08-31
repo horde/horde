@@ -877,7 +877,6 @@ class Nag
         $content->my = $content->shared = $content->smart = array();
         $content->newShares = !$prefs->isLocked('default_tasklist');
         $list  = Horde::url('list.php');
-        $smart = Horde::url('list.php')->add(array('actionID' => 'smart'));
         $edit  = Horde::url('tasklists/edit.php');
         $user  = $GLOBALS['registry']->getAuth();
 
@@ -894,44 +893,34 @@ class Nag
                 $style = 'background-color:' . $color . ';color:#' . $fg;
             }
 
-            if ($tasklist->get('issmart')) {
-                $content->smart[] = array(
-                    'link' => $smart->add('list', $name)->link()
+            $list->add('display_tasklist', $name);
+            if (in_array($name, $display_tasklists)) {
+                $list->add('actionID', 'remove_displaylist');
+            } else {
+                $list->add('actionID', 'add_displaylist');
+            }
+            if ($tasklist->get('owner') == $user) {
+                $content->my[] = array(
+                    'link' => $list->link()
+                              . htmlspecialchars($tasklist->get('name'))
+                              . '</a>',
+                    'class' => $class,
+                    'style' => $style,
+                    'edit' => $edit->add('t', $tasklist->getName())
+                                  ->link(array(
+                                      'title' =>  _("Edit"),
+                                      'class' => 'horde-resource-edit-'
+                                                 . $fg))
+                              . '&#9658;' . '</a>',
+                );
+            } else {
+                $content->shared[] = array(
+                    'link' => $list->link()
                               . htmlspecialchars($tasklist->get('name'))
                               . '</a>',
                     'class' => $class,
                     'style' => $style,
                 );
-            } else {
-                $list->add('display_tasklist', $name);
-                if (in_array($name, $display_tasklists)) {
-                    $list->add('actionID', 'remove_displaylist');
-                } else {
-                    $list->add('actionID', 'add_displaylist');
-                }
-                if ($tasklist->get('owner') == $user) {
-                    $content->my[] = array(
-                        'link' => $list->link()
-                                  . htmlspecialchars($tasklist->get('name'))
-                                  . '</a>',
-                        'class' => $class,
-                        'style' => $style,
-                        'edit' => $edit->add('t', $tasklist->getName())
-                                      ->link(array(
-                                          'title' =>  _("Edit"),
-                                          'class' => 'horde-resource-edit-'
-                                                     . $fg))
-                                  . '&#9658;' . '</a>',
-                    );
-                } else {
-                    $content->shared[] = array(
-                        'link' => $list->link()
-                                  . htmlspecialchars($tasklist->get('name'))
-                                  . '</a>',
-                        'class' => $class,
-                        'style' => $style,
-                    );
-                }
             }
         }
         $sidebar->containers[] = array(

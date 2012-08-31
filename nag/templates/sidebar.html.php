@@ -37,25 +37,3 @@
 <?php endif ?>
   </div>
 </div>
-
-<div class="horde-sidebar-split"></div>
-
-<div>
-  <h3>
-    <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Smart Task Lists") ?></span>
-  </h3>
-
-  <div style="display:none">
-<?php if (count($this->smart)): ?>
-    <div class="horde-resources">
-<?php foreach ($this->smart as $list): ?>
-      <div class="<?php echo $list['class'] ?>" style="<?php echo $list['style'] ?>">
-        <?php echo $list['link'] ?>
-      </div>
-<?php endforeach ?>
-    </div>
-<?php else: ?>
-    <div class="horde-info"><?php echo _("No items to display") ?></div>
-<?php endif ?>
-  </div>
-</div>
