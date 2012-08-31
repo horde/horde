@@ -2,6 +2,6 @@
  * CSS corrections for IE 8.
  */
 
-input[type="submit"], input[type="button"] {
+input[type="submit"], input[type="button"], input[type="reset"] {
     padding: 1px 13px 2px;
 }

@@ -305,7 +305,7 @@ input:focus, textarea:focus, select:focus {
     background-color: #fff;
     border-color: #000;
 }
-input[type="submit"], input[type="button"],
+input[type="submit"], input[type="button"], input[type="reset"],
 a.horde-button, a.horde-default, a.horde-delete {
     background-image: url("graphics/button.png");
     background-repeat: repeat-x;
