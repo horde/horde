@@ -110,7 +110,7 @@ class IMP_Smartmobile
             $identity = $injector->getInstance('IMP_Identity');
             $this->view->identities = array();
             foreach ($identity->getSelectList() as $id => $from) {
-                $view->identities[] = array(
+                $this->view->identities[] = array(
                     'label' => $from,
                     'sel' => ($id == $identity->getDefault()),
                     'val' => $id
