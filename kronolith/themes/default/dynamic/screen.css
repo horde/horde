@@ -126,10 +126,6 @@ html, body {
     font-weight: bold;
 }
 
-a.kronolithFormCancel {
-    cursor: pointer;
-    text-decoration: underline;
-}
 .kronolithDialogInfo {
     background: transparent url("../graphics/alerts/message.png") left 2px no-repeat;
     padding-left: 23px;

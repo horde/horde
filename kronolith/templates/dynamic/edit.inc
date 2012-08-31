@@ -270,10 +270,11 @@
 </div>
 
 <div class="kronolithFormActions">
-  <input id="kronolithEventSave" type="button" value="<?php echo _("Save") ?>" class="button ok" tabindex="13" />
-  <input id="kronolithEventSaveAsNew" type="button" value="<?php echo _("Save As New") ?>" class="button ok" />
-  <input id="kronolithEventDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" tabindex="14" />
-  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <input id="kronolithEventSave" type="button" value="<?php echo _("Save") ?>" class="horde-default" tabindex="13" />
+  <input id="kronolithEventSaveAsNew" type="button" value="<?php echo _("Save As New") ?>" />
+  <input id="kronolithEventDelete" type="button" value="<?php echo _("Delete") ?>" class="horde-delete" tabindex="14" />
+  <span class="kronolithSeparator"><?php echo _("or") ?></span>
+  <input type="button" class="horde-cancel" value="<?php echo _("Cancel") ?>" />
 </div>
 </div>
 
@@ -281,21 +282,21 @@
 <p><?php echo _("Permanently delete this event?") ?></p>
 <div class="kronolithFormActions">
   <span id="kronolithRecurDelete" style="display:none">
-    <input id="kronolithRecurDeleteAll" type="button" value="<?php echo _("Delete All") ?>" class="button" />
-    <input id="kronolithRecurDeleteCurrent" type="button" value="<?php echo _("Delete This Event Only") ?>" class="button" />
-    <input id="kronolithRecurDeleteFuture" type="button" value="<?php echo _("Delete This and Future Events") ?>" class="button" />
+    <input id="kronolithRecurDeleteAll" type="button" value="<?php echo _("Delete All") ?>" class="horde-delete" />
+    <input id="kronolithRecurDeleteCurrent" type="button" value="<?php echo _("Delete This Event Only") ?>" class="horde-delete" />
+    <input id="kronolithRecurDeleteFuture" type="button" value="<?php echo _("Delete This and Future Events") ?>" class="horde-delete" />
   </span>
   <span id="kronolithNoRecurDelete" style="display:none">
-    <input id="kronolithEventDeleteConfirm" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
+    <input id="kronolithEventDeleteConfirm" type="button" value="<?php echo _("Delete") ?>" class="horde-delete" />
   </span>
-  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a id="kronolithEventDeleteCancel" class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a id="kronolithEventDeleteCancel" class="horde-cancel"><?php echo _("Cancel") ?></a>
 </div>
 </div>
 <div id="kronolithUpdateDiv" style="display:none">
 <p><?php echo _("Send updates to attendees?") ?></p>
 <div class="kronolithFormActions">
-  <input id="kronolithEventSendUpdateYes" type="button" value="<?php echo _("Yes") ?>" class="button" />
-  <input id="kronolithEventSendUpdateNo" type="button" value="<?php echo _("No") ?>" class="button" />
+  <input id="kronolithEventSendUpdateYes" type="button" value="<?php echo _("Yes") ?>" class="horde-default" />
+  <input id="kronolithEventSendUpdateNo" type="button" value="<?php echo _("No") ?>" />
 </div>
 </div>
 </form>

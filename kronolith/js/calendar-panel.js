@@ -26,7 +26,7 @@ document.observe('dom:loaded', function() {
             parameters: { c: calendar_id },
             method: 'get',
             onSuccess: function(transport) {
-                RedBox.showHtml('<div id="RB_info">' + transport.responseText + '<input type="button" class="button" onclick="RedBox.close();" value="' + KronolithText.close + '" /></div>');
+                RedBox.showHtml('<div id="RB_info">' + transport.responseText + '<input type="button" class="horde-default" onclick="RedBox.close();" value="' + KronolithText.close + '" /></div>');
             },
             onFailure: function(transport) {
                 RedBox.close();

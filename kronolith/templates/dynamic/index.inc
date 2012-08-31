@@ -11,7 +11,7 @@
     <select id="kronolithQuickinsertCalendars">
     </select>
     <br />
-    <input type="button" id="kronolithQuickinsertSave" value="<?php echo _("Save") ?>" class="button ok" />
+    <input type="button" id="kronolithQuickinsertSave" value="<?php echo _("Save") ?>" class="horde-default" />
     <span class="kronolithSeparator"><?php echo _("or") ?></span>
     <a href="#" id="kronolithQuickinsertCancel" class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
   </form>

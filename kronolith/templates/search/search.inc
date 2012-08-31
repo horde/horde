@@ -62,5 +62,5 @@ range_option_string('+', _("All Future"));
 </table>
 
 <br />
-<input type="submit" class="button" value="<?php echo _("Search") ?>" />
+<input type="submit" class="horde-default" value="<?php echo _("Search") ?>" />
 </form>

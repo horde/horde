@@ -22,10 +22,10 @@ if (empty($url)) {
 <?php endif ?>
 
 <tr><td>
- <input type="submit" class="button" name="current" value="<?php echo _("Current") ?>" />
- <input type="submit" class="button" name="future" value="<?php echo _("Future") ?>" />
- <input type="submit" class="button" name="all" value="<?php echo _("All") ?>" />
- <a class="button" href="<?php echo htmlspecialchars($url) ?>"><?php echo _("Cancel") ?></a>
+ <input type="submit" class="horde-delete" name="current" value="<?php echo _("Current") ?>" />
+ <input type="submit" class="horde-delete" name="future" value="<?php echo _("Future") ?>" />
+ <input type="submit" class="horde-delete" name="all" value="<?php echo _("All") ?>" />
+ <a class="horde-cancel" href="<?php echo htmlspecialchars($url) ?>"><?php echo _("Cancel") ?></a>
 </td></tr>
 </table>
 

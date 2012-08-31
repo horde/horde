@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-29</date>
- <time>16:00:44</time>
+ <date>2012-08-31</date>
+ <time>16:40:28</time>
  <version>
   <release>5.0.0beta6</release>
   <api>5.0.0beta1</api>
@@ -1626,6 +1626,8 @@
       <file name="blank.gif" role="horde" />
       <file name="block.png" role="horde" />
       <file name="button-active-bg.png" role="horde" />
+      <file name="button-default.png" role="horde" />
+      <file name="button-delete.png" role="horde" />
       <file name="button-split.png" role="horde" />
       <file name="button.png" role="horde" />
       <file name="buttonbar-bg.png" role="horde" />
@@ -1744,7 +1746,9 @@
      <file name="facebook.css" role="horde" />
      <file name="feed-rss.xsl" role="horde" />
      <file name="ie7.css" role="horde" />
+     <file name="ie8.css" role="horde" />
      <file name="info.php" role="horde" />
+     <file name="mozilla.css" role="horde" />
      <file name="opera.css" role="horde" />
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
@@ -2609,7 +2613,9 @@
    <install as="themes/default/facebook.css" name="themes/default/facebook.css" />
    <install as="themes/default/feed-rss.xsl" name="themes/default/feed-rss.xsl" />
    <install as="themes/default/ie7.css" name="themes/default/ie7.css" />
+   <install as="themes/default/ie8.css" name="themes/default/ie8.css" />
    <install as="themes/default/info.php" name="themes/default/info.php" />
+   <install as="themes/default/mozilla.css" name="themes/default/mozilla.css" />
    <install as="themes/default/opera.css" name="themes/default/opera.css" />
    <install as="themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="themes/default/screen.css" name="themes/default/screen.css" />
@@ -2622,6 +2628,8 @@
    <install as="themes/default/graphics/blank.gif" name="themes/default/graphics/blank.gif" />
    <install as="themes/default/graphics/block.png" name="themes/default/graphics/block.png" />
    <install as="themes/default/graphics/button-active-bg.png" name="themes/default/graphics/button-active-bg.png" />
+   <install as="themes/default/graphics/button-default.png" name="themes/default/graphics/button-default.png" />
+   <install as="themes/default/graphics/button-delete.png" name="themes/default/graphics/button-delete.png" />
    <install as="themes/default/graphics/button-split.png" name="themes/default/graphics/button-split.png" />
    <install as="themes/default/graphics/button.png" name="themes/default/graphics/button.png" />
    <install as="themes/default/graphics/buttonbar-bg.png" name="themes/default/graphics/buttonbar-bg.png" />
@@ -3886,7 +3894,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-29</date>
+   <date>2012-08-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

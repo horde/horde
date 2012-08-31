@@ -63,7 +63,7 @@ if (Horde_Util::getFormData('allday')) {
 $month = $event->start->month;
 $year = $event->start->year;
 
-$buttons = array('<input type="submit" class="button" name="save" value="' . _("Save Event") . '" />');
+$buttons = array('<input type="submit" class="horde-default" name="save" value="' . _("Save Event") . '" />');
 $url = Horde_Util::getFormData('url');
 if (isset($url)) {
     $cancelurl = new Horde_Url($url);

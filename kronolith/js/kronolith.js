@@ -4638,7 +4638,7 @@ KronolithCore = {
                 e.stop();
                 break;
 
-            case 'kronolithFormCancel':
+            case 'horde-cancel':
                 this.closeRedBox();
                 this.resetMap();
                 this.go(this.lastLocation);

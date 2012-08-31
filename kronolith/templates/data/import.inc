@@ -30,6 +30,6 @@
     <input type="checkbox" class="checkbox" name="purge" id="purge" value="1" />
     <?php echo Horde::label('purge', _("Replace existing calendar with the imported one? <strong>Warning: This deletes all entries in your current calendar.</strong>")) ?>
     <br /><br />
-    <input type="submit" value="<?php echo _("Next") ?>" class="button" />
+    <input type="submit" value="<?php echo _("Next") ?>" class="horde-default" />
 </div>
 </form>

@@ -54,8 +54,8 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
  <td></td>
  <td colspan="4">
   <?php echo implode("\n", $buttons) ?>
-  <?php echo $cancelurl->link(array('class' => 'button')) . _("Cancel") . '</a>' ?>
-  <input type="button" name="resetButton" class="button" value="<?php echo _("Reset to Defaults") ?>" />
+  <input type="button" name="resetButton" value="<?php echo _("Reset to Defaults") ?>" />
+  <?php echo $cancelurl->link(array('class' => 'horde-cancel')) . _("Cancel") . '</a>' ?>
  </td>
 </tr>
 
@@ -433,10 +433,10 @@ if ($event->alarm) {
 </tr>
 <tr>
  <td></td>
- <td colspan="4">
+ <td colspan="4" class="horde-form-buttons">
   <?php echo implode("\n", $buttons) ?>
-  <?php echo $cancelurl->link(array('class' => 'button')) . _("Cancel") . '</a>' ?>
-  <input type="button" name="resetButton" class="button" value="<?php echo _("Reset to Defaults") ?>" />
+  <input type="button" name="resetButton" value="<?php echo _("Reset to Defaults") ?>" />
+  <?php echo $cancelurl->link(array('class' => 'horde-cancel')) . _("Cancel") . '</a>' ?>
   </td>
  </tr>
 </table>

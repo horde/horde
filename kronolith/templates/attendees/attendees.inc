@@ -144,10 +144,10 @@ function switchDateView(view, date)
 </table>
 
 <br />
-<div>
- <input type="submit" class="button" name="addNew" value="<?php echo htmlspecialchars(_("Update")) ?>" />
- <input type="submit" class="button" name="addNewClose" value="<?php echo htmlspecialchars(_("Save and Finish")) ?>" />
- <?php if ($GLOBALS['session']->get('kronolith', 'attendees')): ?><input type="submit" class="button" name="clearAll" value="<?php echo htmlspecialchars(_("Clear all")) ?>" /><?php endif; ?>
+<div class="horde-form-buttons">
+ <input type="submit" class="horde-default" name="addNewClose" value="<?php echo htmlspecialchars(_("Save and Finish")) ?>" />
+ <input type="submit" name="addNew" value="<?php echo htmlspecialchars(_("Update")) ?>" />
+ <?php if ($GLOBALS['session']->get('kronolith', 'attendees')): ?><input type="submit" class="horde-delete" name="clearAll" value="<?php echo htmlspecialchars(_("Clear all")) ?>" /><?php endif; ?>
 </div>
 
 <br />

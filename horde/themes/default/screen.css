@@ -268,11 +268,12 @@ small, .small {
     border-bottom: thin dashed #ccc;
 }
 .horde-form-buttons {
-    width: 100%;
-    height: 26px;
-    padding: 5px 0 0 15%;
-    margin: 10px 0 10px 0;
+    padding: 10px;
+    margin: 10px 0;
     background-color: #ebeff0;
+}
+.horde-form .horde-form-buttons {
+    padding-left: 15%;
 }
 .horde-form td.horde-form-label {
     padding: 5px 9px 0 0;
@@ -304,10 +305,46 @@ input:focus, textarea:focus, select:focus {
     background-color: #fff;
     border-color: #000;
 }
-input[type="submit"] {
-    background: #333 url("graphics/button.png") repeat-x;
+input[type="submit"], input[type="button"],
+a.horde-button, a.horde-default, a.horde-delete {
+    background-image: url("graphics/button.png");
+    background-repeat: repeat-x;
+    border: 1px solid #d0d0d0;
+    padding: 4px 13px;
+    color: #000;
+    cursor: pointer;
+}
+a.horde-button, a.horde-default, a.horde-delete, a.horde-cancel {
+    display: inline-block;
+    padding: 4px 13px;
+    font-weight: normal;
+    text-decoration: none;
+    color: #000;
+}
+input.horde-default, a.horde-default {
+    background-image: url("graphics/button-default.png");
+    border-color: #2a2a2a;
     color: #fff;
-    font-weight: bold;
+}
+input.horde-create, a.horde-create {
+    background-image: url("graphics/sidebar-new-bg.png");
+    border-color: #70973B;
+    color: #fff;
+}
+input.horde-delete, a.horde-delete {
+    background-image: url("graphics/button-delete.png");
+    border-color: #d38847;
+}
+input.horde-cancel {
+    background: transparent;
+    border-style: none;
+    padding: 3px;
+}
+a.horde-cancel {
+    padding: 4px 3px;
+}
+input.horde-cancel:hover, a.horde-cancel:hover {
+    text-decoration: underline;
 }
 form[action^="https://"] input[type="submit"] {
     background-image: url("graphics/locked.png");
@@ -324,15 +361,6 @@ input[disabled], input[disabled]:hover, textarea[disabled], option[disabled] {
     height: 14px;
     width: 14px;
     background: transparent;
-}
-.button {
-    cursor: pointer;
-    padding: 1px 6px 3px;
-}
-a.button {
-    padding: 2px 8px;
-    font-weight: normal;
-    text-decoration: none;
 }
 
 pre, code, .fixed, table.lineNumbered * {
@@ -2011,14 +2039,6 @@ left.horde-point-right {
     float: right;
     height: 22px;
     margin: 4px 5px 0 32px;
-}
-.horde-button:hover, .horde-button-active {
-    background-image: url("graphics/button-active-bg.png");
-    background-repeat: repeat-x;
-    float: left;
-}
-.horde-button.rightFloat:hover, .horde-button-active.rightFloat {
-    float: right;
 }
 .horde-buttonbar .disabled {
     display: none;

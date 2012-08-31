@@ -8,13 +8,13 @@
  <?php if (!$prefs->isLocked('default_share')): ?>
  <form method="get" action="create.php">
   <?php echo Horde_Util::formInput() ?>
-  <input type="submit" class="button" value="<?php echo _("Create a new Local Calendar") ?>" />
+  <input type="submit" class="horde-create" value="<?php echo _("Create a new Local Calendar") ?>" />
  </form>
  <?php endif; ?>
 
  <form method="get" action="remote_subscribe.php">
   <?php echo Horde_Util::formInput() ?>
-  <input type="submit" class="button" value="<?php echo _("Subscribe to a Remote Calendar") ?>" />
+  <input type="submit" value="<?php echo _("Subscribe to a Remote Calendar") ?>" />
  </form>
 </div>
 

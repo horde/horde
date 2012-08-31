@@ -143,9 +143,9 @@
 </div>
 
 <div class="kronolithFormActions">
-  <input id="kronolithTaskSave" type="button" value="<?php echo _("Save") ?>" class="button ok" tabindex="6" />
-  <input id="kronolithTaskDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" tabindex="7" />
-  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <input id="kronolithTaskSave" type="button" value="<?php echo _("Save") ?>" class="horde-default" tabindex="6" />
+  <input id="kronolithTaskDelete" type="button" value="<?php echo _("Delete") ?>" class="horde-delete" tabindex="7" />
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="horde-cancel"><?php echo _("Cancel") ?></a>
 </div>
 
 </form>
@@ -157,9 +157,9 @@
   <p><?php echo _("Enter one task per line. Create child tasks by indenting them below their parent task. Include due dates like \"laundry tomorrow\" or \"get dry cleaning next Thursday\".") ?></p>
   <textarea id="kronolithQuicktaskQ"></textarea>
   <p>
-   <input type="button" id="kronolithQuicktaskSave" class="button ok" value="<?php echo _("Create") ?>" />
+   <input type="button" id="kronolithQuicktaskSave" class="horde-default" value="<?php echo _("Create") ?>" />
    <span class="kronolithSeparator"><?php echo _("or") ?></span>
-   <a href="#" id="kronolithQuicktaskCancel" class="kronolithFormCancel"><?php echo _("Cancel") ?></a><br />
+   <a href="#" id="kronolithQuicktaskCancel" class="horde-cancel"><?php echo _("Cancel") ?></a><br />
   </p>
  </form>
 </div>

@@ -52,8 +52,10 @@ function performAction(action, rid)
 <?php if ($isAdmin = $registry->isAdmin()): ?>
  <form method="get" action="create.php">
   <?php echo Horde_Util::formInput() ?>
-  <input type="submit" class="button" value="<?php echo _("Create a new Resource") ?>" />
-  <a class="button" href="<?php echo Horde::url('resources/groups') ?>"><?php echo _("Manage Resource Groups")?> </a>
+  <div class="horde-form-buttons">
+    <input type="submit" class="horde-create" value="<?php echo _("Create a new Resource") ?>" />
+    <a class="horde-button" href="<?php echo Horde::url('resources/groups') ?>"><?php echo _("Manage Resource Groups")?> </a>
+  </div>
  </form>
 <?php endif ?>
 <table summary="<?php echo _("Resource List") ?>" cellspacing="0" id="calendar-list" class="striped sortable">
