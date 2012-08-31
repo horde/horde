@@ -38,7 +38,7 @@
   </select>
  </p>
 
- <input type="submit" value="<?php echo _("Export") ?>" class="button" />
+ <input type="submit" value="<?php echo _("Export") ?>" class="horde-default" />
 </div>
 
 </form>

@@ -36,7 +36,7 @@
   <?php echo Horde::label('import_file', _("Select the file to import:")) ?><br />
   <input type="file" id="import_file" name="import_file" size="40" />
  </p>
- <input type="submit" value="<?php echo _("Next") ?>" class="button" />
+ <input type="submit" value="<?php echo _("Next") ?>" class="horde-default" />
 </div>
 
 </form>
