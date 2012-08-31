@@ -589,12 +589,11 @@ class Nag
         $tasklist->set('color', $info['color']);
         $tasklist->set('desc', $info['description']);
         $tasklist->set('owner', empty($info['system']) ? $GLOBALS['registry']->getAuth() : null);
-        if (empty($info['search'])) {
-            $tasklist->set('issmart', 0);
-            $tasklist->set('search', '');
-        } else {
-            $tasklist->set('search', serialize($info['search']));
-            $tasklist->set('issmart', '1');
+        if ($tasklist->get('issmart')) {
+            if (empty($info['search'])) {
+                throw new Nag_Exception(_("Missing valid search criteria"));
+            }
+            $tasklist->set('search', $info['search']);
         }
         try {
             $tasklist->save();
