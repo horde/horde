@@ -1419,10 +1419,13 @@ EOT;
             if (!isset($values[$i]['accesskey'])) {
                 $values[$i]['accesskey'] = '';
             }
+            $class = isset($values[$i]['class'])
+                ? $values[$i]['class']
+                : 'widget';
             if ($i > 0) {
                 $html .= ' | ';
             }
-            $html .= Horde::link($values[$i]['url'], $values[$i]['text'], 'widget', $values[$i]['target'], $values[$i]['onclick'], $values[$i]['title'], $values[$i]['accesskey']) . htmlspecialchars($values[$i]['text']) . '</a>';
+            $html .= Horde::link($values[$i]['url'], $values[$i]['text'], $class, $values[$i]['target'], $values[$i]['onclick'], $values[$i]['title'], $values[$i]['accesskey']) . htmlspecialchars($values[$i]['text']) . '</a>';
         }
 
         return $html;
