@@ -8,8 +8,10 @@
  </div>
 
  <dl id="turba-entry-dl">
-  <dt><?php echo _("Name") ?></dt>
-  <dd id="turba-entry-name"></dd>
+  <span id="turba-entry-name-block">
+   <dt><?php echo _("Name") ?></dt>
+   <dd id="turba-entry-name"></dd>
+  </span>
   <span id="turba-entry-email-block">
    <dt><?php echo _("Email") ?></dt>
    <dd id="turba-entry-email"></dd>

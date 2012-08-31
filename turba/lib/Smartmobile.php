@@ -79,8 +79,9 @@ class Turba_Smartmobile
                     $tmp = array();
 
                     while ($contact = $contacts->next()) {
+                        $name = Turba::formatName($contact);
                         $tmp[] = array(
-                            'name' => Turba::formatName($contact),
+                            'name' => strlen($name) ? $name : ('[' . _("No Name") . ']'),
                             'url' => strval($url->add('key', $contact->getValue('__key')))
                         );
                     }

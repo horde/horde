@@ -53,7 +53,13 @@ var TurbaMobile = {
             return;
         }
 
-        $('#turba-entry-name').text(r.name);
+        if (r.name) {
+            $('#turba-entry-name-block').show();
+            $('#turba-entry-name').text(r.name);
+        } else {
+            $('#turba-entry-name-block').hide();
+        }
+
         if (r.email) {
             $('#turba-entry-email-block').show();
             $('#turba-entry-email').text(r.email);
