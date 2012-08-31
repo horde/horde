@@ -867,12 +867,15 @@ var ImpMobile = {
         $.each(r, function(k, v) {
             $.each(ImpIndices.parseUIDString(v.uids), function(k2, v2) {
                 if (ImpMobile.cache[k2] && ImpMobile.cache[k2].data[v2]) {
-                    var ob = $(ImpMobile.cache[k2].data[v2].flag);
+                    var ob = ImpMobile.cache[k2].data[v2].flag, tmp = [];
                     if (v.add) {
                         $.merge(ob, v.add);
-                        ob.filter(function(i, itm) {
-                            return i == ob.index(itm);
+                        $.each(ob, function(i, v) {
+                            if ($.inArray(v, tmp) === -1) {
+                                tmp.push(v);
+                            }
                         });
+                        ob = tmp;
                     }
                     if (v.remove) {
                         ob = $.grep(ob, function(n, i) {
