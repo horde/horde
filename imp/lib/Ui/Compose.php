@@ -46,7 +46,7 @@ class IMP_Ui_Compose
 
         /* "Search" string will be in mailbox element. */
         $imple = new IMP_Ajax_Imple_ContactAutoCompleter();
-        $res = $imp->getAddressList($search->mailbox);
+        $res = $imple->getAddressList($search->mailbox);
 
         switch (count($res)) {
         case 0:
