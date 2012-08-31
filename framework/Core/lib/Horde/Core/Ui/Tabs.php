@@ -39,7 +39,8 @@ class Horde_Core_Ui_Tabs extends Horde_Core_Ui_Widget
 
         $this->_tabs[] = array_merge(array('title' => $title,
                                            'link' => $link->copy(),
-                                           'tabname' => null),
+                                           'tabname' => null,
+                                           'img' => null),
                                      $params);
     }
 
@@ -102,9 +103,15 @@ class Horde_Core_Ui_Tabs extends Horde_Core_Ui_Widget
 
             $accesskey = Horde::getAccessKey($tab['title']);
 
+            if (!empty($tab['img'])) {
+                $img = Horde::img($tab['img']);
+            } else {
+                $img = '';
+            }
+
             $html .= '<li' . $class . $id . '>'
                 . $link->link(array('target' => $tab['target'], 'onclick' => $tab['onclick'], 'accesskey' => $accesskey))
-                . Horde::highlightAccessKey(str_replace(' ', '&nbsp;', $tab['title']), $accesskey)
+                . $img . Horde::highlightAccessKey(str_replace(' ', '&nbsp;', $tab['title']), $accesskey)
                 . "</a> </li>\n";
         }
 
