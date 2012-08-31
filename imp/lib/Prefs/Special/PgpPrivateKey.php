@@ -27,11 +27,6 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
         global $injector, $page_output, $prefs, $session;
 
         $page_output->addScriptFile('imp.js');
-        $page_output->addScriptFile('pgp.js');
-        Horde_Core_Ui_JsCalendar::init();
-        $page_output->addInlineJsVars(array(
-            'ImpPgp.months' => Horde_Core_Ui_JsCalendar::months()
-        ));
 
         $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
@@ -70,6 +65,11 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                     '$("delete_pgp_privkey").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete your keypair? (This is NOT recommended!)"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
                 ), true);
             } else {
+                $page_output->addScriptFile('pgp.js');
+                Horde_Core_Ui_JsCalendar::init();
+                $page_output->addInlineJsVars(array(
+                    'ImpPgp.months' => Horde_Core_Ui_JsCalendar::months()
+                ));
                 $imp_identity = $injector->getInstance('IMP_Identity');
                 $t->set('fullname', $imp_identity->getFullname());
                 $t->set('personalkey-create-name-help', Horde_Help::link('imp', 'pgp-personalkey-create-name'));
