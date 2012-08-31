@@ -22,9 +22,9 @@ function preview()
 </h1>
 
 <div class="control">
- <input type="submit" value="<?php echo _("Save") ?>" class="button" />
- <input type="button" value="<?php echo _("Preview") ?>" class="button" onclick="preview()" />
- <a class="button" href="<?php echo $page->pageUrl()->add('actionID', 'unlock') ?>"><?php echo _("Cancel") ?></a>
+ <input type="submit" value="<?php echo _("Save") ?>" class="horde-default" />
+ <input type="button" value="<?php echo _("Preview") ?>" onclick="preview()" />
+ <a class="horde-cancel" href="<?php echo $page->pageUrl()->add('actionID', 'unlock') ?>"><?php echo _("Cancel") ?></a>
  <?php if (!empty($GLOBALS['conf']['wicked']['require_change_log'])) echo Horde::img('required.png', _("Changelog is required")) ?>
  <strong><?php echo _("Change log") . ': ' ?></strong><input type="text" name="changelog" size="50" />
 </div>

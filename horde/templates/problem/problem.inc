@@ -33,8 +33,8 @@
  <tr>
   <td>&nbsp;</td>
   <td class="light">
-   <input id="problem-report" class="button" type="submit" name="formsubmit" value="<?php echo _("Send Problem Report") ?>" />
-   <input class="button" type="submit" name="formsubmit" value="<?php echo _("Cancel Problem Report") ?>" />
+   <input id="problem-report" class="horde-default" type="submit" name="formsubmit" value="<?php echo _("Send Problem Report") ?>" />
+   <input class="horde-cancel" type="submit" name="formsubmit" value="<?php echo _("Cancel Problem Report") ?>" />
   </td>
  </tr>
 </table>

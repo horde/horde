@@ -4,7 +4,7 @@
 
 <p>
  <gettext>Reset all device state. This will cause your devices to resyncronize all items.</gettext>
- <input class="button" type="submit" value="Reset" name="reset" />
+ <input class="horde-delete" type="submit" value="Reset" name="reset" />
 </p>
 
 <div class="smallheader">
@@ -25,12 +25,12 @@
  <tr class="<tag:devices.class />">
   <td>
    <if:devices.device_policykey>
-    <input class="button" type="button" value="<gettext>Wipe</gettext>" id="wipe_<tag:devices.key />" />
+    <input class="horde-delete" type="button" value="<gettext>Wipe</gettext>" id="wipe_<tag:devices.key />" />
    </if:devices.device_policykey>
    <if:devices.ispending>
-    <input class="button" type="button" value="<gettext>Cancel Wipe</gettext>" id="cancel_<tag:devices.key />" />
+    <input type="button" value="<gettext>Cancel Wipe</gettext>" id="cancel_<tag:devices.key />" />
    </if:devices.ispending>
-   <input class="button" type="button" value="<gettext>Remove</gettext>" id="remove_<tag:devices.key />" />
+   <input class="horde-delete" type="button" value="<gettext>Remove</gettext>" id="remove_<tag:devices.key />" />
   </td>
   <td><tag:devices.device_type /></td>
   <td><tag:devices.ts /></td>

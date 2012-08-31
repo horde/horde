@@ -90,7 +90,7 @@ function removePair()
   </select>
  </div>
  <br class="clear" />
- <input type="button" value="<?php echo _("Add pair") ?>" class="button" onclick="addPair()" />
+ <input type="button" value="<?php echo _("Add pair") ?>" onclick="addPair()" />
  <br /><br />
 
  <?php echo _("To exclude a particular field form the import or to correct a wrong match select a field in the lists below and hit \"Remove pair\".") ?><br /><br />
@@ -116,8 +116,8 @@ function removePair()
   <option value="<?php echo htmlspecialchars($pair[0]) ?>"><?php echo htmlspecialchars($pair[1]) ?></option>
   <?php endforeach; ?>
  </select><br />
- <input type="button" value="<?php echo _("Remove pair") ?>" class="button" onclick="removePair()" /><br /><br />
- <input type="submit" value="<?php echo _("Next") ?>" class="button" />
+ <input type="button" value="<?php echo _("Remove pair") ?>" onclick="removePair()" /><br /><br />
+ <input type="submit" value="<?php echo _("Next") ?>" class="horde-default" />
 </div>
 </form>
 <script type="text/javascript">

@@ -8,7 +8,7 @@
  <strong><?php printf(_("Really remove user data for user \"%s\"? This operation cannot be undone."), $f_user_name) ?></strong>
 </p>
 <p class="control">
- <input type="submit" class="button" name="submit" value="<?php echo _("Clear user") ?>" />
- <input type="submit" class="button" name="submit" value="<?php echo _("Cancel") ?>" />
+ <input type="submit" class="horde-delete" name="submit" value="<?php echo _("Clear user") ?>" />
+ <input type="submit" class="horde-cancel" name="submit" value="<?php echo _("Cancel") ?>" />
 </p>
 </form>

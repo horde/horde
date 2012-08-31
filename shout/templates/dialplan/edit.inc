@@ -43,7 +43,7 @@
         ?>
 
         <li>
-            <a class="button" style="display: block;" href="<?php echo $addurl; ?>">
+            <a class="horde-create" style="display: block;" href="<?php echo $addurl; ?>">
             <?php echo Horde::img('menu-add.png'); ?>&nbsp;New Menu
             </a>
         </li>

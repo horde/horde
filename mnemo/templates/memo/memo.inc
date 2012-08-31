@@ -8,7 +8,7 @@ if ($memo_id):
 
     $share = $GLOBALS['mnemo_shares']->getShare($memolist_id);
     if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)): ?>
- <span class="rightFloat"><input type="button" class="button" value="<?php echo _("Delete this note") ?>" onclick="window.location='<?php echo addslashes(Horde::url(Horde_Util::addParameter($memourl, 'actionID', 'delete_memos'))) ?>';" /></span>
+ <span class="rightFloat"><input type="button" class="horde-delete" value="<?php echo _("Delete this note") ?>" onclick="window.location='<?php echo addslashes(Horde::url(Horde_Util::addParameter($memourl, 'actionID', 'delete_memos'))) ?>';" /></span>
 <?php endif; endif; ?>
 
 <?php if ($actionID == 'modify_memo' && $show_passphrase): ?>
@@ -20,7 +20,7 @@ if ($memo_id):
    <input type="hidden" name="memo" value="<?php echo $memo_id ?>" />
    <?php echo Horde::label('memo_passphrase', _("_Password")) ?>:
    <input type="password" id="memo_passphrase" name="memo_passphrase" />
-   <input type="submit" class="button" value="<?php echo _("Decrypt") ?>" />
+   <input type="submit" value="<?php echo _("Decrypt") ?>" />
   </form>
  </div>
  <script type="text/javascript" >
@@ -55,7 +55,7 @@ if ($memo_id):
  <?php try { echo Horde::callHook('description_help', array(), 'mnemo', ''); } catch (Horde_Exception_HookNotSet $e) {} ?>
 
  <p>
-  <input type="submit" class="button" value="<?php echo _("Save") ?>" onclick="return checkCategory();" />
+  <input type="submit" class="horde-default" value="<?php echo _("Save") ?>" onclick="return checkCategory();" />
  </p>
  <table>
   <?php if (!$prefs->isLocked('default_notepad') && count($notepads) > 1): ?>

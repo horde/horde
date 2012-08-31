@@ -22,8 +22,8 @@
 <else:multiple_source>
   <input name="source" type="hidden" value="<tag:source_list />" />
 </else:multiple_source></if:multiple_source>
-  <input type="submit" class="button" value="<gettext>Search</gettext>" />
-  <input id="btn_clear" type="submit" class="button" style="display:none" value="<gettext>Reset</gettext>" />
+  <input type="submit" value="<gettext>Search</gettext>" />
+  <input id="btn_clear" type="submit" style="display:none" value="<gettext>Reset</gettext>" />
  </p>
 
  <table width="100%" cellspacing="2">
@@ -38,10 +38,10 @@
     </select>
    </td>
    <td width="33%" class="contactsButtons">
-    <input id="btn_add_to" type="button" class="button" value="<gettext>To</gettext> &gt;&gt;" /><br />&nbsp;<br />
+    <input id="btn_add_to" type="button" value="<gettext>To</gettext> &gt;&gt;" /><br />&nbsp;<br />
 <if:to_only><else:to_only>
-    <input id="btn_add_cc" type="button" class="button" value="<gettext>Cc</gettext> &gt;&gt;" /><br />&nbsp;<br />
-    <input id="btn_add_bcc" type="button" class="button" value="<gettext>Bcc</gettext> &gt;&gt;" />
+    <input id="btn_add_cc" type="button" value="<gettext>Cc</gettext> &gt;&gt;" /><br />&nbsp;<br />
+    <input id="btn_add_bcc" type="button" value="<gettext>Bcc</gettext> &gt;&gt;" />
 </else:to_only></if:to_only>
    </td>
    <td width="33%">
@@ -57,7 +57,7 @@
   <tr>
    <td colspan="2">&nbsp;</td>
    <td>
-    <input id="btn_delete" type="button" class="button" value="<gettext>Delete</gettext>" />
+    <input id="btn_delete" type="button" class="horde-delete" value="<gettext>Delete</gettext>" />
    </td>
   </tr>
  </table>
@@ -66,8 +66,8 @@
 <br class="spacer" />
 
 <div>
- <input id="btn_update" type="button" class="button" value="<gettext>OK</gettext>" />
- <input id="btn_cancel" type="button" class="button" value="<gettext>Cancel</gettext>" />
+ <input id="btn_update" type="button" class="horde-default" value="<gettext>OK</gettext>" />
+ <input id="btn_cancel" type="button" class="horde-cancel" value="<gettext>Cancel</gettext>" />
 </div>
 
 </form>

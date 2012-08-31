@@ -44,8 +44,8 @@
           </div>
          </div>
          <div class="hermesFormActions">
-          <input id="hermesTimeSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
-          <input id="hermesTimeSaveAsNew" type="button" value="<?php echo _("Save As New") ?>" class="button ok" style="display: none;" />
+          <input id="hermesTimeSave" type="button" value="<?php echo _("Save") ?>" class="horde-default" />
+          <input id="hermesTimeSaveAsNew" type="button" value="<?php echo _("Save As New") ?>" style="display: none;" />
           <span class="hermesSeparator"><?php echo _("or") ?></span> <a class="hermesTimeFormCancel"><?php echo _("Cancel") ?></a>
         </div>
     </form>
@@ -79,7 +79,7 @@
          <div id="hermesTimeListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
         </div>
         <div class="hermesTimeListControls">
-            <a id="hermesTimeListSubmit" class="button"><?php echo _("Submit Time") ?></a>
+            <a id="hermesTimeListSubmit" class="horde-default"><?php echo _("Submit Time") ?></a>
         </div>
 
    </div>

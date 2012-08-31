@@ -57,7 +57,7 @@ class Turba_View_DeleteContact
         <input type="hidden" name="key" value="<?php echo htmlspecialchars($this->contact->getValue('__key')) ?>" />
         <div class="headerbox" style="padding: 8px">
          <p><?php echo _("Permanently delete this contact?") ?></p>
-         <input type="submit" class="button" name="delete" value="<?php echo _("Delete") ?>" />
+         <input type="submit" class="horde-delete" name="delete" value="<?php echo _("Delete") ?>" />
         </div>
         </form>
         </div>

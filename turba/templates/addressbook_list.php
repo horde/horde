@@ -5,7 +5,7 @@
 <div id="addressbook-list-buttons">
 <form method="post" action="<?php echo Horde::url('addressbooks/create.php') ?>">
 <?php echo Horde_Util::formInput() ?>
-  <input type="submit" class="button" value="<?php echo _("Create a new Address Book") ?>" />
+  <input type="submit" class="horde-create" value="<?php echo _("Create a new Address Book") ?>" />
  </form>
 </div>
 

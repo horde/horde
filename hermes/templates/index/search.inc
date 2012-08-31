@@ -73,7 +73,7 @@
       <div id="hermesSearchListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
     </div>
     <div class="hermesTimeListControls">
-      <a id="hermesSearchListSubmit" class="button"><?php echo _("Export Time") ?></a>
+      <a id="hermesSearchListSubmit" class="horde-default"><?php echo _("Export Time") ?></a>
     </div>
    </div>
    </div>

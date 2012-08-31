@@ -19,15 +19,15 @@
   <td class="nowrap">
 <if:send_msg_ak>
 <if:allow_compose>
-   <input name="btn_send_message" type="submit" <tag:send_msg_ak /> class="button" value="<gettext>Send Message</gettext>" />
+   <input name="btn_send_message" type="submit" <tag:send_msg_ak /> class="horde-default" value="<gettext>Send Message</gettext>" />
 </if:allow_compose>
 <if:save_draft_ak>
-   <input name="btn_save_draft" type="submit" <tag:save_draft_ak /> class="button" value="<gettext>Save Draft</gettext>" />
+   <input name="btn_save_draft" type="submit" <tag:save_draft_ak /> value="<gettext>Save Draft</gettext>" />
 </if:save_draft_ak>
 <else:send_msg_ak>
-   <input name="btn_save_template" type="submit" class="button" value="<gettext>Save Template</gettext>" />
+   <input name="btn_save_template" type="submit" value="<gettext>Save Template</gettext>" />
 </else:send_msg_ak></if:send_msg_ak>
-   <input name="btn_cancel_compose" type="submit" title="<gettext>Cancel Message</gettext>" class="button" value="<gettext>Cancel Message</gettext>" />
+   <input name="btn_cancel_compose" type="submit" title="<gettext>Cancel Message</gettext>" class="horde-cancel" value="<gettext>Cancel Message</gettext>" />
   </td>
  </tr>
 
@@ -145,7 +145,7 @@
    <span class="notices">
     <li id="replyallnotice">
      <gettext>You are</gettext> <span class="replyAllNoticeUnderline"><gettext>replying to ALL</gettext></span> (<tag:replyauto_all /> <gettext>recipients</gettext>).
-     <input name="btn_replyall_revert" type="submit" class="button" value="<gettext>Reply To Sender instead</gettext>" />
+     <input name="btn_replyall_revert" type="submit" value="<gettext>Reply To Sender instead</gettext>" />
     </li>
    </span>
   </td>
@@ -159,7 +159,7 @@
    <span class="notices">
     <li id="replylistnotice">
      <gettext>You are replying to a mailing list</gettext><if:replyauto_list_id> (<tag:replyauto_list_id />)</if:replyauto_list_id>.
-     <input name="btn_replylist_revert" type="submit" class="button" value="<gettext>Reply To Sender instead</gettext>" />
+     <input name="btn_replylist_revert" type="submit" value="<gettext>Reply To Sender instead</gettext>" />
     </li>
    </span>
   </td>
@@ -191,15 +191,15 @@
   <td class="nowrap">
 <if:send_msg_ak>
 <if:allow_compose>
-   <input name="btn_send_message" type="submit" <tag:send_msg_ak /> class="button" value="<gettext>Send Message</gettext>" />
+   <input name="btn_send_message" type="submit" <tag:send_msg_ak /> class="horde-default" value="<gettext>Send Message</gettext>" />
 </if:allow_compose>
 <if:save_draft_ak>
-   <input name="btn_save_draft" type="submit" <tag:save_draft_ak /> class="button" value="<gettext>Save Draft</gettext>" />
+   <input name="btn_save_draft" type="submit" <tag:save_draft_ak /> value="<gettext>Save Draft</gettext>" />
 </if:save_draft_ak>
 <else:send_msg_ak>
-   <input name="btn_save_template" type="submit" class="button" value="<gettext>Save Template</gettext>" />
+   <input name="btn_save_template" type="submit" value="<gettext>Save Template</gettext>" />
 </else:send_msg_ak></if:send_msg_ak>
-   <input name="btn_cancel_compose" type="submit" title="<gettext>Cancel Message</gettext>" class="button" value="<gettext>Cancel Message</gettext>" />
+   <input name="btn_cancel_compose" type="submit" title="<gettext>Cancel Message</gettext>" class="horde-cancel" value="<gettext>Cancel Message</gettext>" />
   </td>
  </tr>
 
@@ -272,7 +272,7 @@
 </else:maxattachmentnumber></if:maxattachmentnumber>
 </else:maxattachsize></if:maxattachsize>
   <td class="rightAlign">
-   <input type="submit" name="btn_add_attachment" class="button" value="<gettext>Update</gettext>" />
+   <input type="submit" name="btn_add_attachment" value="<gettext>Update</gettext>" />
   </td>
  </tr>
 

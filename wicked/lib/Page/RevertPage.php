@@ -78,8 +78,8 @@ class Wicked_Page_RevertPage extends Wicked_Page {
 <div class="headerbox" style="padding:4px">
  <p><?php echo $msg ?></p>
  <p>
-  <input type="submit" value="<?php echo _("Revert") ?>" class="button" />
-  <a class="button" href="<?php echo Wicked::url($page->pageName()) ?>"><?php echo _("Cancel") ?></a>
+  <input type="submit" value="<?php echo _("Revert") ?>" class="horde-default" />
+  <a class="horde-cancel" href="<?php echo Wicked::url($page->pageName()) ?>"><?php echo _("Cancel") ?></a>
  </p>
 </div>
 

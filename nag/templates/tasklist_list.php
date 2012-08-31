@@ -6,7 +6,7 @@
 <div id="tasklist-list-buttons">
  <form method="get" action="create.php">
 <?php echo Horde_Util::formInput() ?>
-  <input type="submit" class="button" value="<?php echo _("Create a new Task List") ?>" />
+  <input type="submit" class="horde-create" value="<?php echo _("Create a new Task List") ?>" />
  </form>
 </div>
 <?php endif; ?>

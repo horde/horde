@@ -376,11 +376,11 @@ try {
     function _renderSubmit($submit, $reset)
     {
 ?><div class="horde-form-buttons">
-  <?php if (!is_array($submit)) $submit = array($submit); foreach ($submit as $submitbutton): ?>
-    <input class="button" name="submitbutton" type="submit" value="<?php echo $submitbutton ?>" />
-  <?php endforeach; ?>
+  <?php if (!is_array($submit)) $submit = array($submit); $first = true; foreach ($submit as $submitbutton): ?>
+    <input<?php if ($first) echo ' class="horde-default"' ?> name="submitbutton" type="submit" value="<?php echo $submitbutton ?>" />
+  <?php $first = false; endforeach; ?>
   <?php if (!empty($reset)): ?>
-    <input class="button" name="resetbutton" type="reset" value="<?php echo $reset ?>" />
+    <input name="resetbutton" type="reset" value="<?php echo $reset ?>" />
   <?php endif; ?>
 </div>
 <?php

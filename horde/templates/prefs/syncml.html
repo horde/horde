@@ -20,14 +20,14 @@
   <td><tag:devices.time /></td>
   <td><tag:devices.anchor /></td>
   <td>
-      <input class="button" type="button" value="<gettext>Delete</gettext>" onclick="HordeSyncMLPrefs.removeAnchor('<tag:devices.deviceid />', '<tag:devices.rawdb />')" />
+      <input class="horde-delete" type="button" value="<gettext>Delete</gettext>" onclick="HordeSyncMLPrefs.removeAnchor('<tag:devices.deviceid />', '<tag:devices.rawdb />')" />
   </td>
  </tr>
 </loop:devices>
 </table>
 
 <p>
- <input type="submit" class="button" name="deleteall" value="<gettext>Delete All SyncML Data</gettext>" />
+ <input type="submit" class="horde-delete" name="deleteall" value="<gettext>Delete All SyncML Data</gettext>" />
 </p>
 <else:devices>
 <p>

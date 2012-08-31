@@ -33,7 +33,7 @@
     <?php
     $addurl = Horde_Util::addParameter($url, 'action', 'add');
     ?>
-    <li><a class="button" href="<?php echo $addurl; ?>">
+    <li><a class="horde-create" href="<?php echo $addurl; ?>">
         <?php echo Horde::img('extension-add.png'); ?>&nbsp;New Account
         </a>
     </li>

@@ -45,7 +45,7 @@
     $addurl = Horde::url('conferences.php');
     $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
     ?>
-    <li><a class="button" href="<?php echo $addurl; ?>">
+    <li><a class="horde-create" href="<?php echo $addurl; ?>">
         <?php echo Horde::img('conference-add.png'); ?>&nbsp;New Conference Room
         </a>
     </li>

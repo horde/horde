@@ -33,12 +33,11 @@ class Nag_Form_Renderer_Task extends Horde_Form_Renderer
      */
     public function _renderSubmit($submit, $reset)
     {
-        ?><div class="control" style="padding:1em;">
-            <input class="button leftFloat" name="submitbutton" type="submit" value="<?php echo _("Save") ?>" />
+        ?><div class="horde-form-buttons">
+            <input class="horde-default" name="submitbutton" type="submit" value="<?php echo _("Save") ?>" />
         <?php if ($this->delete): ?>
-            <input class="button rightFloat" name="submitbutton" type="submit" value="<?php echo _("Delete this task") ?>" />
+            <input class="horde-delete" name="submitbutton" type="submit" value="<?php echo _("Delete this task") ?>" />
         <?php endif; ?>
-            <div class="clear"></div>
         </div>
         <?php
     }

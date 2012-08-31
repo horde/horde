@@ -106,14 +106,14 @@
 
  <div class="searchuiButtons">
 <if:edit_query>
-  <input type="button" id="search_submit" class="button" value="<gettext>Save</gettext>" />
-  <input type="button" id="search_edit_query_cancel" class="button" value="<gettext>Cancel</gettext>" />
+  <input type="button" id="search_submit" class="horde-default" value="<gettext>Save</gettext>" />
+  <input type="button" id="search_edit_query_cancel" class="horde-cancel" value="<gettext>Cancel</gettext>" />
 <else:edit_query>
-  <input type="button" id="search_submit" class="button" value="<gettext>Submit</gettext>" />
-  <input type="button" id="search_reset" class="button" value="<gettext>Reset</gettext>" />
+  <input type="button" id="search_submit" class="horde-default" value="<gettext>Submit</gettext>" />
+  <input type="button" id="search_reset" value="<gettext>Reset</gettext>" />
 </else:edit_query></if:edit_query>
 <if:return_mailbox_val>
-  <input type="button" id="search_dimp_return" class="button" value="<tag:return_mailbox_val />" />
+  <input type="button" id="search_dimp_return" value="<tag:return_mailbox_val />" />
 </if:return_mailbox_val>
  </div>
 </form>

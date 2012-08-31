@@ -1,14 +1,14 @@
 <form action="<tag:version_action />" style="margin:8px">
 <tag:version_input />
 <input type="hidden" value="1" name="check_versions" />
-<input type="submit" value="<gettext>Check for newer versions</gettext>" class="button" />
+<input type="submit" value="<gettext>Check for newer versions</gettext>" />
 </form>
 
 <if:config_outdated>
 <form action="<tag:version_action />" style="margin:8px">
 <tag:version_input />
 <input type="hidden" value="config" name="action" />
-<input type="submit" value="<gettext>Update all configurations</gettext>" class="button" />
+<input type="submit" value="<gettext>Update all configurations</gettext>" />
 </form>
 </if:config_outdated>
 
@@ -16,7 +16,7 @@
 <form action="<tag:version_action />" style="margin:8px">
 <tag:version_input />
 <input type="hidden" value="schema" name="action" />
-<input type="submit" value="<gettext>Update all DB schemas</gettext>" class="button" />
+<input type="submit" value="<gettext>Update all DB schemas</gettext>" />
 </form>
 </if:schema_outdated>
 

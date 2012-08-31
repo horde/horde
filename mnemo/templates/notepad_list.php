@@ -6,7 +6,7 @@
 <div id="notepad-list-buttons">
  <form method="get" action="create.php">
 <?php echo Horde_Util::formInput() ?>
-  <input type="submit" class="button" value="<?php echo _("Create a new Notepad") ?>" />
+  <input type="submit" class="horde-create" value="<?php echo _("Create a new Notepad") ?>" />
  </form>
 </div>
 <?php endif; ?>
