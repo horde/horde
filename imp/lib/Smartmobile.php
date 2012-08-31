@@ -43,6 +43,9 @@ class IMP_Smartmobile
         $page_output->addScriptFile('smartmobile.js');
         $page_output->addScriptFile('indices.js');
         $page_output->addScriptFile('json2.js', 'horde');
+        if (IMP::canCompose()) {
+            $page_output->addScriptFile('jquery.mobile/plugins/autocomplete.js', 'horde');
+        }
 
         $mimecss = new Horde_Themes_Element('mime.css');
         $page_output->addStylesheet($mimecss->fs, $mimecss->uri);

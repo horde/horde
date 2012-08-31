@@ -15,6 +15,21 @@
 class IMP_Ajax_Application_Helper_Smartmobile
 {
     /**
+     * AJAX action: Get autocomplete data.
+     *
+     * Variables used:
+     *   - search: (string) The address search string.
+     *
+     * @return array  Returns an array of matched addresses (full address),
+     *                which are HTML escaped.
+     */
+    public function smartmobileAutocomplete(Horde_Core_Ajax_Application $app_ob)
+    {
+        $imple = new IMP_Ajax_Imple_ContactAutoCompleter();
+        return array_map('htmlspecialchars', $imple->getAddressList($app_ob->vars->search)->addresses);
+    }
+
+    /**
      * AJAX action: Get forward compose data.
      *
      * @see IMP_Ajax_Application#getForwardData()

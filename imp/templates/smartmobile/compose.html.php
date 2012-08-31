@@ -24,6 +24,8 @@
 
    <label for="imp-compose-to"><?php echo _("To:") ?></label>
    <input type="text" id="imp-compose-to" name="to" />
+
+   <ul id="imp-compose-suggestions" data-role="listview" data-inset="true"></ul>
   </div>
 
   <div data-role="fieldcontain">

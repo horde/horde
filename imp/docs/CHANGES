@@ -2,6 +2,7 @@
 v6.0.0-git
 ----------
 
+[mms] Add simple address autocompleter to smartmobile compose page.
 [mms] Add refresh button to smartmobile folder page.
 [jan] Fix popdown positioning in mailbox table header (Bug #11384).
 

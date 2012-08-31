@@ -1125,7 +1125,21 @@ var ImpMobile = {
         $(document).bind('HordeMobile:runTasks', ImpMobile.runTasks);
 
         if (!IMP.conf.disable_compose) {
-            $('#compose').live('pagehide', function() { $('#imp-compose-cache').val(''); });
+            $('#compose').live('pagehide', function() {
+                $('#imp-compose-cache').val('');
+            });
+
+            $('#imp-compose-to').autocomplete({
+                callback: function(e) {
+                    var a = $(e.currentTarget);
+                    $('#imp-compose-to').val(a.text());
+                    $('#imp-compose-to').autocomplete('clear');
+                },
+                link: '#',
+                minLength: 3,
+                source: 'smartmobileAutocomplete',
+                target: $('#imp-compose-suggestions')
+            });
         }
 
         if (IMP.conf.allow_folders) {
