@@ -41,7 +41,7 @@ define('SYNCMLTEST_USERNAME', 'syncmltest');
 $syncml_backend_driver = 'Horde';
 $syncml_backend_parms = array(
     /* debug output to this dir, must be writeable be web server: */
-    'debug_dir' => '/tmp/sync',
+    'debug_dir' => Horde::getTempDir().'/sync',
     /* log all (wb)xml packets received or sent to debug_dir: */
     'debug_files' => true,
     /* Log everything: */
