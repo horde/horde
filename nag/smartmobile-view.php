@@ -90,9 +90,9 @@ if (!empty($task->uid)) {
 
 $links = array();
 
-$taskurl = Horde_Util::addParameter('task.php',
-                              array('task' => $task_id,
-                                    'tasklist' => $tasklist_id));
+$taskurl = Horde::url('task.php')
+    ->add(array('task' => $task_id,
+                'tasklist' => $tasklist_id));
 try {
     $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
 } catch (Horde_Share_Exception $e) {
@@ -100,7 +100,7 @@ try {
     throw new Nag_Exception($e);
 }
 if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-    $links[] = Horde::widget(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'delete_task')), _("Delete"), 'smallheader', '', $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', _("_Delete"));
+    $links[] = Horde::widget(array('url' => $taskurl->add('actionID', 'delete_task'), 'class' => 'smallheader', 'onclick' => $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', 'title' => _("_Delete")));
 }
 
 $page_output->header(array(

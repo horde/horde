@@ -40,7 +40,7 @@ $title = ($where == '')
     : "/$where";
 
 $extraLink = $VC->hasFeature('deleted')
-    ? Horde::widget(Chora::url('browsedir', $where . '/', $branchArgs + array('sa' => ($acts['sa'] ? 0 : 1))), $acts['sa'] ? _("Hide Deleted Files") : _("Show Deleted Files"), 'widget', '', '', $acts['sa'] ? _("Hide _Deleted Files") : _("Show _Deleted Files"))
+    ? Horde::widget(array('url' => Chora::url('browsedir', $where . '/', $branchArgs + array('sa' => ($acts['sa'] ? 0 : 1))), 'title' => $acts['sa'] ? _("Hide _Deleted Files") : _("Show _Deleted Files")))
     : '';
 
 $umap = array(

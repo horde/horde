@@ -125,12 +125,12 @@ foreach ($imp_indices as $ob) {
 
         /* Create links to current message and mailbox. */
         if ($mode == 'thread') {
-            $curr_msg['link'] = Horde::widget('#display', _("Thread List"), 'widget', '', '', _("Thread List"), true);
+            $curr_msg['link'] = Horde::widget(array('url' => '#display', 'title' => _("Thread List"), 'nocheck' => true));
         } else {
-            $curr_msg['link'] = Horde::widget('#display', _("Back to Multiple Message View Index"), 'widget', '', '', _("Back to Multiple Message View Index"), true);
+            $curr_msg['link'] = Horde::widget(array('url' => '#display', 'title' => _("Back to Multiple Message View Index"), 'nocheck' => true));
         }
-        $curr_msg['link'] .= ' | ' . Horde::widget(IMP::mailbox()->url('message.php', $idx, $ob->mbox), _("Go to Message"), 'widget', '', '', _("Go to Message"), true);
-        $curr_msg['link'] .= ' | ' . Horde::widget(IMP::mailbox()->url('mailbox.php')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), sprintf(_("Back to %s"), $page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $page_label));
+        $curr_msg['link'] .= ' | ' . Horde::widget(array('url' => IMP::mailbox()->url('message.php', $idx, $ob->mbox), 'title' => _("Go to Message"), 'nocheck' => true));
+        $curr_msg['link'] .= ' | ' . Horde::widget(array('url' => IMP::mailbox()->url('mailbox.php')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), 'title' => sprintf(_("Bac_k to %s"), $page_label)));
 
         $curr_tree['subject'] = ($mode == 'thread')
             ? $imp_mailbox[$imp_mailbox->getArrayIndex($fetch_res[$idx]->getUid(), $ob->mbox) + 1]['t']->img

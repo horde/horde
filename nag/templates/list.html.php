@@ -4,16 +4,13 @@ function _headerWidget($by, $title, $content)
 {
     global $baseurl, $sortdir, $sortby;
 
-    return Horde::widget(
-        $baseurl->add(array(
+    return Horde::widget(array(
+        'url' => $baseurl->add(array(
             'sortby' => $by,
             'sortdir' => $sortby == $by ? 1 - $sortdir : $sortdir)),
-        $title,
-        'sortlink',
-        '',
-        '',
-        $content
-    )
+        'class' => 'sortlink',
+        'title' => $content
+    ))
     . '&nbsp;';
 }
 

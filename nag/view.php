@@ -91,9 +91,9 @@ if (!empty($task->uid)) {
 $links = array();
 $page_output->addScriptFile('stripe.js', 'horde');
 
-$taskurl = Horde_Util::addParameter('task.php',
-                              array('task' => $task_id,
-                                    'tasklist' => $tasklist_id));
+$taskurl = Horde::url('task.php')
+    ->add(array('task' => $task_id,
+                'tasklist' => $tasklist_id));
 try {
     $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
 } catch (Horde_Share_Exception $e) {
@@ -102,14 +102,14 @@ try {
 }
 if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     if (!$task->completed) {
-        $links[] = Horde::widget($task->complete_link, _("Complete"), 'smallheader', '', '', _("_Complete"));
+        $links[] = Horde::widget(array('url' => $task->complete_link, 'class' => 'smallheader', 'title' => _("_Complete")));
     }
     if (!$task->private || $task->owner == $GLOBALS['registry']->getAuth()) {
-        $links[] = Horde::widget(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'modify_task')), _("Edit"), 'smallheader', '', '', _("_Edit"));
+        $links[] = Horde::widget(array('url' => $taskurl->add('actionID', 'modify_task'), 'class' => 'smallheader', 'title' => _("_Edit")));
     }
 }
 if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-    $links[] = Horde::widget(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'delete_task')), _("Delete"), 'smallheader', '', $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', _("_Delete"));
+    $links[] = Horde::widget(array('url' => $taskurl->add('actionID', 'delete_task'), 'class' => 'smallheader', 'onclick' => $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', 'title' => _("_Delete")));
 }
 
 $page_output->header(array(

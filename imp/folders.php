@@ -364,19 +364,19 @@ $a_template = $injector->createInstance('Horde_Template');
 $a_template->setOption('gettext', true);
 $a_template->set('id', 0);
 
-$a_template->set('refresh', Horde::widget($folders_url_ob->copy(), _("_Refresh"), ''));
+$a_template->set('refresh', Horde::widget(array('url' => $folders_url_ob->copy(), 'title' => _("_Refresh"))));
 $a_template->set('check_ak', Horde::getAccessKeyAndTitle(_("Check _All/None")));
 $a_template->set('create_mbox', $injector->getInstance('Horde_Core_Perms')->hasAppPermission('create_folders') && $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'));
 if ($prefs->getValue('subscribe')) {
     $a_template->set('subscribe', true);
     $subToggleText = ($showAll) ? _("Hide Unsubscribed") : _("Show All");
-    $a_template->set('toggle_subscribe', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'toggle_subscribed_view', 'folders_token' => $folders_token)), $subToggleText, '', '', '', $subToggleText, true));
+    $a_template->set('toggle_subscribe', Horde::widget(array('url' => $folders_url_ob->copy()->add(array('actionID' => 'toggle_subscribed_view', 'folders_token' => $folders_token)), 'titel' => $subToggleText, 'nocheck' => true)));
 }
 $a_template->set('nav_poll', !$prefs->isLocked('nav_poll') && !$prefs->getValue('nav_poll_all'));
 $a_template->set('notrash', !$prefs->getValue('use_trash'));
 $a_template->set('file_upload', $session->get('imp', 'file_upload'));
-$a_template->set('expand_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), _("Expand All Folders"), '', '', '', _("Expand All"), true));
-$a_template->set('collapse_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), _("Collapse All Folders"), '', '', '', _("Collapse All"), true));
+$a_template->set('expand_all', Horde::widget(array('url' => $folders_url_ob->copy()->add(array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), 'title' => _("Expand All"), 'nocheck' => true)));
+$a_template->set('collapse_all', Horde::widget(array('url' => $folders_url_ob->copy()->add(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), 'title' => _("Collapse All"), 'nocheck' => true));
 $a_template->set('help', Horde_Help::link('imp', 'folder-options'));
 
 /* Build the folder tree. */

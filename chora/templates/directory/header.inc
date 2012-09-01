@@ -19,16 +19,16 @@
 <thead>
  <tr>
   <th id="s<?php echo Horde_Vcs::SORT_NAME ?>"<?php if ($acts['sbt'] == Horde_Vcs::SORT_NAME) echo ' class="' . $sortdirclass . '"' ?>>
-   <?php echo Horde::widget($url['name'], _("File"), 'sortlink', '', '', _("_File")) ?>
+   <?php echo Horde::widget(array('url' => $url['name'], 'class' => 'sortlink', 'title' => _("_File"))) ?>
   </th>
   <th id="s<?php echo Horde_Vcs::SORT_REV ?>"<?php if ($acts['sbt'] == Horde_Vcs::SORT_REV) echo ' class="' . $sortdirclass . '"' ?>>
-   <?php echo Horde::widget($url['rev'], _("Rev"), 'sortlink', '', '', _("_Rev")) ?>
+   <?php echo Horde::widget(array('url' => $url['rev'], 'class' => 'sortlink', 'title' => _("_Rev"))) ?>
   </th>
   <th id="s<?php echo Horde_Vcs::SORT_AUTHOR ?>"<?php if ($acts['sbt'] == Horde_Vcs::SORT_AUTHOR) echo ' class="' . $sortdirclass . '"' ?>>
-   <?php echo Horde::widget($url['author'], _("Author"), 'sortlink', '', '', _("_Author")) ?>
+   <?php echo Horde::widget(array('url' => $url['author'], 'class' => 'sortlink', 'title' => _("_Author"))) ?>
   </th>
   <th id="s<?php echo Horde_Vcs::SORT_AGE ?>"<?php if ($acts['sbt'] == Horde_Vcs::SORT_AGE) echo ' class="' . $sortdirclass . '"' ?>>
-   <?php echo Horde::widget($url['age'], _("Date"), 'sortlink', '', '', _("Da_te")) ?>
+   <?php echo Horde::widget(array('url' => $url['age'], 'class' => 'sortlink', 'title' => _("Da_te"))) ?>
   </th>
   <th class="nosort"><?php echo _("Last Log") ?></th>
  </tr>

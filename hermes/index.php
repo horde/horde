@@ -13,12 +13,6 @@ Horde_Registry::appInit('hermes');
 switch ($registry->getView()) {
 case Horde_Registry::VIEW_DYNAMIC:
     if ($prefs->getValue('dynamic_view')) {
-        $menu = new Horde_Menu();
-        $help_link = $GLOBALS['registry']->getServiceLink('help', 'hermes');
-        if ($help_link) {
-            $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;');
-        }
-
         $today = new Horde_Date();
         $injector->getInstance('Hermes_Ajax')->init();
         require HERMES_TEMPLATES . '/index/index.inc';

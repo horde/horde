@@ -489,8 +489,8 @@ if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
 }
 
 if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-    $n_template->set('move', Horde::widget('#', _("Move to mailbox"), 'moveAction', '', '', _("Move"), true));
-    $n_template->set('copy', Horde::widget('#', _("Copy to mailbox"), 'copyAction', '', '', _("Copy"), true));
+    $n_template->set('move', Horde::widget(array('url' => '#', 'class' => 'moveAction', 'title' => _("Move"), 'nocheck' => true)));
+    $n_template->set('copy', Horde::widget(array('url' => '#', 'class' => 'copyAction', 'title' => _("Copy"), 'nocheck' => true)));
     $n_template->set('options', IMP::flistSelect(array(
         'heading' => _("This message to"),
         'inc_tasklists' => true,
@@ -499,7 +499,7 @@ if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
     )));
 }
 
-$n_template->set('back_to', Horde::widget($mailbox_url, sprintf(_("Back to %s"), $h_page_label), '', '', '', sprintf(_("Bac_k to %s"), $h_page_label), true));
+$n_template->set('back_to', Horde::widget(array('url' => $mailbox_url, 'title' => sprintf(_("Bac_k to %s"), $h_page_label), 'nocheck' => true)));
 
 if (Horde_Util::nonInputVar('prev_url')) {
     $n_template->set('prev', Horde::link($prev_url, _("Previous Message")));
@@ -525,9 +525,9 @@ if (!$prefs->getValue('compose_popup')) {
 
 if (IMP::mailbox()->access_deletemsgs) {
     if (in_array(Horde_Imap_Client::FLAG_DELETED, $flags)) {
-        $a_template->set('delete', Horde::widget($self_link->copy()->add('actionID', 'undelete_message'), _("Undelete"), '', '', '', _("Undelete"), true));
+        $a_template->set('delete', Horde::widget(array('url' => $self_link->copy()->add('actionID', 'undelete_message'), 'title' => _("Undelete"), 'nocheck' => true)));
     } else {
-        $a_template->set('delete', Horde::widget($self_link->copy()->add('actionID', 'delete_message'), _("Delete"), '', '', '', _("_Delete"), true));
+        $a_template->set('delete', Horde::widget(array('url' => $self_link->copy()->add('actionID', 'delete_message'), 'title' => _("_Delete"), 'nocheck' => true)));
         if ($imp_imap->pop3) {
             $page_output->addInlineJsVars(array(
                 'ImpMessage.pop3delete' => _("Are you sure you want to PERMANENTLY delete these messages?")
@@ -539,11 +539,11 @@ if (IMP::mailbox()->access_deletemsgs) {
 $disable_compose = !IMP::canCompose();
 
 if (!$disable_compose) {
-    $a_template->set('reply', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_auto') + $compose_params), _("Reply"), 'horde-hasmenu', '', '', _("_Reply"), true));
-    $a_template->set('reply_sender', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply') + $compose_params), _("To Sender"), '', '', '', _("To Sender"), true));
+    $a_template->set('reply', Horde::widget(array('url' => IMP::composeLink(array(), array('actionID' => 'reply_auto') + $compose_params), 'class' => 'horde-hasmenu', 'title' => _("_Reply"), 'nocheck' => true)));
+    $a_template->set('reply_sender', Horde::widget(array('url' => IMP::composeLink(array(), array('actionID' => 'reply') + $compose_params), 'title' => _("To Sender"), 'nocheck' => true)));
 
     if ($list_info['reply_list']) {
-        $a_template->set('reply_list', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_list') + $compose_params), _("To List"), '', '', '', _("To _List"), true));
+        $a_template->set('reply_list', Horde::widget(array('url' => IMP::composeLink(array(), array('actionID' => 'reply_list') + $compose_params), 'title' => _("To _List"), 'nocheck' => true)));
     }
 
     $addr_ob = clone $envelope->to;
@@ -551,32 +551,32 @@ if (!$disable_compose) {
     $addr_ob->setIteratorFilter(0, $user_identity->getAllFromAddresses());
 
     if (count($addr_ob)) {
-        $a_template->set('show_reply_all', Horde::widget(IMP::composeLink(array(), array('actionID' => 'reply_all') + $compose_params), _("To All"), '', '', '', _("To _All"), true));
+        $a_template->set('show_reply_all', Horde::widget(array('url' => IMP::composeLink(array(), array('actionID' => 'reply_all') + $compose_params), 'title' => _("To _All"), 'nocheck' => true)));
     }
 
     $fwd_locked = $prefs->isLocked('forward_default');
-    $a_template->set('forward', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_auto') + $compose_params), _("Forward"), '' . ($fwd_locked ? '' : ' horde-hasmenu'), '', '', _("Fo_rward"), true));
+    $a_template->set('forward', Horde::widget(array('url' => IMP::composeLink(array(), array('actionID' => 'forward_auto') + $compose_params), 'class' => $fwd_locked ? '' : ' horde-hasmenu', 'title' => _("Fo_rward"), 'nocheck' => true)));
     if (!$fwd_locked) {
-        $a_template->set('forward_attach', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_attach') + $compose_params), _("As Attachment"), '', '', '', _("As Attachment"), true));
-        $a_template->set('forward_body', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_body') + $compose_params), _("In Body Text"), '', '', '', _("In Body Text"), true));
-        $a_template->set('forward_both', Horde::widget(IMP::composeLink(array(), array('actionID' => 'forward_both') + $compose_params), _("Attachment and Body Text"), '', '', '', _("Attachment and Body Text"), true));
+        $a_template->set('forward_attach', Horde::widget(array('url' => IMP::composeLink(array(), array('actionID' => 'forward_attach') + $compose_params), 'title' => _("As Attachment"), 'nocheck' => true)));
+        $a_template->set('forward_body', Horde::widget(array('url' => IMP::composeLink(array(), array('actionID' => 'forward_body') + $compose_params), 'title' => _("In Body Text"), 'nocheck' => true)));
+        $a_template->set('forward_both', Horde::widget(array('url' => IMP::composeLink(array(), array('actionID' => 'forward_both') + $compose_params), 'title' => _("Attachment and Body Text"), 'nocheck' => true)));
     }
 
-    $a_template->set('redirect', Horde::widget(IMP::composeLink(array(), array('actionID' => 'redirect_compose') + $compose_params), _("Redirect"), '', '', '', _("Redirec_t"), true));
+    $a_template->set('redirect', Horde::widget(array('url' => IMP::composeLink(array(), array('actionID' => 'redirect_compose') + $compose_params), 'title' => _("Redirec_t"), 'nocheck' => true)));
 
-    $a_template->set('editasnew', Horde::widget(IMP::composeLink(array(), array('actionID' => 'editasnew') + $compose_params), _("Edit as New"), '', '', '', _("Edit as New"), true));
+    $a_template->set('editasnew', Horde::widget(array('url' => IMP::composeLink(array(), array('actionID' => 'editasnew') + $compose_params), 'title' => _("Edit as New"), 'nocheck' => true)));
 }
 
 if (IMP::mailbox()->access_sortthread) {
-    $a_template->set('show_thread', Horde::widget(IMP::mailbox()->url('thread.php', $uid, $mailbox)->add(array('start' => $msgindex)), _("View Thread"), '', '', '', _("_View Thread"), true));
+    $a_template->set('show_thread', Horde::widget(array('url' => IMP::mailbox()->url('thread.php', $uid, $mailbox)->add(array('start' => $msgindex)), 'title' => _("_View Thread"), 'nocheck' => true)));
 }
 
 if (!$readonly && $registry->hasMethod('mail/blacklistFrom')) {
-    $a_template->set('blacklist', Horde::widget($self_link->copy()->add('actionID', 'blacklist'), _("Blacklist"), '', '', '', _("_Blacklist"), true));
+    $a_template->set('blacklist', Horde::widget(array('url' => $self_link->copy()->add('actionID', 'blacklist'), 'title' => _("_Blacklist"), 'nocheck' => true)));
 }
 
 if (!$readonly && $registry->hasMethod('mail/whitelistFrom')) {
-    $a_template->set('whitelist', Horde::widget($self_link->copy()->add('actionID', 'whitelist'), _("Whitelist"), '', '', '', _("_Whitelist"), true));
+    $a_template->set('whitelist', Horde::widget(array('url' => $self_link->copy()->add('actionID', 'whitelist'), 'title' => _("_Whitelist"), 'nocheck' => true)));
 }
 
 if (!empty($conf['user']['allow_view_source'])) {
@@ -586,33 +586,33 @@ if (!empty($conf['user']['allow_view_source'])) {
 if (!$disable_compose &&
     (in_array(Horde_Imap_Client::FLAG_DRAFT, $flags) ||
      $mailbox->drafts)) {
-    $a_template->set('resume', Horde::widget(IMP::composeLink(array(), array('actionID' => 'draft') + $compose_params), _("Resume"), '', '', '', _("Resume"), true));
+    $a_template->set('resume', Horde::widget(array('url' => IMP::composeLink(array(), array('actionID' => 'draft') + $compose_params), 'title' => _("Resume"), 'nocheck' => true)));
 }
 
 $imp_params = IMP::mailbox()->urlParams($uid, $mailbox);
-$a_template->set('save_as', Horde::widget($registry->downloadUrl($subject, array_merge(array('actionID' => 'save_message'), $imp_params)), _("Save as"), '', '', '', _("Sa_ve as"), 2));
+$a_template->set('save_as', Horde::widget(array('url' => $registry->downloadUrl($subject, array_merge(array('actionID' => 'save_message'), $imp_params)), 'title' => _("Sa_ve as"), 'nocheck' => true)));
 
 if ($conf['spam']['reporting'] &&
     ($conf['spam']['spamfolder'] || !$mailbox->spam)) {
-    $a_template->set('spam', Horde::widget('#', _("Report as Spam"), 'spamAction', '', '', _("Report as Spam"), true));
+    $a_template->set('spam', Horde::widget(array('url' => '#', 'class' => 'spamAction', 'title' => _("Report as Spam"), 'nocheck' => true)));
 }
 
 if ($conf['notspam']['reporting'] &&
     (!$conf['notspam']['spamfolder'] || $mailbox->spam)) {
-    $a_template->set('notspam', Horde::widget('#', _("Report as Innocent"), 'notspamAction', '', '', _("Report as Innocent"), true));
+    $a_template->set('notspam', Horde::widget(array('url' => '#', 'class' => 'notspamAction', 'title' => _("Report as Innocent"), 'nocheck' => true)));
 }
 
-$a_template->set('redirect', Horde::widget(IMP::composeLink(array(), array('actionID' => 'redirect_compose') + $compose_params), _("Redirect"), '', '', '', _("Redirec_t"), true));
+$a_template->set('redirect', Horde::widget(array('url' => IMP::composeLink(array(), array('actionID' => 'redirect_compose') + $compose_params), 'title' => _("Redirec_t"), 'nocheck' => true)));
 
-$a_template->set('headers', Horde::widget('#', _("Headers"), 'horde-hasmenu', '', '', _("Headers"), true));
+$a_template->set('headers', Horde::widget(array('url' => '#', 'class' => 'horde-hasmenu', 'title' => _("Headers"), 'nocheck' => true)));
 if ($all_headers || $list_headers) {
-    $a_template->set('common_headers', Horde::widget($headersURL, _("Show Common Headers"), '', '', '', _("Show Common Headers"), true));
+    $a_template->set('common_headers', Horde::widget(array('url' => $headersURL, 'title' => _("Show Common Headers"), 'nocheck' => true)));
 }
 if (!$all_headers) {
-    $a_template->set('all_headers', Horde::widget($headersURL->copy()->add('show_all_headers', 1), _("Show All Headers"), '', '', '', _("Show All Headers"), true));
+    $a_template->set('all_headers', Horde::widget(array('url' => $headersURL->copy()->add('show_all_headers', 1), 'title' => _("Show All Headers"), 'nocheck' => true)));
 }
 if ($list_info['exists'] && !$list_headers) {
-    $a_template->set('list_headers', Horde::widget($headersURL->copy()->add('show_list_headers', 1), _("Show Mailing List Information"), '', '', '', _("Show Mailing List Information"), true));
+    $a_template->set('list_headers', Horde::widget(array('url' => $headersURL->copy()->add('show_list_headers', 1), 'title' => _("Show Mailing List Information"), 'nocheck' => true)));
 }
 
 $hdrs = array();
@@ -674,7 +674,7 @@ $inlineout = $imp_contents->getInlineOutput(array(
 $show_atc = false;
 switch ($show_parts) {
 case 'atc':
-    $a_template->set('show_parts_all', Horde::widget($headersURL->copy()->add(array('show_parts' => 'all')), _("Show All Parts"), '', '', '', _("Show All Parts"), true));
+    $a_template->set('show_parts_all', Horde::widget(array('url' => $headersURL->copy()->add(array('show_parts' => 'all')), 'title' => _("Show All Parts"), 'nocheck' => true)));
     $show_atc = true;
     break;
 
@@ -688,9 +688,9 @@ case 'all':
 }
 
 if (count($inlineout['atc_parts']) > 2) {
-    $a_template->set('download_all', Horde::widget($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all'), _("Download All Attachments (in .zip file)"), '', '', '', _("Download All Attachments (in .zip file)"), true));
+    $a_template->set('download_all', Horde::widget(array('url' => $imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all'), 'title' => _("Download All Attachments (in .zip file)"), 'nocheck' => true)));
     if ($prefs->getValue('strip_attachments')) {
-        $a_template->set('strip_all', Horde::widget(Horde::selfUrl(true)->remove(array('actionID'))->add(array('actionID' => 'strip_all', 'message_token' => $message_token)), _("Strip All Attachments"), 'stripAllAtc', '', '', _("Strip All Attachments"), true));
+        $a_template->set('strip_all', Horde::widget(array('url' => Horde::selfUrl(true)->remove(array('actionID'))->add(array('actionID' => 'strip_all', 'message_token' => $message_token)), 'class' => 'stripAllAtc', 'title' => _("Strip All Attachments"), 'nocheck' => true)));
         $page_output->addInlineJsVars(array(
             'ImpMessage.stripallwarn' => _("Are you sure you want to PERMANENTLY delete all attachments?")
         ));
@@ -700,7 +700,7 @@ if (count($inlineout['atc_parts']) > 2) {
 }
 
 if ($show_atc) {
-    $a_template->set('atc', Horde::widget('#', _("Attachments"), 'horde-hasmenu', '', '', _("Attachments"), true));
+    $a_template->set('atc', Horde::widget(array('url' => '#', 'class' => 'horde-hasmenu', 'title' => _("Attachments"), 'nocheck' => true)));
 }
 
 /* Show attachment information in headers? 'atc_parts' will be empty if

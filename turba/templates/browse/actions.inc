@@ -2,13 +2,13 @@
   <form style="display:inline" name="f<?php echo $id = md5(mt_rand()) ?>" action="javascript:void(0);" onsubmit="return false;">
   <ul>
 <?php if ($hasDelete): ?>
-    <li><?php echo Horde::widget('#', $this->getType() == 'list' ? _("Remove from this list") : _("Delete"), '', '', "Submit('delete'); return false;", $this->getType() == 'list' ? _("_Remove from this list") : _("_Delete")) ?></li>
+    <li><?php echo Horde::widget(array('url' => '#', 'onclick' => "Submit('delete'); return false;", 'title' => $this->getType() == 'list' ? _("_Remove from this list") : _("_Delete"))) ?></li>
 <?php endif ?>
 <?php if ($hasEdit): ?>
-    <li><?php echo Horde::widget('#', _("Edit"), 'widget', '', "document.contacts.action='" . Horde::url('edit.php') . "'; Submit('groupedit'); return false;", _("Edit")) ?></li>
+    <li><?php echo Horde::widget(array('url' => '#', 'onclick' => "document.contacts.action='" . Horde::url('edit.php') . "'; Submit('groupedit'); return false;", 'title' => _("Edit"))) ?></li>
 <?php endif ?>
 <?php if ($hasExport): ?>
-    <li><?php echo Horde::widget('#', _("Export"), 'widget', '', "document.contacts.action='" . $GLOBALS['registry']->downloadUrl('', array('actionID' => 'export')) . "'; Submit('select'); return false;", _("Export")) ?></li>
+    <li><?php echo Horde::widget(array('url' => '#', 'onclick' => "document.contacts.action='" . $GLOBALS['registry']->downloadUrl('', array('actionID' => 'export')) . "'; Submit('select'); return false;", 'title' => _("Export"))) ?></li>
 <?php endif ?>
 <?php if (!empty($copymove_source_options)): ?>
 <?php if ($hasDelete): ?>
@@ -44,9 +44,9 @@ $browse_link = Horde::url('browse.php');
 if ($this->getType() == 'directory' &&
     !empty($cfgSources[Turba::$source]['map']['__type'])):
 ?>
-    <li><?php echo Horde::widget($browse_link->copy()->add('show', 'lists'), _("Show Lists"), 'widget', '', '', _("Show _Lists")) ?></li>
-    <li><?php echo Horde::widget($browse_link->copy()->add('show', 'contacts'), _("Show Contacts"), 'widget', '', '', _("Show _Contacts")) ?></li>
-    <li><?php echo Horde::widget($browse_link->copy()->add('show', 'all'), _("Show Both"), 'widget', '', '', _("Show Both")) ?></li>
+    <li><?php echo Horde::widget(array('url' => $browse_link->add('show', 'lists'), 'title' => _("Show _Lists")) ?></li>
+    <li><?php echo Horde::widget(array('url' => $browse_link->add('show', 'contacts'), 'title' => _("Show _Contacts")) ?></li>
+    <li><?php echo Horde::widget(array('url' => $browse_link->add('show', 'all'), 'title' => _("Show Both")) ?></li>
 <?php endif ?>
   </ul>
   </form>

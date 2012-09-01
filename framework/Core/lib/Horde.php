@@ -921,29 +921,37 @@ class Horde
      * Returns an anchor sequence with the relevant parameters for a widget
      * with accesskey and text.
      *
-     * @param string  $url      The full URL to be linked to.
-     * @param string  $title    The link title/description.
-     * @param string  $class    The CSS class of the link
-     * @param string  $target   The window target to point to.
-     * @param string  $onclick  JavaScript action for the 'onclick' event.
-     * @param string  $title2   The link title (tooltip) (deprecated - just use
-     *                          $title).
-     * @param boolean $nocheck  Don't check if the access key already has been
-     *                          used. Defaults to false (= check).
+     * @param array $opts  A hash with widget options:
+     *                     - url: (string) The full URL to be linked to.
+     *                     - title: (string) The link title/description.
+     *                     - nocheck: (boolean, optional) Don't check if the
+     *                                access key already has been used.
+     *                                Defaults to false (= check).
+     *                     Any other options will be passed as attributes to
+     *                     the link tag.
      *
      * @return string  The full <a href>Title</a> sequence.
      */
-    static public function widget($url, $title = '', $class = 'widget',
-                                  $target = '', $onclick = '', $title2 = '',
-                                  $nocheck = false)
+    static public function widget($params)
     {
-        if (!empty($title2)) {
-            $title = $title2;
-        }
+        $params = array_merge(
+            array(
+                'class' => '',
+                'target' => '',
+                'onclick' => '',
+                'nocheck' => false),
+            $params
+        );
 
-        $ak = self::getAccessKey($title, $nocheck);
+        $url = new Horde_Url($params['url']);
+        $title = $params['title'];
+        $params['accesskey'] = self::getAccessKey($title, $params['nocheck']);
 
-        return self::link($url, '', $class, $target, $onclick, '', $ak) . self::highlightAccessKey($title, $ak) . '</a>';
+        unset($params['url'], $params['title'], $params['nocheck']);
+
+        return $url->link($params)
+            . self::highlightAccessKey($title, $params['accesskey'])
+            . '</a>';
     }
 
     /**

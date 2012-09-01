@@ -602,7 +602,7 @@ class Horde_Core_Prefs_Ui
                     if ($this->groupIsEditable($group)) {
                         $tmp['groups'][] = array(
                             'desc' => htmlspecialchars($gvals['desc']),
-                            'link' => Horde::widget($options_link->copy()->add(array('app' => $this->app, 'group' => $group)), $gvals['label'], '', '', '', $gvals['label'])
+                            'link' => Horde::widget(array('url' => $options_link->copy()->add(array('app' => $this->app, 'group' => $group)), 'title' => $gvals['label']))
                         );
                     }
                 }

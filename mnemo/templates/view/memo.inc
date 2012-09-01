@@ -1,18 +1,18 @@
 <?php
-$memourl = Horde_Util::addParameter('memo.php', array('memo' => $memo_id,
-                                                'memolist' => $memolist_id));
+$memourl = Horde::url('memo.php')->add(array('memo' => $memo_id,
+                                             'memolist' => $memolist_id));
 
 $share = $GLOBALS['mnemo_shares']->getShare($memolist_id);
 ?>
 <div class="header">
  <div class="rightFloat">
 <?php
-echo Horde::widget(Horde::url(Horde_Util::addParameter('note/pdf.php', array('note' => $memo_id, 'notepad' => $memolist_id))), _("Save as PDF"), 'smallheader');
+echo Horde::widget(array('url' => Horde::url('note/pdf.php')->add(array('note' => $memo_id, 'notepad' => $memolist_id)), 'title' => _("Save as PDF"), 'class' => 'smallheader'));
 if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-    echo ' | ' . Horde::widget(Horde::url(Horde_Util::addParameter($memourl, 'actionID', 'modify_memo')), _("Edit"), 'smallheader', '', '', _("_Edit"));
+    echo ' | ' . Horde::widget(array('url' => $memourl->add('actionID', 'modify_memo'), 'class' => 'smallheader', 'title' => _("_Edit")));
 }
 if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-    echo ' | ' . Horde::widget(Horde::url(Horde_Util::addParameter($memourl, 'actionID', 'delete_memos')), _("Delete"), 'smallheader', '', $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this note?")) . '\');' : '', _("_Delete"));
+    echo ' | ' . Horde::widget(array('url' => $memourl->add('actionID', 'delete_memos'), 'class' => 'smallheader', 'onclick' => $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this note?")) . '\');' : '', 'title' => _("_Delete")));
 }
 ?>
  </div>

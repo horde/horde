@@ -85,12 +85,12 @@ if (!$plain) {
                      Chora::readableTime($log->getDate(), true));
 
     $views = array(
-        Horde::widget(Chora::url('annotate', $where, array('rev' => $r)), _("Annotate"), 'widget', '', '', _("_Annotate")),
-        Horde::widget(Chora::url('co', $where, array('r' => $r, 'p' => 1)), _("Download"), 'widget', '', '', _("_Download"))
+        Horde::widget(array('url' => Chora::url('annotate', $where, array('rev' => $r)), 'title' => _("_Annotate"))),
+        Horde::widget(array('url' => Chora::url('co', $where, array('r' => $r, 'p' => 1)), 'title' => _("_Download")))
     );
     if ($VC->hasFeature('snapshots')) {
         $snapdir = dirname($file->getPath());
-        $views[] = Horde::widget(Chora::url('browsedir', $snapdir == '.' ? '' : $snapdir . '/', array('onb' => $r)), _("Snapshot"), 'widget', '', '', _("_Snapshot"));
+        $views[] = Horde::widget(array('url' => Chora::url('browsedir', $snapdir == '.' ? '' : $snapdir . '/', array('onb' => $r)), 'title' => _("_Snapshot")));
     }
     $extraLink = _("View:") . ' ' . implode(' | ', $views);
 

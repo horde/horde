@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Make Horde::widget() take a single hash parameter.
 * [mms] Allow application API interface to dynamically alter properties (Bug #11388).
  </notes>
  <contents>
@@ -2239,6 +2240,7 @@
    <date>2012-08-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Make Horde::widget() take a single hash parameter.
 * [mms] Allow application API interface to dynamically alter properties (Bug #11388).
    </notes>
   </release>
