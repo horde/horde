@@ -31,7 +31,7 @@ echo Kronolith::menu();
 $notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';
-Kronolith::tabs();
+Kronolith::tabs($view);
 $view->html(KRONOLITH_TEMPLATES);
 echo '</div>';
 

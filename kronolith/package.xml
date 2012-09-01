@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-29</date>
- <time>16:21:11</time>
+ <date>2012-09-01</date>
+ <time>19:44:00</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -590,9 +590,7 @@
      <file name="head.inc" role="horde" />
      <file name="head_side_by_side.inc" role="horde" />
     </dir> <!-- /templates/week -->
-    <dir name="year">
-     <file name="head.inc" role="horde" />
-    </dir> <!-- /templates/year -->
+    <file name="buttonbar.html.php" role="horde" />
     <file name="calendar_info.php" role="horde" />
     <file name="calendar_list.php" role="horde" />
     <file name="calendar_titles.inc" role="horde" />
@@ -1282,6 +1280,7 @@
    <install as="kronolith/resources/groups/delete.php" name="resources/groups/delete.php" />
    <install as="kronolith/resources/groups/edit.php" name="resources/groups/edit.php" />
    <install as="kronolith/resources/groups/index.php" name="resources/groups/index.php" />
+   <install as="kronolith/templates/buttonbar.html.php" name="templates/buttonbar.html.php" />
    <install as="kronolith/templates/calendar_info.php" name="templates/calendar_info.php" />
    <install as="kronolith/templates/calendar_list.php" name="templates/calendar_list.php" />
    <install as="kronolith/templates/calendar_titles.inc" name="templates/calendar_titles.inc" />
@@ -1350,7 +1349,6 @@
    <install as="kronolith/templates/view/view.inc" name="templates/view/view.inc" />
    <install as="kronolith/templates/week/head.inc" name="templates/week/head.inc" />
    <install as="kronolith/templates/week/head_side_by_side.inc" name="templates/week/head_side_by_side.inc" />
-   <install as="kronolith/templates/year/head.inc" name="templates/year/head.inc" />
    <install as="Kronolith/AllTests.php" name="test/Kronolith/AllTests.php" />
    <install as="Kronolith/Autoload.php" name="test/Kronolith/Autoload.php" />
    <install as="Kronolith/phpunit.xml" name="test/Kronolith/phpunit.xml" />
@@ -1924,7 +1922,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-29</date>
+   <date>2012-09-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix attendees button in traditional view.

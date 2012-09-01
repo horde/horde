@@ -2495,31 +2495,79 @@ class Kronolith
     }
 
     /**
-     * @param string $tabname
+     * @param object $renderer  A Kronolith view.
      */
-    static public function tabs($tabname = null)
+    static public function tabs($renderer)
     {
+        global $injector, $prefs;
+
+        $view = $injector->createInstance('Horde_View');
+
+        $today = new Horde_Date($_SERVER['REQUEST_TIME']);
         $date = self::currentDate();
-        $date_stamp = $date->dateString();
+        $date_stamp = array('date' => $date->dateString());
+        $tabname = basename($_SERVER['PHP_SELF']) == 'index.php'
+            ? $GLOBALS['prefs']->getValue('defaultview')
+            : str_replace('.php', '', basename($_SERVER['PHP_SELF']));
 
-        $tabs = new Horde_Core_Ui_Tabs('view', Horde_Variables::getDefaultVariables());
-        $tabs->preserve('date', $date_stamp);
-
-        $tabs->addTab(_("Day"), Horde::url('day.php'),
-                      array('tabname' => 'day', 'id' => 'tabday', 'onclick' => 'return ShowView(\'Day\', \'' . $date_stamp . '\');'));
-        $tabs->addTab(_("Work Week"), Horde::url('workweek.php'),
-                      array('tabname' => 'workweek', 'id' => 'tabworkweek', 'onclick' => 'return ShowView(\'WorkWeek\', \'' . $date_stamp . '\');'));
-        $tabs->addTab(_("Week"), Horde::url('week.php'),
-                      array('tabname' => 'week', 'id' => 'tabweek', 'onclick' => 'return ShowView(\'Week\', \'' . $date_stamp . '\');'));
-        $tabs->addTab(_("Month"), Horde::url('month.php'),
-                      array('tabname' => 'month', 'id' => 'tabmonth', 'onclick' => 'return ShowView(\'Month\', \'' . $date_stamp . '\');'));
-        $tabs->addTab(_("Year"), Horde::url('year.php'),
-                      array('tabname' => 'year', 'id' => 'tabyear', 'onclick' => 'return ShowView(\'Year\', \'' . $date_stamp . '\');'));
-
-        if ($tabname === null) {
-            $tabname = basename($_SERVER['PHP_SELF']) == 'index.php' ? $GLOBALS['prefs']->getValue('defaultview') : str_replace('.php', '', basename($_SERVER['PHP_SELF']));
+        $view->active = $tabname;
+        $view->previous = $renderer->link(-1);
+        $view->next = $renderer->link(1);
+        switch ($tabname) {
+        case 'day':
+            $view->current = $renderer->getTime($prefs->getValue('date_format'));
+            break;
+        case 'workweek':
+        case 'week':
+            $view->current =
+                $renderer->days[$renderer->startDay]
+                    ->getTime($prefs->getValue('date_format'))
+                . ' - '
+                . $renderer->days[$renderer->endDay]
+                    ->getTime($prefs->getValue('date_format'));
+            break;
+        case 'month':
+            $view->current = $renderer->date->strftime('%B %Y');
+            break;
+        case 'year':
+            $view->current = $renderer->year;
+            break;
         }
-        echo $tabs->render($tabname);
+        $view->today = Horde::url($prefs->getValue('defaultview') . '.php')
+            ->link(Horde::getAccessKeyAndTitle(_("_Today"), false, true))
+            . $today->strftime($prefs->getValue('date_format_mini')) . '</a>';
+        $view->day = Horde::widget(array(
+            'url' => Horde::url('day.php')->add($date_stamp),
+            'id' => 'kronolithNavDay',
+            'accesskey' => '1',
+            'title' => _("Day")
+        ));
+        $view->workWeek = Horde::widget(array(
+            'url' => Horde::url('workweek.php')->add($date_stamp),
+            'id' => 'kronolithNavWorkweek',
+            'accesskey' => '2',
+            'title' => _("Work Week")
+        ));
+        $view->week = Horde::widget(array(
+            'url' => Horde::url('week.php')->add($date_stamp),
+            'id' => 'kronolithNavWeek',
+            'accesskey' => '3',
+            'title' => _("Week")
+        ));
+        $view->month = Horde::widget(array(
+            'url' => Horde::url('month.php')->add($date_stamp),
+            'id' => 'kronolithNavMonth',
+            'accesskey' => '4',
+            'title' => _("Month")
+        ));
+        $view->year = Horde::widget(array(
+            'url' => Horde::url('year.php')->add($date_stamp),
+            'id' => 'kronolithNavYear',
+            'accesskey' => '5',
+            'title' => _("Year")
+        ));
+
+        echo $view->render('buttonbar');
     }
 
     /**

@@ -117,8 +117,6 @@ class Kronolith_Application extends Horde_Registry_Application
             $notification->push(_("No calendars are available to guests."));
         }
 
-        $menu->add(Horde::url($prefs->getValue('defaultview') . '.php'), _("_Today"), 'kronolith-today', null, null, null, '__noselection');
-
         if ($browser->hasFeature('dom')) {
             Horde_Core_Ui_JsCalendar::init(array(
                 'click_month' => true,

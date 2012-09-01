@@ -42,8 +42,6 @@ class Kronolith_View_Year
     {
         global $prefs;
 
-        require KRONOLITH_TEMPLATES . '/year/head.inc';
-
         $html = '<table class="nopadding" cellspacing="5" width="100%"><tr>';
         for ($month = 1; $month <= 12; ++$month) {
             $html .= '<td valign="top">';

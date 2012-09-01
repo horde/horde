@@ -51,31 +51,6 @@ html, body {
     border: none;
 }
 
-/* Navigation bar */
-#kronolithNavTasks {
-    background-image: url("../graphics/tasks.png");
-}
-#kronolithNavAgenda {
-    /*
-    background-image: url("../graphics/agenda.png");
-    */
-}
-#kronolithNavDay {
-    background-image: url("../graphics/dayview.png");
-}
-#kronolithNavWeek {
-    background-image: url("../graphics/weekview.png");
-}
-#kronolithNavWorkweek {
-    background-image: url("../graphics/workweekview.png");
-}
-#kronolithNavMonth {
-    background-image: url("../graphics/monthview.png");
-}
-#kronolithNavYear {
-    background-image: url("../graphics/yearview.png");
-}
-
 /* Main area */
 #kronolithMain {
     clear: both;
@@ -431,17 +406,6 @@ table.kronolithView td.kronolithFirstCol {
 }
 #kronolithBody caption span {
     padding: 0;
-}
-.horde-buttonbar a.kronolithNext,
-.horde-buttonbar a.kronolithPrev {
-    color: transparent;
-    padding-right: 18px;
-}
-.horde-buttonbar a.kronolithNext {
-    background-image: url("../graphics/right.png");
-}
-.horde-buttonbar a.kronolithPrev {
-    background-image: url("../graphics/left.png");
 }
 
 /* Main view year */
