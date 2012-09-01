@@ -59,8 +59,9 @@ class Nag_Tagger extends Horde_Core_Tagger
         }
 
         // Add the tags to the search
-        $args['tagId'] = $GLOBALS['injector']->getInstance('Content_Tagger')
-            ->getTagIds($tags);
+        $args['tagId'] = $GLOBALS['injector']
+            ->getInstance('Content_Tagger')
+            ->ensureTags($tags);
 
         $results = array();
         $args['typeId'] = $this->_type_ids['task'];
