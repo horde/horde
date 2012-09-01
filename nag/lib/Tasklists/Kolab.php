@@ -20,4 +20,14 @@ extends Nag_Tasklists_Base
     {
         return _("Tasks");
     }
+
+    /**
+     * Add any modifiers required to the share in order to mark it as default.
+     *
+     * @param Horde_Share_Object $share The new default share.
+     */
+    protected function prepareDefaultShare($share)
+    {
+        $share->set('default', true);
+    }
 }
