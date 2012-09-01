@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [gwr] Mark the initial default share as such with the Kolab backend.
 * [gwr] Always mark the initial share as default calendar.
 * [jan] Fix attendees button in traditional view.
 * [jan] Fix sending alarm emails.
@@ -1926,6 +1927,7 @@
    <date>2012-09-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [gwr] Mark the initial default share as such with the Kolab backend.
 * [gwr] Always mark the initial share as default calendar.
 * [jan] Fix attendees button in traditional view.
 * [jan] Fix sending alarm emails.
