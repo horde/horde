@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [gwr] Mark the initial default share as such with the Kolab backend.
 * [gwr] Fixed deletion of shares with the Kolab driver.
 * [jan] Fix display of note title (Bug #11275).
 * [jan] Update Turkish translation (İstanbul Technical University).
