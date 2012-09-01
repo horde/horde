@@ -573,7 +573,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         foreach (array_keys($newProperties) as $property) {
-            if ($oldProperties[$property] != $newProperties[$property]) {
+            if (empty($oldProperties[$property]) || ($oldProperties[$property] != $newProperties[$property])) {
                 $changes['new'][$property] = $newProperties[$property];
                 $changes['old'][$property] = $oldProperties[$property];
             }
