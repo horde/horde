@@ -33,6 +33,12 @@ class Ansel_Application extends Horde_Registry_Application
 {
     /**
      */
+    public $features = array(
+        'smartmobileView' => true
+    );
+
+    /**
+     */
     public $version = 'H5 (3.0-git)';
 
     /**
