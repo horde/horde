@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [gwr] Allow setting the default folder.
 * [gwr] Reactivate folder list caching.
  </notes>
  <contents>
@@ -1190,6 +1191,7 @@
    <date>2012-08-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [gwr] Allow setting the default folder.
 * [gwr] Reactivate folder list caching.
    </notes>
   </release>
