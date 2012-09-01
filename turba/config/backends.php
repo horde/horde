@@ -585,11 +585,6 @@ $cfgSources['kolab'] = array(
         '__type' => '__type',
         '__members' => '__members',
         /* Personal */
-        'firstname' => 'given-name',
-        'lastname' => 'last-name',
-        'middlenames' => 'middle-names',
-        'namePrefix' => 'prefix',
-        'nameSuffix' => 'suffix',
         'name' => array('fields' => array('namePrefix', 'firstname',
                                           'middlenames', 'lastname',
                                           'nameSuffix'),
@@ -602,6 +597,11 @@ $cfgSources['kolab'] = array(
                                   'format' => '%s, %s'),
                             array('fields' => array('firstname', 'lastname'),
                                   'format' => '%s %s'))),
+        'firstname' => 'given-name',
+        'lastname' => 'last-name',
+        'middlenames' => 'middle-names',
+        'namePrefix' => 'prefix',
+        'nameSuffix' => 'suffix',
         // This is a shorter version of a "name" composite field which only
         // consists of the first name and last name.
         // 'name' => array('fields' => array('firstname', 'lastname'),
@@ -678,8 +678,9 @@ $cfgSources['kolab'] = array(
     ),
     'export' => true,
     'browse' => true,
-    'use_shares' => true,
     'list_name_field' => 'lastname',
+    'use_shares' => true,
+    'all_shares' => true,
 );
 
 /**
