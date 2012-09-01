@@ -3043,10 +3043,12 @@ abstract class Kronolith_Event
                 $status .= Horde::fullSrcImg('attendees-' . $icon_color . '.png', array('attr' => array('alt' => _("Meeting"), 'title' => _("Meeting"), 'class' => 'iconPeople')));
             }
 
+            $space = ' ';
             if (!empty($this->icon)) {
                 $link = $status . '<img src="' . $this->icon . '" /> ' . $link;
             } elseif (!empty($status)) {
                 $link .= ' ' . $status;
+                $space = '';
             }
 
             if ((!$this->private ||
@@ -3057,11 +3059,13 @@ abstract class Kronolith_Event
                           'url' => $from_url),
                     $full);
                 if ($url) {
-                    $link .= $url->link(array('title' => sprintf(_("Edit %s"), $event_title),
-                                              'class' => 'iconEdit'))
+                    $link .= $space
+                        . $url->link(array('title' => sprintf(_("Edit %s"), $event_title),
+                                           'class' => 'iconEdit'))
                         . Horde::fullSrcImg('edit-' . $icon_color . '.png',
                                             array('attr' => array('alt' => _("Edit"))))
                         . '</a>';
+                    $space = '';
                 }
             }
             if ($this->hasPermission(Horde_Perms::DELETE)) {
@@ -3070,8 +3074,9 @@ abstract class Kronolith_Event
                           'url' => $from_url),
                     $full);
                 if ($url) {
-                    $link .= $url->link(array('title' => sprintf(_("Delete %s"), $event_title),
-                                              'class' => 'iconDelete'))
+                    $link .= $space
+                        . $url->link(array('title' => sprintf(_("Delete %s"), $event_title),
+                                           'class' => 'iconDelete'))
                         . Horde::fullSrcImg('delete-' . $icon_color . '.png',
                                             array('attr' => array('alt' => _("Delete"))))
                         . '</a>';
