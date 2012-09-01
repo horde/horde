@@ -1,12 +1,12 @@
 <?php
 
-class Mnemo_Hooks
+class Kronolith_Hooks
 {
    public function prefs_init($pref, $value, $username, $scope_ob)
    {
        switch ($pref) {
-       case 'default_notepad':
-           $notepads = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')
+       case 'default_share':
+           $calendars = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')
                ->create()
                ->listShares(
                    $GLOBALS['registry']->getAuth(),
@@ -14,21 +14,21 @@ class Mnemo_Hooks
                          'attributes' => $GLOBALS['registry']->getAuth()));
            $primary = null;
            $primary_share = null;
-           foreach ($notepads as $id => $notepad) {
-               $default = $notepad->get('default');
+           foreach ($calendars as $id => $calendar) {
+               $default = $calendar->get('default');
                if (!empty($default)) {
                    if (!empty($primary_share)) {
                        $GLOBALS['notification']->push(
                            sprintf(
-                               "Both shares '%s' and '%s' are marked as default notepad! Please notify your administrator.",
+                               "Both shares '%s' and '%s' are marked as default calendar! Please notify your administrator.",
                                $primary_share->get('name'),
-                               $notepad->get('name')
+                               $calendar->get('name')
                            ),
                            'horde.error'
                        );
                    }
                    $primary = $id;
-                   $primary_share = $notepad;
+                   $primary_share = $calendar;
                }
            }
            return $primary;
@@ -38,18 +38,18 @@ class Mnemo_Hooks
    public function prefs_change($pref)
    {
        switch ($pref) {
-       case 'default_notepad':
-           $value = $GLOBALS['prefs']->getValue('default_notepad');
-           $notepads = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')
+       case 'default_share':
+           $value = $GLOBALS['prefs']->getValue('default_share');
+           $calendars = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')
                ->create()
                ->listShares(
                    $GLOBALS['registry']->getAuth(),
                    array('perm' => Horde_Perms::SHOW,
                          'attributes' => $GLOBALS['registry']->getAuth()));
-           foreach ($notepads as $id => $notepad) {
+           foreach ($calendars as $id => $calendar) {
                if ($id == $value) {
-                   $notepad->set('default', true);
-                   $notepad->save();
+                   $calendar->set('default', true);
+                   $calendar->save();
                    break;
                }
            }
