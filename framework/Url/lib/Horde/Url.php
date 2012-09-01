@@ -272,11 +272,11 @@ class Horde_Url
             $url = rtrim($url, '/');
             $url .= '/' . $this->pathInfo;
         }
-        if ($this->anchor) {
-            $url .= '#' . ($raw ? $this->anchor : rawurlencode($this->anchor));
-        }
         if (count($url_params)) {
             $url .= '?' . implode($raw ? '&' : '&amp;', $url_params);
+        }
+        if ($this->anchor) {
+            $url .= '#' . ($raw ? $this->anchor : rawurlencode($this->anchor));
         }
 
         return strval($url);

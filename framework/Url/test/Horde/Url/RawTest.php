@@ -26,10 +26,10 @@ class Horde_Url_RawTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test?foo=1&amp;bar=2', (string)$url);
 
         $url = new Horde_Url('test?foo=1&bar=2#baz');
-        $this->assertEquals('test#baz?foo=1&bar=2', (string)$url);
+        $this->assertEquals('test?foo=1&bar=2#baz', (string)$url);
 
         $url = new Horde_Url('test?foo=1&amp;bar=2#baz');
-        $this->assertEquals('test#baz?foo=1&amp;bar=2', (string)$url);
+        $this->assertEquals('test?foo=1&amp;bar=2#baz', (string)$url);
     }
 
     public function testFromUrl()

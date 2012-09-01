@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Anchors appear before query string in URL output.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -254,7 +254,7 @@
    <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Anchors appear before query string in URL output.
+* 
    </notes>
   </release>
  </changelog>
