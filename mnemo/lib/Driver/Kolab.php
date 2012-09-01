@@ -216,8 +216,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     protected function _deleteAll()
     {
         try {
-            $this->_retrieve();
-            $ids = array_keys($this->_memos);
+            $ids = $this->_getData()->getObjectIds();
             $this->_getData()->deleteAll();
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
