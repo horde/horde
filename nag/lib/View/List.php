@@ -83,6 +83,7 @@ class Nag_View_List
             'title' => $this->_title
         ));
         $tasks = $this->_tasks;
+
         Horde::startBuffer();
         echo Nag::menu();
         Nag::status();
@@ -107,7 +108,10 @@ class Nag_View_List
         if ($this->_showTagBrowser) {
             echo $this->_getTagTrail() . $this->_getRelatedTags();
         }
+
+        // @TODO: Remove these hacks when refactored to view.
         $title = $this->_title;
+
         require NAG_TEMPLATES . '/list.html.php';
         $output->footer();
 
@@ -208,10 +212,12 @@ class Nag_View_List
     {
         // Text filter
         $search_pattern = $this->_vars->search_pattern;
-        $search_name = $this->_vars->search_name == 'on' ? Nag_Search::MASK_NAME : 0;
-        $search_desc = $this->_vars->search_desc == 'on' ? Nag_Search::MASK_DESC : 0;
+        $search_in = $this->_vars->search_in;
+        $search_name = in_array('search_name', $search_in) ? Nag_Search::MASK_NAME : 0;
+        $search_desc = in_array('search_desc', $search_in) ? Nag_Search::MASK_DESC : 0;
         $search_tags = !empty($this->_vars->search_tags) ? Nag_Search::MASK_TAGS : 0;
         $search_completed = $this->_vars->search_completed;
+
         $this->_vars->set('show_completed', $search_completed);
         $mask = $search_name | $search_desc | $search_tags;
 
@@ -250,7 +256,16 @@ class Nag_View_List
         }
 
         // Save as a smart list?
-        if ($this->_vars->get('save_smartlist')) {
+        if ($id = $this->_vars->get('smart_id')) {
+            // Existing list.
+            $smartlist = $GLOBALS['nag_shares']->getShare($id);
+            Nag::updateTasklist(
+                $smartlist,
+                array(
+                    'name' => $this->_vars->get('smartlist_name'),
+                    'search' => serialize($search))
+            );
+        } elseif ($this->_vars->get('save_smartlist')) {
             Nag::addTasklist(
                 array('name' => $this->_vars->get('smartlist_name'),
                       'search' => serialize($search)),

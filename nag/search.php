@@ -17,9 +17,17 @@ $page_output->header(array(
     'title' => _("Search")
 ));
 
+// Editing existing SmartList?
+$vars = Horde_Variables::getDefaultVariables();
+if ($id = $vars->get('smart_id')) {
+    $list = $nag_shares->getShare($id);
+    $searchObj = unserialize($list->get('search'));
+    $vars->set('smartlist_name', $list->get('name'));
+    $searchObj->getVars($vars);
+}
+
 echo Nag::menu();
 Nag::status();
-require NAG_TEMPLATES . '/search/search.inc';
-$GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Nag_Ajax_Imple_TagAutoCompleter', array(
-  'id' => 'search_tags'));
+$form = new Nag_Form_Search($vars, _("Search"));
+$form->renderActive();
 $page_output->footer();
