@@ -69,7 +69,7 @@ extends Horde_Kolab_Storage_List_Manipulation
             );
         }
         foreach ($this->_listeners as $listener) {
-            $listener->updateAfterCreateFolder($folder);
+            $listener->updateAfterCreateFolder($folder, $type);
         }
     }
 

@@ -90,6 +90,18 @@ extends PHPUnit_Framework_TestCase
         $manipulation->createFolder('TEST');
     }
 
+    public function testUpdateAfterCreateFolderWithType()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $manipulation = new Horde_Kolab_Storage_List_Manipulation_Base($driver);
+        $listener = $this->getMock('Horde_Kolab_Storage_List_Manipulation_Listener');
+        $listener->expects($this->once())
+            ->method('updateAfterCreateFolder')
+            ->with('TEST', 'event');
+        $manipulation->registerListener($listener);
+        $manipulation->createFolder('TEST', 'event');
+    }
+
     public function testUpdateAfterDeleteFolder()
     {
         $driver = $this->getMock('Horde_Kolab_Storage_Driver');
