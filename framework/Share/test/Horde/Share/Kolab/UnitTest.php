@@ -309,13 +309,25 @@ extends PHPUnit_Framework_TestCase
         $share->save();
         $this->assertEquals(
             array(
-                'namespace' => 'personal',
                 'other' => 'OTHER',
                 'share_name' => 'internal_id'
             ),
             $this->list
             ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE)
             ->getParameters('INBOX/Calendar')
+        );
+    }
+
+    public function testSetDefault()
+    {
+        $share = $this->_getPrefilledDriver()
+            ->getShareById($this->_getId('john', 'Calendar'));
+        $share->set('default', true);
+        $share->save();
+        $this->assertTrue(
+            $this->_getPrefilledDriver()
+            ->getShareById($this->_getId('john', 'Calendar'))
+            ->get('default')
         );
     }
 

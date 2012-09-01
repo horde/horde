@@ -690,6 +690,10 @@ class Horde_Share_Kolab extends Horde_Share_Base
             );
         }
 
+        if (!empty($data['default'])) {
+            $this->getList()->getQuery()->setDefault($this->_idDecode($id));
+        }
+
         $query = $this->getList()
             ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE);
         if (isset($data['desc'])) {
@@ -705,7 +709,8 @@ class Horde_Share_Kolab extends Horde_Share_Base
             $data['delimiter'],
             $data['prefix'],
             $data['subpath'],
-            $data['folder']
+            $data['folder'],
+            $data['namespace']
         );
         $query->setParameters($this->_idDecode($id), $data);
     }
