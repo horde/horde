@@ -562,6 +562,7 @@ class Mnemo
             ->create();
         if (($new_default = $notepads->ensureDefaultShare()) !== null) {
             $GLOBALS['display_notepads'][] = $new_default;
+            $GLOBALS['prefs']->setValue('default_notepad', $new_default);
         }
 
         $GLOBALS['prefs']->setValue('display_notepads', serialize($GLOBALS['display_notepads']));
