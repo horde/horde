@@ -61,6 +61,13 @@ class Nag_Form_Search extends Horde_Form
         // @TODO: Only enable title if checkbox is checked.
         $this->addVariable(_("Save this search as a SmartList?"), 'save_smartlist', 'boolean', false);
         $this->addVariable(_("SmartList Name:"), 'smartlist_name', 'text', false);
+
+        $this->setButtons(_("Search"), _("Reset"));
+
+        // If editing a SmartList, allow deletion.
+        if ($vars->get('smart_id')) {
+            $this->appendButtons(array(array('value' => _("Delete SmartList"), 'name' => 'deletebutton')));
+        }
     }
 
     public function renderActive()
