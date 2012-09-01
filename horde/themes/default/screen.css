@@ -71,9 +71,8 @@ br.spacer {
     background: #e9e9e9;
 }
 .headerbox {
-    border-left: 1px solid #000;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
+    border: 1px solid #a6b0b1;
+    border-top-width: 0;
     background: #fff;
     vertical-align: top;
 }
@@ -85,8 +84,8 @@ br.spacer {
     text-align: left;
     font-weight: bold;
     font-size: 140%;
-    padding: 3px 10px;
-    min-height: 24px;
+    padding: 3px 5px;
+    min-height: 21px;
 }
 .header a:hover, a.header:hover {
     color: #333;
@@ -165,6 +164,12 @@ table.linedRow, ul.linedRow {
 table.nopadding td, table.nopadding th {
     padding: 0;
 }
+table.nopadding table td, table.nopadding table th {
+    padding: 1px;
+}
+table.nopadding .headerbox td, table.nopadding .headerbox th {
+    padding: 1px 5px;
+}
 .sortup {
     background: url("graphics/za.png") center left no-repeat;
     text-indent: 15px;
@@ -235,8 +240,7 @@ small, .small {
 }
 .control {
     color: #000;
-    background: #ccc;
-    border-bottom: 1px solid #999;
+    background: #ebeff0;
     padding: 1px;
 }
 .accessKey {
