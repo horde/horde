@@ -280,7 +280,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
                 // do a deep copy. Otherwise, the original event's recurrence will
                 // become corrupt.
                 $newEvent = clone($event);
-                $newEvent->recurrence = new Horde_Date_Recurrence();
+                $newEvent->recurrence = new Horde_Date_Recurrence($event->start);
                 $newEvent->readForm();
 
                 // Create an exception event from the new properties.
