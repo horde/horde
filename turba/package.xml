@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [gwr] Always mark the initial share as default addressbook.
 * [mms] Initial implementation of smartmobile view.
  </notes>
  <contents>
@@ -1467,6 +1468,7 @@
    <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [gwr] Always mark the initial share as default addressbook.
 * [mms] Initial implementation of smartmobile view.
    </notes>
   </release>

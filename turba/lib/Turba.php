@@ -576,6 +576,7 @@ class Turba
                     $source_config['params']['share'] = $share;
                     $newSources[$sourceKey] = $source_config;
                     $personal = true;
+                    $GLOBALS['prefs']->setValue('default_dir', $share->getName());
                 } catch (Horde_Share_Exception $e) {
                     Horde::logMessage($e, 'ERR');
                 }
