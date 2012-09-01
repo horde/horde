@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [gwr] Always mark the initial share as default calendar.
 * [jan] Fix attendees button in traditional view.
 * [jan] Fix sending alarm emails.
  </notes>
@@ -1925,6 +1926,7 @@
    <date>2012-09-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [gwr] Always mark the initial share as default calendar.
 * [jan] Fix attendees button in traditional view.
 * [jan] Fix sending alarm emails.
    </notes>

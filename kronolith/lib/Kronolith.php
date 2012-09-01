@@ -951,6 +951,7 @@ class Kronolith
             $share = $calendars->createDefaultShare();
             $GLOBALS['all_calendars'][$share->getName()] = new Kronolith_Calendar_Internal(array('share' => $share));
             $GLOBALS['display_calendars'][] = $share->getName();
+            $GLOBALS['prefs']->setValue('default_share', $share->getName());
 
             /* Calendar auto-sharing with the user's groups */
             if ($GLOBALS['conf']['autoshare']['shareperms'] != 'none') {
