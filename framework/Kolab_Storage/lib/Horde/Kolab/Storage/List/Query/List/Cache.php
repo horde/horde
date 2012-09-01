@@ -171,6 +171,17 @@ Horde_Kolab_Storage_List_Synchronization_Listener
     }
 
     /**
+     * Set the specified folder as default for its current type.
+     *
+     * @param string $folder The folder name.
+     */
+    public function setDefault($folder)
+    {
+        $data = $this->folderData($folder);
+        $this->_sync->setDefault($data, $this->getDefault($data['type']));
+    }
+
+    /**
      * Return the list of personal default folders.
      *
      * @return array An array that associates type (key) with the corresponding
@@ -295,6 +306,6 @@ Horde_Kolab_Storage_List_Synchronization_Listener
      */
     public function synchronize()
     {
-        $this->_sync->synchronize($this->_list_cache);
+        $this->_sync->synchronize();
     }
 }

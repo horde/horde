@@ -245,6 +245,55 @@ class Horde_Kolab_Storage_List_Query_List_Cache_Synchronization
     }
 
     /**
+     * Set the specified folder as default for its current type.
+     *
+     * @param array  $folder   The folder data.
+     * @param string|boolean $previous The previous default folder or false if there was none.
+     */
+    public function setDefault($folder, $previous = false)
+    {
+        if (!$this->_cache->hasNamespace()) {
+            // Cache not synchronized yet.
+            return;
+        }
+        if ($folder['namespace'] !== Horde_Kolab_Storage_Folder_Namespace::PERSONAL) {
+            throw new Horde_Kolab_Storage_List_Exception(
+                sprintf(
+                    "Unable to mark %s as a default folder. It is not within your personal namespace!",
+                    $folder
+                )
+            );
+        }
+        $annotations = $this->_cache->getFolderTypes();
+        if (!isset($annotations[$folder['folder']])) {
+            throw new Horde_Kolab_Storage_List_Exception(
+                sprintf(
+                    "The folder %s has no Kolab type. It cannot be marked as 'default' folder!",
+                    $folder
+                )
+            );
+        }
+        if ($previous) {
+            $this->_driver->setAnnotation(
+                $previous,
+                Horde_Kolab_Storage_List_Query_List::ANNOTATION_FOLDER_TYPE,
+                $folder['type']
+            );
+            $annotations[$previous] = $folder['type'];
+        }
+        $this->_driver->setAnnotation(
+            $folder['folder'],
+            Horde_Kolab_Storage_List_Query_List::ANNOTATION_FOLDER_TYPE,
+            $folder['type'] . '.default'
+        );
+        $annotations[$folder['folder']] = $folder['type'] . '.default';
+
+        $folder_list = $this->_cache->getFolders();
+        $namespace = unserialize($this->_cache->getNamespace());
+        $this->_synchronize($namespace, $folder_list, $annotations);
+    }
+
+    /**
      * Return any default folder duplicates.
      *
      * @return array The list of duplicate default folders accessible to the current user.

@@ -179,6 +179,29 @@ extends Horde_Kolab_Storage_List_Query_List
     }
 
     /**
+     * Set the specified folder as default for its current type.
+     *
+     * @param string $folder The folder name.
+     */
+    public function setDefault($folder)
+    {
+        $types = $this->listTypes();
+        if (!isset($types[$folder])) {
+            throw new Horde_Kolab_Storage_List_Exception(
+                sprintf(
+                    "The folder %s has no Kolab type. It cannot be marked as 'default' folder!",
+                    $folder
+                )
+            );
+        }
+        $previous = $this->getDefault($types[$folder]);
+        if ($previous) {
+            $this->_driver->setAnnotation($previous, self::ANNOTATION_FOLDER_TYPE, $types[$folder]);
+        }
+        $this->_driver->setAnnotation($folder, self::ANNOTATION_FOLDER_TYPE, $types[$folder] . '.default');
+    }
+
+    /**
      * Return the list of personal default folders.
      *
      * @return array An array that associates type (key) with the corresponding

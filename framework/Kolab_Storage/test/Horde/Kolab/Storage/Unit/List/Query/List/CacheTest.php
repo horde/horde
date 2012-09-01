@@ -233,6 +233,24 @@ extends PHPUnit_Framework_TestCase
         $list->listOwners();
     }
 
+    public function testSetDefault()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->exactly(2))
+            ->method('getQuery')
+            ->with(
+                $this->logicalOr(
+                    Horde_Kolab_Storage_List_Query_List_Cache::FOLDERS,
+                    Horde_Kolab_Storage_List_Query_List_Cache::PERSONAL_DEFAULTS
+                )
+            )
+            ->will($this->returnValue(array('INBOX/Foo' => array('folder' => 'INBOX/Foo', 'type' => 'event'))));
+        $this->sync->expects($this->once())
+            ->method('setDefault')
+            ->with(array('folder' => 'INBOX/Foo', 'type' => 'event'), null);
+        $list->setDefault('INBOX/Foo');
+    }
+
     public function testListPersonalDefaults()
     {
         $list = $this->_getList();
@@ -392,7 +410,7 @@ extends PHPUnit_Framework_TestCase
         $list = $this->_getList();
         $this->sync->expects($this->once())
             ->method('synchronize')
-            ->with($this->cache);
+            ->with();
         $list->synchronize();
     }
 
