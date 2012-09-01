@@ -9,7 +9,7 @@
  */
 
 /**
- * The Nag_TaskForm class provides the form for adding and editing a task.
+ * The Nag_Form_Task class provides the form for adding and editing a task.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Nag
