@@ -205,7 +205,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             $varname,
             Horde::img('loading.gif', _("Loading...")));
 
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Nag_Ajax_Imple_TagAutoCompleter', array('id' => 'tags'));
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Nag_Ajax_Imple_TagAutoCompleter', array('id' => $varname));
         return $html;
     }
 
