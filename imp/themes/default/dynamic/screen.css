@@ -660,6 +660,7 @@ div.dimpActionsMsg #windowclose {
     padding: 5px;
 }
 #composeMessage {
+    background-color: #fff;
     border: none;
     margin: 0;
     padding: 0;
