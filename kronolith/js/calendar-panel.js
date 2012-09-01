@@ -15,8 +15,8 @@ function sbarToggle()
 
 document.observe('dom:loaded', function() {
     $$('#pageControlsInner .checkbox').invoke('observe', 'click', function() {
-        Views.invalidate();
-        ShowView(KronolithView, { date: KronolithDate.getFullYear() + (KronolithDate.getMonth() + 1).toPaddedString(2) + KronolithDate.getDate().toPaddedString(2), toggle_calendar: this.value }, false);
+        //Views.invalidate();
+        //ShowView(KronolithView, { date: KronolithDate.getFullYear() + (KronolithDate.getMonth() + 1).toPaddedString(2) + KronolithDate.getDate().toPaddedString(2), toggle_calendar: this.value }, false);
     });
 
     $$('#pageControlsInner .calendar-info').invoke('observe', 'click', function() {
