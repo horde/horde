@@ -39,31 +39,70 @@ extends PHPUnit_Framework_TestCase
     {
         $list = $this->_getList();
         $this->cache->expects($this->once())
-            ->method('getFolderTypes')
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::TYPES)
             ->will($this->returnValue(array('foo' => 'BAR')));
         $this->assertEquals(array('foo' => 'BAR'), $list->listTypes());
     }
 
-    public function testUnitializedListByType()
+    public function testUnitializedListTypes()
     {
         $list = $this->_getList();
         $this->cache->expects($this->once())
-            ->method('hasFolderTypes')
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::TYPES)
             ->will($this->returnValue(false));
         $this->sync->expects($this->once())
             ->method('synchronize');
         $list->listTypes('foo');
     }
 
-    public function testInitializedListByType()
+    public function testInitializedListTypes()
     {
         $list = $this->_getList();
         $this->cache->expects($this->once())
-            ->method('hasFolderTypes')
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::TYPES)
             ->will($this->returnValue(true));
         $this->sync->expects($this->never())
             ->method('synchronize');
         $list->listTypes('foo');
+    }
+
+    public function testListByType()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::BY_TYPE)
+            ->will($this->returnValue(array('foo' => array('BAR' => array('a' => 'b')))));
+        $this->assertEquals(
+            array('BAR'), $list->listByType('foo')
+        );
+    }
+
+    public function testUnitializedListByType()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::BY_TYPE)
+            ->will($this->returnValue(false));
+        $this->sync->expects($this->once())
+            ->method('synchronize');
+        $list->listByType('foo');
+    }
+
+    public function testItializedListByType()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('hasQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::BY_TYPE)
+            ->will($this->returnValue(true));
+        $this->sync->expects($this->never())
+            ->method('synchronize');
+        $list->listByType('foo');
     }
 
     public function testDataByType()
@@ -278,6 +317,16 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals('FOO', $list->getDefault('bar'));
     }
 
+    public function testMissingDefault()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::PERSONAL_DEFAULTS)
+            ->will($this->returnValue(array('bar' => 'FOO')));
+        $this->assertFalse($list->getDefault('foo'));
+    }
+
     public function testGetForeignDefault()
     {
         $list = $this->_getList();
@@ -290,6 +339,16 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testMissingForeignDefault()
+    {
+        $list = $this->_getList();
+        $this->cache->expects($this->once())
+            ->method('getQuery')
+            ->with(Horde_Kolab_Storage_List_Query_List_Cache::DEFAULTS)
+            ->will($this->returnValue(array('owner' => array('bar' => 'FOO'))));
+        $this->assertFalse($list->getForeignDefault('owner', 'foo'));
+    }
+
     public function testGetStamp()
     {
         $list = $this->_getList();
@@ -299,6 +358,33 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'STAMP', $list->getStamp()
         );
+    }
+
+    public function testUpdateAfterCreateFolder()
+    {
+        $list = $this->_getList();
+        $this->sync->expects($this->once())
+            ->method('updateAfterCreateFolder')
+            ->with('INBOX/Calendar', 'event.default');
+        $list->updateAfterCreateFolder('INBOX/Calendar', 'event.default');
+    }
+
+    public function testUpdateAfterDeleteFolder()
+    {
+        $list = $this->_getList();
+        $this->sync->expects($this->once())
+            ->method('updateAfterDeleteFolder')
+            ->with('INBOX/Calendar');
+        $list->updateAfterDeleteFolder('INBOX/Calendar');
+    }
+
+    public function testUpdateAfterRenameFolder()
+    {
+        $list = $this->_getList();
+        $this->sync->expects($this->once())
+            ->method('updateAfterRenameFolder')
+            ->with('INBOX/Calendar', 'INBOX/Kalender');
+        $list->updateAfterRenameFolder('INBOX/Calendar', 'INBOX/Kalender');
     }
 
     public function testSynchronize()
