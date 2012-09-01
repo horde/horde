@@ -25,7 +25,7 @@ class Nag_Form_Search extends Horde_Form
         $this->addHidden('', 'smart_id', 'text', false);
         $this->addHidden('', 'actionID', 'text', false);
         $vars->set('actionID', 'search_tasks');
-        $this->addVariable(_("Search Text:"), 'search_pattern', 'text', true);
+        $this->addVariable(_("Search Text:"), 'search_pattern', 'text', false);
         $v = $this->addVariable(
             _("Search In:"),
             'search_in',
