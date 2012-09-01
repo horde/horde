@@ -174,7 +174,7 @@ class Nag_Search implements Serializable
     public function getVars(Horde_Variables &$vars)
     {
         $vars->set('search_pattern', $this->_search);
-        $vars->set('search_tags', $this->_tags);
+        $vars->set('search_tags', implode(',', $this->_tags));
         $vars->set('search_completed', $this->_completed);
         $vars->set('due_within', $this->_due[0]);
         $vars->set('due_of', $this->_due[1]);

@@ -237,7 +237,7 @@ class Nag_View_List
             array(
                 'completed' => $search_completed,
                 'due' => $date,
-                'tags' => $this->_vars->search_tags)
+                'tags' => explode(',', $this->_vars->search_tags))
         );
         try {
             $tasks = $search->getSlice();
