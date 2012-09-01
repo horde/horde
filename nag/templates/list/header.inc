@@ -1,5 +1,8 @@
 <div class="header leftAlign">
  <?php echo htmlspecialchars($title) . ' (' . $tasks->count() . ')' ?>
+ <?php if (!empty($this->_smartShare)): ?>
+   <small><a href="<?php echo Horde::url('search.php')->add('smart_id', $this->_smartShare->getName()); ?>"><?php echo _("Edit criteria")?></a></small>
+ <?php endif; ?>
  <a id="quicksearchL" href="<?php echo Horde::url('search.php') ?>" title="<?php echo _("Search") ?>" onclick="$('quicksearchL').hide(); $('quicksearch').show(); $('quicksearchT').focus(); return false;"><?php echo Horde::img('search.png', _("Search")) ?></a>
  <div id="quicksearch" style="display:none">
   <input type="text" name="quicksearchT" id="quicksearchT" for="tasks-body" empty="tasks_empty" />

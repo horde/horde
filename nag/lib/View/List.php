@@ -41,6 +41,13 @@ class Nag_View_List
     protected $_browser;
 
     /**
+     * Share representing the current smarlist (if being viewed).
+     *
+     * @var Horde_Share_Object_Base
+     */
+    protected $_smartShare;
+
+    /**
      * Const'r
      *
      * @param Horde_Variables $vars  Variables for the view.
@@ -165,6 +172,7 @@ class Nag_View_List
             $lists = array($this->_vars->get('list'));
             $list = $GLOBALS['nag_shares']->getShare($this->_vars->get('list'));
             $this->_title = $list->get('name');
+            $this->_smartShare = $list;
             // Fall through
         default:
             // If we have an active tag browse, use it.
