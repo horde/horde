@@ -12,13 +12,24 @@ class Mnemo_Hooks
                    $GLOBALS['registry']->getAuth(),
                    array('perm' => Horde_Perms::SHOW,
                          'attributes' => $GLOBALS['registry']->getAuth()));
+           $primary = null;
            foreach ($notepads as $id => $notepad) {
                $default = $notepad->get('default');
                if (!empty($default)) {
-                   return $id;
+                   if (!empty($primary)) {
+                       $GLOBALS['notification']->push(
+                           sprintf(
+                               "Both shares '%s' and '%s' are marked as default notepad! Please notify your administrator.",
+                               $primary->get('name'),
+                               $notepad->get('name')
+                           ),
+                           'horde.error'
+                       );
+                   }
+                   $primary = $notepad;
                }
            }
-           return;
+           return $id;
        }
    }
 
