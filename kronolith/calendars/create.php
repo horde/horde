@@ -27,12 +27,14 @@ $form = new Kronolith_Form_CreateCalendar($vars);
 // Execute if the form is valid.
 if ($form->validate($vars)) {
     try {
-        $form->execute();
+        $calendar = $form->execute();
         $notification->push(sprintf(_("The calendar \"%s\" has been created."), $vars->get('name')), 'horde.success');
     } catch (Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
     }
-    Horde::url('calendars/', true)->redirect();
+    Horde::url('calendars/edit.php')
+        ->add('c', $calendar->getName())
+        ->redirect();
 }
 
 $menu = Kronolith::menu();
