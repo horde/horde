@@ -376,7 +376,7 @@ $a_template->set('nav_poll', !$prefs->isLocked('nav_poll') && !$prefs->getValue(
 $a_template->set('notrash', !$prefs->getValue('use_trash'));
 $a_template->set('file_upload', $session->get('imp', 'file_upload'));
 $a_template->set('expand_all', Horde::widget(array('url' => $folders_url_ob->copy()->add(array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), 'title' => _("Expand All"), 'nocheck' => true)));
-$a_template->set('collapse_all', Horde::widget(array('url' => $folders_url_ob->copy()->add(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), 'title' => _("Collapse All"), 'nocheck' => true));
+$a_template->set('collapse_all', Horde::widget(array('url' => $folders_url_ob->copy()->add(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), 'title' => _("Collapse All"), 'nocheck' => true)));
 $a_template->set('help', Horde_Help::link('imp', 'folder-options'));
 
 /* Build the folder tree. */
