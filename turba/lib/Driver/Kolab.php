@@ -664,6 +664,10 @@ class Turba_Driver_Kolab extends Turba_Driver
         if (!isset($params['name'])) {
             $params['name'] = _('Contacts');
         }
+        if (!empty($params['params']['default'])) {
+            $params['default'] = true;
+            unset($params['params']['default']);
+        }
         return Turba::createShare($share_name, $params);
     }
 
