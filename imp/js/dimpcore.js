@@ -169,9 +169,8 @@ var DimpCore = {
         }
 
         alist.addr.each(function(o) {
-            var a = new Element('A', { className: 'address' }).store({ email: o });
+            var a = new Element('A', { className: 'horde-button' }).store({ email: o });
             df.appendChild(a);
-            df.appendChild(document.createTextNode(', '));
 
             if (o.g) {
                 a.insert(o.g.escapeHTML());
@@ -183,9 +182,6 @@ var DimpCore = {
 
             this.DMenu.addElement(a.identify(), 'ctx_contacts', { offset: a, left: true });
         }, this);
-
-        // Remove trailing comma
-        df.removeChild(df.lastChild);
 
         if (alist.addr.size() > 15) {
             tmp = $('largeaddrspan').clone(true).addClassName('largeaddrspan_active').writeAttribute({ id: null });

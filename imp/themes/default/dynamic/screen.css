@@ -732,19 +732,9 @@ span.attachmentImg {
 }
 
 /* Email Addresses. */
-a.address {
-    background: #cecece;
-    cursor: pointer;
-    padding: 1px;
-    white-space: nowrap;
-}
-a.address img {
-    display: none;
-    vertical-align: top;
-}
-a.address:hover img {
-    display: inline;
-    padding-left: 4px;
+#msgHeadersContent .horde-button {
+    padding: 1px 3px;
+    margin: -2px 1px 0 0;
 }
 
 /* Drag and drop styles. */
