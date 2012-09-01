@@ -835,6 +835,7 @@ class Nag
             ->create();
         if (($new_default = $tasklists->ensureDefaultShare()) !== null) {
             $GLOBALS['display_tasklists'][] = $new_default;
+            $GLOBALS['prefs']->setValue('default_tasklist', $new_default);
         }
 
         $GLOBALS['prefs']->setValue('display_tasklists', serialize($GLOBALS['display_tasklists']));
