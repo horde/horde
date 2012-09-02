@@ -166,7 +166,8 @@ var HordeMobile = {
     {
         whitelist = whitelist || [];
 
-        if ($.mobile.activePage.jqmData('role') == 'dialog' &&
+        if ($.mobile.activePage &&
+            $.mobile.activePage.jqmData('role') == 'dialog' &&
             $.inArray($.mobile.activePage.attr('id'), whitelist) == -1) {
             $.mobile.activePage.bind('pagehide', function(e) {
                 $(e.currentTarget).unbind(e);
