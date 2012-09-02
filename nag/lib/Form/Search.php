@@ -64,7 +64,7 @@ class Nag_Form_Search extends Horde_Form
 
         // If editing a SmartList, allow deletion.
         if ($vars->get('smart_id')) {
-            $this->appendButtons(array(array('value' => _("Delete SmartList"), 'name' => 'deletebutton')));
+            $this->appendButtons(array(array('value' => _("Delete SmartList"), 'name' => 'deletebutton', 'class' => 'horde-delete')));
         }
     }
 
