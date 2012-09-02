@@ -1,6 +1,6 @@
 <?php
 
-function _headerWidget($by, $title, $content)
+function _headerWidget($by, $content)
 {
     global $baseurl, $sortdir, $sortby;
 
