@@ -208,6 +208,27 @@ var HordeMobile = {
     },
 
     /**
+     * Create a URL to a smartmobile page.
+     *
+     * @param string page    The page name.
+     * @param object params  URL parameters.
+     */
+    createUrl: function(page, params)
+    {
+        var url = '#' + page, tmp = [];
+        params = params || {};
+
+        if (!$.isEmptyObject(params)) {
+            $.each(params, function(k, v) {
+                tmp.push(k + '=' + v);
+            });
+            url += '?' + tmp.join('&');
+        }
+
+        return url;
+    },
+
+    /**
      * Manually update hash: jqm exits too early if calling changePage() with
      * the same page but different hash parameters.
      *
