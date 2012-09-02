@@ -1,28 +1,28 @@
 <tr class="<?php echo $style ?>">
   <td>
-<?php
-if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-    if (!$task->completed) {
-        if (!$task->childrenCompleted()) {
-            $label = _("Incomplete sub tasks, complete them first");
-            echo Horde::img('unchecked.png', $label, array('title' => $label));
+    <?php
+    if ($have_edit) {
+        if (!$task->completed) {
+            if (!$task->childrenCompleted()) {
+                $label = _("Incomplete sub tasks, complete them first");
+                echo Horde::img('unchecked.png', $label, array('title' => $label));
+            } else {
+                $label = sprintf(_("Complete \"%s\""), $task->name);
+                echo Horde::link($task->complete_link, $label) . Horde::img('unchecked.png', $label) . '</a>';
+            }
         } else {
-            $label = sprintf(_("Complete \"%s\""), $task->name);
-            echo Horde::link($task->complete_link, $label) . Horde::img('unchecked.png', $label) . '</a>';
+            if ($task->parent && $task->parent->completed) {
+                $label = _("Completed parent task, mark it as incomplete first");
+                echo Horde::img('checked.png', $label, array('title' => $label));
+            } else {
+                $label = sprintf(_("Mark \"%s\" as incomplete"), $task->name);
+                echo Horde::link($task->complete_link, $label) . Horde::img('checked.png', $label) . '</a>';
+            }
         }
     } else {
-        if ($task->parent && $task->parent->completed) {
-            $label = _("Completed parent task, mark it as incomplete first");
-            echo Horde::img('checked.png', $label, array('title' => $label));
-        } else {
-            $label = sprintf(_("Mark \"%s\" as incomplete"), $task->name);
-            echo Horde::link($task->complete_link, $label) . Horde::img('checked.png', $label) . '</a>';
-        }
+        echo Nag::formatCompletion($task->completed);
     }
-} else {
-    echo Nag::formatCompletion($task->completed);
-}
-?>
+    ?>
   </td>
 
 <?php if (in_array('tasklist', $columns)): ?>
@@ -32,7 +32,7 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
 <?php endif; ?>
   <td>
     <?php
-    if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT) &&
+    if ($have_edit &&
         (!$task->private || $task->owner == $GLOBALS['registry']->getAuth())) {
         $label = sprintf(_("Edit \"%s\""), $task->name);
         echo Horde::link($task->edit_link, $label) . Horde::img('edit.png', $label) . '</a>';
@@ -45,7 +45,7 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     $task_name = strlen($task->name)
         ? htmlspecialchars($task->name)
         : _("[none]");
-    if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+    if ($have_read) {
         echo Horde::link($task->view_link, '', '', '', '', $task->desc)
             . $task_name . '</a>';
     } else {

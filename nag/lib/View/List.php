@@ -89,12 +89,7 @@ class Nag_View_List
         $output->header(array(
             'title' => $this->_title
         ));
-        $tasks = $this->_tasks;
 
-        Horde::startBuffer();
-        echo Nag::menu();
-        Nag::status();
-        echo '<div id="page">';
         $tabs = new Horde_Core_Ui_Tabs('show_completed', $this->_vars);
         if (!$GLOBALS['prefs']->isLocked('show_completed')) {
             $listurl = Horde::url('list.php');
@@ -111,15 +106,40 @@ class Nag_View_List
                     array('img' => 'search.png'));
             }
         }
-        echo $tabs->render($this->_vars->get('show_completed'));
-        if ($this->_showTagBrowser) {
-            echo $this->_getRelatedTags() . $this->_getTagTrail();
+
+        // Set up the view
+        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view->addHelper(new Nag_View_Helper_List($view));
+        $view->tasks = $this->_tasks;
+        $view->tasks->reset();
+        $view->tabs = $tabs->render($this->_vars->get('show_completed'));
+        $view->browser = $this->_getRelatedTags() . $this->_getTagTrail();
+        $view->title = $this->_title;
+        $view->sortby = $prefs->getValue('sortby');
+        $view->sortdir = $prefs->getValue('sortdir');
+        $view->sortdirclass = $view->sortdir ? 'sortup' : 'sortdown';
+        $view->dateFormat = $prefs->getValue('date_format');
+        $view->columns = @unserialize($prefs->getValue('tasklist_columns'));
+        if (empty($view->columns)) {
+            $view->columns = array();
+        }
+        $view->dynamic_sort = true;
+
+        $view->baseurl = Horde::url('list.php');
+        if ($actionID == 'search_tasks') {
+            $view->baseurl->add(
+                array('actionID' => 'search_tasks',
+                      'search_pattern' => $search_pattern,
+                      'search_name' => $search_name ? 'on' : 'off',
+                      'search_desc' => $search_desc ? 'on' : 'off')
+            );
         }
 
-        // @TODO: Remove these hacks when refactored to view.
-        $title = $this->_title;
-
-        require NAG_TEMPLATES . '/list.html.php';
+        $list_html = $view->render('list');
+        Horde::startBuffer();
+        echo Nag::menu();
+        Nag::status();
+        echo $list_html;
         $output->footer();
 
         return Horde::endBuffer();
@@ -209,7 +229,8 @@ class Nag_View_List
         try {
             $this->_tasks = Nag::listTasks(array(
                 'tasklists' => $lists,
-                'include_tags' => true)
+                'include_tags' => true,
+                'completed' => $this->_vars->show_completed)
             );
         } catch (Nag_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
