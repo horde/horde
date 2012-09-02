@@ -239,11 +239,8 @@ class Nag_View_List
         $mask = $search_name | $search_desc | $search_tags;
 
         // Date filter
-        if (!empty($this->_vars->due_within) &&
-            is_numeric($this->_vars->due_within) &&
-            !empty($this->_vars->due_of)) {
-            $date = array($this->_vars->due_within, $this->_vars->due_of);
-        } else {
+        $date = $info['due_date'];
+        if (empty($date)) {
             $date = array();
         }
 

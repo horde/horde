@@ -54,9 +54,7 @@ class Nag_Form_Search extends Horde_Form
         );
         $v->setDefault(Nag::VIEW_ALL);
 
-        // @TODO: Create a custom form renderer for a combination of these two.
-        $this->addVariable(_("Due date is within:"), 'due_within', 'number', false);
-        $this->addVariable(_("of"), 'due_of', 'text', false);
+        $this->addVariable(_("Due date:"), 'due_date', 'Nag:NagSearchDue', false);
 
         // @TODO: Only enable title if checkbox is checked.
         $this->addVariable(_("Save this search as a SmartList?"), 'save_smartlist', 'boolean', false);
