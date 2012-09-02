@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-08-31</date>
- <time>14:46:03</time>
+ <date>2012-09-02</date>
+ <time>16:47:14</time>
  <version>
   <release>2.0.0beta6</release>
   <api>2.0.0beta1</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added Horde_Core_Url_Smartmobile class.
 * [jan] Make Horde::widget() take a single hash parameter.
 * [mms] Allow application API interface to dynamically alter properties (Bug #11388).
  </notes>
@@ -441,6 +442,9 @@
        <file name="VarRenderer.php" role="php" />
        <file name="Widget.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Ui -->
+      <dir name="Url">
+       <file name="Smartmobile.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Url -->
       <file name="Block.php" role="php" />
       <file name="Browser.php" role="php" />
       <file name="Bundle.php" role="php" />
@@ -1516,6 +1520,7 @@
    <install as="Horde/Core/Ui/Widget.php" name="lib/Horde/Core/Ui/Widget.php" />
    <install as="Horde/Core/Ui/VarRenderer/Html.php" name="lib/Horde/Core/Ui/VarRenderer/Html.php" />
    <install as="Horde/Core/Ui/VarRenderer/TablesetHtml.php" name="lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php" />
+   <install as="Horde/Core/Url/Smartmobile.php" name="lib/Horde/Core/Url/Smartmobile.php" />
    <install as="Horde/Exception/AuthenticationFailure.php" name="lib/Horde/Exception/AuthenticationFailure.php" />
    <install as="Horde/Exception/HookNotSet.php" name="lib/Horde/Exception/HookNotSet.php" />
    <install as="Horde/Exception/PushApp.php" name="lib/Horde/Exception/PushApp.php" />
@@ -2237,9 +2242,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-31</date>
+   <date>2012-09-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added Horde_Core_Url_Smartmobile class.
 * [jan] Make Horde::widget() take a single hash parameter.
 * [mms] Allow application API interface to dynamically alter properties (Bug #11388).
    </notes>
