@@ -197,7 +197,7 @@ var HordeMobile = {
     /**
      * Checks if the current page matches the ID.
      *
-     * @param string  The ID to check.
+     * @param string page  The ID to check.
      *
      * @return boolean  True if page is equal to ID.
      */
