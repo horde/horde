@@ -113,7 +113,7 @@ class Nag_View_List
         }
         echo $tabs->render($this->_vars->get('show_completed'));
         if ($this->_showTagBrowser) {
-            echo $this->_getTagTrail() . $this->_getRelatedTags();
+            echo $this->_getRelatedTags() . $this->_getTagTrail();
         }
 
         // @TODO: Remove these hacks when refactored to view.
@@ -338,11 +338,7 @@ class Nag_View_List
     protected function _getRelatedTags()
     {
         $rtags = $this->_browser->getRelatedTags();
-        if ($this->_browser->tagCount() >= 1) {
-            $t = _("Related Tags:");
-        } else {
-            $t = _("Tags:");
-        }
+        $t = Horde::img('tags.png');
         $html = sprintf('<div class="nag-tags-related">%s<ul class="horde-tags">', $t);
         foreach ($rtags as $id => $taginfo) {
             $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
@@ -359,7 +355,7 @@ class Nag_View_List
     protected function _getTagTrail()
     {
         if ($this->_browser->tagCount() >= 1) {
-            $html = '<div class="nag-tags-browsing">' . _("Browsing for tags:") . '<ul class="horde-tags">';
+            $html = '<div class="nag-tags-browsing">' . Horde::img('search.png') . '<ul class="horde-tags">';
             foreach ($this->_browser->getTags() as $tag => $id) {
                 $html .= '<li>' . htmlspecialchars($tag)
                     . $this->_linkRemoveTag($tag)->link()

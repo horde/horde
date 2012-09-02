@@ -207,6 +207,14 @@ table#tasklist-list th.sortdown {
     padding-left: 3px;
 }
 
+.nag-tags-related, .nag-tags-browsing {
+    margin-bottom: 12px;
+}
+
+.horde-tags li a img {
+    padding-left: 5px;
+}
+
 /* Icons. */
 .nag-managelists {
     background-image: url('graphics/manage.png');
