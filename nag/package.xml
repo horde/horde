@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-09-02</date>
- <time>15:58:45</time>
+ <time>18:34:40</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -134,6 +134,11 @@
      </dir> <!-- /lib/Ui/VarRenderer -->
     </dir> <!-- /lib/Ui -->
     <dir name="View">
+     <dir name="Helper">
+      <file name="HeaderWidget" role="horde" />
+      <file name="HeaderWidget.php" role="horde" />
+      <file name="List.php" role="horde" />
+     </dir> <!-- /lib/View/Helper -->
      <file name="List.php" role="horde" />
     </dir> <!-- /lib/View -->
     <file name=".htaccess" role="horde" />
@@ -407,11 +412,9 @@
      <file name="import.inc" role="horde" />
     </dir> <!-- /templates/data -->
     <dir name="list">
-     <file name="empty.inc" role="horde" />
-     <file name="header.inc" role="horde" />
-     <file name="task_footers.inc" role="horde" />
-     <file name="task_headers.inc" role="horde" />
-     <file name="task_summaries.inc" role="horde" />
+     <file name="header.html.php" role="horde" />
+     <file name="task_headers.html.php" role="horde" />
+     <file name="_task.html.php" role="horde" />
     </dir> <!-- /templates/list -->
     <dir name="smartmobile">
      <file name="create.html.php" role="horde" />
@@ -762,6 +765,9 @@
    <install as="nag/lib/Tasklists/Kolab.php" name="lib/Tasklists/Kolab.php" />
    <install as="nag/lib/Ui/VarRenderer/Nag.php" name="lib/Ui/VarRenderer/Nag.php" />
    <install as="nag/lib/View/List.php" name="lib/View/List.php" />
+   <install as="nag/lib/View/Helper/HeaderWidget" name="lib/View/Helper/HeaderWidget" />
+   <install as="nag/lib/View/Helper/HeaderWidget.php" name="lib/View/Helper/HeaderWidget.php" />
+   <install as="nag/lib/View/Helper/List.php" name="lib/View/Helper/List.php" />
    <install as="nag/locale/.htaccess" name="locale/.htaccess" />
    <install as="nag/locale/nag.pot" name="locale/nag.pot" />
    <install as="nag/locale/ar/LC_MESSAGES/nag.mo" name="locale/ar/LC_MESSAGES/nag.mo" />
@@ -869,11 +875,9 @@
    <install as="nag/templates/alarm/mail.plain.php" name="templates/alarm/mail.plain.php" />
    <install as="nag/templates/data/export.inc" name="templates/data/export.inc" />
    <install as="nag/templates/data/import.inc" name="templates/data/import.inc" />
-   <install as="nag/templates/list/empty.inc" name="templates/list/empty.inc" />
-   <install as="nag/templates/list/header.inc" name="templates/list/header.inc" />
-   <install as="nag/templates/list/task_footers.inc" name="templates/list/task_footers.inc" />
-   <install as="nag/templates/list/task_headers.inc" name="templates/list/task_headers.inc" />
-   <install as="nag/templates/list/task_summaries.inc" name="templates/list/task_summaries.inc" />
+   <install as="nag/templates/list/header.html.php" name="templates/list/header.html.php" />
+   <install as="nag/templates/list/task_headers.html.php" name="templates/list/task_headers.html.php" />
+   <install as="nag/templates/list/_task.html.php" name="templates/list/_task.html.php" />
    <install as="nag/templates/smartmobile/create.html.php" name="templates/smartmobile/create.html.php" />
    <install as="nag/templates/smartmobile/main.html.php" name="templates/smartmobile/main.html.php" />
    <install as="nag/templates/view/task.inc" name="templates/view/task.inc" />
