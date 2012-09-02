@@ -44,6 +44,8 @@ var HordeMobile = {
      * @param object params      The parameter hash for the AJAX request.
      * @param function callback  A callback function for successful request.
      * @param object opts        Additional options for jQuery.ajax().
+     *
+     * @return jqXHR  jQuery XHR object.
      */
     doAction: function(action, params, callback, opts)
     {
@@ -64,7 +66,8 @@ var HordeMobile = {
             type: 'post',
             url: HordeMobile.conf.ajax_url + action,
         }, opts || {});
-        $.ajax(options);
+
+        return $.ajax(options);
     },
 
     doActionComplete: function(d, callback)
