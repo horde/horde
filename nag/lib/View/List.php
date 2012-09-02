@@ -214,9 +214,19 @@ class Nag_View_List
 
     /**
      * Performs a Task search. self::_tasks is populated with the results.
+     *
+     * @throws Nag_Exception
      */
     protected function _doSearch()
     {
+
+        $form = new Nag_Form_Search($this->_vars);
+        if ($form->validate()) {
+            $form->getInfo($this->_vars, $info);
+        } else {
+            throw new Nag_Exception(current($form->getErrors()));
+        }
+
         // Text filter
         $search_pattern = $this->_vars->search_pattern;
         $search_in = $this->_vars->search_in;
