@@ -157,7 +157,12 @@ class Nag_View_List
         }
         switch ($action) {
         case 'search_tasks':
-            $this->_doSearch();
+            if ($this->_vars->deletebutton) {
+                $this->_doDeleteSmartList();
+                $this->_handleActions(false);
+            } else {
+                $this->_doSearch();
+            }
             break;
         case 'browse_add':
         case 'browse_remove':
@@ -288,6 +293,23 @@ class Nag_View_List
         }
 
         $this->_tasks = $tasks;
+    }
+
+    /**
+     * Delete a SmartList.
+     *
+     */
+    protected function _doDeleteSmartList()
+    {
+        try {
+            $sl = $GLOBALS['nag_shares']->getShare($this->_vars->smart_id);
+            Nag::deleteTasklist($sl);
+        } catch (Horde_Exception $e) {
+            $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+            Horde::url('list.php')->redirect();
+            exit;
+        }
+        $GLOBALS['notification']->push(_("SmartList deleted successfully"), 'horde.success');
     }
 
     /**
