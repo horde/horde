@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-31</date>
- <time>22:40:15</time>
+ <date>2012-09-02</date>
+ <time>15:58:45</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -108,12 +108,14 @@
       <file name="NagAlarm.php" role="horde" />
       <file name="NagDue.php" role="horde" />
       <file name="NagMethod.php" role="horde" />
+      <file name="NagSearchDue.php" role="horde" />
       <file name="NagStart.php" role="horde" />
       <file name="NagTags.php" role="horde" />
      </dir> <!-- /lib/Form/Type -->
      <file name="CreateTaskList.php" role="horde" />
      <file name="DeleteTaskList.php" role="horde" />
      <file name="EditTaskList.php" role="horde" />
+     <file name="Search.php" role="horde" />
      <file name="Task.php" role="horde" />
     </dir> <!-- /lib/Form -->
     <dir name="Prefs">
@@ -411,9 +413,6 @@
      <file name="task_headers.inc" role="horde" />
      <file name="task_summaries.inc" role="horde" />
     </dir> <!-- /templates/list -->
-    <dir name="search">
-     <file name="search.inc" role="horde" />
-    </dir> <!-- /templates/search -->
     <dir name="smartmobile">
      <file name="create.html.php" role="horde" />
      <file name="main.html.php" role="horde" />
@@ -425,7 +424,6 @@
     <file name="list.html.php" role="horde" />
     <file name="quick.inc" role="horde" />
     <file name="sidebar.html.php" role="horde" />
-    <file name="tasklist_list.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Nag">
@@ -749,11 +747,13 @@
    <install as="nag/lib/Form/CreateTaskList.php" name="lib/Form/CreateTaskList.php" />
    <install as="nag/lib/Form/DeleteTaskList.php" name="lib/Form/DeleteTaskList.php" />
    <install as="nag/lib/Form/EditTaskList.php" name="lib/Form/EditTaskList.php" />
+   <install as="nag/lib/Form/Search.php" name="lib/Form/Search.php" />
    <install as="nag/lib/Form/Task.php" name="lib/Form/Task.php" />
    <install as="nag/lib/Form/Renderer/Task.php" name="lib/Form/Renderer/Task.php" />
    <install as="nag/lib/Form/Type/NagAlarm.php" name="lib/Form/Type/NagAlarm.php" />
    <install as="nag/lib/Form/Type/NagDue.php" name="lib/Form/Type/NagDue.php" />
    <install as="nag/lib/Form/Type/NagMethod.php" name="lib/Form/Type/NagMethod.php" />
+   <install as="nag/lib/Form/Type/NagSearchDue.php" name="lib/Form/Type/NagSearchDue.php" />
    <install as="nag/lib/Form/Type/NagStart.php" name="lib/Form/Type/NagStart.php" />
    <install as="nag/lib/Form/Type/NagTags.php" name="lib/Form/Type/NagTags.php" />
    <install as="nag/lib/Prefs/Special/TaskAlarms.php" name="lib/Prefs/Special/TaskAlarms.php" />
@@ -865,7 +865,6 @@
    <install as="nag/templates/list.html.php" name="templates/list.html.php" />
    <install as="nag/templates/quick.inc" name="templates/quick.inc" />
    <install as="nag/templates/sidebar.html.php" name="templates/sidebar.html.php" />
-   <install as="nag/templates/tasklist_list.php" name="templates/tasklist_list.php" />
    <install as="nag/templates/alarm/mail.html.php" name="templates/alarm/mail.html.php" />
    <install as="nag/templates/alarm/mail.plain.php" name="templates/alarm/mail.plain.php" />
    <install as="nag/templates/data/export.inc" name="templates/data/export.inc" />
@@ -875,7 +874,6 @@
    <install as="nag/templates/list/task_footers.inc" name="templates/list/task_footers.inc" />
    <install as="nag/templates/list/task_headers.inc" name="templates/list/task_headers.inc" />
    <install as="nag/templates/list/task_summaries.inc" name="templates/list/task_summaries.inc" />
-   <install as="nag/templates/search/search.inc" name="templates/search/search.inc" />
    <install as="nag/templates/smartmobile/create.html.php" name="templates/smartmobile/create.html.php" />
    <install as="nag/templates/smartmobile/main.html.php" name="templates/smartmobile/main.html.php" />
    <install as="nag/templates/view/task.inc" name="templates/view/task.inc" />
@@ -1168,7 +1166,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-31</date>
+   <date>2012-09-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [gwr] Mark the initial default share as such with the Kolab backend.
