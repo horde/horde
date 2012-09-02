@@ -249,21 +249,6 @@ class Horde_Url
             return $ret;
         }
 
-        $url_params = array();
-        foreach ($this->parameters as $parameter => $value) {
-            if (is_array($value)) {
-                foreach ($value as $val) {
-                    $url_params[] = rawurlencode($parameter) . '[]=' . rawurlencode($val);
-                }
-            } else {
-                if (strlen($value)) {
-                    $url_params[] = rawurlencode($parameter) . '=' . rawurlencode($value);
-                } else {
-                    $url_params[] = rawurlencode($parameter);
-                }
-            }
-        }
-
         $url = $full
             ? $this->url
             : parse_url($this->url, PHP_URL_PATH);
@@ -272,14 +257,40 @@ class Horde_Url
             $url = rtrim($url, '/');
             $url .= '/' . $this->pathInfo;
         }
-        if (count($url_params)) {
-            $url .= '?' . implode($raw ? '&' : '&amp;', $url_params);
+
+        if ($params = $this->_getParameters()) {
+            $url .= '?' . implode($raw ? '&' : '&amp;', $params);
         }
+
         if ($this->anchor) {
             $url .= '#' . ($raw ? $this->anchor : rawurlencode($this->anchor));
         }
 
         return strval($url);
+    }
+
+    /**
+     * Return a formatted list of URL parameters.
+     *
+     * @return array parameter list.
+     */
+    protected function _getParameters()
+    {
+        $params = array();
+
+        foreach ($this->parameters as $p => $v) {
+            if (is_array($v)) {
+                foreach ($v as $val) {
+                    $params[] = rawurlencode($p) . '[]=' . rawurlencode($val);
+                }
+            } elseif (strlen($v)) {
+                $params[] = rawurlencode($p) . '=' . rawurlencode($v);
+            } else {
+                $params[] = rawurlencode($p);
+            }
+        }
+
+        return $params;
     }
 
     /**
