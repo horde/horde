@@ -51,7 +51,7 @@ class Nag_Tagger extends Horde_Core_Tagger
                 $args['userId'] = $filter['user'];
             }
         } elseif (!empty($filter['list'])) {
-            // Only events located in specific calendar(s)
+            // Only events located in specific takslist(s)
             if (!is_array($filter['list'])) {
                 $filter['list'] = array($filter['list']);
             }
