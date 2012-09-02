@@ -164,7 +164,6 @@ class Nag_Search implements Serializable
         return $search_results;
     }
 
-
     /**
      * Populate a Horde_Variables instance with the search values for this
      * search.
@@ -178,6 +177,7 @@ class Nag_Search implements Serializable
         $vars->set('search_completed', $this->_completed);
         $vars->set('due_within', $this->_due[0]);
         $vars->set('due_of', $this->_due[1]);
+
         $mask = array();
         if ($this->_mask & self::MASK_NAME) {
             $mask[] = 'search_name';
