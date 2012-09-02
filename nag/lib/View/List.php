@@ -120,6 +120,7 @@ class Nag_View_List
         $view->sortdirclass = $view->sortdir ? 'sortup' : 'sortdown';
         $view->dateFormat = $prefs->getValue('date_format');
         $view->columns = @unserialize($prefs->getValue('tasklist_columns'));
+        $view->smartShare = $this->_smartShare;
         if (empty($view->columns)) {
             $view->columns = array();
         }
