@@ -154,44 +154,22 @@ var HordeMobile = {
     },
 
     /**
-     * Safe wrapper that makes sure that no dialog is still open before
-     * calling a function.
-     *
-     * @param function func    A function to execute after the current dialog
-     *                         has been closed
-     * @param array whitelist  A list of page IDs that should not be waited
-                               for.
-     */
-    onDialogClose: function(func, whitelist)
-    {
-        whitelist = whitelist || [];
-
-        if ($.mobile.activePage &&
-            $.mobile.activePage.jqmData('role') == 'dialog' &&
-            $.inArray($.mobile.activePage.attr('id'), whitelist) == -1) {
-            $.mobile.activePage.bind('pagehide', function(e) {
-                $(e.currentTarget).unbind(e);
-                window.setTimeout(function() {
-                    HordeMobile.onDialogClose(func, whitelist);
-                }, 0);
-            });
-        } else {
-            func();
-        }
-    },
-
-    /**
-     * Safe wrapper around $.mobile.changePage() that makes sure that no
-     * dialog is still open before changing to the new page.
+     * Wrapper around $.mobile.changePage() to do Horde framework specifc
+     * tasks.
      *
      * @param string|object page  The page to navigate to.
-     * @param object options      Options to pass to new page.
+     * @param object data         The request data object.
+     * @param object opts         Options to pass to $.mobile.changePage.
      */
-    changePage: function(page, options)
+    changePage: function(page, data, opts)
     {
-        HordeMobile.onDialogClose(function() {
-            $.mobile.changePage(page, options);
-        });
+        opts = opts || {};
+
+        if (data) {
+            opts.dataUrl = data.toPage;
+        }
+
+        $.mobile.changePage($('#' + page), opts);
     },
 
     /**

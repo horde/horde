@@ -15,7 +15,7 @@
 <?php foreach ($this->list as $k => $v): ?>
    <li data-role="list-divider"><?php echo $this->h($k) ?></li>
 <?php foreach ($v as $v2): ?>
-   <li><a href="#entry<?php echo $v2['url'] ?>"><?php echo $this->h($v2['name']) ?></a></li>
+   <li><a href="<?php echo $v2['url'] ?>"><?php echo $this->h($v2['name']) ?></a></li>
 <?php endforeach; ?>
 <?php endforeach; ?>
 <?php endif; ?>

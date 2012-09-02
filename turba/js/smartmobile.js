@@ -22,6 +22,7 @@ var TurbaMobile = {
         switch (data.options.parsedUrl.view) {
         case 'entry':
             TurbaMobile.entry(data);
+            e.preventDefault();
             break;
         }
     },
@@ -35,7 +36,8 @@ var TurbaMobile = {
     {
         var purl = data.options.parsedUrl;
 
-        $.mobile.changePage($('#entry'));
+        HordeMobile.changePage('entry', data);
+
         $('#turba-entry-dl').hide();
         HordeMobile.doAction(
             'smartmobileEntry',
@@ -55,7 +57,7 @@ var TurbaMobile = {
     entryLoaded: function(r)
     {
         if (r.error) {
-            $.mobile.changePage($('#browse'));
+            HordeMobile.changePage('browse');
             return;
         }
 

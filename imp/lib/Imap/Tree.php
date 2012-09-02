@@ -1664,7 +1664,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     break;
 
                 case $registry::VIEW_SMARTMOBILE:
-                    $params['url'] = '#mailbox?mbox=' . $val->form_to;
+                    $url = new Horde_Core_Url_Smartmobile();
+                    $url->add('mbox', $val->form_to);
+                    $url->setAnchor('mailbox');
+                    $params['url'] = strval($url);
                     break;
 
                 default:

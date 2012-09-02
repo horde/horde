@@ -58,13 +58,15 @@ var ImpMobile = {
     {
         switch (data.options.parsedUrl.view) {
         case 'compose':
-            if (IMP.conf.disable_compose || !ImpMobile.compose(data)) {
-                e.preventDefault();
+            if (!IMP.conf.disable_compose) {
+                ImpMobile.compose(data);
             }
+            e.preventDefault();
             break;
 
         case 'confirm':
             ImpMobile.confirm(data);
+            e.preventDefault();
             break;
 
         case 'confirmed':
@@ -77,23 +79,20 @@ var ImpMobile = {
             break;
 
         case 'mailbox':
-            if (!ImpMobile.toMailbox(data)) {
-                e.preventDefault();
-            }
+            ImpMobile.toMailbox(data);
+            e.preventDefault();
             break;
 
         case 'message':
-            if (!ImpMobile.toMessage(data)) {
-                e.preventDefault();
-            }
+            ImpMobile.toMessage(data);
+            e.preventDefault();
             break;
 
         case 'target':
             if (IMP.conf.allow_folders) {
                 ImpMobile.target(data);
-            } else {
-                e.preventDefault();
             }
+            e.preventDefault();
             break;
         }
     },
@@ -102,8 +101,6 @@ var ImpMobile = {
      * Switches to the mailbox view and loads a mailbox.
      *
      * @param object data  Page change data object.
-     *
-     * @return boolean  True if the page needs to be loaded.
      */
     toMailbox: function(data)
     {
@@ -129,6 +126,8 @@ var ImpMobile = {
             $('#imp-mailbox-search').hide();
         }
 
+        HordeMobile.changePage('mailbox', data);
+
         if (ob = ImpMobile.cache[mailbox]) {
             if (purl.params.from) {
                 ob.from = Number(purl.params.from);
@@ -148,13 +147,6 @@ var ImpMobile = {
                 view: mailbox
             }))
         );
-
-        if (HordeMobile.currentPage('mailbox')) {
-            HordeMobile.updateHash(purl);
-            return false;
-        }
-
-        return true;
     },
 
     /**
@@ -243,7 +235,10 @@ var ImpMobile = {
 
         $.each(ob.rows(), function(key, data) {
             var c = $('<li class="imp-message">'),
-                url = '#message?view=' + data.mbox + '&uid=' + data.uid;
+                url = HordeMobile.createUrl('message', {
+                    uid: data.uid,
+                    view: data.mbox
+                });
 
             if (data.flag) {
                 $.each(data.flag, function(k, flag) {
@@ -253,7 +248,11 @@ var ImpMobile = {
                         break;
 
                     case IMP.conf.flags.draft:
-                        url = '#compose?type=resume&mbox=' + data.mbox + '&uid=' + data.uid;
+                        url = HordeMobile.createUrl('compose', {
+                            mbox: data.mbox,
+                            type: 'resume',
+                            uid: data.uid
+                        });
                         break;
 
                     case IMP.conf.flags.seen:
@@ -293,8 +292,6 @@ var ImpMobile = {
      * Switches to the message view and loads a message.
      *
      * @param object data  Page change data object.
-     *
-     * @return boolean  True if the page needs to be loaded.
      */
     toMessage: function(data)
     {
@@ -323,13 +320,15 @@ var ImpMobile = {
         if (ImpMobile.uid == purl.params.uid &&
             ImpMobile.uid_mbox == purl.params.view) {
             document.title = $('#imp-message-title').text();
-            return true;
+            HordeMobile.changePage('message', data);
+            return;
         }
 
         $('#message').children().not('.ui-header').hide();
         $('#imp-message-title').text('');
         document.title = '';
-        $.mobile.showPageLoadingMsg();
+
+        HordeMobile.changePage('message', data);
 
         HordeMobile.doAction(
             'smartmobileShowMessage',
@@ -339,13 +338,6 @@ var ImpMobile = {
             },
             ImpMobile.messageLoaded
         );
-
-        if (HordeMobile.currentPage('message')) {
-            HordeMobile.updateHash(purl);
-            return false;
-        }
-
-        return true;
     },
 
     /**
@@ -366,7 +358,10 @@ var ImpMobile = {
             pos = ob.rowlist[ImpMobile.rowid] + dir;
             if (pos > 0 && pos <= ob.totalrows) {
                 if (rid = ob.rowToUid(pos)) {
-                    $.mobile.changePage('#message?view=' + ob.data[rid].mbox + '&uid=' + ob.data[rid].uid);
+                    $.mobile.changePage(HordeMobile.createUrl('message', {
+                        uid: ob.data[rid].uid,
+                        view: ob.data[rid].mbox
+                    }));
                 } else {
                     // TODO: Load viewport slice
                 }
@@ -375,7 +370,10 @@ var ImpMobile = {
             from = Math.min(ob.totalrows, Math.max(1, ob.from + (dir * ImpMobile.mbox_rows)));
 
             if (from != ob.from) {
-                $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox + '&from=' + from);
+                $.mobile.changePage(HordeMobile.createUrl('mailbox', {
+                    from: from,
+                    mbox: ImpMobile.mailbox
+                }));
             }
         }
     },
@@ -387,8 +385,6 @@ var ImpMobile = {
      */
     messageLoaded: function(r)
     {
-        $.mobile.hidePageLoadingMsg();
-
         // TODO: Error handling.
         if (r.error ||
             !ImpMobile.message ||
@@ -400,7 +396,7 @@ var ImpMobile = {
         var cache = ImpMobile.cache[ImpMobile.mailbox],
             data = ImpMobile.message,
             headers = $('#imp-message-headers tbody'),
-            args = '&mbox=' + data.mbox + '&uid=' + data.uid,
+            args = { mbox: data.mbox, uid: data.uid },
             innocent = 'show',
             spam = 'show',
             list, rownum;
@@ -470,11 +466,15 @@ var ImpMobile = {
         });
 
         if (ImpMobile.mailbox == IMP.conf.qsearchid) {
-            $('#imp-message-back').attr('href', '#mailbox?mbox=' + IMP.conf.qsearchid);
+            $('#imp-message-back').attr('href', HordeMobile.createUrl('mailbox', {
+                mbox: IMP.conf.qsearchid
+            }));
             $('#imp-message-back .ui-btn-text').text(IMP.text.searchresults);
             ImpMobile.rowid = r.suid;
         } else {
-            $('#imp-message-back').attr('href', '#mailbox?mbox=' + data.mbox);
+            $('#imp-message-back').attr('href', HordeMobile.createUrl('mailbox', {
+                mbox: data.mbox
+            }));
             $('#imp-message-back .ui-btn-text')
                 .text($('#imp-mailbox-' + data.mbox).text());
             ImpMobile.rowid = data.uid;
@@ -485,26 +485,23 @@ var ImpMobile = {
         ImpMobile.disableButton($('#imp-message-next'), rownum == cache.totalrows);
 
         if (!IMP.conf.disable_compose) {
-            $('#imp-message-reply').attr(
-                'href',
-                '#compose?type=reply_auto' + args);
-            $('#imp-message-forward').attr(
-                'href',
-                '#compose?type=forward_auto' + args);
-            $('#imp-message-redirect').attr(
-                'href',
-                '#compose?type=forward_redirect' + args);
+            $('#imp-message-reply').attr('href', HordeMobile.createUrl('compose', $.extend({}, args, {
+                type: 'reply_auto'
+            })));
+            $('#imp-message-forward').attr('href', HordeMobile.createUrl('compose', $.extend({}, args, {
+                type: 'forward_auto'
+            })));
+            $('#imp-message-redirect').attr('href', HordeMobile.createUrl('compose', $.extend({}, args, {
+                type: 'forward_redirect'
+            })));
         }
 
-        if (cache.readonly) {
-            $('#imp-message-delete').hide();
-        } else {
-            $('#imp-message-delete').show();
-        }
+        $.fn[cache.readonly ? 'hide' : 'show'].call($('#imp-message-delete'));
+
         if (IMP.conf.allow_folders) {
-            $('#imp-message-copymove').attr(
-                'href',
-                '#target?action=copymove' + args);
+            $('#imp-message-copymove').attr('href', HordeMobile.createUrl('target', $.extend({}, args, {
+                action: 'copymove'
+            })));
         }
         if (ImpMobile.mailbox == IMP.conf.spam_mbox) {
             if (!IMP.conf.spam_spammbox) {
@@ -516,15 +513,15 @@ var ImpMobile = {
 
         if ($('#imp-message-innocent')) {
             $.fn[innocent].call($('#imp-message-innocent'));
-            $('#imp-message-innocent').attr(
-                'href',
-                '#confirm?action=innocent' + args);
+            $('#imp-message-innocent').attr('href', HordeMobile.createUrl('confirm', $.extend({}, args, {
+                action: 'innocent'
+            })));
         }
         if ($('#imp-message-spam')) {
             $.fn[spam].call($('#imp-message-spam'));
-            $('#imp-message-spam').attr(
-                'href',
-                '#confirm?action=spam' + args);
+            $('#imp-message-spam').attr('href', HordeMobile.createUrl('confirm', $.extend({}, args, {
+                action: 'spam'
+            })));
         }
 
         if (data.js) {
@@ -543,8 +540,6 @@ var ImpMobile = {
      * forwarding.
      *
      * @param object data  Page change data object.
-     *
-     * @return boolean  True if the page needs to be loaded.
      */
     compose: function(data)
     {
@@ -555,12 +550,12 @@ var ImpMobile = {
         $('#imp-compose-title').html(IMP.text.new_message);
 
         if ($.isEmptyObject(purl.params)) {
-            data.toPage = $('#compose');
-            return true;
+            HordeMobile.changePage('compose');
+            return;
         } else if (purl.params.to) {
             $('#imp-compose-to').val(purl.params.to);
-            data.toPage = $('#compose');
-            return true;
+            HordeMobile.changePage('compose', data);
+            return;
         }
 
         $('#imp-compose-form').show();
@@ -600,19 +595,17 @@ var ImpMobile = {
                 type: purl.params.type,
                 uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ])
             }),
-            function(r) { ImpMobile.composeLoaded(r, options); }
+            function(r) { ImpMobile.composeLoaded(r, data); }
         );
-
-        return false;
     },
 
     /**
      * Callback method after the compose content has been loaded.
      *
-     * @param object r        The Ajax response object.
-     * @param object options  Page change options from compose().
+     * @param object r     The Ajax response object.
+     * @param object data  Page change data object.
      */
-    composeLoaded: function(r, options)
+    composeLoaded: function(r, data)
     {
         if (r.imp_compose) {
             var cache = r.type == 'forward_redirect'
@@ -647,7 +640,7 @@ var ImpMobile = {
             $('#imp-compose-' + (r.opts.focus || 'to').replace(/composeMessage/, 'message'))[0].focus();
         }
 
-        HordeMobile.changePage($('#compose'), options);
+        HordeMobile.changePage('compose', data);
     },
 
     uniqueSubmit: function(action)
@@ -770,10 +763,12 @@ var ImpMobile = {
     {
         var purl = data.options.parsedUrl;
 
+        HordeMobile.changePage('confirm');
+
         $('#imp-confirm-text').html(IMP.text.confirm.text[purl.params.action]);
         $('#imp-confirm-action')
-            .attr('href', purl.parsed.hash.replace(/confirm/, 'confirmed'));
-        $('#imp-confirm-action .ui-btn-text')
+            .attr('href', purl.parsed.hash.replace(/\#confirm/, '\#confirmed'))
+            .find('.ui-btn-text')
             .text(IMP.text.confirm.action[purl.params.action]);
     },
 
@@ -786,15 +781,19 @@ var ImpMobile = {
     {
         var purl = data.options.parsedUrl;
 
-        if (!purl.params.mbox) {
-            purl.params.mbox = purl.params.view;
-        }
-
-        $('#confirm').dialog('close');
-
         switch (purl.params.action) {
         case 'innocent':
         case 'spam':
+            if (!purl.params.mbox) {
+                purl.params.mbox = purl.params.view;
+            }
+
+            $.mobile.changePage(HordeMobile.createUrl('mailbox', {
+                mbox: purl.params.mbox
+            }, {
+                data: { noajax: true }
+            }));
+
             HordeMobile.doAction(
                 'reportSpam',
                 $.extend(ImpMobile.addViewportParams({
@@ -805,7 +804,6 @@ var ImpMobile = {
                     uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ]),
                 })
             );
-            $.mobile.changePage('#mailbox?mbox=' + url.params.mbox, { noajax: true });
             break;
         }
     },
@@ -822,6 +820,8 @@ var ImpMobile = {
         $('#imp-target-header').text(IMP.text[purl.params.action]);
         $('#imp-target-mbox').val(purl.params.mbox);
         $('#imp-target-uid').val(purl.params.uid);
+
+        HordeMobile.changePage('target');
     },
 
     /**
@@ -862,7 +862,11 @@ var ImpMobile = {
         );
 
         if (IMP.conf.mailbox_return || func == 'moveMessages') {
-            $.mobile.changePage('#mailbox?mbox=' + source, { noajax: true });
+            $.mobile.changePage(HordeMobile.createUrl('mailbox', {
+                mbox: source
+            }, {
+                data: { noajax: true }
+            }));
         }
     },
 
@@ -1015,7 +1019,9 @@ var ImpMobile = {
                         uid: ImpMobile.toUIDStringSingle(ImpMobile.mailbox, [ ImpMobile.uid ]),
                     })
                 );
-                $.mobile.changePage('#mailbox?mbox=' + ImpMobile.mailbox);
+                $.mobile.changePage(HordeMobile.createUrl('mailbox', {
+                    mbox: ImpMobile.mailbox,
+                }));
                 return;
 
             case 'imp-mailbox-top':
@@ -1061,7 +1067,9 @@ var ImpMobile = {
                     qsearchmbox: ImpMobile.mailbox
                 };
                 delete ImpMobile.cache[IMP.conf.qsearchid];
-                $.mobile.changePage('#mailbox?mbox=' + IMP.conf.qsearchid);
+                $.mobile.changePage(HordeMobile.createUrl('mailbox', {
+                    mbox: IMP.conf.qsearchid
+                }));
                 return;
 
             case 'imp-folders-showall':

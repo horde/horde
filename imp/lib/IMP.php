@@ -338,7 +338,7 @@ class IMP
             $raw = true;
             $callback = array(__CLASS__, 'composeLinkSimpleCallback');
         } elseif ($view == Horde_Registry::VIEW_SMARTMOBILE) {
-            $url = Horde::url('smartmobile.php');
+            $url = new Horde_Core_Url_Smartmobile(Horde::url('smartmobile.php'));
             $url->setAnchor('compose');
         } elseif (($view != Horde_Registry::VIEW_MINIMAL) &&
                   $GLOBALS['prefs']->getValue('compose_popup') &&
