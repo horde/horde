@@ -184,10 +184,13 @@ var HordeMobile = {
      * dialog is still open before changing to the new page.
      *
      * @param string|object page  The page to navigate to.
+     * @param object options      Options to pass to new page.
      */
-    changePage: function(page)
+    changePage: function(page, options)
     {
-        HordeMobile.onDialogClose(function() { $.mobile.changePage(page); });
+        HordeMobile.onDialogClose(function() {
+            $.mobile.changePage(page, options);
+        });
     },
 
     /**
