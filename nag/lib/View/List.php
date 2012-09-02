@@ -266,12 +266,30 @@ class Nag_View_List
         }
 
         // Build a page title based on criteria.
-        $this->_title = sprintf(_("Search: Results for \"%s\""), $search_pattern);
+        $this->_title = sprintf(_("Search: Results for"));
+        $have_title = false;
+        if (!empty($search_pattern)) {
+            $have_title = true;
+            $this->_title .= ' "' . $search_pattern . '" ';
+        } else {
+            $this->_title .= ' ' . _("tasks") . ' ';
+        }
         if (!empty($date)) {
-            $this->_title .= ' ' . sprintf(_("and due date within %d days of %s"), $date[0], $date[1]);
+            if ($have_title) {
+                $this->_title .= _("and") . ' ';
+            } else {
+                $this->_title .= _("with") . ' ';
+                $have_title = true;
+            }
+            $this->_title .= sprintf(_("due date within %d days of %s"), $date[0], $date[1]) . ' ';
         }
         if (!empty($search_tags)) {
-            $this->_title .= ' ' . sprintf(_("and tagged with %s"), $this->_vars->search_tags);
+            if ($have_title) {
+                $this->_title .= _("and") . ' ';
+            } else {
+                $this->_title .= _("with") . ' ';
+            }
+            $this->_title .= sprintf(_("and tagged with %s"), $this->_vars->search_tags);
         }
 
         // Save as a smart list?
