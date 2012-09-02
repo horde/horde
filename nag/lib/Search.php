@@ -110,7 +110,7 @@ class Nag_Search implements Serializable
     {
         global $prefs;
 
-        if (!empty($this->_due[0]) && !empty($this->_due[1])) {
+        if (!empty($this->_due)) {
             $parser = Horde_Date_Parser::factory(array('locale' => $GLOBALS['prefs']->getValue('language')));
             $date = $parser->parse($this->_due[1]);
             $date->mday += $this->_due[0];

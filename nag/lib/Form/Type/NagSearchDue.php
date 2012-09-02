@@ -12,9 +12,15 @@ class Nag_Form_Type_NagSearchDue extends Horde_Form_Type
 {
     public function getInfo(&$vars, &$var, &$info)
     {
-        $info = array(
-            $vars->get('due_within'),
-            $vars->get('due_of'));
+        $due_within = $vars->get('due_within');
+        $due_of = $vars->get('due_of');
+        if (!empty($due_within) && !empty($due_of)) {
+            $info = array(
+                $vars->get('due_within'),
+                $vars->get('due_of'));
+        } else {
+            $info = array();
+        }
     }
 
     public function isValid(&$var, &$vars, $value, &$message)
