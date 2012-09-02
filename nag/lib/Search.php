@@ -110,7 +110,6 @@ class Nag_Search implements Serializable
     {
         global $prefs;
 
-        $pattern = $this->_search;
         if (!empty($this->_due[0]) && !empty($this->_due[1])) {
             $parser = Horde_Date_Parser::factory(array('locale' => $GLOBALS['prefs']->getValue('language')));
             $date = $parser->parse($this->_due[1]);
@@ -125,8 +124,9 @@ class Nag_Search implements Serializable
             'tasklists' => array_keys(Nag::listTasklists(false, Horde_Perms::READ, false)),
             'completed' => $this->_completed)
         );
-
-        $pattern = '/' . preg_quote($pattern, '/') . '/i';
+        if (!empty($this->_search)) {
+            $pattern = '/' . preg_quote($this->_search, '/') . '/i';
+        }
         $search_results = new Nag_Task();
         $tasks->reset();
         $results = array();
