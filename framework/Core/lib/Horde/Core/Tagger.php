@@ -61,6 +61,19 @@ abstract class Horde_Core_Tagger
     }
 
     /**
+     * Provide access to the Content_Tagger's splitTags method.
+     *
+     * @param string $tags  A string of tags to be split.
+     *
+     * @return array  The split tags.
+     */
+    public function split($tags)
+    {
+        return $GLOBALS['injector']->getInstance('Content_Tagger')
+            ->splitTags($tags);
+    }
+
+    /**
      * Tags an oject with any number of tags.
      *
      * @param string $localId       The identifier of the object.
@@ -80,8 +93,7 @@ abstract class Horde_Core_Tagger
 
         // If we don't have an array - split the string.
         if (!is_array($tags)) {
-            $tags = $GLOBALS['injector']->getInstance('Content_Tagger')
-                ->splitTags($tags);
+            $tags = $this->split($tags);
         }
 
         try {
