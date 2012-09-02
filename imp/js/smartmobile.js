@@ -1253,7 +1253,7 @@ var IMP_JS = {
 
         id.bind('load', function() {
             id.unbind('load');
-            window.setTimeout(function() { IMP_JS.iframeResize(id); }, 300);
+            IMP_JS.iframeResize(id);
         });
 
         d.open();
@@ -1261,8 +1261,6 @@ var IMP_JS = {
         d.close();
 
         id.show().prev().remove();
-
-        IMP_JS.iframeResize(id);
     },
 
     iframeResize: function(id)
