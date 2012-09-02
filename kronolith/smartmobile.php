@@ -33,9 +33,6 @@ $page_output->addScriptFile('smartmobile.js');
 require KRONOLITH_TEMPLATES . '/smartmobile/javascript_defs.php';
 
 $page_output->header(array(
-    'smartmobileinit' => array(
-        '$.mobile.page.prototype.options.addBackBtn = true;'
-    ),
     'title' => $title,
     'view' => $registry::VIEW_SMARTMOBILE
 ));

@@ -19,9 +19,6 @@ Horde_Registry::appInit('turba');
 $ob = new Turba_Smartmobile(Horde_Variables::getDefaultVariables());
 
 $page_output->header(array(
-    'smartmobileinit' => array(
-        '$.mobile.page.prototype.options.addBackBtn = true;'
-    ),
     'title' => _("Mobile Addressbook"),
     'view' => $registry::VIEW_SMARTMOBILE
 ));

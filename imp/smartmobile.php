@@ -21,9 +21,6 @@ Horde_Registry::appInit('imp', array(
 $ob = new IMP_Smartmobile(Horde_Variables::getDefaultVariables());
 
 $page_output->header(array(
-    'smartmobileinit' => array(
-        '$.mobile.page.prototype.options.addBackBtn = true;'
-    ),
     'title' => _("Mobile Mail"),
     'view' => $registry::VIEW_SMARTMOBILE
 ));

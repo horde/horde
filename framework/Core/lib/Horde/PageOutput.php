@@ -655,6 +655,7 @@ class Horde_PageOutput
             }
 
             $init_js = implode('', array_merge(array(
+                '$.mobile.page.prototype.options.addBackBtn = true;',
                 '$.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";',
                 '$.mobile.dialog.prototype.options.closeBtnText = "' . _("Close") .'";',
                 '$.mobile.loadingMessage = "' . _("loading") . '";'
