@@ -48,6 +48,13 @@ class Nag_View_List
     protected $_smartShare;
 
     /**
+     * Horde_Variables
+     *
+     * @var Horde_Variables
+     */
+    protected $_vars;
+
+    /**
      * Const'r
      *
      * @param Horde_Variables $vars  Variables for the view.
