@@ -19,35 +19,41 @@ var TurbaMobile = {
      */
     toPage: function(e, data)
     {
-        var url = HordeMobile.parseUrl(data.toPage);
-
-        switch (url.view) {
+        switch (data.options.parsedUrl.view) {
         case 'entry':
-            $.mobile.showPageLoadingMsg();
-            $('#turba-entry-dl').hide();
-            $.mobile.changePage($('#entry'), data.options);
-            HordeMobile.doAction(
-                'smartmobileEntry',
-                {
-                    key: url.params.key,
-                    source: url.params.source
-                },
-                TurbaMobile.messageLoaded
-            );
-            e.preventDefault();
+            TurbaMobile.entry(data);
             break;
         }
     },
 
     /**
-     * Callback method after the message has been loaded.
+     * View an entry.
+     *
+     * @param object data  Page change data object.
+     */
+    entry: function(data)
+    {
+        var purl = data.options.parsedUrl;
+
+        $.mobile.changePage($('#entry'));
+        $('#turba-entry-dl').hide();
+        HordeMobile.doAction(
+            'smartmobileEntry',
+            {
+                key: purl.params.key,
+                source: purl.params.source
+            },
+            TurbaMobile.entryLoaded
+        );
+    },
+
+    /**
+     * Callback method after an entry has been loaded.
      *
      * @param object r  The Ajax response object.
      */
-    messageLoaded: function(r)
+    entryLoaded: function(r)
     {
-        $.mobile.hidePageLoadingMsg();
-
         if (r.error) {
             $.mobile.changePage($('#browse'));
             return;

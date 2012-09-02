@@ -15,6 +15,7 @@
 var HordeMobile = {
 
     notify_handler: function(m) { return HordeMobile.showNotifications(m); },
+    //page_init: false,
     serverError: 0,
 
     /**
@@ -203,41 +204,49 @@ var HordeMobile = {
     },
 
     /**
-     * Parses a URL and returns the current view/parameter information.
-     *
-     * @param string  The URL.
-     *
-     * @return object  Object with the following keys:
-     *   - params: (object) List of URL parameters.
-     *   - parsed: (object) Parsed URL object.
-     *   - view: (string) The current view (URL hash value).
-     */
-    parseUrl: function(url)
-    {
-        if (typeof url != 'string') {
-            return {};
-        }
-
-        var parsed = $.mobile.path.parseUrl(url),
-            match = /^#([^?]*)/.exec(parsed.hash);
-
-        return {
-            params: parsed.hash.toQueryParams(),
-            parsed: parsed,
-            view: match ? match[1] : undefined
-        };
-    },
-
-    /**
      * Manually update hash: jqm exits too early if calling changePage() with
      * the same page but different hash parameters.
      *
-     * @param object url  A URL object from parseUrl().
+     * @param object url  A parsed URL object.
      */
     updateHash: function(url)
     {
         $.mobile.urlHistory.ignoreNextHashChange = true;
         $.mobile.path.set(url.parsed.hash);
+    },
+
+    /**
+     * Commands to run when changing a page.
+     */
+    onPageBeforeChange: function(e, data)
+    {
+        /* This code is needed for deep hash linking with parameters, since
+         * the jquery mobile code will consider these hashes invalid and will
+         * load the first page instead. */
+        if (!this.page_init &&
+            !$.mobile.activePage &&
+            typeof data.toPage !== 'string') {
+            data.toPage = location.href;
+        }
+
+        this.page_init = true;
+
+        /* Add view/parameter data to dataUrl:
+         *   - params: (object) List of URL parameters.
+         *   - parsed: (object) Parsed URL object.
+         *   - view: (string) The current view (URL hash value). */
+        if (typeof data.toPage === 'string') {
+            var parsed = $.mobile.path.parseUrl(data.toPage),
+                match = /^#([^?]*)/.exec(parsed.hash);
+
+            data.options.parsedUrl = {
+                params: $.extend({}, parsed.search.toQueryParams(), parsed.hash.toQueryParams()),
+                parsed: parsed,
+                view: match ? match[1] : undefined
+            };
+        } else {
+            data.options.parsedUrl = {};
+        }
     },
 
     /**
@@ -263,3 +272,4 @@ var HordeMobile = {
 };
 
 $(HordeMobile.onDocumentReady);
+$(document).bind('pagebeforechange', HordeMobile.onPageBeforeChange);
