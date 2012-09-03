@@ -1,11 +1,5 @@
 <div id="message" data-role="page">
- <div data-role="header">
-  <a href="#" id="imp-message-back" data-icon="arrow-l" data-direction="reverse"><?php echo _("Mailbox") ?></a>
-  <h1 id="imp-message-title">&nbsp;</h1>
-<?php if ($this->logout): ?>
-  <a href="<?php echo $this->logout ?>" data-ajax="false" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
-<?php endif ?>
- </div>
+ <?php echo $this->smartmobileHeader(array('backlink' => array('#', _("Mailbox")), 'logout' => true, 'title' => '&nbsp;')) ?>
 
  <div data-role="collapsible" data-iconpos="right" data-theme="b" data-content-theme="d">
   <h4>

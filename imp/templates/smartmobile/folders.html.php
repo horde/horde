@@ -1,11 +1,5 @@
 <div id="folders" data-role="page">
- <div data-role="header">
-  <a data-ajax="false" href="<?php echo $this->portal ?>"><?php echo _("Applications")?></a>
-  <h1><?php echo _("Folders") ?></h1>
-<?php if ($this->logout): ?>
-  <a href="<?php echo $this->logout ?>" data-ajax="false" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
-<?php endif ?>
- </div>
+ <?php echo $this->smartmobileHeader(array('logout' => true, 'portal' => true, 'title' => _("Folders"))) ?>
 
  <div data-role="content">
   <ul data-role="listview" data-filter="true" id="imp-folders-list">

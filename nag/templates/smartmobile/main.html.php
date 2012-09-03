@@ -1,11 +1,6 @@
 <div data-role="page" id="tasklist">
- <div data-role="header">
-  <h1>My Tasks</h1>
-  <a data-ajax="false" href="<?php echo $this->portal ?>"><?php echo _("Applications")?></a>
-<?php if ($this->logout): ?>
- <a href="<?php echo $this->logout ?>" data-ajax="false" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
-<?php endif ?>
- </div>
+ <?php echo $this->smartmobileHeader(array('logout' => true, 'portal' => true, 'title' => _("My Tasks"))) ?>
+
  <div data-role="content">
   <ul data-role="listview">
 <?php foreach ($this->li as $v): ?>

@@ -1,10 +1,5 @@
 <div id="compose" data-role="page">
- <div data-role="header">
-  <h1 id="imp-compose-title"><?php echo _("New Message") ?></h1>
-<?php if ($this->logout): ?>
-  <a href="<?php echo $this->logout ?>" data-ajax="false" data-theme="e" data-icon="delete" class="ui-btn-right"><?php echo _("Log out") ?></a>
-<?php endif ?>
- </div>
+ <?php echo $this->smartmobileHeader(array('backlink' => true, 'logout' => true, 'title' => _("New Message"))) ?>
 
  <form id="imp-redirect-form" action="<?php echo $this->composeLink ?>" style="display:none">
   <input type="hidden" id="imp-redirect-cache" name="composeCache" value="<?php echo $this->h($this->composeCache) ?>" />
@@ -19,7 +14,7 @@
    <select id="imp-compose-identity" name="identity">
 <?php foreach ($this->identities as $identity): ?>
     <option value="<?php echo $this->h($identity['val']) ?>"<?php if ($identity['sel']) echo ' selected="selected"' ?>><?php echo $this->h($identity['label']) ?></option>
-<?php endforeach ?>>
+<?php endforeach ?>
    </select>
 
    <label for="imp-compose-to"><?php echo _("To:") ?></label>

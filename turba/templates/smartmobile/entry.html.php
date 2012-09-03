@@ -1,11 +1,5 @@
 <div id="entry" data-role="page">
- <div data-role="header">
-  <a href="#browse" data-icon="arrow-l" data-direction="reverse"><?php echo _("Browse") ?></a>
-  <h1><?php echo _("View Entry") ?></h1>
-<?php if ($this->logout): ?>
-  <a href="<?php echo $this->logout ?>" data-ajax="false" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
-<?php endif ?>
- </div>
+ <?php echo $this->smartmobileHeader(array('backlink' => array('#browse', _("Browse")), 'logout' => true, 'title' => _("View Entry"))) ?>
 
  <dl id="turba-entry-dl">
   <span id="turba-entry-name-block">

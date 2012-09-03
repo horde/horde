@@ -35,6 +35,7 @@ class IMP_Smartmobile
         $this->view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/smartmobile'
         ));
+        $this->view->addHelper('Horde_Core_Smartmobile_View_Helper');
         $this->view->addHelper('Text');
 
         $this->_initPages();
@@ -102,8 +103,6 @@ class IMP_Smartmobile
             ));
         }
 
-        $this->view->portal = $registry->getServiceLink('portal', 'horde')->setRaw(false);
-        $this->view->logout = $registry->getServiceLink('logout')->setRaw(false);
         $this->view->canSearch = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
         $this->view->canSpam = !empty($conf['spam']['reporting']);
         $this->view->canInnocent = !empty($conf['notspam']['reporting']);

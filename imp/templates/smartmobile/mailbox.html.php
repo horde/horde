@@ -1,11 +1,5 @@
 <div id="mailbox" data-role="page">
- <div data-role="header">
-  <a href="#folders" data-icon="arrow-l" data-direction="reverse"><?php echo _("Folders") ?></a>
-  <h1 id="imp-mailbox-header">&nbsp;</h1>
-<?php if ($this->logout): ?>
-  <a href="<?php echo $this->logout ?>" data-ajax="false" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
-<?php endif ?>
- </div>
+ <?php echo $this->smartmobileHeader(array('backlink' => array('#folders', _("Folders")), 'logout' => true, 'title' => '&nbsp;')) ?>
 
  <div id="imp-mailbox-navtop" class="ui-bar ui-bar-a center" style="display:none">
   <a href="" id="imp-mailbox-prev" data-inline="true" data-iconpos="notext" data-role="button" data-icon="arrow-l">Previous</a>

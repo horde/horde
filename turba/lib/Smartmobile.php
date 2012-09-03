@@ -35,6 +35,7 @@ class Turba_Smartmobile
         $this->view = new Horde_View(array(
             'templatePath' => TURBA_TEMPLATES . '/smartmobile'
         ));
+        $this->view->addHelper('Horde_Core_Smartmobile_View_Helper');
         $this->view->addHelper('Text');
 
         $this->_initPages();
@@ -56,10 +57,7 @@ class Turba_Smartmobile
      */
     protected function _initPages()
     {
-        global $injector, $registry;
-
-        $this->view->portal = $registry->getServiceLink('portal', 'horde')->setRaw(false);
-        $this->view->logout = $registry->getServiceLink('logout')->setRaw(false);
+        global $injector;
 
         $this->view->list = array();
         if ($GLOBALS['browse_source_count']) {

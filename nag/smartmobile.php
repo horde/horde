@@ -17,10 +17,8 @@ Horde_Registry::appInit('nag');
 
 $vars = Horde_Variables::getDefaultVariables();
 $view = new Horde_View(array('templatePath' => NAG_TEMPLATES . '/smartmobile'));
-new Horde_View_Helper_Text($view);
-
-$view->portal = $registry->getServiceLink('portal', 'horde')->setRaw(false);
-$view->logout = $registry->getServiceLink('logout')->setRaw(false);
+$view->addHelper('Horde_Core_Smartmobile_View_Helper');
+$view->addHelper('Text');
 
 /* Get the full, sorted task list. */
 try {

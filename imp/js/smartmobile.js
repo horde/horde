@@ -110,7 +110,7 @@ var ImpMobile = {
             params = {}, ob;
 
         document.title = title;
-        $('#imp-mailbox-header').text(title);
+        $('#mailbox .smartmobile-title').text(title);
         if (ImpMobile.mailbox != mailbox) {
             $('#imp-mailbox-list').empty();
             $('#imp-mailbox-navtop').hide();
@@ -227,7 +227,7 @@ var ImpMobile = {
 
         if (ob.label) {
             document.title = ob.label;
-            $('#imp-mailbox-header').text(ob.label);
+            $('#mailbox .smartmobile-title').text(ob.label);
         }
 
         list = $('#imp-mailbox-list');
@@ -319,13 +319,13 @@ var ImpMobile = {
         // Page is cached.
         if (ImpMobile.uid == purl.params.uid &&
             ImpMobile.uid_mbox == purl.params.view) {
-            document.title = $('#imp-message-title').text();
+            document.title = $('#message .smartmobile-title').text();
             HordeMobile.changePage('message', data);
             return;
         }
 
         $('#message').children().not('.ui-header').hide();
-        $('#imp-message-title').text('');
+        $('#message .smartmobile-title').text('');
         document.title = '';
 
         HordeMobile.changePage('message', data);
@@ -399,7 +399,7 @@ var ImpMobile = {
             args = { mbox: data.mbox, uid: data.uid },
             innocent = 'show',
             spam = 'show',
-            list, rownum;
+            list, rownum, tmp;
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
@@ -411,8 +411,8 @@ var ImpMobile = {
         ImpMobile.uid = data.uid;
         ImpMobile.uid_mbox = data.mbox;
 
-        $('#imp-message-title').text(data.title);
-        document.title = $('#imp-message-title').text();
+        $('#message .smartmobile-title').text(data.title);
+        document.title = $('#message .smartmobile-title').text();
 
         if (!data.from) {
             $('#imp-message-from').text(IMP.text.nofrom);
@@ -465,18 +465,18 @@ var ImpMobile = {
             }
         });
 
+        tmp = $('#message .smartmobile-back');
         if (ImpMobile.mailbox == IMP.conf.qsearchid) {
-            $('#imp-message-back').attr('href', HordeMobile.createUrl('mailbox', {
+            tmp.attr('href', HordeMobile.createUrl('mailbox', {
                 mbox: IMP.conf.qsearchid
             }));
-            $('#imp-message-back .ui-btn-text').text(IMP.text.searchresults);
+            tmp.find('.ui-btn-text').text(IMP.text.searchresults);
             ImpMobile.rowid = r.suid;
         } else {
-            $('#imp-message-back').attr('href', HordeMobile.createUrl('mailbox', {
+            tmp.attr('href', HordeMobile.createUrl('mailbox', {
                 mbox: data.mbox
             }));
-            $('#imp-message-back .ui-btn-text')
-                .text($('#imp-mailbox-' + data.mbox).text());
+            tmp.find('.ui-btn-text').text($('#imp-mailbox-' + data.mbox).text());
             ImpMobile.rowid = data.uid;
         }
 
@@ -551,7 +551,7 @@ var ImpMobile = {
             params = {},
             purl = data.options.parsedUrl;
 
-        $('#imp-compose-title').html(IMP.text.new_message);
+        $('#compose .smartmobile-title').html(IMP.text.new_message);
 
         if ($.isEmptyObject(purl.params)) {
             HordeMobile.changePage('compose');
