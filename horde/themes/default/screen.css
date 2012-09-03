@@ -561,7 +561,6 @@ div.modal-form input, div.modal-form select {
 div.modal-form .submit-button {
     display: block;
     margin: .5em auto;
-    text-align: center;
     width: auto;
 }
 div.modal-form .extras {

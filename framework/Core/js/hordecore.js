@@ -300,7 +300,7 @@ var HordeCore = {
                         select += '<option value="' + snooze.key + '">' + snooze.value + '</option>';
                     });
                     select += '</select>';
-                    message.insert('<br /><br />' + this.text.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="button ko" />' }));
+                    message.insert('<br /><br />' + this.text.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="horde-default" />' }));
                 }
                 var growl = this.Growler.growl(message, {
                     className: 'horde-alarm',
