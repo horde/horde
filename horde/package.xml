@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-31</date>
- <time>16:40:28</time>
+ <date>2012-09-02</date>
+ <time>20:38:11</time>
  <version>
   <release>5.0.0beta6</release>
   <api>5.0.0beta1</api>
@@ -1655,6 +1655,7 @@
       <file name="external.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="feed.png" role="horde" />
+      <file name="filter.png" role="horde" />
       <file name="google.png" role="horde" />
       <file name="group.png" role="horde" />
       <file name="head-bg.png" role="horde" />
@@ -1727,6 +1728,7 @@
       <file name="tablehead-split.png" role="horde" />
       <file name="tabset.png" role="horde" />
       <file name="tab_bottom.gif" role="horde" />
+      <file name="tags.png" role="horde" />
       <file name="unlocked.png" role="horde" />
       <file name="user.png" role="horde" />
       <file name="website.png" role="horde" />
@@ -2657,6 +2659,7 @@
    <install as="themes/default/graphics/external.png" name="themes/default/graphics/external.png" />
    <install as="themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="themes/default/graphics/feed.png" name="themes/default/graphics/feed.png" />
+   <install as="themes/default/graphics/filter.png" name="themes/default/graphics/filter.png" />
    <install as="themes/default/graphics/google.png" name="themes/default/graphics/google.png" />
    <install as="themes/default/graphics/group.png" name="themes/default/graphics/group.png" />
    <install as="themes/default/graphics/head-bg.png" name="themes/default/graphics/head-bg.png" />
@@ -2729,6 +2732,7 @@
    <install as="themes/default/graphics/tablehead-split.png" name="themes/default/graphics/tablehead-split.png" />
    <install as="themes/default/graphics/tabset.png" name="themes/default/graphics/tabset.png" />
    <install as="themes/default/graphics/tab_bottom.gif" name="themes/default/graphics/tab_bottom.gif" />
+   <install as="themes/default/graphics/tags.png" name="themes/default/graphics/tags.png" />
    <install as="themes/default/graphics/unlocked.png" name="themes/default/graphics/unlocked.png" />
    <install as="themes/default/graphics/user.png" name="themes/default/graphics/user.png" />
    <install as="themes/default/graphics/website.png" name="themes/default/graphics/website.png" />
@@ -3894,7 +3898,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-31</date>
+   <date>2012-09-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
