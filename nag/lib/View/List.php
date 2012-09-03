@@ -378,7 +378,7 @@ class Nag_View_List
     protected function _getTagTrail()
     {
         if ($this->_browser->tagCount() >= 1) {
-            $html = '<div class="nag-tags-browsing">' . Horde::img('search.png') . '<ul class="horde-tags">';
+            $html = '<div class="nag-tags-browsing">' . Horde::img('filter.png') . '<ul class="horde-tags">';
             foreach ($this->_browser->getTags() as $tag => $id) {
                 $html .= '<li>' . htmlspecialchars($tag)
                     . $this->_linkRemoveTag($tag)->link()
