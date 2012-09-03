@@ -110,6 +110,13 @@ table.messageList .sortup, table.messageList .sortdown {
 }
 
 /* Navbar action styling. */
+li .imp-navbar span.iconImg, li .imp-navbar input {
+    margin: -4px 0 0;
+}
+li .imp-navbar span.iconImg {
+    padding: 0;
+    background-position: center center;
+}
 table.msgActionTable, #fmanager table {
     width: 100%;
     border-collapse: collapse;
