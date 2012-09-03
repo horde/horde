@@ -167,7 +167,7 @@ class IMP_Smartmobile
                     ),
                 ),
                 'copymove' => _("Copy/Move"),
-                'nav' => _("%d to %d of %d"),
+                'nav' => _("%d - %d of %d Messages"),
                 'new_message' => _("New Message"),
                 'nofrom' => _("Invalid Address"),
                 'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),

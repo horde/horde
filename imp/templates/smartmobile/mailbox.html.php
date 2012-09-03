@@ -1,10 +1,9 @@
 <div id="mailbox" data-role="page">
  <?php echo $this->smartmobileHeader(array('backlink' => array('#folders', _("Folders")), 'logout' => true, 'title' => '&nbsp;')) ?>
-
- <div id="imp-mailbox-navtop" class="ui-bar ui-bar-a center" style="display:none">
-  <a href="" id="imp-mailbox-prev" data-inline="true" data-iconpos="notext" data-role="button" data-icon="arrow-l">Previous</a>
-  <h2 class="ui-title">&nbsp;</h2>
-  <a href="" id="imp-mailbox-next" data-inline="true" data-role="button" data-icon="arrow-r" data-iconpos="notext">Next</a>
+ <div id="imp-mailbox-navtop" data-role="header" style="display:none">
+  <a href="#" id="imp-mailbox-prev" data-icon="arrow-l"><?php echo _("Previous") ?></a></li>
+  <h3 id="imp-mailbox-navtext"></h3>
+  <a href="#" id="imp-mailbox-next" data-icon="arrow-r"><?php echo _("Next") ?></a></li>
  </div>
 
  <div data-role="content">

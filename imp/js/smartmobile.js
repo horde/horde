@@ -275,12 +275,12 @@ var ImpMobile = {
         list.listview('refresh');
 
         if (ob.totalrows > ImpMobile.mbox_rows) {
-            var navtext = IMP.text.nav
+            $('#imp-mailbox-navtext').text(IMP.text.nav
                 .replace(/%d/, ob.from)
                 .replace(/%d/, Math.min(ob.from + ImpMobile.mbox_rows - 1, ob.totalrows))
-                .replace(/%d/, ob.totalrows);
+                .replace(/%d/, ob.totalrows)
+            );
             $('#imp-mailbox-navtop').show();
-            $('#imp-mailbox-navtop h2').text(navtext);
             ImpMobile.disableButton($('#imp-mailbox-prev'), ob.from == 1);
             ImpMobile.disableButton($('#imp-mailbox-next'), (ob.from + ImpMobile.mbox_rows - 1) >= ob.totalrows);
         } else {
