@@ -29,7 +29,7 @@
   <active>yes</active>
  </developer>
  <date>2012-09-02</date>
- <time>16:47:14</time>
+ <time>21:45:42</time>
  <version>
   <release>2.0.0beta6</release>
   <api>2.0.0beta1</api>
@@ -411,6 +411,11 @@
        <file name="Driver.php" role="php" />
        <file name="FactoryCallback.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Share -->
+      <dir name="Smartmobile">
+       <dir name="View">
+        <file name="Helper.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Smartmobile/View -->
+      </dir> <!-- /lib/Horde/Core/Smartmobile -->
       <dir name="Text">
        <dir name="Filter">
         <file name="Bbcode.php" role="php" />
@@ -1501,6 +1506,7 @@
    <install as="Horde/Core/Script/Package/Popup.php" name="lib/Horde/Core/Script/Package/Popup.php" />
    <install as="Horde/Core/Share/Driver.php" name="lib/Horde/Core/Share/Driver.php" />
    <install as="Horde/Core/Share/FactoryCallback.php" name="lib/Horde/Core/Share/FactoryCallback.php" />
+   <install as="Horde/Core/Smartmobile/View/Helper.php" name="lib/Horde/Core/Smartmobile/View/Helper.php" />
    <install as="Horde/Core/Text/Filter/Bbcode.php" name="lib/Horde/Core/Text/Filter/Bbcode.php" />
    <install as="Horde/Core/Text/Filter/Emails.php" name="lib/Horde/Core/Text/Filter/Emails.php" />
    <install as="Horde/Core/Text/Filter/Emoticons.php" name="lib/Horde/Core/Text/Filter/Emoticons.php" />
