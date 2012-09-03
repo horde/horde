@@ -204,62 +204,6 @@ class Kronolith_Application extends Horde_Registry_Application
                                  array $params = array())
     {
         switch ($params['id']) {
-        case 'alarms':
-            try {
-                $alarms = Kronolith::listAlarms(new Horde_Date($_SERVER['REQUEST_TIME']), $GLOBALS['display_calendars'], true);
-            } catch (Kronolith_Exception $e) {
-                return;
-            }
-
-            $alarmCount = 0;
-            $alarmImg = Horde_Themes::img('alarm.png');
-            $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
-
-            foreach ($alarms as $calId => $calAlarms) {
-                foreach ($calAlarms as $event) {
-                    if ($horde_alarm->isSnoozed($event->uid, $GLOBALS['registry']->getAuth())) {
-                        continue;
-                    }
-                    ++$alarmCount;
-                    $tree->addNode(array(
-                        'id' => $parent . $calId . $event->id,
-                        'parent' => $parent,
-                        'label' => htmlspecialchars($event->getTitle()),
-                        'expanded' => false,
-                        'params' => array(
-                            'icon' => $alarmImg,
-                            'url' => $event->getViewUrl(array(), false, false)
-                        )
-                    ));
-                }
-            }
-
-            if ($GLOBALS['registry']->get('url', $parent)) {
-                $purl = $GLOBALS['registry']->get('url', $parent);
-            } elseif ($GLOBALS['registry']->get('status', $parent) == 'heading' ||
-                      !$GLOBALS['registry']->get('webroot')) {
-                $purl = null;
-            } else {
-                $purl = Horde::url($GLOBALS['registry']->getInitialPage($parent));
-            }
-
-            $pnode_name = $GLOBALS['registry']->get('name', $parent);
-            if ($alarmCount) {
-                $pnode_name = '<strong>' . $pnode_name . '</strong>';
-            }
-
-            $tree->addNode(array(
-                'id' => $parent,
-                'parent' => $GLOBALS['registry']->get('menu_parent', $parent),
-                'label' => $pnode_name,
-                'expanded' => false,
-                'params' => array(
-                    'icon' => $GLOBALS['registry']->get('icon', $parent),
-                    'url' => $purl,
-                )
-            ));
-            break;
-
         case 'menu':
             $menus = array(
                 array('new', _("New Event"), 'new.png', Horde::url('new.php')),

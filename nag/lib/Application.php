@@ -214,66 +214,6 @@ class Nag_Application extends Horde_Registry_Application
         global $registry;
 
         switch ($params['id']) {
-        case 'alarms':
-            // Get any alarms in the next hour.
-            $now = time();
-            $alarms = Nag::listAlarms($now);
-            $alarmCount = 0;
-            $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
-            foreach ($alarms as $taskId => $task) {
-                if ($horde_alarm->isSnoozed($task->uid, $registry->getAuth())) {
-                    continue;
-                }
-                ++$alarmCount;
-
-                $differential = $task->due - $now;
-                $title = ($differential >= 60)
-                    ? sprintf(_("%s is due in %s"), $task->name, Nag::secondsToString($differential))
-                    : sprintf(_("%s is due now."), $task->name);
-                $url = Horde::url('view.php')->add(array(
-                    'task' => $task->id,
-                    'tasklist' => $task->tasklist
-                ));
-
-                $tree->addNode(array(
-                    'id' => $parent . $taskId,
-                    'parent' => $parent,
-                    'label' => $task->name,
-                    'expanded' => false,
-                    'params' => array(
-                        'icon' => Horde_Themes::img('alarm.png'),
-                        'title' => $title,
-                        'url' => $url
-                    )
-                ));
-            }
-
-            if ($registry->get('url', $parent)) {
-                $purl = $registry->get('url', $parent);
-            } elseif ($registry->get('status', $parent) == 'heading' ||
-                      !$registry->get('webroot')) {
-                $purl = null;
-            } else {
-                $purl = Horde::url($registry->getInitialPage($parent));
-            }
-
-            $pnode_name = $registry->get('name', $parent);
-            if ($alarmCount) {
-                $pnode_name = '<strong>' . $pnode_name . '</strong>';
-            }
-
-            $tree->addNode(array(
-                'id' => $parent,
-                'parent' => $registry->get('menu_parent', $parent),
-                'label' => $pnode_name,
-                'expanded' => false,
-                'params' => array(
-                    'icon' => strval($registry->get('icon', $parent)),
-                    'url' => $purl
-                )
-            ));
-            break;
-
         case 'menu':
             $add = Horde::url('task.php')->add('actionID', 'add_task');
 
