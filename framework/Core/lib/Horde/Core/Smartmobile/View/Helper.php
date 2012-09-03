@@ -30,7 +30,7 @@ class Horde_Core_Smartmobile_View_Helper extends Horde_View_Helper_Base
     {
         global $registry;
 
-        $out = '<div data-role="header">';
+        $out = '<div data-position="fixed" data-role="header">';
 
         if (!empty($params['backlink'])) {
             if (is_array($params['backlink'])) {
