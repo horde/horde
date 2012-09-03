@@ -16,31 +16,35 @@
 
  <div id="imp-message-body" data-role="content"></div>
 
- <div data-role="footer" class="ui-bar">
-  <div data-role="controlgroup" data-type="horizontal">
-   <a href="#" id="imp-message-prev" data-role="button" data-icon="arrow-l"><?php echo _("Previous") ?></a>
-   <a href="#" id="imp-message-next" data-role="button" data-icon="arrow-r"><?php echo _("Next") ?></a>
-  </div>
-  <div class="imp-message-spacer"></div>
+ <div data-role="footer" data-position="fixed">
+  <div data-role="navbar" data-iconpos="left">
+   <ul>
+    <li><a href="#" id="imp-message-delete" data-rel="dialog" data-icon="delete"><?php echo _("Delete") ?></a></li>
 <?php if ($this->canCompose): ?>
-  <div data-role="controlgroup" data-type="horizontal">
-   <a href="#" id="imp-message-reply" data-role="button" data-icon="back"><?php echo _("Reply") ?></a>
-   <a href="#" id="imp-message-forward" data-role="button" data-icon="forward"><?php echo _("Forward") ?></a>
-   <a href="#" id="imp-message-redirect" data-role="button" data-icon="forward"><?php echo _("Redirect") ?></a>
+    <li><a href="#" id="imp-message-reply" data-icon="back"><?php echo _("Reply") ?></a></li>
+    <li><a href="#" id="imp-message-forward" data-icon="forward"><?php echo _("Forward") ?></a></li>
+<?php endif; ?>
+   </ul>
   </div>
-  <div class="imp-message-spacer"></div>
-<?php endif ?>
-  <div data-role="controlgroup" data-type="horizontal">
-   <a href="#" id="imp-message-delete" data-role="button" data-rel="dialog" data-icon="delete"><?php echo _("Delete") ?></a>
-<?php if ($this->allowFolders): ?>
-   <a href="#" id="imp-message-copymove" data-role="button" data-rel="dialog" data-icon="plus"><?php echo _("Copy/Move") ?></a>
+ </div>
+
+ <div class="ui-bar" data-role="footer">
+<?php if ($this->canSpam): ?>
+  <a href="#" id="imp-message-spam" data-rel="dialog" data-icon="alert"><?php echo _("Spam") ?></a>
 <?php endif ?>
 <?php if ($this->canInnocent): ?>
-   <a href="#" id="imp-message-innocent" data-role="button" data-rel="dialog" data-icon="check" style="display:none"><?php echo _("Innocent") ?></a>
+  <a href="#" id="imp-message-innocent" data-rel="dialog" data-icon="check" style="display:none"><?php echo _("Innocent") ?></a>
 <?php endif ?>
-<?php if ($this->canSpam): ?>
-   <a href="#" id="imp-message-spam" data-role="button" data-rel="dialog" data-icon="alert"><?php echo _("Spam") ?></a>
-<?php endif ?>
-  </div>
+<?php if ($this->allowFolders): ?>
+  <a href="#" id="imp-message-copymove" data-rel="dialog" data-icon="plus"><?php echo _("Copy/Move") ?></a>
+<?php endif; ?>
+<?php if ($this->canCompose): ?>
+  <a href="#" id="imp-message-redirect" data-icon="forward"><?php echo _("Redirect") ?></a>
+<?php endif; ?>
+ </div>
+
+ <div class="ui-bar" data-role="footer">
+  <a href="#" id="imp-message-prev" data-icon="arrow-l"><?php echo _("Previous") ?></a>
+  <a href="#" id="imp-message-next" data-icon="arrow-r"><?php echo _("Next") ?></a>
  </div>
 </div>
