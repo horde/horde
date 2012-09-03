@@ -2,6 +2,8 @@
 v6.0.0-git
 ----------
 
+[mms] Load new mailbox when renaming current mailbox in dynamic view (Request
+      #11394).
 [mms] Add simple address autocompleter to smartmobile compose page.
 [mms] Add refresh button to smartmobile folder page.
 [jan] Fix popdown positioning in mailbox table header (Bug #11384).

@@ -10,8 +10,8 @@
 var DimpBase = {
     // Vars used and defaulting to null/false:
     //   expandmbox, pollPE, pp, resize, rownum, search,
-    //   searchbar_time, searchbar_time_mins, splitbar, sort_init, template,
-    //   uid, view, viewaction, viewport, viewswitch
+    //   searchbar_time, searchbar_time_mins, splitbar, sort_init, switchmbox,
+    //   template, uid, view, viewaction, viewport, viewswitch
 
     INBOX: 'SU5CT1g', // 'INBOX' base64url encoded
     lastrow: -1,
@@ -2179,7 +2179,11 @@ var DimpBase = {
             dropbase = (drop == $('dropbase'));
             if (dropbase ||
                 (ftype != 'special' && !this.isSubfolder(drag, drop))) {
-                DimpCore.doAction('renameMailbox', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : mboxname, new_name: drag.retrieve('l') });
+                DimpCore.doAction('renameMailbox', {
+                    new_name: drag.retrieve('l'),
+                    new_parent: dropbase ? '' : mboxname,
+                    old_name: drag.retrieve('mbox')
+                });
             }
         } else if (ftype != 'container') {
             sel = this.viewport.getSelected();
@@ -2894,6 +2898,10 @@ var DimpBase = {
             this.expandmbox = base ? base : true;
         }
 
+        if (r.switch) {
+            this.switchmbox = r.switch;
+        }
+
         if (r.d) {
             r.d.each(this.deleteMbox.bind(this));
         }
@@ -2904,7 +2912,7 @@ var DimpBase = {
             r.a.each(this.createMbox.bind(this));
         }
 
-        this.expandmbox = false;
+        this.expandmbox = this.switchmbox = false;
 
         if (base) {
             this._toggleSubFolder(base, 'tog', false, true);
@@ -3244,7 +3252,7 @@ var DimpBase = {
     deleteMbox: function(mbox)
     {
         if (this.view == mbox) {
-            this.go('mbox', this.INBOX);
+            this.go('mbox', this.switchmbox || this.INBOX);
         }
         this.deleteMboxElt(mbox, true);
     },

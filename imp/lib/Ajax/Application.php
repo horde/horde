@@ -246,6 +246,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
             if (($old_name != $new_name) && $old_name->rename($new_name)) {
                 $this->_queue->poll($new_name);
+                $this->_queue->setMailboxOpt('switch', $new_name->form_to);
                 return true;
             }
         } catch (Horde_Exception $e) {
