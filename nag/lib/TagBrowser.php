@@ -17,6 +17,13 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
     protected $_app = 'nag';
 
     /**
+     * The 'completed' filter value.
+     *
+     * @var integer
+     */
+    protected $_completed = Nag::VIEW_ALL;
+
+    /**
      * Get breadcrumb style navigation html for choosen tags
      *
      * @return  Return information useful for building a tag trail.
@@ -29,7 +36,7 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
     /**
      * Fetch the matching resources that should appear on the current page
      *
-     * @return Array  An array of Trean_Bookmark objects.
+     * @return array  An array of Trean_Bookmark objects.
      */
     public function getSlice($page, $perpage)
     {
@@ -55,6 +62,40 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
         }
 
         return $tasks;
+    }
+
+    /**
+     * Set the Nag::VIEW_* constant for the browser.
+     *
+     * @param integer $completed  The Nag::VIEW_* constant to filter the results
+     */
+    public function setFilter($completed)
+    {
+        $this->_completed = $completed;
+    }
+
+    /**
+     * Override the default tag search in orde to filter by the 'completed'
+     * filter.
+     *
+     * @return array  An array of task UIDs.
+     */
+    protected function _runSearch()
+    {
+        $search = new Nag_Search(
+            null,
+            Nag_Search::MASK_TAGS,
+            array(
+                'completed' => $this->_completed,
+                'tags' => $this->_tags));
+
+        $tasks = $search->getSlice();
+        $tasks->reset();
+        while ($task = $tasks->each()) {
+            $ids[] = $task->uid;
+        }
+
+        return $ids;
     }
 
 }

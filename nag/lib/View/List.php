@@ -202,6 +202,7 @@ class Nag_View_List
                 $this->_browser->clearSearch();
                 $this->_loadTasks();
             } else {
+                $this->_browser->setFilter($this->_vars->show_completed);
                 $this->_tasks = $this->_browser->getSlice();
             }
             break;
