@@ -11,7 +11,6 @@
  </div>
 
  <div data-role="footer" class="ui-bar" data-position="fixed">
-  <a href="" id="imp-mailbox-top" data-role="button" data-icon="arrow-u"><?php echo _("Top") ?></a>
 <?php if ($this->canCompose): ?>
   <a href="#compose" data-role="button" data-icon="plus"><?php echo _("New Message") ?></a>
 <?php endif ?>

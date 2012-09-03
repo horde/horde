@@ -1028,12 +1028,6 @@ var ImpMobile = {
                 }));
                 return;
 
-            case 'imp-mailbox-top':
-            case 'imp-message-top':
-                $.mobile.silentScroll();
-                elt.blur();
-                return;
-
             case 'imp-message-next':
             case 'imp-message-prev':
                 ImpMobile.navigate(id == 'imp-message-prev' ? -1 : 1);
