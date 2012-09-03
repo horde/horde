@@ -514,7 +514,7 @@ class IMP
      */
     static public function quota(Horde_View $subinfo)
     {
-        $quotadata = self::quotaData(true);
+        $quotadata = self::quotaData();
         if (!empty($quotadata)) {
             $subinfo->quotaText = $quotadata['message'];
             $subinfo->quotaClass = $quotadata['class'];
@@ -524,11 +524,9 @@ class IMP
     /**
      * Returns data needed to output quota.
      *
-     * @param boolean $long  Output long messages?
-     *
      * @return array  Array with these keys: class, message, percent.
      */
-    static public function quotaData($long = true)
+    static public function quotaData()
     {
         if (!$GLOBALS['session']->get('imp', 'imap_quota')) {
             return false;
@@ -562,22 +560,16 @@ class IMP
                 $ret['class'] = 'control';
             }
 
-            $ret['message'] = $long
-                ? sprintf($strings['long'], $quota['usage'], $unit, $quota['limit'], $unit, $ret['percent'])
-                : sprintf($strings['short'], $ret['percent'], $quota['limit'], $unit);
+            $ret['message'] = sprintf($strings['short'], $ret['percent'], $quota['limit'], $unit);
             $ret['percent'] = sprintf("%.2f", $ret['percent']);
         } else {
             $ret['class'] = 'control';
             if ($quota['usage'] != 0) {
                 $quota['usage'] = $quota['usage'] / $calc;
 
-                $ret['message'] = $long
-                    ? sprintf($strings['nolimit_long'], $quota['usage'], $unit)
-                    : sprintf($strings['nolimit_short'], $quota['usage'], $unit);
+                $ret['message'] = sprintf($strings['nolimit_short'], $quota['usage'], $unit);
             } else {
-                $ret['message'] = $long
-                    ? sprintf(_("Quota status: NO LIMIT"))
-                    : _("No limit");
+                $ret['message'] = _("No limit");
             }
         }
 

@@ -763,12 +763,6 @@ span.attachmentImg {
     float: right;
 }
 
-#mailboxLabel {
-    float: right;
-    margin-left: 20px;
-    white-space: nowrap;
-}
-
 #searchbar {
     background-color: #ffa;
     padding: 8px 10px;
