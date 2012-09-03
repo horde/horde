@@ -843,7 +843,7 @@ var ImpMobile = {
             return;
         }
 
-        func = ($('#imp-target-header').val() == 'copy')
+        func = ($('#imp-target-action').val() == 'copy')
             ? 'copyMessages'
             : 'moveMessages';
 
