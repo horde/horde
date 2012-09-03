@@ -2,6 +2,7 @@
 v4.0.0-git
 ----------
 
+[mjr] Implement Purge Completed Tasks LoginTask (Request #2520).
 [gwr] Mark the initial default share as such with the Kolab backend.
 [gwr] Always mark the initial share as default tasklist.
 [jan] Move complete task list management into the sidebar.
