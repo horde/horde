@@ -187,15 +187,13 @@ class Horde_Form_Renderer {
     function close($focus = true)
     {
         echo "</form>\n";
-        if ($focus && !empty($this->_firstField)) {
-            echo '<script type="text/javascript">
-<!--
-try {
-    document.getElementById("' . $this->_firstField . '").focus();
-} catch(e) {}
-//-->
-</script>
-';
+        if ($focus) {
+            $GLOBALS['injector']
+                ->getInstance('Horde_PageOutput')
+                ->addInlineScript(
+                    '$("' . htmlspecialchars($this->_name)
+                    . '").focusFirstElement()',
+                    true);
         }
     }
 
