@@ -14,7 +14,7 @@ Horde_Registry::appInit('ansel');
 // Init the map
 Ansel::initJSVariables();
 Horde::initHordeMap();
-
+$page_output->addScriptFile('map.js');
 $page_output->addScriptFile('map_edit.js');
 
 // Get the image id to (re)locate.

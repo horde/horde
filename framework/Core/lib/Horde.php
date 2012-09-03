@@ -1720,7 +1720,6 @@ class Horde
         $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
 
         $page_output->addScriptFile('map/map.js', 'horde');
-        $page_output->addScriptFile('map.js');
         $page_output->addInlineScript(array(
             'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');'
         ));
