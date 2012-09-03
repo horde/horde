@@ -203,6 +203,7 @@ abstract class Horde_Core_TagBrowser
     public function clearSearch()
     {
         $GLOBALS['session']->remove($this->_app, 'browsetags');
+        $this->_tags = array();
     }
 
     /**
