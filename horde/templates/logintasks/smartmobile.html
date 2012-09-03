@@ -18,19 +18,19 @@
 </loop:tasks>
 
 <if:confirm>
- <fieldset class="ui-grid-a">
-  <div class="ui-block-a"><button type="submit" data-theme="c" id="logintasks_skip" style="display:none"><gettext>Skip Login Tasks</gettext></button></div>
-  <div class="ui-block-b"><button type="submit" data-theme="b" name="ok"><gettext>Run Login Tasks</gettext></button></div>
+ <fieldset class="ui-grid-a horde-logintasks-buttons">
+  <div class="ui-block-a"><button type="submit" data-theme="a" name="ok"><gettext>Run Login Tasks</gettext></button></div>
+  <div class="ui-block-b"><span id="logintasks_skip" style="display:none"><button type="submit" data-theme="c"><gettext>Skip Login Tasks</gettext></button></span></div>
  </fieldset>
 </if:confirm>
 <if:agree>
- <fieldset class="ui-grid-a">
-  <div class="ui-block-a"><button type="submit" data-theme="c" name="not_agree"><gettext>NO, I Do NOT Agree</gettext></button></div>
-  <div class="ui-block-b"><button type="submit" data-theme="b" name="agree"><gettext>Yes, I Agree</gettext></button></div>
+ <fieldset class="ui-grid-a horde-logintasks-buttons">
+  <div class="ui-block-a"><button type="submit" data-theme="a" name="agree"><gettext>Yes, I Agree</gettext></button></div>
+  <div class="ui-block-b"><button type="submit" data-theme="c" name="not_agree"><gettext>NO, I Do NOT Agree</gettext></button></div>
  </fieldset>
 </if:agree>
 <if:notice>
- <fieldset>
+ <fieldset class="horde-logintasks-buttons">
   <button type="submit" name="ok"><gettext>Click to Continue</gettext></button>
  </fieldset>
 </if:notice>
