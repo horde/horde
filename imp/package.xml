@@ -2637,7 +2637,7 @@
 * [mms] Remove signature from compose UI; signature is now added automatically when sending (Request #10487).
 * [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
 * [mms] Size of sidebar now saved in dynamic view.
-* [mms] Browser-specific UI elements in dynamic view now saved in browser storage (Ticket #10723).
+* [mms] Browser-specific UI elements in dynamic view now saved in browser storage (Request #10723).
    </notes>
   </release>
   <release>
