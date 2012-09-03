@@ -129,11 +129,32 @@ if (($max_tasks === true) || ($max_tasks > Nag::countTasks())) {
     $view->create_title = $view->create_form->getTitle();
 }
 
+switch ($prefs->getValue('show_completed')) {
+case Nag::VIEW_INCOMPLETE:
+    $show_completed = 'incomplete';
+    break;
+
+case Nag::VIEW_ALL:
+    $show_completed = 'all';
+    break;
+
+case Nag::VIEW_COMPLETE:
+    $show_completed = 'complete';
+    break;
+
+case Nag::VIEW_FUTURE:
+    $show_completed = 'future';
+    break;
+
+case Nag::VIEW_FUTURE_INCOMPLETE:
+    $show_completed = 'future-incomplete';
+    break;
+}
+
 $page_output->addScriptFile('smartmobile.js');
 $page_output->addInlineJsVars(array(
     'var NagConf' => array(
-        'completeUrl' => strval(Horde::url('t/complete?format=json')),
-        'showCompleted' => $prefs->getValue('show_completed')
+        'showCompleted' => $show_completed
     )
 ), array('top' => true));
 

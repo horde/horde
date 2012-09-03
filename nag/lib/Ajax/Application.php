@@ -18,7 +18,12 @@ class Nag_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _init()
     {
+        global $registry;
+
         $this->addHelper(new Horde_Core_Ajax_Application_Helper_Prefs());
+        if ($registry->getView() == $registry::VIEW_SMARTMOBILE) {
+            $this->addHelper(new Nag_Ajax_Application_Helper_Smartmobile());
+        }
     }
 
 }

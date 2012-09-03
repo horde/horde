@@ -1,61 +1,54 @@
+/**
+ * jQuery Mobile UI application logic.
+ *
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ */
 var NagMobile = {
+
     toggleComplete: function()
     {
         var elt = $(this);
-        var task = elt.data('task');
-        var tasklist = elt.data('tasklist');
 
-        $.ajax({
-            url: NagConf.completeUrl,
-            type: 'POST',
-            data: { task: elt.data('task'), tasklist: elt.data('tasklist') },
-            context: elt,
-            success: NagMobile.toggleCompleteCallback
-        });
+        HordeMobile.doAction(
+            'smartmobileToggle',
+            {
+                task: elt.data('task'),
+                tasklist: elt.data('tasklist')
+            },
+            function(r) { NagMobile.toggleCompleteCallback(r, elt); }
+        );
     },
 
-    toggleCompleteCallback: function(data, textStatus, jqXHR)
+    toggleCompleteCallback: function(r, elt)
     {
-        if (data.data) {
-            if (data.data == 'complete') {
-                if (NagMobile.showCompleted() == 'incomplete' || NagMobile.showCompleted() == 'future-incomplete') {
-                    // Hide the task
-                    this.closest('li').remove();
-                } else {
-                    this.data('icon', 'check');
-                    this.find('span.ui-icon').removeClass('ui-icon-nag-unchecked');
-                    this.find('span.ui-icon').addClass('ui-icon-check');
-                }
+        if (r.data == 'complete') {
+            if (NagConf.showCompleted == 'incomplete' ||
+                NagConf.showCompleted == 'future-incomplete') {
+                // Hide the task
+                elt.closest('li').remove();
             } else {
-                if (NagMobile.showCompleted() == 'complete') {
-                    // Hide the task
-                    this.closest('li').remove();
-                } else {
-                    this.data('icon', 'nag-unchecked');
-                    this.find('span.ui-icon').removeClass('ui-icon-check');
-                    this.find('span.ui-icon').addClass('ui-icon-nag-unchecked');
-                }
+                elt.data('icon', 'check');
+                elt.find('span.ui-icon').removeClass('ui-icon-nag-unchecked').addClass('ui-icon-check');
+            }
+        } else {
+            if (NagMobile.showCompleted == 'complete') {
+                // Hide the task
+                elt.closest('li').remove();
+            } else {
+                elt.data('icon', 'nag-unchecked');
+                elt.find('span.ui-icon').removeClass('ui-icon-check').addClass('ui-icon-nag-unchecked');
             }
         }
     },
 
-    showCompleted: function()
+    onDocumentReady: function()
     {
-        switch (NagConf.showCompleted) {
-        case 0:
-            return 'incomplete';
-        case 1:
-            return 'all';
-        case 2:
-            return 'complete';
-        case 3:
-            return 'future';
-        case 4:
-            return 'future-incomplete';
-        }
+        $('.toggleable').click(NagMobile.toggleComplete);
     }
+
 };
 
-$(document).ready(function() {
-    $('.toggleable').click(NagMobile.toggleComplete);
-});
+$(NagMobile.onDocumentReady);
