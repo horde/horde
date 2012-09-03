@@ -208,7 +208,8 @@ table#tasklist-list th.sortdown {
 }
 
 .nag-tags-related, .nag-tags-browsing {
-    margin-bottom: 12px;
+    padding-bottom: 12px;
+    padding-left: 5px;
 }
 
 .horde-tags li a img {
