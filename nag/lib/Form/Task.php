@@ -129,6 +129,7 @@ class Nag_Form_Task extends Horde_Form
 
         $buttons = array(_("Save"));
         $this->setButtons($buttons);
+        $this->appendButtons(array(array('value' => _("Save and New"), 'name' => 'savenewbutton', 'class' => 'horde-create')));
     }
 
     public function renderActive()

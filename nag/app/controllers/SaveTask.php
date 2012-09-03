@@ -65,7 +65,13 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
         $notification->push(sprintf(_("Saved %s."), $info['name']), 'horde.success');
 
         /* Return to the last page or to the task list. */
-        $url = Horde_Util::getFormData('url', Horde::url('list.php', true));
+        if ($vars->savenewbutton) {
+            $url = Horde::url('task.php', true)->add('actionID', 'add_task');
+        } else {
+            $url = Horde_Util::getFormData('url', Horde::url('list.php', true));
+        }
+
         $response->setRedirectUrl($url);
     }
+
 }
