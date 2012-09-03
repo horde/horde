@@ -65,7 +65,7 @@ class Horde_Alarm_Handler_Desktop extends Horde_Alarm_Handler
         $js = sprintf('if(window.webkitNotifications)(function(){function show(){switch(window.webkitNotifications.checkPermission()){case 0:var notify=window.webkitNotifications.createNotification("%s",%s,%s);notify.show();(function(){notify.cancel()}).delay(5);break;case 1:window.webkitNotifications.requestPermission(function(){});break}}show()})()',
                       $this->_icon,
                       Horde_Serialize::serialize($alarm['title'], Horde_Serialize::JSON),
-                      isset($alarm['text']) ? Horde_Serialize::serialize($alarm['text'], Horde_Serialize::JSON) : '');
+                      isset($alarm['text']) ? Horde_Serialize::serialize($alarm['text'], Horde_Serialize::JSON) : "''");
         call_user_func($this->_jsNotify, $js);
     }
 
