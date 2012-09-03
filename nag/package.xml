@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-02</date>
- <time>21:58:57</time>
+ <date>2012-09-03</date>
+ <time>15:14:04</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -118,6 +118,11 @@
      <file name="Search.php" role="horde" />
      <file name="Task.php" role="horde" />
     </dir> <!-- /lib/Form -->
+    <dir name="LoginTasks">
+     <dir name="Task">
+      <file name="PurgeCompleted.php" role="horde" />
+     </dir> <!-- /lib/LoginTasks/Task -->
+    </dir> <!-- /lib/LoginTasks -->
     <dir name="Prefs">
      <dir name="Special">
       <file name="TaskAlarms.php" role="horde" />
@@ -759,6 +764,7 @@
    <install as="nag/lib/Form/Type/NagSearchDue.php" name="lib/Form/Type/NagSearchDue.php" />
    <install as="nag/lib/Form/Type/NagStart.php" name="lib/Form/Type/NagStart.php" />
    <install as="nag/lib/Form/Type/NagTags.php" name="lib/Form/Type/NagTags.php" />
+   <install as="nag/lib/LoginTasks/Task/PurgeCompleted.php" name="lib/LoginTasks/Task/PurgeCompleted.php" />
    <install as="nag/lib/Prefs/Special/TaskAlarms.php" name="lib/Prefs/Special/TaskAlarms.php" />
    <install as="nag/lib/Tasklists/Base.php" name="lib/Tasklists/Base.php" />
    <install as="nag/lib/Tasklists/Default.php" name="lib/Tasklists/Default.php" />
@@ -1170,7 +1176,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-02</date>
+   <date>2012-09-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [gwr] Mark the initial default share as such with the Kolab backend.

@@ -19,7 +19,7 @@ $prefGroups['deletion'] = array(
     'column' => _("General Preferences"),
     'label' => _("Delete Confirmation"),
     'desc' => _("Delete button behaviour"),
-    'members' => array('delete_opt'),
+    'members' => array('delete_opt', 'purge_completed_interval', 'purge_completed_keep'),
 );
 
 $prefGroups['tasks'] = array(
@@ -122,6 +122,20 @@ $_prefs['delete_opt'] = array(
     'value' => 1,
     'type' => 'checkbox',
     'desc' => _("Do you want to confirm deleting entries?"),
+);
+
+// how often to purge completed tasks?
+$_prefs['purge_completed_interval'] = array(
+    'value' => 0,
+    'type' => 'enum',
+    'enum' => array_merge(array(0 => _("Never")), Horde_LoginTasks::getLabels()),
+    'desc' => _("Purge completed tasks how often:")
+);
+
+$_prefs['purge_completed_keep'] = array(
+    'value' => 30,
+    'type' => 'number',
+    'desc' => _("Purge completed tasks older than this amount of days.")
 );
 
 // default to tasks having a due date?
