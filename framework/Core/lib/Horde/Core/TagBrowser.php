@@ -194,15 +194,7 @@ abstract class Horde_Core_TagBrowser
      */
     public function runSearch()
     {
-        if (!empty($this->_owner)) {
-            $filter = array('user' => $this->_owner);
-        } else {
-            $filter = array();
-        }
-        if (empty($this->_results) || $this->_dirty) {
-            $this->_results = $this->_tagger
-                    ->search($this->_tags, $filter);
-        }
+        $this->_results = $this->_runSearch();
     }
 
     /**
@@ -220,6 +212,24 @@ abstract class Horde_Core_TagBrowser
     protected function _sortTagInfo($a, $b)
     {
         return $a['total']  <  $b['total'];
+    }
+
+    /**
+     * Default implementation for runSearch.
+     *
+     * @return array
+     */
+    protected function _runSearch()
+    {
+        if (!empty($this->_owner)) {
+            $filter = array('user' => $this->_owner);
+        } else {
+            $filter = array();
+        }
+        if (empty($this->_results) || $this->_dirty) {
+            $this->_results = $this->_tagger
+                    ->search($this->_tags, $filter);
+        }
     }
 
     /**
