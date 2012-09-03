@@ -13,7 +13,7 @@ Horde_Registry::appInit('ansel');
 
 // Init the map
 Ansel::initJSVariables();
-Horde::initHordeMap();
+Horde::initMap();
 $page_output->addScriptFile('map.js');
 $page_output->addScriptFile('map_edit.js');
 
