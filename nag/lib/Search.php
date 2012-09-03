@@ -69,13 +69,19 @@ class Nag_Search implements Serializable
      *          DEFAULT: No date filters.
      *
      *   - tags: (array) An array of tags to filter on.
+     *   - tasklists: (array) An arary of tasklist ids to filter on.
+     *                DEFAULT: The current display_tasklists value is used.
      *
      * @return Nag_Search
      */
     public function __construct($search, $mask, array $options = array())
     {
         $options = array_merge(
-            array('completed' => 0, 'due' => array(), 'tags' => array()),
+            array(
+                'completed' => 0,
+                'due' => array(),
+                'tags' => array(),
+                'tasklists' => $GLOBALS['display_tasklists']),
             $options);
 
         $this->_search = $search;
@@ -83,6 +89,7 @@ class Nag_Search implements Serializable
         $this->_completed = $options['completed'];
         $this->_due = $options['due'];
         $this->_tags = $options['tags'];
+        $this->_tasklists = $options['tasklists'];
     }
 
     /**
@@ -121,7 +128,7 @@ class Nag_Search implements Serializable
 
         // Get the full, sorted task list.
         $tasks = Nag::listTasks(array(
-            'tasklists' => array_keys(Nag::listTasklists(false, Horde_Perms::READ, false)),
+            'tasklists' => $this->_tasklists,
             'completed' => $this->_completed)
         );
         if (!empty($this->_search)) {
