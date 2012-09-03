@@ -34,14 +34,14 @@ class Nag_Tagger extends Horde_Core_Tagger
         if (array_key_exists('user', $filter)) {
             // semi-hack to see if we are querying for a system-owned share -
             // will need to get the list of all system owned shares and query
-            // using a calendar filter instead of a user filter.
+            // using a tasklist filter instead of a user filter.
             if (empty($filter['user'])) {
                 // @TODO: No way to get only the system shares the current
                 // user can see?
-                $calendars = $GLOBALS['injector']->getInstance('Nag_Shares')
+                $tasklists = $GLOBALS['injector']->getInstance('Nag_Shares')
                     ->listSystemShares();
                 $args['listId'] = array();
-                foreach ($calendars as $name => $share) {
+                foreach ($tasklists as $name => $share) {
                     if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
                         $args['listId'][] = $name;
                     }
