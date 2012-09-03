@@ -532,6 +532,10 @@ var ImpMobile = {
 
         $('#message').children().not('#imp-message-atc').show();
 
+        $.each($('#imp-message-body IFRAME'), function(k, v) {
+            IMP_JS.iframeResize($(v));
+        });
+
         delete ImpMobile.message;
     },
 
