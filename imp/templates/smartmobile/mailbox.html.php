@@ -3,7 +3,7 @@
   <a href="#folders" data-icon="arrow-l" data-direction="reverse"><?php echo _("Folders") ?></a>
   <h1 id="imp-mailbox-header">&nbsp;</h1>
 <?php if ($this->logout): ?>
-  <a href="<?php echo $this->logout ?>" rel="external" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
+  <a href="<?php echo $this->logout ?>" data-ajax="false" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
 <?php endif ?>
  </div>
 

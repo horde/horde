@@ -1,9 +1,9 @@
 <div data-role="page" id="tasklist">
  <div data-role="header">
   <h1>My Tasks</h1>
-  <a rel="external" href="<?php echo $this->portal ?>"><?php echo _("Applications")?></a>
+  <a data-ajax="false" href="<?php echo $this->portal ?>"><?php echo _("Applications")?></a>
 <?php if ($this->logout): ?>
- <a href="<?php echo $this->logout ?>" rel="external" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
+ <a href="<?php echo $this->logout ?>" data-ajax="false" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
 <?php endif ?>
  </div>
  <div data-role="content">

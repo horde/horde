@@ -2,7 +2,7 @@
  <div data-role="header">
   <h1 id="imp-compose-title"><?php echo _("New Message") ?></h1>
 <?php if ($this->logout): ?>
-  <a href="<?php echo $this->logout ?>" rel="external" data-theme="e" data-icon="delete" class="ui-btn-right"><?php echo _("Log out") ?></a>
+  <a href="<?php echo $this->logout ?>" data-ajax="false" data-theme="e" data-icon="delete" class="ui-btn-right"><?php echo _("Log out") ?></a>
 <?php endif ?>
  </div>
 
