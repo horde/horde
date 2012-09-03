@@ -558,6 +558,11 @@ div.modal-form input, div.modal-form select {
     width: 18em;
     margin-bottom: .5em;
 }
+div.modal-form input {
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    width: 17.5em;
+}
 div.modal-form .submit-button {
     display: block;
     margin: .5em auto;
