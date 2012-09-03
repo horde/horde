@@ -127,7 +127,7 @@ class Nag_View_List
         $view->dynamic_sort = true;
 
         $view->baseurl = Horde::url('list.php');
-        if ($actionID == 'search_tasks') {
+        if ($this->_vars->actionID == 'search_tasks') {
             $view->baseurl->add(
                 array('actionID' => 'search_tasks',
                       'search_pattern' => $search_pattern,

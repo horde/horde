@@ -91,6 +91,8 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
 
         $tasks = $search->getSlice();
         $tasks->reset();
+
+        $ids = array();
         while ($task = $tasks->each()) {
             $ids[] = $task->uid;
         }
