@@ -211,7 +211,8 @@ class Nag_View_List
             $list = $GLOBALS['nag_shares']->getShare($this->_vars->get('list'));
             $this->_title = $list->get('name');
             $this->_smartShare = $list;
-            // Fall through
+            $this->_loadTasks($lists);
+            break;
         default:
             // If we have an active tag browse, use it.
             if ($this->_browser->tagCount() >= 1) {
