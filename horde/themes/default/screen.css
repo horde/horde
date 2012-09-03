@@ -1867,7 +1867,7 @@ left.horde-point-right {
 }
 
 #horde-sidebar h3 {
-    height: 12px;
+    min-height: 12px;
     margin: 0 10px;
     font-size: 100%;
     font-weight: bold;
@@ -1884,6 +1884,7 @@ left.horde-point-right {
 }
 .horde-collapse,
 .horde-expand {
+    display: block;
     padding-left: 26px;
     background-repeat: no-repeat;
     cursor: pointer;

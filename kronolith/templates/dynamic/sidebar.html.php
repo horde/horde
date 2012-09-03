@@ -20,8 +20,8 @@
   </div>
 </div>
 
+<div class="horde-sidebar-split"></div>
 <div id="kronolithMenu">
-  <div class="horde-sidebar-split"></div>
   <div>
     <div id="kronolithLoadingCalendars">
       <?php echo _("Loading calendars...") ?>

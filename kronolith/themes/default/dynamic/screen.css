@@ -59,8 +59,19 @@ html, body {
 }
 
 /* Left menu column */
+#kronolithAjax #horde-sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
 #kronolithMenu {
-    padding-bottom: 10px;
+    position: absolute;
+    top: 266px;
+    bottom: 10px;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-top: 2px;
 }
 #kronolithLoadingCalendars {
     padding-left: 10px;
