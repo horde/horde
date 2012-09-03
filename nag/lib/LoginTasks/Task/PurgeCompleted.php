@@ -41,7 +41,7 @@ class Nag_LoginTasks_Task_PurgeCompleted extends Horde_LoginTasks_Task
          * in 'purge_completed_keep'.  If a message has a timestamp prior to
          * this value, it will be deleted. */
         $del_time = new Horde_Date(time() - ($prefs->getValue('purge_completed_keep') * 86400));
-
+        $del_time = $del_time->timestamp();
         $tasklists = Nag::listTasklists(true, Horde_Perms::DELETE, false);
         $tasks = Nag::listTasks(array(
             'completed' => Nag::VIEW_COMPLETE,
@@ -53,7 +53,7 @@ class Nag_LoginTasks_Task_PurgeCompleted extends Horde_LoginTasks_Task
         $count = 0;
         $tasks->reset();
         while ($task = $tasks->each()) {
-            if ($task->completed_date < $del_time) {
+            if (($task->completed_date) && $task->completed_date < $del_time) {
                 try {
                     $storage->delete($task->id);
                     ++$count;
