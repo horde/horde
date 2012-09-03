@@ -71,12 +71,13 @@ class Nag_Driver_Sql extends Nag_Driver
         }
 
         if (!is_array($taskIds)) {
-            return new Nag_Task($this, $this->_buildTask(current($rows)));
-        }
-
-        $results = new Nag_Task();
-        foreach ($rows as $row) {
-            $results->add(new Nag_Task($this, $this->_buildTask($row)));
+            $results = new Nag_Task($this, $this->_buildTask(current($rows)));
+            $this->_tasklist = $results->tasklist;
+        } else {
+            $results = new Nag_Task();
+            foreach ($rows as $row) {
+                $results->add(new Nag_Task($this, $this->_buildTask($row)));
+            }
         }
 
         return $results;
