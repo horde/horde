@@ -29,7 +29,7 @@
   <active>yes</active>
  </lead>
  <date>2012-09-03</date>
- <time>10:23:22</time>
+ <time>15:35:08</time>
  <version>
   <release>5.0.0beta6</release>
   <api>5.0.0beta1</api>
@@ -1673,6 +1673,7 @@
       <file name="layout.png" role="horde" />
       <file name="lhand.png" role="horde" />
       <file name="loading.gif" role="horde" />
+      <file name="locked-inv.png" role="horde" />
       <file name="locked.png" role="horde" />
       <file name="login.png" role="horde" />
       <file name="logo.png" role="horde" />
@@ -2678,6 +2679,7 @@
    <install as="themes/default/graphics/layout.png" name="themes/default/graphics/layout.png" />
    <install as="themes/default/graphics/lhand.png" name="themes/default/graphics/lhand.png" />
    <install as="themes/default/graphics/loading.gif" name="themes/default/graphics/loading.gif" />
+   <install as="themes/default/graphics/locked-inv.png" name="themes/default/graphics/locked-inv.png" />
    <install as="themes/default/graphics/locked.png" name="themes/default/graphics/locked.png" />
    <install as="themes/default/graphics/login.png" name="themes/default/graphics/login.png" />
    <install as="themes/default/graphics/logo.png" name="themes/default/graphics/logo.png" />
