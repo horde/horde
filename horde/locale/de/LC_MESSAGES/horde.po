@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Horde 5.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-08-29 13:30+0200\n"
-"PO-Revision-Date: 2012-08-29 13:43+0200\n"
+"PO-Revision-Date: 2012-09-03 09:42+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -105,7 +105,7 @@ msgid ""
 "time."
 msgstr ""
 "%s möchte die Aufgaben durchführen, die unten angezeigt sind. Markieren Sie "
-"alle Arbeiten, die jetzt durchgeführt werden sollen."
+"alle Aufgaben, die jetzt durchgeführt werden sollen."
 
 #: lib/Block/Metar.php:162 lib/Block/Metar.php:167
 #, php-format
