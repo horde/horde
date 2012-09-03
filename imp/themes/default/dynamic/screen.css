@@ -732,7 +732,7 @@ span.attachmentImg {
 }
 
 /* Email Addresses. */
-#msgHeadersContent .horde-button {
+.msgHeaders .horde-button {
     padding: 1px 3px;
     margin: -2px 1px 0 0;
 }
