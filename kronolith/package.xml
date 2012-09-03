@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-01</date>
- <time>19:44:00</time>
+ <date>2012-09-03</date>
+ <time>16:39:23</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -185,7 +185,7 @@
     <dir name="Prefs">
      <dir name="Special">
       <file name="DefaultAlarm.php" role="horde" />
-      <file name="EventAlarm.php" role="horde" />
+      <file name="EventAlarms.php" role="horde" />
       <file name="Sourceselect.php" role="horde" />
      </dir> <!-- /lib/Prefs/Special -->
     </dir> <!-- /lib/Prefs -->
@@ -1153,7 +1153,7 @@
    <install as="kronolith/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="kronolith/lib/LoginTasks/Task/PurgeEvents.php" name="lib/LoginTasks/Task/PurgeEvents.php" />
    <install as="kronolith/lib/Prefs/Special/DefaultAlarm.php" name="lib/Prefs/Special/DefaultAlarm.php" />
-   <install as="kronolith/lib/Prefs/Special/EventAlarm.php" name="lib/Prefs/Special/EventAlarm.php" />
+   <install as="kronolith/lib/Prefs/Special/EventAlarms.php" name="lib/Prefs/Special/EventAlarms.php" />
    <install as="kronolith/lib/Prefs/Special/Sourceselect.php" name="lib/Prefs/Special/Sourceselect.php" />
    <install as="kronolith/lib/Resource/Base.php" name="lib/Resource/Base.php" />
    <install as="kronolith/lib/Resource/Group.php" name="lib/Resource/Group.php" />
@@ -1924,7 +1924,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-01</date>
+   <date>2012-09-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [gwr] Mark the initial default share as such with the Kolab backend.

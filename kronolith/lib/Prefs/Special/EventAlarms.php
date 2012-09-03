@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Kronolith
  */
-class Kronolith_Prefs_Special_EventAlarm implements Horde_Core_Prefs_Ui_Special
+class Kronolith_Prefs_Special_EventAlarms implements Horde_Core_Prefs_Ui_Special
 {
     /**
      */
