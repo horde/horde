@@ -361,13 +361,17 @@ class Nag_View_List
     protected function _getRelatedTags()
     {
         $rtags = $this->_browser->getRelatedTags();
-        $t = Horde::img('tags.png');
-        $html = sprintf('<div class="nag-tags-related">%s<ul class="horde-tags">', $t);
-        foreach ($rtags as $id => $taginfo) {
-            $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
-                . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
+        if (count($rtags)) {
+            $t = Horde::img('tags.png');
+            $html = sprintf('<div class="nag-tags-related">%s<ul class="horde-tags">', $t);
+            foreach ($rtags as $id => $taginfo) {
+                $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
+                    . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
+            }
+            return $html . '</ul></div>';
         }
-        return $html . '</ul></div>';
+
+        return '';
     }
 
     /**
