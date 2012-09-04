@@ -34,20 +34,21 @@ class Horde_Core_Smartmobile_View_Helper extends Horde_View_Helper_Base
 
         if (!empty($params['backlink'])) {
             if (is_array($params['backlink'])) {
-                $out .= '<a class="smartmobile-back" href="' .
+                $out .= '<a class="smartmobile-back ui-btn-left" href="' .
                     $params['backlink'][0] .
                     '" data-icon="arrow-l" data-direction="reverse">' .
                     $params['backlink'][1] . '</a>';
             } else {
-                $out .= '<a class="smartmobile-back" href="#" ' .
+                $out .= '<a class="smartmobile-back ui-btn-left" href="#" ' .
                     'data-icon="arrow-l" data-rel="back">' . _("Back") . '</a>';
             }
         }
 
         if (!empty($params['portal']) &&
             ($portal = $registry->getServiceLink('portal', 'horde')->setRaw(false))) {
-            $out .= '<a class="smartmobile-portal" data-ajax="false" href="'
-                . $portal . '">' . _("Applications") . '</a>';
+            $out .= '<a class="smartmobile-portal ui-btn-left" ' .
+                'data-ajax="false" href="' . $portal . '">' .
+                _("Applications") . '</a>';
         }
 
         if (isset($params['title']) && strlen($params['title'])) {
@@ -56,7 +57,8 @@ class Horde_Core_Smartmobile_View_Helper extends Horde_View_Helper_Base
 
         if (!empty($params['logout']) &&
             ($logout = $registry->getServiceLink('logout')->setRaw(false))) {
-            $out .= '<a class="smartmobile-logout" href="' . $logout .
+            $out .= '<a class="smartmobile-logout ui-btn-right" href="' .
+                $logout .
                 '" data-ajax="false" data-theme="e" data-icon="delete" class="ui-btn-right">' .
                 _("Log out") . '</a>';
         }
