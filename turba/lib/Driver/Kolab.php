@@ -211,7 +211,9 @@ class Turba_Driver_Kolab extends Turba_Driver
         $this->connect();
 
         if (!count($criteria)) {
-            return $this->_contacts_cache;
+            return $count_only
+                ? count($this->_contacts_cache)
+                : array_values($this->_contacts_cache);
         }
 
         // keep only entries matching criteria
