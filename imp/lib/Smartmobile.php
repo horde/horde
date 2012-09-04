@@ -28,7 +28,7 @@ class IMP_Smartmobile
      */
     public function __construct(Horde_Variables $vars)
     {
-        global $notification, $page_output;
+        global $notification, $page_output, $registry;
 
         $this->vars = $vars;
 
@@ -44,10 +44,11 @@ class IMP_Smartmobile
         $page_output->addScriptFile('smartmobile.js');
         $page_output->addScriptFile('indices.js');
         $page_output->addScriptFile('json2.js', 'horde');
-        if (IMP::canCompose()) {
-            $page_output->addScriptFile('jquery.mobile/plugins/autocomplete.js', 'horde');
-        }
 
+        $page_output->addStylesheet(
+            $registry->get('jsfs', 'horde') . '/jquery.mobile/plugins/pagination.css',
+            $registry->get('jsuri', 'horde') . '/jquery.mobile/plugins/pagination.css'
+        );
         $page_output->addStylesheet(
             new Horde_Themes_Element('mime.css')
         );
@@ -59,7 +60,7 @@ class IMP_Smartmobile
      */
     public function render()
     {
-        global $injector;
+        global $injector, $page_output;
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
@@ -75,6 +76,13 @@ class IMP_Smartmobile
         echo $this->view->render('confirm');
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             echo $this->view->render('target');
+        }
+
+        /* jQuery Mobile plugins must be loaded AFTER the main mobile script
+         * is loaded. */
+        $page_output->addScriptFile('jquery.mobile/plugins/pagination.js', 'horde');
+        if (IMP::canCompose()) {
+            $page_output->addScriptFile('jquery.mobile/plugins/autocomplete.js', 'horde');
         }
     }
 

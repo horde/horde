@@ -343,14 +343,10 @@ var ImpMobile = {
     /**
      * Navigates to the next or previous message or mailbox page.
      *
-     * @param integer|object dir  A swipe event or a jump length.
+     * @param integer dir  A swipe event or a jump length.
      */
     navigate: function(dir)
     {
-        if (typeof dir == 'object') {
-            dir = (dir.type == 'swipeleft') ? 1 : -1;
-        }
-
         var from, pos, rid,
             ob = ImpMobile.cache[ImpMobile.mailbox];
 
@@ -481,8 +477,8 @@ var ImpMobile = {
         }
 
         rownum = cache.rowlist[ImpMobile.rowid];
-        ImpMobile.disableButton($('#imp-message-prev'), rownum == 1);
-        ImpMobile.disableButton($('#imp-message-next'), rownum == cache.totalrows);
+        $('#imp-message-pagination').pagination('enable', 'prev', rownum != 1)
+            .pagination('enable', 'next', rownum != cache.totalrows);
 
         if (!IMP.conf.disable_compose) {
             $('#imp-message-reply').attr('href', HordeMobile.createUrl('compose', $.extend({}, args, {
@@ -1028,11 +1024,6 @@ var ImpMobile = {
                 }));
                 return;
 
-            case 'imp-message-next':
-            case 'imp-message-prev':
-                ImpMobile.navigate(id == 'imp-message-prev' ? -1 : 1);
-                return;
-
             case 'imp-mailbox-prev':
                 if (!elt.hasClass('ui-disabled')) {
                     ImpMobile.navigate(-1);
@@ -1132,12 +1123,15 @@ var ImpMobile = {
      */
     onDocumentReady: function()
     {
-        // Set up HordeMobile.
         $(document).bind('vclick', ImpMobile.clickHandler);
-        $(document).bind('swipeleft', ImpMobile.navigate);
-        $(document).bind('swiperight', ImpMobile.navigate);
         $(document).bind('pagebeforechange', ImpMobile.toPage);
         $(document).bind('HordeMobile:runTasks', ImpMobile.runTasks);
+
+        $('#message').on('click.pagination', function(e, type) {
+            if (e.namespace == 'pagination') {
+                ImpMobile.navigate(type == 'prev' ? -1 : 1);
+            }
+        });
 
         if (!IMP.conf.disable_compose) {
             $('#compose').live('pagehide', function() {

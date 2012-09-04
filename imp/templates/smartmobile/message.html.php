@@ -37,7 +37,10 @@
 <?php if ($this->canCompose): ?>
   <a href="#" id="imp-message-redirect" data-icon="forward"><?php echo _("Redirect") ?></a>
 <?php endif; ?>
-  <a href="#" id="imp-message-prev" data-icon="arrow-l"><?php echo _("Previous") ?></a>
-  <a href="#" id="imp-message-next" data-icon="arrow-r"><?php echo _("Next") ?></a>
  </div>
+
+ <ul id="imp-message-pagination" data-role="pagination">
+  <li class="ui-pagination-prev"><a href="#"><?php echo _("Previous") ?></a></li>
+  <li class="ui-pagination-next"><a href="#"><?php echo _("Next") ?></a></li>
+ </ul>
 </div>
