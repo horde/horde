@@ -240,17 +240,19 @@ implements Horde_Kolab_Storage_Data_Format
         $kolab = new Horde_Mime_Part();
         $kolab->setType($this->getMimeType($options['type']));
         if (empty($options['raw'])) {
+            $format = new Horde_Kolab_Storage_Data_Object_Content(
+                $this->_factory->createFormat(
+                    'Xml', $options['type'], $options['version']
+                )
+            );
             if (isset($options['previous'])) {
-                $previous = array('previous' => $options['previous']);
+                $content = $format->modify($object, $options['previous']);
             } else {
-                $previous = array();
+                $content = $format->create($object);
             }
             try {
                 $kolab->setContents(
-                    $this->_factory->createFormat(
-                        'Xml', $options['type'], $options['version']
-                    )->save($object, $previous),
-                    array('encoding' => 'quoted-printable')
+                    $content, array('encoding' => 'quoted-printable')
                 );
             } catch (Horde_Kolab_Format_Exception $e) {
                 throw new Horde_Kolab_Storage_Exception(
