@@ -131,7 +131,7 @@ var ImpMobile = {
         if (ob = ImpMobile.cache[mailbox]) {
             if (purl.params.from) {
                 ob.from = Number(purl.params.from);
-            } else if (data.options.noajax) {
+            } else if (data.options.data.noajax) {
                 ImpMobile.refreshMailbox(ob);
                 return;
             } else {
@@ -787,9 +787,9 @@ var ImpMobile = {
 
             $.mobile.changePage(HordeMobile.createUrl('mailbox', {
                 mbox: purl.params.mbox
-            }, {
+            }), {
                 data: { noajax: true }
-            }));
+            });
 
             HordeMobile.doAction(
                 'reportSpam',
@@ -861,9 +861,9 @@ var ImpMobile = {
         if (IMP.conf.mailbox_return || func == 'moveMessages') {
             $.mobile.changePage(HordeMobile.createUrl('mailbox', {
                 mbox: source
-            }, {
+            }), {
                 data: { noajax: true }
-            }));
+            });
         }
     },
 
