@@ -295,24 +295,19 @@ var ImpMobile = {
      */
     toMessage: function(data)
     {
-        var purl = data.options.parsedUrl;
+        var purl = data.options.parsedUrl,
+            params = {};
 
         if (!ImpMobile.mailbox) {
-            // Deep-linked message page. Load mailbox to allow navigation
-            // between messages.
-            HordeMobile.doAction(
-                'viewPort',
-                ImpMobile.addViewportParams({
-                    // Make sure we have a big enough buffer to fit all
-                    // messages on a page.
-                    after: ImpMobile.mbox_rows,
-                    before: ImpMobile.mbox_rows,
-                    requestid: 1,
-                    // Need to manually encode JSON here.
-                    search: JSON.stringify({ uid: purl.params.uid }),
-                    view: purl.params.view
-                })
-            );
+            params = {
+                // Make sure we have a big enough buffer to fit all
+                // messages on a page.
+                after: ImpMobile.mbox_rows,
+                before: ImpMobile.mbox_rows,
+                requestid: 1,
+                // Need to manually encode JSON here.
+                search: JSON.stringify({ uid: purl.params.uid })
+            };
             ImpMobile.mailbox = purl.params.view;
         }
 
@@ -332,10 +327,11 @@ var ImpMobile = {
 
         HordeMobile.doAction(
             'smartmobileShowMessage',
-            {
-                uid: ImpMobile.toUIDStringSingle(purl.params.view, [ purl.params.uid ]),
+            $.extend(ImpMobile.addViewportParams($.extend(params, {
                 view: (ImpMobile.search ? IMP.conf.qsearchid : purl.params.view)
-            },
+            })), {
+                uid: ImpMobile.toUIDStringSingle(purl.params.view, [ purl.params.uid ]),
+            }),
             ImpMobile.messageLoaded
         );
     },
