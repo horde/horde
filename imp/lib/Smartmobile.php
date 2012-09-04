@@ -48,8 +48,9 @@ class IMP_Smartmobile
             $page_output->addScriptFile('jquery.mobile/plugins/autocomplete.js', 'horde');
         }
 
-        $mimecss = new Horde_Themes_Element('mime.css');
-        $page_output->addStylesheet($mimecss->fs, $mimecss->uri);
+        $page_output->addStylesheet(
+            new Horde_Themes_Element('mime.css')
+        );
 
         $notification->notify(array('listeners' => 'status'));
     }
