@@ -339,7 +339,9 @@ input.horde-delete, a.horde-delete {
 input.horde-cancel {
     background: transparent;
     border-style: none;
+    color: #496f7e;
     padding: 3px;
+    text-decoration: underline;
 }
 a.horde-cancel {
     color: #496f7e;
@@ -1262,7 +1264,7 @@ div.GrowlerNoticeExit:hover {
 /* Auto completer styles. See tags section too. */
 .hordeACBox {
     background:white none repeat scroll 0 0;
-    border:1px solid #666699;
+    border: 1px solid #d0d0d0;
     cursor:default;
     /*overflow:hidden;*/
     text-align:left;
