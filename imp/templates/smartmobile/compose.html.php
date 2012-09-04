@@ -1,5 +1,5 @@
 <div id="compose" data-role="page">
- <?php echo $this->smartmobileHeader(array('backlink' => true, 'logout' => true, 'title' => _("New Message"))) ?>
+ <?php echo $this->smartmobileHeader(array('logout' => true, 'title' => _("New Message"))) ?>
 
  <form id="imp-redirect-form" action="<?php echo $this->composeLink ?>" style="display:none">
   <input type="hidden" id="imp-redirect-cache" name="composeCache" value="<?php echo $this->h($this->composeCache) ?>" />
