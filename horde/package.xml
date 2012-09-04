@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-03</date>
- <time>15:35:08</time>
+ <date>2012-09-04</date>
+ <time>15:00:30</time>
  <version>
   <release>5.0.0beta6</release>
   <api>5.0.0beta1</api>
@@ -142,123 +142,6 @@
     <file name="horde.php" role="horde" />
    </dir> <!-- /install -->
    <dir name="js">
-    <dir name="map">
-     <dir name="img">
-      <file name="blank.gif" role="horde" />
-      <file name="cloud-popup-relative.png" role="horde" />
-      <file name="drag-rectangle-off.png" role="horde" />
-      <file name="drag-rectangle-on.png" role="horde" />
-      <file name="east-mini.png" role="horde" />
-      <file name="layer-switcher-maximize.png" role="horde" />
-      <file name="layer-switcher-minimize.png" role="horde" />
-      <file name="marker.png" role="horde" />
-      <file name="measuring-stick-off.png" role="horde" />
-      <file name="measuring-stick-on.png" role="horde" />
-      <file name="north-mini.png" role="horde" />
-      <file name="panning-hand-off.png" role="horde" />
-      <file name="panning-hand-on.png" role="horde" />
-      <file name="slider.png" role="horde" />
-      <file name="south-mini.png" role="horde" />
-      <file name="west-mini.png" role="horde" />
-      <file name="zoom-minus-mini.png" role="horde" />
-      <file name="zoom-plus-mini.png" role="horde" />
-      <file name="zoom-world-mini.png" role="horde" />
-      <file name="zoombar.png" role="horde" />
-     </dir> <!-- /js/map/img -->
-     <dir name="lang">
-      <file name="ar-SY.js" role="horde" />
-      <file name="bg-BG.js" role="horde" />
-      <file name="ca-ES.js" role="horde" />
-      <file name="cs-CZ.js" role="horde" />
-      <file name="da-DK.js" role="horde" />
-      <file name="de-DE.js" role="horde" />
-      <file name="el-GR.js" role="horde" />
-      <file name="en-CA.js" role="horde" />
-      <file name="es-ES.js" role="horde" />
-      <file name="fi-FI.js" role="horde" />
-      <file name="fr-FR.js" role="horde" />
-      <file name="gl-ES.js" role="horde" />
-      <file name="hr-HR.js" role="horde" />
-      <file name="hu-HU.js" role="horde" />
-      <file name="id-ID.js" role="horde" />
-      <file name="is-IS.js" role="horde" />
-      <file name="it-IT.js" role="horde" />
-      <file name="ja-JP.js" role="horde" />
-      <file name="km-KH.js" role="horde" />
-      <file name="nl-NL.js" role="horde" />
-      <file name="nn-NO.js" role="horde" />
-      <file name="no-NO.js" role="horde" />
-      <file name="pt-BR.js" role="horde" />
-      <file name="pt-PT.js" role="horde" />
-      <file name="ru-RU.js" role="horde" />
-      <file name="sk-SK.js" role="horde" />
-      <file name="sv-SE.js" role="horde" />
-      <file name="te-TE.js" role="horde" />
-      <file name="vi-VI.js" role="horde" />
-      <file name="zh-CN.js" role="horde" />
-      <file name="zh-TW.js" role="horde" />
-     </dir> <!-- /js/map/lang -->
-     <dir name="theme">
-      <dir name="default">
-       <dir name="img">
-        <file name="add_point_off.png" role="horde" />
-        <file name="add_point_on.png" role="horde" />
-        <file name="blank.gif" role="horde" />
-        <file name="close.gif" role="horde" />
-        <file name="drag-rectangle-off.png" role="horde" />
-        <file name="drag-rectangle-on.png" role="horde" />
-        <file name="draw_line_off.png" role="horde" />
-        <file name="draw_line_on.png" role="horde" />
-        <file name="draw_point_off.png" role="horde" />
-        <file name="draw_point_on.png" role="horde" />
-        <file name="draw_polygon_off.png" role="horde" />
-        <file name="draw_polygon_on.png" role="horde" />
-        <file name="editing_tool_bar.png" role="horde" />
-        <file name="move_feature_off.png" role="horde" />
-        <file name="move_feature_on.png" role="horde" />
-        <file name="navigation_history.png" role="horde" />
-        <file name="overview_replacement.gif" role="horde" />
-        <file name="pan-panel-NOALPHA.png" role="horde" />
-        <file name="pan-panel.png" role="horde" />
-        <file name="panning-hand-off.png" role="horde" />
-        <file name="panning-hand-on.png" role="horde" />
-        <file name="pan_off.png" role="horde" />
-        <file name="pan_on.png" role="horde" />
-        <file name="remove_point_off.png" role="horde" />
-        <file name="remove_point_on.png" role="horde" />
-        <file name="ruler.png" role="horde" />
-        <file name="save_features_off.png" role="horde" />
-        <file name="save_features_on.png" role="horde" />
-        <file name="view_next_off.png" role="horde" />
-        <file name="view_next_on.png" role="horde" />
-        <file name="view_previous_off.png" role="horde" />
-        <file name="view_previous_on.png" role="horde" />
-        <file name="zoom-panel-NOALPHA.png" role="horde" />
-        <file name="zoom-panel.png" role="horde" />
-       </dir> <!-- /js/map/theme/default/img -->
-       <file name="framedCloud.css" role="horde" />
-       <file name="google.css" role="horde" />
-       <file name="google.tidy.css" role="horde" />
-       <file name="ie6-style.css" role="horde" />
-       <file name="ie6-style.tidy.css" role="horde" />
-       <file name="style.css" role="horde" />
-       <file name="style.tidy.css" role="horde" />
-      </dir> <!-- /js/map/theme/default -->
-     </dir> <!-- /js/map/theme -->
-     <file name="bing.js" role="horde" />
-     <file name="cloudmade.js" role="horde" />
-     <file name="google.js" role="horde" />
-     <file name="horde.js" role="horde" />
-     <file name="map.js" role="horde" />
-     <file name="mapquest.js" role="horde" />
-     <file name="mytopo.js" role="horde" />
-     <file name="null.js" role="horde" />
-     <file name="ocm.js" role="horde" />
-     <file name="OpenLayers-debug.js" role="horde" />
-     <file name="OpenLayers.js" role="horde" />
-     <file name="osm.js" role="horde" />
-     <file name="yahoo.js" role="horde" />
-    </dir> <!-- /js/map -->
     <dir name="plupload">
      <dir name="i18n">
       <file name="cs.js" role="horde" />
@@ -2184,111 +2067,6 @@
    <install as="js/twitterclient.js" name="js/twitterclient.js" />
    <install as="js/userupdate.js" name="js/userupdate.js" />
    <install as="js/vatid.js" name="js/vatid.js" />
-   <install as="js/map/bing.js" name="js/map/bing.js" />
-   <install as="js/map/cloudmade.js" name="js/map/cloudmade.js" />
-   <install as="js/map/google.js" name="js/map/google.js" />
-   <install as="js/map/horde.js" name="js/map/horde.js" />
-   <install as="js/map/map.js" name="js/map/map.js" />
-   <install as="js/map/mapquest.js" name="js/map/mapquest.js" />
-   <install as="js/map/mytopo.js" name="js/map/mytopo.js" />
-   <install as="js/map/null.js" name="js/map/null.js" />
-   <install as="js/map/ocm.js" name="js/map/ocm.js" />
-   <install as="js/map/OpenLayers-debug.js" name="js/map/OpenLayers-debug.js" />
-   <install as="js/map/OpenLayers.js" name="js/map/OpenLayers.js" />
-   <install as="js/map/osm.js" name="js/map/osm.js" />
-   <install as="js/map/yahoo.js" name="js/map/yahoo.js" />
-   <install as="js/map/img/blank.gif" name="js/map/img/blank.gif" />
-   <install as="js/map/img/cloud-popup-relative.png" name="js/map/img/cloud-popup-relative.png" />
-   <install as="js/map/img/drag-rectangle-off.png" name="js/map/img/drag-rectangle-off.png" />
-   <install as="js/map/img/drag-rectangle-on.png" name="js/map/img/drag-rectangle-on.png" />
-   <install as="js/map/img/east-mini.png" name="js/map/img/east-mini.png" />
-   <install as="js/map/img/layer-switcher-maximize.png" name="js/map/img/layer-switcher-maximize.png" />
-   <install as="js/map/img/layer-switcher-minimize.png" name="js/map/img/layer-switcher-minimize.png" />
-   <install as="js/map/img/marker.png" name="js/map/img/marker.png" />
-   <install as="js/map/img/measuring-stick-off.png" name="js/map/img/measuring-stick-off.png" />
-   <install as="js/map/img/measuring-stick-on.png" name="js/map/img/measuring-stick-on.png" />
-   <install as="js/map/img/north-mini.png" name="js/map/img/north-mini.png" />
-   <install as="js/map/img/panning-hand-off.png" name="js/map/img/panning-hand-off.png" />
-   <install as="js/map/img/panning-hand-on.png" name="js/map/img/panning-hand-on.png" />
-   <install as="js/map/img/slider.png" name="js/map/img/slider.png" />
-   <install as="js/map/img/south-mini.png" name="js/map/img/south-mini.png" />
-   <install as="js/map/img/west-mini.png" name="js/map/img/west-mini.png" />
-   <install as="js/map/img/zoom-minus-mini.png" name="js/map/img/zoom-minus-mini.png" />
-   <install as="js/map/img/zoom-plus-mini.png" name="js/map/img/zoom-plus-mini.png" />
-   <install as="js/map/img/zoom-world-mini.png" name="js/map/img/zoom-world-mini.png" />
-   <install as="js/map/img/zoombar.png" name="js/map/img/zoombar.png" />
-   <install as="js/map/lang/ar-SY.js" name="js/map/lang/ar-SY.js" />
-   <install as="js/map/lang/bg-BG.js" name="js/map/lang/bg-BG.js" />
-   <install as="js/map/lang/ca-ES.js" name="js/map/lang/ca-ES.js" />
-   <install as="js/map/lang/cs-CZ.js" name="js/map/lang/cs-CZ.js" />
-   <install as="js/map/lang/da-DK.js" name="js/map/lang/da-DK.js" />
-   <install as="js/map/lang/de-DE.js" name="js/map/lang/de-DE.js" />
-   <install as="js/map/lang/el-GR.js" name="js/map/lang/el-GR.js" />
-   <install as="js/map/lang/en-CA.js" name="js/map/lang/en-CA.js" />
-   <install as="js/map/lang/es-ES.js" name="js/map/lang/es-ES.js" />
-   <install as="js/map/lang/fi-FI.js" name="js/map/lang/fi-FI.js" />
-   <install as="js/map/lang/fr-FR.js" name="js/map/lang/fr-FR.js" />
-   <install as="js/map/lang/gl-ES.js" name="js/map/lang/gl-ES.js" />
-   <install as="js/map/lang/hr-HR.js" name="js/map/lang/hr-HR.js" />
-   <install as="js/map/lang/hu-HU.js" name="js/map/lang/hu-HU.js" />
-   <install as="js/map/lang/id-ID.js" name="js/map/lang/id-ID.js" />
-   <install as="js/map/lang/is-IS.js" name="js/map/lang/is-IS.js" />
-   <install as="js/map/lang/it-IT.js" name="js/map/lang/it-IT.js" />
-   <install as="js/map/lang/ja-JP.js" name="js/map/lang/ja-JP.js" />
-   <install as="js/map/lang/km-KH.js" name="js/map/lang/km-KH.js" />
-   <install as="js/map/lang/nl-NL.js" name="js/map/lang/nl-NL.js" />
-   <install as="js/map/lang/nn-NO.js" name="js/map/lang/nn-NO.js" />
-   <install as="js/map/lang/no-NO.js" name="js/map/lang/no-NO.js" />
-   <install as="js/map/lang/pt-BR.js" name="js/map/lang/pt-BR.js" />
-   <install as="js/map/lang/pt-PT.js" name="js/map/lang/pt-PT.js" />
-   <install as="js/map/lang/ru-RU.js" name="js/map/lang/ru-RU.js" />
-   <install as="js/map/lang/sk-SK.js" name="js/map/lang/sk-SK.js" />
-   <install as="js/map/lang/sv-SE.js" name="js/map/lang/sv-SE.js" />
-   <install as="js/map/lang/te-TE.js" name="js/map/lang/te-TE.js" />
-   <install as="js/map/lang/vi-VI.js" name="js/map/lang/vi-VI.js" />
-   <install as="js/map/lang/zh-CN.js" name="js/map/lang/zh-CN.js" />
-   <install as="js/map/lang/zh-TW.js" name="js/map/lang/zh-TW.js" />
-   <install as="js/map/theme/default/framedCloud.css" name="js/map/theme/default/framedCloud.css" />
-   <install as="js/map/theme/default/google.css" name="js/map/theme/default/google.css" />
-   <install as="js/map/theme/default/google.tidy.css" name="js/map/theme/default/google.tidy.css" />
-   <install as="js/map/theme/default/ie6-style.css" name="js/map/theme/default/ie6-style.css" />
-   <install as="js/map/theme/default/ie6-style.tidy.css" name="js/map/theme/default/ie6-style.tidy.css" />
-   <install as="js/map/theme/default/style.css" name="js/map/theme/default/style.css" />
-   <install as="js/map/theme/default/style.tidy.css" name="js/map/theme/default/style.tidy.css" />
-   <install as="js/map/theme/default/img/add_point_off.png" name="js/map/theme/default/img/add_point_off.png" />
-   <install as="js/map/theme/default/img/add_point_on.png" name="js/map/theme/default/img/add_point_on.png" />
-   <install as="js/map/theme/default/img/blank.gif" name="js/map/theme/default/img/blank.gif" />
-   <install as="js/map/theme/default/img/close.gif" name="js/map/theme/default/img/close.gif" />
-   <install as="js/map/theme/default/img/drag-rectangle-off.png" name="js/map/theme/default/img/drag-rectangle-off.png" />
-   <install as="js/map/theme/default/img/drag-rectangle-on.png" name="js/map/theme/default/img/drag-rectangle-on.png" />
-   <install as="js/map/theme/default/img/draw_line_off.png" name="js/map/theme/default/img/draw_line_off.png" />
-   <install as="js/map/theme/default/img/draw_line_on.png" name="js/map/theme/default/img/draw_line_on.png" />
-   <install as="js/map/theme/default/img/draw_point_off.png" name="js/map/theme/default/img/draw_point_off.png" />
-   <install as="js/map/theme/default/img/draw_point_on.png" name="js/map/theme/default/img/draw_point_on.png" />
-   <install as="js/map/theme/default/img/draw_polygon_off.png" name="js/map/theme/default/img/draw_polygon_off.png" />
-   <install as="js/map/theme/default/img/draw_polygon_on.png" name="js/map/theme/default/img/draw_polygon_on.png" />
-   <install as="js/map/theme/default/img/editing_tool_bar.png" name="js/map/theme/default/img/editing_tool_bar.png" />
-   <install as="js/map/theme/default/img/move_feature_off.png" name="js/map/theme/default/img/move_feature_off.png" />
-   <install as="js/map/theme/default/img/move_feature_on.png" name="js/map/theme/default/img/move_feature_on.png" />
-   <install as="js/map/theme/default/img/navigation_history.png" name="js/map/theme/default/img/navigation_history.png" />
-   <install as="js/map/theme/default/img/overview_replacement.gif" name="js/map/theme/default/img/overview_replacement.gif" />
-   <install as="js/map/theme/default/img/pan-panel-NOALPHA.png" name="js/map/theme/default/img/pan-panel-NOALPHA.png" />
-   <install as="js/map/theme/default/img/pan-panel.png" name="js/map/theme/default/img/pan-panel.png" />
-   <install as="js/map/theme/default/img/panning-hand-off.png" name="js/map/theme/default/img/panning-hand-off.png" />
-   <install as="js/map/theme/default/img/panning-hand-on.png" name="js/map/theme/default/img/panning-hand-on.png" />
-   <install as="js/map/theme/default/img/pan_off.png" name="js/map/theme/default/img/pan_off.png" />
-   <install as="js/map/theme/default/img/pan_on.png" name="js/map/theme/default/img/pan_on.png" />
-   <install as="js/map/theme/default/img/remove_point_off.png" name="js/map/theme/default/img/remove_point_off.png" />
-   <install as="js/map/theme/default/img/remove_point_on.png" name="js/map/theme/default/img/remove_point_on.png" />
-   <install as="js/map/theme/default/img/ruler.png" name="js/map/theme/default/img/ruler.png" />
-   <install as="js/map/theme/default/img/save_features_off.png" name="js/map/theme/default/img/save_features_off.png" />
-   <install as="js/map/theme/default/img/save_features_on.png" name="js/map/theme/default/img/save_features_on.png" />
-   <install as="js/map/theme/default/img/view_next_off.png" name="js/map/theme/default/img/view_next_off.png" />
-   <install as="js/map/theme/default/img/view_next_on.png" name="js/map/theme/default/img/view_next_on.png" />
-   <install as="js/map/theme/default/img/view_previous_off.png" name="js/map/theme/default/img/view_previous_off.png" />
-   <install as="js/map/theme/default/img/view_previous_on.png" name="js/map/theme/default/img/view_previous_on.png" />
-   <install as="js/map/theme/default/img/zoom-panel-NOALPHA.png" name="js/map/theme/default/img/zoom-panel-NOALPHA.png" />
-   <install as="js/map/theme/default/img/zoom-panel.png" name="js/map/theme/default/img/zoom-panel.png" />
    <install as="js/plupload/plupload.browserplus.js" name="js/plupload/plupload.browserplus.js" />
    <install as="js/plupload/plupload.flash.js" name="js/plupload/plupload.flash.js" />
    <install as="js/plupload/plupload.flash.swf" name="js/plupload/plupload.flash.swf" />
@@ -3902,7 +3680,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-03</date>
+   <date>2012-09-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
