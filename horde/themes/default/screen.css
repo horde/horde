@@ -138,9 +138,6 @@ table {
 td, th {
     padding: 1px;
 }
-th {
-    color: #333;
-}
 ul.linedRow {
     list-style-type: none;
 }
@@ -602,42 +599,40 @@ div.logintasks-item input {
 
 /* Tab styles. */
 .tabset {
-    background: #c2ccce url("graphics/tabset.png") repeat-x;
+    background: url("graphics/tabset.png");
     float: left;
-    min-height: 29px;
+    min-height: 32px;
     width: 100%;
     margin-bottom: 25px;
 }
 .tabset ul {
     list-style: none;
-    background-color: #c2ccce;
 }
 .tabset li {
     background: url("graphics/tab.png") repeat-x;
     float: left;
-    margin-right: 10px;
-    padding: 11px 20px 0;
+    height: 22px;
+    line-height: 22px;
+    margin: 10px 3px 0 0;
+    padding: 0 10px;
     white-space: nowrap;
 }
 .tabset li a {
+    color: #9ca1a4;
     display: block;
-    height: 18px;
-    color: #6d6d6d
-}
-.tabset li a:hover {
+    font-weight: bold;
+    text-decoration: none;
 }
 .tabset li.activeTab {
-    background-image: url("graphics/tab-active.png");
+    background: #fff;
 }
 .tabset li.activeTab a {
     color: #000;
 }
-.tabset li.activeTab a:hover {
-}
 .tabset img {
     display: block;
     float: left;
-    padding-right: 2px;
+    padding: 1px 2px 0 0;
 }
 
 /* Preferences. */
