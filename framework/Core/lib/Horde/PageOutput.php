@@ -517,11 +517,18 @@ class Horde_PageOutput
     /**
      * Adds an external stylesheet to the output.
      *
-     * @param string $file  The CSS filepath.
-     * @param string $url   The CSS URL.
+     * @param Horde_Themes_Element|string $file  Either a Horde_Themes_Element
+     *                                           object or the CSS filepath.
+     * @param string $url                        If $file is a string, this
+     *                                           must be a CSS URL.
      */
-    public function addStylesheet($file, $url)
+    public function addStylesheet($file, $url = null)
     {
+        if ($file instanceof Horde_Themes_Element) {
+            $url = $file->uri;
+            $file = $file->fs;
+        }
+
         $this->css->addStylesheet($file, $url);
     }
 
