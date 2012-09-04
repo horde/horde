@@ -1021,15 +1021,10 @@ var ImpMobile = {
                 }));
                 return;
 
+            case 'imp-mailbox-next':
             case 'imp-mailbox-prev':
                 if (!elt.hasClass('ui-disabled')) {
-                    ImpMobile.navigate(-1);
-                }
-                return;
-
-            case 'imp-mailbox-next':
-                if (!elt.hasClass('ui-disabled')) {
-                    ImpMobile.navigate(1);
+                    ImpMobile.navigate((id == 'imp-mailbox-next') ? 1 : -1);
                 }
                 return;
 
