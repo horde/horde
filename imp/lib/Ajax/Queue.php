@@ -95,25 +95,6 @@ class IMP_Ajax_Queue
      */
     public function add(IMP_Ajax_Application $ajax)
     {
-        /* Add message information. Needs to come first since it may affect
-         * flags. */
-        if (!empty($this->_messages)) {
-            $messages = array();
-
-            foreach ($this->_messages as $val) {
-                try {
-                    $show_msg = new IMP_Ajax_Application_ShowMessage($val['mailbox'], $val['uid'], $val['peek']);
-                    $msg = (object)$show_msg->showMessage(array(
-                        'preview' => $val['preview']
-                    ));
-                    $msg->save_as = strval($msg->save_as);
-                    $messages[] = $msg;
-                } catch (Exception $e) {}
-            }
-
-            $ajax->addTask('message', $messages);
-        }
-
         /* Add flag information. */
         if (!empty($this->_flag)) {
             $ajax->addTask('flag', $this->_flag);
@@ -146,6 +127,12 @@ class IMP_Ajax_Queue
             if (!empty($maillog)) {
                 $ajax->addTask('maillog', $maillog);
             }
+        }
+
+        /* Add message information. */
+        if (!empty($this->_messages)) {
+            $ajax->addTask('message', $this->_messages);
+            $this->_messages = array();
         }
 
         /* Add poll information. */
@@ -222,12 +209,14 @@ class IMP_Ajax_Queue
      */
     public function message($mailbox, $uid, $preview = false, $peek = false)
     {
-        $this->_messages[] = array(
-            'mailbox' => $mailbox,
-            'peek' => $peek,
-            'preview' => $preview,
-            'uid' => $uid
-        );
+        try {
+            $show_msg = new IMP_Ajax_Application_ShowMessage($mailbox, $uid, $peek);
+            $msg = (object)$show_msg->showMessage(array(
+                'preview' => $preview
+            ));
+            $msg->save_as = strval($msg->save_as);
+            $this->_messages[] = $msg;
+        } catch (Exception $e) {}
     }
 
     /**
