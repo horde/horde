@@ -1013,11 +1013,11 @@ var ImpMobile = {
                         checkcache: 1,
                         view: ImpMobile.mailbox
                     }), {
-                        uid: ImpMobile.toUIDStringSingle(ImpMobile.mailbox, [ ImpMobile.uid ]),
+                        uid: ImpMobile.toUIDStringSingle(ImpMobile.mailbox, [ ImpMobile.uid ])
                     })
                 );
                 $.mobile.changePage(HordeMobile.createUrl('mailbox', {
-                    mbox: ImpMobile.mailbox,
+                    mbox: ImpMobile.mailbox
                 }));
                 return;
 
