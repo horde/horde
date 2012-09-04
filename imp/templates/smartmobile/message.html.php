@@ -16,16 +16,12 @@
 
  <div id="imp-message-body" data-role="content"></div>
 
- <div data-role="footer" data-position="fixed">
-  <div data-role="navbar" data-iconpos="left">
-   <ul>
-    <li><a href="#" id="imp-message-delete" data-rel="dialog" data-icon="delete"><?php echo _("Delete") ?></a></li>
+ <div class="ui-bar" data-role="footer" data-position="fixed">
+  <a href="#" id="imp-message-delete" data-rel="dialog" data-icon="delete"><?php echo _("Delete") ?></a>
 <?php if ($this->canCompose): ?>
-    <li><a href="#" id="imp-message-reply" data-icon="back"><?php echo _("Reply") ?></a></li>
-    <li><a href="#" id="imp-message-forward" data-icon="forward"><?php echo _("Forward") ?></a></li>
+  <a href="#" id="imp-message-reply" data-icon="back"><?php echo _("Reply") ?></a>
+  <a href="#" id="imp-message-forward" data-icon="forward"><?php echo _("Forward") ?></a>
 <?php endif; ?>
-   </ul>
-  </div>
  </div>
 
  <div class="ui-bar" data-role="footer">
@@ -41,9 +37,6 @@
 <?php if ($this->canCompose): ?>
   <a href="#" id="imp-message-redirect" data-icon="forward"><?php echo _("Redirect") ?></a>
 <?php endif; ?>
- </div>
-
- <div class="ui-bar" data-role="footer">
   <a href="#" id="imp-message-prev" data-icon="arrow-l"><?php echo _("Previous") ?></a>
   <a href="#" id="imp-message-next" data-icon="arrow-r"><?php echo _("Next") ?></a>
  </div>
