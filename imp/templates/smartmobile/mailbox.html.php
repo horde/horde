@@ -11,6 +11,7 @@
  </div>
 
  <div data-role="footer" class="ui-bar" data-position="fixed">
+  <a href="#" id="imp-mailbox-refresh" data-icon="refresh"><?php echo _("Refresh") ?></a>
 <?php if ($this->canSearch): ?>
   <a href="#search" id="imp-mailbox-search" data-icon="search"><?php echo _("Search") ?></a>
 <?php endif ?>

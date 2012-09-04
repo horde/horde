@@ -1028,6 +1028,12 @@ var ImpMobile = {
                 }
                 return;
 
+            case 'imp-mailbox-refresh':
+                $.mobile.changePage(HordeMobile.createUrl('mailbox', {
+                    mbox: ImpMobile.mailbox
+                }));
+                return;
+
             case 'imp-compose-cancel':
                 ImpMobile.closeCompose();
                 return;
