@@ -8,11 +8,11 @@
  </div>
 
  <div data-role="footer" class="ui-bar" data-position="fixed">
-  <a href="#" data-role="button" id="imp-folders-refresh" data-icon="refresh"><?php echo _("Refresh") ?></a>
-  <a href="#" data-role="button" id="imp-folders-showall"><?php echo _("Show All") ?></a>
-  <a href="#" data-role="button" id="imp-folders-showpoll" style="display:none"><?php echo _("Show Polled") ?></a>
+  <a href="#" id="imp-folders-refresh" data-icon="refresh"><?php echo _("Refresh") ?></a>
+  <a href="#" id="imp-folders-showall"><?php echo _("Show All") ?></a>
+  <a href="#" id="imp-folders-showpoll" style="display:none"><?php echo _("Show Polled") ?></a>
 <?php if ($this->canCompose): ?>
-  <a href="#compose" data-role="button"><?php echo _("New Message") ?></a>
+  <a href="#compose"><?php echo _("New Message") ?></a>
 <?php endif ?>
  </div>
 </div>
