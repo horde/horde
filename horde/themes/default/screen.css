@@ -342,10 +342,12 @@ input.horde-cancel {
     padding: 3px;
 }
 a.horde-cancel {
+    color: #496f7e;
     padding: 4px 3px;
+    text-decoration: underline;
 }
 input.horde-cancel:hover, a.horde-cancel:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 form[action^="https://"] input[type="submit"].horde-default {
     background-image: url("graphics/locked-inv.png"), url("graphics/button-default.png");
