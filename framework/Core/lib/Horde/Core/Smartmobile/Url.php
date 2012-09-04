@@ -22,7 +22,7 @@
  * @category Horde
  * @package  Core
  */
-class Horde_Core_Url_Smartmobile extends Horde_Url
+class Horde_Core_Smartmobile_Url extends Horde_Url
 {
     /**
      * Creates the full URL string.
