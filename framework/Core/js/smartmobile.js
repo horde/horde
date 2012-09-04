@@ -250,6 +250,11 @@ var HordeMobile = {
         } else {
             data.options.parsedUrl = {};
         }
+
+        /* Make sure options.data is always set. */
+        if (!data.options.data) {
+            data.options.data = {};
+        }
     },
 
     /**
