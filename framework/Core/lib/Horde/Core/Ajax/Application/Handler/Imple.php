@@ -12,23 +12,23 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
-class Horde_Core_Ajax_Application_Helper_Imple
+class Horde_Core_Ajax_Application_Handler_Imple extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * AJAX action: Run imple.
      *
      * Parameters needed:
-     *   - app: Imple application.
-     *   - imple: Class name of imple.
+     *   - app: (string) Imple application.
+     *   - imple: (string) Class name of imple.
      */
-    public function imple(Horde_Core_Ajax_Application $app_ob)
+    public function imple()
     {
         global $injector, $registry;
 
-        $pushed = $registry->pushApp($app_ob->vars->app);
-        $imple = $injector->getInstance('Horde_Core_Factory_Imple')->create($app_ob->vars->imple, array(), true);
+        $pushed = $registry->pushApp($this->vars->app);
+        $imple = $injector->getInstance('Horde_Core_Factory_Imple')->create($this->vars->imple, array(), true);
 
-        $result = $imple->handle($app_ob->vars);
+        $result = $imple->handle($this->vars);
 
         if ($pushed) {
             $registry->popApp();

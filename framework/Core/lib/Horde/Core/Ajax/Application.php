@@ -46,18 +46,11 @@ abstract class Horde_Core_Ajax_Application
     protected $_app;
 
     /**
-     * Helper classes to add methods to the base class.
+     * AJAX method handlers.
      *
      * @var array
      */
-    protected $_helpers = array();
-
-    /**
-     * The list of actions that require readonly access to the session.
-     *
-     * @var array
-     */
-    protected $_readOnly = array();
+    protected $_handlers = array();
 
     /**
      * The request variables.
@@ -77,17 +70,14 @@ abstract class Horde_Core_Ajax_Application
     {
         $this->_app = $app;
         $this->_vars = $vars;
-
-        if (!is_null($action)) {
-            /* Close session if action is labeled as read-only. */
-            if (in_array($action, $this->_readOnly)) {
-                $GLOBALS['session']->close();
-            }
-
-            $this->_action = $action;
-        }
+        $this->_action = $action;
 
         $this->_init();
+
+        /* Close session if action is labeled as read-only. */
+        if (($ob = $this->_getHandler()) && $ob->readonly($action)) {
+            $GLOBALS['session']->close();
+        }
     }
 
     /**
@@ -111,15 +101,25 @@ abstract class Horde_Core_Ajax_Application
     }
 
     /**
-     * Add a helper object. Helper objects are searched for methods that are
-     * not defined in the base Application object. Helper methods will be
-     * passed the AJAX Application object.
+     * Add an AJAX method handler.
      *
-     * @param object $ob  Helper object.
+     * @param string $class  Classname of a Handler to add.
+     *
+     * @return Horde_Core_Ajax_Application_Handler  Handler object.
      */
-    final public function addHelper($ob)
+    final public function addHandler($class)
     {
-        $this->_helpers[get_class($ob)] = $ob;
+        if (!isset($this->_handlers[$class])) {
+            if (!class_exists($class) ||
+                !($ob = new $class($this)) ||
+                !($ob instanceof Horde_Core_Ajax_Application_Handler)) {
+                throw new InvalidArgumentException('Bad AJAX handler: ' . $class);
+            }
+
+            $this->_handlers[$class] = $ob;
+        }
+
+        return $this->_handlers[$class];
     }
 
     /**
@@ -132,22 +132,14 @@ abstract class Horde_Core_Ajax_Application
      */
     public function doAction()
     {
-        if (!$this->_action) {
-            return;
-        }
-
-        /* Look for action in application. */
-        if (method_exists($this, $this->_action)) {
-            $this->data = call_user_func(array($this, $this->_action));
+        if (!strlen($this->_action)) {
             return;
         }
 
         /* Look for action in helpers. */
-        foreach ($this->_helpers as $help) {
-            if (method_exists($help, $this->_action)) {
-                $this->data = call_user_func(array($help, $this->_action), $this);
-                return;
-            }
+        if ($ob = $this->_getHandler()) {
+            $this->data = call_user_func(array($ob, $this->_action));
+            return;
         }
 
         /* Look for action in application hook. */
@@ -187,13 +179,20 @@ abstract class Horde_Core_Ajax_Application
     }
 
     /**
-     * Noop.
+     * Return the Handler for the current action.
      *
-     * @return boolean  True.
+     * @return mixed  A Horde_Core_Ajax_Application_Handler object, or null if
+     *                handler is not found.
      */
-    public function noop()
+    protected function _getHandler()
     {
-        return true;
+        foreach ($this->_handlers as $ob) {
+            if ($ob->has($this->_action)) {
+                return $ob;
+            }
+        }
+
+        return null;
     }
 
 }

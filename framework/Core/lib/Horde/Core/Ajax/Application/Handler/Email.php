@@ -12,24 +12,14 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
-class Horde_Core_Ajax_Application_Helper_Email
+class Horde_Core_Ajax_Application_Handler_Email extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * Default domain.
      *
      * @var string
      */
-    protected $_defaultDomain = null;
-
-    /**
-     * Constructor.
-     *
-     * @param string $domain  Default domain.
-     */
-    public function __construct($domain = null)
-    {
-        $this->_defaultDomain = $domain;
-    }
+    public $defaultDomain = null;
 
     /**
      * Parses a valid email address out of a complete address string.
@@ -44,15 +34,15 @@ class Horde_Core_Ajax_Application_Helper_Email
      * @throws Horde_Exception
      * @throws Horde_Mail_Exception
      */
-    public function parseEmailAddress(Horde_Core_Ajax_Application $app_ob)
+    public function parseEmailAddress()
     {
-        $ob = new Horde_Mail_Rfc822_Address($app_ob->vars->email);
+        $ob = new Horde_Mail_Rfc822_Address($this->vars->email);
         if (is_null($ob->mailbox)) {
             throw new Horde_Exception(Horde_Core_Translation::t("No valid email address found"));
         }
 
-        if (!is_null($this->_defaultDomain)) {
-            $ob->host = $this->_defaultDomain;
+        if (!is_null($this->defaultDomain)) {
+            $ob->host = $this->defaultDomain;
         }
 
         $ret = new stdClass;

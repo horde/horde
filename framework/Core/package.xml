@@ -29,7 +29,7 @@
   <active>yes</active>
  </developer>
  <date>2012-09-04</date>
- <time>13:06:37</time>
+ <time>16:53:52</time>
  <version>
   <release>2.0.0beta6</release>
   <api>2.0.0beta1</api>
@@ -301,13 +301,15 @@
       </dir> <!-- /lib/Horde/Core/ActiveSync -->
       <dir name="Ajax">
        <dir name="Application">
-        <dir name="Helper">
+        <dir name="Handler">
          <file name="Chunk.php" role="php" />
          <file name="Email.php" role="php" />
          <file name="Groups.php" role="php" />
          <file name="Imple.php" role="php" />
+         <file name="Noop.php" role="php" />
          <file name="Prefs.php" role="php" />
-        </dir> <!-- /lib/Horde/Core/Ajax/Application/Helper -->
+        </dir> <!-- /lib/Horde/Core/Ajax/Application/Handler -->
+        <file name="Handler.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Application -->
        <dir name="Imple">
         <dir name="AutoCompleter">
@@ -1588,11 +1590,13 @@
    <install as="Horde/Core/Ajax/Application.php" name="lib/Horde/Core/Ajax/Application.php" />
    <install as="Horde/Core/Ajax/Imple.php" name="lib/Horde/Core/Ajax/Imple.php" />
    <install as="Horde/Core/Ajax/Response.php" name="lib/Horde/Core/Ajax/Response.php" />
-   <install as="Horde/Core/Ajax/Application/Helper/Chunk.php" name="lib/Horde/Core/Ajax/Application/Helper/Chunk.php" />
-   <install as="Horde/Core/Ajax/Application/Helper/Email.php" name="lib/Horde/Core/Ajax/Application/Helper/Email.php" />
-   <install as="Horde/Core/Ajax/Application/Helper/Groups.php" name="lib/Horde/Core/Ajax/Application/Helper/Groups.php" />
-   <install as="Horde/Core/Ajax/Application/Helper/Imple.php" name="lib/Horde/Core/Ajax/Application/Helper/Imple.php" />
-   <install as="Horde/Core/Ajax/Application/Helper/Prefs.php" name="lib/Horde/Core/Ajax/Application/Helper/Prefs.php" />
+   <install as="Horde/Core/Ajax/Application/Handler.php" name="lib/Horde/Core/Ajax/Application/Handler.php" />
+   <install as="Horde/Core/Ajax/Application/Handler/Chunk.php" name="lib/Horde/Core/Ajax/Application/Handler/Chunk.php" />
+   <install as="Horde/Core/Ajax/Application/Handler/Email.php" name="lib/Horde/Core/Ajax/Application/Handler/Email.php" />
+   <install as="Horde/Core/Ajax/Application/Handler/Groups.php" name="lib/Horde/Core/Ajax/Application/Handler/Groups.php" />
+   <install as="Horde/Core/Ajax/Application/Handler/Imple.php" name="lib/Horde/Core/Ajax/Application/Handler/Imple.php" />
+   <install as="Horde/Core/Ajax/Application/Handler/Noop.php" name="lib/Horde/Core/Ajax/Application/Handler/Noop.php" />
+   <install as="Horde/Core/Ajax/Application/Handler/Prefs.php" name="lib/Horde/Core/Ajax/Application/Handler/Prefs.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/ContactAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/InPlaceEditor.php" name="lib/Horde/Core/Ajax/Imple/InPlaceEditor.php" />

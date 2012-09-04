@@ -20,8 +20,10 @@ class Turba_Ajax_Application extends Horde_Core_Ajax_Application
     {
         global $registry;
 
-        if ($registry->getView() == $registry::VIEW_SMARTMOBILE) {
-            $this->addHelper(new Turba_Ajax_Application_Helper_Smartmobile());
+        switch ($registry->getView()) {
+        case $registry::VIEW_SMARTMOBILE:
+            $this->addHandler('Turba_Ajax_Application_Smartmobile');
+            break;
         }
     }
 

@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Nag
  */
-class Nag_Ajax_Application_Helper_Smartmobile
+class Nag_Ajax_Application_Smartmobile extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * AJAX action: Get autocomplete data.
@@ -23,15 +23,15 @@ class Nag_Ajax_Application_Helper_Smartmobile
      *
      * @return array  TODO
      */
-    public function smartmobileToggle(Horde_Core_Ajax_Application $app_ob)
+    public function smartmobileToggle()
     {
         $out = new stdClass;
 
-        if (!isset($app_ob->vars->task) || !isset($app_ob->vars->tasklist)) {
+        if (!isset($this->vars->task) || !isset($this->vars->tasklist)) {
             $out->error = 'missing parameters';
         } else {
             $nag_task = new Nag_Task_Complete();
-            $out = (object)$nag_task->complete($app_ob->vars->task, $app_ob->vars->tasklist);
+            $out = (object)$nag_task->complete($this->vars->task, $this->vars->tasklist);
         }
 
         return $out;

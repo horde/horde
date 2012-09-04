@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
-class Horde_Core_Ajax_Application_Helper_Groups
+class Horde_Core_Ajax_Application_Handler_Groups extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * Returns a hash of group IDs and group names that the user has access
@@ -21,7 +21,7 @@ class Horde_Core_Ajax_Application_Helper_Groups
      * @return object  Object with the following properties:
      *   - groups: (array) Groups hash.
      */
-    public function listGroups(Horde_Core_Ajax_Application $app_ob)
+    public function listGroups()
     {
         $result = new stdClass;
 

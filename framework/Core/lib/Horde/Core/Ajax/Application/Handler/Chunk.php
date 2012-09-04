@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
-class Horde_Core_Ajax_Application_Helper_Chunk
+class Horde_Core_Ajax_Application_Handler_Chunk extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * Loads a chunk of PHP code (usually an HTML template) from the
@@ -21,13 +21,14 @@ class Horde_Core_Ajax_Application_Helper_Chunk
      * @return object  Object with the following properties:
      *   - chunk: (string) A chunk of PHP output.
      */
-    public function chunkContent(Horde_Core_Ajax_Application $app_ob)
+    public function chunkContent()
     {
-        $chunk = basename($app_ob->vars->chunk);
+        $chunk = basename($this->vars->chunk);
+
         $result = new stdClass;
         if (!empty($chunk)) {
             Horde::startBuffer();
-            include $GLOBALS['registry']->get('templates', $app_ob->app) . '/chunks/' . $chunk . '.php';
+            include $GLOBALS['registry']->get('templates', $this->_base->app) . '/chunks/' . $chunk . '.php';
             $result->chunk = Horde::endBuffer();
         }
 

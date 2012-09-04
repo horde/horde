@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
-class Horde_Core_Ajax_Application_Helper_Prefs
+class Horde_Core_Ajax_Application_Handler_Prefs extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * Sets a preference value.
@@ -23,11 +23,11 @@ class Horde_Core_Ajax_Application_Helper_Prefs
      *
      * @return boolean  True on success.
      */
-    public function setPrefValue(Horde_Core_Ajax_Application $app_ob)
+    public function setPrefValue()
     {
         return $GLOBALS['prefs']->setValue(
-            $app_ob->vars->pref,
-            $app_ob->vars->value
+            $this->vars->pref,
+            $this->vars->value
         );
     }
 

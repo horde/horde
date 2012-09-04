@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines AJAX calls used exclusively in the smartmobile view.
+ * Defines AJAX actions used exclusively in the IMP smartmobile view.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Ajax_Application_Helper_Smartmobile
+class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * AJAX action: Get autocomplete data.
@@ -23,10 +23,10 @@ class IMP_Ajax_Application_Helper_Smartmobile
      * @return array  Returns an array of matched addresses (full address),
      *                which are HTML escaped.
      */
-    public function smartmobileAutocomplete(Horde_Core_Ajax_Application $app_ob)
+    public function smartmobileAutocomplete()
     {
         $imple = new IMP_Ajax_Imple_ContactAutoCompleter();
-        return array_map('htmlspecialchars', $imple->getAddressList($app_ob->vars->search)->addresses);
+        return array_map('htmlspecialchars', $imple->getAddressList($this->vars->search)->addresses);
     }
 
     /**
@@ -34,11 +34,11 @@ class IMP_Ajax_Application_Helper_Smartmobile
      *
      * @see IMP_Ajax_Application#getForwardData()
      */
-    public function smartmobileGetForwardData(Horde_Core_Ajax_Application $app_ob)
+    public function smartmobileGetForwardData()
     {
         $GLOBALS['notification']->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
 
-        return $app_ob->getForwardData();
+        return $this->_base->getForwardData();
     }
 
     /**
@@ -49,11 +49,11 @@ class IMP_Ajax_Application_Helper_Smartmobile
      * @return object  Adds the following entries to the base object:
      *   - suid: (string) The search mailbox UID.
      */
-    public function smartmobileShowMessage(Horde_Core_Ajax_Application $app_ob)
+    public function smartmobileShowMessage()
     {
-        $output = $app_ob->showMessage();
+        $output = $this->_base->showMessage();
 
-        if (IMP_Mailbox::formFrom($app_ob->vars->view)->search) {
+        if (IMP_Mailbox::formFrom($this->vars->view)->search) {
             $output->suid = IMP_Ajax_Application_ListMessages::searchUid(IMP_Mailbox::formFrom($output->mbox), $output->uid);
         }
 
@@ -69,12 +69,12 @@ class IMP_Ajax_Application_Helper_Smartmobile
      *
      * @return string  HTML to use for the folder tree.
      */
-    public function smartmobileFolderTree(Horde_Core_Ajax_Application $app_ob)
+    public function smartmobileFolderTree()
     {
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $imptree->setIteratorFilter($app_ob->vars->all ? 0 : Imp_Imap_Tree::FLIST_POLLED);
+        $imptree->setIteratorFilter($this->vars->all ? 0 : Imp_Imap_Tree::FLIST_POLLED);
 
-        return $imptree->createTree($app_ob->vars->all ? 'smobile_folders_all' : 'smobile_folders', array(
+        return $imptree->createTree($this->vars->all ? 'smobile_folders_all' : 'smobile_folders', array(
             'poll_info' => true,
             'render_type' => 'IMP_Tree_Jquerymobile'
         ))->getTree(true);
