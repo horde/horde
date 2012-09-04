@@ -1,0 +1,38 @@
+.ui-pagination {
+	left: 0;
+	width: 100%;
+}
+.ui-pagination, .ui-pagination li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	top: 0;
+	position: fixed;
+}
+.ui-pagination li {
+	overflow: hidden;
+	width: 2.5em;
+	height: 4.5em;
+}
+.ui-pagination li a {
+	padding: .7em .4em .7em .45em;
+	opacity: .7;
+	position: absolute;
+	z-index: 999;
+}
+.ui-pagination .ui-pagination-prev {
+	left: 0;
+	top: 150px;
+}
+.ui-pagination .ui-pagination-next {
+	top: 150px;
+	right: 0;
+}
+.ui-pagination .ui-pagination-prev a {
+	right: 0;
+	padding-left: 1.45em;
+}
+.ui-pagination .ui-pagination-next a {
+	left: 0;
+	padding-right: 1.45em;
+}
