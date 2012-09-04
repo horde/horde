@@ -43,17 +43,6 @@ extends Horde_Kolab_Storage_TestCase
         $this->_getMime()->parse('a', '1', null, array());
     }
 
-    public function testMatchId()
-    {
-        $this->assertEquals(
-            '2',
-            $this->_getMime()->matchMimeId(
-                'event',
-                $this->_getStructure()->contentTypeMap()
-            )
-        );
-    }
-
     public function testEvent()
     {
         $mime = $this->_getMime();
