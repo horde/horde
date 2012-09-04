@@ -330,6 +330,7 @@ var ImpMobile = {
             $.extend(ImpMobile.addViewportParams($.extend(params, {
                 view: (ImpMobile.search ? IMP.conf.qsearchid : purl.params.view)
             })), {
+                force_viewport: 1,
                 uid: ImpMobile.toUIDStringSingle(purl.params.view, [ purl.params.uid ]),
             }),
             ImpMobile.messageLoaded

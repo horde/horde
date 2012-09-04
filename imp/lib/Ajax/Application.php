@@ -941,6 +941,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _changed() and
      * _checkUidvalidity().  Additional variables used:
+     *   - force_viewport: (integer) If set, always return viewport
+     *                     information if it has changed.
      *   - peek: (integer) If set, don't set seen flag.
      *   - preview: (integer) If set, return preview data. Otherwise, return
      *              full data.
@@ -986,7 +988,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $change = true;
         }
 
-        if ($this->_vars->preview) {
+        if ($this->_vars->preview || $this->_vars->force_viewport) {
             if ($change) {
                 $this->addTask('viewport', $this->_viewPortData(true));
             } elseif ($this->_mbox->cacheid_date != $this->_vars->viewport->cacheid) {
@@ -995,7 +997,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $this->addTask('viewport', $this->_viewPortOb());
             }
 
-            $this->_queue->poll($mbox);
+            if ($this->_vars->preview) {
+                $this->_queue->poll($mbox);
+            }
         }
 
         return $result;
