@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-08-30</date>
- <time>19:34:03</time>
+ <date>2012-09-04</date>
+ <time>15:05:23</time>
  <version>
   <release>2.0.0beta3</release>
   <api>1.1.0</api>
@@ -131,9 +131,6 @@
         <file name="Types.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Folder -->
        <dir name="List">
-        <dir name="Decorator">
-         <file name="Cache.php" role="php" />
-        </dir> <!-- /lib/Horde/Kolab/Storage/List/Decorator -->
         <dir name="Manipulation">
          <dir name="Decorator">
           <file name="Log.php" role="php" />
@@ -558,9 +555,6 @@
          <file name="TypeTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/Folder -->
         <dir name="List">
-         <dir name="Decorator">
-          <file name="CacheTest.php" role="test" />
-         </dir> <!-- /test/Horde/Kolab/Storage/Unit/List/Decorator -->
          <dir name="Manipulation">
           <dir name="Decorator">
            <file name="LogTest.php" role="test" />
@@ -780,7 +774,6 @@
    <install as="Horde/Kolab/Storage/List/Manipulation.php" name="lib/Horde/Kolab/Storage/List/Manipulation.php" />
    <install as="Horde/Kolab/Storage/List/Synchronization.php" name="lib/Horde/Kolab/Storage/List/Synchronization.php" />
    <install as="Horde/Kolab/Storage/List/Tools.php" name="lib/Horde/Kolab/Storage/List/Tools.php" />
-   <install as="Horde/Kolab/Storage/List/Decorator/Cache.php" name="lib/Horde/Kolab/Storage/List/Decorator/Cache.php" />
    <install as="Horde/Kolab/Storage/List/Manipulation/Base.php" name="lib/Horde/Kolab/Storage/List/Manipulation/Base.php" />
    <install as="Horde/Kolab/Storage/List/Manipulation/Listener.php" name="lib/Horde/Kolab/Storage/List/Manipulation/Listener.php" />
    <install as="Horde/Kolab/Storage/List/Manipulation/Decorator/Log.php" name="lib/Horde/Kolab/Storage/List/Manipulation/Decorator/Log.php" />
@@ -943,7 +936,6 @@
    <install as="Horde/Kolab/Storage/Unit/Folder/TypeTest.php" name="test/Horde/Kolab/Storage/Unit/Folder/TypeTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Folder/Stamp/UidsTest.php" name="test/Horde/Kolab/Storage/Unit/Folder/Stamp/UidsTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/ToolsTest.php" name="test/Horde/Kolab/Storage/Unit/List/ToolsTest.php" />
-   <install as="Horde/Kolab/Storage/Unit/List/Decorator/CacheTest.php" name="test/Horde/Kolab/Storage/Unit/List/Decorator/CacheTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Manipulation/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/Manipulation/BaseTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Manipulation/Decorator/LogTest.php" name="test/Horde/Kolab/Storage/Unit/List/Manipulation/Decorator/LogTest.php" />
    <install as="Horde/Kolab/Storage/Unit/List/Query/Acl/BaseTest.php" name="test/Horde/Kolab/Storage/Unit/List/Query/Acl/BaseTest.php" />
@@ -1188,7 +1180,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-08-30</date>
+   <date>2012-09-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Allow setting the default folder.
