@@ -12,8 +12,4 @@
    <ul id="turba-entry-email-list" data-role="listview" data-inset="true"></ul>
   </span>
  </dl>
-
- <div id="turba-entry-buttonbar" data-role="footer" class="ui-bar" data-position="fixed">
-  <a href="" id="turba-entry-top" data-role="button" data-icon="arrow-u"><?php echo _("Top") ?></a>
- </div>
 </div>

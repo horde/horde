@@ -15,8 +15,4 @@
 <?php endif; ?>
   </ul>
  </div>
-
- <div data-role="footer" class="ui-bar" data-position="fixed">
-  <a href="" id="turba-browse-top" data-role="button" data-icon="arrow-u"><?php echo _("Top") ?></a>
- </div>
 </div>

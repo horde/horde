@@ -87,37 +87,12 @@ var TurbaMobile = {
     },
 
     /**
-     * Catch-all event handler for the click event.
-     *
-     * @param object e  An event object.
-     */
-    clickHandler: function(e)
-    {
-        var elt = $(e.target), id;
-
-        while (elt && elt != window.document && elt.parent().length) {
-            id = elt.attr('id');
-
-            switch (id) {
-            case 'turba-browse-top':
-            case 'turba-entry-top':
-                $.mobile.silentScroll();
-                elt.blur();
-                return;
-            }
-
-            elt = elt.parent();
-        }
-    },
-
-    /**
      * Event handler for the document-ready event, responsible for the initial
      * setup.
      */
     onDocumentReady: function()
     {
         // Set up HordeMobile.
-        $(document).bind('vclick', TurbaMobile.clickHandler);
         $(document).bind('pagebeforechange', TurbaMobile.toPage);
     }
 
