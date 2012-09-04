@@ -43,7 +43,7 @@ HordeMap = {
     {
         var path;
         this._opts = opts;
-        if(!opts.jsuri) {
+        if (!opts.jsuri) {
             path = this._getScriptLocation();
         } else {
             path = opts.jsuri;
@@ -52,7 +52,7 @@ HordeMap = {
         if (this._opts.driver == 'Horde') {
             this._addScript(path + 'OpenLayers.js');
             if (this._opts.conf.language != 'en-US') {
-                this._addScript(path + '/lang/' + this._opts.conf.language + '.js');
+                this._addScript(path + 'lang/' + this._opts.conf.language + '.js');
             }
         }
 
