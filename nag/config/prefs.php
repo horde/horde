@@ -161,7 +161,7 @@ $_prefs['default_due_time'] = array(
     'desc' => _("What do you want to be the default due time for tasks?"),
     'on_init' => function($ui) {
         $enum = array('now' => _("The current hour"));
-        $twentyfour = $prefs->getValue('twentyFour');
+        $twentyfour = $GLOBALS['prefs']->getValue('twentyFour');
         for ($i = 0; $i < 24; ++$i) {
             $value = sprintf('%02d:00', $i);
             $enum[$value] = $twentyfour
