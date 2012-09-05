@@ -51,6 +51,7 @@ var HordeMobile = {
     doAction: function(action, params, callback, opts)
     {
         params = params || {};
+
         params.token = HordeMobile.conf.token;
         if (HordeMobile.conf.sid) {
             $.extend(params, HordeMobile.conf.sid.toQueryParams());
@@ -58,7 +59,7 @@ var HordeMobile = {
 
         $.mobile.showPageLoadingMsg();
 
-        var options = $.extend({
+        return $.ajax($.extend({
             data: params,
             error: $.noop,
             success: function(d, t, x) {
@@ -66,9 +67,7 @@ var HordeMobile = {
             },
             type: 'post',
             url: HordeMobile.conf.ajax_url + action,
-        }, opts || {});
-
-        return $.ajax(options);
+        }, opts || {}));
     },
 
     doActionComplete: function(d, callback)
