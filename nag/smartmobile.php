@@ -123,7 +123,7 @@ if (($max_tasks === true) || ($max_tasks > Nag::countTasks())) {
     $vars->mobile = true;
     $vars->url = Horde::url('smartmobile.php');
 
-    $view->create_form = new Nag_Form_Task($vars, _("New Task"), $mobile = true);
+    $view->create_form = new Nag_Form_Task($vars, _("New Task"));
     $view->create_title = $view->create_form->getTitle();
 }
 
