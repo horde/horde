@@ -39,6 +39,8 @@ class Nag_Form_Search extends Horde_Form
                   'search_desc' => _("Description")
             ))
         );
+        $v->setDefault(array('search_name', 'search_desc'));
+
         $this->addVariable(_("Tagged with:"), 'search_tags', 'Nag:NagTags', false);
         $v = $this->addVariable(
             _("Search:"),
