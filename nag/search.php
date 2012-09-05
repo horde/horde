@@ -20,12 +20,14 @@ $page_output->header(array(
 // Editing existing SmartList?
 $vars = Horde_Variables::getDefaultVariables();
 
-$form = new Nag_Form_Search($vars, _("Search"));
 if ($id = $vars->get('smart_id')) {
     $list = $nag_shares->getShare($id);
     $searchObj = unserialize($list->get('search'));
     $vars->set('smartlist_name', $list->get('name'));
     $searchObj->getVars($vars);
+    $form = new Nag_Form_Search($vars, sprintf(_("Editing SmartList \"%s\""), htmlspecialchars($list->get('name'))));
+} else {
+    $form = new Nag_Form_Search($vars, _("Search"));
 }
 
 echo Nag::menu();
