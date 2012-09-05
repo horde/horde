@@ -62,7 +62,7 @@ implements Horde_Kolab_Storage_Data_Format
     {
         $this->_factory = $factory;
         $this->_structure = $structure;
-        $this->_mime_type = new Horde_Kolab_Storage_Data_Object_MimeType();
+        $this->_mime_type = new Horde_Kolab_Storage_Data_Object_MimeTypes();
     }
 
     /**
@@ -196,33 +196,23 @@ implements Horde_Kolab_Storage_Data_Format
      */
     public function createKolabPart($object, array $options)
     {
-        $kolab = new Horde_Mime_Part();
-        $kolab->setType($this->_mime_type->getType($options['type'])->getMimeType());
         if (empty($options['raw'])) {
-            $format = new Horde_Kolab_Storage_Data_Object_Content(
+            $content = new Horde_Kolab_Storage_Data_Object_Content_New(
+                $this->_mime_type->getType($options['type']),
+                $object,
                 $this->_factory->createFormat(
                     'Xml', $options['type'], $options['version']
                 )
             );
-            if (isset($options['previous'])) {
-                $content = $format->modify($object, $options['previous']);
-            } else {
-                $content = $format->create($object);
-            }
-            $kolab->setContents(
-                $content, array('encoding' => 'quoted-printable')
-            );
         } else {
-            $kolab->setContents(
-                $object['content'],
-                array('encoding' => 'quoted-printable')
+            $content = new Horde_Kolab_Storage_Data_Object_Content_Raw(
+                $this->_mime_type->getType($options['type']),
+                $object['content']
             );
         }
-        $kolab->setCharset('utf-8');
-        $kolab->setDisposition('inline');
-        $kolab->setDispositionParameter('x-kolab-type', 'xml');
-        $kolab->setName('kolab.xml');
-        return $kolab;
+
+        $part = new Horde_Kolab_Storage_Data_Object_Part();
+        return $part->setContents($content);
     }
 
     /**
@@ -247,9 +237,18 @@ implements Horde_Kolab_Storage_Data_Format
         $original->setContents(
             $this->_structure->fetchId($folder, $obid, $mime_id)
         );
-        $options['previous'] = $original->getContents(array('stream' => true));
+        $content = new Horde_Kolab_Storage_Data_Object_Content_Modified(
+            $this->_mime_type->getType($options['type']),
+            $object,
+            $original->getContents(array('stream' => true)),
+            $this->_factory->createFormat(
+                'Xml', $options['type'], $options['version']
+            )
+        );
+        $part = new Horde_Kolab_Storage_Data_Object_Part();
+
         $modifiable->setPart(
-            $mime_id, $this->createKolabPart($object, $options)
+            $mime_id, $part->setContents($content)
         );
         return $modifiable->store();
     }
