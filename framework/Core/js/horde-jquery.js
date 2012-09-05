@@ -98,19 +98,16 @@ Array.prototype.numericSort = function()
  */
 String.prototype.toQueryParams = function()
 {
-    var pos = this.indexOf('?'),
-        params = {};
+    var params = {};
 
-    if (pos !== -1) {
-        $.map($.trim(this.substring(pos + 1)).split('#')[0].split('&'), function(i) {
-            var pair = i.split('=');
-            HordeJquery.addToObject(
-                params,
-                decodeURIComponent(pair[0]),
-                pair[1] ? decodeURIComponent(pair[1]) : undefined
-            );
-        });
-    }
+    $.map($.trim(this.substring(this.indexOf('?') + 1)).split('#')[0].split('&'), function(i) {
+        var pair = i.split('=');
+        HordeJquery.addToObject(
+            params,
+            decodeURIComponent(pair[0]),
+            pair[1] ? decodeURIComponent(pair[1]) : undefined
+        );
+    });
 
     return params;
 }
