@@ -446,7 +446,7 @@ class Nag
 
         $att = array('owner' => $GLOBALS['registry']->getAuth());
         if (!$smart) {
-            $att['issmart'] = '0';
+            $att['issmart'] = 0;
         }
 
         try {
