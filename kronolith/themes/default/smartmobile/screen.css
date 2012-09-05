@@ -31,13 +31,6 @@
 }
 
 /* Day view styles */
-.kronolithDayHeader {
-    width: 100%;
-    text-align: center;
-}
-.kronolithDayHeader a {
-    vertical-align: middle;
-}
 .kronolithDayDate {
     margin-left: 10px;
     margin-right: 10px;
@@ -64,13 +57,6 @@
 .kronolithDayLocationfff {
   color: lightgray;
 }
-.kronolithDayDetail {
-}
-.kronolithDayDetail h4 {
-  text-align: center;
-  margin-bottom: 0;
-  margin-top: 0;
-}
 
 /* Mini calendar */
 .kronolithMinical {
@@ -90,12 +76,6 @@
     text-align: left;
 }
 
-.kronolithMonthHeader {
-  text-align: center;
-}
-.kronolithMonthHeader a {
-    vertical-align: middle;
-}
 .kronolithMinical th, .kronolithMinical td {
     font-size: 90%;
 }

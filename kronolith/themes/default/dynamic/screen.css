@@ -319,15 +319,6 @@ ul.horde-tags li:hover {
 tr.kronolithMinicalNav, tr.kronolithMinicalNav th {
     background-color: #d5dcde;
 }
-#kronolithMinicalPrev, #kronolithMinicalNext {
-    display: block;
-    text-indent: -10000px;
-    cursor: pointer;
-    background: transparent url("../graphics/right.png") no-repeat center center;
-}
-#kronolithMinicalPrev {
-    background-image: url("../graphics/left.png");
-}
 .kronolithMinical .kronolithMinicalEmpty {
     background: none;
 }
