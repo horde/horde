@@ -129,8 +129,6 @@ class IMP_Smartmobile
             }
 
             $this->view->composeCache = $injector->getInstance('IMP_Factory_Compose')->create()->getCacheId();
-            $this->view->composeLink = $registry->getServiceLink('ajax', 'imp');
-            $this->view->composeLink->pathInfo = 'addAttachment';
         }
     }
 

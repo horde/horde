@@ -1,13 +1,13 @@
 <div id="compose" data-role="page">
  <?php echo $this->smartmobileHeader(array('logout' => true, 'title' => _("New Message"))) ?>
 
- <form id="imp-redirect-form" action="<?php echo $this->composeLink ?>" style="display:none">
+ <form id="imp-redirect-form" style="display:none">
   <input type="hidden" id="imp-redirect-cache" name="composeCache" value="<?php echo $this->h($this->composeCache) ?>" />
   <label for="imp-redirect-to"><?php echo _("To:") ?></label>
   <input type="text" id="imp-redirect-to" name="redirect_to" />
  </form>
 
- <form id="imp-compose-form" action="<?php echo $this->composeLink ?>" method="post" enctype="multipart/form-data" target="submit_frame">
+ <form id="imp-compose-form">
   <input type="hidden" id="imp-compose-cache" name="composeCache" value="<?php echo $this->h($this->composeCache) ?>" />
   <div data-role="fieldcontain">
    <label for="imp-compose-identity"><?php echo _("From:") ?></label>
@@ -37,5 +37,3 @@
   <a href="#" id="imp-compose-cancel"><?php echo _("Cancel") ?></a>
  </div>
 </div>
-
-<iframe name="submit_frame" id="submit_frame" style="display:none" src="javascript:false;"></iframe>

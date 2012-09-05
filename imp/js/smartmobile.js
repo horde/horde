@@ -33,9 +33,6 @@ var ImpMobile = {
     //
     // /* Mailbox of the currently displayed message. */
     // uid_mbox,
-    //
-    // /* Whether attachments are currently being uploaded. */
-    // uploading,
 
     // Mailbox data cache.
     cache: {},
@@ -646,90 +643,39 @@ var ImpMobile = {
             ? $('#imp-redirect-form')
             : $('#imp-compose-form');
 
-        if (action == 'sendMessage' || action == 'saveDraft') {
-            switch (action) {
-            case 'sendMessage':
-                if (($('#imp-compose-subject').val() == '') &&
-                    !window.confirm(IMP.text.nosubject)) {
-                    return;
-                }
-                break;
-            }
-
-            // Don't send/save until uploading is completed.
-            if (ImpMobile.uploading) {
-                window.setTimeout(function() {
-                    if (ImpMobile.disabled) {
-                        ImpMobile.uniqueSubmit(action);
-                    }
-                }, 250);
-                return;
-            }
+        if (action == 'sendMessage' &&
+            ($('#imp-compose-subject').val() == '') &&
+            !window.confirm(IMP.text.nosubject)) {
+            return;
         }
 
-        if (action == 'addAttachment') {
-            // We need a submit action here because browser security models
-            // won't let us access files on user's filesystem otherwise.
-            ImpMobile.uploading = true;
-            form.submit();
-        } else {
-            // Use an AJAX submit here so that we can do javascript-y stuff
-            // before having to close the window on success.
-            HordeMobile.doAction(
-                action,
-                HordeJquery.formToObject(form),
-                ImpMobile.uniqueSubmitCallback
-            );
-
-            // Can't disable until we send the message - or else nothing
-            // will get POST'ed.
-            if (action != 'autoSaveDraft') {
-                ImpMobile.setDisabled(true);
-            }
-        }
+        HordeMobile.doAction(
+            action,
+            HordeJquery.formToObject(form),
+            ImpMobile.uniqueSubmitCallback
+        );
     },
 
     uniqueSubmitCallback: function(d)
     {
-        if (!d) {
-            return;
-        }
-
-        if (d.imp_compose) {
-            $('#imp-compose-cache').val(d.imp_compose);
-        }
-
-        if (d.success || d.action == 'addAttachment') {
-            switch (d.action) {
-            case 'redirectMessage':
-            case 'sendMessage':
+        if (d) {
+            if (d.success) {
                 return ImpMobile.closeCompose();
             }
-        }
 
-        ImpMobile.setDisabled(false);
+            if (d.imp_compose) {
+                $('#imp-compose-cache').val(d.imp_compose);
+            }
+
+            ImpMobile.setDisabled(false);
+        }
     },
 
     closeCompose: function()
     {
-        HordeMobile.doAction('cancelCompose', {
-            imp_compose: $('#imp-compose-cache').val()
-        });
         ImpMobile.setDisabled(false);
         $('#imp-compose-form')[0].reset();
-        window.setTimeout(ImpMobile.delayedCloseCompose, 0);
-    },
-
-    delayedCloseCompose: function()
-    {
-        if (HordeMobile.currentPage('compose')) {
-            window.history.back();
-        } else if (HordeMobile.currentPage('notification')) {
-            $.mobile.activePage.bind('pagehide', function (e) {
-                $(e.currentTarget).unbind(e);
-                window.setTimeout(ImpMobile.delayedCloseCompose, 0);
-            });
-        }
+        window.history.back();
     },
 
     setDisabled: function(disable)
@@ -1035,6 +981,9 @@ var ImpMobile = {
                 return;
 
             case 'imp-compose-cancel':
+                HordeMobile.doAction('cancelCompose', {
+                    imp_compose: $('#imp-compose-cache').val()
+                });
                 ImpMobile.closeCompose();
                 return;
 
