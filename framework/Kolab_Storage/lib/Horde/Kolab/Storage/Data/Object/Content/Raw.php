@@ -1,6 +1,6 @@
 <?php
 /**
- * Generates the core Kolab content.
+ * Provides Kolab content as a string that will not be modified.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Generates the core Kolab content.
+ * Provides Kolab content as a string that will not be modified.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
@@ -25,19 +25,36 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-abstract class Horde_Kolab_Storage_Data_Object_Content
+class Horde_Kolab_Storage_Data_Object_Content_Raw
+extends Horde_Kolab_Storage_Data_Object_Content_Base
 {
     /**
-     * Return the mime type of the object content.
+     * Raw object content.
      *
-     * @return string The MIME type representing the Kolab content.
+     * @var string
      */
-    abstract public function getMimeType();
+    private $_raw;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Kolab_Storage_Data_Object_MimeType $mime_type The content mime type.
+     * @param string $raw The raw object content.
+     */
+    public function __construct(Horde_Kolab_Storage_Data_Object_MimeType $mime_type,
+                                $raw)
+    {
+        parent::__construct($mime_type);
+        $this->_raw = $raw;
+    }
 
     /**
      * Create the Kolab content as a string.
      *
      * @return string The Kolab content.
      */
-    abstract public function toString();
+    public function toString()
+    {
+        return $this->_raw;
+    }
 }
