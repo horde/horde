@@ -22,6 +22,7 @@ class Nag_Form_Search extends Horde_Form
     {
         parent::__construct($vars, $title);
 
+        $GLOBALS['page_output']->addScriptFile('form_helpers.js', 'horde');
         $this->addHidden('', 'smart_id', 'text', false);
         $this->addHidden('', 'actionID', 'text', false);
         $vars->set('actionID', 'search_tasks');
@@ -56,10 +57,10 @@ class Nag_Form_Search extends Horde_Form
 
         $this->addVariable(_("Due date:"), 'due_date', 'Nag:NagSearchDue', false);
 
-        // @TODO: Only enable title if checkbox is checked.
         $this->addVariable(_("Save this search as a SmartList?"), 'save_smartlist', 'boolean', false);
-        $this->addVariable(_("SmartList Name:"), 'smartlist_name', 'text', false);
-
+        $sl_name = $this->addVariable(_("SmartList Name:"), 'smartlist_name', 'text', false);
+        $save_action = new Horde_Form_Action_ConditionalEnable(array('target' => 'save_smartlist', 'enabled' => true, 'values' => 'on'));
+        $sl_name->setAction($save_action);
         $this->setButtons(_("Search"), _("Reset"));
 
         // If editing a SmartList, allow deletion.
