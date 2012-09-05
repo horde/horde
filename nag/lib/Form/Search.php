@@ -72,7 +72,7 @@ class Nag_Form_Search extends Horde_Form
     public function renderActive()
     {
         return parent::renderActive(
-            $this->getRenderer(array('varrenderer_driver' => array('nag', 'nag')), false),
+            $this->getRenderer(array('varrenderer_driver' => array('nag', 'nag'))),
             $this->_vars,
             Horde::url('list.php'),
             'post');
