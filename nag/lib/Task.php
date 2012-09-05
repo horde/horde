@@ -216,7 +216,7 @@ class Nag_Task
      * @var integer
      * @see each()
      */
-    protected $_pointer;
+    protected $_pointer = 0;
 
     /**
      * Task id => pointer dictionary.
