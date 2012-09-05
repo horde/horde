@@ -40,7 +40,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testGetMimeType($type)
     {
-        $mimeType = new Horde_Kolab_Storage_Data_Object_MimeType();
+        $mimeType = new Horde_Kolab_Storage_Data_Object_MimeTypes();
         $this->assertEquals(
             'application/x-vnd.kolab.' . $type,
             $mimeType->getType($type)->getMimeType()
@@ -52,7 +52,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testUndefinedMimeType()
     {
-        $mimeType = new Horde_Kolab_Storage_Data_Object_MimeType();
+        $mimeType = new Horde_Kolab_Storage_Data_Object_MimeTypes();
         $mimeType->getType('UNDEFINED')->getMimeType();
     }
 
@@ -61,7 +61,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testMatchMimeType($type)
     {
-        $mimeType = new Horde_Kolab_Storage_Data_Object_MimeType();
+        $mimeType = new Horde_Kolab_Storage_Data_Object_MimeTypes();
         $this->assertEquals(
             2,
             $mimeType->getType($type)->matchMimeId(

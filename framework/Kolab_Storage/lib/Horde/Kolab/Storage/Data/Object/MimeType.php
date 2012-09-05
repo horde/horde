@@ -27,18 +27,42 @@
  */
 class Horde_Kolab_Storage_Data_Object_MimeType
 {
-    public function getType($type)
+    /**
+     * Kolab type.
+     *
+     * @var string
+     */
+    private $_type;
+
+    /**
+     * Constructor.
+     *
+     * @param string $type The Kolab type.
+     */
+    public function __construct($type)
     {
-        $default_types = array(
-            'contact', 'event', 'note', 'task', 'h-prefs', 'h-ledger'
-        );
-        if (in_array($type, $default_types)) {
-            return new Horde_Kolab_Storage_Data_Object_MimeType_Default(
-                $type
-            );
-        }
-        throw new Horde_Kolab_Storage_Data_Exception(
-            sprintf('Unsupported object type %s!', $type)
-        );
+        $this->_type = $type;
+    }
+
+    /**
+     * Return the mime type corresponding to the Kolab type.
+     *
+     * @return string The mime type.
+     */
+    public function getMimeType()
+    {
+        return 'application/x-vnd.kolab.' . $this->_type;
+    }
+
+    /**
+     * Match the mime type in the provided mime structure map.
+     *
+     * @param array $map The mime map.
+     *
+     * @return int The mime part matching the type specific mime type.
+     */
+    public function matchMimeId(array $map)
+    {
+        return array_search($this->getMimeType(), $map);
     }
 }
