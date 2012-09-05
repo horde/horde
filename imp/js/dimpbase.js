@@ -1551,9 +1551,10 @@ var DimpBase = {
         }
 
         if (!params) {
-            if (this.pp &&
-                this.pp.uid == data.uid &&
-                this.pp.mbox == data.mbox) {
+            if (!data ||
+                (this.pp &&
+                 this.pp.uid == data.uid &&
+                 this.pp.mbox == data.mbox)) {
                 return;
             }
             this.pp = data;
