@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Update MIME mapping file.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -985,7 +985,7 @@
    <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Update MIME mapping file.
    </notes>
   </release>
  </changelog>
