@@ -15,7 +15,7 @@
 class Nag_Ajax_Application_Smartmobile extends Horde_Core_Ajax_Application_Handler
 {
     /**
-     * AJAX action: Get autocomplete data.
+     * AJAX action: Toggle the completed flag.
      *
      * Variables used:
      *   - task: TODO
