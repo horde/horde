@@ -128,7 +128,7 @@ var ImpMobile = {
         if (ob = ImpMobile.cache[mailbox]) {
             if (purl.params.from) {
                 ob.from = Number(purl.params.from);
-            } else if (data.options.data.noajax) {
+            } else if (data.options.data && data.options.data.noajax) {
                 ImpMobile.refreshMailbox(ob);
                 return;
             } else {
