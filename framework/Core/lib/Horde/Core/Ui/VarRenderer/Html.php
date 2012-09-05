@@ -1689,9 +1689,7 @@ EOT;
     public function renderEnd()
     {
         if (count($this->_onLoadJS)) {
-            return "<script type=\"text/javascript\">" .
-                "<!--\n" .  implode("\n", $this->_onLoadJS) . "\n// -->\n" .
-                "</script>";
+            $GLOBALS['page_output']->addInlineScript(implode("\n", $this->_onLoadJS), 'dom');
         } else {
             return '';
         }
