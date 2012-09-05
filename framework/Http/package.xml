@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [jan] Add verifyPeer request option to disable verification of certification peers during SSL request.
 * [jan] Fix error handling in Fopen driver if a custom error handler is installed.
  </notes>
  <contents>
@@ -344,6 +345,7 @@
    <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [jan] Add verifyPeer request option to disable verification of certification peers during SSL request.
 * [jan] Fix error handling in Fopen driver if a custom error handler is installed.
    </notes>
   </release>

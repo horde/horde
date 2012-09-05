@@ -62,7 +62,9 @@ class Horde_Http_Client
      *                    - request.proxyUsername
      *                    - request.proxyPassword
      *                    - request.proxyAuthenticationScheme
+     *                    - request.redirects
      *                    - request.timeout
+     *                    - request.verifyPeer
      */
     public function __construct($args = array())
     {

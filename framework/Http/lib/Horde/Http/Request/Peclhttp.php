@@ -67,7 +67,11 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
             }
         }
 
-        $httpOptions = array('timeout' => $this->timeout);
+        // Set options
+        $httpOptions = array('headers' => $this->headers,
+                             'redirect' => (int)$this->redirects,
+                             'timeout' => $this->timeout,
+                             'ssl' => array('verifypeer' => $this->verifyPeer));
 
         // Proxy settings
         if ($this->proxyServer) {
@@ -94,19 +98,12 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
             $httpOptions['httpauthtype'] = $this->_httpAuthScheme($this->authenticationScheme);
         }
 
-        // Headers
-        $httpOptions['headers'] = $this->headers;
-
-        // Redirects
-        $httpOptions['redirect'] = (int)$this->redirects;
-
-        // Set options
         $httpRequest->setOptions($httpOptions);
 
         try {
             $httpResponse = $httpRequest->send();
         } catch (HttpException $e) {
-            throw new Horde_Http_Exception($e->getMessage(), $e->getCode(), $e);
+            throw new Horde_Http_Exception($e);
         }
 
         return new Horde_Http_Response_Peclhttp($this->uri, $httpResponse);
