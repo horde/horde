@@ -20,11 +20,11 @@ class Nag_Ajax_Application extends Horde_Core_Ajax_Application
     {
         global $registry;
 
-        $this->addHandler(new Horde_Core_Ajax_Application_Handler_Prefs());
+        $this->addHandler('Horde_Core_Ajax_Application_Handler_Prefs');
 
         switch ($registry->getView()) {
         case $registry::VIEW_SMARTMOBILE:
-            $this->addHandler('Nag_Ajax_Application_Smartmobile');
+            $this->addHandler('Nag_Ajax_Application_Handler_Smartmobile');
             break;
         }
     }

@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Nag
  */
-class Nag_Ajax_Application_Smartmobile extends Horde_Core_Ajax_Application_Handler
+class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * AJAX action: Toggle the completed flag.

@@ -85,7 +85,9 @@
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Application">
-      <file name="Smartmobile.php" role="horde" />
+      <dir name="Handler">
+       <file name="Smartmobile.php" role="horde" />
+      </dir> <!-- /lib/Ajax/Application/Handler -->
      </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
       <file name="TagAutoCompleter.php" role="horde" />
@@ -145,7 +147,6 @@
     </dir> <!-- /lib/Ui -->
     <dir name="View">
      <dir name="Helper">
-      <file name="HeaderWidget" role="horde" />
       <file name="HeaderWidget.php" role="horde" />
       <file name="List.php" role="horde" />
      </dir> <!-- /lib/View/Helper -->
