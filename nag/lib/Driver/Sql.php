@@ -182,7 +182,7 @@ class Nag_Driver_Sql extends Nag_Driver
                         (int)$task['start'],
                         (int)$task['due'],
                         (int)$task['priority'],
-                        number_format($task['estimate'], 2),
+                        number_format(floatval($task['estimate']), 2),
                         (int)$task['completed'],
                         (int)$task['alarm'],
                         serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
