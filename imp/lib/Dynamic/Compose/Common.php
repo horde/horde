@@ -186,7 +186,7 @@ class IMP_Dynamic_Compose_Common
             'cc' => intval($prefs->getValue('compose_cc')),
             'close_draft' => intval($prefs->getValue('close_draft')),
             'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
-            'drafts_mbox' => $drafts_mbox ? $drafs_mbox->form_to : null,
+            'drafts_mbox' => $drafts_mbox ? $drafts_mbox->form_to : null,
             'rte_avail' => intval($browser->hasFeature('rte')),
             'spellcheck' => intval($prefs->getValue('compose_spellcheck')),
             'templates_mbox' => $templates_mbox ? $templates_mbox->form_to : null
