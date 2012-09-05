@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-09-05</date>
- <time>13:12:03</time>
+ <time>13:51:10</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix deleting tasks from the task form.
 * [mjr] Implement Purge Completed Tasks LoginTask (Request #2520).
 * [gwr] Mark the initial default share as such with the Kolab backend.
 * [gwr] Always mark the initial share as default tasklist.
@@ -1184,6 +1185,7 @@
    <date>2012-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix deleting tasks from the task form.
 * [mjr] Implement Purge Completed Tasks LoginTask (Request #2520).
 * [gwr] Mark the initial default share as such with the Kolab backend.
 * [gwr] Always mark the initial share as default tasklist.
