@@ -205,7 +205,7 @@ var ImpMobile = {
             ob.from = (Math.floor(r.rownum / ImpMobile.mbox_rows) * ImpMobile.mbox_rows) + 1;
         }
 
-        if (HordeMobile.currentPage('mailbox')) {
+        if (HordeMobile.currentPage() == 'mailbox') {
             ImpMobile.refreshMailbox(ob);
         }
     },
@@ -344,7 +344,8 @@ var ImpMobile = {
         var from, pos, rid,
             ob = ImpMobile.cache[ImpMobile.mailbox];
 
-        if (HordeMobile.currentPage('message')) {
+        switch (HordeMobile.currentPage()) {
+        case 'message':
             pos = ob.rowlist[ImpMobile.rowid] + dir;
             if (pos > 0 && pos <= ob.totalrows) {
                 if (rid = ob.rowToUid(pos)) {
@@ -356,7 +357,9 @@ var ImpMobile = {
                     // TODO: Load viewport slice
                 }
             }
-        } else if (HordeMobile.currentPage('mailbox')) {
+            break;
+
+        case 'mailbox':
             from = Math.min(ob.totalrows, Math.max(1, ob.from + (dir * ImpMobile.mbox_rows)));
 
             if (from != ob.from) {
@@ -365,6 +368,7 @@ var ImpMobile = {
                     mbox: ImpMobile.mailbox
                 }));
             }
+            break;
         }
     },
 
@@ -862,7 +866,7 @@ var ImpMobile = {
             }
         });
 
-        if (HordeMobile.currentPage('folders')) {
+        if (HordeMobile.currentPage() == 'folders') {
             $('#imp-folders-list').listview('refresh');
         }
     },

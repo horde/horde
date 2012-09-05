@@ -173,16 +173,15 @@ var HordeMobile = {
     },
 
     /**
-     * Checks if the current page matches the ID.
+     * Returns the current page ID.
      *
-     * @param string page  The ID to check.
-     *
-     * @return boolean  True if page is equal to ID.
+     * @return string  The page ID, or null if no page is loaded.
      */
     currentPage: function(page)
     {
-        return ($.mobile.activePage &&
-                $.mobile.activePage.attr('id') == page);
+        return $.mobile.activePage
+            ? $.mobile.activePage.attr('id')
+            : null;
     },
 
     /**
