@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-03</date>
- <time>16:06:52</time>
+ <date>2012-09-05</date>
+ <time>13:12:03</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -84,9 +84,7 @@
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Application">
-      <dir name="Helper">
-       <file name="Smartmobile.php" role="horde" />
-      </dir> <!-- /lib/Ajax/Application/Helper -->
+      <file name="Smartmobile.php" role="horde" />
      </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
       <file name="TagAutoCompleter.php" role="horde" />
@@ -107,9 +105,6 @@
      <file name="Tasklists.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
-     <dir name="Renderer">
-      <file name="Task.php" role="horde" />
-     </dir> <!-- /lib/Form/Renderer -->
      <dir name="Type">
       <file name="NagAlarm.php" role="horde" />
       <file name="NagDue.php" role="horde" />
@@ -753,7 +748,7 @@
    <install as="nag/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="nag/lib/Task.php" name="lib/Task.php" />
    <install as="nag/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
-   <install as="nag/lib/Ajax/Application/Helper/Smartmobile.php" name="lib/Ajax/Application/Helper/Smartmobile.php" />
+   <install as="nag/lib/Ajax/Application/Smartmobile.php" name="lib/Ajax/Application/Smartmobile.php" />
    <install as="nag/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="nag/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="nag/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
@@ -767,7 +762,6 @@
    <install as="nag/lib/Form/EditTaskList.php" name="lib/Form/EditTaskList.php" />
    <install as="nag/lib/Form/Search.php" name="lib/Form/Search.php" />
    <install as="nag/lib/Form/Task.php" name="lib/Form/Task.php" />
-   <install as="nag/lib/Form/Renderer/Task.php" name="lib/Form/Renderer/Task.php" />
    <install as="nag/lib/Form/Type/NagAlarm.php" name="lib/Form/Type/NagAlarm.php" />
    <install as="nag/lib/Form/Type/NagDue.php" name="lib/Form/Type/NagDue.php" />
    <install as="nag/lib/Form/Type/NagMethod.php" name="lib/Form/Type/NagMethod.php" />
@@ -1187,7 +1181,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-03</date>
+   <date>2012-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Implement Purge Completed Tasks LoginTask (Request #2520).
