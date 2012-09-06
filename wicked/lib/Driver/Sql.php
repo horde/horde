@@ -762,7 +762,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
     public function removeAllVersions($pagename)
     {
         /* Remove attachments and do other cleanup. */
-        return parent::removeAllVersions($pagename);
+        parent::removeAllVersions($pagename);
 
         $this->_pageNames = null;
 
