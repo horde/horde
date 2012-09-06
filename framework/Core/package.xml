@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-09-04</date>
- <time>16:53:52</time>
+ <date>2012-09-06</date>
+ <time>11:39:09</time>
  <version>
   <release>2.0.0beta6</release>
   <api>2.0.0beta1</api>
@@ -112,8 +112,6 @@
      </dir> <!-- /js/jquery.mobile/images -->
      <dir name="plugins">
       <file name="autocomplete.js" role="horde" />
-      <file name="pagination.css" role="horde" />
-      <file name="pagination.js" role="horde" />
      </dir> <!-- /js/jquery.mobile/plugins -->
      <file name="jquery.js" role="horde" />
      <file name="jquery.min.js" role="horde" />
@@ -1447,8 +1445,6 @@
    <install as="js/jquery.mobile/images/icons-36-black.png" name="js/jquery.mobile/images/icons-36-black.png" />
    <install as="js/jquery.mobile/images/icons-36-white.png" name="js/jquery.mobile/images/icons-36-white.png" />
    <install as="js/jquery.mobile/plugins/autocomplete.js" name="js/jquery.mobile/plugins/autocomplete.js" />
-   <install as="js/jquery.mobile/plugins/pagination.css" name="js/jquery.mobile/plugins/pagination.css" />
-   <install as="js/jquery.mobile/plugins/pagination.js" name="js/jquery.mobile/plugins/pagination.js" />
    <install as="js/map/bing.js" name="js/map/bing.js" />
    <install as="js/map/cloudmade.js" name="js/map/cloudmade.js" />
    <install as="js/map/google.js" name="js/map/google.js" />
@@ -2476,7 +2472,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-04</date>
+   <date>2012-09-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Added Horde_Core_Smartmobile_Url class.
