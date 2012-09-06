@@ -2472,12 +2472,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _clientThreadOrderedsubject($data)
     {
-        $dates = $this->_getSentDates($data, array_keys($data));
+        $dates = $this->_getSentDates($data, $data->ids());
         $level = $sorted = $tsort = array();
         $this->_temp['threadparse'] = array('base' => null, 'resp' => array());
 
-        reset($data);
-        while (list($k, $v) = each($data)) {
+        foreach ($data as $k => $v) {
             $subject = $this->utils->getBaseSubject($v->getEnvelope()->subject);
             if (!isset($sorted[$subject])) {
                 $sorted[$subject] = array();
