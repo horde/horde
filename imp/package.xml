@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-29</date>
- <time>15:18:05</time>
+ <date>2012-09-06</date>
+ <time>15:05:26</time>
  <version>
   <release>6.0.0beta4</release>
   <api>6.0.0beta1</api>
@@ -94,9 +94,13 @@
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Application">
-      <dir name="Helper">
+      <dir name="Handler">
+       <file name="Common.php" role="horde" />
+       <file name="Dynamic.php" role="horde" />
+       <file name="Passphrase.php" role="horde" />
+       <file name="Search.php" role="horde" />
        <file name="Smartmobile.php" role="horde" />
-      </dir> <!-- /lib/Ajax/Application/Helper -->
+      </dir> <!-- /lib/Ajax/Application/Handler -->
       <file name="Compose.php" role="horde" />
       <file name="ListMessages.php" role="horde" />
       <file name="ShowMessage.php" role="horde" />
@@ -809,11 +813,11 @@
     <dir name="smartmobile">
      <file name="compose.html.php" role="horde" />
      <file name="confirm.html.php" role="horde" />
+     <file name="copymove.html.php" role="horde" />
      <file name="folders.html.php" role="horde" />
      <file name="mailbox.html.php" role="horde" />
      <file name="message.html.php" role="horde" />
      <file name="search.html.php" role="horde" />
-     <file name="target.html.php" role="horde" />
     </dir> <!-- /templates/smartmobile -->
     <dir name="smime">
      <file name="import_key.html" role="horde" />
@@ -1370,7 +1374,11 @@
    <install as="imp/lib/Ajax/Application/Compose.php" name="lib/Ajax/Application/Compose.php" />
    <install as="imp/lib/Ajax/Application/ListMessages.php" name="lib/Ajax/Application/ListMessages.php" />
    <install as="imp/lib/Ajax/Application/ShowMessage.php" name="lib/Ajax/Application/ShowMessage.php" />
-   <install as="imp/lib/Ajax/Application/Helper/Smartmobile.php" name="lib/Ajax/Application/Helper/Smartmobile.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Common.php" name="lib/Ajax/Application/Handler/Common.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Dynamic.php" name="lib/Ajax/Application/Handler/Dynamic.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Passphrase.php" name="lib/Ajax/Application/Handler/Passphrase.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Search.php" name="lib/Ajax/Application/Handler/Search.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
    <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="imp/lib/Ajax/Imple/ImageUnblock.php" name="lib/Ajax/Imple/ImageUnblock.php" />
    <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
@@ -1755,11 +1763,11 @@
    <install as="imp/templates/saveimage/saveimage.html" name="templates/saveimage/saveimage.html" />
    <install as="imp/templates/smartmobile/compose.html.php" name="templates/smartmobile/compose.html.php" />
    <install as="imp/templates/smartmobile/confirm.html.php" name="templates/smartmobile/confirm.html.php" />
+   <install as="imp/templates/smartmobile/copymove.html.php" name="templates/smartmobile/copymove.html.php" />
    <install as="imp/templates/smartmobile/folders.html.php" name="templates/smartmobile/folders.html.php" />
    <install as="imp/templates/smartmobile/mailbox.html.php" name="templates/smartmobile/mailbox.html.php" />
    <install as="imp/templates/smartmobile/message.html.php" name="templates/smartmobile/message.html.php" />
    <install as="imp/templates/smartmobile/search.html.php" name="templates/smartmobile/search.html.php" />
-   <install as="imp/templates/smartmobile/target.html.php" name="templates/smartmobile/target.html.php" />
    <install as="imp/templates/smime/import_key.html" name="templates/smime/import_key.html" />
    <install as="imp/templates/test/mailserver.inc" name="templates/test/mailserver.inc" />
    <install as="Imp/AllTests.php" name="test/Imp/AllTests.php" />
@@ -2720,7 +2728,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-29</date>
+   <date>2012-09-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Optimize loading of message bodies when using dynamic view.
