@@ -286,6 +286,10 @@ abstract class Wicked_Driver
      */
     public function removeAllAttachments($pageId)
     {
+        if (empty($pageId)) {
+            throw new Wicked_Exception('Cannot delete all attachments of all pages at once');
+        }
+
         $vfs = $this->getVFS();
         if (!$vfs->isFolder(Wicked::VFS_ATTACH_PATH, $pageId)) {
             return;

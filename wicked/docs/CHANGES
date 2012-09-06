@@ -2,6 +2,7 @@
 v2.0-git
 --------
 
+[jan] Fix accidental deletion of all attachments (Bug #10875).
 [jan] Fix permission check when merging and renaming pages (Bug #11332).
 
 
