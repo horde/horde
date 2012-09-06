@@ -16,7 +16,7 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
-$ob = new Turba_Smartmobile(Horde_Variables::getDefaultVariables());
+$ob = new Turba_Smartmobile($injector->getInstance('Horde_Variables'));
 
 $page_output->header(array(
     'title' => _("Mobile Addressbook"),
