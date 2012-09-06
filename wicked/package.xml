@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix accidental deletion of all attachments (Bug #10875).
 * [jan] Fix permission check when merging and renaming pages (Bug #11332).
  </notes>
  <contents>
@@ -928,6 +929,7 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix accidental deletion of all attachments (Bug #10875).
 * [jan] Fix permission check when merging and renaming pages (Bug #11332).
    </notes>
   </release>
