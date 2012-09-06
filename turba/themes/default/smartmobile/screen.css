@@ -1,10 +1,10 @@
 /* Entry page. */
-#entry dt {
+.turba-entry-label {
     background-color: #ddd;
     font-weight: bold;
     margin-bottom: 15px;
     padding: 4px;
 }
-#entry dd {
-    margin-bottom: 15px;
+.turba-entry-data {
+    margin: 0 0 15px 20px;
 }

@@ -38,7 +38,7 @@ var TurbaMobile = {
 
         HordeMobile.changePage('entry', data);
 
-        $('#turba-entry-dl').hide();
+        $('#turba-entry-content').hide();
         HordeMobile.doAction(
             'smartmobileEntry',
             {
@@ -61,29 +61,26 @@ var TurbaMobile = {
             return;
         }
 
-        if (r.name) {
-            $('#turba-entry-name-block').show();
-            $('#turba-entry-name').text(r.name);
-        } else {
-            $('#turba-entry-name-block').hide();
-        }
+        var html = [];
 
-        if (r.email) {
-            $('#turba-entry-email-block').show();
-            if (r.email_link) {
-                $('#turba-entry-email').hide();
-                $('#turba-entry-email-list').html(
-                    '<li><a data-ajax="false" href=' + r.email_link + '>' + r.email + '</a></li>'
-                ).listview('refresh');
-            } else {
-                $('#turba-entry-email').text(r.email).show();
-                $('#turba-entry-email-list').html('').listview('refresh');
-            }
-        } else {
-            $('#turba-entry-email-block').hide();
-        }
+        $.each(r.entry, function(k, v) {
+            html.push('<div data-role="collapsible"><h3>' + k + '</h3><div>');
+            $.each(v, function(k2, v2) {
+                html.push('<div class="turba-entry-label">' + v2.l + '</div>');
+                if (v2.u) {
+                    html.push('<ul data-role="listview" data-inset="true">' +
+                        '<li><a data-ajax="false" href=' + v2.u + '>' + v2.v +
+                        '</a></li></ul>');
+                } else {
+                    html.push('<div class="turba-entry-data">' + v2.v + '</div>');
+                }
+            });
+            html.push('</div></div>');
+        });
 
-        $('#turba-entry-dl').show();
+        $('#turba-entry-data').html(html.join('')).collapsibleset('refresh');
+        $('#turba-entry-data').find(':jqmData(role="listview")').listview();
+        $('#turba-entry-content').show();
     },
 
     /**

@@ -29,7 +29,7 @@ class Turba_Ajax_Application_Smartmobile extends Horde_Core_Ajax_Application_Han
      */
     public function smartmobileEntry()
     {
-        global $cfgSources, $injector, $notification, $registry;
+        global $attributes, $cfgSources, $injector, $notification, $registry;
 
         $contact = null;
         $out = new stdClass;
@@ -44,16 +44,39 @@ class Turba_Ajax_Application_Smartmobile extends Horde_Core_Ajax_Application_Han
         if (is_null($contact)) {
             $notification->push(_("Addressbook entry could not be loaded."), 'horde.error');
             $out->error = true;
-        } else {
-            if ($contact->hasValue('email')) {
-                $out->email = $contact->getValue('email');
-                try {
-                    $out->email_link = strval($registry->call('mail/compose', array(
-                        array('to' => $out->email)
-                    )));
-                } catch (Horde_Exception $e) {}
+            return $out;
+        }
+
+        $out->entry = array();
+
+        if (!count($tabs = $contact->driver->tabs)) {
+            $tabs = array(
+                _("Entries") => array_keys($contact->driver->getCriteria())
+            );
+        }
+
+        foreach ($tabs as $key => $val) {
+            foreach ($val as $val2) {
+                if (strlen($val3 = $contact->getValue($val2))) {
+                    $url = null;
+
+                    switch ($val2) {
+                    case 'email':
+                        try {
+                            $url = strval($registry->call('mail/compose', array(
+                                array('to' => $val3)
+                            )));
+                        } catch (Horde_Exception $e) {}
+                        break;
+                    }
+
+                    $out->entry[$key][] = array_filter(array(
+                        'l' => $attributes[$val2]['label'],
+                        'u' => $url,
+                        'v' => $val3
+                    ));
+                }
             }
-            $out->name = Turba::formatName($contact);
         }
 
         return $out;
