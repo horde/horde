@@ -426,10 +426,7 @@ var ViewPort = Class.create({
     {
         var buffer = vs.getBuffer();
 
-        if (buffer.getView() == this.view) {
-            this.deselect(vs);
-        }
-
+        this.deselect(vs);
         this.opts.container.fire('ViewPort:remove', vs);
 
         buffer.remove(vs.get('rownum'));
@@ -1308,10 +1305,12 @@ var ViewPort = Class.create({
     // opts = (object) TODO [clearall]
     deselect: function(vs, opts)
     {
+        var buffer = vs.getBuffer();
         opts = opts || {};
 
         if (vs.size() &&
-            this._getBuffer().deselect(vs, opts && opts.clearall)) {
+            buffer.deselect(vs, opts.clearall) &&
+            buffer.getView() == this.view) {
             vs.get('div').invoke('removeClassName', 'vpRowSelected');
             this.opts.container.fire('ViewPort:deselect', { opts: opts, vs: vs });
         }
