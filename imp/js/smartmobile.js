@@ -181,8 +181,8 @@ var ImpMobile = {
 
         if (!(ob = ImpMobile.cache[r.view])) {
             ob = ImpMobile.cache[r.view] = $.extend(true, {}, ImpMobileMbox);
-            if (r.metadata.readonly) {
-                ob.readonly = r.metadata.readonly;
+            if (r.metadata.readonly || r.metadata.nodelete) {
+                ob.readonly = 1;
             }
             if (r.metadata.slabel) {
                 ob.label = r.metadata.slabel;
@@ -775,6 +775,7 @@ var ImpMobile = {
 
         HordeMobile.changePage('copymove');
 
+        $('#imp-copymove-action').selectmenu(ImpMobile.cache[ImpMobile.mailbox].readonly ? 'disable' : 'enable');
         $('#imp-copymove-mbox').val(purl.params.mbox);
         $('#imp-copymove-uid').val(purl.params.uid);
     },
