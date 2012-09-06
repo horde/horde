@@ -393,7 +393,7 @@ var ImpMobile = {
 
         var cache = ImpMobile.cache[ImpMobile.mailbox],
             data = ImpMobile.message,
-            headers = $('#imp-message-headers tbody'),
+            headers = $('#imp-message-headers-full tbody'),
             args = { mbox: data.mbox, uid: data.uid },
             spam = { innocent: 'show', spam: 'show' },
             list, rownum, tmp;

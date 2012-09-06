@@ -27,6 +27,9 @@
 }
 
 /* Message */
+#imp-message-headers {
+    margin-top: 0;
+}
 .imp-header-label {
     font-weight: bold;
     vertical-align: top;

@@ -1,20 +1,22 @@
 <div id="message" data-role="page">
  <?php echo $this->smartmobileHeader(array('backlink' => array('#', _("Mailbox")), 'logout' => true, 'title' => '&nbsp;')) ?>
 
- <div data-role="collapsible" data-iconpos="right" data-theme="b" data-content-theme="d">
-  <h4>
-   <span id="imp-message-from"></span>
-   <span id="imp-message-date"></span>
-  </h4>
-  <table id="imp-message-headers"><tbody></tbody></table>
- </div>
+ <div data-role="content">
+  <div id="imp-message-headers" data-role="collapsible" data-iconpos="right" data-theme="b" data-content-theme="d">
+   <h4>
+    <span id="imp-message-from"></span>
+    <span id="imp-message-date"></span>
+   </h4>
+   <table id="imp-message-headers-full"><tbody></tbody></table>
+  </div>
 
- <div id="imp-message-atc" data-role="collapsible" data-iconpos="right" data-content-theme="d">
-  <h4><span id="imp-message-atclabel"></span></h4>
-  <ul data-inset="true" data-role="listview" id="imp-message-atclist"></ul>
- </div>
+  <div id="imp-message-atc" data-role="collapsible" data-iconpos="right" data-content-theme="d">
+   <h4><span id="imp-message-atclabel"></span></h4>
+   <ul data-inset="true" data-role="listview" id="imp-message-atclist"></ul>
+  </div>
 
- <div id="imp-message-body" data-role="content"></div>
+  <div id="imp-message-body"></div>
+ </div>
 
  <div class="ui-bar" data-role="footer" data-position="fixed">
   <a href="#" id="imp-message-delete" data-rel="dialog" data-icon="delete"><?php echo _("Delete") ?></a>
