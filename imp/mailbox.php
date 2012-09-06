@@ -381,7 +381,6 @@ if (IMP::mailbox()->editvfolder) {
 
 /* Generate mailbox summary string. */
 $subinfo = $injector->getInstance('IMP_View_Subinfo');
-$subinfo->label = _("Mailbox:");
 $subinfo->value = $pagetitle . ' (';
 if (empty($pageOb['end'])) {
     $subinfo->value .= _("No Messages");
