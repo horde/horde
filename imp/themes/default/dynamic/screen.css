@@ -1000,12 +1000,12 @@ div.msgSubject span.treeImg {
 #th_expand, #partlist_col, #msgloglist_col {
     background-image: url("../graphics/arrow_collapsed.png");
     cursor: pointer;
-    margin-right: 0;
+    margin: 2px 0 -2px;
 }
 #th_collapse, #partlist_exp, #msgloglist_exp {
     background-image: url("../graphics/arrow_expanded.png");
     cursor: pointer;
-    margin-right: 0;
+    margin: 2px 0 -2px;
 }
 
 #th_collapse, #th_expand {
