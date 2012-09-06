@@ -16,13 +16,10 @@ var NagMobile = {
     clickHandler: function(e)
     {
         var elt = $(e.target);
+
         while (elt && elt != window.document && elt.parent().length) {
             if (elt.hasClass('nag-toggle-complete')) {
                 NagMobile.toggleComplete(elt);
-                return;
-            }
-            if (elt.hasClass('nag-task')) {
-                NagMobile.getTask(elt);
                 return;
             }
             elt = elt.parent();
@@ -63,21 +60,27 @@ var NagMobile = {
         }
     },
 
-    getTask: function(elt)
+    getTask: function(d)
     {
+        var parsed = d.options.parsedUrl;
         HordeMobile.doAction(
             'getTask',
             {
-                'task': elt.closest('li').jqmData('task'),
-                'tasklist': elt.closest('li').jqmData('tasklist')
+                'task': parsed.params.task_id,
+                'tasklist': parsed.params.tasklist
             },
-            function(r) { NagMobile.getTaskCallback(r, elt) }
+            function(r) { NagMobile.getTaskCallback(r) }
         );
     },
 
-    getTaskCallback: function(r, t)
+    getTaskCallback: function(r)
     {
+        var task = r.task;
 
+        var f = $('form')[0];
+        f.reset();
+        $("#task_title").val(task.n);
+        $("#task_desc").val(task.de);
     },
 
     toList: function(l)
@@ -94,12 +97,17 @@ var NagMobile = {
      */
     insertTask: function(l, t)
     {
-        var item, link;
+        var item, link, url;
+
+        url = HordeMobile.createUrl('nag-task-view', {
+            'task_id': t.id,
+            'tasklist': t.l
+        });
 
         // @TODO: Figure out the icon/completed class mess.
         item = $('<li>').attr({ 'nag-task-id': t.id, 'data-icon': t.cp ? 'check' : 'nag-unchecked' });
         item.append(
-            $('<a>').attr({ 'href': '#', 'data-rel': 'dialog', 'class': 'nag-task' }).append(
+            $('<a>').attr({ 'href': url, 'class': 'nag-task' }).append(
                 $('<h3>').text(t.n)
             ).append(
                 $('<p>').attr({ 'class': 'ui-li-aside' }).text(t.dd)
@@ -132,6 +140,10 @@ var NagMobile = {
         case 'nag-list':
             NagMobile.toList();
             break;
+        case 'nag-task-view':
+            NagMobile.getTask(d);
+            break;
+
         }
     },
 
