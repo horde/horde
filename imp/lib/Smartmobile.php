@@ -46,10 +46,6 @@ class IMP_Smartmobile
         $page_output->addScriptFile('json2.js', 'horde');
 
         $page_output->addStylesheet(
-            $registry->get('jsfs', 'horde') . '/jquery.mobile/plugins/pagination.css',
-            $registry->get('jsuri', 'horde') . '/jquery.mobile/plugins/pagination.css'
-        );
-        $page_output->addStylesheet(
             new Horde_Themes_Element('mime.css')
         );
 
@@ -80,7 +76,6 @@ class IMP_Smartmobile
 
         /* jQuery Mobile plugins must be loaded AFTER the main mobile script
          * is loaded. */
-        $page_output->addScriptFile('jquery.mobile/plugins/pagination.js', 'horde');
         if (IMP::canCompose()) {
             $page_output->addScriptFile('jquery.mobile/plugins/autocomplete.js', 'horde');
         }

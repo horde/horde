@@ -341,6 +341,10 @@ var ImpMobile = {
      */
     navigate: function(dir)
     {
+        if (!$.isNumeric(dir)) {
+            dir = (dir.type == 'swipeleft') ? 1 : -1;
+        }
+
         var from, pos, rid,
             ob = ImpMobile.cache[ImpMobile.mailbox];
 
@@ -391,8 +395,7 @@ var ImpMobile = {
             data = ImpMobile.message,
             headers = $('#imp-message-headers tbody'),
             args = { mbox: data.mbox, uid: data.uid },
-            innocent = 'show',
-            spam = 'show',
+            spam = { innocent: 'show', spam: 'show' },
             list, rownum, tmp;
 
         // TODO: Remove once we can pass viewport parameters directly to the
@@ -474,10 +477,6 @@ var ImpMobile = {
             ImpMobile.rowid = data.uid;
         }
 
-        rownum = cache.rowlist[ImpMobile.rowid];
-        $('#imp-message-pagination').pagination('enable', 'prev', rownum != 1)
-            .pagination('enable', 'next', rownum != cache.totalrows);
-
         if (!IMP.conf.disable_compose) {
             $('#imp-message-reply').attr('href', HordeMobile.createUrl('compose', $.extend({}, args, {
                 type: 'reply_auto'
@@ -492,31 +491,43 @@ var ImpMobile = {
 
         $.fn[cache.readonly ? 'hide' : 'show'].call($('#imp-message-delete'));
 
+        $('#imp-message-more').show().siblings(':jqmData(more)').hide();
+
         if (IMP.conf.allow_folders) {
             $('#imp-message-copymove').attr('href', HordeMobile.createUrl('target', $.extend({}, args, {
                 action: 'copymove'
             })));
         }
+
         if (ImpMobile.mailbox == IMP.conf.spam_mbox) {
             if (!IMP.conf.spam_spammbox) {
-                spam = 'hide';
+                spam.spam = 'hide';
             }
         } else if (IMP.conf.innocent_spammbox) {
-            innocent = 'hide';
+            spam.innocent = 'hide';
         }
 
-        if ($('#imp-message-innocent')) {
-            $.fn[innocent].call($('#imp-message-innocent'));
-            $('#imp-message-innocent').attr('href', HordeMobile.createUrl('confirm', $.extend({}, args, {
-                action: 'innocent'
-            })));
-        }
-        if ($('#imp-message-spam')) {
-            $.fn[spam].call($('#imp-message-spam'));
-            $('#imp-message-spam').attr('href', HordeMobile.createUrl('confirm', $.extend({}, args, {
-                action: 'spam'
-            })));
-        }
+        $.each([ 'innocent', 'spam' ], function(i, v) {
+            var t = $('#imp-message-' + v);
+            if (t) {
+                switch (spam[v]) {
+                case 'hide':
+                    t.jqmData('morehide', true);
+                    break;
+
+                case 'show':
+                    t.jqmRemoveData('morehide')
+                        .attr('href', HordeMobile.createUrl('confirm', $.extend({}, args, {
+                        action: v
+                    })));
+                    break;
+                }
+            }
+        });
+
+        rownum = cache.rowlist[ImpMobile.rowid];
+        ImpMobile.disableButton($('#imp-message-prev'), rownum == 1);
+        ImpMobile.disableButton($('#imp-message-next'), rownum == cache.totalrows);
 
         if (data.js) {
             $.each(data.js, function(k, js) {
@@ -971,10 +982,21 @@ var ImpMobile = {
                 }));
                 return;
 
+            case 'imp-message-more':
+                $.each(elt.hide().siblings(':jqmData(more)'), function(i, v) {
+                    v = $(v);
+                    if (!v.jqmData('morehide')) {
+                        v.show();
+                    }
+                });
+                return;
+
             case 'imp-mailbox-next':
             case 'imp-mailbox-prev':
+            case 'imp-message-next':
+            case 'imp-message-prev':
                 if (!elt.hasClass('ui-disabled')) {
-                    ImpMobile.navigate((id == 'imp-mailbox-next') ? 1 : -1);
+                    ImpMobile.navigate(id.match(/next$/) ? 1 : -1);
                 }
                 return;
 
@@ -1078,11 +1100,8 @@ var ImpMobile = {
         $(document).bind('pagebeforechange', ImpMobile.toPage);
         $(document).bind('HordeMobile:runTasks', ImpMobile.runTasks);
 
-        $('#message').on('click.pagination', function(e, type) {
-            if (e.namespace == 'pagination') {
-                ImpMobile.navigate(type == 'prev' ? -1 : 1);
-            }
-        });
+        $('#message').on('swipeleft', ImpMobile.navigate)
+            .on('swiperight', ImpMobile.navigate);
 
         if (!IMP.conf.disable_compose) {
             $('#compose').live('pagehide', function() {
