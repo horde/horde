@@ -71,6 +71,13 @@ var ImpMobile = {
             e.preventDefault();
             break;
 
+        case 'copymove':
+            if (IMP.conf.allow_folders) {
+                ImpMobile.copymove(data);
+            }
+            e.preventDefault();
+            break;
+
         case 'folders':
             HordeMobile.doAction('poll');
             break;
@@ -82,13 +89,6 @@ var ImpMobile = {
 
         case 'message':
             ImpMobile.toMessage(data);
-            e.preventDefault();
-            break;
-
-        case 'target':
-            if (IMP.conf.allow_folders) {
-                ImpMobile.target(data);
-            }
             e.preventDefault();
             break;
         }
@@ -494,9 +494,7 @@ var ImpMobile = {
         $('#imp-message-more').show().siblings(':jqmData(more)').hide();
 
         if (IMP.conf.allow_folders) {
-            $('#imp-message-copymove').attr('href', HordeMobile.createUrl('target', $.extend({}, args, {
-                action: 'copymove'
-            })));
+            $('#imp-message-copymove').attr('href', HordeMobile.createUrl('copymove', args));
         }
 
         if (ImpMobile.mailbox == IMP.conf.spam_mbox) {
@@ -767,45 +765,43 @@ var ImpMobile = {
     },
 
     /**
-     * Opens a target mailbox dialog.
+     * Opens a copy/move message dialog.
      *
      * @param object data  Page change data object.
      */
-    target: function(data)
+    copymove: function(data)
     {
         var purl = data.options.parsedUrl;
 
-        $('#imp-target-header').text(IMP.text[purl.params.action]);
-        $('#imp-target-mbox').val(purl.params.mbox);
-        $('#imp-target-uid').val(purl.params.uid);
+        HordeMobile.changePage('copymove');
 
-        HordeMobile.changePage('target');
+        $('#imp-copymove-mbox').val(purl.params.mbox);
+        $('#imp-copymove-uid').val(purl.params.uid);
     },
 
     /**
-     * Moves or copies a message to a selected target.
+     * Moves or copies a message to a selected mailbox.
      *
      * @param object e  An event object.
      */
-    targetSelected: function(e)
+    copymoveSelected: function(e)
     {
-        var source = $('#imp-target-mbox').val(),
-            target = $(e.currentTarget).attr('id') == 'imp-target-list'
-                ? $('#imp-target-list')
-                : $('#imp-target-new'),
-            value = target.val(),
+        var source = $('#imp-copymove-mbox').val(),
+            value = $(e.currentTarget).attr('id') == 'imp-copymove-list'
+                ? $('#imp-copymove-list').val()
+                : $('#imp-copymove-new').val(),
             func;
 
         if (value === '') {
-            $('#imp-target-newdiv').show();
+            $('#imp-copymove-newdiv').show();
             return;
         }
 
-        func = ($('#imp-target-action').val() == 'copy')
+        func = ($('#imp-copymove-action').val() == 'copy')
             ? 'copyMessages'
             : 'moveMessages';
 
-        $('#target').dialog('close');
+        $('#copymove').dialog('close');
 
         HordeMobile.doAction(
             func,
@@ -814,8 +810,8 @@ var ImpMobile = {
                 view: source
             }), {
                 mboxto: value,
-                newmbox: $('#imp-target-new').val(),
-                uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-target-uid').val() ]),
+                newmbox: $('#imp-copymove-new').val(),
+                uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-copymove-uid').val() ]),
             })
         );
 
@@ -1122,12 +1118,12 @@ var ImpMobile = {
         }
 
         if (IMP.conf.allow_folders) {
-            $('#imp-target-list').live('change', ImpMobile.targetSelected);
-            $('#imp-target-new-submit').live('click', ImpMobile.targetSelected);
-            $('#target').live('pagebeforeshow', function() {
-                $('#imp-target')[0].reset();
-                $('#imp-target-action,#imp-target-list').selectmenu('refresh', true);
-                $('#imp-target-newdiv').hide();
+            $('#imp-copymove-list').on('change', ImpMobile.copymoveSelected);
+            $('#imp-copymove-new-submit').on('click', ImpMobile.copymoveSelected);
+            $('#copymove').on('pagebeforeshow', function() {
+                $('#imp-copymove')[0].reset();
+                $('#imp-copymove-action,#imp-copymove-list').selectmenu('refresh', true);
+                $('#imp-copymove-newdiv').hide();
             });
         }
     }

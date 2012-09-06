@@ -71,7 +71,7 @@ class IMP_Smartmobile
         }
         echo $this->view->render('confirm');
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-            echo $this->view->render('target');
+            echo $this->view->render('copymove');
         }
 
         /* jQuery Mobile plugins must be loaded AFTER the main mobile script
