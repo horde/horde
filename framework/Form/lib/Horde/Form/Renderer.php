@@ -403,7 +403,7 @@ class Horde_Form_Renderer {
 
 ?><div class="horde-form-buttons">
 <?php foreach ($submit as $button): ?>
-    <input type="submit" <?php echo $button ?> />
+    <input <?php echo $button ?> />
 <?php endforeach ?>
 <?php if (!empty($reset)): ?>
     <input name="resetbutton" type="reset" value="<?php echo $reset ?>" />
