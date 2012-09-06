@@ -65,7 +65,6 @@ var NagMobile = {
 
     getTask: function(elt)
     {
-        console.log(elt);
         HordeMobile.doAction(
             'getTask',
             {
@@ -124,20 +123,22 @@ var NagMobile = {
         $.each(r.tasks, function(i, t) {
             NagMobile.insertTask(list, t);
         });
-        $("#list-view :jqmData(role='content')").append(list).trigger('create');
+        $("#nag-list :jqmData(role='content')").append(list).trigger('create');
     },
 
-    runTasks: function(e, d)
+    toView: function(e, d)
     {
-        // @TODO:
+        switch (d.options.parsedUrl.view) {
+        case 'nag-list':
+            NagMobile.toList();
+            break;
+        }
     },
 
     onDocumentReady: function()
     {
         $(document).bind('vclick', NagMobile.clickHandler);
-        // @TODO: This doesn't get triggered.
-        $(document).bind('HordeMobile:runTasks', NagMobile.runTasks);
-        $(document).bind('pagebeforeshow', NagMobile.toList);
+        $(document).bind('pagebeforechange', NagMobile.toView);
     }
 
 };
