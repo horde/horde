@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2012-09-06</date>
- <time>18:09:55</time>
+ <time>18:10:46</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -894,6 +894,19 @@
    <notes>
 * [jan] Fix accidental deletion of all attachments (Bug #10875).
 * [jan] Fix permission check when merging and renaming pages (Bug #11332).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-09-06</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
