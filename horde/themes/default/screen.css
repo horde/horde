@@ -1146,12 +1146,8 @@ ul.horde-tags {
     width: 340px;
 }
 #Growler div.GrowlerNotice {
-    filter: alpha(opacity=80);
-    -moz-opacity: .8;
-    opacity: .8;
     zoom: 1;
-    width: 300px;
-    padding: 10px 10px 10px 25px;
+    padding: 10px 10px 10px 30px;
     margin: 5px auto;
     text-align: left;
     display: none;
@@ -1160,14 +1156,13 @@ ul.horde-tags {
     border-style: solid;
     background-position: 3px center;
     background-repeat: no-repeat;
-    color: #fff;
     cursor: pointer;
 }
 #Growler div.GrowlerNoticeHead {
     font-weight: bold;
 }
 .GrowlerNoticeBody {
-    margin-right: 20px;
+    margin-right: 30px;
     overflow-x: hidden;
 }
 #Growler div.horde-error, #GrowlerLog li.horde-error {
@@ -1199,9 +1194,6 @@ ul.horde-tags {
 }
 #GrowlerLog ul {
     overflow: auto;
-    filter: alpha(opacity=90);
-    -moz-opacity: .9;
-    opacity: .9;
 }
 #GrowlerLog ul li {
     color: #333;
@@ -1229,36 +1221,35 @@ ul.horde-tags {
     padding-left: 10px;
 }
 div.GrowlerNoticeExit {
+    background: url("graphics/close.png") no-repeat;
     cursor: pointer;
     float: right;
-    font-weight: bold;
+    height: 20px;
+    width: 20px;
+    text-indent: -10000px;
 }
-div.GrowlerNoticeExit:hover {
-    color: #444;
-}
-.horde-message, .horde-success, .horde-warning, .horde-error {
-    border-color: #316600;
-    background-color: #5db110;
-    color: #fff;
+.horde-success {
+    border-color: #759f3d;
+    background-color: #8fc34b;
 }
 .horde-error {
-    background-color: #e81222;
-    border-color: maroon;
+    background-color: #f03232;
+    border-color: #cb2a2a;
 }
 .horde-warning {
-    background-color: #ebe20c;
-    border-color: #807b00;
-}
-.horde-warning, #Growler div.horde-warning {
-    color: #000;
+    background-color: #ffdf4d;
+    border-color: #e1c444;
 }
 .horde-message {
-    background-color: #369;
-    border-color: #123;
+    background-color: #689fb4;
+    border-color: #5c8c9f;
 }
 .horde-alarm {
-    background-color: orange;
-    border-color: red;
+    background-color: #f49e51;
+    border-color: #d38847;
+}
+.horde-error {
+    color: #fff;
 }
 
 /* Auto completer styles. See tags section too. */

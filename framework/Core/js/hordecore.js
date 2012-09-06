@@ -306,6 +306,7 @@ var HordeCore = {
                     className: 'horde-alarm',
                     life: 8,
                     log: false,
+                    opacity: 0.9,
                     sticky: true
                 });
                 growl.store('alarm', alarm.id);
@@ -346,6 +347,7 @@ var HordeCore = {
                         className: m.type.replace('.', '-'),
                         life: (m.type == 'horde.error' ? 12 : 8),
                         log: 1,
+                        opacity: 0.9,
                         sticky: m.flags && m.flags.include('sticky')
                     }
                 );
