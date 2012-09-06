@@ -52,6 +52,13 @@ class IMP_Contents
     public $lastBodyPartDecode = null;
 
     /**
+     * Close session when fetching data from IMAP server?
+     *
+     * @var boolean
+     */
+    public $fetchCloseSession = false;
+
+    /**
      * Have we scanned for embedded parts?
      *
      * @var boolean
@@ -1491,14 +1498,24 @@ class IMP_Contents
      */
     protected function _fetchData(Horde_Imap_Client_Fetch_Query $query)
     {
+        if ($this->fetchCloseSession) {
+            $GLOBALS['session']->close();
+        }
+
         try {
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-            return $imp_imap->fetch($this->_mailbox, $query, array(
+            $res = $imp_imap->fetch($this->_mailbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($this->_uid)
             ))->first();
         } catch (Horde_Imap_Client_Exception $e) {
-            return array();
+            $res = new Horde_Imap_Client_Data_Fetch();
         }
+
+        if ($this->fetchCloseSession) {
+            $GLOBALS['session']->start();
+        }
+
+        return $res;
     }
 
 }

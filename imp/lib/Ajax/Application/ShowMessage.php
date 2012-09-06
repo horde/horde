@@ -258,11 +258,13 @@ class IMP_Ajax_Application_ShowMessage
 
         /* Build body text. This needs to be done before we build the
          * attachment list. */
+        $this->_contents->fetchCloseSession = true;
         $inlineout = $this->_contents->getInlineOutput(array(
             'mask' => $contents_mask,
             'part_info_display' => $part_info_display,
             'show_parts' => $show_parts
         ));
+        $this->_contents->fetchCloseSession = false;
 
         $result['js'] = array_merge($result['js'], $inlineout['js_onload']);
         $result['msgtext'] .= $inlineout['msgtext'];

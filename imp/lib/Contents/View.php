@@ -42,6 +42,7 @@ class IMP_Contents_View
         }
 
         $GLOBALS['page_output']->disableCompression();
+        $this->_contents->fetchCloseSession = true;
 
         $tosave = array();
         foreach ($this->_contents->downloadAllList() as $val) {
@@ -75,6 +76,7 @@ class IMP_Contents_View
     {
         $mime = $this->_contents->getMIMEPart($id);
         if ($this->_contents->canDisplay($id, IMP_Contents::RENDER_RAW)) {
+            $this->_contents->fetchCloseSession = true;
             $render = $this->_contents->renderMIMEPart($id, IMP_Contents::RENDER_RAW);
             $part = reset($render);
             $mime->setContents($part['data'], array(
@@ -114,6 +116,8 @@ class IMP_Contents_View
      */
     public function downloadRender($id, $mode, $ctype = null)
     {
+        $this->_contents->fetchCloseSession = true;
+
         return reset($this->_contents->renderMIMEPart(
             $id,
             $mode,
@@ -128,6 +132,8 @@ class IMP_Contents_View
      */
     public function viewAttach($id, $mode, $autodetect = false, $ctype = null)
     {
+        $this->_contents->fetchCloseSession = true;
+
         $render = $this->_contents->renderMIMEPart(
             $id,
             $mode,
@@ -152,6 +158,8 @@ class IMP_Contents_View
      */
     public function viewSource()
     {
+        $this->_contents->fetchCloseSession = true;
+
         return array(
             'data' => $this->_contents->fullMessageText(array(
                 'stream' => true
@@ -168,6 +176,8 @@ class IMP_Contents_View
         $name = ($subject = $this->_contents->getHeader()->getValue('subject'))
             ? trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $subject), ' _')
             : 'saved_message';
+
+        $this->_contents->fetchCloseSession = true;
 
         return array(
             'data' => $this->_contents->fullMessageText(array(
