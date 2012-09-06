@@ -1,3 +1,20 @@
+/* Sidebar. */
+.hermes-time {
+    background-image: url("graphics/hermes.png");
+}
+.hermes-start {
+    background-image: url("graphics/timer-start.png");
+}
+.hermes-stop {
+    background-image: url("graphics/timer-stop.png");
+}
+.hermes-search {
+    background-image: url("graphics/search.png");
+}
+.hermes-invoices {
+    background-image: url("graphics/invoices.png");
+}
+
 /* Special handling for non-printed timesheets. */
 #approval {
     display: none;

@@ -27,7 +27,7 @@ function _open()
         $page_output->header(array(
             'title' => _("Administration")
         ));
-        echo Horde::menu();
+        echo Hermes::menu();
         $notification->notify(array('listeners' => 'status'));
     }
 }

@@ -65,7 +65,7 @@ $template->set('table', $table->render());
 $page_output->header(array(
     'title' => _("My Time")
 ));
-echo Horde::menu();
+echo Hermes::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $tabs;
 echo $template->fetch(HERMES_TEMPLATES . '/time/form.html');

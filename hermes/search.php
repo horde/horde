@@ -88,7 +88,7 @@ $form = new Hermes_Form_Search($searchVars);
 $page_output->header(array(
     'title' => $title
 ));
-echo Horde::menu();
+echo Hermes::menu();
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive(new Horde_Form_Renderer(), $searchVars, Horde::url('search.php'), 'post');
 echo '<br />';

@@ -128,7 +128,7 @@ $renderer = new Horde_Form_Renderer(array('varrenderer_driver' => 'tableset_html
 $page_output->header(array(
     'title' => $title
 ));
-echo Horde::menu();
+echo Hermes::menu();
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive($renderer, null, Horde::url('invoicing.php'), 'post');
 $page_output->footer();
