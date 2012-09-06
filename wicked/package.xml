@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-13</date>
- <time>13:35:12</time>
+ <date>2012-09-06</date>
+ <time>18:09:55</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -926,7 +926,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-13</date>
+   <date>2012-09-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix accidental deletion of all attachments (Bug #10875).
