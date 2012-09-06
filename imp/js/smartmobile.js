@@ -431,8 +431,7 @@ var ImpMobile = {
 
             $('#imp-message-atclabel').text(data.atc_label);
 
-            list = $('#imp-message-atclist');
-            list.empty();
+            list = $('#imp-message-atclist').empty();
             $.each(data.atc_list, function(key, val) {
                 var a = $('<a>').attr({
                         href: val.download_url,
@@ -442,7 +441,6 @@ var ImpMobile = {
                 a.append(val.description_raw + ' (' + val.size + ')');
                 list.append($('<li class="imp-message-atc">').append(a));
             });
-            list.listview('refresh');
         } else {
             $('#imp-message-atc').hide();
         }
@@ -1100,6 +1098,12 @@ var ImpMobile = {
 
         $('#message').on('swipeleft', ImpMobile.navigate)
             .on('swiperight', ImpMobile.navigate);
+
+        // TODO: Works around bug(?) in jQuery Mobile where inset style is not
+        // applied until listview is visible.
+        $('#imp-message-atc').bind('expand', function() {
+            window.setTimeout(function() { $('#imp-message-atclist').listview('refresh') }, 0);
+        });
 
         if (!IMP.conf.disable_compose) {
             $('#compose').live('pagehide', function() {
