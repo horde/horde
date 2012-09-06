@@ -574,8 +574,6 @@ class Nag_Task
         foreach (array_keys($this->children) as $key) {
             $this->children[$key]->reset();
         }
-        $this->_pointer = 0;
-        $this->_inlist = false;
     }
 
     /**
