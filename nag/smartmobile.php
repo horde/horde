@@ -15,7 +15,7 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('nag');
 
-$ob = new Turba_Smartmobile($injector->getInstance('Horde_Variables'));
+$ob = new Nag_Smartmobile($injector->getInstance('Horde_Variables'));
 
 $page_output->header(array(
     'title' => _("My Tasks"),
@@ -23,5 +23,4 @@ $page_output->header(array(
 ));
 
 $ob->render();
-
 $page_output->footer();
