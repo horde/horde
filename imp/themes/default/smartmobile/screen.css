@@ -75,3 +75,8 @@
     margin: 2px 0;
     padding: 10px;
 }
+
+/* Notification styles. */
+#horde-notification {
+    bottom: 50px;
+}
