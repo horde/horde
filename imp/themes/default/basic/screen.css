@@ -250,12 +250,12 @@ td.addressTr span.loadingImg {
     border-spacing: 0;
 }
 .itipconflicts tr.itipcollision {
-    background-color: #f00;
+    background-color: #f03232;
     color: #fff;
 }
 
 .itipconflicts tr.itipnearcollision {
-    background-color: #ee0;
+    background-color: #ffdf4d;
 }
 
 /* Quota styles. */

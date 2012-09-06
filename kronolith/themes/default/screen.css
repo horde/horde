@@ -211,14 +211,14 @@ a.newEvent img {
 }
 .kronolithFBBusy {
     position: relative;
-    background: #f00;
+    background: #f03232;
 }
 .kronolithFBUnknown {
     background: #d4d0c8 url("graphics/unknown-background.png") repeat left top;
 }
 .kronolithFBFree {
     position: relative;
-    background: #28b22b;
+    background: #8fc34b;
     color: #fff;
 }
 #kronolithAjax .kronolithFBFree {
