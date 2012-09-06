@@ -1001,6 +1001,7 @@ var ImpMobile = {
                 $.mobile.changePage(HordeMobile.createUrl('mailbox', {
                     mbox: ImpMobile.mailbox
                 }));
+                elt.blur();
                 return;
 
             case 'imp-compose-cancel':
