@@ -1,5 +1,5 @@
 <div data-role="page" id="nag-list">
- <?php echo $this->smartmobileHeader(array('backlink' => array('#lists', _("Lists")), 'logout' => true, 'title' => _("My Tasks"))) ?>
+ <?php echo $this->smartmobileHeader(array('backlink' => array('#nag-lists', _("Lists")), 'logout' => true, 'title' => _("My Tasks"))) ?>
  <div data-role="content" class="ui-body">
  </div>
  <div data-role="footer" data-id="nag-footer" data-position="fixed">

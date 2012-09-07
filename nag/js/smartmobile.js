@@ -92,12 +92,52 @@ var NagMobile = {
         $("#task_estimate").val(task.e);
     },
 
+    toLists: function(d)
+    {
+        $("#nag-lists :jqmData(role='content') ul").remove();
+        HordeMobile.changePage('nag-lists', d);
+        HordeMobile.doAction('getTaskLists',
+            {},
+            function(r) { NagMobile.getTasklistsCallback(r); }
+        );
+    },
+
+    getTasklistsCallback: function(r)
+    {
+        var list = $('<ul>').attr({ 'data-role': 'listview' });
+        $.each(r.tasklists, function(i, l) {
+            NagMobile.insertTasklist(list, l);
+        });
+
+        $("#nag-lists :jqmData(role='content')").append(list).trigger('create');
+    },
+
+    insertTasklist: function(el, l)
+    {
+        var item, url;
+
+        url = HordeMobile.createUrl('nag-list', { 'tasklist': l.id });
+        list = $('<li>').append(
+            $('<a>').attr({ 'href': url, 'class': 'nag-tasklist' }).append(
+                $('<h3>').text(l.name)
+            )
+        );
+
+        el.append(list);
+    },
+
     toList: function(d)
     {
+        var params = d.options.parsedUrl.params;
+
+        $("#nag-list :jqmData(role='content') ul").remove();
+        if (!params.tasklist) {
+            params.tasklist = null;
+        }
         // @TODO: Pass the [smart]list to render.
         HordeMobile.doAction('listTasks',
-            {},
-            function (r) { NagMobile.listTasksCallback(r); }
+            { 'tasklist': params.tasklist },
+            function(r) { NagMobile.listTasksCallback(r); }
         );
         HordeMobile.changePage('nag-list', d);
     },
@@ -112,18 +152,18 @@ var NagMobile = {
     },
 
     /**
-     * Insert tasklist into the view.
+     * Insert task into the view.
      */
     insertTask: function(l, t)
     {
-        var item, link, url;
+        var item, url;
 
         url = HordeMobile.createUrl('nag-task-view', {
             'task_id': t.id,
             'tasklist': t.l
         });
 
-        item = $('<li>').attr({ 'nag-task-id': t.id, 'data-icon': t.cp ? 'check' : 'nag-unchecked' });
+        item = $('<li>').attr({ 'data-icon': t.cp ? 'check' : 'nag-unchecked' });
         item.append(
             $('<a>').attr({ 'href': url, 'class': 'nag-task' }).append(
                 $('<h3>').text(t.n)
@@ -151,6 +191,10 @@ var NagMobile = {
             break;
         case 'nag-task-view':
             NagMobile.getTask(d);
+            e.preventDefault();
+            break;
+        case 'nag-lists':
+            NagMobile.toLists(d);
             e.preventDefault();
             break;
         }

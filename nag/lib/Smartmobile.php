@@ -60,6 +60,7 @@ class Nag_Smartmobile
     {
         echo $this->view->render('main');
         echo $this->view->render('taskform');
+        echo $this->view->render('lists');
     }
 
     /**

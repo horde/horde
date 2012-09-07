@@ -37,6 +37,35 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         return $out;
     }
 
+    public function getTaskLists()
+    {
+        $lists = Nag::listTasklists();
+        $results = array();
+        foreach ($lists as $name => $list) {
+            $results[$name] = $this->_listToHash($list);
+        }
+        $return = new stdClass;
+        $return->tasklists = $results;
+
+        return $return;
+    }
+
+    /**
+     * @TODO: Should probably refactor to encapsulate the share object with a
+     * Nag_Tasklist object in the future.
+     *
+     */
+    protected function _listToHash($list)
+    {
+        $hash = array(
+            'name' => $list->get('name'),
+            'desc' => $list->get('desc'),
+            'owner' => $list->get('owner'),
+            'id' => $list->getName());
+
+        return $hash;
+    }
+
     /**
      * AJAX action: Return a task list.
      *
@@ -44,8 +73,15 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
      */
     public function listTasks()
     {
-        $tasks = Nag::listTasks();
+        if ($this->vars->tasklist) {
+            $options = array('tasklists' => array($this->vars->tasklist));
+        } else {
+            $options = array();
+        }
 
+        $tasks = Nag::listTasks($options);
+        $list = array();
+        $tasks->reset();
         while ($task = $tasks->each()) {
             $list[] = $task->toJson(true);
         }
