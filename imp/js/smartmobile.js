@@ -1153,7 +1153,7 @@ var ImpMobile = {
             var a = false, li;
             v = $(v);
 
-            switch ($(v).jqmData('swipe')) {
+            switch (v.jqmData('swipe')) {
             case 'delete':
                 if (!ImpMobile.cache[ImpMobile.mailbox].readonly) {
                     a = 'mailbox-delete';
@@ -1165,6 +1165,10 @@ var ImpMobile = {
                     IMP.conf.spam_spammbox) {
                     a = 'mailbox-spam';
                 }
+                break;
+
+            default:
+                ob.buttons.push(v.clone(true));
                 break;
             }
 
