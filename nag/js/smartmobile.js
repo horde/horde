@@ -81,6 +81,8 @@ var NagMobile = {
         f.reset();
         $("#task_title").val(task.n);
         $("#task_desc").val(task.de);
+        $("#task_assignee").val(task.as);
+        $("#task_due").val(task.dd);
     },
 
     toList: function(l)
