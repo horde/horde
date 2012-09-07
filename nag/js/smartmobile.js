@@ -147,7 +147,7 @@ var NagMobile = {
         HordeMobile.doAction(
             'listTasks',
             { 'tasklist': params.tasklist },
-            NagMobile.listTasksCallback(r)
+            NagMobile.listTasksCallback
         );
         HordeMobile.changePage('nag-list', d);
     },
