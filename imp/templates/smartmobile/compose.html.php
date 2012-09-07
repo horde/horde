@@ -31,7 +31,7 @@
   </form>
  </div>
 
- <div data-role="footer" class="ui-bar">
+ <div data-role="footer" class="ui-bar" data-position="fixed">
   <a href="#" id="imp-compose-submit"><?php echo _("Send Message") ?></a>
 <?php if ($this->abook): ?>
   <a href="<?php echo $this->abook ?>" data-ajax="false"><?php echo _("Address Book") ?></a>
