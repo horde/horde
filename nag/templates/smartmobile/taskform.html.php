@@ -36,13 +36,26 @@
 
       <div data-role="field-contain">
         <label for="task_priority"><?php echo _("Priority") ?></label>
-        <input id="task_priority" name="task_priority" />
+        <select id="task_priority" name="task_priority">
+          <option value="1">1 (<?php echo _("Highest") ?>)</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5 (<?php echo _("Lowest") ?>)</option>
+        </select>
+      </div>
+
+      <div data-role="field-contain">
+        <label for="task_estimate"><?php echo _("Estimate") ?></label>
+        <input type="number" id="task_estimate" name="task_estimate" />
       </div>
 
       <div data-role="field-contain">
         <label for="task_completed"><?php echo _("Completed") ?></label>
         <input type="checkbox" id="task_completed" name="task_completed" />
       </div>
+
+      <!-- @TODO: Alarm -->
 
     </form>
   </div>

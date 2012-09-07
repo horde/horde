@@ -41,6 +41,14 @@ class Nag_Smartmobile
         $this->_initPages();
         $this->_addBaseVars();
 
+        $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
+        if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
+            $datejs = 'en-US.js';
+        }
+        $page_output->addScriptFile('date/' . $datejs, 'horde');
+        $page_output->addScriptFile('date/date.js', 'horde');
+        $page_output->addScriptFile('horde-jquery.js', 'horde');
+
         $page_output->addScriptFile('smartmobile.js');
 
         $notification->notify(array('listeners' => 'status'));

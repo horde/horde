@@ -76,14 +76,20 @@ var NagMobile = {
 
     getTaskCallback: function(r)
     {
-        var task = r.task;
+        var task = r.task,
+            f = $('form')[0];
 
-        var f = $('form')[0];
         f.reset();
         $("#task_title").val(task.n);
         $("#task_desc").val(task.de);
         $("#task_assignee").val(task.as);
-        $("#task_due").val(task.dd);
+        $("task_private").prop("checked", task.pr).checkboxradio("refresh");
+        // @TODO: Style differently if overdue?
+        $("#task_due").val(Date.parse(task.dd).toString('yyyy-MM-dd'));
+        $("#task_start").val(task.s);
+        $("#task_priority").val(task.pr);
+        $("#task_completed").prop("checked", task.cp).checkboxradio("refresh");
+        $("#task_estimate").val(task.e);
     },
 
     toList: function(d)

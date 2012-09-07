@@ -844,13 +844,14 @@ class Nag_Task
                 $json->dt = $date->format($time_format);
             }
             $json->as = $this->assignee;
-            /*
-            $json->p = $this->parent_id;
-            $json->o = $this->owner;
             if ($this->estimate) {
                 $date = new Horde_Date($this->estimate);
                 $json->e = $date->toJson();
             }
+            /*
+            $json->p = $this->parent_id;
+            $json->o = $this->owner;
+
             if ($this->completed_date) {
                 $date = new Horde_Date($this->completed_date);
                 $json->cd = $date->toJson();
