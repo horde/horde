@@ -63,6 +63,7 @@ var NagMobile = {
     getTask: function(d)
     {
         var parsed = d.options.parsedUrl;
+        HordeMobile.changePage('nag-task-view', d);
         HordeMobile.doAction(
             'getTask',
             {
@@ -85,13 +86,23 @@ var NagMobile = {
         $("#task_due").val(task.dd);
     },
 
-    toList: function(l)
+    toList: function(d)
     {
         // @TODO: Pass the [smart]list to render.
         HordeMobile.doAction('listTasks',
             {},
             function (r) { NagMobile.listTasksCallback(r); }
         );
+        HordeMobile.changePage('nag-list', d);
+    },
+
+    listTasksCallback: function(r)
+    {
+        var list = $('<ul>').attr({ 'data-role': 'listview' });
+        $.each(r.tasks, function(i, t) {
+            NagMobile.insertTask(list, t);
+        });
+        $("#nag-list :jqmData(role='content')").append(list).trigger('create');
     },
 
     /**
@@ -106,7 +117,6 @@ var NagMobile = {
             'tasklist': t.l
         });
 
-        // @TODO: Figure out the icon/completed class mess.
         item = $('<li>').attr({ 'nag-task-id': t.id, 'data-icon': t.cp ? 'check' : 'nag-unchecked' });
         item.append(
             $('<a>').attr({ 'href': url, 'class': 'nag-task' }).append(
@@ -123,29 +133,20 @@ var NagMobile = {
             'href': '#',
             'class': 'nag-toggle-complete',
             }));
-        item.jqmData('task', t.id).jqmData('tasklist', t.l)
         l.append(item);
-    },
-
-    listTasksCallback: function(r)
-    {
-        var list = $('<ul>').attr({ 'data-role': 'listview' });
-        $.each(r.tasks, function(i, t) {
-            NagMobile.insertTask(list, t);
-        });
-        $("#nag-list :jqmData(role='content')").append(list).trigger('create');
     },
 
     toView: function(e, d)
     {
         switch (d.options.parsedUrl.view) {
         case 'nag-list':
-            NagMobile.toList();
+            NagMobile.toList(d);
+            e.preventDefault();
             break;
         case 'nag-task-view':
             NagMobile.getTask(d);
+            e.preventDefault();
             break;
-
         }
     },
 
