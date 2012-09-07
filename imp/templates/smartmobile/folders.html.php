@@ -8,9 +8,9 @@
  </div>
 
  <div data-role="footer" class="ui-bar" data-position="fixed">
-  <a href="#" id="imp-folders-refresh" data-icon="refresh"><?php echo _("Refresh") ?></a>
-  <a href="#" id="imp-folders-showall"><?php echo _("Show All") ?></a>
-  <a href="#" id="imp-folders-showpoll" style="display:none"><?php echo _("Show Polled") ?></a>
+  <a href="#folders-refresh" data-icon="refresh"><?php echo _("Refresh") ?></a>
+  <a href="#folders-showall"><?php echo _("Show All") ?></a>
+  <a href="#folders-showpoll" style="display:none"><?php echo _("Show Polled") ?></a>
 <?php if ($this->canCompose): ?>
   <a href="#compose"><?php echo _("New Message") ?></a>
 <?php endif ?>

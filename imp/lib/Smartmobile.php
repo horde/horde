@@ -178,7 +178,8 @@ class IMP_Smartmobile
                 'new_message' => _("New Message"),
                 'nofrom' => _("Invalid Address"),
                 'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
-                'searchresults' => _("Search Results")
+                'searchresults' => _("Search Results"),
+                'subject' => _("Subject")
             )
         );
 
