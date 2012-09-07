@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once __DIR__ . '/../../../Autoload.php';
+require_once __DIR__ . '/../../../../Autoload.php';
 
 /**
  * Tests the Kolab mime message generator.
@@ -32,7 +32,7 @@ require_once __DIR__ . '/../../../Autoload.php';
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Unit_Data_Object_MessageTest
+class Horde_Kolab_Storage_Unit_Data_Object_Message_NewTest
 extends PHPUnit_Framework_TestCase
 {
     public function testMimeEnvelope()
@@ -223,7 +223,7 @@ clients please visit http://www.kolab.org/content/kolab-clients",
     private function _getMessage()
     {
         $this->content = $this->getMock('Horde_Kolab_Storage_Data_Object_Content');
-        return new Horde_Kolab_Storage_Data_Object_Message(
+        return new Horde_Kolab_Storage_Data_Object_Message_New(
             $this->content
         );
     }

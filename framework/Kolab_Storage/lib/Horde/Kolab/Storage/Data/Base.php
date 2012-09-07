@@ -223,7 +223,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             );
         }
 
-        $message = new Horde_Kolab_Storage_Data_Object_Message(
+        $message = new Horde_Kolab_Storage_Data_Object_Message_New(
             $content
         );
         $container = new Horde_Kolab_Storage_Data_Object_Container(
