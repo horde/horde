@@ -19,4 +19,9 @@
   <a href="#compose"><?php echo _("New Message") ?></a>
 <?php endif ?>
  </div>
+
+ <div id="imp-mailbox-buttons" style="display:none">
+  <a data-swipe="delete" data-role="button" data-inline="true" data-theme="a" href="#mailbox-delete"><?php echo _("Delete") ?></a>
+  <a data-swipe="spam" data-role="button" data-inline="true" data-theme="a" href="#mailbox-spam"><?php echo _("Spam") ?></a>
+ </div>
 </div>

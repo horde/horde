@@ -26,6 +26,14 @@
     font-weight: normal;
 }
 
+.divSwipe a {
+    font-weight: bold;
+    margin-top: 15px;
+}
+.divSwipe span.ui-btn-inner {
+    padding-right: 20px;
+}
+
 /* Message */
 #imp-message-headers {
     margin-top: 0;

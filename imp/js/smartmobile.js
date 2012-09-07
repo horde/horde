@@ -87,6 +87,23 @@ var ImpMobile = {
             e.preventDefault();
             break;
 
+        case 'mailbox-delete':
+            ImpMobile.deleteMessage(
+                data.options.parsedUrl.params.mbox,
+                data.options.parsedUrl.params.uid
+            );
+            e.preventDefault();
+            break;
+
+        case 'mailbox-spam':
+            ImpMobile.reportSpam(
+                'spam',
+                data.options.parsedUrl.params.mbox,
+                data.options.parsedUrl.params.uid
+            );
+            e.preventDefault();
+            break;
+
         case 'message':
             ImpMobile.toMessage(data);
             e.preventDefault();
@@ -231,7 +248,9 @@ var ImpMobile = {
         list.empty();
 
         $.each(ob.rows(), function(key, data) {
-            var c = $('<li class="imp-message">'),
+            var c = $('<li class="imp-message">')
+                    .jqmData('mbox', data.mbox)
+                    .jqmData('uid', data.uid),
                 url = HordeMobile.createUrl('message', {
                     uid: data.uid,
                     view: data.mbox
@@ -541,6 +560,37 @@ var ImpMobile = {
     },
 
     /**
+     */
+    deleteMessage: function(mbox, uid)
+    {
+        HordeMobile.doAction(
+            'deleteMessages',
+            $.extend(ImpMobile.addViewportParams({
+                checkcache: 1,
+                view: ImpMobile.mailbox
+            }), {
+                uid: ImpMobile.toUIDStringSingle(mbox, [ uid ])
+            })
+        );
+    },
+
+    /**
+     */
+    reportSpam: function(action, mbox, uid)
+    {
+        HordeMobile.doAction(
+            'reportSpam',
+            $.extend(ImpMobile.addViewportParams({
+                checkcache: 1,
+                view: ImpMobile.mailbox
+            }), {
+                spam: Number(action == 'spam'),
+                uid: ImpMobile.toUIDStringSingle(mbox, [ uid ])
+            })
+        );
+    },
+
+    /**
      * Switches to the compose view and loads a message if replying or
      * forwarding.
      *
@@ -748,15 +798,10 @@ var ImpMobile = {
                 data: { noajax: true }
             });
 
-            HordeMobile.doAction(
-                'reportSpam',
-                $.extend(ImpMobile.addViewportParams({
-                    checkcache: 1,
-                    view: purl.params.mbox
-                }), {
-                    spam: Number(purl.params.action == 'spam'),
-                    uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ]),
-                })
+            ImpMobile.reportSpam(
+                purl.params.action,
+                purl.params.mbox,
+                purl.params.uid
             );
             break;
         }
@@ -963,15 +1008,7 @@ var ImpMobile = {
 
             switch (id) {
             case 'imp-message-delete':
-                HordeMobile.doAction(
-                    'deleteMessages',
-                    $.extend(ImpMobile.addViewportParams({
-                        checkcache: 1,
-                        view: ImpMobile.mailbox
-                    }), {
-                        uid: ImpMobile.toUIDStringSingle(ImpMobile.mailbox, [ ImpMobile.uid ])
-                    })
-                );
+                ImpMobile.deleteMessage(ImpMobile.mailbox, ImpMobile.uid);
                 $.mobile.changePage(HordeMobile.createUrl('mailbox', {
                     mbox: ImpMobile.mailbox
                 }));
@@ -1086,6 +1123,37 @@ var ImpMobile = {
         });
     },
 
+    swipeButtons: function(e, ob)
+    {
+        $.each($('#imp-mailbox-buttons').children(), function(k, v) {
+            var a = false, li;
+            v = $(v);
+
+            switch ($(v).jqmData('swipe')) {
+            case 'delete':
+                if (!ImpMobile.cache[ImpMobile.mailbox].readonly) {
+                    a = 'mailbox-delete';
+                }
+                break;
+
+            case 'spam':
+                if (ImpMobile.mailbox != IMP.conf.spam_mbox ||
+                    IMP.conf.spam_spammbox) {
+                    a = 'mailbox-spam';
+                }
+                break;
+            }
+
+            if (a) {
+                li = $(e.currentTarget);
+                ob.buttons.push(v.clone(true).attr('href', HordeMobile.createUrl(a, {
+                    mbox: li.jqmData('mbox'),
+                    uid: li.jqmData('uid')
+                })));
+            }
+        });
+    },
+
     /**
      * Event handler for the document-ready event, responsible for the initial
      * setup.
@@ -1095,6 +1163,9 @@ var ImpMobile = {
         $(document).bind('vclick', ImpMobile.clickHandler);
         $(document).bind('pagebeforechange', ImpMobile.toPage);
         $(document).bind('HordeMobile:runTasks', ImpMobile.runTasks);
+
+        $('#imp-mailbox-list').swipeButton()
+            .on('swipebutton', 'li', ImpMobile.swipeButtons);
 
         $('#message').on('swipeleft', ImpMobile.navigate)
             .on('swiperight', ImpMobile.navigate);

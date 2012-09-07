@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add swipe action buttons to the smartmobile mailbox page.
 * [mms] Optimize loading of message bodies when using dynamic view.
 * [mms] Load new mailbox when renaming current mailbox in dynamic view (Request #11394).
 * [mms] Add simple address autocompleter to smartmobile compose page.
@@ -2731,6 +2732,7 @@
    <date>2012-09-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add swipe action buttons to the smartmobile mailbox page.
 * [mms] Optimize loading of message bodies when using dynamic view.
 * [mms] Load new mailbox when renaming current mailbox in dynamic view (Request #11394).
 * [mms] Add simple address autocompleter to smartmobile compose page.

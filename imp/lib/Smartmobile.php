@@ -76,6 +76,7 @@ class IMP_Smartmobile
 
         /* jQuery Mobile plugins must be loaded AFTER the main mobile script
          * is loaded. */
+        $page_output->addScriptFile('jquery.mobile/plugins/swipebutton.js', 'horde');
         if (IMP::canCompose()) {
             $page_output->addScriptFile('jquery.mobile/plugins/autocomplete.js', 'horde');
         }
