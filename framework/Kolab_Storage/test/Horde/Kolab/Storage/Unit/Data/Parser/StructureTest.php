@@ -67,56 +67,6 @@ extends Horde_Kolab_Storage_TestCase
         }
     }
 
-    public function testCreateObjectEnvelope()
-    {
-        $this->assertEquals(
-            'Kolab Groupware Data',
-            Horde_Mime_Part::parseMessage($this->_getNewObject())->getName()
-        );
-    }
-
-    public function testCreateObjectCore()
-    {
-        $this->assertEquals(
-            array(
-                0 => 'multipart/mixed',
-                1 => 'text/plain',
-                2 => 'application/x-vnd.kolab.note'
-            ),
-            Horde_Mime_Part::parseMessage($this->_getNewObject())->contentTypeMap(true)
-        );
-    }
-
-    public function testCreateObjectHeaders()
-    {
-        $this->assertEquals(
-            'A',
-            Horde_Mime_Headers::parseHeaders($this->_getNewObject())->getValue('Subject')
-        );
-    }
-
-    public function testCreate()
-    {
-        $structure = $this->_getStructure();
-        $this->_driver->expects($this->once())
-            ->method('appendMessage');
-        $structure->create(
-            'test',
-            array('uid' => 'A', 'desc' => 'SUMMARY'),
-            array('type' => 'note', 'version' => '1')
-        );
-    }
-
-    private function _getNewObject()
-    {
-        $res = $this->_getStructure()->createObject(
-            array('uid' => 'A', 'desc' => 'SUMMARY'),
-            array('type' => 'note', 'version' => '1')
-        );
-        rewind($res);
-        return stream_get_contents($res);
-    }
-
     private function _getStructure()
     {
         $this->_driver = $this->getMock('Horde_Kolab_Storage_Driver');

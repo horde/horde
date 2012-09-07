@@ -35,6 +35,13 @@ abstract class Horde_Kolab_Storage_Data_Object_Content
     abstract public function getMimeType();
 
     /**
+     * Return the UID of the embedded Kolab object.
+     *
+     * @return string The UID of the Kolab content.
+     */
+    abstract public function getUid();
+
+    /**
      * Create the Kolab content as a string.
      *
      * @return string The Kolab content.

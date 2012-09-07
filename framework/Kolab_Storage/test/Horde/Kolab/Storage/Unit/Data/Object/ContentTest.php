@@ -47,6 +47,25 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals('<event/>', $content->toString());
     }
 
+    public function testNewUid()
+    {
+        $type = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeType', array(), array(), '', false, false);
+        $format = $this->getMock('Horde_Kolab_Format');
+        $content = new Horde_Kolab_Storage_Data_Object_Content_New($type, array('uid' => 'UID'), $format);
+        $this->assertEquals('UID', $content->getUid());
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Data_Exception
+     */
+    public function testUidExceptionOnMissingUid()
+    {
+        $type = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeType', array(), array(), '', false, false);
+        $format = $this->getMock('Horde_Kolab_Format');
+        $content = new Horde_Kolab_Storage_Data_Object_Content_New($type, array('foo' => 'bar'), $format);
+        $content->getUid();
+    }
+
     /**
      * @expectedException Horde_Kolab_Storage_Data_Exception
      */
@@ -76,6 +95,25 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testModifiedUid()
+    {
+        $type = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeType', array(), array(), '', false, false);
+        $format = $this->getMock('Horde_Kolab_Format');
+        $content = new Horde_Kolab_Storage_Data_Object_Content_Modified($type, array('uid' => 'UID'), '<event/>', $format);
+        $this->assertEquals('UID', $content->getUid());
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Data_Exception
+     */
+    public function testUidExceptionOnMissingUidOnModified()
+    {
+        $type = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeType', array(), array(), '', false, false);
+        $format = $this->getMock('Horde_Kolab_Format');
+        $content = new Horde_Kolab_Storage_Data_Object_Content_Modified($type, array('foo' => 'bar'), '<event/>', $format);
+        $content->getUid();
+    }
+
     /**
      * @expectedException Horde_Kolab_Storage_Data_Exception
      */
@@ -94,8 +132,15 @@ extends PHPUnit_Framework_TestCase
     public function testRaw()
     {
         $type = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeType', array(), array(), '', false, false);
-        $content = new Horde_Kolab_Storage_Data_Object_Content_Raw($type, '<foo/>');
+        $content = new Horde_Kolab_Storage_Data_Object_Content_Raw($type, '<foo/>', 'UID');
         $this->assertEquals('<foo/>', $content->toString());
+    }
+
+    public function testRawUid()
+    {
+        $type = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeType', array(), array(), '', false, false);
+        $content = new Horde_Kolab_Storage_Data_Object_Content_Raw($type, '<foo/>', 'UID');
+        $this->assertEquals('UID', $content->getUid());
     }
 
     public function testMimeType()
@@ -104,7 +149,7 @@ extends PHPUnit_Framework_TestCase
         $type->expects($this->once())
             ->method('getMimeType')
             ->will($this->returnValue('application/x-vnd.kolab.event'));
-        $content = new Horde_Kolab_Storage_Data_Object_Content_Raw($type, '<foo/>');
+        $content = new Horde_Kolab_Storage_Data_Object_Content_Raw($type, '<foo/>', 'UID');
         $this->assertEquals('application/x-vnd.kolab.event', $content->getMimeType());
     }
 }

@@ -204,16 +204,33 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         if (!isset($object['uid'])) {
             $object['uid'] = $this->generateUid();
         }
-        $result = $this->_driver->getParser()
-            ->create(
-                $this->_folder->getPath(),
+
+        $mime_types = new Horde_Kolab_Storage_Data_Object_MimeTypes();
+
+        if ($raw === false) {
+            $content = new Horde_Kolab_Storage_Data_Object_Content_New(
+                $mime_types->getType($this->getType()),
                 $object,
-                array(
-                    'type' => $this->getType(),
-                    'version' => $this->_version,
-                    'raw' => $raw
+                $this->_factory->createFormat(
+                    'Xml', $this->getType(), $this->_version
                 )
             );
+        } else {
+            $content = new Horde_Kolab_Storage_Data_Object_Content_Raw(
+                $mime_types->getType($this->getType()),
+                $object['content'],
+                $object['uid']
+            );
+        }
+
+        $message = new Horde_Kolab_Storage_Data_Object_Message(
+            $content
+        );
+        $container = new Horde_Kolab_Storage_Data_Object_Container(
+            $this->_driver, $this->_folder->getPath()
+        );
+        $result = $container->store($message);
+
         if ($result === true) {
             $params = array();
         } else {

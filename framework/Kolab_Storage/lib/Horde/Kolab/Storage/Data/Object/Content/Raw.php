@@ -36,16 +36,36 @@ extends Horde_Kolab_Storage_Data_Object_Content_Base
     private $_raw;
 
     /**
+     * Object UID.
+     *
+     * @var string
+     */
+    private $_uid;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Data_Object_MimeType $mime_type The content mime type.
      * @param string $raw The raw object content.
+     * @param string $uid The object UID.
      */
     public function __construct(Horde_Kolab_Storage_Data_Object_MimeType $mime_type,
-                                $raw)
+                                $raw,
+                                $uid)
     {
         parent::__construct($mime_type);
         $this->_raw = $raw;
+        $this->_uid = $uid;
+    }
+
+    /**
+     * Return the UID of the embedded Kolab object.
+     *
+     * @return string The UID of the Kolab content.
+     */
+    public function getUid()
+    {
+        return $this->_uid;
     }
 
     /**

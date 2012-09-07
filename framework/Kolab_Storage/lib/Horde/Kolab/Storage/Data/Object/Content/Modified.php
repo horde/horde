@@ -69,6 +69,21 @@ extends Horde_Kolab_Storage_Data_Object_Content_Base
     }
 
     /**
+     * Return the UID of the embedded Kolab object.
+     *
+     * @return string The UID of the Kolab content.
+     */
+    public function getUid()
+    {
+        if (!isset($this->_object['uid'])) {
+            throw new Horde_Kolab_Storage_Data_Exception(
+                'The object is missing a mandatory UID!'
+            );
+        }
+        return $this->_object['uid'];
+    }
+
+    /**
      * Create the Kolab content as a string.
      *
      * @return string The Kolab content.

@@ -210,30 +210,6 @@ implements  Horde_Kolab_Storage_Data_Parser
     }
 
     /**
-     * Create a new object in the specified folder.
-     *
-     * @param string $folder  The folder to use.
-     * @param array  $object  The object.
-     * @param array  $options Additional options for storing.
-     * <pre>
-     *  'type'    - Required argument specifying the object type that should be
-     *              stored.
-     *  'version' - Optional argument specifying the version of the object
-     *              format.
-     * </pre>
-     *
-     * @return string The ID of the new object or true in case the backend does
-     *                not support this return value.
-     */
-    public function create($folder, $object, $options = array())
-    {
-        return $this->_driver->appendMessage(
-            $folder,
-            $this->createObject($object, $options)
-        );
-    }
-
-    /**
      * Modify an existing object in the specified folder.
      *
      * @param string $folder  The folder to use.
@@ -257,37 +233,5 @@ implements  Horde_Kolab_Storage_Data_Parser
         $this->_driver->deleteMessages($folder, array($obid));
         $this->_driver->expunge($folder);
         return $new_uid;
-    }
-
-    /**
-     * Create a new MIME representation for the object.
-     *
-     * @param array  $object  The object.
-     * @param array  $options Additional options for storing.
-     * <pre>
-     *  'type'    - Required argument specifying the object type that should be
-     *              stored.
-     *  'version' - Optional argument specifying the version of the object
-     *              format.
-     * </pre>
-     *
-     * @return resource The MIME message representing the object.
-     */
-    public function createObject($object, $options = array())
-    {
-        $this->_completeOptions($options);
-        $envelope = $this->_format->createEnvelope();
-        $envelope->addPart($this->_format->createKolabPart($object, $options));
-        return $envelope->toString(
-            array(
-                'canonical' => true,
-                'stream' => true,
-                'headers' => $this->_format->createEnvelopeHeaders(
-                    $object['uid'],
-                    $this->_driver->getAuth(),
-                    $options['type']
-                )
-            )
-        );
     }
 }
