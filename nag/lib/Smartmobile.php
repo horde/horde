@@ -51,26 +51,13 @@ class Nag_Smartmobile
     public function render()
     {
         echo $this->view->render('main');
-        // echo $this->view->render('create');
+        echo $this->view->render('taskform');
     }
 
     /**
      */
     protected function _initPages()
     {
-        // @TODO: Still need to refactor this to a dedicated smartmobile form.
-        // $max_tasks = $GLOBALS['injector']
-        //     ->getInstance('Horde_Core_Perms')
-        //     ->hasAppPermission('max_tasks');
-        // if (($max_tasks === true) || ($max_tasks > Nag::countTasks())) {
-        //     $vars = clone $this->vars
-        //     if (!$vars->exists('tasklist_id')) {
-        //         $vars->set('tasklist_id', Nag::getDefaultTasklist(Horde_Perms::EDIT));
-        //     }
-        //     $vars->mobile = true;
-        //     $vars->url = Horde::url('smartmobile.php');
-        //     $view->create_form = new Nag_Form_Task($vars, _("New Task"));
-        //     $view->create_title = $view->create_form->getTitle();
     }
 
     /**
