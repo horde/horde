@@ -449,9 +449,11 @@ div.nicetitle {
     padding-right: 5px;
 }
 .treeRow {
-    clear: both;
     min-height: 20px;
     overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .treeToggle {
     cursor: pointer;
