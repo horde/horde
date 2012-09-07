@@ -38,7 +38,7 @@ var TurbaMobile = {
 
         HordeMobile.changePage('entry', data);
 
-        $('#turba-entry-content').hide();
+        $('#entry :jqmData(role="content")').hide();
         HordeMobile.doAction(
             'smartmobileEntry',
             {
@@ -72,15 +72,17 @@ var TurbaMobile = {
                         '<li><a data-ajax="false" href=' + v2.u + '>' + v2.v +
                         '</a></li></ul>');
                 } else {
-                    html.push('<div class="turba-entry-data">' + v2.v + '</div>');
+                    html.push('<div class="turba-entry-value">' + v2.v + '</div>');
                 }
             });
             html.push('</div></div>');
         });
 
-        $('#turba-entry-data').html(html.join('')).collapsibleset('refresh');
-        $('#turba-entry-data').find(':jqmData(role="listview")').listview();
-        $('#turba-entry-content').show();
+        $('#turba-entry-data')
+            .html(html.join(''))
+            .collapsibleset('refresh')
+            .find(':jqmData(role="listview")').listview();
+        $('#entry :jqmData(role="content")').show();
     },
 
     /**
