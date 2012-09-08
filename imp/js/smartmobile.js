@@ -98,16 +98,21 @@ var ImpMobile = {
             e.preventDefault();
             break;
 
+        case 'folders-refresh':
+            // TODO: Bug(?)
+            $('#folders :jqmData(role=footer) a[href$="refresh"]').removeClass($.mobile.activeBtnClass).blur();
+            e.preventDefault();
+            // Fall-through
+
         case 'folders':
-            HordeMobile.doAction('poll');
+            HordeMobile.doAction('poll', {
+                poll: JSON.stringify([])
+            });
             break;
 
         case 'folders-showall':
         case 'folders-showpoll':
             $('#folders :jqmData(role=footer) a[href*="folders-show"]').toggle();
-            // Fall-through
-
-        case 'folders-refresh':
             HordeMobile.doAction(
                 'smartmobileFolderTree',
                 { all: ImpMobile.showAllFolders() },
