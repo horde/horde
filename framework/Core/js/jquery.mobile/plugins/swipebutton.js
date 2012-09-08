@@ -42,7 +42,16 @@
             };
 
         this.on('click', 'li', function(e) {
-            removeButtonDiv($(e.currentTarget).find('.' + buttonDiv));
+            var $li = $(e.currentTarget),
+                div = $li.children('.' + buttonDiv),
+                a = div.find('a');
+
+            removeButtonDiv(div);
+
+            if (a.find(e.target).length) {
+                $.mobile.changePage(a.attr('href'), { data: $li });
+                return false;
+            }
         });
 
         return this.on(o.action, 'li', function(e) {
