@@ -125,8 +125,8 @@ var ImpMobile = {
 
         case 'mailbox-delete':
             ImpMobile.deleteMessage(
-                data.options.parsedUrl.params.mbox,
-                data.options.parsedUrl.params.uid
+                data.options.data.jqmData('mbox'),
+                data.options.data.jqmData('uid')
             );
             e.preventDefault();
             break;
@@ -140,8 +140,8 @@ var ImpMobile = {
         case 'mailbox-spam':
             ImpMobile.reportSpam(
                 'spam',
-                data.options.parsedUrl.params.mbox,
-                data.options.parsedUrl.params.uid
+                data.options.data.jqmData('mbox'),
+                data.options.data.jqmData('uid')
             );
             e.preventDefault();
             break;
@@ -1150,34 +1150,21 @@ var ImpMobile = {
     swipeButtons: function(e, ob)
     {
         $.each($('#imp-mailbox-buttons').children(), function(k, v) {
-            var a = false, li;
+            var add = true;
             v = $(v);
 
             switch (v.jqmData('swipe')) {
             case 'delete':
-                if (!ImpMobile.cache[ImpMobile.mailbox].readonly) {
-                    a = 'mailbox-delete';
-                }
+                add = !ImpMobile.cache[ImpMobile.mailbox].readonly;
                 break;
 
             case 'spam':
-                if (ImpMobile.mailbox != IMP.conf.spam_mbox ||
-                    IMP.conf.spam_spammbox) {
-                    a = 'mailbox-spam';
-                }
-                break;
-
-            default:
-                ob.buttons.push(v.clone(true));
+                add = (ImpMobile.mailbox != IMP.conf.spam_mbox || IMP.conf.spam_spammbox);
                 break;
             }
 
-            if (a) {
-                li = $(e.currentTarget);
-                ob.buttons.push(v.clone(true).attr('href', HordeMobile.createUrl(a, {
-                    mbox: li.jqmData('mbox'),
-                    uid: li.jqmData('uid')
-                })));
+            if (add) {
+                ob.buttons.push(v.clone(true));
             }
         });
     },
