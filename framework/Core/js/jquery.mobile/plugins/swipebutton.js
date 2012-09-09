@@ -44,11 +44,11 @@
         this.on('click', 'li', function(e) {
             var $li = $(e.currentTarget),
                 div = $li.children('.' + buttonDiv),
-                a = div.find('a');
+                a = $(e.target).closest('a');
 
             removeButtonDiv(div);
 
-            if (a.find(e.target).length) {
+            if (a.length) {
                 $.mobile.changePage(a.attr('href'), { data: $li });
                 return false;
             }
