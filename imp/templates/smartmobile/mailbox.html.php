@@ -23,5 +23,6 @@
  <div id="imp-mailbox-buttons" style="display:none">
   <a data-swipe="delete" data-role="button" data-inline="true" data-theme="a" href="#mailbox-delete"><?php echo _("Delete") ?></a>
   <a data-swipe="spam" data-role="button" data-inline="true" data-theme="a" href="#mailbox-spam"><?php echo _("Spam") ?></a>
+  <a data-swipe="innocent" data-role="button" data-inline="true" data-theme="a" href="#mailbox-innocent"><?php echo _("Innocent") ?></a>
  </div>
 </div>

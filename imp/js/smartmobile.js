@@ -142,9 +142,10 @@ var ImpMobile = {
             e.preventDefault();
             break;
 
+        case 'mailbox-innocent':
         case 'mailbox-spam':
             ImpMobile.reportSpam(
-                'spam',
+                view.match(/spam$/) ? 'spam' : 'innocent',
                 data.options.data.jqmData('mbox'),
                 data.options.data.jqmData('uid')
             );
@@ -1158,6 +1159,10 @@ var ImpMobile = {
             switch (v.jqmData('swipe')) {
             case 'delete':
                 add = !ImpMobile.cache[ImpMobile.mailbox].readonly;
+                break;
+
+            case 'innocent':
+                add = (ImpMobile.mailbox == IMP.conf.spam_mbox || IMP.conf.spam_innocent_spammbox);
                 break;
 
             case 'spam':
