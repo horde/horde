@@ -10,7 +10,7 @@
   <ul id="imp-mailbox-list" data-role="listview"></ul>
  </div>
 
- <div data-role="footer" class="ui-bar" data-position="fixed">
+ <div data-role="footer" class="ui-bar" data-position="fixed" data-tap-toggle="false">
   <a href="#mailbox-refresh" data-icon="refresh"><?php echo _("Refresh") ?></a>
 <?php if ($this->canSearch): ?>
   <a href="#search" data-icon="search"><?php echo _("Search") ?></a>

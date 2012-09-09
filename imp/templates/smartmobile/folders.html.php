@@ -7,7 +7,7 @@
   </ul>
  </div>
 
- <div data-role="footer" class="ui-bar" data-position="fixed">
+ <div data-role="footer" class="ui-bar" data-position="fixed" data-tap-toggle="false">
   <a href="#folders-refresh" data-icon="refresh"><?php echo _("Refresh") ?></a>
   <a href="#folders-showall"><?php echo _("Show All") ?></a>
   <a href="#folders-showpoll" style="display:none"><?php echo _("Show Polled") ?></a>
