@@ -133,7 +133,6 @@ var NagMobile = {
             params.tasklist = null;
         }
 
-        // @TODO: Pass the [smart]list to render.
         HordeMobile.doAction(
             'listTasks',
             { tasklist: params.tasklist },
