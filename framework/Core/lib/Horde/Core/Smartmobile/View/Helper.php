@@ -22,6 +22,7 @@ class Horde_Core_Smartmobile_View_Helper extends Horde_View_Helper_Base
      *               to, second is label. If true, shows a basic Back link.
      *   - logout: (boolean) If true, show logout link.
      *   - portal: (boolean) If true, show portal link.
+     *   - taptoggle: (boolean) Enable tap-toggle?
      *   - title: (string) If given, used as the title.
      *
      * @return string  Generated HTML code.
@@ -30,7 +31,9 @@ class Horde_Core_Smartmobile_View_Helper extends Horde_View_Helper_Base
     {
         global $registry;
 
-        $out = '<div data-position="fixed" data-role="header">';
+        $out = '<div data-position="fixed" data-role="header" data-tap-toggle="' .
+            (empty($params['taptoggle']) ? 'false' : 'true') .
+            '">';
 
         if (!empty($params['backlink'])) {
             if (is_array($params['backlink'])) {
