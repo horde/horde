@@ -13,28 +13,17 @@
  */
 var NagMobile = {
 
-    clickHandler: function(e)
+    toggleComplete: function(d)
     {
-        var elt = $(e.target);
+        var parsed = d.options.parsedUrl;
 
-        while (elt && elt != window.document && elt.parent().length) {
-            if (elt.hasClass('nag-toggle-complete')) {
-                NagMobile.toggleComplete(elt);
-                return;
-            }
-            elt = elt.parent();
-        }
-    },
-
-    toggleComplete: function(elt)
-    {
         HordeMobile.doAction(
             'smartmobileToggle',
             {
-                task: elt.parent().jqmData('task'),
-                tasklist: elt.parent().jqmData('tasklist')
+                task: parsed.params.task_id,
+                tasklist: parsed.params.tasklist
             },
-            function(r) { NagMobile.toggleCompleteCallback(r, elt) }
+            function(r) { NagMobile.toggleCompleteCallback(r, d.options.data) }
         );
     },
 
@@ -75,10 +64,10 @@ var NagMobile = {
         HordeMobile.doAction(
             'getTask',
             {
-                'task': parsed.params.task_id,
-                'tasklist': parsed.params.tasklist
+                task: parsed.params.task_id,
+                tasklist: parsed.params.tasklist
             },
-            function(r) { NagMobile.getTaskCallback(r) }
+            NagMobile.getTaskCallback
         );
     },
 
@@ -102,34 +91,35 @@ var NagMobile = {
 
     toLists: function(d)
     {
-        $("#nag-lists :jqmData(role='content') ul").remove();
         HordeMobile.changePage('nag-lists', d);
-        HordeMobile.doAction('getTaskLists',
+        HordeMobile.doAction(
+            'getTaskLists',
             {},
-            function(r) { NagMobile.getTasklistsCallback(r); }
+            NagMobile.getTasklistsCallback
         );
     },
 
     getTasklistsCallback: function(r)
     {
-        var list = $('<ul>').attr({ 'data-role': 'listview' });
+        var list = $('#nag-lists :jqmData(role="listview")');
+
+        list.empty();
 
         $.each(r.tasklists, function(i, l) {
             NagMobile.insertTasklist(list, l);
         });
 
-        $("#nag-lists :jqmData(role='content')").append(list).trigger('create');
+        list.listview('refresh');
     },
 
     insertTasklist: function(el, l)
     {
-        var item, url;
+        var url = HordeMobile.createUrl('nag-list', { tasklist: l.id });
 
-        url = HordeMobile.createUrl('nag-list', { 'tasklist': l.id });
         list = $('<li>').append(
-            $('<a>').attr({ 'href': url, 'class': 'nag-tasklist' }).append(
-                $('<h3>').text(l.name)
-            )
+            $('<a>').attr({ href: url })
+                .addClass('nag-tasklist')
+                .append($('<h3>').text(l.name))
         );
 
         el.append(list);
@@ -139,14 +129,14 @@ var NagMobile = {
     {
         var params = d.options.parsedUrl.params;
 
-        $("#nag-list :jqmData(role='content') ul").remove();
         if (!params.tasklist) {
             params.tasklist = null;
         }
+
         // @TODO: Pass the [smart]list to render.
         HordeMobile.doAction(
             'listTasks',
-            { 'tasklist': params.tasklist },
+            { tasklist: params.tasklist },
             NagMobile.listTasksCallback
         );
         HordeMobile.changePage('nag-list', d);
@@ -154,13 +144,15 @@ var NagMobile = {
 
     listTasksCallback: function(r)
     {
-        var list = $('<ul>').attr({ 'data-role': 'listview' });
+        var list = $('#nag-list :jqmData(role="listview")');
+
+        list.empty();
 
         $.each(r.tasks, function(i, t) {
             NagMobile.insertTask(list, t);
         });
 
-        $("#nag-list :jqmData(role='content')").append(list).trigger('create');
+        list.listview('refresh');
     },
 
     /**
@@ -168,44 +160,51 @@ var NagMobile = {
      */
     insertTask: function(l, t)
     {
-        var url = HordeMobile.createUrl('nag-task-view', {
-            'task_id': t.id,
-            'tasklist': t.l
-        });
+        var params = {
+            task_id: t.id,
+            tasklist: t.l
+        };
 
         l.append($('<li>').jqmData('icon', t.cp ? 'check' : 'nag-unchecked')
             .append(
-                $('<a>').attr({ href: url })
-                    .addClass('nag-task')
-                    .append(
-                        $('<h3>').text(t.n)
-                    ).append(
-                        $('<p>').addClass('ui-li-aside')
-                            .text(t.dd)
-                    ).append(
-                        $('<p>').text(t.de)
-                    )
+                $('<a>').attr({
+                    href: HordeMobile.createUrl('nag-task-view', params)
+                }).addClass('nag-task')
+                .append(
+                    $('<h3>').text(t.n)
+                ).append(
+                    $('<p>').addClass('ui-li-aside')
+                        .text(t.dd)
+                ).append(
+                    $('<p>').text(t.de)
+                )
             ).append(
-                $('<a>').attr({ 'href': '#' })
-                    .addClass('nag-toggle-complete')
+                $('<a>').attr({
+                    href: HordeMobile.createUrl('nag-toggle', params)
+                })
             ));
     },
 
-    toView: function(e, d)
+    toPage: function(e, data)
     {
-        switch (d.options.parsedUrl.view) {
+        switch (data.options.parsedUrl.view) {
         case 'nag-list':
-            NagMobile.toList(d);
+            NagMobile.toList(data);
             e.preventDefault();
             break;
 
         case 'nag-task-view':
-            NagMobile.getTask(d);
+            NagMobile.getTask(data);
             e.preventDefault();
             break;
 
         case 'nag-lists':
-            NagMobile.toLists(d);
+            NagMobile.toLists(data);
+            e.preventDefault();
+            break;
+
+        case 'nag-toggle':
+            NagMobile.toggleComplete(data);
             e.preventDefault();
             break;
         }
@@ -213,8 +212,17 @@ var NagMobile = {
 
     onDocumentReady: function()
     {
-        $(document).bind('vclick', NagMobile.clickHandler);
-        $(document).bind('pagebeforechange', NagMobile.toView);
+        $(document).bind('pagebeforechange', NagMobile.toPage);
+
+        /* Capture task completed clicks to add the current LI element to
+         * the page change data. */
+        $('#nag-list :jqmData(role="listview")').on('click', 'li', function(e) {
+            var a = $(e.target).closest('a[href^="#nag-toggle"]');
+            if (a.length) {
+                $.mobile.changePage(a.attr('href'), { data: $(e.currentTarget) });
+                return false;
+            }
+        });
     }
 
 };
