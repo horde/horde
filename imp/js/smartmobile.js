@@ -530,7 +530,6 @@ var ImpMobile = {
         var cache = ImpMobile.cache[ImpMobile.mailbox],
             data = ImpMobile.message,
             args = { mbox: data.mbox, uid: data.uid },
-            spam = { innocent: 'show', spam: 'show' },
             rownum, tmp;
 
         // TODO: Remove once we can pass viewport parameters directly to the
@@ -608,28 +607,26 @@ var ImpMobile = {
             $('#imp-message-copymove').attr('href', HordeMobile.createUrl('copymove', args));
         }
 
-        if (ImpMobile.mailbox == IMP.conf.spam_mbox) {
-            if (!IMP.conf.spam_spammbox) {
-                spam.spam = 'hide';
-            }
-        } else if (IMP.conf.innocent_spammbox) {
-            spam.innocent = 'hide';
-        }
-
         $.each([ 'innocent', 'spam' ], function(i, v) {
-            var t = $('#imp-message-' + v);
+            var show, t = $('#imp-message-' + v);
             if (t) {
-                switch (spam[v]) {
-                case 'hide':
-                    t.jqmData('morehide', true);
-                    break;
+                switch (v) {
+                case 'innocent':
+                    show = (ImpMobile.mailbox == IMP.conf.spam_mbox || IMP.conf.spam_innocent_spammbox);
+                break;
 
-                case 'show':
+                case 'spam':
+                    show = (ImpMobile.mailbox != IMP.conf.spam_mbox || IMP.conf.spam_spammbox);
+                    break;
+                }
+
+                if (show) {
                     t.jqmRemoveData('morehide')
                         .attr('href', HordeMobile.createUrl('confirm', $.extend({
                             action: v
                         }, args)));
-                    break;
+                } else {
+                    t.jqmData('morehide', true);
                 }
             }
         });
