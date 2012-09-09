@@ -12,9 +12,9 @@
  </div>
 
  <div data-role="header">
-  <a href="#" id="kronolithPrevDay" data-icon="arrow-l" data-iconpos="notext"><?php echo _("Previous")?></a>
+  <a href="#prevday" data-icon="arrow-l" data-iconpos="notext"><?php echo _("Previous")?></a>
   <h3 id="kronolithDayDate"></h3>
-  <a href="#" id="kronolithNextDay" data-icon="arrow-r" data-iconpos="notext"><?php echo _("Next")?></a>
+  <a href="#nextday" data-icon="arrow-r" data-iconpos="notext"><?php echo _("Next")?></a>
  </div>
 
  <div data-role="content" class="ui-body"></div>

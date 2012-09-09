@@ -12,9 +12,9 @@
  </div>
 
  <div data-role="header">
-  <a href="#" data-icon="arrow-l" data-iconpos="notext" id="kronolithMinicalPrev"><?php echo _("Previous") ?></a>
+  <a href="#minical-prev" data-icon="arrow-l" data-iconpos="notext"><?php echo _("Previous") ?></a>
   <h3 id="kronolithMinicalDate"><?php echo $this->today->format('F Y') ?></h3>
-  <a href="#" data-icon="arrow-r" data-iconpos="notext" id="kronolithMinicalNext"><?php echo _("Next") ?></a>
+  <a href="#minical-next" data-icon="arrow-r" data-iconpos="notext"><?php echo _("Next") ?></a>
  </div>
 
  <div data-role="content" id="kronolithMinical" class="kronolithMinical">

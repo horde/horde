@@ -554,7 +554,9 @@ var KronolithMobile = {
             }
 
             // Insert day cell.
-            td = $('<td>').attr({ 'id': 'kronolithMonth' + dateString, 'class': 'kronolithMonthDay' }).jqmData('date', dateString);
+            td = $('<td>').attr({ id: 'kronolithMonth' + dateString })
+                .addClass('kronolithMonthDay')
+                .jqmData('date', dateString);
             if (day.getMonth() != date.getMonth()) {
                 td.addClass('kronolithMinicalEmpty');
             }
@@ -707,41 +709,39 @@ var KronolithMobile = {
     },
 
     /**
-     * Catch-all event handler for the click event.
+     * Event handler for the pagebeforechange event that implements loading of
+     * deep-linked pages.
      *
-     * @param object e  An event object.
+     * @param object e     Event object.
+     * @param object data  Event data.
      */
-    clickHandler: function(e)
+    toPage: function(e, data)
     {
-        var elt = $(e.target);
-        while (elt && elt != window.document && elt.parent().length) {
-            switch (elt.attr('id')) {
-            case 'kronolithPrevDay':
-                KronolithMobile.showPrevDay();
-                return;
+        switch (data.options.parsedUrl.view) {
+        case 'minical-next':
+            KronolithMobile.showNextMonth();
+            e.preventDefault();
+            break;
 
-            case 'kronolithNextDay':
-                KronolithMobile.showNextDay();
-                return;
+        case 'minical-prev':
+            KronolithMobile.showPrevMonth();
+            e.preventDefault();
+            break;
 
-            case 'kronolithMinicalNext':
-                KronolithMobile.showNextMonth();
-                return;
+        case 'nextday':
+            KronolithMobile.showNextDay();
+            e.preventDefault();
+            break;
 
-            case 'kronolithMinicalPrev':
-                KronolithMobile.showPrevMonth();
-                return;
-            }
-
-            if (elt.hasClass('kronolithMonthDay')) {
-                KronolithMobile.selectMonthDay(elt.jqmData('date'));
-                return;
-            }
-
-            elt = elt.parent();
+        case 'prevday':
+            KronolithMobile.showPrevDay();
+            e.preventDefault();
+            break;
         }
     },
 
+    /**
+     */
     loadPage: function()
     {
         switch (HordeMobile.currentPage()) {
@@ -788,12 +788,16 @@ var KronolithMobile = {
         });
 
         // Bind click and swipe events
-        $(document).bind('vclick', KronolithMobile.clickHandler);
         $('body').bind('swipeleft', KronolithMobile.handleSwipe);
         $('body').bind('swiperight', KronolithMobile.handleSwipe);
         $(document).bind('pagebeforeshow', KronolithMobile.loadPage);
+        $(document).bind('pagebeforechange', KronolithMobile.toPage);
         $("#eventview").live("pageshow", function(event, ui) {
             KronolithMobile.view = "event";
+        });
+
+        $('#kronolithMinical').on('click', 'td', function(e) {
+            KronolithMobile.selectMonthDay($(e.target).jqmData('date'));
         });
     }
 };
