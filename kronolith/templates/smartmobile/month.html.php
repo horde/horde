@@ -17,7 +17,7 @@
   <a href="#" data-icon="arrow-r" data-iconpos="notext" id="kronolithMinicalNext"><?php echo _("Next") ?></a>
  </div>
 
- <div id="kronolithMinical" class="kronolithMinical">
+ <div data-role="content" id="kronolithMinical" class="kronolithMinical">
   <table>
    <thead>
     <tr>
