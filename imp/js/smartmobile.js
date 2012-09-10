@@ -61,6 +61,7 @@ var ImpMobile = {
         switch (view) {
         case 'compose':
             if (!IMP.conf.disable_compose) {
+                $('#imp-compose-cache').val('');
                 ImpMobile.compose(data);
             }
             e.preventDefault();
@@ -238,8 +239,6 @@ var ImpMobile = {
      */
     beforeShow: function(e, data)
     {
-        var tmp;
-
         switch (HordeMobile.currentPage()) {
         case 'copymove':
             $('#imp-copymove')[0].reset();
@@ -247,9 +246,20 @@ var ImpMobile = {
             $('#imp-copymove-action').selectmenu(ImpMobile.cache[ImpMobile.mailbox].readonly ? 'disable' : 'enable');
             $('#imp-copymove-newdiv').hide();
             break;
+        }
+    },
 
+    /**
+     */
+    pageShow: function(e, opts)
+    {
+        var tmp;
+
+        switch (HordeMobile.currentPage()) {
         case 'message':
             $('#imp-message-more').show().siblings(':jqmData(more)').hide();
+
+            $('#imp-message-headers,#imp-message-atc').trigger('collapse');
 
             tmp = $('#message .smartmobile-back');
             if (ImpMobile.mailbox == IMP.conf.qsearchid) {
@@ -263,19 +273,6 @@ var ImpMobile = {
                 }));
                 tmp.find('.ui-btn-text').text($('#imp-mailbox-' + ImpMobile.mailbox).text());
             }
-
-            $.fn[ImpMobile.cache[ImpMobile.mailbox].readonly ? 'hide' : 'show'].call($('#imp-message-delete'));
-            break;
-        }
-    },
-
-    /**
-     */
-    pageHide: function(e, data)
-    {
-        switch ($(e.target).attr('id')) {
-        case 'compose':
-            $('#imp-compose-cache').val('');
             break;
         }
     },
@@ -609,10 +606,7 @@ var ImpMobile = {
         }
 
         if (data.atc_label) {
-            if ($('#imp-message-atc').show().children('div:visible').length) {
-                $('#imp-message-atc h4 a').click();
-            }
-
+            $('#imp-message-atc').show();
             $('#imp-message-atclabel').text(data.atc_label);
 
             ImpMobile.atc = data.atc_list;
@@ -636,6 +630,8 @@ var ImpMobile = {
         ImpMobile.rowid = (ImpMobile.mailbox == IMP.conf.qsearchid)
             ? r.suid
             : data.uid;
+
+        $.fn[cache.readonly ? 'hide' : 'show'].call($('#imp-message-delete'));
 
         /* Need to manually set href parameters for dialog links, since there
          * is no way to programatically open one. */
@@ -1213,7 +1209,7 @@ var ImpMobile = {
     {
         $(document).bind('pagebeforechange', ImpMobile.toPage);
         $(document).bind('pagebeforeshow', ImpMobile.beforeShow);
-        $(document).bind('pagehide', ImpMobile.pageHide);
+        $(document).bind('pagechange', ImpMobile.pageShow);
         $(document).bind('HordeMobile:runTasks', ImpMobile.runTasks);
 
         $('#imp-mailbox-list').swipeButton()
