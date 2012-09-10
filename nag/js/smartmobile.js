@@ -14,6 +14,7 @@
 var NagMobile = {
 
     tasklists: {},
+    tasks: {},
 
     toggleComplete: function(d)
     {
@@ -33,6 +34,7 @@ var NagMobile = {
     {
         switch (r.data) {
         case 'complete':
+            NagMobile.tasks[elt.jqmData('task_id')].cp = true;
             if (Nag.conf.showCompleted == 'incomplete' ||
                 Nag.conf.showCompleted == 'future-incomplete') {
                 // Hide the task
@@ -42,10 +44,12 @@ var NagMobile = {
                     .find('span.ui-icon')
                     .removeClass('ui-icon-nag-unchecked')
                     .addClass('ui-icon-check');
+                NagMobile.styleTask(elt, NagMobile.tasks[elt.jqmData('task_id')]);
             }
             break;
 
         default:
+            NagMobile.tasks[elt.jqmData('task_id')].cp = false;
             if (Nag.conf.showCompleted == 'complete') {
                 // Hide the task
                 elt.parent().remove();
@@ -54,6 +58,7 @@ var NagMobile = {
                     .find('span.ui-icon')
                     .removeClass('ui-icon-check')
                     .addClass('ui-icon-nag-unchecked');
+                NagMobile.styleTask(elt, NagMobile.tasks[elt.jqmData('task_id')]);
             }
         }
     },
@@ -152,7 +157,7 @@ var NagMobile = {
         var list = $('#nag-list :jqmData(role="listview")');
 
         list.empty();
-
+        NagMobile.tasks = {};
         $.each(r.tasks, function(i, t) {
             NagMobile.insertTask(list, t);
         });
@@ -168,14 +173,11 @@ var NagMobile = {
         var params = {
             task_id: t.id,
             tasklist: t.l
-        }, task_due = Date.parse(t.dd),
-        task_overdue,
-        liclass;
+        }, item;
 
-        task_overdue = task_due ? (task_due.compareTo(new Date()) < 0 ? true : false) : false;
-        console.log(task_overdue);
-        liclass = t.cp ? 'closed' : (task_overdue ? 'overdue' : '');
-        l.append($('<li>').addClass(liclass).jqmData('icon', t.cp ? 'check' : 'nag-unchecked')
+        NagMobile.tasks[t.id] = t;
+
+        item = $('<li>').jqmData('icon', t.cp ? 'check' : 'nag-unchecked')
             .append(
                 $('<a>').attr({
                     href: HordeMobile.createUrl('nag-task-view', params)
@@ -192,7 +194,10 @@ var NagMobile = {
                 $('<a>').attr({
                     href: HordeMobile.createUrl('nag-toggle', params)
                 })
-            ));
+            );
+        item.jqmData('task_id', t.id);
+        NagMobile.styleTask(item, t);
+        l.append(item);
     },
 
     toPage: function(e, data)
@@ -217,6 +222,24 @@ var NagMobile = {
             NagMobile.toggleComplete(data);
             e.preventDefault();
             break;
+        }
+    },
+
+    styleTask: function(l, t)
+    {
+        var task_due = Date.parse(t.dd),
+            task_overdue = task_due ? (task_due.compareTo(new Date()) < 0 ? true : false) : false;
+
+        if (!t.cp) {
+            l.removeClass('closed');
+            if (!task_overdue) {
+                l.removeClass('overdue');
+            } else {
+                l.addClass('overdue');
+            }
+        } else {
+            l.addClass('closed');
+            l.removeClass('overdue');
         }
     },
 
