@@ -4,9 +4,8 @@
 .overdue {
     color: #f00;
 }
-.closed {
-    color: #aaa;
-}
+
 .closed a {
-    text-decoration: line-through;
+    color: #aaa !important;
+    text-decoration: line-through !important;
 }

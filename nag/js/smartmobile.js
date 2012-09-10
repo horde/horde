@@ -170,7 +170,7 @@ var NagMobile = {
             tasklist: t.l
         };
 
-        l.append($('<li>').jqmData('icon', t.cp ? 'check' : 'nag-unchecked')
+        l.append($('<li>').addClass(t.cp ? 'closed' : '').jqmData('icon', t.cp ? 'check' : 'nag-unchecked')
             .append(
                 $('<a>').attr({
                     href: HordeMobile.createUrl('nag-task-view', params)
