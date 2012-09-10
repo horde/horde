@@ -20,9 +20,12 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      * Authentication failure reasons (additions to Horde_Auth:: reasons):
      *   - REASON_BROWSER: A browser change was detected
      *   - REASON_SESSIONIP: Logout due to change of IP address during session
+     *   - REASON_SESSIONMAXTIME: Logout due to the session exceeding the
+     *                            maximum allowed length.
      */
     const REASON_BROWSER = 100;
     const REASON_SESSIONIP = 101;
+    const REASON_SESSIONMAXTIME = 102;
 
     /**
      * Application for authentication.

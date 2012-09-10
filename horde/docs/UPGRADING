@@ -33,6 +33,13 @@ update anything that's highlighted as outdated.
 Upgrading Horde from 4.x to 5.x
 ===============================
 
+Configuration Options (conf.php)
+--------------------------------
+
+The $conf['session']['max_time'] option was added. The default is no maximum
+session time, the same behavior as in Horde 4.
+
+
 Hooks (hooks.php)
 -----------------
 

@@ -324,6 +324,10 @@ case Horde_Core_Auth_Application::REASON_BROWSER:
     $reason = _("Your browser appears to have changed since the beginning of your session. To protect your security, you must login again.");
     break;
 
+case Horde_Core_Auth_Application::REASON_SESSIONMAXTIME:
+    $reason = _("Your session length has exceeded the maximum amount of time allowed. Please login again.");
+    break;
+
 case Horde_Auth::REASON_LOGOUT:
     $reason = _("You have been logged out.");
     break;

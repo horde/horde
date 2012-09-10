@@ -2452,6 +2452,12 @@ class Horde_Registry
             return false;
         }
 
+        if (!empty($conf['session']['max_time']) &&
+            (($conf['session']['max_time'] + $session->begin) < time())) {
+            $auth->setError(Horde_Core_Auth_Application::REASON_SESSIONMAXTIME);
+            return false;
+        }
+
         if ($auth->validateAuth()) {
             if ($app != 'horde') {
                 $auth = $injector

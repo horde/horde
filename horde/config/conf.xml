@@ -113,6 +113,11 @@
    Set other values with care - see
    http://www.php.net/manual/en/function.session-set-cookie-params.php.">
    0</configinteger>
+   <configinteger name="max_time" desc="The maximum length of time (in
+   seconds) a session can be active before it will be destroyed by Horde.
+   Allows an admin to forcibly expire sessions (e.g. to ensure that logintasks
+   are periodically run for every user). 0 means there is no maximum session
+   time.">0</configinteger>
   </configsection>
   <configsection name="cookie">
    <configphp name="domain" desc="What domain should we set cookies from? If
