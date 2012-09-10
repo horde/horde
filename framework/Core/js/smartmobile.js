@@ -196,7 +196,7 @@ var HordeMobile = {
 
         if (!$.isEmptyObject(params)) {
             $.each(params, function(k, v) {
-                tmp.push(k + '=' + v);
+                tmp.push(k + '=' + (typeof(v) == 'undefined' ? '' : v));
             });
             url += '?' + tmp.join('&');
         }
