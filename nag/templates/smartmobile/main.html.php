@@ -8,7 +8,7 @@
  <div data-role="footer" data-id="nag-footer" data-position="fixed">
   <div data-role="navbar">
    <ul>
-    <li><a href="#" data-rel="dialog" data-transition="slideup" data-icon="plus"><?php echo _("New") ?></a></li>
+    <li><a href="#nag-taskform-view" data-rel="dialog" data-transition="slideup" data-icon="plus"><?php echo _("New") ?></a></li>
    </ul>
   </div>
  </div>

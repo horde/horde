@@ -108,7 +108,8 @@ class Nag_Smartmobile
                 )
             ),
             'strings' => array(
-                'all' => _("All Tasks")
+                'all' => _("All Tasks"),
+                'newTask' => _("New Task")
             )
         );
 

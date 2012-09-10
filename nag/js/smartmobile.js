@@ -66,7 +66,7 @@ var NagMobile = {
     getTask: function(d)
     {
         var parsed = d.options.parsedUrl;
-        HordeMobile.changePage('nag-task-form', d);
+        HordeMobile.changePage('nag-taskform-view', d);
 
         HordeMobile.doAction(
             'getTask',
@@ -191,7 +191,7 @@ var NagMobile = {
         item = $('<li>').jqmData('icon', t.cp ? 'check' : 'nag-unchecked')
             .append(
                 $('<a>').attr({
-                    href: HordeMobile.createUrl('nag-task-form', params)
+                    href: HordeMobile.createUrl('nag-taskform-view', params)
                 }).addClass('nag-task')
                 .append(
                     $('<h3>').text(t.n)
@@ -219,8 +219,13 @@ var NagMobile = {
             e.preventDefault();
             break;
 
-        case 'nag-task-form':
-            NagMobile.getTask(data);
+        case 'nag-taskform-view':
+            if (data.options.parsedUrl.params.task_id) {
+                NagMobile.getTask(data);
+            } else {
+                HordeMobile.changePage('nag-taskform-view', data);
+                $('#nag-taskform-view .smartmobile-title').text(Nag.strings.newTask);
+            }
             e.preventDefault();
             break;
 
@@ -254,12 +259,32 @@ var NagMobile = {
         }
     },
 
+    prepareFormForNew: function(e)
+    {
+        var f = $('form')[0];
+        f.reset();
+    },
+
+    handleSubmit: function(e)
+    {
+        var form = $('#nag-task-form'),
+        data;
+
+        data = HordeJquery.formToObject(form);
+        console.log(data);
+    },
+
+    handleCancel: function(e)
+    {
+
+    },
+
     onDocumentReady: function()
     {
         $(document).bind('pagebeforechange', NagMobile.toPage);
 
-        /* Capture task completed clicks to add the current LI element to
-         * the page change data. */
+        // Capture task completed clicks to add the current LI element to
+        // the page change data.
         $('#nag-list :jqmData(role="listview")').on('click', 'li', function(e) {
             var a = $(e.target).closest('a[href^="#nag-toggle"]');
             if (a.length) {
@@ -268,6 +293,11 @@ var NagMobile = {
             }
         });
 
+        // Capture new task clicks.
+        $('#nag-list :jqmData(role="footer")').on('click', NagMobile.prepareFormForNew);
+
+        $('#nag-taskform-view a[href^="#task-submit"]').on('click', NagMobile.handleSubmit);
+        $('#nag-taskform-view a[href^="#task-cancle"]').on('click', NagMobile.handleCancel);
         NagMobile.tasklists = { undefined: Nag.strings.all };
     }
 

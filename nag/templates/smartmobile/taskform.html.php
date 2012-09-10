@@ -1,7 +1,7 @@
-<div data-role="page" id="nag-task-form">
+<div data-role="page" id="nag-taskform-view">
    <?php echo $this->smartmobileHeader(array('backlink' => true, 'logout' => true, 'title' => _("My Tasks"))) ?>
   <div data-role="content">
-    <form id='nag-task-form' name='nag-task-form'>
+    <form id='nag-task-form'>
       <input type="hidden" name="task_id" id="task_id" />
 
       <div data-role="field-contain">
@@ -56,7 +56,10 @@
       </div>
 
       <!-- @TODO: Alarm -->
-
+      <div data-role="footer" class="ui-bar" data-position="fixed">
+        <a href="#task-submit"><?php echo _("Save Task") ?></a>
+        <a href="#task-cancel"><?php echo _("Cancel") ?></a>
+       </div>
     </form>
   </div>
 </div>
