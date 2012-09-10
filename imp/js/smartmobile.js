@@ -186,7 +186,7 @@ var ImpMobile = {
 
         case 'message-next':
         case 'message-prev':
-            ImpMailbox.navigateMessage(view.match(/next$/) ? 1 : -1);
+            ImpMobile.navigateMessage(view.match(/next$/) ? 1 : -1);
             e.preventDefault();
             break;
 
