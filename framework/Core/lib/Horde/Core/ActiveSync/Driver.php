@@ -82,9 +82,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *            DEFAULT: none (REQUIRED).
      *   - connector: (Horde_ActiveSync_Driver_Horde_Connector_Registry) The
      *                connector object for communicating with the registry.
-     *                DEFAULT: none, REQUIRED
+     *                DEFAULT: none (REQUIRED)
      *   - auth: (Horde_Auth) The auth object.
-     *           DEFAULT: none, REQUIRED.
+     *           DEFAULT: none (REQUIRED).
      *   - imap: (Horde_ActiveSync_Imap_Adapter) The IMAP adapter if email
      *           support is desired.
      *           DEFAULT: none (No email support will be provided).
