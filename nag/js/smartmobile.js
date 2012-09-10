@@ -69,7 +69,6 @@ var NagMobile = {
     getTask: function(d)
     {
         var parsed = d.options.parsedUrl;
-        HordeMobile.changePage('nag-taskform-view', d);
 
         HordeMobile.doAction(
             'getTask',
@@ -79,6 +78,8 @@ var NagMobile = {
             },
             NagMobile.getTaskCallback
         );
+        $('#nag-taskform-view a[href^="#task-delete"]').show();
+        HordeMobile.changePage('nag-taskform-view', d);
     },
 
     getTaskCallback: function(r)
@@ -282,6 +283,7 @@ var NagMobile = {
     {
         var f = $('form')[0];
         f.reset();
+        $('#nag-taskform-view a[href^="#task-delete"]').hide();
     },
 
     handleSubmit: function(e)
