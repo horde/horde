@@ -129,10 +129,6 @@ var NagMobile = {
     {
         var params = d.options.parsedUrl.params;
 
-        if (!params.tasklist) {
-            params.tasklist = null;
-        }
-
         HordeMobile.doAction(
             'listTasks',
             { tasklist: params.tasklist },
