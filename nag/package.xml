@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-05</date>
- <time>17:53:04</time>
+ <date>2012-09-10</date>
+ <time>12:06:09</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -160,6 +160,7 @@
     <file name="Nag.php" role="horde" />
     <file name="QuickParser.php" role="horde" />
     <file name="Search.php" role="horde" />
+    <file name="Smartmobile.php" role="horde" />
     <file name="TagBrowser.php" role="horde" />
     <file name="Tagger.php" role="horde" />
     <file name="Task.php" role="horde" />
@@ -429,7 +430,9 @@
     </dir> <!-- /templates/list -->
     <dir name="smartmobile">
      <file name="create.html.php" role="horde" />
+     <file name="lists.html.php" role="horde" />
      <file name="main.html.php" role="horde" />
+     <file name="taskform.html.php" role="horde" />
     </dir> <!-- /templates/smartmobile -->
     <dir name="view">
      <file name="task.inc" role="horde" />
@@ -519,7 +522,6 @@
    <file name="quick.php" role="horde" />
    <file name="README" role="doc" />
    <file name="search.php" role="horde" />
-   <file name="smartmobile-view.php" role="horde" />
    <file name="smartmobile.php" role="horde" />
    <file name="task.php" role="horde" />
    <file name="view.php" role="horde" />
@@ -746,6 +748,7 @@
    <install as="nag/lib/Nag.php" name="lib/Nag.php" />
    <install as="nag/lib/QuickParser.php" name="lib/QuickParser.php" />
    <install as="nag/lib/Search.php" name="lib/Search.php" />
+   <install as="nag/lib/Smartmobile.php" name="lib/Smartmobile.php" />
    <install as="nag/lib/TagBrowser.php" name="lib/TagBrowser.php" />
    <install as="nag/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="nag/lib/Task.php" name="lib/Task.php" />
@@ -892,7 +895,9 @@
    <install as="nag/templates/list/task_headers.html.php" name="templates/list/task_headers.html.php" />
    <install as="nag/templates/list/_task.html.php" name="templates/list/_task.html.php" />
    <install as="nag/templates/smartmobile/create.html.php" name="templates/smartmobile/create.html.php" />
+   <install as="nag/templates/smartmobile/lists.html.php" name="templates/smartmobile/lists.html.php" />
    <install as="nag/templates/smartmobile/main.html.php" name="templates/smartmobile/main.html.php" />
+   <install as="nag/templates/smartmobile/taskform.html.php" name="templates/smartmobile/taskform.html.php" />
    <install as="nag/templates/view/task.inc" name="templates/view/task.inc" />
    <install as="Nag/AllTests.php" name="test/Nag/AllTests.php" />
    <install as="Nag/Autoload.php" name="test/Nag/Autoload.php" />
@@ -938,7 +943,6 @@
    <install as="nag/quick.php" name="quick.php" />
    <install as="README" name="README" />
    <install as="nag/search.php" name="search.php" />
-   <install as="nag/smartmobile-view.php" name="smartmobile-view.php" />
    <install as="nag/smartmobile.php" name="smartmobile.php" />
    <install as="nag/task.php" name="task.php" />
    <install as="nag/view.php" name="view.php" />
@@ -1183,7 +1187,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-05</date>
+   <date>2012-09-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix deleting tasks from the task form.
