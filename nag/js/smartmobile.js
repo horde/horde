@@ -13,6 +13,8 @@
  */
 var NagMobile = {
 
+    tasklists: {},
+
     toggleComplete: function(d)
     {
         var parsed = d.options.parsedUrl;
@@ -121,6 +123,7 @@ var NagMobile = {
     {
         var url = HordeMobile.createUrl('nag-list', { tasklist: l.id });
 
+        NagMobile.tasklists[l.id] = l.name;
         list = $('<li>').append(
             $('<a>').attr({ href: url })
                 .addClass('nag-tasklist')
@@ -139,6 +142,8 @@ var NagMobile = {
             { tasklist: params.tasklist },
             NagMobile.listTasksCallback
         );
+        $('#nag-list .smartmobile-title')
+            .text(NagMobile.tasklists[params.tasklist]);
         HordeMobile.changePage('nag-list', d);
     },
 
@@ -223,6 +228,8 @@ var NagMobile = {
                 return false;
             }
         });
+
+        NagMobile.tasklists = { undefined: Nag.strings.all };
     }
 
 };
