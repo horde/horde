@@ -388,8 +388,8 @@ var ImpMobile = {
                     .jqmData('mbox', data.mbox)
                     .jqmData('uid', data.uid),
                 url = HordeMobile.createUrl('message', {
-                    uid: data.uid,
-                    view: data.mbox
+                    mbox: data.mbox,
+                    uid: data.uid
                 });
 
             if (data.flag) {
@@ -461,14 +461,14 @@ var ImpMobile = {
                 // Need to manually encode JSON here.
                 search: JSON.stringify({ uid: purl.params.uid })
             };
-            ImpMobile.mailbox = purl.params.view;
+            ImpMobile.mailbox = purl.params.mbox;
         }
 
         HordeMobile.changePage('message', data);
 
         // Page is cached.
         if (ImpMobile.uid == purl.params.uid &&
-            ImpMobile.uid_mbox == purl.params.view) {
+            ImpMobile.uid_mbox == purl.params.mbox) {
             document.title = $('#message .smartmobile-title').text();
             return;
         }
@@ -480,10 +480,10 @@ var ImpMobile = {
         HordeMobile.doAction(
             'smartmobileShowMessage',
             $.extend(ImpMobile.addViewportParams($.extend(params, {
-                view: (ImpMobile.search ? IMP.conf.qsearchid : purl.params.view)
+                view: (ImpMobile.search ? IMP.conf.qsearchid : purl.params.mbox)
             })), {
                 force_viewport: 1,
-                uid: ImpMobile.toUIDStringSingle(purl.params.view, [ purl.params.uid ]),
+                uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ]),
             }),
             ImpMobile.messageLoaded
         );
@@ -521,8 +521,8 @@ var ImpMobile = {
         if (pos > 0 && pos <= ob.totalrows) {
             if (rid = ob.rowToUid(pos)) {
                 $.mobile.changePage(HordeMobile.createUrl('message', {
-                    uid: ob.data[rid].uid,
-                    view: ob.data[rid].mbox
+                    mbox: ob.data[rid].mbox,
+                    uid: ob.data[rid].uid
                 }));
             } else {
                 // TODO: Load viewport slice
@@ -933,10 +933,6 @@ var ImpMobile = {
         switch (purl.params.action) {
         case 'innocent':
         case 'spam':
-            if (!purl.params.mbox) {
-                purl.params.mbox = purl.params.view;
-            }
-
             $.mobile.changePage(HordeMobile.createUrl('mailbox', {
                 mbox: purl.params.mbox
             }), {
