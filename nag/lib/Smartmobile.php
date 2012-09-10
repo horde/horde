@@ -103,9 +103,9 @@ class Nag_Smartmobile
         $lists = Nag::listTasklists();
         $tasklists = array();
         foreach ($lists as $name => $list) {
-            $tasklists[$name] = $this->_listToHash($list);
+            $task = new Nag_Tasklist($list);
+            $tasklists[$name] = $task->toHash();
         }
-
 
         $code = array(
             'conf' => array(
@@ -127,27 +127,6 @@ class Nag_Smartmobile
         $page_output->addInlineJsVars(array(
             'var Nag' => $code
         ), array('top' => true));
-    }
-
-    /**
-     * @TODO: Should probably refactor to encapsulate the share object with a
-     * Nag_Tasklist object in the future.
-     *
-     */
-    protected function _listToHash($list)
-    {
-        $tasks = Nag::listTasks(array('tasklists' => $list->getName()));
-
-        $hash = array(
-            'name' => $list->get('name'),
-            'desc' => $list->get('desc'),
-            'owner' => $list->get('owner'),
-            'id' => $list->getName(),
-            'count' => $tasks->count(),
-            'smart' => $list->get('issmart'),
-            'overdue' => $tasks->childrenOverdue());
-
-        return $hash;
     }
 
 }

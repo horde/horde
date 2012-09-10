@@ -42,33 +42,13 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         $lists = Nag::listTasklists();
         $results = array();
         foreach ($lists as $name => $list) {
-            $results[$name] = $this->_listToHash($list);
+            $tasklist  = new Nag_Tasklist($list);
+            $results[$name] = $tasklist->toHash();
         }
         $return = new stdClass;
         $return->tasklists = $results;
 
         return $return;
-    }
-
-    /**
-     * @TODO: Should probably refactor to encapsulate the share object with a
-     * Nag_Tasklist object in the future.
-     *
-     */
-    protected function _listToHash($list)
-    {
-        $tasks = Nag::listTasks(array('tasklists' => $list->getName()));
-
-        $hash = array(
-            'name' => $list->get('name'),
-            'desc' => $list->get('desc'),
-            'owner' => $list->get('owner'),
-            'id' => $list->getName(),
-            'count' => $tasks->count(),
-            'smart' => $list->get('issmart') ? true : false,
-            'overdue' => $tasks->childrenOverdue());
-
-        return $hash;
     }
 
     /**

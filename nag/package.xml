@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-09-10</date>
- <time>15:56:07</time>
+ <time>14:52:14</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -162,6 +162,7 @@
     <file name="TagBrowser.php" role="horde" />
     <file name="Tagger.php" role="horde" />
     <file name="Task.php" role="horde" />
+    <file name="Tasklist.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="ar">
@@ -751,6 +752,7 @@
    <install as="nag/lib/TagBrowser.php" name="lib/TagBrowser.php" />
    <install as="nag/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="nag/lib/Task.php" name="lib/Task.php" />
+   <install as="nag/lib/Tasklist.php" name="lib/Tasklist.php" />
    <install as="nag/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="nag/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Handler/Smartmobile.php" />
    <install as="nag/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
