@@ -106,6 +106,9 @@ class Nag_Smartmobile
                     'completed' => strval(Horde_Themes::img('checked.png')),
                     'uncompleted' => strval(Horde_Themes::img('unchecked.png'))
                 )
+            ),
+            'strings' => array(
+                'all' => _("All Tasks")
             )
         );
 

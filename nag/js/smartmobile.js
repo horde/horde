@@ -104,7 +104,12 @@ var NagMobile = {
         var list = $('#nag-lists :jqmData(role="listview")');
 
         list.empty();
-
+        NagMobile.insertTasklist(
+            list,
+            {
+                'name': Nag.strings.all
+            }
+        );
         $.each(r.tasklists, function(i, l) {
             NagMobile.insertTasklist(list, l);
         });
