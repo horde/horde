@@ -14,7 +14,10 @@
 var NagMobile = {
 
     tasklists: {},
+
     tasks: {},
+
+    currentList: undefined,
 
     toggleComplete: function(d)
     {
@@ -160,6 +163,7 @@ var NagMobile = {
         );
         $('#nag-list .smartmobile-title')
             .text(NagMobile.tasklists[params.tasklist]);
+        NagMobile.currentList = params.tasklist;
         HordeMobile.changePage('nag-list', d);
     },
 
