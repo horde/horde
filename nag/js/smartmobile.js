@@ -314,8 +314,7 @@ var NagMobile = {
         });
 
         // Capture new task clicks.
-        $('#nag-list :jqmData(role="footer")').on('click', NagMobile.prepareFormForNew);
-
+        $('#nag-list :jqmData(role="footer") a[href^="#nag-taskform-view"]').on('click', NagMobile.prepareFormForNew);
         $('#nag-taskform-view a[href^="#task-submit"]').on('click', NagMobile.handleSubmit);
         $('#nag-taskform-view a[href^="#task-cancel"]').on('click', NagMobile.handleCancel);
         NagMobile.tasklists = { undefined: Nag.strings.all };
