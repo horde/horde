@@ -99,6 +99,14 @@ class Nag_Smartmobile
             break;
         }
 
+        // Tasklists. Needed in case we deep link to an existing list.
+        $lists = Nag::listTasklists();
+        $tasklists = array();
+        foreach ($lists as $name => $list) {
+            $tasklists[$name] = $this->_listToHash($list);
+        }
+
+
         $code = array(
             'conf' => array(
                 'showCompleted' => $show_completed,
@@ -110,12 +118,34 @@ class Nag_Smartmobile
             'strings' => array(
                 'all' => _("All Tasks"),
                 'newTask' => _("New Task")
-            )
+            ),
+            'tasklists' => $tasklists
         );
 
         $page_output->addInlineJsVars(array(
             'var Nag' => $code
         ), array('top' => true));
+    }
+
+    /**
+     * @TODO: Should probably refactor to encapsulate the share object with a
+     * Nag_Tasklist object in the future.
+     *
+     */
+    protected function _listToHash($list)
+    {
+        $tasks = Nag::listTasks(array('tasklists' => $list->getName()));
+
+        $hash = array(
+            'name' => $list->get('name'),
+            'desc' => $list->get('desc'),
+            'owner' => $list->get('owner'),
+            'id' => $list->getName(),
+            'count' => $tasks->count(),
+            'smart' => $list->get('issmart'),
+            'overdue' => $tasks->childrenOverdue());
+
+        return $hash;
     }
 
 }
