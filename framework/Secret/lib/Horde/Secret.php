@@ -140,7 +140,7 @@ class Horde_Secret
                 $key = $_COOKIE[$keyname . '_key'];
                 $set = false;
             } else {
-                $key = $_COOKIE[$keyname . '_key'] = uniqid(mt_rand());
+                $key = $_COOKIE[$keyname . '_key'] = strval(new Horde_Support_Randomid());
             }
         } else {
             $key = session_id();
