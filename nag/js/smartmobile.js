@@ -102,6 +102,7 @@ var NagMobile = {
         $("#task_priority").val(task.pr);
         $("#task_completed").prop("checked", task.cp).checkboxradio("refresh");
         $("#task_estimate").val(task.e);
+        $("#task_id").val(task.id);
     },
 
     toLists: function(d)
