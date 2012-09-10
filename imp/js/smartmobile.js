@@ -238,11 +238,33 @@ var ImpMobile = {
      */
     beforeShow: function(e, data)
     {
+        var tmp;
+
         switch (HordeMobile.currentPage()) {
         case 'copymove':
             $('#imp-copymove')[0].reset();
             $('#imp-copymove-action,#imp-copymove-list').selectmenu('refresh', true);
+            $('#imp-copymove-action').selectmenu(ImpMobile.cache[ImpMobile.mailbox].readonly ? 'disable' : 'enable');
             $('#imp-copymove-newdiv').hide();
+            break;
+
+        case 'message':
+            $('#imp-message-more').show().siblings(':jqmData(more)').hide();
+
+            tmp = $('#message .smartmobile-back');
+            if (ImpMobile.mailbox == IMP.conf.qsearchid) {
+                tmp.attr('href', HordeMobile.createUrl('mailbox', {
+                    mbox: IMP.conf.qsearchid
+                }));
+                tmp.find('.ui-btn-text').text(IMP.text.searchresults);
+            } else {
+                tmp.attr('href', HordeMobile.createUrl('mailbox', {
+                    mbox: ImpMobile.mailbox
+                }));
+                tmp.find('.ui-btn-text').text($('#imp-mailbox-' + ImpMobile.mailbox).text());
+            }
+
+            $.fn[ImpMobile.cache[ImpMobile.mailbox].readonly ? 'hide' : 'show'].call($('#imp-message-delete'));
             break;
         }
     },
@@ -548,7 +570,7 @@ var ImpMobile = {
         var cache = ImpMobile.cache[ImpMobile.mailbox],
             data = ImpMobile.message,
             args = { mbox: data.mbox, uid: data.uid },
-            rownum, tmp;
+            rownum;
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
@@ -600,24 +622,9 @@ var ImpMobile = {
         data.headers.push({ name: IMP.text.subject, value: data.subject });
         ImpMobile.headers = data.headers;
 
-        tmp = $('#message .smartmobile-back');
-        if (ImpMobile.mailbox == IMP.conf.qsearchid) {
-            tmp.attr('href', HordeMobile.createUrl('mailbox', {
-                mbox: IMP.conf.qsearchid
-            }));
-            tmp.find('.ui-btn-text').text(IMP.text.searchresults);
-            ImpMobile.rowid = r.suid;
-        } else {
-            tmp.attr('href', HordeMobile.createUrl('mailbox', {
-                mbox: data.mbox
-            }));
-            tmp.find('.ui-btn-text').text($('#imp-mailbox-' + data.mbox).text());
-            ImpMobile.rowid = data.uid;
-        }
-
-        $.fn[cache.readonly ? 'hide' : 'show'].call($('#imp-message-delete'));
-
-        $('#imp-message-more').show().siblings(':jqmData(more)').hide();
+        ImpMobile.rowid = (ImpMobile.mailbox == IMP.conf.qsearchid)
+            ? r.suid
+            : data.uid;
 
         /* Need to manually set href parameters for dialog links, since there
          * is no way to programatically open one. */
@@ -959,7 +966,6 @@ var ImpMobile = {
 
         HordeMobile.changePage('copymove');
 
-        $('#imp-copymove-action').selectmenu(ImpMobile.cache[ImpMobile.mailbox].readonly ? 'disable' : 'enable');
         $('#imp-copymove-mbox').val(purl.params.mbox);
         $('#imp-copymove-uid').val(purl.params.uid);
     },
