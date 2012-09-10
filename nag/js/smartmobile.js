@@ -142,7 +142,7 @@ var NagMobile = {
         var url = HordeMobile.createUrl('nag-list', { tasklist: l.id }),
             list;
 
-        NagMobile.tasklists[l.id] = l.name;
+        NagMobile.tasklists[l.id] = l;
         list = $('<li>').append(
             $('<a>').attr({ href: url })
                 .addClass('nag-tasklist')
@@ -167,7 +167,7 @@ var NagMobile = {
             NagMobile.listTasksCallback
         );
         $('#nag-list .smartmobile-title')
-            .text(NagMobile.tasklists[params.tasklist]);
+            .text(NagMobile.tasklists[params.tasklist].name);
         NagMobile.currentList = params.tasklist;
         HordeMobile.changePage('nag-list', d);
     },
