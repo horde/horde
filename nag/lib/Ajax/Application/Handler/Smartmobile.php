@@ -30,7 +30,7 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         if (!isset($this->vars->task) || !isset($this->vars->tasklist)) {
             $out->error = 'missing parameters';
         } else {
-            $nag_task = new Nag_Task_Complete();
+            $nag_task = new Nag_CompleteTask();
             $out = (object)$nag_task->result($this->vars->task, $this->vars->tasklist);
         }
 

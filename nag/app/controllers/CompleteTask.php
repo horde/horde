@@ -7,7 +7,7 @@ class Nag_CompleteTask_Controller extends Horde_Controller_Base
          * valid task ID. */
         $requestVars = $request->getRequestVars();
         if (isset($requestVars['task']) && isset($requestVars['tasklist'])) {
-            $nag_task = new Nag_Task_Complete();
+            $nag_task = new Nag_CompleteTask();
             $result = $nag_task->result($requestVars['task'], $requestVars['tasklist']);
         } else {
             $result = array('error' => 'missing parameters');

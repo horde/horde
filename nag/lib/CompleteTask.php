@@ -1,7 +1,7 @@
 <?php
 /**
  */
-class Nag_Task_Complete {
+class Nag_CompleteTask {
 
     /**
      */

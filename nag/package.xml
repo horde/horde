@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-09-10</date>
- <time>12:06:09</time>
+ <time>15:56:07</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -132,9 +132,6 @@
       <file name="TaskAlarms.php" role="horde" />
      </dir> <!-- /lib/Prefs/Special -->
     </dir> <!-- /lib/Prefs -->
-    <dir name="Task">
-     <file name="Complete.php" role="horde" />
-    </dir> <!-- /lib/Task -->
     <dir name="Tasklists">
      <file name="Base.php" role="horde" />
      <file name="Default.php" role="horde" />
@@ -155,6 +152,7 @@
     <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
+    <file name="CompleteTask.php" role="horde" />
     <file name="Driver.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Nag.php" role="horde" />
@@ -743,6 +741,7 @@
    <install as="nag/lib/.htaccess" name="lib/.htaccess" />
    <install as="nag/lib/Api.php" name="lib/Api.php" />
    <install as="nag/lib/Application.php" name="lib/Application.php" />
+   <install as="nag/lib/CompleteTask.php" name="lib/CompleteTask.php" />
    <install as="nag/lib/Driver.php" name="lib/Driver.php" />
    <install as="nag/lib/Exception.php" name="lib/Exception.php" />
    <install as="nag/lib/Nag.php" name="lib/Nag.php" />
@@ -775,7 +774,6 @@
    <install as="nag/lib/Form/Type/NagTags.php" name="lib/Form/Type/NagTags.php" />
    <install as="nag/lib/LoginTasks/Task/PurgeCompleted.php" name="lib/LoginTasks/Task/PurgeCompleted.php" />
    <install as="nag/lib/Prefs/Special/TaskAlarms.php" name="lib/Prefs/Special/TaskAlarms.php" />
-   <install as="nag/lib/Task/Complete.php" name="lib/Task/Complete.php" />
    <install as="nag/lib/Tasklists/Base.php" name="lib/Tasklists/Base.php" />
    <install as="nag/lib/Tasklists/Default.php" name="lib/Tasklists/Default.php" />
    <install as="nag/lib/Tasklists/Kolab.php" name="lib/Tasklists/Kolab.php" />
