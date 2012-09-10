@@ -272,15 +272,20 @@ var NagMobile = {
     handleSubmit: function(e)
     {
         var form = $('#nag-task-form'),
-        data;
+            data = HordeJquery.formToObject(form);
 
-        data = HordeJquery.formToObject(form);
-        console.log(data);
+        data.tasklist = NagMobile.currentList;
+        HordeMobile.doAction('saveTask', data, NagMobile.handleSubmitCallback);
+    },
+
+    handleSubmitCallback: function(r)
+    {
+
     },
 
     handleCancel: function(e)
     {
-
+        HordeMobile.changePage('nag-lists');
     },
 
     onDocumentReady: function()
@@ -301,7 +306,7 @@ var NagMobile = {
         $('#nag-list :jqmData(role="footer")').on('click', NagMobile.prepareFormForNew);
 
         $('#nag-taskform-view a[href^="#task-submit"]').on('click', NagMobile.handleSubmit);
-        $('#nag-taskform-view a[href^="#task-cancle"]').on('click', NagMobile.handleCancel);
+        $('#nag-taskform-view a[href^="#task-cancel"]').on('click', NagMobile.handleCancel);
         NagMobile.tasklists = { undefined: Nag.strings.all };
     }
 

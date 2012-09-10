@@ -95,6 +95,76 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         return $results;
     }
 
+    public function saveTask()
+    {
+        $results = new stdClass();
+        $task = array(
+            'name' => $this->vars->task_title,
+            'desc' => $this->vars->task_desc,
+            'assignee' => $this->vars->task_assignee,
+            'priority' => $this->vars->task_priority,
+            'owner' => $GLOBALS['registry']->getAuth()
+        );
+
+        if ($this->vars->task_private) {
+            $task['private'] = true;
+        }
+
+        if ($this->vars->task_start) {
+            $date = new Horde_Date($this->vars->task_start);
+            $task['start'] = $date->timestamp();
+        }
+
+        if ($this->vars->task_due) {
+            $date = new Horde_Date($this->vars->task_due);
+            $task['due'] = $date->timestamp();
+        }
+
+        if ($this->vars->task_estimate) {
+            $task['estimate'] = $this->vars->task_estimate;
+        }
+
+        if ($this->vars->task_completed) {
+            $task['completed'] = true;
+        }
+
+        if ($this->vars->tasklist) {
+            $tasklist = $this->vars->tasklist;
+        } else {
+            $tasklist = $GLOBALS['prefs']->getValue('default_tasklist');
+        }
+        try {
+            $storage = $GLOBALS['injector']
+                ->getInstance('Nag_Factory_Driver')
+                ->create($tasklist);
+        } catch (Nag_Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
+            return $results;
+        }
+
+        if ($this->vars->task_id) {
+            // Existing task
+            try {
+                $existing_task = $storage->get($this->vars->task_id);
+                $existing_task->merge($task);
+                $existing_task->save();
+                $results->task = $existing_task->toJson();
+            } catch (Nag_Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
+                return $results;
+            }
+        } else {
+            try {
+                $ids = $storage->add($task);
+                $results->task = $storage->get($ids[0])->toJson();
+            } catch (Nag_Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
+            }
+        }
+
+        return $results;
+    }
+
     public function getTask()
     {
         $out = new StdClass;
