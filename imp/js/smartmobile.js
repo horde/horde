@@ -270,6 +270,17 @@ var ImpMobile = {
     },
 
     /**
+     */
+    pageHide: function(e, data)
+    {
+        switch ($(e.target).attr('id')) {
+        case 'compose':
+            $('#imp-compose-cache').val('');
+            break;
+        }
+    },
+
+    /**
      * Switches to the mailbox view and loads a mailbox.
      *
      * @param object data  Page change data object.
@@ -1202,6 +1213,7 @@ var ImpMobile = {
     {
         $(document).bind('pagebeforechange', ImpMobile.toPage);
         $(document).bind('pagebeforeshow', ImpMobile.beforeShow);
+        $(document).bind('pagehide', ImpMobile.pageHide);
         $(document).bind('HordeMobile:runTasks', ImpMobile.runTasks);
 
         $('#imp-mailbox-list').swipeButton()
@@ -1217,10 +1229,6 @@ var ImpMobile = {
         $('#imp-message-atc').on('expand', ImpMobile.showAttachments);
 
         if (!IMP.conf.disable_compose) {
-            $('#compose').live('pagehide', function() {
-                $('#imp-compose-cache').val('');
-            });
-
             $('#imp-compose-to').autocomplete({
                 callback: function(e) {
                     $('#imp-compose-to').val($(e.currentTarget).text())
