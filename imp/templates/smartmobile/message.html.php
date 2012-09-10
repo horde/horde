@@ -23,7 +23,7 @@
 <?php if ($this->canCompose): ?>
   <a href="#message-reply" data-icon="back"><?php echo _("Reply") ?></a>
 <?php endif; ?>
-  <a href="#message-more" id="imp-message-more" data-icon="gear"><?php echo _("More...") ?></a>
+  <a href="#message-more" id="imp-message-more"><?php echo _("More...") ?></a>
 <?php if ($this->canCompose): ?>
   <a href="#message-forward" data-more="true" data-icon="forward"><?php echo _("Forward") ?></a>
   <a href="#message-redirect" data-more="true" data-icon="forward"><?php echo _("Redirect") ?></a>
