@@ -108,34 +108,45 @@ var NagMobile = {
 
     getTasklistsCallback: function(r)
     {
-        var list = $('#nag-lists :jqmData(role="listview")');
+        var list = $('#nag-lists :jqmData(role="listview")'),
+            count = 0;
 
         list.empty();
+
+        $.each(r.tasklists, function(i, l) {
+            count = count + l.count;
+            NagMobile.insertTasklist(list, l, false);
+        });
+
         NagMobile.insertTasklist(
             list,
             {
-                'name': Nag.strings.all
-            }
+                'name': Nag.strings.all,
+                'count': count
+            },
+            true
         );
-        $.each(r.tasklists, function(i, l) {
-            NagMobile.insertTasklist(list, l);
-        });
-
         list.listview('refresh');
     },
 
-    insertTasklist: function(el, l)
+    insertTasklist: function(el, l, top)
     {
-        var url = HordeMobile.createUrl('nag-list', { tasklist: l.id });
+        var url = HordeMobile.createUrl('nag-list', { tasklist: l.id }),
+            list;
 
         NagMobile.tasklists[l.id] = l.name;
         list = $('<li>').append(
             $('<a>').attr({ href: url })
                 .addClass('nag-tasklist')
                 .append($('<h3>').text(l.name))
+                .append($('<span>').addClass('ui-li-count').text(l.count))
         );
 
-        el.append(list);
+        if (top) {
+            el.prepend(list);
+        } else {
+            el.append(list);
+        }
     },
 
     toList: function(d)

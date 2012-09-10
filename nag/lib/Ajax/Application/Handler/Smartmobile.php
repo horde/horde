@@ -57,11 +57,13 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
      */
     protected function _listToHash($list)
     {
+        $tasks = Nag::listTasks(array('tasklists' => $list->getName()));
         $hash = array(
             'name' => $list->get('name'),
             'desc' => $list->get('desc'),
             'owner' => $list->get('owner'),
-            'id' => $list->getName());
+            'id' => $list->getName(),
+            'count' => $tasks->count());
 
         return $hash;
     }
