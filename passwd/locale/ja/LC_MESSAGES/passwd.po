@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd H4 (4.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-01 12:55+0100\n"
-"PO-Revision-Date: 2011-11-19 18:09+0900\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"PO-Revision-Date: 2012-08-30 21:11+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: Japanese <LL@li.org>\n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/Driver/Expect.php:30
@@ -44,24 +44,24 @@ msgstr "パスワードを変更できません"
 msgid "Cannot send command to server."
 msgstr "コマンドをサーバに送れませんでした。"
 
-#: index.php:226 templates/index.html.php:84
+#: index.php:224 templates/index.html.php:84
 msgid "Change Password"
 msgstr "パスワード変更"
 
-#: index.php:187
+#: index.php:184
 msgid "Change password for:"
 msgstr "パスワード変更:"
 
-#: index.php:203
+#: index.php:200
 msgid "Change your password"
 msgstr "パスワード変更"
 
-#: index.php:205
+#: index.php:202
 #, php-format
 msgid "Changing password for %s"
 msgstr "%s のパスワードを変更します"
 
-#: index.php:186
+#: index.php:183
 msgid "Confirm new password:"
 msgstr "新しいパスワードの確認："
 
@@ -111,7 +111,7 @@ msgstr "smbpasswd へのデータ送信中エラーです。"
 msgid "Failed to verify old password."
 msgstr "古いパスワードが確認できません。"
 
-#: index.php:147 lib/Driver/Composite.php:100
+#: index.php:144 lib/Driver/Composite.php:100
 #, php-format
 msgid "Failure in changing password for %s: %s"
 msgstr "%s のパスワード変更失敗しました： %s"
@@ -140,11 +140,11 @@ msgstr ""
 "新しいパスワードが正しくありません（短すぎる、許されないパスワード、同じ文字"
 "列等）"
 
-#: index.php:185
+#: index.php:182
 msgid "New password:"
 msgstr "新しいパスワード："
 
-#: lib/Passwd.php:46
+#: lib/Passwd.php:52
 msgid "No backend configured for this host"
 msgstr "このホスト用のバックエンドが設定されていません"
 
@@ -156,7 +156,7 @@ msgstr "バックエンドの設定が backends.php にありません"
 msgid "No prompt returned from server."
 msgstr "サーバからプロンプトが帰ってきません。"
 
-#: index.php:184
+#: index.php:181
 msgid "Old password:"
 msgstr "古いパスワード："
 
@@ -168,7 +168,7 @@ msgstr "Passwd が正しく設定されていません。"
 msgid "Password"
 msgstr "パスワード"
 
-#: index.php:134
+#: index.php:131
 #, php-format
 msgid "Password changed on %s."
 msgstr "%s のパスワードを変更しました。"
@@ -185,19 +185,19 @@ msgstr "パスワードモジュールは要求されたパラメータを見つ
 msgid "Password module is missing target parameter."
 msgstr "パスワードモジュールは目的のパラメータを見つけられません。"
 
-#: index.php:115
+#: index.php:112
 msgid "Password module is not properly configured"
 msgstr "パスワードモジュールが正しく設定されていません"
 
-#: index.php:220
+#: index.php:217
 msgid "Please provide a new password"
 msgstr "新しいパスワードを入力して下さい"
 
-#: index.php:219
+#: index.php:216
 msgid "Please provide your current password"
 msgstr "現在のパスワードを入力して下さい"
 
-#: index.php:221
+#: index.php:218
 msgid "Please verify your new password"
 msgstr "新しいパスワードを確認して下さい"
 
@@ -253,32 +253,32 @@ msgstr "ユーザが見付かりません"
 msgid "User not found."
 msgstr "ユーザが見付かりません"
 
-#: index.php:183
+#: index.php:180
 msgid "Username:"
 msgstr "ユーザ名："
 
-#: index.php:58
+#: index.php:55
 #, php-format
 msgid "You can't change password for user %s"
 msgstr "あなたはユーザ %s のパスワードは変更できません"
 
-#: index.php:66
+#: index.php:63
 msgid "You must give your current password"
 msgstr "古いパスワードを指定して下さい"
 
-#: index.php:75
+#: index.php:72
 msgid "You must give your new password"
 msgstr "新しいパスワードを指定して下さい"
 
-#: index.php:79
+#: index.php:76
 msgid "You must verify your new password"
 msgstr "新しいパスワードを確認して下さい"
 
-#: index.php:87
+#: index.php:84
 msgid "Your new password must be different from your current password"
 msgstr "新しいパスワードは古いパスワードとは違うものにして下さい"
 
-#: index.php:83
+#: index.php:80
 msgid "Your new passwords didn't match"
 msgstr "新しいパスワードが一致しません"
 
@@ -286,7 +286,7 @@ msgstr "新しいパスワードが一致しません"
 msgid "Your password could not be changed."
 msgstr "あなたのパスワードは変更できませんでした。"
 
-#: index.php:222
+#: index.php:219
 msgid "Your passwords do not match"
 msgstr "パスワードが一致しません"
 

@@ -7,26 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Timeobjects (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
-"PO-Revision-Date: 2011-11-22 18:30+0900\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-07-21 13:24+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: lib/Driver/Weather.php:145
-#, php-format
-msgid ""
-"\n"
-"%s"
-msgstr ""
-"\n"
-"%s"
-
-#: lib/Driver/Weather.php:119
+#: lib/Driver/Weather.php:116
 #, php-format
 msgid ""
 "Conditions: %s\n"
@@ -37,7 +28,7 @@ msgstr ""
 "最高気温: %d%s\n"
 "降水: %s\n"
 
-#: lib/Driver/Weather.php:107
+#: lib/Driver/Weather.php:104
 #, php-format
 msgid ""
 "Conditions: %s\n"
@@ -52,20 +43,20 @@ msgstr ""
 "湿度: %d%%\n"
 "風: From the %s at %d%s"
 
-#: lib/Api.php:46
+#: lib/Api.php:34
 msgid "Facebook Events"
 msgstr "Facebook イベント"
 
-#: lib/Driver/Weather.php:134
+#: lib/Driver/Weather.php:131
 #, php-format
 msgid "Location: %s"
 msgstr "場所: %s"
 
-#: lib/Driver/Weather.php:103
+#: lib/Driver/Weather.php:100
 msgid "N/A"
 msgstr "N/A"
 
-#: lib/Driver/Weather.php:139
+#: lib/Driver/Weather.php:136
 #, php-format
 msgid ""
 "Sunrise: %s\n"
@@ -74,6 +65,6 @@ msgstr ""
 "日出: %s\n"
 "日没: %s\n"
 
-#: lib/Api.php:38
+#: lib/Api.php:33
 msgid "Weather"
 msgstr "天気"

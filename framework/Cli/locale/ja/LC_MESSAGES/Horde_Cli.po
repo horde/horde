@@ -7,25 +7,35 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Cli\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-11-19 17:53+0900\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
+"PO-Revision-Date: 2012-09-02 11:52+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: lib/Horde/Cli.php:368
+#: lib/Horde/Cli.php:331
+#, php-format
+msgid " on line %d"
+msgstr "オンライン %d"
+
+#: lib/Horde/Cli.php:386
 #, php-format
 msgid "\"%s\" is not a valid choice."
 msgstr "\"%s\" は正しい選択ではありません。"
 
-#: lib/Horde/Cli.php:323
+#: lib/Horde/Cli.php:338
 msgid "Fatal Error:"
 msgstr "致命的エラー："
 
-#: lib/Horde/Cli.php:353
+#: lib/Horde/Cli.php:328
+#, php-format
+msgid "In %s"
+msgstr "In %s"
+
+#: lib/Horde/Cli.php:371
 msgid "Type your choice"
 msgstr "選択して下さい"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Kolab_Cli\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-11-21 18:18+0100\n"
-"PO-Revision-Date: 2011-11-22 18:55+0900\n"
+"PO-Revision-Date: 2012-09-08 11:45+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -151,6 +151,10 @@ msgid ""
 "roundcube drivers you may also set this to a filename and the output will be "
 "directed there."
 msgstr ""
+"IMAPのデバグログを有効にする。IMAP通信の全てが記録されます - 注意：\"php\" ド"
+"ライバーはこの機能をサポートしません。\"STDOUT\"  ドライバーでは記録が画面に"
+"表されます。Horde では horde-php か roundcube ドライバーを使用すれば記録の出"
+"力先が指定できます。"
 
 #: lib/Horde/Kolab/Cli/Module/Base.php:132
 msgid "Deactivate caching of the IMAP data."
@@ -161,18 +165,20 @@ msgid ""
 "Path to the configuration file. Comman line parameters overwrite values from "
 "the configuration file."
 msgstr ""
+"設定ファイルのパスです。コマンド行パラメータは設定ファイルの値を上書きしま"
+"す。"
 
 #: lib/Horde/Kolab/Cli/Module/Base.php:116
 msgid ""
 "Produce time measurements to indicate how long the processing takes. You "
 "*must* activate logging for this as well."
-msgstr ""
+msgstr "処理に要した時間を計測します。できるだけ記録するようにするべきです。"
 
 #: lib/Horde/Kolab/Cli/Module/Base.php:124
 msgid ""
 "Report memory consumption statistics. You *must* activate logging for this "
 "as well."
-msgstr ""
+msgstr "メモリの使用状況です。できるだけ記録するようにするべきです。"
 
 #: lib/Horde/Kolab/Cli/Module/Base.php:108
 msgid "Sets the connection type. Use either \"tls\" or \"ssl\" here."
@@ -204,19 +210,19 @@ msgstr ""
 
 #: lib/Horde/Kolab/Cli/Module/Base.php:92
 msgid "The host that holds the data."
-msgstr ""
+msgstr "データを保持しているホストです。"
 
 #: lib/Horde/Kolab/Cli/Module/Base.php:84
 msgid "The password of the user accessing the backend."
-msgstr ""
+msgstr "ユーザがバックエンドへのアクセスに使用するパスワードです。"
 
 #: lib/Horde/Kolab/Cli/Module/Base.php:100
 msgid "The port that should be used to connect to the host."
-msgstr ""
+msgstr "ホストへの接続に使用すべきポートです。"
 
 #: lib/Horde/Kolab/Cli/Module/Base.php:76
 msgid "The user accessing the backend."
-msgstr ""
+msgstr "ユーザはバックエンドにアクセスしています。"
 
 #: lib/Horde/Kolab/Cli/Module/Base.php:140
 msgid ""

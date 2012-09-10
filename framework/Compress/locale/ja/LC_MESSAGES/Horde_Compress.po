@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
-"PO-Revision-Date: 2011-11-19 17:53+0900\n"
+"POT-Creation-Date: 2012-05-01 14:03+0200\n"
+"PO-Revision-Date: 2012-09-01 18:00+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/Horde/Compress/Rar.php:57 lib/Horde/Compress/Rar.php:66
@@ -22,8 +22,8 @@ msgstr ""
 msgid "Invalid RAR data."
 msgstr "不正な RAR データです。"
 
-#: lib/Horde/Compress/Zip.php:202 lib/Horde/Compress/Zip.php:229
-#: lib/Horde/Compress/Zip.php:249
+#: lib/Horde/Compress/Zip.php:202 lib/Horde/Compress/Zip.php:207
+#: lib/Horde/Compress/Zip.php:234 lib/Horde/Compress/Zip.php:254
 msgid "Invalid ZIP data"
 msgstr "無効な Zip データです"
 
