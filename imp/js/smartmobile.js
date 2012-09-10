@@ -98,6 +98,11 @@ var ImpMobile = {
             e.preventDefault();
             break;
 
+        case 'copymove-new-submit':
+            ImpMobile.copymoveSelected(e);
+            e.preventDefault();
+            break;
+
         case 'folders-refresh':
             // TODO: Bug(?)
             $('#folders :jqmData(role=footer) a[href$="refresh"]').removeClass($.mobile.activeBtnClass).blur();
@@ -1217,7 +1222,6 @@ var ImpMobile = {
 
         if (IMP.conf.allow_folders) {
             $('#imp-copymove-list').on('change', ImpMobile.copymoveSelected);
-            $('#imp-copymove-new-submit').on('click', ImpMobile.copymoveSelected);
             $('#copymove').on('pagebeforeshow', function() {
                 $('#imp-copymove')[0].reset();
                 $('#imp-copymove-action,#imp-copymove-list').selectmenu('refresh', true);
