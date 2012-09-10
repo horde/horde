@@ -9,3 +9,9 @@
     color: #aaa !important;
     text-decoration: line-through !important;
 }
+
+#nag-notasks {
+    font-style: italic;
+    color: #888;
+    text-align: center;
+}

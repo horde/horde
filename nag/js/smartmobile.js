@@ -190,11 +190,18 @@ var NagMobile = {
 
     buildTaskList: function()
     {
-        var list = $('#nag-list :jqmData(role="listview")');
+        var list = $('#nag-list :jqmData(role="listview")'),
+            count = 0;
         list.empty();
         $.each(NagMobile.tasks, function (i, t) {
+            count++;
             NagMobile.insertTask(list, t);
         });
+        if (count > 0) {
+            $('#nag-notasks').hide();
+        } else {
+            $('#nag-notasks').show();
+        }
         list.listview('refresh');
     },
 
