@@ -1026,9 +1026,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                $recipients->add($headers->getOb($header));
             }
             $h_array = $headers->toArray();
-            if (!empty($h_array['bcc'])) {
-                $recipients->add($headers->getOb('bcc'));
-                unset($h_array['bcc']);
+            if (!empty($h_array['Bcc'])) {
+                $recipients->add($headers->getOb('Bcc'));
+                unset($h_array['Bcc']);
             }
             if (is_array($h_array['From'])) {
                 $h_array['From'] = current($h_array['From']);
