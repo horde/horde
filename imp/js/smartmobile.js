@@ -235,6 +235,19 @@ var ImpMobile = {
     },
 
     /**
+     */
+    beforeShow: function(e, data)
+    {
+        switch (HordeMobile.currentPage()) {
+        case 'copymove':
+            $('#imp-copymove')[0].reset();
+            $('#imp-copymove-action,#imp-copymove-list').selectmenu('refresh', true);
+            $('#imp-copymove-newdiv').hide();
+            break;
+        }
+    },
+
+    /**
      * Switches to the mailbox view and loads a mailbox.
      *
      * @param object data  Page change data object.
@@ -1188,6 +1201,7 @@ var ImpMobile = {
     onDocumentReady: function()
     {
         $(document).bind('pagebeforechange', ImpMobile.toPage);
+        $(document).bind('pagebeforeshow', ImpMobile.beforeShow);
         $(document).bind('HordeMobile:runTasks', ImpMobile.runTasks);
 
         $('#imp-mailbox-list').swipeButton()
@@ -1222,11 +1236,6 @@ var ImpMobile = {
 
         if (IMP.conf.allow_folders) {
             $('#imp-copymove-list').on('change', ImpMobile.copymoveSelected);
-            $('#copymove').on('pagebeforeshow', function() {
-                $('#imp-copymove')[0].reset();
-                $('#imp-copymove-action,#imp-copymove-list').selectmenu('refresh', true);
-                $('#imp-copymove-newdiv').hide();
-            });
         }
     }
 
