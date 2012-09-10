@@ -506,6 +506,8 @@ class Nag_Task
      */
     public function toggleComplete()
     {
+        $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
+
         if ($this->completed) {
             $this->completed_date = null;
             $this->completed = false;
@@ -520,8 +522,14 @@ class Nag_Task
                         substr($completion, 6, 2));
                 }
             }
+            $alarm = $this->toAlarm();
+            if ($alarm) {
+                $horde_alarm->set($alarm);
+            }
             return;
         }
+
+        $horde_alarm->delete($this->uid);
 
         if ($this->recurs()) {
             /* Get current occurrence (task due date) */
@@ -536,8 +544,13 @@ class Nag_Task
                 $current->mday++;
                 /* Only mark this due date completed if there is another
                  * occurence. */
-                if ($this->recurrence->nextActiveRecurrence($current)) {
+                if ($next = $this->recurrence->nextActiveRecurrence($current)) {
                     $this->completed = false;
+                    $alarm = $this->toAlarm();
+                    if ($alarm) {
+                        $alarm['start'] = new Horde_Date($next);
+                        $horde_alarm->set($alarm);
+                    }
                     return;
                 }
             }
