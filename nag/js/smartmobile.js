@@ -168,9 +168,14 @@ var NagMobile = {
         var params = {
             task_id: t.id,
             tasklist: t.l
-        };
+        }, task_due = Date.parse(t.dd),
+        task_overdue,
+        liclass;
 
-        l.append($('<li>').addClass(t.cp ? 'closed' : '').jqmData('icon', t.cp ? 'check' : 'nag-unchecked')
+        task_overdue = task_due ? (task_due.compareTo(new Date()) < 0 ? true : false) : false;
+        console.log(task_overdue);
+        liclass = t.cp ? 'closed' : (task_overdue ? 'overdue' : '');
+        l.append($('<li>').addClass(liclass).jqmData('icon', t.cp ? 'check' : 'nag-unchecked')
             .append(
                 $('<a>').attr({
                     href: HordeMobile.createUrl('nag-task-view', params)

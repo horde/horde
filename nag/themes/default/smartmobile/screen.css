@@ -1,8 +1,8 @@
 .ui-icon-nag-unchecked {
     background-image: none;
 }
-.overdue {
-    color: #f00;
+.overdue a {
+    color: #f00 !important;
 }
 
 .closed a {
