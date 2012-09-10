@@ -464,19 +464,18 @@ var ImpMobile = {
             ImpMobile.mailbox = purl.params.view;
         }
 
+        HordeMobile.changePage('message', data);
+
         // Page is cached.
         if (ImpMobile.uid == purl.params.uid &&
             ImpMobile.uid_mbox == purl.params.view) {
             document.title = $('#message .smartmobile-title').text();
-            HordeMobile.changePage('message', data);
             return;
         }
 
         $('#message').children().not('.ui-header').hide();
         $('#message .smartmobile-title').text('');
         document.title = '';
-
-        HordeMobile.changePage('message', data);
 
         HordeMobile.doAction(
             'smartmobileShowMessage',
@@ -848,14 +847,13 @@ var ImpMobile = {
                 ? $('#imp-compose-identity').val()
                 : r.identity;
 
-            $('#imp-compose-identity').val(id);
+            $('#imp-compose-identity,#imp-compose-last-identity').val(id);
             // The first selectmenu() call is necessary to actually create the
             // selectmenu if the compose window is opened for the first time,
             // the second call to update the menu in case the selected index
             // changed.
-            $('#imp-compose-identity').selectmenu();
-            $('#imp-compose-identity').selectmenu('refresh', true);
-            $('#imp-compose-last-identity').val(id);
+            $('#imp-compose-identity').selectmenu()
+                .selectmenu('refresh', true);
 
             $('#imp-compose-to').val(r.header.to);
             $('#imp-compose-subject').val(r.header.subject);
@@ -1223,9 +1221,8 @@ var ImpMobile = {
 
             $('#imp-compose-to').autocomplete({
                 callback: function(e) {
-                    var a = $(e.currentTarget);
-                    $('#imp-compose-to').val(a.text());
-                    $('#imp-compose-to').autocomplete('clear');
+                    $('#imp-compose-to').val($(e.currentTarget).text())
+                        .autocomplete('clear');
                 },
                 link: '#',
                 minLength: 3,
