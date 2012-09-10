@@ -174,14 +174,20 @@ var NagMobile = {
 
     listTasksCallback: function(r)
     {
-        var list = $('#nag-list :jqmData(role="listview")');
-
-        list.empty();
         NagMobile.tasks = {};
         $.each(r.tasks, function(i, t) {
+            NagMobile.tasks[t.id] = t;
+        });
+        NagMobile.buildTaskList();
+    },
+
+    buildTaskList: function()
+    {
+        var list = $('#nag-list :jqmData(role="listview")');
+        list.empty();
+        $.each(NagMobile.tasks, function (i, t) {
             NagMobile.insertTask(list, t);
         });
-
         list.listview('refresh');
     },
 
@@ -194,8 +200,6 @@ var NagMobile = {
             task_id: t.id,
             tasklist: t.l
         }, item;
-
-        NagMobile.tasks[t.id] = t;
 
         item = $('<li>').jqmData('icon', t.cp ? 'check' : 'nag-unchecked')
             .append(
@@ -285,7 +289,9 @@ var NagMobile = {
 
     handleSubmitCallback: function(r)
     {
-
+        NagMobile.tasks[r.task.id] = r.task;
+        NagMobile.buildTaskList();
+        HordeMobile.changePage('nag-list');
     },
 
     handleCancel: function(e)

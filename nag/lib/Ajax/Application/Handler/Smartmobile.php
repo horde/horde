@@ -159,9 +159,11 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
                 $results->task = $storage->get($ids[0])->toJson();
             } catch (Nag_Exception $e) {
                 $GLOBALS['notification']->push($e, 'horde.error');
+                return $results;
             }
         }
 
+        $GLOBALS['notification']->push(sprintf(_("Saved %s"), $task['name']), 'horde.success');
         return $results;
     }
 
