@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix issue saving sent mail from ActiveSync (Bug #11410).
 * [mms] Added Horde_Core_Smartmobile_Url class.
 * [jan] Make Horde::widget() take a single hash parameter.
 * [mms] Allow application API interface to dynamically alter properties (Bug #11388).
@@ -2479,6 +2480,7 @@
    <date>2012-09-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix issue saving sent mail from ActiveSync (Bug #11410).
 * [mms] Added Horde_Core_Smartmobile_Url class.
 * [jan] Make Horde::widget() take a single hash parameter.
 * [mms] Allow application API interface to dynamically alter properties (Bug #11388).
