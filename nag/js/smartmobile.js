@@ -92,8 +92,13 @@ var NagMobile = {
         $("#task_assignee").val(task.as);
         $("task_private").prop("checked", task.pr).checkboxradio("refresh");
         // @TODO: Style differently if overdue?
-        $("#task_due").val(Date.parse(task.dd).toString('yyyy-MM-dd'));
-        $("#task_start").val(task.s);
+        if (task.dd) {
+            $("#task_due").val(Date.parse(task.dd).toString('yyyy-MM-dd'));
+        }
+
+        if (task.s) {
+            $("#task_start").val(Date.parse(task.s).toString('yyyy-MM-dd'));
+        }
         $("#task_priority").val(task.pr);
         $("#task_completed").prop("checked", task.cp).checkboxradio("refresh");
         $("#task_estimate").val(task.e);
