@@ -1220,9 +1220,9 @@ var ImpMobile = {
             .on('swipebutton', 'li', ImpMobile.swipeButtons);
 
         $('#message').on('swipeleft', function() {
-            $.mobile.changePage('message-next');
+            $.mobile.changePage('#message-next');
         }).on('swiperight', function() {
-            $.mobile.changePage('message-prev');
+            $.mobile.changePage('#message-prev');
         });
 
         $('#imp-message-headers').on('expand', ImpMobile.fullHeaders);
