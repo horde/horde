@@ -1034,6 +1034,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $h_array['From'] = current($h_array['From']);
             }
             try {
+                // Need the message if we are saving to sent.
+                if ($save) {
+                    $copy = $raw_message->getMimeObject();
+                }
                 $mailer->send($recipients->writeAddress(), $h_array, $raw_message->getMessage());
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
@@ -1119,19 +1123,22 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             try {
                 $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+                if ($save) {
+                    $copy = $mail->getBasePart();
+                }
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_Exception($e);
             }
+        }
 
-            if ($save) {
-                $sf = $this->getSpecialFolderNameByType(self::SPECIAL_SENT);
-                if (!empty($sf)) {
-                    $this->_logger->debug(sprintf("Preparing to copy to '%s'", $sf));
-                    $flags = array(Horde_Imap_Client::FLAG_SEEN);
-                    $msg = $message->toString(array('headers' => $headers));
-                    $this->_imap->appendMessage($sf, $msg, $flags);
-                }
+        if ($save) {
+            $sf = $this->getSpecialFolderNameByType(self::SPECIAL_SENT);
+            if (!empty($sf)) {
+                $this->_logger->debug(sprintf("Preparing to copy to '%s'", $sf));
+                $flags = array(Horde_Imap_Client::FLAG_SEEN);
+                $msg = $copy->toString(array('headers' => $headers));
+                $this->_imap->appendMessage($sf, $msg, $flags);
             }
         }
 
