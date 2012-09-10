@@ -1,4 +1,4 @@
-<div data-role="page" id="nag-task-view">
+<div data-role="page" id="nag-task-form">
    <?php echo $this->smartmobileHeader(array('backlink' => true, 'logout' => true, 'title' => _("My Tasks"))) ?>
   <div data-role="content">
     <form id='nag-task-form' name='nag-task-form'>

@@ -6,7 +6,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Nag
@@ -66,7 +66,7 @@ var NagMobile = {
     getTask: function(d)
     {
         var parsed = d.options.parsedUrl;
-        HordeMobile.changePage('nag-task-view', d);
+        HordeMobile.changePage('nag-task-form', d);
 
         HordeMobile.doAction(
             'getTask',
@@ -191,7 +191,7 @@ var NagMobile = {
         item = $('<li>').jqmData('icon', t.cp ? 'check' : 'nag-unchecked')
             .append(
                 $('<a>').attr({
-                    href: HordeMobile.createUrl('nag-task-view', params)
+                    href: HordeMobile.createUrl('nag-task-form', params)
                 }).addClass('nag-task')
                 .append(
                     $('<h3>').text(t.n)
@@ -219,7 +219,7 @@ var NagMobile = {
             e.preventDefault();
             break;
 
-        case 'nag-task-view':
+        case 'nag-task-form':
             NagMobile.getTask(data);
             e.preventDefault();
             break;
