@@ -59,6 +59,7 @@
       <div data-role="footer" class="ui-bar" data-position="fixed">
         <a href="#task-submit"><?php echo _("Save Task") ?></a>
         <a href="#task-cancel"><?php echo _("Cancel") ?></a>
+        <a href="#task-delete"><?php echo _("Delete") ?></a>
        </div>
     </form>
   </div>

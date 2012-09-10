@@ -76,6 +76,29 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         return $results;
     }
 
+    public function deleteTask()
+    {
+        if (!$this->vars->task_id) {
+            $GLOBALS['notification']->push(_("Missing required task id"), 'horde.error');
+            return;
+        }
+
+        $results = new stdClass();
+        $storage = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Driver')
+            ->create();
+        $task = $storage->get($this->vars->task_id);
+        $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
+        if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
+            $GLOBALS['notification']->push(_("You are not allowed to delete this task."), 'horde.error');
+            return;
+        }
+        $storage->delete($this->vars->task_id);
+        $GLOBALS['notification']->push(_("Successfully deleted"), 'horde.success');
+        $results->deleted = $this->vars->task_id;
+        return $results;
+    }
+
     public function saveTask()
     {
         $results = new stdClass();
