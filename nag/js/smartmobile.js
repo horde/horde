@@ -179,6 +179,11 @@ var NagMobile = {
             NagMobile.tasks[t.id] = t;
         });
         NagMobile.buildTaskList();
+        if (NagMobile.tasklists[NagMobile.currentList].smart == 1) {
+            $('#nag-list :jqmData(role="footer") a[href^="#nag-taskform-view"]').hide();
+        } else {
+            $('#nag-list :jqmData(role="footer") a[href^="#nag-taskform-view"]').show();
+        }
     },
 
     buildTaskList: function()
