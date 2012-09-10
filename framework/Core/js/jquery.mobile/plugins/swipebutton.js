@@ -32,18 +32,22 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-(function($){
+(function($, undefined) {
 
-    $.fn.swipeButton = function(o) {
+$.widget('mobile.swipebutton', $.mobile.widget, {
 
-        o = $.extend({}, $.fn.swipeButton.defaults, o);
+    options: {
+        action: 'swiperight'
+    },
 
+    _create: function()
+    {
         var buttonDiv = 'divSwipe',
             removeButtonDiv = function(d) {
                 d.hide(200, function() { d.remove(); });
             };
 
-        this.on('click', 'li', function(e) {
+        this.element.on('click', 'li', function(e) {
             var $li = $(e.currentTarget),
                 div = $li.children('.' + buttonDiv),
                 a = $(e.target).closest('a');
@@ -56,7 +60,7 @@
             }
         });
 
-        return this.on(o.action, 'li', function(e) {
+        this.element.on(this.options.action, 'li', function(e) {
             var div, h,
                 ob = { buttons: [] },
                 $li = $(e.currentTarget),
@@ -96,10 +100,8 @@
 
             return false;
         });
-    };
+    }
 
-    $.fn.swipeButton.defaults = {
-        action: 'swiperight'
-    };
+});
 
-}(jQuery));
+})(jQuery);

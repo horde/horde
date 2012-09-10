@@ -1212,7 +1212,7 @@ var ImpMobile = {
         $(document).bind('pagechange', ImpMobile.pageShow);
         $(document).bind('HordeMobile:runTasks', ImpMobile.runTasks);
 
-        $('#imp-mailbox-list').swipeButton()
+        $('#imp-mailbox-list').swipebutton()
             .on('swipebutton', 'li', ImpMobile.swipeButtons);
 
         $('#message').on('swipeleft', function() {
