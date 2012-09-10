@@ -2433,28 +2433,28 @@ class Horde_Registry
      */
     public function checkExistingAuth($app = 'horde')
     {
-        global $session;
+        global $browser, $conf, $injector, $session;
 
-        $auth = $GLOBALS['injector']
+        $auth = $injector
             ->getInstance('Horde_Core_Factory_Auth')
             ->create();
 
-        if (!empty($GLOBALS['conf']['auth']['checkip']) &&
+        if (!empty($conf['auth']['checkip']) &&
             ($remoteaddr = $session->get('horde', 'auth/remoteAddr')) &&
             ($remoteaddr != $_SERVER['REMOTE_ADDR'])) {
             $auth->setError(Horde_Core_Auth_Application::REASON_SESSIONIP);
             return false;
         }
 
-        if (!empty($GLOBALS['conf']['auth']['checkbrowser']) &&
-            ($session->get('horde', 'auth/browser') != $GLOBALS['browser']->getAgentString())) {
+        if (!empty($conf['auth']['checkbrowser']) &&
+            ($session->get('horde', 'auth/browser') != $browser->getAgentString())) {
             $auth->setError(Horde_Core_Auth_Application::REASON_BROWSER);
             return false;
         }
 
         if ($auth->validateAuth()) {
             if ($app != 'horde') {
-                $auth = $GLOBALS['injector']
+                $auth = $injector
                     ->getInstance('Horde_Core_Factory_Auth')
                     ->create($app);
                 if (!$auth->validateAuth()) {
