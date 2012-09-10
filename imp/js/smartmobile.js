@@ -1227,8 +1227,7 @@ var ImpMobile = {
         if (!IMP.conf.disable_compose) {
             $('#imp-compose-to').autocomplete({
                 callback: function(e) {
-                    $('#imp-compose-to').val($(e.currentTarget).text())
-                        .autocomplete('clear');
+                    $('#imp-compose-to').val($(e.currentTarget).text());
                 },
                 link: '#',
                 minLength: 3,
