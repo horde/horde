@@ -440,6 +440,28 @@ class Nag_Task
     }
 
     /**
+     * Returns whether any tasks in the list are overdue.
+     *
+     * @return boolean  True if any task or sub tasks are overdue.
+     */
+    public function childrenOverdue()
+    {
+        if (!empty($this->due)) {
+            $due = new Horde_Date($this->due);
+            if ($due->compareDate(new Horde_Date(time())) <= 0) {
+                return true;
+            }
+        }
+        foreach ($this->children as $task) {
+            if ($task->childrenOverdue()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Returns the number of tasks including this and any sub tasks.
      *
      * @return integer  The number of tasks and sub tasks.

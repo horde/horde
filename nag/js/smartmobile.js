@@ -139,7 +139,7 @@ var NagMobile = {
             $('<a>').attr({ href: url })
                 .addClass('nag-tasklist')
                 .append($('<h3>').text(l.name))
-                .append($('<span>').addClass('ui-li-count').text(l.count))
+                .append($('<span>').addClass('ui-li-count' + (l.overdue ? ' overdue' : '')).text(l.count))
         );
 
         if (top) {
