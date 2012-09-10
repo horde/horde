@@ -112,7 +112,9 @@ class Nag_Smartmobile
                 'showCompleted' => $show_completed,
                 'icons' => array(
                     'completed' => strval(Horde_Themes::img('checked.png')),
-                    'uncompleted' => strval(Horde_Themes::img('unchecked.png'))
+                    'uncompleted' => strval(Horde_Themes::img('unchecked.png')),
+                    'smartlist' => strval(Horde_Themes::img('smart.png')),
+                    'tasklist' => strval(Horde_Themes::img('tasklists.png'))
                 )
             ),
             'strings' => array(

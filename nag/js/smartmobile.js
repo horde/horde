@@ -143,11 +143,11 @@ var NagMobile = {
             list;
 
         NagMobile.tasklists[l.id] = l;
-        list = $('<li>').append(
-            $('<a>').attr({ href: url })
-                .addClass('nag-tasklist')
-                .append($('<h3>').text(l.name))
-                .append($('<span>').addClass('ui-li-count' + (l.overdue ? ' overdue' : '')).text(l.count))
+
+        list = $('<li>').append($('<a>').attr({ href: url }).addClass('nag-tasklist')
+            .append($('<img>').attr({ 'src': Nag.conf.icons[(l.smart ? 'smartlist' : 'tasklist')] }).addClass('ui-li-icon'))
+            .append($('<h3>').text(l.name))
+            .append($('<span>').addClass('ui-li-count' + (l.overdue ? ' overdue' : '')).text(l.count))
         );
 
         if (top) {
