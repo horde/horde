@@ -453,6 +453,23 @@ class Horde_Mime_Mail
         /* Send message. */
         $recipients->unique();
         $basepart->send($recipients->writeAddress(), $this->_headers, $mailer);
+
+        /* Remember the basepart */
+        $this->_base = $basepart;
+    }
+
+    /**
+     * Return the base MIME part.
+     *
+     * @return Horde_Mime_Part
+     */
+    public function getBasePart()
+    {
+        if (empty($this->_base)) {
+            throw new Horde_Mail_Exception('No base part set.');
+        }
+
+        return $this->_base;
     }
 
 }
