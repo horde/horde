@@ -17,6 +17,12 @@ pre, code, .fixed, table.lineNumbered * {
     font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
 }
 
+/* Login page. */
+#login div[data-role="content"] {
+    max-width: 480px;
+    margin: 0 auto;
+}
+
 /* Login tasks. */
 .horde-logintasks-buttons .ui-btn-inner {
     white-space: normal;

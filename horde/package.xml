@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-04</date>
- <time>15:00:30</time>
+ <date>2012-09-10</date>
+ <time>09:03:36</time>
  <version>
   <release>5.0.0beta6</release>
   <api>5.0.0beta1</api>
@@ -189,6 +189,7 @@
     <file name="quickfinder.js" role="horde" />
     <file name="sidebar.js" role="horde" />
     <file name="slider2.js" role="horde" />
+    <file name="smartmobile-login.js" role="horde" />
     <file name="stripe.js" role="horde" />
     <file name="syncmlprefs.js" role="horde" />
     <file name="textarearesize.js" role="horde" />
@@ -199,6 +200,9 @@
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
+     <dir name="Application">
+      <file name="Handler.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Application -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
@@ -2060,6 +2064,7 @@
    <install as="js/quickfinder.js" name="js/quickfinder.js" />
    <install as="js/sidebar.js" name="js/sidebar.js" />
    <install as="js/slider2.js" name="js/slider2.js" />
+   <install as="js/smartmobile-login.js" name="js/smartmobile-login.js" />
    <install as="js/stripe.js" name="js/stripe.js" />
    <install as="js/syncmlprefs.js" name="js/syncmlprefs.js" />
    <install as="js/textarearesize.js" name="js/textarearesize.js" />
@@ -2097,6 +2102,7 @@
    <install as="lib/core.php" name="lib/core.php" />
    <install as="lib/Test.php" name="lib/Test.php" />
    <install as="lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
    <install as="lib/Block/Account.php" name="lib/Block/Account.php" />
    <install as="lib/Block/Cloud.php" name="lib/Block/Cloud.php" />
    <install as="lib/Block/FbStream.php" name="lib/Block/FbStream.php" />
@@ -3680,7 +3686,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-04</date>
+   <date>2012-09-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add configuration option for maximum allowed session times.
