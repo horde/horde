@@ -16,7 +16,6 @@ html, body {
 
 .kronolithSeparator {
     padding-left: 2px;
-    padding-right: 2px;
     color: #808080;
 }
 
@@ -174,14 +173,23 @@ ul.horde-tags li:hover {
 }
 
 .kronolithDialog .tabset {
+    background: none;
     float: none;
+    margin: 15px 0 0;
+    min-height: inherit;
     width: auto;
-    margin: 15px 0;
 }
-.kronolithDialog .tabset ul {
+#RB_window .kronolithDialog .tabset ul {
     float: left;
-    padding-left: 0;
     margin: 0;
+}
+.kronolithDialog .tabset li {
+    margin-top: 0;
+}
+.kronolithDialog .tabset li.activeTab {
+    border: 1px solid #d0d0d0;
+    border-bottom-width: 0;
+    height: 21px;
 }
 .kronolithDialog .tabset .kronolithSeparator {
     float: left;
