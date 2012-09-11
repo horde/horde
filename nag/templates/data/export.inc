@@ -6,7 +6,7 @@
  <?php echo _("Export Tasks") ?>
 </h1>
 
-<div class="headerbox">
+<div class="horde-content">
  <p>
   <?php echo Horde::label('exportID', _("Select the export format:")) ?><br />
   <select id="exportID" name="exportID">
@@ -37,7 +37,9 @@
    <option value="2"><?php echo _("Completed tasks") ?></option>
   </select>
  </p>
+</div>
 
+<div class="horde-form-buttons">
  <input type="submit" value="<?php echo _("Export") ?>" class="horde-default" />
 </div>
 

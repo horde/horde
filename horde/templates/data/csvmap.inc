@@ -53,7 +53,7 @@ function removePair()
 <h1 class="header">
  <?php printf(_("Import, Step %d"), (int)$import_step) ?>
 </h1>
-<div class="item">
+<div class="horde-content">
  <?php echo _("In the lists below select both, a field imported from the source file at the left, and the matching field available in your address book at the right. Then hit \"Add pair\" to mark them for the import. Once your are finished hit \"Next\".") ?><br /><br />
  <div class="leftFloat">
   <?php echo Horde::label('select1', _("Imported fields:")) ?> <br />
@@ -116,7 +116,10 @@ function removePair()
   <option value="<?php echo htmlspecialchars($pair[0]) ?>"><?php echo htmlspecialchars($pair[1]) ?></option>
   <?php endforeach; ?>
  </select><br />
- <input type="button" value="<?php echo _("Remove pair") ?>" onclick="removePair()" /><br /><br />
+ <input type="button" value="<?php echo _("Remove pair") ?>" onclick="removePair()" />
+</div>
+
+<div class="horde-form-buttons">
  <input type="submit" value="<?php echo _("Next") ?>" class="horde-default" />
 </div>
 </form>

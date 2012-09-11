@@ -6,7 +6,7 @@
  <?php echo _("Export Address Book") ?>
 </h1>
 
-<div class="item">
+<div class="horde-content">
  <?php echo Horde::label('exportID', _("Select the export format:")) ?><br />
  <select name="exportID" id="exportID">
   <option value="<?php echo Horde_Data::EXPORT_CSV ?>"><?php echo _("Comma separated values") ?></option>
@@ -38,8 +38,9 @@
 <?php else: ?>
  <input type="hidden" name="source" value="<?php echo htmlspecialchars($unique_source) ?>" />
 <?php endif; ?>
- <br />
+</div>
 
+<div class="horde-form-buttons">
  <input type="submit" value="<?php echo _("Export") ?>" class="horde-default" />
 </div>
 </form>
