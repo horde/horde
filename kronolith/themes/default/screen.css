@@ -259,7 +259,7 @@ div.fbgrid {
 }
 
 body.rightPanel #page {
-    margin-right: 13.5em;
+    /*margin-right: 13.5em;*/
 }
 body #pageControlsInner {
     display: none;
@@ -298,6 +298,7 @@ body.rightPanel ul {
 }
 
 #pageControls {
+    display: none;
     position: absolute;
     top: 0;
     right: 0;
