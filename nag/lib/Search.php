@@ -135,14 +135,13 @@ class Nag_Search implements Serializable
             $pattern = '/' . preg_quote($this->_search, '/') . '/i';
         }
         $search_results = new Nag_Task();
-        $tasks->reset();
-        $results = array();
         if (!empty($this->_tags)) {
             $tagged_tasks = Nag::getTagger()->search(
                 $this->_tags,
                 array('user' => $GLOBALS['registry']->getAuth())
             );
         }
+        $tasks->reset();
         while ($task = $tasks->each()) {
             if (!empty($date)) {
                 if (empty($task->due) || $task->due > $date) {
