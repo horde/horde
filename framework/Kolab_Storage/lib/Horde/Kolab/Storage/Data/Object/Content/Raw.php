@@ -27,6 +27,7 @@
  */
 class Horde_Kolab_Storage_Data_Object_Content_Raw
 extends Horde_Kolab_Storage_Data_Object_Content_Base
+implements Horde_Kolab_Storage_Data_Object_Addable
 {
     /**
      * Raw object content.
@@ -53,7 +54,7 @@ extends Horde_Kolab_Storage_Data_Object_Content_Base
                                 $raw,
                                 $uid)
     {
-        parent::__construct($mime_type);
+        $this->_mime_type = $mime_type;
         $this->_raw = $raw;
         $this->_uid = $uid;
     }

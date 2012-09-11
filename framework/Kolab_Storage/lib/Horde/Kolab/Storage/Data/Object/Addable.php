@@ -1,6 +1,6 @@
 <?php
 /**
- * Generates the core Kolab content.
+ * A new object that can be added to a folder.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Generates the core Kolab content.
+ * A new object that can be added to a folder.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
@@ -25,26 +25,13 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-abstract class Horde_Kolab_Storage_Data_Object_Content
+interface Horde_Kolab_Storage_Data_Object_Addable
+extends Horde_Kolab_Storage_Data_Object_MimeEmbeddable
 {
-    /**
-     * Return the mime type of the object content.
-     *
-     * @return string The MIME type representing the Kolab content.
-     */
-    abstract public function getMimeType();
-
     /**
      * Return the UID of the embedded Kolab object.
      *
      * @return string The UID of the Kolab content.
      */
-    abstract public function getUid();
-
-    /**
-     * Create the Kolab content as a string.
-     *
-     * @return string The Kolab content.
-     */
-    abstract public function toString();
+    public function getUid();
 }

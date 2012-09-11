@@ -37,116 +37,50 @@ extends PHPUnit_Framework_TestCase
 {
     public function testMimeEnvelope()
     {
-        $this->assertInstanceOf(
-            'Horde_Mime_Part', $this->_getMessage()->create()
-        );
+        $this->_getMessage()->store('INBOX');
+        $this->assertContains('MIME-Version: 1.0', $this->driver->messages['INBOX'][0]);
     }
 
     public function testEnvelopeName()
     {
-        $this->assertEquals(
-            'Kolab Groupware Data',
-            $this->_getMessage()->create()->getName()
-        );
+        $this->_getMessage()->store('INBOX');
+        $this->assertContains('Content-Disposition: attachment; filename="Kolab Groupware Data"', $this->driver->messages['INBOX'][0]);
     }
 
     public function testEnvelopeType()
     {
-        $this->assertEquals(
-            'multipart/mixed',
-            $this->_getMessage()->create()->getType()
-        );
-    }
-
-    public function testEnvelopeDescription()
-    {
-        $this->assertInstanceOf(
-            'Horde_Mime_Part',
-            $this->_getMessage()->create()->getPart('1')
-        );
+        $this->_getMessage()->store('INBOX');
+        $this->assertContains('Content-Type: multipart/mixed;', $this->driver->messages['INBOX'][0]);
     }
 
     public function testEnvelopeDescriptionType()
     {
-        $this->assertEquals(
-            'text/plain',
-            $this->_getMessage()->create()->getPart('1')->getType()
-        );
-    }
-
-    public function testEnvelopeDescriptionName()
-    {
-        $this->assertEquals(
-            'Kolab Groupware Information',
-            $this->_getMessage()->create()->getPart('1')->getName()
-        );
-    }
-
-    public function testEnvelopeDescriptionCharset()
-    {
-        $this->assertEquals(
-            'utf-8',
-            $this->_getMessage()->create()->getPart('1')->getCharset()
-        );
+        $this->_getMessage()->store('INBOX');
+        $this->assertContains('Content-Type: text/plain; name="Kolab Groupware Information"; charset=utf-8', $this->driver->messages['INBOX'][0]);
     }
 
     public function testEnvelopeDescriptionDisposition()
     {
-        $this->assertEquals(
-            'inline',
-            $this->_getMessage()->create()->getPart('1')->getDisposition()
-        );
+        $this->_getMessage()->store('INBOX');
+        $this->assertContains('Content-Disposition: inline; filename="Kolab Groupware Information"', $this->driver->messages['INBOX'][0]);
     }
 
     public function testEnvelopeDescriptionContent()
     {
         setlocale(LC_MESSAGES, 'C');
-        $this->assertEquals(
+        $this->_getMessage()->store('INBOX');
+        $this->assertContains(
             "This is a Kolab Groupware object. To view this object you will need an email\r
 client that understands the Kolab Groupware format. For a list of such email\r
 clients please visit http://www.kolab.org/content/kolab-clients",
-            $this->_getMessage()->create()->getPart('1')->getContents()
-        );
-    }
-
-    public function testEnvelopeHeaders()
-    {
-        $this->assertInstanceOf(
-            'Horde_Mime_Headers',
-            $this->_getMessage()->createEnvelopeHeaders('user')
-        );
-    }
-
-    public function testEnvelopeHeaderEol()
-    {
-        $this->assertEquals(
-            "\r\n",
-            $this->_getMessage()->createEnvelopeHeaders('user')->getEol()
-        );
-    }
-
-    public function testEnvelopeHeaderDate()
-    {
-        $this->assertNotEquals(
-            '',
-            $this->_getMessage()->createEnvelopeHeaders('user')->getValue('Date')
+            $this->driver->messages['INBOX'][0]
         );
     }
 
     public function testEnvelopeHeaderAgent()
     {
-        $this->assertEquals(
-            'Horde::Kolab::Storage v' . Horde_Kolab_Storage::VERSION,
-            $this->_getMessage()->createEnvelopeHeaders('user')->getValue('User-Agent')
-        );
-    }
-
-    public function testEnvelopeHeaderMimeVersion()
-    {
-        $this->assertEquals(
-            '1.0',
-            $this->_getMessage()->createEnvelopeHeaders('user')->getValue('MIME-Version')
-        );
+        $this->_getMessage()->store('INBOX');
+        $this->assertContains('User-Agent: Horde::Kolab::Storage v' . Horde_Kolab_Storage::VERSION, $this->driver->messages['INBOX'][0]);
     }
 
     public function testEnvelopeHeaderSubject()
@@ -155,45 +89,36 @@ clients please visit http://www.kolab.org/content/kolab-clients",
         $this->content->expects($this->once())
             ->method('getUid')
             ->will($this->returnValue('UID'));
-        $this->assertEquals(
-            'UID', $message->createEnvelopeHeaders('user')->getValue('Subject')
-        );
+        $message->store('INBOX');
+        $this->assertContains('Subject: UID', $this->driver->messages['INBOX'][0]);
     }
 
     public function testEnvelopeHeaderFrom()
     {
-        $this->assertEquals(
-            'user',
-            $this->_getMessage()->createEnvelopeHeaders('user')->getValue('From')
-        );
+        $this->_getMessage()->store('INBOX');
+        $this->assertContains('From: user', $this->driver->messages['INBOX'][0]);
     }
 
     public function testEnvelopeHeaderTo()
     {
-        $this->assertEquals(
-            'user',
-            $this->_getMessage()->createEnvelopeHeaders('user')->getValue('To')
-        );
+        $this->_getMessage()->store('INBOX');
+        $this->assertContains('To: user', $this->driver->messages['INBOX'][0]);
     }
 
     public function testEnvelopeHeaderType()
     {
         $message = $this->_getMessage();
-        $this->content->expects($this->once())
+        $this->content->expects($this->exactly(2))
             ->method('getMimeType')
             ->will($this->returnValue('application/x-vnd.kolab.note'));
-        $this->assertEquals(
-            'application/x-vnd.kolab.note',
-            $message->createEnvelopeHeaders('user')->getValue('X-Kolab-Type')
-        );
+        $message->store('INBOX');
+        $this->assertContains('X-Kolab-Type: application/x-vnd.kolab.note', $this->driver->messages['INBOX'][0]);
     }
 
     public function testKolabPart()
     {
-        $this->assertEquals(
-            'kolab.xml',
-            $this->_getMessage()->create()->getPart('2')->getName()
-        );
+        $this->_getMessage()->store('INBOX');
+        $this->assertContains('Content-Type: application/octet-stream; name=kolab.xml', $this->driver->messages['INBOX'][0]);
     }
 
     public function testCompleteMessage()
@@ -202,29 +127,37 @@ clients please visit http://www.kolab.org/content/kolab-clients",
         $this->content->expects($this->exactly(2))
             ->method('getMimeType')
             ->will($this->returnValue('application/x-vnd.kolab.note'));
-        $stream = $message->create()->toString(
-            array(
-                'canonical' => true,
-                'stream' => true,
-                'headers' => $message->createEnvelopeHeaders('user@localhost')
-            )
-        );
-        rewind($stream);
+        $message->store('INBOX');
         $this->assertEquals(
             array(
                 0 => 'multipart/mixed',
                 1 => 'text/plain',
                 2 => 'application/x-vnd.kolab.note'
             ),
-            Horde_Mime_Part::parseMessage(stream_get_contents($stream))->contentTypeMap(true)
+            Horde_Mime_Part::parseMessage($this->driver->messages['INBOX'][0])->contentTypeMap(true)
         );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Data_Exception
+     */
+    public function testDriverException()
+    {
+        $content = $this->getMock('Horde_Kolab_Storage_Data_Object_Addable');
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $driver->expects($this->once())
+            ->method('appendMessage')
+            ->will($this->returnValue(false));
+        $message = new Horde_Kolab_Storage_Data_Object_Message_New($content, $driver);
+        $message->store('INBOX');
     }
 
     private function _getMessage()
     {
-        $this->content = $this->getMock('Horde_Kolab_Storage_Data_Object_Content');
+        $this->content = $this->getMock('Horde_Kolab_Storage_Data_Object_Addable');
+        $this->driver = new Horde_Kolab_Storage_Stub_Driver('user');
         return new Horde_Kolab_Storage_Data_Object_Message_New(
-            $this->content
+            $this->content, $this->driver
         );
     }
 }

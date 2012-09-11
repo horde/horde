@@ -36,13 +36,6 @@ extends Horde_Kolab_Storage_Data_Object_Content_Base
     private $_object;
 
     /**
-     * Previous object content.
-     *
-     * @var string
-     */
-    private $_previous;
-
-    /**
      * Kolab format handler.
      *
      * @var Horde_Kolab_Format
@@ -50,37 +43,50 @@ extends Horde_Kolab_Storage_Data_Object_Content_Base
     private $_format;
 
     /**
+     * The contents of the previous Kolab body part.
+     *
+     * @var resource
+     */
+    private $_previous;
+
+    /**
+     * The content mime type.
+     *
+     * @var Horde_Kolab_Storage_Data_Object_MimeType
+     */
+    protected $_mime_type;
+
+    /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Data_Object_MimeType $mime_type The content mime type.
-     * @param array              $object   The object data.
-     * @param string             $previous The previous content.
+     * @param array $object The object data.
      * @param Horde_Kolab_Format $format The Kolab format handler.
      */
-    public function __construct(Horde_Kolab_Storage_Data_Object_MimeType $mime_type,
-                                array $object,
-                                $previous,
+    public function __construct(array $object,
                                 Horde_Kolab_Format $format)
     {
-        parent::__construct($mime_type);
-        $this->_format = $format;
-        $this->_previous = $previous;
         $this->_object = $object;
+        $this->_format = $format;
     }
 
     /**
-     * Return the UID of the embedded Kolab object.
+     * Set the MIME type for the content.
      *
-     * @return string The UID of the Kolab content.
+     * @param Horde_Kolab_Storage_Data_Object_MimeType $mime_type The content mime type.
      */
-    public function getUid()
+    public function setMimeType(Horde_Kolab_Storage_Data_Object_MimeType $mime_type)
     {
-        if (!isset($this->_object['uid'])) {
-            throw new Horde_Kolab_Storage_Data_Exception(
-                'The object is missing a mandatory UID!'
-            );
-        }
-        return $this->_object['uid'];
+        $this->_mime_type = $mime_type;
+    }
+
+    /**
+     * Return the mime type of the object content.
+     *
+     * @return string The MIME type representing the Kolab content.
+     */
+    public function getMimeType()
+    {
+        return $this->_mime_type->getMimeType();
     }
 
     /**
@@ -99,5 +105,15 @@ extends Horde_Kolab_Storage_Data_Object_Content_Base
                 'Failed saving Kolab object!', 0, $e
             );
         }
+    }
+
+    /**
+     * Set the Kolab content of the original message.
+     *
+     * @param resource $previous The previous content.
+     */
+    public function setPreviousBody($previous)
+    {
+        $this->_previous = $previous;
     }
 }

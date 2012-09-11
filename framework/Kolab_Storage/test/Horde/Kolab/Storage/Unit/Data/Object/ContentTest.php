@@ -89,29 +89,25 @@ extends PHPUnit_Framework_TestCase
             ->method('save')
             ->with(array('foo' => 'foo'), array('previous' => '<event/>'))
             ->will($this->returnValue('<event><modified/></event>'));
-        $content = new Horde_Kolab_Storage_Data_Object_Content_Modified($type, array('foo' => 'foo'), '<event/>', $format);
+        $content = new Horde_Kolab_Storage_Data_Object_Content_Modified(array('foo' => 'foo'), $format);
+        $content->setMimeType($type);
+        $content->setPreviousBody('<event/>');
         $this->assertEquals(
             '<event><modified/></event>', $content->toString()
         );
     }
 
-    public function testModifiedUid()
+    public function testModifiedMimeType()
     {
         $type = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeType', array(), array(), '', false, false);
+        $type->expects($this->once())
+            ->method('getMimeType')
+            ->will($this->returnValue('application/x-vnd.kolab.event'));
         $format = $this->getMock('Horde_Kolab_Format');
-        $content = new Horde_Kolab_Storage_Data_Object_Content_Modified($type, array('uid' => 'UID'), '<event/>', $format);
-        $this->assertEquals('UID', $content->getUid());
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Data_Exception
-     */
-    public function testUidExceptionOnMissingUidOnModified()
-    {
-        $type = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeType', array(), array(), '', false, false);
-        $format = $this->getMock('Horde_Kolab_Format');
-        $content = new Horde_Kolab_Storage_Data_Object_Content_Modified($type, array('foo' => 'bar'), '<event/>', $format);
-        $content->getUid();
+        $content = new Horde_Kolab_Storage_Data_Object_Content_Modified(array('foo' => 'foo'), $format);
+        $content->setMimeType($type);
+        $content->setPreviousBody('<event/>');
+        $this->assertEquals('application/x-vnd.kolab.event', $content->getMimeType());
     }
 
     /**
@@ -125,7 +121,9 @@ extends PHPUnit_Framework_TestCase
             ->method('save')
             ->with(array('foo' => 'foo'), array('previous' => '<event/>'))
             ->will($this->throwException(new Horde_Kolab_Format_Exception()));
-        $content = new Horde_Kolab_Storage_Data_Object_Content_Modified($type, array('foo' => 'foo'), '<event/>', $format);
+        $content = new Horde_Kolab_Storage_Data_Object_Content_Modified(array('foo' => 'foo'), $format);
+        $content->setMimeType($type);
+        $content->setPreviousBody('<event/>');
         $content->toString();
     }
 

@@ -27,6 +27,7 @@
  */
 class Horde_Kolab_Storage_Data_Object_Content_New
 extends Horde_Kolab_Storage_Data_Object_Content_Base
+implements Horde_Kolab_Storage_Data_Object_Addable
 {
     /**
      * Object data.
@@ -53,7 +54,7 @@ extends Horde_Kolab_Storage_Data_Object_Content_Base
                                 array $object,
                                 Horde_Kolab_Format $format)
     {
-        parent::__construct($mime_type);
+        $this->_mime_type = $mime_type;
         $this->_format = $format;
         $this->_object = $object;
     }

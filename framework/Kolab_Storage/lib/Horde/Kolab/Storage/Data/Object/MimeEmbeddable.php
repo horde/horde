@@ -1,6 +1,6 @@
 <?php
 /**
- * Basic functionality for the Kolab content.
+ * Represents a MIME embeddable object.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Basic functionality for the Kolab content.
+ * Represents a MIME embeddable object.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
@@ -25,23 +25,19 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-abstract class Horde_Kolab_Storage_Data_Object_Content_Base
-implements Horde_Kolab_Storage_Data_Object_MimeEmbeddable
+interface Horde_Kolab_Storage_Data_Object_MimeEmbeddable
 {
     /**
-     * The content mime type.
+     * Return the mime type of embeddable object.
      *
-     * @var Horde_Kolab_Storage_Data_Object_MimeType
+     * @return string The MIME type representing the object.
      */
-    protected $_mime_type;
+    public function getMimeType();
 
     /**
-     * Return the mime type of the object content.
+     * Return the object as a string that will fill the MIME part body.
      *
-     * @return string The MIME type representing the Kolab content.
+     * @return string The body.
      */
-    public function getMimeType()
-    {
-        return $this->_mime_type->getMimeType();
-    }
+    public function toString();
 }

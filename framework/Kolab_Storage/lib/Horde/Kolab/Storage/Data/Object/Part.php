@@ -34,7 +34,7 @@ class Horde_Kolab_Storage_Data_Object_Part
      *
      * @return Horde_Mime_Part The MIME part that encapsules the Kolab content.
      */
-    public function setContents(Horde_Kolab_Storage_Data_Object_Content $content)
+    public function setContents(Horde_Kolab_Storage_Data_Object_MimeEmbeddable $content)
     {
         $part = new Horde_Mime_Part();
 

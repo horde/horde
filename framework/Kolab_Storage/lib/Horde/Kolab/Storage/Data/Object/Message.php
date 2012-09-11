@@ -28,21 +28,10 @@
 abstract class Horde_Kolab_Storage_Data_Object_Message
 {
     /**
-     * Generate the headers for the MIME envelope of a Kolab groupware object.
+     * Store the message.
      *
-     * @param string $user The current user.
-     *
-     * @return Horde_Mime_Headers The headers for the MIME envelope.
+     * @return string The ID of the new object or true in case the backend does
+     *                not support this return value.
      */
-    abstract public function createEnvelopeHeaders($user);
-
-    /**
-     * Convert the message into a string resource that can be appended as a new
-     * message to a folder.
-     *
-     * @param string $user The current user.
-     *
-     * @return resource The message as string resource.
-     */
-    abstract public function create();
+    abstract public function store();
 }

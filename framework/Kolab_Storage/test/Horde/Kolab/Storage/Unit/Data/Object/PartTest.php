@@ -37,7 +37,7 @@ extends PHPUnit_Framework_TestCase
 {
     public function testSetContentsReturnsMimePart()
     {
-        $contents = $this->getMock('Horde_Kolab_Storage_Data_Object_Content');
+        $contents = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeEmbeddable');
         $part = new Horde_Kolab_Storage_Data_Object_Part();
         $this->assertInstanceOf(
             'Horde_Mime_Part', $part->setContents($contents)
@@ -46,7 +46,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testPartCharset()
     {
-        $contents = $this->getMock('Horde_Kolab_Storage_Data_Object_Content');
+        $contents = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeEmbeddable');
         $part = new Horde_Kolab_Storage_Data_Object_Part();
         $this->assertEquals(
             'utf-8', $part->setContents($contents)->getCharset()
@@ -55,7 +55,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testPartDisposition()
     {
-        $contents = $this->getMock('Horde_Kolab_Storage_Data_Object_Content');
+        $contents = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeEmbeddable');
         $part = new Horde_Kolab_Storage_Data_Object_Part();
         $this->assertEquals(
             'inline', $part->setContents($contents)->getDisposition()
@@ -64,7 +64,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testPartDispositionKolabType()
     {
-        $contents = $this->getMock('Horde_Kolab_Storage_Data_Object_Content');
+        $contents = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeEmbeddable');
         $part = new Horde_Kolab_Storage_Data_Object_Part();
         $this->assertEquals(
             'xml', $part->setContents($contents)->getDispositionParameter('x-kolab-type')
@@ -73,7 +73,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testPartName()
     {
-        $contents = $this->getMock('Horde_Kolab_Storage_Data_Object_Content');
+        $contents = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeEmbeddable');
         $part = new Horde_Kolab_Storage_Data_Object_Part();
         $this->assertEquals(
             'kolab.xml', $part->setContents($contents)->getName()
@@ -82,7 +82,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testPartType()
     {
-        $contents = $this->getMock('Horde_Kolab_Storage_Data_Object_Content');
+        $contents = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeEmbeddable');
         $contents->expects($this->once())
             ->method('getMimeType')
             ->will($this->returnValue('application/x-vnd.kolab.event'));
@@ -95,7 +95,7 @@ extends PHPUnit_Framework_TestCase
 
     public function testPartContent()
     {
-        $contents = $this->getMock('Horde_Kolab_Storage_Data_Object_Content');
+        $contents = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeEmbeddable');
         $contents->expects($this->once())
             ->method('toString')
             ->will($this->returnValue('<content/>'));

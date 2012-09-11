@@ -26,7 +26,6 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Data_Object_Message_New
-extends Horde_Kolab_Storage_Data_Object_Message
 {
     /**
      * The message content.
@@ -36,13 +35,23 @@ extends Horde_Kolab_Storage_Data_Object_Message
     private $_content;
 
     /**
+     * The backend driver.
+     *
+     * @var Horde_Kolab_Storage_Driver
+     */
+    private $_driver;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Data_Object_Content $content The Kolab content.
+     * @param Horde_Kolab_Storage_Driver $driver The backend driver.
      */
-    public function __construct(Horde_Kolab_Storage_Data_Object_Content $content)
+    public function __construct(Horde_Kolab_Storage_Data_Object_Addable $content,
+                                Horde_Kolab_Storage_Driver $driver)
     {
         $this->_content = $content;
+        $this->_driver = $driver;
     }
 
     /**
@@ -84,12 +93,12 @@ extends Horde_Kolab_Storage_Data_Object_Message
      *
      * @return Horde_Mime_Headers The headers for the MIME envelope.
      */
-    public function createEnvelopeHeaders($user)
+    private function createEnvelopeHeaders()
     {
         $headers = new Horde_Mime_Headers();
         $headers->setEOL("\r\n");
-        $headers->addHeader('From', $user);
-        $headers->addHeader('To', $user);
+        $headers->addHeader('From', $this->_driver->getAuth());
+        $headers->addHeader('To', $this->_driver->getAuth());
         $headers->addHeader('Date', date('r'));
         $headers->addHeader('Subject', $this->_content->getUid());
         $headers->addHeader('User-Agent', 'Horde::Kolab::Storage v' . Horde_Kolab_Storage::VERSION);
@@ -99,22 +108,47 @@ extends Horde_Kolab_Storage_Data_Object_Message
     }
 
     /**
-     * Convert the message into a string resource that can be appended as a new
-     * message to a folder.
+     * Convert the message into a MIME message that can be appended to a folder.
      *
-     * @param string $user The current user.
-     *
-     * @return resource The message as string resource.
+     * @return Horde_Mime_Part The message as MIME part.
      */
-    public function create()
+    private function create()
     {
         $envelope = $this->createEnvelope();
-
         $part = new Horde_Kolab_Storage_Data_Object_Part();
         $envelope->addPart($part->setContents($this->_content));
-
         $envelope->buildMimeIds();
-
         return $envelope;
+    }
+
+    /**
+     * Store the message.
+     *
+     * @param string $folder The folder receiving the message.
+     *
+     * @return string The ID of the new object or true in case the backend does
+     *                not support this return value.
+     */
+    public function store($folder)
+    {
+        $result = $this->_driver->appendMessage(
+            $folder,
+            $this->create()->toString(
+                array(
+                    'canonical' => true,
+                    'stream' => true,
+                    'headers' => $this->createEnvelopeHeaders()
+                )
+            )
+        );
+        if (is_object($result) || $result === false || $result === null) {
+            throw new Horde_Kolab_Storage_Data_Exception(
+                sprintf(
+                    'Unexpected return value (%s) when creating an object in folder "%s"!',
+                    print_r($result, true), $folder
+                )
+            );
+        }
+        return $result;
     }
 }

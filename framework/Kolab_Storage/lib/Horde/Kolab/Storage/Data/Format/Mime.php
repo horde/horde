@@ -155,13 +155,13 @@ implements Horde_Kolab_Storage_Data_Format
             $this->_structure->fetchId($folder, $obid, $mime_id)
         );
         $content = new Horde_Kolab_Storage_Data_Object_Content_Modified(
-            $this->_mime_type->getType($options['type']),
             $object,
-            $original->getContents(array('stream' => true)),
             $this->_factory->createFormat(
                 'Xml', $options['type'], $options['version']
             )
         );
+        $content->setMimeType($this->_mime_type->getType($options['type']));
+        $content->setPreviousBody($original->getContents(array('stream' => true)));
         $part = new Horde_Kolab_Storage_Data_Object_Part();
 
         $modifiable->setPart(
