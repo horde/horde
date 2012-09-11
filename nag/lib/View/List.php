@@ -250,7 +250,7 @@ class Nag_View_List
     {
 
         $form = new Nag_Form_Search($this->_vars);
-        if ($form->validate()) {
+        if ($form->validate($this->_vars, true)) {
             $form->getInfo($this->_vars, $info);
         } else {
             throw new Nag_Exception(current($form->getErrors()));
