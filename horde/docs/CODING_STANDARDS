@@ -866,14 +866,3 @@ fread() to get the stream data::
     while (!feof($stream)) {
         echo fread($stream, 8192);
     }
-
-stream_get_contents()
----------------------
-This function was broken before PHP 5.2.7; the offset parameter did not
-respect a value of 0 (i.e. rewinding to beginning of stream).
-
-Use rewind() instead::
-
-    // NO: $foo = stream_get_contents($stream, -1, 0);
-    rewind($stream);
-    $foo = stream_get_contents($stream);
