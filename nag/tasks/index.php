@@ -15,30 +15,16 @@ if (!$query) {
     exit;
 }
 
-$search = new Nag_Search(
-    $query,
-    Nag_Search::MASK_NAME,
-    array('completed' => Nag::VIEW_ALL));
-
-$search_results = $search->getSlice();
-$search_results->reset();
-if ($search_results->count() == 1) {
-    $task = $search_results->each();
-    Horde::url($task->view_link, true)->redirect();
+$vars = Horde_Variables::getDefaultVariables();
+$vars->search_completed = Nag::VIEW_ALL;
+$vars->search_pattern = $query;
+$vars->search_in = array('search_name');
+$vars->actionID = 'search_tasks';
+try {
+    $view = new Nag_View_List($vars);
+} catch (Nag_Exception $e) {
+    $notification->push($e, 'horde.error');
+    Horde::url('list.php')->redirect();
+    exit;
 }
-
-$tasks = $search_results;
-$actionID = null;
-
-$page_output->addScriptFile('tooltips.js', 'horde');
-$page_output->addScriptFile('scriptaculous/effects.js', 'horde');
-$page_output->addScriptFile('quickfinder.js', 'horde');
-
-$page_output->header(array(
-    'title' => sprintf(_("Search: Results for \"%s\""), $search)
-));
-echo Nag::menu();
-Nag::status();
-echo '<div id="page">';
-require NAG_TEMPLATES . '/list.html.php';
-$page_output->footer();
+echo $view->render($page_output);
