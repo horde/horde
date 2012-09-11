@@ -19,6 +19,12 @@ var NagMobile = {
 
     currentList: undefined,
 
+    /**
+     * Toggle the completion status of the task.
+     *
+     * @param object d  The data object.
+     */
+
     toggleComplete: function(d)
     {
         var parsed = d.options.parsedUrl;
@@ -33,6 +39,12 @@ var NagMobile = {
         );
     },
 
+    /**
+     * Callback for the toggleComplete action
+     *
+     * @param object r    The response object.
+     * @param object elt  The element containing the task.
+     */
     toggleCompleteCallback: function(r, elt)
     {
         switch (r.data) {
@@ -66,6 +78,11 @@ var NagMobile = {
         }
     },
 
+    /**
+     * Get a task from the server.
+     *
+     * @param object d  The data object.
+     */
     getTask: function(d)
     {
         var parsed = d.options.parsedUrl;
@@ -82,6 +99,11 @@ var NagMobile = {
         HordeMobile.changePage('nag-taskform-view', d);
     },
 
+    /**
+     * Callback for the getTask action.
+     *
+     * @param object r  The response object.
+     */
     getTaskCallback: function(r)
     {
         var task = r.task,
@@ -92,11 +114,9 @@ var NagMobile = {
         $("#task_desc").val(task.de);
         $("#task_assignee").val(task.as);
         $("task_private").prop("checked", task.pr).checkboxradio("refresh");
-        // @TODO: Style differently if overdue?
         if (task.dd) {
             $("#task_due").val(Date.parse(task.dd).toString('yyyy-MM-dd'));
         }
-
         if (task.s) {
             $("#task_start").val(Date.parse(task.s).toString('yyyy-MM-dd'));
         }
@@ -106,6 +126,11 @@ var NagMobile = {
         $("#task_id").val(task.id);
     },
 
+    /**
+     * Get a list of tasklists from the server and display the nag-lists view.
+     *
+     * @param object d  The data object.
+     */
     toLists: function(d)
     {
         HordeMobile.changePage('nag-lists', d);
@@ -116,6 +141,11 @@ var NagMobile = {
         );
     },
 
+    /**
+     * Callback for the getTaskLists action
+     *
+     * @param object r  The response object.
+     */
     getTasklistsCallback: function(r)
     {
         var list = $('#nag-lists :jqmData(role="listview")'),
@@ -139,6 +169,13 @@ var NagMobile = {
         list.listview('refresh');
     },
 
+     /**
+      * Insert a tasklist element into the tasklist list.
+      *
+      * @param object el    The UL element.
+      * @param object l     The list hash.
+      * @param boolean top  Place new list at top of list if true.
+      */
     insertTasklist: function(el, l, top)
     {
         var url = HordeMobile.createUrl('nag-list', { tasklist: l.id }),
@@ -159,6 +196,11 @@ var NagMobile = {
         }
     },
 
+    /**
+     * Retrieve a tasklist from the server and display the nag-list view.
+     *
+     * @param object d  The data object.
+     */
     toList: function(d)
     {
         var params = d.options.parsedUrl.params;
@@ -174,6 +216,11 @@ var NagMobile = {
         HordeMobile.changePage('nag-list', d);
     },
 
+    /**
+     * Callback for the listTasks action.
+     *
+     * @param object r  The response object.
+     */
     listTasksCallback: function(r)
     {
         NagMobile.tasks = {};
@@ -188,6 +235,9 @@ var NagMobile = {
         }
     },
 
+    /**
+     * Build the complete tasklist
+     */
     buildTaskList: function()
     {
         var list = $('#nag-list :jqmData(role="listview")'),
@@ -207,6 +257,9 @@ var NagMobile = {
 
     /**
      * Insert task into the view.
+     *
+     * @param object l  The UL element.
+     * @param object t  The task hash.
      */
     insertTask: function(l, t)
     {
@@ -238,6 +291,12 @@ var NagMobile = {
         l.append(item);
     },
 
+    /**
+     * Handler for pageBeforeChange event
+     *
+     * @param object e     The event object.
+     * @param object data  The data object.
+     */
     toPage: function(e, data)
     {
         switch (data.options.parsedUrl.view) {
@@ -268,6 +327,13 @@ var NagMobile = {
         }
     },
 
+    /**
+     * Add the appropriate CSS classes to the task element based on the task's
+     * completion, due date etc...
+     *
+     * @param object l  The tasks's LI element.
+     * @param object t  The task hash.
+     */
     styleTask: function(l, t)
     {
         var task_due = Date.parse(t.dd),
@@ -286,12 +352,16 @@ var NagMobile = {
         }
     },
 
-    prepareFormForNew: function(e)
+    /**
+     * Prepare the nag-taskform-view for entering a new task.
+     */
+    prepareFormForNew: function()
     {
         var f = $('form')[0];
         f.reset();
         $('#nag-taskform-view a[href^="#task-delete"]').hide();
     },
+
 
     handleSubmit: function(e)
     {
