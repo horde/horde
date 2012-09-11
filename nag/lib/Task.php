@@ -631,8 +631,7 @@ class Nag_Task
             return $this;
         }
         if ($this->_pointer >= count($this->children)) {
-            $task = false;
-            return $task;
+            return false;
         }
         $next = $this->children[$this->_pointer]->each();
         if ($next) {
