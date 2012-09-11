@@ -56,9 +56,9 @@
 <?php endif; ?>
 
   <tr>
-    <td class="control" colspan="2">
-      <input class="button" type="button" onclick="document.rule.actionID.value='rule_save';document.rule.submit(); return true;" value="&nbsp;<?php echo _("Save") ?>&nbsp;" />
-      <input class="button" type="button" onclick="document.location.href='<?php echo Horde::url('filters.php', true) ?>'" value="<?php echo _("Return to Filters List") ?>" />
+    <td class="horde-form-buttons" colspan="2">
+      <input class="horde-default" type="button" onclick="document.rule.actionID.value='rule_save';document.rule.submit(); return true;" value="&nbsp;<?php echo _("Save") ?>&nbsp;" />
+      <input type="button" onclick="document.location.href='<?php echo Horde::url('filters.php', true) ?>'" value="<?php echo _("Return to Filters List") ?>" />
     </td>
   </tr>
 </table>
