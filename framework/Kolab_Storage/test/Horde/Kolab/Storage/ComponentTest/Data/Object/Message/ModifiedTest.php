@@ -44,9 +44,9 @@ extends PHPUnit_Framework_TestCase
             array('summary' => 'NEW', 'description' => 'test', 'uid' => 'ABC1234'),
             $factory->create('Xml', 'note')
         );
+        $content->setType('note');
         $message = new Horde_Kolab_Storage_Data_Object_Message_Modified(
             $content,
-            new Horde_Kolab_Storage_Data_Object_MimeType('note'),
             $driver,
             'INBOX',
             1

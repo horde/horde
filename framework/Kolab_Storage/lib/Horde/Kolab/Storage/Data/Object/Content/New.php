@@ -50,13 +50,11 @@ implements Horde_Kolab_Storage_Data_Object_Addable
      * @param array              $object The object data.
      * @param Horde_Kolab_Format $format The Kolab format handler.
      */
-    public function __construct(Horde_Kolab_Storage_Data_Object_MimeType $mime_type,
-                                array $object,
+    public function __construct(array $object,
                                 Horde_Kolab_Format $format)
     {
-        $this->_mime_type = $mime_type;
-        $this->_format = $format;
         $this->_object = $object;
+        $this->_format = $format;
     }
 
     /**

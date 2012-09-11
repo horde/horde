@@ -62,7 +62,6 @@ implements Horde_Kolab_Storage_Data_Format
     {
         $this->_factory = $factory;
         $this->_structure = $structure;
-        $this->_mime_type = new Horde_Kolab_Storage_Data_Object_MimeTypes();
     }
 
     /**
@@ -85,8 +84,7 @@ implements Horde_Kolab_Storage_Data_Format
                 )
             );
         }
-        $mime_id = $this->_mime_type->getType($options['type'])
-            ->matchMimeId($data->contentTypeMap());
+        $mime_id = array_search('application/x-vnd.kolab.' . $options['type'], $data->contentTypeMap());
         if (empty($mime_id)) {
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
@@ -130,43 +128,5 @@ implements Horde_Kolab_Storage_Data_Format
         } else {
             return array('content' => $content);
         }
-    }
-
-    /**
-     * Modify a Kolab groupware object.
-     *
-     * @param Horde_Kolab_Storage_Driver_Modifiable $modifiable The modifiable object.
-     * @param array                                 $object     The updated object.
-     * @param array                                 $options    Additional options.
-     *
-     * @return string The ID of the modified object or true in case the backend
-     *                does not support this return value.
-     */
-    public function modify(Horde_Kolab_Storage_Data_Modifiable $modifiable,
-                           $object,
-                           array $options,
-                           $folder,
-                           $obid)
-    {
-        $mime_id = $this->_mime_type->getType($options['type'])
-            ->matchMimeId($modifiable->getStructure()->contentTypeMap());
-        $original = $modifiable->getOriginalPart($mime_id);
-        $original->setContents(
-            $this->_structure->fetchId($folder, $obid, $mime_id)
-        );
-        $content = new Horde_Kolab_Storage_Data_Object_Content_Modified(
-            $object,
-            $this->_factory->createFormat(
-                'Xml', $options['type'], $options['version']
-            )
-        );
-        $content->setMimeType($this->_mime_type->getType($options['type']));
-        $content->setPreviousBody($original->getContents(array('stream' => true)));
-        $part = new Horde_Kolab_Storage_Data_Object_Part();
-
-        $modifiable->setPart(
-            $mime_id, $part->setContents($content)
-        );
-        return $modifiable->store();
     }
 }

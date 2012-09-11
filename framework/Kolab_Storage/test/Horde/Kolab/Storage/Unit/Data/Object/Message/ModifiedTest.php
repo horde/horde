@@ -38,7 +38,6 @@ extends PHPUnit_Framework_TestCase
     public function testStore()
     {
         $content = $this->getMock('Horde_Kolab_Storage_Data_Object_Content_Modified', array(), array(), '', false, false);
-        $mime_type = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeType', array(), array(), '', false, false);
         $driver = $this->getMock('Horde_Kolab_Storage_Driver');
         $body = $this->getMock('Horde_Mime_Part');
         $body->expects($this->once())
@@ -60,7 +59,7 @@ extends PHPUnit_Framework_TestCase
             ->method('appendMessage')
             ->will($this->returnValue(true));
         $message = new Horde_Kolab_Storage_Data_Object_Message_Modified(
-            $content, $mime_type, $driver, 'INBOX', 1
+            $content, $driver, 'INBOX', 1
         );
         $message->store();
     }
@@ -71,7 +70,6 @@ extends PHPUnit_Framework_TestCase
     public function testStoreException()
     {
         $content = $this->getMock('Horde_Kolab_Storage_Data_Object_Content_Modified', array(), array(), '', false, false);
-        $mime_type = $this->getMock('Horde_Kolab_Storage_Data_Object_MimeType', array(), array(), '', false, false);
         $driver = $this->getMock('Horde_Kolab_Storage_Driver');
         $body = $this->getMock('Horde_Mime_Part');
         $body->expects($this->once())
@@ -93,7 +91,7 @@ extends PHPUnit_Framework_TestCase
             ->method('appendMessage')
             ->will($this->returnValue(false));
         $message = new Horde_Kolab_Storage_Data_Object_Message_Modified(
-            $content, $mime_type, $driver, 'INBOX', 1
+            $content, $driver, 'INBOX', 1
         );
         $message->store();
     }

@@ -70,26 +70,6 @@ extends Horde_Kolab_Storage_Data_Object_Content_Base
     }
 
     /**
-     * Set the MIME type for the content.
-     *
-     * @param Horde_Kolab_Storage_Data_Object_MimeType $mime_type The content mime type.
-     */
-    public function setMimeType(Horde_Kolab_Storage_Data_Object_MimeType $mime_type)
-    {
-        $this->_mime_type = $mime_type;
-    }
-
-    /**
-     * Return the mime type of the object content.
-     *
-     * @return string The MIME type representing the Kolab content.
-     */
-    public function getMimeType()
-    {
-        return $this->_mime_type->getMimeType();
-    }
-
-    /**
      * Create the Kolab content as a string.
      *
      * @return string The Kolab content.

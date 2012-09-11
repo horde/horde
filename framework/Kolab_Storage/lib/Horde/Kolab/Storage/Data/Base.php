@@ -205,11 +205,8 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             $object['uid'] = $this->generateUid();
         }
 
-        $mime_types = new Horde_Kolab_Storage_Data_Object_MimeTypes();
-
         if ($raw === false) {
             $content = new Horde_Kolab_Storage_Data_Object_Content_New(
-                $mime_types->getType($this->getType()),
                 $object,
                 $this->_factory->createFormat(
                     'Xml', $this->getType(), $this->_version
@@ -217,11 +214,11 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             );
         } else {
             $content = new Horde_Kolab_Storage_Data_Object_Content_Raw(
-                $mime_types->getType($this->getType()),
                 $object['content'],
                 $object['uid']
             );
         }
+	$content->setType($this->getType());
 
         $message = new Horde_Kolab_Storage_Data_Object_Message_New(
             $content, $this->_driver
@@ -279,8 +276,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             );
         }
 
-        $mime_types = new Horde_Kolab_Storage_Data_Object_MimeTypes();
-
         if ($raw === false) {
             $content = new Horde_Kolab_Storage_Data_Object_Content_Modified(
                 $object,
@@ -290,14 +285,13 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             );
         } else {
             $content = new Horde_Kolab_Storage_Data_Object_Content_Raw(
-                $mime_types->getType($this->getType()),
                 $object['content'],
                 $object['uid']
             );
         }
+	$content->setType($this->getType());
         $message = new Horde_Kolab_Storage_Data_Object_Message_Modified(
             $content,
-            $mime_types->getType($this->getType()),
             $this->_driver,
             $this->_folder->getPath(),
             $obid

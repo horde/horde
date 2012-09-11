@@ -46,15 +46,11 @@ implements Horde_Kolab_Storage_Data_Object_Addable
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Storage_Data_Object_MimeType $mime_type The content mime type.
      * @param string $raw The raw object content.
      * @param string $uid The object UID.
      */
-    public function __construct(Horde_Kolab_Storage_Data_Object_MimeType $mime_type,
-                                $raw,
-                                $uid)
+    public function __construct($raw, $uid)
     {
-        $this->_mime_type = $mime_type;
         $this->_raw = $raw;
         $this->_uid = $uid;
     }

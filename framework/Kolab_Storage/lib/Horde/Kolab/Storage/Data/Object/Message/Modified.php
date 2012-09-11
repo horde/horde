@@ -35,13 +35,6 @@ class Horde_Kolab_Storage_Data_Object_Message_Modified
     private $_content;
 
     /**
-     * The MIME type of the message content.
-     *
-     * @var Horde_Kolab_Storage_Data_Object_MimeType
-     */
-    private $_mime_type;
-
-    /**
      * The backend driver.
      *
      * @var Horde_Kolab_Storage_Driver
@@ -66,20 +59,16 @@ class Horde_Kolab_Storage_Data_Object_Message_Modified
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Data_Object_Content $content The Kolab content.
-     * @param Horde_Kolab_Storage_Data_Object_MimeType $mime_type The content mime type.
      * @param Horde_Kolab_Storage_Driver $driver The backend driver.
      * @param string $folder The folder receiving the message.
      * @param string $obid The object ID of the previous object.
      */
     public function __construct(Horde_Kolab_Storage_Data_Object_Content_Modified $content,
-                                Horde_Kolab_Storage_Data_Object_MimeType $mime_type,
                                 Horde_Kolab_Storage_Driver $driver,
                                 $folder,
                                 $obid)
     {
         $this->_content = $content;
-        $this->_content->setMimeType($mime_type);
-        $this->_mime_type = $mime_type;
         $this->_driver = $driver;
         $this->_folder = $folder;
         $this->_obid = $obid;
@@ -97,12 +86,12 @@ class Horde_Kolab_Storage_Data_Object_Message_Modified
         list($headers, $body) = $this->_driver->fetchComplete(
             $this->_folder, $this->_obid
         );
-        $mime_id = $this->_mime_type->matchMimeId($body->contentTypeMap());
+        $mime_id = $this->_content->matchMimeId($body->contentTypeMap());
         if ($mime_id === false) {
             throw new Horde_Kolab_Storage_Data_Exception(
                 sprintf(
                     'Missing expected mime type (%s) in object "%s" in folder "%s"!',
-                    $this->_mime_type->getMimeType(),
+                    $this->_content->getMimeType(),
                     $this->_obid,
                     $this->_folder
                 )

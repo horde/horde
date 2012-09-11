@@ -39,10 +39,10 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = new Horde_Kolab_Format_Factory();
         $content = new Horde_Kolab_Storage_Data_Object_Content_New(
-            new Horde_Kolab_Storage_Data_Object_MimeType('note'),
             array('summary' => 'TEST', 'description' => 'test', 'uid' => 'ABC1234'),
             $factory->create('Xml', 'note')
         );
+        $content->setType('note');
         $driver = new Horde_Kolab_Storage_Stub_Driver('user');
         $message = new Horde_Kolab_Storage_Data_Object_Message_New(
             $content, $driver

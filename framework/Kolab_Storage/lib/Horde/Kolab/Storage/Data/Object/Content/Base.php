@@ -31,7 +31,7 @@ implements Horde_Kolab_Storage_Data_Object_MimeEmbeddable
     /**
      * The content mime type.
      *
-     * @var Horde_Kolab_Storage_Data_Object_MimeType
+     * @var string
      */
     protected $_mime_type;
 
@@ -42,6 +42,38 @@ implements Horde_Kolab_Storage_Data_Object_MimeEmbeddable
      */
     public function getMimeType()
     {
-        return $this->_mime_type->getMimeType();
+        return $this->_mime_type;
     }
+
+    /**
+     * Match the mime type in the provided mime structure map.
+     *
+     * @param array $map The mime map.
+     *
+     * @return int The mime part matching the type specific mime type.
+     */
+    public function matchMimeId(array $map)
+    {
+        return array_search($this->_mime_type, $map);
+    }
+
+    /**
+     * Set the type of the object content.
+     *
+     * @param string $type The Kolab type of the content.
+     */
+    public function setType($type)
+    {
+        $default_types = array(
+            'contact', 'event', 'note', 'task', 'h-prefs', 'h-ledger'
+        );
+        if (in_array($type, $default_types)) {
+            $this->_mime_type = 'application/x-vnd.kolab.' . $type;
+        } else {
+            throw new Horde_Kolab_Storage_Data_Exception(
+                sprintf('Unsupported object type %s!', $type)
+            );
+        }
+    }
+
 }
