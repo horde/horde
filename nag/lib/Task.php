@@ -606,10 +606,11 @@ class Nag_Task
      */
     public function reset()
     {
-        $this->_pointer = 0;
         foreach (array_keys($this->children) as $key) {
             $this->children[$key]->reset();
         }
+        $this->_pointer = 0;
+        $this->_inlist = false;
     }
 
     /**
