@@ -4030,12 +4030,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'token' => ''
         );
 
-        $read = explode(' ', $this->_readData(), 3);
+        $data = $this->_readData();
+        $tag = $data->getToChar(' ');
 
-        switch ($read[0]) {
+        switch ($tag) {
         /* Continuation response. */
         case '+':
-            $ob['line'] = implode(' ', array_slice($read, 1));
+            $ob['line'] = $data->getString();
             $ob['type'] = 'continuation';
             break;
 
@@ -4043,60 +4044,58 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case '*':
             $ob['type'] = 'untagged';
 
-            $read[1] = strtoupper($read[1]);
-            if ($read[1] == 'BYE') {
-                if (!empty($this->_temp['logout'])) {
-                    /* A BYE response received as part of a logout cmd should
-                     * be treated like a regular command. A client MUST
-                     * process the entire command until logging out. RFC 3501
-                     * [3.4]. */
-                    $ob['response'] = $read[1];
-                    $ob['line'] = implode(' ', array_slice($read, 2));
-                } else {
+            $data_pos = ftell($data->stream);
+            $response = strtoupper($data->getToChar(' '));
+            if ($response == 'BYE') {
+                if (empty($this->_temp['logout'])) {
                     $this->_temp['logout'] = true;
                     $this->logout();
                     $e = new Horde_Imap_Client_Support(
                         Horde_Imap_Client_Translation::t("IMAP Server closed the connection."),
                         'DISCONNECT'
                     );
-                    $e->details = implode(' ', array_slice($read, 1));
+                    $e->details = $data->getString();
                     throw $e;
                 }
+
+                /* A BYE response received as part of a logout cmd should
+                 * be treated like a regular command. A client MUST
+                 * process the entire command until logging out. RFC 3501
+                 * [3.4]. */
+                $ob['response'] = 'BYE';
+                $ob['line'] = $data->getString();
             }
 
-            if (in_array($read[1], array('OK', 'NO', 'BAD', 'PREAUTH'))) {
-                $ob['response'] = $read[1];
-                $ob['line'] = implode(' ', array_slice($read, 2));
+            if (in_array($response, array('OK', 'NO', 'BAD', 'PREAUTH'))) {
+                $ob['response'] = $response;
+                $ob['line'] = $data->getString();
             } else {
                 /* Tokenize response. */
-                $line = implode(' ', array_slice($read, 1));
                 $binary = $literal = false;
-                $this->_temp['literal8'] = array();
 
                 do {
                     $literal_len = null;
 
                     if ($literal) {
-                        $this->_temp['token']->ptr[$this->_temp['token']->paren][] = $line;
+                        $data_pos = 0;
+                        $this->_temp['token']->ptr[$this->_temp['token']->paren][] = $data->getString();
                     } else {
-                        if (substr($line, -1) == '}') {
-                            $pos = strrpos($line, '{');
-                            $literal_len = substr($line, $pos + 1, -1);
-                            if (is_numeric($literal_len)) {
-                                // Check for literal8 response
-                                if ($line[$pos - 1] == '~') {
-                                    $binary = true;
-                                    $line = substr($line, 0, $pos - 1);
-                                    $this->_temp['literal8'][substr($line, strrpos($line, ' '))] = true;
-                                } else {
-                                    $line = substr($line, 0, $pos);
-                                }
-                            } else {
+                        fseek($data->stream, -1, SEEK_END);
+                        if ($data->peek() == '}') {
+                            $literal_data = $data->getString($data->seek('{', true) - 1);
+                            $literal_len = substr($literal_data, 2, -1);
+                            if (!is_numeric($literal_len)) {
                                 $literal_len = null;
+                            } elseif ($literal_data[0] == '~') {
+                                // Check for literal8 response
+                                $binary = true;
                             }
                         }
 
-                        $this->_tokenizeData($line);
+                        fseek($data->stream, $data_pos);
+                        $this->_tokenizeData(
+                            $data->getString(null, is_null($literal_len) ? null : (strlen($literal_data) * -1))
+                        );
                     }
 
                     if (is_null($literal_len)) {
@@ -4104,10 +4103,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                             break;
                         }
                         $binary = $literal = false;
-                        $line = $this->_readData();
+                        $data = $this->_readData();
                     } else {
                         $literal = true;
-                        $line = $this->_readData($literal_len, $binary);
+                        $data = $this->_readData($literal_len, $binary);
                     }
                 } while (true);
 
@@ -4119,9 +4118,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* Tagged response. */
         default:
             $ob['type'] = 'tagged';
-            $ob['line'] = implode(' ', array_slice($read, 2));
-            $ob['tag'] = $read[0];
-            $ob['response'] = $read[1];
+            $ob['response'] = $data->getToChar(' ');
+            $ob['line'] = $data->getString();
+            $ob['tag'] = $tag;
             break;
         }
 
@@ -4135,7 +4134,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *                         reads a single line of data.
      * @param boolean $binary  Binary data?
      *
-     * @return string  The data requested (stripped of trailing CRLF).
+     * @return Horde_Stream_Temp  The data stream.
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -4151,42 +4150,31 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
         }
 
-        $data = '';
-        $got_data = $stream = false;
+        $data = new Horde_Stream_Temp();
+        $got_data = false;
 
         if (is_null($len)) {
             do {
                 /* Can't do a straight fgets() because extremely large lines
                  * will result in read errors. */
                 if ($in = fgets($this->_stream, 8192)) {
-                    $data .= $in;
                     $got_data = true;
                     if (!isset($in[8190]) || ($in[8190] == "\n")) {
+                        fwrite($data->stream, rtrim($in));
                         break;
                     }
+                    fwrite($data->stream, $in);
                 }
             } while ($in !== false);
-        } else {
+        } elseif (!$len) {
             // Skip 0-length literal data
-            if (!$len) {
-                return $data;
-            }
-
+            return $data;
+        } else {
             $old_len = $len;
-
-            // Add data to a stream, if we are doing a fetch.
-            if (isset($this->_temp['fetchcmd'])) {
-                $data = fopen('php://temp', 'r+');
-                $stream = true;
-            }
 
             while ($len && !feof($this->_stream)) {
                 $in = fread($this->_stream, min($len, 8192));
-                if ($stream) {
-                    fwrite($data, $in);
-                } else {
-                    $data .= $in;
-                }
+                fwrite($data->stream, $in);
 
                 $got_data = true;
 
@@ -4213,14 +4201,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             } elseif (!is_null($len) &&
                       empty($this->_params['debug_literal'])) {
                 $this->writeDebug('[LITERAL DATA - ' . $old_len . ' bytes]' . "\n", Horde_Imap_Client::DEBUG_SERVER);
-            } elseif ($stream) {
-                $this->writeDebug(rtrim($this->_getString($data)) . "\n", Horde_Imap_Client::DEBUG_SERVER);
             } else {
-                $this->writeDebug(rtrim($data) . "\n", Horde_Imap_Client::DEBUG_SERVER);
+                $this->writeDebug($data->getString(0) . "\n", Horde_Imap_Client::DEBUG_SERVER);
             }
         }
 
-        return is_null($len) ? rtrim($data) : $data;
+        rewind($data->stream);
+
+        return $data;
     }
 
     /**
