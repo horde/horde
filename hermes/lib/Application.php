@@ -111,6 +111,19 @@ class Hermes_Application extends Horde_Registry_Application
         }
     }
 
+    /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        $sidebar->addNewButton(
+            _("_New Time"),
+            Horde::url('entry.php')
+        );
+    }
+
     /* Topbar method. */
 
     /**

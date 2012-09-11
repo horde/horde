@@ -77,6 +77,23 @@ class Mnemo_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+        if (Mnemo::getDefaultNotepad(Horde_Perms::EDIT) &&
+            ($perms->hasAppPermission('max_notes') === true ||
+             $perms->hasAppPermission('max_notes') > Mnemo::countMemos())) {
+            $sidebar->addNewButton(
+                _("_New Note"),
+                Horde::url('memo.php')->add('actionID', 'add_memo'));
+        }
+    }
+
+    /**
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {

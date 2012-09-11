@@ -289,19 +289,4 @@ class Folks {
         }
     }
 
-    /**
-     * Build Folks's list of menu items.
-     */
-    static function getMenu()
-    {
-        $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-        $menu->add(self::getUrlFor('user', $GLOBALS['registry']->getAuth()), _("My profile"), 'myaccount.png');
-        $menu->add(self::getUrlFor('list', 'friends'), _("Friends"), 'group.png');
-        $menu->add(Horde::url('edit/edit.php'), _("Edit profile"), 'edit.png');
-        $menu->add(Horde::url('services.php'), _("Services"), 'horde.png');
-        $menu->add(Horde::url('search.php'), _("Search"), 'search.png');
-        $menu->add(self::getUrlFor('list', 'online'), _("List"), 'group.png');
-
-        return $menu;
-    }
 }

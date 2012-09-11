@@ -47,7 +47,7 @@ if ($form->validate(new Horde_Variables($_POST))) {
     Horde::url('calendars/', true)->redirect();
 }
 
-$menu = Kronolith::menu();
+$menu = Horde::menu();
 $page_output->header(array(
     'title' => $form->getTitle()
 ));

@@ -60,7 +60,7 @@ class Sesha_Application extends Horde_Registry_Application
     /**
      * Sesha's application specific sidebar menu
      * In earlier horde versions, this was a top menu
-     * Client pages amend and output this via Sesha::menu
+     * Client pages amend and output this via Horde::menu
      * @param Horde_Menu  $menu  A menu object
      */
     public function menu($menu)
@@ -74,6 +74,22 @@ class Sesha_Application extends Horde_Registry_Application
 
         if (Sesha::isAdmin(Horde_Perms::READ)|| $perms->hasPermission('sesha:addStock', $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             $menu->add(Horde::url('admin.php'), _("Administration"), 'sesha-admin');
+        }
+    }
+
+    /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+        if (Sesha::isAdmin(Horde_Perms::READ) ||
+            $perms->hasPermission('sesha:addStock', $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+            $sidebar->addNewButton(
+                _("_Add Stock"),
+                Horde::url('stock.php')->add('actionId', 'add_stock'));
         }
     }
 }

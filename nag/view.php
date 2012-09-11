@@ -112,17 +112,17 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))
     $links[] = Horde::widget(array('url' => $taskurl->add('actionID', 'delete_task'), 'class' => 'smallheader', 'onclick' => $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', 'title' => _("_Delete")));
 }
 
-$page_output->header(array(
-    'title' => $task->name
-));
-echo Nag::menu();
-Nag::status();
-
 /* Set up alarm units and value. */
 $task_alarm = $task->alarm;
 if (!$task->due) {
     $task_alarm = 0;
 }
 $alarm_text = Nag::formatAlarm($task_alarm);
+
+$page_output->header(array(
+    'title' => $task->name
+));
+echo Horde::menu();
+Nag::status();
 require NAG_TEMPLATES . '/view/task.inc';
 $page_output->footer();

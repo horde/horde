@@ -2995,17 +2995,4 @@ class Kronolith
         return $a_list;
     }
 
-    public static function menu()
-    {
-        $sidebar = Horde::menu(array('menu_ob' => true))->render();
-        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
-        if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
-            ($perms->hasAppPermission('max_events') === true ||
-             $perms->hasAppPermission('max_events') > Kronolith::countEvents())) {
-            $sidebar->addNewButton(_("_New Event"), Horde::url('new.php')->add('url', Horde::selfUrl(true, false, true)));
-        }
-        return $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render()
-            . $sidebar;
-    }
-
 }

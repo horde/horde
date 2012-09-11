@@ -48,7 +48,7 @@ case 'deletedeliverable':
 $page_output->header(array(
     'title' => _("Deliverables")
 ));
-echo Hermes::menu();
+echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 
 $renderer = new Horde_Form_Renderer();

@@ -60,7 +60,7 @@ $page_output->header(array(
     'body_class' => $prefs->getValue('show_panel') ? 'rightPanel' : null,
     'title' => $title
 ));
-echo Mnemo::menu();
+echo Horde::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/list/header.inc';
 

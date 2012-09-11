@@ -91,47 +91,6 @@ class Wicked
     }
 
     /**
-     * Build Wicked's list of menu items.
-     */
-    public static function getMenu($returnType = 'object')
-    {
-        global $conf, $page;
-
-        $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-
-        if (@count($conf['menu']['pages'])) {
-            $pages = array('Wiki/Home' => _("_Home"),
-                           'Wiki/Usage' => _("_Usage"),
-                           'RecentChanges' => _("_Recent Changes"),
-                           'AllPages' => _("_All Pages"));
-            foreach ($conf['menu']['pages'] as $pagename) {
-                /* Determine who we should say referred us. */
-                $curpage = isset($page) ? $page->pageName() : null;
-                $referrer = Horde_Util::getFormData('referrer', $curpage);
-
-                /* Determine if we should depress the button. We have to do
-                 * this on our own because all the buttons go to the same .php
-                 * file, just with different args. */
-                if (!strstr($_SERVER['PHP_SELF'], 'prefs.php') &&
-                    $curpage === $pagename) {
-                    $cellclass = 'current';
-                } else {
-                    $cellclass = '__noselection';
-                }
-
-                $url = Horde_Util::addParameter(self::url($pagename), 'referrer', $referrer);
-                $menu->add($url, $pages[$pagename], str_replace('/', '', $pagename) . '.png', null, null, null, $cellclass);
-            }
-        }
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
-    }
-
-    /**
      * Mails a notification message after encoding the headers and adding the
      * standard username/time line.
      *

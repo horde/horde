@@ -336,7 +336,7 @@ var DimpBase = {
         this.splitbar.setStyle({
             left: tmp.clientWidth + 'px'
         });
-        $('horde-body').setStyle({
+        $('horde-page').setStyle({
             left: (tmp.clientWidth) + 'px'
         });
     },

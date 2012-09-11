@@ -62,7 +62,7 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple
     'id' => 'tags'
 ));
 
-$menu = Kronolith::menu();
+$menu = Horde::menu();
 $page_output->header(array(
     'title' => $form->getTitle()
 ));

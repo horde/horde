@@ -140,7 +140,7 @@ $GLOBALS['page_output']->header(array(
     'title' => $form->getTitle()
 ));
 require NAG_TEMPLATES . '/javascript_defs.php';
-echo Nag::menu();
+echo Horde::menu();
 Nag::status();
 echo $formhtml;
 $GLOBALS['page_output']->footer();

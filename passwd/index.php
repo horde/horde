@@ -203,9 +203,6 @@ if ($view->showlist) {
                             htmlspecialchars($backends[$backend_key]['name']));
 }
 
-$menu = new Horde_Menu(Horde_Menu::MASK_ALL & ~Horde_Menu::MASK_PREFS);
-$view->menu = $menu->render();
-
 $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->addScriptFile('passwd.js');
 $page_output->addInlineScript(array(

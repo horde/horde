@@ -83,7 +83,7 @@ class Nag_Application extends Horde_Registry_Application
      */
     public function menu(Horde_Menu $menu)
     {
-        global $conf, $injector, $page_output;
+        global $conf;
 
         $menu->add(Horde::url('list.php'), _("_List Tasks"), 'nag-list', null, null, null, (basename($_SERVER['PHP_SELF']) == 'list.php' || strpos($_SERVER['PHP_SELF'], 'nag/index.php') !== false) ? 'current' : null);
 
@@ -94,6 +94,89 @@ class Nag_Application extends Horde_Registry_Application
         if ($conf['menu']['import_export']) {
             $menu->add(Horde::url('data.php'), _("_Import/Export"), 'horde-data');
         }
+    }
+
+    /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        // @TODO: Implement an injector factory for this.
+        global $display_tasklists, $page_output, $prefs;
+
+        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+        if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
+            ($perms->hasAppPermission('max_tasks') === true ||
+             $perms->hasAppPermission('max_tasks') > Nag::countTasks())) {
+            $sidebar->addNewButton(
+                _("_New Task"),
+                Horde::url('task.php')->add('actionID', 'add_task'));
+
+            if ($GLOBALS['browser']->hasFeature('dom')) {
+                $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+                $page_output->addScriptFile('redbox.js', 'horde');
+                $blank = new Horde_Url();
+                $sidebar->newExtra = $blank->link(
+                    array_merge(
+                        array('onclick' => 'RedBox.showInline(\'quickAddInfoPanel\'); $(\'quickText\').focus(); return false;'),
+                        Horde::getAccessKeyAndTitle(_("_Quick Add"), false, true)
+                    )
+                );
+            }
+        }
+
+        $content = $GLOBALS['injector']->createInstance('Horde_View');
+        $content->my = $content->shared = $content->smart = array();
+        $content->newShares = !$prefs->isLocked('default_tasklist');
+        $list  = Horde::url('list.php');
+        $edit  = Horde::url('tasklists/edit.php');
+        $user  = $GLOBALS['registry']->getAuth();
+
+        foreach (Nag::listTaskLists(false, Horde_Perms::SHOW, false) as $name => $tasklist) {
+            $class = in_array($name, $display_tasklists)
+                ? 'horde-resource-on'
+                : 'horde-resource-off';
+            $style = '';
+            $fg = '000';
+            $color = $tasklist->get('color');
+            if (!$color) {
+                $color = '#dddddd';
+            }
+            if (Horde_Image::brightness($color) < 128) {
+                $fg = 'fff';
+            }
+            $style = 'background-color:' . $color . ';color:#' . $fg;
+
+            $list->add('display_tasklist', $name);
+            if (in_array($name, $display_tasklists)) {
+                $list->add('actionID', 'remove_displaylist');
+            } else {
+                $list->add('actionID', 'add_displaylist');
+            }
+            $link = array(
+                'link' => $list->link()
+                          . htmlspecialchars($tasklist->get('name'))
+                          . '</a>',
+                'class' => $class,
+                'style' => $style,
+                'edit' => $edit->add('t', $tasklist->getName())
+                              ->link(array(
+                                  'title' =>  _("Edit"),
+                                  'class' => 'horde-resource-edit-'
+                                             . $fg))
+                          . '&#9658;' . '</a>',
+            );
+            if ($tasklist->get('owner') == $user) {
+                $content->my[] = $link;
+            } else {
+                $content->shared[] = $link;
+            }
+        }
+        $sidebar->containers[] = array(
+            'id' => 'nag-menu',
+            'content' => $content->render('sidebar'));
     }
 
     /**

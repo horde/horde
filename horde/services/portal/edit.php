@@ -29,6 +29,8 @@ if ($layout->updated()) {
     }
 }
 
+$page_output->sidebar = false;
+
 $page_output->header(array(
     'title' => _("My Portal Layout")
 ));

@@ -591,11 +591,30 @@ div.logintasks-item input {
 }
 
 /* Main body. */
+.horde-ajax {
+    overflow: hidden;
+}
 #horde-body {
+    border-bottom: 1px solid #cfcfcf;
+    float: left;
+    position: relative;
+    width: 100%;
+}
+.horde-ajax #horde-body {
     position: absolute;
-    right: 0;
     top: 56px;
-    margin-left: 8px;
+    bottom: 0;
+    border-bottom-width: 0;
+}
+#horde-contentwrapper {
+    float: left;
+    width: 100%;
+}
+#horde-content {
+    padding-left: 8px;
+}
+.horde-no-sidebar #horde-content {
+    padding-left: 0;
 }
 .horde-content {
     padding: 5px 5px 0;
@@ -1799,15 +1818,24 @@ left.horde-point-right {
 /* Mainpage */
 #horde-page {
     position: absolute;
-    top: 56px;
+    top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    padding-left: 8px;
 }
 
 /* Sidebar. */
 #horde-sidebar {
     background-color: #bfc9cd;
+    float: left;
+    margin-left: -100%;
+}
+.horde-ajax #horde-sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: 0;
 }
 #horde-sidebar a {
     color: #000;
@@ -1978,11 +2006,8 @@ left.horde-point-right {
 /* Slider. */
 #horde-slideleft {
     position: absolute;
-    top: 56px;
-    bottom: 0;
-}
-#horde-page #horde-slideleft {
     top: 0;
+    bottom: 0;
 }
 .horde-splitbar-vert {
     width: 8px;
@@ -2223,6 +2248,10 @@ left.horde-point-right {
 }
 .horde-perms {
     background-image: url("graphics/perms.png");
+}
+
+#portal {
+    clear: left;
 }
 
 /* Print CSS. */

@@ -1601,45 +1601,41 @@ class Horde
     }
 
     /**
-     * Generates the menu output.
+     * Returns the topbar menu.
      *
-     * @param array $opts  Additional options:
-     *   - app: (string) The application to generate the menu for.
-     *          DEFAULT: current application
-     *   - mask: (integer) The Horde_Menu mask to use.
-     *           DEFAULT: Horde_Menu::MASK_ALL
-     *   - menu_ob: (boolean) If true, returns the menu object
-     *              DEFAULT: false (renders menu)
+     * @return string  The top menu.
+     */
+    static public function menu()
+    {
+        return $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render();
+    }
+
+    /**
+     * Returns the sidebar for the current application.
+     *
      * @param string $app  The application to generate the menu for. Defaults
      *                     to the current app.
      *
-     * @return string|Horde_Menu  The menu output, or the menu object if
-     *                            'menu_ob' is true.
+     * @return Horve_View_Sidebar  The sidebar.
      */
-    static public function menu(array $opts = array())
+    static public function sidebar($app = null)
     {
-        global $injector, $registry;
+        global $registry;
 
-        if (empty($opts['app'])) {
-            $opts['app'] = $registry->getApp();
-        }
-        if (!isset($opts['mask'])) {
-            $opts['mask'] = Horde_Menu::MASK_ALL;
+        if (empty($app)) {
+            $app = $registry->getApp();
         }
 
-        $menu = new Horde_Menu($opts['mask']);
-
-        $registry->callAppMethod($opts['app'], 'menu', array(
+        $menu = new Horde_Menu();
+        $registry->callAppMethod($app, 'menu', array(
             'args' => array($menu)
         ));
+        $sidebar = $menu->render();
+        $registry->callAppMethod($app, 'sidebar', array(
+            'args' => array($sidebar)
+        ));
 
-        if (!empty($opts['menu_ob'])) {
-            return $menu;
-        }
-
-        self::startBuffer();
-        require $registry->get('templates', 'horde') . '/menu/menu.inc';
-        return self::endBuffer();
+        return $sidebar;
     }
 
     /**

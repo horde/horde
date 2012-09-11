@@ -230,7 +230,7 @@ if ($GLOBALS['registry']->getAuth()) {
 }
 $export_calendars = Kronolith::listCalendars(Horde_Perms::READ, true);
 
-$menu = Kronolith::menu();
+$menu = Horde::menu();
 $page_output->header(array(
     'title' => _("Import/Export Calendar")
 ));

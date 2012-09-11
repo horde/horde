@@ -52,7 +52,6 @@ class Jonah_View_DeliveryHtml extends Jonah_View_Base
         // @TODO: This is ugly. storage driver shouldn't be rendering any display
         // refactor this to use individual views possibly with a choice of different templates
         $template->set('stories', $GLOBALS['injector']->getInstance('Jonah_Driver')->renderChannel($criteria['feed'], $criteria['format']));
-        $template->set('menu', Horde::menu(array('menu_obj' => true)));
 
         // Buffer the notifications and send to the template
         Horde::startBuffer();

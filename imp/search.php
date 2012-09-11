@@ -498,7 +498,7 @@ if ($dimp_view) {
         $t->set('return_mailbox_val', sprintf(_("Return to %s"), $default_mailbox->display_html));
     }
 } else {
-    $menu = IMP::menu();
+    $menu = Horde::menu();
 }
 
 IMP::header(_("Search"));

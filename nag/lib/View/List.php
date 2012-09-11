@@ -81,7 +81,7 @@ class Nag_View_List
      */
     public function render($output)
     {
-        global $prefs;
+        global $injector, $prefs;
 
         $output->addScriptFile('tooltips.js', 'horde');
         $output->addScriptFile('scriptaculous/effects.js', 'horde');
@@ -108,7 +108,7 @@ class Nag_View_List
         }
 
         // Set up the view
-        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
         $view->addHelper(new Nag_View_Helper_List($view));
         $view->tasks = $this->_tasks;
         $view->tasks->reset();
@@ -136,11 +136,10 @@ class Nag_View_List
             );
         }
 
-        $list_html = $view->render('list');
         Horde::startBuffer();
-        echo Nag::menu();
+        echo Horde::menu();
         Nag::status();
-        echo $list_html;
+        echo $view->render('list');
         $output->footer();
 
         return Horde::endBuffer();

@@ -262,6 +262,35 @@ class IMP_Application extends Horde_Registry_Application
         }
     }
 
+    /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        if (IMP::canCompose()) {
+            $sidebar->addNewButton(_("_New Message"), IMP::composeLink());
+        }
+
+        /* Folders. */
+        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
+            $tree = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Tree')
+                ->create('imp_menu',
+                         'Horde_Tree_Renderer_Sidebar',
+                         array('nosession' => true));
+            $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+            $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
+            $tree = $imaptree->createTree($tree, array(
+                'open' => false,
+                'poll_info' => true
+            ));
+            $tree->addNodeParams(IMP_Mailbox::formTo(IMP::mailbox()), array('selected' => true));
+            $sidebar->containers['imp-menu'] = array('content' => $tree->getTree());
+        }
+    }
+
 
     // Horde_Notification methods.
 

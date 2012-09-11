@@ -57,6 +57,6 @@ class Pastie_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        return Pastie::getMenu();
+        $menu->add(Horde::url('paste.php'), _("Paste"), 'pastie.png');
     }
 }

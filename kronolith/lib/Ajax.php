@@ -33,7 +33,7 @@ class Kronolith_Ajax
         ), array('top' => true));
 
         $page_output->header(array(
-            'body_id' => 'kronolithAjax',
+            'body_class' => 'horde-ajax',
             'growler_log' => true
         ));
     }

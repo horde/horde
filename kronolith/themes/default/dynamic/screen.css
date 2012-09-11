@@ -1,14 +1,6 @@
 html, body {
     height: 100%;
 }
-#kronolithAjax {
-    overflow: hidden;
-}
-
-#horde-body {
-    top: 0;
-    bottom: 0;
-}
 
 #kronolithToday {
     font-weight: bold;
@@ -53,16 +45,10 @@ html, body {
 /* Main area */
 #kronolithMain {
     clear: both;
-    padding-top: 15px;
     height: 100%;
 }
 
 /* Left menu column */
-#kronolithAjax #horde-sidebar {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-}
 #kronolithMenu {
     position: absolute;
     top: 266px;
@@ -349,7 +335,7 @@ tr.kronolithMinicalNav, tr.kronolithMinicalNav th {
 #kronolithBody {
     position: absolute;
     top: 30px;
-    left: 0;
+    left: 8px;
     right: 0;
     bottom: 0;
     overflow: auto;
@@ -555,6 +541,8 @@ table.kronolithView .kronolithAllDay td.kronolithFirstCol {
     right: 0;
     bottom: 0;
     left: 0;
+}
+table.kronolithViewMonth {
     border: 1px solid #a6afb1;
     border-top-width: 0;
 }

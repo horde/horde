@@ -72,11 +72,11 @@ class Horde_PageOutput
     public $metaTags = array();
 
     /**
-     * Has the sidebar been loaded in this page?
+     * Load the sidebar in this page?
      *
      * @var boolean
      */
-    public $sidebarLoaded = false;
+    public $sidebar = true;
 
     /**
      * Has PHP userspace page compression been started?
@@ -844,9 +844,6 @@ class Horde_PageOutput
         }
         $view->outputJs = $this->deferScripts;
         $view->pageOutput = $this;
-        $view->sidebarLoaded = $this->sidebarLoaded;
-
-        $this->deferScripts = false;
 
         switch ($this->_view) {
         case $registry::VIEW_MINIMAL:
@@ -856,9 +853,18 @@ class Horde_PageOutput
         case $registry::VIEW_SMARTMOBILE:
             $view->smartmobileView = true;
             break;
+
+        case $registry::VIEW_BASIC:
+            $view->basicView = true;
+            if ($this->sidebar) {
+                $view->sidebar = Horde::sidebar();
+            }
+            break;
         }
 
         echo $view->render('footer');
+
+        $this->deferScripts = false;
     }
 
 }

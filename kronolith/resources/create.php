@@ -36,7 +36,7 @@ if ($form->validate($vars)) {
     exit;
 }
 
-$menu = Kronolith::menu();
+$menu = Horde::menu();
 $page_output->header(array(
     'title' => $form->getTitle()
 ));

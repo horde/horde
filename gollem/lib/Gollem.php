@@ -653,7 +653,6 @@ class Gollem
             $link = Horde::link('#', _("Change Server"), '', '', 'serverSubmit(true);return false;');
             $t->set('slink', sprintf('<ul><li>%s%s<br />%s</a></li></ul>', $link, ($menu_view != 'text') ? Horde::img('gollem.png') : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("_Change Server"), $t->get('accesskey')) : ''));
         }
-        $t->set('menu_string', Horde::menu(array('menu_ob' => true))->render());
 
         $menu = $t->fetch(GOLLEM_TEMPLATES . '/menu.html');
 

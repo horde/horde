@@ -80,6 +80,9 @@ class Horde_View_Topbar extends Horde_View
         $pageOutput->addInlineJsVars(array('HordeTopbar.format' =>
             Horde_Core_Script_Package_Datejs::translateFormat($GLOBALS['prefs']->getValue('date_format'))
         ));
+
+        /* Sidebar. */
+        $this->sidebarWidth = $GLOBALS['prefs']->getValue('sidebar_width');
     }
 
     /**
@@ -95,6 +98,17 @@ class Horde_View_Topbar extends Horde_View
             $GLOBALS['injector']->getInstance('Horde_PageOutput')
                 ->addScriptFile('form_ghost.js', 'horde');
         }
+        $this->sidebar = $GLOBALS['page_output']->sidebar;
         return parent::render($name, $locals);
+    }
+
+    /**
+     * Handler for string casting.
+     *
+     * @return string  The sidebar's HTML code.
+     */
+    public function __toString()
+    {
+        return $this->render();
     }
 }

@@ -52,7 +52,7 @@ $vars->set('color', $tasklist->get('color'));
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
-echo Nag::menu();
+echo Horde::menu();
 Nag::status();
 if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
     (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin())) {

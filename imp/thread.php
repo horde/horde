@@ -170,7 +170,7 @@ $template->set('tree', $tree);
 /* Output page. */
 $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->noDnsPrefetch();
-$menu = IMP::menu();
+$menu = Horde::menu();
 IMP::header($mode == 'thread' ? _("Thread View") : _("Multiple Message View"));
 echo $menu;
 IMP::status();

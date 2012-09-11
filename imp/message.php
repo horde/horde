@@ -758,7 +758,7 @@ if (!empty($conf['tasklist']['use_notepad']) ||
     $page_output->addScriptPackage('Dialog');
 }
 
-$menu = IMP::menu();
+$menu = Horde::menu();
 $page_output->noDnsPrefetch();
 
 IMP::header($title);

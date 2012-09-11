@@ -31,6 +31,7 @@ if (!class_exists($class)) {
 $ob = new $class($vars);
 
 $page_output->header(array(
+    'body_class' => 'horde-ajax',
     'growler_log' => $ob->growlerLog,
     'title' => $ob->title,
     'view' => $registry::VIEW_DYNAMIC

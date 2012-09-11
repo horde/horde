@@ -37,6 +37,7 @@ $topbar->subinfo = htmlspecialchars($injector->getInstance('Horde_Core_Factory_I
 foreach ($view->getStylesheets() as $val) {
     $page_output->addStylesheet($val['fs'], $val['uri']);
 }
+$page_output->sidebar = false;
 
 $page_output->header(array(
     'title' => _("My Portal")

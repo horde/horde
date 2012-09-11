@@ -16,71 +16,11 @@
 class Horde_Menu
 {
     /**
-     * Don't show any menu items.
-     */
-    const MASK_NONE = 0;
-
-    /**
-     * Show help menu item.
-     */
-    const MASK_HELP = 1;
-
-    /**
-     * Show preferences menu item.
-     */
-    const MASK_PREFS = 4;
-
-    /**
-     * Show problem reporting menu item.
-     */
-    const MASK_PROBLEM = 8;
-
-    /**
-     * Only show application specific menu items.
-     */
-    const MASK_BASE = 16;
-
-    /**
-     * Show all menu items.
-     */
-    const MASK_ALL = 31;
-
-    /* TODO */
-    const POS_LAST = 999;
-
-    /**
-     * Mask defining what menu items to show.
-     *
-     * @var integer
-     */
-    protected $_mask;
-
-    /**
      * Menu array.
      *
      * @var array
      */
     protected $_menu = array();
-
-    /**
-     * Constructor.
-     *
-     * @param integer $mask  Display mask.
-     */
-    public function __construct($mask = self::MASK_ALL)
-    {
-        $this->setMask($mask);
-    }
-
-    /**
-     * Sets the display mask.
-     *
-     * @param integer $mask  Display mask.
-     */
-    public function setMask($mask)
-    {
-        $this->_mask = $mask;
-    }
 
     /**
      * Add an item to the menu array.
@@ -96,19 +36,11 @@ class Horde_Menu
      *                           window, what is its name?
      * @param string $onclick    Onclick javascript, if desired.
      * @param string $class      CSS class for the menu item.
-     *
-     * @return integer  The id (NOT guaranteed to be an array index) of the
-     *                  item just added to the menu.
      */
     public function add($url, $text, $icon = '', $icon_path = null,
                         $target = '', $onclick = null, $class = null)
     {
-        $pos = count($this->_menu);
-        if (!$pos || ($pos - 1 != max(array_keys($this->_menu)))) {
-            $pos = count($this->_menu);
-        }
-
-        $this->_menu[$pos] = array(
+        $this->_menu[] = array(
             'url' => ($url instanceof Horde_Url) ? $url : new Horde_Url($url),
             'text' => $text,
             'icon' => $icon,
@@ -117,8 +49,6 @@ class Horde_Menu
             'onclick' => $onclick,
             'class' => $class
         );
-
-        return $pos;
     }
 
     /**
@@ -140,18 +70,13 @@ class Horde_Menu
      */
     public function addArray($item)
     {
-        $pos = count($this->_menu);
-        if (!$pos || ($pos - 1 != max(array_keys($this->_menu)))) {
-            $pos = count($this->_menu);
-        }
-
         if (!isset($item['url'])) {
             $item['url'] = new Horde_Url();
         } elseif (!($item['url'] instanceof Horde_Url)) {
             $item['url'] = new Horde_Url($item['url']);
         }
 
-        $this->_menu[$pos] = array_merge(array(
+        $this->_menu[] = array_merge(array(
             'class' => '',
             'icon' => '',
             'icon_path' => null,
@@ -159,24 +84,6 @@ class Horde_Menu
             'target' => '',
             'text' => ''
         ), $item);
-
-        return $pos;
-    }
-
-    /**
-     * TODO
-     */
-    public function setPosition($id, $pos)
-    {
-        if (!isset($this->_menu[$id]) || isset($this->_menu[$pos])) {
-            return false;
-        }
-
-        $item = $this->_menu[$id];
-        unset($this->_menu[$id]);
-        $this->_menu[$pos] = $item;
-
-        return true;
     }
 
     /**
@@ -190,10 +97,8 @@ class Horde_Menu
 
         $app = $registry->getApp();
 
-        if ($this->_mask !== self::MASK_NONE) {
-            /* Add any custom menu items. */
-            $this->addSiteLinks();
-        }
+        /* Add any custom menu items. */
+        $this->addSiteLinks();
 
         /* No need to return an empty list if there are no menu
          * items. */

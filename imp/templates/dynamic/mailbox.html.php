@@ -8,7 +8,6 @@
 </div>
 
 <div id="horde-page" style="display:none">
-<?php echo $this->sidebar ?>
  <div id="dimpmain">
   <div id="dimpmain_iframe" style="display:none"></div>
   <div id="dimpmain_folder" style="display:none">
@@ -171,6 +170,8 @@
   </div>
  </div>
 </div>
+
+<?php echo $this->sidebar ?>
 
 <div id="helptext">
  <div style="display:none">

@@ -174,6 +174,18 @@ class Turba_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        if (count($GLOBALS['addSources'])) {
+            $sidebar->addNewButton(_("_New Contact"), Horde::url('add.php'));
+        }
+    }
+
+    /**
      * Returns values for <configspecial> configuration settings.
      *
      * @param string $what  Either 'client-fields' or 'sources'.

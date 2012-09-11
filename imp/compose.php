@@ -1091,7 +1091,9 @@ if ($rtemode && !$redirect) {
 }
 
 if ($showmenu) {
-    $menu = IMP::menu();
+    $menu = Horde::menu();
+} else {
+    $page_output->sidebar = false;
 }
 $page_output->addScriptFile('compose-base.js');
 $page_output->addScriptFile('compose.js');

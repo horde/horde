@@ -165,7 +165,7 @@ if (is_array($next_step)) {
 $page_output->header(array(
     'title' => _("Import/Export Notes")
 ));
-echo Mnemo::menu();
+echo Horde::menu();
 $notification->notify();
 
 if (isset($templates[$next_step])) {

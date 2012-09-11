@@ -77,7 +77,7 @@ Horde_Core_Ui_JsCalendar::init(array(
     'full_weekdays' => true
 ));
 
-$menu = Kronolith::menu();
+$menu = Horde::menu();
 
 $page_output->addScriptFile('edit.js');
 $page_output->addScriptFile('popup.js', 'horde');

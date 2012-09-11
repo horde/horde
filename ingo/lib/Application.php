@@ -206,6 +206,30 @@ class Ingo_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        global $injector;
+
+        $perms = $injector->getInstance('Horde_Core_Perms');
+        $actions = $injector->getInstance('Ingo_Script')->availableActions();
+        $filters = $injector->getInstance('Ingo_Factory_Storage')
+            ->create()
+            ->retrieve(Ingo_Storage::ACTION_FILTERS)
+            ->getFilterList();
+
+        if (!empty($actions) &&
+            ($perms->hasAppPermission('allow_rules') &&
+             ($perms->hasAppPermission('max_rules') === true ||
+              $perms->hasAppPermission('max_rules') > count($filters)))) {
+            $sidebar->addNewButton(_("New Rule"), Horde::url('rule.php'));
+        }
+    }
+
+    /**
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {

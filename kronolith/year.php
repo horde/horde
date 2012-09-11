@@ -27,7 +27,7 @@ $page_output->header(array(
     'title' => $view->year
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo Kronolith::menu();
+echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';

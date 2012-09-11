@@ -465,43 +465,6 @@ class IMP
     }
 
     /**
-     * Build IMP's menu.
-     *
-     * @return string  The menu output.
-     */
-    static public function menu()
-    {
-        $sidebar = Horde::menu(array('app' => 'imp', 'menu_ob' => true))
-            ->render();
-
-        if (self::canCompose()) {
-            $sidebar->addNewButton(_("_New Message"), self::composeLink());
-        }
-
-        /* Folders. */
-        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
-            $tree = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Tree')
-                ->create('imp_menu',
-                         'Horde_Tree_Renderer_Sidebar',
-                         array('nosession' => true));
-            $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-            $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
-            $tree = $imaptree->createTree($tree, array(
-                'open' => false,
-                'poll_info' => true
-            ));
-            $tree->addNodeParams(IMP_Mailbox::formTo(self::mailbox()), array('selected' => true));
-            $sidebar->containers['imp-menu'] = array('content' => $tree->getTree());
-        }
-
-        return $GLOBALS['injector']
-            ->getInstance('Horde_View_Topbar')
-            ->render()
-            . $sidebar;
-    }
-
-    /**
      * Outputs IMP's status/notification bar.
      */
     static public function status()

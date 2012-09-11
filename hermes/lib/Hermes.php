@@ -374,15 +374,4 @@ class Hermes
          $prefs->setValue('running_timers', serialize($timers));
     }
 
-    public static function menu()
-    {
-        $sidebar = Horde::menu(array('menu_ob' => true))->render();
-        $sidebar->addNewButton(
-            _("_New Time"),
-            Horde::url('entry.php')
-        );
-        return $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render()
-            . $sidebar;
-    }
-
 }

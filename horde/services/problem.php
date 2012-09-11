@@ -150,11 +150,13 @@ case 'cancel_problem_report':
     break;
 }
 
+$page_output->sidebar = false;
 $page_output->addInlineJsVars(array(
     'HordeProblem.message_text' => _("You must describe the problem before you can send the problem report."),
     'HordeProblem.summary_text' => _("Please provide a summary of the problem.")
 ), true);
 $page_output->addScriptFile('problem.js', 'horde');
+
 $page_output->header(array(
     'title' => _("Problem Description")
 ));

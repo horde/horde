@@ -48,7 +48,12 @@ class Folks_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        return Folks::getMenu();
+        $menu->add(self::getUrlFor('user', $GLOBALS['registry']->getAuth()), _("My profile"), 'myaccount.png');
+        $menu->add(self::getUrlFor('list', 'friends'), _("Friends"), 'group.png');
+        $menu->add(Horde::url('edit/edit.php'), _("Edit profile"), 'edit.png');
+        $menu->add(Horde::url('services.php'), _("Services"), 'horde.png');
+        $menu->add(Horde::url('search.php'), _("Search"), 'search.png');
+        $menu->add(self::getUrlFor('list', 'online'), _("List"), 'group.png');
     }
 
     /**

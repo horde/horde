@@ -188,12 +188,10 @@ class IMP_Ui_Compose
      */
     public function popupSuccess()
     {
-        $menu = new Horde_Menu(Horde_Menu::MASK_NONE);
-        $menu->add(Horde::url('compose.php'), _("New Message"), 'compose.png');
-        $menu->add(new Horde_Url(''), _("Close this window"), 'close.png', null, null, 'window.close();');
         IMP::header();
         $success_template = $GLOBALS['injector']->createInstance('Horde_Template');
-        $success_template->set('menu', $menu->render());
+        $success_template->set('new', Horde::widget(array('url' => Horde::url('compose.php'), 'title' => _("New Message"))));
+        $success_template->set('close', Horde::widget(array('url' => new Horde_Url(), 'title' => _("Close this window"), 'onclick' => 'window.close();')));
         echo $success_template->fetch(IMP_TEMPLATES . '/imp/compose/success.html');
         IMP::status();
         $GLOBALS['page_output']->footer();
