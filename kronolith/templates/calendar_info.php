@@ -34,7 +34,7 @@
 <p class="calendar-info-url">
  <?php echo htmlspecialchars(Kronolith::embedCode($calendar->share()->getName())); ?>
 </p>
-<?php if (Horde_Menu::showService('help')) {
+<?php if ($GLOBALS['registry']->showService('help')) {
     echo '<p>' . Horde_Help::link('kronolith', 'embed') . ' ' . _("Learn how to embed other calendar views.") . '</p>';
 } ?>
 <?php endif; ?>

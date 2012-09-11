@@ -41,9 +41,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $this->view->filter_avail = $session->get('imp', 'filteravail');
         $this->view->show_folders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
-        $this->view->show_logout = Horde_Menu::showService('logout');
         $this->view->show_notspam = !empty($conf['notspam']['reporting']);
-        $this->view->show_prefs = Horde_Menu::showService('prefs');
         $this->view->show_search = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
         $this->view->show_spam = !empty($conf['spam']['reporting']);
 

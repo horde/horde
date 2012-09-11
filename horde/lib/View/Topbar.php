@@ -57,14 +57,14 @@ class Horde_View_Topbar extends Horde_View
 
         /* Login/Logout. */
         if ($registry->getAuth()) {
-            if (Horde_Menu::showService('logout')) {
+            if ($registry->showService('logout')) {
                 $this->logoutUrl = $registry->getServiceLink(
                     'logout',
                     $registry->getApp())
                     ->setRaw(false);
             }
         } else {
-            if (Horde_Menu::showService('login')) {
+            if ($registry->showService('login')) {
                 $this->logoutUrl = $registry->getServiceLink(
                     'login',
                     $registry->getApp())

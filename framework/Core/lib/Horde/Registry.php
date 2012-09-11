@@ -1266,6 +1266,43 @@ class Horde_Registry
     }
 
     /**
+     * TODO
+     *
+     * @param string $type       The type of link.
+     * <pre>
+     * The following must be defined in Horde's menu config, or else they
+     * won't be displayed in the menu:
+     * 'help', 'problem', 'logout', 'login', 'prefs'
+     * </pre>
+     *
+     * @return boolean  True if the link is to be shown.
+     */
+    public function showService($type)
+    {
+        global $conf;
+
+        if (!in_array($type, array('help', 'problem', 'logout', 'login', 'prefs'))) {
+            return true;
+        }
+
+        if (empty($conf['menu']['links'][$type])) {
+            return false;
+        }
+
+        switch ($conf['menu']['links'][$type]) {
+        case 'all':
+            return true;
+
+        case 'authenticated':
+            return (bool)$this->getAuth();
+
+        default:
+        case 'never':
+            return false;
+        }
+    }
+
+    /**
      * Returns the URL to access a Horde service.
      *
      * @param string $type       The service to display:

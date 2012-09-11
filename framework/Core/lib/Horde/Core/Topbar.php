@@ -115,7 +115,7 @@ class Horde_Core_Topbar
         );
 
         /* Add preferences. */
-        if (Horde_Menu::showService('prefs') &&
+        if ($registry->showService('prefs') &&
             !($GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create() instanceof Horde_Prefs_Session)) {
             $menu['prefs'] = array(
                 'icon' => Horde_Themes::img('prefs.png'),
@@ -152,7 +152,7 @@ class Horde_Core_Topbar
         }
 
         /* Add problem link. */
-        if (Horde_Menu::showService('problem') &&
+        if ($registry->showService('problem') &&
             ($problem_link = $registry->getServiceLink('problem', $current))) {
             $menu['problem_' . $current] = array(
                 'icon' => 'problem.png',
@@ -164,7 +164,7 @@ class Horde_Core_Topbar
         }
 
         /* Add help link. */
-        if (Horde_Menu::showService('help') &&
+        if ($registry->showService('help') &&
             ($help_link = $registry->getServiceLink('help', $current))) {
             $menu['help_' . $current] = array(
                 'icon' => 'help_index.png',

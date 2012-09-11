@@ -26,16 +26,7 @@
       </ul>
     </div>
     <?php endif; ?>
-    <ul>
-      <li><a href="#" id="hermesNotifications" class="hermesNotifications" title="<?php echo ("0 notifications") ?>"></a></li>
-      <li><a href="#" id="hermesOptions"><?php echo _("Options") ?></a></li>
-      <?php if ($help_link): ?>
-      <li><?php echo $help_link ?></li>
-      <?php endif ?>
-      <?php if (Horde_Menu::showService('logout')): $ak = Horde::getAccessKey(_("_Logout")); ?>
-      <li><a href="#" accesskey="<?php echo $ak ?>" id="hermesLogout"><?php echo Horde::highlightAccessKey(_("_Logout"), $ak) ?></a></li>
-      <?php endif ?>
-    </ul>  </div>
+    </div>
   <!-- end services -->
  <!-- begin top bar -->
  <div id="hermesBar">

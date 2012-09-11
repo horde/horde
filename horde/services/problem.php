@@ -18,7 +18,7 @@ Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 $redirect_url = new Horde_Url(Horde_Util::getFormData('return_url', Horde::url('login.php', true, array('app' => 'horde'))));
 
-if (!Horde_Menu::showService('problem')) {
+if (!$registry->showService('problem')) {
     $redirect_url->redirect();
 }
 
