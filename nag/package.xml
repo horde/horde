@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-10</date>
- <time>14:58:07</time>
+ <date>2012-09-11</date>
+ <time>09:23:47</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -144,7 +144,6 @@
     </dir> <!-- /lib/Ui -->
     <dir name="View">
      <dir name="Helper">
-      <file name="HeaderWidget.php" role="horde" />
       <file name="List.php" role="horde" />
      </dir> <!-- /lib/View/Helper -->
      <file name="List.php" role="horde" />
@@ -781,7 +780,6 @@
    <install as="nag/lib/Ui/VarRenderer/Nag.php" name="lib/Ui/VarRenderer/Nag.php" />
    <install as="nag/lib/View/List.php" name="lib/View/List.php" />
    <install as="nag/lib/View/Helper/HeaderWidget" name="lib/View/Helper/HeaderWidget" />
-   <install as="nag/lib/View/Helper/HeaderWidget.php" name="lib/View/Helper/HeaderWidget.php" />
    <install as="nag/lib/View/Helper/List.php" name="lib/View/Helper/List.php" />
    <install as="nag/locale/.htaccess" name="locale/.htaccess" />
    <install as="nag/locale/nag.pot" name="locale/nag.pot" />
@@ -1185,7 +1183,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-10</date>
+   <date>2012-09-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix deleting tasks from the task form.
