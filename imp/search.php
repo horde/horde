@@ -3,6 +3,7 @@
  * IMP advanced search script. This search script only works with javascript
  * enabled browsers. All other browsers are limited to the basic search
  * script only.
+ * Usable in both traditional and dynamic views.
  *
  * URL Parameters:
  * ---------------
@@ -507,5 +508,5 @@ if (!$dimp_view) {
 }
 IMP::status();
 
-echo $t->fetch(IMP_TEMPLATES . '/imp/search/search.html');
+echo $t->fetch(IMP_TEMPLATES . '/search/search.html');
 $page_output->footer();

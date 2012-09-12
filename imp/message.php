@@ -768,16 +768,16 @@ if (!empty($conf['maillog']['use_maillog'])) {
 echo $menu;
 IMP::status();
 
-echo $t_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_top.html');
-echo $n_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_navigate.html');
-echo $a_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_actions.html');
-echo $m_template->fetch(IMP_TEMPLATES . '/imp/message/message.html');
+echo $t_template->fetch(IMP_TEMPLATES . '/basic/message/navbar_top.html');
+echo $n_template->fetch(IMP_TEMPLATES . '/basic/message/navbar_navigate.html');
+echo $a_template->fetch(IMP_TEMPLATES . '/basic/message/navbar_actions.html');
+echo $m_template->fetch(IMP_TEMPLATES . '/basic/message/message.html');
 
 $a_template->set('isbottom', true);
-echo $a_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_actions.html');
+echo $a_template->fetch(IMP_TEMPLATES . '/basic/message/navbar_actions.html');
 
 $n_template->set('id', 2);
 $n_template->set('isbottom', true);
-echo $n_template->fetch(IMP_TEMPLATES . '/imp/message/navbar_navigate.html');
+echo $n_template->fetch(IMP_TEMPLATES . '/basic/message/navbar_navigate.html');
 
 $page_output->footer();

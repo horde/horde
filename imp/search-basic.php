@@ -112,5 +112,5 @@ IMP::header(_("Search"));
 echo $menu;
 IMP::status();
 
-echo $t->fetch(IMP_TEMPLATES . '/imp/search/search-basic.html');
+echo $t->fetch(IMP_TEMPLATES . '/basic/search/search-basic.html');
 $page_output->footer();

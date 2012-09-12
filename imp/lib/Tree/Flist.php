@@ -159,7 +159,7 @@ class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
         }
         $t->set('tree', $tree);
 
-        return $t->fetch(IMP_TEMPLATES . '/imp/flist/flist.html');
+        return $t->fetch(IMP_TEMPLATES . '/basic/flist/flist.html');
     }
 
     /**

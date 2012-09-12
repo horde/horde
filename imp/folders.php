@@ -1,6 +1,6 @@
 <?php
 /**
- * Folder tree display for traditional (IMP) view.
+ * Folder tree display for basic view.
  *
  * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
@@ -268,7 +268,7 @@ case 'empty_mbox_confirm':
         $template->set('mboxes', $loop);
         $template->set('folders_url', $folders_url);
         $template->set('folders_token', $folders_token);
-        echo $template->fetch(IMP_TEMPLATES . '/imp/folders/folders_confirm.html');
+        echo $template->fetch(IMP_TEMPLATES . '/basic/folders/folders_confirm.html');
 
         $page_output->footer();
         exit;
@@ -311,7 +311,7 @@ case 'mbox_size':
         echo $menu;
         IMP::status();
 
-        echo $template->fetch(IMP_TEMPLATES . '/imp/folders/folders_size.html');
+        echo $template->fetch(IMP_TEMPLATES . '/basic/folders/folders_size.html');
 
         $page_output->footer();
         exit;
@@ -348,7 +348,7 @@ if ($session->get('imp', 'file_upload') &&
     $i_template->set('folders_url', $folders_url_ob);
     $i_template->set('import_mbox', htmlspecialchars($mbox_list[0]));
     $i_template->set('folders_token', $folders_token);
-    echo $i_template->fetch(IMP_TEMPLATES . '/imp/folders/import.html');
+    echo $i_template->fetch(IMP_TEMPLATES . '/basic/folders/import.html');
     $page_output->footer();
     exit;
 }
@@ -411,12 +411,12 @@ IMP::header(_("Folder Navigator"));
 echo $menu;
 IMP::status();
 
-echo $head_template->fetch(IMP_TEMPLATES . '/imp/folders/head.html');
-echo $a_template->fetch(IMP_TEMPLATES . '/imp/folders/actions.html');
+echo $head_template->fetch(IMP_TEMPLATES . '/basic/folders/head.html');
+echo $a_template->fetch(IMP_TEMPLATES . '/basic/folders/actions.html');
 $tree->renderTree();
 if (count($tree) > 10) {
     $a_template->set('id', 1);
-    echo $a_template->fetch(IMP_TEMPLATES . '/imp/folders/actions.html');
+    echo $a_template->fetch(IMP_TEMPLATES . '/basic/folders/actions.html');
 }
 
 /* No need for extra template - close out the tags here. */

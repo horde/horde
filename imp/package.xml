@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-06</date>
- <time>15:05:26</time>
+ <date>2012-09-12</date>
+ <time>14:02:48</time>
  <version>
   <release>6.0.0beta4</release>
   <api>6.0.0beta1</api>
@@ -701,6 +701,9 @@
     <file name="2_imp_autoincrement_sentmail.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
+    <dir name="contacts">
+     <file name="contacts.html" role="horde" />
+    </dir> <!-- /templates/contacts -->
     <dir name="dynamic">
      <file name="compose-base.html.php" role="horde" />
      <file name="compose.html.php" role="horde" />
@@ -714,52 +717,6 @@
      <file name="redirect.html.php" role="horde" />
      <file name="sidebar.html.php" role="horde" />
     </dir> <!-- /templates/dynamic -->
-    <dir name="imp">
-     <dir name="compose">
-      <file name="compose.html" role="horde" />
-      <file name="redirect.html" role="horde" />
-      <file name="success.html" role="horde" />
-     </dir> <!-- /templates/imp/compose -->
-     <dir name="contacts">
-      <file name="contacts.html" role="horde" />
-     </dir> <!-- /templates/imp/contacts -->
-     <dir name="flist">
-      <file name="flist.html" role="horde" />
-     </dir> <!-- /templates/imp/flist -->
-     <dir name="folders">
-      <file name="actions.html" role="horde" />
-      <file name="folders_confirm.html" role="horde" />
-      <file name="folders_size.html" role="horde" />
-      <file name="head.html" role="horde" />
-      <file name="import.html" role="horde" />
-     </dir> <!-- /templates/imp/folders -->
-     <dir name="mailbox">
-      <file name="actions.html" role="horde" />
-      <file name="actions_deleted.html" role="horde" />
-      <file name="empty_mailbox.html" role="horde" />
-      <file name="form_start.html" role="horde" />
-      <file name="header.html" role="horde" />
-      <file name="mailbox.html" role="horde" />
-      <file name="message_headers.html" role="horde" />
-      <file name="navbar.html" role="horde" />
-      <file name="searchmbox.html" role="horde" />
-     </dir> <!-- /templates/imp/mailbox -->
-     <dir name="message">
-      <file name="message.html" role="horde" />
-      <file name="navbar_actions.html" role="horde" />
-      <file name="navbar_navigate.html" role="horde" />
-      <file name="navbar_top.html" role="horde" />
-     </dir> <!-- /templates/imp/message -->
-     <dir name="search">
-      <file name="search-all.html" role="horde" />
-      <file name="search-basic.html" role="horde" />
-      <file name="search.html" role="horde" />
-     </dir> <!-- /templates/imp/search -->
-     <dir name="thread">
-      <file name="thread.html" role="horde" />
-     </dir> <!-- /templates/imp/thread -->
-     <file name="subinfo.html.php" role="horde" />
-    </dir> <!-- /templates/imp -->
     <dir name="itip">
      <file name="action.html.php" role="horde" />
      <file name="base.html.php" role="horde" />
@@ -811,6 +768,10 @@
     <dir name="saveimage">
      <file name="saveimage.html" role="horde" />
     </dir> <!-- /templates/saveimage -->
+    <dir name="search">
+     <file name="search-all.html" role="horde" />
+     <file name="search.html" role="horde" />
+    </dir> <!-- /templates/search -->
     <dir name="smartmobile">
      <file name="compose.html.php" role="horde" />
      <file name="confirm.html.php" role="horde" />
@@ -826,6 +787,47 @@
     <dir name="test">
      <file name="mailserver.inc" role="horde" />
     </dir> <!-- /templates/test -->
+    <dir name="traditional">
+     <dir name="compose">
+      <file name="compose.html" role="horde" />
+      <file name="redirect.html" role="horde" />
+      <file name="success.html" role="horde" />
+     </dir> <!-- /templates/traditional/compose -->
+     <dir name="flist">
+      <file name="flist.html" role="horde" />
+     </dir> <!-- /templates/traditional/flist -->
+     <dir name="folders">
+      <file name="actions.html" role="horde" />
+      <file name="folders_confirm.html" role="horde" />
+      <file name="folders_size.html" role="horde" />
+      <file name="head.html" role="horde" />
+      <file name="import.html" role="horde" />
+     </dir> <!-- /templates/traditional/folders -->
+     <dir name="mailbox">
+      <file name="actions.html" role="horde" />
+      <file name="actions_deleted.html" role="horde" />
+      <file name="empty_mailbox.html" role="horde" />
+      <file name="form_start.html" role="horde" />
+      <file name="header.html" role="horde" />
+      <file name="mailbox.html" role="horde" />
+      <file name="message_headers.html" role="horde" />
+      <file name="navbar.html" role="horde" />
+      <file name="searchmbox.html" role="horde" />
+     </dir> <!-- /templates/traditional/mailbox -->
+     <dir name="message">
+      <file name="message.html" role="horde" />
+      <file name="navbar_actions.html" role="horde" />
+      <file name="navbar_navigate.html" role="horde" />
+      <file name="navbar_top.html" role="horde" />
+     </dir> <!-- /templates/traditional/message -->
+     <dir name="search">
+      <file name="search-basic.html" role="horde" />
+     </dir> <!-- /templates/traditional/search -->
+     <dir name="thread">
+      <file name="thread.html" role="horde" />
+     </dir> <!-- /templates/traditional/thread -->
+     <file name="subinfo.html.php" role="horde" />
+    </dir> <!-- /templates/traditional -->
     <file name=".htaccess" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
@@ -1688,6 +1690,7 @@
    <install as="imp/migration/1_imp_base_tables.php" name="migration/1_imp_base_tables.php" />
    <install as="imp/migration/2_imp_autoincrement_sentmail.php" name="migration/2_imp_autoincrement_sentmail.php" />
    <install as="imp/templates/.htaccess" name="templates/.htaccess" />
+   <install as="imp/templates/contacts/contacts.html" name="templates/contacts/contacts.html" />
    <install as="imp/templates/dynamic/compose-base.html.php" name="templates/dynamic/compose-base.html.php" />
    <install as="imp/templates/dynamic/compose.html.php" name="templates/dynamic/compose.html.php" />
    <install as="imp/templates/dynamic/header.html.php" name="templates/dynamic/header.html.php" />
@@ -1699,34 +1702,6 @@
    <install as="imp/templates/dynamic/qreply.html.php" name="templates/dynamic/qreply.html.php" />
    <install as="imp/templates/dynamic/redirect.html.php" name="templates/dynamic/redirect.html.php" />
    <install as="imp/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />
-   <install as="imp/templates/imp/subinfo.html.php" name="templates/imp/subinfo.html.php" />
-   <install as="imp/templates/imp/compose/compose.html" name="templates/imp/compose/compose.html" />
-   <install as="imp/templates/imp/compose/redirect.html" name="templates/imp/compose/redirect.html" />
-   <install as="imp/templates/imp/compose/success.html" name="templates/imp/compose/success.html" />
-   <install as="imp/templates/imp/contacts/contacts.html" name="templates/imp/contacts/contacts.html" />
-   <install as="imp/templates/imp/flist/flist.html" name="templates/imp/flist/flist.html" />
-   <install as="imp/templates/imp/folders/actions.html" name="templates/imp/folders/actions.html" />
-   <install as="imp/templates/imp/folders/folders_confirm.html" name="templates/imp/folders/folders_confirm.html" />
-   <install as="imp/templates/imp/folders/folders_size.html" name="templates/imp/folders/folders_size.html" />
-   <install as="imp/templates/imp/folders/head.html" name="templates/imp/folders/head.html" />
-   <install as="imp/templates/imp/folders/import.html" name="templates/imp/folders/import.html" />
-   <install as="imp/templates/imp/mailbox/actions.html" name="templates/imp/mailbox/actions.html" />
-   <install as="imp/templates/imp/mailbox/actions_deleted.html" name="templates/imp/mailbox/actions_deleted.html" />
-   <install as="imp/templates/imp/mailbox/empty_mailbox.html" name="templates/imp/mailbox/empty_mailbox.html" />
-   <install as="imp/templates/imp/mailbox/form_start.html" name="templates/imp/mailbox/form_start.html" />
-   <install as="imp/templates/imp/mailbox/header.html" name="templates/imp/mailbox/header.html" />
-   <install as="imp/templates/imp/mailbox/mailbox.html" name="templates/imp/mailbox/mailbox.html" />
-   <install as="imp/templates/imp/mailbox/message_headers.html" name="templates/imp/mailbox/message_headers.html" />
-   <install as="imp/templates/imp/mailbox/navbar.html" name="templates/imp/mailbox/navbar.html" />
-   <install as="imp/templates/imp/mailbox/searchmbox.html" name="templates/imp/mailbox/searchmbox.html" />
-   <install as="imp/templates/imp/message/message.html" name="templates/imp/message/message.html" />
-   <install as="imp/templates/imp/message/navbar_actions.html" name="templates/imp/message/navbar_actions.html" />
-   <install as="imp/templates/imp/message/navbar_navigate.html" name="templates/imp/message/navbar_navigate.html" />
-   <install as="imp/templates/imp/message/navbar_top.html" name="templates/imp/message/navbar_top.html" />
-   <install as="imp/templates/imp/search/search-all.html" name="templates/imp/search/search-all.html" />
-   <install as="imp/templates/imp/search/search-basic.html" name="templates/imp/search/search-basic.html" />
-   <install as="imp/templates/imp/search/search.html" name="templates/imp/search/search.html" />
-   <install as="imp/templates/imp/thread/thread.html" name="templates/imp/thread/thread.html" />
    <install as="imp/templates/itip/action.html.php" name="templates/itip/action.html.php" />
    <install as="imp/templates/itip/base.html.php" name="templates/itip/base.html.php" />
    <install as="imp/templates/minimal/compose.html.php" name="templates/minimal/compose.html.php" />
@@ -1762,6 +1737,8 @@
    <install as="imp/templates/quota/quota.html" name="templates/quota/quota.html" />
    <install as="imp/templates/rss/mailbox.rss" name="templates/rss/mailbox.rss" />
    <install as="imp/templates/saveimage/saveimage.html" name="templates/saveimage/saveimage.html" />
+   <install as="imp/templates/search/search-all.html" name="templates/search/search-all.html" />
+   <install as="imp/templates/search/search.html" name="templates/search/search.html" />
    <install as="imp/templates/smartmobile/compose.html.php" name="templates/smartmobile/compose.html.php" />
    <install as="imp/templates/smartmobile/confirm.html.php" name="templates/smartmobile/confirm.html.php" />
    <install as="imp/templates/smartmobile/copymove.html.php" name="templates/smartmobile/copymove.html.php" />
@@ -1771,6 +1748,31 @@
    <install as="imp/templates/smartmobile/search.html.php" name="templates/smartmobile/search.html.php" />
    <install as="imp/templates/smime/import_key.html" name="templates/smime/import_key.html" />
    <install as="imp/templates/test/mailserver.inc" name="templates/test/mailserver.inc" />
+   <install as="imp/templates/traditional/subinfo.html.php" name="templates/traditional/subinfo.html.php" />
+   <install as="imp/templates/traditional/compose/compose.html" name="templates/traditional/compose/compose.html" />
+   <install as="imp/templates/traditional/compose/redirect.html" name="templates/traditional/compose/redirect.html" />
+   <install as="imp/templates/traditional/compose/success.html" name="templates/traditional/compose/success.html" />
+   <install as="imp/templates/traditional/flist/flist.html" name="templates/traditional/flist/flist.html" />
+   <install as="imp/templates/traditional/folders/actions.html" name="templates/traditional/folders/actions.html" />
+   <install as="imp/templates/traditional/folders/folders_confirm.html" name="templates/traditional/folders/folders_confirm.html" />
+   <install as="imp/templates/traditional/folders/folders_size.html" name="templates/traditional/folders/folders_size.html" />
+   <install as="imp/templates/traditional/folders/head.html" name="templates/traditional/folders/head.html" />
+   <install as="imp/templates/traditional/folders/import.html" name="templates/traditional/folders/import.html" />
+   <install as="imp/templates/traditional/mailbox/actions.html" name="templates/traditional/mailbox/actions.html" />
+   <install as="imp/templates/traditional/mailbox/actions_deleted.html" name="templates/traditional/mailbox/actions_deleted.html" />
+   <install as="imp/templates/traditional/mailbox/empty_mailbox.html" name="templates/traditional/mailbox/empty_mailbox.html" />
+   <install as="imp/templates/traditional/mailbox/form_start.html" name="templates/traditional/mailbox/form_start.html" />
+   <install as="imp/templates/traditional/mailbox/header.html" name="templates/traditional/mailbox/header.html" />
+   <install as="imp/templates/traditional/mailbox/mailbox.html" name="templates/traditional/mailbox/mailbox.html" />
+   <install as="imp/templates/traditional/mailbox/message_headers.html" name="templates/traditional/mailbox/message_headers.html" />
+   <install as="imp/templates/traditional/mailbox/navbar.html" name="templates/traditional/mailbox/navbar.html" />
+   <install as="imp/templates/traditional/mailbox/searchmbox.html" name="templates/traditional/mailbox/searchmbox.html" />
+   <install as="imp/templates/traditional/message/message.html" name="templates/traditional/message/message.html" />
+   <install as="imp/templates/traditional/message/navbar_actions.html" name="templates/traditional/message/navbar_actions.html" />
+   <install as="imp/templates/traditional/message/navbar_navigate.html" name="templates/traditional/message/navbar_navigate.html" />
+   <install as="imp/templates/traditional/message/navbar_top.html" name="templates/traditional/message/navbar_top.html" />
+   <install as="imp/templates/traditional/search/search-basic.html" name="templates/traditional/search/search-basic.html" />
+   <install as="imp/templates/traditional/thread/thread.html" name="templates/traditional/thread/thread.html" />
    <install as="Imp/AllTests.php" name="test/Imp/AllTests.php" />
    <install as="Imp/Autoload.php" name="test/Imp/Autoload.php" />
    <install as="Imp/phpunit.xml" name="test/Imp/phpunit.xml" />
@@ -2729,7 +2731,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-06</date>
+   <date>2012-09-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Add swipe action buttons to the smartmobile mailbox page.

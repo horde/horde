@@ -566,15 +566,13 @@ class IMP_Hooks
     /**
      * Allow additional information to be added/edited from the data that is
      * passed to the mailbox display template:
-     *   imp: imp/templates/mailbox/mailbox.html
+     *   imp: imp/templates/basic/mailbox/mailbox.html
      *   dimp: imp/templates/dynamic/msglist_[horiz|vert].html
      *
      * If you are going to add new columns, you also have to update these
      * fields:
      *   imp: imp/mailbox.php to specify the column width.
-     *   dimp: imp/templates/index/dimp.inc to contain the new field in the
-     *         header
-     *         imp/themes/screen-dimp.css to specify the column width.
+     *   dimp: imp/themes/dynamic/screen.css to specify the column width.
      *
      * @param array $msgs   The mailbox data.
      * @param string $view  Either 'imp' or 'dimp'.
@@ -791,9 +789,9 @@ class IMP_Hooks
 
 
     /**
-     * DIMP: Allow additional information to be added to the array that is
-     * passed to the message text display template:
-     *   imp/templates/dimp/message/message.html.
+     * Dynamic view: Allow additional information to be added to the array
+     * that is passed to the message text display template:
+     *   imp/templates/dynamic/message.html.php.
      *
      * @param array $msg  The current entry array (see the showMessage()
      *                    function in lib/Views/ShowMessage.php for the
@@ -810,9 +808,9 @@ class IMP_Hooks
 
 
     /**
-     * DIMP: Allows additional information to be added to the preview view and
-     * its corresponding template:
-     *   imp/templates/index/index-dimp.inc.
+     * Dynamic view: Allows additional information to be added to the preview
+     * view and its corresponding template:
+     *   imp/templates/dynamic/mailbox.html.php.
      *
      * Since the preview pane is dynamically updated via javascript, all
      * updates other than the base entries must be provided in javascript code

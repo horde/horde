@@ -42,7 +42,7 @@ class IMP_Ui_Search
             'render_params' => array(
                 'abbrev' => 0,
                 'container_select' => true,
-                'customhtml' => $t2->fetch(IMP_TEMPLATES . '/imp/search/search-all.html'),
+                'customhtml' => $t2->fetch(IMP_TEMPLATES . '/search/search-all.html'),
                 'heading' => _("Add search mailbox:")
             ),
             'render_type' => 'IMP_Tree_Flist'

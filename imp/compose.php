@@ -1,6 +1,6 @@
 <?php
 /**
- * Compose script for traditional (IMP) view.
+ * Compose script for basic view.
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
@@ -765,7 +765,7 @@ if ($redirect) {
     $t->set('input_value', htmlspecialchars($header['to']));
     $t->set('help', Horde_Help::link('imp', 'compose-to'));
 
-    $template_output = $t->fetch(IMP_TEMPLATES . '/imp/compose/redirect.html');
+    $template_output = $t->fetch(IMP_TEMPLATES . '/basic/compose/redirect.html');
 } else {
     /* Prepare the compose template. */
     $tabindex = 0;
@@ -1083,7 +1083,7 @@ if ($redirect) {
     IMP::status();
     $t->set('status', Horde::endBuffer());
 
-    $template_output = $t->fetch(IMP_TEMPLATES . '/imp/compose/compose.html');
+    $template_output = $t->fetch(IMP_TEMPLATES . '/basic/compose/compose.html');
 }
 
 if ($rtemode && !$redirect) {

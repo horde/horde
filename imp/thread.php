@@ -174,5 +174,5 @@ $menu = Horde::menu();
 IMP::header($mode == 'thread' ? _("Thread View") : _("Multiple Message View"));
 echo $menu;
 IMP::status();
-echo $template->fetch(IMP_TEMPLATES . '/imp/thread/thread.html');
+echo $template->fetch(IMP_TEMPLATES . '/basic/thread/thread.html');
 $page_output->footer();

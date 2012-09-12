@@ -1,6 +1,7 @@
 <?php
 /**
  * Contacts selection page.
+ * Usable in both traditional and dynamic views.
  *
  * URL parameters:
  *   - sa: (string) List of selected addresses.
@@ -99,5 +100,5 @@ $page_output->addInlineJsVars(array(
 ));
 
 IMP::header(_("Address Book"));
-echo $template->fetch(IMP_TEMPLATES . '/imp/contacts/contacts.html');
+echo $template->fetch(IMP_TEMPLATES . '/contacts/contacts.html');
 $page_output->footer();

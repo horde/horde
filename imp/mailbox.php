@@ -29,7 +29,7 @@ function _outputSummaries($msgs)
     }
 
     $template->set('messages', $msgs, true);
-    echo $template->fetch(IMP_TEMPLATES . '/imp/mailbox/mailbox.html');
+    echo $template->fetch(IMP_TEMPLATES . '/basic/mailbox/mailbox.html');
 }
 
 
@@ -448,7 +448,7 @@ if (IMP::mailbox()->access_empty) {
     )));
 }
 
-echo $hdr_template->fetch(IMP_TEMPLATES . '/imp/mailbox/header.html');
+echo $hdr_template->fetch(IMP_TEMPLATES . '/basic/mailbox/header.html');
 
 /* If no messages, exit immediately. */
 if (empty($pageOb['end'])) {
@@ -460,13 +460,13 @@ if (empty($pageOb['end'])) {
         if (IMP::mailbox()->access_expunge) {
             $del_template->set('purge', Horde::widget(array('url' => $refresh_url->copy()->add(array('actionID' => 'expunge_mailbox', 'mailbox_token' => $mailbox_token)), 'class' => 'purgeAction', 'title' => _("Pur_ge Deleted"))));
         }
-        echo $del_template->fetch(IMP_TEMPLATES . '/imp/mailbox/actions_deleted.html');
+        echo $del_template->fetch(IMP_TEMPLATES . '/basic/mailbox/actions_deleted.html');
     }
 
     $empty_template = $injector->createInstance('Horde_Template');
     $empty_template->setOption('gettext', true);
     $empty_template->set('search_mbox', $search_mbox);
-    echo $empty_template->fetch(IMP_TEMPLATES . '/imp/mailbox/empty_mailbox.html');
+    echo $empty_template->fetch(IMP_TEMPLATES . '/basic/mailbox/empty_mailbox.html');
     $page_output->footer();
     exit;
 }
@@ -554,7 +554,7 @@ if ($pageOb['msgcount']) {
         $n_template->set('page_size', Horde_String::length($pageOb['pagecount']));
     }
 
-    echo $n_template->fetch(IMP_TEMPLATES . '/imp/mailbox/navbar.html');
+    echo $n_template->fetch(IMP_TEMPLATES . '/basic/mailbox/navbar.html');
 
     /* Prepare the actions template. */
     $a_template = $injector->createInstance('Horde_Template');
@@ -623,7 +623,7 @@ if ($pageOb['msgcount']) {
 
     $a_template->set('view_messages', Horde::widget(array('url' => '#', 'class' => 'viewAction', 'title' => _("View Messages"))));
 
-    echo $a_template->fetch(IMP_TEMPLATES . '/imp/mailbox/actions.html');
+    echo $a_template->fetch(IMP_TEMPLATES . '/basic/mailbox/actions.html');
 }
 
 /* Define some variables now so we don't have to keep redefining in the
@@ -738,7 +738,7 @@ $f_template->set('mailbox_token', $mailbox_token);
 $f_template->set('mailbox_url', $mailbox_url);
 $f_template->set('sessiontag', Horde_Util::formInput());
 $f_template->set('page', $pageOb['page']);
-echo $f_template->fetch(IMP_TEMPLATES . '/imp/mailbox/form_start.html');
+echo $f_template->fetch(IMP_TEMPLATES . '/basic/mailbox/form_start.html');
 
 /* Prepare the message headers template. */
 $mh_template = $injector->createInstance('Horde_Template');
@@ -748,7 +748,7 @@ $mh_template->set('headers', $headers);
 
 if (!$search_mbox) {
     $mh_template->set('show_checkbox', !$mh_count++);
-    echo $mh_template->fetch(IMP_TEMPLATES . '/imp/mailbox/message_headers.html');
+    echo $mh_template->fetch(IMP_TEMPLATES . '/basic/mailbox/message_headers.html');
 }
 
 /* Initialize repetitively used variables. */
@@ -775,10 +775,10 @@ while (list(,$ob) = each($mbox_info['overview'])) {
             }
             $search_template->set('lastMbox', $lastMbox);
             $search_template->set('mbox_link', $mbox_link);
-            echo $search_template->fetch(IMP_TEMPLATES . '/imp/mailbox/searchmbox.html');
+            echo $search_template->fetch(IMP_TEMPLATES . '/basic/mailbox/searchmbox.html');
 
             $mh_template->set('show_checkbox', !$mh_count++);
-            echo $mh_template->fetch(IMP_TEMPLATES . '/imp/mailbox/message_headers.html');
+            echo $mh_template->fetch(IMP_TEMPLATES . '/basic/mailbox/message_headers.html');
         }
     }
 
@@ -915,10 +915,10 @@ echo '</form>';
 /* If there are 20 messages or less, don't show the actions/navbar again. */
 if (($pageOb['end'] - $pageOb['begin']) >= 20) {
     $a_template->set('isbottom', true);
-    echo $a_template->fetch(IMP_TEMPLATES . '/imp/mailbox/actions.html');
+    echo $a_template->fetch(IMP_TEMPLATES . '/basic/mailbox/actions.html');
     $n_template->set('id', 2);
     $n_template->set('isbottom', true);
-    echo $n_template->fetch(IMP_TEMPLATES . '/imp/mailbox/navbar.html');
+    echo $n_template->fetch(IMP_TEMPLATES . '/basic/mailbox/navbar.html');
 }
 
 $page_output->footer();

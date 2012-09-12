@@ -192,7 +192,7 @@ class IMP_Ui_Compose
         $success_template = $GLOBALS['injector']->createInstance('Horde_Template');
         $success_template->set('new', Horde::widget(array('url' => Horde::url('compose.php'), 'title' => _("New Message"))));
         $success_template->set('close', Horde::widget(array('url' => new Horde_Url(), 'title' => _("Close this window"), 'onclick' => 'window.close();')));
-        echo $success_template->fetch(IMP_TEMPLATES . '/imp/compose/success.html');
+        echo $success_template->fetch(IMP_TEMPLATES . '/basic/compose/success.html');
         IMP::status();
         $GLOBALS['page_output']->footer();
     }
