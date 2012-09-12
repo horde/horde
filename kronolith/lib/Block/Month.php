@@ -182,8 +182,9 @@ class Kronolith_Block_Month extends Horde_Core_Block
                     } else {
                         $day_events .= $event->start->strftime($prefs->getValue('twentyFour') ? '%R' : '%I:%M%p') . '-' . $event->end->strftime($prefs->getValue('twentyFour') ? '%R' : '%I:%M%p');
                     }
+                    $location = $event->getLocation();
                     $day_events .= ':'
-                        . (($event->getLocation()) ? ' (' . $event->getLocation() . ')' : '')
+                        . ($location ? ' (' . htmlspecialchars($location) . ')' : '')
                         . ' ' . $event->getTitle() . "\n";
                 }
                 $cell = Horde::linkTooltip($url, _("View Day"), '', '', '', $day_events) . $date_ob->mday . '</a>';
