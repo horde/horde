@@ -126,7 +126,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                 $mboxname = $this->_mailbox->search
                     ? $this->_sortedMbox[$i - 1]
                     : strval($this->_mailbox);
-                $to_process[$mboxname][] = $this->_sorted[$i - 1];
+                $to_process[$mboxname][$i] = $this->_sorted[$i - 1];
             }
         }
 
@@ -183,17 +183,17 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
 
                 $mbox_ids = array();
 
-                foreach ($ids as $k) {
-                    if (!isset($fetch_res[$k])) {
+                foreach ($ids as $k => $v) {
+                    if (!isset($fetch_res[$v])) {
                         continue;
                     }
 
-                    $f = $fetch_res[$k];
+                    $f = $fetch_res[$v];
                     $v = array(
                         'envelope' => $f->getEnvelope(),
                         'flags' => $f->getFlags(),
                         'headers' => $f->getHeaders('imp', Horde_Imap_Client_Data_Fetch::HEADER_PARSE),
-                        'idx' => $f->getSeq(),
+                        'idx' => $k,
                         'mailbox' => $mbox,
                         'size' => $f->getSize(),
                         'uid' => $f->getUid()
@@ -203,25 +203,25 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                         (($options['preview'] === 1) &&
                          (!$GLOBALS['prefs']->getValue('preview_show_unread') ||
                           !in_array(Horde_Imap_Client::FLAG_SEEN, $v['flags'])))) {
-                        if (empty($preview_info[$k])) {
+                        if (empty($preview_info[$v])) {
                             try {
-                                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $k));
+                                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $v));
                                 $prev = $imp_contents->generatePreview();
-                                $preview_info[$k] = array('IMPpreview' => $prev['text'], 'IMPpreviewc' => $prev['cut']);
+                                $preview_info[$v] = array('IMPpreview' => $prev['text'], 'IMPpreviewc' => $prev['cut']);
                                 if (!is_null($cache)) {
-                                    $tostore[$k] = $preview_info[$k];
+                                    $tostore[$v] = $preview_info[$v];
                                 }
                             } catch (Exception $e) {
-                                $preview_info[$k] = array('IMPpreview' => '', 'IMPpreviewc' => false);
+                                $preview_info[$v] = array('IMPpreview' => '', 'IMPpreviewc' => false);
                             }
                         }
 
-                        $v['preview'] = $preview_info[$k]['IMPpreview'];
-                        $v['previewcut'] = $preview_info[$k]['IMPpreviewc'];
+                        $v['preview'] = $preview_info[$v]['IMPpreview'];
+                        $v['previewcut'] = $preview_info[$v]['IMPpreviewc'];
                     }
 
                     $overview[] = $v;
-                    $mbox_ids[] = $k;
+                    $mbox_ids[] = $v;
                 }
 
                 $uids[$mbox] = $mbox_ids;

@@ -901,7 +901,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
     /* Set up threading tree now. */
     if ($thread_sort) {
-        $t_ob =  $imp_mailbox[$ob['idx']]['t'];
+        $t_ob = $imp_mailbox[$ob['idx']]['t'];
         $msg['subject'] = ($sortpref->sortdir ? $t_ob->reverse_img : $t_ob->img) . ' ' . $msg['subject'];
     }
 
