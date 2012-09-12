@@ -183,6 +183,12 @@ div.partsTreeDiv span span:last-child {
     vertical-align: top;
 }
 
+#compose .horde-spellcheck-popdown {
+    display: inline-block;
+    float: none;
+    margin-bottom: -8px;
+}
+
 .seen {
     background: #fff;
 }
