@@ -662,7 +662,7 @@ class Horde_SyncMl_Backend
      *
      * @return string  The user name.
      */
-    public function setAuthenticated($username, $credData)
+    protected function _setAuthenticated($username, $credData)
     {
         die('setAuthenticated() not implemented!');
     }
