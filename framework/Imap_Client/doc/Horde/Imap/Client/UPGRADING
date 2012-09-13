@@ -224,7 +224,7 @@ logging any errors.
     - stripNonAtomChars()
 
       This method has been removed. The same functionality can now be
-      accomplished by using the stripNonAtomChars() method of the
+      accomplished by using the stripNonAtomCharacters() method of the
       Horde_Imap_Client_Data_Format_Atom object.
 
 
