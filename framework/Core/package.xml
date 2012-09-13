@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-09-06</date>
- <time>18:12:09</time>
+ <date>2012-09-13</date>
+ <time>11:11:04</time>
  <version>
   <release>2.0.0beta6</release>
   <api>2.0.0beta1</api>
@@ -114,7 +114,6 @@
      </dir> <!-- /js/jquery.mobile/images -->
      <dir name="plugins">
       <file name="autocomplete.js" role="horde" />
-      <file name="swipebutton.css" role="horde" />
       <file name="swipebutton.js" role="horde" />
      </dir> <!-- /js/jquery.mobile/plugins -->
      <file name="jquery.js" role="horde" />
@@ -1449,7 +1448,6 @@
    <install as="js/jquery.mobile/images/icons-36-black.png" name="js/jquery.mobile/images/icons-36-black.png" />
    <install as="js/jquery.mobile/images/icons-36-white.png" name="js/jquery.mobile/images/icons-36-white.png" />
    <install as="js/jquery.mobile/plugins/autocomplete.js" name="js/jquery.mobile/plugins/autocomplete.js" />
-   <install as="js/jquery.mobile/plugins/swipebutton.css" name="js/jquery.mobile/plugins/swipebutton.css" />
    <install as="js/jquery.mobile/plugins/swipebutton.js" name="js/jquery.mobile/plugins/swipebutton.js" />
    <install as="js/map/bing.js" name="js/map/bing.js" />
    <install as="js/map/cloudmade.js" name="js/map/cloudmade.js" />
@@ -2478,7 +2476,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-06</date>
+   <date>2012-09-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix adding Bcc recipients when sending mail from ActiveSync.
