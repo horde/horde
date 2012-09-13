@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-29</date>
- <time>15:20:34</time>
+ <date>2012-09-12</date>
+ <time>23:51:12</time>
  <version>
   <release>2.0.0beta4</release>
   <api>2.0.0beta1</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Added the Horde_Imap_Client_Data_Format objects.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -47,12 +47,27 @@
         <dir name="Fetch">
          <file name="Pop3.php" role="php" />
         </dir> <!-- /lib/Horde/Imap/Client/Data/Fetch -->
+        <dir name="Format">
+         <file name="Astring.php" role="php" />
+         <file name="Atom.php" role="php" />
+         <file name="Date.php" role="php" />
+         <file name="DateTime.php" role="php" />
+         <file name="Exception.php" role="php" />
+         <file name="List.php" role="php" />
+         <file name="ListMailbox.php" role="php" />
+         <file name="Mailbox.php" role="php" />
+         <file name="Nil.php" role="php" />
+         <file name="Nstring.php" role="php" />
+         <file name="Number.php" role="php" />
+         <file name="String.php" role="php" />
+        </dir> <!-- /lib/Horde/Imap/Client/Data/Format -->
         <file name="Acl.php" role="php" />
         <file name="AclCommon.php" role="php" />
         <file name="AclNegative.php" role="php" />
         <file name="AclRights.php" role="php" />
         <file name="Envelope.php" role="php" />
         <file name="Fetch.php" role="php" />
+        <file name="Format.php" role="php" />
         <file name="Thread.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Data -->
        <dir name="Exception">
@@ -114,6 +129,12 @@
       <file name="Horde_Imap_Client.po" role="data" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
     </dir> <!-- /locale/fi -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Imap_Client.mo" role="data" />
+      <file name="Horde_Imap_Client.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
     <file name="Horde_Imap_Client.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="test">
@@ -133,6 +154,7 @@
        <file name="AllTests.php" role="test" />
        <file name="AuthTest.php" role="test" />
        <file name="Autoload.php" role="test" />
+       <file name="DataFormatTest.php" role="test" />
        <file name="DateTimeTest.php" role="test" />
        <file name="IdsParseTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
@@ -253,8 +275,21 @@
    <install as="Horde/Imap/Client/Data/AclRights.php" name="lib/Horde/Imap/Client/Data/AclRights.php" />
    <install as="Horde/Imap/Client/Data/Envelope.php" name="lib/Horde/Imap/Client/Data/Envelope.php" />
    <install as="Horde/Imap/Client/Data/Fetch.php" name="lib/Horde/Imap/Client/Data/Fetch.php" />
+   <install as="Horde/Imap/Client/Data/Format.php" name="lib/Horde/Imap/Client/Data/Format.php" />
    <install as="Horde/Imap/Client/Data/Thread.php" name="lib/Horde/Imap/Client/Data/Thread.php" />
    <install as="Horde/Imap/Client/Data/Fetch/Pop3.php" name="lib/Horde/Imap/Client/Data/Fetch/Pop3.php" />
+   <install as="Horde/Imap/Client/Data/Format/Astring.php" name="lib/Horde/Imap/Client/Data/Format/Astring.php" />
+   <install as="Horde/Imap/Client/Data/Format/Atom.php" name="lib/Horde/Imap/Client/Data/Format/Atom.php" />
+   <install as="Horde/Imap/Client/Data/Format/Date.php" name="lib/Horde/Imap/Client/Data/Format/Date.php" />
+   <install as="Horde/Imap/Client/Data/Format/DateTime.php" name="lib/Horde/Imap/Client/Data/Format/DateTime.php" />
+   <install as="Horde/Imap/Client/Data/Format/Exception.php" name="lib/Horde/Imap/Client/Data/Format/Exception.php" />
+   <install as="Horde/Imap/Client/Data/Format/List.php" name="lib/Horde/Imap/Client/Data/Format/List.php" />
+   <install as="Horde/Imap/Client/Data/Format/ListMailbox.php" name="lib/Horde/Imap/Client/Data/Format/ListMailbox.php" />
+   <install as="Horde/Imap/Client/Data/Format/Mailbox.php" name="lib/Horde/Imap/Client/Data/Format/Mailbox.php" />
+   <install as="Horde/Imap/Client/Data/Format/Nil.php" name="lib/Horde/Imap/Client/Data/Format/Nil.php" />
+   <install as="Horde/Imap/Client/Data/Format/Nstring.php" name="lib/Horde/Imap/Client/Data/Format/Nstring.php" />
+   <install as="Horde/Imap/Client/Data/Format/Number.php" name="lib/Horde/Imap/Client/Data/Format/Number.php" />
+   <install as="Horde/Imap/Client/Data/Format/String.php" name="lib/Horde/Imap/Client/Data/Format/String.php" />
    <install as="Horde/Imap/Client/Exception/NoSupportExtension.php" name="lib/Horde/Imap/Client/Exception/NoSupportExtension.php" />
    <install as="Horde/Imap/Client/Exception/NoSupportPop3.php" name="lib/Horde/Imap/Client/Exception/NoSupportPop3.php" />
    <install as="Horde/Imap/Client/Exception/SearchCharset.php" name="lib/Horde/Imap/Client/Exception/SearchCharset.php" />
@@ -272,10 +307,13 @@
    <install as="locale/es/LC_MESSAGES/Horde_Imap_Client.po" name="locale/es/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="locale/fi/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/fi/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/fi/LC_MESSAGES/Horde_Imap_Client.po" name="locale/fi/LC_MESSAGES/Horde_Imap_Client.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/ja/LC_MESSAGES/Horde_Imap_Client.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Imap_Client.po" name="locale/ja/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
    <install as="Horde/Imap/Client/Autoload.php" name="test/Horde/Imap/Client/Autoload.php" />
+   <install as="Horde/Imap/Client/DataFormatTest.php" name="test/Horde/Imap/Client/DataFormatTest.php" />
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
    <install as="Horde/Imap/Client/IdsParseTest.php" name="test/Horde/Imap/Client/IdsParseTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
@@ -974,10 +1012,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-29</date>
+   <date>2012-09-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Added the Horde_Imap_Client_Data_Format objects.
    </notes>
   </release>
  </changelog>

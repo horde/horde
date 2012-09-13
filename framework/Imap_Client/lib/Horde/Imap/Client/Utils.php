@@ -188,20 +188,6 @@ class Horde_Imap_Client_Utils
     }
 
     /**
-     * Given a string, will strip out any characters that are not allowed in
-     * the IMAP 'atom' definition (RFC 3501 [9]).
-     *
-     * @param string $str  An ASCII string.
-     *
-     * @return string  The string with the disallowed atom characters stripped
-     *                 out.
-     */
-    public function stripNonAtomChars($str)
-    {
-        return str_replace(array('(', ')', '{', ' ', '%', '*', '"', '\\', ']'), '', preg_replace('/[\x00-\x1f\x7f]/', '', $str));
-    }
-
-    /**
      * Return the "base subject" defined in RFC 5256 [2.1].
      *
      * @param string $str     The original subject string.

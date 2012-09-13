@@ -219,6 +219,14 @@ logging any errors.
     The default argument for the $force parameter to Utf8ToUtf7Imap() has
     changed to boolean true.
 
+  - Horde_Imap_Client_Utils
+
+    - stripNonAtomChars()
+
+      This method has been removed. The same functionality can now be
+      accomplished by using the stripNonAtomChars() method of the
+      Horde_Imap_Client_Data_Format_Atom object.
+
 
 
 Upgrading To 1.5.0
