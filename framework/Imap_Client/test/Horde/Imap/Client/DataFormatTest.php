@@ -93,6 +93,17 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
             $ob->verify();
             $this->fail();
         } catch (Horde_Imap_Client_Data_Format_Exception $e) {}
+
+        $ob = new Horde_Imap_Client_Data_Format_Atom('');
+
+        $this->assertEquals(
+            '',
+            strval($ob)
+        );
+        $this->assertEquals(
+            '""',
+            $ob->escape()
+        );
     }
 
     public function testDate()

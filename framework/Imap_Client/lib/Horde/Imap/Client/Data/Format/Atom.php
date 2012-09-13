@@ -16,6 +16,15 @@ class Horde_Imap_Client_Data_Format_Atom extends Horde_Imap_Client_Data_Format
 {
     /**
      */
+    public function escape()
+    {
+        return strlen($this->_data)
+            ? parent::escape()
+            : '""';
+    }
+
+    /**
+     */
     public function verify()
     {
         if (strlen($this->_data) != strlen($this->stripNonAtomCharacters())) {
