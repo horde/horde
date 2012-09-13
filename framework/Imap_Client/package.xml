@@ -204,8 +204,8 @@
    <package>
     <name>Horde_Stream</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
-    <max>1.0.0alpha1</max>
+    <min>1.0.0beta1</min>
+    <max>1.0.0beta1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
    <package>

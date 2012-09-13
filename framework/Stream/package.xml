@@ -2,8 +2,8 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Stream</name>
  <channel>pear.horde.org</channel>
- <summary>Horde Stream handler</summary>
- <description>An OO-interface to allow for assistance in creating/storing PHP stream resources, and to provide utility methods to access/manipulate the stream contents.</description>
+ <summary>Horde stream handler</summary>
+ <description>An object-oriented interface to assist in creating and storing PHP stream resources, and to provide utility methods to access and manipulate the stream contents.</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>
@@ -13,16 +13,16 @@
  <date>2012-09-11</date>
  <time>13:25:51</time>
  <version>
-  <release>1.0.0alpha1</release>
-  <api>1.0.0alpha1</api>
+  <release>1.0.0beta1</release>
+  <api>1.0.0beta1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First alpha release for Horde 4.
+* First beta release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -81,18 +81,19 @@
  </phprelease>
  <changelog>
   <release>
+   <date>2012-09-11</date>
+   <time>13:25:51</time>
    <version>
-    <release>1.0.0alpha1</release>
-    <api>1.0.0alpha1</api>
+    <release>1.0.0beta1</release>
+    <api>1.0.0beta1</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2012-09-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* First alpha release for Horde 4.
+* First beta release for Horde 4.
    </notes>
   </release>
  </changelog>
