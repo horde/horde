@@ -4071,43 +4071,36 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $ob['line'] = $data->getString();
             } else {
                 /* Tokenize response. */
-                $binary = $literal = false;
-
                 do {
+                    $binary = false;
                     $literal_len = null;
 
-                    if ($literal) {
-                        $data_pos = 0;
-                        $this->_temp['token']->ptr[$this->_temp['token']->paren][] = $data->getString();
-                    } else {
-                        fseek($data->stream, -1, SEEK_END);
-                        if ($data->peek() == '}') {
-                            $literal_data = $data->getString($data->seek('{', true) - 1);
-                            $literal_len = substr($literal_data, 2, -1);
-                            if (!is_numeric($literal_len)) {
-                                $literal_len = null;
-                            } elseif ($literal_data[0] == '~') {
-                                // Check for literal8 response
-                                $binary = true;
-                            }
+                    fseek($data->stream, -1, SEEK_END);
+                    if ($data->peek() == '}') {
+                        $literal_data = $data->getString($data->seek('{', true) - 1);
+                        $literal_len = substr($literal_data, 2, -1);
+                        if (!is_numeric($literal_len)) {
+                            $literal_len = null;
+                        } elseif ($literal_data[0] == '~') {
+                            $binary = true;
                         }
-
-                        fseek($data->stream, $data_pos);
-                        $this->_tokenizeData(
-                            $data->getString(null, is_null($literal_len) ? null : (strlen($literal_data) * -1))
-                        );
                     }
+
+                    if (!is_null($data_pos)) {
+                        fseek($data->stream, $data_pos);
+                        $data_pos = null;
+                    }
+
+                    $this->_tokenizeData(
+                        $data->getString(null, is_null($literal_len) ? null : (strlen($literal_data) * -1))
+                    );
 
                     if (is_null($literal_len)) {
-                        if (!$literal) {
-                            break;
-                        }
-                        $binary = $literal = false;
-                        $data = $this->_readData();
-                    } else {
-                        $literal = true;
-                        $data = $this->_readData($literal_len, $binary);
+                        break;
                     }
+
+                    $this->_temp['token']->ptr[$this->_temp['token']->paren][] = $this->_readData($literal_len, $binary)->getString();
+                    $data = $this->_readData();
                 } while (true);
 
                 $ob['token'] = $this->_temp['token']->out;
