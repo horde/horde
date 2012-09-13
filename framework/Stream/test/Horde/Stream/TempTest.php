@@ -143,7 +143,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
     }
 
-    public function testSeek()
+    public function testSearch()
     {
         $stream = new Horde_Stream_Temp();
         fwrite($stream->stream, '0123456789');
@@ -151,15 +151,15 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
         $this->assertEquals(
             5,
-            $stream->seek(5)
+            $stream->search(5)
         );
         $this->assertEquals(
             8,
-            $stream->seek(8)
+            $stream->search(8)
         );
         $this->assertEquals(
             3,
-            $stream->seek(3)
+            $stream->search(3)
         );
         $this->assertEquals(
             0,
@@ -168,17 +168,17 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
         $this->assertEquals(
             5,
-            $stream->seek(5, false, false)
+            $stream->search(5, false, false)
         );
         $this->assertEquals(
             8,
-            $stream->seek(8, false, false)
+            $stream->search(8, false, false)
         );
-        $this->assertNull($stream->seek(3, false, false));
+        $this->assertNull($stream->search(3, false, false));
 
         $this->assertEquals(
             3,
-            $stream->seek(3, true)
+            $stream->search(3, true)
         );
         $this->assertEquals(
             8,
@@ -187,7 +187,7 @@ class Horde_Stream_TempTest extends Horde_Test_Case
 
         $this->assertEquals(
             3,
-            $stream->seek(3, true, false)
+            $stream->search(3, true, false)
         );
         $this->assertEquals(
             3,

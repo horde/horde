@@ -110,7 +110,7 @@ class Horde_Stream
      *
      * @return mixed  The position (integer), or null if character not found.
      */
-    public function seek($char, $reverse = false, $reset = true)
+    public function search($char, $reverse = false, $reset = true)
     {
         $pos = ftell($this->stream);
         $found_pos = null;

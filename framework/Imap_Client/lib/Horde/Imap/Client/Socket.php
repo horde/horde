@@ -4077,7 +4077,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                     fseek($data->stream, -1, SEEK_END);
                     if ($data->peek() == '}') {
-                        $literal_data = $data->getString($data->seek('{', true) - 1);
+                        $literal_data = $data->getString($data->search('{', true) - 1);
                         $literal_len = substr($literal_data, 2, -1);
                         if (!is_numeric($literal_len)) {
                             $literal_len = null;
