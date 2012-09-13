@@ -15,25 +15,38 @@
 class Horde_Imap_Client_Data_Format_List extends Horde_Imap_Client_Data_Format implements Countable, IteratorAggregate
 {
     /**
-     * @throws Horde_Imap_Client_Data_Format_Exception
+     * @see add()
      */
-    public function __construct($data = array())
+    public function __construct($data = null)
     {
-        if (!is_array($data)) {
-            $data = array($data);
-        }
+        parent::__construct(array());
 
-        parent::__construct($data);
+        if (!is_null($data)) {
+            $this->add($data);
+        }
     }
 
     /**
      * Add an element to the list.
      *
-     * @param Horde_Imap_Client_Data_Format $data  Data element to add.
+     * @param mixed $data     The data element(s) to add. Either a
+     *                        Horde_Imap_Client_Data_Format object, a string
+     *                        value that will be treated as an IMAP atom, or
+     *                        an array (or iterable object) of objects to add.
+     * @param boolean $merge  Merge the contents of any container objects,
+     *                        instead of adding the objects themselves?
      */
-    public function add(Horde_Imap_Client_Data_Format $data)
+    public function add($data, $merge = false)
     {
-        $this->_data[] = $data;
+        if (is_array($data) || ($merge && ($data instanceof Traversable))) {
+            foreach ($data as $val) {
+                $this->add($val);
+            }
+        } else {
+            $this->_data[] = ($data instanceof Horde_Imap_Client_Data_Format)
+                ? $data
+                : new Horde_Imap_Client_Data_Format_Atom($data);
+        }
     }
 
     /**

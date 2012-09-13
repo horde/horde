@@ -193,6 +193,34 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
                 break;
             }
         }
+
+        $ob = new Horde_Imap_Client_Data_Format_List('Foo');
+
+        $this->assertEquals(
+            1,
+            count($ob)
+        );
+
+        $ob_array = iterator_to_array($ob);
+        $this->assertEquals(
+            'Horde_Imap_Client_Data_Format_Atom',
+            get_class(reset($ob_array))
+        );
+
+        $ob->add(array(
+            'Foo',
+            new Horde_Imap_Client_Data_Format_List(array('Bar'))
+        ));
+
+        $this->assertEquals(
+            3,
+            count($ob)
+        );
+
+        $this->assertEquals(
+            '(Foo Foo (Bar))',
+            $ob->escape()
+        );
     }
 
     public function testListMailbox()
