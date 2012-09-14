@@ -21,8 +21,6 @@
 .kronolithEventDetail p {
   margin-left: 5px;
 }
-.kronolithEventDetailTitle {
-}
 .kronolithEventDetailCalendar {
   font-style: italic;
 }
@@ -41,8 +39,6 @@
     margin-right: 6px;
     border-right: 2px solid black;
     min-width: 90px;
-}
-.kronolithStartTime {
 }
 .kronolithEndTime {
   font-size: 80%;
