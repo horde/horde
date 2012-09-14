@@ -274,7 +274,7 @@ class Horde_ActiveSync_Imap_Message
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
-        $data = $fetch_ret[$this->_uid];
+        $data = $fetch_ret->first();
 
         // Save the envelope for later, if we asked for it.
         if (empty($this->_envelope)) {
