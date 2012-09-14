@@ -221,7 +221,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                     }
 
                     $overview[] = $v;
-                    $mbox_ids[] = $v;
+                    $mbox_ids[] = $v['uid'];
                 }
 
                 $uids[$mbox] = $mbox_ids;
