@@ -4305,7 +4305,7 @@ KronolithCore = {
                 params.view_end = end;
 
                 HordeCore.doAction('deleteEvent', params, {
-                    callback: function(r) {
+                    callback: function(elt,r) {
                         if (r.deleted) {
                             var days;
                             if ((this.view == 'month' &&
@@ -4324,13 +4324,13 @@ KronolithCore = {
                                 this.reRender(days);
                             }
                         } else {
-                            elt.enable();
                             this.kronolithBody.select('div').findAll(function(el) {
                                 return el.retrieve('calendar') == cal &&
                                        el.retrieve('eventid') == eventid;
                             }).invoke('show');
                         }
-                    }.bind(this)
+                        elt.enable();
+                    }.curry(elt).bind(this)
                 });
 
                 $('kronolithDeleteDiv').hide();
