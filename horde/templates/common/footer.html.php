@@ -6,7 +6,9 @@
 </div>
 <?php endif ?>
 <?php endif ?>
+<?php if (!$this->smartmobileView): ?>
 </div>
+<?php endif; ?>
 <?php if (!$this->minimalView): ?>
 <?php if ($this->outputJs): ?>
   <?php $this->pageOutput->includeScriptFiles(); ?>
