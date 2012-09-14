@@ -354,8 +354,10 @@ var KronolithMobile = {
              }
              item.append($('<div>').addClass('kronolithEventDetailRecurring').append(recurText));
              item.append($('<div>').addClass('kronolithEventDetailRecurring').text(Kronolith.text.recur[e.r.t]));
-         } else if (e.al) {
-             item.append($('<div>').addClass('kronolithEventDetailAllDay').text(Kronolith.text.allday));
+         }
+         if (e.al) {
+             item.append($('<div>').addClass('kronolithEventDetailAllDay').text(Kronolith.text.allday))
+                .append($('<div>').addClass('kronolithEventDetailDate').text(Date.parse(e.s).toString('D')));
          } else {
              item.append($('<div>')
                 .append($('<div>').addClass('kronolithEventDetailDate').text(Date.parse(e.s).toString('D'))
