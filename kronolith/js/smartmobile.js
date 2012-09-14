@@ -132,9 +132,7 @@ var KronolithMobile = {
     },
 
     /**
-     * Callback for the loadEvents AJAX request. For now, assume we are in
-     * day view, wait for all calendar responses to be received and then build
-     * the event elements in the listview.
+     * Callback for the loadEvents AJAX request.
      *
      * @param object data  The ajax response.
      */
@@ -233,9 +231,7 @@ var KronolithMobile = {
     /**
      * Build the dom element for an event to insert into the day view.
      *
-     * @param string cal    The calendar name returned from the ajax request.
      * @param object event  The event object returned from the ajax request.
-     * @param string id     The event identifier
      */
     buildDayEvent: function(event)
     {
