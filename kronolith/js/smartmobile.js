@@ -470,7 +470,7 @@ var KronolithMobile = {
      */
     selectMonthDay: function(date)
     {
-        var ul = $('<ul>').attr({ 'data-role': 'listview'}),
+        var ul = $('<ul>').attr({ 'data-role': 'listview' }),
         d = KronolithMobile.parseDate(date), today = new Date(), text;
         $('#kronolithDayDetail ul').detach();
         if (today.dateString() == d.dateString()) {
