@@ -41,40 +41,66 @@ class Horde_Registry_Api
     protected $_noPerms = array();
 
     /**
-     * Wrapper around protected variables to allow application's
-     * implementation to modify static values. Application implementation is
-     * responsible for changing/resetting application scope if it is needed
-     * within the method (e.g. to use application's prefs).
+     * List of disabled API methods.
+     *
+     * An application's implementation is responsible for changing/resetting
+     * application scope if it is needed within the method (e.g. to use
+     * application's prefs).
+     *
+     * @return array  List of disabled API methods.
      */
-    public function __get($name)
+    public function disabled()
     {
-        switch ($name) {
-        case 'disabled':
-            return $this->_disabled;
+        return $this->_disabled;
+    }
 
-        case 'links':
-            return $this->_links;
+    /**
+     * List of application links.
+     *
+     * An application's implementation is responsible for changing/resetting
+     * application scope if it is needed within the method (e.g. to use
+     * application's prefs).
+     *
+     * @return array  List of application links.
+     */
+    public function links()
+    {
+        return $this->_links;
+    }
 
-        case 'methods':
-            $disabled = $this->disabled;
-            $methods = array();
+    /**
+     * Return the list of active API methods.
+     *
+     * @return array  List of active API methods.
+     */
+    final public function methods()
+    {
+        $disabled = $this->disabled();
+        $methods = array();
 
-            $reflect = new ReflectionClass($this);
-            foreach ($reflect->getMethods(ReflectionMethod::IS_PUBLIC) as $val) {
-                if (($val->getDeclaringClass()->name != __CLASS__) &&
-                    !in_array($val->name, $disabled)) {
-                    $methods[] = $val->name;
-                }
+        $reflect = new ReflectionClass($this);
+        foreach ($reflect->getMethods(ReflectionMethod::IS_PUBLIC) as $val) {
+            if (($val->getDeclaringClass()->name != __CLASS__) &&
+                !in_array($val->name, $disabled)) {
+                $methods[] = $val->name;
             }
-
-            return $methods;
-
-        case 'noPerms':
-            return $this->_noPerms;
-
-        default:
-            return null;
         }
+
+        return $methods;
+    }
+
+    /**
+     * List of API methods that don't require permissions.
+     *
+     * An application's implementation is responsible for changing/resetting
+     * application scope if it is needed within the method (e.g. to use
+     * application's prefs).
+     *
+     * @return array  List of API methods that don't require permissions.
+     */
+    public function noPerms()
+    {
+        return $this->_noPerms;
     }
 
 

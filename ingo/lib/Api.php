@@ -26,35 +26,29 @@ class Ingo_Api extends Horde_Registry_Api
 
     /**
      */
-    public function __get($name)
+    public function disabled()
     {
         global $prefs, $registry;
 
-        switch ($name) {
-        case 'disabled':
-            $pushed = $registry->pushApp('ingo');
+        $pushed = $registry->pushApp('ingo');
 
-            $disabled = array();
-            if ($prefs->isLocked('blacklist')) {
-                $disabled[] = 'blacklistFrom';
-            }
-            if ($prefs->isLocked('whitelist')) {
-                $disabled[] = 'whitelistFrom';
-            }
-            if ($prefs->isLocked('vacation')) {
-                $disabled[] = 'setVacation';
-                $disabled[] = 'disableVacation';
-            }
-
-            if ($pushed) {
-                $registry->popApp();
-            }
-
-            return array_merge(parent::__get('disabled'), $disabled);
-
-        default:
-            return parent::__get($name);
+        $disabled = array();
+        if ($prefs->isLocked('blacklist')) {
+            $disabled[] = 'blacklistFrom';
         }
+        if ($prefs->isLocked('whitelist')) {
+            $disabled[] = 'whitelistFrom';
+        }
+        if ($prefs->isLocked('vacation')) {
+            $disabled[] = 'setVacation';
+            $disabled[] = 'disableVacation';
+        }
+
+        if ($pushed) {
+            $registry->popApp();
+        }
+
+        return array_merge(parent::disabled(), $disabled);
     }
 
     /**

@@ -23,11 +23,12 @@ class Folks_Api extends Horde_Registry_Api
 
     /**
      */
-    public function __get($name)
+    public function disabled()
     {
-        return (($name == 'disabled') && !$GLOBALS['registry']->isAdmin())
-            ? array('removeUser', 'userList')
-            : parent::__get($name);
+        return array_merge(
+            parent::disabled(),
+            $GLOBALS['registry']->isAdmin() ? array('removeUser', 'userList') : array()
+        );
     }
 
     /**

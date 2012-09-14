@@ -930,7 +930,7 @@ class Horde_Registry
                         }
                     } elseif (($api_ob = $this->_loadApi($app)) &&
                               (is_null($api) || ($method == $api))) {
-                        foreach ($api_ob->methods as $service) {
+                        foreach ($api_ob->methods() as $service) {
                             $methods[$method . '/' . $service] = true;
                         }
                     }
@@ -982,7 +982,7 @@ class Horde_Registry
 
         $api_ob = $this->_loadApi($app);
 
-        return ($api_ob && in_array($call, $api_ob->methods))
+        return ($api_ob && in_array($call, $api_ob->methods()))
             ? $app
             : false;
     }
@@ -1037,7 +1037,7 @@ class Horde_Registry
 
         /* Load the API now. */
         $methods = ($api_ob = $this->_loadApi($app))
-            ? $api_ob->methods
+            ? $api_ob->methods()
             : array();
 
         /* Make sure that the function actually exists. */
@@ -1049,7 +1049,7 @@ class Horde_Registry
          * including any files which might do it for us. Return an
          * error immediately if pushApp() fails. */
         $pushed = $this->pushApp($app, array(
-            'check_perms' => !in_array($call, $api_ob->noPerms) && empty($options['noperms']) && $this->_args['authentication'] != 'none'
+            'check_perms' => !in_array($call, $api_ob->noPerms()) && empty($options['noperms']) && $this->_args['authentication'] != 'none'
         ));
 
         try {
@@ -1177,7 +1177,7 @@ class Horde_Registry
     public function linkByPackage($app, $call, $args = array(), $extra = '')
     {
         $links = ($api_ob = $this->_loadApi($app))
-            ? $api_ob->links
+            ? $api_ob->links()
             : array();
 
         /* Make sure the link is defined. */
