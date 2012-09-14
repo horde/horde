@@ -30,7 +30,9 @@
   </table>
  </div>
 
- <div id="kronolithDayDetail" data-role="header">
+ <div id="kronolithDayDetailHeader" data-role="header">
    <h3></h3>
  </div>
+
+ <div id="kronolithDayDetail" data-role="content"></div>
 </div>

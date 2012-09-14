@@ -482,7 +482,7 @@ var KronolithMobile = {
         } else {
           text = d.toString('ddd') + ' ' + d.toString('d')
         }
-        $('#kronolithDayDetail h3').text(text);
+        $('#kronolithDayDetailHeader h3').text(text);
         $('.kronolithSelected').removeClass('kronolithSelected');
         $('#kronolithMonth' + date).addClass('kronolithSelected');
         if ($('#kronolithMonth' + date).hasClass('kronolithContainsEvents')) {
