@@ -116,7 +116,16 @@ class Horde_ActiveSync_Rfc822
      */
     public function getMimeObject()
     {
-        return Horde_Mime_Part::parseMessage($this->_rfc822);
+        if (is_resource($this->_rfc822)) {
+            rewind($this->_rfc822);
+            while (!feof($this->_rfc822)) {
+                $out .= fread($this->_rfc822, 8192);
+            }
+        } else {
+            $out = $this->_rfc822;
+        }
+
+        return Horde_Mime_Part::parseMessage($out);
     }
 
     public function getBytes()
