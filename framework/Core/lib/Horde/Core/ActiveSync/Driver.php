@@ -1137,7 +1137,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             if (!empty($sf)) {
                 $this->_logger->debug(sprintf("Preparing to copy to '%s'", $sf));
                 $flags = array(Horde_Imap_Client::FLAG_SEEN);
-                $msg = $copy->toString(array('headers' => $headers));
+                $msg = $copy->toString(array('headers' => $headers->toString()));
                 $this->_imap->appendMessage($sf, $msg, $flags);
             }
         }
