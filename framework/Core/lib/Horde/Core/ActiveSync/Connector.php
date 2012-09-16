@@ -139,7 +139,7 @@ class Horde_Core_ActiveSync_Connector
                 ->getViewerConfig('text/calendar', $GLOBALS['registry']->hasInterface('mail'));
 
             if ($config[1]['driver'] == 'Itip' && !empty($config[1]['auto_update_eventreply'])) {
-                if (is_array($config[1]['auto_update_eventreply']) {
+                if (is_array($config[1]['auto_update_eventreply'])) {
                     $adr = new Horde_Mail_Rfc822_Address($attendee);
                     $have_match = false;
                     foreach ($config[1]['auto_update_eventreply'] as $val) {
