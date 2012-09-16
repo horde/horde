@@ -131,10 +131,20 @@ class Horde_Core_ActiveSync_Connector
     public function calendar_import_attendee(Horde_Icalendar_vEvent $vEvent, $attendee)
     {
         if ($this->_registry->hasMethod('calendar/updateAttendee)')) {
-            try {
-               $this->_registry->calendar->updateAttendee($vEvent, $attendee);
-            } catch (Horde_Exception $e) {
-                $this->_logger->err($e->getMessage());
+            // If the mail interface (i.e., IMP) provides a mime driver for
+            // iTips, check if we are allowed to autoupdate. If we have no
+            // configuration, err on the side of caution and DO NOT auto import.
+            $config = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_MimeViewer')
+                ->getViewerConfig('text/calendar', $GLOBALS['registry']->hasInterface('mail'));
+
+            if ($config[1]['driver'] == 'Itip' && $config[1]['auto_update_eventreply']) {
+                try {
+                   $this->_registry->calendar->updateAttendee($vEvent, $attendee);
+                } catch (Horde_Exception $e) {
+                    Horde::debug($e);
+                    $this->_logger->err($e->getMessage());
+                }
             }
         }
     }
