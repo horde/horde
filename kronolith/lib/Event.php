@@ -1580,7 +1580,10 @@ abstract class Kronolith_Event
             foreach ($this->attendees as $email => $properties) {
                 $attendee = new Horde_ActiveSync_Message_Attendee(array(
                     'protocolversion' => $options['protocolversion']));
-                $attendee->email = $email;
+                $adr_obj = new Horde_Mail_Rfc822_Address($email);
+                $attendee->name = $adr_obj->label;
+                $attendee->email = $adr_obj->bare_address;
+
                 // AS only has required or optional, and only EAS Version > 2.5
                 if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
                     $attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED
