@@ -20,7 +20,10 @@ class Horde_Imap_Client_Data_Format_Astring extends Horde_Imap_Client_Data_Forma
     {
         /* Only requires quoting if an atom-special is present (besides
          * resp-specials). */
-        return $this->_escape(preg_match('/[\x00-\x1f\x7f\(\)\{\s%\*"\\\\]/', $this->_data));
+        return $this->_escape(
+            $this->_data,
+            '/[\x00-\x1f\x7f\(\)\{\s%\*"\\\\]/'
+        );
     }
 
 }

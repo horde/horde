@@ -18,14 +18,8 @@ class Horde_Imap_Client_Data_Format_Nstring extends Horde_Imap_Client_Data_Forma
      */
     public function __construct($data = null)
     {
+        /* Data can be null (NIL) here. */
         parent::__construct($data);
-    }
-
-    /**
-     */
-    public function __toString()
-    {
-        return strval($this->_data);
     }
 
     /**
@@ -33,7 +27,7 @@ class Horde_Imap_Client_Data_Format_Nstring extends Horde_Imap_Client_Data_Forma
     public function escape()
     {
         return strlen($this->_data)
-            ? $this->_escape(true)
+            ? $this->_escape($this->_data)
             : 'NIL';
     }
 

@@ -18,6 +18,7 @@ class Horde_Imap_Client_Data_Format_Nil extends Horde_Imap_Client_Data_Format
      */
     public function __construct($data = null)
     {
+        // Don't store any data in object.
     }
 
     /**

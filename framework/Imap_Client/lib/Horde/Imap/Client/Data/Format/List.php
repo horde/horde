@@ -53,29 +53,19 @@ class Horde_Imap_Client_Data_Format_List extends Horde_Imap_Client_Data_Format i
      */
     public function __toString()
     {
-        return '(' . implode(' ', array_map('strval', $this->_data)) . ')';
-    }
+        $out = '';
 
-    /**
-     */
-    public function escape()
-    {
-        $out = array();
-        foreach ($this->_data as $val) {
-            $out[] = $val->escape();
-        }
-        return '(' . implode(' ', $out) . ')';
-    }
-
-    /**
-     */
-    public function verify()
-    {
-        foreach ($this->_data as $val) {
-            if (!(valdata instanceof Horde_Imap_Client_Data_Format)) {
-                throw new Horde_Imap_Client_Data_Format_Exception('Illegal component of IMAP parenthesized list.');
+        foreach ($this as $val) {
+            if ($val instanceof $this) {
+                $out .= '(' . $val->escape() . ') ';
+            } elseif ($val->requireLiteral()) {
+                throw new Horde_Imap_Client_Data_Format_Exception('Requires literal output.');
+            } else {
+                $out .= $val->escape() . ' ';
             }
         }
+
+        return rtrim($out);
     }
 
     /* Countable methods. */
@@ -89,6 +79,9 @@ class Horde_Imap_Client_Data_Format_List extends Horde_Imap_Client_Data_Format i
 
     /* IteratorAggregate method. */
 
+    /**
+     * Iterator loops through the data elements contained in this list.
+     */
     public function getIterator()
     {
         return new ArrayIterator($this->_data);

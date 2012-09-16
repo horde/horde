@@ -43,6 +43,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
         // Don't throw Exception
         $ob->verify();
 
+        $this->assertFalse($ob->requireLiteral());
+
         // Require quoting
         $ob = new Horde_Imap_Client_Data_Format_Astring('Foo(');
 
@@ -58,6 +60,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
         // Don't throw Exception
         $ob->verify();
 
+        $this->assertFalse($ob->requireLiteral());
+
         /* This is an invalid atom. */
         $ob = new Horde_Imap_Client_Data_Format_Astring('Foo]');
 
@@ -68,6 +72,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
 
         // Don't throw Exception
         $ob->verify();
+
+        $this->assertFalse($ob->requireLiteral());
     }
 
     public function testAtom()
@@ -85,6 +91,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
 
         // Don't throw Exception
         $ob->verify();
+
+        $this->assertFalse($ob->requireLiteral());
 
         // Illegal atom character
         $ob = new Horde_Imap_Client_Data_Format_Atom('Foo(');
@@ -104,6 +112,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
             '""',
             $ob->escape()
         );
+
+        $this->assertFalse($ob->requireLiteral());
     }
 
     public function testDate()
@@ -124,12 +134,16 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
             $ob->escape()
         );
 
+        $this->assertFalse($ob->requireLiteral());
+
         $ob = new Horde_Imap_Client_Data_Format_Date('@1262304000');
 
         $this->assertEquals(
             '1-Jan-2010',
             strval($ob)
         );
+
+        $this->assertFalse($ob->requireLiteral());
     }
 
     public function testDateTime()
@@ -150,12 +164,16 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
             $ob->escape()
         );
 
+        $this->assertFalse($ob->requireLiteral());
+
         $ob = new Horde_Imap_Client_Data_Format_DateTime('@1262304000');
 
         $this->assertEquals(
             '"1-Jan-2010 00:00:00 +0000"',
             $ob->escape()
         );
+
+        $this->assertFalse($ob->requireLiteral());
     }
 
     public function testList()
@@ -177,12 +195,12 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            '(Foo Bar Baz)',
+            'Foo Bar "Baz"',
             strval($ob)
         );
 
         $this->assertEquals(
-            '(Foo Bar "Baz")',
+            'Foo Bar "Baz"',
             $ob->escape()
         );
 
@@ -229,9 +247,35 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            '(Foo Foo (Bar))',
+            'Foo Foo (Bar)',
             $ob->escape()
         );
+
+        $ob = new Horde_Imap_Client_Data_Format_List(array(
+            'Foo',
+            new Horde_Imap_Client_Data_Format_List(array(
+                'Foo1'
+            )),
+            'Bar',
+            new Horde_Imap_Client_Data_Format_List(array(
+                new Horde_Imap_Client_Data_Format_String('Bar1'),
+                new Horde_Imap_Client_Data_Format_List(array(
+                    'Baz'
+                ))
+            ))
+        ));
+
+        $this->assertEquals(
+            4,
+            count($ob)
+        );
+
+        $this->assertEquals(
+            'Foo (Foo1) Bar ("Bar1" (Baz))',
+            $ob->escape()
+        );
+
+        $this->assertFalse($ob->requireLiteral());
     }
 
     public function testListMailbox()
@@ -265,7 +309,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
         // Don't throw Exception
         $ob->verify();
 
-        /* This is an invalid atom. */
+        $this->assertFalse($ob->requireLiteral());
+
         $ob = new Horde_Imap_Client_Data_Format_ListMailbox('Foo]');
 
         $this->assertEquals(
@@ -276,6 +321,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
         // Don't throw Exception
         $ob->verify();
 
+        $this->assertFalse($ob->requireLiteral());
+
         /* Don't escape either '*' or '%'. */
         $ob = new Horde_Imap_Client_Data_Format_ListMailbox('Foo%Bar');
         $this->assertEquals(
@@ -283,11 +330,15 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
             $ob->escape()
         );
 
+        $this->assertFalse($ob->requireLiteral());
+
         $ob = new Horde_Imap_Client_Data_Format_ListMailbox('Foo*Bar');
         $this->assertEquals(
             'Foo*Bar',
             $ob->escape()
         );
+
+        $this->assertFalse($ob->requireLiteral());
     }
 
     public function testMailbox()
@@ -303,6 +354,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
             $ob->escape()
         );
 
+        $this->assertFalse($ob->requireLiteral());
+
         $ob = new Horde_Imap_Client_Data_Format_Mailbox('Foo(');
 
         $this->assertEquals(
@@ -314,6 +367,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
             $ob->escape()
         );
 
+        $this->assertFalse($ob->requireLiteral());
+
         $ob = new Horde_Imap_Client_Data_Format_Mailbox('Envoyé');
 
         $this->assertEquals(
@@ -324,6 +379,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
             'Envoy&AOk-',
             $ob->escape()
         );
+
+        $this->assertFalse($ob->requireLiteral());
     }
 
     public function testNil()
@@ -338,6 +395,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
             'NIL',
             $ob->escape()
         );
+
+        $this->assertFalse($ob->requireLiteral());
     }
 
     public function testNstring()
@@ -356,6 +415,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
         // Don't throw Exception
         $ob->verify();
 
+        $this->assertFalse($ob->requireLiteral());
+
         // Require quoting
         $ob = new Horde_Imap_Client_Data_Format_Nstring('Foo(');
 
@@ -371,6 +432,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
         // Don't throw Exception
         $ob->verify();
 
+        $this->assertFalse($ob->requireLiteral());
+
         /* This is an invalid atom. */
         $ob = new Horde_Imap_Client_Data_Format_Nstring('Foo]');
 
@@ -382,6 +445,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
         // Don't throw Exception
         $ob->verify();
 
+        $this->assertFalse($ob->requireLiteral());
+
         $ob = new Horde_Imap_Client_Data_Format_Nstring();
 
         $this->assertEquals(
@@ -392,6 +457,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
             'NIL',
             $ob->escape()
         );
+
+        $this->assertFalse($ob->requireLiteral());
     }
 
     public function testNumber()
@@ -408,6 +475,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
         );
         $ob->verify();
 
+        $this->assertFalse($ob->requireLiteral());
+
         $ob = new Horde_Imap_Client_Data_Format_Number('1');
 
         $this->assertEquals(
@@ -419,6 +488,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
             $ob->escape()
         );
         $ob->verify();
+
+        $this->assertFalse($ob->requireLiteral());
 
         $ob = new Horde_Imap_Client_Data_Format_Number('Foo');
 
@@ -445,6 +516,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
         // Don't throw Exception
         $ob->verify();
 
+        $this->assertFalse($ob->requireLiteral());
+
         // Require quoting
         $ob = new Horde_Imap_Client_Data_Format_String('Foo(');
 
@@ -460,7 +533,9 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
         // Don't throw Exception
         $ob->verify();
 
-        /* This is an invalid atom. */
+        $this->assertFalse($ob->requireLiteral());
+
+        /* This is an invalid atom, but valid string. */
         $ob = new Horde_Imap_Client_Data_Format_String('Foo]');
 
         $this->assertEquals(
@@ -470,6 +545,8 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
 
         // Don't throw Exception
         $ob->verify();
+
+        $this->assertFalse($ob->requireLiteral());
     }
 
 }

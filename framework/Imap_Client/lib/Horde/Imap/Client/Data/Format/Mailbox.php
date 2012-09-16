@@ -19,19 +19,24 @@ class Horde_Imap_Client_Data_Format_Mailbox extends Horde_Imap_Client_Data_Forma
      */
     public function __construct($data)
     {
-        parent::__construct(Horde_Imap_Client_Mailbox::get($data));
+        $this->_data = Horde_Imap_Client_Mailbox::get($data);
     }
 
     /**
      */
     public function escape()
     {
-        $utf7imap = $this->_data->utf7imap;
-
         return $this->_escape(
-            preg_match('/[\x00-\x1f\x7f\(\)\{\s%\*"\\\\]/', $utf7imap),
-            $utf7imap
+            $this->_data->utf7imap,
+            '/[\x00-\x1f\x7f\(\)\{\s%\*"\\\\]/'
         );
+    }
+
+    /**
+     */
+    public function requiresLiteral()
+    {
+        return $this->_requiresLiteral($this->_data->utf7imap);
     }
 
 }

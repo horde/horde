@@ -28,7 +28,9 @@ class Horde_Imap_Client_Data_Format
      */
     public function __construct($data)
     {
-        $this->_data = $data;
+        $this->_data = is_resource($data)
+            ? stream_get_contents($data, -1, 0)
+            : $data;
     }
 
     /**
@@ -54,7 +56,7 @@ class Horde_Imap_Client_Data_Format
     /**
      * Returns the data formatted for output to the IMAP server.
      *
-     * @return string IMAP escaped data.
+     * @return string  IMAP escaped string.
      */
     public function escape()
     {

@@ -12,14 +12,17 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Imap_Client
  */
-class Horde_Imap_Client_Data_Format_ListMailbox extends Horde_Imap_Client_Data_Format_String
+class Horde_Imap_Client_Data_Format_ListMailbox extends Horde_Imap_Client_Data_Format_Mailbox
 {
     /**
      */
     public function escape()
     {
         /* Sane as astring, but don't escape % or * characters. */
-         return $this->_escape(preg_match('/[\x00-\x1f\x7f\(\)\{\s"\\\\]/', $this->_data));
+        return $this->_escape(
+            $this->_data->utf7imap,
+            '/[\x00-\x1f\x7f\(\)\{\s"\\\\]/'
+        );
     }
 
 }
