@@ -72,6 +72,13 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
         'globalobjid' => false
     );
 
+    /**
+     * Copy of the vEvent object.
+     *
+     * @var Horde_Icalendar_Vevent
+     */
+    protected $_vEvent;
+
     public function fromvEvent($vCal)
     {
         try {
@@ -82,6 +89,7 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
         foreach ($vCal->getComponents() as $key => $component) {
             switch ($component->getType()) {
             case 'vEvent':
+                $this->_vEvent = $component;
                 $this->_vEvent($component, $key, $method);
                 break;
 
@@ -98,6 +106,16 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
         $this->timezone = $tz->getSyncTZFromOffsets(
         $tz->getOffsetsFromDate(new Horde_Date()));
         $this->alldayevent = (int)$this->_isAllDay();
+    }
+
+    /**
+     * Return the vEvent object the request/response is based on.
+     *
+     * @return Horde_Icalendar_vEvent
+     */
+    public function getvEvent()
+    {
+        return $this->_vEvent;
     }
 
     protected function _vEvent($vevent, $id, $method = 'REQUEST')

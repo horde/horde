@@ -960,6 +960,7 @@ class Horde_ActiveSync_Imap_Adapter
             $data = $mime_part->getContents();
             $vCal = new Horde_Icalendar();
             if ($vCal->parsevCalendar($data, 'VCALENDAR', $mime_part->getCharset())) {
+                $eas_message->contentclass = 'urn:content-classes:calendarmessage';
                 switch ($vCal->getAttribute('METHOD')) {
                 case 'REQUEST':
                 case 'PUBLISH':
@@ -967,8 +968,26 @@ class Horde_ActiveSync_Imap_Adapter
                     $mtg = new Horde_ActiveSync_Message_MeetingRequest();
                     $mtg->fromvEvent($vCal);
                     $eas_message->meetingrequest = $mtg;
-                    $eas_message->contentclass = 'urn:content-classes:calendarmessage';
                     break;
+                case 'REPLY':
+                    try {
+                        $reply_status = $this->_getiTipStatus($vCal, $eas_message->from);
+                        switch ($reply_status) {
+                        case 'ACCEPTED':
+                            $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Pos';
+                            break;
+                        case 'DECLINED':
+                            $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Neg';
+                            break;
+                        case 'TENTATIVE':
+                            $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Tent';
+                        }
+                        $mtg = new Horde_ActiveSync_Message_MeetingRequest();
+                        $mtg->fromvEvent($vCal);
+                        $eas_message->meetingrequest = $mtg;
+                    } catch (Horde_ActiveSync_Exception $e) {
+                        $this->_logger->err($e->getMessage());
+                    }
                 }
             }
         }
@@ -985,6 +1004,66 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         return $eas_message;
+    }
+
+    /**
+     * Return the attendee participation status.
+     *
+     * @param Horde_Icalendar
+     * @throws Horde_ActiveSync_Exception
+     */
+    protected function _getiTipStatus($vCal, $from)
+    {
+        foreach ($vCal->getComponents() as $key => $component) {
+            switch ($component->getType()) {
+            case 'vEvent':
+                try {
+                    $atname = $component->getAttribute('ATTENDEE');
+                } catch (Horde_Icalendar_Exception $e) {
+                    throw new Horde_ActiveSync_Exception($e);
+                }
+                // EAS only allows a single name per response.
+                if (is_array($atname)) {
+                    $atname = current($atname);
+                }
+
+                try {
+                    $version = $component->getAttribute('VERSION');
+                } catch (Horde_Icalendar_Exception $e) {
+                    throw new Horde_ActiveSync_Exception($e);
+                }
+                if ($version < 2) {
+                    $addr = new Horde_Mail_Rfc822_Address($atname);
+                    if (!$addr->isValid) {
+                        throw new Horde_ActiveSync_Exception('Invalid Email Address');
+                    }
+                    $attendee = Horde_String::lower($addr->bare_address);
+                } else {
+                    $attendee = str_replace('mailto:', '', Horde_String::lower($atname));
+                }
+
+                // Require the sender to be the same as the attendee.
+                $addr = new Horde_Mail_Rfc822_Address($from);
+                $from = Horde_String::lower($addr->bare_address);
+                if ($from != $attendee) {
+                    throw new Horde_ActiveSync_Exception(sprintf(
+                        'Unmatched sender and attendee: %s, %s',
+                        $from,
+                        $attendee));
+                }
+                try {
+                    $atparams = $component->getAttribute('ATTENDEE', true);
+                } catch (Horde_Icalendar_Exception $e) {
+                    throw new Horde_ActiveSync_Exception($e);
+                }
+
+                if (!is_array($atparams)) {
+                    throw new Horde_Icalendar_Exception('Unexpected value');
+                }
+
+                return $atparams[0]['PARTSTAT'];
+            }
+        }
     }
 
     /**
