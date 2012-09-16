@@ -424,7 +424,7 @@ class Kronolith_Api extends Horde_Registry_Api
      * Returns all calendars a user has access to, according to several
      * parameters/permission levels.
      *
-     * @param boolean $owneronly   Only return calenders that this user owns?
+     * @param boolean $owneronly   Only return calendars that this user owns?
      *                             Defaults to false.
      * @param integer $permission  The permission to filter calendars by.
      *
@@ -1047,7 +1047,7 @@ class Kronolith_Api extends Horde_Registry_Api
     /**
      * Updates an attendee's response status for a specified event.
      *
-     * @param Horde_Icalender_Vevent $response  A Horde_Icalender_Vevent
+     * @param Horde_Icalendar_Vevent $response  A Horde_Icalendar_Vevent
      *                                          object, with a valid UID
      *                                          attribute that points to an
      *                                          existing event.  This is
