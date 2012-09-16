@@ -138,11 +138,24 @@ class Horde_Core_ActiveSync_Connector
                 ->getInstance('Horde_Core_Factory_MimeViewer')
                 ->getViewerConfig('text/calendar', $GLOBALS['registry']->hasInterface('mail'));
 
-            if ($config[1]['driver'] == 'Itip' && $config[1]['auto_update_eventreply']) {
+            if ($config[1]['driver'] == 'Itip' && !empty($config[1]['auto_update_eventreply'])) {
+                if (is_array($config[1]['auto_update_eventreply']) {
+                    $adr = new Horde_Mail_Rfc822_Address($attendee);
+                    $have_match = false;
+                    foreach ($config[1]['auto_update_eventreply'] as $val) {
+                        if ($adr->matchDomain($val)) {
+                            $have_match = true;
+                            break;
+                        }
+                    }
+                    if (!$have_match) {
+                        return;
+                    }
+                }
+
                 try {
                    $this->_registry->calendar->updateAttendee($vEvent, $attendee);
                 } catch (Horde_Exception $e) {
-                    Horde::debug($e);
                     $this->_logger->err($e->getMessage());
                 }
             }
