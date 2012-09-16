@@ -122,6 +122,24 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Import an event response into a user's calendar. Used for updating
+     * attendee information from a meeting response.
+     *
+     * @param Horde_Icalendar_vEvent $event  The event data.
+     * @param string $attendee               The attendee.
+     */
+    public function calendar_import_attendee(Horde_Icalendar_vEvent $vEvent, $attendee)
+    {
+        if ($this->_registry->hasMethod('calendar/updateAttendee)')) {
+            try {
+               $this->_registry->calendar->updateAttendee($vEvent, $attendee);
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+            }
+        }
+    }
+
+    /**
      * Replace the event with new data
      *
      * @param string $uid                                    The UID of the

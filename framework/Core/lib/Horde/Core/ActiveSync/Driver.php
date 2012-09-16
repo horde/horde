@@ -663,8 +663,23 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             if (empty($messages)) {
                 throw new Horde_Exception_NotFound();
             }
-            return current($messages);
+            $msg = current($messages);
+
+            // Should we import an iTip response if we have one?
+            if ($msg->contentclass == 'urn:content-classes:calendarmessage') {
+                switch ($msg->messageclass) {
+                case 'IPM.Schedule.Meeting.Resp.Pos':
+                case 'IPM.Schedule.Meeting.Resp.Neg':
+                case 'IPM.Schedule.Meeting.Resp.Tent':
+                    $addr = new Horde_Mail_Rfc822_Address($msg->from);
+                    $this->_connector->calendar_import_attendee(
+                        $msg->meetingrequest->getvEvent(),
+                        $addr->bare_address);
+                }
+            }
+            return $msg;
             break;
+
         default:
             $this->_endBuffer();
             throw new Horde_ActiveSync_Exception('Unsupported type');
