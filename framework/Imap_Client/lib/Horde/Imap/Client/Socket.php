@@ -4086,10 +4086,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         }
                     }
 
-                    if (!is_null($data_pos)) {
-                        fseek($data->stream, $data_pos);
-                        $data_pos = null;
-                    }
+                    fseek($data->stream, is_null($data_pos) ? 0 : $data_pos);
+                    $data_pos = null;
 
                     $this->_tokenizeData(
                         $data->getString(null, is_null($literal_len) ? null : (strlen($literal_data) * -1))
