@@ -236,7 +236,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
      */
     protected function _vEvent($vevent, $id, $method = 'PUBLISH')
     {
-        global $injector, $prefs, $registry;
+        global $injector, $prefs, $registry, $notification;
 
         $attendees = null;
         $desc = '';
