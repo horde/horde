@@ -140,7 +140,8 @@ class Horde_Session
             0,
             $conf['cookie']['path'],
             $conf['cookie']['domain'],
-            $conf['use_ssl'] == 1 ? 1 : 0
+            $conf['use_ssl'] == 1 ? 1 : 0,
+            true
         );
         session_cache_limiter(is_null($cache_limiter) ? $conf['session']['cache_limiter'] : $cache_limiter);
         session_name(urlencode($conf['session']['name']));
