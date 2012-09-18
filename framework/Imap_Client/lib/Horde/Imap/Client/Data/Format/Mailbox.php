@@ -15,28 +15,34 @@
 class Horde_Imap_Client_Data_Format_Mailbox extends Horde_Imap_Client_Data_Format_Astring
 {
     /**
+     * Mailbox object.
+     *
+     * @var Horde_Imap_Client_Mailbox
+     */
+    protected $_mailbox;
+
+    /**
      * @param mixed $data  Either a mailbox object or a UTF-8 mailbox name.
      */
     public function __construct($data)
     {
-        $this->_data = Horde_Imap_Client_Mailbox::get($data);
+        $this->_mailbox = Horde_Imap_Client_Mailbox::get($data);
+
+        parent::__construct($this->_mailbox->utf7imap);
     }
 
     /**
      */
-    public function escape()
+    public function __toString()
     {
-        return $this->_escape(
-            $this->_data->utf7imap,
-            '/[\x00-\x1f\x7f\(\)\{\s%\*"\\\\]/'
-        );
+        return strval($this->_mailbox);
     }
 
     /**
      */
-    public function requiresLiteral()
+    public function getData()
     {
-        return $this->_requiresLiteral($this->_data->utf7imap);
+        return $this->_mailbox;
     }
 
 }

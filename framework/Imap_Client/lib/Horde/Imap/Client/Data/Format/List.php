@@ -58,7 +58,8 @@ class Horde_Imap_Client_Data_Format_List extends Horde_Imap_Client_Data_Format i
         foreach ($this as $val) {
             if ($val instanceof $this) {
                 $out .= '(' . $val->escape() . ') ';
-            } elseif ($val->requireLiteral()) {
+            } elseif (($val instanceof Horde_Imap_Client_Data_Format_String) &&
+                      $val->literal()) {
                 throw new Horde_Imap_Client_Data_Format_Exception('Requires literal output.');
             } else {
                 $out .= $val->escape() . ' ';

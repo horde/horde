@@ -16,13 +16,14 @@ class Horde_Imap_Client_Data_Format_ListMailbox extends Horde_Imap_Client_Data_F
 {
     /**
      */
-    public function escape()
+    protected function _filterParams()
     {
-        /* Sane as astring, but don't escape % or * characters. */
-        return $this->_escape(
-            $this->_data->utf7imap,
-            '/[\x00-\x1f\x7f\(\)\{\s"\\\\]/'
-        );
+        $ob = parent::_filterParams();
+
+        /* Don't quote % or * characters. */
+        $ob->no_quote_list = true;
+
+        return $ob;
     }
 
 }

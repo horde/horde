@@ -19,16 +19,38 @@ class Horde_Imap_Client_Data_Format_Nstring extends Horde_Imap_Client_Data_Forma
     public function __construct($data = null)
     {
         /* Data can be null (NIL) here. */
-        parent::__construct($data);
+        if (is_null($data)) {
+            $this->_data = null;
+        } else {
+            parent::__construct($data);
+        }
+    }
+
+    /**
+     */
+    public function __toString()
+    {
+        return is_null($this->_data)
+            ? ''
+            : parent::__toString();
     }
 
     /**
      */
     public function escape()
     {
-        return strlen($this->_data)
-            ? $this->_escape($this->_data)
-            : 'NIL';
+        return is_null($this->_data)
+            ? 'NIL'
+            : parent::escape();
+    }
+
+    /**
+     */
+    public function quoted()
+    {
+        return is_null($this->_data)
+            ? false
+            : parent::quoted();
     }
 
 }

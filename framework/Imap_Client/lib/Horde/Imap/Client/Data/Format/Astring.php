@@ -16,14 +16,9 @@ class Horde_Imap_Client_Data_Format_Astring extends Horde_Imap_Client_Data_Forma
 {
     /**
      */
-    public function escape()
+    public function quoted()
     {
-        /* Only requires quoting if an atom-special is present (besides
-         * resp-specials). */
-        return $this->_escape(
-            $this->_data,
-            '/[\x00-\x1f\x7f\(\)\{\s%\*"\\\\]/'
-        );
+        return $this->_filter->quoted;
     }
 
 }

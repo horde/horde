@@ -15,72 +15,107 @@
 class Horde_Imap_Client_Data_Format_String extends Horde_Imap_Client_Data_Format
 {
     /**
+     * String filter parameters.
+     *
+     * @var string
+     */
+    protected $_filter;
+
+    /**
      */
     public function __construct($data)
     {
-        /* Store resource streams as-is (don't convert to string). */
-        $this->_data = $data;
+        /* String data is stored in a stream. */
+        $this->_data = new Horde_Stream_Temp();
+
+        stream_filter_register('horde_imap_client_string', 'Horde_Imap_Client_Data_Format_Filter_String');
+
+        $this->_filter = $this->_filterParams();
+        $res = stream_filter_append($this->_data->stream, 'horde_imap_client_string', STREAM_FILTER_WRITE, $this->_filter);
+
+        $this->_data->add($data);
+
+        stream_filter_remove($res);
+    }
+
+    /**
+     * Return the base string filter parameters.
+     *
+     * @return object  Filter parameters.
+     */
+    protected function _filterParams()
+    {
+        return new stdClass;
+    }
+
+    /**
+     */
+    public function __toString()
+    {
+        return $this->_data->getString(0);
     }
 
     /**
      */
     public function escape()
     {
-        /* IMAP strings MUST be quoted. */
-        return $this->_escape($this->_data);
-    }
-
-    /**
-     * Escape output via an IMAP quoted string (see RFC 3501 [4.3]). Note that
-     * IMAP quoted strings support 7-bit characters only and can not contain
-     * either CR or LF.
-     *
-     * @param mixed $data    Data to quote.
-     * @param string $quote  If present, a regex that, if matched, will cause
-     *                       string to be quoted.
-     *
-     * @return string  The escaped string.
-     * @throws Horde_Imap_Client_Data_Format_Exception
-     */
-    protected function _escape($data, $quote = null)
-    {
-        if ($this->_requiresLiteral($data)) {
+        if ($this->literal()) {
             throw new Horde_Imap_Client_Data_Format_Exception('String requires literal to output.');
         }
 
-        if (!strlen($data)) {
-            return '""';
+        return $this->quoted()
+            ? stream_get_contents($this->escapeStream())
+            : $this->_data->getString(0);
+    }
+
+    /**
+     * Return the escaped string as a stream.
+     *
+     * @return resource  The IMAP escaped stream.
+     */
+    public function escapeStream()
+    {
+        if ($this->literal()) {
+            throw new Horde_Imap_Client_Data_Format_Exception('String requires literal to output.');
         }
 
-        $newstr = addcslashes($data, '"\\');
+        fseek($this->_data->stream, 0);
 
-        return (!is_null($quote) && !preg_match($quote, $data) && ($data == $newstr))
-            ? $data
-            : '"' . $newstr . '"';
+        $stream = new Horde_Stream_Temp();
+        $stream->add($this->_data, true);
+
+        stream_filter_register('horde_imap_client_string_quote', 'Horde_Imap_Client_Data_Format_Filter_Quote');
+        stream_filter_append($stream->stream, 'horde_imap_client_string_quote', STREAM_FILTER_READ);
+
+        return $stream->stream;
     }
 
+    /**
+     */
+    public function quoted()
+    {
+        /* IMAP strings MUST be quoted if they are not a literal. */
+        return (!isset($this->_filter) || !$this->_filter->literal);
+    }
 
     /**
      * Does this data item require literal string output?
      *
-     * @return boolean  Does data require literal output?
+     * @return boolean  True if literal output is required.
      */
-    public function requiresLiteral()
+    public function literal()
     {
-        return $this->_requiresLiteral($this->_data);
+        return (isset($this->_filter) && $this->_filter->literal);
     }
 
     /**
-     * Does this data item require literal string output?
+     * If literal output, is the data binary?
      *
-     * @param mixed $data  Data to test.
-     *
-     * @return boolean  Does data require literal output?
+     * @return boolean  True if the literal output is binary.
      */
-    protected function _requiresLiteral($data)
+    public function binary()
     {
-        return (is_resource($data) ||
-                (bool) preg_match('/[\x80-\xff\n\r]/', $data));
+        return (isset($this->_filter) && $this->_filter->binary);
     }
 
 }
