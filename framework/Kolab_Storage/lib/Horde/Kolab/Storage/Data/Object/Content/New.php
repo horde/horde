@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Data_Object_Content_New
-extends Horde_Kolab_Storage_Data_Object_Content_Base
+extends Horde_Kolab_Storage_Data_Object_Content
 implements Horde_Kolab_Storage_Data_Object_Addable
 {
     /**

@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Data_Object_Content_Modified
-extends Horde_Kolab_Storage_Data_Object_Content_Base
+extends Horde_Kolab_Storage_Data_Object_Content
 {
     /**
      * Object data.
@@ -48,13 +48,6 @@ extends Horde_Kolab_Storage_Data_Object_Content_Base
      * @var resource
      */
     private $_previous;
-
-    /**
-     * The content mime type.
-     *
-     * @var Horde_Kolab_Storage_Data_Object_MimeType
-     */
-    protected $_mime_type;
 
     /**
      * Constructor.

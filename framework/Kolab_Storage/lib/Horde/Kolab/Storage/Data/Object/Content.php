@@ -25,7 +25,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-abstract class Horde_Kolab_Storage_Data_Object_Content_Base
+abstract class Horde_Kolab_Storage_Data_Object_Content
 implements Horde_Kolab_Storage_Data_Object_MimeEmbeddable
 {
     /**
@@ -64,16 +64,7 @@ implements Horde_Kolab_Storage_Data_Object_MimeEmbeddable
      */
     public function setType($type)
     {
-        $default_types = array(
-            'contact', 'event', 'note', 'task', 'h-prefs', 'h-ledger'
-        );
-        if (in_array($type, $default_types)) {
-            $this->_mime_type = 'application/x-vnd.kolab.' . $type;
-        } else {
-            throw new Horde_Kolab_Storage_Data_Exception(
-                sprintf('Unsupported object type %s!', $type)
-            );
-        }
+        $this->_mime_type = Horde_Kolab_Storage_Data_Object_MimeType::getMimeTypeFromObjectType($type);
     }
 
 }
