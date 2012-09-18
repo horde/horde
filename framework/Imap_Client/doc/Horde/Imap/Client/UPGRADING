@@ -221,6 +221,10 @@ logging any errors.
 
   - Horde_Imap_Client_Utils
 
+    - parseCommandArray()
+
+      This method has been removed.
+
     - stripNonAtomChars()
 
       This method has been removed. The same functionality can now be

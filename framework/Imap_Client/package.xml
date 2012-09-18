@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-12</date>
- <time>23:51:12</time>
+ <date>2012-09-18</date>
+ <time>20:56:02</time>
  <version>
   <release>2.0.0beta4</release>
   <api>2.0.0beta1</api>
@@ -22,6 +22,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Rewritten handling for processing outgoing IMAP commands.
+* [mms] Improved debugging efficiency.
+* [mms] Added data objects for the various IMAP data types.
 * [mms] Added the Horde_Imap_Client_Data_Format objects.
  </notes>
  <contents>
@@ -48,6 +51,10 @@
          <file name="Pop3.php" role="php" />
         </dir> <!-- /lib/Horde/Imap/Client/Data/Fetch -->
         <dir name="Format">
+         <dir name="Filter">
+          <file name="Quote.php" role="php" />
+          <file name="String.php" role="php" />
+         </dir> <!-- /lib/Horde/Imap/Client/Data/Format/Filter -->
          <file name="Astring.php" role="php" />
          <file name="Atom.php" role="php" />
          <file name="Date.php" role="php" />
@@ -83,6 +90,9 @@
        <dir name="Ids">
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Ids -->
+       <dir name="Interaction">
+        <file name="Client.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Interaction -->
        <dir name="Search">
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Search -->
@@ -290,6 +300,8 @@
    <install as="Horde/Imap/Client/Data/Format/Nstring.php" name="lib/Horde/Imap/Client/Data/Format/Nstring.php" />
    <install as="Horde/Imap/Client/Data/Format/Number.php" name="lib/Horde/Imap/Client/Data/Format/Number.php" />
    <install as="Horde/Imap/Client/Data/Format/String.php" name="lib/Horde/Imap/Client/Data/Format/String.php" />
+   <install as="Horde/Imap/Client/Data/Format/Filter/Quote.php" name="lib/Horde/Imap/Client/Data/Format/Filter/Quote.php" />
+   <install as="Horde/Imap/Client/Data/Format/Filter/String.php" name="lib/Horde/Imap/Client/Data/Format/Filter/String.php" />
    <install as="Horde/Imap/Client/Exception/NoSupportExtension.php" name="lib/Horde/Imap/Client/Exception/NoSupportExtension.php" />
    <install as="Horde/Imap/Client/Exception/NoSupportPop3.php" name="lib/Horde/Imap/Client/Exception/NoSupportPop3.php" />
    <install as="Horde/Imap/Client/Exception/SearchCharset.php" name="lib/Horde/Imap/Client/Exception/SearchCharset.php" />
@@ -297,6 +309,7 @@
    <install as="Horde/Imap/Client/Fetch/Query.php" name="lib/Horde/Imap/Client/Fetch/Query.php" />
    <install as="Horde/Imap/Client/Fetch/Results.php" name="lib/Horde/Imap/Client/Fetch/Results.php" />
    <install as="Horde/Imap/Client/Ids/Pop3.php" name="lib/Horde/Imap/Client/Ids/Pop3.php" />
+   <install as="Horde/Imap/Client/Interaction/Client.php" name="lib/Horde/Imap/Client/Interaction/Client.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="Horde/Imap/Client/Utils/Pop3.php" name="lib/Horde/Imap/Client/Utils/Pop3.php" />
@@ -1012,9 +1025,12 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-12</date>
+   <date>2012-09-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Rewritten handling for processing outgoing IMAP commands.
+* [mms] Improved debugging efficiency.
+* [mms] Added data objects for the various IMAP data types.
 * [mms] Added the Horde_Imap_Client_Data_Format objects.
    </notes>
   </release>
