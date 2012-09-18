@@ -17,7 +17,7 @@ class Horde_Stream_Temp extends Horde_Stream
     /**
      * Constructor.
      *
-     * @param array $opts  Configuration options:
+     * @param array $opts  Additional configuration options:
      *   - max_memory: (integer) The maximum amount of memory to allocate to
      *                 the PHP temporary stream.
      *
@@ -33,6 +33,8 @@ class Horde_Stream_Temp extends Horde_Stream
         if (($this->stream = @fopen('php://temp/maxmemory:' . $opts['max_memory'], 'r+')) === false) {
             throw new Horde_Stream_Exception('Failed to open temporary memory stream.');
         }
+
+        parent::__construct($opts);
     }
 
 }

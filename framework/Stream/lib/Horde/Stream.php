@@ -30,7 +30,40 @@ class Horde_Stream
     public function __construct(array $opts = array())
     {
         // Sane default: read-only, 0-length stream.
-        $this->stream = @fopen('php://temp', 'r');
+        if (!$this->stream) {
+            $this->stream = @fopen('php://temp', 'r');
+        }
+    }
+
+    /**
+     * Adds data to the stream.
+     *
+     * @param mixed $data     Data to add to the stream. Can be a resource,
+     *                        Horde_Stream object, or a string(-ish) value.
+     * @param boolean $reset  Reset stream pointer to initial position after
+     *                        adding?
+     */
+    public function add($data, $reset = false)
+    {
+        if ($reset) {
+            $pos = ftell($this->stream);
+        }
+
+        if (is_resource($data)) {
+            $dpos = ftell($data);
+            stream_copy_to_stream($data, $this->stream);
+            fseek($data, $dpos);
+        } elseif ($data instanceof Horde_Stream) {
+            $dpos = ftell($data->stream);
+            stream_copy_to_stream($data->stream, $this->stream);
+            fseek($data->stream, $dpos);
+        } else {
+            fwrite($this->stream, $data);
+        }
+
+        if ($reset) {
+            fseek($this->stream, $pos);
+        }
     }
 
     /**

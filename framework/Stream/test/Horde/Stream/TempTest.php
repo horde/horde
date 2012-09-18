@@ -195,4 +195,55 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
     }
 
+    public function testAddMethod()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('foo');
+
+        $this->assertEquals(
+            3,
+            $stream->length()
+        );
+        $this->assertEquals(
+            'foo',
+            $stream->getString(0)
+        );
+
+        fseek($stream->stream, 0);
+
+        $stream2 = new Horde_Stream_Temp();
+        $stream2->add($stream->stream, true);
+
+        $this->assertEquals(
+            3,
+            $stream2->length()
+        );
+        $this->assertEquals(
+            'foo',
+            $stream2->getString()
+        );
+        $this->assertEquals(
+            'foo',
+            $stream2->getString(0)
+        );
+
+        fseek($stream->stream, 0);
+
+        $stream3 = new Horde_Stream_Temp();
+        $stream3->add($stream);
+
+        $this->assertEquals(
+            3,
+            $stream3->length()
+        );
+        $this->assertEquals(
+            '',
+            $stream3->getString()
+        );
+        $this->assertEquals(
+            'foo',
+            $stream3->getString(0)
+        );
+    }
+
 }
