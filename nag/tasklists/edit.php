@@ -31,7 +31,7 @@ $form = new Nag_Form_EditTaskList($vars, $tasklist);
 if ($form->validate($vars)) {
     $original_name = $tasklist->get('name');
     try {
-        $result = $form->execute();
+        $form->execute();
         if ($tasklist->get('name') != $original_name) {
             $notification->push(sprintf(_("The task list \"%s\" has been renamed to \"%s\"."), $original_name, $tasklist->get('name')), 'horde.success');
         } else {
@@ -40,14 +40,13 @@ if ($form->validate($vars)) {
     } catch (Exception $e) {
         $notification->push($e, 'horde.error');
     }
-
     Horde::url('list.php', true)->redirect();
 }
 
 $vars->set('name', $tasklist->get('name'));
-$vars->set('description', $tasklist->get('desc'));
-$vars->set('system', is_null($tasklist->get('owner')));
 $vars->set('color', $tasklist->get('color'));
+$vars->set('system', is_null($tasklist->get('owner')));
+$vars->set('description', $tasklist->get('desc'));
 
 $page_output->header(array(
     'title' => $form->getTitle()
@@ -57,9 +56,9 @@ Nag::status();
 if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
     (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin())) {
     echo $form->renderInactive($form->getRenderer(),
-                             $vars,
-                             Horde::url('tasklists/edit.php'),
-                             'post');
+                               $vars,
+                               Horde::url('tasklists/edit.php'),
+                               'post');
 } else {
     echo $form->renderActive($form->getRenderer(),
                              $vars,

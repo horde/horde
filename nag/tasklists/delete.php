@@ -33,13 +33,12 @@ $form = new Nag_Form_DeleteTaskList($vars, $tasklist);
 // Execute if the form is valid (must pass with POST variables only).
 if ($form->validate(new Horde_Variables($_POST))) {
     try {
-        $result = $form->execute();
+        $form->execute();
         $notification->push(sprintf(_("The task list \"%s\" has been deleted."), $tasklist->get('name')), 'horde.success');
     } catch (Exception $e) {
         $notification->push($e, 'horde.error');
     }
-
-    Horde::url('tasklists/', true)->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 
 $page_output->header(array(

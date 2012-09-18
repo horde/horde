@@ -1,19 +1,19 @@
 <div id="kronolithViewAgenda" style="display:none">
-<table class="kronolithView">
-  <caption class="tabset">
-    <span id="kronolithLoadingagenda" class="kronolithLoading"></span>
-    <span id="kronolithAgendaDate"></span>
-    <span class="kronolithNavigation">
-      <ul id="kronolithSearchNavigation">
-        <li><a id="kronolithSearchAll"><?php echo _("All") ?></a></li>
-        <li><a id="kronolithSearchPast"><?php echo _("Past") ?></a></li>
-        <li class="activeTab"><a id="kronolithSearchFuture"><?php echo _("Future") ?></a></li>
-      </ul>
-    </span>
-  </caption>
+<div class="tabset">
+  <span id="kronolithAgendaDate"></span>
+  <span class="kronolithNavigation">
+    <ul id="kronolithSearchNavigation">
+      <li><a id="kronolithSearchAll"><?php echo _("All") ?></a></li>
+      <li><a id="kronolithSearchPast"><?php echo _("Past") ?></a></li>
+      <li class="activeTab"><a id="kronolithSearchFuture"><?php echo _("Future") ?></a></li>
+    </ul>
+  </span>
+  <span id="kronolithLoadingagenda" class="kronolithLoading"></span>
+</div>
+<table class="kronolith-view">
   <tbody id="kronolithViewAgendaBody">
     <tr id="kronolithAgendaTemplate" style="display:none">
-      <td class="kronolithFirstCol"></td>
+      <td class="kronolith-first-col"></td>
       <td>
       </td>
     </tr>

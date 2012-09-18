@@ -151,13 +151,13 @@ class Kronolith_Block_Month extends Horde_Core_Block
 
             $date_ob = new Kronolith_Day($month, $day, $year);
             if ($date_ob->isToday()) {
-                $td_class = 'today';
+                $td_class = 'kronolith-today';
             } elseif ($date_ob->month != $month) {
-                $td_class = 'othermonth';
+                $td_class = 'kronolith-othermonth';
             } elseif ($date_ob->dayOfWeek() == 0 || $date_ob->dayOfWeek() == 6) {
-                $td_class = 'weekend';
+                $td_class = 'kronolith-weekend';
             } else {
-                $td_class = 'text';
+                $td_class = '';
             }
             $html .= '<td align="center" class="' . $td_class . '">';
 

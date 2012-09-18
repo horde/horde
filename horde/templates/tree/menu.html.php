@@ -5,12 +5,12 @@
         <li>
           <div class="<?php echo $this->items[$item]['class'] ?>">
 <?php if (!empty($this->items[$item]['url'])): ?>
-            <a class="horde-mainnavi<?php if ($this->items[$item]['active']): ?>-active<?php endif ?>" href="<?php echo $this->items[$item]['url'] ?>"<?php if (!empty($this->items[$item]['target'])) echo ' target="' . $this->items[$item]['target'] . '"'?><?php if (!empty($this->items[$item]['onclick'])) echo ' onclick="' . $this->items[$item]['onclick'] . '"'?>>
+            <a class="horde-mainnavi<?php if ($this->items[$item]['active']): ?>-active<?php endif ?>" href="<?php echo $this->items[$item]['url'] ?>"<?php if (!empty($this->items[$item]['target'])) echo ' target="' . $this->items[$item]['target'] . '"'?><?php if (!empty($this->items[$item]['onclick'])) echo ' onclick="' . htmlspecialchars($this->items[$item]['onclick']) . '"'?>>
 <?php endif ?>
 <?php if (!empty($this->items[$item]['children']) && empty($this->items[$item]['noarrow'])): ?>
-              <span class="horde-point-arrow<?php if ($this->items[$item]['active']): ?>-active<?php endif ?>"></span>
+              <span class="horde-point-arrow<?php if ($this->items[$item]['active']): ?>-active<?php endif ?>">&#9662;</span>
 <?php endif ?>
-              <?php echo $this->items[$item]['label'] ?>
+              <?php echo htmlspecialchars($this->items[$item]['label']) ?>
 <?php if (!empty($this->items[$item]['url'])): ?>
             </a>
 <?php endif ?>

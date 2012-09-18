@@ -27,12 +27,7 @@ $page_output->header(array(
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-
-echo '<div id="page">';
 Kronolith::tabs($view);
 $view->html();
-echo '</div>';
-
 require KRONOLITH_TEMPLATES . '/calendar_titles.inc';
-require KRONOLITH_TEMPLATES . '/panel.inc';
 $page_output->footer();

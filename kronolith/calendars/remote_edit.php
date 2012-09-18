@@ -20,8 +20,9 @@ if (Kronolith::showAjaxView()) {
 
 // Exit if this isn't an authenticated user or if the user can't
 // subscribe to remote calendars (remote_cals is locked).
+$default = Horde::url($prefs->getValue('defaultview') . '.php', true);
 if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('remote_cals')) {
-    Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
+    $default->redirect();
 }
 
 $remote_calendar = null;
@@ -34,7 +35,7 @@ foreach ($remote_calendars as $key => $calendar) {
 }
 if (is_null($remote_calendar)) {
     $notification->push(_("The remote calendar was not found."), 'horde.error');
-    Horde::url('calendars/', true)->redirect();
+    $default->redirect();
 }
 $form = new Kronolith_Form_EditRemoteCalendar($vars, $remote_calendar);
 
@@ -46,7 +47,7 @@ if ($form->validate($vars)) {
     } catch (Exception $e) {
         $notification->push($e, 'horde.error');
     }
-    Horde::url('calendars/', true)->redirect();
+    $default->redirect();
 }
 
 $key = $registry->getAuthCredential('password');

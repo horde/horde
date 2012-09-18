@@ -1,14 +1,14 @@
 <div>
-  <div id="kronolithMinical" class="kronolithMinical">
+  <div id="kronolith-minical" class="kronolith-minical">
     <table>
       <thead>
-        <tr class="kronolithMinicalNav">
-          <th><a id="kronolithMinicalPrev" title="<?php echo _("Previous month") ?>">&lt;</a></th>
+        <tr class="kronolith-minical-nav">
+          <th><a id="kronolith-minical-prev" title="<?php echo _("Previous month") ?>">&lt;</a></th>
           <th id="kronolithMinicalDate" colspan="6"><?php echo $this->today ?></th>
-          <th><a id="kronolithMinicalNext" title="<?php echo _("Next month") ?>">&gt;</a></th>
+          <th><a id="kronolith-minical-next" title="<?php echo _("Next month") ?>">&gt;</a></th>
         </tr>
         <tr>
-          <th class="kronolithMinicalEmpty">&nbsp;</th>
+          <th class="kronolith-minical-empty">&nbsp;</th>
           <?php foreach ($this->weekdays as $day => $abbr): ?>
           <th title="<?php echo $day ?>"><?php echo $abbr ?></th>
           <?php endforeach; ?>

@@ -1389,6 +1389,14 @@ EOT;
         return $html;
     }
 
+    protected function _renderVarDisplay_colorpicker($form, &$var, &$vars)
+    {
+        $color = $var->getValue($vars);
+        return '<span style="background-color:' . $color . ';color:'
+            . (Horde_Image::brightness($color) < 128 ? '#fff' : '#000')
+            . '">' . $color . '</span>';
+    }
+
     protected function _renderVarDisplay_invalid($form, &$var, &$vars)
     {
         return '<span class="form-error">' . htmlspecialchars($var->type->message) . '</span>';

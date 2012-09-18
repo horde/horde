@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-10</date>
- <time>09:03:36</time>
+ <date>2012-09-18</date>
+ <time>23:17:16</time>
  <version>
   <release>5.0.0beta6</release>
   <api>5.0.0beta1</api>
@@ -698,7 +698,7 @@
      <file name="login.inc" role="horde" />
      <file name="resetpassword.inc" role="horde" />
      <file name="signup.inc" role="horde" />
-     <file name="smartmobile.inc" role="horde" />
+     <file name="smartmobile.html.php" role="horde" />
     </dir> <!-- /templates/login -->
     <dir name="logintasks">
      <file name="logintasks.html" role="horde" />
@@ -751,7 +751,8 @@
     <dir name="sidebar">
      <file name="sidebar.html.php" role="horde" />
      <file name="_container.html.php" role="horde" />
-     <file name="_row.html.php" role="horde" />
+     <file name="_rowresource.html.php" role="horde" />
+     <file name="_rowtree.html.php" role="horde" />
     </dir> <!-- /templates/sidebar -->
     <dir name="test">
      <file name="extensions.inc" role="horde" />
@@ -2345,7 +2346,7 @@
    <install as="templates/login/login.inc" name="templates/login/login.inc" />
    <install as="templates/login/resetpassword.inc" name="templates/login/resetpassword.inc" />
    <install as="templates/login/signup.inc" name="templates/login/signup.inc" />
-   <install as="templates/login/smartmobile.inc" name="templates/login/smartmobile.inc" />
+   <install as="templates/login/smartmobile.html.php" name="templates/login/smartmobile.html.php" />
    <install as="templates/logintasks/logintasks.html" name="templates/logintasks/logintasks.html" />
    <install as="templates/logintasks/smartmobile.html" name="templates/logintasks/smartmobile.html" />
    <install as="templates/menu/menu.inc" name="templates/menu/menu.inc" />
@@ -2384,7 +2385,8 @@
    <install as="templates/shares/edit.inc" name="templates/shares/edit.inc" />
    <install as="templates/sidebar/sidebar.html.php" name="templates/sidebar/sidebar.html.php" />
    <install as="templates/sidebar/_container.html.php" name="templates/sidebar/_container.html.php" />
-   <install as="templates/sidebar/_row.html.php" name="templates/sidebar/_row.html.php" />
+   <install as="templates/sidebar/_rowresource.html.php" name="templates/sidebar/_rowresource.html.php" />
+   <install as="templates/sidebar/_rowtree.html.php" name="templates/sidebar/_rowtree.html.php" />
    <install as="templates/test/extensions.inc" name="templates/test/extensions.inc" />
    <install as="templates/test/footer.inc" name="templates/test/footer.inc" />
    <install as="templates/test/header.inc" name="templates/test/header.inc" />
@@ -3686,7 +3688,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-10</date>
+   <date>2012-09-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add configuration option for maximum allowed session times.

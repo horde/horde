@@ -20,8 +20,9 @@ if (Kronolith::showAjaxView()) {
 
 // Exit if this isn't an authenticated user or if the user can't
 // subscribe to remote calendars (remote_cals is locked).
+$default = Horde::url($prefs->getValue('defaultview') . '.php', true);
 if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('remote_cals')) {
-    Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
+    $default->redirect();
 }
 
 $form = new Kronolith_Form_SubscribeRemoteCalendar($vars);
@@ -34,7 +35,7 @@ if ($form->validate($vars)) {
     } catch (Exception $e) {
         $notification->push($e, 'horde.error');
     }
-    Horde::url('calendars/', true)->redirect();
+    $default->redirect();
 }
 
 $menu = Horde::menu();

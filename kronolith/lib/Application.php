@@ -131,19 +131,31 @@ class Kronolith_Application extends Horde_Registry_Application
                 'KronolithGoto.weekurl' => strval(Horde::url('week.php')),
                 'KronolithGoto.yearurl' => strval(Horde::url('year.php'))
             ));
-            $menu->add(new Horde_Url(''), _("_Goto"), 'kronolith-goto', null, '', null, 'kgotomenu');
+            $menu->add(new Horde_Url(''), _("_Goto"), 'kronolith-icon-goto', null, '', null, 'kgotomenu');
         }
-        $menu->add(Horde::url('search.php'), _("_Search"), 'kronolith-search');
+        $menu->add(Horde::url('search.php'), _("_Search"), 'kronolith-icon-search');
 
         /* Import/Export. */
         if ($conf['menu']['import_export'] &&
             !Kronolith::showAjaxView()) {
             $menu->add(Horde::url('data.php'), _("_Import/Export"), 'horde-data');
         }
+
+        if (strlen($GLOBALS['session']->get('kronolith', 'display_cal'))) {
+            $menu->add(Horde::selfUrl(true)->add('display_cal', ''),
+                       $GLOBALS['registry']->getAuth()
+                           ? _("Return to my calendars")
+                           : _("Return to calendars"),
+                       'kronolith-icon-back',
+                       null, null, null, '__noselection');
+        }
     }
 
     /**
-     * Add additional items to the sidebar.
+     * Adds additional items to the sidebar.
+     *
+     * This is for the traditional view. For the dynamic view, see
+     * Kronolith_View_Sidebar.
      *
      * @param Horde_View_Sidebar $sidebar  The sidebar object.
      */
@@ -154,6 +166,218 @@ class Kronolith_Application extends Horde_Registry_Application
             ($perms->hasAppPermission('max_events') === true ||
              $perms->hasAppPermission('max_events') > Kronolith::countEvents())) {
             $sidebar->addNewButton(_("_New Event"), Horde::url('new.php')->add('url', Horde::selfUrl(true, false, true)));
+        }
+
+        if (strlen($GLOBALS['session']->get('kronolith', 'display_cal'))) {
+            $calendars = Kronolith::displayedCalendars();
+            $sidebar->containers['calendars'] = array(
+                'header' => array(
+                    'id' => 'kronolith-toggle-calendars',
+                    'label' => ngettext("Showing calendar:", "Showing calendars:", count($calendar_names)),
+                    'collapsed' => false,
+                ),
+            );
+            foreach ($calendars as $calendar) {
+                $row = array(
+                    'label' => $calendar->name(),
+                    'color' => $calendar->background(),
+                    'type' => 'checkbox',
+                );
+                $sidebar->addRow($row, 'calendars');
+            }
+            return;
+        }
+
+        $user = $GLOBALS['registry']->getAuth();
+        $url = Horde::selfUrl();
+        $edit = Horde::url('calendars/edit.php');
+
+        $sidebar->containers['my'] = array(
+            'header' => array(
+                'id' => 'kronolith-toggle-my',
+                'label' => _("My Calendars"),
+                'collapsed' => false,
+            ),
+        );
+        if (!$GLOBALS['prefs']->isLocked('default_share')) {
+            $sidebar->containers['my']['header']['add'] = array(
+                'url' => Horde::url('calendars/create.php'),
+                'label' => _("Create a new Local Calendar"),
+            );
+        }
+        if ($GLOBALS['registry']->isAdmin()) {
+            $sidebar->containers['system'] = array(
+                'header' => array(
+                    'id' => 'kronolith-toggle-system',
+                    'label' => _("System Calendars"),
+                    'collapsed' => false,
+                ),
+            );
+            $sidebar->containers['system']['header']['add'] = array(
+                'url' => Horde::url('calendars/create.php')->add('system', 1),
+                'label' => _("Create a new System Calendar"),
+            );
+        }
+        $sidebar->containers['shared'] = array(
+            'header' => array(
+                'id' => 'kronolith-toggle-shared',
+                'label' => _("Shared Calendars"),
+                'collapsed' => true,
+            ),
+        );
+        foreach (Kronolith::listInternalCalendars() as $id => $calendar) {
+            $row = array(
+                'selected' => in_array($id, $GLOBALS['display_calendars']),
+                'url' => $url->add('toggle_calendar', $id),
+                'label' => $calendar->get('name'),
+                'color' => Kronolith::backgroundColor($calendar),
+                'edit' => $edit->add('c', $calendar->getName()),
+                'type' => 'checkbox',
+            );
+            if ($calendar->get('owner') && $calendar->get('owner') == $user) {
+                $sidebar->addRow($row, 'my');
+            } else {
+                if ($calendar->get('owner')) {
+                    $row['label'] .= ' [' . $GLOBALS['registry']->convertUsername($calendar->get('owner'), false) . ']';
+                }
+                $sidebar->addRow($row, 'shared');
+            }
+        }
+
+        if ($GLOBALS['registry']->isAdmin()) {
+            foreach ($GLOBALS['injector']->getInstance('Kronolith_Shares')->listSystemShares() as $id => $calendar) {
+                $row = array(
+                    'selected' => in_array($id, $GLOBALS['display_calendars']),
+                    'url' => $url->add('toggle_calendar', $id),
+                    'label' => $calendar->get('name'),
+                    'color' => Kronolith::backgroundColor($calendar),
+                    'edit' => $edit->add('c', $calendar->getName()),
+                    'type' => 'checkbox',
+                );
+                $sidebar->addRow($row, 'system');
+            }
+
+            $sidebar->containers['groups'] = array(
+                'header' => array(
+                    'id' => 'kronolith-toggle-groups',
+                    'label' => _("Resource Groups"),
+                    'collapsed' => true,
+                    'add' => array(
+                        'url' => Horde::url('resources/groups/create.php'),
+                        'label' => _("Create a new Resource Group"),
+                    ),
+                ),
+            );
+            $editGroups = Horde::url('resources/groups/edit.php');
+            $sidebar->containers['resources'] = array(
+                'header' => array(
+                    'id' => 'kronolith-toggle-resources',
+                    'label' => _("Resources"),
+                    'collapsed' => true,
+                    'add' => array(
+                        'url' => Horde::url('resources/create.php'),
+                        'label' => _("Create a new Resource"),
+                    ),
+                ),
+            );
+            $edit = Horde::url('resources/edit.php');
+            foreach (Kronolith::getDriver('Resource')->listResources() as $resource) {
+                if ($resource->get('type') == Kronolith_Resource::TYPE_GROUP) {
+                    $row = array(
+                        'label' => $resource->get('name'),
+                        'color' => '#dddddd',
+                        'edit' => $editGroups->add('c', $resource->getId()),
+                        'type' => 'checkbox',
+                    );
+                    $sidebar->addRow($row, 'groups');
+                } else {
+                    $calendar = new Kronolith_Calendar_Resource(array(
+                        'resource' => $resource
+                    ));
+                    $row = array(
+                        'label' => $calendar->name(),
+                        'color' => $calendar->background(),
+                        'edit' => $edit->add('c', $resource->getId()),
+                        'type' => 'checkbox',
+                    );
+                    $sidebar->addRow($row, 'resources');
+                }
+            }
+        }
+
+        foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
+            if (!empty($GLOBALS['conf']['share']['hidden']) &&
+                !in_array($id, $GLOBALS['display_external_calendars'])) {
+                continue;
+            }
+            $app = $GLOBALS['registry']->get(
+                'name',
+                $GLOBALS['registry']->hasInterface($calendar->api()));
+            if (!strlen($app)) {
+                $app = _("Other events");
+            }
+            $container = 'external_' . $app;
+            if (!isset($sidebar->containers[$container])) {
+                $sidebar->containers[$container] = array(
+                    'header' => array(
+                        'id' => 'kronolith-toggle-external-' . $calendar->api(),
+                        'label' => $app,
+                        'collapsed' => true,
+                    ),
+                );
+            }
+            $row = array(
+                'selected' => in_array($id, $GLOBALS['display_external_calendars']),
+                'url' => $url->add('toggle_calendar', 'external_' . $id),
+                'label' => $calendar->name(),
+                'color' => $calendar->background(),
+                'type' => 'checkbox',
+            );
+            $sidebar->addRow($row, $container);
+        }
+
+        $sidebar->containers['remote'] = array(
+            'header' => array(
+                'id' => 'kronolith-toggle-remote',
+                'label' => _("Remote Calendars"),
+                'collapsed' => true,
+                'add' => array(
+                    'url' => Horde::url('calendars/remote_subscribe.php'),
+                    'label' => _("Subscribe to a Remote Calendar"),
+                ),
+            ),
+        );
+        $edit = Horde::url('calendars/remote_edit.php');
+        foreach ($GLOBALS['all_remote_calendars'] as $id => $calendar) {
+            $row = array(
+                'selected' => in_array($calendar->url(), $GLOBALS['display_remote_calendars']),
+                'url' => $url->add('toggle_calendar', 'remote_' . $calendar->url()),
+                'label' => $calendar->name(),
+                'color' => $calendar->background(),
+                'edit' => $edit->add('url', $calendar->url()),
+                'type' => 'checkbox',
+            );
+            $sidebar->addRow($row, 'remote');
+        }
+
+        if (!empty($GLOBALS['conf']['holidays']['enable'])) {
+            $sidebar->containers['holidays'] = array(
+                'header' => array(
+                    'id' => 'kronolith-toggle-holidays',
+                    'label' => _("Holidays"),
+                    'collapsed' => true,
+                ),
+            );
+            foreach ($GLOBALS['all_holidays'] as $id => $calendar) {
+                $row = array(
+                    'selected' => in_array($id, $GLOBALS['display_holidays']),
+                    'url' => $url->add('toggle_calendar', 'holiday_' . $id),
+                    'label' => $calendar->name(),
+                    'color' => $calendar->background(),
+                    'type' => 'checkbox',
+                );
+                $sidebar->addRow($row, 'holidays');
+            }
         }
     }
 

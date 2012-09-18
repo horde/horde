@@ -37,12 +37,15 @@ if ($form->validate($vars)) {
         ->redirect();
 }
 
-$menu = Horde::menu();
+$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+    'id' => 'tags'
+));
+
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo $menu;
+echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('calendars/create.php'), 'post');
 $page_output->footer();

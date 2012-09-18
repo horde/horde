@@ -1509,7 +1509,7 @@ class Kronolith
         $calendar->set('owner', empty($info['system']) ? $GLOBALS['registry']->getAuth() : null);
 
         try {
-            $result = $calendar->save();
+            $calendar->save();
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception(sprintf(_("Unable to save calendar \"%s\": %s"), $info['name'], $e->getMessage()));
         }
@@ -1529,7 +1529,8 @@ class Kronolith
     {
         if (!$GLOBALS['registry']->getAuth() ||
             ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
-             (!is_null($calendar->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
+             (!is_null($calendar->get('owner')) ||
+              !$GLOBALS['registry']->isAdmin()))) {
             throw new Kronolith_Exception(_("You are not allowed to delete this calendar."));
         }
 
@@ -1542,7 +1543,9 @@ class Kronolith
 
         // Remove share and all groups/permissions.
         try {
-            $result = $GLOBALS['injector']->getInstance('Kronolith_Shares')->removeShare($calendar);
+            $GLOBALS['injector']
+                ->getInstance('Kronolith_Shares')
+                ->removeShare($calendar);
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -2682,6 +2685,26 @@ class Kronolith
         }
 
         return array();
+    }
+
+    /**
+     * Returns a list of currently displayed calendars.
+     *
+     * @return array  Currently displayed calendars.
+     */
+    static public function displayedCalendars()
+    {
+        $calendars = array();
+        foreach ($GLOBALS['display_calendars'] as $calendarId) {
+            $calendars[] = $GLOBALS['all_calendars'][$calendarId];
+        }
+        if (!empty($GLOBALS['display_resource_calendars'])) {
+            $driver = self::getDriver('Resource');
+            foreach ($GLOBALS['display_resource_calendars'] as $c) {
+                $calendars[] = $c;
+            }
+        }
+        return $calendars;
     }
 
     /**

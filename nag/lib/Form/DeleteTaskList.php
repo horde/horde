@@ -7,6 +7,7 @@
  *
  * @package Nag
  */
+
 /**
  * The Nag_DeleteTaskListForm class provides the form for
  * deleting a task list.
@@ -45,12 +46,10 @@ class Nag_Form_DeleteTaskList extends Horde_Form
 
     public function execute()
     {
-        // If cancel was clicked, return false.
         if ($this->_vars->get('submitbutton') == _("Cancel")) {
-            return false;
+            Horde::url('list.php', true)->redirect();
         }
 
-        return Nag::deleteTasklist($this->_tasklist);
+        Nag::deleteTasklist($this->_tasklist);
     }
-
 }

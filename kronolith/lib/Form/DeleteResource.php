@@ -33,7 +33,10 @@ class Kronolith_Form_DeleteResource extends Horde_Form
         $this->addHidden('', 'c', 'text', true);
         $this->addVariable(sprintf(_("Really delete the resource \"%s\"? This cannot be undone and all data on this resource will be permanently removed."), $this->_resource->get('name')), 'desc', 'description', false);
 
-        $this->setButtons(array(_("Delete"), _("Cancel")));
+        $this->setButtons(array(
+            array('class' => 'horde-delete', 'value' => _("Delete")),
+            array('class' => 'horde-cancel', 'value' => _("Cancel")),
+        ));
     }
 
     /**
@@ -43,7 +46,8 @@ class Kronolith_Form_DeleteResource extends Horde_Form
     {
         // If cancel was clicked, return false.
         if ($this->_vars->get('submitbutton') == _("Cancel")) {
-            return;
+            Horde::url($GLOBALS['prefs']->getValue('defaultview') . '.php', true)
+                ->redirect();
         }
 
         if (!($this->_resource->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))) {

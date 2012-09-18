@@ -3048,7 +3048,7 @@ abstract class Kronolith_Event
 
             $space = ' ';
             if (!empty($this->icon)) {
-                $link = $status . '<img src="' . $this->icon . '" /> ' . $link;
+                $link = $status . '<img class="kronolithEventIcon" src="' . $this->icon . '" /> ' . $link;
             } elseif (!empty($status)) {
                 $link .= ' ' . $status;
                 $space = '';
@@ -3161,14 +3161,14 @@ abstract class Kronolith_Event
     {
         switch ($this->status) {
         case Kronolith::STATUS_CANCELLED:
-            return 'kronolithEventCancelled';
+            return 'kronolith-event-cancelled';
 
         case Kronolith::STATUS_TENTATIVE:
         case Kronolith::STATUS_FREE:
-            return 'kronolithEventTentative';
+            return 'kronolith-event-tentative';
         }
 
-        return 'kronolithEvent';
+        return 'kronolith-event';
     }
 
     private function _formIDEncode($id)

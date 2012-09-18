@@ -1,12 +1,12 @@
-<thead>
+<thead class="kronolith-view-head">
  <tr>
-  <th class="control" width="10%" colspan="3">&nbsp;</th>
+  <th>&nbsp;</th>
 <?php if (!count($this->_currentCalendars)): ?>
-  <th class="control" width="90%">&nbsp;</th>
+  <th>&nbsp;</th>
 <?php endif; ?>
-<?php $i = 0; foreach ($this->_currentCalendars as $cid => $cal): ?>
-  <th class="control" width="<?php echo round(90 / count($this->_currentCalendars)) ?>%" colspan="<?php echo $this->span[$cid] ?>">
-   <strong><?php echo htmlspecialchars($cal->get('name')) ?></strong>
+<?php foreach ($this->_currentCalendars as $cid => $cal): ?>
+  <th colspan="<?php echo $this->span[$cid] ?>">
+   <?php echo htmlspecialchars($cal->get('name')) ?>
   </th>
 <?php endforeach; ?>
  </tr>

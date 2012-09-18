@@ -1,16 +1,16 @@
-.kronolithEvent {
+.kronolith-event {
     text-shadow: none;
 }
-.kronolithEventTentative {
+.kronolith-event-tentative {
     font-style: italic;
 }
-.kronolithEventCancelled {
+.kronolith-event-cancelled {
     text-decoration: line-through;
 }
 .event-time, .event-location {
     font-size: 85%;
 }
-.weekend {
+.kronolith-weekend {
     background: #ffc;
 }
 .description {
@@ -55,14 +55,14 @@
 }
 
 /* Mini calendar */
-.kronolithMinical {
+.kronolith-minical {
     background-color: #fff;
 }
-.kronolithMinical table {
+.kronolith-minical table {
     width: 100%;
     border-spacing: 0;
 }
-#kronolithBody .kronolithMinical caption {
+#kronolithBody .kronolith-minical caption {
     margin: 0 1px 1px 1px;
     height: 20px;
     line-height: 20px;
@@ -72,10 +72,10 @@
     text-align: left;
 }
 
-.kronolithMinical th, .kronolithMinical td {
+.kronolith-minical th, .kronolith-minical td {
     font-size: 90%;
 }
-.kronolithMinical th, .kronolithMinical td.kronolithMinicalWeek {
+.kronolith-minical th {
     width: 16px;
     height: 16px;
     line-height: 16px;
@@ -84,7 +84,7 @@
     color: #202020;
     border: 1px #999 solid !important;
 }
-.kronolithMinical tbody td {
+.kronolith-minical tbody td {
     width: 24px;
     height: 24px;
     line-height: 24px;
@@ -94,21 +94,21 @@
     cursor: pointer;
     border: 1px transparent;
 }
-.kronolithMinical .kronolithMinicalEmpty {
+.kronolith-minical .kronolith-minical-empty {
     background: none;
     border-color: #e2e2e2;
     color: silver;
 }
-.kronolithMinical .kronolithContainsEvents {
+.kronolith-minical .kronolithContainsEvents {
     background-color: #ffc;
     font-weight: bold;
 }
 
-.kronolithMinical .kronolithSelected {
+.kronolith-minical .kronolith-selected {
     border: 1px #999 solid !important;
 }
 
-.kronolithToday, .kronolithMinical .kronolithToday {
+.kronolithToday, .kronolith-minical .kronolithToday {
     background-color: #ebf3fc;
     border: 1px solid #808080;
 }

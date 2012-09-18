@@ -23,13 +23,13 @@ if ($form->validate($vars)) {
     try {
         $tasklist = $form->execute();
         $notification->push(sprintf(_("The task list \"%s\" has been created."), $vars->get('name')), 'horde.success');
+        Horde::url('tasklists/edit.php')
+            ->add('t', $tasklist->getName())
+            ->redirect();
     } catch (Exception $e) {
         $notification->push($e);
     }
-
-    Horde::url('tasklists/edit.php')
-        ->add('t', $tasklist->getName())
-        ->redirect();
+    Horde::url('list.php', true)->redirect();
 }
 
 $page_output->header(array(

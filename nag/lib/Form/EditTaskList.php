@@ -89,10 +89,10 @@ class Nag_Form_EditTaskList extends Horde_Form
             $url .= '/rpc.php/nag/';
         }
         $url = Horde::url($url, true, -1)
-            . ($this->_tasklist->get('owner')
-               ? $this->_tasklist->get('owner')
+            . ($tasklist->get('owner')
+               ? $tasklist->get('owner')
                : '-system-')
-            . '/' . $this->_tasklist->getName() . '.ics';
+            . '/' . $tasklist->getName() . '.ics';
         $this->addVariable(
              _("Subscription URL"), '', 'link', false, false, null,
              array(array(
@@ -104,7 +104,7 @@ class Nag_Form_EditTaskList extends Horde_Form
         );
 
         /* Permissions link. */
-        if ($owner) {
+        if (empty($GLOBALS['conf']['share']['no_sharing']) && $owner) {
             $url = Horde::url($GLOBALS['registry']->get('webroot', 'horde')
                               . '/services/shares/edit.php')
                 ->add(array('app' => 'nag', 'share' => $tasklist->getName()));
@@ -138,14 +138,16 @@ class Nag_Form_EditTaskList extends Horde_Form
             foreach (array('name', 'color', 'description', 'system') as $key) {
                 $info[$key] = $this->_vars->get($key);
             }
-            return Nag::updateTasklist($this->_tasklist, $info);
+            Nag::updateTasklist($this->_tasklist, $info);
             break;
         case _("Delete"):
             Horde::url('tasklists/delete.php')
                 ->add('t', $this->_vars->t)
                 ->redirect();
             break;
+        case _("Cancel"):
+            Horde::url('list.php', true)->redirect();
+            break;
         }
     }
-
 }

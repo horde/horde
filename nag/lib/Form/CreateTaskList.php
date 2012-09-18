@@ -43,7 +43,7 @@ class Nag_Form_CreateTaskList extends Horde_Form
         foreach (array('name', 'color', 'description', 'system') as $key) {
             $info[$key] = $this->_vars->get($key);
         }
+
         return Nag::addTasklist($info);
     }
-
 }

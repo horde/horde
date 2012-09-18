@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-03</date>
- <time>16:39:23</time>
+ <date>2012-09-18</date>
+ <time>23:17:20</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -53,8 +53,7 @@
     <file name="create.php" role="horde" />
     <file name="delete.php" role="horde" />
     <file name="edit.php" role="horde" />
-    <file name="index.php" role="horde" />
-    <file name="info.php" role="horde" />
+    <file name="index.html" role="horde" />
     <file name="remote_edit.php" role="horde" />
     <file name="remote_subscribe.php" role="horde" />
     <file name="remote_unsubscribe.php" role="horde" />
@@ -81,18 +80,19 @@
     <file name="index.php" role="horde" />
    </dir> <!-- /feed -->
    <dir name="js">
-    <file name="calendar-panel.js" role="horde" />
     <file name="dragdrop2.js" role="horde" />
     <file name="edit.js" role="horde" />
     <file name="embed.js" role="horde" />
     <file name="goto.js" role="horde" />
     <file name="kronolith.js" role="horde" />
     <file name="smartmobile.js" role="horde" />
-    <file name="taghandler.js" role="horde" />
     <file name="views.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
+     <dir name="Application">
+      <file name="Handler.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
       <file name="ContactAutoCompleter.php" role="horde" />
       <file name="ResourceAutoCompleter.php" role="horde" />
@@ -477,12 +477,12 @@
      <file name="create.php" role="horde" />
      <file name="delete.php" role="horde" />
      <file name="edit.php" role="horde" />
-     <file name="index.php" role="horde" />
+     <file name="index.html" role="horde" />
     </dir> <!-- /resources/groups -->
     <file name="create.php" role="horde" />
     <file name="delete.php" role="horde" />
     <file name="edit.php" role="horde" />
-    <file name="index.php" role="horde" />
+    <file name="index.html" role="horde" />
    </dir> <!-- /resources -->
    <dir name="templates">
     <dir name="agenda">
@@ -593,8 +593,6 @@
      <file name="head_side_by_side.inc" role="horde" />
     </dir> <!-- /templates/week -->
     <file name="buttonbar.html.php" role="horde" />
-    <file name="calendar_info.php" role="horde" />
-    <file name="calendar_list.php" role="horde" />
     <file name="calendar_titles.inc" role="horde" />
     <file name="javascript_defs.php" role="horde" />
     <file name="panel.inc" role="horde" />
@@ -673,14 +671,18 @@
       <file name="attendees-000.png" role="horde" />
       <file name="attendees-fff.png" role="horde" />
       <file name="attendees.png" role="horde" />
+      <file name="back.png" role="horde" />
       <file name="back_quick.png" role="horde" />
       <file name="big_agenda.png" role="horde" />
       <file name="big_alarm.png" role="horde" />
       <file name="big_invitation.png" role="horde" />
       <file name="big_share.png" role="horde" />
       <file name="calendars.png" role="horde" />
+      <file name="checkbox_off.png" role="horde" />
+      <file name="checkbox_on.png" role="horde" />
       <file name="checkbox_over.png" role="horde" />
       <file name="close.png" role="horde" />
+      <file name="data.png" role="horde" />
       <file name="dayview.png" role="horde" />
       <file name="delete-000.png" role="horde" />
       <file name="delete-fff.png" role="horde" />
@@ -1050,8 +1052,7 @@
    <install as="kronolith/calendars/create.php" name="calendars/create.php" />
    <install as="kronolith/calendars/delete.php" name="calendars/delete.php" />
    <install as="kronolith/calendars/edit.php" name="calendars/edit.php" />
-   <install as="kronolith/calendars/index.php" name="calendars/index.php" />
-   <install as="kronolith/calendars/info.php" name="calendars/info.php" />
+   <install as="kronolith/calendars/index.html" name="calendars/index.html" />
    <install as="kronolith/calendars/remote_edit.php" name="calendars/remote_edit.php" />
    <install as="kronolith/calendars/remote_subscribe.php" name="calendars/remote_subscribe.php" />
    <install as="kronolith/calendars/remote_unsubscribe.php" name="calendars/remote_unsubscribe.php" />
@@ -1070,14 +1071,12 @@
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="kronolith/feed/.htaccess" name="feed/.htaccess" />
    <install as="kronolith/feed/index.php" name="feed/index.php" />
-   <install as="kronolith/js/calendar-panel.js" name="js/calendar-panel.js" />
    <install as="kronolith/js/dragdrop2.js" name="js/dragdrop2.js" />
    <install as="kronolith/js/edit.js" name="js/edit.js" />
    <install as="kronolith/js/embed.js" name="js/embed.js" />
    <install as="kronolith/js/goto.js" name="js/goto.js" />
    <install as="kronolith/js/kronolith.js" name="js/kronolith.js" />
    <install as="kronolith/js/smartmobile.js" name="js/smartmobile.js" />
-   <install as="kronolith/js/taghandler.js" name="js/taghandler.js" />
    <install as="kronolith/js/views.js" name="js/views.js" />
    <install as="kronolith/lib/.htaccess" name="lib/.htaccess" />
    <install as="kronolith/lib/Ajax.php" name="lib/Ajax.php" />
@@ -1095,6 +1094,7 @@
    <install as="kronolith/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="kronolith/lib/Test.php" name="lib/Test.php" />
    <install as="kronolith/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="kronolith/lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
    <install as="kronolith/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="kronolith/lib/Ajax/Imple/ResourceAutoCompleter.php" name="lib/Ajax/Imple/ResourceAutoCompleter.php" />
    <install as="kronolith/lib/Ajax/Imple/TagActions.php" name="lib/Ajax/Imple/TagActions.php" />
@@ -1277,14 +1277,12 @@
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
-   <install as="kronolith/resources/index.php" name="resources/index.php" />
+   <install as="kronolith/resources/index.html" name="resources/index.html" />
    <install as="kronolith/resources/groups/create.php" name="resources/groups/create.php" />
    <install as="kronolith/resources/groups/delete.php" name="resources/groups/delete.php" />
    <install as="kronolith/resources/groups/edit.php" name="resources/groups/edit.php" />
-   <install as="kronolith/resources/groups/index.php" name="resources/groups/index.php" />
+   <install as="kronolith/resources/groups/index.html" name="resources/groups/index.html" />
    <install as="kronolith/templates/buttonbar.html.php" name="templates/buttonbar.html.php" />
-   <install as="kronolith/templates/calendar_info.php" name="templates/calendar_info.php" />
-   <install as="kronolith/templates/calendar_list.php" name="templates/calendar_list.php" />
    <install as="kronolith/templates/calendar_titles.inc" name="templates/calendar_titles.inc" />
    <install as="kronolith/templates/javascript_defs.php" name="templates/javascript_defs.php" />
    <install as="kronolith/templates/panel.inc" name="templates/panel.inc" />
@@ -1397,14 +1395,18 @@
    <install as="kronolith/themes/default/graphics/attendees-000.png" name="themes/default/graphics/attendees-000.png" />
    <install as="kronolith/themes/default/graphics/attendees-fff.png" name="themes/default/graphics/attendees-fff.png" />
    <install as="kronolith/themes/default/graphics/attendees.png" name="themes/default/graphics/attendees.png" />
+   <install as="kronolith/themes/default/graphics/back.png" name="themes/default/graphics/back.png" />
    <install as="kronolith/themes/default/graphics/back_quick.png" name="themes/default/graphics/back_quick.png" />
    <install as="kronolith/themes/default/graphics/big_agenda.png" name="themes/default/graphics/big_agenda.png" />
    <install as="kronolith/themes/default/graphics/big_alarm.png" name="themes/default/graphics/big_alarm.png" />
    <install as="kronolith/themes/default/graphics/big_invitation.png" name="themes/default/graphics/big_invitation.png" />
    <install as="kronolith/themes/default/graphics/big_share.png" name="themes/default/graphics/big_share.png" />
    <install as="kronolith/themes/default/graphics/calendars.png" name="themes/default/graphics/calendars.png" />
+   <install as="kronolith/themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
+   <install as="kronolith/themes/default/graphics/checkbox_on.png" name="themes/default/graphics/checkbox_on.png" />
    <install as="kronolith/themes/default/graphics/checkbox_over.png" name="themes/default/graphics/checkbox_over.png" />
    <install as="kronolith/themes/default/graphics/close.png" name="themes/default/graphics/close.png" />
+   <install as="kronolith/themes/default/graphics/data.png" name="themes/default/graphics/data.png" />
    <install as="kronolith/themes/default/graphics/dayview.png" name="themes/default/graphics/dayview.png" />
    <install as="kronolith/themes/default/graphics/delete-000.png" name="themes/default/graphics/delete-000.png" />
    <install as="kronolith/themes/default/graphics/delete-fff.png" name="themes/default/graphics/delete-fff.png" />
@@ -1926,7 +1928,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-03</date>
+   <date>2012-09-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [gwr] Mark the initial default share as such with the Kolab backend.

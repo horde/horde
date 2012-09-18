@@ -18,20 +18,21 @@ if (Kronolith::showAjaxView()) {
 }
 
 // Exit if this isn't an authenticated user.
+$default = Horde::url($prefs->getValue('defaultview') . '.php', true);
 if (!$GLOBALS['registry']->getAuth()) {
-    Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
+    $default->redirect();
 }
 
 try {
     $calendar = $injector->getInstance('Kronolith_Shares')->getShare($vars->get('c'));
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
-    Horde::url('calendars/', true)->redirect();
+    $default->redirect();
 }
-if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
-    (!is_null($calendar->get('owner')) || !$registry->isAdmin())) {
-    $notification->push(_("You are not allowed to change this calendar."), 'horde.error');
-    Horde::url('calendars/', true)->redirect();
+if (!$calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ) &&
+    !($calendar->get('owner') === null && $registry->isAdmin())) {
+    $notification->push(_("You are not allowed to see this calendar."), 'horde.error');
+    $default->redirect();
 }
 $form = new Kronolith_Form_EditCalendar($vars, $calendar);
 
@@ -48,26 +49,29 @@ if ($form->validate($vars)) {
     } catch (Exception $e) {
         $notification->push($e, 'horde.error');
     }
-    Horde::url('calendars/', true)->redirect();
+    $default->redirect();
 }
 
 $vars->set('name', $calendar->get('name'));
 $vars->set('color', $calendar->get('color'));
+$vars->set('system', is_null($calendar->get('owner')));
 $vars->set('description', $calendar->get('desc'));
 $tagger = Kronolith::getTagger();
 $vars->set('tags', implode(',', array_values($tagger->getTags($calendar->getName(), 'calendar'))));
-$vars->set('system', is_null($calendar->get('owner')));
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
-    'id' => 'tags'
-));
-
-$menu = Horde::menu();
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo $menu;
+echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-echo $form->renderActive($form->getRenderer(), $vars, Horde::url('calendars/edit.php'), 'post');
+if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
+    (!is_null($calendar->get('owner')) || !$GLOBALS['registry']->isAdmin())) {
+    echo $form->renderInactive($form->getRenderer(), $vars, Horde::url('calendars/edit.php'), 'post');
+} else {
+    $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
+        'id' => 'tags'
+    ));
+    echo $form->renderActive($form->getRenderer(), $vars, Horde::url('calendars/edit.php'), 'post');
+}
 $page_output->footer();

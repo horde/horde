@@ -2,6 +2,9 @@
 /**
  * This is a view of Kronolith's sidebar.
  *
+ * This is for the dynamic view. For traditional the view, see
+ * Kronolith_Application::sidebar().
+ *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -49,7 +52,7 @@ class Kronolith_View_Sidebar extends Horde_View_Sidebar
              $i < $c;
              $i++) {
             $weekday = Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1)));
-            $sidebar->weekdays[$weekday] = Horde_String::substr($weekday, 0, 1);
+            $sidebar->weekdays[$weekday] = Horde_String::substr($weekday, 0, 2);
         }
 
         /* Calendars. */

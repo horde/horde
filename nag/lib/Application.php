@@ -124,59 +124,49 @@ class Nag_Application extends Horde_Registry_Application
                         Horde::getAccessKeyAndTitle(_("_Quick Add"), false, true)
                     )
                 );
+                require_once NAG_TEMPLATES . '/quick.inc';
             }
         }
 
-        $content = $GLOBALS['injector']->createInstance('Horde_View');
-        $content->my = $content->shared = $content->smart = array();
-        $content->newShares = !$prefs->isLocked('default_tasklist');
-        $list  = Horde::url('list.php');
-        $edit  = Horde::url('tasklists/edit.php');
-        $user  = $GLOBALS['registry']->getAuth();
+        $list = Horde::url('list.php');
+        $edit = Horde::url('tasklists/edit.php');
+        $user = $GLOBALS['registry']->getAuth();
 
+        $sidebar->containers['my'] = array(
+            'header' => array(
+                'id' => 'nag-toggle-my',
+                'label' => _("My Task Lists"),
+                'collapsed' => false,
+            ),
+        );
+        if (!$GLOBALS['prefs']->isLocked('default_tasklist')) {
+            $sidebar->containers['my']['add'] = array(
+                'url' => Horde::url('calendars/create.php'),
+                'label' => _("New Local Calendar"),
+            );
+        }
+        $sidebar->containers['shared'] = array(
+            'header' => array(
+                'id' => 'nag-toggle-shared',
+                'label' => _("Shared Task Lists"),
+                'collapsed' => true,
+            ),
+        );
         foreach (Nag::listTaskLists(false, Horde_Perms::SHOW, false) as $name => $tasklist) {
-            $class = in_array($name, $display_tasklists)
-                ? 'horde-resource-on'
-                : 'horde-resource-off';
-            $style = '';
-            $fg = '000';
-            $color = $tasklist->get('color');
-            if (!$color) {
-                $color = '#dddddd';
-            }
-            if (Horde_Image::brightness($color) < 128) {
-                $fg = 'fff';
-            }
-            $style = 'background-color:' . $color . ';color:#' . $fg;
-
-            $list->add('display_tasklist', $name);
-            if (in_array($name, $display_tasklists)) {
-                $list->add('actionID', 'remove_displaylist');
-            } else {
-                $list->add('actionID', 'add_displaylist');
-            }
-            $link = array(
-                'link' => $list->link()
-                          . htmlspecialchars($tasklist->get('name'))
-                          . '</a>',
-                'class' => $class,
-                'style' => $style,
-                'edit' => $edit->add('t', $tasklist->getName())
-                              ->link(array(
-                                  'title' =>  _("Edit"),
-                                  'class' => 'horde-resource-edit-'
-                                             . $fg))
-                          . '&#9658;' . '</a>',
+            $row = array(
+                'selected' => in_array($name, $display_tasklists),
+                'url' => $list->add('display_tasklist', $name),
+                'label' => $tasklist->get('name'),
+                'color' => $tasklist->get('color') ?: '#dddddd',
+                'edit' => $edit->add('t', $tasklist->getName()),
+                'type' => 'checkbox',
             );
             if ($tasklist->get('owner') == $user) {
-                $content->my[] = $link;
+                $sidebar->addRow($row, 'my');
             } else {
-                $content->shared[] = $link;
+                $sidebar->addRow($row, 'shared');
             }
         }
-        $sidebar->containers[] = array(
-            'id' => 'nag-menu',
-            'content' => $content->render('sidebar'));
     }
 
     /**

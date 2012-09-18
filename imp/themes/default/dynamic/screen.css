@@ -324,6 +324,9 @@ div.vpRowVert div.msgSubject span.flagUser {
 #foldersLoading {
     padding: 10px;
 }
+#horde-sidebar .horde-info {
+    display: none;
+}
 #ctx_mbox_sub span.iconImg, #ctx_mbox_unsub span.iconImg, #ctx_folderopts_sub span.iconImg, #ctx_folderopts_unsub span.iconImg, .folderoptsImg {
     background-image: url("../graphics/folders/folder.png");
 }
@@ -352,11 +355,6 @@ div.vpRowVert div.msgSubject span.flagUser {
 }
 .horde-subnavi-icon.col, .horde-subnavi-icon.exp {
     cursor: pointer;
-}
-#sidebar .over a, #sidebar li.mbox:hover, #sidebar li.custom:hover, #sidebar li.servicelink:hover {
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: underline;
 }
 
 #folderopts a, #dropbase a {

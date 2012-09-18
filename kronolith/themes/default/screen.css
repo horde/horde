@@ -61,23 +61,82 @@
 }
 
 /* Calendar styles. */
-.hour {
-    font-size: 90%;
-    font-weight: bold;
+table.kronolith-view {
+    width: 100%;
+    height: 100%;
+    table-layout: fixed;
+    background-color: #dadada;
+    border-spacing: 1px;
 }
-.halfhour {
-    font-size: 60%;
-    font-weight: bold;
-    vertical-align: super;
+table.kronolith-view.kronolith-sidebyside {
+    width: auto;
 }
-.kronolithEventTentative {
-    font-style: italic;
+table.kronolith-view tr {
+    background-color: #c2cccf;
 }
-.kronolithEventCancelled {
-    text-decoration: line-through;
+table.kronolith-view td, table.kronolith-view th {
+    padding: 0;
+    vertical-align: top;
+    overflow: hidden;
 }
-.event-time, .event-location {
-    font-size: 85%;
+.kronolith-view-head table td, table.kronolith-view-head td,
+.kronolith-view-head th, table .kronolith-view-head th {
+    height: 21px;
+    font-weight: normal;
+    text-align: center;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    vertical-align: middle;
+}
+.kronolith-sidebyside .kronolith-view-head table td,
+.kronolith-sidebyside table.kronolith-view-head td,
+.kronolith-sidebyside .kronolith-view-head th,
+.kronolith-sidebyside table .kronolith-view-head th {
+    padding: 0 10px;
+}
+.kronolith-view-head table td div, table.kronolith-view-head td div {
+    text-align: left;
+}
+.kronolith-first-col {
+    text-align: center;
+}
+table.kronolith-view td.kronolith-first-col,
+table.kronolith-view th.kronolith-first-col {
+    width: 21px;
+    background-color: #c2cccf;
+    vertical-align: middle;
+    padding: 9px 0 0;
+}
+table.kronolith-view .kronolith-all-day td.kronolith-first-col {
+    padding-top: 32px;
+}
+#kronolith-month-body td.kronolith-first-col {
+    vertical-align: top;
+    padding-top: 7px;
+}
+table.kronolith-view.kronolith-sidebyside td.kronolith-first-col {
+    padding-top: 3px;
+}
+table.kronolith-view.kronolith-sidebyside .kronolith-all-day td.kronolith-first-col {
+    padding-top: 5px;
+}
+.kronolith-first-col span {
+    display: block;
+    white-space: nowrap;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+}
+.kronolithViewMonth.kronolith-sidebyside .kronolith-first-col {
+    padding: 7px;
+    text-align: left;
+}
+.kronolithViewBody table.kronolith-view tr,
+.kronolith-all-day td,
+#kronolith-month-body tr {
+    background-color: #fff;
+}
+#kronolith-month-body tr {
+    height: 100px;
 }
 table.monthgrid {
     width: 100%;
@@ -88,25 +147,169 @@ table.monthgrid th, table.monthgrid td {
     border-right: 1px solid #999;
     border-bottom: 1px solid #999;
 }
-.monthgrid .today {
-    border: 2px solid #446;
-    background: #cfc;
+.kronolith-other-month {
+    background: #f7f7f7;
 }
-.othermonth {
-    background: #e7eeec;
+.kronolith-other-month .kronolith-day {
+    border-color: transparent;
+    color: silver;
 }
-.weekend {
+.kronolith-weekend, .kronolithViewDay .kronolith-weekend {
     background: #ffc;
+}
+.kronolith-today, .kronolithViewDay .kronolith-today {
+    background-color: #7eaa42;
 }
 .description {
     padding: .5em;
 }
+.kronolith-day {
+    height: 18px;
+    padding: 7px 0 0 10px;
+}
+.kronolith-today .kronolith-day, .kronolith-today .kronolith-day a {
+    color: #fff;
+}
 
-#footer {
-    margin-top: 8px;
+.kronolithViewDay td {
+    height: 40px;
+    background-color: #fff;
+}
+
+table .kronolith-all-day td {
+    height: 80px;
+}
+
+table.kronolithViewMonth {
+    border: 1px solid #a6afb1;
+    border-top-width: 0;
+}
+
+.kronolith-minical {
+    border-spacing: 10px;
+}
+.kronolith-minical td {
+    background-color: #d5dcde;
+    padding: 10px;
+    vertical-align: top;
+}
+
+/* Mini calendar */
+.kronolith-minical table {
+    border-spacing: 1px;
+    border: 0;
+    background-color: #d5dcde;
+}
+.kronolith-minical table th, .kronolith-minical table td {
+    background-color: #fff;
+    height: 22px;
+    width: 22px;
+    padding: 1px;
+    text-align: center;
+    vertical-align: middle;
+}
+.kronolith-minical table th,
+.kronolith-minical table td.kronolith-minical-week {
+    background-color: #f2f2f2;
+    color: #6d6d6d;
+}
+.kronolith-minical table tbody td {
+    empty-cells: show;
+}
+.kronolith-minical table tbody td a {
+    display: block;
+}
+.kronolith-minical table tbody td:hover {
+    background-color: #f1f1f1;
+    color: #000;
+}
+tr.kronolith-minical-nav, tr.kronolith-minical-nav th {
+    background-color: #d5dcde;
+}
+#kronolith-minical-prev, #kronolith-minical-next {
+    display: block;
+    text-indent: -10000px;
+    cursor: pointer;
+    background: transparent url("graphics/right.png") no-repeat center center;
+}
+#kronolith-minical-prev {
+    background-image: url("graphics/left.png");
+}
+.kronolith-minical .kronolith-minical-empty {
+    background: none;
+}
+.kronolith-minical .kronolith-other-month,
+.kronolith-minical .kronolith-other-month a {
+    color: #6d6d6d;
+}
+.kronolith-minical .kronolith-selected {
+    background-color: #36525d;
+    color: #fff;
+}
+.kronolith-minical .kronolith-today,
+.kronolith-minical .kronolith-today:hover,
+.kronolith-minical .kronolith-today a {
+    background-color: #7eaa42;
+    color: #fff;
+}
+.kronolith-minical .kronolith-selected.kronolith-today {
+    border-color: #fff;
+}
+
+/* Events. */
+.kronolith-event {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+.kronolith-event .kronolith-event-info {
+    padding: 3px 5px 4px 5px;
+    overflow: hidden;
+    line-height: 16px;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+img.kronolithEventIcon {
+    float: left;
+    margin: 0 2px 2px 0;
+}
+.kronolith-event .kronolith-time {
+    font-weight: bold;
+    margin-right: 2px;
+}
+.kronolith-event-tentative {
+    font-style: italic;
+}
+.kronolith-event-cancelled {
+    text-decoration: line-through;
+}
+.kronolith-location {
+    font-size: 85%;
+}
+#kronolithViewMonth .kronolith-event,
+.kronolithViewDay .kronolith-all-day .kronolith-event {
+    line-height: 15px;
+    padding: 3px 10px;
+}
+#kronolithViewMonth .kronolith-event {
+    max-height: 2.3em;
+}
+.kronolithViewDay .kronolith-event {
+    max-height: 40px;
+}
+#kronolithViewMonth .kronolith-event:hover,
+.kronolithViewDay .kronolith-event:hover {
+    max-height: none;
+}
+#kronolithViewDay .kronolith-all-day .kronolith-event {
+    float: left;
 }
 
 /* Event form. */
+#eventform .control {
+    height: 22px;
+    padding: 0 10px;
+}
 #eventform textarea {
     padding: 2px;
     width: 98%;
@@ -125,13 +328,13 @@ table.monthgrid th, table.monthgrid td {
 #eventform #start_img, #eventform #end_img, #eventform #recur_end_img {
     cursor: pointer;
 }
+#eventform .horde-form-buttons {
+    padding-left: 0;
+}
 
 /* Block-specific styles. */
 .block-monthgrid {
     background: #fff;
-}
-.block-monthgrid .today {
-    border: 1px solid #446;
 }
 .block-upcomingday td {
     border-top: 1px solid #ddd;
@@ -142,63 +345,15 @@ table.monthgrid th, table.monthgrid td {
 .block-eventbox, table.nopadding td.block-eventbox {
     padding: 0 4px;
 }
-.month-eventbox {
-    padding: 2px;
-    margin: 1px;
-}
-.week-eventbox, .workweek-eventbox {
-    padding: 3px;
-    font-size: 90%;
-}
-.day-eventbox {
-    padding: 3px;
-}
 
 .selected-control {
     background: #bbcbff;
     border-bottom: 1px solid #999;
 }
 
-.day {
-    display: block;
-    float: left;
-    width: 14px;
-    height: 14px;
-    padding: 1px;
-    background: #ddd;
-    border-right: 1px solid #999;
-    border-bottom: 1px solid #999;
-    font-size: 80%;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-}
-.day:hover {
-    text-decoration: none;
-    background: #e9e9e9;
-}
-.week, .workweek {
-    float: left;
-    font-size: 90%;
-    padding-left: 2px;
-}
-a.newEvent {
-    display: block;
-    float: left;
-    height: 12px;
-    width: 12px;
-    padding: 4px 0 0;
-    font-size: 50%;
-    text-align: center;
-    background: #ddd;
-    border-right: 1px solid #999;
-    border-bottom: 1px solid #999;
-}
-a.newEvent:hover {
-    background: #e9e9e9;
-}
 a.newEvent img {
     vertical-align: top;
+    padding: 3px 0 0 3px;
 }
 
 .year-event {
@@ -221,14 +376,6 @@ a.newEvent img {
     background: #8fc34b;
     color: #fff;
 }
-#kronolithAjax .kronolithFBFree {
-    /*position: static;*/
-    position: relative;
-}
-#kronolithAjax .kronolithFBBusy {
-    /*position: static;*/
-    position: absolute;
-}
 div.fbgrid {
     background-color: #fff;
     overflow: auto;
@@ -246,143 +393,18 @@ div.fbgrid {
     padding-right: 1ex;
 }
 
-#pageLoading {
-    position: absolute;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 10em;
-    background: #fff;
-    color: #666;
-    filter: alpha(opacity=0);
-    -moz-opacity: 0.0;
-    opacity: 0.0;
-}
-
-body.rightPanel #page {
-    /*margin-right: 13.5em;*/
-}
-body #pageControlsInner {
-    display: none;
-}
-body #sbarShow, body #sbarHide {
-    padding-left: 18px;
-    white-space: nowrap;
-    font-weight: bold;
-}
-
-body #sbarShow {
-    display: block;
-    background: transparent url("graphics/plus.png") center left no-repeat;
-}
-body #sbarHide {
-    display: none;
-    background: transparent url("graphics/minus.png") center left no-repeat;
-}
-
-body #sbarClose {
-	white-space: nowrap;
-	padding-left: 18px;
-}
-
-body.rightPanel #pageControlsInner {
-    display: block;
-}
-body.rightPanel #sbarShow {
-    display: none;
-}
-body.rightPanel #sbarHide {
-    display: block;
-}
-body.rightPanel ul {
-    list-style-type: none;
-}
-
-#pageControls {
-    display: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: #eee;
-    border: 1px solid #ccc;
-    padding: 4px;
-}
-#pageControls #calendarSearch {
-    background-image: url("graphics/search.png");
-    background-repeat: no-repeat;
-    background-position: 2px center;
-    border: 1px solid #ccc;
-    padding: 2px 0 2px 20px;
-}
-#pageControls h3 {
-    font-size: 100%;
-    margin-top: 1em;
-}
-#pageControls h4 {
-    font-size: 90%;
-    margin-top: .5em;
-}
-
-.QuickFinderNoMatch {
-    display: none;
-}
-
-#externalcalendars .category {
-    margin-top: 2px;
-    margin-left: 1em;
-    font-size: 95%;
-    font-weight: normal;
-    font-style: italic;
-}
-
-/* Tables. */
-table#calendar-list {
-    width: 99%;
-    margin: 0 0 8px 5px;
-    border-top: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-}
-table#calendar-list th {
-    padding: 3px;
-    background: #e9e9e9;
-    border-right: 1px solid #ccc;
-    text-align: left;
-}
-table#calendar-list td {
-    padding: 3px;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-}
-
-#calendar-list-buttons {
-    padding: 1em;
-}
-#calendar-list-buttons form {
-    display: inline;
-}
-.calendar-info {
-    cursor: pointer;
-}
-.calendar-info-url {
-    background-color: #fff;
-    color: #000;
-    overflow: auto;
-    padding: 2px;
-    font-size: 90%;
-    word-wrap: break-word;
-}
-.calendar-list-icon {
-    width: 1%;
-}
-
 /* Icons. */
-.kronolith-today {
+.kronolith-icon-today {
     background-image: url('graphics/today.png');
 }
-.kronolith-goto {
+.kronolith-icon-goto {
     background-image: url('graphics/goto.png');
 }
-.kronolith-search {
+.kronolith-icon-search {
     background-image: url('graphics/search.png');
+}
+.kronolith-icon-back {
+    background-image: url('graphics/back.png');
 }
 
 /* Tags */
@@ -442,14 +464,6 @@ li.panel-tags {
         display: block;
     }
 
-    .day, .othermonth, .weekend {
-        background-color: #fff;
-        color: #000;
-    }
-    .day {
-        border-right: thin solid #000;
-        border-bottom: thin solid #000;
-    }
     .year-event {
         background: #fff;
     }
@@ -462,17 +476,12 @@ li.panel-tags {
         border-bottom: thin solid #000;
         padding: 2px;
     }
-    table.monthgrid td.today {
-        border-top: none;
-        border-left: none;
-        border-right: thin solid #000;
-        border-bottom: thin solid #000;
-    }
     .month-eventbox {
         border: none;
         border-bottom: thin solid #000;
     }
-    body.rightPanel #page {
-        margin: 0;
+
+    .kronolith-all-day td {
+        height: auto;
     }
 }

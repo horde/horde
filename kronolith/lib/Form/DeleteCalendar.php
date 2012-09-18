@@ -30,7 +30,10 @@ class Kronolith_Form_DeleteCalendar extends Horde_Form
         $this->addHidden('', 'c', 'text', true);
         $this->addVariable(sprintf(_("Really delete the calendar \"%s\"? This cannot be undone and all data on this calendar will be permanently removed."), $this->_calendar->get('name')), 'desc', 'description', false);
 
-        $this->setButtons(array(_("Delete"), _("Cancel")));
+        $this->setButtons(array(
+            array('class' => 'horde-delete', 'value' => _("Delete")),
+            array('class' => 'horde-cancel', 'value' => _("Cancel")),
+        ));
     }
 
     /**
@@ -38,12 +41,11 @@ class Kronolith_Form_DeleteCalendar extends Horde_Form
      */
     public function execute()
     {
-        // If cancel was clicked, return false.
         if ($this->_vars->get('submitbutton') == _("Cancel")) {
-            return false;
+            Horde::url($GLOBALS['prefs']->getValue('defaultview') . '.php', true)
+                ->redirect();
         }
 
-        return Kronolith::deleteShare($this->_calendar);
+        Kronolith::deleteShare($this->_calendar);
     }
-
 }

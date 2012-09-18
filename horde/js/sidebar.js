@@ -6,7 +6,7 @@
  */
 var HordeSidebar = {
     // Vars set in Horde_Sidebar
-    //   text
+    //   opts, text
 
     refreshEvents: function()
     {
@@ -22,7 +22,9 @@ var HordeSidebar = {
             return;
         }
 
-        var elt = e.element();
+        var elt = e.element(),
+            params = ';DOMAIN=' + this.opts.cookieDomain
+                + ';PATH=' + this.opts.cookiePath + ';'
 
         while (Object.isElement(elt)) {
             switch (elt.className) {
@@ -31,6 +33,7 @@ var HordeSidebar = {
                 elt.title = this.text.expand;
                 elt.removeClassName('horde-collapse');
                 elt.addClassName('horde-expand');
+                document.cookie = 'horde_sidebar_c_' + elt.identify() + '=1' + params;
                 return;
 
             case 'horde-expand':
@@ -38,6 +41,7 @@ var HordeSidebar = {
                 elt.title = this.text.collapse;
                 elt.removeClassName('horde-expand');
                 elt.addClassName('horde-collapse');
+                document.cookie = 'horde_sidebar_c_' + elt.identify() + '=0' + params;
                 return;
             }
 

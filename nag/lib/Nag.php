@@ -606,6 +606,7 @@ class Nag
      * Deletes a task list.
      *
      * @param Horde_Share_Object $tasklist  The task list to delete.
+     *
      * @throws Nag_Exception
      * @throws Horde_Exception_PermissionDenied
      */
@@ -623,7 +624,7 @@ class Nag
 
         // Remove share and all groups/permissions.
         try {
-            return $GLOBALS['nag_shares']->removeShare($tasklist);
+            $GLOBALS['nag_shares']->removeShare($tasklist);
         } catch (Horde_Share_Exception $e) {
             throw new Nag_Exception($e);
         }
