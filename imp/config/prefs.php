@@ -1084,7 +1084,7 @@ $_prefs['image_replacement_manage'] = array(
     'type' => 'special',
     'advanced' => true,
     'handler' => 'IMP_Prefs_Special_ImageReplacement',
-    'requires' => 'image_replacement'
+    'requires' => array('image_replacement')
 );
 
 // List of e-mail addresses to allow images from (in addition to e-mail
