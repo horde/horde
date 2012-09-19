@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-18</date>
- <time>23:17:16</time>
+ <date>2012-09-19</date>
+ <time>09:23:35</time>
  <version>
   <release>5.0.0beta6</release>
   <api>5.0.0beta1</api>
@@ -633,7 +633,6 @@
     <file name="prefs.php" role="horde" />
     <file name="problem.php" role="horde" />
     <file name="resetpassword.php" role="horde" />
-    <file name="sidebar.php" role="horde" />
     <file name="snooze.php" role="horde" />
    </dir> <!-- /services -->
    <dir name="static">
@@ -2293,7 +2292,6 @@
    <install as="services/prefs.php" name="services/prefs.php" />
    <install as="services/problem.php" name="services/problem.php" />
    <install as="services/resetpassword.php" name="services/resetpassword.php" />
-   <install as="services/sidebar.php" name="services/sidebar.php" />
    <install as="services/snooze.php" name="services/snooze.php" />
    <install as="services/download/index.php" name="services/download/index.php" />
    <install as="services/facebook/index.php" name="services/facebook/index.php" />
@@ -3688,7 +3686,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-18</date>
+   <date>2012-09-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add configuration option for maximum allowed session times.
