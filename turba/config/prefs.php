@@ -87,7 +87,7 @@ $_prefs['sync_books'] = array(
 // Columns selection widget
 $_prefs['columnselect'] = array(
     'type' => 'special',
-    'handler' => 'Turba_Prefs_Special_Addressbook'
+    'handler' => 'Turba_Prefs_Special_Columnselect'
 );
 
 // Columns to be displayed in Browse and Search results, with entries
