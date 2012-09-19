@@ -64,40 +64,11 @@ class Turba
     static public function getAddressBooks($permission = Horde_Perms::READ,
                                            array $options = array())
     {
-        $addressbooks = array();
-        foreach (array_keys(self::getAddressBookOrder()) as $addressbook) {
-            $addressbooks[$addressbook] = $GLOBALS['cfgSources'][$addressbook];
-        }
-
         return self::permissionsFilter(
-            empty($addressbooks) ? $GLOBALS['cfgSources'] : $addressbooks,
+            $GLOBALS['cfgSources'],
             $permission,
             $options
         );
-    }
-
-    /**
-     * Get the order the user selected for displaying address books.
-     *
-     * @return array  An array describing the order to display the address
-     *                books.
-     */
-    static public function getAddressBookOrder()
-    {
-        $addressbooks = array();
-        $lines = json_decode($GLOBALS['prefs']->getValue('addressbooks'));
-
-        if (!empty($lines)) {
-            $i = 0;
-            foreach ($lines as $line) {
-                $line = trim($line);
-                if ($line && isset($GLOBALS['cfgSources'][$line])) {
-                    $addressbooks[$line] = $i++;
-                }
-            }
-        }
-
-        return $addressbooks;
     }
 
     /**
@@ -107,11 +78,6 @@ class Turba
      */
     static public function getDefaultAddressbook()
     {
-        if ($abooks = self::getAddressBookOrder()) {
-            reset($abooks);
-            return key($abooks);
-        }
-
         /* In case of shares select first user owned address book as default */
         if (!empty($_SESSION['turba']['has_share'])) {
             try {
@@ -695,18 +661,6 @@ class Turba
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw new Turba_Exception($e);
-        }
-
-        /* Update share_id as backends like Kolab change it to the IMAP folder
-         * name. */
-        $share_name = $share->getName();
-
-        /* Add the new addressbook to the user's list of visible address
-         * books. */
-        $prefs = json_decode($GLOBALS['prefs']->getValue('addressbooks'), true);
-        if (!is_array($prefs) || array_search($share_name, $prefs) === false) {
-            $prefs[] = $share_name;
-            $GLOBALS['prefs']->setValue('addressbooks', json_encode($prefs));
         }
 
         return $share;

@@ -60,24 +60,4 @@ class Turba_Hooks
 //         throw new Turba_Exception('No decode handler.');
 //     }
 
-    /**
-     * Example hook demonstrating how to dynamically populate the addressbooks
-     * prefs so share enabled sources can be force added correctly.
-     *
-     */
-//    public function pushapp_post()
-//    {
-//        // If you only want to add certain address books, or only the default
-//        // share, you can add that logic here as well. The important part is
-//        // to make sure you run Turba::availableSources() through
-//        // Turba::getConfigFromShares() to ensure the full share list is built
-//        // and available before you act on it.
-//        // Also note that this example does not save the prefs to storage,
-//        // as the example assumes a locked pref.
-//        $GLOBALS['prefs']->setValue(
-//            'addressbooks',
-//            json_encode(array_keys(Turba::getConfigFromShares(Turba::availableSources()))),
-//            array('nosave' => true));
-//    }
-
 }

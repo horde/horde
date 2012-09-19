@@ -2,6 +2,7 @@
 v4.0.0-git
 ----------
 
+[jan] Drop preference which address books to display.
 [gwr] Mark the initial default share as such with the Kolab backend.
 [gwr] Always mark the initial share as default addressbook.
 [mms] Initial implementation of smartmobile view.

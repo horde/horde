@@ -32,6 +32,12 @@ outdated.
 Upgrading Turba from 3.x to 4.x
 ===============================
 
+Preference Changes
+------------------
+
+  - The "addressbooks" preference has been removed.
+
+
 API Changes
 -----------
 
