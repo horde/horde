@@ -174,7 +174,7 @@ class Turba_Application extends Horde_Registry_Application
         }
 
         $user = $GLOBALS['registry']->getAuth();
-        $url = Horde::url();
+        $url = Horde::url('');
         $edit = Horde::url('addressbooks/edit.php');
 
         $sidebar->containers['my'] = array(
