@@ -57,7 +57,7 @@ class Kronolith_Form_EditCalendar extends Horde_Form
             $this->addVariable(_("System Calendar"), 'system', 'boolean', false, false, _("System calendars don't have an owner. Only administrators can change the calendar settings and permissions."));
         }
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
-        $this->addVariable(_("Tags"), 'tags', 'text', false);
+        $this->addVariable(_("Tags"), 'tags', 'Kronolith:KronolithTags', false);
 
         /* Display URL. */
         $url = Horde::url('month.php', true, -1)
@@ -153,4 +153,12 @@ class Kronolith_Form_EditCalendar extends Horde_Form
             break;
         }
     }
+
+    public function renderActive()
+    {
+        return parent::renderActive(
+            $this->getRenderer(array('varrenderer_driver' => array('kronolith', 'kronolith'))),
+            $this->_vars);
+    }
+
 }

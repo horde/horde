@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-09-18</date>
- <time>23:17:20</time>
+ <time>23:43:31</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -147,6 +147,9 @@
      <file name="Storage.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
+     <dir name="Type">
+      <file name="KronolithTags.php" role="horde" />
+     </dir> <!-- /lib/Form/Type -->
      <file name="CreateCalendar.php" role="horde" />
      <file name="CreateResource.php" role="horde" />
      <file name="CreateResourceGroup.php" role="horde" />
@@ -198,6 +201,11 @@
      <file name="Kolab.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Storage -->
+    <dir name="Ui">
+     <dir name="VarRenderer">
+      <file name="Kronolith.php" role="horde" />
+     </dir> <!-- /lib/Ui/VarRenderer -->
+    </dir> <!-- /lib/Ui -->
     <dir name="View">
      <file name="Day.php" role="horde" />
      <file name="DeleteEvent.php" role="horde" />
@@ -1142,6 +1150,7 @@
    <install as="kronolith/lib/Form/EditResourceGroup.php" name="lib/Form/EditResourceGroup.php" />
    <install as="kronolith/lib/Form/SubscribeRemoteCalendar.php" name="lib/Form/SubscribeRemoteCalendar.php" />
    <install as="kronolith/lib/Form/UnsubscribeRemoteCalendar.php" name="lib/Form/UnsubscribeRemoteCalendar.php" />
+   <install as="kronolith/lib/Form/Type/KronolithTags.php" name="lib/Form/Type/KronolithTags.php" />
    <install as="kronolith/lib/FreeBusy/View.php" name="lib/FreeBusy/View.php" />
    <install as="kronolith/lib/FreeBusy/View/Day.php" name="lib/FreeBusy/View/Day.php" />
    <install as="kronolith/lib/FreeBusy/View/Month.php" name="lib/FreeBusy/View/Month.php" />
@@ -1160,6 +1169,7 @@
    <install as="kronolith/lib/Resource/Single.php" name="lib/Resource/Single.php" />
    <install as="kronolith/lib/Storage/Kolab.php" name="lib/Storage/Kolab.php" />
    <install as="kronolith/lib/Storage/Sql.php" name="lib/Storage/Sql.php" />
+   <install as="kronolith/lib/Ui/VarRenderer/Kronolith.php" name="lib/Ui/VarRenderer/Kronolith.php" />
    <install as="kronolith/lib/View/Day.php" name="lib/View/Day.php" />
    <install as="kronolith/lib/View/DeleteEvent.php" name="lib/View/DeleteEvent.php" />
    <install as="kronolith/lib/View/EditEvent.php" name="lib/View/EditEvent.php" />
