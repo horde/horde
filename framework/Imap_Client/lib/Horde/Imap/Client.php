@@ -307,7 +307,9 @@ class Horde_Imap_Client
      *             VALUES:
      *     <ul>
      *      <li>false</li>
-     *      <li>'ssl'</li>
+     *      <li>'ssl' (Auto-detect SSL version)</li>
+     *      <li>'sslv2' (Force SSL version 2)</li>
+     *      <li>'sslv3' (Force SSL version 3)</li>
      *      <li>'tls'</li>
      *     </ul>
      *             DEFAULT: No encryption</li>
