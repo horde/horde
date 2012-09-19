@@ -193,12 +193,17 @@ class Horde_View_Sidebar extends Horde_View
 
         if ($boxrow) {
             $this->containers[$container]['type'] = $row['type'];
+            if (!isset($row['style'])) {
+                $row['style'] = '';
+            }
             $foreground = '000';
             if (isset($row['color'])) {
                 if (Horde_Image::brightness($row['color']) < 128) {
                     $foreground = 'fff';
                 }
-                $row['style'] = isset($row['style']) ? $row['style'] . ';' : '';
+                if (strlen($row['style'])) {
+                    $row['style'] .= ';';
+                }
                 $row['style'] .= 'background-color:' . $row['color']
                     . ';color:#' . $foreground;
             }
