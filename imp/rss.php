@@ -82,14 +82,18 @@ $description = ($total_num == 0)
     ? _("No Messages")
     : sprintf(_("%u of %u messages in %s unread."), $unseen_num, $total_num, $mailbox->label);
 
-$t = $injector->createInstance('Horde_Template');
-$t->set('charset', 'UTF-8');
-$t->set('xsl', Horde_Themes::getFeedXsl());
-$t->set('pubDate', htmlspecialchars(date('r')));
-$t->set('desc', htmlspecialchars($description));
-$t->set('title', htmlspecialchars($registry->get('name') . ' - ' . $mailbox->label));
-$t->set('items', $items, true);
-$t->set('url', htmlspecialchars(Horde::url($mailbox->url('message.php'), true, array('append_session' => -1))));
-$t->set('rss_url', htmlspecialchars(Horde::url('rss.php', true, array('append_session' => -1))));
+$view = new Horde_View(array(
+    'templatePath' => IMP_TEMPLATES . '/rss'
+));
+$view->addHelper('Text');
+
+$view->desc = $description;
+$view->items = $items;
+$view->pubDate = date('r');
+$view->rss_url = Horde::url('rss.php', true, array('append_session' => -1));
+$view->title = $registry->get('name') . ' - ' . $mailbox->label;
+$view->url = Horde::url($mailbox->url('message.php'), true, array('append_session' => -1));
+$view->xsl = Horde_Themes::getFeedXsl();
+
 $browser->downloadHeaders('mailbox.rss', 'text/xml', true);
-echo $t->fetch(IMP_TEMPLATES . '/rss/mailbox.rss');
+echo $view->render('mailbox.rss');
