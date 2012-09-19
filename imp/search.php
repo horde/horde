@@ -344,10 +344,14 @@ if ($vars->criteria_form) {
     }
 }
 
-/* Prepare the search template. */
-$t = $injector->createInstance('Horde_Template');
-$t->setOption('gettext', true);
-$t->set('action', Horde::url('search.php'));
+/* Prepare the search view. */
+$view = new Horde_View(array(
+    'templatePath' => IMP_TEMPLATES . '/search'
+));
+$view->addHelper('Tag');
+$view->addHelper('FormTag');
+
+$view->action = Horde::url('search.php');
 
 /* Determine if we are editing a search query. */
 $q_ob = IMP::mailbox()->getSearchOb();
@@ -357,19 +361,19 @@ if ($vars->edit_query && IMP::mailbox()->search) {
             $notification->push(_("Built-in Virtual Folders cannot be edited."), 'horde.error');
             $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
         }
-        $t->set('edit_query', true);
-        $t->set('edit_query_vfolder', IMP::mailbox()->formTo);
+        $view->edit_query = true;
+        $view->edit_query_vfolder = IMP::mailbox()->formTo;
     } elseif ($imp_search->isFilter($q_ob)) {
         if (!$imp_search->isFilter($q_ob, true)) {
             $notification->push(_("Built-in Filters cannot be edited."), 'horde.error');
             $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
         }
-        $t->set('edit_query', true);
-        $t->set('edit_query_filter', IMP::mailbox()->formTo);
+        $view->edit_query = true;
+        $view->edit_query_filter = IMP::mailbox()->formTo;
     }
 
-    if ($t->get('edit_query')) {
-        $t->set('search_label', htmlspecialchars($q_ob->label));
+    if ($view->edit_query) {
+        $view->search_label = $q_ob->label;
         $js_vars['ImpSearch.prefsurl'] = strval($registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->setRaw(true));
     }
 } else {
@@ -410,45 +414,45 @@ if (IMP::mailbox()->search) {
 $c_list = $types = array();
 foreach ($criteria as $key => $val) {
     $c_list[] = array(
-        'val' => $key,
-        'label' => htmlspecialchars($val['label'])
+        'l' => $val['label'],
+        'v' => $key
     );
     $types[$key] = $val['type'];
 }
-$t->set('clist', $c_list);
+$view->clist = $c_list;
 
 /* Create the filter list. These are all-or-nothing searches. */
 $f_list = array();
 foreach ($filters as $key => $val) {
     $f_list[] = array(
-        'val' => $key,
-        'label' => htmlspecialchars($val['label'])
+        'l' => $val['label'],
+        'val' => $key
     );
     $types[$key] = 'filter';
 }
-$t->set('filterlist', $f_list);
+$view->filterlist = $f_list;
 
 /* Create the flag list. */
 $flag_set = array();
 foreach ($flist as $val) {
     $flag_set[] = array(
-        'val' => rawurlencode($val->form_set),
-        'label' => htmlspecialchars($val->label)
+        'l' => $val->label,
+        'v' => rawurlencode($val->form_set)
     );
     $types[rawurlencode($val->form_set)] = 'flag';
 }
-$t->set('flist', $flag_set);
+$view->flist = $flag_set;
 
 /* Generate master mailbox list. */
 $mbox_list = array();
-if (!$t->get('edit_query_filter')) {
+if (!$view->edit_query_filter) {
     $js_vars['ImpSearch.allsearch'] = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
     $ob = $injector->getInstance('IMP_Ui_Search')->getSearchMboxList();
     $mbox_list = $ob->mbox_list;
-    $t->set('tree', $ob->tree->getTree());
+    $view->tree = $ob->tree->getTree();
 
     if ($prefs->getValue('subscribe')) {
-        $t->set('subscribe', true);
+        $view->subscribe = true;
         $js_vars['ImpSearch.ajaxurl'] = $registry->getServiceLink('ajax', 'imp')->url;
     }
 }
@@ -496,7 +500,7 @@ $page_output->addInlineJsVars(array_merge($js_vars, array(
 
 if ($dimp_view) {
     if (!$vars->edit_query) {
-        $t->set('return_mailbox_val', sprintf(_("Return to %s"), $default_mailbox->display_html));
+        $view->return_mailbox_val = sprintf(_("Return to %s"), $default_mailbox->display_html);
     }
 } else {
     $menu = Horde::menu();
@@ -508,5 +512,5 @@ if (!$dimp_view) {
 }
 IMP::status();
 
-echo $t->fetch(IMP_TEMPLATES . '/search/search.html');
+echo $view->render('search');
 $page_output->footer();
