@@ -63,36 +63,6 @@ class Horde_Util
     static protected $_cache = array();
 
     /**
-     * Returns an object's clone.
-     *
-     * @param object &$obj  The object to clone.
-     *
-     * @return object  The cloned object.
-     */
-    static public function &cloneObject(&$obj)
-    {
-        if (!is_object($obj)) {
-            $bt = debug_backtrace();
-            if (isset($bt[1])) {
-                $caller = $bt[1]['function'];
-                if (isset($bt[1]['class'])) {
-                    $caller = $bt[1]['class'].$bt[1]['type'].$caller;
-                }
-            } else {
-                $caller = 'main';
-            }
-
-            $caller .= ' on line ' . $bt[0]['line'] . ' of ' . $bt[0]['file'];
-
-            $ret = $obj;
-            return $ret;
-        }
-
-        $ret = clone($obj);
-        return $ret;
-    }
-
-    /**
      * Checks to see if a value has been set by the script and not by GET,
      * POST, or cookie input. The value being checked MUST be in the global
      * scope.

@@ -79,7 +79,7 @@ class Horde_String
                 return '';
             }
 
-            $input = Horde_Util::cloneObject($input);
+            $input = clone $input;
             $vars = get_object_vars($input);
             while (list($key, $val) = each($vars)) {
                 $input->$key = self::convertCharset($val, $from, $to, $force);
