@@ -1,6 +1,7 @@
 <form name="clearuser" action="<?php echo Horde::url('admin/user.php') ?>" method="post">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="form" value="clear" />
+<input type="hidden" name="user_name" value="<?php echo htmlspecialchars($f_user_name) ?>" />
 
 <h1 class="header">
  <?php printf(_("Clear out user: %s"), htmlspecialchars($f_user_name)) ?>
