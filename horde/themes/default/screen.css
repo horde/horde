@@ -1928,6 +1928,7 @@ left.horde-point-right {
 }
 #horde-sidebar div.horde-resources div {
     margin: 5px 0;
+    background-color: #ddd;
 }
 .horde-resource-link {
     overflow: hidden;
@@ -1948,6 +1949,12 @@ left.horde-point-right {
 }
 .horde-resource-off {
     background-image: url("graphics/checkbox_off.png");
+}
+.horde-resource-on.horde-radiobox, .horde-resource-off.horde-radiobox:hover {
+    background-image: url("graphics/radiobox_on.png");
+}
+.horde-resource-off.horde-radiobox {
+    background-image: url("graphics/radiobox_off.png");
 }
 #horde-sidebar div.horde-resources .horde-resource-edit-000,
 #horde-sidebar div.horde-resources .horde-resource-edit-fff {

@@ -174,6 +174,9 @@ class Horde_View_Sidebar extends Horde_View
             if ($boxrow) {
                 $class = 'horde-resource-'
                     . (empty($row['selected']) ? 'off' : 'on');
+                if ($row['type'] == 'radiobox') {
+                    $class .= ' horde-radiobox';
+                }
                 if (empty($attributes['class'])) {
                     $attributes['class'] = $class;
                 } else {
