@@ -13,7 +13,7 @@
  <input type="hidden" name="page" value="0" />
  <strong><?php echo Horde::label('search_pattern', _("Search:")) ?></strong>
  <input id="search_pattern" name="search_pattern" type="text" value="" size="50" maxlength="100" />
- <input type="submit" class="button" value="<?php echo _("Search") ?>" />
+ <input type="submit" class="horde-default" value="<?php echo _("Search") ?>" />
  </form>
 </div>
 

@@ -7,7 +7,7 @@
 <p class="item">
  <strong><?php printf(_("Really remove user data for user \"%s\"? This operation cannot be undone."), $f_user_name) ?></strong>
 </p>
-<p class="control">
+<p class="horde-form-buttons">
  <input type="submit" class="horde-delete" name="submit" value="<?php echo _("Clear user") ?>" />
  <input type="submit" class="horde-cancel" name="submit" value="<?php echo _("Cancel") ?>" />
 </p>

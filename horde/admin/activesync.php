@@ -137,7 +137,7 @@ $tree->addNode(array(
     'label' => _("Registered User Devices"),
     'expanded' => true,
     'params' => $base_node_params,
-    'right' => array('--', $spacer, '--', $spacer, '--', $spacer, '--', $spacer, '<input type="button" value="' . _("Reprovision All Devices") . '" id="reset" />' )
+    'right' => array('--', $spacer, '--', $spacer, '--', $spacer, '--', $spacer, '<input type="button" class="horde-delete" value="' . _("Reprovision All Devices") . '" id="reset" />' )
 ));
 
 /* Build the device entry */
@@ -179,7 +179,7 @@ foreach ($devices as $key => $device) {
     /* Build the action links */
     $actions = '';
     if ($device['device_policykey']) {
-        $actions .= '<input type="button" value="' . _("Wipe") . '" id="wipe_' . $key . '" . />';
+        $actions .= '<input type="button" class="horde-delete" value="' . _("Wipe") . '" id="wipe_' . $key . '" . />';
     } elseif ($device['device_rwstatus'] == Horde_ActiveSync::RWSTATUS_PENDING) {
         $actions .= '<input type="button" value="' . _("Cancel Wipe") . '" id="cancel_' . $key . '" />';
     }

@@ -9,7 +9,7 @@
 <p class="item">
  <?php printf(_("Are you sure you want to remove the signup request for \"%s\"?"), $f_user_name) ?>
 </p>
-<p class="control">
+<p class="horde-form-buttons">
   <input class="horde-delete" type="submit" value="<?php echo _("Remove") ?>" />
 </p>
 </form>

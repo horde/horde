@@ -58,12 +58,9 @@
   </td>
  </tr>
  <?php endif; ?>
- <tr>
-  <td class="control leftAlign" colspan="2">
-   <input type="submit" class="button" name="submit" value="<?php echo _("Update user") ?>" />
-   <input type="reset" class="button" name="reset" value="<?php echo _("Reset") ?>" />
-  </td>
- </tr>
 </table>
+<p class="horde-form-buttons">
+  <input type="submit" class="horde-default" name="submit" value="<?php echo _("Update user") ?>" />
+  <input type="reset" name="reset" value="<?php echo _("Reset") ?>" />
+</p>
 </form>
-<br />
