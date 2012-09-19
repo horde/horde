@@ -1,4 +1,4 @@
-<form id="updateuser" name="updateuser" method="post" action="user.php">
+<form id="updateuser" name="updateuser" method="post" action="<?php echo Horde::selfUrl() ?>">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="form" value="update" />
 <input type="hidden" name="user_name" value="<?php echo htmlspecialchars($f_user_name) ?>" />
