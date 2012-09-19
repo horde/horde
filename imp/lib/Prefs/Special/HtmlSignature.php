@@ -40,11 +40,14 @@ class IMP_Prefs_Special_HtmlSignature implements Horde_Core_Prefs_Ui_Special
             'ImpHtmlSignaturePrefs.sigs' => $js
         ));
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-        $t->set('signature', htmlspecialchars($prefs->getValue('signature_html')));
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('Text');
 
-        return $t->fetch(IMP_TEMPLATES . '/prefs/signaturehtml.html');
+        $view->signature = $prefs->getValue('signature_html');
+
+        return $view->render('signaturehtml');
     }
 
     /**

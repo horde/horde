@@ -40,19 +40,20 @@ class IMP_Prefs_Special_Sentmail extends IMP_Prefs_Special_SpecialMboxes impleme
             'ImpFolderPrefs.sentmail' => $js
         ));
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('Horde_Core_View_Helper_Label');
 
-        $t->set('default', IMP_Mailbox::formTo(self::PREF_DEFAULT));
-        $t->set('label', Horde::label('sent_mail', _("Sent mail mailbox:")));
-        $t->set('flist', IMP::flistSelect(array(
+        $view->default = IMP_Mailbox::formTo(self::PREF_DEFAULT);
+        $view->flist = IMP::flistSelect(array(
             'basename' => true,
             'filter' => array('INBOX'),
             'new_mbox' => true
-        )));
-        $t->set('special_use', $this->_getSpecialUse(Horde_Imap_Client::SPECIALUSE_SENT));
+        ));
+        $view->special_use = $this->_getSpecialUse(Horde_Imap_Client::SPECIALUSE_SENT);
 
-        return $t->fetch(IMP_TEMPLATES . '/prefs/sentmail.html');
+        return $view->render('sentmail');
     }
 
     /**

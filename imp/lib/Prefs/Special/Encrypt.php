@@ -24,12 +24,14 @@ class IMP_Prefs_Special_Encrypt implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('Horde_Core_View_Helper_Label');
 
-        $t->set('label', Horde::label('default_encrypt', _("Your default encryption method for sending messages:")));
-        $t->set('elist', IMP::encryptList());
+        $view->elist = IMP::encryptList();
 
-        return $t->fetch(IMP_TEMPLATES . '/prefs/encrypt.html');
+        return $view->render('encrypt');
     }
 
     /**

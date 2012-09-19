@@ -24,28 +24,31 @@ class IMP_Prefs_Special_ComposeTemplates extends IMP_Prefs_Special_SpecialMboxes
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $page_output, $prefs;
+        global $page_output, $prefs;
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-
-        if (!$prefs->isLocked('composetemplates_mbox')) {
-            $page_output->addScriptFile('folderprefs.js');
-            $page_output->addInlineJsVars(array(
-                'ImpFolderPrefs.mboxes.templates' => _("Enter the name for your new compose templates mailbox.")
-            ));
-
-            $t->set('mbox_label', Horde::label('templates', _("Compose Templates mailbox:")));
-            $t->set('mbox_nomailbox', IMP_Mailbox::formTo(self::PREF_NO_MBOX));
-            $t->set('mbox_flist', IMP::flistSelect(array(
-                'basename' => true,
-                'filter' => array('INBOX'),
-                'new_mbox' => true,
-                'selected' => IMP_Mailbox::getPref('composetemplates_mbox')
-            )));
+        if ($prefs->isLocked('composetemplates_mbox')) {
+            return '';
         }
 
-        return $t->fetch(IMP_TEMPLATES . '/prefs/composetemplates.html');
+        $page_output->addScriptFile('folderprefs.js');
+        $page_output->addInlineJsVars(array(
+            'ImpFolderPrefs.mboxes.templates' => _("Enter the name for your new compose templates mailbox.")
+        ));
+
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('Horde_Core_View_Helper_Label');
+
+        $view->mbox_flist = IMP::flistSelect(array(
+            'basename' => true,
+            'filter' => array('INBOX'),
+            'new_mbox' => true,
+            'selected' => IMP_Mailbox::getPref('composetemplates_mbox')
+        ));
+        $view->mbox_nomailbox = IMP_Mailbox::formTo(self::PREF_NO_MBOX);
+
+        return $view->render('composetemplates');
     }
 
     /**

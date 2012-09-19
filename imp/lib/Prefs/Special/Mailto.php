@@ -24,7 +24,9 @@ class IMP_Prefs_Special_Mailto implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $page_output, $registry;
+        global $page_output, $registry;
+
+        $name = $registry->get('name');
 
         $page_output->addInlineScript(array(
             'if (!Object.isUndefined(navigator.registerProtocolHandler))' .
@@ -34,17 +36,18 @@ class IMP_Prefs_Special_Mailto implements Horde_Core_Prefs_Ui_Special
                     'actionID' => 'mailto_link',
                     'to' => ''
                 )) .
-                '=%s","' . $registry->get('name') . '");' .
+                '=%s","' . $name . '");' .
             '})'
         ), true);
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('Horde_Core_View_Helper_Image');
 
-        $t->set('desc', sprintf(_("Click here to open all mailto: links using %s."), $registry->get('name')));
-        $t->set('img', Horde::img('compose.png'));
+        $view->name = $name;
 
-        return $t->fetch(IMP_TEMPLATES . '/prefs/mailto.html');
+        return $view->render('mailto');
     }
 
     /**

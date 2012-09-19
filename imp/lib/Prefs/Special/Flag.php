@@ -41,40 +41,42 @@ class IMP_Prefs_Special_Flag implements Horde_Core_Prefs_Ui_Special
             'ImpFlagPrefs.confirm_delete' => _("Are you sure you want to delete this flag?")
         ));
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-        $t->set('locked', $prefs->isLocked('msgflags'));
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('FormTag');
+        $view->addHelper('Tag');
+
+        $view->locked = $prefs->isLocked('msgflags');
+        $view->picker_img = Horde::img('colorpicker.png', _("Color Picker"));
 
         $out = array();
         $flaglist = $injector->getInstance('IMP_Flags')->getList();
         foreach ($flaglist as $val) {
             $hash = hash('sha1', $val->id);
             $bgid = 'bg_' . $hash;
-            $color = htmlspecialchars($val->bgdefault ? '' : $val->bgcolor);
-            $label = htmlspecialchars($val->label);
-            $bgstyle = strlen($color) ? ('background-color:' . $color . ';') : '';
+            $color = $val->bgdefault ? '' : $val->bgcolor;
             $tmp = array();
 
             if ($val instanceof IMP_Flag_User) {
-                $tmp['label'] = $label;
-                $tmp['user'] = true;
+                $tmp['label'] = htmlspecialchars($val->label);
                 $tmp['label_name'] = 'label_' . $hash;
+                $tmp['user'] = true;
             } else {
-                $tmp['label'] = Horde::label($bgid, $label);
                 $tmp['icon'] = $val->span;
+                $tmp['label'] = Horde::label($bgid, $val->label);
             }
 
-            $tmp['colorstyle'] = $bgstyle . 'color:' . htmlspecialchars($val->fgcolor);
-            $tmp['colorid'] = $bgid;
             $tmp['color'] = $color;
+            $tmp['colorid'] = $bgid;
+            $tmp['colorstyle'] = 'color:' . $val->fgcolor . ';' .
+                (strlen($color) ? ('background-color:' . $color . ';') : '');
 
             $out[] = $tmp;
         }
-        $t->set('flags', $out);
+        $view->flags = $out;
 
-        $t->set('picker_img', Horde::img('colorpicker.png', _("Color Picker")));
-
-        return $t->fetch(IMP_TEMPLATES . '/prefs/flags.html');
+        return $view->render('flags');
     }
 
     /**

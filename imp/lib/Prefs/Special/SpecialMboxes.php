@@ -112,7 +112,7 @@ class IMP_Prefs_Special_SpecialMboxes
             if (in_array($use, $val['attributes'])) {
                 $mbox_ob = IMP_Mailbox::get($val['mailbox']);
                 $special_use[] = array(
-                    'l' => htmlspecialchars($mbox_ob->label),
+                    'l' => $mbox_ob->label,
                     'v' => IMP_Mailbox::formTo(self::PREF_SPECIALUSE . $mbox_ob)
                 );
             }
@@ -122,11 +122,14 @@ class IMP_Prefs_Special_SpecialMboxes
             return '';
         }
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-        $t->set('special_use', $special_use);
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('Text');
 
-        return $t->fetch(IMP_TEMPLATES . '/prefs/specialuse.html');
+        $view->special_use = $special_use;
+
+        return $view->render('specialuse');
     }
 
 }

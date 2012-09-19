@@ -24,27 +24,28 @@ class IMP_Prefs_Special_Spam extends IMP_Prefs_Special_SpecialMboxes implements 
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $page_output;
+        global $page_output;
 
         $page_output->addScriptFile('folderprefs.js');
         $page_output->addInlineJsVars(array(
             'ImpFolderPrefs.mboxes.spam' => _("Enter the name for your new spam mailbox.")
         ));
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('Horde_Core_View_Helper_Label');
 
-        $t->set('label', Horde::label('spam', _("Spam mailbox:")));
-        $t->set('nombox', IMP_Mailbox::formTo(self::PREF_NO_MBOX));
-        $t->set('flist', IMP::flistSelect(array(
+        $view->nombox = IMP_Mailbox::formTo(self::PREF_NO_MBOX);
+        $view->flist = IMP::flistSelect(array(
             'basename' => true,
             'filter' => array('INBOX'),
             'new_mbox' => true,
             'selected' => IMP_Mailbox::getPref('spam_folder')
-        )));
-        $t->set('special_use', $this->_getSpecialUse(Horde_Imap_Client::SPECIALUSE_JUNK));
+        ));
+        $view->special_use = $this->_getSpecialUse(Horde_Imap_Client::SPECIALUSE_JUNK);
 
-        return $t->fetch(IMP_TEMPLATES . '/prefs/spam.html');
+        return $view->render('spam');
     }
 
     /**

@@ -24,27 +24,28 @@ class IMP_Prefs_Special_Drafts extends IMP_Prefs_Special_SpecialMboxes implement
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $notification, $page_output, $registry, $session;
+        global $page_output;
 
         $page_output->addScriptFile('folderprefs.js');
         $page_output->addInlineJsVars(array(
             'ImpFolderPrefs.mboxes.drafts' => _("Enter the name for your new drafts mailbox.")
         ));
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('Horde_Core_View_Helper_Label');
 
-        $t->set('label', Horde::label('drafts', _("Drafts mailbox:")));
-        $t->set('nombox', IMP_Mailbox::formTo(self::PREF_NO_MBOX));
-        $t->set('flist', IMP::flistSelect(array(
+        $view->flist = IMP::flistSelect(array(
             'basename' => true,
             'filter' => array('INBOX'),
             'new_mbox' => true,
             'selected' => IMP_Mailbox::getPref('drafts_folder')
-        )));
-        $t->set('special_use', $this->_getSpecialUse(Horde_Imap_Client::SPECIALUSE_DRAFTS));
+        ));
+        $view->nombox = IMP_Mailbox::formTo(self::PREF_NO_MBOX);
+        $view->special_use = $this->_getSpecialUse(Horde_Imap_Client::SPECIALUSE_DRAFTS);
 
-        return $t->fetch(IMP_TEMPLATES . '/prefs/drafts.html');
+        return $view->render('drafts');
     }
 
     /**

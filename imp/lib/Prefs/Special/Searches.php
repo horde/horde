@@ -28,15 +28,19 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
 
         $page_output->addScriptFile('searchesprefs.js');
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-
         $imp_search = $injector->getInstance('IMP_Search');
         $fout = $mailboxids = $vout = array();
         $view_mode = $registry->getView();
 
         $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
         $vfolder_locked = $prefs->isLocked('vfolder');
+
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('FormTag');
+        $view->addHelper('Tag');
+        $view->addHelper('Text');
 
         foreach ($imp_search as $key => $val) {
             if (!$val->prefDisplay) {
@@ -58,11 +62,11 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
                 'enabled' => $val->enabled,
                 'enabled_locked' => $vfolder_locked,
                 'key' => $key,
-                'label' => htmlspecialchars($val->label),
+                'label' => $val->label,
                 'm_url' => $m_url
             );
         }
-        $t->set('vfolders', $vout);
+        $view->vfolders = $vout;
 
         $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER | IMP_Search::LIST_DISABLED);
         $filter_locked = $prefs->isLocked('filter');
@@ -84,13 +88,13 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
                 'enabled' => $val->enabled,
                 'enabled_locked' => $filter_locked,
                 'key' => $key,
-                'label' => htmlspecialchars($val->label)
+                'label' => $val->label
             );
         }
-        $t->set('filters', $fout);
+        $view->filters = $fout;
 
         if (empty($fout) && empty($vout)) {
-            $t->set('nosearches', true);
+            $view->nosearches = true;
         } else {
             $GLOBALS['page_output']->addInlineJsVars(array(
                 'ImpSearchesPrefs.confirm_delete_filter' => _("Are you sure you want to delete this filter?"),
@@ -99,7 +103,7 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
             ));
         }
 
-        return $t->fetch(IMP_TEMPLATES . '/prefs/searches.html');
+        return $view->render('searches');
     }
 
     /**

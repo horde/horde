@@ -24,29 +24,27 @@ class IMP_Prefs_Special_InitialPage implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $prefs;
+        global $prefs;
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('FormTag');
+        $view->addHelper('Horde_Core_View_Helper_Label');
+        $view->addHelper('Tag');
 
-        if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
-            $t->set('nofolders', true);
-        } else {
-            if (!($initial_page = $prefs->getValue('initial_page'))) {
-                $initial_page = 'INBOX';
-            }
-            $t->set('folder_page', IMP_Mailbox::formTo(IMP::INITIAL_FOLDERS));
-            $t->set('folder_sel', $initial_page == IMP::INITIAL_FOLDERS);
-            $t->set('flist', IMP::flistSelect(array(
-                'basename' => true,
-                'inc_vfolder' => true,
-                'selected' => $initial_page
-            )));
+        if (!($initial_page = $prefs->getValue('initial_page'))) {
+            $initial_page = 'INBOX';
         }
+        $view->folder_page = IMP_Mailbox::formTo(IMP::INITIAL_FOLDERS);
+        $view->folder_sel = ($initial_page == IMP::INITIAL_FOLDERS);
+        $view->flist = IMP::flistSelect(array(
+            'basename' => true,
+            'inc_vfolder' => true,
+            'selected' => $initial_page
+        ));
 
-        $t->set('label', Horde::label('initial_page', _("View or mailbox to display after login:")));
-
-        return $t->fetch(IMP_TEMPLATES . '/prefs/initialpage.html');
+        return $view->render('initialpage');
     }
 
     /**
