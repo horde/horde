@@ -4,8 +4,8 @@
 <h1 class="header">
  <?php printf(_("Clear out user: %s"), $f_user_name) ?>
 </h1>
-<p class="item">
- <strong><?php printf(_("Really remove user data for user \"%s\"? This operation cannot be undone."), $f_user_name) ?></strong>
+<p class="horde-content">
+ <?php printf(_("Really remove user data for user \"%s\"? This operation cannot be undone."), htmlspecialchars($f_user_name)) ?>
 </p>
 <p class="horde-form-buttons">
  <input type="submit" class="horde-delete" name="submit" value="<?php echo _("Clear user") ?>" />

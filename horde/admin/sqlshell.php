@@ -45,12 +45,12 @@ $page_output->header(array(
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 ?>
-<div>
+
 <h1 class="header"><?php echo $title ?></h1>
-<br />
 <form name="sqlshell" action="sqlshell.php" method="post">
 <?php Horde_Util::pformInput() ?>
 
+<div class="horde-content">
 <?php
 
 if (isset($result)) {
@@ -115,19 +115,19 @@ if (isset($result)) {
   <label for="sql" class="hidden"><?php echo ("SQL Query") ?></label>
   <textarea class="fixed" id="sql" name="sql" rows="10" cols="80"><?php if (strlen($command)) echo htmlspecialchars($command) ?></textarea>
 </p>
+</div>
 
-<p>
-  <input type="submit" class="button" value="<?php echo _("Execute") ?>">
-  <input type="button" class="button" value="<?php echo _("Clear Query") ?>" onclick="document.sqlshell.sql.value=''">
+<p class="horde-form-buttons">
+  <input type="submit" class="horde-default" value="<?php echo _("Execute") ?>" />
+  <input type="button" value="<?php echo _("Clear Query") ?>" onclick="document.sqlshell.sql.value=''" />
   <?php if (strlen($command)): ?>
-  <input type="reset" class="button" value="<?php echo _("Restore Last Query") ?>">
+  <input type="reset" value="<?php echo _("Restore Last Query") ?>" />
   <?php endif; ?>
-  <input type="submit" class="button" name="list-tables" value="<?php echo _("List Tables") ?>">
+  <input type="submit" name="list-tables" value="<?php echo _("List Tables") ?>" />
   <?php echo Horde_Help::link('admin', 'admin-sqlshell') ?>
 </p>
 
 </form>
-</div>
 <?php
 
 $page_output->footer();

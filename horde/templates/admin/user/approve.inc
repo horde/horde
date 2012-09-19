@@ -47,4 +47,3 @@ try {
 </tbody>
 </table>
 <?php endif; ?>
-<br class="spacer" />

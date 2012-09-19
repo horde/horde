@@ -238,7 +238,7 @@ small, .small {
 .control {
     color: #000;
     background: #ebeff0;
-    padding: 1px;
+    padding: 5px;
 }
 .accessKey {
     text-decoration: underline;
@@ -256,7 +256,7 @@ small, .small {
     border-spacing: 0;
 }
 .horde-form td {
-    padding-bottom: 4px;
+    padding-bottom: 5px;
 }
 .htmlarea .statusBar .statusBarTree a {
     font: inherit;
@@ -1711,6 +1711,7 @@ a.horde-mainnavi-active:active {
     background-image: url("graphics/navi-arrow-normal.png");
     background-repeat: no-repeat;
     text-indent: -10000px;
+    overflow: hidden;
 }
 .horde-point-arrow-active {
     background-image: url("graphics/navi-arrow-active.png");
@@ -2216,11 +2217,6 @@ left.horde-point-right {
 }
 .horde-table-header .iconImg {
     vertical-align: middle;
-}
-
-/* Configuration page. */
-#update h1.header {
-    border: 1px solid #000;
 }
 
 /* Sidebar entries. */
