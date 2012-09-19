@@ -66,7 +66,6 @@ class Turba_Application extends Horde_Registry_Application
      *   $attributes - (array) Attribute data from the config/attributes.php
      *                 file.
      *   $browse_source_count - TODO
-     *   $browse_source_options - TODO
      *   $cfgSources   - TODO
      *   $copymoveSources - TODO
      */
@@ -102,16 +101,10 @@ class Turba_Application extends Horde_Registry_Application
         }
 
         $GLOBALS['browse_source_count'] = 0;
-        $GLOBALS['browse_source_options'] = '';
 
         foreach (Turba::getAddressBooks() as $key => $curSource) {
             if (!empty($curSource['browse'])) {
-                $selected = ($key == Turba::$source) ? ' selected="selected"' : '';
-                $GLOBALS['browse_source_options'] .= '<option value="' . htmlspecialchars($key) . '" ' . $selected . '>' .
-                    htmlspecialchars($curSource['title']) . '</option>';
-
-                ++$GLOBALS['browse_source_count'];
-
+                $GLOBALS['browse_source_count']++;
                 if (empty(Turba::$source)) {
                     Turba::$source = $key;
                 }
@@ -157,10 +150,6 @@ class Turba_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        if ($GLOBALS['session']->get('turba', 'has_share')) {
-            $menu->add(Horde::url('addressbooks/index.php'), _("_My Address Books"), 'turba-addressbooks');
-        }
-
         if ($GLOBALS['browse_source_count']) {
             $menu->add(Horde::url('browse.php'), _("_Browse"), 'turba-browse', null, null, null, (($GLOBALS['prefs']->getValue('initial_page') == 'browse.php' && basename($_SERVER['PHP_SELF']) == 'index.php' && basename(dirname($_SERVER['PHP_SELF'])) != 'addressbooks') || (basename($_SERVER['PHP_SELF']) == 'browse.php' && Horde_Util::getFormData('key') != '**search')) ? 'current' : '__noselection');
         }
@@ -182,6 +171,80 @@ class Turba_Application extends Horde_Registry_Application
     {
         if (count($GLOBALS['addSources'])) {
             $sidebar->addNewButton(_("_New Contact"), Horde::url('add.php'));
+        }
+
+        $user = $GLOBALS['registry']->getAuth();
+        $url = Horde::url();
+        $edit = Horde::url('addressbooks/edit.php');
+
+        $sidebar->containers['my'] = array(
+            'header' => array(
+                'id' => 'turba-toggle-my',
+                'label' => _("My Address Books"),
+                'collapsed' => false,
+            ),
+        );
+        if ($GLOBALS['registry']->getAuth() &&
+            $GLOBALS['session']->get('turba', 'has_share')) {
+            $sidebar->containers['my']['header']['add'] = array(
+                'url' => Horde::url('addressbooks/create.php'),
+                'label' => _("Create a new Address Book"),
+            );
+        }
+        $sidebar->containers['shared'] = array(
+            'header' => array(
+                'id' => 'turba-toggle-shared',
+                'label' => _("Shared Address Books"),
+                'collapsed' => true,
+            ),
+        );
+        $shares = array();
+        foreach (Turba::listShares() as $id => $abook) {
+            $row = array(
+                'selected' => $id == Turba::$source,
+                'url' => $url->add('source', $id),
+                'label' => $abook->get('name'),
+                'edit' => $edit->add('a', $abook->getName()),
+                'type' => 'radiobox',
+            );
+            if ($abook->get('owner') && $abook->get('owner') == $user) {
+                $sidebar->addRow($row, 'my');
+                if ($row['selected']) {
+                    $sidebar->containers['my']['header']['collapsed'] = false;
+                }
+            } else {
+                if ($abook->get('owner')) {
+                    $row['label'] .= ' [' . $GLOBALS['registry']->convertUsername($abook->get('owner'), false) . ']';
+                }
+                $sidebar->addRow($row, 'shared');
+                if ($row['selected']) {
+                    $sidebar->containers['shared']['header']['collapsed'] = false;
+                }
+            }
+            $shares[$id] = true;
+        }
+
+        $sidebar->containers['other'] = array(
+            'header' => array(
+                'id' => 'turba-toggle-other',
+                'label' => _("Other Address Books"),
+                'collapsed' => true,
+            ),
+        );
+        foreach (Turba::getAddressBooks(Horde_Perms::READ) as $id => $abook) {
+            if (isset($shares[$id])) {
+                continue;
+            }
+            $row = array(
+                'selected' => $id == Turba::$source,
+                'url' => $url->add('source', $id),
+                'label' => $abook['title'],
+                'type' => 'radiobox',
+            );
+            $sidebar->addRow($row, 'other');
+            if ($row['selected']) {
+                $sidebar->containers['other']['header']['collapsed'] = false;
+            }
         }
     }
 
