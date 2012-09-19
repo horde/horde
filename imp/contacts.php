@@ -67,27 +67,34 @@ foreach (explode('|', $vars->sa) as $addr) {
     }
 }
 
-/* Prepare the contacts template. */
-$template = $injector->createInstance('Horde_Template');
-$template->setOption('gettext', true);
+/* Prepare the contacts view. */
+$view = new Horde_View(array(
+    'templatePath' => IMP_TEMPLATES . '/contacts'
+));
+$view->addHelper('FormTag');
+$view->addHelper('Tag');
+$view->addHelper('Text');
 
-$template->set('action', Horde::url('contacts.php')->unique());
-$template->set('formInput', Horde_Util::formInput());
-$template->set('search', htmlspecialchars($vars->search));
+$view->a_list = $a_list;
+$view->action = Horde::url('contacts.php')->unique();
+$view->formInput = Horde_Util::formInput();
+$view->sa = $selected_addresses;
+$view->search = $vars->search;
+$view->to_only = intval($vars->to_only);
+
 if (count($source_list) > 1) {
-    $template->set('multiple_source', true);
     $s_list = array();
     foreach ($source_list as $key => $select) {
-        $s_list[] = array('val' => $key, 'selected' => ($key == $vars->source), 'label' => htmlspecialchars($select));
+        $s_list[] = array(
+            'label' => htmlspecialchars($select),
+            'selected' => ($key == $vars->source),
+            'val' => $key
+        );
     }
-    $template->set('source_list', $s_list);
+    $view->source_list = $s_list;
 } else {
-    $template->set('source_list', key($source_list));
+    $view->source_list = key($source_list);
 }
-
-$template->set('a_list', $a_list);
-$template->set('to_only', intval($vars->to_only));
-$template->set('sa', $selected_addresses);
 
 /* Display the form. */
 $page_output->addScriptFile('hordecore.js', 'horde');
@@ -100,5 +107,5 @@ $page_output->addInlineJsVars(array(
 ));
 
 IMP::header(_("Address Book"));
-echo $template->fetch(IMP_TEMPLATES . '/contacts/contacts.html');
+echo $view->render('contacts');
 $page_output->footer();
