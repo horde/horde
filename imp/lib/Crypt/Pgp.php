@@ -660,7 +660,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function importKeyDialog($target, $reload)
     {
-        global $injector, $notification, $registry;
+        global $notification, $page_output, $registry;
 
         IMP::header(_("Import PGP Key"));
 
@@ -672,17 +672,19 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         }
         IMP::status();
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/pgp'
+        ));
+        $view->addHelper('Text');
 
-        $t->set('selfurl', Horde::url('pgp.php'));
-        $t->set('reload', htmlspecialchars($reload));
-        $t->set('target', $target);
-        $t->set('forminput', Horde_Util::formInput());
-        $t->set('import_public_key', $target == 'process_import_public_key');
-        $t->set('import_personal_key', $target == 'process_import_personal_key');
+        $view->forminput = Horde_Util::formInput();
+        $view->reload = $reload;
+        $view->selfurl = Horde::url('pgp.php');
+        $view->target = $target;
 
-        echo $t->fetch(IMP_TEMPLATES . '/pgp/import_key.html');
+        echo $view->render('import_key');
+
+        $page_output->footer();
     }
 
     /**
