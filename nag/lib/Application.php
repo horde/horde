@@ -164,6 +164,9 @@ class Nag_Application extends Horde_Registry_Application
             if ($tasklist->get('owner') == $user) {
                 $sidebar->addRow($row, 'my');
             } else {
+                if ($tasklist->get('owner')) {
+                    $row['label'] .= ' [' . $GLOBALS['registry']->convertUsername($tasklist->get('owner'), false) . ']';
+                }
                 $sidebar->addRow($row, 'shared');
             }
         }
