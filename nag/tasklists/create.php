@@ -29,7 +29,6 @@ if ($form->validate($vars)) {
     } catch (Exception $e) {
         $notification->push($e);
     }
-    Horde::url('list.php', true)->redirect();
 }
 
 $page_output->header(array(

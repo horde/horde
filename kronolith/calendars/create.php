@@ -29,12 +29,12 @@ if ($form->validate($vars)) {
     try {
         $calendar = $form->execute();
         $notification->push(sprintf(_("The calendar \"%s\" has been created."), $vars->get('name')), 'horde.success');
+        Horde::url('calendars/edit.php')
+            ->add('c', $calendar->getName())
+            ->redirect();
     } catch (Exception $e) {
         $notification->push($e);
     }
-    Horde::url('calendars/edit.php')
-        ->add('c', $calendar->getName())
-        ->redirect();
 }
 
 $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
