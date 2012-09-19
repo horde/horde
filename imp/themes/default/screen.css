@@ -336,15 +336,6 @@ table.searchesmanagement .vfolderenabled {
 }
 
 /* Quota styles. */
-#quota {
-    border-collapse: collapse;
-    width: 100%;
-}
-#quota td {
-    padding: 3px;
-    vertical-align: middle;
-    text-align: center;
-}
 .quotawarn {
     color: yellow;
     font-weight:bold;
