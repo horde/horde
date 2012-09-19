@@ -112,17 +112,20 @@ case 'remove_f':
 
 case 'remove':
     $f_user_name = Horde_Util::getFormData('user_name');
+    $vars->remove('user_name');
+    if (Horde_Util::getFormData('submit') == _("Cancel")) {
+        break;
+    }
     if (empty($f_user_name)) {
         $notification->push(_("You must specify a username to remove."), 'horde.message');
-    } elseif (Horde_Util::getFormData('submit') !== _("Cancel")) {
-        try {
-            $registry->removeUser($f_user_name);
-            $notification->push(sprintf(_("Successfully removed \"%s\" from the system."), $f_user_name), 'horde.success');
-        } catch (Horde_Exception $e) {
-            $notification->push(sprintf(_("There was a problem removing \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
-        }
+        break;
     }
-    $vars->remove('user_name');
+    try {
+        $registry->removeUser($f_user_name);
+        $notification->push(sprintf(_("Successfully removed \"%s\" from the system."), $f_user_name), 'horde.success');
+    } catch (Horde_Exception $e) {
+        $notification->push(sprintf(_("There was a problem removing \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
+    }
     break;
 
 case 'clear_f':
@@ -132,17 +135,20 @@ case 'clear_f':
 
 case 'clear':
     $f_user_name = Horde_Util::getFormData('user_name');
+    $vars->remove('user_name');
+    if (Horde_Util::getFormData('submit') == _("Cancel")) {
+        break;
+    }
     if (empty($f_user_name)) {
         $notification->push(_("You must specify a username to clear out."), 'horde.message');
-    } elseif (Horde_Util::getFormData('submit') !== _("Cancel")) {
-        try {
-            $registry->removeUserData($f_user_name);
-            $notification->push(sprintf(_("Successfully cleared data for user \"%s\" from the system."), $f_user_name), 'horde.success');
-        } catch (Horde_Exception $e) {
-            $notification->push(sprintf(_("There was a problem clearing data for user \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
-        }
+        break;
     }
-    $vars->remove('user_name');
+    try {
+        $registry->removeUserData($f_user_name);
+        $notification->push(sprintf(_("Successfully cleared data for user \"%s\" from the system."), $f_user_name), 'horde.success');
+    } catch (Horde_Exception $e) {
+        $notification->push(sprintf(_("There was a problem clearing data for user \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
+    }
     break;
 
 case 'update_f':
