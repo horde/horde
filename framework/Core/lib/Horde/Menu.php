@@ -100,12 +100,6 @@ class Horde_Menu
         /* Add any custom menu items. */
         $this->addSiteLinks();
 
-        /* No need to return an empty list if there are no menu
-         * items. */
-        if (!count($this->_menu)) {
-            return '';
-        }
-
         /* Sort to match explicitly set positions. */
         ksort($this->_menu);
         if ($registry->nlsconfig->curr_rtl) {
@@ -124,11 +118,9 @@ class Horde_Menu
     {
         $sidebar = $GLOBALS['injector']->getInstance('Horde_View_Sidebar');
 
-        $container = 0;
         foreach ($this->_menu as $m) {
             /* Check for separators. */
             if ($m == 'separator') {
-                $container++;
                 continue;
             }
 
