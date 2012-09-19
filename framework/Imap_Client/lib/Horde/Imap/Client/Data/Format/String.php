@@ -91,11 +91,25 @@ class Horde_Imap_Client_Data_Format_String extends Horde_Imap_Client_Data_Format
     }
 
     /**
+     * Does this data item require quoted string output?
+     *
+     * @return boolean  True if quoted output is required.
      */
     public function quoted()
     {
         /* IMAP strings MUST be quoted if they are not a literal. */
         return (!isset($this->_filter) || !$this->_filter->literal);
+    }
+
+    /**
+     * Force item to be output quoted.
+     */
+    public function forceQuoted()
+    {
+        $this->_filter = $this->_filterParams();
+        $this->_filter->binary = false;
+        $this->_filter->literal = false;
+        $this->_filter->quoted = true;
     }
 
     /**
@@ -109,6 +123,17 @@ class Horde_Imap_Client_Data_Format_String extends Horde_Imap_Client_Data_Format
     }
 
     /**
+     * Force item to be output as a literal.
+     */
+    public function forceLiteral()
+    {
+        $this->_filter = $this->_filterParams();
+        // Keep binary status, if set
+        $this->_filter->literal = true;
+        $this->_filter->quoted = false;
+    }
+
+    /**
      * If literal output, is the data binary?
      *
      * @return boolean  True if the literal output is binary.
@@ -116,6 +141,17 @@ class Horde_Imap_Client_Data_Format_String extends Horde_Imap_Client_Data_Format
     public function binary()
     {
         return (isset($this->_filter) && $this->_filter->binary);
+    }
+
+    /**
+     * Force item to be output as a binary literal.
+     */
+    public function forceBinary()
+    {
+        $this->_filter = $this->_filterParams();
+        $this->_filter->binary = true;
+        $this->_filter->literal = true;
+        $this->_filter->quoted = false;
     }
 
 }
