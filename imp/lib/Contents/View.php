@@ -236,8 +236,8 @@ class IMP_Contents_View
                 }
 
                 $headers[] = array(
-                    'header' => htmlspecialchars($val),
-                    'value' => htmlspecialchars($hdr_val)
+                    'header' => $val,
+                    'value' => $hdr_val
                 );
             }
         }
@@ -245,15 +245,19 @@ class IMP_Contents_View
         if ($prefs->getValue('add_printedby')) {
             $user_identity = $injector->getInstance('IMP_Identity');
             $headers[] = array(
-                'header' => htmlspecialchars(_("Printed By")),
-                'value' => htmlspecialchars($user_identity->getFullname() ? $user_identity->getFullname() : $registry->getAuth())
+                'header' => _("Printed By"),
+                'value' => $user_identity->getFullname() ? $user_identity->getFullname() : $registry->getAuth()
             );
         }
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->set('headers', $headers);
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/print'
+        ));
+        $view->addHelper('Text');
 
-        $header_dom = new Horde_Domhtml(Horde_String::convertCharset($t->fetch(IMP_TEMPLATES . '/print/headers.html'), 'UTF-8', $d_param['params']['charset']), $d_param['params']['charset']);
+        $view->headers = $headers;
+
+        $header_dom = new Horde_Domhtml(Horde_String::convertCharset($view->render('headers'), 'UTF-8', $d_param['params']['charset']), $d_param['params']['charset']);
         $elt = $header_dom->dom->getElementById('headerblock');
         $elt->removeAttribute('id');
 
