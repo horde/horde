@@ -21,14 +21,17 @@ try {
     $notification->push($e->getMessage(), 'horde.error');
     Horde::url('list.php', true)->redirect();
 }
-if (!$tasklist->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+$owner = $tasklist->get('owner') == $GLOBALS['registry']->getAuth() ||
+    (is_null($tasklist->get('owner')) && $GLOBALS['registry']->isAdmin());
+if (!$owner &&
+    !$tasklist->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     $notification->push(_("You are not allowed to see this task list."), 'horde.error');
     Horde::url('list.php', true)->redirect();
 }
 $form = new Nag_Form_EditTaskList($vars, $tasklist);
 
 // Execute if the form is valid.
-if ($form->validate($vars)) {
+if ($owner && $form->validate($vars)) {
     $original_name = $tasklist->get('name');
     try {
         $form->execute();
@@ -53,16 +56,10 @@ $page_output->header(array(
 ));
 echo Horde::menu();
 Nag::status();
-if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
-    (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin())) {
-    echo $form->renderInactive($form->getRenderer(),
-                               $vars,
-                               Horde::url('tasklists/edit.php'),
-                               'post');
+if ($owner) {
+    echo $form->renderActive($form->getRenderer(), $vars,
+                             Horde::url('tasklists/edit.php'), 'post');
 } else {
-    echo $form->renderActive($form->getRenderer(),
-                             $vars,
-                             Horde::url('tasklists/edit.php'),
-                             'post');
+    echo $form->renderInactive($form->getRenderer(), $vars);
 }
 $page_output->footer();

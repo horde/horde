@@ -29,15 +29,17 @@ try {
     $notification->push($e, 'horde.error');
     $default->redirect();
 }
-if (!$calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ) &&
-    !($calendar->get('owner') === null && $registry->isAdmin())) {
+$owner = $calendar->get('owner') == $GLOBALS['registry']->getAuth() ||
+    (is_null($calendar->get('owner')) && $GLOBALS['registry']->isAdmin());
+if (!$owner &&
+    !$calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     $notification->push(_("You are not allowed to see this calendar."), 'horde.error');
     $default->redirect();
 }
 $form = new Kronolith_Form_EditCalendar($vars, $calendar);
 
 // Execute if the form is valid.
-if ($form->validate($vars)) {
+if ($owner && $form->validate($vars)) {
     $original_name = $calendar->get('name');
     try {
         $form->execute();
@@ -65,13 +67,12 @@ $page_output->header(array(
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
-if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
-    (!is_null($calendar->get('owner')) || !$GLOBALS['registry']->isAdmin())) {
-    echo $form->renderInactive($form->getRenderer(), $vars, Horde::url('calendars/edit.php'), 'post');
-} else {
+if ($owner) {
     $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(
         'id' => 'tags'
     ));
     echo $form->renderActive($form->getRenderer(), $vars, Horde::url('calendars/edit.php'), 'post');
+} else {
+    echo $form->renderInactive($form->getRenderer(), $vars);
 }
 $page_output->footer();
