@@ -24,26 +24,5 @@
  * @author  Matt Kynaston <matt@kynx.org>
  * @package Form
  */
-class Horde_Form_Action_ConditionalEnable extends Horde_Form_Action {
-
-    var $_trigger = array('onload');
-
-    function getActionScript(&$form, $renderer, $varname)
-    {
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('form_helpers.js', 'horde');
-
-        $form_name = $form->getName();
-        $target = $this->_params['target'];
-        $enabled = $this->_params['enabled'];
-        if (!is_string($enabled)) {
-            $enabled = ($enabled) ? 'true' : 'false';
-        }
-        $vals = $this->_params['values'];
-        $vals = (is_array($vals)) ? $vals : array($vals);
-        $args = "'$varname', $enabled, '" . implode("','", $vals) . "'";
-
-        return "if (addEvent(document.getElementById('$form_name').$target, 'onchange', \"checkEnabled(this, $args);\")) { "
-            . "  checkEnabled(document.getElementById('$form_name').$varname, $args); };";
-    }
-
+class Horde_Form_Action_ConditionalEnable extends Horde_Form_Action_conditional_enable {
 }
