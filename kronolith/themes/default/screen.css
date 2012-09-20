@@ -276,6 +276,7 @@ img.kronolithEventIcon {
 .kronolith-event .kronolith-time {
     font-weight: bold;
     margin-right: 2px;
+    white-space: nowrap;
 }
 .kronolith-event-tentative {
     font-style: italic;
