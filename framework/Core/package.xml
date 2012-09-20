@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-09-19</date>
- <time>17:05:37</time>
+ <date>2012-09-20</date>
+ <time>09:50:54</time>
  <version>
   <release>2.0.0beta6</release>
   <api>2.0.0beta1</api>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add View helpers to provide access to Horde::img, Horde::label(), and Horde_Help::link().
+* [mms] Add View helpers to provide access to accesskey methods, Horde::img(), Horde::label(), and Horde_Help::link().
 * [mjr] Fix adding Bcc recipients when sending mail from ActiveSync.
 * [mjr] Fix issue saving sent mail from ActiveSync (Bug #11410).
 * [mms] Added Horde_Core_Smartmobile_Url class.
@@ -573,6 +573,7 @@
       </dir> <!-- /lib/Horde/Core/Ui -->
       <dir name="View">
        <dir name="Helper">
+        <file name="Accesskey.php" role="php" />
         <file name="Help.php" role="php" />
         <file name="Image.php" role="php" />
         <file name="Label.php" role="php" />
@@ -1763,6 +1764,7 @@
    <install as="Horde/Core/Ui/Widget.php" name="lib/Horde/Core/Ui/Widget.php" />
    <install as="Horde/Core/Ui/VarRenderer/Html.php" name="lib/Horde/Core/Ui/VarRenderer/Html.php" />
    <install as="Horde/Core/Ui/VarRenderer/TablesetHtml.php" name="lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php" />
+   <install as="Horde/Core/View/Helper/Accesskey.php" name="lib/Horde/Core/View/Helper/Accesskey.php" />
    <install as="Horde/Core/View/Helper/Help.php" name="lib/Horde/Core/View/Helper/Help.php" />
    <install as="Horde/Core/View/Helper/Image.php" name="lib/Horde/Core/View/Helper/Image.php" />
    <install as="Horde/Core/View/Helper/Label.php" name="lib/Horde/Core/View/Helper/Label.php" />
@@ -2487,10 +2489,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-19</date>
+   <date>2012-09-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Add View helpers to provide access to Horde::img, Horde::label(), and Horde_Help::link().
+* [mms] Add View helpers to provide access to accesskey methods, Horde::img(), Horde::label(), and Horde_Help::link().
 * [mjr] Fix adding Bcc recipients when sending mail from ActiveSync.
 * [mjr] Fix issue saving sent mail from ActiveSync (Bug #11410).
 * [mms] Added Horde_Core_Smartmobile_Url class.
