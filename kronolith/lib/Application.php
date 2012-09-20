@@ -210,7 +210,7 @@ class Kronolith_Application extends Horde_Registry_Application
                 'header' => array(
                     'id' => 'kronolith-toggle-system',
                     'label' => _("System Calendars"),
-                    'collapsed' => false,
+                    'collapsed' => true,
                 ),
             );
             $sidebar->containers['system']['header']['add'] = array(
