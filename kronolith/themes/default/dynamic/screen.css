@@ -53,11 +53,14 @@ html, body {
 #kronolithMenu {
     position: absolute;
     top: 266px;
-    bottom: 10px;
+    bottom: 0;
     width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
     padding-top: 2px;
+}
+#kronolithMenuCalendars {
+    padding-bottom: 10px;
 }
 #kronolithLoadingCalendars {
     padding-left: 10px;
@@ -618,7 +621,7 @@ ul.horde-tags li:hover {
     width: auto;
 }
 #kronolithViewMonth .kronolith-event:hover {
-    max-height: 2.3em;
+    max-height: 2.5em;
 }
 #kronolithViewDay .kronolith-view-head .kronolith-event,
 #kronolithViewWeek .kronolith-view-head .kronolith-event,
