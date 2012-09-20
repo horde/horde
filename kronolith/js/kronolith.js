@@ -4472,14 +4472,14 @@ KronolithCore = {
                 return;
 
             case 'kronolith-minical':
-                if (orig.id == 'kronolithMinicalPrev') {
+                if (orig.id == 'kronolith-minical-prev') {
                     var date = this.parseDate($('kronolithMinicalDate').retrieve('date'));
                     date.previous().month();
                     this.updateMinical(date, date.getMonth() == this.date.getMonth() ? this.view : undefined);
                     e.stop();
                     return;
                 }
-                if (orig.id == 'kronolithMinicalNext') {
+                if (orig.id == 'kronolith-minical-next') {
                     var date = this.parseDate($('kronolithMinicalDate').retrieve('date'));
                     date.next().month();
                     this.updateMinical(date, date.getMonth() == this.date.getMonth() ? this.view : null);
