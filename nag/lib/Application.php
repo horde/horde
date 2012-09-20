@@ -141,8 +141,8 @@ class Nag_Application extends Horde_Registry_Application
         );
         if (!$GLOBALS['prefs']->isLocked('default_tasklist')) {
             $sidebar->containers['my']['add'] = array(
-                'url' => Horde::url('calendars/create.php'),
-                'label' => _("New Local Calendar"),
+                'url' => Horde::url('tasklists/create.php'),
+                'label' => _("New Task List"),
             );
         }
         $sidebar->containers['shared'] = array(
