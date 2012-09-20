@@ -9,6 +9,7 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
@@ -40,7 +41,8 @@ class Horde_Core_Ui_Tabs extends Horde_Core_Ui_Widget
         $this->_tabs[] = array_merge(array('title' => $title,
                                            'link' => $link->copy(),
                                            'tabname' => null,
-                                           'img' => null),
+                                           'img' => null,
+                                           'class' => null),
                                      $params);
     }
 
@@ -68,10 +70,11 @@ class Horde_Core_Ui_Tabs extends Horde_Core_Ui_Widget
      * @param string $active_tab  If specified, the name of the active tab. If
      *                            not, the active tab is determined
      *                            automatically.
+     * @param string $class       The CSS class of the tabset.
      */
-    public function render($active_tab = null)
+    public function render($active_tab = null, $class = 'tabset')
     {
-        $html = "<div class=\"tabset\"><ul>\n";
+        $html = "<div class=\"$class\"><ul>\n";
 
         $first = true;
         $active = $_SERVER['PHP_SELF'] . $this->_vars->get($this->_name);
@@ -82,11 +85,17 @@ class Horde_Core_Ui_Tabs extends Horde_Core_Ui_Widget
                 $link->add($this->_name, $tab['tabname']);
             }
 
-            $class = '';
+            $classes = array();
+            if (isset($tab['class'])) {
+                $classes[] = $tab['class'];
+            }
             if ((!is_null($active_tab) && $active_tab == $tab['tabname']) ||
                 ($active == $tab['link'] . $tab['tabname'])) {
-                $class = ' class="horde-active"';
+                $classes[] = 'horde-active';
             }
+            $class = $classes
+                ? (' class="' . implode(' ', $classes) . '"')
+                : '';
 
             $id = '';
             if (!empty($tab['id'])) {
