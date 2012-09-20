@@ -80,6 +80,7 @@ class Horde_View_Sidebar extends Horde_View
     public function render($name = 'sidebar', $locals = array())
     {
         $GLOBALS['page_output']->sidebarLoaded = true;
+        $effects = false;
         foreach ($this->containers as $id => &$container) {
             if (!isset($container['header'])) {
                 continue;
@@ -90,6 +91,12 @@ class Horde_View_Sidebar extends Horde_View
             if (isset($_COOKIE['horde_sidebar_c_' . $id])) {
                 $container['header']['collapsed'] = !empty($_COOKIE['horde_sidebar_c_' . $id]);
             }
+            $effects = true;
+        }
+        if ($effects) {
+            $GLOBALS['injector']
+                ->getInstance('Horde_PageOutput')
+                ->addScriptFile('scriptaculous/effects.js', 'horde');
         }
         $this->containers = array_values($this->containers);
         return parent::render($name, $locals);
