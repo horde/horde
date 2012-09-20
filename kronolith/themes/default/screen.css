@@ -287,13 +287,17 @@ img.kronolithEventIcon {
 .kronolith-location {
     font-size: 85%;
 }
+.kronolith-event img {
+    padding-top: 3px;
+    vertical-align: top;
+}
 #kronolithViewMonth .kronolith-event,
 .kronolithViewDay .kronolith-all-day .kronolith-event {
     line-height: 15px;
     padding: 3px 10px;
 }
 #kronolithViewMonth .kronolith-event {
-    max-height: 2.3em;
+    max-height: 2.5em;
 }
 .kronolithViewDay .kronolith-event {
     max-height: 40px;
