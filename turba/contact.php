@@ -77,14 +77,23 @@ case 'DeleteContact':
 $url = $contact->url();
 $tabs = new Horde_Core_Ui_Tabs('view', $vars);
 $tabs->addTab(_("_View"), $url,
-              array('tabname' => 'Contact', 'id' => 'tabContact', 'onclick' => 'return ShowTab(\'Contact\');'));
+              array('tabname' => 'Contact',
+                    'id' => 'tabContact',
+                    'class' => 'horde-icon',
+                    'onclick' => 'return ShowTab(\'Contact\');'));
 if ($contact->hasPermission(Horde_Perms::EDIT)) {
     $tabs->addTab(_("_Edit"), $url,
-                  array('tabname' => 'EditContact', 'id' => 'tabEditContact', 'onclick' => 'return ShowTab(\'EditContact\');'));
+                  array('tabname' => 'EditContact',
+                        'id' => 'tabEditContact',
+                        'class' => 'horde-icon',
+                        'onclick' => 'return ShowTab(\'EditContact\');'));
 }
 if ($contact->hasPermission(Horde_Perms::DELETE)) {
     $tabs->addTab(_("De_lete"), $url,
-                  array('tabname' => 'DeleteContact', 'id' => 'tabDeleteContact', 'onclick' => 'return ShowTab(\'DeleteContact\');'));
+                  array('tabname' => 'DeleteContact',
+                        'id' => 'tabDeleteContact',
+                        'class' => 'horde-icon',
+                        'onclick' => 'return ShowTab(\'DeleteContact\');'));
 }
 
 @list($own_source, $own_id) = explode(';', $prefs->getValue('own_contact'));
@@ -113,7 +122,7 @@ $page_output->header(array(
 ));
 echo $menuHtml;
 echo '<div id="page">';
-echo $tabs->render($viewName);
+echo $tabs->render($viewName, 'horde-buttonbar');
 echo '<h1 class="header">' . $own_link
     . ($contact->getValue('name')
        ? htmlspecialchars($contact->getValue('name'))

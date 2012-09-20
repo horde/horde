@@ -2,13 +2,13 @@
   <form style="display:inline" name="f<?php echo $id = md5(mt_rand()) ?>" action="javascript:void(0);" onsubmit="return false;">
   <ul>
 <?php if ($hasDelete): ?>
-    <li><?php echo Horde::widget(array('url' => '#', 'onclick' => "Submit('delete'); return false;", 'title' => $this->getType() == 'list' ? _("_Remove from this list") : _("_Delete"))) ?></li>
+    <li class="horde-icon"><?php echo Horde::widget(array('url' => '#', 'onclick' => "Submit('delete'); return false;", 'title' => $this->getType() == 'list' ? _("_Remove from this list") : _("_Delete"), 'class' => 'turba-delete')) ?></li>
 <?php endif ?>
 <?php if ($hasEdit): ?>
-    <li><?php echo Horde::widget(array('url' => '#', 'onclick' => "document.contacts.action='" . Horde::url('edit.php') . "'; Submit('groupedit'); return false;", 'title' => _("Edit"))) ?></li>
+    <li class="horde-icon"><?php echo Horde::widget(array('url' => '#', 'onclick' => "document.contacts.action='" . Horde::url('edit.php') . "'; Submit('groupedit'); return false;", 'title' => _("Edit"), 'class' => 'turba-edit')) ?></li>
 <?php endif ?>
 <?php if ($hasExport): ?>
-    <li><?php echo Horde::widget(array('url' => '#', 'onclick' => "document.contacts.action='" . $GLOBALS['registry']->downloadUrl('', array('actionID' => 'export')) . "'; Submit('select'); return false;", 'title' => _("Export"))) ?></li>
+    <li class="horde-icon"><?php echo Horde::widget(array('url' => '#', 'onclick' => "document.contacts.action='" . $GLOBALS['registry']->downloadUrl('', array('actionID' => 'export')) . "'; Submit('select'); return false;", 'title' => _("Export"), 'class' => 'horde-data')) ?></li>
 <?php endif ?>
 <?php if (!empty($copymove_source_options)): ?>
 <?php if ($hasDelete): ?>

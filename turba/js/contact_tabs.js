@@ -2,7 +2,7 @@ var contactTabs = null;
 function ShowTab(tab)
 {
     if (contactTabs == null) {
-        contactTabs = $('page').select('.tabset')[0].down();
+        contactTabs = $('page').select('.horde-buttonbar')[0].down();
     }
 
     contactTabs.select('li').each(function(item) {

@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-29</date>
- <time>23:58:15</time>
+ <date>2012-09-20</date>
+ <time>12:06:08</time>
  <version>
   <release>4.0.0beta3</release>
   <api>4.0.0beta1</api>
@@ -102,9 +102,7 @@
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Application">
-      <dir name="Helper">
-       <file name="Smartmobile.php" role="horde" />
-      </dir> <!-- /lib/Ajax/Application/Helper -->
+      <file name="Smartmobile.php" role="horde" />
      </dir> <!-- /lib/Ajax/Application -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
@@ -154,7 +152,6 @@
     </dir> <!-- /lib/Object -->
     <dir name="Prefs">
      <dir name="Special">
-      <file name="Addressbook.php" role="horde" />
       <file name="Columnselect.php" role="horde" />
      </dir> <!-- /lib/Prefs/Special -->
     </dir> <!-- /lib/Prefs -->
@@ -562,6 +559,7 @@
       <file name="az.png" role="horde" />
       <file name="az_secondary.png" role="horde" />
       <file name="contact.png" role="horde" />
+      <file name="delete.png" role="horde" />
       <file name="edit.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="group.png" role="horde" />
@@ -858,7 +856,7 @@
    <install as="turba/lib/Test.php" name="lib/Test.php" />
    <install as="turba/lib/Turba.php" name="lib/Turba.php" />
    <install as="turba/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
-   <install as="turba/lib/Ajax/Application/Helper/Smartmobile.php" name="lib/Ajax/Application/Helper/Smartmobile.php" />
+   <install as="turba/lib/Ajax/Application/Smartmobile.php" name="lib/Ajax/Application/Smartmobile.php" />
    <install as="turba/lib/Block/Minisearch.php" name="lib/Block/Minisearch.php" />
    <install as="turba/lib/Data/Ldif.php" name="lib/Data/Ldif.php" />
    <install as="turba/lib/Driver/Facebook.php" name="lib/Driver/Facebook.php" />
@@ -885,7 +883,6 @@
    <install as="turba/lib/Form/EditContactGroup.php" name="lib/Form/EditContactGroup.php" />
    <install as="turba/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="turba/lib/Object/Group.php" name="lib/Object/Group.php" />
-   <install as="turba/lib/Prefs/Special/Addressbook.php" name="lib/Prefs/Special/Addressbook.php" />
    <install as="turba/lib/Prefs/Special/Columnselect.php" name="lib/Prefs/Special/Columnselect.php" />
    <install as="turba/lib/View/Browse.php" name="lib/View/Browse.php" />
    <install as="turba/lib/View/Contact.php" name="lib/View/Contact.php" />
@@ -1062,6 +1059,7 @@
    <install as="turba/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="turba/themes/default/graphics/az_secondary.png" name="themes/default/graphics/az_secondary.png" />
    <install as="turba/themes/default/graphics/contact.png" name="themes/default/graphics/contact.png" />
+   <install as="turba/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="turba/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="turba/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="turba/themes/default/graphics/group.png" name="themes/default/graphics/group.png" />
@@ -1467,7 +1465,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-29</date>
+   <date>2012-09-20</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Drop preference which address books to display.
