@@ -145,12 +145,14 @@ foreach ($imp_indices as $ob) {
 /* Flag messages as seen. */
 $injector->getInstance('IMP_Message')->flag(array(Horde_Imap_Client::FLAG_SEEN), $imp_indices);
 
-$template = $injector->createInstance('Horde_Template');
-$template->setOption('gettext', true);
-$template->set(
-    'subject',
-    $mode == 'thread' ? $subject : sprintf(_("%d Messages"), count($msgs)));
+$view = new Horde_View(array(
+    'templatePath' => IMP_TEMPLATES . '/basic/thread'
+));
+
 if ($mode == 'thread') {
+    $view->subject = $subject;
+    $view->thread = true;
+
     $delete_link = IMP::mailbox()->url('mailbox.php')->add(array(
         'actionID' => 'delete_messages',
         'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')
@@ -158,14 +160,15 @@ if ($mode == 'thread') {
     foreach ($thread as $val) {
         $delete_link->add(array('indices[]' => strval(IMP::mailbox()->getIndicesOb($val)), 'start' => $imp_mailbox->getArrayIndex($val)));
     }
-    $template->set('delete', Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete')));
+    $view->delete = Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete'));
     $page_output->addInlineScript(array(
         '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete all messages in this thread?"), Horde_Serialize::JSON, $charset) . ')) { e.stop(); } })'
     ), true);
+} else {
+    $view->subject = sprintf(_("%d Messages"), count($msgs));
 }
-$template->set('thread', $mode == 'thread');
-$template->set('messages', $msgs);
-$template->set('tree', $tree);
+$view->messages = $msgs;
+$view->tree = $tree;
 
 /* Output page. */
 $page_output->addScriptFile('stripe.js', 'horde');
@@ -174,5 +177,5 @@ $menu = Horde::menu();
 IMP::header($mode == 'thread' ? _("Thread View") : _("Multiple Message View"));
 echo $menu;
 IMP::status();
-echo $template->fetch(IMP_TEMPLATES . '/basic/thread/thread.html');
+echo $view->render('thread');
 $page_output->footer();

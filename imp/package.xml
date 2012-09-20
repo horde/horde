@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-19</date>
- <time>17:16:35</time>
+ <date>2012-09-20</date>
+ <time>14:16:39</time>
  <version>
   <release>6.0.0beta4</release>
   <api>6.0.0beta1</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] All IMP templates now use Horde_View.
 * [mms] Add swipe action buttons to the smartmobile mailbox page.
 * [mms] Optimize loading of message bodies when using dynamic view.
 * [mms] Load new mailbox when renaming current mailbox in dynamic view (Request #11394).
@@ -703,42 +704,42 @@
    <dir name="templates">
     <dir name="basic">
      <dir name="compose">
-      <file name="compose.html" role="horde" />
-      <file name="redirect.html" role="horde" />
-      <file name="success.html" role="horde" />
+      <file name="compose.html.php" role="horde" />
+      <file name="redirect.html.php" role="horde" />
+      <file name="success.html.php" role="horde" />
      </dir> <!-- /templates/basic/compose -->
      <dir name="flist">
-      <file name="flist.html" role="horde" />
+      <file name="flist.html.php" role="horde" />
      </dir> <!-- /templates/basic/flist -->
      <dir name="folders">
-      <file name="actions.html" role="horde" />
-      <file name="folders_confirm.html" role="horde" />
-      <file name="folders_size.html" role="horde" />
-      <file name="head.html" role="horde" />
-      <file name="import.html" role="horde" />
+      <file name="actions.html.php" role="horde" />
+      <file name="folders_confirm.html.php" role="horde" />
+      <file name="folders_size.html.php" role="horde" />
+      <file name="head.html.php" role="horde" />
+      <file name="import.html.php" role="horde" />
      </dir> <!-- /templates/basic/folders -->
      <dir name="mailbox">
-      <file name="actions.html" role="horde" />
-      <file name="actions_deleted.html" role="horde" />
-      <file name="empty_mailbox.html" role="horde" />
-      <file name="form_start.html" role="horde" />
-      <file name="header.html" role="horde" />
-      <file name="mailbox.html" role="horde" />
-      <file name="message_headers.html" role="horde" />
-      <file name="navbar.html" role="horde" />
-      <file name="searchmbox.html" role="horde" />
+      <file name="actions.html.php" role="horde" />
+      <file name="actions_deleted.html.php" role="horde" />
+      <file name="empty_mailbox.html.php" role="horde" />
+      <file name="form_start.html.php" role="horde" />
+      <file name="header.html.php" role="horde" />
+      <file name="mailbox.html.php" role="horde" />
+      <file name="message_headers.html.php" role="horde" />
+      <file name="navbar.html.php" role="horde" />
+      <file name="searchmbox.html.php" role="horde" />
      </dir> <!-- /templates/basic/mailbox -->
      <dir name="message">
-      <file name="message.html" role="horde" />
-      <file name="navbar_actions.html" role="horde" />
-      <file name="navbar_navigate.html" role="horde" />
-      <file name="navbar_top.html" role="horde" />
+      <file name="message.html.php" role="horde" />
+      <file name="navbar_actions.html.php" role="horde" />
+      <file name="navbar_navigate.html.php" role="horde" />
+      <file name="navbar_top.html.php" role="horde" />
      </dir> <!-- /templates/basic/message -->
      <dir name="search">
-      <file name="search-basic.html" role="horde" />
+      <file name="search-basic.html.php" role="horde" />
      </dir> <!-- /templates/basic/search -->
      <dir name="thread">
-      <file name="thread.html" role="horde" />
+      <file name="thread.html.php" role="horde" />
      </dir> <!-- /templates/basic/thread -->
      <file name="subinfo.html.php" role="horde" />
     </dir> <!-- /templates/basic -->
@@ -1688,30 +1689,30 @@
    <install as="imp/migration/2_imp_autoincrement_sentmail.php" name="migration/2_imp_autoincrement_sentmail.php" />
    <install as="imp/templates/.htaccess" name="templates/.htaccess" />
    <install as="imp/templates/basic/subinfo.html.php" name="templates/basic/subinfo.html.php" />
-   <install as="imp/templates/basic/compose/compose.html" name="templates/basic/compose/compose.html" />
-   <install as="imp/templates/basic/compose/redirect.html" name="templates/basic/compose/redirect.html" />
-   <install as="imp/templates/basic/compose/success.html" name="templates/basic/compose/success.html" />
-   <install as="imp/templates/basic/flist/flist.html" name="templates/basic/flist/flist.html" />
-   <install as="imp/templates/basic/folders/actions.html" name="templates/basic/folders/actions.html" />
-   <install as="imp/templates/basic/folders/folders_confirm.html" name="templates/basic/folders/folders_confirm.html" />
-   <install as="imp/templates/basic/folders/folders_size.html" name="templates/basic/folders/folders_size.html" />
-   <install as="imp/templates/basic/folders/head.html" name="templates/basic/folders/head.html" />
-   <install as="imp/templates/basic/folders/import.html" name="templates/basic/folders/import.html" />
-   <install as="imp/templates/basic/mailbox/actions.html" name="templates/basic/mailbox/actions.html" />
-   <install as="imp/templates/basic/mailbox/actions_deleted.html" name="templates/basic/mailbox/actions_deleted.html" />
-   <install as="imp/templates/basic/mailbox/empty_mailbox.html" name="templates/basic/mailbox/empty_mailbox.html" />
-   <install as="imp/templates/basic/mailbox/form_start.html" name="templates/basic/mailbox/form_start.html" />
-   <install as="imp/templates/basic/mailbox/header.html" name="templates/basic/mailbox/header.html" />
-   <install as="imp/templates/basic/mailbox/mailbox.html" name="templates/basic/mailbox/mailbox.html" />
-   <install as="imp/templates/basic/mailbox/message_headers.html" name="templates/basic/mailbox/message_headers.html" />
-   <install as="imp/templates/basic/mailbox/navbar.html" name="templates/basic/mailbox/navbar.html" />
-   <install as="imp/templates/basic/mailbox/searchmbox.html" name="templates/basic/mailbox/searchmbox.html" />
-   <install as="imp/templates/basic/message/message.html" name="templates/basic/message/message.html" />
-   <install as="imp/templates/basic/message/navbar_actions.html" name="templates/basic/message/navbar_actions.html" />
-   <install as="imp/templates/basic/message/navbar_navigate.html" name="templates/basic/message/navbar_navigate.html" />
-   <install as="imp/templates/basic/message/navbar_top.html" name="templates/basic/message/navbar_top.html" />
-   <install as="imp/templates/basic/search/search-basic.html" name="templates/basic/search/search-basic.html" />
-   <install as="imp/templates/basic/thread/thread.html" name="templates/basic/thread/thread.html" />
+   <install as="imp/templates/basic/compose/compose.html.php" name="templates/basic/compose/compose.html.php" />
+   <install as="imp/templates/basic/compose/redirect.html.php" name="templates/basic/compose/redirect.html.php" />
+   <install as="imp/templates/basic/compose/success.html.php" name="templates/basic/compose/success.html.php" />
+   <install as="imp/templates/basic/flist/flist.html.php" name="templates/basic/flist/flist.html.php" />
+   <install as="imp/templates/basic/folders/actions.html.php" name="templates/basic/folders/actions.html.php" />
+   <install as="imp/templates/basic/folders/folders_confirm.html.php" name="templates/basic/folders/folders_confirm.html.php" />
+   <install as="imp/templates/basic/folders/folders_size.html.php" name="templates/basic/folders/folders_size.html.php" />
+   <install as="imp/templates/basic/folders/head.html.php" name="templates/basic/folders/head.html.php" />
+   <install as="imp/templates/basic/folders/import.html.php" name="templates/basic/folders/import.html.php" />
+   <install as="imp/templates/basic/mailbox/actions.html.php" name="templates/basic/mailbox/actions.html.php" />
+   <install as="imp/templates/basic/mailbox/actions_deleted.html.php" name="templates/basic/mailbox/actions_deleted.html.php" />
+   <install as="imp/templates/basic/mailbox/empty_mailbox.html.php" name="templates/basic/mailbox/empty_mailbox.html.php" />
+   <install as="imp/templates/basic/mailbox/form_start.html.php" name="templates/basic/mailbox/form_start.html.php" />
+   <install as="imp/templates/basic/mailbox/header.html.php" name="templates/basic/mailbox/header.html.php" />
+   <install as="imp/templates/basic/mailbox/mailbox.html.php" name="templates/basic/mailbox/mailbox.html.php" />
+   <install as="imp/templates/basic/mailbox/message_headers.html.php" name="templates/basic/mailbox/message_headers.html.php" />
+   <install as="imp/templates/basic/mailbox/navbar.html.php" name="templates/basic/mailbox/navbar.html.php" />
+   <install as="imp/templates/basic/mailbox/searchmbox.html.php" name="templates/basic/mailbox/searchmbox.html.php" />
+   <install as="imp/templates/basic/message/message.html.php" name="templates/basic/message/message.html.php" />
+   <install as="imp/templates/basic/message/navbar_actions.html.php" name="templates/basic/message/navbar_actions.html.php" />
+   <install as="imp/templates/basic/message/navbar_navigate.html.php" name="templates/basic/message/navbar_navigate.html.php" />
+   <install as="imp/templates/basic/message/navbar_top.html.php" name="templates/basic/message/navbar_top.html.php" />
+   <install as="imp/templates/basic/search/search-basic.html.php" name="templates/basic/search/search-basic.html.php" />
+   <install as="imp/templates/basic/thread/thread.html.php" name="templates/basic/thread/thread.html.php" />
    <install as="imp/templates/contacts/contacts.html.php" name="templates/contacts/contacts.html.php" />
    <install as="imp/templates/dynamic/compose-base.html.php" name="templates/dynamic/compose-base.html.php" />
    <install as="imp/templates/dynamic/compose.html.php" name="templates/dynamic/compose.html.php" />
@@ -2727,9 +2728,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-19</date>
+   <date>2012-09-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] All IMP templates now use Horde_View.
 * [mms] Add swipe action buttons to the smartmobile mailbox page.
 * [mms] Optimize loading of message bodies when using dynamic view.
 * [mms] Load new mailbox when renaming current mailbox in dynamic view (Request #11394).

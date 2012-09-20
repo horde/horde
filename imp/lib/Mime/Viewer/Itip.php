@@ -118,7 +118,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 break;
 
             case 'vTodo':
-                $out[] = $this->_vTodo($t, $component, $key, $method);
+                $out[] = $this->_vTodo($component, $key, $method);
                 break;
 
             case 'vTimeZone':
@@ -457,7 +457,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
     /**
      * Generate the html for a vEvent.
      */
-    protected function _vTodo(Horde_Template $t, $vtodo, $id, $method)
+    protected function _vTodo($vtodo, $id, $method)
     {
         global $prefs, $registry;
 

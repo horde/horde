@@ -70,6 +70,16 @@ $folders_token = $injector->getInstance('Horde_Token')->get('imp.folders');
 /* META refresh time (might be altered by actionID). */
 $refresh_time = $prefs->getValue('refresh_time');
 
+/* Set up the master View object. */
+$view = new Horde_View(array(
+    'templatePath' => IMP_TEMPLATES . '/basic/folders'
+));
+$view->addHelper('FormTag');
+$view->addHelper('Tag');
+$view->addHelper('Text');
+
+$view->folders_token = $folders_token;
+
 /* Run through the action handlers. */
 if ($vars->actionID) {
     try {
@@ -244,7 +254,7 @@ case 'empty_mbox_confirm':
             }
 
             $data = array(
-                'name' => $val->display_html,
+                'name' => $val->display,
                 'msgs' => $elt_info ? $elt_info['messages'] : 0,
                 'val' => $val->form_to
             );
@@ -261,14 +271,19 @@ case 'empty_mbox_confirm':
         IMP::header(_("Folder Actions - Confirmation"));
         echo $menu;
 
-        $template = $injector->createInstance('Horde_Template');
-        $template->setOption('gettext', true);
-        $template->set('delete', ($vars->actionID == 'delete_mbox_confirm'));
-        $template->set('empty', ($vars->actionID == 'empty_mbox_confirm'));
-        $template->set('mboxes', $loop);
-        $template->set('folders_url', $folders_url);
-        $template->set('folders_token', $folders_token);
-        echo $template->fetch(IMP_TEMPLATES . '/basic/folders/folders_confirm.html');
+        $v = clone $view;
+
+        if ($vars->actionID == 'delete_mbox_confirm') {
+            $vars->actionID = 'delete_mbox';
+            $v->delete = true;
+        } elseif ($vars->actionID == 'empty_mbox_confirm') {
+            $vars->actionID = 'empty_mbox';
+            $v->empty = true;
+        }
+        $v->mboxes = $loop;
+        $v->folders_url = $folders_url;
+
+        echo $v->render('folders_confirm');
 
         $page_output->footer();
         exit;
@@ -285,7 +300,7 @@ case 'mbox_size':
         foreach ($mbox_list as $val) {
             $size = $imp_message->sizeMailbox($val, false);
             $data = array(
-                'name' => $val->display_html,
+                'name' => $val->display,
                 'size' => sprintf(_("%.2fMB"), $size / (1024 * 1024)),
                 'sort' => $size
             );
@@ -297,11 +312,11 @@ case 'mbox_size':
         $injector->getInstance('Horde_View_Topbar')->subinfo =
             $injector->getInstance('IMP_View_Subinfo')->render();
 
-        $template = $injector->createInstance('Horde_Template');
-        $template->setOption('gettext', true);
-        $template->set('mboxes', $loop);
-        $template->set('mboxes_sum', sprintf(_("%.2fMB"), $sum / (1024 * 1024)));
-        $template->set('folders_url', $folders_url);
+        $v = clone $view;
+
+        $v->folders_url = $folders_url;
+        $v->mboxes = $loop;
+        $v->mboxes_sum = sprintf(_("%.2fMB"), $sum / (1024 * 1024));
 
         $page_output->addScriptFile('stripe.js', 'horde');
         $page_output->addScriptFile('tables.js', 'horde');
@@ -311,7 +326,7 @@ case 'mbox_size':
         echo $menu;
         IMP::status();
 
-        echo $template->fetch(IMP_TEMPLATES . '/basic/folders/folders_size.html');
+        echo $v->render('folders_size');
 
         $page_output->footer();
         exit;
@@ -343,41 +358,62 @@ if ($session->get('imp', 'file_upload') &&
     IMP::status();
 
     /* Prepare import template. */
-    $i_template = $injector->createInstance('Horde_Template');
-    $i_template->setOption('gettext', true);
-    $i_template->set('folders_url', $folders_url_ob);
-    $i_template->set('import_mbox', htmlspecialchars($mbox_list[0]));
-    $i_template->set('folders_token', $folders_token);
-    echo $i_template->fetch(IMP_TEMPLATES . '/basic/folders/import.html');
+    $v = clone $view;
+
+    $v->folders_url = $folders_url_ob;
+    $v->import_mbox = $mbox_list[0];
+
+    echo $v->render('import');
     $page_output->footer();
     exit;
 }
 
 /* Prepare the header template. */
-$head_template = $injector->createInstance('Horde_Template');
-$head_template->setOption('gettext', true);
-$head_template->set('folders_url', $folders_url_ob);
-$head_template->set('folders_token', $folders_token);
+$head_view = clone $view;
+$head_view->folders_url = $folders_url_ob;
 
 /* Prepare the actions template. */
-$a_template = $injector->createInstance('Horde_Template');
-$a_template->setOption('gettext', true);
-$a_template->set('id', 0);
+$actions = clone $view;
+$actions->addHelper('Horde_Core_View_Helper_Accesskey');
+$actions->addHelper('Horde_Core_View_Helper_Help');
 
-$a_template->set('refresh', Horde::widget(array('url' => $folders_url_ob->copy(), 'title' => _("_Refresh"))));
-$a_template->set('check_ak', Horde::getAccessKeyAndTitle(_("Check _All/None")));
-$a_template->set('create_mbox', $injector->getInstance('Horde_Core_Perms')->hasAppPermission('create_folders') && $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'));
+$actions->id = 0;
+
+$actions->refresh = Horde::widget(array('url' => $folders_url_ob->copy(), 'title' => _("_Refresh")));
+$actions->create_mbox = ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('create_folders') && $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'));
 if ($prefs->getValue('subscribe')) {
-    $a_template->set('subscribe', true);
-    $subToggleText = ($showAll) ? _("Hide Unsubscribed") : _("Show All");
-    $a_template->set('toggle_subscribe', Horde::widget(array('url' => $folders_url_ob->copy()->add(array('actionID' => 'toggle_subscribed_view', 'folders_token' => $folders_token)), 'titel' => $subToggleText, 'nocheck' => true)));
+    $actions->subscribe = true;
+    $subToggleText = $showAll
+        ? _("Hide Unsubscribed")
+        : _("Show All");
+    $actions->toggle_subscribe = Horde::widget(array(
+        'url' => $folders_url_ob->copy()->add(array(
+            'actionID' => 'toggle_subscribed_view',
+            'folders_token' => $folders_token
+        )),
+        'title' => $subToggleText,
+        'nocheck' => true
+    ));
 }
-$a_template->set('nav_poll', !$prefs->isLocked('nav_poll') && !$prefs->getValue('nav_poll_all'));
-$a_template->set('notrash', !$prefs->getValue('use_trash'));
-$a_template->set('file_upload', $session->get('imp', 'file_upload'));
-$a_template->set('expand_all', Horde::widget(array('url' => $folders_url_ob->copy()->add(array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), 'title' => _("Expand All"), 'nocheck' => true)));
-$a_template->set('collapse_all', Horde::widget(array('url' => $folders_url_ob->copy()->add(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), 'title' => _("Collapse All"), 'nocheck' => true)));
-$a_template->set('help', Horde_Help::link('imp', 'folder-options'));
+$actions->nav_poll = (!$prefs->isLocked('nav_poll') && !$prefs->getValue('nav_poll_all'));
+$actions->notrash = !$prefs->getValue('use_trash');
+$actions->file_upload = $session->get('imp', 'file_upload');
+$actions->expand_all = Horde::widget(array(
+    'url' => $folders_url_ob->copy()->add(array(
+        'actionID' => 'expand_all_folders',
+        'folders_token' => $folders_token
+    )),
+    'title' => _("Expand All"),
+    'nocheck' => true
+));
+$actions->collapse_all = Horde::widget(array(
+    'url' => $folders_url_ob->copy()->add(array(
+        'actionID' => 'collapse_all_folders',
+        'folders_token' => $folders_token
+    )),
+    'title' => _("Collapse All"),
+    'nocheck' => true
+));
 
 /* Build the folder tree. */
 $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
@@ -411,12 +447,12 @@ IMP::header(_("Folder Navigator"));
 echo $menu;
 IMP::status();
 
-echo $head_template->fetch(IMP_TEMPLATES . '/basic/folders/head.html');
-echo $a_template->fetch(IMP_TEMPLATES . '/basic/folders/actions.html');
+echo $head_view->render('head');
+echo $actions->render('actions');
 $tree->renderTree();
 if (count($tree) > 10) {
-    $a_template->set('id', 1);
-    echo $a_template->fetch(IMP_TEMPLATES . '/basic/folders/actions.html');
+    $actions->id = 1;
+    echo $actions->render('actions');
 }
 
 /* No need for extra template - close out the tags here. */

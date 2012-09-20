@@ -2,6 +2,7 @@
 v6.0.0-git
 ----------
 
+[mms] All IMP templates now use Horde_View.
 [mms] Add swipe action buttons to the smartmobile mailbox page.
 [mms] Optimize loading of message bodies when using dynamic view.
 [mms] Load new mailbox when renaming current mailbox in dynamic view (Request

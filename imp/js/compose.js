@@ -212,7 +212,7 @@ var ImpCompose = {
 
         if (elt.readAttribute('id') == 'redirect_abook') {
             window.open(this.redirect_contacts, "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100");
-        } else if (elt.hasClassName('button')) {
+        } else if (elt.match('INPUT[type=submit]')) {
             name = elt.readAttribute('name');
             switch (name) {
             case 'btn_add_attachment':

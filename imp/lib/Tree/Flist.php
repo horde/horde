@@ -69,26 +69,29 @@ class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
         $this->_nodes = $this->_tree->getNodes();
 
         $filter = $injector->createInstance('Horde_Text_Filter');
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-        $t->set('optgroup', $this->getOption('optgroup'));
+
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/basic/flist'
+        ));
+
+        $view->optgroup = $this->getOption('optgroup');
 
         /* Custom HTML. */
         if ($customhtml = $this->getOption('customhtml')) {
-            $t->set('customhtml', $customhtml);
+            $view->customhtml = $customhtml;
         }
 
         /* Heading. */
         if (($heading = $this->getOption('heading')) &&
             (strlen($heading) > 0)) {
-            $t->set('heading', $heading);
+            $view->heading = $heading;
         }
 
         /* New mailbox entry. */
         if ($this->getOption('new_mbox') &&
             ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('create_folders') &&
              $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'))) {
-            $t->set('new_mbox', true);
+            $view->new_mbox = true;
         }
 
         /* Virtual folders. */
@@ -107,7 +110,7 @@ class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
             }
 
             if (!empty($vfolder_list)) {
-                $t->set('vfolder', $vfolder_list);
+                $view->vfolder = $vfolder_list;
             }
         }
 
@@ -125,7 +128,7 @@ class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
                             'v' => IMP_Mailbox::formTo(IMP::TASKLIST_EDIT . $id)
                         );
                     }
-                    $t->set('tasklist', $tasklist_list);
+                    $view->tasklist = $tasklist_list;
                 }
             } catch (Horde_Exception $e) {}
         }
@@ -143,7 +146,7 @@ class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
                             'v' => IMP_Mailbox::formTo(IMP::NOTEPAD_EDIT . $id)
                         );
                     }
-                    $t->set('notepad', $notepad_list);
+                    $view->notepad = $notepad_list;
                 }
             } catch (Horde_Exception $e) {}
         }
@@ -157,9 +160,9 @@ class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
         foreach ($this->_tree->getRootNodes() as $node_id) {
             $tree .= $this->_buildTree($node_id);
         }
-        $t->set('tree', $tree);
+        $view->tree = $tree;
 
-        return $t->fetch(IMP_TEMPLATES . '/basic/flist/flist.html');
+        return $view->render('flist');
     }
 
     /**

@@ -1,3 +1,3 @@
 <div class="smallheader searchmbox">
- <tag:mbox_link />
+ <?php echo $this->mbox_link ?>
 </div>
