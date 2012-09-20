@@ -4013,7 +4013,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $this->writeDebug('', Horde_Imap_Client::DEBUG_CLIENT);
 
-        $this->_processSendList($data, $this->_debug && empty($opts['debug']));
+        $this->_processSendList($data, empty($opts['debug']));
 
         if (!empty($opts['debug'])) {
             $this->writeDebug($opts['debug']);
@@ -4143,7 +4143,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             fwrite($this->_stream, $data);
         }
 
-        if (!empty($opts['nodebug'])) {
+        if (!empty($opts['nodebug']) || !$this->debug) {
             return;
         }
 
