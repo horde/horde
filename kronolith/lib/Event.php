@@ -3167,8 +3167,6 @@ abstract class Kronolith_Event
         case Kronolith::STATUS_FREE:
             return 'kronolith-event-tentative';
         }
-
-        return 'kronolith-event';
     }
 
     private function _formIDEncode($id)
