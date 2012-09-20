@@ -196,17 +196,18 @@ class Horde_View_Sidebar extends Horde_View
             if (!isset($row['style'])) {
                 $row['style'] = '';
             }
-            $foreground = '000';
-            if (isset($row['color'])) {
-                if (Horde_Image::brightness($row['color']) < 128) {
-                    $foreground = 'fff';
-                }
-                if (strlen($row['style'])) {
-                    $row['style'] .= ';';
-                }
-                $row['style'] .= 'background-color:' . $row['color']
-                    . ';color:#' . $foreground;
+            if (!isset($row['color'])) {
+                $row['color'] = '#dddddd';
             }
+            $foreground = '000';
+            if (Horde_Image::brightness($row['color']) < 128) {
+                $foreground = 'fff';
+            }
+            if (strlen($row['style'])) {
+                $row['style'] .= ';';
+            }
+            $row['style'] .= 'background-color:' . $row['color']
+                . ';color:#' . $foreground;
             if (isset($row['edit'])) {
                 $row['editLink'] = $row['edit']
                     ->link(array(
