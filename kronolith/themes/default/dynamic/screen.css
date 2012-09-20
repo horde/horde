@@ -173,7 +173,7 @@ ul.horde-tags li:hover {
 .kronolithDialog .tabset li {
     margin-top: 0;
 }
-.kronolithDialog .tabset li.activeTab {
+.kronolithDialog .tabset li.horde-active {
     border: 1px solid #d0d0d0;
     border-bottom-width: 0;
     height: 21px;

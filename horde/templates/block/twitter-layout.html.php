@@ -21,7 +21,7 @@
  <br />
  <div class="tabset">
   <ul>
-   <li id="<?php echo $this->instance ?>_contenttab" class="activeTab"><a href="#" id="<?php echo $this->instance ?>_showcontenttab"><?php echo _("Stream")?></a></li>
+   <li id="<?php echo $this->instance ?>_contenttab" class="horde-active"><a href="#" id="<?php echo $this->instance ?>_showcontenttab"><?php echo _("Stream")?></a></li>
    <li id="<?php echo $this->instance ?>_mentiontab"><a href="#" id="<?php echo $this->instance ?>_showmentiontab"><?php echo _("Mentions") ?></a></li>
   </ul>
  </div>

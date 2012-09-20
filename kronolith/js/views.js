@@ -12,10 +12,10 @@ function ShowTab(tab)
             return;
         }
         if (c.id == 'tab' + tab) {
-            c.addClassName('activeTab');
+            c.addClassName('horde-active');
             t.show();
         } else {
-            c.removeClassName('activeTab');
+            c.removeClassName('horde-active');
             t.hide();
         }
     });

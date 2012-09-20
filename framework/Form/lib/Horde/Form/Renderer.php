@@ -142,7 +142,7 @@ class Horde_Form_Renderer {
         /* Loop through the sections and print out a tab for each. */
         echo "<div class=\"tabset\"><ul>\n";
         foreach ($form->_sections as $section => $val) {
-            $class = ($section == $open_section) ? ' class="activeTab"' : '';
+            $class = ($section == $open_section) ? ' class="horde-active"' : '';
             $js = sprintf('onclick="sections_%s.toggle(\'%s\'); return false;"',
                           $form->getName(),
                           $section);

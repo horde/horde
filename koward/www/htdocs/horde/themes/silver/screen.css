@@ -200,10 +200,10 @@ a.button {
     color: #999;
     background: url("graphics/tab_left.png") no-repeat left top;
 }
-.tabset li.activeTab {
+.tabset li.horde-active {
     background: url("graphics/currentTab_right.png") no-repeat right top;
 }
-.tabset li.activeTab a {
+.tabset li.horde-active a {
     color: #366;
     background: url("graphics/currentTab_left.png") no-repeat left top;
     border-bottom: 1px solid #999;

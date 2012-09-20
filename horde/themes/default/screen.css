@@ -651,10 +651,10 @@ div.logintasks-item input {
     font-weight: bold;
     text-decoration: none;
 }
-.tabset li.activeTab {
+.tabset li.horde-active {
     background: #fff;
 }
-.tabset li.activeTab a {
+.tabset li.horde-active a {
     color: #000;
 }
 .tabset img {

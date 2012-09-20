@@ -5,7 +5,7 @@
     <ul id="kronolithSearchNavigation">
       <li><a id="kronolithSearchAll"><?php echo _("All") ?></a></li>
       <li><a id="kronolithSearchPast"><?php echo _("Past") ?></a></li>
-      <li class="activeTab"><a id="kronolithSearchFuture"><?php echo _("Future") ?></a></li>
+      <li class="horde-active"><a id="kronolithSearchFuture"><?php echo _("Future") ?></a></li>
     </ul>
   </span>
   <span id="kronolithLoadingagenda" class="kronolithLoading"></span>

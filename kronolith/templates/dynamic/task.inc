@@ -43,7 +43,7 @@
 
 <div class="tabset">
   <ul>
-    <li class="activeTab"><a href="#" class="kronolithTabLink" id="kronolithTaskLinkDescription"><?php echo _("Description") ?></a></li>
+    <li class="horde-active"><a href="#" class="kronolithTabLink" id="kronolithTaskLinkDescription"><?php echo _("Description") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithTaskLinkReminder"><?php echo _("Reminder") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithTaskLinkRecur"><?php echo _("Repeat") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithTaskLinkTags"><?php echo _("Tags") ?></a></li>

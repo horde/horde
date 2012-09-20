@@ -220,9 +220,9 @@ KronolithCore = {
                 this.view = loc;
                 this.tasktype = tasktype;
                 $w('All Complete Incomplete Future').each(function(tasktype) {
-                    $('kronolithTasks' + tasktype).up().removeClassName('activeTab');
+                    $('kronolithTasks' + tasktype).up().removeClassName('horde-active');
                 });
-                $('kronolithTasks' + this.tasktype.capitalize()).up().addClassName('activeTab');
+                $('kronolithTasks' + this.tasktype.capitalize()).up().addClassName('horde-active');
                 this.loadTasks(this.tasktype);
                 $('kronolithView' + locCap).appear({
                     duration: this.effectDur,
@@ -264,9 +264,9 @@ KronolithCore = {
             this.addHistory(fullloc);
             this.search = time;
             $w('All Past Future').each(function(time) {
-                $('kronolithSearch' + time).up().removeClassName('activeTab');
+                $('kronolithSearch' + time).up().removeClassName('horde-active');
             });
-            $('kronolithSearch' + this.search.capitalize()).up().addClassName('activeTab');
+            $('kronolithSearch' + this.search.capitalize()).up().addClassName('horde-active');
             this.closeView('agenda');
             this.view = 'agenda';
             this.updateView(null, 'search', term);
@@ -1221,9 +1221,9 @@ KronolithCore = {
         var dialog = elt.up('form'), tab = $(elt.id.replace(/Link/, 'Tab')),
             field;
         dialog.select('.kronolithTabsOption').invoke('hide');
-        dialog.select('.tabset li').invoke('removeClassName', 'activeTab');
+        dialog.select('.tabset li').invoke('removeClassName', 'horde-active');
         tab.show();
-        elt.up().addClassName('activeTab');
+        elt.up().addClassName('horde-active');
         if (elt.id == 'kronolithEventLinkMap') {
             if (!this.mapInitialized) {
                 this.initializeMap();
@@ -5220,7 +5220,7 @@ KronolithCore = {
                 $('kronolithEventForm').focusFirstElement();
             } catch(e) {}
             if (Kronolith.conf.maps.driver &&
-                $('kronolithEventLinkMap').up().hasClassName('activeTab') &&
+                $('kronolithEventLinkMap').up().hasClassName('horde-active') &&
                 !this.mapInitialized) {
 
                 this.initializeMap();
@@ -6428,9 +6428,9 @@ KronolithCore = {
         }
         var dialog = $('kronolithEventForm');
         dialog.select('.kronolithTabsOption').invoke('hide');
-        dialog.select('.tabset li').invoke('removeClassName', 'activeTab');
+        dialog.select('.tabset li').invoke('removeClassName', 'horde-active');
         $('kronolithEventTabMap').show();
-        $('kronolithEventLinkMap').up().addClassName('activeTab');
+        $('kronolithEventLinkMap').up().addClassName('horde-active');
     },
 
     /**

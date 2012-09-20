@@ -7,10 +7,10 @@ function ShowTab(tab)
 
     contactTabs.select('li').each(function(item) {
         if (item.id == 'tab' + tab) {
-            item.addClassName('activeTab');
+            item.addClassName('horde-active');
             $(item.id.substring(3)).show();
         } else {
-            item.removeClassName('activeTab');
+            item.removeClassName('horde-active');
             $(item.id.substring(3)).hide();
         }
     });

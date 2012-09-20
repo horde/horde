@@ -85,7 +85,7 @@ class Horde_Core_Ui_Tabs extends Horde_Core_Ui_Widget
             $class = '';
             if ((!is_null($active_tab) && $active_tab == $tab['tabname']) ||
                 ($active == $tab['link'] . $tab['tabname'])) {
-                $class = ' class="activeTab"';
+                $class = ' class="horde-active"';
             }
 
             $id = '';

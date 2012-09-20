@@ -26,7 +26,7 @@ class Horde_Core_Form_Renderer_Html extends Horde_Core_Form_Renderer
         echo "<div class=\"tabset\">\n";
         $js = array();
         foreach ($form->_sections as $section => $val) {
-            $class = ($section == $open_section) ? ' class="activeTab"' : '';
+            $class = ($section == $open_section) ? ' class="horde-active"' : '';
             $tabid = htmlspecialchars($form->getName() . '_tab_' . $section);
             $js[$linkid] = sprintf('sections_%s.toggle(\'%s\'); return false;"',
                                    $form->getName(),
