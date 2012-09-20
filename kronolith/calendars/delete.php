@@ -27,7 +27,7 @@ if (Kronolith::showAjaxView()) {
 try {
     $calendar = $injector->getInstance('Kronolith_Shares')->getShare($calendar_id);
 } catch (Exception $e) {
-    $notification->push($e, 'horde.error');
+    $notification->push($e);
     $default->redirect();
 }
 if ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
@@ -43,7 +43,7 @@ if ($form->validate(new Horde_Variables($_POST))) {
         $form->execute();
         $notification->push(sprintf(_("The calendar \"%s\" has been deleted."), $calendar->get('name')), 'horde.success');
     } catch (Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
     }
     $default->redirect();
 }

@@ -18,7 +18,7 @@ $vars = Horde_Variables::getDefaultVariables();
 try {
     $tasklist = $nag_shares->getShare($vars->get('t'));
 } catch (Horde_Share_Exception $e) {
-    $notification->push($e->getMessage(), 'horde.error');
+    $notification->push($e);
     Horde::url('list.php', true)->redirect();
 }
 $owner = $tasklist->get('owner') == $GLOBALS['registry']->getAuth() ||
@@ -40,10 +40,10 @@ if ($owner && $form->validate($vars)) {
         } else {
             $notification->push(sprintf(_("The task list \"%s\" has been saved."), $original_name), 'horde.success');
         }
+        Horde::url('list.php', true)->redirect();
     } catch (Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
     }
-    Horde::url('list.php', true)->redirect();
 }
 
 $vars->set('name', $tasklist->get('name'));

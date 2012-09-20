@@ -19,7 +19,7 @@ $tasklist_id = $vars->get('t');
 try {
     $tasklist = $nag_shares->getShare($tasklist_id);
 } catch (Horde_Share_Exception $e) {
-    $notification->push($tasklist, 'horde.error');
+    $notification->push($e);
     Horde::url('list.php', true)->redirect();
 }
 if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
