@@ -49,12 +49,12 @@ case 'save_image':
 $view = new Horde_View(array(
     'templatePath' => IMP_TEMPLATES . '/saveimage'
 ));
+$view->addHelper('Horde_Core_View_Helper_Image');
 $view->addHelper('Text');
 
 $view->action = Horde::url('saveimage.php');
 $view->gallerylist = $registry->images->selectGalleries(array('perm' => Horde_Perms::EDIT));
 $view->id = $vars->id;
-$view->image_img = Horde::img('mime/image.png', _("Image"));
 $view->mbox = $vars->mbox;
 $view->uid = $vars->uid;
 

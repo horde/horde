@@ -5,7 +5,7 @@
  <input type="hidden" name="mbox" value="<?php echo $this->h($this->mbox) ?>" />
 
  <h1 class="header">
-  <?php echo $this->image_img ?>
+  <?php echo $this->hordeImage('mime/image.png', _("Image")) ?>
   <?php echo _("Select the gallery to save the image in.") ?>
  </h1>
 
