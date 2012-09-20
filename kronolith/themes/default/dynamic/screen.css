@@ -293,7 +293,7 @@ ul.horde-tags li:hover {
     padding: 10px;
     background-color: #d5dcde;
 }
-.kronolith-minical table tbody td {
+.kronolith-minical table tbody td, #kronolithMinicalDate {
     cursor: pointer;
 }
 
