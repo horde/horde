@@ -50,8 +50,8 @@ class Horde_Form_Action_conditional_setvalue extends Horde_Form_Action {
 
     function printJavaScript()
     {
-        $this->_printJavaScriptStart();
         $map = $this->_params['map'];
+        Horde::startBuffer();
 ?>
 
 var _map = [<?php
@@ -89,7 +89,8 @@ function map(sourceId, targetId)
         }
     }
 }<?php
-        $this->_printJavaScriptEnd();
+        $GLOBALS['injector']->getInstance('Horde_PageOutput')
+            ->addInlineScript(Horde::endBuffer());
     }
 
 }

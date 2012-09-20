@@ -132,7 +132,6 @@ class Horde_Form_Renderer {
 
         /* Add the javascript for the toggling the sections. */
         $page = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-        $page->deferScripts = false;
         $page->addScriptFile('form_sections.js', 'horde');
         $page->addInlineScript(
             sprintf('var sections_%1$s = new Horde_Form_Sections(\'%1$s\', \'%2$s\');',
@@ -296,12 +295,11 @@ class Horde_Form_Renderer {
             $this->_renderSectionEnd();
         }
 
+        $page = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         if (!is_null($error_section) && $form->_sections) {
-            echo '<script type="text/javascript">' .
-                "\n" . sprintf('sections_%s.toggle(\'%s\');',
-                               $form->getName(),
-                               $error_section) .
-                "\n</script>";
+            $page->addInlineScript(sprintf('sections_%s.toggle(\'%s\');',
+                                           $form->getName(),
+                                           $error_section));
         }
     }
 

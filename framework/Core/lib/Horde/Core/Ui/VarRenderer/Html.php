@@ -587,7 +587,14 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
         $instance = $var->type->getProperty('instance');
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('sorter.js', 'horde');
+        $page = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page->addScriptFile('sorter.js', 'horde');
+        $page->addInlineScript(
+             sprintf(
+                '%1$s = new Horde_Form_Sorter(\'%1$s\', \'%2$s\', \'%3$s\');%1$s.setHidden();',
+                $instance,
+                $this->_genID($var->getVarName(), false),
+                $var->type->getHeader()));
 
         return '<input type="hidden" name="' . htmlspecialchars($var->getVarName()) .
             '[array]" value="" ' . $this->_genID($var->getVarName() . '_array') . '/>' .
@@ -597,11 +604,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             $this->_genID($var->getVarName() . '_list') . '>' .
             $var->type->getOptions($var->getValue($vars)) . '</select><div class="leftFloat">' .
             Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnUp(); return false;') . Horde::img('nav/up.png', Horde_Core_Translation::t("Move up")) . '</a><br />' .
-            Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnDown(); return false;') . Horde::img('nav/down.png', Horde_Core_Translation::t("Move down")) . '</a></div>' .
-            '<script type="text/javascript">' . "\n" .
-            sprintf('%1$s = new Horde_Form_Sorter(\'%1$s\', \'%2$s\', \'%3$s\');' . "\n",
-                    $instance, $this->_genID($var->getVarName(), false), $var->type->getHeader()) .
-            sprintf("%s.setHidden();\n</script>\n", $instance);
+            Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnDown(); return false;') . Horde::img('nav/down.png', Horde_Core_Translation::t("Move down")) . '</a></div>';
     }
 
     protected function _renderVarInput_assign($form, &$var, &$vars)
@@ -751,13 +754,14 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             $enable = Horde_Core_Translation::t("Select all");
             $disable = Horde_Core_Translation::t("Select none");
             $invert = Horde_Core_Translation::t("Invert selection");
-            $html .= <<<EOT
-<script type="text/javascript">
-function $function_name()
+            $GLOBALS['injector']
+                ->getInstance('Horde_PageOutput')
+                ->addInlineScript(sprintf('
+function %s()
 {
-    for (var i = 0; i < document.$form_name.elements.length; i++) {
-        f = document.$form_name.elements[i];
-        if (f.name != '$var_name') {
+    for (var i = 0; i < document.%s.elements.length; i++) {
+        f = document.%s$2.elements[i];
+        if (f.name != \'%s$3\') {
             continue;
         }
         if (arguments.length) {
@@ -766,8 +770,10 @@ function $function_name()
             f.checked = !f.checked;
         }
     }
-}
-</script>
+}',
+                    $function_name, $form_name, $var_name));
+
+            $html .= <<<EOT
 <a href="#" onclick="$function_name(true); return false;">$enable</a>,
 <a href="#" onclick="$function_name(false); return false;">$disable</a>,
 <a href="#" onclick="$function_name(); return false;">$invert</a>
@@ -915,20 +921,21 @@ EOT;
         $varname = $var->getVarName();
         $varvalue = $vars->get($varname);
         $fieldId = $this->_genID(uniqid(mt_rand()), false) . 'id';
-        $html = '
-            <script type="text/javascript">
-            var obrowserWindowName;
-            function obrowserCallback(name, oid)
-            {
-                if (name == obrowserWindowName) {
-                    document.getElementById(\'' . $fieldId . '\').value = oid;
-                    return false;
-                } else {
-                    return "Invalid window name supplied";
-                }
-            }
-            </script>
-            ';
+        $GLOBALS['injector']
+            ->getInstance('Horde_PageOutput')
+            ->addInlineScript(sprintf('
+var obrowserWindowName;
+function obrowserCallback(name, oid)
+{
+    if (name == obrowserWindowName) {
+        document.getElementById(\'%s\').value = oid;
+        return false;
+    } else {
+        return "Invalid window name supplied";
+    }
+}',
+                $fieldId));
+
         $html .= sprintf('<input type="hidden" name="%s" id="%s"%s value="%s">',
                          htmlspecialchars($varname),
                          $fieldId,
