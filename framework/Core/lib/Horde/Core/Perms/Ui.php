@@ -77,7 +77,7 @@ class Horde_Core_Perms_Ui
 
         $perms_node = array('icon' => Horde_Themes::img('perms.png'));
         $add = Horde::url('admin/perms/addchild.php');
-        $add_img = Horde::img('add_perm.png', Horde_Core_Translation::t("Add Permission"));
+        $add_img = Horde::img('plus.png', Horde_Core_Translation::t("Add Permission"));
         $edit = Horde::url('admin/perms/edit.php');
         $delete = Horde::url('admin/perms/delete.php');
         $edit_img = Horde::img('edit.png', Horde_Core_Translation::t("Edit Permission"));
