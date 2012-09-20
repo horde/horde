@@ -16,7 +16,7 @@ Horde_Registry::appInit('mnemo');
 // Exit if this isn't an authenticated user or if the user can't
 // create new notepads (default share is locked).
 if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('default_notepad')) {
-    Horde::url('list.php', true)->redirect();
+    Horde::url('', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -25,12 +25,14 @@ $form = new Mnemo_Form_CreateNotepad($vars);
 // Execute if the form is valid.
 if ($form->validate($vars)) {
     try {
-        $result = $form->execute();
+        $notepad = $form->execute();
         $notification->push(sprintf(_("The notepad \"%s\" has been created."), $vars->get('name')), 'horde.success');
+        Horde::url('notepads/edit.php')
+            ->add('n', $notepad->getName())
+            ->redirect();
     } catch (Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
     }
-    Horde::url('notepads/', true)->redirect();
 }
 
 $page_output->header(array(

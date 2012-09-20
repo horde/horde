@@ -49,7 +49,7 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))
      <input type="hidden" name="memo" value="<?php echo $memo_id ?>" />
      <?php echo Horde::label('memo_passphrase', _("_Password")) ?>:
      <input type="password" id="memo_passphrase" name="memo_passphrase" />
-     <input type="submit" class="button" value="<?php echo _("Decrypt") ?>" />
+     <input type="submit" class="horde-default" value="<?php echo _("Decrypt") ?>" />
     </form>
    </div>
 <?php else: ?>

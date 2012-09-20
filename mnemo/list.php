@@ -57,7 +57,6 @@ case 'search_memos':
 $page_output->addScriptFile('tables.js', 'horde');
 $page_output->addScriptFile('quickfinder.js', 'horde');
 $page_output->header(array(
-    'body_class' => $prefs->getValue('show_panel') ? 'rightPanel' : null,
     'title' => $title
 ));
 echo Horde::menu();
@@ -114,5 +113,4 @@ if (count($memos)) {
     require MNEMO_TEMPLATES . '/list/empty.inc';
 }
 
-require MNEMO_TEMPLATES . '/panel.inc';
 $page_output->footer();
