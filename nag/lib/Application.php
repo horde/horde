@@ -140,9 +140,9 @@ class Nag_Application extends Horde_Registry_Application
             ),
         );
         if (!$GLOBALS['prefs']->isLocked('default_tasklist')) {
-            $sidebar->containers['my']['add'] = array(
+            $sidebar->containers['my']['header']['add'] = array(
                 'url' => Horde::url('tasklists/create.php'),
-                'label' => _("New Task List"),
+                'label' => _("Create a new Task List"),
             );
         }
         $sidebar->containers['shared'] = array(
