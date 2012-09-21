@@ -2,6 +2,8 @@
 v6.0.0-git
 ----------
 
+[mms] Capture key shortcuts on dynamic mailbox page even if focus is on IFRAME
+      HTML message data (Bug #11428).
 [mms] All IMP templates now use Horde_View.
 [mms] Add swipe action buttons to the smartmobile mailbox page.
 [mms] Optimize loading of message bodies when using dynamic view.

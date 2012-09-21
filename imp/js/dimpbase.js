@@ -1678,7 +1678,6 @@ var DimpBase = {
         this.pp.hide_all = r.onepart;
         this.pp.save_as = r.save_as;
 
-        $('messageBody').select('IFRAME').invoke('blur');
         $('messageBody').update(
             (r.msgtext === null)
                 ? $('messageBodyError').down().clone(true).show().writeAttribute('id', 'ppane_view_error')
@@ -2297,7 +2296,7 @@ var DimpBase = {
     keydownHandler: function(e)
     {
         var all, cnt, co, h, need, pp, ps, r, row, rownum, rowoff, sel,
-            tmp, vsel, prev,
+            tmp, vsel, prev, noelt,
             kc = e.keyCode || e.charCode;
 
         // Only catch keyboard shortcuts in message list view.
@@ -2305,8 +2304,14 @@ var DimpBase = {
             return;
         }
 
-        // Form catching.
-        if (e.findElement('FORM')) {
+        if (!Object.isFunction(e.element)) {
+            // Inside IFRAME. Wrap in prototypejs Event object.
+            e = new Event(e);
+            e.preventDefault();
+            noelt = true;
+            $$('IFRAME').invoke('blur');
+        } else if (e.findElement('FORM')) {
+            // Inside form, so ignore.
             return;
         }
 
@@ -2392,7 +2397,7 @@ var DimpBase = {
             break;
 
         case Event.KEY_RETURN:
-            if (!e.element().match('INPUT') && sel.size() == 1) {
+            if ((noelt || !e.element().match('INPUT')) && sel.size() == 1) {
                 // Popup message window if single message is selected.
                 this.msgWindow(sel.get('dataob').first());
             }
