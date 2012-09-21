@@ -73,6 +73,8 @@ class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/basic/flist'
         ));
+        $view->addHelper('FormTag');
+        $view->addHelper('Tag');
 
         $view->optgroup = $this->getOption('optgroup');
 
