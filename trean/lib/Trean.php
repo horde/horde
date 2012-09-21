@@ -73,7 +73,7 @@ class Trean
 
     static public function bookmarkletLink()
     {
-        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
         $view->url = Horde::url('add.php', true, array('append_session' => -1))
             ->add('popup', 1);
         $view->image = Horde::img('add.png');
