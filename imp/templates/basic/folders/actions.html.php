@@ -9,8 +9,10 @@
    <?php echo $this->refresh ?>
   </li>
   <li>
-   <?php echo $this->checkBoxTag('checkAll', 1, false, array_merge(array('class' => 'checkbox', 'id' => 'checkAll' . $this->id), $this->hordeAccessKeyAndTitle(_("Check _All/None"), false, true))) ?>
-   <label for="checkAll<?php echo $this->id ?>"><?php echo _("Check All/None") ?></label>
+   <span>
+    <?php echo $this->checkBoxTag('checkAll', 1, false, array_merge(array('class' => 'checkbox', 'id' => 'checkAll' . $this->id), $this->hordeAccessKeyAndTitle(_("Check _All/None"), false, true))) ?>
+    <label for="checkAll<?php echo $this->id ?>"><?php echo _("Check All/None") ?></label>
+   </span>
   </li>
   <li>
    <label for="action_choose<?php echo $this->id ?>" class="hidden"><?php echo _("Choose Action") ?></label>
