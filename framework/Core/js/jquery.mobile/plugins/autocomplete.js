@@ -155,7 +155,7 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
     destroy: function()
     {
         this.clear();
-        this.element.off('.autocomplete');
+        $([ this.element, this.options.target ]).off('.autocomplete');
     }
 
 });
