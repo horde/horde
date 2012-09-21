@@ -438,7 +438,7 @@ var DimpBase = {
                         $R(0, u.length, true).each(function(i) {
                             var c = u.charAt(i);
                             if (!this.tcache[c]) {
-                                this.tcache[c] = '<span class="treeImg treeImg' + c + '"></span>';
+                                this.tcache[c] = '<span class="horde-tree-image horde-tree-image-' + c + '"></span>';
                             }
                             r.subjectdata += this.tcache[c];
                         }, this);

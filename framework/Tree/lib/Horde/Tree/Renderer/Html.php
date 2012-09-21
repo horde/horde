@@ -142,7 +142,7 @@ class Horde_Tree_Renderer_Html extends Horde_Tree_Renderer_Base
             return '';
         }
 
-        $className = 'treeRowHeader';
+        $className = 'horde-tree-row-header';
 
         /* If using alternating row shading, work out correct
          * shade. */
@@ -204,7 +204,7 @@ class Horde_Tree_Renderer_Html extends Horde_Tree_Renderer_Base
     {
         $node = $this->_nodes[$node_id];
 
-        $className = 'treeRow';
+        $className = 'horde-tree-row';
         if (!empty($node['class'])) {
             $className .= ' ' . $node['class'];
         }
@@ -436,7 +436,7 @@ class Horde_Tree_Renderer_Html extends Horde_Tree_Renderer_Base
         }
 
         return $link_start .
-            $this->_generateImage($img, 'treeToggle') .
+            $this->_generateImage($img, 'horde-tree-toggle') .
             ($link_start ? '</a>' : '');
     }
 
@@ -507,7 +507,7 @@ class Horde_Tree_Renderer_Html extends Horde_Tree_Renderer_Base
             $img = $this->_images['leaf'];
         }
 
-        return $this->_generateImage($img, 'treeIcon', isset($node['iconalt']) ? htmlspecialchars($node['iconalt']) : null);
+        return $this->_generateImage($img, 'horde-tree-icon', isset($node['iconalt']) ? htmlspecialchars($node['iconalt']) : null);
     }
 
 }

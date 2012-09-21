@@ -149,7 +149,7 @@ th {
 #gallery-actions-toggle:hover, #othergalleries-toggle:hover {
     text-decoration: none;
 }
-#othergalleries .treeRow img {
+#othergalleries .horde-tree-row img {
     margin: 5px;
 }
 

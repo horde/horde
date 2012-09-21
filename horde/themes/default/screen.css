@@ -445,77 +445,76 @@ div.nicetitle {
 }
 
 /* Tree styles. */
-.treeIcon {
+.horde-tree-icon {
     padding-right: 5px;
 }
-.treeRow {
+.horde-tree-row {
     min-height: 20px;
     overflow: hidden;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.treeToggle {
+.horde-tree-toggle {
     cursor: pointer;
 }
-
-.treeHdrSpacer {
+.horde-tree-spacer {
     width: 50%;
 }
 
-span.treeImg {
+span.horde-tree-image {
     height: 20px;
     width: 20px;
     display: -moz-inline-stack;
     display: inline-block;
     vertical-align: middle;
 }
-span.treeImg1 {
+span.horde-tree-image-1 {
     background-image: url("graphics/tree/line.png");
 }
-span.treeImg2 {
+span.horde-tree-image-2 {
     background-image: url("graphics/tree/join.png");
 }
-span.treeImg3 {
+span.horde-tree-image-3 {
     background-image: url("graphics/tree/joinbottom-down.png");
 }
-span.treeImg4 {
+span.horde-tree-image-4 {
     background-image: url("graphics/tree/joinbottom.png");
 }
-span.treeImg5 {
+span.horde-tree-image-5 {
     background-image: url("graphics/tree/minustop.png");
 }
-span.treeImg6 {
+span.horde-tree-image-6 {
     background-image: url("graphics/tree/minus.png");
 }
-span.treeImg7 {
+span.horde-tree-image-7 {
     background-image: url("graphics/tree/minusbottom.png");
 }
-span.treeImg8 {
+span.horde-tree-image-8 {
     background-image: url("graphics/tree/minusonly.png");
 }
-span.treeImg9 {
+span.horde-tree-image-9 {
     background-image: url("graphics/tree/plustop.png");
 }
-span.treeImg10 {
+span.horde-tree-image-10 {
     background-image: url("graphics/tree/plus.png");
 }
-span.treeImg11 {
+span.horde-tree-image-11 {
     background-image: url("graphics/tree/plusbottom.png");
 }
-span.treeImg12 {
+span.horde-tree-image-12 {
     background-image: url("graphics/tree/plusonly.png");
 }
-span.treeImg13 {
+span.horde-tree-image-13 {
     background-image: url("graphics/tree/nullonly.png");
 }
-span.treeImg14 {
+span.horde-tree-image-14 {
     background-image: url("graphics/tree/folder.png");
 }
-span.treeImg15 {
+span.horde-tree-image-15 {
     background-image: url("graphics/tree/folderopen.png");
 }
-span.treeImg16 {
+span.horde-tree-image-16 {
     background-image: url("graphics/tree/leaf.png");
 }
 

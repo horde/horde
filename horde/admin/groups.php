@@ -189,7 +189,7 @@ $tree = $injector->getInstance('Horde_Core_Factory_Tree')->create('admin_groups'
 ));
 $tree->setHeader(array(
     array(
-        'class' => 'treeHdrSpacer'
+        'class' => 'horde-tree-spacer'
     )
 ));
 

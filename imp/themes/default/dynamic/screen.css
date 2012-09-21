@@ -981,7 +981,7 @@ div.vpRow div.msgSubject span.flagUser {
 }
 
 /* Thread images */
-div.msgSubject span.treeImg {
+div.msgSubject span.horde-tree-image {
     margin-top: -4px;
     margin-right: 1px;
 }

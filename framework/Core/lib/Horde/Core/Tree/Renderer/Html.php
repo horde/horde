@@ -18,7 +18,7 @@ class Horde_Core_Tree_Renderer_Html extends Horde_Tree_Renderer_Html
 {
     /**
      * Images array.
-     * Values correspond to 'treeImg#' CSS classes in horde/themes/screen.css.
+     * Values correspond to 'horde-tree-image-#' CSS classes in horde/themes/screen.css.
      *
      * @var array
      */
@@ -66,19 +66,19 @@ class Horde_Core_Tree_Renderer_Html extends Horde_Tree_Renderer_Html
     protected function _generateImage($src, $class = '', $alt = null)
     {
         switch ($class) {
-        case 'treeIcon':
+        case 'horde-tree-icon':
             return parent::_generateImage($src, $class, $alt);
 
-        case 'treeToggle':
-            $class .= ' treeImg';
+        case 'horde-tree-toggle':
+            $class .= ' horde-tree-image';
             break;
 
         default:
-            $class = 'treeImg';
+            $class = 'horde-tree-image';
             break;
         }
 
-        $img = '<span class="' . $class . ' treeImg' . $src . '"';
+        $img = '<span class="' . $class . ' horde-tree-image-' . $src . '"';
 
         if (!is_null($alt)) {
             $img.= ' alt="' . $alt . '"';

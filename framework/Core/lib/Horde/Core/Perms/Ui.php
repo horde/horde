@@ -91,7 +91,7 @@ class Horde_Core_Perms_Ui
         ));
         $tree->setHeader(array(
             array(
-                'class' => 'treeHdrSpacer'
+                'class' => 'horde-tree-spacer'
             )
         ));
 
