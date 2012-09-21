@@ -789,8 +789,9 @@ var ImpMobile = {
         if ($.isEmptyObject(purl.params)) {
             HordeMobile.changePage('compose');
             return;
-        } else if (purl.params.to) {
+        } else if (purl.params.to || purl.params.cc) {
             $('#imp-compose-to').val(purl.params.to);
+            $('#imp-compose-cc').val(purl.params.cc);
             HordeMobile.changePage('compose', data);
             return;
         }
@@ -870,6 +871,7 @@ var ImpMobile = {
                 .selectmenu('refresh', true);
 
             $('#imp-compose-to').val(r.header.to);
+            $('#imp-compose-cc').val(r.header.cc);
             $('#imp-compose-subject').val(r.header.subject);
             $('#imp-compose-message').val(r.body);
 
@@ -1225,14 +1227,16 @@ var ImpMobile = {
         $('#imp-message-atc').on('expand', ImpMobile.showAttachments);
 
         if (!IMP.conf.disable_compose) {
-            $('#imp-compose-to').autocomplete({
-                callback: function(e) {
-                    $('#imp-compose-to').val($(e.currentTarget).text());
-                },
-                link: '#',
-                minLength: 3,
-                source: 'smartmobileAutocomplete',
-                target: $('#imp-compose-suggestions')
+            $.each([ 'to', 'cc' ], function(undefined, v) {
+                $('#imp-compose-' + v).autocomplete({
+                    callback: function(e) {
+                        $('#imp-compose-' + v).val($(e.currentTarget).text());
+                    },
+                    link: '#',
+                    minLength: 3,
+                    source: 'smartmobileAutocomplete',
+                    target: $('#imp-compose-' + v + '-suggestions')
+                });
             });
         }
 

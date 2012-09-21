@@ -20,7 +20,11 @@
 
     <label for="imp-compose-to"><?php echo _("To:") ?></label>
     <input type="text" id="imp-compose-to" name="to" />
-    <ul id="imp-compose-suggestions" data-role="listview" data-inset="true"></ul>
+    <ul id="imp-compose-to-suggestions" data-role="listview" data-inset="true"></ul>
+
+    <label for="imp-compose-cc"><?php echo _("Cc:") ?></label>
+    <input type="text" id="imp-compose-cc" name="cc" />
+    <ul id="imp-compose-cc-suggestions" data-role="listview" data-inset="true"></ul>
 
     <label for="imp-compose-subject"><?php echo _("Subject:") ?></label>
     <input type="text" id="imp-compose-subject" name="subject" />
