@@ -272,10 +272,10 @@ case 'empty_mbox_confirm':
         $v = clone $view;
 
         if ($vars->actionID == 'delete_mbox_confirm') {
-            $vars->actionID = 'delete_mbox';
+            $v->actionID = 'delete_mbox';
             $v->delete = true;
         } elseif ($vars->actionID == 'empty_mbox_confirm') {
-            $vars->actionID = 'empty_mbox';
+            $v->actionID = 'empty_mbox';
             $v->empty = true;
         }
         $v->mboxes = $loop;
