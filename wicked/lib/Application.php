@@ -84,7 +84,7 @@ class Wicked_Application extends Horde_Registry_Application
                     $cellclass = '__noselection';
                 }
 
-                $url = Horde_Util::addParameter(Wicked::url($pagename), 'referrer', $referrer);
+                $url = Wicked::url($pagename)->add('referrer', $referrer);
                 $menu->add($url, $pages[$pagename], str_replace('/', '', $pagename) . '.png', null, null, null, $cellclass);
             }
         }

@@ -103,7 +103,7 @@ $actions = array();
 /* Check if the thread allows replies. */
 if (!$message['locked']) {
     $url = Agora::setAgoraId($forum_id, null, Horde::url('messages/edit.php'));
-    $url = Horde_Util::addParameter($url, 'message_parent_id', $message_id);
+    $url = $url->add('message_parent_id', $message_id);
     $actions[] = Horde::link($url, _("Reply")) . _("Reply") . '</a>';
 }
 
@@ -147,8 +147,8 @@ switch ($view_bodies) {
 case '2':
     $threads_template = 'messages/flat';
     if (!$prefs->isLocked('thread_view_bodies')) {
-        $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 0), _("Hide bodies")) . _("Hide bodies") . '</a>';
-        $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 1), _("Thread")) . _("Thread") . '</a>';
+        $actions[] = Horde::link($url->add('bodies', 0), _("Hide bodies")) . _("Hide bodies") . '</a>';
+        $actions[] = Horde::link($url->add('bodies', 1), _("Thread")) . _("Thread") . '</a>';
     }
     $threads = $messages->getThreadsUi($threads_list, $col_headers, $view_bodies, $threads_template);
     break;
@@ -156,8 +156,8 @@ case '2':
 case '1':
     $threads_template = 'messages/flat_thread';
     if (!$prefs->isLocked('thread_view_bodies')) {
-        $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 0), _("Hide bodies")) . _("Hide bodies") . '</a>';
-        $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 2), _("Flat")) . _("Flat") . '</a>';
+        $actions[] = Horde::link($url->add('bodies', 0), _("Hide bodies")) . _("Hide bodies") . '</a>';
+        $actions[] = Horde::link($url->add('bodies', 2), _("Flat")) . _("Flat") . '</a>';
     }
 
     /* Resort messages by thread */
@@ -176,7 +176,7 @@ case '1':
 default:
     $threads_template = false;
     if (!$prefs->isLocked('thread_view_bodies')) {
-        $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 1), _("View bodies")) . _("View bodies") . '</a>';
+        $actions[] = Horde::link($url->add('bodies', 1), _("View bodies")) . _("View bodies") . '</a>';
     }
     $threads = $messages->getThreadsUi($threads_list, $col_headers, $view_bodies, $threads_template);
     break;
@@ -191,7 +191,7 @@ $view->notify = Horde::endBuffer();
 
 $view->actions = $actions;
 $view->threads = $threads;
-$view->rss = Horde_Util::addParameter(Horde::url('rss/messages.php', true, -1), array('scope' => $scope, 'message_id' => $message_id, 'forum_id' => $forum_id));
+$view->rss = Horde::url('rss/messages.php', true, -1)->add(array('scope' => $scope, 'message_id' => $message_id, 'forum_id' => $forum_id));
 
 /* Display an edit-dialogue if the thread is not locked and we can edit messages in them. */
 if (!$messages->hasPermission(Horde_Perms::EDIT)) {

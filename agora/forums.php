@@ -25,7 +25,7 @@ if ($registry->isAdmin()) {
         if ($registry->hasMethod('hasComments', $app) &&
             $registry->callByPackage($app, 'hasComments') === true) {
             $app_name = $registry->get('name', $app);
-            $actions[] = Horde::link(Horde_Util::addParameter($url, 'scope', $app), $app_name) . $app_name . '</a>';
+            $actions[] = Horde::link($url->add('scope', $app), $app_name) . $app_name . '</a>';
         }
     }
 }

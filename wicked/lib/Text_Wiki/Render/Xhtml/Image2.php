@@ -43,11 +43,10 @@ class Text_Wiki_Render_Xhtml_Image2 extends Text_Wiki_Render
                 $params = array('page' => $page,
                                 'mime' => '1',
                                 'file' => $options['src']);
-                $options['src'] = Horde_Util::addParameter(Horde::url('view.php', true),
-                                                     $params, null, false);
+                $options['src'] = Horde::url('view.php', true)->add($params)->setRaw(true);
             }
         } else {
-            $options['src'] = Horde_Util::addParameter(Horde::externalUrl($options['src']), 'untrusted', 1, false);
+            $options['src'] = Horde::externalUrl($options['src'])->add('untrusted', 1)->setRaw(true);
         }
 
         // Send external links through Horde::externalUrl().

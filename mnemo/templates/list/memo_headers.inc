@@ -28,7 +28,7 @@ function table_sortCallback(tableId, column, sortDown)
     echo Horde::widget(array('url' => Horde::url('list.php')->add('sortby', Mnemo::SORT_CATEGORY), 'class' => 'sortlink', 'title' => _("_Category")));
     if ($GLOBALS['registry']->getAuth() && (!$GLOBALS['prefs']->isLocked('categories') ||
                             !$GLOBALS['prefs']->isLocked('category_colors'))) {
-        $categoryUrl = Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php'), array('app' => 'horde', 'group' => 'categories'));
+        $categoryUrl = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs.php')->add(array('app' => 'horde', 'group' => 'categories'));
         echo ' ' . Horde::link($categoryUrl, _("Edit categories and colors"), '', '_blank', 'HordePopup.popup({url:this.href});Event.stop(event);return false;') . Horde::img('colorpicker.png', _("Edit categories and colors"), '') . '</a>';
     }
     ?>

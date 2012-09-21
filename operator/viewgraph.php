@@ -83,8 +83,7 @@ if (!empty($stats)) {
     $graphtypes = Operator::getGraphInfo();
 
     foreach($graphtypes as $type => $info) {
-        $graphs[$type] = Horde_Util::addParameter($url, array(
-                            'graph' => $type, 'key' => $cachekey));
+        $graphs[$type] = $url->add(array('graph' => $type, 'key' => $cachekey));
     }
 }
 $curgraph = $vars->get('graph');

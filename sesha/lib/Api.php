@@ -42,7 +42,7 @@ class Sesha_Api extends Horde_Registry_Api
         return array('id' => $queue_id,
                     'name' => $category->category,
                     'description' => $category->description,
-                    'link' => Horde_Util::addParameter(Horde::applicationUrl('list.php', true), 'display_category', $queue_id - 1, false),
+                    'link' => Horde::applicationUrl('list.php', true)->add('display_category', $queue_id - 1)->setRaw(true),
                     'subjectlist' => $GLOBALS['conf']['tickets']['subjects'],
                     'versioned' => $registry->hasMethod('tickets/listVersions') == $registry->getApp(),
                     'readonly' => true);
@@ -79,7 +79,7 @@ class Sesha_Api extends Horde_Registry_Api
         return array('id' => $version_id,
                     'name' => $item->stock_name,
                     'description' => $item->note,
-                    'link' => Horde_Util::addParameter(Horde::applicationUrl('stock.php', true), array('stock_id' => $version_id, 'actionId' => 'view_stock'), null, false),
+                    'link' => Horde::applicationUrl('stock.php', true)->add(array('stock_id' => $version_id, 'actionId' => 'view_stock'))->setRaw(true),
                     'readonly' => true);
     }
 }

@@ -38,8 +38,7 @@
         <br style="clear:both;">
         <ul id="dialplanControls" class="controls">
         <?php
-        $addurl = Horde::url('dialplan.php');
-        $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
+        $addurl = Horde::url('dialplan.php')->add('action', 'add');
         ?>
 
         <li>

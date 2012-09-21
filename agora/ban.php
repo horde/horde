@@ -39,13 +39,14 @@ if (($action = Horde_Util::getFormData('action')) !== null) {
 }
 
 /* Get the list of banned users. */
-$delete = Horde_Util::addParameter(Horde::url('ban.php'),
-                            array('action' => 'delete',
-                                  'scope' => $scope,
-                                  'forum_id' => $forum_id));
+$delete = Horde::url('ban.php')->add(array(
+    'action' => 'delete',
+    'scope' => $scope,
+    'forum_id' => $forum_id
+));
 $banned = $forums->getBanned();
 foreach ($banned as $user => $level) {
-    $banned[$user] = Horde::link(Horde_Util::addParameter($delete, 'user', $user), _("Delete")) . $user . '</a>';
+    $banned[$user] = Horde::link($delete->add('user', $user), _("Delete")) . $user . '</a>';
 }
 
 $title = _("Ban");

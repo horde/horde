@@ -39,7 +39,7 @@ if (!$rss) {
         <item>
             <title>' . htmlspecialchars($forum['forum_name']) . ' </title>
             <description>' . htmlspecialchars($forum['forum_description']) . ' </description>
-            <link>' . Horde_Util::addParameter(Horde::url('threads.php', true, -1), array('scope' => $scope, 'forum_id' => $forum['forum_id'])) . '</link>
+            <link>' . Horde::url('threads.php', true, -1)->add(array('scope' => $scope, 'forum_id' => $forum['forum_id'])) . '</link>
         </item>';
     }
 

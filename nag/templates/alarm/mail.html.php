@@ -1,4 +1,4 @@
-<p><font size="4"><strong><a href="<?php echo Horde_Util::removeParameter($this->task->view_link, session_name()) ?>"><?php echo $this->h($this->task->name) ?></a></strong></font></p>
+<p><font size="4"><strong><a href="<?php $url = new Horde_Url($this->task_view_link); echo $url->removeParameter(session_name()) ?>"><?php echo $this->h($this->task->name) ?></a></strong></font></p>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
   <td width="140" valign="top">

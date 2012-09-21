@@ -554,7 +554,7 @@ class Wicked_Page
             $url = Horde::url($linkpage);
         }
 
-        return Horde_Util::addParameter($url, $params);
+        return $url->add($params);
     }
 
     public function pageTitle()

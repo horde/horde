@@ -95,8 +95,7 @@ if ($form->validate($vars)) {
 
     $channel = $GLOBALS['injector']->getInstance('Jonah_Driver')->getChannel($channel_id);
     if (empty($channel['channel_story_url'])) {
-        $story_url = Horde::url('stories/view.php', true);
-        $story_url = Horde_Util::addParameter($story_url, array('channel_id' => '%c', 'id' => '%s'));
+        $story_url = Horde::url('stories/view.php', true)->add(array('channel_id' => '%c', 'id' => '%s'));
     } else {
         $story_url = $channel['channel_story_url'];
     }

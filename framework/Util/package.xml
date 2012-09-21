@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Remove Horde_Util::addParameter() and Horde_Util::removeParameter().
 * [mms] Remove Horde_Util::cloneObject().
  </notes>
  <contents>
@@ -81,13 +82,6 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
-   <package>
-    <name>Horde_Url</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
    <extension>
     <name>dom</name>
    </extension>
@@ -498,6 +492,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2012-07-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Remove Horde_Util::addParameter() and Horde_Util::removeParameter().
 * [mms] Remove Horde_Util::cloneObject().
    </notes>
   </release>

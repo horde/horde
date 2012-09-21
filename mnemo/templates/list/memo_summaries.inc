@@ -3,7 +3,7 @@
 <?php
 if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     $label = sprintf(_("Edit \"%s\""), $memo['desc']);
-    echo Horde::link(Horde::url(Horde_Util::addParameter($memourl, 'actionID', 'modify_memo')), $label) .
+    echo Horde::link(Horde::url($memourl)->add('actionID', 'modify_memo')), $label) .
         Horde::img('edit.png', $label, '') . '</a>';
 }
 ?>

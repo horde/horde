@@ -975,10 +975,10 @@ class Nag
         foreach ($addresses as $lang => $twentyFour) {
             $GLOBALS['registry']->setLanguageEnvironment($lang);
 
-            $view_link = Horde_Util::addParameter(Horde::url('view.php', true),
-                                            array('tasklist' => $task->tasklist,
-                                                  'task' => $task->id),
-                                            null, false);
+            $view_link = Horde::url('view.php', true)->add(array(
+                'tasklist' => $task->tasklist,
+                'task' => $task->id
+            ))->setRaw(true);
 
             switch ($action) {
             case 'add':

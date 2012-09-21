@@ -48,9 +48,9 @@ class Luxor
             $uri = 'source.php';
         }
 
-        $url = Horde_Util::addParameter(Horde::url($uri), $arglist);
+        $url = Horde::url($uri)->add($arglist);
         if (!empty($anchor)) {
-            $url .= "#$anchor";
+            $url->setAnchor($anchor);
         }
 
         return $url;

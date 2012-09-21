@@ -676,8 +676,8 @@ class Nag_Task
         }
 
         if (!isset($view_url_list[$this->tasklist])) {
-            $view_url_list[$this->tasklist] = Horde_Util::addParameter(Horde::url('view.php'), 'tasklist', $this->tasklist);
-            $task_url_list[$this->tasklist] = Horde_Util::addParameter(Horde::url('task.php'), 'tasklist', $this->tasklist);
+            $view_url_list[$this->tasklist] = Horde::url('view.php')->add('tasklist', $this->tasklist);
+            $task_url_list[$this->tasklist] = Horde::url('task.php')->add('tasklist', $this->tasklist);
         }
 
         /* Obscure private tasks. */
@@ -687,12 +687,12 @@ class Nag_Task
         }
 
         /* Create task links. */
-        $this->view_link = Horde_Util::addParameter($view_url_list[$this->tasklist], 'task', $this->id);
+        $this->view_link = $view_url_list[$this->tasklist]->copy()->add('task', $this->id);
 
-        $task_url_task = Horde_Util::addParameter($task_url_list[$this->tasklist], 'task', $this->id);
+        $task_url_task = $task_url_list[$this->tasklist]->copy()->add('task', $this->id);
         $this->complete_link = Horde::url('t/complete')->add(array('url' => Horde::url('list.php'), 'task' => $this->id, 'tasklist' => $this->tasklist));
-        $this->edit_link = Horde_Util::addParameter($task_url_task, 'actionID', 'modify_task');
-        $this->delete_link = Horde_Util::addParameter($task_url_task, 'actionID', 'delete_task');
+        $this->edit_link = $task_url_task->copy()->add('actionID', 'modify_task');
+        $this->delete_link = $task_url_task->copy()->add('actionID', 'delete_task');
     }
 
     /**

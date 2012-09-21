@@ -6,10 +6,10 @@ try {
     $right .= sprintf(_("Last Modified %s by %s"), $this->formatVersionCreated(), $this->author());
 
     $v = $this->version();
-    $diff_url = Horde_Util::addParameter(Horde::url('diff.php'),
-                                   array('page' => $this->pageName(),
-                                         'v1' => '?',
-                                         'v2' => $v));
+    $diff_url = Horde::url('diff.php')->add(array(
+        'page' => $this->pageName(),
+        'v1' => '?',
+        'v2' => $v));
 
     $diff_alt = sprintf(_("Show changes for %s"), $v);
     $right .= '&nbsp;' .

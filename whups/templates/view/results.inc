@@ -42,11 +42,11 @@ function doResort(column, sortDown)
          }
          if ($sortby == $value) {
              $class = ' class="' . $sortdirclass . '"';
-             $revurl = Horde_Util::addParameter($this->_params['url'], 'sortdir', ($sortdir ? 0 : 1));
+             $revurl = Horde::url($this->_params['url'])->add('sortdir', ($sortdir ? 0 : 1));
              $sortlink = Horde::link($revurl, sprintf(_("Sort by %s"), $name), 'sortlink') . $name . '</a> ';
          } else {
              $class = '';
-             $url = Horde_Util::addParameter($this->_params['url'], 'sortby', $value);
+             $url = Horde::url($this->_params['url'])->add('sortby', $value);
              $sortlink = Horde::link($url, sprintf(_("Sort by %s"), $name), 'sortlink') . $name . '</a> ';
          }
 

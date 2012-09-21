@@ -56,11 +56,11 @@ class Agora {
 
         if (!empty($url)) {
             if ($scope) {
-                $url = Horde_Util::addParameter($url, 'scope', $scope, $encode);
+                $url = Horde::url($url)->add('scope', $scope)->setRaw(!$encode);
             } else {
-                $url = Horde_Util::addParameter($url, 'scope', Horde_Util::getGet('scope', 'agora'), $encode);
+                $url = Horde::url($url)->add('scope', Horde_Util::getGet('scope', 'agora'))->setRaw(!$encode);
             }
-            return Horde_Util::addParameter($url, 'agora', $agora_id, $encode);
+            return $url->add('agora', $agora_id);
         }
 
         return $agora_id;
@@ -168,8 +168,7 @@ class Agora {
     function formatColumnHeaders($columns, $sort_by, $sort_dir, $view)
     {
         /* Get the current url, remove any sorting parameters. */
-        $url = Horde::selfUrl(true);
-        $url = Horde_Util::removeParameter($url, array($view . '_sortby', $view . '_sortdir'));
+        $url = Horde::selfUrl(true)->remove(array($view . '_sortby', $view . '_sortdir'));
 
         /* Go through the column headers to format and add sorting links. */
         $headers = array();
@@ -194,21 +193,21 @@ class Agora {
                  * add sort direction arrow. */
                 $sort_img = ($sort_dir ? 'za.png' : 'az.png');
                 $sort_title = ($sort_dir ? _("Sort Ascending") : _("Sort Descending"));
-                $col_arrow = Horde::link(Horde_Util::addParameter($url, array($view . '_sortby' => $col_name, $view . '_sortdir' => $sort_dir ? 0 : 1)), $sort_title) .
+                $col_arrow = Horde::link($url->add(array($view . '_sortby' => $col_name, $view . '_sortdir' => $sort_dir ? 0 : 1)), $sort_title) .
                     Horde::img($sort_img, $sort_title) . '</a> ';
                 $col_class = 'selected';
             } else {
                 /* Column not currently sorted, add link to sort by
                  * this one and no sort arrow. */
                 $col_arrow = '';
-                $col_title = Horde::link(Horde_Util::addParameter($url, $view . '_sortby', $col_name), sprintf(_("Sort by %s"), $col_title)) . $col_title . '</a>';
+                $col_title = Horde::link($url->add($view . '_sortby', $col_name), sprintf(_("Sort by %s"), $col_title)) . $col_title . '</a>';
                 $col_class = 'item';
             }
             $col_class .= ' leftAlign';
             if (count($extra)) {
                 list($name, $title) = each($extra);
                 $col_title .= '&nbsp;<small>[' .
-                    Horde::link(Horde_Util::addParameter($url, $view . '_sortby', $name), sprintf(_("Sort by %s"), $title)) . $title . '</a>' .
+                    Horde::link($url->add($view . '_sortby', $name), sprintf(_("Sort by %s"), $title)) . $title . '</a>' .
                     ']</small>';
                 $col_name = $extra_name;
             }

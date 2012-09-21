@@ -48,14 +48,14 @@ try {
 }
 
 /* Add delete links to moderators */
-$url = Horde_Util::addParameter(Horde::url('moderators.php'), 'action', 'delete');
+$url = Horde::url('moderators.php')->add('action', 'delete');
 foreach ($forums_list as $key => $forum) {
     if (!isset($forum['moderators'])) {
         unset($forums_list[$key]);
         continue;
     }
     foreach ($forum['moderators'] as $id => $moderator) {
-        $delete = Horde_Util::addParameter($url, array('moderator' => $moderator, 'forum_id' => $forum['forum_id']));
+        $delete = $url->add(array('moderator' => $moderator, 'forum_id' => $forum['forum_id']));
         $forums_list[$key]['moderators'][$id] = Horde::link($delete, _("Delete")) . $moderator . '</a>';
     }
 }

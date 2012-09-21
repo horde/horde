@@ -58,14 +58,13 @@ if (count($memos)) {
     require MNEMO_TEMPLATES . '/list/memo_headers.inc';
 
     foreach ($memos as $memo_id => $memo) {
-        $viewurl = Horde_Util::addParameter(
-            'view.php',
+        $viewurl = Horde::url('view.php')->add(
             array('memo' => $memo['memo_id'],
                   'memolist' => $memo['memolist_id']));
 
-        $memourl = Horde_Util::addParameter(
-            'memo.php', array('memo' => $memo['memo_id'],
-                              'memolist' => $memo['memolist_id']));
+        $memourl = Horde::url('memo.php')->add(
+            array('memo' => $memo['memo_id'],
+                  'memolist' => $memo['memolist_id']));
         try {
             $share = $GLOBALS['mnemo_shares']->getShare($memo['memolist_id']);
             $notepad = $share->get('name');

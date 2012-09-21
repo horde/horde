@@ -82,66 +82,6 @@ class Horde_Util
     }
 
     /**
-     * Adds a name=value pair to the end of an URL, taking care of whether
-     * there are existing parameters and whether to use ?, & or &amp; as the
-     * glue.  All data will be urlencoded.
-     *
-     * @deprecated
-     *
-     * @param Horde_Url|string $url  The URL to modify.
-     * @param mixed $parameter       Either the name value -or- an array of
-     *                               name/value pairs.
-     * @param string $value          If specified, the value part ($parameter
-     *                               is then assumed to just be the parameter
-     *                               name).
-     * @param boolean $encode        Encode the argument separator?
-     *
-     * @return Horde_Url  The modified URL.
-     */
-    static public function addParameter($url, $parameter, $value = null,
-                                        $encode = true)
-    {
-        if (empty($parameter)) {
-            return $url;
-        }
-
-        if ($url instanceof Horde_Url) {
-            $url = $url->copy()->add($parameter, $value);
-            if (is_null($url->raw)) {
-                $url->setRaw(!$encode);
-            }
-            return $url;
-        }
-
-        $url = new Horde_Url($url);
-        if (is_null($url->raw) && count($url->parameters)) {
-            $url->setRaw(!$encode);
-        }
-        return $url->add($parameter, $value);
-    }
-
-    /**
-     * Removes name=value pairs from a URL.
-     *
-     * @deprecated
-     *
-     * @param Horde_Url|string $url  The URL to modify.
-     * @param mixed $remove          Either a single parameter to remove or an
-     *                               array of parameters to remove.
-     *
-     * @return Horde_Url  The modified URL.
-     */
-    static public function removeParameter($url, $remove)
-    {
-        if ($url instanceof Horde_Url) {
-            return $url->copy()->remove($remove);
-        }
-
-        $horde_url = new Horde_Url($url);
-        return $horde_url->remove($remove);
-    }
-
-    /**
      * Returns a hidden form input containing the session name and id.
      *
      * @param boolean $append_session  0 = only if needed, 1 = always.

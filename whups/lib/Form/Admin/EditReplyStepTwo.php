@@ -33,7 +33,7 @@ class Whups_Form_Admin_EditReplyStepTwo extends Horde_Form
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin', 'permlevel' => Horde_Perms::EDIT))) {
             $permslink = array(
                 'text' => _("Edit the permissions on this form reply"),
-                'url' => Horde_Util::addParameter(Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/perms/edit.php'), 'category', "whups:replies:$reply"), 'autocreate', '1'));
+                'url' => Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/perms/edit.php')->add(array('category' => "whups:replies:$reply", 'autocreate' => '1')));
             $this->addVariable('', 'link', 'link', false, true, null, array($permslink));
         }
     }

@@ -59,10 +59,7 @@ class Folks {
     static public function getImageUrl($user, $view = 'small', $full = false)
     {
         if (empty($GLOBALS['conf']['images']['direct'])) {
-            return Horde_Util::addParameter(Horde::url('view.php', $full),
-                                     array('view' => $view,
-                                           'id' => $user),
-                                     null, false);
+            return Horde::url('view.php', $full)->add(array('view' => $view, 'id' => $user))->setRaw(true);
         } else {
             $p = hash('md5', $user);
             return $GLOBALS['conf']['images']['direct'] .
@@ -102,7 +99,7 @@ class Folks {
 
         case 'user':
             if (empty($GLOBALS['conf']['urls']['pretty'])) {
-                return Horde_Util::addParameter(Horde::url('user.php', $full, $append_session), 'user', $data);
+                return Horde::url('user.php', $full, $append_session)->add('user', $data);
             } else {
                 return Horde::url('user/' . $data, $full, $append_session);
             }
