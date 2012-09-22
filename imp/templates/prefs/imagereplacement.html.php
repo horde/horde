@@ -3,5 +3,5 @@
 </div>
 
 <div class="fixed">
- <textarea name="safe_addrs" rows="10" cols="80" class="fixed"><?php $this->h($this->safe_addrs) ?></textarea>
+ <textarea name="safe_addrs" rows="10" cols="80" class="fixed"><?php echo $this->h($this->safe_addrs) ?></textarea>
 </div>
