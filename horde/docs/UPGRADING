@@ -39,6 +39,11 @@ Configuration Options (conf.php)
 The $conf['session']['max_time'] option was added. The default is no maximum
 session time, the same behavior as in Horde 4.
 
+The $conf['cachejsparams']['url_version_param'] option was added. This option
+is only used if no javascript caching is selected (a configuration that is NOT
+recommended for production servers). The default is to add version information
+to javascript server URLs, which is altered behavior from Horde 4.
+
 
 Hooks (hooks.php)
 -----------------
@@ -63,8 +68,9 @@ The 'sending_charset' preference now defaults to 'UTF-8'.
 
 The 'menu_view' and 'show_sidebar' preferences have been removed.
 
+
 ActiveSync (EAS) Integration
-----------------------
+----------------------------
 
 Email support has been added, along with support for the EAS 12.0 and 12.1
 protocol versions. New configuration options have been added to support this.

@@ -2,6 +2,8 @@
 v5.0.0-git
 ----------
 
+[mms] Add version parameter to static javascript file URLs to help with cache
+      busting when these files change between releases.
 [mms] Add configuration option for maximum allowed session times.
 
 

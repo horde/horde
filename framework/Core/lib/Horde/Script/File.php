@@ -86,7 +86,7 @@ class Horde_Script_File
     public function __get($name)
     {
         switch ($name) {
-        case' app':
+        case 'app':
             return $this->_app;
 
         case 'file':
@@ -115,7 +115,7 @@ class Horde_Script_File
 
         case 'url':
         case 'url_full':
-            return Horde::url('/' . $this->_file, ($name == 'url_full'), -1);
+            return $this->_url($this->_file, ($name == 'url_full'));
         }
     }
 
@@ -137,6 +137,24 @@ class Horde_Script_File
     public function __toString()
     {
         return $this->tag;
+    }
+
+    /**
+     * Create a static javascript URL.
+     *
+     * @param string $file   File name.
+     * @param boolean $full  Return full URL?
+     *
+     * @return Horde_Url  URL.
+     */
+    protected function _url($file, $full)
+    {
+        $url = Horde::url($file, $full, -1);
+
+        /* Add cache-busting version param. */
+        return empty($GLOBALS['conf']['cachejsparams']['url_version_param'])
+            ? $url
+            : $url->add('v', hash('md5', $GLOBALS['registry']->getVersion($this->app)));
     }
 
 }
