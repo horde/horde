@@ -70,7 +70,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         default:
             $uid = strval(new Horde_Support_Randomid());
 
-            $GLOBALS['page_output']->addScriptFile('imp.js');
+            $GLOBALS['page_output']->addScriptPackage('IMP_Script_Package_Imp');
 
             $data['js'] = array('IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON, $this->_mimepart->getCharset()) . ')');
             $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none"></iframe>';
@@ -212,14 +212,12 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         if ($inline && $this->_imptmp['imgblock']) {
-            $imple = $injector->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ImageUnblock', array(
-                'mailbox' => $contents->getMailbox(),
-                'uid' => $contents->getUid()
-            ));
             $tmp = new IMP_Mime_Status(array(
                 _("Images have been blocked in this message part."),
-                Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>',
-                Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getDomId())) . _("Always show images from this sender?") . '</a>'
+                Horde::link('#', '', 'unblockImageLink', '', '', '', '', array(
+                    'mailbox' => $contents->getMailbox()->form_to,
+                    'uid' => $contents->getUid()
+                )) . _("Show Images?") . '</a>'
             ));
             $tmp->icon('mime/image.png');
             $status[] = $tmp;

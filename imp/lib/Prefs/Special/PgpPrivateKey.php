@@ -26,7 +26,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
     {
         global $injector, $page_output, $prefs, $session;
 
-        $page_output->addScriptFile('imp.js');
+        $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/prefs'

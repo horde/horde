@@ -26,7 +26,7 @@ class IMP_Prefs_Special_SmimePublicKey implements Horde_Core_Prefs_Ui_Special
     {
         global $injector, $page_output, $prefs, $session;
 
-        $page_output->addScriptFile('imp.js');
+        $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
         $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
 

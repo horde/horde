@@ -26,9 +26,10 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         }
 
         $page_output->addScriptFile('message-dimp.js');
-        $page_output->addScriptFile('imp.js');
         $page_output->addScriptFile('textarearesize.js', 'horde');
         $page_output->addScriptFile('toggle_quotes.js', 'horde');
+
+        $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
         $js_vars = array();
         $uid = IMP::uid();

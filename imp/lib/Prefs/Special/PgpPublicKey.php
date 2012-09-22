@@ -26,7 +26,7 @@ class IMP_Prefs_Special_PgpPublicKey implements Horde_Core_Prefs_Ui_Special
     {
         global $injector, $page_output, $prefs, $session;
 
-        $page_output->addScriptFile('imp.js');
+        $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
         $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
 

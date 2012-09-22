@@ -25,7 +25,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         global $browser, $conf, $injector, $page_output, $prefs, $registry, $session;
 
         $page_output->addScriptFile('dimpbase.js');
-        $page_output->addScriptFile('imp.js');
         $page_output->addScriptFile('passphrase.js');
         $page_output->addScriptFile('viewport.js');
         $page_output->addScriptFile('dragdrop2.js', 'horde');
@@ -34,6 +33,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $page_output->addScriptFile('slider2.js', 'horde');
         $page_output->addScriptFile('toggle_quotes.js', 'horde');
         $page_output->addScriptPackage('Dialog');
+        $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
         $this->_addMailboxVars();
 
