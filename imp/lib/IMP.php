@@ -72,10 +72,6 @@ class IMP
 
                 /* Gettext strings used in core javascript files. */
                 'text' => array(
-                    /* Strings used in imp.js */
-                    'popup_block' => _("A popup window could not be opened. Perhaps you have set your browser to block popup windows?"),
-
-                    /* Strings used in multiple pages. */
                     'moveconfirm' => _("Are you sure you want to move the message(s)? (Some message information might get lost, like message headers, text formatting or attachments!)"),
                     'spam_report' => _("Are you sure you wish to report this message as spam?"),
                     'notspam_report' => _("Are you sure you wish to report this message as innocent?"),
