@@ -423,4 +423,45 @@ class Ingo
         return $rule;
     }
 
+    /**
+     * Output description for a rule.
+     *
+     * @param array $rule  Rule.
+     *
+     * @return string  Text description.
+     */
+    static public function ruleDescription($rule)
+    {
+        $condition_size = count($rule['conditions']) - 1;
+        $descrip = '';
+
+        foreach ($rule['conditions'] as $key => $val) {
+            $descrip .= sprintf("%s %s \"%s\"", $val['field'], $val['match'], $val['value']);
+
+            if (!empty($val['case'])) {
+                $descrip .= ' [' . _("Case Sensitive") . ']';
+            }
+
+            if ($key < $condition_size) {
+                $descrip .= ($rule['combine'] == Ingo_Storage::COMBINE_ALL)
+                    ? _(" and")
+                    : _(" or");
+                $descrip .= "\n  ";
+            }
+        }
+
+        $descrip .= "\n" .
+            $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->getActionInfo($rule['action'])->label;
+
+        if ($rule['action-value']) {
+            $descrip .= ': ' . $rule['action-value'];
+        }
+
+        if ($rule['stop']) {
+            $descrip .= "\n[stop]";
+        }
+
+        return $descrip;
+    }
+
 }
