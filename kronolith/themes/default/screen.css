@@ -285,7 +285,8 @@ img.kronolithEventIcon {
     text-decoration: line-through;
 }
 .kronolith-location {
-    font-size: 85%;
+    font-size: 90%;
+    margin-left: 2px;
 }
 .kronolith-event img {
     padding-top: 3px;
