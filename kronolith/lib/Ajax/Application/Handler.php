@@ -1125,7 +1125,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             break;
 
         case 'resourcegroup':
-            if (empty($calendar)) {
+            if (empty($calendar_id)) {
                 // New resource group.
                 $resource = Kronolith_Resource::addResource(
                     new Kronolith_Resource_Group(array(
@@ -1134,6 +1134,13 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                         'members' => $this->vars->members)
                     )
                 );
+            } else {
+                $driver = Kronolith::getDriver('Resource');
+                $resource = $driver->getResource($calendar_id);
+                $resource->set('name', $this->vars->name);
+                $resource->set('description', $this->vars->description);
+                $resource->set('members', $this->vars->members);
+                $resource->save();
             }
 
             $wrapper = new Kronolith_Calendar_ResourceGroup(array('resource' => $resource));

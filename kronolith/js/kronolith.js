@@ -3022,6 +3022,10 @@ KronolithCore = {
                 $('kronolithCalendarremoteUsername').setValue(info.user);
                 $('kronolithCalendarremotePassword').setValue(info.password);
                 break;
+            case 'resourcegroup':
+                $('kronolithCalendarresourcegroupDescription').setValue(info.desc)
+                $('kronolithCalendarresourcegroupmembers').setValue(info.members);
+                break;
             case 'resource':
                 $('kronolithCalendarresourceDescription').setValue(info.desc);
                 $('kronolithCalendarresourceResponseType').setValue(info);
