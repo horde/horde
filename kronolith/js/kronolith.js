@@ -1010,6 +1010,12 @@ KronolithCore = {
             }, this);
         }
 
+        if (Kronolith.conf.calendars.resourcegroup) {
+            $H(Kronolith.conf.calendars.resourcegroup).each(function(cal) {
+                this.insertCalendarInList('resourcegroup', cal.key, cal.value);
+            }, this);
+        }
+
         $H(Kronolith.conf.calendars.external).each(function(cal) {
             var parts = cal.key.split('/'), api = parts.shift();
             if (!ext.get(api)) {

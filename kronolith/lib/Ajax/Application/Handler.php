@@ -65,6 +65,11 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                     'resource' => $resource
                 ));
                 $result->calendars['resource'][$resource->get('calendar')] = $rcal->toHash();
+            } else {
+                $rcal = new Kronolith_Calendar_ResourceGroup(array(
+                    'resource' => $resource
+                ));
+                $result->calendars['resourcegroup'][$resource->getId()] = $rcal->toHash();
             }
         }
 
