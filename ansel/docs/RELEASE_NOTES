@@ -15,15 +15,18 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Ansel Photo
-Management and Web Gallery application version H4 (2.0.1).
+Management and Web Gallery application version H4 (2.0.2).
 
 Ansel is a full featured photo management application. With it, you can organize
 your photos in any number of galleries and subgalleries, share galleries among
 other Horde users or make them public. Ansel supports a wide range of
 features. See http://www.horde.org/ansel for more information.
 
-Major changes compared to the Ansel version H4 (2.0) are:
-    * Small bugfixes.
+Major changes compared to the Ansel version H4 (2.0.1) are:
+    * Fixed auto rotation of images based on Exif data.
+    * Fixed retrieving gallery data via the API.
+    * Fixed moving a subgallery to a top level gallery.
+    * Other minor bugfixes.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */

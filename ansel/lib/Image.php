@@ -858,7 +858,7 @@ class Ansel_Image Implements Iterator
     public function raw($view = 'full')
     {
         if ($this->_dirty) {
-            $data = $this->_image->raw();
+            $data = $this->_image->raw( );
             $this->reset();
             return $data;
         } else {
