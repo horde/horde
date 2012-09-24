@@ -2291,7 +2291,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $status_res = $this->status($this->_selected, Horde_Imap_Client::STATUS_MESSAGES);
 
-        $ob = new Horde_Imap_Client_Data_Thread($status_res['messages'] ? $this->_thread($options) : array(), empty($options['sequence']) ? 'uid' : 'sequence');
+        $ob = $status_res['messages']
+            ? $this->_thread($options)
+            : new Horde_Imap_Client_Data_Thread(array(), empty($options['sequence']) ? 'uid' : 'sequence');
 
         if ($cache) {
             $this->_setSearchCache($ob, $cache);
@@ -2305,19 +2307,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @param array $options  Additional options. See thread().
      *
-     * @return array  An array with the following values, one per message,
-     *                with the key being either the UID (default) or the
-     *                message sequence number (if 'sequence' is true). Values
-     *                of each entry:
-     *   - b (base): (integer) [OPTIONAL] The ID of the base message. If not
-     *               set, this is the only message in the thread.
-     *               DEFAULT: Only message in thread
-     *   - l (level): (integer) [OPTIONAL] The thread level of this
-     *                message (1 = base).
-     *                DEFAULT: 0
-     *   - s (subthread): (boolean) [OPTIONAL] Are there more messages in this
-     *                    subthread?
-     *                    DEFAULT: No
+     * @return Horde_Imap_Client_Data_Thread  A thread data object.
      *
      * @throws Horde_Imap_Client_Exception
      */

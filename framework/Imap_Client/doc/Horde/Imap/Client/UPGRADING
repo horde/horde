@@ -188,6 +188,42 @@ logging any errors.
       - to_decoded
       - to_group
 
+  - Horde_Imap_Client_Data_Thread
+
+    - Constructor
+
+      The format of the first parameter ($data) has changed.
+
+    - getRawData()
+
+      This method has been removed.
+
+    - getThread()
+
+      This method now returns a list of objects. This is now the way that
+      individual indices of a thread are accessed.
+
+    - getThreadBase()
+
+      This method has been removed (see getThread() for replacement).
+
+    - getThreadIndent()
+
+      This method has been removed (see getThread() for replacement).
+
+    - getType()
+
+      This method has been added.
+
+    - lastInLevel()
+
+      This method has been removed (see getThread() for replacement).
+
+    - messageList()
+
+      This method now returns the list of IDs in a Horde_Imap_Client_Ids
+      object.
+
   - Horde_Imap_Client_Exception
 
     These constants have been removed:

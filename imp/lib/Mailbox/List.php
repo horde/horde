@@ -298,7 +298,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
         foreach ($query_ob as $mbox => $val) {
             if ($thread_sort) {
                 $this->_thread[$mbox] = $imp_imap->thread($mbox, $val ? array_merge($opts, array('search' => $val)) : $opts);
-                $sorted = $this->_thread[$mbox]->messageList();
+                $sorted = $this->_thread[$mbox]->messageList()->ids;
                 if ($sortpref->sortdir) {
                     $sorted = array_reverse($sorted);
                 }
@@ -683,7 +683,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
             $this->rebuild();
         }
 
-        return new IMP_Indices($mbox, $this->_thread[strval($mbox)]->getThread($uid));
+        return new IMP_Indices($mbox, array_keys($this->_thread[strval($mbox)]->getThread($uid)));
     }
 
     /**
@@ -703,39 +703,33 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
             $thread_level = array();
             $t_ob = $this->_thread[$mbox];
 
-            foreach ($t_ob->getThread($uid) as $val) {
-                $this->_threadui[$mbox][$val] = '';
-
-                $indentBase = $t_ob->getThreadBase($val);
-                if (empty($indentBase)) {
+            foreach ($t_ob->getThread($uid) as $key => $val) {
+                if (is_null($val->base) ||
+                    ($val->last && ($val->base == $key))) {
+                    $this->_threadui[$mbox][$key] = '';
                     continue;
                 }
 
-                $lastinlevel = $t_ob->lastInLevel($val);
-                if ($lastinlevel && ($indentBase == $val)) {
-                    continue;
-                }
-
-                $indentLevel = $t_ob->getThreadIndent($val);
-
-                if ($lastinlevel) {
+                if ($val->last) {
                     $join = IMP_Mailbox_List_Thread::JOINBOTTOM;
                 } else {
-                    $join = (($indentLevel == 1) && ($indentBase == $val))
+                    $join = (!$val->level && ($val->base == $key))
                         ? IMP_Mailbox_List_Thread::JOINBOTTOM_DOWN
                         : IMP_Mailbox_List_Thread::JOIN;
                 }
 
-                $thread_level[$indentLevel] = $lastinlevel;
+                $thread_level[$val->level] = $val->last;
                 $line = '';
 
-                for ($i = 1; $i < $indentLevel; ++$i) {
-                    $line .= (isset($thread_level[$i]) && !$thread_level[$i])
-                        ? IMP_Mailbox_List_Thread::LINE
-                        : IMP_Mailbox_List_Thread::BLANK;
+                for ($i = 0; $i < $val->level; ++$i) {
+                    if (isset($thread_level[$i])) {
+                        $line .= (isset($thread_level[$i]) && !$thread_level[$i])
+                            ? IMP_Mailbox_List_Thread::LINE
+                            : IMP_Mailbox_List_Thread::BLANK;
+                    }
                 }
 
-                $this->_threadui[$mbox][$val] = $line . $join;
+                $this->_threadui[$mbox][$key] = $line . $join;
             }
         }
 

@@ -146,6 +146,17 @@ class Horde_Imap_Client_TokenizeTest extends PHPUnit_Framework_TestCase
         $this->assertNull($inner->next());
         $this->assertNull($inner->next());
         $this->assertFalse($inner->next());
+
+        $test3 = '(\Foo)';
+        $token3 = new Horde_Imap_Client_Tokenize($test3);
+
+        $inner = $token3->rewind();
+        $this->assertTrue($inner instanceof Horde_Imap_Client_Tokenize);
+
+        $this->assertEquals(
+            '\\Foo',
+            $inner->rewind()
+        );
     }
 
     public function testTokenizeListWithoutExhaustingInnerStream()

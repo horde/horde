@@ -181,10 +181,9 @@ class Horde_Imap_Client_Tokenize implements Iterator
         while (($c = fgetc($this->stream->stream)) !== false) {
             switch ($c) {
             case '\\':
-                // Back-slashes only appear inside quoted strings and literals
-                if ($in_quote) {
-                    $text .= fgetc($this->stream->stream);
-                }
+                $text .= $in_quote
+                    ? fgetc($this->stream->stream)
+                    : $c;
                 break;
 
             case '"':

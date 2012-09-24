@@ -27,21 +27,28 @@
  */
 class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
 {
+    public $test_ob;
+
     public function setUp()
     {
         require_once __DIR__ . '/Stub/Socket.php';
+
+        $this->test_ob = new Horde_Imap_Client_Stub_Socket(array(
+            'password' => 'foo',
+            'username' => 'bar'
+        ));
     }
 
     public function testBug10503()
     {
         // Test file is base64 encoded to obfuscate the data.
         $fetch_data = base64_decode(file_get_contents(__DIR__ . '/fixtures/bug_10503.txt'));
-        $imap_test_ob = new Horde_Imap_Client_Stub_Socket(array(
+        $this->test_ob = new Horde_Imap_Client_Stub_Socket(array(
             'password' => 'foo',
             'username' => 'bar'
         ));
 
-        $sorted = $imap_test_ob->getClientSort(
+        $sorted = $this->test_ob->getClientSort(
             explode("\n", $fetch_data),
             array(Horde_Imap_Client::SORT_SUBJECT)
         );
@@ -50,6 +57,117 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
             9,
             count($sorted)
         );
+    }
+
+    public function testSimpleThreadParse()
+    {
+        $data = '(1)';
+        $thread = $this->test_ob->getThreadSort($data);
+
+        $this->assertTrue($thread instanceof Horde_Imap_Client_Data_Thread);
+
+        $list = $thread->messageList();
+        $this->assertTrue($list instanceof Horde_Imap_Client_Ids);
+        $this->assertEquals(
+            array(1),
+            $list->ids
+        );
+
+        $this->assertEquals(
+            1,
+            count($thread)
+        );
+
+        $this->assertEquals(
+            array(1),
+            unserialize(serialize($list))->ids
+        );
+
+        $thread_list = $thread->getThread(1);
+
+        $this->assertEquals(
+            1,
+            count($thread_list)
+        );
+        $this->assertTrue(is_object($thread_list[1]));
+        $this->assertTrue(is_null($thread_list[1]->base));
+        $this->assertTrue($thread_list[1]->last);
+        $this->assertEquals(
+            0,
+            $thread_list[1]->level
+        );
+
+        $thread_list = $thread->getThread(2);
+        $this->assertTrue(empty($thread_list));
+    }
+
+    public function testComplexThreadParse()
+    {
+        $data = '((1)(2)(3)(4 (5)(6))(7 8)(9)(10 (11 12)(13 (14 (15)))))(16 17)';
+        $thread = $this->test_ob->getThreadSort($data);
+
+        $list = $thread->messageList();
+        $this->assertTrue($list instanceof Horde_Imap_Client_Ids);
+        $this->assertEquals(
+            range(1, 17),
+            $list->ids
+        );
+
+        $this->assertEquals(
+            range(1, 17),
+            unserialize(serialize($list))->ids
+        );
+
+        $thread_list = $thread->getThread(16);
+        $this->assertTrue(!empty($thread_list));
+
+        $thread_list = $thread->getThread(18);
+        $this->assertTrue(empty($thread_list));
+
+        $thread_list = $thread->getThread(10);
+        $this->assertEquals(
+            15,
+            count($thread_list)
+        );
+
+        foreach (array(1, 2, 3, 4, 5, 7, 9, 11) as $k) {
+            $this->assertFalse($thread_list[$k]->last);
+        }
+        foreach (array(6, 8, 10, 12, 13, 14, 15) as $k) {
+            $this->assertTrue($thread_list[$k]->last);
+        }
+
+        foreach (range(1, 15) as $k) {
+            $this->assertEquals(
+                1,
+                $thread_list[$k]->base
+            );
+        }
+
+        foreach (array(1, 2, 3, 4, 7, 9, 10) as $k) {
+            $this->assertEquals(
+                0,
+                $thread_list[$k]->level
+            );
+        }
+        foreach (array(5, 6, 8, 11, 13) as $k) {
+            $this->assertEquals(
+                1,
+                $thread_list[$k]->level
+            );
+        }
+        foreach (array(12, 14) as $k) {
+            $this->assertEquals(
+                2,
+                $thread_list[$k]->level
+            );
+        }
+        foreach (array(15) as $k) {
+            $this->assertEquals(
+                3,
+                $thread_list[$k]->level
+            );
+        }
     }
 
 }
