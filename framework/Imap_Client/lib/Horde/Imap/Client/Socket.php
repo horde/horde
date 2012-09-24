@@ -4135,7 +4135,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             fwrite($this->_stream, $data);
         }
 
-        if (!empty($opts['nodebug']) || !$this->debug) {
+        if (!empty($opts['nodebug']) || !$this->_debug) {
             return;
         }
 
@@ -4288,9 +4288,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $data = new Horde_Stream_Temp();
         $got_data = false;
 
-        $this->writeDebug('', Horde_Imap_Client::DEBUG_SERVER);
-
         if (is_null($len)) {
+            $this->writeDebug('', Horde_Imap_Client::DEBUG_SERVER);
+
             while (($in = fgets($this->_stream)) !== false) {
                 stream_set_blocking($this->_stream, 0);
                 $got_data = true;
@@ -4315,6 +4315,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                               !empty($this->_params['debug_literal']));
             $old_len = $len;
 
+            $this->writeDebug('', Horde_Imap_Client::DEBUG_SERVER);
+
             while ($len && !feof($this->_stream)) {
                 $in = fread($this->_stream, min($len, 8192));
                 fwrite($data->stream, $in);
@@ -4334,8 +4336,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!$debug_literal) {
                 $this->writeDebug('[' . ($binary ? 'BINARY' : 'LITERAL') . ' DATA: ' . $old_len . ' bytes]' . "\n");
             }
-
-            $this->writeDebug('', Horde_Imap_Client::DEBUG_SERVER);
         }
 
         if (!$got_data) {
