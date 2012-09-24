@@ -57,7 +57,7 @@ class Horde_View_Helper_Tag extends Horde_View_Helper_Base
     {
         return "<$name"
             . ($options ? $this->tagOptions($options) : '')
-            . '>';
+            . ' />';
     }
 
     /**
