@@ -264,7 +264,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     }
 
     /**
-     * Obtain the group id for each group the speciied resource is a member of.
+     * Obtain the group id for each group the specified resource is a member of.
      *
      * @param integer $resource_id  The resource id to check for.
      *
