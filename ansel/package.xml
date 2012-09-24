@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-09-24</date>
- <time>10:02:59</time>
+ <time>10:03:24</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,13 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix auto rotation of images based on orientation exif data (Bug #11441).
-* [mjr] Honor locked default_download pref (Bug #11325).
-* [mjr] Fix getting gallery data via the API (maxime@chavagne.net, Bug #11229).
-* [mjr] Fix carousel when viewing upload screen in an iFrame (Bug #10889).
-* [mjr] Fix returning to gallery view after uploading images when viewing Ansel in an iFrame (Bug #11209).
-* [mjr] Fix moving a subgallery to a top level gallery (Bug #11134).
-* [jan] Fix redirection after setting gallery password (thpo+horde@dotrc.de, Bug #11195).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1296,6 +1290,19 @@
 * [mjr] Fix returning to gallery view after uploading images when viewing Ansel in an iFrame (Bug #11209).
 * [mjr] Fix moving a subgallery to a top level gallery (Bug #11134).
 * [jan] Fix redirection after setting gallery password (thpo+horde@dotrc.de, Bug #11195).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-09-24</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
