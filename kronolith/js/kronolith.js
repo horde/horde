@@ -2938,9 +2938,6 @@ KronolithCore = {
         $('kronolithCalendar' + type + '1').show();
         form.select('.kronolithCalendarContinue').invoke('enable');
 
-        if (type == 'internal' || type == 'tasklists') {
-        }
-
         var newCalendar = !calendar;
         if (calendar &&
             (Object.isUndefined(Kronolith.conf.calendars[type]) ||
