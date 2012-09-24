@@ -3584,10 +3584,10 @@ KronolithCore = {
                 id = data.calendar;
                 this.getCalendarList(type, cal.owner).select('div').each(function(element) {
                     if (element.retrieve('calendar') == id) {
-                        element
-                            .setStyle(color)
-                            .update(cal.name.escapeHTML());
-                        this.addShareIcon(cal, element);
+                        var link = element.down('.horde-resource-link span');
+                        element.setStyle(color);
+                        link.update(cal.name.escapeHTML());
+                        this.addShareIcon(cal, link);
                         throw $break;
                     }
                 }, this);
