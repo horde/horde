@@ -79,6 +79,7 @@
       </div>
       <?php endif ?>
 
+      <?php if ($this->resources): ?>
       <div class="horde-sidebar-split"></div>
       <div>
         <h3>
@@ -93,6 +94,7 @@
           <div id="kronolithResourceCalendars" class="horde-resources"></div>
         </div>
       </div>
+      <?php endif ?>
 
       <div id="kronolithExternalCalendars"></div>
 

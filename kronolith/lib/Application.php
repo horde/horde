@@ -257,50 +257,52 @@ class Kronolith_Application extends Horde_Registry_Application
                 $sidebar->addRow($row, 'system');
             }
 
-            $sidebar->containers['groups'] = array(
-                'header' => array(
-                    'id' => 'kronolith-toggle-groups',
-                    'label' => _("Resource Groups"),
-                    'collapsed' => true,
-                    'add' => array(
-                        'url' => Horde::url('resources/groups/create.php'),
-                        'label' => _("Create a new Resource Group"),
+            if ($GLOBALS['conf']['calendar']['driver'] == 'sql') {
+                $sidebar->containers['groups'] = array(
+                    'header' => array(
+                        'id' => 'kronolith-toggle-groups',
+                        'label' => _("Resource Groups"),
+                        'collapsed' => true,
+                        'add' => array(
+                            'url' => Horde::url('resources/groups/create.php'),
+                            'label' => _("Create a new Resource Group"),
+                        ),
                     ),
-                ),
-            );
-            $editGroups = Horde::url('resources/groups/edit.php');
-            $sidebar->containers['resources'] = array(
-                'header' => array(
-                    'id' => 'kronolith-toggle-resources',
-                    'label' => _("Resources"),
-                    'collapsed' => true,
-                    'add' => array(
-                        'url' => Horde::url('resources/create.php'),
-                        'label' => _("Create a new Resource"),
+                );
+                $editGroups = Horde::url('resources/groups/edit.php');
+                $sidebar->containers['resources'] = array(
+                    'header' => array(
+                        'id' => 'kronolith-toggle-resources',
+                        'label' => _("Resources"),
+                        'collapsed' => true,
+                        'add' => array(
+                            'url' => Horde::url('resources/create.php'),
+                            'label' => _("Create a new Resource"),
+                        ),
                     ),
-                ),
-            );
-            $edit = Horde::url('resources/edit.php');
-            foreach (Kronolith::getDriver('Resource')->listResources() as $resource) {
-                if ($resource->get('type') == Kronolith_Resource::TYPE_GROUP) {
-                    $row = array(
-                        'label' => $resource->get('name'),
-                        'color' => '#dddddd',
-                        'edit' => $editGroups->add('c', $resource->getId()),
-                        'type' => 'checkbox',
-                    );
-                    $sidebar->addRow($row, 'groups');
-                } else {
-                    $calendar = new Kronolith_Calendar_Resource(array(
-                        'resource' => $resource
-                    ));
-                    $row = array(
-                        'label' => $calendar->name(),
-                        'color' => $calendar->background(),
-                        'edit' => $edit->add('c', $resource->getId()),
-                        'type' => 'checkbox',
-                    );
-                    $sidebar->addRow($row, 'resources');
+                );
+                $edit = Horde::url('resources/edit.php');
+                foreach (Kronolith::getDriver('Resource')->listResources() as $resource) {
+                    if ($resource->get('type') == Kronolith_Resource::TYPE_GROUP) {
+                        $row = array(
+                            'label' => $resource->get('name'),
+                            'color' => '#dddddd',
+                            'edit' => $editGroups->add('c', $resource->getId()),
+                            'type' => 'checkbox',
+                        );
+                        $sidebar->addRow($row, 'groups');
+                    } else {
+                        $calendar = new Kronolith_Calendar_Resource(array(
+                            'resource' => $resource
+                        ));
+                        $row = array(
+                            'label' => $calendar->name(),
+                            'color' => $calendar->background(),
+                            'edit' => $edit->add('c', $resource->getId()),
+                            'type' => 'checkbox',
+                        );
+                        $sidebar->addRow($row, 'resources');
+                    }
                 }
             }
         }

@@ -59,6 +59,7 @@ class Kronolith_View_Sidebar extends Horde_View_Sidebar
         $sidebar->newShares = $registry->getAuth() &&
             !$prefs->isLocked('default_share');
         $sidebar->isAdmin = $registry->isAdmin();
+        $sidebar->resources = $GLOBALS['conf']['calendar']['driver'] == 'sql';
 
         $this->content = $sidebar->render('dynamic/sidebar');
     }
