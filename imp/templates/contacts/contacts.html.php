@@ -66,7 +66,7 @@
 <br class="spacer" />
 
 <div>
- <input id="btn_update" type="button" class="horde-default" value="<?php echo _("OK") ?>>" />
+ <input id="btn_update" type="button" class="horde-default" value="<?php echo _("OK") ?>" />
  <input id="btn_cancel" type="button" class="horde-cancel" value="<?php echo _("Cancel") ?>" />
 </div>
 
