@@ -71,8 +71,8 @@ $storage = $injector->getInstance('Horde_Core_Data_Storage');
 
 switch ($actionID) {
 case Horde_Data::IMPORT_FILE:
-    $storage->get('import_cal', Horde_Util::getFormData('importCal'));
-    $storage->get('purge', Horde_Util::getFormData('purge'));
+    $storage->set('import_cal', Horde_Util::getFormData('importCal'));
+    $storage->set('purge', Horde_Util::getFormData('purge'));
     break;
 }
 
