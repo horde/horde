@@ -3622,7 +3622,7 @@ KronolithCore = {
             div = container.select('div').find(function(element) {
                 return element.retrieve('calendar') == calendar;
             }),
-            arrow = div.previous('span');
+            arrow = div.down('span');
         arrow.purge();
         arrow.remove();
         div.purge();
