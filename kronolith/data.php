@@ -236,10 +236,8 @@ $page_output->header(array(
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
 $notification->notify(array('listeners' => 'status'));
 
-echo '<div id="page">';
 foreach ($templates[$next_step] as $template) {
     require $template;
 }
-echo '</div>';
 
 $page_output->footer();
