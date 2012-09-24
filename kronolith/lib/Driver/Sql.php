@@ -810,7 +810,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
         foreach ($uids as $uid) {
             $event = $this->getByUID($uid, array($calendar));
-            $this->deleteEvent($event->id);
+            try {
+                $this->deleteEvent($event->id);
+            } catch (Kronolith_Exception $e) {
+                Horde::logMessage($d, 'ERR');
+            }
         }
 
         $this->open($oldCalendar);
