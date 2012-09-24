@@ -3,10 +3,9 @@ v3.0-git
 --------
 
 
-
-----------
-v2.0.2-git
-----------
+------
+v2.0.2
+------
 
 [mjr] Honor locked default_download pref (Bug #11325).
 [mjr] Fix getting gallery data via the API (maxime@chavagne.net, Bug# 11229).
@@ -39,6 +38,7 @@ v2.0
       mozilla.
 [mjr] Fix issue with deleting galleries in date mode with key images (Bug
       #10671).
+
 
 --------
 v2.0-RC2
