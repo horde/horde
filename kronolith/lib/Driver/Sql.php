@@ -813,7 +813,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             try {
                 $this->deleteEvent($event->id);
             } catch (Kronolith_Exception $e) {
-                Horde::logMessage($d, 'ERR');
+                Horde::logMessage($e, 'ERR');
             }
         }
 
