@@ -869,6 +869,7 @@ var DimpCompose = {
             break;
 
         case 'compose_close':
+        case 'redirect_close':
             this.confirmCancel();
             break;
 
