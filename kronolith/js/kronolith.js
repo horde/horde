@@ -3028,7 +3028,7 @@ KronolithCore = {
                 break;
             case 'resource':
                 $('kronolithCalendarresourceDescription').setValue(info.desc);
-                $('kronolithCalendarresourceResponseType').setValue(info);
+                $('kronolithCalendarresourceResponseType').setValue(info.response_type);
             }
         }
 
