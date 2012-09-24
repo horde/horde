@@ -12,6 +12,13 @@ try {
 } catch (Horde_Group_Exception $e) {}
 
 $file_upload = $GLOBALS['browser']->allowFileUploads();
+
+$resources = Kronolith::getDriver('Resource')
+  ->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_SINGLE));
+$resource_enum = array();
+foreach ($resources as $resource) {
+    $resource_enum[$resource->getId()] = htmlspecialchars($resource->get('name'));
+}
 ?>
 <div id="kronolithCalendarDialog" class="kronolithDialog">
 
@@ -338,6 +345,44 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 </div>
 
+</div>
+</form>
+
+<form id="kronolithCalendarFormresourcegroup" action="">
+<input type="hidden" name="type" value="resourcegroup" />
+<input id="kronolithCalendarresourcegroupId" type="hidden" name="calendar" />
+<div class="kronolithCalendarDiv" id="kronolithCalendarresourcegroup1">
+<div>
+  <label><?php echo _("Name") ?>:<br />
+    <input type="text" name="name" id="kronolithCalendarresourcegroupName" class="kronolithLongField" />
+  </label>
+</div>
+<div>
+  <label><?php echo _("Description") ?>:<br />
+    <textarea name="description" id="kronolithCalendarresourcegroupDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+  </label>
+</div>
+<div>
+  <label><?php echo _("Resources") ?>:<br />
+   <select id="kronolithCalendarresourcegroupmembers" name="members[]" multiple="multiple">
+   <?php foreach ($resource_enum as $id => $resource_name): ?>
+    <option value="<?php echo $id ?>"><?php echo $resource_name ?></option>
+   <?php endforeach; ?>
+   </select>
+  </label>
+</div>
+
+<div>
+<input id="kronolithCalendarresourcegroupColor" type="hidden" name="color" />
+<input class="kronolithColorPicker" type="hidden" />
+<div class="kronolithFormActions">
+  <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave horde-default" />
+  <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete horde-delete" />
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="horde-cancel"><?php echo _("Cancel") ?></a>
+</div>
+</div>
+
+</div>
 </form>
 
 </div>

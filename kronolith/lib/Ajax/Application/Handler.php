@@ -1082,7 +1082,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             $result->calendar = $wrapper->toHash();
             break;
 
-       case 'resource':
+        case 'resource':
             foreach (array('name', 'description', 'response_type') as $key) {
                 $info[$key] = $this->vars->$key;
             }
@@ -1112,11 +1112,31 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                     return $result;
                 }
             }
-             $wrapper = new Kronolith_Calendar_Resource(array('resource' => $resource));
-             $result->calendar = $wrapper->toHash();
-             $result->saved = true;
-             $result->id = $resource->get('calendar');
-             $GLOBALS['notification']->push(sprintf(_("The resource \"%s\" has been saved."), $resource->get('name'), 'horde.success'));
+            $wrapper = new Kronolith_Calendar_Resource(array('resource' => $resource));
+            $result->calendar = $wrapper->toHash();
+            $result->saved = true;
+            $result->id = $resource->get('calendar');
+            $GLOBALS['notification']->push(sprintf(_("The resource \"%s\" has been saved."), $resource->get('name'), 'horde.success'));
+            break;
+
+        case 'resourcegroup':
+            if (empty($calendar)) {
+                // New resource group.
+                $resource = Kronolith_Resource::addResource(
+                    new Kronolith_Resource_Group(array(
+                        'name' => $this->vars->name,
+                        'description' => $this->vars->description,
+                        'members' => $this->vars->members)
+                    )
+                );
+            }
+
+            $wrapper = new Kronolith_Calendar_ResourceGroup(array('resource' => $resource));
+            $result->calendar = $wrapper->toHash();
+            $result->saved = true;
+            $result->id = $resource->get('calendar');
+            $GLOBALS['notification']->push(sprintf(_("The resource group \"%s\" has been saved."), $resource->get('name'), 'horde.success'));
+            break;
         }
 
         return $result;

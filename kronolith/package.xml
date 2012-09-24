@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-09-24</date>
- <time>11:03:45</time>
+ <time>12:26:28</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -116,6 +116,7 @@
      <file name="Internal.php" role="horde" />
      <file name="Remote.php" role="horde" />
      <file name="Resource.php" role="horde" />
+     <file name="ResourceGroup.php" role="horde" />
     </dir> <!-- /lib/Calendar -->
     <dir name="Calendars">
      <file name="Base.php" role="horde" />
@@ -1115,6 +1116,7 @@
    <install as="kronolith/lib/Calendar/Internal.php" name="lib/Calendar/Internal.php" />
    <install as="kronolith/lib/Calendar/Remote.php" name="lib/Calendar/Remote.php" />
    <install as="kronolith/lib/Calendar/Resource.php" name="lib/Calendar/Resource.php" />
+   <install as="kronolith/lib/Calendar/ResourceGroup.php" name="lib/Calendar/ResourceGroup.php" />
    <install as="kronolith/lib/Calendar/External/Tasks.php" name="lib/Calendar/External/Tasks.php" />
    <install as="kronolith/lib/Calendars/Base.php" name="lib/Calendars/Base.php" />
    <install as="kronolith/lib/Calendars/Default.php" name="lib/Calendars/Default.php" />

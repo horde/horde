@@ -94,6 +94,21 @@
           <div id="kronolithResourceCalendars" class="horde-resources"></div>
         </div>
       </div>
+
+      <div class="horde-sidebar-split"></div>
+      <div>
+        <h3>
+          <?php if ($this->isAdmin): ?>
+          <a href="#" id="kronolithAddresourcegroup" class="horde-add" title="<?php echo _("Add Resource Group") ?>">+</a>
+          <?php endif; ?>
+          <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Resource Groups") ?></span>
+        </h3>
+
+        <div style="display:none">
+          <div class="horde-info"><?php echo _("No items to display") ?></div>
+          <div id="kronolithResourceGroups" class="horde-resources"></div>
+        </div>
+      </div>
       <?php endif ?>
 
       <div id="kronolithExternalCalendars"></div>

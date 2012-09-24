@@ -947,7 +947,7 @@ KronolithCore = {
             noItems.className == 'horde-info') {
             noItems.hide();
         }
-        link = new Element('span', { className: cal.show ? 'horde-resource-on' : 'horde-resource-off' })
+        link = new Element('span', { className: type != 'resourcegroup' ? (cal.show ? 'horde-resource-on' : 'horde-resource-off') : 'horde-resource-none' })
             .insert(cal.name.escapeHTML());
         calendar = new Element('div')
             .store('calendar', id)
@@ -1063,6 +1063,8 @@ KronolithCore = {
                 : $('kronolithSharedCalendars');
         case 'resource':
             return $('kronolithResourceCalendars');
+        case 'resourcegroup':
+            return $('kronolithResourceGroups');
         case 'tasklists':
             return personal
                 ? $('kronolithMyTasklists')
@@ -2840,7 +2842,7 @@ KronolithCore = {
         this.quickClose();
 
         var type = calendar.split('|')[0], cal = calendar.split('|')[1];
-        if (!$w('internal tasklists remote holiday resource').include(type)) {
+        if (!$w('internal tasklists remote holiday resource resourcegroup').include(type)) {
             return;
         }
 
