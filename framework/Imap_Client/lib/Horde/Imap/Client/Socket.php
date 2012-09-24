@@ -3283,7 +3283,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'UID',
             'FETCH',
             $ids->all ? '1:*' : strval($ids),
-            new Horde_Imap_Client_Data_Format_List(),
+            'UID',
             new Horde_Imap_Client_Data_Format_List(array(
                 'VANISHED',
                 'CHANGEDSINCE',
