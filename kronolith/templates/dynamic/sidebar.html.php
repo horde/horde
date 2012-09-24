@@ -87,7 +87,11 @@
           <?php endif; ?>
           <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Resources") ?></span>
         </h3>
-        <div id="kronolithResourceCalendars" class="horde-resources" style="display:none"></div>
+
+        <div style="display:none">
+          <div class="horde-info"><?php echo _("No items to display") ?></div>
+          <div id="kronolithResourceCalendars" class="horde-resources"></div>
+        </div>
       </div>
 
       <div id="kronolithExternalCalendars"></div>
@@ -112,7 +116,10 @@
           <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Holidays") ?></span>
         </h3>
 
-        <div id="kronolithHolidayCalendars" class="horde-resources" style="display:none"></div>
+        <div style="display:none">
+          <div class="horde-info"><?php echo _("No items to display") ?></div>
+          <div id="kronolithHolidayCalendars" class="horde-resources"></div>
+        </div>
 
       </div>
     </div>
