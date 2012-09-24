@@ -21,12 +21,7 @@ class Nag_Form_CreateTaskList extends Horde_Form
         parent::__construct($vars, _("Create Task List"));
 
         $this->addVariable(_("Name"), 'name', 'text', true);
-        $v = $this->addVariable(_("Color"), 'color', 'colorpicker', false);
-        $color = '#';
-        for ($i = 0; $i < 3; $i++) {
-            $color .= sprintf('%02x', mt_rand(0, 255));
-        }
-        $v->setDefault($color);
+        $v->setDefault(Nag::randomColor());
         if ($GLOBALS['registry']->isAdmin()) {
             $this->addVariable(
                 _("System Task List"), 'system', 'boolean', false, false,

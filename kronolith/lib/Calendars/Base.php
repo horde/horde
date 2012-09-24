@@ -57,6 +57,7 @@ abstract class Kronolith_Calendars_Base
             strval(new Horde_Support_Randomid()),
             $this->getDefaultShareName()
         );
+        $share->set('color', Kronolith::randomColor());
         $this->prepareDefaultShare($share);
         $this->shares->addShare($share);
         return $share;

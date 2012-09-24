@@ -945,7 +945,8 @@ class Kronolith
         if (!empty($GLOBALS['conf']['share']['auto_create']) &&
             $GLOBALS['registry']->getAuth() &&
             !count(self::listInternalCalendars(true))) {
-            $calendars = $GLOBALS['injector']->getInstance('Kronolith_Factory_Calendars')
+            $calendars = $GLOBALS['injector']
+                ->getInstance('Kronolith_Factory_Calendars')
                 ->create();
 
             $share = $calendars->createDefaultShare();
@@ -2842,6 +2843,20 @@ class Kronolith
             $css = ' style="' . $css . '"';
         }
         return $css;
+    }
+
+    /**
+     * Returns a random CSS color.
+     *
+     * @return string  A random CSS color string.
+     */
+    static public function randomColor()
+    {
+        $color = '#';
+        for ($i = 0; $i < 3; $i++) {
+            $color .= sprintf('%02x', mt_rand(0, 255));
+        }
+        return $color;
     }
 
     /**

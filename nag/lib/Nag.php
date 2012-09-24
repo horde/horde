@@ -631,6 +631,20 @@ class Nag
     }
 
     /**
+     * Returns a random CSS color.
+     *
+     * @return string  A random CSS color string.
+     */
+    static public function randomColor()
+    {
+        $color = '#';
+        for ($i = 0; $i < 3; $i++) {
+            $color .= sprintf('%02x', mt_rand(0, 255));
+        }
+        return $color;
+    }
+
+    /**
      * Builds the HTML for a priority selection widget.
      *
      * @param string $name       The name of the widget.

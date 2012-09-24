@@ -62,6 +62,7 @@ abstract class Nag_Tasklists_Base
                 strval(new Horde_Support_Randomid()),
                 $this->getDefaultShareName()
             );
+            $share->set('color', Nag::randomColor());
             $this->prepareDefaultShare($share);
             $this->shares->addShare($share);
             return $share->getName();

@@ -23,11 +23,7 @@ class Kronolith_Form_CreateCalendar extends Horde_Form
 
         $this->addVariable(_("Name"), 'name', 'text', true);
         $v = $this->addVariable(_("Color"), 'color', 'colorpicker', false);
-        $color = '#';
-        for ($i = 0; $i < 3; $i++) {
-            $color .= sprintf('%02x', mt_rand(0, 255));
-        }
-        $v->setDefault($color);
+        $v->setDefault(Kronolith::randomColor());
         if ($GLOBALS['registry']->isAdmin()) {
             $this->addVariable(_("System Calendar"), 'system', 'boolean', false, false, _("System calendars don't have an owner. Only administrators can change the calendar settings and permissions."));
         }
