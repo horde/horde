@@ -1,6 +1,6 @@
-----------
-v2.0.2-git
-----------
+------
+v2.0.2
+------
 
 [mjr] Fix auto rotation of images based on orientation exif data (Bug #11441).
 [mjr] Honor locked default_download pref (Bug #11325).
