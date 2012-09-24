@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-02-28</date>
- <time>12:40:29</time>
+ <date>2012-09-24</date>
+ <time>09:59:57</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -319,6 +319,7 @@
       <file name="ansel.mo" role="horde" />
       <file name="ansel.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/lv -->
     <dir name="sk">
      <dir name="LC_MESSAGES">
@@ -1014,6 +1015,7 @@
    <install as="ansel/locale/ja/LC_MESSAGES/ansel.po" name="locale/ja/LC_MESSAGES/ansel.po" />
    <install as="ansel/locale/lt/LC_MESSAGES/ansel.mo" name="locale/lt/LC_MESSAGES/ansel.mo" />
    <install as="ansel/locale/lt/LC_MESSAGES/ansel.po" name="locale/lt/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/lv/help.xml" name="locale/lv/help.xml" />
    <install as="ansel/locale/lv/LC_MESSAGES/ansel.mo" name="locale/lv/LC_MESSAGES/ansel.mo" />
    <install as="ansel/locale/lv/LC_MESSAGES/ansel.po" name="locale/lv/LC_MESSAGES/ansel.po" />
    <install as="ansel/locale/sk/LC_MESSAGES/ansel.mo" name="locale/sk/LC_MESSAGES/ansel.mo" />
@@ -1284,7 +1286,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-02-28</date>
+   <date>2012-09-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix auto rotation of images based on orientation exif data (Bug #11441).
