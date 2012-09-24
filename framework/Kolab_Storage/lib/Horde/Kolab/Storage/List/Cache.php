@@ -178,11 +178,8 @@ class Horde_Kolab_Storage_List_Cache
         $this->_load();
         if (isset($this->_data[self::SYNC])) {
             return $this->_data[self::SYNC];
-        } else {
-            throw new Horde_Kolab_Storage_Exception(
-                sprintf('Missing cache data (Key: %s). Synchronize first!', self::SYNC)
-            );
         }
+        return 0;
     }
 
     /**
