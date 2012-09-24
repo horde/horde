@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-18</date>
- <time>23:43:31</time>
+ <date>2012-09-24</date>
+ <time>11:03:45</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -571,7 +571,6 @@
     </dir> <!-- /templates/prefs -->
     <dir name="resources">
      <file name="form-header.inc" role="horde" />
-     <file name="resource-form.php" role="horde" />
     </dir> <!-- /templates/resources -->
     <dir name="search">
      <file name="empty.inc" role="horde" />
@@ -1341,7 +1340,6 @@
    <install as="kronolith/templates/perms/perms.inc" name="templates/perms/perms.inc" />
    <install as="kronolith/templates/prefs/defaultalarm.html" name="templates/prefs/defaultalarm.html" />
    <install as="kronolith/templates/resources/form-header.inc" name="templates/resources/form-header.inc" />
-   <install as="kronolith/templates/resources/resource-form.php" name="templates/resources/resource-form.php" />
    <install as="kronolith/templates/search/empty.inc" name="templates/search/empty.inc" />
    <install as="kronolith/templates/search/event_footers.inc" name="templates/search/event_footers.inc" />
    <install as="kronolith/templates/search/event_headers.inc" name="templates/search/event_headers.inc" />
@@ -1938,7 +1936,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-18</date>
+   <date>2012-09-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [gwr] Mark the initial default share as such with the Kolab backend.
