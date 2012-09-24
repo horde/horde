@@ -1089,10 +1089,8 @@ if ($rtemode && !$redirect) {
     IMP_Ui_Editor::init(false, 'composeMessage');
 }
 
-if ($showmenu) {
-    $menu = Horde::menu();
-} else {
-    $page_output->sidebar = false;
+if (!$showmenu) {
+    $page_output->topbar = $page_output->sidebar = false;
 }
 $page_output->addScriptFile('compose-base.js');
 $page_output->addScriptFile('compose.js');
@@ -1102,8 +1100,5 @@ if (!$redirect) {
     $imp_ui->addIdentityJs();
 }
 IMP::header($title);
-if ($showmenu) {
-    echo $menu;
-}
 echo $view_output;
 $page_output->footer();

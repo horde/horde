@@ -17,7 +17,6 @@ require_once TREAN_BASE . '/lib/Forms/Search.php';
 $page_output->header(array(
     'title' => _("Search")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 
 // Set up the search form.

@@ -1,4 +1,3 @@
-<?php echo $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render(); ?>
 <?php echo Shout::getMenu('string') ?>
 
 <a name="top"></a>

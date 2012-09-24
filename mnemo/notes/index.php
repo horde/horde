@@ -43,7 +43,6 @@ $page_output->addScriptFile('quickfinder.js', 'horde');
 $page_output->header(array(
     'title' => _("Search Results")
 ));
-echo Horde::menu();
 require MNEMO_TEMPLATES . '/list/header.inc';
 
 if (count($memos)) {

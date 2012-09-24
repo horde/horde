@@ -83,7 +83,6 @@ if ($groupby !== 'none') {
 }
 
 $page_output->header();
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/group/header.inc';
 foreach ($groups as $group) {

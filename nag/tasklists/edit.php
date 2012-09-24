@@ -54,7 +54,6 @@ $vars->set('description', $tasklist->get('desc'));
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
-echo Horde::menu();
 Nag::status();
 if ($owner) {
     echo $form->renderActive($form->getRenderer(), $vars,

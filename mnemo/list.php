@@ -59,7 +59,6 @@ $page_output->addScriptFile('quickfinder.js', 'horde');
 $page_output->header(array(
     'title' => $title
 ));
-echo Horde::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/list/header.inc';
 

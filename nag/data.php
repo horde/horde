@@ -157,7 +157,6 @@ $export_tasklists = Nag::listTasklists(false, Horde_Perms::READ);
 $page_output->header(array(
     'title' => _("Import/Export Tasks")
 ));
-echo Horde::menu();
 Nag::status();
 foreach ($templates[$next_step] as $template) {
     require $template;

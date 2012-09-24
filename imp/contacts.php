@@ -106,6 +106,8 @@ $page_output->addInlineJsVars(array(
     )
 ));
 
+$page_output->topbar = $page_output->sidebar = false;
+
 IMP::header(_("Address Book"));
 echo $view->render('contacts');
 $page_output->footer();

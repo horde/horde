@@ -1,4 +1,3 @@
-<?php echo $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render(); ?>
 <script type="text/javascript">
 function jump()
 {

@@ -160,7 +160,6 @@ $page_output->addScriptFile('problem.js', 'horde');
 $page_output->header(array(
     'title' => _("Problem Description")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require HORDE_TEMPLATES . '/problem/problem.inc';
 $page_output->footer();

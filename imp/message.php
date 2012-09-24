@@ -916,7 +916,6 @@ if (!empty($conf['tasklist']['use_notepad']) ||
     $page_output->addScriptPackage('Dialog');
 }
 
-$menu = Horde::menu();
 $page_output->noDnsPrefetch();
 
 IMP::header($title);
@@ -924,7 +923,6 @@ IMP::header($title);
 if (!empty($conf['maillog']['use_maillog'])) {
     $injector->getInstance('IMP_Maillog')->displayLog($envelope->message_id);
 }
-echo $menu;
 IMP::status();
 
 echo $t_view->render('navbar_top');

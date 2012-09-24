@@ -72,6 +72,13 @@ class Horde_PageOutput
     public $metaTags = array();
 
     /**
+     * Load the topbar in this page?
+     *
+     * @var boolean
+     */
+    public $topbar = true;
+
+    /**
      * Load the sidebar in this page?
      *
      * @var boolean
@@ -614,7 +621,7 @@ class Horde_PageOutput
      */
     public function header(array $opts = array())
     {
-        global $language, $registry, $session;
+        global $injector, $language, $registry, $session;
 
         $view = new Horde_View(array(
             'templatePath' => $registry->get('templates', 'horde') . '/common'
@@ -786,6 +793,11 @@ class Horde_PageOutput
         }
 
         echo $view->render('header');
+        if ($this->topbar &&
+            ($this->_view == $registry::VIEW_BASIC ||
+             $this->_view == $registry::VIEW_DYNAMIC)) {
+            echo $injector->getInstance('Horde_View_Topbar')->render();
+        }
 
         // Send what we have currently output so the browser can start
         // loading CSS/JS. See:

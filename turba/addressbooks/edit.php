@@ -56,7 +56,7 @@ $vars->set('description', $addressbook->get('desc'));
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
-require TURBA_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 if ($owner) {
     echo $form->renderActive($form->getRenderer(), $vars, Horde::url('addressbooks/edit.php'), 'post');
 } else {

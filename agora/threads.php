@@ -61,7 +61,6 @@ $view->threads = $threads_list;
 $view->forum_name = sprintf(_("Threads in %s"), $forum_array['forum_name']);
 $view->forum_description =  Agora_Driver::formatBody($forum_array['forum_description']);
 $view->actions = $threads->getThreadActions();
-$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));

@@ -160,7 +160,6 @@ case 'main':
     $page_output->header(array(
         'title' => $title
     ));
-    echo Horde::menu();
     require KLUTZ_TEMPLATES . '/comics/main.inc';
     break;
 
@@ -178,7 +177,6 @@ case 'day':
     $page_output->header(array(
         'title' => $title
     ));
-    echo Horde::menu();
     require KLUTZ_TEMPLATES . '/comics/nav_bar.inc';
     if (!empty($imageApp)) {
         $page_output->addScriptFile('popup.js', 'horde');
@@ -298,7 +296,6 @@ case 'comic':
     $page_output->header(array(
         'title' => $title
     ));
-    echo Horde::menu();
     require KLUTZ_TEMPLATES . '/comics/nav_bar.inc';
     if (!empty($imageApp)) {
         $page_output->addScriptFile('popup.js', 'horde');

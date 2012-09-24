@@ -383,7 +383,6 @@ case 'resizeedit':
     $page_output->header(array(
         'title' => $title
     ));
-    echo Horde::menu();
     $notification->notify(array('listeners' => 'status'));
 
     if ($actionID == 'cropedit') {
@@ -601,7 +600,6 @@ case 'previewrotate270':
     $page_output->header(array(
         'title' => $title
     ));
-    echo Horde::menu();
     require ANSEL_TEMPLATES . '/image/preview_image.inc';
     $page_output->footer();
     exit;
@@ -855,7 +853,6 @@ case 'previewcrop':
         $page_output->header(array(
             'title' => $title
         ));
-        echo Horde::menu();
         require ANSEL_TEMPLATES . '/image/preview_cropimage.inc';
         $page_output->footer();
     }
@@ -882,7 +879,6 @@ default:
 $page_output->header(array(
     'title' => $title
 ));
-echo Horde::menu();
 $form->renderActive($renderer, $vars, Horde::url('image.php'), 'post',
                     'multipart/form-data');
 $page_output->footer();

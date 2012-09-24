@@ -42,7 +42,6 @@ if ($form->isSubmitted()) {
 }
 
 $page_output->header();
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive(null, null, null, 'post');
 $page_output->footer();

@@ -1601,16 +1601,6 @@ class Horde
     }
 
     /**
-     * Returns the topbar menu.
-     *
-     * @return string  The top menu.
-     */
-    static public function menu()
-    {
-        return $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render();
-    }
-
-    /**
      * Returns the sidebar for the current application.
      *
      * @param string $app  The application to generate the menu for. Defaults

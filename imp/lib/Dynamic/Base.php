@@ -59,6 +59,11 @@ abstract class IMP_Dynamic_Base
     );
 
     /**
+     * @var boolean
+     */
+    public $topbar = false;
+
+    /**
      */
     public function __construct(Horde_Variables $vars)
     {

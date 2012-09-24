@@ -496,7 +496,7 @@ class Turba_View_Browse
         $page_output->header(array(
             'title' => $title
         ));
-        require TURBA_TEMPLATES . '/menu.inc';
+        $notification->notify(array('listeners' => 'status'));
         foreach ($templates as $template) {
             require TURBA_TEMPLATES . $template;
         }

@@ -260,7 +260,6 @@ $notepads = Mnemo::listNotepads(false, Horde_Perms::EDIT);
 $page_output->header(array(
     'title' => $title
 ));
-echo Horde::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/memo/memo.inc';
 $page_output->footer();

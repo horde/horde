@@ -220,7 +220,6 @@ $page_output->addInlineJsVars(array(
 $page_output->header(array(
     'title' => _("Change Password")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('index');
 $page_output->footer();

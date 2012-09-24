@@ -30,7 +30,6 @@ if ($id = $vars->get('smart_id')) {
     $form = new Nag_Form_Search($vars, _("Search"));
 }
 
-echo Horde::menu();
 Nag::status();
 $form->renderActive();
 $page_output->footer();

@@ -1,5 +1,3 @@
-<?php echo $this->topbar ?>
-
 <div id="dimpLoading">
  <?php echo _("Loading...") ?>
  <noscript>

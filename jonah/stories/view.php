@@ -20,7 +20,7 @@ if (!$story_id) {
     } catch (Exception $e) {
         $notification->push(sprintf(_("Error fetching story: %s"), $e->getMessage()), 'horde.warning');
         $page_output->header();
-        require JONAH_TEMPLATES . '/menu.inc';
+        $notification->notify(array('listeners' => 'status'));
         $page_output->footer();
         exit;
     }

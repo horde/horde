@@ -491,6 +491,8 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     {
         global $notification, $page_output, $registry;
 
+        $page_output->topbar = $page_output->sidebar = false;
+
         IMP::header(_("Import S/MIME Key"));
 
         /* Need to use regular status notification - AJAX notifications won't

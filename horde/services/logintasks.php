@@ -117,6 +117,8 @@ default:
     break;
 }
 
+$page_output->topbar = $page_output->sidebar = false;
+
 $page_output->header(array(
     'body_class' => 'modal-form',
     'body_id' => 'services_logintasks',

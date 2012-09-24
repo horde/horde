@@ -73,7 +73,6 @@ $view->message_subject = $message['message_subject'];
 $view->message_author = $message['message_author'];
 $view->message_date = $messages->dateFormat($message['message_timestamp']);
 $view->message_body = Agora_Driver::formatBody($message['body']);
-$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));

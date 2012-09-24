@@ -58,6 +58,8 @@ $view->id = $vars->id;
 $view->mbox = $vars->mbox;
 $view->uid = $vars->uid;
 
+$page_output->topbar = $page_output->sidebar = false;
+
 IMP::header(_("Save Image"));
 IMP::status();
 echo $view->render('saveimage');

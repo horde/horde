@@ -104,7 +104,6 @@ if ($form->validate($vars)) {
 $page_output->header(array(
     'title' => $title
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive($renderer, $vars, Horde::url('spam.php'), 'post');
 $page_output->footer();

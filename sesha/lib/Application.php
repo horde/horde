@@ -58,9 +58,6 @@ class Sesha_Application extends Horde_Registry_Application
     }
 
     /**
-     * Sesha's application specific sidebar menu
-     * In earlier horde versions, this was a top menu
-     * Client pages amend and output this via Horde::menu
      * @param Horde_Menu  $menu  A menu object
      */
     public function menu($menu)

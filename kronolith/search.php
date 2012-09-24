@@ -105,13 +105,11 @@ if ($search_mode == 'basic') {
     $page_output->addScriptFile('edit.js');
 }
 
-$menu = Horde::menu();
 $page_output->addScriptFile('tooltips.js', 'horde');
 $page_output->header(array(
     'title' => _("Search")
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo $menu;
 $notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';

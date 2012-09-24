@@ -41,7 +41,7 @@ if (!isset($addressBooks[$source])) {
     if (!isset($addressBooks[$source])) {
         $notification->push(_("No Address Books are currently available. Searching is disabled."), 'horde.error');
         $page_output->header();
-        require TURBA_TEMPLATES . '/menu.inc';
+        $notification->notify(array('listeners' => 'status'));
         $page_output->footer();
         exit;
     }
@@ -233,7 +233,7 @@ if (isset($view) && is_object($view)) {
 $page_output->header(array(
     'title' => $title
 ));
-require TURBA_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 echo $tabs->render($search_mode);
 echo $headerView->render('header');
 echo $searchView->render($search_mode);

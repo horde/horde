@@ -111,9 +111,7 @@ $view->mbox = IMP::mailbox()->form_to;
 $view->search_title = sprintf(_("Search %s"), IMP::mailbox()->display_html);
 $view->flist = $flag_set;
 
-$menu = Horde::menu();
 IMP::header(_("Search"));
-echo $menu;
 IMP::status();
 
 echo $view->render('search-basic');

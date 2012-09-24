@@ -654,12 +654,7 @@ class Gollem
             $t->set('slink', sprintf('<ul><li>%s%s<br />%s</a></li></ul>', $link, ($menu_view != 'text') ? Horde::img('gollem.png') : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("_Change Server"), $t->get('accesskey')) : ''));
         }
 
-        $menu = $t->fetch(GOLLEM_TEMPLATES . '/menu.html');
-
-        return $GLOBALS['injector']
-            ->getInstance('Horde_View_Topbar')
-            ->render()
-            . $menu;
+        return $t->fetch(GOLLEM_TEMPLATES . '/menu.html');
     }
 
     /**

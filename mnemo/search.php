@@ -18,7 +18,6 @@ $page_output->addInlineScript(array(
 $page_output->header(array(
     'title' => _("Search")
 ));
-echo Horde::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/search/search.inc';
 $page_output->footer();

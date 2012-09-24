@@ -112,7 +112,7 @@ $page_output->addScriptFile('contact_tabs.js');
 $page_output->header(array(
     'title' => $view->getTitle()
 ));
-require TURBA_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 echo '<div id="page">';
 echo $tabs->render($viewName, 'horde-buttonbar');
 echo '<h1 class="header">' . $own_link

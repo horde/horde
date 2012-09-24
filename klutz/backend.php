@@ -126,7 +126,6 @@ if (count($mode) == 0 || in_array('menu', $mode)) {
     $page_output->header(array(
         'title' => _("Comics Update")
     ));
-    echo Horde::menu();
     require KLUTZ_TEMPLATES . '/backend.html.php';
     $page_output->footer();
     exit;
@@ -137,7 +136,6 @@ if (!$cli->runningFromCLI() && empty($redirect)) {
     $page_output->header(array(
         'title' => _("Comics Update")
     ));
-    echo Horde::menu();
 }
 
 if (in_array('fetch', $mode)) {

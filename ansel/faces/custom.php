@@ -76,7 +76,6 @@ $page_output->addThemeStylesheet('cropper.css');
 $page_output->header(array(
     'title' => _("Create a new face")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/custom.inc';
 $page_output->footer();

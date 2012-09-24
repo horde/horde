@@ -44,7 +44,6 @@ if ($form->validate(new Horde_Variables($_POST))) {
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
-echo Horde::menu();
 Nag::status();
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('tasklists/delete.php'), 'post');
 $page_output->footer();

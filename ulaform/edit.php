@@ -106,7 +106,6 @@ $view->main = Horde::endBuffer();
 $page_output->header(array(
     'title' => _("Edit Forms")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('main');
 $page_output->footer();

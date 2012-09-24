@@ -31,7 +31,6 @@ $facename = htmlspecialchars($face['face_name']);
 $page_output->header(array(
     'title' => _("Face") . ' :: ' . $face['face_name']
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require_once ANSEL_TEMPLATES . '/faces/face.inc';
 $page_output->footer();

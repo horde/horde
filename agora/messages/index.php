@@ -183,7 +183,6 @@ default:
 }
 
 /* Set up the main template tags. */
-$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));

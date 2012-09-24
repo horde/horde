@@ -117,7 +117,6 @@ $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->header(array(
     'title' => $memo ? $memo['desc'] : _("Note Details")
 ));
-echo Horde::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/view/memo.inc';
 $page_output->footer();

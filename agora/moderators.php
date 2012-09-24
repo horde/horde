@@ -76,7 +76,6 @@ if ($messages->countForums() > 50) {
 
 /* Set up template data. */
 $view = new Agora_View();
-$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $form->renderActive(null, null, Horde::url('moderators.php'), 'post');

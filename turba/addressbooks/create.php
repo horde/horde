@@ -36,6 +36,6 @@ if ($form->validate($vars)) {
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
-require TURBA_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('addressbooks/create.php'), 'post');
 $page_output->footer();

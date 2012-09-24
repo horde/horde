@@ -17,7 +17,6 @@ $page_output->header(array(
     'title' => _("List")
 ));
 
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 
 $page_output->footer();

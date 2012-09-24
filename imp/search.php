@@ -502,14 +502,12 @@ if ($dimp_view) {
     if (!$vars->edit_query) {
         $view->return_mailbox_val = sprintf(_("Return to %s"), $default_mailbox->display_html);
     }
-} else {
-    $menu = Horde::menu();
 }
 
-IMP::header(_("Search"));
 if (!$dimp_view) {
-    echo $menu;
+    $page_output->topbar = $page_output->sidebar = false;
 }
+IMP::header(_("Search"));
 IMP::status();
 
 echo $view->render('search');

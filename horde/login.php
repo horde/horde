@@ -355,7 +355,7 @@ if ($reason) {
     $notification->push(str_replace('<br />', ' ', $reason), 'horde.message');
 }
 
-$page_output->sidebar = false;
+$page_output->topbar = $page_output->sidebar = false;
 
 if ($browser->isMobile() &&
     (!isset($conf['user']['force_view']) ||

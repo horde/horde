@@ -122,7 +122,6 @@ $alarm_text = Nag::formatAlarm($task_alarm);
 $page_output->header(array(
     'title' => $task->name
 ));
-echo Horde::menu();
 Nag::status();
 require NAG_TEMPLATES . '/view/task.inc';
 $page_output->footer();

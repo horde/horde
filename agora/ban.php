@@ -59,7 +59,6 @@ $vars->set('action', 'add');
 $form->addVariable(_("User"), 'user', 'text', true);
 
 $view = new Agora_View();
-$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $form->renderActive(null, null, Horde::url('ban.php'), 'post');

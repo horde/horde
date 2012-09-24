@@ -5,8 +5,6 @@ function jump()
 }
 </script>
 
-<?php echo $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render(); ?>
-
 <form method="get" action="<?php echo Horde::url('search.php') ?>">
 <?php Horde_Util::pformInput() ?>
  <div class="rightFloat">

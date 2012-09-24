@@ -11,6 +11,8 @@
 require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintasks' => true));
 
+$page_output->topbar = $page_output->sidebar = false;
+
 $page_output->header(array(
     'title' => _("Special Character Input")
 ));

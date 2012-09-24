@@ -392,10 +392,8 @@ $page_output->addScriptFile('hordecore.js', 'horde');
 $page_output->addScriptFile('mailbox.js');
 $page_output->addScriptPackage('Dialog');
 
-$menu = Horde::menu();
 $page_output->metaRefresh($prefs->getValue('refresh_time'), $refresh_url);
 IMP::header($title);
-echo $menu;
 IMP::status();
 
 /* Prepare the header template. */

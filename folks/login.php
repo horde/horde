@@ -232,6 +232,6 @@ if ($form->isSubmitted()) {
 $page_output->header(array(
     'title' => $title
 ));
-require FOLKS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 require FOLKS_TEMPLATES . '/login/login.php';
 $page_output->footer();

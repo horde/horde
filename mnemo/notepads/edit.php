@@ -56,7 +56,6 @@ $vars->set('description', $notepad->get('desc'));
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
-echo Horde::menu();
 $notification->notify();
 if ($owner) {
     echo $form->renderActive($form->getRenderer(), $vars, Horde::url('notepads/edit.php'), 'post');

@@ -267,9 +267,7 @@ case 'empty_mbox_confirm':
 
         $page_output->addScriptFile('stripe.js', 'horde');
 
-        $menu = Horde::menu();
         IMP::header(_("Folder Actions - Confirmation"));
-        echo $menu;
 
         $v = clone $view;
 
@@ -321,9 +319,7 @@ case 'mbox_size':
         $page_output->addScriptFile('stripe.js', 'horde');
         $page_output->addScriptFile('tables.js', 'horde');
 
-        $menu = Horde::menu();
         IMP::header(_("Mailbox Sizes"));
-        echo $menu;
         IMP::status();
 
         echo $v->render('folders_size');
@@ -352,9 +348,7 @@ $injector->getInstance('Horde_View_Topbar')->subinfo =
 
 if ($session->get('imp', 'file_upload') &&
     ($vars->actionID == 'import_mbox')) {
-    $menu = Horde::menu();
     IMP::header(_("Folder Navigator"));
-    echo $menu;
     IMP::status();
 
     /* Prepare import template. */
@@ -441,10 +435,8 @@ $page_output->addInlineJsVars(array(
     '-ImpFolders.mbox_expand' => intval($prefs->getValue('nav_expanded') == 2)
 ));
 
-$menu = Horde::menu();
 $page_output->metaRefresh($refresh_time, Horde::url('folders.php', true));
 IMP::header(_("Folder Navigator"));
-echo $menu;
 IMP::status();
 
 echo $head_view->render('head');

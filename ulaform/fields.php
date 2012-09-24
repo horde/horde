@@ -122,7 +122,6 @@ $view->fields = $fields_list;
 $page_output->header(array(
     'title' => _("Form Fields")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('fields');
 $page_output->footer();

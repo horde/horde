@@ -131,12 +131,10 @@ if ($conf['maps']['driver']) {
     Horde::initMap();
 }
 
-$injector->getInstance('Kronolith_Ajax')->init();
-
 $topbar = $injector->getInstance('Horde_View_Topbar');
 $topbar->search = true;
 
-echo $topbar->render();
+$injector->getInstance('Kronolith_Ajax')->init();
 require KRONOLITH_TEMPLATES . '/dynamic/index.inc';
 echo $injector->getInstance('Kronolith_View_Sidebar');
 $page_output->footer();

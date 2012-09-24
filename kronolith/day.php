@@ -26,7 +26,6 @@ $page_output->header(array(
     'title' => $view->getTime($prefs->getValue('date_format'))
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 Kronolith::tabs($view);
 $view->html(KRONOLITH_TEMPLATES);

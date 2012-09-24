@@ -38,7 +38,6 @@ if ($form->validate($vars)) {
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
-echo Horde::menu();
 $notification->notify();
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('notepads/create.php'), 'post');
 $page_output->footer();

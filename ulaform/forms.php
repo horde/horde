@@ -37,7 +37,6 @@ $view->images = $images;
 $page_output->header(array(
     'title' => _("Forms List")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('forms');
 $page_output->footer();

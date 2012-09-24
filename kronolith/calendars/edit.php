@@ -65,7 +65,6 @@ $page_output->header(array(
     'title' => $form->getTitle()
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 if ($owner) {
     $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_TagAutoCompleter', array(

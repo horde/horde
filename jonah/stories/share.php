@@ -126,19 +126,11 @@ if ($form->validate($vars)) {
     }
 }
 
-$share_template = new Horde_Template();
-
-// Buffer the form and notifications and send to the template
-Horde::startBuffer();
-$form->renderActive(null, $vars, Horde::url('stories/share.php'), 'post');
-$share_template->set('main', Horde::endBuffer());
-
-Horde::startBuffer();
-$GLOBALS['notification']->notify(array('listeners' => 'status'));
-$share_template->set('notify', Horde::endBuffer());
+$page_output->topbar = $page_output->sidebar = false;
 
 $page_output->header(array(
     'title' => $title
 ));
-echo $share_template->fetch(JONAH_TEMPLATES . '/stories/share.html');
+$notification->notify(array('listeners' => 'status'));
+$form->renderActive(null, $vars, Horde::url('stories/share.php'), 'post');
 $page_output->footer();

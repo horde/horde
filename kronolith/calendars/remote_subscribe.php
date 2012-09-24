@@ -38,12 +38,10 @@ if ($form->validate($vars)) {
     $default->redirect();
 }
 
-$menu = Horde::menu();
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo $menu;
 $notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('calendars/remote_subscribe.php'), 'post');
 $page_output->footer();

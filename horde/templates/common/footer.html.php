@@ -1,12 +1,12 @@
 <?php if ($this->basicView): ?>
 <?php if ($this->sidebar): ?>
 <?php echo $this->sidebar ?>
-<?php else: ?>
+<?php elseif ($this->topbar): ?>
 </div>
 </div>
 <?php endif ?>
 <?php endif ?>
-<?php if (!$this->smartmobileView): ?>
+<?php if ($this->topbar && !$this->smartmobileView): ?>
 </div>
 <?php endif; ?>
 <?php if (!$this->minimalView): ?>

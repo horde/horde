@@ -55,20 +55,9 @@ if ($form->validate()) {
     exit;
 }
 
-/* Set up template variables. */
-$view = new Agora_View();
-$view->menu = Horde::menu();
-
-Horde::startBuffer();
-$form->renderActive(null, null, Horde::url('editforum.php'), 'post');
-$view->main = Horde::endBuffer();
-
-Horde::startBuffer();
-$notification->notify(array('listeners' => 'status'));
-$view->notify = Horde::endBuffer();
-
 $page_output->header(array(
     'title' => $title
 ));
-echo $view->render('main');
+$notification->notify(array('listeners' => 'status'));
+$form->renderActive(null, null, Horde::url('editforum.php'), 'post');
 $page_output->footer();

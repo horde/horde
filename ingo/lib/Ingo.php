@@ -355,9 +355,7 @@ class Ingo
             $t->set('options', $options);
         }
 
-        $menu = $t->fetch(INGO_TEMPLATES . '/menu/menu.html');
-
-        return Horde::menu() . $menu;
+        return $t->fetch(INGO_TEMPLATES . '/menu/menu.html');
     }
 
     /**

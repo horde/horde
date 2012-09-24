@@ -77,7 +77,6 @@ if (isset($api_call)) {
     return $view->render('moderate');
 }
 
-$view->menu = Horde::menu();
 $page_output->header(array(
     'title' => _("Messages Awaiting Moderation")
 ));

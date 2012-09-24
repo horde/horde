@@ -66,7 +66,6 @@ $page_output->header(array(
     'title' => _("New Bookmark")
 ));
 if (!Horde_Util::getFormData('popup') && !Horde_Util::getFormData('iframe')) {
-    echo Horde::menu();
     $notification->notify(array('listeners' => 'status'));
 }
 require TREAN_TEMPLATES . '/add.html.php';

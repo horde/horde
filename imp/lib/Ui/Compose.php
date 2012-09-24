@@ -188,6 +188,10 @@ class IMP_Ui_Compose
      */
     public function popupSuccess()
     {
+        global $page_output;
+
+        $page_output->topbar = $page_output->sidebar = false;
+
         IMP::header();
 
         $view = new Horde_View(array(

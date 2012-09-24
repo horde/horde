@@ -662,6 +662,8 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     {
         global $notification, $page_output, $registry;
 
+        $page_output->topbar = $page_output->sidebar = false;
+
         IMP::header(_("Import PGP Key"));
 
         /* Need to use regular status notification - AJAX notifications won't

@@ -77,8 +77,6 @@ Horde_Core_Ui_JsCalendar::init(array(
     'full_weekdays' => true
 ));
 
-$menu = Horde::menu();
-
 $page_output->addScriptFile('edit.js');
 $page_output->addScriptFile('popup.js', 'horde');
 
@@ -86,7 +84,6 @@ $page_output->header(array(
     'title' => _("Add a new event")
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo $menu;
 $notification->notify(array('listeners' => 'status'));
 require KRONOLITH_TEMPLATES . '/edit/edit.inc';
 $page_output->footer();

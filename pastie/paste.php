@@ -43,6 +43,6 @@ try {
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
-require PASTIE_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 require PASTIE_TEMPLATES . '/paste.inc';
 $page_output->footer();

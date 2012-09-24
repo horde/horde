@@ -137,7 +137,6 @@ class Nag_View_List
         }
 
         Horde::startBuffer();
-        echo Horde::menu();
         Nag::status();
         echo $view->render('list');
         $output->footer();

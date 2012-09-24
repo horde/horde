@@ -618,7 +618,6 @@ class Horde_Core_Prefs_Ui
         /* Get the menu output before we start to output the page.
          * Again, this will catch any javascript inserted into the page. */
         $GLOBALS['page_output']->sidebar = false;
-        $menu_out = Horde::menu('horde');
 
         /* Get list of accessible applications. */
         $apps = array();
@@ -637,8 +636,6 @@ class Horde_Core_Prefs_Ui
             // For now, force to Basic view for preferences.
             'view' => $registry::VIEW_BASIC
         ));
-
-        echo $menu_out;
 
         $notification->notify(array('listeners' => 'status'));
 

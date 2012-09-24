@@ -30,6 +30,10 @@ if (!class_exists($class)) {
 
 $ob = new $class($vars);
 
+if (!$ob->topbar) {
+    $page_output->topbar = $page_output->sidebar = false;
+}
+
 $page_output->header(array(
     'body_class' => 'horde-ajax',
     'growler_log' => $ob->growlerLog,
