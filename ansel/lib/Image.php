@@ -784,8 +784,7 @@ class Ansel_Image Implements Iterator
             }
 
             if ($this->_dirty) {
-                $this->_exif['Orientation'] = 1;
-                $this->data['full'] = $this->raw();
+                $this->_data['full'] = $this->raw();
                 $this->_writeData();
             }
         }
