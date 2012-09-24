@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2012-09-18</date>
- <time>20:56:02</time>
+ <time>23:40:41</time>
  <version>
   <release>2.0.0beta4</release>
   <api>2.0.0beta1</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add standalone IMAP command tokenizer.
 * [mms] Rewritten handling for processing outgoing IMAP commands.
 * [mms] Improved debugging efficiency.
 * [mms] Added data objects for the various IMAP data types.
@@ -110,6 +111,7 @@
        <file name="Mailbox.php" role="php" />
        <file name="Socket.php" role="php" />
        <file name="Sort.php" role="php" />
+       <file name="Tokenize.php" role="php" />
        <file name="Translation.php" role="php">
          <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
        </file>
@@ -174,6 +176,7 @@
        <file name="SortTest.php" role="test" />
        <file name="SubjectParseTest.php" role="test" />
        <file name="test_client.php" role="test" />
+       <file name="TokenizeTest.php" role="test" />
        <file name="UrlParseTest.php" role="test" />
        <file name="Utf7ConvertTest.php" role="test" />
       </dir> <!-- /test/Horde/Imap/Client -->
@@ -275,6 +278,7 @@
    <install as="Horde/Imap/Client/Mailbox.php" name="lib/Horde/Imap/Client/Mailbox.php" />
    <install as="Horde/Imap/Client/Socket.php" name="lib/Horde/Imap/Client/Socket.php" />
    <install as="Horde/Imap/Client/Sort.php" name="lib/Horde/Imap/Client/Sort.php" />
+   <install as="Horde/Imap/Client/Tokenize.php" name="lib/Horde/Imap/Client/Tokenize.php" />
    <install as="Horde/Imap/Client/Translation.php" name="lib/Horde/Imap/Client/Translation.php" />
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Utils.php" name="lib/Horde/Imap/Client/Utils.php" />
@@ -336,6 +340,7 @@
    <install as="Horde/Imap/Client/SortTest.php" name="test/Horde/Imap/Client/SortTest.php" />
    <install as="Horde/Imap/Client/SubjectParseTest.php" name="test/Horde/Imap/Client/SubjectParseTest.php" />
    <install as="Horde/Imap/Client/test_client.php" name="test/Horde/Imap/Client/test_client.php" />
+   <install as="Horde/Imap/Client/TokenizeTest.php" name="test/Horde/Imap/Client/TokenizeTest.php" />
    <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
    <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
    <install as="Horde/Imap/Client/fixtures/bug_10503.txt" name="test/Horde/Imap/Client/fixtures/bug_10503.txt" />
@@ -1041,6 +1046,7 @@
    <date>2012-09-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add standalone IMAP command tokenizer.
 * [mms] Rewritten handling for processing outgoing IMAP commands.
 * [mms] Improved debugging efficiency.
 * [mms] Added data objects for the various IMAP data types.
