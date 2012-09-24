@@ -1221,6 +1221,24 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             }
 
             $GLOBALS['notification']->push(sprintf(_("The resource \"%s\" has been deleted."), $name), 'horde.success');
+            break;
+
+        case 'resourcegroup':
+            try {
+                $rdriver = Kronolith::getDriver('Resource');
+                $resource = $rdriver->getResource($calendar_id);
+                if (!($resource->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))) {
+                    $GLOBALS['notification']->push(_("You are not allowed to delete this resource."), 'horde.error');
+                    return $result;
+                }
+                $name = $resource->get('name');
+                $rdriver->delete($resource);
+            } catch (Kronolith_Exception $e) {
+                $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                return $result;
+            }
+            $GLOBALS['notification']->push(sprintf(_("The resource \"%s\" has been deleted."), $name), 'horde.success');
+
         }
         $result->deleted = true;
 
