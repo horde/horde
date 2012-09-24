@@ -26,6 +26,8 @@ if ($form->validate($vars)) {
     exit;
 }
 
+$page_output->sidebar = false;
+
 $page_output->header(array(
     'title' => _("Stop Watch")
 ));
