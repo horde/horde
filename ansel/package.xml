@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix auto rotation of images based on orientation exif data (Bug #11441).
 * [mjr] Honor locked default_download pref (Bug #11325).
 * [mjr] Fix getting gallery data via the API (maxime@chavagne.net, Bug #11229).
 * [mjr] Fix carousel when viewing upload screen in an iFrame (Bug #10889).
@@ -1286,6 +1287,7 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix auto rotation of images based on orientation exif data (Bug #11441).
 * [mjr] Honor locked default_download pref (Bug #11325).
 * [mjr] Fix getting gallery data via the API (maxime@chavagne.net, Bug #11229).
 * [mjr] Fix carousel when viewing upload screen in an iFrame (Bug #10889).
