@@ -261,9 +261,9 @@ var KronolithMobile = {
 
         // Add the link to view the event detail.
         a = $('<a>')
-            .css({ color:           Kronolith.conf.calendars[type][c].fg,
-                   backgroundColor: Kronolith.conf.calendars[type][c].bg })
-            .attr({ href: '#eventview', 'class': 'kronolithEvent' })
+            .css({ backgroundColor: Kronolith.conf.calendars[type][c].bg })
+            .attr({ href: '#eventview',
+                    'class': 'kronolith-event kronolith-event-' + Kronolith.conf.calendars[type][c].fg.substring(1) })
             .click(function(ev) {
                 $("#eventview :jqmData(role='content') ul").detach();
                 KronolithMobile.loadEvent(cal, event.id, Date.parse(event.e));

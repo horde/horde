@@ -1,5 +1,9 @@
-.kronolith-event {
-    text-shadow: none;
+.kronolith-event-000 {
+    color: #000 !important;
+}
+.kronolith-event-fff {
+    color: #fff !important;
+    text-shadow: 0 1px 0 #000;
 }
 .kronolith-event-tentative {
     font-style: italic;
