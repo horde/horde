@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-18</date>
- <time>23:40:41</time>
+ <date>2012-09-27</date>
+ <time>16:08:52</time>
  <version>
   <release>2.0.0beta4</release>
   <api>2.0.0beta1</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Improved parsing of incoming IMAP server stream.
 * [mms] Improved parsing of IMAP threading data.
 * [mms] Improved IMAP tokenizer of server response data using PHP temporary streams.
 * [mms] Add standalone IMAP command tokenizer.
@@ -94,7 +95,13 @@
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Ids -->
        <dir name="Interaction">
+        <dir name="Server">
+         <file name="Continuation.php" role="php" />
+         <file name="Tagged.php" role="php" />
+         <file name="Untagged.php" role="php" />
+        </dir> <!-- /lib/Horde/Imap/Client/Interaction/Server -->
         <file name="Client.php" role="php" />
+        <file name="Server.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Interaction -->
        <dir name="Search">
         <file name="Query.php" role="php" />
@@ -316,6 +323,10 @@
    <install as="Horde/Imap/Client/Fetch/Results.php" name="lib/Horde/Imap/Client/Fetch/Results.php" />
    <install as="Horde/Imap/Client/Ids/Pop3.php" name="lib/Horde/Imap/Client/Ids/Pop3.php" />
    <install as="Horde/Imap/Client/Interaction/Client.php" name="lib/Horde/Imap/Client/Interaction/Client.php" />
+   <install as="Horde/Imap/Client/Interaction/Server.php" name="lib/Horde/Imap/Client/Interaction/Server.php" />
+   <install as="Horde/Imap/Client/Interaction/Server/Continuation.php" name="lib/Horde/Imap/Client/Interaction/Server/Continuation.php" />
+   <install as="Horde/Imap/Client/Interaction/Server/Tagged.php" name="lib/Horde/Imap/Client/Interaction/Server/Tagged.php" />
+   <install as="Horde/Imap/Client/Interaction/Server/Untagged.php" name="lib/Horde/Imap/Client/Interaction/Server/Untagged.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="Horde/Imap/Client/Utils/Pop3.php" name="lib/Horde/Imap/Client/Utils/Pop3.php" />
@@ -1046,9 +1057,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-18</date>
+   <date>2012-09-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Improved parsing of incoming IMAP server stream.
 * [mms] Improved parsing of IMAP threading data.
 * [mms] Improved IMAP tokenizer of server response data using PHP temporary streams.
 * [mms] Add standalone IMAP command tokenizer.

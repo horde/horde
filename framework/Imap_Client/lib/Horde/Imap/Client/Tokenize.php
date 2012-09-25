@@ -78,6 +78,16 @@ class Horde_Imap_Client_Tokenize implements Iterator
     }
 
     /**
+     */
+    public function __toString()
+    {
+        $pos = ftell($this->stream->stream);
+        $out = $this->stream->getString($this->_start);
+        fseek($this->stream->stream, $pos);
+        return $out;
+    }
+
+    /**
      * Add data to buffer.
      *
      * @param mixed $data  Data to add (string, resource, or Horde_Stream

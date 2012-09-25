@@ -15,24 +15,24 @@
 class Horde_Imap_Client_Exception_ServerResponse extends Horde_Imap_Client_Exception
 {
     /**
-     * The server error response.
+     * The server error status.
      *
-     * @var string
+     * @var integer
      */
-    public $response;
+    public $status;
 
     /**
      * Constructor.
      *
-     * @param string $msg       Error message.
-     * @param integer $code     Error code.
-     * @param string $response  Server error response code.
-     * @param string $errtext   Server error text.
+     * @param string $msg      Error message.
+     * @param integer $code    Error code.
+     * @param integer $status  Server error status.
+     * @param string $errtext  Server error text.
      */
-    public function __construct($msg = null, $code = 0, $response = '',
+    public function __construct($msg = null, $code = 0, $status = 0,
                                 $errtext = null)
     {
-        $this->response = $response;
+        $this->status = $status;
 
         if (!is_null($errtext)) {
             $this->details = $errtext;
