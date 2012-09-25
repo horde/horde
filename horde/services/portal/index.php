@@ -30,6 +30,9 @@ $view = new Horde_Core_Block_Layout_View(
     Horde::url('services/portal/index.php', true)
 );
 $layout_html = $view->toHtml();
+$injector->getInstance('Horde_View_Topbar')->subinfo =
+    htmlspecialchars($injector->getInstance('Horde_Core_Factory_Identity')->create()->getDefaultFromAddress(true));
+
 foreach ($view->getStylesheets() as $val) {
     $page_output->addStylesheet($val['fs'], $val['uri']);
 }
