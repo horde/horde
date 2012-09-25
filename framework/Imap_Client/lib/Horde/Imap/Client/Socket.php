@@ -4288,11 +4288,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $data = new Horde_Stream_Temp();
         $got_data = false;
 
-        if ($len === 0) {
-            // Skip 0-length literal data
-            return $data;
-        }
-
         $this->writeDebug('', Horde_Imap_Client::DEBUG_SERVER);
 
         if (is_null($len)) {
@@ -4312,6 +4307,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 fwrite($data->stream, $in);
             }
             stream_set_blocking($this->_stream, 1);
+        } elseif (!$len) {
+            // Skip 0-length literal data
+            return $data;
         } else {
             $debug_literal = ($this->_debug &&
                               !empty($this->_params['debug_literal']));
