@@ -476,7 +476,7 @@ var KronolithMobile = {
           text = d.toString('ddd') + ' ' + d.toString('d')
         }
         $('#kronolithDayDetailHeader h3').text(text);
-        $('.kronolithSelected').removeClass('kronolith-selected');
+        $('.kronolith-selected').removeClass('kronolith-selected');
         $('#kronolithMonth' + date).addClass('kronolith-selected');
         if ($('#kronolithMonth' + date).hasClass('kronolithContainsEvents')) {
             var events = KronolithMobile.getCacheForDate(date);
