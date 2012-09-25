@@ -2619,7 +2619,7 @@ var DimpBase = {
             tmp = e.memo.findElement('DIV');
             if (tmp.hasClassName('msCheckAll')) {
                 this.selectAll();
-            } else {
+            } else if (!e.memo.element().hasClassName('horde-popdown')) {
                 this.sort(tmp.retrieve('sortby'));
             }
             e.memo.stop();
