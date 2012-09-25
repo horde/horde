@@ -18,6 +18,8 @@ var HordeMobile = {
     //page_init: false,
     serverError: 0,
 
+    loading: 0,
+
     /**
      * Common URLs.
      *
@@ -57,6 +59,7 @@ var HordeMobile = {
             $.extend(params, HordeMobile.conf.sid.toQueryParams());
         }
 
+        HordeMobile.loading++;
         $.mobile.showPageLoadingMsg();
 
         return $.ajax($.extend({
@@ -101,7 +104,10 @@ var HordeMobile = {
 
         HordeMobile.inAjaxCallback = false;
 
-        $.mobile.hidePageLoadingMsg();
+        HordeMobile.loading--;
+        if (!HordeMobile.loading) {
+            $.mobile.hidePageLoadingMsg();
+        }
     },
 
     /**
