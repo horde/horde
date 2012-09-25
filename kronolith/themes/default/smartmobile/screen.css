@@ -22,6 +22,10 @@
 }
 
 /* Event view styles */
+.kronolithEventDetailTitle .ui-li-heading,
+.kronolithEventDetailTitle .ui-li-desc {
+    white-space: normal;
+}
 .kronolithEventDetail p {
   margin-left: 5px;
 }
