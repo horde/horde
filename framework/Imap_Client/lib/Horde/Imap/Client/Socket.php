@@ -2172,15 +2172,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * Parse a SEARCH/SORT response (RFC 3501 [7.2.5]; RFC 4466 [3];
      * RFC 5256 [4]; RFC 5267 [3]).
      *
-     * @param array $data  A list of IDs (message sequence numbers or UIDs).
+     * @param Horde_Imap_Client_Tokenize $data  The server response.
      */
-    protected function _parseSearch($data)
+    protected function _parseSearch(Horde_Imap_Client_Tokenize $data)
     {
         /* More than one search response may be sent. */
-        $this->_temp['searchresp'] = array_merge(
-            $this->_temp['searchresp'],
-            $data
-        );
+        while (($current = $data->next()) !== false) {
+            $this->_temp['searchresp'][] = $current;
+        }
     }
 
     /**
@@ -4434,7 +4433,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'SORT':
                 // Parse a SEARCH/SORT response (RFC 3501 [7.2.5] &
                 // RFC 5256 [4]).
-                $this->_parseSearch($token->next());
+                $token->next();
+                $this->_parseSearch($token);
                 break;
 
             case 'ESEARCH':
