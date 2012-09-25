@@ -95,7 +95,7 @@ var KronolithMobile = {
             }
 
             var start = startDay.dateString(), end = endDay.dateString();
-            loading = true;
+                loading = true;
             HordeMobile.doAction('listEvents',
                                  {
                                    'start': start,
@@ -779,7 +779,7 @@ var KronolithMobile = {
         // Bind click and swipe events
         $('body').bind('swipeleft', KronolithMobile.handleSwipe);
         $('body').bind('swiperight', KronolithMobile.handleSwipe);
-        $(document).bind('pagebeforeshow', KronolithMobile.loadPage);
+        $(document).bind('pageshow', KronolithMobile.loadPage);
         $(document).bind('pagebeforechange', KronolithMobile.toPage);
         $("#eventview").live("pageshow", function(event, ui) {
             KronolithMobile.view = "event";
