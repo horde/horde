@@ -44,7 +44,7 @@
 .kronolithTimeWrapper {
     float: left;
     padding-right: 4px;
-    margin-right: 6px;
+    margin: 0 6px 0.6em 0;
     border-right: 2px solid black;
     min-width: 90px;
 }
@@ -52,11 +52,10 @@
   font-size: 80%;
 }
 .kronolithDayLocationfff, .kronolithDayLocation000 {
-  padding-left: 6px;
   font-style: italic;
 }
 .kronolithDayLocation000 {
-  color: gray;
+  color: #333;
 }
 .kronolithDayLocationfff {
   color: lightgray;
