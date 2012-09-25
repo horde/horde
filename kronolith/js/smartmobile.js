@@ -326,31 +326,22 @@ var KronolithMobile = {
          // Time
          var item = $('<div>');
          if (e.r) {
-             var recurText = Kronolith.text.recur.desc[e.r.t][(e.r.i > 1) ? 1 : 0];
-             var date = Date.parse(e.s);
+             var recurText = Kronolith.text.recur.desc[e.r.t][(e.r.i > 1) ? 1 : 0],
+                 date = Date.parse(e.s);
+             recurText = recurText.replace('#{interval}', e.r.i);
              switch (e.r.t) {
-             case 1:
-                 // Daily
-                 recurText = Kronolith.text.recur[e.r.t];
-                 break;
              case 2:
-                 // Weekly
+                 // WEEKLY
                  recurText = recurText.replace('#{weekday}', Kronolith.text.weekday[e.r.d]);
-                 recurText = recurText.replace('#{interval}', e.r.i);
                  break;
              case 3:
-                 // Monthly_Date
-                 recurText = recurText.replace('#{date}', date.toString('dS'));
-                 // Fall-thru
-             case 4:
-             case 5:
-                 // Monthly_Day
-                 recurText = recurText.replace('#{interval}', e.r.i);
+                 // MONTHLY_DATE
+                 recurText = recurText.replace('#{date}', date.toString('d') + '.');
                  break;
-             case 6:
-             case 7:
-             default:
-                 recurText = 'todo';
+             case 5:
+                 // YEARLY_DATE
+                 recurText = recurText.replace('#{date}', date.toString('m'));
+                 break;
              }
              item.append($('<div>').addClass('kronolithEventDetailRecurring').append(recurText));
              item.append($('<div>').addClass('kronolithEventDetailRecurring').text(Kronolith.text.recur[e.r.t]));
