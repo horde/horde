@@ -6,7 +6,7 @@
    <ul>
     <li><a href="#dayview"><?php echo _("Day")?></a></li>
     <li><a href="#" class="ui-btn-active ui-state-persist"><?php echo _("Month")?></a></li>
-    <li><a href="#overview"><?php echo _("Summary")?></a></li>
+    <li><a href="#overview"><?php echo _("Agenda")?></a></li>
    </ul>
   </div>
  </div>
