@@ -568,9 +568,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 'noparse' => true
             ));
 
-
             $cmd = new Horde_Imap_Client_Data_Format_List(
-                base64_encode($this->_params['username'] . ' ' . hash_hmac(strtolower(substr($method, 5)), $this->getParam('password'), base64_decode($ob['line']), true))
+                base64_encode($this->_params['username'] . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode($ob['line']), base64_decode($ob['line']), false))
             );
             $this->_sendLine($cmd, array(
                 'debug' => '[' . $method . ' Response]'
