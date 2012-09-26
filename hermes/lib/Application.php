@@ -85,7 +85,7 @@ class Hermes_Application extends Horde_Registry_Application
                 $hours = round((float)(time() - $i) / 3600, 2);
                 $menu->add($entry->add('timer', $i),
                            $timer['name'] . sprintf(" (%s)", $hours),
-                           'hermes-stop');
+                           'hermes-stop', null, '', null, '__noselection');
             }
         }
 
