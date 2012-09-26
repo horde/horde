@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-09-26</date>
- <time>12:06:23</time>
+ <time>12:06:39</time>
  <version>
-  <release>1.5.8</release>
+  <release>1.5.9</release>
   <api>1.5.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix CRAM-MD5 authentication (Bug #11449; patrickdk@patrickdk.com).
-* [mms] Allow SSL version to be explicitly chosen via &apos;secure&apos; configuration option (Request #11435).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -910,6 +909,19 @@
    <notes>
 * [mms] Fix CRAM-MD5 authentication (Bug #11449; patrickdk@patrickdk.com).
 * [mms] Allow SSL version to be explicitly chosen via &apos;secure&apos; configuration option (Request #11435).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.9</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-09-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
