@@ -4434,11 +4434,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 // Parse a SEARCH/SORT response (RFC 3501 [7.2.5] &
                 // RFC 5256 [4]).
                 $token->next();
-                $ids = array();
-                while (($current = $token->next()) !== false) {
-                    $ids[] = $current;
-                }
-                $this->_parseSearch($ids);
+                $this->_parseSearch($token->flushIterator());
                 break;
 
             case 'ESEARCH':
