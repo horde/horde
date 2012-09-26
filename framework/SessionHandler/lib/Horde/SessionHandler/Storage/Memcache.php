@@ -59,8 +59,8 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
 
         parent::__construct($params);
 
-        if (empty($this->_params['track_lt'])) {
-            $this->_params['track_lt'] = ini_get('session.gc_maxlifetime');
+        if (empty($this->_params['track_lifetime'])) {
+            $this->_params['track_lifetime'] = ini_get('session.gc_maxlifetime');
         }
 
         if (!empty($this->_params['track']) && (rand(0, 999) == 0)) {
@@ -225,7 +225,7 @@ class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
             return;
         }
 
-        $tstamp = time() - $this->_params['track_lt'];
+        $tstamp = time() - $this->_params['track_lifetime'];
         $alter = false;
 
         foreach ($ids as $key => $val) {
