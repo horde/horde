@@ -544,7 +544,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 'noparse' => true
             ));
 
-            $response = base64_encode($this->_params['username'] . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode($ob['line']), $this->getParam('password'), true));
+            $response = base64_encode($this->_params['username'] . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode($ob['line']), $this->getParam('password'), false));
             $this->_sendLine($response, array(
                 'debug' => '[' . $method . ' Response]',
                 'notag' => true
