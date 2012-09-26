@@ -515,14 +515,11 @@ class IMP
                 $ret['class'] = 'quotaalert';
             } elseif ($ret['percent'] >= 75) {
                 $ret['class'] = 'quotawarn';
-            } else {
-                $ret['class'] = 'control';
             }
 
             $ret['message'] = sprintf($strings['short'], $ret['percent'], $quota['limit'], $unit);
             $ret['percent'] = sprintf("%.2f", $ret['percent']);
         } else {
-            $ret['class'] = 'control';
             if ($quota['usage'] != 0) {
                 $quota['usage'] = $quota['usage'] / $calc;
 
