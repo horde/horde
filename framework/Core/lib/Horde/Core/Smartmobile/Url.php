@@ -36,7 +36,7 @@ class Horde_Core_Smartmobile_Url extends Horde_Url
     public function toString($raw = false, $full = true)
     {
         if ($this->toStringCallback || !strlen($this->anchor)) {
-            return parent::__toString($raw, $full);
+            return parent::toString($raw, $full);
         }
 
         $url = $full
