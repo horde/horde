@@ -25,6 +25,32 @@
 class Horde_Core_Smartmobile_Url extends Horde_Url
 {
     /**
+     * The URL used as the base for the smartmobile anchor.
+     *
+     * @var Horde_Url
+     */
+    protected $_baseUrl;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Url $url   The basic URL.
+     * @param boolean $raw     Whether to output the URL in the raw URL format
+     *                         or HTML-encoded.
+     */
+    public function __construct($url = null, $raw = null)
+    {
+        if (is_null($url)) {
+            $url = new Horde_Url();
+        }
+        if (!($url instanceof Horde_Url)) {
+            throw new InvalidArgumentException('First argument to Horde_Core_Smartmobile_Url constructor must be a Horde_Url object');
+        }
+        $this->_baseUrl = $url;
+        parent::__construct('', $raw);
+    }
+
+    /**
      * Creates the full URL string.
      *
      * @param boolean $raw   Whether to output the URL in the raw URL format
@@ -36,12 +62,16 @@ class Horde_Core_Smartmobile_Url extends Horde_Url
     public function toString($raw = false, $full = true)
     {
         if ($this->toStringCallback || !strlen($this->anchor)) {
-            return parent::toString($raw, $full);
+            $baseUrl = $this->_baseUrl->copy();
+            $baseUrl->parameters = array_merge($baseUrl->parameters,
+                                               $this->parameters);
+            if (strlen($this->pathInfo)) {
+                $baseUrl->pathInfo = $this->pathInfo;
+            }
+            return $baseUrl->toString($raw, $full);
         }
 
-        $url = $full
-            ? $this->url
-            : parse_url($this->url, PHP_URL_PATH);
+        $url = $this->_baseUrl->toString($raw, $full);
 
         if (strlen($this->pathInfo)) {
             $url = rtrim($url, '/');

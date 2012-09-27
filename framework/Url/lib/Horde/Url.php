@@ -73,9 +73,10 @@ class Horde_Url
     /**
      * Constructor.
      *
-     * @param string $url   The basic URL, with or without query parameters.
-     * @param boolean $raw  Whether to output the URL in the raw URL format or
-     *                      HTML-encoded.
+     * @param string|Horde_Url $url  The basic URL, with or without query
+     *                               parameters.
+     * @param boolean $raw           Whether to output the URL in the raw URL
+     *                               format or HTML-encoded.
      */
     public function __construct($url = '', $raw = null)
     {
