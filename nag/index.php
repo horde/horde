@@ -12,7 +12,8 @@ Horde_Registry::appInit('nag');
 
 switch ($registry->getView()) {
 case $registry::VIEW_SMARTMOBILE:
-    Horde::url('smartmobile.php')->setAnchor('nag-list')->redirect();
+    $url = new Horde_Core_Smartmobile_Url(Horde::url('smartmobile.php'));
+    $url->setAnchor('nag-list')->redirect();
     break;
 
 default:
