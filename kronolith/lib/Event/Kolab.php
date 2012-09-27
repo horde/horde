@@ -307,6 +307,15 @@ class Kronolith_Event_Kolab extends Kronolith_Event
             $event['attendee'][] = $new_attendee;
         }
 
+        // Tags
+        if (!is_array($this->tags)) {
+            $this->tags = $GLOBALS['injector']->getInstance('Content_Tagger')
+                ->splitTags($this->tags);
+        }
+        if ($this->tags) {
+            $event['categories'] = $this->tags;
+        }
+
         return $event;
     }
 

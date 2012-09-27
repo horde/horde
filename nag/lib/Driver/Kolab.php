@@ -173,7 +173,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *     - estimate: (OPTIONAL, float) The estimated time to complete the
      *                 task.
      *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - category: (OPTIONAL, string) The category of the task.
+     *     - tags: (OPTIONAL, string) The tags of the task.
      *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - methods: (OPTIONAL, array) The overridden alarm notification
      *                methods.
@@ -213,7 +213,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *     - estimate: (OPTIONAL, float) The estimated time to complete the
      *                 task.
      *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - category: (OPTIONAL, string) The category of the task.
+     *     - tags: (OPTIONAL, string) The tags of the task.
      *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - methods: (OPTIONAL, array) The overridden alarm notification
      *                methods.
@@ -249,7 +249,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *     - estimate: (OPTIONAL, float) The estimated time to complete the
      *                 task.
      *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - category: (OPTIONAL, string) The category of the task.
+     *     - tags: (OPTIONAL, string) The tags of the task.
      *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - methods: (OPTIONAL, array) The overridden alarm notification
      *                methods.
@@ -271,8 +271,6 @@ class Nag_Driver_Kolab extends Nag_Driver
             'body' => $task['desc'],
             //@todo: Match Horde/Kolab priority values
             'priority' => $task['priority'],
-            //@todo: Extend to Kolab multiple categories (tagger)
-            'categories' => $task['category'],
             'parent' => $task['parent'],
         );
         if ($task['start'] !== 0) {
@@ -319,6 +317,13 @@ class Nag_Driver_Kolab extends Nag_Driver
             $object['organizer'] = array(
                 'smtp-address' => $task['assignee'],
             );
+        }
+        if (!is_array($task['tags'])) {
+            $task['tags'] = $GLOBALS['injector']->getInstance('Content_Tagger')
+                ->splitTags($task['tags']);
+        }
+        if ($task['tags']) {
+            $object['categories'] = $task['tags'];
         }
         return $object;
     }
