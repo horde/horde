@@ -170,4 +170,15 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testBug11450()
+    {
+        // * NAMESPACE (("INBOX." ".")) (("user." ".")) (("" "."))
+        $data = '(("INBOX." ".")) (("user." ".")) (("" "."))';
+
+        $this->assertEquals(
+            3,
+            count($this->test_ob->parseNamespace($data))
+        );
+    }
+
 }

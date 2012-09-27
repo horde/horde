@@ -355,4 +355,75 @@ EOT;
         $this->assertFalse($token->next());
     }
 
+    public function testBug11450()
+    {
+        $test = '* NAMESPACE (("INBOX." ".")) (("user." ".")) (("" "."))';
+        $token = new Horde_Imap_Client_Tokenize($test);
+
+        $this->assertEquals(
+            '*',
+            $token->rewind()
+        );
+        $this->assertEquals(
+            'NAMESPACE',
+            $token->next()
+        );
+
+        $inner = $token->next();
+        $this->assertTrue($inner instanceof Horde_Imap_Client_Tokenize);
+
+        $inner2 = $inner->rewind();
+        $this->assertTrue($inner2 instanceof Horde_Imap_Client_Tokenize);
+
+        $this->assertEquals(
+            'INBOX.',
+            $inner2->rewind()
+        );
+        $this->assertEquals(
+            '.',
+            $inner2->next()
+        );
+        $this->assertFalse($inner2->next());
+
+        $this->assertFalse($inner->next());
+
+        $inner = $token->next();
+        $this->assertTrue($inner instanceof Horde_Imap_Client_Tokenize);
+
+        $inner2 = $inner->rewind();
+        $this->assertTrue($inner2 instanceof Horde_Imap_Client_Tokenize);
+
+        $this->assertEquals(
+            'user.',
+            $inner2->rewind()
+        );
+        $this->assertEquals(
+            '.',
+            $inner2->next()
+        );
+        $this->assertFalse($inner2->next());
+
+        $this->assertFalse($inner->next());
+
+        $inner = $token->next();
+        $this->assertTrue($inner instanceof Horde_Imap_Client_Tokenize);
+
+        $inner2 = $inner->rewind();
+        $this->assertTrue($inner2 instanceof Horde_Imap_Client_Tokenize);
+
+        $this->assertEquals(
+            '',
+            $inner2->rewind()
+        );
+        $this->assertEquals(
+            '.',
+            $inner2->next()
+        );
+        $this->assertFalse($inner2->next());
+
+        $this->assertFalse($inner->next());
+
+        $this->assertFalse($token->next());
+    }
+
 }

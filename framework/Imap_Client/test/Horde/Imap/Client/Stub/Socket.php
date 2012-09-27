@@ -58,4 +58,14 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
         return new Horde_Imap_Client_Data_Thread($this->_temp['threadparse'], 'uid');
     }
 
+    public function parseNamespace($data)
+    {
+        $token = new Horde_Imap_Client_Tokenize($data);
+        $token->rewind();
+
+        $this->_parseNamespace($token);
+
+        return $this->_temp['namespace'];
+    }
+
 }

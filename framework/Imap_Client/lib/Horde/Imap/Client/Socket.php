@@ -244,7 +244,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // (PERSONAL NAMESPACES) (OTHER_USERS NAMESPACE) (SHARED NAMESPACES)
         foreach ($namespace_array as $val) {
             $entry = $data->current();
-            $data->next();
 
             if (is_null($entry)) {
                 continue;
@@ -271,6 +270,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     }
                 }
             }
+
+            $data->next();
         }
     }
 
