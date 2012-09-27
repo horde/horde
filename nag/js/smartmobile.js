@@ -381,7 +381,7 @@ var NagMobile = {
 
     handleCancel: function(e)
     {
-        HordeMobile.changePage('nag-lists');
+        HordeMobile.changePage('nag-list');
     },
 
     handleDelete: function(e)
