@@ -95,7 +95,8 @@ If we dump the contents of the two variables <tt>$xml</tt> and
    ["body"]=>
    string(0) ""
    ["categories"]=>
-   string(0) ""
+   array(0) {
+   }
    ["creation-date"]=>
    int(1215694311)
    ["last-modification-date"]=>
@@ -256,7 +257,8 @@ The result looks like this:
    ["body"]=>
    string(0) ""
    ["categories"]=>
-   string(0) ""
+   array(0) {
+   }
    ["creation-date"]=>
    int(1215696516)
    ["last-modification-date"]=>

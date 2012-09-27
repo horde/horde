@@ -53,7 +53,7 @@ extends Horde_Kolab_Format_Xml_Type_Composite
     private $_attributes_basic = array(
         'uid'                    => 'Horde_Kolab_Format_Xml_Type_Uid',
         'body'                   => 'Horde_Kolab_Format_Xml_Type_String_Empty',
-        'categories'             => 'Horde_Kolab_Format_Xml_Type_String_Empty',
+        'categories'             => 'Horde_Kolab_Format_Xml_Type_String_Empty_List',
         'creation-date'          => 'Horde_Kolab_Format_Xml_Type_CreationDate',
         'last-modification-date' => 'Horde_Kolab_Format_Xml_Type_ModificationDate',
         'sensitivity'            => 'Horde_Kolab_Format_Xml_Type_Sensitivity',

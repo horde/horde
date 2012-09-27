@@ -66,7 +66,8 @@ extends Horde_Kolab_Format_TestCase
         $xml     = file_get_contents(__DIR__
                                      . '/../fixtures/contact_category.xml');
         $object  = $contact->load($xml);
-        $this->assertContains('Test', $object['categories']);
+        $this->assertEquals(array('Test', 'Test 2', 'Test,3'),
+                            $object['categories']);
     }
 
     public function testUtf8()

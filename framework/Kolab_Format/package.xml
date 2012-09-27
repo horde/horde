@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>23:31:43</time>
+ <date>2012-09-27</date>
+ <time>23:18:14</time>
  <version>
   <release>2.0.0beta2</release>
   <api>1.1.0</api>
@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Categories attributes are returned and passed as an array now.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -109,6 +109,9 @@
           <file name="V1.php" role="php" />
          </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/RecurrenceRange -->
          <dir name="String">
+          <dir name="Empty">
+           <file name="List.php" role="php" />
+          </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/String/Empty -->
           <file name="Empty.php" role="php" />
           <file name="MaybeMissing.php" role="php" />
          </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/String -->
@@ -377,6 +380,7 @@
    <install as="Horde/Kolab/Format/Xml/Type/RecurrenceRange/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/RecurrenceRange/V1.php" />
    <install as="Horde/Kolab/Format/Xml/Type/String/Empty.php" name="lib/Horde/Kolab/Format/Xml/Type/String/Empty.php" />
    <install as="Horde/Kolab/Format/Xml/Type/String/MaybeMissing.php" name="lib/Horde/Kolab/Format/Xml/Type/String/MaybeMissing.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/String/Empty/List.php" name="lib/Horde/Kolab/Format/Xml/Type/String/Empty/List.php" />
    <install as="Horde/Kolab/Format/AllTests.php" name="test/Horde/Kolab/Format/AllTests.php" />
    <install as="Horde/Kolab/Format/Autoload.php" name="test/Horde/Kolab/Format/Autoload.php" />
    <install as="Horde/Kolab/Format/phpunit.xml" name="test/Horde/Kolab/Format/phpunit.xml" />
@@ -615,10 +619,10 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-09-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Categories attributes are returned and passed as an array now.
    </notes>
   </release>
  </changelog>
