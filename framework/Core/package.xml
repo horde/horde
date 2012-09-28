@@ -43,7 +43,6 @@
 * [mjr] Port fix for Bug #9733 from FW_5.
 * [jan] Fix using PostgreSQL as the session handler backend (Bug #11436).
 * [mms] Mark session identifier cookie as HttpOnly.
-* [mjr] Use local member storage when no session is available (Bug # 9733).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1804,7 +1803,6 @@
 * [mjr] Port fix for Bug #9733 from FW_5.
 * [jan] Fix using PostgreSQL as the session handler backend (Bug #11436).
 * [mms] Mark session identifier cookie as HttpOnly.
-* [mjr] Use local member storage when no session is available (Bug # 9733).
    </notes>
   </release>
  </changelog>
