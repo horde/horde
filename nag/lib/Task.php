@@ -226,6 +226,13 @@ class Nag_Task
     protected $_dict = array();
 
     /**
+     * Task tags from the storage backend (e.g. Kolab)
+     *
+     * @var array
+     */
+    public $internaltags;
+
+    /**
      * Task tags (lazy loaded).
      *
      * @var array
@@ -265,13 +272,13 @@ class Nag_Task
 
         case 'tags':
             if (!isset($this->_tags)) {
-                $this->_tags = Nag::getTagger()->getTags($this->uid, 'task');
+                $this->synchronizeTags(Nag::getTagger()->getTags($this->uid, 'task'));
             }
             return $this->_tags;
         }
 
         $trace = debug_backtrace();
-        trigger_error('Undefined property via __set(): ' . $name
+        trigger_error('Undefined property via __get(): ' . $name
                       . ' in ' . $trace[0]['file']
                       . ' on line ' . $trace[0]['line'],
                       E_USER_NOTICE);
@@ -288,7 +295,7 @@ class Nag_Task
     {
         switch ($name) {
         case 'tags':
-            $this->{'_' . $name} = $value;
+            $this->_tags = $value;
             return;
         }
         $trace = debug_backtrace();
@@ -730,19 +737,47 @@ class Nag_Task
      */
     public function loadTags()
     {
-        $ids = array($this->uid);
+        $ids = array();
+        if (!isset($this->_tags)) {
+            $ids[] = $this->uid;
+        }
         foreach ($this->children as $task) {
             $ids[] = $task->uid;
         }
+        if (!$ids) {
+            return;
+        }
+
         $results = Nag::getTagger()->getTags($ids);
 
+        $this->synchronizeTags($results[$this->uid]);
         foreach ($this->children as $task) {
-            if (!empty($results[$task->uid])) {
-                $task->tags = $results[$task->uid];
-            }
+            $task->synchronizeTags($results[$task->uid]);
+            $task->loadTags();
         }
-        if (!empty($results[$this->uid])) {
-            $this->_tags = $results[$this->uid];
+    }
+
+    /**
+     * Syncronizes tags from the tagging backend with the task storage backend,
+     * if necessary.
+     *
+     * @param array $tags  Tags from the tagging backend.
+     */
+    public function synchronizeTags($tags)
+    {
+        if (isset($this->internaltags)) {
+            usort($tags, 'strcoll');
+            if (array_diff($this->internaltags, $tags)) {
+                Nag::getTagger()->replaceTags(
+                    $this->uid,
+                    $this->internaltags,
+                    $this->owner,
+                    'task'
+                );
+            }
+            $this->_tags = $this->internaltags;
+        } else {
+            $this->_tags = $tags;
         }
     }
 

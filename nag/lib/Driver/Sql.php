@@ -542,36 +542,6 @@ class Nag_Driver_Sql extends Nag_Driver
     }
 
     /**
-     * Helper function to update an existing event's tags to tagger storage.
-     *
-     * @param array $task  The task to update
-     */
-    protected function _updateTags(array $task)
-    {
-        Nag::getTagger()->replaceTags(
-            $task['uid'],
-            $task['tags'],
-            $task['owner'],
-            'task'
-        );
-    }
-
-    /**
-     * Helper function to add tags from a newly creted event to the tagger.
-     *
-     * @param array $task  The task to save tags to storage for.
-     */
-    protected function _addTags(array $task)
-    {
-        Nag::getTagger()->tag(
-            $task['uid'],
-            $task['tags'],
-            $task['owner'],
-            'task'
-        );
-    }
-
-    /**
      */
     protected function _buildTask($row)
     {

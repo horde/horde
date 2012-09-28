@@ -104,7 +104,7 @@ class Nag_Driver_Kolab extends Nag_Driver
     {
         $task['task_id'] = $task['uid'];
 
-        $task['category'] = $task['categories'];
+        $task['internaltags'] = $task['categories'];
         unset($task['categories']);
 
         $task['name'] = $task['summary'];
@@ -193,6 +193,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         $object = $this->_getObject($task);
         try {
             $this->_getData()->create($object);
+            $this->_addTags($task);
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Nag_Exception($e);
         }
@@ -232,6 +233,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         $object['uid'] = $taskId;
         try {
             $this->_getData()->modify($object);
+            $this->_updateTags($task);
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Nag_Exception($e);
         }
@@ -324,6 +326,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         }
         if ($task['tags']) {
             $object['categories'] = $task['tags'];
+            usort($object['categories'], 'strcoll');
         }
         return $object;
     }

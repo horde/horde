@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Synchronize tags with Kolab categories.
 * [mjr] Fix deleting tasks from the task form.
 * [mjr] Implement Purge Completed Tasks LoginTask (Request #2520).
 * [gwr] Mark the initial default share as such with the Kolab backend.
@@ -1186,6 +1187,7 @@
    <date>2012-09-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Synchronize tags with Kolab categories.
 * [mjr] Fix deleting tasks from the task form.
 * [mjr] Implement Purge Completed Tasks LoginTask (Request #2520).
 * [gwr] Mark the initial default share as such with the Kolab backend.
