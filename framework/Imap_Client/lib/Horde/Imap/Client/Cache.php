@@ -16,7 +16,7 @@
 class Horde_Imap_Client_Cache
 {
     /** Cache structure version. */
-    const VERSION = 3;
+    const VERSION = 4;
 
     /**
      * The base driver object.
