@@ -388,10 +388,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $changecount = $sync->getChangeCount();
             }
 
+            $counter = Horde_ActiveSync_State_Base::getSyncKeyCounter($collection['synckey']);
             // Get new synckey if needed
             if (isset($collection['importedchanges']) ||
                 $changecount > 0 ||
-                $collection['synckey'] == '0') {
+                $collection['synckey'] == '0' ||
+                $counter == '1') {
                 try {
                     $this->_logger->debug('Generating new synckey. Old synckey: ' . $collection['synckey']);
                     $collection['newsynckey'] = $this->_state->getNewSyncKey($collection['synckey']);
