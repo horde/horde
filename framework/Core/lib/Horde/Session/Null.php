@@ -77,13 +77,11 @@ class Horde_Session_Null extends Horde_Session
      */
     public function destroy()
     {
-        $this->_clean();
+        $this->clean();
     }
 
     /**
      * Is the current session active (read/write)?
-     *
-     * @since 1.4.0
      *
      * @return boolean  True if the current session is active.
      */
@@ -163,9 +161,6 @@ class Horde_Session_Null extends Horde_Session
      */
     public function set($app, $name, $value, $mask = 0)
     {
-        if ($this->_readonly) {
-            return;
-        }
 
         /* Each particular piece of session data is generally not used on any
          * given page load.  Thus, for arrays and objects, it is beneficial to
