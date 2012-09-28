@@ -2,6 +2,8 @@
 v4.0.0-git
 ----------
 
+[mjr] Fix issue causing broken alarm values from being imported from certain
+      ics files.
 [gwr] Mark the initial default share as such with the Kolab backend.
 [gwr] Always mark the initial share as default calendar.
 [jan] Fix attendees button in traditional view.
