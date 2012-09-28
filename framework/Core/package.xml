@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Port fix for Bug #9733 from FW_5.
 * [jan] Fix using PostgreSQL as the session handler backend (Bug #11436).
 * [mms] Mark session identifier cookie as HttpOnly.
 * [mjr] Use local member storage when no session is available (Bug # 9733).
@@ -1800,6 +1801,7 @@
    <date>2012-06-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Port fix for Bug #9733 from FW_5.
 * [jan] Fix using PostgreSQL as the session handler backend (Bug #11436).
 * [mms] Mark session identifier cookie as HttpOnly.
 * [mjr] Use local member storage when no session is available (Bug # 9733).
