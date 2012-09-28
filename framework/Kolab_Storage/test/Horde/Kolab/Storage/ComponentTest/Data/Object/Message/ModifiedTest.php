@@ -40,18 +40,24 @@ extends PHPUnit_Framework_TestCase
         $driver = new Horde_Kolab_Storage_Stub_Driver('user');
         $driver->setMessage('INBOX', 1, file_get_contents(__DIR__ . '/../../../../fixtures/note.eml'));
         $factory = new Horde_Kolab_Format_Factory();
-        $content = new Horde_Kolab_Storage_Data_Object_Content_Modified(
-            array('summary' => 'NEW', 'description' => 'test', 'uid' => 'ABC1234'),
-            $factory->create('Xml', 'note')
+        $writer = new Horde_Kolab_Storage_Object_Writer_Format(
+            $factory
         );
-        $content->setType('note');
-        $message = new Horde_Kolab_Storage_Data_Object_Message_Modified(
-            $content,
-            $driver,
-            'INBOX',
-            1
+        $object = new Horde_Kolab_Storage_Object();
+        $object->setDriver($driver);
+        $folder = $this->getMock('Horde_Kolab_Storage_Folder');
+        $folder->expects($this->once())
+            ->method('getPath')
+            ->will($this->returnValue('INBOX'));
+        $folder->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue('note'));
+        $structure = $driver->fetchComplete('INBOX', 1);
+        $object->load(1, $folder, $writer, $structure[1]);
+        $object->setData(
+            array('summary' => 'NEW', 'description' => 'test', 'uid' => 'ABC1234')
         );
-        $message->store();
+        $object->save($writer);
         $result = $driver->messages['INBOX'][2];
         $result = preg_replace('/Date: .*/', 'Date: ', $result);
         $result = preg_replace('/boundary=".*"/', 'boundary=""', $result);

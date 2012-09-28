@@ -35,27 +35,6 @@ class Horde_Kolab_Storage_Factory
     private $_params;
 
     /**
-     * Folder type instances.
-     *
-     * @var array
-     */
-    private $_folder_types;
-
-    /**
-     * Format parser instances.
-     *
-     * @var array
-     */
-    private $_formats;
-
-    /**
-     * The format parser factory.
-     *
-     * @var Horde_Kolab_Format_Factory
-     */
-    private $_format_factory;
-
-    /**
      * Stores the driver once created.
      *
      * @todo Cleanup. Extract a driver factory to be placed in the driver
@@ -82,11 +61,6 @@ class Horde_Kolab_Storage_Factory
     public function __construct($params = array())
     {
         $this->_params = $params;
-        if (isset($params['format']['factory'])) {
-            $this->_format_factory = $params['format']['factory'];
-        } else {
-            $this->_format_factory = new Horde_Kolab_Format_Factory();
-        }
     }
 
     /**
@@ -202,22 +176,17 @@ class Horde_Kolab_Storage_Factory
             );
         }
 
-        $parser = new Horde_Kolab_Storage_Data_Parser_Structure($driver);
-        $format = new Horde_Kolab_Storage_Data_Format_Mime($this, $parser);
-        $parser->setFormat($format);
-        $driver->setParser($parser);
-
         if (isset($this->_params['log'])
             && (in_array('debug', $this->_params['log'])
                 || in_array('driver', $this->_params['log']))) {
             $driver = new Horde_Kolab_Storage_Driver_Decorator_Log(
                 $driver, $params['logger']
             );
-            $parser->setLogger($params['logger']);
+            //$parser->setLogger($params['logger']);
         }
-        if (!empty($params['ignore_parse_errors'])) {
-            $parser->setLogger(false);
-        }
+        /* if (!empty($params['ignore_parse_errors'])) { */
+        /*     $parser->setLogger(false); */
+        /* } */
         if (isset($this->_params['log'])
             && (in_array('debug', $this->_params['log'])
                 || in_array('driver_time', $this->_params['log']))) {
@@ -293,32 +262,6 @@ class Horde_Kolab_Storage_Factory
             return $this->_params['history'];
         }
         return new Horde_History_Mock($user);
-    }
-
-    /**
-     * Create a Kolab format handler.
-     *
-     * @param string $format  The format that the handler should work with.
-     * @param string $type    The object type that should be handled.
-     * @param string $version The format version.
-     *
-     * @return Horde_Kolab_Format The format parser.
-     */
-    public function createFormat($format, $type, $version)
-    {
-        $key = md5(serialize(array($format, $type, $version)));
-        if (!isset($this->_formats[$key])) {
-            if (isset($this->_params['format'])) {
-                $params = $this->_params['format'];
-            } else {
-                $params = array();
-            }
-            $params['version'] = $version;
-            $this->_formats[$key] = $this->_format_factory->create(
-                $format, $type, $params
-            );
-        }
-        return $this->_formats[$key];
     }
 
     public function getDriver()

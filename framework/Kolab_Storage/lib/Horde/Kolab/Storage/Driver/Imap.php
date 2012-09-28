@@ -397,6 +397,32 @@ extends Horde_Kolab_Storage_Driver_Base
     }
 
     /**
+     * Retrieves the message headers.
+     *
+     * @param string $folder The folder to fetch the message from.
+     * @param array  $uid    The message UID.
+     *
+     * @return Horde_Mime_Headers The message headers.
+     */
+    public function fetchHeaders($folder, $uid)
+    {
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->headerText();
+
+        try {
+            $ret = $this->getBackend()->fetch(
+                $folder,
+                $query,
+                array('ids' => new Horde_Imap_Client_Ids($uid))
+            );
+            $msg = $ret[$uid]->getHeaderText();
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
+        return Horde_Mime_Headers::parseHeaders($msg);
+    }
+
+    /**
      * Retrieves the messages for the given message ids.
      *
      * @param string $folder The folder to fetch the messages from.

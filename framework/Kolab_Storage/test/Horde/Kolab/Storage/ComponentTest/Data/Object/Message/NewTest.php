@@ -38,16 +38,24 @@ extends PHPUnit_Framework_TestCase
     public function testStore()
     {
         $factory = new Horde_Kolab_Format_Factory();
-        $content = new Horde_Kolab_Storage_Data_Object_Content_New(
-            array('summary' => 'TEST', 'description' => 'test', 'uid' => 'ABC1234'),
-            $factory->create('Xml', 'note')
+        $writer = new Horde_Kolab_Storage_Object_Writer_Format(
+            $factory
         );
-        $content->setType('note');
+
+        $folder = $this->getMock('Horde_Kolab_Storage_Folder');
+        $folder->expects($this->once())
+            ->method('getPath')
+            ->will($this->returnValue('INBOX'));
+
         $driver = new Horde_Kolab_Storage_Stub_Driver('user');
-        $message = new Horde_Kolab_Storage_Data_Object_Message_New(
-            $content, $driver
+        $object = new Horde_Kolab_Storage_Object();
+        $object->setDriver($driver);
+
+        $object->setData(
+            array('summary' => 'TEST', 'description' => 'test', 'uid' => 'ABC1234')
         );
-        $message->store('INBOX');
+        $object->create($folder, $writer, 'note');
+
         $result = $driver->messages['INBOX'][0];
         $result = preg_replace('/Date: .*/', 'Date: ', $result);
         $result = preg_replace('/boundary=".*"/', 'boundary=""', $result);

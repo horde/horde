@@ -145,13 +145,6 @@ extends Horde_Kolab_Storage_Queriable
     public function getBackendId($object_id);
 
     /**
-     * Generate a unique object ID.
-     *
-     * @return string  The unique ID.
-     */
-    public function generateUid();
-
-    /**
      * Check if the given object ID exists.
      *
      * @param string $object_id The object ID.

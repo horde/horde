@@ -57,13 +57,6 @@ implements Horde_Kolab_Storage_Driver
     private $_backend;
 
     /**
-     * The parser used for reading data objects.
-     *
-     * @var Horde_Kolab_Storage_Data_Parser
-     */
-    private $_parser;
-
-    /**
      * Charset used by this driver.
      *
      * @var string
@@ -112,33 +105,6 @@ implements Horde_Kolab_Storage_Driver
     public function setBackend($backend)
     {
         $this->_backend = $backend;
-    }
-
-    /**
-     * Returns the parser for data objects.
-     *
-     * @return Horde_Kolab_Storage_Data_Parser The parser.
-     */
-    public function getParser()
-    {
-        if ($this->_parser === null) {
-            throw new Horde_Kolab_Storage_Exception(
-                'The parser has been left undefined!'
-            );
-        }
-        return $this->_parser;
-    }
-
-    /**
-     * Set the data parser.
-     *
-     * @param mixed $parser The parser that should be used.
-     *
-     * @return NULL
-     */
-    public function setParser(Horde_Kolab_Storage_Data_Parser $parser)
-    {
-        $this->_parser = $parser;
     }
 
     /**
@@ -342,25 +308,6 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
-     * Fetches the objects for the specified UIDs.
-     *
-     * @param string  $folder  The folder to access.
-     * @param array   $uids    The message UIDs.
-     * @param array   $options Additional options.
-     * <pre>
-     *  - type    - (string) The data type.
-     *  - version - (int)    The format version.
-     *  - raw     - (bool)   Should the raw data be returned? 
-     * </pre>
-     *
-     * @return array The objects.
-     */
-    public function fetch($folder, $uids, $options = array())
-    {
-        return $this->getParser()->fetch($folder, $uids, $options);
-    }
-
-    /**
      * Retrieves the messages for the given message ids.
      *
      * @param string $mailbox The mailbox to fetch the messages from.
@@ -401,6 +348,21 @@ implements Horde_Kolab_Storage_Driver
     {
         throw new Horde_Kolab_Storage_Exception('"fetchComplete() not supported by this driver!');
     }
+
+    /**
+     * Retrieves the message headers.
+     *
+     * @param string $folder The folder to fetch the message from.
+     * @param array  $uid    The message UID.
+     *
+     * @return Horde_Mime_Headers The message headers.
+     */
+    public function fetchHeaders($folder, $uid)
+    {
+        $result = $this->fetchComplete($folder, $uid);
+        return $result[0];
+    }
+
     /**
      * Split a name for the METADATA extension into the correct syntax for the
      * older ANNOTATEMORE version.

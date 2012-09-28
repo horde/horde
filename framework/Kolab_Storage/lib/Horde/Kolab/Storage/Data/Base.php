@@ -31,7 +31,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * The link to the parent folder object.
      *
-     * @var Horde_Kolab_Folder
+     * @var Horde_Kolab_Storage_Folder
      */
     private $_folder;
 
@@ -201,29 +201,18 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function create(&$object, $raw = false)
     {
-        if (!isset($object['uid'])) {
-            $object['uid'] = $this->generateUid();
-        }
-
         if ($raw === false) {
-            $content = new Horde_Kolab_Storage_Data_Object_Content_New(
-                $object,
-                $this->_factory->createFormat(
-                    'Xml', $this->getType(), $this->_version
-                )
+            $writer = new Horde_Kolab_Storage_Object_Writer_Format(
+                new Horde_Kolab_Format_Factory(),
+                array('version' => $this->_version)
             );
         } else {
-            $content = new Horde_Kolab_Storage_Data_Object_Content_Raw(
-                $object['content'],
-                $object['uid']
-            );
+            $writer = new Horde_Kolab_Storage_Object_Writer_Raw();
         }
-	$content->setType($this->getType());
-
-        $message = new Horde_Kolab_Storage_Data_Object_Message_New(
-            $content, $this->_driver
-        );
-        $result = $message->store($this->_folder->getPath());
+        $storage_object = new Horde_Kolab_Storage_Object();
+        $storage_object->setDriver($this->_driver);
+        $storage_object->setData($object);
+        $result = $storage_object->create($this->_folder, $writer, $this->getType());
 
         if ($result === true) {
             $params = array();
@@ -231,7 +220,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             $params = array(
                 'changes' => array(
                     Horde_Kolab_Storage_Folder_Stamp::ADDED => array(
-                        $result => $object
+                        $result => $storage_object
                     ),
                     Horde_Kolab_Storage_Folder_Stamp::DELETED => array()
                 )
@@ -277,27 +266,15 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         }
 
         if ($raw === false) {
-            $content = new Horde_Kolab_Storage_Data_Object_Content_Modified(
-                $object,
-                $this->_factory->createFormat(
-                    'Xml', $this->getType(), $this->_version
-                )
+            $writer = new Horde_Kolab_Storage_Object_Writer_Format(
+                new Horde_Kolab_Format_Factory(),
+                array('version' => $this->_version)
             );
         } else {
-            $content = new Horde_Kolab_Storage_Data_Object_Content_Raw(
-                $object['content'],
-                $object['uid']
-            );
+            $writer = new Horde_Kolab_Storage_Object_Writer_Raw();
         }
-	$content->setType($this->getType());
-        $message = new Horde_Kolab_Storage_Data_Object_Message_Modified(
-            $content,
-            $this->_driver,
-            $this->_folder->getPath(),
-            $obid
-        );
-
-        $result = $message->store();
+        $object->setDriver($this->_driver);
+        $result = $object->save($writer);
 
         if ($result === true) {
             $params = array();
@@ -354,19 +331,46 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function fetch($uids, $raw = false)
     {
-        if (!empty($uids)) {
-            return $this->_driver->fetch(
-                $this->_folder->getPath(),
-                $uids,
-                array(
-                    'type' => $this->getType(),
-                    'version' => $this->_version,
-                    'raw' => $raw
-                )
-            );
-        } else {
+        if (empty($uids)) {
             return array();
         }
+
+        if ($raw === false) {
+            $writer = new Horde_Kolab_Storage_Object_Writer_Format(
+                new Horde_Kolab_Format_Factory(),
+                array('version' => $this->_version)
+            );
+        } else {
+            $writer = new Horde_Kolab_Storage_Object_Writer_Raw();
+        }
+
+        $objects = array();
+        /* $this->_completeOptions($options); */
+        $structures = $this->_driver->fetchStructure($this->_folder->getPath(), $uids);
+        foreach ($structures as $uid => $structure) {
+            if (!isset($structure['structure'])) {
+                throw new Horde_Kolab_Storage_Exception(
+                    'Backend returned a structure without the expected "structure" element.'
+                );
+            }
+            $object = new Horde_Kolab_Storage_Object();
+            $object->setDriver($this->_driver);
+            $object->load($uid, $this->_folder, $writer, $structure['structure']);
+            $objects[$uid] = $object;
+            //$this->_warn($object);
+        }
+        return $objects;
+
+
+        return $this->_driver->fetch(
+            $this->_folder->getPath(),
+            $uids,
+            array(
+                'type' => $this->getType(),
+                'version' => $this->_version,
+                'raw' => $raw
+            )
+        );
     }
 
     /**
@@ -387,16 +391,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         throw new Horde_Kolab_Storage_Exception(
             sprintf('Object ID %s does not exist!', $object_id)
         );
-    }
-
-    /**
-     * Generate a unique object ID.
-     *
-     * @return string  The unique ID.
-     */
-    public function generateUid()
-    {
-        return strval(new Horde_Support_Uuid());
     }
 
     /**
@@ -550,8 +544,8 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         $errors = array();
         $by_obid = $this->fetch($this->getStamp()->ids());
         foreach ($by_obid as $obid => $object) {
-            if ($object === false) {
-                $errors[] = $obid;
+            if ($object->hasParseErrors()) {
+                $errors[$obid] = $object;
             }
         }
         return $errors;

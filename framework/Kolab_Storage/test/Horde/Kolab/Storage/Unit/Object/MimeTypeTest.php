@@ -15,7 +15,7 @@
 /**
  * Prepare the test setup.
  */
-require_once __DIR__ . '/../../../Autoload.php';
+require_once __DIR__ . '/../../Autoload.php';
 
 /**
  * Tests the Kolab mime type handling.
@@ -32,7 +32,7 @@ require_once __DIR__ . '/../../../Autoload.php';
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Unit_Data_Object_MimeTypeTest
+class Horde_Kolab_Storage_Unit_Object_MimeTypeTest
 extends PHPUnit_Framework_TestCase
 {
     /**
@@ -42,7 +42,7 @@ extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             $mime_type,
-            Horde_Kolab_Storage_Data_Object_MimeType::getMimeTypeFromObjectType($type)
+            Horde_Kolab_Storage_Object_MimeType::getMimeTypeFromObjectType($type)
         );
     }
 
@@ -51,7 +51,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testUndefinedMimeObjectType()
     {
-        Horde_Kolab_Storage_Data_Object_MimeType::getMimeTypeFromObjectType('UNDEFINED');
+        Horde_Kolab_Storage_Object_MimeType::getMimeTypeFromObjectType('UNDEFINED');
     }
 
     /**
@@ -61,7 +61,7 @@ extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             2,
-            Horde_Kolab_Storage_Data_Object_MimeType::matchMimePartToObjectType(
+            Horde_Kolab_Storage_Object_MimeType::matchMimePartToObjectType(
                 $this->getMultipartMimeMessage($mime_type), $type
             )
         );
@@ -70,7 +70,7 @@ extends PHPUnit_Framework_TestCase
     public function testNoMatchToObjectType()
     {
         $this->assertFalse(
-            Horde_Kolab_Storage_Data_Object_MimeType::matchMimePartToObjectType(
+            Horde_Kolab_Storage_Object_MimeType::matchMimePartToObjectType(
                 $this->getMultipartMimeMessage('dummy/dummy'), 'event'
             )
         );
@@ -83,7 +83,7 @@ extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             $type,
-            Horde_Kolab_Storage_Data_Object_MimeType::getObjectTypeFromMimePart(
+            Horde_Kolab_Storage_Object_MimeType::getObjectTypeFromMimePart(
                 $this->getMultipartMimeMessage($mime_type), 2
             )
         );
@@ -92,7 +92,7 @@ extends PHPUnit_Framework_TestCase
     public function testGetUnknownObjectType()
     {
         $this->assertFalse(
-            Horde_Kolab_Storage_Data_Object_MimeType::getObjectTypeFromMimePart(
+            Horde_Kolab_Storage_Object_MimeType::getObjectTypeFromMimePart(
                 $this->getMultipartMimeMessage('dummy/dummy'), 2
             )
         );
@@ -107,7 +107,7 @@ extends PHPUnit_Framework_TestCase
         $headers->addHeader('X-Kolab-Type', $mime_type);
         $this->assertEquals(
             array(2, $type),
-            Horde_Kolab_Storage_Data_Object_MimeType::matchMimePartToHeaderType(
+            Horde_Kolab_Storage_Object_MimeType::matchMimePartToHeaderType(
                 $this->getMultipartMimeMessage($mime_type), $headers
             )
         );
@@ -117,7 +117,7 @@ extends PHPUnit_Framework_TestCase
     {
         $headers = new Horde_Mime_Headers();
         $this->assertFalse(
-            Horde_Kolab_Storage_Data_Object_MimeType::matchMimePartToHeaderType(
+            Horde_Kolab_Storage_Object_MimeType::matchMimePartToHeaderType(
                 $this->getMultipartMimeMessage('test/test'), $headers
             )
         );
@@ -159,7 +159,7 @@ extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             $mime_types,
-            Horde_Kolab_Storage_Data_Object_MimeType::getMimeTypesFromFolderType($type)
+            Horde_Kolab_Storage_Object_MimeType::getMimeTypesFromFolderType($type)
         );
     }
 
@@ -168,7 +168,7 @@ extends PHPUnit_Framework_TestCase
      */
     public function testUndefinedMimeFolderType()
     {
-        Horde_Kolab_Storage_Data_Object_MimeType::getMimeTypesFromFolderType('UNDEFINED');
+        Horde_Kolab_Storage_Object_MimeType::getMimeTypesFromFolderType('UNDEFINED');
     }
 
     /**
@@ -178,8 +178,8 @@ extends PHPUnit_Framework_TestCase
     {
         foreach ($mime_types as $mime_type) {
             $this->assertEquals(
-                array(2, Horde_Kolab_Storage_Data_Object_MimeType::getObjectTypeFromMimeType($mime_type)),
-                Horde_Kolab_Storage_Data_Object_MimeType::matchMimePartToFolderType(
+                array(2, Horde_Kolab_Storage_Object_MimeType::getObjectTypeFromMimeType($mime_type)),
+                Horde_Kolab_Storage_Object_MimeType::matchMimePartToFolderType(
                     $this->getMultipartMimeMessage($mime_type), $type
                 )
             );
@@ -189,7 +189,7 @@ extends PHPUnit_Framework_TestCase
     public function testNoMatchMimePartToFolderType()
     {
         $this->assertFalse(
-            Horde_Kolab_Storage_Data_Object_MimeType::matchMimePartToFolderType(
+            Horde_Kolab_Storage_Object_MimeType::matchMimePartToFolderType(
                 $this->getMultipartMimeMessage('application/x-vnd.kolab.event'),
                 'note'
             )

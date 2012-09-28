@@ -384,6 +384,10 @@ implements Horde_Kolab_Storage_Driver
         );
     }
 
+    public function fetchHeaders($folder, $uid)
+    {
+        return Horde_Mime_Headers::parseHeaders($this->messages[$folder][$uid]);
+    }
 
     /**
      * Appends a message to the given folder.
