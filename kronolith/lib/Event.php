@@ -1035,6 +1035,9 @@ abstract class Kronolith_Event
             } catch (Horde_Icalendar_Exception $e) {
                 continue;
             }
+            if (is_array($triggerParams) && !empty($triggerParams[0])) {
+                $triggerParams = $triggerParams[0];
+            }
             if (isset($triggerParams['VALUE']) &&
                 $triggerParams['VALUE'] == 'DATE-TIME') {
                 if (isset($triggerParams['RELATED']) &&
