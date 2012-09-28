@@ -165,9 +165,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Clean up
      *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#removeAuthentication()
+     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#clearAuthentication()
      */
-    public function removeAuthentication()
+    public function clearAuthentication()
     {
         $this->_connector->clearAuth();
         $this->_logger->info('User ' . $this->_user . ' logged off');
