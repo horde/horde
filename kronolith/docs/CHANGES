@@ -3,6 +3,8 @@ v3.0.18-git
 -----------
 
 [mms] SECURITY: Fix XSS vulnerabilities in the portal blocks.
+[mjr] Fix issue causing broken alarm values from being imported from certain
+      ics files.
 [rla] Fix sender of appointment notification (Bug #11198).
 [mjr] Use SSL for map providers if current connection is SSL (Request #11193).
 [jan] Don't show location of private events (Bug #11235).
