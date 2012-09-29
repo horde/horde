@@ -1111,7 +1111,7 @@ KronolithCore = {
         var elt = $('kronolithMenuCalendars').select('div').find(function(div) {
             return div.retrieve('calendarclass') == type &&
             div.retrieve('calendar') == calendar;
-        }).down('span');
+        }).down('.horde-resource-link').down('span');
 
         Kronolith.conf.calendars[type][calendar].show = !Kronolith.conf.calendars[type][calendar].show;
         elt.toggleClassName('horde-resource-on');
