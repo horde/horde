@@ -241,7 +241,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
     public function setData(array $data)
     {
         $this->_data = $data;
-        if (!isset($this->data['uid'])) {
+        if (!isset($this->_data['uid'])) {
             $this->getUid();
         }
     }
@@ -314,8 +314,10 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         $envelope = $this->createEnvelope();
         $envelope->addPart($this->createFreshKolabPart($data->save($this)));
         $envelope->buildMimeIds();
+        $this->_mime_part_id = Horde_Kolab_Storage_Object_MimeType::matchMimePartToObjectType(
+            $envelope, $this->getType()
+        );
         return $this->_appendMessage($envelope, $this->createEnvelopeHeaders());
-
     }
 
     /**
@@ -419,11 +421,13 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
 
         $body->alterPart($mime_id, $this->createFreshKolabPart($data->save($this)));
         $body->buildMimeIds();
+        $this->_mime_part_id = Horde_Kolab_Storage_Object_MimeType::matchMimePartToObjectType(
+            $body, $this->getType()
+        );
         $result = $this->_appendMessage($body, $headers);
         $this->_driver->deleteMessages($this->_getFolder(), array($this->_getBackendId()));
         $this->_driver->expunge($this->_getFolder());
         return $result;
-
     }
 
     /**
@@ -454,6 +458,9 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
                     print_r($result, true), $this->_getFolder()
                 )
             );
+        }
+        if ($result !== true) {
+            $this->_backend_id = $result;
         }
         return $result;
     }

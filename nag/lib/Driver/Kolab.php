@@ -87,7 +87,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         if (!$this->_getData()->objectIdExists($taskId)) {
             throw new Horde_Exception_NotFound();
         }
-        $task = $this->_getData()->getObject($taskId);
+        $task = $this->_getData()->getObject($taskId)->getData();
         $nag_task = $this->_buildTask($task);
         $nag_task['tasklist_id'] = $this->_tasklist;
         return new Nag_Task($this, $nag_task);
@@ -191,6 +191,7 @@ class Nag_Driver_Kolab extends Nag_Driver
     protected function _add(array $task)
     {
         $object = $this->_getObject($task);
+        $object['uid'] = $this->_getData()->generateUid(); 
         try {
             $this->_getData()->create($object);
             $this->_addTags($task);

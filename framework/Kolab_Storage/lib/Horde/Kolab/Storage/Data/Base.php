@@ -273,6 +273,12 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         } else {
             $writer = new Horde_Kolab_Storage_Object_Writer_Raw();
         }
+        if (!$object instanceOf Horde_Kolab_Storage_Object) {
+            $object_array = $object;
+            $object = $this->getObject($object_array['uid']);
+            $object->setData($object_array);
+            Horde::debug($object);
+        }
         $object->setDriver($this->_driver);
         $result = $object->save($writer);
 
@@ -693,5 +699,15 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         } else {
             throw new Horde_Kolab_Storage_Exception('No such query!');
         }
+    }
+
+    /**
+     * Generate a unique object ID.
+     *
+     * @return string  The unique ID.
+     */
+    public function generateUid()
+    {
+        return strval(new Horde_Support_Uuid());
     }
 }
