@@ -1815,8 +1815,8 @@
     <case name="true" desc="Enabled">
      <configheader>IMAP Server Settings</configheader>
      <configstring name="server" desc="Server
-     address:">localhost</configstring>
-     <configinteger name="port" desc="Server port:">143</configinteger>
+     address">localhost</configstring>
+     <configinteger name="port" desc="Server port">143</configinteger>
       <configenum name="secure" desc="The encryption to use to connect to
       the IMAP server.">tls
        <values>
@@ -1826,8 +1826,8 @@
        </values>
       </configenum>
      <configstring name="maildomain" desc="Default
-     maildomain:">example.com</configstring>
-     <configboolean name="cache_folders" desc="Cache IMAP folders:"
+     maildomain">example.com</configstring>
+     <configboolean name="cache_folders" desc="Cache IMAP folders?"
       required="true">true</configboolean>
     </case>
    </configswitch>
