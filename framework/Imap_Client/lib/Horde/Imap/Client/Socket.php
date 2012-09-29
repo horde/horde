@@ -3175,6 +3175,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $ret->$env_data[$key] = $val;
             } else {
                 // These entries are address structures.
+                $addr_ob = new Horde_Mail_Rfc822_Address();
                 $group = null;
                 $tmp = new Horde_Mail_Rfc822_List();
 
@@ -3185,16 +3186,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     // Group end when mailbox is NIL; otherwise, this is
                     // mailbox name.
                     if (is_null($a_val[3])) {
-                        $group = new Horde_Mail_Rfc822_Group();
-
                         if (is_null($a_val[2])) {
                             $group = null;
                         } else {
-                            $group->groupname = $a_val[2];
+                            $group = new Horde_Mail_Rfc822_Group($a_val[2]);
                             $tmp->add($group);
                         }
                     } else {
-                        $addr = new Horde_Mail_Rfc822_Address();
+                        $addr = clone $addr_ob;
 
                         foreach ($addr_structure as $add_key => $add_val) {
                             if (!is_null($a_val[$add_key])) {
