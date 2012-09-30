@@ -3,6 +3,8 @@ v3.0.18-git
 -----------
 
 [mms] SECURITY: Fix XSS vulnerabilities in the portal blocks.
+[mjr] Fix setting permissions in dynamic mode while $conf[share][world] is
+      false (Bug #11359).
 [mjr] Fix issue causing broken alarm values from being imported from certain
       ics files.
 [rla] Fix sender of appointment notification (Bug #11198).
