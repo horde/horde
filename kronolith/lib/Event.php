@@ -1064,22 +1064,24 @@ abstract class Kronolith_Event
             } catch (Horde_Icalendar_Exception $e) {
                 continue;
             }
-            if (is_array($triggerParams) && !empty($triggerParams[0])) {
-                $triggerParams = $triggerParams[0];
+            if (!is_array($triggerParams)) {
+                $triggerParams = array($triggerParams);
             }
-            if (isset($triggerParams['VALUE']) &&
-                $triggerParams['VALUE'] == 'DATE-TIME') {
-                if (isset($triggerParams['RELATED']) &&
-                    $triggerParams['RELATED'] == 'END') {
-                    $this->alarm = intval(($this->end->timestamp() - $trigger) / 60);
+            foreach ($triggerParams as $tp) {
+                if (isset($tp['VALUE']) &&
+                    $tp['VALUE'] == 'DATE-TIME') {
+                    if (isset($tp['RELATED']) &&
+                        $tp['RELATED'] == 'END') {
+                        $this->alarm = intval(($this->end->timestamp() - $trigger) / 60);
+                    } else {
+                        $this->alarm = intval(($this->start->timestamp() - $trigger) / 60);
+                    }
                 } else {
-                    $this->alarm = intval(($this->start->timestamp() - $trigger) / 60);
-                }
-            } else {
-                $this->alarm = -intval($trigger / 60);
-                if (isset($triggerParams['RELATED']) &&
-                    $triggerParams['RELATED'] == 'END') {
-                    $this->alarm -= $this->durMin;
+                    $this->alarm = -intval($trigger / 60);
+                    if (isset($tp['RELATED']) &&
+                        $tp['RELATED'] == 'END') {
+                        $this->alarm -= $this->durMin;
+                    }
                 }
             }
         }
