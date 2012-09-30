@@ -110,11 +110,11 @@ class Kronolith_Ajax
             ),
             'perms' => array(
                 'all' => Horde_Perms::ALL,
-                 'show' => Horde_Perms::SHOW,
-                 'read' => Horde_Perms::READ,
-                 'edit' => Horde_Perms::EDIT,
-                 'delete' => Horde_Perms::DELETE,
-                 'delegate' => Kronolith::PERMS_DELEGATE
+                'show' => Horde_Perms::SHOW,
+                'read' => Horde_Perms::READ,
+                'edit' => Horde_Perms::EDIT,
+                'delete' => Horde_Perms::DELETE,
+                'delegate' => Kronolith::PERMS_DELEGATE
              ),
              'tasks' => $has_tasks ? $registry->tasks->ajaxDefaults() : null
          ));
