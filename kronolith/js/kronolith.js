@@ -3049,7 +3049,9 @@ KronolithCore = {
                 $('kronolithC' + type + 'PBasic').show();
                 $('kronolithC' + type + 'PAdvanced').hide();
                 $('kronolithC' + type + 'PNone').setValue(1);
-                $('kronolithC' + type + 'PAllShow').disable();
+                if ($('kronolithC' + type + 'PAllShow')) {
+                    $('kronolithC' + type + 'PAllShow').disable();
+                }
                 $('kronolithC' + type + 'PGList').disable();
                 $('kronolithC' + type + 'PGPerms').disable();
                 $('kronolithC' + type + 'PUList').disable();
@@ -3125,7 +3127,9 @@ KronolithCore = {
 
         switch (perm) {
         case 'None':
-            $('kronolithC' + type + 'PAllShow').disable();
+            if ($('kronolithC' + type + 'PAllShow')) {
+                $('kronolithC' + type + 'PAllShow').disable();
+            }
             $('kronolithC' + type + 'PGList').disable();
             $('kronolithC' + type + 'PGPerms').disable();
             $('kronolithC' + type + 'PUList').disable();
@@ -3148,7 +3152,9 @@ KronolithCore = {
             this.setPermsFields(type, perms);
             break;
         case 'G':
-            $('kronolithC' + type + 'PAllShow').disable();
+            if ($('kronolithC' + type + 'PAllShow')) {
+                $('kronolithC' + type + 'PAllShow').disable();
+            }
             $('kronolithC' + type + 'PGList').enable();
             $('kronolithC' + type + 'PGPerms').enable();
             $('kronolithC' + type + 'PUList').disable();
@@ -3170,7 +3176,9 @@ KronolithCore = {
             }
             break;
         case 'U':
-            $('kronolithC' + type + 'PAllShow').disable();
+            if ($('kronolithC' + type + 'PAllShow')) {
+                $('kronolithC' + type + 'PAllShow').disable();
+            }
             $('kronolithC' + type + 'PGList').disable();
             $('kronolithC' + type + 'PGPerms').disable();
             $('kronolithC' + type + 'PUList').enable();
@@ -3497,11 +3505,13 @@ KronolithCore = {
     activateAdvancedPerms: function(type)
     {
         [$('kronolithC' + type + 'PNone'),
-         $('kronolithC' + type + 'PAll'),
          $('kronolithC' + type + 'PU'),
          $('kronolithC' + type + 'PG')].each(function(radio) {
             radio.checked = false;
         });
+        if ($('kronolithC' + type + 'PAll')) {
+            $('kronolithC' + type + 'PAll').checked = false;
+        }
         $('kronolithC' + type + 'PBasic').hide();
         $('kronolithC' + type + 'PAdvanced').show();
     },
