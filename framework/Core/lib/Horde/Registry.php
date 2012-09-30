@@ -414,13 +414,15 @@ class Horde_Registry
         }
 
         /* Start a session. */
-        if ($session_flags & self::SESSION_NONE ||
-            (PHP_SAPI == 'cli') ||
-            (((PHP_SAPI == 'cgi') || (PHP_SAPI == 'cgi-fcgi')) &&
-             empty($_SERVER['SERVER_NAME']))) {
+        if ($session_flags & self::SESSION_NONE) {
             /* Never start a session if the session flags include
                SESSION_NONE. */
             $GLOBALS['session'] = $session = new Horde_Session_Null();
+        } elseif (PHP_SAPI == 'cli' ||
+                  ((PHP_SAPI == 'cgi' || PHP_SAPI == 'cgi-fcgi') &&
+                    empty($_SERVER['SERVER_NAME']))) {
+            $GLOBALS['session'] = $session = new Horde_Session();
+            $session->setup(false, $args['session_cache_limiter']);
         } else {
             $GLOBALS['session'] = $session = new Horde_Session();
             $session->setup(true, $args['session_cache_limiter']);
