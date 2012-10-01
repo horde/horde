@@ -565,6 +565,21 @@ abstract class Kronolith_Event
         /* DTEND is non-inclusive, but $this->end is inclusive. */
         $end = clone $this->end;
         $end->sec++;
+
+        // For certain recur types, we must output in the event's timezone
+        // so that the BYDAY values do not get out of sync with the UTC
+        // date-time. See Bug: 11339
+        if ($this->recurs()) {
+            switch ($this->recurrence->getRecurType()) {
+            case Horde_Date_Recurrence::RECUR_WEEKLY:
+            case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
+            case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
+                if (!$this->timezone) {
+                    $this->timezone = date_default_timezone_get();
+                }
+            }
+        }
+
         if ($this->isAllDay()) {
             $vEvent->setAttribute('DTSTART', $this->start, array('VALUE' => 'DATE'));
             $vEvent->setAttribute('DTEND', $end, array('VALUE' => 'DATE'));
