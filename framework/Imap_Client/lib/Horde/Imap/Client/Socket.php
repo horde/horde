@@ -4232,7 +4232,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->writeDebug('', Horde_Imap_Client::DEBUG_SERVER);
 
                 while (($in = fgets($this->_stream)) !== false) {
-                    stream_set_blocking($this->_stream, 0);
                     $got_data = true;
 
                     if ($this->_debug) {
@@ -4246,7 +4245,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                     $token->add($in);
                 }
-                stream_set_blocking($this->_stream, 1);
 
                 /* Check for literal data. */
                 fseek($token->stream->stream, -1, SEEK_END);
