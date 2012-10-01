@@ -38,11 +38,13 @@
  * title: (string) This is the common (user-visible) name that you want
  *        displayed in the contact source drop-down box.
  *
- * type: (string) The types 'ldap', 'sql', 'imsp', 'group', 'favourites' and
- *       'prefs' are currently supported. Preferences-based address books are
- *       not intended for production installs unless you really know what
- *       you're doing - they are not searchable, and they won't scale well if
- *       a user has a large number of entries.
+ * type: (string) The types 'ldap', 'sql', 'kolab', 'imsp', 'group',
+ *       'favourites' and 'prefs' are currently supported. Kolab address books
+ *       can be used with any IMAP server that supports METADATA.
+ *       Preferences-based address books are not intended for production
+ *       installs unless you really know what you're doing - they are not
+ *       searchable, and they won't scale well if a user has a large number of
+ *       entries.
  *
  * params: (array) These are the connection parameters specific to the contact
  *         source.
@@ -197,17 +199,17 @@
  *             for this source - allowing users to share their personal
  *             address books as well as to create new ones.
  *
- *             Since Turba only supports having one backend configured
- *             for creating new shares, use the 'shares' configuration option
- *             to specify which backend will be used for creating new shares.
- *             All permission checking will be done against Horde_Share, but
- *             note that any 'extended' permissions (such as max_contacts)
- *             will still be enforced. Also note that the backend driver must
- *             have support for using this. Supported: SQL, Kolab, and IMSP.
+ *             Since Turba only supports having one backend configured for
+ *             creating new shares, use the 'shares' configuration option to
+ *             specify which backend will be used for creating new shares.  All
+ *             permission checking will be done against Horde_Share, but note
+ *             that any 'extended' permissions (such as max_contacts) will
+ *             still be enforced. Also note that the backend driver must have
+ *             support for using this. Supported: SQL, IMAP/Kolab, and IMSP.
  *
  * all_shares: (boolean) If true (and 'use_shares'is true) the corresponding
  *             source will be assumed to handle all shares that are not
- *             explicitly assigned to another source. Supported: Kolab.
+ *             explicitly assigned to another source. Supported: IMAP/Kolab.
  *
  * list_name_field: (string) Taken as the field to store contact list names
  *                  in. This is required when using a composite field as the
@@ -568,7 +570,7 @@ $cfgSources['personal_ldap'] = array(
 );
 
 /**
- * A local address book on a Kolab or IMAP server. This implements a private
+ * A local address book on a IMAP or Kolab server. This implements a private
  * per-user address book. Sharing of this source with other users is
  * accomplished by IMAP ACLs and by setting 'use_shares' => true.
  */

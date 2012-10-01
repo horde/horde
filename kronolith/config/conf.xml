@@ -16,7 +16,7 @@
      documentation in UPGRADING.&lt;/strong&gt;">true</configboolean>
     </configsection>
    </case>
-   <case name="kolab" desc="Kolab" />
+   <case name="kolab" desc="IMAP/Kolab" />
   </configswitch>
  </configsection>
 
@@ -53,7 +53,7 @@
   <configheader>Calendar Handler Settings</configheader>
   <configswitch name="driver" desc="What type of calendar handler should we use?">default
    <case name="default" desc="Default" />
-   <case name="kolab" desc="Kolab" />
+   <case name="kolab" desc="IMAP/Kolab" />
   </configswitch>
  </configsection>
 

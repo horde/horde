@@ -14,7 +14,7 @@
     </configsection>
    </case>
 
-   <case name="kolab" desc="Kolab" />
+   <case name="kolab" desc="IMAP/Kolab" />
   </configswitch>
  </configsection>
  
@@ -22,7 +22,7 @@
   <configheader>Notepad Handler Settings</configheader>
   <configswitch name="driver" desc="What type of notepad handler should we use?">default
    <case name="default" desc="Default" />
-   <case name="kolab" desc="Kolab" />
+   <case name="kolab" desc="IMAP/Kolab" />
   </configswitch>
  </configsection>
 
