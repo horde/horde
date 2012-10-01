@@ -88,10 +88,10 @@ var HordeDialog = {
         }
 
         n.insert(
-            new Element('INPUT', { type: 'button', className: 'button', value: data.ok_text || this.ok_text }).observe('click', this._onClick.bindAsEventListener(this))
+            new Element('INPUT', { type: 'button', className: 'horde-default', value: data.ok_text || this.ok_text }).observe('click', this._onClick.bindAsEventListener(this))
         )
         n.insert(
-            new Element('INPUT', { type: 'button', className: 'button', value: data.cancel_text || this.cancel_text }).observe('click', this.close.bind(this))
+            new Element('INPUT', { type: 'button', className: 'horde-cancel', value: data.cancel_text || this.cancel_text }).observe('click', this.close.bind(this))
         )
 
         n.observe('keydown', function(e) {
