@@ -101,16 +101,20 @@ class Horde_Imap_Client_Tokenize implements Iterator
     }
 
     /**
-     * Flush the remaining entries left in the iterator and return.
+     * Flush the remaining entries left in the iterator.
      *
-     * @return array  The remaining iterator entries.
+     * @param boolean $return_entry  If true, don't return entries.
+     *
+     * @return array  The remaining iterator entries if $return_entry is true.
      */
-    public function flushIterator()
+    public function flushIterator($return_entry = true)
     {
         $out = array();
 
         while ($this->valid()) {
-            $out[] = $this->current();
+            if ($return_entry) {
+                $out[] = $this->current();
+            }
             $this->next();
         }
 

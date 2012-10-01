@@ -133,11 +133,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *   - debug_literal: (boolean) If true, will output the raw text of
      *                    literal responses to the debug stream. Otherwise,
      *                    outputs a summary of the literal response.
+     *   - envelope_addrs: (integer) The maximum number of address entries to
+     *                     read for FETCH ENVELOPE address fields.
+     *                     DEFAULT: 1000
+     *   * envelope_string: (integer) The maximum length of string fields
+     *                      returned by the FETCH ENVELOPE command.
+     *                      DEFAULT: 2048
+     *
      */
     public function __construct(array $params = array())
     {
         $params = array_merge(array(
-            'debug_literal' => false
+            'debug_literal' => false,
+            'envelope_addrs' => 1000,
+            'envelope_string' => 2048
         ), $params);
 
         parent::__construct($params);
@@ -3164,6 +3173,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         );
 
         $ret = new Horde_Imap_Client_Data_Envelope();
+        $env_addrs = $this->_params['envelope_addrs'];
+        $env_str = $this->_params['envelope_string'];
 
         foreach ($data as $key => $val) {
             if (!isset($env_data[$key]) || is_null($val)) {
@@ -3172,14 +3183,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             if (is_string($val)) {
                 // These entries are text fields.
-                $ret->$env_data[$key] = $val;
+                $ret->$env_data[$key] = substr($val, 0, $env_str);
             } else {
                 // These entries are address structures.
                 $addr_ob = new Horde_Mail_Rfc822_Address();
                 $group = null;
                 $tmp = new Horde_Mail_Rfc822_List();
 
-                foreach ($val as $val2) {
+                foreach ($val as $key2 => $val2) {
+                    if ($key2 >= $env_addrs) {
+                        $val->flushIterator(false);
+                        break;
+                    }
+
                     $a_val = iterator_to_array($val2);
 
                     // RFC 3501 [7.4.2]: Group entry when host is NIL.

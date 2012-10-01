@@ -183,14 +183,25 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
 
     public function testLargeEnvelopeData()
     {
-        // Skip test by default, since it uses a bunch of memory.
-        $this->markTestSkipped();
-
-        $test = '* 1 FETCH (ENVELOPE ("Fri, 28 Sep 2012 17:09:32 -0700" "Foo" ((NIL NIL "foo" "example.com")) ((NIL NIL "foo" "example.com")) ((NIL NIL "foo" "example.com")) (' .
+        $test = '* 1 FETCH (ENVELOPE ("Fri, 28 Sep 2012 17:09:32 -0700" {10000}' .
+            str_repeat('F', 10000) .
+            ' ((NIL NIL "foo" "example.com")) ((NIL NIL "foo" "example.com")) ((NIL NIL "foo" "example.com")) (' .
             str_repeat('(NIL NIL "bar" "example.com")', 50000) .
             ') NIL NIL NIL "<123@example.com>"))';
 
-        $this->test_ob->parseFetch($test);
+        $this->test_ob->setParam('envelope_addrs', 1000);
+        $this->test_ob->setParam('envelope_string', 2000);
+
+        $env = $this->test_ob->parseFetch($test)->first()->getEnvelope();
+
+        $this->assertEquals(
+            1000,
+            count($env->to)
+        );
+        $this->assertEquals(
+            2000,
+            strlen($env->subject)
+        );
     }
 
 }
