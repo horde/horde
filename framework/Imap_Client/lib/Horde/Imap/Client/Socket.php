@@ -3989,7 +3989,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->writeDebug($opts['debug']);
         }
 
-        $this->_writeStream("\r\n");
+        $this->_writeStream('', array('eol' => true));
 
         while ($ob = $this->_getLine()) {
             switch (get_class($ob)) {
@@ -4056,9 +4056,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     /* RFC 2088 - If LITERAL+ is available, saves a roundtrip
                      * from the server. */
                     if ($this->queryCapability('LITERAL+')) {
-                        $this->_writeStream($literal . "+}\r\n", $opts);
+                        $this->_writeStream($literal . "+}", array_merge($opts, array(
+                            'eol' => true
+                        )));
                     } else {
-                        $this->_writeStream($literal . "}\r\n", $opts);
+                        $this->_writeStream($literal . "}", array_merge($opts, array(
+                            'eol' => true
+                        )));
 
                         $ob = $this->_getLine();
                         if (!($ob instanceof Horde_Imap_Client_Interaction_Server_Continuation)) {
@@ -4105,6 +4109,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * @param mixed $data  Either a string or stream resource.
      * @param array $opts  Additional options:
      *   - binary: (boolean) If true, the literal data is binary.
+     *   - eol: (boolean) If true, output EOL.
      *   - literal: (integer) If set, the length of the literal data.
      *   - nodebug: (boolean) If true, don't output debug data.
      */
@@ -4114,7 +4119,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             fseek($data, 0);
             stream_copy_to_stream($data, $this->_stream);
         } else {
-            fwrite($this->_stream, $data);
+            fwrite($this->_stream, $data . (empty($opts['eol']) ? '' : "\r\n"));
         }
 
         if (!empty($opts['nodebug']) || !$this->_debug) {
@@ -4128,7 +4133,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             fseek($data, 0);
             stream_copy_to_stream($data, $this->_debug);
         } else {
-            fwrite($this->_debug, $data);
+            fwrite($this->_debug, $data . (empty($opts['eol']) ? '' : "\n"));
         }
 
         if (isset($opts['literal'])) {
@@ -4234,15 +4239,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 while (($in = fgets($this->_stream)) !== false) {
                     $got_data = true;
 
-                    if ($this->_debug) {
-                        $this->writeDebug($in);
-                    }
-
                     if (substr($in, -1) == "\n") {
-                        $token->add(rtrim($in));
+                        $in = rtrim($in);
+                        if ($this->_debug) {
+                            $this->writeDebug($in . "\n");
+                        }
+                        $token->add($in);
                         break;
                     }
 
+                    if ($this->_debug) {
+                        $this->writeDebug($in);
+                    }
                     $token->add($in);
                 }
 
