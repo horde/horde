@@ -506,8 +506,8 @@ class IMP_Contents
 
         if (!empty($options['autodetect']) &&
             ($tempfile = Horde::getTempFile()) &&
-            ($fp = fopen($tempfile, 'w'))) {
-            $contents = $mime_part->getContents(array('stream' => true));
+            ($fp = fopen($tempfile, 'w')) &&
+            !is_null($contents = $mime_part->getContents(array('stream' => true)))) {
             rewind($contents);
             while (!feof($contents)) {
                 fwrite($fp, fread($contents, 8192));
