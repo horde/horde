@@ -18,6 +18,12 @@
     font-weight: normal;
     padding: 0 40px 11px 15px;
 }
+.imp-mailbox-from {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
 
 .imp-mailbox-deleted a {
     text-decoration: line-through !important;
