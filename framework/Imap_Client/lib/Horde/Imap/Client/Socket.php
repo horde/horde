@@ -1820,10 +1820,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * in a FETCH (VANISHED) or SELECT/EXAMINE (QRESYNC) call.
          * If this is the case, we can go ahead and update the cache
          * immediately (we know we are caching or else QRESYNC would not be
-         * enabled). HIGHESTMODSEQ information will be grabbed at the end in
-         * the tagged response. */
-        if (is_array($val)) {
-            if (strtoupper(reset($val)) == 'EARLIER') {
+         * enabled). HIGHESTMODSEQ information will be updated via the tagged
+         * response. */
+        if (is_resource($val)) {
+            if (strtoupper($val->rewind()) == 'EARLIER') {
                 /* Caching is guaranteed to be active if we are using
                  * QRESYNC. */
                 $vanished = $this->utils->fromSequenceString($data->next());
