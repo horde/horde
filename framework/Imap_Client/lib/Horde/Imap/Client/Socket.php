@@ -1822,7 +1822,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * immediately (we know we are caching or else QRESYNC would not be
          * enabled). HIGHESTMODSEQ information will be updated via the tagged
          * response. */
-        if (is_resource($val)) {
+        if (is_object($val)) {
             if (strtoupper($val->rewind()) == 'EARLIER') {
                 /* Caching is guaranteed to be active if we are using
                  * QRESYNC. */
