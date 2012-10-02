@@ -38,8 +38,6 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
      *
      * @param array $params  A hash with any parameters that this calendar
      *                       might need.
-     *                       Required parameters:
-     *                       - share: The share of this calendar.
      */
     public function __construct($params = array())
     {
