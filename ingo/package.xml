@@ -34,7 +34,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Don&apos;t allow a user to save a rule with no matching conditions.
 * [mms] Initial implementation of smartmobile view.
 * [mms] Disable blacklist, vacation, and whitelist API methods if the preference is locked.
  </notes>
@@ -1036,6 +1035,19 @@
    </notes>
   </release>
   <release>
+   <version>
+    <release>2.0.10</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-02</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Don&apos;t allow a user to save a rule with no matching conditions.
+   </notes>
+  </release>
+  <release>
    <date>2012-07-06</date>
    <time>17:25:14</time>
    <version>
@@ -1079,7 +1091,6 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* [mms] Don&apos;t allow a user to save a rule with no matching conditions.
 * [mms] Initial implementation of smartmobile view.
 * [mms] Disable blacklist, vacation, and whitelist API methods if the preference is locked.
    </notes>
