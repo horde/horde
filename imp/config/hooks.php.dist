@@ -841,7 +841,7 @@ class IMP_Hooks
 
 
     /**
-     * MIMP: Activate various advanced features in the mobile view.
+     * Minimal view: Activate advanced features.
      *
      * The combination of the rapid pace of development for both mobile
      * devices and their browsers, coupled with the limited resources of an
@@ -855,6 +855,8 @@ class IMP_Hooks
      * @param string $feature  The advanced feature. One of the following:
      *   - checkbox: Adds a checkbox interface to selecting messages on the
      *               mailbox listing page.
+     *   - compose_attach: Allow attachments to be attached in the compose
+     *                     screen.
      *
      * @return boolean  If true, activates the feature. By default, these
      *                  advanced features are NOT active.
