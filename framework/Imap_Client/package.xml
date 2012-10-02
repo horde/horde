@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-27</date>
- <time>16:08:52</time>
+ <date>2012-10-01</date>
+ <time>21:38:49</time>
  <version>
   <release>2.0.0beta4</release>
   <api>2.0.0beta1</api>
@@ -108,6 +108,7 @@
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Search -->
        <dir name="Socket">
+        <file name="ClientSort.php" role="php" />
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Socket -->
        <dir name="Utils">
@@ -171,6 +172,7 @@
        <dir name="Stub">
         <file name="DigestMD5.php" role="test" />
         <file name="Socket.php" role="test" />
+        <file name="SocketClientSort.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Stub -->
        <file name="AclTest.php" role="test" />
        <file name="AllTests.php" role="test" />
@@ -329,6 +331,7 @@
    <install as="Horde/Imap/Client/Interaction/Server/Tagged.php" name="lib/Horde/Imap/Client/Interaction/Server/Tagged.php" />
    <install as="Horde/Imap/Client/Interaction/Server/Untagged.php" name="lib/Horde/Imap/Client/Interaction/Server/Untagged.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
+   <install as="Horde/Imap/Client/Socket/ClientSort.php" name="lib/Horde/Imap/Client/Socket/ClientSort.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="Horde/Imap/Client/Utils/Pop3.php" name="lib/Horde/Imap/Client/Utils/Pop3.php" />
    <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
@@ -362,6 +365,7 @@
    <install as="Horde/Imap/Client/fixtures/test_email2.txt" name="test/Horde/Imap/Client/fixtures/test_email2.txt" />
    <install as="Horde/Imap/Client/Stub/DigestMD5.php" name="test/Horde/Imap/Client/Stub/DigestMD5.php" />
    <install as="Horde/Imap/Client/Stub/Socket.php" name="test/Horde/Imap/Client/Stub/Socket.php" />
+   <install as="Horde/Imap/Client/Stub/SocketClientSort.php" name="test/Horde/Imap/Client/Stub/SocketClientSort.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -1058,7 +1062,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-27</date>
+   <date>2012-10-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Limit FETCH ENVELOPE data sizes.
