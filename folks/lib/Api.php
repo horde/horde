@@ -233,7 +233,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function listTimeObjectCategories()
     {
-        return array('birthday_friends' => array('title' => _("Friends Birthdays"), 'type' => 'single');
+        return array('birthday_friends' => array('title' => _("Friends Birthdays"), 'type' => 'single'));
     }
 
     /**
