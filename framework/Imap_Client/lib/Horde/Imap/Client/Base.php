@@ -271,10 +271,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $params = array_merge(array(
             'encryptKey' => null,
             'hostspec' => 'localhost',
-            'port' => ((isset($params['secure']) && ($params['secure'] == 'ssl')) ? 993 : 143),
             'secure' => false,
             'timeout' => 30
         ), array_filter($params));
+
+        if ($params['secure'] === true) {
+            $params['secure'] = 'tls';
+        }
+
+        if (!isset($params['port'])) {
+            $params['port'] = (isset($params['secure']) && in_array($params['secure'], array('ssl', 'sslv2', 'sslv3')))
+                ? 993
+                : 143;
+        }
 
         if (empty($params['cache'])) {
             $params['cache'] = array('fields' => array());

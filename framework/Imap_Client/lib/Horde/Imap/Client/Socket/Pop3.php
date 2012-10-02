@@ -91,13 +91,13 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     public function __construct(array $params = array())
     {
+        parent::__construct($params);
+
         if (empty($params['port'])) {
-            $params['port'] = (isset($params['secure']) && ($params['secure'] == 'ssl'))
+            $this->_params['port'] = (isset($this->_params['secure']) && in_array($this->_params['secure'], array('ssl', 'sslv2', 'sslv3')))
                 ? 995
                 : 110;
         }
-
-        parent::__construct($params);
     }
 
     /**
