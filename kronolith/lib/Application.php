@@ -308,8 +308,7 @@ class Kronolith_Application extends Horde_Registry_Application
         }
 
         foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
-            if (!empty($GLOBALS['conf']['share']['hidden']) &&
-                !in_array($id, $GLOBALS['display_external_calendars'])) {
+            if (!$calendar->display()) {
                 continue;
             }
             $app = $GLOBALS['registry']->get(

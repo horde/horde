@@ -22,8 +22,7 @@ foreach (Kronolith::listInternalCalendars() as $id => $cal) {
 $externals = array();
 foreach ($all_external_calendars as $id => $calendar) {
     $app = $registry->get('name', $registry->hasInterface($calendar->api()));
-    if (!empty($conf['share']['hidden']) &&
-        !in_array($id, $display_external_calendars)) {
+    if (!$calendar->display()) {
         continue;
     }
     $externals[$app][$id] = $calendar->name();

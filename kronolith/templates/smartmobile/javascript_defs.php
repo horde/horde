@@ -98,8 +98,7 @@ foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
     if ($calendar->api() == 'tasks') {
         continue;
     }
-    if (!empty($GLOBALS['conf']['share']['hidden']) &&
-        !in_array($id, $GLOBALS['display_external_calendars'])) {
+    if (!$calendar->display()) {
         continue;
     }
     $code['conf']['calendars']['external'][$id] = array(

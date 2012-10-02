@@ -79,8 +79,7 @@ if ($search_mode == 'basic') {
     }
     foreach ($GLOBALS['all_external_calendars'] as $id => $cal) {
         $app = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($cal->api()));
-        if (!empty($GLOBALS['conf']['share']['hidden']) &&
-            !in_array($id, $GLOBALS['display_external_calendars'])) {
+        if (!$cal->display()) {
             continue;
         }
         $calendars[$app . ':']['Horde|external_' . $id] = $cal->name();
