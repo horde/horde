@@ -1369,7 +1369,9 @@ class Turba_Api extends Horde_Registry_Api
                 !empty($attribute['time_object_label'])) {
                 foreach ($GLOBALS['cfgSources'] as $srcKey => $source) {
                     if (!empty($source['map'][$key])) {
-                        $categories[$key . '/'. $srcKey] = sprintf(_("%s in %s"), $attribute['time_object_label'], $source['title']);
+                        $categories[$key . '/'. $srcKey] =array(
+                            'title' => sprintf(_("%s in %s"), $attribute['time_object_label'], $source['title']),
+                            'type' => 'share');
                     }
                 }
             }

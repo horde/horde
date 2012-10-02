@@ -628,10 +628,11 @@ class Whups_Api extends Horde_Registry_Api
      */
     public function listTimeObjectCategories()
     {
-        return array('created' => _("My tickets by creation date"),
-                     'assigned' => _("My tickets by assignment date"),
-                     'due' => _("My tickets by due date"),
-                     'resolved' => _("My tickets by resolution date"));
+        return array('created' => array('title' => _("My tickets by creation date"), 'type' => 'single'),
+                     'assigned' => array('title' => _("My tickets by assignment date"), 'type' => 'single'),
+                     'due' => array('title' => _("My tickets by due date"), 'type' => 'single'),
+                     'resolved' => array('title' => _("My tickets by resolution date"), 'type' => 'single')
+                );
     }
 
     /**

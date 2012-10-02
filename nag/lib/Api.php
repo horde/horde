@@ -1213,7 +1213,7 @@ class Nag_Api extends Horde_Registry_Api
         $categories = array();
         $tasklists = Nag::listTasklists(false, Horde_Perms::SHOW | Horde_Perms::READ);
         foreach ($tasklists as $tasklistId => $tasklist) {
-            $categories[$tasklistId] = $tasklist->get('name');
+            $categories[$tasklistId] = array('title' => $tasklist->get('name'), 'type' => 'share');
         }
         return $categories;
     }

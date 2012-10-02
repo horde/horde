@@ -36,7 +36,7 @@ class Timeobjects_Api extends Horde_Registry_Api
         foreach ($tests as $driver => $description) {
             try {
                 if ($factory->create($driver)->ensure()) {
-                    $drivers[$driver] = $description;
+                    $drivers[$driver] = array('title' => $description, 'type' => 'single');
                 }
             } catch (Timeobjects_Exception $e) {
             }
