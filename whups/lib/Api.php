@@ -714,7 +714,8 @@ class Whups_Api extends Horde_Registry_Api
                 'start' => date('Y-m-d\TH:i:s', $t_start),
                 'end' => date('Y-m-d\TH:i:s', $t_start + 1),
                 'params' => array('id' => $ticket['id']),
-                'link' => Whups::urlFor('ticket', $ticket['id'], true));
+                'link' => Whups::urlFor('ticket', $ticket['id'], true)
+            );
         }
 
         return $objects;

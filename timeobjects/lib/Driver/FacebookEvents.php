@@ -83,7 +83,7 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
                 'status' => (empty($event['rsvp_status']) ? 'free' : $event['rsvp_status']),
                 'private' => $event['privacy'] == 'SECRET',
                 'icon' => $event['pic_square'],
-                'params' => array(),
+                'params' => array()
             );
         }
 
