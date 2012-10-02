@@ -2,6 +2,7 @@
 v3.0.0beta2
 -----------
 
+[mms] Don't allow a user to save a rule with no matching conditions.
 [mms] Initial implementation of smartmobile view.
 [mms] Disable blacklist, vacation, and whitelist API methods if the preference
       is locked.
