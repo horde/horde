@@ -142,6 +142,11 @@ case 'rule_delete':
 
     /* Save the rule. */
     if ($vars->actionID == 'rule_save' && $valid) {
+        if (empty($rule['conditions'])) {
+            $notification->push(_("You need to select at least one field to match."), 'horde.error');
+            break;
+        }
+
         if (!isset($vars->edit)) {
             if ($perms->hasAppPermission('max_rules') !== true &&
                 $perms->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
