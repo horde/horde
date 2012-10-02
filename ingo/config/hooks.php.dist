@@ -8,8 +8,6 @@
  *
  * For more information please see the horde/config/hooks.php.dist file.
  *
- * TODO: smtpd_access_policy_username
- *
  * $Id$
  */
 
