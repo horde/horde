@@ -50,7 +50,7 @@ To function properly, Ansel **requires** the following:
 4. The following PECL modules:
    (See `horde/docs/INSTALL`_ for instructions on installing PECL modules)
 
-   a. _`imagick`
+   a. imagick
 
       The imagick module provides a quicker, more efficient interface to
       ImageMagick's capabilities. It provides better results when doing things
@@ -60,7 +60,7 @@ To function properly, Ansel **requires** the following:
       against ImageMagick version 6.2.9 or better, though version 6.5.7 or
       better is recommended.
 
-   b. _`OpenCV`
+   b. OpenCV
 
       The `php-facedetect module`_ provides the ability to detect human faces in
       images. If you would like to be able to have Ansel automatically detect
@@ -68,19 +68,19 @@ To function properly, Ansel **requires** the following:
       as well as the phpfacedetect extension. You will still be able to manually
       select faces from your images if you do not have this extension installed.
 
-      .. _ `OpenCV library`: http://sourceforge.net/projects/opencvlibrary/
-      .. _ `php-facedetect module`: http://www.xarg.org/project/php-facedetect/
+      .. _`OpenCV library`: http://sourceforge.net/projects/opencvlibrary/
+      .. _`php-facedetect module`: http://www.xarg.org/project/php-facedetect/
 
-   c. _`libpuzzle`
+   c. libpuzzle
 
       The `libpuzzle library`_ provides the ability to determine similarities
       between images based on the image content. If you would like Ansel to be
       able to provide recognition of similar images and similar faces, you will
       need to install this module.
 
-      .. _ `libpuzzle library`: http://libpuzzle.pureftpd.org/project/libpuzzle
+      .. _`libpuzzle library`: http://libpuzzle.pureftpd.org/project/libpuzzle
 
-5. The _`ImageMagick` software.
+5. The ImageMagick software.
 
    If using the `ImageMagick software`_ you need to set the path to the
    ``convert`` utility in Horde's configuration screen
@@ -93,16 +93,16 @@ To function properly, Ansel **requires** the following:
 
    .. _`ImageMagick software`: http://www.imagemagick.org/
 
-6. _`Agora`, the Horde forums application.
+6. Agora, the Horde forums application.
 
-   `Agora`_ provides the ability for comments to be added to photos via the
+   Agora_ provides the ability for comments to be added to photos via the
    forums API. If you want your users to be able to comment on photos, an
-   application that provides the forums API is **required**.  `Agora`_ is
-   currently the only such Horde application, but please be aware that currently
-   `Agora`_ is not officially released in a stable version, so use at your own
-   risk.
+   application that provides the forums API is **required**.  Agora_ is
+   currently the only such Horde application, but please be aware that
+   currently Agora_ is not officially released in a stable version, so use at
+   your own risk.
 
-   .. _ 'Horde Agora': http://www.horde.org/apps/agora
+   .. _Agora: http://www.horde.org/apps/agora
 
 Installing Ansel
 ================
