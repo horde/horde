@@ -135,21 +135,15 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function destroy($action)
     {
-        $uids = new IMP_Indices();
-
         switch ($action) {
         case 'save_draft':
             /* Don't delete any drafts. */
-            break;
-
-        case 'send':
-            /* Delete the auto-draft and the original resumed draft. */
-            $uids->add($this->getMetadata('draft_uid_resume'));
-            // Fall-through
+            return;
 
         case 'cancel':
-            /* Delete the auto-draft, but save the original resume draft. */
-            $uids->add($this->getMetadata('draft_uid'));
+        case 'send':
+            /* Delete the draft. */
+            $uids = new IMP_Indices($this->getMetadata('draft_uid'));
             break;
         }
 
@@ -380,7 +374,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     public function resumeDraft($indices, array $opts = array())
     {
         $res = $this->_resumeDraft($indices, self::RESUME, $opts);
-        $this->_metadata['draft_uid_resume'] = $indices;
+        $this->_metadata['draft_uid'] = $indices;
         return $res;
     }
 
@@ -645,8 +639,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function hasDrafts()
     {
-        return (!empty($this->_metadata['draft_uid']) ||
-                !empty($this->_metadata['draft_uid_resume']));
+        return !empty($this->_metadata['draft_uid']);
     }
 
     /**
