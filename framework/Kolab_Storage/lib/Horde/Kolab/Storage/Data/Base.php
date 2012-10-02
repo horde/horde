@@ -277,7 +277,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             $object_array = $object;
             $object = $this->getObject($object_array['uid']);
             $object->setData($object_array);
-            Horde::debug($object);
         }
         $object->setDriver($this->_driver);
         $result = $object->save($writer);
