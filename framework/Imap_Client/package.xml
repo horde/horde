@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-01</date>
- <time>21:38:49</time>
+ <date>2012-10-02</date>
+ <time>16:49:55</time>
  <version>
   <release>2.0.0beta4</release>
   <api>2.0.0beta1</api>
@@ -187,7 +187,6 @@
        <file name="SocketTest.php" role="test" />
        <file name="SortTest.php" role="test" />
        <file name="SubjectParseTest.php" role="test" />
-       <file name="test_client.php" role="test" />
        <file name="TokenizeTest.php" role="test" />
        <file name="UrlParseTest.php" role="test" />
        <file name="Utf7ConvertTest.php" role="test" />
@@ -356,7 +355,6 @@
    <install as="Horde/Imap/Client/SocketTest.php" name="test/Horde/Imap/Client/SocketTest.php" />
    <install as="Horde/Imap/Client/SortTest.php" name="test/Horde/Imap/Client/SortTest.php" />
    <install as="Horde/Imap/Client/SubjectParseTest.php" name="test/Horde/Imap/Client/SubjectParseTest.php" />
-   <install as="Horde/Imap/Client/test_client.php" name="test/Horde/Imap/Client/test_client.php" />
    <install as="Horde/Imap/Client/TokenizeTest.php" name="test/Horde/Imap/Client/TokenizeTest.php" />
    <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
    <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
@@ -1062,7 +1060,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-01</date>
+   <date>2012-10-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Limit FETCH ENVELOPE data sizes.
