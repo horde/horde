@@ -975,46 +975,45 @@ class Horde_ActiveSync_Imap_Adapter
             }
         }
 
-        // Check for meeting requests.
-        $eas_message->contentclass = 'urn:content-classes:message';
-        if ($mime_part = $imap_message->hasiCalendar()) {
-            $data = $mime_part->getContents();
-            $vCal = new Horde_Icalendar();
-            if ($vCal->parsevCalendar($data, 'VCALENDAR', $mime_part->getCharset())) {
-                $eas_message->contentclass = 'urn:content-classes:calendarmessage';
-                switch ($vCal->getAttribute('METHOD')) {
-                case 'REQUEST':
-                case 'PUBLISH':
-                    $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
-                    $mtg = new Horde_ActiveSync_Message_MeetingRequest();
-                    $mtg->fromvEvent($vCal);
-                    $eas_message->meetingrequest = $mtg;
-                    break;
-                case 'REPLY':
-                    try {
-                        $reply_status = $this->_getiTipStatus($vCal, $eas_message->from);
-                        switch ($reply_status) {
-                        case 'ACCEPTED':
-                            $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Pos';
-                            break;
-                        case 'DECLINED':
-                            $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Neg';
-                            break;
-                        case 'TENTATIVE':
-                            $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Tent';
-                        }
+        // Check for meeting requests and POOMMAIL_FLAG data
+        if ($this->version >= Horde_ActiveSync::VERSION_TWELVE) {
+            $eas_message->contentclass = 'urn:content-classes:message';
+            if ($mime_part = $imap_message->hasiCalendar()) {
+                $data = $mime_part->getContents();
+                $vCal = new Horde_Icalendar();
+                if ($vCal->parsevCalendar($data, 'VCALENDAR', $mime_part->getCharset())) {
+                    $eas_message->contentclass = 'urn:content-classes:calendarmessage';
+                    switch ($vCal->getAttribute('METHOD')) {
+                    case 'REQUEST':
+                    case 'PUBLISH':
+                        $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
                         $mtg = new Horde_ActiveSync_Message_MeetingRequest();
                         $mtg->fromvEvent($vCal);
                         $eas_message->meetingrequest = $mtg;
-                    } catch (Horde_ActiveSync_Exception $e) {
-                        $this->_logger->err($e->getMessage());
+                        break;
+                    case 'REPLY':
+                        try {
+                            $reply_status = $this->_getiTipStatus($vCal, $eas_message->from);
+                            switch ($reply_status) {
+                            case 'ACCEPTED':
+                                $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Pos';
+                                break;
+                            case 'DECLINED':
+                                $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Neg';
+                                break;
+                            case 'TENTATIVE':
+                                $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Tent';
+                            }
+                            $mtg = new Horde_ActiveSync_Message_MeetingRequest();
+                            $mtg->fromvEvent($vCal);
+                            $eas_message->meetingrequest = $mtg;
+                        } catch (Horde_ActiveSync_Exception $e) {
+                            $this->_logger->err($e->getMessage());
+                        }
                     }
                 }
             }
-        }
 
-        // POOMMAIL_FLAG
-        if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
             $poommail_flag = new Horde_ActiveSync_Message_Flag();
             $poommail_flag->subject = $imap_message->getSubject();
             $poommail_flag->flagstatus = $imap_message->getFlag(Horde_Imap_Client::FLAG_FLAGGED)

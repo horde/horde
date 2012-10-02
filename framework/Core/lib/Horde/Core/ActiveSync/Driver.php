@@ -666,7 +666,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $msg = current($messages);
 
             // Should we import an iTip response if we have one?
-            if ($msg->contentclass == 'urn:content-classes:calendarmessage') {
+            if ($this->_version >= Horde_ActiveSync::VERSION_TWELVE &&
+                $msg->contentclass == 'urn:content-classes:calendarmessage') {
                 switch ($msg->messageclass) {
                 case 'IPM.Schedule.Meeting.Resp.Pos':
                 case 'IPM.Schedule.Meeting.Resp.Neg':
