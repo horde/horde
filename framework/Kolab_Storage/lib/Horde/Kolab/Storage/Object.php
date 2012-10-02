@@ -512,7 +512,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         $headers->addHeader('To', $this->_getDriver()->getAuth());
         $headers->addHeader('Date', date('r'));
         $headers->addHeader('Subject', $this->getUid());
-        $headers->addHeader('User-Agent', 'Horde::Kolab::Storage v' . Horde_Kolab_Storage::VERSION);
+        $headers->addHeader('User-Agent', 'Horde_Kolab_Storage ' . Horde_Kolab_Storage::VERSION);
         $headers->addHeader('MIME-Version', '1.0');
         $headers->addHeader(
             'X-Kolab-Type',
