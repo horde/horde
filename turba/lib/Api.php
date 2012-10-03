@@ -940,7 +940,7 @@ class Turba_Api extends Horde_Registry_Api
         // at once.
         if (is_array($uid)) {
             foreach ($uid as $g) {
-                $this->delete($uid, $source);
+                $this->delete($g, $source);
             }
 
             return true;

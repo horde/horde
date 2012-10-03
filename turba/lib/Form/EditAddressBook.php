@@ -44,7 +44,7 @@ class Turba_Form_EditAddressBook extends Horde_Form
             $this->_addressbook->save();
             return true;
         } catch (Horde_Share_Exception $e) {
-            throw new Turba_Exception(sprintf(_("Unable to save address book \"%s\": %s"), $id, $e->getMessage()));
+            throw new Turba_Exception(sprintf(_("Unable to save address book \"%s\": %s"), $this->_vars->get('name'), $e->getMessage()));
         }
     }
 
