@@ -46,9 +46,9 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
             'type' => $this->_params['type']
         );
 
-        return array_filter(array(
+        return array_filter(array_merge($args, array(
             'tag_id' => empty($this->_params['tagId']) ? null : $this->_params['tagId']
-        ));
+        )));
     }
 
     /**
@@ -63,10 +63,6 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
     {
         global $injector, $registry;
 
-        $content = array(
-            'id' => $vars->resource,
-            'type' => $vars->type
-        );
         $request = $vars->action;
         $tags = rawurldecode($vars->tags);
 

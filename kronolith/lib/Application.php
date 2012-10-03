@@ -109,7 +109,7 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        global $browser, $conf, $injector, $notification, $page_output, $prefs, $registry;
+        global $browser, $conf, $notification, $page_output, $registry, $session;
 
         /* Check here for guest calendars so that we don't get multiple
          * messages after redirects, etc. */
@@ -141,9 +141,9 @@ class Kronolith_Application extends Horde_Registry_Application
             $menu->add(Horde::url('data.php'), _("_Import/Export"), 'horde-data');
         }
 
-        if (strlen($GLOBALS['session']->get('kronolith', 'display_cal'))) {
+        if (strlen($session->get('kronolith', 'display_cal'))) {
             $menu->add(Horde::selfUrl(true)->add('display_cal', ''),
-                       $GLOBALS['registry']->getAuth()
+                       $registry->getAuth()
                            ? _("Return to my calendars")
                            : _("Return to calendars"),
                        'kronolith-icon-back',
@@ -173,7 +173,7 @@ class Kronolith_Application extends Horde_Registry_Application
             $sidebar->containers['calendars'] = array(
                 'header' => array(
                     'id' => 'kronolith-toggle-calendars',
-                    'label' => ngettext("Showing calendar:", "Showing calendars:", count($calendar_names)),
+                    'label' => ngettext("Showing calendar:", "Showing calendars:", count($calendars)),
                     'collapsed' => false,
                 ),
             );

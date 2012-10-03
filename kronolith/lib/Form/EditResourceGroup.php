@@ -58,7 +58,6 @@ class Kronolith_Form_EditResourceGroup extends Horde_Form
     {
         switch ($this->_vars->submitbutton) {
         case _("Save"):
-            $original_name = $this->_resource->get('name');
             $new_name = $this->_vars->get('name');
             $this->_resource->set('name', $new_name);
             $this->_resource->set('description', $this->_vars->get('description'));

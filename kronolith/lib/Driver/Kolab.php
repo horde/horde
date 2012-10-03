@@ -15,13 +15,6 @@
 class Kronolith_Driver_Kolab extends Kronolith_Driver
 {
     /**
-     * The session handler.
-     *
-     * @var Horde_Kolab_Session
-     */
-    private $_session;
-
-    /**
      * Our Kolab server connection.
      *
      * @var Kolab
@@ -131,7 +124,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         $allevents = $this->listEvents($date, null, array('has_alarm' => true));
         $events = array();
 
-        foreach ($allevents as $eventId => $data) {
+        foreach (array_keys($allevents) as $eventId) {
             $event = $this->getEvent($eventId);
             if (!$event->recurs()) {
                 $start = new Horde_Date($event->start);
@@ -189,7 +182,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             throw new Kronolith_Exception(sprintf("Kolab::exists called for calendar %s. Currently active is %s.", $calendar_id, $this->calendar));
         }
 
-        $result = $this->synchronize();
+        $this->synchronize();
 
         if ($this->_data->objectIdExists($uid)) {
             return $uid;
@@ -229,7 +222,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
                                    Horde_Date $endDate = null,
                                    array $options = array())
     {
-        $result = $this->synchronize();
+        $this->synchronize();
 
         if (empty($startDate)) {
             $startDate = new Horde_Date(
@@ -293,7 +286,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             return new Kronolith_Event_Kolab($this);
         }
 
-        $result = $this->synchronize();
+        $this->synchronize();
 
         if (array_key_exists($eventId, $this->_events_cache)) {
             return $this->_events_cache[$eventId];
@@ -403,8 +396,6 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             Kronolith::getTagger()->tag($event->uid, $event->tags, $event->creator, 'event');
         }
 
-        $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
-
         /* Notify about the changed event. */
         Kronolith::sendNotification($event, $edit ? 'edit' : 'add');
 
@@ -438,7 +429,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     protected function _move($eventId, $newCalendar)
     {
         $event = $this->getEvent($eventId);
-        $result = $this->synchronize();
+        $this->synchronize();
 
         $target = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($newCalendar);
         $folder = $target->getId();
@@ -484,7 +475,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      */
     public function deleteEvent($eventId, $silent = false)
     {
-        $result = $this->synchronize();
+        $this->synchronize();
 
         if (!$this->_data->objectIdExists($eventId)) {
             throw new Kronolith_Exception(sprintf(_("Event not found: %s"), $eventId));

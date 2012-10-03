@@ -606,7 +606,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $history = $this->_buildEventHistory($event);
 
         try {
-            $result = $this->_db->update($query, $values);
+            $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -678,7 +678,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $query .= $cols_name . $cols_values;
 
         try {
-            $result = $this->_db->insert($query, $values);
+            $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -782,7 +782,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Attempt the move query. */
         try {
-            $result = $this->_db->update($query, $values);
+            $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
         }

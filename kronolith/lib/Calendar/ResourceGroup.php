@@ -104,10 +104,10 @@ class Kronolith_Calendar_ResourceGroup extends Kronolith_Calendar
      */
     public function toHash()
     {
-        $id = $this->_resource->getId();
         $owner = $GLOBALS['registry']->isAdmin();
         $hash = parent::toHash();
 
+        $hash['id']    = $this->_resource->getId();
         $hash['name']  = $this->name();
         $hash['owner'] = $owner;
         $hash['show']  = $this->display();

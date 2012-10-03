@@ -1254,7 +1254,6 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             return $result;
         }
         $calendar = $GLOBALS['all_calendars'][$this->vars->cal];
-        $tagger = Kronolith::getTagger();
         $result->calendar = $calendar->toHash();
         return $result;
     }

@@ -65,7 +65,7 @@ class Kronolith_FreeBusy
         $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
         $email = $identity->getValue('from_addr');
         $cn = $identity->getValue('fullname');
-        if (empty($mail) && empty($cn)) {
+        if (empty($email) && empty($cn)) {
             $cn = $user;
         }
 

@@ -239,7 +239,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             $clause = ' WHERE ';
             $i = 0;
             $c = count($filter);
-            foreach ($filter as $field => $value) {
+            foreach (array_keys($filter) as $field) {
                 $clause .= 'resource_' . $field . ' = ?' . (($i++ < ($c - 1)) ? ' AND ' : '');
             }
             $query .= $clause;

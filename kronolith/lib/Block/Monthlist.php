@@ -61,7 +61,7 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $page_output, $registry, $prefs;
+        global $page_output;
 
         $page_output->addScriptFile('tooltips.js', 'horde');
 

@@ -162,7 +162,7 @@ class Kronolith_Driver
         $events = $this->listEvents(
             (!empty($query->start) ? $query->start : null),
             (!empty($query->end) ? $query->end : null));
-        foreach ($events as $day => $day_events) {
+        foreach ($events as $day_events) {
             foreach ($day_events as $event) {
                 if ((((!isset($query->start) ||
                        $event->end->compareDateTime($query->start) > 0) &&

@@ -16,7 +16,7 @@ class Kronolith_FreeBusy_View_Day extends Kronolith_FreeBusy_View
 
     protected function _title()
     {
-        global $registry, $prefs;
+        global $prefs;
 
         $prev = new Horde_Date($this->_start);
         $prev->mday--;

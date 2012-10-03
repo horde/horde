@@ -6,10 +6,6 @@ class Kronolith_Block_Month extends Horde_Core_Block
 {
     /**
      */
-    private $_share = null;
-
-    /**
-     */
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
@@ -137,7 +133,6 @@ class Kronolith_Block_Month extends Horde_Core_Block
             return '<em>' . $e->getMessage() . '</em>';
         }
 
-        $weeks = array();
         $weekday = 0;
         $week = -1;
         for ($day = $startOfView; $day < $startOfView + $daysInView; ++$day) {

@@ -550,7 +550,6 @@ class Kronolith
     {
         $loopDate = new Horde_Date($eventStart->year, $eventStart->month, $eventStart->mday);
         $allDay = $event->isAllDay();
-        $first = true;
         while ($loopDate->compareDateTime($eventEnd) <= 0) {
             if (!$allDay ||
                 $loopDate->compareDateTime($eventEnd) != 0) {
@@ -690,7 +689,6 @@ class Kronolith
         }
 
         $title = $r->untaggedText();
-        $start = $d->timestamp();
 
         $kronolith_driver = self::getDriver(null, $calendar);
         $event = $kronolith_driver->getEvent();
@@ -977,7 +975,7 @@ class Kronolith
                     if (count($group_list)) {
                         $perm = $share->getPermission();
                         // Add the default perm, not added otherwise
-                        foreach ($group_list as $group_id => $group_name) {
+                        foreach (array_keys($group_list) as $group_id) {
                             $perm->addGroupPermission($group_id, $perm_value, false);
                         }
                         $share->setPermission($perm);
@@ -1504,7 +1502,6 @@ class Kronolith
             throw new Kronolith_Exception(_("You are not allowed to change this calendar."));
         }
 
-        $original_name = $calendar->get('name');
         $calendar->set('name', $info['name']);
         $calendar->set('color', $info['color']);
         $calendar->set('desc', $info['description']);
@@ -2036,13 +2033,13 @@ class Kronolith
         Kronolith_Event $event, Horde_Notification_Handler $notification,
         $action, Horde_Date $instance = null)
     {
-        global $conf, $registry;
+        global $injector, $registry;
 
         if (!$event->attendees) {
             return;
         }
 
-        $ident = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($event->creator);
+        $ident = $injector->getInstance('Horde_Core_Factory_Identity')->create($event->creator);
         if (!$ident->getValue('from_addr')) {
             $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Preferences. You must set one %shere%s before event notifications can be sent."), $registry->getServiceLink('prefs', 'kronolith')->add(array('app' => 'horde', 'group' => 'identities'))->link(), '</a>'), 'horde.error', array('content.raw'));
             return;
@@ -2052,7 +2049,7 @@ class Kronolith
         // need the Content-ID.
         $image = self::getImagePart('big_invitation.png');
 
-        $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
+        $share = $injector->getInstance('Kronolith_Shares')->getShare($event->calendar);
         $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/itip'));
         new Horde_View_Helper_Text($view);
         $view->identity = $ident;
@@ -2102,7 +2099,7 @@ class Kronolith
 
             if ($event->attendees) {
                 $view->attendees = strval(self::getAttendeeEmailList($event->attendees));
-                $view->organizer = $GLOBALS['registry']->convertUserName($event->creator, false);
+                $view->organizer = $registry->convertUserName($event->creator, false);
             }
 
             if ($action == self::ITIP_REQUEST) {
@@ -2150,11 +2147,11 @@ class Kronolith
                 array('Subject' => $view->subject,
                       'To' => $recipient,
                       'From' => $ident->getDefaultFromAddress(true),
-                      'User-Agent' => 'Kronolith ' . $GLOBALS['registry']->getVersion()));
+                      'User-Agent' => 'Kronolith ' . $registry->getVersion()));
             $mail->setBasePart($multipart);
 
             try {
-                $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+                $mail->send($injector->getInstance('Horde_Mail'));
                 $notification->push(
                     sprintf(_("The event notification to %s was successfully sent."), $recipient),
                     'horde.success'
@@ -2181,22 +2178,22 @@ class Kronolith
      */
     static public function sendNotification($event, $action)
     {
-        global $conf;
+        global $injector, $registry;
 
         if (!in_array($action, array('add', 'edit', 'delete'))) {
             throw new Kronolith_Exception('Unknown event action: ' . $action);
         }
 
-        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
+        $groups = $injector->getInstance('Horde_Group');
         $calendar = $event->calendar;
         $recipients = array();
         try {
-            $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar);
+            $share = $injector->getInstance('Kronolith_Shares')->getShare($calendar);
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
 
-        $senderIdentity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
+        $senderIdentity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
 
         $owner = $share->get('owner');
         if ($owner) {
@@ -2229,7 +2226,7 @@ class Kronolith
             if (!$vals) {
                 continue;
             }
-            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
+            $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($user);
             $email = $identity->getValue('from_addr');
             if (strpos($email, '@') === false) {
                 continue;
@@ -2248,7 +2245,7 @@ class Kronolith
         }
 
         foreach ($addresses as $lang => $twentyFour) {
-            $GLOBALS['registry']->setLanguageEnvironment($lang);
+            $registry->setLanguageEnvironment($lang);
 
             switch ($action) {
             case 'add':
@@ -2281,10 +2278,10 @@ class Kronolith
                         'Subject' => $subject . ' ' . $event->title,
                         'To' => implode(',', $df_recipients),
                         'From' => $senderIdentity->getDefaultFromAddress(true),
-                        'User-Agent' => 'Kronolith ' . $GLOBALS['registry']->getVersion(),
+                        'User-Agent' => 'Kronolith ' . $registry->getVersion(),
                         'body' => $message));
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), 'DEBUG');
-                    $mime_mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+                    $mime_mail->send($injector->getInstance('Horde_Mail'));
                 }
             }
         }
@@ -2299,8 +2296,8 @@ class Kronolith
      */
     static public function notifyOfResourceRejection($event)
     {
-        $declined = array();
-        $accepted = array();
+        $accepted = $declined = array();
+
         foreach ($event->getResources() as $id => $resource) {
             if ($resource['response'] == self::RESPONSE_DECLINED) {
                 $r = self::getDriver('Resource')->getResource($id);
@@ -2701,7 +2698,6 @@ class Kronolith
             $calendars[] = $GLOBALS['all_calendars'][$calendarId];
         }
         if (!empty($GLOBALS['display_resource_calendars'])) {
-            $driver = self::getDriver('Resource');
             foreach ($GLOBALS['display_resource_calendars'] as $c) {
                 $calendars[] = $c;
             }

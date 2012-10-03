@@ -467,8 +467,7 @@ abstract class Kronolith_Event
         $add_events = array();
         $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
         $lock = array();
-        $failed_resources = array();
-        foreach ($this->getResources() as $id => $resourceData) {
+        foreach (array_keys($this->getResources()) as $id) {
             /* Get the resource and protect against infinite recursion in case
              * someone is silly enough to add a resource to it's own event.*/
 
@@ -1107,7 +1106,6 @@ abstract class Kronolith_Event
                 // If X-MOZ-LASTACK is set, this event is either dismissed or
                 // snoozed.
                 $vEvent->getAttribute('X-MOZ-LASTACK');
-                $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
                 try {
                     // If X-MOZ-SNOOZE-TIME is set, this event is snoozed.
                     $snooze = $vEvent->getAttribute('X-MOZ-SNOOZE-TIME');
@@ -3000,7 +2998,7 @@ abstract class Kronolith_Event
     public function getLink($datetime = null, $icons = true, $from_url = null,
                             $full = false, $encoded = true)
     {
-        global $prefs, $registry;
+        global $prefs;
 
         if (is_null($datetime)) {
             $datetime = $this->start;
