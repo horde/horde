@@ -94,7 +94,10 @@ class Horde_Themes_Css
         if ($cache_type == 'none') {
             $css_out = array();
             foreach ($css as $file) {
-                $css_out[] = Horde::url($file['uri'], true, array('append_session' => -1));
+                $url = Horde::url($file['uri'], true, -1);
+                $css_out[] = (is_null($file['app']) || empty($conf['cachecssparams']['url_version_param']))
+                    ? $url
+                    : $url->add('v', hash('md5', $registry->getVersion($file['app'])));
             }
             return $css_out;
         }
@@ -162,6 +165,7 @@ class Horde_Themes_Css
      *   - themeonly: (boolean) If true, only load the theme files.
      *
      * @return array  An array of 2-element array arrays containing 2 keys:
+     *   - app: (string) App of the CSS file.
      *   - fs: (string) Filesystem location of stylesheet.
      *   - uri: (string) URI of stylesheet.
      */
@@ -196,6 +200,7 @@ class Horde_Themes_Css
         foreach ($this->_cssFiles as $f => $u) {
             if (file_exists($f)) {
                 $css_out[] = array(
+                    'app' => null,
                     'fs' => $f,
                     'uri' => $u
                 );
@@ -226,6 +231,7 @@ class Horde_Themes_Css
 
         foreach ($add_css as $f => $u) {
             $css_out[] = array(
+                'app' => $curr_app,
                 'fs' => $f,
                 'uri' => $u
             );
@@ -333,6 +339,7 @@ class Horde_Themes_Css
         $ob = Horde_Themes_Element::fromUri($matches[1]);
 
         return $this->loadCssFiles(array(array(
+            'app' => null,
             'fs' => $ob->fs,
             'uri' => $ob->uri
         )));

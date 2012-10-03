@@ -196,6 +196,7 @@ class Horde_Themes_Cache implements Serializable
     protected function _getOutput($app, $theme, $item)
     {
         return array(
+            'app' => $app,
             'fs' => $GLOBALS['registry']->get('themesfs', $app) . '/' . $theme . '/' . $item,
             'uri' => $GLOBALS['registry']->get('themesuri', $app) . '/' . $theme . '/' . $item
         );

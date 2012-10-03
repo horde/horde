@@ -1078,7 +1078,12 @@
    user's browsing experience, and is HIGHLY RECOMMENDED.
   </configdescription>
   <configswitch name="cachecss" desc="Cache CSS?">false
-   <case name="false" desc="No" />
+   <case name="false" desc="No">
+    <configsection name="cachejsparams">
+     <configboolean name="url_version_param" desc="Add version information to
+     CSS URLs?">true</configboolean>
+    </configsection>
+   </case>
    <case name="true" desc="Yes">
     <configsection name="cachecssparams">
      <configswitch name="driver" desc="How should we store the cached data?">

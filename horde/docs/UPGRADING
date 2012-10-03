@@ -39,10 +39,15 @@ Configuration Options (conf.php)
 The $conf['session']['max_time'] option was added. The default is no maximum
 session time, the same behavior as in Horde 4.
 
+The $conf['cachecssparams']['url_version_param'] option was added. This option
+is only used if no CSScaching is selected (a configuration that is NOT
+recommended for production servers). The new default is to add version
+information to CSS server URLs, which is altered behavior from Horde 4.
+
 The $conf['cachejsparams']['url_version_param'] option was added. This option
 is only used if no javascript caching is selected (a configuration that is NOT
-recommended for production servers). The default is to add version information
-to javascript server URLs, which is altered behavior from Horde 4.
+recommended for production servers). The new default is to add version
+information to javascript server URLs, which is altered behavior from Horde 4.
 
 
 Hooks (hooks.php)
