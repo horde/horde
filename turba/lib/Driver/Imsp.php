@@ -74,7 +74,6 @@ class Turba_Driver_Imsp extends Turba_Driver
      */
     public function __construct($name = '', $params)
     {
-        global $conf;
         parent::__construct($name, $params);
 
         $this->params       = $params;
@@ -408,8 +407,7 @@ class Turba_Driver_Imsp extends Turba_Driver
     protected function _doSearch($criteria, $glue)
     {
         $results = array();
-        $names = array();
-        foreach ($criteria as $key => $vals) {
+        foreach ($criteria as $vals) {
             if (!empty($vals['OR'])) {
                 $results[] = $this->_doSearch($vals['OR'], 'OR');
             } elseif (!empty($vals['AND'])) {
@@ -447,8 +445,6 @@ class Turba_Driver_Imsp extends Turba_Driver
      */
     function _sendSearch($criteria)
     {
-        global $conf;
-
         $names = '';
         $imspSearch = array();
         $searchkey = $criteria['field'];
@@ -650,7 +646,7 @@ class Turba_Driver_Imsp extends Turba_Driver
 
         $result = Turba::createShare($share_id, $params);
         try {
-            $imsp_result = Horde_Core_Imsp_Utils::createBook($GLOBALS['cfgSources']['imsp'], $params['params']['name']);
+            Horde_Core_Imsp_Utils::createBook($GLOBALS['cfgSources']['imsp'], $params['params']['name']);
         } catch (Horde_Imsp_Exception $e) {
             throw new Turba_Exception($e);
         }
@@ -669,7 +665,6 @@ class Turba_Driver_Imsp extends Turba_Driver
     protected function _countDelimiters($in)
     {
         $cnt = $pos = 0;
-        $i = -1;
         while (($pos = strpos($in, ':', $pos + 1)) !== false) {
             ++$cnt;
         }

@@ -545,7 +545,7 @@ class Turba_Application extends Horde_Registry_Application
                 exit;
 
             case Horde_Data::EXPORT_OUTLOOKCSV:
-                $injector->getInstance('Horde_Core_Factory_Data')->create('Outlookcsv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("contacts.csv"), $data, true, array_flip($outlook_mapping));
+                $injector->getInstance('Horde_Core_Factory_Data')->create('Outlookcsv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("contacts.csv"), $data, true, array_flip($this->getOutlookMapping()));
                 exit;
 
             case Horde_Data::EXPORT_TSV:

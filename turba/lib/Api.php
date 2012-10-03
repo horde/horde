@@ -182,7 +182,7 @@ class Turba_Api extends Horde_Registry_Api
     public function browse($path = '',
                           $properties = array('name', 'icon', 'browseable'))
     {
-        global $cfgSource, $registry, $session;
+        global $injector, $session;
 
         // Strip off the application name if present
         if (substr($path, 0, 5) == 'turba') {
@@ -261,7 +261,7 @@ class Turba_Api extends Horde_Registry_Api
                     // No backends are configured to provide shares
                     return array();
                 }
-                $addressbooks = $GLOBALS['injector']->getInstance('Turba_Shares')->listShares($parts[0], array(
+                $addressbooks = $injector->getInstance('Turba_Shares')->listShares($parts[0], array(
                     'attributes' => $parts[0],
                     'perm' => Horde_Perms::READ
                 ));
@@ -323,7 +323,7 @@ class Turba_Api extends Horde_Registry_Api
                 return array();
             }
 
-            $contacts = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($parts[1])->search(array());
+            $contacts = $injector->getInstance('Turba_Factory_Driver')->create($parts[1])->search(array());
             $contacts->reset();
 
             $curpath = 'turba/' . $parts[0] . '/' . $parts[1] . '/';
@@ -370,7 +370,7 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             // Load the Turba driver.
-            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($parts[1]);
+            $driver = $injector->getInstance('Turba_Factory_Driver')->create($parts[1]);
 
             $contact = $driver->getObject($parts[2]);
 
@@ -398,8 +398,6 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function path_delete($path)
     {
-        global $registry, $cfgSources;
-
         // Strip off the application name if present
         if (substr($path, 0, 5) == 'turba') {
             $path = substr($path, 5);
@@ -618,9 +616,6 @@ class Turba_Api extends Horde_Registry_Api
         // Create a category manager.
         $cManager = new Horde_Prefs_CategoryManager();
         $categories = $cManager->get();
-
-        // Need an object to add attributes to.
-        $object = new Turba_Object($driver);
 
         if (!($content instanceof Horde_Icalendar_Vcard)) {
             switch ($contentType) {
@@ -880,7 +875,7 @@ class Turba_Api extends Horde_Registry_Api
         // contacts at once.
         if (is_array($uid)) {
             foreach ($uid as $g) {
-                if (!$this->delete($uid, $source)) {
+                if (!$this->delete($g, $sources)) {
                     return false;
                 }
             }
@@ -1032,7 +1027,7 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function search($names = null, array $opts = array())
     {
-        global $attributes, $cfgSources, $injector, $prefs;
+        global $attributes, $cfgSources, $injector;
 
         $opts = array_merge(array(
             'fields' => array(),
@@ -1077,9 +1072,6 @@ class Turba_Api extends Horde_Registry_Api
             $opts['sources'] = array(Turba::getDefaultAddressbook());
         }
 
-        // Read the columns to display from the preferences.
-        $sort_columns = Turba::getColumns();
-
         $driver = $injector->getInstance('Turba_Factory_Driver');
         foreach ($opts['sources'] as $source) {
             // Skip invalid sources -or-
@@ -1093,11 +1085,6 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             $sdriver = $driver->create($source);
-
-            // Determine the name of the column to sort by.
-            $columns = isset($sort_columns[$source])
-                ? $sort_columns[$source]
-                : array();
 
             foreach ($names as $name) {
                 $trimname = trim($name);
@@ -1978,7 +1965,7 @@ class Turba_Api extends Horde_Registry_Api
         if (!$entry) {
             return array();
         }
-        list($source, $id) = explode(':', $gid);
+        list($source,) = explode(':', $gid);
         $members = @unserialize($entry['members']);
         if (!is_array($members)) {
             return array();

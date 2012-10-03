@@ -280,7 +280,7 @@ class Turba
         if (($name_format == 'first_last') &&
             is_int(strpos($name, ',')) &&
             (Horde_String::length($name) > Horde_String::length($lastname))) {
-            return preg_replace('/' . preg_quote($lastname, '/') . ',\s*/', '', $name) . ' ' . $lasname;
+            return preg_replace('/' . preg_quote($lastname, '/') . ',\s*/', '', $name) . ' ' . $lastname;
         }
 
         return $name;
@@ -309,7 +309,7 @@ class Turba
             $data = array($data);
         }
 
-        foreach ($data as $i => $email_vals) {
+        foreach ($data as $email_vals) {
             foreach ($rfc822->parseAddressList($email_vals) as $ob) {
                 $addr = strval($ob);
                 $tmp = null;
@@ -318,7 +318,7 @@ class Turba
                     try {
                         $tmp = $GLOBALS['registry']->call('mail/batchCompose', array(array($addr)));
                     } catch (Horde_Exception $e) {
-                        $self::$_cache['useRegistry'] = false;
+                        self::$_cache['useRegistry'] = false;
                     }
                 }
 
@@ -458,7 +458,7 @@ class Turba
         }
 
         $auth_user = $GLOBALS['registry']->getAuth();
-        $sortedSources = $defaults = $vbooks = array();
+        $sortedSources = $vbooks = array();
         $personal = false;
 
         foreach ($shares as $name => &$share) {
@@ -657,7 +657,7 @@ class Turba
                 $share->set($key, $value);
             }
             $turba_shares->addShare($share);
-            $result = $share->save();
+            $share->save();
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw new Turba_Exception($e);

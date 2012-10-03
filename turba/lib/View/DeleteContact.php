@@ -31,8 +31,6 @@ class Turba_View_DeleteContact
 
     public function html($active = true)
     {
-        global $conf, $prefs;
-
         if (!$this->contact) {
             echo '<h3>' . _("The requested contact was not found.") . '</h3>';
             return;

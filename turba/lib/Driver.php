@@ -871,7 +871,7 @@ class Turba_Driver implements Countable
 
         $own_contact = $GLOBALS['prefs']->getValue('own_contact');
         if (!empty($own_contact)) {
-            @list($source, $id) = explode(';', $own_contact);
+            @list(,$id) = explode(';', $own_contact);
             if ($id == $object_id) {
                 $GLOBALS['prefs']->setValue('own_contact', '');
             }
@@ -2651,7 +2651,6 @@ class Turba_Driver implements Countable
     public function fromASContact(Horde_ActiveSync_Message_Contact $message)
     {
         $hash = array();
-        $formattedname = false;
 
         $textMap = array(
             'fileas' => 'name',

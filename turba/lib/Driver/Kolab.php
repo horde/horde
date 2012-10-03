@@ -244,7 +244,7 @@ class Turba_Driver_Kolab extends Turba_Driver
     {
         $ids = array();
 
-        foreach ($criteria as $key => $vals) {
+        foreach ($criteria as $vals) {
             if (!empty($vals['OR'])) {
                 $ids[] = $this->_doSearch($vals['OR'], 'OR', $entries);
             } elseif (!empty($vals['AND'])) {
@@ -523,7 +523,7 @@ class Turba_Driver_Kolab extends Turba_Driver
         $uids = array_keys($this->_contacts_cache);
 
         /* Delete contacts */
-        $result = $this->_getData()->deleteAll();
+        $this->_getData()->deleteAll();
 
         /* Delete groups */
         //@todo: group support

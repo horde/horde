@@ -1404,6 +1404,7 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mms] Fix infinite loop if array was passed to delete API call.
 * [mms] Fix descending sorting of result lists.
 * [mms] Return to same page when deleting contact from browse view.
 * [mjr] Add ability to return count of objects matching search in place of full result set.
