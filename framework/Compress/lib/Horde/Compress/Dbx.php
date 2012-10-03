@@ -261,7 +261,7 @@ class Horde_Compress_Dbx extends Horde_Compress_Base
                 }
                 if (($IndexItem['ChildIndex'] > 0) &&
                     empty($this->_tmp[$IndexItem['ChildIndex']])) {
-                    $this->_readIndex($fp, $IndexItem['ChildIndex']);
+                    $this->_readIndex($data, $IndexItem['ChildIndex']);
                 }
             }
         }
