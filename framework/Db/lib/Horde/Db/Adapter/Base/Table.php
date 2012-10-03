@@ -148,7 +148,7 @@ class Horde_Db_Adapter_Base_Table implements ArrayAccess, IteratorAggregate
      */
     public function offsetExists($offset)
     {
-        return isset($this->_columns[$column]);
+        return isset($this->_columns[$offset]);
     }
 
     /**
