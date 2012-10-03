@@ -79,8 +79,6 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
     {
         $configuration = $this->_injector->getInstance('Horde_Kolab_Storage_Configuration');
 
-        $session = $this->_injector->getInstance('Horde_Kolab_Session');
-
         $params = array(
             'driver' => 'horde',
             'params' => array(

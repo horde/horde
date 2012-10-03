@@ -70,8 +70,6 @@ class Horde_Core_Perms_Ui
      */
     public function renderTree($current = Horde_Perms::ROOT)
     {
-        global $registry;
-
         /* Get the perms tree. */
         $nodes = $this->_perms->getTree();
 
@@ -253,13 +251,11 @@ class Horde_Core_Perms_Ui
      */
     public function setupEditForm($permission)
     {
-        global $registry;
-
         /* Initialise form if required. */
         $this->_formInit();
 
         $this->_form->setButtons(Horde_Core_Translation::t("Update"), true);
-        $perm_id = $this->_perms->getPermissionId($permission);
+        $this->_vars->set('perm_id', $this->_perms->getPermissionId($permission));
         $this->_form->addHidden('', 'perm_id', 'text', false);
 
         /* Get permission configuration. */

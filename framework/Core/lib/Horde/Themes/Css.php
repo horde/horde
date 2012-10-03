@@ -79,9 +79,6 @@ class Horde_Themes_Css
     {
         global $conf, $injector, $prefs, $registry;
 
-        $themesfs = $registry->get('themesfs');
-        $themesuri = $registry->get('themesuri');
-
         $theme = isset($opts['theme'])
             ? $opts['theme']
             : $prefs->getValue('theme');

@@ -76,7 +76,6 @@ class Horde_Core_Ui_Tabs extends Horde_Core_Ui_Widget
     {
         $html = "<div class=\"$class\"><ul>\n";
 
-        $first = true;
         $active = $_SERVER['PHP_SELF'] . $this->_vars->get($this->_name);
 
         foreach ($this->_tabs as $tab) {

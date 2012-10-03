@@ -109,7 +109,7 @@ class Horde_Core_Imsp_Utils
         // A share for each IMSP adress book we can see.
         foreach ($abooks as $abook_uid) {
             $found = false;
-            foreach ($shares as $id => $share) {
+            foreach ($shares as $share) {
                 $params = @unserialize($share->get('params'));
                 if (!empty($params['name']) && $params['name'] == $abook_uid &&
                     $params['source'] == 'imsp') {
@@ -151,7 +151,7 @@ class Horde_Core_Imsp_Utils
 
         // Now prune any shares that no longer exist on the IMSP server.
         $existing = $share_obj->listShares($GLOBALS['registry']->getAuth(), array('perm' => Horde_Perms::READ));
-        foreach ($existing as $key => $share) {
+        foreach ($existing as $share) {
             $temp = unserialize($share->get('params'));
             if (is_array($temp)) {
                 $sourceType = $temp['source'];

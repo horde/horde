@@ -557,7 +557,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_colorpicker($form, &$var, &$vars)
     {
-        global $registry, $browser;
+        global $browser;
 
         $varname = $this->_genID($var->getVarName(), false);
         $color = $var->getValue($vars);
@@ -583,8 +583,6 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_sorter($form, &$var, &$vars)
     {
-        global $registry;
-
         $instance = $var->type->getProperty('instance');
 
         $page = $GLOBALS['injector']->getInstance('Horde_PageOutput');
@@ -609,8 +607,6 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_assign($form, &$var, &$vars)
     {
-        global $registry;
-
         $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('form_assign.js', 'horde');
 
         $name = htmlspecialchars($var->getVarName());
@@ -1006,7 +1002,6 @@ function obrowserCallback(name, oid)
                     ? $addr->mailbox . ' (at) ' . str_replace('.', ' (dot) ', $addr->host)
                     : $addr->bare_address;
 
-                $tmp = clone($addr);
                 $addr->personal = $var->type->getProperty('link_name');
                 $address = $addr->writeAddress(true);
 
@@ -1190,8 +1185,6 @@ function obrowserCallback(name, oid)
 
     protected function _renderVarDisplay_address($form, &$var, &$vars, $text = true)
     {
-        global $registry;
-
         $address = $var->getValue($vars);
         if (empty($address)) {
             return '';
@@ -1522,7 +1515,7 @@ function obrowserCallback(name, oid)
             $files = $GLOBALS['registry']->call('files/selectlistResults', $param);
             if ($files) {
                 $html .= '<ol>';
-                foreach ($files as $id => $file) {
+                foreach ($files as $file) {
                     $dir = key($file);
                     $filename = current($file);
                     if ($GLOBALS['registry']->hasMethod('files/getViewLink')) {
@@ -1590,13 +1583,10 @@ function obrowserCallback(name, oid)
         }
 
         $result = '';
-        $sel = false;
         foreach ($values as $value => $display) {
-            if (isset($selectedValues[$value])) {
-                $selected = ' selected="selected"';
-            } else {
-                $selected = '';
-            }
+            $selected = isset($selectedValues[$value])
+                ? ' selected="selected"'
+                : '';
             $result .= " <option value=\"" . htmlspecialchars($value) . "\"$selected>" . htmlspecialchars($display) . "</option>\n";
         }
 

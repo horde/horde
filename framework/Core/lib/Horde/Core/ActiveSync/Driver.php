@@ -448,7 +448,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return array();
                 }
-                $edits = $deletes = array();
             } else {
                 try {
                     $changes = $this->_connector->getChanges('contacts', $from_ts, $to_ts);
@@ -848,7 +847,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function moveMessage($folderid, array $ids, $newfolderid)
     {
-        $this->_logger->debug('Horde::moveMessage(' . implode(',', array($folderid, $id, $newfolderid)) . ')');
+        $this->_logger->debug('Horde::moveMessage(' . implode(',', array($folderid, '[' . implode(',', $ids) . ']', $newfolderid)) . ')');
         ob_start();
         switch ($folderid) {
         case self::APPOINTMENTS_FOLDER_UID:
@@ -1100,7 +1099,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if (empty($imap_message)) {
                     return false;
                 }
-                $from = $imap_message->getFromAddress();
                 $part = $imap_message->getStructure();
                 $plain_id = $part->findBody('plain');
                 $html_id = $part->findBody('html');
@@ -2026,7 +2024,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $prefix = 'activesync:provisioning:';
         $policy = array();
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-        if (!$provisioning = $perms->exists('horde:activesync:provisioning')) {
+        if (!$perms->exists('horde:activesync:provisioning')) {
             return $policy;
         }
 

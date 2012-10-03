@@ -52,7 +52,7 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
      *
      * @param string $str  The name(s) or address(es) to expand.
      * @param array $opts  Additional options:
-     *   - levenshtein: (boolean)  Do levenshtein sorting,
+     *   - levenshtein: (boolean) Do levenshtein sorting,
      *   - count_only: (boolean) Only return the count of results.
      *
      * @return Horde_Mail_Rfc822_List  Expand results.
@@ -78,7 +78,7 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
             return $search;
         }
 
-        if (empty($levenshtein)) {
+        if (empty($opts['levenshtein'])) {
             return $search;
         }
 

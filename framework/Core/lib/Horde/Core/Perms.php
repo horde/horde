@@ -100,7 +100,7 @@ class Horde_Core_Perms
         }
 
         $perms_list = array();
-        foreach ($children as $perm_key => $perm_val) {
+        foreach (array_keys($children) as $perm_key) {
             $perms_list[$perm_key] = $perms['title'][$name . ':' . $perm_key];
         }
 
@@ -125,7 +125,7 @@ class Horde_Core_Perms
         if (count($levels) == 1) {
             return $this->_registry->get('name', $name) . ' (' . $name . ')';
         }
-        $perm = array_pop($levels);
+        array_pop($levels); // This is the permission name
 
         /* First level is always app. */
         $app = $levels[0];

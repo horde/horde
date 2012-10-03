@@ -636,7 +636,7 @@ class Horde_PageOutput
 
         switch ($this->_view) {
         case $registry::VIEW_BASIC:
-            $this->_addBasicScripts($opts);
+            $this->_addBasicScripts();
             $view->stylesheetOpts['sub'] = 'basic';
             break;
 
@@ -644,7 +644,7 @@ class Horde_PageOutput
             $this->ajax = true;
             $this->growler = true;
 
-            $this->_addBasicScripts($opts);
+            $this->_addBasicScripts();
             $this->addScriptPackage('Popup');
 
             $view->stylesheetOpts['sub'] = 'dynamic';
@@ -809,9 +809,9 @@ class Horde_PageOutput
     /**
      * Add basic framework scripts to the output.
      */
-    protected function _addBasicScripts($opts)
+    protected function _addBasicScripts()
     {
-        global $prefs, $registry, $session;
+        global $prefs;
 
         $base_js = array(
             'prototype.js',

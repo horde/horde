@@ -93,10 +93,6 @@ class Horde_Menu
      */
     public function render()
     {
-        global $conf, $registry, $prefs;
-
-        $app = $registry->getApp();
-
         /* Add any custom menu items. */
         $this->addSiteLinks();
 

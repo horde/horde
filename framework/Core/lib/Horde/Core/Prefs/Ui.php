@@ -283,7 +283,7 @@ class Horde_Core_Prefs_Ui
      */
     protected function _handleForm($preflist, $save)
     {
-        global $injector, $notification, $prefs, $registry;
+        global $injector, $notification, $prefs;
 
         $updated = false;
 

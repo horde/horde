@@ -44,8 +44,6 @@ class Horde_Core_Ui_Pager extends Horde_Core_Ui_Widget
      */
     public function render($data = null)
     {
-        global $prefs, $registry, $conf;
-
         $num = $this->_config['num'];
         $url = $this->_config['url'];
 
