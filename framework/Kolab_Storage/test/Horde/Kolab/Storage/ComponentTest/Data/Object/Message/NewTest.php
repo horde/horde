@@ -68,7 +68,7 @@ extends PHPUnit_Framework_TestCase
 To: user
 Date: 
 Subject: ABC1234
-User-Agent: Horde::Kolab::Storage v@version@
+User-Agent: Horde_Kolab_Storage @version@
 MIME-Version: 1.0
 X-Kolab-Type: application/x-vnd.kolab.note
 Content-Type: multipart/mixed; name="Kolab Groupware Data";

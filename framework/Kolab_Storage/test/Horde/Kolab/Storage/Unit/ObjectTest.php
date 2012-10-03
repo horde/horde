@@ -590,7 +590,7 @@ client that understands the Kolab Groupware format. For a list of such email\r
 clients please visit http://www.kolab.org/content/kolab-clients",
             $driver->messages['INBOX'][0]
         );
-        $this->assertContains('User-Agent: Horde::Kolab::Storage v' . Horde_Kolab_Storage::VERSION, $driver->messages['INBOX'][0]);
+        $this->assertContains('User-Agent: Horde_Kolab_Storage ' . Horde_Kolab_Storage::VERSION, $driver->messages['INBOX'][0]);
         $this->assertContains('Subject: UID', $driver->messages['INBOX'][0]);
         $this->assertContains('From: user', $driver->messages['INBOX'][0]);
         $this->assertContains('To: user', $driver->messages['INBOX'][0]);
