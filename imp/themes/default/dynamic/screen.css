@@ -977,7 +977,9 @@ div.vpRow div.msgSubject span.flagUser {
     font-size: 90%;
     font-weight: normal;
     margin-right: 3px;
-    padding: 5px;
+    padding: 1px;
+    position: relative;
+    top: -2px;
 }
 
 /* Thread images */
