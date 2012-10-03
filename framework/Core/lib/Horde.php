@@ -1427,7 +1427,7 @@ HTML;
     {
         /* If browser does not support images, simply return the ALT text. */
         if (!$GLOBALS['browser']->hasFeature('images')) {
-            return htmlspecialchars($alt);
+            return '';
         }
 
         /* If no directory has been specified, get it from the registry. */
