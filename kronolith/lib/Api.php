@@ -398,7 +398,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         if (!(count($parts) == 2 || count($parts) == 3) ||
-            !Kronolith::hasPermission($calendar, Horde_Perms::DELETE)) {
+            !Kronolith::hasPermission($calendarId, Horde_Perms::DELETE)) {
                 throw new Kronolith_Exception("Calendar does not exist or no permission to delete");
             }
 
