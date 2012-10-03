@@ -78,7 +78,7 @@ if (!isset($blacklist)) {
 if (!isset($blacklist_folder)) {
     $blacklist_folder = $blacklist->getBlacklistFolder();
 }
-$folder_list = Ingo::flistSelect($blacklist_folder, 'filters', 'actionvalue');
+$folder_list = Ingo::flistSelect($blacklist_folder, 'actionvalue');
 
 /* Get the blacklist rule. */
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);

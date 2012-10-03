@@ -187,7 +187,7 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
                          $this->_params['table_rules']);
         $values = array($this->_filters[$id]['id'], Ingo::getUser());
         try {
-            $result = $this->_db->delete($query, $values);
+            $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Ingo_Exception($e);
         }

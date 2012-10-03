@@ -41,15 +41,13 @@ class Ingo
      * is returned.
      *
      * @param string $value    The current value for the field.
-     * @param string $form     The form name for the newFolderName() call.
      * @param string $tagname  The label for the select tag.
      *
      * @return string  The HTML to render the field.
      */
-    static public function flistSelect($value = null, $form = null,
-                                       $tagname = 'actionvalue')
+    static public function flistSelect($value = null, $tagname = 'actionvalue')
     {
-        global $conf, $page_output, $registry;
+        global $page_output, $registry;
 
         if ($registry->hasMethod('mail/mailboxList')) {
             try {
@@ -68,7 +66,7 @@ class Ingo
                     $text .= sprintf(
                         "<option value=\"%s\"%s>%s</option>\n",
                         htmlspecialchars($val['ob']->utf7imap),
-                        ($key === $value) ? ' selected="selected"' : '',
+                        ($val['ob']->utf7imap === $value) ? ' selected="selected"' : '',
                         str_repeat('&nbsp;', $val['level'] * 2) . htmlspecialchars($val['label'])
                     );
                 }

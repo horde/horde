@@ -364,7 +364,7 @@ $actionvalue = '';
 switch ($current_action->type) {
 case 'folder':
     $actionvaluelabel = '<label for="actionvalue" class="hidden">' . _("Select target folder") . '</label>';
-    $actionvalue = Ingo::flistSelect($rule['action-value'], 'rule');
+    $actionvalue = Ingo::flistSelect($rule['action-value']);
     break;
 
 case 'text':
