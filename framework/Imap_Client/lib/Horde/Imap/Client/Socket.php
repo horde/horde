@@ -3932,18 +3932,28 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         switch ($server->status) {
         case $server::BAD:
-        case $server::NO:
+            /* A tagged BAD response indicates that the tagged command caused
+             * the error. This information is unknown if untagged. (RFC 3501
+             * [7.1.3]) */
+            if ($server instanceof Horde_Imap_Client_Interaction_Server_Tagged) {
+                $cmd = $server->token->current();
+                $server->token->next();
+            } else {
+                $cmd = null;
+            }
+
             throw new Horde_Imap_Client_Exception_ServerResponse(
                 Horde_Imap_Client_Translation::t("IMAP error reported by server."),
                 0,
                 $server->status,
-                $server->token->stream->getString()
+                $server->token->stream->getString(),
+                $cmd
             );
 
         case $server::BYE:
             /* A BYE response received as part of a logout command should be
              * be treated like a regular command: a client MUST process the
-             * entire command until logging out (RFC 3501 [3.4]). */
+             * entire command until logging out (RFC 3501 [3.4; 7.1.5]). */
             if (empty($this->_temp['logout'])) {
                 $this->_temp['logout'] = true;
                 $this->logout();
@@ -3956,8 +3966,27 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
             break;
 
+        case $server::NO:
+            /* An untagged NO response indicates a warning; ignore and assume
+             * that it also included response text code that is handled
+             * elsewhere. Throw exception if tagged; command handlers can
+             * catch this if able to workaround this issue. (RFC 3501
+             * [7.1.2]) */
+            if ($server instanceof Horde_Imap_Client_Interaction_Server_Tagged) {
+                $cmd = $server->token->current();
+                $server->token->next();
+
+                throw new Horde_Imap_Client_Exception_ServerResponse(
+                    Horde_Imap_Client_Translation::t("IMAP error reported by server."),
+                    0,
+                    $server->status,
+                    $server->token->stream->getString(),
+                    $cmd
+                );
+            }
+
         case $server::PREAUTH:
-            // The user was pre-authenticated.
+            /* The user was pre-authenticated. (RFC 3501 [7.1.4]) */
             $this->_temp['preauth'] = true;
             break;
         }

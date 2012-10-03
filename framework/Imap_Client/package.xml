@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Store command that caused NO/BAD error in Exception, if it can be determined.
 * [mms] Limit FETCH ENVELOPE data sizes.
 * [mms] Improved parsing of incoming IMAP server stream.
 * [mms] Improved parsing of IMAP threading data.
@@ -1077,6 +1078,7 @@
    <date>2012-10-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Store command that caused NO/BAD error in Exception, if it can be determined.
 * [mms] Limit FETCH ENVELOPE data sizes.
 * [mms] Improved parsing of incoming IMAP server stream.
 * [mms] Improved parsing of IMAP threading data.
