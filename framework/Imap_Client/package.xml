@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix outputting the host part when using Horde_Imap_Client_Utils#createUrl().
 * [mms] Fix obtaining UIDs for APPENDed messages when the server doesn&apos;t support APPENDUID.
  </notes>
  <contents>
@@ -921,6 +922,7 @@
    <date>2012-09-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix outputting the host part when using Horde_Imap_Client_Utils#createUrl().
 * [mms] Fix obtaining UIDs for APPENDed messages when the server doesn&apos;t support APPENDUID.
    </notes>
   </release>
