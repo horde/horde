@@ -140,7 +140,7 @@ class Horde_Kolab_FreeBusy_Object_Event {
         // Recurrence
         if (isset($event['recurrence'])) {
             $this->_recurrence = new Horde_Date_Recurrence($this->_start);
-            $this->_recurrence->fromHash($event['recurrence']);
+            $this->_recurrence->fromKolab($event['recurrence']);
         }
     }
 
