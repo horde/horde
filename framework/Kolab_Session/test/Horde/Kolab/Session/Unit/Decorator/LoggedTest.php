@@ -52,7 +52,7 @@ extends Horde_Kolab_Session_TestCase
         $this->logger->expects($this->once())
             ->method('__call')
             ->with(
-                'info',
+                'debug',
                 array(
                     'Connected Kolab session for "somebody@example.org".'
                 )
@@ -102,7 +102,7 @@ extends Horde_Kolab_Session_TestCase
         $this->logger->expects($this->once())
             ->method('__call')
             ->with(
-                'info',
+                'debug',
                 array(
                     'Exported session data for "somebody@example.org" (s:4:"test";).'
                 )
@@ -125,7 +125,7 @@ extends Horde_Kolab_Session_TestCase
         $this->logger->expects($this->once())
             ->method('__call')
             ->with(
-                'info',
+                'debug',
                 array(
                     'Imported session data for "somebody@example.org" (a:1:{i:0;s:4:"test";}).'
                 )
