@@ -567,32 +567,6 @@ case 'cancel_compose':
     }
     exit;
 
-case 'selectlist_process':
-    if ($vars->selectlist_selectid &&
-        $registry->hasMethod('files/selectlistResults') &&
-        $registry->hasMethod('files/returnFromSelectlist')) {
-        try {
-            $filelist = $registry->call('files/selectlistResults', array($vars->selectlist_selectid));
-            if ($filelist) {
-                $i = 0;
-                foreach ($filelist as $val) {
-                    $data = $registry->call('files/returnFromSelectlist', array($vars->selectlist_selectid, $i++));
-                    if ($data) {
-                        $part = new Horde_Mime_Part();
-                        $part->setName(reset($val));
-                        $part->setContents($data);
-                        try {
-                            $imp_compose->addMimePartAttachment($part);
-                        } catch (IMP_Compose_Exception $e) {
-                            $notification->push($e);
-                        }
-                    }
-                }
-            }
-        } catch (Horde_Exception $e) {}
-    }
-    break;
-
 case 'template_new':
     $vars->template_mode = true;
     break;
@@ -994,11 +968,6 @@ if ($redirect) {
     }
 
     if ($session->get('imp', 'file_upload')) {
-        try {
-            // TODO: Not used(?)
-            $view->selectlistlink = $registry->call('files/selectlistLink', array(_("Attach Files"), 'widget', 'compose', true));
-        } catch (Horde_Exception $e) {}
-
         if (!$imp_compose->maxAttachmentSize()) {
             $view->maxattachsize = true;
         } elseif (!$max_attach) {

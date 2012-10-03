@@ -258,9 +258,6 @@
 
  <h1 class="header">
   <strong><a id="attachments"></a><?php echo _("Attachments") ?></strong>
-<?php if ($this->selectlistlink): ?>
-  <input type="hidden" name="selectlist_selectid" value="" />
-<?php endif; ?>
  </h1>
 
  <table width="100%" cellspacing="0">
