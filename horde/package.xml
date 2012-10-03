@@ -40,7 +40,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix infinite loop if array was passed to delete API call.
 * [jan] Fix adding attachments to problem tickets (Bug #10654).
 * [jan] Update Turkish translation (İstanbul Technical University).
 * [jan] Fix setting permissions on static/ directory with horde-set-perms (Bug #11219).
@@ -4683,7 +4682,6 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Fix infinite loop if array was passed to delete API call.
 * [jan] Fix adding attachments to problem tickets (Bug #10654).
 * [jan] Update Turkish translation (İstanbul Technical University).
 * [jan] Fix setting permissions on static/ directory with horde-set-perms (Bug #11219).

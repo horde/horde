@@ -2,7 +2,6 @@
 v4.0.16-git
 -----------
 
-[mms] Fix infinite loop if array was passed to delete API call.
 [jan] Fix adding attachments to problem tickets (Bug #10654).
 [jan] Update Turkish translation (İstanbul Technical University).
 [jan] Fix setting permissions on static/ directory with horde-set-perms (Bug
