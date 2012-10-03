@@ -308,7 +308,7 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
         try {
             $this->_command('', $cmd);
         } catch (Horde_Vfs_Exception $e) {
-            throw new Horde_Vfs_Exception(sprintf('Unable to rename VFS file "%s".', $this->_getPath($path, $name)));
+            throw new Horde_Vfs_Exception(sprintf('Unable to rename VFS file "%s".', $this->_getPath($oldpath, $oldname)));
         }
     }
 
