@@ -76,7 +76,7 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
                 }
 
                 /* Attempt to invalidate cache if write failed. */
-                $val->expire($id);
+                $val->expire($key);
             }
             $master = false;
         }
