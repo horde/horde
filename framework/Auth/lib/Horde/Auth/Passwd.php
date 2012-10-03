@@ -349,7 +349,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
             throw new Horde_Auth_Exception('Password file not locked');
         }
 
-        if (!isset($this->_users[$oldId])) {
+        if (!isset($this->_users[$oldID])) {
             throw new Horde_Auth_Exception("Couldn't modify user '$oldID', because the user doesn't exist.");
         }
 
