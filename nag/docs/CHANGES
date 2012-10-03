@@ -2,6 +2,7 @@
 v3.0.9-git
 ----------
 
+[mms] Fix getTasklist() API call.
 [jan] Fix changing sort direction.
 [jan] Fix sorting by owner if displaying external task sources.
 [jan] Update Turkish translation (İstanbul Technical University).
