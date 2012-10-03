@@ -193,6 +193,8 @@ class IMP
      */
     static protected function _decodeMailto($args)
     {
+        $fields = array('to', 'cc', 'bcc', 'message', 'body', 'subject');
+
         if (isset($args['to']) && (strpos($args['to'], 'mailto:') === 0)) {
             $mailto = @parse_url($args['to']);
             if (is_array($mailto)) {
