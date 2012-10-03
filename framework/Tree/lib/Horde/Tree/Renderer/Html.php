@@ -181,12 +181,11 @@ class Horde_Tree_Renderer_Html extends Horde_Tree_Renderer_Base
 
         if (isset($node['children']) && $node['expanded']) {
             foreach ($node['children'] as $key => $val) {
-                $child_node_id = $node['children'][$key];
-                $this->_node_pos[$child_node_id] = array(
+                $this->_node_pos[$val] = array(
                     'count' => count($node['children']),
                     'pos' => $key + 1
                 );
-                $output .= $this->_buildTree($child_node_id);
+                $output .= $this->_buildTree($val);
             }
         }
 

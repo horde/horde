@@ -147,7 +147,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
             !empty($row[$this->_params['soft_expiration_field']]) &&
             ($now > $row[$this->_params['soft_expiration_field']])) {
             $this->setCredential('change', true);
-            $this->setCredential('expire', $date);
+            $this->setCredential('expire', $now);
         }
     }
 

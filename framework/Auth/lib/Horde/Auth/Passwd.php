@@ -320,7 +320,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
         }
 
         if (isset($this->_users[$userId])) {
-            throw new Horde_Auth_Exception("Couldn't add user '$user', because the user already exists.");
+            throw new Horde_Auth_Exception("Couldn't add user '$userId', because the user already exists.");
         }
 
         $this->_users[$userId] = array(
@@ -349,7 +349,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
             throw new Horde_Auth_Exception('Password file not locked');
         }
 
-        if (!isset($this->_users[$userId])) {
+        if (!isset($this->_users[$oldID])) {
             throw new Horde_Auth_Exception("Couldn't modify user '$oldID', because the user doesn't exist.");
         }
 
@@ -396,7 +396,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
         }
 
         if (!isset($this->_users[$userId])) {
-            throw new Horde_Auth_Exception("Couldn't delete user '$oldID', because the user doesn't exist.");
+            throw new Horde_Auth_Exception("Couldn't delete user '$userId', because the user doesn't exist.");
         }
 
         unset($this->_users[$userId]);

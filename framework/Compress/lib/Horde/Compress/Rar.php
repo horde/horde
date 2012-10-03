@@ -65,7 +65,7 @@ class Horde_Compress_Rar extends Horde_Compress_Base
             if ($position + 7 > $data_len) {
                 throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid RAR data."));
             }
-            $head_crc = substr($data, $position + 0, 2);
+            //$head_crc = substr($data, $position, 2);
             $head_type = ord(substr($data, $position + 2, 1));
             $head_flags = unpack('vFlags', substr($data, $position + 3, 2));
             $head_flags = $head_flags['Flags'];

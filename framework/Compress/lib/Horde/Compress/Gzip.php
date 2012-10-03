@@ -58,13 +58,15 @@ class Horde_Compress_Gzip extends Horde_Compress_Base
 
         if ($info['FLG'] & $this->_flags['FNAME']) {
             $filenamePos = strpos($data, "\x0", $position);
-            $filename = substr($data, $position, $filenamePos - $position);
+            // Filename
+            // substr($data, $position, $filenamePos - $position);
             $position = $filenamePos + 1;
         }
 
         if ($info['FLG'] & $this->_flags['FCOMMENT']) {
             $commentPos = strpos($data, "\x0", $position);
-            $comment = substr($data, $position, $commentPos - $position);
+            // Comment
+            // substr($data, $position, $commentPos - $position);
             $position = $commentPos + 1;
         }
 

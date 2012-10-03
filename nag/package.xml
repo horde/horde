@@ -1153,6 +1153,7 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix getTasklist() API call.
 * [jan] Fix changing sort direction.
 * [jan] Fix sorting by owner if displaying external task sources.
 * [jan] Update Turkish translation (İstanbul Technical University).

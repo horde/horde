@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-*
+* [mms] Fix generating cache ID in base File object.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -514,7 +514,7 @@
    <date>2011-03-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* First alpha release for Horde 4.
+* [mms] Fix generating cache ID in base File object.
    </notes>
   </release>
  </changelog>

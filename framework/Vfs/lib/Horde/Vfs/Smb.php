@@ -214,7 +214,6 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
     public function isFolder($path, $name)
     {
         list($path, $name) = $this->_escapeShellCommand($path, $name);
-        $cmd = array('quit');
         try {
             $this->_command($this->_getPath($path, $name), array('quit'));
             return true;
@@ -308,7 +307,7 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
         try {
             $this->_command('', $cmd);
         } catch (Horde_Vfs_Exception $e) {
-            throw new Horde_Vfs_Exception(sprintf('Unable to rename VFS file "%s".', $this->_getPath($path, $name)));
+            throw new Horde_Vfs_Exception(sprintf('Unable to rename VFS file "%s".', $this->_getPath($oldpath, $oldname)));
         }
     }
 

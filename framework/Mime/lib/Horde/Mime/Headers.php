@@ -588,7 +588,7 @@ class Horde_Mime_Headers implements Serializable
         }
 
         $rfc822 = new Horde_Mail_Rfc822();
-        return $rfc822->parseAddressList($this->getValue($field));
+        return $rfc822->parseAddressList($value);
     }
 
     /**

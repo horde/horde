@@ -106,7 +106,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
 
         $where = str_replace($this->sourceroot . '/', '', $where);
         $command = $this->getCommand() . ' ls-tree ' . escapeshellarg($branch) . ' ' . escapeshellarg($where) . ' 2>&1';
-        exec($command, $entry, $retval);
+        exec($command, $entry);
 
         if (!count($entry)) { return false; }
 
@@ -311,7 +311,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
             $command = $this->getCommand() . ' diff -M -C ' . $flags . ' --no-color ' . escapeshellarg($rev1 . '..' . $rev2) . ' -- ' . escapeshellarg($file->getSourcerootPath()) . ' 2>&1';
         }
 
-        exec($command, $diff, $retval);
+        exec($command, $diff);
         return $diff;
     }
 

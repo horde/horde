@@ -120,7 +120,7 @@ class Nag_Api extends Horde_Registry_Api
     public function getTasklist($name)
     {
         try {
-            $tasklist = $GLOBALS['nag_shares']->getShare($id);
+            $tasklist = $GLOBALS['nag_shares']->getShare($name);
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             throw new Nag_Exception($e);
