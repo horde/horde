@@ -719,8 +719,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $tmp = new Horde_Imap_Client_Data_Format_List();
             foreach ($info as $key => $val) {
                 $tmp->add(array(
-                    new Horde_Imap_Client_Fata_Format_String(strtolower($key)),
-                    new Horde_Imap_Client_Fata_Format_Nstring($val)
+                    new Horde_Imap_Client_Data_Format_String(strtolower($key)),
+                    new Horde_Imap_Client_Data_Format_Nstring($val)
                 ));
             }
             $cmd->add($tmp);
