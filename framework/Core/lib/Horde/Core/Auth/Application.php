@@ -282,7 +282,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         if ($this->hasCapability('update')) {
             $GLOBALS['registry']->callAppMethod($this->_app, 'authUpdateUser', array('args' => array($oldID, $newID, $credentials)));
         } else {
-            parent::updateUser($userId, $credentials);
+            parent::updateUser($oldID, $newID, $credentials);
         }
     }
 
