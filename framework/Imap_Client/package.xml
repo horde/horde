@@ -997,6 +997,20 @@
    </notes>
   </release>
   <release>
+   <version>
+    <release>1.5.9</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+    <date>2012-09-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix outputting the host part when using Horde_Imap_Client_Utils#createUrl().
+* [mms] Fix obtaining UIDs for APPENDed messages when the server doesn&apos;t support APPENDUID.
+   </notes>
+  </release>
+  <release>
    <date>2012-07-06</date>
    <time>18:00:28</time>
    <version>

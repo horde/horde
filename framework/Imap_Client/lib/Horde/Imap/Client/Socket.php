@@ -1236,7 +1236,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $mlo = $ml['options'];
         $lr = &$this->_temp['listresponse'];
 
-        $mode = strtoupper($data->current());
         $attr = iterator_to_array($data->next());
         $delimiter = $data->next();
         $mbox = Horde_Imap_Client_Mailbox::get($data->next(), true);
@@ -2425,7 +2424,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case Horde_Imap_Client::FETCH_BODYPART:
             case Horde_Imap_Client::FETCH_HEADERS:
                 foreach ($c_val as $key => $val) {
-                    $base_id = $cmd = ($key == 0)
+                    $cmd = ($key == 0)
                         ? ''
                         : $key . '.';
                     $main_cmd = 'BODY';

@@ -1760,13 +1760,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $uids = $this->getIdsOb();
 
         while (list(,$val) = each($data)) {
-            if (is_string($data['data'])) {
-                $text = $data;
-            } elseif (is_resource($data['data'])) {
+            if (is_string($val['data'])) {
+                $text = $val['data'];
+            } elseif (is_resource($val['data'])) {
                 $text = '';
-                rewind($data['data']);
-                while (!feof($data['data'])) {
-                    $text .= fread($data['data'], 512);
+                rewind($val['data']);
+                while (!feof($val['data'])) {
+                    $text .= fread($val['data'], 512);
                     if (preg_match("/\n\r{2,}/", $text)) {
                         break;
                     }

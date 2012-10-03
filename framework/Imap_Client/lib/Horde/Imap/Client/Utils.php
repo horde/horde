@@ -344,7 +344,7 @@ class Horde_Imap_Client_Utils
     {
         $url = '';
 
-        if (isset($type)) {
+        if (isset($data['type'])) {
             $url = $data['type'] . '://';
 
             if (isset($data['username'])) {

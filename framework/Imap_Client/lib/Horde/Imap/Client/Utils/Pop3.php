@@ -62,7 +62,7 @@ class Horde_Imap_Client_Utils_Pop3 extends Horde_Imap_Client_Utils
         $ids = array();
         $str = trim($str);
 
-        while (strlen($str)) {
+        while ($str != '') {
             /* Check for valid beginning of UID. */
             if (substr($str, 0, 2) != '{P') {
                 /* Assume this is the entire UID, if there is no other
