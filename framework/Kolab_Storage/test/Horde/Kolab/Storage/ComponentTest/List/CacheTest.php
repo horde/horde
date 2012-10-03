@@ -153,13 +153,10 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
     public function testMissingStamp()
     {
         $cache = $this->_getTestCache();
-        $cache->getStamp();
+        $this->assertEquals(0, $cache->getStamp());
     }
 
     public function testStamp()
