@@ -57,7 +57,7 @@ extends Horde_Kolab_Format_TestCase
         $object = array(
             'uid' => 1,
             'pref' => array('test'),
-            'categories' => array('Test')
+            'categories' => 'Test'
         );
         $xml = $preferences->save($object, array('previous' => $xml));
         $expect = file_get_contents(
@@ -76,7 +76,7 @@ extends Horde_Kolab_Format_TestCase
         $object = array(
             'uid' => 1,
             'pref' => array('test'),
-            'categories' => array('Test'),
+            'categories' => 'Test',
             'creation-date' => 1
         );
         $xml = $preferences->save($object);
