@@ -55,7 +55,7 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
         // Temporarily set the client message level above error to prevent unintentional
         // error messages in the logs when working on a PostgreSQL database server that
         // does not support standard conforming strings.
-        $clientMinMessageOld = $this->getClientMinMessages();
+        $clientMinMessagesOld = $this->getClientMinMessages();
         $this->setClientMinMessages('panic');
 
         $hasSupport = $this->selectValue('SHOW standard_conforming_strings');
