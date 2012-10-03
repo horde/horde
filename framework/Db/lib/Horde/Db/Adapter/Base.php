@@ -711,7 +711,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     public function addLock(&$sql, array $options = array())
     {
         $sql .= (isset($options['lock']) && is_string($options['lock']))
-            ? ' ' . $lock
+            ? ' ' . $options['lock']
             : ' FOR UPDATE';
     }
 
