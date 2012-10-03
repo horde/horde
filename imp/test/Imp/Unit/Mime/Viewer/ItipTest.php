@@ -49,16 +49,16 @@ extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        require_once __DIR__ . '/../../../Stub/ItipRequest.php';
+
         $this->_oldtz = date_default_timezone_get();
         date_default_timezone_set('UTC');
-
 
         $injector = $this->getMock('Horde_Injector', array(), array(), '', false);
         $injector->expects($this->any())
             ->method('getInstance')
             ->will($this->returnCallback(array($this, '_injectorGetInstance')));
         $GLOBALS['injector'] = $injector;
-
 
         $registry = $this->getMock('Horde_Registry', array(), array(), '', false);
         $registry->expects($this->any())
@@ -73,7 +73,6 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['notification'] = $notification;
 
         $GLOBALS['conf']['server']['name'] = 'localhost';
-        $_REQUEST['identity'] = 'test';
         $_SERVER['REMOTE_ADDR'] = 'localhost';
     }
 
@@ -194,7 +193,7 @@ extends PHPUnit_Framework_TestCase
 
     public function _notificationHandler($msg, $code)
     {
-        $this->_notifyStack = array($msg, $code);
+        $this->_notifyStack[] = array($msg, $code);
     }
 
     public function _prefsGetValue($pref)
@@ -519,8 +518,7 @@ extends PHPUnit_Framework_TestCase
     }
     public function testResultMimeMessageHeadersContainsReplyToForAlternateIdentity()
     {
-        $_REQUEST['identity'] = 'other';
-        $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
+        $this->_doImple('accept', $this->_getInvitation()->exportvCalendar(), 'other');
         $this->assertEquals('reply@example.org', $this->_getMailHeaders()->getValue('Reply-To'));
     }
 
@@ -606,17 +604,18 @@ extends PHPUnit_Framework_TestCase
         return $this->_getIcalendar()->getComponent(0);
     }
 
-    private function _doImple($action, $data)
+    private function _doImple($action, $data, $identity = 'test')
     {
         $vars = new Horde_Variables(array(
-            'itip_action' => array($action),
+            'imple_submit' => array($action),
+            'identity' => $identity,
             'mailbox' => 'foo',
             'mime_id' => 1,
             'uid' => 1
         ));
         $this->_contentsData = $data;
 
-        $imple = new IMP_Ajax_Imple_ItipRequest(array());
+        $imple = new IMP_Stub_Ajax_Imple_ItipRequest(array());
         $imple->handle($vars);
     }
 

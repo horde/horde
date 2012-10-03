@@ -40,21 +40,19 @@ class Imp_Stub_Mime_Viewer_Html extends IMP_Mime_Viewer_Html
             'inline' => true,
             'target' => '_blank'
         );
+        $this->_tmp = array(
+            'base' => null,
+            'inline' => true,
+            'phish' => true
+        );
 
         $dom = new Horde_Domhtml($html);
-        $this->_node($dom->dom, $dom->dom);
+
+        foreach ($dom as $node) {
+            $this->_node($dom->dom, $node);
+        }
 
         return $dom->dom->saveXML($dom->dom->getElementsByTagName('body')->item(0)->firstChild);
-    }
-
-    protected function _node($doc, $node)
-    {
-        if ($node->hasChildNodes()) {
-            foreach ($node->childNodes as $child) {
-                $this->_nodeCallback($doc, $child);
-                $this->_node($doc, $child);
-            }
-        }
     }
 
 }
