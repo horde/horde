@@ -522,7 +522,7 @@ class Horde_Api extends Horde_Registry_Api
         try {
             $share->removeUser($userName);
         } catch (Horde_Share_Exception $e) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception($e);
         }
     }
 
