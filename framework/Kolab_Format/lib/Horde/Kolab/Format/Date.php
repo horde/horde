@@ -181,29 +181,26 @@ class Horde_Kolab_Format_Date
      */
     static public function readDateTime($date_time, $timezone)
     {
-        /**
-         * The trailing "Z" for UTC times holds no relevant information. The
-         * authoritative timezone information is the "tz" attribute. If that one
-         * is missing we will assume to have a UTC date-time in any case - with
-         * or without "Z".
-         */
+        /* The trailing "Z" for UTC times holds no relevant information. The
+         * authoritative timezone information is the "tz" attribute. If that
+         * one is missing we will assume to have a UTC date-time in any case -
+         * with or without "Z". */
         $date_time = preg_replace('/Z$/','', $date_time);
         if ($date = DateTime::createFromFormat(
                 'Y-m-d\TH:i:s', $date_time, new DateTimeZone($timezone)
             )) {
             return $date;
         }
-        /**
-         * No need to support fractions of a second yet. So lets just try to
-         * remove a potential microseconds part and attempt parsing again.
-         */
+
+        /* No need to support fractions of a second yet. So lets just try to
+         * remove a potential microseconds part and attempt parsing again. */
         $date_time = preg_replace(
-            '/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d+Z/',
-            '\1Z',
+            '/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d+/',
+            '\1',
             $date_time
         );
         return DateTime::createFromFormat(
-            'Y-m-d\TH:i:s\Z', $date_time, new DateTimeZone($timezone)
+            'Y-m-d\TH:i:s', $date_time, new DateTimeZone($timezone)
         );
     }
 
