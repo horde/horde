@@ -549,11 +549,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                         // Ignore hostspec and port, since these can change
                         // even though the server is the same. UIDVALIDITY
                         // should catch any true server/backend changes.
-                    (IMP_Mailbox::get($imap_url['mailbox'])->uidvalid == $imap_url['uidvalidity']) &&
+                        (IMP_Mailbox::get($imap_url['mailbox'])->uidvalid == $imap_url['uidvalidity']) &&
                         $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
                         $this->_metadata['mailbox'] = IMP_Mailbox::get($imap_url['mailbox']);
                         $this->_metadata['uid'] = $imap_url['uid'];
-                        $this->_replytype = $reply_type;
+                        $this->_replytype = $type;
                     }
                 } catch (Exception $e) {}
             }
@@ -617,7 +617,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         /* Add the message to the mailbox. */
         try {
-            $ids = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->append($mbox, array(array(
+            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->append($mbox, array(array(
                 'data' => $this->_saveDraftMsg($headers, $message, $opts),
                 'flags' => $append_flags
             )));
@@ -1099,7 +1099,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                                               Horde_Mime_Headers $headers = null,
                                               Horde_Mime_Part $message = null)
     {
-        global $conf, $injector, $registry;
+        global $conf, $injector;
 
         $perms = $injector->getInstance('Horde_Core_Perms');
         $email_count = count($email);
@@ -1171,7 +1171,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function _saveRecipients(Horde_Mail_Rfc822_List $recipients)
     {
-        global $notification, $prefs, $registry, $session;
+        global $notification, $prefs, $registry;
 
         if (!$prefs->getValue('save_recipients') ||
             !$registry->hasMethod('contacts/import') ||
@@ -1376,7 +1376,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 $base = new Horde_Mime_Part();
                 $base->setType('multipart/mixed');
                 $base->addPart($textpart);
-                foreach ($this as $id => $val) {
+                foreach (array_keys($this) as $id) {
                     $base->addPart($this->buildAttachment($id));
                 }
             }
@@ -1919,8 +1919,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $h = $contents->getHeader();
-        $format = 'text';
-        $msg = '';
 
         $this->_metadata['mailbox'] = $contents->getMailbox();
         $this->_metadata['uid'] = $contents->getUid();
@@ -2456,7 +2454,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function deleteAllAttachments()
     {
-        foreach ($this->_atc as $key => $val) {
+        foreach (array_keys($this->_atc) as $key) {
             unset($this[$key]);
         }
     }
@@ -2731,7 +2729,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         if (!empty($conf['compose']['link_attach_size_limit'])) {
             $size_check = $conf['compose']['link_attach_size_limit'] - $this->sizeOfAttachments();
             if ($size_check < 0) {
-                throw new IMP_Compose_Exception(sprintf(_("Attached file(s) exceeds the linked attachment size limit (%d KB too large). Delete one of the attachments to continue."), IMP::numberFormat(abs($size) / 1024, 0)));
+                throw new IMP_Compose_Exception(sprintf(_("Attached file(s) exceeds the linked attachment size limit (%d KB too large). Delete one of the attachments to continue."), IMP::numberFormat(abs($size_check) / 1024, 0)));
             }
         }
 
@@ -3082,8 +3080,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         if (empty($GLOBALS['conf']['compose']['use_vfs'])) {
             return;
         }
-
-        $imp_ui = new IMP_Ui_Compose();
 
         $headers = array();
         foreach (array('to', 'cc', 'bcc', 'subject') as $val) {

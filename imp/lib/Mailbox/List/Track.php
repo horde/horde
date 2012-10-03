@@ -92,9 +92,9 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
      * Using the preferences and the current mailbox, determines the messages
      * to view on the current page.
      */
-    public function buildMailboxPage($page = 0, $start = 0, $opts = array())
+    public function buildMailboxPage($page = 0, $start = 0)
     {
-        $ret = parent::buildMailboxPage($page, $start, $opts);
+        $ret = parent::buildMailboxPage($page, $start);
 
         if (!$this->_mailbox->search) {
             $ret['index'] = $this->_index;

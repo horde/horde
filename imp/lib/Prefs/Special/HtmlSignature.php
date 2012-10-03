@@ -54,7 +54,7 @@ class IMP_Prefs_Special_HtmlSignature implements Horde_Core_Prefs_Ui_Special
      */
     public function update(Horde_Core_Prefs_Ui $ui)
     {
-        return $injector->getInstance('IMP_Identity')->setValue('signature_html', $ui->vars->signature_html);
+        return $GLOBALS['injector']->getInstance('IMP_Identity')->setValue('signature_html', $ui->vars->signature_html);
     }
 
 }

@@ -64,7 +64,7 @@ class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
      */
     public function getTree($static = false)
     {
-        global $conf, $injector, $registry;
+        global $injector, $registry;
 
         $this->_nodes = $this->_tree->getNodes();
 

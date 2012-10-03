@@ -733,7 +733,7 @@ class IMP_Mailbox implements Serializable
      */
     public function create(array $opts = array())
     {
-        global $injector, $notification, $prefs, $registry;
+        global $injector, $notification, $prefs;
 
         if ($this->exists) {
             return true;
@@ -805,7 +805,7 @@ class IMP_Mailbox implements Serializable
      */
     public function delete(array $opts = array())
     {
-        global $conf, $injector, $notification;
+        global $injector, $notification;
 
         if ($this->vfolder) {
             if ($this->editvfolder) {
@@ -1473,7 +1473,7 @@ class IMP_Mailbox implements Serializable
             strpos($mbox, $empty_ns['delimiter']) === 0) {
             /* Prefixed with delimiter => from empty namespace. */
             return substr($mbox, strlen($empty_ns['delimiter']));
-        } elseif (($ns = $imp_imap->getNamespace($mbox, true)) == null) {
+        } elseif ($imp_imap->getNamespace($mbox, true) === null) {
             /* No namespace prefix => from personal namespace. */
             return $def_ns['name'] . $mbox;
         }
@@ -1584,7 +1584,7 @@ class IMP_Mailbox implements Serializable
             if (!empty($ns_info['translation']) && $this->namespace) {
                 $this->_cache[self::CACHE_DISPLAY] = $ns_info['translation'];
                 $this->_changed = self::CHANGED_YES;
-                return $d;
+                return $ns_info['translation'];
             }
 
             /* Strip namespace information. */

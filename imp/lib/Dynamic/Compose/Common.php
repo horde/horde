@@ -63,7 +63,7 @@ class IMP_Dynamic_Compose_Common
      */
     protected function _compose($base, $view, $args)
     {
-        global $conf, $injector, $page_output, $registry, $prefs, $session;
+        global $conf, $injector, $registry, $prefs, $session;
 
         $view->title = $args['title'];
 

@@ -44,7 +44,7 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
      */
     public function create($id = null)
     {
-        global $injector, $registry, $session;
+        global $session;
 
         if (is_null($id) &&
             !($id = $session->get('imp', 'server_key'))) {

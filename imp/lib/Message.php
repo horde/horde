@@ -110,7 +110,7 @@ class IMP_Message
                 if ($e instanceof IMP_Imap_Exception) {
                     $e->notify($error_msg);
                 } else {
-                    $GLOBALS['notification']->push($error_msg, 'horde.error');
+                    $notification->push($error_msg, 'horde.error');
                 }
                 $return_value = false;
             }
@@ -324,7 +324,7 @@ class IMP_Message
     protected function _createTasksOrNotes($list, $action,
                                            IMP_Indices $indices, $type)
     {
-        global $registry, $notification, $prefs;
+        global $registry, $notification;
 
         foreach ($indices as $ob) {
             foreach ($ob->uids as $uid) {

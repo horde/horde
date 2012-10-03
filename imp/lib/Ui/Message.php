@@ -230,9 +230,6 @@ class IMP_Ui_Message
                 }
                 break;
             }
-
-            /* Use this entry unless we can find a better one. */
-            $output = $match;
         }
 
         return $output;

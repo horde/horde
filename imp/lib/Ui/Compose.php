@@ -269,13 +269,12 @@ class IMP_Ui_Compose
     /**
      * Convert compose data to/from text/HTML.
      *
-     * @param string $data       The message text.
-     * @param string $to         Either 'text' or 'html'.
-     * @param integer $identity  The current identity.
+     * @param string $data  The message text.
+     * @param string $to    Either 'text' or 'html'.
      *
      * @return string  The converted text.
      */
-    public function convertComposeText($data, $to, $identity)
+    public function convertComposeText($data, $to)
     {
         switch ($to) {
         case 'html':

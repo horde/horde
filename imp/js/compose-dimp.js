@@ -367,7 +367,6 @@ var DimpCompose = {
 
             DimpCore.doAction('html2Text', {
                 changed: Number(changed),
-                identity: $F('identity'),
                 imp_compose: $F(this.getCacheElt()),
                 text: text
             }, {
@@ -382,7 +381,6 @@ var DimpCompose = {
             if (!noupdate) {
                 DimpCore.doAction('text2Html', {
                     changed: Number(this.msgHash() != this.md5_msgOrig),
-                    identity: $F('identity'),
                     imp_compose: $F(this.getCacheElt()),
                     text: $F('composeMessage')
                 }, {

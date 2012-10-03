@@ -136,12 +136,8 @@ class IMP_Ajax_Application_ShowMessage
         $mime_headers = $this->_peek
             ? $this->_contents->getHeader()
             : $this->_contents->getHeaderAndMarkAsSeen();
-        $headers = array();
 
-        /* Initialize variables. */
-        if (!$preview) {
-            $imp_hdr_ui = new IMP_Ui_Headers();
-        }
+        $headers = array();
         $imp_ui = new IMP_Ui_Message();
 
         /* Develop the list of Headers to display now. Deal with the 'basic'

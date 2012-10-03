@@ -185,7 +185,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function init()
     {
-        global $conf, $injector, $prefs, $session;
+        global $injector, $prefs, $session;
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 

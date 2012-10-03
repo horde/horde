@@ -196,6 +196,7 @@ class IMP_Application extends Horde_Registry_Application
         if (is_array($allowed)) {
             $allowed = max($allowed);
         }
+
         return $allowed;
     }
 
@@ -423,7 +424,7 @@ class IMP_Application extends Horde_Registry_Application
     public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
                                  array $params = array())
     {
-        global $injector, $registry;
+        global $injector;
 
         IMP_Mailbox::get('INBOX')->filterOnDisplay();
 

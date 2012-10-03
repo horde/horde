@@ -48,16 +48,14 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
      */
     protected function _render()
     {
-        $ret = $this->_renderInline(true);
-        if (!empty($ret)) {
-            $templates = $GLOBALS['registry']->get('templates', 'horde');
+        $ret = $this->_renderInline();
 
+        if (!empty($ret)) {
             reset($ret);
             Horde::startBuffer();
             $GLOBALS['page_output']->header();
             echo $ret[key($ret)]['data'];
             $GLOBALS['page_output']->footer();
-
             $ret[key($ret)]['data'] = Horde::endBuffer();
         }
 
@@ -69,10 +67,8 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
      *
      * @return array  See parent::render().
      */
-    protected function _renderInline($full = false)
+    protected function _renderInline()
     {
-        global $conf, $injector, $notification, $registry;
-
         $data = $this->_mimepart->getContents();
         $mime_id = $this->_mimepart->getMimeId();
 
@@ -126,7 +122,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 break;
 
             case 'vFreebusy':
-                $out[] = $this->_vFreebusy($t, $component, $key, $method);
+                $out[] = $this->_vFreebusy($component, $key, $method);
                 break;
 
             // @todo: handle stray vcards here as well.
@@ -459,7 +455,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
      */
     protected function _vTodo($vtodo, $id, $method)
     {
-        global $prefs, $registry;
+        global $registry;
 
         $desc = '';
         $options = array();

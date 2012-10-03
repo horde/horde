@@ -27,7 +27,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
      */
     protected function _init()
     {
-        global $browser, $conf, $injector, $page_output, $prefs, $registry, $session;
+        global $browser, $conf, $injector, $page_output, $registry, $session;
 
         $page_output->addScriptFile('dimpbase.js');
         $page_output->addScriptFile('passphrase.js');
@@ -66,7 +66,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $blank = new Horde_Url();
         $impSidebar = new Horde_View(array(
             'templatePath' => array(
-                $GLOBALS['registry']->get('templates', 'horde') . '/sidebar',
+                $registry->get('templates', 'horde') . '/sidebar',
                 IMP_TEMPLATES . '/dynamic'
             )
         ));

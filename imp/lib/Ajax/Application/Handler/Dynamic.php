@@ -645,8 +645,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
             $result->preview->error = $e->getMessage();
             $result->preview->errortype = 'horde.error';
-            $result->preview->mbox = $mbox->form_to;
-            $result->preview->uid = $idx;
+            $result->preview->mbox = $this->vars->mbox;
+            $result->preview->uid = $this->vars->uid;
             $result->preview->view = $this->vars->view;
         }
 
@@ -874,7 +874,6 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      *
      * Variables used:
      *   - changed: (integer) Has the text changed from the original?
-     *   - identity: (integer) The current identity.
      *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - text: (string) The text to convert.
      *
@@ -908,7 +907,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             }
         }
 
-        $result->text = $GLOBALS['injector']->getInstance('IMP_Ui_Compose')->convertComposeText($this->vars->text, 'text', intval($this->vars->identity));
+        $result->text = $GLOBALS['injector']->getInstance('IMP_Ui_Compose')->convertComposeText($this->vars->text, 'text');
 
         return $result;
     }
@@ -951,7 +950,6 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      *
      * Variables used:
      *   - changed: (integer) Has the text changed from the original?
-     *   - identity: (integer) The current identity.
      *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - text: (string) The text to convert.
      *
@@ -985,7 +983,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             }
         }
 
-        $result->text = $GLOBALS['injector']->getInstance('IMP_Ui_Compose')->convertComposeText($this->vars->text, 'html', intval($this->vars->identity));
+        $result->text = $GLOBALS['injector']->getInstance('IMP_Ui_Compose')->convertComposeText($this->vars->text, 'html');
 
         return $result;
     }
@@ -1011,7 +1009,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
     protected function _draftAction($action)
     {
         try {
-            list($result, $imp_compose, $headers, $identity) = $this->_base->composeSetup();
+            list($result, $imp_compose, $headers, ) = $this->_base->composeSetup();
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
 

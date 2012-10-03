@@ -280,7 +280,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
             if ((Horde_String::lower($head) == 'to') &&
                 !isset($this->vars->allto) &&
                 (($pos = strpos($val, ',')) !== false)) {
-                $val = Horde_String::substr($val, 0, strpos($val, ','));
+                $val = Horde_String::substr($val, 0, $pos);
                 $tmp['all_to'] = $self_link->copy()->add('allto', 1);
             }
             $tmp['val'] = $val;

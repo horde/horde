@@ -21,7 +21,7 @@ class IMP_Minimal_Messagepart extends IMP_Minimal_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $prefs;
+        global $injector;
 
         /* Make sure we have a valid index. */
         $imp_mailbox = IMP::mailbox()->getListOb(IMP::mailbox(true)->getIndicesOb(IMP::uid()));

@@ -362,7 +362,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
             $prefs->setValue('trash_folder', strval($vtrash));
         }
 
-        foreach ($vfolders as $id => $vfolder) {
+        foreach ($vfolders as $vfolder) {
             $ui = $vfolder['uiinfo'];
 
             $or_match = ($ui['match'] == 'or');

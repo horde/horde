@@ -246,7 +246,6 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
 
             $message = strval($this->vars->message);
             $f_to = $header['to'];
-            $f_cc = $f_bcc = null;
             $old_header = $header;
             $header = array();
 

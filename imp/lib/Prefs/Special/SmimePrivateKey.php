@@ -44,7 +44,7 @@ class IMP_Prefs_Special_SmimePrivateKey implements Horde_Core_Prefs_Ui_Special
                 $view->viewpublic = Horde::link($smime_url->copy()->add('actionID', 'view_personal_public_key'), _("View Personal Public Certificate"), null, 'view_key');
                 $view->infopublic = Horde::link($smime_url->copy()->add('actionID', 'info_personal_public_key'), _("Information on Personal Public Certificate"), null, 'info_key');
 
-                if ($passphrase = $injector->getInstance('IMP_Crypt_Smime')->getPassphrase()) {
+                if ($injector->getInstance('IMP_Crypt_Smime')->getPassphrase()) {
                     $view->passphrase = Horde::link($ui->selfUrl(array(
                         'special' => true,
                         'token' => true

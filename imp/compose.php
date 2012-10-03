@@ -668,7 +668,7 @@ if (empty($msg)) {
 
 /* Convert from Text -> HTML or vice versa if RTE mode changed. */
 if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
-    $msg = $imp_ui->convertComposeText($msg, $rtemode ? 'html' : 'text', $identity->getDefault());
+    $msg = $imp_ui->convertComposeText($msg, $rtemode ? 'html' : 'text');
 }
 
 /* If this is the first page load for this compose item, add auto BCC

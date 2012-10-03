@@ -54,8 +54,6 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             }
         }
 
-        $msg = strval($this->vars->body);
-
         $identity = $injector->getInstance('IMP_Identity');
         if (!$prefs->isLocked('default_identity') &&
             isset($this->vars->identity)) {
@@ -209,6 +207,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             $show_editor = ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail'));
 
             $onload = $compose_ajax->getBaseResponse();
+            $onload->body = strval($this->vars->body);
             $onload->header = $header;
             if ($show_editor) {
                 $onload->format = 'html';

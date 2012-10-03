@@ -209,11 +209,10 @@ class IMP_Auth
      * single value or an array of multiple values.
      *
      * @param string $server  A complete server entry from the $servers hash.
-     * @param string $key     The server key entry.
      *
      * @return boolean  True if this entry is "preferred".
      */
-    static public function isPreferredServer($server, $key = null)
+    static public function isPreferredServer($server)
     {
         if (empty($server['preferred'])) {
             return false;

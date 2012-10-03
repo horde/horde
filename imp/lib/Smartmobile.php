@@ -28,7 +28,7 @@ class IMP_Smartmobile
      */
     public function __construct(Horde_Variables $vars)
     {
-        global $notification, $page_output, $registry;
+        global $notification, $page_output;
 
         $this->vars = $vars;
 

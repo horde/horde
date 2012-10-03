@@ -425,7 +425,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
      *   page: (integer) The current page number.
      *   pagecount: (integer) The number of pages in this mailbox.
      */
-    public function buildMailboxPage($page = 0, $start = 0, $opts = array())
+    public function buildMailboxPage($page = 0, $start = 0)
     {
         $this->_buildMailbox();
 
