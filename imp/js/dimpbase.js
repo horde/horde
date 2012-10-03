@@ -1491,7 +1491,7 @@ var DimpBase = {
         tmp = this.viewport.getMetaData('special');
         tmp2 = m.down('a.msgFromTo');
         [ tmp2 ].invoke(tmp ? 'show' : 'hide');
-        tmp2.siblings().invoke(tmp ? 'hide' : 'show');
+        tmp2.adjacent('a').invoke(tmp ? 'hide' : 'show');
 
         [ m.down('.msgSubject .horde-popdown'), m.down('.msgDate .horde-popdown') ].invoke(this.viewport.getMetaData('sortbylock') ? 'hide' : 'show');
 
