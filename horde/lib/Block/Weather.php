@@ -94,8 +94,6 @@ class Horde_Block_Weather extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $conf, $prefs;
-
         $weather = $GLOBALS['injector']
             ->getInstance('Horde_Weather');
 

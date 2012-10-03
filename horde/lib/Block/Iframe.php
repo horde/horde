@@ -45,8 +45,6 @@ class Horde_Block_Iframe extends Horde_Core_Block
      */
     protected function _title()
     {
-        global $registry;
-
         $title = !empty($this->_params['title'])
             ? $this->_params['title']
             : $this->_params['iframe'];

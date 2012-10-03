@@ -33,7 +33,6 @@ class Horde_Prefs_Special_Syncml implements Horde_Core_Prefs_Ui_Special
         $t->setOption('gettext', true);
 
         $partners = array();
-        $selfurl = $ui->selfUrl()->add('deleteanchor', 1);
         $format = $prefs->getValue('date_format') . ' %H:%M';
 
         foreach ($devices as $device) {

@@ -83,7 +83,7 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $conf, $page_output;
+        global $page_output;
 
         /* Get the twitter driver */
         try {
@@ -112,11 +112,8 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
         /* Build values to pass to the javascript twitter client */
         $defaultText = addslashes(_("What are you working on now?"));
         $endpoint = Horde::url('services/twitter/', true);
-        $spinner = $instance . '_loading';
-        $inputNode = $instance . '_newStatus';
         $inReplyToNode = $instance . '_inReplyTo';
         $inReplyToText = addslashes(_("In reply to:"));
-        $contentNode = 'twitter_body' . $instance;
         $justNowText = addslashes(_("Just now..."));
         $refresh = empty($this->_params['refresh_rate']) ? 300 : $this->_params['refresh_rate'];
 
