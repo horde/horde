@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix obtaining UIDs for APPENDed messages when the server doesn&apos;t support APPENDUID.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -921,7 +921,7 @@
    <date>2012-09-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix obtaining UIDs for APPENDed messages when the server doesn&apos;t support APPENDUID.
    </notes>
   </release>
  </changelog>
