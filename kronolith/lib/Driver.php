@@ -432,6 +432,8 @@ class Kronolith_Driver
 
     /**
      * Stub to be overridden in the child class.
+     *
+     * @param mixed $eventId  Either the event id to delete, or the event object.
      */
     public function deleteEvent($eventId)
     {

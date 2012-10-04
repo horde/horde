@@ -490,6 +490,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      */
     public function deleteEvent($eventId, $silent = false)
     {
+        if ($eventId instanceof Kronolith_Event) {
+            $eventId = $eventId->id;
+        }
         if (!$this->isCalDAV()) {
             throw new Kronolith_Exception(_("Deleting events is not supported with this remote calendar."));
         }

@@ -169,7 +169,12 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
     {
         $event_ob = new $this->_eventClass($this);
         $this->_driver->open($this->calendar);
-        $delete_event = $this->_driver->getEvent($eventId);
+        if ($eventId instanceof Kronolith_Event) {
+            $deleteEvent = $eventId;
+            $eventId = $deleteEvent->id;
+        } else {
+            $delete_event = $this->_driver->getEvent($eventId);
+        }
         $event_ob->fromDriver($delete_event->toProperties());
         $event_ob->id = $eventId;
         $event_ob->uid = $delete_event->uid;
