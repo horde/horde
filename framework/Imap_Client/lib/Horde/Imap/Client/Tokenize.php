@@ -82,7 +82,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
     public function __toString()
     {
         $pos = ftell($this->stream->stream);
-        $out = $this->stream->getString($this->_start);
+        $out = $this->_current . ' ' . $this->stream->getString();
         fseek($this->stream->stream, $pos);
         return $out;
     }

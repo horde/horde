@@ -3946,7 +3946,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("IMAP error reported by server."),
                 0,
                 $server->status,
-                $server->token->stream->getString(),
+                strval($server->token),
                 $cmd
             );
 
@@ -3980,7 +3980,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     Horde_Imap_Client_Translation::t("IMAP error reported by server."),
                     0,
                     $server->status,
-                    $server->token->stream->getString(),
+                    strval($server->token),
                     $cmd
                 );
             }
@@ -4268,7 +4268,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!isset($this->_temp['alerts'])) {
                 $this->_temp['alerts'] = array();
             }
-            $this->_temp['alerts'][] = $ob->token->stream->getString();
+            $this->_temp['alerts'][] = strval($ob->token);
             break;
 
         case 'BADCHARSET':
@@ -4289,7 +4289,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("Charset used in search query is not supported on the mail server."),
                 Horde_Imap_Client_Exception::BADCHARSET,
                 $ob->status,
-                $ob->token->stream->getString()
+                strval($ob->token)
             );
 
         case 'CAPABILITY':
@@ -4301,7 +4301,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("The mail server was unable to parse the contents of the mail message."),
                 Horde_Imap_Client_Exception::PARSEERROR,
                 $ob->status,
-                $ob->token->stream->getString()
+                strval($ob->token)
             );
 
         case 'READ-ONLY':
@@ -4343,7 +4343,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("The mail server was unable to parse the contents of the mail message."),
                 Horde_Imap_Client_Exception::UNKNOWNCTE,
                 $ob->status,
-                $ob->token->stream->getString()
+                strval($ob->token)
             );
 
         case 'APPENDUID':
@@ -4382,7 +4382,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("Could not save message on server."),
                 Horde_Imap_Client_Exception::CATENATE_BADURL,
                 $ob->status,
-                $ob->token->stream->getString()
+                strval($ob->token)
             );
 
         case 'TOOBIG':
@@ -4391,7 +4391,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("Could not save message data because it is too large."),
                 Horde_Imap_Client_Exception::CATENATE_TOOBIG,
                 $ob->status,
-                $ob->token->stream->getString()
+                strval($ob->token)
             );
 
         case 'HIGHESTMODSEQ':
@@ -4430,7 +4430,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("The comparison algorithm was not recognized by the server."),
                 Horde_Imap_Client_Exception::BADCOMPARATOR,
                 $ob->status,
-                $ob->token->stream->getString()
+                strval($ob->token)
             );
 
         case 'METADATA':
@@ -4457,7 +4457,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     Horde_Imap_Client_Translation::t("The metadata item could not be saved because the server does not support private annotations."),
                     Horde_Imap_Client_Exception::METADATA_NOPRIVATE,
                     $ob->status,
-                    $ob->token->stream->getString()
+                    strval($ob->token)
                 );
 
             case 'TOOMANY':
@@ -4466,7 +4466,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     Horde_Imap_Client_Translation::t("The metadata item could not be saved because the maximum number of annotations has been exceeded."),
                     Horde_Imap_Client_Exception::METADATA_TOOMANY,
                     $ob->status,
-                    $ob->token->stream->getString()
+                    strval($ob->token)
                 );
             }
             break;
@@ -4517,7 +4517,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("You do not have adequate permissions to carry out this operation."),
                 Horde_Imap_Client_Exception::NOPERM,
                 $ob->status,
-                $ob->token->stream->getString()
+                strval($ob->token)
             );
 
         case 'INUSE':
@@ -4526,7 +4526,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("There was a temporary issue when attempting this operation. Please try again later."),
                 Horde_Imap_Client_Exception::INUSE,
                 $ob->status,
-                $ob->token->stream->getString()
+                strval($ob->token)
             );
 
         case 'EXPUNGEISSUED':
@@ -4540,7 +4540,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("The mail server is reporting corrupt data in your mailbox."),
                 Horde_Imap_Client_Exception::CORRUPTION,
                 $ob->status,
-                $ob->token->stream->getString()
+                strval($ob->token)
             );
 
         case 'SERVERBUG':
@@ -4556,7 +4556,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("The mail server has denied the request."),
                 Horde_Imap_Client_Exception::LIMIT,
                 $ob->status,
-                $ob->token->stream->getString()
+                strval($ob->token)
             );
 
         case 'OVERQUOTA':
@@ -4565,7 +4565,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("The operation failed because the quota has been exceeded on the mail server."),
                 Horde_Imap_Client_Exception::OVERQUOTA,
                 $ob->status,
-                $ob->token->stream->getString()
+                strval($ob->token)
             );
 
         case 'ALREADYEXISTS':
@@ -4574,7 +4574,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("The object could not be created because it already exists."),
                 Horde_Imap_Client_Exception::ALREADYEXISTS,
                 $ob->status,
-                $ob->token->stream->getString()
+                strval($ob->token)
             );
 
         case 'NONEXISTENT':
@@ -4583,7 +4583,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("The object could not be deleted because it does not exist."),
                 Horde_Imap_Client_Exception::NONEXISTENT,
                 $ob->status,
-                $ob->token->stream->getString()
+                strval($ob->token)
             );
 
         case 'USEATTR':
@@ -4592,7 +4592,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 Horde_Imap_Client_Translation::t("The special-use attribute requested for the mailbox is not supported."),
                 Horde_Imap_Client_Exception::USEATTR,
                 $ob->status,
-                $ob->token->stream->getString()
+                strval($ob->token)
             );
 
         case 'XPROXYREUSE':
