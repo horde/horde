@@ -182,9 +182,9 @@ abstract class Kronolith_Resource_Base
     /**
      * Determine if event is free for specified time
      *
-     * @param $startTime
-     * @param $endTime
-     * @return unknown_type
+     * @param Kronolith_Event $event
+     *
+     * @return boolean
      */
     abstract public function isFree($event);
 
@@ -195,7 +195,7 @@ abstract class Kronolith_Resource_Base
      * @param $event
      * @return unknown_type
      */
-    abstract public function addEvent($event);
+    abstract public function addEvent(Kronolith_Event $event);
 
     /**
      * Remove this event from resource's calendar

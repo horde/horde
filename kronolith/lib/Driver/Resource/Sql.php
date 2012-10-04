@@ -14,14 +14,145 @@
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
+class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
 {
+    /**
+     * The main event storage driver.
+     *
+     * @var Kronolith_Driver
+     */
+    protected $_driver;
+
     /**
      * The class name of the event object to instantiate.
      *
      * @var string
      */
-    protected $_eventClass = 'Kronolith_Event_Resource';
+    protected $_eventClass = 'Kronolith_Event_Resource_Sql';
+
+    /**
+     * Attempts to open a connection to the SQL server.
+     *
+     * @throws Kronolith_Exception
+     */
+    public function initialize()
+    {
+        if (empty($this->_params['db'])) {
+            throw new InvalidArgumentException('Missing required Horde_Db_Adapter instance');
+        }
+        try {
+            $this->_db = $this->_params['db'];
+        } catch (Horde_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+
+        $this->_params = array_merge(array(
+            'table' => 'kronolith_resources'
+        ), $this->_params);
+
+        $this->_driver = Kronolith::getDriver();
+    }
+
+    /**
+     * Selects a calendar as the currently opened calendar.
+     *
+     * @param string $calendar  A calendar identifier.
+     */
+    public function open($calendar)
+    {
+        $this->calendar = $calendar;
+        $this->_driver->open($calendar);
+    }
+
+    /**
+     * Lists all events in the time range, optionally restricting results to
+     * only events with alarms.
+     *
+     * @param Horde_Date $startDate  The start of range date.
+     * @param Horde_Date $endDate    The end of date range.
+     * @param array $options         Additional options:
+     *   - show_recurrence: (boolean) Return every instance of a recurring
+     *                       event?
+     *                      DEFAULT: false (Only return recurring events once
+     *                      inside $startDate - $endDate range)
+     *   - has_alarm:       (boolean) Only return events with alarms.
+     *                      DEFAULT: false (Return all events)
+     *   - json:            (boolean) Store the results of the event's toJson()
+     *                      method?
+     *                      DEFAULT: false
+     *   - cover_dates:     (boolean) Add the events to all days that they
+     *                      cover?
+     *                      DEFAULT: true
+     *   - hide_exceptions: (boolean) Hide events that represent exceptions to
+     *                      a recurring event.
+     *                      DEFAULT: false (Do not hide exception events)
+     *   - fetch_tags:      (boolean) Fetch tags for all events.
+     *                      DEFAULT: false (Do not fetch event tags)
+     *
+     * @throws Kronolith_Exception
+     */
+    public function listEvents(Horde_Date $startDate = null,
+                               Horde_Date $endDate = null,
+                               array $options = array())
+    {
+        return $this->_driver->listEvents($startDate, $endDate, $options);
+    }
+
+    /**
+     * Get an event or events with the given UID value.
+     *
+     * @param string $uid       The UID to match
+     * @param array $calendars  A restricted array of calendar ids to search
+     * @param boolean $getAll   Return all matching events?
+     *
+     * @return Kronolith_Event
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
+     */
+    public function getByUID($uid, $calendars = null, $getAll = false)
+    {
+       $event = new $this->_eventClass($this);
+       $driver_event = $this->_driver->getByUID($uid, $calendars, $getAll);
+       $event->fromDriver($driver_event->toProperties());
+       $event->id = $driver_event->id;
+       $event->uid = $driver_event->uid;
+       $event->calendar = $this->calendar;
+       return $event;
+    }
+
+    /**
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
+     */
+    public function getEvent($eventId = null)
+    {
+        $event = new $this->_eventClass($this);
+        $event->calendar = $this->calendar;
+        if (!strlen($eventId)) {
+            return $event;
+        }
+
+        $driver_event = $this->_driver->getEvent($eventId);
+        $event->fromDriver($driver_event->toProperties());
+
+        return $event;
+    }
+
+    /**
+     * Saves an event in the backend.
+     *
+     * If it is a new event, it is added, otherwise the event is updated.
+     *
+     * @param Kronolith_Event $event  The event to save.
+     *
+     * @return string  The event id.
+     * @throws Horde_Mime_Exception
+     * @throws Kronolith_Exception
+     */
+    public function saveEvent(Kronolith_Event $event)
+    {
+        return $this->_driver->saveEvent($event);
+    }
 
     /**
      * Delete an event.
@@ -36,11 +167,9 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      */
     public function deleteEvent($event, $silent = false)
     {
-        $delete_event = $this->getEvent($event);
-
+        $delete_event = $this->_driver->getEvent($event);
         $uid = $delete_event->uid;
-        $driver = Kronolith::getDriver();
-        $events = $driver->getByUID($uid, null, true);
+        $events = $this->_driver->getByUID($uid, null, true);
         foreach ($events as $e) {
             $resources = $e->getResources();
             if (count($resources)) {
@@ -50,8 +179,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
                 $e->save();
             }
         }
-        $this->open($delete_event->calendar);
-        parent::deleteEvent($event, $silent);
+        $this->_driver->open($delete_event->calendar);
+        $this->_driver->deleteEvent($event, $silent);
     }
 
     /**
@@ -65,7 +194,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     public function save(Kronolith_Resource_Base $resource)
     {
         if ($resource->getId()) {
-            $query = 'UPDATE kronolith_resources SET resource_name = ?, '
+            $query = 'UPDATE ' . $this->_params['table'] . ' SET resource_name = ?, '
                 . 'resource_calendar = ? , resource_description = ?, '
                 . 'resource_response_type = ?, resource_type = ?, '
                 . 'resource_members = ?, resource_email = ? WHERE resource_id = ?';
@@ -85,8 +214,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
                 throw new Kronolith_Exception($e);
             }
         } else {
-            $query = 'INSERT INTO kronolith_resources '
-                . '(resource_name, resource_calendar, '
+            $query = 'INSERT INTO ' . $this->_params['table']
+                . ' (resource_name, resource_calendar, '
                 .  'resource_description, resource_response_type, '
                 . ' resource_type, resource_members, resource_email)'
                 . ' VALUES (?, ?, ?, ?, ?, ?, ?)';
@@ -135,7 +264,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
         try {
             $this->_db->delete($query, array($resource->get('calendar')));
-            $query = 'DELETE FROM kronolith_resources WHERE resource_id = ?';
+            $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE resource_id = ?';
             $this->_db->delete($query, array($resource->getId()));
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
@@ -154,8 +283,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     {
         $query = 'SELECT resource_id, resource_name, resource_calendar, '
             . 'resource_description, resource_response_type, resource_type, '
-            . 'resource_members, resource_email FROM kronolith_resources '
-            . 'WHERE resource_id = ?';
+            . 'resource_members, resource_email FROM ' . $this->_params['table']
+            . ' WHERE resource_id = ?';
 
         try {
             $results = $this->_db->selectOne($query, array($id));
@@ -184,7 +313,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      */
     public function getResourceIdByCalendar($calendar)
     {
-        $query = 'SELECT resource_id FROM kronolith_resources WHERE resource_calendar = ?';
+        $query = 'SELECT resource_id FROM ' . $this->_params['table']
+            . ' WHERE resource_calendar = ?';
         try {
             $result = $this->_db->selectValue($query, array($calendar));
         } catch (Horde_Db_Exception $e) {
@@ -206,7 +336,8 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      */
     public function isResourceCalendar($calendar)
     {
-        $query = 'SELECT count(*) FROM kronolith_resources WHERE resource_calendar = ?';
+        $query = 'SELECT count(*) FROM ' . $this->_params['table']
+            . ' WHERE resource_calendar = ?';
         try {
             return $this->_db->selectValue($query, array($calendar)) > 0;
         } catch (Horde_Db_Exception $e) {
@@ -234,7 +365,9 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
             return array();
         }
 
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members, resource_email FROM kronolith_resources';
+        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description,'
+            . ' resource_response_type, resource_type, resource_members, resource_email FROM '
+            . $this->_params['table'];
         if (count($filter)) {
             $clause = ' WHERE ';
             $i = 0;
@@ -283,6 +416,32 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         }
 
         return $in;
+    }
+
+    /**
+     * Converts a value from the driver's charset to the default
+     * charset.
+     *
+     * @param mixed $value  A value to convert.
+     *
+     * @return mixed  The converted value.
+     */
+    public function convertFromDriver($value)
+    {
+        return Horde_String::convertCharset($value, $this->_params['charset'], 'UTF-8');
+    }
+
+    /**
+     * Converts a value from the default charset to the driver's
+     * charset.
+     *
+     * @param mixed $value  A value to convert.
+     *
+     * @return mixed  The converted value.
+     */
+    public function convertToDriver($value)
+    {
+        return Horde_String::convertCharset($value, 'UTF-8', $this->_params['charset']);
     }
 
     /**

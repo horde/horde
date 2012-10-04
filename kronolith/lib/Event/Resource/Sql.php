@@ -12,7 +12,7 @@
  *
  * @package Kronolith
  */
-class Kronolith_Event_Resource extends Kronolith_Event_Sql
+class Kronolith_Event_Resource_Sql extends Kronolith_Event_Sql
 {
     /**
      * The type of the calender this event exists on.
@@ -46,4 +46,19 @@ class Kronolith_Event_Resource extends Kronolith_Event_Sql
         return $GLOBALS['registry']->isAdmin();
     }
 
+    /**
+     * Saves changes to this event.
+     *
+     * @return integer  The event id.
+     * @throws Kronolith_Exception
+     */
+    public function save()
+    {
+        if (!$this->initialized) {
+            throw new Kronolith_Exception('Event not yet initialized');
+        }
+
+        /* Save */
+        return $this->getDriver()->saveEvent($this);
+    }
 }

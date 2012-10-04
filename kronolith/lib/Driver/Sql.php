@@ -713,10 +713,14 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     protected function _updateTags(Kronolith_Event $event)
     {
-        /* Update tags */
         Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, 'event');
 
-        /* Add tags again, but as the share owner (replaceTags removes ALL tags). */
+        // Resources don't currently have owners, so can't tag as owner.
+        if ($event->calendarType == 'resource') {
+            return;
+        }
+
+        // Add tags again, but as the share owner (replaceTags removes ALL tags)
         try {
             $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
         } catch (Horde_Share_Exception $e) {
@@ -732,12 +736,15 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      */
     protected function _addTags(Kronolith_Event $event)
     {
-        /* Deal with any tags */
         $tagger = Kronolith::getTagger();
         $tagger->tag($event->uid, $event->tags, $event->creator, 'event');
 
-        /* Add tags again, but as the share owner (replaceTags removes ALL
-         * tags). */
+        // Resources don't currently have owners, so can't tag as owner.
+        if ($event->calendarType == 'resource') {
+            return;
+        }
+
+        // Add tags again, but as the share owner.
         try {
             $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
         } catch (Horde_Share_Exception $e) {

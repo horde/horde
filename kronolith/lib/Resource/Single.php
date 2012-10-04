@@ -73,27 +73,26 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      * Adds $event to this resource's calendar or updates the current entry
      * of the event in the calendar.
      *
-     * @param $event
+     * @param Kronolith_Event $event  The event to add to the resource. Note
+     *                                this is the base driver event.
      *
      * @throws Kronolith_Exception
      */
-    public function addEvent($event)
+    public function addEvent(Kronolith_Event $event)
     {
-        /* Get a driver for this resource's calendar */
-        $driver = $this->getDriver();
-
-        /* Make sure it's not already attached. */
+        // Get a Kronolith_Driver_Resource object.
+        $resource_driver = $this->getDriver();
         $uid = $event->uid;
+        // Ensure it's not already attached.
         try {
-            $existing = $driver->getByUID($uid, array($this->get('calendar')));
-            /* Already attached, just update */
-            $this->_copyEvent($event, $existing);
-            $result = $existing->save();
+            $resource_event = $resource_driver->getByUID($uid, array($this->get('calendar')));
+            $this->_copyEvent($event, $resource_event);
+            $resource_event->save();
         } catch (Horde_Exception_NotFound $ex) {
-            /* Create a new event */
-            $e = $driver->getEvent();
-            $this->_copyEvent($event, $e);
-            $result = $e->save();
+            // New event
+            $resource_event = $resource_driver->getEvent();
+            $this->_copyEvent($event, $resource_event);
+            $resource_event->save();
         }
     }
 
@@ -168,12 +167,13 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         $to->geoLocation = $from->geoLocation;
         $to->first = $from ->first;
         $to->last = $from->last;
-        $to->start = $from->start;
-        $to->end = $from->end;
+        $to->start = clone $from->start;
+        $to->end = clone $from->end;
         $to->durMin = $from->durMin;
         $to->allday = $from->allday;
-        $to->recurrence = $from->recurrence;
+        $to->recurrence = clone $from->recurrence;
         $to->initialized = true;
+        $to->timezone = $from->timezone;
     }
 
 }

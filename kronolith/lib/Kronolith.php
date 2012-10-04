@@ -2184,6 +2184,11 @@ class Kronolith
             throw new Kronolith_Exception('Unknown event action: ' . $action);
         }
 
+        // @TODO: Send notifications to the email addresses stored in the
+        // resource object?
+        if ($event->calendarType == 'resource') {
+            return;
+        }
         $groups = $injector->getInstance('Horde_Group');
         $calendar = $event->calendar;
         $recipients = array();

@@ -149,7 +149,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
      *
      * @return void
      */
-    public function addEvent($event)
+    public function addEvent(Kronolith_Event $event)
     {
         if (!empty($this->_selectedResource)) {
             $this->_selectedResource->addEvent($event);
