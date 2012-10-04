@@ -43,8 +43,7 @@ class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
             break;
 
         case 'resource':
-        case 'Resource':
-            $driver = 'Resource_Sql';
+            $driver = 'Resource';
             break;
         }
 
@@ -57,6 +56,7 @@ class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
         }
 
         switch ($driver) {
+        case 'Resource':
         case 'Sql':
             if ($GLOBALS['conf']['calendar']['driver'] != 'sql') {
                 return new Horde_Support_Stub();
@@ -70,22 +70,7 @@ class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
                 $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
             }
             break;
-
-        case 'Resource_Sql':
-            if ($GLOBALS['conf']['resource']['driver'] != 'sql') {
-                return new Horde_Support_Stub();
-            }
-            $params = array_merge(Horde::getDriverConfig('resource', 'sql'), $params);
-            if ($params['driverconfig'] != 'Horde') {
-                $customParams = $params;
-                unset($customParams['driverconfig'], $customParams['table'], $customParams['utc']);
-                $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('kronolith', $customParams);
-            } else {
-                $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
-            }
-            break;
-
-        case 'Kolab':
+                                                                                        case 'Kolab':
             $params['storage'] = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
             break;
 
@@ -115,8 +100,6 @@ class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
             try {
                 $ob->initialize();
             } catch (Exception $e) {
-                Horde::debug($e);
-                Horde::debug($class);
                 $ob = new Kronolith_Driver($params, sprintf(_("The Calendar backend is not currently available: %s"), $e->getMessage()));
             }
         } else {

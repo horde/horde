@@ -257,7 +257,7 @@ class Kronolith_Application extends Horde_Registry_Application
                 $sidebar->addRow($row, 'system');
             }
 
-            if (!empty($GLOBALS['conf']['resource']['driver'])) {
+            if ($GLOBALS['conf']['calendar']['driver'] == 'sql') {
                 $sidebar->containers['groups'] = array(
                     'header' => array(
                         'id' => 'kronolith-toggle-groups',

@@ -57,21 +57,6 @@
   </configswitch>
  </configsection>
 
-  <configsection name="resource">
-   <configheader>Resource Handler Settings</configheader>
-   <configswitch name="driver" desc="What type of resource handler should we use?">sql
-    <case name="sql" desc="SQL">
-     <configsection name="params">
-      <configsql switchname="driverconfig">
-       <configstring name="table" desc="Database
-        table">kronolith_resources</configstring>
-      </configsql>
-     </configsection>
-    </case>
-    <case name="false" desc="No Resource Support" />
-   </configswitch>
-  </configsection>
-
  <configsection name="reminder">
   <configheader>Reminder Settings</configheader>
   <configstring name="server_name" desc="Server name from which reminder

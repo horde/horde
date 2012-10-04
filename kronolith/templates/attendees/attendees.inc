@@ -78,7 +78,6 @@ function switchDateView(view, date)
 <?php endforeach; ?>
 <?php endif; ?>
 
-<?php if (!empty($GLOBALS['conf']['resource']['driver'])): ?>
 <!-- resource list header -->
 <tr class="item nowrap leftAlign">
  <th width="2%">&nbsp;</th>
@@ -115,7 +114,6 @@ function switchDateView(view, date)
  <?php $i++; ?>
 <?php endforeach; ?>
 <?php endif; ?>
-<?php endif; ?>
 </table>
 
 <br />
@@ -132,7 +130,6 @@ function switchDateView(view, date)
   <td align="center"><?php echo Horde::url('#')->link(array('class' => 'widget', 'onclick' => 'window.open(\'' . Horde::url('contacts.php') . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=270,left=100,top=100\'); return false;')) . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>' ?></td>
 <?php endif; ?>
  </tr>
-<?php if (!empty($GLOBALS['conf']['resource']['driver'])): ?>
  <tr>
   <td class="rightAlign"><strong><?php echo _("Add resource")?></strong></td>
   <td width="100%">
@@ -144,7 +141,6 @@ function switchDateView(view, date)
     </select>
   </td>
  </tr>
-<?php endif; ?>
 </table>
 
 <br />
