@@ -556,7 +556,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
 
     public function offsetGet($offset)
     {
-        return $this->_data[$offset];
+        return isset($this->_data[$offset]) ? $this->_data[$offset] : '';
     }
 
     public function offsetSet($offset, $value)
