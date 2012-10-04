@@ -1081,6 +1081,7 @@ abstract class Kronolith_Event
             if (!is_array($triggerParams)) {
                 $triggerParams = array($triggerParams);
             }
+            $haveTrigger = false;
             foreach ($triggerParams as $tp) {
                 if (isset($tp['VALUE']) &&
                     $tp['VALUE'] == 'DATE-TIME') {
@@ -1090,13 +1091,17 @@ abstract class Kronolith_Event
                     } else {
                         $this->alarm = intval(($this->start->timestamp() - $trigger) / 60);
                     }
-                } else {
+                    $haveTrigger = true;
+                    break;
+                } elseif (isset($tp['RELATED']) && $tp['RELATED'] == 'END') {
                     $this->alarm = -intval($trigger / 60);
-                    if (isset($tp['RELATED']) &&
-                        $tp['RELATED'] == 'END') {
-                        $this->alarm -= $this->durMin;
-                    }
+                    $this->alarm -= $this->durMin;
+                    $haveTrigger = true;
+                    break;
                 }
+            }
+            if (!$haveTrigger) {
+                $this->alarm = -intval($trigger / 60);
             }
         }
 
