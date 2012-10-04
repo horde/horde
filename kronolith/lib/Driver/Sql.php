@@ -841,7 +841,12 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     public function deleteEvent($eventId, $silent = false)
     {
         /* Fetch the event for later use. */
-        $event = $this->getEvent($eventId);
+        if ($eventId instanceof Kronolith_Event) {
+            $event = $eventId;
+            $eventId = $event->id;
+        } else {
+            $event = $this->getEvent($eventId);
+        }
         $original_uid = $event->uid;
         $isRecurring = $event->recurs();
 

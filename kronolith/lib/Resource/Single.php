@@ -104,9 +104,9 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      */
     public function removeEvent(Kronolith_Event $event)
     {
-        $driver = Kronolith::getDriver('Resource', $this->get('calendar'));
-        $re = $driver->getByUID($event->uid, array($this->get('calendar')));
-        $driver->deleteEvent($re->id);
+        $resource_driver = $this->getDriver();
+        $resource_event = $resource_driver->getByUID($event->uid, array($this->get('calendar')));
+        $resource_driver->deleteEvent($resource_event->id);
     }
 
     /**

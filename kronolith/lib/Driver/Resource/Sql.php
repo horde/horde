@@ -165,22 +165,28 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function deleteEvent($event, $silent = false)
+    public function deleteEvent($eventId, $silent = false)
     {
-        $delete_event = $this->_driver->getEvent($event);
+        $event_ob = new $this->_eventClass($this);
+        $this->_driver->open($this->calendar);
+        $delete_event = $this->_driver->getEvent($eventId);
+        $event_ob->fromDriver($delete_event->toProperties());
+        $event_ob->id = $eventId;
+        $event_ob->uid = $delete_event->uid;
+        $event_ob->calendar = $this->calendar;
+
         $uid = $delete_event->uid;
         $events = $this->_driver->getByUID($uid, null, true);
         foreach ($events as $e) {
             $resources = $e->getResources();
             if (count($resources)) {
-                // found the right entry
                 $r = $this->getResource($this->getResourceIdByCalendar($delete_event->calendar));
                 $e->removeResource($r);
                 $e->save();
             }
         }
-        $this->_driver->open($delete_event->calendar);
-        $this->_driver->deleteEvent($event, $silent);
+
+        $this->_driver->deleteEvent($event_ob, $silent);
     }
 
     /**
