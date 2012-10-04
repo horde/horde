@@ -264,6 +264,7 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple
 ));
 
 $title = _("Edit attendees");
+$page_output->sidebar = $page_output->topbar = false;
 $page_output->header(array(
     'title' => $title
 ));
