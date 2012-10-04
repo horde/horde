@@ -102,6 +102,12 @@ class Turba_Driver_Kolab extends Turba_Driver
                 unset($hash[$sub]);
             }
         }
+        if (isset($hash['birthday'])) {
+            $hash['birthday'] = new DateTime($hash['birthday']);
+        }
+        if (isset($hash['anniversary'])) {
+            $hash['anniversary'] = new DateTime($hash['anniversary']);
+        }
 
         return $hash;
     }
@@ -176,6 +182,12 @@ class Turba_Driver_Kolab extends Turba_Driver
                     $contact[$detail] = $value;
                 }
                 unset($contact['name']);
+            }
+            if (isset($contact['birthday'])) {
+                $contact['birthday'] = $contact['birthday']->format('Y-m-d');
+            }
+            if (isset($contact['anniversary'])) {
+                $contact['anniversary'] = $contact['anniversary']->format('Y-m-d');
             }
             $contacts[$id] = $contact;
         }

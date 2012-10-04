@@ -98,9 +98,23 @@ If we dump the contents of the two variables <tt>$xml</tt> and
    array(0) {
    }
    ["creation-date"]=>
-   int(1215694311)
+   class DateTime#1 (3) {
+     public $date =>
+     string(19) "2008-07-10 12:51:51"
+     public $timezone_type =>
+     int(3)
+     public $timezone =>
+     string(13) "UTC"
+   }
    ["last-modification-date"]=>
-   int(1215694311)
+   class DateTime#1 (3) {
+     public $date =>
+     string(19) "2008-07-10 12:51:51"
+     public $timezone_type =>
+     int(3)
+     public $timezone =>
+     string(13) "UTC"
+   }
    ["sensitivity"]=>
    string(6) "public"
    ["product-id"]=>
@@ -260,9 +274,23 @@ The result looks like this:
    array(0) {
    }
    ["creation-date"]=>
-   int(1215696516)
+   class DateTime#1 (3) {
+     public $date =>
+     string(19) "2008-07-10 13:28:36"
+     public $timezone_type =>
+     int(3)
+     public $timezone =>
+     string(13) "UTC"
+   }
    ["last-modification-date"]=>
-   int(1215696516)
+   class DateTime#1 (3) {
+     public $date =>
+     string(19) "2008-07-10 13:28:36"
+     public $timezone_type =>
+     int(3)
+     public $timezone =>
+     string(13) "UTC"
+   }
    ["sensitivity"]=>
    string(6) "public"
    ["product-id"]=>

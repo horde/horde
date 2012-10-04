@@ -18,8 +18,7 @@
  * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
- * receive this file, see
- * http://www.horde.org/licenses/lgpl21.
+ * receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Format
@@ -30,98 +29,6 @@
  */
 class Horde_Kolab_Format_Date
 {
-    /**
-     * Returns a UNIX timestamp corresponding the given date string which is in
-     * the format prescribed by the Kolab Format Specification.
-     *
-     * @param string $date The string representation of the date.
-     *
-     * @return integer  The unix timestamp corresponding to $date.
-     */
-    static public function decodeDate($date)
-    {
-        if (empty($date)) {
-            return 0;
-        }
-
-        list($year, $month, $day) = explode('-', $date);
-
-        return mktime(0, 0, 0, $month, $day, $year);
-    }
-
-    /**
-     * Returns a UNIX timestamp corresponding the given date-time string which
-     * is in the format prescribed by the Kolab Format Specification.
-     *
-     * @param string $datetime The string representation of the date & time.
-     *
-     * @return integer  The unix timestamp corresponding to $datetime.
-     */
-    static public function decodeDateTime($datetime)
-    {
-        if (empty($datetime)) {
-            return 0;
-        }
-
-        list($year, $month, $day, $hour, $minute, $second) = sscanf($datetime,
-                                                                    '%d-%d-%dT%d:%d:%dZ');
-        return gmmktime($hour, $minute, $second, $month, $day, $year);
-    }
-
-    /**
-     * Returns a UNIX timestamp corresponding the given date or date-time
-     * string which is in either format prescribed by the Kolab Format
-     * Specification.
-     *
-     * @param string $date The string representation of the date (& time).
-     *
-     * @return integer  The unix timestamp corresponding to $date.
-     */
-    static public function decodeDateOrDateTime($date)
-    {
-        if (empty($date)) {
-            return 0;
-        }
-
-        return (strlen($date) == 10 ? self::decodeDate($date) : self::decodeDateTime($date));
-    }
-
-    /**
-     * Returns a string containing the current UTC date in the format
-     * prescribed by the Kolab Format Specification.
-     *
-     * @param int $date The integer representation of the date.
-     *
-     * @return string  The current UTC date in the format 'YYYY-MM-DD'.
-     */
-    static public function encodeDate($date = false)
-    {
-        if ($date === false) {
-            $date = time();
-        }
-
-        return strftime('%Y-%m-%d', $date);
-    }
-
-    /**
-     * Returns a string containing the current UTC date and time in the format
-     * prescribed by the Kolab Format Specification.
-     *
-     * @param int $datetime The integer representation of the date.
-     *
-     * @return string    The current UTC date and time in the format
-     *                   'YYYY-MM-DDThh:mm:ssZ', where the T and Z are literal
-     *                   characters.
-     */
-    static public function encodeDateTime($datetime = false)
-    {
-        if ($datetime === false) {
-            $datetime = time();
-        }
-
-        return gmstrftime('%Y-%m-%dT%H:%M:%SZ', $datetime);
-    }
-
     /**
      * Parse the provided string into a PHP DateTime object.
      *
@@ -138,10 +45,9 @@ class Horde_Kolab_Format_Date
             )) {
             return $date;
         }
-        /**
-         * No need to support fractions of a second yet. So lets just try to
-         * remove a potential microseconds part and attempt parsing again.
-         */
+
+        /* No need to support fractions of a second yet. So lets just try to
+         * remove a potential microseconds part and attempt parsing again. */
         $date_time = preg_replace(
             '/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d+Z/',
             '\1Z',
@@ -202,6 +108,25 @@ class Horde_Kolab_Format_Date
         return DateTime::createFromFormat(
             'Y-m-d\TH:i:s', $date_time, new DateTimeZone($timezone)
         );
+    }
+
+    /**
+     * Parse the provided string into a PHP DateTime object.
+     *
+     * @param string $date      The string representation of the date (& time).
+     * @param string $timezone  The associated timezone.
+     *
+     * @return DateTime The date-time value represented as PHP DateTime object.
+     */
+    static public function readDateOrDateTime($date, $timezone)
+    {
+        if (empty($date)) {
+            return null;
+        }
+
+        return strlen($date) == 10
+            ? self::readDate($date, $timezone)
+            : self::readDateTime($date, $timezone);
     }
 
     /**

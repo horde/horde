@@ -82,7 +82,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
     {
         $result = $helper->fetchNodeValue($node);
         if ($result !== null) {
-            $date = Horde_Kolab_Format_Date::decodeDateTime($result);
+            $date = Horde_Kolab_Format_Date::readUtcDateTime($result);
             if ($date === false && !$this->isRelaxed($params)) {
                 throw new Horde_Kolab_Format_Exception(
                     sprintf('Invalid date input "%s"!', $result)

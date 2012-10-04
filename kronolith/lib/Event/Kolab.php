@@ -208,8 +208,8 @@ class Kronolith_Event_Kolab extends Kronolith_Event
             $event['alarm'] = $this->alarm;
         }
 
-        $event['start-date'] = $this->start->timestamp();
-        $event['end-date'] = $this->end->timestamp();
+        $event['start-date'] = $this->start->toDateTime();
+        $event['end-date'] = $this->end->toDateTime();
         $event['_is_all_day'] = $this->isAllDay();
 
         switch ($this->status) {

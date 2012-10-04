@@ -111,7 +111,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         unset($task['summary']);
 
         if (isset($task['due-date'])) {
-            $task['due'] = $task['due-date'];
+            $task['due'] = $task['due-date']->timestamp();
             unset($task['due-date']);
         }
 
@@ -122,7 +122,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         }
 
         if (isset($task['start-date'])) {
-            $task['start'] = $task['start-date'];
+            $task['start'] = $task['start-date']->timestamp();
             unset($task['start-date']);
         }
 
@@ -277,10 +277,10 @@ class Nag_Driver_Kolab extends Nag_Driver
             'parent' => $task['parent'],
         );
         if ($task['start'] !== 0) {
-            $object['start-date'] = $task['start'];
+            $object['start-date'] = new DateTime('@' . $task['start']);
         }
         if ($task['due'] !== 0) {
-            $object['due-date'] = $task['due'];
+            $object['due-date'] = new DateTime('@' . $task['due']);
         }
         if ($task['recurrence']) {
             $object['recurrence'] = $task['recurrence']->toKolab();
