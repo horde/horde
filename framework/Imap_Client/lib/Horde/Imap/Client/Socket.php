@@ -594,7 +594,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 'debug' => '[DIGEST-MD5 Response]'
             ));
 
-            if (strpos(base64_decode($ob->current()), 'rspauth=') === false) {
+            if (strpos(base64_decode($ob->token->current()), 'rspauth=') === false) {
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("Unexpected response from server when authenticating."),
                     Horde_Imap_Client_Exception::SERVER_CONNECT
