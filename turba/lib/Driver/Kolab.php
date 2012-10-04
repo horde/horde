@@ -102,6 +102,9 @@ class Turba_Driver_Kolab extends Turba_Driver
                 unset($hash[$sub]);
             }
         }
+        if (isset($hash['categories'])) {
+            $hash['categories'] = array($hash['categories']);
+        }
         if (isset($hash['birthday'])) {
             $hash['birthday'] = new DateTime($hash['birthday']);
         }
@@ -182,6 +185,13 @@ class Turba_Driver_Kolab extends Turba_Driver
                     $contact[$detail] = $value;
                 }
                 unset($contact['name']);
+            }
+            if (isset($contact['categories'])) {
+                if (empty($contact['categories'])) {
+                    $contact['categories'] = '';
+                } else {
+                    $contact['categories'] = $contact['categories'][0];
+                }
             }
             if (isset($contact['birthday'])) {
                 $contact['birthday'] = $contact['birthday']->format('Y-m-d');
