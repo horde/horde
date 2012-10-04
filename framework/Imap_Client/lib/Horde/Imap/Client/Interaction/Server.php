@@ -99,7 +99,6 @@ class Horde_Imap_Client_Interaction_Server
              * status. */
             if (is_string($resp_text) && ($resp_text[0] == '[')) {
                 $resp = new stdClass;
-                $resp->code = substr($resp_text, 1);
                 $resp->data = array();
 
                 if ($resp_text[strlen($resp_text) - 1] == ']') {
