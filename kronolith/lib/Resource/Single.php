@@ -7,7 +7,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
 class Kronolith_Resource_Single extends Kronolith_Resource_Base
@@ -16,14 +16,12 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      * Determine if the resource is free during the time period for the
      * supplied event.
      *
-     * @param mixed $event  Either a Kronolith_Event object or an array
-     *                      containing start and end times.
-     *
+     * @param Kronolith_Event $event  The event to check availability for.
      *
      * @return boolean
      * @throws Kronolith_Exception
      */
-    public function isFree($event)
+    public function isFree(Kronolith_Event $event)
     {
         if (is_array($event)) {
             $start = $event['start'];
@@ -99,12 +97,12 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
     /**
      * Remove this event from resource's calendar
      *
-     * @param $event
+     * @param Kronolith_Event $event  The event to remove.
      *
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function removeEvent($event)
+    public function removeEvent(Kronolith_Event $event)
     {
         $driver = Kronolith::getDriver('Resource', $this->get('calendar'));
         $re = $driver->getByUID($event->uid, array($this->get('calendar')));
@@ -132,15 +130,28 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         return $vfb;
     }
 
+    /**
+     * Sets the current resource's id. Must not be an existing resource.
+     *
+     * @param integer $id  The id for this resource
+     *
+     * @throws Kronolith_Exception
+     */
     public function setId($id)
     {
         if (empty($this->_id)) {
             $this->_id = $id;
         } else {
-            throw new Horde_Exception('Resource already exists. Cannot change the id.');
+            throw new Kronolith_Exception('Resource already exists. Cannot change the id.');
         }
     }
 
+    /**
+     * Get ResponseType for this resource.
+     *
+     * @return integer  The response type for this resource. A
+     *                  Kronolith_Resource::RESPONSE_TYPE_* constant.
+     */
     public function getResponseType()
     {
         return $this->get('response_type');
@@ -155,7 +166,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      *
      * @return void
      */
-    private function _copyEvent($from, &$to)
+    private function _copyEvent(Kronolith_Event $from, Kronolith_Event &$to)
     {
         $to->uid = $from->uid;
         $to->title = $from->title;
