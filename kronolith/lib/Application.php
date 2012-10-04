@@ -296,7 +296,7 @@ class Kronolith_Application extends Horde_Registry_Application
                             'resource' => $resource
                         ));
                         $row = array(
-                            'selected' => false,
+                            'selected' => in_array($resource->get('calendar'), $GLOBALS['display_resource_calendars']),
                             'url' => $url->copy()->add('toggle_calendar', 'resource_' . $resource->get('calendar')),
                             'label' => $calendar->name(),
                             'color' => $calendar->background(),
