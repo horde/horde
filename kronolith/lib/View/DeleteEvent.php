@@ -53,10 +53,6 @@ class Kronolith_View_DeleteEvent
             echo '<h3>' . _("Event not found") . '</h3>';
             exit;
         }
-        if (is_string($this->_event)) {
-            echo '<h3>' . $this->_event . '</h3>';
-            exit;
-        }
 
         if ($datetime = Horde_Util::getFormData('datetime')) {
             $datetime = new Horde_Date($datetime);
