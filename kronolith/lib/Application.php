@@ -288,7 +288,7 @@ class Kronolith_Application extends Horde_Registry_Application
                             'label' => $resource->get('name'),
                             'color' => '#dddddd',
                             'edit' => $editGroups->add('c', $resource->getId()),
-                            'type' => 'checkbox',
+                            'type' => 'radiobox',
                         );
                         $sidebar->addRow($row, 'groups');
                     } else {
@@ -297,11 +297,11 @@ class Kronolith_Application extends Horde_Registry_Application
                         ));
                         $row = array(
                             'selected' => false,
-                            'url' => $url->copy()->add('display_cal', $resource->get('calendar')),
+                            'url' => $url->copy()->add('display_cal', 'resource_' . $resource->get('calendar')),
                             'label' => $calendar->name(),
                             'color' => $calendar->background(),
                             'edit' => $edit->add('c', $resource->getId()),
-                            'type' => 'checkbox',
+                            'type' => 'radiobox',
                         );
                         $sidebar->addRow($row, 'resources');
                     }

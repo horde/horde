@@ -2703,8 +2703,10 @@ class Kronolith
             $calendars[] = $GLOBALS['all_calendars'][$calendarId];
         }
         if (!empty($GLOBALS['display_resource_calendars'])) {
+            $r_driver = self::getDriver('Resource');
             foreach ($GLOBALS['display_resource_calendars'] as $c) {
-                $calendars[] = $c;
+                $resource = $r_driver->getResource($r_driver->getResourceIdByCalendar($c));
+                $calendars[] = new Kronolith_Calendar_Resource(array('resource' => $resource));
             }
         }
         return $calendars;
