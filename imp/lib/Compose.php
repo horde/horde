@@ -1376,7 +1376,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 $base = new Horde_Mime_Part();
                 $base->setType('multipart/mixed');
                 $base->addPart($textpart);
-                foreach (array_keys($this) as $id) {
+                foreach (array_keys($this->_atc) as $id) {
                     $base->addPart($this->buildAttachment($id));
                 }
             }
