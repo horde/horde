@@ -49,10 +49,10 @@ case 'hermes_form_time_entry':
         $form->getInfo($vars, $info);
         try {
             if ($vars->exists('id')) {
-                $notification->push(_("Your time was successfully updated."), 'horde.success');
+                $notification->push(_("Your time was successfully updated."), 'horde.success', array('sticky'));
                 $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array($info));
             } else {
-                $notification->push(_("Your time was successfully entered."), 'horde.success');
+                $notification->push(_("Your time was successfully entered."), 'horde.success', array('sticky'));
                 $GLOBALS['injector']->getInstance('Hermes_Driver')->enterTime($GLOBALS['registry']->getAuth(), $info);
             }
         } catch (Exception $e) {
