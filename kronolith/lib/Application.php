@@ -297,11 +297,11 @@ class Kronolith_Application extends Horde_Registry_Application
                         ));
                         $row = array(
                             'selected' => false,
-                            'url' => $url->copy()->add('display_cal', 'resource_' . $resource->get('calendar')),
+                            'url' => $url->copy()->add('toggle_calendar', 'resource_' . $resource->get('calendar')),
                             'label' => $calendar->name(),
                             'color' => $calendar->background(),
                             'edit' => $edit->add('c', $resource->getId()),
-                            'type' => 'radiobox',
+                            'type' => 'checkbox',
                         );
                         $sidebar->addRow($row, 'resources');
                     }

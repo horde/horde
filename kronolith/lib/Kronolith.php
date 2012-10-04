@@ -758,7 +758,8 @@ class Kronolith
                 'display_cals' => 'display_calendars',
                 'display_remote_cals' => 'display_remote_calendars',
                 'display_external_cals' => 'display_external_calendars',
-                'holiday_drivers' => 'display_holidays'
+                'holiday_drivers' => 'display_holidays',
+                'display_resource_cals' => 'display_resource_calendars'
             );
             foreach ($display_prefs as $key => $val) {
                 $pref_val = @unserialize($prefs->getValue($key));
@@ -809,6 +810,14 @@ class Kronolith
                 } else {
                     unset($GLOBALS['display_holidays'][$key]);
                 }
+            } elseif (strncmp($calId, 'resource_', 9) === 0) {
+                $calId = substr($calId, 9);
+                if (($key = array_search($calId, $GLOBALS['display_resource_calendars'])) === false) {
+                    $GLOBALS['display_resource_calendars'][] = $calId;
+                } else {
+                    unset($GLOBALS['display_resource_calendars'][$key]);
+                }
+                $prefs->setValue('display_resource_cals', serialize($GLOBALS['display_resource_calendars']));
             } elseif (($key = array_search($calId, $GLOBALS['display_calendars'])) === false) {
                 $GLOBALS['display_calendars'][] = $calId;
             } else {

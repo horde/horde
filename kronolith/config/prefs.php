@@ -325,6 +325,10 @@ $_prefs['display_cals'] = array(
     'value' => 'a:0:{}'
 );
 
+$_prefs['display_resource_cals'] = array(
+    'value' => 'a:0:{}'
+);
+
 // default alarm
 $_prefs['default_alarm'] = array(
     'value' => ''
