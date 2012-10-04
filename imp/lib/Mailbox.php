@@ -698,7 +698,7 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Search')->isVinbox($this->_mbox);
 
         case 'vtrash':
-            return $injector->getInstance('IMP_Search')->isVtrash($this->_mbox);
+            return $injector->getInstance('IMP_Search')->isVTrash($this->_mbox);
         }
 
         return false;
