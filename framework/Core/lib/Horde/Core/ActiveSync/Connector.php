@@ -246,7 +246,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function contacts_replace($uid, $content)
     {
-        $this->_registry->contacts->replace($uid, $content, 'activesync', $sources);
+        $this->_registry->contacts->replace($uid, $content, 'activesync');
     }
 
     /**
@@ -298,14 +298,16 @@ class Horde_Core_ActiveSync_Connector
      */
     public function contacts_search($query)
     {
-        $fields = array($gal => array('firstname', 'lastname', 'alias', 'name', 'email'));
-        $opts = array(
-            'fields' => $fields,
-            'matchBegin' => true,
-            'forceSource' => true,
-            'sources' => array($this->contacts_getGal())
-        );
-        return $this->_registry->contacts->search($query, $opts);
+        if (!empty($GLOBALS['conf']['gal']['addressbook'])) {
+            $fields = array($GLOBALS['conf']['gal']['addressbook'] => array('firstname', 'lastname', 'alias', 'name', 'email'));
+            $opts = array(
+                'fields' => $fields,
+                'matchBegin' => true,
+                'forceSource' => true,
+                'sources' => array($this->contacts_getGal())
+            );
+            return $this->_registry->contacts->search($query, $opts);
+        }
     }
 
     /**
