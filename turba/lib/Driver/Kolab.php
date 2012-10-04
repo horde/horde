@@ -162,6 +162,10 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     public function connect()
     {
+        if ($this->_connected) {
+            return;
+        }
+
         /* Fetch the contacts first */
         $raw_contacts = $this->_getData()->getObjects();
         if (!$raw_contacts) {
@@ -213,6 +217,8 @@ class Turba_Driver_Kolab extends Turba_Driver
 
         /* Store the results in our cache */
         $this->_contacts_cache = array_merge($contacts, $groups);
+
+        $this->_connected = true;
     }
 
     /**
