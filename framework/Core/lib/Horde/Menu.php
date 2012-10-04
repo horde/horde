@@ -98,7 +98,7 @@ class Horde_Menu
 
         /* Sort to match explicitly set positions. */
         ksort($this->_menu);
-        if ($registry->nlsconfig->curr_rtl) {
+        if ($GLOBALS['registry']->nlsconfig->curr_rtl) {
             $this->_menu = array_reverse($this->_menu);
         }
 
