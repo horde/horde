@@ -88,7 +88,7 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
         }
         asort($sort_list, SORT_NUMERIC);
 
-        return new Horde_Mail_Rfc822_List($sort_list);
+        return new Horde_Mail_Rfc822_List(array_keys($sort_list));
     }
 
     /**
