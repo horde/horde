@@ -374,7 +374,7 @@ class Kronolith_Application extends Horde_Registry_Application
             foreach ($GLOBALS['all_holidays'] as $id => $calendar) {
                 $row = array(
                     'selected' => in_array($id, $GLOBALS['display_holidays']),
-                    'url' => $url->clong()->add('toggle_calendar', 'holiday_' . $id),
+                    'url' => $url->copy()->add('toggle_calendar', 'holiday_' . $id),
                     'label' => $calendar->name(),
                     'color' => $calendar->background(),
                     'type' => 'checkbox',
