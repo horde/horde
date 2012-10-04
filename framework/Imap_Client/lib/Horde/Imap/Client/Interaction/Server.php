@@ -102,7 +102,11 @@ class Horde_Imap_Client_Interaction_Server
                 $resp->code = substr($resp_text, 1);
                 $resp->data = array();
 
-                if ($resp_text[strlen($resp_text) - 1] != ']') {
+                if ($resp_text[strlen($resp_text) - 1] == ']') {
+                    $resp->code = substr($resp_text, 1, -1);
+                } else {
+                    $resp->code = substr($resp_text, 1);
+
                     while (($elt = $token->next()) !== false) {
                         if (is_string($elt) && $elt[strlen($elt) - 1] == ']') {
                             $resp->data[] = substr($elt, 0, -1);

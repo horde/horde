@@ -204,4 +204,19 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testUntaggedResponseAlert()
+    {
+        // Bug #11453
+        $test = '* NO [ALERT] Foo';
+
+        $this->test_ob->responseCode($test);
+
+        $alerts = $this->test_ob->alerts();
+
+        $this->assertEquals(
+            1,
+            count($alerts)
+        );
+    }
+
 }

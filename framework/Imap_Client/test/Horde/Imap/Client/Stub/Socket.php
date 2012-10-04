@@ -94,4 +94,12 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
         return $this->_temp['fetchresp'];
     }
 
+    public function responseCode($data)
+    {
+        $token = new Horde_Imap_Client_Tokenize($data);
+        $server = Horde_Imap_Client_Interaction_Server::create($token);
+
+        $this->_responseCode($server);
+    }
+
 }
