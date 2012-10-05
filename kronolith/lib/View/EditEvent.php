@@ -15,9 +15,10 @@ class Kronolith_View_EditEvent
     protected $_event;
 
     /**
-     * @param Kronolith_Event $event
+     * @param mixed Kronolith_Event|string $event  The event object or error
+     *                                             string to display.
      */
-    public function __construct(Kronolith_Event $event)
+    public function __construct($event)
     {
         $this->_event = $event;
     }
