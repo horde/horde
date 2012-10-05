@@ -95,7 +95,27 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
                                Horde_Date $endDate = null,
                                array $options = array())
     {
-        return $this->_driver->listEvents($startDate, $endDate, $options);
+        $events = $this->_driver->listEvents($startDate, $endDate, $options);
+        $results = array();
+
+        foreach ($events as $period_key => $period) {
+            foreach ($period as $event_id => $event) {
+                $results[$period_key][$event_id] = $this->_buildResourceEvent($event);
+            }
+        }
+
+        return $results;
+    }
+
+    protected function _buildResourceEvent($driver_event)
+    {
+        $resource_event = new $this->_eventClass($this);
+        $resource_event->fromDriver($driver_event->toProperties());
+        $resource_event->id = $driver_event->id;
+        $resource_event->uid = $driver_event->uid;
+        $resource_event->calendar = $this->calendar;
+
+        return $resource_event;
     }
 
     /**
@@ -126,14 +146,15 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      */
     public function getEvent($eventId = null)
     {
-        $event = new $this->_eventClass($this);
-        $event->calendar = $this->calendar;
         if (!strlen($eventId)) {
+            $event = new $this->_eventClass($this);
+            $event->calendar = $this->calendar;
+
             return $event;
         }
 
         $driver_event = $this->_driver->getEvent($eventId);
-        $event->fromDriver($driver_event->toProperties());
+        $event = $this->_buildResourceEvent($driver_event);
 
         return $event;
     }
@@ -167,7 +188,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      */
     public function deleteEvent($eventId, $silent = false)
     {
-        $event_ob = new $this->_eventClass($this);
+        $resource_event = new $this->_eventClass($this);
         $this->_driver->open($this->calendar);
         if ($eventId instanceof Kronolith_Event) {
             $deleteEvent = $eventId;
@@ -175,10 +196,10 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
         } else {
             $delete_event = $this->_driver->getEvent($eventId);
         }
-        $event_ob->fromDriver($delete_event->toProperties());
-        $event_ob->id = $eventId;
-        $event_ob->uid = $delete_event->uid;
-        $event_ob->calendar = $this->calendar;
+        $resource_event->fromDriver($delete_event->toProperties());
+        $resource_event->id = $eventId;
+        $resource_event->uid = $delete_event->uid;
+        $resource_event->calendar = $this->calendar;
 
         $uid = $delete_event->uid;
         $events = $this->_driver->getByUID($uid, null, true);
@@ -191,7 +212,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
             }
         }
 
-        $this->_driver->deleteEvent($event_ob, $silent);
+        $this->_driver->deleteEvent($resource_event, $silent);
     }
 
     /**

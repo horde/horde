@@ -204,9 +204,7 @@ class Kronolith
             }
         }
 
-        // Resource calendars (this would only be populated if explicitly
-        // requested in the request, so include them if this is set regardless
-        // of $calendars value).
+        // Resource calendars
         if (!empty($GLOBALS['display_resource_calendars'])) {
             $driver = self::getDriver('Resource');
             foreach ($GLOBALS['display_resource_calendars'] as $calendar) {
