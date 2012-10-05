@@ -2,19 +2,13 @@
 /**
  * A bare-bones twitter client in a Horde block.
  *
- * Still @TODO:
- *  - configure block to show friendTimeline, specific user, public timeline,
- *    'mentions' for current user etc..
- *  - keep track of call limits and either dynamically alter update time or
- *    at least provide feedback to user.
- *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Ben Klang <ben@alkaloid.net>
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Horde
  */
 class Horde_Block_TwitterTimeline extends Horde_Core_Block
@@ -121,7 +115,7 @@ class Horde_Block_TwitterTimeline extends Horde_Core_Block
         $page_output->addScriptFile('twitterclient.js', 'horde');
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $script = <<<EOT
-            Horde = window.Horde || {};
+            Horde = window.Horde = window.Horde || {};
             Horde['twitter{$instance}'] = new Horde_Twitter({
                instanceid: '{$instance}',
                getmore: '{$instance}_getmore',

@@ -218,7 +218,6 @@ var Horde_Twitter = Class.create({
     },
 
     hidePreview: function(e) {
-      console.log(e);
       $(this.instanceid + '_preview').hide();
       this.overlay.hide();
     },
