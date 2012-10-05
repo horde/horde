@@ -73,31 +73,30 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
  <td class="rightAlign"><strong><?php echo Horde::label('targetcalendar', _("Cal_endar")) ?></strong></td>
  <td colspan="4">
     <select id="targetcalendar" name="targetcalendar">
-    <?php
+<?php
+    foreach ($calendars as $id => $cal) {
+        $delegates = array();
+        if ($cal->hasPermission(Horde_Perms::EDIT)) {
+            $delegates[$id] = htmlspecialchars($cal->name());
+        } else {
+            $delegates[$cal->owner() . '\\' . $id] = htmlspecialchars($cal->name(). ' (' . sprintf(_("as %s"), Kronolith::getUserName($cal->owner())) . ')');
+        }
+        foreach ($delegates as $delegate_id => $cal_name) {
+            $sel = ($delegate_id == $calendar_id) ? ' selected="selected"' : '';
+            printf('<option value="%s"%s>%s</option>',
+                   htmlspecialchars($delegate_id), $sel, $cal_name) . "\n";
+        }
+    }
     if (!empty($GLOBALS['display_resource_calendars'])) {
         // We are editing/viewing resource calendars
         foreach ($GLOBALS['display_resource_calendars'] as $cal) {
             $rd = Kronolith::getDriver('Resource');
             $rc = $rd->getResource($rd->getResourceIdByCalendar($cal));
-            printf('<option value="%s"%s>%s</option>',
-                    'resource_' . htmlspecialchars($cal), '', $rc->get('name')) . "\n";
+            printf('<option value="%s">%s (%s)</option>',
+                    'resource_' . htmlspecialchars($cal), $rc->get('name'), _("resource")) . "\n";
         }
-    } else {
-        // Normal view
-        foreach ($calendars as $id => $cal) {
-            $delegates = array();
-            if ($cal->hasPermission(Horde_Perms::EDIT)) {
-                $delegates[$id] = htmlspecialchars($cal->name());
-            } else {
-                $delegates[$cal->owner() . '\\' . $id] = htmlspecialchars($cal->name(). ' (' . sprintf(_("as %s"), Kronolith::getUserName($cal->owner())) . ')');
-            }
-            foreach ($delegates as $delegate_id => $cal_name) {
-                $sel = ($delegate_id == $calendar_id) ? ' selected="selected"' : '';
-                printf('<option value="%s"%s>%s</option>',
-                       htmlspecialchars($delegate_id), $sel, $cal_name) . "\n";
-            }
-        }
-    }?>
+    }
+?>
     </select>
 
  </td>
