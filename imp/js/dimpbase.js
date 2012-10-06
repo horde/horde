@@ -1585,16 +1585,18 @@ var DimpBase = {
 
         DimpCore.doAction('showMessage', this.addViewportParams(params), {
             callback: function(r) {
-                if (!r || r.error) {
-                    if (r) {
-                        HordeCore.notify(r.error, r.errortype);
-                    }
+                if (!r) {
                     this.clearPreviewPane();
                 } else if (this.view == r.view &&
                            this.pp &&
                            this.pp.uid == r.uid &&
                            this.pp.mbox == r.mbox) {
-                    this._loadPreview(r.uid, r.mbox);
+                    if (r.error) {
+                        HordeCore.notify(r.error, r.errortype);
+                        this.clearPreviewPane();
+                    } else {
+                        this._loadPreview(r.uid, r.mbox);
+                    }
                 }
             }.bind(this),
             loading: 'msg',
