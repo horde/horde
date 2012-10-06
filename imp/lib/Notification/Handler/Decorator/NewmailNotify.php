@@ -29,9 +29,9 @@ extends Horde_Core_Notification_Handler_Decorator_Base
     public function notify(Horde_Notification_Handler $handler,
                            Horde_Notification_Listener $listener)
     {
-        global $injector, $prefs, $session;
+        global $injector, $prefs, $registry, $session;
 
-        $pushed = $GLOBALS['registry']->pushApp($this->_app, array(
+        $pushed = $registry->pushApp($this->_app, array(
             'check_perms' => true,
             'logintasks' => false
         ));
@@ -43,7 +43,7 @@ extends Horde_Core_Notification_Handler_Decorator_Base
             !$imp_imap->imap) {
 
             if ($pushed) {
-                $GLOBALS['registry']->popApp();
+                $registry->popApp();
             }
             return;
         }
@@ -70,7 +70,7 @@ extends Horde_Core_Notification_Handler_Decorator_Base
             $session->set('imp', 'newmail_init', true);
 
             if ($pushed) {
-                $GLOBALS['registry']->popApp();
+                $registry->popApp();
             }
             return;
         }
@@ -104,7 +104,7 @@ extends Horde_Core_Notification_Handler_Decorator_Base
         }
 
         if ($pushed) {
-            $GLOBALS['registry']->popApp();
+            $registry->popApp();
         }
     }
 
