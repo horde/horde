@@ -29,6 +29,8 @@ class IMP_Prefs_Special_NewmailSound implements Horde_Core_Prefs_Ui_Special
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/prefs'
         ));
+        $view->addHelper('FormTag');
+        $view->addHelper('Tag');
         $view->addHelper('Text');
 
         $newmail_audio = $view->newmail_audio = $prefs->getValue('newmail_audio');
