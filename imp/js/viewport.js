@@ -113,7 +113,7 @@
  *
  * ViewPort:select
  *   Fired when rows are selected.
- *   params: (object) opts = (object) Boolean options [delay, right]
+ *   params: (object) opts = (object) Boolean options [right]
  *                    vs = (ViewPort_Selection) A ViewPort_Selection object.
  *
  * ViewPort:splitBarChange
