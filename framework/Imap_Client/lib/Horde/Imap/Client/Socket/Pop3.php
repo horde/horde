@@ -1117,17 +1117,18 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         switch ($read[0]) {
         case '+OK':
             $ob['response'] = 'OK';
-            if (isset($read[1])) {
-                $response = $this->_parseResponseText($read[1]);
+            if (isset($read[1]) && $this->queryCapability('RESP-CODES')) {
+                $response = $this->_parseResponseCode($read[1]);
                 $ob['line'] = $response->text;
             }
             break;
 
         case '-ERR':
             $errcode = 0;
-            if (isset($read[1])) {
-                $response = $this->_parseResponseText($read[1]);
+            if (isset($read[1]) && $this->queryCapability('RESP-CODES')) {
+                $response = $this->_parseResponseCode($read[1]);
                 $errtext = $response->text;
+
                 if (isset($response->code)) {
                     switch ($response->code) {
                     // RFC 2449 [8.1.1]
@@ -1231,6 +1232,38 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         }
 
         return array_keys(array_intersect($this->_pop3Cache('uidl'), $ids->ids));
+    }
+
+    /**
+     * Parses response text for response codes (RFC 2449 [8]).
+     *
+     * @param string $text  The response text.
+     *
+     * @return object  An object with the following properties:
+     *   - code: (string) The response code, if it exists.
+     *   - data: (string) The response code data, if it exists.
+     *   - text: (string) The human-readable response text.
+     */
+    protected function _parseResponseCode($text)
+    {
+        $ret = new stdClass;
+
+        $text = trim($text);
+        if ($text[0] == '[') {
+            $pos = strpos($text, ' ', 2);
+            $end_pos = strpos($text, ']', 2);
+            if ($pos > $end_pos) {
+                $ret->code = strtoupper(substr($text, 1, $end_pos - 1));
+            } else {
+                $ret->code = strtoupper(substr($text, 1, $pos - 1));
+                $ret->data = substr($text, $pos + 1, $end_pos - $pos - 1);
+            }
+            $ret->text = trim(substr($text, $end_pos + 1));
+        } else {
+            $ret->text = $text;
+        }
+
+        return $ret;
     }
 
 }
