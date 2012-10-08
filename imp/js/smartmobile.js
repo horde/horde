@@ -746,20 +746,15 @@ var ImpMobile = {
      */
     deleteMessage: function(mbox, uid)
     {
-        var uids = ImpMobile.toUIDStringSingle(mbox, [ uid ]);
         HordeMobile.doAction(
             'deleteMessages',
             $.extend(ImpMobile.addViewportParams({
                 checkcache: 1,
                 view: ImpMobile.mailbox
             }), {
-                uid: uids
+                uid: ImpMobile.toUIDStringSingle(mbox, [ uid ])
             })
         );
-        ImpMobile.updateFlags([{
-            uids: uids,
-            add: [ IMP.conf.flags.deleted ]
-        }]);
     },
 
     /**
