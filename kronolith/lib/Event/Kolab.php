@@ -49,8 +49,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
      */
     public function fromDriver($event)
     {
-        $this->id = $event['uid'];
-        $this->uid = $this->id;
+        $this->uid = $this->id = $event['uid'];
 
         if (isset($event['summary'])) {
             $this->title = $event['summary'];
@@ -177,6 +176,11 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
                 $this->addAttendee($email, $role, $status, $name);
             }
+        }
+
+        // Tags
+        if (isset($event['categories'])) {
+            $this->_internaltags = $event['categories'];
         }
 
         $this->initialized = true;

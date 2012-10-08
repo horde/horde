@@ -112,6 +112,10 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         foreach ($events as $event) {
             $this->_events_cache[$event['uid']] = new Kronolith_Event_Kolab($this, $event);
         }
+        $tags = Kronolith::getTagger()->getTags(array_keys($this->_events_cache));
+        foreach ($this->_events_cache as $uid => &$event) {
+            $event->synchronizeTags($tags[$uid]);
+        }
 
         $this->_synchronized = true;
     }
@@ -381,19 +385,19 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         if (!$event->uid) {
             $event->uid = $this->_data->generateUID();
         }
-        if (!$edit) {
-            $object = $event->toKolab();
-            $this->_data->create($object);
-        } else {
-            $object = $event->toKolab();
+
+        $object = $event->toKolab();
+        if ($edit) {
             $this->_data->modify($object);
+        } else {
+            $this->_data->create($object);
         }
 
         /* Deal with tags */
         if ($edit) {
-            Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, 'event');
+            $this->_updateTags($event);
         } else {
-            Kronolith::getTagger()->tag($event->uid, $event->tags, $event->creator, 'event');
+            $this->_addTags($event);
         }
 
         /* Notify about the changed event. */

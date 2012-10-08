@@ -291,6 +291,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         $events = $this->_listEventsConditional($startDate, $endDate, $conditions, $values);
         $results = array();
+        $tags = null;
         if ($options['fetch_tags'] && count($events)) {
             $tags = Kronolith::getTagger()->getTags(array_keys($events));
         }
@@ -704,57 +705,6 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $this->_handleNotifications($event, 'add');
 
         return $event->id;
-    }
-
-    /**
-     * Helper function to update an existing event's tags to tagger storage.
-     *
-     * @param Kronolith_Event $event  The event to update
-     */
-    protected function _updateTags(Kronolith_Event $event)
-    {
-        Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, 'event');
-
-        // Resources don't currently have owners, so can't tag as owner.
-        if ($event->calendarType == 'resource') {
-            return;
-        }
-
-        // Add tags again, but as the share owner (replaceTags removes ALL tags)
-        try {
-            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
-        } catch (Horde_Share_Exception $e) {
-            throw new Kronolith_Exception($e);
-        }
-        Kronolith::getTagger()->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
-    }
-
-    /**
-     * Helper function to add tags from a newly creted event to the tagger.
-     *
-     * @param Kronolith_Event $event  The event to save tags to storage for.
-     */
-    protected function _addTags(Kronolith_Event $event)
-    {
-        $tagger = Kronolith::getTagger();
-        $tagger->tag($event->uid, $event->tags, $event->creator, 'event');
-
-        // Resources don't currently have owners, so can't tag as owner.
-        if ($event->calendarType == 'resource') {
-            return;
-        }
-
-        // Add tags again, but as the share owner.
-        try {
-            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
-        } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
-            throw new Kronolith_Exception($e);
-        }
-
-        if ($cal->get('owner') != $event->creator) {
-            $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
-        }
     }
 
     /**

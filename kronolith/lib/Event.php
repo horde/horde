@@ -115,6 +115,13 @@ abstract class Kronolith_Event
     public $private = false;
 
     /**
+     * Event tags from the storage backend (e.g. Kolab)
+     *
+     * @var array
+     */
+    protected $_internaltags;
+
+    /**
      * This tag's events.
      *
      * @var array|string
@@ -385,7 +392,7 @@ abstract class Kronolith_Event
             return $this->{'_' . $name};
         case 'tags':
             if (!isset($this->_tags)) {
-                $this->_tags = Kronolith::getTagger()->getTags($this->uid, 'event');
+                $this->synchronizeTags(Kronolith::getTagger()->getTags($this->uid, 'event'));
             }
             return $this->_tags;
         case 'geoLocation':
@@ -2339,6 +2346,30 @@ abstract class Kronolith_Event
                ($this->end->mday > $this->start->mday ||
                 $this->end->month > $this->start->month ||
                 $this->end->year > $this->start->year))));
+    }
+
+    /**
+     * Syncronizes tags from the tagging backend with the task storage backend,
+     * if necessary.
+     *
+     * @param array $tags  Tags from the tagging backend.
+     */
+    public function synchronizeTags($tags)
+    {
+        if (isset($this->_internaltags)) {
+            usort($tags, 'strcoll');
+            if (array_diff($this->_internaltags, $tags)) {
+                Kronolith::getTagger()->replaceTags(
+                    $this->uid,
+                    $this->_internaltags,
+                    $this->_creator,
+                    'event'
+                );
+            }
+            $this->_tags = $this->_internaltags;
+        } else {
+            $this->_tags = $tags;
+        }
     }
 
     public function readForm()
