@@ -210,6 +210,7 @@ var ImpMobile = {
                 mbox: ImpMobile.mailbox
             }));
             e.preventDefault();
+            $('#mailbox :jqmData(role=footer) a[href$="refresh"]').removeClass($.mobile.activeBtnClass).blur();
             break;
 
         case 'message-reply':
