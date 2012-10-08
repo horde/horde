@@ -928,6 +928,7 @@ $_prefs['purge_sentmail_keep'] = array(
     'type' => 'number',
     'desc' => _("Purge messages in sent mail mailbox(es) older than this amount of days."),
     'help' => 'prefs-purge_sentmail_keep',
+    'requires' => array('purge_sentmail_interval'),
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }
@@ -1440,6 +1441,7 @@ $_prefs['purge_spam_keep'] = array(
     'type' => 'number',
     'desc' => _("Purge messages in Spam mailbox older than this amount of days."),
     'help' => 'prefs-purge_spam_keep',
+    'requires' => array('purge_spam_interval'),
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }
