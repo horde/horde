@@ -135,9 +135,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         } else {
             $filters = array();
             if ($prefs->getValue('emoticons')) {
-                $filters['emoticons'] = array(
-                    'entities' => true
-                );
+//                $filters['emoticons'] = array(
+//                    'entities' => true
+//                );
             }
 
             if ($inline) {
