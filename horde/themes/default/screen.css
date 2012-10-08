@@ -1914,6 +1914,7 @@ left.horde-point-right {
     width: 16px;
     background: transparent url("graphics/plus-sidebar.png") no-repeat right center;
     text-indent: -10000px;
+    overflow: hidden;
     cursor: pointer;
 }
 .horde-collapse,
