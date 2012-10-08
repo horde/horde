@@ -245,10 +245,10 @@ class IMP_Message
                 $expunge_now = false;
                 $del_flags = array(Horde_Imap_Client::FLAG_DELETED);
 
-                if ($use_vtrash ||
-                    !$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
-                    !empty($opts['nuke']) ||
-                    ($use_trash && ($ob->mbox == $trash))) {
+                if (!$use_vtrash &&
+                    (!$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
+                     !empty($opts['nuke']) ||
+                     ($use_trash && ($ob->mbox == $trash)))) {
                     /* Purge messages immediately. */
                     $expunge_now = !$no_expunge;
                 } elseif ($mark_seen) {
