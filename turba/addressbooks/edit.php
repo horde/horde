@@ -46,7 +46,7 @@ if ($owner && $form->validate($vars)) {
         }
         Horde::url('', true)->redirect();
     } catch (Turba_Exception $e) {
-        $notification->push($result, 'horde.error');
+        $notification->push($e);
     }
 }
 
