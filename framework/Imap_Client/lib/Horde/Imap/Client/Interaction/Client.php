@@ -37,4 +37,16 @@ class Horde_Imap_Client_Interaction_Client extends Horde_Imap_Client_Data_Format
         parent::__construct($this->tag);
     }
 
+    /**
+     * Get the command.
+     *
+     * @return string  The command.
+     */
+    public function getCommand()
+    {
+        return isset($this->_data[1])
+            ? $this->_data[1]
+            : null;
+    }
+
 }
