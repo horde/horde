@@ -15,13 +15,6 @@
 class Horde_Imap_Client_Exception_ServerResponse extends Horde_Imap_Client_Exception
 {
     /**
-     * The command that caused the BAD/NO error status.
-     *
-     * @var string
-     */
-    public $command = null;
-
-    /**
      * The server error status.
      *
      * @var integer
@@ -35,19 +28,14 @@ class Horde_Imap_Client_Exception_ServerResponse extends Horde_Imap_Client_Excep
      * @param integer $code    Error code.
      * @param integer $status  Server error status.
      * @param string $errtext  Server error text.
-     * @param string $errcmd   The command that caused the error.
      */
     public function __construct($msg = null, $code = 0, $status = 0,
-                                $errtext = null, $errcmd = null)
+                                $errtext = null)
     {
         $this->status = $status;
 
         if (!is_null($errtext)) {
             $this->details = $errtext;
-        }
-
-        if (!is_null($errcmd)) {
-            $this->command = $errcmd;
         }
 
         parent::__construct($msg, $code);
