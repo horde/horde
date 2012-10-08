@@ -1251,6 +1251,7 @@ div.GrowlerNoticeExit {
     height: 20px;
     width: 20px;
     text-indent: -10000px;
+    overflow: hidden;
 }
 .horde-success {
     border-color: #759f3d;
@@ -1973,6 +1974,7 @@ left.horde-point-right {
     width: 17px;
     height: 17px;
     text-indent: -10000px;
+    overflow: hidden;
     cursor: pointer;
 }
 #horde-sidebar div.horde-resources .horde-resource-edit-fff {
