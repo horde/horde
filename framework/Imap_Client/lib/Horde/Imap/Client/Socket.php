@@ -4041,16 +4041,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $literal_len = substr($literal_data, 2, -1);
 
                     if (is_numeric($literal_len)) {
-                        $binary = ($literal_data[0] == '~');
+                        if ($literal_len) {
+                            $binary = ($literal_data[0] == '~');
+                        } else {
+                            // Skip 0-length literal data.
+                            $literal_len = null;
+                        }
                         continue;
                     }
                 }
-                break;
-            }
-
-            if (!$literal_len) {
-                // Skip 0-length literal data.
-                $got_data = true;
                 break;
             }
 
