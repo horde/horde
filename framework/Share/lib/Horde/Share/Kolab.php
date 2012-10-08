@@ -117,7 +117,11 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     public function getList()
     {
-        return $this->getStorage()->getList();
+        try {
+            return $this->getStorage()->getList();
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
     }
 
     /**
@@ -144,7 +148,11 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     private function _idEncode($id)
     {
-        $folder = $this->getStorage()->getFolder($id);
+        try {
+            $folder = $this->getStorage()->getFolder($id);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
         return $this->constructId($folder->getOwner(), $folder->getSubpath(), $folder->getPrefix());
     }
 
@@ -174,9 +182,13 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     public function constructFolderName($owner, $subpath, $prefix = null)
     {
-        return $this->getList()
-            ->getNamespace()
-            ->constructFolderName($owner, $subpath, $prefix);
+        try {
+            return $this->getList()
+                ->getNamespace()
+                ->constructFolderName($owner, $subpath, $prefix);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
     }
 
     /**
@@ -191,7 +203,11 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     public function getFolderNameElements($folder)
     {
-        $ns = $this->getList()->getNamespace()->matchNamespace($folder);
+        try {
+            $ns = $this->getList()->getNamespace()->matchNamespace($folder);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
         return array(
             $ns->getName(), $ns->getDelimiter(), $ns->getSubpath($folder)
         );
@@ -268,25 +284,30 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _getShare($name)
     {
-        $list = $this->getList()
-            ->getQuery()
-            ->dataByType($this->_type);
+        try {
+            $list = $this->getList()
+                ->getQuery()
+                ->dataByType($this->_type);
 
-        $query = $this->getList()
-            ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE);
+            $query = $this->getList()
+                ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE);
 
-        foreach ($list as $folder => $folder_data) {
-            $data = $query->getParameters($folder);
-            if (isset($data['share_name']) && $data['share_name'] == $name) {
-                return $this->getShareById(
-                    $this->constructId(
-                        $folder_data['owner'],
-                        $folder_data['subpath'],
-                        isset($folder_data['prefix']) ? $folder_data['prefix'] : null
-                    )
-                );
+            foreach ($list as $folder => $folder_data) {
+                $data = $query->getParameters($folder);
+                if (isset($data['share_name']) && $data['share_name'] == $name) {
+                    return $this->getShareById(
+                        $this->constructId(
+                            $folder_data['owner'],
+                            $folder_data['subpath'],
+                            isset($folder_data['prefix']) ? $folder_data['prefix'] : null
+                        )
+                    );
+                }
             }
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
         }
+
         return $this->getShareById($name);
     }
 
@@ -301,22 +322,30 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _getShareById($id)
     {
-        $list = $this->getList()
-            ->getQuery()
-            ->dataByType($this->_type);
+        try {
+            $list = $this->getList()
+                ->getQuery()
+                ->dataByType($this->_type);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
 
         if (!isset($list[$this->_idDecode($id)])) {
             throw new Horde_Exception_NotFound(sprintf('Share id %s not found', $id));
         }
 
-        $query = $this->getList()
-            ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE);
+        try {
+            $query = $this->getList()
+                ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE);
 
-        $data = array_merge(
-            $query->getParameters($this->_idDecode($id)),
-            $list[$this->_idDecode($id)]
-        );
-        $data['desc'] = $query->getDescription($this->_idDecode($id));
+            $data = array_merge(
+                $query->getParameters($this->_idDecode($id)),
+                $list[$this->_idDecode($id)]
+            );
+            $data['desc'] = $query->getDescription($this->_idDecode($id));
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
         if (isset($data['parent'])) {
             try {
                 $data['parent'] = $this->_idEncode($data['parent']);
@@ -372,12 +401,14 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _idExists($id)
     {
-        return in_array(
-            $this->_idDecode($id),
-            $this->getList()
-            ->getQuery()
-            ->listByType($this->_type)
-        );
+        try {
+            return in_array(
+                $this->_idDecode($id),
+                $this->getList()->getQuery()->listByType($this->_type)
+            );
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
     }
 
     /**
@@ -390,10 +421,14 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _listShares($userid, array $params = array())
     {
-        $stamp = $this->getList()->getQuery()->getStamp();
-        $key = md5(serialize(array($userid, $params, $stamp)));
+        try {
+            $stamp = $this->getList()->getQuery()->getStamp();
+            $key = md5(serialize(array($userid, $params, $stamp)));
 
-        if (!isset($this->_listcache[$key])) {
+            if (isset($this->_listcache[$key])) {
+                return $this->_listcache[$key];
+            }
+
             $shares = array_map(
                 array($this, '_idEncode'),
                 $this->getList()->getQuery()->listByType($this->_type)
@@ -471,7 +506,10 @@ class Horde_Share_Kolab extends Horde_Share_Base
                 $shares = array_slice($shares, 0, $params['count']);
             }
             $this->_listcache[$key] = $shares;
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
         }
+
         return $this->_listcache[$key];
     }
 
@@ -515,12 +553,15 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     public function listSystemShares()
     {
-        $shares = array_map(
-            array($this, '_idEncode'),
-            $this->getList()
-            ->getQuery()
-            ->listByType($this->_type)
-        );
+        try {
+            $shares = array_map(
+                array($this, '_idEncode'),
+                $this->getList()->getQuery()->listByType($this->_type)
+            );
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
+
         $result = array();
         foreach ($shares as $share) {
             $object = $this->_getShareById($share);
@@ -530,6 +571,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
                 $result[$object->getName()] = $object;
             }
         }
+
         return $result;
     }
 
@@ -549,17 +591,21 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _listAllShares()
     {
-        $shares = array_map(
-            array($this, '_idEncode'),
-            $this->getList()
-            ->getQuery()
-            ->listByType($this->_type)
-        );
+        try {
+            $shares = array_map(
+                array($this, '_idEncode'),
+                $this->getList()->getQuery()->listByType($this->_type)
+            );
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
+
         $result = array();
         foreach ($shares as $share) {
             $object = $this->_getShareById($share);
             $result[$object->getName()] = $object;
         }
+
         return $result;
     }
 
@@ -602,7 +648,13 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     protected function _removeShare(Horde_Share_Object $share)
     {
-        $this->getList()->getListManipulation()->deleteFolder($this->_idDecode($share->getId()));
+        try {
+            $this->getList()
+                ->getListManipulation()
+                ->deleteFolder($this->_idDecode($share->getId()));
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
     }
 
     /**
@@ -627,11 +679,13 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     public function getAcl($id)
     {
-        return $this->getList()
-            ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_ACL)
-            ->getAcl(
-                $this->_idDecode($id)
-            );
+        try {
+            return $this->getList()
+                ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_ACL)
+                ->getAcl($this->_idDecode($id));
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
     }
 
     /**
@@ -645,11 +699,13 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     public function setAcl($id, $user, $acl)
     {
-        $this->getList()
-            ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_ACL)
-            ->setAcl(
-                $this->_idDecode($id), $user, $acl
-            );
+        try {
+            $this->getList()
+                ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_ACL)
+                ->setAcl($this->_idDecode($id), $user, $acl);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
     }
 
     /**
@@ -662,11 +718,13 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     public function deleteAcl($id, $user)
     {
-        $this->getList()
-            ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_ACL)
-            ->deleteAcl(
-                $this->_idDecode($id), $user
-            );
+        try {
+            $this->getList()
+                ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_ACL)
+                ->deleteAcl($this->_idDecode($id), $user);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
+        }
     }
 
     /**
@@ -680,38 +738,42 @@ class Horde_Share_Kolab extends Horde_Share_Base
      */
     public function save($id, $old_id, $data)
     {
-        if ($old_id === null) {
-            $this->getList()->getListManipulation()->createFolder(
-                $this->_idDecode($id), $this->_type
-            );
-        } elseif ($id != $old_id) {
-            $this->getList()->getListManipulation()->renameFolder(
-                $this->_idDecode($old_id), $this->_idDecode($id), $this->_type
-            );
-        }
+        try {
+            if ($old_id === null) {
+                $this->getList()->getListManipulation()->createFolder(
+                    $this->_idDecode($id), $this->_type
+                );
+            } elseif ($id != $old_id) {
+                $this->getList()->getListManipulation()->renameFolder(
+                    $this->_idDecode($old_id), $this->_idDecode($id), $this->_type
+                );
+            }
 
-        if (!empty($data['default'])) {
-            $this->getList()->getQuery()->setDefault($this->_idDecode($id));
-        }
+            if (!empty($data['default'])) {
+                $this->getList()->getQuery()->setDefault($this->_idDecode($id));
+            }
 
-        $query = $this->getList()
-            ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE);
-        if (isset($data['desc'])) {
-            $query->setDescription($this->_idDecode($id), $data['desc']);
+            $query = $this->getList()
+                ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE);
+            if (isset($data['desc'])) {
+                $query->setDescription($this->_idDecode($id), $data['desc']);
+            }
+            unset(
+                $data['desc'],
+                $data['owner'],
+                $data['name'],
+                $data['default'],
+                $data['parent'],
+                $data['type'],
+                $data['delimiter'],
+                $data['prefix'],
+                $data['subpath'],
+                $data['folder'],
+                $data['namespace']
+            );
+            $query->setParameters($this->_idDecode($id), $data);
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            throw new Horde_Share_Exception($e);
         }
-        unset(
-            $data['desc'],
-            $data['owner'],
-            $data['name'],
-            $data['default'],
-            $data['parent'],
-            $data['type'],
-            $data['delimiter'],
-            $data['prefix'],
-            $data['subpath'],
-            $data['folder'],
-            $data['namespace']
-        );
-        $query->setParameters($this->_idDecode($id), $data);
     }
 }
