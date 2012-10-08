@@ -699,8 +699,14 @@ div.logintasks-item input {
 div.prefsContainer {
     padding: 1em;
 }
+div.prefsContainer > div {
+    padding-bottom: 3px;
+}
 div.prefsContainer p {
     padding-top: 1em;
+}
+div.prefsContainer input.checkbox {
+    vertical-align: middle;
 }
 img.prefsLinkImg {
     padding-right: 1px;
