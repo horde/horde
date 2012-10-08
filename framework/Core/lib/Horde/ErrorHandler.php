@@ -98,7 +98,6 @@ HTML;
                     echo '<h3>' . Horde_Core_Translation::t("Details") . '</h3>';
                     echo '<h4>' . Horde_Core_Translation::t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
                     if (!$cli) {
-                        echo $errortext;
                         ob_flush();
                         flush();
                     }
