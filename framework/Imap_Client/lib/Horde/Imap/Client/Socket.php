@@ -3935,11 +3935,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             /* A tagged BAD response indicates that the tagged command caused
              * the error. This information is unknown if untagged. (RFC 3501
              * [7.1.3]) */
+            if ($server instanceof Horde_Imap_Client_Interaction_Server_Tagged) {
+                $cmd = $server->token->current();
+                $server->token->next();
+            } else {
+                $cmd = null;
+            }
+
             throw new Horde_Imap_Client_Exception_ServerResponse(
                 Horde_Imap_Client_Translation::t("IMAP error reported by server."),
                 0,
                 $server->status,
-                strval($server->token)
+                strval($server->token),
+                $cmd
             );
 
         case $server::BYE:
@@ -3965,11 +3973,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * catch this if able to workaround this issue. (RFC 3501
              * [7.1.2]) */
             if ($server instanceof Horde_Imap_Client_Interaction_Server_Tagged) {
+                $cmd = $server->token->current();
+                $server->token->next();
+
                 throw new Horde_Imap_Client_Exception_ServerResponse(
                     Horde_Imap_Client_Translation::t("IMAP error reported by server."),
                     0,
                     $server->status,
-                    strval($server->token)
+                    strval($server->token),
+                    $cmd
                 );
             }
 
