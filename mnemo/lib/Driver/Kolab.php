@@ -128,7 +128,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
             'uid' => $noteId,
             'summary' => $desc,
             'body' => $body,
-            'categories' => $category,
+            'categories' => array($category),
         );
         try {
             $this->_getData()->create($object);
@@ -157,7 +157,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
                     'uid' => $noteId,
                     'summary' => $desc,
                     'body' => $body,
-                    'categories' => $category,
+                    'categories' => array($category),
                 )
             );
         } catch (Horde_Kolab_Storage_Exception $e) {
@@ -284,7 +284,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
         $note['memolist_id'] = $this->_notepad;
         $note['memo_id'] = $note['uid'];
 
-        $note['category'] = $note['categories'];
+        $note['category'] = empty($note['categories']) ? '' : $note['categories'][0];
         unset($note['categories']);
 
         $note['desc'] = $note['summary'];
