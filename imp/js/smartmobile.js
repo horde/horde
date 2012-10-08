@@ -786,10 +786,7 @@ var ImpMobile = {
 
         $('#compose .smartmobile-title').html(IMP.text.new_message);
 
-        if ($.isEmptyObject(purl.params)) {
-            HordeMobile.changePage('compose');
-            return;
-        } else if (purl.params.to || purl.params.cc) {
+        if (purl.params.to || purl.params.cc) {
             $('#imp-compose-to').val(purl.params.to);
             $('#imp-compose-cc').val(purl.params.cc);
             HordeMobile.changePage('compose', data);
@@ -824,6 +821,10 @@ var ImpMobile = {
             cache = '#imp-compose-cache';
             params.format = 'text';
             break;
+
+        default:
+            HordeMobile.changePage('compose');
+            return;
         }
 
         HordeMobile.doAction(
