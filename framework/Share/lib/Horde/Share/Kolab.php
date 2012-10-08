@@ -755,7 +755,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
 
             $query = $this->getList()
                 ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE);
-            if (isset($data['desc'])) {
+            if (isset($data['desc']) && strlen($data['desc'])) {
                 $query->setDescription($this->_idDecode($id), $data['desc']);
             }
             unset(
