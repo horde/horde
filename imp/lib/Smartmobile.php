@@ -125,7 +125,7 @@ class IMP_Smartmobile
             }
 
             try {
-                $this->view->abook = $registry->link('contacts/smartmobile_browse');
+                $this->view->abook = Horde::url($registry->link('contacts/smartmobile_browse'));
             } catch (Horde_Exception $e) {}
 
             $this->view->composeCache = $injector->getInstance('IMP_Factory_Compose')->create()->getCacheId();
