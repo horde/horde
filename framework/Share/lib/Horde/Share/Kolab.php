@@ -308,7 +308,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
             throw new Horde_Share_Exception($e);
         }
 
-        return $this->getShareById($name);
+        throw new Horde_Exception_NotFound(sprintf('Share name %s not found', $name));
     }
 
     /**
