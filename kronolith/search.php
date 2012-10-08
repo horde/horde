@@ -136,5 +136,4 @@ if (!is_null($events)) {
 }
 
 echo '</div>';
-require KRONOLITH_TEMPLATES . '/panel.inc';
 $page_output->footer();
