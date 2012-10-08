@@ -1336,7 +1336,7 @@ $_prefs['purge_trash_keep'] = array(
     'type' => 'number',
     'desc' => _("Purge messages in Trash mailbox older than this amount of days."),
     'help' => 'prefs-purge_trash_keep',
-    'requires' => array('use_trash'),
+    'requires' => array('use_trash', 'purge_trash_interval'),
     'requires_nolock' => array('use_trash'),
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_TRASH);
