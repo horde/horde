@@ -9,6 +9,10 @@
  *           array; mailboxes are base64url encoded). If an empty array, polls
  *           all mailboxes.
  *
+ * Global parameters (in viewport parameter):
+ *   - force: (integer) If set, always return viewport information if changed.
+ *                     changed.
+ *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -284,8 +288,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for changed() and
      * checkUidvalidity().  Additional variables used:
-     *   - force_viewport: (integer) If set, always return viewport
-     *                     information if it has changed.
      *   - peek: (integer) If set, don't set seen flag.
      *   - preview: (integer) If set, return preview data. Otherwise, return
      *              full data.
@@ -331,7 +333,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $change = true;
         }
 
-        if ($this->vars->preview || $this->vars->force_viewport) {
+        if ($this->vars->preview || $this->_vars->viewport->force) {
             if ($change) {
                 $this->addTask('viewport', $this->viewPortData(true));
             } elseif ($this->mbox->cacheid_date != $this->vars->viewport->cacheid) {
@@ -362,6 +364,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function changed($rw = null)
     {
+        /* Forced viewport return. */
+        if ($this->_vars->viewport->force) {
+            return true;
+        }
+
         /* Only update search mailboxes on forced refreshes. */
         if ($this->mbox->search) {
             return !empty($this->vars->forceUpdate);

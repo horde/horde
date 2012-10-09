@@ -167,7 +167,9 @@ var ImpMobile = {
             ImpMobile.deleteMessage(ImpMobile.uid_mbox, ImpMobile.uid);
             $.mobile.changePage(HordeMobile.createUrl('mailbox', {
                 mbox: ImpMobile.mailbox
-            }));
+            }), {
+                data: { noajax: true }
+            });
             e.preventDefault();
             return;
 
@@ -509,9 +511,9 @@ var ImpMobile = {
         HordeMobile.doAction(
             'smartmobileShowMessage',
             $.extend(ImpMobile.addViewportParams($.extend(params, {
+                force: 1,
                 view: (ImpMobile.search ? IMP.conf.qsearchid : purl.params.mbox)
             })), {
-                force_viewport: 1,
                 uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ]),
             }),
             ImpMobile.messageLoaded
@@ -748,6 +750,7 @@ var ImpMobile = {
             'deleteMessages',
             $.extend(ImpMobile.addViewportParams({
                 checkcache: 1,
+                force: 1,
                 view: ImpMobile.mailbox
             }), {
                 uid: ImpMobile.toUIDStringSingle(mbox, [ uid ])
@@ -763,6 +766,7 @@ var ImpMobile = {
             'reportSpam',
             $.extend(ImpMobile.addViewportParams({
                 checkcache: 1,
+                force: 1,
                 view: ImpMobile.mailbox
             }), {
                 spam: Number(action == 'spam'),
@@ -990,23 +994,20 @@ var ImpMobile = {
             value = $(e.currentTarget).attr('id') == 'imp-copymove-list'
                 ? $('#imp-copymove-list').val()
                 : $('#imp-copymove-new').val(),
-            func;
+            move = ($('#imp-copymove-action').val() == 'move');
 
         if (value === '') {
             $('#imp-copymove-newdiv').show();
             return;
         }
 
-        func = ($('#imp-copymove-action').val() == 'copy')
-            ? 'copyMessages'
-            : 'moveMessages';
-
         $('#copymove').dialog('close');
 
         HordeMobile.doAction(
-            func,
+            move ? 'moveMessages' : 'copyMessages',
             $.extend(ImpMobile.addViewportParams({
                 checkcache: 1,
+                force: Number(move),
                 view: source
             }), {
                 mboxto: value,
@@ -1015,7 +1016,7 @@ var ImpMobile = {
             })
         );
 
-        if (IMP.conf.mailbox_return || func == 'moveMessages') {
+        if (IMP.conf.mailbox_return || move) {
             $.mobile.changePage(HordeMobile.createUrl('mailbox', {
                 mbox: source
             }), {
@@ -1282,11 +1283,14 @@ var ImpMobileMbox = {
 
     disappear: function(ids)
     {
+        if (!ids.length) {
+            return;
+        }
+
         var t = this;
 
         $.each(ids, function(key, value) {
             delete t.data[value];
-            delete t.rowlist[value];
         });
     },
 
