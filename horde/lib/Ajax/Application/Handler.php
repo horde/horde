@@ -15,9 +15,25 @@
 class Horde_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
 {
     /**
+     * AJAX action: Update topbar.
+     *
+     * @return object  See Horde_Tree_Renderer_Menu#renderNodeDefinitions().
+     */
+    public function topbarUpdate()
+    {
+        $GLOBALS['registry']->pushApp($this->vars->app);
+        return $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Topbar')
+            ->create('Horde_Tree_Renderer_Menu', array('nosession' => true))
+            ->getTree()
+            ->renderNodeDefinitions();
+        $GLOBALS['registry']->popApp();
+    }
+
+    /**
      * AJAX action: Update sidebar.
      *
-     * @return object  See Horde_Tree_Javascript#renderNodeDefinitions().
+     * @return object  See Horde_Core_Tree_Renderer_Javascript#renderNodeDefinitions().
      */
     public function sidebarUpdate()
     {

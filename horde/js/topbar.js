@@ -3,14 +3,7 @@
  */
 var HordeTopbar = {
     // Vars used and defaulting to null/false:
-    //   searchGhost
-
-    /**
-     * Date format.
-     *
-     * @var string
-     */
-    format: '',
+    //   conf, searchGhost
 
     /**
      * Updates the date in the sub bar.
@@ -20,61 +13,102 @@ var HordeTopbar = {
         var d = $('horde-sub-date');
 
         if (d) {
-            d.update(Date.today().toString(this.format));
+            d.update(Date.today().toString(this.conf.format));
             this.updateDate.bind(this).delay(10);
         }
     },
 
-    /*
-    refreshSidebar: function()
+    refreshTopbar: function()
     {
-        new PeriodicalExecuter(this.loadSidebar.bind(this), this.refresh);
-    },
-
-    initLoadSidebar: function()
-    {
-        if (!this.loaded) {
-            $('sidebarLoading').show();
-            this.loadSidebar();
-            if (this.refresh) {
-                this.refreshSidebar.bind(this).delay(this.refresh);
-            }
-            this.loaded = true;
+        var params = $H({ app: this.conf.app });
+        if (this.conf.SID) {
+            params.update(this.conf.SID.toQueryParams());
         }
-    },
-
-    loadSidebar: function()
-    {
-        new Ajax.Request(this.url, {
-            onComplete: this.onUpdateSidebar.bind(this)
+        params.set('token', this.conf.TOKEN);
+        new Ajax.Request(this.conf.URI_AJAX + 'topbarUpdate', {
+            onComplete: this.onUpdateTopbar.bind(this),
+            parameters: params
         });
     },
 
-    onUpdateSidebar: function(response)
+    onUpdateTopbar: function(response)
     {
-        var layout, r;
-
-        $('sidebarLoading').hide();
-
-        if (response.responseJSON) {
-            $(HordeSidebar.tree.opts.target).update();
-
-            r = response.responseJSON.response;
-            this.tree.renderTree(r.nodes, r.root_nodes, r.is_static);
-            r.files.each(function(file) {
-                $$('head')[0].insert(new Element('script', { src: file }));
-            });
+        if (!response.responseJSON) {
+            return;
         }
+
+        var r = response.responseJSON.response;
+        $('horde-navigation').update();
+
+        this._renderTree(r.nodes, r.root_nodes);
+        r.files.each(function(file) {
+            $$('head')[0].insert(new Element('script', { src: file }));
+        });
     },
-    */
+
+    _renderTree: function(nodes, root_nodes)
+    {
+        root_nodes.each(function(root_node) {
+            var elm, item,
+                active = nodes[root_node].active ? '-active' : '',
+                container = new Element('DIV', { className: nodes[root_node].class });
+            if (nodes[root_node].url) {
+                elm = new Element('A', { className: 'horde-mainnavi' + active, href: nodes[root_node].url });
+                container.insert(elm);
+            } else {
+                elm = container;
+            }
+            item = new Element('LI').insert(container);
+            if (nodes[root_node].children) {
+                if (!nodes[root_node].noarrow) {
+                    elm.insert(new Element('SPAN', { className: 'horde-point-arrow' + active })
+                               .insert('&#9662;'));
+                }
+                item.insert(this._renderBranch(nodes, nodes[root_node].children))
+            }
+            elm.insert(nodes[root_node].label);
+            $('horde-navigation')
+                .insert(new Element('DIV', { className: 'horde-navipoint' })
+                        .insert(new Element('DIV', { className: 'horde-point-left' + active }))
+                        .insert(new Element('UL', { className: 'horde-dropdown' })
+                                .insert(item))
+                        .insert(new Element('DIV', { className: 'horde-point-right' + active })));
+        }, this);
+    },
+
+    _renderBranch: function(nodes, children)
+    {
+        var list = new Element('UL');
+        children.each(function(child) {
+            var container, elm, item,
+                attr = nodes[child].children
+                    ? { className: 'arrow' }
+                    : undefined;
+            container = new Element('DIV', { className: 'horde-drowdown-str' });
+            if (nodes[child].url) {
+                elm = new Element('A', { className: 'horde-mainnavi', href: nodes[child].url });
+                container.insert(elm);
+            } else {
+                elm = container;
+            }
+            elm.insert(nodes[child].label);
+            item = new Element('LI', attr).insert(container);
+            if (nodes[child].children) {
+                item.insert(this._renderBranch(nodes, nodes[child].children))
+            }
+            list.insert(item);
+        }, this);
+        return list;
+    },
 
     onDomLoad: function()
     {
         if ($('horde-search-input')) {
             this.searchGhost = new FormGhost('horde-search-input');
         }
-
         this.updateDate();
+        new PeriodicalExecuter(this.refreshTopbar.bind(this),
+                               this.conf.refresh);
     }
 }
 
