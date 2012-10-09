@@ -2,6 +2,8 @@
 v3.0.0beta2
 -----------
 
+[mms] Add 'transport_auth' hook to handle defining authentication parameters
+      for transport backends.
 [mms] Remove session caching of rules.
 [mms] Initial implementation of smartmobile view.
 [mms] Disable blacklist, vacation, and whitelist API methods if the preference

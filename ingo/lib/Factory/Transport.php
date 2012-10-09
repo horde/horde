@@ -1,6 +1,6 @@
 <?php
 /**
- * A Horde_Injector:: based Ingo_Transport:: factory.
+ * A Horde_Injector:: based Ingo_Transport factory.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * A Horde_Injector:: based Ingo_Transport:: factory.
+ * A Horde_Injector:: based Ingo_Transport factory.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
@@ -39,16 +39,25 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Injector
         global $registry, $session;
 
         $params = $session->get('ingo', 'backend/params');
-
-        // Set authentication parameters.
-        if (($hordeauth = $session->get('ingo', 'backend/hordeauth')) ||
-            !isset($params['username']) ||
-            !isset($params['password'])) {
-            $params['password'] = $registry->getAuthCredential('password');
-            $params['username'] = $registry->getAuth(($hordeauth === 'full') ? null : 'bare');
+        if (!strlen($transport = $session->get('ingo', 'backend/transport'))) {
+            $transport = 'null';
         }
 
-        $class = 'Ingo_Transport_' . ucfirst(basename($session->get('ingo', 'backend/transport')));
+        /* Get authentication parameters. */
+        try {
+            $auth = Horde::callHook('transport_auth', array($transport), 'ingo');
+        } catch (Horde_Exception_HookNotSet $e) {
+            $auth = array();
+        }
+
+        if (!isset($auth['password'])) {
+            $auth['password'] = $registry->getAuthCredential('password');
+        }
+        if (!isset($auth['username'])) {
+            $params['username'] = $registry->getAuth('bare');
+        }
+
+        $class = 'Ingo_Transport_' . ucfirst(basename($transport));
         if (class_exists($class)) {
             return new $class($params);
         }
