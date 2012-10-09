@@ -20,8 +20,11 @@ if (!in_array(Ingo_Storage::ACTION_BLACKLIST, $session->get('ingo', 'script_cate
     Horde::url('filters.php', true)->redirect();
 }
 
+$ingo_script = $injector->getInstance('Ingo_Script');
 $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $folder = $blacklist_folder = null;
+
+$flagonly = ($ingo_script && in_array(Ingo_Storage::ACTION_FLAGONLY, $ingo_script->availableActions()));
 
 /* Perform requested actions. */
 $vars = Horde_Variables::getDefaultVariables();
@@ -41,9 +44,7 @@ case 'rule_update':
         break;
     }
 
-    if ($folder == Ingo::BLACKLIST_MARKER &&
-        (!$injector->getInstance('Ingo_Script') ||
-         !in_array(Ingo_Storage::ACTION_FLAGONLY, $injector->getInstance('Ingo_Script')->availableActions()))) {
+    if (!$flagonly && ($folder == Ingo::BLACKLIST_MARKER)) {
         $notification->push("Not supported by this script generator.", 'horde.error');
     } else {
         try {
