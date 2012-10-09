@@ -176,6 +176,8 @@ class Horde_ActiveSync_Connector_Importer
             if ($collection != Horde_ActiveSync::CLASS_EMAIL) {
                 $conflict = $this->_isConflict(
                     Horde_ActiveSync::CHANGE_TYPE_DELETE, $this->_folderId, $ids);
+            } else {
+                $conflict = false;
             }
 
             // Update client state
