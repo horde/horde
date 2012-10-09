@@ -133,9 +133,6 @@ class IMP_Ajax_Application_ListMessages
             $result->requestid = intval($args['requestid']);
         }
         $result->totalrows = $msgcount;
-        if (!$args['initial']) {
-            unset($result->label);
-        }
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 

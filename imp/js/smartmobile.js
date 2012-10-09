@@ -272,7 +272,7 @@ var ImpMobile = {
                 tmp.attr('href', HordeMobile.createUrl('mailbox', {
                     mbox: ImpMobile.mailbox
                 }));
-                tmp.find('.ui-btn-text').text($('#imp-mailbox-' + ImpMobile.mailbox).text());
+                tmp.find('.ui-btn-text').text(ImpMobile.cache[ImpMobile.mailbox].label);
             }
             break;
         }
@@ -368,9 +368,9 @@ var ImpMobile = {
             if (r.metadata.readonly || r.metadata.nodelete) {
                 ob.readonly = 1;
             }
-            if (r.metadata.slabel) {
-                ob.label = r.metadata.slabel;
-            }
+            ob.label = r.metadata.slabel
+                ? r.metadata.slabel
+                : r.label;
         }
         ob.cacheid = r.cacheid;
         if (r.data_reset) {
@@ -406,10 +406,8 @@ var ImpMobile = {
         }
         ImpMobile.mailboxCache = cid;
 
-        if (ob.label) {
-            document.title = ob.label;
-            $('#mailbox .smartmobile-title').text(ob.label);
-        }
+        document.title = ob.label;
+        $('#mailbox .smartmobile-title').text(ob.label);
 
         list = $('#imp-mailbox-list');
         list.empty();
