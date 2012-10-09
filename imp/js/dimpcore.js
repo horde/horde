@@ -253,7 +253,7 @@ var DimpCore = {
         if (elt.hasClassName('unblockImageLink')) {
             IMP_JS.unblockImages(e.memo);
         } else if (elt.hasClassName('largeaddrspan_active') &&
-                   !e.memo.element().hasClassName('address')) {
+                   !e.memo.element().hasClassName('horde-button')) {
             if (e.memo.element().hasClassName('largeaddrlistlimit')) {
                 e.memo.element().hide();
                 elt.up('TD').fire('DimpCore:updateAddressHeader');
