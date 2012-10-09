@@ -156,9 +156,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $compose = $this->initCompose();
 
-            $fwd_msg = $compose->compose->forwardMessage($compose->ajax->forward_map[$this->vars->type], $compose->contents);
+            $fwd_msg = $compose->compose->forwardMessage($compose->ajax->forward_map[$this->_vars->type], $compose->contents);
 
-            if ($this->vars->dataonly) {
+            if ($this->_vars->dataonly) {
                 $result = $compose->ajax->getBaseResponse();
                 $result->body = $fwd_msg['body'];
                 $result->format = $fwd_msg['format'];
@@ -189,12 +189,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $ob = new stdClass;
 
-        $ob->compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->imp_compose);
-        $ob->ajax = new IMP_Ajax_Application_Compose($ob->compose, $this->vars->type);
+        $ob->compose = $injector->getInstance('IMP_Factory_Compose')->create($this->_vars->imp_compose);
+        $ob->ajax = new IMP_Ajax_Application_Compose($ob->compose, $this->_vars->type);
 
         if (!($ob->contents = $ob->compose->getContentsOb())) {
-            $ob->contents = $this->vars->uid
-                ? $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Form($this->vars->uid))
+            $ob->contents = $this->_vars->uid
+                ? $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Form($this->_vars->uid))
                 : null;
         }
 
@@ -253,7 +253,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             'qsearchmbox', 'rangeslice', 'requestid', 'sortby', 'sortdir'
         );
 
-        $vp = $this->vars->viewport;
+        $vp = $this->_vars->viewport;
 
         foreach ($params as $val) {
             $args[$val] = $vp->$val;
@@ -303,7 +303,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function showMessage()
     {
-        $indices = new IMP_Indices_Form($this->vars->uid);
+        $indices = new IMP_Indices_Form($this->_vars->uid);
         list($mbox, $uid) = $indices->getSingle();
 
         if (!$uid) {
@@ -313,7 +313,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result = new stdClass;
         $result->mbox = $mbox->form_to;
         $result->uid = $uid;
-        $result->view = $this->vars->view;
+        $result->view = $this->_vars->view;
 
         try {
             $change = $this->changed(true);
@@ -325,7 +325,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
              * ignored when the Ajax queue is processed. */
             $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($indices);
 
-            $this->queue->message($mbox, $uid, $this->vars->preview, $this->vars->peek);
+            $this->queue->message($mbox, $uid, $this->_vars->preview, $this->_vars->peek);
         } catch (Exception $e) {
             $result->error = $e->getMessage();
             $result->errortype = 'horde.error';
@@ -333,16 +333,16 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $change = true;
         }
 
-        if ($this->vars->preview || $this->_vars->viewport->force) {
+        if ($this->_vars->preview || $this->_vars->viewport->force) {
             if ($change) {
                 $this->addTask('viewport', $this->viewPortData(true));
-            } elseif ($this->mbox->cacheid_date != $this->vars->viewport->cacheid) {
+            } elseif ($this->mbox->cacheid_date != $this->_vars->viewport->cacheid) {
                 /* Cache ID has changed due to viewing this message. So update
                  * the cacheid in the ViewPort. */
                 $this->addTask('viewport', $this->viewPortOb());
             }
 
-            if ($this->vars->preview) {
+            if ($this->_vars->preview) {
                 $this->queue->poll($mbox);
             }
         }
@@ -371,7 +371,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         /* Only update search mailboxes on forced refreshes. */
         if ($this->mbox->search) {
-            return !empty($this->vars->forceUpdate);
+            return !empty($this->_vars->forceUpdate);
         }
 
         /* We know we are going to be dealing with this mailbox, so select it
@@ -385,7 +385,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
-        return ($this->mbox->cacheid_date != $this->vars->viewport->cacheid);
+        return ($this->mbox->cacheid_date != $this->_vars->viewport->cacheid);
     }
 
     /**
@@ -432,26 +432,26 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         /* Set up identity. */
         $identity = $injector->getInstance('IMP_Identity');
-        if (isset($this->vars->identity) &&
+        if (isset($this->_vars->identity) &&
             !$prefs->isLocked('default_identity')) {
-            $identity->setDefault($this->vars->identity);
+            $identity->setDefault($this->_vars->identity);
         }
 
         /* Set up the From address based on the identity. */
         $headers = array(
-            'from' => strval($identity->getFromLine(null, $this->vars->from))
+            'from' => strval($identity->getFromLine(null, $this->_vars->from))
         );
 
-        $headers['to'] = $this->vars->to;
+        $headers['to'] = $this->_vars->to;
         if ($prefs->getValue('compose_cc')) {
-            $headers['cc'] = $this->vars->cc;
+            $headers['cc'] = $this->_vars->cc;
         }
         if ($prefs->getValue('compose_bcc')) {
-            $headers['bcc'] = $this->vars->bcc;
+            $headers['bcc'] = $this->_vars->bcc;
         }
-        $headers['subject'] = $this->vars->subject;
+        $headers['subject'] = $this->_vars->subject;
 
-        $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);
+        $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
 
         $result = new stdClass;
         $result->action = $this->_action;
