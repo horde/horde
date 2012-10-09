@@ -12,6 +12,7 @@
     <strong><?php echo _("User") ?></strong>
    </h4>
   </th>
+  <th></th>
 <?php foreach ($this->rights as $v): ?>
   <th class="item" width="<?php echo $this->width ?>">
    <h4>
@@ -29,6 +30,19 @@
    <span class="prefsAclNegative"><?php echo $this->h($v['negative']) ?></span>
    <span class="prefsAclNegativeLabel"><?php echo _("Negative Right") ?></span>
 <?php endif; ?>
+  </td>
+  <td>
+   <select class="aclTemplate">
+    <option value=""><?php echo _("Templates") ?>:</option>
+    <option value="" disabled="disabled">- - - - - - - -</option>
+    <option value=""><?php echo _("None") ?></option>
+    <option value="lrs"><?php echo _("Read") ?></option>
+    <option value="lrsp"><?php echo _("Post") ?></option>
+    <option value="lrsip"><?php echo _("Append") ?></option>
+    <option value="lrswipkxte"><?php echo _("Write") ?></option>
+    <option value="lrxte"><?php echo _("Delete") ?></option>
+    <option value="lrswipkxte"><?php echo _("All") ?></option>
+   </select>
   </td>
 <?php foreach ($v['rule'] as $v2): ?>
   <td class="item" align="center">
@@ -52,6 +66,19 @@
    <input id="new_user" type="text" name="new_user" />
 <?php endif; ?>
   </td>
+  <td>
+   <select class="aclTemplate">
+    <option value=""><?php echo _("Templates") ?>:</option>
+    <option value="" disabled="disabled">- - - - - - - -</option>
+    <option value=""><?php echo _("None") ?></option>
+    <option value="lrs"><?php echo _("Read") ?></option>
+    <option value="lrsp"><?php echo _("Post") ?></option>
+    <option value="lrsip"><?php echo _("Append") ?></option>
+    <option value="lrswipkxte"><?php echo _("Write") ?></option>
+    <option value="lrxte"><?php echo _("Delete") ?></option>
+    <option value="lrswipkxte"><?php echo _("All") ?></option>
+   </select>
+  </td>
 <?php foreach ($this->rights as $v): ?>
   <td class="item" align="center">
    <?php echo $this->checkBoxTag('new_acl[]', $v['val']) ?>
@@ -62,10 +89,10 @@
 </table>
 <?php endif; ?>
 
-<div>
+<p>
  <span class="iconImg folderImg"></span>
  <select id="aclmbox" name="mbox">
   <?php echo $this->options ?>
  </select>
  <input type="submit" name="change_acl_mbox" id="change_acl_mbox" class="button" value="<?php echo _("Change") ?>" />
-</div>
+</p>

@@ -2,6 +2,7 @@
 v6.0.0-git
 ----------
 
+[mms] Add predefined templates to ACL management screen (Request #10648).
 [mms] Capture key shortcuts on dynamic mailbox page even if focus is on IFRAME
       HTML message data (Bug #11428).
 [mms] All IMP templates now use Horde_View.

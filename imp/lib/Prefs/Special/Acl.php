@@ -117,7 +117,7 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
         }
         $view->rights = $rights;
 
-        $view->width = round(100 / (count($rights) + 1)) . '%';
+        $view->width = round(100 / (count($rights) + 2)) . '%';
 
         return $view->render('acl');
     }

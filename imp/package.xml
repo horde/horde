@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add predefined templates to ACL management screen (Request #10648).
 * [mms] Capture key shortcuts on dynamic mailbox page even if focus is on IFRAME HTML message data (Bug #11428).
 * [mms] All IMP templates now use Horde_View.
 * [mms] Add swipe action buttons to the smartmobile mailbox page.
@@ -2739,6 +2740,7 @@
    <date>2012-09-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add predefined templates to ACL management screen (Request #10648).
 * [mms] Capture key shortcuts on dynamic mailbox page even if focus is on IFRAME HTML message data (Bug #11428).
 * [mms] All IMP templates now use Horde_View.
 * [mms] Add swipe action buttons to the smartmobile mailbox page.
