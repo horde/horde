@@ -741,6 +741,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::FETCH_ENVELOPE:
+                $rfc822 = new Horde_Mail_Rfc822();
                 foreach ($seq_ids as $id) {
                     $tmp = $this->_pop3Cache('hdrob', $id);
                     $results[$lookup[$id]]->setEnvelope(array(
@@ -749,9 +750,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                         'from' => $tmp->getOb('from'),
                         'sender' => $tmp->getOb('sender'),
                         'reply_to' => $tmp->getOb('reply-to'),
-                        'to' => $tmp->getOb('to'),
-                        'cc' => $tmp->getOb('cc'),
-                        'bcc' => $tmp->getOb('bcc'),
+                        'to' => $rfc822->parseAddressList(Horde_Mime_Address::addrArray2String($tmp->getOb('to'))),
+                        'cc' => $rfc822->parseAddressList(Horde_Mime_Address::addrArray2String($tmp->getOb('cc'))),
+                        'bcc' => $rfc822->parseAddressList(Horde_Mime_Address::addrArray2String($tmp->getOb('bcc'))),
                         'in_reply_to' => $tmp->getValue('in-reply-to'),
                         'message_id' => $tmp->getValue('message-id')
                     ));
