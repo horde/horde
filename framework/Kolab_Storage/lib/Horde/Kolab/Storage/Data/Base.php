@@ -350,7 +350,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         }
 
         $objects = array();
-        /* $this->_completeOptions($options); */
         $structures = $this->_driver->fetchStructure($this->_folder->getPath(), $uids);
         foreach ($structures as $uid => $structure) {
             if (!isset($structure['structure'])) {
@@ -362,20 +361,8 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             $object->setDriver($this->_driver);
             $object->load($uid, $this->_folder, $writer, $structure['structure']);
             $objects[$uid] = $object;
-            //$this->_warn($object);
         }
         return $objects;
-
-
-        return $this->_driver->fetch(
-            $this->_folder->getPath(),
-            $uids,
-            array(
-                'type' => $this->getType(),
-                'version' => $this->_version,
-                'raw' => $raw
-            )
-        );
     }
 
     /**
