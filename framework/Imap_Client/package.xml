@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-09</date>
- <time>09:46:29</time>
+ <time>09:46:55</time>
  <version>
-  <release>1.5.9</release>
+  <release>1.5.10</release>
   <api>1.5.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix POP3 regression that broken envelope data parsing (Bug #11477).
-* [mms] Fix outputting the host part when using Horde_Imap_Client_Utils#createUrl().
-* [mms] Fix obtaining UIDs for APPENDed messages when the server doesn&apos;t support APPENDUID.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -926,6 +924,19 @@
 * [mms] Fix POP3 regression that broken envelope data parsing (Bug #11477).
 * [mms] Fix outputting the host part when using Horde_Imap_Client_Utils#createUrl().
 * [mms] Fix obtaining UIDs for APPENDed messages when the server doesn&apos;t support APPENDUID.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.10</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
