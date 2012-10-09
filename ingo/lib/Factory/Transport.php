@@ -47,6 +47,10 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Injector
         try {
             $auth = Horde::callHook('transport_auth', array($transport), 'ingo');
         } catch (Horde_Exception_HookNotSet $e) {
+            $auth = null;
+        }
+
+        if (!is_array($auth)) {
             $auth = array();
         }
 
