@@ -494,6 +494,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         '[%s] Found changes!',
                         $this->_device->id)
                     );
+                    $this->_syncCache->lastuntil = time();
+                    $this->_syncCache->save();
                     break;
                 }
 
