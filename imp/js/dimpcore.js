@@ -168,20 +168,7 @@ var DimpCore = {
             return elt;
         }
 
-        alist.addr.each(function(o) {
-            var a = new Element('A', { className: 'horde-button' }).store({ email: o });
-            df.appendChild(a);
-
-            if (o.g) {
-                a.insert(o.g.escapeHTML());
-            } else if (o.p) {
-                a.writeAttribute({ title: o.b }).insert(o.p.escapeHTML());
-            } else if (o.b) {
-                a.insert(o.b.escapeHTML());
-            }
-
-            this.DMenu.addElement(a.identify(), 'ctx_contacts', { offset: a, left: true });
-        }, this);
+        this._buildAddressLinks(alist.addr, df);
 
         if (alist.addr.size() > 15) {
             tmp = $('largeaddrspan').clone(true).addClassName('largeaddrspan_active').writeAttribute({ id: null });
@@ -204,6 +191,32 @@ var DimpCore = {
         }
 
         return elt;
+    },
+
+    _buildAddressLinks: function(alist, df)
+    {
+        alist.each(function(o) {
+            var tmp,
+                a = new Element('A', { className: 'horde-button' }).store({ email: o });
+
+            if (o.g) {
+                a.insert(o.g.escapeHTML() + ':').addClassName('addrgroup-name');
+
+                tmp = new Element('DIV', { className: 'addrgroup-div' });
+                tmp.insert(a);
+                df.appendChild(tmp);
+
+                this._buildAddressLinks(o.a, tmp);
+            } else if (o.p) {
+                a.writeAttribute({ title: o.b }).insert(o.p.escapeHTML());
+                df.appendChild(a);
+            } else if (o.b) {
+                a.insert(o.b.escapeHTML());
+                df.appendChild(a);
+            }
+
+            this.DMenu.addElement(a.identify(), 'ctx_contacts', { offset: a, left: true });
+        }, this);
     },
 
     /* Add message log info to message view. */

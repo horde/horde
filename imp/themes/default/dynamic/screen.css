@@ -731,6 +731,15 @@ span.attachmentImg {
     padding: 1px 3px;
     margin: -2px 1px 0 0;
 }
+.msgHeaders a.addrgroup-name {
+    font-weight: bold;
+}
+.msgHeaders div.addrgroup-div {
+    background-color: #aaa;
+    display: -moz-inline-stack;
+    display: inline-block;
+    padding: 4px 2px 3px;
+}
 
 /* Drag and drop styles. */
 .drag, .dragdrop, .mboxdrag, .msgdrag {
