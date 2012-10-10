@@ -507,7 +507,10 @@ class IMP
 
         $strings = $quotaDriver->getMessages();
         list($calc, $unit) = $quotaDriver->getUnit();
-        $ret = array('percent' => 0);
+        $ret = array(
+            'class' => '',
+            'percent' => 0
+        );
 
         if ($quota['limit'] != 0) {
             $quota['usage'] = $quota['usage'] / $calc;

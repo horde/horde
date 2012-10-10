@@ -426,7 +426,7 @@ $f_list = array();
 foreach ($filters as $key => $val) {
     $f_list[] = array(
         'l' => $val['label'],
-        'val' => $key
+        'v' => $key
     );
     $types[$key] = 'filter';
 }
