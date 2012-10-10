@@ -7,30 +7,17 @@
 
 var Horde_ToolTips =
 {
-    // Vars used and defaulting to null: element, timeout
+    // Vars used and defaulting to null: attached, timeout
 
     attachBehavior: function()
     {
-        $$('a').each(this.attach.bind(this));
-    },
-
-    attach: function(e)
-    {
-        if (e.hasAttribute('nicetitle')) {
-            e.writeAttribute('title')
-                .observe('mouseover', this.onMouseover.bindAsEventListener(this))
-                .observe('mouseout', this.out.bind(this))
-                .observe('focus', this.onFocus.bindAsEventListener(this))
-                .observe('blur', this.out.bind(this));
+        if (!this.attached) {
+            document.on('mouseover', 'a[nicetitle]', this.onMouseover.bindAsEventListener(this));
+            document.on('mouseout', 'a[nicetitle]', this.out.bind(this));
+            document.on('focus', 'a[nicetitle]', this.onFocus.bindAsEventListener(this));
+            document.on('blur', 'a[nicetitle]', this.out.bind(this));
+            this.attached = true;
         }
-    },
-
-    detach: function(e)
-    {
-        e.stopObserving('mouseover');
-        e.stopObserving('mouseout');
-        e.stopObserving('focus');
-        e.stopObserving('blur');
     },
 
     onMouseover: function(e)
@@ -48,9 +35,7 @@ var Horde_ToolTips =
         if (this.timeout) {
             clearTimeout(this.timeout);
         }
-
-        this.element = e.element();
-        this.timeout = this.show.bind(this, p).delay(0.3);
+        this.timeout = this.show.bind(this, e, p).delay(0.3);
     },
 
     out: function()
@@ -66,9 +51,9 @@ var Horde_ToolTips =
         }
     },
 
-    show: function(pos)
+    show: function(e, pos)
     {
-        var left, link, nicetitle, w,
+        var left, w,
             d = $('toolTip'),
             s_offset = document.viewport.getScrollOffsets(),
             v_dimens = document.viewport.getDimensions();
@@ -77,17 +62,14 @@ var Horde_ToolTips =
             this.out();
         }
 
-        link = this.element;
-        while (link && !link.hasAttribute('nicetitle')) {
-            link = link.up();
-        }
-
         if (!d) {
-            d = new Element('DIV', { id: 'toolTip', className: 'nicetitle' }).hide();
+            d = new Element('DIV', {
+                id: 'toolTip', className: 'nicetitle'
+            }).hide();
             $(document.body).insert(d);
         }
 
-        d.update('<pre>' + link.readAttribute('nicetitle').evalJSON(true).invoke('toString').invoke('escapeHTML').join("<br\>") + '</pre>');
+        d.update('<pre>' + e.element().readAttribute('nicetitle').evalJSON(true).invoke('toString').invoke('escapeHTML').join("<br\>") + '</pre>');
 
         // Make sure all of the tooltip is visible.
         left = pos[0] + 10;
@@ -108,6 +90,5 @@ var Horde_ToolTips =
 };
 
 if (typeof Horde_ToolTips_Autoload == 'undefined' || !Horde_ToolTips_Autoload) {
-    Event.observe(window, 'load', Horde_ToolTips.attachBehavior.bind(Horde_ToolTips));
-    Event.observe(window, 'unload', Horde_ToolTips.out.bind(Horde_ToolTips));
+    document.observe('dom:loaded', Horde_ToolTips.attachBehavior.bind(Horde_ToolTips));
 }

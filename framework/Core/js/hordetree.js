@@ -73,10 +73,6 @@ var Horde_Tree = Class.create({
         if (this.opts.options.alternate) {
             this.stripe();
         }
-
-        if (window.Horde_Tooltips) {
-            window.Horde_ToolTips.attachBehavior();
-        }
     },
 
     _buildHeader: function()

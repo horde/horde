@@ -1606,15 +1606,8 @@ KronolithCore = {
                 } else {
                     td.className = '';
                 }
-                if (td.retrieve('nicetitle')) {
-                    Horde_ToolTips.detach(td);
-                    td.store('nicetitle');
-                }
                 if (title) {
                     td.addClassName('kronolithHasEvents');
-                    td.store('nicetitle', title);
-                    td.observe('mouseover', Horde_ToolTips.onMouseover.bindAsEventListener(Horde_ToolTips));
-                    td.observe('mouseout', Horde_ToolTips.out.bind(Horde_ToolTips));
                     if (busyHours > 0) {
                         td.addClassName(this.getHeatmapClass(busyHours));
                         busyHours = 0;
@@ -6529,8 +6522,6 @@ KronolithCore = {
                 button.title = Kronolith.text.alerts;
                 button.removeClassName('kronolithClose');
             }
-            Horde_ToolTips.detach(button);
-            Horde_ToolTips.attach(button);
         }.bindAsEventListener(this));
     },
 
