@@ -232,7 +232,7 @@ var DimpBase = {
         }
 
         $('dimpmain_folder').hide();
-        $('dimpmain_iframe').update(DimpCore.text.loading).show();
+        $('dimpmain_iframe').show();
 
         switch (type) {
         case 'search':
@@ -243,8 +243,7 @@ var DimpBase = {
             this.setTitle(DimpCore.text.search);
             $('dimpmain_iframe').insert(
                 new Element('IFRAME', {
-                    className: 'iframe',
-                    src:  HordeCore.addURLParam(DimpCore.conf.URI_SEARCH, data)
+                    src: HordeCore.addURLParam(DimpCore.conf.URI_SEARCH, data)
                 }).setStyle({
                     height: document.viewport.getHeight() + 'px'
                 })

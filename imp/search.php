@@ -502,9 +502,6 @@ if ($dimp_view) {
     if (!$vars->edit_query) {
         $view->return_mailbox_val = sprintf(_("Return to %s"), $default_mailbox->display_html);
     }
-}
-
-if (!$dimp_view) {
     $page_output->topbar = $page_output->sidebar = false;
 }
 IMP::header(_("Search"));
