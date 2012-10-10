@@ -926,10 +926,16 @@ class Turba_Driver implements Countable
     }
 
     /**
-     * TODO
+     * Deletes all contacts from an address book.
+     *
+     * @param string $sourceName  The source to remove all contacts from.
+     *
+     * @return array  An array of UIDs that have been deleted.
+     * @throws Turba_Exception
      */
     protected function _deleteAll()
     {
+        return array();
     }
 
     /**

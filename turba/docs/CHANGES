@@ -2,6 +2,8 @@
 v4.0.0-git
 ----------
 
+[jan] Fix marking contacts as deleted in the history if deleting shared address
+      books (Bug #11480).
 [jan] Set gender field values literally to 'male' or 'female'.
 [jan] Drop preference which address books to display.
 [gwr] Mark the initial default share as such with the Kolab backend.

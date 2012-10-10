@@ -549,7 +549,10 @@ class Turba_Driver_Kolab extends Turba_Driver
     /**
      * Deletes all contacts from a specific address book.
      *
-     * @return array  An array of UIDs that have been deleted.
+     * @param string $sourceName  The source to remove all contacts from.
+     *
+     * @return array  An array of UIDs
+     * @throws Turba_Exception
      */
     protected function _deleteAll($sourceName = null)
     {

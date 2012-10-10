@@ -200,8 +200,9 @@ class Turba_Driver_Share extends Turba_Driver
     /**
      * Deletes all contacts from a specific address book.
      *
-     * @param string $sourceName  The source to delete all contacts from.
+     * @param string $sourceName  The source to remove all contacts from.
      *
+     * @return array  An array of UIDs
      * @throws Turba_Exception
      */
     protected function _deleteAll($sourceName = null)
@@ -209,7 +210,7 @@ class Turba_Driver_Share extends Turba_Driver
         if (is_null($sourceName)) {
             $sourceName = $this->getContactOwner();
         }
-        $this->_driver->_deleteAll($sourceName);
+        return $this->_driver->_deleteAll($sourceName);
     }
 
     /**
