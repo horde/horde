@@ -60,7 +60,7 @@ var Horde_ToolTips =
 
     out: function()
     {
-        var iframe, t = $('toolTip');
+        var t = $('toolTip');
 
         if (this.timeout) {
             clearTimeout(this.timeout);
@@ -68,17 +68,12 @@ var Horde_ToolTips =
 
         if (t) {
             t.hide();
-
-            iframe = $('iframe_tt');
-            if (iframe) {
-                iframe.hide();
-            }
         }
     },
 
     show: function(pos)
     {
-        var iframe, left, link, nicetitle, w,
+        var left, link, nicetitle, w,
             d = $('toolTip'),
             s_offset = document.viewport.getScrollOffsets(),
             v_dimens = document.viewport.getDimensions();
@@ -118,21 +113,6 @@ var Horde_ToolTips =
             left: Math.max(left, 5) + 'px',
             top: (pos[1] + 10) + 'px'
         }).show();
-
-        // IE 6 only.
-        if (Prototype.Browser.IE && !window.XMLHttpRequest) {
-            iframe = $('iframe_tt');
-            if (!iframe) {
-                iframe = new Element('IFRAME', { name: 'iframe_tt', id: 'iframe_tt', src: 'javascript:false;', scrolling: 'no', frameborder: 0 }).hide();
-                document.body.appendChild(iframe);
-            }
-            iframe.clonePosition(d).setStyle({
-                position: 'absolute',
-                display: 'block',
-                zIndex: 99
-            });
-            d.setStyle({ zIndex: 100 });
-        }
     }
 
 };
