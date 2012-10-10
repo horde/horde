@@ -37,6 +37,7 @@ var DimpBase = {
         splitbar_vert: 0,
         toggle_hdrs: 0
     },
+
     prefs_special: function(n) {
         switch (n) {
         case 'preview_old':
