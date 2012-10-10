@@ -593,7 +593,7 @@ class Turba_Api extends Horde_Registry_Api
         global $cfgSources, $injector, $prefs;
 
         /* Get default address book from user preferences. */
-        if (is_null($source) &&
+        if (empty($source) &&
             !($source = $prefs->getValue('default_dir'))) {
             /* On new installations default_dir is not set; use first source
              * instead. */
