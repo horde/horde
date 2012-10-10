@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Support &apos;emails&apos; attribute with ActiveSync.
 * [jan] Fix marking contacts as deleted in the history if deleting shared address books (Bug #11480).
 * [jan] Set gender field values literally to &apos;male&apos; or &apos;female&apos;.
 * [jan] Drop preference which address books to display.
@@ -1471,6 +1472,7 @@
    <date>2012-09-20</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Support &apos;emails&apos; attribute with ActiveSync.
 * [jan] Fix marking contacts as deleted in the history if deleting shared address books (Bug #11480).
 * [jan] Set gender field values literally to &apos;male&apos; or &apos;female&apos;.
 * [jan] Drop preference which address books to display.

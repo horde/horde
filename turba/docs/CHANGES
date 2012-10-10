@@ -2,6 +2,7 @@
 v4.0.0-git
 ----------
 
+[jan] Support 'emails' attribute with ActiveSync.
 [jan] Fix marking contacts as deleted in the history if deleting shared address
       books (Bug #11480).
 [jan] Set gender field values literally to 'male' or 'female'.

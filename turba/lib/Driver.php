@@ -2206,7 +2206,7 @@ class Turba_Driver implements Countable
                 if (!isset($hash['emails'])) {
                     $hash['emails'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                 } else {
-                    $hash['emails'] .= ', ' . Horde_Icalendar_Vcard::getBareEmail($item['value']);
+                    $hash['emails'] .= ',' . Horde_Icalendar_Vcard::getBareEmail($item['value']);
                 }
                 break;
 
@@ -2551,6 +2551,21 @@ class Turba_Driver implements Countable
                 $message->email3address = Horde_Icalendar_Vcard::getBareEmail($value);
                 break;
 
+            case 'emails':
+                $address = 1;
+                foreach (explode(',', $value) as $email) {
+                    while ($address <= 3 &&
+                           $message->{'email' . $address . 'address'}) {
+                        $address++;
+                    }
+                    if ($address > 3) {
+                        break;
+                    }
+                    $message->{'email' . $address . 'address'} = $email;
+                    $address++;
+                }
+                break;
+
             case 'imaddress':
                 try {
                     $message->imaddress = $value;
@@ -2736,15 +2751,18 @@ class Turba_Driver implements Countable
         }
 
         /* Email addresses */
+        $hash['emails'] = array();
         if (!$message->isGhosted('email1address')) {
-            $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($message->email1address);
+            $hash['emails'][] = $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($message->email1address);
         }
         if (!$message->isGhosted('email2address')) {
-            $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email2address);
+            $hash['emails'][] = $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email2address);
         }
         if (!$message->isGhosted('email3address')) {
-            $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email3address);
+            $hash['emails'][] = $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email3address);
         }
+        $hash['emails'] = implode(',', $hash['emails']);
+
         /* Categories */
         if (count($message->categories)) {
             $hash['category'] = implode('|', $message->categories);
