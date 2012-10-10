@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Turba H5 (4.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-08-29 13:30+0200\n"
-"PO-Revision-Date: 2012-09-19 17:14+0200\n"
+"PO-Revision-Date: 2012-10-10 15:22+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -1028,7 +1028,7 @@ msgstr "Nicht gefunden"
 
 #: config/attributes.php:430
 msgid "Notes"
-msgstr "Bemerkungen"
+msgstr "Notizen"
 
 #: config/prefs.php:136
 msgid "Number of items per page"
