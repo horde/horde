@@ -2,6 +2,8 @@
 v4.0.0-git
 ----------
 
+[jan] Support importing contacts via API if using 'emails' attributes (Bug
+      #8358).
 [jan] Support 'emails' attribute with ActiveSync.
 [jan] Fix marking contacts as deleted in the history if deleting shared address
       books (Bug #11480).

@@ -624,6 +624,9 @@ class Turba_Api extends Horde_Registry_Api
                 break;
 
             case 'array':
+                if (!isset($content['emails']) && isset($content['email'])) {
+                    $content['emails'] = $content['email'];
+                }
                 break;
 
             case 'text/x-vcard':
