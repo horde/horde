@@ -389,20 +389,24 @@ if ($browser->isMobile() &&
     $view->title = $title;
     $view->url = $vars->url;
 
-    /* Ensure that we are using the smartmobile status listener. */
-    $notification->detach('status');
-    $notification->attach('status', null, 'Horde_Core_Notification_Listener_SmartmobileStatus');
-    $notification->notify(array('listeners' => 'status'));
+    if ($browser->hasFeature('ajax')) {
+        $page_output->addScriptFile('smartmobile-login.js', 'horde');
 
-    $page_output->addScriptFile('smartmobile-login.js', 'horde');
+        /* Ensure that we are using the smartmobile status listener. */
+        $notification->detach('status');
+        $notification->attach('status', null, 'Horde_Core_Notification_Listener_SmartmobileStatus');
+
+        $view_type = $registry::VIEW_SMARTMOBILE;
+    } else {
+        $view_type = $registry::VIEW_MINIMAL;
+    }
+
     $page_output->header(array(
         'title' => $title,
-        'view' => $browser->hasFeature('javascript') ? $registry::VIEW_SMARTMOBILE : $registry::VIEW_MINIMAL
+        'view' => $view_type
     ));
+    $notification->notify(array('listeners' => 'status'));
     echo $view->render('smartmobile');
-    $page_output->footer(array(
-        'view' => $browser->hasFeature('javascript') ? $registry::VIEW_SMARTMOBILE : $registry::VIEW_MINIMAL
-    ));
 } else {
     if (!empty($js_files)) {
         foreach ($js_files as $val) {
@@ -416,5 +420,6 @@ if ($browser->isMobile() &&
         'title' => $title
     ));
     require $registry->get('templates', 'horde') . '/login/login.inc';
-    $page_output->footer();
 }
+
+$page_output->footer();

@@ -2,6 +2,8 @@
 v5.0.0-git
 ----------
 
+[mms] Show non-javascript enhanced login screen for non-smartmobile mobile
+      browsers (Bug #11215).
 [mms] Add version parameter to CSS/javascript file URLs to help with cache
       busting when these files change between releases.
 [mms] Add configuration option for maximum allowed session times.
