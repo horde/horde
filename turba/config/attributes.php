@@ -507,7 +507,7 @@ $attributes['gender'] = array(
     'label' => _("Gender"),
     'type' => 'enum',
     'required' => false,
-    'params' => array('values' => array(_("male"), _("female")), 'prompt' => true),
+    'params' => array('values' => array('male' => _("male"), 'female' => _("female")), 'prompt' => true),
 );
 $attributes['language'] = array(
     'label' => _("Language"),

@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Set gender field values literally to &apos;male&apos; or &apos;female&apos;.
 * [jan] Drop preference which address books to display.
 * [gwr] Mark the initial default share as such with the Kolab backend.
 * [gwr] Always mark the initial share as default addressbook.
@@ -1469,6 +1470,7 @@
    <date>2012-09-20</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Set gender field values literally to &apos;male&apos; or &apos;female&apos;.
 * [jan] Drop preference which address books to display.
 * [gwr] Mark the initial default share as such with the Kolab backend.
 * [gwr] Always mark the initial share as default addressbook.
