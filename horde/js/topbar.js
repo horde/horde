@@ -54,6 +54,9 @@ var HordeTopbar = {
                 container = new Element('DIV', { className: nodes[root_node].class });
             if (nodes[root_node].url) {
                 elm = new Element('A', { className: 'horde-mainnavi' + active, href: nodes[root_node].url });
+                if (nodes[root_node].onclick) {
+                    elm.writeAttribute('onclick', nodes[root_node].onclick);
+                }
                 container.insert(elm);
             } else {
                 elm = container;
@@ -87,6 +90,9 @@ var HordeTopbar = {
             container = new Element('DIV', { className: 'horde-drowdown-str' });
             if (nodes[child].url) {
                 elm = new Element('A', { className: 'horde-mainnavi', href: nodes[child].url });
+                if (nodes[child].onclick) {
+                    elm.writeAttribute('onclick', nodes[child].onclick);
+                }
                 container.insert(elm);
             } else {
                 elm = container;
