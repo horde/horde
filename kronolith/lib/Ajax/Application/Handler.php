@@ -59,17 +59,19 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
         }
 
         // Resources
-        foreach (Kronolith::getDriver('Resource')->listResources() as $resource) {
-            if ($resource->get('type') != Kronolith_Resource::TYPE_GROUP) {
-                $rcal = new Kronolith_Calendar_Resource(array(
-                    'resource' => $resource
-                ));
-                $result->calendars['resource'][$resource->get('calendar')] = $rcal->toHash();
-            } else {
-                $rcal = new Kronolith_Calendar_ResourceGroup(array(
-                    'resource' => $resource
-                ));
-                $result->calendars['resourcegroup'][$resource->getId()] = $rcal->toHash();
+        if (!empty($GLOBALS['conf']['resource']['driver'])) {
+            foreach (Kronolith::getDriver('Resource')->listResources() as $resource) {
+                if ($resource->get('type') != Kronolith_Resource::TYPE_GROUP) {
+                    $rcal = new Kronolith_Calendar_Resource(array(
+                        'resource' => $resource
+                    ));
+                    $result->calendars['resource'][$resource->get('calendar')] = $rcal->toHash();
+                } else {
+                    $rcal = new Kronolith_Calendar_ResourceGroup(array(
+                        'resource' => $resource
+                    ));
+                    $result->calendars['resourcegroup'][$resource->getId()] = $rcal->toHash();
+                }
             }
         }
 
