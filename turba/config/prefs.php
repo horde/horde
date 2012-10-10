@@ -162,7 +162,7 @@ $_prefs['default_dir'] = array(
     'desc' => _("This will be the default address book when adding or importing contacts."),
     'on_init' => function($ui) {
         $enum = array();
-        foreach ($GLOBALS['cfgSources'] as $key => $info) {
+        foreach (Turba::getAddressBooks(Horde_Perms::EDIT) as $key => $info) {
             $enum[$key] = $info['title'];
         }
         $ui->prefs['default_dir']['enum'] = $enum;
