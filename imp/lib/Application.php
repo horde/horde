@@ -421,10 +421,10 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
-                                 array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree,
+                                 $parent = null, array $params = array())
     {
-        global $injector;
+        global $injector, $registry;
 
         IMP_Mailbox::get('INBOX')->filterOnDisplay();
 
@@ -443,6 +443,16 @@ class IMP_Application extends Horde_Registry_Application
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
+            switch ($registry->getView()) {
+            case $registry::VIEW_DYNAMIC:
+                $url = Horde::url('dynamic.php')->add('page', 'mailbox')->setAnchor('search');
+                break;
+
+            default:
+                $url = Horde::url('search.php');
+                break;
+            }
+
             $tree->addNode(array(
                 'id' => strval($parent) . 'search',
                 'parent' => $parent,
@@ -450,7 +460,7 @@ class IMP_Application extends Horde_Registry_Application
                 'expanded' => false,
                 'params' => array(
                     'icon' => Horde_Themes::img('search.png'),
-                    'url' => Horde::url('search.php')
+                    'url' => $url
                 )
             ));
         }
