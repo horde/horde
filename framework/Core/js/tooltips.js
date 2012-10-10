@@ -16,18 +16,13 @@ var Horde_ToolTips =
 
     attach: function(e)
     {
-        var t = e.readAttribute('title');
-        if (!t) {
-            return;
+        if (e.hasAttribute('nicetitle')) {
+            e.writeAttribute('title')
+                .observe('mouseover', this.onMouseover.bindAsEventListener(this))
+                .observe('mouseout', this.out.bind(this))
+                .observe('focus', this.onFocus.bindAsEventListener(this))
+                .observe('blur', this.out.bind(this));
         }
-        e.store('nicetitle', t);
-        try {
-            e.removeAttribute('title');
-        } catch (e) {}
-        e.observe('mouseover', this.onMouseover.bindAsEventListener(this));
-        e.observe('mouseout', this.out.bind(this));
-        e.observe('focus', this.onFocus.bindAsEventListener(this));
-        e.observe('blur', this.out.bind(this));
     },
 
     detach: function(e)
@@ -83,21 +78,16 @@ var Horde_ToolTips =
         }
 
         link = this.element;
-        while (!link.retrieve('nicetitle') && link.match('BODY')) {
+        while (link && !link.hasAttribute('nicetitle')) {
             link = link.up();
-        }
-
-        nicetitle = link.retrieve('nicetitle');
-        if (!nicetitle) {
-            return;
         }
 
         if (!d) {
             d = new Element('DIV', { id: 'toolTip', className: 'nicetitle' }).hide();
-            document.body.appendChild(d);
+            $(document.body).insert(d);
         }
 
-        d.update(nicetitle);
+        d.update('<pre>' + link.readAttribute('nicetitle').evalJSON(true).invoke('toString').invoke('escapeHTML').join("<br\>") + '</pre>');
 
         // Make sure all of the tooltip is visible.
         left = pos[0] + 10;

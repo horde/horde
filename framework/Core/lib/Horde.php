@@ -889,18 +889,19 @@ class Horde
     }
 
     /**
-     * Uses DOM Tooltips to display the 'title' attribute for
-     * link() calls.
+     * Uses DOM Tooltips to display the 'title' attribute for link() calls.
      *
      * @param string $url        The full URL to be linked to
      * @param string $status     The JavaScript mouse-over string
      * @param string $class      The CSS class of the link
      * @param string $target     The window target to point to.
      * @param string $onclick    JavaScript action for the 'onclick' event.
-     * @param string $title      The link title (tooltip).
+     * @param string $title      The link title (tooltip). Most not contain
+     *                           HTML data other than &lt;br&gt;, which will
+     *                           be converted to a linebreak.
      * @param string $accesskey  The access key to use.
-     * @param array  $attributes Any other name/value pairs to add to the <a>
-     *                           tag.
+     * @param array  $attributes Any other name/value pairs to add to the
+     *                           &lt;a&gt; tag.
      *
      * @return string  The full <a href> tag.
      */
@@ -909,8 +910,9 @@ class Horde
                                        $title = '', $accesskey = '',
                                        $attributes = array())
     {
-        if (!empty($title)) {
-            $title = '&lt;pre&gt;' . preg_replace(array('/\n/', '/((?<!<br)\s{1,}(?<!\/>))/em', '/<br \/><br \/>/', '/<br \/>/'), array('', 'str_repeat("&nbsp;", strlen("$1"))', '&lt;br /&gt; &lt;br /&gt;', '&lt;br /&gt;'), nl2br(htmlspecialchars(htmlspecialchars($title)))) . '&lt;/pre&gt;';
+        if (strlen($title)) {
+            $attributes['nicetitle'] = Horde_Serialize::serialize(explode("\n", preg_replace('/<br\s*\/?\s*>/', "\n", $title)), Horde_Serialize::JSON);
+            $title = null;
             $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tooltips.js', 'horde');
         }
 
