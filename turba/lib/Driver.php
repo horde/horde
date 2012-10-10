@@ -2673,7 +2673,7 @@ class Turba_Driver implements Countable
     {
         $hash = array();
 
-        $textMap = array(
+        $map = array(
             'fileas' => 'name',
             'lastname' => 'lastname',
             'firstname' => 'firstname',
@@ -2701,26 +2701,7 @@ class Turba_Driver implements Countable
             'assistantname' => 'assistant',
             'imaddress' => 'imaddress',
             'imaddress2' => 'imaddress2',
-            'imaddress3' => 'imaddress3'
-        );
-        foreach ($textMap as $asField => $turbaField) {
-            if (!$message->isGhosted($asField)) {
-                try {
-                    $hash[$turbaField] = $message->{$asField};
-                } catch (InvalidArgumentException $e) {
-                }
-            }
-        }
-
-        try {
-            if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
-                $hash['notes'] = $message->airsyncbasebody->data;
-            } else {
-                $hash['notes'] = $message->body;
-            }
-        } catch (InvalidArgumentException $e) {}
-
-        $nonTextMap = array(
+            'imaddress3' => 'imaddress3',
             'homephonenumber' => 'homePhone',
             'home2phonenumber' => 'homePhone2',
             'businessphonenumber' => 'workPhone',
@@ -2734,7 +2715,7 @@ class Turba_Driver implements Countable
             'companymainphone' => 'companyPhone',
             'radiophonenumber' => 'radioPhone'
         );
-        foreach ($nonTextMap as $asField => $turbaField) {
+        foreach ($map as $asField => $turbaField) {
             if (!$message->isGhosted($asField)) {
                 try {
                     $hash[$turbaField] = $message->{$asField};
@@ -2744,6 +2725,14 @@ class Turba_Driver implements Countable
         }
 
         /* Requires special handling */
+
+        try {
+            if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_TWELVE) {
+                $hash['notes'] = $message->airsyncbasebody->data;
+            } else {
+                $hash['notes'] = $message->body;
+            }
+        } catch (InvalidArgumentException $e) {}
 
         // picture ($message->picture *should* already be base64 encdoed)
         if (!$message->isGhosted('picture')) {
