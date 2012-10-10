@@ -167,7 +167,7 @@ var DimpBase = {
             row_data = row.get('dataob').first();
             if (!curr_row || row_data.uid != curr_row.uid) {
                 this.viewport.scrollTo(row_data.VP_rownum, { bottom: bottom });
-                this.viewport.select(row, { delay: 0.3 });
+                this.viewport.select(row, { delay: 0.5 });
             }
         } else if (curr) {
             this.rownum = curr;
