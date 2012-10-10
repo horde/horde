@@ -1016,9 +1016,9 @@ $_prefs['add_source'] = array(
     'suppress' => function() {
         try {
             $GLOBALS['registry']->call('contacts/sources', array(true));
-            return true;
+            return false;
         } catch (Horde_Exception $e) {}
-        return false;
+        return true;
     },
     'on_init' => function($ui) {
         $ui->prefs['add_source']['enum'] = $GLOBALS['registry']->call('contacts/sources', array(true));
