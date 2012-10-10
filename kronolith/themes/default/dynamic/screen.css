@@ -52,7 +52,7 @@ html, body {
 /* Left menu column */
 #kronolithMenu {
     position: absolute;
-    top: 266px;
+    top: 280px;
     bottom: 0;
     width: 100%;
     overflow-x: hidden;
