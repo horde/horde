@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: IMP H5 (6.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-08-29 13:30+0200\n"
-"PO-Revision-Date: 2012-10-01 12:25+0200\n"
+"PO-Revision-Date: 2012-10-10 10:39+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -132,7 +132,7 @@ msgstr "%d ungelesen"
 #: lib/Search/Element/Header.php:49
 #, php-format
 msgid "%s (Header) for '%s'"
-msgstr "%s (Kopfeintrag) für '%s'"
+msgstr "%s (Nachrichtenkopf) nach '%s'"
 
 #: lib/Contents.php:747 lib/Ui/Mailbox.php:115
 #, php-format
