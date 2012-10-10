@@ -242,7 +242,7 @@ class IMP_Application extends Horde_Registry_Application
             $menu->addArray(array(
                 'icon' => 'imp-folder',
                 'text' => _("_Folders"),
-                'url' => Horde::url('folders.php')->unique()
+                'url' => Horde::url('folders.php')
             ));
         }
 
