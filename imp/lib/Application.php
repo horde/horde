@@ -443,9 +443,13 @@ class IMP_Application extends Horde_Registry_Application
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
+            $onclick = null;
             switch ($registry->getView()) {
             case $registry::VIEW_DYNAMIC:
-                $url = Horde::url('dynamic.php')->add('page', 'mailbox')->setAnchor('search');
+                $url = Horde::url('dynamic.php')
+                    ->add('page', 'mailbox')
+                    ->setAnchor('search');
+                $onclick = 'if (DimpBase) DimpBase.go(\'search\');';
                 break;
 
             default:
@@ -460,7 +464,8 @@ class IMP_Application extends Horde_Registry_Application
                 'expanded' => false,
                 'params' => array(
                     'icon' => Horde_Themes::img('search.png'),
-                    'url' => $url
+                    'url' => $url,
+                    'onclick' => $onclick,
                 )
             ));
         }
