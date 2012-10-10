@@ -2540,15 +2540,15 @@ class Turba_Driver implements Countable
                 break;
 
             case 'email':
-                $message->email1address = Horde_Icalendar_Vcard::getBareEmail($value);
+                $message->email1address = $value;
                 break;
 
             case 'homeEmail':
-                $message->email2address = Horde_Icalendar_Vcard::getBareEmail($value);
+                $message->email2address = $value;
                 break;
 
             case 'workEmail':
-                $message->email3address = Horde_Icalendar_Vcard::getBareEmail($value);
+                $message->email3address = $value;
                 break;
 
             case 'emails':
