@@ -454,20 +454,29 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
         $style->import = array();
 
+        $style_blocked = clone $style;
+        $was_blocked = false;
+
         foreach ($style->css as $key => $val) {
             foreach ($val as $key2 => $val2) {
                 foreach ($val2 as $key3 => $val3) {
                     foreach ($val3['p'] as $key4 => $val4) {
                         if (preg_match('/^\s*url\(["\']?.*?["\']?\)/i', $val4)) {
-                            $blocked[] = $key2 . '{' . $key3 . ':' . $val4 . ';}';
-                            unset($style->css[$key][$key2][$key3]['p'][$key4]);
+                            $was_blocked = true;
+                            unset($style->css[$key][$key2]);
+                            break 3;
                         }
                     }
                 }
+                unset($style_blocked->css[$key][$key2]);
             }
         }
 
         $css_text = $style->print->plain();
+
+        if ($was_blocked) {
+            $blocked[] = $style_blocked->print->plain();
+        }
 
         if ($css_text || !empty($blocked)) {
             /* Gets the HEAD element or creates one if it doesn't exist. */
