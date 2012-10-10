@@ -46,6 +46,13 @@ class Turba_Driver_Kolab extends Turba_Driver
     protected $_share;
 
     /**
+     * The cached contacts.
+     *
+     * @var array
+     */
+    protected $_contacts_cache;
+
+    /**
      * What can this backend do?
      *
      * @var array
@@ -91,8 +98,6 @@ class Turba_Driver_Kolab extends Turba_Driver
 
         if (isset($hash['name'])) {
             $hash['name'] = array('full-name' => $hash['name']);
-        } else {
-            $hash['name'] = array();
         }
         /* TODO: use Horde_Kolab_Format_Xml_Type_Composite_Name */
         foreach (array('given-name', 'middle-names', 'last-name', 'initials',
@@ -173,6 +178,7 @@ class Turba_Driver_Kolab extends Turba_Driver
         }
         $contacts = array();
         foreach ($raw_contacts as $id => $contact) {
+            $contact = clone $contact;
             if (isset($contact['email'])) {
                 unset($contact['email']);
             }
@@ -605,13 +611,16 @@ class Turba_Driver_Kolab extends Turba_Driver
         }
 
         if ($object_id === null) {
-            $result = $this->_getData()->create($attributes);
+            $object_id = $this->_getData()->create($attributes);
         } else {
-            $result = $this->_getData()->modify($attributes);
+            $object_id = $this->_getData()->modify($attributes);
         }
-        if ($group) {
+        /* if ($group) {
             $result = $this->_store->setObjectType('contact');
-        }
+        } */
+
+        /* Invalidate cache. */
+        $this->_connected = false;
 
         return $object_id;
     }
