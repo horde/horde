@@ -210,7 +210,7 @@ extends Horde_Kolab_Storage_Driver_Base
     public function deleteAcl($folder, $user)
     {
         try {
-            $this->getBackend()->setACL($folder, $user, array('remove' => true));
+            $this->getBackend()->deleteACL($folder, $user);
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             throw new Horde_Kolab_Storage_Exception($e->details);
         } catch (Horde_Imap_Client_Exception $e) {

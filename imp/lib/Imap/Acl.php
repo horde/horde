@@ -70,9 +70,9 @@ class IMP_Imap_Acl
         }
 
         try {
-            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->setACL($mbox, $user, array(
-                'rights' => $rights
-            ));
+            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')
+                ->create()
+                ->setACL($mbox, $user, array('rights' => $rights, 'action' => 'add'));
         } catch (IMP_Imap_Exception $e) {
             throw new IMP_Exception(sprintf(_("Could not add rights for user \"%s\" for the mailbox \"%s\"."), $user, $mbox));
         }
@@ -91,10 +91,9 @@ class IMP_Imap_Acl
     public function removeRights(IMP_Mailbox $mbox, $user, $rights)
     {
         try {
-            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->setACL($mbox, $user, array(
-                'remove' => true,
-                'rights' => $rights
-            ));
+            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')
+                ->create()
+                ->setACL($mbox, $user, array('rights' => $rights, 'action' => 'remove'));
         } catch (IMP_Imap_Exception $e) {
             throw new IMP_Exception(sprintf(_("Could not remove rights for user \"%s\" for the mailbox \"%s\"."), $user, $mbox));
         }
