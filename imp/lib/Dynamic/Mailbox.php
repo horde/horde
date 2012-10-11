@@ -44,7 +44,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-        $this->view->filter_avail = $session->get('imp', 'filteravail');
+        $this->view->filter_avail = IMP::applyFilters();
         $this->view->show_folders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
         $this->view->show_notspam = !empty($conf['notspam']['reporting']);
         $this->view->show_search = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);

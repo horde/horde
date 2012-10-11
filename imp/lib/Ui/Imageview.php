@@ -25,7 +25,7 @@ class IMP_Ui_Imageview
      */
     public function showInlineImage(IMP_Contents $contents)
     {
-        global $injector, $prefs, $registry, $session;
+        global $injector, $prefs, $registry;
 
         if (!$prefs->getValue('image_replacement')) {
             return true;
@@ -36,7 +36,7 @@ class IMP_Ui_Imageview
             return false;
         }
 
-        if ($session->get('imp', 'csearchavail')) {
+        if ($registry->hasMethod('contacts/search')) {
             $sparams = $injector->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
             $res = $registry->call('contacts/search', array($from->bare_addresses, array(
                 'fields' => $sparams['fields'],

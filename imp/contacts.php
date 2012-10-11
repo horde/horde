@@ -25,7 +25,7 @@ require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('authentication' => 'horde'));
 
 /* Sanity checking. */
-if (!$session->get('imp', 'csearchavail')) {
+if (!$registry->hasMethod('contacts/search')) {
     $e = new IMP_Exception('Addressbook not available on this system.');
     $e->logged = true;
     throw $e;

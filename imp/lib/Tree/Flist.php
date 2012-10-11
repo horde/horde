@@ -64,7 +64,7 @@ class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
      */
     public function getTree($static = false)
     {
-        global $injector, $registry;
+        global $conf, $injector, $registry;
 
         $this->_nodes = $this->_tree->getNodes();
 
@@ -118,7 +118,8 @@ class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
 
         /* Add the list of editable tasklists to the list. */
         if ($this->getOption('inc_tasklists') &&
-            $GLOBALS['session']->get('imp', 'tasklistavail')) {
+            $conf['tasklist']['use_tasklist'] &&
+            $registry->hasMethod('tasks/listTasklists')) {
             try {
                 $tasklists = $registry->call('tasks/listTasklists', array(false, Horde_Perms::EDIT));
 
@@ -137,7 +138,8 @@ class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
 
         /* Add the list of editable notepads to the list. */
         if ($this->getOption('inc_notepads') &&
-            $GLOBALS['session']->get('imp', 'notepadavail')) {
+            $conf['notepad']['use_notepad'] &&
+            $registry->hasMethod('notes/listNotepads')) {
             try {
                 $notepads = $registry->call('notes/listNotepads', array(false, Horde_Perms::EDIT));
 

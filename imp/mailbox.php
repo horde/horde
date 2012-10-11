@@ -227,7 +227,7 @@ $mailbox_token = $injector->getInstance('Horde_Token')->get('imp.mailbox');
 
 /* Deal with filter options. */
 if (!$readonly &&
-    $session->get('imp', 'filteravail') &&
+    IMP::applyFilters() &&
     !IMP::mailbox()->filterOnDisplay() &&
     (IMP::mailbox()->inbox ||
      ($prefs->getValue('filter_any_mailbox') && !$search_mbox))) {

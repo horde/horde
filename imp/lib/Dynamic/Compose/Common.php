@@ -160,7 +160,7 @@ class IMP_Dynamic_Compose_Common
      */
     protected function _addComposeVars($base)
     {
-        global $browser, $conf, $prefs, $session;
+        global $browser, $conf, $prefs, $registry;
 
         /* Context menu definitions. */
         $base->js_context['ctx_msg_other'] = new stdClass;
@@ -192,7 +192,7 @@ class IMP_Dynamic_Compose_Common
             'templates_mbox' => $templates_mbox ? $templates_mbox->form_to : null
         ));
 
-        if ($session->get('imp', 'csearchavail')) {
+        if ($registry->hasMethod('contacts/search')) {
             $base->js_conf['URI_ABOOK'] = strval(Horde::url('contacts.php'));
         }
 
