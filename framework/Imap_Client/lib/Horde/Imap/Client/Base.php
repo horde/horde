@@ -1521,11 +1521,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $mailbox = Horde_Imap_Client_Mailbox::get($mailbox);
         $ret = array();
+        $smailbox = strval($mailbox);
 
         /* Check for cached information. */
         if ($mailbox->equals($this->_selected) &&
-            isset($this->_temp['statuscache'][strval($mailbox)])) {
-            $ptr = &$this->_temp['statuscache'][strval($mailbox)];
+            isset($this->_temp['statuscache'][$smailbox])) {
+            $ptr = &$this->_temp['statuscache'][$smailbox];
 
             foreach ($unselected_flags as $key => $val) {
                 if (($flags & $val) && isset($ptr[$key])) {
@@ -1552,8 +1553,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if ($flags & Horde_Imap_Client::STATUS_LASTMODSEQ) {
             $ret['lastmodseq'] = 0;
             if (isset($this->_init['enabled']['CONDSTORE']) &&
-                isset($this->_temp['lastmodseq'][strval($mailbox)])) {
-                $ret['lastmodseq'] = $this->_temp['lastmodseq'][strval($mailbox)];
+                isset($this->_temp['lastmodseq'][$smailbox])) {
+                $ret['lastmodseq'] = $this->_temp['lastmodseq'][$smailbox];
             }
             $flags &= ~Horde_Imap_Client::STATUS_LASTMODSEQ;
         }
@@ -1561,8 +1562,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if ($flags & Horde_Imap_Client::STATUS_LASTMODSEQUIDS) {
             $ret['lastmodsequids'] = array();
             if (isset($this->_init['enabled']['CONDSTORE']) &&
-                isset($this->_temp['lastmodsequids'][strval($mailbox)])) {
-                $ret['lastmodsequids'] = $this->utils->fromSequenceString($this->_temp['lastmodsequids'][strval($mailbox)]);
+                isset($this->_temp['lastmodsequids'][$smailbox])) {
+                $ret['lastmodsequids'] = $this->utils->fromSequenceString($this->_temp['lastmodsequids'][$smailbox]);
             }
             $flags &= ~Horde_Imap_Client::STATUS_LASTMODSEQUIDS;
         }
@@ -1584,8 +1585,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
             $ptr = &$this->_temp['statuscache'];
 
-            $ptr[strval($mailbox)] = isset($ptr[strval($mailbox)])
-                ? array_merge($ptr[strval($mailbox)], $ret)
+            $ptr[$smailbox] = isset($ptr[$smailbox])
+                ? array_merge($ptr[$smailbox], $ret)
                 : $ret;
         }
 
@@ -3569,7 +3570,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *             DEFAULT: Update all cache fields.
      *   - mailbox: (Horde_Imap_Client_Mailbox) The mailbox to update.
      *              DEFAULT: The selected mailbox.
-     *   - uidvalid: (integer) The UID Validity number.
+     *   - uidvalid: (integer) The UID validity number.
      *               DEFAULT: UIDVALIDITY discovered via a status() call.
      *
      * @throws Horde_Imap_Client_Exception
@@ -3680,9 +3681,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $metadata = $this->_cache->getMetaData($mailbox, $uidvalid, array(self::CACHE_MODSEQ));
             if (!isset($metadata[self::CACHE_MODSEQ]) ||
                 ($metadata[self::CACHE_MODSEQ] != $modseq)) {
-                    $this->_temp['lastmodseq'][strval($mailbox)] = isset($metadata[self::CACHE_MODSEQ])
-                        ? $metadata[self::CACHE_MODSEQ]
-                        : 0;
+                $this->_temp['lastmodseq'][strval($mailbox)] = isset($metadata[self::CACHE_MODSEQ])
+                    ? $metadata[self::CACHE_MODSEQ]
+                    : 0;
                 if (count($tocache)) {
                     $this->_temp['lastmodsequids'][strval($mailbox)] = $this->utils->toSequenceString(array_keys($tocache), array('nosort' => true));
                 }
