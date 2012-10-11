@@ -652,7 +652,6 @@ $cfgSources['kolab'] = array(
         'latitude'          => 'latitude',
         'longitude'         => 'longitude',
         /* Invisible */
-        'email'             => 'email',
         'pgpPublicKey'      => 'pgp-publickey',
     ),
     'tabs' => array(

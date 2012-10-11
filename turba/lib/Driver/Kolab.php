@@ -99,7 +99,17 @@ class Turba_Driver_Kolab extends Turba_Driver
         if (isset($hash['name'])) {
             $hash['name'] = array('full-name' => $hash['name']);
         }
-        /* TODO: use Horde_Kolab_Format_Xml_Type_Composite_Name */
+
+        if (isset($hash['emails'])) {
+            $list = new Horde_Mail_Rfc822_List($hash['emails']);
+            $hash['email'] = array();
+            foreach ($list as $address) {
+                $hash['email'][] = array('smtp-address' => $address->bare_address);
+            }
+            unset($hash['emails']);
+        }
+
+        /* TODO: use Horde_Kolab_Format_Xml_Type_Composite_* */
         foreach (array('given-name', 'middle-names', 'last-name', 'initials',
                        'prefix', 'suffix') as $sub) {
             if (isset($hash[$sub])) {
@@ -178,10 +188,7 @@ class Turba_Driver_Kolab extends Turba_Driver
         }
         $contacts = array();
         foreach ($raw_contacts as $id => $contact) {
-            $contact = clone $contact;
-            if (isset($contact['email'])) {
-                unset($contact['email']);
-            }
+            $contact = $contact->getData();
             if (isset($contact['picture'])) {
                 $name = $contact['picture'];
                 if (isset($contact['_attachments'][$name])) {
@@ -195,6 +202,18 @@ class Turba_Driver_Kolab extends Turba_Driver
                     $contact[$detail] = $value;
                 }
                 unset($contact['name']);
+            }
+            if (isset($contact['email'])) {
+                $contact['emails'] = array();
+                foreach ($contact['email'] as $email) {
+                    $contact['emails'][] = $email['smtp-address'];
+                }
+                if ($contact['emails']) {
+                    $contact['email'] = $contact['emails'][0];
+                } else {
+                    unset($contact['email']);
+                }
+                $contact['emails'] = implode(', ', $contact['emails']);
             }
             if (isset($contact['categories'])) {
                 if (empty($contact['categories'])) {
