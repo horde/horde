@@ -870,7 +870,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* Let the 'CLOSE' response code handle mailbox switching if QRESYNC
          * is active. */
-        if (empty($this->_temp['mailbox']['name']) ||
+        if (!isset($this->_temp['mailbox']['name']) ||
             (!$qresync && ($mailbox != $this->_temp['mailbox']['name']))) {
             $this->_temp['mailbox'] = array('name' => clone($mailbox));
             $this->_selected = clone($mailbox);
