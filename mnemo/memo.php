@@ -98,8 +98,9 @@ case 'modify_memo':
     $passphrase = Horde_Util::getFormData('memo_passphrase');
 
     /* Get the current note. */
-    $memo = Mnemo::getMemo($memolist_id, $memo_id, $passphrase);
-    if (!$memo || !isset($memo['memo_id'])) {
+    try {
+        Mnemo::getMemo($memolist_id, $memo_id, $passphrase);
+    } catch (Horde_Exception_NotFound $e) {
         $notification->push(_("Note not found."), 'horde.error');
         Horde::url('list.php', true)->redirect();
     }
