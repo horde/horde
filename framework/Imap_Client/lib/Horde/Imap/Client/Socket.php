@@ -3302,10 +3302,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // SETACL returns no untagged information (RFC 4314 [3.1]).
         $cmd = $this->_clientCommand(array(
             'SETACL',
-            array(
-                new Horde_Imap_Client_Data_Format_Mailbox($mailbox),
-                new Horde_Imap_Client_Data_Format_Astring($identifier)
-            ),
+            new Horde_Imap_Client_Data_Format_Mailbox($mailbox),
+            new Horde_Imap_Client_Data_Format_Astring($identifier),
             new Horde_Imap_Client_Data_Format_Astring($options['rights'])
         ));
 
@@ -3319,10 +3317,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // DELETEACL returns no untagged information (RFC 4314 [3.2]).
         $cmd = $this->_clientCommand(array(
             'DELETEACL',
-            array(
-                new Horde_Imap_Client_Data_Format_Mailbox($mailbox),
-                new Horde_Imap_Client_Data_Format_Astring($identifier)
-            )
+            new Horde_Imap_Client_Data_Format_Mailbox($mailbox),
+            new Horde_Imap_Client_Data_Format_Astring($identifier)
         ));
 
         $this->_sendLine($cmd);
