@@ -272,7 +272,7 @@ class Turba_Driver_Kolab extends Turba_Driver
         // keep only entries matching criteria
         $ids = array();
         foreach ($criteria as $key => $criteria) {
-            $ids[] = $this->_doSearch($criteria, strval($key), $this->_contacts_cache);
+            $ids[] = $this->_doSearch($criteria, strval($key));
         }
         $ids = $this->_removeDuplicated($ids);
 
@@ -293,20 +293,20 @@ class Turba_Driver_Kolab extends Turba_Driver
      *
      * @return array  Array containing the ids of the selected entries.
      */
-    protected function _doSearch($criteria, $glue, &$entries)
+    protected function _doSearch($criteria, $glue)
     {
         $ids = array();
 
         foreach ($criteria as $vals) {
             if (!empty($vals['OR'])) {
-                $ids[] = $this->_doSearch($vals['OR'], 'OR', $entries);
+                $ids[] = $this->_doSearch($vals['OR'], 'OR');
             } elseif (!empty($vals['AND'])) {
-                $ids[] = $this->_doSearch($vals['AND'], 'AND', $entries);
+                $ids[] = $this->_doSearch($vals['AND'], 'AND');
             } else {
                 /* If we are here, and we have a ['field'] then we
                  * must either do the 'AND' or the 'OR' search. */
                 if (isset($vals['field'])) {
-                    $ids[] = $this->_selectEntries($vals, $entries);
+                    $ids[] = $this->_selectEntries($vals);
                 } else {
                     foreach ($vals as $test) {
                         if (!empty($test['OR'])) {
@@ -334,17 +334,16 @@ class Turba_Driver_Kolab extends Turba_Driver
      * Applies one filter criterium to a list of entries
      *
      * @param $test          Test criterium
-     * @param &$entries       List of fields to return.
      *
      * @return array  Array containing the ids of the selected entries
      */
-    protected function _selectEntries($test, &$entries)
+    protected function _selectEntries($test)
     {
         $ids = array();
 
         if (!isset($test['field'])) {
             Horde::logMessage('Search field not set. Returning all entries.', 'DEBUG');
-            foreach ($entries as $entry) {
+            foreach ($this->_contacts_cache as $entry) {
                 $ids[] = $entry['uid'];
             }
         } else {
@@ -360,14 +359,14 @@ class Turba_Driver_Kolab extends Turba_Driver
                 $test['begin'] = false;
             }
             if (!isset($test['op']) || $test['op'] == '=') {
-                foreach ($entries as $entry) {
+                foreach ($this->_contacts_cache as $entry) {
                     if (isset($entry[$field]) && $entry[$field] == $value) {
                         $ids[] = $entry['uid'];
                     }
                 }
             } else {
                 // 'op' is LIKE
-                foreach ($entries as $entry) {
+                foreach ($this->_contacts_cache as $entry) {
                     if (empty($value) ||
                         (isset($entry[$field]) &&
                          !empty($test['begin']) &&
@@ -548,12 +547,12 @@ class Turba_Driver_Kolab extends Turba_Driver
             throw new Turba_Exception(sprintf('Key for saving must be a UID not %s!', $object_key));
         }
 
-        if (!in_array($object_id, array_keys($this->_contacts_cache))) {
+        if (!isset($this->_contacts_cache[$object_id])) {
             throw new Turba_Exception(sprintf(_("Object with UID %s does not exist!"), $object_id));
         }
 
-        $group = (isset($this->_contacts_cache[$object_id]['__type']) &&
-                  $this->_contacts_cache[$object_id]['__type'] == 'Group');
+        $group = isset($this->_contacts_cache[$object_id]['__type']) &&
+            $this->_contacts_cache[$object_id]['__type'] == 'Group';
 
         if ($group) {
             //@todo: group support
