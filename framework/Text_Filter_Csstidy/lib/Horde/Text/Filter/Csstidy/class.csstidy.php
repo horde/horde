@@ -254,6 +254,14 @@ class csstidy {
     }
 
     /**
+     */
+    public function __clone()
+    {
+        $this->print = new csstidy_print($this);
+        $this->optimise = new csstidy_optimise($this);
+    }
+
+    /**
      * Get the value of a setting.
      * @param string $setting
      * @access public
