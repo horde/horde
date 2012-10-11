@@ -51,6 +51,10 @@ logging any errors.
       Horde_Imap_Client_Mailbox object.
       The $options parameter has been removed.
 
+    - deleteACL()
+
+      This method has been added.
+
     - deleteMailbox()
 
       The $mailbox parameter can no longer be a UTF7-IMAP string.
@@ -140,6 +144,10 @@ logging any errors.
     - setACL()
 
       The $mailbox parameter can no longer be a UTF7-IMAP string.
+
+      The $options['remove'] parameter has been replaced by a more flexible
+      $options['action'] parameter.  To delete all ACLs for an identifier use
+      the new deleteACL() method.
 
     - setQuota()
 

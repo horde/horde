@@ -2924,11 +2924,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                            object or a string (UTF-8).
      * @param string $identifier  The identifier to alter (UTF-8).
      * @param array $options      Additional options:
-     *   - remove: (boolean) If true, removes rights for $identifier.
-     *             DEFAULT: false
-     *   - rights: (string) The rights to alter.
-     *             DEFAULT: If 'remove' is true, removes all rights. If
-     *                      'remove' is false, no rights are altered.
+     *   - rights: (string) The rights to alter or set.
+     *   - action: (string, optional) If 'add' or 'remove', adds or removes the
+     *             specified rights. Sets the rights otherwise.
      *
      * @throws Horde_Imap_Client_Exception
      * @throws Horde_Imap_Client_Exception_NoSupportExtension
@@ -2946,16 +2944,24 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 ? $options['rights']
                 : new Horde_Imap_Client_Data_Acl(strval($options['rights']));
 
-            $options['rights'] =
-                (empty($options['remove']) ? '+' : '-') .
-                $acl->getString($this->queryCapability('RIGHTS') ? Horde_Imap_Client_Data_AclCommon::RFC_4314 : Horde_Imap_Client_Data_AclCommon::RFC_2086);
+            $options['rights'] = $acl->getString(
+                $this->queryCapability('RIGHTS')
+                    ? Horde_Imap_Client_Data_AclCommon::RFC_4314
+                    : Horde_Imap_Client_Data_AclCommon::RFC_2086
+            );
+            if (isset($options['action'])) {
+                switch ($options['action']) {
+                case 'add':
+                    $options['rights'] = '+' . $options['rights'];
+                    break;
+                case 'remove':
+                    $options['rights'] = '-' . $options['rights'];
+                    break;
+                }
+            }
         }
 
-        if (empty($options['rights']) && empty($options['remove'])) {
-            return;
-        }
-
-        return $this->_setACL(
+        $this->_setACL(
             Horde_Imap_Client_Mailbox::get($mailbox),
             Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($identifier),
             $options
@@ -2976,6 +2982,42 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     abstract protected function _setACL(Horde_Imap_Client_Mailbox $mailbox,
                                         $identifier, $options);
+
+    /**
+     * Deletes ACL rights for a given mailbox/identifier.
+     *
+     * @param mixed $mailbox      A mailbox. Either a Horde_Imap_Client_Mailbox
+     *                            object or a string (UTF-8).
+     * @param string $identifier  The identifier to delete (UTF-8).
+     *
+     * @throws Horde_Imap_Client_Exception
+     * @throws Horde_Imap_Client_Exception_NoSupportExtension
+     */
+    public function deleteACL($mailbox, $identifier)
+    {
+        $this->login();
+
+        if (!$this->queryCapability('ACL')) {
+            throw new Horde_Imap_Client_Exception_NoSupportExtension('ACL');
+        }
+
+        $this->_deleteACL(
+            Horde_Imap_Client_Mailbox::get($mailbox),
+            Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($identifier)
+        );
+    }
+
+    /**
+     * Deletes ACL rights for a given mailbox/identifier.
+     *
+     * @param Horde_Imap_Client_Mailbox $mailbox  A mailbox.
+     * @param string $identifier                  The identifier to delete
+     *                                            (UTF7-IMAP).
+     *
+     * @throws Horde_Imap_Client_Exception
+     */
+    abstract protected function _deleteACL(Horde_Imap_Client_Mailbox $mailbox,
+                                           $identifier);
 
     /**
      * List the ACL rights for a given mailbox/identifier. The server must

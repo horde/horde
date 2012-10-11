@@ -1015,6 +1015,14 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     /**
      * @throws Horde_Imap_Client_Exception_NoSupportPop3
      */
+    protected function _deleteACL(Horde_Imap_Client_Mailbox $mailbox, $identifier)
+    {
+        throw new Horde_Imap_Client_Exception_NoSupportPop3('ACLs');
+    }
+
+    /**
+     * @throws Horde_Imap_Client_Exception_NoSupportPop3
+     */
     protected function _getACL(Horde_Imap_Client_Mailbox $mailbox)
     {
         throw new Horde_Imap_Client_Exception_NoSupportPop3('ACLs');

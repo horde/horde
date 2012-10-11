@@ -3299,25 +3299,31 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _setACL(Horde_Imap_Client_Mailbox $mailbox, $identifier,
                                $options)
     {
-        $common = array(
-            new Horde_Imap_Client_Data_Format_Mailbox($mailbox),
-            new Horde_Imap_Client_Data_Format_Astring($identifier)
-        );
+        // SETACL returns no untagged information (RFC 4314 [3.1]).
+        $cmd = $this->_clientCommand(array(
+            'SETACL',
+            array(
+                new Horde_Imap_Client_Data_Format_Mailbox($mailbox),
+                new Horde_Imap_Client_Data_Format_Astring($identifier)
+            ),
+            new Horde_Imap_Client_Data_Format_Astring($options['rights'])
+        ));
 
-        // SETACL/DELETEACL returns no untagged information (RFC 4314 [3.1 &
-        // 3.2]).
-        if (empty($options['rights']) && !empty($options['remove'])) {
-            $cmd = $this->_clientCommand(array(
-                'DELETEACL',
-                $common
-            ));
-        } else {
-            $cmd = $this->_clientCommand(array(
-                'SETACL',
-                $common,
-                new Horde_Imap_Client_Data_Format_Astring($options['rights'])
-            ));
-        }
+        $this->_sendLine($cmd);
+    }
+
+    /**
+     */
+    protected function _deleteACL(Horde_Imap_Client_Mailbox $mailbox, $identifier)
+    {
+        // DELETEACL returns no untagged information (RFC 4314 [3.2]).
+        $cmd = $this->_clientCommand(array(
+            'DELETEACL',
+            array(
+                new Horde_Imap_Client_Data_Format_Mailbox($mailbox),
+                new Horde_Imap_Client_Data_Format_Astring($identifier)
+            )
+        ));
 
         $this->_sendLine($cmd);
     }
