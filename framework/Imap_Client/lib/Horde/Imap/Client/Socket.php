@@ -49,8 +49,7 @@
  *   <ul>
  *    <li>Requires imapproxy v1.2.7-rc1 or later</li>
  *    <li>
- *     See http://lists.andrew.cmu.edu/pipermail/imapproxy-info/2008-October/000771.html and
- *     http://lists.andrew.cmu.edu/pipermail/imapproxy-info/2008-October/000772.html
+ *     See https://squirrelmail.svn.sourceforge.net/svnroot/squirrelmail/trunk/imap_proxy/README
  *    </li>
  *   </ul>
  *  </li>
