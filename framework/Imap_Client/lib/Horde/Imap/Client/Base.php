@@ -2939,25 +2939,34 @@ abstract class Horde_Imap_Client_Base implements Serializable
             throw new Horde_Imap_Client_Exception_NoSupportExtension('ACL');
         }
 
-        if (!empty($options['rights'])) {
-            $acl = ($options['rights'] instanceof Horde_Imap_Client_Data_Acl)
-                ? $options['rights']
-                : new Horde_Imap_Client_Data_Acl(strval($options['rights']));
+        if (empty($options['rights'])) {
+            if (!isset($options['action']) ||
+                ($options['action'] != 'add' && $options['action'] != 'remove')) {
+                $this->_deleteACL(
+                    Horde_Imap_Client_Mailbox::get($mailbox),
+                    Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($identifier)
+                );
+            }
+            return;
+        }
 
-            $options['rights'] = $acl->getString(
-                $this->queryCapability('RIGHTS')
-                    ? Horde_Imap_Client_Data_AclCommon::RFC_4314
-                    : Horde_Imap_Client_Data_AclCommon::RFC_2086
-            );
-            if (isset($options['action'])) {
-                switch ($options['action']) {
-                case 'add':
-                    $options['rights'] = '+' . $options['rights'];
-                    break;
-                case 'remove':
-                    $options['rights'] = '-' . $options['rights'];
-                    break;
-                }
+        $acl = ($options['rights'] instanceof Horde_Imap_Client_Data_Acl)
+            ? $options['rights']
+            : new Horde_Imap_Client_Data_Acl(strval($options['rights']));
+
+        $options['rights'] = $acl->getString(
+            $this->queryCapability('RIGHTS')
+                ? Horde_Imap_Client_Data_AclCommon::RFC_4314
+                : Horde_Imap_Client_Data_AclCommon::RFC_2086
+        );
+        if (isset($options['action'])) {
+            switch ($options['action']) {
+            case 'add':
+                $options['rights'] = '+' . $options['rights'];
+                break;
+            case 'remove':
+                $options['rights'] = '-' . $options['rights'];
+                break;
             }
         }
 
