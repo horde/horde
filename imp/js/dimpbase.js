@@ -391,7 +391,7 @@ var DimpBase = {
         }
 
         if (this.uid) {
-            opts.search = { uid: this.uid.uid };
+            opts.search = { uid: this.uid };
         }
 
         this.viewport.loadView(f, opts);
