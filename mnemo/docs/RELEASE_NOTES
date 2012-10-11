@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the final release of the Mnemo Note
-Manager version H4 (3.0.6).
+The Horde Team is pleased to announce the first beta release of the Mnemo Note
+Manager version H5 (4.0.0).
 
 The Mnemo Note Manager is the Horde notes/memos application. It allows users to
 keep web-based notes and freeform text. Notes may be shared with other users
@@ -23,13 +23,23 @@ via shared notepads. It requires the Horde Application Framework and an SQL
 database or Kolab server for backend storage. For more information on Mnemo,
 visit http://www.horde.org/apps/mnemo.
 
-The major changes compared to the Mnemo version H4 (3.0.5) are:
-    * Updated Hungarian, Italian, and Swedish translations.
+IMPORTANT! This is a preview version that should not be used on production
+systems. This version is feature complete but there are likely to be bugs. You
+should not use this preview version with existing production data.
+
+We encourage widespread testing and feedback via the mailing lists or our bug
+tracking system. Updated translations are very welcome, though some strings
+might still change before the release candidates are prepared.
+
+The major changes compared to the Mnemo version H4 (3.0) are:
+    * Completely redesigned user interface.
+    * Further bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Updated Hungarian, Italian, and Swedish translations.
+Completely redesigned user interface.
+Further bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Mnemo';

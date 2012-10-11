@@ -23,8 +23,8 @@
   <api>4.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
@@ -897,6 +897,26 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Update Turkish translation (İstanbul Technical University).
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-19</date>
+   <time>22:27:01</time>
+   <version>
+    <release>4.0.0</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [gwr] Always mark the initial share as default notepad.
+* [gwr] Mark the initial default share as such with the Kolab backend.
+* [gwr] Fixed deletion of shares with the Kolab driver.
+* [jan] Fix display of note title (Bug #11275).
 * [jan] Update Turkish translation (İstanbul Technical University).
    </notes>
   </release>
