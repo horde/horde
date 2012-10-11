@@ -1435,6 +1435,19 @@ class Kronolith
     }
 
     /**
+     * Adds <link> tags for calendar feeds to the HTML header.
+     */
+    static public function addCalendarLinks()
+    {
+        foreach ($GLOBALS['display_calendars'] as $calendar) {
+            $GLOBALS['page_output']->addLinkTag(array(
+                'href' => Kronolith::feedUrl($calendar),
+                'type' => 'application/atom+xml'
+            ));
+        }
+    }
+
+    /**
      * Returns whether the current user has certain permissions on a calendar.
      *
      * @param string $calendar  A calendar id.

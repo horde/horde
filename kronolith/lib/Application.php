@@ -73,12 +73,6 @@ class Kronolith_Application extends Horde_Registry_Application
             !$GLOBALS['prefs']->getValue('dynamic_view') ||
             empty($this->initParams['nodynamicinit'])) {
             Kronolith::initialize();
-            foreach ($GLOBALS['display_calendars'] as $calendar) {
-                $GLOBALS['page_output']->addLinkTag(array(
-                    'href' => Kronolith::feedUrl($calendar),
-                    'type' => 'application/atom+xml'
-                ));
-            }
         }
     }
 
