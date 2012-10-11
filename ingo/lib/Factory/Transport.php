@@ -38,7 +38,6 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Injector
     {
         global $registry, $session;
 
-        $params = $session->get('ingo', 'backend/params');
         if (!strlen($transport = $session->get('ingo', 'backend/transport'))) {
             $transport = 'null';
         }
@@ -58,12 +57,15 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Injector
             $auth['password'] = $registry->getAuthCredential('password');
         }
         if (!isset($auth['username'])) {
-            $params['username'] = $registry->getAuth('bare');
+            $auth['username'] = $registry->getAuth('bare');
         }
 
         $class = 'Ingo_Transport_' . ucfirst(basename($transport));
         if (class_exists($class)) {
-            return new $class($params);
+            return new $class(array_merge(
+                $session->get('ingo', 'backend/params'),
+                $auth
+            ));
         }
 
         throw new Ingo_Exception(sprintf(_("Unable to load the transport driver \"%s\"."), $class));
