@@ -87,7 +87,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
                 $note = $this->_getData()->getObject($noteId);
                 return $this->_buildNote($note, $passphrase);
             } else {
-                throw new Horde_Exception_NotFound(_("Not Found"));
+                throw new Horde_Exception_NotFound();
             }
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
