@@ -99,7 +99,7 @@ case 'modify_memo':
 
     /* Get the current note. */
     try {
-        Mnemo::getMemo($memolist_id, $memo_id, $passphrase);
+        $memo = Mnemo::getMemo($memolist_id, $memo_id, $passphrase);
     } catch (Horde_Exception_NotFound $e) {
         $notification->push(_("Note not found."), 'horde.error');
         Horde::url('list.php', true)->redirect();
