@@ -2595,6 +2595,7 @@ class Kronolith
             return;
         }
 
+        $GLOBALS['page_output']->addScriptFile('views.js');
         $tabs = new Horde_Core_Ui_Tabs('event', Horde_Variables::getDefaultVariables());
 
         $date = self::currentDate();

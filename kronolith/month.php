@@ -18,7 +18,6 @@ if (Kronolith::showAjaxView()) {
 $view = Kronolith::getView('Month');
 
 $page_output->addScriptFile('tooltips.js', 'horde');
-$page_output->addScriptFile('views.js');
 
 $page_output->header(array(
     'body_class' => $prefs->getValue('show_panel') ? 'rightPanel' : null,
