@@ -2666,11 +2666,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                 $ob->setModSeq($modseq);
 
-                /* Update highestmodseq, if it exists. */
-                if (!empty($this->_temp['mailbox']['highestmodseq']) &&
-                    ($modseq > $this->_temp['mailbox']['highestmodseq'])) {
-                    $this->_temp['mailbox']['highestmodseq'] = $modseq;
-                }
+                /* Store MODSEQ value. It may be used as the highestmodseq
+                 * once a tagged response is received (RFC 5162 [5]). */
+                $this->_temp['modseqs'][] = $modseq;
                 break;
 
             default:
@@ -3732,11 +3730,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _sendLine(Horde_Imap_Client_Data_Format_List $data,
                                  array $opts = array())
     {
+        /* Initialize internal data items at the beginning of a command. */
         if ($data instanceof Horde_Imap_Client_Interaction_Client) {
             $this->_temp['fetchresp'] = isset($opts['fetch'])
                 ? $opts['fetch']
                 : null;
             $this->_temp['lastcmd'] = $data;
+            $this->_temp['modseqs'] = array();
         }
 
         $this->writeDebug('', Horde_Imap_Client::DEBUG_CLIENT);
@@ -3918,6 +3918,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'Horde_Imap_Client_Interaction_Server_Tagged':
             if (!is_null($this->_temp['fetchresp'])) {
                 $this->_updateCache($this->_temp['fetchresp']);
+            }
+
+            /* Update HIGHESTMODSEQ value from FETCH data (RFC 5162 [5]). */
+            if (!empty($this->_temp['modseqs']) &&
+                !empty($this->_temp['mailbox']['highestmodseq'])) {
+                $max = max($this->_temp['modseqs']);
+                if ($max > $this->_temp['mailbox']['highestmodseq']) {
+                    $this->_temp['mailbox']['highestmodseq'] = $max;
+                }
             }
 
             $this->_responseCode($server);

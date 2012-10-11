@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix determination of HIGHESTMODSEQ value from FETCH data.
 * [mms] Store command that caused NO/BAD error in Exception, if it can be determined.
 * [mms] Limit FETCH ENVELOPE data sizes.
 * [mms] Improved parsing of incoming IMAP server stream.
@@ -1079,6 +1080,7 @@
    <date>2012-10-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix determination of HIGHESTMODSEQ value from FETCH data.
 * [mms] Store command that caused NO/BAD error in Exception, if it can be determined.
 * [mms] Limit FETCH ENVELOPE data sizes.
 * [mms] Improved parsing of incoming IMAP server stream.
