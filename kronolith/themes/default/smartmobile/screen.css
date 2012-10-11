@@ -20,6 +20,9 @@
 .description {
     padding: .5em;
 }
+.ui-btn-text {
+    z-index: 0;
+}
 
 /* Event view styles */
 .kronolithEventDetailTitle .ui-li-heading,
