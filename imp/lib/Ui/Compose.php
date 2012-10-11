@@ -192,14 +192,25 @@ class IMP_Ui_Compose
 
         $page_output->topbar = $page_output->sidebar = false;
 
+        $page_output->addInlineScript(array(
+            '$("close_success").observe("click", function() { window.close(); })'
+        ), true);
+
         IMP::header();
 
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/basic/compose'
         ));
 
-        $view->close = Horde::widget(array('url' => new Horde_Url(), 'title' => _("Close this window"), 'onclick' => 'window.close();'));
-        $view->new = Horde::widget(array('url' => Horde::url('compose.php'), 'title' => _("New Message")));
+        $view->close = Horde::widget(array(
+            'id' => 'close_success',
+            'url' => new Horde_Url(),
+            'title' => _("Close this window")
+        ));
+        $view->new = Horde::widget(array(
+            'url' => Horde::url('compose.php'),
+            'title' => _("New Message")
+        ));
 
         echo $view->render('success');
 

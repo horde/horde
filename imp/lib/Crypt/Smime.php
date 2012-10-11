@@ -493,6 +493,10 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
 
         $page_output->topbar = $page_output->sidebar = false;
 
+        $page_output->addInlineScript(array(
+            '$$("INPUT.horde-cancel").first().observe("click", function() { window.close(); })'
+        ), true);
+
         IMP::header(_("Import S/MIME Key"));
 
         /* Need to use regular status notification - AJAX notifications won't

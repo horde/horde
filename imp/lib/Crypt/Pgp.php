@@ -664,6 +664,10 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
 
         $page_output->topbar = $page_output->sidebar = false;
 
+        $page_output->addInlineScript(array(
+            '$$("INPUT.horde-cancel").first().observe("click", function() { window.close(); })'
+        ), true);
+
         IMP::header(_("Import PGP Key"));
 
         /* Need to use regular status notification - AJAX notifications won't

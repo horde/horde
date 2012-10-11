@@ -855,11 +855,12 @@ if ($redirect) {
         $compose_options[] = array(
             'url' => $blank_url->copy()->link(array(
                 'class' => 'widget',
-                'onclick.raw' => 'window.open(\'' . Horde::url('contacts.php') . '\',\'contacts\',\'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100\'); return false;'
+                'id' => 'addressbook_popup'
             )),
             'img' => Horde::img('addressbook_browse.png'),
             'label' => $show_text ? _("Address Book") : ''
         );
+        $js_vars['ImpCompose.contacts_url'] = strval(Horde::url('contacts.php')->setRaw(true));
     }
     if ($spellcheck) {
         $compose_options[] = array(
@@ -925,7 +926,7 @@ if ($redirect) {
     if (!is_null($rtemode) && !$prefs->isLocked('compose_html')) {
         $view->compose_html = true;
         $view->html_switch = $blank_url->copy()->link(array(
-            'onclick.raw' => "$('rtemode').value='" . ($rtemode ? 0 : 1) . "';ImpCompose.uniqSubmit('toggle_editor');return false;",
+            'id' => 'rte_toggle',
             'title' => _("Switch Composition Method")
         ));
         $view->rtemode = $rtemode;

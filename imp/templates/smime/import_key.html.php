@@ -76,7 +76,7 @@
   <tr>
    <td align="center" class="header nowrap">
     <input type="submit" name="import" class="horde-default" value="<?php echo _("Import") ?>" />
-    <input type="submit" name="cancel" class="horde-cancel" onclick="window.close();" value="<?php echo _("Cancel") ?>" />
+    <input type="submit" name="cancel" class="horde-cancel" value="<?php echo _("Cancel") ?>" />
    </td>
   </tr>
  </table>

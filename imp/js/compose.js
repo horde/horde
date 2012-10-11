@@ -208,26 +208,42 @@ var ImpCompose = {
 
     clickHandler: function(e)
     {
-        var elt = e.element(), name;
+        var name,
+            elt = e.element(),
+            id = elt.readAttribute('id');
 
-        if (elt.readAttribute('id') == 'redirect_abook') {
+        switch (id) {
+        case 'addressbook_popup':
+            window.open(this.contacts_url, "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100");
+            break;
+
+        case 'redirect_abook':
             window.open(this.redirect_contacts, "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100");
-        } else if (elt.match('INPUT[type=submit]')) {
-            name = elt.readAttribute('name');
-            switch (name) {
-            case 'btn_add_attachment':
-            case 'btn_redirect':
-            case 'btn_replyall_revert':
-            case 'btn_replylist_revert':
-            case 'btn_save_draft':
-            case 'btn_save_template':
-            case 'btn_send_message':
-                this.uniqSubmit(name.substring(4), e.memo);
-                break;
+            break;
 
-            case 'btn_cancel_compose':
-                this.confirmCancel(e.memo);
-                break;
+        case 'rte_toggle':
+            $('rtemode').setValue(Number(!ImpComposeBase.editor_on));
+            this.uniqSubmit('toggle_editor');
+            break;
+
+        default:
+            if (elt.match('INPUT[type=submit]')) {
+                name = elt.readAttribute('name');
+                switch (name) {
+                case 'btn_add_attachment':
+                case 'btn_redirect':
+                case 'btn_replyall_revert':
+                case 'btn_replylist_revert':
+                case 'btn_save_draft':
+                case 'btn_save_template':
+                case 'btn_send_message':
+                    this.uniqSubmit(name.substring(4), e.memo);
+                    break;
+
+                case 'btn_cancel_compose':
+                    this.confirmCancel(e.memo);
+                    break;
+                }
             }
         }
     },

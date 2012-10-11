@@ -60,6 +60,10 @@ $view->uid = $vars->uid;
 
 $page_output->topbar = $page_output->sidebar = false;
 
+$page_output->addInlineScript(array(
+    '$$("INPUT.horde-cancel").first().observe("click", function() { window.close(); })'
+), true);
+
 IMP::header(_("Save Image"));
 IMP::status();
 echo $view->render('saveimage');
