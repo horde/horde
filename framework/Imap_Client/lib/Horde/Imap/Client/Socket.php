@@ -138,7 +138,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *   * envelope_string: (integer) The maximum length of string fields
      *                      returned by the FETCH ENVELOPE command.
      *                      DEFAULT: 2048
-     *
      */
     public function __construct(array $params = array())
     {
