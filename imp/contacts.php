@@ -45,7 +45,7 @@ if (!isset($vars->source) || !isset($source_list[$vars->source])) {
 
 $a_list = array();
 if ($vars->searched || $prefs->getValue('display_contact')) {
-    $search_params = IMP::getAddressbookSearchParams();
+    $search_params = $injector->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
     $csearch = $registry->call('contacts/search', array($vars->get('search', ''), array(
         'fields' => $search_params['fields'],
         'returnFields' => array('email', 'name'),

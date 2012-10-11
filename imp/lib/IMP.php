@@ -165,36 +165,6 @@ class IMP
     }
 
     /**
-     * Adds a contact to the user defined address book.
-     *
-     * @param string $newAddress  The contact's email address.
-     * @param string $newName     The contact's name.
-     *
-     * @return string  A link or message to show in the notification area.
-     * @throws Horde_Exception
-     */
-    static public function addAddress($newAddress, $newName)
-    {
-        global $registry, $prefs;
-
-        if (empty($newName)) {
-            $newName = $newAddress;
-        }
-
-        $result = $registry->call('contacts/import', array(array('name' => $newName, 'email' => $newAddress), 'array', $prefs->getValue('add_source')));
-
-        $escapeName = @htmlspecialchars($newName, ENT_COMPAT, 'UTF-8');
-
-        try {
-            if ($contact_link = $registry->link('contacts/show', array('uid' => $result, 'source' => $prefs->getValue('add_source')))) {
-                return Horde::link(Horde::url($contact_link), sprintf(_("Go to address book entry of \"%s\""), $newName)) . $escapeName . '</a>';
-            }
-        } catch (Horde_Exception $e) {}
-
-        return $escapeName;
-    }
-
-    /**
      * Generates a select form input from a mailbox list. The &lt;select&gt;
      * and &lt;/select&gt; tags are NOT included in the output.
      *
@@ -610,29 +580,6 @@ class IMP
         } catch (Horde_Exception_HookNotSet $e) {
             return true;
         }
-    }
-
-    /**
-     * Determines parameters needed to do an address search
-     *
-     * @return array  An array with two keys: 'fields' and 'sources'.
-     */
-    static public function getAddressbookSearchParams()
-    {
-        $src = json_decode($GLOBALS['prefs']->getValue('search_sources'));
-        if (empty($src)) {
-            $src = array();
-        }
-
-        $fields = json_decode($GLOBALS['prefs']->getValue('search_fields'), true);
-        if (empty($fields)) {
-            $fields = array();
-        }
-
-        return array(
-            'fields' => $fields,
-            'sources' => $src
-        );
     }
 
     /**

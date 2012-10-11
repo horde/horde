@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-22</date>
- <time>06:51:03</time>
+ <date>2012-10-11</date>
+ <time>00:03:12</time>
  <version>
   <release>6.0.0beta4</release>
   <api>6.0.0beta1</api>
@@ -372,6 +372,7 @@
     </dir> <!-- /lib/Tree -->
     <dir name="Ui">
      <file name="Compose.php" role="horde" />
+     <file name="Contacts.php" role="horde" />
      <file name="Editor.php" role="horde" />
      <file name="Folder.php" role="horde" />
      <file name="Headers.php" role="horde" />
@@ -844,6 +845,7 @@
      </dir> <!-- /test/Imp/fixtures -->
      <dir name="Stub">
       <file name="HtmlViewer.php" role="test" />
+      <file name="ItipRequest.php" role="test" />
      </dir> <!-- /test/Imp/Stub -->
      <dir name="Unit">
       <dir name="Mime">
@@ -1566,6 +1568,7 @@
    <install as="imp/lib/Tree/Jquerymobile.php" name="lib/Tree/Jquerymobile.php" />
    <install as="imp/lib/Tree/Simplehtml.php" name="lib/Tree/Simplehtml.php" />
    <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
+   <install as="imp/lib/Ui/Contacts.php" name="lib/Ui/Contacts.php" />
    <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
    <install as="imp/lib/Ui/Folder.php" name="lib/Ui/Folder.php" />
    <install as="imp/lib/Ui/Headers.php" name="lib/Ui/Headers.php" />
@@ -1785,6 +1788,7 @@
    <install as="Imp/fixtures/test.eml" name="test/Imp/fixtures/test.eml" />
    <install as="Imp/fixtures/test.mbox" name="test/Imp/fixtures/test.mbox" />
    <install as="Imp/Stub/HtmlViewer.php" name="test/Imp/Stub/HtmlViewer.php" />
+   <install as="Imp/Stub/ItipRequest.php" name="test/Imp/Stub/ItipRequest.php" />
    <install as="Imp/Unit/ComposeTest.php" name="test/Imp/Unit/ComposeTest.php" />
    <install as="Imp/Unit/MboxParseTest.php" name="test/Imp/Unit/MboxParseTest.php" />
    <install as="Imp/Unit/QuotaTest.php" name="test/Imp/Unit/QuotaTest.php" />
@@ -2737,7 +2741,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-22</date>
+   <date>2012-10-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Add predefined templates to ACL management screen (Request #10648).

@@ -541,23 +541,25 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      */
     public function addContact()
     {
-        $addr_ob = $GLOBALS['injector']->getInstance('IMP_Dynamic_AddressList')->parseAddressList($this->vars->addr);
+        global $injector, $notification;
+
+        $addr_ob = $injector->getInstance('IMP_Dynamic_AddressList')->parseAddressList($this->vars->addr);
 
         // TODO: Currently supports only a single, non-group contact.
         $ob = $addr_ob[0];
         if (!$ob) {
             return false;
         } elseif ($ob instanceof Horde_Mail_Rfc822_Group) {
-            $GLOBALS['notification']->push(_("Adding group lists not currently supported."), 'horde.warning');
+            $notification->push(_("Adding group lists not currently supported."), 'horde.warning');
             return false;
         }
 
         try {
-            IMP::addAddress($ob->bare_address, $ob->personal);
-            $GLOBALS['notification']->push(sprintf(_("%s was successfully added to your address book."), $ob->label), 'horde.success');
+            $injector->getInstance('IMP_Ui_Contacts')->addAddress($ob->bare_address, $ob->personal);
+            $notification->push(sprintf(_("%s was successfully added to your address book."), $ob->label), 'horde.success');
             return true;
         } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push($e);
+            $notification->push($e);
             return false;
         }
     }

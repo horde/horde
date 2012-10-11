@@ -37,7 +37,7 @@ class IMP_Ui_Imageview
         }
 
         if ($session->get('imp', 'csearchavail')) {
-            $sparams = IMP::getAddressbookSearchParams();
+            $sparams = $injector->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
             $res = $registry->call('contacts/search', array($from->bare_addresses, array(
                 'fields' => $sparams['fields'],
                 'returnFields' => array('email'),

@@ -211,7 +211,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Try retrieving by e-mail only first. */
-        $params = IMP::getAddressbookSearchParams();
+        $params = $GLOBALS['injector']->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
         $result = null;
         try {
             $result = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
@@ -263,12 +263,11 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function listPublicKeys()
     {
-        $params = IMP::getAddressbookSearchParams();
-        if (empty($params['sources'])) {
-            return array();
-        }
+        $params = $GLOBALS['injector']->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
 
-        return $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
+        return empty($params['sources'])
+            ? array()
+            : $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
     }
 
     /**
@@ -280,7 +279,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function deletePublicKey($email)
     {
-        $params = IMP::getAddressbookSearchParams();
+        $params = $GLOBALS['injector']->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
         return $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
     }
 
