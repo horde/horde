@@ -110,16 +110,74 @@ class Turba_Driver_Kolab extends Turba_Driver
         }
 
         /* TODO: use Horde_Kolab_Format_Xml_Type_Composite_* */
-        foreach (array('given-name', 'middle-names', 'last-name', 'initials',
-                       'prefix', 'suffix') as $sub) {
+        foreach (array('given-name',
+                       'middle-names',
+                       'last-name',
+                       'initials',
+                       'prefix',
+                       'suffix') as $sub) {
             if (isset($hash[$sub])) {
                 $hash['name'][$sub] = $hash[$sub];
                 unset($hash[$sub]);
             }
         }
+
+        $hash['phone'] = array();
+        foreach (array('phone-business1',
+                       'phone-business2',
+                       'phone-businessfax',
+                       'phone-car',
+                       'phone-company',
+                       'phone-home1',
+                       'phone-home2',
+                       'phone-homefax',
+                       'phone-mobile',
+                       'phone-pager',
+                       'phone-radio',
+                       'phone-assistant') as $sub) {
+            if (isset($hash[$sub])) {
+                $hash['phone'][] = array('type' => substr($sub, 6),
+                                         'number' => $hash[$sub]);
+                unset($hash[$sub]);
+            }
+        }
+
+        $hash['address'] = array();
+        $address = array();
+        foreach (array('addr-business-street',
+                       'addr-business-locality',
+                       'addr-business-region',
+                       'addr-business-postal-code',
+                       'addr-business-country') as $sub) {
+            if (isset($hash[$sub])) {
+                $address[substr($sub, 14)] = $hash[$sub];
+                unset($hash[$sub]);
+            }
+        }
+        if ($address) {
+            $address['type'] = 'business';
+            $hash['address'][] = $address;
+        }
+        $address = array();
+        foreach (array('addr-home-street',
+                       'addr-home-locality',
+                       'addr-home-region',
+                       'addr-home-postal-code',
+                       'addr-home-country') as $sub) {
+            if (isset($hash[$sub])) {
+                $address[substr($sub, 10)] = $hash[$sub];
+                unset($hash[$sub]);
+            }
+        }
+        if ($address) {
+            $address['type'] = 'home';
+            $hash['address'][] = $address;
+        }
+
         if (isset($hash['categories'])) {
             $hash['categories'] = array($hash['categories']);
         }
+
         if (isset($hash['birthday'])) {
             $hash['birthday'] = new DateTime($hash['birthday']);
         }
@@ -197,12 +255,21 @@ class Turba_Driver_Kolab extends Turba_Driver
                     $contact['phototype'] = $contact['_attachments'][$name]['type'];
                 }
             }
+
             if (isset($contact['name'])) {
                 foreach ($contact['name'] as $detail => $value) {
                     $contact[$detail] = $value;
                 }
                 unset($contact['name']);
             }
+
+            if (isset($contact['phone'])) {
+                foreach ($contact['phone'] as $phone) {
+                    $contact['phone-' . $phone['type']] = $phone['number'];
+                }
+                unset($contact['phone']);
+            }
+
             if (isset($contact['email'])) {
                 $contact['emails'] = array();
                 foreach ($contact['email'] as $email) {
@@ -215,6 +282,18 @@ class Turba_Driver_Kolab extends Turba_Driver
                 }
                 $contact['emails'] = implode(', ', $contact['emails']);
             }
+
+            if (isset($contact['address'])) {
+                foreach ($contact['address'] as $address) {
+                    foreach ($address as $detail => $value) {
+                        if ($detail != 'type') {
+                            $contact['addr-' . $address['type'] . '-' . $detail] = $value;
+                        }
+                    }
+                }
+                unset($contact['address']);
+            }
+
             if (isset($contact['categories'])) {
                 if (empty($contact['categories'])) {
                     $contact['categories'] = '';
@@ -222,12 +301,14 @@ class Turba_Driver_Kolab extends Turba_Driver
                     $contact['categories'] = $contact['categories'][0];
                 }
             }
+
             if (isset($contact['birthday'])) {
                 $contact['birthday'] = $contact['birthday']->format('Y-m-d');
             }
             if (isset($contact['anniversary'])) {
                 $contact['anniversary'] = $contact['anniversary']->format('Y-m-d');
             }
+
             $contacts[$id] = $contact;
         }
 

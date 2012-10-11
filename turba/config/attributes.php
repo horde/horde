@@ -296,7 +296,6 @@ $attributes['homePhone2'] = array(
     'required' => false,
     'params' => array('size' => 15)
 );
-
 $attributes['workPhone'] = array(
     'label' => _("Work Phone"),
     'type' => 'phone',
