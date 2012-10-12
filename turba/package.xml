@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-12</date>
- <time>23:12:01</time>
+ <time>23:12:51</time>
  <version>
-  <release>4.0.0beta3</release>
+  <release>4.0.0beta4</release>
   <api>4.0.0beta1</api>
  </version>
  <stability>
@@ -40,14 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Support importing contacts via API if using &apos;emails&apos; attributes (Bug #8358).
-* [jan] Support &apos;emails&apos; attribute with ActiveSync.
-* [jan] Fix marking contacts as deleted in the history if deleting shared address books (Bug #11480).
-* [jan] Set gender field values literally to &apos;male&apos; or &apos;female&apos;.
-* [jan] Drop preference which address books to display.
-* [gwr] Mark the initial default share as such with the Kolab backend.
-* [gwr] Always mark the initial share as default addressbook.
-* [mms] Initial implementation of smartmobile view.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1479,6 +1472,19 @@
 * [gwr] Mark the initial default share as such with the Kolab backend.
 * [gwr] Always mark the initial share as default addressbook.
 * [mms] Initial implementation of smartmobile view.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0beta4</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
