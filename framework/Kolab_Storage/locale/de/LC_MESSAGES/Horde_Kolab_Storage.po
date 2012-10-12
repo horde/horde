@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-08-29 13:30+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2012-10-02 18:10+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -181,7 +181,7 @@ msgstr "Fehler beim Setzen der ACL im Ordner %s für Benutzer %s nach %s."
 msgid "Failed triggering folder %s. Error was: %s"
 msgstr "Fehler beim Anlegen des Ordners %s. Fehlermeldung des Servers: %s"
 
-#: lib/Horde/Kolab/Storage/Factory.php:195
+#: lib/Horde/Kolab/Storage/Factory.php:172
 #, php-format
 msgid ""
 "Invalid \"driver\" parameter \"%s\". Please use one of \"mock\", \"php\", "
@@ -190,7 +190,7 @@ msgstr ""
 "Ungülter \"driver\"-Parameter \"%s\". Bitte benutzen Sie einen aus \"mock\", "
 "\"php\", \"pear\", \"horde\", \"horde-php\", und \"roundcube\"!"
 
-#: lib/Horde/Kolab/Storage/Factory.php:241
+#: lib/Horde/Kolab/Storage/Factory.php:217
 #, php-format
 msgid "Invalid \"namespace\" type \"%s\"!"
 msgstr "Ungültiger \"namespace\"-Typ \"%s\"!"
@@ -200,7 +200,7 @@ msgstr "Ungültiger \"namespace\"-Typ \"%s\"!"
 msgid "Listing folders for %s failed."
 msgstr "Fehler beim Laden der Ordner von %s."
 
-#: lib/Horde/Kolab/Storage/Factory.php:152
+#: lib/Horde/Kolab/Storage/Factory.php:127
 msgid "Missing \"driver\" parameter!"
 msgstr "\"driver\"-Parameter fehlt!"
 
@@ -272,13 +272,16 @@ msgstr ""
 "dass dieses Kolab-Object von jemand anderem verändert wurde, während Sie es "
 "bearbeitet haben. Ihre Änderungen sind verloren."
 
-#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:216
+#: lib/Horde/Kolab/Storage/Object.php:486
 #, php-format
 msgid ""
 "This is a Kolab Groupware object. To view this object you will need an email "
 "client that understands the Kolab Groupware format. For a list of such email "
 "clients please visit %s"
-msgstr "Dies ist ein Kolab-Groupware-Objekt. Um dieses Objekt anzuzeigen, benötigen Sie ein E-Mail-Programm, das das Kolab-Groupware-Format unterstützt. Eine Liste solcher Programme finden Sie unter %s"
+msgstr ""
+"Dies ist ein Kolab-Groupware-Objekt. Um dieses Objekt anzuzeigen, benötigen "
+"Sie ein E-Mail-Programm, das das Kolab-Groupware-Format unterstützt. Eine "
+"Liste solcher Programme finden Sie unter %s"
 
 #: doc/Horde/Kolab/Storage/OLD/Folder.php:368
 #, php-format

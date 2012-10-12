@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Vilma 0.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2011-02-02 18:19+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -55,7 +55,7 @@ msgid_plural "Account is the target of %d forwards."
 msgstr[0] "Konto ist Ziel von %d Weiterleitung."
 msgstr[1] "Konto ist Ziel von %d Weiterleitungen."
 
-#: templates/users/index.html:11
+#: templates/users/index.html:7
 msgid "Address"
 msgstr "Adresse"
 
@@ -112,11 +112,11 @@ msgstr "%s \"%s\" und alle Abhängigkeiten löschen?"
 msgid "Delete %s \"%s\"?"
 msgstr "%s \"%s\" löschen?"
 
-#: domains/index.php:48 lib/Form/DeleteDomain.php:15
+#: domains/index.php:44 lib/Form/DeleteDomain.php:15
 msgid "Delete Domain"
 msgstr "Domain löschen"
 
-#: users/index.php:115 virtuals/index.php:61
+#: users/index.php:109 virtuals/index.php:61
 msgid "Delete User"
 msgstr "Benutzer löschen"
 
@@ -134,7 +134,7 @@ msgstr "Domain \"%s\" und alle dazugehörigen E-Mail-Adressen löschen?"
 msgid "Delete the virtual email address \"%s\" => \"%s\"?"
 msgstr "Virtuelle E-Mail-Adresse \"%s\" => \"%s\" löschen?"
 
-#: virtuals/edit.php:58 templates/virtuals/index.html:18
+#: virtuals/edit.php:58 templates/virtuals/index.html:14
 msgid "Destination"
 msgstr "Ziel"
 
@@ -159,7 +159,7 @@ msgstr "Anzeigelisten"
 msgid "Do not delete"
 msgstr "Nicht löschen"
 
-#: lib/Form/EditDomain.php:30 templates/domains/index.html:14
+#: lib/Form/EditDomain.php:30 templates/domains/index.html:10
 msgid "Domain"
 msgstr "Domain"
 
@@ -180,7 +180,7 @@ msgstr "Domain gespeichert."
 msgid "Edit Alias \"%s\" for \"%s\""
 msgstr "Alias \"%s\" von \"%s\" bearbeiten"
 
-#: domains/index.php:49 lib/Form/EditDomain.php:18
+#: domains/index.php:45 lib/Form/EditDomain.php:18
 msgid "Edit Domain"
 msgstr "Domain bearbeiten"
 
@@ -199,7 +199,7 @@ msgstr "Weiterleitung von \"%s\" bearbeiten"
 msgid "Edit Group for \"%s\""
 msgstr "Gruppe von \"%s\" bearbeiten"
 
-#: users/index.php:116 virtuals/index.php:62
+#: users/index.php:110 virtuals/index.php:62
 msgid "Edit User"
 msgstr "Benutzer bearbeiten"
 
@@ -357,7 +357,7 @@ msgstr "Weiterleitung gelöscht."
 msgid "Forwards"
 msgstr "Weiterleitung"
 
-#: lib/Form/EditUser.php:51 templates/users/index.html:14
+#: lib/Form/EditUser.php:51 templates/users/index.html:10
 msgid "Full Name"
 msgstr "Vollständiger Name"
 
@@ -391,7 +391,7 @@ msgstr "Mailbox \"%s\" existiert nicht."
 msgid "Maildrop directory \"%s\" does not exist."
 msgstr "Das Maildrop-Verzeichnis \"%s\" existiert nicht."
 
-#: templates/domains/index.html:17
+#: templates/domains/index.html:13
 msgid "Max Users"
 msgstr "Maximale Benutzerzahl"
 
@@ -507,7 +507,7 @@ msgstr "Externe E-Mail-Adresse"
 msgid "Set default display parameters."
 msgstr "Legen Sie Ihre Standard-Anzeigeeinstellungen fest."
 
-#: templates/users/index.html:20
+#: templates/users/index.html:16
 msgid "Status"
 msgstr "Status"
 
@@ -546,7 +546,7 @@ msgstr ""
 msgid "Transport"
 msgstr "Transport"
 
-#: templates/users/index.html:17
+#: templates/users/index.html:13
 msgid "Type"
 msgstr "Typ"
 
@@ -627,7 +627,7 @@ msgstr "Wert in MB"
 msgid "Virtual Email"
 msgstr "Virtuelle E-Mail-Adresse"
 
-#: templates/virtuals/index.html:15
+#: templates/virtuals/index.html:11
 msgid "Virtual Email Address"
 msgstr "Virtuelle E-Mail-Adresse"
 

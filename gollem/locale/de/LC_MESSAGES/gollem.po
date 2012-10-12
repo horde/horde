@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem H5 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2012-07-19 19:39+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -72,11 +72,11 @@ msgstr "Hinzufügen"
 msgid "All"
 msgstr "Alle"
 
-#: templates/javascript_defs.php:21
+#: templates/javascript_defs.php:20
 msgid "Are you sure you wish to continue?"
 msgstr "Sind Sie sicher, dass Sie fortfahren möchten?"
 
-#: templates/javascript_defs.php:19
+#: templates/javascript_defs.php:18
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
 
@@ -129,7 +129,7 @@ msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
 msgstr ""
 "\"%s\" kann nicht eingefügt werden (Datei aus Zwischenablage entfernt): %s"
 
-#: manager.php:321 templates/javascript_defs.php:16
+#: manager.php:321 templates/javascript_defs.php:15
 msgid "Change Folder"
 msgstr "Verzeichnis wechseln"
 
@@ -179,7 +179,7 @@ msgstr "Spalten die nicht angezeigt werden:"
 msgid "Copy"
 msgstr "Kopieren"
 
-#: manager.php:314 templates/javascript_defs.php:17
+#: manager.php:314 templates/javascript_defs.php:16
 msgid "Create Folder"
 msgstr "Verzeichnis erstellen"
 
@@ -242,7 +242,7 @@ msgstr "%s Bearbeiten"
 msgid "Execute"
 msgstr "Ausführen"
 
-#: templates/javascript_defs.php:22 templates/manager/manager.html:168
+#: templates/javascript_defs.php:21 templates/manager/manager.html:168
 msgid "File"
 msgstr "Datei"
 
@@ -388,23 +388,23 @@ msgstr "Zugriff auf Verzeichnis \"%s\" verweigert: %s"
 msgid "Permission denied to this backend."
 msgstr "Zugriff auf dieses Backend verweigert."
 
-#: templates/javascript_defs.php:23
+#: templates/javascript_defs.php:22
 msgid "Permissions"
 msgstr "Rechte"
 
-#: templates/javascript_defs.php:13
+#: templates/javascript_defs.php:12
 msgid "Please provide your password."
 msgstr "Bitte geben Sie Ihr Passwort an."
 
-#: templates/javascript_defs.php:12
+#: templates/javascript_defs.php:11
 msgid "Please provide your username."
 msgstr "Bitte geben Sie Ihren Benutzernamen an."
 
-#: templates/javascript_defs.php:25
+#: templates/javascript_defs.php:24
 msgid "Please select an item before this action."
 msgstr "Bitte wählen Sie ein Element aus, bevor Sie diese Aktion durchführen."
 
-#: templates/javascript_defs.php:26
+#: templates/javascript_defs.php:25
 msgid "Please specify at least one file to upload."
 msgstr "Bitte geben Sie mindestens eine Datei zum Hochladen an."
 
@@ -420,7 +420,7 @@ msgstr "Lesen"
 msgid "Refresh"
 msgstr "Aktualisiere"
 
-#: templates/javascript_defs.php:24 templates/manager/manager.html:83
+#: templates/javascript_defs.php:23 templates/manager/manager.html:83
 msgid "Rename"
 msgstr "Umbenennen"
 
@@ -476,15 +476,15 @@ msgstr "Größe"
 msgid "The application folder can not be deleted."
 msgstr "Der Anwendungsordner kann nicht gelöscht werden."
 
-#: templates/javascript_defs.php:20
+#: templates/javascript_defs.php:19
 msgid "The following item(s) are folders:"
 msgstr "Die folgenden Elemente sind Verzeichnisse:"
 
-#: templates/javascript_defs.php:18
+#: templates/javascript_defs.php:17
 msgid "The following items will be permanently deleted:"
 msgstr "Die folgenden Elemente werden endgültig gelöscht:"
 
-#: templates/javascript_defs.php:29
+#: templates/javascript_defs.php:28
 msgid "The original opener window has been closed. Exiting."
 msgstr "Das Ursprungs-Fenster ist geschlossen worden. Abbruch."
 

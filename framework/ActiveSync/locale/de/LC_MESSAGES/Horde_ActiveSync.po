@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_ActiveSync \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2012-05-10 12:39+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:471
+#: lib/Horde/ActiveSync/Imap/Message.php:476
 #, php-format
 msgid "%s part"
 msgstr "%s-Nachrichtenteil"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:450
+#: lib/Horde/ActiveSync/Imap/Message.php:455
 msgid "Audio part"
 msgstr "Audio-Nachrichtenteil"
 
@@ -38,15 +38,15 @@ msgstr "Datum"
 msgid "From"
 msgstr "Von"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:453
+#: lib/Horde/ActiveSync/Imap/Message.php:458
 msgid "Image part"
 msgstr "Bild-Nachrichtenteil"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:457
+#: lib/Horde/ActiveSync/Imap/Message.php:462
 msgid "Message part"
 msgstr "Nachrichtenteil"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:460
+#: lib/Horde/ActiveSync/Imap/Message.php:465
 msgid "Multipart part"
 msgstr "Multipart-Nachrichtenteil"
 
@@ -58,7 +58,7 @@ msgstr "Antwort an"
 msgid "Subject"
 msgstr "Betreff"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:463
+#: lib/Horde/ActiveSync/Imap/Message.php:468
 msgid "Text part"
 msgstr "Text-Nachrichtenteil"
 
@@ -66,6 +66,6 @@ msgstr "Text-Nachrichtenteil"
 msgid "To"
 msgstr "An"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:466
+#: lib/Horde/ActiveSync/Imap/Message.php:471
 msgid "Video part"
 msgstr "Video-Nachrichtenteil"

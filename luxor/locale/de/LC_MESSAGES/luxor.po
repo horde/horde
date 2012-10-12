@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Luxor 0.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2008-09-18 12:08+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -116,7 +116,7 @@ msgstr "Referenziert in"
 msgid "Size"
 msgstr "Größe"
 
-#: templates/menu.inc:15
+#: templates/menu.inc:12
 msgid "Symbol Search"
 msgstr "Symbolsuche"
 
@@ -147,7 +147,7 @@ msgstr "Ein Verzeichnis höher"
 msgid "You do not have permission to view %s."
 msgstr "Sie haben nicht genügend Rechte, um %s anzuzeigen."
 
-#: lib/Luxor.php:454
+#: lib/Application.php:51
 msgid "_Browse"
 msgstr "_Liste"
 

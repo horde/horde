@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ulaform 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2011-08-02 15:51+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -415,11 +415,11 @@ msgstr "Ja"
 msgid "You don't have the right permission to access this form."
 msgstr "Sie haben nicht genügend Rechte, um auf dieses Formular zuzugreifen."
 
-#: lib/Application.php:77
+#: lib/Application.php:75
 msgid "_List Forms"
 msgstr "Formulare _anzeigen"
 
-#: lib/Application.php:78
+#: lib/Application.php:76
 msgid "_New Form"
 msgstr "_Neues Formular"
 

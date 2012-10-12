@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
-"PO-Revision-Date: 2012-07-19 19:41+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"PO-Revision-Date: 2012-10-12 19:18+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Active?"
 msgstr "Aktiv?"
 
-#: admin.php:61 admin.php:224
+#: admin.php:60 admin.php:223
 msgid "Add Job Type"
 msgstr "Arbeitsart hinzufügen"
 
@@ -123,7 +123,7 @@ msgstr "Rechnung"
 msgid "Bill?"
 msgstr "Rechnung?"
 
-#: templates/index/index.inc:87 templates/index/index.inc:92
+#: templates/index/index.inc:78 templates/index/index.inc:83
 #: templates/index/timeedit.inc:28
 msgid "Billable"
 msgstr "Rechnung"
@@ -181,7 +181,7 @@ msgstr "Kunde"
 msgid "Client Name"
 msgstr "Kundenname"
 
-#: lib/Form/Search.php:33 templates/index/index.inc:47
+#: lib/Form/Search.php:33 templates/index/index.inc:38
 msgid "Clients"
 msgstr "Kunden"
 
@@ -199,7 +199,7 @@ msgstr "Kommagetrennte Werte (.csv)"
 msgid "Cost Object"
 msgstr "Kostenstelle"
 
-#: lib/Form/Search.php:41 templates/index/index.inc:46
+#: lib/Form/Search.php:41 templates/index/index.inc:37
 msgid "Cost Objects"
 msgstr "Kostenstellen"
 
@@ -221,15 +221,15 @@ msgstr "Löschen"
 msgid "Delete Entry"
 msgstr "Eintrag löschen"
 
-#: admin.php:90 admin.php:223
+#: admin.php:89 admin.php:222
 msgid "Delete Job Type"
 msgstr "Arbeitsart löschen"
 
-#: admin.php:95 admin.php:211
+#: admin.php:94 admin.php:210
 msgid "Delete Job Type: Confirmation"
 msgstr "Arbeitsart löschen: Bestätigung"
 
-#: deliverables.php:97
+#: deliverables.php:96
 msgid "Delete This Deliverable"
 msgstr "Dieses Ergebnis löschen"
 
@@ -287,16 +287,16 @@ msgstr "Keine Einträge einbeziehen vor"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: deliverables.php:82
+#: deliverables.php:81
 #, php-format
 msgid "Edit %s"
 msgstr "%s Bearbeiten"
 
-#: admin.php:132 admin.php:225
+#: admin.php:131 admin.php:224
 msgid "Edit Client Settings"
 msgstr "Kundeneinstellungen bearbeiten"
 
-#: admin.php:124 admin.php:184
+#: admin.php:123 admin.php:183
 msgid "Edit Client Settings, Step 2"
 msgstr "Kundeneinstellungen bearbeiten, Schritt 2"
 
@@ -308,11 +308,11 @@ msgstr "Ergebnisse bearbeiten"
 msgid "Edit Entry"
 msgstr "Eintrag bearbeiten"
 
-#: admin.php:77 admin.php:223
+#: admin.php:76 admin.php:222
 msgid "Edit Job Type"
 msgstr "Arbeitsart bearbeiten"
 
-#: admin.php:82
+#: admin.php:81
 msgid "Edit Job Type, Step 2"
 msgstr "Arbeitsart bearbeiten, Schritt 2"
 
@@ -320,11 +320,11 @@ msgstr "Arbeitsart bearbeiten, Schritt 2"
 msgid "Edit Time"
 msgstr "Zeiteintrag bearbeiten"
 
-#: admin.php:105
+#: admin.php:104
 msgid "Edit job type"
 msgstr "Arbeitsart bearbeiten"
 
-#: admin.php:158
+#: admin.php:157
 msgid "Edit job type, Step 2"
 msgstr "Arbeitsart bearbeiten, Schritt 2"
 
@@ -342,7 +342,7 @@ msgstr "Mitarbeiter"
 msgid "Enabled?"
 msgstr "Aktiviert?"
 
-#: lib/Application.php:104
+#: lib/Application.php:139
 msgid "Enter Time"
 msgstr "Zeit eintragen"
 
@@ -394,10 +394,6 @@ msgstr "Exportiert?"
 msgid "General Preferences"
 msgstr "Allgemeine Einstellungen"
 
-#: index.php:19
-msgid "Help"
-msgstr "Hilfe"
-
 #: lib/Ajax.php:87
 msgid "Hide Notifications"
 msgstr "Benachrichtigungen verstecken"
@@ -421,8 +417,8 @@ msgstr ""
 "Kunden-ID für das Exportieren, falls sie sich von dem oben angezeigten Namen "
 "unterscheidet."
 
-#: lib/Ajax/Application.php:146 lib/Ajax/Application.php:171
-#: lib/Ajax/Application.php:188
+#: lib/Ajax/Application/Handler.php:147 lib/Ajax/Application/Handler.php:172
+#: lib/Ajax/Application/Handler.php:189
 msgid "Invalid timer requested"
 msgstr "Ungültige Stoppuhr angefordert"
 
@@ -448,7 +444,7 @@ msgstr "Rechnungssystem ist nicht installiert."
 msgid "Job Type"
 msgstr "Arbeitsart"
 
-#: lib/Form/Search.php:38 templates/index/index.inc:48
+#: lib/Form/Search.php:38 templates/index/index.inc:39
 msgid "Job Types"
 msgstr "Arbeitsarten"
 
@@ -456,7 +452,7 @@ msgstr "Arbeitsarten"
 msgid "JobType Name"
 msgstr "Arbeitsart-Bezeichnung"
 
-#: templates/index/index.inc:45
+#: templates/index/index.inc:36
 msgid "Log"
 msgstr "Änderung"
 
@@ -486,7 +482,7 @@ msgstr "Meine nicht abgeschickten Zeiteinträge"
 msgid "My _Time"
 msgstr "_Meine Zeit"
 
-#: deliverables.php:90
+#: deliverables.php:89
 msgid "New Sub-deliverable"
 msgstr "Neues Unterergebnis"
 
@@ -498,7 +494,7 @@ msgstr "Neuer Zeiteintrag"
 msgid "New Top-level Deliverable"
 msgstr "Neues Hauptergebnis"
 
-#: templates/index/index.inc:67
+#: templates/index/index.inc:58
 msgid "Next month"
 msgstr "Nächster Monat"
 
@@ -532,7 +528,7 @@ msgstr "Keine Zeiteinträge zu exportieren!"
 msgid "No timeslices were selected to submit."
 msgstr "Es wurden keine Zeitabschnitte ausgewählt."
 
-#: templates/index/index.inc:88 templates/index/index.inc:93
+#: templates/index/index.inc:79 templates/index/index.inc:84
 msgid "Non-Billable"
 msgstr "Keine Rechnung"
 
@@ -551,10 +547,6 @@ msgstr ""
 "Nur Kontrolleure mit Bearbeitungsberechtigung dürden Zeiteinträge für andere "
 "Benutzer eintragen."
 
-#: templates/index/index.inc:31
-msgid "Options"
-msgstr "Einstellungen"
-
 #: lib/Ajax.php:90
 msgid "Please enter correct values in the form first."
 msgstr "Bitte geben Sie erst gültige Werte in das Formular ein."
@@ -563,7 +555,7 @@ msgstr "Bitte geben Sie erst gültige Werte in das Formular ein."
 msgid "Preferences"
 msgstr "Benutzereinstellungen"
 
-#: templates/index/index.inc:66
+#: templates/index/index.inc:57
 msgid "Previous month"
 msgstr "Vorheriger Monat"
 
@@ -590,7 +582,7 @@ msgstr "Speichern"
 msgid "Save As New"
 msgstr "Als Kopie speichern"
 
-#: lib/Form/Search.php:64 templates/index/index.inc:49
+#: lib/Form/Search.php:64 templates/index/index.inc:40
 #: templates/index/search.inc:5 templates/index/search.inc:45
 #: templates/index/timeedit.inc:53
 msgid "Search"
@@ -600,11 +592,11 @@ msgstr "Suche"
 msgid "Search For Time"
 msgstr "Nach Zeit suchen"
 
-#: lib/Api.php:98 search.php:104 templates/index/search.inc:45
+#: lib/Api.php:98 search.php:103 templates/index/search.inc:45
 msgid "Search Results"
 msgstr "Suchergebnisse"
 
-#: lib/Application.php:115
+#: lib/Application.php:150
 msgid "Search Time"
 msgstr "Zeit suchen"
 
@@ -664,11 +656,11 @@ msgstr ""
 "Standardmäßig die dynamische Ansicht anzeigen, falls der Browser dies "
 "unterstützt?"
 
-#: lib/Application.php:128
+#: lib/Application.php:76 lib/Application.php:163
 msgid "Start Watch"
 msgstr "Stoppuhr starten"
 
-#: start.php:16 start.php:30
+#: start.php:16 start.php:32
 msgid "Stop Watch"
 msgstr "Stoppuhr"
 
@@ -704,37 +696,37 @@ msgstr "Tabgetrennte Werte (.tsv, .txt)"
 msgid "Table"
 msgstr "Tabelle"
 
-#: admin.php:176
+#: admin.php:175
 msgid "The client settings have been modified."
 msgstr "Die Kundeneinstellungen wurde geändert."
 
-#: admin.php:53
+#: admin.php:52
 #, php-format
 msgid "The job type \"%s\" has been added."
 msgstr "Die Arbeitsart \"%s\" wurde hinzugefügt."
 
-#: admin.php:200
+#: admin.php:199
 msgid "The job type has been deleted."
 msgstr "Die Arbeitsart wurde gelöscht."
 
-#: admin.php:150
+#: admin.php:149
 msgid "The job type has been modified."
 msgstr "Die Arbeitsart wurde geändert."
 
-#: admin.php:205
+#: admin.php:204
 msgid "The job type was not deleted."
 msgstr "Die Arbeitsart wurde nicht gelöscht."
 
 #: start.php:22
 #, php-format
 msgid ""
-"The stop watch \"%s\" has been started and will appear in the sidebar at the "
+"The stop watch \"%s\" has been started and will appear in the menu at the "
 "next refresh."
 msgstr ""
 "Die Stoppuhr \"%s\" wurde gestartet und erscheint nach der nächsten "
-"Aktualisierung im linken Menü."
+"Aktualisierung im Menü."
 
-#: entry.php:27 lib/Ajax/Application.php:160
+#: entry.php:27 lib/Ajax/Application/Handler.php:161
 #, php-format
 msgid "The stop watch \"%s\" has been stopped."
 msgstr "Die Stoppuhr \"%s\" wurde angehalten."
@@ -763,12 +755,12 @@ msgstr "Es gibt keine Arbeitsarten, die bearbeitet werden können"
 msgid "There is no submitted billable hours."
 msgstr "Es gibt keine abgeschickten Zeiteinträge."
 
-#: admin.php:55
+#: admin.php:54
 #, php-format
 msgid "There was an error adding the job type: %s."
 msgstr "Beim Hinzufügen der Arbeitsart ist ein Fehler aufgetreten: %s."
 
-#: admin.php:202
+#: admin.php:201
 #, php-format
 msgid "There was an error deleting the job type: %s."
 msgstr "Beim Löschen der Arbeisart ist ein Fehler aufgetreten: %s."
@@ -778,13 +770,13 @@ msgstr "Beim Löschen der Arbeisart ist ein Fehler aufgetreten: %s."
 msgid "There was an error deleting the time: %s"
 msgstr "Beim Löschen des Zeiteintrags ist ein Fehler aufgetreten: %s"
 
-#: admin.php:178
+#: admin.php:177
 #, php-format
 msgid "There was an error editing the client settings: %s."
 msgstr ""
 "Beim Bearbeiten der Kundeneinstellungen ist ein Fehler aufgetreten: %s."
 
-#: admin.php:152
+#: admin.php:151
 #, php-format
 msgid "There was an error editing the job type: %s."
 msgstr "Beim Bearbeiten der Arbeitsart ist ein Fehler aufgetreten: %s."
@@ -794,7 +786,7 @@ msgstr "Beim Bearbeiten der Arbeitsart ist ein Fehler aufgetreten: %s."
 msgid "There was an error storing your timesheet: %s"
 msgstr "Beim Speichern Ihrer Zeiteinträge is ein Fehler aufgetreten: %s"
 
-#: lib/Ajax/Application.php:121 time.php:43
+#: lib/Ajax/Application/Handler.php:123 time.php:43
 #, php-format
 msgid "There was an error submitting your time: %s"
 msgstr "Beim Abschicken Ihres Zeiteintrags ist ein Fehler aufgetreten: %s"
@@ -815,15 +807,15 @@ msgstr "Zeiteintrag"
 msgid "Time Review Screen"
 msgstr "Überprüfung der Zeiteinträge"
 
-#: templates/index/index.inc:84
+#: templates/index/index.inc:75
 msgid "Time Summary"
 msgstr "Zeit-Übersicht"
 
-#: templates/index/index.inc:86
+#: templates/index/index.inc:77
 msgid "Today"
 msgstr "Heute"
 
-#: invoicing.php:39 templates/index/index.inc:91
+#: invoicing.php:39 templates/index/index.inc:82
 msgid "Total"
 msgstr "Insgesamt"
 
@@ -844,7 +836,7 @@ msgstr "Nicht abgeschickte Zeiteinträge"
 msgid "Update Time"
 msgstr "Zeiteintrag aktualisieren"
 
-#: entry.php:25 lib/Ajax/Application.php:156
+#: entry.php:25 lib/Ajax/Application/Handler.php:157
 #, php-format
 msgid "Using the \"%s\" stop watch from %s to %s"
 msgstr "Mit Stoppuhr \"%s\" von %s bis %s"
@@ -854,43 +846,39 @@ msgstr "Mit Stoppuhr \"%s\" von %s bis %s"
 msgid "Yes"
 msgstr "Ja"
 
-#: lib/Ajax/Application.php:83
+#: lib/Ajax/Application/Handler.php:85
 msgid "Your time entry was successfully deleted."
 msgstr "Ihr Zeiteintrag wurde erfolgreich gelöscht."
 
-#: entry.php:55 lib/Ajax/Application.php:53
+#: entry.php:55 lib/Ajax/Application/Handler.php:55
 msgid "Your time was successfully entered."
 msgstr "Ihr Zeiteintrag wurde erfolgreich gespeichert."
 
-#: lib/Ajax/Application.php:123 time.php:40
+#: lib/Ajax/Application/Handler.php:125 time.php:40
 msgid "Your time was successfully submitted."
 msgstr "Ihr Zeiteintrag wurde erfolgreich abgeschickt."
 
-#: entry.php:52 lib/Ajax/Application.php:103
+#: entry.php:52 lib/Ajax/Application/Handler.php:105
 msgid "Your time was successfully updated."
 msgstr "Ihr Zeiteintrag wurde erfolgreich aktualisiert."
 
-#: lib/Application.php:88
+#: lib/Application.php:110
 msgid "_Admin"
 msgstr "_Administration"
 
-#: lib/Application.php:78
+#: lib/Application.php:97
 msgid "_Deliverables"
 msgstr "E_rgebnisse"
 
-#: lib/Application.php:83
+#: lib/Application.php:104
 msgid "_Invoicing"
 msgstr "_Rechnungswesen"
 
-#: templates/index/index.inc:35 templates/index/index.inc:36
-msgid "_Logout"
-msgstr "Ab_melden"
-
-#: lib/Application.php:73
+#: lib/Application.php:122
 msgid "_New Time"
 msgstr "_Neuer Zeiteintrag"
 
-#: lib/Application.php:74
+#: lib/Application.php:92
 msgid "_Search"
 msgstr "_Suche"
 
