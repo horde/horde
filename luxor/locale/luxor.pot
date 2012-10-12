@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Luxor H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -116,7 +116,7 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-#: templates/menu.inc:15
+#: templates/menu.inc:12
 msgid "Symbol Search"
 msgstr ""
 
@@ -147,7 +147,7 @@ msgstr ""
 msgid "You do not have permission to view %s."
 msgstr ""
 
-#: lib/Luxor.php:454
+#: lib/Application.php:51
 msgid "_Browse"
 msgstr ""
 

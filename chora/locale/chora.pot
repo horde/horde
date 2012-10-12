@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Chora H5 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,13 +51,8 @@ msgstr ""
 msgid "All Branches"
 msgstr ""
 
-#: co.php:88
-msgid "Annotate"
-msgstr ""
-
 #: annotate.php:32 templates/annotate/header.inc:5
-#: templates/directory/header.inc:28 templates/patchsets/header_table.inc:13
-#: templates/stats/stats.inc:4
+#: templates/patchsets/header_table.inc:13 templates/stats/stats.inc:4
 msgid "Author"
 msgstr ""
 
@@ -65,8 +60,7 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: app/views/_logMessage.html.php:20 lib/Chora.php:333 lib/Chora.php:334
-#: lib/Chora.php:337 lib/Chora.php:338
+#: app/views/_logMessage.html.php:20 lib/Chora.php:333 lib/Chora.php:337
 msgid "Branches"
 msgstr ""
 
@@ -119,8 +113,7 @@ msgstr ""
 msgid "Da_te"
 msgstr ""
 
-#: annotate.php:33 templates/directory/header.inc:31
-#: templates/patchsets/header_table.inc:12
+#: annotate.php:33 templates/patchsets/header_table.inc:12
 msgid "Date"
 msgstr ""
 
@@ -151,7 +144,7 @@ msgstr ""
 msgid "Directory"
 msgstr ""
 
-#: annotate.php:48 co.php:89
+#: annotate.php:48
 msgid "Download"
 msgstr ""
 
@@ -173,7 +166,6 @@ msgid "Error Encountered"
 msgstr ""
 
 #: templates/directory/file.inc:7 templates/directory/file.inc:30
-#: templates/directory/header.inc:22
 msgid "File"
 msgstr ""
 
@@ -184,10 +176,6 @@ msgstr ""
 #: cvsgraph.php:53
 #, php-format
 msgid "Graph for %s"
-msgstr ""
-
-#: browsedir.php:43
-msgid "Hide Deleted Files"
 msgstr ""
 
 #: browsedir.php:43
@@ -210,7 +198,7 @@ msgstr ""
 msgid "Location:"
 msgstr ""
 
-#: lib/Chora.php:320 lib/Chora.php:321
+#: lib/Chora.php:320
 msgid "Logs"
 msgstr ""
 
@@ -234,7 +222,7 @@ msgstr ""
 msgid "Parent Directory"
 msgstr ""
 
-#: lib/Chora.php:325 lib/Chora.php:326
+#: lib/Chora.php:325
 msgid "Patchsets"
 msgstr ""
 
@@ -254,7 +242,7 @@ msgstr ""
 msgid "Repositories"
 msgstr ""
 
-#: templates/annotate/header.inc:6 templates/directory/header.inc:25
+#: templates/annotate/header.inc:6
 msgid "Rev"
 msgstr ""
 
@@ -280,10 +268,6 @@ msgstr ""
 msgid "Show Branch:"
 msgstr ""
 
-#: browsedir.php:43
-msgid "Show Deleted Files"
-msgstr ""
-
 #: templates/log/header.inc:14
 msgid "Show Differences"
 msgstr ""
@@ -295,10 +279,6 @@ msgstr ""
 #: templates/log/header.inc:8
 #, php-format
 msgid "Show diffs between %s and %s"
-msgstr ""
-
-#: co.php:93
-msgid "Snapshot"
 msgstr ""
 
 #: annotate.php:45
@@ -318,7 +298,7 @@ msgid ""
 "again later."
 msgstr ""
 
-#: lib/Chora.php:343 lib/Chora.php:344
+#: lib/Chora.php:343
 msgid "Statistics"
 msgstr ""
 
