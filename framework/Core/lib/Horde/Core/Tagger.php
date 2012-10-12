@@ -61,7 +61,10 @@ abstract class Horde_Core_Tagger
     }
 
     /**
-     * Provide access to the Content_Tagger's splitTags method.
+     * Split a tag string into an array of tags.
+     *
+     * Overides Content_Tagger::split to only split on
+     * commas.
      *
      * @param string $tags  A string of tags to be split.
      *
@@ -69,8 +72,8 @@ abstract class Horde_Core_Tagger
      */
     public function split($tags)
     {
-        return $GLOBALS['injector']->getInstance('Content_Tagger')
-            ->splitTags($tags);
+        $split_tags = explode(',', $tags);
+        return array_map("trim", $split_tags);
     }
 
     /**
