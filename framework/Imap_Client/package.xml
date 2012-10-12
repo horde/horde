@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-02</date>
- <time>16:49:55</time>
+ <date>2012-10-12</date>
+ <time>20:43:25</time>
  <version>
   <release>2.0.0beta4</release>
   <api>2.0.0beta1</api>
@@ -22,6 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add deleteACL().
+* [jan] Make setACL() work more similar to the SETACL IMAP command.
 * [mms] Fix determination of HIGHESTMODSEQ value from FETCH data.
 * [mms] Store command that caused NO/BAD error in Exception, if it can be determined.
 * [mms] Limit FETCH ENVELOPE data sizes.
@@ -1077,9 +1079,11 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-02</date>
+   <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add deleteACL().
+* [jan] Make setACL() work more similar to the SETACL IMAP command.
 * [mms] Fix determination of HIGHESTMODSEQ value from FETCH data.
 * [mms] Store command that caused NO/BAD error in Exception, if it can be determined.
 * [mms] Limit FETCH ENVELOPE data sizes.
