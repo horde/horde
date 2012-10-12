@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-12</date>
- <time>23:06:35</time>
+ <time>23:08:23</time>
  <version>
-  <release>6.0.0beta4</release>
+  <release>6.0.0beta5</release>
   <api>6.0.0beta1</api>
  </version>
  <stability>
@@ -34,15 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Add predefined templates to ACL management screen (Request #10648).
-* [mms] Capture key shortcuts on dynamic mailbox page even if focus is on IFRAME HTML message data (Bug #11428).
-* [mms] All IMP templates now use Horde_View.
-* [mms] Add swipe action buttons to the smartmobile mailbox page.
-* [mms] Optimize loading of message bodies when using dynamic view.
-* [mms] Load new mailbox when renaming current mailbox in dynamic view (Request #11394).
-* [mms] Add simple address autocompleter to smartmobile compose page.
-* [mms] Add refresh button to smartmobile folder page.
-* [jan] Fix popdown positioning in mailbox table header (Bug #11384).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2755,6 +2747,19 @@
 * [mms] Add simple address autocompleter to smartmobile compose page.
 * [mms] Add refresh button to smartmobile folder page.
 * [jan] Fix popdown positioning in mailbox table header (Bug #11384).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.0.0beta5</release>
+    <api>6.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
