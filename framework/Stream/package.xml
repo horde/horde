@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First beta release for Horde 4.
+* First beta release for Horde 5.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -93,7 +93,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* First beta release for Horde 4.
+* First beta release for Horde 5.
    </notes>
   </release>
  </changelog>
