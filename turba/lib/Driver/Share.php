@@ -154,6 +154,16 @@ class Turba_Driver_Share extends Turba_Driver
     }
 
     /**
+     * Returns ability of the backend to add new contacts.
+     *
+     * @return boolean  Can backend add?
+     */
+    protected function _canAdd()
+    {
+        return $this->_driver->_canAdd();
+    }
+
+    /**
      * Deletes the specified contact from the addressbook.
      *
      * @param string $object_key TODO
