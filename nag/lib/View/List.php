@@ -352,7 +352,7 @@ class Nag_View_List
             Horde::url('list.php')->redirect();
             exit;
         }
-        $GLOBALS['notification']->push(_("SmartList deleted successfully"), 'horde.success');
+        $GLOBALS['notification']->push(_("Smart List deleted successfully"), 'horde.success');
     }
 
     /**
