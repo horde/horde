@@ -1,6 +1,6 @@
-----------
-v4.0.0-git
-----------
+-----------
+v4.0.0beta3
+-----------
 
 [jan] Support importing contacts via API if using 'emails' attributes (Bug
       #8358).
