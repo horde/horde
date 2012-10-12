@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>23:22:54</time>
+ <date>2012-10-12</date>
+ <time>20:34:00</time>
  <version>
   <release>2.0.0beta2</release>
   <api>1.0.0</api>
@@ -733,7 +733,7 @@ Initial release as a PEAR package
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix parsing UTF-16 data in TNEF driver (Bug #11390) (andrey012@gmail.com).
