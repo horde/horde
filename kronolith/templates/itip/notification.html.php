@@ -43,7 +43,7 @@
           </td>
           <td width="5">&nbsp;</td>
           <td width="100%"><font size="2"><strong>
-            <?php foreach ($this->attendees as $attendee): ?>
+            <?php foreach (explode(',', $this->attendees) as $attendee): ?>
             <?php if (strpos('@', $attendee) === false): ?>
             <?php echo $this->h($attendee) ?><br />
             <?php else: ?>
