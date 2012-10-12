@@ -481,15 +481,11 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         $description->setDisposition('inline');
         $description->setCharset('utf-8');
         $description->setContents(
-            Horde_String::wrap(
-                sprintf(
-                    Horde_Kolab_Storage_Translation::t(
-                        "This is a Kolab Groupware object. To view this object you will need an email client that understands the Kolab Groupware format. For a list of such email clients please visit %s"
-                    ),
-                    'http://www.kolab.org/content/kolab-clients'
+            sprintf(
+                Horde_Kolab_Storage_Translation::t(
+                    "This is a Kolab Groupware object. To view this object you will need an email client that understands the Kolab Groupware format. For a list of such email clients please visit %s"
                 ),
-                76,
-                "\r\n"
+                'http://www.kolab.org/content/kolab-clients'
             ),
             array('encoding' => 'quoted-printable')
         );
