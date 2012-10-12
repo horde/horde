@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-12</date>
- <time>23:15:37</time>
+ <time>23:16:32</time>
  <version>
-  <release>4.0.0beta2</release>
+  <release>4.0.0beta3</release>
   <api>4.0.0beta1</api>
  </version>
  <stability>
@@ -34,15 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Synchronize tags with Kolab categories.
-* [mjr] Fix deleting tasks from the task form.
-* [mjr] Implement Purge Completed Tasks LoginTask (Request #2520).
-* [gwr] Mark the initial default share as such with the Kolab backend.
-* [gwr] Always mark the initial share as default tasklist.
-* [jan] Move complete task list management into the sidebar.
-* [jan] Allow to edit task list color in traditional view.
-* [mjr] Tweak display of smartlist links in list view.
-* [mjr] Fix fatal recursion error when searching with smartlists were present.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1196,6 +1188,19 @@
 * [jan] Allow to edit task list color in traditional view.
 * [mjr] Tweak display of smartlist links in list view.
 * [mjr] Fix fatal recursion error when searching with smartlists were present.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0beta3</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
