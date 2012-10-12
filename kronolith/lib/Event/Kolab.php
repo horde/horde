@@ -313,8 +313,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
         // Tags
         if (!is_array($this->tags)) {
-            $this->tags = $GLOBALS['injector']->getInstance('Content_Tagger')
-                ->splitTags($this->tags);
+            $this->tags = Kronolith::getTagger()->split($this->tags);
         }
         if ($this->tags) {
             $event['categories'] = $this->tags;
