@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2012-10-12</date>
- <time>20:35:01</time>
+ <time>20:35:45</time>
  <version>
-  <release>2.0.0beta6</release>
+  <release>2.0.0RC1</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -40,13 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Send spellcheck parameters using AJAX object, not in URL (Bug #11467).
-* [mms] Add View helpers to provide access to accesskey methods, Horde::img(), Horde::label(), and Horde_Help::link().
-* [mjr] Fix adding Bcc recipients when sending mail from ActiveSync.
-* [mjr] Fix issue saving sent mail from ActiveSync (Bug #11410).
-* [mms] Added Horde_Core_Smartmobile_Url class.
-* [jan] Make Horde::widget() take a single hash parameter.
-* [mms] Allow application API interface to dynamically alter properties (Bug #11388).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2506,6 +2500,19 @@
 * [mms] Added Horde_Core_Smartmobile_Url class.
 * [jan] Make Horde::widget() take a single hash parameter.
 * [mms] Allow application API interface to dynamically alter properties (Bug #11388).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC1</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
