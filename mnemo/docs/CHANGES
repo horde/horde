@@ -1,6 +1,6 @@
---------
-v4.0-git
---------
+-----------
+v4.0.0beta1
+-----------
 
 [gwr] Always mark the initial share as default notepad.
 [gwr] Mark the initial default share as such with the Kolab backend.
