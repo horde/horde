@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-12</date>
- <time>21:00:24</time>
+ <time>21:00:39</time>
  <version>
-  <release>2.0.0beta2</release>
+  <release>2.0.0RC1</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -29,8 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Remove Horde_Util::addParameter() and Horde_Util::removeParameter().
-* [mms] Remove Horde_Util::cloneObject().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -494,6 +493,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <notes>
 * [mms] Remove Horde_Util::addParameter() and Horde_Util::removeParameter().
 * [mms] Remove Horde_Util::cloneObject().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC1</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
