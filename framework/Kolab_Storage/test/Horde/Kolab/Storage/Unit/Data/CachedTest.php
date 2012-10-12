@@ -189,8 +189,10 @@ extends Horde_Kolab_Storage_TestCase
         );
         $data = $store->getData('INBOX/Notes');
         $object = array('summary' => 'test', 'uid' => 'UID');
-        $data->create($object);
-        $data->modify(array('summary' => 'modified', 'uid' => 'UID'));
+        $obid = $data->create($object);
+        $storage_objects = $data->fetch(array($obid));
+        $storage_objects[$obid]->setData(array('summary' => 'modified', 'uid' => 'UID'));
+        $data->modify($storage_objects[$obid]);
         $object = $data->getObject('UID');
         $this->assertEquals('modified', $object['summary']);
     }

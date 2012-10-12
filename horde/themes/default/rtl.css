@@ -105,46 +105,46 @@ option {
 }
 
 /* Tree styles. */
-span.treeImg1 {
+span.horde-tree-image-1 {
     background-image: url("graphics/tree/rev-line.png");
 }
-span.treeImg2 {
+span.horde-tree-image-2 {
     background-image: url("graphics/tree/rev-join.png");
 }
-span.treeImg3 {
+span.horde-tree-image-3 {
     background-image: url("graphics/tree/rev-joinbottom-down.png");
 }
-span.treeImg4 {
+span.horde-tree-image-4 {
     background-image: url("graphics/tree/rev-joinbottom.png");
 }
-span.treeImg5 {
+span.horde-tree-image-5 {
     background-image: url("graphics/tree/rev-minustop.png");
 }
-span.treeImg6 {
+span.horde-tree-image-6 {
     background-image: url("graphics/tree/rev-minus.png");
 }
-span.treeImg7 {
+span.horde-tree-image-7 {
     background-image: url("graphics/tree/rev-minusbottom.png");
 }
-span.treeImg8 {
+span.horde-tree-image-8 {
     background-image: url("graphics/tree/rev-minusonly.png");
 }
-span.treeImg9 {
+span.horde-tree-image-9 {
     background-image: url("graphics/tree/rev-plustop.png");
 }
-span.treeImg10 {
+span.horde-tree-image-10 {
     background-image: url("graphics/tree/rev-plus.png");
 }
-span.treeImg11 {
+span.horde-tree-image-11 {
     background-image: url("graphics/tree/rev-plusbottom.png");
 }
-span.treeImg12 {
+span.horde-tree-image-12 {
     background-image: url("graphics/tree/rev-plusonly.png");
 }
-span.treeImg13 {
+span.horde-tree-image-13 {
     background-image: url("graphics/tree/rev-nullonly.png");
 }
-span.treeImg16 {
+span.horde-tree-image-16 {
     background-image: url("graphics/tree/rev-leaf.png");
 }
 

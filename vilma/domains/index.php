@@ -39,10 +39,6 @@ foreach ($domains as &$domain) {
 $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('domains', $domains);
-$template->set('menu', Horde::menu());
-Horde::startBuffer();
-$notification->notify(array('listeners' => 'status'));
-$template->set('notify', Horde::endBuffer());
 
 /* Set up the field list. */
 $images = array('delete' => Horde::img('delete.png', _("Delete Domain")),
@@ -51,5 +47,6 @@ $template->set('images', $images);
 
 /* Render the page. */
 $page_output->header();
+$notification->notify(array('listeners' => 'status'));
 echo $template->fetch(VILMA_TEMPLATES . '/domains/index.html');
 $page_output->footer();

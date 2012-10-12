@@ -14,13 +14,13 @@
 <a href="javascript: document.getElementById('message_body').focus()" title="<?php echo _("Add a comment") ?>">
 <?php echo Horde::img('agora.png', 'agora') ?> <?php echo _("Add a comment") ?></a>
 
-<a href="<?php echo Horde_Util::addParameter(Horde::url('edit/friends/add.php'), 'user', $user); ?>" title="<?php echo sprintf(_("Add %s as a friend?"), $user) ?>" onclick="return confirm('<?php echo sprintf(_("Add %s as a friend?"), $user) ?>')">
+<a href="<?php echo Horde::url('edit/friends/add.php')->add('user', $user); ?>" title="<?php echo sprintf(_("Add %s as a friend?"), $user) ?>" onclick="return confirm('<?php echo sprintf(_("Add %s as a friend?"), $user) ?>')">
 <?php echo Horde::img('user.png') ?> <?php echo _("Friend") ?></a>
 
-<a href="<?php echo Horde_Util::addParameter(Horde::url('edit/friends/blacklist.php'), 'user', $user); ?>" title="<?php echo sprintf(_("Add %s to you blacklist?"), $user) ?>" onclick="return confirm('<?php echo sprintf(_("Add %s to you blacklist?"), $user) ?>')">
+<a href="<?php echo Horde::url('edit/friends/blacklist.php')->add('user', $user); ?>" title="<?php echo sprintf(_("Add %s to you blacklist?"), $user) ?>" onclick="return confirm('<?php echo sprintf(_("Add %s to you blacklist?"), $user) ?>')">
 <?php echo Horde::img('locked.png') ?> <?php echo _("Blacklist") ?></a>
 
-<a href="<?php echo Horde_Util::addParameter(Horde::url('report.php'), 'user', $user); ?>" title="<?php echo _("Report user") ?>">
+<a href="<?php echo Horde::url('report.php')->add('user', $user); ?>" title="<?php echo _("Report user") ?>">
 <?php echo Horde::img('problem.png') ?> <?php echo _("Report") ?></a>
 
 <a href="<?php echo Folks::getUrlFor('list', 'list') ?>" title="<?php echo _("User list") ?>">

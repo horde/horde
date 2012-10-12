@@ -164,26 +164,6 @@ class Horde_Kolab_Storage_Cache
     }
 
     /**
-     * Return a list cache.
-     *
-     * @param array $connection_params Return the list cache for a connection
-     *                                 with these parameters.
-     *
-     * @return Horde_Kolab_Storage_Cache_List The list cache.
-     */
-    public function getListCache($connection_params)
-    {
-        $list_id = $this->_getListId($connection_params);
-        if (!isset($this->_list_caches[$list_id])) {
-            $this->_list_caches[$list_id] = new Horde_Kolab_Storage_List_Cache_Base(
-                $this, $connection_params
-            );
-            $this->_list_caches[$list_id]->setListId($list_id);
-        }
-        return $this->_list_caches[$list_id];
-    }
-
-    /**
      * Retrieve list data.
      *
      * @param string $list_id ID of the connection matching the list.
@@ -209,23 +189,6 @@ class Horde_Kolab_Storage_Cache
     }
 
     /**
-     * Compose the list key.
-     *
-     * @param array $connection_params Return the list ID for a connection with
-     *                                 these parameters.
-     *
-     * @return string The list cache ID.
-     */
-    private function _getListId($connection_params)
-    {
-        foreach (array('host', 'port', 'user') as $key) {
-            $this->_requireParameter($connection_params, 'list', $key);
-        }
-        ksort($connection_params);
-        return md5(serialize($connection_params));
-    }
-
-    /**
      * Compose the data key.
      *
      * @param array $data_params Return the data ID for a data set with these
@@ -236,7 +199,7 @@ class Horde_Kolab_Storage_Cache
     private function _getDataId($data_params)
     {
         foreach (array('host', 'port', 'prefix', 'folder', 'type', 'owner') as $key) {
-            $this->_requireParameter($data_params, 'data', $key);
+            $this->requireParameter($data_params, 'data', $key);
         }
         ksort($data_params);
         return md5(serialize($data_params));
@@ -265,7 +228,7 @@ class Horde_Kolab_Storage_Cache
      *
      * @throws Horde_Kolab_Storage_Exception In case the parameter is missing.
      */
-    private function _requireParameter($parameters, $type, $key)
+    public function requireParameter($parameters, $type, $key)
     {
         if (!isset($parameters[$key])) {
             throw new Horde_Kolab_Storage_Exception(

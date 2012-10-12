@@ -9,8 +9,7 @@
             <td class="uheader">Recording ID</td>
         </tr>
         <?php
-            $url = Horde::url("recordings.php");
-            $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
+            $url = Horde::url("recordings.php")->add('action', 'delete');
             foreach ($recordings as $info) {
                 ?>
                 <tr class="item" style="vertical-align: top">
@@ -27,10 +26,7 @@
     </table>
 </div>
 <ul id="controls">
-    <?php
-    $addurl = Horde_Util::addParameter($url, 'action', 'add');
-    ?>
-    <li><a class="button" href="<?php echo $addurl; ?>">
+    <li><a class="horde-create" href="<?php echo $url->add('action', 'add') ?>">
         <?php echo Horde::img('recording-add.png'); ?>&nbsp;New Recording
         </a>
     </li>

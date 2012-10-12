@@ -27,14 +27,8 @@ $page_output->header(array(
     'title' => $view->year
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo Kronolith::menu();
 $notification->notify(array('listeners' => 'status'));
-
-echo '<div id="page">';
-Kronolith::tabs();
+Kronolith::tabs($view);
 $view->html();
-echo '</div>';
-
 require KRONOLITH_TEMPLATES . '/calendar_titles.inc';
-require KRONOLITH_TEMPLATES . '/panel.inc';
 $page_output->footer();

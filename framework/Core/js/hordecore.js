@@ -68,7 +68,6 @@ var HordeCore = {
         var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts || {});
 
         this.addRequestParams(params);
-        params.set('token', this.conf.TOKEN);
 
         ajaxopts.parameters = params;
 
@@ -94,6 +93,8 @@ var HordeCore = {
         ajaxopts.onComplete = function(t, o) {
             this.doActionComplete(t, opts);
         }.bind(this);
+        ajaxopts.parameters = $H(ajaxopts.parameters || {});
+        this.addRequestParams(ajaxopts.parameters);
 
         $(form).request(ajaxopts);
     },
@@ -106,12 +107,18 @@ var HordeCore = {
         form = $(form);
         opts = opts || {};
 
-        if (!form.down('INPUT[name=token]')) {
-            form.insert(new Element('INPUT', {
-                name: 'token',
-                type: 'hidden'
-            }).setValue(this.conf.TOKEN));
-        }
+        var params = $H();
+
+        this.addRequestParams(params);
+
+        params.each(function(pair) {
+            if (!form.down('INPUT[name=' + pair.key + ']')) {
+                form.insert(new Element('INPUT', {
+                    name: pair.key,
+                    type: 'hidden'
+                }).setValue(pair.value));
+            }
+        });
 
         if (opts.callback) {
             this.handleSubmit(form, {
@@ -150,6 +157,7 @@ var HordeCore = {
         if (this.conf.SID) {
             params.update(this.conf.SID.toQueryParams());
         }
+        params.set('token', this.conf.TOKEN);
     },
 
     // resp = Ajax.Response object
@@ -292,12 +300,13 @@ var HordeCore = {
                         select += '<option value="' + snooze.key + '">' + snooze.value + '</option>';
                     });
                     select += '</select>';
-                    message.insert('<br /><br />' + this.text.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="button ko" />' }));
+                    message.insert('<br /><br />' + this.text.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="horde-default" />' }));
                 }
                 var growl = this.Growler.growl(message, {
                     className: 'horde-alarm',
                     life: 8,
                     log: false,
+                    opacity: 0.9,
                     sticky: true
                 });
                 growl.store('alarm', alarm.id);
@@ -338,6 +347,7 @@ var HordeCore = {
                         className: m.type.replace('.', '-'),
                         life: (m.type == 'horde.error' ? 12 : 8),
                         log: 1,
+                        opacity: 0.9,
                         sticky: m.flags && m.flags.include('sticky')
                     }
                 );

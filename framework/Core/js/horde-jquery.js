@@ -98,12 +98,10 @@ Array.prototype.numericSort = function()
  */
 String.prototype.toQueryParams = function()
 {
-    var pList = this.substring(this.indexOf('?') + 1).split('#')[0].split('&'),
-        params = {},
-        pair;
+    var params = {};
 
-    $.map(pList, function(i) {
-        pair = i.split('=');
+    $.map($.trim(this.substring(this.indexOf('?') + 1)).split('#')[0].split('&'), function(i) {
+        var pair = i.split('=');
         HordeJquery.addToObject(
             params,
             decodeURIComponent(pair[0]),

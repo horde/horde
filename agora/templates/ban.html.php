@@ -1,4 +1,3 @@
-<?php echo $this->menu; ?>
 <?php echo $this->notify; ?>
 
 <h1 class="header"><?php echo $this->_arrays['forum']['forum_name']; ?></h1>

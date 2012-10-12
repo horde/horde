@@ -83,8 +83,7 @@ if (!empty($stats)) {
     $graphtypes = Operator::getGraphInfo();
 
     foreach($graphtypes as $type => $info) {
-        $graphs[$type] = Horde_Util::addParameter($url, array(
-                            'graph' => $type, 'key' => $cachekey));
+        $graphs[$type] = $url->add(array('graph' => $type, 'key' => $cachekey));
     }
 }
 $curgraph = $vars->get('graph');
@@ -92,7 +91,7 @@ $curgraph = $vars->get('graph');
 $page_output->header(array(
     'title' => _("Call Detail Records Graph")
 ));
-require OPERATOR_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 
 $form->renderActive($renderer, $vars, Horde::url('viewgraph.php'), 'post');
 

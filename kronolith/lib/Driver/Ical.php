@@ -258,7 +258,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             }
             $ical = new Horde_Icalendar();
             try {
-                $result = $ical->parsevCalendar($response->children('DAV:')->propstat->prop->children('urn:ietf:params:xml:ns:caldav')->{'calendar-data'});
+                $ical->parsevCalendar($response->children('DAV:')->propstat->prop->children('urn:ietf:params:xml:ns:caldav')->{'calendar-data'});
             } catch (Horde_Icalendar_Exception $e) {
                 throw new Kronolith_Exception($e);
             }
@@ -368,7 +368,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         if ($this->isCalDAV()) {
             if (preg_match('/(.*)-(\d+)$/', $eventId, $matches)) {
                 $eventId = $matches[1];
-                $recurrenceId = $matches[2];
+                //$recurrenceId = $matches[2];
             }
             $url = trim($this->_getUrl(), '/') . '/' . $eventId;
             $response = $this->_getClient()->get($url);
@@ -420,7 +420,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $response = $this->_saveEvent($event);
         if (!in_array($response->code, array(200, 204))) {
             Horde::logMessage(sprintf('Failed to update event on remote calendar: url = "%s", status = %s',
-                                      $url, $response->code), 'INFO');
+                                      $response->url, $response->code), 'INFO');
             throw new Kronolith_Exception(_("The event could not be updated on the remote server."));
         }
         return $event->id;
@@ -490,11 +490,14 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      */
     public function deleteEvent($eventId, $silent = false)
     {
+        if ($eventId instanceof Kronolith_Event) {
+            $eventId = $eventId->id;
+        }
         if (!$this->isCalDAV()) {
             throw new Kronolith_Exception(_("Deleting events is not supported with this remote calendar."));
         }
 
-        if (preg_match('/(.*)-(\d+)$/', $eventId, $matches)) {
+        if (preg_match('/(.*)-(\d+)$/', $eventId)) {
             throw new Kronolith_Exception(_("Cannot delete exceptions (yet)."));
         }
 
@@ -569,7 +572,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $data = $response->getBody();
         $ical = new Horde_Icalendar();
         try {
-            $result = $ical->parsevCalendar($data);
+            $ical->parsevCalendar($data);
         } catch (Horde_Icalendar_Exception $e) {
             if ($cache) {
                 $cacheOb->set($signature, serialize($e->getMessage()));

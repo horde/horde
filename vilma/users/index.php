@@ -102,13 +102,7 @@ $template->set('addresses', $addresses);
 if (!$vilma->driver->isBelowMaxUsers($curdomain['domain_name'])) {
     $template->set('maxusers', _("Maximum Users"));
 }
-$template->set('menu', Horde::menu());
 $template->set('tabs', $tabs->render());
-
-Horde::startBuffer();
-$notification->notify(array('listeners' => 'status'));
-$template->set('notify', Horde::endBuffer());
-
 $template->set('pager', $pager->render());
 
 /* Set up the field list. */
@@ -118,5 +112,6 @@ $template->set('images', $images);
 
 /* Render the page. */
 $page_output->header();
+$notification->notify(array('listeners' => 'status'));
 echo $template->fetch(VILMA_TEMPLATES . '/users/index.html');
 $page_output->footer();

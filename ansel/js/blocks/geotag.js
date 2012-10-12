@@ -52,12 +52,7 @@ AnselBlockGeoTag = Class.create({
             parameters: {
                 pref: this.opts.layerUpdatePref,
                 value: l.layer.name
-            },
-            onComplete: function(transport) {
-                 if (typeof Horde_ToolTips != 'undefined') {
-                     Horde_ToolTips.out();
-                 }
-             }.bind(this)
+            }
         });
     }
 

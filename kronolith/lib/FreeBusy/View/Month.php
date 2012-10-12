@@ -46,11 +46,8 @@ class Kronolith_FreeBusy_View_Month extends Kronolith_FreeBusy_View
 
     protected function _hours()
     {
-        global $prefs;
-
         $hours_html = '';
         $dayWidth = round(100 / $this->_days);
-        $date_format = $prefs->getValue('date_format');
 
         $week = Date_Calc::weekOfYear(1, $this->_start->month, $this->_start->year);
         $span = (7 - $week) % 7 + 1;

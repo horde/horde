@@ -55,8 +55,9 @@ abstract class Horde_Http_Request_Base
             'proxyUsername' => null,
             'proxyPassword' => null,
             'proxyAuthenticationScheme' => Horde_Http::AUTH_BASIC,
-            'timeout' => 5,
             'redirects' => 5,
+            'timeout' => 5,
+            'verifyPeer' => true,
         );
     }
 

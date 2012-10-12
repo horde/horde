@@ -217,12 +217,6 @@ $_prefs['show_location'] = array(
     'desc' => _("Choose the views to show event locations in:"),
 );
 
-// show the calendar options panel?
-// a value of 0 = no, 1 = yes
-$_prefs['show_panel'] = array(
-    'value' => 1
-);
-
 // show Free/Busy legend?
 // a value of 0 = no, 1 = yes
 $_prefs['show_fb_legend'] = array(
@@ -328,6 +322,10 @@ $_prefs['holiday_drivers'] = array(
 
 // store the calendars to diplay
 $_prefs['display_cals'] = array(
+    'value' => 'a:0:{}'
+);
+
+$_prefs['display_resource_cals'] = array(
     'value' => 'a:0:{}'
 );
 

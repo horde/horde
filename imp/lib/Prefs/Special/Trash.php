@@ -34,25 +34,28 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
         $imp_search = $injector->getInstance('IMP_Search');
         $trash = IMP_Mailbox::getPref('trash_folder');
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('FormTag');
+        $view->addHelper('Horde_Core_View_Helper_Label');
+        $view->addHelper('Tag');
 
-        $t->set('label', Horde::label('trash', _("Trash mailbox:")));
-        $t->set('nombox', IMP_Mailbox::formTo(self::PREF_NO_MBOX));
-        $t->set('flist', IMP::flistSelect(array(
+        $view->flist = IMP::flistSelect(array(
             'basename' => true,
             'filter' => array('INBOX'),
             'new_mbox' => true,
             'selected' => $trash
-        )));
-        $t->set('special_use', $this->_getSpecialUse(Horde_Imap_Client::SPECIALUSE_TRASH));
+        ));
+        $view->nombox = IMP_Mailbox::formTo(self::PREF_NO_MBOX);
+        $view->special_use = $this->_getSpecialUse(Horde_Imap_Client::SPECIALUSE_TRASH);
 
         if (!$prefs->isLocked('vfolder') || $imp_search['vtrash']->enabled) {
-            $t->set('vtrash', IMP_Mailbox::formTo($imp_search->createSearchId('vtrash')));
-            $t->set('vtrash_select', $trash->vtrash);
+            $view->vtrash = IMP_Mailbox::formTo($imp_search->createSearchId('vtrash'));
+            $view->vtrash_select = $trash->vtrash;
         }
 
-        return $t->fetch(IMP_TEMPLATES . '/prefs/trash.html');
+        return $view->render('trash');
     }
 
     /**

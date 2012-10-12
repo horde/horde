@@ -56,22 +56,6 @@ interface Horde_Kolab_Storage_Driver
     public function setBackend($backend);
 
     /**
-     * Returns the parser for data objects.
-     *
-     * @return Horde_Kolab_Storage_Data_Parser The parser.
-     */
-    public function getParser();
-
-    /**
-     * Set the data parser.
-     *
-     * @param mixed $parser The parser that should be used.
-     *
-     * @return NULL
-     */
-    public function setParser(Horde_Kolab_Storage_Data_Parser $parser);
-
-    /**
      * Return the id of the user currently authenticated.
      *
      * @return string The id of the user that opened the connection.
@@ -255,22 +239,6 @@ interface Horde_Kolab_Storage_Driver
     public function getUids($folder);
 
     /**
-     * Fetches the objects for the specified UIDs.
-     *
-     * @param string  $folder  The folder to access.
-     * @param array   $uids    The message UIDs.
-     * @param array   $options Additional options.
-     * <pre>
-     *  - type    - (string) The data type.
-     *  - version - (int)    The format version.
-     *  - raw     - (bool)   Should the raw data be returned? 
-     * </pre>
-     *
-     * @return array The objects.
-     */
-    public function fetch($folder, $uids, $options = array());
-
-    /**
      * Retrieves the messages for the given message ids.
      *
      * @param string $folder The folder to fetch the messages from.
@@ -304,6 +272,16 @@ interface Horde_Kolab_Storage_Driver
      *               Horde_Mime_Headers and a Horde_Mime_Part object.
      */
     public function fetchComplete($folder, $uid);
+
+    /**
+     * Retrieves the message headers.
+     *
+     * @param string $folder The folder to fetch the message from.
+     * @param array  $uid    The message UID.
+     *
+     * @return Horde_Mime_Headers The message headers.
+     */
+    public function fetchHeaders($folder, $uid);
 
     /**
      * Appends a message to the given folder.

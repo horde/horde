@@ -22,12 +22,13 @@ class Kronolith_Form_CreateCalendar extends Horde_Form
         parent::__construct($vars, _("Create Calendar"));
 
         $this->addVariable(_("Name"), 'name', 'text', true);
-        $this->addVariable(_("Color"), 'color', 'colorpicker', false);
-        $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
-        $this->addVariable(_("Tags"), 'tags', 'text', false);
+        $v = $this->addVariable(_("Color"), 'color', 'colorpicker', false);
+        $v->setDefault(Kronolith::randomColor());
         if ($GLOBALS['registry']->isAdmin()) {
             $this->addVariable(_("System Calendar"), 'system', 'boolean', false, false, _("System calendars don't have an owner. Only administrators can change the calendar settings and permissions."));
         }
+        $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
+        $this->addVariable(_("Tags"), 'tags', 'kronolith:KronolithTags', false);
 
         $this->setButtons(array(_("Create")));
     }
@@ -42,6 +43,13 @@ class Kronolith_Form_CreateCalendar extends Horde_Form
             $info[$key] = $this->_vars->get($key);
         }
         return Kronolith::addShare($info);
+    }
+
+    public function renderActive()
+    {
+        return parent::renderActive(
+            $this->getRenderer(array('varrenderer_driver' => array('kronolith', 'kronolith'))),
+            $this->_vars);
     }
 
 }

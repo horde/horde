@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Image\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
-"PO-Revision-Date: 2011-11-21 22:58+0900\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-09-09 11:45+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/Horde/Image/Exif.php:180
@@ -299,11 +299,11 @@ msgstr "色"
 
 #: lib/Horde/Image/Exif.php:467
 msgid "Color Sequential Area Sensor"
-msgstr ""
+msgstr "色順次面センサー"
 
 #: lib/Horde/Image/Exif.php:469
 msgid "Color Sequential Linear Sensor"
-msgstr ""
+msgstr "色順次線センサー"
 
 #: lib/Horde/Image/Exif.php:114
 msgid "Color Space"
@@ -349,11 +349,11 @@ msgstr "コントラスト－"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:351
 msgid "Cool"
-msgstr ""
+msgstr "寒色"
 
 #: lib/Horde/Image/Exif.php:401
 msgid "Cool white fluorescent"
-msgstr ""
+msgstr "クール白色蛍光灯"
 
 #: lib/Horde/Image/Exif.php:74 lib/Horde/Image/Exif.php:118
 msgid "Copyright"
@@ -518,11 +518,11 @@ msgstr "フラッシュ、自動"
 
 #: lib/Horde/Image/Exif.php:439
 msgid "Flash, Auto-Mode, Return light detected"
-msgstr "フラッシュ、自動、発光"
+msgstr "フラッシュ、自動、反射光検出"
 
 #: lib/Horde/Image/Exif.php:438
 msgid "Flash, Auto-Mode, Return light not detected"
-msgstr "フラッシュ、自動、未発光"
+msgstr "フラッシュ、自動、反射光未検出"
 
 #: lib/Horde/Image/Exif.php:431
 msgid "Flash, strobe return light detected"
@@ -534,11 +534,11 @@ msgstr "フラッシュ、ストロボ反射光未検出"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:200
 msgid "Flourescence"
-msgstr ""
+msgstr "蛍光"
 
 #: lib/Horde/Image/Exif.php:393 lib/Horde/Image/Exif/Parser/Canon.php:368
 msgid "Fluorescent"
-msgstr ""
+msgstr "蛍光灯"
 
 #: lib/Horde/Image/Exif.php:103
 msgid "Focal Length"
@@ -757,7 +757,7 @@ msgstr "マルチスポット"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:462
 msgid "Natural"
-msgstr ""
+msgstr "自然"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:177
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:201
@@ -853,7 +853,7 @@ msgstr ""
 
 #: lib/Horde/Image/Exif.php:464
 msgid "One Chip Color Area Sensor"
-msgstr ""
+msgstr "単板カラーセンサー"
 
 #: lib/Horde/Image/Exif/Parser/Canon.php:148
 msgid "One-Shot"
@@ -881,7 +881,7 @@ msgstr "パン"
 
 #: lib/Horde/Image/Exif.php:384 lib/Horde/Image/Exif/Parser/Canon.php:250
 msgid "Partial"
-msgstr ""
+msgstr "部分"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:287
 msgid "Party"
@@ -908,7 +908,7 @@ msgstr "ピクセル"
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:198
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:251
 msgid "Portrait"
-msgstr "縦置き"
+msgstr "人物"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:197
 msgid "Preset"
@@ -998,7 +998,7 @@ msgstr "SXGA 基本"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:156
 msgid "SXGA Fine"
-msgstr ""
+msgstr "SXGA 上質"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:155
 msgid "SXGA Normal"
@@ -1125,11 +1125,11 @@ msgstr "ファイルが開けませんでした。"
 
 #: lib/Horde/Image/Exif.php:466
 msgid "Three Chip Color Area Sensor"
-msgstr ""
+msgstr "３板カラーセンサー"
 
 #: lib/Horde/Image/Exif.php:468
 msgid "Trilinear Sensor"
-msgstr ""
+msgstr "３線センサー"
 
 #: lib/Horde/Image/Exif.php:394 lib/Horde/Image/Exif/Parser/Canon.php:367
 msgid "Tungsten"
@@ -1141,7 +1141,7 @@ msgstr "Tv"
 
 #: lib/Horde/Image/Exif.php:465
 msgid "Two Chip Color Area Sensor"
-msgstr ""
+msgstr "２板カラーセンサー"
 
 #: lib/Horde/Image/Exif.php:476
 msgid "Uncalibrated"
@@ -1263,7 +1263,7 @@ msgstr "VGA 基本"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:153
 msgid "VGA Fine"
-msgstr ""
+msgstr "VGA 上質"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:152
 msgid "VGA Normal"
@@ -1275,7 +1275,7 @@ msgstr "非常に高い"
 
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:348
 msgid "Warm"
-msgstr ""
+msgstr "暖色"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:223
 msgid "Warning"
@@ -1287,11 +1287,11 @@ msgstr "ホワイトバランス"
 
 #: lib/Horde/Image/Exif.php:402
 msgid "White fluorescent"
-msgstr ""
+msgstr "白色蛍光灯"
 
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:129
 msgid "White-fluorescence"
-msgstr ""
+msgstr "白色蛍光"
 
 #: lib/Horde/Image/Exif.php:96
 msgid "Width"

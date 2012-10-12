@@ -3,7 +3,7 @@
  */
 
 /* Fixes broken inline-block. */
-.iconImg, .mimeHeaders, .treeImg {
+.iconImg, .mimeHeaders, .horde-tree-image {
     zoom: 1;
     *display: inline;
 }

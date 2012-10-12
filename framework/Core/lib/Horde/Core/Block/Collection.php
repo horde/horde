@@ -340,7 +340,7 @@ class Horde_Core_Block_Collection implements Serializable
             asort($blockvalues);
 
             $widget = sprintf('<select name="params[__%s]" onchange="document.blockform.action.value=\'save-resume\';document.blockform.submit()">', $param_id) . "\n";
-            foreach ($param['values'] as $key => $values) {
+            foreach (array_keys($param['values']) as $key) {
                 $name = Horde_String::length($key) > 30 ? Horde_String::substr($key, 0, 27) . '...' : $key;
                 $widget .= sprintf("<option value=\"%s\"%s>%s</option>\n",
                                    htmlspecialchars($key),

@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issue causing FOLDERSYNC to fail on postgres.
+* [mjr] Fix erroneous truncation of CC addresses (Bug #11446).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -214,6 +215,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0beta1</min>
@@ -242,6 +250,13 @@
      <min>2.0.0beta1</min>
      <max>3.0.0alpha1</max>
      <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -780,7 +795,8 @@
    <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue causing FOLDERSYNC to fail on postgres.
+* [mjr] Fix erroneous truncation of CC addresses (Bug #11446).
    </notes>
   </release>
  </changelog>

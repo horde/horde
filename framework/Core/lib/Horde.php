@@ -889,18 +889,19 @@ class Horde
     }
 
     /**
-     * Uses DOM Tooltips to display the 'title' attribute for
-     * link() calls.
+     * Uses DOM Tooltips to display the 'title' attribute for link() calls.
      *
      * @param string $url        The full URL to be linked to
      * @param string $status     The JavaScript mouse-over string
      * @param string $class      The CSS class of the link
      * @param string $target     The window target to point to.
      * @param string $onclick    JavaScript action for the 'onclick' event.
-     * @param string $title      The link title (tooltip).
+     * @param string $title      The link title (tooltip). Most not contain
+     *                           HTML data other than &lt;br&gt;, which will
+     *                           be converted to a linebreak.
      * @param string $accesskey  The access key to use.
-     * @param array  $attributes Any other name/value pairs to add to the <a>
-     *                           tag.
+     * @param array  $attributes Any other name/value pairs to add to the
+     *                           &lt;a&gt; tag.
      *
      * @return string  The full <a href> tag.
      */
@@ -909,8 +910,9 @@ class Horde
                                        $title = '', $accesskey = '',
                                        $attributes = array())
     {
-        if (!empty($title)) {
-            $title = '&lt;pre&gt;' . preg_replace(array('/\n/', '/((?<!<br)\s{1,}(?<!\/>))/em', '/<br \/><br \/>/', '/<br \/>/'), array('', 'str_repeat("&nbsp;", strlen("$1"))', '&lt;br /&gt; &lt;br /&gt;', '&lt;br /&gt;'), nl2br(htmlspecialchars(htmlspecialchars($title)))) . '&lt;/pre&gt;';
+        if (strlen($title)) {
+            $attributes['nicetitle'] = Horde_Serialize::serialize(explode("\n", preg_replace('/<br\s*\/?\s*>/', "\n", $title)), Horde_Serialize::JSON);
+            $title = null;
             $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tooltips.js', 'horde');
         }
 
@@ -921,29 +923,37 @@ class Horde
      * Returns an anchor sequence with the relevant parameters for a widget
      * with accesskey and text.
      *
-     * @param string  $url      The full URL to be linked to.
-     * @param string  $title    The link title/description.
-     * @param string  $class    The CSS class of the link
-     * @param string  $target   The window target to point to.
-     * @param string  $onclick  JavaScript action for the 'onclick' event.
-     * @param string  $title2   The link title (tooltip) (deprecated - just use
-     *                          $title).
-     * @param boolean $nocheck  Don't check if the access key already has been
-     *                          used. Defaults to false (= check).
+     * @param array $opts  A hash with widget options:
+     *                     - url: (string) The full URL to be linked to.
+     *                     - title: (string) The link title/description.
+     *                     - nocheck: (boolean, optional) Don't check if the
+     *                                access key already has been used.
+     *                                Defaults to false (= check).
+     *                     Any other options will be passed as attributes to
+     *                     the link tag.
      *
      * @return string  The full <a href>Title</a> sequence.
      */
-    static public function widget($url, $title = '', $class = 'widget',
-                                  $target = '', $onclick = '', $title2 = '',
-                                  $nocheck = false)
+    static public function widget($params)
     {
-        if (!empty($title2)) {
-            $title = $title2;
-        }
+        $params = array_merge(
+            array(
+                'class' => '',
+                'target' => '',
+                'onclick' => '',
+                'nocheck' => false),
+            $params
+        );
 
-        $ak = self::getAccessKey($title, $nocheck);
+        $url = new Horde_Url($params['url']);
+        $title = $params['title'];
+        $params['accesskey'] = self::getAccessKey($title, $params['nocheck']);
 
-        return self::link($url, '', $class, $target, $onclick, '', $ak) . self::highlightAccessKey($title, $ak) . '</a>';
+        unset($params['url'], $params['title'], $params['nocheck']);
+
+        return $url->link($params)
+            . self::highlightAccessKey($title, $params['accesskey'])
+            . '</a>';
     }
 
     /**
@@ -1053,7 +1063,7 @@ class Horde
     {
         /* If browser does not support images, simply return the ALT text. */
         if (!$GLOBALS['browser']->hasFeature('images')) {
-            return htmlspecialchars($alt);
+            return '';
         }
 
         /* If no directory has been specified, get it from the registry. */
@@ -1593,45 +1603,31 @@ class Horde
     }
 
     /**
-     * Generates the menu output.
+     * Returns the sidebar for the current application.
      *
-     * @param array $opts  Additional options:
-     *   - app: (string) The application to generate the menu for.
-     *          DEFAULT: current application
-     *   - mask: (integer) The Horde_Menu mask to use.
-     *           DEFAULT: Horde_Menu::MASK_ALL
-     *   - menu_ob: (boolean) If true, returns the menu object
-     *              DEFAULT: false (renders menu)
      * @param string $app  The application to generate the menu for. Defaults
      *                     to the current app.
      *
-     * @return string|Horde_Menu  The menu output, or the menu object if
-     *                            'menu_ob' is true.
+     * @return Horve_View_Sidebar  The sidebar.
      */
-    static public function menu(array $opts = array())
+    static public function sidebar($app = null)
     {
-        global $injector, $registry;
+        global $registry;
 
-        if (empty($opts['app'])) {
-            $opts['app'] = $registry->getApp();
-        }
-        if (!isset($opts['mask'])) {
-            $opts['mask'] = Horde_Menu::MASK_ALL;
+        if (empty($app)) {
+            $app = $registry->getApp();
         }
 
-        $menu = new Horde_Menu($opts['mask']);
-
-        $registry->callAppMethod($opts['app'], 'menu', array(
+        $menu = new Horde_Menu();
+        $registry->callAppMethod($app, 'menu', array(
             'args' => array($menu)
         ));
+        $sidebar = $menu->render();
+        $registry->callAppMethod($app, 'sidebar', array(
+            'args' => array($sidebar)
+        ));
 
-        if (!empty($opts['menu_ob'])) {
-            return $menu;
-        }
-
-        self::startBuffer();
-        require $registry->get('templates', 'horde') . '/menu/menu.inc';
-        return self::endBuffer();
+        return $sidebar;
     }
 
     /**
@@ -1652,6 +1648,69 @@ class Horde
         if (!is_null($error)) {
             $GLOBALS['notification']->push($error, 'horde.warning');
         }
+    }
+
+    /**
+     * Initialize a HordeMap.
+     *
+     */
+    static public function initMap(array $params = array())
+    {
+        global $conf, $page_output;
+
+        if (empty($params['providers'])) {
+            $params['providers'] = $conf['maps']['providers'];
+        }
+        if (empty($params['geocoder'])) {
+            $params['geocoder'] = $conf['maps']['geocoder'];
+        }
+
+        // Language specific file needed?
+        $language = str_replace('_', '-', $GLOBALS['language']);
+        if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/lang/' . $language . '.js')) {
+            $language = 'en-US';
+        }
+        $params['conf'] = array(
+            'language' => $language
+        );
+
+        $params['driver'] = 'Horde';
+        foreach ($params['providers'] as $layer) {
+            switch ($layer) {
+            case 'Google':
+                $params['conf']['apikeys']['google'] = $conf['api']['googlemaps'];
+                break;
+            case 'Yahoo':
+                $params['conf']['apikeys']['yahoo'] = $conf['api']['yahoomaps'];
+                break;
+            case 'Cloudmade':
+                $params['conf']['apikeys']['cloudmade'] = $conf['api']['cloudmade'];
+                break;
+            case 'Mytopo':
+                $params['conf']['apikeys']['mytopo'] = $conf['api']['mytopo'];
+                break;
+            }
+        }
+
+        if (!empty($params['geocoder'])) {
+            switch ($params['geocoder']) {
+            case 'Google':
+                $params['conf']['apikeys']['google'] = $conf['api']['googlemaps'];
+                break;
+            case 'Yahoo':
+                $params['conf']['apikeys']['yahoo'] = $conf['api']['yahoomaps'];
+                break;
+            case 'Cloudmade':
+                $params['conf']['apikeys']['cloudmade'] = $conf['api']['cloudmade'];
+                break;
+            }
+        }
+        $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
+
+        $page_output->addScriptFile('map/map.js', 'horde');
+        $page_output->addInlineScript(array(
+            'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');'
+        ));
     }
 
 }

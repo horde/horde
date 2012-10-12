@@ -14,14 +14,14 @@
  */
 function _getSearchUrl($vars)
 {
-    $qUrl = '';
+    $qUrl = new Horde_Url();
 
     $queue = (int)$vars->get('queue');
-    $qUrl = Horde_Util::addParameter($qUrl, array('queue' => $queue));
+    $qUrl->add(array('queue' => $queue));
 
     $summary = $vars->get('summary');
     if ($summary) {
-        $qUrl = Horde_Util::addParameter($qUrl, 'summary', $summary);
+        $qUrl->add('summary', $summary);
     }
 
     $states = $vars->get('states');
@@ -29,10 +29,10 @@ function _getSearchUrl($vars)
         foreach ($states as $type => $state) {
             if (is_array($state)) {
                 foreach ($state as $s) {
-                    $qUrl = Horde_Util::addParameter($qUrl, "states[$type][]", $s);
+                    $qUrl->add("states[$type][]", $s);
                 }
             } else {
-                $qUrl = Horde_Util::addParameter($qUrl, "states[$type]", $state);
+                $qUrl->add("states[$type]", $state);
             }
         }
     }

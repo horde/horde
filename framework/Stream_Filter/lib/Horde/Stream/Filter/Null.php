@@ -17,10 +17,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package Stream_Filter
+ * @package  Stream_Filter
  */
 class Horde_Stream_Filter_Null extends php_user_filter
 {
@@ -43,7 +43,9 @@ class Horde_Stream_Filter_Null extends php_user_filter
      */
     public function onCreate()
     {
-        $this->_replace = isset($this->params->replace) ? $this->params->replace : '';
+        $this->_replace = isset($this->params->replace)
+            ? $this->params->replace
+            : '';
 
         return true;
     }

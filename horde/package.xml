@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-29</date>
- <time>16:00:44</time>
+ <date>2012-09-19</date>
+ <time>09:37:10</time>
  <version>
   <release>5.0.0beta6</release>
   <api>5.0.0beta1</api>
@@ -40,7 +40,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Show non-javascript enhanced login screen for non-smartmobile mobile browsers (Bug #11215).
+* [mms] Add version parameter to CSS/javascript file URLs to help with cache busting when these files change between releases.
+* [mms] Add configuration option for maximum allowed session times.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -142,123 +144,6 @@
     <file name="horde.php" role="horde" />
    </dir> <!-- /install -->
    <dir name="js">
-    <dir name="map">
-     <dir name="img">
-      <file name="blank.gif" role="horde" />
-      <file name="cloud-popup-relative.png" role="horde" />
-      <file name="drag-rectangle-off.png" role="horde" />
-      <file name="drag-rectangle-on.png" role="horde" />
-      <file name="east-mini.png" role="horde" />
-      <file name="layer-switcher-maximize.png" role="horde" />
-      <file name="layer-switcher-minimize.png" role="horde" />
-      <file name="marker.png" role="horde" />
-      <file name="measuring-stick-off.png" role="horde" />
-      <file name="measuring-stick-on.png" role="horde" />
-      <file name="north-mini.png" role="horde" />
-      <file name="panning-hand-off.png" role="horde" />
-      <file name="panning-hand-on.png" role="horde" />
-      <file name="slider.png" role="horde" />
-      <file name="south-mini.png" role="horde" />
-      <file name="west-mini.png" role="horde" />
-      <file name="zoom-minus-mini.png" role="horde" />
-      <file name="zoom-plus-mini.png" role="horde" />
-      <file name="zoom-world-mini.png" role="horde" />
-      <file name="zoombar.png" role="horde" />
-     </dir> <!-- /js/map/img -->
-     <dir name="lang">
-      <file name="ar-SY.js" role="horde" />
-      <file name="bg-BG.js" role="horde" />
-      <file name="ca-ES.js" role="horde" />
-      <file name="cs-CZ.js" role="horde" />
-      <file name="da-DK.js" role="horde" />
-      <file name="de-DE.js" role="horde" />
-      <file name="el-GR.js" role="horde" />
-      <file name="en-CA.js" role="horde" />
-      <file name="es-ES.js" role="horde" />
-      <file name="fi-FI.js" role="horde" />
-      <file name="fr-FR.js" role="horde" />
-      <file name="gl-ES.js" role="horde" />
-      <file name="hr-HR.js" role="horde" />
-      <file name="hu-HU.js" role="horde" />
-      <file name="id-ID.js" role="horde" />
-      <file name="is-IS.js" role="horde" />
-      <file name="it-IT.js" role="horde" />
-      <file name="ja-JP.js" role="horde" />
-      <file name="km-KH.js" role="horde" />
-      <file name="nl-NL.js" role="horde" />
-      <file name="nn-NO.js" role="horde" />
-      <file name="no-NO.js" role="horde" />
-      <file name="pt-BR.js" role="horde" />
-      <file name="pt-PT.js" role="horde" />
-      <file name="ru-RU.js" role="horde" />
-      <file name="sk-SK.js" role="horde" />
-      <file name="sv-SE.js" role="horde" />
-      <file name="te-TE.js" role="horde" />
-      <file name="vi-VI.js" role="horde" />
-      <file name="zh-CN.js" role="horde" />
-      <file name="zh-TW.js" role="horde" />
-     </dir> <!-- /js/map/lang -->
-     <dir name="theme">
-      <dir name="default">
-       <dir name="img">
-        <file name="add_point_off.png" role="horde" />
-        <file name="add_point_on.png" role="horde" />
-        <file name="blank.gif" role="horde" />
-        <file name="close.gif" role="horde" />
-        <file name="drag-rectangle-off.png" role="horde" />
-        <file name="drag-rectangle-on.png" role="horde" />
-        <file name="draw_line_off.png" role="horde" />
-        <file name="draw_line_on.png" role="horde" />
-        <file name="draw_point_off.png" role="horde" />
-        <file name="draw_point_on.png" role="horde" />
-        <file name="draw_polygon_off.png" role="horde" />
-        <file name="draw_polygon_on.png" role="horde" />
-        <file name="editing_tool_bar.png" role="horde" />
-        <file name="move_feature_off.png" role="horde" />
-        <file name="move_feature_on.png" role="horde" />
-        <file name="navigation_history.png" role="horde" />
-        <file name="overview_replacement.gif" role="horde" />
-        <file name="pan-panel-NOALPHA.png" role="horde" />
-        <file name="pan-panel.png" role="horde" />
-        <file name="panning-hand-off.png" role="horde" />
-        <file name="panning-hand-on.png" role="horde" />
-        <file name="pan_off.png" role="horde" />
-        <file name="pan_on.png" role="horde" />
-        <file name="remove_point_off.png" role="horde" />
-        <file name="remove_point_on.png" role="horde" />
-        <file name="ruler.png" role="horde" />
-        <file name="save_features_off.png" role="horde" />
-        <file name="save_features_on.png" role="horde" />
-        <file name="view_next_off.png" role="horde" />
-        <file name="view_next_on.png" role="horde" />
-        <file name="view_previous_off.png" role="horde" />
-        <file name="view_previous_on.png" role="horde" />
-        <file name="zoom-panel-NOALPHA.png" role="horde" />
-        <file name="zoom-panel.png" role="horde" />
-       </dir> <!-- /js/map/theme/default/img -->
-       <file name="framedCloud.css" role="horde" />
-       <file name="google.css" role="horde" />
-       <file name="google.tidy.css" role="horde" />
-       <file name="ie6-style.css" role="horde" />
-       <file name="ie6-style.tidy.css" role="horde" />
-       <file name="style.css" role="horde" />
-       <file name="style.tidy.css" role="horde" />
-      </dir> <!-- /js/map/theme/default -->
-     </dir> <!-- /js/map/theme -->
-     <file name="bing.js" role="horde" />
-     <file name="cloudmade.js" role="horde" />
-     <file name="google.js" role="horde" />
-     <file name="horde.js" role="horde" />
-     <file name="map.js" role="horde" />
-     <file name="mapquest.js" role="horde" />
-     <file name="mytopo.js" role="horde" />
-     <file name="null.js" role="horde" />
-     <file name="ocm.js" role="horde" />
-     <file name="OpenLayers-debug.js" role="horde" />
-     <file name="OpenLayers.js" role="horde" />
-     <file name="osm.js" role="horde" />
-     <file name="yahoo.js" role="horde" />
-    </dir> <!-- /js/map -->
     <dir name="plupload">
      <dir name="i18n">
       <file name="cs.js" role="horde" />
@@ -299,12 +184,14 @@
     <file name="json2.js" role="horde" />
     <file name="jstorage.js" role="horde" />
     <file name="login.js" role="horde" />
+    <file name="logintasks-jquery.js" role="horde" />
     <file name="logintasks.js" role="horde" />
     <file name="md5.js" role="horde" />
     <file name="problem.js" role="horde" />
     <file name="quickfinder.js" role="horde" />
     <file name="sidebar.js" role="horde" />
     <file name="slider2.js" role="horde" />
+    <file name="smartmobile-login.js" role="horde" />
     <file name="stripe.js" role="horde" />
     <file name="syncmlprefs.js" role="horde" />
     <file name="textarearesize.js" role="horde" />
@@ -315,6 +202,9 @@
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
+     <dir name="Application">
+      <file name="Handler.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Application -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Block">
@@ -745,7 +635,6 @@
     <file name="prefs.php" role="horde" />
     <file name="problem.php" role="horde" />
     <file name="resetpassword.php" role="horde" />
-    <file name="sidebar.php" role="horde" />
     <file name="snooze.php" role="horde" />
    </dir> <!-- /services -->
    <dir name="static">
@@ -810,7 +699,7 @@
      <file name="login.inc" role="horde" />
      <file name="resetpassword.inc" role="horde" />
      <file name="signup.inc" role="horde" />
-     <file name="smartmobile.inc" role="horde" />
+     <file name="smartmobile.html.php" role="horde" />
     </dir> <!-- /templates/login -->
     <dir name="logintasks">
      <file name="logintasks.html" role="horde" />
@@ -863,7 +752,8 @@
     <dir name="sidebar">
      <file name="sidebar.html.php" role="horde" />
      <file name="_container.html.php" role="horde" />
-     <file name="_row.html.php" role="horde" />
+     <file name="_rowresource.html.php" role="horde" />
+     <file name="_rowtree.html.php" role="horde" />
     </dir> <!-- /templates/sidebar -->
     <dir name="test">
      <file name="extensions.inc" role="horde" />
@@ -1626,6 +1516,8 @@
       <file name="blank.gif" role="horde" />
       <file name="block.png" role="horde" />
       <file name="button-active-bg.png" role="horde" />
+      <file name="button-default.png" role="horde" />
+      <file name="button-delete.png" role="horde" />
       <file name="button-split.png" role="horde" />
       <file name="button.png" role="horde" />
       <file name="buttonbar-bg.png" role="horde" />
@@ -1653,6 +1545,7 @@
       <file name="external.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="feed.png" role="horde" />
+      <file name="filter.png" role="horde" />
       <file name="google.png" role="horde" />
       <file name="group.png" role="horde" />
       <file name="head-bg.png" role="horde" />
@@ -1669,6 +1562,7 @@
       <file name="layout.png" role="horde" />
       <file name="lhand.png" role="horde" />
       <file name="loading.gif" role="horde" />
+      <file name="locked-inv.png" role="horde" />
       <file name="locked.png" role="horde" />
       <file name="login.png" role="horde" />
       <file name="logo.png" role="horde" />
@@ -1725,6 +1619,7 @@
       <file name="tablehead-split.png" role="horde" />
       <file name="tabset.png" role="horde" />
       <file name="tab_bottom.gif" role="horde" />
+      <file name="tags.png" role="horde" />
       <file name="unlocked.png" role="horde" />
       <file name="user.png" role="horde" />
       <file name="website.png" role="horde" />
@@ -1744,7 +1639,9 @@
      <file name="facebook.css" role="horde" />
      <file name="feed-rss.xsl" role="horde" />
      <file name="ie7.css" role="horde" />
+     <file name="ie8.css" role="horde" />
      <file name="info.php" role="horde" />
+     <file name="mozilla.css" role="horde" />
      <file name="opera.css" role="horde" />
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
@@ -2162,12 +2059,14 @@
    <install as="js/json2.js" name="js/json2.js" />
    <install as="js/jstorage.js" name="js/jstorage.js" />
    <install as="js/login.js" name="js/login.js" />
+   <install as="js/logintasks-jquery.js" name="js/logintasks-jquery.js" />
    <install as="js/logintasks.js" name="js/logintasks.js" />
    <install as="js/md5.js" name="js/md5.js" />
    <install as="js/problem.js" name="js/problem.js" />
    <install as="js/quickfinder.js" name="js/quickfinder.js" />
    <install as="js/sidebar.js" name="js/sidebar.js" />
    <install as="js/slider2.js" name="js/slider2.js" />
+   <install as="js/smartmobile-login.js" name="js/smartmobile-login.js" />
    <install as="js/stripe.js" name="js/stripe.js" />
    <install as="js/syncmlprefs.js" name="js/syncmlprefs.js" />
    <install as="js/textarearesize.js" name="js/textarearesize.js" />
@@ -2175,111 +2074,6 @@
    <install as="js/twitterclient.js" name="js/twitterclient.js" />
    <install as="js/userupdate.js" name="js/userupdate.js" />
    <install as="js/vatid.js" name="js/vatid.js" />
-   <install as="js/map/bing.js" name="js/map/bing.js" />
-   <install as="js/map/cloudmade.js" name="js/map/cloudmade.js" />
-   <install as="js/map/google.js" name="js/map/google.js" />
-   <install as="js/map/horde.js" name="js/map/horde.js" />
-   <install as="js/map/map.js" name="js/map/map.js" />
-   <install as="js/map/mapquest.js" name="js/map/mapquest.js" />
-   <install as="js/map/mytopo.js" name="js/map/mytopo.js" />
-   <install as="js/map/null.js" name="js/map/null.js" />
-   <install as="js/map/ocm.js" name="js/map/ocm.js" />
-   <install as="js/map/OpenLayers-debug.js" name="js/map/OpenLayers-debug.js" />
-   <install as="js/map/OpenLayers.js" name="js/map/OpenLayers.js" />
-   <install as="js/map/osm.js" name="js/map/osm.js" />
-   <install as="js/map/yahoo.js" name="js/map/yahoo.js" />
-   <install as="js/map/img/blank.gif" name="js/map/img/blank.gif" />
-   <install as="js/map/img/cloud-popup-relative.png" name="js/map/img/cloud-popup-relative.png" />
-   <install as="js/map/img/drag-rectangle-off.png" name="js/map/img/drag-rectangle-off.png" />
-   <install as="js/map/img/drag-rectangle-on.png" name="js/map/img/drag-rectangle-on.png" />
-   <install as="js/map/img/east-mini.png" name="js/map/img/east-mini.png" />
-   <install as="js/map/img/layer-switcher-maximize.png" name="js/map/img/layer-switcher-maximize.png" />
-   <install as="js/map/img/layer-switcher-minimize.png" name="js/map/img/layer-switcher-minimize.png" />
-   <install as="js/map/img/marker.png" name="js/map/img/marker.png" />
-   <install as="js/map/img/measuring-stick-off.png" name="js/map/img/measuring-stick-off.png" />
-   <install as="js/map/img/measuring-stick-on.png" name="js/map/img/measuring-stick-on.png" />
-   <install as="js/map/img/north-mini.png" name="js/map/img/north-mini.png" />
-   <install as="js/map/img/panning-hand-off.png" name="js/map/img/panning-hand-off.png" />
-   <install as="js/map/img/panning-hand-on.png" name="js/map/img/panning-hand-on.png" />
-   <install as="js/map/img/slider.png" name="js/map/img/slider.png" />
-   <install as="js/map/img/south-mini.png" name="js/map/img/south-mini.png" />
-   <install as="js/map/img/west-mini.png" name="js/map/img/west-mini.png" />
-   <install as="js/map/img/zoom-minus-mini.png" name="js/map/img/zoom-minus-mini.png" />
-   <install as="js/map/img/zoom-plus-mini.png" name="js/map/img/zoom-plus-mini.png" />
-   <install as="js/map/img/zoom-world-mini.png" name="js/map/img/zoom-world-mini.png" />
-   <install as="js/map/img/zoombar.png" name="js/map/img/zoombar.png" />
-   <install as="js/map/lang/ar-SY.js" name="js/map/lang/ar-SY.js" />
-   <install as="js/map/lang/bg-BG.js" name="js/map/lang/bg-BG.js" />
-   <install as="js/map/lang/ca-ES.js" name="js/map/lang/ca-ES.js" />
-   <install as="js/map/lang/cs-CZ.js" name="js/map/lang/cs-CZ.js" />
-   <install as="js/map/lang/da-DK.js" name="js/map/lang/da-DK.js" />
-   <install as="js/map/lang/de-DE.js" name="js/map/lang/de-DE.js" />
-   <install as="js/map/lang/el-GR.js" name="js/map/lang/el-GR.js" />
-   <install as="js/map/lang/en-CA.js" name="js/map/lang/en-CA.js" />
-   <install as="js/map/lang/es-ES.js" name="js/map/lang/es-ES.js" />
-   <install as="js/map/lang/fi-FI.js" name="js/map/lang/fi-FI.js" />
-   <install as="js/map/lang/fr-FR.js" name="js/map/lang/fr-FR.js" />
-   <install as="js/map/lang/gl-ES.js" name="js/map/lang/gl-ES.js" />
-   <install as="js/map/lang/hr-HR.js" name="js/map/lang/hr-HR.js" />
-   <install as="js/map/lang/hu-HU.js" name="js/map/lang/hu-HU.js" />
-   <install as="js/map/lang/id-ID.js" name="js/map/lang/id-ID.js" />
-   <install as="js/map/lang/is-IS.js" name="js/map/lang/is-IS.js" />
-   <install as="js/map/lang/it-IT.js" name="js/map/lang/it-IT.js" />
-   <install as="js/map/lang/ja-JP.js" name="js/map/lang/ja-JP.js" />
-   <install as="js/map/lang/km-KH.js" name="js/map/lang/km-KH.js" />
-   <install as="js/map/lang/nl-NL.js" name="js/map/lang/nl-NL.js" />
-   <install as="js/map/lang/nn-NO.js" name="js/map/lang/nn-NO.js" />
-   <install as="js/map/lang/no-NO.js" name="js/map/lang/no-NO.js" />
-   <install as="js/map/lang/pt-BR.js" name="js/map/lang/pt-BR.js" />
-   <install as="js/map/lang/pt-PT.js" name="js/map/lang/pt-PT.js" />
-   <install as="js/map/lang/ru-RU.js" name="js/map/lang/ru-RU.js" />
-   <install as="js/map/lang/sk-SK.js" name="js/map/lang/sk-SK.js" />
-   <install as="js/map/lang/sv-SE.js" name="js/map/lang/sv-SE.js" />
-   <install as="js/map/lang/te-TE.js" name="js/map/lang/te-TE.js" />
-   <install as="js/map/lang/vi-VI.js" name="js/map/lang/vi-VI.js" />
-   <install as="js/map/lang/zh-CN.js" name="js/map/lang/zh-CN.js" />
-   <install as="js/map/lang/zh-TW.js" name="js/map/lang/zh-TW.js" />
-   <install as="js/map/theme/default/framedCloud.css" name="js/map/theme/default/framedCloud.css" />
-   <install as="js/map/theme/default/google.css" name="js/map/theme/default/google.css" />
-   <install as="js/map/theme/default/google.tidy.css" name="js/map/theme/default/google.tidy.css" />
-   <install as="js/map/theme/default/ie6-style.css" name="js/map/theme/default/ie6-style.css" />
-   <install as="js/map/theme/default/ie6-style.tidy.css" name="js/map/theme/default/ie6-style.tidy.css" />
-   <install as="js/map/theme/default/style.css" name="js/map/theme/default/style.css" />
-   <install as="js/map/theme/default/style.tidy.css" name="js/map/theme/default/style.tidy.css" />
-   <install as="js/map/theme/default/img/add_point_off.png" name="js/map/theme/default/img/add_point_off.png" />
-   <install as="js/map/theme/default/img/add_point_on.png" name="js/map/theme/default/img/add_point_on.png" />
-   <install as="js/map/theme/default/img/blank.gif" name="js/map/theme/default/img/blank.gif" />
-   <install as="js/map/theme/default/img/close.gif" name="js/map/theme/default/img/close.gif" />
-   <install as="js/map/theme/default/img/drag-rectangle-off.png" name="js/map/theme/default/img/drag-rectangle-off.png" />
-   <install as="js/map/theme/default/img/drag-rectangle-on.png" name="js/map/theme/default/img/drag-rectangle-on.png" />
-   <install as="js/map/theme/default/img/draw_line_off.png" name="js/map/theme/default/img/draw_line_off.png" />
-   <install as="js/map/theme/default/img/draw_line_on.png" name="js/map/theme/default/img/draw_line_on.png" />
-   <install as="js/map/theme/default/img/draw_point_off.png" name="js/map/theme/default/img/draw_point_off.png" />
-   <install as="js/map/theme/default/img/draw_point_on.png" name="js/map/theme/default/img/draw_point_on.png" />
-   <install as="js/map/theme/default/img/draw_polygon_off.png" name="js/map/theme/default/img/draw_polygon_off.png" />
-   <install as="js/map/theme/default/img/draw_polygon_on.png" name="js/map/theme/default/img/draw_polygon_on.png" />
-   <install as="js/map/theme/default/img/editing_tool_bar.png" name="js/map/theme/default/img/editing_tool_bar.png" />
-   <install as="js/map/theme/default/img/move_feature_off.png" name="js/map/theme/default/img/move_feature_off.png" />
-   <install as="js/map/theme/default/img/move_feature_on.png" name="js/map/theme/default/img/move_feature_on.png" />
-   <install as="js/map/theme/default/img/navigation_history.png" name="js/map/theme/default/img/navigation_history.png" />
-   <install as="js/map/theme/default/img/overview_replacement.gif" name="js/map/theme/default/img/overview_replacement.gif" />
-   <install as="js/map/theme/default/img/pan-panel-NOALPHA.png" name="js/map/theme/default/img/pan-panel-NOALPHA.png" />
-   <install as="js/map/theme/default/img/pan-panel.png" name="js/map/theme/default/img/pan-panel.png" />
-   <install as="js/map/theme/default/img/panning-hand-off.png" name="js/map/theme/default/img/panning-hand-off.png" />
-   <install as="js/map/theme/default/img/panning-hand-on.png" name="js/map/theme/default/img/panning-hand-on.png" />
-   <install as="js/map/theme/default/img/pan_off.png" name="js/map/theme/default/img/pan_off.png" />
-   <install as="js/map/theme/default/img/pan_on.png" name="js/map/theme/default/img/pan_on.png" />
-   <install as="js/map/theme/default/img/remove_point_off.png" name="js/map/theme/default/img/remove_point_off.png" />
-   <install as="js/map/theme/default/img/remove_point_on.png" name="js/map/theme/default/img/remove_point_on.png" />
-   <install as="js/map/theme/default/img/ruler.png" name="js/map/theme/default/img/ruler.png" />
-   <install as="js/map/theme/default/img/save_features_off.png" name="js/map/theme/default/img/save_features_off.png" />
-   <install as="js/map/theme/default/img/save_features_on.png" name="js/map/theme/default/img/save_features_on.png" />
-   <install as="js/map/theme/default/img/view_next_off.png" name="js/map/theme/default/img/view_next_off.png" />
-   <install as="js/map/theme/default/img/view_next_on.png" name="js/map/theme/default/img/view_next_on.png" />
-   <install as="js/map/theme/default/img/view_previous_off.png" name="js/map/theme/default/img/view_previous_off.png" />
-   <install as="js/map/theme/default/img/view_previous_on.png" name="js/map/theme/default/img/view_previous_on.png" />
-   <install as="js/map/theme/default/img/zoom-panel-NOALPHA.png" name="js/map/theme/default/img/zoom-panel-NOALPHA.png" />
-   <install as="js/map/theme/default/img/zoom-panel.png" name="js/map/theme/default/img/zoom-panel.png" />
    <install as="js/plupload/plupload.browserplus.js" name="js/plupload/plupload.browserplus.js" />
    <install as="js/plupload/plupload.flash.js" name="js/plupload/plupload.flash.js" />
    <install as="js/plupload/plupload.flash.swf" name="js/plupload/plupload.flash.swf" />
@@ -2310,6 +2104,7 @@
    <install as="lib/core.php" name="lib/core.php" />
    <install as="lib/Test.php" name="lib/Test.php" />
    <install as="lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
    <install as="lib/Block/Account.php" name="lib/Block/Account.php" />
    <install as="lib/Block/Cloud.php" name="lib/Block/Cloud.php" />
    <install as="lib/Block/FbStream.php" name="lib/Block/FbStream.php" />
@@ -2499,7 +2294,6 @@
    <install as="services/prefs.php" name="services/prefs.php" />
    <install as="services/problem.php" name="services/problem.php" />
    <install as="services/resetpassword.php" name="services/resetpassword.php" />
-   <install as="services/sidebar.php" name="services/sidebar.php" />
    <install as="services/snooze.php" name="services/snooze.php" />
    <install as="services/download/index.php" name="services/download/index.php" />
    <install as="services/facebook/index.php" name="services/facebook/index.php" />
@@ -2552,7 +2346,7 @@
    <install as="templates/login/login.inc" name="templates/login/login.inc" />
    <install as="templates/login/resetpassword.inc" name="templates/login/resetpassword.inc" />
    <install as="templates/login/signup.inc" name="templates/login/signup.inc" />
-   <install as="templates/login/smartmobile.inc" name="templates/login/smartmobile.inc" />
+   <install as="templates/login/smartmobile.html.php" name="templates/login/smartmobile.html.php" />
    <install as="templates/logintasks/logintasks.html" name="templates/logintasks/logintasks.html" />
    <install as="templates/logintasks/smartmobile.html" name="templates/logintasks/smartmobile.html" />
    <install as="templates/menu/menu.inc" name="templates/menu/menu.inc" />
@@ -2591,7 +2385,8 @@
    <install as="templates/shares/edit.inc" name="templates/shares/edit.inc" />
    <install as="templates/sidebar/sidebar.html.php" name="templates/sidebar/sidebar.html.php" />
    <install as="templates/sidebar/_container.html.php" name="templates/sidebar/_container.html.php" />
-   <install as="templates/sidebar/_row.html.php" name="templates/sidebar/_row.html.php" />
+   <install as="templates/sidebar/_rowresource.html.php" name="templates/sidebar/_rowresource.html.php" />
+   <install as="templates/sidebar/_rowtree.html.php" name="templates/sidebar/_rowtree.html.php" />
    <install as="templates/test/extensions.inc" name="templates/test/extensions.inc" />
    <install as="templates/test/footer.inc" name="templates/test/footer.inc" />
    <install as="templates/test/header.inc" name="templates/test/header.inc" />
@@ -2609,7 +2404,9 @@
    <install as="themes/default/facebook.css" name="themes/default/facebook.css" />
    <install as="themes/default/feed-rss.xsl" name="themes/default/feed-rss.xsl" />
    <install as="themes/default/ie7.css" name="themes/default/ie7.css" />
+   <install as="themes/default/ie8.css" name="themes/default/ie8.css" />
    <install as="themes/default/info.php" name="themes/default/info.php" />
+   <install as="themes/default/mozilla.css" name="themes/default/mozilla.css" />
    <install as="themes/default/opera.css" name="themes/default/opera.css" />
    <install as="themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="themes/default/screen.css" name="themes/default/screen.css" />
@@ -2622,6 +2419,8 @@
    <install as="themes/default/graphics/blank.gif" name="themes/default/graphics/blank.gif" />
    <install as="themes/default/graphics/block.png" name="themes/default/graphics/block.png" />
    <install as="themes/default/graphics/button-active-bg.png" name="themes/default/graphics/button-active-bg.png" />
+   <install as="themes/default/graphics/button-default.png" name="themes/default/graphics/button-default.png" />
+   <install as="themes/default/graphics/button-delete.png" name="themes/default/graphics/button-delete.png" />
    <install as="themes/default/graphics/button-split.png" name="themes/default/graphics/button-split.png" />
    <install as="themes/default/graphics/button.png" name="themes/default/graphics/button.png" />
    <install as="themes/default/graphics/buttonbar-bg.png" name="themes/default/graphics/buttonbar-bg.png" />
@@ -2649,6 +2448,7 @@
    <install as="themes/default/graphics/external.png" name="themes/default/graphics/external.png" />
    <install as="themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="themes/default/graphics/feed.png" name="themes/default/graphics/feed.png" />
+   <install as="themes/default/graphics/filter.png" name="themes/default/graphics/filter.png" />
    <install as="themes/default/graphics/google.png" name="themes/default/graphics/google.png" />
    <install as="themes/default/graphics/group.png" name="themes/default/graphics/group.png" />
    <install as="themes/default/graphics/head-bg.png" name="themes/default/graphics/head-bg.png" />
@@ -2665,6 +2465,7 @@
    <install as="themes/default/graphics/layout.png" name="themes/default/graphics/layout.png" />
    <install as="themes/default/graphics/lhand.png" name="themes/default/graphics/lhand.png" />
    <install as="themes/default/graphics/loading.gif" name="themes/default/graphics/loading.gif" />
+   <install as="themes/default/graphics/locked-inv.png" name="themes/default/graphics/locked-inv.png" />
    <install as="themes/default/graphics/locked.png" name="themes/default/graphics/locked.png" />
    <install as="themes/default/graphics/login.png" name="themes/default/graphics/login.png" />
    <install as="themes/default/graphics/logo.png" name="themes/default/graphics/logo.png" />
@@ -2721,6 +2522,7 @@
    <install as="themes/default/graphics/tablehead-split.png" name="themes/default/graphics/tablehead-split.png" />
    <install as="themes/default/graphics/tabset.png" name="themes/default/graphics/tabset.png" />
    <install as="themes/default/graphics/tab_bottom.gif" name="themes/default/graphics/tab_bottom.gif" />
+   <install as="themes/default/graphics/tags.png" name="themes/default/graphics/tags.png" />
    <install as="themes/default/graphics/unlocked.png" name="themes/default/graphics/unlocked.png" />
    <install as="themes/default/graphics/user.png" name="themes/default/graphics/user.png" />
    <install as="themes/default/graphics/website.png" name="themes/default/graphics/website.png" />
@@ -3886,10 +3688,12 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-29</date>
+   <date>2012-09-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Show non-javascript enhanced login screen for non-smartmobile mobile browsers (Bug #11215).
+* [mms] Add version parameter to CSS/javascript file URLs to help with cache busting when these files change between releases.
+* [mms] Add configuration option for maximum allowed session times.
    </notes>
   </release>
  </changelog>

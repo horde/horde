@@ -143,27 +143,21 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
                 break;
 
             case 'revokeRead':
-                $facebook->batchBegin();
                 $facebook->auth->revokeExtendedPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_READSTREAM);
                 $facebook->auth->revokeExtendedPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_USER_ABOUT);
                 $facebook->auth->revokeExtendedPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_USER_HOMETOWN);
                 $facebook->auth->revokeExtendedPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_USER_LOCATION);
                 $facebook->auth->revokeExtendedPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_USER_PHOTOS);
-                $facebook->batchEnd();
-                $facebook->batchBegin();
                 $facebook->auth->revokeExtendedPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_USER_BIRTHDAY);
                 $facebook->auth->revokeExtendedPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_USER_EVENTS);
-                $facebook->batchEnd();
                 break;
 
             case 'revokeFriends':
-                $facebook->batchBegin();
                 $facebook->auth->revokeExtendedPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_ABOUT);
                 $facebook->auth->revokeExtendedPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_BIRTHDAY);
                 $facebook->auth->revokeExtendedPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_HOMETOWN);
                 $facebook->auth->revokeExtendedPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_LOCATION);
                 $facebook->auth->revokeExtendedPermission(Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_PHOTOS);
-                $facebook->batchEnd();
                 break;
             }
         } catch (Horde_Service_Facebook_Exception $e) {

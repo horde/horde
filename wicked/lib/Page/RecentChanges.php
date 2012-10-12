@@ -44,12 +44,12 @@ class Wicked_Page_RecentChanges extends Wicked_Page {
             $createDate = mktime(0, 0, 0, $tm['tm_mon'], $tm['tm_mday'],
                                  $tm['tm_year'], $tm['tm_isdst']);
 
-            $version_url = Horde_Util::addParameter($page->pageUrl(), 'version',
-                                              $page->version());
-            $diff_url = Horde_Util::addParameter(Horde::url('diff.php'),
-                                           array('page' => $page->pageName(),
-                                                 'v1' => '?',
-                                                 'v2' => $page->version()));
+            $version_url = $page->pageUrl()->add('version', $page->version());
+            $diff_url = Horde::url('diff.php')->add(array(
+                'page' => $page->pageName(),
+                'v1' => '?',
+                'v2' => $page->version()
+            ));
             $diff_alt = sprintf(_("Show changes for %s"), $page->version());
             $diff_img = Horde::img('diff.png', $diff_alt);
             $pageInfo = array('author' => $page->author(),

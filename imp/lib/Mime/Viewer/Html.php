@@ -70,7 +70,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         default:
             $uid = strval(new Horde_Support_Randomid());
 
-            $GLOBALS['page_output']->addScriptFile('imp.js');
+            $GLOBALS['page_output']->addScriptPackage('IMP_Script_Package_Imp');
 
             $data['js'] = array('IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON, $this->_mimepart->getCharset()) . ')');
             $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none"></iframe>';
@@ -135,9 +135,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         } else {
             $filters = array();
             if ($prefs->getValue('emoticons')) {
-                $filters['emoticons'] = array(
-                    'entities' => true
-                );
+//                $filters['emoticons'] = array(
+//                    'entities' => true
+//                );
             }
 
             if ($inline) {
@@ -212,14 +212,12 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         if ($inline && $this->_imptmp['imgblock']) {
-            $imple = $injector->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ImageUnblock', array(
-                'mailbox' => $contents->getMailbox(),
-                'uid' => $contents->getUid()
-            ));
             $tmp = new IMP_Mime_Status(array(
                 _("Images have been blocked in this message part."),
-                Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>',
-                Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getDomId())) . _("Always show images from this sender?") . '</a>'
+                Horde::link('#', '', 'unblockImageLink', '', '', '', '', array(
+                    'mailbox' => $contents->getMailbox()->form_to,
+                    'uid' => $contents->getUid()
+                )) . _("Show Images?") . '</a>'
             ));
             $tmp->icon('mime/image.png');
             $status[] = $tmp;
@@ -456,20 +454,29 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
         $style->import = array();
 
+        $style_blocked = clone $style;
+        $was_blocked = false;
+
         foreach ($style->css as $key => $val) {
             foreach ($val as $key2 => $val2) {
                 foreach ($val2 as $key3 => $val3) {
                     foreach ($val3['p'] as $key4 => $val4) {
                         if (preg_match('/^\s*url\(["\']?.*?["\']?\)/i', $val4)) {
-                            $blocked[] = $key2 . '{' . $key3 . ':' . $val4 . ';}';
-                            unset($style->css[$key][$key2][$key3]['p'][$key4]);
+                            $was_blocked = true;
+                            unset($style->css[$key][$key2]);
+                            break 3;
                         }
                     }
                 }
+                unset($style_blocked->css[$key][$key2]);
             }
         }
 
         $css_text = $style->print->plain();
+
+        if ($was_blocked) {
+            $blocked[] = $style_blocked->print->plain();
+        }
 
         if ($css_text || !empty($blocked)) {
             /* Gets the HEAD element or creates one if it doesn't exist. */

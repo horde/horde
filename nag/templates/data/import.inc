@@ -7,7 +7,7 @@
  <?php printf(_("Import Tasks, Step %d"), (int)$import_step) ?>
 </h1>
 
-<div class="headerbox">
+<div class="horde-content">
  <p>
   <?php echo Horde::label('import_format', _("Select the format of the source file:")) ?><br />
   <select id="import_format" name="import_format">
@@ -36,7 +36,10 @@
   <?php echo Horde::label('import_file', _("Select the file to import:")) ?><br />
   <input type="file" id="import_file" name="import_file" size="40" />
  </p>
- <input type="submit" value="<?php echo _("Next") ?>" class="button" />
+</div>
+
+<div class="horde-form-buttons">
+ <input type="submit" value="<?php echo _("Next") ?>" class="horde-default" />
 </div>
 
 </form>

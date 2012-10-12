@@ -15,8 +15,8 @@ var IMP_JS = {
      */
     unblockImages: function(e)
     {
-        var callback,
-            elt = e.element().up('.mimeStatusMessageTable').up(),
+        var a, callback,
+            elt = e.element(),
             iframe = elt.up('.mimePartBase').down('.mimePartData IFRAME.htmlMsgData'),
             iframeid = iframe.readAttribute('id'),
             imgload = false,
@@ -26,10 +26,27 @@ var IMP_JS = {
 
         e.stop();
 
-        elt.slideUp({
-            afterFinish: function() { elt.remove(); },
-            duration: 0.6
-        });
+        a = new Element('A')
+            .insert(IMP_JS.unblock_image_text)
+            .observe('click', function(e) {
+                var box = e.element().up('.mimeStatusMessageTable').up();
+
+                HordeCore.doAction('imageUnblockAdd', {
+                    mbox: elt.readAttribute('mailbox'),
+                    uid: elt.readAttribute('uid')
+                });
+
+                box.slideUp({
+                    afterFinish: function() { box.remove(); },
+                    duration: 0.6
+                });
+            });
+
+        e.element().up('TBODY').update(
+            new Element('TR').insert(
+                new Element('TD').insert(a)
+            )
+        );
 
         callback = this.imgOnload.bind(this, iframeid);
 

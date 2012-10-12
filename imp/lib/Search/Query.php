@@ -243,7 +243,7 @@ class IMP_Search_Query implements Serializable
             return $qout;
 
         case 'querytext':
-            $text = array(_("Search"));
+            $text = array();
 
             foreach ($this->_criteria as $elt) {
                 if ($elt instanceof IMP_Search_Element_Or) {
@@ -266,7 +266,7 @@ class IMP_Search_Query implements Serializable
                 }
             }
 
-            return implode(' ', $text) . ' ' . _("in") . ' [' . implode(', ', $mbox_display) . ']';
+            return sprintf(_("Search %s in %s"), implode(' ', $text), '[' . implode(', ', $mbox_display) . ']');
         }
     }
 

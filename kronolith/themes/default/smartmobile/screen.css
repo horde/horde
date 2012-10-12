@@ -1,30 +1,38 @@
-.kronolithEvent {
-    text-shadow: none;
+.kronolith-event-000 {
+    color: #000 !important;
 }
-.kronolithEventTentative {
+.kronolith-event-fff {
+    color: #fff !important;
+    text-shadow: 0 1px 0 #000;
+}
+.kronolith-event-tentative {
     font-style: italic;
 }
-.kronolithEventCancelled {
+.kronolith-event-cancelled {
     text-decoration: line-through;
 }
 .event-time, .event-location {
     font-size: 85%;
 }
-.weekend {
+.kronolith-weekend {
     background: #ffc;
 }
 .description {
     padding: .5em;
 }
+.ui-btn-text {
+    z-index: 0;
+}
 
 /* Event view styles */
+.kronolithEventDetailTitle .ui-li-heading,
+.kronolithEventDetailTitle .ui-li-desc {
+    white-space: normal;
+}
 .kronolithEventDetail p {
   margin-left: 5px;
 }
-.kronolithEventDetailTitle {
-}
 .kronolithEventDetailCalendar {
-  color: #ccc;
   font-style: italic;
 }
 .kronolithEventDetailLocation a {
@@ -32,13 +40,6 @@
 }
 
 /* Day view styles */
-.kronolithDayHeader {
-    width: 100%;
-    text-align: center;
-}
-.kronolithDayHeader a {
-    vertical-align: middle;
-}
 .kronolithDayDate {
     margin-left: 10px;
     margin-right: 10px;
@@ -46,42 +47,32 @@
 .kronolithTimeWrapper {
     float: left;
     padding-right: 4px;
-    margin-right: 6px;
+    margin: 0 6px 0.6em 0;
     border-right: 2px solid black;
     min-width: 90px;
-}
-.kronolithStartTime {
 }
 .kronolithEndTime {
   font-size: 80%;
 }
 .kronolithDayLocationfff, .kronolithDayLocation000 {
-  padding-left: 6px;
   font-style: italic;
 }
 .kronolithDayLocation000 {
-  color: gray;
+  color: #333;
 }
 .kronolithDayLocationfff {
   color: lightgray;
 }
-.kronolithDayDetail {
-}
-.kronolithDayDetail h4 {
-  text-align: center;
-  margin-bottom: 0;
-  margin-top: 0;
-}
 
 /* Mini calendar */
-.kronolithMinical {
+.kronolith-minical {
     background-color: #fff;
 }
-.kronolithMinical table {
+.kronolith-minical table {
     width: 100%;
     border-spacing: 0;
 }
-#kronolithBody .kronolithMinical caption {
+#kronolithBody .kronolith-minical caption {
     margin: 0 1px 1px 1px;
     height: 20px;
     line-height: 20px;
@@ -91,16 +82,10 @@
     text-align: left;
 }
 
-.kronolithMonthHeader {
-  text-align: center;
-}
-.kronolithMonthHeader a {
-    vertical-align: middle;
-}
-.kronolithMinical th, .kronolithMinical td {
+.kronolith-minical th, .kronolith-minical td {
     font-size: 90%;
 }
-.kronolithMinical th, .kronolithMinical td.kronolithMinicalWeek {
+.kronolith-minical th {
     width: 16px;
     height: 16px;
     line-height: 16px;
@@ -109,7 +94,7 @@
     color: #202020;
     border: 1px #999 solid !important;
 }
-.kronolithMinical tbody td {
+.kronolith-minical tbody td {
     width: 24px;
     height: 24px;
     line-height: 24px;
@@ -119,21 +104,26 @@
     cursor: pointer;
     border: 1px transparent;
 }
-.kronolithMinical .kronolithMinicalEmpty {
+.kronolith-minical .kronolith-minical-empty {
     background: none;
     border-color: #e2e2e2;
     color: silver;
 }
-.kronolithMinical .kronolithContainsEvents {
+.kronolith-minical .kronolithContainsEvents {
     background-color: #ffc;
     font-weight: bold;
 }
 
-.kronolithMinical .kronolithSelected {
+.kronolith-minical .kronolith-selected {
     border: 1px #999 solid !important;
 }
 
-.kronolithToday, .kronolithMinical .kronolithToday {
+.kronolithToday, .kronolith-minical .kronolithToday {
     background-color: #ebf3fc;
     border: 1px solid #808080;
+}
+
+/* Base jQuery Mobile tweaks/fixes. */
+.ui-navbar ul {
+    overflow: hidden;
 }

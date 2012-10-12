@@ -29,10 +29,11 @@ if ($layout->updated()) {
     }
 }
 
+$page_output->sidebar = false;
+
 $page_output->header(array(
     'title' => _("My Portal Layout")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require HORDE_TEMPLATES . '/portal/edit.inc';
 $page_output->footer();

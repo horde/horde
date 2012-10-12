@@ -18,10 +18,9 @@ Horde_Registry::appInit('kronolith');
 $title = _("My Calendar");
 
 $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/smartmobile'));
+$view->addHelper('Horde_Core_Smartmobile_View_Helper');
 $view->today = new Horde_Date($_SERVER['REQUEST_TIME']);
 $view->registry = $registry;
-$view->portal = $registry->getServiceLink('portal', 'horde')->setRaw(false);
-$view->logout = $registry->getServiceLink('logout')->setRaw(false);
 
 $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
 if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
@@ -33,9 +32,6 @@ $page_output->addScriptFile('smartmobile.js');
 require KRONOLITH_TEMPLATES . '/smartmobile/javascript_defs.php';
 
 $page_output->header(array(
-    'smartmobileinit' => array(
-        '$.mobile.page.prototype.options.addBackBtn = true;'
-    ),
     'title' => $title,
     'view' => $registry::VIEW_SMARTMOBILE
 ));

@@ -53,7 +53,6 @@ case 'empty':
         try {
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
             $page_output->header();
-            echo Horde::menu();
             $notification->notify(array('listeners' => 'status'));
             require ANSEL_TEMPLATES . '/gallery/delete_confirmation.inc';
             $page_output->footer();

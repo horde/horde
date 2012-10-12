@@ -68,6 +68,8 @@ $vars->remove('old_password');
 $vars->remove('password_1');
 $vars->remove('password_2');
 
+$page_output->topbar = $page_output->sidebar = false;
+
 $page_output->header(array(
     'title' => $title
 ));

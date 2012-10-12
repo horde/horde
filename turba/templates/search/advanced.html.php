@@ -2,8 +2,8 @@
  <tr>
   <td>&nbsp;</td>
   <td>
-   <input type="submit" class="button" name="search" value="<?php echo _("Search") ?>" />
-   <input type="reset" class="button" name="reset" value="<?php echo _("Reset to Defaults") ?>" />
+   <input type="submit" class="horde-default" name="search" value="<?php echo _("Search") ?>" />
+   <input type="reset" name="reset" value="<?php echo _("Reset to Defaults") ?>" />
   </td>
  </tr>
  <?php if (count($this->addressBooks) > 1): ?>

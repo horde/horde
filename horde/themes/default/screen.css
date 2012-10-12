@@ -71,9 +71,8 @@ br.spacer {
     background: #e9e9e9;
 }
 .headerbox {
-    border-left: 1px solid #000;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
+    border: 1px solid #a6b0b1;
+    border-top-width: 0;
     background: #fff;
     vertical-align: top;
 }
@@ -85,8 +84,8 @@ br.spacer {
     text-align: left;
     font-weight: bold;
     font-size: 140%;
-    padding: 3px 10px;
-    min-height: 24px;
+    padding: 3px 5px;
+    min-height: 21px;
 }
 .header a:hover, a.header:hover {
     color: #333;
@@ -139,9 +138,6 @@ table {
 td, th {
     padding: 1px;
 }
-th {
-    color: #333;
-}
 ul.linedRow {
     list-style-type: none;
 }
@@ -164,6 +160,12 @@ table.linedRow, ul.linedRow {
 }
 table.nopadding td, table.nopadding th {
     padding: 0;
+}
+table.nopadding table td, table.nopadding table th {
+    padding: 1px;
+}
+table.nopadding .headerbox td, table.nopadding .headerbox th {
+    padding: 1px 5px;
 }
 .sortup {
     background: url("graphics/za.png") center left no-repeat;
@@ -235,9 +237,8 @@ small, .small {
 }
 .control {
     color: #000;
-    background: #ccc;
-    border-bottom: 1px solid #999;
-    padding: 1px;
+    background: #ebeff0;
+    padding: 5px;
 }
 .accessKey {
     text-decoration: underline;
@@ -255,7 +256,7 @@ small, .small {
     border-spacing: 0;
 }
 .horde-form td {
-    padding-bottom: 4px;
+    padding-bottom: 5px;
 }
 .htmlarea .statusBar .statusBarTree a {
     font: inherit;
@@ -268,11 +269,12 @@ small, .small {
     border-bottom: thin dashed #ccc;
 }
 .horde-form-buttons {
-    width: 100%;
-    height: 26px;
-    padding: 5px 0 0 15%;
-    margin: 10px 0 10px 0;
+    padding: 10px;
+    margin: 10px 0;
     background-color: #ebeff0;
+}
+.horde-form .horde-form-buttons {
+    padding-left: 15%;
 }
 .horde-form td.horde-form-label {
     padding: 5px 9px 0 0;
@@ -304,16 +306,56 @@ input:focus, textarea:focus, select:focus {
     background-color: #fff;
     border-color: #000;
 }
-input[type="submit"] {
-    background: #333 url("graphics/button.png") repeat-x;
-    color: #fff;
-    font-weight: bold;
+input[type="submit"], input[type="button"], input[type="reset"],
+a.horde-button, a.horde-default, a.horde-delete {
+    background-image: url("graphics/button.png");
+    background-repeat: repeat-x;
+    border: 1px solid #d0d0d0;
+    padding: 4px 13px;
+    color: #000;
+    cursor: pointer;
 }
-form[action^="https://"] input[type="submit"] {
-    background-image: url("graphics/locked.png");
-    background-position: right center;
-    background-repeat: no-repeat;
-    padding-right: 18px;
+a.horde-button, a.horde-default, a.horde-delete, a.horde-cancel {
+    display: inline-block;
+    padding: 4px 13px;
+    font-weight: normal;
+    text-decoration: none;
+    color: #000;
+}
+input.horde-default, a.horde-default {
+    background-image: url("graphics/button-default.png");
+    border-color: #2a2a2a;
+    color: #fff;
+}
+input.horde-create, a.horde-create {
+    background-image: url("graphics/sidebar-new-bg.png");
+    border-color: #70973B;
+    color: #fff;
+}
+input.horde-delete, a.horde-delete {
+    background-image: url("graphics/button-delete.png");
+    border-color: #d38847;
+}
+input.horde-cancel {
+    background: transparent;
+    border-style: none;
+    color: #496f7e;
+    padding: 3px;
+    text-decoration: underline;
+}
+a.horde-cancel {
+    color: #496f7e;
+    padding: 4px 3px;
+    text-decoration: underline;
+}
+input.horde-cancel:hover, a.horde-cancel:hover {
+    text-decoration: none;
+}
+form[action^="https://"] input[type="submit"].horde-default {
+    background-image: url("graphics/locked-inv.png"), url("graphics/button-default.png");
+    background-position: 95% center, left top;
+    background-repeat: no-repeat, repeat-x;
+    padding-right: 33px;
 }
 input[disabled], input[disabled]:hover, textarea[disabled], option[disabled] {
     background-color: #e9e9e9;
@@ -324,15 +366,6 @@ input[disabled], input[disabled]:hover, textarea[disabled], option[disabled] {
     height: 14px;
     width: 14px;
     background: transparent;
-}
-.button {
-    cursor: pointer;
-    padding: 1px 6px 3px;
-}
-a.button {
-    padding: 2px 8px;
-    font-weight: normal;
-    text-decoration: none;
 }
 
 pre, code, .fixed, table.lineNumbered * {
@@ -412,75 +445,76 @@ div.nicetitle {
 }
 
 /* Tree styles. */
-.treeIcon {
+.horde-tree-icon {
     padding-right: 5px;
 }
-.treeRow {
-    clear: both;
+.horde-tree-row {
     min-height: 20px;
     overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-.treeToggle {
+.horde-tree-toggle {
     cursor: pointer;
 }
-
-.treeHdrSpacer {
+.horde-tree-spacer {
     width: 50%;
 }
 
-span.treeImg {
+span.horde-tree-image {
     height: 20px;
     width: 20px;
     display: -moz-inline-stack;
     display: inline-block;
     vertical-align: middle;
 }
-span.treeImg1 {
+span.horde-tree-image-1 {
     background-image: url("graphics/tree/line.png");
 }
-span.treeImg2 {
+span.horde-tree-image-2 {
     background-image: url("graphics/tree/join.png");
 }
-span.treeImg3 {
+span.horde-tree-image-3 {
     background-image: url("graphics/tree/joinbottom-down.png");
 }
-span.treeImg4 {
+span.horde-tree-image-4 {
     background-image: url("graphics/tree/joinbottom.png");
 }
-span.treeImg5 {
+span.horde-tree-image-5 {
     background-image: url("graphics/tree/minustop.png");
 }
-span.treeImg6 {
+span.horde-tree-image-6 {
     background-image: url("graphics/tree/minus.png");
 }
-span.treeImg7 {
+span.horde-tree-image-7 {
     background-image: url("graphics/tree/minusbottom.png");
 }
-span.treeImg8 {
+span.horde-tree-image-8 {
     background-image: url("graphics/tree/minusonly.png");
 }
-span.treeImg9 {
+span.horde-tree-image-9 {
     background-image: url("graphics/tree/plustop.png");
 }
-span.treeImg10 {
+span.horde-tree-image-10 {
     background-image: url("graphics/tree/plus.png");
 }
-span.treeImg11 {
+span.horde-tree-image-11 {
     background-image: url("graphics/tree/plusbottom.png");
 }
-span.treeImg12 {
+span.horde-tree-image-12 {
     background-image: url("graphics/tree/plusonly.png");
 }
-span.treeImg13 {
+span.horde-tree-image-13 {
     background-image: url("graphics/tree/nullonly.png");
 }
-span.treeImg14 {
+span.horde-tree-image-14 {
     background-image: url("graphics/tree/folder.png");
 }
-span.treeImg15 {
+span.horde-tree-image-15 {
     background-image: url("graphics/tree/folderopen.png");
 }
-span.treeImg16 {
+span.horde-tree-image-16 {
     background-image: url("graphics/tree/leaf.png");
 }
 
@@ -526,10 +560,14 @@ div.modal-form input, div.modal-form select {
     width: 18em;
     margin-bottom: .5em;
 }
+div.modal-form input {
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    width: 17.5em;
+}
 div.modal-form .submit-button {
     display: block;
     margin: .5em auto;
-    text-align: center;
     width: auto;
 }
 div.modal-form .extras {
@@ -552,11 +590,33 @@ div.logintasks-item input {
 }
 
 /* Main body. */
+.horde-ajax {
+    overflow: hidden;
+}
 #horde-body {
+    border-bottom: 1px solid #cfcfcf;
+    float: left;
+    position: relative;
+    width: 100%;
+}
+.horde-ajax #horde-body {
     position: absolute;
-    right: 0;
     top: 56px;
-    margin-left: 8px;
+    bottom: 0;
+    border-bottom-width: 0;
+}
+#horde-contentwrapper {
+    float: left;
+    width: 100%;
+}
+#horde-content {
+    padding-left: 8px;
+}
+.horde-no-sidebar #horde-content {
+    padding-left: 0;
+}
+.horde-content {
+    padding: 5px 5px 0;
 }
 
 /* Pager. */
@@ -566,42 +626,40 @@ div.logintasks-item input {
 
 /* Tab styles. */
 .tabset {
-    background: #c2ccce url("graphics/tabset.png") repeat-x;
+    background: url("graphics/tabset.png");
     float: left;
-    min-height: 29px;
+    min-height: 32px;
     width: 100%;
     margin-bottom: 25px;
 }
 .tabset ul {
     list-style: none;
-    background-color: #c2ccce;
 }
 .tabset li {
     background: url("graphics/tab.png") repeat-x;
     float: left;
-    margin-right: 10px;
-    padding: 11px 20px 0;
+    height: 22px;
+    line-height: 22px;
+    margin: 10px 3px 0 0;
+    padding: 0 10px;
     white-space: nowrap;
 }
 .tabset li a {
+    color: #9ca1a4;
     display: block;
-    height: 18px;
-    color: #6d6d6d
+    font-weight: bold;
+    text-decoration: none;
 }
-.tabset li a:hover {
+.tabset li.horde-active {
+    background: #fff;
 }
-.tabset li.activeTab {
-    background-image: url("graphics/tab-active.png");
-}
-.tabset li.activeTab a {
+.tabset li.horde-active a {
     color: #000;
-}
-.tabset li.activeTab a:hover {
 }
 .tabset img {
     display: block;
     float: left;
-    padding-right: 2px;
+    padding: 1px 2px 0 0;
 }
 
 /* Preferences. */
@@ -641,8 +699,14 @@ div.logintasks-item input {
 div.prefsContainer {
     padding: 1em;
 }
+div.prefsContainer > div {
+    padding-bottom: 3px;
+}
 div.prefsContainer p {
     padding-top: 1em;
+}
+div.prefsContainer input.checkbox {
+    vertical-align: middle;
 }
 img.prefsLinkImg {
     padding-right: 1px;
@@ -1094,6 +1158,7 @@ ul.horde-tags {
     padding: 2px 4px;
     margin-right: 4px;
     background-color: #fff;
+    color: #000;
     border: 1px #999 solid;
     font-size: 90%;
     font-weight: normal;
@@ -1111,12 +1176,8 @@ ul.horde-tags {
     width: 340px;
 }
 #Growler div.GrowlerNotice {
-    filter: alpha(opacity=80);
-    -moz-opacity: .8;
-    opacity: .8;
     zoom: 1;
-    width: 300px;
-    padding: 10px 10px 10px 25px;
+    padding: 10px 10px 10px 30px;
     margin: 5px auto;
     text-align: left;
     display: none;
@@ -1125,14 +1186,13 @@ ul.horde-tags {
     border-style: solid;
     background-position: 3px center;
     background-repeat: no-repeat;
-    color: #fff;
     cursor: pointer;
 }
 #Growler div.GrowlerNoticeHead {
     font-weight: bold;
 }
 .GrowlerNoticeBody {
-    margin-right: 20px;
+    margin-right: 30px;
     overflow-x: hidden;
 }
 #Growler div.horde-error, #GrowlerLog li.horde-error {
@@ -1164,9 +1224,6 @@ ul.horde-tags {
 }
 #GrowlerLog ul {
     overflow: auto;
-    filter: alpha(opacity=90);
-    -moz-opacity: .9;
-    opacity: .9;
 }
 #GrowlerLog ul li {
     color: #333;
@@ -1194,42 +1251,42 @@ ul.horde-tags {
     padding-left: 10px;
 }
 div.GrowlerNoticeExit {
+    background: url("graphics/close.png") no-repeat;
     cursor: pointer;
     float: right;
-    font-weight: bold;
+    height: 20px;
+    width: 20px;
+    text-indent: -10000px;
+    overflow: hidden;
 }
-div.GrowlerNoticeExit:hover {
-    color: #444;
-}
-.horde-message, .horde-success, .horde-warning, .horde-error {
-    border-color: #316600;
-    background-color: #5db110;
-    color: #fff;
+.horde-success {
+    border-color: #759f3d;
+    background-color: #8fc34b;
 }
 .horde-error {
-    background-color: #e81222;
-    border-color: maroon;
+    background-color: #f03232;
+    border-color: #cb2a2a;
 }
 .horde-warning {
-    background-color: #ebe20c;
-    border-color: #807b00;
-}
-.horde-warning, #Growler div.horde-warning {
-    color: #000;
+    background-color: #ffdf4d;
+    border-color: #e1c444;
 }
 .horde-message {
-    background-color: #369;
-    border-color: #123;
+    background-color: #689fb4;
+    border-color: #5c8c9f;
 }
 .horde-alarm {
-    background-color: orange;
-    border-color: red;
+    background-color: #f49e51;
+    border-color: #d38847;
+}
+.horde-error {
+    color: #fff;
 }
 
 /* Auto completer styles. See tags section too. */
 .hordeACBox {
     background:white none repeat scroll 0 0;
-    border:1px solid #666699;
+    border: 1px solid #d0d0d0;
     cursor:default;
     /*overflow:hidden;*/
     text-align:left;
@@ -1333,6 +1390,11 @@ a.contextSelected:hover {
 .formGhost {
     color: #a0a0a0 !important;
     font-style: italic;
+}
+
+/* PHP Shell. */
+.gutter {
+    padding-right: 8px;
 }
 
 /* Social Media Related CSS */
@@ -1659,6 +1721,8 @@ a.horde-mainnavi-active:active {
     margin: 5px 2px 0 5px;
     background-image: url("graphics/navi-arrow-normal.png");
     background-repeat: no-repeat;
+    text-indent: -10000px;
+    overflow: hidden;
 }
 .horde-point-arrow-active {
     background-image: url("graphics/navi-arrow-active.png");
@@ -1764,20 +1828,32 @@ left.horde-point-right {
     padding: 2px 10px 0 0;
     color: #fff;
 }
+#horde-info a {
+    color: #fff;
+}
 
 /* Mainpage */
 #horde-page {
     position: absolute;
-    top: 56px;
+    top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    padding-left: 8px;
 }
 
 /* Sidebar. */
 #horde-sidebar {
     background-color: #bfc9cd;
+    float: left;
+    margin-left: -100%;
     padding-bottom: 10px;
+}
+.horde-ajax #horde-sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: 0;
 }
 #horde-sidebar a {
     color: #000;
@@ -1832,7 +1908,7 @@ left.horde-point-right {
 }
 
 #horde-sidebar h3 {
-    height: 12px;
+    min-height: 12px;
     margin: 0 10px;
     font-size: 100%;
     font-weight: bold;
@@ -1845,10 +1921,12 @@ left.horde-point-right {
     width: 16px;
     background: transparent url("graphics/plus-sidebar.png") no-repeat right center;
     text-indent: -10000px;
+    overflow: hidden;
     cursor: pointer;
 }
 .horde-collapse,
 .horde-expand {
+    display: block;
     padding-left: 26px;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -1865,17 +1943,33 @@ left.horde-point-right {
     margin-top: 10px;
 }
 #horde-sidebar div.horde-resources div {
-    min-height: 15px;
     margin: 5px 0;
-    padding: 3px 0 3px 36px;
-    background: transparent url("graphics/checkbox_off.png") 10px 2px no-repeat;
-    cursor: pointer;
 }
-#horde-sidebar div.horde-resources div.horde-resource-on {
+.horde-resource-link {
+    overflow: hidden;
+}
+.horde-resource-on, .horde-resource-off, .horde-resource-none {
+    display: inline-block;
+    min-height: 15px;
+    padding: 3px 0 3px 36px;
+    cursor: pointer;
+    background-position: 10px 2px;
+    background-repeat: no-repeat;
+}
+.horde-resource-on:hover, .horde-resource-off:hover {
+    text-decoration: underline;
+}
+.horde-resource-on, .horde-resource-off:hover {
     background-image: url("graphics/checkbox_on.png");
 }
-#horde-sidebar div.horde-resources div.horde-resource-over {
-    text-decoration: underline;
+.horde-resource-off {
+    background-image: url("graphics/checkbox_off.png");
+}
+.horde-resource-on.horde-radiobox, .horde-resource-off.horde-radiobox:hover {
+    background-image: url("graphics/radiobox_on.png");
+}
+.horde-resource-off.horde-radiobox {
+    background-image: url("graphics/radiobox_off.png");
 }
 #horde-sidebar div.horde-resources .horde-resource-edit-000,
 #horde-sidebar div.horde-resources .horde-resource-edit-fff {
@@ -1886,6 +1980,7 @@ left.horde-point-right {
     width: 17px;
     height: 17px;
     text-indent: -10000px;
+    overflow: hidden;
     cursor: pointer;
 }
 #horde-sidebar div.horde-resources .horde-resource-edit-fff {
@@ -1947,11 +2042,8 @@ left.horde-point-right {
 /* Slider. */
 #horde-slideleft {
     position: absolute;
-    top: 56px;
-    bottom: 0;
-}
-#horde-page #horde-slideleft {
     top: 0;
+    bottom: 0;
 }
 .horde-splitbar-vert {
     width: 8px;
@@ -2013,14 +2105,6 @@ left.horde-point-right {
     height: 22px;
     margin: 4px 5px 0 32px;
 }
-.horde-button:hover, .horde-button-active {
-    background-image: url("graphics/button-active-bg.png");
-    background-repeat: repeat-x;
-    float: left;
-}
-.horde-button.rightFloat:hover, .horde-button-active.rightFloat {
-    float: right;
-}
 .horde-buttonbar .disabled {
     display: none;
 }
@@ -2056,7 +2140,6 @@ left.horde-point-right {
 }
 .horde-buttonbar ul {
     list-style: none;
-    height: 30px;
 }
 .horde-buttonbar li {
     float: left;
@@ -2159,11 +2242,6 @@ left.horde-point-right {
     vertical-align: middle;
 }
 
-/* Configuration page. */
-#update h1.header {
-    border: 1px solid #000;
-}
-
 /* Sidebar entries. */
 .horde-admin-config {
     background-image: url("graphics/config.png");
@@ -2200,6 +2278,10 @@ left.horde-point-right {
 }
 .horde-perms {
     background-image: url("graphics/perms.png");
+}
+
+#portal {
+    clear: left;
 }
 
 /* Print CSS. */

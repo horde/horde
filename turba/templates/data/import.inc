@@ -7,7 +7,7 @@
  <?php printf(_("Import Address Book, Step %d"), (int)$import_step) ?>
 </h1>
 
-<div class="item">
+<div class="horde-content">
  <?php echo Horde::label('import_format', _("Select the format of the source file:")) ?><br />
  <select name="import_format" id="import_format">
   <option value="csv"><?php echo _("Comma separated values") ?></option>
@@ -45,8 +45,9 @@
 
  <?php echo Horde::label('import_file', _("Select the file to import:")) ?><br />
  <input type="file" name="import_file" id="import_file" size="40" /><br /><br />
- <input type="submit" value="<?php echo _("Next") ?>" class="button" />
+</div>
+
+<div class="horde-form-buttons">
+ <input type="submit" value="<?php echo _("Next") ?>" class="horde-default" />
 </div>
 </form>
-
-<br class="spacer" />

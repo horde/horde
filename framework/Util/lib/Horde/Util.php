@@ -63,36 +63,6 @@ class Horde_Util
     static protected $_cache = array();
 
     /**
-     * Returns an object's clone.
-     *
-     * @param object &$obj  The object to clone.
-     *
-     * @return object  The cloned object.
-     */
-    static public function &cloneObject(&$obj)
-    {
-        if (!is_object($obj)) {
-            $bt = debug_backtrace();
-            if (isset($bt[1])) {
-                $caller = $bt[1]['function'];
-                if (isset($bt[1]['class'])) {
-                    $caller = $bt[1]['class'].$bt[1]['type'].$caller;
-                }
-            } else {
-                $caller = 'main';
-            }
-
-            $caller .= ' on line ' . $bt[0]['line'] . ' of ' . $bt[0]['file'];
-
-            $ret = $obj;
-            return $ret;
-        }
-
-        $ret = clone($obj);
-        return $ret;
-    }
-
-    /**
      * Checks to see if a value has been set by the script and not by GET,
      * POST, or cookie input. The value being checked MUST be in the global
      * scope.
@@ -109,66 +79,6 @@ class Horde_Util
         return (isset($_GET[$varname]) || isset($_POST[$varname]) || isset($_COOKIE[$varname]))
             ? $default
             : (isset($GLOBALS[$varname]) ? $GLOBALS[$varname] : $default);
-    }
-
-    /**
-     * Adds a name=value pair to the end of an URL, taking care of whether
-     * there are existing parameters and whether to use ?, & or &amp; as the
-     * glue.  All data will be urlencoded.
-     *
-     * @deprecated
-     *
-     * @param Horde_Url|string $url  The URL to modify.
-     * @param mixed $parameter       Either the name value -or- an array of
-     *                               name/value pairs.
-     * @param string $value          If specified, the value part ($parameter
-     *                               is then assumed to just be the parameter
-     *                               name).
-     * @param boolean $encode        Encode the argument separator?
-     *
-     * @return Horde_Url  The modified URL.
-     */
-    static public function addParameter($url, $parameter, $value = null,
-                                        $encode = true)
-    {
-        if (empty($parameter)) {
-            return $url;
-        }
-
-        if ($url instanceof Horde_Url) {
-            $url = $url->copy()->add($parameter, $value);
-            if (is_null($url->raw)) {
-                $url->setRaw(!$encode);
-            }
-            return $url;
-        }
-
-        $url = new Horde_Url($url);
-        if (is_null($url->raw) && count($url->parameters)) {
-            $url->setRaw(!$encode);
-        }
-        return $url->add($parameter, $value);
-    }
-
-    /**
-     * Removes name=value pairs from a URL.
-     *
-     * @deprecated
-     *
-     * @param Horde_Url|string $url  The URL to modify.
-     * @param mixed $remove          Either a single parameter to remove or an
-     *                               array of parameters to remove.
-     *
-     * @return Horde_Url  The modified URL.
-     */
-    static public function removeParameter($url, $remove)
-    {
-        if ($url instanceof Horde_Url) {
-            return $url->copy()->remove($remove);
-        }
-
-        $horde_url = new Horde_Url($url);
-        return $horde_url->remove($remove);
     }
 
     /**

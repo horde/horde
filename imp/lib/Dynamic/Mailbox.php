@@ -19,13 +19,17 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
     public $growlerLog = true;
 
     /**
+     * @var boolean
+     */
+    public $topbar = true;
+
+    /**
      */
     protected function _init()
     {
-        global $browser, $conf, $injector, $page_output, $prefs, $registry, $session;
+        global $browser, $conf, $injector, $page_output, $registry, $session;
 
         $page_output->addScriptFile('dimpbase.js');
-        $page_output->addScriptFile('imp.js');
         $page_output->addScriptFile('passphrase.js');
         $page_output->addScriptFile('viewport.js');
         $page_output->addScriptFile('dragdrop2.js', 'horde');
@@ -34,16 +38,15 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $page_output->addScriptFile('slider2.js', 'horde');
         $page_output->addScriptFile('toggle_quotes.js', 'horde');
         $page_output->addScriptPackage('Dialog');
+        $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
         $this->_addMailboxVars();
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-        $this->view->filter_avail = $session->get('imp', 'filteravail');
+        $this->view->filter_avail = IMP::applyFilters();
         $this->view->show_folders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
-        $this->view->show_logout = Horde_Menu::showService('logout');
         $this->view->show_notspam = !empty($conf['notspam']['reporting']);
-        $this->view->show_prefs = Horde_Menu::showService('prefs');
         $this->view->show_search = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
         $this->view->show_spam = !empty($conf['spam']['reporting']);
 
@@ -59,12 +62,11 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $topbar->search = $this->view->show_search;
         $topbar->searchMenu = true;
         $topbar->subinfo = $impSubinfo->render('mailbox_subinfo');
-        $this->view->topbar = $topbar->render();
 
         $blank = new Horde_Url();
         $impSidebar = new Horde_View(array(
             'templatePath' => array(
-                $GLOBALS['registry']->get('templates', 'horde') . '/sidebar',
+                $registry->get('templates', 'horde') . '/sidebar',
                 IMP_TEMPLATES . '/dynamic'
             )
         ));

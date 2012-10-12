@@ -46,7 +46,7 @@ class IMP_Search_Element_Header extends IMP_Search_Element
      */
     public function queryText()
     {
-        return sprintf(_("%s (Header) for '%s'"), _(Horde_String::ucfirst($this->_data->h)), ($this->_data->n ? _("not") . ' ' : '') . $this->_data->t);
+        return sprintf(_("%s (Header) for \"%s\""), _(Horde_String::ucfirst($this->_data->h)), ($this->_data->n ? _("not") . ' ' : '') . $this->_data->t);
     }
 
 }

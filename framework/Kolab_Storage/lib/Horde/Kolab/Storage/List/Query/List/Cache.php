@@ -30,6 +30,9 @@ extends Horde_Kolab_Storage_List_Query_List
 implements Horde_Kolab_Storage_List_Manipulation_Listener,
 Horde_Kolab_Storage_List_Synchronization_Listener
 {
+    /** The list of folder types */
+    const TYPES = 'TYPES';
+
     /** The folder list sorted by type */
     const BY_TYPE = 'BY_TYPE';
 
@@ -70,6 +73,7 @@ Horde_Kolab_Storage_List_Synchronization_Listener
     {
         $this->_sync = $sync;
         $this->_list_cache = $cache;
+        $this->_sync->setCache($cache);
     }
 
     /**
@@ -94,10 +98,8 @@ Horde_Kolab_Storage_List_Synchronization_Listener
      */
     public function listTypes()
     {
-        if (!$this->_list_cache->hasFolderTypes()) {
-            $this->_sync->synchronize($this->_list_cache);
-        }
-        return $this->_list_cache->getFolderTypes();
+        $this->_initQuery(self::TYPES);
+        return $this->_list_cache->getQuery(self::TYPES);
     }
 
     /**
@@ -166,6 +168,17 @@ Horde_Kolab_Storage_List_Synchronization_Listener
     {
         $this->_initQuery(self::OWNERS);
         return $this->_list_cache->getQuery(self::OWNERS);
+    }
+
+    /**
+     * Set the specified folder as default for its current type.
+     *
+     * @param string $folder The folder name.
+     */
+    public function setDefault($folder)
+    {
+        $data = $this->folderData($folder);
+        $this->_sync->setDefault($data, $this->getDefault($data['type']));
     }
 
     /**
@@ -240,7 +253,7 @@ Horde_Kolab_Storage_List_Synchronization_Listener
      */
     public function updateAfterCreateFolder($folder, $type = null)
     {
-        $this->_sync->synchronize($this->_list_cache);
+        $this->_sync->updateAfterCreateFolder($folder, $type);
     }
 
     /**
@@ -252,7 +265,7 @@ Horde_Kolab_Storage_List_Synchronization_Listener
      */
     public function updateAfterDeleteFolder($folder)
     {
-        $this->_sync->synchronize($this->_list_cache);
+        $this->_sync->updateAfterDeleteFolder($folder);
     }
 
     /**
@@ -265,7 +278,7 @@ Horde_Kolab_Storage_List_Synchronization_Listener
      */
     public function updateAfterRenameFolder($old, $new)
     {
-        $this->_sync->synchronize($this->_list_cache);
+        $this->_sync->updateAfterRenameFolder($old, $new);
     }
 
     /**
@@ -275,7 +288,17 @@ Horde_Kolab_Storage_List_Synchronization_Listener
      */
     public function getStamp()
     {
-        return $this->_driver->getStamp();
+        return $this->_list_cache->getStamp();
+    }
+
+    /**
+     * Return any default folder duplicates.
+     *
+     * @return array The list of duplicate default folders accessible to the current user.
+     */
+    public function getDuplicateDefaults()
+    {
+        return $this->_sync->getDuplicateDefaults();
     }
 
     /**
@@ -283,6 +306,6 @@ Horde_Kolab_Storage_List_Synchronization_Listener
      */
     public function synchronize()
     {
-        $this->_synchronization->synchronize();
+        $this->_sync->synchronize();
     }
 }

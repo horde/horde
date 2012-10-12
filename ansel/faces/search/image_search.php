@@ -53,7 +53,6 @@ $pager = new Horde_Core_Ui_Pager(
 $page_output->header(array(
     'title' => _("Photo search")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/search.inc';
 $page_output->footer();

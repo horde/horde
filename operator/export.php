@@ -53,7 +53,7 @@ if ($form->isSubmitted() && $form->validate($vars, true)) {
 $page_output->header(array(
     'title' => _("Export Call Detail Records")
 ));
-require OPERATOR_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 $notification->notify();
 $form->renderActive($renderer, $vars, Horde::url('export.php'), 'post');
 $page_output->footer();

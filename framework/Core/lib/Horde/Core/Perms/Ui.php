@@ -70,14 +70,12 @@ class Horde_Core_Perms_Ui
      */
     public function renderTree($current = Horde_Perms::ROOT)
     {
-        global $registry;
-
         /* Get the perms tree. */
         $nodes = $this->_perms->getTree();
 
         $perms_node = array('icon' => Horde_Themes::img('perms.png'));
         $add = Horde::url('admin/perms/addchild.php');
-        $add_img = Horde::img('add_perm.png', Horde_Core_Translation::t("Add Permission"));
+        $add_img = Horde::img('plus.png', Horde_Core_Translation::t("Add Permission"));
         $edit = Horde::url('admin/perms/edit.php');
         $delete = Horde::url('admin/perms/delete.php');
         $edit_img = Horde::img('edit.png', Horde_Core_Translation::t("Edit Permission"));
@@ -91,7 +89,7 @@ class Horde_Core_Perms_Ui
         ));
         $tree->setHeader(array(
             array(
-                'class' => 'treeHdrSpacer'
+                'class' => 'horde-tree-spacer'
             )
         ));
 
@@ -253,13 +251,11 @@ class Horde_Core_Perms_Ui
      */
     public function setupEditForm($permission)
     {
-        global $registry;
-
         /* Initialise form if required. */
         $this->_formInit();
 
         $this->_form->setButtons(Horde_Core_Translation::t("Update"), true);
-        $perm_id = $this->_perms->getPermissionId($permission);
+        $this->_vars->set('perm_id', $this->_perms->getPermissionId($permission));
         $this->_form->addHidden('', 'perm_id', 'text', false);
 
         /* Get permission configuration. */

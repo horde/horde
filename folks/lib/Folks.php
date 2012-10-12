@@ -59,10 +59,7 @@ class Folks {
     static public function getImageUrl($user, $view = 'small', $full = false)
     {
         if (empty($GLOBALS['conf']['images']['direct'])) {
-            return Horde_Util::addParameter(Horde::url('view.php', $full),
-                                     array('view' => $view,
-                                           'id' => $user),
-                                     null, false);
+            return Horde::url('view.php', $full)->add(array('view' => $view, 'id' => $user))->setRaw(true);
         } else {
             $p = hash('md5', $user);
             return $GLOBALS['conf']['images']['direct'] .
@@ -102,7 +99,7 @@ class Folks {
 
         case 'user':
             if (empty($GLOBALS['conf']['urls']['pretty'])) {
-                return Horde_Util::addParameter(Horde::url('user.php', $full, $append_session), 'user', $data);
+                return Horde::url('user.php', $full, $append_session)->add('user', $data);
             } else {
                 return Horde::url('user/' . $data, $full, $append_session);
             }
@@ -289,19 +286,4 @@ class Folks {
         }
     }
 
-    /**
-     * Build Folks's list of menu items.
-     */
-    static function getMenu()
-    {
-        $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-        $menu->add(self::getUrlFor('user', $GLOBALS['registry']->getAuth()), _("My profile"), 'myaccount.png');
-        $menu->add(self::getUrlFor('list', 'friends'), _("Friends"), 'group.png');
-        $menu->add(Horde::url('edit/edit.php'), _("Edit profile"), 'edit.png');
-        $menu->add(Horde::url('services.php'), _("Services"), 'horde.png');
-        $menu->add(Horde::url('search.php'), _("Search"), 'search.png');
-        $menu->add(self::getUrlFor('list', 'online'), _("List"), 'group.png');
-
-        return $menu;
-    }
 }

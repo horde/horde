@@ -99,6 +99,9 @@ if ($can_validate && $form->validate($vars)) {
 }
 
 $renderer = new Horde_Core_Ui_ModalFormRenderer();
+
+$page_output->topbar = $page_output->sidebar = false;
+
 $page_output->header(array(
     'body_class' => 'modal-form',
     'title' => $title

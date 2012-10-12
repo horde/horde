@@ -57,6 +57,8 @@ abstract class Kronolith_Calendars_Base
             strval(new Horde_Support_Randomid()),
             $this->getDefaultShareName()
         );
+        $share->set('color', Kronolith::randomColor());
+        $this->prepareDefaultShare($share);
         $this->shares->addShare($share);
         return $share;
     }
@@ -67,4 +69,13 @@ abstract class Kronolith_Calendars_Base
      * @return string The name of a default share.
      */
     abstract protected function getDefaultShareName();
+
+    /**
+     * Add any modifiers required to the share in order to mark it as default
+     *
+     * @param Horde_Share_Object $share The new default share.
+     */
+    protected function prepareDefaultShare($share)
+    {
+    }
 }

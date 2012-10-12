@@ -17,12 +17,39 @@ class Ingo_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $links = array(
+    protected $_links = array(
         'showBlacklist' => '%application%/blacklist.php',
         'showWhitelist' => '%application%/whitelist.php',
         'showFilters' => '%application%/filters.php',
         'showVacation' => '%application%/vacation.php'
     );
+
+    /**
+     */
+    public function disabled()
+    {
+        global $prefs, $registry;
+
+        $pushed = $registry->pushApp('ingo');
+
+        $disabled = array();
+        if ($prefs->isLocked('blacklist')) {
+            $disabled[] = 'blacklistFrom';
+        }
+        if ($prefs->isLocked('whitelist')) {
+            $disabled[] = 'whitelistFrom';
+        }
+        if ($prefs->isLocked('vacation')) {
+            $disabled[] = 'setVacation';
+            $disabled[] = 'disableVacation';
+        }
+
+        if ($pushed) {
+            $registry->popApp();
+        }
+
+        return array_merge(parent::disabled(), $disabled);
+    }
 
     /**
      * Add addresses to the blacklist.

@@ -68,7 +68,7 @@ if ($actionID != 'image') {
     $yesterday = mktime(0, 0, 0, $d['mon'], $d['mday'] - 1, $d['year']);
     $tomorrow = mktime(0, 0, 0, $d['mon'], $d['mday'] + 1, $d['year']);
 
-    $url = Horde_Util::addParameter(Horde::selfUrl(false, false), 'actionID', $actionID);
+    $url = Horde::selfUrl(false, false)->add('actionID', $actionID);
     $prev_month_url = null;
     $yesterday_url = null;
     $tomorrow_url = null;
@@ -152,15 +152,14 @@ case 'main':
 
     // Date navigation.
     if (count($klutz_driver->listDates($prev_month))) {
-        $prev_month_url = Horde_Util::addParameter($url, 'date', $prev_month);
+        $prev_month_url = $url->copy()->add('date', $prev_month);
     }
     if (count($klutz_driver->listDates($next_month))) {
-        $next_month_url = Horde_Util::addParameter($url, 'date', $next_month);
+        $next_month_url = $url->copy()->add('date', $next_month);
     }
     $page_output->header(array(
         'title' => $title
     ));
-    echo Horde::menu();
     require KLUTZ_TEMPLATES . '/comics/main.inc';
     break;
 
@@ -169,16 +168,15 @@ case 'day':
 
     // Display the navbar.
     if (in_array($yesterday, $klutz_driver->listDates($yesterday))) {
-        $yesterday_url = Horde_Util::addParameter($url, 'date', $yesterday);
+        $yesterday_url = $url->copy()->add('date', $yesterday);
     }
     if (in_array($tomorrow, $klutz_driver->listDates($tomorrow))) {
-        $tomorrow_url = Horde_Util::addParameter($url, 'date', $tomorrow);
+        $tomorrow_url = $url->copy()->add('date', $tomorrow);
     }
 
     $page_output->header(array(
         'title' => $title
     ));
-    echo Horde::menu();
     require KLUTZ_TEMPLATES . '/comics/nav_bar.inc';
     if (!empty($imageApp)) {
         $page_output->addScriptFile('popup.js', 'horde');
@@ -209,14 +207,16 @@ case 'day':
         $homepage = $klutz->getProperty($index, 'homepage');
         if ($klutz_driver->imageExists($index, $date)) {
             $size = $klutz_driver->imageSize($index, $date);
-            $url = Horde_Util::addParameter(Horde::selfUrl(false, false), array('actionID' => 'image',
-                                                                          'date' => $date,
-                                                                          'index' => $index));
+            $url = Horde::selfUrl(false, false)->add(array(
+                'actionID' => 'image',
+                'date' => $date,
+                'index' => $index));
 
             // We have a comic, build a link to save to a gallery.
             if (!empty($imageApp)) {
-                $popupUrl = Horde_Util::addParameter('savecomic.php', array('date' => $date,
-                                                                      'index' => $index));
+                $popupUrl = Horde::url('savecomic.php')->add(array(
+                    'date' => $date,
+                    'index' => $index));
                 $saveImgLink = Horde::link('#', _("Save Comic to Gallery"), null,
                                            null, 'popup(\'' . $popupUrl . '\', 450, 290); return false;') .
                                           '<img src="' . $registry->get('icon', $imageApp) . '" alt="' . _("Save Comic to Gallery") . '" /></a>';
@@ -245,8 +245,9 @@ case 'comic':
     if ($i === false) {
         $notification->push(_("This comic doesn't exist or is disabled."),
                             'horde.error');
-        $url = Horde_Util::addParameter(Horde::selfUrl(false, false), array('date' => $date,
-                                                                      'actionID' => 'main'));
+        $url = Horde::selfUrl(false, false)->add(array(
+            'date' => $date,
+            'actionID' => 'main'));
         header('Location: ' . $url);
         exit;
     }
@@ -270,32 +271,31 @@ case 'comic':
         }
         $comic_select = '<select name="index" onchange="this.form.submit()">'
             . $comic_select . '</select>';
-        $comic_url = Horde_Util::addParameter(Horde::selfUrl(false, false), array('actionID' => $actionID, 'date' => $date));
+        $comic_url = Horde::selfUrl(false, false)->add(array('actionID' => $actionID, 'date' => $date));
         if ($prev_comic) {
-            $comic_select = Horde::link(Horde_Util::addParameter($comic_url, 'index', $comics[$prev_comic])) . Horde::img('nav/left.png') . '</a> ' . $comic_select;
+            $comic_select = Horde::link($comic_url->copy()->add('index', $comics[$prev_comic])) . Horde::img('nav/left.png') . '</a> ' . $comic_select;
         } else {
             $comic_select = Horde::img('nav/left-grey.png') . ' ' . $comic_select;
         }
         if ($next_comic) {
-            $comic_select .= ' ' . Horde::link(Horde_Util::addParameter($comic_url, 'index', $comics[$next_comic])) . Horde::img('nav/right.png') . '</a>';
+            $comic_select .= ' ' . Horde::link($comic_url->copy()->add('index', $comics[$next_comic])) . Horde::img('nav/right.png') . '</a>';
         } else {
             $comic_select .= ' ' . Horde::img('nav/right-grey.png');
         }
     }
 
     // Display the navbar.
-    $url = Horde_Util::addParameter($url, 'index', $index);
+    $url->add('index', $index);
     if (count($klutz_driver->listDates($prev_month))) {
-        $prev_month_url = Horde_Util::addParameter($url, 'date', $prev_month);
+        $prev_month_url = $url->copy()->add('date', $prev_month);
     }
     if (count($klutz_driver->listDates($next_month))) {
-        $next_month_url = Horde_Util::addParameter($url, 'date', $next_month);
+        $next_month_url = $url->copy()->add('date', $next_month);
     }
 
     $page_output->header(array(
         'title' => $title
     ));
-    echo Horde::menu();
     require KLUTZ_TEMPLATES . '/comics/nav_bar.inc';
     if (!empty($imageApp)) {
         $page_output->addScriptFile('popup.js', 'horde');
@@ -308,14 +308,15 @@ case 'comic':
     foreach (array_reverse($klutz_driver->listDates($date)) as $date) {
         if ($klutz_driver->imageExists($index, $date)) {
             $size = $klutz_driver->imageSize($index, $date);
-            $url = Horde_Util::addParameter(Horde::selfUrl(false, false), array('actionID' => 'image',
-                                                                          'date' => $date,
-
-                                                                          'index' => $index));
+            $url = Horde::selfUrl(false, false)->add(array(
+                'actionID' => 'image',
+                'date' => $date,
+                'index' => $index));
             // We have a comic, build a link to save to a gallery.
             if (!empty($imageApp)) {
-                $popupUrl = Horde_Util::addParameter('savecomic.php', array('date' => $date,
-                                                                      'index' => $index));
+                $popupUrl = Horde::url('savecomic.php')->add(array(
+                    'date' => $date,
+                    'index' => $index));
                 $saveImgLink = Horde::link('#', _("Save Comic to Gallery"), null,
                                            null, 'popup(\'' . $popupUrl . '\', 450, 290); return false;') .
                                           '<img src="' . $registry->get('icon', $imageApp) . '" alt="' . _("Save Comic to Gallery") . '" /></a>';

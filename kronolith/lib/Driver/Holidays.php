@@ -151,28 +151,4 @@ class Kronolith_Driver_Holidays extends Kronolith_Driver
         return $events;
     }
 
-    private function _getTranslationFile($driver)
-    {
-        static $data_dir;
-        if (!isset($data_dir)) {
-            $pear_config = new PEAR_Config();
-            $data_dir = $pear_config->get('data_dir');
-        }
-        if (empty($data_dir)) {
-            return;
-        }
-
-        foreach (array('', '_' . $driver) as $pkg_ext) {
-            foreach (array('ser', 'xml') as $format) {
-                $location = $data_dir . '/Date_Holidays' . $pkg_ext . '/lang/'
-                    . $driver . '/' . $this->_params['language'] . '.' . $format;
-                if (file_exists($location)) {
-                    return array($format, $location);
-                }
-            }
-        }
-
-        return array(null, null);
-    }
-
 }

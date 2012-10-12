@@ -106,7 +106,6 @@ $view->html = $html;
 $page_output->header(array(
     'title' => $title
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('genhtml');
 $page_output->footer();

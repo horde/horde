@@ -18,8 +18,8 @@ class Mnemo_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _init()
     {
-        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Imple());
-        $this->addHelper(new Horde_Core_Ajax_Application_Helper_Prefs());
+        $this->addHandler('Horde_Core_Ajax_Application_Handler_Imple');
+        $this->addHandler('Horde_Core_Ajax_Application_Handler_Prefs');
     }
 
 }

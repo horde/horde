@@ -19,13 +19,12 @@ $page_output->header(array(
 ));
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
-echo '<div>';
 if ($command = trim(Horde_Util::getFormData('cmd'))) {
-    echo '<h1 class="header">' . _("Command") . ':</h1><br />';
-    echo '<p class="text"><code>' . nl2br(htmlspecialchars($command)) . '</code></p>';
+    echo '<h1 class="header">' . _("Command") . ':</h1>';
+    echo '<div class="horde-content"><code>' . nl2br(htmlspecialchars($command)) . '</code></div>';
 
-    echo '<br /><h1 class="header">' . _("Results") . ':</h1><br />';
-    echo '<pre class="text">';
+    echo '<h1 class="header">' . _("Results") . ':</h1>';
+    echo '<div class="horde-content"><pre class="text">';
 
     $cmds = explode("\n", $command);
     foreach ($cmds as $cmd) {
@@ -37,23 +36,23 @@ if ($command = trim(Horde_Util::getFormData('cmd'))) {
         }
     }
 
-    echo '</pre><br />';
+    echo '</pre></div>';
 }
 ?>
 
 <form action="<?php echo Horde::url('admin/cmdshell.php') ?>" method="post">
 <?php Horde_Util::pformInput() ?>
-<label for="cmd" class="hidden"><?php echo _("Command") ?></label>
 <h1 class="header"><?php echo $title ?></h1>
-<br />
-<textarea class="fixed" id="cmd" name="cmd" rows="10" cols="80">
-<?php if (!empty($command)) echo htmlspecialchars($command) ?></textarea>
-<br />
-<input type="submit" class="button" value="<?php echo _("Execute") ?>" />
-<?php echo Horde_Help::link('admin', 'admin-cmdshell') ?>
+<div class="horde-content">
+  <label for="cmd" class="hidden"><?php echo _("Command") ?></label>
+  <textarea class="fixed" id="cmd" name="cmd" rows="10" cols="80"><?php if (!empty($command)) echo htmlspecialchars($command) ?></textarea>
+</div>
+<div class="horde-form-buttons">
+  <input type="submit" class="horde-default" value="<?php echo _("Execute") ?>" />
+  <?php echo Horde_Help::link('admin', 'admin-cmdshell') ?>
+</div>
 
 </form>
-</div>
 <?php
 
 $page_output->footer();

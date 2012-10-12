@@ -54,7 +54,6 @@ $nojs = $view->handleLegacy();
 $page_output->header(array(
     'title' => _("Add Photo")
 ));
-echo Horde::menu();
 echo '<div class="header" id="galleryHeader"><span class="breadcrumbs">' . Ansel::getBreadCrumbs($gallery) . '</span></div>';
 require ANSEL_TEMPLATES . '/image/plupload.inc';
 $page_output->footer();

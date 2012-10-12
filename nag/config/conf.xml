@@ -11,7 +11,7 @@
      </configsql>
     </configsection>
    </case>
-   <case name="kolab" desc="Kolab" />
+   <case name="kolab" desc="IMAP/Kolab" />
   </configswitch>
  </configsection>
 
@@ -19,7 +19,7 @@
   <configheader>Tasklist Handler Settings</configheader>
   <configswitch name="driver" desc="What type of tasklist handler should we use?">default
    <case name="default" desc="Default" />
-   <case name="kolab" desc="Kolab" />
+   <case name="kolab" desc="IMAP/Kolab" />
   </configswitch>
  </configsection>
 

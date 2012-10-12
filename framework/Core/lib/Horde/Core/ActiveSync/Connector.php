@@ -122,6 +122,47 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Import an event response into a user's calendar. Used for updating
+     * attendee information from a meeting response.
+     *
+     * @param Horde_Icalendar_vEvent $event  The event data.
+     * @param string $attendee               The attendee.
+     */
+    public function calendar_import_attendee(Horde_Icalendar_vEvent $vEvent, $attendee)
+    {
+        if ($this->_registry->hasMethod('calendar/updateAttendee')) {
+            // If the mail interface (i.e., IMP) provides a mime driver for
+            // iTips, check if we are allowed to autoupdate. If we have no
+            // configuration, err on the side of caution and DO NOT auto import.
+            $config = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_MimeViewer')
+                ->getViewerConfig('text/calendar', $GLOBALS['registry']->hasInterface('mail'));
+
+            if ($config[1]['driver'] == 'Itip' && !empty($config[1]['auto_update_eventreply'])) {
+                if (is_array($config[1]['auto_update_eventreply'])) {
+                    $adr = new Horde_Mail_Rfc822_Address($attendee);
+                    $have_match = false;
+                    foreach ($config[1]['auto_update_eventreply'] as $val) {
+                        if ($adr->matchDomain($val)) {
+                            $have_match = true;
+                            break;
+                        }
+                    }
+                    if (!$have_match) {
+                        return;
+                    }
+                }
+
+                try {
+                   $this->_registry->calendar->updateAttendee($vEvent, $attendee);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                }
+            }
+        }
+    }
+
+    /**
      * Replace the event with new data
      *
      * @param string $uid                                    The UID of the
@@ -205,7 +246,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function contacts_replace($uid, $content)
     {
-        $this->_registry->contacts->replace($uid, $content, 'activesync', $sources);
+        $this->_registry->contacts->replace($uid, $content, 'activesync');
     }
 
     /**
@@ -257,14 +298,16 @@ class Horde_Core_ActiveSync_Connector
      */
     public function contacts_search($query)
     {
-        $fields = array($gal => array('firstname', 'lastname', 'alias', 'name', 'email'));
-        $opts = array(
-            'fields' => $fields,
-            'matchBegin' => true,
-            'forceSource' => true,
-            'sources' => array($this->contacts_getGal())
-        );
-        return $this->_registry->contacts->search($query, $opts);
+        if (!empty($GLOBALS['conf']['gal']['addressbook'])) {
+            $fields = array($GLOBALS['conf']['gal']['addressbook'] => array('firstname', 'lastname', 'alias', 'name', 'email'));
+            $opts = array(
+                'fields' => $fields,
+                'matchBegin' => true,
+                'forceSource' => true,
+                'sources' => array($this->contacts_getGal())
+            );
+            return $this->_registry->contacts->search($query, $opts);
+        }
     }
 
     /**

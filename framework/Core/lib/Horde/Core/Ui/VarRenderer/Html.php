@@ -557,7 +557,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
 
     protected function _renderVarInput_colorpicker($form, &$var, &$vars)
     {
-        global $registry, $browser;
+        global $browser;
 
         $varname = $this->_genID($var->getVarName(), false);
         $color = $var->getValue($vars);
@@ -567,28 +567,32 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         } else {
             $style = '';
         }
-        $html = '<table cellspacing="0"><tr><td>'
-            . '<input type="text" size="10" maxlength="7" name="'
+        $html = '<input type="text" size="10" maxlength="7" name="'
             . htmlspecialchars($var->getVarName()) . '" id="' . $varname . '"' . $style
             . ' value="' . htmlspecialchars($color)
-            . '" /></td>';
+            . '" />';
         if ($browser->hasFeature('javascript')) {
             $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('colorpicker.js', 'horde');
-            $html .= '<td>'
+            $html .= ' '
                 . Horde::link('#', Horde_Core_Translation::t("Color Picker"), '', '',
                               'new ColorPicker({ color: \'' . htmlspecialchars($color) . '\', offsetParent: Event.element(event), update: [[\'' . $varname . '\', \'value\'], [\'' . $varname . '\', \'background\']] }); return false;')
-                . Horde::img('colorpicker.png', Horde_Core_Translation::t("Color Picker"), 'height="16"') . '</a></td>';
+                . Horde::img('colorpicker.png', Horde_Core_Translation::t("Color Picker"), 'height="16"') . '</a>';
         }
-        return $html . '</tr></table>';
+        return $html;
     }
 
     protected function _renderVarInput_sorter($form, &$var, &$vars)
     {
-        global $registry;
-
         $instance = $var->type->getProperty('instance');
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('sorter.js', 'horde');
+        $page = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page->addScriptFile('sorter.js', 'horde');
+        $page->addInlineScript(
+             sprintf(
+                '%1$s = new Horde_Form_Sorter(\'%1$s\', \'%2$s\', \'%3$s\');%1$s.setHidden();',
+                $instance,
+                $this->_genID($var->getVarName(), false),
+                $var->type->getHeader()));
 
         return '<input type="hidden" name="' . htmlspecialchars($var->getVarName()) .
             '[array]" value="" ' . $this->_genID($var->getVarName() . '_array') . '/>' .
@@ -598,17 +602,11 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             $this->_genID($var->getVarName() . '_list') . '>' .
             $var->type->getOptions($var->getValue($vars)) . '</select><div class="leftFloat">' .
             Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnUp(); return false;') . Horde::img('nav/up.png', Horde_Core_Translation::t("Move up")) . '</a><br />' .
-            Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnDown(); return false;') . Horde::img('nav/down.png', Horde_Core_Translation::t("Move down")) . '</a></div>' .
-            '<script type="text/javascript">' . "\n" .
-            sprintf('%1$s = new Horde_Form_Sorter(\'%1$s\', \'%2$s\', \'%3$s\');' . "\n",
-                    $instance, $this->_genID($var->getVarName(), false), $var->type->getHeader()) .
-            sprintf("%s.setHidden();\n</script>\n", $instance);
+            Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnDown(); return false;') . Horde::img('nav/down.png', Horde_Core_Translation::t("Move down")) . '</a></div>';
     }
 
     protected function _renderVarInput_assign($form, &$var, &$vars)
     {
-        global $registry;
-
         $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('form_assign.js', 'horde');
 
         $name = htmlspecialchars($var->getVarName());
@@ -752,13 +750,14 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
             $enable = Horde_Core_Translation::t("Select all");
             $disable = Horde_Core_Translation::t("Select none");
             $invert = Horde_Core_Translation::t("Invert selection");
-            $html .= <<<EOT
-<script type="text/javascript">
-function $function_name()
+            $GLOBALS['injector']
+                ->getInstance('Horde_PageOutput')
+                ->addInlineScript(sprintf('
+function %s()
 {
-    for (var i = 0; i < document.$form_name.elements.length; i++) {
-        f = document.$form_name.elements[i];
-        if (f.name != '$var_name') {
+    for (var i = 0; i < document.%s.elements.length; i++) {
+        f = document.%s$2.elements[i];
+        if (f.name != \'%s$3\') {
             continue;
         }
         if (arguments.length) {
@@ -767,8 +766,10 @@ function $function_name()
             f.checked = !f.checked;
         }
     }
-}
-</script>
+}',
+                    $function_name, $form_name, $var_name));
+
+            $html .= <<<EOT
 <a href="#" onclick="$function_name(true); return false;">$enable</a>,
 <a href="#" onclick="$function_name(false); return false;">$disable</a>,
 <a href="#" onclick="$function_name(); return false;">$invert</a>
@@ -916,20 +917,21 @@ EOT;
         $varname = $var->getVarName();
         $varvalue = $vars->get($varname);
         $fieldId = $this->_genID(uniqid(mt_rand()), false) . 'id';
-        $html = '
-            <script type="text/javascript">
-            var obrowserWindowName;
-            function obrowserCallback(name, oid)
-            {
-                if (name == obrowserWindowName) {
-                    document.getElementById(\'' . $fieldId . '\').value = oid;
-                    return false;
-                } else {
-                    return "Invalid window name supplied";
-                }
-            }
-            </script>
-            ';
+        $GLOBALS['injector']
+            ->getInstance('Horde_PageOutput')
+            ->addInlineScript(sprintf('
+var obrowserWindowName;
+function obrowserCallback(name, oid)
+{
+    if (name == obrowserWindowName) {
+        document.getElementById(\'%s\').value = oid;
+        return false;
+    } else {
+        return "Invalid window name supplied";
+    }
+}',
+                $fieldId));
+
         $html .= sprintf('<input type="hidden" name="%s" id="%s"%s value="%s">',
                          htmlspecialchars($varname),
                          $fieldId,
@@ -1000,7 +1002,6 @@ EOT;
                     ? $addr->mailbox . ' (at) ' . str_replace('.', ' (dot) ', $addr->host)
                     : $addr->bare_address;
 
-                $tmp = clone($addr);
                 $addr->personal = $var->type->getProperty('link_name');
                 $address = $addr->writeAddress(true);
 
@@ -1184,8 +1185,6 @@ EOT;
 
     protected function _renderVarDisplay_address($form, &$var, &$vars, $text = true)
     {
-        global $registry;
-
         $address = $var->getValue($vars);
         if (empty($address)) {
             return '';
@@ -1390,6 +1389,14 @@ EOT;
         return $html;
     }
 
+    protected function _renderVarDisplay_colorpicker($form, &$var, &$vars)
+    {
+        $color = $var->getValue($vars);
+        return '<span style="background-color:' . $color . ';color:'
+            . (Horde_Image::brightness($color) < 128 ? '#fff' : '#000')
+            . '">' . $color . '</span>';
+    }
+
     protected function _renderVarDisplay_invalid($form, &$var, &$vars)
     {
         return '<span class="form-error">' . htmlspecialchars($var->type->message) . '</span>';
@@ -1420,10 +1427,13 @@ EOT;
             if (!isset($values[$i]['accesskey'])) {
                 $values[$i]['accesskey'] = '';
             }
+            $class = isset($values[$i]['class'])
+                ? $values[$i]['class']
+                : 'widget';
             if ($i > 0) {
                 $html .= ' | ';
             }
-            $html .= Horde::link($values[$i]['url'], $values[$i]['text'], 'widget', $values[$i]['target'], $values[$i]['onclick'], $values[$i]['title'], $values[$i]['accesskey']) . htmlspecialchars($values[$i]['text']) . '</a>';
+            $html .= Horde::link($values[$i]['url'], $values[$i]['text'], $class, $values[$i]['target'], $values[$i]['onclick'], $values[$i]['title'], $values[$i]['accesskey']) . htmlspecialchars($values[$i]['text']) . '</a>';
         }
 
         return $html;
@@ -1505,7 +1515,7 @@ EOT;
             $files = $GLOBALS['registry']->call('files/selectlistResults', $param);
             if ($files) {
                 $html .= '<ol>';
-                foreach ($files as $id => $file) {
+                foreach ($files as $file) {
                     $dir = key($file);
                     $filename = current($file);
                     if ($GLOBALS['registry']->hasMethod('files/getViewLink')) {
@@ -1573,13 +1583,10 @@ EOT;
         }
 
         $result = '';
-        $sel = false;
         foreach ($values as $value => $display) {
-            if (isset($selectedValues[$value])) {
-                $selected = ' selected="selected"';
-            } else {
-                $selected = '';
-            }
+            $selected = isset($selectedValues[$value])
+                ? ' selected="selected"'
+                : '';
             $result .= " <option value=\"" . htmlspecialchars($value) . "\"$selected>" . htmlspecialchars($display) . "</option>\n";
         }
 
@@ -1687,9 +1694,7 @@ EOT;
     public function renderEnd()
     {
         if (count($this->_onLoadJS)) {
-            return "<script type=\"text/javascript\">" .
-                "<!--\n" .  implode("\n", $this->_onLoadJS) . "\n// -->\n" .
-                "</script>";
+            $GLOBALS['page_output']->addInlineScript(implode("\n", $this->_onLoadJS), 'dom');
         } else {
             return '';
         }

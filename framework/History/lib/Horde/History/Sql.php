@@ -112,7 +112,7 @@ class Horde_History_Sql extends Horde_History
                     $values[] = $entry['id'];
 
                     try {
-                        $r = $this->_db->update(
+                        $this->_db->update(
                             'UPDATE horde_histories SET history_ts = ?,' .
                             ' history_who = ?,' .
                             ' history_desc = ?,' .

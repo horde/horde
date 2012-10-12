@@ -20,9 +20,12 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      * Authentication failure reasons (additions to Horde_Auth:: reasons):
      *   - REASON_BROWSER: A browser change was detected
      *   - REASON_SESSIONIP: Logout due to change of IP address during session
+     *   - REASON_SESSIONMAXTIME: Logout due to the session exceeding the
+     *                            maximum allowed length.
      */
     const REASON_BROWSER = 100;
     const REASON_SESSIONIP = 101;
+    const REASON_SESSIONMAXTIME = 102;
 
     /**
      * Application for authentication.
@@ -276,7 +279,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         if ($this->hasCapability('update')) {
             $GLOBALS['registry']->callAppMethod($this->_app, 'authUpdateUser', array('args' => array($oldID, $newID, $credentials)));
         } else {
-            parent::updateUser($userId, $credentials);
+            parent::updateUser($oldID, $newID, $credentials);
         }
     }
 
@@ -657,7 +660,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      */
     protected function _setView()
     {
-        global $conf, $browser, $notification, $prefs, $registry, $session;
+        global $conf, $browser, $notification, $registry;
 
         $mode = $this->_view;
 

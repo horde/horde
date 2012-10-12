@@ -93,25 +93,25 @@ class Sesha_View_List extends Sesha_View_Base
         $column_headers = array(
             array('id' => 's' . Sesha::SORT_STOCKID,
                 'class' => $sortBy == Sesha::SORT_STOCKID ? ' class="' . $sortdirclass . '"' : '',
-                'link' => Horde::link(Horde_Util::addParameter($baseurl, 'sortby', Sesha::SORT_STOCKID), _("Sort by stock ID"), 'sortlink') . _("Stock ID") . '</a>',
+                'link' => Horde::link($baseurl->copy()->add('sortby', Sesha::SORT_STOCKID), _("Sort by stock ID"), 'sortlink') . _("Stock ID") . '</a>',
                 'width' => ' width="5%"'),
             array('id' => 's' . Sesha::SORT_NAME,
                 'class' => $sortBy == Sesha::SORT_NAME ? ' class="' . $sortdirclass . '"' : '',
-                'link' => Horde::link(Horde_Util::addParameter($baseurl, 'sortby', Sesha::SORT_NAME), _("Sort by item name"), 'sortlink') . _("Item Name") . '</a>',
+                'link' => Horde::link($baseurl->copy()->add('sortby', Sesha::SORT_NAME), _("Sort by item name"), 'sortlink') . _("Item Name") . '</a>',
                 'width' => '')
         );
         foreach ($this->shownProperties as $property) {
             $column_headers[] = array(
                 'id' => 'sp' . $property->property_id,
                 'class' => $sortBy == 'p' . $property->property_id ? ' class="' . $sortdirclass . '"' : '',
-                'link' => Horde::link(Horde_Util::addParameter($baseurl, 'sortby', 'p' . $property->property_id), sprintf(_("Sort by %s"), htmlspecialchars($property->property)), 'sortlink') . htmlspecialchars($property->property) . '</a>',
+                'link' => Horde::link($baseurl->copy()->add('sortby', 'p' . $property->property_id), sprintf(_("Sort by %s"), htmlspecialchars($property->property)), 'sortlink') . htmlspecialchars($property->property) . '</a>',
                 'width' => '',
             );
         }
         $column_headers[] = array(
             'id' => 's' . Sesha::SORT_NOTE,
             'class' => $sortby == Sesha::SORT_NOTE ? ' class="' . $sortdirclass . '"' : '',
-            'link' => Horde::link(Horde_Util::addParameter($baseurl, 'sortby', Sesha::SORT_NOTE), _("Sort by note"), 'sortlink') . _("Note") . '</a>',
+            'link' => Horde::link($baseurl->copy()->add('sortby', Sesha::SORT_NOTE), _("Sort by note"), 'sortlink') . _("Note") . '</a>',
             'width' => '',
         );
         return $column_headers;

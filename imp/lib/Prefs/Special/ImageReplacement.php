@@ -31,14 +31,14 @@ class IMP_Prefs_Special_ImageReplacement implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector;
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('Text');
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        $view->safe_addrs = implode("\n", $this->safeAddrList()->bare_addresses);
 
-        $t->set('safe_addrs', implode("\n", $this->safeAddrList()->bare_addresses));
-
-        return $t->fetch(IMP_TEMPLATES . '/prefs/imagereplacement.html');
+        return $view->render('imagereplacement');
     }
 
     /**

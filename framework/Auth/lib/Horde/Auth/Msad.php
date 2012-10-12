@@ -167,7 +167,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
             }
         }
 
-        if ($oldID != $newID) {
+        if ($oldId != $newID) {
             $newdn = str_replace($oldId, $newID, $dn);
             ldap_rename($this->_ds, $olddn, $newdn, $this->_params['basedn'], true);
             $success = @ldap_modify($this->_ds, $newdn, $entry);

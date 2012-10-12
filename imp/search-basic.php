@@ -98,19 +98,21 @@ foreach ($flist as $val) {
 }
 
 /* Prepare the search template. */
-$t = $injector->createInstance('Horde_Template');
-$t->setOption('gettext', true);
+$view = new Horde_View(array(
+    'templatePath' => IMP_TEMPLATES . '/basic/search'
+));
+$view->addHelper('FormTag');
+$view->addHelper('Tag');
 
-$t->set('action', Horde::url('search-basic.php'));
-$t->set('advsearch', Horde::link(IMP::mailbox()->url('search.php')));
-$t->set('mbox', IMP::mailbox()->form_to);
-$t->set('search_title', sprintf(_("Search %s"), IMP::mailbox()->display_html));
-$t->set('flist', $flag_set);
+$view->action = Horde::url('search-basic.php');
+$view->advsearch = Horde::link(IMP::mailbox()->url('search.php'));
+$view->forminput = Horde_Util::formInput();
+$view->mbox = IMP::mailbox()->form_to;
+$view->search_title = sprintf(_("Search %s"), IMP::mailbox()->display_html);
+$view->flist = $flag_set;
 
-$menu = IMP::menu();
 IMP::header(_("Search"));
-echo $menu;
 IMP::status();
 
-echo $t->fetch(IMP_TEMPLATES . '/imp/search/search-basic.html');
+echo $view->render('search-basic');
 $page_output->footer();

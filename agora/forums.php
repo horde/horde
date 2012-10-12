@@ -25,7 +25,7 @@ if ($registry->isAdmin()) {
         if ($registry->hasMethod('hasComments', $app) &&
             $registry->callByPackage($app, 'hasComments') === true) {
             $app_name = $registry->get('name', $app);
-            $actions[] = Horde::link(Horde_Util::addParameter($url, 'scope', $app), $app_name) . $app_name . '</a>';
+            $actions[] = Horde::link($url->add('scope', $app), $app_name) . $app_name . '</a>';
         }
     }
 }
@@ -56,7 +56,6 @@ $col_headers = Agora::formatColumnHeaders($col_headers, $sort_by, $sort_dir, 'fo
 $view = new Agora_View();
 $view->col_headers = $col_headers;
 $view->forums_list = $forums_list;
-$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));

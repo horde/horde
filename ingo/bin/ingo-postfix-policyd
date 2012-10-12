@@ -144,11 +144,11 @@ function smtpd_access_policy($query)
         $ingo_storage = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create();
 
         try {
-            $whitelists[$user] = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST, false)->getWhitelist();
+            $whitelists[$user] = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST)->getWhitelist();
         } catch (Ingo_Exception $e) {}
 
         try {
-            $bl = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST, false);
+            $bl = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
             if (!$bl->getBlacklistFolder()) {
                 // We will only reject email at delivery time if the user
                 // wants blacklisted mail deleted completely, not filed

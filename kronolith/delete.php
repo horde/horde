@@ -30,7 +30,7 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
         }
         $url->redirect();
     }
-    if ($driver != 'Resource') {
+    if ($driver != 'resource') {
         if ($driver == 'remote') {
             /* The remote server is doing the permission checks for us. */
             $have_perms = true;

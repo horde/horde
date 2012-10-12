@@ -48,9 +48,9 @@ class Luxor
             $uri = 'source.php';
         }
 
-        $url = Horde_Util::addParameter(Horde::url($uri), $arglist);
+        $url = Horde::url($uri)->add($arglist);
         if (!empty($anchor)) {
-            $url .= "#$anchor";
+            $url->setAnchor($anchor);
         }
 
         return $url;
@@ -441,22 +441,5 @@ class Luxor
             $html .= '<tr><td align="right" style="padding-left:10px; padding-right:10px;"><a id="l' . $linenum . '" class="fixed" style="color:black">' . $linenum++ . '</a></td><td width="100%" class="fixed">' . $line . "</td></tr>\n";
         }
         return $html . '</table>';
-    }
-
-    /**
-     * Build Luxor's list of menu items.
-     */
-    function getMenu($returnType = 'object')
-    {
-        global $registry;
-
-        $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-        $menu->add(Horde::url('source.php'), _("_Browse"), 'luxor.png');
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
     }
 }

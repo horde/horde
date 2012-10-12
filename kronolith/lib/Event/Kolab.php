@@ -49,8 +49,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
      */
     public function fromDriver($event)
     {
-        $this->id = $event['uid'];
-        $this->uid = $this->id;
+        $this->uid = $this->id = $event['uid'];
 
         if (isset($event['summary'])) {
             $this->title = $event['summary'];
@@ -179,6 +178,11 @@ class Kronolith_Event_Kolab extends Kronolith_Event
             }
         }
 
+        // Tags
+        if (isset($event['categories'])) {
+            $this->_internaltags = $event['categories'];
+        }
+
         $this->initialized = true;
         $this->stored = true;
     }
@@ -208,8 +212,8 @@ class Kronolith_Event_Kolab extends Kronolith_Event
             $event['alarm'] = $this->alarm;
         }
 
-        $event['start-date'] = $this->start->timestamp();
-        $event['end-date'] = $this->end->timestamp();
+        $event['start-date'] = $this->start->toDateTime();
+        $event['end-date'] = $this->end->toDateTime();
         $event['_is_all_day'] = $this->isAllDay();
 
         switch ($this->status) {
@@ -305,6 +309,15 @@ class Kronolith_Event_Kolab extends Kronolith_Event
             }
 
             $event['attendee'][] = $new_attendee;
+        }
+
+        // Tags
+        if (!is_array($this->tags)) {
+            $this->tags = $GLOBALS['injector']->getInstance('Content_Tagger')
+                ->splitTags($this->tags);
+        }
+        if ($this->tags) {
+            $event['categories'] = $this->tags;
         }
 
         return $event;

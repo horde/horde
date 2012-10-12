@@ -318,12 +318,12 @@ class Chora
     {
         $views = ($current == 'browsefile')
             ? array('<em class="widget">' . _("Logs") . '</em>')
-            : array(Horde::widget(self::url('browsefile', $where), _("Logs"), 'widget', '', '', _("_Logs")));
+            : array(Horde::widget(array('url' => self::url('browsefile', $where), 'title' => _("_Logs"))));
 
         if ($GLOBALS['VC']->hasFeature('patchsets')) {
             $views[] = ($current == 'patchsets')
                 ? '<em class="widget">' . _("Patchsets") . '</em>'
-                : Horde::widget(self::url('patchsets', $where), _("Patchsets"), 'widget', '', '', _("_Patchsets"));
+                : Horde::widget(array('url' => self::url('patchsets', $where), 'title' => _("_Patchsets")));
         }
 
         if ($GLOBALS['VC']->hasFeature('branches')) {
@@ -331,17 +331,17 @@ class Chora
                 !($GLOBALS['VC'] instanceof Horde_Vcs_Cvs)) {
                 $views[] = ($current == 'history')
                     ? '<em class="widget">' . _("Branches") . '</em>'
-                    : Horde::widget(self::url('history', $where), _("Branches"), 'widget', '', '', _("_Branches"));
+                    : Horde::widget(array('url' => self::url('history', $where), 'title' => _("_Branches")));
             } else {
                 $views[] = ($current == 'cvsgraph')
                     ? '<em class="widget">' . _("Branches") . '</em>'
-                    : Horde::widget(self::url('cvsgraph', $where), _("Branches"), 'widget', '', '', _("_Branches"));
+                    : Horde::widget(array('url' => self::url('cvsgraph', $where), 'title' => _("_Branches")));
             }
         }
 
         $views[] = ($current == 'stats')
             ? '<em class="widget">' . _("Statistics") . '</em>'
-            : Horde::widget(self::url('stats', $where), _("Statistics"), 'widget', '', '', _("_Statistics"));
+            : Horde::widget(array('url' => self::url('stats', $where), 'title' => _("_Statistics")));
 
         return _("View:") . ' ' . implode(' | ', $views);
     }

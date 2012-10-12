@@ -245,7 +245,7 @@ $_prefs['filter_on_login'] = array(
     'desc' => _("Apply filter rules upon logging on?"),
     'help' => 'filter-on-login',
     'suppress' => function() {
-        return !$GLOBALS['session']->get('imp', 'filteravail');
+        return IMP::applyFilters();
     }
 );
 
@@ -256,7 +256,7 @@ $_prefs['filter_on_display'] = array(
     'desc' => _("Apply filter rules whenever Inbox is displayed?"),
     'help' => 'filter-on-display',
     'suppress' => function() {
-        return !$GLOBALS['session']->get('imp', 'filteravail');
+        return IMP::applyFilters();
     }
 );
 
@@ -267,7 +267,7 @@ $_prefs['filter_any_mailbox'] = array(
     'desc' => _("Allow filter rules to be applied in any mailbox?"),
     'help' => 'filter-any-mailbox',
     'suppress' => function() {
-        return !$GLOBALS['session']->get('imp', 'filteravail');
+        return IMP::applyFilters();
     }
 );
 
@@ -928,6 +928,7 @@ $_prefs['purge_sentmail_keep'] = array(
     'type' => 'number',
     'desc' => _("Purge messages in sent mail mailbox(es) older than this amount of days."),
     'help' => 'prefs-purge_sentmail_keep',
+    'requires' => array('purge_sentmail_interval'),
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }
@@ -1015,9 +1016,9 @@ $_prefs['add_source'] = array(
     'suppress' => function() {
         try {
             $GLOBALS['registry']->call('contacts/sources', array(true));
-            return true;
+            return false;
         } catch (Horde_Exception $e) {}
-        return false;
+        return true;
     },
     'on_init' => function($ui) {
         $ui->prefs['add_source']['enum'] = $GLOBALS['registry']->call('contacts/sources', array(true));
@@ -1084,7 +1085,7 @@ $_prefs['image_replacement_manage'] = array(
     'type' => 'special',
     'advanced' => true,
     'handler' => 'IMP_Prefs_Special_ImageReplacement',
-    'requires' => 'image_replacement'
+    'requires' => array('image_replacement')
 );
 
 // List of e-mail addresses to allow images from (in addition to e-mail
@@ -1254,7 +1255,9 @@ $_prefs['use_trash'] = array(
     'type' => 'checkbox',
     'desc' => _("When deleting messages, move them to your Trash mailbox instead of marking them as deleted?"),
     'on_change' => function() {
-        IMP_Mailbox::getPref('trash_folder')->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+        if ($trash_mbox = IMP_Mailbox::getPref('trash_folder')) {
+            $trash_mbox->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+        }
         if ($GLOBALS['prefs']->getValue('use_trash') &&
             !$GLOBALS['prefs']->getValue('trash_folder')) {
             $GLOBALS['notification']->push(_("You have activated move to Trash but no Trash mailbox is defined. You will be unable to delete messages until you set a Trash mailbox in the preferences."), 'horde.warning');
@@ -1334,7 +1337,7 @@ $_prefs['purge_trash_keep'] = array(
     'type' => 'number',
     'desc' => _("Purge messages in Trash mailbox older than this amount of days."),
     'help' => 'prefs-purge_trash_keep',
-    'requires' => array('use_trash'),
+    'requires' => array('use_trash', 'purge_trash_interval'),
     'requires_nolock' => array('use_trash'),
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_TRASH);
@@ -1438,6 +1441,7 @@ $_prefs['purge_spam_keep'] = array(
     'type' => 'number',
     'desc' => _("Purge messages in Spam mailbox older than this amount of days."),
     'help' => 'prefs-purge_spam_keep',
+    'requires' => array('purge_spam_interval'),
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }

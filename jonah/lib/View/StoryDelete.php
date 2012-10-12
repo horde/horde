@@ -83,7 +83,7 @@ class Jonah_View_StoryDelete extends Jonah_View_Base
         $GLOBALS['page_output']->header(array(
             'title' => $title
         ));
-        require JONAH_TEMPLATES . '/menu.inc';
+        $notification->notify(array('listeners' => 'status'));
         $form->renderActive(null, $vars, Horde::url('stories/delete.php'), 'post');
         $GLOBALS['page_output']->footer();
     }

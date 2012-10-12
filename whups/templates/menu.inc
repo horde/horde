@@ -1,5 +1,3 @@
-<?php echo $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render(); ?>
-<?php echo Horde::menu(array('menu_ob' => true))->render() ?>
 <form name="tjump" method="get" action="<?php echo Horde::url('ticket/', false, -1) ?>">
 <?php echo Horde_Util::formInput() ?>
  <span class="rightFloat">

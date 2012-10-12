@@ -78,6 +78,7 @@ if ($config = $session->get('horde', 'config/')) {
 $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('diffs', $diffs, true);
+$page_output->topbar = $page_output->sidebar = false;
 
 $page_output->header(array(
     'title' => _("Configuration Differences")

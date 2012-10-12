@@ -121,14 +121,11 @@ if (count($mode) == 0 || in_array('menu', $mode)) {
     }
     $comic_select .= '</select>';
 
-    $sums_url = Horde::url('backend.php');
-    $sums_url = Horde_Util::addParameter($sums_url, 'mode[]', 'sums');
-    $sums_url = Horde_Util::addParameter($sums_url, 'mode[]', 'menu');
+    $sums_url = Horde::url('backend.php')->add('mode[]', 'sums')->add('mode[]', 'menu');
 
     $page_output->header(array(
         'title' => _("Comics Update")
     ));
-    echo Horde::menu();
     require KLUTZ_TEMPLATES . '/backend.html.php';
     $page_output->footer();
     exit;
@@ -139,7 +136,6 @@ if (!$cli->runningFromCLI() && empty($redirect)) {
     $page_output->header(array(
         'title' => _("Comics Update")
     ));
-    echo Horde::menu();
 }
 
 if (in_array('fetch', $mode)) {
@@ -307,10 +303,10 @@ if (method_exists($klutz_driver, 'saveSums')) {
 
 // Redirect?
 if (!empty($redirect)) {
-    header('Location: ' . Horde_Util::addParameter(Horde::url($redirect),
-                                             array('actionID' => Horde_Util::getFormData('action'),
-                                                   'date' => $date,
-                                                   'index' => $index), null, false));
+    header('Location: ' . Horde::url($redirect)->add(array(
+        'actionID' => Horde_Util::getFormData('action'),
+        'date' => $date,
+        'index' => $index))->setRaw(true));
 }
 
 if (!$cli->runningFromCLI()) {

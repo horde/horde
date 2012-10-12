@@ -67,7 +67,7 @@ class IMP_Mailbox_List_Thread
             $tmp = '';
             if (strlen($ret)) {
                 foreach (str_split($ret) as $val) {
-                    $tmp .= '<span class="treeImg treeImg' . $val . '"></span>';
+                    $tmp .= '<span class="horde-tree-image horde-tree-image-' . $val . '"></span>';
                 }
             }
             return $tmp;

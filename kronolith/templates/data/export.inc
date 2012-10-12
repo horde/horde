@@ -8,7 +8,7 @@
  <?php echo _("Export Calendar") ?>
 </h1>
 
-<div class="item">
+<div class="horde-content">
     <?php echo Horde::label('exportID', _("Select the export format:")) ?><br />
     <select id="exportID" name="exportID">
       <option value="<?php echo Horde_Data::EXPORT_CSV ?>">CSV</option>
@@ -205,7 +205,10 @@ for ($i = 0; $i < 12; $i++):
 <?php endif; ?>
       </td>
     </tr>
-    </table><br />
-    <input type="submit" value="<?php echo _("Export") ?>" class="button" />
+    </table>
+</div>
+
+<div class="horde-form-buttons">
+    <input type="submit" value="<?php echo _("Export") ?>" class="horde-default" />
 </div>
 </form>

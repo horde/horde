@@ -14,7 +14,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first beta release of the Ingo Email
+The Horde Team is pleased to announce the last beta release of the Ingo Email
 Filter Rules Manager version H5 (3.0.0).
 
 Ingo is an email-filter management application. It is fully internationalized,
@@ -23,22 +23,24 @@ integrated with Horde and the IMP Webmail client, and supports both server-side
 information on Ingo, visit http://www.horde.org/apps/ingo.
 
 IMPORTANT! This is a preview version that should not be used on production
-systems. This version is not feature complete yet and there are likely to be
-bugs. You should not use this preview version with existing production data.
+systems. This version is feature complete but there are likely to be bugs. You
+should not use this preview version with existing production data.
 
 We encourage widespread testing and feedback via the mailing lists or our bug
 tracking system. Updated translations are very welcome, though some strings
 might still change before the release candidates are prepared.
 
-The major changes compared to the Ingo version H5 (3.0.0alpha1) are:
-    * Updated icon set.
-    * Small bugfixes.
+The major changes compared to the Ingo version H5 (3.0.0beta1) are:
+    * Added initial implementation of a smartphone view.
+    * Added hook to customize authentication parameters.
+    * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Updated icon set.
-Small bugfixes.
+Added initial implementation of a smartphone view.
+Added hook to customize authentication parameters.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Ingo';

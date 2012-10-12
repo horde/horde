@@ -52,7 +52,6 @@ $page_output->header(array(
     'title' => $view->getTitle()
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo Kronolith::menu();
 $notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';

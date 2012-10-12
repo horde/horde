@@ -7,7 +7,7 @@
 <strong><?php echo $user ?></strong></a><br />
 <span class="small">
 <?php foreach ($actions as $action): ?>
-<a href="<?php echo Horde_Util::addParameter($action['url'], $action['id'], $user) ?>"><?php echo $action['name'] ?> </a>
+<a href="<?php echo $action['url']->add($action['id'], $user) ?>"><?php echo $action['name'] ?> </a>
 <?php endforeach; ?>
 <br />
 <?php

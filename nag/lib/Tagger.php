@@ -24,7 +24,7 @@ class Nag_Tagger extends Horde_Core_Tagger
      *      - user: (array) - only include objects owned by these users.
      *      - list (array) - restrict to tasks contained in these task lists.
      *
-     * @return  A hash of results.
+     * @return array  A hash of results.
      */
     public function search($tags, $filter = array())
     {
@@ -34,14 +34,14 @@ class Nag_Tagger extends Horde_Core_Tagger
         if (array_key_exists('user', $filter)) {
             // semi-hack to see if we are querying for a system-owned share -
             // will need to get the list of all system owned shares and query
-            // using a calendar filter instead of a user filter.
+            // using a tasklist filter instead of a user filter.
             if (empty($filter['user'])) {
                 // @TODO: No way to get only the system shares the current
                 // user can see?
-                $calendars = $GLOBALS['injector']->getInstance('Nag_Shares')
+                $tasklists = $GLOBALS['injector']->getInstance('Nag_Shares')
                     ->listSystemShares();
                 $args['listId'] = array();
-                foreach ($calendars as $name => $share) {
+                foreach ($tasklists as $name => $share) {
                     if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
                         $args['listId'][] = $name;
                     }
@@ -51,7 +51,7 @@ class Nag_Tagger extends Horde_Core_Tagger
                 $args['userId'] = $filter['user'];
             }
         } elseif (!empty($filter['list'])) {
-            // Only events located in specific calendar(s)
+            // Only events located in specific takslist(s)
             if (!is_array($filter['list'])) {
                 $filter['list'] = array($filter['list']);
             }
@@ -59,8 +59,9 @@ class Nag_Tagger extends Horde_Core_Tagger
         }
 
         // Add the tags to the search
-        $args['tagId'] = $GLOBALS['injector']->getInstance('Content_Tagger')
-            ->getTagIds($tags);
+        $args['tagId'] = $GLOBALS['injector']
+            ->getInstance('Content_Tagger')
+            ->ensureTags($tags);
 
         $results = array();
         $args['typeId'] = $this->_type_ids['task'];

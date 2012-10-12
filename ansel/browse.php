@@ -22,7 +22,6 @@ Ansel::initJSVariables();
 $page_output->header(array(
     'title' => _("Photo Galleries")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo '<div id="menuBottom"><a href="' . Horde::url('browse_edit.php') . '">' . _("Add Content") . '</a></div><div class="clear">&nbsp;</div>';
 echo $layout_html;

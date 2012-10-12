@@ -64,40 +64,11 @@ class Turba
     static public function getAddressBooks($permission = Horde_Perms::READ,
                                            array $options = array())
     {
-        $addressbooks = array();
-        foreach (array_keys(self::getAddressBookOrder()) as $addressbook) {
-            $addressbooks[$addressbook] = $GLOBALS['cfgSources'][$addressbook];
-        }
-
         return self::permissionsFilter(
-            empty($addressbooks) ? $GLOBALS['cfgSources'] : $addressbooks,
+            $GLOBALS['cfgSources'],
             $permission,
             $options
         );
-    }
-
-    /**
-     * Get the order the user selected for displaying address books.
-     *
-     * @return array  An array describing the order to display the address
-     *                books.
-     */
-    static public function getAddressBookOrder()
-    {
-        $addressbooks = array();
-        $lines = json_decode($GLOBALS['prefs']->getValue('addressbooks'));
-
-        if (!empty($lines)) {
-            $i = 0;
-            foreach ($lines as $line) {
-                $line = trim($line);
-                if ($line && isset($GLOBALS['cfgSources'][$line])) {
-                    $addressbooks[$line] = $i++;
-                }
-            }
-        }
-
-        return $addressbooks;
     }
 
     /**
@@ -107,11 +78,6 @@ class Turba
      */
     static public function getDefaultAddressbook()
     {
-        if ($abooks = self::getAddressBookOrder()) {
-            reset($abooks);
-            return key($abooks);
-        }
-
         /* In case of shares select first user owned address book as default */
         if (!empty($_SESSION['turba']['has_share'])) {
             try {
@@ -314,7 +280,7 @@ class Turba
         if (($name_format == 'first_last') &&
             is_int(strpos($name, ',')) &&
             (Horde_String::length($name) > Horde_String::length($lastname))) {
-            return preg_replace('/' . preg_quote($lastname, '/') . ',\s*/', '', $name) . ' ' . $lasname;
+            return preg_replace('/' . preg_quote($lastname, '/') . ',\s*/', '', $name) . ' ' . $lastname;
         }
 
         return $name;
@@ -343,7 +309,7 @@ class Turba
             $data = array($data);
         }
 
-        foreach ($data as $i => $email_vals) {
+        foreach ($data as $email_vals) {
             foreach ($rfc822->parseAddressList($email_vals) as $ob) {
                 $addr = strval($ob);
                 $tmp = null;
@@ -352,7 +318,7 @@ class Turba
                     try {
                         $tmp = $GLOBALS['registry']->call('mail/batchCompose', array(array($addr)));
                     } catch (Horde_Exception $e) {
-                        $self::$_cache['useRegistry'] = false;
+                        self::$_cache['useRegistry'] = false;
                     }
                 }
 
@@ -492,7 +458,7 @@ class Turba
         }
 
         $auth_user = $GLOBALS['registry']->getAuth();
-        $sortedSources = $defaults = $vbooks = array();
+        $sortedSources = $vbooks = array();
         $personal = false;
 
         foreach ($shares as $name => &$share) {
@@ -576,6 +542,7 @@ class Turba
                     $source_config['params']['share'] = $share;
                     $newSources[$sourceKey] = $source_config;
                     $personal = true;
+                    $GLOBALS['prefs']->setValue('default_dir', $share->getName());
                 } catch (Horde_Share_Exception $e) {
                     Horde::logMessage($e, 'ERR');
                 }
@@ -690,22 +657,10 @@ class Turba
                 $share->set($key, $value);
             }
             $turba_shares->addShare($share);
-            $result = $share->save();
+            $share->save();
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             throw new Turba_Exception($e);
-        }
-
-        /* Update share_id as backends like Kolab change it to the IMAP folder
-         * name. */
-        $share_name = $share->getName();
-
-        /* Add the new addressbook to the user's list of visible address
-         * books. */
-        $prefs = json_decode($GLOBALS['prefs']->getValue('addressbooks'), true);
-        if (!is_array($prefs) || array_search($share_name, $prefs) === false) {
-            $prefs[] = $share_name;
-            $GLOBALS['prefs']->setValue('addressbooks', json_encode($prefs));
         }
 
         return $share;
@@ -727,21 +682,5 @@ class Turba
             'TurbaBrowse.copymove' => _("You must select a target address book."),
             'TurbaBrowse.submit' => _("Are you sure that you want to delete the selected contacts?")
         ));
-    }
-
-    /**
-     * Build Turba's menu.
-     *
-     * @return string  The menu output.
-     */
-    static public function menu()
-    {
-        $sidebar = Horde::menu(array('menu_ob' => true))->render();
-
-        if (count($GLOBALS['addSources'])) {
-            $sidebar->addNewButton(_("_New Contact"), Horde::url('add.php'));
-        }
-
-        return $sidebar;
     }
 }

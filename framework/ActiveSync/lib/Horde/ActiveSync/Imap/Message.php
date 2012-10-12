@@ -274,7 +274,7 @@ class Horde_ActiveSync_Imap_Message
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
-        $data = $fetch_ret[$this->_uid];
+        $data = $fetch_ret->first();
 
         // Save the envelope for later, if we asked for it.
         if (empty($this->_envelope)) {
@@ -333,6 +333,7 @@ class Horde_ActiveSync_Imap_Message
         $ret = array();
         $map = $this->_message->contentTypeMap();
         $headers = $this->getHeaders();
+        $charset = $this->_message->getHeaderCharset();
         foreach ($map as $id => $type) {
             if ($this->isAttachment($id, $type)) {
                 $mime_part = $this->getMimePart($id, array('nocontents' => true));
@@ -344,7 +345,11 @@ class Horde_ActiveSync_Imap_Message
                 }
                 $atc->attsize = $mime_part->getBytes();
                 $atc->attname = $this->_mbox . ':' . $this->_uid . ':' . $id;
-                $atc->displayname = $this->getPartName($mime_part, true);
+                $atc->displayname = Horde_String::convertCharset(
+                    $this->getPartName($mime_part, true),
+                    $charset,
+                    'UTF-8',
+                    true);
                 $atc->attmethod = Horde_ActiveSync_Message_Attachment::ATT_TYPE_NORMAL;
                 $ret[] = $atc;
             }
@@ -570,10 +575,8 @@ class Horde_ActiveSync_Imap_Message
         if (empty($this->_envelope)) {
             $this->_fetchEnvelope();
         }
-        $cc = array_pop($this->_envelope->cc->addresses);
-        $a = new Horde_Mail_Rfc822_Address($cc);
-
-        return $a->writeAddress(false);
+        $cc = new Horde_Mail_Rfc822_List($this->_envelope->cc->addresses);
+        return $cc->writeAddress();
     }
 
     /**

@@ -93,6 +93,7 @@ $vars->set('image_originalDate', $image->originalDate);
 $renderer = new Horde_Form_Renderer();
 $count = count($images);
 
+$page_output->topbar = $page_output->sidebar = false;
 
 $page_output->header();
 $form->renderActive($renderer, $vars, null, 'post');

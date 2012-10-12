@@ -75,10 +75,11 @@ class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Base
         }
 
         $data = '';
+        $tmp_deb = $this->_getTempFile();
 
         file_put_contents($tmp_deb, $this->_mimepart->getContents());
 
-        $fh = popen($location . ' -f ' . $this->_getTempFile() . ' 2>&1', 'r');
+        $fh = popen($location . ' -f ' . $tmp_deb . ' 2>&1', 'r');
         while ($rc = fgets($fh, 8192)) {
             $data .= $rc;
         }

@@ -114,7 +114,6 @@ if ($message_parent_id) {
 }
 
 $view->replying = $message_parent_id;
-$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));

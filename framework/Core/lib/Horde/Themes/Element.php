@@ -61,7 +61,7 @@ class Horde_Themes_Element
      *                        element directory.
      * @param array $options  Additional options:
      *   - app: (string) Use this application instead of the current app.
-     *   - data' (array) Contains 2 elements: 'fs' - filesystem path,
+     *   - data: (array) Contains 2 elements: 'fs' - filesystem path,
                          'uri' - the element URI. If set, use as the data
                          values instead of auto determining.
      *   - nohorde: (boolean) If true, do not fallback to horde for element.

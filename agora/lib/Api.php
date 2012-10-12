@@ -284,7 +284,8 @@ class Agora_Api extends Horde_Registry_Api
         /* An agora parameter may already be present. If so it would
          * interfere; remove it. */
         if ($base_url) {
-            $base_url = Horde_Util::removeParameter($base_url, array('agora', 'message_parent_id', 'delete'));
+            $url = new Horde_Url($base_url);
+            $base_url->remove(array('agora', 'message_parent_id', 'delete'));
         }
 
         $threads = $this->getThreads($forum_name, 'message_thread', 0, $bodies, $scope, $base_url);

@@ -37,12 +37,6 @@ $_prefs['show_notepad'] = array(
     'desc' => _("Should the Notepad be shown in its own column in the List view?")
 );
 
-// show the notepad options panel?
-// a value of 0 = no, 1 = yes
-$_prefs['show_panel'] = array(
-    'value' => 1
-);
-
 // user preferred sorting column
 $_prefs['sortby'] = array(
     'value' => Mnemo::SORT_DESC,

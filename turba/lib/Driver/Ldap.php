@@ -120,16 +120,16 @@ class Turba_Driver_Ldap extends Turba_Driver
         if (is_array($this->_params['dn'])) {
             foreach ($this->_params['dn'] as $param) {
                 foreach ($this->map as $turbaname => $ldapname) {
-                    if ((is_array($this->map[$turbaname])) &&
-                        (isset($this->map[$turbaname]['attribute'])) &&
-                        ($this->map[$turbaname]['attribute'] == $param)) {
+                    if ((is_array($ldapname)) &&
+                        (isset($ldapname['attribute'])) &&
+                        ($ldapname['attribute'] == $param)) {
                         $fieldarray = array();
-                        foreach ($this->map[$turbaname]['fields'] as $mapfield) {
+                        foreach ($ldapname['fields'] as $mapfield) {
                             $fieldarray[] = isset($hash[$mapfield])
                                 ? $hash[$mapfield]
                                 : '';
                         }
-                        $hash[$turbaname] = Turba::formatCompositeField($this->map[$turbaname]['format'], $fieldarray);
+                        $hash[$turbaname] = Turba::formatCompositeField($ldapname['format'], $fieldarray);
                     }
                 }
             }
@@ -306,7 +306,7 @@ class Turba_Driver_Ldap extends Turba_Driver
         if (!empty($this->_params['checkrequired'])) {
             $required = $this->_checkRequiredAttributes($this->_params['objectclass']);
 
-            foreach ($required as $k => $v) {
+            foreach ($required as $v) {
                 if (!isset($attributes[$v])) {
                     $attributes[$v] = $this->_params['checkrequired_string'];
                 }
@@ -398,8 +398,7 @@ class Turba_Driver_Ldap extends Turba_Driver
         $info = array_change_key_case($info, CASE_LOWER);
         $attributes = array_change_key_case($attributes, CASE_LOWER);
 
-        foreach ($info as $key => $value) {
-            $var = $info[$key];
+        foreach ($info as $key => $var) {
             $oldval = null;
 
             /* Check to see if the old value and the new value are
@@ -493,7 +492,7 @@ class Turba_Driver_Ldap extends Turba_Driver
     {
         $clause = '';
 
-        foreach ($criteria as $key => $vals) {
+        foreach ($criteria as $vals) {
             if (!empty($vals['OR'])) {
                 $clause .= '(|' . $this->_buildSearchQuery($vals) . ')';
             } elseif (!empty($vals['AND'])) {

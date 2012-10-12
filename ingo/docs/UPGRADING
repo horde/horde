@@ -29,8 +29,28 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading Ingo From 2.x To 3.x
+==============================
+
+Backend Configuration (backends.php)
+------------------------------------
+
+The 'hordeauth' parameter and the 'password' and 'username' parameters have
+been removed. By default, the transport backend will use Horde authentication
+credentials to access. To set a different username and/or password, you should
+use the 'transport_auth' hook.
+
+
+
 Upgrading Ingo From 1.x To 2.x
 ==============================
+
+Configuration Options (conf.php)
+--------------------------------
+
+The following configuration options have been removed:
+
+   usefolderapi
 
 
 Sieve Backend
@@ -46,13 +66,6 @@ content::
    $backends['sieve']['params']['port'] = 2000;
    $backends['sivtest']['params']['port'] = 2000;
 
-
-Configuration Options
----------------------
-
-The following configuration options have been removed:
-
-   usefolderapi
 
 
 Upgrading Ingo From 1.2.1 To 1.2.2

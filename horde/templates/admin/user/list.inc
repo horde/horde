@@ -5,15 +5,13 @@
  <?php endif; ?>
 </h1>
 
-<div class="headerbox">
-
-<div class="control">
+<div class="horde-content">
  <form method="post" name="search" action="<?php echo Horde::selfUrl() ?>">
  <?php echo Horde_Util::formInput() ?>
  <input type="hidden" name="page" value="0" />
- <strong><?php echo Horde::label('search_pattern', _("Search:")) ?></strong>
+ <?php echo Horde::label('search_pattern', _("Search:")) ?>
  <input id="search_pattern" name="search_pattern" type="text" value="" size="50" maxlength="100" />
- <input type="submit" class="button" value="<?php echo _("Search") ?>" />
+ <input type="submit" class="horde-default" value="<?php echo _("Search") ?>" />
  </form>
 </div>
 
@@ -39,10 +37,11 @@ foreach ($users as $user):
  </tr>
 <?php endforeach; ?>
 </table>
+<?php if ($numitem): ?>
+<div class="horde-content">
 <?php
-if ($numitem) {
-    $pager = new Horde_Core_Ui_Pager('page', $vars, array('num' => $total, 'url' => $viewurl, 'page_count' => 10, 'perpage' => $perpage));
-    echo $pager->render($page, $total, $viewurl);
-}
+$pager = new Horde_Core_Ui_Pager('page', $vars, array('num' => $total, 'url' => $viewurl, 'page_count' => 10, 'perpage' => $perpage));
+echo $pager->render($page, $total, $viewurl);
 ?>
 </div>
+<?php endif ?>

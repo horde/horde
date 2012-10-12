@@ -61,13 +61,12 @@ $view->threads = $threads_list;
 $view->forum_name = sprintf(_("Threads in %s"), $forum_array['forum_name']);
 $view->forum_description =  Agora_Driver::formatBody($forum_array['forum_description']);
 $view->actions = $threads->getThreadActions();
-$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $view->notify = Horde::endBuffer();
 
-$view->rss = Horde_Util::addParameter(Horde::url('rss/threads.php', true, -1), array('scope' => $scope, 'forum_id' => $forum_id));
+$view->rss = Horde::url('rss/threads.php', true, -1)->add(array('scope' => $scope, 'forum_id' => $forum_id));
 
 /* Set up pager. */
 $vars = Horde_Variables::getDefaultVariables();

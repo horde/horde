@@ -70,8 +70,6 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
         $ret = $this->_renderInline();
 
         if (!empty($ret)) {
-            $templates = $this->getConfigParam('registry')->get('templates', 'horde');
-
             reset($ret);
             Horde::startBuffer();
             $GLOBALS['page_output']->header();
@@ -95,10 +93,8 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
         $prefs = $this->getConfigParam('prefs');
         $registry = $this->getConfigParam('registry');
 
-        $app = false;
         $data = $this->_mimepart->getContents();
         $html = '';
-        $import_msg = null;
         $title = Horde_Core_Translation::t("vCard");
 
         $iCal = new Horde_Icalendar();
@@ -114,7 +110,7 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
             foreach ($iCal->getComponents() as $c) {
                 if ($c->getType() == 'vcard') {
                     try {
-                        $contacts = $registry->call('contacts/import', array($c, null, $source));
+                        $registry->call('contacts/import', array($c, null, $source));
                         ++$count;
                     } catch (Horde_Exception $e) {
                         $notification->push(Horde_Core_Translation::t("There was an error importing the contact data:") . ' ' . $e->getMessage(), 'horde.error');

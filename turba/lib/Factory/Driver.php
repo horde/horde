@@ -103,9 +103,9 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
 
             /* Store and translate the map at the Source level. */
             $driver->map = $srcConfig['map'];
-            foreach ($driver->map as $key => $val) {
+            foreach ($driver->map as $mapkey => $val) {
                 if (!is_array($val)) {
-                    $driver->fields[$key] = $val;
+                    $driver->fields[$mapkey] = $val;
                 }
             }
 

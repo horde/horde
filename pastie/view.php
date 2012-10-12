@@ -40,7 +40,7 @@ try {
 $page_output->header(array(
     'title' => _("View Paste")
 ));
-require PASTIE_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 require PASTIE_TEMPLATES . '/view.inc';
 $form->renderActive(null, null, $pasteurl, 'post');
 $page_output->footer();

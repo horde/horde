@@ -41,15 +41,13 @@ class Ingo
      * is returned.
      *
      * @param string $value    The current value for the field.
-     * @param string $form     The form name for the newFolderName() call.
      * @param string $tagname  The label for the select tag.
      *
      * @return string  The HTML to render the field.
      */
-    static public function flistSelect($value = null, $form = null,
-                                       $tagname = 'actionvalue')
+    static public function flistSelect($value = null, $tagname = 'actionvalue')
     {
-        global $conf, $page_output, $registry;
+        global $page_output, $registry;
 
         if ($registry->hasMethod('mail/mailboxList')) {
             try {
@@ -68,7 +66,7 @@ class Ingo
                     $text .= sprintf(
                         "<option value=\"%s\"%s>%s</option>\n",
                         htmlspecialchars($val['ob']->utf7imap),
-                        ($key === $value) ? ' selected="selected"' : '',
+                        ($val['ob']->utf7imap === $value) ? ' selected="selected"' : '',
                         str_repeat('&nbsp;', $val['level'] * 2) . htmlspecialchars($val['label'])
                     );
                 }
@@ -338,23 +336,6 @@ class Ingo
      */
     static public function menu()
     {
-        global $injector;
-
-        $sidebar = Horde::menu(array('menu_ob' => true))->render();
-        $perms = $injector->getInstance('Horde_Core_Perms');
-        $actions = $injector->getInstance('Ingo_Script') ->availableActions();
-        $filters = $injector->getInstance('Ingo_Factory_Storage')
-            ->create()
-            ->retrieve(Ingo_Storage::ACTION_FILTERS)
-            ->getFilterList();
-
-        if (!empty($actions) &&
-            ($perms->hasAppPermission('allow_rules') &&
-             ($perms->hasAppPermission('max_rules') === true ||
-              $perms->hasAppPermission('max_rules') > count($filters)))) {
-            $sidebar->addNewButton(_("New Rule"), Horde::url('rule.php'));
-        }
-
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->set('form_url', Horde::url('filters.php'));
         $t->set('forminput', Horde_Util::formInput());
@@ -372,14 +353,7 @@ class Ingo
             $t->set('options', $options);
         }
 
-        $t->set('menu_string', $sidebar->render());
-
-        $menu = $t->fetch(INGO_TEMPLATES . '/menu/menu.html');
-
-        return $GLOBALS['injector']
-            ->getInstance('Horde_View_Topbar')
-            ->render()
-            . $menu;
+        return $t->fetch(INGO_TEMPLATES . '/menu/menu.html');
     }
 
     /**
@@ -443,6 +417,47 @@ class Ingo
         $storage->store($rule2);
 
         return $rule;
+    }
+
+    /**
+     * Output description for a rule.
+     *
+     * @param array $rule  Rule.
+     *
+     * @return string  Text description.
+     */
+    static public function ruleDescription($rule)
+    {
+        $condition_size = count($rule['conditions']) - 1;
+        $descrip = '';
+
+        foreach ($rule['conditions'] as $key => $val) {
+            $descrip .= sprintf("%s %s \"%s\"", $val['field'], $val['match'], $val['value']);
+
+            if (!empty($val['case'])) {
+                $descrip .= ' [' . _("Case Sensitive") . ']';
+            }
+
+            if ($key < $condition_size) {
+                $descrip .= ($rule['combine'] == Ingo_Storage::COMBINE_ALL)
+                    ? _(" and")
+                    : _(" or");
+                $descrip .= "\n  ";
+            }
+        }
+
+        $descrip .= "\n" .
+            $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->getActionInfo($rule['action'])->label;
+
+        if ($rule['action-value']) {
+            $descrip .= ': ' . $rule['action-value'];
+        }
+
+        if ($rule['stop']) {
+            $descrip .= "\n[stop]";
+        }
+
+        return $descrip;
     }
 
 }

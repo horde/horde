@@ -68,7 +68,7 @@ class Jonah_View_ChannelList extends Jonah_View_Base
         $page_output->header(array(
             'title' => _("Feeds")
         ));
-        require JONAH_TEMPLATES . '/menu.inc';
+        $notification->notify(array('listeners' => 'status'));
         echo $view->render('channellist');
         $page_output->footer();
     }

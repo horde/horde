@@ -36,7 +36,11 @@ $reload = false;
 switch (Horde_Util::getFormData('actionID', 'edit')) {
 case 'edit':
     try {
-        $share = $shares->getShareById(Horde_Util::getFormData('cid', 0));
+        $shareid = Horde_Util::getFormData('cid');
+        if (!$shareid) {
+            throw new Horde_Exception_NotFound(); 
+        }
+        $share = $shares->getShareById($shareid);
         $form = 'edit.inc';
         $perm = $share->getPermission();
     } catch (Horde_Exception_NotFound $e) {
@@ -277,6 +281,8 @@ try {
     Horde::logMessage($e, 'NOTICE');
     $groupList = array();
 }
+
+$page_output->topbar = $page_output->sidebar = false;
 
 $page_output->header(array(
     'title' => $title

@@ -374,7 +374,7 @@ div.nicetitle pre {
 }
 
 /* Tree styles. */
-.treeRow {
+.horde-tree-row {
     overflow: hidden;
     min-height: 20px;
     clear: both;
@@ -498,12 +498,12 @@ div.nicetitle pre {
     text-decoration: none;
     background-color: #fff;
 }
-.tabset li.activeTab a {
+.tabset li.horde-active a {
     border-bottom: 1px solid #000;
     background-color: #000;
     color: #fff;
 }
-.tabset li.activeTab a:hover {
+.tabset li.horde-active a:hover {
 }
 .tabset img {
     display: block;

@@ -8,12 +8,11 @@
 </h1>
 
 <?php if (!$groups->readOnly()): ?>
-<p class="control">
+<p class="horde-content">
  <?php echo Horde::label('email', _("Email Address")) ?>
  <input type="text" name="email" id="email" size="50" value="<?php echo htmlspecialchars($group['email']) ?>" />
 </p>
 <?php endif; ?>
-<br />
 
 <h1 class="header">
  <?php echo Horde::img('group.png') . ' ' . _("Members") ?>
@@ -35,41 +34,40 @@
  </tr>
 <?php endforeach; ?>
 </table>
-<br />
 
 <?php if (count($inherited_users)): ?>
 <h1 class="header">
  <?php echo Horde::img('group.png') . ' ' . _("Inherited Members") ?>
 </h1>
-<div class="control">
-<ul>
+<div class="horde-content">
+ <ul>
 <?php foreach ($inherited_users as $user): ?>
- <li><?php echo htmlspecialchars($user) ?></li>
+  <li><?php echo htmlspecialchars($user) ?></li>
 <?php endforeach; ?>
-</ul>
+ </ul>
 </div>
-<br />
 <?php endif; ?>
 
 <?php if (!$groups->readOnly()): ?>
 <h1 class="header">
  <?php echo Horde::img('user.png') . ' ' . _("Add Members") ?>
 </h1>
+<p class="horde-content">
 <?php if ($auth->hasCapability('list')): ?>
-<p class="control">
-<label for="new_user" class="hidden"><?php echo _("Users") ?></label>
-<select id="new_user" name="new_user[]" multiple="multiple">
-<?php foreach ($user_list as $user) { if (!in_array($user, $users)) { ?>
- <option value="<?php echo $user ?>"><?php echo $user ?></option>
-<?php } } ?>
-</select>
+ <label for="new_user" class="hidden"><?php echo _("Users") ?></label>
+ <select id="new_user" name="new_user[]" multiple="multiple">
+<?php foreach ($user_list as $user): ?>
+<?php if (!in_array($user, $users)): ?>
+  <option value="<?php echo $user ?>"><?php echo $user ?></option>
+<?php endif ?>
+<?php endforeach ?>
+ </select>
 <?php else: ?>
-<label for="new_user" class="hidden"><?php echo _("User") ?></label>
-<input type="text" id="new_user" name="new_user" />
-<?php endif; ?>
-<input type="submit" class="button" value="<?php echo htmlspecialchars(sprintf(_("Save \"%s\""), $group['name'])) ?>" />
+ <label for="new_user" class="hidden"><?php echo _("User") ?></label>
+ <input type="text" id="new_user" name="new_user" />
+<?php endif ?>
+ <input type="submit" class="horde-default" value="<?php echo htmlspecialchars(sprintf(_("Save \"%s\""), $group['name'])) ?>" />
 </p>
-<br />
-<?php endif; ?>
+<?php endif ?>
 
 </form>

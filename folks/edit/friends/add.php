@@ -41,8 +41,8 @@ if ($user) {
             $body = sprintf(_("User %s added you to his firends list on %s. \nTo approve, go to: %s \nTo reject, go to: %s \nTo see to his profile, go to: %s \n"),
                             $GLOBALS['registry']->getAuth(),
                             $registry->get('name', 'horde'),
-                            Horde_Util::addParameter(Horde::url('edit/friends/approve.php', true, -1), 'user', $GLOBALS['registry']->getAuth()),
-                            Horde_Util::addParameter(Horde::url('edit/friends/reject.php', true, -1), 'user', $GLOBALS['registry']->getAuth()),
+                            Horde::url('edit/friends/approve.php', true, -1)->add('user', $GLOBALS['registry']->getAuth()),
+                            Horde::url('edit/friends/reject.php', true, -1)->add('user', $GLOBALS['registry']->getAuth()),
                             Folks::getUrlFor('user', $GLOBALS['registry']->getAuth(), true, -1));
             $result = $friends->sendNotification($user, $title, $body);
             if ($result instanceof PEAR_Error) {

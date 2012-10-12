@@ -43,7 +43,12 @@ class Kronolith_Form_EditResourceGroup extends Horde_Form
         $this->addVariable(_("Name"), 'name', 'text', true);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
         $this->addVariable(_("Resources"), 'members', 'multienum', false, false, null, array('enum' => $enum));
-        $this->setButtons(array(_("Save")));
+
+        $this->setButtons(array(
+            _("Save"),
+            array('class' => 'horde-delete', 'value' => _("Delete")),
+            array('class' => 'horde-cancel', 'value' => _("Cancel"))
+        ));
     }
 
     /**
@@ -51,19 +56,31 @@ class Kronolith_Form_EditResourceGroup extends Horde_Form
      */
     public function execute()
     {
-        $original_name = $this->_resource->get('name');
-        $new_name = $this->_vars->get('name');
-        $this->_resource->set('name', $new_name);
-        $this->_resource->set('description', $this->_vars->get('description'));
-        $this->_resource->set('members', $this->_vars->get('members'));
+        switch ($this->_vars->submitbutton) {
+        case _("Save"):
+            $new_name = $this->_vars->get('name');
+            $this->_resource->set('name', $new_name);
+            $this->_resource->set('description', $this->_vars->get('description'));
+            $this->_resource->set('members', $this->_vars->get('members'));
 
-        try {
-            $this->_resource->save();
-        } catch (Exception $e) {
-            throw new Kronolith_Exception(sprintf(_("Unable to save resource \"%s\": %s"), $new_name, $e->getMessage()));
+            try {
+                $this->_resource->save();
+            } catch (Exception $e) {
+                throw new Kronolith_Exception(sprintf(_("Unable to save resource \"%s\": %s"), $new_name, $e->getMessage()));
+            }
+
+            return $this->_resource;
+
+        case _("Delete"):
+            Horde::url('resources/groups/delete.php')
+                ->add('c', $this->_vars->c)
+                ->redirect();
+            break;
+
+        case _("Cancel"):
+            Horde::url($GLOBALS['prefs']->getValue('defaultview') . '.php', true)
+                ->redirect();
+            break;
         }
-
-        return $this->_resource;
     }
-
 }

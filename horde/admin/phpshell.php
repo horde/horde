@@ -39,26 +39,31 @@ $page_output->header(array(
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
 ?>
-<div>
 <form action="<?php echo Horde::url('admin/phpshell.php') ?>" method="post">
 <?php Horde_Util::pformInput() ?>
 
 <h1 class="header"><?php echo $title ?></h1>
-<br />
-<label for="app"><?php echo _("Application Context: ") ?></label>
-<select id="app" name="app">
+<div class="horde-content">
+  <p>
+    <label for="app"><?php echo _("Application Context: ") ?></label>
+    <select id="app" name="app">
 <?php foreach ($apps as $app => $name): ?>
- <option value="<?php echo $app ?>"<?php if ($application == $app) echo ' selected="selected"' ?>><?php echo $name ?></option>
+     <option value="<?php echo $app ?>"<?php if ($application == $app) echo ' selected="selected"' ?>><?php echo $name ?></option>
 <?php endforeach; ?>
-</select><br /><br />
+    </select>
+  </p>
 
-<label for="php" class="hidden"><?php echo _("PHP") ?></label>
-<textarea class="fixed" id="php" name="php" rows="10" cols="80">
-<?php if (!empty($command)) echo htmlspecialchars($command) ?></textarea>
-<br />
-<input type="submit" class="button" value="<?php echo _("Execute") ?>" />
-<?php echo Horde_Help::link('admin', 'admin-phpshell') ?>
-</form><br />
+  <p>
+    <label for="php" class="hidden"><?php echo _("PHP") ?></label>
+    <textarea class="fixed" id="php" name="php" rows="10" cols="80"><?php if (!empty($command)) echo htmlspecialchars($command) ?></textarea>
+  </p>
+</div>
+
+<p class="horde-form-buttons">
+  <input type="submit" class="horde-default" value="<?php echo _("Execute") ?>" />
+  <?php echo Horde_Help::link('admin', 'admin-phpshell') ?>
+</p>
+</form>
 
 <?php
 
@@ -72,13 +77,13 @@ if ($command) {
 
     $pretty = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($part)->render('inline');
 
-    echo '<h1 class="header">' . _("PHP Code") . '</h1>' .
+    echo '<h1 class="header">' . _("PHP Code") . '</h1><div class="horde-content">' .
         $pretty[1]['data'] .
-        '<br />' .
-        '<h1 class="header">' . _("Results") . '</h1>' .
+        '</div>' .
+        '<h1 class="header">' . _("Results") . '</h1><div class="horde-content">' .
         '<pre class="text">';
     eval($command);
-    echo '</pre>';
+    echo '</pre></div>';
 
     if ($pushed) {
         $registry->popApp();
@@ -86,7 +91,6 @@ if ($command) {
 }
 ?>
 
-</div>
 <?php
 
 $page_output->footer();

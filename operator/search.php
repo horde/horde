@@ -85,7 +85,7 @@ $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->header(array(
     'title' => _("Search Call Detail Records")
 ));
-require OPERATOR_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 $notification->notify();
 $form->renderActive($renderer, $vars, Horde::url('search.php'), 'post');
 

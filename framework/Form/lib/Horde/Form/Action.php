@@ -41,16 +41,6 @@ class Horde_Form_Action {
     {
     }
 
-    function _printJavaScriptStart()
-    {
-        echo '<script type="text/javascript"><!--';
-    }
-
-    function _printJavaScriptEnd()
-    {
-        echo '// --></script>';
-    }
-
     function getTarget()
     {
         return isset($this->_params['target']) ? $this->_params['target'] : null;

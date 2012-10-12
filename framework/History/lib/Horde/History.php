@@ -90,7 +90,7 @@ abstract class Horde_History
                         $replaceAction = false)
     {
         if (!is_string($guid)) {
-            throw new Horde_History_Exception('The guid needs to be a string!');
+            throw new InvalidArgumentException('The guid needs to be a string!');
         }
 
         $history = $this->getHistory($guid);

@@ -31,7 +31,7 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
 </h1>
 <?php endif; ?>
 
-<table class="striped" cellspacing="0">
+<table cellspacing="0">
 <?php if ($event->recurs() &&
           ($GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') === true ||
            $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())): ?>
@@ -51,11 +51,11 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
 
 <!-- buttons -->
 <tr>
- <td></td>
- <td colspan="4">
+ <td class="horde-form-buttons"></td>
+ <td colspan="4" class="horde-form-buttons">
   <?php echo implode("\n", $buttons) ?>
-  <?php echo $cancelurl->link(array('class' => 'button')) . _("Cancel") . '</a>' ?>
-  <input type="button" name="resetButton" class="button" value="<?php echo _("Reset to Defaults") ?>" />
+  <input type="button" name="resetButton" value="<?php echo _("Reset to Defaults") ?>" />
+  <?php echo $cancelurl->link(array('class' => 'horde-cancel')) . _("Cancel") . '</a>' ?>
  </td>
 </tr>
 
@@ -73,31 +73,30 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
  <td class="rightAlign"><strong><?php echo Horde::label('targetcalendar', _("Cal_endar")) ?></strong></td>
  <td colspan="4">
     <select id="targetcalendar" name="targetcalendar">
-    <?php
+<?php
+    foreach ($calendars as $id => $cal) {
+        $delegates = array();
+        if ($cal->hasPermission(Horde_Perms::EDIT)) {
+            $delegates[$id] = htmlspecialchars($cal->name());
+        } else {
+            $delegates[$cal->owner() . '\\' . $id] = htmlspecialchars($cal->name(). ' (' . sprintf(_("as %s"), Kronolith::getUserName($cal->owner())) . ')');
+        }
+        foreach ($delegates as $delegate_id => $cal_name) {
+            $sel = ($delegate_id == $calendar_id) ? ' selected="selected"' : '';
+            printf('<option value="%s"%s>%s</option>',
+                   htmlspecialchars($delegate_id), $sel, $cal_name) . "\n";
+        }
+    }
     if (!empty($GLOBALS['display_resource_calendars'])) {
         // We are editing/viewing resource calendars
         foreach ($GLOBALS['display_resource_calendars'] as $cal) {
             $rd = Kronolith::getDriver('Resource');
             $rc = $rd->getResource($rd->getResourceIdByCalendar($cal));
-            printf('<option value="%s"%s>%s</option>',
-                    'resource_' . htmlspecialchars($cal), '', $rc->get('name')) . "\n";
+            printf('<option value="%s">%s (%s)</option>',
+                    'resource_' . htmlspecialchars($cal), $rc->get('name'), _("resource")) . "\n";
         }
-    } else {
-        // Normal view
-        foreach ($calendars as $id => $cal) {
-            $delegates = array();
-            if ($cal->hasPermission(Horde_Perms::EDIT)) {
-                $delegates[$id] = htmlspecialchars($cal->name());
-            } else {
-                $delegates[$cal->owner() . '\\' . $id] = htmlspecialchars($cal->name(). ' (' . sprintf(_("as %s"), Kronolith::getUserName($cal->owner())) . ')');
-            }
-            foreach ($delegates as $delegate_id => $cal_name) {
-                $sel = ($delegate_id == $calendar_id) ? ' selected="selected"' : '';
-                printf('<option value="%s"%s>%s</option>',
-                       htmlspecialchars($delegate_id), $sel, $cal_name) . "\n";
-            }
-        }
-    }?>
+    }
+?>
     </select>
 
  </td>
@@ -264,7 +263,7 @@ if ($event->alarm) {
 <tr>
  <td></td>
  <td colspan="4">
-  <?php echo Horde::url('attendees.php')->link(array('class' => 'button', 'id' => 'attendees_button', 'target' => '_blank')) . _("Edit Attendees and Resources") . '</a>' ?>
+  <?php echo Horde::url('attendees.php')->link(array('class' => 'horde-button', 'id' => 'attendees_button', 'target' => '_blank')) . _("Edit Attendees and Resources") . '</a>' ?>
  </td>
 </tr>
 </tbody>
@@ -432,11 +431,11 @@ if ($event->alarm) {
  </td>
 </tr>
 <tr>
- <td></td>
- <td colspan="4">
+ <td class="horde-form-buttons"></td>
+ <td colspan="4" class="horde-form-buttons">
   <?php echo implode("\n", $buttons) ?>
-  <?php echo $cancelurl->link(array('class' => 'button')) . _("Cancel") . '</a>' ?>
-  <input type="button" name="resetButton" class="button" value="<?php echo _("Reset to Defaults") ?>" />
+  <input type="button" name="resetButton" value="<?php echo _("Reset to Defaults") ?>" />
+  <?php echo $cancelurl->link(array('class' => 'horde-cancel')) . _("Cancel") . '</a>' ?>
   </td>
  </tr>
 </table>

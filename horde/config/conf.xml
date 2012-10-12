@@ -113,6 +113,11 @@
    Set other values with care - see
    http://www.php.net/manual/en/function.session-set-cookie-params.php.">
    0</configinteger>
+   <configinteger name="max_time" desc="The maximum length of time (in
+   seconds) a session can be active before it will be destroyed by Horde.
+   Allows an admin to forcibly expire sessions (e.g. to ensure that logintasks
+   are periodically run for every user). 0 means there is no maximum session
+   time.">0</configinteger>
   </configsection>
   <configsection name="cookie">
    <configphp name="domain" desc="What domain should we set cookies from? If
@@ -1081,7 +1086,12 @@
    user's browsing experience, and is HIGHLY RECOMMENDED.
   </configdescription>
   <configswitch name="cachecss" desc="Cache CSS?">false
-   <case name="false" desc="No" />
+   <case name="false" desc="No">
+    <configsection name="cachejsparams">
+     <configboolean name="url_version_param" desc="Add version information to
+     CSS URLs?">true</configboolean>
+    </configsection>
+   </case>
    <case name="true" desc="Yes">
     <configsection name="cachecssparams">
      <configswitch name="driver" desc="How should we store the cached data?">
@@ -1123,7 +1133,12 @@
    RECOMMENDED.
   </configdescription>
   <configswitch name="cachejs" desc="Cache javascript?">false
-   <case name="false" desc="No" />
+   <case name="false" desc="No">
+    <configsection name="cachejsparams">
+     <configboolean name="url_version_param" desc="Add version information to
+     javascript URLs?">true</configboolean>
+    </configsection>
+   </case>
    <case name="true" desc="Yes">
     <configsection name="cachejsparams">
      <configswitch name="driver" desc="How should we store the cached data?">
@@ -1808,8 +1823,8 @@
     <case name="true" desc="Enabled">
      <configheader>IMAP Server Settings</configheader>
      <configstring name="server" desc="Server
-     address:">localhost</configstring>
-     <configinteger name="port" desc="Server port:">143</configinteger>
+     address">localhost</configstring>
+     <configinteger name="port" desc="Server port">143</configinteger>
       <configenum name="secure" desc="The encryption to use to connect to
       the IMAP server.">tls
        <values>
@@ -1819,8 +1834,8 @@
        </values>
       </configenum>
      <configstring name="maildomain" desc="Default
-     maildomain:">example.com</configstring>
-     <configboolean name="cache_folders" desc="Cache IMAP folders:"
+     maildomain">example.com</configstring>
+     <configboolean name="cache_folders" desc="Cache IMAP folders?"
       required="true">true</configboolean>
     </case>
    </configswitch>

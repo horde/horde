@@ -17,7 +17,7 @@
 <?php if ($this->showGroup): $col_count++; ?>
   <th class="turba-browse-icon item" width="1%"><span class="iconImg groupImg" title="<?php echo htmlspecialchars(_("List")) ?>"></span></th>
 <?php endif; ?>
-  <?php $s_url = Horde_Util::removeParameter(Horde::selfUrl(true), array('sortadd', 'sortby', 'sortdir')); for ($i = 0, $imax = count($this->columns); $i <= $imax; ++$i): ?>
+  <?php $s_url = Horde::selfUrl(true)->remove(array('sortadd', 'sortby', 'sortdir')); for ($i = 0, $imax = count($this->columns); $i <= $imax; ++$i): ?>
     <?php $columnlabel = $GLOBALS['attributes'][$i == 0 ? 'name' : $this->getColumnName($i)]['label']; ?>
   <th class="<?php echo ($this->showSort && $this->isSortColumn($i)) ? 'selected' : 'item' ?> leftAlign" width="<?php echo $width ?>%" nowrap="nowrap">
 <?php if ($this->showSort): ?>

@@ -68,7 +68,7 @@ if ($form->validate()) {
     $form->execute();
 }
 Horde::startBuffer();
-require TURBA_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('add.php'), 'post');
 $formHtml = Horde::endBuffer();
 

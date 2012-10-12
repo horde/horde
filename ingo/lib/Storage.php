@@ -56,7 +56,7 @@ class Ingo_Storage
     const TYPE_BODY = 3;
 
     /**
-     * Cached rule objects.
+     * Cached rules.
      *
      * @var array
      */
@@ -77,20 +77,6 @@ class Ingo_Storage
     public function __construct(array $params = array())
     {
         $this->_params = $params;
-        register_shutdown_function(array($this, 'shutdown'));
-    }
-
-    /**
-     * Shutdown function.
-     */
-    public function shutdown()
-    {
-        /* Store the current objects. */
-        foreach ($this->_cache as $key => $val) {
-            if ($val['mod'] || !$GLOBALS['session']->exists('ingo', 'storage/' . $key)) {
-                $GLOBALS['session']->set('ingo', 'storage/' . $key, $GLOBALS['session']->store($val['ob'], false));
-            }
-        }
     }
 
     /**
@@ -98,27 +84,18 @@ class Ingo_Storage
      *
      * @param integer $field     The field name of the desired data
      *                           (ACTION_* constants).
-     * @param boolean $cache     Use the cached object?
      * @param boolean $readonly  Whether to disable any write operations.
      *
      * @return Ingo_Storage_Rule|Ingo_Storage_Filters  The specified object.
      * @throws Ingo_Exception
      */
-    public function retrieve($field, $cache = true, $readonly = false)
+    public function retrieve($field, $readonly = false)
     {
-        /* Don't cache if using shares. */
-        if ($cache && empty($GLOBALS['ingo_shares'])) {
-            if (!isset($this->_cache[$field])) {
-                $cached = $GLOBALS['session']->retrieve($GLOBALS['session']->get('ingo', 'storage/' . $field));
-                $this->_cache[$field] = array(
-                    'mod' => false,
-                    'ob' => $cached ? $cached : $this->_retrieve($field, $readonly)
-                );
-            }
-            return $this->_cache[$field]['ob'];
+        if (!isset($this->_cache[$field])) {
+            $this->_cache[$field] = $this->_retrieve($field, $readonly);
         }
 
-        return $this->_retrieve($field, $readonly);
+        return $this->_cache[$field];
     }
 
     /**
@@ -139,11 +116,10 @@ class Ingo_Storage
      * Stores the specified data.
      *
      * @param Ingo_Storage_Rule|Ingo_Storage_Filters $ob  The object to store.
-     * @param boolean $cache                              Cache the object?
      *
      * @throws Ingo_Exception
      */
-    public function store($ob, $cache = true)
+    public function store($ob)
     {
         $type = $ob->obType();
         if (in_array($type, array(self::ACTION_BLACKLIST,
@@ -175,14 +151,12 @@ class Ingo_Storage
                     break;
                 }
                 $filters->addRule(array('action' => $type, 'name' => $name));
-                $this->store($filters, $cache);
+                $this->store($filters);
             }
         }
 
         $this->_store($ob);
-        if ($cache) {
-            $this->_cache[$ob->obType()] = array('ob' => $ob, 'mod' => true);
-        }
+        $this->_cache[$ob->obType()] = $ob;
     }
 
     /**

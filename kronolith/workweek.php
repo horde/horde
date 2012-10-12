@@ -20,21 +20,15 @@ if (Kronolith::showAjaxView()) {
 $view = Kronolith::getView('WorkWeek');
 
 $page_output->addScriptFile('tooltips.js', 'horde');
-$page_output->addScriptFile('views.js');
+Kronolith::addCalendarLinks();
 
 $page_output->header(array(
     'body_class' => $prefs->getValue('show_panel') ? 'rightPanel' : null,
     'title' => sprintf(_("Week %d"), $view->week)
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo Kronolith::menu();
 $notification->notify(array('listeners' => 'status'));
-
-echo '<div id="page">';
-Kronolith::tabs();
+Kronolith::tabs($view);
 $view->html(KRONOLITH_TEMPLATES);
-echo '</div>';
-
 require KRONOLITH_TEMPLATES . '/calendar_titles.inc';
-require KRONOLITH_TEMPLATES . '/panel.inc';
 $page_output->footer();

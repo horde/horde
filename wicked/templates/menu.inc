@@ -1,5 +1,3 @@
-<?php echo $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render(); ?>
-<?php echo Wicked::getMenu('string') ?>
 <script type="text/javascript">
 function jump()
 {

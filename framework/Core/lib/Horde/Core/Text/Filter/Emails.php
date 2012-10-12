@@ -20,15 +20,13 @@ class Horde_Core_Text_Filter_Emails extends Horde_Text_Filter_Emails
      *
      * @param array $params  Parameters (in addition to base
      *                       Horde_Text_Filter_Emails parameters):
-     * <pre>
-     * always_mailto - (boolean) If true, a mailto: link is generated always.
-     *                 Only if no mail/compose registry API method exists
-     *                 otherwise.
-     *                 DEFAULT: false
-     * callback - (callback) Use this callback instead of the mail/compose
-     *            API call.
-     *            DEFAULT: Use mail/compose API call.
-     * </pre>
+     *   - always_mailto: (boolean) If true, a mailto: link is always
+     *                    generated. Only if no mail/compose registry API
+     *                    method exists otherwise.
+     *                    DEFAULT: false
+     *   - callback: (callback) Use this callback instead of the mail/compose
+     *               API call.
+     *               DEFAULT: Use mail/compose API call.
      */
     public function __construct(array $params = array())
     {

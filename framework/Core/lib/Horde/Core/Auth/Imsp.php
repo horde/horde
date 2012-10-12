@@ -36,7 +36,7 @@ class Horde_Core_Auth_Imsp extends Horde_Auth_Base
         $this->_params['username'] = $userID;
         $this->_params['password'] = $credentials['password'];
         $this->_imsp = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imsp')->create(null, $this->_params);
-        if (!$result = $this->_imsp->authenticate(false)) {
+        if (!$this->_imsp->authenticate(false)) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
     }

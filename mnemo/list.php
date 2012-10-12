@@ -57,10 +57,8 @@ case 'search_memos':
 $page_output->addScriptFile('tables.js', 'horde');
 $page_output->addScriptFile('quickfinder.js', 'horde');
 $page_output->header(array(
-    'body_class' => $prefs->getValue('show_panel') ? 'rightPanel' : null,
     'title' => $title
 ));
-echo Mnemo::menu();
 $notification->notify();
 require MNEMO_TEMPLATES . '/list/header.inc';
 
@@ -72,10 +70,9 @@ if (count($memos)) {
     $sortdir = $prefs->getValue('sortdir');
     $showNotepad = $prefs->getValue('show_notepad');
 
-    $baseurl = 'list.php';
+    $baseurl = Horde::url('list.php');
     if ($actionID == 'search_memos') {
-        $baseurl = Horde_Util::addParameter(
-            $baseurl,
+        $baseurl->add(
             array('actionID' => 'search_memos',
                   'search_pattern' => $search_pattern,
                   'search_type' => $search_type));
@@ -85,14 +82,13 @@ if (count($memos)) {
 
     $history = $GLOBALS['injector']->getInstance('Horde_History');
     foreach ($memos as $memo_id => $memo) {
-        $viewurl = Horde_Util::addParameter(
-            'view.php',
+        $viewurl = Horde::url('view.php')->add(
             array('memo' => $memo['memo_id'],
                   'memolist' => $memo['memolist_id']));
 
-        $memourl = Horde_Util::addParameter(
-            'memo.php', array('memo' => $memo['memo_id'],
-                              'memolist' => $memo['memolist_id']));
+        $memourl = Horde::url('memo.php')->add(
+            array('memo' => $memo['memo_id'],
+                  'memolist' => $memo['memolist_id']));
         try {
             $share = $GLOBALS['mnemo_shares']->getShare($memo['memolist_id']);
             $notepad = $share->get('name');
@@ -116,5 +112,4 @@ if (count($memos)) {
     require MNEMO_TEMPLATES . '/list/empty.inc';
 }
 
-require MNEMO_TEMPLATES . '/panel.inc';
 $page_output->footer();

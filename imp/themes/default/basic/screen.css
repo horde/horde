@@ -110,6 +110,13 @@ table.messageList .sortup, table.messageList .sortdown {
 }
 
 /* Navbar action styling. */
+li .imp-navbar span.iconImg, li .imp-navbar input {
+    margin: -4px 0 0;
+}
+li .imp-navbar span.iconImg {
+    padding: 0;
+    background-position: center center;
+}
 table.msgActionTable, #fmanager table {
     width: 100%;
     border-collapse: collapse;
@@ -174,6 +181,12 @@ div.partsTreeDiv span span:last-child {
 }
 #compose td.light {
     vertical-align: top;
+}
+
+#compose .horde-spellcheck-popdown {
+    display: inline-block;
+    float: none;
+    margin-bottom: -8px;
 }
 
 .seen {
@@ -243,12 +256,12 @@ td.addressTr span.loadingImg {
     border-spacing: 0;
 }
 .itipconflicts tr.itipcollision {
-    background-color: #f00;
+    background-color: #f03232;
     color: #fff;
 }
 
 .itipconflicts tr.itipnearcollision {
-    background-color: #ee0;
+    background-color: #ffdf4d;
 }
 
 /* Quota styles. */

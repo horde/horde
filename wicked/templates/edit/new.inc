@@ -21,8 +21,8 @@ function preview()
 </h1>
 
 <div class="control">
- <input type="submit" value="<?php echo _("Save") ?>" class="button" />
- <input type="button" value="<?php echo _("Preview") ?>" class="button" onclick="preview()" />
+ <input type="submit" value="<?php echo _("Save") ?>" class="horde-default" />
+ <input type="button" value="<?php echo _("Preview") ?>" onclick="preview()" />
 </div>
 
 <div style="padding:8px">

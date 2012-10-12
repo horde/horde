@@ -143,9 +143,9 @@ class Horde_ActiveSync_SyncCache
      */
     public function validateTimestamps()
     {
-        if ((!empty($this->_data['lasthbsyncstarted']) && (empty($this->_data['lastsyncendnormal']))) ||
+        if ((!empty($this->_data['lasthbsyncstarted']) && empty($this->_data['lastsyncendnormal'])) ||
             (!empty($this->_data['lasthbsyncstarted']) && !empty($this->_data['lastsyncendnormal']) &&
-            $this->_data['lasthbsyncstarted'] > $this->_data['lastsyncendnormal'])) {
+            ($this->_data['lasthbsyncstarted'] > $this->_data['lastsyncendnormal']))) {
 
             return false;
         }

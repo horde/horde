@@ -223,34 +223,7 @@ if (count($filter_list) == 0) {
         if (!$edit_allowed) {
             $entry['descriplink'] = htmlspecialchars($name);
         } elseif (!empty($filter['conditions'])) {
-            $descrip = '';
-            $condition_size = count($filter['conditions']) - 1;
-            foreach ($filter['conditions'] as $condid => $cond) {
-
-                $descrip .= sprintf("%s %s \"%s\"", _($cond['field']), _($cond['match']), $cond['value']);
-                if (!empty($cond['case'])) {
-                    $descrip .= ' [' . _("Case Sensitive") . ']';
-                }
-                if ($condid < $condition_size) {
-                    $descrip .= ($filter['combine'] == Ingo_Storage::COMBINE_ALL) ? _(" and") : _(" or");
-                    $descrip .= "\n  ";
-                }
-            }
-
-            $descrip .= "\n";
-
-            $ob = $ingo_storage->getActionInfo($filter['action']);
-            $descrip .= $ob->label;
-
-            if ($filter['action-value']) {
-                $descrip .= ': ' . $filter['action-value'];
-            }
-
-            if ($filter['stop']) {
-                $descrip .= "\n[stop]";
-            }
-
-            $entry['descriplink'] = Horde::linkTooltip($editurl, sprintf(_("Edit %s"), $name), null, null, null, $descrip) . htmlspecialchars($name) . '</a>';
+            $entry['descriplink'] = Horde::linkTooltip($editurl, sprintf(_("Edit %s"), $name), null, null, null, Ingo::ruleDescription($filter)) . htmlspecialchars($name) . '</a>';
         } else {
             $entry['descriplink'] = Horde::link($editurl, sprintf(_("Edit %s"), $name)) . htmlspecialchars($name) . '</a>';
         }

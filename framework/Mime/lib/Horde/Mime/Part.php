@@ -445,8 +445,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *   - stream: (boolean) Return the body as a stream resource.
      *             DEFAULT: No
      *
-     * @return mixed  The body text of the part, or a stream resource if
-     *                'stream' is true.
+     * @return mixed  The body text (string) of the part, null if there is no
+     *                contents, and a stream resource if 'stream' is true.
      */
     public function getContents($options = array())
     {

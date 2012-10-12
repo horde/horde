@@ -283,7 +283,7 @@ class Horde_Core_Prefs_Ui
      */
     protected function _handleForm($preflist, $save)
     {
-        global $injector, $notification, $prefs, $registry;
+        global $injector, $notification, $prefs;
 
         $updated = false;
 
@@ -602,7 +602,7 @@ class Horde_Core_Prefs_Ui
                     if ($this->groupIsEditable($group)) {
                         $tmp['groups'][] = array(
                             'desc' => htmlspecialchars($gvals['desc']),
-                            'link' => Horde::widget($options_link->copy()->add(array('app' => $this->app, 'group' => $group)), $gvals['label'], '', '', '', $gvals['label'])
+                            'link' => Horde::widget(array('url' => $options_link->copy()->add(array('app' => $this->app, 'group' => $group)), 'title' => $gvals['label']))
                         );
                     }
                 }
@@ -617,7 +617,7 @@ class Horde_Core_Prefs_Ui
 
         /* Get the menu output before we start to output the page.
          * Again, this will catch any javascript inserted into the page. */
-        $menu_out = Horde::menu(array('app' => 'horde'));
+        $GLOBALS['page_output']->sidebar = false;
 
         /* Get list of accessible applications. */
         $apps = array();
@@ -636,8 +636,6 @@ class Horde_Core_Prefs_Ui
             // For now, force to Basic view for preferences.
             'view' => $registry::VIEW_BASIC
         ));
-
-        echo $menu_out;
 
         $notification->notify(array('listeners' => 'status'));
 

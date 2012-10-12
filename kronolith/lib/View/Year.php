@@ -42,20 +42,16 @@ class Kronolith_View_Year
     {
         global $prefs;
 
-        require KRONOLITH_TEMPLATES . '/year/head.inc';
-
-        $html = '<table class="nopadding" cellspacing="5" width="100%"><tr>';
+        $html = '<table id="kronolith-view-year" class="kronolith-minical"><tr>';
         for ($month = 1; $month <= 12; ++$month) {
-            $html .= '<td valign="top">';
+            $html .= '<td>';
 
             // Heading for each month.
             $date = new Horde_Date(sprintf('%04d%02d01010101', $this->year, $month));
-            $mtitle = $date->strftime('%B');
-            $html .= '<h2 class="smallheader"><a class="smallheader" href="'
-                . Horde::url('month.php')
-                ->add('date', $date->dateString())
-                . '">' . $mtitle . '</a></h2>'
-                . '<table class="nopadding monthgrid" cellspacing="0" width="100%"><thead><tr class="item">';
+            $html .= '<table><thead><tr class="kronolith-minical-nav"><th colspan="7">'
+                . Horde::url('month.php')->add('date', $date->dateString())->link()
+                . $date->strftime('%B')
+                . '</a></th></tr><tr><th class="kronolith-minical-empty">&nbsp;</th>';
             if (!$prefs->getValue('week_start_monday')) {
                 $html .= '<th>' . _("Su"). '</th>';
             }
@@ -68,7 +64,7 @@ class Kronolith_View_Year
             if ($prefs->getValue('week_start_monday')) {
                 $html .= '<th>' . _("Su") . '</th>';
             }
-            $html .= '</tr></thead><tbody><tr>';
+            $html .= '</tr></thead><tbody><tr><td class="kronolith-minical-week">';
 
             $startday = new Horde_Date(array('mday' => 1,
                                              'month' => $month,
@@ -107,24 +103,24 @@ class Kronolith_View_Year
                     $date->hour = $prefs->getValue('twentyFour') ? 12 : 6;
                     $week = $date->weekOfYear();
 
-                    if ($cell % 7 == 0 && $cell != 0) {
-                        $html .= "</tr>\n<tr>";
+                    if ($cell % 7 == 0) {
+                        if ($cell != 0) {
+                            $html .= "</tr>\n<tr><td class=\"kronolith-minical-week\">";
+                        }
+                        $html .= (int)$date->weekOfYear() . '</td>';
                     }
                     if ($date->month != $month) {
-                        $style = 'monthgrid';
-                    } elseif ($date->dayOfWeek() == 0 || $date->dayOfWeek() == 6) {
-                        $style = 'weekend';
+                        $style = 'kronolith-other-month';
                     } else {
-                        $style = 'text';
+                        $style = '';
                     }
 
                     /* Set up the link to the day view. */
                     $url = Horde::url('day.php', true)
                         ->add('date', $date->dateString());
 
-                    if ($date->month != $month) {
-                        $cellday = '&nbsp;';
-                    } elseif (!empty($this->_events[$date->dateString()])) {
+                    if ($date->month == $month &&
+                              !empty($this->_events[$date->dateString()])) {
                         /* There are events; create a cell with tooltip to list
                          * them. */
                         $day_events = '';
@@ -151,7 +147,7 @@ class Kronolith_View_Year
                         $cellday = Horde::linkTooltip($url, _("View Day")) . $date->mday . '</a>';
                     }
                     if ($date->isToday() && $date->month == $month) {
-                        $style .= ' today';
+                        $style .= ' kronolith-today';
                     }
 
                     $html .= '<td align="center" class="' . $style . '" height="10" width="5%" valign="top">' .

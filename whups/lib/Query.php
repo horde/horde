@@ -230,10 +230,7 @@ class Whups_Query
         if ($this->id && $edit && empty($GLOBALS['conf']['share']['no_sharing'])) {
             $GLOBALS['page_output']->addScriptFile('popup.js', 'horde');
 
-            $permsurl = $GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php';
-            $permsurl = Horde_Util::addParameter(
-                $permsurl,
-                array(
+            $permsurl = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php')->add(array(
                     'app' => 'whups',
                     'cid' => $this->id));
             $tabs->addTab(

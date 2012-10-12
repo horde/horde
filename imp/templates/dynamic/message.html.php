@@ -60,8 +60,7 @@
 <?php endif; ?>
     </div>
     <div id="msgHeadersContent">
-     <p><?php echo $this->subject ?></p>
-     <p>&nbsp;</p>
+     <div class="subject"><?php echo $this->subject ?></div>
      <table>
       <thead>
 <?php foreach ($this->hdrs as $val): ?>
@@ -77,7 +76,13 @@
         <td>
          <div id="partlist">
           <table>
-           <?php echo $this->atc_list ?>
+<?php foreach ($this->atc_list as $val): ?>
+           <tr>
+            <td><?php echo $val['icon'] ?></td>
+            <td><?php echo $val['description'] ?> (<?php echo $val['size'] ?>)</td>
+            <td><?php echo $val['download'] ?> <?php if (!empty($val['download_zip'])) { echo $val['download_zip']; } ?></td>
+           </tr>
+<?php endforeach ?>
           </table>
          </div>
         </td>

@@ -42,6 +42,7 @@ class IMP_Contents_View
         }
 
         $GLOBALS['page_output']->disableCompression();
+        $this->_contents->fetchCloseSession = true;
 
         $tosave = array();
         foreach ($this->_contents->downloadAllList() as $val) {
@@ -75,6 +76,7 @@ class IMP_Contents_View
     {
         $mime = $this->_contents->getMIMEPart($id);
         if ($this->_contents->canDisplay($id, IMP_Contents::RENDER_RAW)) {
+            $this->_contents->fetchCloseSession = true;
             $render = $this->_contents->renderMIMEPart($id, IMP_Contents::RENDER_RAW);
             $part = reset($render);
             $mime->setContents($part['data'], array(
@@ -114,6 +116,8 @@ class IMP_Contents_View
      */
     public function downloadRender($id, $mode, $ctype = null)
     {
+        $this->_contents->fetchCloseSession = true;
+
         return reset($this->_contents->renderMIMEPart(
             $id,
             $mode,
@@ -128,6 +132,8 @@ class IMP_Contents_View
      */
     public function viewAttach($id, $mode, $autodetect = false, $ctype = null)
     {
+        $this->_contents->fetchCloseSession = true;
+
         $render = $this->_contents->renderMIMEPart(
             $id,
             $mode,
@@ -152,6 +158,8 @@ class IMP_Contents_View
      */
     public function viewSource()
     {
+        $this->_contents->fetchCloseSession = true;
+
         return array(
             'data' => $this->_contents->fullMessageText(array(
                 'stream' => true
@@ -168,6 +176,8 @@ class IMP_Contents_View
         $name = ($subject = $this->_contents->getHeader()->getValue('subject'))
             ? trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $subject), ' _')
             : 'saved_message';
+
+        $this->_contents->fetchCloseSession = true;
 
         return array(
             'data' => $this->_contents->fullMessageText(array(
@@ -195,7 +205,7 @@ class IMP_Contents_View
      */
     public function printAttach($id)
     {
-        global $injector, $page_output, $prefs;
+        global $injector, $page_output, $prefs, $registry;
 
         if (is_null($id) ||
             !($render = $this->_contents->renderMIMEPart($id, IMP_Contents::RENDER_FULL))) {
@@ -226,8 +236,8 @@ class IMP_Contents_View
                 }
 
                 $headers[] = array(
-                    'header' => htmlspecialchars($val),
-                    'value' => htmlspecialchars($hdr_val)
+                    'header' => $val,
+                    'value' => $hdr_val
                 );
             }
         }
@@ -235,15 +245,19 @@ class IMP_Contents_View
         if ($prefs->getValue('add_printedby')) {
             $user_identity = $injector->getInstance('IMP_Identity');
             $headers[] = array(
-                'header' => htmlspecialchars(_("Printed By")),
-                'value' => htmlspecialchars($user_identity->getFullname() ? $user_identity->getFullname() : $registry->getAuth())
+                'header' => _("Printed By"),
+                'value' => $user_identity->getFullname() ? $user_identity->getFullname() : $registry->getAuth()
             );
         }
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->set('headers', $headers);
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/print'
+        ));
+        $view->addHelper('Text');
 
-        $header_dom = new Horde_Domhtml(Horde_String::convertCharset($t->fetch(IMP_TEMPLATES . '/print/headers.html'), 'UTF-8', $d_param['params']['charset']), $d_param['params']['charset']);
+        $view->headers = $headers;
+
+        $header_dom = new Horde_Domhtml(Horde_String::convertCharset($view->render('headers'), 'UTF-8', $d_param['params']['charset']), $d_param['params']['charset']);
         $elt = $header_dom->dom->getElementById('headerblock');
         $elt->removeAttribute('id');
 

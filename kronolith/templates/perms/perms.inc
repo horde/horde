@@ -371,8 +371,8 @@ foreach ($groupperms as $group => $gperm):
 
 <tr>
  <td colspan="7">
-  <input type="submit" class="button" value="<?php printf(_("Save %s"), htmlspecialchars($share->get('name'))) ?>" />
-  <input type="submit" class="button" name="save_and_finish" value="<?php echo htmlspecialchars(_("Save and Finish")) ?>" />
+  <input type="submit" value="<?php printf(_("Save %s"), htmlspecialchars($share->get('name'))) ?>" />
+  <input type="submit" class="horde-default" name="save_and_finish" value="<?php echo htmlspecialchars(_("Save and Finish")) ?>" />
  </td>
 </tr>
 

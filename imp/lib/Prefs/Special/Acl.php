@@ -47,28 +47,33 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
 
         $rightslist = $acl->getRights();
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('FormTag');
+        $view->addHelper('Tag');
+        $view->addHelper('Text');
 
-        $t->set('options', IMP::flistSelect(array(
+        $view->canedit = $canEdit;
+        $view->current = sprintf(_("Current access to %s"), $mbox->display_html);
+        $view->hasacl = count($curr_acl);
+        $view->mbox = $mbox->form_to;
+        $view->options = IMP::flistSelect(array(
             'basename' => true,
             'selected' => $mbox
-        )));
-        $t->set('current', sprintf(_("Current access to %s"), $mbox->display_html));
-        $t->set('mbox', $mbox->form_to);
-        $t->set('hasacl', count($curr_acl));
+        ));
 
-        if ($t->get('hasacl')) {
+        if ($view->hasacl) {
             $cval = array();
 
             foreach ($curr_acl as $index => $rule) {
                 $entry = array(
-                    'index' => htmlspecialchars($index),
+                    'index' => $index,
                     'rule' => array()
                 );
 
                 if ($rule instanceof Horde_Imap_Client_Data_AclNegative) {
-                    $entry['negative'] = htmlspecialchars(substr($index, 1));
+                    $entry['negative'] = substr($index, 1);
                 }
 
                 /* Create table of each ACL option for each user granted
@@ -85,10 +90,8 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
                  $cval[] = $entry;
              }
 
-             $t->set('curr_acl', $cval);
+             $view->curr_acl = $cval;
         }
-
-        $t->set('canedit', $canEdit);
 
         if ($session->get('imp', 'imap_admin')) {
             $current_users = array_keys($curr_acl);
@@ -104,9 +107,7 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
                 $notification->push($e);
                 return;
             }
-            $t->set('new_user', $new_user);
-        } else {
-            $t->set('noadmin', true);
+            $view->new_user = $new_user;
         }
 
         $rights = array();
@@ -114,11 +115,11 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
             $val['val'] = $key;
             $rights[] = $val;
         }
-        $t->set('rights', $rights);
+        $view->rights = $rights;
 
-        $t->set('width', round(100 / (count($rights) + 1)) . '%');
+        $view->width = round(100 / (count($rights) + 2)) . '%';
 
-        return $t->fetch(IMP_TEMPLATES . '/prefs/acl.html');
+        return $view->render('acl');
     }
 
     /**

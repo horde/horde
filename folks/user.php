@@ -61,7 +61,7 @@ $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->header(array(
     'title' => sprintf(_("%s's profile"), $user)
 ));
-require FOLKS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 switch ($profile['user_status']) {
 
 case 'inactive':

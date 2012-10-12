@@ -76,7 +76,7 @@ class Jonah_View_StoryEdit extends Jonah_View_Base
         $page_output->header(array(
             'title' => $form->getTitle()
         ));
-        require JONAH_TEMPLATES . '/menu.inc';
+        $notification->notify(array('listeners' => 'status'));
         $form->renderActive($form->getRenderer(), $vars, Horde::url('stories/edit.php'), 'post');
         $page_output->footer();
     }

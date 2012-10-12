@@ -28,6 +28,8 @@ $PUBLISH_ONBACK = '';
 $PUBLISH_ONNEXT = '';
 $PUBLISH_CMD = '';
 
+$page_output->topbar = $page_output->sidebar = false;
+
 $page_output->header(array(
     'title' => sprintf(_("Publish to %s"), $registry->get('name'))
 ));

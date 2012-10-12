@@ -27,7 +27,7 @@ class IMP_Search_Filter extends IMP_Search_Query
     {
         switch ($name) {
         case 'querytext':
-            $text = array(_("Search"));
+            $text = array();
 
             foreach ($this->_criteria as $elt) {
                 $text[] = $elt->queryText();
@@ -37,7 +37,7 @@ class IMP_Search_Filter extends IMP_Search_Query
             }
             array_pop($text);
 
-            return implode(' ', $text);
+            return sprintf(_("Search %s"), implode(' ', $text));
         }
 
         return parent::__get($name);

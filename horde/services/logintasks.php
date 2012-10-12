@@ -107,7 +107,18 @@ $template->set('header', $header);
 $template->set('tasks', $display_tasks, true);
 $template->set('logintasks_url', $tasks->getLoginTasksUrl());
 
-$page_output->addScriptFile('logintasks.js', 'horde');
+switch ($registry->getView()) {
+case Horde_Registry::VIEW_SMARTMOBILE:
+    $page_output->addScriptFile('logintasks-jquery.js', 'horde');
+    break;
+
+default:
+    $page_output->addScriptFile('logintasks.js', 'horde');
+    break;
+}
+
+$page_output->topbar = $page_output->sidebar = false;
+
 $page_output->header(array(
     'body_class' => 'modal-form',
     'body_id' => 'services_logintasks',

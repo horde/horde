@@ -58,16 +58,16 @@ while (!feof(STDIN)) {
     $session->set('ingo', 'current_share', ':' . $user);
 
     foreach ($rules as $rule) {
-        $filter = $prefs_storage->retrieve($rule, false);
+        $filter = $prefs_storage->retrieve($rule);
         if ($rule == Ingo_Storage::ACTION_FILTERS) {
-            $new_filter = $sql_storage->retrieve(Ingo_Storage::ACTION_FILTERS, true, true);
+            $new_filter = $sql_storage->retrieve(Ingo_Storage::ACTION_FILTERS, true);
             foreach ($filter->getFilterList() as $rule) {
                 $new_filter->addRule($rule);
                 echo '.';
             }
         }
         try {
-            $sql_storage->store($filter, false);
+            $sql_storage->store($filter);
         } catch (Horde_Exception $e) {
             $cli->writeln();
             $cli->message($e->getMessage(), 'cli.error');

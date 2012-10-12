@@ -21,8 +21,8 @@ if (empty($url)) {
 
  <p><?php echo _("Permanently delete this event?") ?></p>
 
- <input type="submit" class="button" name="delete" value="<?php echo _("Delete") ?>" />
- <a class="button" href="<?php echo htmlspecialchars($url) ?>"><?php echo _("Cancel") ?></a>
+ <input type="submit" class="horde-delete" name="delete" value="<?php echo _("Delete") ?>" />
+ <a class="horde-cancel" href="<?php echo htmlspecialchars($url) ?>"><?php echo _("Cancel") ?></a>
 </div>
 
 </form>

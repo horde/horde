@@ -98,8 +98,7 @@ foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
     if ($calendar->api() == 'tasks') {
         continue;
     }
-    if (!empty($GLOBALS['conf']['share']['hidden']) &&
-        !in_array($id, $GLOBALS['display_external_calendars'])) {
+    if (!$calendar->display()) {
         continue;
     }
     $code['conf']['calendars']['external'][$id] = array(
@@ -155,16 +154,27 @@ foreach ($masks as $i => $text) {
 }
 
 $code['text']['recur']['desc'] = array(
-    Horde_Date_Recurrence::RECUR_WEEKLY => array(sprintf(_("Recurs weekly on every %s"), "#{weekday}"),
-                                                 sprintf(_("Recurs every %s weeks on %s"), "#{interval}", "#{weekday}")),
-    Horde_Date_Recurrence::RECUR_MONTHLY_DATE => array(sprintf(_("Recurs on the %s of every month"), "#{date}"),
-                                                       sprintf(_("Recurs every %s months on the %s"), "#{interval}", "#{date}")),
-    Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY => array(_("Recurs every month on the same weekday"),
-                                                       sprintf(_("Recurs every %s months on the same weekday"), "#{interval}")),
-    Horde_Date_Recurrence::RECUR_YEARLY_DATE => array(sprintf(_("Recurs once a year, on %s"), '#{date}'),
-                                                      sprintf(_("Recurs every %s years on %s"), '#{interval}', '#{date}')),
-    Horde_Date_Recurrence::RECUR_YEARLY_DAY => array(_("Recurs once a year, on the same day"),
-                                                      sprintf(_("Recurs every %s years on the same day"), '#{interval}'))
+    Horde_Date_Recurrence::RECUR_DAILY => array(
+        _("Recurs daily"),
+        sprintf(_("Recurs every %s days"), "#{interval}")),
+    Horde_Date_Recurrence::RECUR_WEEKLY => array(
+        sprintf(_("Recurs weekly on every %s"), "#{weekday}"),
+        sprintf(_("Recurs every %s weeks on %s"), "#{interval}", "#{weekday}")),
+    Horde_Date_Recurrence::RECUR_MONTHLY_DATE => array(
+        sprintf(_("Recurs on the %s of every month"), "#{date}"),
+        sprintf(_("Recurs every %s months on the %s"), "#{interval}", "#{date}")),
+    Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY => array(
+        _("Recurs every month on the same weekday"),
+        sprintf(_("Recurs every %s months on the same weekday"), "#{interval}")),
+    Horde_Date_Recurrence::RECUR_YEARLY_DATE => array(
+        sprintf(_("Recurs once a year, on %s"), '#{date}'),
+        sprintf(_("Recurs every %s years on %s"), '#{interval}', '#{date}')),
+    Horde_Date_Recurrence::RECUR_YEARLY_DAY => array(
+        _("Recurs once a year, on the same day"),
+        sprintf(_("Recurs every %s years on the same day"), '#{interval}')),
+    Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY => array(
+        _("Recurs every year on the same weekday"),
+        sprintf(_("Recurs every %s years on the same weekday"), "#{interval}")),
 );
 $code['text']['recur']['exception'] = _("Exception");
 

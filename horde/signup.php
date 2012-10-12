@@ -83,6 +83,8 @@ if ($formsignup->validate()) {
     }
 }
 
+$page_output->topbar = $page_output->sidebar = false;
+
 $page_output->header(array(
     'body_class' => 'modal-form',
     'title' => _("User Registration")

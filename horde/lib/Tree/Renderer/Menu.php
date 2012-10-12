@@ -37,4 +37,28 @@ class Horde_Tree_Renderer_Menu extends Horde_Tree_Renderer_Base
         $view->items = $this->_tree->getNodes();
         return $view->render('menu');
     }
+
+    /**
+     * Returns just the JS node definitions as a string.
+     *
+     * @return object  Object with the following properties: 'files',
+     *                 'nodes', 'root_nodes'.
+     */
+    public function renderNodeDefinitions()
+    {
+        $result = new stdClass;
+        $result->nodes = $this->_tree->getNodes();
+        $result->root_nodes = $this->_tree->getRootNodes();
+        $result->files = array();
+
+        foreach ($GLOBALS['page_output']->hsl as $val) {
+            /* Ignore files that are already loaded before building the
+             * tree. */
+            if (!in_array($val->file, array('prototype.js', 'hordetree.js', 'accesskeys.js'))) {
+                $result->files[] = strval($val->url);
+            }
+        }
+
+        return $result;
+    }
 }

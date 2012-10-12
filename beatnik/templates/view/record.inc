@@ -10,9 +10,9 @@ foreach ($zonedata[$type] as $record) {
 
     $params = array('id' => $record['id'], 'rectype' => $type);
     echo '<tr>' . "\n";
-    echo '<td>' . Horde::link(Horde_Util::addParameter($edit, $params))
+    echo '<td>' . Horde::link($edit->copy()->add($params))
                 . Horde::img('edit.png', _("Edit")) . '</a> '
-                . Horde::link(Horde_Util::addParameter($delete, $params))
+                . Horde::link($delete->copy()->add($params))
                 . Horde::img('delete.png', _("Delete")) . '</a></td>';
     echo '<td>' . $rectypes[$type] . '</td>';
 

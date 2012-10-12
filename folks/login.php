@@ -87,7 +87,7 @@ if ($conf['login']['prelogin'] &&
  * Login parameters
  */
 $url_param = Horde_Util::getFormData('url');
-$login_url = Horde_Util::addParameter($registry->getServiceLink('login', 'folks'), 'url', $url_param);
+$login_url = $registry->getServiceLink('login', 'folks')->add('url', $url_param);
 
 /*
  * We are already logged in?
@@ -232,6 +232,6 @@ if ($form->isSubmitted()) {
 $page_output->header(array(
     'title' => $title
 ));
-require FOLKS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 require FOLKS_TEMPLATES . '/login/login.php';
 $page_output->footer();

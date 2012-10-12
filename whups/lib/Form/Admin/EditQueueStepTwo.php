@@ -65,7 +65,7 @@ class Whups_Form_Admin_EditQueueStepTwo extends Horde_Form
         if ($registry->hasMethod('tickets/listVersions') == $registry->getApp()) {
             $versionlink = array(
                 'text' => _("Edit the versions for this queue"),
-                'url' => Horde_Util::addParameter(Horde::url('admin/?formname=whups_form_admin_editversionstepone'), 'queue', $queue));
+                'url' => Horde::url('admin/?formname=whups_form_admin_editversionstepone')->add('queue', $queue));
             $this->addVariable('', 'link', 'link', false, true, null, array($versionlink));
         }
 
@@ -82,7 +82,7 @@ class Whups_Form_Admin_EditQueueStepTwo extends Horde_Form
         $musers->setDefault($whups_driver->getQueueUsers($queue));
         $userlink = array(
             'text' => _("Edit the users responsible for this queue"),
-            'url' => Horde_Util::addParameter(Horde::url('admin/?formname=edituserform'), 'queue', $queue));
+            'url' => Horde::url('admin/?formname=edituserform')->add('queue', $queue));
         $this->addVariable('', 'link', 'link', false, true, null,
                            array($userlink));
 

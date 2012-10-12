@@ -139,7 +139,7 @@ EOT;
             $fbperms = $facebook->users->getAppPermissions();
             if (!empty($fbperms[Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM])) {
                 $html .= '<input style="width:98%;margin-top:4px;margin-bottom:4px;" type="text" class="fbinput" id="' . $instance . '_newStatus" name="newStatus" />'
-                    . '<div><a class="button" href="#" id="' . $instance . '_button">' . _("Update") . '</a></div>'
+                    . '<div><a class="horde-default" href="#" id="' . $instance . '_button">' . _("Update") . '</a></div>'
                     . Horde::img('loading.gif', '', array('id' => $instance. '_loading', 'style' => 'display:none;'));
             }
         } catch (Horde_Service_Facebook_Exception $e) {
@@ -152,7 +152,7 @@ EOT;
 
        // Build the stream feed.
         $html .= '<br /><div id="' . $instance . '_fbcontent" style="height:' . (empty($this->_params['height']) ? 300 : $this->_params['height']) . 'px;overflow-y:auto;overflow-x:hidden;"></div><br />';
-        $html .= '<div class="hordeSmGetmore"><input type="button" id="' . $instance . '_getmore" class="button"  value="' . _("Get More") . '"></div>';
+        $html .= '<div class="hordeSmGetmore"><input type="button" id="' . $instance . '_getmore" class="horde-button"  value="' . _("Get More") . '"></div>';
 
         $html .= '</div>'; // fbbody end
 

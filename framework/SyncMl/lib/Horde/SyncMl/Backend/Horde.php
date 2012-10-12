@@ -533,7 +533,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
      *
      * @return string  The user name.
      */
-    public function setAuthenticated($username, $credData)
+    protected function _setAuthenticated($username, $credData)
     {
         global $registry;
 

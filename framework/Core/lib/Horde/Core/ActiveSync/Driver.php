@@ -82,9 +82,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *            DEFAULT: none (REQUIRED).
      *   - connector: (Horde_ActiveSync_Driver_Horde_Connector_Registry) The
      *                connector object for communicating with the registry.
-     *                DEFAULT: none, REQUIRED
+     *                DEFAULT: none (REQUIRED)
      *   - auth: (Horde_Auth) The auth object.
-     *           DEFAULT: none, REQUIRED.
+     *           DEFAULT: none (REQUIRED).
      *   - imap: (Horde_ActiveSync_Imap_Adapter) The IMAP adapter if email
      *           support is desired.
      *           DEFAULT: none (No email support will be provided).
@@ -165,9 +165,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Clean up
      *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#removeAuthentication()
+     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#clearAuthentication()
      */
-    public function removeAuthentication()
+    public function clearAuthentication()
     {
         $this->_connector->clearAuth();
         $this->_logger->info('User ' . $this->_user . ' logged off');
@@ -448,7 +448,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     return array();
                 }
-                $edits = $deletes = array();
             } else {
                 try {
                     $changes = $this->_connector->getChanges('contacts', $from_ts, $to_ts);
@@ -663,8 +662,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             if (empty($messages)) {
                 throw new Horde_Exception_NotFound();
             }
-            return current($messages);
+            $msg = current($messages);
+
+            // Should we import an iTip response if we have one?
+            if ($this->_version >= Horde_ActiveSync::VERSION_TWELVE &&
+                $msg->contentclass == 'urn:content-classes:calendarmessage') {
+                switch ($msg->messageclass) {
+                case 'IPM.Schedule.Meeting.Resp.Pos':
+                case 'IPM.Schedule.Meeting.Resp.Neg':
+                case 'IPM.Schedule.Meeting.Resp.Tent':
+                    $addr = new Horde_Mail_Rfc822_Address($msg->from);
+                    $rq = $msg->meetingrequest;
+                    $this->_connector->calendar_import_attendee(
+                        $rq->getvEvent(),
+                        $addr->bare_address);
+                }
+            }
+            return $msg;
             break;
+
         default:
             $this->_endBuffer();
             throw new Horde_ActiveSync_Exception('Unsupported type');
@@ -831,7 +847,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function moveMessage($folderid, array $ids, $newfolderid)
     {
-        $this->_logger->debug('Horde::moveMessage(' . implode(',', array($folderid, $id, $newfolderid)) . ')');
+        $this->_logger->debug('Horde::moveMessage(' . implode(',', array($folderid, '[' . implode(',', $ids) . ']', $newfolderid)) . ')');
         ob_start();
         switch ($folderid) {
         case self::APPOINTMENTS_FOLDER_UID:
@@ -1026,14 +1042,18 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                $recipients->add($headers->getOb($header));
             }
             $h_array = $headers->toArray();
-            if (!empty($h_array['bcc'])) {
-                $recipients->add($headers->getOb('bcc'));
-                unset($h_array['bcc']);
+            if (!empty($h_array['Bcc'])) {
+                $recipients->add($headers->getOb('Bcc'));
+                unset($h_array['Bcc']);
             }
             if (is_array($h_array['From'])) {
                 $h_array['From'] = current($h_array['From']);
             }
             try {
+                // Need the message if we are saving to sent.
+                if ($save) {
+                    $copy = $raw_message->getMimeObject();
+                }
                 $mailer->send($recipients->writeAddress(), $h_array, $raw_message->getMessage());
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
@@ -1079,7 +1099,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if (empty($imap_message)) {
                     return false;
                 }
-                $from = $imap_message->getFromAddress();
                 $part = $imap_message->getStructure();
                 $plain_id = $part->findBody('plain');
                 $html_id = $part->findBody('html');
@@ -1119,19 +1138,22 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             try {
                 $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+                if ($save) {
+                    $copy = $mail->getBasePart();
+                }
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_Exception($e);
             }
+        }
 
-            if ($save) {
-                $sf = $this->getSpecialFolderNameByType(self::SPECIAL_SENT);
-                if (!empty($sf)) {
-                    $this->_logger->debug(sprintf("Preparing to copy to '%s'", $sf));
-                    $flags = array(Horde_Imap_Client::FLAG_SEEN);
-                    $msg = $message->toString(array('headers' => $headers));
-                    $this->_imap->appendMessage($sf, $msg, $flags);
-                }
+        if ($save) {
+            $sf = $this->getSpecialFolderNameByType(self::SPECIAL_SENT);
+            if (!empty($sf)) {
+                $this->_logger->debug(sprintf("Preparing to copy to '%s'", $sf));
+                $flags = array(Horde_Imap_Client::FLAG_SEEN);
+                $msg = $copy->toString(array('headers' => $headers->toString()));
+                $this->_imap->appendMessage($sf, $msg, $flags);
             }
         }
 
@@ -2002,7 +2024,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $prefix = 'activesync:provisioning:';
         $policy = array();
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-        if (!$provisioning = $perms->exists('horde:activesync:provisioning')) {
+        if (!$perms->exists('horde:activesync:provisioning')) {
             return $policy;
         }
 

@@ -36,7 +36,6 @@ $pager = new Horde_Core_Ui_Pager(
 $page_output->header(array(
     'title' => $title
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 include ANSEL_TEMPLATES . '/faces/faces.inc';
 $page_output->footer();

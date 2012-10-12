@@ -115,6 +115,13 @@ abstract class Kronolith_Event
     public $private = false;
 
     /**
+     * Event tags from the storage backend (e.g. Kolab)
+     *
+     * @var array
+     */
+    protected $_internaltags;
+
+    /**
      * This tag's events.
      *
      * @var array|string
@@ -385,7 +392,7 @@ abstract class Kronolith_Event
             return $this->{'_' . $name};
         case 'tags':
             if (!isset($this->_tags)) {
-                $this->_tags = Kronolith::getTagger()->getTags($this->uid, 'event');
+                $this->synchronizeTags(Kronolith::getTagger()->getTags($this->uid, 'event'));
             }
             return $this->_tags;
         case 'geoLocation':
@@ -467,8 +474,7 @@ abstract class Kronolith_Event
         $add_events = array();
         $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
         $lock = array();
-        $failed_resources = array();
-        foreach ($this->getResources() as $id => $resourceData) {
+        foreach (array_keys($this->getResources()) as $id) {
             /* Get the resource and protect against infinite recursion in case
              * someone is silly enough to add a resource to it's own event.*/
 
@@ -477,6 +483,7 @@ abstract class Kronolith_Event
             if ($rcal == $this->calendar) {
                 continue;
             }
+            Kronolith::getDriver('Resource')->open($rcal);
 
             /* Lock the resource and get the response */
             if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
@@ -516,7 +523,7 @@ abstract class Kronolith_Event
          * until after it's saved. If we add the event to the resources
          * calendar before it is saved, they will have different GUIDs, and
          * hence no longer refer to the same event. */
-        foreach ($add_events as $resource) {
+         foreach ($add_events as $resource) {
             $resource->addEvent($this);
             if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
                 $locks->clearLock($lock[$resource->getId()]);
@@ -565,6 +572,21 @@ abstract class Kronolith_Event
         /* DTEND is non-inclusive, but $this->end is inclusive. */
         $end = clone $this->end;
         $end->sec++;
+
+        // For certain recur types, we must output in the event's timezone
+        // so that the BYDAY values do not get out of sync with the UTC
+        // date-time. See Bug: 11339
+        if ($this->recurs()) {
+            switch ($this->recurrence->getRecurType()) {
+            case Horde_Date_Recurrence::RECUR_WEEKLY:
+            case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
+            case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
+                if (!$this->timezone) {
+                    $this->timezone = date_default_timezone_get();
+                }
+            }
+        }
+
         if ($this->isAllDay()) {
             $vEvent->setAttribute('DTSTART', $this->start, array('VALUE' => 'DATE'));
             $vEvent->setAttribute('DTEND', $end, array('VALUE' => 'DATE'));
@@ -1064,20 +1086,30 @@ abstract class Kronolith_Event
             } catch (Horde_Icalendar_Exception $e) {
                 continue;
             }
-            if (isset($triggerParams['VALUE']) &&
-                $triggerParams['VALUE'] == 'DATE-TIME') {
-                if (isset($triggerParams['RELATED']) &&
-                    $triggerParams['RELATED'] == 'END') {
-                    $this->alarm = intval(($this->end->timestamp() - $trigger) / 60);
-                } else {
-                    $this->alarm = intval(($this->start->timestamp() - $trigger) / 60);
-                }
-            } else {
-                $this->alarm = -intval($trigger / 60);
-                if (isset($triggerParams['RELATED']) &&
-                    $triggerParams['RELATED'] == 'END') {
+            if (!is_array($triggerParams)) {
+                $triggerParams = array($triggerParams);
+            }
+            $haveTrigger = false;
+            foreach ($triggerParams as $tp) {
+                if (isset($tp['VALUE']) &&
+                    $tp['VALUE'] == 'DATE-TIME') {
+                    if (isset($tp['RELATED']) &&
+                        $tp['RELATED'] == 'END') {
+                        $this->alarm = intval(($this->end->timestamp() - $trigger) / 60);
+                    } else {
+                        $this->alarm = intval(($this->start->timestamp() - $trigger) / 60);
+                    }
+                    $haveTrigger = true;
+                    break;
+                } elseif (isset($tp['RELATED']) && $tp['RELATED'] == 'END') {
+                    $this->alarm = -intval($trigger / 60);
                     $this->alarm -= $this->durMin;
+                    $haveTrigger = true;
+                    break;
                 }
+            }
+            if (!$haveTrigger) {
+                $this->alarm = -intval($trigger / 60);
             }
         }
 
@@ -1087,7 +1119,6 @@ abstract class Kronolith_Event
                 // If X-MOZ-LASTACK is set, this event is either dismissed or
                 // snoozed.
                 $vEvent->getAttribute('X-MOZ-LASTACK');
-                $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
                 try {
                     // If X-MOZ-SNOOZE-TIME is set, this event is snoozed.
                     $snooze = $vEvent->getAttribute('X-MOZ-SNOOZE-TIME');
@@ -1580,7 +1611,10 @@ abstract class Kronolith_Event
             foreach ($this->attendees as $email => $properties) {
                 $attendee = new Horde_ActiveSync_Message_Attendee(array(
                     'protocolversion' => $options['protocolversion']));
-                $attendee->email = $email;
+                $adr_obj = new Horde_Mail_Rfc822_Address($email);
+                $attendee->name = $adr_obj->label;
+                $attendee->email = $adr_obj->bare_address;
+
                 // AS only has required or optional, and only EAS Version > 2.5
                 if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWOFIVE) {
                     $attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED
@@ -1837,10 +1871,8 @@ abstract class Kronolith_Event
             if (!$prefs->isLocked('event_reminder')) {
                 $view->prefsUrl = Horde::url($GLOBALS['registry']->getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
             }
-            if (!$this->isPrivate() && $this->attendees) {
-                if ($this->attendees) {
-                    $view->attendees = Kronolith::getAttendeeEmailList($this->attendees)->addresses;
-                }
+            if ($this->attendees) {
+                $view->attendees = Kronolith::getAttendeeEmailList($this->attendees)->addresses;
             }
 
             $methods['mail']['mimepart'] = Kronolith::buildMimeMessage($view, 'mail', $image);
@@ -2314,6 +2346,30 @@ abstract class Kronolith_Event
                ($this->end->mday > $this->start->mday ||
                 $this->end->month > $this->start->month ||
                 $this->end->year > $this->start->year))));
+    }
+
+    /**
+     * Syncronizes tags from the tagging backend with the task storage backend,
+     * if necessary.
+     *
+     * @param array $tags  Tags from the tagging backend.
+     */
+    public function synchronizeTags($tags)
+    {
+        if (isset($this->_internaltags)) {
+            usort($tags, 'strcoll');
+            if (array_diff($this->_internaltags, $tags)) {
+                Kronolith::getTagger()->replaceTags(
+                    $this->uid,
+                    $this->_internaltags,
+                    $this->_creator,
+                    'event'
+                );
+            }
+            $this->_tags = $this->_internaltags;
+        } else {
+            $this->_tags = $tags;
+        }
     }
 
     public function readForm()
@@ -2979,7 +3035,7 @@ abstract class Kronolith_Event
     public function getLink($datetime = null, $icons = true, $from_url = null,
                             $full = false, $encoded = true)
     {
-        global $prefs, $registry;
+        global $prefs;
 
         if (is_null($datetime)) {
             $datetime = $this->start;
@@ -3045,10 +3101,12 @@ abstract class Kronolith_Event
                 $status .= Horde::fullSrcImg('attendees-' . $icon_color . '.png', array('attr' => array('alt' => _("Meeting"), 'title' => _("Meeting"), 'class' => 'iconPeople')));
             }
 
+            $space = ' ';
             if (!empty($this->icon)) {
-                $link = $status . '<img src="' . $this->icon . '" /> ' . $link;
+                $link = $status . '<img class="kronolithEventIcon" src="' . $this->icon . '" /> ' . $link;
             } elseif (!empty($status)) {
                 $link .= ' ' . $status;
+                $space = '';
             }
 
             if ((!$this->private ||
@@ -3059,11 +3117,13 @@ abstract class Kronolith_Event
                           'url' => $from_url),
                     $full);
                 if ($url) {
-                    $link .= $url->link(array('title' => sprintf(_("Edit %s"), $event_title),
-                                              'class' => 'iconEdit'))
+                    $link .= $space
+                        . $url->link(array('title' => sprintf(_("Edit %s"), $event_title),
+                                           'class' => 'iconEdit'))
                         . Horde::fullSrcImg('edit-' . $icon_color . '.png',
                                             array('attr' => array('alt' => _("Edit"))))
                         . '</a>';
+                    $space = '';
                 }
             }
             if ($this->hasPermission(Horde_Perms::DELETE)) {
@@ -3072,8 +3132,9 @@ abstract class Kronolith_Event
                           'url' => $from_url),
                     $full);
                 if ($url) {
-                    $link .= $url->link(array('title' => sprintf(_("Delete %s"), $event_title),
-                                              'class' => 'iconDelete'))
+                    $link .= $space
+                        . $url->link(array('title' => sprintf(_("Delete %s"), $event_title),
+                                           'class' => 'iconDelete'))
                         . Horde::fullSrcImg('delete-' . $icon_color . '.png',
                                             array('attr' => array('alt' => _("Delete"))))
                         . '</a>';
@@ -3155,14 +3216,12 @@ abstract class Kronolith_Event
     {
         switch ($this->status) {
         case Kronolith::STATUS_CANCELLED:
-            return 'kronolithEventCancelled';
+            return 'kronolith-event-cancelled';
 
         case Kronolith::STATUS_TENTATIVE:
         case Kronolith::STATUS_FREE:
-            return 'kronolithEventTentative';
+            return 'kronolith-event-tentative';
         }
-
-        return 'kronolithEvent';
     }
 
     private function _formIDEncode($id)

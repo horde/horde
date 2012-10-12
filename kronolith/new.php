@@ -63,7 +63,7 @@ if (Horde_Util::getFormData('allday')) {
 $month = $event->start->month;
 $year = $event->start->year;
 
-$buttons = array('<input type="submit" class="button" name="save" value="' . _("Save Event") . '" />');
+$buttons = array('<input type="submit" class="horde-default" name="save" value="' . _("Save Event") . '" />');
 $url = Horde_Util::getFormData('url');
 if (isset($url)) {
     $cancelurl = new Horde_Url($url);
@@ -77,8 +77,6 @@ Horde_Core_Ui_JsCalendar::init(array(
     'full_weekdays' => true
 ));
 
-$menu = Kronolith::menu();
-
 $page_output->addScriptFile('edit.js');
 $page_output->addScriptFile('popup.js', 'horde');
 
@@ -86,7 +84,6 @@ $page_output->header(array(
     'title' => _("Add a new event")
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo $menu;
 $notification->notify(array('listeners' => 'status'));
 require KRONOLITH_TEMPLATES . '/edit/edit.inc';
 $page_output->footer();

@@ -148,6 +148,16 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
 
 
     /**
+     * Allow the error message to be altered.
+     *
+     * @param string $msg  Error message.
+     */
+    public function setMessage($msg)
+    {
+        $this->message = strval($msg);
+    }
+
+    /**
      * Allow the error code to be altered.
      *
      * @param integer $code  Error code.

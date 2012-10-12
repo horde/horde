@@ -72,8 +72,6 @@ class Ulaform_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        $menu->setMask(Horde_Menu::MASK_ALL & ~Horde_Menu::MASK_PREFS);
-
         $menu->add(Horde::url('forms.php'), _("_List Forms"), 'ulaform.png');
         $menu->add(Horde::url('edit.php'), _("_New Form"), 'new.png');
     }

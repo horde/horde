@@ -1,6 +1,4 @@
-<div id="horde-page">
-
-<?php echo $sidebar ?>
+<div id="horde-page" style="left:<?php echo $prefs->getValue('sidebar_width') ?>px">
 
 <div id="kronolithQuickinsert" class="kronolithQuick" style="display:none">
   <h2><?php echo _("Quick Event Creation") ?></h2>
@@ -11,7 +9,7 @@
     <select id="kronolithQuickinsertCalendars">
     </select>
     <br />
-    <input type="button" id="kronolithQuickinsertSave" value="<?php echo _("Save") ?>" class="button ok" />
+    <input type="button" id="kronolithQuickinsertSave" value="<?php echo _("Save") ?>" class="horde-default" />
     <span class="kronolithSeparator"><?php echo _("or") ?></span>
     <a href="#" id="kronolithQuickinsertCancel" class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
   </form>

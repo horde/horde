@@ -7,35 +7,17 @@
 
 var Horde_ToolTips =
 {
-    // Vars used and defaulting to null: element, timeout
+    // Vars used and defaulting to null: attached, timeout
 
     attachBehavior: function()
     {
-        $$('a').each(this.attach.bind(this));
-    },
-
-    attach: function(e)
-    {
-        var t = e.readAttribute('title');
-        if (!t) {
-            return;
+        if (!this.attached) {
+            document.on('mouseover', 'a[nicetitle]', this.onMouseover.bindAsEventListener(this));
+            document.on('mouseout', 'a[nicetitle]', this.out.bind(this));
+            document.on('focus', 'a[nicetitle]', this.onFocus.bindAsEventListener(this));
+            document.on('blur', 'a[nicetitle]', this.out.bind(this));
+            this.attached = true;
         }
-        e.store('nicetitle', t);
-        try {
-            e.removeAttribute('title');
-        } catch (e) {}
-        e.observe('mouseover', this.onMouseover.bindAsEventListener(this));
-        e.observe('mouseout', this.out.bind(this));
-        e.observe('focus', this.onFocus.bindAsEventListener(this));
-        e.observe('blur', this.out.bind(this));
-    },
-
-    detach: function(e)
-    {
-        e.stopObserving('mouseover');
-        e.stopObserving('mouseout');
-        e.stopObserving('focus');
-        e.stopObserving('blur');
     },
 
     onMouseover: function(e)
@@ -53,14 +35,12 @@ var Horde_ToolTips =
         if (this.timeout) {
             clearTimeout(this.timeout);
         }
-
-        this.element = e.element();
-        this.timeout = this.show.bind(this, p).delay(0.3);
+        this.timeout = this.show.bind(this, e, p).delay(0.3);
     },
 
     out: function()
     {
-        var iframe, t = $('toolTip');
+        var t = $('toolTip');
 
         if (this.timeout) {
             clearTimeout(this.timeout);
@@ -68,17 +48,12 @@ var Horde_ToolTips =
 
         if (t) {
             t.hide();
-
-            iframe = $('iframe_tt');
-            if (iframe) {
-                iframe.hide();
-            }
         }
     },
 
-    show: function(pos)
+    show: function(e, pos)
     {
-        var iframe, left, link, nicetitle, w,
+        var left, w,
             d = $('toolTip'),
             s_offset = document.viewport.getScrollOffsets(),
             v_dimens = document.viewport.getDimensions();
@@ -87,22 +62,14 @@ var Horde_ToolTips =
             this.out();
         }
 
-        link = this.element;
-        while (!link.retrieve('nicetitle') && link.match('BODY')) {
-            link = link.up();
-        }
-
-        nicetitle = link.retrieve('nicetitle');
-        if (!nicetitle) {
-            return;
-        }
-
         if (!d) {
-            d = new Element('DIV', { id: 'toolTip', className: 'nicetitle' }).hide();
-            document.body.appendChild(d);
+            d = new Element('DIV', {
+                id: 'toolTip', className: 'nicetitle'
+            }).hide();
+            $(document.body).insert(d);
         }
 
-        d.update(nicetitle);
+        d.update('<pre>' + e.element().readAttribute('nicetitle').evalJSON(true).invoke('toString').invoke('escapeHTML').join("<br\>") + '</pre>');
 
         // Make sure all of the tooltip is visible.
         left = pos[0] + 10;
@@ -118,26 +85,10 @@ var Horde_ToolTips =
             left: Math.max(left, 5) + 'px',
             top: (pos[1] + 10) + 'px'
         }).show();
-
-        // IE 6 only.
-        if (Prototype.Browser.IE && !window.XMLHttpRequest) {
-            iframe = $('iframe_tt');
-            if (!iframe) {
-                iframe = new Element('IFRAME', { name: 'iframe_tt', id: 'iframe_tt', src: 'javascript:false;', scrolling: 'no', frameborder: 0 }).hide();
-                document.body.appendChild(iframe);
-            }
-            iframe.clonePosition(d).setStyle({
-                position: 'absolute',
-                display: 'block',
-                zIndex: 99
-            });
-            d.setStyle({ zIndex: 100 });
-        }
     }
 
 };
 
 if (typeof Horde_ToolTips_Autoload == 'undefined' || !Horde_ToolTips_Autoload) {
-    Event.observe(window, 'load', Horde_ToolTips.attachBehavior.bind(Horde_ToolTips));
-    Event.observe(window, 'unload', Horde_ToolTips.out.bind(Horde_ToolTips));
+    document.observe('dom:loaded', Horde_ToolTips.attachBehavior.bind(Horde_ToolTips));
 }

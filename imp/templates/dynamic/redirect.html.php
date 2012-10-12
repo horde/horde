@@ -2,7 +2,7 @@
  <?php echo $this->hiddenFieldTag('composeCache', null, array('id' => 'composeCacheRedirect')) ?>
 
  <div class="horde-buttonbar">
-  <div class="iconImg headercloseimg closeImg" id="compose_close"></div>
+  <div class="iconImg headercloseimg closeImg" id="redirect_close"></div>
   <ul><li class="horde-icon">
    <?php echo $this->actionButton(array('icon' => 'Forward', 'id' => 'send_button_redirect', 'title' => _("Redirect"))) ?>
   </li></ul>

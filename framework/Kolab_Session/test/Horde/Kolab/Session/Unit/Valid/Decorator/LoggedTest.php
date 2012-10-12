@@ -50,7 +50,7 @@ extends Horde_Kolab_Session_TestCase
         $this->logger->expects($this->exactly(2))
             ->method('__call')
             ->with(
-                'info',
+                'debug',
                 $this->logicalOr(
                     array('Invalid Kolab session for current user "auth@example.org" and requested user "nobody@example.org".'),
                     array('Validating Kolab session for current user "auth@example.org", requested user "nobody@example.org", and stored user "somebody@example.org".')

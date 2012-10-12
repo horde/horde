@@ -213,7 +213,7 @@ class Horde_Vcs_Svn extends Horde_Vcs_Base
         // be compatible with some diffs.
         $command = $this->getCommand() . " diff --diff-cmd " . $this->getPath('diff') . ' -r ' . escapeshellarg($rev1 . ':' . $rev2) . ' -x ' . escapeshellarg($flags) . ' ' . escapeshellarg($file->getPath()) . ' 2>&1';
 
-        exec($command, $diff, $retval);
+        exec($command, $diff);
         return $diff;
     }
 }

@@ -55,9 +55,6 @@ AnselGeoTagWidget = Class.create({
                 lng: lng
            },
             onComplete: function(transport) {
-                 if (typeof Horde_ToolTips != 'undefined') {
-                     Horde_ToolTips.out();
-                 }
                  if (transport.responseJSON.response == 1) {
                     var w = new Element('div');
                     w.appendChild(new Element('div', {id: 'ansel_map'}));
@@ -105,12 +102,7 @@ AnselGeoTagWidget = Class.create({
             parameters: {
                 pref: this.opts.layerUpdatePref,
                 value: l.layer.name
-            },
-            onComplete: function(transport) {
-                 if (typeof Horde_ToolTips != 'undefined') {
-                     Horde_ToolTips.out();
-                 }
-             }.bind(this)
+            }
         });
     },
 

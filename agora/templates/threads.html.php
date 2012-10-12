@@ -1,5 +1,4 @@
 <link rel="alternate" title="<?php echo _("Threads") ?>" href="<?php echo $this->rss ?>" type="application/rss+xml" />
-<?php echo $this->menu; ?>
 <?php echo $this->notify; ?>
 
 <div class="header">

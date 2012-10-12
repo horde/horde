@@ -38,28 +38,15 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testBrokenObject()
     {
-        $this->assertEquals(
-            array(1 => false),
-            $this->_getBrokenStore(
-                array('ignore_parse_errors' => true)
-            )->fetch(array('1'))
-        );
-    }
-
-    public function testBrokenObjectLog()
-    {
-        $this->_getBrokenStore(array('logger' => $this->getMockLogger()))
-            ->fetch(array('1'));
-        $this->assertLogContains('Unable to identify Kolab mime part in message 1 in folder INBOX/Notes!');
+        $objects = $this->_getBrokenStore()->fetch(array('1'));
+        $this->assertEquals(array(1 => ''), $objects[1]->getParseErrors());
     }
 
     public function testErrors()
     {
         $this->assertEquals(
             array(1),
-            $this->_getBrokenStore(
-                array('ignore_parse_errors' => true)
-            )->getErrors()
+            array_keys($this->_getBrokenStore()->getErrors())
         );
     }
 
@@ -172,24 +159,6 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Stub_DataQuery',
             $data->getQuery(Horde_Kolab_Storage_Data::QUERY_PREFS)
-        );
-    }
-
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testRegisterInvalid()
-    {
-        $factory = new Horde_Kolab_Storage_Factory();
-        $data = $this->getMessageStorage()
-            ->getData('INBOX/Calendar');
-        $data->registerQuery(
-            Horde_Kolab_Storage_Data::QUERY_PREFS,
-            new Horde_Kolab_Storage_Stub_ListQuery(
-                $this->getMessageStorage()
-                ->getList(),
-                array('factory' => $factory)
-            )
         );
     }
 
@@ -309,13 +278,14 @@ extends Horde_Kolab_Storage_TestCase
         $objects = $this->getMessageStorage()
             ->getData('INBOX/Calendar')
             ->fetch(array(1, 2, 4), true);
-        $part = $objects[4]['content'];
+        $part = $objects[4]->getContent();
         rewind($part);
         $this->assertContains('<uid>libkcal-543769073.130</uid>', stream_get_contents($part));
     }
 
     public function testCreateRaw()
     {
+        $this->markTestIncomplete('Split of the raw function');
         $test = fopen('php://temp', 'r+');
         $object = array('content' => $test);
         fputs($test, 'test');
@@ -412,8 +382,10 @@ extends Horde_Kolab_Storage_TestCase
         $store = $this->getMessageStorage();
         $data = $store->getData('INBOX/Notes');
         $object = array('summary' => 'test', 'uid' => 'UID');
-        $data->create($object);
-        $data->modify(array('summary' => 'modified', 'uid' => 'UID'));
+        $obid = $data->create($object);
+        $storage_objects = $data->fetch(array($obid));
+        $storage_objects[$obid]->setData(array('summary' => 'modified', 'uid' => 'UID'));
+        $data->modify($storage_objects[$obid]);
         $object = $data->getObject('UID');
         $this->assertEquals('modified', $object['summary']);
     }

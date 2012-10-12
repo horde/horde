@@ -16,8 +16,9 @@ if (Kronolith::showAjaxView()) {
 }
 
 // Exit if this isn't an authenticated administrative user.
+$default = Horde::url($prefs->getValue('defaultview') . '.php', true);
 if (!$registry->isAdmin()) {
-    Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
+    $default->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -25,11 +26,11 @@ try {
     $resource = Kronolith::getDriver('Resource')->getResource($vars->get('c'));
     if (!$resource->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("You are not allowed to change this resource."), 'horde.error');
-        Horde::url('resources/', true)->redirect();
+        $default->redirect();
     }
 } catch (Exception $e) {
-    $notification->push($e, 'horde.error');
-    Horde::url('resources/', true)->redirect();
+    $notification->push($e);
+    $default->redirect();
 }
 $form = new Kronolith_Form_EditResource($vars, $resource);
 
@@ -43,11 +44,10 @@ if ($form->validate($vars)) {
         } else {
             $notification->push(sprintf(_("The resource \"%s\" has been saved."), $original_name), 'horde.success');
         }
+        $default->redirect();
     } catch (Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
     }
-
-    Horde::url('resources/', true)->redirect();
 }
 
 $vars->set('name', $resource->get('name'));
@@ -56,12 +56,10 @@ $vars->set('description', $resource->get('description'));
 $vars->set('category', Kronolith::getDriver('Resource')->getGroupMemberships($resource->getId()));
 $vars->set('responsetype', $resource->get('response_type'));
 
-$menu = Kronolith::menu();
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo $menu;
 $notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('resources/edit.php'), 'post');
 $page_output->footer();

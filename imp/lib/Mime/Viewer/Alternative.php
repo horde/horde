@@ -59,7 +59,7 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
         $base_id = $this->_mimepart->getMimeId();
         $subparts = $this->_mimepart->contentTypeMap();
 
-        $base_ids = $display_ids = $ret = array();
+        $display_ids = $ret = array();
 
         $prefer_plain = (($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL) ||
                          ($GLOBALS['prefs']->getValue('alternative_display') == 'text'));

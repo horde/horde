@@ -71,8 +71,21 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
                         'data'   => self::$_data,
                         'username' => $user
                     ),
-                    'queryset' => array('list' => array('queryset' => 'horde')),
+                    'queries' => array(
+                        'list' => array(
+                            Horde_Kolab_Storage_List_Tools::QUERY_BASE => array(
+                                'cache' => true
+                            ),
+                            Horde_Kolab_Storage_List_Tools::QUERY_ACL => array(
+                                'cache' => true
+                            ),
+                            Horde_Kolab_Storage_List_Tools::QUERY_SHARE => array(
+                                'cache' => true
+                            ),
+                        )
+                    ),
                     'cache'  => self::$cache,
+                    'logger' => new Horde_Log_Logger()
                 )
             );
             $storage = $factory->create();

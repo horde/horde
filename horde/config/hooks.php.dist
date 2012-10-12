@@ -46,16 +46,20 @@
  * return value.
  *
  *
- * Authentication/Login Hooks
- * ==========================
- * There are four special hooks called during the initial authentication
- * of every Horde application. These hooks are avilable in ALL applications.
+ * Authentication Hooks
+ * ====================
+ * There are two special hooks called during the initial authentication
+ * of any Horde application responsible for authentication.
  * These hooks are only called ONCE per session.
  *
  * preauthenticate
  * ---------------
  * This hook is used to dynamically alter the login credentials before
  * authentication occurs.
+ *
+ * It is only called in Horde applications responsible for authentication.
+ *
+ * It is only called ONCE per session.
  *
  * If there is no active session, $userId and $credentials will be the values
  * provided by the base Horde authentication driver. ($userId will often
@@ -85,6 +89,10 @@
  * This hook is used to dynamically alter the login credentials after
  * authentication occurs.
  *
+ * It is only called in Horde applications responsible for authentication.
+ *
+ * It is only called ONCE per session.
+ *
  * Parameters in:
  *   $userId (string): The Horde ID.
  *   $credentials (array): The array of credentials used for authentication.
@@ -101,6 +109,8 @@
  * This hook is used to dynamically convert between an authentication username
  * and a Horde username.
  *
+ * It is only available in the base Horde application.
+ *
  * Parameters in:
  *   $userId (string): The username.
  *   $toHorde (boolean): If true, convert from authentication ID to Horde ID.
@@ -110,10 +120,18 @@
  *   [throw Horde_Auth_Exception] - Fatal error.
  *   (string) - The converted username.
  *
+ *
+ * Login Hooks
+ * ===========
+ *
  * appauthenticated
  * ----------------
- * This hook is called after an application is authenticated to and the
- * initial application initialization is complete.
+ * This hook is called after the initial application initialization is
+ * complete (the application will have passed authentication at this point).
+ *
+ * This hook is called for EVERY Horde application.
+ *
+ * This hook is only called ONCE per session.
  *
  * This hook takes no parameters and expects no return value. An Exception
  * thrown from this hook will cause a fatal error.

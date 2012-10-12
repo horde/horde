@@ -2,6 +2,17 @@
 v6.0.0-git
 ----------
 
+[mms] Add predefined templates to ACL management screen (Request #10648).
+[mms] Capture key shortcuts on dynamic mailbox page even if focus is on IFRAME
+      HTML message data (Bug #11428).
+[mms] All IMP templates now use Horde_View.
+[mms] Add swipe action buttons to the smartmobile mailbox page.
+[mms] Optimize loading of message bodies when using dynamic view.
+[mms] Load new mailbox when renaming current mailbox in dynamic view (Request
+      #11394).
+[mms] Add simple address autocompleter to smartmobile compose page.
+[mms] Add refresh button to smartmobile folder page.
+[jan] Fix popdown positioning in mailbox table header (Bug #11384).
 
 
 -----------
@@ -150,13 +161,15 @@ v6.0.0alpha1
 [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
 [mms] Size of sidebar now saved in dynamic view.
 [mms] Browser-specific UI elements in dynamic view now saved in browser storage
-      (Ticket #10723).
+      (Request #10723).
 
 
 -----------
 v5.0.24-git
 -----------
 
+[mms] Fix regression in using Virtual Trash (Bug #11478;
+      tonyb@go-concepts.com).
 [mms] Fix sending MDN notifications in traditional view (Bug #11311).
 [mms] Fix changing sort order in dynamic search mailboxes (Bug #11108).
 [mms] Fix regression in creating top-level mailbox in traditional view (Bug

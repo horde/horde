@@ -48,7 +48,7 @@
             <li><a>Getting Started video</a></li>
         </ul>
         <br />
-        <p><a class="button" href="dialplan.php">Continue to the control panel</a></p>
+        <p><a class="horde-button" href="dialplan.php">Continue to the control panel</a></p>
     </div>
 </div>
 </div>

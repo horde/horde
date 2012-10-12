@@ -692,7 +692,7 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
      */
     public function addCol($col)
     {
-        foreach ($this->_layout as $id => $val) {
+        foreach (array_keys($this->_layout) as $id) {
             $this->_layout[$id][$col] = 'empty';
         }
         ++$this->_columns;
@@ -933,7 +933,7 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
                 }
                 if (empty($moved[$block[1] . ':' . $block[0]])) {
                     try {
-                        $result = $this->moveDown($block[0], $block[1]);
+                        $this->moveDown($block[0], $block[1]);
                     } catch (Horde_Exception $e) {
                         return false;
                     }
@@ -1093,7 +1093,7 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
                 }
                 if (empty($moved[$block[1] . ':' . $block[0]])) {
                     try {
-                        $result = $this->moveRight($block[0], $block[1]);
+                        $this->moveRight($block[0], $block[1]);
                     } catch (Horde_Exception $e) {
                         return false;
                     }

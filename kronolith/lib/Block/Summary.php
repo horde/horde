@@ -149,9 +149,6 @@ class Kronolith_Block_Summary extends Horde_Core_Block
                     $event->end->compareDateTime($now) > 0;
 
                 if ($firstevent) {
-                    if (!$firstday) {
-                        $html .= '<tr><td colspan="3" style="line-height:2px">&nbsp;</td></tr>';
-                    }
                     $html .= '<tr><td colspan="3" class="control"><strong>';
                     if ($day->isToday()) {
                         $dayname = _("Today");
@@ -190,7 +187,8 @@ class Kronolith_Block_Summary extends Horde_Core_Block
                 }
                 $html .= '&nbsp;</td>';
 
-                $html .= '<td class="text" valign="top">';
+                $html .= '<td class="text" valign="top"'
+                    . $event->getCSSColors() . '>';
                 if ($event_active) {
                     $html .= '<strong>';
                 }

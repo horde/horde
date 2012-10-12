@@ -1,3 +1,7 @@
+#nag-menu {
+    padding-bottom: 10px;
+}
+
 #tasks {
     width: 100%;
 }
@@ -201,6 +205,15 @@ table#tasklist-list th.sortdown {
 #dueimg, #startimg {
     cursor: pointer;
     padding-left: 3px;
+}
+
+.nag-tags-related, .nag-tags-browsing {
+    padding-bottom: 12px;
+    padding-left: 5px;
+}
+
+.horde-tags li a img {
+    padding-left: 5px;
 }
 
 /* Icons. */

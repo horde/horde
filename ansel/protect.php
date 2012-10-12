@@ -44,7 +44,6 @@ if ($form->validate()) {
 $page_output->header(array(
     'title' => $title
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo '<div class="header">' . Ansel::getBreadCrumbs() . '</div>';
 $form->renderActive(null, null, null, 'post');

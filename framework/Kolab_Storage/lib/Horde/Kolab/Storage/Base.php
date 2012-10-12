@@ -50,6 +50,20 @@ implements Horde_Kolab_Storage
     private $_factory;
 
     /**
+     * The cache.
+     *
+     * @var Horde_Kolab_Storage_Cache
+     */
+    protected $_cache;
+
+    /**
+     * A logger.
+     *
+     * @var Horde_Log_Logger
+     */
+    private $_logger;
+
+    /**
      * Additional parameters.
      *
      * @var array
@@ -77,23 +91,22 @@ implements Horde_Kolab_Storage
      *                                                 driver.
      * @param Horde_Kolab_Storage_QuerySet $query_set  The query handler.
      * @param Horde_Kolab_Storage_Factory  $factory    The factory.
+     * @param Horde_Kolab_Storage_Cache    $cache      The cache.
+     * @param Horde_Log_Logger             $logger  A logger.
      * @param array                        $params     Additional parameters.
-     * <pre>
-     *  - system [array]: A list of credentials for system users.
-     *                    Each entry has the system user type as key and
-     *                    another array as value. The latter needs to provide
-     *                    both 'username' and 'password' for the system user.
-     *                    A key of '' indicates the default system user.
-     * </pre>
      */
     public function __construct(Horde_Kolab_Storage_Driver $master,
                                 Horde_Kolab_Storage_QuerySet $query_set,
                                 Horde_Kolab_Storage_Factory $factory,
+                                Horde_Kolab_Storage_Cache $cache,
+                                $logger,
                                 array $params = array())
     {
         $this->_master    = $master;
         $this->_query_set = $query_set;
         $this->_factory   = $factory;
+        $this->_cache     = $cache;
+        $this->_logger    = $logger;
         $this->_params    = $params;
     }
 
@@ -139,7 +152,9 @@ implements Horde_Kolab_Storage
             $driver = $this->_master;
         }
         if (!isset($this->_lists[$driver->getId()])) {
-            $this->_lists[$driver->getId()] = new Horde_Kolab_Storage_List_Tools($driver, $this->_params);
+            $this->_lists[$driver->getId()] = new Horde_Kolab_Storage_List_Tools(
+                $driver, $this->_cache, $this->_logger, $this->_params
+            );
         }
         return $this->_lists[$driver->getId()];
     }

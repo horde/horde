@@ -6,7 +6,7 @@
 <br /><br />
 <h1 class="header">
  <span class="smallheader rightFloat">
-  <?php echo Horde::widget(Horde::url('search.php')->add('search_mode', 'advanced'), _("Advanced Search"), 'smallheader', '', '', _("Ad_vanced Search")) ?>
+  <?php echo Horde::widget(array('url' => Horde::url('search.php')->add('search_mode', 'advanced'), 'class' => 'smallheader', 'title' => _("Ad_vanced Search"))) ?>
  </span>
  <?php echo _("Basic Search") ?>
 </h1>
@@ -62,5 +62,5 @@ range_option_string('+', _("All Future"));
 </table>
 
 <br />
-<input type="submit" class="button" value="<?php echo _("Search") ?>" />
+<input type="submit" class="horde-default" value="<?php echo _("Search") ?>" />
 </form>

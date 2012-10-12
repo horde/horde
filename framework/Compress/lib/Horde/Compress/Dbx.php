@@ -78,7 +78,7 @@ class Horde_Compress_Dbx extends Horde_Compress_Base
             $position = 0x30;
             $buf = unpack('Lposition', substr($data, $position, 4));
             $position = $buf['position'];
-            $result = $this->_readIndex($data, $position);
+            $this->_readIndex($data, $position);
         }
 
         return $this->_mails;
@@ -261,7 +261,7 @@ class Horde_Compress_Dbx extends Horde_Compress_Base
                 }
                 if (($IndexItem['ChildIndex'] > 0) &&
                     empty($this->_tmp[$IndexItem['ChildIndex']])) {
-                    $this->_readIndex($fp, $IndexItem['ChildIndex']);
+                    $this->_readIndex($data, $IndexItem['ChildIndex']);
                 }
             }
         }

@@ -6,6 +6,7 @@
 <h1 class="header">
  <?php printf(_("Import, Step %d"), (int)$import_step) ?>
 </h1>
+<div class="horde-content">
 <table cellspacing="0" width="100%">
 <?php
 $map = $storage->get('map');
@@ -39,6 +40,9 @@ foreach ($storage->get('dates') as $key => $date): ?>
 </tr>
 <?php endforeach; ?>
 </table>
+</div>
 
-<input type="submit" class="button" value="<?php echo _("Next") ?>" />
+<div class="horde-form-buttons">
+  <input type="submit" class="button" value="<?php echo _("Next") ?>" />
+</div>
 </form>

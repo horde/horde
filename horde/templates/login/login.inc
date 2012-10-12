@@ -43,7 +43,7 @@
 <?php endif; ?>
 
 <div>
- <input id="login-button" name="login_button" class="button submit-button" value="<?php echo _("Log in") ?>" type="submit" />
+ <input id="login-button" name="login_button" class="horde-default submit-button" value="<?php echo _("Log in") ?>" type="submit" />
 </div>
 
 <?php

@@ -451,7 +451,7 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
                                 WHERE vfs_id = ?',
                                $this->_params['table']);
                 try {
-                    $result = $this->_db->update($sql, array($perm, $file['vfs_id']));
+                    $this->_db->update($sql, array($perm, $file['vfs_id']));
                 } catch (Horde_Db_Exception $e) {
                     throw new Horde_Vfs_Exception($e);
                 }

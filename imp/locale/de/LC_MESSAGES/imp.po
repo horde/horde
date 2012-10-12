@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: IMP H5 (6.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-08-29 13:30+0200\n"
-"PO-Revision-Date: 2012-08-29 13:41+0200\n"
+"PO-Revision-Date: 2012-10-11 17:47+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -132,7 +132,7 @@ msgstr "%d ungelesen"
 #: lib/Search/Element/Header.php:49
 #, php-format
 msgid "%s (Header) for '%s'"
-msgstr "%s (Kopfeintrag) für '%s'"
+msgstr "%s (Nachrichtenkopf) nach '%s'"
 
 #: lib/Contents.php:747 lib/Ui/Mailbox.php:115
 #, php-format
@@ -946,8 +946,7 @@ msgid ""
 "delete auto-saved drafts.\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Wenn Sie diese Nachricht verwerfen, geht der Inhalt engültig verloren und "
-"alle automatisch gespeicherten Entwürfe werden gelöscht.\n"
+"Wenn Sie diese Nachricht verwerfen, geht der Inhalt endgültig verloren und alle automatisch gespeicherten Entwürfe werden gelöscht.\n"
 "Sind Sie sicher, dass Sie das möchten?"
 
 #: compose.php:729
@@ -2659,7 +2658,7 @@ msgstr "Die Links sind bis zum %s gültig"
 
 #: lib/Imap/Acl.php:128
 msgid "List"
-msgstr "Liste"
+msgstr "Anzeigen"
 
 #: config/prefs.php:968
 msgid ""
@@ -3624,7 +3623,7 @@ msgstr "Mögliche Konflikte"
 
 #: lib/Imap/Acl.php:148
 msgid "Post"
-msgstr "Abschicken"
+msgstr "E-Mail schicken"
 
 #: lib/Imap/Acl.php:147
 msgid "Post to this mailbox (not enforced by IMAP)"

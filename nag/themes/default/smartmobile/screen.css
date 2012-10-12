@@ -1,12 +1,17 @@
 .ui-icon-nag-unchecked {
     background-image: none;
 }
-.overdue {
-    color: #f00;
+.overdue a, span.overdue {
+    color: #f00 !important;
 }
-.closed {
-    color: #aaa;
-}
+
 .closed a {
-    text-decoration: line-through;
+    color: #aaa !important;
+    text-decoration: line-through !important;
+}
+
+#nag-notasks {
+    font-style: italic;
+    color: #888;
+    text-align: center;
 }

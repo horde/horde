@@ -75,6 +75,7 @@ class IMP_Ajax_Queue
      *   - d: (array) Mailboxes that were deleted (base64url encoded).
      *   - expand: (integer) Expand subfolders on load.
      *   - noexpand: (integer) TODO
+     *   - switch: (string) Load this mailbox (base64url encoded).
      *
      * For maillog data (key: 'maillog'), an object with these properties:
      *   - log: (array) List of log entries.
@@ -94,25 +95,6 @@ class IMP_Ajax_Queue
      */
     public function add(IMP_Ajax_Application $ajax)
     {
-        /* Add message information. Needs to come first since it may affect
-         * flags. */
-        if (!empty($this->_messages)) {
-            $messages = array();
-
-            foreach ($this->_messages as $val) {
-                try {
-                    $show_msg = new IMP_Ajax_Application_ShowMessage($val['mailbox'], $val['uid'], $val['peek']);
-                    $msg = (object)$show_msg->showMessage(array(
-                        'preview' => $val['preview']
-                    ));
-                    $msg->save_as = strval($msg->save_as);
-                    $messages[] = $msg;
-                } catch (Exception $e) {}
-            }
-
-            $ajax->addTask('message', $messages);
-        }
-
         /* Add flag information. */
         if (!empty($this->_flag)) {
             $ajax->addTask('flag', $this->_flag);
@@ -129,10 +111,11 @@ class IMP_Ajax_Queue
 
         /* Add mail log information. */
         if (!empty($this->_maillog)) {
+            $imp_maillog = $GLOBALS['injector']->getInstance('IMP_Maillog');
             $maillog = array();
 
             foreach ($this->_maillog as $val) {
-                if ($tmp = IMP_Dimp::getMsgLogInfo($val['msg_id'])) {
+                if ($tmp = $imp_maillog->getLogObs($val['msg_id'])) {
                     $log_ob = new stdClass;
                     $log_ob->log = $tmp;
                     $log_ob->mbox = $val['mailbox']->form_to;
@@ -144,6 +127,12 @@ class IMP_Ajax_Queue
             if (!empty($maillog)) {
                 $ajax->addTask('maillog', $maillog);
             }
+        }
+
+        /* Add message information. */
+        if (!empty($this->_messages)) {
+            $ajax->addTask('message', $this->_messages);
+            $this->_messages = array();
         }
 
         /* Add poll information. */
@@ -166,8 +155,7 @@ class IMP_Ajax_Queue
 
         /* Add quota information. */
         if ($this->_quota &&
-            $GLOBALS['session']->get('imp', 'imap_quota') &&
-            ($quotadata = IMP::quotaData(false))) {
+            ($quotadata = $GLOBALS['injector']->getInstance('IMP_Ui_Quota')->quota())) {
             $ajax->addTask('quota', array(
                 'm' => $quotadata['message'],
                 'p' => round($quotadata['percent']),
@@ -220,12 +208,14 @@ class IMP_Ajax_Queue
      */
     public function message($mailbox, $uid, $preview = false, $peek = false)
     {
-        $this->_messages[] = array(
-            'mailbox' => $mailbox,
-            'peek' => $peek,
-            'preview' => $preview,
-            'uid' => $uid
-        );
+        try {
+            $show_msg = new IMP_Ajax_Application_ShowMessage($mailbox, $uid, $peek);
+            $msg = (object)$show_msg->showMessage(array(
+                'preview' => $preview
+            ));
+            $msg->save_as = strval($msg->save_as);
+            $this->_messages[] = $msg;
+        } catch (Exception $e) {}
     }
 
     /**

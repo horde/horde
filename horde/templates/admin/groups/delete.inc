@@ -7,7 +7,8 @@
  <?php echo Horde::img('group.png') ?>&nbsp;<?php printf(_("Are you sure you wish to delete \"%s\"?"), htmlspecialchars($group)) ?>
 </h1>
 
-<input type="submit" class="button" name="confirm" value="<?php echo _("Delete") ?>" />
-<input type="submit" class="button" name="confirm" value="<?php echo _("Cancel") ?>" />
+<p class="horde-form-buttons">
+  <input type="submit" class="horde-delete" name="confirm" value="<?php echo _("Delete") ?>" />
+  <input type="submit" class="horde-cancel" name="confirm" value="<?php echo _("Cancel") ?>" />
+</p>
 </form>
-<br />

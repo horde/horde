@@ -108,11 +108,6 @@ abstract class Kronolith_FreeBusy_View
         $optimal->merge($required, false);
         $optimal->merge($optional);
 
-        $base_url = Horde::selfUrl()
-            ->remove('date')
-            ->remove('fbview')
-            ->add('fbview', $this->view);
-
         $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $template->set('title', $this->_title());
 
@@ -263,7 +258,7 @@ abstract class Kronolith_FreeBusy_View
         $driver = basename($view);
         $class = 'Kronolith_FreeBusy_View_' . $driver;
         if (class_exists($class)) {
-            return new $class($user, $params);
+            return new $class();
         }
 
         return false;

@@ -6,8 +6,6 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-echo $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render();
-
 $accesskey = $prefs->getValue('widget_accesskey') ? Horde::getAccessKey(_("Select _Domain")) : '';
 $menu_view = $prefs->getValue('menu_view');
 ?>

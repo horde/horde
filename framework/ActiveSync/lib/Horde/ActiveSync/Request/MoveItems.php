@@ -124,7 +124,7 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
                     array($move[self::SRCMSGKEY]),
                     $move[self::DSTFLDKEY]);
                 $new_msgid = $move_res[$move[self::SRCMSGKEY]];
-            } catch (Horde_ActiveSYnc_Exception $e) {
+            } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 // Right now, we don't know the reason, just use 1.
                 $status = self::STATUS_INVALID_DST;

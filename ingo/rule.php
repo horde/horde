@@ -15,7 +15,7 @@ require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Check rule permissions. */
-$perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+$perms = $injector->getInstance('Horde_Core_Perms');
 if (!$perms->hasAppPermission('allow_rules')) {
     Horde::permissionDeniedError(
         'ingo',
@@ -43,17 +43,11 @@ $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
 /* Run through action handlers. */
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 switch ($vars->actionID) {
 case 'rule_save':
 case 'rule_update':
 case 'rule_delete':
-    if (!Ingo::hasSharePermission(Horde_Perms::EDIT)) {
-        $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-        header('Location: ' . Horde::url('filters.php', true));
-        exit;
-    }
-
     $rule = array(
         'id' => $vars->id,
         'name' => $vars->name,
@@ -66,42 +60,41 @@ case 'rule_delete':
     }
 
     $valid = true;
-    foreach ($vars->field as $key => $val) {
-        if (!empty($val)) {
-            $condition = array();
-            if ($val == Ingo::USER_HEADER) {
-                $condition['field'] = empty($vars->userheader[$key])
-                    ? ''
-                    : $vars->userheader[$key];
-                $condition['type'] = Ingo_Storage::TYPE_HEADER;
-            } elseif (!isset($ingo_fields[$val])) {
-                $condition['field'] = $val;
-                $condition['type'] = Ingo_Storage::TYPE_HEADER;
-            } else {
-                $condition['field'] = $val;
-                $condition['type'] = $ingo_fields[$val]['type'];
-            }
-            $condition['match'] = isset($vars->match[$key])
-                ? $vars->match[$key]
-                : '';
-
-            if (($vars->actionID == 'rule_save') &&
-                empty($vars->value[$key]) &&
-                !in_array($condition['match'], array('exists', 'not exist'))) {
-                $notification->push(sprintf(_("You cannot create empty conditions. Please fill in a value for \"%s\"."), $condition['field']), 'horde.error');
-                $valid = false;
-            }
-            $condition['value'] = isset($vars->value[$key])
-                ? $vars->value[$key]
-                : '';
-
-            if (isset($casesensitive)) {
-                $condition['case'] = isset($casesensitive[$key])
-                    ? $casesensitive[$key]
-                    : '';
-            }
-            $rule['conditions'][] = $condition;
+    foreach (array_filter($vars->field) as $key => $val) {
+        $condition = array();
+        if ($val == Ingo::USER_HEADER) {
+            $condition['field'] = empty($vars->userheader[$key])
+                ? ''
+                : $vars->userheader[$key];
+            $condition['type'] = Ingo_Storage::TYPE_HEADER;
+        } elseif (!isset($ingo_fields[$val])) {
+            $condition['field'] = $val;
+            $condition['type'] = Ingo_Storage::TYPE_HEADER;
+        } else {
+            $condition['field'] = $val;
+            $condition['type'] = $ingo_fields[$val]['type'];
         }
+        $condition['match'] = isset($vars->match[$key])
+            ? $vars->match[$key]
+            : '';
+
+        if (($vars->actionID == 'rule_save') &&
+            empty($vars->value[$key]) &&
+            !in_array($condition['match'], array('exists', 'not exist'))) {
+            $notification->push(sprintf(_("You cannot create empty conditions. Please fill in a value for \"%s\"."), $condition['field']), 'horde.error');
+            $valid = false;
+        }
+
+        $condition['value'] = isset($vars->value[$key])
+            ? $vars->value[$key]
+            : '';
+
+        if (isset($casesensitive)) {
+            $condition['case'] = isset($casesensitive[$key])
+                ? $casesensitive[$key]
+                : '';
+        }
+        $rule['conditions'][] = $condition;
     }
 
     $rule['action'] = $vars->action;
@@ -138,21 +131,40 @@ case 'rule_delete':
         $rule['flags'] |= $val;
     }
 
-    /* Update the timestamp for the rules. */
-    $session->set('ingo', 'change', time());
-
     /* Save the rule. */
-    if ($vars->actionID == 'rule_save' && $valid) {
+    switch ($vars->actionID) {
+    case 'rule_save':
+        if (!$valid) {
+            break;
+        }
+
+        if (!Ingo::hasSharePermission(Horde_Perms::EDIT)) {
+            $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
+            break;
+        }
+
+        if (empty($rule['conditions'])) {
+            $notification->push(_("You need to select at least one field to match."), 'horde.error');
+            break;
+        }
+
         if (!isset($vars->edit)) {
-            if ($perms->hasAppPermission('max_rules') !== true &&
-                $perms->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
-                header('Location: ' . Horde::url('filters.php', true));
-                exit;
+            if (($perms->hasAppPermission('max_rules') !== true) &&
+                ($perms->hasAppPermission('max_rules') <= count($filters->getFilterList()))) {
+                Horde::permissionDeniedError(
+                    'ingo',
+                    'max_rules',
+                    sprintf(_("You are not allowed to create more than %d rules."), $perms->hasAppPermission('max_rules'))
+                );
+                break;
             }
             $filters->addRule($rule);
         } else {
             $filters->updateRule($rule, $vars->edit);
         }
+
+        $session->set('ingo', 'change', time());
+
         $ingo_storage->store($filters);
         $notification->push(_("Changes saved."), 'horde.success');
 
@@ -160,33 +172,23 @@ case 'rule_delete':
             try {
                 Ingo::updateScript();
             } catch (Ingo_Exception $e) {
-                $notification->push($e->getMessage(), 'horde.error');
+                $notification->push($e, 'horde.error');
             }
         }
 
-        header('Location: ' . Horde::url('filters.php'));
-        exit;
-    }
+        Horde::url('filters.php', true)->redirect();
 
-    if ($vars->actionID == 'rule_delete') {
-        if (!Ingo::hasSharePermission(Horde_Perms::DELETE)) {
-            $notification->push(_("You do not have permission to delete filter rules."), 'horde.error');
-            header('Location: ' . Horde::url('filters.php', true));
-            exit;
-        }
+    case 'rule_delete':
         if (isset($vars->conditionnumber)) {
             unset($rule['conditions'][intval($vars->conditionnumber)]);
             $rule['conditions'] = array_values($rule['conditions']);
         }
+        break;
     }
     break;
+}
 
-default:
-    if (!Ingo::hasSharePermission(Horde_Perms::EDIT)) {
-        $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-        header('Location: ' . Horde::url('filters.php', true));
-        exit;
-    }
+if (!isset($rule)) {
     if (!isset($vars->edit)) {
         if ($perms->hasAppPermission('max_rules') !== true &&
             $perms->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
@@ -195,20 +197,17 @@ default:
                 'max_rules',
                 sprintf(_("You are not allowed to create more than %d rules."), $perms->hasAppPermission('max_rules'))
             );
-            header('Location: ' . Horde::url('filters.php', true));
-            exit;
+            Horde::url('filters.php', true)->redirect();
         }
         $rule = $filters->getDefaultRule();
     } else {
         $rule = $filters->getRule($vars->edit);
     }
-    break;
-}
 
-if (!$rule) {
-    $notification->push(_("Filter not found."), 'horde.error');
-    header('Location: ' . Horde::url('filters.php', true));
-    exit;
+    if (!$rule) {
+        $notification->push(_("Filter not found."), 'horde.error');
+        Horde::url('filters.php', true)->redirect();
+    }
 }
 
 $page_output->addScriptFile('rule.js');
@@ -365,7 +364,7 @@ $actionvalue = '';
 switch ($current_action->type) {
 case 'folder':
     $actionvaluelabel = '<label for="actionvalue" class="hidden">' . _("Select target folder") . '</label>';
-    $actionvalue = Ingo::flistSelect($rule['action-value'], 'rule');
+    $actionvalue = Ingo::flistSelect($rule['action-value']);
     break;
 
 case 'text':

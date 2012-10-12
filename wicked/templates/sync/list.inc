@@ -24,7 +24,7 @@ if (empty($new_remote)) {
         . ' <th>' . _("Author") . '</th>'
         . '<th>' . _("Actions") . '</th>'
         . '</tr></thead><tbody>';
-    $download = Horde_Util::addParameter(Wicked::url('SyncPages'), array('actionID' => 'sync_download', 'sync_page' => '')) ;
+    $download = Wicked::url('SyncPages')->add(array('actionID' => 'sync_download', 'sync_page' => '')) ;
     foreach ($new_remote as $pageName => $info) {
         echo  '<tr>'
             . '<td>' . $pageName . '</td>'
@@ -50,7 +50,7 @@ if (empty($new_local)) {
             . ' <th>' . _("Author") . '</th>'
             . '<th>' . _("Actions") . '</th>'
             . '</tr></thead><tbody>';
-    $upload = Horde_Util::addParameter(Wicked::url('SyncPages'), array('actionID' => 'sync_upload', 'sync_page' => '')) ;
+    $upload = Wicked::url('SyncPages')->add(array('actionID' => 'sync_upload', 'sync_page' => '')) ;
     foreach ($new_local as $pageName => $info) {
         echo  '<tr>'
             . '<td>' . $pageName . '</td>'
@@ -71,7 +71,7 @@ if (empty($sync_pages)) {
 } else {
     echo '<table id="new-remote" class="sortable striped"><thead><tr>'
             . ' <th>' . _("Page") . '</th><th>' . _("Actions") . '</th></tr></thead><tbody>';
-    $showdiff = Horde_Util::addParameter(Wicked::url('SyncDiff'), array('actionID' => 'sync_diff', 'sync_page' => ''), null, false) ;
+    $showdiff = Wicked::url('SyncDiff')->add(array('actionID' => 'sync_diff', 'sync_page' => ''), null, false) ;
     foreach ($sync_pages as $pageName) {
         echo  '<tr><td>' . $pageName . '</td>'
             . '<td>' . $this->_viewLink($pageName)

@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>23:42:56</time>
+ <date>2012-10-05</date>
+ <time>12:14:26</time>
  <version>
   <release>2.0.0beta2</release>
   <api>1.1.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add htmlspecialchars() filter.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -48,6 +48,7 @@
        <file name="Bin2hex.php" role="php" />
        <file name="Crc32.php" role="php" />
        <file name="Eol.php" role="php" />
+       <file name="Htmlspecialchars.php" role="php" />
        <file name="Null.php" role="php" />
       </dir> <!-- /lib/Horde/Stream/Filter -->
      </dir> <!-- /lib/Horde/Stream -->
@@ -84,6 +85,7 @@
    <install as="Horde/Stream/Filter/Bin2hex.php" name="lib/Horde/Stream/Filter/Bin2hex.php" />
    <install as="Horde/Stream/Filter/Crc32.php" name="lib/Horde/Stream/Filter/Crc32.php" />
    <install as="Horde/Stream/Filter/Eol.php" name="lib/Horde/Stream/Filter/Eol.php" />
+   <install as="Horde/Stream/Filter/Htmlspecialchars.php" name="lib/Horde/Stream/Filter/Htmlspecialchars.php" />
    <install as="Horde/Stream/Filter/Null.php" name="lib/Horde/Stream/Filter/Null.php" />
    <install as="Horde/Stream/Filter/AllTests.php" name="test/Horde/Stream/Filter/AllTests.php" />
    <install as="Horde/Stream/Filter/Bin2hexTest.php" name="test/Horde/Stream/Filter/Bin2hexTest.php" />
@@ -215,10 +217,10 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-10-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add htmlspecialchars() filter.
    </notes>
   </release>
  </changelog>

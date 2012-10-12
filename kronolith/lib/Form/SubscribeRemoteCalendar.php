@@ -22,7 +22,12 @@ class Kronolith_Form_SubscribeRemoteCalendar extends Horde_Form
         parent::__construct($vars, _("Subscribe to a Remote Calendar"));
 
         $this->addVariable(_("Name"), 'name', 'text', true);
-        $this->addVariable(_("Color"), 'color', 'colorpicker', false);
+        $v = $this->addVariable(_("Color"), 'color', 'colorpicker', false);
+        $color = '#';
+        for ($i = 0; $i < 3; $i++) {
+            $color .= sprintf('%02x', mt_rand(0, 255));
+        }
+        $v->setDefault($color);
         $this->addVariable(_("URL"), 'url', 'text', true);
         $this->addVariable(_("Description"), 'desc', 'longtext', false, false, null, array(4, 60));
         $this->addVariable(_("Username"), 'user', 'text', false);

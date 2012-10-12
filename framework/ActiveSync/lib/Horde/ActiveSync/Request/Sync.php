@@ -494,6 +494,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         '[%s] Found changes!',
                         $this->_device->id)
                     );
+                    $this->_syncCache->lastuntil = time();
+                    $this->_syncCache->save();
                     break;
                 }
 
@@ -885,7 +887,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     break;
 
                 case Horde_ActiveSync::SYNC_COMMANDS:
-                    $this->_initState($collection);
                     if (!$this->_parseSyncCommands($collection)) {
                         return true;
                     }
@@ -956,6 +957,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 return false;
             }
         }
+
+        $this->_initState($collection);
 
         // Configure importer with last state
         if (!empty($collection['synckey'])) {

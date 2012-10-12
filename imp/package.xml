@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-29</date>
- <time>16:03:12</time>
+ <date>2012-10-11</date>
+ <time>00:11:05</time>
  <version>
   <release>6.0.0beta4</release>
   <api>6.0.0beta1</api>
@@ -34,7 +34,15 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Add predefined templates to ACL management screen (Request #10648).
+* [mms] Capture key shortcuts on dynamic mailbox page even if focus is on IFRAME HTML message data (Bug #11428).
+* [mms] All IMP templates now use Horde_View.
+* [mms] Add swipe action buttons to the smartmobile mailbox page.
+* [mms] Optimize loading of message bodies when using dynamic view.
+* [mms] Load new mailbox when renaming current mailbox in dynamic view (Request #11394).
+* [mms] Add simple address autocompleter to smartmobile compose page.
+* [mms] Add refresh button to smartmobile folder page.
+* [jan] Fix popdown positioning in mailbox table header (Bug #11384).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -90,16 +98,20 @@
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Application">
-      <dir name="Helper">
+      <dir name="Handler">
+       <file name="Common.php" role="horde" />
+       <file name="Dynamic.php" role="horde" />
+       <file name="ImageUnblock.php" role="horde" />
+       <file name="Passphrase.php" role="horde" />
+       <file name="Search.php" role="horde" />
        <file name="Smartmobile.php" role="horde" />
-      </dir> <!-- /lib/Ajax/Application/Helper -->
+      </dir> <!-- /lib/Ajax/Application/Handler -->
       <file name="Compose.php" role="horde" />
       <file name="ListMessages.php" role="horde" />
       <file name="ShowMessage.php" role="horde" />
      </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
       <file name="ContactAutoCompleter.php" role="horde" />
-      <file name="ImageUnblock.php" role="horde" />
       <file name="ImportEncryptKey.php" role="horde" />
       <file name="ItipRequest.php" role="horde" />
       <file name="PassphraseDialog.php" role="horde" />
@@ -129,6 +141,7 @@
      <dir name="Helper">
       <file name="Base.php" role="horde" />
      </dir> <!-- /lib/Dynamic/Helper -->
+     <file name="AddressList.php" role="horde" />
      <file name="Base.php" role="horde" />
      <file name="Compose.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
@@ -306,6 +319,11 @@
      <file name="Null.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Quota -->
+    <dir name="Script">
+     <dir name="Package">
+      <file name="Imp.php" role="horde" />
+     </dir> <!-- /lib/Script/Package -->
+    </dir> <!-- /lib/Script -->
     <dir name="Search">
      <dir name="Element">
       <file name="Attachment.php" role="horde" />
@@ -354,12 +372,14 @@
     </dir> <!-- /lib/Tree -->
     <dir name="Ui">
      <file name="Compose.php" role="horde" />
+     <file name="Contacts.php" role="horde" />
      <file name="Editor.php" role="horde" />
      <file name="Folder.php" role="horde" />
      <file name="Headers.php" role="horde" />
      <file name="Imageview.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
      <file name="Message.php" role="horde" />
+     <file name="Quota.php" role="horde" />
      <file name="Search.php" role="horde" />
     </dir> <!-- /lib/Ui -->
     <dir name="View">
@@ -371,7 +391,6 @@
     <file name="Auth.php" role="horde" />
     <file name="Compose.php" role="horde" />
     <file name="Contents.php" role="horde" />
-    <file name="Dimp.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Filter.php" role="horde" />
     <file name="Flags.php" role="horde" />
@@ -692,6 +711,50 @@
     <file name="2_imp_autoincrement_sentmail.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
+    <dir name="basic">
+     <dir name="compose">
+      <file name="compose.html.php" role="horde" />
+      <file name="redirect.html.php" role="horde" />
+      <file name="success.html.php" role="horde" />
+     </dir> <!-- /templates/basic/compose -->
+     <dir name="flist">
+      <file name="flist.html.php" role="horde" />
+     </dir> <!-- /templates/basic/flist -->
+     <dir name="folders">
+      <file name="actions.html.php" role="horde" />
+      <file name="folders_confirm.html.php" role="horde" />
+      <file name="folders_size.html.php" role="horde" />
+      <file name="head.html.php" role="horde" />
+      <file name="import.html.php" role="horde" />
+     </dir> <!-- /templates/basic/folders -->
+     <dir name="mailbox">
+      <file name="actions.html.php" role="horde" />
+      <file name="actions_deleted.html.php" role="horde" />
+      <file name="empty_mailbox.html.php" role="horde" />
+      <file name="form_start.html.php" role="horde" />
+      <file name="header.html.php" role="horde" />
+      <file name="mailbox.html.php" role="horde" />
+      <file name="message_headers.html.php" role="horde" />
+      <file name="navbar.html.php" role="horde" />
+      <file name="searchmbox.html.php" role="horde" />
+     </dir> <!-- /templates/basic/mailbox -->
+     <dir name="message">
+      <file name="message.html.php" role="horde" />
+      <file name="navbar_actions.html.php" role="horde" />
+      <file name="navbar_navigate.html.php" role="horde" />
+      <file name="navbar_top.html.php" role="horde" />
+     </dir> <!-- /templates/basic/message -->
+     <dir name="search">
+      <file name="search-basic.html.php" role="horde" />
+     </dir> <!-- /templates/basic/search -->
+     <dir name="thread">
+      <file name="thread.html.php" role="horde" />
+     </dir> <!-- /templates/basic/thread -->
+     <file name="subinfo.html.php" role="horde" />
+    </dir> <!-- /templates/basic -->
+    <dir name="contacts">
+     <file name="contacts.html.php" role="horde" />
+    </dir> <!-- /templates/contacts -->
     <dir name="dynamic">
      <file name="compose-base.html.php" role="horde" />
      <file name="compose.html.php" role="horde" />
@@ -705,52 +768,6 @@
      <file name="redirect.html.php" role="horde" />
      <file name="sidebar.html.php" role="horde" />
     </dir> <!-- /templates/dynamic -->
-    <dir name="imp">
-     <dir name="compose">
-      <file name="compose.html" role="horde" />
-      <file name="redirect.html" role="horde" />
-      <file name="success.html" role="horde" />
-     </dir> <!-- /templates/imp/compose -->
-     <dir name="contacts">
-      <file name="contacts.html" role="horde" />
-     </dir> <!-- /templates/imp/contacts -->
-     <dir name="flist">
-      <file name="flist.html" role="horde" />
-     </dir> <!-- /templates/imp/flist -->
-     <dir name="folders">
-      <file name="actions.html" role="horde" />
-      <file name="folders_confirm.html" role="horde" />
-      <file name="folders_size.html" role="horde" />
-      <file name="head.html" role="horde" />
-      <file name="import.html" role="horde" />
-     </dir> <!-- /templates/imp/folders -->
-     <dir name="mailbox">
-      <file name="actions.html" role="horde" />
-      <file name="actions_deleted.html" role="horde" />
-      <file name="empty_mailbox.html" role="horde" />
-      <file name="form_start.html" role="horde" />
-      <file name="header.html" role="horde" />
-      <file name="mailbox.html" role="horde" />
-      <file name="message_headers.html" role="horde" />
-      <file name="navbar.html" role="horde" />
-      <file name="searchmbox.html" role="horde" />
-     </dir> <!-- /templates/imp/mailbox -->
-     <dir name="message">
-      <file name="message.html" role="horde" />
-      <file name="navbar_actions.html" role="horde" />
-      <file name="navbar_navigate.html" role="horde" />
-      <file name="navbar_top.html" role="horde" />
-     </dir> <!-- /templates/imp/message -->
-     <dir name="search">
-      <file name="search-all.html" role="horde" />
-      <file name="search-basic.html" role="horde" />
-      <file name="search.html" role="horde" />
-     </dir> <!-- /templates/imp/search -->
-     <dir name="thread">
-      <file name="thread.html" role="horde" />
-     </dir> <!-- /templates/imp/thread -->
-     <file name="subinfo.html.php" role="horde" />
-    </dir> <!-- /templates/imp -->
     <dir name="itip">
      <file name="action.html.php" role="horde" />
      <file name="base.html.php" role="horde" />
@@ -767,52 +784,53 @@
      <file name="search.html.php" role="horde" />
     </dir> <!-- /templates/minimal -->
     <dir name="pgp">
-     <file name="import_key.html" role="horde" />
+     <file name="import_key.html.php" role="horde" />
     </dir> <!-- /templates/pgp -->
     <dir name="prefs">
-     <file name="acl.html" role="horde" />
-     <file name="composetemplates.html" role="horde" />
-     <file name="drafts.html" role="horde" />
-     <file name="encrypt.html" role="horde" />
-     <file name="flags.html" role="horde" />
-     <file name="imagereplacement.html" role="horde" />
-     <file name="initialpage.html" role="horde" />
-     <file name="mailto.html" role="horde" />
-     <file name="newmailaudio.html" role="horde" />
-     <file name="pgpprivatekey.html" role="horde" />
-     <file name="pgppublickey.html" role="horde" />
-     <file name="searches.html" role="horde" />
-     <file name="sentmail.html" role="horde" />
-     <file name="signaturehtml.html" role="horde" />
-     <file name="smimeprivatekey.html" role="horde" />
-     <file name="smimepublickey.html" role="horde" />
-     <file name="spam.html" role="horde" />
-     <file name="specialuse.html" role="horde" />
-     <file name="trash.html" role="horde" />
+     <file name="acl.html.php" role="horde" />
+     <file name="composetemplates.html.php" role="horde" />
+     <file name="drafts.html.php" role="horde" />
+     <file name="encrypt.html.php" role="horde" />
+     <file name="flags.html.php" role="horde" />
+     <file name="imagereplacement.html.php" role="horde" />
+     <file name="initialpage.html.php" role="horde" />
+     <file name="mailto.html.php" role="horde" />
+     <file name="newmailaudio.html.php" role="horde" />
+     <file name="pgpprivatekey.html.php" role="horde" />
+     <file name="pgppublickey.html.php" role="horde" />
+     <file name="searches.html.php" role="horde" />
+     <file name="sentmail.html.php" role="horde" />
+     <file name="signaturehtml.html.php" role="horde" />
+     <file name="smimeprivatekey.html.php" role="horde" />
+     <file name="smimepublickey.html.php" role="horde" />
+     <file name="spam.html.php" role="horde" />
+     <file name="specialuse.html.php" role="horde" />
+     <file name="trash.html.php" role="horde" />
     </dir> <!-- /templates/prefs -->
     <dir name="print">
-     <file name="headers.html" role="horde" />
+     <file name="headers.html.php" role="horde" />
     </dir> <!-- /templates/print -->
-    <dir name="quota">
-     <file name="quota.html" role="horde" />
-    </dir> <!-- /templates/quota -->
     <dir name="rss">
-     <file name="mailbox.rss" role="horde" />
+     <file name="mailbox.rss.php" role="horde" />
     </dir> <!-- /templates/rss -->
     <dir name="saveimage">
-     <file name="saveimage.html" role="horde" />
+     <file name="saveimage.html.php" role="horde" />
     </dir> <!-- /templates/saveimage -->
+    <dir name="search">
+     <file name="search-all.html.php" role="horde" />
+     <file name="search.html.php" role="horde" />
+    </dir> <!-- /templates/search -->
     <dir name="smartmobile">
      <file name="compose.html.php" role="horde" />
      <file name="confirm.html.php" role="horde" />
+     <file name="copymove.html.php" role="horde" />
      <file name="folders.html.php" role="horde" />
      <file name="mailbox.html.php" role="horde" />
      <file name="message.html.php" role="horde" />
      <file name="search.html.php" role="horde" />
-     <file name="target.html.php" role="horde" />
     </dir> <!-- /templates/smartmobile -->
     <dir name="smime">
-     <file name="import_key.html" role="horde" />
+     <file name="import_key.html.php" role="horde" />
     </dir> <!-- /templates/smime -->
     <dir name="test">
      <file name="mailserver.inc" role="horde" />
@@ -828,6 +846,7 @@
      </dir> <!-- /test/Imp/fixtures -->
      <dir name="Stub">
       <file name="HtmlViewer.php" role="test" />
+      <file name="ItipRequest.php" role="test" />
      </dir> <!-- /test/Imp/Stub -->
      <dir name="Unit">
       <dir name="Mime">
@@ -1346,7 +1365,6 @@
    <install as="imp/lib/Auth.php" name="lib/Auth.php" />
    <install as="imp/lib/Compose.php" name="lib/Compose.php" />
    <install as="imp/lib/Contents.php" name="lib/Contents.php" />
-   <install as="imp/lib/Dimp.php" name="lib/Dimp.php" />
    <install as="imp/lib/Exception.php" name="lib/Exception.php" />
    <install as="imp/lib/Filter.php" name="lib/Filter.php" />
    <install as="imp/lib/Flags.php" name="lib/Flags.php" />
@@ -1367,9 +1385,13 @@
    <install as="imp/lib/Ajax/Application/Compose.php" name="lib/Ajax/Application/Compose.php" />
    <install as="imp/lib/Ajax/Application/ListMessages.php" name="lib/Ajax/Application/ListMessages.php" />
    <install as="imp/lib/Ajax/Application/ShowMessage.php" name="lib/Ajax/Application/ShowMessage.php" />
-   <install as="imp/lib/Ajax/Application/Helper/Smartmobile.php" name="lib/Ajax/Application/Helper/Smartmobile.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Common.php" name="lib/Ajax/Application/Handler/Common.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Dynamic.php" name="lib/Ajax/Application/Handler/Dynamic.php" />
+   <install as="imp/lib/Ajax/Application/Handler/ImageUnblock.php" name="lib/Ajax/Application/Handler/ImageUnblock.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Passphrase.php" name="lib/Ajax/Application/Handler/Passphrase.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Search.php" name="lib/Ajax/Application/Handler/Search.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
    <install as="imp/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
-   <install as="imp/lib/Ajax/Imple/ImageUnblock.php" name="lib/Ajax/Imple/ImageUnblock.php" />
    <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
    <install as="imp/lib/Ajax/Imple/ItipRequest.php" name="lib/Ajax/Imple/ItipRequest.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
@@ -1380,6 +1402,7 @@
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
+   <install as="imp/lib/Dynamic/AddressList.php" name="lib/Dynamic/AddressList.php" />
    <install as="imp/lib/Dynamic/Base.php" name="lib/Dynamic/Base.php" />
    <install as="imp/lib/Dynamic/Compose.php" name="lib/Dynamic/Compose.php" />
    <install as="imp/lib/Dynamic/Mailbox.php" name="lib/Dynamic/Mailbox.php" />
@@ -1510,6 +1533,7 @@
    <install as="imp/lib/Quota/Mercury32.php" name="lib/Quota/Mercury32.php" />
    <install as="imp/lib/Quota/Null.php" name="lib/Quota/Null.php" />
    <install as="imp/lib/Quota/Sql.php" name="lib/Quota/Sql.php" />
+   <install as="imp/lib/Script/Package/Imp.php" name="lib/Script/Package/Imp.php" />
    <install as="imp/lib/Search/Element.php" name="lib/Search/Element.php" />
    <install as="imp/lib/Search/Filter.php" name="lib/Search/Filter.php" />
    <install as="imp/lib/Search/Query.php" name="lib/Search/Query.php" />
@@ -1545,12 +1569,14 @@
    <install as="imp/lib/Tree/Jquerymobile.php" name="lib/Tree/Jquerymobile.php" />
    <install as="imp/lib/Tree/Simplehtml.php" name="lib/Tree/Simplehtml.php" />
    <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
+   <install as="imp/lib/Ui/Contacts.php" name="lib/Ui/Contacts.php" />
    <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
    <install as="imp/lib/Ui/Folder.php" name="lib/Ui/Folder.php" />
    <install as="imp/lib/Ui/Headers.php" name="lib/Ui/Headers.php" />
    <install as="imp/lib/Ui/Imageview.php" name="lib/Ui/Imageview.php" />
    <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />
    <install as="imp/lib/Ui/Message.php" name="lib/Ui/Message.php" />
+   <install as="imp/lib/Ui/Quota.php" name="lib/Ui/Quota.php" />
    <install as="imp/lib/Ui/Search.php" name="lib/Ui/Search.php" />
    <install as="imp/lib/View/Subinfo.php" name="lib/View/Subinfo.php" />
    <install as="imp/locale/.htaccess" name="locale/.htaccess" />
@@ -1675,6 +1701,32 @@
    <install as="imp/migration/1_imp_base_tables.php" name="migration/1_imp_base_tables.php" />
    <install as="imp/migration/2_imp_autoincrement_sentmail.php" name="migration/2_imp_autoincrement_sentmail.php" />
    <install as="imp/templates/.htaccess" name="templates/.htaccess" />
+   <install as="imp/templates/basic/subinfo.html.php" name="templates/basic/subinfo.html.php" />
+   <install as="imp/templates/basic/compose/compose.html.php" name="templates/basic/compose/compose.html.php" />
+   <install as="imp/templates/basic/compose/redirect.html.php" name="templates/basic/compose/redirect.html.php" />
+   <install as="imp/templates/basic/compose/success.html.php" name="templates/basic/compose/success.html.php" />
+   <install as="imp/templates/basic/flist/flist.html.php" name="templates/basic/flist/flist.html.php" />
+   <install as="imp/templates/basic/folders/actions.html.php" name="templates/basic/folders/actions.html.php" />
+   <install as="imp/templates/basic/folders/folders_confirm.html.php" name="templates/basic/folders/folders_confirm.html.php" />
+   <install as="imp/templates/basic/folders/folders_size.html.php" name="templates/basic/folders/folders_size.html.php" />
+   <install as="imp/templates/basic/folders/head.html.php" name="templates/basic/folders/head.html.php" />
+   <install as="imp/templates/basic/folders/import.html.php" name="templates/basic/folders/import.html.php" />
+   <install as="imp/templates/basic/mailbox/actions.html.php" name="templates/basic/mailbox/actions.html.php" />
+   <install as="imp/templates/basic/mailbox/actions_deleted.html.php" name="templates/basic/mailbox/actions_deleted.html.php" />
+   <install as="imp/templates/basic/mailbox/empty_mailbox.html.php" name="templates/basic/mailbox/empty_mailbox.html.php" />
+   <install as="imp/templates/basic/mailbox/form_start.html.php" name="templates/basic/mailbox/form_start.html.php" />
+   <install as="imp/templates/basic/mailbox/header.html.php" name="templates/basic/mailbox/header.html.php" />
+   <install as="imp/templates/basic/mailbox/mailbox.html.php" name="templates/basic/mailbox/mailbox.html.php" />
+   <install as="imp/templates/basic/mailbox/message_headers.html.php" name="templates/basic/mailbox/message_headers.html.php" />
+   <install as="imp/templates/basic/mailbox/navbar.html.php" name="templates/basic/mailbox/navbar.html.php" />
+   <install as="imp/templates/basic/mailbox/searchmbox.html.php" name="templates/basic/mailbox/searchmbox.html.php" />
+   <install as="imp/templates/basic/message/message.html.php" name="templates/basic/message/message.html.php" />
+   <install as="imp/templates/basic/message/navbar_actions.html.php" name="templates/basic/message/navbar_actions.html.php" />
+   <install as="imp/templates/basic/message/navbar_navigate.html.php" name="templates/basic/message/navbar_navigate.html.php" />
+   <install as="imp/templates/basic/message/navbar_top.html.php" name="templates/basic/message/navbar_top.html.php" />
+   <install as="imp/templates/basic/search/search-basic.html.php" name="templates/basic/search/search-basic.html.php" />
+   <install as="imp/templates/basic/thread/thread.html.php" name="templates/basic/thread/thread.html.php" />
+   <install as="imp/templates/contacts/contacts.html.php" name="templates/contacts/contacts.html.php" />
    <install as="imp/templates/dynamic/compose-base.html.php" name="templates/dynamic/compose-base.html.php" />
    <install as="imp/templates/dynamic/compose.html.php" name="templates/dynamic/compose.html.php" />
    <install as="imp/templates/dynamic/header.html.php" name="templates/dynamic/header.html.php" />
@@ -1686,34 +1738,6 @@
    <install as="imp/templates/dynamic/qreply.html.php" name="templates/dynamic/qreply.html.php" />
    <install as="imp/templates/dynamic/redirect.html.php" name="templates/dynamic/redirect.html.php" />
    <install as="imp/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />
-   <install as="imp/templates/imp/subinfo.html.php" name="templates/imp/subinfo.html.php" />
-   <install as="imp/templates/imp/compose/compose.html" name="templates/imp/compose/compose.html" />
-   <install as="imp/templates/imp/compose/redirect.html" name="templates/imp/compose/redirect.html" />
-   <install as="imp/templates/imp/compose/success.html" name="templates/imp/compose/success.html" />
-   <install as="imp/templates/imp/contacts/contacts.html" name="templates/imp/contacts/contacts.html" />
-   <install as="imp/templates/imp/flist/flist.html" name="templates/imp/flist/flist.html" />
-   <install as="imp/templates/imp/folders/actions.html" name="templates/imp/folders/actions.html" />
-   <install as="imp/templates/imp/folders/folders_confirm.html" name="templates/imp/folders/folders_confirm.html" />
-   <install as="imp/templates/imp/folders/folders_size.html" name="templates/imp/folders/folders_size.html" />
-   <install as="imp/templates/imp/folders/head.html" name="templates/imp/folders/head.html" />
-   <install as="imp/templates/imp/folders/import.html" name="templates/imp/folders/import.html" />
-   <install as="imp/templates/imp/mailbox/actions.html" name="templates/imp/mailbox/actions.html" />
-   <install as="imp/templates/imp/mailbox/actions_deleted.html" name="templates/imp/mailbox/actions_deleted.html" />
-   <install as="imp/templates/imp/mailbox/empty_mailbox.html" name="templates/imp/mailbox/empty_mailbox.html" />
-   <install as="imp/templates/imp/mailbox/form_start.html" name="templates/imp/mailbox/form_start.html" />
-   <install as="imp/templates/imp/mailbox/header.html" name="templates/imp/mailbox/header.html" />
-   <install as="imp/templates/imp/mailbox/mailbox.html" name="templates/imp/mailbox/mailbox.html" />
-   <install as="imp/templates/imp/mailbox/message_headers.html" name="templates/imp/mailbox/message_headers.html" />
-   <install as="imp/templates/imp/mailbox/navbar.html" name="templates/imp/mailbox/navbar.html" />
-   <install as="imp/templates/imp/mailbox/searchmbox.html" name="templates/imp/mailbox/searchmbox.html" />
-   <install as="imp/templates/imp/message/message.html" name="templates/imp/message/message.html" />
-   <install as="imp/templates/imp/message/navbar_actions.html" name="templates/imp/message/navbar_actions.html" />
-   <install as="imp/templates/imp/message/navbar_navigate.html" name="templates/imp/message/navbar_navigate.html" />
-   <install as="imp/templates/imp/message/navbar_top.html" name="templates/imp/message/navbar_top.html" />
-   <install as="imp/templates/imp/search/search-all.html" name="templates/imp/search/search-all.html" />
-   <install as="imp/templates/imp/search/search-basic.html" name="templates/imp/search/search-basic.html" />
-   <install as="imp/templates/imp/search/search.html" name="templates/imp/search/search.html" />
-   <install as="imp/templates/imp/thread/thread.html" name="templates/imp/thread/thread.html" />
    <install as="imp/templates/itip/action.html.php" name="templates/itip/action.html.php" />
    <install as="imp/templates/itip/base.html.php" name="templates/itip/base.html.php" />
    <install as="imp/templates/minimal/compose.html.php" name="templates/minimal/compose.html.php" />
@@ -1725,38 +1749,39 @@
    <install as="imp/templates/minimal/messagepart.html.php" name="templates/minimal/messagepart.html.php" />
    <install as="imp/templates/minimal/redirect.html.php" name="templates/minimal/redirect.html.php" />
    <install as="imp/templates/minimal/search.html.php" name="templates/minimal/search.html.php" />
-   <install as="imp/templates/pgp/import_key.html" name="templates/pgp/import_key.html" />
-   <install as="imp/templates/prefs/acl.html" name="templates/prefs/acl.html" />
-   <install as="imp/templates/prefs/composetemplates.html" name="templates/prefs/composetemplates.html" />
-   <install as="imp/templates/prefs/drafts.html" name="templates/prefs/drafts.html" />
-   <install as="imp/templates/prefs/encrypt.html" name="templates/prefs/encrypt.html" />
-   <install as="imp/templates/prefs/flags.html" name="templates/prefs/flags.html" />
-   <install as="imp/templates/prefs/imagereplacement.html" name="templates/prefs/imagereplacement.html" />
-   <install as="imp/templates/prefs/initialpage.html" name="templates/prefs/initialpage.html" />
-   <install as="imp/templates/prefs/mailto.html" name="templates/prefs/mailto.html" />
-   <install as="imp/templates/prefs/newmailaudio.html" name="templates/prefs/newmailaudio.html" />
-   <install as="imp/templates/prefs/pgpprivatekey.html" name="templates/prefs/pgpprivatekey.html" />
-   <install as="imp/templates/prefs/pgppublickey.html" name="templates/prefs/pgppublickey.html" />
-   <install as="imp/templates/prefs/searches.html" name="templates/prefs/searches.html" />
-   <install as="imp/templates/prefs/sentmail.html" name="templates/prefs/sentmail.html" />
-   <install as="imp/templates/prefs/signaturehtml.html" name="templates/prefs/signaturehtml.html" />
-   <install as="imp/templates/prefs/smimeprivatekey.html" name="templates/prefs/smimeprivatekey.html" />
-   <install as="imp/templates/prefs/smimepublickey.html" name="templates/prefs/smimepublickey.html" />
-   <install as="imp/templates/prefs/spam.html" name="templates/prefs/spam.html" />
-   <install as="imp/templates/prefs/specialuse.html" name="templates/prefs/specialuse.html" />
-   <install as="imp/templates/prefs/trash.html" name="templates/prefs/trash.html" />
-   <install as="imp/templates/print/headers.html" name="templates/print/headers.html" />
-   <install as="imp/templates/quota/quota.html" name="templates/quota/quota.html" />
-   <install as="imp/templates/rss/mailbox.rss" name="templates/rss/mailbox.rss" />
-   <install as="imp/templates/saveimage/saveimage.html" name="templates/saveimage/saveimage.html" />
+   <install as="imp/templates/pgp/import_key.html.php" name="templates/pgp/import_key.html.php" />
+   <install as="imp/templates/prefs/acl.html.php" name="templates/prefs/acl.html.php" />
+   <install as="imp/templates/prefs/composetemplates.html.php" name="templates/prefs/composetemplates.html.php" />
+   <install as="imp/templates/prefs/drafts.html.php" name="templates/prefs/drafts.html.php" />
+   <install as="imp/templates/prefs/encrypt.html.php" name="templates/prefs/encrypt.html.php" />
+   <install as="imp/templates/prefs/flags.html.php" name="templates/prefs/flags.html.php" />
+   <install as="imp/templates/prefs/imagereplacement.html.php" name="templates/prefs/imagereplacement.html.php" />
+   <install as="imp/templates/prefs/initialpage.html.php" name="templates/prefs/initialpage.html.php" />
+   <install as="imp/templates/prefs/mailto.html.php" name="templates/prefs/mailto.html.php" />
+   <install as="imp/templates/prefs/newmailaudio.html.php" name="templates/prefs/newmailaudio.html.php" />
+   <install as="imp/templates/prefs/pgpprivatekey.html.php" name="templates/prefs/pgpprivatekey.html.php" />
+   <install as="imp/templates/prefs/pgppublickey.html.php" name="templates/prefs/pgppublickey.html.php" />
+   <install as="imp/templates/prefs/searches.html.php" name="templates/prefs/searches.html.php" />
+   <install as="imp/templates/prefs/sentmail.html.php" name="templates/prefs/sentmail.html.php" />
+   <install as="imp/templates/prefs/signaturehtml.html.php" name="templates/prefs/signaturehtml.html.php" />
+   <install as="imp/templates/prefs/smimeprivatekey.html.php" name="templates/prefs/smimeprivatekey.html.php" />
+   <install as="imp/templates/prefs/smimepublickey.html.php" name="templates/prefs/smimepublickey.html.php" />
+   <install as="imp/templates/prefs/spam.html.php" name="templates/prefs/spam.html.php" />
+   <install as="imp/templates/prefs/specialuse.html.php" name="templates/prefs/specialuse.html.php" />
+   <install as="imp/templates/prefs/trash.html.php" name="templates/prefs/trash.html.php" />
+   <install as="imp/templates/print/headers.html.php" name="templates/print/headers.html.php" />
+   <install as="imp/templates/rss/mailbox.rss.php" name="templates/rss/mailbox.rss.php" />
+   <install as="imp/templates/saveimage/saveimage.html.php" name="templates/saveimage/saveimage.html.php" />
+   <install as="imp/templates/search/search-all.html.php" name="templates/search/search-all.html.php" />
+   <install as="imp/templates/search/search.html.php" name="templates/search/search.html.php" />
    <install as="imp/templates/smartmobile/compose.html.php" name="templates/smartmobile/compose.html.php" />
    <install as="imp/templates/smartmobile/confirm.html.php" name="templates/smartmobile/confirm.html.php" />
+   <install as="imp/templates/smartmobile/copymove.html.php" name="templates/smartmobile/copymove.html.php" />
    <install as="imp/templates/smartmobile/folders.html.php" name="templates/smartmobile/folders.html.php" />
    <install as="imp/templates/smartmobile/mailbox.html.php" name="templates/smartmobile/mailbox.html.php" />
    <install as="imp/templates/smartmobile/message.html.php" name="templates/smartmobile/message.html.php" />
    <install as="imp/templates/smartmobile/search.html.php" name="templates/smartmobile/search.html.php" />
-   <install as="imp/templates/smartmobile/target.html.php" name="templates/smartmobile/target.html.php" />
-   <install as="imp/templates/smime/import_key.html" name="templates/smime/import_key.html" />
+   <install as="imp/templates/smime/import_key.html.php" name="templates/smime/import_key.html.php" />
    <install as="imp/templates/test/mailserver.inc" name="templates/test/mailserver.inc" />
    <install as="Imp/AllTests.php" name="test/Imp/AllTests.php" />
    <install as="Imp/Autoload.php" name="test/Imp/Autoload.php" />
@@ -1765,6 +1790,7 @@
    <install as="Imp/fixtures/test.eml" name="test/Imp/fixtures/test.eml" />
    <install as="Imp/fixtures/test.mbox" name="test/Imp/fixtures/test.mbox" />
    <install as="Imp/Stub/HtmlViewer.php" name="test/Imp/Stub/HtmlViewer.php" />
+   <install as="Imp/Stub/ItipRequest.php" name="test/Imp/Stub/ItipRequest.php" />
    <install as="Imp/Unit/ComposeTest.php" name="test/Imp/Unit/ComposeTest.php" />
    <install as="Imp/Unit/MboxParseTest.php" name="test/Imp/Unit/MboxParseTest.php" />
    <install as="Imp/Unit/QuotaTest.php" name="test/Imp/Unit/QuotaTest.php" />
@@ -2560,6 +2586,7 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix regression in using Virtual Trash (Bug #11478; tonyb@go-concepts.com).
 * [mms] Fix sending MDN notifications in traditional view (Bug #11311).
 * [mms] Fix changing sort order in dynamic search mailboxes (Bug #11108).
 * [mms] Fix regression in creating top-level mailbox in traditional view (Bug #11326).
@@ -2635,7 +2662,7 @@
 * [mms] Remove signature from compose UI; signature is now added automatically when sending (Request #10487).
 * [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
 * [mms] Size of sidebar now saved in dynamic view.
-* [mms] Browser-specific UI elements in dynamic view now saved in browser storage (Ticket #10723).
+* [mms] Browser-specific UI elements in dynamic view now saved in browser storage (Request #10723).
    </notes>
   </release>
   <release>
@@ -2716,10 +2743,18 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-29</date>
+   <date>2012-10-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Add predefined templates to ACL management screen (Request #10648).
+* [mms] Capture key shortcuts on dynamic mailbox page even if focus is on IFRAME HTML message data (Bug #11428).
+* [mms] All IMP templates now use Horde_View.
+* [mms] Add swipe action buttons to the smartmobile mailbox page.
+* [mms] Optimize loading of message bodies when using dynamic view.
+* [mms] Load new mailbox when renaming current mailbox in dynamic view (Request #11394).
+* [mms] Add simple address autocompleter to smartmobile compose page.
+* [mms] Add refresh button to smartmobile folder page.
+* [jan] Fix popdown positioning in mailbox table header (Bug #11384).
    </notes>
   </release>
  </changelog>

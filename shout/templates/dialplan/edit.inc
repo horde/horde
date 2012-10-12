@@ -38,12 +38,11 @@
         <br style="clear:both;">
         <ul id="dialplanControls" class="controls">
         <?php
-        $addurl = Horde::url('dialplan.php');
-        $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
+        $addurl = Horde::url('dialplan.php')->add('action', 'add');
         ?>
 
         <li>
-            <a class="button" style="display: block;" href="<?php echo $addurl; ?>">
+            <a class="horde-create" style="display: block;" href="<?php echo $addurl; ?>">
             <?php echo Horde::img('menu-add.png'); ?>&nbsp;New Menu
             </a>
         </li>

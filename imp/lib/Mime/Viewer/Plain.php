@@ -58,7 +58,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
      */
     protected function _impRender($inline)
     {
-        global $conf, $prefs, $registry;
+        global $prefs, $registry;
 
         $mime_id = $this->_mimepart->getMimeId();
 
@@ -340,7 +340,6 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         $new_part = new Horde_Mime_Part();
         $new_part->setType('multipart/mixed');
-        $mime_id = $this->_mimepart->getMimeId();
 
         $text_part = new Horde_Mime_Part();
         $text_part->setType('text/plain');

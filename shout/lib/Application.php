@@ -111,6 +111,22 @@ class Shout_Application extends Horde_Registry_Application
 
     /**
      */
+    public function menu($menu)
+    {
+        $menu->add(Horde::url('dialplan.php'), _("Call Menus"), "dialplan.png");
+        $menu->add(Horde::url('recordings.php'), _("Recordings"), "recordings.png");
+        $menu->add(Horde::url('extensions.php'), _("Extensions"), "extension.png");
+        $menu->add(Horde::url('devices.php'), _("Devices"), "shout.png");
+        $menu->add(Horde::url('conferences.php'), _("Conferences"), "conference.png");
+
+        /* Administration. */
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'shout:admin'))) {
+            $menu->add(Horde::url('admin.php'), _("_Admin"), 'admin.png');
+        }
+    }
+
+    /**
+     */
     public function perms()
     {
         $perms = array(

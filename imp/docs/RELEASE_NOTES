@@ -14,7 +14,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Rel
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the third beta release of the Internet
+The Horde Team is pleased to announce the last beta release of the Internet
 Mail Program (IMP) version H5 (6.0.0).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
@@ -24,28 +24,26 @@ interfaces with a rich range of features normally found only in desktop email
 clients. For more information on IMP, visit http://www.horde.org/apps/imp.
 
 IMPORTANT! This is a preview version that should not be used on production
-systems. This version is not feature complete yet and there are likely to be
-bugs. You should not use this preview version with existing production data.
+systems. This version is feature complete but there are likely to be bugs. You
+should not use this preview version with existing production data.
 
 We encourage widespread testing and feedback via the mailing lists or our bug
 tracking system. Updated translations are very welcome, though some strings
 might still change before the release candidates are prepared.
 
-The major changes compared to the IMP version H5 (6.0.0beta2) are:
-    * Many improvements to the smartphone view.
-    * Allowed to automatically update calendar events from iTip messages.
-    * Allowed to edit address whitelist for HTML message images.
-    * Fixed iTip request handler.
-    * Further bugfixes and improvements.
+The major changes compared to the IMP version H5 (6.0.0beta3) are:
+    * Added address autocompletion to smartphone mode.
+    * Added swipe actions to the smartphone mailbox.
+    * Simplified ACL management.
+    * Many bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Many improvements to the smartphone view.
-Allowed to automatically update calendar events from iTip messages.
-Allowed to edit address whitelist for HTML message images.
-Fixed iTip request handler.
-Further bugfixes and improvements.
+Added address autocompletion to smartphone mode.
+Added swipe actions to the smartphone mailbox.
+Simplified ACL management.
+Many bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'IMP';

@@ -766,18 +766,23 @@ class Horde_ActiveSync_Imap_Adapter
         $imap_message = new Horde_ActiveSync_Imap_Message($imap, $mbox, $data);
         $eas_message = new Horde_ActiveSync_Message_Mail(array('protocolversion' => $version));
 
+        // Build To: data
         $to = $imap_message->getToAddresses();
         $eas_message->to = implode(',', $to['to']);
         $eas_message->displayto = implode(',', $to['displayto']);
         if (empty($eas_message->displayto)) {
             $eas_message->displayto = $eas_message->to;
         }
+
+        // Fill in other header data
         $eas_message->from = $imap_message->getFromAddress();
         $eas_message->subject = $imap_message->getSubject();
         $eas_message->datereceived = $imap_message->getDate();
         $eas_message->read = $imap_message->getFlag(Horde_Imap_Client::FLAG_SEEN);
         $eas_message->cc = $imap_message->getCc();
         $eas_message->reply_to = $imap_message->getReplyTo();
+
+        // Default to IPM.Note - may change below depending on message content.
         $eas_message->messageclass = 'IPM.Note';
 
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
@@ -795,6 +800,7 @@ class Horde_ActiveSync_Imap_Adapter
             $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
             $eas_message->attachments = $imap_message->getAttachments($version);
         } else {
+            // Determine the message's native type.
             $message_body_data = $imap_message->getMessageBodyData($options);
             if (!empty($message_body_data['html'])) {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_HTML;
@@ -803,6 +809,7 @@ class Horde_ActiveSync_Imap_Adapter
             }
             $haveData = false;
             $airsync_body = new Horde_ActiveSync_Message_AirSyncBaseBody();
+
             if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) &&
                 ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_ALL ||
                  ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_SMIME &&
@@ -815,21 +822,27 @@ class Horde_ActiveSync_Imap_Adapter
                 // alter the data in anyway or the signature will not be
                 // verified, so we fetch the entire message and hope for the best.
                 if (!$imap_message->isSigned()) {
+
+                    // Sending a non-signed MIME message, start building the
+                    // UTF-8 converted structure.
                     $mime = new Horde_Mime_Part();
                     $mime->setType('multipart/alternative');
+
+                    // Populate the text/plain part if we have one.
                     if (!empty($message_body_data['plain'])) {
                         $plain_mime = new Horde_Mime_Part();
                         $plain_mime->setType('text/plain');
                         $message_body_data['plain']['body'] = Horde_String::convertCharset(
                             $message_body_data['plain']['body'],
                             $message_body_data['plain']['charset'],
-                            'UTF-8',
-                            true
+                            'UTF-8'
                         );
                         $plain_mime->setContents($message_body_data['plain']['body']);
                         $plain_mime->setCharset('UTF-8');
                         $mime->addPart($plain_mime);
                     }
+
+                    // Populate the text/html part if we have one.
                     if (!empty($message_body_data['html'])) {
                         $html_mime = new Horde_Mime_Part();
                         $html_mime->setType('text/html');
@@ -838,7 +851,7 @@ class Horde_ActiveSync_Imap_Adapter
                         $mime->addPart($html_mime);
                     }
 
-                    // If we have attachments, create a multipart/mixed wrapper part.
+                    // If we have attachments, create a multipart/mixed wrapper.
                     if ($imap_message->hasAttachments()) {
                         $base = new Horde_Mime_Part();
                         $base->setType('multipart/mixed');
@@ -850,12 +863,15 @@ class Horde_ActiveSync_Imap_Adapter
                     } else {
                         $base = $mime;
                     }
+
+                    // Populate the EAS body structure with the MIME data.
                     $airsync_body->data = $base->toString(array(
                         'headers' => true,
                         'stream' => true)
                     );
                     $airsync_body->estimateddatasize = $base->getBytes();
                 } else {
+                    // Signed/Encrypted message - can't mess with it at all.
                     $raw = new Horde_ActiveSync_Rfc822($imap_message->getFullMsg(true));
                     $airsync_body->estimateddatasize = $raw->getBytes();
                     $airsync_body->data = $raw->getString();
@@ -875,41 +891,40 @@ class Horde_ActiveSync_Imap_Adapter
                 $haveData = true;
             } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]) ||
                       isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF])) {
+
+                // Sending non MIME encoded HTML message text.
                 $this->_logger->debug('Sending HTML Message.');
                 $haveData = true;
                 if (empty($message_body_data['html'])) {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
                     $message_body_data['html'] = array(
-                        'body' => $message_body_data['plain']['body'],
+                        'body' => Horde_String::convertCharset($message_body_data['plain']['body'], $message_body_data['plain']['charset'], 'UTF-8'),
                         'estimated_size' => $message_body_data['plain']['size'],
                         'truncated' => $message_body_data['plain']['truncated'],
-                        'body' => $message_body_data['plain']['body'],
-                        'charset' => $message_body_data['plain']['charset']
+                        'body' => $message_body_data['plain']['body']
                     );
                 } else {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
+                    $message_body_data['html']['body'] = Horde_String::convertCharset(
+                        $message_body_data['html']['body'],
+                        $message_body_data['html']['charset'],
+                        'UTF-8'
+                    );
                 }
-                $message_body_data['html']['body'] = Horde_String::convertCharset(
-                    $message_body_data['html']['body'],
-                    $message_body_data['html']['charset'],
-                    'UTF-8',
-                    true
-                );
                 $airsync_body->estimateddatasize = $message_body_data['html']['estimated_size'];
                 $airsync_body->truncated = $message_body_data['html']['truncated'];
                 $airsync_body->data = $message_body_data['html']['body'];
                 $eas_message->airsyncbasebody = $airsync_body;
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
             } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) || !$haveData) {
+
+                // Non MIME encoded plaintext
                 $this->_logger->debug('Sending PLAINTEXT Message.');
 
-                // We must ensure we convert to UTF-8, so force the conversion
-                // to catch buggy messages that incorrectly report UTF-8.
                 $message_body_data['plain']['body'] = Horde_String::convertCharset(
                     $message_body_data['plain']['body'],
                     $message_body_data['plain']['charset'],
-                    'UTF-8',
-                    true
+                    'UTF-8'
                 );
                 $airsync_body->estimateddatasize = $message_body_data['plain']['size'];
                 $airsync_body->truncated = $message_body_data['plain']['truncated'];
@@ -960,27 +975,45 @@ class Horde_ActiveSync_Imap_Adapter
             }
         }
 
-        // Check for meeting requests.
-        $eas_message->contentclass = 'urn:content-classes:message';
-        if ($mime_part = $imap_message->hasiCalendar()) {
-            $data = $mime_part->getContents();
-            $vCal = new Horde_Icalendar();
-            if ($vCal->parsevCalendar($data, 'VCALENDAR', $mime_part->getCharset())) {
-                switch ($vCal->getAttribute('METHOD')) {
-                case 'REQUEST':
-                case 'PUBLISH':
-                    $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
-                    $mtg = new Horde_ActiveSync_Message_MeetingRequest();
-                    $mtg->fromvEvent($vCal);
-                    $eas_message->meetingrequest = $mtg;
+        // Check for meeting requests and POOMMAIL_FLAG data
+        if ($this->version >= Horde_ActiveSync::VERSION_TWELVE) {
+            $eas_message->contentclass = 'urn:content-classes:message';
+            if ($mime_part = $imap_message->hasiCalendar()) {
+                $data = $mime_part->getContents();
+                $vCal = new Horde_Icalendar();
+                if ($vCal->parsevCalendar($data, 'VCALENDAR', $mime_part->getCharset())) {
                     $eas_message->contentclass = 'urn:content-classes:calendarmessage';
-                    break;
+                    switch ($vCal->getAttribute('METHOD')) {
+                    case 'REQUEST':
+                    case 'PUBLISH':
+                        $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
+                        $mtg = new Horde_ActiveSync_Message_MeetingRequest();
+                        $mtg->fromvEvent($vCal);
+                        $eas_message->meetingrequest = $mtg;
+                        break;
+                    case 'REPLY':
+                        try {
+                            $reply_status = $this->_getiTipStatus($vCal, $eas_message->from);
+                            switch ($reply_status) {
+                            case 'ACCEPTED':
+                                $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Pos';
+                                break;
+                            case 'DECLINED':
+                                $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Neg';
+                                break;
+                            case 'TENTATIVE':
+                                $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Tent';
+                            }
+                            $mtg = new Horde_ActiveSync_Message_MeetingRequest();
+                            $mtg->fromvEvent($vCal);
+                            $eas_message->meetingrequest = $mtg;
+                        } catch (Horde_ActiveSync_Exception $e) {
+                            $this->_logger->err($e->getMessage());
+                        }
+                    }
                 }
             }
-        }
 
-        // POOMMAIL_FLAG
-        if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
             $poommail_flag = new Horde_ActiveSync_Message_Flag();
             $poommail_flag->subject = $imap_message->getSubject();
             $poommail_flag->flagstatus = $imap_message->getFlag(Horde_Imap_Client::FLAG_FLAGGED)
@@ -991,6 +1024,66 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         return $eas_message;
+    }
+
+    /**
+     * Return the attendee participation status.
+     *
+     * @param Horde_Icalendar
+     * @throws Horde_ActiveSync_Exception
+     */
+    protected function _getiTipStatus($vCal, $from)
+    {
+        foreach ($vCal->getComponents() as $key => $component) {
+            switch ($component->getType()) {
+            case 'vEvent':
+                try {
+                    $atname = $component->getAttribute('ATTENDEE');
+                } catch (Horde_Icalendar_Exception $e) {
+                    throw new Horde_ActiveSync_Exception($e);
+                }
+                // EAS only allows a single name per response.
+                if (is_array($atname)) {
+                    $atname = current($atname);
+                }
+
+                try {
+                    $version = $component->getAttribute('VERSION');
+                } catch (Horde_Icalendar_Exception $e) {
+                    throw new Horde_ActiveSync_Exception($e);
+                }
+                if ($version < 2) {
+                    $addr = new Horde_Mail_Rfc822_Address($atname);
+                    if (!$addr->isValid) {
+                        throw new Horde_ActiveSync_Exception('Invalid Email Address');
+                    }
+                    $attendee = Horde_String::lower($addr->bare_address);
+                } else {
+                    $attendee = str_replace('mailto:', '', Horde_String::lower($atname));
+                }
+
+                // Require the sender to be the same as the attendee.
+                $addr = new Horde_Mail_Rfc822_Address($from);
+                $from = Horde_String::lower($addr->bare_address);
+                if ($from != $attendee) {
+                    throw new Horde_ActiveSync_Exception(sprintf(
+                        'Unmatched sender and attendee: %s, %s',
+                        $from,
+                        $attendee));
+                }
+                try {
+                    $atparams = $component->getAttribute('ATTENDEE', true);
+                } catch (Horde_Icalendar_Exception $e) {
+                    throw new Horde_ActiveSync_Exception($e);
+                }
+
+                if (!is_array($atparams)) {
+                    throw new Horde_Icalendar_Exception('Unexpected value');
+                }
+
+                return $atparams[0]['PARTSTAT'];
+            }
+        }
     }
 
     /**

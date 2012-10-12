@@ -12,12 +12,11 @@
  * use mime_drivers-servername.php.
  *
  * Additional settings for IMP:
- * + If you want to limit the display of message data inline for large
- *   messages of a certain type, add a 'limit_inline_size' parameter to the
- *   desired mime type to the maximum size of the displayed message in bytes
- *   (see example under text/plain below).  If set, the user will only be able
- *   to download the part.  Don't set the parameter, or set to 0, to disable
- *   this check.
+ *   - limit_inline_size: (integer) If present, limits the display of message
+ *     data inline for large messages.  The value is the maximum number of
+ *     bytes that can be shown for the part; above this limit, the user will
+ *     only be able to download the part. Don't set the parameter, or set the
+ *     value to 0, to disable this check.
  */
 
 $mime_drivers = array(
@@ -30,10 +29,6 @@ $mime_drivers = array(
             'text/rfc822-headers'
         ),
 
-        /* If you want to limit the display of message data inline for large
-         * messages, set the maximum size of the displayed message here (in
-         * bytes).  If exceeded, the user will only be able to download the
-         * part. Set to 0 to disable this check. */
         'limit_inline_size' => 1048576,
 
         /* If you want to scan ALL incoming text/plain messages for UUencoded
@@ -55,10 +50,6 @@ $mime_drivers = array(
             'default' => 'html.png'
         ),
 
-        /* If you want to limit the display of message data inline for large
-         * messages, set the maximum size of the displayed message here (in
-         * bytes).  If exceeded, the user will only be able to download the
-         * part. Set to 0 to disable this check. */
         'limit_inline_size' => 1048576,
 
         /* Check for phishing exploits? */

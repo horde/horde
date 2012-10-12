@@ -162,7 +162,7 @@ class Kronolith_Driver
         $events = $this->listEvents(
             (!empty($query->start) ? $query->start : null),
             (!empty($query->end) ? $query->end : null));
-        foreach ($events as $day => $day_events) {
+        foreach ($events as $day_events) {
             foreach ($day_events as $event) {
                 if ((((!isset($query->start) ||
                        $event->end->compareDateTime($query->start) > 0) &&
@@ -432,6 +432,8 @@ class Kronolith_Driver
 
     /**
      * Stub to be overridden in the child class.
+     *
+     * @param mixed $eventId  Either the event id to delete, or the event object.
      */
     public function deleteEvent($eventId)
     {
@@ -457,5 +459,56 @@ class Kronolith_Driver
     public function removeUserData($user)
     {
         throw new Kronolith_Exception('Deprecated.');
+    }
+
+    /**
+     * Helper function to update an existing event's tags to tagger storage.
+     *
+     * @param Kronolith_Event $event  The event to update
+     */
+    protected function _updateTags(Kronolith_Event $event)
+    {
+        Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, 'event');
+
+        // Resources don't currently have owners, so can't tag as owner.
+        if ($event->calendarType == 'resource') {
+            return;
+        }
+
+        // Add tags again, but as the share owner (replaceTags removes ALL tags)
+        try {
+            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
+        } catch (Horde_Share_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+        Kronolith::getTagger()->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
+    }
+
+    /**
+     * Helper function to add tags from a newly creted event to the tagger.
+     *
+     * @param Kronolith_Event $event  The event to save tags to storage for.
+     */
+    protected function _addTags(Kronolith_Event $event)
+    {
+        $tagger = Kronolith::getTagger();
+        $tagger->tag($event->uid, $event->tags, $event->creator, 'event');
+
+        // Resources don't currently have owners, so can't tag as owner.
+        if ($event->calendarType == 'resource') {
+            return;
+        }
+
+        // Add tags again, but as the share owner.
+        try {
+            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Kronolith_Exception($e);
+        }
+
+        if ($cal->get('owner') != $event->creator) {
+            $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
+        }
     }
 }

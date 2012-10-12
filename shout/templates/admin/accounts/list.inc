@@ -7,15 +7,14 @@
         </tr>
         <?php
             $url = Horde::url("admin/accounts.php");
-            $editurl = Horde_Util::addParameter($url, 'action', 'edit');
-            $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
+            $editurl = $url->copy()->add('action', 'edit');
+            $deleteurl = $url->copy()->('action', 'delete');
             foreach ($accounts as $acctinfo) {
                 $code = $acctinfo['code'];
                 ?>
                 <tr class="item" style="vertical-align: top">
                     <td>
-                        <?php echo Horde::link(Horde_Util::addParameter($editurl,
-                            array('account' => $code))); echo $code; echo '</a>'; ?>
+                        <?php echo Horde::link($editurl->add(array('account' => $code))); echo $code; echo '</a>'; ?>
                     </td>
                     <td>
                         <?php echo $acctinfo['name']; ?>
@@ -31,9 +30,9 @@
 </div>
 <ul id="controls">
     <?php
-    $addurl = Horde_Util::addParameter($url, 'action', 'add');
+    $addurl = $url->copy()->add('action', 'add');
     ?>
-    <li><a class="button" href="<?php echo $addurl; ?>">
+    <li><a class="horde-create" href="<?php echo $addurl; ?>">
         <?php echo Horde::img('extension-add.png'); ?>&nbsp;New Account
         </a>
     </li>

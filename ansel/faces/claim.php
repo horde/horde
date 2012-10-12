@@ -65,7 +65,6 @@ if ($form->validate()) {
 $page_output->header(array(
     'title' => $title
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive(null, null, null, 'post');
 $page_output->footer();

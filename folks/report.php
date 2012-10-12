@@ -65,6 +65,6 @@ if ($form->validate()) {
 $page_output->header(array(
     'title' => $title
 ));
-require FOLKS_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 $form->renderActive(null, null, null, 'post');
 $page_output->footer();

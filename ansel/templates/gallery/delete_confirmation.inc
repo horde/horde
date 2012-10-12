@@ -9,7 +9,7 @@
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="action" value="<?php echo $actionID ?>" />
 <input type="hidden" name="gallery" value="<?php echo htmlspecialchars($galleryId) ?>" />
-<input type="submit" class="button" value="<?php echo $actionID == 'delete' ? _("Really Delete") : _("Really Empty") ?>" />
-<input type="button" class="button" value="<?php echo _("Cancel") ?>" onclick="history.back()" />
+<input type="submit" class="horde-delete" value="<?php echo $actionID == 'delete' ? _("Really Delete") : _("Really Empty") ?>" />
+<input type="button" class="horde-cancel" value="<?php echo _("Cancel") ?>" onclick="history.back()" />
 </form>
 </div>

@@ -15,7 +15,10 @@
 var HordeMobile = {
 
     notify_handler: function(m) { return HordeMobile.showNotifications(m); },
+    //page_init: false,
     serverError: 0,
+
+    loading: 0,
 
     /**
      * Common URLs.
@@ -44,18 +47,22 @@ var HordeMobile = {
      * @param object params      The parameter hash for the AJAX request.
      * @param function callback  A callback function for successful request.
      * @param object opts        Additional options for jQuery.ajax().
+     *
+     * @return jqXHR  jQuery XHR object.
      */
     doAction: function(action, params, callback, opts)
     {
         params = params || {};
+
         params.token = HordeMobile.conf.token;
         if (HordeMobile.conf.sid) {
             $.extend(params, HordeMobile.conf.sid.toQueryParams());
         }
 
+        HordeMobile.loading++;
         $.mobile.showPageLoadingMsg();
 
-        var options = $.extend({
+        return $.ajax($.extend({
             data: params,
             error: $.noop,
             success: function(d, t, x) {
@@ -63,8 +70,7 @@ var HordeMobile = {
             },
             type: 'post',
             url: HordeMobile.conf.ajax_url + action,
-        }, opts || {});
-        $.ajax(options);
+        }, opts || {}));
     },
 
     doActionComplete: function(d, callback)
@@ -98,7 +104,10 @@ var HordeMobile = {
 
         HordeMobile.inAjaxCallback = false;
 
-        $.mobile.hidePageLoadingMsg();
+        HordeMobile.loading--;
+        if (!HordeMobile.loading) {
+            $.mobile.hidePageLoadingMsg();
+        }
     },
 
     /**
@@ -150,91 +159,101 @@ var HordeMobile = {
     },
 
     /**
-     * Safe wrapper that makes sure that no dialog is still open before
-     * calling a function.
-     *
-     * @param function func    A function to execute after the current dialog
-     *                         has been closed
-     * @param array whitelist  A list of page IDs that should not be waited
-                               for.
-     */
-    onDialogClose: function(func, whitelist)
-    {
-        whitelist = whitelist || [];
-
-        if ($.mobile.activePage.jqmData('role') == 'dialog' &&
-            $.inArray($.mobile.activePage.attr('id'), whitelist) == -1) {
-            $.mobile.activePage.bind('pagehide', function(e) {
-                $(e.currentTarget).unbind(e);
-                window.setTimeout(function() {
-                    HordeMobile.onDialogClose(func, whitelist);
-                }, 0);
-            });
-        } else {
-            func();
-        }
-    },
-
-    /**
-     * Safe wrapper around $.mobile.changePage() that makes sure that no
-     * dialog is still open before changing to the new page.
+     * Wrapper around $.mobile.changePage() to do Horde framework specifc
+     * tasks.
      *
      * @param string|object page  The page to navigate to.
+     * @param object data         The request data object.
+     * @param object opts         Options to pass to $.mobile.changePage.
      */
-    changePage: function(page)
+    changePage: function(page, data, opts)
     {
-        HordeMobile.onDialogClose(function() { $.mobile.changePage(page); });
+        opts = opts || {};
+
+        if (data) {
+            opts.dataUrl = data.toPage;
+        }
+
+        $.mobile.changePage($('#' + page), opts);
     },
 
     /**
-     * Checks if the current page matches the ID.
+     * Returns the current page ID.
      *
-     * @param string  The ID to check.
-     *
-     * @return boolean  True if page is equal to ID.
+     * @return string  The page ID, or null if no page is loaded.
      */
     currentPage: function(page)
     {
-        return ($.mobile.activePage &&
-                $.mobile.activePage.attr('id') == page);
+        return $.mobile.activePage
+            ? $.mobile.activePage.attr('id')
+            : null;
     },
 
     /**
-     * Parses a URL and returns the current view/parameter information.
+     * Create a URL to a smartmobile page.
      *
-     * @param string  The URL.
-     *
-     * @return object  Object with the following keys:
-     *   - params: (object) List of URL parameters.
-     *   - parsed: (object) Parsed URL object.
-     *   - view: (string) The current view (URL hash value).
+     * @param string page    The page name.
+     * @param object params  URL parameters.
      */
-    parseUrl: function(url)
+    createUrl: function(page, params)
     {
-        if (typeof url != 'string') {
-            return {};
+        var url = '#' + page, tmp = [];
+        params = params || {};
+
+        if (!$.isEmptyObject(params)) {
+            $.each(params, function(k, v) {
+                tmp.push(k + '=' + (typeof(v) == 'undefined' ? '' : v));
+            });
+            url += '?' + tmp.join('&');
         }
 
-        var parsed = $.mobile.path.parseUrl(url),
-            match = /^#([^?]*)/.exec(parsed.hash);
-
-        return {
-            params: parsed.hash.toQueryParams(),
-            parsed: parsed,
-            view: match ? match[1] : undefined
-        };
+        return url;
     },
 
     /**
      * Manually update hash: jqm exits too early if calling changePage() with
      * the same page but different hash parameters.
      *
-     * @param object url  A URL object from parseUrl().
+     * @param object url  A parsed URL object.
      */
     updateHash: function(url)
     {
         $.mobile.urlHistory.ignoreNextHashChange = true;
         $.mobile.path.set(url.parsed.hash);
+    },
+
+    /**
+     * Commands to run when changing a page.
+     */
+    onPageBeforeChange: function(e, data)
+    {
+        /* This code is needed for deep hash linking with parameters, since
+         * the jquery mobile code will consider these hashes invalid and will
+         * load the first page instead. */
+        if (!this.page_init &&
+            !$.mobile.activePage &&
+            typeof data.toPage !== 'string') {
+            data.toPage = location.href;
+        }
+
+        this.page_init = true;
+
+        /* Add view/parameter data to dataUrl:
+         *   - params: (object) List of URL parameters.
+         *   - parsed: (object) Parsed URL object.
+         *   - view: (string) The current view (URL hash value). */
+        if (typeof data.toPage === 'string') {
+            var parsed = $.mobile.path.parseUrl(data.toPage),
+                match = /^#([^?]*)/.exec(parsed.hash);
+
+            data.options.parsedUrl = {
+                params: $.extend({}, parsed.search.toQueryParams(), parsed.hash.toQueryParams()),
+                parsed: parsed,
+                view: match ? match[1] : undefined
+            };
+        } else {
+            data.options.parsedUrl = {};
+        }
     },
 
     /**
@@ -260,3 +279,4 @@ var HordeMobile = {
 };
 
 $(HordeMobile.onDocumentReady);
+$(document).bind('pagebeforechange', HordeMobile.onPageBeforeChange);

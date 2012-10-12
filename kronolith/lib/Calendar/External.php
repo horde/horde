@@ -34,12 +34,18 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
     protected $_name;
 
     /**
+     * The type of timeobject.
+     * I.e., a single or share type.
+     *
+     * @var string
+     */
+    protected $_type = 'share';
+
+    /**
      * Constructor.
      *
      * @param array $params  A hash with any parameters that this calendar
      *                       might need.
-     *                       Required parameters:
-     *                       - share: The share of this calendar.
      */
     public function __construct($params = array())
     {
@@ -52,6 +58,10 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
         if (!isset($params['api'])) {
             throw new BadMethodCallException('api parameter is missing');
         }
+        if (!empty($params['type'])) {
+            $this->_type = $params['type'];
+        }
+
         parent::__construct($params);
     }
 
@@ -73,6 +83,7 @@ class Kronolith_Calendar_External extends Kronolith_Calendar
     public function display()
     {
         return empty($GLOBALS['conf']['share']['hidden']) ||
+            $this->_type != 'share' ||
             in_array($this->_api . '/' . $this->_id, $GLOBALS['display_external_calendars']);
     }
 

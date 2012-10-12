@@ -228,23 +228,26 @@ abstract class Whups_Driver
 
         $versioninfo = $this->getVersionInfo($queue);
         $versions = array();
-        $old_versions = false;
+        $old_versions = array();
         foreach ($versioninfo as $vinfo) {
-            if (!$all && !$vinfo['active']) {
-                $old_versions = $vinfo['id'];
-                continue;
-            }
-            $versions[$vinfo['id']] = $vinfo['name'];
+            $name = $vinfo['name'];
             if (!empty($vinfo['description'])) {
-                $versions[$vinfo['id']] .= ': ' . $vinfo['description'];
+                $name .= ': ' . $vinfo['description'];
             }
             if ($all && !$vinfo['active']) {
-                $versions[$vinfo['id']] .= ' ' . _("(inactive)");
+                $name .= ' ' . _("(inactive)");
+            }
+            if ($vinfo['active']) {
+                $versions[$vinfo['id']] = $name;
+            } else {
+                $old_versions[$vinfo['id']] = $name;
             }
         }
 
-        if ($old_versions) {
-            $versions[$old_versions] = _("Older? Please update first!");
+        if ($old_versions && !$all) {
+            $versions[key($old_versions)] = _("Older? Please update first!");
+        } else {
+            $versions += $old_versions;
         }
 
         return $versions;

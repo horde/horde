@@ -16,8 +16,9 @@ if (Kronolith::showAjaxView()) {
 }
 
 // Exit if this isn't an authenticated, administrative user
+$default = Horde::url($prefs->getValue('defaultview') . '.php', true);
 if (!$registry->isAdmin()) {
-    Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
+    $default->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -26,22 +27,18 @@ $form = new Kronolith_Form_CreateResource($vars);
 // Execute if the form is valid.
 if ($form->validate($vars)) {
     try {
-        $result = $form->execute();
+        $form->execute();
         $notification->push(sprintf(_("The calendar \"%s\" has been created."), $vars->get('name')), 'horde.success');
+        $default->redirect();
     } catch (Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
     }
-
-    Horde::url('resources/', true)->redirect();
-    exit;
 }
 
-$menu = Kronolith::menu();
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo $menu;
 $notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('resources/create.php'), 'post');
 $page_output->footer();

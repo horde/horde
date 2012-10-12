@@ -30,18 +30,18 @@ $view = new Horde_Core_Block_Layout_View(
     Horde::url('services/portal/index.php', true)
 );
 $layout_html = $view->toHtml();
-
-$topbar = $injector->getInstance('Horde_View_Topbar');
-$topbar->subinfo = htmlspecialchars($injector->getInstance('Horde_Core_Factory_Identity')->create()->getDefaultFromAddress(true));
+$injector->getInstance('Horde_View_Topbar')->subinfo =
+    htmlspecialchars($injector->getInstance('Horde_Core_Factory_Identity')->create()->getDefaultFromAddress(true));
 
 foreach ($view->getStylesheets() as $val) {
     $page_output->addStylesheet($val['fs'], $val['uri']);
 }
+$page_output->sidebar = false;
 
 $page_output->header(array(
     'title' => _("My Portal")
 ));
-echo $topbar->render();
+
 if (!$prefs->isLocked('portal_layout')) {
     include HORDE_TEMPLATES . '/portal/new.inc';
 }

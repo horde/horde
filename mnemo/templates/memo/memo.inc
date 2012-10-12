@@ -1,15 +1,13 @@
 <h1 class="header"><?php echo htmlspecialchars($title) ?></h1>
 
-<div class="noteArea">
+<div class="horde-content">
 <?php
-if ($memo_id):
-    $memourl = Horde_Util::addParameter('memo.php', array('memo' => $memo_id,
-                                                    'memolist' => $memolist_id));
-
+if ($memo_id) {
+    $memourl = Horde::url('memo.php')
+        ->add(array('memo' => $memo_id, 'memolist' => $memolist_id));
     $share = $GLOBALS['mnemo_shares']->getShare($memolist_id);
-    if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)): ?>
- <span class="rightFloat"><input type="button" class="button" value="<?php echo _("Delete this note") ?>" onclick="window.location='<?php echo addslashes(Horde::url(Horde_Util::addParameter($memourl, 'actionID', 'delete_memos'))) ?>';" /></span>
-<?php endif; endif; ?>
+}
+?>
 
 <?php if ($actionID == 'modify_memo' && $show_passphrase): ?>
  <div class="notePassword">
@@ -20,7 +18,7 @@ if ($memo_id):
    <input type="hidden" name="memo" value="<?php echo $memo_id ?>" />
    <?php echo Horde::label('memo_passphrase', _("_Password")) ?>:
    <input type="password" id="memo_passphrase" name="memo_passphrase" />
-   <input type="submit" class="button" value="<?php echo _("Decrypt") ?>" />
+   <input type="submit" value="<?php echo _("Decrypt") ?>" />
   </form>
  </div>
  <script type="text/javascript" >
@@ -54,8 +52,11 @@ if ($memo_id):
  <textarea name="memo_body" id="memo_body" class="fixed" rows="20" onchange="updateCharCount()" onclick="updateCharCount()" onkeypress="setTimeout('updateCharCount()', 1)"><?php echo htmlspecialchars($memo_body) ?></textarea>
  <?php try { echo Horde::callHook('description_help', array(), 'mnemo', ''); } catch (Horde_Exception_HookNotSet $e) {} ?>
 
- <p>
-  <input type="submit" class="button" value="<?php echo _("Save") ?>" onclick="return checkCategory();" />
+ <p class="horde-form-buttons">
+  <input type="submit" class="horde-default" value="<?php echo _("Save") ?>" onclick="return checkCategory();" />
+<?php if (isset($share) && $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)): ?>
+  <a class="horde-delete" href="<?php echo $memourl->add('actionID', 'delete_memos') ?>"><?php echo _("Delete this note") ?></a>
+<?php endif ?>
  </p>
  <table>
   <?php if (!$prefs->isLocked('default_notepad') && count($notepads) > 1): ?>

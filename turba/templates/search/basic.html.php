@@ -17,4 +17,4 @@
 
 <strong><label for="val"><?php echo _("Matching") ?></label></strong>
 <input type="text" size="30" id="val" name="val" value="<?php echo $this->h($this->val) ?>" />
-<input class="button" type="submit" name="search" value="<?php echo _("Search") ?>" />
+<input class="horde-default" type="submit" name="search" value="<?php echo _("Search") ?>" />

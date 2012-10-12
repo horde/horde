@@ -69,24 +69,59 @@ class Hermes_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        $menu->add(Horde::url('time.php'), _("My _Time"), 'hermes.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        $menu->add(Horde::url('entry.php'), _("_New Time"), 'hermes.png', null, null, null, Horde_Util::getFormData('id') ? '__noselection' : null);
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
+        $menu->add(Horde::url('time.php'), _("My _Time"), 'hermes-time');
+
+        $menu->add(
+            Horde::url('start.php'),
+            _("Start Watch"),
+            'hermes-start',
+            null,
+            null,
+            Horde::popupJs(Horde::url('start.php'), array('height' => 200, 'width' => 410)) . 'return false;'
+        );
+        if ($timers = @unserialize($GLOBALS['prefs']->getValue('running_timers'))) {
+            $entry = Horde::url('entry.php');
+            foreach ($timers as $i => $timer) {
+                $hours = round((float)(time() - $i) / 3600, 2);
+                $menu->add($entry->add('timer', $i),
+                           $timer['name'] . sprintf(" (%s)", $hours),
+                           'hermes-stop', null, '', null, '__noselection');
+            }
+        }
+
+        $menu->add(Horde::url('search.php'), _("_Search"), 'hermes-search');
 
         if ($GLOBALS['conf']['time']['deliverables'] &&
             $GLOBALS['registry']->isAdmin(array('permission' => 'hermes:deliverables'))) {
-            $menu->add(Horde::url('deliverables.php'), _("_Deliverables"), 'hermes.png');
+            $menu->add(Horde::url('deliverables.php'),
+                       _("_Deliverables"),
+                       'hermes-time');
         }
 
         if ($GLOBALS['conf']['invoices']['driver'] &&
             $GLOBALS['registry']->isAdmin(array('permission' => 'hermes:invoicing'))) {
-            $menu->add(Horde::url('invoicing.php'), _("_Invoicing"), 'invoices.png');
+            $menu->add(Horde::url('invoicing.php'),
+                       _("_Invoicing"),
+                       'hermes-invoices');
         }
 
         /* Administration. */
         if ($GLOBALS['registry']->isAdmin()) {
-            $menu->add(Horde::url('admin.php'), _("_Admin"), 'hermes.png');
+            $menu->add(Horde::url('admin.php'), _("_Admin"), 'hermes-time');
         }
+    }
+
+    /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        $sidebar->addNewButton(
+            _("_New Time"),
+            Horde::url('entry.php')
+        );
     }
 
     /* Topbar method. */
@@ -129,7 +164,8 @@ class Hermes_Application extends Horde_Registry_Application
                 'expanded' => false,
                 'params' => array(
                     'icon' => Horde_Themes::img('timer-start.png'),
-                    'url' => htmlspecialchars('javascript:' . Horde::popupJs(Horde::url('start.php'), array('height' => 200, 'width' => 400)))
+                    'url' => '#',
+                    'onclick' => Horde::popupJs(Horde::url('start.php'), array('height' => 200, 'width' => 400))
                 )
             ));
 

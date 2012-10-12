@@ -191,32 +191,12 @@ var Horde_Calendar =
             }
         }
 
-        // IE 6 only.
-        if (Prototype.Browser.IE && !window.XMLHttpRequest) {
-            iframe = $('hordeCalendarIframe');
-            if (!iframe) {
-                iframe = new Element('IFRAME', { name: 'hordeCalendarIframe', id: 'hordeCalendarIframe', src: 'javascript:false;', scrolling: 'no', frameborder: 0 }).hide();
-                $(document.body).insert(iframe);
-            }
-            iframe.clonePosition(div).setStyle({
-                position: 'absolute',
-                display: 'block',
-                zIndex: 1
-            });
-        }
-
         div.setStyle({ zIndex: 999 });
     },
 
     hideCal: function()
     {
-        var iefix = $('hordeCalendarIframe');
-
         $('hordeCalendar').hide();
-
-        if (iefix) {
-            iefix.hide();
-        }
     },
 
     changeYear: function(by)

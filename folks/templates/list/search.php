@@ -12,8 +12,8 @@ if (!empty($queries)):
 <?php
 foreach ($queries as $query) {
     $delete_img = Horde::img('delete.png', _("Delete"));
-    echo '<tr><td>' . Horde::link(Horde_Util::addParameter(Horde::url('search.php'), 'query', $query), '', 'bottom') . $query . '</a></td>';
-    echo '<td>' . Horde::link(Horde_Util::addParameter(Horde::url('save_search.php'), array('query' => $query, 'delete' => 1))) . $delete_img . '</a></td></tr>';
+    echo '<tr><td>' . Horde::link(Horde::url('search.php')->add('query', $query), '', 'bottom') . $query . '</a></td>';
+    echo '<td>' . Horde::link(Horde::url('save_search.php')->add(array('query' => $query, 'delete' => 1))) . $delete_img . '</a></td></tr>';
 }
 ?>
 </table>

@@ -310,10 +310,12 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     }
 
                     $organizerEmail = $organizer['path'];
+
                     $organizer = $vFb->getAttribute('ORGANIZER', true);
-                    $organizerName = isset($organizer['cn'])
-                        ? $organizer['cn']
-                        : '';
+                    $organizerFullEmail = new Horde_Mail_Rfc822_Address($organizerEmail);
+                    if (isset($organizer['cn'])) {
+                        $organizerFullEmail->personal = $organizer['cn'];
+                    }
 
                     if ($action == 'reply2m') {
                         $startStamp = time();
@@ -381,7 +383,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     $msg_headers->addMessageIdHeader();
                     $msg_headers->addHeader('Date', date('r'));
                     $msg_headers->addHeader('From', $email);
-                    $msg_headers->addHeader('To', $organizerEmail);
+                    $msg_headers->addHeader('To', $organizerFullEmail);
 
                     $identity->setDefault($vars->identity);
                     $replyto = $identity->getValue('replyto_addr');

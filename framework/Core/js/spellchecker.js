@@ -91,22 +91,22 @@ var SpellChecker = Class.create({
         this.target.fire('SpellChecker:before');
 
         var opts = Object.clone(this.options),
-            p = $H(),
-            url = this.url;
+            p = $H();
 
         this.setStatus('Checking');
 
         p.set(this.target.identify(), this.targetValue());
-        opts.parameters = p.toQueryString();
 
         if (this.locale) {
-            url += '/locale=' + this.locale;
+            p.set('locale', this.locale);
         }
         if (this.htmlAreaParent) {
-            url += '/html=1';
+            p.set('html', 1);
         }
 
-        new Ajax.Request(url, opts);
+        opts.parameters = p.toQueryString();
+
+        new Ajax.Request(this.url, opts);
     },
 
     onComplete: function(request)
