@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-11</date>
- <time>00:11:05</time>
+ <date>2012-10-12</date>
+ <time>23:06:35</time>
  <version>
   <release>6.0.0beta4</release>
   <api>6.0.0beta1</api>
@@ -2743,7 +2743,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-11</date>
+   <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Add predefined templates to ACL management screen (Request #10648).

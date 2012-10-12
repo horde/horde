@@ -1,6 +1,6 @@
-----------
-v6.0.0-git
-----------
+-----------
+v6.0.0beta4
+-----------
 
 [mms] Add predefined templates to ACL management screen (Request #10648).
 [mms] Capture key shortcuts on dynamic mailbox page even if focus is on IFRAME
