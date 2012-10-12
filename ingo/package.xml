@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-20</date>
- <time>01:30:28</time>
+ <date>2012-10-12</date>
+ <time>23:10:24</time>
  <version>
   <release>3.0.0beta2</release>
   <api>3.0.0beta1</api>
@@ -68,8 +68,15 @@
     <file name="filters.js" role="horde" />
     <file name="new_folder.js" role="horde" />
     <file name="rule.js" role="horde" />
+    <file name="smartmobile.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
+    <dir name="Ajax">
+     <dir name="Application">
+      <file name="Smartmobile.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Application -->
+     <file name="Application.php" role="horde" />
+    </dir> <!-- /lib/Ajax -->
     <dir name="Block">
      <file name="Overview.php" role="horde" />
     </dir> <!-- /lib/Block -->
@@ -192,6 +199,7 @@
     <file name="Exception.php" role="horde" />
     <file name="Ingo.php" role="horde" />
     <file name="Script.php" role="horde" />
+    <file name="Smartmobile.php" role="horde" />
     <file name="Storage.php" role="horde" />
     <file name="Test.php" role="horde" />
     <file name="Transport.php" role="horde" />
@@ -429,6 +437,10 @@
      <file name="header.inc" role="horde" />
      <file name="script.inc" role="horde" />
     </dir> <!-- /templates/script -->
+    <dir name="smartmobile">
+     <file name="rule.html.php" role="horde" />
+     <file name="rules.html.php" role="horde" />
+    </dir> <!-- /templates/smartmobile -->
     <dir name="whitelist">
      <file name="whitelist.inc" role="horde" />
     </dir> <!-- /templates/whitelist -->
@@ -451,6 +463,9 @@
       <file name="vacation.png" role="horde" />
       <file name="whitelist.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
+     <dir name="smartmobile">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/smartmobile -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
     </dir> <!-- /themes -->
@@ -462,6 +477,7 @@
    <file name="README" role="doc" />
    <file name="rule.php" role="horde" />
    <file name="script.php" role="horde" />
+   <file name="smartmobile.php" role="horde" />
    <file name="spam.php" role="horde" />
    <file name="vacation.php" role="horde" />
    <file name="whitelist.php" role="horde" />
@@ -609,14 +625,18 @@
    <install as="ingo/js/filters.js" name="js/filters.js" />
    <install as="ingo/js/new_folder.js" name="js/new_folder.js" />
    <install as="ingo/js/rule.js" name="js/rule.js" />
+   <install as="ingo/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="ingo/lib/Api.php" name="lib/Api.php" />
    <install as="ingo/lib/Application.php" name="lib/Application.php" />
    <install as="ingo/lib/Exception.php" name="lib/Exception.php" />
    <install as="ingo/lib/Ingo.php" name="lib/Ingo.php" />
    <install as="ingo/lib/Script.php" name="lib/Script.php" />
+   <install as="ingo/lib/Smartmobile.php" name="lib/Smartmobile.php" />
    <install as="ingo/lib/Storage.php" name="lib/Storage.php" />
    <install as="ingo/lib/Test.php" name="lib/Test.php" />
    <install as="ingo/lib/Transport.php" name="lib/Transport.php" />
+   <install as="ingo/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="ingo/lib/Ajax/Application/Smartmobile.php" name="lib/Ajax/Application/Smartmobile.php" />
    <install as="ingo/lib/Block/Overview.php" name="lib/Block/Overview.php" />
    <install as="ingo/lib/Exception/Pear.php" name="lib/Exception/Pear.php" />
    <install as="ingo/lib/Factory/Script.php" name="lib/Factory/Script.php" />
@@ -786,6 +806,8 @@
    <install as="ingo/templates/script/footer.inc" name="templates/script/footer.inc" />
    <install as="ingo/templates/script/header.inc" name="templates/script/header.inc" />
    <install as="ingo/templates/script/script.inc" name="templates/script/script.inc" />
+   <install as="ingo/templates/smartmobile/rule.html.php" name="templates/smartmobile/rule.html.php" />
+   <install as="ingo/templates/smartmobile/rules.html.php" name="templates/smartmobile/rules.html.php" />
    <install as="ingo/templates/whitelist/whitelist.inc" name="templates/whitelist/whitelist.inc" />
    <install as="ingo/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="ingo/themes/default/block/screen.css" name="themes/default/block/screen.css" />
@@ -808,9 +830,11 @@
    <install as="README" name="README" />
    <install as="ingo/rule.php" name="rule.php" />
    <install as="ingo/script.php" name="script.php" />
+   <install as="ingo/smartmobile.php" name="smartmobile.php" />
    <install as="ingo/spam.php" name="spam.php" />
    <install as="ingo/vacation.php" name="vacation.php" />
    <install as="ingo/whitelist.php" name="whitelist.php" />
+   <install as="ingo/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
   </filelist>
  </phprelease>
  <changelog>
@@ -1090,7 +1114,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-07-20</date>
+   <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Add &apos;transport_auth&apos; hook to handle defining authentication parameters for transport backends.
