@@ -213,8 +213,11 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
      */
     public function _renderVarInput_NagSearchDue($form, $var, $vars)
     {
-        $html = sprintf(_("%s <input id=\"due_within\" name=\"due_within\" type=\"number\" size=\"2\" value=\"%s\" /> days of <input id=\"due_of\" name=\"due_of\" type=\"text\" value=\"%s\" />"),
-            Horde::label('due_within', _("Is due within")), $vars->get('due_within'), $vars->get('due_of'))
+        $html = sprintf(
+            _("%s %s days of %s"),
+            Horde::label('due_within', _("Is due within")),
+            '<input id="due_within" name="due_within" type="number" size="2" value="' . $vars->get('due_within') . '" />',
+            '<input id="due_of" name="due_of" type="text" value="' . $vars->get('due_of') . '" />')
             . '<div class="horde-form-field-description">' . _("E.g., Is due within 2 days of today") . '</div>';
 
         return $html;

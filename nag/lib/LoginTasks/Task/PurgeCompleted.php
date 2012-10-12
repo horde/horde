@@ -79,7 +79,7 @@ class Nag_LoginTasks_Task_PurgeCompleted extends Horde_LoginTasks_Task
     {
 
         return sprintf(
-            _("All completed tasks older than %s days will be permanently deleted."),
+            _("All completed tasks older than %d days will be permanently deleted."),
             $GLOBALS['prefs']->getValue('purge_completed_keep')
         );
     }
