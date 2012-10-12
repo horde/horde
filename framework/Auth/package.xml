@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>23:20:40</time>
+ <date>2012-10-12</date>
+ <time>20:32:08</time>
  <version>
   <release>2.0.0beta2</release>
   <api>2.0.0beta1</api>
@@ -35,7 +35,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-*
+* [jan] Fix setting IMAP ACLs in IMAP and Cyrsql drivers.
+* [mms] Fix user management in Passwd driver.
+* [mms] Fix setting soft expiration in SQL driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -736,10 +738,12 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix setting IMAP ACLs in IMAP and Cyrsql drivers.
+* [mms] Fix user management in Passwd driver.
+* [mms] Fix setting soft expiration in SQL driver.
    </notes>
   </release>
  </changelog>
