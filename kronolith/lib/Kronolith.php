@@ -2006,7 +2006,7 @@ class Kronolith
             $attendees[$newAttendee->bare_address] = array(
                 'attendance' => self::PART_REQUIRED,
                 'response'   => self::RESPONSE_NONE,
-                'name'       => strval($newAttendee)
+                'name'       => $newAttendee->label
             );
         }
 
