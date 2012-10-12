@@ -750,10 +750,14 @@ class Nag_Task
 
         $results = Nag::getTagger()->getTags($ids);
 
-        $this->synchronizeTags($results[$this->uid]);
+        if (isset($results[$this->uid])) {
+            $this->synchronizeTags($results[$this->uid]);
+        }
         foreach ($this->children as $task) {
-            $task->synchronizeTags($results[$task->uid]);
-            $task->loadTags();
+            if (isset($results[$task->uid])) {
+                $task->synchronizeTags($results[$task->uid]);
+                $task->loadTags();
+            }
         }
     }
 
