@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-09-20</date>
- <time>09:50:54</time>
+ <date>2012-10-12</date>
+ <time>20:35:01</time>
  <version>
   <release>2.0.0beta6</release>
   <api>2.0.0beta1</api>
@@ -906,6 +906,7 @@
       <file name="Autoload.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="RegistryTest.php" role="test" />
+      <file name="SmartmobileUrlTest.php" role="test" />
       <file name="UrlTest.php" role="test" />
      </dir> <!-- /test/Horde/Core -->
     </dir> <!-- /test/Horde -->
@@ -1867,6 +1868,7 @@
    <install as="Horde/Core/Autoload.php" name="test/Horde/Core/Autoload.php" />
    <install as="Horde/Core/phpunit.xml" name="test/Horde/Core/phpunit.xml" />
    <install as="Horde/Core/RegistryTest.php" name="test/Horde/Core/RegistryTest.php" />
+   <install as="Horde/Core/SmartmobileUrlTest.php" name="test/Horde/Core/SmartmobileUrlTest.php" />
    <install as="Horde/Core/UrlTest.php" name="test/Horde/Core/UrlTest.php" />
    <install as="Horde/Core/Factory/GroupTest.php" name="test/Horde/Core/Factory/GroupTest.php" />
    <install as="Horde/Core/Factory/KolabServerTest.php" name="test/Horde/Core/Factory/KolabServerTest.php" />
@@ -2494,7 +2496,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-20</date>
+   <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Send spellcheck parameters using AJAX object, not in URL (Bug #11467).
