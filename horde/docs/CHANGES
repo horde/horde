@@ -1,6 +1,6 @@
-----------
-v5.0.0-git
-----------
+-----------
+v5.0.0beta6
+-----------
 
 [mms] Show non-javascript enhanced login screen for non-smartmobile mobile
       browsers (Bug #11215).
