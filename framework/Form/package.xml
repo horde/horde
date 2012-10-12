@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-29</date>
- <time>15:18:21</time>
+ <date>2012-10-12</date>
+ <time>20:39:52</time>
  <version>
   <release>2.0.0beta3</release>
   <api>1.1.0</api>
@@ -753,7 +753,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-08-29</date>
+   <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Allow to pass button attribute hashes to setButtons().
