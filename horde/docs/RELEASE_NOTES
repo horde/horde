@@ -35,6 +35,9 @@ might still change before the release candidates are prepared.
 For upgrading instructions, please see
 http://www.horde.org/apps/horde/docs/UPGRADING
 
+Please note that upgrading from a stable version to a beta version is currently
+not possible due to a bug in the PEAR installer.
+
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
