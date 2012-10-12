@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-12</date>
- <time>23:04:13</time>
+ <time>23:05:30</time>
  <version>
-  <release>5.0.0beta6</release>
+  <release>5.0.0beta7</release>
   <api>5.0.0beta1</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Show non-javascript enhanced login screen for non-smartmobile mobile browsers (Bug #11215).
-* [mms] Add version parameter to CSS/javascript file URLs to help with cache busting when these files change between releases.
-* [mms] Add configuration option for maximum allowed session times.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3490,6 +3488,19 @@
 * [mms] Show non-javascript enhanced login screen for non-smartmobile mobile browsers (Bug #11215).
 * [mms] Add version parameter to CSS/javascript file URLs to help with cache busting when these files change between releases.
 * [mms] Add configuration option for maximum allowed session times.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0beta7</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
