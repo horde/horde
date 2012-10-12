@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-20</date>
- <time>12:06:08</time>
+ <date>2012-10-12</date>
+ <time>22:19:39</time>
  <version>
   <release>4.0.0beta3</release>
   <api>4.0.0beta1</api>
@@ -491,7 +491,6 @@
     </dir> <!-- /templates/test -->
     <file name=".htaccess" role="horde" />
     <file name="addressbook_list.php" role="horde" />
-    <file name="menu.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Turba">
@@ -1000,7 +999,6 @@
    <install as="scripts/ldap/addou.pl" name="scripts/ldap/addou.pl" />
    <install as="turba/templates/.htaccess" name="templates/.htaccess" />
    <install as="turba/templates/addressbook_list.php" name="templates/addressbook_list.php" />
-   <install as="turba/templates/menu.inc" name="templates/menu.inc" />
    <install as="turba/templates/block/minisearch.inc" name="templates/block/minisearch.inc" />
    <install as="turba/templates/browse/actions.inc" name="templates/browse/actions.inc" />
    <install as="turba/templates/browse/column_footers.inc" name="templates/browse/column_footers.inc" />
@@ -1470,7 +1468,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-09-20</date>
+   <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Support importing contacts via API if using &apos;emails&apos; attributes (Bug #8358).

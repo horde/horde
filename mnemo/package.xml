@@ -16,11 +16,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>22:27:01</time>
+ <date>2012-10-12</date>
+ <time>22:30:13</time>
  <version>
-  <release>4.0.0</release>
-  <api>4.0.0</api>
+  <release>4.0.0beta1</release>
+  <api>4.0.0beta1</api>
  </version>
  <stability>
   <release>beta</release>
@@ -330,8 +330,6 @@
     <dir name="view">
      <file name="memo.inc" role="horde" />
     </dir> <!-- /templates/view -->
-    <file name="notepad_list.php" role="horde" />
-    <file name="panel.inc" role="horde" />
     <file name="stickies.html.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
@@ -398,7 +396,7 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.0</min>
+    <min>5.0.0beta6</min>
     <max>6.0.0alpha1</max>
     <exclude>6.0.0alpha1</exclude>
    </package>
@@ -675,8 +673,6 @@
    <install as="mnemo/notepads/edit.php" name="notepads/edit.php" />
    <install as="mnemo/notepads/index.php" name="notepads/index.php" />
    <install as="mnemo/notes/index.php" name="notes/index.php" />
-   <install as="mnemo/templates/notepad_list.php" name="templates/notepad_list.php" />
-   <install as="mnemo/templates/panel.inc" name="templates/panel.inc" />
    <install as="mnemo/templates/stickies.html.php" name="templates/stickies.html.php" />
    <install as="mnemo/templates/data/export.inc" name="templates/data/export.inc" />
    <install as="mnemo/templates/data/import.inc" name="templates/data/import.inc" />
@@ -901,11 +897,11 @@
    </notes>
   </release>
   <release>
-   <date>2012-07-19</date>
+   <date>2012-10-12</date>
    <time>22:27:01</time>
    <version>
-    <release>4.0.0</release>
-    <api>4.0.0</api>
+    <release>4.0.0beta1</release>
+    <api>4.0.0beta1</api>
    </version>
    <stability>
     <release>beta</release>
