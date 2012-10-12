@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-29</date>
- <time>15:31:53</time>
+ <date>2012-10-12</date>
+ <time>20:59:46</time>
  <version>
   <release>2.0.0beta3</release>
   <api>1.1.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Make parameter generation extendable.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -251,10 +251,10 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-08-29</date>
+   <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Make parameter generation extendable.
    </notes>
   </release>
  </changelog>
