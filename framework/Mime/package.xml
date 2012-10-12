@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Add method for returning the message&apos;s base MIME part.
 * [mms] Update MIME mapping file.
  </notes>
  <contents>
@@ -985,6 +986,7 @@
    <date>2012-08-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Add method for returning the message&apos;s base MIME part.
 * [mms] Update MIME mapping file.
    </notes>
   </release>
