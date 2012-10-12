@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-12</date>
- <time>20:27:45</time>
+ <time>20:28:11</time>
  <version>
-  <release>2.0.0beta4</release>
+  <release>2.0.0RC1</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix issue causing FOLDERSYNC to fail on postgres.
-* [mjr] Fix erroneous truncation of CC addresses (Bug #11446).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -805,6 +804,19 @@
    <notes>
 * [mjr] Fix issue causing FOLDERSYNC to fail on postgres.
 * [mjr] Fix erroneous truncation of CC addresses (Bug #11446).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC1</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
