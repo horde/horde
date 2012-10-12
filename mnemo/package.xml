@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-12</date>
- <time>23:17:40</time>
+ <time>23:18:22</time>
  <version>
-  <release>4.0.0beta1</release>
+  <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
  </version>
  <stability>
@@ -28,11 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [gwr] Always mark the initial share as default notepad.
-* [gwr] Mark the initial default share as such with the Kolab backend.
-* [gwr] Fixed deletion of shares with the Kolab driver.
-* [jan] Fix display of note title (Bug #11275).
-* [jan] Update Turkish translation (İstanbul Technical University).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -914,6 +910,19 @@
 * [gwr] Fixed deletion of shares with the Kolab driver.
 * [jan] Fix display of note title (Bug #11275).
 * [jan] Update Turkish translation (İstanbul Technical University).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0beta2</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
