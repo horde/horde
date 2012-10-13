@@ -1079,7 +1079,7 @@
   </configdescription>
   <configswitch name="cachecss" desc="Cache CSS?">false
    <case name="false" desc="No">
-    <configsection name="cachejsparams">
+    <configsection name="cachecssparams">
      <configboolean name="url_version_param" desc="Add version information to
      CSS URLs?">true</configboolean>
     </configsection>
