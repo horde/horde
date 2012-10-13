@@ -2027,7 +2027,7 @@
       in. Horde will create device specific log files in this directory.">
         <case name="horde" desc="Horde" />
         <case name="custom" desc="Custom">
-         <configstring name="path" desc="Path to logfile" />
+         <configstring name="path" desc="Path to custom log directory." />
         </case>
       </configswitch>
      </configsection>
