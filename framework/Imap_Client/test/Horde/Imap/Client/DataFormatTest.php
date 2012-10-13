@@ -80,6 +80,21 @@ class Horde_Imap_Client_DataFormatTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($ob->binary());
         $this->assertFalse($ob->literal());
         $this->assertFalse($ob->quoted());
+
+        /* Empty string should be quoted. */
+        $ob = new Horde_Imap_Client_Data_Format_Astring('');
+
+        $this->assertEquals(
+            '""',
+            $ob->escape()
+        );
+
+        $stream = $ob->escapeStream();
+
+        $this->assertEquals(
+            '""',
+            stream_get_contents($stream, -1, 0)
+        );
     }
 
     public function testAtom()

@@ -3874,7 +3874,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         if (is_resource($data)) {
             rewind($data);
-            stream_copy_to_stream($data, $this->_stream);
+            while (!feof($data)) {
+                fwrite($this->_stream, fread($data, 8192));
+            }
         } else {
             fwrite($this->_stream, $data . (empty($opts['eol']) ? '' : "\r\n"));
         }
@@ -3888,7 +3890,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->writeDebug('[' . (empty($opts['binary']) ? 'LITERAL' : 'BINARY') . ' DATA: ' . $opts['literal'] . ' bytes]' . "\n", Horde_Imap_Client::DEBUG_CLIENT);
         } elseif (is_resource($data)) {
             rewind($data);
-            stream_copy_to_stream($data, $this->_debug);
+            while (!feof($data)) {
+                fwrite($this->_debug, fread($data, 8192));
+            }
         } else {
             fwrite($this->_debug, $data . (empty($opts['eol']) ? '' : "\n"));
         }
