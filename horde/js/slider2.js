@@ -2,15 +2,14 @@
  * Slider2.js - A minimalist library to create a slider that acts like a
  * browser's native scrollbar.
  *
- * Requires prototype.js 1.6.0.2+
+ * Requires prototype.js v1.6.0.2+
  *
  *
  * Usage:
  * ------
  * slider = new Slider2(track, { options });
- *
- *   track - (element|string) TODO
- *   options - (object) TODO
+ *   track: (element|string) TODO
+ *   options: (object) [buttonClass, cursorClass, pagesize, totalsize]
  *
  * Custom Events:
  * --------------
@@ -81,7 +80,7 @@ var Slider2 = Class.create({
         }
 
         if (Prototype.Browser.IE) {
-            [ this.track, this.sbup ].invoke('makePositioned');
+            [ this.track, this.sbup ].compact().invoke('makePositioned');
         }
 
         this.value = 0;
@@ -99,31 +98,28 @@ var Slider2 = Class.create({
 
     _initScroll: function()
     {
-        if (this.init) {
-            return;
+        if (!this.init) {
+            this.init = true;
+            this.track.show();
+            this._updateHandleLength();
         }
-        this.init = true;
-        this.track.show();
-        this._updateHandleLength();
     },
 
     _startDrag: function(e)
     {
-        var elt = e.element();
+        var dir,
+            elt = e.element();
 
         if (!e.isLeftClick() || elt == this.sbup || elt == this.sbdown) {
             return;
         }
 
-        var dir,
-            hoffsets = this.handle.cumulativeOffset();
-
         if (elt == this.track) {
-            dir = (e.pointerY() < hoffsets[1]) ? -1 : 1;
+            dir = (e.pointerY() < this.handle.cumulativeOffset()[1]) ? -1 : 1;
             this.setScrollPosition(this.getValue() - dir + (this.options.pagesize * dir));
         } else {
             this.curroffsets = this.track.cumulativeOffset();
-            this.offsetY = e.pointerY() - hoffsets[1] + this.sbup.offsetHeight;
+            this.offsetY = e.pointerY() - this.handle.cumulativeOffset()[1] + this.sbup.offsetHeight;
             this.active = true;
             this.track.fire('Slider2:start');
         }
@@ -240,4 +236,5 @@ var Slider2 = Class.create({
     {
         return (this.options.pagesize < this.options.totalsize);
     }
+
 });
