@@ -581,9 +581,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $sync->init($this->_stateDriver, $exporter, $collection);
                     } catch (Horde_ActiveSync_Exception_StaleState $e) {
                         $this->_logger->err(sprintf(
-                            "[%s] Force restting of state for %s. Invalid state encountered.",
+                            "[%s] Force restting of state for %s: %s",
                             $this->_device->id,
-                            $collection['id']));
+                            $collection['id'],
+                            $e->getMessage()));
                         $this->_stateDriver->loadState(
                             array(),
                             null,
