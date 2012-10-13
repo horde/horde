@@ -3,214 +3,42 @@ html, body {
 }
 body.hermesAjax {
 }
+
 /* Main views */
 #hermesBody {
     position: absolute;
-    top: 46px;
-    left: 175px;
-    right: 10px;
-    bottom: 10px;
-    width: auto;
+    top: 30px;
+    left: 8px;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .hermesSeparator {
-    padding-left: 2px;
-    padding-right: 2px;
+    padding-left: 7px;
     color: #808080;
-}
-.hermesDatePicker {
-    cursor: pointer;
-}
-
-/* Logo */
-#hermesLogo {
-    display: none;
+    text-indent: -10000px;
 }
 
 /* Loading spinner */
 .hermesLoading {
     position: absolute;
     left: 0;
+    z-index: 1;
 }
 #hermesLoading {
-    float: right;
-    background: transparent url("graphics/loading.gif") no-repeat center;
-    padding: 2px;
-    width: 16px;
-    height: 16px;
-    border: 1px #999 solid;
-}
-/* Navigation bar */
-#hermesBar {
-    position: absolute;
-    left: 175px;
-    top: 10px;
-}
-/*#hermesBar form {
-    float: left;
-    margin: 0;
-#hermesBar .hermesDateChoice {
-    float: left;
-    margin-right: 1px;
-    background: #d6d6d6;
-    border: 1px solid #999;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-}
-#hermesBar .hermesDateChoice div {
-    padding: 0 10px;
-    height: 23px;
-    line-height: 23px;
-}*/
-#hermesNav {
-    float: left;
-    margin-left: 5px;
-    height: 23px;
-    line-height: 23px;
-}
-#hermesHeader ul {
-    float: left;
-    list-style: none;
-}
-#hermesHeader li {
-    float: left;
-}
-#hermesHeader a {
-    display: block;
-    float: left;
-    margin: 0;
-    padding: 0 5px 0 25px;
-    background-color: #f0f0f0;
-    background-position: 5px center;
-    background-repeat: no-repeat;
-    /*font-weight: bold;*/
-    text-decoration: none;
-    color: #202020;
-    cursor: pointer;
-    border-top: 1px solid #999;
-    border-bottom: 1px solid #999;
-    border-right: 1px solid #999;
-}
-#hermesHeader li:first-child a {
-    border-left: 1px solid #999;
-}
-#hermesHeader a:hover, #hermesHeader a.on {
-    background-color: #d9d9d9;
-}
-
-#hermesNavTime {
-    background: url("graphics/hermes.png");
-}
-
-#hermesNavCostObjects {
-    background: url("graphics/hermes.png");
-}
-
-#hermesNavClients {
-    background: url("graphics/hermes.png");
-}
-
-#hermesNavTypes {
-    background: url("graphics/hermes.png");
-}
-#hermesNavSearch {
-    background: url("graphics/search.png");
-}
-/* User data and options */
-#hermesApplications {
-    display: inline;
-    position: relative;
-    z-index: 99;
-    height: 25px;
-    line-height: 23px;
-    margin-right: 10px;
-    overflow: hidden;
-}
-#hermesApplications:hover {
-    overflow: visible;
-}
-#hermesApplications ul {
-    float: none;
-}
-#hermesApplications li {
-    float: none;
-    text-align: left;
-}
-#hermesApplications a {
-    display: block;
-    padding: 0 4px;
-    overflow: hidden;
-    float: none;
-    background-color: #f0f0f0;
-    border: 1px solid #999;
-    border-top-width: 0;
-    color: #202020;
-   /* font-weight: bold; */
-}
-#hermesApplications:hover a {
-    height: 23px;
-    line-height: 23px;
-}
-#hermesApplications li:first-child a {
-    border-top-width: 1px;
-}
-#hermesApplications a:hover {
-    text-decoration: none;
-    background-color: #d9d9d9;
-}
-#hermesApplications li.hermesApplicationSelected a {
-    background-color: #d9d9d9;
-}
-#hermesApplications .hermesSeparator {
-    display: none;
-}
-
-#hermesServices {
-    height: 23px;
-    line-height: 23px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    white-space: nowrap;
-}
-#hermesServices div {
-    float: left;
-}
-.hermesNotifications {
-    background-color: #d9d9d9
-}
-a#hermesNotifications {
-    width: 23px;
-    height: 23px;
-    padding: 0;
-    line-height: 23px;
-    border: 1px solid #999;
-    background: #f0f0f0 url("graphics/alerts/message.png") no-repeat center center;
-}
-a#hermesNotifications:hover {
-    background-color: #d9d9d9;
-}
-#hermesNotifications.horde-error {
-    background-image: url("graphics/alerts/error.png")
-}
-#hermesNotifications.horde-success {
-    background-image: url("graphics/alerts/success.png")
-}
-#hermesNotifications.horde-warning {
-    background-image: url("graphics/alerts/warning.png")
-}
-#hermesNotifications.hermesClose {
-    background-image: url("graphics/close.png")
+    background: transparent url("../graphics/loading.gif") no-repeat 4px 3px;
+    width: 22px;
+    height: 22px;
+    opacity: 0.5;
 }
 
 /* Main area */
 #hermesMain {
     clear: both;
-    padding-top: 5px;
-    /*height: 100%;*/
+    height: 100%;
 }
 
 /* Main view time */
@@ -226,16 +54,6 @@ a#hermesNotifications:hover {
 #hermesTimeList {
     margin: 0 25px 0 25px;
 }
-#hermesBody h2 {
-margin: 6px;
-font-weight: normal;
-font-family: "American Typewriter","Constantia","Verdana",monospace;
-}
-
-#hermesBody h1 {
-    font-family: "American Typewriter","Constantia","Verdana",monospace;
-    font-weight: normal;
-}
 
 /* Timelist fields */
 .hermesTimeListSelect {
@@ -243,6 +61,7 @@ font-family: "American Typewriter","Constantia","Verdana",monospace;
     width: 18px;
     white-space: pre-wrap;
 }
+
 .hermesTimeListSelect:hover {
     background: url("graphics/checkbox_over.png") no-repeat center;
 }
@@ -298,6 +117,7 @@ div.hermesTimeSliceOptions {
     width: 10%;
     text-align: right;
 }
+
 /* Body of timelist */
 #hermesTimeListBody {
 /*  overflow-x: hidden;
@@ -313,16 +133,6 @@ div.hermesTimeSliceOptions {
 }
 .hermesBorderLeft {
     border-left: 1px solid #eee;
-}
-.rounded {
-  border: 1px solid #DBDBDB;
-  font-size: 11px;
-  line-height: 1.2;
-  padding: 2px 7px;
-  text-decoration: none;
-}
-.bold {
-    font-weight: bold;
 }
 
 .rounded.sliceEdit {
@@ -504,18 +314,14 @@ a.rounded {
 /* Left menu column */
 #hermesMenu {
     position: absolute;
-    top: 1px;
-    bottom: 10px;
-    left: 10px;
-    width: 153px;
+    top: 8px;
+    bottom: 0;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-top: 2px;
 }
-#hermesMenu .hermesMenuItem {
-    margin: 0 0 4px 4px;
-    background: -moz-linear-gradient(-90deg, #eaeaea, #d7d7d7);
-    background: -webkit-gradient(linear, left bottom, left top, #eaeaea, #d7d7d7);
-    background-color: #d9d9d9;
-    color: #202020;
-}
+
 /* Time summary */
 .hermesViewTimeContainer h2 {
     float: left;
@@ -532,26 +338,7 @@ a.rounded {
 .hermesHours {
     font-weight: bold;
 }
-#hermesMenu a.hermesAdd {
-  background: url("graphics/plus.png") no-repeat scroll right center transparent;
-  cursor: pointer;
-  padding-right: 8px;
-  position: absolute;
-  right: 0;
-  text-indent: -10000px;
-  width: 16px;
-}
-#hermesMenuBlocks {
-  bottom: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  position: absolute;
-  top: 46px;
-  width: 100%;
-}
-.hermesMenuRecent {
-    margin-bottom: 7px;
-}
+
 .hermesTimerTime {
     margin-left: 7px;
     font-style: italic;
@@ -576,25 +363,6 @@ a.rounded {
 .hermesTimerLabel {
     padding: 2px 2px 2px 2px;
 }
-#hermesMenu h3 {
-  border-bottom: 1px dotted #999999;
-  cursor: default;
-  font-size: 100%;
-  font-weight: bold;
-  margin: 4px 0 2px 0;
-  position: relative;
-}
-#hermesViewIframe iframe {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    border: none;
-    width: 100%;
-    height: 100%;
-}
-
 #hermesTimeListEmpty {
     text-align: center;
     font-style: italic;
@@ -651,76 +419,6 @@ a.rounded {
     background: transparent url('graphics/alerts/message.png') 0 0 no-repeat;
     padding-left: 20px;
     font-style: italic;
-}
-/* Mini calendar */
-.hermesMinical {
-    position: relative;
-}
-#hermesMinical {
-/*    top: 15px;*/
-}
-.hermesMinical table {
-    width: 100%;
-    border-spacing: 0;
-    border-collapse: collapse;
-}
-.hermesMinical caption, #hermesBody .hermesMinical caption {
-    position: relative;
-    margin: 0 1px 1px 1px;
-    height: 20px;
-    line-height: 20px;
-    font-weight: bold;
-    font-size: 100%;
-    border-bottom: 1px #999 dotted;
-    text-align: left;
-}
-.hermesMinical caption span {
-    overflow: hidden;
-    white-space: nowrap;
-    cursor: pointer;
-}
-#hermesMinicalPrev, #hermesMinicalNext {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 16px;
-    text-indent: -10000px;
-    cursor: pointer;
-    background: transparent url("graphics/right.png") no-repeat right center;
-}
-#hermesMinicalPrev {
-    background-image: url("graphics/left.png");
-    right: 15px;
-}
-
-.hermesMinical th, .hermesMinical td {
-    font-size: 90%;
-}
-.hermesMinical th, .hermesMinical td.hermesMinicalWeek {
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
-    text-align: center;
-    background-color: #d6d6d6;
-    color: #202020;
-    border: 1px #999 solid !important;
-}
-.hermesMinical tbody td {
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
-    border: 1px #999 solid;
-    text-align: center;
-    color: #808080;
-    empty-cells: show;
-    cursor: pointer;
-}
-.hermesMinical .hermesMinicalEmpty {
-    background: none;
-    color: silver;
-}
-.hermesMinical .hermesSelected {
-    background-color: #ffc;
 }
 
 #hermesTimeFormCollapse {

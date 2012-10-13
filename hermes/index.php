@@ -13,12 +13,10 @@ Horde_Registry::appInit('hermes');
 switch ($registry->getView()) {
 case Horde_Registry::VIEW_DYNAMIC:
     if ($prefs->getValue('dynamic_view')) {
-        $today = new Horde_Date();
         $injector->getInstance('Hermes_Ajax')->init();
-        require HERMES_TEMPLATES . '/index/index.inc';
-        $page_output->includeScriptFiles();
-        $page_output->outputInlineScript();
-        echo "</body>\n</html>";
+        require HERMES_TEMPLATES . '/dynamic/index.inc';
+        echo $injector->getInstance('Hermes_View_Sidebar');
+        $page_output->footer();
         exit;
     }
 default:

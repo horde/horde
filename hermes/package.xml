@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>22:36:15</time>
+ <date>2012-10-13</date>
+ <time>15:00:17</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -59,6 +59,9 @@
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
+     <dir name="Application">
+      <file name="Handler.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Application -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Data">
@@ -104,6 +107,9 @@
       <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
+    <dir name="View">
+     <file name="Sidebar.php" role="horde" />
+    </dir> <!-- /lib/View -->
     <file name="Ajax.php" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
@@ -210,6 +216,10 @@
     <dir name="deliverables">
      <file name="list.inc" role="horde" />
     </dir> <!-- /templates/deliverables -->
+    <dir name="dynamic">
+     <file name="index.inc" role="horde" />
+     <file name="sidebar.html.php" role="horde" />
+    </dir> <!-- /templates/dynamic -->
     <dir name="index">
      <file name="index.inc" role="horde" />
      <file name="search.inc" role="horde" />
@@ -222,6 +232,9 @@
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="default">
+     <dir name="dynamic">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/dynamic -->
      <dir name="graphics">
       <dir name="alerts">
        <file name="message.png" role="horde" />
@@ -429,6 +442,7 @@
    <install as="hermes/lib/Slice.php" name="lib/Slice.php" />
    <install as="hermes/lib/Table.php" name="lib/Table.php" />
    <install as="hermes/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="hermes/lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
    <install as="hermes/lib/Data/Hermescsv.php" name="lib/Data/Hermescsv.php" />
    <install as="hermes/lib/Data/Hermestsv.php" name="lib/Data/Hermestsv.php" />
    <install as="hermes/lib/Data/Hermesxls.php" name="lib/Data/Hermesxls.php" />
@@ -450,6 +464,7 @@
    <install as="hermes/lib/Form/JobType/Edit/Step1.php" name="lib/Form/JobType/Edit/Step1.php" />
    <install as="hermes/lib/Form/Time/Entry.php" name="lib/Form/Time/Entry.php" />
    <install as="hermes/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
+   <install as="hermes/lib/View/Sidebar.php" name="lib/View/Sidebar.php" />
    <install as="hermes/locale/.htaccess" name="locale/.htaccess" />
    <install as="hermes/locale/hermes.pot" name="locale/hermes.pot" />
    <install as="hermes/locale/de/help.xml" name="locale/de/help.xml" />
@@ -496,12 +511,15 @@
    <install as="hermes/scripts/Sandals.wdgt/themes/graphics/alerts/success.png" name="scripts/Sandals.wdgt/themes/graphics/alerts/success.png" />
    <install as="hermes/scripts/Sandals.wdgt/themes/graphics/alerts/warning.png" name="scripts/Sandals.wdgt/themes/graphics/alerts/warning.png" />
    <install as="hermes/templates/deliverables/list.inc" name="templates/deliverables/list.inc" />
+   <install as="hermes/templates/dynamic/index.inc" name="templates/dynamic/index.inc" />
+   <install as="hermes/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />
    <install as="hermes/templates/index/index.inc" name="templates/index/index.inc" />
    <install as="hermes/templates/index/search.inc" name="templates/index/search.inc" />
    <install as="hermes/templates/index/timeedit.inc" name="templates/index/timeedit.inc" />
    <install as="hermes/templates/index/timer.inc" name="templates/index/timer.inc" />
    <install as="hermes/templates/time/form.html" name="templates/time/form.html" />
    <install as="hermes/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="hermes/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
    <install as="hermes/themes/default/graphics/back_quick.png" name="themes/default/graphics/back_quick.png" />
    <install as="hermes/themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
    <install as="hermes/themes/default/graphics/checkbox_on.png" name="themes/default/graphics/checkbox_on.png" />

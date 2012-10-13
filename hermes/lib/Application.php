@@ -37,6 +37,13 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Hermes_Application extends Horde_Registry_Application
 {
+
+    /**
+     */
+    public $features = array(
+        'dynamicView' => true
+    );
+
     /**
      */
     public $version = 'H5 (2.0-git)';
@@ -118,6 +125,7 @@ class Hermes_Application extends Horde_Registry_Application
      */
     public function sidebar($sidebar)
     {
+
         $sidebar->addNewButton(
             _("_New Time"),
             Horde::url('entry.php')
