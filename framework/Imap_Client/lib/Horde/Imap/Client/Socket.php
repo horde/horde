@@ -1496,7 +1496,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if ($catenate) {
                     $cmd->add($tmp);
                 } else {
-                    fseek($data_stream->stream, 0);
+                    rewind($data_stream->stream);
                     $text_data = new Horde_Imap_Client_Data_Format_String($data_stream);
                     $text_data->forceLiteral();
                     $cmd->add($text_data);
@@ -3873,7 +3873,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _writeStream($data, array $opts = array())
     {
         if (is_resource($data)) {
-            fseek($data, 0);
+            rewind($data);
             stream_copy_to_stream($data, $this->_stream);
         } else {
             fwrite($this->_stream, $data . (empty($opts['eol']) ? '' : "\r\n"));
@@ -3887,7 +3887,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             empty($this->_params['debug_literal'])) {
             $this->writeDebug('[' . (empty($opts['binary']) ? 'LITERAL' : 'BINARY') . ' DATA: ' . $opts['literal'] . ' bytes]' . "\n", Horde_Imap_Client::DEBUG_CLIENT);
         } elseif (is_resource($data)) {
-            fseek($data, 0);
+            rewind($data);
             stream_copy_to_stream($data, $this->_debug);
         } else {
             fwrite($this->_debug, $data . (empty($opts['eol']) ? '' : "\n"));
