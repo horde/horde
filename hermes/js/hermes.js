@@ -674,7 +674,6 @@ HermesCore = {
         $('hermesLoading').hide();
         this.slices = r;
         this.buildTimeTable();
-        this.updateMinical(new Date());
     },
 
     updateTimeSummary: function()
@@ -873,86 +872,6 @@ HermesCore = {
     },
 
     /**
-     * Rebuilds the mini calendar.
-     *
-     * @param Date date    The date to show in the calendar.
-     * @param string view  The view that's displayed, determines which days in
-     *                     the mini calendar are highlighted.
-     */
-    updateMinical: function(date, view)
-    {
-        // Update header.
-        $('hermesMinicalDate')
-            .store('date', date.dateString())
-            .update(date.toString('MMMM yyyy'));
-        this.buildMinical($('hermesMinical').down('tbody'), date, view);
-    },
-
-    /**
-     * Creates a mini calendar suitable for the navigation calendar and the
-     * year view.
-     *
-     * @param Element tbody    The table body to add the days to.
-     * @param Date date        The date to show in the calendar.
-     * @param string view      The view that's displayed, determines which days
-     *                         in the mini calendar are highlighted.
-     * @param string idPrefix  If present, each day will get a DOM ID with this
-     *                         prefix
-     */
-    buildMinical: function(tbody, date, view, idPrefix)
-    {
-        var dates = this.viewDates(date, 'month'), day = dates[0].clone(),
-            date7 = date.clone().add(1).week(), today = Date.today(),
-            weekStart, weekEnd, dateString, td, tr, i;
-
-        // Remove old calendar rows. Maybe we should only rebuild the minical
-        // if necessary.
-        tbody.childElements().invoke('remove');
-
-        for (i = 0; i < 42; i++) {
-            dateString = day.dateString();
-            // Create calendar row and insert week number.
-            if (day.getDay() == 0) {
-                tr = new Element('tr');
-                tbody.insert(tr);
-                td = new Element('td', { className: 'hermesMinicalWeek' })
-                    .store('weekdate', dateString);
-                td.update(day.getRealWeek());
-                tr.insert(td);
-                weekStart = day.clone();
-                weekEnd = day.clone();
-                weekEnd.add(6).days();
-            }
-
-            // Insert day cell.
-            td = new Element('td').store('date', dateString);
-            if (day.getMonth() != date.getMonth()) {
-                td.addClassName('hermesMinicalEmpty');
-            } else if (!Object.isUndefined(idPrefix)) {
-                td.id = idPrefix + dateString;
-            }
-
-            // Highlight days currently being displayed.
-            //if (view &&
-            //    (view == 'month' ||
-            //     (view == 'week' && date.between(weekStart, weekEnd)) ||
-            //     (view == 'day' && date.equals(day)) ||
-            //     (view == 'agenda' && !day.isBefore(date) && day.isBefore(date7)))) {
-            if (date.between(weekStart, weekEnd)) {
-                td.addClassName('heremsSelected');
-            }
-
-            // Highlight today.
-            if (day.equals(today)) {
-                td.addClassName('hermesToday');
-            }
-            td.update(day.getDate());
-            tr.insert(td);
-            day.next().day();
-        }
-    },
-
-    /**
      * Closes a RedBox overlay, after saving its content to the body.
      */
     closeRedBox: function()
@@ -1032,8 +951,6 @@ HermesCore = {
         }.bind(this);
         RedBox.duration = this.effectDur;
 
-        // @TODO: Minical that have dates with hours highlighted?
-        //this.updateMinical(this.date);
         this.today = new Date().toString('yyyyMMdd');
 
         // Default the date field to today
