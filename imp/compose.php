@@ -221,12 +221,12 @@ case 'template_edit':
         $indices_ob = IMP::mailbox(true)->getIndicesOb(IMP::uid());
 
         switch ($vars->actionID) {
-        case 'editasnew':
-            $result = $imp_compose->editAsNew($indices_ob);
+        case 'draft':
+            $result = $imp_compose->resumeDraft($indices_ob);
             break;
 
-        case 'resume':
-            $result = $imp_compose->resumeDraft($indices_ob);
+        case 'editasnew':
+            $result = $imp_compose->editAsNew($indices_ob);
             break;
 
         case 'template':
