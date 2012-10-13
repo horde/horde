@@ -63,7 +63,7 @@ body.hermesAjax {
 }
 
 .hermesTimeListSelect:hover {
-    background: url("graphics/checkbox_over.png") no-repeat center;
+    background: url("../graphics/checkbox_over.png") no-repeat center;
 }
 
 /* Header */
@@ -173,10 +173,10 @@ a.rounded {
    /* background-color: #f0f0f0; */
 }
 .hermesUnselectedSlice {
-    background: url("graphics/checkbox_off.png") no-repeat center;
+    background: url("../graphics/checkbox_off.png") no-repeat center;
 }
 .hermesSelectedSlice {
-    background: url("graphics/checkbox_on.png") no-repeat center;
+    background: url("../graphics/checkbox_on.png") no-repeat center;
 }
 .hermesSelectedRow {
     background: #eeeeee;
@@ -350,7 +350,7 @@ a.rounded {
     top: 370px;
     width: 350px;
     height: auto;
-    background: transparent url("graphics/back_quick.png") no-repeat left top;
+    background: transparent url("../graphics/back_quick.png") no-repeat left top;
 }
 #hermesTimerDialog form {
     padding: 10px;
@@ -416,7 +416,7 @@ a.rounded {
    border-style: solid none;
 }
 .hermesDialogInfo {
-    background: transparent url('graphics/alerts/message.png') 0 0 no-repeat;
+    background: transparent url('../graphics/alerts/message.png') 0 0 no-repeat;
     padding-left: 20px;
     font-style: italic;
 }
@@ -426,8 +426,8 @@ a.rounded {
     padding-right:10px;
 }
 .hermesTimeFormShown {
-   background: url("graphics/minus.png") no-repeat scroll left  transparent;
+   background: url("../graphics/minus.png") no-repeat scroll left  transparent;
 }
 .hermesTimeFormHidden {
-    background: url("graphics/plus.png") no-repeat scroll left transparent;
+    background: url("../graphics/plus.png") no-repeat scroll left transparent;
 }
