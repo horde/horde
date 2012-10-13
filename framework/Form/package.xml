@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>20:40:35</time>
+ <date>2012-10-13</date>
+ <time>12:23:55</time>
  <version>
   <release>2.0.0RC1</release>
   <api>1.1.0</api>
@@ -45,12 +45,10 @@
       <dir name="Action">
        <file name="ConditionalEnable.php" role="php" />
        <file name="ConditionalSetValue.php" role="php" />
-       <file name="conditional_enable.php" role="php" />
-       <file name="conditional_setvalue.php" role="php" />
        <file name="reload.php" role="php" />
        <file name="setcursorpos.php" role="php" />
        <file name="submit.php" role="php" />
-       <file name="sum_fields.php" role="php" />
+       <file name="SumFields.php" role="php" />
        <file name="updatefield.php" role="php" />
       </dir> <!-- /lib/Horde/Form/Action -->
       <dir name="Type">
@@ -405,12 +403,10 @@
    <install as="Horde/Form/Variable.php" name="lib/Horde/Form/Variable.php" />
    <install as="Horde/Form/Action/ConditionalEnable.php" name="lib/Horde/Form/Action/ConditionalEnable.php" />
    <install as="Horde/Form/Action/ConditionalSetValue.php" name="lib/Horde/Form/Action/ConditionalSetValue.php" />
-   <install as="Horde/Form/Action/conditional_enable.php" name="lib/Horde/Form/Action/conditional_enable.php" />
-   <install as="Horde/Form/Action/conditional_setvalue.php" name="lib/Horde/Form/Action/conditional_setvalue.php" />
    <install as="Horde/Form/Action/reload.php" name="lib/Horde/Form/Action/reload.php" />
    <install as="Horde/Form/Action/setcursorpos.php" name="lib/Horde/Form/Action/setcursorpos.php" />
    <install as="Horde/Form/Action/submit.php" name="lib/Horde/Form/Action/submit.php" />
-   <install as="Horde/Form/Action/sum_fields.php" name="lib/Horde/Form/Action/sum_fields.php" />
+   <install as="Horde/Form/Action/SumFields.php" name="lib/Horde/Form/Action/SumFields.php" />
    <install as="Horde/Form/Action/updatefield.php" name="lib/Horde/Form/Action/updatefield.php" />
    <install as="Horde/Form/Type/tableset.php" name="lib/Horde/Form/Type/tableset.php" />
    <install as="locale/Horde_Form.pot" name="locale/Horde_Form.pot" />
@@ -766,7 +762,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-10-12</date>
+   <date>2012-10-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
