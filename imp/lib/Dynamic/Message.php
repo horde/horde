@@ -108,7 +108,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $page_output->noDnsPrefetch();
 
         $this->view->show_delete = IMP::mailbox()->access_deletemsgs;
-        $this->view->show_innocent = (!empty($conf['notspam']['reporting']) && (!$conf['notspam']['spamfolder'] || !IMP::mailbox()->spam));
+        $this->view->show_innocent = (!empty($conf['notspam']['reporting']) && (!$conf['notspam']['spamfolder'] || IMP::mailbox()->spam));
         $this->view->show_spam = (!empty($conf['spam']['reporting']) && (!$conf['spam']['spamfolder'] || !IMP::mailbox()->spam));
         $this->view->show_view_all = empty($msg_res['onepart']);
         $this->view->show_view_source = !empty($conf['user']['allow_view_source']);
