@@ -7,7 +7,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../../lib/Application.php';
@@ -61,7 +64,7 @@ function _uploadFTP($params)
 
 $hconfig = new Horde_Config();
 $migration = new Horde_Core_Db_Migration(__DIR__ . '/../../..');
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 $a = $registry->listAllApps();
 
 /* Check for versions if requested. */

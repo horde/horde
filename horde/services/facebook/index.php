@@ -8,6 +8,9 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../../lib/Application.php';
@@ -15,7 +18,7 @@ Horde_Registry::appInit('horde');
 
 function build_post($post, $uid, $instance)
 {
-    global $facebook;
+    global $facebook, $prefs;
 
     $postView = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
     $postView->actorImgUrl = $facebook->users->getThumbnail($post->from->id);
@@ -30,8 +33,8 @@ function build_post($post, $uid, $instance)
         _("Posted %s"),
         Horde_Date_Utils::relativeDateTime(
             $post->created_time,
-            $GLOBALS['prefs']->getValue('date_format'),
-            $GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M %P" : "%I %M %P"))
+            $prefs->getValue('date_format'),
+            $prefs->getValue('twentyFour') ? "%H:%M %P" : "%I %M %P"))
         . ' ' . sprintf(_("Comments: %d"), $post->comments->count);
 
     $postView->type = $post->type;
@@ -105,7 +108,7 @@ function build_post($post, $uid, $instance)
 
 // Get the facebook client.
 try {
-    $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
+    $facebook = $injector->getInstance('Horde_Service_Facebook');
 } catch (Horde_Exception $e) {
     Horde::url('index.php', false, array('app' => 'horde'))->redirect();
 }
@@ -116,19 +119,19 @@ $return_url = $registry->getServiceLink('prefs', 'horde')
 
 // See why we are here. A $code indicates the user has *just* authenticated the
 // application and we now need to obtain the auth_token.
-if ($code = Horde_Util::getFormData('code')) {
-    $state = Horde_Util::getFormData('state');
+$vars = $injector->getInstance('Horde_Variables');
+if (isset($vars->code)) {
     $token = $injector->getInstance('Horde_Token');
-    if (!$token->isValid($state, '', -1, false)) {
+    if (!$token->isValid($vars->state, '', -1, false)) {
         $notification->push(_("Unable to validate the request token. Please try your request again."));
         $return_url->redirect();
     }
     try {
         $sessionKey = $facebook->auth->getSessionKey(
-            $code, Horde::url('services/facebook', true));
+            $vars->code, Horde::url('services/facebook', true));
         if ($sessionKey) {
             // Store in user prefs
-            $sid =  $sessionKey;
+            $sid = $sessionKey;
             $uid = $facebook->auth->getLoggedInUser();
             $prefs->setValue('facebook', serialize(array('uid' => (string)$uid, 'sid' => $sid)));
             $notification->push(
@@ -147,8 +150,8 @@ if ($code = Horde_Util::getFormData('code')) {
     $return_url->redirect();
 }
 
-if ($error = Horde_Util::getFormData('error')) {
-    if (Horde_Util::getFormData('error_reason') == 'user_denied') {
+if (isset($vars->error)) {
+    if ($vars->error_reason == 'user_denied') {
         $notification->push(_("You have denied the requested permissions."), 'horde.warning');
     } else {
         $notification->push(_("There was an error with the requested permissions"), 'horde.error');
@@ -217,7 +220,7 @@ if ($action = Horde_Util::getPost('actionID')) {
         );
         header('Content-Type: application/json');
         echo Horde_Serialize::serialize($result, Horde_Serialize::JSON);
-        exit;
+        break;
 
     case 'updateStatus':
         // This is an AJAX action, so just echo the result and return.
@@ -225,11 +228,10 @@ if ($action = Horde_Util::getPost('actionID')) {
         if ($results = $facebook->streams->post('me', $status)) {
             $uid = $facebook->auth->getLoggedInUser();
             echo build_post($facebook->streams->getPost($results), $uid, Horde_Util::getPost('instance'));
-            exit;
         } else {
             echo _("Status unable to be set.");
         }
-        exit;
+        break;
 
     case 'addLike':
         $id = Horde_Util::getPost('post_id');
@@ -241,7 +243,7 @@ if ($action = Horde_Util::getPost('actionID')) {
                 // Already set the like by the time we are here, so just indicate
                 // that.
                 echo _("You like this");
-                exit;
+                break;
             }
             $post = current($post);
             $likes = $post['likes'];
@@ -254,7 +256,7 @@ if ($action = Horde_Util::getPost('actionID')) {
         } else {
             echo _("Unable to set like.");
         }
-        exit;
+        break;
     }
 }
 

@@ -5,8 +5,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../../lib/Application.php';
@@ -15,8 +18,8 @@ Horde_Registry::appInit('horde', array(
 ));
 
 /* Set up the form variables. */
-$vars = Horde_Variables::getDefaultVariables();
-$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+$vars = $injector->getInstance('Horde_Variables');
+$perms = $injector->getInstance('Horde_Perms');
 $corePerms = $injector->getInstance('Horde_Core_Perms');
 $perm_id = $vars->get('perm_id');
 $category = $vars->get('category');
@@ -28,10 +31,10 @@ if ($category !== null) {
         $permission = $perms->getPermission($category);
         $perm_id = $perms->getPermissionId($permission);
     } catch (Horde_Perms_Exception $e) {
-        if (Horde_Util::getFormData('autocreate')) {
+        if ($vars->autocreate) {
             /* Check to see if the permission we are copying from exists
              * before we autocreate. */
-            $copyFrom = Horde_Util::getFormData('autocreate_copy');
+            $copyFrom = $vars->autocreate_copy;
             if ($copyFrom && !$perms->exists($copyFrom)) {
                 $copyFrom = null;
             }
@@ -59,15 +62,15 @@ if ($category !== null) {
                     /* We have autocreated the permission and we don't have an
                      * existing permission to copy.  See if some defaults were
                      * supplied. */
-                    $addPerms = Horde_Util::getFormData('autocreate_guest');
+                    $addPerms = $vars->autocreate_guest;
                     if ($addPerms) {
                         $permission->addGuestPermission($addPerms, false);
                     }
-                    $addPerms = Horde_Util::getFormData('autocreate_default');
+                    $addPerms = $vars->autocreate_default;
                     if ($addPerms) {
                         $permission->addDefaultPermission($addPerms, false);
                     }
-                    $addPerms = Horde_Util::getFormData('autocreate_creator');
+                    $addPerms = $vars->autocreate_creator;
                     if ($addPerms) {
                         $permission->addCreatorPermission($addPerms, false);
                     }

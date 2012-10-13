@@ -5,6 +5,10 @@
  *
  * For usage information call:
  * ./translation help
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 /**

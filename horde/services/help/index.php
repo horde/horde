@@ -6,22 +6,25 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 $rtl = $registry->nlsconfig->curr_rtl;
-$title = _("Help");
 $show = isset($vars->show)
     ? Horde_String::lower($vars->show)
     : 'index';
 $module = isset($vars->module)
     ? Horde_String::lower(preg_replace('/\W/', '', $vars->module))
     : 'horde';
-$topic = isset($vars->topic) ? $vars->topic : 'overview';
+$topic = $vars->get('topic', 'overview');
 
 $base_url = $registry->getServiceLink('help', $module);
 
@@ -41,20 +44,21 @@ if ($show == 'index') {
     exit;
 }
 
-if ($module == 'admin') {
-    $help_app = $registry->get('name', 'horde');
-    $fileroot = $registry->get('fileroot') . '/admin';
-} else {
-    $help_app = $registry->get('name', $module);
-    $fileroot = $registry->get('fileroot', $module);
-}
+$help_app = $registry->get('name', ($module == 'admin') ? 'horde' : $module);
+$fileroot = ($module == 'admin')
+    ? $registry->get('fileroot') . '/admin'
+    : $registry->get('fileroot', $module);
 
-$help = new Horde_Help(Horde_Help::SOURCE_FILE, array($fileroot . '/locale/' . $language . '/help.xml', $fileroot . '/locale/' . substr($language, 0, 2) . '/help.xml', $fileroot . '/locale/en/help.xml'));
+$help = new Horde_Help(Horde_Help::SOURCE_FILE, array(
+    $fileroot . '/locale/' . $language . '/help.xml',
+    $fileroot . '/locale/' . substr($language, 0, 2) . '/help.xml',
+    $fileroot . '/locale/en/help.xml'
+));
 
 $page_output->sidebar = $page_output->topbar = false;
 $page_output->header(array(
     'body_class' => 'help help_' . urlencode($show),
-    'title' => $title
+    'title' => _("Help")
 ));
 
 switch ($show) {
@@ -64,10 +68,6 @@ case 'menu':
     break;
 
 case 'sidebar':
-    if (!isset($vars->side_show)) {
-        $vars->set('side_show', 'index');
-    }
-
     /* Generate Tabs */
     $tabs = new Horde_Core_Ui_Tabs('side_show', $vars);
     $tabs->addTab(_("Help _Topics"), $sidebar_url, 'index');
@@ -78,7 +78,7 @@ case 'sidebar':
     $tree->setOption(array('target' => 'help_main'));
 
     $contents = '';
-    switch ($vars->side_show) {
+    switch ($vars->get('side_show', 'index')) {
     case 'index':
         $topics = $help->topics();
         $added_nodes = array();
@@ -92,9 +92,6 @@ case 'sidebar':
                 continue;
             }
 
-            $node_params = $node_params_master;
-            $parent = null;
-
             /* If the title doesn't begin with :: then replace all
              * double colons with single colons. */
             if (substr($title, 0, 2) != '::') {
@@ -107,8 +104,9 @@ case 'sidebar':
                 $levels = array(1 => $title);
             }
 
-            $parent = null;
             $idx = '';
+            $node_params = $node_params_master;
+            $parent = null;
 
             foreach ($levels as $key => $name) {
                 $idx .= '|' . $name;

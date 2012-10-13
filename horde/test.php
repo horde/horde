@@ -4,19 +4,22 @@
  *
  * Parameters:
  * -----------
- * 'app' - (string) The app to test.
- *         DEFAULT: horde
- * 'mode' - (string) TODO
- * 'url' - (string) TODO
+ *   - app: (string) The app to test.
+ *          DEFAULT: horde
+ *   - mode: (string) TODO
+ *   - url: (string) TODO
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Brent J. Nordquist <bjn@horde.org>
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author   Brent J. Nordquist <bjn@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 /* Function to output fatal error message. */

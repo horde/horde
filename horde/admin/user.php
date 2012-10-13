@@ -5,7 +5,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../lib/Application.php';
@@ -14,12 +17,12 @@ Horde_Registry::appInit('horde', array(
 ));
 
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
+$vars = $injector->getInstance('Horde_Variables');
 
 if ($conf['signup']['allow'] && $conf['signup']['approve']) {
     $signup = $injector->getInstance('Horde_Core_Auth_Signup');
 }
 
-$vars = Horde_Variables::getDefaultVariables();
 $addForm = new Horde_Form($vars, _("Add a new user:"), 'adduser');
 $addForm->setButtons(_("Add user"), _("Reset"));
 
@@ -51,10 +54,7 @@ if (empty($extra)) {
     $addForm->addVariable(_("Password"), 'password', 'passwordconfirm', false, false, _("type the password twice to confirm"));
 }
 
-// Process forms. Use Horde_Util::getPost() instead of Horde_Util::getFormData()
-// for a lot of the data because we want to actively ignore GET data
-// in some cases - adding/modifying users - as a security precaution.
-switch (Horde_Util::getFormData('form')) {
+switch ($vars->form) {
 case 'add':
     $addForm->validate($vars);
     if ($addForm->isValid() && $vars->get('formname') == 'adduser') {
@@ -95,7 +95,7 @@ case 'add':
                 } catch (Horde_Exception_HookNotSet $e) {}
             }
 
-            if (Horde_Util::getFormData('removeQueuedSignup')) {
+            if ($vars->removeQueuedSignup) {
                 $signup->removeQueuedSignup($info['user_name']);
             }
 
@@ -106,14 +106,14 @@ case 'add':
     break;
 
 case 'remove_f':
-    $f_user_name = Horde_Util::getFormData('user_name');
+    $f_user_name = $vars->user_name;
     $remove_form = true;
     break;
 
 case 'remove':
-    $f_user_name = Horde_Util::getFormData('user_name');
+    $f_user_name = $vars->user_name;
     $vars->remove('user_name');
-    if (Horde_Util::getFormData('submit') == _("Cancel")) {
+    if ($vars->submit == _("Cancel")) {
         break;
     }
     if (empty($f_user_name)) {
@@ -129,14 +129,14 @@ case 'remove':
     break;
 
 case 'clear_f':
-    $f_user_name = Horde_Util::getFormData('user_name');
+    $f_user_name = $vars->user_name;
     $clear_form = true;
     break;
 
 case 'clear':
-    $f_user_name = Horde_Util::getFormData('user_name');
+    $f_user_name = $vars->user_name;
     $vars->remove('user_name');
-    if (Horde_Util::getFormData('submit') == _("Cancel")) {
+    if ($vars->submit == _("Cancel")) {
         break;
     }
     if (empty($f_user_name)) {
@@ -152,7 +152,7 @@ case 'clear':
     break;
 
 case 'update_f':
-    $f_user_name = Horde_Util::getFormData('user_name');
+    $f_user_name = $vars->user_name;
     $update_form = true;
     break;
 
@@ -201,7 +201,7 @@ case 'update':
     break;
 
 case 'approve_f':
-    $thisSignup = $signup->getQueuedSignup(Horde_Util::getFormData('user_name'));
+    $thisSignup = $signup->getQueuedSignup($vars->user_name);
     $info = $thisSignup->getData();
 
     $vars->set('password',
@@ -215,14 +215,14 @@ case 'approve_f':
     break;
 
 case 'removequeued_f':
-    $f_user_name = Horde_Util::getFormData('user_name');
+    $f_user_name = $vars->user_name;
     $removequeued_form = true;
     break;
 
 case 'removequeued':
     try {
-        $signup->removeQueuedSignup(Horde_Util::getFormData('user_name'));
-        $notification->push(sprintf(_("The signup request for \"%s\" has been removed."), Horde_Util::getFormData('user_name')));
+        $signup->removeQueuedSignup($vars->user_name);
+        $notification->push(sprintf(_("The signup request for \"%s\" has been removed."), $vars->user_name));
     } catch (Horde_Exception $e) {
         $notification->push($e);
     }
@@ -264,8 +264,8 @@ if (isset($update_form) && $auth->hasCapability('list')) {
 
 if ($auth->hasCapability('list')) {
     /* If we aren't supplied with a page number, default to page 0. */
-    $page = Horde_Util::getFormData('page', 0);
-    $search_pattern = Horde_Util::getFormData('search_pattern', '');
+    $page = $vars->get('page', 0);
+    $search_pattern = $vars->get('search_pattern', '');
 
     $users = $auth->listUsers();
 

@@ -5,11 +5,16 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Jan Schneider <jan@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../lib/base.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
+
+$vars = $injector->getInstance('Horde_Variables');
 
 // Make sure signups are enabled before proceeding
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
@@ -26,25 +31,22 @@ try {
 }
 
 // Verify hash.
-$user = Horde_Util::getFormData('u');
-$hash = Horde_Util::getFormData('h');
-$action = Horde_Util::getFormData('a');
-if (hash_hmac('sha1', $user, $conf['secret_key']) != $hash) {
+if (hash_hmac('sha1', $vars->u, $conf['secret_key']) != $vars->h) {
     throw new Horde_Exception(_("Invalid hash."));
 }
 
 // Deny signup.
-if ($action == 'deny') {
-    $signup->removeQueuedSignup($user);
-    printf(_("The signup request for user \"%s\" has been removed."), $user);
+if ($vars->a == 'deny') {
+    $signup->removeQueuedSignup($vars->u);
+    printf(_("The signup request for user \"%s\" has been removed."), $vars->u);
     exit;
 }
-if ($action != 'approve') {
-    throw new Horde_Exception(sprintf(_("Invalid action %s"), $action));
+if ($vars->a != 'approve') {
+    throw new Horde_Exception(sprintf(_("Invalid action %s"), $vars->a));
 }
 
 // Read and verify user data.
-$thisSignup = $signup->getQueuedSignup($user);
+$thisSignup = $signup->getQueuedSignup($vars->u);
 $info = $thisSignup->getData();
 
 if (empty($info['user_name']) && isset($info['extra']['user_name'])) {
@@ -80,6 +82,6 @@ if (isset($info['extra'])) {
         throw new Horde_Exception(sprintf(_("Added \"%s\" to the system, but could not add additional signup information: %s."), $info['user_name'], $e->getMessage()));
     } catch (Horde_Exception_HookNotSet $e) {}
 }
-$signup->removeQueuedSignup($user);
+$signup->removeQueuedSignup($vars->u);
 
 echo sprintf(_("Successfully added \"%s\" to the system."), $info['user_name']);

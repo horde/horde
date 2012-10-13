@@ -53,11 +53,14 @@ function _addAnchor($url, $type, $vars, $url_anchor = null)
  * constructor. */
 require_once __DIR__ . '/lib/Application.php';
 try {
-    Horde_Registry::appInit('horde', array('authentication' => 'none', 'nologintasks' => true));
+    Horde_Registry::appInit('horde', array(
+        'authentication' => 'none',
+        'nologintasks' => true
+    ));
 } catch (Horde_Exception $e) {}
 
-$vars = Horde_Variables::getDefaultVariables();
 $is_auth = $registry->isAuthenticated();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* This ensures index.php doesn't pick up the 'url' parameter. */
 $horde_login_url = '';
@@ -211,11 +214,7 @@ $js_files = array(
 );
 
 if (!empty($GLOBALS['conf']['user']['select_view'])) {
-    if (!($view_cookie = Horde_Util::getFormData('horde_select_view'))) {
-        $view_cookie = isset($_COOKIE['default_horde_view'])
-            ? $_COOKIE['default_horde_view']
-            : 'auto';
-    }
+    $view_cookie = $vars->get('horde_select_view', isset($_COOKIE['default_horde_view']) ? $_COOKIE['default_horde_view'] : 'auto');
 
     $js_code['HordeLogin.pre_sel'] = $view_cookie;
     $loginparams['horde_select_view'] = array(

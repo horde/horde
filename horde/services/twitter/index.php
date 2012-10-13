@@ -7,8 +7,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Michael J. Rubinsky <mrubinsk.horde.org>
- * @package @horde
+ * @author   Michael J. Rubinsky <mrubinsk.horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../../lib/Application.php';
@@ -18,7 +20,7 @@ if (empty($conf['twitter']['enabled'])) {
     Horde::url('index.php', false, array('app' => 'horde'))->redirect();
 }
 
-$twitter = $GLOBALS['injector']->getInstance('Horde_Service_Twitter');
+$twitter = $injector->getInstance('Horde_Service_Twitter');
 
 /* See if we have an existing token for the current user */
 $token = unserialize($prefs->getValue('twitter'));
@@ -89,7 +91,6 @@ case 'getPage':
     $view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
     $view->addHelper('Tag');
     foreach ($stream as $tweet) {
-
         /* Don't return the max_id tweet, since we already have it */
         if (!empty($params['max_id']) && $params['max_id'] == $tweet->id_str) {
             continue;
@@ -98,8 +99,7 @@ case 'getPage':
         $filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
 
         // Links and media
-        $map = array();
-        $previews = array();
+        $map = $previews = array();
 
         foreach ($tweet->entities->urls as $link) {
             $replace = '<a href="' . $link->url . '" title="' . $link->expanded_url . '">' . htmlspecialchars($link->display_url) . '</a>';
@@ -179,7 +179,7 @@ if (!empty($auth_token)) {
 } elseif ($r_secret = $session->retrieve('twitter_request_secret')) {
      /* No existing auth token, maybe we are in the process of getting it? */
     try {
-        $auth_token = $twitter->auth->getAccessToken($GLOBALS['injector']->getInstance('Horde_Controller_Request'), Horde_Util::getFormData('oauth_verifier'));
+        $auth_token = $twitter->auth->getAccessToken($injector->getInstance('Horde_Controller_Request'), Horde_Util::getFormData('oauth_verifier'));
     } catch (Horde_Service_Twitter_Exception $e) {
         echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
         echo '</form>';

@@ -7,11 +7,17 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none', 'nologintasks' => true));
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'nologintasks' => true
+));
 
 $main_page = Horde_Util::nonInputVar('horde_login_url', Horde_Util::getFormData('url'));
 

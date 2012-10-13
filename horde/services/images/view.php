@@ -2,29 +2,35 @@
 /**
  * Displays an image and allows modifications if required.
  *
+ * URL parameters:
+ *   - a: perform some action on the image, such as scaling.
+ *   - c: which app's config to use for VFS, defaults to Horde.
+ *   - f: the filename.
+ *   - n: the name to set to the filename or default to same as filename.
+ *   - p: the directory of the file.
+ *   - s: the source, either the 'tmp' directory or VFS.
+ *
  * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Marko Djukic <marko@oblo.com>
+ * @author   Marko Djukic <marko@oblo.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintasks' => true));
 
-/* Get file info. The following parameters are available:
- *  'f' - the filename.
- *  's' - the source, either the 'tmp' directory or VFS.
- *  'c' - which app's config to use for VFS, defaults to Horde.
- *  'p' - the directory of the file.
- *  'n' - the name to set to the filename or default to same as filename.
- *  'a' - perform some action on the image, such as scaling. */
-$file = basename(Horde_Util::getFormData('f'));
-$source = strtolower(Horde_Util::getFormData('s', 'tmp'));
-$app_conf = strtolower(Horde_Util::getFormData('c', 'horde'));
-$name = Horde_Util::getFormData('n', $file);
-$action = strtolower(Horde_Util::getFormData('a'));
+$vars = $injector->getInstance('Horde_Variables');
+
+$file = basename($vars->f);
+$source = strtolower($vars->get('s', 'tmp'));
+$app_conf = strtolower($vars->get('c', 'horde'));
+$name = $vars->get('n', $file);
+$action = strtolower($vars->a);
 
 switch ($source) {
 case 'vfs':
@@ -32,12 +38,11 @@ case 'vfs':
     $pushed = $registry->pushApp($app_conf);
 
     /* Getting a file from Horde's VFS. */
-    $path = Horde_Util::getFormData('p');
     try {
-        $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-        $file_data = $vfs->read($path, $file);
+        $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
+        $file_data = $vfs->read($vars->p, $file);
     } catch (Horde_Vfs_Exception $e) {
-        Horde::logMessage(sprintf('Error displaying image [%s]: %s', $path . '/' . $file, $e->getMessage()), 'ERR');
+        Horde::logMessage(sprintf('Error displaying image [%s]: %s', $vars->p . '/' . $file, $e->getMessage()), 'ERR');
         exit;
     }
 
@@ -50,7 +55,7 @@ case 'vfs':
 case 'tmp':
     /* Getting a file from Horde's temp dir. */
     $tmpdir = Horde::getTempDir();
-    if (empty($action) || $action == 'resize') {
+    if (empty($action) || ($action == 'resize')) {
         /* Use original if no action or if resizing. */
         $file_name = $tmpdir . '/' . $file;
     } else {
@@ -69,10 +74,10 @@ case 'tmp':
 
 /* Load the image object. */
 $type = Horde_Mime_Magic::analyzeData($file_data);
-$image = $GLOBALS['injector']
-    ->getInstance('Horde_Core_Factory_Image')
-    ->create(array('type' => $type,
-                   'data' => $file_data));
+$image = $injector->getInstance('Horde_Core_Factory_Image')->create(array(
+    'data' => $file_data,
+    'type' => $type
+));
 
 /* Check if no editing action required and send the image to browser. */
 if (empty($action)) {
@@ -83,7 +88,7 @@ if (empty($action)) {
 /* Image editing required. */
 switch ($action) {
 case 'rotate':
-    $image->rotate(Horde_Util::getFormData('v'));
+    $image->rotate($vars->v);
     break;
 
 case 'flip':
@@ -99,7 +104,7 @@ case 'grayscale':
     break;
 
 case 'resize':
-    list($width, $height, $ratio) = explode('.', Horde_Util::getFormData('v'));
+    list($width, $height, $ratio) = explode('.', $vars->v);
 
     /* If no width or height has been passed, get the original
      * ones. */
@@ -122,8 +127,6 @@ case 'resize':
 }
 
 /* Write out any changes to the temporary file. */
-$fp = @fopen($file_name, 'wb');
-fwrite($fp, $image->raw());
-fclose($fp);
+file_put_contents($file_name, $image->raw());
 
 $image->display();

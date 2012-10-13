@@ -5,11 +5,16 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
+
+$vars = $injector->getInstance('Horde_Variables');
 
 // Exit if the user shouldn't be able to change share permissions.
 if (!empty($conf['share']['no_sharing'])) {
@@ -23,7 +28,7 @@ $fieldsList = array(
     'delete' => 3
 );
 
-$app = Horde_Util::getFormData('app');
+$app = $vars->app;
 $shares = $injector->getInstance('Horde_Core_Factory_Share')->create($app);
 $groups = $injector->getInstance('Horde_Group');
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
@@ -33,18 +38,18 @@ $help = $registry->hasMethod('shareHelp', $app)
 
 $form = null;
 $reload = false;
-switch (Horde_Util::getFormData('actionID', 'edit')) {
+switch ($vars->get('actionID', 'edit')) {
 case 'edit':
     try {
-        $shareid = Horde_Util::getFormData('cid');
+        $shareid = $vars->cid;
         if (!$shareid) {
-            throw new Horde_Exception_NotFound(); 
+            throw new Horde_Exception_NotFound();
         }
         $share = $shares->getShareById($shareid);
         $form = 'edit.inc';
         $perm = $share->getPermission();
     } catch (Horde_Exception_NotFound $e) {
-        if (($category = Horde_Util::getFormData('share')) !== null) {
+        if (($category = $vars->share) !== null) {
             try {
                 $share = $shares->getShare($category);
                 $form = 'edit.inc';
@@ -65,7 +70,7 @@ case 'edit':
 
 case 'editform':
     try {
-        $share = $shares->getShareById(Horde_Util::getFormData('cid'));
+        $share = $shares->getShareById($vars->cid);
     } catch (Horde_Share_Exception $e) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
     }
@@ -80,7 +85,7 @@ case 'editform':
 
         // Process owner and owner permissions.
         $old_owner = $share->get('owner');
-        $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
+        $new_owner_backend = $vars->get('owner_select', $vars->get('owner_input', $old_owner));
         $new_owner = $registry->convertUsername($new_owner_backend, true);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
             if ($old_owner != $registry->getAuth() && !$registry->isAdmin()) {
@@ -96,44 +101,44 @@ case 'editform':
         if ($registry->isAdmin() ||
             !empty($conf['share']['world'])) {
             // Process default permissions.
-            if (Horde_Util::getFormData('default_show')) {
+            if ($vars->default_show) {
                 $perm->addDefaultPermission(Horde_Perms::SHOW, false);
             } else {
                 $perm->removeDefaultPermission(Horde_Perms::SHOW, false);
             }
-            if (Horde_Util::getFormData('default_read')) {
+            if ($vars->default_read) {
                 $perm->addDefaultPermission(Horde_Perms::READ, false);
             } else {
                 $perm->removeDefaultPermission(Horde_Perms::READ, false);
             }
-            if (Horde_Util::getFormData('default_edit')) {
+            if ($vars->default_edit) {
                 $perm->addDefaultPermission(Horde_Perms::EDIT, false);
             } else {
                 $perm->removeDefaultPermission(Horde_Perms::EDIT, false);
             }
-            if (Horde_Util::getFormData('default_delete')) {
+            if ($vars->default_delete) {
                 $perm->addDefaultPermission(Horde_Perms::DELETE, false);
             } else {
                 $perm->removeDefaultPermission(Horde_Perms::DELETE, false);
             }
 
             // Process guest permissions.
-            if (Horde_Util::getFormData('guest_show')) {
+            if ($vars->guest_show) {
                 $perm->addGuestPermission(Horde_Perms::SHOW, false);
             } else {
                 $perm->removeGuestPermission(Horde_Perms::SHOW, false);
             }
-            if (Horde_Util::getFormData('guest_read')) {
+            if ($vars->guest_read) {
                 $perm->addGuestPermission(Horde_Perms::READ, false);
             } else {
                 $perm->removeGuestPermission(Horde_Perms::READ, false);
             }
-            if (Horde_Util::getFormData('guest_edit')) {
+            if ($vars->guest_edit) {
                 $perm->addGuestPermission(Horde_Perms::EDIT, false);
             } else {
                 $perm->removeGuestPermission(Horde_Perms::EDIT, false);
             }
-            if (Horde_Util::getFormData('guest_delete')) {
+            if ($vars->guest_delete) {
                 $perm->addGuestPermission(Horde_Perms::DELETE, false);
             } else {
                 $perm->removeGuestPermission(Horde_Perms::DELETE, false);
@@ -141,35 +146,28 @@ case 'editform':
         }
 
         // Process creator permissions.
-        if (Horde_Util::getFormData('creator_show')) {
+        if ($vars->creator_show) {
             $perm->addCreatorPermission(Horde_Perms::SHOW, false);
         } else {
             $perm->removeCreatorPermission(Horde_Perms::SHOW, false);
         }
-        if (Horde_Util::getFormData('creator_read')) {
+        if ($vars->creator_read) {
             $perm->addCreatorPermission(Horde_Perms::READ, false);
         } else {
             $perm->removeCreatorPermission(Horde_Perms::READ, false);
         }
-        if (Horde_Util::getFormData('creator_edit')) {
+        if ($vars->creator_edit) {
             $perm->addCreatorPermission(Horde_Perms::EDIT, false);
         } else {
             $perm->removeCreatorPermission(Horde_Perms::EDIT, false);
         }
-        if (Horde_Util::getFormData('creator_delete')) {
+        if ($vars->creator_delete) {
             $perm->addCreatorPermission(Horde_Perms::DELETE, false);
         } else {
             $perm->removeCreatorPermission(Horde_Perms::DELETE, false);
         }
 
-        // Process user permissions.
-        $u_names = Horde_Util::getFormData('u_names');
-        $u_show = Horde_Util::getFormData('u_show');
-        $u_read = Horde_Util::getFormData('u_read');
-        $u_edit = Horde_Util::getFormData('u_edit');
-        $u_delete = Horde_Util::getFormData('u_delete');
-
-        foreach ($u_names as $key => $user_backend) {
+        foreach ($vars->u_names as $key => $user_backend) {
             // Apply backend hooks
             $user = $registry->convertUsername($user_backend, true);
             // If the user is empty, or we've already set permissions
@@ -182,56 +180,49 @@ case 'editform':
                 continue;
             }
 
-            if (!empty($u_show[$key])) {
+            if (!empty($vars->u_show[$key])) {
                 $perm->addUserPermission($user, Horde_Perms::SHOW, false);
             } else {
                 $perm->removeUserPermission($user, Horde_Perms::SHOW, false);
             }
-            if (!empty($u_read[$key])) {
+            if (!empty($vars->u_read[$key])) {
                 $perm->addUserPermission($user, Horde_Perms::READ, false);
             } else {
                 $perm->removeUserPermission($user, Horde_Perms::READ, false);
             }
-            if (!empty($u_edit[$key])) {
+            if (!empty($vars->u_edit[$key])) {
                 $perm->addUserPermission($user, Horde_Perms::EDIT, false);
             } else {
                 $perm->removeUserPermission($user, Horde_Perms::EDIT, false);
             }
-            if (!empty($u_delete[$key])) {
+            if (!empty($vars->u_delete[$key])) {
                 $perm->addUserPermission($user, Horde_Perms::DELETE, false);
             } else {
                 $perm->removeUserPermission($user, Horde_Perms::DELETE, false);
             }
         }
 
-        // Process group permissions.
-        $g_names = Horde_Util::getFormData('g_names');
-        $g_show = Horde_Util::getFormData('g_show');
-        $g_read = Horde_Util::getFormData('g_read');
-        $g_edit = Horde_Util::getFormData('g_edit');
-        $g_delete = Horde_Util::getFormData('g_delete');
-
-        foreach ($g_names as $key => $group) {
+        foreach ($vars->g_names as $key => $group) {
             if (empty($group)) {
                 continue;
             }
 
-            if (!empty($g_show[$key])) {
+            if (!empty($vars->g_show[$key])) {
                 $perm->addGroupPermission($group, Horde_Perms::SHOW, false);
             } else {
                 $perm->removeGroupPermission($group, Horde_Perms::SHOW, false);
             }
-            if (!empty($g_read[$key])) {
+            if (!empty($vars->g_read[$key])) {
                 $perm->addGroupPermission($group, Horde_Perms::READ, false);
             } else {
                 $perm->removeGroupPermission($group, Horde_Perms::READ, false);
             }
-            if (!empty($g_edit[$key])) {
+            if (!empty($vars->g_edit[$key])) {
                 $perm->addGroupPermission($group, Horde_Perms::EDIT, false);
             } else {
                 $perm->removeGroupPermission($group, Horde_Perms::EDIT, false);
             }
-            if (!empty($g_delete[$key])) {
+            if (!empty($vars->g_delete[$key])) {
                 $perm->addGroupPermission($group, Horde_Perms::DELETE, false);
             } else {
                 $perm->removeGroupPermission($group, Horde_Perms::DELETE, false);
@@ -244,7 +235,7 @@ case 'editform':
         } catch (Exception $e) {
             $notification->push($e->getMessage(), 'horde.error');
         }
-        if (Horde_Util::getFormData('save_and_finish')) {
+        if ($vars->save_and_finish) {
             echo Horde::wrapInlineScript(array('window.close();'));
             exit;
         }
