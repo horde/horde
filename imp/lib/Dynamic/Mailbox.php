@@ -483,6 +483,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'search' => _("Search"),
             'search_time' => _("Results are %d Minutes Old"),
             'selected' => _("selected"),
+            'slidertext' => _("Messages %d - %d"),
             'vfolder' => _("Virtual Folder: %s"),
             'vp_empty' => _("There are no messages in this mailbox."),
             'vp_empty_search' => _("No messages matched the search query.")

@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Display message range when dragging slider on dynamic mailbox page.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2759,7 +2759,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Display message range when dragging slider on dynamic mailbox page.
    </notes>
   </release>
  </changelog>

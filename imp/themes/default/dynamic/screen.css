@@ -309,6 +309,13 @@ div.vpRowVert div.msgSubject span.flagUser {
     background-image: url("../graphics/sbcursor_bottom.png");
     border-bottom: 1px solid #d0d0d0;
 }
+#slider_count {
+    background-color: #ECEFF0;
+    font-weight: bold;
+    padding: 2px;
+    position: absolute;
+    opacity: 0.85;
+}
 
 /* IFRAMEs */
 #dimpmain_iframe iframe {

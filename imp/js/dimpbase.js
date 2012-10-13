@@ -578,8 +578,7 @@ var DimpBase = {
                 }
 
                 return offset;
-            }.bind(this),
-            onSlide: this.setMessageListTitle.bind(this)
+            }.bind(this)
         });
 
         /* Custom ViewPort events. */
@@ -764,6 +763,30 @@ var DimpBase = {
                 }
             }
         }.bindAsEventListener(this));
+
+        container.observe('ViewPort:sliderEnd', function() {
+            $('slider_count').hide();
+        });
+
+        container.observe('ViewPort:sliderSlide', this.updateSliderCount.bind(this));
+
+        container.observe('ViewPort:sliderStart', function() {
+            var sc = $('slider_count'),
+                sb = $('msgSplitPane').down('.vpScroll'),
+                s = sb.viewportOffset();
+
+            if (!sc) {
+                sc = new Element('DIV', { id: 'slider_count' });
+                $(document.body).insert(sc);
+            }
+
+            this.updateSliderCount();
+
+            sc.setStyle({
+                top: (s.top + sb.getHeight() - sc.getHeight()) + 'px',
+                right: (document.viewport.getWidth() - s.left) + 'px'
+            }).show();
+        }.bind(this));
 
         container.observe('ViewPort:splitBarChange', function(e) {
             switch (e.memo) {
@@ -2778,6 +2801,13 @@ var DimpBase = {
     loadingEndHandler: function(e)
     {
         this.loadingImg(e.memo, false);
+    },
+
+    updateSliderCount: function()
+    {
+        var range = this.viewport.currentViewableRange();
+
+        $('slider_count').update(DimpCore.text.slidertext.sub('%d', range.first).sub('%d', range.last));
     },
 
     toggleHelp: function()

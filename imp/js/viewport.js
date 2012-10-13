@@ -51,10 +51,6 @@
  *                  offset of the content about to be rendered.
  *                  params: (integer) The current offset.
  *                  return: (integer) The altered offset.
- * onSlide: (function) Callback function that is triggered when the
- *          viewport slider bar is moved.
- *          params: NONE
- *          return: NONE
  * page_size: (integer) Default page size to view on load. Only used if
  *            pane_mode is 'horiz'.
  * pane_data: (Element/string) A DOM element/ID of the container to hold
@@ -1339,10 +1335,20 @@ ViewPort_Scroller = Class.create({
         this.scrollDiv = new Element('DIV', { className: 'vpScroll' }).setStyle({ float: 'left', overflow: 'hidden' }).hide();
         c.insert({ after: this.scrollDiv });
 
-        this.scrollDiv.observe('Slider2:change', this._onScroll.bind(this));
-        if (this.vp.opts.onSlide) {
-            this.scrollDiv.observe('Slider2:slide', this.vp.opts.onSlide);
-        }
+        this.scrollDiv.observe('Slider2:change', function() {
+            if (!this.noupdate) {
+                this.vp.requestContentRefresh(this.currentOffset());
+            }
+        }.bind(this));
+        this.scrollDiv.observe('Slider2:end', function() {
+            this.vp.opts.container.fire('ViewPort:sliderEnd');
+        }.bind(this));
+        this.scrollDiv.observe('Slider2:slide', function() {
+            this.vp.opts.container.fire('ViewPort:sliderSlide');
+        }.bind(this));
+        this.scrollDiv.observe('Slider2:start', function() {
+            this.vp.opts.container.fire('ViewPort:sliderStart');
+        }.bind(this));
 
         // Create scrollbar object.
         this.scrollbar = new Slider2(this.scrollDiv, {
@@ -1413,13 +1419,6 @@ ViewPort_Scroller = Class.create({
     {
         this._createScrollBar();
         this.scrollbar.setScrollPosition(offset);
-    },
-
-    _onScroll: function()
-    {
-        if (!this.noupdate) {
-            this.vp.requestContentRefresh(this.currentOffset());
-        }
     },
 
     currentOffset: function()
