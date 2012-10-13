@@ -14,7 +14,7 @@
  * @author  Matt Kynaston <matt@kynx.org>
  * @package Form
  */
-class Horde_Form_Action_sum_fields extends Horde_Form_Action {
+class Horde_Form_Action_SumFields extends Horde_Form_Action {
 
     var $_trigger = array('onload');
 
