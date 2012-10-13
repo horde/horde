@@ -244,7 +244,6 @@ var ViewPort = Class.create({
             horiz: {
                 loc: opts.page_size
             },
-            init: false,
             spacer: null,
             vert: {
                 width: opts.pane_width
@@ -262,6 +261,9 @@ var ViewPort = Class.create({
         this.empty_msg = new Element('SPAN', { className: 'vpEmpty' });
 
         Event.observe(window, 'resize', this.onResize.bind(this));
+        document.observe('DragDrop2:start', this._onDragStart.bindAsEventListener(this));
+        document.observe('DragDrop2:end', this._onDragEnd.bindAsEventListener(this));
+        document.observe('dblclick', this._onDragDblClick.bindAsEventListener(this));
     },
 
     // view = (string) ID of view.
@@ -1143,13 +1145,6 @@ var ViewPort = Class.create({
                 snapToParent: true
             });
             break;
-        }
-
-        if (!sp.init) {
-            document.observe('DragDrop2:end', this._onDragEnd.bindAsEventListener(this));
-            document.observe('DragDrop2:start', this._onDragStart.bindAsEventListener(this));
-            document.observe('dblclick', this._onDragDblClick.bindAsEventListener(this));
-            sp.init = true;
         }
     },
 
