@@ -132,10 +132,14 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
             $this->view->atc_label = $msg_res['atc_label'];
             if (isset($msg_res['atc_list'])) {
                 $this->view->atc_list = $msg_res['atc_list'];
+            } else {
+                $this->view->atc_list = array();
             }
             if (isset($msg_res['atc_download'])) {
                 $this->view->atc_download = $msg_res['atc_download'];
             }
+        } else {
+            $this->view->atc_list = array();
         }
 
         $this->view->msgtext = $msg_res['msgtext'];
