@@ -979,17 +979,16 @@ if ($redirect) {
 
         $save_attach = $prefs->getValue('save_attachments');
         $show_link_attach = ($conf['compose']['link_attachments'] && !$conf['compose']['link_all_attachments']);
-        $show_save_attach = ($view->ssm && (strpos($save_attach, 'prompt') === 0)
-                             && (!$conf['compose']['link_attachments'] || !$conf['compose']['link_all_attachments']));
+        $show_save_attach = ($view->ssm && !$prefs->isLocked('save_attachments') && (!$conf['compose']['link_attachments'] || !$conf['compose']['link_all_attachments']));
         if ($show_link_attach || $show_save_attach) {
             $view->show_link_save_attach = true;
             $attach_options = array();
             if ($show_save_attach) {
                 $save_attach_val = isset($vars->save_attachments_select)
                     ? $vars->save_attachments_select
-                    : ($save_attach == 'prompt_yes');
+                    : ($save_attach == 'always');
                 $attach_options[] = array(
-                    'label' => _("Save Attachments with message in sent-mail mailbox?"),
+                    'label' => _("Save attachments with message in sent-mail mailbox?"),
                     'name' => 'save_attachments_select',
                     'val' => $save_attach_val
                 );

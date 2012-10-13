@@ -116,6 +116,9 @@ a user logs into IMP 6 for the first time)::
 The 'cursor_compose' preference removed the 'sig' option. Existing preferences
 will automatically be converted to 'bottom'.
 
+The 'save_attachments' preference removed the 'prompt_yes' and 'prompt_no'
+options. Existing preferences will automatically be converted.
+
 The 'add_printedby', 'image_replacement_addrs', 'reply_charset', and
 'reply_strip_sig' preferences were added.
 
