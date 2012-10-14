@@ -2,8 +2,7 @@
   <div id="hermesLoadingTime" class="hermesLoading"></div>
   <div class="hermesViewTimeContainer">
    <div id="hermesTimeEntry">
-    <div id="hermesTimeFormCollapse" class="hermesTimeFormShown">&nbsp;</div>
-    <div class="header"><?php echo _("Time Entry")?></div>
+     <div class="header"><span class="horde-collapse" id="hordeTimeFormCollapse"><?php echo _("Time Entry")?></span></div>
     <form id="hermesTimeForm" action="">
         <input type="hidden" name="id" id="hermesTimeFormId" value="0" />
         <div id="hermesTimeFormInputs">
