@@ -221,10 +221,10 @@ class Horde_Themes_Cache implements Serializable
         if ($entry & self::HORDE_THEME) {
             $out[] = $this->_getOutput('horde', $this->_theme, $item);
         }
-        if ($entry & self::APP_DEFAULT) {
+        if (($this->_theme != 'default') && $entry & self::APP_DEFAULT) {
             $out[] = $this->_getOutput($this->_app, 'default', $item);
         }
-        if ($entry & self::HORDE_DEFAULT) {
+        if (($this->_theme != 'default') && $entry & self::HORDE_DEFAULT) {
             $out[] = $this->_getOutput('horde', 'default', $item);
         }
 
