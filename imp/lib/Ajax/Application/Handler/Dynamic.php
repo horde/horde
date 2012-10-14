@@ -1011,7 +1011,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
     protected function _draftAction($action)
     {
         try {
-            list($result, $imp_compose, $headers, ) = $this->_base->composeSetup();
+            list($result, $imp_compose, $headers, ) = $this->_base->composeSetup($action);
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
 
