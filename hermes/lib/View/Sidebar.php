@@ -27,26 +27,7 @@ class Hermes_View_Sidebar extends Horde_View_Sidebar
         global $prefs, $registry;
 
         parent::__construct($config);
-
         $sidebar = $GLOBALS['injector']->createInstance('Horde_View');
-
-        // $today = new Horde_Date($_SERVER['REQUEST_TIME']);
-        // $sidebar->today = $today->format('F Y');
-
-        // $sidebar->weekdays = array();
-        // for ($i = $prefs->getValue('week_start_monday'), $c = $i + 7;
-        //      $i < $c;
-        //      $i++) {
-        //     $weekday = Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1)));
-        //     $sidebar->weekdays[$weekday] = Horde_String::substr($weekday, 0, 2);
-        // }
-
-        // /* Calendars. */
-        // $sidebar->newShares = $registry->getAuth() &&
-        //     !$prefs->isLocked('default_share');
-        // $sidebar->isAdmin = $registry->isAdmin();
-        // $sidebar->resources = $GLOBALS['conf']['resource']['driver'] == 'sql';
-
         $this->content = $sidebar->render('dynamic/sidebar');
     }
 }
