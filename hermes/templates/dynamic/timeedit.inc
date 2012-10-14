@@ -3,7 +3,7 @@
   <div class="hermesViewTimeContainer">
    <div id="hermesTimeEntry">
     <div id="hermesTimeFormCollapse" class="hermesTimeFormShown">&nbsp;</div>
-    <h1><?php echo _("Time Entry")?></h1>
+    <div class="header"><?php echo _("Time Entry")?></div>
     <form id="hermesTimeForm" action="">
         <input type="hidden" name="id" id="hermesTimeFormId" value="0" />
         <div id="hermesTimeFormInputs">

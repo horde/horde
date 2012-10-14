@@ -195,11 +195,13 @@ a.rounded {
 .hermesTimeListControls {
     padding: 7px;
 }
+
 /* Time Entry Form */
+
 #hermesTimeEntry {
-  background: none repeat scroll 0 0 #dbdbdb;
-  padding: 10px;
+  background: none repeat scroll 0 0;
 }
+
 #hermesTimeFormInputs {
     margin-left: 7px;
     margin-right: 7px;
@@ -423,7 +425,7 @@ a.rounded {
 
 #hermesTimeFormCollapse {
     float: right;
-    padding-right:10px;
+    padding-right:15px;
 }
 .hermesTimeFormShown {
    background: url("../graphics/minus.png") no-repeat scroll left  transparent;
