@@ -14,6 +14,7 @@ Horde_Registry::appInit('trean');
 
 require_once TREAN_BASE . '/lib/Forms/Search.php';
 
+Trean::addFeedLink();
 $page_output->header(array(
     'title' => _("Search")
 ));
