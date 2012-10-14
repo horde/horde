@@ -32,7 +32,6 @@ body.hermesAjax {
     height: 22px;
     opacity: 0.5;
 }
-
 #hermesLoadingTime {
     left: 0;
 }
@@ -171,10 +170,6 @@ a.rounded {
 }
 
 /* Time Entry Form */
-#hermesTimeEntry {
-  background: none repeat scroll 0 0;
-}
-
 #hermesTimeFormInputs {
     margin-left: 7px;
     margin-right: 7px;
@@ -372,10 +367,6 @@ div.hermesTimeSliceOptions {
 }
 .QuickFinderNoMatch {
     display: none;
-}
-.QuickFinderWrapper {
-    margin: 6px;
-    float: left;
 }
 
 /* Dialogs */

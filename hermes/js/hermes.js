@@ -1,3 +1,15 @@
+/**
+ * hermes.js - Base Hermes application logic.
+ *
+ * Copyright 2010 - 2012 Horde LLC (http://www.horde.org)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ */
+
+ /* Hermes Object. */
 HermesCore = {
     view: '',
     viewLoading: [],
@@ -18,7 +30,6 @@ HermesCore = {
 
     onException: function(parentfunc, r, e)
     {
-        /* Make sure loading images are closed. */
         this.loading--;
         if (!this.loading) {
             $('.hermesLoading').hide();
@@ -71,7 +82,7 @@ HermesCore = {
         case 'search':
             this.closeView(loc);
             var locCap = loc.capitalize();
-            $('hermesNav' + locCap).addClassName('on');
+            $('hermesNav' + locCap).up().addClassName('horde-active');
             switch (loc) {
             case 'time':
                 this.updateView(loc);
@@ -117,26 +128,6 @@ HermesCore = {
             if (current[0] != next[0] || current[1] || next[1]) {
                 this.go(next[0], next[1]);
             }
-        }
-    },
-
-    /**
-     * Closes the currently active view.
-     */
-    closeView: function(loc)
-    {
-        $w('Time').each(function(a) {
-            a = $('hermesNav' + a);
-            if (a) {
-                a.removeClassName('on');
-            }
-        });
-        if (this.view && this.view != loc) {
-            $('hermesView' + this.view.capitalize()).fade({
-                duration: this.effectDur,
-                queue: 'end'
-            });
-            this.view = null;
         }
     },
 
@@ -741,7 +732,6 @@ HermesCore = {
         }.bind(this));
         $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
         t.appear({ duration: this.effectDur, queue: 'end' });
-        this.onResize();
         this.updateTimeSummary();
         // Init the quickfinder now that we have a list of children.
         $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
@@ -797,10 +787,10 @@ HermesCore = {
      */
     closeView: function(loc)
     {
-        $w('Time CostObjects Clients JobTypes Search').each(function(a) {
-            a = $('HermesNav' + a);
+        $w('Time Search Admin').each(function(a) {
+            a = $('hermesNav' + a);
             if (a) {
-                a.removeClassName('on');
+                a.up().removeClassName('horde-active');
             }
         });
         if (this.view && this.view != loc) {
@@ -829,11 +819,6 @@ HermesCore = {
             d.setMinutes(date.substr(10, 2));
         }
         return d;
-    },
-
-    onResize: function(event)
-    {
-        //$('hermesTimeListBody').setStyle({height: document.height - 440 + 'px'});
     },
 
     sortDate: function(a, b)
@@ -941,10 +926,8 @@ HermesCore = {
     /* Onload function. */
     onDomLoad: function()
     {
-        document.observe('click',
-            HermesCore.clickHandler.bindAsEventListener(HermesCore));
-        $('hermesTimeFormClient').observe('change',
-            HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
+        document.observe('click', HermesCore.clickHandler.bindAsEventListener(HermesCore));
+        $('hermesTimeFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;
@@ -1001,13 +984,9 @@ HermesCore = {
         });
 
         HordeCore.doAction('listTimers', [], { 'callback': this.listTimersCallback.bind(this) });
-        Event.observe(window, 'resize', this.onResize.bind(this));
         new PeriodicalExecuter(HordeCore.doAction.bind(this, 'poll'), 60);
     }
-
 };
-
 document.observe('dom:loaded', HermesCore.onDomLoad.bind(HermesCore));
-document.observe('Horde_Calendar:select', HermesCore.datePickerHandler.bindAsEventListener(HermesCore));
 HordeCore.onException = HordeCore.onException.wrap(HermesCore.onException.bind(HermesCore));
 
