@@ -5,7 +5,7 @@
     <form id="hermesTimeForm" action="">
         <input type="hidden" name="id" id="hermesTimeFormId" value="0" />
         <div id="hermesTimeFormInputs">
-          <div class="hermesTimeFormGeneral">
+          <div class="hermesTimeFormGeneral"><div id="hermesLoadingTime" class="hermesLoading" style="display:none"></div>
             <label for="hermesTimeFormClient">
               <?php echo _("Client")?>
               <?php echo Hermes::getClientSelect('hermesTimeFormClient');?>

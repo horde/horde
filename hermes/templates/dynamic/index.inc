@@ -28,11 +28,12 @@
 
 <!-- begin body -->
 <div id="hermesBody">
-  <div id="hermesLoading" style="display:none"></div>
+
 <?php
 require __DIR__ . '/timeedit.inc';
 require __DIR__ . '/search.inc';
 ?>
+
 </div>
 <!-- end body -->
 

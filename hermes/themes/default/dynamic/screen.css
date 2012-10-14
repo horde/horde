@@ -16,6 +16,7 @@ body.hermesAjax {
     overflow-y: auto;
 }
 
+/* Sidebar */
 .hermesSeparator {
     padding-left: 7px;
     color: #808080;
@@ -25,14 +26,15 @@ body.hermesAjax {
 /* Loading spinner */
 .hermesLoading {
     position: absolute;
-    left: 0;
     z-index: 1;
-}
-#hermesLoading {
     background: transparent url("../graphics/loading.gif") no-repeat 4px 3px;
     width: 22px;
     height: 22px;
     opacity: 0.5;
+}
+
+#hermesLoadingTime {
+    left: 0;
 }
 
 /* Main area */
@@ -92,30 +94,6 @@ body.hermesAjax {
 }
 #hermesTimeListHeader div.sortup a, #hermesTimeListHeader div.sortdown a {
     padding-left: 14px;
-}
-div.hermesTimeListDate, div.hermesTimeListHours, div.hermesTimeListDesc,
-div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType,
-div.hermesTimeSliceOptions, div.hermesTimeListSelect, div.hermesTimeListBill,
-div.hermesTimeListEmployee {
-    float: left;
-    white-space: pre-wrap;
-    overflow: hidden;
-}
-div.hermesTimeListSelect, div.hermesTimeListBill {
-    width: 3%;
-}
-div.hermesTimeListHours {
-    width: 5%;
-}
-div.hermesTimeListDate, div.hermesTimeListType, div.hermesTimeListClient {
-    width: 10%;
-}
-div.hermesTimeListCostObject, div.hermesTimeListDesc {
-    width: 22%;
-}
-div.hermesTimeSliceOptions {
-    width: 10%;
-    text-align: right;
 }
 
 /* Body of timelist */
@@ -191,10 +169,6 @@ a.rounded {
     float: right;
     cursor: pointer;
 }
-/* Timelist submission controls */
-.hermesTimeListControls {
-    padding: 7px;
-}
 
 /* Time Entry Form */
 #hermesTimeEntry {
@@ -231,7 +205,39 @@ a.rounded {
 #hermesTimeFormCostobject {
     width: 180px;
 }
+div.hermesTimeListDate, div.hermesTimeListHours, div.hermesTimeListDesc,
+div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType,
+div.hermesTimeSliceOptions, div.hermesTimeListSelect, div.hermesTimeListBill,
+div.hermesTimeListEmployee {
+    float: left;
+    white-space: pre-wrap;
+    overflow: hidden;
+}
+div.hermesTimeListSelect, div.hermesTimeListBill {
+    width: 3%;
+}
+div.hermesTimeListHours {
+    width: 5%;
+}
+div.hermesTimeListDate, div.hermesTimeListType, div.hermesTimeListClient {
+    width: 10%;
+}
+div.hermesTimeListCostObject, div.hermesTimeListDesc {
+    width: 22%;
+}
+div.hermesTimeSliceOptions {
+    width: 10%;
+    text-align: right;
+}
 
+/* Timelist submission controls */
+.hermesTimeListControls {
+    padding: 7px;
+}
+
+.horde-splitbar-horiz {
+    cursor: default;
+}
 /* Search Form */
 #hermesSearchFormInputs {
     margin-left: 7px;

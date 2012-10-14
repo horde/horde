@@ -21,7 +21,7 @@ HermesCore = {
         /* Make sure loading images are closed. */
         this.loading--;
         if (!this.loading) {
-            $('hermesLoading').hide();
+            $('.hermesLoading').hide();
         }
         this.closeRedBox();
         HordeCore.notify(HordeCore.text.ajax_error, 'horde.error');
@@ -367,7 +367,7 @@ HermesCore = {
 
     deleteSlice: function(slice)
     {
-        $('hermesLoading').show();
+        $('hermesLoadingTime').show();
         sid = slice.retrieve('sid');
         HordeCore.doAction('deleteSlice',
             { 'id': sid },
@@ -377,7 +377,7 @@ HermesCore = {
 
     deletesliceCallback: function(elt, sid, r)
     {
-        $('hermesLoading').hide();
+        $('hermesLoadingTime').hide();
         this.removeSliceFromUI(elt, sid);
         this.updateTimeSummary();
     },
@@ -433,7 +433,7 @@ HermesCore = {
      */
     clientChangeHandler: function(e)
     {
-        $('hermesLoading').show();
+        $('hermesLoadingTime').show();
         HordeCore.doAction('listDeliverables',
             { 'c': $F('hermesTimeFormClient') },
             { 'callback': this.listDeliverablesCallback.bind(this) }
@@ -445,7 +445,7 @@ HermesCore = {
      */
     listDeliverablesCallback: function(r)
     {
-        $('hermesLoading').hide();
+        $('hermesLoadingTime').hide();
         $('hermesTimeFormCostobject').childElements().each(function(el) {
             el.remove();
         });
@@ -465,7 +465,7 @@ HermesCore = {
             HordeCore.notify(Hermes.text.fix_form_values, 'horde.warning');
             return;
         }
-        $('hermesLoading').show();
+        $('hermesLoadingTime').show();
         params = $H($('hermesTimeForm').serialize({ hash: true }));
         // New or Edit?
         if ($F('hermesTimeFormId') > 0) {
@@ -484,7 +484,7 @@ HermesCore = {
 
     saveTimeCallback: function(r)
     {
-        $('hermesLoading').hide();
+        $('hermesLoadingTime').hide();
         // Just push the new slice on the stack, and rerender the view.
         this.slices.push(r);
         this.reverseSort = false;
@@ -496,7 +496,7 @@ HermesCore = {
     // TODO: Need to probably optimise this and saveTimeCallback()
     editTimeCallback: function(sid, r)
     {
-        $('hermesLoading').hide();
+        $('hermesLoadingTime').hide();
         this.replaceSliceInCache(sid, r);
         this.reverseSort = false;
         this.updateView(this.view);
@@ -612,7 +612,7 @@ HermesCore = {
     //removeTimer: function(t)
     submitSlices: function()
     {
-        $('hermesLoading').show();
+        $('hermesLoadingTime').show();
         var sliceIds = [];
         var slices = [];
         $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
@@ -627,7 +627,7 @@ HermesCore = {
 
     submitSlicesCallback: function(ids, r)
     {
-        $('hermesLoading').hide();
+        $('hermesLoadingTime').hide();
         ids.each(function(i) { this.removeSliceFromUI(i, i.retrieve('sid'), null); }.bind(this));
     },
 
@@ -658,7 +658,7 @@ HermesCore = {
      */
     loadSlices: function()
     {
-        $('hermesLoading').show();
+        $('hermesLoadingTime').show();
         this.slices = [];
         HordeCore.doAction('getTimeSlices',
             { 'e': Hermes.conf.user, 's': false },
@@ -671,7 +671,7 @@ HermesCore = {
      */
     loadSlicesCallback: function(r)
     {
-        $('hermesLoading').hide();
+        $('hermesLoadingTime').hide();
         this.slices = r;
         this.buildTimeTable();
     },

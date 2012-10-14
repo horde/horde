@@ -12,8 +12,8 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
  * @author Robert E. Coyle <robertecoyle@hotmail.com>
- * @author  Ben Klang <ben@alkaloid.net>
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author Ben Klang <ben@alkaloid.net>
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package Hermes
  */
 
@@ -37,7 +37,6 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Hermes_Application extends Horde_Registry_Application
 {
-
     /**
      */
     public $features = array(
