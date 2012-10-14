@@ -197,7 +197,6 @@ a.rounded {
 }
 
 /* Time Entry Form */
-
 #hermesTimeEntry {
   background: none repeat scroll 0 0;
 }
@@ -211,12 +210,10 @@ a.rounded {
     white-space: nowrap;
 }
 #hermesTimeFormInputs .input {
-  border: medium none;
   margin: 7px 7px 0 0;
   padding: 6px 5px 4px;
 }
 #hermesTimeFormInputs .hermesLongField {
-  border: medium none;
   margin: 0  7px 0;
   padding: 6px 5px 4px;
   width: 98%;
@@ -233,9 +230,6 @@ a.rounded {
 }
 #hermesTimeFormCostobject {
     width: 180px;
-}
-.hermesFormActions {
-    padding-top: 6px;
 }
 
 /* Search Form */
