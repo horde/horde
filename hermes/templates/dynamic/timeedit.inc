@@ -1,5 +1,4 @@
 <div id="hermesViewTime" style="display:none">
-  <div id="hermesLoadingTime" class="hermesLoading"></div>
   <div class="hermesViewTimeContainer">
    <div id="hermesTimeEntry">
      <div class="header"><span class="horde-collapse" id="hordeTimeFormCollapse"><?php echo _("Time Entry")?></span></div>
