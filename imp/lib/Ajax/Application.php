@@ -417,6 +417,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - from: (string) From address to use.
      *   - identity: (integer) The identity to use
      *
+     @param string $action  AJAX action.
+     *
      * @return array  An array with the following values:
      *   - (object) AJAX base return object (with action and success
      *     parameters defined).
@@ -426,7 +428,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @throws Horde_Exception
      */
-    public function composeSetup()
+    public function composeSetup($action)
     {
         global $injector, $prefs;
 
@@ -454,7 +456,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
 
         $result = new stdClass;
-        $result->action = $this->_action;
+        $result->action = $action;
         $result->success = 1;
 
         return array($result, $imp_compose, $headers, $identity);

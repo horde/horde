@@ -421,7 +421,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      * AJAX action: Send a message.
      *
      * See the list of variables needed for
-     * IMP_Ajax_Application#composeSetup(). Additionalvariables used:
+     * IMP_Ajax_Application#composeSetup(). Additional variables used:
      *   - encrypt: (integer) The encryption method to use (IMP ENCRYPT
      *              constants).
      *   - html: (integer) In HTML compose mode?
@@ -447,7 +447,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
     public function sendMessage()
     {
         try {
-            list($result, $imp_compose, $headers, $identity) = $this->_base->composeSetup();
+            list($result, $imp_compose, $headers, $identity) = $this->_base->composeSetup('sendMessage');
             if (!IMP::canCompose()) {
                 $result->success = 0;
                 return $result;
@@ -456,7 +456,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             $GLOBALS['notification']->push($e);
 
             $result = new stdClass;
-            $result->action = $this->_action;
+            $result->action = 'sendMessage';
             $result->success = 0;
             return $result;
         }
@@ -553,7 +553,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
     public function redirectMessage()
     {
         $result = new stdClass;
-        $result->action = $this->_action;
+        $result->action = 'redirectMessage';
         $result->success = 1;
 
         try {

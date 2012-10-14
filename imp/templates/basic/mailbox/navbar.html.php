@@ -63,12 +63,12 @@
      <option value="" disabled="disabled">- - - - - - - -</option>
      <option class="actionsSelectSection" value=""><?php echo _("Show Only:") ?></option>
 <?php foreach ($this->flaglist_set as $v): ?>
-     <option value="<?php echo $v['f'] ?>">&nbsp;&nbsp;<?php echo $v['l'] ?></option>
+     <option value="<?php echo $v['v'] ?>">&nbsp;&nbsp;<?php echo $v['l'] ?></option>
 <?php endforeach; ?>
       <option value="" disabled="disabled">- - - - - - - -</option>
       <option class="actionsSelectSection" value=""><?php echo _("Don't Show:") ?></option>
 <?php foreach ($this->flaglist_unset as $v): ?>
-     <option value="<?php echo $v['f'] ?>">&nbsp;&nbsp;<?php echo $v['l'] ?></option>
+     <option value="<?php echo $v['v'] ?>">&nbsp;&nbsp;<?php echo $v['l'] ?></option>
 <?php endforeach; ?>
 <?php endif; ?>
 <?php if ($this->filters): ?>

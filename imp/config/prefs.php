@@ -588,15 +588,13 @@ $_prefs['default_encrypt'] = array(
 
 // Save attachments when saving in sent mail mailbox?
 $_prefs['save_attachments'] = array(
-    'value' => 'prompt_no',
+    'value' => 'never',
     'type' => 'enum',
     'enum' => array(
-        'always' => _("Always save attachments"),
-        'prompt_yes' => _("Prompt every time an attachment is sent; default to YES"),
-        'prompt_no' => _("Prompt every time an attachment is sent; default to NO"),
-        'never' => _("Never save attachments")
+        'always' => _("Save attachments"),
+        'never' => _("Do not save attachments")
     ),
-    'desc' => _("When saving sent mail, should we save attachment data?"),
+    'desc' => _("When saving sent mail, should we save attachments?"),
     'help' => 'prefs-save_attachments'
 );
 

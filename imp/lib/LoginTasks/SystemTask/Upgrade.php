@@ -51,6 +51,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
             $this->_upgradeComposeCursor();
             $this->_upgradeInnocentPrefs();
             $this->_upgradeMailboxPrefs();
+            $this->_upgradeSaveAttachments();
             $this->_upgradeStationeryToTemplates();
             $this->_upgradeVirtualFolders6();
             break;
@@ -528,6 +529,24 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
                 $mbox = IMP_Mailbox::get(Horde_String::convertCharset(strval($val), 'UTF7-IMAP', 'UTF-8'));
                 $imp_identity->setValue('sent_mail_folder', $mbox, $key);
             }
+        }
+    }
+
+    /**
+     * For IMP 6, upgrade deprecated save_attachments preferences.
+     */
+    protected function _upgradeSaveAttachments()
+    {
+        global $prefs;
+
+        switch ($prefs->getValue('save_attachments')) {
+        case 'prompt_no':
+            $prefs->setValue('save_attachments', 'never');
+            break;
+
+        case 'prompt_yes':
+            $prefs->setValue('save_attachments', 'always');
+            break;
         }
     }
 
