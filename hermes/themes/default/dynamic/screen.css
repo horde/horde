@@ -16,6 +16,16 @@ body.hermesAjax {
     overflow-y: auto;
 }
 
+/* Topbar Menu */
+#hermesNavTime {
+    background-image: url("../graphics/time.png");
+}
+#hermesNavSearch {
+    background-image: url("../graphics/search.png");
+}
+#hermesNavAdmin {
+    background-image: url("../graphics/search.png");
+}
 /* Sidebar */
 .hermesSeparator {
     padding-left: 7px;
