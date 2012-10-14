@@ -51,11 +51,6 @@ body.hermesAjax {
     left: 0;
 }
 
-/* Full timelist container */
-#hermesTimeList {
-    margin: 0 25px 0 25px;
-}
-
 /* Timelist fields */
 .hermesTimeListSelect {
     float: left;
