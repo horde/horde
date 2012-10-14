@@ -1,5 +1,5 @@
 <!-- Main Time View Container-->
-<div id="hermesViewTime" class="hermesViewTimeContainer" style="display:none">
+<div id="hermesViewTime" style="display:none">
 
   <!-- Time Entry Form -->
   <div class="header"><span class="horde-collapse" id="hordeTimeFormCollapse"><?php echo _("Time Entry")?></span></div>

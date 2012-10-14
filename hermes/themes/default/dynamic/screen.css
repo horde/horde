@@ -42,15 +42,6 @@ body.hermesAjax {
     height: 100%;
 }
 
-/* Main view time */
-.hermesViewTimeContainer {
-    position: relative;
-    top: 1px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-
 /* Timelist fields */
 .hermesTimeListSelect {
     float: left;
