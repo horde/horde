@@ -71,11 +71,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @var array
      */
-    protected $_init = array(
-        'enabled' => array(),
-        'namespace' => array(),
-        's_charset' => array()
-    );
+    protected $_init;
 
     /**
      * Is there an active authenticated connection to the IMAP Server?
@@ -147,6 +143,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if (!isset($params['username']) || !isset($params['password'])) {
             throw new InvalidArgumentException('Horde_Imap_Client requires a username and password.');
         }
+
+        $this->_setInit();
 
         // Default values.
         $params = array_merge(array(
@@ -315,12 +313,18 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Set an initialization value.
      *
-     * @param string $key  The initialization key.
+     * @param string $key  The initialization key. If null, resets all keys.
      * @param mixed $val   The cached value. If null, removes the key.
      */
-    public function _setInit($key, $val = null)
+    public function _setInit($key = null, $val = null)
     {
-        if (is_null($val)) {
+        if (is_null($key)) {
+            $this->_init = array(
+                'enabled' => array(),
+                'namespace' => array(),
+                's_charset' => array()
+            );
+        } elseif (is_null($val)) {
             unset($this->_init[$key]);
         } else {
             switch ($key) {

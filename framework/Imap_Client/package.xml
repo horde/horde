@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix reinitializing a prior authenticated client object when the IMAP server subsequently becomes unavailable (Bug #11413).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -936,7 +936,7 @@
    <date>2012-10-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix reinitializing a prior authenticated client object when the IMAP server subsequently becomes unavailable (Bug #11413).
    </notes>
   </release>
  </changelog>

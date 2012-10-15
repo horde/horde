@@ -168,6 +168,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _parseCapability($data)
     {
         if (!empty($this->_temp['no_cap'])) {
+            unset($this->_temp['no_cap']);
             return;
         }
 
@@ -284,6 +285,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _login()
     {
         if (!empty($this->_temp['preauth'])) {
+            unset($this->_temp['preauth']);
             return $this->_loginTasks();
         }
 
@@ -426,7 +428,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* Try again from scratch if authentication failed in an established,
          * previously-authenticated object. */
         if (!empty($this->_init['authmethod'])) {
-            $this->_setInit('authmethod');
+            $this->_setInit();
             try {
                 return $this->login();
             } catch (Horde_Imap_Client_Exception $e) {}

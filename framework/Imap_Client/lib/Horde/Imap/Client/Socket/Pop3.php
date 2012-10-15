@@ -227,7 +227,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 return true;
             } catch (Horde_Imap_Client_Exception $e) {
                 if (!empty($this->_init['authmethod'])) {
-                    $this->_setInit('authmethod');
+                    $this->_setInit();
                     return $this->login();
                 }
             }
