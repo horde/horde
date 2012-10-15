@@ -501,7 +501,7 @@ var ViewPort = Class.create({
                 sp.vert.width = parseInt(this.opts.container.clientWidth * 0.35, 10);
             }
 
-            h += lh * this.page_size;
+            h += lh * this.page_size - this.opts.container.getLayout().get('border-bottom');
             this.opts.list_container.setStyle({
                 float: 'left',
                 height: h + 'px'

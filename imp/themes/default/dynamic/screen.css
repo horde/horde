@@ -39,11 +39,9 @@ input {
 
 /* Splitbar styles. */
 #msgSplitPane {
+    border-bottom: 1px solid #d0d0d0;
     overflow: hidden;
     width: auto;
-}
-#msgSplitPane .horde-splitbar-vert, #previewPane {
-    border-bottom: 1px solid #d0d0d0;
 }
 .horde-splitbar-horiz {
     height: 7px;
