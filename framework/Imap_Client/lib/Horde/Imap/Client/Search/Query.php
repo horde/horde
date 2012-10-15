@@ -98,8 +98,6 @@ class Horde_Imap_Client_Search_Query implements Serializable
      *              text strings appear in query.
      *   - exts: (array) The list of IMAP extensions used to create the
      *           string.
-     *   - imap4: (boolean) True if the search uses IMAP4 criteria (as opposed
-     *            to IMAP2 search criteria).
      *   - query: (Horde_Imap_Client_Data_Format_List) The IMAP search
      *            command.
      *
@@ -110,13 +108,11 @@ class Horde_Imap_Client_Search_Query implements Serializable
         $temp = array(
             'cmds' => new Horde_Imap_Client_Data_Format_List(),
             'exts' => $exts,
-            'exts_used' => array(),
-            'imap4' => false
+            'exts_used' => array()
         );
         $cmds = &$temp['cmds'];
         $charset = null;
         $exts_used = &$temp['exts_used'];
-        $imap4 = &$temp['imap4'];
         $ptr = &$this->_search;
 
         if (isset($ptr['new'])) {
@@ -132,11 +128,6 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
         if (!empty($ptr['flag'])) {
             foreach ($ptr['flag'] as $key => $val) {
-                if ($key == 'draft') {
-                    // DRAFT flag was not in IMAP2
-                    $imap4 = true;
-                }
-
                 $this->_addFuzzy(!empty($val['fuzzy']), $temp);
 
                 $tmp = '';
@@ -145,8 +136,6 @@ class Horde_Imap_Client_Search_Query implements Serializable
                     // have 'UN' equivalents.
                     if ($key == 'RECENT') {
                         $cmds->add('NOT');
-                        // NOT searches were not in IMAP2
-                        $imap4 = true;
                     } else {
                         $tmp = 'UN';
                     }
@@ -175,19 +164,15 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
                 if (!empty($val['not'])) {
                     $cmds->add('NOT');
-                    // NOT searches were not in IMAP2
-                    $imap4 = true;
                 }
 
                 if (in_array($val['header'], $systemheaders)) {
                     $cmds->add($val['header']);
                 } else {
-                    // HEADER searches were not in IMAP2
                     $cmds->add(array(
                         'HEADER',
                         new Horde_Imap_Client_Data_Format_Astring($val['header'])
                     ));
-                    $imap4 = true;
                 }
                 $cmds->add(new Horde_Imap_Client_Data_Format_Astring(isset($val['text']) ? $val['text'] : ''));
                 $charset = is_null($this->_charset)
@@ -202,8 +187,6 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
                 if (!empty($val['not'])) {
                     $cmds->add('NOT');
-                    // NOT searches were not in IMAP2
-                    $imap4 = true;
                 }
                 $cmds->add(array(
                     $val['type'],
@@ -227,8 +210,6 @@ class Horde_Imap_Client_Search_Query implements Serializable
                     $key,
                     new Horde_Imap_Client_Data_Format_Number($val['size'])
                 ));
-                // LARGER/SMALLER searches were not in IMAP2
-                $imap4 = true;
             }
         }
 
@@ -246,9 +227,6 @@ class Horde_Imap_Client_Search_Query implements Serializable
                     ? '1:*'
                     : strval($ptr['ids']['ids'])
             );
-
-            // ID searches were not in IMAP2
-            $imap4 = true;
         }
 
         if (!empty($ptr['date'])) {
@@ -257,16 +235,12 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
                 if (!empty($val['not'])) {
                     $cmds->add('NOT');
-                    // NOT searches were not in IMAP2
-                    $imap4 = true;
                 }
 
                 if (empty($val['header'])) {
                     $cmds->add($val['range']);
                 } else {
                     $cmds->add('SENT' . $val['range']);
-                    // 'SENT*' searches were not in IMAP2
-                    $imap4 = true;
                 }
                 $cmds->add($val['date']);
             }
@@ -275,15 +249,12 @@ class Horde_Imap_Client_Search_Query implements Serializable
         if (!empty($ptr['within'])) {
             if (is_null($exts) || isset($exts['WITHIN'])) {
                 $exts_used[] = 'WITHIN';
-                $imap4 = true;
             }
 
             foreach ($ptr['within'] as $key => $val) {
                 $this->_addFuzzy(!empty($val['fuzzy']), $temp);
                 if (!empty($val['not'])) {
                     $cmds->add('NOT');
-                    // NOT searches were not in IMAP2
-                    $imap4 = true;
                 }
 
                 if (is_null($exts) || isset($exts['WITHIN'])) {
@@ -308,7 +279,6 @@ class Horde_Imap_Client_Search_Query implements Serializable
             }
 
             $exts_used[] = 'CONDSTORE';
-            $imap4 = true;
 
             $this->_addFuzzy(!empty($ptr['modseq']['fuzzy']), $temp);
 
@@ -331,7 +301,6 @@ class Horde_Imap_Client_Search_Query implements Serializable
             }
 
             $exts_used[] = 'SEARCHRES';
-            $imap4 = true;
 
             $this->_addFuzzy(!empty($ptr['prevsearchfuzzy']), $temp);
 
@@ -349,9 +318,6 @@ class Horde_Imap_Client_Search_Query implements Serializable
                     $charset = $ret['charset'];
                 }
                 $exts_used = array_merge($exts_used, $ret['exts']);
-                if ($exts['imap4']) {
-                    $imap4 = true;
-                }
                 $cmds->add($ret['query'], true);
             }
         }
@@ -359,9 +325,6 @@ class Horde_Imap_Client_Search_Query implements Serializable
         // Add OR'ed queries
         if (!empty($ptr['or'])) {
             foreach ($ptr['or'] as $val) {
-                // OR queries were not in IMAP 2
-                $imap4 = true;
-
                 $ret = $val->build();
 
                 if ($ret['charset'] != 'US-ASCII') {
@@ -392,7 +355,6 @@ class Horde_Imap_Client_Search_Query implements Serializable
         return array(
             'charset' => $charset,
             'exts' => array_keys(array_flip($exts_used)),
-            'imap4' => $imap4,
             'query' => $cmds
         );
     }
@@ -414,7 +376,6 @@ class Horde_Imap_Client_Search_Query implements Serializable
             }
             $temp['cmds']->add('FUZZY');
             $temp['exts_used'][] = 'SEARCH=FUZZY';
-            $temp['imap4'] = true;
         }
     }
 
