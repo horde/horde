@@ -263,19 +263,6 @@ var ImpMobile = {
             $('#imp-message-more').show().siblings(':jqmData(more)').hide();
 
             $('#imp-message-headers,#imp-message-atc').trigger('collapse');
-
-            tmp = $('#message .smartmobile-back');
-            if (ImpMobile.mailbox == IMP.conf.qsearchid) {
-                tmp.attr('href', HordeMobile.createUrl('mailbox', {
-                    mbox: IMP.conf.qsearchid
-                }));
-                tmp.find('.ui-btn-text').text(IMP.text.searchresults);
-            } else {
-                tmp.attr('href', HordeMobile.createUrl('mailbox', {
-                    mbox: ImpMobile.mailbox
-                }));
-                tmp.find('.ui-btn-text').text(ImpMobile.cache[ImpMobile.mailbox].label);
-            }
             break;
         }
     },
@@ -579,7 +566,7 @@ var ImpMobile = {
         var cache = ImpMobile.cache[ImpMobile.mailbox],
             data = ImpMobile.message,
             args = { mbox: data.mbox, uid: data.uid },
-            rownum;
+            rownum, tmp;
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
@@ -593,6 +580,19 @@ var ImpMobile = {
 
         $('#message .smartmobile-title').text(data.title);
         document.title = $('#message .smartmobile-title').text();
+
+        tmp = $('#message .smartmobile-back');
+        if (ImpMobile.mailbox == IMP.conf.qsearchid) {
+            tmp.attr('href', HordeMobile.createUrl('mailbox', {
+                mbox: IMP.conf.qsearchid
+            }));
+            tmp.find('.ui-btn-text').text(IMP.text.searchresults);
+        } else {
+            tmp.attr('href', HordeMobile.createUrl('mailbox', {
+                mbox: ImpMobile.mailbox
+            }));
+            tmp.find('.ui-btn-text').text(cache.label);
+        }
 
         if (!data.from) {
             $('#imp-message-from').text(IMP.text.nofrom);
