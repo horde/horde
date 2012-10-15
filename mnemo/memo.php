@@ -190,7 +190,7 @@ case 'save_memo':
                         throw new Mnemo_Exception($e);
                     }
                     if ($share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
-                        $result = $storage->move($memo_id, $notepad_target);
+                        $storage->move($memo_id, $notepad_target);
                         $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad_target);
                     } else {
                         $notification->push(_("Access denied moving the note."), 'horde.error');
