@@ -126,6 +126,7 @@ div.msgActions, #fmanager div.folderActions {
 }
 
 #mailboxLabel .iconImg {
+    margin-left: 4px;
     vertical-align: top;
 }
 
