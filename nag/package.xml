@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix listing tasks from Kolab backends.
 * [jan] Fix sending alarm e-mail messages.
  </notes>
  <contents>
@@ -1200,6 +1201,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix listing tasks from Kolab backends.
 * [jan] Fix sending alarm e-mail messages.
    </notes>
   </release>

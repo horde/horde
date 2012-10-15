@@ -102,50 +102,46 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _buildTask($task)
     {
-        $task['task_id'] = $task['uid'];
+        $result = array(
+            'task_id' => $task['uid'],
+            'uid' => $task['uid'],
+            'name' => $task['summary'],
+            'desc' => $task['body'],
+            'priority' => $task['priority'],
+            'parent' => $task['parent'],
+            'alarm' => $task['alarm'],
+            'internaltags' => $task['categories'],
+            'completed' => !empty($task['completed']),
+            'completed_date' => $task['completed_date'],
+            'private' => $task['sensitivity'] != 'public',
+            'owner' => $GLOBALS['nag_shares']->getShare($this->_tasklist)->get('owner'),
+        );
 
-        $task['internaltags'] = $task['categories'];
-        unset($task['categories']);
-
-        $task['name'] = $task['summary'];
-        unset($task['summary']);
-
+        if (isset($task['start-date'])) {
+            $result['start'] = $task['start-date']->format('U');
+        }
         if (isset($task['due-date'])) {
-            $task['due'] = $task['due-date']->timestamp();
-            unset($task['due-date']);
+            $result['due'] = $task['due-date']->format('U');
         }
 
         if (isset($task['recurrence']) && isset($task['due'])) {
             $recurrence = new Horde_Date_Recurrence($task['due']);
             $recurrence->fromKolab($task['recurrence']);
-            $task['recurrence'] = $recurrence;
+            $result['recurrence'] = $recurrence;
         }
 
-        if (isset($task['start-date'])) {
-            $task['start'] = $task['start-date']->timestamp();
-            unset($task['start-date']);
+        if (isset($task['organizer'])) {
+            $result['assignee'] = $task['organizer']['smtp-address'];
         }
 
-        $task['desc'] = $task['body'];
-        unset($task['body']);
-
-        if (!empty($task['completed'])) {
-            $task['completed'] = 1;
-        } else {
-            $task['completed'] = 0;
+        if (isset($task['horde-estimate'])) {
+            $result['estimate'] = $task['horde-estimate'];
+        }
+        if (isset($task['horde-alarm-methods'])) {
+            $result['methods'] = @unserialize($task['horde-alarm-methods']);
         }
 
-        if ($task['sensitivity'] == 'public') {
-            $task['private'] = false;
-        } else {
-            $task['private'] = true;
-        }
-        unset($task['sensitivity']);
-
-        $share = $GLOBALS['nag_shares']->getShare($this->_tasklist);
-        $task['owner'] = $share->get('owner');
-
-        return $task;
+        return $result;
     }
 
 
@@ -304,7 +300,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             $object['completed_date'] = $task['completed_date'];
         }
         if ($task['estimate'] !== 0.0) {
-            $object['estimate'] = number_format((float)$task['estimate'], 2);
+            $object['horde-estimate'] = number_format((float)$task['estimate'], 2);
         }
         if ($task['methods'] !== null) {
             $object['horde-alarm-methods'] = serialize($task['methods']);
