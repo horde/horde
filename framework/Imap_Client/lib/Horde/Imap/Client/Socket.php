@@ -2538,13 +2538,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        $cmd = $this->_clientCommand(array(
+        $cmd = $this->_clientCommand(array_filter(array(
             $options['ids']->sequence ? null : 'UID',
             'FETCH',
             $options['ids']->all
                 ? '1:*'
                 : ($options['ids']->search_res ? '$' : strval($options['ids']))
-        ));
+        )));
 
 
         if (empty($options['changedsince'])) {
@@ -3175,14 +3175,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         // COPY returns no untagged information (RFC 3501 [6.4.7])
         try {
-            $cmd = $this->_clientCommand(array(
+            $cmd = $this->_clientCommand(array_filter(array(
                 $options['ids']->sequence ? null : 'UID',
                 'COPY',
                 $options['ids']->all
                     ? '1:*'
                     : ($options['ids']->search_res ? '$' : strval($options['ids'])),
                 new Horde_Imap_Client_Data_Format_Mailbox($dest)
-            ));
+            )));
 
             $this->_sendLine($cmd);
         } catch (Horde_Imap_Client_Exception $e) {
