@@ -391,8 +391,9 @@ div.vpRowVert div.msgSubject span.flagUser {
 .dimpOptions .horde-popdown {
     display: inline-block;
     float: none;
+    height: 16px;
+    margin-top: -2px;
     padding-left: 4px;
-    height: 14px;
     width: 16px;
 }
 
@@ -605,11 +606,15 @@ div.dimpActionsMsg #windowclose {
 .msgwrite .dimpOptions {
     padding: 8px 8px 0 0;
 }
-.msgwrite .dimpOptions div {
-    padding-bottom: 0;
-}
 .msgwrite .dimpOptions label {
     cursor: pointer;
+}
+.msgwrite .dimpOptions input {
+    min-height: 0px;
+}
+.msgwrite .dimpOptions .horde-popdown {
+    height: 18px;
+    margin-top: -6px;
 }
 #noticerow li span.closeImg {
     float: right;
@@ -1016,11 +1021,6 @@ div.msgSubject span.horde-tree-image {
     margin-top: 2px;
 }
 
-span.popdownImg, span.spellcheckPopdownImg {
-    background-image: url("../graphics/popdown.png");
-    margin-right: 0;
-    margin-left: 0;
-}
 span.keyupImg {
     background-image: url("../graphics/key_up.png");
 }
