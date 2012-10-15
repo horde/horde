@@ -57,7 +57,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
             /* Display a message to the user and rename the mailbox.
              * Only do this if sent-mail mailbox currently exists. */
             if ($sent->exists) {
-                $notification->push(sprintf(_("%s mailbox being renamed at the start of the month."), $sent->display), 'horde.message');
+                $notification->push(sprintf(_("\"%s\" mailbox being renamed at the start of the month."), $sent->display), 'horde.message');
 
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->imapDate();
