@@ -201,7 +201,7 @@ class Mnemo_Application extends Horde_Registry_Application
     {
         $error = false;
         $notepads = $GLOBALS['mnemo_shares']->listShares(
-            $user, array('attribtues' => $user));
+            $user, array('attributes' => $user));
         foreach ($notepads as $notepad => $share) {
             $driver = $GLOBALS['injector']
                 ->getInstance('Mnemo_Factory_Driver')
