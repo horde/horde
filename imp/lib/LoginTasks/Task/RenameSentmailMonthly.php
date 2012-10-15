@@ -114,7 +114,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
      */
     protected function _getSentmail()
     {
-        return IMP_Mailbox::get($GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmail());
+        return $GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmail();
     }
 
 }
