@@ -165,7 +165,7 @@ class Hermes_Application extends Horde_Registry_Application
                 'params' => array(
                     'icon' => Horde_Themes::img('timer-start.png'),
                     'url' => '#',
-                    'onclick' => Horde::popupJs(Horde::url('start.php'), array('height' => 200, 'width' => 400))
+                    'onclick' => Horde::popupJs(Horde::url('start.php'), array('height' => 200, 'width' => 410))
                 )
             ));
 
