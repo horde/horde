@@ -447,9 +447,7 @@ class Turba_Application extends Horde_Registry_Application
         }
 
         $shares = $GLOBALS['turba_shares']->listShares(
-            $user,
-            array('perm' => Horde_Perms::EDIT,
-                  'attributes' => $user));
+            $user, array('attributes' => $user));
 
         // Look for the deleted user's shares and remove them
         foreach ($shares as $share) {
