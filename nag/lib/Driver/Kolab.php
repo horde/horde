@@ -379,8 +379,6 @@ class Nag_Driver_Kolab extends Nag_Driver
      *
      * @param integer $completed  Which tasks to retrieve (1 = all tasks,
      *                            0 = incomplete tasks, 2 = complete tasks).
-     *
-     * @return mixed  True on success, PEAR_Error on failure.
      */
     public function retrieve($completed = Nag::VIEW_ALL)
     {
@@ -389,7 +387,7 @@ class Nag_Driver_Kolab extends Nag_Driver
 
         $task_list = $this->_getData()->getObjects();
         if (empty($task_list)) {
-            return true;
+            return;
         }
 
         foreach ($task_list as $task) {
@@ -429,8 +427,6 @@ class Nag_Driver_Kolab extends Nag_Driver
                 $this->tasks->add($dict[$key]);
             }
         }
-
-        return true;
     }
 
     /**
