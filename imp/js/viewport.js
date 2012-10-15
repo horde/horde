@@ -1134,7 +1134,10 @@ var ViewPort = Class.create({
             break;
 
         case 'vert':
-            new Drag(sp.currbar.setStyle({ float: 'left' }), {
+            new Drag(sp.currbar.setStyle({
+                float: 'left',
+                position: 'relative'
+            }), {
                 constraint: 'horizontal',
                 ghosting: true,
                 nodrop: true,
