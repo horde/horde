@@ -248,10 +248,6 @@ class Mnemo_Application extends Horde_Registry_Application
 
         switch ($vars->actionID) {
         case 'export':
-            /* Create a Mnemo storage instance. */
-            $storage = $injector->getInstance('Mnemo_Factory_Driver')->create($registry->getAuth());
-            $storage->retrieve();
-
             /* Get the full, sorted memo list. */
             $notes = Mnemo::listMemos();
 
@@ -271,7 +267,10 @@ class Mnemo_Application extends Horde_Registry_Application
                     $data[] = $note;
                 }
 
-                $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("notes.csv"), $data, true);
+                $injector->getInstance('Horde_Core_Factory_Data')
+                    ->create('Csv',
+                             array('cleanup' => array($this, 'cleanupData')))
+                    ->exportFile(_("notes.csv"), $data, true);
                 exit;
             }
         }

@@ -279,20 +279,11 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     protected function _buildNote($note, $passphrase = null)
     {
-        $note['memolist_id'] = $this->_notepad;
-        $note['memo_id'] = $note['uid'];
-
-        $note['category'] = empty($note['categories']) ? '' : $note['categories'][0];
-        unset($note['categories']);
-
-        $note['desc'] = $note['summary'];
-        unset($note['summary']);
-
-        $note['encrypted'] = false;
+        $encrypted = false;
         $body = $note['body'];
 
         if (strpos($body, '-----BEGIN PGP MESSAGE-----') === 0) {
-            $note['encrypted'] = true;
+            $encrypted = true;
             if (empty($passphrase)) {
                 $passphrase = Mnemo::getPassphrase($note['memo_id']);
             }
@@ -300,17 +291,22 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
                 $body = new Mnemo_Exception(_("This note has been encrypted."), Mnemo::ERR_NO_PASSPHRASE);
             } else {
                 try {
-                    $body = $this->_decrypt($body, $passphrase);
-                    $body = $body->message;
+                    $body = $this->_decrypt($body, $passphrase)->message;
                 } catch (Mnemo_Exception $e) {
                     $body = $e;
                 }
-                Mnemo::storePassphrase($row['memo_id'], $passphrase);
+                Mnemo::storePassphrase($note['uid'], $passphrase);
             }
         }
-        $note['body'] = $body;
 
-        return $note;
+        return array(
+            'memolist_id' => $this->_notepad,
+            'memo_id' => $note['uid'],
+            'category' => empty($note['categories']) ? '' : $note['categories'][0],
+            'desc' => $note['summary'],
+            'encrypted' => $encrypted,
+            'body' => $body,
+        );
     }
 
     /**
