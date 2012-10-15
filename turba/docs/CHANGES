@@ -2,6 +2,8 @@
 v4.0.0-git
 ----------
 
+[jan] Remove user's address books when removing users, independent from address
+      book permissions.
 
 
 -----------
