@@ -2,6 +2,7 @@
 v3.0.7-git
 ----------
 
+[jan] Fix deleting too many notepads if deleting a user.
 [jan] Update Turkish translation (İstanbul Technical University).
 
 

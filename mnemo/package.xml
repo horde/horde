@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Fix deleting too many notepads if deleting a user.
 * [jan] Update Turkish translation (İstanbul Technical University).
  </notes>
  <contents>
@@ -941,6 +942,7 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Fix deleting too many notepads if deleting a user.
 * [jan] Update Turkish translation (İstanbul Technical University).
    </notes>
   </release>
