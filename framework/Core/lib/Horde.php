@@ -944,7 +944,9 @@ class Horde
             $params
         );
 
-        $url = new Horde_Url($params['url']);
+        $url = ($params['url'] instanceof Horde_Url)
+            ? $params['url']
+            : new Horde_Url($params['url']);
         $title = $params['title'];
         $params['accesskey'] = self::getAccessKey($title, $params['nocheck']);
 
