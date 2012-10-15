@@ -264,9 +264,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
                     'Failed retrieving Kolab data for notepad %s: %s',
                     $notepad,
                     $e->getMessage()
-                ),
-                0,
-                $e
+                )
             );
         }
     }
