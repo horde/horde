@@ -2,6 +2,8 @@
 v6.0.0-git
 ----------
 
+[mms] Correctly send deleted flag information to browser cache when using
+      dynamic/smartmobile view (Bug #11362).
 [mms] Auto-update folders list in smartmobile view if special mailbox is
       auto-created (Request #11482).
 [mms] Load folders list on-demand in smartmobile view.
