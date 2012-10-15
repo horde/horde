@@ -259,8 +259,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                         'The message with ID %s does not exist. This probably means that the Kolab object has been modified by somebody else since you retrieved the object from the backend. Original error: %s'
                     ),
                     $object['uid'],
-                    0,
-                    $e
+                    $e->getMessage()
                 )
             );
         }
