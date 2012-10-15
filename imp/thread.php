@@ -133,7 +133,7 @@ foreach ($imp_indices as $ob) {
         $curr_msg['link'] .= ' | ' . Horde::widget(array('url' => IMP::mailbox()->url('mailbox.php')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), 'title' => sprintf(_("Bac_k to %s"), $page_label)));
 
         $curr_tree['subject'] = ($mode == 'thread')
-            ? $imp_mailbox[$imp_mailbox->getArrayIndex($fetch_res[$idx]->getUid(), $ob->mbox) + 1]['t']->img
+            ? $imp_mailbox->getThreadOb($imp_mailbox->getArrayIndex($fetch_res[$idx]->getUid(), $ob->mbox) + 1)->img
             : ' ';
         $curr_tree['subject'] .= Horde::link('#i' . $idx) . Horde_String::truncate($subject_header, 60) . '</a> (' . $addr . ')';
 
