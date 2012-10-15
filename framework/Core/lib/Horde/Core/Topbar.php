@@ -182,10 +182,10 @@ class Horde_Core_Topbar
             case 'topbar':
                 try {
                     $registry->callAppMethod($params['app'], 'topbarCreate', array('args' => array($this->_tree, empty($params['menu_parent']) ? null : $params['menu_parent'], isset($params['topbar_params']) ? $params['topbar_params'] : array())));
+                } catch (Horde_Exception_PushApp $e) {
+                    // Ignore
                 } catch (Horde_Exception $e) {
-                    if ($e->getCode() != Horde_Registry::NOT_ACTIVE) {
-                        Horde::logMessage($e, 'ERR');
-                    }
+                    Horde::logMessage($e, 'ERR');
                 }
                 break;
 
