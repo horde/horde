@@ -54,6 +54,9 @@ v4.0.0alpha1
 v3.0.15-git
 -----------
 
+[jan] Fix sorting of columns in preferences (Bug #10795).
+[jan] Remove user's address books when removing users, independent from address
+      book permissions.
 [mms] Fix infinite loop if array was passed to delete API call.
 [mms] Fix descending sorting of result lists.
 [mms] Return to same page when deleting contact from browse view.
