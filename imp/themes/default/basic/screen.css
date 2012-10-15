@@ -152,6 +152,10 @@ div.msgActions, #fmanager div.folderActions {
     padding-right: 4px;
 }
 
+.msgheaderParts .msgheader td {
+    padding: 0 4px 2px 0 !important;
+}
+
 /* Attachment tree styling. */
 div.partsTreeDiv span span:last-child {
     padding-left: 3px;
