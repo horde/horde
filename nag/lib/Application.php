@@ -304,7 +304,7 @@ class Nag_Application extends Horde_Registry_Application
                 )
             ));
 
-            foreach (Nag::listTasklists() as $name => $tasklist) {
+            foreach (Nag::listTasklists(false, Horde_Perms::EDIT) as $name => $tasklist) {
                 $tree->addNode(array(
                     'id' => $parent . $name . '__new',
                     'parent' => $parent . '__new',

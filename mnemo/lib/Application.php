@@ -170,7 +170,7 @@ class Mnemo_Application extends Horde_Registry_Application
             )
         ));
 
-        foreach (Mnemo::listNotepads() as $name => $notepad) {
+        foreach (Mnemo::listNotepads(false, Horde_Perms::EDIT) as $name => $notepad) {
             $tree->addNode(array(
                 'id' => $parent . $name . '__new',
                 'parent' => $parent . '__new',
