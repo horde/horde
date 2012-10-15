@@ -679,11 +679,23 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function getFullThread($uid, $mbox = null)
     {
-        if (empty($this->_thread)) {
-            $this->rebuild();
+        if (is_null($mbox)) {
+            $mbox = $this->_mailbox;
         }
 
-        return new IMP_Indices($mbox, array_keys($this->_thread[strval($mbox)]->getThread($uid)));
+        if (isset($this->_thread[strval($mbox)])) {
+            $thread = $this->_thread[strval($mbox)];
+        } else {
+            try {
+                $thread = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->thread($mbox, array(
+                    'criteria' => $GLOBALS['session']->get('imp', 'imap_thread')
+                ));
+            } catch (Horde_Imap_Client_Exception $e) {
+                return new IMP_Indices($mbox, array());
+            }
+        }
+
+        return new IMP_Indices($mbox, array_keys($thread->getThread($uid)));
     }
 
     /**
