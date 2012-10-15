@@ -85,6 +85,16 @@ case 'add_memo':
             $notification->push($e);
         }
     }
+    try {
+        $share = $mnemo_shares->getShare($memolist_id);
+    } catch (Horde_Share_Exception $e) {
+        $notification->push($e);
+        Horde::url('list.php', true)->redirect();
+    }
+    if (!$share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
+        $notification->push(_("Access denied addings notes to this notepad."), 'horde.error');
+        Horde::url('list.php', true)->redirect();
+    }
     $memo_id = null;
     $memo_body = '';
     $memo_category = '';
@@ -129,7 +139,8 @@ case 'save_memo':
     try {
         $share = $mnemo_shares->getShare($notepad_target);
     } catch (Horde_Share_Exception $e) {
-        throw new Mnemo_Exception($e);
+        $notification->push($e);
+        Horde::url('list.php', true)->redirect();
     }
 
     if (!$share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
