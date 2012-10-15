@@ -13,6 +13,9 @@ var ImpMobile = {
     // /* Attachment data for the current message. */
     // atc,
     //
+    // /* Has the folders list been loaded? */
+    // foldersLoaded,
+    //
     // /* Header data for the current message. */
     // headers,
     //
@@ -111,21 +114,19 @@ var ImpMobile = {
             // Fall-through
 
         case 'folders':
-            HordeMobile.doAction('poll', {
-                poll: JSON.stringify([])
-            });
+            if (ImpMobile.foldersLoaded) {
+                HordeMobile.doAction('poll', {
+                    poll: JSON.stringify([])
+                });
+            } else {
+                ImpMobile.loadFolders();
+            }
             break;
 
         case 'folders-showall':
         case 'folders-showpoll':
             $('#folders :jqmData(role=footer) a[href*="folders-show"]').toggle();
-            HordeMobile.doAction(
-                'smartmobileFolderTree',
-                { all: ImpMobile.showAllFolders() },
-                function(r) {
-                    $('#imp-folders-list').html(r).listview('refresh');
-                }
-            );
+            ImpMobile.loadFolders();
             e.preventDefault();
             break;
 
@@ -883,6 +884,21 @@ var ImpMobile = {
         }
 
         HordeMobile.changePage('compose', data);
+    },
+
+    /**
+     * Load the folders list.
+     */
+    loadFolders: function()
+    {
+        HordeMobile.doAction(
+            'smartmobileFolderTree',
+            { all: ImpMobile.showAllFolders() },
+            function(r) {
+                ImpMobile.foldersLoaded = true;
+                $('#imp-folders-list').html(r).listview('refresh');
+            }
+        );
     },
 
     uniqueSubmit: function(action)

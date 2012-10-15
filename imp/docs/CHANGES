@@ -2,6 +2,7 @@
 v6.0.0-git
 ----------
 
+[mms] Load folders list on-demand in smartmobile view.
 [mms] Fix thread view when mailbox is not thread sorted (Bug #11320).
 [mms] Display message range when dragging slider on dynamic mailbox page.
 
