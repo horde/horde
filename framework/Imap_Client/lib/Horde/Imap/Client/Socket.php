@@ -2795,8 +2795,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         } else {
             $ob->setType($entry . '/' . $data->next());
 
-            foreach ($this->_parseStructureParams($data->next(), 'content-type') as $key => $val) {
-                $ob->setContentTypeParameter($key, $val);
+            if (is_object($tmp = $data->next())) {
+                foreach ($this->_parseStructureParams($tmp, 'content-type') as $key => $val) {
+                    $ob->setContentTypeParameter($key, $val);
+                }
             }
 
             if (!is_null($tmp = $data->next())) {
