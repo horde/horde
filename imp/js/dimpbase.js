@@ -525,8 +525,14 @@ var DimpBase = {
             pane_data: 'previewPane',
             pane_mode: this._getPref('preview'),
             pane_width: this._getPref('splitbar_vert'),
-            split_bar_class: { horiz: 'horde-splitbar-horiz', vert: 'horde-splitbar-vert' },
-            split_bar_handle_class: { horiz: 'horde-splitbar-horiz-handle', vert: 'horde-splitbar-vert-handle' },
+            split_bar_class: {
+                horiz: 'horde-splitbar-horiz',
+                vert: 'horde-splitbar-vert'
+            },
+            split_bar_handle_class: {
+                horiz: 'horde-splitbar-horiz-handle',
+                vert: 'horde-splitbar-vert-handle'
+            },
 
             // Callbacks
             onAjaxRequest: function(params) {
