@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Auto-update folders list in smartmobile view if special mailbox is auto-created (Request #11482).
 * [mms] Load folders list on-demand in smartmobile view.
 * [mms] Fix thread view when mailbox is not thread sorted (Bug #11320).
 * [mms] Display message range when dragging slider on dynamic mailbox page.
@@ -2761,6 +2762,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Auto-update folders list in smartmobile view if special mailbox is auto-created (Request #11482).
 * [mms] Load folders list on-demand in smartmobile view.
 * [mms] Fix thread view when mailbox is not thread sorted (Bug #11320).
 * [mms] Display message range when dragging slider on dynamic mailbox page.

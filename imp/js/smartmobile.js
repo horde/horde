@@ -1181,6 +1181,10 @@ var ImpMobile = {
                 ImpMobile.message = value.shift();
                 break;
 
+            case 'imp:mailbox':
+                ImpMobile.foldersLoaded = false;
+                break;
+
             case 'imp:poll':
                 ImpMobile.updateFolders(value);
                 break;
