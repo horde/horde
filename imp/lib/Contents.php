@@ -717,6 +717,7 @@ class IMP_Contents
         $part = array(
             'bytes' => null,
             'download' => null,
+            'download_url' => null,
             'download_zip' => null,
             'id' => $id,
             'img_save' => null,
