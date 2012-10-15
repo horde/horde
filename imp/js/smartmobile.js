@@ -1171,29 +1171,29 @@ var ImpMobile = {
      */
     runTasks: function(e, d)
     {
-        $.each(d, function(key, value) {
-            switch (key) {
-            case 'imp:flag':
-                ImpMobile.updateFlags(value);
-                break;
+        var v;
 
-            case 'imp:message':
-                ImpMobile.message = value.shift();
-                break;
+        if (v = d['imp:flag']) {
+            ImpMobile.updateFlags(v);
+            // Force a viewport update.
+            ImpMobile.mailboxCache = null;
+        }
 
-            case 'imp:mailbox':
-                ImpMobile.foldersLoaded = false;
-                break;
+        if (v = d['imp:message']) {
+            ImpMobile.message = v.shift();
+        }
 
-            case 'imp:poll':
-                ImpMobile.updateFolders(value);
-                break;
+        if (d['imp:mailbox']) {
+             ImpMobile.foldersLoaded = false;
+        }
 
-            case 'imp:viewport':
-                ImpMobile.viewport(value);
-                break;
-            }
-        });
+        if (v = d['imp:poll']) {
+            ImpMobile.updateFolders(v);
+        }
+
+        if (v = d['imp:viewport']) {
+            ImpMobile.viewport(v);
+        }
     },
 
     /**
