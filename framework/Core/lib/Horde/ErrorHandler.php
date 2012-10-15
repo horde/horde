@@ -131,13 +131,15 @@ HTML;
     static public function errorHandler($errno, $errstr, $errfile, $errline,
                                         $errcontext)
     {
+        $er = error_reporting();
+
         // Calls prefixed with '@'.
-        if (error_reporting() == 0) {
+        if ($er == 0) {
             // Must return false to populate $php_errormsg (as of PHP 5.2).
             return false;
         }
 
-        if (!class_exists('Horde_Log')) {
+        if (!($er & $errno) || !class_exists('Horde_Log')) {
             return;
         }
 
