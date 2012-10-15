@@ -74,9 +74,6 @@ input {
     float:right;
     background-position: center left;
 }
-.horde-table-header .horde-popdown {
-    margin-top: -19px;
-}
 
 /* Columns */
 div.msgStatus {
@@ -93,26 +90,24 @@ div.msgSubject {
     left: 240px;
     right: 225px;
 }
-#msglistHeaderHoriz div.msgSubject {
-    right: auto;
-    overflow: visible;
-}
 div.msgDate {
     text-align: right;
     right: 85px;
     width: 130px;
-}
-#msglistHeaderHoriz div.msgDate {
-    width: 110px;
-}
-#msglistHeaderHoriz div.msgDate a {
-    margin-right: 24px;
 }
 div.msgSize {
     text-align: right;
     right: 0;
     width: 50px;
     padding-right: 25px;
+}
+
+#msglistHeaderContainer .horde-popdown {
+    display: -moz-inline-stack;
+    display: inline-block;
+    float: none;
+    margin-bottom: -8px;
+    margin-top: -4px;
 }
 
 /* Message List Header and Column Header */
@@ -171,9 +166,6 @@ div.vpRowHoriz div.sep {
 }
 div.vpRowHoriz div.sep.sortup, div.vpRowHoriz div.sep.sortdown {
     background-position: left center;
-}
-#msglistHeaderHoriz div.horde-popdown {
-    margin-right: -22px;
 }
 
 /* Rows: flags. */
