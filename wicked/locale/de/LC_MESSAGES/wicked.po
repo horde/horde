@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-08-29 13:30+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2011-11-01 12:59+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -105,8 +105,7 @@ msgstr "Angehängte Dateien: %s"
 msgid "Attachment Name"
 msgstr "Anhangname"
 
-#: templates/display/standard.inc:80 templates/display/standard.inc:81
-#: templates/display/standard.inc:120
+#: templates/display/standard.inc:81 templates/display/standard.inc:122
 msgid "Attachments"
 msgstr "Anhänge"
 
@@ -121,17 +120,9 @@ msgstr "Anhänge mit Leerzeichen können nicht in eine Seite eingebettet werden.
 msgid "Author"
 msgstr "Autor"
 
-#: templates/display/standard.inc:107
+#: templates/display/standard.inc:109
 msgid "Ba_ck to"
 msgstr "_Zurück zu"
-
-#: templates/display/standard.inc:107
-msgid "Back to"
-msgstr "Zurück zu"
-
-#: templates/display/standard.inc:70
-msgid "Backlinks"
-msgstr "Rückverweise"
 
 #: lib/Page/BackLinks.php:66
 #, php-format
@@ -236,11 +227,6 @@ msgstr "Datum"
 msgid "Delete"
 msgstr "Löschen"
 
-#: templates/display/standard.inc:55
-#, php-format
-msgid "Delete %s"
-msgstr "%s löschen"
-
 #: lib/Page/DeletePage.php:88 lib/Page/DeletePage.php:110
 msgid "Delete Page"
 msgstr "Seite löschen"
@@ -290,7 +276,7 @@ msgstr "Version %s anzeigen"
 msgid "Download"
 msgstr "Herunterladen"
 
-#: templates/display/standard.inc:139
+#: templates/display/standard.inc:141
 msgid "Download this page as:"
 msgstr "Diese Seite herunterladen als: "
 
@@ -310,7 +296,7 @@ msgstr "Treiber"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: preview.php:23 templates/display/standard.inc:24
+#: preview.php:23
 #, php-format
 msgid "Edit %s"
 msgstr "%s Bearbeiten"
@@ -323,7 +309,7 @@ msgstr "Seite bearbeiten"
 msgid "Edit Version"
 msgstr "Version bearbeiten"
 
-#: templates/history/summary.inc:16
+#: templates/history/summary.inc:18
 #, php-format
 msgid "Edit Version %s"
 msgstr "Version %s bearbeiten"
@@ -373,18 +359,13 @@ msgstr "Gleicher Inhalt in der Seitengeschichte gefunden"
 msgid "Guest"
 msgstr "Gast"
 
-#: templates/display/standard.inc:141
+#: templates/display/standard.inc:143
 msgid "HTML"
 msgstr "HTML"
 
 #: templates/display/standard.inc:88
 msgid "Hi_story"
 msgstr "_Geschichte"
-
-#: templates/display/standard.inc:87
-#, php-format
-msgid "History of %s"
-msgstr "Geschichte von %s"
 
 #: lib/Page/StandardHistoryPage.php:45
 msgid "History page not found"
@@ -425,7 +406,7 @@ msgstr "Letzte Änderung am %s durch %s"
 msgid "Last Update"
 msgstr "Letzte Aktualisierung"
 
-#: templates/display/standard.inc:142
+#: templates/display/standard.inc:144
 msgid "Latex"
 msgstr "Latex"
 
@@ -442,19 +423,10 @@ msgstr "Lokal"
 msgid "Location"
 msgstr "Ort"
 
-#: templates/display/standard.inc:43
-#, php-format
-msgid "Lock %s"
-msgstr "%s sperren"
-
 #: lib/Page/DeletePage.php:88 lib/Page/RevertPage.php:75
 #: templates/display/title.inc:33 templates/edit/standard.inc:21
 msgid "Locked"
 msgstr "Gesperrt"
-
-#: templates/display/standard.inc:63
-msgid "Merge/Rename"
-msgstr "Umbenennen"
 
 #: lib/Page/MergeOrRename.php:138
 #, php-format
@@ -596,7 +568,7 @@ msgstr "Der Seitenname darf nicht leer sein."
 msgid "Page unlocked"
 msgstr "Seite freigegeben"
 
-#: lib/Application.php:67
+#: lib/Application.php:99
 msgid "Pages"
 msgstr "Seiten"
 
@@ -612,7 +584,7 @@ msgstr "Zu synchronsierende Seiten"
 msgid "Password"
 msgstr "Passwort"
 
-#: templates/display/standard.inc:103
+#: templates/display/standard.inc:104
 msgid "Permissio_ns"
 msgstr "_Rechte"
 
@@ -620,7 +592,7 @@ msgstr "_Rechte"
 msgid "Permission denied."
 msgstr "Zugriff verweigert."
 
-#: templates/display/standard.inc:140
+#: templates/display/standard.inc:142
 msgid "Plain Text"
 msgstr "Einfacher Text"
 
@@ -698,7 +670,7 @@ msgstr "Wiederherstellen"
 msgid "Revert Page"
 msgstr "Seite wiederherstellen"
 
-#: templates/history/summary.inc:26
+#: templates/history/summary.inc:28
 #, php-format
 msgid "Revert to version %s"
 msgstr "Version %s wiederherstellen"
@@ -724,7 +696,7 @@ msgstr "Speichern"
 msgid "Save login info"
 msgstr "Anmeldedaten speichern"
 
-#: lib/Page/Search.php:195 templates/menu.inc:18
+#: lib/Page/Search.php:195 templates/menu.inc:16
 msgid "Search"
 msgstr "Suche"
 
@@ -741,11 +713,6 @@ msgstr "Wählen Sie die Datei aus, die angehängt werden soll:"
 msgid "Select the file to update"
 msgstr "Wählen Sie die Datei aus, die aktualisiert werden soll"
 
-#: templates/display/standard.inc:102
-#, php-format
-msgid "Set permissions for %s"
-msgstr "Rechte für %s festlegen"
-
 #: templates/sync/list.inc:79
 msgid "Show changes"
 msgstr "Änderungen anzeigen"
@@ -759,10 +726,6 @@ msgstr "Änderungen für %s anzeigen"
 #, php-format
 msgid "Show version %s"
 msgstr "Version %s anzeigen"
-
-#: templates/display/standard.inc:75
-msgid "Similar Pages"
-msgstr "Ähnliche Seiten"
 
 #: lib/Page/LikePages.php:67
 #, php-format
@@ -850,7 +813,7 @@ msgstr "Diese Seite wurde von %s für %d Minuten gesperrt."
 msgid "This page is referenced from %d other page(s)."
 msgstr "Auf diese Seite wird von %d anderen Seite(n) verwiesen."
 
-#: templates/display/standard.inc:35
+#: templates/display/standard.inc:33
 msgid "Un_lock"
 msgstr "_Freigeben"
 
@@ -863,11 +826,6 @@ msgstr "%s kann nicht erstellt werden"
 msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr ""
 "Wiki/Home kann nicht erstellt werden. Das Wiki wurde nicht konfiguriert."
-
-#: templates/display/standard.inc:34
-#, php-format
-msgid "Unlock %s"
-msgstr "%s freigeben"
 
 #: lib/Page.php:239 lib/Page.php:272 lib/Page.php:277 lib/Page.php:368
 #: lib/Page.php:376 lib/Page.php:384 lib/Page.php:392 lib/Page.php:501
@@ -979,39 +937,39 @@ msgstr "Sie müssen einen Änderungseintrag eingeben, um diese Datei anzuhängen
 msgid "You must provide a change log."
 msgstr "Sie müssen einen Änderungseintrag angeben."
 
-#: lib/Wicked.php:106
+#: lib/Application.php:71
 msgid "_All Pages"
 msgstr "_Alle Seiten"
 
-#: templates/display/standard.inc:70
+#: templates/display/standard.inc:69
 msgid "_Backlinks"
 msgstr "Rück_verweise"
 
-#: templates/display/standard.inc:56
+#: templates/display/standard.inc:54
 msgid "_Delete"
 msgstr "Lös_chen"
 
-#: templates/display/standard.inc:25
+#: templates/display/standard.inc:24
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
-#: lib/Wicked.php:103
+#: lib/Application.php:68
 msgid "_Home"
 msgstr "_Startseite"
 
-#: templates/display/standard.inc:44
+#: templates/display/standard.inc:41
 msgid "_Lock"
 msgstr "S_perren"
 
-#: templates/display/standard.inc:64
+#: templates/display/standard.inc:62
 msgid "_Merge/Rename"
 msgstr "_Umbenennen"
 
-#: lib/Wicked.php:105
+#: lib/Application.php:70
 msgid "_Recent Changes"
 msgstr "_Letzte Änderungen"
 
-#: lib/Wicked.php:104
+#: lib/Application.php:69
 msgid "_Usage"
 msgstr "Anleitung"
 
@@ -1023,6 +981,6 @@ msgstr "einem Gast"
 msgid "attachment"
 msgstr "Anhang"
 
-#: templates/display/standard.inc:143
+#: templates/display/standard.inc:145
 msgid "reStructuredText"
 msgstr "reStructuredText"

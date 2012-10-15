@@ -113,10 +113,10 @@ class Hylax {
 
         for ($i = 0; $i < $num_pages; $i++) {
             $params['page'] = $i;
-            $url = Horde_Util::addParameter('img.php', $params);
+            $url = Horde::url('img.php')->add($params);
             $img = Horde::img($url, sprintf(_("View page %s"), $i+1), '', $GLOBALS['registry']->get('webroot'));
 
-            $full_url = Horde::url(Horde_Util::addParameter('img.php', array('fax_id' => $fax_id, 'page' => $i)));
+            $full_url = Horde::url('img.php')->add(array('fax_id' => $fax_id, 'page' => $i));
 
             $pages[] = Horde::link('', sprintf(_("View page %s"), $i+1), '', '', "popup('$full_url', $popup_w, $popup_h); return false;") . $img . '</a>';
         }

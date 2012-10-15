@@ -362,7 +362,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                 ($this->_decoder->getElementStartTag(self::SEARCH_LESSTHAN) ? self::SEARCH_LESSTHAN :
                 ($this->_decoder->getElementStartTag(self::SEARCH_GREATERTHAN) ? self::SEARCH_GREATERTHAN :
                 ($this->_decoder->getElementStartTag(self::SEARCH_FREETEXT) ? self::SEARCH_FREETEXT :
-                ($this->_decoder->getElementStartTag(Horde_ActiveSYnc::SYNC_FOLDERID) ? Horde_ActiveSync::SYNC_FOLDERID :
+                ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERID) ? Horde_ActiveSync::SYNC_FOLDERID :
                 ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE) ? Horde_ActiveSync::SYNC_FOLDERTYPE :
                 ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DOCUMENTLIBRARY_LINKID) ? Horde_ActiveSync::SYNC_DOCUMENTLIBRARY_LINKID :
                 ($this->_decoder->getElementStartTag(Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED) ? Horde_ActiveSync_Message_Mail::POOMMAIL_DATERECEIVED :

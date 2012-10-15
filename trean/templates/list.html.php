@@ -49,7 +49,7 @@ function table_sortCallback(tableId, column, sortDown)
    <form class="bl-delete" action="<?php echo Horde::url('b/delete') ?>" method="post">
     <input type="hidden" name="bookmark" value="<?php echo (int)$bookmark->id ?>">
     <input type="hidden" name="url" value="<?php echo $this->h(Horde::selfUrl()) ?>">
-    <input type="submit" class="button" value="<?php echo _("Delete") ?>">
+    <input type="submit" class="horde-delete" value="<?php echo _("Delete") ?>">
    </form>
   </td>
  </tr>

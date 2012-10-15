@@ -18,12 +18,12 @@ class Horde_Core_Ui_TagCloud
     /**
      * @var integer
      */
-    public $basefontsize = 24;
+    public $basefontsize;
 
     /**
      * @var integer
      */
-    public $fontsizerange = 12;
+    public $fontsizerange;
 
     /**
      * @var string
@@ -90,8 +90,10 @@ class Horde_Core_Ui_TagCloud
     public function __construct($basefontsize = 24, $fontsizerange = 12)
     {
         $this->basefontsize = $basefontsize;
-        $this->minfontsize = max($this->basefontsize - $this->fontsizerange, 0);
-        $this->maxfontsize = $this->basefontsize + $this->fontsizerange;
+        $this->fontsizerange = $fontsizerange;
+
+        $this->minfontsize = max($basefontsize - $fontsizerange, 0);
+        $this->maxfontsize = $basefontsize + $fontsizerange;
     }
 
     /**

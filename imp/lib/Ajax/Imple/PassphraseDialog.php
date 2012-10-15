@@ -66,7 +66,7 @@ class IMP_Ajax_Imple_PassphraseDialog extends Horde_Core_Ajax_Imple
 
         $js = 'ImpPassphraseDialog.display(' . Horde::escapeJson($js_params, array('nodelimit' => true)) . ')';
 
-        if ($this->_params['onload']) {
+        if (!empty($this->_params['onload'])) {
             $page_output->addInlineScript(array($js), true);
             return false;
         }

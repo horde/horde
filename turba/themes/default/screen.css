@@ -51,11 +51,17 @@ div.editGroupMembers span.iconImg {
 .vcardImg {
     background-image: url("graphics/mime/vcard.png");
 }
-.turba-addressbooks {
+#tabContact a {
     background-image: url("graphics/turba.png");
 }
 .turba-browse {
     background-image: url("graphics/menu/browse.png");
+}
+.turba-delete, #tabDeleteContact a {
+    background-image: url("graphics/delete.png");
+}
+.turba-edit, #tabEditContact a {
+    background-image: url("graphics/edit.png");
 }
 .turba-search {
     background-image: url("graphics/search.png");

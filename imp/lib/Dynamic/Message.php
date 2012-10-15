@@ -26,9 +26,10 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         }
 
         $page_output->addScriptFile('message-dimp.js');
-        $page_output->addScriptFile('imp.js');
         $page_output->addScriptFile('textarearesize.js', 'horde');
         $page_output->addScriptFile('toggle_quotes.js', 'horde');
+
+        $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
         $js_vars = array();
         $uid = IMP::uid();
@@ -107,7 +108,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $page_output->noDnsPrefetch();
 
         $this->view->show_delete = IMP::mailbox()->access_deletemsgs;
-        $this->view->show_innocent = (!empty($conf['notspam']['reporting']) && (!$conf['notspam']['spamfolder'] || !IMP::mailbox()->spam));
+        $this->view->show_innocent = (!empty($conf['notspam']['reporting']) && (!$conf['notspam']['spamfolder'] || IMP::mailbox()->spam));
         $this->view->show_spam = (!empty($conf['spam']['reporting']) && (!$conf['spam']['spamfolder'] || !IMP::mailbox()->spam));
         $this->view->show_view_all = empty($msg_res['onepart']);
         $this->view->show_view_source = !empty($conf['user']['allow_view_source']);
@@ -131,10 +132,14 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
             $this->view->atc_label = $msg_res['atc_label'];
             if (isset($msg_res['atc_list'])) {
                 $this->view->atc_list = $msg_res['atc_list'];
+            } else {
+                $this->view->atc_list = array();
             }
             if (isset($msg_res['atc_download'])) {
                 $this->view->atc_download = $msg_res['atc_download'];
             }
+        } else {
+            $this->view->atc_list = array();
         }
 
         $this->view->msgtext = $msg_res['msgtext'];

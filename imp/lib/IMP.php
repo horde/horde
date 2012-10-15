@@ -72,10 +72,6 @@ class IMP
 
                 /* Gettext strings used in core javascript files. */
                 'text' => array(
-                    /* Strings used in imp.js */
-                    'popup_block' => _("A popup window could not be opened. Perhaps you have set your browser to block popup windows?"),
-
-                    /* Strings used in multiple pages. */
                     'moveconfirm' => _("Are you sure you want to move the message(s)? (Some message information might get lost, like message headers, text formatting or attachments!)"),
                     'spam_report' => _("Are you sure you wish to report this message as spam?"),
                     'notspam_report' => _("Are you sure you wish to report this message as innocent?"),
@@ -169,36 +165,6 @@ class IMP
     }
 
     /**
-     * Adds a contact to the user defined address book.
-     *
-     * @param string $newAddress  The contact's email address.
-     * @param string $newName     The contact's name.
-     *
-     * @return string  A link or message to show in the notification area.
-     * @throws Horde_Exception
-     */
-    static public function addAddress($newAddress, $newName)
-    {
-        global $registry, $prefs;
-
-        if (empty($newName)) {
-            $newName = $newAddress;
-        }
-
-        $result = $registry->call('contacts/import', array(array('name' => $newName, 'email' => $newAddress), 'array', $prefs->getValue('add_source')));
-
-        $escapeName = @htmlspecialchars($newName, ENT_COMPAT, 'UTF-8');
-
-        try {
-            if ($contact_link = $registry->link('contacts/show', array('uid' => $result, 'source' => $prefs->getValue('add_source')))) {
-                return Horde::link(Horde::url($contact_link), sprintf(_("Go to address book entry of \"%s\""), $newName)) . $escapeName . '</a>';
-            }
-        } catch (Horde_Exception $e) {}
-
-        return $escapeName;
-    }
-
-    /**
      * Generates a select form input from a mailbox list. The &lt;select&gt;
      * and &lt;/select&gt; tags are NOT included in the output.
      *
@@ -277,6 +243,8 @@ class IMP
      */
     static protected function _decodeMailto($args)
     {
+        $fields = array('to', 'cc', 'bcc', 'message', 'body', 'subject');
+
         if (isset($args['to']) && (strpos($args['to'], 'mailto:') === 0)) {
             $mailto = @parse_url($args['to']);
             if (is_array($mailto)) {
@@ -337,6 +305,9 @@ class IMP
                 : 'compose.php';
             $raw = true;
             $callback = array(__CLASS__, 'composeLinkSimpleCallback');
+        } elseif ($view == Horde_Registry::VIEW_SMARTMOBILE) {
+            $url = new Horde_Core_Smartmobile_Url(Horde::url('smartmobile.php'));
+            $url->setAnchor('compose');
         } elseif (($view != Horde_Registry::VIEW_MINIMAL) &&
                   $GLOBALS['prefs']->getValue('compose_popup') &&
                   $GLOBALS['browser']->hasFeature('javascript')) {
@@ -352,7 +323,7 @@ class IMP
             $url = IMP_Mailbox::get($args['thismailbox'])->url($url, $uid);
         } elseif (isset($args['mailbox'])) {
             $url = IMP_Mailbox::get($args['mailbox'])->url($url, $uid);
-        } else {
+        } elseif (!($url instanceof Horde_Url)) {
             $url = Horde::url($url);
         }
 
@@ -462,123 +433,11 @@ class IMP
     }
 
     /**
-     * Build IMP's menu.
-     *
-     * @return string  The menu output.
-     */
-    static public function menu()
-    {
-        $sidebar = Horde::menu(array('app' => 'imp', 'menu_ob' => true))
-            ->render();
-
-        if (self::canCompose()) {
-            $sidebar->addNewButton(_("_New Message"), self::composeLink());
-        }
-
-        /* Folders. */
-        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
-            $tree = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Tree')
-                ->create('imp_menu',
-                         'Horde_Tree_Renderer_Sidebar',
-                         array('nosession' => true));
-            $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-            $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
-            $tree = $imaptree->createTree($tree, array(
-                'open' => false,
-                'poll_info' => true
-            ));
-            $tree->addNodeParams(IMP_Mailbox::formTo(self::mailbox()), array('selected' => true));
-            $sidebar->containers['imp-menu'] = array('content' => $tree->getTree());
-        }
-
-        return $GLOBALS['injector']
-            ->getInstance('Horde_View_Topbar')
-            ->render()
-            . $sidebar;
-    }
-
-    /**
      * Outputs IMP's status/notification bar.
      */
     static public function status()
     {
         $GLOBALS['notification']->notify(array('listeners' => array('status', 'audio')));
-    }
-
-    /**
-     * Add IMP's quota information to the subinfo bar.
-     */
-    static public function quota(Horde_View $subinfo)
-    {
-        $quotadata = self::quotaData(true);
-        if (!empty($quotadata)) {
-            $subinfo->quotaText = $quotadata['message'];
-            $subinfo->quotaClass = $quotadata['class'];
-        }
-    }
-
-    /**
-     * Returns data needed to output quota.
-     *
-     * @param boolean $long  Output long messages?
-     *
-     * @return array  Array with these keys: class, message, percent.
-     */
-    static public function quotaData($long = true)
-    {
-        if (!$GLOBALS['session']->get('imp', 'imap_quota')) {
-            return false;
-        }
-
-        try {
-            $quotaDriver = $GLOBALS['injector']->getInstance('IMP_Quota');
-            $quota = $quotaDriver->getQuota();
-        } catch (IMP_Exception $e) {
-            Horde::log($e, 'ERR');
-            return false;
-        }
-
-        if (empty($quota)) {
-            return false;
-        }
-
-        $strings = $quotaDriver->getMessages();
-        list($calc, $unit) = $quotaDriver->getUnit();
-        $ret = array('percent' => 0);
-
-        if ($quota['limit'] != 0) {
-            $quota['usage'] = $quota['usage'] / $calc;
-            $quota['limit'] = $quota['limit'] / $calc;
-            $ret['percent'] = ($quota['usage'] * 100) / $quota['limit'];
-            if ($ret['percent'] >= 90) {
-                $ret['class'] = 'quotaalert';
-            } elseif ($ret['percent'] >= 75) {
-                $ret['class'] = 'quotawarn';
-            } else {
-                $ret['class'] = 'control';
-            }
-
-            $ret['message'] = $long
-                ? sprintf($strings['long'], $quota['usage'], $unit, $quota['limit'], $unit, $ret['percent'])
-                : sprintf($strings['short'], $ret['percent'], $quota['limit'], $unit);
-            $ret['percent'] = sprintf("%.2f", $ret['percent']);
-        } else {
-            $ret['class'] = 'control';
-            if ($quota['usage'] != 0) {
-                $quota['usage'] = $quota['usage'] / $calc;
-
-                $ret['message'] = $long
-                    ? sprintf($strings['nolimit_long'], $quota['usage'], $unit)
-                    : sprintf($strings['nolimit_short'], $quota['usage'], $unit);
-            } else {
-                $ret['message'] = $long
-                    ? sprintf(_("Quota status: NO LIMIT"))
-                    : _("No limit");
-            }
-        }
-
-        return $ret;
     }
 
     /**
@@ -654,29 +513,6 @@ class IMP
         } catch (Horde_Exception_HookNotSet $e) {
             return true;
         }
-    }
-
-    /**
-     * Determines parameters needed to do an address search
-     *
-     * @return array  An array with two keys: 'fields' and 'sources'.
-     */
-    static public function getAddressbookSearchParams()
-    {
-        $src = json_decode($GLOBALS['prefs']->getValue('search_sources'));
-        if (empty($src)) {
-            $src = array();
-        }
-
-        $fields = json_decode($GLOBALS['prefs']->getValue('search_fields'), true);
-        if (empty($fields)) {
-            $fields = array();
-        }
-
-        return array(
-            'fields' => $fields,
-            'sources' => $src
-        );
     }
 
     /**
@@ -758,6 +594,26 @@ class IMP
             $ob->host = $GLOBALS['session']->get('imp', 'maildomain');
         }
         return $ob->bare_address;
+    }
+
+    /**
+     * Are appliable filters available?
+     *
+     * @return voolean  True if appliable filters are available.
+     */
+    static public function applyFilters()
+    {
+        global $registry, $session;
+
+        if (!$session->exists('imp', 'filteravail')) {
+            $apply = false;
+            try {
+                $apply = $registry->call('mail/canApplyFilters');
+            } catch (Horde_Exception $e) {}
+            $session->set('imp', 'filteravail', $apply);
+        }
+
+        return $session->get('imp', 'filteravail');
     }
 
 }

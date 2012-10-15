@@ -35,7 +35,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
      *
      * @return Kronolith_Resource
      */
-    public function __construct($params)
+    public function __construct(array $params)
     {
         $params['resource_type'] = 'Group';
         parent::__construct($params);
@@ -60,6 +60,12 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
         }
     }
 
+    /**
+     * Obtain the resource's internal identifier, taking into account whether or
+     * not we have validated/selected a resource for this group yet.
+     *
+     * @return string The id.
+     */
     public function getId()
     {
         if (!empty($this->_selectedResource)) {
@@ -73,14 +79,12 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
      * Determine if the resource is free during the time period for the
      * supplied event.
      *
-     * @param mixed $event  Either a Kronolith_Event object or an array
-     *                      containing start and end times.
-     *
+     * @param Kronolith_Event $event  The event to check availability for.
      *
      * @return boolean
      * @throws Kronolith_Exception
      */
-    public function isFree($event)
+    public function isFree(Kronolith_Event $event)
     {
         if (is_array($event)) {
             $start = $event['start'];
@@ -145,46 +149,54 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
     /**
      * Adds $event to an available member resource's calendar.
      *
-     * @param $event
+     * @param Kronolith_Event $event
      *
-     * @return void
+     * @throws Kronolith_Exception
      */
-    public function addEvent($event)
+    public function addEvent(Kronolith_Event $event)
     {
         if (!empty($this->_selectedResource)) {
             $this->_selectedResource->addEvent($event);
         } else {
-            throw new Horde_Exception('Events should be added to the Single resource object, not directly to the Group object.');
+            throw new Kronolith_Exception('Events should be added to the Single resource object, not directly to the Group object.');
         }
     }
 
     /**
      * Remove this event from resource's calendar
      *
-     * @param $event
-     * @return unknown_type
+     * @param Kronolith_Event $event
+     *
+     * @throws Kronolith_Exception
      */
-    public function removeEvent($event)
+    public function removeEvent(Kronolith_Event $event)
     {
-        throw new Horde_Exception('Unsupported');
+        throw new Kronolith_Exception('Unsupported');
     }
 
     /**
      * Obtain the freebusy information for this resource.
      *
-     * @return unknown_type
+     * @throws Kronolith_Exception
      */
-    public function getFreeBusy($startstamp = null, $endstamp = null, $asObject = false)
+    public function getFreeBusy($startstamp = null, $endstamp = null, $asObject = false, $json = false)
     {
-        throw new Horde_Exception('Unsupported');
+        throw new Kronolith_Exception('Unsupported');
     }
 
+    /**
+     * Sets the current resource's id. Must not be an existing resource.
+     *
+     * @param integer $id  The id for this resource
+     *
+     * @throws Kronolith_Exception
+     */
     public function setId($id)
     {
         if (empty($this->_id)) {
             $this->_id = $id;
         } else {
-            throw new Horde_Exception('Resource already exists. Cannot change the id.');
+            throw new Kronolith_Exception('Resource already exists. Cannot change the id.');
         }
     }
 

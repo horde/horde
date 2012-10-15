@@ -35,6 +35,7 @@ class IMP_Smartmobile
         $this->view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/smartmobile'
         ));
+        $this->view->addHelper('Horde_Core_Smartmobile_View_Helper');
         $this->view->addHelper('Text');
 
         $this->_initPages();
@@ -44,8 +45,9 @@ class IMP_Smartmobile
         $page_output->addScriptFile('indices.js');
         $page_output->addScriptFile('json2.js', 'horde');
 
-        $mimecss = new Horde_Themes_Element('mime.css');
-        $page_output->addStylesheet($mimecss->fs, $mimecss->uri);
+        $page_output->addStylesheet(
+            new Horde_Themes_Element('mime.css')
+        );
 
         $notification->notify(array('listeners' => 'status'));
     }
@@ -54,7 +56,7 @@ class IMP_Smartmobile
      */
     public function render()
     {
-        global $injector;
+        global $injector, $page_output;
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
@@ -69,7 +71,14 @@ class IMP_Smartmobile
         }
         echo $this->view->render('confirm');
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-            echo $this->view->render('target');
+            echo $this->view->render('copymove');
+        }
+
+        /* jQuery Mobile plugins must be loaded AFTER the main mobile script
+         * is loaded. */
+        $page_output->addScriptFile('jquery.mobile/plugins/swipebutton.js', 'horde');
+        if (IMP::canCompose()) {
+            $page_output->addScriptFile('jquery.mobile/plugins/autocomplete.js', 'horde');
         }
     }
 
@@ -78,15 +87,6 @@ class IMP_Smartmobile
     protected function _initPages()
     {
         global $conf, $injector, $registry;
-
-        /* Initialize the IMP_Imap_Tree object. By default, only show INBOX,
-         * special mailboxes, and polled mailboxes. */
-        $imptree = $injector->getInstance('IMP_Imap_Tree');
-        $imptree->setIteratorFilter(Imp_Imap_Tree::FLIST_POLLED);
-        $this->view->tree = $imptree->createTree('smobile_folders', array(
-            'poll_info' => true,
-            'render_type' => 'IMP_Tree_Jquerymobile'
-        ))->getTree(true);
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if ($this->view->allowFolders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
@@ -99,8 +99,6 @@ class IMP_Smartmobile
             ));
         }
 
-        $this->view->portal = $registry->getServiceLink('portal', 'horde')->setRaw(false);
-        $this->view->logout = $registry->getServiceLink('logout')->setRaw(false);
         $this->view->canSearch = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
         $this->view->canSpam = !empty($conf['spam']['reporting']);
         $this->view->canInnocent = !empty($conf['notspam']['reporting']);
@@ -110,16 +108,18 @@ class IMP_Smartmobile
             $identity = $injector->getInstance('IMP_Identity');
             $this->view->identities = array();
             foreach ($identity->getSelectList() as $id => $from) {
-                $view->identities[] = array(
+                $this->view->identities[] = array(
                     'label' => $from,
                     'sel' => ($id == $identity->getDefault()),
                     'val' => $id
                 );
             }
 
+            try {
+                $this->view->abook = Horde::url($registry->link('contacts/smartmobile_browse'));
+            } catch (Horde_Exception $e) {}
+
             $this->view->composeCache = $injector->getInstance('IMP_Factory_Compose')->create()->getCacheId();
-            $this->view->composeLink = $registry->getServiceLink('ajax', 'imp');
-            $this->view->composeLink->pathInfo = 'addAttachment';
         }
     }
 
@@ -165,11 +165,12 @@ class IMP_Smartmobile
                     ),
                 ),
                 'copymove' => _("Copy/Move"),
-                'nav' => _("%d to %d of %d"),
+                'nav' => _("%d - %d of %d Messages"),
                 'new_message' => _("New Message"),
                 'nofrom' => _("Invalid Address"),
                 'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
-                'searchresults' => _("Search Results")
+                'searchresults' => _("Search Results"),
+                'subject' => _("Subject")
             )
         );
 

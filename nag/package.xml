@@ -16,10 +16,16 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-28</date>
- <time>19:17:48</time>
+ <lead>
+  <name>Michael J Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2012-10-12</date>
+ <time>23:16:32</time>
  <version>
-  <release>4.0.0beta1</release>
+  <release>4.0.0beta3</release>
   <api>4.0.0beta1</api>
  </version>
  <stability>
@@ -28,11 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix fatal recursion error when searching with smartlists were present.
-* [mjr] Add support for smart tasklists.
-* [mjr] Migrate categories to tags.
-* [jan] Fix fatal error if the task form doesn&apos;t validate.
-* [jan] Add recurring tasks (Request #2150).
+* [jan] Fix listing tasks from Kolab backends.
+* [jan] Fix sending alarm e-mail messages.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -75,6 +78,11 @@
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
+     <dir name="Application">
+      <dir name="Handler">
+       <file name="Smartmobile.php" role="horde" />
+      </dir> <!-- /lib/Ajax/Application/Handler -->
+     </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
       <file name="TagAutoCompleter.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
@@ -94,21 +102,25 @@
      <file name="Tasklists.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
-     <dir name="Renderer">
-      <file name="Task.php" role="horde" />
-     </dir> <!-- /lib/Form/Renderer -->
      <dir name="Type">
       <file name="NagAlarm.php" role="horde" />
       <file name="NagDue.php" role="horde" />
       <file name="NagMethod.php" role="horde" />
+      <file name="NagSearchDue.php" role="horde" />
       <file name="NagStart.php" role="horde" />
       <file name="NagTags.php" role="horde" />
      </dir> <!-- /lib/Form/Type -->
      <file name="CreateTaskList.php" role="horde" />
      <file name="DeleteTaskList.php" role="horde" />
      <file name="EditTaskList.php" role="horde" />
+     <file name="Search.php" role="horde" />
      <file name="Task.php" role="horde" />
     </dir> <!-- /lib/Form -->
+    <dir name="LoginTasks">
+     <dir name="Task">
+      <file name="PurgeCompleted.php" role="horde" />
+     </dir> <!-- /lib/LoginTasks/Task -->
+    </dir> <!-- /lib/LoginTasks -->
     <dir name="Prefs">
      <dir name="Special">
       <file name="TaskAlarms.php" role="horde" />
@@ -125,19 +137,25 @@
      </dir> <!-- /lib/Ui/VarRenderer -->
     </dir> <!-- /lib/Ui -->
     <dir name="View">
+     <dir name="Helper">
+      <file name="List.php" role="horde" />
+     </dir> <!-- /lib/View/Helper -->
      <file name="List.php" role="horde" />
     </dir> <!-- /lib/View -->
     <file name=".htaccess" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
+    <file name="CompleteTask.php" role="horde" />
     <file name="Driver.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Nag.php" role="horde" />
     <file name="QuickParser.php" role="horde" />
     <file name="Search.php" role="horde" />
+    <file name="Smartmobile.php" role="horde" />
     <file name="TagBrowser.php" role="horde" />
     <file name="Tagger.php" role="horde" />
     <file name="Task.php" role="horde" />
+    <file name="Tasklist.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="ar">
@@ -384,8 +402,7 @@
     <file name="create.php" role="horde" />
     <file name="delete.php" role="horde" />
     <file name="edit.php" role="horde" />
-    <file name="index.php" role="horde" />
-    <file name="info.php" role="horde" />
+    <file name="index.html" role="horde" />
    </dir> <!-- /tasklists -->
    <dir name="tasks">
     <file name="index.php" role="horde" />
@@ -400,18 +417,14 @@
      <file name="import.inc" role="horde" />
     </dir> <!-- /templates/data -->
     <dir name="list">
-     <file name="empty.inc" role="horde" />
-     <file name="header.inc" role="horde" />
-     <file name="task_footers.inc" role="horde" />
-     <file name="task_headers.inc" role="horde" />
-     <file name="task_summaries.inc" role="horde" />
+     <file name="header.html.php" role="horde" />
+     <file name="task_headers.html.php" role="horde" />
+     <file name="_task.html.php" role="horde" />
     </dir> <!-- /templates/list -->
-    <dir name="search">
-     <file name="search.inc" role="horde" />
-    </dir> <!-- /templates/search -->
     <dir name="smartmobile">
-     <file name="create.html.php" role="horde" />
+     <file name="lists.html.php" role="horde" />
      <file name="main.html.php" role="horde" />
+     <file name="taskform.html.php" role="horde" />
     </dir> <!-- /templates/smartmobile -->
     <dir name="view">
      <file name="task.inc" role="horde" />
@@ -419,9 +432,6 @@
     <file name="javascript_defs.php" role="horde" />
     <file name="list.html.php" role="horde" />
     <file name="quick.inc" role="horde" />
-    <file name="sidebar.html.php" role="horde" />
-    <file name="tasklist_info.php" role="horde" />
-    <file name="tasklist_list.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Nag">
@@ -495,7 +505,7 @@
      </dir> <!-- /themes/default/smartmobile -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    </dir> <!-- /themes -->
+   </dir> <!-- /themes -->
    <file name="COPYING" role="doc" />
    <file name="data.php" role="horde" />
    <file name="index.php" role="horde" />
@@ -503,7 +513,6 @@
    <file name="quick.php" role="horde" />
    <file name="README" role="doc" />
    <file name="search.php" role="horde" />
-   <file name="smartmobile-view.php" role="horde" />
    <file name="smartmobile.php" role="horde" />
    <file name="task.php" role="horde" />
    <file name="view.php" role="horde" />
@@ -550,7 +559,7 @@
     <channel>pear.horde.org</channel>
     <min>2.0.0beta1</min>
     <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>e&gt;
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Date_Parser</name>
@@ -699,6 +708,16 @@
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="COPYING" />
+   <install as="nag/data.php" name="data.php" />
+   <install as="nag/index.php" name="index.php" />
+   <install as="nag/list.php" name="list.php" />
+   <install as="nag/quick.php" name="quick.php" />
+   <install as="README" name="README" />
+   <install as="nag/search.php" name="search.php" />
+   <install as="nag/smartmobile.php" name="smartmobile.php" />
+   <install as="nag/task.php" name="task.php" />
+   <install as="nag/view.php" name="view.php" />
    <install as="nag/app/controllers/CompleteTask.php" name="app/controllers/CompleteTask.php" />
    <install as="nag/app/controllers/SaveTask.php" name="app/controllers/SaveTask.php" />
    <install as="nag-convert-datatree-shares-to-sql" name="bin/nag-convert-datatree-shares-to-sql" />
@@ -725,15 +744,19 @@
    <install as="nag/lib/.htaccess" name="lib/.htaccess" />
    <install as="nag/lib/Api.php" name="lib/Api.php" />
    <install as="nag/lib/Application.php" name="lib/Application.php" />
+   <install as="nag/lib/CompleteTask.php" name="lib/CompleteTask.php" />
    <install as="nag/lib/Driver.php" name="lib/Driver.php" />
    <install as="nag/lib/Exception.php" name="lib/Exception.php" />
    <install as="nag/lib/Nag.php" name="lib/Nag.php" />
    <install as="nag/lib/QuickParser.php" name="lib/QuickParser.php" />
    <install as="nag/lib/Search.php" name="lib/Search.php" />
+   <install as="nag/lib/Smartmobile.php" name="lib/Smartmobile.php" />
    <install as="nag/lib/TagBrowser.php" name="lib/TagBrowser.php" />
    <install as="nag/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="nag/lib/Task.php" name="lib/Task.php" />
+   <install as="nag/lib/Tasklist.php" name="lib/Tasklist.php" />
    <install as="nag/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="nag/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
    <install as="nag/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="nag/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="nag/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
@@ -745,19 +768,22 @@
    <install as="nag/lib/Form/CreateTaskList.php" name="lib/Form/CreateTaskList.php" />
    <install as="nag/lib/Form/DeleteTaskList.php" name="lib/Form/DeleteTaskList.php" />
    <install as="nag/lib/Form/EditTaskList.php" name="lib/Form/EditTaskList.php" />
+   <install as="nag/lib/Form/Search.php" name="lib/Form/Search.php" />
    <install as="nag/lib/Form/Task.php" name="lib/Form/Task.php" />
-   <install as="nag/lib/Form/Renderer/Task.php" name="lib/Form/Renderer/Task.php" />
    <install as="nag/lib/Form/Type/NagAlarm.php" name="lib/Form/Type/NagAlarm.php" />
    <install as="nag/lib/Form/Type/NagDue.php" name="lib/Form/Type/NagDue.php" />
    <install as="nag/lib/Form/Type/NagMethod.php" name="lib/Form/Type/NagMethod.php" />
+   <install as="nag/lib/Form/Type/NagSearchDue.php" name="lib/Form/Type/NagSearchDue.php" />
    <install as="nag/lib/Form/Type/NagStart.php" name="lib/Form/Type/NagStart.php" />
    <install as="nag/lib/Form/Type/NagTags.php" name="lib/Form/Type/NagTags.php" />
+   <install as="nag/lib/LoginTasks/Task/PurgeCompleted.php" name="lib/LoginTasks/Task/PurgeCompleted.php" />
    <install as="nag/lib/Prefs/Special/TaskAlarms.php" name="lib/Prefs/Special/TaskAlarms.php" />
    <install as="nag/lib/Tasklists/Base.php" name="lib/Tasklists/Base.php" />
    <install as="nag/lib/Tasklists/Default.php" name="lib/Tasklists/Default.php" />
    <install as="nag/lib/Tasklists/Kolab.php" name="lib/Tasklists/Kolab.php" />
    <install as="nag/lib/Ui/VarRenderer/Nag.php" name="lib/Ui/VarRenderer/Nag.php" />
    <install as="nag/lib/View/List.php" name="lib/View/List.php" />
+   <install as="nag/lib/View/Helper/List.php" name="lib/View/Helper/List.php" />
    <install as="nag/locale/.htaccess" name="locale/.htaccess" />
    <install as="nag/locale/nag.pot" name="locale/nag.pot" />
    <install as="nag/locale/ar/LC_MESSAGES/nag.mo" name="locale/ar/LC_MESSAGES/nag.mo" />
@@ -856,27 +882,21 @@
    <install as="nag/tasklists/create.php" name="tasklists/create.php" />
    <install as="nag/tasklists/delete.php" name="tasklists/delete.php" />
    <install as="nag/tasklists/edit.php" name="tasklists/edit.php" />
-   <install as="nag/tasklists/index.php" name="tasklists/index.php" />
-   <install as="nag/tasklists/info.php" name="tasklists/info.php" />
+   <install as="nag/tasklists/index.html" name="tasklists/index.html" />
    <install as="nag/tasks/index.php" name="tasks/index.php" />
    <install as="nag/templates/javascript_defs.php" name="templates/javascript_defs.php" />
    <install as="nag/templates/list.html.php" name="templates/list.html.php" />
    <install as="nag/templates/quick.inc" name="templates/quick.inc" />
-   <install as="nag/templates/sidebar.html.php" name="templates/sidebar.html.php" />
-   <install as="nag/templates/tasklist_info.php" name="templates/tasklist_info.php" />
-   <install as="nag/templates/tasklist_list.php" name="templates/tasklist_list.php" />
    <install as="nag/templates/alarm/mail.html.php" name="templates/alarm/mail.html.php" />
    <install as="nag/templates/alarm/mail.plain.php" name="templates/alarm/mail.plain.php" />
    <install as="nag/templates/data/export.inc" name="templates/data/export.inc" />
    <install as="nag/templates/data/import.inc" name="templates/data/import.inc" />
-   <install as="nag/templates/list/empty.inc" name="templates/list/empty.inc" />
-   <install as="nag/templates/list/header.inc" name="templates/list/header.inc" />
-   <install as="nag/templates/list/task_footers.inc" name="templates/list/task_footers.inc" />
-   <install as="nag/templates/list/task_headers.inc" name="templates/list/task_headers.inc" />
-   <install as="nag/templates/list/task_summaries.inc" name="templates/list/task_summaries.inc" />
-   <install as="nag/templates/search/search.inc" name="templates/search/search.inc" />
-   <install as="nag/templates/smartmobile/create.html.php" name="templates/smartmobile/create.html.php" />
+   <install as="nag/templates/list/header.html.php" name="templates/list/header.html.php" />
+   <install as="nag/templates/list/task_headers.html.php" name="templates/list/task_headers.html.php" />
+   <install as="nag/templates/list/_task.html.php" name="templates/list/_task.html.php" />
+   <install as="nag/templates/smartmobile/lists.html.php" name="templates/smartmobile/lists.html.php" />
    <install as="nag/templates/smartmobile/main.html.php" name="templates/smartmobile/main.html.php" />
+   <install as="nag/templates/smartmobile/taskform.html.php" name="templates/smartmobile/taskform.html.php" />
    <install as="nag/templates/view/task.inc" name="templates/view/task.inc" />
    <install as="Nag/AllTests.php" name="test/Nag/AllTests.php" />
    <install as="Nag/Autoload.php" name="test/Nag/Autoload.php" />
@@ -915,17 +935,6 @@
    <install as="nag/themes/default/graphics/unchecked.png" name="themes/default/graphics/unchecked.png" />
    <install as="nag/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
    <install as="nag/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
-   <install as="COPYING" name="COPYING" />
-   <install as="nag/data.php" name="data.php" />
-   <install as="nag/index.php" name="index.php" />
-   <install as="nag/list.php" name="list.php" />
-   <install as="nag/quick.php" name="quick.php" />
-   <install as="README" name="README" />
-   <install as="nag/search.php" name="search.php" />
-   <install as="nag/smartmobile-view.php" name="smartmobile-view.php" />
-   <install as="nag/smartmobile.php" name="smartmobile.php" />
-   <install as="nag/task.php" name="task.php" />
-   <install as="nag/view.php" name="view.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -1136,19 +1145,22 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix getTasklist() API call.
+* [jan] Fix changing sort direction.
+* [jan] Fix sorting by owner if displaying external task sources.
 * [jan] Update Turkish translation (İstanbul Technical University).
    </notes>
   </release>
   <release>
-   <date>2012-08-28</date>
+   <date>2012-08-29</date>
    <time>19:17:48</time>
    <version>
     <release>4.0.0beta1</release>
     <api>4.0.0beta1</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
@@ -1157,6 +1169,41 @@
 * [mjr] Migrate categories to tags.
 * [jan] Fix fatal error if the task form doesn&apos;t validate.
 * [jan] Add recurring tasks (Request #2150).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0beta2</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Synchronize tags with Kolab categories.
+* [mjr] Fix deleting tasks from the task form.
+* [mjr] Implement Purge Completed Tasks LoginTask (Request #2520).
+* [gwr] Mark the initial default share as such with the Kolab backend.
+* [gwr] Always mark the initial share as default tasklist.
+* [jan] Move complete task list management into the sidebar.
+* [jan] Allow to edit task list color in traditional view.
+* [mjr] Tweak display of smartlist links in list view.
+* [mjr] Fix fatal recursion error when searching with smartlists were present.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0beta3</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix listing tasks from Kolab backends.
+* [jan] Fix sending alarm e-mail messages.
    </notes>
   </release>
  </changelog>

@@ -61,7 +61,7 @@ class Jonah_View_ChannelEdit extends Jonah_View_Base
         $GLOBALS['page_output']->header(array(
             'title' => $form->getTitle()
         ));
-        require JONAH_TEMPLATES . '/menu.inc';
+        $notification->notify(array('listeners' => 'status'));
         $form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('channels/edit.php'), 'post');
         $GLOBALS['page_output']->footer();
     }

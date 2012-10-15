@@ -31,7 +31,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * The link to the parent folder object.
      *
-     * @var Horde_Kolab_Folder
+     * @var Horde_Kolab_Storage_Folder
      */
     private $_folder;
 
@@ -201,26 +201,26 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function create(&$object, $raw = false)
     {
-        if (!isset($object['uid'])) {
-            $object['uid'] = $this->generateUid();
-        }
-        $result = $this->_driver->getParser()
-            ->create(
-                $this->_folder->getPath(),
-                $object,
-                array(
-                    'type' => $this->getType(),
-                    'version' => $this->_version,
-                    'raw' => $raw
-                )
+        if ($raw === false) {
+            $writer = new Horde_Kolab_Storage_Object_Writer_Format(
+                new Horde_Kolab_Format_Factory(),
+                array('version' => $this->_version)
             );
+        } else {
+            $writer = new Horde_Kolab_Storage_Object_Writer_Raw();
+        }
+        $storage_object = new Horde_Kolab_Storage_Object();
+        $storage_object->setDriver($this->_driver);
+        $storage_object->setData($object);
+        $result = $storage_object->create($this->_folder, $writer, $this->getType());
+
         if ($result === true) {
             $params = array();
         } else {
             $params = array(
                 'changes' => array(
                     Horde_Kolab_Storage_Folder_Stamp::ADDED => array(
-                        $result => $object
+                        $result => $storage_object
                     ),
                     Horde_Kolab_Storage_Folder_Stamp::DELETED => array()
                 )
@@ -259,22 +259,27 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                         'The message with ID %s does not exist. This probably means that the Kolab object has been modified by somebody else since you retrieved the object from the backend. Original error: %s'
                     ),
                     $object['uid'],
-                    0,
-                    $e
+                    $e->getMessage()
                 )
             );
         }
-        $result = $this->_driver->getParser()
-            ->modify(
-                $this->_folder->getPath(),
-                $object,
-                $obid,
-                array(
-                    'type' => $this->getType(),
-                    'version' => $this->_version,
-                    'raw' => $raw
-                )
+
+        if ($raw === false) {
+            $writer = new Horde_Kolab_Storage_Object_Writer_Format(
+                new Horde_Kolab_Format_Factory(),
+                array('version' => $this->_version)
             );
+        } else {
+            $writer = new Horde_Kolab_Storage_Object_Writer_Raw();
+        }
+        if (!$object instanceOf Horde_Kolab_Storage_Object) {
+            $object_array = $object;
+            $object = $this->getObject($object_array['uid']);
+            $object->setData($object_array);
+        }
+        $object->setDriver($this->_driver);
+        $result = $object->save($writer);
+
         if ($result === true) {
             $params = array();
         } else {
@@ -330,19 +335,33 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function fetch($uids, $raw = false)
     {
-        if (!empty($uids)) {
-            return $this->_driver->fetch(
-                $this->_folder->getPath(),
-                $uids,
-                array(
-                    'type' => $this->getType(),
-                    'version' => $this->_version,
-                    'raw' => $raw
-                )
-            );
-        } else {
+        if (empty($uids)) {
             return array();
         }
+
+        if ($raw === false) {
+            $writer = new Horde_Kolab_Storage_Object_Writer_Format(
+                new Horde_Kolab_Format_Factory(),
+                array('version' => $this->_version)
+            );
+        } else {
+            $writer = new Horde_Kolab_Storage_Object_Writer_Raw();
+        }
+
+        $objects = array();
+        $structures = $this->_driver->fetchStructure($this->_folder->getPath(), $uids);
+        foreach ($structures as $uid => $structure) {
+            if (!isset($structure['structure'])) {
+                throw new Horde_Kolab_Storage_Exception(
+                    'Backend returned a structure without the expected "structure" element.'
+                );
+            }
+            $object = new Horde_Kolab_Storage_Object();
+            $object->setDriver($this->_driver);
+            $object->load($uid, $this->_folder, $writer, $structure['structure']);
+            $objects[$uid] = $object;
+        }
+        return $objects;
     }
 
     /**
@@ -363,16 +382,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         throw new Horde_Kolab_Storage_Exception(
             sprintf('Object ID %s does not exist!', $object_id)
         );
-    }
-
-    /**
-     * Generate a unique object ID.
-     *
-     * @return string  The unique ID.
-     */
-    public function generateUid()
-    {
-        return strval(new Horde_Support_Uuid());
     }
 
     /**
@@ -526,8 +535,8 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         $errors = array();
         $by_obid = $this->fetch($this->getStamp()->ids());
         foreach ($by_obid as $obid => $object) {
-            if ($object === false) {
-                $errors[] = $obid;
+            if ($object->hasParseErrors()) {
+                $errors[$obid] = $object;
             }
         }
         return $errors;
@@ -553,6 +562,14 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         }
         $this->_driver->moveMessage(
             $uid, $this->_folder->getPath(), $new_folder
+        );
+        $this->synchronize(
+            array(
+                'changes' => array(
+                    Horde_Kolab_Storage_Folder_Stamp::ADDED => array(),
+                    Horde_Kolab_Storage_Folder_Stamp::DELETED => array($object_id)
+                )
+            )
         );
     }
 
@@ -667,5 +684,15 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         } else {
             throw new Horde_Kolab_Storage_Exception('No such query!');
         }
+    }
+
+    /**
+     * Generate a unique object ID.
+     *
+     * @return string  The unique ID.
+     */
+    public function generateUid()
+    {
+        return strval(new Horde_Support_Uuid());
     }
 }

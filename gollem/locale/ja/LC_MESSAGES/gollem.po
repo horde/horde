@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
-"PO-Revision-Date: 2011-11-19 17:51+0900\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"PO-Revision-Date: 2012-09-02 11:47+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: manager.php:62
+#: manager.php:65
 #, php-format
 msgid "\"%s\" renamed to \"%s\""
 msgstr "\"%s\" は \"%s\"　に名前が変更されました"
@@ -27,12 +27,12 @@ msgstr "\"%s\" は \"%s\"　に名前が変更されました"
 msgid "%.2fMB / %.2fMB  (%.2f%%)"
 msgstr "%.2fMB / %.2fMB  (%.2f%%)"
 
-#: manager.php:556
+#: manager.php:582
 #, php-format
 msgid "%d item"
 msgstr "%d アイテム"
 
-#: manager.php:556
+#: manager.php:582
 #, php-format
 msgid "%d items"
 msgstr "%d アイテム"
@@ -42,7 +42,7 @@ msgstr "%d アイテム"
 msgid "%s successfully saved."
 msgstr "%s は保存されました。"
 
-#: manager.php:177
+#: manager.php:178
 #, php-format
 msgid "%s was successfully pasted."
 msgstr "%s は正常に送られました。"
@@ -52,13 +52,13 @@ msgstr "%s は正常に送られました。"
 msgid "Access denied to %s"
 msgstr "%s へのアクセスが拒否されました"
 
-#: lib/Gollem.php:48 lib/Gollem.php:295 lib/Gollem.php:344 lib/Gollem.php:366
-#: lib/Gollem.php:386
+#: lib/Gollem.php:49 lib/Gollem.php:300 lib/Gollem.php:360 lib/Gollem.php:393
+#: lib/Gollem.php:413
 #, php-format
 msgid "Access denied to folder \"%s\"."
 msgstr "フォルダー %s へのアクセスが拒否されました。"
 
-#: templates/manager/manager.html:110
+#: templates/manager/manager.html:69
 msgid "Actions:"
 msgstr "動作："
 
@@ -66,35 +66,31 @@ msgstr "動作："
 msgid "Add"
 msgstr "追加"
 
-#: templates/manager/manager.html:11
+#: templates/manager/manager.html:9
 msgid "All"
 msgstr "全て"
 
-#: templates/javascript_defs.php:20
+#: templates/javascript_defs.php:21
 msgid "Are you sure you wish to continue?"
 msgstr "本当に操作を続けますか？"
 
-#: templates/javascript_defs.php:18
+#: templates/javascript_defs.php:19
 msgid "Are you sure?"
 msgstr "本当ですか？"
 
-#: config/prefs.php:67
+#: config/prefs.php:68
 msgid "Ascending"
 msgstr "昇順"
 
-#: config/prefs.php:97
+#: config/prefs.php:98
 msgid "Ask"
 msgstr "尋ねる"
 
-#: templates/manager/manager.html:5
-msgid "Attributes"
-msgstr "属性"
-
-#: lib/Application.php:124
+#: lib/Application.php:136
 msgid "Backend"
 msgstr "バックエンド"
 
-#: lib/Application.php:86
+#: lib/Application.php:83
 msgid "Backends"
 msgstr "バックエンド"
 
@@ -102,67 +98,67 @@ msgstr "バックエンド"
 msgid "Below is the current contents of your clipboard."
 msgstr "以下がクリップボードの内容です。"
 
-#: clipboard.php:24 manager.php:281 selectlist.php:81
+#: clipboard.php:24 manager.php:286 selectlist.php:81
 #: templates/edit/edit.inc:13
 msgid "Cancel"
 msgstr "取り消し"
 
-#: manager.php:82
+#: manager.php:85
 #, php-format
 msgid "Cannot chmod %s: %s"
 msgstr "%s を chmod できません：%s"
 
-#: manager.php:152
+#: manager.php:153
 msgid "Cannot copy items onto clipboard."
 msgstr "クリップボードにコピーできません。"
 
-#: manager.php:223
+#: manager.php:224
 #, php-format
 msgid "Cannot create home directory: %s"
 msgstr "ホームディレクトリを作成できません：%s"
 
-#: manager.php:154
+#: manager.php:155
 msgid "Cannot cut items onto clipboard."
 msgstr "クリップボードに移動できません。"
 
-#: manager.php:179
+#: manager.php:180
 #, php-format
 msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
 msgstr "\"%s\" が貼り付けられません（クリップボードからクリアされました）： %s"
 
-#: manager.php:307 templates/manager/manager.html:70
+#: manager.php:321 templates/javascript_defs.php:16
 msgid "Change Folder"
 msgstr "フォルダの変更"
 
-#: templates/manager/manager.html:112
+#: templates/manager/manager.html:71
 msgid "Change Permissions"
 msgstr "アクセス権の変更"
 
-#: lib/Gollem.php:588
+#: lib/Gollem.php:653
 msgid "Change Server"
 msgstr "サーバの変更"
 
-#: lib/Application.php:286
+#: lib/Application.php:224
 msgid "Check Quota"
 msgstr "クォータ確認"
 
-#: manager.php:552
+#: manager.php:578
 msgid "Check _All/None"
 msgstr "_A全て選択／解除"
 
-#: manager.php:80
+#: manager.php:83
 msgid "Chmod done: "
 msgstr "Chmod 完了："
 
-#: lib/Application.php:256
+#: lib/Prefs/Special/Columnselect.php:53
 msgid "Choose which columns to display, and in what order:"
 msgstr "どの欄をどの順序で表示するかを選択："
 
-#: clipboard.php:25 templates/manager/manager.html:131
+#: clipboard.php:25 templates/manager/manager.html:93
 msgid "Clear"
 msgstr "クリア"
 
-#: clipboard.php:44 templates/clipboard/clipboard.html:7
+#: clipboard.php:53 templates/clipboard/clipboard.html:7
 msgid "Clipboard"
 msgstr "クリップボード"
 
@@ -170,15 +166,15 @@ msgstr "クリップボード"
 msgid "Close"
 msgstr "閉じる"
 
-#: lib/Application.php:260
+#: lib/Prefs/Special/Columnselect.php:57
 msgid "Columns that will not be displayed:"
 msgstr "表示させない欄："
 
-#: clipboard.php:28 templates/manager/manager.html:115
+#: clipboard.php:28 templates/manager/manager.html:74
 msgid "Copy"
 msgstr "コピー"
 
-#: manager.php:300 templates/manager/manager.html:58
+#: manager.php:314 templates/javascript_defs.php:17
 msgid "Create Folder"
 msgstr "フォルダ作成"
 
@@ -195,27 +191,27 @@ msgstr ""
 msgid "Current directory:"
 msgstr "現在のディレクトリ："
 
-#: clipboard.php:27 templates/manager/manager.html:116
+#: clipboard.php:27 templates/manager/manager.html:76
 msgid "Cut"
 msgstr "切り取り"
 
-#: config/prefs.php:59
+#: config/prefs.php:60
 msgid "Default sorting criteria:"
 msgstr "デフォルトのソート基準："
 
-#: config/prefs.php:70
+#: config/prefs.php:71
 msgid "Default sorting direction:"
 msgstr "デフォルトのソート方向："
 
-#: templates/manager/manager.html:119
+#: templates/manager/manager.html:80
 msgid "Delete"
 msgstr "削除"
 
-#: config/prefs.php:99
+#: config/prefs.php:100
 msgid "Delete folders recursively?"
 msgstr "フォルダの階層を削除しますか？"
 
-#: config/prefs.php:68
+#: config/prefs.php:69
 msgid "Descending"
 msgstr "降順"
 
@@ -223,7 +219,7 @@ msgstr "降順"
 msgid "Done"
 msgstr "完了"
 
-#: manager.php:427
+#: manager.php:450
 #, php-format
 msgid "Download %s"
 msgstr "ダウンロード %s"
@@ -237,15 +233,15 @@ msgstr "エラー："
 msgid "Edit %s"
 msgstr "%s を編集"
 
-#: templates/manager/manager.html:26
+#: templates/manager/manager.html:24
 msgid "Execute"
 msgstr "実行"
 
-#: templates/javascript_defs.php:22 templates/manager/manager.html:201
+#: templates/javascript_defs.php:22 templates/manager/manager.html:168
 msgid "File"
 msgstr "ファイル"
 
-#: config/prefs.php:86
+#: config/prefs.php:87
 msgid "File Actions"
 msgstr "ファイル動作"
 
@@ -253,27 +249,27 @@ msgstr "ファイル動作"
 msgid "File Display"
 msgstr "ファイル表示"
 
-#: config/prefs.php:56
+#: config/prefs.php:57
 msgid "File Modification Time"
 msgstr "ファイルの更新日時"
 
-#: config/prefs.php:55
+#: config/prefs.php:56
 msgid "File Name"
 msgstr "ファイルの名前"
 
-#: config/prefs.php:57
+#: config/prefs.php:58
 msgid "File Size"
 msgstr "ファイルの大きさ"
 
-#: config/prefs.php:54
+#: config/prefs.php:55
 msgid "File Type"
 msgstr "ファイルの種類"
 
-#: config/prefs.php:87
+#: config/prefs.php:88
 msgid "File action settings."
 msgstr "ファイル動作の設定をします。"
 
-#: manager.php:97
+#: manager.php:100
 msgid "File deleted: "
 msgstr "ファイルは削除されました："
 
@@ -281,7 +277,7 @@ msgstr "ファイルは削除されました："
 msgid "File display preferences."
 msgstr "ファイル表示の設定をします。"
 
-#: manager.php:118
+#: manager.php:121
 #, php-format
 msgid "File received: %s"
 msgstr "ファイルを受け取りました： %s"
@@ -290,46 +286,42 @@ msgstr "ファイルを受け取りました： %s"
 msgid "Files must be written inside a VFS backend."
 msgstr "ファイルは VFS バックエンドの内側に書かれなければなりません。"
 
-#: templates/manager/manager.html:129
+#: templates/manager/manager.html:91
 msgid "Filter"
 msgstr "フィルタ"
 
-#: templates/manager/manager.html:128
+#: templates/manager/manager.html:90
 msgid "Filter:"
 msgstr "フィルタ："
 
-#: manager.php:89
+#: manager.php:92
 msgid "Folder removed: "
 msgstr "フォルダを削除しました："
 
-#: lib/Api.php:155 lib/Api.php:186
+#: lib/Api.php:157 lib/Api.php:190
 msgid "Folders must be created inside a VFS backend."
 msgstr "フォルダは VFS バックエンドの内側に作成しなければなりません。"
 
-#: templates/manager/manager.html:72
-msgid "Go to:"
-msgstr "移動："
-
-#: manager.php:531 templates/manager/manager.html:10
+#: manager.php:555 templates/manager/manager.html:8
 msgid "Group"
 msgstr "グループ"
 
-#: lib/Api.php:405
+#: lib/Api.php:413
 #, php-format
 msgid "Invalid backend requested: %s"
 msgstr "無効なバックエンドが要求されました：%s"
 
-#: manager.php:146
+#: manager.php:147
 #, php-format
 msgid "Item copied to clipboard: %s"
 msgstr "クリップボードにコピーされました： %s"
 
-#: manager.php:148
+#: manager.php:149
 #, php-format
 msgid "Item cut to clipboard: %s"
 msgstr "クリップボードに移動しました： %s"
 
-#: config/prefs.php:77
+#: config/prefs.php:78
 msgid "Items per page"
 msgstr "１ページの項目数"
 
@@ -341,23 +333,19 @@ msgstr "言語"
 msgid "List folders first?"
 msgstr "フォルダを最初に表示しますか？"
 
-#: manager.php:501
+#: manager.php:527
 msgid "Modified"
 msgstr "変更日"
 
-#: manager.php:479
+#: manager.php:501
 msgid "Name"
 msgstr "名前"
 
-#: templates/manager/manager.html:46 templates/manager/manager.html:60
-msgid "Name:"
-msgstr "名前："
-
-#: manager.php:47
+#: manager.php:50
 msgid "New folder created: "
 msgstr "新しいフォルダが作成されました："
 
-#: config/prefs.php:95
+#: config/prefs.php:96
 msgid "No"
 msgstr "いいえ"
 
@@ -365,11 +353,11 @@ msgstr "いいえ"
 msgid "No quota found."
 msgstr "クォータが確認できません。"
 
-#: manager.php:282
+#: manager.php:287
 msgid "OK"
 msgstr "OK"
 
-#: manager.php:524 templates/manager/manager.html:9
+#: manager.php:549 templates/manager/manager.html:7
 msgid "Owner"
 msgstr "所有者"
 
@@ -377,7 +365,7 @@ msgstr "所有者"
 msgid "Paste"
 msgstr "貼り付け"
 
-#: manager.php:517
+#: manager.php:543
 msgid "Permission"
 msgstr "アクセス権"
 
@@ -386,14 +374,18 @@ msgstr "アクセス権"
 msgid "Permission denied to %s: %s"
 msgstr "%s へのアクセスが拒否されました：%s"
 
-#: manager.php:216
+#: manager.php:217
 #, php-format
 msgid "Permission denied to folder \"%s\": %s"
 msgstr "フォルダー \"%s\" へのアクセスが拒否されました：%s"
 
-#: lib/Api.php:413
+#: lib/Api.php:421
 msgid "Permission denied to this backend."
 msgstr "このバックエンドへのアクセスが拒否されました。"
+
+#: templates/javascript_defs.php:23
+msgid "Permissions"
+msgstr "アクセス権"
 
 #: templates/javascript_defs.php:13
 msgid "Please provide your password."
@@ -403,35 +395,35 @@ msgstr "パスワードを入力して下さい。"
 msgid "Please provide your username."
 msgstr "ユーザ名を入力して下さい。"
 
-#: templates/javascript_defs.php:16
+#: templates/javascript_defs.php:25
 msgid "Please select an item before this action."
 msgstr "先ずアイテムを選択して下さい。"
 
-#: templates/javascript_defs.php:21
+#: templates/javascript_defs.php:26
 msgid "Please specify at least one file to upload."
 msgstr "少なくとも１つのファイルを指定して下さい。"
 
-#: quota.php:57 templates/quota/quota.html:2
+#: quota.php:58 templates/quota/quota.html:2
 msgid "Quota Display"
 msgstr "クォータ表示"
 
-#: templates/manager/manager.html:14
+#: templates/manager/manager.html:12
 msgid "Read"
 msgstr "読み出し"
 
-#: manager.php:287
+#: manager.php:292
 msgid "Refresh"
 msgstr "再表示"
 
-#: templates/manager/manager.html:44 templates/manager/manager.html:122
+#: templates/javascript_defs.php:24 templates/manager/manager.html:83
 msgid "Rename"
 msgstr "名前変更"
 
-#: lib/Api.php:200
+#: lib/Api.php:206
 msgid "Renaming across backends is not supported."
 msgstr "バックエンド間の名前の変更はサポートされていません。"
 
-#: lib/Api.php:194
+#: lib/Api.php:198
 msgid "Renaming of backends is not allowed."
 msgstr "バックエンドの名前の変更は許可されていません。"
 
@@ -439,19 +431,19 @@ msgstr "バックエンドの名前の変更は許可されていません。"
 msgid "Reset"
 msgstr "リセット"
 
-#: manager.php:280 templates/edit/edit.inc:11
+#: manager.php:285 templates/edit/edit.inc:11
 msgid "Save"
 msgstr "保存"
 
-#: clipboard.php:48 templates/clipboard/clipboard.html:28
+#: clipboard.php:47 templates/clipboard/clipboard.html:28
 msgid "Select All"
 msgstr "全て選択"
 
-#: clipboard.php:49
+#: clipboard.php:48
 msgid "Select None"
 msgstr "どれも選択しない"
 
-#: lib/Application.php:258
+#: lib/Prefs/Special/Columnselect.php:55
 msgid "Select a backend:"
 msgstr "バックエンドを選択："
 
@@ -459,35 +451,43 @@ msgstr "バックエンドを選択："
 msgid "Server"
 msgstr "サーバ"
 
+#: manager.php:305 manager.php:407
+msgid "Share Folder"
+msgstr "フォルダを共有"
+
+#: manager.php:407
+msgid "Shared Folder"
+msgstr "共有フォルダ"
+
 #: config/prefs.php:27
 msgid "Show dotfiles?"
 msgstr "ドットで始まるファイルを表示しますか？"
 
-#: manager.php:509
+#: manager.php:535
 msgid "Size"
 msgstr "サイズ"
 
-#: lib/Api.php:229
+#: lib/Api.php:235
 msgid "The application folder can not be deleted."
 msgstr "アプリケーションフォルダは削除できません。"
 
-#: templates/javascript_defs.php:19
+#: templates/javascript_defs.php:20
 msgid "The following item(s) are folders:"
 msgstr "以下の項目はフォルダーです："
 
-#: templates/javascript_defs.php:17
+#: templates/javascript_defs.php:18
 msgid "The following items will be permanently deleted:"
 msgstr "以下のアイテムは完全に削除されます："
 
-#: templates/javascript_defs.php:25
+#: templates/javascript_defs.php:29
 msgid "The original opener window has been closed. Exiting."
 msgstr "元のウインドーが閉じられました。終了します。"
 
-#: selectlist.php:176 templates/manager/manager.html:140
+#: selectlist.php:176 templates/manager/manager.html:102
 msgid "There are no files in this folder."
 msgstr "このフォルダにファイルはありません。"
 
-#: lib/Application.php:257
+#: lib/Prefs/Special/Columnselect.php:54
 msgid "These columns will display in this order:"
 msgstr "これらの欄はこの順に表示されます："
 
@@ -507,11 +507,11 @@ msgstr ""
 "クリップボードから現在のディレクトリに貼り付けるには、以下から選択し、「貼り"
 "付け」をクリックして下さい。"
 
-#: manager.php:471
+#: manager.php:493
 msgid "Type"
 msgstr "種類"
 
-#: lib/Api.php:409
+#: lib/Api.php:417
 msgid "Unable to create Gollem session"
 msgstr "Gollem のセッションを作成できません"
 
@@ -520,40 +520,44 @@ msgstr "Gollem のセッションを作成できません"
 msgid "Unable to create backend permission: %s"
 msgstr "バックエンドのアクセス権が作成できません：%s"
 
-#: manager.php:99
+#: manager.php:102
 #, php-format
 msgid "Unable to delete file %s: %s"
 msgstr "ファイル %s を削除できません： %s"
 
-#: manager.php:91
+#: manager.php:94
 #, php-format
 msgid "Unable to delete folder %s: %s"
 msgstr "フォルダ %s を削除できません： %s"
 
-#: lib/Gollem.php:552 lib/Gollem.php:562
+#: lib/Gollem.php:617 lib/Gollem.php:627
 #, php-format
 msgid "Up to %s"
 msgstr "上の %s へ"
 
-#: manager.php:296
+#: manager.php:310
 msgid "Upload File(s)"
 msgstr "ファイルをアップロード"
 
-#: config/prefs.php:14 config/prefs.php:85
+#: config/prefs.php:14 config/prefs.php:86
 msgid "User Interface"
 msgstr "ユーザインターフェイス"
 
-#: manager.php:291
+#: manager.php:296
 msgid "View Clipboard"
 msgstr "クリップボード表示"
 
-#: templates/manager/manager.html:20
+#: templates/manager/manager.html:18
 msgid "Write"
 msgstr "書き込み"
 
-#: config/prefs.php:96
+#: config/prefs.php:97
 msgid "Yes"
 msgstr "はい"
+
+#: share.php:29
+msgid "You are not allowed to share this folder"
+msgstr "あなたはこのフォルダーの共有を許可されていません"
 
 #: permissions.php:20
 msgid "You need at least one backend defined to set permissions."
@@ -561,14 +565,14 @@ msgstr ""
 "アクセス権を設定するには少なくとも１つのバックエンドを定義する必要がありま"
 "す。"
 
-#: lib/Gollem.php:586 lib/Gollem.php:589
+#: lib/Gollem.php:651 lib/Gollem.php:654
 msgid "_Change Server"
 msgstr "_Cサーバ変更"
 
-#: lib/Application.php:273
+#: lib/Application.php:211
 msgid "_My Home"
 msgstr "_Mホーム"
 
-#: lib/Application.php:276
+#: lib/Application.php:214
 msgid "_Permissions"
 msgstr "_Pアクセス権"

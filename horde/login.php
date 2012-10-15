@@ -53,11 +53,14 @@ function _addAnchor($url, $type, $vars, $url_anchor = null)
  * constructor. */
 require_once __DIR__ . '/lib/Application.php';
 try {
-    Horde_Registry::appInit('horde', array('authentication' => 'none', 'nologintasks' => true));
+    Horde_Registry::appInit('horde', array(
+        'authentication' => 'none',
+        'nologintasks' => true
+    ));
 } catch (Horde_Exception $e) {}
 
-$vars = Horde_Variables::getDefaultVariables();
 $is_auth = $registry->isAuthenticated();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* This ensures index.php doesn't pick up the 'url' parameter. */
 $horde_login_url = '';
@@ -211,11 +214,7 @@ $js_files = array(
 );
 
 if (!empty($GLOBALS['conf']['user']['select_view'])) {
-    if (!($view_cookie = Horde_Util::getFormData('horde_select_view'))) {
-        $view_cookie = isset($_COOKIE['default_horde_view'])
-            ? $_COOKIE['default_horde_view']
-            : 'auto';
-    }
+    $view_cookie = $vars->get('horde_select_view', isset($_COOKIE['default_horde_view']) ? $_COOKIE['default_horde_view'] : 'auto');
 
     $js_code['HordeLogin.pre_sel'] = $view_cookie;
     $loginparams['horde_select_view'] = array(
@@ -324,6 +323,10 @@ case Horde_Core_Auth_Application::REASON_BROWSER:
     $reason = _("Your browser appears to have changed since the beginning of your session. To protect your security, you must login again.");
     break;
 
+case Horde_Core_Auth_Application::REASON_SESSIONMAXTIME:
+    $reason = _("Your session length has exceeded the maximum amount of time allowed. Please login again.");
+    break;
+
 case Horde_Auth::REASON_LOGOUT:
     $reason = _("You have been logged out.");
     break;
@@ -351,9 +354,16 @@ if ($reason) {
     $notification->push(str_replace('<br />', ' ', $reason), 'horde.message');
 }
 
+$page_output->topbar = $page_output->sidebar = false;
+
 if ($browser->isMobile() &&
     (!isset($conf['user']['force_view']) ||
      !in_array($conf['user']['force_view'], array('dynamic', 'traditional')))) {
+    $view = new Horde_View(array(
+        'templatePath' => HORDE_TEMPLATES . '/login'
+    ));
+    $view->addHelper('Text');
+
     /* Build the <select> widget containing the available languages. */
     if (!$is_auth && !$prefs->isLocked('language')) {
         $tmp = array();
@@ -370,29 +380,32 @@ if ($browser->isMobile() &&
         );
     }
 
-    $page_output->addInlineScript(array(
-        '$(document).bind("pageinit", function() {' .
-             '$("#horde-login-button").click(function() {' .
-                 '$("#horde-login-post").val(1);' .
-                 '$(this).closest("form").submit();' .
-             '});' .
-         '})'
-    ));
+    $view->anchor = $vars->anchor_string;
+    $view->app = $vars->app;
+    $view->loginparams_auth = array_intersect_key($loginparams, array('horde_user' => 1, 'horde_pass' => 1));
+    $view->loginparams_other = array_diff_key($loginparams, array('horde_user' => 1, 'horde_pass' => 1));
+    $view->loginurl = Horde::url('login.php');
+    $view->title = $title;
+    $view->url = $vars->url;
 
-    /* Ensure that we are using the smartmobile status listener. */
-    $notification->detach('status');
-    $notification->attach('status', null, 'Horde_Core_Notification_Listener_SmartmobileStatus');
+    if ($browser->hasFeature('ajax')) {
+        $page_output->addScriptFile('smartmobile-login.js', 'horde');
 
-    $notification->notify(array('listeners' => 'status'));
+        /* Ensure that we are using the smartmobile status listener. */
+        $notification->detach('status');
+        $notification->attach('status', null, 'Horde_Core_Notification_Listener_SmartmobileStatus');
+
+        $view_type = $registry::VIEW_SMARTMOBILE;
+    } else {
+        $view_type = $registry::VIEW_MINIMAL;
+    }
 
     $page_output->header(array(
         'title' => $title,
-        'view' => $browser->hasFeature('javascript') ? $registry::VIEW_SMARTMOBILE : $registry::VIEW_MINIMAL
+        'view' => $view_type
     ));
-    require $registry->get('templates', 'horde') . '/login/smartmobile.inc';
-    $page_output->footer(array(
-        'view' => $browser->hasFeature('javascript') ? $registry::VIEW_SMARTMOBILE : $registry::VIEW_MINIMAL
-    ));
+    $notification->notify(array('listeners' => 'status'));
+    echo $view->render('smartmobile');
 } else {
     if (!empty($js_files)) {
         foreach ($js_files as $val) {
@@ -406,5 +419,6 @@ if ($browser->isMobile() &&
         'title' => $title
     ));
     require $registry->get('templates', 'horde') . '/login/login.inc';
-    $page_output->footer();
 }
+
+$page_output->footer();

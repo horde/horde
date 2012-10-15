@@ -29,34 +29,6 @@ class Shout
     var $_applist_curfield = '';
 
     /**
-     * Build Shout's list of menu items.
-     *
-     * @access public
-     */
-    static public function getMenu($returnType = 'object')
-    {
-        $mask = Horde_Menu::MASK_PROBLEM;
-        $menu = new Horde_Menu($mask);
-
-        $menu->add(Horde::url('dialplan.php'), _("Call Menus"), "dialplan.png");
-        $menu->add(Horde::url('recordings.php'), _("Recordings"), "recordings.png");
-        $menu->add(Horde::url('extensions.php'), _("Extensions"), "extension.png");
-        $menu->add(Horde::url('devices.php'), _("Devices"), "shout.png");
-        $menu->add(Horde::url('conferences.php'), _("Conferences"), "conference.png");
-
-        /* Administration. */
-        if ($GLOBALS['registry']->isAdmin(array('permission' => 'shout:admin'))) {
-            $menu->add(Horde::url('admin.php'), _("_Admin"), 'admin.png');
-        }
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
-    }
-
-    /**
      * Checks for the given permissions for the current user on the given
      * permission.  Optionally check for higher-level permissions and ultimately
      * test for superadmin priveleges.

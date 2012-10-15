@@ -42,7 +42,7 @@ abstract class Kronolith_Resource_Base
      *
      * @return Kronolith_Resource_Base
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         if (!empty($params['id'])) {
             // Existing resource
@@ -88,12 +88,13 @@ abstract class Kronolith_Resource_Base
     }
 
     /**
-     * @TODO: need to fine tune this
+     * Return permission for the specified user for this Resource.
      *
-     * @param $user
-     * @param $permission
+     * @param string $user         The user to check for.
+     * @param integer $permission  The permission to check.
      * @param $restrict
-     * @return unknown_type
+     *
+     * @return boolean
      */
     public function hasPermission($user, $permission = Horde_Perms::READ, $restrict = null)
     {
@@ -137,7 +138,7 @@ abstract class Kronolith_Resource_Base
     /**
      * Get a storage driver instance for the resource.
      *
-     * @return Kronolith_Driver_Resource
+     * @return Kronolith_Driver_Resource_* object.
      */
     public function getDriver()
     {
@@ -155,7 +156,7 @@ abstract class Kronolith_Resource_Base
      *
      * @return integer Kronolith::RESPONSE* constant
      */
-    public function getResponse($event)
+    public function getResponse(Kronolith_Event $event)
     {
         switch($this->getResponseType()) {
         case Kronolith_Resource::RESPONSETYPE_ALWAYS_ACCEPT:
@@ -174,6 +175,11 @@ abstract class Kronolith_Resource_Base
         }
     }
 
+    /**
+     * Return this resource's parameters in a hash.
+     *
+     * @return array  A hash suitable for JSON encoding.
+     */
     public function toJson()
     {
         return $this->_params;
@@ -182,49 +188,61 @@ abstract class Kronolith_Resource_Base
     /**
      * Determine if event is free for specified time
      *
-     * @param $startTime
-     * @param $endTime
-     * @return unknown_type
+     * @param Kronolith_Event $event  The event we want to check the
+     *                                resource's availability for.
+     *
+     * @return boolean  True if the resource is free, false if not.
      */
-    abstract public function isFree($event);
+    abstract public function isFree(Kronolith_Event $event);
 
     /**
      * Adds $event to this resource's calendar - thus blocking the time
      * for any other event.
      *
-     * @param $event
-     * @return unknown_type
+     * @param Kronolith_Event $event  The event to add to this resource's
+     *                                calendar, thus blocking it's availability.
+     *
+     * @throws Kronolith_Exception
      */
-    abstract public function addEvent($event);
+    abstract public function addEvent(Kronolith_Event $event);
 
     /**
      * Remove this event from resource's calendar
      *
-     * @param $event
-     * @return unknown_type
+     * @param Kronolith_Event $event  The event to remove from the resource's
+     *                                calendar.
      */
-    abstract public function removeEvent($event);
+    abstract public function removeEvent(Kronolith_Event $event);
 
     /**
      * Obtain the freebusy information for this resource.  Takes into account
      * if this is a group of resources or not. (Returns the cumulative FB info
      * for all the resources in the group.
-     * @return unknown_type
+     *
+     * @param integer $startstamp  The starting timestamp of the fb interval.
+     * @param integer $endstamp    The ending timestamp of the fb interval.
+     * @param boolean $asObject    Return the fb info as an object?
+     * @param boolean $json        Return the fb info as JSON?
+     *
+     * @return mixed string|Horde_Icalendar_Vfreebusy  The Freebusy object or
+     *                                                 the iCalendar text.
      */
-    abstract public function getFreeBusy();
+    abstract public function getFreeBusy($startstamp = null, $endstamp = null, $asObject = false, $json = false);
 
     /**
      * Sets the current resource's id. Must not be an existing resource.
      *
-     * @param int $id  The id for this resource
+     * @param integer $id  The id for this resource
      *
-     * @return unknown_type
+     * @throws Kronolith_Exception
      */
     abstract public function setId($id);
 
     /**
      * Get ResponseType for this resource.
-     * @return unknown_type
+     *
+     * @return integer  The response type for this resource. A
+     *                  Kronolith_Resource::RESPONSE_TYPE_* constant.
      */
     abstract public function getResponseType();
 

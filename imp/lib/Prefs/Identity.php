@@ -427,7 +427,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     public function getAllSignatures($type = 'text')
     {
-        foreach ($this->_identities as $key => $identity) {
+        foreach (array_keys($this->_identities) as $key) {
             $list[$key] = $this->getSignature($type, $key);
         }
 

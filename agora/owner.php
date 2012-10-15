@@ -23,7 +23,6 @@ $sort_dir = Agora::getSortDir('threads');
 
 $page_output->header();
 
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo '<h1>' . sprintf(_("Last posts in forums owned by %s"), $owner) . '</h1>';
 

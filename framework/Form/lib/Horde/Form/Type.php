@@ -1362,7 +1362,7 @@ class Horde_Form_Type_link extends Horde_Form_Type {
 
     /**
      * List of hashes containing link parameters. Possible keys: 'url', 'text',
-     * 'target', 'onclick', 'title', 'accesskey'.
+     * 'target', 'onclick', 'title', 'accesskey', 'class'.
      *
      * @var array
      */
@@ -1403,7 +1403,12 @@ class Horde_Form_Type_link extends Horde_Form_Type {
                     'type' => 'text'),
                 'accesskey' => array(
                     'label' => Horde_Form_Translation::t("Link access key"),
-                    'type' => 'text')));
+                    'type' => 'text'),
+                'class' => array(
+                    'label' => Horde_Form_Translation::t("Link CSS class"),
+                    'type' => 'text')
+            )
+        );
     }
 
 }

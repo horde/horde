@@ -16,7 +16,7 @@
      documentation in UPGRADING.&lt;/strong&gt;">true</configboolean>
     </configsection>
    </case>
-   <case name="kolab" desc="Kolab" />
+   <case name="kolab" desc="IMAP/Kolab" />
   </configswitch>
  </configsection>
 
@@ -48,6 +48,32 @@
    </case>
   </configswitch>
  </configsection>
+
+ <configsection name="calendars">
+  <configheader>Calendar Handler Settings</configheader>
+  <configswitch name="driver" desc="What type of calendar handler should we use?">default
+   <case name="default" desc="Default" />
+   <case name="kolab" desc="IMAP/Kolab" />
+  </configswitch>
+ </configsection>
+
+  <configsection name="resource">
+   <configheader>Resource Handler Settings</configheader>
+   <configswitch name="driver" desc="What type of resource handler should we use?">sql
+    <case name="sql" desc="SQL">
+     <configsection name="params">
+      <configsql switchname="driverconfig">
+       <configstring name="table" desc="Database
+        table">kronolith_resources</configstring>
+      </configsql>
+      <configboolean name="utc" desc="Store the dates in UTC format? If your
+      calendar driver has this option, you should choose the same value here as
+      well.">true</configboolean>
+       </configsection>
+    </case>
+    <case name="false" desc="No Resource Support" />
+   </configswitch>
+  </configsection>
 
  <configsection name="reminder">
   <configheader>Reminder Settings</configheader>

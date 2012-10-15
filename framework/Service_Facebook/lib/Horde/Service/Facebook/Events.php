@@ -28,16 +28,16 @@
         $defaults = array('uid' => 'me()');
         $options = array_merge($defaults, $options);
 
-        $fql = 'SELECT eid, name, tagline, nid, pic_square, pic_small, '
-            . 'pic_big, pic, host, description, event_type, event_subtype, '
+        $fql = 'SELECT eid, name, pic_square, pic_small, '
+            . 'pic_big, pic, host, description,'
             . 'start_time, end_time, creator, update_time, location, venue, '
             . 'privacy, hide_guest_list FROM event WHERE eid IN';
 
         if (!empty($options['rsvp'])) {
-            $fql .= '(SELECT eid FROM event_member WHERE uid=' . $options['uid']
+            $fql .= ' (SELECT eid FROM event_member WHERE uid=' . $options['uid']
                 . ' AND rsvp_status=\'' . $options['rsvp'] . '\')';
         } else {
-            $fql .= '(SELECT eid FROM event_member WHERE uid=' . $options['uid'] . ')';
+            $fql .= ' (SELECT eid FROM event_member WHERE uid=' . $options['uid'] . ')';
         }
 
         if (!empty($options['eids'])) {

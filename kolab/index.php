@@ -16,6 +16,5 @@ Horde_Registry::appInit('kolab');
 $page_output->header(array(
     'title' => _("Overview")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 $page_output->footer();

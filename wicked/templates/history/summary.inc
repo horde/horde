@@ -4,8 +4,10 @@
  <td style="text-align:center">
 <?php
 $text = sprintf(_("Delete Version %s"), $page->version());
-$url = Horde_Util::addParameter(Wicked::url('DeletePage'), array('referrer' => $page->pageName(),
-                                                           'version' => $page->version()));
+$url = Wicked::url('DeletePage')->add(array(
+    'referrer' => $page->pageName(),
+    'version' => $page->version()
+));
 echo Horde::link($url, $text) . Horde::img('delete.png', $text) . '</a>';
 ?>
  </td>
@@ -14,7 +16,7 @@ echo Horde::link($url, $text) . Horde::img('delete.png', $text) . '</a>';
 <?php
 if ($show_edit) {
     $text = sprintf(_("Edit Version %s"), $page->version());
-    $url = Horde_Util::addParameter(Wicked::url('EditPage'), array('referrer' => $page->pageName()));
+    $url = Wicked::url('EditPage')->add(array('referrer' => $page->pageName()));
     echo Horde::link($url, $text) . Horde::img('edit.png', $text) . '</a>';
 }
 ?>
@@ -24,8 +26,7 @@ if ($show_edit) {
 <?php
 if ($show_restore) {
     $text = sprintf(_("Revert to version %s"), $page->version());
-    $url = Horde_Util::addParameter(Wicked::url('RevertPage'), array('referrer' => $page->pageName(),
-                                                               'version' => $page->version()));
+    $url = Wicked::url('RevertPage')->add(array('referrer' => $page->pageName(), 'version' => $page->version()));
     echo Horde::link($url, $text) . Horde::img('restore.png', $text) . '</a>';
 }
 ?>

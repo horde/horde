@@ -118,15 +118,6 @@ $this->applications = array(
         'provides' => 'calendar',
     ),
 
-    'kronolith-alarms' => array(
-        'status' => 'topbar',
-        'app' => 'kronolith',
-        'topbar_params' => array(
-            'id' => 'alarms'
-        ),
-        'menu_parent' => 'kronolith',
-    ),
-
     'kronolith-menu' => array(
         'status' => 'topbar',
         'app' => 'kronolith',
@@ -160,15 +151,6 @@ $this->applications = array(
     'nag' => array(
         'name' => _("Tasks"),
         'provides' => 'tasks',
-    ),
-
-    'nag-alarms' => array(
-        'status' => 'topbar',
-        'app' => 'nag',
-        'topbar_params' => array(
-            'id' => 'alarms'
-        ),
-        'menu_parent' => 'nag',
     ),
 
     'nag-menu' => array(

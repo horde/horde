@@ -64,17 +64,18 @@ extends Components_Qc_Task_Base
     {
         $lib = realpath($this->_config->getPath() . '/lib');
 
-        $files = File_Iterator_Factory::getFilesAsArray(
+        $factory = new File_Iterator_Factory();
+        $files = array_keys(iterator_to_array($factory->getFileIterator(
             $lib, 'php'
-        );
+        )));
 
-        $detector = new PHPCPD_Detector();
+        $detector = new PHPCPD_Detector(new PHPCPD_Detector_Strategy_Default());
         $clones   = $detector->copyPasteDetection(
             $files, 5, 70
         );
 
         $printer = new PHPCPD_TextUI_ResultPrinter;
-        $printer->printResult($clones, $lib);
+        $printer->printResult($clones, $lib, true);
 
         return count($clones);
     }

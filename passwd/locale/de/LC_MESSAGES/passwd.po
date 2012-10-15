@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd 3.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2011-11-01 12:57+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -45,7 +45,7 @@ msgstr "Passwort konnte nicht geändert werden"
 msgid "Cannot send command to server."
 msgstr "Kommando konnte nicht an den Server geschickt werden."
 
-#: index.php:224 templates/index.html.php:84
+#: index.php:221 templates/index.html.php:84
 msgid "Change Password"
 msgstr "Passwort ändern"
 
@@ -163,7 +163,7 @@ msgstr "Altes Passwort:"
 msgid "Passwd is not properly configured."
 msgstr "Passwd ist nicht vollständig konfiguriert."
 
-#: lib/Application.php:47
+#: lib/Application.php:46
 msgid "Password"
 msgstr "Passwort"
 
@@ -188,15 +188,15 @@ msgstr "Passwd fehlt der \"Ziel\"-Parameter."
 msgid "Password module is not properly configured"
 msgstr "Passwd ist nicht vollständig konfiguriert"
 
-#: index.php:217
+#: index.php:214
 msgid "Please provide a new password"
 msgstr "Bitte geben Sie ein neues Passwort an"
 
-#: index.php:216
+#: index.php:213
 msgid "Please provide your current password"
 msgstr "Bitte geben Sie Ihr aktuelles Passwort an"
 
-#: index.php:218
+#: index.php:215
 msgid "Please verify your new password"
 msgstr "Bitte bestätigen Sie Ihr neues Passwort"
 
@@ -285,7 +285,7 @@ msgstr "Ihre neuen Passwörter stimmen nicht überein"
 msgid "Your password could not be changed."
 msgstr "Ihr Passwort konnte nicht geändert werden."
 
-#: index.php:219
+#: index.php:216
 msgid "Your passwords do not match"
 msgstr "Ihre Passwörter stimmen nicht überein"
 

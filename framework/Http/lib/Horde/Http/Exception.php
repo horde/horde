@@ -14,6 +14,6 @@
  * @category Horde
  * @package  Http
  */
-class Horde_Http_Exception extends Horde_Exception_LastError
+class Horde_Http_Exception extends Horde_Exception_Wrapped
 {
 }

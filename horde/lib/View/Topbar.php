@@ -57,14 +57,14 @@ class Horde_View_Topbar extends Horde_View
 
         /* Login/Logout. */
         if ($registry->getAuth()) {
-            if (Horde_Menu::showService('logout')) {
+            if ($registry->showService('logout')) {
                 $this->logoutUrl = $registry->getServiceLink(
                     'logout',
                     $registry->getApp())
                     ->setRaw(false);
             }
         } else {
-            if (Horde_Menu::showService('login')) {
+            if ($registry->showService('login')) {
                 $this->logoutUrl = $registry->getServiceLink(
                     'login',
                     $registry->getApp())
@@ -77,9 +77,21 @@ class Horde_View_Topbar extends Horde_View
         $pageOutput = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $pageOutput->addScriptPackage('Datejs');
         $pageOutput->addScriptFile('topbar.js', 'horde');
-        $pageOutput->addInlineJsVars(array('HordeTopbar.format' =>
-            Horde_Core_Script_Package_Datejs::translateFormat($GLOBALS['prefs']->getValue('date_format'))
-        ));
+        $pageOutput->addInlineJsVars(array('HordeTopbar.conf' => array(
+            'URI_AJAX' =>
+                $registry->getServiceLink('ajax', 'horde')->url,
+            'SID' => defined('SID') ? SID : '',
+            'TOKEN' => $GLOBALS['session']->getToken(),
+            'app' => $registry->getApp(),
+            'format' =>
+                Horde_Core_Script_Package_Datejs::translateFormat(
+                    $GLOBALS['prefs']->getValue('date_format')),
+            'refresh' =>
+                $GLOBALS['prefs']->getValue('menu_refresh_time'),
+        )));
+
+        /* Sidebar. */
+        $this->sidebarWidth = $GLOBALS['prefs']->getValue('sidebar_width');
     }
 
     /**
@@ -95,6 +107,17 @@ class Horde_View_Topbar extends Horde_View
             $GLOBALS['injector']->getInstance('Horde_PageOutput')
                 ->addScriptFile('form_ghost.js', 'horde');
         }
+        $this->sidebar = $GLOBALS['page_output']->sidebar;
         return parent::render($name, $locals);
+    }
+
+    /**
+     * Handler for string casting.
+     *
+     * @return string  The sidebar's HTML code.
+     */
+    public function __toString()
+    {
+        return $this->render();
     }
 }

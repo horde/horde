@@ -12,7 +12,7 @@ $prefGroups['addressbooks'] = array(
     'column' => _("Address Books"),
     'label' => _("Address Books"),
     'desc' => _("Choose which address books to use."),
-    'members' => array('default_dir', 'addressbookselect'),
+    'members' => array('default_dir'),
 );
 
 $prefGroups['sync'] = array(
@@ -43,23 +43,6 @@ $prefGroups['format'] = array(
     'members' => array('name_format', 'name_sort'),
 );
 
-// Address Book selection widget
-$_prefs['addressbookselect'] = array(
-    'type' => 'special',
-    'handler' => 'Turba_Prefs_Special_Addressbook'
-);
-
-// Address books to be displayed in the address book selection widget
-// and in the Browse menu item.  The address book name is stored using
-// the source key from backends.php (e.g. "localsql").
-// You can provide default values this way:
-//   'value' => json_encode(array('source_one', 'source_two'))
-// If 'value' is empty (''), all address books that the user has permissions
-// to will be listed.
-$_prefs['addressbooks'] = array(
-    'value' => ''
-);
-
 // Address books use for synchronization
 $_prefs['sync_books'] = array(
     'value' => 'a:0:{}',
@@ -67,7 +50,6 @@ $_prefs['sync_books'] = array(
     'enum' => array(),
     'desc' => _("Select the address books that should be used for synchronization with external devices:"),
     'on_init' => function($ui) {
-        Horde_Core_Prefs_Ui_Widgets::sourceInit();
         $enum = array();
         $sync_books = @unserialize($GLOBALS['prefs']->getValue('sync_books'));
         if (empty($sync_books)) {
@@ -105,7 +87,7 @@ $_prefs['sync_books'] = array(
 // Columns selection widget
 $_prefs['columnselect'] = array(
     'type' => 'special',
-    'handler' => 'Turba_Prefs_Special_Addressbook'
+    'handler' => 'Turba_Prefs_Special_Columnselect'
 );
 
 // Columns to be displayed in Browse and Search results, with entries
@@ -179,9 +161,8 @@ $_prefs['default_dir'] = array(
     'enum' => array(),
     'desc' => _("This will be the default address book when adding or importing contacts."),
     'on_init' => function($ui) {
-        Horde_Core_Prefs_Ui_Widgets::sourceInit();
         $enum = array();
-        foreach ($GLOBALS['cfgSources'] as $key => $info) {
+        foreach (Turba::getAddressBooks(Horde_Perms::EDIT) as $key => $info) {
             $enum[$key] = $info['title'];
         }
         $ui->prefs['default_dir']['enum'] = $enum;

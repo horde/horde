@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Beatnik H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgstr ""
 msgid "AAAA (IPv6 Address)"
 msgstr ""
 
-#: templates/listzones/header.inc:43 templates/view/header.inc:43
+#: templates/listzones/header.inc:42 templates/view/header.inc:43
 msgid "Actions"
 msgstr ""
 
@@ -167,11 +167,11 @@ msgstr ""
 msgid "Edit Record"
 msgstr ""
 
-#: templates/listzones/header.inc:18
+#: templates/listzones/header.inc:17
 msgid "Edit categories and colors"
 msgstr ""
 
-#: templates/listzones/header.inc:17
+#: templates/listzones/header.inc:16
 msgid "Edit domain groups and colors"
 msgstr ""
 
@@ -375,11 +375,11 @@ msgstr ""
 msgid "SRV Weight"
 msgstr ""
 
-#: templates/menu.inc:17
+#: templates/menu.inc:15
 msgid "Select Domain"
 msgstr ""
 
-#: templates/menu.inc:11 templates/menu.inc:18
+#: templates/menu.inc:9 templates/menu.inc:16
 msgid "Select _Domain"
 msgstr ""
 

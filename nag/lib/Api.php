@@ -14,7 +14,7 @@ class Nag_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $links = array(
+    protected $_links = array(
         'show' => '%application%/view.php?tasklist=|tasklist|&task=|task|&uid=|uid|'
     );
 
@@ -120,7 +120,7 @@ class Nag_Api extends Horde_Registry_Api
     public function getTasklist($name)
     {
         try {
-            $tasklist = $GLOBALS['nag_shares']->getShare($id);
+            $tasklist = $GLOBALS['nag_shares']->getShare($name);
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             throw new Nag_Exception($e);
@@ -1213,7 +1213,7 @@ class Nag_Api extends Horde_Registry_Api
         $categories = array();
         $tasklists = Nag::listTasklists(false, Horde_Perms::SHOW | Horde_Perms::READ);
         foreach ($tasklists as $tasklistId => $tasklist) {
-            $categories[$tasklistId] = $tasklist->get('name');
+            $categories[$tasklistId] = array('title' => $tasklist->get('name'), 'type' => 'share');
         }
         return $categories;
     }
@@ -1283,7 +1283,7 @@ class Nag_Api extends Horde_Registry_Api
                 'link' => Horde::url('view.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id)),
                 'edit_link' => Horde::url('task.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id, 'actionID' => 'modify_task')),
                 'delete_link' => Horde::url('task.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id, 'actionID' => 'delete_task')),
-                'ajax_link' => 'task:' . $task->tasklist . ':' . $task->id,
+                'ajax_link' => 'task:' . $task->tasklist . ':' . $task->id
             );
         }
 

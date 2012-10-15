@@ -220,7 +220,7 @@ class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
 
         // Prepare recipients
         foreach ($this->parseRecipients($recipients) as $rcpt) {
-            list($user, $host) = explode('@', $rcpt);
+            list(,$host) = explode('@', $rcpt);
 
             $mx = $this->_getMx($host);
             if (!$mx) {
@@ -228,7 +228,7 @@ class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
             }
 
             $connected = false;
-            foreach ($mx as $mserver => $mpriority) {
+            foreach (array_keys($mx) as $mserver) {
                 $this->_smtp = new Net_SMTP($mserver, $this->_params['port'], $this->_params['mailname']);
 
                 // configure the SMTP connection.

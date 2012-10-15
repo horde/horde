@@ -133,9 +133,6 @@ class IMP_Ajax_Application_ListMessages
             $result->requestid = intval($args['requestid']);
         }
         $result->totalrows = $msgcount;
-        if (!$args['initial']) {
-            unset($result->label);
-        }
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
@@ -299,7 +296,7 @@ class IMP_Ajax_Application_ListMessages
 
         /* If this is the initial request for a mailbox, figure out the
          * starting location based on user's preferences. */
-        $rownum = ($initial || (isset($rownum) && is_null($rownum)))
+        $rownum = (($initial && !isset($rownum)) || (isset($rownum) && is_null($rownum)))
                 ? intval($mailbox_list->mailboxStart($msgcount))
                 : (isset($rownum) ? ($rownum + 1) : null);
 

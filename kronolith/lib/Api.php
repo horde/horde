@@ -14,7 +14,7 @@ class Kronolith_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $links = array(
+    protected $_links = array(
         'show' => '%application%/event.php?calendar=|calendar|&eventID=|event|&uid=|uid|'
     );
 
@@ -56,8 +56,6 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function browse($path = '', $properties = array())
     {
-        global $registry;
-
         // Default properties.
         if (!$properties) {
             $properties = array('name', 'icon', 'browseable');
@@ -358,7 +356,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     }
 
                     // Save entry.
-                    $saved = $event->save();
+                    $event->save();
                     $ids[] = $event->uid;
                 }
             }
@@ -399,7 +397,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         if (!(count($parts) == 2 || count($parts) == 3) ||
-            !Kronolith::hasPermission($calendar, Horde_Perms::DELETE)) {
+            !Kronolith::hasPermission($calendarId, Horde_Perms::DELETE)) {
                 throw new Kronolith_Exception("Calendar does not exist or no permission to delete");
             }
 
@@ -413,7 +411,7 @@ class Kronolith_Api extends Horde_Registry_Api
                 // Remove share and all groups/permissions.
                 $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
                 $share = $kronolith_shares->getShare($calendarId);
-                $result = $kronolith_shares->removeShare($share);
+                $kronolith_shares->removeShare($share);
             } catch (Exception $e) {
                 throw new Kronolith_Exception(sprintf(_("Unable to delete calendar \"%s\": %s"), $calendarId, $e->getMessage()));
             }
@@ -424,7 +422,7 @@ class Kronolith_Api extends Horde_Registry_Api
      * Returns all calendars a user has access to, according to several
      * parameters/permission levels.
      *
-     * @param boolean $owneronly   Only return calenders that this user owns?
+     * @param boolean $owneronly   Only return calendars that this user owns?
      *                             Defaults to false.
      * @param integer $permission  The permission to filter calendars by.
      *
@@ -668,7 +666,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     // added before any of the instance exceptions. Easiest way
                     // to do that is just add all the recurrence-id entries last
                     try {
-                        $recurrenceId = $content->getAttribute('RECURRENCE-ID');
+                        $content->getAttribute('RECURRENCE-ID');
                         $recurrences[] = $content;
                     } catch (Horde_Icalendar_Exception $e) {
                         $ids[] = $this->_addiCalEvent($content, $kronolith_driver);
@@ -715,7 +713,7 @@ class Kronolith_Api extends Horde_Registry_Api
         // first by UID.
         $uid = $event->uid;
         try {
-            $existing_event = $driver->getByUID($uid, array($driver->calendar));
+            $driver->getByUID($uid, array($driver->calendar));
             throw new Kronolith_Exception(sprintf(_("%s Already Exists"), $uid));
         } catch (Horde_Exception $e) {}
         $result = $driver->search($event);
@@ -881,7 +879,7 @@ class Kronolith_Api extends Horde_Registry_Api
         // at once.
         if (is_array($uid)) {
             foreach ($uid as $g) {
-                $result = $this->delete($g);
+                $this->delete($g);
             }
             return;
         }
@@ -1047,7 +1045,7 @@ class Kronolith_Api extends Horde_Registry_Api
     /**
      * Updates an attendee's response status for a specified event.
      *
-     * @param Horde_Icalender_Vevent $response  A Horde_Icalender_Vevent
+     * @param Horde_Icalendar_Vevent $response  A Horde_Icalendar_Vevent
      *                                          object, with a valid UID
      *                                          attribute that points to an
      *                                          existing event.  This is
@@ -1108,7 +1106,6 @@ class Kronolith_Api extends Horde_Registry_Api
 
         $found = false;
         $error = _("No attendees have been updated because none of the provided email addresses have been found in the event's attendees list.");
-        $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
         $sender_lcase = Horde_String::lower($sender);
 
         foreach ($atnames as $index => $attendee) {
@@ -1374,6 +1371,8 @@ class Kronolith_Api extends Horde_Registry_Api
     public function searchTags($names, $max = 10, $from = 0,
                                $resource_type = '', $user = null, $raw = false)
     {
+        // TODO: $max, $from, $resource_type not honored
+
         $results = $GLOBALS['injector']
             ->getInstance('Kronolith_Tagger')
             ->search(

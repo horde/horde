@@ -41,6 +41,20 @@ class Nag_View_List
     protected $_browser;
 
     /**
+     * Share representing the current smarlist (if being viewed).
+     *
+     * @var Horde_Share_Object_Base
+     */
+    protected $_smartShare;
+
+    /**
+     * Horde_Variables
+     *
+     * @var Horde_Variables
+     */
+    protected $_vars;
+
+    /**
      * Const'r
      *
      * @param Horde_Variables $vars  Variables for the view.
@@ -67,18 +81,15 @@ class Nag_View_List
      */
     public function render($output)
     {
-        global $prefs;
+        global $injector, $prefs;
+
         $output->addScriptFile('tooltips.js', 'horde');
         $output->addScriptFile('scriptaculous/effects.js', 'horde');
         $output->addScriptFile('quickfinder.js', 'horde');
         $output->header(array(
             'title' => $this->_title
         ));
-        $tasks = $this->_tasks;
-        Horde::startBuffer();
-        echo Nag::menu();
-        Nag::status();
-        echo '<div id="page">';
+
         $tabs = new Horde_Core_Ui_Tabs('show_completed', $this->_vars);
         if (!$GLOBALS['prefs']->isLocked('show_completed')) {
             $listurl = Horde::url('list.php');
@@ -87,12 +98,47 @@ class Nag_View_List
             $tabs->addTab(_("_Future tasks"), $listurl, Nag::VIEW_FUTURE);
             $tabs->addTab(_("_Completed tasks"), $listurl, Nag::VIEW_COMPLETE);
         }
-        echo $tabs->render($this->_vars->get('show_completed'));
-        if ($this->_showTagBrowser) {
-            echo $this->_getTagTrail() . $this->_getRelatedTags();
+        foreach (Nag::listTasklists() as $list) {
+            if ($list->get('issmart')) {
+                $tabs->addTab(
+                    $list->get('name'),
+                    $listurl->add(array('actionID' => 'smart', 'list' => $list->getName())),
+                    array('img' => 'search.png'));
+            }
         }
-        $title = $this->_title;
-        require NAG_TEMPLATES . '/list.html.php';
+
+        // Set up the view
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->addHelper(new Nag_View_Helper_List($view));
+        $view->tasks = $this->_tasks;
+        $view->tasks->reset();
+        $view->tabs = $tabs->render($this->_vars->get('show_completed'));
+        $view->browser = empty($this->_smartShare) ? $this->_getRelatedTags() . $this->_getTagTrail() : '';
+        $view->title = $this->_title;
+        $view->sortby = $prefs->getValue('sortby');
+        $view->sortdir = $prefs->getValue('sortdir');
+        $view->sortdirclass = $view->sortdir ? 'sortup' : 'sortdown';
+        $view->dateFormat = $prefs->getValue('date_format');
+        $view->columns = @unserialize($prefs->getValue('tasklist_columns'));
+        $view->smartShare = $this->_smartShare;
+        if (empty($view->columns)) {
+            $view->columns = array();
+        }
+        $view->dynamic_sort = true;
+
+        $view->baseurl = Horde::url('list.php');
+        if ($this->_vars->actionID == 'search_tasks') {
+            $view->baseurl->add(
+                array('actionID' => 'search_tasks',
+                      'search_pattern' => $search_pattern,
+                      'search_name' => $search_name ? 'on' : 'off',
+                      'search_desc' => $search_desc ? 'on' : 'off')
+            );
+        }
+
+        Horde::startBuffer();
+        Nag::status();
+        echo $view->render('list');
         $output->footer();
 
         return Horde::endBuffer();
@@ -130,7 +176,12 @@ class Nag_View_List
         }
         switch ($action) {
         case 'search_tasks':
-            $this->_doSearch();
+            if ($this->_vars->deletebutton) {
+                $this->_doDeleteSmartList();
+                $this->_handleActions(false);
+            } else {
+                $this->_doSearch();
+            }
             break;
         case 'browse_add':
         case 'browse_remove':
@@ -149,6 +200,7 @@ class Nag_View_List
                 $this->_browser->clearSearch();
                 $this->_loadTasks();
             } else {
+                $this->_browser->setFilter($this->_vars->show_completed);
                 $this->_tasks = $this->_browser->getSlice();
             }
             break;
@@ -156,7 +208,9 @@ class Nag_View_List
             $lists = array($this->_vars->get('list'));
             $list = $GLOBALS['nag_shares']->getShare($this->_vars->get('list'));
             $this->_title = $list->get('name');
-            // Fall through
+            $this->_smartShare = $list;
+            $this->_loadTasks($lists);
+            break;
         default:
             // If we have an active tag browse, use it.
             if ($this->_browser->tagCount() >= 1) {
@@ -176,7 +230,8 @@ class Nag_View_List
         try {
             $this->_tasks = Nag::listTasks(array(
                 'tasklists' => $lists,
-                'include_tags' => true)
+                'include_tags' => true,
+                'completed' => $this->_vars->show_completed)
             );
         } catch (Nag_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
@@ -186,24 +241,33 @@ class Nag_View_List
 
     /**
      * Performs a Task search. self::_tasks is populated with the results.
+     *
+     * @throws Nag_Exception
      */
     protected function _doSearch()
     {
+
+        $form = new Nag_Form_Search($this->_vars);
+        if ($form->validate($this->_vars, true)) {
+            $form->getInfo($this->_vars, $info);
+        } else {
+            throw new Nag_Exception(current($form->getErrors()));
+        }
+
         // Text filter
         $search_pattern = $this->_vars->search_pattern;
-        $search_name = $this->_vars->search_name == 'on' ? Nag_Search::MASK_NAME : 0;
-        $search_desc = $this->_vars->search_desc == 'on' ? Nag_Search::MASK_DESC : 0;
+        $search_in = $this->_vars->search_in;
+        $search_name = in_array('search_name', $search_in) ? Nag_Search::MASK_NAME : 0;
+        $search_desc = in_array('search_desc', $search_in) ? Nag_Search::MASK_DESC : 0;
         $search_tags = !empty($this->_vars->search_tags) ? Nag_Search::MASK_TAGS : 0;
         $search_completed = $this->_vars->search_completed;
+
         $this->_vars->set('show_completed', $search_completed);
         $mask = $search_name | $search_desc | $search_tags;
 
         // Date filter
-        if (!empty($this->_vars->due_within) &&
-            is_numeric($this->_vars->due_within) &&
-            !empty($this->_vars->due_of)) {
-            $date = array($this->_vars->due_within, $this->_vars->due_of);
-        } else {
+        $date = $info['due_date'];
+        if (empty($date)) {
             $date = array();
         }
 
@@ -214,7 +278,7 @@ class Nag_View_List
             array(
                 'completed' => $search_completed,
                 'due' => $date,
-                'tags' => $this->_vars->search_tags)
+                'tags' => empty($this->_vars->search_tags) ? array() : Nag::getTagger()->split($this->_vars->search_tags))
         );
         try {
             $tasks = $search->getSlice();
@@ -223,25 +287,72 @@ class Nag_View_List
             $tasks = new Nag_Task();
         }
 
-        // Build a page title based on criteria.
-        $this->_title = sprintf(_("Search: Results for \"%s\""), $search_pattern);
-        if (!empty($date)) {
-            $this->_title .= ' ' . sprintf(_("and due date within %d days of %s"), $date[0], $date[1]);
-        }
-        if (!empty($search_tags)) {
-            $this->_title .= ' ' . sprintf(_("and tagged with %s"), $this->_vars->search_tags);
-        }
-
         // Save as a smart list?
-        if ($this->_vars->get('save_smartlist')) {
-            Nag::addTasklist(
+        if ($id = $this->_vars->get('smart_id')) {
+            // Existing list.
+            $smartlist = $GLOBALS['nag_shares']->getShare($id);
+            Nag::updateTasklist(
+                $smartlist,
+                array(
+                    'name' => $this->_vars->get('smartlist_name'),
+                    'search' => serialize($search))
+            );
+            $this->_title = $smartlist->get('name');
+            $this->_smartShare = $smartlist;
+        } elseif ($this->_vars->get('save_smartlist')) {
+            $this->_smartShare = Nag::addTasklist(
                 array('name' => $this->_vars->get('smartlist_name'),
                       'search' => serialize($search)),
                 false
             );
+            $this->_title = $this->_vars->get('smartlist_name');
+        } else {
+            // Build a page title based on criteria.
+            $this->_title = sprintf(_("Search: Results for"));
+            $have_title = false;
+            if (!empty($search_pattern)) {
+                $have_title = true;
+                $this->_title .= ' "' . $search_pattern . '" ';
+            } else {
+                $this->_title .= ' ' . _("tasks") . ' ';
+            }
+            if (!empty($date)) {
+                if ($have_title) {
+                    $this->_title .= _("and") . ' ';
+                } else {
+                    $this->_title .= _("with") . ' ';
+                    $have_title = true;
+                }
+                $this->_title .= sprintf(_("due date within %d days of %s"), $date[0], $date[1]) . ' ';
+            }
+            if (!empty($search_tags)) {
+                if ($have_title) {
+                    $this->_title .= _("and") . ' ';
+                } else {
+                    $this->_title .= _("with") . ' ';
+                }
+                $this->_title .= sprintf(_("and tagged with %s"), $this->_vars->search_tags);
+            }
         }
 
         $this->_tasks = $tasks;
+    }
+
+    /**
+     * Delete a SmartList.
+     *
+     */
+    protected function _doDeleteSmartList()
+    {
+        try {
+            $sl = $GLOBALS['nag_shares']->getShare($this->_vars->smart_id);
+            Nag::deleteTasklist($sl);
+        } catch (Horde_Exception $e) {
+            $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+            Horde::url('list.php')->redirect();
+            exit;
+        }
+        $GLOBALS['notification']->push(_("Smart List deleted successfully"), 'horde.success');
     }
 
     /**
@@ -252,17 +363,17 @@ class Nag_View_List
     protected function _getRelatedTags()
     {
         $rtags = $this->_browser->getRelatedTags();
-        if ($this->_browser->tagCount() >= 1) {
-            $t = _("Related Tags:");
-        } else {
-            $t = _("Tags:");
+        if (count($rtags)) {
+            $t = Horde::img('tags.png');
+            $html = sprintf('<div class="nag-tags-related">%s<ul class="horde-tags">', $t);
+            foreach ($rtags as $id => $taginfo) {
+                $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
+                    . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
+            }
+            return $html . '</ul></div>';
         }
-        $html = sprintf('<div class="nag-tags-related">%s<ul class="horde-tags">', $t);
-        foreach ($rtags as $id => $taginfo) {
-            $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
-                . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
-        }
-        return $html . '</ul></div>';
+
+        return '';
     }
 
     /**
@@ -273,7 +384,7 @@ class Nag_View_List
     protected function _getTagTrail()
     {
         if ($this->_browser->tagCount() >= 1) {
-            $html = '<div class="nag-tags-browsing">' . _("Browsing for tags:") . '<ul class="horde-tags">';
+            $html = '<div class="nag-tags-browsing">' . Horde::img('filter.png') . '<ul class="horde-tags">';
             foreach ($this->_browser->getTags() as $tag => $id) {
                 $html .= '<li>' . htmlspecialchars($tag)
                     . $this->_linkRemoveTag($tag)->link()

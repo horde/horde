@@ -38,7 +38,9 @@ extends PHPUnit_Framework_TestCase
     public function testManipulation()
     {
         $tools = new Horde_Kolab_Storage_List_Tools(
-            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
             array()
         );
         $this->assertInstanceOf(
@@ -47,12 +49,30 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testLoggedManipulation()
+    public function testDebugLogsManipulation()
     {
         $tools = new Horde_Kolab_Storage_List_Tools(
-            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
             array(
-                'logger' => $this->getMock('Horde_Log_Logger')
+                'log' => array('debug')
+            )
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_List_Manipulation_Decorator_Log',
+            $tools->getListManipulation()
+        );
+    }
+
+    public function testSpecificallyLogManipulation()
+    {
+        $tools = new Horde_Kolab_Storage_List_Tools(
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
+            array(
+                'log' => array('list_manipulation')
             )
         );
         $this->assertInstanceOf(
@@ -64,7 +84,9 @@ extends PHPUnit_Framework_TestCase
     public function testSynchronization()
     {
         $tools = new Horde_Kolab_Storage_List_Tools(
-            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
             array()
         );
         $this->assertInstanceOf(
@@ -73,12 +95,30 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testLoggedSynchronization()
+    public function testDebugLogsSynchronization()
     {
         $tools = new Horde_Kolab_Storage_List_Tools(
-            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
             array(
-                'logger' => $this->getMock('Horde_Log_Logger')
+                'log' => array('debug')
+            )
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_List_Synchronization_Decorator_Log',
+            $tools->getListSynchronization()
+        );
+    }
+
+    public function testSpecificallyLogSynchronization()
+    {
+        $tools = new Horde_Kolab_Storage_List_Tools(
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
+            array(
+                'log' => array('list_synchronization')
             )
         );
         $this->assertInstanceOf(
@@ -93,7 +133,9 @@ extends PHPUnit_Framework_TestCase
     public function testInvalidQuery()
     {
         $tools = new Horde_Kolab_Storage_List_Tools(
-            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
             array()
         );
         $tools->getQuery('TEST');
@@ -105,52 +147,71 @@ extends PHPUnit_Framework_TestCase
     public function testMissingQuery()
     {
         $tools = new Horde_Kolab_Storage_List_Tools(
-            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
             array()
         );
         $tools->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE);
     }
 
-    /**
-     * @expectedException Horde_Kolab_Storage_List_Exception
-     */
-    public function testInvalidQueryset()
-    {
-        $tools = new Horde_Kolab_Storage_List_Tools(
-            $this->getMock('Horde_Kolab_Storage_Driver'),
-            array('queryset' => 'TEST')
-        );
-    }
-
     public function testDefaultQueries()
     {
         $tools = new Horde_Kolab_Storage_List_Tools(
-            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
             array()
         );
         $tools->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_BASE);
     }
 
-    public function testListQuerysetBase()
+    public function testListQuery()
     {
         $tools = new Horde_Kolab_Storage_List_Tools(
-            $this->getMock('Horde_Kolab_Storage_Driver'),
-            array('queryset' => Horde_Kolab_Storage_List_Tools::QUERYSET_BASIC)
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
+            array('queries' => array(Horde_Kolab_Storage_List_Tools::QUERY_BASE))
         );
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Query_List',
+            'Horde_Kolab_Storage_List_Query_List_Base',
             $tools->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_BASE)
         );
     }
 
-    public function testListQuery()
+    public function testUnspecifiedQuery()
     {
         $tools = new Horde_Kolab_Storage_List_Tools(
-            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
             array('queries' => array(Horde_Kolab_Storage_List_Tools::QUERY_BASE))
         );
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Query_List',
+            'Horde_Kolab_Storage_List_Query_List_Base', $tools->getQuery()
+        );
+    }
+
+    public function testCachedListQuery()
+    {
+        $tools = new Horde_Kolab_Storage_List_Tools(
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
+            array(
+                'queries' => array(
+                    'list' => array(
+                        Horde_Kolab_Storage_List_Tools::QUERY_BASE => array(
+                            'defaults_bail' => true,
+                            'cache' => true
+                        )
+                    )
+                )
+            )
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_List_Query_List_Cache',
             $tools->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_BASE)
         );
     }
@@ -158,16 +219,42 @@ extends PHPUnit_Framework_TestCase
     public function testAclQuery()
     {
         $tools = new Horde_Kolab_Storage_List_Tools(
-            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
             array(
                 'queries' => array(
-                    Horde_Kolab_Storage_List_Tools::QUERY_BASE,
-                    Horde_Kolab_Storage_List_Tools::QUERY_ACL
+                    'list' => array(
+                        Horde_Kolab_Storage_List_Tools::QUERY_BASE => true,
+                        Horde_Kolab_Storage_List_Tools::QUERY_ACL => true
+                    )
                 )
             )
         );
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Query_Acl',
+            'Horde_Kolab_Storage_List_Query_Acl_Base',
+            $tools->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_ACL)
+        );
+    }
+
+    public function testCachedAclQuery()
+    {
+        $tools = new Horde_Kolab_Storage_List_Tools(
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
+            array(
+                'queries' => array(
+                    'list' => array(
+                        Horde_Kolab_Storage_List_Tools::QUERY_ACL => array(
+                            'cache' => true
+                        )
+                    )
+                )
+            )
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_List_Query_Acl_Cache',
             $tools->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_ACL)
         );
     }
@@ -175,34 +262,83 @@ extends PHPUnit_Framework_TestCase
     public function testShareQuery()
     {
         $tools = new Horde_Kolab_Storage_List_Tools(
-            $this->getMock('Horde_Kolab_Storage_Driver'),
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
             array(
-                'queryset' => Horde_Kolab_Storage_List_Tools::QUERYSET_HORDE,
+                'queries' => array(
+                    'list' => array(
+                        Horde_Kolab_Storage_List_Tools::QUERY_SHARE => true
+                    )
+                )
             )
         );
         $this->assertInstanceOf(
-            'Horde_Kolab_Storage_List_Query_Share',
+            'Horde_Kolab_Storage_List_Query_Share_Base',
+            $tools->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE)
+        );
+    }
+
+    public function testCachedShareQuery()
+    {
+        $tools = new Horde_Kolab_Storage_List_Tools(
+            $this->_getDriver(),
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
+            array(
+                'queries' => array(
+                    'list' => array(
+                        Horde_Kolab_Storage_List_Tools::QUERY_SHARE => array(
+                            'cache' => true
+                        )
+                    )
+                )
+            )
+        );
+        $this->assertInstanceOf(
+            'Horde_Kolab_Storage_List_Query_Share_Cache',
             $tools->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE)
         );
     }
 
     public function testGetId()
     {
-        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $driver = $this->_getDriver();
         $driver->expects($this->once())
             ->method('getId')
             ->will($this->returnValue('ID'));
-        $tools = new Horde_Kolab_Storage_List_Tools($driver);
+        $tools = new Horde_Kolab_Storage_List_Tools(
+            $driver,
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger')
+        );
         $this->assertEquals('ID', $tools->getId());
     }
 
     public function testGetNamespace()
     {
-        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $driver = $this->_getDriver();
         $driver->expects($this->once())
             ->method('getNamespace')
             ->will($this->returnValue('NAMESPACE'));
-        $tools = new Horde_Kolab_Storage_List_Tools($driver);
+        $tools = new Horde_Kolab_Storage_List_Tools(
+            $driver,
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger')
+        );
         $this->assertEquals('NAMESPACE', $tools->getNamespace());
+    }
+
+    private function _getDriver()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $driver->expects($this->once())
+            ->method('getParameters')
+            ->will(
+                $this->returnValue(
+                    array('host' => 'a', 'port' => 1, 'user' => 'b')
+                )
+            );
+        return $driver;
     }
 }

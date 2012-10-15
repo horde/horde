@@ -45,15 +45,7 @@ if ($vars->get('submitbutton') == _("Delete")) {
 /* Render the form. */
 $renderer = new Horde_Form_Renderer();
 
-$template = $injector->createInstance('Horde_Template');
-Horde::startBuffer();
-$form->renderActive($renderer, $vars, Horde::url('domains/delete.php'), 'post');
-$template->set('main', Horde::endBuffer());
-$template->set('menu', Horde::menu());
-Horde::startBuffer();
-$notification->notify(array('listeners' => 'status'));
-$template->set('notify', Horde::endBuffer());
-
 $page_output->header();
-echo $template->fetch(VILMA_TEMPLATES . '/main/main.html');
+$notification->notify(array('listeners' => 'status'));
+$form->renderActive($renderer, $vars, Horde::url('domains/delete.php'), 'post');
 $page_output->footer();

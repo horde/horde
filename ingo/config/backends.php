@@ -19,35 +19,19 @@
  *
  * disabled: (boolean) If true, the config entry is disabled.
  *
- * transport: (string) The transport driver to use to store the script on the
- *            backend server. Valid options:
- *            - 'ldap':      LDAP server
- *            - 'null':      No backend server (i.e. for script drivers, such
- *                           as 'imap', that don't use scripts).
- *            - 'timsieved': Timsieved (managesieve) server
- *            - 'vfs':       Use Horde VFS
+ * params: (array) An array containing any additional information that the
+ *         transport class needs. See examples below for further details.
  *
  * preferred: (string) This is the field that is used to choose which server
  *            is used. The value for this field may be a single string or an
  *            array of strings containing the hostnames to use with this
  *            server.
  *
- * hordeauth: (mixed) One of the following:
- *            - true:   Ingo will attempt to use the user's existing
- *                      credentials (the username/password they used to log in
- *                      to Horde) to login to this source. (DEFAULT)
- *            - 'full': The username will be used unmodified.
- *
- * params: (array) An array containing any additional information that the
- *         transport class needs. See below for further details.
- *
- * script: (string) The type of script driver this server uses.
- *         Valid options:
- *         - 'imap':     IMAP client side filtering (POP3 servers NOT
- *                       supported)
- *         - 'maildrop': Maildrop scripts
- *         - 'procmail': Procmail scripts
- *         - 'sieve':    Sieve scripts
+ * script: (string) The type of script driver this server uses. Options:
+ *   - imap:  IMAP client side filtering (POP3 servers NOT supported).
+ *   - maildrop:  Maildrop scripts.
+ *   - procmail:  Procmail scripts.
+ *   - sieve:  Sieve scripts.
  *
  * scriptparams: (array) An array containing any additional information that
  *               the script driver needs. See below for further details.
@@ -56,6 +40,19 @@
  *         users. Users can then configure filters for each other if they
  *         give them permissions to do so. If you want to enable this feature,
  *         you need to set this parameter to true.
+ *
+ * transport: (string) The transport driver to use to store the script on the
+ *            backend server. Valid options:
+ *   - ldap:  LDAP server.
+ *   - null:  No backend server (i.e. for script drivers, such as 'imap', that
+ *            does not use scripts).
+ *   - timsieved:  Timsieved (managesieve) server.
+ *   - vfs:  Use Horde VFS.
+ *
+ *   NOTE: By default, the transport driver will use Horde credentials to
+ *         authenticate to the backend. If a different username/password is
+ *         needed, use the 'transport_auth' hook (see hooks.php) to define
+ *         these values.
  */
 
 /* IMAP Example */
@@ -63,7 +60,6 @@ $backends['imap'] = array(
     // ENABLED by default
     'disabled' => false,
     'transport' => 'null',
-    'hordeauth' => true,
     'params' => array(),
     'script' => 'imap',
     'scriptparams' => array(),
@@ -75,17 +71,11 @@ $backends['maildrop'] = array(
     // Disabled by default
     'disabled' => true,
     'transport' => 'vfs',
-    'hordeauth' => true,
     'params' => array(
         // Hostname of the VFS server
         'hostspec' => 'localhost',
         // Name of the maildrop config file to write
         'filename' => '.mailfilter',
-        // The VFS username to use, defaults to current user. If you want to
-        // use a different user, you also need to disable 'hordeauth' above.
-        // 'username' => 'user',
-        // The VFS password to use, defaults to current user's password
-        // 'password' => 'secret',
         // The path to the .mailfilter filter file, defaults to the filters'
         // owner's home directory.
         // You can use the following variables:
@@ -138,17 +128,11 @@ $backends['procmail'] = array(
     // Disabled by default
     'disabled' => true,
     'transport' => 'vfs',
-    'hordeauth' => true,
     'params' => array(
         // Hostname of the VFS server
         'hostspec' => 'localhost',
         // Name of the procmail config file to write
         'filename' => '.procmailrc',
-        // The VFS username to use, defaults to current user. If you want to
-        // use a different user, you also need to disable 'hordeauth' above.
-        // 'username' => 'user',
-        // The VFS password to use, defaults to current user's password
-        // 'password' => 'secret',
         // The path to the .procmailrc filter file, defaults to the filters'
         // owner's home directory.
         // You can use the following variables:
@@ -216,7 +200,6 @@ $backends['sieve'] = array(
     // Disabled by default
     'disabled' => true,
     'transport' => 'timsieved',
-    'hordeauth' => 'full',
     'params' => array(
         // Hostname of the timsieved server
         'hostspec' => 'localhost',
@@ -228,12 +211,6 @@ $backends['sieve'] = array(
         'port' => 4190,
         // Name of the sieve script
         'scriptname' => 'ingo',
-        // The following settings can be used to specify an administration
-        // user to update all users' scripts. If you want to use an admin
-        // user, you also need to disable 'hordeauth' above. You have to use
-        // an admin user if you want to use shared rules.
-        // 'username' => 'cyrus',
-        // 'password' => '*****',
         // Enable debugging. With Net_Sieve 1.2.0 or later, the sieve protocol
         // communication is logged with the DEBUG level. Earlier versions
         // print the log to the screen.
@@ -253,7 +230,6 @@ $backends['sivtest'] = array(
     // Disabled by default
     'disabled' => true,
     'transport' => 'sivtest',
-    'hordeauth' => true,
     'params' => array(
         // Hostname of the timsieved server
         'hostspec' => 'localhost',
@@ -281,7 +257,6 @@ $backends['ldapsieve'] = array(
     // Disabled by default
     'disabled' => true,
     'transport' => 'ldap',
-    'hordeauth' => false,
     'params' => array(
         // Hostname of the ldap server
         'hostspec' => 'localhost',

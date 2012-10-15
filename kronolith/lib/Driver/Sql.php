@@ -291,6 +291,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         $events = $this->_listEventsConditional($startDate, $endDate, $conditions, $values);
         $results = array();
+        $tags = null;
         if ($options['fetch_tags'] && count($events)) {
             $tags = Kronolith::getTagger()->getTags(array_keys($events));
         }
@@ -573,9 +574,9 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         foreach (array_keys($newProperties) as $property) {
-            if ($oldProperties[$property] != $newProperties[$property]) {
+            if (empty($oldProperties[$property]) || ($oldProperties[$property] != $newProperties[$property])) {
                 $changes['new'][$property] = $newProperties[$property];
-                $changes['old'][$property] = $oldProperties[$property];
+                $changes['old'][$property] = !empty($oldProperties[$property]) ? $oldProperties[$property] : null;
             }
         }
 
@@ -606,7 +607,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $history = $this->_buildEventHistory($event);
 
         try {
-            $result = $this->_db->update($query, $values);
+            $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -678,7 +679,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $query .= $cols_name . $cols_values;
 
         try {
-            $result = $this->_db->insert($query, $values);
+            $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -704,50 +705,6 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         $this->_handleNotifications($event, 'add');
 
         return $event->id;
-    }
-
-    /**
-     * Helper function to update an existing event's tags to tagger storage.
-     *
-     * @param Kronolith_Event $event  The event to update
-     */
-    protected function _updateTags(Kronolith_Event $event)
-    {
-        /* Update tags */
-        Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, 'event');
-
-        /* Add tags again, but as the share owner (replaceTags removes ALL tags). */
-        try {
-            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
-        } catch (Horde_Share_Exception $e) {
-            throw new Kronolith_Exception($e);
-        }
-        Kronolith::getTagger()->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
-    }
-
-    /**
-     * Helper function to add tags from a newly creted event to the tagger.
-     *
-     * @param Kronolith_Event $event  The event to save tags to storage for.
-     */
-    protected function _addTags(Kronolith_Event $event)
-    {
-        /* Deal with any tags */
-        $tagger = Kronolith::getTagger();
-        $tagger->tag($event->uid, $event->tags, $event->creator, 'event');
-
-        /* Add tags again, but as the share owner (replaceTags removes ALL
-         * tags). */
-        try {
-            $cal = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($event->calendar);
-        } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
-            throw new Kronolith_Exception($e);
-        }
-
-        if ($cal->get('owner') != $event->creator) {
-            $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
-        }
     }
 
     /**
@@ -782,7 +739,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         /* Attempt the move query. */
         try {
-            $result = $this->_db->update($query, $values);
+            $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -810,7 +767,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
         foreach ($uids as $uid) {
             $event = $this->getByUID($uid, array($calendar));
-            $this->deleteEvent($event->id);
+            try {
+                $this->deleteEvent($event->id);
+            } catch (Kronolith_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
         }
 
         $this->open($oldCalendar);
@@ -830,7 +791,12 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     public function deleteEvent($eventId, $silent = false)
     {
         /* Fetch the event for later use. */
-        $event = $this->getEvent($eventId);
+        if ($eventId instanceof Kronolith_Event) {
+            $event = $eventId;
+            $eventId = $event->id;
+        } else {
+            $event = $this->getEvent($eventId);
+        }
         $original_uid = $event->uid;
         $isRecurring = $event->recurs();
 

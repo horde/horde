@@ -216,7 +216,7 @@ class Nag_Task
      * @var integer
      * @see each()
      */
-    protected $_pointer;
+    protected $_pointer = 0;
 
     /**
      * Task id => pointer dictionary.
@@ -224,6 +224,13 @@ class Nag_Task
      * @var array
      */
     protected $_dict = array();
+
+    /**
+     * Task tags from the storage backend (e.g. Kolab)
+     *
+     * @var array
+     */
+    public $internaltags;
 
     /**
      * Task tags (lazy loaded).
@@ -265,13 +272,13 @@ class Nag_Task
 
         case 'tags':
             if (!isset($this->_tags)) {
-                $this->_tags = Nag::getTagger()->getTags($this->uid, 'task');
+                $this->synchronizeTags(Nag::getTagger()->getTags($this->uid, 'task'));
             }
             return $this->_tags;
         }
 
         $trace = debug_backtrace();
-        trigger_error('Undefined property via __set(): ' . $name
+        trigger_error('Undefined property via __get(): ' . $name
                       . ' in ' . $trace[0]['file']
                       . ' on line ' . $trace[0]['line'],
                       E_USER_NOTICE);
@@ -288,7 +295,7 @@ class Nag_Task
     {
         switch ($name) {
         case 'tags':
-            $this->{'_' . $name} = $value;
+            $this->_tags = $value;
             return;
         }
         $trace = debug_backtrace();
@@ -440,6 +447,28 @@ class Nag_Task
     }
 
     /**
+     * Returns whether any tasks in the list are overdue.
+     *
+     * @return boolean  True if any task or sub tasks are overdue.
+     */
+    public function childrenOverdue()
+    {
+        if (!empty($this->due)) {
+            $due = new Horde_Date($this->due);
+            if ($due->compareDate(new Horde_Date(time())) <= 0) {
+                return true;
+            }
+        }
+        foreach ($this->children as $task) {
+            if ($task->childrenOverdue()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Returns the number of tasks including this and any sub tasks.
      *
      * @return integer  The number of tasks and sub tasks.
@@ -484,6 +513,8 @@ class Nag_Task
      */
     public function toggleComplete()
     {
+        $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
+
         if ($this->completed) {
             $this->completed_date = null;
             $this->completed = false;
@@ -498,8 +529,14 @@ class Nag_Task
                         substr($completion, 6, 2));
                 }
             }
+            $alarm = $this->toAlarm();
+            if ($alarm) {
+                $horde_alarm->set($alarm);
+            }
             return;
         }
+
+        $horde_alarm->delete($this->uid);
 
         if ($this->recurs()) {
             /* Get current occurrence (task due date) */
@@ -514,8 +551,13 @@ class Nag_Task
                 $current->mday++;
                 /* Only mark this due date completed if there is another
                  * occurence. */
-                if ($this->recurrence->nextActiveRecurrence($current)) {
+                if ($next = $this->recurrence->nextActiveRecurrence($current)) {
                     $this->completed = false;
+                    $alarm = $this->toAlarm();
+                    if ($alarm) {
+                        $alarm['start'] = new Horde_Date($next);
+                        $horde_alarm->set($alarm);
+                    }
                     return;
                 }
             }
@@ -597,8 +639,7 @@ class Nag_Task
             return $this;
         }
         if ($this->_pointer >= count($this->children)) {
-            $task = false;
-            return $task;
+            return false;
         }
         $next = $this->children[$this->_pointer]->each();
         if ($next) {
@@ -642,8 +683,8 @@ class Nag_Task
         }
 
         if (!isset($view_url_list[$this->tasklist])) {
-            $view_url_list[$this->tasklist] = Horde_Util::addParameter(Horde::url('view.php'), 'tasklist', $this->tasklist);
-            $task_url_list[$this->tasklist] = Horde_Util::addParameter(Horde::url('task.php'), 'tasklist', $this->tasklist);
+            $view_url_list[$this->tasklist] = Horde::url('view.php')->add('tasklist', $this->tasklist);
+            $task_url_list[$this->tasklist] = Horde::url('task.php')->add('tasklist', $this->tasklist);
         }
 
         /* Obscure private tasks. */
@@ -653,12 +694,12 @@ class Nag_Task
         }
 
         /* Create task links. */
-        $this->view_link = Horde_Util::addParameter($view_url_list[$this->tasklist], 'task', $this->id);
+        $this->view_link = $view_url_list[$this->tasklist]->copy()->add('task', $this->id);
 
-        $task_url_task = Horde_Util::addParameter($task_url_list[$this->tasklist], 'task', $this->id);
+        $task_url_task = $task_url_list[$this->tasklist]->copy()->add('task', $this->id);
         $this->complete_link = Horde::url('t/complete')->add(array('url' => Horde::url('list.php'), 'task' => $this->id, 'tasklist' => $this->tasklist));
-        $this->edit_link = Horde_Util::addParameter($task_url_task, 'actionID', 'modify_task');
-        $this->delete_link = Horde_Util::addParameter($task_url_task, 'actionID', 'delete_task');
+        $this->edit_link = $task_url_task->copy()->add('actionID', 'modify_task');
+        $this->delete_link = $task_url_task->copy()->add('actionID', 'delete_task');
     }
 
     /**
@@ -696,19 +737,51 @@ class Nag_Task
      */
     public function loadTags()
     {
-        $ids = array($this->uid);
+        $ids = array();
+        if (!isset($this->_tags)) {
+            $ids[] = $this->uid;
+        }
         foreach ($this->children as $task) {
             $ids[] = $task->uid;
         }
+        if (!$ids) {
+            return;
+        }
+
         $results = Nag::getTagger()->getTags($ids);
 
+        if (isset($results[$this->uid])) {
+            $this->synchronizeTags($results[$this->uid]);
+        }
         foreach ($this->children as $task) {
-            if (!empty($results[$task->uid])) {
-                $task->tags = $results[$task->uid];
+            if (isset($results[$task->uid])) {
+                $task->synchronizeTags($results[$task->uid]);
+                $task->loadTags();
             }
         }
-        if (!empty($results[$this->uid])) {
-            $this->_tags = $results[$this->uid];
+    }
+
+    /**
+     * Syncronizes tags from the tagging backend with the task storage backend,
+     * if necessary.
+     *
+     * @param array $tags  Tags from the tagging backend.
+     */
+    public function synchronizeTags($tags)
+    {
+        if (isset($this->internaltags)) {
+            usort($tags, 'strcoll');
+            if (array_diff($this->internaltags, $tags)) {
+                Nag::getTagger()->replaceTags(
+                    $this->uid,
+                    $this->internaltags,
+                    $this->owner,
+                    'task'
+                );
+            }
+            $this->_tags = $this->internaltags;
+        } else {
+            $this->_tags = $tags;
         }
     }
 
@@ -845,14 +918,15 @@ class Nag_Task
                 $json->dd = $date->strftime('%x');
                 $json->dt = $date->format($time_format);
             }
-            /*
-            $json->p = $this->parent_id;
-            $json->o = $this->owner;
             $json->as = $this->assignee;
             if ($this->estimate) {
                 $date = new Horde_Date($this->estimate);
                 $json->e = $date->toJson();
             }
+            /*
+            $json->p = $this->parent_id;
+            $json->o = $this->owner;
+
             if ($this->completed_date) {
                 $date = new Horde_Date($this->completed_date);
                 $json->cd = $date->toJson();

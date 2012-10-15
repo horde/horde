@@ -30,14 +30,14 @@ try {
    <form method="post" action="<?php echo Horde::selfUrl() ?>">
     <input type="hidden" name="user_name" value="<?php echo $signup->getName() ?>" />
     <input type="hidden" name="form" value="approve_f" />
-    <input type="submit" class="button" value="<?php echo _("Approve") ?>" />
+    <input type="submit" class="horde-default" value="<?php echo _("Approve") ?>" />
    </form>
   </td>
   <td>
    <form method="post" action="<?php echo Horde::selfUrl() ?>">
     <input type="hidden" name="user_name" value="<?php echo $signup->getName() ?>" />
     <input type="hidden" name="form" value="removequeued_f" />
-    <input type="submit" class="button" value="<?php echo _("Remove") ?>" />
+    <input type="submit" class="horde-delete" value="<?php echo _("Remove") ?>" />
    </form>
   </td>
   <td><?php echo htmlspecialchars($signup->getName()) ?></td>
@@ -47,4 +47,3 @@ try {
 </tbody>
 </table>
 <?php endif; ?>
-<br class="spacer" />

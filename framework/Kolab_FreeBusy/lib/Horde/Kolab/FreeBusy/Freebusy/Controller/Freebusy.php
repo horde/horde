@@ -169,7 +169,7 @@ extends Horde_Kolab_FreeBusy_Controller_Base
                 if (isset($acl['manager'])) {
                     $oldacl = $acl['manager'];
                 }
-                $result = $imapc->setACL($calendar->name, 'manager', 'lrs');
+                $result = $imapc->setACL($calendar->name, 'manager', array('rights' => 'lrs'));
                 if (is_a($result, 'PEAR_Error')) {
                     $reporter->failure($calendar->name, $result->getMessage());
                     continue;
@@ -185,7 +185,7 @@ extends Horde_Kolab_FreeBusy_Controller_Base
 
             /* Revert the acl  */
             if ($access->user == 'manager' && $oldacl) {
-                $result = $imapc->setACL($calendar->name, 'manager', $oldacl);
+                $result = $imapc->setACL($calendar->name, 'manager', array('rights' => $oldacl));
                 if (is_a($result, 'PEAR_Error')) {
                     $reporter->failure($calendar->name, $result->getMessage());
                     continue;

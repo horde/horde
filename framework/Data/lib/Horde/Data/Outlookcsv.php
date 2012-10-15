@@ -22,6 +22,7 @@ class Horde_Data_Outlookcsv extends Horde_Data_Csv
      *                         set.
      * @param boolean $header  If true, the rows of $data are associative
      *                         arrays with field names as their keys.
+     * @param array $export_mapping  TODO
      *
      * @return string  The CSV data.
      */

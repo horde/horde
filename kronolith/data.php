@@ -71,8 +71,8 @@ $storage = $injector->getInstance('Horde_Core_Data_Storage');
 
 switch ($actionID) {
 case Horde_Data::IMPORT_FILE:
-    $storage->get('import_cal', Horde_Util::getFormData('importCal'));
-    $storage->get('purge', Horde_Util::getFormData('purge'));
+    $storage->set('import_cal', Horde_Util::getFormData('importCal'));
+    $storage->set('purge', Horde_Util::getFormData('purge'));
     break;
 }
 
@@ -230,18 +230,14 @@ if ($GLOBALS['registry']->getAuth()) {
 }
 $export_calendars = Kronolith::listCalendars(Horde_Perms::READ, true);
 
-$menu = Kronolith::menu();
 $page_output->header(array(
     'title' => _("Import/Export Calendar")
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo $menu;
 $notification->notify(array('listeners' => 'status'));
 
-echo '<div id="page">';
 foreach ($templates[$next_step] as $template) {
     require $template;
 }
-echo '</div>';
 
 $page_output->footer();

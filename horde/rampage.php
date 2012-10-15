@@ -44,6 +44,10 @@ request processing steps:
 - write response
 
 add filtered requests/blue_filter port to Horde?
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/lib/Application.php';

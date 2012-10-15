@@ -87,7 +87,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
                 $note = $this->_getData()->getObject($noteId);
                 return $this->_buildNote($note, $passphrase);
             } else {
-                throw new Horde_Exception_NotFound(_("Not Found"));
+                throw new Horde_Exception_NotFound();
             }
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
@@ -128,7 +128,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
             'uid' => $noteId,
             'summary' => $desc,
             'body' => $body,
-            'categories' => $category,
+            'categories' => array($category),
         );
         try {
             $this->_getData()->create($object);
@@ -157,7 +157,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
                     'uid' => $noteId,
                     'summary' => $desc,
                     'body' => $body,
-                    'categories' => $category,
+                    'categories' => array($category),
                 )
             );
         } catch (Horde_Kolab_Storage_Exception $e) {
@@ -182,6 +182,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
                 $noteId,
                 $GLOBALS['mnemo_shares']->getShare($newNotepad)->get('folder')
             );
+            $this->_getDataForNotepad($newNotepad)->synchronize();
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
         }
@@ -216,8 +217,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     protected function _deleteAll()
     {
         try {
-            $this->_retrieve();
-            $ids = array_keys($this->_memos);
+            $ids = $this->_getData()->getObjectIds();
             $this->_getData()->deleteAll();
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
@@ -264,9 +264,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
                     'Failed retrieving Kolab data for notepad %s: %s',
                     $notepad,
                     $e->getMessage()
-                ),
-                0,
-                $e
+                )
             );
         }
     }
@@ -281,20 +279,11 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     protected function _buildNote($note, $passphrase = null)
     {
-        $note['memolist_id'] = $this->_notepad;
-        $note['memo_id'] = $note['uid'];
-
-        $note['category'] = $note['categories'];
-        unset($note['categories']);
-
-        $note['desc'] = $note['summary'];
-        unset($note['summary']);
-
-        $note['encrypted'] = false;
+        $encrypted = false;
         $body = $note['body'];
 
         if (strpos($body, '-----BEGIN PGP MESSAGE-----') === 0) {
-            $note['encrypted'] = true;
+            $encrypted = true;
             if (empty($passphrase)) {
                 $passphrase = Mnemo::getPassphrase($note['memo_id']);
             }
@@ -302,17 +291,22 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
                 $body = new Mnemo_Exception(_("This note has been encrypted."), Mnemo::ERR_NO_PASSPHRASE);
             } else {
                 try {
-                    $body = $this->_decrypt($body, $passphrase);
-                    $body = $body->message;
+                    $body = $this->_decrypt($body, $passphrase)->message;
                 } catch (Mnemo_Exception $e) {
                     $body = $e;
                 }
-                Mnemo::storePassphrase($row['memo_id'], $passphrase);
+                Mnemo::storePassphrase($note['uid'], $passphrase);
             }
         }
-        $note['body'] = $body;
 
-        return $note;
+        return array(
+            'memolist_id' => $this->_notepad,
+            'memo_id' => $note['uid'],
+            'category' => empty($note['categories']) ? '' : $note['categories'][0],
+            'desc' => $note['summary'],
+            'encrypted' => $encrypted,
+            'body' => $body,
+        );
     }
 
     /**

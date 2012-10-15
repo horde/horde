@@ -171,7 +171,7 @@ class Horde_Vfs_Kolab extends Horde_Vfs_Base
             }
         }
 
-        list($app, $uid) = $this->_getAppUid($path . '/' . $name);
+        list($app,) = $this->_getAppUid($path . '/' . $name);
         if ($app) {
             /**
              * Objects provide no real folders and we don't delete them.
@@ -380,7 +380,7 @@ class Horde_Vfs_Kolab extends Horde_Vfs_Base
 
         $file = $files = array();
 
-        foreach ($parts as $part_id => $disposition) {
+        foreach (array_keys($parts) as $part_id) {
             $part = $mime_message->getPart($part_id);
 
             $filename = $part->getDispositionParameter('filename');
@@ -427,9 +427,7 @@ class Horde_Vfs_Kolab extends Horde_Vfs_Base
         $mime_message = Horde_Mime_Part::parseMessage($raw_message);
         $parts = $mime_message->contentTypeMap();
 
-        $owner = $GLOBALS['registry']->getAuth();
-
-        foreach ($parts as $part_id => $disposition) {
+        foreach (array_keys($parts) as $part_id) {
             $part = $mime_message->getPart($part_id);
 
             $f = $part->getDispositionParameter('filename');

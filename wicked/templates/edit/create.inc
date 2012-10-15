@@ -43,8 +43,8 @@
    ?>
   </select>
 
-  <input class="button" type="submit" value="<?php echo _("Create") ?>" />
-  <a class="button" href="#" onclick="window.history.back();"><?php echo _("Cancel") ?></a>
+  <input class="horde-create" type="submit" value="<?php echo _("Create") ?>" />
+  <a class="horde-cancel" href="#" onclick="window.history.back();"><?php echo _("Cancel") ?></a>
   <?php echo Horde_Help::link('wicked', 'Templates') ?>
  </p>
 </div>

@@ -1132,7 +1132,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
         } else {
             $sql = 'INSERT INTO ' . $this->_syncCacheTable
-                . '(cache_data, cache_devid, cache_user) VALUES (?, ?, ?)';
+                . ' (cache_data, cache_devid, cache_user) VALUES (?, ?, ?)';
             try {
                 $this->_db->insert(
                     $sql,

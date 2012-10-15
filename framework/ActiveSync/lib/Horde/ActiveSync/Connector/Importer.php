@@ -176,6 +176,8 @@ class Horde_ActiveSync_Connector_Importer
             if ($collection != Horde_ActiveSync::CLASS_EMAIL) {
                 $conflict = $this->_isConflict(
                     Horde_ActiveSync::CHANGE_TYPE_DELETE, $this->_folderId, $ids);
+            } else {
+                $conflict = false;
             }
 
             // Update client state
@@ -238,7 +240,23 @@ class Horde_ActiveSync_Connector_Importer
      */
     public function importMessageMove(array $uids, $dst)
     {
-        return $this->_backend->moveMessage($this->_folderId, $uids, $dst);
+        $results = $this->_backend->moveMessage($this->_folderId, $uids, $dst);
+
+        // Update client state. For MOVES, we treat it as a delete from the
+        // DST folder.
+        foreach ($uids as $uid) {
+            $change = array();
+            $change['id'] = $uid;
+            $change['mod'] = time();
+            $change['parent'] = $this->_folderId;
+            $this->_state->updateState(
+                Horde_ActiveSync::CHANGE_TYPE_DELETE,
+                $change,
+                Horde_ActiveSync::CHANGE_ORIGIN_PIM,
+                $this->_backend->getUser());
+        }
+
+        return $results;
     }
 
     /**

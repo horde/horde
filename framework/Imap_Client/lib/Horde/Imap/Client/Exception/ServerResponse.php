@@ -15,27 +15,39 @@
 class Horde_Imap_Client_Exception_ServerResponse extends Horde_Imap_Client_Exception
 {
     /**
-     * The server error response.
+     * The command that caused the BAD/NO error status.
      *
      * @var string
      */
-    public $response;
+    public $command = null;
+
+    /**
+     * The server error status.
+     *
+     * @var integer
+     */
+    public $status;
 
     /**
      * Constructor.
      *
-     * @param string $msg       Error message.
-     * @param integer $code     Error code.
-     * @param string $response  Server error response code.
-     * @param string $errtext   Server error text.
+     * @param string $msg      Error message.
+     * @param integer $code    Error code.
+     * @param integer $status  Server error status.
+     * @param string $errtext  Server error text.
+     * @param string $errcmd   The command that caused the error.
      */
-    public function __construct($msg = null, $code = 0, $response = '',
-                                $errtext = null)
+    public function __construct($msg = null, $code = 0, $status = 0,
+                                $errtext = null, $errcmd = null)
     {
-        $this->response = $response;
+        $this->status = $status;
 
         if (!is_null($errtext)) {
             $this->details = $errtext;
+        }
+
+        if (!is_null($errcmd)) {
+            $this->command = $errcmd;
         }
 
         parent::__construct($msg, $code);

@@ -55,7 +55,6 @@ $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->header(array(
     'title' => $title
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/define.inc';
 $page_output->footer();

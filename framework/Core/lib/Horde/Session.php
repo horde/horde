@@ -12,10 +12,14 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
+ *
+ * @property integer $begin  The timestamp when this session began (0 if
+ *                           session is not active).
  */
 class Horde_Session
 {
     /* Class constants. */
+    const BEGIN = '_b';
     const DATA = '_d';
     const MODIFIED = '_m';
     const PRUNE = '_p';
@@ -91,6 +95,18 @@ class Horde_Session
     }
 
     /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'begin':
+            return $this->_active
+                ? $_SESSION[self::BEGIN]
+                : 0;
+        }
+    }
+
+    /**
      * Sets a custom session handler up, if there is one.
      *
      * @param boolean $start         Initiate the session?
@@ -124,7 +140,8 @@ class Horde_Session
             0,
             $conf['cookie']['path'],
             $conf['cookie']['domain'],
-            $conf['use_ssl'] == 1 ? 1 : 0
+            $conf['use_ssl'] == 1 ? 1 : 0,
+            true
         );
         session_cache_limiter(is_null($cache_limiter) ? $conf['session']['cache_limiter'] : $cache_limiter);
         session_name(urlencode($conf['session']['name']));
@@ -165,8 +182,12 @@ class Horde_Session
      */
     private function _start()
     {
+        $curr_time = time();
+
         /* Create internal data arrays. */
         if (!isset($_SESSION[self::MODIFIED])) {
+            $_SESSION[self::BEGIN] = $curr_time;
+
             /* Last modification time of session.
              * This will cause the check below to always return true
              * (time() >= 0) and will set the initial value. */
@@ -181,7 +202,6 @@ class Horde_Session
          * new timestamp. Why half the maxlifetime?  It guarantees that if
          * we are accessing the server via a periodic mechanism (think
          * folder refreshing in IMP) that we will catch this refresh. */
-        $curr_time = time();
         if ($curr_time >= $_SESSION[self::MODIFIED]) {
             $_SESSION[self::MODIFIED] = intval($curr_time + (ini_get('session.gc_maxlifetime') / 2));
             $this->sessionHandler->changed = true;

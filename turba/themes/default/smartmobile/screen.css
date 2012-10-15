@@ -1,0 +1,10 @@
+/* Entry page. */
+.turba-entry-label {
+    background-color: #ddd;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding: 4px;
+}
+.turba-entry-value {
+    margin: 0 0 15px 20px;
+}

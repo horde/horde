@@ -1059,8 +1059,6 @@ HermesCore = {
                 button.title = Hermes.text.alerts;
                 button.removeClassName('hermesClose');
             }
-            Horde_ToolTips.detach(button);
-            Horde_ToolTips.attach(button);
         }.bindAsEventListener(this));
 
         /* Catch notification actions. */

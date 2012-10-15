@@ -12,7 +12,7 @@ class Turba_Form_Contact extends Turba_Form_ContactBase
      */
     public function __construct($vars, Turba_Object $contact, $tabs = true, $title = null)
     {
-        global $conf, $notification;
+        global $injector, $notification;
 
         if (is_null($title)) {
             $title = 'Turba_View_Contact';
@@ -22,7 +22,7 @@ class Turba_Form_Contact extends Turba_Form_ContactBase
         /* Get the values through the Turba_Object class. */
         $object = array();
 
-        foreach ($contact->driver->getCriteria() as $info_key => $info_val) {
+        foreach (array_keys($contact->driver->getCriteria()) as $info_key) {
             $object[$info_key] = $contact->getValue($info_key);
         }
         $vars->set('object', $object);
@@ -30,7 +30,7 @@ class Turba_Form_Contact extends Turba_Form_ContactBase
         $this->_addFields($contact, $tabs);
 
         /* List files. */
-        $v_params = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->getConfig('documents');
+        $v_params = $injector->getInstance('Horde_Core_Factory_Vfs')->getConfig('documents');
         if ($v_params['type'] != 'none') {
             try {
                 $files = $contact->listFiles();

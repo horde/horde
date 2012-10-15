@@ -56,7 +56,6 @@ $view = new Horde_View(array('templatePath' => ULAFORM_TEMPLATES));
 $view->main = $main;
 
 $page_output->header();
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('main');
 $page_output->footer();

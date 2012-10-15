@@ -40,8 +40,8 @@
   <td>
   </td>
   <td>
-    <input type="submit" class="button" value="<?php echo _("Add") ?>">
-    <input type="button" class="button" value="<?php echo _("Cancel") ?>" onclick="<?php echo Horde_Util::getFormData('popup') ? 'window.close();' : 'window.history.go(-1);'; ?>" />
+    <input type="submit" class="horde-default" value="<?php echo _("Add") ?>">
+    <input type="button" class="horde-cancel" value="<?php echo _("Cancel") ?>" onclick="<?php echo Horde_Util::getFormData('popup') ? 'window.close();' : 'window.history.go(-1);'; ?>" />
   </td>
 </tr>
 

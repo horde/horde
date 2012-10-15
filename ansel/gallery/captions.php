@@ -69,7 +69,6 @@ case 'save':
 $page_output->header(array(
     'title' => _("Caption Editor")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/captions/captions.inc';
 $page_output->footer();

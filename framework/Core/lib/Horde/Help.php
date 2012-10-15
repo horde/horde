@@ -123,9 +123,11 @@ class Horde_Help
     }
 
     /**
-     * Process a help node
-     * @param SimpleXMLElement An XML help node representation
-     * @return string an output string with HTML
+     * Process a help node.
+     *
+     * @param SimpleXMLElement $node  An XML help node representation
+     *
+     * @return string  HTML string.
      */
     protected function _processNode($node)
     {
@@ -144,9 +146,11 @@ class Horde_Help
                     'topic'  => $child->attributes()->entry
                 ))) . strval($child) . '</a>';
                 break;
+
             case 'text':
                 $out .= strval($child);
                 break;
+
             case 'eref':
                 $out .= Horde::link($child->attributes()->url, null, '', '_blank') . strval($child) . '</a>';
                 break;
@@ -231,7 +235,7 @@ class Horde_Help
      */
     static public function link($module, $topic)
     {
-        if (!Horde_Menu::showService('help')) {
+        if (!$GLOBALS['registry']->showService('help')) {
             return '';
         }
 

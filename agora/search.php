@@ -58,7 +58,6 @@ if ($form->isSubmitted() || $thread_page != null) {
     $view->searchResults = $searchResults['results'];
 }
 
-$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));

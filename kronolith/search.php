@@ -79,8 +79,7 @@ if ($search_mode == 'basic') {
     }
     foreach ($GLOBALS['all_external_calendars'] as $id => $cal) {
         $app = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($cal->api()));
-        if (!empty($GLOBALS['conf']['share']['hidden']) &&
-            !in_array($id, $GLOBALS['display_external_calendars'])) {
+        if (!$cal->display()) {
             continue;
         }
         $calendars[$app . ':']['Horde|external_' . $id] = $cal->name();
@@ -105,13 +104,11 @@ if ($search_mode == 'basic') {
     $page_output->addScriptFile('edit.js');
 }
 
-$menu = Kronolith::menu();
 $page_output->addScriptFile('tooltips.js', 'horde');
 $page_output->header(array(
     'title' => _("Search")
 ));
 require KRONOLITH_TEMPLATES . '/javascript_defs.php';
-echo $menu;
 $notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';
@@ -139,5 +136,4 @@ if (!is_null($events)) {
 }
 
 echo '</div>';
-require KRONOLITH_TEMPLATES . '/panel.inc';
 $page_output->footer();

@@ -10,12 +10,13 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 // Get text, uppercase, add start/stop characters.
 $text = '*' . Horde_String::upper($vars->get('barcode', 'test'), true, 'UTF-8') . '*';

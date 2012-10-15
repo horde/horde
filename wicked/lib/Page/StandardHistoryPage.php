@@ -55,7 +55,7 @@ class Wicked_Page_StandardHistoryPage extends Wicked_Page_StandardPage {
 
     public function pageUrl($linkpage = null, $actionId = null)
     {
-        return Horde_Util::addParameter(parent::pageUrl($linkpage, $actionId), 'version', $this->version());
+        return parent::pageUrl($linkpage, $actionId)->add('version', $this->version());
     }
 
 }

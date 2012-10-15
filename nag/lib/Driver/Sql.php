@@ -71,12 +71,13 @@ class Nag_Driver_Sql extends Nag_Driver
         }
 
         if (!is_array($taskIds)) {
-            return new Nag_Task($this, $this->_buildTask(current($rows)));
-        }
-
-        $results = new Nag_Task();
-        foreach ($rows as $row) {
-            $results->add(new Nag_Task($this, $this->_buildTask($row)));
+            $results = new Nag_Task($this, $this->_buildTask(current($rows)));
+            $this->_tasklist = $results->tasklist;
+        } else {
+            $results = new Nag_Task();
+            foreach ($rows as $row) {
+                $results->add(new Nag_Task($this, $this->_buildTask($row)));
+            }
         }
 
         return $results;
@@ -181,7 +182,7 @@ class Nag_Driver_Sql extends Nag_Driver
                         (int)$task['start'],
                         (int)$task['due'],
                         (int)$task['priority'],
-                        number_format($task['estimate'], 2),
+                        number_format(floatval($task['estimate']), 2),
                         (int)$task['completed'],
                         (int)$task['alarm'],
                         serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
@@ -538,36 +539,6 @@ class Nag_Driver_Sql extends Nag_Driver
         }
 
         return $tasks;
-    }
-
-    /**
-     * Helper function to update an existing event's tags to tagger storage.
-     *
-     * @param array $task  The task to update
-     */
-    protected function _updateTags(array $task)
-    {
-        Nag::getTagger()->replaceTags(
-            $task['uid'],
-            $task['tags'],
-            $task['owner'],
-            'task'
-        );
-    }
-
-    /**
-     * Helper function to add tags from a newly creted event to the tagger.
-     *
-     * @param array $task  The task to save tags to storage for.
-     */
-    protected function _addTags(array $task)
-    {
-        Nag::getTagger()->tag(
-            $task['uid'],
-            $task['tags'],
-            $task['owner'],
-            'task'
-        );
     }
 
     /**

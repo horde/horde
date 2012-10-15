@@ -37,7 +37,7 @@ function Horde_Form_Sections(instanceName, openSection)
         s = document.getElementById(this._instanceName + '_section_' + sectionId);
         if (s) {
             s.style.display = '';
-            document.getElementById(this._instanceName + '_tab_' + sectionId).className = 'activeTab';
+            document.getElementById(this._instanceName + '_tab_' + sectionId).className = 'horde-active';
         }
 
         /* Store the newly opened section. */

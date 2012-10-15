@@ -129,7 +129,7 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
     protected function _updateEvent(Kronolith_Event $event)
     {
         if (!isset($this->api)) {
-            list($this->api, $category) = explode('/', $this->calendar, 2);
+            list($this->api,) = explode('/', $this->calendar, 2);
         }
         try {
             $this->_params['registry']->call($this->api . '/saveTimeObject', array($event->toTimeobject()));

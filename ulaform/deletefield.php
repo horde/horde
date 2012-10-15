@@ -60,7 +60,6 @@ $fieldform->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('deletefie
 $view->main = Horde::endBuffer();
 
 $page_output->header();
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render('main');
 $page_output->footer();

@@ -140,7 +140,7 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
         $newAttributes = $vevent->getAllAttributes();
         foreach ($newAttributes as $newAttribute) {
             try {
-                $currentValue = $this->getAttribute($newAttribute['name']);
+                $this->getAttribute($newAttribute['name']);
             } catch (Horde_Icalendar_Exception $e) {
                 // Already exists so just add it.
                 $this->setAttribute($newAttribute['name'],
@@ -198,7 +198,7 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
             }
 
             try {
-                $currentValue = $this->getAttribute($newAttribute['name']);
+                $this->getAttribute($newAttribute['name']);
             } catch (Horde_Icalendar_Exception $e) {
                 // Already exists so just add it.
                 $this->setAttribute($newAttribute['name'],

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem H5 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,11 +70,11 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: templates/javascript_defs.php:21
+#: templates/javascript_defs.php:20
 msgid "Are you sure you wish to continue?"
 msgstr ""
 
-#: templates/javascript_defs.php:19
+#: templates/javascript_defs.php:18
 msgid "Are you sure?"
 msgstr ""
 
@@ -126,7 +126,7 @@ msgstr ""
 msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
 msgstr ""
 
-#: manager.php:321 templates/javascript_defs.php:16
+#: manager.php:321 templates/javascript_defs.php:15
 msgid "Change Folder"
 msgstr ""
 
@@ -174,7 +174,7 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: manager.php:314 templates/javascript_defs.php:17
+#: manager.php:314 templates/javascript_defs.php:16
 msgid "Create Folder"
 msgstr ""
 
@@ -235,7 +235,7 @@ msgstr ""
 msgid "Execute"
 msgstr ""
 
-#: templates/javascript_defs.php:22 templates/manager/manager.html:168
+#: templates/javascript_defs.php:21 templates/manager/manager.html:168
 msgid "File"
 msgstr ""
 
@@ -381,23 +381,23 @@ msgstr ""
 msgid "Permission denied to this backend."
 msgstr ""
 
-#: templates/javascript_defs.php:23
+#: templates/javascript_defs.php:22
 msgid "Permissions"
 msgstr ""
 
-#: templates/javascript_defs.php:13
+#: templates/javascript_defs.php:12
 msgid "Please provide your password."
 msgstr ""
 
-#: templates/javascript_defs.php:12
+#: templates/javascript_defs.php:11
 msgid "Please provide your username."
 msgstr ""
 
-#: templates/javascript_defs.php:25
+#: templates/javascript_defs.php:24
 msgid "Please select an item before this action."
 msgstr ""
 
-#: templates/javascript_defs.php:26
+#: templates/javascript_defs.php:25
 msgid "Please specify at least one file to upload."
 msgstr ""
 
@@ -413,7 +413,7 @@ msgstr ""
 msgid "Refresh"
 msgstr ""
 
-#: templates/javascript_defs.php:24 templates/manager/manager.html:83
+#: templates/javascript_defs.php:23 templates/manager/manager.html:83
 msgid "Rename"
 msgstr ""
 
@@ -469,15 +469,15 @@ msgstr ""
 msgid "The application folder can not be deleted."
 msgstr ""
 
-#: templates/javascript_defs.php:20
+#: templates/javascript_defs.php:19
 msgid "The following item(s) are folders:"
 msgstr ""
 
-#: templates/javascript_defs.php:18
+#: templates/javascript_defs.php:17
 msgid "The following items will be permanently deleted:"
 msgstr ""
 
-#: templates/javascript_defs.php:29
+#: templates/javascript_defs.php:28
 msgid "The original opener window has been closed. Exiting."
 msgstr ""
 

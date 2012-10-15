@@ -340,7 +340,8 @@ var ImpMailbox = {
 
         if (elt.match('TH') &&
             elt.up('TABLE.messageList') &&
-            !e.memo.element().match('A')) {
+            !e.memo.element().match('A') &&
+            elt.down('A')) {
             document.location.href = elt.down('A').href;
             e.memo.hordecore_stop = true;
         }

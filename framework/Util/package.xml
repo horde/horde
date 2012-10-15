@@ -17,10 +17,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>23:48:05</time>
+ <date>2012-10-12</date>
+ <time>21:00:39</time>
  <version>
-  <release>2.0.0beta2</release>
+  <release>2.0.0RC1</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -81,13 +81,6 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
-   <package>
-    <name>Horde_Url</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
    <extension>
     <name>dom</name>
    </extension>
@@ -495,7 +488,21 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Remove Horde_Util::addParameter() and Horde_Util::removeParameter().
+* [mms] Remove Horde_Util::cloneObject().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC1</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

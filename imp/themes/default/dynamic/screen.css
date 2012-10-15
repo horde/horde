@@ -39,11 +39,9 @@ input {
 
 /* Splitbar styles. */
 #msgSplitPane {
+    border-bottom: 1px solid #d0d0d0;
     overflow: hidden;
     width: auto;
-}
-#msgSplitPane .horde-splitbar-vert, #previewPane {
-    border-bottom: 1px solid #d0d0d0;
 }
 .horde-splitbar-horiz {
     height: 7px;
@@ -74,14 +72,12 @@ input {
     float:right;
     background-position: center left;
 }
-.horde-table-header .horde-popdown {
-    margin-top: -4px;
-}
 
 /* Columns */
 div.msgStatus {
     padding-left: 10px;
     width: 70px;
+    text-decoration: none !important;
     text-indent: 0 !important;
 }
 div.msgFrom {
@@ -92,24 +88,24 @@ div.msgSubject {
     left: 240px;
     right: 225px;
 }
-#msglistHeaderHoriz div.msgSubject {
-    right: auto;
-    overflow: visible;
-}
 div.msgDate {
     text-align: right;
     right: 85px;
     width: 130px;
-}
-#msglistHeaderHoriz div.msgDate {
-    padding-right: 20px;
-    width: 110px;
 }
 div.msgSize {
     text-align: right;
     right: 0;
     width: 50px;
     padding-right: 25px;
+}
+
+#msglistHeaderContainer .horde-popdown {
+    display: -moz-inline-stack;
+    display: inline-block;
+    float: none;
+    margin-bottom: -8px;
+    margin-top: -4px;
 }
 
 /* Message List Header and Column Header */
@@ -168,9 +164,6 @@ div.vpRowHoriz div.sep {
 }
 div.vpRowHoriz div.sep.sortup, div.vpRowHoriz div.sep.sortdown {
     background-position: left center;
-}
-#msglistHeaderHoriz div.horde-popdown {
-    margin-right: -22px;
 }
 
 /* Rows: flags. */
@@ -306,20 +299,26 @@ div.vpRowVert div.msgSubject span.flagUser {
     background-image: url("../graphics/sbcursor_bottom.png");
     border-bottom: 1px solid #d0d0d0;
 }
+#slider_count {
+    background-color: #ECEFF0;
+    font-weight: bold;
+    padding: 2px;
+    position: absolute;
+    opacity: 0.85;
+}
 
 /* IFRAMEs */
-.iframe {
+#dimpmain_iframe iframe {
     border: 0;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
     width: 100%;
 }
 
 /* Sidebar */
 #foldersLoading {
     padding: 10px;
+}
+#horde-sidebar .horde-info {
+    display: none;
 }
 #ctx_mbox_sub span.iconImg, #ctx_mbox_unsub span.iconImg, #ctx_folderopts_sub span.iconImg, #ctx_folderopts_unsub span.iconImg, .folderoptsImg {
     background-image: url("../graphics/folders/folder.png");
@@ -349,11 +348,6 @@ div.vpRowVert div.msgSubject span.flagUser {
 }
 .horde-subnavi-icon.col, .horde-subnavi-icon.exp {
     cursor: pointer;
-}
-#sidebar .over a, #sidebar li.mbox:hover, #sidebar li.custom:hover, #sidebar li.servicelink:hover {
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: underline;
 }
 
 #folderopts a, #dropbase a {
@@ -559,6 +553,14 @@ div.dimpActionsMsg #windowclose {
 .msgfullread div.messageBody {
     overflow: auto;
 }
+.msgfullread div.subject {
+    font-size: 120%;
+    font-weight: bold;
+    max-height: 50px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 8px;
+}
 
 /* Message Composition. */
 .composeAddrbook, #togglebcc, #togglecc {
@@ -649,6 +651,7 @@ div.dimpActionsMsg #windowclose {
     padding: 5px;
 }
 #composeMessage {
+    background-color: #fff;
     border: none;
     margin: 0;
     padding: 0;
@@ -721,17 +724,18 @@ span.attachmentImg {
 }
 
 /* Email Addresses. */
-a.address {
-    cursor: pointer;
-    white-space: nowrap;
+.msgHeaders .horde-button {
+    padding: 1px 3px;
+    margin: -2px 1px 0 0;
 }
-a.address img {
-    display: none;
-    vertical-align: top;
+.msgHeaders a.addrgroup-name {
+    font-weight: bold;
 }
-a.address:hover img {
-    display: inline;
-    padding-left: 4px;
+.msgHeaders div.addrgroup-div {
+    background-color: #aaa;
+    display: -moz-inline-stack;
+    display: inline-block;
+    padding: 4px 2px 3px;
 }
 
 /* Drag and drop styles. */
@@ -757,12 +761,6 @@ a.address:hover img {
 
 #filter {
     float: right;
-}
-
-#mailboxLabel {
-    float: right;
-    margin-left: 20px;
-    white-space: nowrap;
 }
 
 #searchbar {
@@ -894,10 +892,10 @@ span.logoutIcon {
 #ctx_message_undelete span.iconImg, #ctx_oa_undelete span.iconImg {
     background-image: url("../graphics/undelete.png");
 }
-#ctx_message_view span.iconImg, span.iconImg.flagSeen {
+#ctx_message_view span.iconImg, span.iconImg.flagSeen, #ctx_mbox_flag_seen span.iconImg {
     background-image: url("../graphics/seen.png");
 }
-#ctx_mbox_poll span.iconImg, #ctx_mbox_nopoll span.iconImg {
+#ctx_mbox_poll span.iconImg, #ctx_mbox_nopoll span.iconImg, #ctx_mbox_flag_unseen span.iconImg {
     background-image: url("../graphics/unseen.png");
 }
 #ctx_message_setflag span.iconImg, #ctx_oa_setflag span.iconImg, #ctx_mbox_setflag span.iconImg, span.iconImg.flagFlagged {
@@ -981,10 +979,13 @@ div.vpRow div.msgSubject span.flagUser {
     font-size: 90%;
     font-weight: normal;
     margin-right: 3px;
+    padding: 1px;
+    position: relative;
+    top: -2px;
 }
 
 /* Thread images */
-div.msgSubject span.treeImg {
+div.msgSubject span.horde-tree-image {
     margin-top: -4px;
     margin-right: 1px;
 }
@@ -1001,16 +1002,18 @@ div.msgSubject span.treeImg {
 #th_expand, #partlist_col, #msgloglist_col {
     background-image: url("../graphics/arrow_collapsed.png");
     cursor: pointer;
-    margin-right: 0;
+    margin: 2px 0 -2px;
 }
 #th_collapse, #partlist_exp, #msgloglist_exp {
     background-image: url("../graphics/arrow_expanded.png");
     cursor: pointer;
-    margin-right: 0;
+    margin: 2px 0 -2px;
 }
 
 #th_collapse, #th_expand {
     float: left;
+    margin-bottom: -2px;
+    margin-top: 2px;
 }
 
 span.popdownImg, span.spellcheckPopdownImg {

@@ -62,13 +62,8 @@ $images = array('delete' => Horde::img('delete.png', _("Delete User")),
                 'edit' => Horde::img('edit.png', _("Edit User")));
 $template->set('images', $images);
 
-$template->set('menu', Horde::menu());
-
-Horde::startBuffer();
-$notification->notify(array('listeners' => 'status'));
-$template->set('notify', Horde::endBuffer());
-
 /* Render the page. */
 $page_output->header();
+$notification->notify(array('listeners' => 'status'));
 echo $template->fetch(VILMA_TEMPLATES . '/virtuals/index.html');
 $page_output->footer();

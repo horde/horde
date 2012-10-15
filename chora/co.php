@@ -67,13 +67,13 @@ if (!$plain) {
         $data = reset($data);
         $rendered = '<div class="fixed">' . $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($data['data'], 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) . '</div>';
     } elseif (strpos($mime_type, 'image/') !== false) {
-        $rendered = Horde::img(Horde_Util::addParameter(Horde::selfUrl(true), 'p', 1), '', '', '');
+        $rendered = Horde::img(Horde::selfUrl(true)->add('p', 1), '', '', '');
     } elseif ($pretty->canRender('inline')) {
         $data = $pretty->render('inline');
         $data = reset($data);
         $rendered = $data['data'];
     } else {
-        $rendered = Horde::link(Horde_Util::addParameter(Horde::selfUrl(true), 'p', 1)) . Horde::img('download.png') . ' ' . sprintf(_("Download revision %s"), $r) . '</a>';
+        $rendered = Horde::link(Horde::selfUrl(true)->add('p', 1)) . Horde::img('download.png') . ' ' . sprintf(_("Download revision %s"), $r) . '</a>';
     }
 
     /* Get this revision's attributes in printable form. */
@@ -85,12 +85,12 @@ if (!$plain) {
                      Chora::readableTime($log->getDate(), true));
 
     $views = array(
-        Horde::widget(Chora::url('annotate', $where, array('rev' => $r)), _("Annotate"), 'widget', '', '', _("_Annotate")),
-        Horde::widget(Chora::url('co', $where, array('r' => $r, 'p' => 1)), _("Download"), 'widget', '', '', _("_Download"))
+        Horde::widget(array('url' => Chora::url('annotate', $where, array('rev' => $r)), 'title' => _("_Annotate"))),
+        Horde::widget(array('url' => Chora::url('co', $where, array('r' => $r, 'p' => 1)), 'title' => _("_Download")))
     );
     if ($VC->hasFeature('snapshots')) {
         $snapdir = dirname($file->getPath());
-        $views[] = Horde::widget(Chora::url('browsedir', $snapdir == '.' ? '' : $snapdir . '/', array('onb' => $r)), _("Snapshot"), 'widget', '', '', _("_Snapshot"));
+        $views[] = Horde::widget(array('url' => Chora::url('browsedir', $snapdir == '.' ? '' : $snapdir . '/', array('onb' => $r)), 'title' => _("_Snapshot")));
     }
     $extraLink = _("View:") . ' ' . implode(' | ', $views);
 

@@ -19,29 +19,27 @@ separator(true);
 
 if ($this->allows(Wicked::MODE_EDIT) && !$this->isLocked(Wicked::lockUser())) {
     separator();
-    $url = Horde_Util::addParameter(Wicked::url('EditPage'),
-                              'referrer', $this->pageName());
-    echo Horde::widget($url, sprintf(_("Edit %s"), $this->pageName()),
-                       'widget', '', '', _("_Edit"));
+    echo Horde::widget(array(
+        'url' => Wicked::url('EditPage')->add('referrer', $this->pageName()),
+        'title' => _("_Edit")
+    ));
 }
 
 if ($this->isLocked()) {
     if ($this->allows(Wicked::MODE_UNLOCKING)) {
         separator();
-        echo Horde::widget(Horde_Util::removeParameter(
-                               $this->pageUrl(null, 'unlock'),
-                               'version'),
-                           sprintf(_("Unlock %s"), $this->pageName()),
-                           'widget', '', '', _("Un_lock"));
+        echo Horde::widget(array(
+            'url' => $this->pageUrl(null, 'unlock')->remove('version'),
+            'title' => _("Un_lock")
+        ));
     }
 } else {
     if ($this->allows(Wicked::MODE_LOCKING)) {
         separator();
-        echo Horde::widget(Horde_Util::removeParameter(
-                               $this->pageUrl(null, 'lock'),
-                               'version'),
-                           sprintf(_("Lock %s"), $this->pageName()),
-                           'widget', '', '', _("_Lock"));
+        echo Horde::widget(array(
+            'url' => $this->pageUrl(null, 'lock')->remove('version'),
+            'title' => _("_Lock")
+        ));
     }
 }
 
@@ -51,60 +49,64 @@ if ($this->allows(Wicked::MODE_REMOVE)) {
     if ($this->isOld()) {
         $params['version'] = $this->version();
     }
-    $url = Horde_Util::addParameter(Wicked::url('DeletePage'), $params);
-    echo Horde::widget($url, sprintf(_("Delete %s"), $this->pageName()),
-                       'widget', '', '', _("_Delete"));
+    echo Horde::widget(array(
+        'url' => Wicked::url('DeletePage')->add($params),
+        'title' => _("_Delete")
+    ));
 }
 
 if ($this->allows(Wicked::MODE_REMOVE) && !$this->isLocked(Wicked::lockUser())) {
     separator();
-    $url = Horde_Util::addParameter(Wicked::url('MergeOrRename'),
-                              'referrer', $this->pageName());
-    echo Horde::widget($url, _("Merge/Rename"), 'widget', '', '',
-                       _("_Merge/Rename"));
+    echo Horde::widget(array(
+        'url' => Wicked::url('MergeOrRename')->add('referrer', $this->pageName()),
+        'title' => _("_Merge/Rename")
+    ));
 }
 
 separator();
-$url = Horde_Util::addParameter(Wicked::url('BackLinks'),
-                          'referrer', $this->pageName());
-echo Horde::widget($url, _("Backlinks"), 'widget', '', '', _("_Backlinks"));
+echo Horde::widget(array(
+    'url' => Wicked::url('BackLinks')->add('referrer', $this->pageName()),
+    'title' => _("_Backlinks")
+));
 
 separator();
-$url = Horde_Util::addParameter(Wicked::url('LikePages'),
-                          'referrer', $this->pageName());
-echo Horde::widget($url, _("Similar Pages"), 'widget', '', '', _("S_imilar Pages"));
+echo Horde::widget(array(
+    'url' => Wicked::url('LikePages')->add('referrer', $this->pageName()),
+    'title' => _("S_imilar Pages")
+));
 
 separator();
-$url = Horde_Util::addParameter(Wicked::url('AttachedFiles'),
-                          'referrer', $this->pageName());
-echo Horde::widget($url, _("Attachments"), 'widget', '', '',
-                   _("Attachments"));
+echo Horde::widget(array(
+    'url' => Wicked::url('AttachedFiles')->add('referrer', $this->pageName()),
+    'title' => _("Attachments")
+));
 
 if ($this->allows(Wicked::MODE_HISTORY)) {
     separator();
-    echo Horde::widget(Horde_Util::removeParameter($this->pageUrl('history.php'),
-                                             'version'),
-                       sprintf(_("History of %s"), $this->pageName()),
-                       'widget', '', '', _("Hi_story"));
+    echo Horde::widget(array(
+        'url' => $this->pageUrl('history.php')->remove('version'),
+        'title' => _("Hi_story")
+    ));
 }
 
 if ($GLOBALS['registry']->isAdmin()) {
     separator();
-    $permsurl = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/perms/edit.php');
-    $permsurl = Horde_Util::addParameter(
-        $permsurl,
-        array('category' => 'wicked:pages:' . $this->pageId(),
-              'autocreate' => 1,
-              'autocreate_copy' => 'wicked',
-              'autocreate_guest' => Horde_Perms::SHOW | Horde_Perms::READ,
-              'autocreate_default' => Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT | Horde_Perms::DELETE));
-    echo Horde::widget($permsurl,
-                       sprintf(_("Set permissions for %s"), $this->pageName()),
-                       'widget', '_blank', '', _("Permissio_ns"));
+    $permsurl = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/perms/edit.php')
+        ->add(array(
+            'category' => 'wicked:pages:' . $this->pageId(),
+            'autocreate' => 1,
+            'autocreate_copy' => 'wicked',
+            'autocreate_guest' => Horde_Perms::SHOW | Horde_Perms::READ,
+            'autocreate_default' => Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT | Horde_Perms::DELETE));
+    echo Horde::widget(array(
+        'url' => $permsurl,
+        'target' => '_blank',
+        'title' => _("Permissio_ns")
+    ));
 }
 ?>
 <?php if (empty($isBlock) && $GLOBALS['session']->get('wicked', 'history')): ?>
-  <?php separator(); echo Horde::widget('#', _("Back to"), 'widget', '', 'document.location = document.display.history[document.display.history.selectedIndex].value;', _("Ba_ck to")) ?>
+  <?php separator(); echo Horde::widget(array('url' => '#', 'onclick' => 'document.location = document.display.history[document.display.history.selectedIndex].value;', 'title' => _("Ba_ck to"))) ?>
   <select name="history" onchange="document.location = document.display.history[document.display.history.selectedIndex].value">
 <?php foreach ($GLOBALS['session']->get('wicked', 'history') as $history): if (!strlen($history)) continue; ?>
    <option value="<?php echo Wicked::url($history) ?>"><?php echo htmlspecialchars($history) ?></option>
@@ -137,8 +139,8 @@ foreach ($attachments as $attachment) {
 
 <div id="pagefooter">
  <?php echo _("Download this page as:") ?>
- <a href="<?php echo Horde_Util::addParameter(Wicked::url($this->pageName()), array('actionID' => 'export', 'format' => 'plain')); ?>"><?php echo _("Plain Text") ?></a>,
- <a href="<?php echo Horde_Util::addParameter(Wicked::url($this->pageName()), array('actionID' => 'export', 'format' => 'html')); ?>"><?php echo _("HTML") ?></a>,
- <a href="<?php echo Horde_Util::addParameter(Wicked::url($this->pageName()), array('actionID' => 'export', 'format' => 'tex')); ?>"><?php echo _("Latex") ?></a>,
- <a href="<?php echo Horde_Util::addParameter(Wicked::url($this->pageName()), array('actionID' => 'export', 'format' => 'rst')); ?>"><?php echo _("reStructuredText") ?></a>
+ <a href="<?php echo Wicked::url($this->pageName())->add(array('actionID' => 'export', 'format' => 'plain')); ?>"><?php echo _("Plain Text") ?></a>,
+ <a href="<?php echo Wicked::url($this->pageName())->add(array('actionID' => 'export', 'format' => 'html')); ?>"><?php echo _("HTML") ?></a>,
+ <a href="<?php echo Wicked::url($this->pageName())->add(array('actionID' => 'export', 'format' => 'tex')); ?>"><?php echo _("Latex") ?></a>,
+ <a href="<?php echo Wicked::url($this->pageName())->add(array('actionID' => 'export', 'format' => 'rst')); ?>"><?php echo _("reStructuredText") ?></a>
 </div>

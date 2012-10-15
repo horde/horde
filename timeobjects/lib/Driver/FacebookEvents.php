@@ -56,10 +56,14 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
             $start->setTimezone('America/Los_Angeles');
             $end = new Horde_Date($event['end_time'], $tz);
             $end->setTimezone('America/Los_Angeles');
+            $title = $event['name'];
+            if (isset($event['tagline']) && strlen($event['tagline'])) {
+                $title .= ' - ' . $event['tagline'];
+            }
 
             $objects[] = array(
                 'id' => $event['eid'],
-                'title' => $event['name'] . (strlen($event['tagline']) ? ' - ' . $event['tagline'] : ''),
+                'title' => $title,
                 'start' => sprintf('%d-%02d-%02dT%02d:%02d:00',
                                    $start->year,
                                    $start->month,
@@ -79,7 +83,7 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
                 'status' => (empty($event['rsvp_status']) ? 'free' : $event['rsvp_status']),
                 'private' => $event['privacy'] == 'SECRET',
                 'icon' => $event['pic_square'],
-                'params' => array(),
+                'params' => array()
             );
         }
 

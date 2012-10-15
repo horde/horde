@@ -45,19 +45,26 @@ case 'save_image':
     exit;
 }
 
-/* Build the template. */
-$t = $injector->createInstance('Horde_Template');
-$t->setOption('gettext', true);
-$t->set('action', Horde::url('saveimage.php'));
-$t->set('id', htmlspecialchars($vars->id));
-$t->set('uid', htmlspecialchars($vars->uid));
-$t->set('mbox', htmlspecialchars($vars->mbox));
-$t->set('image_img', Horde::img('mime/image.png', _("Image")));
+/* Build the view. */
+$view = new Horde_View(array(
+    'templatePath' => IMP_TEMPLATES . '/saveimage'
+));
+$view->addHelper('Horde_Core_View_Helper_Image');
+$view->addHelper('Text');
 
-/* Build the list of galleries. */
-$t->set('gallerylist', $registry->images->selectGalleries(array('perm' => Horde_Perms::EDIT)));
+$view->action = Horde::url('saveimage.php');
+$view->gallerylist = $registry->images->selectGalleries(array('perm' => Horde_Perms::EDIT));
+$view->id = $vars->id;
+$view->mbox = $vars->mbox;
+$view->uid = $vars->uid;
+
+$page_output->topbar = $page_output->sidebar = false;
+
+$page_output->addInlineScript(array(
+    '$$("INPUT.horde-cancel").first().observe("click", function() { window.close(); })'
+), true);
 
 IMP::header(_("Save Image"));
 IMP::status();
-echo $t->fetch(IMP_TEMPLATES . '/saveimage/saveimage.html');
+echo $view->render('saveimage');
 $page_output->footer();

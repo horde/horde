@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Klutz 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2011-08-02 15:50+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: comics.php:307 templates/comics/comic.inc:5 templates/comics/comic.inc:8
-#: templates/comics/main.inc:45 templates/comics/missing.inc:5
+#: templates/comics/main.inc:42 templates/comics/missing.inc:5
 #: templates/comics/missing.inc:8
 #, php-format
 msgid "%s by %s"
@@ -37,7 +37,7 @@ msgstr "Alle Comics"
 msgid "All Dates"
 msgstr "Alle Daten"
 
-#: backend.php:259
+#: backend.php:255
 #, php-format
 msgid "An error occurred removing %s for %s<br />\n"
 msgstr "Beim Entfernen von %s für %s ist ein Fehler aufgetreten<br />\n"
@@ -62,11 +62,11 @@ msgstr "Wählen Sie die Comics, die angezeigt werden sollen."
 msgid "Comics"
 msgstr "Comics"
 
-#: backend.php:129 backend.php:140
+#: backend.php:127 backend.php:137
 msgid "Comics Update"
 msgstr "Comics-Aktualisierung"
 
-#: backend.php:258
+#: backend.php:254
 #, php-format
 msgid "Could not find %s for %s<br />\n"
 msgstr "Konnte %s von %s nicht finden<br />\n"
@@ -99,7 +99,7 @@ msgstr "Anzeige-Einstellungen"
 msgid "Don't check for uniqueness"
 msgstr "Nicht auf Duplikate überprüfen"
 
-#: backend.php:228
+#: backend.php:224
 msgid "Done"
 msgstr "Fertig"
 
@@ -111,7 +111,7 @@ msgstr "Geben Sie eine Beschreibung für diesen Comic ein"
 msgid "Enter any tags for this image"
 msgstr "Geben Sie Tags für dieses Bild ein"
 
-#: backend.php:234
+#: backend.php:230
 msgid "Error storing the image"
 msgstr "Fehler beim Speichern des Bildes"
 
@@ -123,12 +123,12 @@ msgstr "Herunterladen"
 msgid "Fetch Comics"
 msgstr "Comics herunterladen"
 
-#: backend.php:212
+#: backend.php:208
 #, php-format
 msgid "Fetching %s for date %s..."
 msgstr "Lade %s vom %s herunter..."
 
-#: backend.php:230
+#: backend.php:226
 #, php-format
 msgid "Fetching %s for date %s...Done"
 msgstr "Lade %s vom %s herunter... Fertig"
@@ -165,7 +165,7 @@ msgstr "Comics überschreiben, wenn sie existieren?"
 msgid "Rebuild Unique Identifiers file."
 msgstr "Datei mit den IDs neu aufbauen."
 
-#: comics.php:220 comics.php:222 comics.php:319 comics.php:321
+#: comics.php:220 comics.php:222 comics.php:320 comics.php:322
 msgid "Save Comic to Gallery"
 msgstr "Comic in Galerie speichern"
 
@@ -193,12 +193,12 @@ msgstr "Alle ausgewählten Comics auf der Startseite anzeigen?"
 msgid "Show comics you haven't selected on the browse page?"
 msgstr "Comics, die Sie nicht ausgewählt haben, in der Liste anzeigen?"
 
-#: backend.php:237
+#: backend.php:233
 #, php-format
 msgid "Skipping %s for %s"
 msgstr "Überspringe %s vom %s"
 
-#: backend.php:209
+#: backend.php:205
 #, php-format
 msgid "Skipping %s for %s - no historical fetching"
 msgstr "Überspringe %s vom %s - kein Herunterladen alter Comics"
@@ -207,7 +207,7 @@ msgstr "Überspringe %s vom %s - kein Herunterladen alter Comics"
 msgid "Submit"
 msgstr "Abschicken"
 
-#: backend.php:257
+#: backend.php:253
 #, php-format
 msgid "Successfully removed %s for %s<br />\n"
 msgstr "%s vom %s wurde erfolgreich entfernt<br />\n"
@@ -216,7 +216,7 @@ msgstr "%s vom %s wurde erfolgreich entfernt<br />\n"
 msgid "Tags"
 msgstr "Tags"
 
-#: backend.php:219 backend.php:221
+#: backend.php:215 backend.php:217
 msgid "The image doesn't exist or can't be retrieved"
 msgstr "Das Bild existiert nicht oder konnte nicht heruntergeladen werden"
 
@@ -232,7 +232,7 @@ msgstr "Beim Herunterladen des Comics ist ein Fehler aufgetreten."
 msgid "This comic doesn't exist or is disabled."
 msgstr "Dieser Comic existiert nicht oder ist deaktiviert."
 
-#: backend.php:225
+#: backend.php:221
 #, php-format
 msgid "This image appears to be a repeat (%s)"
 msgstr "Dieses Bild scheint eine Wiederholung zu sein (%s)"
@@ -257,7 +257,7 @@ msgstr "Comics von Heute"
 msgid "Try to fetch this comic"
 msgstr "Dieses Comic versuchen herunterzuladen"
 
-#: templates/comics/main.inc:32
+#: templates/comics/main.inc:31
 msgid "View by comic"
 msgstr "Ansicht nach Comics"
 
@@ -272,27 +272,27 @@ msgstr ""
 "Sie müssen ein Speicherbackend konfigurieren, um die "
 "Administrationsobefläche nutzen zu können."
 
-#: lib/Application.php:74
+#: lib/Application.php:72
 msgid "_Browse"
 msgstr "_Liste"
 
-#: lib/Application.php:77
+#: lib/Application.php:75
 msgid "_Today"
 msgstr "He_ute"
 
-#: lib/Application.php:81
+#: lib/Application.php:79
 msgid "_Update"
 msgstr "_Aktualisierung"
 
-#: backend.php:278 backend.php:280
+#: backend.php:274 backend.php:276
 msgid "all comics"
 msgstr "alle Comics"
 
-#: backend.php:274
+#: backend.php:270
 msgid "any comics"
 msgstr "alle Comics"
 
-#: backend.php:274
+#: backend.php:270
 msgid "any dates"
 msgstr "allen Tagen"
 

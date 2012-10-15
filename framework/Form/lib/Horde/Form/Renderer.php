@@ -132,7 +132,6 @@ class Horde_Form_Renderer {
 
         /* Add the javascript for the toggling the sections. */
         $page = $GLOBALS['injector']->getInstance('Horde_PageOutput');
-        $page->deferScripts = false;
         $page->addScriptFile('form_sections.js', 'horde');
         $page->addInlineScript(
             sprintf('var sections_%1$s = new Horde_Form_Sections(\'%1$s\', \'%2$s\');',
@@ -142,7 +141,7 @@ class Horde_Form_Renderer {
         /* Loop through the sections and print out a tab for each. */
         echo "<div class=\"tabset\"><ul>\n";
         foreach ($form->_sections as $section => $val) {
-            $class = ($section == $open_section) ? ' class="activeTab"' : '';
+            $class = ($section == $open_section) ? ' class="horde-active"' : '';
             $js = sprintf('onclick="sections_%s.toggle(\'%s\'); return false;"',
                           $form->getName(),
                           $section);
@@ -187,15 +186,13 @@ class Horde_Form_Renderer {
     function close($focus = true)
     {
         echo "</form>\n";
-        if ($focus && !empty($this->_firstField)) {
-            echo '<script type="text/javascript">
-<!--
-try {
-    document.getElementById("' . $this->_firstField . '").focus();
-} catch(e) {}
-//-->
-</script>
-';
+        if ($focus) {
+            $GLOBALS['injector']
+                ->getInstance('Horde_PageOutput')
+                ->addInlineScript(
+                    '$("' . htmlspecialchars($this->_name)
+                    . '").focusFirstElement()',
+                    true);
         }
     }
 
@@ -298,12 +295,11 @@ try {
             $this->_renderSectionEnd();
         }
 
+        $page = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         if (!is_null($error_section) && $form->_sections) {
-            echo '<script type="text/javascript">' .
-                "\n" . sprintf('sections_%s.toggle(\'%s\');',
-                               $form->getName(),
-                               $error_section) .
-                "\n</script>";
+            $page->addInlineScript(sprintf('sections_%s.toggle(\'%s\');',
+                                           $form->getName(),
+                                           $error_section));
         }
     }
 
@@ -375,15 +371,44 @@ try {
 
     function _renderSubmit($submit, $reset)
     {
+        $buildAttribute = function(&$value, $attribute)
+        {
+            $value = sprintf('%s="%s"', $attribute, $value);
+        };
+
+        if (!is_array($submit)) {
+            $submit = array($submit);
+        }
+
+        $first = true;
+        foreach ($submit as &$submitbutton) {
+            $default = array(
+                'class' => $first ? 'horde-default' : 'horde-button',
+                'name' => 'submitbutton',
+                'type' => 'submit',
+            );
+            if (is_array($submitbutton)) {
+                $submitbutton = array_merge($default,
+                                            $submitbutton);
+            } else {
+                $submitbutton = array_merge($default,
+                                            array('value' => $submitbutton));
+            }
+            array_walk($submitbutton, $buildAttribute);
+            $submitbutton = implode(' ', $submitbutton);
+            $first = false;
+        }
+
 ?><div class="horde-form-buttons">
-  <?php if (!is_array($submit)) $submit = array($submit); foreach ($submit as $submitbutton): ?>
-    <input class="button" name="submitbutton" type="submit" value="<?php echo $submitbutton ?>" />
-  <?php endforeach; ?>
-  <?php if (!empty($reset)): ?>
-    <input class="button" name="resetbutton" type="reset" value="<?php echo $reset ?>" />
-  <?php endif; ?>
+<?php foreach ($submit as $button): ?>
+    <input <?php echo $button ?> />
+<?php endforeach ?>
+<?php if (!empty($reset)): ?>
+    <input name="resetbutton" type="reset" value="<?php echo $reset ?>" />
+<?php endif; ?>
 </div>
 <?php
+
     }
 
     // Implementation specifics -- input variables.

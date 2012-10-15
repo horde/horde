@@ -13,8 +13,8 @@ Horde_Registry::appInit('ansel');
 
 // Init the map
 Ansel::initJSVariables();
-Ansel::initHordeMap();
-
+Horde::initMap();
+$page_output->addScriptFile('map.js');
 $page_output->addScriptFile('map_edit.js');
 
 // Get the image id to (re)locate.
@@ -105,7 +105,6 @@ if (count($imgs) > 0) {
     $other_images = '';
 }
 
-
 /* Build the HTML */
 $html = <<<EOT
 <div id="status">&nbsp;</div>
@@ -144,6 +143,7 @@ $page_output->addInlineScript(
     $('saveButton').observe('click', mapEdit.save.bind(mapEdit));
     $('locationAction').observe('click', function(e) { mapEdit.geocode($('locationInput').value); e.stop(); });",
     true);
+$page_output->topbar = $page_output->sidebar = false;
 
 // Start the output
 $page_output->header(array(

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-08-29 13:30+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2012-08-29 14:01+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "\"%s\" is no longer among those responsible for \"%s\""
 msgstr "\"%s\" gehört nicht mehr zu den Verantwortlichen für \"%s\""
 
-#: templates/menu.inc:6
+#: templates/menu.inc:4
 msgid "#Id"
 msgstr "#Id"
 
@@ -44,17 +44,17 @@ msgstr "%s %s Tickets in %s"
 msgid "%s %s tickets in all queues"
 msgstr "%s %s Tickets in allen Warteschlangen."
 
-#: lib/Form/Renderer/Comment.php:133
+#: lib/Form/Renderer/Comment.php:130
 #, php-format
 msgid "%s &rArr; %s"
 msgstr "%s &rArr; %s"
 
-#: lib/Driver.php:641
+#: lib/Driver.php:644
 #, php-format
 msgid "%s (%s) uploaded: %s"
 msgstr "%s (%s) hat hochgeladen: %s"
 
-#: lib/Driver.php:623
+#: lib/Driver.php:626
 #, php-format
 msgid "%s (%s) wrote:"
 msgstr "%s (%s) hat geschrieben:"
@@ -99,7 +99,7 @@ msgstr "%s wird bei einer Aktualisierung dieses Tickets benachrichtigt."
 msgid "%s will no longer receive updates for this ticket."
 msgstr "%s wird keine Benachrichtigungen mehr über dieses Ticket erhalten."
 
-#: lib/Driver.php:242
+#: lib/Driver.php:238
 msgid "(inactive)"
 msgstr "(inaktiv)"
 
@@ -234,9 +234,9 @@ msgstr "Aufsteigend"
 msgid "Assign"
 msgstr "Zuweisen"
 
-#: config/prefs.php:57 lib/Api.php:659 lib/Driver.php:267
+#: config/prefs.php:57 lib/Api.php:660 lib/Driver.php:270
 #: lib/Form/Renderer/Query.php:160 lib/Form/TicketDetails.php:127
-#: lib/Whups.php:849
+#: lib/Whups.php:848
 msgid "Assigned"
 msgstr "Zugewiesen"
 
@@ -361,7 +361,7 @@ msgstr ""
 msgid "Choose Action:"
 msgstr "Aktion auswählen:"
 
-#: lib/Query.php:699
+#: lib/Query.php:696
 msgid "Choose New Query instead of deleting the root node."
 msgstr "Benutzen Sie \"Neue Abfrage\" anstatt den obersten Knoten zu löschen."
 
@@ -399,12 +399,12 @@ msgstr "Kommagetrennte Werte (CSV-Datei)"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: lib/Form/Renderer/Comment.php:178
+#: lib/Form/Renderer/Comment.php:175
 #, php-format
 msgid "Comment #%d"
 msgstr "Kommentar #%d"
 
-#: lib/Form/Renderer/Comment.php:176
+#: lib/Form/Renderer/Comment.php:173
 #, php-format
 msgid "Comment #%d (Private)"
 msgstr "Kommentar #%d (Privat)"
@@ -464,8 +464,8 @@ msgstr "Ticket erstellen - Schritt 3"
 msgid "Create Ticket - Step 4"
 msgstr "Ticket erstellen - Schritt 4"
 
-#: config/prefs.php:56 lib/Api.php:664 lib/Form/Renderer/Query.php:145
-#: lib/Form/TicketDetails.php:109 lib/Whups.php:847
+#: config/prefs.php:56 lib/Api.php:665 lib/Form/Renderer/Query.php:145
+#: lib/Form/TicketDetails.php:109 lib/Whups.php:846
 msgid "Created"
 msgstr "Erstellt"
 
@@ -528,7 +528,7 @@ msgstr "Sortierrichtung:"
 msgid "Delete"
 msgstr "Löschen"
 
-#: lib/Whups.php:1033 lib/Whups.php:1034
+#: lib/Whups.php:1031 lib/Whups.php:1032
 #, php-format
 msgid "Delete %s"
 msgstr "%s löschen"
@@ -598,7 +598,7 @@ msgstr "Version löschen"
 msgid "Delete Version Confirmation"
 msgstr "Version löschen: Bestätigung"
 
-#: lib/Form/Renderer/Comment.php:194 lib/Form/Renderer/Comment.php:195
+#: lib/Form/Renderer/Comment.php:191 lib/Form/Renderer/Comment.php:192
 msgid "Delete entry"
 msgstr "Kommentar löschen"
 
@@ -627,7 +627,7 @@ msgstr "Beschreibung"
 msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
-#: lib/Whups.php:1024
+#: lib/Whups.php:1023
 msgid "Download"
 msgstr "Herunterladen"
 
@@ -635,13 +635,13 @@ msgstr "Herunterladen"
 msgid "Download these results as: "
 msgstr "Diese Ergebnisse herunterladen als: "
 
-#: lib/Api.php:668 lib/Form/Renderer/Query.php:165
+#: lib/Api.php:669 lib/Form/Renderer/Query.php:165
 #: lib/Form/TicketDetails.php:115 lib/Ticket.php:680 lib/Ticket.php:879
-#: lib/Whups.php:850
+#: lib/Whups.php:849
 msgid "Due"
 msgstr "Fällig am"
 
-#: lib/Form/Renderer/Comment.php:141
+#: lib/Form/Renderer/Comment.php:138
 #, php-format
 msgid "Due &rArr; %s"
 msgstr "Fällig &rArr; %s"
@@ -658,7 +658,7 @@ msgstr "Fällig seit"
 msgid "Due to"
 msgstr "Fällig bis"
 
-#: lib/Query.php:247
+#: lib/Query.php:244
 msgid "E_xecute Query"
 msgstr "Abfrage ausfü_hren"
 
@@ -750,7 +750,7 @@ msgstr "Benutzerkriterium bearbeiten"
 msgid "Edit Version"
 msgstr "Version bearbeiten"
 
-#: lib/Query.php:240
+#: lib/Query.php:237
 msgid "Edit _Permissions"
 msgstr "Rechte bearbeiten"
 
@@ -867,7 +867,7 @@ msgstr "Standardantwort:"
 msgid "General Preferences"
 msgstr "Allgemeine Einstellungen"
 
-#: templates/menu.inc:6
+#: templates/menu.inc:4
 msgid "Go"
 msgstr "Los"
 
@@ -898,7 +898,7 @@ msgstr "Kinder anheben"
 
 #: config/prefs.php:49 lib/Block/Tickets.php:53
 #: lib/Form/Query/PropertyCriterion.php:17 lib/Form/Renderer/Query.php:87
-#: lib/Whups.php:839 lib/Whups.php:862
+#: lib/Whups.php:838 lib/Whups.php:861
 msgid "Id"
 msgstr "Id"
 
@@ -931,7 +931,7 @@ msgstr "ODER einfügen"
 msgid "Invalid Queue"
 msgstr "Ungültige Warteschlange"
 
-#: lib/Api.php:309 lib/Whups.php:385
+#: lib/Api.php:309 lib/Whups.php:384
 msgid "Invalid Ticket Id"
 msgstr "Ungültige Ticket-ID"
 
@@ -1081,7 +1081,7 @@ msgstr "Name der Kopie"
 msgid "Ne_w Query"
 msgstr "Ne_ue Abfrage"
 
-#: lib/Driver.php:266
+#: lib/Driver.php:269
 msgid "New"
 msgstr "Neu"
 
@@ -1165,7 +1165,7 @@ msgstr "Keine Tickets ohne Zuweisung!"
 msgid "No tickets in queue."
 msgstr "Keine Tickets in der Warteschlange."
 
-#: lib/Whups.php:907
+#: lib/Whups.php:906
 msgid "No tickets matched your search criteria."
 msgstr "Keine Tickets entsprachen Ihren Suchkriterien."
 
@@ -1188,7 +1188,7 @@ msgstr "Nicht"
 msgid "Notification Preferences"
 msgstr "Benachrichtigungs-Einstellungen"
 
-#: lib/Driver.php:247
+#: lib/Driver.php:248
 msgid "Older? Please update first!"
 msgstr "Älter? Bitte erst aktualisieren!"
 
@@ -1233,12 +1233,12 @@ msgstr "Offene Tickets nach Typ"
 msgid "Open Tickets in %s"
 msgstr "Offene Tickets in %s"
 
-#: queue/index.php:44 queue/index.php:56 queue/rss.php:115
+#: queue/index.php:44 queue/index.php:56 queue/rss.php:111
 #, php-format
 msgid "Open tickets in %s"
 msgstr "Offene Tickets in %s"
 
-#: queue/rss.php:117
+#: queue/rss.php:113
 msgid "Open tickets in all queues."
 msgstr "Offene Tickets in allen Warteschlangen"
 
@@ -1258,16 +1258,16 @@ msgstr "Orginalnachricht"
 #: lib/Form/Ticket/CreateStepFour.php:67 lib/Form/Ticket/Edit.php:118
 #: lib/Form/TicketDetails.php:96 lib/Ticket.php:686 lib/Ticket.php:770
 #: lib/Ticket.php:771 lib/Ticket.php:774 lib/Ticket.php:883 lib/Ticket.php:904
-#: lib/Whups.php:846
+#: lib/Whups.php:845
 msgid "Owners"
 msgstr "Zuständige"
 
-#: lib/Whups.php:1033
+#: lib/Whups.php:1031
 #, php-format
 msgid "Permanently delete %s?"
 msgstr "%s unwiederbringlich löschen?"
 
-#: lib/Form/Renderer/Comment.php:194
+#: lib/Form/Renderer/Comment.php:191
 msgid "Permanently delete entry?"
 msgstr "Kommentar endgültig löschen?"
 
@@ -1294,11 +1294,11 @@ msgstr "Prioritäten für diesen Typ"
 #: lib/Form/Queue/StepThree.php:35 lib/Form/Renderer/Query.php:129
 #: lib/Form/SetTypeStepTwo.php:28 lib/Form/Ticket/CreateStepThree.php:69
 #: lib/Form/Ticket/Edit.php:86 lib/Form/TicketDetails.php:91
-#: lib/Ticket.php:679 lib/Ticket.php:878 lib/Whups.php:843
+#: lib/Ticket.php:679 lib/Ticket.php:878 lib/Whups.php:842
 msgid "Priority"
 msgstr "Priorität"
 
-#: lib/Form/Renderer/Comment.php:128
+#: lib/Form/Renderer/Comment.php:125
 #, php-format
 msgid "Priority &rArr; %s"
 msgstr "Priorität &rArr; %s"
@@ -1347,11 +1347,11 @@ msgstr "Durchzuführende Abfrage"
 #: lib/Block/Queuesummary.php:39 lib/Form/Query/PropertyCriterion.php:30
 #: lib/Form/Renderer/Query.php:98 lib/Form/Search.php:40
 #: lib/Form/TicketDetails.php:53 lib/Form/TicketDetails.php:60
-#: lib/Ticket.php:675 lib/Ticket.php:874 lib/Whups.php:844
+#: lib/Ticket.php:675 lib/Ticket.php:874 lib/Whups.php:843
 msgid "Queue"
 msgstr "Warteschlange"
 
-#: lib/Form/Renderer/Comment.php:108
+#: lib/Form/Renderer/Comment.php:105
 #, php-format
 msgid "Queue &rArr; %s"
 msgstr "Warteschlange &rArr; %s"
@@ -1469,7 +1469,7 @@ msgstr "Empfangene Nachricht:"
 msgid "Refine Search"
 msgstr "Suche verfeinern"
 
-#: lib/Whups.php:942
+#: lib/Whups.php:941
 msgid "Reminder: Your open tickets"
 msgstr "Erinnerung: Ihre offenen Tickets"
 
@@ -1485,7 +1485,7 @@ msgstr "Benutzer entfernen"
 msgid "Remove Watcher"
 msgstr "Beobachter entfernen"
 
-#: lib/Form/Renderer/Comment.php:102
+#: lib/Form/Renderer/Comment.php:99
 msgid "Reply to this comment"
 msgstr "Diesen Kommentar beantworten"
 
@@ -1494,7 +1494,7 @@ msgid "Reports"
 msgstr "Berichte"
 
 #: lib/Form/Renderer/Query.php:90 lib/Form/TicketDetails.php:103
-#: lib/Whups.php:845
+#: lib/Whups.php:844
 msgid "Requester"
 msgstr "Anfrager"
 
@@ -1503,9 +1503,9 @@ msgstr "Anfrager"
 msgid "Required Attribute?"
 msgstr "Notwendiges Attribute?"
 
-#: config/prefs.php:58 lib/Api.php:673 lib/Driver.php:268
+#: config/prefs.php:58 lib/Api.php:674 lib/Driver.php:271
 #: lib/Form/Renderer/Query.php:155 lib/Form/TicketDetails.php:133
-#: lib/Whups.php:851
+#: lib/Whups.php:850
 msgid "Resolved"
 msgstr "Erledigt"
 
@@ -1521,11 +1521,11 @@ msgstr "Erledigt bis"
 msgid "Responsible Users"
 msgstr "Verantwortliche Benutzer"
 
-#: lib/Whups.php:425
+#: lib/Whups.php:424
 msgid "S_et Queue"
 msgstr "_Warteschlange festlegen"
 
-#: lib/Query.php:251
+#: lib/Query.php:248
 msgid "Sa_ve Query"
 msgstr "Abfrage s_peichern"
 
@@ -1658,7 +1658,7 @@ msgstr "Typ festlegen - Schritt 2"
 msgid "Set Type for %s"
 msgstr "Typ für %s festlegen"
 
-#: lib/Whups.php:430
+#: lib/Whups.php:429
 msgid "Set _Type"
 msgstr "_Typ festlegen"
 
@@ -1705,11 +1705,11 @@ msgstr "Spamschutz"
 #: lib/Form/Queue/StepThree.php:34 lib/Form/Renderer/Query.php:121
 #: lib/Form/SetTypeStepTwo.php:27 lib/Form/Ticket/Edit.php:80
 #: lib/Form/TicketDetails.php:86 lib/Ticket.php:678 lib/Ticket.php:877
-#: lib/Whups.php:841
+#: lib/Whups.php:840
 msgid "State"
 msgstr "Status"
 
-#: lib/Form/Renderer/Comment.php:123
+#: lib/Form/Renderer/Comment.php:120
 #, php-format
 msgid "State &rArr; %s"
 msgstr "Status &rArr; %s"
@@ -1762,7 +1762,7 @@ msgstr "Tickettyp erfolgreich geändert."
 #: lib/Form/Ticket/CreateStepThree.php:74 lib/Form/Ticket/Delete.php:20
 #: lib/Form/Ticket/Edit.php:63 lib/Form/TicketDetails.php:47
 #: lib/Ticket.php:685 lib/Ticket.php:712 lib/Ticket.php:715 lib/Ticket.php:719
-#: lib/Ticket.php:883 lib/Ticket.php:892 lib/Whups.php:840
+#: lib/Ticket.php:883 lib/Ticket.php:892 lib/Whups.php:839
 msgid "Summary"
 msgstr "Zusammenfassung"
 
@@ -2158,7 +2158,7 @@ msgstr ""
 msgid "This is not a search results template."
 msgstr "Dies ist keine Vorlage für Suchergebnisse."
 
-#: lib/Query.php:456 lib/Query.php:689
+#: lib/Query.php:453 lib/Query.php:686
 msgid "This query element cannot be edited."
 msgstr "Diese Abfragekriterium kann nicht bearbeitet werden."
 
@@ -2243,11 +2243,11 @@ msgstr "Zur Abfrage \"%s\" passende Tickets."
 #: config/prefs.php:52 lib/Form/Query/PropertyCriterion.php:21
 #: lib/Form/Queue/StepTwo.php:42 lib/Form/Renderer/Query.php:112
 #: lib/Form/TicketDetails.php:82 lib/Ticket.php:677 lib/Ticket.php:876
-#: lib/Whups.php:842
+#: lib/Whups.php:841
 msgid "Type"
 msgstr "Typ"
 
-#: lib/Form/Renderer/Comment.php:118
+#: lib/Form/Renderer/Comment.php:115
 #, php-format
 msgid "Type &rArr; %s"
 msgstr "Typ &rArr; %s"
@@ -2279,7 +2279,7 @@ msgstr "Nicht zugewiesene Tickets"
 msgid "Unassigned tickets"
 msgstr "Nicht zugewiesene Tickets"
 
-#: lib/Driver.php:265
+#: lib/Driver.php:268
 msgid "Unconfirmed"
 msgstr "Unbestätigt"
 
@@ -2302,7 +2302,7 @@ msgid "Update Associations"
 msgstr "Zuordnungen aktualisieren"
 
 #: lib/Form/Renderer/Query.php:150 lib/Form/TicketDetails.php:121
-#: lib/Whups.php:848
+#: lib/Whups.php:847
 msgid "Updated"
 msgstr "Aktualisiert"
 
@@ -2340,7 +2340,7 @@ msgstr "Für diese Warteschlange verantwortliche Benutzer"
 msgid "Version"
 msgstr "Version"
 
-#: lib/Form/Renderer/Comment.php:113
+#: lib/Form/Renderer/Comment.php:110
 #, php-format
 msgid "Version &rArr; %s"
 msgstr "Version &rArr; %s"
@@ -2419,7 +2419,7 @@ msgstr "Sie haben keine offenen Anfragen."
 msgid "You have no saved queries."
 msgstr "Sie haben keine gespeicherten Abfragen."
 
-#: lib/Whups.php:901
+#: lib/Whups.php:900
 msgid "You must select at least one queue to send reminders for."
 msgstr ""
 "Sie müssen erst mindestens ein Warteschlange auswählen, für die Erinnerungen "
@@ -2441,7 +2441,7 @@ msgstr ""
 msgid "[ Could not render body of message. ]"
 msgstr "[ Der Nachrichtentext konnte nicht dargestellt werden. ]"
 
-#: lib/Whups.php:604
+#: lib/Whups.php:603
 msgid "[Hidden]"
 msgstr "[Versteckt]"
 
@@ -2453,7 +2453,7 @@ msgstr "[Kein Betreff]"
 msgid "_Admin"
 msgstr "A_dministration"
 
-#: lib/Whups.php:417
+#: lib/Whups.php:416
 msgid "_Comment"
 msgstr "_Kommentar"
 
@@ -2461,11 +2461,11 @@ msgstr "_Kommentar"
 msgid "_Date Criteria"
 msgstr "Datums_kriterien"
 
-#: lib/Whups.php:435
+#: lib/Whups.php:434
 msgid "_Delete"
 msgstr "Lös_chen"
 
-#: lib/Query.php:254
+#: lib/Query.php:251
 msgid "_Delete Query"
 msgstr "Abfrage löschen"
 
@@ -2477,7 +2477,7 @@ msgstr "Abfrage bea_rbeiten"
 msgid "_Edit Queues"
 msgstr "_Warteschlangen bearbeiten"
 
-#: templates/menu.inc:6
+#: templates/menu.inc:4
 msgid "_Go"
 msgstr "_Los"
 
@@ -2485,11 +2485,11 @@ msgstr "_Los"
 msgid "_Group Criteria"
 msgstr "_Gruppenkriterien"
 
-#: lib/Whups.php:411
+#: lib/Whups.php:410
 msgid "_History"
 msgstr "_Geschichte"
 
-#: lib/Query.php:248
+#: lib/Query.php:245
 msgid "_Load Query"
 msgstr "Ab_frage laden"
 
@@ -2522,7 +2522,7 @@ msgstr "_Suche"
 msgid "_Text Criteria"
 msgstr "_Textkriterien"
 
-#: lib/Whups.php:413
+#: lib/Whups.php:412
 msgid "_Update"
 msgstr "Akt_ualisierung"
 
@@ -2530,7 +2530,7 @@ msgstr "Akt_ualisierung"
 msgid "_User Criteria"
 msgstr "Benut_zerkriterien"
 
-#: lib/Whups.php:421
+#: lib/Whups.php:420
 msgid "_Watch"
 msgstr "Be_obachten"
 

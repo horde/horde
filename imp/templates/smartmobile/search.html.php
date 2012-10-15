@@ -14,7 +14,7 @@
     <option value="subject"><?php echo _("Subject") ?></option>
    </select>
    <input type="text" id="imp-search-input" />
-   <a href="" data-role="button" id="imp-search-submit"><?php echo _("Start Search") ?></a>
+   <a href="#search-submit" data-role="button"><?php echo _("Start Search") ?></a>
   </form>
  </div>
 </div>

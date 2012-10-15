@@ -814,7 +814,7 @@ class Agora_Driver {
         $view_url = Horde::url('messages/index.php');
         if ($base_url) {
             $edit_url = $base_url;
-            $del_url = Horde_Util::addParameter($base_url, 'delete', 'true');
+            $del_url = $base_url->copy()->add('delete', 'true');
         } else {
             $edit_url = Horde::url('messages/edit.php');
             $del_url = Horde::url('messages/delete.php');
@@ -873,7 +873,7 @@ class Agora_Driver {
                     $sub_pages = $message['message_seq'] / $per_page;
                     for ($i = 0; $i < $sub_pages; $i++) {
                         $page_title = sprintf(_("Page %d"), $i+1);
-                        $message['pages'][] = Horde::link(Horde_Util::addParameter($url, 'thread_page', $i), $page_title, '', '', '', $page_title) . ($i+1) . '</a>';
+                        $message['pages'][] = Horde::link($url->add('thread_page', $i), $page_title, '', '', '', $page_title) . ($i+1) . '</a>';
                     }
                 }
             }
@@ -885,15 +885,15 @@ class Agora_Driver {
                     if (strpos($url, '%p') !== false) {
                         $url = str_replace('%p', $message['message_id'], $url);
                     } else {
-                        $url = Horde_Util::addParameter($url, 'message_parent_id', $message['message_id']);
+                        $url->add('message_parent_id', $message['message_id']);
                     }
                     if (!empty($link_back)) {
-                        $url = Horde_Util::addParameter($url, 'url', $link_back);
+                        $url->add('url', $link_back);
                     }
                 } else {
                     $url = Agora::setAgoraId($message['forum_id'], $message['message_id'], $view_url, $this->_scope);
                 }
-                $url = Horde_Util::addParameter($url, 'reply_focus', 1) . '#messageform';
+                $url->add('reply_focus', 1) . '#messageform';
                 $message['reply'] = Horde::link($url, _("Reply to message"), '', '', '', _("Reply to message")) . _("Reply") . '</a>';
             }
 
@@ -1117,7 +1117,7 @@ class Agora_Driver {
         }
 
         /* Loop through the messages and set up the array. */
-        $approve_url = Horde_Util::addParameter(Horde::url('moderate.php'), 'approve', true);
+        $approve_url = Horde::url('moderate.php')->add('approve', true);
         $del_url  = Horde::url('messages/delete.php');
         foreach ($messages as &$message) {
             $message['forum_name'] = $this->convertFromDriver($forums_list[$message['forum_id']]);
@@ -1652,11 +1652,12 @@ class Agora_Driver {
             $mime_icon = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($file['file_type']);
             $title = _("download") . ': ' . $file['file_name'];
             $tooltip = $title . "\n" . sprintf(_("size: %s"), $this->formatSize($file['file_size'])) . "\n" . sprintf(_("type: %s"), $file['file_type']);
-            $url = Horde_Util::addParameter($view_url, array('forum_id' => $this->_forum_id,
-                                                       'message_id' => $message_id,
-                                                       'file_id' => $file['file_id'],
-                                                       'file_name' => $file['file_name'],
-                                                       'file_type' => $file['file_type']));
+            $url = $view_url->add(array(
+                'forum_id' => $this->_forum_id,
+                'message_id' => $message_id,
+                'file_id' => $file['file_id'],
+                'file_name' => $file['file_name'],
+                'file_type' => $file['file_type']));
             $html .= Horde::linkTooltip($url, $title, '', '', '', $tooltip) .
                      Horde::img($mime_icon, $title, 'align="middle"', '') . '&nbsp;' . $file['file_name'] . '</a>&nbsp;&nbsp;<br />';
         }
@@ -2138,7 +2139,7 @@ class Agora_Driver {
             if (!isset($results[$message['forum_id']])) {
                 $index = array('agora' => $message['forum_id'], 'scope' => $this->_scope);
                 $results[$message['forum_id']] = array('forum_id'   => $message['forum_id'],
-                                                       'forum_url'  => Horde_Util::addParameter($forum_url, $index),
+                                                       'forum_url'  => $forum_url->add($index),
                                                        'forum_name' => $this->convertFromDriver($forums[$message['forum_id']]),
                                                        'messages'   => array());
             }
@@ -2148,7 +2149,7 @@ class Agora_Driver {
                 'message_subject' => htmlspecialchars($this->convertFromDriver($message['message_subject'])),
                 'message_author' => $message['message_author'],
                 'message_date' => $this->dateFormat($message['message_timestamp']),
-                'message_url' => Horde_Util::addParameter($msg_url, $index));
+                'message_url' => $msg_url->add($index));
         }
 
         return array('results' => $results, 'total' => $total);

@@ -41,7 +41,6 @@ class Kronolith_Form_CreateResourceGroup extends Horde_Form
         $new = array('name' => $this->_vars->get('name'),
                      'description' => $this->_vars->get('description'),
                      'members' => $this->_vars->get('members'));
-        return Kronolith_Resource::addResource(new Kronolith_Resource_Group($new));
+        Kronolith_Resource::addResource(new Kronolith_Resource_Group($new));
     }
-
 }

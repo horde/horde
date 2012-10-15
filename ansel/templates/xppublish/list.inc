@@ -16,7 +16,7 @@
  </p>
  <p>
   <label style="font-weight:bold" for="create"><?php echo _("Create a new gallery:") ?></label><br />
-  <input type="button" class="button" value="<?php echo _("Create") ?>" onclick="folder.cmd.value='new'; folder.submit();" />
+  <input type="button" class="horde-create" value="<?php echo _("Create") ?>" onclick="folder.cmd.value='new'; folder.submit();" />
  </p>
 </div>
 

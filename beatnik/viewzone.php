@@ -37,9 +37,9 @@ foreach ($fields as $field_id => $field) {
     }
 }
 
-$delete = Horde_Util::addParameter(Horde::url('delete.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
-$edit = Horde_Util::addParameter(Horde::url('editrec.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
-$autogen = Horde_Util::addParameter(Horde::url('autogenerate.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
+$delete = Horde::url('delete.php')->add('curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
+$edit = Horde::url('editrec.php')->add('curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
+$autogen = Horde::url('autogenerate.php')->add('curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
 $rectypes = Beatnik::getRecTypes();
 
 require BEATNIK_TEMPLATES . '/view/header.inc';

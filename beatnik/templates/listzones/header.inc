@@ -12,8 +12,7 @@
 <?php
 echo _("Domain Categories") . ' ';
 if ($GLOBALS['registry']->getAuth() && (!$prefs->isLocked('categories') || !$prefs->isLocked('category_colors'))) {
-    $categoryUrl = Horde_Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/services/prefs.php'),
-                                        array('app' => 'horde', 'group' => 'categories'));
+    $categoryUrl = Horde::url($registry->get('webroot', 'horde') . '/services/prefs.php')->add(array('app' => 'horde', 'group' => 'categories'));
     echo Horde::link($categoryUrl, _("Edit domain groups and colors"), 'widget', '_blank') .
          Horde::img('colorpicker.png', _("Edit categories and colors"), array('align' => 'absmiddle')) . '</a>';
 }

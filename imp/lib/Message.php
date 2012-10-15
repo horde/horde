@@ -110,7 +110,7 @@ class IMP_Message
                 if ($e instanceof IMP_Imap_Exception) {
                     $e->notify($error_msg);
                 } else {
-                    $GLOBALS['notification']->push($error_msg, 'horde.error');
+                    $notification->push($error_msg, 'horde.error');
                 }
                 $return_value = false;
             }
@@ -153,6 +153,7 @@ class IMP_Message
         $maillog_update = (empty($opts['keeplog']) && !empty($conf['maillog']['use_maillog']));
         $return_value = 0;
 
+        $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         /* Check for Trash mailbox. */
@@ -249,10 +250,10 @@ class IMP_Message
                 $expunge_now = false;
                 $del_flags = array(Horde_Imap_Client::FLAG_DELETED);
 
-                if ($use_vtrash ||
-                    !$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
-                    !empty($opts['nuke']) ||
-                    ($use_trash && ($ob->mbox == $trash))) {
+                if (!$use_vtrash &&
+                    (!$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
+                     !empty($opts['nuke']) ||
+                     ($use_trash && ($ob->mbox == $trash)))) {
                     /* Purge messages immediately. */
                     $expunge_now = !$no_expunge;
                 } elseif ($mark_seen) {
@@ -275,6 +276,8 @@ class IMP_Message
                               $opts['mailboxob']->isBuilt() &&
                               $ob->mbox->hideDeletedMsgs()) {
                         $opts['mailboxob']->removeMsgs($imp_indices);
+                    } else {
+                        $ajax_queue->flag($del_flags, true, new IMP_Indices($ob->mbox, $ids_ob));
                     }
                 } catch (IMP_Imap_Exception $e) {}
 
@@ -288,7 +291,7 @@ class IMP_Message
                         }
                     }
 
-                    IMP_Maillog::deleteLog($msg_ids);
+                    $injector->getInstance('IMP_Maillog')->deleteLog($msg_ids);
                 }
             }
         }
@@ -324,7 +327,7 @@ class IMP_Message
     protected function _createTasksOrNotes($list, $action,
                                            IMP_Indices $indices, $type)
     {
-        global $registry, $notification, $prefs;
+        global $registry, $notification;
 
         foreach ($indices as $ob) {
             foreach ($ob->uids as $uid) {

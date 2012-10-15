@@ -25,7 +25,7 @@ class Horde_Script_File_JsDir extends Horde_Script_File
 
         case 'url':
         case 'url_full':
-            return Horde::url($GLOBALS['registry']->get('jsuri', $this->_app) . '/' . $this->_file, ($name == 'url_full'), -1);
+            return $this->_url($GLOBALS['registry']->get('jsuri', $this->_app) . '/' . $this->_file, ($name == 'url_full'));
         }
 
         return parent::__get($name);

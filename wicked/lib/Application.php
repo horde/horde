@@ -60,6 +60,38 @@ class Wicked_Application extends Horde_Registry_Application
 
     /**
      */
+    public function menu($menu)
+    {
+        global $conf, $page;
+
+        if (@count($conf['menu']['pages'])) {
+            $pages = array('Wiki/Home' => _("_Home"),
+                           'Wiki/Usage' => _("_Usage"),
+                           'RecentChanges' => _("_Recent Changes"),
+                           'AllPages' => _("_All Pages"));
+            foreach ($conf['menu']['pages'] as $pagename) {
+                /* Determine who we should say referred us. */
+                $curpage = isset($page) ? $page->pageName() : null;
+                $referrer = Horde_Util::getFormData('referrer', $curpage);
+
+                /* Determine if we should depress the button. We have to do
+                 * this on our own because all the buttons go to the same .php
+                 * file, just with different args. */
+                if (!strstr($_SERVER['PHP_SELF'], 'prefs.php') &&
+                    $curpage === $pagename) {
+                    $cellclass = 'current';
+                } else {
+                    $cellclass = '__noselection';
+                }
+
+                $url = Wicked::url($pagename)->add('referrer', $referrer);
+                $menu->add($url, $pages[$pagename], str_replace('/', '', $pagename) . '.png', null, null, null, $cellclass);
+            }
+        }
+    }
+
+    /**
+     */
     public function perms()
     {
         $perms = array(

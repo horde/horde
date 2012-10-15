@@ -92,10 +92,10 @@ $GLOBALS['notification']->notify(array('listeners' => 'status'));
 
 <h1 class="header">
 <span style="float: right">
-<a href="<?php  echo Horde_Util::addParameter(Wicked::url('SyncDiff'), array('sync_page' => $this->_pageName, 'inverse' => !$inverse)) ?>">Inverse</a> |
+<a href="<?php echo Wicked::url('SyncDiff')->add(array('sync_page' => $this->_pageName, 'inverse' => !$inverse)) ?>">Inverse</a> |
 <a href="" target="_blank"><?php echo _("Download") ?></a> |
 <a href="" target="_blank"><?php echo _("Upload") ?></a> |
-<a href="<?php  echo Horde_Util::addParameter(Wicked::url('EditPage'), 'referrer', $this->_pageName) ?>" target="_blank"><?php echo _("Edit local") ?></a> |
+<a href="<?php echo Wicked::url('EditPage')->add('referrer', $this->_pageName) ?>" target="_blank"><?php echo _("Edit local") ?></a> |
 <a href="<?php  echo $GLOBALS['session']->get('wicked', 'sync_edit') . $this->_pageName ?>" target="_blank"><?php echo _("Edit remote") ?></a>
 </span>
 <?php echo sprintf(_("Diff for %s between %s and %s"), $page->pageTitle(), $name1, $name2) ?>

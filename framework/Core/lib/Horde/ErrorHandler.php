@@ -57,48 +57,64 @@ class Horde_ErrorHandler
             }
         }
 
-        header('Content-type: text/html; charset=UTF-8');
+        try {
+            $cli = Horde_Cli::runningFromCLI();
+        } catch (Exception $e) {
+            die($e);
+        }
+
+        if (!headers_sent()) {
+            header('Content-type: text/html; charset=UTF-8');
+            if (!$cli) {
+                echo <<< HTML
+<html>
+<head><title>Horde :: Fatal Error</title></head>
+<body style="background:#fff; color:#000">
+HTML;
+            }
+        }
+
+        ob_start();
         try {
             $admin = $registry->isAdmin();
-            $cli = Horde_Cli::runningFromCLI();
 
-            $errortext = '<h1>' . Horde_Core_Translation::t("A fatal error has occurred") . '</h1>';
+            echo '<h1>' . Horde_Core_Translation::t("A fatal error has occurred") . '</h1>';
 
             if (($error instanceof PEAR_Error) ||
                 (is_object($error) && method_exists($error, 'getMessage'))) {
-                $errortext .= '<h3>' . htmlspecialchars($error->getMessage()) . '</h3>';
+                echo '<h3>' . htmlspecialchars($error->getMessage()) . '</h3>';
             } elseif (is_string($error)) {
-                $errortext .= '<h3>' . htmlspecialchars($error) . '</h3>';
+                echo '<h3>' . htmlspecialchars($error) . '</h3>';
             }
 
             if ($admin || $cli) {
                 $trace = ($error instanceof Exception)
                     ? $error
                     : debug_backtrace();
-                $errortext .= '<div id="backtrace"><pre>' .
+                echo '<div id="backtrace"><pre>' .
                     strval(new Horde_Support_Backtrace($trace)) .
                     '</pre></div>';
                 if (is_object($error)) {
-                    $errortext .= '<h3>' . Horde_Core_Translation::t("Details") . '</h3>';
-                    $errortext .= '<h4>' . Horde_Core_Translation::t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
-                    $errortext .= '<div id="details"><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></div>';
+                    echo '<h3>' . Horde_Core_Translation::t("Details") . '</h3>';
+                    echo '<h4>' . Horde_Core_Translation::t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
+                    if (!$cli) {
+                        ob_flush();
+                        flush();
+                    }
+                    echo '<div id="details"><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></div>';
                 }
             } else {
-                $errortext .= '<h3>' . Horde_Core_Translation::t("Details have been logged for the administrator.") . '</h3>';
+                echo '<h3>' . Horde_Core_Translation::t("Details have been logged for the administrator.") . '</h3>';
             }
         } catch (Exception $e) {
             die($e);
         }
 
         if ($cli) {
-            echo html_entity_decode(strip_tags(str_replace(array('<br />', '<p>', '</p>', '<h1>', '</h1>', '<h3>', '</h3>'), "\n", $errortext)));
+            echo html_entity_decode(strip_tags(str_replace(array('<br />', '<p>', '</p>', '<h1>', '</h1>', '<h3>', '</h3>'), "\n", ob_get_flush())));
         } else {
-            echo <<< HTML
-<html>
-<head><title>Horde :: Fatal Error</title></head>
-<body style="background:#fff; color:#000">$errortext</body>
-</html>
-HTML;
+            ob_end_flush();
+            echo '</body></html>';
         }
         exit(1);
     }

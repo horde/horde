@@ -13,7 +13,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
-class Horde_Exception_PushApp extends Horde_Exception
+class Horde_Exception_PushApp extends Horde_Exception_Wrapped
 {
     /**
      * The application that failed.

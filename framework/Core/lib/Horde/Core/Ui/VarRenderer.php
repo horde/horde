@@ -68,18 +68,18 @@ class Horde_Core_Ui_VarRenderer
     /**
      * Renders a variable.
      *
-     * @param Horde_Form $form           A Horde_Form instance,
-     *                                   or null if none is available.
-     * @param Horde_Form_Variable $va r  A Horde_Form_Variable.
-     * @param Variables $vars            A Horde_Variables instance.
-     * @param boolean $isInput           Whether this is an input field.
+     * @param Horde_Form $form          A Horde_Form instance,
+     *                                  or null if none is available.
+     * @param Horde_Form_Variable $var  A Horde_Form_Variable.
+     * @param Variables $vars           A Horde_Variables instance.
+     * @param boolean $isInput          Whether this is an input field.
      */
     public function render($form, $var, $vars, $isInput = false)
     {
-        $state = $isInput ? 'Input' : 'Display';
-        $method = "_renderVar${state}_" . $var->type->getTypeName();
+        $state = '_renderVar' . ($isInput ? 'Input' : 'Display');
+        $method = $state . '_' . $var->type->getTypeName();
         if (!method_exists($this, $method)) {
-            $method = "_renderVar${state}Default";
+            $method = $state . 'Default';
         }
 
         return $this->$method($form, $var, $vars);

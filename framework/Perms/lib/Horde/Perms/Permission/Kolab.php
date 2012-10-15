@@ -80,11 +80,9 @@ extends Horde_Perms_Permission
     public function getCurrentPermissions()
     {
         $data = array();
-        /**
-         * @todo: Can we lazy load $this->data so that we restrict to using
+        /* @todo: Can we lazy load $this->data so that we restrict to using
          * MYRIGHTS only when that is all we need and use the full GETACL just
-         * when required.
-         */
+         * when required. */
         $acl = new Horde_Perms_Permission_Kolab_AclIterator(
             $this->_storage->getAcl(),
             $this->_storage->getOwner()
@@ -103,10 +101,8 @@ extends Horde_Perms_Permission
      */
     public function save()
     {
-        /**
-         * @todo: If somebody else accessed the folder before us, we will
-         * overwrite the change here.
-         */
+        /* @todo: If somebody else accessed the folder before us, we will
+         * overwrite the change here. */
         $current = $this->getCurrentPermissions();
 
         $elements = new Horde_Perms_Permission_Kolab_ElementIterator(

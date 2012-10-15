@@ -345,7 +345,6 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $status->icon('mime/encryption.png', 'PGP');
 
         $mime_id = $this->_mimepart->getMimeId();
-        $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
 
         if ($GLOBALS['prefs']->getValue('use_pgp') &&
             $GLOBALS['prefs']->getValue('add_source') &&

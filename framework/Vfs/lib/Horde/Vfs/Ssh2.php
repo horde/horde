@@ -745,7 +745,8 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      */
     protected function _getPath($path, $name)
     {
-        if (strlen($this->_params['vfsroot'])) {
+        if (isset($this->_params['vfsroot']) &&
+            strlen($this->_params['vfsroot'])) {
             if (strlen($path)) {
                 $path = $this->_params['vfsroot'] . '/' . $path;
             } else {
@@ -869,6 +870,9 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
             . $this->_params['password'] . '@' . $this->_params['hostspec'];
         if (!empty($this->_params['port'])) {
             $wrapper .= ':' . $this->_params['port'];
+        }
+        if ($remote{0} != '/') {
+            $remote = $this->getCurrentDirectory() . '/' . $remote;
         }
         return $wrapper . $remote;
     }

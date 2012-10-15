@@ -15,6 +15,6 @@ class Horde_Core_Ui_VarRenderer_Ingo extends Horde_Core_Ui_VarRenderer_Html
 {
     protected function _renderVarInput_ingo_folders(&$form, &$var, &$vars)
     {
-        return Ingo::flistSelect($var->type->getFolder(), 'horde_form', 'folder');
+        return Ingo::flistSelect($var->type->getFolder(), 'folder');
     }
 }

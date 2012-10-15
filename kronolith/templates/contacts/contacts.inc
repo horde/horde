@@ -153,7 +153,7 @@ window.onload = function() {
 <?php else: ?>
     <input name="source" type="hidden" value="<?php echo htmlspecialchars(key($source_list)) ?>" />
 <?php endif; ?>
-    <input type="submit" class="button" value="<?php echo _("Search") ?>" />
+    <input type="submit" value="<?php echo _("Search") ?>" />
   </td>
 </tr>
 <tr>
@@ -169,8 +169,8 @@ window.onload = function() {
     </select>
   </td>
   <td width="10%" align="center">
-    <input type="button" class="button" onclick="addAddress();" value="<?php echo _("Add") ?> &gt;&gt;" /><br /><br />
-    <input type="button" class="button" onclick="removeAddress()" value="&lt;&lt; <?php echo _("Remove") ?>" />
+    <input type="button" onclick="addAddress();" value="<?php echo _("Add") ?> &gt;&gt;" /><br /><br />
+    <input type="button" onclick="removeAddress()" value="&lt;&lt; <?php echo _("Remove") ?>" />
   </td>
   <td width="45%">
     <label for="selected_addresses" class="hidden"><?php echo _("Selected addresses") ?></label>
@@ -194,9 +194,9 @@ window.onload = function() {
 </tr>
 </table>
 
-<div class="rightAlign">
-  <input type="button" class="button" onclick="updateMessage();" value="<?php echo _("Add to attendees") ?>" />
-  <input type="button" class="button" onclick="window.close();" value="<?php echo _("Close window") ?>" />
+<div class="horde-form-buttons rightAlign">
+  <input type="button" class="horde-default" onclick="updateMessage();" value="<?php echo _("Add to attendees") ?>" />
+  <input type="button" class="horde-cancel" onclick="window.close();" value="<?php echo _("Close window") ?>" />
   <?php echo Horde_Help::link('kronolith', 'invite-addressbook') ?>
 </div>
 </form>

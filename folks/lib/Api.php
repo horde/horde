@@ -17,15 +17,18 @@ class Folks_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $links = array(
+    protected $_links = array(
         'show' => '%application%/user.php?user=|user|'
     );
 
-    public function __construct()
+    /**
+     */
+    public function disabled()
     {
-        if (!$GLOBALS['registry']->isAdmin()) {
-            $this->disabled = array('removeUser', 'userList');
-        }
+        return array_merge(
+            parent::disabled(),
+            $GLOBALS['registry']->isAdmin() ? array('removeUser', 'userList') : array()
+        );
     }
 
     /**
@@ -61,7 +64,6 @@ class Folks_Api extends Horde_Registry_Api
         require_once __DIR__ . '/base.php';
 
         switch ($type) {
-
         case 'owner':
             return $id;
 
@@ -231,7 +233,7 @@ class Folks_Api extends Horde_Registry_Api
      */
     public function listTimeObjectCategories()
     {
-        return array('birthday_friends' => _("Friends Birthdays"));
+        return array('birthday_friends' => array('title' => _("Friends Birthdays"), 'type' => 'single'));
     }
 
     /**

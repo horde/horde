@@ -61,6 +61,8 @@ extends PHPUnit_Framework_TestCase
             $driver,
             new Horde_Kolab_Storage_QuerySet_Uncached($factory),
             $factory,
+            $this->getMock('Horde_Kolab_Storage_Cache', array(), array(), '', false, false),
+            $this->getMock('Horde_Log_Logger'),
             $params
         );
     }
@@ -79,7 +81,8 @@ extends PHPUnit_Framework_TestCase
             $driver,
             new Horde_Kolab_Storage_QuerySet_Cached($factory, array(), $cache),
             $factory,
-            $cache
+            $cache,
+            $this->getMock('Horde_Log_Logger')
         );
     }
 
@@ -533,7 +536,8 @@ extends PHPUnit_Framework_TestCase
             array_merge(
                 array(
                     'driver' => 'mock',
-                    'params' => $data
+                    'params' => $data,
+                    'logger' => $this->getMock('Horde_Log_Logger'),
                 ),
                 $params
             )
@@ -585,10 +589,14 @@ extends PHPUnit_Framework_TestCase
 
     protected function getMockListCache()
     {
-        $cache = new Horde_Kolab_Storage_List_Cache_Base(
-            $this->getMockCache()
+        $cache = new Horde_Kolab_Storage_List_Cache(
+            $this->getMockCache(),
+            array(
+                'host' => 'localhost',
+                'port' => '143',
+                'user' => 'user',
+            )
         );
-        $cache->setListId('test');
         return $cache;
     }
 

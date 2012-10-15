@@ -74,7 +74,7 @@ class Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Base
         $header_output = array();
 
         foreach ($header_array as $key => $val) {
-            $hdr = $headers->getValue($key);
+            $hdr = $this->_getHeaderValue($headers, $key);
             if (!empty($hdr)) {
                 $header_output[] = '<strong>' . $val . ':</strong> ' . htmlspecialchars($hdr);
             }
@@ -84,6 +84,19 @@ class Horde_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Base
             (empty($header_output) ? '' : ('<div class="fixed mimeHeaders">' . $this->_textFilter(implode("<br />\n", $header_output), 'emails') . '</div>')),
             'text/html; charset=UTF-8'
         );
+    }
+
+    /**
+     * Get the value for a given header.
+     *
+     * @param Horde_Mime_Headers $ob  The headers object.
+     * @param string $header          The header.
+     *
+     * @return string  The header value.
+     */
+    protected function _getHeaderValue($ob, $header)
+    {
+        return $ob->getValue($header);
     }
 
 }

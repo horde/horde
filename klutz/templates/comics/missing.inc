@@ -12,12 +12,12 @@
  <?php
 echo _("This image is not currently available.");
 if ($registry->isAdmin('klutz:admin')) {
-    $fetchurl = Horde::url('backend.php');
-    $fetchurl = Horde_Util::addParameter($fetchurl, array('mode' => 'fetch',
-                                                    'date' => $date,
-                                                    'index' => $index,
-                                                    'redirect' => 'comics.php',
-                                                    'action' => $actionID));
+    $fetchurl = Horde::url('backend.php')->add(array(
+        'mode' => 'fetch',
+        'date' => $date,
+        'index' => $index,
+        'redirect' => 'comics.php',
+        'action' => $actionID));
     echo '<br /><a href="' . $fetchurl . '">' .
         _("Try to fetch this comic") . '</a>';
 }

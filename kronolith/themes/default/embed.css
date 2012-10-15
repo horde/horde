@@ -64,14 +64,14 @@
     background: #EEEEEE none repeat scroll 0 0;
     color: #000000;
 }
-.kronolith_embedded .othermonth {
-    background: #E7EEEC none repeat scroll 0 0;
+.kronolith_embedded .kronolith-othermonth {
+    background: #f7f7f7;
 }
 .kronolith_embedded .block-monthgrid .today {
     border: 1px solid #444466;
 }
-.kronolith_embedded .weekend {
-    background: #FFFFCC none repeat scroll 0 0;
+.kronolith_embedded .kronolith-weekend {
+    background: #ffc;
 }
 
 .kronolith_embedded .clear {
@@ -84,7 +84,7 @@
     border: medium none;
 }
 
-.kronolith_embedded .kronolithEventCancelled {
+.kronolith_embedded .kronolith-event-cancelled {
     text-decoration: line-through;
 }
 

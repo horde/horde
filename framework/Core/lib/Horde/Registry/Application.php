@@ -161,6 +161,15 @@ class Horde_Registry_Application
     {
     }
 
+    /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+    }
+
 
     // Functions called from Horde's API.
 

@@ -16,13 +16,13 @@
 require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
-$redirect_url = new Horde_Url(Horde_Util::getFormData('return_url', Horde::url('login.php', true, array('app' => 'horde'))));
+$vars = $injector->getInstance('Horde_Variables');
 
-if (!Horde_Menu::showService('problem')) {
+$redirect_url = new Horde_Url($vars->get('return_url', Horde::url('login.php', true, array('app' => 'horde'))));
+
+if (!$registry->showService('problem')) {
     $redirect_url->redirect();
 }
-
-$vars = Horde_Variables::getDefaultVariables();
 
 $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
 $email = $identity->getValue('from_addr');
@@ -150,15 +150,16 @@ case 'cancel_problem_report':
     break;
 }
 
+$page_output->sidebar = false;
 $page_output->addInlineJsVars(array(
     'HordeProblem.message_text' => _("You must describe the problem before you can send the problem report."),
     'HordeProblem.summary_text' => _("Please provide a summary of the problem.")
 ), true);
 $page_output->addScriptFile('problem.js', 'horde');
+
 $page_output->header(array(
     'title' => _("Problem Description")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require HORDE_TEMPLATES . '/problem/problem.inc';
 $page_output->footer();

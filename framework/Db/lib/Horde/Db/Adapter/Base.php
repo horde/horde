@@ -332,7 +332,6 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function resetRuntime()
     {
-        $runtime = $this->_runtime;
         $this->_runtime = 0;
 
         return $this->_runtime;
@@ -715,7 +714,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     public function addLock(&$sql, array $options = array())
     {
         $sql .= (isset($options['lock']) && is_string($options['lock']))
-            ? ' ' . $lock
+            ? ' ' . $options['lock']
             : ' FOR UPDATE';
     }
 

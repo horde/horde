@@ -413,7 +413,7 @@ class Turba_View_Browse
             // We might get here from the search page but are not allowed to browse
             // the current address book.
             if ($actionID && empty($cfgSources[$source]['browse'])) {
-                Horde::url($prefs->getValue('initial_page'), true)
+                Horde::url($GLOBALS['prefs']->getValue('initial_page'), true)
                     ->redirect();
             }
         }
@@ -496,7 +496,7 @@ class Turba_View_Browse
         $page_output->header(array(
             'title' => $title
         ));
-        require TURBA_TEMPLATES . '/menu.inc';
+        $notification->notify(array('listeners' => 'status'));
         foreach ($templates as $template) {
             require TURBA_TEMPLATES . $template;
         }

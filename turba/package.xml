@@ -28,10 +28,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-20</date>
- <time>01:29:02</time>
+ <date>2012-10-12</date>
+ <time>23:12:51</time>
  <version>
-  <release>4.0.0beta2</release>
+  <release>4.0.0beta4</release>
   <api>4.0.0beta1</api>
  </version>
  <stability>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Use Horde 5 action bar.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -94,8 +94,15 @@
     <file name="contact_tabs.js" role="horde" />
     <file name="minisearch.js" role="horde" />
     <file name="search.js" role="horde" />
+    <file name="smartmobile.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
+    <dir name="Ajax">
+     <dir name="Application">
+      <file name="Smartmobile.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Application -->
+     <file name="Application.php" role="horde" />
+    </dir> <!-- /lib/Ajax -->
     <dir name="Block">
      <file name="Minisearch.php" role="horde" />
     </dir> <!-- /lib/Block -->
@@ -142,7 +149,6 @@
     </dir> <!-- /lib/Object -->
     <dir name="Prefs">
      <dir name="Special">
-      <file name="Addressbook.php" role="horde" />
       <file name="Columnselect.php" role="horde" />
      </dir> <!-- /lib/Prefs/Special -->
     </dir> <!-- /lib/Prefs -->
@@ -165,6 +171,7 @@
     <file name="Exception.php" role="horde" />
     <file name="List.php" role="horde" />
     <file name="Object.php" role="horde" />
+    <file name="Smartmobile.php" role="horde" />
     <file name="Test.php" role="horde" />
     <file name="Turba.php" role="horde" />
    </dir> <!-- /lib -->
@@ -468,12 +475,15 @@
      <file name="header.html.php" role="horde" />
      <file name="vbook.html.php" role="horde" />
     </dir> <!-- /templates/search -->
+    <dir name="smartmobile">
+     <file name="browse.html.php" role="horde" />
+     <file name="entry.html.php" role="horde" />
+    </dir> <!-- /templates/smartmobile -->
     <dir name="test">
      <file name="ldapserver.inc" role="horde" />
     </dir> <!-- /templates/test -->
     <file name=".htaccess" role="horde" />
     <file name="addressbook_list.php" role="horde" />
-    <file name="menu.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Turba">
@@ -545,6 +555,7 @@
       <file name="az.png" role="horde" />
       <file name="az_secondary.png" role="horde" />
       <file name="contact.png" role="horde" />
+      <file name="delete.png" role="horde" />
       <file name="edit.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="group.png" role="horde" />
@@ -555,6 +566,9 @@
       <file name="za.png" role="horde" />
       <file name="za_secondary.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
+     <dir name="smartmobile">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/smartmobile -->
      <file name="ie7.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
@@ -572,6 +586,7 @@
    <file name="minisearch.php" role="horde" />
    <file name="README" role="doc" />
    <file name="search.php" role="horde" />
+   <file name="smartmobile.php" role="horde" />
    <file name="vcard.php" role="horde" />
    <file name="view.php" role="horde" />
   </dir> <!-- / -->
@@ -825,6 +840,7 @@
    <install as="turba/js/contact_tabs.js" name="js/contact_tabs.js" />
    <install as="turba/js/minisearch.js" name="js/minisearch.js" />
    <install as="turba/js/search.js" name="js/search.js" />
+   <install as="turba/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="turba/lib/.htaccess" name="lib/.htaccess" />
    <install as="turba/lib/Api.php" name="lib/Api.php" />
    <install as="turba/lib/Application.php" name="lib/Application.php" />
@@ -832,8 +848,11 @@
    <install as="turba/lib/Exception.php" name="lib/Exception.php" />
    <install as="turba/lib/List.php" name="lib/List.php" />
    <install as="turba/lib/Object.php" name="lib/Object.php" />
+   <install as="turba/lib/Smartmobile.php" name="lib/Smartmobile.php" />
    <install as="turba/lib/Test.php" name="lib/Test.php" />
    <install as="turba/lib/Turba.php" name="lib/Turba.php" />
+   <install as="turba/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="turba/lib/Ajax/Application/Smartmobile.php" name="lib/Ajax/Application/Smartmobile.php" />
    <install as="turba/lib/Block/Minisearch.php" name="lib/Block/Minisearch.php" />
    <install as="turba/lib/Data/Ldif.php" name="lib/Data/Ldif.php" />
    <install as="turba/lib/Driver/Facebook.php" name="lib/Driver/Facebook.php" />
@@ -860,7 +879,6 @@
    <install as="turba/lib/Form/EditContactGroup.php" name="lib/Form/EditContactGroup.php" />
    <install as="turba/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="turba/lib/Object/Group.php" name="lib/Object/Group.php" />
-   <install as="turba/lib/Prefs/Special/Addressbook.php" name="lib/Prefs/Special/Addressbook.php" />
    <install as="turba/lib/Prefs/Special/Columnselect.php" name="lib/Prefs/Special/Columnselect.php" />
    <install as="turba/lib/View/Browse.php" name="lib/View/Browse.php" />
    <install as="turba/lib/View/Contact.php" name="lib/View/Contact.php" />
@@ -974,7 +992,6 @@
    <install as="scripts/ldap/addou.pl" name="scripts/ldap/addou.pl" />
    <install as="turba/templates/.htaccess" name="templates/.htaccess" />
    <install as="turba/templates/addressbook_list.php" name="templates/addressbook_list.php" />
-   <install as="turba/templates/menu.inc" name="templates/menu.inc" />
    <install as="turba/templates/block/minisearch.inc" name="templates/block/minisearch.inc" />
    <install as="turba/templates/browse/actions.inc" name="templates/browse/actions.inc" />
    <install as="turba/templates/browse/column_footers.inc" name="templates/browse/column_footers.inc" />
@@ -996,6 +1013,8 @@
    <install as="turba/templates/search/duplicate/footer.html.php" name="templates/search/duplicate/footer.html.php" />
    <install as="turba/templates/search/duplicate/header.html.php" name="templates/search/duplicate/header.html.php" />
    <install as="turba/templates/search/duplicate/list.html.php" name="templates/search/duplicate/list.html.php" />
+   <install as="turba/templates/smartmobile/browse.html.php" name="templates/smartmobile/browse.html.php" />
+   <install as="turba/templates/smartmobile/entry.html.php" name="templates/smartmobile/entry.html.php" />
    <install as="turba/templates/test/ldapserver.inc" name="templates/test/ldapserver.inc" />
    <install as="Turba/AllTests.php" name="test/Turba/AllTests.php" />
    <install as="Turba/Autoload.php" name="test/Turba/Autoload.php" />
@@ -1035,6 +1054,7 @@
    <install as="turba/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="turba/themes/default/graphics/az_secondary.png" name="themes/default/graphics/az_secondary.png" />
    <install as="turba/themes/default/graphics/contact.png" name="themes/default/graphics/contact.png" />
+   <install as="turba/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="turba/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="turba/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="turba/themes/default/graphics/group.png" name="themes/default/graphics/group.png" />
@@ -1060,8 +1080,10 @@
    <install as="turba/minisearch.php" name="minisearch.php" />
    <install as="README" name="README" />
    <install as="turba/search.php" name="search.php" />
+   <install as="turba/smartmobile.php" name="smartmobile.php" />
    <install as="turba/vcard.php" name="vcard.php" />
    <install as="turba/view.php" name="view.php" />
+   <install as="turba/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
   </filelist>
  </phprelease>
  <changelog>
@@ -1377,6 +1399,7 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mms] Fix infinite loop if array was passed to delete API call.
 * [mms] Fix descending sorting of result lists.
 * [mms] Return to same page when deleting contact from browse view.
 * [mjr] Add ability to return count of objects matching search in place of full result set.
@@ -1425,10 +1448,43 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-07-20</date>
+   <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Use Horde 5 action bar.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0beta3</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [jan] Support importing contacts via API if using &apos;emails&apos; attributes (Bug #8358).
+* [jan] Support &apos;emails&apos; attribute with ActiveSync.
+* [jan] Fix marking contacts as deleted in the history if deleting shared address books (Bug #11480).
+* [jan] Set gender field values literally to &apos;male&apos; or &apos;female&apos;.
+* [jan] Drop preference which address books to display.
+* [gwr] Mark the initial default share as such with the Kolab backend.
+* [gwr] Always mark the initial share as default addressbook.
+* [mms] Initial implementation of smartmobile view.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0beta4</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-12</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

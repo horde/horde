@@ -41,7 +41,13 @@ class Ingo_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (3.0.0beta2)';
+    public $features = array(
+        'smartmobileView' => true
+    );
+
+    /**
+     */
+    public $version = 'H5 (3.0.0-git)';
 
     /**
      */
@@ -202,6 +208,30 @@ class Ingo_Application extends Horde_Registry_Application
         if (!empty($GLOBALS['ingo_shares']) &&
             empty($GLOBALS['conf']['share']['no_sharing'])) {
             $menu->add('#', _("_Permissions"), 'horde-perms', null, '', Horde::popupJs(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('params' => array('app' => 'ingo', 'share' => $GLOBALS['session']->get('ingo', 'backend/id') . ':' . $GLOBALS['registry']->getAuth()), 'urlencode' => true)) . 'return false;');
+        }
+    }
+
+    /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        global $injector;
+
+        $perms = $injector->getInstance('Horde_Core_Perms');
+        $actions = $injector->getInstance('Ingo_Script')->availableActions();
+        $filters = $injector->getInstance('Ingo_Factory_Storage')
+            ->create()
+            ->retrieve(Ingo_Storage::ACTION_FILTERS)
+            ->getFilterList();
+
+        if (!empty($actions) &&
+            ($perms->hasAppPermission('allow_rules') &&
+             ($perms->hasAppPermission('max_rules') === true ||
+              $perms->hasAppPermission('max_rules') > count($filters)))) {
+            $sidebar->addNewButton(_("New Rule"), Horde::url('rule.php'));
         }
     }
 

@@ -65,7 +65,7 @@ class Kronolith_FreeBusy
         $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
         $email = $identity->getValue('from_addr');
         $cn = $identity->getValue('fullname');
-        if (empty($mail) && empty($cn)) {
+        if (empty($email) && empty($cn)) {
             $cn = $user;
         }
 
@@ -175,7 +175,9 @@ class Kronolith_FreeBusy
         $url = self::getUrl($email);
         if ($url) {
             $url = trim($url);
-            $http = $GLOBALS['injector']->getInstance('Horde_Core_Factory_HttpClient')->create();
+            $http = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_HttpClient')
+                ->create(array('request.verifyPeer' => false));
             try {
                 $response = $http->get($url);
             } catch (Horde_Http_Client_Exception $e) {

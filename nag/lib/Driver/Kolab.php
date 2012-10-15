@@ -87,7 +87,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         if (!$this->_getData()->objectIdExists($taskId)) {
             throw new Horde_Exception_NotFound();
         }
-        $task = $this->_getData()->getObject($taskId);
+        $task = $this->_getData()->getObject($taskId)->getData();
         $nag_task = $this->_buildTask($task);
         $nag_task['tasklist_id'] = $this->_tasklist;
         return new Nag_Task($this, $nag_task);
@@ -102,50 +102,46 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _buildTask($task)
     {
-        $task['task_id'] = $task['uid'];
+        $result = array(
+            'task_id' => $task['uid'],
+            'uid' => $task['uid'],
+            'name' => $task['summary'],
+            'desc' => $task['body'],
+            'priority' => $task['priority'],
+            'parent' => $task['parent'],
+            'alarm' => $task['alarm'],
+            'internaltags' => $task['categories'],
+            'completed' => !empty($task['completed']),
+            'completed_date' => $task['completed_date'],
+            'private' => $task['sensitivity'] != 'public',
+            'owner' => $GLOBALS['nag_shares']->getShare($this->_tasklist)->get('owner'),
+        );
 
-        $task['category'] = $task['categories'];
-        unset($task['categories']);
-
-        $task['name'] = $task['summary'];
-        unset($task['summary']);
-
+        if (isset($task['start-date'])) {
+            $result['start'] = $task['start-date']->format('U');
+        }
         if (isset($task['due-date'])) {
-            $task['due'] = $task['due-date'];
-            unset($task['due-date']);
+            $result['due'] = $task['due-date']->format('U');
         }
 
         if (isset($task['recurrence']) && isset($task['due'])) {
             $recurrence = new Horde_Date_Recurrence($task['due']);
             $recurrence->fromKolab($task['recurrence']);
-            $task['recurrence'] = $recurrence;
+            $result['recurrence'] = $recurrence;
         }
 
-        if (isset($task['start-date'])) {
-            $task['start'] = $task['start-date'];
-            unset($task['start-date']);
+        if (isset($task['organizer'])) {
+            $result['assignee'] = $task['organizer']['smtp-address'];
         }
 
-        $task['desc'] = $task['body'];
-        unset($task['body']);
-
-        if (!empty($task['completed'])) {
-            $task['completed'] = 1;
-        } else {
-            $task['completed'] = 0;
+        if (isset($task['horde-estimate'])) {
+            $result['estimate'] = $task['horde-estimate'];
+        }
+        if (isset($task['horde-alarm-methods'])) {
+            $result['methods'] = @unserialize($task['horde-alarm-methods']);
         }
 
-        if ($task['sensitivity'] == 'public') {
-            $task['private'] = false;
-        } else {
-            $task['private'] = true;
-        }
-        unset($task['sensitivity']);
-
-        $share = $GLOBALS['nag_shares']->getShare($this->_tasklist);
-        $task['owner'] = $share->get('owner');
-
-        return $task;
+        return $result;
     }
 
 
@@ -173,7 +169,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *     - estimate: (OPTIONAL, float) The estimated time to complete the
      *                 task.
      *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - category: (OPTIONAL, string) The category of the task.
+     *     - tags: (OPTIONAL, string) The tags of the task.
      *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - methods: (OPTIONAL, array) The overridden alarm notification
      *                methods.
@@ -191,8 +187,10 @@ class Nag_Driver_Kolab extends Nag_Driver
     protected function _add(array $task)
     {
         $object = $this->_getObject($task);
+        $object['uid'] = $this->_getData()->generateUid(); 
         try {
             $this->_getData()->create($object);
+            $this->_addTags($task);
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Nag_Exception($e);
         }
@@ -213,7 +211,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *     - estimate: (OPTIONAL, float) The estimated time to complete the
      *                 task.
      *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - category: (OPTIONAL, string) The category of the task.
+     *     - tags: (OPTIONAL, string) The tags of the task.
      *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - methods: (OPTIONAL, array) The overridden alarm notification
      *                methods.
@@ -232,6 +230,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         $object['uid'] = $taskId;
         try {
             $this->_getData()->modify($object);
+            $this->_updateTags($task);
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Nag_Exception($e);
         }
@@ -249,7 +248,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *     - estimate: (OPTIONAL, float) The estimated time to complete the
      *                 task.
      *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - category: (OPTIONAL, string) The category of the task.
+     *     - tags: (OPTIONAL, string) The tags of the task.
      *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
      *     - methods: (OPTIONAL, array) The overridden alarm notification
      *                methods.
@@ -271,15 +270,13 @@ class Nag_Driver_Kolab extends Nag_Driver
             'body' => $task['desc'],
             //@todo: Match Horde/Kolab priority values
             'priority' => $task['priority'],
-            //@todo: Extend to Kolab multiple categories (tagger)
-            'categories' => $task['category'],
             'parent' => $task['parent'],
         );
         if ($task['start'] !== 0) {
-            $object['start-date'] = $task['start'];
+            $object['start-date'] = new DateTime('@' . $task['start']);
         }
         if ($task['due'] !== 0) {
-            $object['due-date'] = $task['due'];
+            $object['due-date'] = new DateTime('@' . $task['due']);
         }
         if ($task['recurrence']) {
             $object['recurrence'] = $task['recurrence']->toKolab();
@@ -303,7 +300,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             $object['completed_date'] = $task['completed_date'];
         }
         if ($task['estimate'] !== 0.0) {
-            $object['estimate'] = number_format((float)$task['estimate'], 2);
+            $object['horde-estimate'] = number_format((float)$task['estimate'], 2);
         }
         if ($task['methods'] !== null) {
             $object['horde-alarm-methods'] = serialize($task['methods']);
@@ -320,6 +317,13 @@ class Nag_Driver_Kolab extends Nag_Driver
                 'smtp-address' => $task['assignee'],
             );
         }
+        if (!is_array($task['tags'])) {
+            $task['tags'] = Nag::getTagger()->split($task['tags']);
+        }
+        if ($task['tags']) {
+            $object['categories'] = $task['tags'];
+            usort($object['categories'], 'strcoll');
+        }
         return $object;
     }
 
@@ -331,10 +335,11 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _move($taskId, $newTasklist)
     {
-        return $this->_getData()->move(
+        $this->_getData()->move(
             $taskId,
             $GLOBALS['nag_shares']->getShare($newTasklist)->get('folder')
         );
+        $this->_getDataForTasklist($newTasklist)->synchronize();
     }
 
     /**
@@ -370,8 +375,6 @@ class Nag_Driver_Kolab extends Nag_Driver
      *
      * @param integer $completed  Which tasks to retrieve (1 = all tasks,
      *                            0 = incomplete tasks, 2 = complete tasks).
-     *
-     * @return mixed  True on success, PEAR_Error on failure.
      */
     public function retrieve($completed = Nag::VIEW_ALL)
     {
@@ -380,7 +383,7 @@ class Nag_Driver_Kolab extends Nag_Driver
 
         $task_list = $this->_getData()->getObjects();
         if (empty($task_list)) {
-            return true;
+            return;
         }
 
         foreach ($task_list as $task) {
@@ -420,8 +423,6 @@ class Nag_Driver_Kolab extends Nag_Driver
                 $this->tasks->add($dict[$key]);
             }
         }
-
-        return true;
     }
 
     /**

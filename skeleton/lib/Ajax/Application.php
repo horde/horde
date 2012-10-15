@@ -4,7 +4,7 @@
  *
  * This file defines the AJAX actions provided by this module. The primary
  * AJAX endpoint is represented by horde/services/ajax.php but that handler
- * will call the module specific actions via the class defined here.
+ * will call the module specific actions defined in this class.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
@@ -20,6 +20,8 @@ class Skeleton_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _init()
     {
+        // This adds the 'noop' action to the current application.
+        $this->addHandler('Horde_Core_Ajax_Application_Handler_Noop');
     }
 
 }

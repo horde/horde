@@ -36,7 +36,7 @@ class Mnemo_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (4.0-git)';
+    public $version = 'H4 (4.0.0-git)';
 
     /**
      * Global variables defined:
@@ -77,6 +77,66 @@ class Mnemo_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+        if (Mnemo::getDefaultNotepad(Horde_Perms::EDIT) &&
+            ($perms->hasAppPermission('max_notes') === true ||
+             $perms->hasAppPermission('max_notes') > Mnemo::countMemos())) {
+            $sidebar->addNewButton(
+                _("_New Note"),
+                Horde::url('memo.php')->add('actionID', 'add_memo'));
+        }
+
+        $url = Horde::url('');
+        $edit = Horde::url('notepads/edit.php');
+        $user = $GLOBALS['registry']->getAuth();
+
+        $sidebar->containers['my'] = array(
+            'header' => array(
+                'id' => 'mnemo-toggle-my',
+                'label' => _("My Notepads"),
+                'collapsed' => false,
+            ),
+        );
+        if (!$GLOBALS['prefs']->isLocked('default_notepad')) {
+            $sidebar->containers['my']['header']['add'] = array(
+                'url' => Horde::url('notepads/create.php'),
+                'label' => _("Create a new Notepad"),
+            );
+        }
+        $sidebar->containers['shared'] = array(
+            'header' => array(
+                'id' => 'mnemo-toggle-shared',
+                'label' => _("Shared Notepads"),
+                'collapsed' => true,
+            ),
+        );
+        foreach (Mnemo::listNotepads() as $name => $notepad) {
+            $row = array(
+                'selected' => in_array($name, $GLOBALS['display_notepads']),
+                'url' => $url->add('display_notepad', $name),
+                'label' => $notepad->get('name'),
+                'color' => $notepad->get('color') ?: '#dddddd',
+                'edit' => $edit->add('n', $notepad->getName()),
+                'type' => 'checkbox',
+            );
+            if ($notepad->get('owner') == $user) {
+                $sidebar->addRow($row, 'my');
+            } else {
+                if ($notepad->get('owner')) {
+                    $row['label'] .= ' [' . $GLOBALS['registry']->convertUsername($notepad->get('owner'), false) . ']';
+                }
+                $sidebar->addRow($row, 'shared');
+            }
+        }
+    }
+
+    /**
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
@@ -110,7 +170,7 @@ class Mnemo_Application extends Horde_Registry_Application
             )
         ));
 
-        foreach (Mnemo::listNotepads() as $name => $notepad) {
+        foreach (Mnemo::listNotepads(false, Horde_Perms::EDIT) as $name => $notepad) {
             $tree->addNode(array(
                 'id' => $parent . $name . '__new',
                 'parent' => $parent . '__new',
@@ -141,7 +201,7 @@ class Mnemo_Application extends Horde_Registry_Application
     {
         $error = false;
         $notepads = $GLOBALS['mnemo_shares']->listShares(
-            $user, array('attribtues' => $user));
+            $user, array('attributes' => $user));
         foreach ($notepads as $notepad => $share) {
             $driver = $GLOBALS['injector']
                 ->getInstance('Mnemo_Factory_Driver')
@@ -188,10 +248,6 @@ class Mnemo_Application extends Horde_Registry_Application
 
         switch ($vars->actionID) {
         case 'export':
-            /* Create a Mnemo storage instance. */
-            $storage = $injector->getInstance('Mnemo_Factory_Driver')->create($registry->getAuth());
-            $storage->retrieve();
-
             /* Get the full, sorted memo list. */
             $notes = Mnemo::listMemos();
 
@@ -211,7 +267,10 @@ class Mnemo_Application extends Horde_Registry_Application
                     $data[] = $note;
                 }
 
-                $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("notes.csv"), $data, true);
+                $injector->getInstance('Horde_Core_Factory_Data')
+                    ->create('Csv',
+                             array('cleanup' => array($this, 'cleanupData')))
+                    ->exportFile(_("notes.csv"), $data, true);
                 exit;
             }
         }

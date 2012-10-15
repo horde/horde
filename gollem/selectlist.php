@@ -87,7 +87,7 @@ $t->set('formid', htmlspecialchars($vars->formid));
 $t->set('navlink', Gollem::directoryNavLink(Gollem::$backend['dir'], $self_url->copy()->add(array('cacheid' => $cacheid, 'formid' => $vars->formid))));
 if ($GLOBALS['conf']['backend']['backend_list'] == 'shown') {
     // TODO
-    //$t->set('changeserver', Horde::link(htmlspecialchars(Horde_Auth::addLogoutParameters(Horde_Util::addParameter(Horde::url('login.php'), array('url' => Horde_Util::addParameter(Horde::url('selectlist.php'), array('formid' => $vars->formid)))), Horde_Auth::REASON_LOGOUT)), _("Change Server")) . Horde::img('logout.png', _("Change Server")) . '</a>', true);
+    //$t->set('changeserver', Horde::link(htmlspecialchars(Horde_Auth::addLogoutParameters(Horde::url('login.php')->add(array('url' => Horde::url('selectlist.php')->add(array('formid' => $vars->formid)))), Horde_Auth::REASON_LOGOUT)), _("Change Server")) . Horde::img('logout.png', _("Change Server")) . '</a>', true);
 } else {
     $t->set('changeserver', '', true);
 }

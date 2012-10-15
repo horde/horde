@@ -20,10 +20,10 @@ if (!$view->hasBookmarks()) {
     exit;
 }
 
+Trean::addFeedLink();
 $page_output->header(array(
     'title' => _("Browse")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $view->render();
 $page_output->footer();

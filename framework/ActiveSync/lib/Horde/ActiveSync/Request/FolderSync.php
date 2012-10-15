@@ -94,7 +94,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 array(), $synckey, Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_KEYMISM;
-            $this->_handleError();
+            $this->_handleError($e);
             return true;
         }
 
@@ -332,8 +332,12 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
      * Helper function for sending error responses
      *
      */
-    private function _handleError()
+    private function _handleError($e = null)
     {
+        if (!is_null($e)) {
+            $this->_logger->err($e->getMessage());
+        }
+
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_FOLDERSYNC);
         $this->_encoder->startTag(Horde_ActiveSync::FOLDERHIERARCHY_STATUS);

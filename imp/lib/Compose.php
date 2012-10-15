@@ -36,9 +36,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     const FORWARD_BODY = 9;
     const FORWARD_BOTH = 10;
     const REDIRECT = 11;
-    const RESUME = 12;
-    const EDITASNEW = 13;
-    const TEMPLATE = 14;
+    const EDITASNEW = 12;
+    const TEMPLATE = 13;
 
     /* The blockquote tag to use to indicate quoted text in HTML data. */
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
@@ -135,21 +134,15 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function destroy($action)
     {
-        $uids = new IMP_Indices();
-
         switch ($action) {
         case 'save_draft':
             /* Don't delete any drafts. */
-            break;
-
-        case 'send':
-            /* Delete the auto-draft and the original resumed draft. */
-            $uids->add($this->getMetadata('draft_uid_resume'));
-            // Fall-through
+            return;
 
         case 'cancel':
-            /* Delete the auto-draft, but save the original resume draft. */
-            $uids->add($this->getMetadata('draft_uid'));
+        case 'send':
+            /* Delete the draft. */
+            $uids = new IMP_Indices($this->getMetadata('draft_uid'));
             break;
         }
 
@@ -379,8 +372,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function resumeDraft($indices, array $opts = array())
     {
-        $res = $this->_resumeDraft($indices, self::RESUME, $opts);
-        $this->_metadata['draft_uid_resume'] = $indices;
+        $res = $this->_resumeDraft($indices, null, $opts);
+        $this->_metadata['draft_uid'] = $indices;
         return $res;
     }
 
@@ -555,11 +548,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                         // Ignore hostspec and port, since these can change
                         // even though the server is the same. UIDVALIDITY
                         // should catch any true server/backend changes.
-                    (IMP_Mailbox::get($imap_url['mailbox'])->uidvalid == $imap_url['uidvalidity']) &&
+                        (IMP_Mailbox::get($imap_url['mailbox'])->uidvalid == $imap_url['uidvalidity']) &&
                         $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
                         $this->_metadata['mailbox'] = IMP_Mailbox::get($imap_url['mailbox']);
                         $this->_metadata['uid'] = $imap_url['uid'];
-                        $this->_replytype = $reply_type;
+                        $this->_replytype = $type;
                     }
                 } catch (Exception $e) {}
             }
@@ -623,7 +616,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         /* Add the message to the mailbox. */
         try {
-            $ids = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->append($mbox, array(array(
+            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->append($mbox, array(array(
                 'data' => $this->_saveDraftMsg($headers, $message, $opts),
                 'flags' => $append_flags
             )));
@@ -645,8 +638,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function hasDrafts()
     {
-        return (!empty($this->_metadata['draft_uid']) ||
-                !empty($this->_metadata['draft_uid_resume']));
+        return !empty($this->_metadata['draft_uid']);
     }
 
     /**
@@ -850,7 +842,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             /* Log the reply. */
             if ($this->getMetadata('in_reply_to') &&
                 !empty($conf['maillog']['use_maillog'])) {
-                IMP_Maillog::log($this->_replytype, $this->getMetadata('in_reply_to'), $recipients);
+                $injector->getInstance('IMP_Maillog')->log($this->_replytype, $this->getMetadata('in_reply_to'), $recipients);
             }
 
             $imp_message = $injector->getInstance('IMP_Message');
@@ -1106,7 +1098,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                                               Horde_Mime_Headers $headers = null,
                                               Horde_Mime_Part $message = null)
     {
-        global $conf, $injector, $registry;
+        global $conf, $injector;
 
         $perms = $injector->getInstance('Horde_Core_Perms');
         $email_count = count($email);
@@ -1178,7 +1170,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function _saveRecipients(Horde_Mail_Rfc822_List $recipients)
     {
-        global $notification, $prefs, $registry, $session;
+        global $notification, $prefs, $registry;
 
         if (!$prefs->getValue('save_recipients') ||
             !$registry->hasMethod('contacts/import') ||
@@ -1383,7 +1375,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 $base = new Horde_Mime_Part();
                 $base->setType('multipart/mixed');
                 $base->addPart($textpart);
-                foreach ($this as $id => $val) {
+                foreach (array_keys($this->_atc) as $id) {
                     $base->addPart($this->buildAttachment($id));
                 }
             }
@@ -1926,8 +1918,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $h = $contents->getHeader();
-        $format = 'text';
-        $msg = '';
 
         $this->_metadata['mailbox'] = $contents->getMailbox();
         $this->_metadata['uid'] = $contents->getUid();
@@ -2060,9 +2050,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function sendRedirectMessage($to, $log = true)
     {
+        global $conf, $injector, $registry;
+
         $recip = $this->recipientList(array('to' => $to));
 
-        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+        $identity = $injector->getInstance('IMP_Identity');
         $from_addr = $identity->getFromAddress();
 
         $out = array();
@@ -2070,7 +2062,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         foreach ($this->getMetadata('redirect_indices') as $val) {
             foreach ($val->uids as $val2) {
                 try {
-                    $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($val->mbox->getIndicesOb($val2));
+                    $contents = $injector->getInstance('IMP_Factory_Contents')->create($val->mbox->getIndicesOb($val2));
                 } catch (IMP_Exception $e) {
                     throw new IMP_Compose_Exception(_("Error when redirecting message."));
                 }
@@ -2098,22 +2090,22 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 $hdr_array['_raw'] = $header_text;
 
                 try {
-                    $GLOBALS['injector']->getInstance('IMP_Mail')->send($to, $hdr_array, $contents->getBody());
+                    $injector->getInstance('IMP_Mail')->send($to, $hdr_array, $contents->getBody());
                 } catch (Horde_Mail_Exception $e) {
                     throw new IMP_Compose_Exception($e);
                 }
 
                 $recipients = strval($recip['list']);
 
-                Horde::log(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth()), 'INFO');
+                Horde::log(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $registry->getAuth()), 'INFO');
 
                 if ($log) {
                     /* Store history information. */
-                    if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-                        IMP_Maillog::log(self::REDIRECT, $headers->getValue('message-id'), $recipients);
+                    if (!empty($conf['maillog']['use_maillog'])) {
+                        $injector->getInstance('IMP_Maillog')->log(self::REDIRECT, $headers->getValue('message-id'), $recipients);
                     }
 
-                    $GLOBALS['injector']->getInstance('IMP_Sentmail')->log(IMP_Sentmail::REDIRECT, $headers->getValue('message-id'), $recipients);
+                    $injector->getInstance('IMP_Sentmail')->log(IMP_Sentmail::REDIRECT, $headers->getValue('message-id'), $recipients);
                 }
 
                 $tmp = new stdClass;
@@ -2461,7 +2453,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function deleteAllAttachments()
     {
-        foreach ($this->_atc as $key => $val) {
+        foreach (array_keys($this->_atc) as $key) {
             unset($this[$key]);
         }
     }
@@ -2736,7 +2728,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         if (!empty($conf['compose']['link_attach_size_limit'])) {
             $size_check = $conf['compose']['link_attach_size_limit'] - $this->sizeOfAttachments();
             if ($size_check < 0) {
-                throw new IMP_Compose_Exception(sprintf(_("Attached file(s) exceeds the linked attachment size limit (%d KB too large). Delete one of the attachments to continue."), IMP::numberFormat(abs($size) / 1024, 0)));
+                throw new IMP_Compose_Exception(sprintf(_("Attached file(s) exceeds the linked attachment size limit (%d KB too large). Delete one of the attachments to continue."), IMP::numberFormat(abs($size_check) / 1024, 0)));
             }
         }
 
@@ -3087,8 +3079,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         if (empty($GLOBALS['conf']['compose']['use_vfs'])) {
             return;
         }
-
-        $imp_ui = new IMP_Ui_Compose();
 
         $headers = array();
         foreach (array('to', 'cc', 'bcc', 'subject') as $val) {

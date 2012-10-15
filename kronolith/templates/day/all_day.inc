@@ -1,8 +1,6 @@
- <tr>
+ <tr class="kronolith-all-day">
 <?php if ($first_row): ?>
-  <td class="nowrap rightAlignt"<?php echo $rowspan ?>><strong><?php echo $newEventUrl ?></strong></td>
-  <td<?php echo $rowspan ?> style="height:<?php echo round(20 / $this->slotsPerHour) ?>px">&nbsp;</td>
-  <td<?php echo $rowspan ?>>&nbsp;</td>
+  <td class="kronolith-first-col"><span><?php echo $newEventUrl ?></span></td>
 <?php endif; ?>
   <?php echo $row ?>
  </tr>

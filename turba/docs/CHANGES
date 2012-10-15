@@ -1,3 +1,25 @@
+----------
+v4.0.0-git
+----------
+
+
+
+-----------
+v4.0.0beta3
+-----------
+
+[jan] Support importing contacts via API if using 'emails' attributes (Bug
+      #8358).
+[jan] Support 'emails' attribute with ActiveSync.
+[jan] Fix marking contacts as deleted in the history if deleting shared address
+      books (Bug #11480).
+[jan] Set gender field values literally to 'male' or 'female'.
+[jan] Drop preference which address books to display.
+[gwr] Mark the initial default share as such with the Kolab backend.
+[gwr] Always mark the initial share as default addressbook.
+[mms] Initial implementation of smartmobile view.
+
+
 -----------
 v4.0.0beta2
 -----------
@@ -29,6 +51,7 @@ First alpha release for Horde 5.
 v3.0.15-git
 -----------
 
+[mms] Fix infinite loop if array was passed to delete API call.
 [mms] Fix descending sorting of result lists.
 [mms] Return to same page when deleting contact from browse view.
 [mjr] Add ability to return count of objects matching search in place of full

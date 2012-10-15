@@ -7,7 +7,7 @@
  <?php printf(_("Import Calendar, Step %d"), (int)$import_step) ?>
 </h1>
 
-<div class="item">
+<div class="horde-content">
     <?php echo Horde::label('import_format', _("Select the format of the source file:")) ?><br />
     <select id="import_format" name="import_format">
       <option value="csv"><?php echo _("Comma separated values") ?></option>
@@ -29,7 +29,9 @@
     <br /><br />
     <input type="checkbox" class="checkbox" name="purge" id="purge" value="1" />
     <?php echo Horde::label('purge', _("Replace existing calendar with the imported one? <strong>Warning: This deletes all entries in your current calendar.</strong>")) ?>
-    <br /><br />
-    <input type="submit" value="<?php echo _("Next") ?>" class="button" />
+</div>
+
+<div class="horde-form-buttons">
+  <input type="submit" value="<?php echo _("Next") ?>" class="horde-default" />
 </div>
 </form>

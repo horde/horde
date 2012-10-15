@@ -51,10 +51,6 @@
  *                  offset of the content about to be rendered.
  *                  params: (integer) The current offset.
  *                  return: (integer) The altered offset.
- * onSlide: (function) Callback function that is triggered when the
- *          viewport slider bar is moved.
- *          params: NONE
- *          return: NONE
  * page_size: (integer) Default page size to view on load. Only used if
  *            pane_mode is 'horiz'.
  * pane_data: (Element/string) A DOM element/ID of the container to hold
@@ -113,7 +109,7 @@
  *
  * ViewPort:select
  *   Fired when rows are selected.
- *   params: (object) opts = (object) Boolean options [delay, right]
+ *   params: (object) opts = (object) Boolean options [right]
  *                    vs = (ViewPort_Selection) A ViewPort_Selection object.
  *
  * ViewPort:splitBarChange
@@ -244,7 +240,6 @@ var ViewPort = Class.create({
             horiz: {
                 loc: opts.page_size
             },
-            init: false,
             spacer: null,
             vert: {
                 width: opts.pane_width
@@ -262,6 +257,9 @@ var ViewPort = Class.create({
         this.empty_msg = new Element('SPAN', { className: 'vpEmpty' });
 
         Event.observe(window, 'resize', this.onResize.bind(this));
+        document.observe('DragDrop2:start', this._onDragStart.bindAsEventListener(this));
+        document.observe('DragDrop2:end', this._onDragEnd.bindAsEventListener(this));
+        document.observe('dblclick', this._onDragDblClick.bindAsEventListener(this));
     },
 
     // view = (string) ID of view.
@@ -426,10 +424,7 @@ var ViewPort = Class.create({
     {
         var buffer = vs.getBuffer();
 
-        if (buffer.getView() == this.view) {
-            this.deselect(vs);
-        }
-
+        this.deselect(vs);
         this.opts.container.fire('ViewPort:remove', vs);
 
         buffer.remove(vs.get('rownum'));
@@ -506,7 +501,7 @@ var ViewPort = Class.create({
                 sp.vert.width = parseInt(this.opts.container.clientWidth * 0.35, 10);
             }
 
-            h += lh * this.page_size;
+            h += lh * this.page_size - this.opts.container.getLayout().get('border-bottom');
             this.opts.list_container.setStyle({
                 float: 'left',
                 height: h + 'px'
@@ -1139,20 +1134,16 @@ var ViewPort = Class.create({
             break;
 
         case 'vert':
-            new Drag(sp.currbar.setStyle({ float: 'left' }), {
+            new Drag(sp.currbar.setStyle({
+                float: 'left',
+                position: 'relative'
+            }), {
                 constraint: 'horizontal',
                 ghosting: true,
                 nodrop: true,
                 snapToParent: true
             });
             break;
-        }
-
-        if (!sp.init) {
-            document.observe('DragDrop2:end', this._onDragEnd.bindAsEventListener(this));
-            document.observe('DragDrop2:start', this._onDragStart.bindAsEventListener(this));
-            document.observe('dblclick', this._onDragDblClick.bindAsEventListener(this));
-            sp.init = true;
         }
     },
 
@@ -1308,10 +1299,12 @@ var ViewPort = Class.create({
     // opts = (object) TODO [clearall]
     deselect: function(vs, opts)
     {
+        var buffer = vs.getBuffer();
         opts = opts || {};
 
         if (vs.size() &&
-            this._getBuffer().deselect(vs, opts && opts.clearall)) {
+            buffer.deselect(vs, opts.clearall) &&
+            buffer.getView() == this.view) {
             vs.get('div').invoke('removeClassName', 'vpRowSelected');
             this.opts.container.fire('ViewPort:deselect', { opts: opts, vs: vs });
         }
@@ -1345,10 +1338,20 @@ ViewPort_Scroller = Class.create({
         this.scrollDiv = new Element('DIV', { className: 'vpScroll' }).setStyle({ float: 'left', overflow: 'hidden' }).hide();
         c.insert({ after: this.scrollDiv });
 
-        this.scrollDiv.observe('Slider2:change', this._onScroll.bind(this));
-        if (this.vp.opts.onSlide) {
-            this.scrollDiv.observe('Slider2:slide', this.vp.opts.onSlide);
-        }
+        this.scrollDiv.observe('Slider2:change', function() {
+            if (!this.noupdate) {
+                this.vp.requestContentRefresh(this.currentOffset());
+            }
+        }.bind(this));
+        this.scrollDiv.observe('Slider2:end', function() {
+            this.vp.opts.container.fire('ViewPort:sliderEnd');
+        }.bind(this));
+        this.scrollDiv.observe('Slider2:slide', function() {
+            this.vp.opts.container.fire('ViewPort:sliderSlide');
+        }.bind(this));
+        this.scrollDiv.observe('Slider2:start', function() {
+            this.vp.opts.container.fire('ViewPort:sliderStart');
+        }.bind(this));
 
         // Create scrollbar object.
         this.scrollbar = new Slider2(this.scrollDiv, {
@@ -1419,13 +1422,6 @@ ViewPort_Scroller = Class.create({
     {
         this._createScrollBar();
         this.scrollbar.setScrollPosition(offset);
-    },
-
-    _onScroll: function()
-    {
-        if (!this.noupdate) {
-            this.vp.requestContentRefresh(this.currentOffset());
-        }
     },
 
     currentOffset: function()

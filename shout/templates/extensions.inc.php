@@ -11,14 +11,9 @@
         <?php
             foreach ($extensions as $extension => $info) {
 
-                $url = Horde::url("extensions.php");
-                $url = Horde_Util::addParameter($url,
-                    array(
-                        'extension' => $extension,
-                    )
-                );
-                $editurl = Horde_Util::addParameter($url, 'action', 'edit');
-                $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
+                $url = Horde::url("extensions.php")->add(array('extension' => $extension));
+                $editurl = $url->copy()->add('action', 'edit');
+                $deleteurl = $url->copy()->add('action', 'delete');
         ?>
         <tr class="item" style="vertical-align: top">
             <td>
@@ -44,8 +39,7 @@
 <br />
 <ul id="extensionsControls" class="controls">
     <?php
-    $addurl = Horde::url('extensions.php');
-    $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
+    $addurl = Horde::url('extensions.php')->add('action', 'add');
     ?>
     <li><span class="button" onclick="showExtensionForm()">
         <?php echo Horde::img('extension-add.png'); ?>&nbsp;New Extension

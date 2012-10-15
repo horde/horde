@@ -19,12 +19,14 @@ $form->addVariable(_("Stop watch description"), 'description', 'text', true);
 if ($form->validate($vars)) {
     Hermes::newTimer($vars->get('description'));
     echo Horde::wrapInlineScript(array(
-        'var t = ' . Horde_Serialize::serialize(sprintf(_("The stop watch \"%s\" has been started and will appear in the sidebar at the next refresh."), $vars->get('description')), Horde_Serialize::JSON) . ';',
+        'var t = ' . Horde_Serialize::serialize(sprintf(_("The stop watch \"%s\" has been started and will appear in the menu at the next refresh."), $vars->get('description')), Horde_Serialize::JSON) . ';',
         'alert(t);',
         'window.close();'
     ));
     exit;
 }
+
+$page_output->topbar = $page_output->sidebar = false;
 
 $page_output->header(array(
     'title' => _("Stop Watch")

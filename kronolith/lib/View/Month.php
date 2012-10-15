@@ -158,27 +158,37 @@ class Kronolith_View_Month
                 $date->hour = $twentyFour ? 12 : 6;
                 $week = $date->weekOfYear();
 
-                if ($cell % 7 == 0 && $cell != 0) {
+                if ($cell % 7 == 0) {
+                    $weeklink = Horde::url('week.php')
+                        ->add('date', $date->dateString())
+                        ->link(array('class' => 'kronolith-weeklink'))
+                        . ($sidebyside ? sprintf(_("Week %d"), $week) : $week)
+                        . '</a>';
                     if ($sidebyside) {
-                        $html .= '<td>' . htmlspecialchars($cal->get('name')) . '</td>';
+                        $html .= sprintf('<td class="kronolith-first-col">%s<br />%s</td>',
+                                         $weeklink,
+                                         htmlspecialchars($cal->get('name')));
                     } else {
-                        $html .= "</tr>\n<tr>";
+                        if ($cell != 0) {
+                            $html .= "</tr>\n<tr>";
+                        }
+                        $html .= '<td class="kronolith-first-col">'
+                            . $weeklink . '</td>';
                     }
                 }
                 if ($date->isToday()) {
-                    $style = 'today';
+                    $style = ' class="kronolith-today"';
                 } elseif ($date->month != $this->month) {
-                    $style = 'othermonth';
+                    $style = ' class="kronolith-other-month"';
                 } elseif ($date->dayOfWeek() == 0 || $date->dayOfWeek() == 6) {
-                    $style = 'weekend';
+                    $style = ' class="kronolith-weekend"';
                 } else {
-                    $style = 'text';
+                    $style = '';
                 }
 
-                $html .= '<td class="' . $style . '" height="70" width="14%" valign="top"><div>';
+                $html .= '<td' . $style . '><div class="kronolith-day">';
 
-                $html .= $day_url->add('date', $date->dateString())
-                    ->link(array('class' => 'day'))
+                $html .= $day_url->add('date', $date->dateString())->link()
                     . $date->mday . '</a>';
 
                 if ($addLinks) {
@@ -190,26 +200,19 @@ class Kronolith_View_Month
                         . $new_img . '</a>';
                 }
 
-                if ($date->dayOfWeek() == Horde_Date::DATE_MONDAY) {
-                    $html .= Horde::url('week.php')
-                        ->add('date', $date->dateString())
-                        ->link(array('class' => 'week'))
-                        . sprintf(_("Week %d"), $week) . '</a>';
-                }
-
-                $html .= '</div><div class="clear">&nbsp;</div>';
+                $html .= '</div>';
 
                 $date_stamp = $date->dateString();
                 if (!empty($this->_events[$date_stamp])) {
                     foreach ($this->_events[$date_stamp] as $event) {
                         if (!$sidebyside || $event->calendar == $id) {
-                            $html .= '<div class="month-eventbox"' . $event->getCSSColors() . '>'
-                                . $event->getLink($date, true, $this_link);
-                            if ($showTime) {
-                                $html .= '<div class="event-time">' . htmlspecialchars($event->getTimeRange()) . '</div>';
+                            $html .= '<div class="kronolith-event"' . $event->getCSSColors() . '>';
+                            if ($showTime && !$event->isAllDay()) {
+                                $html .= '<span class="kronolith-time">' . htmlspecialchars($event->getTimeRange()) . '</span>';
                             }
+                            $html .= $event->getLink($date, true, $this_link);
                             if (!$event->isPrivate() && $showLocation) {
-                                $html .= '<div class="event-location">' . htmlspecialchars($event->getLocation()) . '</div>';
+                                $html .= '<span class="kronolith-location">' . htmlspecialchars($event->getLocation()) . '</span>';
                             }
                             $html .= '</div>';
                         }

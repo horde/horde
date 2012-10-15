@@ -43,7 +43,6 @@ try {
     $view = new $view($params);
 } catch (Horde_Exception $e) {
     $page_output->header();
-    echo Horde::menu();
     $notification->notify(array('listeners' => 'status'));
     echo '<br /><em>' . htmlspecialchars($e->getMessage()) . '</em>';
     $page_output->footer();
@@ -55,7 +54,6 @@ Ansel::initJSVariables();
 $page_output->header(array(
     'title' => $view->getTitle()
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 $view_html = $view->html();
 echo $view_html;

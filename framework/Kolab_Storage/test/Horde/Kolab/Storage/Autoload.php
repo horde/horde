@@ -21,5 +21,5 @@ error_reporting(E_ALL | E_STRICT);
 require_once __DIR__ . '/TestCase.php';
 
 /** Load stub definitions */
-require_once __DIR__ . '/Stub/ListQuery.php';
 require_once __DIR__ . '/Stub/DataQuery.php';
+require_once __DIR__ . '/Stub/Driver.php';

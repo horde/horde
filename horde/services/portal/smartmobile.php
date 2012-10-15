@@ -22,12 +22,21 @@ if (empty($fullname)) {
     $fullname = $registry->getAuth();
 }
 
-$links = array();
-foreach ($registry->listApps() as $app) {
-    if ($app != 'horde') {
-        $links[htmlspecialchars($registry->get('name', $app))] = array(Horde::url('', true, array('app' => $app)), $registry->get('icon', $app));
+$links = $mobile_links = array();
+foreach (array_diff($registry->listApps(), array('horde')) as $app) {
+    $name = $registry->get('name', $app);
+    $tmp = array(
+        Horde::url('', true, array('app' => $app)),
+        $registry->get('icon', $app)
+    );
+    if ($registry->hasView($registry::VIEW_SMARTMOBILE, $app)) {
+        $mobile_links[$name] = $tmp;
+    } else {
+        $links[$name] = $tmp;
     }
 }
+ksort($links, SORT_LOCALE_STRING);
+ksort($mobile_links, SORT_LOCALE_STRING);
 
 $notification->notify(array('listeners' => 'status'));
 

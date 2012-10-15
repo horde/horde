@@ -84,7 +84,7 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
         $part = $this->getConfigParam('imp_contents')->getMIMEPart($part3_id);
         if ($part) {
             $status->addText(sprintf(_("The text of the sent message can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part, 'view_attach', _("HERE"), array('jstext' => _("The text of the sent message"), 'params' => array('ctype' => 'message/rfc822', 'mode' => IMP_Contents::RENDER_FULL)))));
-            foreach ($part->contentTypeMap() as $key => $val) {
+            foreach (array_keys($part->contentTypeMap()) as $key) {
                 $ret[$key] = null;
             }
         }

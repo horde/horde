@@ -14,9 +14,7 @@ Horde_Registry::appInit('turba');
 // Exit if this isn't an authenticated user, or if there's no source
 // configured for shares.
 if (!$GLOBALS['registry']->getAuth() || !$session->get('turba', 'has_share')) {
-    require TURBA_BASE . '/'
-        . ($browse_source_count ? basename($prefs->getValue('initial_page')) : 'search.php');
-    exit;
+    Horde::url('', true)->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -27,16 +25,17 @@ if ($form->validate($vars)) {
     try {
         $result = $form->execute();
         $notification->push(sprintf(_("The address book \"%s\" has been created."), $vars->get('name')), 'horde.success');
+        Horde::url('addressbooks/edit.php')
+            ->add('a', $result->getName())
+            ->redirect();
     } catch (Turba_Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
     }
-
-    Horde::url('addressbooks/', true)->redirect();
 }
 
 $page_output->header(array(
     'title' => $form->getTitle()
 ));
-require TURBA_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, Horde::url('addressbooks/create.php'), 'post');
 $page_output->footer();

@@ -63,7 +63,6 @@ if ($form->validate()) {
 
 /* Template object. */
 $view = new Agora_View();
-$view->menu = Horde::menu();
 
 Horde::startBuffer();
 $form->renderActive(null, $vars, Horde::url('messages/move.php'), 'post');

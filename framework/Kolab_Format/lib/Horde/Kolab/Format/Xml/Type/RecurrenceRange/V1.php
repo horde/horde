@@ -88,7 +88,7 @@ extends Horde_Kolab_Format_Xml_Type_String
             return null;
         }
         if ($type == 'date') {
-            return Horde_Kolab_Format_Date::decodeDate($result);
+            return Horde_Kolab_Format_Date::readDate($result);
         }
         return $result;
     }
@@ -122,7 +122,7 @@ extends Horde_Kolab_Format_Xml_Type_String
     {
         if (isset($attributes['range-type']) &&
             $attributes['range-type'] == 'date') {
-            $attributes[$name] = Horde_Kolab_Format_Date::encodeDate($attributes[$name]);
+            $attributes[$name] = Horde_Kolab_Format_Date::writeDate($attributes[$name]);
         }
         $node = parent::save(
             $name, $attributes, $parent_node, $helper, $params

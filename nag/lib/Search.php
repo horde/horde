@@ -69,13 +69,19 @@ class Nag_Search implements Serializable
      *          DEFAULT: No date filters.
      *
      *   - tags: (array) An array of tags to filter on.
+     *   - tasklists: (array) An arary of tasklist ids to filter on.
+     *                DEFAULT: The current display_tasklists value is used.
      *
      * @return Nag_Search
      */
     public function __construct($search, $mask, array $options = array())
     {
         $options = array_merge(
-            array('completed' => 0, 'due' => array(), 'tags' => array()),
+            array(
+                'completed' => 0,
+                'due' => array(),
+                'tags' => array(),
+                'tasklists' => $GLOBALS['display_tasklists']),
             $options);
 
         $this->_search = $search;
@@ -83,6 +89,7 @@ class Nag_Search implements Serializable
         $this->_completed = $options['completed'];
         $this->_due = $options['due'];
         $this->_tags = $options['tags'];
+        $this->_tasklists = $options['tasklists'];
     }
 
     /**
@@ -110,7 +117,6 @@ class Nag_Search implements Serializable
     {
         global $prefs;
 
-        $pattern = $this->_search;
         if (!empty($this->_due)) {
             $parser = Horde_Date_Parser::factory(array('locale' => $GLOBALS['prefs']->getValue('language')));
             $date = $parser->parse($this->_due[1]);
@@ -122,20 +128,20 @@ class Nag_Search implements Serializable
 
         // Get the full, sorted task list.
         $tasks = Nag::listTasks(array(
-            'tasklists' => array_keys(Nag::listTasklists(false, Horde_Perms::READ, false)),
+            'tasklists' => $this->_tasklists,
             'completed' => $this->_completed)
         );
-
-        $pattern = '/' . preg_quote($pattern, '/') . '/i';
+        if (!empty($this->_search)) {
+            $pattern = '/' . preg_quote($this->_search, '/') . '/i';
+        }
         $search_results = new Nag_Task();
-        $tasks->reset();
-        $results = array();
         if (!empty($this->_tags)) {
             $tagged_tasks = Nag::getTagger()->search(
                 $this->_tags,
                 array('user' => $GLOBALS['registry']->getAuth())
             );
         }
+        $tasks->reset();
         while ($task = $tasks->each()) {
             if (!empty($date)) {
                 if (empty($task->due) || $task->due > $date) {
@@ -162,6 +168,32 @@ class Nag_Search implements Serializable
         $search_results->loadTags();
 
         return $search_results;
+    }
+
+    /**
+     * Populate a Horde_Variables instance with the search values for this
+     * search.
+     *
+     * @param Horde_Variables $vars  The Horde_Variables object.
+     */
+    public function getVars(Horde_Variables &$vars)
+    {
+        $vars->set('search_pattern', $this->_search);
+        $vars->set('search_tags', implode(',', $this->_tags));
+        $vars->set('search_completed', $this->_completed);
+        $vars->set('due_within', $this->_due[0]);
+        $vars->set('due_of', $this->_due[1]);
+
+        $mask = array();
+        if ($this->_mask & self::MASK_NAME) {
+            $mask[] = 'search_name';
+        }
+        if ($this->_mask & self::MASK_DESC) {
+            $mask[] = 'search_desc';
+        }
+        if (!empty($mask)) {
+            $vars->set('search_in', $mask);
+        }
     }
 
     public function serialize()

@@ -40,6 +40,7 @@ Autocompleter.Base = Class.create({
             minChars: 1,
             onSelect: Prototype.K,
             onShow: Prototype.K,
+            onHide: Prototype.K,
             onType: Prototype.K,
             filterCallback: Prototype.K,
             paramName: elt.readAttribute('name'),
@@ -139,6 +140,7 @@ Autocompleter.Base = Class.create({
                 this.knl = new KeyNavList(this.elt, {
                     onChoose: this.onSelect.bind(this),
                     onShow: this.opts.onShow.bind(this),
+                    onHide: this.opts.onHide.bind(this),
                     domParent: this.opts.domParent,
                     keydownObserver: this.opts.keydownObserver
                 });

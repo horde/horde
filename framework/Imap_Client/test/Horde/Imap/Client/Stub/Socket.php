@@ -29,21 +29,77 @@
  */
 class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
 {
+    public $sort_ob;
+
+    public function __construct(array $params = array())
+    {
+        parent::__construct($params);
+
+        require_once __DIR__ . '/SocketClientSort.php';
+
+        $this->sort_ob = new Horde_Imap_Client_Stub_SocketClientSort($this);
+    }
+
     public function getClientSort($data, $sort)
     {
         $this->_temp['fetchresp'] = new Horde_Imap_Client_Fetch_Results();
 
         $ids = array();
 
-        foreach ($data as $val) {
-            if (strlen($val)) {
-                $this->_tokenizeData($val);
-                $this->_parseFetch($this->_temp['token']->out[1], $this->_temp['token']->out[3]);
-                $ids[] = $this->_temp['token']->out[1];
-                unset($this->_temp['token']);
-            }
+        foreach (array_filter($data) as $val) {
+            $token = new Horde_Imap_Client_Tokenize($val);
+            $token->rewind();
+            $id_str = $token->next();
+            $token->next();
+            $token->next();
+            $this->_parseFetch($id_str, $token);
+            $ids[] = $id_str;
         }
 
-        return $this->_clientSortProcess($ids, $this->_temp['fetchresp'], $sort);
+        return $this->sort_ob->clientSortProcess($ids, $this->_temp['fetchresp'], $sort);
     }
+
+    public function getThreadSort($data)
+    {
+        $token = new Horde_Imap_Client_Tokenize($data);
+        $token->rewind();
+
+        $this->_parseThread($token);
+
+        return new Horde_Imap_Client_Data_Thread($this->_temp['threadparse'], 'uid');
+    }
+
+    public function parseNamespace($data)
+    {
+        $token = new Horde_Imap_Client_Tokenize($data);
+        $token->rewind();
+
+        $this->_parseNamespace($token);
+
+        return $this->_temp['namespace'];
+    }
+
+    public function parseFetch($data)
+    {
+        $token = new Horde_Imap_Client_Tokenize($data);
+        $token->rewind();
+        $msg_no = $token->next();
+        $token->next();
+        $token->next();
+
+        $this->_temp['fetchresp'] = null;
+
+        $this->_parseFetch($msg_no, $token);
+
+        return $this->_temp['fetchresp'];
+    }
+
+    public function responseCode($data)
+    {
+        $token = new Horde_Imap_Client_Tokenize($data);
+        $server = Horde_Imap_Client_Interaction_Server::create($token);
+
+        $this->_responseCode($server);
+    }
+
 }

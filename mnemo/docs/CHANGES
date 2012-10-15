@@ -1,7 +1,17 @@
---------
-v4.0-git
---------
+----------
+v4.0.0-git
+----------
 
+[jan] Fix exporting (Bug #11507).
+
+
+-----------
+v4.0.0beta1
+-----------
+
+[gwr] Always mark the initial share as default notepad.
+[gwr] Mark the initial default share as such with the Kolab backend.
+[gwr] Fixed deletion of shares with the Kolab driver.
 [jan] Fix display of note title (Bug #11275).
 
 

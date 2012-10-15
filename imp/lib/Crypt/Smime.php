@@ -201,7 +201,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             }
         } catch (Horde_Exception_HookNotSet $e) {}
 
-        $params = IMP::getAddressbookSearchParams();
+        $params = $GLOBALS['injector']->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
 
         try {
             $key = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], true, true));
@@ -230,11 +230,11 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function listPublicKeys()
     {
-        $params = IMP::getAddressbookSearchParams();
-        if (empty($params['sources'])) {
-            return array();
-        }
-        return $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
+        $params = $GLOBALS['injector']->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
+
+        return empty($params['sources'])
+            ? array()
+            : $GLOBALS['registry']->call('contacts/getAllAttributeValues', array(self::PUBKEY_FIELD, $params['sources']));
     }
 
     /**
@@ -246,7 +246,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function deletePublicKey($email)
     {
-        $params = IMP::getAddressbookSearchParams();
+        $params = $GLOBALS['injector']->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
         $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
     }
 
@@ -489,25 +489,37 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function importKeyDialog($target, $reload)
     {
+        global $notification, $page_output, $registry;
+
+        $page_output->topbar = $page_output->sidebar = false;
+
+        $page_output->addInlineScript(array(
+            '$$("INPUT.horde-cancel").first().observe("click", function() { window.close(); })'
+        ), true);
+
         IMP::header(_("Import S/MIME Key"));
 
         /* Need to use regular status notification - AJAX notifications won't
          * show in popup windows. */
-        if ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC) {
-            $GLOBALS['notification']->detach('status');
-            $GLOBALS['notification']->attach('status');
+        if ($registry->getView() == Horde_Registry::VIEW_DYNAMIC) {
+            $notification->detach('status');
+            $notification->attach('status');
         }
         IMP::status();
 
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-        $t->set('selfurl', Horde::url('smime.php'));
-        $t->set('reload', htmlspecialchars($reload));
-        $t->set('target', $target);
-        $t->set('forminput', Horde_Util::formInput());
-        $t->set('import_public_key', $target == 'process_import_public_key');
-        $t->set('import_personal_certs', $target == 'process_import_personal_certs');
-        echo $t->fetch(IMP_TEMPLATES . '/smime/import_key.html');
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/pgp'
+        ));
+        $view->addHelper('Text');
+
+        $view->forminput = Horde_Util::formInput();
+        $view->reload = $reload;
+        $view->selfurl = Horde::url('smime.php');
+        $view->target = $target;
+
+        echo $view->render('import_key');
+
+        $page_output->footer();
     }
 
     /**

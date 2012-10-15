@@ -50,7 +50,7 @@ Date.CultureInfo = {
         sortableDateTime: "yyyy-MM-ddTHH:mm:ss",
         universalSortableDateTime: "yyyy-MM-dd HH:mm:ssZ",
         rfc1123: "ddd, dd MMM yyyy HH:mm:ss GMT",
-        monthDay: "dd MMMM",
+        monthDay: "dd. MMMM",
         yearMonth: "MMMM yyyy"
     },
 

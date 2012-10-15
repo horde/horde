@@ -1,7 +1,7 @@
 #kronolithBody {
     overflow-x: hidden;
 }
-#kronolithMinical {
+#kronolith-minical {
     margin-top: 35px;
 }
 #kronolithViewMonth {
@@ -19,19 +19,19 @@
 #kronolithLoadingmonth, #kronolithLoadingday {
     top: 20px;
 }
-table.kronolithView td.kronolithFirstCol {
+table.kronolithView td.kronolith-first-col {
     width: 22px;
 }
-#kronolithViewMonthHead .kronolithFirstCol {
+#kronolithViewMonthHead .kronolith-first-col {
     width: 21px;
 }
-.kronolithFirstCol span, .kronolithViewBody .kronolithFirstCol span {
+.kronolith-first-col span, .kronolithViewBody .kronolith-first-col span {
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     height: 20px;
     width: 40px;
     margin-bottom: 20px;
 }
-.kronolithAllDay .kronolithFirstCol span {
+.kronolith-all-day .kronolith-first-col span {
     width: 80px;
     margin-bottom: 60px;
 }

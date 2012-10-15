@@ -1,5 +1,7 @@
 <?php
 /**
+ * Identity confirmation script.
+ *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

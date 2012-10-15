@@ -7,7 +7,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
 class Kronolith_Resource_Single extends Kronolith_Resource_Base
@@ -16,14 +16,12 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      * Determine if the resource is free during the time period for the
      * supplied event.
      *
-     * @param mixed $event  Either a Kronolith_Event object or an array
-     *                      containing start and end times.
-     *
+     * @param Kronolith_Event $event  The event to check availability for.
      *
      * @return boolean
      * @throws Kronolith_Exception
      */
-    public function isFree($event)
+    public function isFree(Kronolith_Event $event)
     {
         if (is_array($event)) {
             $start = $event['start'];
@@ -73,43 +71,42 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      * Adds $event to this resource's calendar or updates the current entry
      * of the event in the calendar.
      *
-     * @param $event
+     * @param Kronolith_Event $event  The event to add to the resource. Note
+     *                                this is the base driver event.
      *
      * @throws Kronolith_Exception
      */
-    public function addEvent($event)
+    public function addEvent(Kronolith_Event $event)
     {
-        /* Get a driver for this resource's calendar */
-        $driver = $this->getDriver();
-
-        /* Make sure it's not already attached. */
+        // Get a Kronolith_Driver_Resource object.
+        $resource_driver = $this->getDriver();
         $uid = $event->uid;
+        // Ensure it's not already attached.
         try {
-            $existing = $driver->getByUID($uid, array($this->get('calendar')));
-            /* Already attached, just update */
-            $this->_copyEvent($event, $existing);
-            $result = $existing->save();
+            $resource_event = $resource_driver->getByUID($uid, array($this->get('calendar')));
+            $this->_copyEvent($event, $resource_event);
+            $resource_event->save();
         } catch (Horde_Exception_NotFound $ex) {
-            /* Create a new event */
-            $e = $driver->getEvent();
-            $this->_copyEvent($event, $e);
-            $result = $e->save();
+            // New event
+            $resource_event = $resource_driver->getEvent();
+            $this->_copyEvent($event, $resource_event);
+            $resource_event->save();
         }
     }
 
     /**
      * Remove this event from resource's calendar
      *
-     * @param $event
+     * @param Kronolith_Event $event  The event to remove.
      *
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function removeEvent($event)
+    public function removeEvent(Kronolith_Event $event)
     {
-        $driver = Kronolith::getDriver('Resource', $this->get('calendar'));
-        $re = $driver->getByUID($event->uid, array($this->get('calendar')));
-        $driver->deleteEvent($re->id);
+        $resource_driver = $this->getDriver();
+        $resource_event = $resource_driver->getByUID($event->uid, array($this->get('calendar')));
+        $resource_driver->deleteEvent($resource_event->id);
     }
 
     /**
@@ -133,15 +130,28 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         return $vfb;
     }
 
+    /**
+     * Sets the current resource's id. Must not be an existing resource.
+     *
+     * @param integer $id  The id for this resource
+     *
+     * @throws Kronolith_Exception
+     */
     public function setId($id)
     {
         if (empty($this->_id)) {
             $this->_id = $id;
         } else {
-            throw new Horde_Exception('Resource already exists. Cannot change the id.');
+            throw new Kronolith_Exception('Resource already exists. Cannot change the id.');
         }
     }
 
+    /**
+     * Get ResponseType for this resource.
+     *
+     * @return integer  The response type for this resource. A
+     *                  Kronolith_Resource::RESPONSE_TYPE_* constant.
+     */
     public function getResponseType()
     {
         return $this->get('response_type');
@@ -156,7 +166,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      *
      * @return void
      */
-    private function _copyEvent($from, &$to)
+    private function _copyEvent(Kronolith_Event $from, Kronolith_Event &$to)
     {
         $to->uid = $from->uid;
         $to->title = $from->title;
@@ -168,12 +178,13 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         $to->geoLocation = $from->geoLocation;
         $to->first = $from ->first;
         $to->last = $from->last;
-        $to->start = $from->start;
-        $to->end = $from->end;
+        $to->start = clone $from->start;
+        $to->end = clone $from->end;
         $to->durMin = $from->durMin;
         $to->allday = $from->allday;
-        $to->recurrence = $from->recurrence;
+        $to->recurrence = clone $from->recurrence;
         $to->initialized = true;
+        $to->timezone = $from->timezone;
     }
 
 }

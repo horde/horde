@@ -92,6 +92,11 @@ var ImpContacts = {
         });
     },
 
+    resize: function()
+    {
+        window.resizeBy(0, Math.max(0, document.body.clientHeight - document.viewport.getHeight()));
+    },
+
     onDomLoad: function()
     {
         if ($('search').present()) {
@@ -101,6 +106,8 @@ var ImpContacts = {
         HordeCore.initHandler('click');
         HordeCore.initHandler('dblclick');
         $('contacts').observe('submit', this._passAddresses.bind(this));
+
+        this.resize.bind(this).delay(0.25);
     },
 
     clickHandler: function(e)

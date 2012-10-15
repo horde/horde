@@ -196,18 +196,31 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
      */
     protected function _renderVarInput_NagTags($form, $var, $vars)
     {
-
         $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
-        $value = implode(',', $var->getValue($vars));
+        $value = $var->getValue($vars);
 
         $html = sprintf('<input id="%s" type="text" name="%s" value="%s" />', $varname, $varname, $value);
         $html .= sprintf('<span id="%s_loading_img" style="display:none;">%s</span>',
             $varname,
             Horde::img('loading.gif', _("Loading...")));
 
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Nag_Ajax_Imple_TagAutoCompleter', array('id' => 'tags'));
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Nag_Ajax_Imple_TagAutoCompleter', array('id' => $varname));
         return $html;
     }
 
+    /**
+     * Render the search due date fields
+     */
+    public function _renderVarInput_NagSearchDue($form, $var, $vars)
+    {
+        $html = sprintf(
+            _("%s %s days of %s"),
+            Horde::label('due_within', _("Is due within")),
+            '<input id="due_within" name="due_within" type="number" size="2" value="' . $vars->get('due_within') . '" />',
+            '<input id="due_of" name="due_of" type="text" value="' . $vars->get('due_of') . '" />')
+            . '<div class="horde-form-field-description">' . _("E.g., Is due within 2 days of today") . '</div>';
+
+        return $html;
+    }
 
 }

@@ -252,6 +252,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             case self::MAPI_ATTACH_MIME_TAG:
                 /* Is this ever set, and what is format? */
                 $attachment_data[0]['type'] = preg_replace('/^(.*)\/.*/', '\1', $value);
+                $attachment_data[0]['type'] = str_replace("\0", '', $attachment_data[0]['type']);
                 $attachment_data[0]['subtype'] = preg_replace('/.*\/(.*)$/', '\1', $value);
                 $attachment_data[0]['subtype'] = str_replace("\0", '', $attachment_data[0]['subtype']);
                 break;

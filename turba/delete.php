@@ -41,5 +41,5 @@ try {
 $page_output->header(array(
     'title' => _("Deletion failed")
 ));
-require TURBA_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 $page_output->footer();

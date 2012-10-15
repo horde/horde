@@ -20,7 +20,7 @@ $folder_list = $hylax->storage->listFaxes($folder);
 $view_url  = Horde::url('view.php');
 $view_img  = Horde::img('view.gif', _("View"), 'align="middle"');
 
-$download_url = Horde_Util::addParameter($view_url, 'action', 'download');
+$download_url = $view_url->copy()->add('action', 'download');
 $download_img  = Horde::img('download.gif', _("Download"));
 
 $edit_url = Horde::url('edit.php');
@@ -43,20 +43,19 @@ foreach ($folder_list as $key => $value) {
     $params['fax_id'] = $value['fax_id'];
 
     /* View. */
-    $url = Horde_Util::addParameter($view_url, $params);
+    $url = $view_url->copy()->add($params);
     $folder_list[$key]['actions'][] = Horde::link($url, _("View")) . $view_img . '</a>';
 
     /* Download. */
-    $url = Horde_Util::addParameter($download_url, $params);
+    $url = $download_url->copy()->add($params);
     $folder_list[$key]['actions'][] = Horde::link($url, _("Download")) . $download_img . '</a>';
 
     /* Delete. */
-    // $url = Horde_Util::addParameter($del_url, $params);
+    // $url = $del_url->add($params);
     // $folder_list[$key]['actions'][] = Horde::link($url, _("Delete")) . $del_img . '</a>';
 
     /* Print. */
-    $url = Horde_Util::addParameter($print_url, $params);
-    $url = Horde_Util::addParameter($url, 'url', Horde::selfUrl(true));
+    $url = $print_url->copy()->add($params)->add('url', Horde::selfUrl(true));
     $folder_list[$key]['actions'][] = Horde::link($url, _("Print")) . $print_img . '</a>';
     $folder_list[$key]['alt_count'] = $i;
     $i = $i ? 0 : 1;
@@ -65,7 +64,7 @@ foreach ($folder_list as $key => $value) {
     $folder_list[$key]['fax_created'] = strftime('%d/%m/%Y %H:%M', $value['fax_created']);
 
     if (empty($value['fax_number']) && $value['fax_type'] != 0) {
-        $url = Horde_Util::addParameter($send_url, 'fax_id', $value['fax_id']);
+        $url = $send_url->copy()->add('fax_id', $value['fax_id']);
         $folder_list[$key]['fax_number'] = $warn_img . '&nbsp;' . Horde::link($url, _("Insert Number")) . _("Insert Number") . '</a>';
     } elseif (empty($value['fax_number']) && $value['fax_type'] == 0) {
         $folder_list[$key]['fax_number'] = _("unknown");
@@ -77,7 +76,7 @@ foreach ($folder_list as $key => $value) {
 $actions = array();
 foreach ($base_folders as $key => $value) {
     if ($folder != $key) {
-        $url = Horde_Util::addParameter(Horde::url('folder.php'), 'folder', $key);
+        $url = Horde::url('folder.php')->add('folder', $key);
         $actions[] = Horde::link($url) . $value . '</a>';
     } else {
         $actions[] = $value;

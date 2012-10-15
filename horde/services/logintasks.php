@@ -17,17 +17,17 @@
 require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintasks' => true));
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 /* If no 'module' parameter passed in, die with an error. */
 if (!($app = basename($vars->app))) {
-    throw new Horde_Exception('Do not directly access logintasks.php.');
+    throw new Horde_Exception('Do not directly access this script.');
 }
 
 $registry->pushApp($app, array('logintasks' => false));
 
 if (!($tasks = $injector->getInstance('Horde_Core_Factory_LoginTasks')->create($app))) {
-    throw new Horde_Exception('The Horde_LoginTasks:: class did not load successfully.');
+    throw new Horde_Exception('The Horde_LoginTasks class did not load successfully.');
 }
 
 /* If we are through with tasks, this call will redirect to application. */
@@ -107,7 +107,18 @@ $template->set('header', $header);
 $template->set('tasks', $display_tasks, true);
 $template->set('logintasks_url', $tasks->getLoginTasksUrl());
 
-$page_output->addScriptFile('logintasks.js', 'horde');
+switch ($registry->getView()) {
+case Horde_Registry::VIEW_SMARTMOBILE:
+    $page_output->addScriptFile('logintasks-jquery.js', 'horde');
+    break;
+
+default:
+    $page_output->addScriptFile('logintasks.js', 'horde');
+    break;
+}
+
+$page_output->topbar = $page_output->sidebar = false;
+
 $page_output->header(array(
     'body_class' => 'modal-form',
     'body_id' => 'services_logintasks',

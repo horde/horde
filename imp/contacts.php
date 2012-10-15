@@ -1,6 +1,7 @@
 <?php
 /**
  * Contacts selection page.
+ * Usable in both traditional and dynamic views.
  *
  * URL parameters:
  *   - sa: (string) List of selected addresses.
@@ -24,7 +25,7 @@ require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('authentication' => 'horde'));
 
 /* Sanity checking. */
-if (!$session->get('imp', 'csearchavail')) {
+if (!$registry->hasMethod('contacts/search')) {
     $e = new IMP_Exception('Addressbook not available on this system.');
     $e->logged = true;
     throw $e;
@@ -44,7 +45,7 @@ if (!isset($vars->source) || !isset($source_list[$vars->source])) {
 
 $a_list = array();
 if ($vars->searched || $prefs->getValue('display_contact')) {
-    $search_params = IMP::getAddressbookSearchParams();
+    $search_params = $injector->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
     $csearch = $registry->call('contacts/search', array($vars->get('search', ''), array(
         'fields' => $search_params['fields'],
         'returnFields' => array('email', 'name'),
@@ -66,27 +67,34 @@ foreach (explode('|', $vars->sa) as $addr) {
     }
 }
 
-/* Prepare the contacts template. */
-$template = $injector->createInstance('Horde_Template');
-$template->setOption('gettext', true);
+/* Prepare the contacts view. */
+$view = new Horde_View(array(
+    'templatePath' => IMP_TEMPLATES . '/contacts'
+));
+$view->addHelper('FormTag');
+$view->addHelper('Tag');
+$view->addHelper('Text');
 
-$template->set('action', Horde::url('contacts.php')->unique());
-$template->set('formInput', Horde_Util::formInput());
-$template->set('search', htmlspecialchars($vars->search));
+$view->a_list = $a_list;
+$view->action = Horde::url('contacts.php')->unique();
+$view->formInput = Horde_Util::formInput();
+$view->sa = $selected_addresses;
+$view->search = $vars->search;
+$view->to_only = intval($vars->to_only);
+
 if (count($source_list) > 1) {
-    $template->set('multiple_source', true);
     $s_list = array();
     foreach ($source_list as $key => $select) {
-        $s_list[] = array('val' => $key, 'selected' => ($key == $vars->source), 'label' => htmlspecialchars($select));
+        $s_list[] = array(
+            'label' => htmlspecialchars($select),
+            'selected' => ($key == $vars->source),
+            'val' => $key
+        );
     }
-    $template->set('source_list', $s_list);
+    $view->source_list = $s_list;
 } else {
-    $template->set('source_list', key($source_list));
+    $view->source_list = key($source_list);
 }
-
-$template->set('a_list', $a_list);
-$template->set('to_only', intval($vars->to_only));
-$template->set('sa', $selected_addresses);
 
 /* Display the form. */
 $page_output->addScriptFile('hordecore.js', 'horde');
@@ -98,6 +106,8 @@ $page_output->addInlineJsVars(array(
     )
 ));
 
+$page_output->topbar = $page_output->sidebar = false;
+
 IMP::header(_("Address Book"));
-echo $template->fetch(IMP_TEMPLATES . '/imp/contacts/contacts.html');
+echo $view->render('contacts');
 $page_output->footer();

@@ -94,7 +94,7 @@ class Horde_Timezone_Zone
             if ($this->_info[$i][1] == '-') {
                 // Standard time.
                 $component = new Horde_Icalendar_Standard();
-            } elseif (preg_match('/\d+(:(\d+))?/', $this->_info[$i][1], $offset)) {
+            } elseif (preg_match('/\d+(:(\d+))?/', $this->_info[$i][1])) {
                 // Indiviual rule not matching any ruleset.
                 $component = new Horde_Icalendar_Daylight();
             } else {

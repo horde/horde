@@ -8,13 +8,45 @@
  *
  * For more information please see the horde/config/hooks.php.dist file.
  *
- * TODO: smtpd_access_policy_username
- *
  * $Id$
  */
 
 class Ingo_Hooks
 {
+    /**
+     * Returns the username/password needed to connect to the transport
+     * backend.
+     *
+     * @param string $driver  The driver name (array key from backends.php).
+     *
+     * @return mixed  If non-array, uses hordeauth credentials (DEFAULT).
+     *                Otherwise, an array with the following keys (non-existent
+     *                keys will use default values):
+     *  - password: (string) Password.
+     *  - username: (string) User name.
+     */
+//    public function transport_auth($driver)
+//    {
+//        switch ($driver) {
+//        case 'foo':
+//            // Example #1: Use full Horde username for password.
+//            return array(
+//                'username' => $GLOBALS['registry']->getAuth(null);
+//            );
+//
+//            // Example #2: Use IMP password/username.
+//            $ob = $GLOBALS['registry']->call('mail/imapOb');
+//            return array(
+//                'password' => $ob->getParam('password'),
+//                'username' => $ob->getParam('username')
+//            );
+//        }
+//
+//        // DEFAULT: Use hordeauth (identical to not defining hook at all).
+//        return true;
+//    }
+
+
     /**
      * Set the default addresses used for the vacation module.
      *

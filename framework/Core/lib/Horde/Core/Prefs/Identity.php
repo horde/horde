@@ -29,7 +29,7 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
      */
     public function verifyIdentity($id, $old_addr)
     {
-        global $conf, $registry;
+        global $registry;
 
         $hash = strval(new Horde_Support_Randomid());
 

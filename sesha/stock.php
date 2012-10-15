@@ -130,7 +130,7 @@ case 'update_stock':
     $form = new Sesha_Form_Stock($vars);
     $form->setTitle((!isset($form_title) ? _("Edit Inventory Item") : $form_title));
     if (!$active) {
-        $form->setExtra('<span class="smallheader">' . Horde::link(Horde_Util::addParameter(Horde::url('stock.php'), array('stock_id' => $vars->get('stock_id'), 'actionId' => 'update_stock'))) . _("Edit") . '</a></span>');
+        $form->setExtra('<span class="smallheader">' . Horde::link(Horde::url('stock.php')->add(array('stock_id' => $vars->get('stock_id'), 'actionId' => 'update_stock'))) . _("Edit") . '</a></span>');
     }
 
     if ($form->validate($vars) && $form->isSubmitted()) {
@@ -160,10 +160,9 @@ case 'update_stock':
         $notification->push(_("The stock item was successfully updated."), 'horde.success');
 
         // Redirect after update.
-        $url = Horde::selfUrl(false, true, true);
-        $url = Horde_Util::addParameter($url, array('actionId' => 'view_stock',
-                                                'stock_id' => $vars->get('stock_id')),
-                                    null, false);
+        $url = Horde::selfUrl(false, true, true)->add(array(
+            'actionId' => 'view_stock',
+            'stock_id' => $vars->get('stock_id')))->setRaw(true);
         header('Location: ' . $url);
         exit;
     }

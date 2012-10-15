@@ -30,7 +30,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
     public function __construct($driver, $eventObject = null)
     {
         /* Set default alarm value. */
-        if (!isset($alarm) && isset($GLOBALS['prefs'])) {
+        if (isset($GLOBALS['prefs'])) {
             $this->alarm = $GLOBALS['prefs']->getValue('default_alarm');
         }
 

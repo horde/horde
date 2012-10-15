@@ -1,6 +1,29 @@
---------
-v4.0-git
---------
+----------
+v4.0.0-git
+----------
+
+[jan] Fix listing tasks from Kolab backends.
+[jan] Fix sending alarm e-mail messages.
+
+
+-----------
+v4.0.0beta2
+-----------
+
+[jan] Synchronize tags with Kolab categories.
+[mjr] Fix deleting tasks from the task form.
+[mjr] Implement Purge Completed Tasks LoginTask (Request #2520).
+[gwr] Mark the initial default share as such with the Kolab backend.
+[gwr] Always mark the initial share as default tasklist.
+[jan] Move complete task list management into the sidebar.
+[jan] Allow to edit task list color in traditional view.
+[mjr] Tweak display of smartlist links in list view.
+[mjr] Fix fatal recursion error when searching with smartlists were present.
+
+
+-----------
+v4.0.0beta1
+-----------
 
 [mjr] Fix fatal recursion error when searching with smartlists were present.
 [mjr] Add support for smart tasklists.
@@ -13,6 +36,9 @@ v4.0-git
 v3.0.9-git
 ----------
 
+[mms] Fix getTasklist() API call.
+[jan] Fix changing sort direction.
+[jan] Fix sorting by owner if displaying external task sources.
 [jan] Update Turkish translation (İstanbul Technical University).
 
 

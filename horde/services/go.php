@@ -10,6 +10,9 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author Marko Djukic <marko@oblo.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../lib/Application.php';

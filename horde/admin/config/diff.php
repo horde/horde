@@ -7,6 +7,10 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../../lib/Application.php';
@@ -78,6 +82,7 @@ if ($config = $session->get('horde', 'config/')) {
 $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('diffs', $diffs, true);
+$page_output->topbar = $page_output->sidebar = false;
 
 $page_output->header(array(
     'title' => _("Configuration Differences")

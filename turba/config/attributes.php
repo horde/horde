@@ -296,7 +296,6 @@ $attributes['homePhone2'] = array(
     'required' => false,
     'params' => array('size' => 15)
 );
-
 $attributes['workPhone'] = array(
     'label' => _("Work Phone"),
     'type' => 'phone',
@@ -507,7 +506,7 @@ $attributes['gender'] = array(
     'label' => _("Gender"),
     'type' => 'enum',
     'required' => false,
-    'params' => array('values' => array(_("male"), _("female")), 'prompt' => true),
+    'params' => array('values' => array('male' => _("male"), 'female' => _("female")), 'prompt' => true),
 );
 $attributes['language'] = array(
     'label' => _("Language"),

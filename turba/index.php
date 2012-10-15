@@ -13,6 +13,14 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
-require TURBA_BASE . '/' . ($browse_source_count
-                            ? basename($prefs->getValue('initial_page'))
-                            : 'search.php');
+switch ($registry->getView()) {
+case $registry::VIEW_SMARTMOBILE:
+    Horde::url('smartmobile.php')->redirect();
+    break;
+
+default:
+    require TURBA_BASE . '/' . ($browse_source_count
+        ? basename($prefs->getValue('initial_page'))
+        : 'search.php');
+    break;
+}

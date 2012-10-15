@@ -62,7 +62,13 @@ extends Components_Qc_Task_Base
      */
     public function run(&$options)
     {
-        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator(realpath($this->_config->getPath() . '/test'))) as $file) {
+        try {
+            $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(realpath($this->_config->getPath() . '/test')));
+        } catch (Exception $e) {
+            return false;
+        }
+
+        foreach ($iterator as $file) {
             if ($file->getFilename() == 'AllTests.php') {
                 $runner = new PHPUnit_TextUI_Command();
                 $result = $runner->run(
@@ -74,6 +80,7 @@ extends Components_Qc_Task_Base
                 );
             }
         }
+
         return !empty($result);
     }
 }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-08-29 13:30+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -175,14 +175,14 @@ msgstr ""
 msgid "Failed triggering folder %s. Error was: %s"
 msgstr ""
 
-#: lib/Horde/Kolab/Storage/Factory.php:195
+#: lib/Horde/Kolab/Storage/Factory.php:172
 #, php-format
 msgid ""
 "Invalid \"driver\" parameter \"%s\". Please use one of \"mock\", \"php\", "
 "\"pear\", \"horde\", \"horde-php\", and \"roundcube\"!"
 msgstr ""
 
-#: lib/Horde/Kolab/Storage/Factory.php:241
+#: lib/Horde/Kolab/Storage/Factory.php:217
 #, php-format
 msgid "Invalid \"namespace\" type \"%s\"!"
 msgstr ""
@@ -192,7 +192,7 @@ msgstr ""
 msgid "Listing folders for %s failed."
 msgstr ""
 
-#: lib/Horde/Kolab/Storage/Factory.php:152
+#: lib/Horde/Kolab/Storage/Factory.php:127
 msgid "Missing \"driver\" parameter!"
 msgstr ""
 
@@ -258,7 +258,7 @@ msgid ""
 "edits have been lost."
 msgstr ""
 
-#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:216
+#: lib/Horde/Kolab/Storage/Object.php:486
 #, php-format
 msgid ""
 "This is a Kolab Groupware object. To view this object you will need an email "

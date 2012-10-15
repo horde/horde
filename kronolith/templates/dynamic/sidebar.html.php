@@ -1,14 +1,14 @@
 <div>
-  <div id="kronolithMinical" class="kronolithMinical">
+  <div id="kronolith-minical" class="kronolith-minical">
     <table>
       <thead>
-        <tr class="kronolithMinicalNav">
-          <th><a id="kronolithMinicalPrev" title="<?php echo _("Previous month") ?>">&lt;</a></th>
+        <tr class="kronolith-minical-nav">
+          <th><a id="kronolith-minical-prev" title="<?php echo _("Previous month") ?>">&lt;</a></th>
           <th id="kronolithMinicalDate" colspan="6"><?php echo $this->today ?></th>
-          <th><a id="kronolithMinicalNext" title="<?php echo _("Next month") ?>">&gt;</a></th>
+          <th><a id="kronolith-minical-next" title="<?php echo _("Next month") ?>">&gt;</a></th>
         </tr>
         <tr>
-          <th class="kronolithMinicalEmpty">&nbsp;</th>
+          <th class="kronolith-minical-empty">&nbsp;</th>
           <?php foreach ($this->weekdays as $day => $abbr): ?>
           <th title="<?php echo $day ?>"><?php echo $abbr ?></th>
           <?php endforeach; ?>
@@ -20,8 +20,8 @@
   </div>
 </div>
 
+<div class="horde-sidebar-split"></div>
 <div id="kronolithMenu">
-  <div class="horde-sidebar-split"></div>
   <div>
     <div id="kronolithLoadingCalendars">
       <?php echo _("Loading calendars...") ?>
@@ -79,6 +79,7 @@
       </div>
       <?php endif ?>
 
+      <?php if ($this->resources): ?>
       <div class="horde-sidebar-split"></div>
       <div>
         <h3>
@@ -87,8 +88,28 @@
           <?php endif; ?>
           <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Resources") ?></span>
         </h3>
-        <div id="kronolithResourceCalendars" class="horde-resources" style="display:none"></div>
+
+        <div style="display:none">
+          <div class="horde-info"><?php echo _("No items to display") ?></div>
+          <div id="kronolithResourceCalendars" class="horde-resources"></div>
+        </div>
       </div>
+
+      <div class="horde-sidebar-split"></div>
+      <div>
+        <h3>
+          <?php if ($this->isAdmin): ?>
+          <a href="#" id="kronolithAddresourcegroup" class="horde-add" title="<?php echo _("Add Resource Group") ?>">+</a>
+          <?php endif; ?>
+          <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Resource Groups") ?></span>
+        </h3>
+
+        <div style="display:none">
+          <div class="horde-info"><?php echo _("No items to display") ?></div>
+          <div id="kronolithResourceGroups" class="horde-resources"></div>
+        </div>
+      </div>
+      <?php endif ?>
 
       <div id="kronolithExternalCalendars"></div>
 
@@ -112,7 +133,10 @@
           <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Holidays") ?></span>
         </h3>
 
-        <div id="kronolithHolidayCalendars" class="horde-resources" style="display:none"></div>
+        <div style="display:none">
+          <div class="horde-info"><?php echo _("No items to display") ?></div>
+          <div id="kronolithHolidayCalendars" class="horde-resources"></div>
+        </div>
 
       </div>
     </div>

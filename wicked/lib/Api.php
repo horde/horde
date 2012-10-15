@@ -19,7 +19,7 @@ class Wicked_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    public $links = array(
+    protected $_links = array(
         'show' => '%application%/display.php?page=|page|&version=|version|#|toc|'
     );
 

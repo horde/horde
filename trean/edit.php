@@ -28,7 +28,6 @@ $page_output->header(array(
     'title' => _("Edit Bookmark")
 ));
 if (!Horde_Util::getFormData('popup')) {
-    echo Horde::menu();
     $notification->notify(array('listeners' => 'status'));
 }
 require TREAN_TEMPLATES . '/edit.html.php';

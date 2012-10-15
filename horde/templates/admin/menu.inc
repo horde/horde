@@ -19,6 +19,4 @@ try {
 } catch (Horde_Exception $e) {
 }
 
-echo $injector->getInstance('Horde_View_Topbar')->render();
-echo $sidebar->render();
 $notification->notify(array('listeners' => 'status'));

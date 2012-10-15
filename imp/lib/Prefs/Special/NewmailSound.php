@@ -24,27 +24,29 @@ class IMP_Prefs_Special_NewmailSound implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $prefs;
+        global $prefs;
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('FormTag');
+        $view->addHelper('Tag');
+        $view->addHelper('Text');
 
-        $newmail_audio = $prefs->getValue('newmail_audio');
-
-        $t->set('newmail_audio', $newmail_audio);
+        $newmail_audio = $view->newmail_audio = $prefs->getValue('newmail_audio');
 
         $sounds = array();
         foreach (Horde_Themes::soundList() as $key => $val) {
             $sounds[] = array(
                 'c' => ($newmail_audio == $key),
-                'l' => htmlspecialchars($key),
-                's' => htmlspecialchars($val->uri),
-                'v' => htmlspecialchars($key)
+                'l' => $key,
+                's' => $val->uri,
+                'v' => $key
             );
         }
-        $t->set('sounds', $sounds);
+        $view->sounds = $sounds;
 
-        return $t->fetch(IMP_TEMPLATES . '/prefs/newmailaudio.html');
+        return $view->render('newmailaudio');
     }
 
     /**

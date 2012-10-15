@@ -48,9 +48,9 @@ Event.observe(
     <div class="control">
       <div id="previewArea"></div>
       <?php echo _("Person in photo") ?>:<input type="text" name="name" id="name" value="<?php echo htmlspecialchars($name) ?>" /><br />
-      <input type="submit" name="submit" class="button" value="<?php echo _("Save") ?>" />
-      <input type="submit" name="submit" class="button" value="<?php echo _("Cancel") ?>" />
-      <input type="reset" name="reset" class="button" value="<?php echo _("Reset") ?>" />
+      <input type="submit" name="submit" class="horde-default" value="<?php echo _("Save") ?>" />
+      <input type="reset" name="reset" value="<?php echo _("Reset") ?>" />
+      <input type="submit" name="submit" class="horde-cancel" value="<?php echo _("Cancel") ?>" />
     </div>
   </form>
 </div>

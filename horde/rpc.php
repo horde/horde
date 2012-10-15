@@ -3,12 +3,10 @@
  * RPC processing script.
  *
  * Possible GET values:
- * <pre>
- * 'requestMissingAuthorization' - Whether or not to request authentication
- *                                 credentials if they are not already
- *                                 present.
- * 'wsdl' - TODO
- * </pre>
+ *   - requestMissingAuthorization: Whether or not to request authentication
+ *                                  credentials if they are not already
+ *                                  present.
+ *   - wsdl: TODO
  *
  * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *

@@ -77,14 +77,23 @@ case 'DeleteContact':
 $url = $contact->url();
 $tabs = new Horde_Core_Ui_Tabs('view', $vars);
 $tabs->addTab(_("_View"), $url,
-              array('tabname' => 'Contact', 'id' => 'tabContact', 'onclick' => 'return ShowTab(\'Contact\');'));
+              array('tabname' => 'Contact',
+                    'id' => 'tabContact',
+                    'class' => 'horde-icon',
+                    'onclick' => 'return ShowTab(\'Contact\');'));
 if ($contact->hasPermission(Horde_Perms::EDIT)) {
     $tabs->addTab(_("_Edit"), $url,
-                  array('tabname' => 'EditContact', 'id' => 'tabEditContact', 'onclick' => 'return ShowTab(\'EditContact\');'));
+                  array('tabname' => 'EditContact',
+                        'id' => 'tabEditContact',
+                        'class' => 'horde-icon',
+                        'onclick' => 'return ShowTab(\'EditContact\');'));
 }
 if ($contact->hasPermission(Horde_Perms::DELETE)) {
     $tabs->addTab(_("De_lete"), $url,
-                  array('tabname' => 'DeleteContact', 'id' => 'tabDeleteContact', 'onclick' => 'return ShowTab(\'DeleteContact\');'));
+                  array('tabname' => 'DeleteContact',
+                        'id' => 'tabDeleteContact',
+                        'class' => 'horde-icon',
+                        'onclick' => 'return ShowTab(\'DeleteContact\');'));
 }
 
 @list($own_source, $own_id) = explode(';', $prefs->getValue('own_contact'));
@@ -99,26 +108,18 @@ if ($own_source == $source && $own_id == $contact->getValue('__key')) {
         . _("Mark this as your own contact") . '</a></span>';
 }
 
-Horde::startBuffer();
-$view->html();
-$viewHtml = Horde::endBuffer();
-
-Horde::startBuffer();
-require TURBA_TEMPLATES . '/menu.inc';
-$menuHtml = Horde::endBuffer();
-
 $page_output->addScriptFile('contact_tabs.js');
 $page_output->header(array(
     'title' => $view->getTitle()
 ));
-echo $menuHtml;
+$notification->notify(array('listeners' => 'status'));
 echo '<div id="page">';
-echo $tabs->render($viewName);
+echo $tabs->render($viewName, 'horde-buttonbar');
 echo '<h1 class="header">' . $own_link
     . ($contact->getValue('name')
        ? htmlspecialchars($contact->getValue('name'))
        : '<em>' . _("Blank name") . '</em>')
     . $own_icon . '</h1>';
-echo $viewHtml;
+$view->html();
 echo '</div>';
 $page_output->footer();

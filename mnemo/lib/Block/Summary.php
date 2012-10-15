@@ -83,12 +83,9 @@ class Mnemo_Block_Summary extends Horde_Core_Block
 
             if (!empty($this->_params['show_actions'])) {
                 $editImg = Horde_Themes::img('edit.png');
-                $editurl = Horde_Util::addParameter(
-                    'memo.php',
-                    array('memo' => $memo['memo_id'],
-                          'memolist' => $memo['memolist_id']));
+                $editurl = Horde::url('memo.php')->add(array('memo' => $memo['memo_id'], 'memolist' => $memo['memolist_id']));
                 $html .= '<td width="1%">'
-                    . Horde::link(htmlspecialchars(Horde::url(Horde_Util::addParameter($editurl, 'actionID', 'modify_memo'), true)), _("Edit Note"))
+                    . Horde::link(htmlspecialchars(Horde::url($editurl, true)->add('actionID', 'modify_memo')), _("Edit Note"))
                     . Horde::img($editImg, _("Edit Note"))
                     . '</a></td>';
             }
@@ -100,8 +97,7 @@ class Mnemo_Block_Summary extends Horde_Core_Block
                 $html .= '<td>' . htmlspecialchars($owner) . '</td>';
             }
 
-            $viewurl = Horde_Util::addParameter(
-                'view.php',
+            $viewurl = Horde::url('view.php')->add(
                 array('memo' => $memo['memo_id'],
                       'memolist' => $memo['memolist_id']));
 

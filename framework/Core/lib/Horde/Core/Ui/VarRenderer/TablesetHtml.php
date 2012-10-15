@@ -25,15 +25,14 @@ class Horde_Core_Ui_VarRenderer_TablesetHtml extends Horde_Core_Ui_VarRenderer_H
         $disable = Horde_Core_Translation::t("Select none");
         $invert = Horde_Core_Translation::t("Invert selection");
 
-        $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('tables.js', 'horde');
-
-        $html = <<<EOT
-<script type="text/javascript">
-function $function_name()
+        $page = $GLOBALS['injector']->getInstance('Horde_PageOutput');
+        $page->addScriptFile('tables.js', 'horde');
+        $page->addInlineScript(sprintf('
+function %s()
 {
-    for (var i = 0; i < document.$form_name.elements.length; i++) {
-        f = document.$form_name.elements[i];
-        if (f.name != '$var_name') {
+    for (var i = 0; i < document.%s.elements.length; i++) {
+        f = document.%s$2.elements[i];
+        if (f.name != \'%s$3\') {
             continue;
         }
         if (arguments.length) {
@@ -42,8 +41,10 @@ function $function_name()
             f.checked = !f.checked;
         }
     }
-}
-</script>
+}',
+                    $function_name, $form_name, $var_name));
+
+        $html = <<<EOT
 <a href="#" onclick="$function_name(true); return false;">$enable</a>,
 <a href="#" onclick="$function_name(false); return false;">$disable</a>,
 <a href="#" onclick="$function_name(); return false;">$invert</a>

@@ -103,9 +103,9 @@ default:
 break;
 }
 
-$remove_url = Horde_Util::addParameter(Horde::url('edit/friends/groups.php'), 'action', 'delete');
+$remove_url = Horde::url('edit/friends/groups.php')->add('action', 'delete');
 $remove_img = Horde::img('delete.png');
-$edit_url = Horde_Util::addParameter(Horde::url('edit/friends/groups.php'), 'action', 'edit');
+$edit_url = Horde::url('edit/friends/groups.php')->add('action', 'edit');
 $edit_img = Horde::img('edit.png');
 $perms_url = Horde::url('perms.php');
 $perms_img = Horde::img('perms.png');

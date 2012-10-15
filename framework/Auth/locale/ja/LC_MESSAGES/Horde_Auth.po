@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Auth\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-21 18:18+0100\n"
-"PO-Revision-Date: 2011-11-19 17:52+0900\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"PO-Revision-Date: 2012-09-02 11:51+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/Horde/Auth.php:355
@@ -85,3 +85,12 @@ msgstr "パスワード中の空白は %d 個以下にして下さい。"
 #: lib/Horde/Auth.php:399
 msgid "The password must not contain whitespace characters."
 msgstr "パスワードに空白を入れないで下さい。"
+
+#: lib/Horde/Auth/Base.php:148
+#, php-format
+msgid "Your account has been locked for %d minutes"
+msgstr "あなたのアカウントは %d 分間ロックされています"
+
+#: lib/Horde/Auth/Base.php:146
+msgid "Your account has been permanently locked"
+msgstr "あなたのアカウントは完全にロックされています"

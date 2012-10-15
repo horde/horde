@@ -53,9 +53,9 @@ class Horde_Block_Klutz_Comics extends Horde_Core_Block
                 $author = $klutz->getProperty($index, 'author');
                 if ($klutz_driver->imageExists($index, $date)) {
                     $size = $klutz_driver->imageSize($index, $date);
-                    $url = Horde_Util::addParameter(Horde::url('comics.php'), array('date' => $date, 'index' => $index));
-                    $img = Horde::img(Horde_Util::addParameter($url, 'actionID', 'image'), sprintf("%s by %s", $name, $author), $size, '');
-                    $link = Horde::link(Horde_Util::addParameter($url, 'actionID', 'comic'), sprintf("%s by %s", $name, $author));
+                    $url = Horde::url('comics.php')->add(array('date' => $date, 'index' => $index));
+                    $img = Horde::img($url->copy()->add('actionID', 'image'), sprintf("%s by %s", $name, $author), $size, '');
+                    $link = Horde::link($url->copy()->add('actionID', 'comic'), sprintf("%s by %s", $name, $author));
                     $summary .= '<p>' . $link . $img . '</a></p>';
                 }
             }
@@ -78,9 +78,9 @@ class Horde_Block_Klutz_Comics extends Horde_Core_Block
             $name = $klutz->getProperty($index, 'name');
             $author = $klutz->getProperty($index, 'author');
             $size = $klutz_driver->imageSize($index, $date);
-            $url = Horde_Util::addParameter(Horde::url('comics.php'), array('date' => $date, 'index' => $index));
-            $img = Horde::img(Horde_Util::addParameter($url, 'actionID', 'image'), sprintf("%s by %s", $name, $author), $size, '');
-            $link = Horde::link(Horde_Util::addParameter($url, 'actionID', 'comic'), sprintf("%s by %s", $name, $author));
+            $url = Horde::url('comics.php')->add(array('date' => $date, 'index' => $index));
+            $img = Horde::img($url->copy()->add('actionID', 'image'), sprintf("%s by %s", $name, $author), $size, '');
+            $link = Horde::link($url->copy()->add('actionID', 'comic'), sprintf("%s by %s", $name, $author));
             $summary = '<p class="text">' . $link . $name . ' by ' . $author . '</a></p>' .
                 '<p>' . $link . $img . '</a></p>';
         }

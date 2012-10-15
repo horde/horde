@@ -29,4 +29,17 @@ class IMP_Mime_Viewer_Rfc822 extends Horde_Mime_Viewer_Rfc822
         return $ret;
     }
 
+    /**
+     */
+    protected function _getHeaderValue($ob, $header)
+    {
+        switch ($header) {
+        case 'date':
+            return $GLOBALS['injector']->getInstance('IMP_Ui_Message')->getLocalTime(new Horde_Imap_Client_DateTime($ob->getValue('date')));
+
+        default:
+            return parent::_getHeaderValue($ob, $header);
+        }
+    }
+
 }

@@ -562,6 +562,7 @@ class Mnemo
             ->create();
         if (($new_default = $notepads->ensureDefaultShare()) !== null) {
             $GLOBALS['display_notepads'][] = $new_default;
+            $GLOBALS['prefs']->setValue('default_notepad', $new_default);
         }
 
         $GLOBALS['prefs']->setValue('display_notepads', serialize($GLOBALS['display_notepads']));
@@ -595,20 +596,5 @@ class Mnemo
         }
 
         return "background: rgba($r, $g, $b, 0.5)";
-    }
-
-    public static function menu()
-    {
-        $sidebar = Horde::menu(array('menu_ob' => true))->render();
-        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
-        if (Mnemo::getDefaultNotepad(Horde_Perms::EDIT) &&
-            ($perms->hasAppPermission('max_notes') === true ||
-             $perms->hasAppPermission('max_notes') > Mnemo::countMemos())) {
-            $sidebar->addNewButton(
-                _("_New Note"),
-                Horde::url('memo.php')->add('actionID', 'add_memo'));
-        }
-        return $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render()
-            . $sidebar;
     }
 }

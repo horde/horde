@@ -64,8 +64,7 @@ extends Components_Qc_Task_Base
     {
         $lib = realpath($this->_config->getPath() . '/lib');
 
-        // @todo: The emacs renderer is a customization.
-        $renderer = new PHP_PMD_Renderer_EmacsRenderer();
+        $renderer = new PHP_PMD_Renderer_TextRenderer();
         $renderer->setWriter(new PHP_PMD_Writer_Stream(STDOUT));
 
         $ruleSetFactory = new PHP_PMD_RuleSetFactory();

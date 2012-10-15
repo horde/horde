@@ -1,7 +1,19 @@
+----------
+v3.0.0-git
+----------
+
+
+
 -----------
 v3.0.0beta2
 -----------
 
+[mms] Add 'transport_auth' hook to handle defining authentication parameters
+      for transport backends.
+[mms] Remove session caching of rules.
+[mms] Initial implementation of smartmobile view.
+[mms] Disable blacklist, vacation, and whitelist API methods if the preference
+      is locked.
 
 
 -----------
@@ -24,10 +36,10 @@ First alpha release for Horde 5.
 [jan] Validate start and end dates of vacation rules (Request #10879).
 
 
------------
-v2.0.10-git
------------
-
+-------
+v2.0.10
+-------
+[mms] Don't allow a user to save a rule with no matching conditions.
 
 
 ------

@@ -106,7 +106,6 @@ class IMP_Ajax_Application_ShowMessage
      *   - js: Javascript code to run on display
      *   - list_info (FULL): List information.
      *   - localdate (PREVIEW): The date formatted to the user's timezone
-     *   - log: Log information
      *   - mbox: The mailbox (base64url encoded)
      *   - msgtext: The text of the message
      *   - onepart: True if message only contains one part.
@@ -137,12 +136,8 @@ class IMP_Ajax_Application_ShowMessage
         $mime_headers = $this->_peek
             ? $this->_contents->getHeader()
             : $this->_contents->getHeaderAndMarkAsSeen();
-        $headers = array();
 
-        /* Initialize variables. */
-        if (!$preview) {
-            $imp_hdr_ui = new IMP_Ui_Headers();
-        }
+        $headers = array();
         $imp_ui = new IMP_Ui_Message();
 
         /* Develop the list of Headers to display now. Deal with the 'basic'
@@ -199,11 +194,8 @@ class IMP_Ajax_Application_ShowMessage
             unset($result['reply-to']);
         }
 
-        /* Grab maillog information. */
-        if (!empty($GLOBALS['conf']['maillog']['use_maillog']) &&
-            ($tmp = IMP_Dimp::getMsgLogInfo($this->_envelope->message_id))) {
-            $result['log'] = $tmp;
-        }
+        /* Maillog information. */
+        $GLOBALS['injector']->getInstance('IMP_Ajax_Queue')->maillog($this->_mbox, $this->_uid, $this->_envelope->message_id);
 
         if (!$preview) {
             /* Display the user-specified headers for the current identity. */
@@ -262,11 +254,13 @@ class IMP_Ajax_Application_ShowMessage
 
         /* Build body text. This needs to be done before we build the
          * attachment list. */
+        $this->_contents->fetchCloseSession = true;
         $inlineout = $this->_contents->getInlineOutput(array(
             'mask' => $contents_mask,
             'part_info_display' => $part_info_display,
             'show_parts' => $show_parts
         ));
+        $this->_contents->fetchCloseSession = false;
 
         $result['js'] = array_merge($result['js'], $inlineout['js_onload']);
         $result['msgtext'] .= $inlineout['msgtext'];

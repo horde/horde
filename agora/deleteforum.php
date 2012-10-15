@@ -69,18 +69,7 @@ if ($form->validate()) {
     Horde::url('forums.php', true)->redirect();
 }
 
-/* Set up template variables. */
-$view = new Agora_View();
-$view->menu = Horde::menu();
-
-Horde::startBuffer();
-$form->renderActive(null, $vars, Horde::url('deleteforum.php'), 'post');
-$view->main = Horde::endBuffer();
-
-Horde::startBuffer();
-$notification->notify(array('listeners' => 'status'));
-$view->notify = Horde::endBuffer();
-
 $page_output->header();
-echo $view->render('main');
+$notification->notify(array('listeners' => 'status'));
+$form->renderActive(null, $vars, Horde::url('deleteforum.php'), 'post');
 $page_output->footer();

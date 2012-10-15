@@ -88,4 +88,11 @@ interface Horde_Kolab_Storage_Folder
      * @return boolean Boolean that indicates the default status.
      */
     public function isDefault();
+
+    /**
+     * The type of this folder.
+     *
+     * @return string The folder type.
+     */
+    public function getType();
 }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,7 @@ msgstr ""
 msgid "This server can't uncompress gzip files."
 msgstr ""
 
-#: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:79
+#: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:81
 #: lib/Horde/Compress/Tar.php:76
 msgid "Unable to decompress data."
 msgstr ""

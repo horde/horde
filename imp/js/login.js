@@ -11,13 +11,14 @@ var ImpLogin = {
 
     submit: function(parentfunc)
     {
-        if ($('imp_server_key') && $F('imp_server_key').startsWith('_')) {
-            alert(this.server_key_error);
-            $('imp_server_key').focus();
-            return;
-        }
+        var k = $('imp_server_key');
 
-        parentfunc();
+        if (k && $F(k).startsWith('_')) {
+            alert(this.server_key_error);
+            k.focus();
+        } else {
+            parentfunc();
+        }
     }
 };
 

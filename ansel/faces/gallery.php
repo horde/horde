@@ -63,7 +63,6 @@ $page_output->addScriptFile('popup.js', 'horde');
 $page_output->header(array(
     'title' => $title
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/gallery.inc';
 $page_output->footer();

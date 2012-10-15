@@ -44,7 +44,7 @@ if (!$conf['menu']['import_export']) {
 if (!$cfgSources) {
     $notification->push(_("No Address Books are currently available. Import and Export is disabled."), 'horde.error');
     $page_output->header();
-    require TURBA_TEMPLATES . '/menu.inc';
+    $notification->notify(array('listeners' => 'status'));
     $page_output->footer();
     exit;
 }
@@ -349,7 +349,7 @@ case Horde_Data::IMPORT_DATETIME:
 $page_output->header(array(
     'title' => _("Import/Export Address Books")
 ));
-require TURBA_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 
 $default_source = $prefs->getValue('default_dir');
 if ($next_step == Horde_Data::IMPORT_FILE) {

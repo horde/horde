@@ -70,11 +70,13 @@ class IMP_Ui_Folder
 
             /* Handle 5 MB chunks of data at a time. */
             for ($i = 1; $i <= $status['messages']; ++$i) {
-                $curr_size += $size[$i]->getSize();
-                if ($curr_size > 5242880) {
-                    $slices[] = $imp_imap->getIdsOb(range($start, $i), true);
-                    $curr_size = 0;
-                    $start = $i + 1;
+                if (isset($size[$i])) {
+                    $curr_size += $size[$i]->getSize();
+                    if ($curr_size > 5242880) {
+                        $slices[] = $imp_imap->getIdsOb(range($start, $i), true);
+                        $curr_size = 0;
+                        $start = $i + 1;
+                    }
                 }
             }
 

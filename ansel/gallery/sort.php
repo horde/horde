@@ -65,7 +65,6 @@ $title = sprintf(_("%s :: Sort"), $gallery->get('name'));
 $page_output->header(array(
     'title' => _("Search Forums")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 ?>
 <h1 class="header"><?php echo htmlspecialchars($title) ?></h1>

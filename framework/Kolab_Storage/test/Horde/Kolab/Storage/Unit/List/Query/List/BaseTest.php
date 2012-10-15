@@ -355,6 +355,106 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testSetDefault()
+    {
+        $list = $this->_getList();
+        $this->driver->expects($this->once())
+            ->method('setAnnotation')
+            ->with(
+                'INBOX/Foo',
+                Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE,
+                'event.default'
+            );
+
+        $this->driver->expects($this->exactly(2))
+            ->method('listAnnotation')
+            ->with(Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE)
+            ->will($this->returnValue(array('INBOX/Foo' => 'event')));
+        $this->types->expects($this->exactly(2))
+            ->method('create')
+            ->with('event')
+            ->will($this->returnValue($this->mock_type));
+        $this->mock_type->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue('event'));
+
+        $list->setDefault('INBOX/Foo');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_List_Exception
+     */
+    public function testSetDefaultFailsWithoutPreviousType()
+    {
+        $list = $this->_getList();
+
+        $this->driver->expects($this->once())
+            ->method('listAnnotation')
+            ->with(Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE)
+            ->will($this->returnValue(array('INBOX/Bar' => 'event')));
+        $this->types->expects($this->once())
+            ->method('create')
+            ->with('event')
+            ->will($this->returnValue($this->mock_type));
+        $this->mock_type->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue('event'));
+
+        $list->setDefault('INBOX/Foo');
+    }
+
+    public function testSetDefaultResetPreviousDefault()
+    {
+        $this->driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $this->types = new Horde_Kolab_Storage_Folder_Types();
+        $list = new Horde_Kolab_Storage_List_Query_List_Base(
+            $this->driver,
+            $this->types,
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+        );
+
+        $this->driver->expects($this->exactly(2))
+            ->method('setAnnotation')
+            ->with(
+                $this->logicalOr(
+                    'INBOX/Foo',
+                    'INBOX/Bar'
+                ),
+                Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE,
+                $this->logicalOr(
+                    'event.default',
+                    'event'
+                )
+            );
+
+        $this->driver->expects($this->exactly(2))
+            ->method('listAnnotation')
+            ->with(Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE)
+            ->will(
+                $this->returnValue(
+                    array(
+                        'INBOX/Foo' => 'event',
+                        'INBOX/Bar' => 'event.default'
+                    )
+                )
+            );
+
+        $ns = $this->getMock('Horde_Kolab_Storage_Folder_Namespace_Element', array(), array('A', 'B', 'C'));
+        $namespace = $this->getMock('Horde_Kolab_Storage_Folder_Namespace', array(), array(array()));
+        $ns->expects($this->once())
+            ->method('getType')
+            ->will($this->returnValue(Horde_Kolab_Storage_Folder_Namespace::PERSONAL));
+        $namespace->expects($this->once())
+            ->method('matchNamespace')
+            ->will($this->returnValue($ns));
+        $this->driver->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue($namespace));
+
+        $list->setDefault('INBOX/Foo');
+    }
+
+
     public function testListDefaults()
     {
         $list = $this->_getList();

@@ -403,6 +403,19 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Retrieves the message headers.
+     *
+     * @param string $folder The folder to fetch the message from.
+     * @param array  $uid    The message UID.
+     *
+     * @return Horde_Mime_Headers The message headers.
+     */
+    public function fetchHeaders($folder, $uid)
+    {
+        return $this->_driver->fetchHeaders($folder, $uid);
+    }
+
+    /**
      * Appends a message to the given folder.
      *
      * @param string   $folder  The folder to append the message(s) to.

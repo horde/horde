@@ -27,11 +27,6 @@ case Horde_Registry::VIEW_DYNAMIC:
 }
 
 /* Load Ajax interface. */
-$menu = new Horde_Menu();
-$help_link = $registry->getServiceLink('help', 'kronolith');
-if ($help_link) {
-    $help_link = Horde::widget($help_link, _("Help"), 'helplink', 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;');
-}
 $today = new Horde_Date($_SERVER['REQUEST_TIME']);
 $ampm = !$prefs->getValue('twentyFour');
 
@@ -133,19 +128,13 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple
 ));
 
 if ($conf['maps']['driver']) {
-    Kronolith::initEventMap($conf['maps']);
+    Horde::initMap();
 }
 
-$injector->getInstance('Kronolith_Ajax')->init();
-
-$sidebar = $injector->getInstance('Kronolith_View_Sidebar');
 $topbar = $injector->getInstance('Horde_View_Topbar');
 $topbar->search = true;
 
-echo $topbar->render();
+$injector->getInstance('Kronolith_Ajax')->init();
 require KRONOLITH_TEMPLATES . '/dynamic/index.inc';
-
-$page_output->includeScriptFiles();
-$page_output->outputInlineScript();
-
-echo "</body>\n</html>";
+echo $injector->getInstance('Kronolith_View_Sidebar');
+$page_output->footer();

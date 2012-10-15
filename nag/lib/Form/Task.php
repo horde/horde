@@ -9,15 +9,21 @@
  */
 
 /**
- * The Nag_TaskForm class provides the form for adding and editing a task.
+ * The Nag_Form_Task class provides the form for adding and editing a task.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Nag
  */
 class Nag_Form_Task extends Horde_Form
 {
-    public $delete;
-
+    /**
+     * Const'r
+     *
+     * @param Horde_Form_Variables $vars  The form variables.
+     * @param string $title               The form title.
+     *
+     * @return Nag_Form_Task
+     */
     public function __construct($vars, $title = '')
     {
         parent::__construct($vars, $title);
@@ -78,9 +84,13 @@ class Nag_Form_Task extends Horde_Form
 
         $this->addVariable(_("Tags"), 'tags', 'Nag:NagTags', false);
 
+        // Only display the delete button if this is an existing task and the
+        // user has HORDE_PERMS::DELETE
+        $share = $GLOBALS['nag_shares']->getShare($tasklist);
+        $delete = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) && $vars->get('task_id');
+
         if (!$vars->get('mobile')) {
             $users = array();
-            $share = $GLOBALS['nag_shares']->getShare($tasklist);
             $users = $share->listUsers(Horde_Perms::READ);
             $groups = $share->listGroups(Horde_Perms::READ);
             if (count($groups)) {
@@ -127,12 +137,19 @@ class Nag_Form_Task extends Horde_Form
         }
         $this->addVariable(_("Description"), 'desc', 'longtext', false, false, $description);
 
-        $buttons = array(_("Save"));
+        $buttons = array(array('value' => _("Save")));
+        if ($delete) {
+            $buttons[] = array('value' => _("Delete Task"), 'name' => 'deletebutton', 'class' => 'horde-delete');
+        }
+        if (!$vars->get('task_id')) {
+            $buttons[] = array('value' => _("Save and New"), 'name' => 'savenewbutton', 'class' => 'horde-create');
+        }
         $this->setButtons($buttons);
     }
 
     public function renderActive()
     {
-        return parent::renderActive($this->getRenderer(array('varrenderer_driver' => array('nag', 'nag')), $this->delete), $this->_vars, Horde::url('t/save'), 'post');
+        return parent::renderActive($this->getRenderer(array('varrenderer_driver' => array('nag', 'nag'))), $this->_vars, Horde::url('t/save'), 'post');
     }
+
 }

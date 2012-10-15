@@ -10,10 +10,12 @@
         Horde custom PHPMD rule set.
     </description>
 
-    <!-- Import the entire unused code rule set -->
-    <rule ref="rulesets/codesize.xml" />
+    <!-- <rule ref="rulesets/codesize.xml" /> -->
     <rule ref="rulesets/design.xml" />
-    <rule ref="rulesets/naming.xml" />
+    <rule ref="rulesets/naming.xml">
+        <exclude name="ShortVariable" />
+        <exclude name="ShortMethodName" />
+    </rule>
     <rule ref="rulesets/unusedcode.xml" />
 
     <!--

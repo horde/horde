@@ -77,6 +77,10 @@ class Sam_Factory_Driver extends Horde_Core_Factory_Injector
                 }
                 $params = array_merge($backend['params'], array('vfs' => $vfs));
                 break;
+
+            default:
+                $params = $backend['params'];
+                break;
             }
 
             $class = 'Sam_Driver_' . $backend['driver'];

@@ -28,21 +28,22 @@ class Turba_Form_CreateAddressBook extends Horde_Form
     }
 
     /**
+     * @return Horde_Share  The new share object.
      * @throws Turba_Exception
      */
     public function execute()
     {
         // Need a clean cfgSources array
         $cfgSources = Turba::availableSources();
-
-        $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($cfgSources[$GLOBALS['conf']['shares']['source']]);
-
+        $driver = $GLOBALS['injector']
+            ->getInstance('Turba_Factory_Driver')
+            ->create($cfgSources[$GLOBALS['conf']['shares']['source']]);
         $params = array(
             'params' => array('source' => $GLOBALS['conf']['shares']['source']),
             'name' => $this->_vars->get('name'),
             'desc' => $this->_vars->get('description'),
         );
-        return $driver->createShare(strval(new Horde_Support_Randomid()), $params);
+        return $driver->createShare(strval(new Horde_Support_Randomid()),
+                                    $params);
     }
-
 }

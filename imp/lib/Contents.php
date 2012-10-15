@@ -52,6 +52,13 @@ class IMP_Contents
     public $lastBodyPartDecode = null;
 
     /**
+     * Close session when fetching data from IMAP server?
+     *
+     * @var boolean
+     */
+    public $fetchCloseSession = false;
+
+    /**
      * Have we scanned for embedded parts?
      *
      * @var boolean
@@ -500,8 +507,8 @@ class IMP_Contents
 
         if (!empty($options['autodetect']) &&
             ($tempfile = Horde::getTempFile()) &&
-            ($fp = fopen($tempfile, 'w'))) {
-            $contents = $mime_part->getContents(array('stream' => true));
+            ($fp = fopen($tempfile, 'w')) &&
+            !is_null($contents = $mime_part->getContents(array('stream' => true)))) {
             rewind($contents);
             while (!feof($contents)) {
                 fwrite($fp, fread($contents, 8192));
@@ -710,6 +717,7 @@ class IMP_Contents
         $part = array(
             'bytes' => null,
             'download' => null,
+            'download_url' => null,
             'download_zip' => null,
             'id' => $id,
             'img_save' => null,
@@ -933,7 +941,7 @@ class IMP_Contents
 
         return empty($options['widget'])
             ? Horde::link('#', $options['jstext'], empty($options['css']) ? null : $options['css'], null, $url) . $text . '</a>'
-            : Horde::widget('#', $options['jstext'], empty($options['css']) ? null : $options['css'], null, $url, $text);
+            : Horde::widget(array('url' => '#', 'class' => empty($options['css']) ? null : $options['css'], 'onclick' => $url, 'title' => $text));
     }
 
     /**
@@ -1491,14 +1499,24 @@ class IMP_Contents
      */
     protected function _fetchData(Horde_Imap_Client_Fetch_Query $query)
     {
+        if ($this->fetchCloseSession) {
+            $GLOBALS['session']->close();
+        }
+
         try {
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-            return $imp_imap->fetch($this->_mailbox, $query, array(
+            $res = $imp_imap->fetch($this->_mailbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($this->_uid)
             ))->first();
         } catch (Horde_Imap_Client_Exception $e) {
-            return array();
+            $res = new Horde_Imap_Client_Data_Fetch();
         }
+
+        if ($this->fetchCloseSession) {
+            $GLOBALS['session']->start();
+        }
+
+        return $res;
     }
 
 }

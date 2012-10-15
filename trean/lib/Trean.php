@@ -60,8 +60,7 @@ class Trean
             if ($bookmark->favicon
                 && $vfs->exists('.horde/trean/favicons/', $bookmark->favicon)) {
 
-                return Horde_Util::addParameter(Horde::url('favicon.php'),
-                                                'bookmark_id', $bookmark->id);
+                return Horde::url('favicon.php')->add('bookmark_id', $bookmark->id);
             }
         } catch (Exception $e) {
         }
@@ -71,9 +70,22 @@ class Trean
         return Horde_Themes::img('protocol/' . (empty($protocol) ? 'http' : $protocol) . '.png');
     }
 
+    static public function addFeedLink()
+    {
+        $rss = Horde::url('rss.php', true, -1);
+        if ($label = Horde_Util::getFormData('label')) {
+            $rss->add('label', $label);
+        }
+
+        $GLOBALS['page_output']->addLinkTag(array(
+            'href' => $rss,
+            'title' => _("Bookmarks Feed")
+        ));
+    }
+
     static public function bookmarkletLink()
     {
-        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
         $view->url = Horde::url('add.php', true, array('append_session' => -1))
             ->add('popup', 1);
         $view->image = Horde::img('add.png');

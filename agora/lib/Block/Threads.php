@@ -79,7 +79,7 @@ class Agora_Block_Threads extends Horde_Core_Block
         $title = sprintf(_("Threads in \"%s\""), $this->_threads->_forum['forum_name']);
         $url = Horde::url('threads.php', true);
         if (!empty($scope)) {
-            $url = Horde_Util::addParameter($url, 'scope', $scope);
+            $url->add('scope', $scope);
         }
 
         return Horde::link(Agora::setAgoraId($this->_params['forum_id'], null, $url))

@@ -77,7 +77,7 @@ extends Horde_Kolab_Format_TestCase
             'uid' => 1,
             'pref' => array('test'),
             'categories' => 'Test',
-            'creation-date' => 1
+            'creation-date' => new DateTime('@1')
         );
         $xml = $preferences->save($object);
         $this->assertEquals(

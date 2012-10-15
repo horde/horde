@@ -3,8 +3,7 @@
 <form method="post" name="import_form" enctype="multipart/form-data" action="<?php echo Horde::url('data.php') ?>">
 <input type="hidden" name="actionID" value="<?php echo htmlspecialchars($next_step) ?>" />
 <input type="hidden" name="import_step" value="<?php echo (int)$import_step ?>" />
-<div class="item" style="padding:.5em">
-
+<div class="horde-content">
     <table cellspacing="0"><tr><td>
         <?php echo Horde::label('import_format', _("Select the format of the source file:")) ?><br />
         <select id="import_format" name="import_format">
@@ -30,8 +29,10 @@
 
         <?php echo Horde::label('import_file', _("Select the file to import:")) ?><br />
         <input type="file" id="import_file" name="import_file" size="40" />
-        <br /><br />
-        <input type="submit" value="<?php echo _("Next") ?>" class="button" />
     </td></tr></table>
+</div>
+
+<div class="horde-form-buttons">
+  <input type="submit" value="<?php echo _("Next") ?>" class="horde-default" />
 </div>
 </form>

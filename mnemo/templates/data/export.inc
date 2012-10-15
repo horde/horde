@@ -1,20 +1,17 @@
-<br />
 <h1 class="header"><?php echo _("Export Notes") ?></h1>
 
 <form method="post" name="export" action="<?php echo $GLOBALS['registry']->downloadUrl(_("notes.csv")) ?>">
 <input type="hidden" name="actionID" value="export" />
 
-<div class="item" style="padding:.5em">
- <p>
+<div class="horde-content">
   <?php echo Horde::label('exportID', _("Select the export format:")) ?><br />
   <select id="exportID" name="exportID">
    <option value="<?php echo Horde_Data::EXPORT_CSV ?>">CSV</option>
   </select>
- </p>
+</div>
 
- <p>
-  <input type="submit" value="<?php echo _("Export") ?>" class="button" />
- </p>
+<div class="horde-form-buttons">
+  <input type="submit" value="<?php echo _("Export") ?>" class="horde-default" />
 </div>
 
 </form>

@@ -2,7 +2,6 @@
 
 /* Variables used in core javascript files. */
 $var = array(
-    'URI_AJAX' => (string)$GLOBALS['registry']->getServiceLink('ajax', 'gollem'),
     'empty_input' => intval($GLOBALS['browser']->hasQuirk('empty_file_input_value'))
 );
 

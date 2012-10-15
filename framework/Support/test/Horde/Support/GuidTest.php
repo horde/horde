@@ -24,7 +24,7 @@ class Horde_Support_GuidTest extends PHPUnit_Framework_TestCase
     public function testFormat()
     {
         $this->assertEquals(48, strlen(new Horde_Support_Guid()));
-        $this->assertRegExp('/\d{14}\.[-_0-9a-zA-Z]{23}@localhost/', (string)new Horde_Support_Guid());
+        $this->assertRegExp('/\d{14}\.[-_0-9a-zA-Z]{23}@localhost/', (string)new Horde_Support_Guid(array('server' => 'localhost')));
     }
 
     public function testDuplicates()
@@ -47,6 +47,6 @@ class Horde_Support_GuidTest extends PHPUnit_Framework_TestCase
     public function testOptions()
     {
         $this->assertStringEndsWith('example.com', (string)new Horde_Support_Guid(array('server' => 'example.com')));
-        $this->assertRegExp('/\d{14}\.prefix\.[-_0-9a-zA-Z]{23}@localhost/', (string)new Horde_Support_Guid(array('prefix' => 'prefix')));
+        $this->assertRegExp('/\d{14}\.prefix\.[-_0-9a-zA-Z]{23}@localhost/', (string)new Horde_Support_Guid(array('prefix' => 'prefix', 'server' => 'localhost')));
     }
 }

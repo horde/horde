@@ -195,7 +195,7 @@ class Turba_View_List implements Countable
             $crit = array();
             if ($session->get('turba', 'search_mode') == 'advanced') {
                 $map = $driver->getCriteria();
-                foreach ($map as $key => $value) {
+                foreach (array_keys($map) as $key) {
                     if (($key != '__key') && !empty($vars->$key)) {
                         $crit[$key] = $vars->$key;
                     }

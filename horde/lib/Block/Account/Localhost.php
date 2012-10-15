@@ -104,7 +104,7 @@ class Horde_Block_Account_Localhost extends Horde_Block_Account_Base
                            $this->getUserName(),
                            $this->_params['grep_path'],
                            $mountPoint);
-        $junk = exec($cmdline, $quota_data, $return_code);
+        exec($cmdline, $quota_data, $return_code);
         if ($return_code == 0 && !empty($quota_data[0])) {
             // In case of quota output wrapping on two lines, we concat the
             // second line of results, if any, here.

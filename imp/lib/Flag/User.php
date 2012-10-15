@@ -55,7 +55,8 @@ class IMP_Flag_User extends IMP_Flag_Imap
         case 'imapflag':
             /* IMAP keywords must conform to RFC 3501 [9] (flag-keyword).
              * Convert whitespace to underscore. */
-            $this->_imapflag = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->stripNonAtomChars(strtr($value, ' ', '_'));
+            $atom = new Horde_Imap_Client_Data_Format_Atom(strtr($value, ' ', '_'));
+            $this->_imapflag = $atom->stripNonAtomCharacters();
             break;
 
         case 'label':

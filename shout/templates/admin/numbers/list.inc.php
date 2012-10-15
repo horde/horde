@@ -7,15 +7,14 @@
         </tr>
         <?php
             $url = Horde::url("admin/numbers.php");
-            $editurl = Horde_Util::addParameter($url, 'action', 'edit');
-            $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
+            $editurl = $url->copy()->add('action', 'edit');
+            $deleteurl = $url->copy()->add('action', 'delete');
             foreach ($numbers as $numberinfo) {
                 $accountcode = $numberinfo['accountcode'];
                 ?>
                 <tr class="item">
                     <td>
-                        <?php echo Horde::link(Horde_Util::addParameter($editurl,
-                                    array('number' => $numberinfo['number'])));
+                        <?php echo Horde::link($editurl->add(array('number' => $numberinfo['number'])));
                               echo $numberinfo['number']; echo '</a>'; ?>
                     </td>
                     <td>
@@ -32,9 +31,9 @@
 </div>
 <ul id="controls">
     <?php
-    $addurl = Horde_Util::addParameter($url, 'action', 'add');
+    $addurl = $url->add('action', 'add');
     ?>
-    <li><a class="button" href="<?php echo $addurl; ?>">
+    <li><a class="horde-create" href="<?php echo $addurl; ?>">
         <?php echo Horde::img('extension-add.png'); ?>&nbsp;New Number
         </a>
     </li>

@@ -98,10 +98,12 @@ case 'modify_task':
         } elseif ($task->private && $task->owner != $registry->getAuth()) {
             $notification->push(_("Access denied editing task."), 'horde.error');
         } else {
-            $vars = new Horde_Variables($task->toHash());
+            $h = $task->toHash();
+            $h['tags'] = implode(',', $h['tags']);
+            $vars = new Horde_Variables($h);
             $vars->set('old_tasklist', $task->tasklist);
             $vars->set('url', Horde_Util::getFormData('url'));
-            $form = new Nag_Form_Task($vars, sprintf(_("Edit: %s"), $task->name), $share->hasPermission($registry->getAuth(), Horde_Perms::DELETE));
+            $form = new Nag_Form_Task($vars, sprintf(_("Edit: %s"), $task->name));
             break;
         }
     }
@@ -138,7 +140,6 @@ $GLOBALS['page_output']->header(array(
     'title' => $form->getTitle()
 ));
 require NAG_TEMPLATES . '/javascript_defs.php';
-echo Nag::menu();
 Nag::status();
 echo $formhtml;
 $GLOBALS['page_output']->footer();

@@ -33,7 +33,7 @@ class IMP_Filter
      */
     public function filter($mbox)
     {
-        if (!$GLOBALS['session']->get('imp', 'filteravail')) {
+        if (!IMP::applyFilters()) {
             return;
         }
 
@@ -107,7 +107,6 @@ class IMP_Filter
         }
 
         $addr = array();
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
         foreach ($indices as $ob) {
             $ob->mbox->uidvalid;

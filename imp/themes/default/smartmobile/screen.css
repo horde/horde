@@ -18,6 +18,12 @@
     font-weight: normal;
     padding: 0 40px 11px 15px;
 }
+.imp-mailbox-from {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
 
 .imp-mailbox-deleted a {
     text-decoration: line-through !important;
@@ -26,9 +32,21 @@
     font-weight: normal;
 }
 
+.divSwipe a {
+    font-weight: bold;
+    margin-top: 15px;
+}
+.divSwipe span.ui-btn-inner {
+    padding-right: 20px;
+}
+
 /* Message */
+#imp-message-headers {
+    margin-top: 0;
+}
 .imp-header-label {
     font-weight: bold;
+    padding-right: 5px;
     vertical-align: top;
 }
 .imp-message-atc {
@@ -59,4 +77,24 @@
 }
 .mimePartData .fixed {
     font-size: 90%;
+}
+
+/* Mime Viewer styles. */
+.mimeHeaders {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    display: -moz-inline-stack;
+    display: inline-block;
+    margin: 5px 0 3px 0;
+    padding: 5px;
+}
+.mimePartWrap, .mimePartWrapValid, .mimePartWrapInvalid {
+    border: 1px solid #d0d0d0;
+    margin: 2px 0;
+    padding: 10px;
+}
+
+/* Notification styles. */
+#horde-notification {
+    bottom: 50px;
 }

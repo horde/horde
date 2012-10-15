@@ -61,7 +61,6 @@ if ($form->validate()) {
 $page_output->header(array(
     'title' => _("Upload face photo")
 ));
-echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $tabs->render(Horde_Util::getGet('search_faces', 'image'));
 $form->renderActive(null, null, null, 'post');

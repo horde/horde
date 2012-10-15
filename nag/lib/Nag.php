@@ -446,7 +446,7 @@ class Nag
 
         $att = array('owner' => $GLOBALS['registry']->getAuth());
         if (!$smart) {
-            $att['issmart'] = '0';
+            $att['issmart'] = 0;
         }
 
         try {
@@ -589,12 +589,11 @@ class Nag
         $tasklist->set('color', $info['color']);
         $tasklist->set('desc', $info['description']);
         $tasklist->set('owner', empty($info['system']) ? $GLOBALS['registry']->getAuth() : null);
-        if (empty($info['search'])) {
-            $tasklist->set('issmart', 0);
-            $tasklist->set('search', '');
-        } else {
-            $tasklist->set('search', serialize($info['search']));
-            $tasklist->set('issmart', '1');
+        if ($tasklist->get('issmart')) {
+            if (empty($info['search'])) {
+                throw new Nag_Exception(_("Missing valid search criteria"));
+            }
+            $tasklist->set('search', $info['search']);
         }
         try {
             $tasklist->save();
@@ -607,6 +606,7 @@ class Nag
      * Deletes a task list.
      *
      * @param Horde_Share_Object $tasklist  The task list to delete.
+     *
      * @throws Nag_Exception
      * @throws Horde_Exception_PermissionDenied
      */
@@ -624,10 +624,24 @@ class Nag
 
         // Remove share and all groups/permissions.
         try {
-            return $GLOBALS['nag_shares']->removeShare($tasklist);
+            $GLOBALS['nag_shares']->removeShare($tasklist);
         } catch (Horde_Share_Exception $e) {
             throw new Nag_Exception($e);
         }
+    }
+
+    /**
+     * Returns a random CSS color.
+     *
+     * @return string  A random CSS color string.
+     */
+    static public function randomColor()
+    {
+        $color = '#';
+        for ($i = 0; $i < 3; $i++) {
+            $color .= sprintf('%02x', mt_rand(0, 255));
+        }
+        return $color;
     }
 
     /**
@@ -836,110 +850,10 @@ class Nag
             ->create();
         if (($new_default = $tasklists->ensureDefaultShare()) !== null) {
             $GLOBALS['display_tasklists'][] = $new_default;
+            $GLOBALS['prefs']->setValue('default_tasklist', $new_default);
         }
 
         $GLOBALS['prefs']->setValue('display_tasklists', serialize($GLOBALS['display_tasklists']));
-    }
-
-    /**
-     * Generate the Nag menu.
-     *
-     * @return string  The HTML for the menu.
-     */
-    static public function menu()
-    {
-        // @TODO: Implement an injector factory for this.
-        global $display_tasklists, $page_output, $prefs;
-
-        $sidebar = Horde::menu(array('menu_ob' => true))->render();
-        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
-        if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
-            ($perms->hasAppPermission('max_tasks') === true ||
-             $perms->hasAppPermission('max_tasks') > Nag::countTasks())) {
-            $sidebar->addNewButton(
-                _("_New Task"),
-                Horde::url('task.php')->add('actionID', 'add_task'));
-
-            if ($GLOBALS['browser']->hasFeature('dom')) {
-                $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
-                $page_output->addScriptFile('redbox.js', 'horde');
-                $blank = new Horde_Url();
-                $sidebar->newExtra = $blank->link(
-                    array_merge(
-                        array('onclick' => 'RedBox.showInline(\'quickAddInfoPanel\'); $(\'quickText\').focus(); return false;'),
-                        Horde::getAccessKeyAndTitle(_("_Quick Add"), false, true)
-                    )
-                );
-            }
-        }
-
-        $content = $GLOBALS['injector']->createInstance('Horde_View');
-        $content->my = $content->shared = $content->smart = array();
-        $content->newShares = !$prefs->isLocked('default_tasklist');
-        $list  = Horde::url('list.php');
-        $smart = Horde::url('list.php')->add(array('actionID' => 'smart'));
-        $edit  = Horde::url('tasklists/edit.php');
-        $user  = $GLOBALS['registry']->getAuth();
-
-        foreach (Nag::listTaskLists() as $name => $tasklist) {
-            $class = in_array($name, $display_tasklists)
-                ? 'horde-resource-on'
-                : 'horde-resource-off';
-            $style = '';
-            $fg = '000';
-            if ($color = $tasklist->get('color')) {
-                if (Horde_Image::brightness($color) < 128) {
-                    $fg = 'fff';
-                }
-                $style = 'background-color:' . $color . ';color:#' . $fg;
-            }
-
-            if ($tasklist->get('issmart')) {
-                $content->smart[] = array(
-                    'link' => $smart->add('list', $name)->link()
-                              . htmlspecialchars($tasklist->get('name'))
-                              . '</a>',
-                    'class' => $class,
-                    'style' => $style,
-                );
-            } else {
-                $list->add('display_tasklist', $name);
-                if (in_array($name, $display_tasklists)) {
-                    $list->add('actionID', 'remove_displaylist');
-                } else {
-                    $list->add('actionID', 'add_displaylist');
-                }
-                if ($tasklist->get('owner') == $user) {
-                    $content->my[] = array(
-                        'link' => $list->link()
-                                  . htmlspecialchars($tasklist->get('name'))
-                                  . '</a>',
-                        'class' => $class,
-                        'style' => $style,
-                        'edit' => $edit->add('t', $tasklist->getName())
-                                      ->link(array(
-                                          'title' =>  _("Edit"),
-                                          'class' => 'horde-resource-edit-'
-                                                     . $fg))
-                                  . '&#9658;' . '</a>',
-                    );
-                } else {
-                    $content->shared[] = array(
-                        'link' => $list->link()
-                                  . htmlspecialchars($tasklist->get('name'))
-                                  . '</a>',
-                        'class' => $class,
-                        'style' => $style,
-                    );
-                }
-            }
-        }
-        $sidebar->containers[] = array('content' => $content->render('sidebar'));
-
-        Horde::startBuffer();
-        include NAG_TEMPLATES . '/quick.inc';
-        return $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render()
-            . $sidebar . Horde::endBuffer();
     }
 
     /**
@@ -1075,10 +989,10 @@ class Nag
         foreach ($addresses as $lang => $twentyFour) {
             $GLOBALS['registry']->setLanguageEnvironment($lang);
 
-            $view_link = Horde_Util::addParameter(Horde::url('view.php', true),
-                                            array('tasklist' => $task->tasklist,
-                                                  'task' => $task->id),
-                                            null, false);
+            $view_link = Horde::url('view.php', true)->add(array(
+                'tasklist' => $task->tasklist,
+                'task' => $task->id
+            ))->setRaw(true);
 
             switch ($action) {
             case 'add':
@@ -1382,10 +1296,7 @@ class Nag
      */
     static public function _rsortByPriority($a, $b)
     {
-        if ($a->priority == $b->priority) {
-            return self::_sortByIdentity($b, $a);
-        }
-        return ($a->priority > $b->priority) ? -1 : 1;
+        return self::_sortByPriority($b, $a);
     }
 
     /**
@@ -1474,12 +1385,7 @@ class Nag
      */
     static public function _rsortByEstimate($a, $b)
     {
-        $a_est = $a->estimation();
-        $b_est = $b->estimation();
-        if ($a_est == $b_est) {
-            return self::_sortByIdentity($b, $a);
-        }
-        return ($a_est > $b_est) ? -1 : 1;
+        return self::_sortByEstimate($b, $a);
     }
 
     /**
@@ -1519,19 +1425,7 @@ class Nag
      */
     static public function _rsortByDue($a, $b)
     {
-        if ($a->due == $b->due) {
-            return self::_sortByIdentity($b, $a);
-        }
-
-        // Treat empty due dates as farthest into the future.
-        if ($a->due == 0) {
-            return -1;
-        }
-        if ($b->due == 0) {
-            return 1;
-        }
-
-        return ($a->due < $b->due) ? 1 : -1;
+        return self::_sortByDue($b, $a);
     }
 
     /**
@@ -1571,19 +1465,7 @@ class Nag
      */
     static public function _rsortByStart($a, $b)
     {
-        if ($a->start == $b->start) {
-            return self::_sortByIdentity($b, $a);
-        }
-
-        // Treat empty start dates as farthest into the future.
-        if ($a->start == 0) {
-            return -1;
-        }
-        if ($b->start == 0) {
-            return 1;
-        }
-
-        return ($a->start < $b->start) ? 1 : -1;
+        return self::_sortByStart($b, $a);
     }
 
     /**
@@ -1614,10 +1496,7 @@ class Nag
      */
     static public function _rsortByCompletion($a, $b)
     {
-        if ($a->completed == $b->completed) {
-            return self::_sortByIdentity($b, $a);
-        }
-        return ($a->completed < $b->completed) ? -1 : 1;
+        return self::_sortByCompletion($b, $a);
     }
 
     /**
@@ -1631,20 +1510,7 @@ class Nag
      */
     static public function _sortByOwner($a, $b)
     {
-        $ashare = $GLOBALS['nag_shares']->getShare($a->tasklist);
-        $bshare = $GLOBALS['nag_shares']->getShare($b->tasklist);
-
-        $aowner = $a->tasklist;
-        $bowner = $b->tasklist;
-
-        if ($aowner != $ashare->get('owner')) {
-            $aowner = $ashare->get('name');
-        }
-        if ($bowner != $bshare->get('owner')) {
-            $bowner = $bshare->get('name');
-        }
-
-        $diff = strcasecmp($aowner, $bowner);
+        $diff = strcasecmp(self::_getOwner($a), self::_getOwner($b));
         if ($diff == 0) {
             return self::_sortByIdentity($a, $b);
         } else {
@@ -1663,25 +1529,27 @@ class Nag
      */
     static public function _rsortByOwner($a, $b)
     {
-        $ashare = $GLOBALS['nag_shares']->getShare($a->tasklist);
-        $bshare = $GLOBALS['nag_shares']->getShare($b->tasklist);
+        return self::_sortByOwner($b, $a);
+    }
 
-        $aowner = $a->tasklist;
-        $bowner = $b->tasklist;
-
-        if ($aowner != $ashare->get('owner')) {
-            $aowner = $ashare->get('name');
+    /**
+     * Returns the owner of a taksk.
+     *
+     * @param Nag_Task $task  A task.
+     *
+     * @return string  The task's owner.
+     */
+    static protected function _getOwner($task)
+    {
+        if ($task->tasklist == '**EXTERNAL**') {
+            return $GLOBALS['registry']->getAuth();
         }
-        if ($bowner != $bshare->get('owner')) {
-            $bowner = $bshare->get('name');
+        $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
+        $owner = $task->tasklist;
+        if ($owner != $share->get('owner')) {
+            $owner = $share->get('name');
         }
-
-        $diff = strcasecmp($bowner, $aowner);
-        if ($diff == 0) {
-            return self::_sortByIdentity($b, $a);
-        } else {
-            return $diff;
-        }
+        return $owner;
     }
     /**
      * Obtain a Nag_Tagger instance

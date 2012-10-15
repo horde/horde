@@ -182,26 +182,6 @@ class Sesha
         return ($a['note'] > $b['note']) ? -1 : 1;
     }
 
-    /**
-     * Amend Sesha's list of menu items with a new button and generate output.
-     */
-    public static function menu()
-    {
-        $sidebar = Horde::menu(array('menu_ob' => true))->render();
-        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
-        if (Sesha::isAdmin(Horde_Perms::READ) ||
-            $perms->hasPermission('sesha:addStock', $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-            $sidebar->addNewButton(
-                _("_Add Stock"),
-                Horde::url('stock.php')->add('actionId', 'add_stock'));
-        }
-        Horde::startBuffer();
-        return $GLOBALS['injector']->getInstance('Horde_View_Topbar')->render()
-            . $sidebar . Horde::endBuffer();
-    }
-
-
-
     public static function isAdmin($permLevel = Horde_Perms::DELETE)
     {
         return ($GLOBALS['registry']->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('sesha:admin', $GLOBALS['registry']->getAuth(), $permLevel));

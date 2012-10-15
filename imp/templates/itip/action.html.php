@@ -64,7 +64,7 @@
  <tbody>
 <?php foreach ($this->attendees as $v): ?>
   <tr>
-   <td><?php echo $v['attendee'] ?></td>
+   <td><?php echo $this->h($v['attendee']) ?></td>
    <td><?php echo $v['role'] ?></td>
    <td><?php echo $v['status'] ?></td>
   </tr>

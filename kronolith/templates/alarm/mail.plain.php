@@ -12,4 +12,4 @@
 <?php echo _("Time:") ?> <?php echo $this->event->start->format($this->timeFormat) ?>
 
 
-<?php if (!$this->isPrivate($this->user)) echo $this->event->description ?>
+<?php if (!$this->event->isPrivate($this->user)) echo $this->event->description ?>

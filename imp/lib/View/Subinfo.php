@@ -30,9 +30,14 @@ class IMP_View_Subinfo extends Horde_View
      */
     public function __construct($config = array())
     {
-        $config['templatePath'] = IMP_TEMPLATES . '/imp';
+        $config['templatePath'] = IMP_TEMPLATES . '/basic';
         parent::__construct($config);
-        IMP::quota($this);
+
+        $quotadata = $GLOBALS['injector']->getInstance('IMP_Ui_Quota')->quota();
+        if (!empty($quotadata)) {
+            $this->quotaClass = $quotadata['class'];
+            $this->quotaText = $quotadata['message'];
+        }
     }
 
     /**

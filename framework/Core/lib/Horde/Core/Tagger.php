@@ -61,6 +61,22 @@ abstract class Horde_Core_Tagger
     }
 
     /**
+     * Split a tag string into an array of tags.
+     *
+     * Overides Content_Tagger::split to only split on
+     * commas.
+     *
+     * @param string $tags  A string of tags to be split.
+     *
+     * @return array  The split tags.
+     */
+    public function split($tags)
+    {
+        $split_tags = explode(',', $tags);
+        return array_map('trim', $split_tags);
+    }
+
+    /**
      * Tags an oject with any number of tags.
      *
      * @param string $localId       The identifier of the object.
@@ -80,8 +96,7 @@ abstract class Horde_Core_Tagger
 
         // If we don't have an array - split the string.
         if (!is_array($tags)) {
-            $tags = $GLOBALS['injector']->getInstance('Content_Tagger')
-                ->splitTags($tags);
+            $tags = $this->split($tags);
         }
 
         try {
@@ -185,8 +200,7 @@ abstract class Horde_Core_Tagger
 
         // If we don't have an array - split the string.
         if (!is_array($tags)) {
-            $tags = $GLOBALS['injector']->getInstance('Content_Tagger')
-                ->splitTags($tags);
+            $tags = $this->split($tags);
         }
         $remove = array();
         foreach ($existing_tags as $tag_id => $existing_tag) {

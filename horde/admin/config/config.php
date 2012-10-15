@@ -6,6 +6,9 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../../lib/Application.php';
@@ -18,7 +21,9 @@ if (!Horde_Util::extensionExists('domxml') &&
     throw new Horde_Exception('You need the domxml or dom PHP extension to use the configuration tool.');
 }
 
-$app = Horde_Util::getFormData('app');
+$vars = $injector->getInstance('Horde_Variables');
+
+$app = $vars->app;
 $appname = $registry->get('name', $app);
 $title = sprintf(_("%s Configuration"), $appname);
 
@@ -26,8 +31,6 @@ if (empty($app) || !in_array($app, $registry->listAllApps())) {
     $notification->push(_("Invalid application."), 'horde.error');
     Horde::url('admin/config/index.php', true)->redirect();
 }
-
-$vars = Horde_Variables::getDefaultVariables();
 
 $form = new Horde_Config_Form($vars, $app);
 $form->setButtons(sprintf(_("Generate %s Configuration"), $appname));
@@ -41,7 +44,7 @@ $configFile = $path . '/conf.php';
 if (is_link($configFile)) {
     $configFile = readlink($configFile);
 }
-if (Horde_Util::getFormData('submitbutton') == _("Revert Configuration")) {
+if ($vars->submitbutton == _("Revert Configuration")) {
     if (@copy($path . '/conf.bak.php', $configFile)) {
         $notification->push(_("Successfully reverted configuration. Reload to see changes."), 'horde.success');
         @unlink($path . '/conf.bak.php');

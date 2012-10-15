@@ -6,10 +6,10 @@
 <h1 class="header">
  <?php echo _("Pending Signups:") ?>
 </h1>
-<p class="item">
+<p class="horde-content">
  <?php printf(_("Are you sure you want to remove the signup request for \"%s\"?"), $f_user_name) ?>
 </p>
-<p class="control">
-  <input class="button" type="submit" value="<?php echo _("Remove") ?>" />
+<p class="horde-form-buttons">
+  <input class="horde-delete" type="submit" value="<?php echo _("Remove") ?>" />
 </p>
 </form>

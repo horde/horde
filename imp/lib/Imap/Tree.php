@@ -185,7 +185,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function init()
     {
-        global $conf, $injector, $prefs, $session;
+        global $injector, $prefs, $session;
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
@@ -1664,7 +1664,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     break;
 
                 case $registry::VIEW_SMARTMOBILE:
-                    $params['url'] = '#mailbox?mbox=' . $val->form_to;
+                    $url = new Horde_Core_Smartmobile_Url();
+                    $url->add('mbox', $val->form_to);
+                    $url->setAnchor('mailbox');
+                    $params['url'] = strval($url);
                     break;
 
                 default:
@@ -1681,14 +1684,16 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 ? ''
                 : '<input type="checkbox" class="checkbox" name="mbox_list[]" value="' . $val->form_to . '"';
 
-            if ($val->vfolder) {
+            if ($val->nonimap) {
                 $checkbox .= ' disabled="disabled"';
+            }
 
-                if (!empty($opts['editvfolder']) && $this->isContainer($val)) {
-                    $after = '&nbsp[' .
-                        $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>'.
-                        ']';
-                }
+            if ($val->vfolder &&
+                !empty($opts['editvfolder']) &&
+                $this->isContainer($val)) {
+                $after = '&nbsp[' .
+                    $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->link(array('title' => _("Edit Virtual Folder"))) . _("Edit") . '</a>'.
+                    ']';
             }
 
             $tree->addNode(array(

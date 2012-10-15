@@ -10,8 +10,8 @@
 var DimpBase = {
     // Vars used and defaulting to null/false:
     //   expandmbox, pollPE, pp, resize, rownum, search,
-    //   searchbar_time, searchbar_time_mins, splitbar, sort_init, template,
-    //   uid, view, viewaction, viewport, viewswitch
+    //   searchbar_time, searchbar_time_mins, splitbar, sort_init, switchmbox,
+    //   template, uid, view, viewaction, viewport, viewswitch
 
     INBOX: 'SU5CT1g', // 'INBOX' base64url encoded
     lastrow: -1,
@@ -37,6 +37,7 @@ var DimpBase = {
         splitbar_vert: 0,
         toggle_hdrs: 0
     },
+
     prefs_special: function(n) {
         switch (n) {
         case 'preview_old':
@@ -167,7 +168,7 @@ var DimpBase = {
             row_data = row.get('dataob').first();
             if (!curr_row || row_data.uid != curr_row.uid) {
                 this.viewport.scrollTo(row_data.VP_rownum, { bottom: bottom });
-                this.viewport.select(row, { delay: 0.3 });
+                this.viewport.select(row, { delay: 0.5 });
             }
         } else if (curr) {
             this.rownum = curr;
@@ -232,7 +233,7 @@ var DimpBase = {
         }
 
         $('dimpmain_folder').hide();
-        $('dimpmain_iframe').update(DimpCore.text.loading).show();
+        $('dimpmain_iframe').show();
 
         switch (type) {
         case 'search':
@@ -243,8 +244,7 @@ var DimpBase = {
             this.setTitle(DimpCore.text.search);
             $('dimpmain_iframe').insert(
                 new Element('IFRAME', {
-                    className: 'iframe',
-                    src:  HordeCore.addURLParam(DimpCore.conf.URI_SEARCH, data)
+                    src: HordeCore.addURLParam(DimpCore.conf.URI_SEARCH, data)
                 }).setStyle({
                     height: document.viewport.getHeight() + 'px'
                 })
@@ -336,7 +336,7 @@ var DimpBase = {
         this.splitbar.setStyle({
             left: tmp.clientWidth + 'px'
         });
-        $('horde-body').setStyle({
+        $('horde-page').setStyle({
             left: (tmp.clientWidth) + 'px'
         });
     },
@@ -391,7 +391,7 @@ var DimpBase = {
         }
 
         if (this.uid) {
-            opts.search = { uid: this.uid.uid };
+            opts.search = { uid: this.uid };
         }
 
         this.viewport.loadView(f, opts);
@@ -438,7 +438,7 @@ var DimpBase = {
                         $R(0, u.length, true).each(function(i) {
                             var c = u.charAt(i);
                             if (!this.tcache[c]) {
-                                this.tcache[c] = '<span class="treeImg treeImg' + c + '"></span>';
+                                this.tcache[c] = '<span class="horde-tree-image horde-tree-image-' + c + '"></span>';
                             }
                             r.subjectdata += this.tcache[c];
                         }, this);
@@ -525,8 +525,14 @@ var DimpBase = {
             pane_data: 'previewPane',
             pane_mode: this._getPref('preview'),
             pane_width: this._getPref('splitbar_vert'),
-            split_bar_class: { horiz: 'horde-splitbar-horiz', vert: 'horde-splitbar-vert' },
-            split_bar_handle_class: { horiz: 'horde-splitbar-horiz-handle', vert: 'horde-splitbar-vert-handle' },
+            split_bar_class: {
+                horiz: 'horde-splitbar-horiz',
+                vert: 'horde-splitbar-vert'
+            },
+            split_bar_handle_class: {
+                horiz: 'horde-splitbar-horiz-handle',
+                vert: 'horde-splitbar-vert-handle'
+            },
 
             // Callbacks
             onAjaxRequest: function(params) {
@@ -578,8 +584,7 @@ var DimpBase = {
                 }
 
                 return offset;
-            }.bind(this),
-            onSlide: this.setMessageListTitle.bind(this)
+            }.bind(this)
         });
 
         /* Custom ViewPort events. */
@@ -764,6 +769,30 @@ var DimpBase = {
                 }
             }
         }.bindAsEventListener(this));
+
+        container.observe('ViewPort:sliderEnd', function() {
+            $('slider_count').hide();
+        });
+
+        container.observe('ViewPort:sliderSlide', this.updateSliderCount.bind(this));
+
+        container.observe('ViewPort:sliderStart', function() {
+            var sc = $('slider_count'),
+                sb = $('msgSplitPane').down('.vpScroll'),
+                s = sb.viewportOffset();
+
+            if (!sc) {
+                sc = new Element('DIV', { id: 'slider_count' });
+                $(document.body).insert(sc);
+            }
+
+            this.updateSliderCount();
+
+            sc.setStyle({
+                top: (s.top + sb.getHeight() - sc.getHeight()) + 'px',
+                right: (document.viewport.getWidth() - s.left) + 'px'
+            }).show();
+        }.bind(this));
 
         container.observe('ViewPort:splitBarChange', function(e) {
             switch (e.memo) {
@@ -1491,7 +1520,7 @@ var DimpBase = {
         tmp = this.viewport.getMetaData('special');
         tmp2 = m.down('a.msgFromTo');
         [ tmp2 ].invoke(tmp ? 'show' : 'hide');
-        tmp2.siblings().invoke(tmp ? 'hide' : 'show');
+        tmp2.adjacent('a').invoke(tmp ? 'hide' : 'show');
 
         [ m.down('.msgSubject .horde-popdown'), m.down('.msgDate .horde-popdown') ].invoke(this.viewport.getMetaData('sortbylock') ? 'hide' : 'show');
 
@@ -1551,9 +1580,10 @@ var DimpBase = {
         }
 
         if (!params) {
-            if (this.pp &&
-                this.pp.uid == data.uid &&
-                this.pp.mbox == data.mbox) {
+            if (!data ||
+                (this.pp &&
+                 this.pp.uid == data.uid &&
+                 this.pp.mbox == data.mbox)) {
                 return;
             }
             this.pp = data;
@@ -1584,16 +1614,18 @@ var DimpBase = {
 
         DimpCore.doAction('showMessage', this.addViewportParams(params), {
             callback: function(r) {
-                if (!r || r.error) {
-                    if (r) {
-                        HordeCore.notify(r.error, r.errortype);
-                    }
+                if (!r) {
                     this.clearPreviewPane();
                 } else if (this.view == r.view &&
                            this.pp &&
                            this.pp.uid == r.uid &&
                            this.pp.mbox == r.mbox) {
-                    this._loadPreview(r.uid, r.mbox);
+                    if (r.error) {
+                        HordeCore.notify(r.error, r.errortype);
+                        this.clearPreviewPane();
+                    } else {
+                        this._loadPreview(r.uid, r.mbox);
+                    }
                 }
             }.bind(this),
             loading: 'msg',
@@ -1677,7 +1709,6 @@ var DimpBase = {
         this.pp.hide_all = r.onepart;
         this.pp.save_as = r.save_as;
 
-        $('messageBody').select('IFRAME').invoke('blur');
         $('messageBody').update(
             (r.msgtext === null)
                 ? $('messageBodyError').down().clone(true).show().writeAttribute('id', 'ppane_view_error')
@@ -2179,7 +2210,11 @@ var DimpBase = {
             dropbase = (drop == $('dropbase'));
             if (dropbase ||
                 (ftype != 'special' && !this.isSubfolder(drag, drop))) {
-                DimpCore.doAction('renameMailbox', { old_name: drag.retrieve('mbox'), new_parent: dropbase ? '' : mboxname, new_name: drag.retrieve('l') });
+                DimpCore.doAction('renameMailbox', {
+                    new_name: drag.retrieve('l'),
+                    new_parent: dropbase ? '' : mboxname,
+                    old_name: drag.retrieve('mbox')
+                });
             }
         } else if (ftype != 'container') {
             sel = this.viewport.getSelected();
@@ -2292,8 +2327,7 @@ var DimpBase = {
     keydownHandler: function(e)
     {
         var all, cnt, co, h, need, pp, ps, r, row, rownum, rowoff, sel,
-            tmp, vsel, prev,
-            elt = e.element(),
+            tmp, vsel, prev, noelt,
             kc = e.keyCode || e.charCode;
 
         // Only catch keyboard shortcuts in message list view.
@@ -2301,8 +2335,14 @@ var DimpBase = {
             return;
         }
 
-        // Form catching.
-        if (e.findElement('FORM')) {
+        if (!Object.isFunction(e.element)) {
+            // Inside IFRAME. Wrap in prototypejs Event object.
+            e = new Event(e);
+            e.preventDefault();
+            noelt = true;
+            $$('IFRAME').invoke('blur');
+        } else if (e.findElement('FORM')) {
+            // Inside form, so ignore.
             return;
         }
 
@@ -2388,11 +2428,9 @@ var DimpBase = {
             break;
 
         case Event.KEY_RETURN:
-            if (!elt.match('input')) {
+            if ((noelt || !e.element().match('INPUT')) && sel.size() == 1) {
                 // Popup message window if single message is selected.
-                if (sel.size() == 1) {
-                    this.msgWindow(sel.get('dataob').first());
-                }
+                this.msgWindow(sel.get('dataob').first());
             }
             e.stop();
             break;
@@ -2612,7 +2650,7 @@ var DimpBase = {
             tmp = e.memo.findElement('DIV');
             if (tmp.hasClassName('msCheckAll')) {
                 this.selectAll();
-            } else {
+            } else if (!e.memo.element().hasClassName('horde-popdown')) {
                 this.sort(tmp.retrieve('sortby'));
             }
             e.memo.stop();
@@ -2771,6 +2809,13 @@ var DimpBase = {
         this.loadingImg(e.memo, false);
     },
 
+    updateSliderCount: function()
+    {
+        var range = this.viewport.currentViewableRange();
+
+        $('slider_count').update(DimpCore.text.slidertext.sub('%d', range.first).sub('%d', range.last));
+    },
+
     toggleHelp: function()
     {
         Effect.toggle($('helptext').down('DIV'), 'blind', {
@@ -2897,6 +2942,10 @@ var DimpBase = {
             this.expandmbox = base ? base : true;
         }
 
+        if (r.switch) {
+            this.switchmbox = r.switch;
+        }
+
         if (r.d) {
             r.d.each(this.deleteMbox.bind(this));
         }
@@ -2907,7 +2956,7 @@ var DimpBase = {
             r.a.each(this.createMbox.bind(this));
         }
 
-        this.expandmbox = false;
+        this.expandmbox = this.switchmbox = false;
 
         if (base) {
             this._toggleSubFolder(base, 'tog', false, true);
@@ -3247,7 +3296,7 @@ var DimpBase = {
     deleteMbox: function(mbox)
     {
         if (this.view == mbox) {
-            this.go('mbox', this.INBOX);
+            this.go('mbox', this.switchmbox || this.INBOX);
         }
         this.deleteMboxElt(mbox, true);
     },

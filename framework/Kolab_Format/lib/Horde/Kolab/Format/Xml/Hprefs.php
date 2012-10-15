@@ -42,6 +42,7 @@ class Horde_Kolab_Format_Xml_Hprefs extends Horde_Kolab_Format_Xml
      */
     protected $_fields_specific = array(
         'application' => 'Horde_Kolab_Format_Xml_Type_PrefsApplication',
+        'categories' => 'Horde_Kolab_Format_Xml_Type_String_Empty',
         'pref' => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
     );
 }

@@ -114,6 +114,8 @@ try {
     Horde::logMessage($e, 'NOTICE');
 }
 
+$page_output->topbar = $page_output->sidebar = false;
+
 $page_output->header(array(
     'title' => $title
 ));

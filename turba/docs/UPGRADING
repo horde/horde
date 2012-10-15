@@ -32,6 +32,19 @@ outdated.
 Upgrading Turba from 3.x to 4.x
 ===============================
 
+Attribute Changes
+-----------------
+
+  - The "gender" attribute sets values of (literally) "male" or "female" now,
+    and no longer 0 or 1.
+
+
+Preference Changes
+------------------
+
+  - The "addressbooks" preference has been removed.
+
+
 API Changes
 -----------
 

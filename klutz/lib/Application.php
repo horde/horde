@@ -64,9 +64,7 @@ class Klutz_Application extends Horde_Registry_Application
     {
         global $conf, $injector;
 
-        $today = Horde::url('comics.php');
-        $today = Horde_Util::addParameter($today, array('actionID' => 'day',
-                                                  'date' => mktime(0, 0, 0)));
+        $today = Horde::url('comics.php')->add(array('actionID' => 'day', 'date' => mktime(0, 0, 0)));
 
         $me = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
 

@@ -38,6 +38,7 @@ extends PHPUnit_Framework_TestCase
     public function testSynchronizeNamespace()
     {
         $synchronization = $this->_getSynchronization();
+        $synchronization->setCache($this->cache);
         $this->cache->expects($this->once())
             ->method('setNamespace')
             ->with('N;');
@@ -47,11 +48,12 @@ extends PHPUnit_Framework_TestCase
     public function testSynchronizeFolderlist()
     {
         $synchronization = $this->_getSynchronization();
+        $synchronization->setCache($this->cache);
         $this->cache->expects($this->once())
             ->method('store')
             ->with(
                 array('INBOX/Test'),
-                array('INBOX/Test' => 'a')
+                array('INBOX/Test' => 'a.default')
             );
         $synchronization->synchronize($this->cache);
     }
@@ -59,10 +61,12 @@ extends PHPUnit_Framework_TestCase
     public function testSynchronizeQueries()
     {
         $synchronization = $this->_getSynchronization();
-        $this->cache->expects($this->exactly(5))
+        $synchronization->setCache($this->cache);
+        $this->cache->expects($this->exactly(6))
             ->method('setQuery')
             ->with(
                 $this->logicalOr(
+                    Horde_Kolab_Storage_List_Query_List_Cache::TYPES,
                     Horde_Kolab_Storage_List_Query_List_Cache::FOLDERS,
                     Horde_Kolab_Storage_List_Query_List_Cache::OWNERS,
                     Horde_Kolab_Storage_List_Query_List_Cache::BY_TYPE,
@@ -70,6 +74,9 @@ extends PHPUnit_Framework_TestCase
                     Horde_Kolab_Storage_List_Query_List_Cache::PERSONAL_DEFAULTS
                 ),
                 $this->logicalOr(
+                    array(
+                        'INBOX/Test' => 'a'
+                    ),
                     array(
                         'INBOX/Test' => array(
                             'folder' => 'INBOX/Test',
@@ -86,9 +93,6 @@ extends PHPUnit_Framework_TestCase
                     ),
                     array(
                         'INBOX/Test' => 'owner'
-                    ),
-                    array(
-                        'INBOX/Test' => 'a'
                     ),
                     array(
                         'a' => array(
@@ -117,10 +121,192 @@ extends PHPUnit_Framework_TestCase
         $synchronization->synchronize($this->cache);
     }
 
+    public function testUpdateAfterCreateFolderExit()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
+        $cache->expects($this->once())
+            ->method('hasNamespace')
+            ->will($this->returnValue(false));
+        $cache->expects($this->never())
+            ->method('getFolders');
+        $list = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+            $driver,
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+        );
+        $list->setCache($cache);
+        $list->updateAfterCreateFolder('INBOX/FooBar');
+    }
+
+    public function testUpdateAfterCreateFolder()
+    {
+        $namespace = new Horde_Kolab_Storage_Folder_Namespace_Fixed('test');
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
+        $cache->expects($this->exactly(2))
+            ->method('hasNamespace')
+            ->will($this->returnValue(true));
+        $cache->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue(serialize($namespace)));
+        $cache->expects($this->once())
+            ->method('getFolders')
+            ->will($this->returnValue(array('INBOX/Foo', 'INBOX/Bar')));
+        $cache->expects($this->once())
+            ->method('getFolderTypes')
+            ->will($this->returnValue(array('INBOX/Foo' => 'contact', 'INBOX/Bar' => 'note')));
+        $cache->expects($this->once())
+            ->method('store')
+            ->with(
+                array('INBOX/Foo', 'INBOX/Bar', 'INBOX/FooBar'),
+                array('INBOX/Foo' => 'contact', 'INBOX/Bar' => 'note')
+            );
+        $list = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+            $driver,
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+        );
+        $list->setCache($cache);
+        $list->updateAfterCreateFolder('INBOX/FooBar');
+    }
+
+    public function testUpdateAfterCreateFolderWithType()
+    {
+        $namespace = new Horde_Kolab_Storage_Folder_Namespace_Fixed('test');
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
+        $cache->expects($this->exactly(2))
+            ->method('hasNamespace')
+            ->will($this->returnValue(true));
+        $cache->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue(serialize($namespace)));
+        $cache->expects($this->once())
+            ->method('getFolders')
+            ->will($this->returnValue(array('INBOX/Foo', 'INBOX/Bar')));
+        $cache->expects($this->once())
+            ->method('getFolderTypes')
+            ->will($this->returnValue(array('INBOX/Foo' => 'contact', 'INBOX/Bar' => 'note')));
+        $cache->expects($this->once())
+            ->method('store')
+            ->with(
+                array('INBOX/Foo', 'INBOX/Bar', 'INBOX/FooBar'),
+                array('INBOX/Foo' => 'contact', 'INBOX/Bar' => 'note', 'INBOX/FooBar' => 'note')
+            );
+        $list = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+            $driver,
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+        );
+        $list->setCache($cache);
+        $list->updateAfterCreateFolder('INBOX/FooBar', 'note');
+    }
+
+    public function testUpdateAfterDeleteFolderExit()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
+        $cache->expects($this->once())
+            ->method('hasNamespace')
+            ->will($this->returnValue(false));
+        $cache->expects($this->never())
+            ->method('getFolders');
+        $list = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+            $driver,
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+        );
+        $list->setCache($cache);
+        $list->updateAfterDeleteFolder('INBOX/FooBar');
+    }
+
+    public function testUpdateAfterDeleteFolder()
+    {
+        $namespace = new Horde_Kolab_Storage_Folder_Namespace_Fixed('test');
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
+        $cache->expects($this->exactly(2))
+            ->method('hasNamespace')
+            ->will($this->returnValue(true));
+        $cache->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue(serialize($namespace)));
+        $cache->expects($this->once())
+            ->method('getFolders')
+            ->will($this->returnValue(array('INBOX/Foo', 'INBOX/Bar')));
+        $cache->expects($this->once())
+            ->method('getFolderTypes')
+            ->will($this->returnValue(array('INBOX/Foo' => 'contact', 'INBOX/Bar' => 'note')));
+        $cache->expects($this->once())
+            ->method('store')
+            ->with(
+                array('INBOX/Foo'),
+                array('INBOX/Foo' => 'contact')
+            );
+        $list = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+            $driver,
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+        );
+        $list->setCache($cache);
+        $list->updateAfterDeleteFolder('INBOX/Bar');
+    }
+
+    public function testUpdateAfterRenameFolderExit()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
+        $cache->expects($this->once())
+            ->method('hasNamespace')
+            ->will($this->returnValue(false));
+        $cache->expects($this->never())
+            ->method('getFolders');
+        $list = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+            $driver,
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+        );
+        $list->setCache($cache);
+        $list->updateAfterRenameFolder('INBOX/Foo', 'INBOX/FooBar');
+    }
+
+    public function testUpdateAfterRenameFolder()
+    {
+        $namespace = new Horde_Kolab_Storage_Folder_Namespace_Fixed('test');
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
+        $cache->expects($this->exactly(2))
+            ->method('hasNamespace')
+            ->will($this->returnValue(true));
+        $cache->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue(serialize($namespace)));
+        $cache->expects($this->once())
+            ->method('getFolders')
+            ->will($this->returnValue(array('INBOX/Foo', 'INBOX/Bar')));
+        $cache->expects($this->once())
+            ->method('getFolderTypes')
+            ->will($this->returnValue(array('INBOX/Foo' => 'contact', 'INBOX/Bar' => 'note')));
+        $cache->expects($this->once())
+            ->method('store')
+            ->with(
+                array(0 => 'INBOX/Foo', 2 => 'INBOX/FooBar'),
+                array('INBOX/Foo' => 'contact', 'INBOX/FooBar' => 'note')
+            );
+        $list = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+            $driver,
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+        );
+        $list->setCache($cache);
+        $list->updateAfterRenameFolder('INBOX/Bar', 'INBOX/FooBar');
+    }
+
     private function _getSynchronization()
     {
         $this->driver = $this->getMock('Horde_Kolab_Storage_Driver');
-        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache_Base', array(), array(), '', false, false);
+        $this->cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
         $this->driver->expects($this->once())
             ->method('listFolders')
             ->will($this->returnValue(array('INBOX/Test')));
@@ -166,6 +352,189 @@ extends PHPUnit_Framework_TestCase
             $this->driver,
             new Horde_Kolab_Storage_Folder_Types(),
             new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+        );
+    }
+
+    public function testGetDuplicateDefaults()
+    {
+        $duplicates = array('a' => 'b');
+        $defaults = $this->getMock('Horde_Kolab_Storage_List_Query_List_Defaults_Bail');
+        $defaults->expects($this->once())
+            ->method('getDuplicates')
+            ->will($this->returnValue($duplicates));
+        $synchronization = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+            $this->getMock('Horde_Kolab_Storage_Driver'), new Horde_Kolab_Storage_Folder_Types(), $defaults
+        );
+        $this->assertEquals($duplicates, $synchronization->getDuplicateDefaults());
+    }
+
+    public function testSetDefaultExit()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
+        $cache->expects($this->once())
+            ->method('hasNamespace')
+            ->will($this->returnValue(false));
+        $cache->expects($this->never())
+            ->method('getFolders');
+        $list = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+            $driver,
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+        );
+        $list->setCache($cache);
+        $list->setDefault('INBOX/Foo');
+    }
+
+    public function testSetDefault()
+    {
+        $namespace = new Horde_Kolab_Storage_Folder_Namespace_Fixed('test');
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $driver->expects($this->once())
+            ->method('setAnnotation')
+            ->with(
+                'INBOX/Foo',
+                Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE,
+                'contact.default'
+            );
+
+        $cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
+        $cache->expects($this->exactly(2))
+            ->method('hasNamespace')
+            ->will($this->returnValue(true));
+        $cache->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue(serialize($namespace)));
+        $cache->expects($this->once())
+            ->method('getFolders')
+            ->will($this->returnValue(array('INBOX/Foo')));
+        $cache->expects($this->once())
+            ->method('getFolderTypes')
+            ->will($this->returnValue(array('INBOX/Foo' => 'contact')));
+        $cache->expects($this->once())
+            ->method('store')
+            ->with(
+                array('INBOX/Foo'),
+                array('INBOX/Foo' => 'contact.default')
+            );
+        $list = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+            $driver,
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+        );
+        $list->setCache($cache);
+        $list->setDefault(
+            array(
+                'folder' => 'INBOX/Foo',
+                'namespace' => 'personal',
+                'type' => 'contact'
+            )
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_List_Exception
+     */
+    public function testSetDefaultFailsWithoutPreviousType()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array('hasNamespace', 'getFolderTypes'), array(), '', false, false);
+        $cache->expects($this->once())
+            ->method('hasNamespace')
+            ->will($this->returnValue(true));
+        $cache->expects($this->once())
+            ->method('getFolderTypes')
+            ->will($this->returnValue(array('INBOX/FooBar' => 'contact')));
+        $list = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+            $driver,
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+        );
+        $list->setCache($cache);
+        $list->setDefault(
+            array(
+                'folder' => 'INBOX/Foo',
+                'namespace' => 'personal',
+                'type' => 'contact'
+            )
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_List_Exception
+     */
+    public function testSetDefaultFailsOutsidePersonalNamespace()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array('hasNamespace', 'getFolderTypes'), array(), '', false, false);
+        $cache->expects($this->once())
+            ->method('hasNamespace')
+            ->will($this->returnValue(true));
+        $list = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+            $driver,
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+        );
+        $list->setCache($cache);
+        $list->setDefault(
+            array(
+                'folder' => 'INBOX/Foo',
+                'namespace' => 'shared',
+                'type' => 'contact'
+            )
+        );
+    }
+
+    public function testSetDefaultResetPreviousDefault()
+    {
+        $namespace = new Horde_Kolab_Storage_Folder_Namespace_Fixed('test');
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $driver->expects($this->exactly(2))
+            ->method('setAnnotation')
+            ->with(
+                $this->logicalOr(
+                    'INBOX/Foo',
+                    'INBOX/Bar'
+                ),
+                Horde_Kolab_Storage_List_Query_List_Base::ANNOTATION_FOLDER_TYPE,
+                $this->logicalOr(
+                    'event.default',
+                    'event'
+                )
+            );
+
+        $cache = $this->getMock('Horde_Kolab_Storage_List_Cache', array(), array(), '', false, false);
+        $cache->expects($this->exactly(2))
+            ->method('hasNamespace')
+            ->will($this->returnValue(true));
+        $cache->expects($this->once())
+            ->method('getNamespace')
+            ->will($this->returnValue(serialize($namespace)));
+        $cache->expects($this->once())
+            ->method('getFolders')
+            ->will($this->returnValue(array('INBOX/Foo', 'INBOX/Bar')));
+        $cache->expects($this->once())
+            ->method('getFolderTypes')
+            ->will($this->returnValue(array('INBOX/Foo' => 'event', 'INBOX/Bar' => 'event.default')));
+        $cache->expects($this->once())
+            ->method('store')
+            ->with(
+                array('INBOX/Foo', 'INBOX/Bar'),
+                array('INBOX/Foo' => 'event.default', 'INBOX/Bar' => 'event')
+            );
+        $list = new Horde_Kolab_Storage_List_Query_List_Cache_Synchronization(
+            $driver,
+            new Horde_Kolab_Storage_Folder_Types(),
+            new Horde_Kolab_Storage_List_Query_List_Defaults_Bail()
+        );
+        $list->setCache($cache);
+        $list->setDefault(
+            array(
+                'folder' => 'INBOX/Foo',
+                'namespace' => 'personal',
+                'type' => 'event'
+            ),
+            'INBOX/Bar'
         );
     }
 }
