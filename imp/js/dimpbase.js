@@ -93,7 +93,6 @@ var DimpBase = {
         } else {
             this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))), { right: true });
             DimpCore.toggleCheck(tmp, true);
-            $('previewInfo').highlight({ queue: 'end', keepBackgroundImage: true, duration: 2.0 })
         }
     },
 
@@ -762,6 +761,14 @@ var DimpBase = {
             if (this._getPref('preview')) {
                 if (e.memo.opts.right) {
                     this.clearPreviewPane();
+                    $('previewInfo').highlight({
+                        duration: 2.0,
+                        keepBackgroundImage: true,
+                        queue: {
+                            limit: 1,
+                            scope: 'previewInfo'
+                        }
+                    })
                 } else if (e.memo.opts.delay) {
                     this.initPreviewPane.bind(this).delay(e.memo.opts.delay);
                 } else {
