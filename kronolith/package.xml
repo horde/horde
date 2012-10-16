@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix free/busy retrieval on Kolab.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1961,7 +1961,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix free/busy retrieval on Kolab.
    </notes>
   </release>
  </changelog>
