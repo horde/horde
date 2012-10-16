@@ -272,10 +272,10 @@ class Nag_Driver_Kolab extends Nag_Driver
             'priority' => $task['priority'],
             'parent' => $task['parent'],
         );
-        if ($task['start'] !== 0) {
+        if (!empty($task['start'])) {
             $object['start-date'] = new DateTime('@' . $task['start']);
         }
-        if ($task['due'] !== 0) {
+        if (!empty($task['due'])) {
             $object['due-date'] = new DateTime('@' . $task['due']);
         }
         if ($task['recurrence']) {
