@@ -7,8 +7,11 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author Jason Felice <jason.m.felice@gmail.com>
- * @author Jan Schneider <jan@horde.org>
+ * @author   Jason Felice <jason.m.felice@gmail.com>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 
 require_once __DIR__ . '/lib/Application.php';

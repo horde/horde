@@ -7,9 +7,12 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author Mike Cochrane <mike@graftonhall.co.nz>
- * @author Brent J. Nordquist <bjn@horde.org>
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Brent J. Nordquist <bjn@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 
 require_once __DIR__ . '/lib/Application.php';

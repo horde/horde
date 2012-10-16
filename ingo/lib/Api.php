@@ -5,10 +5,14 @@
  * This file defines Ingo's external API interface. Other applications
  * can interact with Ingo through this API.
  *
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
+ *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @package Ingo
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Api extends Horde_Registry_Api
 {

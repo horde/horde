@@ -9,10 +9,11 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @author  Jan Schneider <jan@horde.org>
- * @author  Liam Hoekenga <liamr@umich.edu>
- * @package Ingo
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Liam Hoekenga <liamr@umich.edu>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
 {

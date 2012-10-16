@@ -7,7 +7,10 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author Todd Merritt <tmerritt@email.arizona.edu>
+ * @author   Todd Merritt <tmerritt@email.arizona.edu>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 
 require_once __DIR__ . '/lib/Application.php';

@@ -10,8 +10,10 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Matt Weyland <mathias@weyland.ch>
- * @package Ingo
+ * @author   Matt Weyland <mathias@weyland.ch>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Script_Maildrop_Comment
 {

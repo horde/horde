@@ -7,9 +7,11 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Brent J. Nordquist <bjn@horde.org>
- * @author  Ben Chavet <ben@horde.org>
- * @package Ingo
+ * @author   Brent J. Nordquist <bjn@horde.org>
+ * @author   Ben Chavet <ben@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Script_Procmail extends Ingo_Script
 {

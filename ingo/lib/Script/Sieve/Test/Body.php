@@ -3,11 +3,15 @@
  * The Ingo_Script_Sieve_Test_Body class represents a test on the contents of
  * the body in a message.
  *
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
+ *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Michael Menge <michael.menge@zdv.uni-tuebingen.de>
- * @package Ingo
+ * @author   Michael Menge <michael.menge@zdv.uni-tuebingen.de>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Script_Sieve_Test_Body extends Ingo_Script_Sieve_Test
 {
