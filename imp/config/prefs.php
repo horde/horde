@@ -475,9 +475,8 @@ $prefGroups['compose'] = array(
         'mailto_handler', 'compose_cc', 'compose_bcc', 'compose_spellcheck',
         'set_priority', 'compose_html', 'compose_html_font_family',
         'compose_html_font_size', 'mail_domain',
-        'compose_cursor', 'encryptselect', 'save_attachments',
-        'delete_attachments_monthly_keep', 'request_mdn',
-        'reply_lang', 'traditional_compose', 'compose_popup',
+        'compose_cursor', 'encryptselect', 'delete_attachments_monthly_keep',
+        'request_mdn', 'reply_lang', 'traditional_compose', 'compose_popup',
         'compose_confirm'
     )
 );
@@ -584,18 +583,6 @@ $_prefs['encryptselect'] = array(
 // The default encryption method to use when sending messages
 $_prefs['default_encrypt'] = array(
     'value' => IMP::ENCRYPT_NONE
-);
-
-// Save attachments when saving in sent mail mailbox?
-$_prefs['save_attachments'] = array(
-    'value' => 'never',
-    'type' => 'enum',
-    'enum' => array(
-        'always' => _("Save attachments"),
-        'never' => _("Do not save attachments")
-    ),
-    'desc' => _("When saving sent mail, should we save attachments?"),
-    'help' => 'prefs-save_attachments'
 );
 
 // how many old months of linked attachments to keep?
@@ -878,11 +865,24 @@ $_prefs['auto_save_drafts'] = array(
 $prefGroups['sentmail'] = array(
     'column' => _("Compose"),
     'label' => _("Sent Mail"),
-    'desc' => _("Manage sent mail mailboxes."),
+    'desc' => _("Manage sent mail."),
     'members' => array(
-        'rename_sentmail_monthly', 'delete_sentmail_monthly_keep',
-        'purge_sentmail_interval', 'purge_sentmail_keep'
+        'save_attachments', 'rename_sentmail_monthly',
+        'delete_sentmail_monthly_keep', 'purge_sentmail_interval',
+        'purge_sentmail_keep'
     )
+);
+
+// Save attachments when saving in sent mail mailbox?
+$_prefs['save_attachments'] = array(
+    'value' => 'never',
+    'type' => 'enum',
+    'enum' => array(
+        'always' => _("Save attachments"),
+        'never' => _("Do not save attachments")
+    ),
+    'desc' => _("Should we save attachments in the sent-mail message?"),
+    'help' => 'prefs-save_attachments'
 );
 
 // rename sent mail mailbox every month?
