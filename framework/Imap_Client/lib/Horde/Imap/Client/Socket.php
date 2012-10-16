@@ -1430,6 +1430,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $catenate = $this->queryCapability('CATENATE');
 
         $t = &$this->_temp;
+        $t['appendsize'] = 0;
         $t['appenduid'] = array();
         $t['trycreate'] = null;
         $t['uidplusmbox'] = $mailbox;
@@ -1509,7 +1510,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         try {
-            $this->_sendLine($cmd);
+            $this->_sendLine($cmd, array(
+                /* Although it is normally more efficient to use LITERAL+,
+                 * disable here if our payload is over 0.5 MB because it
+                 * allows the server to throw error before we potentially push
+                 * a lot of data to server that would otherwise be ignored
+                 * (see RFC 4549 [4.2.2.3]). */
+                'noliteralplus' => ($this->_temp['appendsize'] > 524288)
+            ));
         } catch (Horde_Imap_Client_Exception $e) {
             switch ($e->getCode()) {
             case $e::CATENATE_BADURL:
@@ -1558,6 +1566,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             rewind($data);
         }
         $stream->add($data, true);
+
+        $this->_temp['appendsize'] += $stream->length();
 
         stream_filter_remove($res);
 
@@ -3725,6 +3735,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *   - fetch: (Horde_Imap_Client_Fetch_Results) Use this as the initial
      *            fetch results value.
      *            DEFAULT: Fetch result is empty
+     *   - noliteralplus: (boolean) If true, don't use LITERAL+ extension.
+     *                    DEFAULT: false
      *
      * @return Horde_Imap_Client_Interaction_Server  Server object.
      *
@@ -3744,7 +3756,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $this->writeDebug('', Horde_Imap_Client::DEBUG_CLIENT);
 
-        $this->_processSendList($data, empty($opts['debug']));
+        $this->_processSendList($data, $opts);
 
         if (!empty($opts['debug'])) {
             $this->writeDebug($opts['debug']);
@@ -3767,25 +3779,26 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * Process/send a command to the remote server.
      *
      * @param Horde_Imap_Client_Data_Format_List $data  Commands to send.
-     * @param string $debug                             Whether debug info
-     *                                                  should be output.
+     * @param array $opts                               Options:
+     *   - debug: (boolean) Whether debug info should be output.
+     *   - noliteralplus: (boolean) If true, don't use LITERAL+ extension.
      *
      * @throws Horde_Imap_Client_Exception
      * @throws Horde_Imap_Client_Exception_NoSupport
      */
-    protected function _processSendList($data, $debug)
+    protected function _processSendList($data, $opts)
     {
-        $opts = array('nodebug' => !$debug);
+        $s_opts = array('nodebug' => !empty($opts['debug']));
 
         foreach ($data as $key => $val) {
             if ($key) {
-                $this->_writeStream(' ', $opts);
+                $this->_writeStream(' ', $s_opts);
             }
 
             if ($val instanceof Horde_Imap_Client_Data_Format_List) {
-                $this->_writeStream('(', $opts);
-                $this->_processSendList($val, $debug);
-                $this->_writeStream(')', $opts);
+                $this->_writeStream('(', $s_opts);
+                $this->_processSendList($val, $opts);
+                $this->_writeStream(')', $s_opts);
             } elseif ($val instanceof Horde_Imap_Client_Data_Format_String) {
                 if ($val->literal()) {
                     $literal = '';
@@ -3816,12 +3829,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                     /* RFC 2088 - If LITERAL+ is available, saves a roundtrip
                      * from the server. */
-                    if ($this->queryCapability('LITERAL+')) {
-                        $this->_writeStream($literal . "+}", array_merge($opts, array(
+                    if (empty($opts['noliteralplus']) &&
+                        $this->queryCapability('LITERAL+')) {
+                        $this->_writeStream($literal . "+}", array_merge($s_opts, array(
                             'eol' => true
                         )));
                     } else {
-                        $this->_writeStream($literal . "}", array_merge($opts, array(
+                        $this->_writeStream($literal . "}", array_merge($s_opts, array(
                             'eol' => true
                         )));
 
@@ -3837,15 +3851,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         }
                     }
 
-                    $this->_writeStream($stream_ob->stream, array_merge($opts, array(
+                    $this->_writeStream($stream_ob->stream, array_merge($s_opts, array(
                         'binary' => $binary,
                         'literal' => $literal_len
                     )));
                 } else {
-                    $this->_writeStream($val->escapeStream(), $opts);
+                    $this->_writeStream($val->escapeStream(), $s_opts);
                 }
             } else {
-                $this->_writeStream($val->escape(), $opts);
+                $this->_writeStream($val->escape(), $s_opts);
             }
         }
     }
