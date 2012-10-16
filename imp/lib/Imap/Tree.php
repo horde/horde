@@ -985,7 +985,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     {
         $elt = $this->getElement($in);
 
-        return ($elt && ($elt['a'] & self::ELT_NOINFERIORS));
+        return !($elt && ($elt['a'] & self::ELT_NOINFERIORS));
     }
 
     /**
