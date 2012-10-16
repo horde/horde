@@ -112,6 +112,18 @@
  *   params: (object) opts = (object) Boolean options [right]
  *                    vs = (ViewPort_Selection) A ViewPort_Selection object.
  *
+ * ViewPort:sliderEnd
+ *   Fired when the scrollbar slide is completed.
+ *   params: NONE
+ *
+ * ViewPort:sliderSlide
+ *   Fired when the scrollbar is moved.
+ *   params: NONE
+ *
+ * ViewPort:sliderStart
+ *   Fired when the scrollbar is first clicked on.
+ *   params: NONE
+ *
  * ViewPort:splitBarChange
  *   Fired when the splitbar is moved.
  *   params: (string) The current pane mode ('horiz' or 'vert').
