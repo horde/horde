@@ -1280,7 +1280,7 @@ var ViewPort = Class.create({
                 this.opts.container.fire('ViewPort:fetch', this.view);
                 return this.opts.ajax(this.addRequestParams({
                     rangeslice: 1,
-                    slice: vs.min() + ':' + vs.size()
+                    slice: vs.min() + ':' + vs.max()
                 }));
             }
             vs = slice;
