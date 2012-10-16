@@ -114,7 +114,9 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
         $tags = Kronolith::getTagger()->getTags(array_keys($this->_events_cache));
         foreach ($this->_events_cache as $uid => &$event) {
-            $event->synchronizeTags($tags[$uid]);
+            if (isset($tags[$uid])) {
+                $event->synchronizeTags($tags[$uid]);
+            }
         }
 
         $this->_synchronized = true;
