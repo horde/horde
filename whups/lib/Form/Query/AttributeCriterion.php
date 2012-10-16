@@ -37,7 +37,7 @@ class Whups_Form_Query_AttributeCriterion extends Horde_Form
 
             foreach ($this->attribs as $id => $attribute) {
                 $this->addVariable(
-                    sprintf(_("Search %s Attribute"), $attribute['human_name']),
+                    sprintf(_("Search \"%s\" Attribute"), $attribute['human_name']),
                     "a$id", 'boolean', false);
             }
         } else {
