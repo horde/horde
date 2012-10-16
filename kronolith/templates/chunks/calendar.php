@@ -13,11 +13,14 @@ try {
 
 $file_upload = $GLOBALS['browser']->allowFileUploads();
 
-$resources = Kronolith::getDriver('Resource')
-  ->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_SINGLE));
-$resource_enum = array();
-foreach ($resources as $resource) {
-    $resource_enum[$resource->getId()] = htmlspecialchars($resource->get('name'));
+if (!empty($GLOBALS['conf']['resource']['driver'])) {
+    $resources = Kronolith::getDriver('Resource')
+        ->listResources(Horde_Perms::READ,
+                        array('type' => Kronolith_Resource::TYPE_SINGLE));
+    $resource_enum = array();
+    foreach ($resources as $resource) {
+        $resource_enum[$resource->getId()] = htmlspecialchars($resource->get('name'));
+    }
 }
 ?>
 <div id="kronolithCalendarDialog" class="kronolithDialog">
@@ -311,6 +314,7 @@ foreach ($resources as $resource) {
 </form>
 <?php endif ?>
 
+<?php if (!empty($GLOBALS['conf']['resource']['driver'])): ?>
 <form id="kronolithCalendarFormresource" action="">
 <input type="hidden" name="type" value="resource" />
 <input id="kronolithCalendarresourceId" type="hidden" name="calendar" />
@@ -384,5 +388,6 @@ foreach ($resources as $resource) {
 
 </div>
 </form>
+<?php endif ?>
 
 </div>
