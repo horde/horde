@@ -2,6 +2,7 @@
 v6.0.0-git
 ----------
 
+[jan] Don't show application menus in iTip MIME viewer popups.
 [mms] Hide subfolder creation option in dynamic view if IMAP server indicates
       that child mailboxes cannot be created.
 [mms] Correctly send deleted flag information to browser cache when using
