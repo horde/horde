@@ -13,7 +13,6 @@
 HermesCore = {
     view: '',
     viewLoading: [],
-    inPrefs: false,
     effectDur: 0.4,
     loading: 0,
     inAjaxCallback: false,
@@ -67,10 +66,6 @@ HermesCore = {
         var locParts = fullloc.split(':');
         var loc = locParts.shift();
 
-        if (this.inPrefs && loc != 'prefs') {
-            this.redirect(fullloc, true);
-            return;
-        }
         if (this.openLocation == fullloc) {
             return;
         }
