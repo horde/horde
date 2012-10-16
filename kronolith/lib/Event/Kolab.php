@@ -287,7 +287,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
                 break;
             }
 
-            $new_attendee['request-response'] = '0';
+            $new_attendee['request-response'] = 'false';
 
             switch ($attendee['response']) {
             case Kronolith::RESPONSE_ACCEPTED:
