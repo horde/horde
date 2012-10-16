@@ -149,7 +149,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         case _("Expand Names"):
             foreach (array_keys($display_hdrs) as $val) {
                 if (($val == 'to') || ($this->vars->action != 'rc')) {
-                    $res = $imp_ui->expandAddresses($header[$val]);
+                    $res = $this->_expandAddresses($header[$val]);
                     if (is_string($res)) {
                         $header[$val] = $res;
                     } else {
@@ -423,6 +423,58 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
     static public function url(array $opts = array())
     {
         return Horde::url('minimal.php')->add('page', 'compose')->unique();
+    }
+
+    /**
+     * Expand addresses in a string. Only the last address in the string will
+     * be expanded.
+     *
+     * @param string $input  The input string.
+     *
+     * @return mixed  If a string, this value should be used as the new
+     *                input string.  If an array, the first value is the
+     *                input string without the search string; the second
+     *                value is the search string; and the third value is
+     *                the list of matching addresses.
+     */
+    protected function _expandAddresses($input)
+    {
+        $addr_list = IMP::parseAddressList($input, array(
+            'default_domain' => null
+        ));
+
+        if (!($size = count($addr_list))) {
+            return '';
+        }
+
+        $search = $addr_list[$size];
+
+        /* Don't search if the search string looks like an e-mail address. */
+        if (!is_null($search->mailbox) && !is_null($search->host)) {
+            return strval($search);
+        }
+
+        /* "Search" string will be in mailbox element. */
+        $imple = new IMP_Ajax_Imple_ContactAutoCompleter();
+        $res = $imple->getAddressList($search->mailbox);
+
+        switch (count($res)) {
+        case 0:
+            $GLOBALS['notification']->push(sprintf(_("Search for \"%s\" failed: no address found."), $search->mailbox), 'horde.warning');
+            return strval($addr_list);
+        case 1:
+            $addr_list[$size] = $res[0];
+            return strval($addr_list);
+
+        default:
+            $GLOBALS['notification']->push(_("Ambiguous address found."), 'horde.warning');
+            unset($addr_list[$size]);
+            return array(
+                strval($addr_list),
+                $search->mailbox,
+                $res
+            );
+        }
     }
 
 }
