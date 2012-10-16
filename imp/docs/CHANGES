@@ -2,6 +2,7 @@
 v5.0.24-git
 -----------
 
+[jan] Fix search link from portal if using dynamic view (Bug #11314).
 [mms] Fix regression in using Virtual Trash (Bug #11478;
       tonyb@go-concepts.com).
 [mms] Fix sending MDN notifications in traditional view (Bug #11311).

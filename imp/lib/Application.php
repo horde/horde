@@ -516,7 +516,9 @@ class IMP_Application extends Horde_Registry_Application
                 false,
                 array(
                     'icon' => Horde_Themes::img('search.png'),
-                    'url' => Horde::url('search.php')
+                    'url' => IMP::getViewMode() == 'dimp'
+                        ? Horde::url('index.php')->setAnchor('search')
+                        : Horde::url('search.php')
                 )
             );
         }

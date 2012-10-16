@@ -261,7 +261,7 @@ var DimpBase = {
 
         case 'search':
             if (!data) {
-                data = { mailbox: this.view };
+                data = { mailbox: this.view || this.INBOX };
             }
             this.highlightSidebar();
             this.setTitle(DIMP.text.search);
