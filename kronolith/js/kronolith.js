@@ -29,7 +29,6 @@ KronolithCore = {
     viewLoading: [],
     fbLoading: 0,
     redBoxLoading: false,
-    inPrefs: false,
     date: Date.today(),
     tasktype: 'incomplete',
     knl: {},
@@ -115,10 +114,6 @@ KronolithCore = {
         var locParts = fullloc.split(':');
         var loc = locParts.shift();
 
-        if (this.inPrefs && loc != 'prefs') {
-            this.redirect(fullloc, true);
-            return;
-        }
         if (this.openLocation == fullloc) {
             return;
         }
