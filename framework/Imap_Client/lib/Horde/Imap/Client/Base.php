@@ -1848,8 +1848,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         /* If we are caching, search for deleted messages. */
-        if (!empty($options['expunge']) &&
-            $this->_initCache(true)) {
+        if (!empty($options['expunge']) && $this->_initCache(true)) {
+            /* Make sure mailbox is read-write to expunge. */
+            $this->openMailbox($this->_selected, Horde_Imap_Client::OPEN_READWRITE);
+            if ($this->_mode == Horde_Imap_Client::OPEN_READONLY)  {
+                throw new Horde_Imap_Client_Exception(
+                    'MAILBOX_READONLY',
+                    'Cannot expunge read-only mailbox.'
+                );
+            }
+
             $search_query = new Horde_Imap_Client_Search_Query();
             $search_query->flag(Horde_Imap_Client::FLAG_DELETED, true);
             $search_res = $this->search($this->_selected, $search_query);
@@ -1899,6 +1907,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         // Open mailbox call will handle the login.
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
+
+        /* Don't expunge if the mailbox is readonly. */
+        if ($this->_mode == Horde_Imap_Client::OPEN_READONLY) {
+            throw new Horde_Imap_Client_Exception(
+                'MAILBOX_READONLY',
+                'Cannot expunge read-only mailbox.'
+            );
+        }
 
         if (empty($options['ids'])) {
             $options['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);

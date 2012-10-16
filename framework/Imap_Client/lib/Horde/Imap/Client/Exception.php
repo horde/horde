@@ -130,6 +130,9 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     // Could not open/access mailbox
     const MAILBOX_NOOPEN = 200;
 
+    // Could not complete the command because the mailbox is read-only
+    const MAILBOX_READONLY = 201;
+
 
     // POP3 specific error codes
 
