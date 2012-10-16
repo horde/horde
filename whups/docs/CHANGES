@@ -11,6 +11,7 @@ v3.0-git
 v2.0.3-git
 ----------
 
+[jan] Fix setting active tabs in query editor.
 [jan] Group active and inactive versions in queue adminstration.
 [jan] Fix auto-submitting of tickets if using groups (Bug #10654).
 [jan] Improve error reporting in whups-mail-filter.
