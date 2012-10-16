@@ -1217,6 +1217,10 @@ var DimpBase = {
                 }
             }
 
+            if (baseelt.retrieve('nc')) {
+                $('ctx_mbox_create').hide();
+            }
+
             tmp = Object.isUndefined(baseelt.retrieve('u'));
             if (DimpCore.conf.poll_alter) {
                 [ $('ctx_mbox_poll') ].invoke(tmp ? 'show' : 'hide');
@@ -3269,6 +3273,11 @@ var DimpBase = {
         // Check for unseen messages
         if (ob.po) {
             li.store('u', '');
+        }
+
+        // Check for mailboxes that don't allow children
+        if (ob.nc) {
+            li.store('nc', true);
         }
 
         switch (ftype) {

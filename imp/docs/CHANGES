@@ -2,6 +2,8 @@
 v6.0.0-git
 ----------
 
+[mms] Hide subfolder creation option in dynamic view if IMAP server indicates
+      that child mailboxes cannot be created.
 [mms] Correctly send deleted flag information to browser cache when using
       dynamic/smartmobile view (Bug #11362).
 [mms] Auto-update folders list in smartmobile view if special mailbox is

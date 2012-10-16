@@ -32,7 +32,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     const ELT_NAMESPACE = 2;
     const ELT_IS_OPEN = 4;
     const ELT_IS_SUBSCRIBED = 8;
-    // Unused constant: 16
+    const ELT_NOINFERIORS = 16;
     const ELT_IS_POLLED = 32;
     const ELT_NEED_SORT = 64;
     const ELT_VFOLDER = 128;
@@ -571,6 +571,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                         $attributes |= self::ELT_NOSELECT;
                     }
 
+                    if (in_array('\noinferiors', $val['attributes'])) {
+                        $attributes |= self::ELT_NOINFERIORS;
+                    }
+
                     $this->_insertElt($this->_makeElt($part, $attributes));
                 }
             }
@@ -968,6 +972,20 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $elt = $this->getElement($in);
 
         return ($elt && ($elt['a'] & self::ELT_NONIMAP));
+    }
+
+    /**
+     * Can the element have child elements?
+     *
+     * @param mixed $in  A mailbox name or a tree element.
+     *
+     * @return boolean  True if the element can have child elements.
+     */
+    public function childrenAllowed($in)
+    {
+        $elt = $this->getElement($in);
+
+        return ($elt && ($elt['a'] & self::ELT_NOINFERIORS));
     }
 
     /**
@@ -1792,6 +1810,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *   - m: (string) [mbox] The mailbox value (base64url encoded).
      *   - n: (boolean) [non-imap] A non-IMAP element?
      *        DEFAULT: no
+     *   - nc: (boolean) [no children] Does the element not allow children?
+     *         DEFAULT: no
      *   - pa: (string) [parent] The parent element.
      *         DEFAULT: DimpCore.conf.base_mbox
      *   - po: (boolean) [polled] Is the element polled?
@@ -1818,6 +1838,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $ob->ch = 1;
         }
         $ob->m = $elt->form_to;
+        if (!$this->childrenAllowed($elt)) {
+            $ob->nc = 1;
+        }
 
         $label = $elt->label;
         if ($ob->m != $label) {
