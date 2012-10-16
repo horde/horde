@@ -153,13 +153,14 @@ if ($mode == 'thread') {
     $view->subject = $subject;
     $view->thread = true;
 
+    $uid_list = $imp_indices[strval(IMP::mailbox())];
     $delete_link = IMP::mailbox()->url('mailbox.php')->add(array(
         'actionID' => 'delete_messages',
-        'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')
+        'indices' => strval($imp_indices),
+        'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox'),
+        'start' => $imp_mailbox->getArrayIndex(end($uid_list))
     ));
-    foreach ($thread as $val) {
-        $delete_link->add(array('indices[]' => strval(IMP::mailbox()->getIndicesOb($val)), 'start' => $imp_mailbox->getArrayIndex($val)));
-    }
+
     $view->delete = Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete'));
     $page_output->addInlineScript(array(
         '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete all messages in this thread?"), Horde_Serialize::JSON, $charset) . ')) { e.stop(); } })'
