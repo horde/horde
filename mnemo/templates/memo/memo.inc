@@ -54,7 +54,7 @@ if ($memo_id) {
 
  <p class="horde-form-buttons">
   <input type="submit" class="horde-default" value="<?php echo _("Save") ?>" onclick="return checkCategory();" />
-<?php if (isset($share) && $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)): ?>
+<?php if ($memo_id && isset($share) && $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)): ?>
   <a class="horde-delete" href="<?php echo $memourl->add('actionID', 'delete_memos') ?>"><?php echo _("Delete this note") ?></a>
 <?php endif ?>
  </p>

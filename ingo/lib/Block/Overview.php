@@ -2,10 +2,15 @@
 /**
  * Block to show filter information.
  *
+ * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Oliver Kuhl <okuhl@netcologne.de>
+ * @author   Oliver Kuhl <okuhl@netcologne.de>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Block_Overview extends Horde_Core_Block
 {

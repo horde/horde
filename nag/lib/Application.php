@@ -153,9 +153,15 @@ class Nag_Application extends Horde_Registry_Application
             ),
         );
         foreach (Nag::listTaskLists(false, Horde_Perms::SHOW, false) as $name => $tasklist) {
+            $url = $list->add(array(
+                'display_tasklist' => $name,
+                'actionID' => in_array($name, $display_tasklists)
+                    ? 'remove_displaylist'
+                    : 'add_displaylist'
+            ));
             $row = array(
                 'selected' => in_array($name, $display_tasklists),
-                'url' => $list->add('display_tasklist', $name),
+                'url' => $url,
                 'label' => $tasklist->get('name'),
                 'color' => $tasklist->get('color') ?: '#dddddd',
                 'edit' => $edit->add('t', $tasklist->getName()),
@@ -304,7 +310,7 @@ class Nag_Application extends Horde_Registry_Application
                 )
             ));
 
-            foreach (Nag::listTasklists() as $name => $tasklist) {
+            foreach (Nag::listTasklists(false, Horde_Perms::EDIT) as $name => $tasklist) {
                 $tree->addNode(array(
                     'id' => $parent . $name . '__new',
                     'parent' => $parent . '__new',

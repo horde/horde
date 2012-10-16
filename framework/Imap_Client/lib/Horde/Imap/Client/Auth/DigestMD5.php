@@ -7,12 +7,6 @@
  * Copyright (c) 2002-2003 Richard Heyes
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
- * @author   Richard Heyes <richard@php.net>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
- *
  * This code is based on the original code contained in the PEAR Auth_SASL
  * package (v0.5.1):
  *   $Id: DigestMD5.php 294702 2010-02-07 16:03:55Z cweiske $
@@ -47,6 +41,12 @@
  * | (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE |
  * | OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  |
  * +-----------------------------------------------------------------------+
+ *
+ * @author   Richard Heyes <richard@php.net>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Imap_Client
  */
 
 class Horde_Imap_Client_Auth_DigestMD5

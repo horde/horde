@@ -170,7 +170,7 @@ class Mnemo_Application extends Horde_Registry_Application
             )
         ));
 
-        foreach (Mnemo::listNotepads() as $name => $notepad) {
+        foreach (Mnemo::listNotepads(false, Horde_Perms::EDIT) as $name => $notepad) {
             $tree->addNode(array(
                 'id' => $parent . $name . '__new',
                 'parent' => $parent . '__new',
@@ -201,7 +201,7 @@ class Mnemo_Application extends Horde_Registry_Application
     {
         $error = false;
         $notepads = $GLOBALS['mnemo_shares']->listShares(
-            $user, array('attribtues' => $user));
+            $user, array('attributes' => $user));
         foreach ($notepads as $notepad => $share) {
             $driver = $GLOBALS['injector']
                 ->getInstance('Mnemo_Factory_Driver')
@@ -248,10 +248,6 @@ class Mnemo_Application extends Horde_Registry_Application
 
         switch ($vars->actionID) {
         case 'export':
-            /* Create a Mnemo storage instance. */
-            $storage = $injector->getInstance('Mnemo_Factory_Driver')->create($registry->getAuth());
-            $storage->retrieve();
-
             /* Get the full, sorted memo list. */
             $notes = Mnemo::listMemos();
 
@@ -271,7 +267,10 @@ class Mnemo_Application extends Horde_Registry_Application
                     $data[] = $note;
                 }
 
-                $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("notes.csv"), $data, true);
+                $injector->getInstance('Horde_Core_Factory_Data')
+                    ->create('Csv',
+                             array('cleanup' => array($this, 'cleanupData')))
+                    ->exportFile(_("notes.csv"), $data, true);
                 exit;
             }
         }

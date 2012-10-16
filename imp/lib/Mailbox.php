@@ -35,6 +35,7 @@
  *                                 information.
  * @property integer $changed  Has this object changed?
  * @property boolean $children  Does the element have children?
+ * @property boolean $children_allowed  Can this element have children?
  * @property boolean $container  Is this a container element?
  * @property string $display  Display version of mailbox. Special mailboxes
  *                            are replaced with localized strings and
@@ -356,6 +357,9 @@ class IMP_Mailbox implements Serializable
 
         case 'children':
             return $injector->getInstance('IMP_Imap_Tree')->hasChildren($this->_mbox);
+
+        case 'children_allowed':
+            return $injector->getInstance('IMP_Imap_Tree')->childrenAllowed($this->_mbox);
 
         case 'container':
             return $injector->getInstance('IMP_Imap_Tree')->isContainer($this->_mbox);

@@ -543,3 +543,6 @@ document.observe('Growler:destroyed', function(e) {
         this.alarms = this.alarms.without(id);
     }
 }.bindAsEventListener(HordeCore));
+document.observe('Growler:linkClick', function(e) {
+    window.location.assign(e.memo.href);
+});

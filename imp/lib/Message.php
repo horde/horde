@@ -153,6 +153,7 @@ class IMP_Message
         $maillog_update = (empty($opts['keeplog']) && !empty($conf['maillog']['use_maillog']));
         $return_value = 0;
 
+        $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         /* Check for Trash mailbox. */
@@ -275,6 +276,8 @@ class IMP_Message
                               $opts['mailboxob']->isBuilt() &&
                               $ob->mbox->hideDeletedMsgs()) {
                         $opts['mailboxob']->removeMsgs($imp_indices);
+                    } else {
+                        $ajax_queue->flag($del_flags, true, new IMP_Indices($ob->mbox, $ids_ob));
                     }
                 } catch (IMP_Imap_Exception $e) {}
 

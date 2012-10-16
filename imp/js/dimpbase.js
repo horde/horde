@@ -93,7 +93,6 @@ var DimpBase = {
         } else {
             this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))), { right: true });
             DimpCore.toggleCheck(tmp, true);
-            $('previewInfo').highlight({ queue: 'end', keepBackgroundImage: true, duration: 2.0 })
         }
     },
 
@@ -525,8 +524,14 @@ var DimpBase = {
             pane_data: 'previewPane',
             pane_mode: this._getPref('preview'),
             pane_width: this._getPref('splitbar_vert'),
-            split_bar_class: { horiz: 'horde-splitbar-horiz', vert: 'horde-splitbar-vert' },
-            split_bar_handle_class: { horiz: 'horde-splitbar-horiz-handle', vert: 'horde-splitbar-vert-handle' },
+            split_bar_class: {
+                horiz: 'horde-splitbar-horiz',
+                vert: 'horde-splitbar-vert'
+            },
+            split_bar_handle_class: {
+                horiz: 'horde-splitbar-horiz-handle',
+                vert: 'horde-splitbar-vert-handle'
+            },
 
             // Callbacks
             onAjaxRequest: function(params) {
@@ -756,6 +761,14 @@ var DimpBase = {
             if (this._getPref('preview')) {
                 if (e.memo.opts.right) {
                     this.clearPreviewPane();
+                    $('previewInfo').highlight({
+                        duration: 2.0,
+                        keepBackgroundImage: true,
+                        queue: {
+                            limit: 1,
+                            scope: 'previewInfo'
+                        }
+                    })
                 } else if (e.memo.opts.delay) {
                     this.initPreviewPane.bind(this).delay(e.memo.opts.delay);
                 } else {
@@ -1202,6 +1215,10 @@ var DimpBase = {
                 } else {
                     elts.invoke('show');
                 }
+            }
+
+            if (baseelt.retrieve('nc')) {
+                $('ctx_mbox_create').hide();
             }
 
             tmp = Object.isUndefined(baseelt.retrieve('u'));
@@ -3256,6 +3273,11 @@ var DimpBase = {
         // Check for unseen messages
         if (ob.po) {
             li.store('u', '');
+        }
+
+        // Check for mailboxes that don't allow children
+        if (ob.nc) {
+            li.store('nc', true);
         }
 
         switch (ftype) {

@@ -81,7 +81,7 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
     {
         $mbox_list = array();
         foreach ($this->_getMboxes() as $val) {
-            $mbox_list = $val->display_html;
+            $mbox_list[] = $val->display_html;
         }
 
         return sprintf(

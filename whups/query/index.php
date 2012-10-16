@@ -79,7 +79,7 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
             $notification->push($e->getMessage());
             $qf = 'props';
         }
-        $session->set('whups', 'query_form', 'props');
+        $session->set('whups', 'query_form', $qf);
         $vars->set('edit', true);
         break;
     }
@@ -106,19 +106,7 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
     $action = $vars->get('action');
 
     switch ($action) {
-    // Current form actions.
-    case 'props':
-    case 'user':
-    case 'group':
-    case 'date':
-    case 'text':
-    case 'attribs':
-        $session->set('whups', 'query_form', $action);
-        break;
-
-    // Global query options
     case 'new':
-        unset($whups_query);
         $whups_query = $qManager->newQuery();
         break;
 
@@ -138,6 +126,10 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
         break;
     }
 }
+if ($vars->get('criteria') != '' &&
+    in_array($vars->get('criteria'), array('props', 'user', 'group', 'date', 'text', 'attribs'))) {
+    $session->set('whups', 'query_form', $vars->get('criteria'));
+}
 
 // Query actions.
 $queryTabs = $whups_query->getTabs($vars);
@@ -145,7 +137,7 @@ $queryTabs = $whups_query->getTabs($vars);
 // Criterion form types.
 $queryurl = Horde::url('query/index.php');
 $vars->set('action', $session->get('whups', 'query_form'));
-$criteriaTabs = new Horde_Core_Ui_Tabs('action', $vars);
+$criteriaTabs = new Horde_Core_Ui_Tabs('criteria', $vars);
 $criteriaTabs->preserve('path', $vars->get('path'));
 $criteriaTabs->addTab(_("_Property Criteria"), $queryurl, 'props');
 $criteriaTabs->addTab(_("_User Criteria"), $queryurl, 'user');
@@ -227,7 +219,7 @@ if ($showEditQuery) {
     $queryRenderer->edit($qops, $form->getName(), 2);
     $renderer->end();
 
-    echo '<br />' . $criteriaTabs->render();
+    echo '<br />' . $criteriaTabs->render($session->get('whups', 'query_form'));
 
     $renderer->beginActive($form->getTitle());
     $renderer->renderFormActive($form, $vars);

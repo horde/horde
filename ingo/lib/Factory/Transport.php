@@ -38,9 +38,9 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Injector
     {
         global $registry, $session;
 
-        if (!strlen($transport = $session->get('ingo', 'backend/transport'))) {
-            $transport = 'null';
-        }
+        $transport = strlen($transport = $session->get('ingo', 'backend/transport'))
+            ? basename($transport)
+            : 'null';
 
         /* Get authentication parameters. */
         try {
@@ -60,7 +60,12 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Injector
             $auth['username'] = $registry->getAuth('bare');
         }
 
-        $class = 'Ingo_Transport_' . ucfirst(basename($transport));
+        /* Sieve configuration only. */
+        if (!isset($auth['euser']) && ($transport == 'timsieved')) {
+            $auth['euser'] = Ingo::getUser(false);
+        }
+
+        $class = 'Ingo_Transport_' . ucfirst($transport);
         if (class_exists($class)) {
             return new $class(array_merge(
                 $session->get('ingo', 'backend/params'),

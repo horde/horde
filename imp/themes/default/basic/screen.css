@@ -126,6 +126,7 @@ div.msgActions, #fmanager div.folderActions {
 }
 
 #mailboxLabel .iconImg {
+    margin-left: 4px;
     vertical-align: top;
 }
 
@@ -149,6 +150,10 @@ div.msgActions, #fmanager div.folderActions {
 #msgheaders td.rightAlign {
     font-weight: bold;
     padding-right: 4px;
+}
+
+.msgheaderParts .msgheader td {
+    padding: 0 4px 2px 0 !important;
 }
 
 /* Attachment tree styling. */

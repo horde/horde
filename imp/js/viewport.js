@@ -112,6 +112,18 @@
  *   params: (object) opts = (object) Boolean options [right]
  *                    vs = (ViewPort_Selection) A ViewPort_Selection object.
  *
+ * ViewPort:sliderEnd
+ *   Fired when the scrollbar slide is completed.
+ *   params: NONE
+ *
+ * ViewPort:sliderSlide
+ *   Fired when the scrollbar is moved.
+ *   params: NONE
+ *
+ * ViewPort:sliderStart
+ *   Fired when the scrollbar is first clicked on.
+ *   params: NONE
+ *
  * ViewPort:splitBarChange
  *   Fired when the splitbar is moved.
  *   params: (string) The current pane mode ('horiz' or 'vert').
@@ -501,7 +513,7 @@ var ViewPort = Class.create({
                 sp.vert.width = parseInt(this.opts.container.clientWidth * 0.35, 10);
             }
 
-            h += lh * this.page_size;
+            h += lh * this.page_size - this.opts.container.getLayout().get('border-bottom');
             this.opts.list_container.setStyle({
                 float: 'left',
                 height: h + 'px'
@@ -1134,7 +1146,10 @@ var ViewPort = Class.create({
             break;
 
         case 'vert':
-            new Drag(sp.currbar.setStyle({ float: 'left' }), {
+            new Drag(sp.currbar.setStyle({
+                float: 'left',
+                position: 'relative'
+            }), {
                 constraint: 'horizontal',
                 ghosting: true,
                 nodrop: true,
@@ -1265,7 +1280,7 @@ var ViewPort = Class.create({
                 this.opts.container.fire('ViewPort:fetch', this.view);
                 return this.opts.ajax(this.addRequestParams({
                     rangeslice: 1,
-                    slice: vs.min() + ':' + vs.size()
+                    slice: vs.min() + ':' + vs.max()
                 }));
             }
             vs = slice;

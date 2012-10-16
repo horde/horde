@@ -8,7 +8,7 @@
     <li class="horde-icon"><?php echo Horde::widget(array('url' => '#', 'onclick' => "document.contacts.action='" . Horde::url('edit.php') . "'; Submit('groupedit'); return false;", 'title' => _("Edit"), 'class' => 'turba-edit')) ?></li>
 <?php endif ?>
 <?php if ($hasExport): ?>
-    <li class="horde-icon"><?php echo Horde::widget(array('url' => '#', 'onclick' => "document.contacts.action='" . $GLOBALS['registry']->downloadUrl('', array('actionID' => 'export')) . "'; Submit('select'); return false;", 'title' => _("Export"), 'class' => 'horde-data')) ?></li>
+    <li class="horde-icon"><?php echo Horde::widget(array('url' => '#', 'onclick' => "document.contacts.action='" . $GLOBALS['registry']->downloadUrl('', array('exportID' => Horde_Data::EXPORT_CSV))->setRaw(true) . "'; Submit('export'); return false;", 'title' => _("Export"), 'class' => 'horde-data')) ?></li>
 <?php endif ?>
 <?php if (!empty($copymove_source_options)): ?>
 <?php if ($hasDelete): ?>

@@ -395,7 +395,7 @@ class IMP_Ajax_Application_ListMessages
         if ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD) {
             $thread = new stdClass;
             foreach ($msglist as $key => $val) {
-                $tmp = $mailbox_list[$key]['t'];
+                $tmp = $mailbox_list->getThreadOb($key);
                 $thread->$val = $sortpref->sortdir
                     ? $tmp->reverse_raw
                     : $tmp->raw;

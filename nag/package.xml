@@ -34,7 +34,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix toggling tasklists (Bug #11511).
+* [jan] Fix listing tasks from Kolab backends.
+* [jan] Fix sending alarm e-mail messages.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1200,7 +1202,9 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix toggling tasklists (Bug #11511).
+* [jan] Fix listing tasks from Kolab backends.
+* [jan] Fix sending alarm e-mail messages.
    </notes>
   </release>
  </changelog>

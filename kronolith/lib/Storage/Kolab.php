@@ -24,35 +24,28 @@ class Kronolith_Storage_Kolab extends Kronolith_Storage
      */
     public function search($email, $private_only = false)
     {
-        global $conf;
-
-        if (class_exists('Horde_Kolab_Session')) {
-            $session = Horde_Kolab_Session::singleton();
-            $server = $session->freebusy_server;
-        } else {
-            $server = sprintf('%s://%s:%d/freebusy/',
-                              $conf['storage']['freebusy']['protocol'],
-                              Kolab::getServer('imap'),
-                              $conf['storage']['freebusy']['port']);
-        }
-
-        $fb_url = sprintf('%s/%s.xfb', $server, $email);
-
-        $options['method'] = 'GET';
-        $options['timeout'] = 5;
-        $options['allowRedirects'] = true;
-
-        if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
-            $options = array_merge($options, $GLOBALS['conf']['http']['proxy']);
-        }
-
-        $http = new HTTP_Request($fb_url, $options);
-        $http->setBasicAuth($GLOBALS['registry']->getAuth(), $GLOBALS['registry']->getAuthCredential('password'));
-        @$http->sendRequest();
-        if ($http->getResponseCode() != 200) {
+        $server = $GLOBALS['injector']->getInstance('Horde_Kolab_Session')
+            ->getFreebusyServer();
+        if (empty($server)) {
             throw new Horde_Exception_NotFound();
         }
-        $vfb_text = $http->getResponseBody();
+
+        $http = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_HttpClient')
+            ->create(array(
+                'request.username' => $GLOBALS['registry']->getAuth(),
+                'request.password' => $GLOBALS['registry']->getAuthCredential('password')
+            ));
+
+        try {
+            $response = $http->get(sprintf('%s/%s.xfb', $server, $email));
+        } catch (Horde_Http_Client_Exception $e) {
+            throw new Horde_Exception_NotFound();
+        }
+        if ($response->code != 200) {
+            throw new Horde_Exception_NotFound();
+        }
+        $vfb_text = $response->getBody();
 
         $iCal = new Horde_Icalendar;
         $iCal->parsevCalendar($vfb_text);

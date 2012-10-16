@@ -1786,9 +1786,11 @@ left.horde-point-right {
     margin: 0;
     float: none;
 }
-#horde-search span.popdownImg {
+#horde-search span.horde-popdown {
     cursor: pointer;
+    float: none;
     height: 20px;
+    margin-top: -2px;
     width: 16px;
 }
 #horde-search-icon {

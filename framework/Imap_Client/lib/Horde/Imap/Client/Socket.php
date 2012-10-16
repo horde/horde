@@ -177,6 +177,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _parseCapability($data)
     {
         if (!empty($this->_temp['no_cap'])) {
+            unset($this->_temp['no_cap']);
             return;
         }
 
@@ -298,6 +299,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _login()
     {
         if (!empty($this->_temp['preauth'])) {
+            unset($this->_temp['preauth']);
             return $this->_loginTasks();
         }
 
@@ -450,7 +452,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* Try again from scratch if authentication failed in an established,
          * previously-authenticated object. */
         if (!empty($this->_init['authmethod'])) {
-            $this->_setInit('authmethod');
+            $this->_setInit();
             try {
                 return $this->login();
             } catch (Horde_Imap_Client_Exception $e) {}
@@ -2536,13 +2538,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        $cmd = $this->_clientCommand(array(
+        $cmd = $this->_clientCommand(array_filter(array(
             $options['ids']->sequence ? null : 'UID',
             'FETCH',
             $options['ids']->all
                 ? '1:*'
                 : ($options['ids']->search_res ? '$' : strval($options['ids']))
-        ));
+        )));
 
 
         if (empty($options['changedsince'])) {
@@ -2793,8 +2795,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         } else {
             $ob->setType($entry . '/' . $data->next());
 
-            foreach ($this->_parseStructureParams($data->next(), 'content-type') as $key => $val) {
-                $ob->setContentTypeParameter($key, $val);
+            if (is_object($tmp = $data->next())) {
+                foreach ($this->_parseStructureParams($tmp, 'content-type') as $key => $val) {
+                    $ob->setContentTypeParameter($key, $val);
+                }
             }
 
             if (!is_null($tmp = $data->next())) {
@@ -3171,14 +3175,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         // COPY returns no untagged information (RFC 3501 [6.4.7])
         try {
-            $cmd = $this->_clientCommand(array(
+            $cmd = $this->_clientCommand(array_filter(array(
                 $options['ids']->sequence ? null : 'UID',
                 'COPY',
                 $options['ids']->all
                     ? '1:*'
                     : ($options['ids']->search_res ? '$' : strval($options['ids'])),
                 new Horde_Imap_Client_Data_Format_Mailbox($dest)
-            ));
+            )));
 
             $this->_sendLine($cmd);
         } catch (Horde_Imap_Client_Exception $e) {

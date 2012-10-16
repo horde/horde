@@ -1055,7 +1055,7 @@ if ($redirect) {
 }
 
 if ($rtemode && !$redirect) {
-    IMP_Ui_Editor::init(false, 'composeMessage');
+    $injector->getInstance('IMP_Ui_Editor')->init(false, 'composeMessage');
 }
 
 if (!$showmenu) {

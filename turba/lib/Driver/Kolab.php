@@ -642,6 +642,9 @@ class Turba_Driver_Kolab extends Turba_Driver
 
         $result = $this->_getData()->delete($object_id);
 
+        /* Invalidate cache. */
+        $this->_connected = false;
+
         return $result;
     }
 

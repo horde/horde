@@ -70,7 +70,7 @@ function doPrefsUpdate(column, sortDown)
 
   <?php endif; ?>
 
-<div id="tasks_empty">
+<div id="tasks_empty" style="display:none">
  <?php echo _("No tasks match") ?>
 </div>
 </div>

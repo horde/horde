@@ -34,6 +34,12 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Don&apos;t show application menus in iTip MIME viewer popups.
+* [mms] Hide subfolder creation option in dynamic view if IMAP server indicates that child mailboxes cannot be created.
+* [mms] Correctly send deleted flag information to browser cache when using dynamic/smartmobile view (Bug #11362).
+* [mms] Auto-update folders list in smartmobile view if special mailbox is auto-created (Request #11482).
+* [mms] Load folders list on-demand in smartmobile view.
+* [mms] Fix thread view when mailbox is not thread sorted (Bug #11320).
 * [mms] Display message range when dragging slider on dynamic mailbox page.
  </notes>
  <contents>
@@ -2759,6 +2765,12 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t show application menus in iTip MIME viewer popups.
+* [mms] Hide subfolder creation option in dynamic view if IMAP server indicates that child mailboxes cannot be created.
+* [mms] Correctly send deleted flag information to browser cache when using dynamic/smartmobile view (Bug #11362).
+* [mms] Auto-update folders list in smartmobile view if special mailbox is auto-created (Request #11482).
+* [mms] Load folders list on-demand in smartmobile view.
+* [mms] Fix thread view when mailbox is not thread sorted (Bug #11320).
 * [mms] Display message range when dragging slider on dynamic mailbox page.
    </notes>
   </release>

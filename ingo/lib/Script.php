@@ -3,6 +3,8 @@
  * The Ingo_Script:: class provides a common abstracted interface to the
  * script-generation subclasses.
  *
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
+ *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *

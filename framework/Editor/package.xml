@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>23:26:36</time>
+ <date>2012-10-15</date>
+ <time>16:12:00</time>
  <version>
   <release>2.0.0beta2</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Update CKEditor to v2.6.5.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -74,12 +74,14 @@
      <file name="hi.js" role="horde" />
      <file name="hr.js" role="horde" />
      <file name="hu.js" role="horde" />
+     <file name="id.js" role="horde" />
      <file name="is.js" role="horde" />
      <file name="it.js" role="horde" />
      <file name="ja.js" role="horde" />
      <file name="ka.js" role="horde" />
      <file name="km.js" role="horde" />
      <file name="ko.js" role="horde" />
+     <file name="ku.js" role="horde" />
      <file name="lt.js" role="horde" />
      <file name="lv.js" role="horde" />
      <file name="mk.js" role="horde" />
@@ -126,10 +128,14 @@
        <file name="gu.js" role="horde" />
        <file name="he.js" role="horde" />
        <file name="it.js" role="horde" />
+       <file name="ku.js" role="horde" />
        <file name="mk.js" role="horde" />
        <file name="nb.js" role="horde" />
        <file name="nl.js" role="horde" />
        <file name="no.js" role="horde" />
+       <file name="pt-br.js" role="horde" />
+       <file name="ro.js" role="horde" />
+       <file name="sk.js" role="horde" />
        <file name="tr.js" role="horde" />
        <file name="ug.js" role="horde" />
        <file name="vi.js" role="horde" />
@@ -182,10 +188,13 @@
        <file name="he.js" role="horde" />
        <file name="hr.js" role="horde" />
        <file name="it.js" role="horde" />
+       <file name="ku.js" role="horde" />
        <file name="nb.js" role="horde" />
        <file name="nl.js" role="horde" />
        <file name="no.js" role="horde" />
        <file name="pl.js" role="horde" />
+       <file name="pt-br.js" role="horde" />
+       <file name="sk.js" role="horde" />
        <file name="tr.js" role="horde" />
        <file name="ug.js" role="horde" />
        <file name="uk.js" role="horde" />
@@ -301,10 +310,13 @@
        <file name="he.js" role="horde" />
        <file name="hr.js" role="horde" />
        <file name="it.js" role="horde" />
+       <file name="ku.js" role="horde" />
        <file name="nb.js" role="horde" />
        <file name="nl.js" role="horde" />
        <file name="no.js" role="horde" />
        <file name="pl.js" role="horde" />
+       <file name="pt-br.js" role="horde" />
+       <file name="sk.js" role="horde" />
        <file name="tr.js" role="horde" />
        <file name="ug.js" role="horde" />
        <file name="uk.js" role="horde" />
@@ -314,6 +326,9 @@
       <file name="placeholder.gif" role="horde" />
       <file name="plugin.js" role="horde" />
      </dir> <!-- /js/plugins/placeholder -->
+     <dir name="preview">
+      <file name="preview.html" role="horde" />
+     </dir> <!-- /js/plugins/preview -->
      <dir name="scayt">
       <dir name="dialogs">
        <file name="options.js" role="horde" />
@@ -371,17 +386,21 @@
        <file name="cs.js" role="horde" />
        <file name="cy.js" role="horde" />
        <file name="de.js" role="horde" />
+       <file name="el.js" role="horde" />
        <file name="en.js" role="horde" />
        <file name="eo.js" role="horde" />
        <file name="et.js" role="horde" />
        <file name="fa.js" role="horde" />
        <file name="fi.js" role="horde" />
        <file name="fr.js" role="horde" />
+       <file name="he.js" role="horde" />
        <file name="hr.js" role="horde" />
        <file name="it.js" role="horde" />
+       <file name="ku.js" role="horde" />
        <file name="nb.js" role="horde" />
        <file name="nl.js" role="horde" />
        <file name="no.js" role="horde" />
+       <file name="pt-br.js" role="horde" />
        <file name="tr.js" role="horde" />
        <file name="ug.js" role="horde" />
        <file name="zh-cn.js" role="horde" />
@@ -453,11 +472,14 @@
        <file name="he.js" role="horde" />
        <file name="hr.js" role="horde" />
        <file name="it.js" role="horde" />
+       <file name="ku.js" role="horde" />
        <file name="mk.js" role="horde" />
        <file name="nb.js" role="horde" />
        <file name="nl.js" role="horde" />
        <file name="no.js" role="horde" />
        <file name="pl.js" role="horde" />
+       <file name="pt-br.js" role="horde" />
+       <file name="sk.js" role="horde" />
        <file name="tr.js" role="horde" />
        <file name="ug.js" role="horde" />
        <file name="uk.js" role="horde" />
@@ -641,12 +663,14 @@
    <install as="js/lang/hi.js" name="js/lang/hi.js" />
    <install as="js/lang/hr.js" name="js/lang/hr.js" />
    <install as="js/lang/hu.js" name="js/lang/hu.js" />
+   <install as="js/lang/id.js" name="js/lang/id.js" />
    <install as="js/lang/is.js" name="js/lang/is.js" />
    <install as="js/lang/it.js" name="js/lang/it.js" />
    <install as="js/lang/ja.js" name="js/lang/ja.js" />
    <install as="js/lang/ka.js" name="js/lang/ka.js" />
    <install as="js/lang/km.js" name="js/lang/km.js" />
    <install as="js/lang/ko.js" name="js/lang/ko.js" />
+   <install as="js/lang/ku.js" name="js/lang/ku.js" />
    <install as="js/lang/lt.js" name="js/lang/lt.js" />
    <install as="js/lang/lv.js" name="js/lang/lv.js" />
    <install as="js/lang/mk.js" name="js/lang/mk.js" />
@@ -687,10 +711,14 @@
    <install as="js/plugins/a11yhelp/lang/gu.js" name="js/plugins/a11yhelp/lang/gu.js" />
    <install as="js/plugins/a11yhelp/lang/he.js" name="js/plugins/a11yhelp/lang/he.js" />
    <install as="js/plugins/a11yhelp/lang/it.js" name="js/plugins/a11yhelp/lang/it.js" />
+   <install as="js/plugins/a11yhelp/lang/ku.js" name="js/plugins/a11yhelp/lang/ku.js" />
    <install as="js/plugins/a11yhelp/lang/mk.js" name="js/plugins/a11yhelp/lang/mk.js" />
    <install as="js/plugins/a11yhelp/lang/nb.js" name="js/plugins/a11yhelp/lang/nb.js" />
    <install as="js/plugins/a11yhelp/lang/nl.js" name="js/plugins/a11yhelp/lang/nl.js" />
    <install as="js/plugins/a11yhelp/lang/no.js" name="js/plugins/a11yhelp/lang/no.js" />
+   <install as="js/plugins/a11yhelp/lang/pt-br.js" name="js/plugins/a11yhelp/lang/pt-br.js" />
+   <install as="js/plugins/a11yhelp/lang/ro.js" name="js/plugins/a11yhelp/lang/ro.js" />
+   <install as="js/plugins/a11yhelp/lang/sk.js" name="js/plugins/a11yhelp/lang/sk.js" />
    <install as="js/plugins/a11yhelp/lang/tr.js" name="js/plugins/a11yhelp/lang/tr.js" />
    <install as="js/plugins/a11yhelp/lang/ug.js" name="js/plugins/a11yhelp/lang/ug.js" />
    <install as="js/plugins/a11yhelp/lang/vi.js" name="js/plugins/a11yhelp/lang/vi.js" />
@@ -720,10 +748,13 @@
    <install as="js/plugins/devtools/lang/he.js" name="js/plugins/devtools/lang/he.js" />
    <install as="js/plugins/devtools/lang/hr.js" name="js/plugins/devtools/lang/hr.js" />
    <install as="js/plugins/devtools/lang/it.js" name="js/plugins/devtools/lang/it.js" />
+   <install as="js/plugins/devtools/lang/ku.js" name="js/plugins/devtools/lang/ku.js" />
    <install as="js/plugins/devtools/lang/nb.js" name="js/plugins/devtools/lang/nb.js" />
    <install as="js/plugins/devtools/lang/nl.js" name="js/plugins/devtools/lang/nl.js" />
    <install as="js/plugins/devtools/lang/no.js" name="js/plugins/devtools/lang/no.js" />
    <install as="js/plugins/devtools/lang/pl.js" name="js/plugins/devtools/lang/pl.js" />
+   <install as="js/plugins/devtools/lang/pt-br.js" name="js/plugins/devtools/lang/pt-br.js" />
+   <install as="js/plugins/devtools/lang/sk.js" name="js/plugins/devtools/lang/sk.js" />
    <install as="js/plugins/devtools/lang/tr.js" name="js/plugins/devtools/lang/tr.js" />
    <install as="js/plugins/devtools/lang/ug.js" name="js/plugins/devtools/lang/ug.js" />
    <install as="js/plugins/devtools/lang/uk.js" name="js/plugins/devtools/lang/uk.js" />
@@ -774,15 +805,19 @@
    <install as="js/plugins/placeholder/lang/he.js" name="js/plugins/placeholder/lang/he.js" />
    <install as="js/plugins/placeholder/lang/hr.js" name="js/plugins/placeholder/lang/hr.js" />
    <install as="js/plugins/placeholder/lang/it.js" name="js/plugins/placeholder/lang/it.js" />
+   <install as="js/plugins/placeholder/lang/ku.js" name="js/plugins/placeholder/lang/ku.js" />
    <install as="js/plugins/placeholder/lang/nb.js" name="js/plugins/placeholder/lang/nb.js" />
    <install as="js/plugins/placeholder/lang/nl.js" name="js/plugins/placeholder/lang/nl.js" />
    <install as="js/plugins/placeholder/lang/no.js" name="js/plugins/placeholder/lang/no.js" />
    <install as="js/plugins/placeholder/lang/pl.js" name="js/plugins/placeholder/lang/pl.js" />
+   <install as="js/plugins/placeholder/lang/pt-br.js" name="js/plugins/placeholder/lang/pt-br.js" />
+   <install as="js/plugins/placeholder/lang/sk.js" name="js/plugins/placeholder/lang/sk.js" />
    <install as="js/plugins/placeholder/lang/tr.js" name="js/plugins/placeholder/lang/tr.js" />
    <install as="js/plugins/placeholder/lang/ug.js" name="js/plugins/placeholder/lang/ug.js" />
    <install as="js/plugins/placeholder/lang/uk.js" name="js/plugins/placeholder/lang/uk.js" />
    <install as="js/plugins/placeholder/lang/vi.js" name="js/plugins/placeholder/lang/vi.js" />
    <install as="js/plugins/placeholder/lang/zh-cn.js" name="js/plugins/placeholder/lang/zh-cn.js" />
+   <install as="js/plugins/preview/preview.html" name="js/plugins/preview/preview.html" />
    <install as="js/plugins/scayt/dialogs/options.js" name="js/plugins/scayt/dialogs/options.js" />
    <install as="js/plugins/scayt/dialogs/toolbar.css" name="js/plugins/scayt/dialogs/toolbar.css" />
    <install as="js/plugins/showblocks/images/block_address.png" name="js/plugins/showblocks/images/block_address.png" />
@@ -822,17 +857,21 @@
    <install as="js/plugins/specialchar/lang/cs.js" name="js/plugins/specialchar/lang/cs.js" />
    <install as="js/plugins/specialchar/lang/cy.js" name="js/plugins/specialchar/lang/cy.js" />
    <install as="js/plugins/specialchar/lang/de.js" name="js/plugins/specialchar/lang/de.js" />
+   <install as="js/plugins/specialchar/lang/el.js" name="js/plugins/specialchar/lang/el.js" />
    <install as="js/plugins/specialchar/lang/en.js" name="js/plugins/specialchar/lang/en.js" />
    <install as="js/plugins/specialchar/lang/eo.js" name="js/plugins/specialchar/lang/eo.js" />
    <install as="js/plugins/specialchar/lang/et.js" name="js/plugins/specialchar/lang/et.js" />
    <install as="js/plugins/specialchar/lang/fa.js" name="js/plugins/specialchar/lang/fa.js" />
    <install as="js/plugins/specialchar/lang/fi.js" name="js/plugins/specialchar/lang/fi.js" />
    <install as="js/plugins/specialchar/lang/fr.js" name="js/plugins/specialchar/lang/fr.js" />
+   <install as="js/plugins/specialchar/lang/he.js" name="js/plugins/specialchar/lang/he.js" />
    <install as="js/plugins/specialchar/lang/hr.js" name="js/plugins/specialchar/lang/hr.js" />
    <install as="js/plugins/specialchar/lang/it.js" name="js/plugins/specialchar/lang/it.js" />
+   <install as="js/plugins/specialchar/lang/ku.js" name="js/plugins/specialchar/lang/ku.js" />
    <install as="js/plugins/specialchar/lang/nb.js" name="js/plugins/specialchar/lang/nb.js" />
    <install as="js/plugins/specialchar/lang/nl.js" name="js/plugins/specialchar/lang/nl.js" />
    <install as="js/plugins/specialchar/lang/no.js" name="js/plugins/specialchar/lang/no.js" />
+   <install as="js/plugins/specialchar/lang/pt-br.js" name="js/plugins/specialchar/lang/pt-br.js" />
    <install as="js/plugins/specialchar/lang/tr.js" name="js/plugins/specialchar/lang/tr.js" />
    <install as="js/plugins/specialchar/lang/ug.js" name="js/plugins/specialchar/lang/ug.js" />
    <install as="js/plugins/specialchar/lang/zh-cn.js" name="js/plugins/specialchar/lang/zh-cn.js" />
@@ -868,11 +907,14 @@
    <install as="js/plugins/uicolor/lang/he.js" name="js/plugins/uicolor/lang/he.js" />
    <install as="js/plugins/uicolor/lang/hr.js" name="js/plugins/uicolor/lang/hr.js" />
    <install as="js/plugins/uicolor/lang/it.js" name="js/plugins/uicolor/lang/it.js" />
+   <install as="js/plugins/uicolor/lang/ku.js" name="js/plugins/uicolor/lang/ku.js" />
    <install as="js/plugins/uicolor/lang/mk.js" name="js/plugins/uicolor/lang/mk.js" />
    <install as="js/plugins/uicolor/lang/nb.js" name="js/plugins/uicolor/lang/nb.js" />
    <install as="js/plugins/uicolor/lang/nl.js" name="js/plugins/uicolor/lang/nl.js" />
    <install as="js/plugins/uicolor/lang/no.js" name="js/plugins/uicolor/lang/no.js" />
    <install as="js/plugins/uicolor/lang/pl.js" name="js/plugins/uicolor/lang/pl.js" />
+   <install as="js/plugins/uicolor/lang/pt-br.js" name="js/plugins/uicolor/lang/pt-br.js" />
+   <install as="js/plugins/uicolor/lang/sk.js" name="js/plugins/uicolor/lang/sk.js" />
    <install as="js/plugins/uicolor/lang/tr.js" name="js/plugins/uicolor/lang/tr.js" />
    <install as="js/plugins/uicolor/lang/ug.js" name="js/plugins/uicolor/lang/ug.js" />
    <install as="js/plugins/uicolor/lang/uk.js" name="js/plugins/uicolor/lang/uk.js" />
@@ -1107,10 +1149,10 @@ Initial packaging
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Update CKEditor to v2.6.5.
    </notes>
   </release>
  </changelog>

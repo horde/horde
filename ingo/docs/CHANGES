@@ -2,6 +2,8 @@
 v3.0.0-git
 ----------
 
+[mms] Add 'euser' option to 'transport_auth' hook allowing the effective user
+      to be provided for the timsieved transport driver.
 
 
 -----------

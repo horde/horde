@@ -57,7 +57,6 @@ if ($vars->submitbutton == _("Revert Configuration")) {
         Horde::url('admin/config/index.php', true)->redirect();
     } else {
         $notification->push(sprintf(_("Could not save the configuration file %s. You can either use one of the options to save the code back on %s or copy manually the code below to %s."), Horde_Util::realPath($configFile), Horde::link(Horde::url('admin/config/index.php') . '#update', _("Configuration")) . _("Configuration") . '</a>', Horde_Util::realPath($configFile)), 'horde.warning', array('content.raw', 'sticky'));
-        $page_output->addInlineScript('document.observe(\'Growler:linkClick\', function(e) { window.location.assign(e.memo.href); });');
     }
 } elseif ($form->isSubmitted()) {
     $notification->push(_("There was an error in the configuration form. Perhaps you left out a required field."), 'horde.error');
