@@ -206,8 +206,6 @@ class IMP_Test extends Horde_Test
             } catch (Horde_Imap_Client_Exception $e) {
                 // Ignore lack of ID capability.
             }
-
-            // @todo IMAP Charset Search Support
         } else {
             $ret .= '<strong>Checking for the UIDL capability:</strong> ';
 
