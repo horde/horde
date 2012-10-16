@@ -7,7 +7,7 @@ class Whups_Form_Query_AttributeCriterion extends Horde_Form
     /**
      * List of all available attributes.
      */
-    public  $attribs = array();
+    public $attribs = array();
 
     public function __construct(&$vars)
     {
@@ -24,26 +24,26 @@ class Whups_Form_Query_AttributeCriterion extends Horde_Form
 
         try {
             $this->attribs = $whups_driver->getAttributesForType();
+            if ($this->attribs) {
+                $this->addVariable(_("Match"), 'text', 'text', true);
+                $this->addVariable(
+                    _("Match Operator"), 'operator', 'enum', true, false, null,
+                    array(Whups_Query::textOperators()));
+
+                foreach ($this->attribs as $id => $attribute) {
+                    $this->addVariable(
+                        sprintf(_("Search %s Attribute"), $attribute['human_name']),
+                        "a$id", 'boolean', false);
+                }
+            } else {
+                $this->addVariable(
+                    _("Search Attribute"), 'attribute', 'invalid', true, false,
+                    null, array(_("There are no attributes defined.")));
+            }
         } catch (Whups_Exception $e) {
             $this->addVariable(
                 _("Search Attribute"), 'attribute', 'invalid', true, false,
                 null, array($e->getMessage()));
-        }
-        if ($this->attribs) {
-            $this->addVariable(_("Match"), 'text', 'text', true);
-            $this->addVariable(
-                _("Match Operator"), 'operator', 'enum', true, false, null,
-                array(Whups_Query::textOperators()));
-
-            foreach ($this->attribs as $id => $attribute) {
-                $this->addVariable(
-                    sprintf(_("Search \"%s\" Attribute"), $attribute['human_name']),
-                    "a$id", 'boolean', false);
-            }
-        } else {
-            $this->addVariable(
-                _("Search Attribute"), 'attribute', 'invalid', true, false,
-                null, array(_("There are no attributes defined.")));
         }
     }
 
@@ -73,5 +73,4 @@ class Whups_Form_Query_AttributeCriterion extends Horde_Form
 
         $this->unsetVars($vars);
     }
-
 }
