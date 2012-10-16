@@ -856,7 +856,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param mixed $in  A mailbox name or a tree element.
      *
-     * @return integer  True if the element is open.
+     * @return boolean  True if the element is open.
      */
     public function isOpen($in)
     {
@@ -885,7 +885,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param mixed $in  A mailbox name or a tree element.
      *
-     * @return integer  True if the element is a container.
+     * @return boolean  True if the element is a container.
      */
     public function isContainer($in)
     {
@@ -915,7 +915,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param mixed $in  A mailbox name or a tree element.
      *
-     * @return integer  True if the user is subscribed to the element.
+     * @return boolean  True if the user is subscribed to the element.
      */
     public function isSubscribed($in)
     {
@@ -947,7 +947,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param mixed $in  A mailbox name or a tree element.
      *
-     * @return integer  True if the element is a namespace container.
+     * @return boolean  True if the element is a namespace container.
      */
     public function isNamespace($in)
     {
@@ -961,7 +961,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param mixed $in  A mailbox name or a tree element.
      *
-     * @return integer  True if the element is a non-IMAP element.
+     * @return boolean  True if the element is a non-IMAP element.
      */
     public function isNonImapElt($in)
     {
@@ -1166,7 +1166,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param mixed $in  A mailbox name or a tree element.
      *
-     * @return integer  True if the user wants to poll the element.
+     * @return boolean  True if the user wants to poll the element.
      */
     public function isPolled($in)
     {
@@ -1197,7 +1197,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param mixed $in  A mailbox name or a tree element.
      *
-     * @return integer  True if the element is marked as invisible.
+     * @return boolean  True if the element is marked as invisible.
      */
     public function isInvisible($in)
     {
@@ -1233,7 +1233,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param array $elt  A tree element.
      *
-     * @return integer  True if the children need to be sorted.
+     * @return boolean  True if the children need to be sorted.
      */
     protected function _needSort($elt)
     {
@@ -1440,7 +1440,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param mixed $in  A mailbox name or a tree element.
      *
-     * @return integer  True if the element is a virtual folder.
+     * @return boolean  True if the element is a virtual folder.
      */
     public function isVFolder($in)
     {
