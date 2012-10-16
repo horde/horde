@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>23:12:51</time>
+ <date>2012-10-16</date>
+ <time>17:06:35</time>
  <version>
   <release>4.0.0beta4</release>
   <api>4.0.0beta1</api>
@@ -484,7 +484,6 @@
      <file name="ldapserver.inc" role="horde" />
     </dir> <!-- /templates/test -->
     <file name=".htaccess" role="horde" />
-    <file name="addressbook_list.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Turba">
@@ -992,7 +991,6 @@
    <install as="scripts/ldap/addou" name="scripts/ldap/addou" />
    <install as="scripts/ldap/addou.pl" name="scripts/ldap/addou.pl" />
    <install as="turba/templates/.htaccess" name="templates/.htaccess" />
-   <install as="turba/templates/addressbook_list.php" name="templates/addressbook_list.php" />
    <install as="turba/templates/block/minisearch.inc" name="templates/block/minisearch.inc" />
    <install as="turba/templates/browse/actions.inc" name="templates/browse/actions.inc" />
    <install as="turba/templates/browse/column_footers.inc" name="templates/browse/column_footers.inc" />
@@ -1482,7 +1480,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-12</date>
+   <date>2012-10-16</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Fix exporting from browse view (Bug #11526).
