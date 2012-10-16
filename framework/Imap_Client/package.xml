@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add STATUS_HIGHESTMODSEQ_EXACT option to Horde_Imap_Client_Base#status().
 * [mms] Don&apos;t expunge mailbox when it is labeled as read-only.
 * [mms] Fix regression in FETCH/COPY with sequence numbers (Bug #11521).
 * [mms] Fix quoting empty astrings (Bug #11505).
@@ -1111,6 +1112,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add STATUS_HIGHESTMODSEQ_EXACT option to Horde_Imap_Client_Base#status().
 * [mms] Don&apos;t expunge mailbox when it is labeled as read-only.
 * [mms] Fix regression in FETCH/COPY with sequence numbers (Bug #11521).
 * [mms] Fix quoting empty astrings (Bug #11505).
