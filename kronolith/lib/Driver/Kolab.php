@@ -100,11 +100,14 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         // Connect to the Kolab backend
-        $this->_data = $this->_kolab->getData(
-            $GLOBALS['all_calendars'][$this->calendar]->share()->get('folder'),
-            'event'
-        );
-
+        try {
+            $this->_data = $this->_kolab->getData(
+                $GLOBALS['all_calendars'][$this->calendar]->share()->get('folder'),
+                'event'
+            );
+        } catch (Kolab_Storage_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
 
         // build internal event cache
         $this->_events_cache = array();
@@ -442,7 +445,11 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
 
         $this->_data->move($eventId, $folder);
         unset($this->_events_cache[$eventId]);
-        $this->_kolab->getData($target->get('folder'), 'contact')->synchronize();
+        try {
+            $this->_kolab->getData($target->get('folder'), 'contact')->synchronize();
+        } catch (Kolab_Storage_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
 
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
             //Kolab::triggerFreeBusyUpdate($this->_data->parseFolder($this->calendar));
