@@ -22,7 +22,7 @@ class IMP_Ui_Editor
      * @param string $id      The DOM ID to load. If null, won't start editor
      *                        on page load.
      */
-    static public function init($basic = false, $id = null)
+    public function init($basic = false, $id = null)
     {
         global $injector, $page_output, $language, $prefs;
 
