@@ -2155,8 +2155,17 @@ class Kronolith
             $ics->setCharset('UTF-8');
             $ics->setEOL("\r\n");
 
-            $multipart = self::buildMimeMessage($view, 'notification', $image);
-            $multipart->addPart($ics);
+            /* application/ics part */
+            $ics2 = clone $ics;
+            $ics2->setType('application/ics');
+
+            /* multipart/mixed part */
+            $multipart = new Horde_Mime_Part();
+            $multipart->setType('multipart/mixed');
+            $inner = self::buildMimeMessage($view, 'notification', $image);
+            $inner->addPart($ics);
+            $multipart->addPart($inner);
+            $multipart->addPart($ics2);
 
             $recipient = new Horde_Mail_Rfc822_Address($email);
             if (!empty($status['name'])) {
