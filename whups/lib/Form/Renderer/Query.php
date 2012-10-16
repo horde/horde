@@ -133,12 +133,16 @@ class Whups_Form_Renderer_Query extends Horde_Form_Renderer
             case Whups_Query::CRITERION_ATTRIBUTE:
                 // The value of the following depends on the type.
                 $aname = $whups_driver->getAttributeName($cvalue);
-                $type = $this->attributes[$cvalue]['type_id'];
-                $text = '';
-                if (isset($this->ticketTypes[$type])) {
-                    $text = '[' . $this->ticketTypes[$type] . '] ';
+                foreach ($this->attributes as $attribute) {
+                    if ($attribute['attribute_id'] == $cvalue) {
+                        $type = $attribute['type_id'];
+                        break;
+                    }
                 }
-                $text .= sprintf("Attribute \"%s\"", $aname);
+                if (isset($this->ticketTypes[$type])) {
+                    $aname .= ' (' . $this->ticketTypes[$type] . ')';
+                }
+                $text = sprintf("Attribute \"%s\"", $aname);
                 break;
 
             case Whups_Query::CRITERION_TIMESTAMP:
