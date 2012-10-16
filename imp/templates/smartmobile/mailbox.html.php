@@ -17,9 +17,6 @@
 <?php endif ?>
 <?php if ($this->canCompose): ?>
   <a href="#compose"><?php echo _("New Message") ?></a>
-<?php if ($this->abook): ?>
-  <a href="<?php echo $this->abook ?>" data-ajax="false"><?php echo _("Address Book") ?></a>
-<?php endif; ?>
 <?php endif ?>
  </div>
 
