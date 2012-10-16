@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [jan] Return to the same page after running actions from the browse view.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1484,7 +1484,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [jan] Return to the same page after running actions from the browse view.
    </notes>
   </release>
  </changelog>
