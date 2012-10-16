@@ -1,7 +1,6 @@
 <?php
 /**
- * This class provides a place to store common code shared among IMP's various
- * UI views for folder tree manipulation.
+ * Common code shared among IMP's various folder UI views.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *

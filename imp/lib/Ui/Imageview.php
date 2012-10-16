@@ -1,7 +1,7 @@
 <?php
 /**
- * This class is designed to provide a place to store common code shared among
- * various MIME Viewers relating to image viewing preferences.
+ * Common code shared among MIME Viewers relating to image viewing
+ * preferences.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *

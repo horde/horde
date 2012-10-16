@@ -1,7 +1,6 @@
 <?php
 /**
- * This class is designed to provide a place to store common code for the
- * advanced search page.
+ * Code used in the advanced search page.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *

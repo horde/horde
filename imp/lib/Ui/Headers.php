@@ -1,7 +1,6 @@
 <?php
 /**
- * The IMP_Ui_Headers:: class is designed to provide a place to store common
- * code shared among IMP's various UI views for header information.
+ * Common code for IMP's various UI views for header information.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *

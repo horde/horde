@@ -1,7 +1,7 @@
 <?php
 /**
- * THis class provices a place to share common code relating to IMP's
- * setup and configuration of the browser HTML editor.
+ * Common code relating to IMP's setup and configuration of the browser HTML
+ * editor.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
