@@ -494,6 +494,9 @@ class Turba
                 $info['params']['config']['params']['share'] = $share;
                 $info['params']['config']['params']['name'] = $params['name'];
                 $info['title'] = $share->get('name');
+                if ($share->get('owner') != $auth_user) {
+                    $info['title'] .= ' [' . $GLOBALS['registry']->convertUsername($share->get('owner'), false) . ']';
+                }
                 $info['type'] = 'share';
                 $info['use_shares'] = false;
                 $sortedSources[$params['source']][$name] = $info;
