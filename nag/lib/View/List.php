@@ -247,6 +247,9 @@ class Nag_View_List
     protected function _doSearch()
     {
 
+        // Clear the tag browser in case we have an active browse set.
+        $this->_browser->clearSearch();
+
         $form = new Nag_Form_Search($this->_vars);
         if ($form->validate($this->_vars, true)) {
             $form->getInfo($this->_vars, $info);
