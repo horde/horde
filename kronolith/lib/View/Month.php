@@ -167,7 +167,7 @@ class Kronolith_View_Month
                     if ($sidebyside) {
                         $html .= sprintf('<td class="kronolith-first-col">%s<br />%s</td>',
                                          $weeklink,
-                                         htmlspecialchars($cal->get('name')));
+                                         htmlspecialchars(Kronolith::getLabel($cal)));
                     } else {
                         if ($cell != 0) {
                             $html .= "</tr>\n<tr>";

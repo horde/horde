@@ -128,12 +128,12 @@ class Kronolith_Api extends Horde_Registry_Api
             foreach ($calendars as $calendarId => $calendar) {
                 $retpath = 'kronolith/' . $parts[0] . '/' . $calendarId;
                 if (in_array('name', $properties)) {
-                    $results[$retpath]['name'] = sprintf(_("Events from %s"), $calendar->get('name'));
-                    $results[$retpath . '.ics']['name'] = $calendar->get('name');
+                    $results[$retpath]['name'] = sprintf(_("Events from %s"), Kronolith::getLabel($calendar));
+                    $results[$retpath . '.ics']['name'] = Kronolith::getLabel($calendar);
                 }
                 if (in_array('displayname', $properties)) {
-                    $results[$retpath]['displayname'] = rawurlencode($calendar->get('name'));
-                    $results[$retpath . '.ics']['displayname'] = rawurlencode($calendar->get('name')) . '.ics';
+                    $results[$retpath]['displayname'] = rawurlencode(Kronolith::getLabel($calendar));
+                    $results[$retpath . '.ics']['displayname'] = rawurlencode(Kronolith::getLabel($calendar)) . '.ics';
                 }
                 if (in_array('icon', $properties)) {
                     $results[$retpath]['icon'] = Horde_Themes::img('kronolith.png');

@@ -162,7 +162,7 @@ class Nag_Application extends Horde_Registry_Application
             $row = array(
                 'selected' => in_array($name, $display_tasklists),
                 'url' => $url,
-                'label' => $tasklist->get('name'),
+                'label' => Nag::getLabel($tasklist),
                 'color' => $tasklist->get('color') ?: '#dddddd',
                 'edit' => $edit->add('t', $tasklist->getName()),
                 'type' => 'checkbox',
@@ -170,9 +170,6 @@ class Nag_Application extends Horde_Registry_Application
             if ($tasklist->get('owner') == $user) {
                 $sidebar->addRow($row, 'my');
             } else {
-                if ($tasklist->get('owner')) {
-                    $row['label'] .= ' [' . $GLOBALS['registry']->convertUsername($tasklist->get('owner'), false) . ']';
-                }
                 $sidebar->addRow($row, 'shared');
             }
         }
@@ -314,7 +311,7 @@ class Nag_Application extends Horde_Registry_Application
                 $tree->addNode(array(
                     'id' => $parent . $name . '__new',
                     'parent' => $parent . '__new',
-                    'label' => sprintf(_("in %s"), $tasklist->get('name')),
+                    'label' => sprintf(_("in %s"), Nag::getLabel($tasklist)),
                     'expanded' => false,
                     'params' => array(
                         'icon' => Horde_Themes::img('add.png'),

@@ -66,7 +66,7 @@ if (count($memos)) {
                   'memolist' => $memo['memolist_id']));
         try {
             $share = $GLOBALS['mnemo_shares']->getShare($memo['memolist_id']);
-            $notepad = $share->get('name');
+            $notepad = Mnemo::getLabel($share);
         } catch (Horde_Share_Exception $e) {
             $notepad = $memo['memolist_id'];
         }

@@ -631,6 +631,25 @@ class Nag
     }
 
     /**
+     * Returns the label to be used for a task list.
+     *
+     * Attaches the owner name of shared task lists if necessary.
+     *
+     * @param Horde_Share_Object  A task list.
+     *
+     * @return string  The task list's label.
+     */
+    public static function getLabel($tasklist)
+    {
+        $label = $tasklist->get('name');
+        if ($tasklist->get('owner') &&
+            $tasklist->get('owner') != $GLOBALS['registry']->getAuth()) {
+            $label .= ' [' . $GLOBALS['registry']->convertUsername($tasklist->get('owner'), false) . ']';
+        }
+        return $label;
+    }
+
+    /**
      * Returns a random CSS color.
      *
      * @return string  A random CSS color string.
@@ -1024,7 +1043,7 @@ class Nag
                     $old_share = $GLOBALS['nag_shares']->getShare($old_task->tasklist);
                     $notification_message .= "\n - "
                         . sprintf(_("Changed task list from \"%s\" to \"%s\""),
-                                  $old_share->get('name'), $share->get('name'));
+                                  Nag::getLabel($old_share), Nag::getLabel($share));
                 }
                 if ($old_task->parent_id != $task->parent_id) {
                     $old_parent = $old_task->getParent();
@@ -1109,7 +1128,7 @@ class Nag
                 foreach ($dateFormat as $df => $df_recipients) {
                     $message = sprintf($notification_message,
                                        $task->name,
-                                       $share->get('name'),
+                                       Nag::getLabel($share),
                                        $task->due ? strftime($df, $task->due) . ' ' . date($tf ? 'H:i' : 'h:ia', $task->due) : '');
                     if (strlen(trim($task->desc))) {
                         $message .= "\n\n" . _("Task description:") . "\n\n" . $task->desc;
@@ -1533,7 +1552,7 @@ class Nag
     }
 
     /**
-     * Returns the owner of a taksk.
+     * Returns the owner of a task.
      *
      * @param Nag_Task $task  A task.
      *

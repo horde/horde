@@ -31,7 +31,7 @@ class Nag_Tasklist
     {
         $tasks = Nag::listTasks(array('tasklists' => $this->_share->getName()));
         $hash = array(
-            'name' => $this->_share->get('name'),
+            'name' => Nag::getLabel($this->_share),
             'desc' => $this->_share->get('desc'),
             'color' => $this->_share->get('color'),
             'owner' => $this->_share->get('owner'),

@@ -56,7 +56,7 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
      */
     public function name()
     {
-        return $this->_share->get('name');
+        return Kronolith::getLabel($this->_share);
     }
 
     /**

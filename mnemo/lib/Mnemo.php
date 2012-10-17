@@ -248,6 +248,25 @@ class Mnemo
     }
 
     /**
+     * Returns the label to be used for a notepad.
+     *
+     * Attaches the owner name of shared notepads if necessary.
+     *
+     * @param Horde_Share_Object  A notepad.
+     *
+     * @return string  The notepad's label.
+     */
+    public static function getLabel($notepad)
+    {
+        $label = $notepad->get('name');
+        if ($notepad->get('owner') &&
+            $notepad->get('owner') != $GLOBALS['registry']->getAuth()) {
+            $label .= ' [' . $GLOBALS['registry']->convertUsername($notepad->get('owner'), false) . ']';
+        }
+        return $label;
+    }
+
+    /**
      * Returns the real name, if available, of a user.
      *
      * @return string  The real name
