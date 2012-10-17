@@ -293,7 +293,7 @@ class Mnemo
      */
     protected static function _rsortByDesc($a, $b)
     {
-        return strcoll($b['desc'], $a['desc']);
+        return self::_sortByDesc($b, $a);
     }
 
     /**
@@ -322,8 +322,7 @@ class Mnemo
      */
     protected static function _rsortByCategory($a, $b)
     {
-        return strcoll($b['category'] ? $b['category'] : _("Unfiled"),
-                       $a['category'] ? $a['category'] : _("Unfiled"));
+        return self::_sortByCategory($b, $a);
     }
 
     /**
@@ -364,20 +363,7 @@ class Mnemo
      */
     protected static function _rsortByNotepad($a, $b)
     {
-        $aowner = $a['memolist_id'];
-        $bowner = $b['memolist_id'];
-
-        $ashare = $GLOBALS['mnemo_shares']->getShare($aowner);
-        $bshare = $GLOBALS['mnemo_shares']->getShare($bowner);
-
-        if ($aowner != $ashare->get('owner')) {
-            $aowner = $ashare->get('name');
-        }
-        if ($bowner != $bshare->get('owner')) {
-            $bowner = $bshare->get('name');
-        }
-
-        return strcoll($bowner, $aowner);
+        return self::_sortByNotepad($b, $a);
     }
 
     /**
@@ -426,29 +412,7 @@ class Mnemo
      */
     protected static function _rsortByModDate($a, $b)
     {
-        // Get note's history
-        $history = $GLOBALS['injector']->getInstance('Horde_History');
-
-        $guidA = 'mnemo:' . $a['memolist_id'] . ':' . $a['uid'];
-        $guidB = 'mnemo:' . $b['memolist_id'] . ':' . $b['uid'];
-
-        // Gets the timestamp of the most recent modification to the note
-        $modDateA = $history->getActionTimestamp($guidA, 'modify');
-        $modDateB = $history->getActionTimestamp($guidB, 'modify');
-
-        // If the note hasn't been modified, get the creation timestamp
-        if ($modDateA == 0) {
-            $modDateA = $history->getActionTimestamp($guidA, 'add');
-        }
-        if ($modDateB == 0) {
-            $modDateB = $history->getActionTimestamp($guidB, 'add');
-        }
-
-        if ($modDateA == $modDateB) {
-            return 0;
-        }
-
-        return ($modDateA < $modDateB) ? 1 : -1;
+        return self::_sortByModDate($b, $a);
     }
 
     /**
