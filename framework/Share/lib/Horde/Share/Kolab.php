@@ -489,11 +489,10 @@ class Horde_Share_Kolab extends Horde_Share_Base
                     $sorted = array();
                     foreach ($shares as $share) {
                         $object = $this->getShareById($share);
-                        $key = $object->get($params['sort_by']);
-                        $sorted[$key] = $object->getId();
+                        $sorted[$object->getId()] = $object->get($params['sort_by']);
                     }
-                    ksort($sorted);
-                    $shares = array_values($sorted);
+                    asort($sorted);
+                    $shares = array_keys($sorted);
                 }
             }
             if (!empty($params['direction'])) {

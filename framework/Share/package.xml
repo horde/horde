@@ -35,7 +35,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix sorting of Kolab shares (Bug #11509).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -890,7 +890,7 @@ Initial release as a PEAR package
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix sorting of Kolab shares (Bug #11509).
    </notes>
   </release>
  </changelog>
