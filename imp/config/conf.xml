@@ -3,10 +3,9 @@
 <configuration>
  <configtab name="user" desc="User Capabilities and Constraints">
   <configsection name="user">
-   <configswitch name="allow_folders" desc="Are users allowed to use folders?
-   NOTE: setting this to false will mean there is no place to save sent-mail
-   or postponed messages, along with the obvious effects of restricting the
-   user exclusively to their INBOX.">true
+   <configswitch name="allow_folders" desc="Are users allowed to use
+    folders? (Only affects IMAP servers; POP servers never support
+    folders)">true
     <case name="true" desc="Yes">
      <configboolean name="autocreate_special" required="false"
      desc="Automatically create special mailboxes (Drafts, Sent Mail, Spam,
@@ -14,20 +13,19 @@
     </case>
     <case name="false" desc="No" />
    </configswitch>
-   <configboolean name="allow_view_source" desc="If true, there will be a
-   link when viewing a message allowing the user to view the raw contents of
-   the message.">true</configboolean>
+   <configboolean name="allow_view_source" desc="If true, a user will be
+   allowed to view the raw source of a message.">true</configboolean>
   </configsection>
  </configtab>
 
  <configtab name="server" desc="Server">
   <configsection name="server">
    <configswitch name="server_list" desc="Display a list of servers for users
-   to choose from? If the server list is hidden then you can use the
-   'preferred' mechanism (in config/backends.php) to auto-select a server.
-   If shown, the user will be able to pick from any of the options. If none,
-   no server list will be shown and the defaults will be used unless another
-   mechanism changes them.">none
+   to choose from? If the server list is hidden, the 'preferred' mechanism can
+   be used (see: config/backends.php) to auto-select a server. If the server
+   list is shown, a user will be able to pick from the list of servers. If
+   none, no server list will be shown and the defaults will be used unless
+   another mechanism changes them.">none
     <case name="none" desc="None" />
     <case name="shown" desc="Shown" />
     <case name="hidden" desc="Hidden" />
@@ -42,10 +40,9 @@
   <configheader>Message Settings</configheader>
   <configsection name="msgsettings">
    <configsection name="filtering">
-    <configstring name="words" desc="If filtering of message content is turned
-    on (see 'filtering' preference value), this is the filesystem location
-    of the filtered words list. An example file can be found at
-    config/filter.txt.dist">./config/filter.txt</configstring>
+    <configstring name="words" desc="If message content filtering is enabled
+    (see 'filtering' preference), this is the filesystem location of the
+    filtered words list.">./config/filter.txt</configstring>
     <configstring name="replacement" desc="What should filtered words be
     replaced with?">****</configstring>
    </configsection>
@@ -60,8 +57,8 @@
      in the user's spam mailbox?">false</configboolean>
      <configstring name="email" required="false" desc="Should spam messages be
      reported via e-mail? If you need to dynamically set the e-mail address for
-     each user (e.g. DSPAM), leave this setting empty and look at the
-     spam_email hook instead."/>
+     each user (e.g. DSPAM), leave this setting empty and use the 'spam_email'
+     hook instead."/>
      <configswitch name="email_format" required="false" desc="If reporting
      via email, what format should the spam messages be sent as? The default
      and recommended value is 'digest', which packages the raw data of all
@@ -83,16 +80,17 @@
    </configswitch>
   </configsection>
 
+  <configheader>Innocent (not-spam) Reporting</configheader>
   <configsection name="notspam">
-   <configswitch name="reporting" desc="Should a innocent message (non-spam)
+   <configswitch name="reporting" desc="Should a innocent message (not-spam)
    reporting link be displayed?">false
     <case name="true" desc="Yes">
      <configboolean name="spamfolder" desc="Should the link only appear in the
      user's spam mailbox?">true</configboolean>
      <configstring name="email" required="false" desc="Should innocent messages
      be reported via e-mail? If you need to dynamically set the e-mail address
-     for each user (e.g. DSPAM), leave this setting empty and look at the
-     spam_email hook instead."/>
+     for each user (e.g. DSPAM), leave this setting empty and use the
+     'spam_email' hook instead."/>
      <configswitch name="email_format" required="false" desc="If reporting
      via email, what format should the innocent messages be sent as? The
      default and recommended value is 'digest', which packages the raw data of
@@ -115,6 +113,7 @@
 
  <configtab name="compose" desc="Compose">
   <configsection name="compose">
+   <configheader>Attachments</configheader>
    <configboolean name="use_vfs" desc="Should the Horde VFS system be used for
    storing uploaded attachments?">false</configboolean>
    <configswitch name="link_attachments" desc="Should users be allowed to send
@@ -136,18 +135,22 @@
    <configinteger name="attach_size_limit" desc="The maximum total size of
    attachments allowed per message (in bytes)? Set to 0 for no limit. [The
    maximum allowable size of any individual attachment is set via the PHP
-   'upload_max_filesize' parameter - see imp/docs/INSTALL]">0</configinteger>
+   'upload_max_filesize' parameter; see imp/docs/INSTALL]">0</configinteger>
    <configinteger name="attach_count_limit" desc="The maximum total number of
    attachments allowed per message? Set to 0 for no limit.">0</configinteger>
    <configboolean name="convert_to_related" desc="When composing a message in
    HTML mode, download the data for images contained in the message and
-   and directly attach this data to the message? This is highly recommended as
-   the image data can not otherwise be guaranteed to be available when the
-   recipient views the message. This should be turned off for servers that are
+   directly attach this data to the message? This is highly recommended as the
+   image data can not otherwise be guaranteed to be available when the
+   recipient views the message. This should be disabled for servers that are
    firewalled or have limited network connectivity.">true</configboolean>
+
+   <configheader>Message Replies</configheader>
    <configinteger name="reply_limit" desc="The maximum total size of text (in
    bytes) to use when replying or forwarding a message. Set to 0 for no
    no limit.">200000</configinteger>
+
+   <configheader>Address Autocompletion</configheader>
    <configinteger name="ac_browser" desc="For autocompletion of addresses,
    the maximum number of entries present in the user's addressbook before the
    queries will be handled by the server. For addressbooks with less than this
@@ -161,16 +164,17 @@
   </configsection>
  </configtab>
 
- <configtab name="other" desc="Other settings">
-  <configheader>Mail History</configheader>
+ <configtab name="history" desc="Mail History">
   <configsection name="maillog">
-   <configboolean name="use_maillog" desc="Who a message was sent to and the
-   date it was sent when forwarding, replying, or redirecting a message is
-   tracked by default. This information is stored using the History framework
-   provided by Horde. These entries could potentially be stored forever, so
-   sufficient storage space is required.">true</configboolean>
+   <configboolean name="use_maillog" desc="If true, who a message was sent to
+   and the date it was sent when forwarding/replying/redirecting a message is
+   tracked. This information is stored using Horde's History system. These
+   entries could potentially be stored forever, so sufficient storage space is
+   required.">true</configboolean>
   </configsection>
-  <configheader>Outgoing Email Logging</configheader>
+ </configtab>
+
+ <configtab name="maillog" desc="Mail Log">
   <configsection name="sentmail">
    <configdescription>All attempts to send messages can be logged, including
    who has sent a message, when the message was sent, and to which recipients.
@@ -196,22 +200,23 @@
     </case>
    </configswitch>
   </configsection>
+ </configtab>
 
-  <configheader>External Applications</configheader>
+ <configtab name="otherapps" desc="Other Applications">
   <configsection name="tasklist">
    <configboolean name="use_tasklist" desc="If Nag is installed on the local
-   system, it can be used to allow the details of mail messages to be added
-   to a new task. This feature will add to server load because the list of
-   available task categories must be generated on every page load. Enable
-   tasklist support?">true</configboolean>
+   system, it can be used to add the details of mail messages to new tasks.
+   This feature will add to server load because the list of available task
+   categories must be generated on every page load. Enable tasklist
+   support?">true</configboolean>
   </configsection>
 
   <configsection name="notepad">
    <configboolean name="use_notepad" desc="If Mnemo is installed on the local
-   system, it can be used to allow the details of mail messages to be added
-   to a new note. This feature will add to server load because the list of
-   available note categories must be generated on every page load. Enable
-   notepad support?">true</configboolean>
+   system, it can be used to add the the details of mail messages to new
+   notes. This feature will add to server load because the list of available
+   note categories must be generated on every page load. Enable notepad
+   support?">true</configboolean>
   </configsection>
  </configtab>
 </configuration>
