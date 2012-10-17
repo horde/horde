@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Format datetime fields when exporting a task as a hash (Bug #11537).
 * [jan] Fix retrieving tasks from Kolab backend by UID (Bug #11532).
 * [jan] Fix toggling tasklists (Bug #11511).
 * [jan] Fix listing tasks from Kolab backends.
@@ -1203,6 +1204,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Format datetime fields when exporting a task as a hash (Bug #11537).
 * [jan] Fix retrieving tasks from Kolab backend by UID (Bug #11532).
 * [jan] Fix toggling tasklists (Bug #11511).
 * [jan] Fix listing tasks from Kolab backends.
