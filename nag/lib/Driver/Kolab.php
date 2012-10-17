@@ -154,7 +154,14 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     public function getByUID($uid)
     {
-        return $this->_wrapper->getByUID($uid);
+        foreach (array_keys(Nag::listTasklists(false, Horde_Perms::READ, false)) as $tasklist) {
+            $this->_tasklist = $tasklist;
+            try {
+                return $this->get($uid);
+            } catch (Horde_Exception_NotFound $e) {
+            }
+        }
+        throw new Horde_Exception_NotFound();
     }
 
     /**

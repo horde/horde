@@ -2,6 +2,7 @@
 v4.0.0-git
 ----------
 
+[jan] Fix retrieving tasks from Kolab backend by UID (Bug #11532).
 [jan] Fix toggling tasklists (Bug #11511).
 [jan] Fix listing tasks from Kolab backends.
 [jan] Fix sending alarm e-mail messages.
