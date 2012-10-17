@@ -2,6 +2,7 @@
 v4.0.0-git
 ----------
 
+[mjr] Fix various issues with importing CSV files.
 [mjr] Format datetime fields when exporting a task as a hash (Bug #11537).
 [jan] Fix retrieving tasks from Kolab backend by UID (Bug #11532).
 [jan] Fix toggling tasklists (Bug #11511).
