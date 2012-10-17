@@ -241,7 +241,7 @@ abstract class Horde_Core_TagBrowser
      *
      * @return array  An array of result objects.
      */
-    abstract public function getSlice($page, $perpage);
+    abstract public function getSlice($page = 0, $perpage = null);
 
     /**
      * Get breadcrumb style navigation html for choosen tags
