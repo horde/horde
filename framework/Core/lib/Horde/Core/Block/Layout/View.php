@@ -159,7 +159,7 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
         foreach ($this->getApplications() as $app) {
             $app_css = $css->getStylesheets('', array(
                 'app' => $app,
-                'nohorde' => true,
+                'nohorde' => !in_array('horde', $this->getApplications()),
                 'sub' => 'block',
                 'subonly' => true
             ));
