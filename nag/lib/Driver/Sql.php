@@ -36,9 +36,9 @@ class Nag_Driver_Sql extends Nag_Driver
     }
 
     /**
-     * Retrieves one task from the database.
+     * Retrieves one or multiple tasks from the database.
      *
-     * @param mixed string|array $taskIds  The ids of the task to retrieve.
+     * @param mixed string|array $taskIds  The ID(s) of the task to retrieve.
      *
      * @return Nag_Task A Nag_Task object.
      * @throws Horde_Exception_NotFound
@@ -46,15 +46,44 @@ class Nag_Driver_Sql extends Nag_Driver
      */
     public function get($taskIds)
     {
+        return $this->_getBy($taskIds, 'task_id');
+    }
+
+    /**
+     * Retrieves one or multiple tasks from the database by UID.
+     *
+     * @param string|array $uid  The UID(s) of the task to retrieve.
+     *
+     * @return Nag_Task  A Nag_Task object.
+     * @throws Horde_Exception_NotFound
+     * @throws Nag_Exception
+     */
+    public function getByUID($uids)
+    {
+        return $this->_getBy($taskIds, 'task_uid');
+    }
+
+    /**
+     * Retrieves one or multiple tasks from the database.
+     *
+     * @param mixed string|array $taskIds  The ids of the task to retrieve.
+     * @param string $column               The column name to search for the ID.
+     *
+     * @return Nag_Task A Nag_Task object.
+     * @throws Horde_Exception_NotFound
+     * @throws Nag_Exception
+     */
+    protected function _getBy($taskIds, $column)
+    {
         if (!is_array($taskIds)) {
-            $query = sprintf('SELECT * FROM %s WHERE task_id = ?',
+            $query = sprintf('SELECT * FROM %s WHERE ' . $column . ' = ?',
                              $this->_params['table']);
             $values = array($taskIds);
         } else {
             if (empty($taskIds)) {
                 throw new InvalidArgumentException('Must specify at least one task id');
             }
-            $query = sprintf('SELECT * FROM %s WHERE task_id IN ('
+            $query = sprintf('SELECT * FROM %s WHERE ' . $column . ' IN ('
                 . implode(',', array_fill(0, count($taskIds), '?')) . ')',
                     $this->_params['table']
             );
@@ -78,53 +107,6 @@ class Nag_Driver_Sql extends Nag_Driver
             foreach ($rows as $row) {
                 $results->add(new Nag_Task($this, $this->_buildTask($row)));
             }
-        }
-
-        return $results;
-    }
-
-    /**
-     * Retrieves one task from the database by UID.
-     *
-     * @param string $uid  The UID of the task to retrieve.
-     *
-     * @return Nag_Task  A Nag_Task object.
-     * @throws Horde_Exception_NotFound
-     * @throws Nag_Exception
-     */
-    public function getByUID($uids)
-    {
-        if (!is_array($uids)) {
-            $query = sprintf('SELECT * FROM %s WHERE task_uid = ?',
-                         $this->_params['table']);
-            $values = array($uids);
-        } else {
-            if (empty($uids)) {
-                throw new InvalidArgumentException('Must specify at least one task id');
-            }
-            $query = sprintf('SELECT * FROM %s WHERE task_uid IN ('
-                . implode(',', array_fill(0, count($uids), '?')) . ')',
-                $this->_params['table']);
-            $values = $uids;
-        }
-        try {
-            $rows = $this->_db->selectAll($query, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Nag_Exception($e->getMessage());
-        }
-        if (!$rows) {
-            throw new Horde_Exception_NotFound(sprintf(_("Task UID %s not found"), $uid));
-        }
-        if (!is_array($uids)) {
-            // @TODO: Check this. Not sure why getByUID should have the side
-            //        effect of setting the tasklist while get() does not.
-            $this->_tasklist = $row['task_owner'];
-            return new Nag_Task($this, $this->_buildTask(current($rows)));
-        }
-
-        $results = new Nag_Task();
-        foreach ($rows as $row) {
-            $results->add(new Nag_Task($this, $this->_buildTask($row)));
         }
 
         return $results;
