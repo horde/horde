@@ -19,11 +19,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
     public $growlerLog = true;
 
     /**
-     * @var boolean
-     */
-    public $topbar = true;
-
-    /**
      */
     protected function _init()
     {
@@ -62,6 +57,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $topbar->search = $this->view->show_search;
         $topbar->searchMenu = true;
         $topbar->subinfo = $impSubinfo->render('mailbox_subinfo');
+        $page_output->topbar = true;
 
         $blank = new Horde_Url();
         $impSidebar = new Horde_View(array(

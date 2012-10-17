@@ -59,11 +59,6 @@ abstract class IMP_Dynamic_Base
     );
 
     /**
-     * @var boolean
-     */
-    public $topbar = false;
-
-    /**
      */
     public function __construct(Horde_Variables $vars)
     {
@@ -81,6 +76,8 @@ abstract class IMP_Dynamic_Base
 
         $mimecss = new Horde_Themes_Element('mime.css');
         $page_output->addStylesheet($mimecss->fs, $mimecss->uri);
+
+        $page_output->sidebar = $page_output->topbar = false;
 
         $this->_init();
 
