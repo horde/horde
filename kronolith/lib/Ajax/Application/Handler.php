@@ -1426,7 +1426,7 @@ kronolithNodes[kronolithNodes.length] = $container;
 kronolith['$container'] = $results;
 EOT;
 
-        return new Horde_Core_Ajax_Response_Javascript($js);
+        return new Horde_Core_Ajax_Response_Raw($js, 'text/javascript');
     }
 
     /**
