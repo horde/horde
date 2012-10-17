@@ -14,6 +14,7 @@
  */
 class Ansel_Ajax_Application_Helper extends Horde_Core_Ajax_Application_Handler
 {
+    protected $_external = array('embed');
     /**
      * Obtain a gallery
      *
