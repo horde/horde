@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>23:08:23</time>
+ <date>2012-10-17</date>
+ <time>14:37:27</time>
  <version>
   <release>6.0.0beta5</release>
   <api>6.0.0beta1</api>
@@ -975,8 +975,7 @@
       <file name="imp.png" role="horde" />
       <file name="info_icon.png" role="horde" />
       <file name="innocent.png" role="horde" />
-      <file name="key_down.png" role="horde" />
-      <file name="key_up.png" role="horde" />
+      <file name="locked-inv.png" role="horde" />
       <file name="locked.png" role="horde" />
       <file name="logo.png" role="horde" />
       <file name="logout.png" role="horde" />
@@ -1840,8 +1839,7 @@
    <install as="imp/themes/default/graphics/imp.png" name="themes/default/graphics/imp.png" />
    <install as="imp/themes/default/graphics/info_icon.png" name="themes/default/graphics/info_icon.png" />
    <install as="imp/themes/default/graphics/innocent.png" name="themes/default/graphics/innocent.png" />
-   <install as="imp/themes/default/graphics/key_down.png" name="themes/default/graphics/key_down.png" />
-   <install as="imp/themes/default/graphics/key_up.png" name="themes/default/graphics/key_up.png" />
+   <install as="imp/themes/default/graphics/locked-inv.png" name="themes/default/graphics/locked-inv.png" />
    <install as="imp/themes/default/graphics/locked.png" name="themes/default/graphics/locked.png" />
    <install as="imp/themes/default/graphics/logo.png" name="themes/default/graphics/logo.png" />
    <install as="imp/themes/default/graphics/logout.png" name="themes/default/graphics/logout.png" />
@@ -2762,7 +2760,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-12</date>
+   <date>2012-10-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Don&apos;t show application menus in iTip MIME viewer popups.
