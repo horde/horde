@@ -403,7 +403,10 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                     : sprintf(_("Ambiguous matches for \"%s\":"), $expand[$key][0]);
 
                 $tmp['match'] = array();
-                foreach (array_slice($expand[$key][1], 0, 5) as $key2 => $val2) {
+                foreach ($expand[$key][1] as $key2 => $val2) {
+                    if ($key2 == 5) {
+                        break;
+                    }
                     $tmp['match'][] = array(
                         'id' => $key . '_expand_' . $key2,
                         'val' => $val2
@@ -447,7 +450,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
             return '';
         }
 
-        $search = $addr_list[$size];
+        $search = $addr_list[$size - 1];
 
         /* Don't search if the search string looks like an e-mail address. */
         if (!is_null($search->mailbox) && !is_null($search->host)) {
