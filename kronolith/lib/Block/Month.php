@@ -106,7 +106,7 @@ class Kronolith_Block_Month extends Horde_Core_Block
                                         'hour' => 23, 'min' => 59, 'sec' => 59));
 
         /* Table start. and current month indicator. */
-        $html = '<table cellspacing="1" class="block-monthgrid" width="100%"><tr>';
+        $html = '<table cellspacing="1" class="monthgrid" width="100%"><tr>';
 
         /* Set up the weekdays. */
         $weekdays = array(_("Mo"), _("Tu"), _("We"), _("Th"), _("Fr"), _("Sa"));
