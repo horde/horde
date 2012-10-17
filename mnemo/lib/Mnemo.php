@@ -570,7 +570,7 @@ class Mnemo
 
     /**
      */
-    static public function getCssStyle($category, $stickies = false)
+    static public function getCssStyle($category)
     {
         $cManager = new Horde_Prefs_CategoryManager();
         $colors = $cManager->colors();
@@ -579,22 +579,7 @@ class Mnemo
         }
         $fgColors = $cManager->fgColors();
 
-        if (!$stickies) {
-            return 'color:' . (isset($fgColors[$category]) ? $fgColors[$category] : $fgColors['_default_']) . ';' .
-                'background:' . $colors[$category] . ';';
-        }
-
-        $hex = str_replace('#', '', $colors[$category]);
-        if (strlen($hex) == 3) {
-            $r = hexdec(substr($hex, 0, 1));
-            $g = hexdec(substr($hex, 1, 1));
-            $b = hexdec(substr($hex, 2, 1));
-        } else {
-            $r = hexdec(substr($hex, 0, 2));
-            $g = hexdec(substr($hex, 2, 2));
-            $b = hexdec(substr($hex, 4, 2));
-        }
-
-        return "background: rgba($r, $g, $b, 0.5)";
+        return 'color:' . (isset($fgColors[$category]) ? $fgColors[$category] : $fgColors['_default_']) . ';' .
+            'background:' . $colors[$category] . ';';
     }
 }

@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>23:18:22</time>
+ <date>2012-10-17</date>
+ <time>15:59:47</time>
  <version>
   <release>4.0.0beta2</release>
   <api>4.0.0beta1</api>
@@ -326,7 +326,6 @@
     <dir name="view">
      <file name="memo.inc" role="horde" />
     </dir> <!-- /templates/view -->
-    <file name="stickies.html.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Mnemo">
@@ -669,7 +668,6 @@
    <install as="mnemo/notepads/edit.php" name="notepads/edit.php" />
    <install as="mnemo/notepads/index.php" name="notepads/index.php" />
    <install as="mnemo/notes/index.php" name="notes/index.php" />
-   <install as="mnemo/templates/stickies.html.php" name="templates/stickies.html.php" />
    <install as="mnemo/templates/data/export.inc" name="templates/data/export.inc" />
    <install as="mnemo/templates/data/import.inc" name="templates/data/import.inc" />
    <install as="mnemo/templates/list/empty.inc" name="templates/list/empty.inc" />
@@ -919,7 +917,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-12</date>
+   <date>2012-10-17</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix exporting (Bug #11507).
