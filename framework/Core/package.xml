@@ -41,6 +41,7 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mms] SECURITY: Fix XSS in tooltip javascript.
+* [jan] Catch exceptions from Horde_Crypt (Bug #11530).
 * [mms] Fix Horde_Core_Auth_Application#updateUser().
 * [mjr] Port fix for Bug #9733 from FW_5.
 * [jan] Fix using PostgreSQL as the session handler backend (Bug #11436).
@@ -1803,6 +1804,7 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] SECURITY: Fix XSS in tooltip javascript.
+* [jan] Catch exceptions from Horde_Crypt (Bug #11530).
 * [mms] Fix Horde_Core_Auth_Application#updateUser().
 * [mjr] Port fix for Bug #9733 from FW_5.
 * [jan] Fix using PostgreSQL as the session handler backend (Bug #11436).

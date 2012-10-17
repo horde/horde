@@ -1338,7 +1338,14 @@ EOT;
         if (empty($cert)) {
             return '';
         }
-        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_Crypt')->create('Smime', $var->type->getSMIMEParams())->certToHTML($cert);
+        try {
+            return $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Crypt')
+                ->create('Smime', $var->type->getSMIMEParams())
+                ->certToHTML($cert);
+        } catch (Horde_Crypt_Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     protected function _renderVarDisplay_country($form, &$var, &$vars)
