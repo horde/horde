@@ -151,11 +151,6 @@ class Horde_Test
             'error' => 'The PAM extension is required to allow PAM authentication to be used.',
             'function' => '_checkPam'
         ),
-        'pcre' => array(
-            'descrip' => 'PCRE Support',
-            'error' => 'Horde will not run without the pcre extension. Don\'t compile PHP with <code>--disable-all/--without-pcre-regex</code>, or enable the pcre extension individually before continuing.',
-            'fatal' => true
-        ),
         'pdo' => array(
             'descrip' => 'PDO',
             'error' => 'The PDO extension is required if you plan on using a database backend other than mysql or mysqli with Horde_Db.',
