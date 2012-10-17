@@ -11,11 +11,6 @@
      <configboolean name="autocreate_special" required="false"
      desc="Automatically create special mailboxes (Drafts, Sent Mail, Spam,
      Trash) on login?">false</configboolean>
-     <configboolean name="select_sentmail_folder" desc="If true, users will be
-     given a drop down menu in the compose window allowing them to choose
-     which mailbox to save their sent messages to. If this is false, messages
-     will be saved to the mailbox defined in their
-     preferences.">false</configboolean>
     </case>
     <case name="false" desc="No" />
    </configswitch>

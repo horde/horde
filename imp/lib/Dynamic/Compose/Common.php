@@ -85,8 +85,7 @@ class IMP_Dynamic_Compose_Common
         if ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             $view->save_sent_mail = !$prefs->isLocked('save_sent_mail');
 
-            if (!empty($conf['user']['select_sentmail_folder']) &&
-                !$prefs->isLocked('sent_mail_folder')) {
+            if (!$prefs->isLocked('sent_mail_folder')) {
                 /* Check to make sure the sent-mail mailboxes are created;
                  * they need to exist to show up in drop-down list. */
                 foreach (array_keys($identity->getAll('id')) as $ident) {

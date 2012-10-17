@@ -62,6 +62,10 @@ The $conf['compose']['link_attach_size_limit'] option was added.
 The $conf['print']['add_printedby'] option was removed and replaced by the
 'add_printedby' preference.
 
+The $conf['user']['select_sentmail_folder'] option was removed. To prevent
+changing the sentmail mailbox, the 'sent_mail_folder' preference should be
+locked instead.
+
 The following configuration options were removed::
 
    $conf['dimp']['viewport']['buffer_pages']

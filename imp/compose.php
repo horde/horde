@@ -601,7 +601,6 @@ if ($redirect) {
 }
 
 $max_attach = $imp_compose->additionalAttachmentsAllowed();
-$sm_check = !empty($conf['user']['select_sentmail_folder']) && !$prefs->isLocked('sent_mail_folder');
 
 /* Get the URL to use for the cancel action. */
 $cancel_url = '';
@@ -697,7 +696,7 @@ $js_vars = array(
     'ImpCompose.popup' => intval($isPopup),
     'ImpCompose.redirect' => intval($redirect),
     'ImpCompose.reloaded' => intval($vars->compose_formToken),
-    'ImpCompose.sm_check' => intval($sm_check),
+    'ImpCompose.sm_check' => intval(!$prefs->isLocked('sent_mail_folder')),
     'ImpCompose.spellcheck' => intval($spellcheck && $prefs->getValue('compose_spellcheck')),
     'ImpCompose.text' => array(
         'cancel' => _("Cancelling this message will permanently discard its contents.") . "\n" . _("Are you sure you want to do this?"),
@@ -893,8 +892,7 @@ if ($redirect) {
         if ($vars->sent_mail) {
             $sent_mail = IMP_Mailbox::formFrom($vars->sent_mail);
         }
-        if (!empty($conf['user']['select_sentmail_folder']) &&
-            !$prefs->isLocked('sent_mail_folder')) {
+        if (!$prefs->isLocked('sent_mail_folder')) {
             $ssm_options = array(
                 'abbrev' => false,
                 'basename' => true,
