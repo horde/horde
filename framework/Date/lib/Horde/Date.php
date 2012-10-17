@@ -143,7 +143,7 @@ class Horde_Date
      * Default specs that are always supported.
      * @var string
      */
-    protected static $_defaultSpecs = '%-CdDeHImMnRStTyY';
+    protected static $_defaultSpecs = '%CdDeHImMnRStTyY-';
 
     /**
      * Internally supported strftime() specifiers.
