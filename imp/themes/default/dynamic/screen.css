@@ -1009,7 +1009,7 @@ div.msgSubject span.horde-tree-image {
 }
 
 span.readonlyImg {
-    background-color: white;
+    background-image: url("../graphics/locked-inv.png");
     margin: -1px 0 0 3px;
 }
 
