@@ -35,7 +35,7 @@
 
  <p>
   <?php echo _("Subject:") ?>
-  <input name="subject" value="<?php echo $this->h($this->subject) ?>>" />
+  <input name="subject" value="<?php echo $this->h($this->subject) ?>" />
  </p>
 
  <p>
