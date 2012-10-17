@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Support non-padding operators in strftime() formatting (Bug #10435).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -817,7 +817,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Support non-padding operators in strftime() formatting (Bug #10435).
    </notes>
   </release>
  </changelog>

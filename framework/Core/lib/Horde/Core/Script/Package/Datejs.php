@@ -37,8 +37,8 @@ class Horde_Core_Script_Package_Datejs extends Horde_Script_Package
      */
     public function translateFormat($format)
     {
-        $from = array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y', '%x');
-        $to = array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy');
+        $from = array('%e', '%-d', '%d', '%a', '%A', '%-m', '%m', '%h', '%b', '%B', '%y', '%Y', '%x');
+        $to = array(' d', 'd', 'dd', 'ddd', 'dddd', 'M', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy');
         $to[] = str_replace($from, $to, Horde_Nls::getLangInfo(D_FMT));
         return str_replace($from, $to, $format);
     }

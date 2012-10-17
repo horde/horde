@@ -143,7 +143,7 @@ class Horde_Date
      * Default specs that are always supported.
      * @var string
      */
-    protected static $_defaultSpecs = '%CdDeHImMnRStTyY';
+    protected static $_defaultSpecs = '%-CdDeHImMnRStTyY';
 
     /**
      * Internally supported strftime() specifiers.
@@ -899,17 +899,17 @@ class Horde_Date
             array('/%b/e',
                   '/%B/e',
                   '/%C/e',
-                  '/%d/e',
+                  '/%([-#]?)d/e',
                   '/%D/e',
                   '/%e/e',
-                  '/%H/e',
-                  '/%I/e',
-                  '/%m/e',
-                  '/%M/e',
+                  '/%([-#]?)H/e',
+                  '/%([-#]?)I/e',
+                  '/%([-#]?)m/e',
+                  '/%([-#]?)M/e',
                   '/%n/',
                   '/%p/e',
                   '/%R/e',
-                  '/%S/e',
+                  '/%([-#]?)S/e',
                   '/%t/',
                   '/%T/e',
                   '/%x/e',
@@ -920,17 +920,17 @@ class Horde_Date
             array('$this->_strftime(Horde_Nls::getLangInfo(constant(\'ABMON_\' . (int)$this->_month)))',
                   '$this->_strftime(Horde_Nls::getLangInfo(constant(\'MON_\' . (int)$this->_month)))',
                   '(int)($this->_year / 100)',
-                  'sprintf(\'%02d\', $this->_mday)',
+                  'sprintf(\'%\' . (\'$1\' ? \'\' : \'02\') . \'d\', $this->_mday)',
                   '$this->_strftime(\'%m/%d/%y\')',
                   'sprintf(\'%2d\', $this->_mday)',
-                  'sprintf(\'%02d\', $this->_hour)',
-                  'sprintf(\'%02d\', $this->_hour == 0 ? 12 : ($this->_hour > 12 ? $this->_hour - 12 : $this->_hour))',
-                  'sprintf(\'%02d\', $this->_month)',
-                  'sprintf(\'%02d\', $this->_min)',
+                  'sprintf(\'%\' . (\'$1\' ? \'\' : \'02\') . \'d\', $this->_hour)',
+                  'sprintf(\'%\' . (\'$1\' ? \'\' : \'02\') . \'d\', $this->_hour == 0 ? 12 : ($this->_hour > 12 ? $this->_hour - 12 : $this->_hour))',
+                  'sprintf(\'%\' . (\'$1\' ? \'\' : \'02\') . \'d\', $this->_month)',
+                  'sprintf(\'%\' . (\'$1\' ? \'\' : \'02\') . \'d\', $this->_min)',
                   "\n",
                   '$this->_strftime(Horde_Nls::getLangInfo($this->_hour < 12 ? AM_STR : PM_STR))',
                   '$this->_strftime(\'%H:%M\')',
-                  'sprintf(\'%02d\', $this->_sec)',
+                  'sprintf(\'%\' . (\'$1\' ? \'\' : \'02\') . \'d\', $this->_sec)',
                   "\t",
                   '$this->_strftime(\'%H:%M:%S\')',
                   '$this->_strftime(Horde_Nls::getLangInfo(D_FMT))',
