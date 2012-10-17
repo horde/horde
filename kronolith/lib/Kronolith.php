@@ -2025,7 +2025,7 @@ class Kronolith
             $attendees[$newAttendee->bare_address] = array(
                 'attendance' => self::PART_REQUIRED,
                 'response'   => self::RESPONSE_NONE,
-                'name'       => $newAttendee->label
+                'name'       => ($newAttendee->label != $newAttendee->bare_address) ? $newAttendee->label : ''
             );
         }
 
