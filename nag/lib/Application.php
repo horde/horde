@@ -369,6 +369,7 @@ class Nag_Application extends Horde_Registry_Application
                 while ($task = $tasks->each()) {
                     $task = $task->toHash();
                     $task['desc'] = str_replace(',', '', $task['desc']);
+                    $task['tags'] = implode(',', $task['tags']);
                     unset(
                         $task['complete_link'],
                         $task['delete_link'],
