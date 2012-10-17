@@ -51,7 +51,7 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
             try {
                 $tasks->add($driver->getByUID($id));
             } catch (Nag_Exception $e) {
-                Horde::logMessage(sprintf('Error loadint task: %s', $e->getMessage()), 'ERR');
+                Horde::logMessage(sprintf('Error loading task: %s', $e->getMessage()), 'ERR');
             } catch (Horde_Exception_NotFound $e) {
                 Horde::logMessage('Task not found: ' . $id, 'ERR');
             }
