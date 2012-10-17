@@ -5,9 +5,8 @@
  * Path Info:
  * ----------
  * http://example.com/horde/services/ajax.php/APP/ACTION
- *
- * 'ACTION' - (string) The AJAX action identifier.
- * 'APP' - (string) The application name.
+ *   - ACTION: (string) The AJAX action identifier.
+ *   - APP: (string) The application name.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
