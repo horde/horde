@@ -256,7 +256,7 @@ class Nag_View_List
 
         // Text filter
         $search_pattern = $this->_vars->search_pattern;
-        $search_in = $this->_vars->search_in;
+        $search_in = empty($this->_vars->search_in) ? array() : $this->_vars->search_in;
         $search_name = in_array('search_name', $search_in) ? Nag_Search::MASK_NAME : 0;
         $search_desc = in_array('search_desc', $search_in) ? Nag_Search::MASK_DESC : 0;
         $search_tags = !empty($this->_vars->search_tags) ? Nag_Search::MASK_TAGS : 0;
