@@ -12,9 +12,10 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Ansel
  */
-class Ansel_Ajax_Application_Helper extends Horde_Core_Ajax_Application_Handler
+class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
 {
     protected $_external = array('embed');
+
     /**
      * Obtain a gallery
      *
