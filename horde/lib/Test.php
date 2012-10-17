@@ -251,10 +251,6 @@ class Horde_Test
             'setting' => false,
             'error' => 'You should not enable output compression unconditionally because some browsers and scripts don\'t work well with output compression. Enable compression in Horde\'s configuration instead, so that we have full control over the conditions where to enable and disable it.'
         ),
-        'zend.ze1_compatibility_mode' => array(
-            'setting' => false,
-            'error' => 'Unneeded, deprecated PHP 4 compatibility option. Horde will attempt to disable automatically, but it is best to manually disable also.'
-        ),
         'zlib.output_compression' => array(
             'setting' => false,
             'error' => 'You should not enable output compression unconditionally because some browsers and scripts don\'t work well with output compression. Enable compression in Horde\'s configuration instead, so that we have full control over the conditions where to enable and disable it.'
