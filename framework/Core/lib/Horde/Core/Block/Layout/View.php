@@ -164,16 +164,9 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
                 'subonly' => true
             ));
 
-            // TODO: BC - fallback to loading full app stylesheets if the
-            // 'block' subdirectory is not found.
-            if (empty($app_css)) {
-                $app_css = $css->getStylesheets('', array(
-                    'app' => $app,
-                    'nohorde' => true
-                ));
+            if (!empty($app_css)) {
+                $stylesheets = array_merge($stylesheets, $app_css);
             }
-
-            $stylesheets = array_merge($stylesheets, $app_css);
         }
 
         return $stylesheets;
