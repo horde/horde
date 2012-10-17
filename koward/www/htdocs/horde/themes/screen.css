@@ -767,8 +767,8 @@ table.calendarPopup {
     padding: 5px 7px;
     cursor: pointer;
     -moz-user-select: none;
-    -khtml-user-select: none;
-    user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
 }
 #color-picker .north div:hover {
     color: #fff;
@@ -777,8 +777,8 @@ table.calendarPopup {
     margin: 32px 0 0 10px;
     cursor: crosshair;
     -moz-user-select: none;
-    -khtml-user-select: none;
-    user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
 }
 #color-picker .south img {
     height: 100%;

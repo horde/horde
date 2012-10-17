@@ -44,6 +44,9 @@
 #imp-message-headers {
     margin-top: 0;
 }
+#imp-message-headers div.ui-collapsible-content {
+    overflow: hidden;
+}
 .imp-header-label {
     font-weight: bold;
     padding-right: 5px;
