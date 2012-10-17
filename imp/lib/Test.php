@@ -19,7 +19,12 @@ class IMP_Test extends Horde_Test
      *
      * @var array
      */
-    protected $_moduleList = array();
+    protected $_moduleList = array(
+        'openssl' => array(
+            'descrip' => 'OpenSSL Support',
+            'error' => 'The OpenSSL extension is required for S/MIME support and to securely connect to the remote IMAP/POP3 server.'
+        )
+    );
 
     /**
      * PHP settings list.
