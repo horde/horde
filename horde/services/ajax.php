@@ -40,19 +40,18 @@ try {
     exit;
 }
 
-// Token checking.
-$vars = $injector->getInstance('Horde_Variables');
-try {
-    $session->checkToken($vars->token);
-} catch (Horde_Exception $e) {
-    exit;
-}
-
 // Open an output buffer to ensure that we catch errors that might break JSON
 // encoding.
 Horde::startBuffer();
 
-$ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, $vars, $action);
+// Token checking occurs in constructor.
+$vars = $injector->getInstance('Horde_Variables');
+try {
+    $ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, $vars, $action, $vars->token);
+} catch (Horde_Exception $e) {
+    exit;
+}
+
 try {
     $ajax->doAction();
 
