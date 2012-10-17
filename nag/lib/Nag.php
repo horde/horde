@@ -443,8 +443,9 @@ class Nag
         if ($owneronly && !$GLOBALS['registry']->getAuth()) {
             return array();
         }
-
-        $att = array('owner' => $GLOBALS['registry']->getAuth());
+        if ($owneronly) {
+            $att = array('owner' => $GLOBALS['registry']->getAuth());
+        }
         if (!$smart) {
             $att['issmart'] = 0;
         }
