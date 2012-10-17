@@ -247,10 +247,6 @@ class Horde_Test
             'setting' => false,
             'error' => 'This will break output of any dynamically created, non-HTML content. Horde will attempt to disable automatically, but it is best to manually disable also.'
         ),
-        'zend_accelerator.compress_all' => array(
-            'setting' => false,
-            'error' => 'You should not enable output compression unconditionally because some browsers and scripts don\'t work well with output compression. Enable compression in Horde\'s configuration instead, so that we have full control over the conditions where to enable and disable it.'
-        ),
         'zlib.output_compression' => array(
             'setting' => false,
             'error' => 'You should not enable output compression unconditionally because some browsers and scripts don\'t work well with output compression. Enable compression in Horde\'s configuration instead, so that we have full control over the conditions where to enable and disable it.'
