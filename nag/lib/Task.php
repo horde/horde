@@ -920,8 +920,7 @@ class Nag_Task
             }
             $json->as = $this->assignee;
             if ($this->estimate) {
-                $date = new Horde_Date($this->estimate);
-                $json->e = $date->toJson();
+                $json->e = $estimate;
             }
             /*
             $json->p = $this->parent_id;
