@@ -59,7 +59,11 @@ $app_fields = array(
 );
 
 /* Date/time fields. */
-$time_fields = array('due' => 'datetime');
+$time_fields = array(
+    'due' => 'datetime',
+    'start' => 'datetime',
+    'completed_date' => 'datetime'
+);
 
 /* Initial values. */
 $param = array('time_fields' => $time_fields,
