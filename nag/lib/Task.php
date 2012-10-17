@@ -861,17 +861,23 @@ class Nag_Task
             'assignee' => $this->assignee,
             'name' => $this->name,
             'desc' => $this->desc,
-            'start' => $this->start,
-            'due' => $this->due,
             'priority' => $this->priority,
             'estimate' => $this->estimate,
             'completed' => $this->completed,
-            'completed_date' => $this->completed_date,
             'alarm' => $this->alarm,
             'methods' => $this->methods,
             'private' => $this->private,
             'recurrence' => $this->recurrence,
-            'tags' => $this->tags);
+            'tags' => $this->tags
+        );
+        foreach (array('start', 'due', 'completed_date') as $field) {
+            if ($this->$field) {
+                $date = new Horde_Date($this->$field);
+                $hash[$field] = $date->format('c');
+            } else {
+                $hash[$field] = '';
+            }
+        }
 
         return $hash;
     }
