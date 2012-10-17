@@ -245,7 +245,7 @@ class Nag_Application extends Horde_Registry_Application
         if ((empty($user) || $user != $GLOBALS['registry']->getAuth()) &&
             !$GLOBALS['registry']->isAdmin()) {
 
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
