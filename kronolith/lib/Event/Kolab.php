@@ -234,7 +234,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
         // Recurrence
         if ($this->recurs()) {
-            $event['recurrence'] = $this->recurrence->toHash();
+            $event['recurrence'] = $this->recurrence->toKolab();
             if (!empty($event['recurrence']['exceptions'])) {
                 $exclusions = array();
                 foreach($event['recurrence']['exceptions'] as $exclusion) {
