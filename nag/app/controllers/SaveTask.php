@@ -54,7 +54,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             Horde::url('list.php', true)->redirect();
         }
         if (!$share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
-            $notification->push(sprintf(_("Access denied saving task to %s."), $share->get('name')), 'horde.error');
+            $notification->push(_("Access denied saving task to this task list."), 'horde.error');
             Horde::url('list.php', true)->redirect();
         }
 

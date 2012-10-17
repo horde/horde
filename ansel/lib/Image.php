@@ -906,7 +906,7 @@ class Ansel_Image Implements Iterator
                 ->getGallery($this->gallery);
             if (!$gallery->canDownload()) {
                 throw Horde_Exception_PermissionDenied(
-                    sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')));
+                    _("Access denied downloading photos from this gallery."));
             }
 
             try {

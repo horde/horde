@@ -475,8 +475,7 @@ class Ansel_Gallery implements Serializable
     {
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(
-                sprintf(_("Access denied copying photos to \"%s\"."),
-                        $gallery->get('name')));
+                _("Access denied copying photos to this gallery."));
         }
 
         $imgCnt = 0;

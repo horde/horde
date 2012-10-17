@@ -248,7 +248,7 @@ abstract class Nag_Driver
             }
 
             if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-                $GLOBALS['notification']->push(sprintf(_("Access denied removing task from %s."), $share->get('name')), 'horde.error');
+                $GLOBALS['notification']->push(_("Access denied removing task from this task list."), 'horde.error');
                 return false;
             }
 
@@ -260,7 +260,7 @@ abstract class Nag_Driver
             }
 
             if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-                $GLOBALS['notification']->push(sprintf(_("Access denied moving the task to %s."), $share->get('name')), 'horde.error');
+                $GLOBALS['notification']->push(_("Access denied moving the task to this task list."), 'horde.error');
             }
 
             $moved = $this->_move($task->id, $properties['tasklist']);

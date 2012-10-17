@@ -178,7 +178,7 @@ do {
         }
         if ($user != $GLOBALS['registry']->getAuth() &&
             !$kronolith_calendar->hasPermission(Kronolith::PERMS_DELEGATE)) {
-            $notification->push(sprintf(_("You do not have permission to delegate events to %s."), Kronolith::getUserName($user)), 'horde.warning');
+            $notification->push(_("You do not have permission to delegate events to this user."), 'horde.warning');
             break;
         }
 

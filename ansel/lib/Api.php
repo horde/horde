@@ -195,7 +195,7 @@ class Ansel_Api extends Horde_Registry_Api
         }
         $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            throw new Horde_Exception_PermissionDenied(_("Access denied adding photos to \"%s\"."));
+            throw new Horde_Exception_PermissionDenied(_("Access denied adding photos to this gallery."));
         }
 
         return $gallery->addImage(array(
@@ -347,7 +347,7 @@ class Ansel_Api extends Horde_Registry_Api
 
         // Check perms for requested gallery
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied adding photos to \"%s\"."), $gallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(_("Access denied adding photos to this gallery."));
         }
 
         // Changing any values while we are at it?
@@ -425,7 +425,7 @@ class Ansel_Api extends Horde_Registry_Api
         $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
         $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied deleting photos from \"%s\"."), $gallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(_("Access denied deleting photos from this gallery."));
         }
 
         $gallery->removeImage($image);
@@ -512,7 +512,7 @@ class Ansel_Api extends Horde_Registry_Api
         // Get, and check perms on the gallery
         $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied deleting gallery \"%s\"."), $gallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(_("Access denied deleting this gallery."));
         } else {
             $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
@@ -660,7 +660,7 @@ class Ansel_Api extends Horde_Registry_Api
             // Check permissions for full view
             if (!$gallery->canDownload()) {
                 throw new Horde_Exception_PermissionDenied(
-                    sprintf(_("Access denied downloading full sized photos from \"%s\"."), $gallery->get('name')));
+                    _("Access denied downloading full sized photos from this gallery."));
             }
 
             // Try reading the data

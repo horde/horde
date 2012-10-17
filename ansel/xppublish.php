@@ -175,7 +175,7 @@ if ($cmd == 'add') {
         try {
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
             if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-                $error = sprintf(_("Access denied adding photos to \"%s\"."), $gallery->get('name'));
+                $error = _("Access denied adding photos to this gallery.");
             } else {
                 $error = false;
             }
