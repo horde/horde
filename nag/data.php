@@ -77,7 +77,7 @@ $storage = $injector->getInstance('Horde_Core_Data_Storage');
 /* Loop through the action handlers. */
 switch ($actionID) {
 case Horde_Data::IMPORT_FILE:
-    $storage->set('target', Horde_Util::getFormData('tasklist_target'));
+    $storage->set('target', Horde_Util::getFormData('tasklist_target', $prefs->getValue('default_tasklist')));
     break;
 }
 
