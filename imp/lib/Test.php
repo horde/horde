@@ -19,12 +19,7 @@ class IMP_Test extends Horde_Test
      *
      * @var array
      */
-    protected $_moduleList = array(
-        'zip' => array(
-            'descrip' => 'Zip Support',
-            'error' => 'The zip extension is used when importing compress mailboxes. IMP will fallback to using the zlib extension (if available) to read this data which should be sufficient for most installations. If zip support is desired, compile PHP with <code>--with-zip</code> to activate.'
-        )
-    );
+    protected $_moduleList = array();
 
     /**
      * PHP settings list.
