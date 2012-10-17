@@ -215,7 +215,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         ));
 
         if ($registry->showService('help')) {
-            $this->js_conf['URI_HELP'] = strval($registry->getServiceLink('help', 'imp')->add('topic', 'dynamic-overview')->setRaw(true));
+            $this->js_conf['URI_HELP'] = strval($registry->getServiceLink('help', 'imp')->add('topic', 'dynamic-mailbox')->setRaw(true));
         }
 
         $context = array(
