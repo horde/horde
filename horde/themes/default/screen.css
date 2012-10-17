@@ -790,11 +790,17 @@ body.help_about, body.help_entry {
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }
-span.keyupImg {
-    background-image: url("graphics/key_up.png");
-}
 span.keydownImg {
-    background-image: url("graphics/key_down.png");
+    background-image: url("graphics/keys/down.png");
+}
+span.keyleftImg {
+    background-image: url("graphics/keys/left.png");
+}
+span.keyleftImg {
+    background-image: url("graphics/keys/right.png");
+}
+span.keyupImg {
+    background-image: url("graphics/keys/up.png");
 }
 
 /* Source markup styles. */
