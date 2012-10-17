@@ -377,7 +377,9 @@ class Nag_Application extends Horde_Registry_Application
                         $task['parent'],
                         $task['task_id'],
                         $task['tasklist_id'],
-                        $task['view_link']
+                        $task['view_link'],
+                        $task['recurrence'],
+                        $task['methods']
                     );
                     $data[] = $task;
                 }
