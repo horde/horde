@@ -1423,7 +1423,7 @@ if (typeof kronolith == 'undefined') {
     document.write('$css');
 }
 kronolithNodes[kronolithNodes.length] = $container;
-kronolith['$container'] = $results;
+kronolith[$container] = $results;
 EOT;
 
         return new Horde_Core_Ajax_Response_Raw($js, 'text/javascript');
