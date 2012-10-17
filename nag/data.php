@@ -101,7 +101,7 @@ if ($import_format) {
 if (is_array($next_step)) {
 
     /* Create a Nag storage instance. */
-    $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($storage->set('target'));
+    $nag_storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($storage->set('target'));
     $max_tasks = $perms->hasAppPermission('max_tasks');
     $num_tasks = Nag::countTasks();
     $result = null;
@@ -128,9 +128,9 @@ if (is_array($next_step)) {
                 }
             }
         }
-
+        $row['owner'] = $GLOBALS['registry']->getAuth();
         try {
-            $storage->add($row);
+            $nag_storage->add($row);
         } catch (Nag_Exception $e) {
             $haveError = true;
             $notification->push(sprintf(
