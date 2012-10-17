@@ -10,7 +10,7 @@
 
 <div class="header">
  <?php echo _("Filter Rule") ?>
- <?php if (!empty($rule['disable'])): ?>[<span style="form-error"><?php echo _("Disabled") ?></span>]<?php endif; ?>
+ <?php if (!empty($rule['disable'])): ?>[<span class="horde-form-error"><?php echo _("Disabled") ?></span>]<?php endif; ?>
  <?php echo Horde_Help::link('ingo', 'rule') ?>
 </div>
 

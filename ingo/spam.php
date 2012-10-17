@@ -117,7 +117,7 @@ if (!$form->isSubmitted()) {
 /* Set form title. */
 $form_title = _("Spam Filtering");
 if (!empty($spam_rule['disable'])) {
-    $form_title .= ' [<span class="form-error">' . _("Disabled") . '</span>]';
+    $form_title .= ' [<span class="horde-form-error">' . _("Disabled") . '</span>]';
 }
 $form_title .= ' ' . Horde_Help::link('ingo', 'spam');
 $form->setTitle($form_title);
