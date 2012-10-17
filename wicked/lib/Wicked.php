@@ -185,4 +185,13 @@ class Wicked
         return $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : $GLOBALS['browser']->getIPAddress();
     }
 
+    public static addFeedLink()
+    {
+        $GLOBALS['page_output']->addLinkTag(array(
+            'href' => Horde::url('opensearch.php', true, -1),
+            'rel' => 'search',
+            'title' => $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')',
+            'type' => 'application/opensearchdescription+xml'
+        ));
+    }
 }

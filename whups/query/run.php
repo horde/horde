@@ -75,6 +75,7 @@ if ($whups_query->id) {
     $page_output->addLinkTag($whups_query->feedLink());
 }
 
+Whups::addFeedLink();
 $page_output->header(array(
     'title' => $whups_query->name ? $whups_query->name : _("Query Results")
 ));

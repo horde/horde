@@ -32,6 +32,8 @@ if (!$registry->isAuthenticated()) {
     )));
 }
 
+Whups::addFeedLink();
+
 $layout = new Horde_Core_Block_Layout_View(
     $injector->getInstance('Horde_Core_Factory_BlockCollection')->create(array('whups'), 'mybugs_layout')->getLayout(),
     Horde::url('mybugs_edit.php'),
