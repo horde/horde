@@ -129,8 +129,9 @@ if (is_array($next_step)) {
             $storage->add($row);
         } catch (Nag_Exception $e) {
             $haveError = true;
-            $notification->push(sprintf(_("There was an error importing the data: %s"),
-                                        $result->getMessage()), 'horde.error');
+            $notification->push(sprintf(
+                _("There was an error importing the data: %s"), $e->getMessage()),
+                'horde.error');
             break;
         }
 
