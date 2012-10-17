@@ -2018,6 +2018,9 @@ class Kronolith
                     $notification->push($e, 'horde.error');
                     continue;
                 }
+                $name = $newAttendee->label != $newAttendee->bare_address ? $newAttendee->label : '';
+            } else {
+                $name = $newAttendee->bare_address;
             }
 
             // Avoid overwriting existing attendees with the default
@@ -2025,7 +2028,7 @@ class Kronolith
             $attendees[$newAttendee->bare_address] = array(
                 'attendance' => self::PART_REQUIRED,
                 'response'   => self::RESPONSE_NONE,
-                'name'       => ($newAttendee->label != $newAttendee->bare_address) ? $newAttendee->label : ''
+                'name'       => $name
             );
         }
 
