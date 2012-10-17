@@ -389,7 +389,7 @@ class Nag
      * @param integer $date     The unix epoch time to check for alarms.
      * @param array $tasklists  An array of tasklists
      *
-     * @return array  The alarms (taskId) active on $date.
+     * @return array  An array of Nag_Task objects with alarms active on $date.
      */
     static public function listAlarms($date, array $tasklists = null)
     {

@@ -437,7 +437,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *
      * @param integer $date  The unix epoch time to check for alarms.
      *
-     * @return array  An array of tasks that have alarms that match.
+     * @return array  An array of Nag_Task objects that have alarms that match.
      */
     public function listAlarms($date)
     {
