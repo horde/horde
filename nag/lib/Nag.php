@@ -443,6 +443,7 @@ class Nag
         if ($owneronly && !$GLOBALS['registry']->getAuth()) {
             return array();
         }
+        $att = array();
         if ($owneronly) {
             $att = array('owner' => $GLOBALS['registry']->getAuth());
         }
