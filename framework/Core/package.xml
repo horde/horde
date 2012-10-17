@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add keyboard key graphic output to Help system.
 * [mms] Fix handling active error reporting codes in Horde_ErrorHandler.
  </notes>
  <contents>
@@ -2512,6 +2513,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add keyboard key graphic output to Help system.
 * [mms] Fix handling active error reporting codes in Horde_ErrorHandler.
    </notes>
   </release>

@@ -778,6 +778,25 @@ body.help_about, body.help_entry {
     background: #f0e0e0;
 }
 
+/* Keyboard key style */
+.kbd {
+    background: #eee;
+    color: #000;
+    white-space: nowrap;
+    padding: 1px 2px;
+    border: 1px solid #888;
+    font-size: 90%;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+span.keyupImg {
+    background-image: url("graphics/key_up.png");
+}
+span.keydownImg {
+    background-image: url("graphics/key_down.png");
+}
+
 /* Source markup styles. */
 table.lineNumbered * {
     line-height: 16px;

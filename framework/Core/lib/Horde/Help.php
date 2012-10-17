@@ -178,6 +178,18 @@ class Horde_Help
             case 'warn':
                 $out .= '<em class="helpWarn">' . strval($child) . '</em>';
                 break;
+
+            case 'kbd':
+                $out .= '<span class="kbd">' . strval($child) . '</span>';
+                break;
+
+            case 'kbdup':
+                $out .= '<span class="iconImg keyupImg"></span>';
+                break;
+
+            case 'kbddown':
+                $out .= '<span class="iconImg keydownImg"></span>';
+                break;
             }
         }
 
