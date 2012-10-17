@@ -1,0 +1,9 @@
+.overdue, .overdue td, .overdue a, .overdue td a {
+    color: #f00;
+}
+.closed, .closed td, .closed a, .closed td a {
+    color: #aaa;
+}
+.closed a, .closed td a {
+    text-decoration: line-through;
+}
