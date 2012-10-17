@@ -1099,7 +1099,7 @@ var DimpBase = {
             break;
 
         case 'ctx_oa_help':
-            this.toggleHelp();
+            HordeCore.popupWindow(DimpCore.conf.URI_HELP);
             break;
 
         case 'ctx_sortopts_date':
@@ -2746,11 +2746,6 @@ var DimpBase = {
             e.memo.stop();
             break;
 
-        case 'helptext_close':
-            this.toggleHelp();
-            e.memo.stop();
-            break;
-
         case 'send_mdn_link':
             tmp = {};
             tmp[this.pp.mbox] = [ this.pp.uid ];
@@ -2825,18 +2820,6 @@ var DimpBase = {
         var range = this.viewport.currentViewableRange();
 
         $('slider_count').update(DimpCore.text.slidertext.sub('%d', range.first).sub('%d', range.last));
-    },
-
-    toggleHelp: function()
-    {
-        Effect.toggle($('helptext').down('DIV'), 'blind', {
-            duration: 0.75,
-            queue: {
-                position: 'end',
-                scope: 'DimpHelp',
-                limit: 2
-            }
-        });
     },
 
     _mailboxPromptCallback: function(type, elt, r)

@@ -802,19 +802,6 @@ span.attachmentImg {
     margin-top: 6px;
 }
 
-/* Keyboard key style */
-.kbd {
-    background: #eee;
-    color: #000;
-    white-space: nowrap;
-    padding: 1px 2px;
-    border: 1px solid #888;
-    font-size: 90%;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
-
 /* Images */
 span.iconImg {
     margin-right: 4px;
@@ -1021,12 +1008,6 @@ div.msgSubject span.horde-tree-image {
     margin-top: 2px;
 }
 
-span.keyupImg {
-    background-image: url("../graphics/key_up.png");
-}
-span.keydownImg {
-    background-image: url("../graphics/key_down.png");
-}
 span.readonlyImg {
     background-color: white;
     margin-top: -1px 0 0 3px;
@@ -1041,26 +1022,6 @@ span.readonlyImg {
 }
 .imp-forward, .imp-redirect {
     background-image: url("../graphics/forwarded.png");
-}
-
-/* Help screen */
-#helptext {
-    bottom: 0;
-    left: 0;
-    line-height: 18px;
-    position: fixed;
-    width: 100%;
-    z-index: 10001;
-}
-#helptext div {
-    background: lightgrey;
-    border: 1px solid grey;
-    line-height: 18px;
-    padding: 10px 30px 15px;
-}
-#helptext_close {
-    cursor: pointer;
-    float: right;
 }
 
 @media print {

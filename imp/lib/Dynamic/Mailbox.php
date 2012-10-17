@@ -22,7 +22,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
      */
     protected function _init()
     {
-        global $browser, $conf, $injector, $page_output, $registry, $session;
+        global $conf, $injector, $page_output, $registry, $session;
 
         $page_output->addScriptFile('dimpbase.js');
         $page_output->addScriptFile('passphrase.js');
@@ -44,8 +44,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $this->view->show_notspam = !empty($conf['notspam']['reporting']);
         $this->view->show_search = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
         $this->view->show_spam = !empty($conf['spam']['reporting']);
-
-        $this->view->is_opera = $browser->isBrowser('opera');
 
         $impSubinfo = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/dynamic'
@@ -215,6 +213,10 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             ),
             'spam_spammbox' => intval(!empty($conf['spam']['spamfolder']))
         ));
+
+        if ($registry->showService('help')) {
+            $this->js_conf['URI_HELP'] = strval($registry->getServiceLink('help', 'imp')->add('topic', 'dynamic-overview')->setRaw(true));
+        }
 
         $context = array(
             'ctx_container' => array(
@@ -406,6 +408,9 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         }
         if ($prefs->isLocked('delhide')) {
             unset($context['ctx_oa']['hide_deleted']);
+        }
+        if (!isset($this->js_conf['URI_HELP'])) {
+            unset($context['ctx_oa']['_sep3'], $context['ctx_oa']['help']);
         }
 
         /* Preview context menu. */
