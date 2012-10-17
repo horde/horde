@@ -44,7 +44,7 @@
 * [mjr] Fix copying ActiveSync email to sent folder in certain cases (Bug #11529).
 * [jan] Catch exceptions from Horde_Crypt (Bug #11530).
 * [jan] Support non-padding operators in JavaScript date formatting (Bug #10435).
-* [mms] Add keyboard key graphic output to Help system.
+* [mms] Add generic CSS class insertion to Help system.
 * [mms] Fix handling active error reporting codes in Horde_ErrorHandler.
  </notes>
  <contents>
@@ -2521,7 +2521,7 @@
 * [mjr] Fix copying ActiveSync email to sent folder in certain cases (Bug #11529).
 * [jan] Catch exceptions from Horde_Crypt (Bug #11530).
 * [jan] Support non-padding operators in JavaScript date formatting (Bug #10435).
-* [mms] Add keyboard key graphic output to Help system.
+* [mms] Add generic CSS class insertion to Help system.
 * [mms] Fix handling active error reporting codes in Horde_ErrorHandler.
    </notes>
   </release>
