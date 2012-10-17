@@ -60,7 +60,7 @@ class Nag_Driver_Sql extends Nag_Driver
      */
     public function getByUID($uids)
     {
-        return $this->_getBy($taskIds, 'task_uid');
+        return $this->_getBy($uids, 'task_uid');
     }
 
     /**
