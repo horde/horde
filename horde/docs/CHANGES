@@ -2,6 +2,10 @@
 v5.0.0-git
 ----------
 
+[mms] Allow view-specific help files to inherit from base application help
+      file.
+[mms] Allow application basic/dynamic views to have different help source
+      files.
 
 
 -----------

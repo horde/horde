@@ -48,12 +48,36 @@ $help_app = $registry->get('name', ($module == 'admin') ? 'horde' : $module);
 $fileroot = ($module == 'admin')
     ? $registry->get('fileroot') . '/admin'
     : $registry->get('fileroot', $module);
+$fileroots = array(
+    $fileroot . '/locale/' . $language . '/',
+    $fileroot . '/locale/' . substr($language, 0, 2) . '/',
+    $fileroot . '/locale/en/'
+);
 
-$help = new Horde_Help(Horde_Help::SOURCE_FILE, array(
-    $fileroot . '/locale/' . $language . '/help.xml',
-    $fileroot . '/locale/' . substr($language, 0, 2) . '/help.xml',
-    $fileroot . '/locale/en/help.xml'
-));
+$filenames = array();
+switch ($registry->getView()) {
+case $registry::VIEW_BASIC:
+    $filenames[] = 'help_basic.xml';
+    break;
+
+case $registry::VIEW_DYNAMIC:
+    $filenames[] = 'help_dynamic.xml';
+    break;
+}
+$filenames[] = 'help.xml';
+
+$source_list = array();
+foreach ($filenames as $val) {
+    foreach ($fileroots as $val2) {
+        $fname = $val2 . $val;
+        if (@is_file($fname)) {
+            $source_list[] = $fname;
+            break;
+        }
+    }
+}
+
+$help = new Horde_Help(Horde_Help::SOURCE_FILE, $source_list);
 
 $page_output->sidebar = $page_output->topbar = false;
 $page_output->header(array(
