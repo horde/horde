@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Catch exceptions from Horde_Crypt (Bug #11530).
 * [jan] Support non-padding operators in JavaScript date formatting (Bug #10435).
 * [mms] Add keyboard key graphic output to Help system.
 * [mms] Fix handling active error reporting codes in Horde_ErrorHandler.
@@ -2514,6 +2515,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Catch exceptions from Horde_Crypt (Bug #11530).
 * [jan] Support non-padding operators in JavaScript date formatting (Bug #10435).
 * [mms] Add keyboard key graphic output to Help system.
 * [mms] Fix handling active error reporting codes in Horde_ErrorHandler.
