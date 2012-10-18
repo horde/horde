@@ -123,7 +123,7 @@ if (is_array($next_step)) {
             $task = new Nag_Task();
             $task->fromiCalendar($row);
             $row = $task->toHash();
-            foreach ($app_fields as $field => $null) {
+            foreach (array_keys($app_fields) as $field) {
                 if (!isset($row[$field])) {
                     $row[$field] = '';
                 }
