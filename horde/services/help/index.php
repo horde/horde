@@ -158,6 +158,7 @@ case 'sidebar':
         $searchForm = new Horde_Form($vars, null, 'search');
         $searchForm->setButtons(_("Search"));
 
+        $searchForm->addHidden('sidebar', 'show', 'text', false);
         $searchForm->addHidden('', 'module', 'text', false);
         $searchForm->addHidden('', 'side_show', 'text', false);
         $searchForm->addVariable(_("Keyword"), 'keyword', 'text', false, false, null, array(null, 20));
