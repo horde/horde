@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [gwr] Corrected fix for modifying Kolab objects.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1218,7 +1218,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [gwr] Corrected fix for modifying Kolab objects.
    </notes>
   </release>
  </changelog>

@@ -424,8 +424,9 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         $this->_mime_part_id = Horde_Kolab_Storage_Object_MimeType::matchMimePartToObjectType(
             $body, $this->getType()
         );
+        $old_uid = $this->_getBackendId();
         $result = $this->_appendMessage($body, $headers);
-        $this->_driver->deleteMessages($this->_getFolder(), array($this->_getBackendId()));
+        $this->_driver->deleteMessages($this->_getFolder(), array($old_uid));
         $this->_driver->expunge($this->_getFolder());
         return $result;
     }
