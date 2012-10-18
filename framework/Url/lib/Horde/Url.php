@@ -81,11 +81,12 @@ class Horde_Url
     public function __construct($url = '', $raw = null)
     {
         if ($url instanceof Horde_Url) {
-            $this->anchor = $url->anchor;
-            $this->parameters = $url->parameters;
-            $this->pathInfo = $url->pathInfo;
-            $this->raw = is_null($raw) ? $url->raw : $raw;
-            $this->url = $url->url;
+            foreach (get_object_vars($url) as $k => $v) {
+                $this->$k = $v;
+            }
+            if (!is_null($raw)) {
+                $this->raw = is_null($raw) ? $url->raw : $raw;
+            }
             return;
         }
 
