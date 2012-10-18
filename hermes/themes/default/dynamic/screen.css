@@ -152,36 +152,30 @@ body.hermesAjax {
     border-left: 1px solid #eee;
 }
 
-.rounded.sliceEdit {
-  background: -moz-linear-gradient(-90deg, #eaeaea, #d7d7d7);
-  background: -webkit-gradient(linear, left bottom, left top, #eaeaea, #d7d7d7);
+.sliceEdit {
   background-color: #eaeaea;
   color: #444444;
 }
-.rounded.sliceEdit:hover {
-  background: -moz-linear-gradient(-90deg, #d7d7d7, #eaeaea);
-  background: -webkit-gradient(linear, left bottom, left top, #d7d7d7, #eaeaea);
+.sliceEdit:hover {
   background-color: #d7d7d7;
   border: 1px solid #BAB5B5;
   color: #333333;
 }
-.rounded.sliceDelete {
-  background: -moz-linear-gradient(-90deg, #f5b5b5, #ed8080) repeat scroll 0 0 transparent;
+.sliceDelete {
   background-color: #f5b5b5;
   border: 1px solid #ED8080;
   color: #8A1111;
 }
-.rounded.sliceDelete:hover {
-  background: -moz-linear-gradient(-90deg, #ed8080, #f5b5b5) repeat scroll 0 0 transparent;
+.sliceDelete:hover {
   background-color: #ed8080;
   border: 1px solid #D47272;
   color: #8A1111;
 }
 
-#hermesTimeListBody .hermesTimeListRow .hermesTimeSliceOptions .rounded {
+#hermesTimeListBody .hermesTimeListRow .hermesTimeSliceOptions {
     visibility: hidden;
 }
-#hermesTimeListBody .hermesTimeListRow:hover .hermesTimeSliceOptions .rounded {
+#hermesTimeListBody .hermesTimeListRow:hover .hermesTimeSliceOptions {
     visibility: visible;
 }
 #hermesTimeListBody .hermesTimeListRow:hover {
