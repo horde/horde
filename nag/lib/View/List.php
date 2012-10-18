@@ -113,7 +113,7 @@ class Nag_View_List
         $view->tasks = $this->_tasks;
         $view->tasks->reset();
         $view->tabs = $tabs->render($this->_vars->get('show_completed'));
-        $view->browser = empty($this->_smartShare) ? $this->_getRelatedTags() . $this->_getTagTrail() : '';
+        $view->browser = empty($this->_smartShare) && $this->_showTagBrowser ? $this->_getRelatedTags() . $this->_getTagTrail() : '';
         $view->title = $this->_title;
         $view->sortby = $prefs->getValue('sortby');
         $view->sortdir = $prefs->getValue('sortdir');
@@ -249,6 +249,9 @@ class Nag_View_List
 
         // Clear the tag browser in case we have an active browse set.
         $this->_browser->clearSearch();
+
+        // Don't show the tag browser.
+        $this->_showTagBrowser = false;
 
         $form = new Nag_Form_Search($this->_vars);
         if ($form->validate($this->_vars, true)) {
