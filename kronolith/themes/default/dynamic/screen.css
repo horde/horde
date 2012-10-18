@@ -79,26 +79,8 @@ html, body {
 }
 
 /* Quick edit */
-.kronolithQuick {
-    width: 30em;
-    padding: 1em;
-    border: 1px solid #ccc;
-    background: #ffc;
-}
 #kronolithQuickinsert {
     line-height: 2em;
-}
-.kronolithQuick textarea {
-    width: 100%;
-    height: 10em;
-    margin-top: .5em;
-}
-.kronolithQuick p {
-    margin-top: .5em;
-    margin-bottom: .5em;
-}
-.kronolithQuick label {
-    font-weight: bold;
 }
 
 .kronolithDialogInfo {

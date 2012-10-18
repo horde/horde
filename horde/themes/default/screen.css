@@ -441,6 +441,26 @@ div.nicetitle {
     background: #f00;
 }
 
+/* Quick add popup styles */
+.quickAdd {
+    width: 30em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    background: #ffc;
+}
+.quickAdd textarea {
+    width: 100%;
+    height: 10em;
+    margin-top: .5em;
+}
+.quickAdd p {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+.quickAdd label {
+    font-weight: bold;
+}
+
 /* Tree styles. */
 .horde-tree-icon {
     padding-right: 5px;
