@@ -211,16 +211,17 @@ HermesCore = {
 
             case 'hermesTimerSave':
                 this.newTimer();
+                this.closeRedBox();
+                e.stop();
+                return;
+
+            case 'hermesTimerCancel':
+                this.closeRedBox();
                 e.stop();
                 return;
 
             case 'hermesAddTimer':
-                $('hermesTimerDialog').appear({
-                    duration: this.effectDur,
-                    afterFinish: function() {
-                        $('hermesTimerTitle').focus();
-                    }
-                });
+                RedBox.showHtml($('hermesTimerDialog').show());
                 return;
             }
 
@@ -239,13 +240,6 @@ HermesCore = {
                 // fallthrough
             case 'hermesFormCancel':
                 this.closeRedBox();
-                e.stop();
-                return;
-
-            case 'hermesTimerCancel':
-                $('hermesTimerDialog').fade({
-                    duration: this.effectDur
-                });
                 e.stop();
                 return;
 

@@ -1,16 +1,17 @@
 <!-- Begin Timer Dialog -->
-<div id="hermesTimerDialog" style="display:none;">
+<div id="hermesTimerDialog" class="quickAdd" style="display:none;">
+ <h2><?php echo _("Timer Creation") ?></h2>
+ <p><?php echo _("Enter a title for the new timer.") ?></p>
 <form id="hermesTimerForm" action="">
 <div>
   <label for="hermesTimerTitle">
     <input type="text" name="title" id="hermesTimerTitle" class="hermesLongField" />
-    <div class="hermesDialogInfo"><?php echo _("Enter title for the new timer.") ?></div>
   </label>
 </div>
-<div class="hermesFormActions">
-  <input id="hermesTimerSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
-  <span class="hermesSeparator"><?php echo _("or") ?></span> <a class="hermesTimerCancel"><?php echo _("Cancel") ?></a>
-</div>
+<p>
+  <input id="hermesTimerSave" class="horde-default" type="submit" value="<?php echo _("Save")?>" />
+  <input id="hermesTimerCancel" class="horde-cancel" type="button" value="<?php echo _("Cancel")?>" />
+</p>
 </form>
 </div>
 <!-- End Timer Dialog -->

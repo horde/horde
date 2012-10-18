@@ -364,20 +364,10 @@ div.hermesTimeSliceOptions {
 }
 */
 
-
-#hermesTimerDialog {
-    position: absolute;
-    z-index: 110;
-    left: 163px;
-    top: 370px;
-    width: 350px;
-    height: auto;
-    background: transparent url("../graphics/back_quick.png") no-repeat left top;
+#RB_window {
+    top: 50px !important;
 }
-#hermesTimerDialog form {
-    padding: 10px;
-    margin-left: 10px;
-    background-color: #999;
+#hermesTimerDialog {
 }
 .hermesTimer {
     min-height: 24px;
