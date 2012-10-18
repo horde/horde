@@ -78,7 +78,7 @@
       <div class="hermesTimeListDesc hermesBorderLeft"></div>
       <div class="hermesTimeListBill hermesBorderLeft"></div>
       <div class="hermesTimeListHours hermesBorderLeft"></div>
-      <div class="hermesTimeSliceOptions"><a href="#" class="sliceEdit bold"><?php echo _("Edit") ?></a> <a href="#" class="sliceDelete bold">x</a></div>
+      <div class="hermesTimeSliceOptions"><span class="sliceEdit sliceControl">&nbsp;</span><span class="sliceDelete sliceControl">&nbsp;</span></div>
     </div>
     <div id="hermesTimeListInternal"></div>
     <div id="hermesTimeListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
