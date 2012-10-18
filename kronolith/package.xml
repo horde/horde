@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix broken Apple iCal behavior with exception dates (Evert Pot &lt;evert@rooftopsolutions.nl&gt;).
 * [jan] Use more compatible message format for iTip notifications (Bug #9854).
 * [jan] Fix free/busy retrieval on Kolab.
  </notes>
@@ -1962,6 +1963,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix broken Apple iCal behavior with exception dates (Evert Pot &lt;evert@rooftopsolutions.nl&gt;).
 * [jan] Use more compatible message format for iTip notifications (Bug #9854).
 * [jan] Fix free/busy retrieval on Kolab.
    </notes>
