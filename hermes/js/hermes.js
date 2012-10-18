@@ -163,20 +163,24 @@ HermesCore = {
                 this.go('time');
                 e.stop();
                 return;
+
             case 'hermesNavSearch':
                 this.go('search');
                 e.stop();
                 return;
+
             case 'hermesTimeSaveAsNew':
                 $('hermesTimeFormId').value = null;
             case 'hermesTimeSave':
                 this.saveTime();
                 e.stop();
                 return;
+
             case 'hermesTimeListSubmit':
                 this.submitSlices();
                 e.stop();
                 return;
+
             case 'hermesTimeListHeader':
                 var el = e.element().identify();
                 if (el == 'sortDate' ||
@@ -205,13 +209,11 @@ HermesCore = {
                 }
                 e.stop();
                 return;
+
             case 'hermesTimerSave':
                 this.newTimer();
                 e.stop();
                 return;
-            case 'hermesNotifications':
-                HordeCore.Growler.toggleLog();
-                break;
             }
 
             switch (elt.className) {
@@ -220,6 +222,7 @@ HermesCore = {
                 Horde_Calendar.open(id, Date.parseExact($F(id.replace(/Picker$/, 'Date')), Hermes.conf.date_format));
                 e.stop();
                 return;
+
             case 'hermesTimeFormCancel':
                 if ($('hermesTimeSaveAsNew').visible()) {
                     $('hermesTimeSaveAsNew').toggle();
@@ -230,6 +233,7 @@ HermesCore = {
                 this.closeRedBox();
                 e.stop();
                 return;
+
             case 'hermesAdd':
                 $('hermesTimerDialog').appear({
                     duration: this.effectDur,
@@ -238,20 +242,24 @@ HermesCore = {
                     }
                 });
                 return;
+
             case 'hermesTimerCancel':
                 $('hermesTimerDialog').fade({
                     duration: this.effectDur
                 });
                 e.stop();
                 return;
+
             case 'hermesStopTimer':
                 this.stopTimer(elt);
                 e.stop();
                 return;
+
             case 'hermesPauseTimer':
                 this.pauseTimer(elt);
                 e.stop();
                 return;
+
             case 'hermesPlayTimer':
                 this.playTimer(elt);
                 e.stop();
