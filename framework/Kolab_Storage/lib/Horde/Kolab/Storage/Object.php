@@ -427,9 +427,6 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         $result = $this->_appendMessage($body, $headers);
         $this->_driver->deleteMessages($this->_getFolder(), array($this->_getBackendId()));
         $this->_driver->expunge($this->_getFolder());
-        if ($result !== true) {
-            $this->_backend_id = $result;
-        }
         return $result;
     }
 
@@ -461,6 +458,9 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
                     print_r($result, true), $this->_getFolder()
                 )
             );
+        }
+        if ($result !== true) {
+            $this->_backend_id = $result;
         }
         return $result;
     }
