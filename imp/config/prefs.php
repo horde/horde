@@ -1458,7 +1458,7 @@ $prefGroups['newmail'] = array(
     )
 );
 
-// time before reloading the navigator or mailbox page
+// time before polling for new mail
 $_prefs['refresh_time'] = array(
     'value' => 0,
     'type' => 'enum',
@@ -1470,7 +1470,7 @@ $_prefs['refresh_time'] = array(
         900 => _("Every 15 minutes"),
         1800 => _("Every half hour")
     ),
-    'desc' => _("Refresh Folder Views:"),
+    'desc' => _("Poll for New Mail:"),
 );
 
 // Display notification if there is new mail?
