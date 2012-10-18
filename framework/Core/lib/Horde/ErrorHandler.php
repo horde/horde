@@ -32,7 +32,7 @@ class Horde_ErrorHandler
             switch (get_class($error)) {
             case 'Horde_Exception_AuthenticationFailure':
                 if ($registry->isAuthenticated(array('app' => $error->application, 'notransparent' => true)) &&
-                    $registry->clearAuthApp($error->applicaton)) {
+                    $registry->clearAuthApp($error->application)) {
                     break;
                 }
 
