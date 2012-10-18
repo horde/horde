@@ -55,7 +55,8 @@ $app_fields = array(
     'estimate'       => _("Estimated Time"),
     'completed'      => _("Completion Status"),
     'completed_date' => _("Completion Date"),
-    'uid'            => _("Unique ID")
+    'uid'            => _("Unique ID"),
+    'tags'           => _("Tags")
 );
 
 /* Date/time fields. */
