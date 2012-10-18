@@ -136,6 +136,7 @@ if (is_array($next_step)) {
                     $date = new Horde_Date($row[$field]);
                     $row[$field] = $date->timestamp();
                 } catch (Horde_Date_Exception $e) {
+                    unset($row[$field]);
                 }
             }
         }
