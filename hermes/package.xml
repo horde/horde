@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-13</date>
- <time>15:00:17</time>
+ <date>2012-10-18</date>
+ <time>19:15:06</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -218,14 +218,11 @@
     </dir> <!-- /templates/deliverables -->
     <dir name="dynamic">
      <file name="index.inc" role="horde" />
-     <file name="sidebar.html.php" role="horde" />
-    </dir> <!-- /templates/dynamic -->
-    <dir name="index">
-     <file name="index.inc" role="horde" />
      <file name="search.inc" role="horde" />
-     <file name="timeedit.inc" role="horde" />
+     <file name="sidebar.html.php" role="horde" />
+     <file name="slices.inc" role="horde" />
      <file name="timer.inc" role="horde" />
-    </dir> <!-- /templates/index -->
+    </dir> <!-- /templates/dynamic -->
     <dir name="time">
      <file name="form.html" role="horde" />
     </dir> <!-- /templates/time -->
@@ -239,18 +236,20 @@
       <dir name="alerts">
        <file name="message.png" role="horde" />
       </dir> <!-- /themes/default/graphics/alerts -->
+      <file name="admin.png" role="horde" />
       <file name="back_quick.png" role="horde" />
       <file name="checkbox_off.png" role="horde" />
       <file name="checkbox_on.png" role="horde" />
       <file name="checkbox_over.png" role="horde" />
       <file name="clients.png" role="horde" />
       <file name="clockout.png" role="horde" />
+      <file name="delete.png" role="horde" />
       <file name="deliverable.png" role="horde" />
+      <file name="edit.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="hermes.png" role="horde" />
       <file name="invoices.png" role="horde" />
       <file name="loading.gif" role="horde" />
-      <file name="log.png" role="horde" />
       <file name="minus.png" role="horde" />
       <file name="newdeliverable.png" role="horde" />
       <file name="pause.png" role="horde" />
@@ -258,8 +257,11 @@
       <file name="play.png" role="horde" />
       <file name="plus.png" role="horde" />
       <file name="search.png" role="horde" />
+      <file name="stop.png" role="horde" />
+      <file name="time.png" role="horde" />
       <file name="timer-start.png" role="horde" />
       <file name="timer-stop.png" role="horde" />
+      <file name="timer.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
      <dir name="print">
       <file name="screen.css" role="horde" />
@@ -512,26 +514,27 @@
    <install as="hermes/scripts/Sandals.wdgt/themes/graphics/alerts/warning.png" name="scripts/Sandals.wdgt/themes/graphics/alerts/warning.png" />
    <install as="hermes/templates/deliverables/list.inc" name="templates/deliverables/list.inc" />
    <install as="hermes/templates/dynamic/index.inc" name="templates/dynamic/index.inc" />
+   <install as="hermes/templates/dynamic/search.inc" name="templates/dynamic/search.inc" />
    <install as="hermes/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />
-   <install as="hermes/templates/index/index.inc" name="templates/index/index.inc" />
-   <install as="hermes/templates/index/search.inc" name="templates/index/search.inc" />
-   <install as="hermes/templates/index/timeedit.inc" name="templates/index/timeedit.inc" />
-   <install as="hermes/templates/index/timer.inc" name="templates/index/timer.inc" />
+   <install as="hermes/templates/dynamic/slices.inc" name="templates/dynamic/slices.inc" />
+   <install as="hermes/templates/dynamic/timer.inc" name="templates/dynamic/timer.inc" />
    <install as="hermes/templates/time/form.html" name="templates/time/form.html" />
    <install as="hermes/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="hermes/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
+   <install as="hermes/themes/default/graphics/admin.png" name="themes/default/graphics/admin.png" />
    <install as="hermes/themes/default/graphics/back_quick.png" name="themes/default/graphics/back_quick.png" />
    <install as="hermes/themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
    <install as="hermes/themes/default/graphics/checkbox_on.png" name="themes/default/graphics/checkbox_on.png" />
    <install as="hermes/themes/default/graphics/checkbox_over.png" name="themes/default/graphics/checkbox_over.png" />
    <install as="hermes/themes/default/graphics/clients.png" name="themes/default/graphics/clients.png" />
    <install as="hermes/themes/default/graphics/clockout.png" name="themes/default/graphics/clockout.png" />
+   <install as="hermes/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
    <install as="hermes/themes/default/graphics/deliverable.png" name="themes/default/graphics/deliverable.png" />
+   <install as="hermes/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="hermes/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="hermes/themes/default/graphics/hermes.png" name="themes/default/graphics/hermes.png" />
    <install as="hermes/themes/default/graphics/invoices.png" name="themes/default/graphics/invoices.png" />
    <install as="hermes/themes/default/graphics/loading.gif" name="themes/default/graphics/loading.gif" />
-   <install as="hermes/themes/default/graphics/log.png" name="themes/default/graphics/log.png" />
    <install as="hermes/themes/default/graphics/minus.png" name="themes/default/graphics/minus.png" />
    <install as="hermes/themes/default/graphics/newdeliverable.png" name="themes/default/graphics/newdeliverable.png" />
    <install as="hermes/themes/default/graphics/pause.png" name="themes/default/graphics/pause.png" />
@@ -539,8 +542,11 @@
    <install as="hermes/themes/default/graphics/play.png" name="themes/default/graphics/play.png" />
    <install as="hermes/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
    <install as="hermes/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
+   <install as="hermes/themes/default/graphics/stop.png" name="themes/default/graphics/stop.png" />
+   <install as="hermes/themes/default/graphics/time.png" name="themes/default/graphics/time.png" />
    <install as="hermes/themes/default/graphics/timer-start.png" name="themes/default/graphics/timer-start.png" />
    <install as="hermes/themes/default/graphics/timer-stop.png" name="themes/default/graphics/timer-stop.png" />
+   <install as="hermes/themes/default/graphics/timer.png" name="themes/default/graphics/timer.png" />
    <install as="hermes/themes/default/graphics/alerts/message.png" name="themes/default/graphics/alerts/message.png" />
    <install as="hermes/themes/default/print/screen.css" name="themes/default/print/screen.css" />
    </filelist>
