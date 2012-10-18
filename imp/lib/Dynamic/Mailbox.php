@@ -214,10 +214,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'spam_spammbox' => intval(!empty($conf['spam']['spamfolder']))
         ));
 
-        if ($registry->showService('help')) {
-            $this->js_conf['URI_HELP'] = strval($registry->getServiceLink('help', 'imp')->add('topic', 'dynamic-mailbox')->setRaw(true));
-        }
-
         $context = array(
             'ctx_container' => array(
                 '_mbox' => '',
@@ -406,9 +402,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         }
         if ($prefs->isLocked('delhide')) {
             unset($context['ctx_oa']['hide_deleted']);
-        }
-        if (!isset($this->js_conf['URI_HELP'])) {
-            unset($context['ctx_oa']['_sep3'], $context['ctx_oa']['help']);
         }
 
         /* Preview context menu. */

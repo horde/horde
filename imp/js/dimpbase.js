@@ -1098,10 +1098,6 @@ var DimpBase = {
             this.viewport.reload({ delhide: Number(id == 'ctx_oa_hide_deleted') });
             break;
 
-        case 'ctx_oa_help':
-            HordeCore.popupWindow(DimpCore.conf.URI_HELP);
-            break;
-
         case 'ctx_sortopts_date':
         case 'ctx_sortopts_from':
         case 'ctx_sortopts_to':
