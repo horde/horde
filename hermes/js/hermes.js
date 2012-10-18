@@ -23,7 +23,6 @@ HermesCore = {
     sortbyfield: 'sortDate',
     reverseSort: false,
     sortDir: 'up',
-    selectedSlices: [],
     today: null,
     redBoxLoading: false,
 
