@@ -17,6 +17,7 @@ body.hermesAjax {
 }
 
 /* Sidebar */
+/* Main links */
 #hermesNavTime, #hermesNavSearch, #hermesNavAdmin{
     cursor: pointer;
 }
@@ -29,21 +30,33 @@ body.hermesAjax {
 #hermesNavAdmin a.icon {
     background-image: url("../graphics/admin.png");
 }
-#horde-sidebar div.horde-resources {
-    background-color: #dddddd;
-}
+
+/* Timers */
 #horde-sidebar div.horde-resources .timerControls {
     float: right;
     display: block;
-    background: url("../graphics/stop.png") no-repeat;
-    margin: 2px 10px 0 0;
+    margin: 2px 5px 0 0;
     width: 17px;
     height: 17px;
     text-indent: -10000px;
     overflow: hidden;
     cursor: pointer;
 }
-
+#horde-sidebar div.horde-resources {
+    background-color: #dddddd;
+}
+.horde-resource-none {
+      cursor: default;
+}
+.timer-paused {
+    background-image: url("../graphics/play.png")
+}
+.timer-running {
+    background-image: url("../graphics/pause.png");
+}
+.timer-saveable {
+    background-image: url("../graphics/stop.png");
+}
 .hermesSeparator {
     padding-left: 7px;
     color: #808080;

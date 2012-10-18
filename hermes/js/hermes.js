@@ -504,19 +504,19 @@ HermesCore = {
 
     insertTimer: function(r, d)
     {
-        var title = new Element('div').update(d + ' (' + r.e + ' hours)');
-        var stop = new Element('span', { 'class': 'timerControls' }).update(
-            new Element('img', { 'class': 'hermesStopTimer', 'src': Hermes.conf.images.timerlog })
-        ).store('tid', r.id);;
+        var title = new Element('div').update(d + ' (' + r.e + ' hours)'),
+            controls = new Element('span', { 'class': 'timerControls' }).store('tid', r.id),
+            stop = new Element('span', { 'class': 'timerControls timer-saveable' }),
+            timer = new Element('div', { 'class': 'horde-resource-none' });
 
         if (r.paused) {
-            stop.insert(new Element('img', { 'class': 'hermesPlayTimer', 'src' : Hermes.conf.images.timerplay }));
+            controls.addClassName('timer-paused');
         } else {
-            stop.insert(new Element('img', { 'class': 'hermesPauseTimer', 'src' : Hermes.conf.images.timerpause }));
+            controls.addClassName('timer-running');
         }
 
-        var timer = new Element('div', { 'class': 'horde-resource-none' });
-        timer.insert(stop).insert(title);
+
+        timer.insert(stop).insert(controls).insert(title);
         $('hermesMenuTimers').insert({ 'top': timer });
         $('hermesTimerDialog').fade({
             duration: this.effectDur,
