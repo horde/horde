@@ -60,7 +60,7 @@ class Turba_Prefs_Special_Columnselect implements Horde_Core_Prefs_Ui_Special
                     $inputs[] = array(
                         'checked' => isset($selected[$column]),
                         'column' => htmlspecialchars($column),
-                        'i' => $i,
+                        'i' => $i++,
                         'label' => htmlspecialchars($attributes[$column]['label'])
                     );
                 }
@@ -81,7 +81,7 @@ class Turba_Prefs_Special_Columnselect implements Horde_Core_Prefs_Ui_Special
                 $inputs[] = array(
                     'checked' => isset($selected[$column]),
                     'column' => htmlspecialchars($column),
-                    'i' => $i,
+                    'i' => $i++,
                     'label' => htmlspecialchars($attributes[$column]['label'])
                 );
             }
