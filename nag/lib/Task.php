@@ -920,7 +920,7 @@ class Nag_Task
             }
             $json->as = $this->assignee;
             if ($this->estimate) {
-                $json->e = $estimate;
+                $json->e = $this->estimate;
             }
             /*
             $json->p = $this->parent_id;
