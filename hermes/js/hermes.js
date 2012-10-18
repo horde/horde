@@ -191,14 +191,7 @@ HermesCore = {
                     e.stop();
                 }
                 return;
-            case 'hermesOptions':
-                this.go('prefs');
-                e.stop();
-                return;
-            case 'hermesLogout':
-                HordeCore.logout();
-                e.stop();
-                return;
+
             case 'hermesTimeFormCollapse':
                 if ($('hermesTimeForm').visible()) {
                     $('hermesTimeForm').slideUp({ duration: this.effectDur });
