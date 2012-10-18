@@ -130,6 +130,15 @@ if (is_array($next_step)) {
             }
         }
         $row['owner'] = $GLOBALS['registry']->getAuth();
+        foreach (array('start', 'due', 'completed_date') as $field) {
+            if (!empty($row[$field])) {
+                try {
+                    $date = new Horde_Date($row[$field]);
+                    $row[$field] = $date->timestamp();
+                } catch (Horde_Date_Exception $e) {
+                }
+            }
+        }
         try {
             $nag_storage->add($row);
         } catch (Nag_Exception $e) {
