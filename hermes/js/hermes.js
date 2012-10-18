@@ -159,6 +159,7 @@ HermesCore = {
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
             switch (id) {
+            /* Main navigation links */
             case 'hermesNavTime':
                 this.go('time');
                 e.stop();
@@ -169,6 +170,7 @@ HermesCore = {
                 e.stop();
                 return;
 
+            /* Time entry form actions */
             case 'hermesTimeSaveAsNew':
                 $('hermesTimeFormId').value = null;
             case 'hermesTimeSave':
@@ -184,6 +186,7 @@ HermesCore = {
                 e.stop();
                 return;
 
+            /* Slice list actions */
             case 'hermesTimeListSubmit':
                 this.submitSlices();
                 e.stop();
@@ -217,6 +220,11 @@ HermesCore = {
                 e.stop();
                 return;
 
+            /* Timer form */
+            case 'hermesAddTimer':
+                RedBox.showHtml($('hermesTimerDialog').show());
+                return;
+
             case 'hermesTimerSave':
                 this.newTimer();
                 this.closeRedBox();
@@ -227,26 +235,12 @@ HermesCore = {
                 this.closeRedBox();
                 e.stop();
                 return;
-
-            case 'hermesAddTimer':
-                RedBox.showHtml($('hermesTimerDialog').show());
-                return;
             }
 
             switch (elt.className) {
             case 'hermesDatePicker':
                 id = elt.readAttribute('id');
                 Horde_Calendar.open(id, Date.parseExact($F(id.replace(/Picker$/, 'Date')), Hermes.conf.date_format));
-                e.stop();
-                return;
-
-            case 'timer-running':
-                this.pauseTimer(elt);
-                e.stop();
-                return;
-
-            case 'timer-paused':
-                this.playTimer(elt);
                 e.stop();
                 return;
             }
@@ -273,6 +267,14 @@ HermesCore = {
                 return;
             } else if (elt.hasClassName('timer-saveable')) {
                 this.stopTimer(elt);
+                e.stop();
+                return;
+            } else if (elt.hasClassName('timer-running')) {
+                this.pauseTimer(elt);
+                e.stop();
+                return;
+            } else if (elt.hasClassName('timer-paused')) {
+                this.playTimer(elt);
                 e.stop();
                 return;
             }
@@ -562,16 +564,14 @@ HermesCore = {
 
     pauseTimerCallback: function(elt, r)
     {
-        elt.src = Hermes.conf.images.timerplay;
-        elt.removeClassName('hermesPauseTimer');
-        elt.addClassName('hermesPlayTimer');
+        elt.removeClassName('timer-running');
+        elt.addClassName('timer-paused');
     },
 
     playTimerCallback: function(elt, r)
     {
-        elt.src = Hermes.conf.images.timerpause;
-        elt.removeClassName('hermesPlayTimer');
-        elt.addClassName('hermesPauseTimer');
+        elt.removeClassName('timer-paused');
+        elt.addClassName('timer-running');
     },
 
     //removeTimer: function(t)
