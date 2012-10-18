@@ -3948,13 +3948,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'Horde_Imap_Client_Interaction_Server_Tagged':
-            if (!is_null($this->_temp['fetchresp'])) {
-                $this->_updateCache($this->_temp['fetchresp']);
-            }
-
             /* Update HIGHESTMODSEQ value. */
             if (!empty($this->_temp['modseqs'])) {
                 $this->_temp['mailbox']['highestmodseq'] = max($this->_temp['modseqs']);
+            }
+
+            /* Update FETCH items. */
+            if (!is_null($this->_temp['fetchresp'])) {
+                $this->_updateCache($this->_temp['fetchresp']);
             }
 
             $this->_responseCode($server);

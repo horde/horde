@@ -3629,10 +3629,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $status_res = $this->status($mailbox, $status_flags);
-
-        $highestmodseq = empty($status_res['highestmodseq'])
-            ? null
-            : array($status_res['highestmodseq']);
+        $modseq = $status_res['highestmodseq'];
         $uidvalid = isset($status_res['uidvalidity'])
             ? $status_res['uidvalidity']
             : $options['uidvalid'];
@@ -3649,19 +3646,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
                     case Horde_Imap_Client::FETCH_FLAGS:
                         /* A FLAGS FETCH can only occur if we are in the
-                         * mailbox. So either HIGHESTMODSEQ has already been
-                         * updated or the flag FETCHs will provide the new
-                         * HIGHESTMODSEQ value.  In either case, we are
-                         * guaranteed that all cache information is correctly
-                         * updated (in the former case, we reached here via
-                         * a 'changedsince' FETCH and in the latter case, we
-                         * are in EXAMINE/SELECT mode and will catch all flag
-                         * changes).
+                         * mailbox. So HIGHESTMODSEQ has already been updated.
                          * Ignore flag caching if MODSEQs not available. */
-                        if ($highestmodseq) {
-                            if ($modseq = $v->getModSeq()) {
-                                $highestmodseq[] = $modseq;
-                            }
+                        if ($modseq) {
                             $tmp[$val] = $v->getFlags();
                         }
                         break;
@@ -3696,8 +3683,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $this->_cache->set($mailbox, $tocache, $uidvalid);
 
-        if (!empty($highestmodseq)) {
-            $modseq = max($highestmodseq);
+        if ($modseq) {
             $metadata = $this->_cache->getMetaData($mailbox, $uidvalid, array(self::CACHE_MODSEQ));
             if (!isset($metadata[self::CACHE_MODSEQ]) ||
                 ($metadata[self::CACHE_MODSEQ] != $modseq)) {
