@@ -25,7 +25,7 @@
   <active>yes</active>
  </developer>
  <date>2012-10-18</date>
- <time>16:09:03</time>
+ <time>16:21:10</time>
  <version>
   <release>2.0.0beta3</release>
   <api>1.1.0</api>
@@ -376,6 +376,8 @@
         <file name="test4.txt" role="test" />
         <file name="test_recurring.ics" role="test" />
         <file name="test_recurring.txt" role="test" />
+        <file name="Vilnius.ics" role="test" />
+        <file name="Vilnius.txt" role="test" />
         <file name="wicca.ics" role="test" />
         <file name="wicca.txt" role="test" />
        </dir> <!-- /test/Horde/Icalendar/fixtures/vTimezone -->
@@ -623,6 +625,8 @@
    <install as="Horde/Icalendar/fixtures/vTimezone/test4.txt" name="test/Horde/Icalendar/fixtures/vTimezone/test4.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/test_recurring.ics" name="test/Horde/Icalendar/fixtures/vTimezone/test_recurring.ics" />
    <install as="Horde/Icalendar/fixtures/vTimezone/test_recurring.txt" name="test/Horde/Icalendar/fixtures/vTimezone/test_recurring.txt" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/Vilnius.ics" name="test/Horde/Icalendar/fixtures/vTimezone/Vilnius.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/Vilnius.txt" name="test/Horde/Icalendar/fixtures/vTimezone/Vilnius.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/wicca.ics" name="test/Horde/Icalendar/fixtures/vTimezone/wicca.ics" />
    <install as="Horde/Icalendar/fixtures/vTimezone/wicca.txt" name="test/Horde/Icalendar/fixtures/vTimezone/wicca.txt" />
   </filelist>
