@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add support for IMAP MOVE command.
 * [mms] Correctly handle FETCH results intermingled with EXPUNGE/VANISHED requests within a single request.
 * [mms] Now that we have accurate sequence numbers for our cached values, we can utilize the known UID set parameter to a QRESYNC EXAMINE/SELECT command.
 * [mms] Correctly handle EXISTS/EXPUNGE/VANISHED untagged responses which may appear at any time.
@@ -1153,6 +1154,7 @@
    <date>2012-10-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add support for IMAP MOVE command.
 * [mms] Correctly handle FETCH results intermingled with EXPUNGE/VANISHED requests within a single request.
 * [mms] Now that we have accurate sequence numbers for our cached values, we can utilize the known UID set parameter to a QRESYNC EXAMINE/SELECT command.
 * [mms] Correctly handle EXISTS/EXPUNGE/VANISHED untagged responses which may appear at any time.

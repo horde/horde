@@ -39,6 +39,7 @@
  *   - RFC 5957: SORT=DISPLAY
  *   - RFC 6154: SPECIAL-USE/CREATE-SPECIAL-USE
  *   - RFC 6203: SEARCH=FUZZY
+ *   - RFC XXXX: MOVE (draft-ietf-imapmove-command-02)
  *
  * Implements the following non-RFC extensions:
  * <ul>
@@ -81,11 +82,6 @@
  *  <li>RFC 5738: UTF8 (Very limited support currently)</li>
  *  <li>RFC 6237: MULTISEARCH</li>
  *  <li>draft-ietf-morg-inthread-01: SEARCH=INTHREAD
- *   <ul>
- *    <li>Appears to be dead</li>
- *   </ul>
- *  </li>
- *  <li>draft-krecicki-imap-move-01.txt: MOVE
  *   <ul>
  *    <li>Appears to be dead</li>
  *   </ul>
@@ -3081,11 +3077,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $this->_temp['copyuid'] = true;
         $this->_temp['trycreate'] = null;
 
+        /* Check for MOVE command. */
+        $move_cmd = (!empty($options['move']) &&
+                     $this->queryCapability('MOVE'));
+
         // COPY returns no untagged information (RFC 3501 [6.4.7])
         try {
             $cmd = $this->_clientCommand(array_filter(array(
                 $options['ids']->sequence ? null : 'UID',
-                'COPY',
+                $move_cmd ? 'MOVE' : 'COPY',
                 strval($options['ids']),
                 new Horde_Imap_Client_Data_Format_Mailbox($dest)
             )));
@@ -3101,7 +3101,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         // If moving, delete the old messages now.
-        if (!empty($options['move'])) {
+        if (!$move_cmd && !empty($options['move'])) {
             $opts = array('ids' => $options['ids']);
             $this->store($this->_selected, array_merge(array(
                 'add' => array(Horde_Imap_Client::FLAG_DELETED)
