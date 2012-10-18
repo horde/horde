@@ -18,18 +18,17 @@ class Turba_Prefs_Special_Columnselect implements Horde_Core_Prefs_Ui_Special
      */
     public function init(Horde_Core_Prefs_Ui $ui)
     {
-        global $page_output;
-
-        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
-        $page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
-        $page_output->addScriptFile('columnprefs.js');
     }
 
     /**
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $attributes, $cfgSources, $injector, $prefs;
+        global $attributes, $cfgSources, $injector, $page_output, $prefs;
+
+        $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+        $page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
+        $page_output->addScriptFile('columnprefs.js');
 
         $sources = Turba::getColumns();
 
