@@ -4463,16 +4463,6 @@ KronolithCore = {
                 e.stop();
                 return;
 
-            case 'kronolithOptions':
-                this.go('prefs');
-                e.stop();
-                return;
-
-            case 'kronolithLogout':
-                HordeCore.logout();
-                e.stop();
-                return;
-
             case 'kronolithMinicalDate':
                 this.go('month:' + orig.retrieve('date'));
                 e.stop();
