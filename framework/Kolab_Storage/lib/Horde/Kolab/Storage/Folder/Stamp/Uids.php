@@ -105,8 +105,7 @@ implements Horde_Kolab_Storage_Folder_Stamp
         if (!$stamp instanceOf Horde_Kolab_Storage_Folder_Stamp_Uids) {
             throw new Horde_Kolab_Storage_Exception('This stamp can only be compared against stamps of its own type.');
         }
-        if ($this->uidvalidity() != $stamp->uidvalidity() ||
-            $this->uidnext() != $stamp->uidnext()) {
+        if ($this->uidvalidity() != $stamp->uidvalidity()) {
             return true;
         } else {
             return false;

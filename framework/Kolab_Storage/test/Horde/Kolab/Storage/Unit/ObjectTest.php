@@ -606,6 +606,27 @@ clients please visit http://www.kolab.org/content/kolab-clients",
         );
     }
 
+    public function testSavedBackendId()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $driver->expects($this->once())
+            ->method('appendMessage')
+            ->will($this->returnValue(1001));
+        $driver->expects($this->once())
+            ->method('fetchHeaders')
+            ->with('INBOX', 1001);
+        $folder = $this->getMock('Horde_Kolab_Storage_Folder');
+        $folder->expects($this->once())
+            ->method('getPath')
+            ->will($this->returnValue('INBOX'));
+        $writer = $this->getMock('Horde_Kolab_Storage_Object_Writer');
+        $object = new Horde_Kolab_Storage_Object();
+        $object->setData(array('uid' => 'UID'));
+        $object->setDriver($driver);
+        $object->create($folder, $writer, 'event');
+        $object->getHeaders();
+    }
+
     /**
      * @expectedException Horde_Kolab_Storage_Object_Exception
      */
@@ -662,7 +683,10 @@ clients please visit http://www.kolab.org/content/kolab-clients",
             );
         $this->driver->expects($this->once())
             ->method('appendMessage')
-            ->will($this->returnValue(true));
+            ->will($this->returnValue(1001));
+        $this->driver->expects($this->once())
+            ->method('deleteMessages')
+            ->with('INBOX/Calendar', array(900));
         $object = new Horde_Kolab_Storage_Object();
         $this->folder->expects($this->once())
             ->method('getType')
@@ -672,7 +696,7 @@ clients please visit http://www.kolab.org/content/kolab-clients",
             ->will($this->returnValue('INBOX/Calendar'));
         $object->setDriver($this->driver);
         $object->load(
-            '1',
+            900,
             $this->folder,
             $data,
             $this->getMultipartMimeMessage('application/x-vnd.kolab.event')

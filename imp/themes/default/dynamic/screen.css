@@ -911,9 +911,6 @@ span.logoutIcon {
 #ctx_oa_layout_vert span.iconImg {
     background-image: url("../graphics/application_tile_horizontal.png");
 }
-#ctx_oa_help span.iconImg {
-    background-image: url("../graphics/help.png");
-}
 #ctx_mbox_create span.iconImg, #ctx_container_create span.iconImg, #ctx_folderopts_new span.iconImg {
     background-image: url("../graphics/folders/create.png");
 }

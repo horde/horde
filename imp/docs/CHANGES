@@ -2,6 +2,8 @@
 v6.0.0-git
 ----------
 
+[mms] Fix determining first/last unseen message in a mailbox (use message date
+      instead of arrival date).
 [jan] Don't show application menus in iTip MIME viewer popups.
 [mms] Hide subfolder creation option in dynamic view if IMAP server indicates
       that child mailboxes cannot be created.
