@@ -291,7 +291,7 @@ class Turba_Application extends Horde_Registry_Application
                         $inputs[] = array(
                             'checked' => isset($selected[$column]),
                             'column' => htmlspecialchars($column),
-                            'i' => $i,
+                            'i' => $i++,
                             'label' => htmlspecialchars($GLOBALS['attributes'][$column]['label'])
                         );
                     }
@@ -312,7 +312,7 @@ class Turba_Application extends Horde_Registry_Application
                     $inputs[] = array(
                         'checked' => isset($selected[$column]),
                         'column' => htmlspecialchars($column),
-                        'i' => $i,
+                        'i' => $i++,
                         'label' => htmlspecialchars($GLOBALS['attributes'][$column]['label'])
                     );
                 }
