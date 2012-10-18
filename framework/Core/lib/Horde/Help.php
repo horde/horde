@@ -55,7 +55,7 @@ class Horde_Help
         case self::SOURCE_FILE:
             foreach (array_unique($data) as $val) {
                 if (@is_file($val)) {
-                    $dom = new DOMDocument('1.0');
+                    $dom = new DOMDocument('1.0', 'UTF-8');
                     $dom->load($val);
                     $xml[] = $dom;
                 }
