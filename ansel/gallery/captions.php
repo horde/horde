@@ -30,7 +30,7 @@ try {
 
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
     $notification->push(
-        sprintf(_("Access denied setting captions for %s."), $gallery->get('name')),
+        _("Access denied setting captions for this gallery."),
         'horde.error');
     Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
     exit;

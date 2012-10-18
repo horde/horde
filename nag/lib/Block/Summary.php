@@ -32,7 +32,7 @@ class Nag_Block_Summary extends Horde_Core_Block
     {
         $tasklists = array();
         foreach (Nag::listTasklists() as $id => $tasklist) {
-            $tasklists[$id] = $tasklist->get('name');
+            $tasklists[$id] = Nag::getLabel($tasklist);
         }
 
         return array(
@@ -198,12 +198,9 @@ class Nag_Block_Summary extends Horde_Core_Block
             }
 
             if (!empty($this->_params['show_tasklist'])) {
-                $owner = $task->tasklist;
-                $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
-                $share = $shares->getShare($owner);
-                $owner = $share->get('name');
                 $html .= '<td width="1%" class="nowrap">'
-                    . htmlspecialchars($owner) . '&nbsp;</td>';
+                    . htmlspecialchars(Nag::getLabel($GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create()->getShare($task->tasklist)))
+                    . '&nbsp;</td>';
             }
 
             $html .= '<td>';

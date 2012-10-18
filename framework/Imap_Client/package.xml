@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add STATUS_HIGHESTMODSEQ_EXACT option to Horde_Imap_Client_Base#status().
+* [mms] Correctly handle determination of highestmodseq in currently selected mailbox if CONDSTORE, but not QRESYNC, is active.
+* [mms] Optimize APPEND so that we don&apos;t send large amounts of data to server if the server is not going to accept the data.
 * [mms] Don&apos;t expunge mailbox when it is labeled as read-only.
 * [mms] Fix regression in FETCH/COPY with sequence numbers (Bug #11521).
 * [mms] Fix quoting empty astrings (Bug #11505).
@@ -1112,7 +1113,8 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Add STATUS_HIGHESTMODSEQ_EXACT option to Horde_Imap_Client_Base#status().
+* [mms] Correctly handle determination of highestmodseq in currently selected mailbox if CONDSTORE, but not QRESYNC, is active.
+* [mms] Optimize APPEND so that we don&apos;t send large amounts of data to server if the server is not going to accept the data.
 * [mms] Don&apos;t expunge mailbox when it is labeled as read-only.
 * [mms] Fix regression in FETCH/COPY with sequence numbers (Bug #11521).
 * [mms] Fix quoting empty astrings (Bug #11505).

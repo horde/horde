@@ -151,11 +151,6 @@ class Horde_Test
             'error' => 'The PAM extension is required to allow PAM authentication to be used.',
             'function' => '_checkPam'
         ),
-        'pcre' => array(
-            'descrip' => 'PCRE Support',
-            'error' => 'Horde will not run without the pcre extension. Don\'t compile PHP with <code>--disable-all/--without-pcre-regex</code>, or enable the pcre extension individually before continuing.',
-            'fatal' => true
-        ),
         'pdo' => array(
             'descrip' => 'PDO',
             'error' => 'The PDO extension is required if you plan on using a database backend other than mysql or mysqli with Horde_Db.',
@@ -251,14 +246,6 @@ class Horde_Test
         'tidy.clean_output' => array(
             'setting' => false,
             'error' => 'This will break output of any dynamically created, non-HTML content. Horde will attempt to disable automatically, but it is best to manually disable also.'
-        ),
-        'zend_accelerator.compress_all' => array(
-            'setting' => false,
-            'error' => 'You should not enable output compression unconditionally because some browsers and scripts don\'t work well with output compression. Enable compression in Horde\'s configuration instead, so that we have full control over the conditions where to enable and disable it.'
-        ),
-        'zend.ze1_compatibility_mode' => array(
-            'setting' => false,
-            'error' => 'Unneeded, deprecated PHP 4 compatibility option. Horde will attempt to disable automatically, but it is best to manually disable also.'
         ),
         'zlib.output_compression' => array(
             'setting' => false,

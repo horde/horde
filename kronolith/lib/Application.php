@@ -223,7 +223,7 @@ class Kronolith_Application extends Horde_Registry_Application
             $row = array(
                 'selected' => in_array($id, $GLOBALS['display_calendars']),
                 'url' => $url->copy()->add('toggle_calendar', $id),
-                'label' => $calendar->get('name'),
+                'label' => Kronolith::getLabel($calendar),
                 'color' => Kronolith::backgroundColor($calendar),
                 'edit' => $edit->add('c', $calendar->getName()),
                 'type' => 'checkbox',
@@ -231,9 +231,6 @@ class Kronolith_Application extends Horde_Registry_Application
             if ($calendar->get('owner') && $calendar->get('owner') == $user) {
                 $sidebar->addRow($row, 'my');
             } else {
-                if ($calendar->get('owner')) {
-                    $row['label'] .= ' [' . $GLOBALS['registry']->convertUsername($calendar->get('owner'), false) . ']';
-                }
                 $sidebar->addRow($row, 'shared');
             }
         }

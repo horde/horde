@@ -338,14 +338,6 @@ img.kronolithEventIcon {
     padding-left: 0;
 }
 
-/* Block-specific styles. */
-.block-monthgrid {
-    background: #fff;
-}
-.block-upcomingday td {
-    border-top: 1px solid #ddd;
-}
-
 /* background-color will always be overridden for the
  * *-eventbox classes */
 .block-eventbox, table.nopadding td.block-eventbox {

@@ -846,7 +846,6 @@ abstract class Kronolith_Event
             $search = new StdClass();
             $search->baseid = $this->uid;
             $results = $kronolith_driver->search($search);
-            $exdates = array();
             foreach ($results as $days) {
                 foreach ($days as $exceptionEvent) {
                     // Need to change the UID so it links to the original
@@ -866,7 +865,7 @@ abstract class Kronolith_Event
                     if (!$v1) {
                         $vEventException->setAttribute('RECURRENCE-ID', $exceptionEvent->exceptionoriginaldate->timestamp());
                     } else {
-                        $exdates[] = $exceptionEvent->exceptionoriginaldate;
+                        $vEvent->setAttribute('EXDATE', array($exceptionEvent->exceptionoriginaldate), array('VALUE' => 'DATE'));
                     }
                     $originaldate = $exceptionEvent->exceptionoriginaldate->format('Ymd');
                     $key = array_search($originaldate, $exceptions);
@@ -880,12 +879,12 @@ abstract class Kronolith_Event
             /* The remaining exceptions represent deleted recurrences */
             foreach ($exceptions as $exception) {
                 if (!empty($exception)) {
+                    /* Use multiple EXDATE attributes instead of EXDATE
+                     * attributes with multiple values to make Apple iCal
+                     * happy. */
                     list($year, $month, $mday) = sscanf($exception, '%04d%02d%02d');
-                    $exdates[] = new Horde_Date($year, $month, $mday);
+                    $vEvent->setAttribute('EXDATE', array(new Horde_Date($year, $month, $mday)), array('VALUE' => 'DATE'));
                 }
-            }
-            if ($exdates) {
-                $vEvent->setAttribute('EXDATE', $exdates);
             }
         }
         array_unshift($vEvents, $vEvent);

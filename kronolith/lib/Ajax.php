@@ -59,7 +59,7 @@ class Kronolith_Ajax
 
         /* Variables used in core javascript files. */
         $js_vars['conf'] = array_filter(array(
-            'URI_CALENDAR_EXPORT' => strval($registry->downloadUrl('', array('actionID' => 'export', 'all_events' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportCal' => 'internal_'))),
+            'URI_CALENDAR_EXPORT' => strval($registry->downloadUrl('', array('actionID' => 'export', 'all_events' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportCal' => 'internal_'))->setRaw(true)),
             'URI_EVENT_EXPORT' => str_replace(array('%23', '%7B', '%7D'), array('#', '{', '}'), Horde::url('event.php', true)->add(array('view' => 'ExportEvent', 'eventID' => '#{id}', 'calendar' => '#{calendar}', 'type' => '#{type}'))),
 
             'images' => array(

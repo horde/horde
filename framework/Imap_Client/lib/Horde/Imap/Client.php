@@ -40,7 +40,6 @@ class Horde_Imap_Client
     const STATUS_LASTMODSEQ = 1024;
     const STATUS_LASTMODSEQUIDS = 2048;
     const STATUS_UIDNOTSTICKY = 4096;
-    const STATUS_HIGHESTMODSEQ_EXACT = 8192;
 
     /* Constants for search() */
     const SORT_ARRIVAL = 1;

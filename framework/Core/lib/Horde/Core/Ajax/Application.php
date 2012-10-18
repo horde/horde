@@ -65,18 +65,32 @@ abstract class Horde_Core_Ajax_Application
      * @param string $app            The application name.
      * @param Horde_Variables $vars  Form/request data.
      * @param string $action         The AJAX action to perform.
+     * @param string $token          If set, checks token against session
+     *                               token (if action requires it).
+     *
+     * @throws Horde_Exception
      */
-    public function __construct($app, Horde_Variables $vars, $action = null)
+    public function __construct($app, Horde_Variables $vars, $action = null,
+                                $token = null)
     {
+        global $session;
+
         $this->_app = $app;
         $this->_vars = $vars;
         $this->_action = $action;
 
         $this->_init();
 
+        $ob = $this->_getHandler();
+
+        /* Check token. */
+        if (!is_null($token) && $ob && !$ob->external($action)) {
+            $session->checkToken($token);
+        }
+
         /* Close session if action is labeled as read-only. */
-        if (($ob = $this->_getHandler()) && $ob->readonly($action)) {
-            $GLOBALS['session']->close();
+        if ($ob && $ob->readonly($action)) {
+            $session->close();
         }
     }
 

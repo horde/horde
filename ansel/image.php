@@ -187,7 +187,7 @@ case 'save':
     $title = _("Save Photo");
     if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(
-            sprintf(_("Access denied saving photo to \"%s\"."), $gallery->get('name')),
+            _("Access denied saving photo to this gallery."),
             'horde.error');
         Ansel::getUrlFor(
             'view',
@@ -398,7 +398,7 @@ case 'resizeedit':
 case 'watermark':
     if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(
-            sprintf(_("Access denied saving photo to \"%s\"."), $gallery->get('name')),
+            _("Access denied saving photo to this gallery."),
             'horde.error');
         // Return to the image view
         Ansel::getUrlFor(
@@ -442,7 +442,7 @@ case 'crop':
 case 'resize':
     if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(
-            sprintf(_("Access denied saving photo to \"%s\"."), $gallery->get('name')),
+            _("Access denied saving photo to this gallery."),
             'horde.error');
     } else {
         try {
@@ -662,7 +662,8 @@ case 'delete':
     if (count($images)) {
         if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
             $notification->push(
-                sprintf(_("Access denied deleting photos from \"%s\"."), $gallery->get('name')), 'horde.error');
+                _("Access denied deleting photos from this gallery."),
+                'horde.error');
         } else {
             foreach ($images as $image) {
                 try {
@@ -798,7 +799,8 @@ case 'downloadzip':
             $gallery->hasPasswd() || !$gallery->isOldEnough()) {
 
             $notification->push(
-                sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')), 'horde.error');
+                _("Access denied downloading photos from this gallery."),
+                'horde.error');
             Horde::url('view.php?view=List', true)->redirect();
             exit;
         }
@@ -825,7 +827,8 @@ case 'downloadzip':
 
 case 'previewcrop':
     if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
-        $notification->push(_("Access denied editing the photo."), 'horde.error');
+        $notification->push(_("Access denied editing the photo."),
+                            'horde.error');
         Ansel::getUrlFor(
             'view',
             array(

@@ -16,7 +16,7 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
 {
     /**
      * URL Parameters:
-     *   - actionID: (string) Action ID.
+     *   - a: (string) Action ID.
      *   - checkbox: TODO
      *   - indices: TODO
      *   - mt: TODO
@@ -66,7 +66,7 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
         }
 
         /* Run through the action handlers. */
-        switch ($this->vars->actionID) {
+        switch ($this->vars->a) {
         // 'm' = message missing
         case 'm':
             $notification->push(_("There was an error viewing the requested message."), 'horde.error');

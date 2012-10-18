@@ -9,6 +9,7 @@
  *
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Help
@@ -27,13 +28,6 @@ class Horde_Help
     protected $_xml;
 
     /**
-     * String containing the charset of the XML data source.
-     *
-     * @var string
-     */
-    protected $_charset = 'iso-8859-1';
-
-    /**
      * Constructor.
      *
      * @param integer $source  The source of the XML help data, based on the
@@ -49,39 +43,68 @@ class Horde_Help
             throw new Horde_Exception('SimpleXML not available.');
         }
 
-        if ($charset = $GLOBALS['registry']->nlsconfig->curr_charset) {
-            $this->_charset = $charset;
-        }
+        $xml = array();
 
         switch ($source) {
         case self::SOURCE_RAW:
-            $this->_xml = new SimpleXMLElement($data[0]);
+            $dom = new DOMDocument('1.0', 'UTF-8');
+            $dom->loadXML($data[0]);
+            $xml[] = $dom;
             break;
 
         case self::SOURCE_FILE:
             foreach (array_unique($data) as $val) {
                 if (@is_file($val)) {
-                    $this->_xml = new SimpleXMLElement($val, null, true);
-                    break;
+                    $dom = new DOMDocument('1.0', 'UTF-8');
+                    $dom->load($val);
+                    $xml[] = $dom;
                 }
             }
             break;
         }
 
-        if (!$this->_xml) {
+        if (empty($xml)) {
             throw new Horde_Exception('Help file not found.');
         }
 
         /* SimpleXML cannot deal with mixed text/data nodes. Convert all text
          * descendants of para to <text> tags */
-        $dom = dom_import_simplexml($this->_xml);
-        $xpath = new DOMXpath($dom->ownerDocument);
-        $textnodes = $xpath->query('//para/text()');
-        foreach ($textnodes as $text) {
-            $text->parentNode->replaceChild(
-                new DOMElement('text', $text->nodeValue), $text);
+        foreach ($xml as $dom) {
+            $xpath = new DOMXpath($dom);
+            foreach ($xpath->query('//para/text()') as $text) {
+                $text->parentNode->replaceChild(new DOMElement('text', $text->nodeValue), $text);
+            }
+            $simplexml[] = simplexml_import_dom($dom);
         }
-        $this->_xml = simplexml_import_dom($dom);
+
+        $this->_xml = array_shift($simplexml);
+
+        foreach ($simplexml as $val) {
+            foreach ($val as $entry) {
+                $this->_mergeXml($this->_xml, $entry);
+            }
+        }
+    }
+
+    /**
+     * Merge XML elements together.
+     *
+     * @param SimpleXMLElement $base  Base element.
+     * @param SimpleXMLElement $add   Element to add.
+     */
+    protected function _mergeXml($base, $add)
+    {
+        $new = $add->count()
+            ? $base->addChild($add->getName())
+            : $base->addChild($add->getName(), $add);
+
+        foreach ($add->attributes() as $k => $v) {
+            $new->addAttribute($k, $v);
+        }
+
+        foreach ($add->children() as $v) {
+            $this->_mergeXml($new, $v);
+        }
     }
 
     /**
@@ -177,6 +200,10 @@ class Horde_Help
 
             case 'warn':
                 $out .= '<em class="helpWarn">' . strval($child) . '</em>';
+                break;
+
+            case 'css':
+                $out .= '<span class="' . $child->attributes()->class . '">' . strval($child) . '</span>';
                 break;
             }
         }

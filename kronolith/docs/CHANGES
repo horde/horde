@@ -2,6 +2,8 @@
 v4.0.0-git
 ----------
 
+[jan] Fix broken Apple iCal behavior with exception dates (Evert Pot
+      <evert@rooftopsolutions.nl>).
 [jan] Use more compatible message format for iTip notifications (Bug #9854).
 [jan] Fix free/busy retrieval on Kolab.
 

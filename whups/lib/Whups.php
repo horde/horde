@@ -1162,4 +1162,15 @@ class Whups
             'sources' => $src
         );
     }
+
+    static public function addFeedLink()
+    {
+        $GLOBALS['page_output']->addLinkTag(array(
+            'href' => Horde::url('opensearch.php', true, -1),
+            'rel' => 'search',
+            'type' => 'application/opensearchdescription+xml',
+            'title' => $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')'
+        ));
+    }
+
 }

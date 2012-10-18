@@ -120,7 +120,7 @@ class Mnemo_Application extends Horde_Registry_Application
             $row = array(
                 'selected' => in_array($name, $GLOBALS['display_notepads']),
                 'url' => $url->add('display_notepad', $name),
-                'label' => $notepad->get('name'),
+                'label' => Mnemo::getLabel($notepad),
                 'color' => $notepad->get('color') ?: '#dddddd',
                 'edit' => $edit->add('n', $notepad->getName()),
                 'type' => 'checkbox',
@@ -128,9 +128,6 @@ class Mnemo_Application extends Horde_Registry_Application
             if ($notepad->get('owner') == $user) {
                 $sidebar->addRow($row, 'my');
             } else {
-                if ($notepad->get('owner')) {
-                    $row['label'] .= ' [' . $GLOBALS['registry']->convertUsername($notepad->get('owner'), false) . ']';
-                }
                 $sidebar->addRow($row, 'shared');
             }
         }
@@ -174,7 +171,7 @@ class Mnemo_Application extends Horde_Registry_Application
             $tree->addNode(array(
                 'id' => $parent . $name . '__new',
                 'parent' => $parent . '__new',
-                'label' => sprintf(_("in %s"), $notepad->get('name')),
+                'label' => sprintf(_("in %s"), Mnemo::getLabel($notepad)),
                 'expanded' => false,
                 'params' => array(
                     'icon' => Horde_Themes::img('add.png'),

@@ -1441,26 +1441,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *    <li>
      *     Return format: (integer) If the server supports the CONDSTORE
      *     IMAP extension, this will be the highest mod-sequence value of all
-     *     messages in the mailbox. This value may NOT be the most-up-to date
-     *     version of HIGHESTMODSEQ as exists on the server; it instead will
-     *     be the guaranteed HIGHESTMODSEQ value as known by the caching
-     *     subsystem. Returns 0 if CONDSTORE not available or the mailbox does
-     *     not support mod-sequences.
-     *    </li>
-     *   </ul>
-     *  </li>
-     *  <li>
-     *   Horde_Imap_Client::STATUS_HIGHESTMODSEQ_EXACT
-     *   <ul>
-     *    <li>
-     *     Return key: highestmodseq
-     *    </li>
-     *    <li>
-     *     Return format: (integer) If the server supports the CONDSTORE
-     *     IMAP extension, this will be the highest mod-sequence value of all
-     *     messages in the mailbox. Unlike STATUS_HIGHESTMODSEQ, this option
-     *     will return the absolute current value of HIGHESTMODSEQ as it exists
-     *     exists on the server. Returns 0 if CONDSTORE not available or the
+     *     messages in the mailbox. Else 0 if CONDSTORE not available or the
      *     mailbox does not support mod-sequences.
      *    </li>
      *   </ul>
@@ -1560,12 +1541,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         /* Catch flags that are not supported. */
-        if ((($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) ||
-             ($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ_EXACT)) &&
+        if (($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) &&
             !isset($this->_init['enabled']['CONDSTORE'])) {
             $ret['highestmodseq'] = 0;
             $flags &= ~Horde_Imap_Client::STATUS_HIGHESTMODSEQ;
-            $flags &= ~Horde_Imap_Client::STATUS_HIGHESTMODSEQ_EXACT;
         }
 
         if (($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY) &&
@@ -1595,16 +1574,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (!$flags) {
             return $ret;
-        }
-
-        /* To get the exact HIGHESTMODSEQ value, we can't be in the current
-         * mailbox. */
-        if ($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ_EXACT) {
-            $flags &= ~Horde_Imap_Client::STATUS_HIGHESTMODSEQ_EXACT;
-            $flags |= Horde_Imap_Client::STATUS_HIGHESTMODSEQ;
-            if ($mailbox->equals($this->_selected)) {
-                $this->close();
-            }
         }
 
         /* STATUS_PERMFLAGS requires a read/write mailbox. */

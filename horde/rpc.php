@@ -76,7 +76,7 @@ Horde_Registry::appInit('horde', array(
     'session_control' => $session_control
 ));
 
-$request = $GLOBALS['injector']->getInstance('Horde_Controller_Request');
+$request = $injector->getInstance('Horde_Controller_Request');
 
 $params['logger'] = $injector->getInstance('Horde_Log_Logger');
 
@@ -123,7 +123,7 @@ try {
 // basic authentication against Horde, but backends can override this
 // as needed. Must reset the authentication argument since we delegate
 // auth to the RPC server.
-$GLOBALS['registry']->setAuthenticationSetting(
+$registry->setAuthenticationSetting(
     (array_key_exists('requireAuthorization', $params) && $params['requireAuthorization'] === false)
     ? 'none'
     : 'Authenticate');

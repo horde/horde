@@ -113,7 +113,7 @@ class Nag_View_List
         $view->tasks = $this->_tasks;
         $view->tasks->reset();
         $view->tabs = $tabs->render($this->_vars->get('show_completed'));
-        $view->browser = empty($this->_smartShare) ? $this->_getRelatedTags() . $this->_getTagTrail() : '';
+        $view->browser = empty($this->_smartShare) && $this->_showTagBrowser ? $this->_getRelatedTags() . $this->_getTagTrail() : '';
         $view->title = $this->_title;
         $view->sortby = $prefs->getValue('sortby');
         $view->sortdir = $prefs->getValue('sortdir');
@@ -247,6 +247,12 @@ class Nag_View_List
     protected function _doSearch()
     {
 
+        // Clear the tag browser in case we have an active browse set.
+        $this->_browser->clearSearch();
+
+        // Don't show the tag browser.
+        $this->_showTagBrowser = false;
+
         $form = new Nag_Form_Search($this->_vars);
         if ($form->validate($this->_vars, true)) {
             $form->getInfo($this->_vars, $info);
@@ -256,7 +262,7 @@ class Nag_View_List
 
         // Text filter
         $search_pattern = $this->_vars->search_pattern;
-        $search_in = $this->_vars->search_in;
+        $search_in = empty($this->_vars->search_in) ? array() : $this->_vars->search_in;
         $search_name = in_array('search_name', $search_in) ? Nag_Search::MASK_NAME : 0;
         $search_desc = in_array('search_desc', $search_in) ? Nag_Search::MASK_DESC : 0;
         $search_tags = !empty($this->_vars->search_tags) ? Nag_Search::MASK_TAGS : 0;

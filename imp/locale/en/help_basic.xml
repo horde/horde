@@ -1,0 +1,205 @@
+<?xml version='1.0'?>
+<help>
+    <entry id="mailbox-keyboard">
+        <title>Mailbox: Keyboard Shortcuts</title>
+        <para>
+            You can use your keyboard to select and view messages in your mailbox. In order to move between messages, use the <css class="iconImg keyupImg"></css> and <css class="iconImg keydownImg"></css>keys while holding the <css class="kbd">Ctrl</css> key. You will start at the bottom of the page (last displayed message) if you press <css class="iconImg keyupImg"></css> and at the top of the page (first displayed message) if you press <css class="iconImg keydownImg"></css>.
+        </para>
+        <para>
+            The current message is highlighted just as if you were mousing over it. While you are moving up and down through the mailbox list, you can press <css class="kbd">Space</css> to select or deselect that message, and you can press <css class="kbd">Enter</css>to view that message.
+        </para>
+        <para>
+            If you are holding <css class="kbd">Alt</css> instead of <css class="kbd">Ctrl</css> while navigating through the mailbox, the messages you are passing are automatically selected or deselected.
+        </para>
+        <para>
+            Use the <css class="iconImg keyleftImg"></css> and <css class="iconImg keyrightImg"></css> keys on your keyboard to go to the previous page of messages in your mailbox or the next page of messages, respectively.
+        </para>
+    </entry>
+
+    <entry id="message-keyboard">
+        <title>Message: Previous/Next Message</title>
+        <para>
+            Use the <css class="iconImg keyleftImg"></css> and <css class="iconImg keyrightImg"></css> keys on your keyboard to go to the previous message or the next message, respectively.
+        </para>
+    </entry>
+
+    <entry id="compose-attachments">
+        <title>Compose: Adding Attachments</title>
+        <para>
+            You may attach files to your message if your browser supports uploading of files.
+        </para>
+        <para>
+            Click the &quot;Browse&quot; button and select the file to be attached. An additional upload input will appear, if you have not exceed your limit for the number of attachments allowed in a message, for uploading additional attachments.
+        </para>
+        <para>
+            If you want to change the description, you can click the &quot;Update&quot; button to upload your attachments immediately and save any other changes you've made to existing attachments.
+        </para>
+        <para>
+            <tip>
+                Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the e-mail may take some time.
+            </tip>
+        </para>
+    </entry>
+
+    <entry id="compose-current-attachments">
+        <title>Compose: Current Attachments</title>
+        <heading>Current Attachments</heading>
+        <para>
+            This section displays a list of files already attached to your message.
+        </para>
+        <heading>Delete Attachments</heading>
+        <para>
+            To delete an attached file(s):
+        </para>
+        <para>
+            Step 1: Activate the check-button next to the attached filename(s) you want to delete.
+        </para>
+        <para>
+            Step 2: Either click the &quot;Update&quot; button above the Current Attachments section to immediately view changes or the changes will automatically be performed when the message is sent.
+        </para>
+        <heading>Change Attachment Description</heading>
+        <para>
+            To change the description for your attachments (the text the recipient will see that describes the attachment):
+        </para>
+        <para>
+            Step 1: Enter a description into the Description field.
+        </para>
+        <para>
+            Step 2: Either click the &quot;Update&quot; button above the Current Attachments section to immediately view changes or the changes will automatically be performed when the message is sent.
+        </para>
+    </entry>
+
+    <entry id="compose-link-attachments">
+        <title>Compose: Link Attachments</title>
+        <para>
+            Determines whether the attachments in your composition are sent as a part of the mail message or whether those attachments are kept on a local server.  If attachments are linked, the recipient(s) of your message will be provided a web link where they can download the attachment(s).
+        </para>
+        <para>
+            Linking attachments has the advantage of reducing the size of outgoing messages, especially for large attachments.  Linking attachments has the disadvantage that the content of the attachments cannot be guaranteed to be available in the future since the attachment data is not located within the e-mail message itself.
+        </para>
+    </entry>
+
+    <entry id="folders">
+        <title>Folders</title>
+        <para>
+            You can select folders by using the buttons along the left column. Once you have done this, select the action you wish to perform on the folders via the select box to the left.
+        </para>
+    </entry>
+
+    <entry id="folders-create">
+        <title>Folders: Create</title>
+        <para>
+            Create a new folder, if possible. To create a folder in the base level, select 'Create' without selecting a folder in the left column. To create a subfolder in a currently existing folder, select the existing folder in the left column before selecting 'Create'.
+        </para>
+    </entry>
+
+    <entry id="folders-rename">
+        <title>Folders: Rename</title>
+        <para>
+            Rename a folder. To rename, select the folders in the left column to rename and click 'Rename'. When renaming, all subfolders will automatically be renamed.
+        </para>
+    </entry>
+
+    <entry id="folders-delete">
+        <title>Folders: Delete</title>
+        <para>
+            Delete a folder and all messages inside the folder. To delete, select the folders in the left column to delete and click 'Delete'. When deleting a folder with children, these subfolders will not be automatically deleted. To remove these children, you must manually select all folders to delete using the left column.
+        </para>
+    </entry>
+
+    <entry id="folders-empty">
+        <title>Folders: Empty</title>
+        <para>
+            To delete all messages inside a folder, but not delete the folder itself, select the folders in the left column and click 'Empty'.
+        </para>
+    </entry>
+
+    <entry id="folders-purge">
+        <title>Folders: Purge</title>
+        <para>
+            To delete all messages inside a folder marked as deleted, but not delete the folder itself, select the folders in the left column and click 'Purge'. This option only appears if not using a trash folder.
+        </para>
+    </entry>
+
+    <entry id="folders-subscribe">
+        <title>Folders: Subscribe/Unsubscribe</title>
+        <para>
+            Flags a folder as either subscribed or unsubscribed. When a folder is subscribed, it will appear in all drop down folder lists. These options only appear if using IMAP folder subscriptions.
+        </para>
+        <para>
+            To subscribe, select the folders in the left column to delete and click 'Subscribe'. To unsubscribe, select the folders in the left column to delete and click 'Unsubscribe'.
+        </para>
+    </entry>
+
+    <entry id="folders-newmail">
+        <title>Folders: Check for New Mail/Do Not Check for New Mail</title>
+        <para>
+            <warn>
+                This action may not be available if your webmail administrator has disabled it.
+            </warn>
+        </para>
+        <para>
+            Flags a folder to be checked for new mail in the Folder Navigator and the sidebar.
+        </para>
+        <para>
+            To set this flag, select the folders in the left column to check and click 'Check for New Mail'. To unset this flag, select the folders in the left column to check and click 'Do Not Check for New Mail'.
+        </para>
+    </entry>
+
+    <entry id="folders-markseen">
+        <title>Folders: Mark All Messages as Seen/Unseen</title>
+        <para>
+            To mark all messages in a folder as seen, select the folders in the left column and click 'Mark All Messages as Seen'. To mark all messages in a folder as unseen, select the folders in the left column and click 'Mark All Messages as Unseen'.
+        </para>
+    </entry>
+
+    <entry id="folders-download">
+        <title>Folders: Download</title>
+        <para>
+            To download all messages in a folder in a single file (mbox format), select the folder in the left column and click 'Download'. To download the file in ZIP compressed format, instead select 'Download [.zip format].
+        </para>
+    </entry>
+
+    <entry id="folders-import">
+        <title>Folders: Import Messages</title>
+        <para>
+            This option will import mbox format or .eml files into the folder of your choice. Choose one folder via the left column to import the messages into and then select this option. You will then be taken to a page that will prompt for the mbox or .eml file to import.
+        </para>
+    </entry>
+
+    <entry id="folders-rebuild">
+        <title>Folders: Rebuild Folder Tree</title>
+        <para>
+            Rebuild the graphical representation of the folder tree by requerying the mail server. You should not normally need to do this unless you are simultaneously accessing the mail server with another mail client and that mail client has made changes to the folder structure.
+        </para>
+    </entry>
+
+    <entry id="folders-showsub">
+        <title>Folders: Show/Hide Unsubscribed</title>
+        <para>
+            If using IMAP folder subscriptions, show/hide the unsubscribed folders. To subscribe/unsubscribe to a folder, select the checkbox next to the foldername and use the Subscribe/Unsubscribe action in the Folder Action drop-down menu.
+        </para>
+    </entry>
+
+    <entry id="folders-expandall">
+        <heading>Folders: Expand All</heading>
+        <para>
+            Expand all folder entries.
+        </para>
+    </entry>
+
+    <entry id="folders-collapseall">
+        <heading>Folders: Collapse All</heading>
+        <para>
+            Collapse all folder entries.
+        </para>
+    </entry>
+
+    <entry id="filter-apply">
+        <title>Filters: Apply</title>
+        <heading>Apply Filter Rules</heading>
+        <para>
+            Click on the &quot;Apply Filter&quot; icon next to the Inbox name in the mailbox view to filter all messages according to the specified rules.
+        </para>
+    </entry>
+</help>

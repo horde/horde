@@ -76,7 +76,7 @@ if (!$form->isSubmitted()) {
 /* Set form title. */
 $form_title = _("Forward");
 if (!empty($fwd_rule['disable'])) {
-    $form_title .= ' [<span class="form-error">' . _("Disabled") . '</span>]';
+    $form_title .= ' [<span class="horde-form-error">' . _("Disabled") . '</span>]';
 }
 $form_title .= ' ' . Horde_Help::link('ingo', 'forward');
 $form->setTitle($form_title);

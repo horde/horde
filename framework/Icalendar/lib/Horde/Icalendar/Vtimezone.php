@@ -50,35 +50,49 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
         try {
             $t = $child->getAttribute('TZOFFSETFROM');
         } catch (Horde_Icalendar_Exception $e) {
-            return false;
+            return array();
         }
         $result['from'] = ($t['hour'] * 60 * 60 + $t['minute'] * 60) * ($t['ahead'] ? 1 : -1);
 
         try {
             $t = $child->getAttribute('TZOFFSETTO');
         } catch (Horde_Icalendar_Exception $e) {
-            return false;
+            return array();
         }
         $result['to'] = ($t['hour'] * 60 * 60 + $t['minute'] * 60) * ($t['ahead'] ? 1 : -1);
 
         try {
-            $switch_time = $child->getAttribute('DTSTART');
+            $start = getdate($child->getAttribute('DTSTART'));
         } catch (Horde_Icalendar_Exception $e) {
-            return false;
+            return array();
+        }
+
+        if ($start['year'] > $year) {
+            return array();
+        }
+
+        $results = array();
+        try {
+            $rdates = $child->getAttributeValues('RDATE');
+            foreach ($rdates as $rdate) {
+                if ($rdate['year'] == $year || $rdate['year'] == $year - 1) {
+                    $result['time'] = gmmktime(
+                    $start['hours'], $start['minutes'], $start['seconds'],
+                    $rdate['month'], $rdate['mday'], $rdate['year']);
+                    $results[] = $result;
+                }
+            }
+        } catch (Horde_Icalendar_Exception $e) {
         }
 
         try {
             $rrules = $child->getAttribute('RRULE');
         } catch (Horde_Icalendar_Exception $e) {
-            if (!is_int($switch_time)) {
-                return false;
+            if (!$results) {
+                $result['time'] = $start[0];
+                $results[] = $result;
             }
-            // Convert this timestamp from local time to UTC for
-            // comparison (All dates are compared as if they are UTC).
-            $t = getdate($switch_time);
-            $result['time'] = @gmmktime($t['hours'], $t['minutes'], $t['seconds'],
-                                        $t['mon'], $t['mday'], $t['year']);
-            return $result;
+            return $results;
         }
 
         $rrules = explode(';', $rrules);
@@ -87,13 +101,13 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
             switch ($t[0]) {
             case 'FREQ':
                 if ($t[1] != 'YEARLY') {
-                    return false;
+                    return array();
                 }
                 break;
 
             case 'INTERVAL':
                 if ($t[1] != '1') {
-                    return false;
+                    return array();
                 }
                 break;
 
@@ -104,7 +118,7 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
             case 'BYDAY':
                 $len = strspn($t[1], '1234567890-+');
                 if ($len == 0) {
-                    return false;
+                    return array();
                 }
                 $weekday = substr($t[1], $len);
                 $weekdays = array(
@@ -122,32 +136,18 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
 
             case 'UNTIL':
                 if (intval($year) > intval(substr($t[1], 0, 4))) {
-                    return false;
+                    return array();
                 }
                 break;
             }
         }
 
         if (empty($month) || !isset($weekday)) {
-            return false;
-        }
-
-        if (is_int($switch_time)) {
-            // Was stored as localtime.
-            $switch_time = strftime('%H:%M:%S', $switch_time);
-            $switch_time = explode(':', $switch_time);
-        } else {
-            $switch_time = explode('T', $switch_time);
-            if (count($switch_time) != 2) {
-                return false;
-            }
-            $switch_time[0] = substr($switch_time[1], 0, 2);
-            $switch_time[2] = substr($switch_time[1], 4, 2);
-            $switch_time[1] = substr($switch_time[1], 2, 2);
+            return array();
         }
 
         // Get the timestamp for the first day of $month.
-        $when = gmmktime($switch_time[0], $switch_time[1], $switch_time[2],
+        $when = gmmktime($start['hours'], $start['minutes'], $start['seconds'],
                          $month, 1, $year);
         // Get the day of the week for the first day of $month.
         $first_of_month_weekday = intval(gmstrftime('%w', $when));
@@ -170,8 +170,9 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
         $when += $which * 60 * 60 * 24 * 7;
 
         $result['time'] = $when;
+        $results[] = $result;
 
-        return $result;
+        return $results;
     }
 
 }

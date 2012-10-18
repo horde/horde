@@ -1,0 +1,78 @@
+<?xml version='1.0'?>
+<help>
+    <entry id="compose-attachments">
+        <title>Compose: Adding Attachments</title>
+        <para>
+            You may attach files to your message if your browser supports uploading of files.
+        </para>
+        <para>
+            Click the &quot;Browse&quot; button and select the file to be attached. An additional upload input will appear, if you have not exceed your limit for the number of attachments allowed in a message, for uploading additional attachments.
+        </para>
+        <para>
+            <tip>
+                Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the e-mail may take some time.
+            </tip>
+        </para>
+    </entry>
+
+    <entry id="compose-current-attachments">
+        <title>Compose: Current Attachments</title>
+        <heading>Viewing Attachments</heading>
+        <para>
+            If the attachment filename is clickable, the attachment data can be viewed in the browser. Click on the attachment name to view the contents of the attachment in a popup window.
+        </para>
+        <heading>Delete Attachments</heading>
+        <para>
+            To delete an attachment, clikc the &quot;Remove&quot; button next to the name of the attachment you want to delete
+        </para>
+    </entry>
+
+    <entry id="mailbox">
+        <title>Mailbox</title>
+        <para>
+            To preview a message, select it from the message list.
+        </para>
+        <para>
+            A right-click on a message or a mailbox will display available actions.
+        </para>
+        <para>
+            Click on a message while holding down the <css class="kbd">Ctrl</css> key to select multiple messages.  To select a range of messages, click the first message of the range, navigate to the last message of the range, and then click on the last message while holding down the <css class="kbd">Shift</css> key.
+        </para>
+        <para>
+            <warn>
+                Opera does not support right-click actions.  Instead, a left click + Shift + Ctrl will display available actions.
+            </warn>
+        </para>
+    </entry>
+
+    <entry id="mailbox-keyboard">
+        <title>Mailbox: Keyboard Shortcuts</title>
+        <para>
+            The following keyboard shortcuts are available:
+        </para>
+        <para>
+            <css class="iconImg keyupImg"></css> / <css class="iconImg keydownImg"></css> : Move up/down through the message list.
+        </para>
+        <para>
+            <css class="kbd">PgUp</css> / <css class="kbd">PgDown</css> : Move one page up/down through the message list.
+        </para>
+        <para>
+            <css class="kbd">Alt</css> + <css class="kbd">PgUp</css> / <css class="kbd">PgDown</css> : Scroll up/down through the display of the previewed message.
+        </para>
+        <para>
+            <css class="kbd">Home</css> / <css class="kbd">End</css> : Move to the beginning/end of the message list.
+        </para>
+        <para>
+            <css class="kbd">Del</css> : Delete the currently selected message(s). <css class="kbd">Shift</css> + <css class="kbd">Del</css> will delete the current message and move to the next message if a single message is selected.
+        </para>
+        <para>
+            <css class="kbd">Shift</css> + <css class="kbd">N</css> : Move to the next unseen message (non-search mailboxes only).
+        </para>
+        <para>
+            <css class="kbd">Enter</css> : Open message in a popup window.
+        </para>
+        <para>
+            <css class="kbd">Ctrl</css> + <css class="kbd">A</css> : Select all messages in the current mailbox.
+        </para>
+    </entry>
+</help>

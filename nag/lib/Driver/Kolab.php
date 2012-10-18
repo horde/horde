@@ -154,7 +154,14 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     public function getByUID($uid)
     {
-        return $this->_wrapper->getByUID($uid);
+        foreach (array_keys(Nag::listTasklists(false, Horde_Perms::READ, false)) as $tasklist) {
+            $this->_tasklist = $tasklist;
+            try {
+                return $this->get($uid);
+            } catch (Horde_Exception_NotFound $e) {
+            }
+        }
+        throw new Horde_Exception_NotFound();
     }
 
     /**
@@ -430,7 +437,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *
      * @param integer $date  The unix epoch time to check for alarms.
      *
-     * @return array  An array of tasks that have alarms that match.
+     * @return array  An array of Nag_Task objects that have alarms that match.
      */
     public function listAlarms($date)
     {

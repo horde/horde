@@ -139,6 +139,7 @@ Horde::startBuffer();
 $page->render(Wicked::MODE_DISPLAY, $params);
 $content = Horde::endBuffer();
 
+Wicked::addFeedLink();
 $page_output->header(array(
     'title' => $page->pageTitle()
 ));

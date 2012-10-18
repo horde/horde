@@ -162,7 +162,7 @@ class Nag_Application extends Horde_Registry_Application
             $row = array(
                 'selected' => in_array($name, $display_tasklists),
                 'url' => $url,
-                'label' => $tasklist->get('name'),
+                'label' => Nag::getLabel($tasklist),
                 'color' => $tasklist->get('color') ?: '#dddddd',
                 'edit' => $edit->add('t', $tasklist->getName()),
                 'type' => 'checkbox',
@@ -170,9 +170,6 @@ class Nag_Application extends Horde_Registry_Application
             if ($tasklist->get('owner') == $user) {
                 $sidebar->addRow($row, 'my');
             } else {
-                if ($tasklist->get('owner')) {
-                    $row['label'] .= ' [' . $GLOBALS['registry']->convertUsername($tasklist->get('owner'), false) . ']';
-                }
                 $sidebar->addRow($row, 'shared');
             }
         }
@@ -245,7 +242,7 @@ class Nag_Application extends Horde_Registry_Application
         if ((empty($user) || $user != $GLOBALS['registry']->getAuth()) &&
             !$GLOBALS['registry']->isAdmin()) {
 
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
@@ -314,7 +311,7 @@ class Nag_Application extends Horde_Registry_Application
                 $tree->addNode(array(
                     'id' => $parent . $name . '__new',
                     'parent' => $parent . '__new',
-                    'label' => sprintf(_("in %s"), $tasklist->get('name')),
+                    'label' => sprintf(_("in %s"), Nag::getLabel($tasklist)),
                     'expanded' => false,
                     'params' => array(
                         'icon' => Horde_Themes::img('add.png'),
@@ -372,6 +369,7 @@ class Nag_Application extends Horde_Registry_Application
                 while ($task = $tasks->each()) {
                     $task = $task->toHash();
                     $task['desc'] = str_replace(',', '', $task['desc']);
+                    $task['tags'] = implode(',', $task['tags']);
                     unset(
                         $task['complete_link'],
                         $task['delete_link'],
@@ -379,8 +377,16 @@ class Nag_Application extends Horde_Registry_Application
                         $task['parent'],
                         $task['task_id'],
                         $task['tasklist_id'],
-                        $task['view_link']
+                        $task['view_link'],
+                        $task['recurrence'],
+                        $task['methods']
                     );
+                    foreach (array('start', 'due', 'completed_date') as $field) {
+                        if (!empty($task[$field])) {
+                            $date = new Horde_Date($task[$field]);
+                            $task[$field] = $date->format('c');
+                        }
+                    }
                     $data[] = $task;
                 }
 

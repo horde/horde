@@ -30,33 +30,29 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
      */
     public function getTagTrail()
     {
-
     }
 
     /**
      * Fetch the matching resources that should appear on the current page
      *
-     * @return array  An array of Trean_Bookmark objects.
+     * @return Nag_Task  A list of tasks.
      */
     public function getSlice($page = 0, $perpage = null)
     {
-        global $injector;
-
         // Refresh the search
         $this->runSearch();
-        $totals = $this->count();
+        $results = array_slice($this->_results, $page * (empty($perpage) ? 0 : $perpage), $perpage);
 
-        $start = $page * $perpage;
-        $results = array_slice($this->_results, $start, $perpage);
-
+        $driver = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Driver')
+            ->create();
         $tasks = new Nag_Task();
         foreach ($results as $id) {
             try {
-                $task = $GLOBALS['injector']
-                    ->getInstance('Nag_Factory_Driver')
-                    ->create()->getByUID($id);
-                $tasks->add($task);
+                $tasks->add($driver->getByUID($id));
             } catch (Nag_Exception $e) {
+                Horde::logMessage(sprintf('Error loading task: %s', $e->getMessage()), 'ERR');
+            } catch (Horde_Exception_NotFound $e) {
                 Horde::logMessage('Task not found: ' . $id, 'ERR');
             }
         }

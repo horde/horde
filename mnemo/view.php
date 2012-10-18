@@ -43,7 +43,7 @@ try {
     Horde::url('list.php', true)->redirect();
 }
 if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-    $notification->push(sprintf(_("You do not have permission to view the notepad %s."), $share->get('name')), 'horde.error');
+    $notification->push(_("You do not have permission to view this notepad."), 'horde.error');
     Horde::url('list.php', true)->redirect();
 }
 

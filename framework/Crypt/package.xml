@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Throw exception if parsing of S/MIME certificates fails (Bug #11530).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -784,7 +784,7 @@ Initial release as a PEAR package
    <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Throw exception if parsing of S/MIME certificates fails (Bug #11530).
    </notes>
   </release>
  </changelog>

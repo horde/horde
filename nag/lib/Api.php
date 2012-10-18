@@ -287,8 +287,8 @@ class Nag_Api extends Horde_Registry_Api
             foreach ($tasklists as $tasklistId => $tasklist) {
                 $retpath = 'nag/' . $parts[0] . '/' . $tasklistId;
                 if (in_array('name', $properties)) {
-                    $results[$retpath]['name'] = sprintf(_("Tasks from %s"), $tasklist->get('name'));
-                    $results[$retpath . '.ics']['name'] = $tasklist->get('name');
+                    $results[$retpath]['name'] = sprintf(_("Tasks from %s"), Nag::getLabel($tasklist));
+                    $results[$retpath . '.ics']['name'] = Nag::getLabel($tasklist);
                 }
                 if (in_array('icon', $properties)) {
                     $results[$retpath]['icon'] = Horde_Themes::img('nag.png');
@@ -1213,7 +1213,7 @@ class Nag_Api extends Horde_Registry_Api
         $categories = array();
         $tasklists = Nag::listTasklists(false, Horde_Perms::SHOW | Horde_Perms::READ);
         foreach ($tasklists as $tasklistId => $tasklist) {
-            $categories[$tasklistId] = array('title' => $tasklist->get('name'), 'type' => 'share');
+            $categories[$tasklistId] = array('title' => Nag::getLabel($tasklist), 'type' => 'share');
         }
         return $categories;
     }

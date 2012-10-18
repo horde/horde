@@ -122,7 +122,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
                 $event['recurrence']['completions'] = $completions;
             }
             $this->recurrence = new Horde_Date_Recurrence($this->start);
-            $this->recurrence->fromHash($event['recurrence']);
+            $this->recurrence->fromKolab($event['recurrence']);
         }
 
         // Attendees
@@ -234,7 +234,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
         // Recurrence
         if ($this->recurs()) {
-            $event['recurrence'] = $this->recurrence->toHash();
+            $event['recurrence'] = $this->recurrence->toKolab();
             if (!empty($event['recurrence']['exceptions'])) {
                 $exclusions = array();
                 foreach($event['recurrence']['exceptions'] as $exclusion) {

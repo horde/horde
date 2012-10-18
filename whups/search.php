@@ -145,6 +145,7 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
     }
 }
 
+Whups::addFeedLink();
 $page_output->header(array(
     'title' => _("Search")
 ));

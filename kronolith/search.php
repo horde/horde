@@ -74,7 +74,7 @@ if ($search_mode == 'basic') {
         if ($cal->get('owner') && $cal->get('owner') == $current_user) {
             $calendars[_("My Calendars:")]['|' . $id] = $cal->get('name');
         } else {
-            $calendars[_("Shared Calendars:")]['|' . $id] = $cal->get('name');
+            $calendars[_("Shared Calendars:")]['|' . $id] = Kronolith::getLabel($cal);
         }
     }
     foreach ($GLOBALS['all_external_calendars'] as $id => $cal) {
