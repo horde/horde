@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Support &apos;emails&apos; attribute in smartphone view (Bug #10795).
+* [jan] Support &apos;emails&apos; attribute in smartphone view (Bug #11544).
 * [jan] Attach share owner to all address book titles (Bug #11528).
 * [jan] Fix exporting from browse view (Bug #11526).
 * [jan] Return to the same page after running actions from the browse view.
@@ -1485,7 +1485,7 @@
    <date>2012-10-16</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* [jan] Support &apos;emails&apos; attribute in smartphone view (Bug #10795).
+* [jan] Support &apos;emails&apos; attribute in smartphone view (Bug #11544).
 * [jan] Attach share owner to all address book titles (Bug #11528).
 * [jan] Fix exporting from browse view (Bug #11526).
 * [jan] Return to the same page after running actions from the browse view.

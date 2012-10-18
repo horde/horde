@@ -2,7 +2,7 @@
 v4.0.0-git
 ----------
 
-[jan] Support 'emails' attribute in smartphone view (Bug #10795).
+[jan] Support 'emails' attribute in smartphone view (Bug #11544).
 [jan] Attach share owner to all address book titles (Bug #11528).
 [jan] Fix exporting from browse view (Bug #11526).
 [jan] Return to the same page after running actions from the browse view.
