@@ -138,6 +138,8 @@ if (is_array($next_step)) {
                 } catch (Horde_Date_Exception $e) {
                     unset($row[$field]);
                 }
+            } else {
+                $row[$field] = 0;
             }
         }
         try {
