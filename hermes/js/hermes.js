@@ -176,6 +176,14 @@ HermesCore = {
                 e.stop();
                 return;
 
+            case 'hermesTimeReset':
+                if ($('hermesTimeSaveAsNew').visible()) {
+                    $('hermesTimeSaveAsNew').toggle();
+                }
+                $('hermesTimeForm').reset();
+                e.stop();
+                return;
+
             case 'hermesTimeListSubmit':
                 this.submitSlices();
                 e.stop();
@@ -229,17 +237,6 @@ HermesCore = {
             case 'hermesDatePicker':
                 id = elt.readAttribute('id');
                 Horde_Calendar.open(id, Date.parseExact($F(id.replace(/Picker$/, 'Date')), Hermes.conf.date_format));
-                e.stop();
-                return;
-
-            case 'hermesTimeFormCancel':
-                if ($('hermesTimeSaveAsNew').visible()) {
-                    $('hermesTimeSaveAsNew').toggle();
-                }
-                $('hermesTimeForm').reset();
-                // fallthrough
-            case 'hermesFormCancel':
-                this.closeRedBox();
                 e.stop();
                 return;
 
