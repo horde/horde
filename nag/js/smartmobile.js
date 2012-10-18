@@ -120,7 +120,9 @@ var NagMobile = {
         if (task.s) {
             $("#task_start").val(Date.parse(task.s).toString('yyyy-MM-dd'));
         }
-        $("#task_priority").val(task.pr);
+        var myselect = $("#task_priority");
+        myselect[0].selectedIndex = task.pr;
+        myselect.selectmenu("refresh");
         $("#task_completed").prop("checked", task.cp).checkboxradio("refresh");
         $("#task_estimate").val(task.e);
         $("#task_id").val(task.id);
