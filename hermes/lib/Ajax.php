@@ -24,10 +24,8 @@ class Hermes_Ajax
         $page_output->addScriptFile('tooltips.js', 'horde');
         $page_output->addScriptPackage('Datejs');
         $page_output->addScriptFile('quickfinder.js', 'horde');
-        $page_output->addScriptFile('form_ghost.js', 'horde');
         $page_output->addScriptFile('hermes.js');
-
-        //Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
+        Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
 
         $page_output->addInlineJsVars(array(
             'var Hermes' => $this->_addBaseVars()

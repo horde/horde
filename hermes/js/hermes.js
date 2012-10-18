@@ -962,5 +962,7 @@ HermesCore = {
     }
 };
 document.observe('dom:loaded', HermesCore.onDomLoad.bind(HermesCore));
+document.observe('Horde_Calendar:select', HermesCore.datePickerHandler.bindAsEventListener(HermesCore));
 HordeCore.onException = HordeCore.onException.wrap(HermesCore.onException.bind(HermesCore));
+
 
