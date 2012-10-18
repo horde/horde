@@ -159,14 +159,6 @@ HermesCore = {
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
             switch (id) {
-            case 'hermesLogo':
-                if (Hermes.conf.URI_HOME) {
-                    this.redirect(Hermes.conf.URI_HOME);
-                } else {
-                    this.go(Hermes.conf.login_view);
-                }
-                e.stop();
-                return;
             case 'hermesNavTime':
                 this.go('time');
                 e.stop();

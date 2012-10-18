@@ -57,7 +57,6 @@ class Hermes_Ajax
 
         /* Variables used in core javascript files. */
         $js_vars['conf'] = array(
-            'URI_HOME' => empty($conf['logo']['link']) ? null : $conf['logo']['link'],
             'images' => array(
                 'timerlog' => (string)Horde_Themes::img('log.png'),
                 'timerplay' => (string)Horde_Themes::img('play.png'),
