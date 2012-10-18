@@ -4575,10 +4575,6 @@ KronolithCore = {
                 e.stop();
                 break;
 
-            case 'kronolithNotifications':
-                HordeCore.Growler.toggleLog();
-                break;
-
             case 'kronolithEventDialog':
             case 'kronolithTaskDialog':
                 Horde_Calendar.hideCal();
