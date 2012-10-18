@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix determining first/last unseen message in a mailbox (use message date instead of arrival date).
 * [jan] Don&apos;t show application menus in iTip MIME viewer popups.
 * [mms] Hide subfolder creation option in dynamic view if IMAP server indicates that child mailboxes cannot be created.
 * [mms] Correctly send deleted flag information to browser cache when using dynamic/smartmobile view (Bug #11362).
@@ -2765,6 +2766,7 @@
    <date>2012-10-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix determining first/last unseen message in a mailbox (use message date instead of arrival date).
 * [jan] Don&apos;t show application menus in iTip MIME viewer popups.
 * [mms] Hide subfolder creation option in dynamic view if IMAP server indicates that child mailboxes cannot be created.
 * [mms] Correctly send deleted flag information to browser cache when using dynamic/smartmobile view (Bug #11362).

@@ -317,60 +317,27 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Get the list of new messages in the mailbox (IMAP RECENT flag, with
-     * UNDELETED if we're hiding deleted messages).
-     *
-     * @param integer $results  A Horde_Imap_Client::SORT_* constant that
-     *                          indicates the desired return type.
-     * @param boolean $uid      Return UIDs instead of sequence numbers (for
-     *                          $results queries that return message lists).
-     *
-     * @return mixed  Whatever is requested in $results.
-     */
-    public function newMessages($results, $uid = false)
-    {
-        return $this->_msgFlagSearch('recent', $results, $uid);
-    }
-
-    /**
      * Get the list of unseen messages in the mailbox (IMAP UNSEEN flag, with
      * UNDELETED if we're hiding deleted messages).
      *
      * @param integer $results  A Horde_Imap_Client::SEARCH_RESULTS_* constant
      *                          that indicates the desired return type.
-     * @param boolean $uid      Return UIDs instead of sequence numbers (for
-     *                          $results queries that return message lists).
+     * @param array $opts       Additional options:
+     *   - sort: (array) List of sort criteria to use.
+     *   - uids: (boolean) Return UIDs instead of sequence numbers (for
+     *           $results queries that return message lists).
+     *           DEFAULT: false
      *
      * @return mixed  Whatever is requested in $results.
      */
-    public function unseenMessages($results, $uid = false)
-    {
-        return $this->_msgFlagSearch('unseen', $results, $uid);
-    }
-
-    /**
-     * Do a search on a mailbox in the most efficient way available.
-     *
-     * @param string $type      The search type - either 'recent' or 'unseen'.
-     * @param integer $results  A Horde_Imap_Client::SEARCH_RESULTS_* constant
-     *                          that indicates the desired return type.
-     * @param boolean $uid      Return UIDs instead of sequence numbers (for
-     *                          $results queries that return message lists).
-     *
-     * @return mixed  Whatever is requested in $results.
-     */
-    protected function _msgFlagSearch($type, $results, $uid)
+    public function unseenMessages($results, array $opts = array())
     {
         $count = ($results == Horde_Imap_Client::SEARCH_RESULTS_COUNT);
 
         if ($this->_mailbox->search || empty($this->_sorted)) {
-            if ($count &&
-                ($type == 'unseen') &&
-                $this->_mailbox->vinbox) {
-                return count($this);
-            }
-
-            return $count ? 0 : array();
+            return ($count && $this->_mailbox->vinbox)
+                ? count($this)
+                : ($count ? 0 : array());
         }
 
         $criteria = new Horde_Imap_Client_Search_Query();
@@ -380,23 +347,20 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
             $criteria->flag(Horde_Imap_Client::FLAG_DELETED, false);
         } elseif ($count) {
             try {
-                $status_res = $imp_imap->status($this->_mailbox, $type == 'recent' ? Horde_Imap_Client::STATUS_RECENT : Horde_Imap_Client::STATUS_UNSEEN);
-                return $status_res[$type];
+                $status_res = $imp_imap->status($this->_mailbox, Horde_Imap_Client::STATUS_UNSEEN);
+                return $status_res[Horde_Imap_Client::STATUS_UNSEEN];
             } catch (IMP_Imap_Exception $e) {
                 return 0;
             }
         }
 
-        if ($type == 'recent') {
-            $criteria->flag(Horde_Imap_Client::FLAG_RECENT, true);
-        } else {
-            $criteria->flag(Horde_Imap_Client::FLAG_SEEN, false);
-        }
+        $criteria->flag(Horde_Imap_Client::FLAG_SEEN, false);
 
         try {
             $res = $imp_imap->search($this->_mailbox, $criteria, array(
                 'results' => array($results),
-                'sequence' => !$uid
+                'sequence' => empty($opts['uids']),
+                'sort' => empty($opts['sort']) ? null : $opts['sort']
             ));
             return $count ? $res['count'] : $res;
         } catch (IMP_Imap_Exception $e) {
@@ -534,7 +498,10 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                 return 1;
             }
 
-            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_MIN, true);
+            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_MIN, array(
+                'sort' => array(Horde_Imap_Client::SORT_DATE),
+                'uids' => true
+            ));
             return empty($unseen_msgs['min'])
                 ? 1
                 : ($this->getArrayIndex($unseen_msgs['min']) + 1);
@@ -544,7 +511,10 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                 return 1;
             }
 
-            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_MAX, true);
+            $unseen_msgs = $this->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_MAX, array(
+                'sort' => array(Horde_Imap_Client::SORT_DATE),
+                'uids' => true
+            ));
             return empty($unseen_msgs['max'])
                 ? 1
                 : ($this->getArrayIndex($unseen_msgs['max']) + 1);
