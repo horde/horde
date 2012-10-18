@@ -201,7 +201,6 @@ HermesCore = {
                     $('hermesTimeForm').slideUp({ duration: this.effectDur });
                     $('hermesTimeFormCollapse').removeClassName('hermesTimeFormShown');
                     $('hermesTimeFormCollapse').addClassName('hermesTimeFormHidden');
-                    $()
                 } else {
                     $('hermesTimeForm').slideDown({ duration: this.effectDur });
                     $('hermesTimeFormCollapse').addClassName('hermesTimeFormShown');
