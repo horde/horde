@@ -381,6 +381,12 @@ class Nag_Application extends Horde_Registry_Application
                         $task['recurrence'],
                         $task['methods']
                     );
+                    foreach (array('start', 'due', 'completed_date') as $field) {
+                        if (!empty($task[$field])) {
+                            $date = new Horde_Date($task[$field]);
+                            $task[$field] = $date->format('c');
+                        }
+                    }
                     $data[] = $task;
                 }
 
