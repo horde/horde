@@ -2,6 +2,7 @@
 v3.0.15
 -------
 
+[jan] Fix sorting of columns in preferences (Bug #10795).
 [jan] Remove user's address books when removing users, independent from address
       book permissions.
 [mms] Fix infinite loop if array was passed to delete API call.

@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Fix sorting of columns in preferences (Bug #10795).
 * [jan] Remove user&apos;s address books when removing users, independent from address book permissions.
 * [mms] Fix infinite loop if array was passed to delete API call.
 * [mms] Fix descending sorting of result lists.
@@ -1435,6 +1436,7 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Fix sorting of columns in preferences (Bug #10795).
 * [jan] Remove user&apos;s address books when removing users, independent from address book permissions.
 * [mms] Fix infinite loop if array was passed to delete API call.
 * [mms] Fix descending sorting of result lists.
