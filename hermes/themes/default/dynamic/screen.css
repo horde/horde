@@ -7,7 +7,7 @@ body.hermesAjax {
 /* Main views */
 #hermesBody {
     position: absolute;
-    top: 30px;
+    top: 0;
     left: 8px;
     right: 0;
     bottom: 0;
@@ -16,17 +16,34 @@ body.hermesAjax {
     overflow-y: auto;
 }
 
-/* Topbar Menu */
-#hermesNavTime {
+/* Sidebar */
+#hermesNavTime, #hermesNavSearch, #hermesNavAdmin{
+    cursor: pointer;
+}
+#hermesNavTime a.icon {
     background-image: url("../graphics/time.png");
 }
-#hermesNavSearch {
+#hermesNavSearch a.icon {
     background-image: url("../graphics/search.png");
 }
-#hermesNavAdmin {
-    background-image: url("../graphics/search.png");
+#hermesNavAdmin a.icon {
+    background-image: url("../graphics/admin.png");
 }
-/* Sidebar */
+#horde-sidebar div.horde-resources {
+    background-color: #dddddd;
+}
+#horde-sidebar div.horde-resources .timerControls {
+    float: right;
+    display: block;
+    background: url("../graphics/stop.png") no-repeat;
+    margin: 2px 10px 0 0;
+    width: 17px;
+    height: 17px;
+    text-indent: -10000px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
 .hermesSeparator {
     padding-left: 7px;
     color: #808080;
@@ -68,10 +85,6 @@ body.hermesAjax {
     width: 100%;
     display: inline-block;
     background-color: #ddd;
-    border-color: -moz-use-text-color silver silver;
-    border-right: 1px solid silver;
-    border-style: none solid solid;
-    border-width: 0 1px 1px;
 }
 #hermesTimeListHeader div {
     height: 14px;
@@ -304,7 +317,7 @@ div.hermesTimeSliceOptions {
     font-size: 125%;
 }
 
-/* Left menu column */
+/* Left menu column
 #hermesMenu {
     position: absolute;
     top: 8px;
@@ -315,7 +328,7 @@ div.hermesTimeSliceOptions {
     padding-top: 2px;
 }
 
-/* Time summary */
+/* Time summary
 .hermesViewTimeContainer h2 {
     float: left;
 }
@@ -336,6 +349,9 @@ div.hermesTimeSliceOptions {
     margin-left: 7px;
     font-style: italic;
 }
+*/
+
+
 #hermesTimerDialog {
     position: absolute;
     z-index: 110;

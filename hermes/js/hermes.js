@@ -511,10 +511,8 @@ HermesCore = {
 
     insertTimer: function(r, d)
     {
-        var title = new Element('div', { 'class': 'hermesTimerLabel' }).update(
-            d + ' (' + r.e + ' hours)'
-        );
-        var stop = new Element('span', { 'class': 'hermesTimerControls' }).update(
+        var title = new Element('div').update(d + ' (' + r.e + ' hours)');
+        var stop = new Element('span', { 'class': 'timerControls' }).update(
             new Element('img', { 'class': 'hermesStopTimer', 'src': Hermes.conf.images.timerlog })
         ).store('tid', r.id);;
 
@@ -524,7 +522,7 @@ HermesCore = {
             stop.insert(new Element('img', { 'class': 'hermesPauseTimer', 'src' : Hermes.conf.images.timerpause }));
         }
 
-        var timer = new Element('div', { 'class': 'hermesMenuItem hermesTimer rounded' });
+        var timer = new Element('div', { 'class': 'horde-resource-none' });
         timer.insert(stop).insert(title);
         $('hermesMenuTimers').insert({ 'top': timer });
         $('hermesTimerDialog').fade({
