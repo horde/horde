@@ -24,8 +24,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-08-29</date>
- <time>15:16:15</time>
+ <date>2012-10-18</date>
+ <time>16:09:03</time>
  <version>
   <release>2.0.0beta3</release>
   <api>1.1.0</api>
@@ -342,26 +342,46 @@
      <dir name="Icalendar">
       <dir name="fixtures">
        <dir name="vTimezone">
-        <file name="allcategories.vcs" role="test" />
+        <file name="allcategories.ics" role="test" />
+        <file name="allcategories.txt" role="test" />
         <file name="arsenal32FC.ics" role="test" />
+        <file name="arsenal32FC.txt" role="test" />
         <file name="AuthorChats.ics" role="test" />
+        <file name="AuthorChats.txt" role="test" />
         <file name="events.ics" role="test" />
+        <file name="events.txt" role="test" />
         <file name="exchange.ics" role="test" />
+        <file name="exchange.txt" role="test" />
         <file name="exdate.ics" role="test" />
+        <file name="exdate.txt" role="test" />
         <file name="iscw.ics" role="test" />
+        <file name="iscw.txt" role="test" />
         <file name="meeting.ics" role="test" />
+        <file name="meeting.txt" role="test" />
         <file name="MMMPseminar.ics" role="test" />
+        <file name="MMMPseminar.txt" role="test" />
         <file name="Moon_Days.ics" role="test" />
+        <file name="Moon_Days.txt" role="test" />
         <file name="privacy_events.ics" role="test" />
+        <file name="privacy_events.txt" role="test" />
         <file name="ProjectCalendar.ics" role="test" />
+        <file name="ProjectCalendar.txt" role="test" />
         <file name="rfc2445.ics" role="test" />
+        <file name="rfc2445.txt" role="test" />
         <file name="SpanishHolidays.ics" role="test" />
-        <file name="test.vcs" role="test" />
-        <file name="test4.vcs" role="test" />
-        <file name="test_recurring.vcs" role="test" />
+        <file name="SpanishHolidays.txt" role="test" />
+        <file name="test.ics" role="test" />
+        <file name="test.txt" role="test" />
+        <file name="test4.ics" role="test" />
+        <file name="test4.txt" role="test" />
+        <file name="test_recurring.ics" role="test" />
+        <file name="test_recurring.txt" role="test" />
         <file name="wicca.ics" role="test" />
+        <file name="wicca.txt" role="test" />
        </dir> <!-- /test/Horde/Icalendar/fixtures/vTimezone -->
       </dir> <!-- /test/Horde/Icalendar/fixtures -->
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="bug_7423.phpt" role="test" />
       <file name="charset1.phpt" role="test" />
       <file name="common.php" role="test" />
@@ -374,6 +394,7 @@
       <file name="read-vcard-org.phpt" role="test" />
       <file name="read-write-escapes.phpt" role="test" />
       <file name="timezones.phpt" role="test" />
+      <file name="TimezonesTest.php" role="test" />
       <file name="vcal20.phpt" role="test" />
       <file name="vfreebusy.phpt" role="test" />
       <file name="write-escapes.phpt" role="test" />
@@ -550,6 +571,8 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Icalendar.po" name="locale/zh_CN/LC_MESSAGES/Horde_Icalendar.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.po" name="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="Horde/Icalendar/AllTests.php" name="test/Horde/Icalendar/AllTests.php" />
+   <install as="Horde/Icalendar/Autoload.php" name="test/Horde/Icalendar/Autoload.php" />
    <install as="Horde/Icalendar/bug_7423.phpt" name="test/Horde/Icalendar/bug_7423.phpt" />
    <install as="Horde/Icalendar/charset1.phpt" name="test/Horde/Icalendar/charset1.phpt" />
    <install as="Horde/Icalendar/common.php" name="test/Horde/Icalendar/common.php" />
@@ -562,27 +585,46 @@
    <install as="Horde/Icalendar/read-vcard-org.phpt" name="test/Horde/Icalendar/read-vcard-org.phpt" />
    <install as="Horde/Icalendar/read-write-escapes.phpt" name="test/Horde/Icalendar/read-write-escapes.phpt" />
    <install as="Horde/Icalendar/timezones.phpt" name="test/Horde/Icalendar/timezones.phpt" />
+   <install as="Horde/Icalendar/TimezonesTest.php" name="test/Horde/Icalendar/TimezonesTest.php" />
    <install as="Horde/Icalendar/vcal20.phpt" name="test/Horde/Icalendar/vcal20.phpt" />
    <install as="Horde/Icalendar/vfreebusy.phpt" name="test/Horde/Icalendar/vfreebusy.phpt" />
    <install as="Horde/Icalendar/write-escapes.phpt" name="test/Horde/Icalendar/write-escapes.phpt" />
-   <install as="Horde/Icalendar/fixtures/vTimezone/allcategories.vcs" name="test/Horde/Icalendar/fixtures/vTimezone/allcategories.vcs" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/allcategories.ics" name="test/Horde/Icalendar/fixtures/vTimezone/allcategories.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/allcategories.txt" name="test/Horde/Icalendar/fixtures/vTimezone/allcategories.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/arsenal32FC.ics" name="test/Horde/Icalendar/fixtures/vTimezone/arsenal32FC.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/arsenal32FC.txt" name="test/Horde/Icalendar/fixtures/vTimezone/arsenal32FC.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/AuthorChats.ics" name="test/Horde/Icalendar/fixtures/vTimezone/AuthorChats.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/AuthorChats.txt" name="test/Horde/Icalendar/fixtures/vTimezone/AuthorChats.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/events.ics" name="test/Horde/Icalendar/fixtures/vTimezone/events.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/events.txt" name="test/Horde/Icalendar/fixtures/vTimezone/events.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/exchange.ics" name="test/Horde/Icalendar/fixtures/vTimezone/exchange.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/exchange.txt" name="test/Horde/Icalendar/fixtures/vTimezone/exchange.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/exdate.ics" name="test/Horde/Icalendar/fixtures/vTimezone/exdate.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/exdate.txt" name="test/Horde/Icalendar/fixtures/vTimezone/exdate.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/iscw.ics" name="test/Horde/Icalendar/fixtures/vTimezone/iscw.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/iscw.txt" name="test/Horde/Icalendar/fixtures/vTimezone/iscw.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/meeting.ics" name="test/Horde/Icalendar/fixtures/vTimezone/meeting.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/meeting.txt" name="test/Horde/Icalendar/fixtures/vTimezone/meeting.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/MMMPseminar.ics" name="test/Horde/Icalendar/fixtures/vTimezone/MMMPseminar.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/MMMPseminar.txt" name="test/Horde/Icalendar/fixtures/vTimezone/MMMPseminar.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/Moon_Days.ics" name="test/Horde/Icalendar/fixtures/vTimezone/Moon_Days.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/Moon_Days.txt" name="test/Horde/Icalendar/fixtures/vTimezone/Moon_Days.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/privacy_events.ics" name="test/Horde/Icalendar/fixtures/vTimezone/privacy_events.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/privacy_events.txt" name="test/Horde/Icalendar/fixtures/vTimezone/privacy_events.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/ProjectCalendar.ics" name="test/Horde/Icalendar/fixtures/vTimezone/ProjectCalendar.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/ProjectCalendar.txt" name="test/Horde/Icalendar/fixtures/vTimezone/ProjectCalendar.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/rfc2445.ics" name="test/Horde/Icalendar/fixtures/vTimezone/rfc2445.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/rfc2445.txt" name="test/Horde/Icalendar/fixtures/vTimezone/rfc2445.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/SpanishHolidays.ics" name="test/Horde/Icalendar/fixtures/vTimezone/SpanishHolidays.ics" />
-   <install as="Horde/Icalendar/fixtures/vTimezone/test.vcs" name="test/Horde/Icalendar/fixtures/vTimezone/test.vcs" />
-   <install as="Horde/Icalendar/fixtures/vTimezone/test4.vcs" name="test/Horde/Icalendar/fixtures/vTimezone/test4.vcs" />
-   <install as="Horde/Icalendar/fixtures/vTimezone/test_recurring.vcs" name="test/Horde/Icalendar/fixtures/vTimezone/test_recurring.vcs" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/SpanishHolidays.txt" name="test/Horde/Icalendar/fixtures/vTimezone/SpanishHolidays.txt" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/test.ics" name="test/Horde/Icalendar/fixtures/vTimezone/test.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/test.txt" name="test/Horde/Icalendar/fixtures/vTimezone/test.txt" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/test4.ics" name="test/Horde/Icalendar/fixtures/vTimezone/test4.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/test4.txt" name="test/Horde/Icalendar/fixtures/vTimezone/test4.txt" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/test_recurring.ics" name="test/Horde/Icalendar/fixtures/vTimezone/test_recurring.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/test_recurring.txt" name="test/Horde/Icalendar/fixtures/vTimezone/test_recurring.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/wicca.ics" name="test/Horde/Icalendar/fixtures/vTimezone/wicca.ics" />
+   <install as="Horde/Icalendar/fixtures/vTimezone/wicca.txt" name="test/Horde/Icalendar/fixtures/vTimezone/wicca.txt" />
   </filelist>
  </phprelease>
  <changelog>
@@ -922,7 +964,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-08-29</date>
+   <date>2012-10-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
