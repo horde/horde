@@ -85,7 +85,7 @@ class Horde_Url
                 $this->$k = $v;
             }
             if (!is_null($raw)) {
-                $this->raw = is_null($raw) ? $url->raw : $raw;
+                $this->raw = $raw;
             }
             return;
         }
