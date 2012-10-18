@@ -41,7 +41,7 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
     {
         // Refresh the search
         $this->runSearch();
-        $results = array_slice($this->_results, $page * $perpage, $perpage);
+        $results = array_slice($this->_results, $page * (empty($perpage) ? 0 : $perpage), $perpage);
 
         $driver = $GLOBALS['injector']
             ->getInstance('Nag_Factory_Driver')
