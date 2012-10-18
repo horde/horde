@@ -2,6 +2,7 @@
 v4.0.0-git
 ----------
 
+[jan] Support 'emails' attribute in smartphone view (Bug #10795).
 [jan] Attach share owner to all address book titles (Bug #11528).
 [jan] Fix exporting from browse view (Bug #11526).
 [jan] Return to the same page after running actions from the browse view.
@@ -44,7 +45,6 @@ v4.0.0beta1
 v4.0.0alpha1
 ------------
 
-First alpha release for Horde 5.
 [mms] Import API call now throws an ObjectExists exception when a duplicate is
       found.
 [jan] Add parameters to specify field size of phone and email fields.

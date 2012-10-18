@@ -62,12 +62,27 @@ class Turba_Ajax_Application_Smartmobile extends Horde_Core_Ajax_Application_Han
 
                     switch ($val2) {
                     case 'email':
-                        try {
-                            $url = strval($registry->call('mail/compose', array(
-                                array('to' => $val3)
-                            )));
-                        } catch (Horde_Exception $e) {}
-                        break;
+                    case 'emails':
+                        $addrs = $GLOBALS['injector']
+                            ->getInstance('Horde_Mail_Rfc822')
+                            ->parseAddressList($val3, array(
+                                'limit' => $val2 == 'emails' ? 0 : 1
+                            ));
+                        foreach ($addrs as $addr) {
+                            $addr = $addr->writeAddress(true);
+                            try {
+                                $url = strval($registry->call('mail/compose', array(
+                                    array('to' => $addr)
+                                )));
+                            } catch (Horde_Exception $e) {
+                            }
+                            $out->entry[$key][] = array_filter(array(
+                                'l' => $attributes[$val2]['label'],
+                                'u' => $url,
+                                'v' => $addr
+                            ));
+                        }
+                        continue 2;
                     }
 
                     $out->entry[$key][] = array_filter(array(
