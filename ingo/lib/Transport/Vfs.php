@@ -91,7 +91,9 @@ class Ingo_Transport_Vfs extends Ingo_Transport
     {
         $this->_connect();
         try {
-            return $this->_vfs->read($this->_params['vfs_path'], $this->_params['filename']);
+            return $this->_vfs->exists($this->_params['vfs_path'], $this->_params['filename'])
+                ? $this->_vfs->read($this->_params['vfs_path'], $this->_params['filename'])
+                : '';
         } catch (Horde_Vfs_Exception $e) {
             throw new Ingo_Exception($e);
         }
