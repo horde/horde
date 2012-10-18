@@ -3,8 +3,6 @@
 <!-- begin main area -->
 <div id="hermesMain">
 
-<?php// require __DIR__ . '/timer.inc'; ?>
-
 <!-- begin body -->
 <div id="hermesBody">
 

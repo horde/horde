@@ -17,6 +17,18 @@ body.hermesAjax {
 }
 
 /* Sidebar */
+.hermesSeparator {
+    padding-left: 7px;
+    color: #808080;
+    text-indent: -10000px;
+}
+#horde-sidebar div.horde-resources {
+    background-color: #dddddd;
+}
+.horde-resource-none {
+      cursor: default;
+}
+
 /* Main links */
 #hermesNavTime, #hermesNavSearch, #hermesNavAdmin{
     cursor: pointer;
@@ -31,6 +43,29 @@ body.hermesAjax {
     background-image: url("../graphics/admin.png");
 }
 
+/* Time summary */
+.hermesViewTimeContainer h2 {
+    float: left;
+}
+.hermesMenuItem .rounded {
+    margin-top: 7px;
+}
+.hermesMenuItem h4 {
+    font-size: 125%;
+}
+.hermesSummaryItem {
+    margin-left: 7px;
+}
+.hermesHours {
+    font-weight: bold;
+}
+
+.hermesTimerTime {
+    margin-left: 7px;
+    font-style: italic;
+}
+
+
 /* Timers */
 #horde-sidebar div.horde-resources .timerControls {
     float: right;
@@ -42,12 +77,6 @@ body.hermesAjax {
     overflow: hidden;
     cursor: pointer;
 }
-#horde-sidebar div.horde-resources {
-    background-color: #dddddd;
-}
-.horde-resource-none {
-      cursor: default;
-}
 .timer-paused {
     background-image: url("../graphics/play.png")
 }
@@ -56,11 +85,6 @@ body.hermesAjax {
 }
 .timer-saveable {
     background-image: url("../graphics/stop.png");
-}
-.hermesSeparator {
-    padding-left: 7px;
-    color: #808080;
-    text-indent: -10000px;
 }
 
 /* Loading spinner */
@@ -82,18 +106,15 @@ body.hermesAjax {
     height: 100%;
 }
 
-/* Timelist fields */
+/* Timelist */
 .hermesTimeListSelect {
     float: left;
     width: 18px;
     white-space: pre-wrap;
 }
-
 .hermesTimeListSelect:hover {
     background: url("../graphics/checkbox_over.png") no-repeat center;
 }
-
-/* Header */
 #hermesTimeListHeader {
     width: 100%;
     display: inline-block;
@@ -119,11 +140,8 @@ body.hermesAjax {
 
 /* Body of timelist */
 #hermesTimeListBody {
-/*  overflow-x: hidden;
-  overflow-y: auto;*/
   width: 100%;
 }
-/* Each entry */
 .hermesTimeListRow {
     font-size: 100%;
     line-height: 26px;
@@ -159,9 +177,7 @@ body.hermesAjax {
   border: 1px solid #D47272;
   color: #8A1111;
 }
-a.rounded {
-    text-decoration: none;
-}
+
 #hermesTimeListBody .hermesTimeListRow .hermesTimeSliceOptions .rounded {
     visibility: hidden;
 }
@@ -180,15 +196,6 @@ a.rounded {
 .hermesSelectedRow {
     background: #eeeeee;
     font-weight: bold;
-}
-
-.hermesStopTimer:hover, .hermesPauseTimer:hover {
-    cursor: pointer;
-}
-.hermesTimerControls {
-    display: block;
-    float: right;
-    cursor: pointer;
 }
 
 /* Time Entry Form */
@@ -329,40 +336,6 @@ div.hermesTimeSliceOptions {
     font-style: italic;
     font-size: 125%;
 }
-
-/* Left menu column
-#hermesMenu {
-    position: absolute;
-    top: 8px;
-    bottom: 0;
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding-top: 2px;
-}
-
-/* Time summary
-.hermesViewTimeContainer h2 {
-    float: left;
-}
-.hermesMenuItem .rounded {
-    margin-top: 7px;
-}
-.hermesMenuItem h4 {
-    font-size: 125%;
-}
-.hermesSummaryItem {
-    margin-left: 7px;
-}
-.hermesHours {
-    font-weight: bold;
-}
-
-.hermesTimerTime {
-    margin-left: 7px;
-    font-style: italic;
-}
-*/
 
 #RB_window {
     top: 50px !important;

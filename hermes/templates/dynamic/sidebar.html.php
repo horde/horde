@@ -21,7 +21,7 @@
 
   <!-- Stats -->
   <div class="hermesTimeStats">
-    <h3><?php echo _("Time Summary") ?>:</h3>
+    <h3><?php echo _("Unsubmitted Time Summary") ?>:</h3>
       <div>
         <h4><?php echo _("Today") ?></h4>
         <div id="hermesSummaryTodayBillable" class="hermesSummaryItem"><span class="hermesHours"></span> <?php echo _("Billable")?></div>
