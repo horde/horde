@@ -32,8 +32,8 @@
         <div id="hermesSummaryTotalBillable" class="hermesSummaryItem"><span class="hermesHours"></span> <?php echo _("Billable")?></div>
         <div id="hermesSummaryTotalNonBillable" class="hermesSummaryItem"><span class="hermesHours"></span> <?php echo _("Non-Billable")?></div>
       </div>
-  </div> -->
-  <div class="horde-sidebar-split"></div>
+  </div>
+  <div class="horde-sidebar-split"></div>-->
   <!-- End stats -->
 
   <!-- Timers -->
