@@ -284,6 +284,9 @@ class Horde_Test
             'path' => 'Date/Calc.php',
             'error' => 'Horde requires the Date_Calc class for Kronolith to calculate dates.'
         ),
+        'File_Fstab' => array(
+            'error' => 'Horde requires the File_Fstab package if using the localhost driver for the Accounts block.'
+        ),
         'HTTP_Request' => array(
             'error' => 'Parts of Horde (Jonah, the XML-RPC client/server) use the HTTP_Request library to retrieve URLs and do other HTTP requests.'
         ),
