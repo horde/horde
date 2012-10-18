@@ -124,23 +124,21 @@ case 'sidebar':
 
             /* Split title in multiple levels */
             $levels = preg_split('/:\s/', $title);
-            if (count($levels) == 1) {
-                $levels = array(1 => $title);
-            }
 
             $idx = '';
+            $lcount = count($levels) - 1;
             $node_params = $node_params_master;
             $parent = null;
 
             foreach ($levels as $key => $name) {
                 $idx .= '|' . $name;
                 if (empty($added_nodes[$idx])) {
-                    $added_nodes[$idx] = true;
-                    if ($key) {
+                    if ($key == $lcount) {
                         $node_params['url'] = $base_url->copy()->setRaw(true)->add(array(
                             'show' => 'entry',
                             'topic' => $id
                         ));
+                        $added_nodes[$idx] = true;
                     }
                     $tree->addNode(array(
                         'id' => $idx,
