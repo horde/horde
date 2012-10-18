@@ -1,3 +1,4 @@
+<!-- Begin Timer Dialog -->
 <div id="hermesTimerDialog" style="display:none;">
 <form id="hermesTimerForm" action="">
 <div>
@@ -12,3 +13,4 @@
 </div>
 </form>
 </div>
+<!-- End Timer Dialog -->

@@ -20,7 +20,7 @@
   <div class="horde-sidebar-split"></div>
 
   <!-- Stats -->
-  <!-- <div class="hermesTimeStats">
+  <div class="hermesTimeStats">
     <h3><?php echo _("Time Summary") ?>:</h3>
       <div>
         <h4><?php echo _("Today") ?></h4>
@@ -33,7 +33,7 @@
         <div id="hermesSummaryTotalNonBillable" class="hermesSummaryItem"><span class="hermesHours"></span> <?php echo _("Non-Billable")?></div>
       </div>
   </div>
-  <div class="horde-sidebar-split"></div>-->
+  <div class="horde-sidebar-split"></div>
   <!-- End stats -->
 
   <!-- Timers -->

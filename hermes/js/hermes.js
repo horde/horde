@@ -214,6 +214,15 @@ HermesCore = {
                 this.newTimer();
                 e.stop();
                 return;
+
+            case 'hermesAddTimer':
+                $('hermesTimerDialog').appear({
+                    duration: this.effectDur,
+                    afterFinish: function() {
+                        $('hermesTimerTitle').focus();
+                    }
+                });
+                return;
             }
 
             switch (elt.className) {
@@ -234,15 +243,6 @@ HermesCore = {
                 e.stop();
                 return;
 
-            case 'hermesAdd':
-                $('hermesTimerDialog').appear({
-                    duration: this.effectDur,
-                    afterFinish: function() {
-                        $('hermesTimerTitle').focus();
-                    }
-                });
-                return;
-
             case 'hermesTimerCancel':
                 $('hermesTimerDialog').fade({
                     duration: this.effectDur
@@ -250,17 +250,12 @@ HermesCore = {
                 e.stop();
                 return;
 
-            case 'hermesStopTimer':
-                this.stopTimer(elt);
-                e.stop();
-                return;
-
-            case 'hermesPauseTimer':
+            case 'timer-running':
                 this.pauseTimer(elt);
                 e.stop();
                 return;
 
-            case 'hermesPlayTimer':
+            case 'timer-paused':
                 this.playTimer(elt);
                 e.stop();
                 return;
@@ -284,6 +279,10 @@ HermesCore = {
                 slice = elt.up().up();
                 sid = slice.retrieve('sid');
                 this.populateSliceForm(sid);
+                e.stop();
+                return;
+            } else if (elt.hasClassName('timer-saveable')) {
+                this.stopTimer(elt);
                 e.stop();
                 return;
             }
@@ -505,16 +504,15 @@ HermesCore = {
     insertTimer: function(r, d)
     {
         var title = new Element('div').update(d + ' (' + r.e + ' hours)'),
-            controls = new Element('span', { 'class': 'timerControls' }).store('tid', r.id),
+            controls = new Element('span', { 'class': 'timerControls' }),
             stop = new Element('span', { 'class': 'timerControls timer-saveable' }),
-            timer = new Element('div', { 'class': 'horde-resource-none' });
+            timer = new Element('div', { 'class': 'horde-resource-none' }).store('tid', r.id);
 
         if (r.paused) {
             controls.addClassName('timer-paused');
         } else {
             controls.addClassName('timer-running');
         }
-
 
         timer.insert(stop).insert(controls).insert(title);
         $('hermesMenuTimers').insert({ 'top': timer });
@@ -567,7 +565,7 @@ HermesCore = {
             $('hermesTimeFormHours').setValue(r.h);
             $('hermesTimeFormNotes').setValue(r.n);
         }
-        elt.up().up().fade({
+        elt.up().fade({
             duration: this.effectDur,
         });
     },
