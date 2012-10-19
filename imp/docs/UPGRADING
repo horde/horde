@@ -32,7 +32,7 @@ outdated.
 Upgrading IMP From 5.x To 6.x
 =============================
 
-Traditional mode now requires javascript support on the browser. If not
+The basic view now requires javascript support on the browser. If not
 available, the user will automatically be redirected to the minimal view.
 
 

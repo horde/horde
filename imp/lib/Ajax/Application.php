@@ -46,6 +46,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         global $injector, $registry;
 
         switch ($registry->getView()) {
+        case $registry::VIEW_BASIC:
+            $this->addHandler('IMP_Ajax_Application_Handler_Passphrase');
+            $this->addHandler('IMP_Ajax_Application_Handler_Search');
+            break;
+
         case $registry::VIEW_DYNAMIC:
             $this->addHandler('IMP_Ajax_Application_Handler_Dynamic');
             $this->addHandler('IMP_Ajax_Application_Handler_Common');
@@ -56,11 +61,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         case $registry::VIEW_SMARTMOBILE:
             $this->addHandler('IMP_Ajax_Application_Handler_Smartmobile');
             $this->addHandler('IMP_Ajax_Application_Handler_Common');
-            break;
-
-        case $registry::VIEW_TRADITIONAL:
-            $this->addHandler('IMP_Ajax_Application_Handler_Passphrase');
-            $this->addHandler('IMP_Ajax_Application_Handler_Search');
             break;
         }
 

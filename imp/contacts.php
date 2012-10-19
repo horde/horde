@@ -1,7 +1,7 @@
 <?php
 /**
  * Contacts selection page.
- * Usable in both traditional and dynamic views.
+ * Usable in both basic and dynamic views.
  *
  * URL parameters:
  *   - sa: (string) List of selected addresses.

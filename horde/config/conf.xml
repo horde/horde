@@ -1701,9 +1701,9 @@
      <configenum name="force_view" desc="Force an application view to be used
      for all users?">
       <values>
-       <value desc="None (use user's browser and 'dynamic_view'
-       preference)"></value>
-       <value desc="Traditional">traditional</value>
+       <value desc="None (use user's browser and application
+       preferences)"></value>
+       <value desc="Basic">basic</value>
        <value desc="Dynamic">dynamic</value>
        <value desc="Mobile">mobile</value>
        <value desc="Smartphone">smartmobile</value>

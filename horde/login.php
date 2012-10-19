@@ -226,9 +226,9 @@ if (!empty($GLOBALS['conf']['user']['select_view'])) {
                 'selected' => $view_cookie == 'auto',
             ),
             'spacer' => null,
-            'traditional' => array(
-                'name' => _("Traditional"),
-                'selected' => $view_cookie == 'traditional'
+            'basic' => array(
+                'name' => _("Basic"),
+                'selected' => $view_cookie == 'basic'
             ),
             'dynamic' => array(
                 'name' => _("Dynamic"),
@@ -358,7 +358,7 @@ $page_output->topbar = $page_output->sidebar = false;
 
 if ($browser->isMobile() &&
     (!isset($conf['user']['force_view']) ||
-     !in_array($conf['user']['force_view'], array('dynamic', 'traditional')))) {
+     !in_array($conf['user']['force_view'], array('basic', 'dynamic')))) {
     $view = new Horde_View(array(
         'templatePath' => HORDE_TEMPLATES . '/login'
     ));

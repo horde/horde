@@ -476,7 +476,7 @@ $prefGroups['compose'] = array(
         'set_priority', 'compose_html', 'compose_html_font_family',
         'compose_html_font_size', 'mail_domain',
         'compose_cursor', 'encryptselect', 'delete_attachments_monthly_keep',
-        'request_mdn', 'reply_lang', 'traditional_compose', 'compose_popup',
+        'request_mdn', 'reply_lang', 'basic_compose', 'compose_popup',
         'compose_confirm'
     )
 );
@@ -626,8 +626,8 @@ $_prefs['reply_lang'] = array(
     },
 );
 
-$_prefs['traditional_compose'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Traditional View") . '</div>',
+$_prefs['basic_compose'] = array(
+    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Basic View") . '</div>',
     'type' => 'rawhtml'
 );
 
@@ -1557,7 +1557,7 @@ $prefGroups['mboxdisplay'] = array(
     'desc' => _("Change display preferences for viewing the listing of messages in a mailbox."),
     'members' => array(
         'initialpageselect', 'mailbox_start', 'sortby', 'sortdir', 'sortdate',
-        'max_msgs', 'from_link', 'atc_flag', 'traditional_mailbox',
+        'max_msgs', 'from_link', 'atc_flag', 'basic_mailbox',
         'preview_enabled', 'preview_maxlen', 'preview_strip_nl',
         'preview_show_unread', 'preview_show_tooltip', 'mimp_mailbox',
         'mimp_preview_msg'
@@ -1675,8 +1675,8 @@ $_prefs['atc_flag'] = array(
     'desc' => _("Display attachment information about a message in the mailbox listing?")
 );
 
-$_prefs['traditional_mailbox'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Traditional View") . '</div>',
+$_prefs['basic_mailbox'] = array(
+    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Basic View") . '</div>',
     'type' => 'rawhtml',
     'requires' => array('preview_enabled'),
     'requires_nolock' => array('preview_enabled')
