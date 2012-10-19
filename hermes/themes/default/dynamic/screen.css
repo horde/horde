@@ -240,12 +240,12 @@ div.hermesTimeSliceOptions {
     width: 10%;
     text-align: right;
 }
-
-/* Timelist submission controls */
-.hermesTimeListControls {
-    padding: 7px;
+#hermesTimeListControls {
+  height: 25px;
 }
-
+#hermesTimeListControls input[disabled] {
+  cursor: default;
+}
 .horde-splitbar-horiz {
     cursor: default;
 }

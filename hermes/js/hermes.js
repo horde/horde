@@ -243,6 +243,7 @@ HermesCore = {
                 e.stop();
                 return;
             }
+
             if (elt.hasClassName('hermesTimeListSelect')) {
                 if (elt.up().identify() == 'hermesTimeListHeader') {
                     this.toggleAllRows(elt);
@@ -252,6 +253,7 @@ HermesCore = {
                 elt.up().toggleClassName('hermesSelectedRow');
                 elt.toggleClassName('hermesSelectedSlice');
                 elt.toggleClassName('hermesUnselectedSlice');
+                this.checkSelected();
                 e.stop();
                 return;
             } else if (elt.hasClassName('sliceDelete')) {
@@ -303,6 +305,25 @@ HermesCore = {
         });
         elt.toggleClassName('hermesUnselectedSlice');
         elt.toggleClassName('hermesSelectedSlice');
+        this.checkSelected();
+    },
+
+    /**
+     * Check that we have selected slices and [dis|en]able the submit button
+     * accordingly.
+     */
+    checkSelected: function()
+    {
+        var haveSelected = false;
+        $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
+            haveSelected = true;
+            throw $break;
+        }.bind(this));
+        if (haveSelected) {
+            $('hermesTimeListSubmit').enable()
+        } else {
+            $('hermesTimeListSubmit').disable();
+        }
     },
 
     populateSliceForm: function(sid)

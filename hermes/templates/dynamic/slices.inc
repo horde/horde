@@ -84,7 +84,7 @@
     <div id="hermesTimeListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
   </div>
   <div id="hermesTimeListControls" class="horde-form-buttons">
-    <input id="hermesTimeListSubmit" class="horde-button" type="button" value="<?php echo _("Submit Time")?>" />
+    <input id="hermesTimeListSubmit" disabled="disabled" class="horde-button" type="button" value="<?php echo _("Submit Time")?>" />
   </div>
   <!-- End of Time Slice Grid -->
 
