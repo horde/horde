@@ -620,6 +620,7 @@ HermesCore = {
     {
         $('hermesLoadingTime').hide();
         ids.each(function(i) { this.removeSliceFromUI(i, i.retrieve('sid'), null); }.bind(this));
+        this.checkSelected();
     },
 
     /**
