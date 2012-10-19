@@ -86,7 +86,7 @@
         <title>Compose: Spell Check</title>
         <para>
             <warn>
-                This action may not be available if your webmail administrator has disabled it.
+                This action may not be available if your administrator has disabled it.
             </warn>
         </para>
         <para>
@@ -98,7 +98,7 @@
         <title>Compose: Save Sent Mail</title>
         <para>
             <warn>
-                This action may not be available if your webmail administrator has disabled it.
+                This action may not be available if your administrator has disabled it.
             </warn>
         </para>
         <para>
@@ -621,19 +621,7 @@
     <entry id="prefs-save_attachments">
         <title>Compose: Sent Mail: Preferences: Save Attachments on Sent Messages</title>
         <para>
-            If saving a composed message in a sent mail folder, determine if all attachment data is saved. The following options are available:
-        </para>
-        <para>
-            * &quot;Always save attachments&quot; - NEVER prompt to save attachments in compose screen; the attachments are ALWAYS saved with the message.
-        </para>
-        <para>
-            * &quot;Prompt every time an attachment is sent; default to YES&quot; - ALWAYS prompt to save attachments in the compose screen; the default is to save attachments.
-        </para>
-        <para>
-            * &quot;Prompt every time an attachment is sent; default to NO&quot; - ALWAYS prompt to save attachments in the compose screen; the default is to not save attachments.
-        </para>
-        <para>
-            * &quot;Never save attachments&quot; - NEVER prompt to save attachments in compose screen; the attachments are NEVER saved with the message.
+            If saving a composed message in a sent mail folder, determine if attachment data is saved by default.
         </para>
     </entry>
 

@@ -6,20 +6,20 @@
             You can use your keyboard to select and view messages in your mailbox. In order to move between messages, use the <css class="iconImg keyupImg"></css> and <css class="iconImg keydownImg"></css>keys while holding the <css class="kbd">Ctrl</css> key. You will start at the bottom of the page (last displayed message) if you press <css class="iconImg keyupImg"></css> and at the top of the page (first displayed message) if you press <css class="iconImg keydownImg"></css>.
         </para>
         <para>
-            The current message is highlighted just as if you were mousing over it. While you are moving up and down through the mailbox list, you can press <css class="kbd">Space</css> to select or deselect that message, and you can press <css class="kbd">Enter</css>to view that message.
+            The current message is highlighted just as if you were mousing over it. While you are moving up and down through the mailbox list, you can press <css class="kbd">Space</css> to select or deselect that message, and you can press <css class="kbd">Enter</css> to view that message.
         </para>
         <para>
             If you are holding <css class="kbd">Alt</css> instead of <css class="kbd">Ctrl</css> while navigating through the mailbox, the messages you are passing are automatically selected or deselected.
         </para>
         <para>
-            Use the <css class="iconImg keyleftImg"></css> and <css class="iconImg keyrightImg"></css> keys on your keyboard to go to the previous page of messages in your mailbox or the next page of messages, respectively.
+            Use the <css class="iconImg keyleftImg"></css> and <css class="iconImg keyrightImg"></css> keys on your keyboard to go to the previous page of messages in your mailbox or the next page of messages.
         </para>
     </entry>
 
     <entry id="message-keyboard">
         <title>Message: Previous/Next Message</title>
         <para>
-            Use the <css class="iconImg keyleftImg"></css> and <css class="iconImg keyrightImg"></css> keys on your keyboard to go to the previous message or the next message, respectively.
+            Use the <css class="iconImg keyleftImg"></css> and <css class="iconImg keyrightImg"></css> keys on your keyboard to go to the previous message or the next message.
         </para>
     </entry>
 
@@ -135,7 +135,7 @@
         <title>Folders: Check for New Mail/Do Not Check for New Mail</title>
         <para>
             <warn>
-                This action may not be available if your webmail administrator has disabled it.
+                This action may not be available if your administrator has disabled it.
             </warn>
         </para>
         <para>
@@ -196,8 +196,7 @@
     </entry>
 
     <entry id="filter-apply">
-        <title>Filters: Apply</title>
-        <heading>Apply Filter Rules</heading>
+        <title>Filters: Apply Rules</title>
         <para>
             Click on the &quot;Apply Filter&quot; icon next to the Inbox name in the mailbox view to filter all messages according to the specified rules.
         </para>

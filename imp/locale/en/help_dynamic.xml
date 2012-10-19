@@ -36,12 +36,12 @@
             A right-click on a message or a mailbox will display available actions.
         </para>
         <para>
-            Click on a message while holding down the <css class="kbd">Ctrl</css> key to select multiple messages.  To select a range of messages, click the first message of the range, navigate to the last message of the range, and then click on the last message while holding down the <css class="kbd">Shift</css> key.
-        </para>
-        <para>
             <warn>
                 Opera does not support right-click actions.  Instead, a left click + Shift + Ctrl will display available actions.
             </warn>
+        </para>
+        <para>
+            Click on a message while holding down the <css class="kbd">Ctrl</css> key to select multiple messages.  To select a range of messages, click the first message of the range, navigate to the last message of the range, and then click on the last message while holding down the <css class="kbd">Shift</css> key.
         </para>
     </entry>
 
