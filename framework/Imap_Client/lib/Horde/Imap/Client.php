@@ -1,7 +1,7 @@
 <?php
 /**
- * Base class for Horde_Imap_Client package. Defines common constants and
- * provides factory for creating an IMAP client object.
+ * Base class for Horde_Imap_Client package. Defines common constants for use
+ * in the package.
  *
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
@@ -145,8 +145,8 @@ class Horde_Imap_Client
     const DEBUG_CLIENT = 1;
     const DEBUG_INFO = 2;
     const DEBUG_SERVER = 3;
-    // Time, in seconds, for a slow command.
-    const SLOW_COMMAND = 1;
+    // Time, in seconds, to be labeled a slow IMAP command.
+    const SLOW_COMMAND = 3;
 
     /**
      * Capability dependencies.
