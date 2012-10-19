@@ -274,6 +274,10 @@ logging any errors.
 
       This method has been removed.
 
+    - removeBareNewlines()
+
+      This method has been removed.
+
     - stripNonAtomChars()
 
       This method has been removed. The same functionality can now be

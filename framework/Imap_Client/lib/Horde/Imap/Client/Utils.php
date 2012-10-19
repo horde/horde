@@ -154,18 +154,6 @@ class Horde_Imap_Client_Utils
     }
 
     /**
-     * Remove "bare newlines" from a string.
-     *
-     * @param string $str  The original string.
-     *
-     * @return string  The string with all bare newlines removed.
-     */
-    public function removeBareNewlines($str)
-    {
-        return str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $str);
-    }
-
-    /**
      * Escape IMAP output via a quoted string (see RFC 3501 [4.3]). Note that
      * IMAP quoted strings support 7-bit characters only and can not contain
      * either CR or LF.

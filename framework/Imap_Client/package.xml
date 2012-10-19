@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Remove Horde_Imap_Client_Utils#removeBareNewlines().
 * [mms] Move IMAP mailboxes sorting into new Horde_Imap_Client_Mailbox_List class.
 * [mms] Correctly handle determination of highestmodseq in currently selected mailbox if CONDSTORE, but not QRESYNC, is active.
 * [mms] Optimize APPEND so that we don&apos;t send large amounts of data to server if the server is not going to accept the data.
@@ -1114,6 +1115,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Remove Horde_Imap_Client_Utils#removeBareNewlines().
 * [mms] Move IMAP mailboxes sorting into new Horde_Imap_Client_Mailbox_List class.
 * [mms] Correctly handle determination of highestmodseq in currently selected mailbox if CONDSTORE, but not QRESYNC, is active.
 * [mms] Optimize APPEND so that we don&apos;t send large amounts of data to server if the server is not going to accept the data.
