@@ -56,6 +56,15 @@ class Hermes_Application extends Horde_Registry_Application
 
     /**
      */
+    protected function _init()
+    {
+        if (!$GLOBALS['prefs']->getValue('dynamic_view')) {
+            $this->features['dynamicView'] = false;
+        }
+    }
+
+    /**
+     */
     public function perms()
     {
         return array(
@@ -124,7 +133,6 @@ class Hermes_Application extends Horde_Registry_Application
      */
     public function sidebar($sidebar)
     {
-
         $sidebar->addNewButton(
             _("_New Time"),
             Horde::url('entry.php')
