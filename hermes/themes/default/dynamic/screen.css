@@ -27,6 +27,7 @@ body.hermesAjax {
 }
 .horde-resource-none {
       cursor: default;
+      display: block;
 }
 
 /* Main links */
@@ -85,6 +86,14 @@ body.hermesAjax {
 }
 .timer-saveable {
     background-image: url("../graphics/stop.png");
+}
+#hermesMenuTimers .active-timer {
+  background-color: #7EAA42;
+  font-weight: bold;
+}
+#hermesMenuTimers .inactive-timer {
+  background-color: #dddddd;
+  font-style: italic;
 }
 
 /* Loading spinner */
