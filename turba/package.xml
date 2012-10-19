@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-16</date>
- <time>17:06:35</time>
+ <date>2012-10-19</date>
+ <time>09:57:50</time>
  <version>
   <release>4.0.0beta4</release>
   <api>4.0.0beta1</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mms] Convert turba minisearch block to the Horde AJAX framework.
 * [jan] Support &apos;emails&apos; attribute in smartphone view (Bug #11544).
 * [jan] Attach share owner to all address book titles (Bug #11528).
 * [jan] Fix exporting from browse view (Bug #11526).
@@ -102,7 +103,10 @@
    <dir name="lib">
     <dir name="Ajax">
      <dir name="Application">
-      <file name="Smartmobile.php" role="horde" />
+      <dir name="Handler">
+       <file name="Minisearch.php" role="horde" />
+       <file name="Smartmobile.php" role="horde" />
+      </dir> <!-- /lib/Ajax/Application/Handler -->
      </dir> <!-- /lib/Ajax/Application -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
@@ -585,7 +589,6 @@
    <file name="index.php" role="horde" />
    <file name="LICENSE" role="doc" />
    <file name="merge.php" role="horde" />
-   <file name="minisearch.php" role="horde" />
    <file name="README" role="doc" />
    <file name="search.php" role="horde" />
    <file name="smartmobile.php" role="horde" />
@@ -854,7 +857,8 @@
    <install as="turba/lib/Test.php" name="lib/Test.php" />
    <install as="turba/lib/Turba.php" name="lib/Turba.php" />
    <install as="turba/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
-   <install as="turba/lib/Ajax/Application/Smartmobile.php" name="lib/Ajax/Application/Smartmobile.php" />
+   <install as="turba/lib/Ajax/Application/Handler/Minisearch.php" name="lib/Ajax/Application/Handler/Minisearch.php" />
+   <install as="turba/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
    <install as="turba/lib/Block/Minisearch.php" name="lib/Block/Minisearch.php" />
    <install as="turba/lib/Data/Ldif.php" name="lib/Data/Ldif.php" />
    <install as="turba/lib/Driver/Facebook.php" name="lib/Driver/Facebook.php" />
@@ -1078,7 +1082,6 @@
    <install as="turba/index.php" name="index.php" />
    <install as="LICENSE" name="LICENSE" />
    <install as="turba/merge.php" name="merge.php" />
-   <install as="turba/minisearch.php" name="minisearch.php" />
    <install as="README" name="README" />
    <install as="turba/search.php" name="search.php" />
    <install as="turba/smartmobile.php" name="smartmobile.php" />
@@ -1484,9 +1487,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-16</date>
+   <date>2012-10-19</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mms] Convert turba minisearch block to the Horde AJAX framework.
 * [jan] Support &apos;emails&apos; attribute in smartphone view (Bug #11544).
 * [jan] Attach share owner to all address book titles (Bug #11528).
 * [jan] Fix exporting from browse view (Bug #11526).

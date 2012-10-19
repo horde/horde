@@ -25,6 +25,8 @@ class Turba_Ajax_Application extends Horde_Core_Ajax_Application
             $this->addHandler('Turba_Ajax_Application_Handler_Smartmobile');
             break;
         }
+
+        $this->addHandler('Turba_Ajax_Application_Handler_Minisearch');
     }
 
 }

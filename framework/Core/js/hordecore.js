@@ -59,7 +59,7 @@ var HordeCore = {
         document.fire('HordeCore:ajaxFailure', [ t, o ]);
     },
 
-    // opts: (Object) ajaxopts, callback, loading
+    // opts: (Object) ajaxopts, callback, loading, uri
     doAction: function(action, params, opts)
     {
         params = $H(params).clone();
@@ -77,7 +77,7 @@ var HordeCore = {
             this.doActionComplete(t, opts);
         }.bind(this);
 
-        return new Ajax.Request(this.conf.URI_AJAX + action, ajaxopts);
+        return new Ajax.Request((opts.uri ? opts.uri : this.conf.URI_AJAX) + action, ajaxopts);
     },
 
     // form: (Element) DOM Element (or DOM ID)
