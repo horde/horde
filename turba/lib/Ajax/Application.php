@@ -22,7 +22,7 @@ class Turba_Ajax_Application extends Horde_Core_Ajax_Application
 
         switch ($registry->getView()) {
         case $registry::VIEW_SMARTMOBILE:
-            $this->addHandler('Turba_Ajax_Application_Smartmobile');
+            $this->addHandler('Turba_Ajax_Application_Handler_Smartmobile');
             break;
         }
     }

@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Turba
  */
-class Turba_Ajax_Application_Smartmobile extends Horde_Core_Ajax_Application_Handler
+class Turba_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * AJAX action: Get entry data.
