@@ -104,7 +104,7 @@ class Horde_Imap_Client_Socket_ClientSort
         $sorted = $tsort = array();
 
         foreach ($data as $k => $v) {
-            $subject = $this->_socket->utils->getBaseSubject($v->getEnvelope()->subject);
+            $subject = strval(new Horde_Imap_Client_Data_BaseSubject($v->getEnvelope()->subject));
             $sorted[$subject][$k] = $dates[$k];
         }
 
@@ -228,7 +228,7 @@ class Horde_Imap_Client_Socket_ClientSort
                 case Horde_Imap_Client::SORT_SUBJECT:
                     // Subject sorting rules in RFC 5256 [2.1]
                     foreach ($slice as $num) {
-                        $sorted[$num] = $this->_socket->utils->getBaseSubject($fetch_res[$num]->getEnvelope()->subject);
+                        $sorted[$num] = strval(new Horde_Imap_Client_Data_BaseSubject($fetch_res[$num]->getEnvelope()->subject));
                     }
                     asort($sorted, SORT_LOCALE_STRING);
                     break;

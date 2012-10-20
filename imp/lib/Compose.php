@@ -1578,7 +1578,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $subject = $h->getValue('subject');
         $header['subject'] = empty($subject)
             ? 'Re: '
-            : 'Re: ' . $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->getBaseSubject($subject, array('keepblob' => true));
+            : 'Re: ' . strval(new Horde_Imap_Client_Data_BaseSubject($subject, array('keepblob' => true)));
 
         $force = false;
         if (in_array($type, array(self::REPLY_AUTO, self::REPLY_SENDER))) {
@@ -1930,7 +1930,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         $header['subject'] = $h->getValue('subject');
         if (!empty($header['subject'])) {
-            $subject = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->getBaseSubject($header['subject'], array('keepblob' => true));
+            $subject = strval(new Horde_Imap_Client_Data_BaseSubject($header['subject'], array('keepblob' => true)));
             $header['title'] = _("Forward") . ': ' . $subject;
             $header['subject'] = 'Fwd: ' . $subject;
         } else {
@@ -2190,7 +2190,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $name = _("[No Subject]");
         }
 
-        return 'Fwd: ' . $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->getBaseSubject($name, array('keepblob' => true));
+        return 'Fwd: ' . strval(new Horde_Imap_Client_Data_BaseSubject($name, array('keepblob' => true)));
     }
 
     /**

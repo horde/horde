@@ -282,6 +282,11 @@ logging any errors.
       This method has been removed. Sequence string parsing is now natively
       supported within the Horde_Imap_Client_Ids object.
 
+    - getBaseSubject()
+
+      This method has been removed. Bsae subject determination is now handled
+      by the Horde_Imap_Client_Utils_BaseSubject class.
+
     - parseCommandArray()
 
       This method has been removed.
