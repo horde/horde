@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2012-10-19</date>
- <time>18:06:49</time>
+ <time>20:53:09</time>
  <version>
   <release>2.0.0beta5</release>
   <api>2.0.0beta1</api>
@@ -80,6 +80,7 @@
         <file name="AclCommon.php" role="php" />
         <file name="AclNegative.php" role="php" />
         <file name="AclRights.php" role="php" />
+        <file name="BaseSubject.php" role="php" />
         <file name="Envelope.php" role="php" />
         <file name="Fetch.php" role="php" />
         <file name="Format.php" role="php" />
@@ -107,6 +108,9 @@
         <file name="Client.php" role="php" />
         <file name="Server.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Interaction -->
+       <dir name="Mailbox">
+        <file name="List.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Mailbox -->
        <dir name="Search">
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Search -->
@@ -121,13 +125,12 @@
        <file name="Ids.php" role="php" />
        <file name="Mailbox.php" role="php" />
        <file name="Socket.php" role="php" />
-       <file name="Sort.php" role="php" />
        <file name="Tokenize.php" role="php" />
        <file name="Translation.php" role="php">
          <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
        </file>
+       <file name="Url.php" role="php" />
        <file name="Utf7imap.php" role="php" />
-       <file name="Utils.php" role="php" />
       </dir> <!-- /lib/Horde/Imap/Client -->
       <file name="Client.php" role="php" />
      </dir> <!-- /lib/Horde/Imap -->
@@ -287,16 +290,16 @@
    <install as="Horde/Imap/Client/Ids.php" name="lib/Horde/Imap/Client/Ids.php" />
    <install as="Horde/Imap/Client/Mailbox.php" name="lib/Horde/Imap/Client/Mailbox.php" />
    <install as="Horde/Imap/Client/Socket.php" name="lib/Horde/Imap/Client/Socket.php" />
-   <install as="Horde/Imap/Client/Sort.php" name="lib/Horde/Imap/Client/Sort.php" />
    <install as="Horde/Imap/Client/Tokenize.php" name="lib/Horde/Imap/Client/Tokenize.php" />
    <install as="Horde/Imap/Client/Translation.php" name="lib/Horde/Imap/Client/Translation.php" />
+   <install as="Horde/Imap/Client/Url.php" name="lib/Horde/Imap/Client/Url.php" />
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
-   <install as="Horde/Imap/Client/Utils.php" name="lib/Horde/Imap/Client/Utils.php" />
    <install as="Horde/Imap/Client/Auth/DigestMD5.php" name="lib/Horde/Imap/Client/Auth/DigestMD5.php" />
    <install as="Horde/Imap/Client/Data/Acl.php" name="lib/Horde/Imap/Client/Data/Acl.php" />
    <install as="Horde/Imap/Client/Data/AclCommon.php" name="lib/Horde/Imap/Client/Data/AclCommon.php" />
    <install as="Horde/Imap/Client/Data/AclNegative.php" name="lib/Horde/Imap/Client/Data/AclNegative.php" />
    <install as="Horde/Imap/Client/Data/AclRights.php" name="lib/Horde/Imap/Client/Data/AclRights.php" />
+   <install as="Horde/Imap/Client/Data/BaseSubject.php" name="lib/Horde/Imap/Client/Data/BaseSubject.php" />
    <install as="Horde/Imap/Client/Data/Envelope.php" name="lib/Horde/Imap/Client/Data/Envelope.php" />
    <install as="Horde/Imap/Client/Data/Fetch.php" name="lib/Horde/Imap/Client/Data/Fetch.php" />
    <install as="Horde/Imap/Client/Data/Format.php" name="lib/Horde/Imap/Client/Data/Format.php" />
@@ -328,6 +331,7 @@
    <install as="Horde/Imap/Client/Interaction/Server/Continuation.php" name="lib/Horde/Imap/Client/Interaction/Server/Continuation.php" />
    <install as="Horde/Imap/Client/Interaction/Server/Tagged.php" name="lib/Horde/Imap/Client/Interaction/Server/Tagged.php" />
    <install as="Horde/Imap/Client/Interaction/Server/Untagged.php" name="lib/Horde/Imap/Client/Interaction/Server/Untagged.php" />
+   <install as="Horde/Imap/Client/Mailbox/List.php" name="lib/Horde/Imap/Client/Mailbox/List.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
    <install as="Horde/Imap/Client/Socket/ClientSort.php" name="lib/Horde/Imap/Client/Socket/ClientSort.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
