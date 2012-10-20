@@ -102,4 +102,44 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testPop3SequenceStringGenerate()
+    {
+        $this->assertEquals(
+            '{P10}ABCDEFGHIJ{P5}ABCDE',
+            strval(new Horde_Imap_Client_Ids_Pop3(array('ABCDEFGHIJ', 'ABCDE')))
+        );
+
+        $this->assertEquals(
+            '{P10}ABCDEFGHIJ',
+            strval(new Horde_Imap_Client_Ids_Pop3('ABCDEFGHIJ'))
+        );
+    }
+
+    public function testPop3SequenceStringParse()
+    {
+        $ids = new Horde_Imap_Client_Ids_Pop3('{P10}ABCDEFGHIJ{P5}ABCDE');
+        $this->assertEquals(
+            array('ABCDEFGHIJ', 'ABCDE'),
+            $ids->ids
+        );
+
+        $ids = new Horde_Imap_Client_Ids_Pop3('{P10}ABCDEFGHIJ{P5}ABCDEFGHIJ');
+        $this->assertEquals(
+            array('ABCDEFGHIJ', 'ABCDE'),
+            $ids->ids
+        );
+
+        $ids = new Horde_Imap_Client_Ids_Pop3('{P10}ABCDEFGHIJ{5}ABCDEFGHIJ');
+        $this->assertEquals(
+            array('ABCDEFGHIJ'),
+            $ids->ids
+        );
+
+        $ids = new Horde_Imap_Client_Ids_Pop3('{10}ABCDEFGHIJ');
+        $this->assertEquals(
+            array('{10}ABCDEFGHIJ'),
+            $ids->ids
+        );
+    }
+
 }

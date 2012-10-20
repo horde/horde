@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>20:43:44</time>
+ <date>2012-10-19</date>
+ <time>18:06:49</time>
  <version>
   <release>2.0.0beta5</release>
   <api>2.0.0beta1</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Move IMAP sequence string generation/parsing to the Horde_Imap_Client_Ids object.
 * [mms] Remove Horde_Imap_Client_Utils#escape().
 * [mms] Remove Horde_Imap_Client_Utils#removeBareNewlines().
 * [mms] Move IMAP mailboxes sorting into new Horde_Imap_Client_Mailbox_List class.
@@ -111,9 +112,6 @@
         <file name="ClientSort.php" role="php" />
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Socket -->
-       <dir name="Utils">
-        <file name="Pop3.php" role="php" />
-       </dir> <!-- /lib/Horde/Imap/Client/Utils -->
        <file name="Base.php" role="php" />
        <file name="Cache.php" role="php" />
        <file name="DateTime.php" role="php" />
@@ -180,7 +178,6 @@
        <file name="Autoload.php" role="test" />
        <file name="DataFormatTest.php" role="test" />
        <file name="DateTimeTest.php" role="test" />
-       <file name="IdsParseTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
        <file name="MailboxTest.php" role="test" />
        <file name="SearchTest.php" role="test" />
@@ -332,7 +329,6 @@
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
    <install as="Horde/Imap/Client/Socket/ClientSort.php" name="lib/Horde/Imap/Client/Socket/ClientSort.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
-   <install as="Horde/Imap/Client/Utils/Pop3.php" name="lib/Horde/Imap/Client/Utils/Pop3.php" />
    <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
    <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.po" name="locale/de/LC_MESSAGES/Horde_Imap_Client.po" />
@@ -348,7 +344,6 @@
    <install as="Horde/Imap/Client/Autoload.php" name="test/Horde/Imap/Client/Autoload.php" />
    <install as="Horde/Imap/Client/DataFormatTest.php" name="test/Horde/Imap/Client/DataFormatTest.php" />
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
-   <install as="Horde/Imap/Client/IdsParseTest.php" name="test/Horde/Imap/Client/IdsParseTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
    <install as="Horde/Imap/Client/MailboxTest.php" name="test/Horde/Imap/Client/MailboxTest.php" />
    <install as="Horde/Imap/Client/SearchTest.php" name="test/Horde/Imap/Client/SearchTest.php" />
@@ -1113,9 +1108,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-12</date>
+   <date>2012-10-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Move IMAP sequence string generation/parsing to the Horde_Imap_Client_Ids object.
 * [mms] Remove Horde_Imap_Client_Utils#escape().
 * [mms] Remove Horde_Imap_Client_Utils#removeBareNewlines().
 * [mms] Move IMAP mailboxes sorting into new Horde_Imap_Client_Mailbox_List class.

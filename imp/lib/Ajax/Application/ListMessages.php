@@ -269,13 +269,14 @@ class IMP_Ajax_Application_ListMessages
         /* Get the cached list. */
         $cached = array();
         if (!empty($args['cache'])) {
-            foreach ($imp_imap->getUtils()->fromSequenceString($args['cache']) as $key => $uids) {
-                $key = IMP_Mailbox::formFrom($key);
+            $ids = new IMP_Indices($args['cache']);
+            foreach ($ids as $val) {
+                $val->mbox = IMP_Mailbox::formFrom($val->mbox);
 
-                foreach ($uids as $val) {
+                foreach ($val->uids as $val2) {
                     $cached[] = $is_search
-                        ? $this->searchUid($key, $val)
-                        : $val;
+                        ? $this->searchUid($val->mbox, $val2)
+                        : $val2;
                 }
             }
             $cached = array_flip($cached);
@@ -353,7 +354,7 @@ class IMP_Ajax_Application_ListMessages
                 /* QRESYNC already provided the updated list of flags - we can
                  * grab the updated UIDS through this STATUS call and save a
                  * FETCH. */
-                $changed = array_flip($status['lastmodsequids']);
+                $changed = array_flip($status['lastmodsequids']->ids);
             } else {
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->uid();

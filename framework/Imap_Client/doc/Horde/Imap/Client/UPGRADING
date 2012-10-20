@@ -156,6 +156,8 @@ logging any errors.
     - status()
 
       The $mailbox parameter can no longer be a UTF7-IMAP string.
+      The 'lastmodsequids' now returns a Horde_Imap_Client_Ids object instead
+      of an array.
 
     - statusMultiple()
 
@@ -275,6 +277,11 @@ logging any errors.
       This method has been removed. String escaping can now be accomplished
       via the Horde_Imap_Client_Data_Format_* objects.
 
+    - fromSequenceString()
+
+      This method has been removed. Sequence string parsing is now natively
+      supported within the Horde_Imap_Client_Ids object.
+
     - parseCommandArray()
 
       This method has been removed.
@@ -289,6 +296,14 @@ logging any errors.
       accomplished by using the stripNonAtomCharacters() method of the
       Horde_Imap_Client_Data_Format_Atom object.
 
+    - toSequenceString()
+
+      This method has been removed. Sequence string generation is now natively
+      supported within the Horde_Imap_Client_Ids object.
+
+  - Horde_Imap_Client_Utils_Pop3
+
+    This class has been removed.
 
 
 Upgrading To 1.5.0

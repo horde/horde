@@ -41,13 +41,6 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     protected $_sequence = false;
 
     /**
-     * The utility class to use to parse a sequence string.
-     *
-     * @var string
-     */
-    protected $_utilsClass = 'Horde_Imap_Client_Utils';
-
-    /**
      * Constructor.
      *
      * @param mixed $ids         See self::add().
@@ -80,10 +73,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
 
         case 'tostring':
         case 'tostring_sort':
-            $utils = new $this->_utilsClass();
-            return strval($utils->toSequenceString($this->_ids, array(
-                'nosort' => ($name == 'tostring')
-            )));
+            return strval($this->_toSequenceString($name == 'tostring_sort'));
         }
     }
 
@@ -98,7 +88,8 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
      * Add IDs to the current object.
      *
      * @param mixed $ids  Either self::ALL, self::SEARCH_RES,
-     *                    Horde_Imap_Client_Ids object, array, or string.
+     *                    Horde_Imap_Client_Ids object, array, or sequence
+     *                    string.
      */
     public function add($ids)
     {
@@ -118,8 +109,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
                 if (is_numeric($ids)) {
                     $add = array($ids);
                 } else {
-                    $utils = new $this->_utilsClass();
-                    $add = $utils->fromSequenceString($ids);
+                    $add = $this->_fromSequenceString($ids);
                 }
             }
 
@@ -140,12 +130,109 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     }
 
     /**
+     * Reverses the order of the IDs.
      */
     public function reverse()
     {
         if (is_array($this->_ids)) {
             $this->_ids = array_reverse($this->_ids);
         }
+    }
+
+    /**
+     * Sorts the IDs numerically.
+     */
+    public function sort()
+    {
+        sort($this->_ids, SORT_NUMERIC);
+    }
+
+    /**
+     * Create an IMAP message sequence string from a list of indices.
+     *
+     * Index Format: range_start:range_end,uid,uid2,...
+     *
+     * @param boolean $nosort  Numerically sort the IDs before creating the
+     *                         range?
+     *
+     * @return string  The IMAP message sequence string.
+     */
+    protected function _toSequenceString($sort = true)
+    {
+        if (empty($this->_ids)) {
+            return '';
+        }
+
+        $in = $this->_ids;
+
+        if ($sort) {
+            sort($in, SORT_NUMERIC);
+        }
+
+        $first = $last = array_shift($in);
+        $i = count($in) - 1;
+        $out = array();
+
+        reset($in);
+        while (list($key, $val) = each($in)) {
+            if (($last + 1) == $val) {
+                $last = $val;
+            }
+
+            if (($i == $key) || ($last != $val)) {
+                if ($last == $first) {
+                    $out[] = $first;
+                    if ($i == $key) {
+                        $out[] = $val;
+                    }
+                } else {
+                    $out[] = $first . ':' . $last;
+                    if (($i == $key) && ($last != $val)) {
+                        $out[] = $val;
+                    }
+                }
+                $first = $last = $val;
+            }
+        }
+
+        return empty($out)
+            ? $first
+            : implode(',', $out);
+    }
+
+    /**
+     * Parse an IMAP message sequence string into a list of indices.
+     *
+     * @see _toSequenceString()
+     *
+     * @param string $str  The IMAP message sequence string.
+     *
+     * @return array  An array of indices.
+     */
+    protected function _fromSequenceString($str)
+    {
+        $ids = array();
+        $str = trim($str);
+
+        if (!strlen($str)) {
+            return $ids;
+        }
+
+        $idarray = explode(',', $str);
+
+        reset($idarray);
+        while (list(,$val) = each($idarray)) {
+            $range = explode(':', $val);
+            if (isset($range[1])) {
+                for ($i = min($range), $j = max($range); $i <= $j; ++$i) {
+                    $ids[] = $i;
+                }
+            } else {
+                $ids[] = $val;
+            }
+        }
+
+        return $ids;
     }
 
     /* Countable methods. */

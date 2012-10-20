@@ -188,7 +188,7 @@ while (true) {
                 $cli->writeln();
 
                 $cli->message('Mailbox: ' . $cli->green($mbox));
-                $cli->message('Cached messages: ' . count($res) . ' [' . $ob->utils->toSequenceString($res) . ']');
+                $cli->message('Cached messages: ' . count($res) . ' [' . strval(new IMP_Indices($res)) . ']');
 
                 $lzf_size = $total_size = 0;
                 foreach ($cache->get($mbox, $res, null) as $val) {
@@ -290,8 +290,8 @@ while (true) {
         if (!strlen($uids)) {
             break;
         }
-        $uids = $ob->utils->fromSequenceString($uids);
-        if (empty($uids)) {
+        $uids = new IMP_Indices($uids);
+        if (!count($uids)) {
             $cli->writeln();
             $cli->message('No UIDs found', 'cli.error');
             break;
@@ -300,7 +300,7 @@ while (true) {
         $cli->writeln();
 
         try {
-            $cache->deleteMsgs($mbox, $uids);
+            $cache->deleteMsgs($mbox, $uids->getSingle(true));
             $cli->message(sprintf('Deleted %d UIDs from cache.', count($uids)), 'cli.success');
         } catch (Horde_Imap_Client_Exception $e) {
             $cli->writeln();
