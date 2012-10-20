@@ -95,48 +95,61 @@ class Horde_Imap_Client_UrlParseTest extends Horde_Test_Case
 
     public function testBadUrl()
     {
-        $imap_utils = new Horde_Imap_Client_Utils();
+        $url = new Horde_Imap_Client_Url('NOT A VALID URL');
 
-        $out = $imap_utils->parseUrl('NOT A VALID URL');
-
-        $this->assertNotEmpty($out);
-        $this->assertArrayHasKey('mailbox', $out);
+        $this->assertNotNull($url->mailbox);
         $this->assertEquals(
             'NOT A VALID URL',
-            $out['mailbox']
+            $url->mailbox
         );
     }
 
     // RFC 2384 URL parsing
     public function testPopUrlParsing()
     {
-        $imap_utils = new Horde_Imap_Client_Utils();
-
         foreach ($this->_testurls as $key => $val) {
-            $result = $imap_utils->parseUrl('pop://' . $val);
-            $this->assertNotEmpty($result);
+            $url = new Horde_Imap_Client_Url('pop://' . $val);
             $expected = $this->_expected[$key];
-            $expected['type'] = 'pop';
+            $expected['protocol'] = 'pop';
             unset($expected['mailbox'],
                   $expected['section'],
                   $expected['uid'],
                   $expected['uidvalidity']);
-            $this->assertEquals($expected, $result);
+            foreach ($expected as $key2 => $val2) {
+                $this->assertEquals(
+                    $val2,
+                    $url->$key2
+                );
+            }
         }
     }
 
     // RFC 5092 URL parsing
     public function testImapUrlParsing()
     {
-        $imap_utils = new Horde_Imap_Client_Utils();
-
         foreach ($this->_testurls as $key => $val) {
-            $result = $imap_utils->parseUrl('imap://' . $val);
-            $this->assertNotEmpty($result);
+            $url = new Horde_Imap_Client_Url('imap://' . $val);
             $expected = $this->_expected[$key];
-            $expected['type'] = 'imap';
-            $this->assertEquals($expected, $result);
+            $expected['protocol'] = 'imap';
+            foreach ($expected as $key2 => $val2) {
+                $this->assertEquals(
+                    $val2,
+                    $url->$key2
+                );
+            }
         }
+    }
+
+    public function testSerialize()
+    {
+        $url = unserialize(serialize(
+            new Horde_Imap_Client_Url('imap://' . end($this->_testurls))
+        ));
+
+        $this->assertEquals(
+            'imap',
+            $url->protocol
+        );
     }
 
 }

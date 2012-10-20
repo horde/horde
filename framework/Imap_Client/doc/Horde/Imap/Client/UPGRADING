@@ -33,6 +33,10 @@ logging any errors.
       This public member variable has been removed. Obtain the cache object
       by calling getCache() instead.
 
+    - $utils
+
+      This public member variable has been removed.
+
     - append()
 
       The $mailbox parameter can no longer be a UTF7-IMAP string.
@@ -272,6 +276,14 @@ logging any errors.
 
   - Horde_Imap_Client_Utils
 
+    This class has been removed. Information on the previous methods (and
+    their replacements, if any) can be found below.
+
+    - createUrl()
+
+      This method has been removed. URL creation can now be accomplished with
+      the Horde_Imap_Client_Url object.
+
     - escape()
 
       This method has been removed. String escaping can now be accomplished
@@ -290,6 +302,11 @@ logging any errors.
     - parseCommandArray()
 
       This method has been removed.
+
+    - parseUrl()
+
+      This method has been removed. URL parsing can now be accomplished with
+      the Horde_Imap_Client_Url object.
 
     - removeBareNewlines()
 

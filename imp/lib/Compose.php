@@ -236,14 +236,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         if ($this->_replytype) {
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
             try {
-                $imap_url = $imp_imap->getUtils()->createUrl(array(
-                    'type' => $imp_imap->pop3 ? 'pop' : 'imap',
-                    'username' => $imp_imap->getParam('username'),
-                    'hostspec' => $imp_imap->getParam('hostspec'),
-                    'mailbox' => $this->getMetadata('mailbox'),
-                    'uid' => $this->getMetadata('uid'),
-                    'uidvalidity' => $this->getMetadata('mailbox')->uidvalid
-                ));
+                $imap_url = new Horde_Imap_Client_Url();
+                $imap_url->hostspec = $imp_imap->getParam('hostspec');
+                $imap_url->mailbox = $this->getMetadata('mailbox');
+                $imap_url->protocol = $imp_imap->pop3 ? 'pop' : 'imap';
+                $imap_url->uid = $this->getMetadata('uid');
+                $imap_url->uidvalidity = $this->getMetadata('mailbox')->uidvalid;
+                $imap_url->username = $imp_imap->getParam('username');
 
                 switch ($this->replyType(true)) {
                 case self::FORWARD:
@@ -538,20 +537,19 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             }
 
             if ($draft_url) {
-                $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-                $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($draft_url, '<'), '>'));
+                $imap_url = new Horde_Imap_Client_Url(rtrim(ltrim($draft_url, '<'), '>'));
                 $protocol = $imp_imap->pop3 ? 'pop' : 'imap';
 
                 try {
-                    if (($imap_url['type'] == $protocol) &&
-                        ($imap_url['username'] == $imp_imap->getParam('username')) &&
+                    if (($imap_url->protocol == $protocol) &&
+                        ($imap_url->username == $injector->getInstance('IMP_Factory_Imap')->create()->getParam('username')) &&
                         // Ignore hostspec and port, since these can change
                         // even though the server is the same. UIDVALIDITY
                         // should catch any true server/backend changes.
-                        (IMP_Mailbox::get($imap_url['mailbox'])->uidvalid == $imap_url['uidvalidity']) &&
-                        $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
-                        $this->_metadata['mailbox'] = IMP_Mailbox::get($imap_url['mailbox']);
-                        $this->_metadata['uid'] = $imap_url['uid'];
+                        (IMP_Mailbox::get($imap_url->mailbox)->uidvalid == $imap_url->uidvalidity) &&
+                        $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url->mailbox, $imap_url->uid))) {
+                        $this->_metadata['mailbox'] = IMP_Mailbox::get($imap_url->mailbox);
+                        $this->_metadata['uid'] = $imap_url->uid;
                         $this->_replytype = $type;
                     }
                 } catch (Exception $e) {}

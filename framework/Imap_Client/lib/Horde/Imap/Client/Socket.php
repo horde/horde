@@ -417,13 +417,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // an OK, NO, or BYE response.
             if (!is_null($t['referral'])) {
                 foreach (array('hostspec', 'port', 'username') as $val) {
-                    if (isset($t['referral'][$val])) {
-                        $this->_params[$val] = $t['referral'][$val];
+                    if (!is_null($t['referral']->$val)) {
+                        $this->_params[$val] = $t['referral']->$val;
                     }
                 }
 
-                if (isset($t['referral']['auth'])) {
-                    $this->_setInit('authmethod', $t['referral']['auth']);
+                if (!is_null($t['referral']->auth)) {
+                    $this->_setInit('authmethod', $t['referral']->auth);
                 }
 
                 if (!isset($t['referralcount'])) {
@@ -1594,23 +1594,23 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _convertCatenateUrl($url)
     {
         $e = $part = null;
-        $url = $this->utils->parseUrl($url);
+        $url = new Horde_Imap_Client_Url($url);
 
-        if (isset($url['mailbox']) && isset($url['uid'])) {
+        if (!is_null($url->mailbox) && !is_null($url->uid)) {
             try {
-                $status_res = isset($url['uidvalidity'])
-                    ? $this->status($url['mailbox'], Horde_Imap_Client::STATUS_UIDVALIDITY)
-                    : null;
+                $status_res = is_null($url->uidvalidity)
+                    ? null
+                    : $this->status($url->mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
 
                 if (is_null($status_res) ||
-                    ($status_res['uidvalidity'] == $url['uidvalidity'])) {
-                    $part = $this->fetchFromSectionString($url['mailbox'], $url['uid'], isset($url['section']) ? $url['section'] : null);
+                    ($status_res['uidvalidity'] == $url->uidvalidity)) {
+                    $part = $this->fetchFromSectionString($url->mailbox, $url->uid, $url->section);
                 }
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 
         if (is_null($part)) {
-            $message = 'Bad IMAP URL given in CATENATE data: ' . json_encode($url);
+            $message = 'Bad IMAP URL given in CATENATE data: ' . strval($url);
             if ($e) {
                 $message .= ' ' . $e->getMessage();
             }
@@ -4372,7 +4372,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'REFERRAL':
             // Defined by RFC 2221
-            $this->_temp['referral'] = $this->utils->parseUrl($rc->data[0]);
+            $this->_temp['referral'] = new Horde_Imap_Client_Url($rc->data[0]);
             break;
 
         case 'UNKNOWN-CTE':

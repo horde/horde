@@ -12,8 +12,6 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Imap_Client
- *
- * @property Horde_Imap_Client_Utils $utils  A Utils object.
  */
 abstract class Horde_Imap_Client_Base implements Serializable
 {
@@ -115,13 +113,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @var array
      */
     protected $_temp = array();
-
-    /**
-     * The Horde_Imap_Client_Utils object.
-     *
-     * @var Horde_Imap_Client_Utils
-     */
-    protected $_utils;
 
     /**
      * Constructor.
@@ -364,19 +355,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->_params = $data['p'];
 
         $this->_initOb();
-    }
-
-    /**
-     */
-    public function __get($name)
-    {
-        switch ($name) {
-        case 'utils':
-            if (!isset($this->_utils)) {
-                $this->_utils = new Horde_Imap_Client_Utils();
-            }
-            return $this->_utils;
-        }
     }
 
     /**

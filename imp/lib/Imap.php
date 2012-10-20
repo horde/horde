@@ -302,18 +302,6 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Return the Horde_Imap_Client_Utils object.
-     *
-     * @return Horde_Imap_Client_Utils  The utility object.
-     */
-    public function getUtils()
-    {
-        return $this->ob
-            ? $this->ob->utils
-            : $GLOBALS['injector']->createInstance('Horde_Imap_Client_Utils');
-    }
-
-    /**
      * All other calls to this class are routed to the underlying
      * Horde_Imap_Client_Base object.
      *
