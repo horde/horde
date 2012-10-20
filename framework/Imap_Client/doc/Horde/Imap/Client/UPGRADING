@@ -258,6 +258,11 @@ logging any errors.
     whether the current text queries should be converted to the new charset
     provided.
 
+  - Horde_Imap_Client_Sort
+
+    This class has been removed. Mailbox sorting can now be accomplished with
+    the Horde_Imap_Client_Mailbox_List class.
+
   - Horde_Imap_Client_Utf7imap
 
     The default argument for the $force parameter to Utf8ToUtf7Imap() has

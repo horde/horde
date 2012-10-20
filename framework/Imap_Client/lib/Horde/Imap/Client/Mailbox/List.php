@@ -1,6 +1,6 @@
 <?php
 /**
- * Function to sort a list of IMAP mailboxes.
+ * Container of IMAP mailboxes.
  *
  * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
  *
@@ -12,56 +12,70 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Imap_Client
  */
-class Horde_Imap_Client_Sort
+class Horde_Imap_Client_Mailbox_List implements Countable, IteratorAggregate
 {
     /**
      * The delimiter character to use.
      *
      * @var string
      */
-    private static $_delimiter = '.';
+    protected $_delimiter;
+
+    /**
+     * Mailbox list.
+     *
+     * @var array
+     */
+    protected $_mboxes = array();
 
     /**
      * Should we sort with INBOX at the front of the list?
      *
      * @var boolean
      */
-    private static $_sortinbox = true;
+    protected $_sortinbox;
 
     /**
-     * Sort a list of mailboxes.
-     * $mbox will be sorted after running this function.
+     * Constructor.
      *
-     * @param array &$mbox    The list of mailboxes to sort.
-     * @param array $options  Additional options:
+     * @param mixed $mailboxes  A mailbox or list of mailboxes.
+     */
+    public function __construct($mboxes)
+    {
+        $this->_mboxes = is_array($mboxes)
+            ? $mboxes
+            : array($mboxes);
+    }
+
+    /**
+     * Sort the list of mailboxes.
+     *
+     * @param array $opts  Options:
      *   - delimiter: (string) The delimiter to use.
      *                DEFAULT: '.'
      *   - inbox: (boolean) Always put INBOX at the head of the list?
      *            DEFAULT: Yes
-     *   - index: (boolean) If sorting by value ('keysort' is false), maintain
-     *            key index association?
-     *            DEFAULT: No
-     *   - keysort: (boolean) Sort by $mbox's keys?
-     *              DEFAULT: Sort by $mbox values.
+     *   - noupdate: (boolean) Do not update the object's mailbox list?
+     *               DEFAULT: true
+     *
+     * @return array  List of sorted mailboxes (index association is kept).
      */
-    public static final function sortMailboxes(&$mbox, $options = array())
+    public function sort(array $opts = array())
     {
-        if (isset($options['delimiter'])) {
-            self::$_delimiter = $options['delimiter'];
-        }
+        $this->_delimiter = isset($opts['delimiter'])
+            ? $opts['delimiter']
+            : '.';
+        $this->_sortinbox = (!isset($opts['inbox']) || !empty($opts['inbox']));
 
-        if (isset($options['inbox']) && empty($options['inbox'])) {
-            self::$_sortinbox = false;
-        }
-
-        $cmp = array(__CLASS__, 'mboxCompare');
-        if (!empty($options['keysort'])) {
-            uksort($mbox, $cmp);
-        } elseif (!empty($options['index'])) {
-            uasort($mbox, $cmp);
+        if (empty($opts['noupdate'])) {
+            $mboxes = &$this->_mboxes;
         } else {
-            usort($mbox, $cmp);
+            $mboxes = $this->_mboxes;
         }
+
+        uasort($mboxes, array($this, '_mboxCompare'));
+
+        return $mboxes;
     }
 
     /**
@@ -72,10 +86,10 @@ class Horde_Imap_Client_Sort
      *
      * @return integer  See usort().
      */
-    public static final function mboxCompare($a, $b)
+    protected final function _mboxCompare($a, $b)
     {
         /* Always return INBOX as "smaller". */
-        if (self::$_sortinbox) {
+        if ($this->_sortinbox) {
             if (strcasecmp($a, 'INBOX') == 0) {
                 return -1;
             } elseif (strcasecmp($b, 'INBOX') == 0) {
@@ -83,8 +97,8 @@ class Horde_Imap_Client_Sort
             }
         }
 
-        $a_parts = explode(self::$_delimiter, $a);
-        $b_parts = explode(self::$_delimiter, $b);
+        $a_parts = explode($this->_delimiter, $a);
+        $b_parts = explode($this->_delimiter, $b);
 
         $a_count = count($a_parts);
         $b_count = count($b_parts);
@@ -93,7 +107,7 @@ class Horde_Imap_Client_Sort
             if ($a_parts[$i] != $b_parts[$i]) {
                 /* If only one of the folders is under INBOX, return it as
                  * "smaller". */
-                if (self::$_sortinbox && ($i == 0)) {
+                if ($this->_sortinbox && ($i == 0)) {
                     $a_base = (strcasecmp($a_parts[0], 'INBOX') == 0);
                     $b_base = (strcasecmp($b_parts[0], 'INBOX') == 0);
                     if ($a_base && !$b_base) {
@@ -114,4 +128,23 @@ class Horde_Imap_Client_Sort
 
         return ($a_count - $b_count);
     }
+
+    /* Countable methods. */
+
+    /**
+     */
+    public function count()
+    {
+        return count($this->_mboxes);
+    }
+
+    /* IteratorAggregate methods. */
+
+    /**
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->_mboxes);
+    }
+
 }

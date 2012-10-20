@@ -1033,9 +1033,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function getPollList($sort = false)
     {
+        global $injector, $prefs;
+
         $this->setIteratorFilter(self::FLIST_NOCONTAINER);
 
-        if ($GLOBALS['prefs']->getValue('nav_poll_all')) {
+        if ($prefs->getValue('nav_poll_all')) {
             return iterator_to_array($this);
         }
 
@@ -1048,9 +1050,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         if ($sort) {
             $ns_new = $this->_getNamespace(null);
-            Horde_Imap_Client_Sort::sortMailboxes($plist, array(
-                'delimiter' => $ns_new['delimiter'],
-                'inbox' => true
+            $list_ob = new Horde_Imap_Client_Mailbox_List($plist);
+            $plist = $list_ob->sort(array(
+                'delimiter' => $ns_new['delimiter']
             ));
         }
 
@@ -1323,7 +1325,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         if (!$base) {
-            Horde_Imap_Client_Sort::sortMailboxes($mbox, array('delimiter' => $this->_delimiter));
+            $list_ob = new Horde_Imap_Client_Mailbox_List($mbox);
+            $mbox = $list_ob->sort(array(
+                'delimiter' => $this->_delimiter
+            ));
             return;
         }
 

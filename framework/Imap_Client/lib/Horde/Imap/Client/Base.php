@@ -1304,15 +1304,25 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $ret = $this->_listMailboxes($plist, $mode, $options);
 
-        if (!empty($options['sort'])) {
-            Horde_Imap_Client_Sort::sortMailboxes($ret, array(
-                'delimiter' => empty($options['sort_delimiter']) ? '.' : $options['sort_delimiter'],
-                'index' => false,
-                'keysort' => empty($options['flat'])
-            ));
+        if (empty($options['sort'])) {
+            return $ret;
         }
 
-        return $ret;
+        $list_ob = new Horde_Imap_Client_Mailbox_List(array_keys($ret));
+        $sorted = $list_ob->sort(array(
+            'delimiter' => empty($options['sort_delimiter']) ? '.' : $options['sort_delimiter']
+        ));
+
+        if (!empty($options['flat'])) {
+            return $sorted;
+        }
+
+        $out = array();
+        foreach ($sorted as $val) {
+            $out[$val] = $ret[$val];
+        }
+
+        return $out;
     }
 
     /**
@@ -1691,14 +1701,21 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
         }
 
-        if ($opts['sort']) {
-            Horde_Imap_Client_Sort::sortMailboxes($ret, array(
-                'delimiter' => $opts['sort_delimiter'],
-                'keysort' => true
-            ));
+        if (!$opts['sort']) {
+            return $ret;
         }
 
-        return $ret;
+        $list_ob = new Horde_Imap_Client_Mailbox_List(array_keys($ret));
+        $sorted = $list_ob->sort(array(
+            'delimiter' => $opts['sort_delimiter']
+        ));
+
+        $out = array();
+        foreach ($sorted as $val) {
+            $out[$val] = $ret[$val];
+        }
+
+        return $out;
     }
 
     /**
