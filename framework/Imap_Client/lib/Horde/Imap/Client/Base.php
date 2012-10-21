@@ -3331,6 +3331,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $query->text('a');
             try {
                 $this->search('INBOX', $query, array(
+                    'nocache' => true,
                     'sequence' => true
                 ));
                 $s_charset[$charset] = true;
