@@ -306,11 +306,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
     protected function _initOb()
     {
         if (!empty($this->_params['debug'])) {
-            if (is_resource($this->_params['debug'])) {
-                $this->_debug = $this->_params['debug'];
-            } else {
-                $this->_debug = @fopen($this->_params['debug'], 'a');
-            }
+            $this->_debug = is_resource($this->_params['debug'])
+                ? $this->_params['debug']
+                :  @fopen($this->_params['debug'], 'a');
         }
     }
 
@@ -930,10 +928,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $mode = Horde_Imap_Client::OPEN_READONLY;
                 $change = true;
             }
-        } elseif (is_null($this->_selected) ||
-                  !$mailbox->equals($this->_selected) ||
-                  ($mode != $this->_mode)) {
-            $change = true;
+        } else {
+            $change = (is_null($this->_selected) ||
+                       !$mailbox->equals($this->_selected) ||
+                       ($mode != $this->_mode));
         }
 
         if ($change) {
@@ -1080,8 +1078,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $all_mboxes = array($base['mailbox']);
         if (strlen($base['delimiter'])) {
-            $all_mboxes = array_merge($all_mboxes, $this->listMailboxes($old->list_escape . $base['delimiter'] . '*', Horde_Imap_Client::MBOX_ALL, array('flat' => true)));
-            $subscribed = array_merge($subscribed, $this->listMailboxes($old->list_escape . $base['delimiter'] . '*', Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true)));
+            $search = $old->list_escape . $base['delimiter'] . '*';
+            $all_mboxes = array_merge($all_mboxes, $this->listMailboxes($search, Horde_Imap_Client::MBOX_ALL, array('flat' => true)));
+            $subscribed = array_merge($subscribed, $this->listMailboxes($search, Horde_Imap_Client::MBOX_SUBSCRIBED, array('flat' => true)));
         }
 
         $this->_renameMailbox($old, $new);
@@ -1826,7 +1825,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function close($options = array())
+    public function close(array $options = array())
     {
         // This check catches the non-logged in case.
         if (is_null($this->_selected)) {
