@@ -482,7 +482,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Returns the Horde_Imap_Client_Cache object used, if available.
      *
-     * @return mixed  Either the object or null.
+     * @return mixed  Either the cache object or null.
      */
     public function getCache()
     {
@@ -493,7 +493,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Returns the correct IDs object for use with this driver.
      *
-     * @param mixed $ids         See self::add().
+     * @param mixed $ids         See add().
      * @param boolean $sequence  Are $ids message sequence numbers?
      *
      * @return Horde_Imap_Client_Ids  The IDs object.
@@ -1088,7 +1088,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $this->subscribeMailbox($val, false);
                 $this->subscribeMailbox(new Horde_Imap_Client_Mailbox(substr_replace($val, $new, 0, strlen($old))));
             } catch (Horde_Imap_Client_Exception $e) {
-                // Ignore failed unsubscribe request
+                // Ignore failed subscription requests
             }
         }
     }
