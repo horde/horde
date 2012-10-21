@@ -196,11 +196,12 @@ class IMP_Imap implements Serializable
     {
         if ($this->imap) {
             $special = IMP_Mailbox::getSpecialMailboxes();
-
-            $this->ob->fetchCacheIgnore(array_filter(array(
+            $cache = $this->ob->getParam('cache');
+            $cache['fetch_ignore'] = array_filter(array(
                 strval($special[IMP_Mailbox::SPECIAL_SPAM]),
                 strval($special[IMP_Mailbox::SPECIAL_TRASH])
-            )));
+            ));
+            $this->ob->setParam('cache', $cache);
         }
     }
 

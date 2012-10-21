@@ -428,17 +428,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
     }
 
     /**
-     * Update the list of ignored mailboxes for caching FETCH data.
-     *
-     * @param array $mboxes  The list of mailboxes to ignore.
-     */
-    public function fetchCacheIgnore(array $mboxes)
-    {
-        $this->_params['cache']['fetch_ignore'] = $mboxes;
-        $this->changed = true;
-    }
-
-    /**
      * Returns a value from the internal params array.
      *
      * @param string $key  The param key.

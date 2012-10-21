@@ -75,6 +75,11 @@ logging any errors.
       The $mailbox parameter can no longer be a UTF7-IMAP string.
       Results are now returned as a Horde_Imap_Client_Fetch_Results object.
 
+    - fetchCacheIgnore()
+
+      This method has been removed. Use getParam()/setParam() to change
+      parameter values instead.
+
     - fetchFromSectionString()
 
       The $mailbox parameter can no longer be a UTF7-IMAP string.
