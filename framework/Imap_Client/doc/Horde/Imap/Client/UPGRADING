@@ -82,7 +82,7 @@ logging any errors.
 
     - fetchFromSectionString()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+      This method has been removed.
 
     - getNamespaces()
 

@@ -329,7 +329,6 @@ class IMP_Imap implements Serializable
         case 'deleteMailbox':
         case 'expunge':
         case 'fetch':
-        case 'fetchFromSectionString':
         case 'getACL':
         case 'getCacheId':
         case 'getMetadata':

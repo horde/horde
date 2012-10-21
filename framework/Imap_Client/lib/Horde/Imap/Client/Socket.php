@@ -1604,7 +1604,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                 if (is_null($status_res) ||
                     ($status_res['uidvalidity'] == $url->uidvalidity)) {
-                    $part = $this->fetchFromSectionString($url->mailbox, $url->uid, $url->section);
+                    if (!isset($this->_temp['catenate_ob'])) {
+                        $this->_temp['catenate_ob'] = new Horde_Imap_Client_Socket_Catenate($this);
+                    }
+                    $part = $this->_temp['catenate_ob']->fetchFromUrl($url);
                 }
             } catch (Horde_Imap_Client_Exception $e) {}
         }
