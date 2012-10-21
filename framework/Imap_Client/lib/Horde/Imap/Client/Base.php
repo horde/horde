@@ -1203,8 +1203,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *    <li>Horde_Imap_Client::STATUS_UNSEEN</li>
      *    <li>Horde_Imap_Client::STATUS_HIGHESTMODSEQ</li>
      *   </ul>
-     *           Requires the LIST-STATUS extension.
-     *           DEFAULT: 0
+     *   DEFAULT: 0
      *  </li>
      *  <li>
      *   sort: (boolean) If true, return a sorted list of mailboxes?
@@ -1228,8 +1227,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *   - extended: (TODO) TODO [only if 'recursivematch' option is true and
      *               LIST-EXTENDED extension is supported on the server].
      *   - mailbox: (Horde_Imap_Client_Mailbox) The mailbox object.
-     *   - status: (array) See status() [only if 'status' option is true and
-     *             LIST-STATUS extension is supported on the server].
+     *   - status: (array) See status() [only if 'status' option is true].
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -1262,6 +1260,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $ret = $this->_listMailboxes($plist, $mode, $options);
+
+        if (!empty($options['status']) &&
+            !$this->queryCapability('LIST-STATUS')) {
+            $status = $this->statusMultiple($this->_selected, $options['status']);
+            foreach ($status as $key => $val) {
+                $ret[$key]['status'] = $val;
+            }
+        }
 
         if (empty($options['sort'])) {
             return $ret;

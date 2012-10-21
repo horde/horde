@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Horde_Imap_Client_Base#listMailboxes() now supports &apos;status&apos; return even if server does not server LIST-STATUS.
 * [mms] Remove Horde_Imap_Client_Base#fetchCacheIgnore().
 * [mms] Move IMAP/POP URL parsing to new Horde_Imap_Client_Url object.
 * [mms] Move base subject parsing to new Horde_Imap_Client_Data_BaseSubject class.
@@ -1118,6 +1119,7 @@
    <date>2012-10-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Horde_Imap_Client_Base#listMailboxes() now supports &apos;status&apos; return even if server does not server LIST-STATUS.
 * [mms] Remove Horde_Imap_Client_Base#fetchCacheIgnore().
 * [mms] Move IMAP/POP URL parsing to new Horde_Imap_Client_Url object.
 * [mms] Move base subject parsing to new Horde_Imap_Client_Data_BaseSubject class.
