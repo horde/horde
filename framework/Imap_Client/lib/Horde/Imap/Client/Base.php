@@ -1075,8 +1075,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->_renameMailbox($old, $new);
 
         /* Delete mailbox caches. */
-        foreach ($all_mboxes as $val) {
-            if ($this->_initCache()) {
+        if ($this->_initCache()) {
+            foreach ($all_mboxes as $val) {
                 $this->_cache->deleteMailbox($val);
             }
             unset($this->_temp['statuscache'][strval($val)]);
