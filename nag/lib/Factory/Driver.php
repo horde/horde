@@ -19,7 +19,7 @@ class Nag_Factory_Driver extends Horde_Core_Factory_Base
      * @return Nag_Driver
      * @throws Nag_Exception
      */
-    public function create($tasklist = '')
+    public function create($tasklist)
     {
         $driver = null;
         $params = array();
