@@ -173,6 +173,10 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
             return false;
         }
 
+        // Avoid pausing the same timer twice.
+        if ($timer['paused'] || $timer['time'] == 0) {
+            return true;
+        }
         $timer['paused'] = true;
         $timer['elapsed'] += time() - $timer['time'];
         $timer['time'] = 0;
