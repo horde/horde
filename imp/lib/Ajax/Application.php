@@ -1483,11 +1483,16 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function addAttachment()
     {
-        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
-
         $result = new stdClass;
         $result->action = 'addAttachment';
         $result->success = 0;
+
+        if (!isset($this->vars->composeCache)) {
+            $GLOBALS['notification']->push(_("Your attachment was not uploaded. Most likely, the file exceeded the maximum size allowed by the server configuration."), 'horde.warning');
+            return $result;
+        }
+
+        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
 
         if ($GLOBALS['session']->get('imp', 'file_upload') &&
             $imp_compose->addFilesFromUpload('file_')) {

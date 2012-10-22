@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Catch failure to add attachments in dynamic view because PHP&apos;s maximum allowed POST size was exceeded.
 * [jan] Fix search link from portal if using dynamic view (Bug #11314).
 * [mms] Fix regression in using Virtual Trash (Bug #11478; tonyb@go-concepts.com).
 * [mms] Fix sending MDN notifications in traditional view (Bug #11311).
@@ -2765,6 +2766,7 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Catch failure to add attachments in dynamic view because PHP&apos;s maximum allowed POST size was exceeded.
 * [jan] Fix search link from portal if using dynamic view (Bug #11314).
 * [mms] Fix regression in using Virtual Trash (Bug #11478; tonyb@go-concepts.com).
 * [mms] Fix sending MDN notifications in traditional view (Bug #11311).
