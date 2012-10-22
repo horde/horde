@@ -311,7 +311,14 @@ class Hermes
     }
 
     /**
-     * Create a new timer and save it to storage.
+     * Create a new timer and save it to storage. Timers contain the following
+     * values:
+     *  - name: (string) The descriptive name of the timer.
+     *  - time: (integer) Contains the timestamp of the last time this timer
+     *          was started. Contains zero if paused.
+     *  - paused: (boolean)  Flag to indicate the timer is paused.
+     *  - elapsed: (integer) Total elapsed time since the timer was CREATED.
+     *             Updated when timer is paused.
      *
      * @param string $description  The timer description.
      *
