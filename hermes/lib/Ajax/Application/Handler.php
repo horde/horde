@@ -216,6 +216,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
             $elapsed = ((!$timer['paused']) ? time() - $timer['time'] : 0 )+ $timer['elapsed'];
             $timer['e'] = round((float)$elapsed / 3600, 2);
             $timer['id'] = $id;
+            unset($timer['elapsed']);
             $return[] = $timer;
         }
 
