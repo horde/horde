@@ -57,7 +57,7 @@ class Nag_Factory_Driver extends Horde_Core_Factory_Base
             $params['kolab'] = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
             break;
         case 'Smartlist':
-            $params['driver'] = $this->create($tasklist);
+            $params['driver'] = $this->create('');
         }
 
         if (class_exists($class)) {
