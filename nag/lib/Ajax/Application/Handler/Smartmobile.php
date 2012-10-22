@@ -82,11 +82,15 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
             $GLOBALS['notification']->push(_("Missing required task id"), 'horde.error');
             return $results;
         }
+        if (!$this->vars->tasklist) {
+            $GLOBALS['notification']->push(_("Missing required tasklist"), 'horde.error');
+            return $results;
+        }
 
         $results = new stdClass();
         $storage = $GLOBALS['injector']
             ->getInstance('Nag_Factory_Driver')
-            ->create();
+            ->create($this->vars->tasklist);
         try {
             $task = $storage->get($this->vars->task_id);
         } catch (Nag_Exception $e) {
