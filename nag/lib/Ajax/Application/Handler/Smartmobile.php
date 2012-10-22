@@ -111,6 +111,7 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         }
         $GLOBALS['notification']->push(_("Successfully deleted"), 'horde.success');
         $results->deleted = $this->vars->task_id;
+        $results->l = $this->vars->tasklist;
         return $results;
     }
 

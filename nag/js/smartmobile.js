@@ -47,6 +47,10 @@ var NagMobile = {
      */
     toggleCompleteCallback: function(r, elt)
     {
+        if (!r.data) {
+            return;
+        }
+
         switch (r.data) {
         case 'complete':
             NagMobile.tasks[elt.jqmData('task_id')].cp = true;
@@ -106,6 +110,10 @@ var NagMobile = {
      */
     getTaskCallback: function(r)
     {
+        if (!r.task) {
+            return;
+        }
+
         var task = r.task,
             f = $('form')[0];
 
@@ -150,6 +158,10 @@ var NagMobile = {
      */
     getTasklistsCallback: function(r)
     {
+        if (!r.tasklists) {
+            return;
+        }
+
         var list = $('#nag-lists :jqmData(role="listview")'),
             count = 0;
 
@@ -225,6 +237,10 @@ var NagMobile = {
      */
     listTasksCallback: function(r)
     {
+        if (!r.tasks) {
+            return;
+        }
+
         NagMobile.tasks = {};
         $.each(r.tasks, function(i, t) {
             NagMobile.tasks[t.id] = t;
@@ -376,6 +392,10 @@ var NagMobile = {
 
     handleSubmitCallback: function(r)
     {
+        if (!r.task) {
+            return;
+        }
+
         NagMobile.tasks[r.task.id] = r.task;
         NagMobile.buildTaskList();
         HordeMobile.changePage('nag-list');
@@ -399,6 +419,10 @@ var NagMobile = {
 
     handleDeleteCallback: function(r)
     {
+        if (!r.l) {
+            return;
+        }
+
         if (r.deleted) {
             delete NagMobile.tasks[r.deleted];
         }
