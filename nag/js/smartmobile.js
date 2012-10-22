@@ -384,6 +384,9 @@ var NagMobile = {
     prepareFormForNew: function()
     {
         $('#nag-task-form')[0].reset();
+        // Must explicitly call refresh when the selectedIndex changes
+        // programmatically or the UI won't reflect the new value.
+        $("#task_priority")[0].selectmenu("refresh");
         $('#nag-task-form #tasklist').val('');
         $('#nag-task-form #task_id').val('');
         $('#nag-taskform-view a[href^="#task-delete"]').hide();

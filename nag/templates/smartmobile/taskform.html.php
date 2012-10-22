@@ -40,7 +40,7 @@
         <select id="task_priority" name="task_priority">
           <option value="1">1 (<?php echo _("Highest") ?>)</option>
           <option value="2">2</option>
-          <option value="3">3</option>
+          <option value="3" selected>3</option>
           <option value="4">4</option>
           <option value="5">5 (<?php echo _("Lowest") ?>)</option>
         </select>
