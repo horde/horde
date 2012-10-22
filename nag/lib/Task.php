@@ -767,7 +767,7 @@ class Nag_Task
      *
      * @param array $tags  Tags from the tagging backend.
      */
-    public function synchronizeTags($tags)
+    public function synchronizeTags(array $tags)
     {
         if (isset($this->internaltags)) {
             usort($tags, 'strcoll');
