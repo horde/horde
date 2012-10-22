@@ -2013,7 +2013,7 @@ KronolithCore = {
                         delete this.holidays[event.retrieve('eventid')];
                     }
                     event.remove();
-                });
+                }, this);
                 day.select('.kronolithMore').invoke('remove');
                 date = this.parseDate(date);
                 this.loadEvents(date, date, 'month');
