@@ -2237,75 +2237,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Adds an attachment to a Horde_Mime_Part from an uploaded file.
-     *
-     * @param string $name  The input field name from the form.
-     *
-     * @return string  The filename.
-     *
-     * @throws IMP_Compose_Exception
-     */
-    public function addUploadAttachment($name)
-    {
-        global $conf;
-
-        try {
-            $GLOBALS['browser']->wasFileUploaded($name, _("attachment"));
-        } catch (Horde_Browser_Exception $e) {
-            throw new IMP_Compose_Exception($e);
-        }
-
-        $filename = Horde_Util::dispelMagicQuotes($_FILES[$name]['name']);
-        $tempfile = $_FILES[$name]['tmp_name'];
-
-        /* Check for filesize limitations. */
-        if (!empty($conf['compose']['attach_size_limit']) &&
-            (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $_FILES[$name]['size']) < 0)) {
-            throw new IMP_Compose_Exception(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename));
-        }
-
-        /* Determine the MIME type of the data. */
-        $type = empty($_FILES[$name]['type'])
-            ? 'application/octet-stream'
-            : $_FILES[$name]['type'];
-
-        /* User hook to do file scanning/MIME magic determinations. */
-        try {
-            $type = Horde::callHook('compose_attach', array($filename, $tempfile, $type), 'imp');
-        } catch (Horde_Exception_HookNotSet $e) {}
-
-        $part = new Horde_Mime_Part();
-        $part->setType($type);
-        if ($part->getPrimaryType() == 'text') {
-            if ($analyzetype = Horde_Mime_Magic::analyzeFile($tempfile, empty($conf['mime']['magic_db']) ? null : $conf['mime']['magic_db'], array('nostrip' => true))) {
-                $analyzetype = Horde_Mime::decodeParam('Content-Type', $analyzetype);
-                $part->setCharset(isset($analyzetype['params']['charset']) ? $analyzetype['params']['charset'] : 'UTF-8');
-            } else {
-                $part->setCharset('UTF-8');
-            }
-        } else {
-            $part->setHeaderCharset('UTF-8');
-        }
-        $part->setName($filename);
-        $part->setBytes($_FILES[$name]['size']);
-        $part->setDisposition('attachment');
-
-        if ($conf['compose']['use_vfs']) {
-            $attachment = $tempfile;
-        } else {
-            $attachment = Horde::getTempFile('impatt', false);
-            if (move_uploaded_file($tempfile, $attachment) === false) {
-                throw new IMP_Compose_Exception(sprintf(_("The file %s could not be attached."), $filename));
-            }
-        }
-
-        /* Store the data. */
-        $this->_storeAttachment($part, $attachment);
-
-        return $filename;
-    }
-
-    /**
      * Adds an attachment to a Horde_Mime_Part from data existing in the part.
      *
      * @param Horde_Mime_Part $part  The object that contains the attachment
@@ -3004,48 +2935,85 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * @param boolean $notify  Add a notification message for each successful
      *                         attachment?
      *
-     * @return boolean  Returns false if any file was unsuccessfully added.
+     * @return boolean  Returns true if at least one file was successfully
+     *                  added.
      */
     public function addFilesFromUpload($field, $notify = false)
     {
-        $success = true;
+        global $browser, $conf, $notification;
+
+        $success = false;
 
         /* Add new attachments. */
         for ($i = 1, $fcount = count($_FILES); $i <= $fcount; ++$i) {
             $key = $field . $i;
-            if (isset($_FILES[$key]) && ($_FILES[$key]['error'] != 4)) {
-                $filename = Horde_Util::dispelMagicQuotes($_FILES[$key]['name']);
-                if (!empty($_FILES[$key]['error'])) {
-                    switch ($_FILES[$key]['error']) {
-                    case UPLOAD_ERR_INI_SIZE:
-                    case UPLOAD_ERR_FORM_SIZE:
-                        $GLOBALS['notification']->push(sprintf(_("Did not attach \"%s\" as the maximum allowed upload size has been exceeded."), $filename), 'horde.warning');
-                        break;
 
-                    case UPLOAD_ERR_PARTIAL:
-                        $GLOBALS['notification']->push(sprintf(_("Did not attach \"%s\" as it was only partially uploaded."), $filename), 'horde.warning');
-                        break;
+            try {
+                $browser->wasFileUploaded($key, _("attachment"));
+            } catch (Horde_Browser_Exception $e) {
+                if ($notify) {
+                    $notification->push($e, 'horde.error');
+                }
+                continue;
+            }
 
-                    default:
-                        $GLOBALS['notification']->push(sprintf(_("Did not attach \"%s\" as the server configuration did not allow the file to be uploaded."), $filename), 'horde.warning');
-                        break;
-                    }
-                    $success = false;
-                } elseif ($_FILES[$key]['size'] == 0) {
-                    $GLOBALS['notification']->push(sprintf(_("Did not attach \"%s\" as the file was empty."), $filename), 'horde.warning');
-                    $success = false;
+            $finfo = $_FILES[$key];
+            $filename = Horde_Util::dispelMagicQuotes($finfo['name']);
+            $tempfile = $finfo['tmp_name'];
+
+            /* Check for filesize limitations. */
+            if (!empty($conf['compose']['attach_size_limit']) &&
+                (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $finfo['size']) < 0)) {
+                if ($notify) {
+                    $notification->push(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename), 'horde.error');
+                }
+                continue;
+            }
+
+            /* Determine the MIME type of the data. */
+            $type = empty($finfo['type'])
+                ? 'application/octet-stream'
+                : $finfo['type'];
+
+            /* User hook to do file scanning/MIME magic determinations. */
+            try {
+                $type = Horde::callHook('compose_attach', array($filename, $tempfile, $type), 'imp');
+            } catch (Horde_Exception_HookNotSet $e) {}
+
+            $part = new Horde_Mime_Part();
+            $part->setType($type);
+            if ($part->getPrimaryType() == 'text') {
+                if ($analyzetype = Horde_Mime_Magic::analyzeFile($tempfile, empty($conf['mime']['magic_db']) ? null : $conf['mime']['magic_db'], array('nostrip' => true))) {
+                    $analyzetype = Horde_Mime::decodeParam('Content-Type', $analyzetype);
+                    $part->setCharset(isset($analyzetype['params']['charset']) ? $analyzetype['params']['charset'] : 'UTF-8');
                 } else {
-                    try {
-                        $result = $this->addUploadAttachment($key);
-                        if ($notify) {
-                            $GLOBALS['notification']->push(sprintf(_("Added \"%s\" as an attachment."), $result), 'horde.success');
-                        }
-                    } catch (IMP_Compose_Exception $e) {
-                        $GLOBALS['notification']->push($e, 'horde.error');
-                        $success = false;
-                    }
+                    $part->setCharset('UTF-8');
+                }
+            } else {
+                $part->setHeaderCharset('UTF-8');
+            }
+            $part->setName($filename);
+            $part->setBytes($finfo['size']);
+            $part->setDisposition('attachment');
+
+            if ($conf['compose']['use_vfs']) {
+                $attachment = $tempfile;
+            } else {
+                $attachment = Horde::getTempFile('impatt', false);
+                if (move_uploaded_file($tempfile, $attachment) === false) {
+                    throw new IMP_Compose_Exception(sprintf(_("The file %s could not be attached."), $filename));
+                    continue;
                 }
             }
+
+            /* Store the data. */
+            $this->_storeAttachment($part, $attachment);
+
+            if ($notify) {
+                $notification->push(sprintf(_("Added \"%s\" as an attachment."), $filename), 'horde.success');
+            }
+
+            $success = true;
         }
 
         return $success;
