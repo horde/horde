@@ -1982,7 +1982,7 @@
    <configdescription>The use of ActiveSync in the United States is PROHIBITED
    due to patent issues. If you are NOT in the United States, or you have a
    license to use ActiveSync, you may enable ActiveSync below and create an
-   alias on your webserver to redirect /Microsoft-Servers-ActiveSync to
+   alias on your webserver to redirect /Microsoft-Server-ActiveSync to
    /horde/rpc.php.
    See http://wiki.horde.org/ActiveSync for more information.
    </configdescription>
