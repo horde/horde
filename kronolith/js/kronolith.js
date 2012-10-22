@@ -4321,8 +4321,7 @@ KronolithCore = {
                     callback: function(elt,r) {
                         if (r.deleted) {
                             var days;
-                            if ((this.view == 'month' &&
-                                 Kronolith.conf.max_events) ||
+                            if (this.view == 'month' ||
                                 this.view == 'week' ||
                                 this.view == 'workweek' ||
                                 this.view == 'day') {
