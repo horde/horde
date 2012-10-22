@@ -80,20 +80,35 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
     {
         if (!$this->vars->task_id) {
             $GLOBALS['notification']->push(_("Missing required task id"), 'horde.error');
-            return;
+            return $results;
         }
 
         $results = new stdClass();
         $storage = $GLOBALS['injector']
             ->getInstance('Nag_Factory_Driver')
             ->create();
-        $task = $storage->get($this->vars->task_id);
-        $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
+        try {
+            $task = $storage->get($this->vars->task_id);
+        } catch (Nag_Exception $e) {
+            $GLOBALS['notification']->push($e);
+            return $results;
+        }
+        try {
+            $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
+        } catch (Horde_Share_Exception $e) {
+            $GLOBALS['notification']->push($e);
+            return $results;
+        }
         if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
             $GLOBALS['notification']->push(_("You are not allowed to delete this task."), 'horde.error');
-            return;
+            return $results;
         }
-        $storage->delete($this->vars->task_id);
+        try {
+            $storage->delete($this->vars->task_id);
+        } catch (Nag_Exception $e) {
+            $GLOBALS['notification']->push($e);
+            return $results;
+        }
         $GLOBALS['notification']->push(_("Successfully deleted"), 'horde.success');
         $results->deleted = $this->vars->task_id;
         return $results;
@@ -142,7 +157,7 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
                 ->getInstance('Nag_Factory_Driver')
                 ->create($tasklist);
         } catch (Nag_Exception $e) {
-            $GLOBALS['notification']->push($e, 'horde.error');
+            $GLOBALS['notification']->push($e);
             return $results;
         }
 
