@@ -117,8 +117,16 @@ class Horde_Help
                             $out .= '<p class="fixed">' . htmlentities($this->_processNode($child)) . '</p>';
                             break;
 
+                        case 'tip':
+                            $out .= '<em class="helpTip">' . $this->_processNode($child) . '</em>';
+                            break;
+
                         case 'title':
                             $out .= '<h1>' . $this->_processNode($child) . '</h1>';
+                            break;
+
+                        case 'warn':
+                            $out .= '<em class="helpWarn">' . $this->_processNode($child) . '</em>';
                             break;
                         }
                     }
@@ -173,14 +181,6 @@ class Horde_Help
 
                 case 'pre':
                     $out .= '<pre>' . $this->_processNode($child) . '</pre>';
-                    break;
-
-                case 'tip':
-                    $out .= '<em class="helpTip">' . $this->_processNode($child) . '</em>';
-                    break;
-
-                case 'warn':
-                    $out .= '<em class="helpWarn">' . $this->_processNode($child) . '</em>';
                     break;
 
                 case 'css':
