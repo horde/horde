@@ -514,6 +514,8 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $ret['recent'] = $res['msgs'];
         }
 
+        // No need for STATUS_UIDNEXT_FORCE handling since STATUS_UIDNEXT will
+        // always return a value.
         if ($flags & Horde_Imap_Client::STATUS_UIDNEXT) {
             $res = $this->_pop3Cache('stat');
             $ret['uidnext'] = $res['msgs'] + 1;

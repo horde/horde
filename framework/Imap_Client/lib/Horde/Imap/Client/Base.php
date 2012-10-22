@@ -1343,7 +1343,21 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *    </li>
      *    <li>
      *     Return format: (integer) The next UID to be assigned in the
-     *     mailbox.
+     *     mailbox. Only returned if the server automatically provides the
+     *     data.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_UIDNEXT_FORCE
+     *   <ul>
+     *    <li>
+     *     Return key: uidnext
+     *    </li>
+     *    <li>
+     *     Return format: (integer) The next UID to be assigned in the
+     *     mailbox. This option will always determine this value, even if the
+     *     server does not automatically provide this data.
      *    </li>
      *   </ul>
      *  </li>
@@ -1543,6 +1557,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 ? $this->_temp['lastmodsequids'][$smailbox]
                 : $this->getIdsOb();
             $flags &= ~Horde_Imap_Client::STATUS_LASTMODSEQUIDS;
+        }
+
+        if ($flags & Horde_Imap_Client::STATUS_UIDNEXT_FORCE) {
+            $flags |= Horde_Imap_Client::STATUS_UIDNEXT;
         }
 
         if (!$flags) {
@@ -3240,35 +3258,22 @@ abstract class Horde_Imap_Client_Base implements Serializable
         /* Use MODSEQ as cache ID if CONDSTORE extension is available. */
         if (isset($this->_init['enabled']['CONDSTORE'])) {
             $query |= Horde_Imap_Client::STATUS_HIGHESTMODSEQ;
+        } else {
+            $query |= Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
         }
 
         $status = $this->status($mailbox, $query);
 
-        if (!empty($status['highestmodseq'])) {
-            $parts = array(
-                'V' . $status['uidvalidity'],
-                'H' . $status['highestmodseq']
-            );
-        } else {
-            if (empty($status['uidnext'])) {
-                /* UIDNEXT is not strictly required on mailbox open. If it is
-                 * not available, use the last UID + 1 in the mailbox instead
-                 * (or 0 if mailbox is empty). */
-                if (empty($status['messages'])) {
-                    $status['uidnext'] = 0;
-                } else {
-                    $this->_temp['nocache'] = true;
-                    $search_res = $this->_getSeqUidLookup($this->getIdsOb($status['messages'], true));
-                    unset($this->_temp['nocache']);
-                    $uids = $search_res['uids']->ids;
-                    $status['uidnext'] = intval(end($uids)) + 1;
-                }
-            }
-
+        if (empty($status['highestmodseq'])) {
             $parts = array(
                 'V' . $status['uidvalidity'],
                 'U' . $status['uidnext'],
                 'M' . $status['messages']
+            );
+        } else {
+            $parts = array(
+                'V' . $status['uidvalidity'],
+                'H' . $status['highestmodseq']
             );
         }
 

@@ -1339,6 +1339,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         /* UIDNEXT is not strictly required on mailbox open.
                          * See RFC 3501 [6.3.1]. */
                         $data[$val] = 0;
+
+                        if (($flags & Horde_Imap_Client::STATUS_UIDNEXT_FORCE) &&
+                            !empty($this->_temp['mailbox']['messages'])) {
+                            $query = new Horde_Imap_Client_Fetch_Query();
+                            $query->uid();
+                            $fetch_res = $this->fetch($this->_selected, $query, array(
+                                'ids' => $this->getIdsOb($this->_temp['mailbox']['messages'], true)
+                            ));
+                            $data[$val] = $fetch_res->first()->getUid() + 1;
+                        }
                     } elseif ($key == Horde_Imap_Client::STATUS_UIDNOTSTICKY) {
                         /* In the absence of uidnotsticky information, or
                          * if UIDPLUS is not supported, we assume the UIDs
