@@ -37,7 +37,7 @@ extends Horde_Kolab_Format_Xml_Type_Composite_Recurrence
         'daynumber' => 'Horde_Kolab_Format_Xml_Type_Integer',
         'month'     => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         'range'     => 'Horde_Kolab_Format_Xml_Type_RecurrenceRange',
-        'exclusion' => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
-        'complete'  => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
+        'exclusion' => 'Horde_Kolab_Format_Xml_Type_Multiple_Date',
+        'complete'  => 'Horde_Kolab_Format_Xml_Type_Multiple_Date',
     );
 }
