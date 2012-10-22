@@ -1309,7 +1309,7 @@ class Nag_Api extends Horde_Registry_Api
         $info = array();
         if (isset($timeobject['start'])) {
             $info['due'] = new Horde_Date($timeobject['start']);
-            $info['due'] = $due->timestamp();
+            $info['due'] = $info['due']->timestamp();
         }
 
         if (isset($timeobject['title'])) {
