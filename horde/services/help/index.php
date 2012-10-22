@@ -53,31 +53,25 @@ $fileroots = array(
     $fileroot . '/locale/' . substr($language, 0, 2) . '/',
     $fileroot . '/locale/en/'
 );
-
-$filenames = array();
-switch ($registry->getView()) {
-case $registry::VIEW_BASIC:
-    $filenames[] = 'help_basic.xml';
-    break;
-
-case $registry::VIEW_DYNAMIC:
-    $filenames[] = 'help_dynamic.xml';
-    break;
-}
-$filenames[] = 'help.xml';
-
-$source_list = array();
-foreach ($filenames as $val) {
-    foreach ($fileroots as $val2) {
-        $fname = $val2 . $val;
-        if (@is_file($fname)) {
-            $source_list[] = $fname;
-            break;
-        }
+foreach ($fileroots as $val) {
+    $fname = $val . 'help.xml';
+    if (@is_file($fname)) {
+        break;
     }
 }
 
-$help = new Horde_Help(Horde_Help::SOURCE_FILE, $source_list);
+$views = array();
+switch ($registry->getView()) {
+case $registry::VIEW_BASIC:
+    $views[] = 'basic';
+    break;
+
+case $registry::VIEW_DYNAMIC:
+    $views[] = 'dynamic';
+    break;
+}
+
+$help = new Horde_Help(Horde_Help::SOURCE_FILE, $fname, $views);
 
 $page_output->sidebar = $page_output->topbar = false;
 $page_output->header(array(

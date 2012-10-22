@@ -21,89 +21,70 @@ class Horde_Help
     const SOURCE_FILE = 1;
 
     /**
-     * Handle for the XML object.
+     * A list of DOM help entry nodes.
      *
-     * @var SimpleXMLElement
+     * @var array
      */
-    protected $_xml;
+    protected $_xml = array();
 
     /**
      * Constructor.
      *
      * @param integer $source  The source of the XML help data, based on the
      *                         SOURCE_* constants.
-     * @param array $data      The list of data sources to use.
+     * @param string $data     The data source. If $source is RAW, this is
+     *                         XML text. If $source is FILE, this is the XML
+     *                         filename.
+     * @param array $views     Include these views.
      *
      * @throws Exception
      * @throws Horde_Exception
      */
-    public function __construct($source, $data = array())
+    public function __construct($source, $data, array $views = array())
     {
-        if (!Horde_Util::extensionExists('SimpleXML')) {
-            throw new Horde_Exception('SimpleXML not available.');
+        if (!Horde_Util::extensionExists('dom')) {
+            throw new Horde_Exception('DOM not available.');
         }
 
-        $xml = array();
+        $dom = new DOMDocument('1.0', 'UTF-8');
 
         switch ($source) {
         case self::SOURCE_RAW:
-            $dom = new DOMDocument('1.0', 'UTF-8');
-            $dom->loadXML($data[0]);
-            $xml[] = $dom;
+            $dom->loadXML($data);
             break;
 
         case self::SOURCE_FILE:
-            foreach (array_unique($data) as $val) {
-                if (@is_file($val)) {
-                    $dom = new DOMDocument('1.0', 'UTF-8');
-                    $dom->load($val);
-                    $xml[] = $dom;
-                }
+            if (!@is_file($data)) {
+                throw new Horde_Exception(Horde_Core_Translation::t(_("Help file not found.")));
             }
+            $dom->load($data);
             break;
         }
 
-        if (empty($xml)) {
-            throw new Horde_Exception('Help file not found.');
-        }
-
-        /* SimpleXML cannot deal with mixed text/data nodes. Convert all text
-         * descendants of para to <text> tags */
-        foreach ($xml as $dom) {
-            $xpath = new DOMXpath($dom);
-            foreach ($xpath->query('//para/text()') as $text) {
-                $text->parentNode->replaceChild(new DOMElement('text', $text->nodeValue), $text);
-            }
-            $simplexml[] = simplexml_import_dom($dom);
-        }
-
-        $this->_xml = array_shift($simplexml);
-
-        foreach ($simplexml as $val) {
-            foreach ($val as $entry) {
-                $this->_mergeXml($this->_xml, $entry);
-            }
-        }
+        /* Get list of active entries. */
+        $this->_processXml($dom->getElementsByTagName('help')->item(0), $views);
     }
 
     /**
-     * Merge XML elements together.
-     *
-     * @param SimpleXMLElement $base  Base element.
-     * @param SimpleXMLElement $add   Element to add.
      */
-    protected function _mergeXml($base, $add)
+    protected function _processXml(DOMElement $node, $views)
     {
-        $new = $add->count()
-            ? $base->addChild($add->getName())
-            : $base->addChild($add->getName(), $add);
+        foreach ($node->childNodes as $val) {
+            if ($val instanceof DOMElement) {
+                switch ($val->tagName) {
+                case 'entry':
+                    $this->_xml[] = $val;
+                    break;
 
-        foreach ($add->attributes() as $k => $v) {
-            $new->addAttribute($k, $v);
-        }
-
-        foreach ($add->children() as $v) {
-            $this->_mergeXml($new, $v);
+                case 'view':
+                    if (!empty($views) &&
+                        $val->hasChildNodes() &&
+                        in_array($val->getAttribute('id'), $views)) {
+                        $this->_processXml($val, array());
+                    }
+                    break;
+                }
+            }
         }
     }
 
@@ -118,25 +99,28 @@ class Horde_Help
     {
         $out = '';
 
-        foreach ($this->_xml->entry as $entry) {
-            if ($entry->attributes()->id == $id) {
-                foreach ($entry->children() as $child) {
-                    switch ($child->getName()) {
-                    case 'heading':
-                        $out .= '<h2>' . $this->_processNode($child) . '</h2>';
-                        break;
+        foreach ($this->_xml as $entry) {
+            if (($entry->getAttribute('id') == $id) &&
+                $entry->hasChildNodes()) {
+                foreach ($entry->childNodes as $child) {
+                    if ($child instanceof DOMElement) {
+                        switch ($child->tagName) {
+                        case 'heading':
+                            $out .= '<h2>' . $this->_processNode($child) . '</h2>';
+                            break;
 
-                    case 'para':
-                        $out .= '<p>' . $this->_processNode($child) . '</p>';
-                        break;
+                        case 'para':
+                            $out .= '<p>' . $this->_processNode($child) . '</p>';
+                            break;
 
-                    case 'raw':
-                        $out .= '<p class="fixed">' . htmlentities($this->_processNode($child)) . '</p>';
-                        break;
+                        case 'raw':
+                            $out .= '<p class="fixed">' . htmlentities($this->_processNode($child)) . '</p>';
+                            break;
 
-                    case 'title':
-                        $out .= '<h1>' . $this->_processNode($child) . '</h1>';
-                        break;
+                        case 'title':
+                            $out .= '<h1>' . $this->_processNode($child) . '</h1>';
+                            break;
+                        }
                     }
                 }
             }
@@ -148,63 +132,63 @@ class Horde_Help
     /**
      * Process a help node.
      *
-     * @param SimpleXMLElement $node  An XML help node representation
+     * @param DOMElement $node  A help node.
      *
      * @return string  HTML string.
      */
-    protected function _processNode($node)
+    protected function _processNode(DOMElement $node)
     {
-        if (!count($node->children())) {
-            return strval($node);
-        }
-
         $out = '';
 
-        foreach ($node->children() as $child) {
-            switch ($child->getName()) {
-            case 'ref':
-                $out .= Horde::link(Horde::selfUrl()->add(array(
-                    'module' => $child->attributes()->module,
-                    'show' => 'entry',
-                    'topic'  => $child->attributes()->entry
-                ))) . strval($child) . '</a>';
-                break;
+        foreach ($node->childNodes as $child) {
+            if ($child instanceof DOMElement) {
+                switch ($child->tagName) {
+                case 'ref':
+                    $out .= Horde::link(Horde::selfUrl()->add(array(
+                        'module' => $child->getAttribute('module'),
+                        'show' => 'entry',
+                        'topic'  => $child->getAttribute('entry')
+                    ))) . $child->textContent . '</a>';
+                    break;
 
-            case 'text':
-                $out .= strval($child);
-                break;
+                case 'text':
+                    $out .= $child->textContent;
+                    break;
 
-            case 'eref':
-                $out .= Horde::link($child->attributes()->url, null, '', '_blank') . strval($child) . '</a>';
-                break;
+                case 'eref':
+                    $out .= Horde::link($child->getAttribute('url'), null, '', '_blank') . $child->textContent . '</a>';
+                    break;
 
-            case 'href':
-                $out .= Horde::link(Horde::url($GLOBALS['registry']->get('webroot', $child->attributes()->app) . '/' . $child->attributes()->url), null, '', '_blank') . strval($child) . '</a>';
-                break;
+                case 'href':
+                    $out .= Horde::link(Horde::url($GLOBALS['registry']->get('webroot', $child->getAttribute('app') . '/' . $child->getAttribute('url'))), null, '', '_blank') . $child->textContent . '</a>';
+                    break;
 
-            case 'b':
-                $out .= '<strong>' . strval($child) . '</strong>';
-                break;
+                case 'b':
+                    $out .= '<strong>' . $this->_processNode($child) . '</strong>';
+                    break;
 
-            case 'i':
-                $out .= '<em>' . strval($child) . '</em>';
-                break;
+                case 'i':
+                    $out .= '<em>' . $this->_processNode($child) . '</em>';
+                    break;
 
-            case 'pre':
-                $out .= '<pre>' . strval($child) . '</pre>';
-                break;
+                case 'pre':
+                    $out .= '<pre>' . $this->_processNode($child) . '</pre>';
+                    break;
 
-            case 'tip':
-                $out .= '<em class="helpTip">' . strval($child) . '</em>';
-                break;
+                case 'tip':
+                    $out .= '<em class="helpTip">' . $this->_processNode($child) . '</em>';
+                    break;
 
-            case 'warn':
-                $out .= '<em class="helpWarn">' . strval($child) . '</em>';
-                break;
+                case 'warn':
+                    $out .= '<em class="helpWarn">' . $this->_processNode($child) . '</em>';
+                    break;
 
-            case 'css':
-                $out .= '<span class="' . $child->attributes()->class . '">' . strval($child) . '</span>';
-                break;
+                case 'css':
+                    $out .= '<span class="' . $child->getAttribute('class') . '">' . $this->_processNode($child) . '</span>';
+                    break;
+                }
+            } else {
+                $out .= $child->textContent;
             }
         }
 
@@ -212,8 +196,10 @@ class Horde_Help
     }
 
     /**
-     * Returns a hash of all of the topics in this help buffer
-     * containing the keyword specified.
+     * Returns a hash of all of the topics in this help buffer containing the
+     * keyword specified.
+     *
+     * @param string $keyword  Search keyword.
      *
      * @return array  Hash of all of the search results.
      */
@@ -221,12 +207,9 @@ class Horde_Help
     {
         $results = array();
 
-        foreach ($this->_xml->entry as $entry) {
-            foreach ($entry as $elt) {
-                if (stripos(strval($elt), $keyword) !== false) {
-                    $results[strval($entry->attributes()->id)] = strval($entry->title);
-                    break;
-                }
+        foreach ($this->_xml as $elt) {
+            if (stripos($elt->textContent, $keyword) !== false) {
+                $results[$elt->getAttribute('id')] = $elt->getElementsByTagName('title')->item(0)->textContent;
             }
         }
 
@@ -243,8 +226,8 @@ class Horde_Help
     {
         $topics = array();
 
-        foreach ($this->_xml->entry as $elt) {
-            $topics[strval($elt->attributes()->id)] = strval($elt->title);
+        foreach ($this->_xml as $elt) {
+            $topics[$elt->getAttribute('id')] = $elt->getElementsByTagName('title')->item(0)->textContent;
         }
 
         return $topics;
