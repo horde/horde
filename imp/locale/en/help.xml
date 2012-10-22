@@ -8,11 +8,9 @@
         <para>
             &quot;Save Draft&quot; places an unfinished message in a drafts mailbox, accessible through any folder list. You can then finish the message later by switching to the drafts mailbox, clicking on the saved message to open it, and then clicking on &quot;Resume&quot;.
         </para>
-        <para>
-            <tip>
-                Entering a Subject in the e-mail before saving as a draft will allow you to more easily identify later which message you want to resume within the drafts mailbox.
-            </tip>
-        </para>
+        <tip>
+            Entering a Subject in the e-mail before saving as a draft will allow you to more easily identify later which message you want to resume within the drafts mailbox.
+        </tip>
         <para>
             &quot;Cancel Message&quot; drops the compose message in progress and, if composing in a non-popup window, returns you to the last mailbox you were viewing.
         </para>
@@ -30,11 +28,9 @@
         <para>
             Enter the correct e-mail address for the recipient(s) of your message. To enter multiple recipients, separate the e-mail addresses with commas (,).
         </para>
-        <para>
-            <warn>
-                Do NOT separate e-mail addresses with semicolons (;).
-            </warn>
-        </para>
+        <warn>
+            Do NOT separate e-mail addresses with semicolons (;).
+        </warn>
     </entry>
 
     <entry id="compose-cc">
@@ -42,11 +38,9 @@
         <para>
             Enter the correct e-mail address for the carbon copy recipient(s) of your message. To enter multiple recipients, separate the e-mail addresses with commas (,).
         </para>
-        <para>
-            <warn>
-                Do NOT separate e-mail addresses with semicolons (;).
-            </warn>
-        </para>
+        <warn>
+            Do NOT separate e-mail addresses with semicolons (;).
+        </warn>
         <para>
             Carbon copies are usually sent to recipients who need not be the direct recipients of the message, but may need to receive the message for their information, usually indirectly concerned about the subject of the e-mail. All &quot;To:&quot; recipients and &quot;Cc:&quot; recipients can see the entire list of both kinds of recipients.
         </para>
@@ -57,11 +51,9 @@
         <para>
             Enter the correct e-mail address for the blind carbon copy recipient(s) of your message. To enter multiple recipients, separate the e-mail addresses with commas (,).
         </para>
-        <para>
-            <warn>
-                Do NOT separate e-mail addresses with semicolons (;).
-            </warn>
-        </para>
+        <warn>
+            Do NOT separate e-mail addresses with semicolons (;).
+        </warn>
         <para>
             Blind carbon copies are usually sent to recipients who may need to read what is being written WITHOUT the other recipients knowing that they are receiving the e-mail. Thus &quot;blind&quot; means that the identity of these recipients is hidden from all other recipients of the e-mail. Only you (as the sender) and the &quot;Bcc&quot; recipients will know that they received a copy.
         </para>
@@ -75,20 +67,16 @@
         <para>
             When you &quot;Reply&quot; or &quot;Forward&quot; an e-mail, this subject line is copied over into the new message so that is becomes a valuable way of identifying which messages go together to form a &quot;thread&quot; to an e-mail conversation.
         </para>
-        <para>
-            <tip>
-                If a replied or forwarded message contains new ideas, you may want to alter the &quot;Subject&quot; line so that recipients can follow the progression of the &quot;thread&quot; and to indicate that the content of the thread has deviated from the initial topic.
-            </tip>
-        </para>
+        <tip>
+            If a replied or forwarded message contains new ideas, you may want to alter the &quot;Subject&quot; line so that recipients can follow the progression of the &quot;thread&quot; and to indicate that the content of the thread has deviated from the initial topic.
+        </tip>
     </entry>
 
     <entry id="compose-spellcheck">
         <title>Compose: Spell Check</title>
-        <para>
-            <warn>
-                This action may not be available if your administrator has disabled it.
-            </warn>
-        </para>
+        <warn>
+            This action may not be available if your administrator has disabled it.
+        </warn>
         <para>
             Click &quot;Spell Check&quot; to check your spelling. Incorrectly spelled words will be indicated in red and will be underlined; clicking on this word will reveal a list of suggested replacements. Click on a replacement word to replace in your original message, or click anyhere else to close the popup. When done spell checking, click on the &quot;Resume Editing&quot; button to continue editing your message.
         </para>
@@ -96,22 +84,18 @@
 
     <entry id="compose-sentmail">
         <title>Compose: Save Sent Mail</title>
-        <para>
-            <warn>
-                This action may not be available if your administrator has disabled it.
-            </warn>
-        </para>
+        <warn>
+            This action may not be available if your administrator has disabled it.
+        </warn>
         <para>
             To keep a copy of the message you send, activate the checkbox next to &quot;Save&quot;. The destination mailbox will default to the mailbox selected for this purpose under &quot;Options-&gt;Personal Information-&gt;Identities&quot;. Your administrator may also allow selection of an alternate sent mail destination chosen via a drop-down list located next to this option.
         </para>
         <para>
             Saving copies of important e-mails you send could be useful for record keeping of what was discussed. This feature can be activated by default by going to &quot;Options-&gt;Personal Information-&gt;Edit your identities&quot;. In your options you can also setup maintenance tasks that empty or rename these sent mail mailboxes periodically.
         </para>
-        <para>
-            <tip>
-                You may not want to save every e-mail since you could have problems with your disk storage quota being used up quickly, especially when you send large attachments. A mailbox with full storage quota will not be able to receive new incoming e-mail.
-            </tip>
-        </para>
+        <tip>
+            You may not want to save every e-mail since you could have problems with your disk storage quota being used up quickly, especially when you send large attachments. A mailbox with full storage quota will not be able to receive new incoming e-mail.
+        </tip>
     </entry>
 
     <entry id="compose-priority">
@@ -161,11 +145,9 @@
         <para>
             Check this option if you want to be allowed to apply filter rules to any mailbox. Normally, filtering rules are only applied to new mail that is delivered to your Inbox. If this option is checked, an icon will appear on all mailbox pages that will allow you to apply filter rules to the messages in the current mailbox.
         </para>
-        <para>
-            <tip>
-                Filtering in mailboxes other than Inbox may produce strange (e.g. the filter may cause a copy of messages to be delivered to the same mailbox) and/or undesired results (e.g. it may cause messages to be moved/deleted if new filtering rules have been implemented since the message has been delivered to the current mailbox).
-            </tip>
-        </para>
+        <tip>
+            Filtering in mailboxes other than Inbox may produce strange (e.g. the filter may cause a copy of messages to be delivered to the same mailbox) and/or undesired results (e.g. it may cause messages to be moved/deleted if new filtering rules have been implemented since the message has been delivered to the current mailbox).
+        </tip>
     </entry>
 
     <entry id="pgp-compose-attach-pubkey">
@@ -674,11 +656,9 @@
             <para>
                 If you want to change the description, you can click the &quot;Update&quot; button to upload your attachments immediately and save any other changes you've made to existing attachments.
             </para>
-            <para>
-                <tip>
-                    Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the e-mail may take some time.
-                </tip>
-            </para>
+            <tip>
+                Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the e-mail may take some time.
+            </tip>
         </entry>
 
         <entry id="compose-current-attachments">
@@ -773,11 +753,9 @@
 
         <entry id="folders-newmail">
             <title>Folders: Check for New Mail/Do Not Check for New Mail</title>
-            <para>
-                <warn>
-                    This action may not be available if your administrator has disabled it.
-                </warn>
-            </para>
+            <warn>
+                This action may not be available if your administrator has disabled it.
+            </warn>
             <para>
                 Flags a folder to be checked for new mail in the Folder Navigator and the sidebar.
             </para>
@@ -852,11 +830,9 @@
             <para>
                 Click the &quot;Browse&quot; button and select the file to be attached. An additional upload input will appear, if you have not exceed your limit for the number of attachments allowed in a message, for uploading additional attachments.
             </para>
-            <para>
-                <tip>
-                    Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the e-mail may take some time.
-                </tip>
-            </para>
+            <tip>
+                Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the e-mail may take some time.
+            </tip>
         </entry>
 
         <entry id="compose-current-attachments">
@@ -879,11 +855,9 @@
             <para>
                 A right-click on a message or a mailbox will display available actions.
             </para>
-            <para>
-                <warn>
-                    Opera does not support right-click actions.  Instead, a left click + <css class="kbd">Shift</css> + <css class="kbd">Ctrl</css> will display available actions.
-                </warn>
-            </para>
+            <warn>
+                Opera does not support right-click actions.  Instead, a left click + <css class="kbd">Shift</css> + <css class="kbd">Ctrl</css> will display available actions.
+            </warn>
             <para>
                 Click on a message while holding down the <css class="kbd">Ctrl</css> key to select multiple messages.  To select a range of messages, click the first message of the range, navigate to the last message of the range, and then click on the last message while holding down the <css class="kbd">Shift</css> key.
             </para>
