@@ -245,7 +245,6 @@ class Nag_Application extends Horde_Registry_Application
             throw new Horde_Exception_PermissionDenied();
         }
 
-        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
         $group = $GLOBALS['injector']->getInstance('Horde_Group');
         $alarm_list = array();
         $tasklists = is_null($user) ?

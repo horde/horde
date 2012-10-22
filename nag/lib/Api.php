@@ -941,7 +941,7 @@ class Nag_Api extends Horde_Registry_Api
     {
         $task = $GLOBALS['injector']
             ->getInstance('Nag_Factory_Driver')
-            ->create()
+            ->create('')
             ->getByUID($uid);
         if (!Nag::hasPermission($task->tasklist, Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied();
@@ -1057,8 +1057,8 @@ class Nag_Api extends Horde_Registry_Api
             return true;
         }
 
-        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
-        $task = $storage->getByUID($uid);
+        $factory = $GLOBALS['injector']->getInstance('Nag_Factory_Driver');
+        $task = $factory->create('')->getByUID($uid);
 
         if (!$GLOBALS['registry']->isAdmin() &&
             !Nag::hasPermission($task->tasklist, Horde_Perms::DELETE)) {
@@ -1066,7 +1066,7 @@ class Nag_Api extends Horde_Registry_Api
              throw new Horde_Exception_PermissionDenied();
         }
 
-        return $storage->delete($task->id);
+        return $factory->create($task->tasklist)->delete($task->id);
     }
 
     /**
@@ -1106,8 +1106,8 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function replace($uid, $content, $contentType)
     {
-        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
-        $existing = $storage->getByUID($uid);
+        $factory = $GLOBALS['injector']->getInstance('Nag_Factory_Driver');
+        $existing = $factory->create('')->getByUID($uid);
         $taskId = $existing->id;
         $owner = $existing->owner;
         if (!Nag::hasPermission($existing->tasklist, Horde_Perms::EDIT)) {
@@ -1142,14 +1142,14 @@ class Nag_Api extends Horde_Registry_Api
             $task = new Nag_Task();
             $task->fromiCalendar($content);
             $task->owner = $owner;
-            $storage->modify($taskId, $task->toHash());
+            $factory->create($existing->tasklist)->modify($taskId, $task->toHash());
             break;
 
         case 'activesync':
             $task = new Nag_Task();
             $task->fromASTask($content);
             $task->owner = $owner;
-            $storage->modify($taskId, $task->toHash());
+            $factory->create($existing->tasklist)->modify($taskId, $task->toHash());
             break;
         default:
             throw new Nag_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
@@ -1300,12 +1300,13 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function saveTimeObject(array $timeobject)
     {
-        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
-        $existing = $storage->get($timeobject['id']);
-        if (!Nag::hasPermission($existing->tasklist, Horde_Perms::EDIT)) {
+        if (!Nag::hasPermission($timeobject['params']['tasklist'], Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied();
         }
-        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($existing->tasklist);
+        $storage = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Driver')
+            ->create($timeobject['params']['tasklist']);
+        $existing = $storage->get($timeobject['id']);
         $info = array();
         if (isset($timeobject['start'])) {
             $info['due'] = new Horde_Date($timeobject['start']);

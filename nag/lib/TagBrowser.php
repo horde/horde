@@ -45,7 +45,7 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
 
         $driver = $GLOBALS['injector']
             ->getInstance('Nag_Factory_Driver')
-            ->create();
+            ->create('');
         $tasks = new Nag_Task();
         foreach ($results as $id) {
             try {
