@@ -107,7 +107,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
                 $exceptions = array();
                 foreach($event['recurrence']['exclusion'] as $exclusion) {
                     if (!empty($exclusion)) {
-                        $exceptions[] = join('', explode('-', $exclusion));
+                        $exceptions[] = $exclusion->format('Ymd');
                     }
                 }
                 $event['recurrence']['exceptions'] = $exceptions;
@@ -116,7 +116,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
                 $completions = array();
                 foreach($event['recurrence']['complete'] as $complete) {
                     if (!empty($complete)) {
-                        $completions[] = join('', explode('-', $complete));
+                        $completions[] = $complete->format('Ymd');
                     }
                 }
                 $event['recurrence']['completions'] = $completions;
@@ -235,28 +235,6 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         // Recurrence
         if ($this->recurs()) {
             $event['recurrence'] = $this->recurrence->toKolab();
-            if (!empty($event['recurrence']['exceptions'])) {
-                $exclusions = array();
-                foreach($event['recurrence']['exceptions'] as $exclusion) {
-                    if (!empty($exclusion)) {
-                        $exclusions[] = vsprintf(
-                            '%04d-%02d-%02d', sscanf($exclusion, '%04d%02d%02d')
-                        );
-                    }
-                }
-                $event['recurrence']['exclusion'] = $exclusions;
-            }
-            if (!empty($event['recurrence']['completions'])) {
-                $completions = array();
-                foreach($event['recurrence']['completions'] as $complete) {
-                    if (!empty($complete)) {
-                        $completions[] = vsprintf(
-                            '%04d-%02d-%02d', sscanf($complete, '%04d%02d%02d')
-                        );
-                    }
-                }
-                $event['recurrence']['complete'] = $completions;
-            }
         }
 
         // Attendees
