@@ -331,6 +331,7 @@ var NagMobile = {
             break;
 
         case 'nag-taskform-view':
+            NagMobile.prepareFormForNew();
             if (data.options.parsedUrl.params.task_id) {
                 NagMobile.getTask(data);
             } else {
@@ -382,8 +383,9 @@ var NagMobile = {
      */
     prepareFormForNew: function()
     {
-        var f = $('form')[0];
-        f.reset();
+        $('#nag-task-form')[0].reset();
+        $('#nag-task-form #tasklist').val('');
+        $('#nag-task-form #task_id').val('');
         $('#nag-taskform-view a[href^="#task-delete"]').hide();
     },
 
