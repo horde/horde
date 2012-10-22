@@ -324,11 +324,8 @@ class Nag_Driver_Kolab extends Nag_Driver
                 'smtp-address' => $task['assignee'],
             );
         }
-        if (!is_array($task['tags'])) {
-            $task['tags'] = Nag::getTagger()->split($task['tags']);
-        }
-        if ($task['tags']) {
-            $object['categories'] = $task['tags'];
+        if ($task['tags'] && !is_array($task['tags'])) {
+            $object['categories'] = Nag::getTagger()->split($task['tags']);
             usort($object['categories'], 'strcoll');
         }
         return $object;
