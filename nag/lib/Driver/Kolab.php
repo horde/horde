@@ -296,7 +296,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             $object['status'] = 'not-started';
         }
         if ($task['alarm'] !== 0) {
-            $object['alarm'] = $task['alarm'];
+            $object['alarm'] = (int)$task['alarm'];
         }
         if ($task['private']) {
             $object['sensitivity'] = 'private';
