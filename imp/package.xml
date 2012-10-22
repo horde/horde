@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-18</date>
- <time>13:11:21</time>
+ <date>2012-10-22</date>
+ <time>12:18:32</time>
  <version>
   <release>6.0.0beta5</release>
   <api>6.0.0beta1</api>
@@ -468,8 +468,6 @@
     </dir> <!-- /locale/el -->
     <dir name="en">
      <file name="help.xml" role="horde" />
-     <file name="help_basic.xml" role="horde" />
-     <file name="help_dynamic.xml" role="horde" />
     </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
@@ -1604,8 +1602,6 @@
    <install as="imp/locale/el/LC_MESSAGES/imp.mo" name="locale/el/LC_MESSAGES/imp.mo" />
    <install as="imp/locale/el/LC_MESSAGES/imp.po" name="locale/el/LC_MESSAGES/imp.po" />
    <install as="imp/locale/en/help.xml" name="locale/en/help.xml" />
-   <install as="imp/locale/en/help_basic.xml" name="locale/en/help_basic.xml" />
-   <install as="imp/locale/en/help_dynamic.xml" name="locale/en/help_dynamic.xml" />
    <install as="imp/locale/es/help.xml" name="locale/es/help.xml" />
    <install as="imp/locale/es/LC_MESSAGES/imp.mo" name="locale/es/LC_MESSAGES/imp.mo" />
    <install as="imp/locale/es/LC_MESSAGES/imp.po" name="locale/es/LC_MESSAGES/imp.po" />
@@ -2763,7 +2759,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-18</date>
+   <date>2012-10-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix determining first/last unseen message in a mailbox (use message date instead of arrival date).
