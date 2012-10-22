@@ -26,9 +26,13 @@ class Nag_Factory_Driver extends Horde_Core_Factory_Base
 
         if (!empty($tasklist)) {
             $signature = $tasklist;
-            $share = $GLOBALS['nag_shares']->getShare($tasklist);
-            if ($share->get('issmart')) {
-                $driver = 'Smartlist';
+            try {
+                $share = $GLOBALS['nag_shares']->getShare($tasklist);
+                if ($share->get('issmart')) {
+                    $driver = 'Smartlist';
+                }
+            } catch (Horde_Exception $e) {
+                throw new Nag_Exception($e);
             }
         }
         if (!$driver) {

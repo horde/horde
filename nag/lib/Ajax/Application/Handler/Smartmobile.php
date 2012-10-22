@@ -174,7 +174,10 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
                 $existing_task->save();
                 $results->task = $existing_task->toJson(true);
             } catch (Nag_Exception $e) {
-                $GLOBALS['notification']->push($e, 'horde.error');
+                $GLOBALS['notification']->push($e);
+                return $results;
+            } catch (Horde_Exception_NotFound $e) {
+                $GLOBALS['notification']->push($e);
                 return $results;
             }
         } else {
@@ -182,7 +185,7 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
                 $ids = $storage->add($task);
                 $results->task = $storage->get($ids[0])->toJson(true);
             } catch (Nag_Exception $e) {
-                $GLOBALS['notification']->push($e, 'horde.error');
+                $GLOBALS['notification']->push($e);
                 return $results;
             }
         }
