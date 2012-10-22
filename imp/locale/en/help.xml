@@ -881,7 +881,7 @@
             </para>
             <para>
                 <warn>
-                    Opera does not support right-click actions.  Instead, a left click + Shift + Ctrl will display available actions.
+                    Opera does not support right-click actions.  Instead, a left click + <css class="kbd">Shift</css> + <css class="kbd">Ctrl</css> will display available actions.
                 </warn>
             </para>
             <para>
