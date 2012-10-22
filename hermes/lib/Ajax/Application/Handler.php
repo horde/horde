@@ -209,7 +209,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
             $timers = array();
         }
         $return = array();
-        foreach ($timers as $id => &$timer) {
+        foreach ($timers as $id => $timer) {
             if ($running_only && $timer['paused']) {
                 continue;
             }
