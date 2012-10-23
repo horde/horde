@@ -328,6 +328,11 @@ HermesCore = {
         }
     },
 
+    /**
+     * Populate the slice form with the selected time slice from the slice list.
+     *
+     * @param sid  The slice id.
+     */
     populateSliceForm: function(sid)
     {
         var slice = this.getSliceFromCache(sid),
@@ -335,9 +340,7 @@ HermesCore = {
 
         $('hermesTimeSaveAsNew').show();
         $('hermesTimeFormClient').setValue(slice.c);
-        // Manually update the client list, and wait for the callback to continue
-        // TODO: Cache the deliverable list for each client to avoid hitting
-        //       the server for each edit.
+
         HordeCore.doAction('listDeliverables',
               { 'c': $F('hermesTimeFormClient') },
               { 'callback': function(r) {
