@@ -22,6 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix CONDSTORE synchronization of deleted messages since last mailbox access.
+* [mms] Need to immediately synchronize mailbox on mailbox load with CONDSTORE or else we may lose flag change information.
 * [mms] Fixes/improvements to CONDSTORE capability sniffing and enabling.
 * [mms] Remove statuscache configuration option.
 * [mms] Optimize generation of POP3 sequence string.
@@ -1124,6 +1126,8 @@
    <date>2012-10-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix CONDSTORE synchronization of deleted messages since last mailbox access.
+* [mms] Need to immediately synchronize mailbox on mailbox load with CONDSTORE or else we may lose flag change information.
 * [mms] Fixes/improvements to CONDSTORE capability sniffing and enabling.
 * [mms] Remove statuscache configuration option.
 * [mms] Optimize generation of POP3 sequence string.

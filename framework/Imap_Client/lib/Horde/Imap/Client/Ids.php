@@ -14,11 +14,13 @@
  *
  * @property boolean $all  Does this represent an ALL message set?
  * @property array $ids  The list of IDs.
+ * @property string $range_string  Generates a range string consisting of all
+ *                                 messages between begin and end of ID list.
  * @property boolean $search_res  Does this represent a search result?
  * @property boolean $sequence  Are these sequence IDs? If false, these are
  *                              UIDs.
- * @property boolean $tostring  Return the non-sorted string representation.
- * @property boolean $tostring_sort  Return the sorted string representation.
+ * @property string $tostring  Return the non-sorted string representation.
+ * @property string $tostring_sort  Return the sorted string representation.
  */
 class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
 {
@@ -64,6 +66,9 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
             return is_array($this->_ids)
                 ? $this->_ids
                 : array();
+
+        case 'range_string':
+            return min($this->_ids) . ':' . max($this->_ids);
 
         case 'search_res':
             return ($this->_ids === self::SEARCH_RES);

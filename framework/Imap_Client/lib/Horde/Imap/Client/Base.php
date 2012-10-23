@@ -935,10 +935,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
                        ($mode != $this->_mode));
         }
 
-        if ($change) {
-            $this->_openMailbox($mailbox, $mode);
-            $this->_selected = $mailbox;
-            $this->_mode = $mode;
+        if (!$change) {
+            return;
+        }
+
+        $this->_openMailbox($mailbox, $mode);
+        $this->_selected = $mailbox;
+        $this->_mode = $mode;
+
+        if ($this->_initCache(true)) {
+            $this->_syncMailbox();
         }
     }
 
@@ -2374,9 +2380,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
             : array();
 
         if (!empty($cf)) {
-            /* We need the UIDVALIDITY for the current mailbox. */
-            $status_res = $this->status($this->_selected, Horde_Imap_Client::STATUS_HIGHESTMODSEQ | Horde_Imap_Client::STATUS_UIDVALIDITY);
-
             /* If using cache, we store by UID so we need to return UIDs. */
             $query->uid();
         }
@@ -2393,38 +2396,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
             if (isset($query[$k])) {
                 switch ($k) {
                 case Horde_Imap_Client::FETCH_ENVELOPE:
+                case Horde_Imap_Client::FETCH_FLAGS:
                 case Horde_Imap_Client::FETCH_IMAPDATE:
                 case Horde_Imap_Client::FETCH_SIZE:
                 case Horde_Imap_Client::FETCH_STRUCTURE:
-                    $cache_array[$k] = $v;
-                    break;
-
-                case Horde_Imap_Client::FETCH_FLAGS:
-                    /* QRESYNC would have already done syncing on mailbox
-                     * open, so no need to do again. Only can cache if MODSEQ
-                     * is available in the mailbox. */
-                    if (!isset($this->_init['enabled']['QRESYNC']) &&
-                        !empty($status_res['highestmodseq'])) {
-                        /* Grab all flags updated since the cached modseq
-                         * val. */
-                        $metadata = $this->_cache->getMetaData($this->_selected, $status_res['uidvalidity'], array(self::CACHE_MODSEQ));
-                        if (isset($metadata[self::CACHE_MODSEQ]) &&
-                            ($metadata[self::CACHE_MODSEQ] != $status_res['highestmodseq'])) {
-                            $uids = $this->_cache->get($this->_selected, array(), array(), $status_res['uidvalidity']);
-                            if (!empty($uids)) {
-                                $flag_query = new Horde_Imap_Client_Fetch_Query();
-                                $flag_query->flags();
-
-                                /* Update flags in cache. */
-                                $this->_fetch(new Horde_Imap_Client_Fetch_Results(), $flag_query, array(
-                                    'changedsince' => $metadata[self::CACHE_MODSEQ],
-                                    'ids' => $this->getIdsOb($uids)
-                                ));
-                            }
-                            $this->_updateMetaData($this->_selected, array(self::CACHE_MODSEQ => $status_res['highestmodseq']), $status_res['uidvalidity']);
-                        }
-                    }
-
                     $cache_array[$k] = $v;
                     break;
 
@@ -2483,6 +2458,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             : $res_seq['uids'];
 
         /* Get the cached values. */
+        $status_res = $this->status($this->_selected, Horde_Imap_Client::STATUS_UIDVALIDITY);
         $data = $this->_cache->get($this->_selected, $res_seq['uids']->ids, array_values($cache_array), $status_res['uidvalidity']);
 
         /* Build a list of what we still need. */
@@ -3493,8 +3469,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $status_flags |= Horde_Imap_Client::STATUS_UIDVALIDITY;
         }
 
+        $modseq = null;
         $status_res = $this->status($mailbox, $status_flags);
-        $modseq = $status_res['highestmodseq'];
         $uidvalid = isset($status_res['uidvalidity'])
             ? $status_res['uidvalidity']
             : $options['uidvalid'];
@@ -3513,7 +3489,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                         /* A FLAGS FETCH can only occur if we are in the
                          * mailbox. So HIGHESTMODSEQ has already been updated.
                          * Ignore flag caching if MODSEQs not available. */
-                        if ($modseq) {
+                        if ($modseq = $status_res['highestmodseq']) {
                             $tmp[$val] = $v->getFlags();
                         }
                         break;
@@ -3702,6 +3678,59 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $uidvalid = $status['uidvalidity'];
         }
         $this->_cache->setMetaData($mailbox, $uidvalid, $data);
+    }
+
+    /**
+     * Synchronizes the current mailbox cache with the server.
+     */
+    protected function _syncMailbox()
+    {
+        /* Check that modseqs are available in mailbox. */
+        $status = $this->status($this->_selected, Horde_Imap_Client::STATUS_UIDVALIDITY | Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
+        if (empty($status['highestmodseq'])) {
+            return;
+        }
+
+        /* Grab all flags updated since the cached modseq. */
+        $md = $this->_cache->getMetaData($this->_selected, $status['uidvalidity'], array(self::CACHE_MODSEQ));
+        if (!isset($md[self::CACHE_MODSEQ]) ||
+            ($md[self::CACHE_MODSEQ] == $status['highestmodseq'])) {
+            return;
+        }
+
+        $uids = $this->_cache->get($this->_selected, array(), array(), $status['uidvalidity']);
+        if (!empty($uids)) {
+            $uids_ob = $this->getIdsOb($uids);
+
+            /* Are we caching flags? */
+            if (!empty($this->_params['cache']['fields'][Horde_Imap_Client::FETCH_FLAGS])) {
+                $fquery = new Horde_Imap_Client_Fetch_Query();
+                $fquery->flags();
+
+                /* Update flags in cache. Cache will be updated in _fetch(). */
+                $this->_fetch(new Horde_Imap_Client_Fetch_Results(), $fquery, array(
+                    'changedsince' => $md[self::CACHE_MODSEQ],
+                    'ids' => $uids_ob
+                ));
+            }
+
+            /* Search for deleted messages, and remove from cache. */
+            $squery = new Horde_Imap_Client_Search_Query();
+            $squery->ids($this->getIdsOb($uids_ob->range_string));
+
+            $search = $this->search($this->_selected, $squery, array(
+                'nocache' => true
+            ));
+
+            $deleted = array_diff($uids_ob->ids, $search['match']->ids);
+            if (!empty($deleted)) {
+                $this->_deleteMsgs($this->_selected, $deleted);
+            }
+        }
+
+        $this->_updateMetaData($this->_selected, array(
+            self::CACHE_MODSEQ => $status['highestmodseq']
+        ), $status['uidvalidity']);
     }
 
 }

@@ -3726,6 +3726,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             : parent::_getSearchCache($type, $mailbox, $options);
     }
 
+    /**
+     */
+    protected function _syncMailbox()
+    {
+        /* QRESYNC would have already synced the mailbox. */
+        if (empty($this->_init['enabled']['QRESYNC'])) {
+            parent::_syncMailbox();
+        }
+    }
+
     /* Internal functions. */
 
     /**
