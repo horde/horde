@@ -380,14 +380,14 @@ HermesCore = {
     deletesliceCallback: function(elt, r)
     {
         $('hermesLoadingTime').hide();
-        this.removeSliceFromUI(elt, elt.retrieve('sid'));
+        this.removeSliceFromUI(elt);
         this.updateTimeSummary();
     },
 
-    removeSliceFromUI: function(elt, sid)
+    removeSliceFromUI: function(elt)
     {
         elt.fade({ duration: this.effectDur, queue: 'end' });
-        this.removeSliceFromCache(sid);
+        this.removeSliceFromCache(elt.retrieve.('sid'));
         this.updateTimeSummary();
     },
 
@@ -631,7 +631,7 @@ HermesCore = {
     submitSlicesCallback: function(ids, r)
     {
         $('hermesLoadingTime').hide();
-        ids.each(function(i) { this.removeSliceFromUI(i, i.retrieve('sid'), null); }.bind(this));
+        ids.each(function(i) { this.removeSliceFromUI(i); }.bind(this));
         this.checkSelected();
     },
 
