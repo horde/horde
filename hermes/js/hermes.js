@@ -355,20 +355,29 @@ HermesCore = {
         $('hermesTimeFormBillable').setValue(slice.b == 1);
     },
 
+    /**
+     * Permanently delete a time slice
+     *
+     * @param slice  The DOM element of the slice in the slice list to remove.
+     */
     deleteSlice: function(slice)
     {
+        var sid = slice.retrieve('sid');
         $('hermesLoadingTime').show();
-        sid = slice.retrieve('sid');
         HordeCore.doAction('deleteSlice',
             { 'id': sid },
-            { 'callback': this.deletesliceCallback.curry(slice, sid).bind(this) }
+            { 'callback': this.deletesliceCallback.curry(slice).bind(this) }
         );
     },
 
-    deletesliceCallback: function(elt, sid, r)
+    /**
+     * Callback for the deleteSlice action. Hides the spinner, removes the
+     * slice's DOM element from the UI and updates time summary.
+     */
+    deletesliceCallback: function(elt, r)
     {
         $('hermesLoadingTime').hide();
-        this.removeSliceFromUI(elt, sid);
+        this.removeSliceFromUI(elt, elt.retrieve('sid'));
         this.updateTimeSummary();
     },
 
