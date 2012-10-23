@@ -201,13 +201,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        /* RFC 5162 [1] - QRESYNC implies CONDSTORE and ENABLE, even if they
-         * are not listed as capabilities. */
-        if (isset($c['QRESYNC'])) {
-            $c['CONDSTORE'] = true;
-            $c['ENABLE'] = true;
-        }
-
         $this->_setInit('capability', $c);
     }
 
@@ -847,15 +840,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseEnabled(Horde_Imap_Client_Tokenize $data)
     {
-        $enabled = array_flip($data->flushIterator());
-
-        if (isset($enabled['QRESYNC'])) {
-            $enabled['CONDSTORE'] = true;
-        }
-
         $this->_setInit('enabled', array_merge(
             $this->_init['enabled'],
-            $enabled
+            array_flip($data->flushIterator())
         ));
     }
 
@@ -863,7 +850,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _openMailbox(Horde_Imap_Client_Mailbox $mailbox, $mode)
     {
-        $condstore = false;
         $qresync = isset($this->_init['enabled']['QRESYNC']);
 
         /* Don't sync mailbox if we are reopening R/W - we would catch any
@@ -920,7 +906,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                   $this->queryCapability('CONDSTORE')) {
             /* Activate CONDSTORE now if ENABLE is not available. */
             $cmd->add(new Horde_Imap_Client_Data_Format_List('CONDSTORE'));
-            $condstore = true;
+            $this->_setInit('enabled', array_merge(
+                $this->_init['enabled'],
+                array('CONDSTORE' => true)
+            ));
         }
 
         try {
@@ -939,13 +928,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
             }
             throw $e;
-        }
-
-        if ($condstore) {
-            $this->_setInit('enabled', array_merge(
-                $this->_init['enabled'],
-                array('CONDSTORE' => true)
-            ));
         }
     }
 
@@ -1303,11 +1285,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             Horde_Imap_Client::STATUS_UIDNOTSTICKY => 'uidnotsticky',
         );
 
-        /* Don't include modseq returns if server does not support it.
-         * Use queryCapability('CONDSTORE') here because we may not have
-         * yet sent an enabling command. */
+        /* Don't include modseq returns if server does not support it. */
         if ($this->queryCapability('CONDSTORE')) {
             $items[Horde_Imap_Client::STATUS_HIGHESTMODSEQ] = 'highestmodseq';
+
+            /* Even though CONDSTORE is available, it may not yet have been
+             * enabled. */
+            if (($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) &&
+                !isset($this->_init['enabled']['CONDSTORE'])) {
+                $this->_setInit('enabled', array_merge(
+                    $this->_init['enabled'],
+                    array('CONDSTORE' => true)
+                ));
+            }
 
             /* If highestmodseq for the current mailbox is -1, and that is
              * the mailbox we are querying, then we need to close the current

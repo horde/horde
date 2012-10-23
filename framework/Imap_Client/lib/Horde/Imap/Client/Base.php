@@ -375,7 +375,23 @@ abstract class Horde_Imap_Client_Base implements Serializable
                         ($ignored = array_intersect_key($val, array_flip($this->_params['capability_ignore'])))) {
                         $this->writeDebug(sprintf("IGNORING these IMAP capabilities: %s\n", implode(', ', array_keys($ignored))), Horde_Imap_Client::DEBUG_INFO);
                     }
+
                     $val = array_diff_key($val, array_flip($this->_params['capability_ignore']));
+                }
+
+                /* RFC 5162 [1] - QRESYNC implies CONDSTORE and ENABLE, even
+                 * if not listed as a capability. */
+                if (!empty($val['QRESYNC'])) {
+                    $val['CONDSTORE'] = true;
+                    $val['ENABLE'] = true;
+                }
+                break;
+
+            case 'enabled':
+                /* RFC 5162 [1] - Enabling QRESYNC also implies enabling of
+                 * CONDSTORE. */
+                if (isset($val['QRESYNC'])) {
+                    $val['CONDSTORE'] = true;
                 }
                 break;
             }
