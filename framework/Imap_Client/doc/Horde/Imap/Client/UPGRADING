@@ -28,162 +28,170 @@ logging any errors.
 
   - Horde_Imap_Client_Base
 
-    - $cache
+    The following config options have been removed:
 
-      This public member variable has been removed. Obtain the cache object
-      by calling getCache() instead.
+      - statuscache
 
-    - $utils
+    The following properties have changed:
 
-      This public member variable has been removed.
+      - $cache
 
-    - append()
+        This public member variable has been removed. Obtain the cache object
+        by calling getCache() instead.
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+      - $utils
 
-    - copy()
+        This public member variable has been removed.
 
-      The $source and $dest parameters can no longer be UTF7-IMAP strings.
+    The following methods have changed:
 
-    - createMailbox()
+      - append()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
 
-    - currentMailbox()
+      - copy()
 
-      The 'mailbox' portion of the return value is always returned as a
-      Horde_Imap_Client_Mailbox object.
-      The $options parameter has been removed.
+        The $source and $dest parameters can no longer be UTF7-IMAP strings.
 
-    - deleteACL()
+      - createMailbox()
 
-      This method has been added.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
 
-    - deleteMailbox()
+      - currentMailbox()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+        The 'mailbox' portion of the return value is always returned as a
+        Horde_Imap_Client_Mailbox object.
+        The $options parameter has been removed.
 
-    - expunge()
+      - deleteACL()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+        This method has been added.
 
-    - fetch()
+      - deleteMailbox()
 
-      The 'fetch_res' option has been removed.
-      The 'vanished' option has been removed - use the vanished() method
-      instead.
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
-      Results are now returned as a Horde_Imap_Client_Fetch_Results object.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
 
-    - fetchCacheIgnore()
+      - expunge()
 
-      This method has been removed. Use getParam()/setParam() to change
-      parameter values instead.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
 
-    - fetchFromSectionString()
+      - fetch()
 
-      This method has been removed.
+        The 'fetch_res' option has been removed.
+        The 'vanished' option has been removed - use the vanished() method
+        instead.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
+        Results are now returned as a Horde_Imap_Client_Fetch_Results object.
 
-    - getNamespaces()
+      - fetchCacheIgnore()
 
-      The array keys, 'name' key, and 'translation' key in the return array
-      return UTF-8 strings (not UTF7-IMAP).
+        This method has been removed. Use getParam()/setParam() to change
+        parameter values instead.
 
-    - getACL()
+      - fetchFromSectionString()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+        This method has been removed.
 
-    - getCacheId()
+      - getNamespaces()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+        The array keys, 'name' key, and 'translation' key in the return array
+        return UTF-8 strings (not UTF7-IMAP).
 
-    - getMetadata()
+      - getACL()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
 
-    - getMyACLRights()
+      - getCacheId()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
 
-    - getQuota()
+      - getMetadata()
 
-      The $root parameter can no longer be a UTF7-IMAP string.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
 
-    - getQuotaRoot()
+      - getMyACLRights()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
 
-    - listACLRights()
+      - getQuota()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+        The $root parameter can no longer be a UTF7-IMAP string.
 
-    - listMailboxes()
+      - getQuotaRoot()
 
-      The return array keys are in UTF-8 (not UTF7-IMAP).
-      The 'mailbox' return value is returned as a Horde_Imap_Client_Mailbox
-      object.
-      The 'utf8' parameter has been removed.
-      The 'pattern' parameter now handles Horde_Imap_Client_Mailbox objects
-      differently than string patterns.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
 
-    - openMailbox()
+      - listACLRights()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
 
-    - parseCommandArray()
+      - listMailboxes()
 
-      This method has been removed.
+        The return array keys are in UTF-8 (not UTF7-IMAP).
+        The 'mailbox' return value is returned as a Horde_Imap_Client_Mailbox
+        object.
+        The 'utf8' parameter has been removed.
+        The 'pattern' parameter now handles Horde_Imap_Client_Mailbox objects
+        differently than string patterns.
 
-    - renameMailbox()
+      - openMailbox()
 
-      The $old and $new parameters can no longer be UTF7-IMAP strings.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
 
-    - search()
+      - parseCommandArray()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
-      The following constants for use with 'results' have been deprecated
-      (use SEARCH_RESULTS_* constants instead):
+        This method has been removed.
 
-        - SORT_RESULTS_COUNT
-        - SORT_RESULTS_MATCH
-        - SORT_RESULTS_MAX
-        - SORT_RESULTS_MIN
-        - SORT_RESULTS_SAVE
+      - renameMailbox()
 
-    - setACL()
+        The $old and $new parameters can no longer be UTF7-IMAP strings.
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+      - search()
 
-      The $options['remove'] parameter has been replaced by a more flexible
-      $options['action'] parameter.  To delete all ACLs for an identifier use
-      the new deleteACL() method.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
+        The following constants for use with 'results' have been deprecated
+        (use SEARCH_RESULTS_* constants instead):
 
-    - setQuota()
+          - SORT_RESULTS_COUNT
+          - SORT_RESULTS_MATCH
+          - SORT_RESULTS_MAX
+          - SORT_RESULTS_MIN
+          - SORT_RESULTS_SAVE
 
-      The $root parameter can no longer be a UTF7-IMAP string.
+      - setACL()
 
-    - status()
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
-      The 'lastmodsequids' now returns a Horde_Imap_Client_Ids object instead
-      of an array.
+        The $options['remove'] parameter has been replaced by a more flexible
+        $options['action'] parameter. To delete all ACLs for an identifier use
+        the new deleteACL() method.
 
-    - statusMultiple()
+      - setQuota()
 
-      The return array keys are in UTF-8 (not UTF7-IMAP).
-      The $mailboxes parameter can no longer contain UTF7-IMAP strings.
+        The $root parameter can no longer be a UTF7-IMAP string.
 
-    - store()
+      - status()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
+        The 'lastmodsequids' now returns a Horde_Imap_Client_Ids object
+        instead of an array.
 
-    - subscribeMailbox()
+      - statusMultiple()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+        The return array keys are in UTF-8 (not UTF7-IMAP).
+        The $mailboxes parameter can no longer contain UTF7-IMAP strings.
 
-    - thread()
+      - store()
 
-      The $mailbox parameter can no longer be a UTF7-IMAP string.
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
+
+      - subscribeMailbox()
+
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
+
+      - thread()
+
+        The $mailbox parameter can no longer be a UTF7-IMAP string.
 
   - Horde_Imap_Client_Cache
 

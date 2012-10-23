@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Remove statuscache configuration option.
 * [mms] Optimize generation of POP3 sequence string.
 * [mms] Abstract forced determination of UIDNEXT value from cache method to a status() flag.
 * [mms] Remove Horde_Imap_Client_Base#fetchFromSectionString().
@@ -1122,6 +1123,7 @@
    <date>2012-10-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Remove statuscache configuration option.
 * [mms] Optimize generation of POP3 sequence string.
 * [mms] Abstract forced determination of UIDNEXT value from cache method to a status() flag.
 * [mms] Remove Horde_Imap_Client_Base#fetchFromSectionString().

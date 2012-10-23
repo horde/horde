@@ -124,7 +124,6 @@ class IMP_Imap implements Serializable
             'password' => $password,
             'port' => isset($server['port']) ? $server['port'] : null,
             'secure' => isset($server['secure']) ? $server['secure'] : false,
-            'statuscache' => true,
             'timeout' => empty($server['timeout']) ? null : $server['timeout'],
             'username' => $username,
         );
