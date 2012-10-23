@@ -62,8 +62,8 @@ HermesCore = {
             this.viewLoading.push([ fullloc, data ]);
             return;
         }
-        var locParts = fullloc.split(':');
-        var loc = locParts.shift();
+        var locParts = fullloc.split(':'),
+            loc = locParts.shift();
 
         if (this.openLocation == fullloc) {
             return;
@@ -115,9 +115,10 @@ HermesCore = {
      */
     loadNextView: function()
     {
-        var current = this.viewLoading.shift();
+        var current = this.viewLoading.shift(),
+            next;
         if (this.viewLoading.size()) {
-            var next = this.viewLoading.pop();
+            next = this.viewLoading.pop();
             this.viewLoading = [];
             if (current[0] != next[0] || current[1] || next[1]) {
                 this.go(next[0], next[1]);
