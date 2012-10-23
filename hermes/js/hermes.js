@@ -612,12 +612,14 @@ HermesCore = {
         elt.up().up().addClassName('active-timer').removeClassName('inactive-timer');
     },
 
-    //removeTimer: function(t)
+    /**
+     * Submit a group of slices.
+     */
     submitSlices: function()
     {
+        var sliceIds = slices = [];
+
         $('hermesLoadingTime').show();
-        var sliceIds = [];
-        var slices = [];
         $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
             sliceIds.push(s.up().retrieve('sid'));
             slices.push(s.up());
