@@ -180,6 +180,7 @@ HermesCore = {
             case 'hermesTimeReset':
                 $('hermesTimeSaveAsNew').hide();
                 $('hermesTimeForm').reset();
+                $('hermesTimeFormId').value = 0;
                 e.stop();
                 return;
 
