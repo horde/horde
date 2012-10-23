@@ -3357,9 +3357,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     fwrite($this->_debug, '>> Slow IMAP Command: ' . round($diff, 3) . " seconds\n");
                 }
             } else {
-                fwrite($this->_debug,
-                    str_repeat('-', 30) . "\n" .
-                    '>> Timestamp: ' . date('r') . "\n"
+                fwrite(
+                    $this->_debug,
+                    str_repeat('-', 30) . "\n" . '>> Timestamp: ' . date('r') . "\n"
                 );
             }
 
@@ -3378,9 +3378,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $pre .= 'S: ';
                 break;
             }
+        } elseif (isset($this->_temp['debug_buffer'])) {
+            $pre = $this->_temp['debug_buffer'];
         }
 
-        fwrite($this->_debug, $pre . $msg);
+        if (substr($msg, -1) == "\n") {
+            fwrite($this->_debug, $pre . $msg);
+            unset($this->_temp['debug_buffer']);
+        } else {
+            $this->_temp['debug_buffer'] = $pre . $msg;
+        }
     }
 
     /* Private utility functions. */

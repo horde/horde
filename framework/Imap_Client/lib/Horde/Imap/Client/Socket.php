@@ -3925,10 +3925,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         } elseif (is_resource($data)) {
             rewind($data);
             while (!feof($data)) {
-                fwrite($this->_debug, fread($data, 8192));
+                $this->writeDebug(fread($data, 8192));
             }
         } else {
-            fwrite($this->_debug, $data . (empty($opts['eol']) ? '' : "\n"));
+            $this->writeDebug($data . (empty($opts['eol']) ? '' : "\n"));
         }
 
         if (isset($opts['literal'])) {
