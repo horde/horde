@@ -14,6 +14,7 @@
  *
  * @property boolean $all  Does this represent an ALL message set?
  * @property array $ids  The list of IDs.
+ * @property boolean $largest  Does this represent the largest ID in use?
  * @property string $range_string  Generates a range string consisting of all
  *                                 messages between begin and end of ID list.
  * @property boolean $search_res  Does this represent a search result?
@@ -27,6 +28,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     /* Constants. */
     const ALL = "\01";
     const SEARCH_RES = "\02";
+    const LARGEST = "\03";
 
     /**
      * List of IDs.
@@ -67,6 +69,9 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
                 ? $this->_ids
                 : array();
 
+        case 'largest':
+            return ($this->_ids === self::LARGEST);
+
         case 'range_string':
             return is_array($this->_ids)
                 ? min($this->_ids) . ':' . max($this->_ids)
@@ -82,6 +87,8 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
         case 'tostring_sort':
             if ($this->all) {
                 return '1:*';
+            } elseif ($this->largest) {
+                return '*';
             } elseif ($this->search_res) {
                 return '$';
             }
@@ -99,7 +106,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     /**
      * Add IDs to the current object.
      *
-     * @param mixed $ids  Either self::ALL, self::SEARCH_RES,
+     * @param mixed $ids  Either self::ALL, self::SEARCH_RES, self::LARGEST,
      *                    Horde_Imap_Client_Ids object, array, or sequence
      *                    string.
      */
@@ -108,7 +115,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
         if (!is_null($ids)) {
             $add = array();
 
-            if (($ids === self::ALL) || ($ids === self::SEARCH_RES)) {
+            if (in_array($ids, array(self::ALL, self::SEARCH_RES, self::LARGEST))) {
                 $this->_ids = $ids;
                 return;
             }
@@ -322,6 +329,10 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
             $save['a'] = true;
             break;
 
+        case self::LARGEST:
+            $save['l'] = true;
+            break;
+
         case self::SEARCH_RES:
             $save['sr'] = true;
             break;
@@ -344,6 +355,8 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
 
         if (isset($save['a'])) {
             $this->_ids = self::ALL;
+        } elseif (isset($save['l'])) {
+            $this->_ids = self::LARGEST;
         } elseif (isset($save['sr'])) {
             $this->_ids = self::SEARCH_RES;
         } elseif (isset($save['i'])) {
