@@ -178,9 +178,7 @@ HermesCore = {
                 return;
 
             case 'hermesTimeReset':
-                if ($('hermesTimeSaveAsNew').visible()) {
-                    $('hermesTimeSaveAsNew').toggle();
-                }
+                $('hermesTimeSaveAsNew').hide();
                 $('hermesTimeForm').reset();
                 e.stop();
                 return;
@@ -328,11 +326,10 @@ HermesCore = {
 
     populateSliceForm: function(sid)
     {
-        var d, slice;
-        if (!$('hermesTimeSaveAsNew').visible()) {
-            $('hermesTimeSaveAsNew').toggle();
-        }
-        slice = this.getSliceFromCache(sid);
+        var slice = this.getSliceFromCache(sid),
+            d = this.parseDate(slice.d);
+
+        $('hermesTimeSaveAsNew').show();
         $('hermesTimeFormClient').setValue(slice.c);
         // Manually update the client list, and wait for the callback to continue
         // TODO: Cache the deliverable list for each client to avoid hitting
@@ -345,7 +342,6 @@ HermesCore = {
                 }.bind(this)
               }
         );
-        d = this.parseDate(slice.d);
         $('hermesTimeFormStartDate').setValue(d.toString(Hermes.conf.date_format));
         $('hermesTimeFormHours').setValue(slice.h);
         $('hermesTimeFormJobtype').setValue(slice.t);
