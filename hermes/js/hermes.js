@@ -296,8 +296,10 @@ HermesCore = {
             var c = e.down();
             if (select && !e.hasClassName('QuickFinderNoMatch')) {
                 c.addClassName('hermesSelectedSlice');
+                c.up().addClassName('hermesSelectedRow');
                 c.removeClassName('hermesUnselectedSlice');
             } else {
+                c.up().removeClassName('hermesSelectedRow');
                 c.removeClassName('hermesSelectedSlice');
                 c.addClassName('hermesUnselectedSlice');
             }
