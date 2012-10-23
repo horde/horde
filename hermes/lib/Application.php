@@ -94,14 +94,15 @@ class Hermes_Application extends Horde_Registry_Application
             null,
             Horde::popupJs(Horde::url('start.php'), array('height' => 200, 'width' => 410)) . 'return false;'
         );
-        if ($timers = @unserialize($GLOBALS['prefs']->getValue('running_timers'))) {
-            $entry = Horde::url('entry.php');
-            foreach ($timers as $i => $timer) {
-                $hours = round((float)(time() - $i) / 3600, 2);
-                $menu->add($entry->add('timer', $i),
-                           $timer['name'] . sprintf(" (%s)", $hours),
-                           'hermes-stop', null, '', null, '__noselection');
-            }
+
+        // Timers
+        $timers = Hermes::listTimers();
+        $entry = Horde::url('entry.php');
+        foreach ($timers as $i => $timer) {
+            $menu->add($entry->add('timer', $i),
+                       $timer['name'] . sprintf(" (%s)", $timer['e']),
+                       'hermes-stop', null, '', null, '__noselection'
+            );
         }
 
         $menu->add(Horde::url('search.php'), _("_Search"), 'hermes-search');

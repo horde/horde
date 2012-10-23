@@ -310,6 +310,29 @@ class Hermes
         return $tabs->render($GLOBALS['session']->get('hermes', 'search_mode'));
     }
 
+    public static function listTimers($running_only = false)
+    {
+        $timers = $GLOBALS['prefs']->getValue('running_timers');
+        if (!empty($timers)) {
+            $timers = @unserialize($timers);
+        } else {
+            $timers = array();
+        }
+        $return = array();
+        foreach ($timers as $id => $timer) {
+            if ($running_only && $timer['paused']) {
+                continue;
+            }
+            $elapsed = ((!$timer['paused']) ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
+            $timer['e'] = round((float)$elapsed / 3600, 2);
+            $timer['id'] = $id;
+            unset($timer['elapsed']);
+            $return[] = $timer;
+        }
+
+        return $return;
+    }
+
     /**
      * Create a new timer and save it to storage. Timers contain the following
      * values:
