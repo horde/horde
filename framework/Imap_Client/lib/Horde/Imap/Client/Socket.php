@@ -1335,7 +1335,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                             $query = new Horde_Imap_Client_Fetch_Query();
                             $query->uid();
                             $fetch_res = $this->fetch($this->_selected, $query, array(
-                                'ids' => $this->getIdsOb($this->_temp['mailbox']['messages'], true)
+                                'ids' => $this->getIdsOb(Horde_Imap_Client_Ids::LARGEST)
                             ));
                             $data[$val] = $fetch_res->first()->getUid() + 1;
                         }
