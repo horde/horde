@@ -80,6 +80,11 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
 
         case 'tostring':
         case 'tostring_sort':
+            if ($this->all) {
+                return '1:*';
+            } elseif ($this->search_res) {
+                return '$';
+            }
             return strval($this->_toSequenceString($name == 'tostring_sort'));
         }
     }

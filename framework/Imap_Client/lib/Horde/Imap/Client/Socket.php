@@ -1681,12 +1681,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $use_cache = $this->_initCache(true);
 
         if ($options['ids']->all) {
-            $uid_string = '1:*';
+            $uid_string = strval($options['ids']);
         } elseif ($uidplus) {
             /* UID EXPUNGE command needs UIDs. */
-            if ($options['ids']->search_res) {
-                $uid_string = '$';
-            } elseif ($options['ids']->sequence) {
+            if ($options['ids']->sequence) {
                 $results = array(Horde_Imap_Client::SEARCH_RESULTS_MATCH);
                 if ($this->queryCapability('SEARCHRES')) {
                     $results[] = Horde_Imap_Client::SEARCH_RESULTS_SAVE;
@@ -2563,9 +2561,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $cmd = $this->_clientCommand(array_filter(array(
             $options['ids']->sequence ? null : 'UID',
             'FETCH',
-            $options['ids']->all
-                ? '1:*'
-                : ($options['ids']->search_res ? '$' : strval($options['ids']))
+            strval($options['ids'])
         )));
 
 
@@ -3010,7 +3006,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $cmd = $this->_clientCommand(array(
             'UID',
             'FETCH',
-            $ids->all ? '1:*' : strval($ids),
+            strval($ids),
             'UID',
             new Horde_Imap_Client_Data_Format_List(array(
                 'VANISHED',
@@ -3031,9 +3027,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $cmd = $this->_clientCommand(array(
             empty($options['sequence']) ? 'UID' : null,
             'STORE',
-            $options['ids']->all
-                ? '1:*'
-                : ($options['ids']->search_res ? '$' : strval($options['ids']))
+            strval($options['ids'])
         ));
 
         if (!empty($this->_temp['mailbox']['highestmodseq'])) {
@@ -3204,9 +3198,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $cmd = $this->_clientCommand(array_filter(array(
                 $options['ids']->sequence ? null : 'UID',
                 'COPY',
-                $options['ids']->all
-                    ? '1:*'
-                    : ($options['ids']->search_res ? '$' : strval($options['ids'])),
+                strval($options['ids']),
                 new Horde_Imap_Client_Data_Format_Mailbox($dest)
             )));
 

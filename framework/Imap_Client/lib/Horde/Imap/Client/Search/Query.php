@@ -222,11 +222,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
             if (!$ptr['ids']['ids']->sequence) {
                 $cmds->add('UID');
             }
-            $cmds->add(
-                $ptr['ids']['ids']->all
-                    ? '1:*'
-                    : strval($ptr['ids']['ids'])
-            );
+            $cmds->add(strval($ptr['ids']['ids']->all));
         }
 
         if (!empty($ptr['date'])) {
