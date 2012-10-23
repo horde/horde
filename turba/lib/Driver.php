@@ -117,7 +117,7 @@ class Turba_Driver implements Countable
      *
      * @var array
      */
-    protected $_asMap = array(
+    static protected $_asMap = array(
         'name' => 'fileas',
         'lastname' => 'lastname',
         'firstname' => 'firstname',
@@ -2443,9 +2443,9 @@ class Turba_Driver implements Countable
                     Horde::logMessage($e);
                 }
             }
-            if (isset($this->_asMap[$field])) {
+            if (isset(self::$_asMap[$field])) {
                 try {
-                    $message->{$this->_asMap[$field]} = $value;
+                    $message->{self::$_asMap[$field]} = $value;
                 } catch (InvalidArgumentException $e) {
                 }
                 continue;
@@ -2559,7 +2559,7 @@ class Turba_Driver implements Countable
     {
         $hash = array();
 
-        foreach ($this->_asMap as $turbaField => $asField) {
+        foreach (self::$_asMap as $turbaField => $asField) {
             if (!$message->isGhosted($asField)) {
                 try {
                     $hash[$turbaField] = $message->{$asField};
