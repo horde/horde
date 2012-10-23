@@ -68,7 +68,9 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
                 : array();
 
         case 'range_string':
-            return min($this->_ids) . ':' . max($this->_ids);
+            return is_array($this->_ids)
+                ? min($this->_ids) . ':' . max($this->_ids)
+                : '';
 
         case 'search_res':
             return ($this->_ids === self::SEARCH_RES);
@@ -149,7 +151,9 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
      */
     public function sort()
     {
-        sort($this->_ids, SORT_NUMERIC);
+        if (is_array($this->_ids)) {
+            sort($this->_ids, SORT_NUMERIC);
+        }
     }
 
     /**
