@@ -377,7 +377,7 @@ HermesCore = {
      * Callback for the deleteSlice action. Hides the spinner, removes the
      * slice's DOM element from the UI and updates time summary.
      */
-    deletesliceCallback: function(elt, r)
+    deletesliceCallback: function(elt)
     {
         $('hermesLoadingTime').hide();
         this.removeSliceFromUI(elt);
