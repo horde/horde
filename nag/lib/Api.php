@@ -1230,7 +1230,7 @@ class Nag_Api extends Horde_Registry_Api
     {
         $allowed_tasklists = Nag::listTasklists(false, Horde_Perms::READ);
         foreach ($categories as $tasklist) {
-            if (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
+            if (!isset($allowed_tasklists[$tasklist])) {
                 throw new Horde_Exception_PermissionDenied();
             }
         }
