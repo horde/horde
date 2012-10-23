@@ -384,6 +384,11 @@ HermesCore = {
         this.updateTimeSummary();
     },
 
+    /**
+     * Removes the slice's DOM element from the UI.
+     *
+     * @param elt  The DOM element of the slice in the slice list.
+     */
     removeSliceFromUI: function(elt)
     {
         elt.fade({ duration: this.effectDur, queue: 'end' });
@@ -391,9 +396,17 @@ HermesCore = {
         this.updateTimeSummary();
     },
 
+    /**
+     * Retrieve a slice from the cache
+     *
+     * @param sid  The slice id.
+     *
+     * @return The slice entry from the cache.
+     */
     getSliceFromCache: function(sid)
     {
-        s = this.slices.length;
+        var s = this.slices.length;
+
         for (var i = 0; i <= (s - 1); i++) {
             if (this.slices[i].i == sid) {
                 return this.slices[i];
@@ -401,17 +414,26 @@ HermesCore = {
         }
     },
 
-    // Replaces current sid entry with slice
+    /**
+     * Replaces current sid entry in the cache with slice
+     *
+     * @param sid    The slice id to replace.
+     * @param slice  The slice data to replace it with.
+     */
     replaceSliceInCache: function(sid, slice)
     {
         this.removeSliceFromCache(sid);
         this.slices.push(slice);
     },
 
-    // Removes sid's slice from cache
+    /**
+     * Removes sid's slice from cache
+     *
+     * @param sid  The slice id
+     */
     removeSliceFromCache: function(sid)
     {
-        s = this.slices.length;
+        var s = this.slices.length;
         for (var i = 0; i <= (s - 1); i++) {
             if (this.slices[i].i == sid) {
                 this.slices.splice(i, 1);
@@ -447,17 +469,20 @@ HermesCore = {
      */
     listDeliverablesCallback: function(r)
     {
+        var h = $H(r);
+
         $('hermesLoadingTime').hide();
         $('hermesTimeFormCostobject').childElements().each(function(el) {
             el.remove();
         });
-        var h = $H(r);
         h.each(function(i) {
-           new Element('option', {'value': i.key});
-           $('hermesTimeFormCostobject').insert(new Element('option', {'value': i.key}).insert(i.value));
+           $('hermesTimeFormCostobject').insert(new Element('option', { 'value': i.key }).insert(i.value));
         });
     },
 
+    /**
+     * Save a slice entry.
+     */
     saveTime: function()
     {
         if (!$F('hermesTimeFormDesc') ||
@@ -467,8 +492,10 @@ HermesCore = {
             HordeCore.notify(Hermes.text.fix_form_values, 'horde.warning');
             return;
         }
+
+        var params = $H($('hermesTimeForm').serialize({ hash: true }));
+
         $('hermesLoadingTime').show();
-        params = $H($('hermesTimeForm').serialize({ hash: true }));
         // New or Edit?
         if ($F('hermesTimeFormId') > 0) {
             HordeCore.doAction('updateSlice',
@@ -484,18 +511,28 @@ HermesCore = {
         $('hermesTimeSaveAsNew').hide();
     },
 
+    /**
+     * Callback for the enterTime action called when adding a NEW slice.
+     * Just pushes the new slice on the stack, and rerenders the view.
+     *
+     * @param r  The results from the Ajax call.
+     */
     saveTimeCallback: function(r)
     {
         $('hermesLoadingTime').hide();
-        // Just push the new slice on the stack, and rerender the view.
         this.slices.push(r);
         this.reverseSort = false;
         this.updateView(this.view);
         this.buildTimeTable();
     },
 
-    // Handles rerendering view after updating a slice.
-    // TODO: Need to probably optimise this and saveTimeCallback()
+    /**
+     * Callback from the updateSlice action called when updating an EXISTING
+     * slice.
+     *
+     * @param sid  The slice id
+     * @param r    The results from the Ajax call.
+     */
     editTimeCallback: function(sid, r)
     {
         $('hermesLoadingTime').hide();
@@ -508,6 +545,9 @@ HermesCore = {
         $('hermesTimeSaveAsNew').hide();
     },
 
+    /**
+     * Stores a new timer in the backend.
+     */
     newTimer: function()
     {
         HordeCore.doAction('addTimer',
@@ -516,6 +556,12 @@ HermesCore = {
         );
     },
 
+    /**
+     * Callback for adding a new timer. Closes the timer dialog and inserts the
+     * timer's details in the sideBar.
+     *
+     * @param r  The data returned from the Ajax method.
+     */
     newTimerCallback: function(r)
     {
         if (!r.id) {
@@ -525,6 +571,12 @@ HermesCore = {
         this.insertTimer({ 'id': r.id, 'e': 0, 'paused': false }, $F('hermesTimerTitle'));
     },
 
+    /**
+     * Inserts a new timer in the sideBar.
+     *
+     * @param r  The timer's data.
+     * @param d  The timer's description.
+     */
     insertTimer: function(r, d)
     {
         var title = new Element('div').update(d + ' (' + r.e + ' hours)'),
@@ -541,8 +593,9 @@ HermesCore = {
             wrapperClass = 'active-timer';
         }
 
-        wrapper = new Element('div', { 'class': wrapperClass }).insert(timer
-            .insert(stop).insert(controls).insert(title));
+        wrapper = new Element('div', { 'class': wrapperClass }).insert(
+            timer.insert(stop).insert(controls).insert(title)
+        );
         $('hermesMenuTimers').insert({ 'top': wrapper });
         $('hermesTimerDialog').fade({
             duration: this.effectDur,
@@ -552,6 +605,11 @@ HermesCore = {
         });
     },
 
+    /**
+     * Callback for the initial listTimers call.
+     *
+     * @param r  The data returned from the Ajax method.
+     */
     listTimersCallback: function(r)
     {
         var timers = r;
@@ -560,34 +618,54 @@ HermesCore = {
         };
     },
 
+    /**
+     * Stops and permanently deletes a timer.
+     *
+     * @param elt  The DOM elt of the timer in the sideBar.
+     */
     stopTimer: function(elt)
     {
-        var t = elt.up().retrieve('tid');
         HordeCore.doAction('stopTimer',
-            { 't': t },
-            { 'callback': this.closeTimerCallback.curry(elt).bind(this) }
+            { 't': elt.up().retrieve('tid') },
+            { 'callback': this.stopTimerCallback.curry(elt).bind(this) }
         );
     },
 
+    /**
+     * Pauses a timer
+     *
+     * @param elt  The DOM elt of the timer in the sideBar.
+     */
     pauseTimer: function(elt)
     {
-        var t = elt.up().retrieve('tid');
         HordeCore.doAction('pauseTimer',
-            { 't': t },
+            { 't': elt.up().retrieve('tid') },
             { 'callback': this.pauseTimerCallback.curry(elt).bind(this) }
         );
     },
 
+    /**
+     * Restarts a paused timer.
+     *
+     * @param elt  The DOM elt of the timer in the sideBar.
+     */
     playTimer: function(elt)
     {
-        var t = elt.up().retrieve('tid');
         HordeCore.doAction('startTimer',
-            { 't': t },
+            { 't': elt.up().retrieve('tid') },
             { 'callback': this.playTimerCallback.curry(elt).bind(this) }
         );
     },
 
-    closeTimerCallback: function(elt, r)
+    /**
+     * Callback for the stopTimer call.
+     * Populates the time form with values from the timer and removes timer
+     * from the sideBar.
+     *
+     * @param elt  The timer's sideBar DOM element.
+     * @param r    The Ajax response.
+     */
+    stopTimerCallback: function(elt, r)
     {
         if (r) {
             $('hermesTimeFormHours').setValue(r.h);
@@ -598,14 +676,26 @@ HermesCore = {
         });
     },
 
-    pauseTimerCallback: function(elt, r)
+    /**
+     * Callback for the pauseTimer call.
+     * Updates the timer's UI to reflect it's paused status.
+     *
+     * @param elt  The timer's sideBar DOM element.
+     */
+    pauseTimerCallback: function(elt)
     {
         elt.removeClassName('timer-running');
         elt.addClassName('timer-paused');
         elt.up().up().addClassName('inactive-timer').removeClassName('active-timer');
     },
 
-    playTimerCallback: function(elt, r)
+    /**
+     * Callback for the playTimer call.
+     * Updates the timer's UI to reflect it's running status.
+     *
+     * @param elt  The timer's sideBar DOM element.
+     */
+    playTimerCallback: function(elt)
     {
         elt.removeClassName('timer-paused');
         elt.addClassName('timer-running');
@@ -630,15 +720,24 @@ HermesCore = {
         );
     },
 
-    submitSlicesCallback: function(ids, r)
+    /**
+     * Callback for the submitSlices call.
+     * Responsible for hiding the spinner and removing the submitted slices from
+     * the slice list.
+     *
+     * @param slices  The DOM elements of the slices that have been submitted.
+     */
+    submitSlicesCallback: function(slices)
     {
         $('hermesLoadingTime').hide();
-        ids.each(function(i) { this.removeSliceFromUI(i); }.bind(this));
+        slices.each(function(i) { this.removeSliceFromUI(i); }.bind(this));
         this.checkSelected();
     },
 
     /**
      * Perform any tasks needed to update a view.
+     *
+     * @param view  The view to update.
      */
     updateView: function(view)
     {
@@ -682,9 +781,13 @@ HermesCore = {
         this.buildTimeTable();
     },
 
+    /**
+     * Updates the sideBar's unsubmitted time summary.
+     */
     updateTimeSummary: function()
     {
         var total = 0, totalb = 0, today = 0, todayb = 0;
+
         this.slices.each(function(i) {
             var h = parseFloat(i.h);
             total = total + h;
@@ -701,9 +804,14 @@ HermesCore = {
         $('hermesSummaryTotalNonBillable').down().update((total - totalb).toFixed(2));
     },
 
+    /**
+     * Builds the slice list.
+     */
     buildTimeTable: function()
     {
-        var slices, t;
+        var t = $('hermesTimeListInternal'),
+            slices;
+
         if (this.reverseSort) {
             slices = this.slices.reverse();
             this.sortDir = (this.sortDir == 'up') ? 'down' : 'up';
@@ -740,7 +848,6 @@ HermesCore = {
             }
         }
         this.slices = slices;
-        t = $('hermesTimeListInternal');
         t.hide();
         slices.each(function(slice) {
             t.insert(this.buildTimeRow(slice).toggle());
@@ -748,10 +855,17 @@ HermesCore = {
         $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
         t.appear({ duration: this.effectDur, queue: 'end' });
         this.updateTimeSummary();
-        // Init the quickfinder now that we have a list of children.
         $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
     },
 
+    /**
+     * Builds the DOM structure for a single slice row in the slice list.
+     *
+     * @param slice  The slices data.
+     *
+     * @return A DOM element representing the slice suitable for inserting into
+     *         the slice list.
+     */
     buildTimeRow: function(slice)
     {
         var row, cell, d;
@@ -777,6 +891,7 @@ HermesCore = {
         cell = cell.next().update((slice.desc) ? slice.desc : ' ');
         cell = cell.next().update((slice.b == 1) ? 'Y' : 'N');
         cell = cell.next().update(slice.h);
+
         return row;
     },
 
@@ -790,11 +905,6 @@ HermesCore = {
         this.sortbyfield = e.identify();
         this.updateView(this.view);
         this.buildTimeTable();
-    },
-
-    loadPage: function(loc)
-    {
-        window.location.assign(loc);
     },
 
     /**
