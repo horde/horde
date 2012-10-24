@@ -199,7 +199,7 @@
     </para>
   </entry>
 
-  <entry id="filter-on-login" state="uptodate" md5="939a9996c1313264175ffa6ee48a1bc2">
+    <entry id="filter-on-login" state="uptodate" md5="939a9996c1313264175ffa6ee48a1bc2">
     <title>Filterregeln: Einstellungen: Filtern bei der Anmeldung</title>
     <para>
       Markieren Sie dieses Kästchen, falls die Filterregeln immer angewendet
