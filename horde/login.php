@@ -354,6 +354,11 @@ if ($reason) {
     $notification->push(str_replace('<br />', ' ', $reason), 'horde.message');
 }
 
+$loginurl = Horde::url('login.php', false, array(
+    'append_session' => ($is_auth ? 0 : -1),
+    'force_ssl' => true
+));
+
 $page_output->topbar = $page_output->sidebar = false;
 
 if ($browser->isMobile() &&
@@ -384,7 +389,7 @@ if ($browser->isMobile() &&
     $view->app = $vars->app;
     $view->loginparams_auth = array_intersect_key($loginparams, array('horde_user' => 1, 'horde_pass' => 1));
     $view->loginparams_other = array_diff_key($loginparams, array('horde_user' => 1, 'horde_pass' => 1));
-    $view->loginurl = Horde::url('login.php');
+    $view->loginurl = $loginurl;
     $view->title = $title;
     $view->url = $vars->url;
 
