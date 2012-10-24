@@ -1030,7 +1030,25 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $mailbox = Horde_Imap_Client_Mailbox::get($mailbox);
 
         $this->_deleteMailbox($mailbox);
+        $this->_deleteMailboxPost($mailbox);
+    }
 
+    /**
+     * Delete a mailbox.
+     *
+     * @param Horde_Imap_Client_Mailbox $mailbox  The mailbox to delete.
+     *
+     * @throws Horde_Imap_Client_Exception
+     */
+    abstract protected function _deleteMailbox(Horde_Imap_Client_Mailbox $mailbox);
+
+    /**
+     * Actions to perform after a mailbox delete.
+     *
+     * @param Horde_Imap_Client_Mailbox $mailbox  The deleted mailbox.
+     */
+    protected function _deleteMailboxPost(Horde_Imap_Client_Mailbox $mailbox)
+    {
         /* Delete mailbox caches. */
         if ($this->_initCache()) {
             $this->_cache->deleteMailbox($mailbox);
@@ -1043,15 +1061,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
             // Ignore failed unsubscribe request
         }
     }
-
-    /**
-     * Delete a mailbox.
-     *
-     * @param Horde_Imap_Client_Mailbox $mailbox  The mailbox to delete.
-     *
-     * @throws Horde_Imap_Client_Exception
-     */
-    abstract protected function _deleteMailbox(Horde_Imap_Client_Mailbox $mailbox);
 
     /**
      * Rename a mailbox.
@@ -1090,17 +1099,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $this->_renameMailbox($old, $new);
 
-        /* Delete mailbox caches. */
-        if ($this->_initCache()) {
-            foreach ($all_mboxes as $val) {
-                $this->_cache->deleteMailbox($val);
-            }
+        /* Delete mailbox actions. */
+        foreach ($all_mboxes as $val) {
+            $this->_deleteMailboxPost($val);
         }
 
         foreach ($subscribed as $val) {
-            /* Clean up subscription information. */
             try {
-                $this->subscribeMailbox($val, false);
                 $this->subscribeMailbox(new Horde_Imap_Client_Mailbox(substr_replace($val, $new, 0, strlen($old))));
             } catch (Horde_Imap_Client_Exception $e) {
                 // Ignore failed subscription requests
