@@ -100,7 +100,8 @@ class Horde_Secret
     /**
      * Returns the cached crypt object.
      *
-     * @param string $key  The key to use for [de|en]cryption.
+     * @param string $key  The key to use for [de|en]cryption. Only the first
+     *                     56 bytes of this string is used.
      *
      * @return Crypt_Blowfish  The crypt object.
      * @throws Horde_Secret_Exception
@@ -110,9 +111,12 @@ class Horde_Secret
         if (!is_string($key)) {
             throw new Horde_Secret_Exception('Key must be a string', 2);
         }
-        if (strlen($key) > 56) {
-            throw new Horde_Secret_Exception('Key must be less than 56 characters and non-zero. Supplied key length: ' . strlen($key), 3);
+
+        if (!strlen($key)) {
+            throw new Horde_Secret_Exception('Key must be non-zero.', 3);
         }
+
+        $key = substr($key, 0, 56);
 
         $idx = hash('md5', $key);
 
