@@ -407,10 +407,8 @@ if ($browser->isMobile() &&
     $notification->notify(array('listeners' => 'status'));
     echo $view->render('smartmobile');
 } else {
-    if (!empty($js_files)) {
-        foreach ($js_files as $val) {
-            $page_output->addScriptFile($val[0], $val[1]);
-        }
+    foreach ($js_files as $val) {
+        $page_output->addScriptFile($val[0], $val[1]);
     }
 
     $page_output->addInlineJsVars($js_code);
