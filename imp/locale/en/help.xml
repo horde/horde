@@ -576,7 +576,7 @@
     <entry id="prefs-move_innocent_after_report">
         <title>Message: Preferences: Move Spam After Reporting As Innocent</title>
         <para>
-            You may elect to do one of two items after reporting a message previously maked as spam as innocent.
+            You may elect to do one of two items after reporting a message previously marked as spam as innocent.
         </para>
         <para>
             1. Do nothing. The message will be reported as innocent but will otherwise remain unchanged in your mailbox.
@@ -747,7 +747,7 @@
                 Flags a folder as either subscribed or unsubscribed. When a folder is subscribed, it will appear in all drop down folder lists. These options only appear if using IMAP folder subscriptions.
             </para>
             <para>
-                To subscribe, select the folders in the left column to delete and click 'Subscribe'. To unsubscribe, select the folders in the left column to delete and click 'Unsubscribe'.
+                To subscribe, select the folders in the left column and click 'Subscribe'. To unsubscribe, select the folders in the left column and click 'Unsubscribe'.
             </para>
         </entry>
 
@@ -843,7 +843,7 @@
             </para>
             <heading>Delete Attachments</heading>
             <para>
-                To delete an attachment, clikc the &quot;Remove&quot; button next to the name of the attachment you want to delete
+                To delete an attachment, click the &quot;Remove&quot; button next to the name of the attachment you want to delete
             </para>
         </entry>
 
