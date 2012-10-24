@@ -1,52 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
-
-<entry id="keyboard-navigation" state="uptodate" md5="885a83e5ce7c455f8d7d40a17ca901df">
-    <title>Tastaturbelegung: Navigation</title>
-    <para>
-      Sie können Ihre Tastatur verwenden, um über die Nachrichten in der
-      Nachrichtenliste zu navigieren, zur vorherigen oder nächsten Nachricht
-      in der Nachrichtenansicht zu springen und zwischen den Seiten der
-      Nachrichtenliste hin- und herzuwechseln.
-    </para>
-    <heading>Navigation in Nachrichtenliste</heading>
-    <para>
-      Sie können Ihre Tastatur verwenden, um Nachrichten in der
-      Nachrichtenliste auszuwählen und anzuzeigen. Benutzen Sie die Oben- und
-      Unten-Pfeiltasten, während Sie die Strg-Taste gedrückt halten, um über
-      die Nachrichten zu navigieren. Es wird zuerst die unterste Nachricht der
-      Seite ausgewählt, wenn Sie "Oben" drücken, und zuerst die
-      oberste, wenn Sie "Unten" drücken.
-    </para>
-    <para>
-      Die aktuelle Nachricht wird genauso hervorgehoben, als ob Sie mit der
-      Maus über die Nachricht fahren. Während Sie über die Liste navigieren,
-      können Sie die Leerzeichentaste drücken, um eine Nachricht auszuwählen,
-      oder die Enter-Taste, um diese Nachricht anzuzeigen.
-    </para>
-    <heading>Nachrichtenliste: Voherige/Nächste Seite</heading>
-    <para>
-      Sie können die Rechts- und Links-Pfeiltasten Ihrer Tastatur verwenden,
-      um zu der vorherigen bzw. nächsten Seite der Nachrichtenliste zu
-      gelangen.
-    </para>
-    <heading>Nachrichtenansicht: Vorherige/Nächste Nachricht</heading>
-    <para>
-      Sie können die Rechts- und Links-Pfeiltasten Ihrer Tastatur verwenden,
-      um zu der vorherigen bzw. nächsten Nachricht zu gelangen.
-    </para>
-  </entry>
-
-<!--
-<entry id="keyboard-shortcuts">
-    <title>Keyboard: Shortcuts</title>
-    <heading>Using Keyboard Shortcuts</heading>
-</entry>
--->
-
-<entry id="compose-buttons" state="uptodate" md5="bd0e2b0eff15d7c5cf7df9b7ef4ac40a">
+  <entry id="compose-actions" state="uptodate" md5="bf907bcfd67c0226a391d1d5f28c6ba8">
     <title>Neue Nachricht: Aktionen</title>
-    <heading>Aktionen</heading>
     <para>
       "Senden" verschickt Ihre Nachricht an den oder die angegebenen
       Empfänger. Bevor Sie hierauf klicken, sollten Sie sicher sein, dass Sie
@@ -55,497 +10,231 @@
     </para>
     <para>
       "Entwurf speichern" speichert eine unvollständige Nachricht in dem
-      Ordner, den Sie unter "Einstellungen-&gt;Neue Nachricht" dafür
-      vorgesehen haben. Sie können auf diesen Ordner über die Auswahlliste
-      zugreifen, die sich rechts oben in der Menüleiste befindet. Wenn Sie die
-      Nachricht später fertigstellen wollen, wechseln Sie einfach zum diesem
-      Ordner, klicken auf die gespeicherte Nachricht und anschließend auf
-      "Fortführen". Achten Sie darauf einen Betreff anzugeben, wenn Sie die
-      Nachricht speichern wollen. So stellen Sie sicher, dass Sie die
-      entsprechende Nachricht im dem Ordner später problemlos wiederfinden.
+      Entwürfe-Ordner, auf den Sie über jede Ordnerliste zugreifen können. Wenn
+      Sie die Nachricht später fertigstellen wollen, wechseln Sie einfach zum
+      diesem Ordner, klicken auf die gespeicherte Nachricht und anschließend
+      auf "Fortführen".
     </para>
     <tip>
-      Je nachdem, wie Ihr System eingerichtet wurde, können Sie einstellen, ob
-      Sie nach dem Speichern des Entwurfs zum letzten Ordner oder zu der
-      Nachricht, die Sie gerade gespeichert haben, zurückkehren.
+      Wenn Sie einen Betreff angeben, bevor Sie die Nachricht speichern,
+      stellen Sie sicher, dass Sie die entsprechende Nachricht im dem Ordner
+      später problemlos wiederfinden.
     </tip>
     <para>
       "Nachricht verwerfen" beendet die Bearbeitung der Nachricht, ohne diese
-      zu speichern oder abzuschicken.
+      zu speichern oder abzuschicken, und Sie kehren ggf. zu dem Ordner zurück,
+      in dem Sie sich zuletzt befunden haben.
     </para>
   </entry>
-
-<entry id="compose-identity" state="uptodate" md5="6b2272c5440c753e783d000db88fea07">
+  <entry id="compose-identity" state="uptodate" md5="d25ad8c8f3c2c21aaa5ca1e7ae924c2f">
     <title>Neue Nachricht: Identität</title>
-    <heading>Identität</heading>
     <para>
       Wählen Sie aus der Auswahlliste eine Identität aus, die Sie unter
-      "Einstellungen-&gt;Persönliche Angaben" erstellt haben.
+      "Einstellungen-&gt;Persönliche Angaben" erstellt haben und mit der Sie
+      die Nachricht versenden möchten.
     </para>
   </entry>
-
-<entry id="compose-from" state="uptodate" md5="4395043c22323cc80d50709c5d20637e">
-    <title>Neue Nachricht: Von</title>
-    <heading>Von</heading>
-    <para>
-      Geben Sie die E-Mail-Adresse ein, die als Absender in der Nachricht
-      erscheinen soll.
-    </para>
-  </entry>
-
-<entry id="compose-to" state="uptodate" md5="31cba17f169572c367aa8014831eb8f8">
+  <entry id="compose-to" state="uptodate" md5="859e22e4635003e5f50d777b60141467">
     <title>Neue Nachricht: An</title>
-    <heading>An</heading>
     <para>
-      Hier geben Sie die Email-Adressen der Empfänger an. Wenn Sie mehrere
-      Adressen angeben möchten, müssen Sie diese durch Kommas trennen. Andere
-      Trennzeichen führen zu Fehlern.
+      Hier geben Sie die E-Mail-Adressen der Nachrichtenempfänger an.  Wenn Sie
+      mehrere Adressen angeben möchten, müssen Sie diese durch Kommas (,)
+      trennen.
     </para>
+    <warn>
+      Trennen Sie die Adressen NICHT duch Semikolons (;).
+    </warn>
   </entry>
-
-<entry id="compose-cc" state="uptodate" md5="97571433ab037ef9c4d101a56bf74e25">
+  <entry id="compose-cc" state="uptodate" md5="d85384e61b6a7f58b13eb4af4381d528">
     <title>Neue Nachricht: Cc</title>
-    <heading>Cc</heading>
     <para>
-      Hier können Sie die Email-Adressen von zusätzlichen Empfänger angeben,
+      Hier können Sie die E-Mail-Adressen von zusätzlichen Empfänger angeben,
       die eine Kopie (Carbon copy) der Nachricht erhalten sollen. Wenn Sie
       mehrere Adressen angeben möchten, müssen Sie diese durch Kommas
-      trennen. Andere Trennzeichen führen zu Fehlern.
+      trennen.
     </para>
+    <warn>
+      Trennen Sie die Adressen NICHT duch Semikolons (;).
+    </warn>
     <para>
       Dieses Feld verwendet man üblicherweise für Personen, die nicht zu den
-      eigentlichen Adressaten der Email gehören, aber z.B. indirekt von dem
-      Inhalt betroffen sind. Alle Empfänger, die in den Feldern "An" oder "Cc"
-      stehen, können die komplette Liste der Empfänger aus beiden Feldern
-      sehen.
+      eigentlichen Adressaten der E-Mail-Nachricht gehören, aber z.B.  indirekt
+      von dem Inhalt betroffen sind. Alle Empfänger, die in den Feldern "An:"
+      oder "Cc:" stehen, können die komplette Liste der Empfänger aus beiden
+      Feldern sehen.
     </para>
   </entry>
-
-<entry id="compose-bcc" state="uptodate" md5="aa8f9e2d44fdb74def0fa15240ff687b">
+  <entry id="compose-bcc" state="uptodate" md5="2cf1b9bc62e0defff7702bdd5b92c265">
     <title>Neue Nachricht: Bcc</title>
-    <heading>Bcc</heading>
     <para>
-      Hier können Sie die Email-Adressen von zusätzlichen Empfänger angeben,
+      Hier können Sie die E-Mail-Adressen von zusätzlichen Empfänger angeben,
       die eine Blindkopie (Blind carbon copy) der Nachricht erhalten
-      sollen. Wenn Sie mehrere Adressen angeben möchten, müssen Sie diese
-      durch Kommas trennen. Andere Trennzeichen führen zu Fehlern.
+      sollen. Wenn Sie mehrere Adressen angeben möchten, müssen Sie diese durch
+      Kommas trennen.
     </para>
+    <warn>
+      Trennen Sie die Adressen NICHT duch Semikolons (;).
+    </warn>
     <para>
-      Damit haben Sie die Möglichkeit, eine Kopie der Nachricht an weitere
-      außer den direkten und indirekten Adressaten zu schicken, OHNE dass
-      diese davon erfahren, auch nicht die "Bcc"-Empfänger untereinander. Die
-      Adressen in dem "Bcc"-Feld können nur Sie und die entsprechenden
-      Empfänger sehen.
+      Blindkopien werden üblicherweise für Empfänger verwendet, die den Inhalt
+      der Nachricht sehen sollen, OHNE dass die anderen Empfänger davon
+      erfahren. "Blind" bedeutet in diesem Zusammenhang, dass die Identität
+      dieses Empfängers vor allen anderen Empfängern verborgen bleibt. Nur Sie
+      (als der Absender) und die einzelnen "Bcc"-Empfänger erfahren, dass diese
+      eine Kopie erhalten haben.
     </para>
   </entry>
-
-<entry id="compose-subject" state="uptodate" md5="0639a8790e306acc9e19b4d1ce342d53">
+  <entry id="compose-subject" state="uptodate" md5="76400c3f7fce3964197b2fb37b305804">
     <title>Neue Nachricht: Betreff</title>
-    <heading>Betreff</heading>
     <para>
-      Hier können Sie den Betreff, das Thema der Nachricht
-      angeben. Formulieren Sie den Betreff kurz, einfach und
-      aussagekräftig. Anhand der Betreffzeile können Sie und Ihre
-      Korrespondenzpartner am einfachsten erkennen, welchen Inhalt die
-      Nachricht hatte bzw. hat. Dadurch lassen sich eingegangene Nachrichten
-      leichter organisieren und später einfacher wiederfinden.
+      Hier können Sie den Betreff, das Thema der Nachricht angeben.
+      Formulieren Sie den Betreff kurz, einfach und aussagekräftig. Anhand der
+      Betreffzeile können Sie und Ihre Korrespondenzpartner am einfachsten
+      erkennen, welchen Inhalt die Nachricht hatte bzw. hat. Dadurch lassen
+      sich eingegangene Nachrichten leichter organisieren und später einfacher
+      wiederfinden.
     </para>
     <para>
       Wenn Sie auf Nachrichten antworten oder diese weiterleiten, bleibt der
       Betreff erhalten, so dass man leicht sehen kann, welche Nachrichten zu
-      einem Diskussionsfaden gehören. Allerdings sollten Sie den Betreff auch
-      entsprechend ändern, wenn sich der Diskussionsverlauf geändert hat.
-    </para>
-  </entry>
-
-<entry id="compose-charset" state="uptodate" md5="c2c878070445af81407da5bfc4083ea3">
-    <title>Neue Nachricht: Zeichensatz</title>
-    <heading>Zeichensatz</heading>
-    <para>Hier können Sie den Zeichensatz auswählen, der für die Nachricht
-    verwendet werden soll, die Sie verschicken möchten.</para>
-  </entry>
-
-<entry id="compose-options" state="uptodate" md5="5f1d50a733c8b7e46aecece28822ff70">
-    <title>Neue Nachricht: Einstellungen</title>
-    <heading>Einstellungen</heading>
-    <para>
-      Diese Einstellungen bieten zusätzliche Funktionen für das Erstellen von
-      Nachrichten.
-    </para>
-    <para>
-      Klicken Sie auf "Rechtschreibung", um den Nachrichtentext auf korrekte
-      Rechtschreibung zu überprüfen.
-    </para>
-    <para>
-      Wenn Sie auf "Anhänge" klicken, wird das Fenster weiter nach unten
-      gescrollt, wo Sie der Nachricht Anhänge hinzufügen können.
-    </para>
-    <para>
-      Je nachdem, wie Ihr System eingerichtet ist, erscheint ein Feld "Eine
-      Kopie speichern".  Wenn Sie dieses Feld markieren, wird nach dem
-      Versenden der Nachricht eine Kopie in dem Ordner gespeichert, den Sie
-      für diesen Zweck unter "Einstellungen-&gt;Persönliche
-      Angaben-&gt;Identitäten" ausgewählt haben. Falls ein entsprechendes
-      Auswahlfeld vorhanden ist, können Sie aber auch einen anderen Ordner
-      daraus auswählen.
-    </para>
-    <para>
-      Sie können mit dieser Funktion wichtige Nachrichten speichern, damit Sie
-      später ggf. darauf zurückgreifen können. Sie können in Ihren Identitäten
-      unter "Einstellungen-&gt;Persönliche Angaben-&gt;Identitäten bearbeiten"
-      festlegen, dass diese Funktion standardmäßig aktiviert sein soll. In den
-      Einstellungen haben Sie auch die Möglichkeit Wartungsarbeiten
-      einzurichten, die diesen Ordner regelmäßig leeren oder umbenennen.
-    </para>
-    <warn>
-      Sie sollten allerdings nicht alle gesendeten Nachrichten speichern, da
-      sonst die Speicherplatzbegrenzung Ihres Postfaches ausgeschöpft werden
-      könnte (insbesondere beim Versenden von größeren Dateien) und Sie dann
-      keine weiteren Nachrichten mehr empfangen können.
-    </warn>
-  </entry>
-
-<entry id="compose-attachments" state="uptodate" md5="c61d86cfad0842f122278366bb2804b0">
-    <title>Neue Nachricht: Anhänge hinzufügen</title>
-    <heading>Anhänge hinzufügen</heading>
-    <para>
-      Sie können beliebige Dateien zu Ihrer Nachricht als Anhang
-      hinzufügen. Dabei müssen Sie jede Datei einzeln anhängen.
-    </para>
-    <para>
-      Schritt 1: Geben Sie entweder den Namen der Datei, die Sie anhängen
-      möchten, mit dem vollständigen Pfad in das Textfeld ein, oder klicken
-      Sie auf "Durchsuchen..." und wählen Sie die entsprechende
-      Datei aus. Dann wird der Pfad und der Name dieser Datei automatisch in
-      das Textfeld eingefügt. Falls Ihr Browser JavaScript unterstützt,
-      erscheint außerdem ein weiteres Feld, so dass Sie mehrere Dateien auf
-      einmal hochladen und anhängen können.
-    </para>
-    <para>
-      Schritt 2: Entscheiden Sie, ob die Datei als Anhang oder innerhalb der
-      Nachricht angezeigt werden soll. Dazu muss das Email-Programm des
-      Empfängers allerdings in der Lage sein, Dateien innerhalb der Nachricht
-      anzuzeigen, sonst wird die Datei ganz normal als Anhang dargestellt.
-    </para>
-    <para>
-      Falls Sie nicht die Beschreibung des Anhangs ändern möchten, sind Sie
-      damit fertig. Die Anhänge werden hochgeladen, wenn Sie die Nachricht
-      abschicken. Falls Sie aber doch die Beschreibung oder die Einstellung,
-      ob die Anhänge innerhalb der Nachricht angezeigt werden sollen,  ändern
-      möchten, klicken Sie auf den "Aktualisierung"-Knopf, um damit die Anhänge
-      sofort hochzuladen, und alle anderen Änderungen, die sie an bereits
-      vorhandenen Anhängen vorgenommen haben, zu speichern.
+      einer längeren Diskussion gehören.
     </para>
     <tip>
-      Je nachdem, wie groß der Anhang und wie schnell Ihre Internetverbindung
-      ist, kann es eine Weile dauern, bis die Datei übertragen ist. Bitte
-      klicken Sie in dieser Zeit auf keine anderen Schaltflächen.
+      Wenn eine beantwortete oder weitergeleitete Nachricht neue Ideen
+      aufgreift oder sich das Thema ändert, sollten sie gegebenenfalls den
+      Betreff ändern. Damit lässt sich der Diskussionsverlauf für alle
+      Beteiligten leichter verfolgen, und es wird auf einen Blick sichtbar,
+      dass sich das Thema seit dem Diskussionsbeginn geändert hat.
     </tip>
   </entry>
-
-<entry id="compose-current-attachments" state="uptodate" md5="1dac09e0dba4d062ec6a4f82718956b7">
-    <title>Neue Nachricht: Aktuelle Anhänge</title>
-    <heading>Aktuelle Anhänge</heading>
+  <entry id="compose-spellcheck" state="uptodate" md5="caf852dff957650ca90e0f082dd589ee">
+    <title>Neue Nachricht: Rechtschreibprüfung</title>
+    <warn>
+      Diese Aktion steht unter Umständen nicht zur Verfügung, falls sie von
+      Ihrem Administrator deaktiviert wurde.
+    </warn>
     <para>
-      In dieser Liste befinden sich alle Anhänge, die Sie bereits vorgemerkt
-      haben.
-    </para>
-    <heading>Anhänge Löschen</heading>
-    <para>
-       Um einen Anhang wieder zu entfernen, gehen Sie bitte wie folgt vor:
-    </para>
-    <para>
-      Schritt 1: Markieren Sie alle Anhänge, die Sie entfernen möchten, durch
-      das Aktivieren des Kästchens hinter "Löschen?".
-    </para>
-    <para>
-      Schritt 2: Klicken Sie entweder auf den "Aktualisierung"-Knopf oberhalb
-      des Bereichs mit den aktuellen Anhängen, um die Änderungen sofort
-      vorzunehmen. Anderenfalls werden die Änderungen beim Versenden der
-      Nachricht durchgeführt.
-    </para>
-    <heading>Ändern der Einbindungsart</heading>
-    <para>
-       Um die Einbindung für Anhänge zu ändern, gehen Sie bitte wie folgt vor:
-    </para>
-    <para>
-      Schritt 1: Ändern Sie die Einbindung für die Anhänge wie gewünscht,
-      entweder zu "Anhang" oder zu "Im Text".
-    </para>
-    <para>
-      Schritt 2: Klicken Sie entweder auf den "Aktualisierung"-Knopf oberhalb
-      des Bereichs mit den aktuellen Anhängen, um die Änderungen sofort
-      vorzunehmen. Anderenfalls werden die Änderungen beim Versenden der
-      Nachricht durchgeführt.
-    </para>
-    <heading>Ändern der Beschreibung</heading>
-    <para>
-       Um die Beschreibung der Anhänge zu ändern, gehen Sie bitte wie folgt
-       vor:
-    </para>
-    <para>
-      Schritt 1: Geben Sie eine Beschreibung in das entsprechende Textfeld
-      ein.
-    </para>
-    <para>
-      Schritt 2: Klicken Sie entweder auf den "Aktualisierung"-Knopf oberhalb
-      des Bereichs mit den aktuellen Anhängen, um die Änderungen sofort
-      vorzunehmen. Anderenfalls werden die Änderungen beim Versenden der
-      Nachricht durchgeführt.
+      Klicken Sie auf "Rechtschreibprüfung", um die Rechtschreibung Ihres
+      Textes zu überprüfen. Falsch geschriebene Wörter werden in Rot und
+      unterstrichen dargestellt. Wenn Sie auf diese Wörter klicken, wird eine
+      Liste von möglichen Alternativen angezeigt. Klicken Sie auf die richtige
+      Alternative, um das falsch greschriebene Wort zu ersetzen, oder klicken
+      Sie an eine andere Stelle, um die Liste zu schließen. Klicken Sie auf
+      "Bearbeiten fortführen", um die Rechtschreibprüfung zu beenden und Ihre
+      Nachricht weiter zu bearbeiten.
     </para>
   </entry>
-
-<entry id="compose-priority" state="uptodate" md5="b023367c36de3ce1567d27ccaa45640c">
+  <entry id="compose-sentmail" state="uptodate" md5="1296b510cd32ec0886b983eca924fc0e">
+    <title>Neue Nachricht: Gesendete Nachrichten Speichern</title>
+    <warn>
+      Diese Aktion steht unter Umständen nicht zur Verfügung, falls Sie von
+      Ihrem Administrator deaktiviert wurde.
+    </warn>
+    <para>
+      Um eine Kopie Ihrer gesendeten Nachricht zu behalten, markieren Sie das
+      Kästchen neben "Speichern in". Der Zielordner ist auf den Ordner
+      voreingestellt, den Sie zu diesem Zweck unter
+      "Benutzereinstellungen-&gt;Persönliche Angaben" bestimmt haben. Unter
+      Umständen hat Ihr Administrator auch erlaubt, einen anderen Zielordner
+      aus einer Auswahlliste direkt neben dieser Einstellung auszuwählen.
+    </para>
+    <para>
+      Kopien von wichtigen E-Mail-Nachrichten zu behalten kann hilfreich sein,
+      um später den Verlauf einer Unterhaltung nachzuvollziehen. Diese Funktion
+      kann unter "Benutzereinstellungen-&gt;Persönliche Angaben" standardmäßig
+      aktiviert werden. In Ihren Benutzereinstellungen können Sie außerdem
+      regelmäßige Wartungsarbeiten zum Leeren oder Umbenennen dieser Ordner
+      einrichten.
+    </para>
+    <tip>
+      Sie sollten unter Umständen nicht jede gesendete Nachricht speichern, um
+      nicht in Gefahr zu laufen, eine Speicherplatzbegrenzung zu schnell zu
+      überschreiten, insbesondere wenn Sie große Anhänge verschicken. Wenn Ihr
+      Speicherplatzkontingent ausgeschöpft ist, können Sie keine neuen
+      Nachrichten mehr erhalten.
+    </tip>
+  </entry>
+  <entry id="compose-priority" state="uptodate" md5="d2ef446bfe2c72c95ed4f4d092058de8">
     <title>Neue Nachricht: Priorität</title>
-    <heading>"Priorität"</heading>
     <para>
-      Damit können Sie den "X-Priority-Eintrag" und damit die Wichtigkeit
-      Ihrer Nachricht festlegen. Dieser Eintrag ist ein Quasi-Standard, der
-      offensichtlich von Netscape, Mozilla, Opera und Outlook verstanden
-      wird. Emailprogramme, die diesen Eintrag nicht kennen, ignorieren ihn
-      einfach.
+      Damit können Sie die Wichtigkeit Ihrer Nachricht festlegen. Dieser
+      Prioritätsmarker ist ein Quasi-Standard, der von den wichtigsten
+      E-Mail-Programmen verstanden wird. E-Mail-Programme, die diesen Eintrag
+      nicht kennen, ignorieren ihn einfach.
     </para>
   </entry>
-
-<entry id="compose-save-attachments" state="uptodate" md5="db89972c4ebb0b41ab691b6a7744a81d">
-    <title>Neue Nachricht: Anhänge Speichern</title>
-    <para>
-      Hiermit können Sie festlegen, ob Anhänge, die Sie der Nachricht
-      hinzugefügt haben, zusammen mit dieser Nachricht in Ihrem Ordner für
-      gesendete Nachrichten gespeichert werden. Wenn Sie "Ja" auswählen,
-      werden die Anhänge mit gespeichet. Wählen Sie "Nein", werden die Anhäge
-      aus der Nachricht entfernt, nachdem diese an die Empfänger versendet
-      wurde. "Nein" auszuwählen hilft Speicherplatz zu sparen, weil
-      möglicherweise recht große Dateien nicht mit den gesendeten Nachrichten
-      gespeichert werden.
-    </para>
-  </entry>
-
-<entry id="compose-link-attachments" state="uptodate" md5="63b3841c95aed31b5372f0fa770ee382">
-    <title>Neue Nachricht: Anhänge Verlinken</title>
-    <para>
-      Legt fest, ob Anhänge, die Sie beim Schreiben Ihrer Nachricht angeben,
-      als Teil der Nachricht verschickt werden oder auf dem Server
-      verbleiben. Wenn Sie die Anhäge nur verlinkt verschicken, erhält der
-      Empfänger der Nachricht ein oder mehrere Links, über die Ihre Anhänge
-      heruntergeladen werden können. Der Vorteil von verlinkten Anhängen
-      besteht darin, dass die Größe der versendeten Nachrichten deutlich
-      reduziert wird. Der Nachteil ist, dass nicht garantiert werden kann,
-      dass der Anhang auf alle Zeit verfügbar sein wird, weil die Anhänge
-      nicht in die Nachricht eingebettet sind.
-    </para>
-  </entry>
-
-<entry id="folder-options" state="uptodate" md5="08ee3e450a82431727763b9db082ec08">
-    <title>Ordner Navigation: Aktionen</title>
-    <para>
-      Markieren Sie erst alle Ordner, mit denen Sie eine Aktion durchführen
-      möchten, an den Kästchen vor den Ordnernamen. Anschließend können Sie
-      aus der Auswahlliste die entsprechende Aktion wählen.
-    </para>
-    <heading>Erstellen</heading>
-    <para>
-      Erstellt einen Ordner, falls möglich. Um einen Order in der obersten
-      Ebene zu erstellen, wählen sie "Erstellen" aus, ohne zuvor
-      einen Ordner zu markieren. Wenn Sie einen Unterordner erstellen möchten,
-      markieren Sie zuerst den Ordner, unter dem der neue Order erstellt
-      werden soll.
-    </para>
-    <heading>Umbenennen</heading>
-    <para>
-      Benennt einen Ordner um. Um Ordner umzubennen, markieren Sie zunächst
-      die gewünschten Ordner und wählen Sie dann "Umbenennen"
-      aus. Beim Umbenennen bleiben alle Unterordner erhalten.
-    </para>
-    <heading>Löschen</heading>
-    <para>
-      Löscht einen Ordner und alle darin enthaltenen Nachrichten. Sie müssen
-      die Ordner, die Sie löschen möchten, markieren und anschließend
-      "Löschen" auswählen. Beim Löschen eines Ordner werden die Unterordner
-      nicht automatisch mitgelöscht. Wählen Sie die Unterordner zusätzlich
-      aus, um diese auch zu löschen.
-    </para>
-    <heading>Leeren</heading>
-    <para>
-      Um alle Nachrichten in einem Ordner, aber nicht den Ordner selbst zu
-      löschen, markieren Sie die entsprechenden Ordner und wählen Sie
-      "Leeren".
-    </para>
-    <heading>Aufräumen</heading>
-    <para>
-      Um alle Nachrichten, die in einem Ordner als gelöscht markiert sind,
-      endgültig zu entfernen, markieren Sie die entsprechenden Ordner und
-      wählen Sie "Aufräumen". Die Aktion steht nicht zur Verfügung,
-      wenn Sie einen Papierkorb-Ordner verwenden.
-    </para>
-    <heading>Einblenden/Ausblenden</heading>
-    <para>
-      Markiert einen Ordner, so dass er zum Beispiel in den Auswahllisten
-      angezeigt oder ausgeblendet wird. Diese Aktionen stehen nur Verfügung,
-      wenn Sie IMAP Ordnerabonnements verwenden.
-    </para>
-    <para>
-      Markieren Sie die gewünschten Ordner und wählen Sie "Einblenden", um
-      diese anzuzeigen, oder "Ausblenden", um diese zu verstecken.
-    </para>
-    <heading>(Nicht) auf neue Nachrichten überpüfen</heading>
-    <para>
-      Markiert einen Ordner, so dass er mit einbezogen wird, wenn im linken
-      Menü (falls angezeigt) oder in der Ordner Navigation neue Nachrichten
-      gemeldet werden.
-    </para>
-    <para>
-      Markieren Sie die gewünschten Ordner und wählen Sie "Auf neue
-      Nachrichten überprüfen", um diese mit einzubeziehen, oder
-      "Nicht auf neue Nachrichten überprüfen", um diese nicht mit
-      einzubeziehen.
-    </para>
-    <heading>Alle Nachrichten als gelesen/ungelesen markieren</heading>
-    <para>
-      Um alle Nachrichten in einem Order als gelesen zu markieren, wählen Sie
-      die entsprechenden Ordner und dann "Alle Nachrichten als gelesen
-      markieren" aus. Um sie als ungelesen zu markieren wählen Sie
-      "Alle Nachrichten als ungelesen markieren" aus.
-    </para>
-    <heading>Herunterladen</heading>
-    <para>
-      Um alle Nachrichten in einem Ordner in einer einzigen Datei im
-      Mbox-Format herunterzuladen, markieren Sie den gewünschten Ordner und
-      wählen Sie "Herunterladen". Wenn die Datei zusätzlich als
-      ZIP-Datei komprimiert werden soll, wählen Sie stattdessen "Als
-      ZIP-Datei herunterladen" aus.
-    </para>
-    <heading>Nachrichten importieren</heading>
-    <para>
-      Mit dieser Aktion können Sie eine Datei im Mbox- oder .eml-Format in
-      einen beliebigen Ordner importieren. Markieren Sie dazu einen Ordner und
-      wählen Sie anschließend diese Aktion aus der Auswahlliste aus. Sie
-      gelangen danach auf eine andere Seite, auf der Sie die zu importierende
-      Mbox- oder .eml-Datei auswählen können.
-    </para>
-    <heading>Ordnerbaum neu aufbauen</heading>
-    <para>
-      Baut die graphische Darstellung der Ordnerstruktur neu auf, indem die
-      Ordnerliste erneut vom Mailserver abgefragt wird. Dies ist in der Regel
-      nur notwendig, falls Sie auf den Mailserver gleichzeitig mit einem
-      anderen Emailprogramm zugreifen und die Ordnerstruktur geändert haben.
-    </para>
-    <heading>Ausgeblendete Ordner anzeigen/verstecken</heading>
-    <para>
-      Versteckt oder zeigt ausgeblendete Ordner an, wenn Sie IMAP
-      Ordnerabonnements verwenden. Markieren Sie die gewünschten Ordner und
-      wählen Sie in der Auswahlliste "Einblenden", um diese anzuzeigen, oder
-      "Ausblenden", um diese zu verstecken.
-    </para>
-    <heading>Alle öffnen</heading>
-    <para>
-      Alle Ordnereinträge, die Unterordner enthalten, werden aufgeklappt.
-    </para>
-    <heading>Alle schließen</heading>
-    <para>
-      Alle Ordnereinträge, die Unterordner enthalten, werden zugeklappt.
-    </para>
-  </entry>
-
-<entry id="filters" state="uptodate" md5="5ef60786767e638fbf5ba8fc5bd5d9d2">
-    <title>Filterregeln: Anwenden</title>
-    <para>
-      Wenn Sie auf das Filtersymbol neben dem Ordnernamen klicken, während
-      sich in einem Ordner befinden, werden alle ungelöschten Nachrichten
-      gemäß der Regeln, die Sie festgelegt haben, gefiltert.
-    </para>
-  </entry>
-
-<entry id="filter-edit-rules" state="uptodate" md5="5baa5708ac9449e797f967313a9e1a27">
+  <entry id="filter-edit-rules" state="uptodate" md5="ed0e2cd7f4dfb9fe50a98c564a76f0ad">
     <title>Filterregeln: Filterregeln bearbeiten</title>
-    <heading>Filterregeln bearbeiten</heading>
     <para>
       Klicken Sie auf "Filterregeln bearbeiten", um zu der Seite zu gelangen,
-      auf der Sie Filterregeln hinzufügen, löschen und bearbeiten können.
+      auf der Sie Filterregeln hinzufügen, löschen und bearbeiten
+      können.
     </para>
   </entry>
-
-<entry id="filter-edit-blacklist" state="uptodate" md5="80ff7803c66599c7035f7f8811d218cc">
+  <entry id="filter-edit-blacklist" state="uptodate" md5="25c5c6cf045c70960dc95c9813ec1171">
     <title>Filterregeln: Ausschlussliste bearbeiten</title>
-    <heading>Ausschlussliste bearbeiten</heading>
     <para>
       Klicken Sie auf "Ausschlussliste bearbeiten", um zu der Seite zu
-      gelangen, auf der Sie die Liste der Emailadressen bearbeiten können, von
-      den Sie NIE Nachrichten erhalten möchten.
+      gelangen, auf der Sie die Liste der E-Mail-Adressen bearbeiten können,
+      deren Nachrichten Sie NIE erhalten möchten.
     </para>
   </entry>
-
-<entry id="filter-edit-whitelist" state="uptodate" md5="330c3a8fad198c7afe855c101c63cd0f">
+  <entry id="filter-edit-whitelist" state="uptodate" md5="213c6258253919088a3cbc76495473b5">
     <title>Filterregeln: Positivliste bearbeiten</title>
-    <heading>Positivliste bearbeiten</heading>
     <para>
       Klicken Sie auf "Positivliste bearbeiten", um zu der Seite zu gelangen,
-      auf der Sie die Liste der Emailadressen bearbeiten können, deren
+      auf der Sie die Liste der E-Mail-Adressen bearbeiten können, deren
       Nachrichten Sie IMMER annehmen möchten.
     </para>
   </entry>
-
-<entry id="filter-on-login" state="uptodate" md5="37d9297d1cca46435e36b6e38e45dcdb">
-    <title>Filterregeln: Filtern bei der Anmeldung</title>
-    <heading>Filterregeln bei der Anmeldung anwenden?</heading>
-    <para>
-      Markieren Sie dieses Kästchen, falls die Filterregeln immer angewendet
-      werden sollen, wenn Sie sich anmelden.
-    </para>
-  </entry>
-
-<entry id="filter-on-display" state="uptodate" md5="f5afc305402ef52bad108933f3f33291">
+  <entry id="filter-on-display" state="uptodate" md5="9c6208b9b6f9df77c60778c565f897a7">
     <title>Filterregeln: Filtern beim Aktualisieren</title>
-    <heading>Filterregeln anwenden, wenn der Posteingang angezeigt
-      wird?</heading>
     <para>
       Markieren Sie dieses Kästchen, falls die Filterregeln immer angewendet
-      werden sollen, wenn Sie sich den Posteingang (INBOX) anzeigen lassen.
+      werden sollen, wenn Sie sich den Posteingang anzeigen lassen.
     </para>
   </entry>
-
-<entry id="filter-any-mailbox" state="uptodate" md5="71c51e83909f9d0bd440d220772ee3c6">
+  <entry id="filter-any-mailbox" state="uptodate" md5="c89004a1ef14f8a875ebf02f25727934">
     <title>Filterregeln: Alle Ordner filtern</title>
-    <heading>Anwendung der Filterregeln in allen Ordnern?</heading>
     <para>
       Markieren Sie diese Auswahl, wenn Sie die Filterregeln in allen Ordner
       anwenden können möchten. Normalerweise werden Filterregeln nur auf neue
       Nachrichten im Posteingang angewendet. Wenn die Einstellung aktiviert
       ist, erscheint in allen Ordnern ein Symbol, das Ihnen erlaubt, die
-      Filterregeln auf alle Nachrichten in diesem Ordner anzuwenden. ACHTUNG:
+      Filterregeln auf alle Nachrichten in diesem Ordner anzuwenden.
+    </para>
+    <tip>
       Filtern in anderen Ordnern als dem Posteingang kann zu seltsamen
       (z.B. kann der Filter Kopien von Nachrichten in dem Ordner erzeugen)
       und/oder unerwünschten Resultaten (z.B. können Nachrichten verschoben
-      oder gelöscht werden, wenn neue Filterregeln angelegt wurden, nachdem
-      die Nachrichten in den Ordner gelangten) führen.
-    </para>
+      oder gelöscht werden, wenn neue Filterregeln angelegt wurden, nachdem die
+      Nachrichten in den Ordner gelangten) führen.
+    </tip>
   </entry>
-
-<entry id="pgp-compose-attach-pubkey" state="uptodate" md5="97446dbbb27616b4fa39be801e10df2d">
+  <entry id="pgp-compose-attach-pubkey" state="uptodate" md5="a3ea551d25b0e4f9e131ca1415153def">
     <title>PGP: Öffentlichen Schlüssel Anhängen</title>
-    <heading>Öffentlichen Schlüssel Anhängen</heading>
     <para>
       Wenn diese Einstellung aktiviert ist, wird Ihr öffentlicher
-      PGP-Schlüssel, sofern einer existiert, an ausgehende Nachrichten
-      gehängt. Sie können das Standardverhalten in den PGP-Einstellungen
+      PGP-Schlüssel, sofern einer existiert, an ausgehende Nachrichten gehängt.
+      Sie können das Standardverhalten in den PGP-Einstellungen
       festlegen.
     </para>
   </entry>
-
-<entry id="pgp-option-scan-body" state="uptodate" md5="6baaada0d46dc1ab0941087f235f359b">
+  <entry id="pgp-option-scan-body" state="uptodate" md5="2ea8b36f6d77ea92258afd8e1950b839">
     <title>PGP: Im Nachrichteninhalt Suchen</title>
-    <heading>Im Nachrichteninhalt Suchen</heading>
     <para>
       Wenn diese Einstellung aktiviert ist, werden die Texte aller Nachrichten
       nach PGP-Daten durchsucht, und diese gegebenenfalls angezeigt. Beachten
       Sie, dass dies zu einer Verlangsamung des System führen kann, weil jede
-      einzelne Nachricht komplett nach den PGP-Daten durchsucht werden muss.
+      einzelne Nachricht komplett nach den PGP-Daten durchsucht werden
+      muss. Hierbeit handelt es sich um ein veraltetes Format zum Versenden von
+      PGP-Nachrichten - die meisten E-Mail-Programme verwenden mittlerweile ein
+      modernes Format, mit dem es nicht mehr nötig ist, den gesamten
+      Nachrichtentext zu durchsuchen.
     </para>
   </entry>
-
-<entry id="pgp-option-reply-pubkey" state="uptodate" md5="9eeec8178d39bd61ecbd74d175179587">
+  <entry id="pgp-option-reply-pubkey" state="uptodate" md5="758623ecc4eabd8f0e0a9057e2b3a71e">
     <title>PGP: Öffentliche Schlüssel Beim Beantworten Überprüfen</title>
-    <heading>Öffentliche Schlüssel Beim Beantworten Überprüfen</heading>
     <para>
       Wenn diese Einstellung und die standardmäßige PGP-Verschlüsselung beim
       Erstellen neuer Nachrichten aktiviert sind, wird schon beim Aufrufen des
@@ -555,44 +244,44 @@
       dem Abschicken Ihrer Antwort sehen können, ob die Verschlüsselung der
       Nachricht für alle Empfänger wie gewünscht erfolgen kann.
     </para>
-</entry>
-
-<entry id="compose-options-encrypt" state="uptodate" md5="78ff9bd91687efb91d2798ca0458b5cb">
+  </entry>
+  <entry id="compose-options-encrypt" state="uptodate" md5="9ded3c9c3d1d0e938ea6f649c68065d3">
     <title>Neue Nachricht: Verschlüsselungseinstellungen</title>
     <heading>Keine Verschlüsselung</heading>
     <para>
-      Die Nachricht wird ohne Verschlüsselung, also im Klartext versendet.
+      Die Nachricht wird ohne Verschlüsselung, also im Klartext
+      versendet.
     </para>
     <heading>Verschlüsseln (PGP)</heading>
     <para>
       Mit dieser Einstellung wird die Nachricht mit dem öffentlichen
       persönlichen Schlüssel des Empfängers per PGP verschlüsselt und dann
-      versendet. Sie MÜSSEN den öffentlichen Schlüssel des Empfängers
-      in Ihrem Adressbuch haben, wenn diese Einstellung funktionieren
-      soll. Wenn Sie Fehlermeldungen erhalten, obwohl sich der öffentliche
-      Schlüssel des Empfängers in Ihrem Adressbuch befindet, überprüfen Sie,
-      ob die Emailadresse im "An"-Feld genau mit der Adresse übereinstimmt,
-      unter der der Schlüssel gespeichert ist. Die verschlüsselten Daten
-      werden an die ausgehende Nachricht angehängt.
+      versendet. Sie MÜSSEN den öffentlichen Schlüssel des Empfängers in Ihrem
+      Adressbuch haben, wenn diese Einstellung funktionieren soll. Wenn Sie
+      Fehlermeldungen erhalten, obwohl sich der öffentliche Schlüssel des
+      Empfängers in Ihrem Adressbuch befindet, überprüfen Sie, ob die
+      E-Mail-Adresse im Empfängerfeld mit der Adresse übereinstimmt, unter der
+      der Schlüssel gespeichert ist. Die verschlüsselten Daten werden an die
+      ausgehende Nachricht angehängt.
     </para>
     <heading>Unterzeichnen (PGP)</heading>
     <para>
-      Mit dieser Einstellung wird die Nachricht mit Ihrem persönlichen
-      privaten Schlüssel per PGP digital unterschrieben. Wenn Sie während der
-      aktuellen Sitzung Ihr Passwort noch nicht angegeben haben, werden Sie
-      dazu aufgefordert. Der Empfänger muss eine Kopie Ihres öffentlichen
-      Schlüssels besitzen, um Ihre Unterschrift überprüfen zu können.
+      Mit dieser Einstellung wird die Nachricht mit Ihrem persönlichen privaten
+      Schlüssel per PGP digital unterschrieben. Wenn Sie während der aktuellen
+      Sitzung Ihr Passwort noch nicht angegeben haben, werden Sie dazu
+      aufgefordert. Der Empfänger muss eine Kopie Ihres öffentlichen Schlüssels
+      besitzen, um Ihre Unterschrift überprüfen zu können.
     </para>
     <heading>Unterzeichnen und verschlüsseln (PGP)</heading>
     <para>
-      Mit dieser Einstellung wird die Nachricht erst digital unterschrieben
-      und das Ergebnis anschließend verschlüsselt. Siehe die Einträge
+      Mit dieser Einstellung wird die Nachricht erst digital unterschrieben und
+      das Ergebnis anschließend verschlüsselt. Beachten Sie die Abschnitte
       "Verschlüsseln (PGP)" und "Unterzeichnen (PGP)" für weitere
       Informationen.
     </para>
     <heading>Mit Passwort verschlüsseln (PGP)</heading>
     <para>
-      Mit dieser Einstellung wird die Nachricht mit Passwort per PGP
+      Mit dieser Einstellung wird die Nachricht per PGP mit einem Passwort
       verschlüsselt und dann versendet. Sie werden zur Eingabe des Passworts
       aufgefordert, das für die Verschlüsselung verwendet werden soll. Teilen
       Sie das Passwort dem Empfänger über einen sicheren Kanal z.B. persönlich
@@ -601,9 +290,9 @@
     </para>
     <heading>Unterzeichnen und mit Passwort verschlüsseln (PGP)</heading>
     <para>
-      Mit dieser Einstellung wird die Nachricht erst digital unterschrieben
-      und das Ergebnis anschließend mit einem Passwort verschlüsselt. Siehe
-      die Einträge "Mit Passwort verschlüsseln (PGP)" und "Unterzeichnen
+      Mit dieser Einstellung wird die Nachricht erst digital unterschrieben und
+      das Ergebnis anschließend mit einem Passwort verschlüsselt. Beachten Sie
+      die Abschnitte "Mit Passwort verschlüsseln (PGP)" und "Unterzeichnen
       (PGP)" für weitere Informationen.
     </para>
     <heading>Verschlüsseln (S/MIME)</heading>
@@ -611,36 +300,36 @@
       Mit dieser Einstellung wird die Nachricht mit dem Zertifikat des
       Empfängers per S/MIME verschlüsselt und dann versendet. Sie MÜSSEN das
       Zertifikat des Empfängers in Ihrem Adressbuch haben, wenn diese
-      Einstellung funktionieren soll. Wenn Sie Fehlermeldungen erhalten,
-      obwohl sich das Zertifikat des Empfängers in Ihrem Adressbuch befindet,
-      überprüfen Sie, ob die Emailadresse im "An"-Feld genau mit der Adresse
-      übereinstimmt, unter der das Zertifikat gespeichert ist. Die
-      verschlüsselten Daten werden an die ausgehende Nachricht angehängt.
+      Einstellung funktionieren soll. Wenn Sie Fehlermeldungen erhalten, obwohl
+      sich das Zertifikat des Empfängers in Ihrem Adressbuch befindet,
+      überprüfen Sie, ob die E-Mail-Adresse im Empfängerfeld genau mit der
+      Adresse übereinstimmt, unter der das Zertifikat gespeichert ist. Die
+      verschlüsselten Daten werden an die ausgehende Nachricht
+      angehängt.
     </para>
     <heading>Unterzeichnen (S/MIME)</heading>
     <para>
-      Mit dieser Einstellung wird die Nachricht mit Ihrem Zertifikat per
-      S/MIME digital unterschrieben. Wenn Sie während der aktuellen Sitzung
-      Ihr Passwort noch nicht angegeben haben, werden Sie dazu aufgefordert.
+      Mit dieser Einstellung wird die Nachricht mit Ihrem Zertifikat per S/MIME
+      digital unterschrieben. Wenn Sie während der aktuellen Sitzung Ihr
+      Passwort noch nicht angegeben haben, werden Sie dazu aufgefordert.
     </para>
     <heading>Unterzeichnen und verschlüsseln (S/MIME)</heading>
     <para>
-      Mit dieser Einstellung wird die Nachricht erst digital unterschrieben
-      und das Ergebnis anschließend verschlüsselt. Siehe die Einträge
+      Mit dieser Einstellung wird die Nachricht erst digital unterschrieben und
+      das Ergebnis anschließend verschlüsselt. Beachten Sie die Abschnitte
       "Verschlüsseln (S/MIME)" und "Unterzeichnen (S/MIME)" für weitere
       Informationen.
     </para>
   </entry>
-
-<entry id="pgp-overview" state="uptodate" md5="24b5138b4b53f73b5f2f2739e4c1858d">
+  <entry id="pgp-overview" state="uptodate" md5="70c98866d308d4eb29ac844d04262b92">
     <title>PGP: Übersicht</title>
     <heading>Was ist PGP?</heading>
     <para>
       PGP ist ein Werkzeug zur sicheren Kommunikation und Datenspeicherung,
-      insbesondere für den Emailverkehr und kann zum Verschlüsseln von Daten
-      und zur Erstellung digitaler Unterschriften verwendet werden. Hier wird
-      GnupPG (GNU Privacy Guard) verwendet, um diese Funkionen zur Verfügung
-      zu stellen.
+      insbesondere für den E-Mail-Verkehr und kann zum Verschlüsseln von Daten
+      und zur Erstellung digitaler Unterschriften verwendet werden. GnupPG (GNU
+      Privacy Guard) wird verwendet, um diese Funkionen zur Verfügung zu
+      stellen.
     </para>
     <heading>PGP-Funktionen aktivieren?</heading>
     <para>
@@ -651,19 +340,16 @@
       verschlüsseln und/oder digital unterschreiben.
     </para>
   </entry>
-
-<entry id="pgp-option-attach-pubkey" state="uptodate" md5="561ce43370ac4afbcc3f9818c8fbc2f6">
-    <title>PGP: Einstellungen - Öffentlichen Schlüssel anhängen</title>
-    <heading>Einstellungen - Öffentlichen Schlüssel anhängen</heading>
+  <entry id="pgp-option-attach-pubkey" state="uptodate" md5="a4d42b8f3b2b36cd874ab35b727c1218">
+    <title>PGP: Einstellungen: Öffentlichen Schlüssel anhängen</title>
     <para>
       Wenn Sie diese Einstellung aktivieren, wird Ihr öffentlicher
       PGP-Schlüssel, sofern einer existiert, standardmäßig an alle ausgehenden
       Nachrichten angehängt.
     </para>
   </entry>
-
-<entry id="pgp-manage-pubkey" state="uptodate" md5="b289ea5824b7f69f35c0751497f4e1c3">
-    <title>PGP: Öffentlicher PGP-Schlüsselbund</title>
+  <entry id="pgp-manage-pubkey" state="uptodate" md5="45c1f3ce9577aca2ae83cfcafea6bc40">
+    <title>PGP: Einstellungen: Verwaltung öffentlicher PGP-Schlüssel</title>
     <heading>Übersicht</heading>
     <para>
       In dieser Liste befinden sich alle Personen aus Ihrem Adressbuch die
@@ -684,24 +370,20 @@
       Löscht den öffentlichen PGP-Schlüssel aus Ihrem Adressbuch.
     </para>
   </entry>
-
-<entry id="pgp-import-pubkey" state="uptodate" md5="6ee1130b46e9ff1ca9ad3a3a47e7b382">
-    <title>PGP: Öffentlicher PGP-Schlüsselbund - Importieren</title>
-    <heading>Öffentlichen Schlüssel importieren</heading>
+  <entry id="pgp-import-pubkey" state="uptodate" md5="252988480aa775fdff90728cf05c7bce">
+    <title>PGP: Einstellungen: Verwaltung öffentlicher PGP-Schlüssel: Importieren</title>
     <para>
-      Mit dieser Schaltfläche wird ein neues Fenster geöffnet, in dem Sie
-      einen öffentlichen PGP-Schlüssel importieren können. Der Schlüssel kann
+      Mit dieser Schaltfläche wird ein neues Fenster geöffnet, in dem Sie einen
+      öffentlichen PGP-Schlüssel importieren können. Der Schlüssel kann
       entweder in ein Textfeld kopiert oder hochgeladen werden, falls er als
-      Datei auf Ihrem lokalen Computer vorliegt. Wenn es sich um einen
-      gültigen Schlüssel handelt, wird dieser zu Ihrem Adressbuch hinzugefügt
-      und das Fenster geschlossen. Anderenfalls wird eine Fehlermeldung
-      angezeigt, die erklärt, warum der Schlüssel nicht importiert werden
-      konnte.
+      Datei auf Ihrem lokalen Computer vorliegt. Wenn es sich um einen gültigen
+      Schlüssel handelt, wird dieser zu Ihrem Adressbuch hinzugefügt und das
+      Fenster geschlossen. Anderenfalls wird eine Fehlermeldung angezeigt, die
+      erklärt, warum der Schlüssel nicht importiert werden konnte.
     </para>
   </entry>
-
-<entry id="pgp-overview-personalkey" state="uptodate" md5="220af2b74a58f430efd72d6d6b1f993f">
-    <title>PGP: Ihre öffentlichen/privaten PGP-Schlüssel</title>
+  <entry id="pgp-overview-personalkey" state="uptodate" md5="914fb8925e606a642a4144457c950555">
+    <title>PGP: Einstellungen: Verwaltung persönlicher PGP-Schlüssel</title>
     <heading>Überblick</heading>
     <para>
       Wenn Sie Nachrichten digital unterschreiben oder anderen ermöglichen
@@ -710,129 +392,110 @@
     </para>
     <heading>Ihr öffentlicher Schlüssel</heading>
     <para>
-      Ihr öffentlicher Schlüssel muss allen Personen zugänglich gemacht
-      werden, die Ihnen verschlüsselte Nachrichten schicken möchten, die nur
-      SIE (mit Ihrem privaten Schlüssel) entschlüsseln können. Zusätzlich
-      benötigt jeder, dem Sie eine digital unterschriebene Nachricht schicken,
-      Ihren öffentlichen Schlüssel, um Ihre digitale Unterschrift überprüfen
-      zu können.
+      Ihr öffentlicher Schlüssel muss allen Personen zugänglich gemacht werden,
+      die Ihnen verschlüsselte Nachrichten schicken möchten, die nur SIE (mit
+      Ihrem privaten Schlüssel) entschlüsseln können. Zusätzlich benötigt
+      jeder, dem Sie eine digital unterschriebene Nachricht schicken, Ihren
+      öffentlichen Schlüssel, um Ihre digitale Unterschrift überprüfen zu
+      können.
     </para>
     <heading>Ihr privater Schlüssel</heading>
     <para>
-      Ihr privater Schlüssel ist nötig, um Nachrichten entschlüsseln zu
-      können, die mit Ihrem öffentlichen Schlüssel verschlüsselt
-      wurden. Außerdem benötigen Sie Ihren privaten Schlüssel, um Nachrichten
-      digital zu unterschreiben. Ihr privater Schlüssel ist mit einem Passwort
-      geschützt, das Sie beim Erzeugen Ihres Schlüsselpaares angegeben
-      haben. Daher ist dieses Passwort bei jeder Aktion nötig, die Ihren
-      privaten Schlüssel verwendet. Sie müssen das Passwort allerdings nur
-      einmal pro Sitzung angeben, da es bis zum Abmelden gespeichert
-      bleibt. Also Abmelden nicht vergessen!
+      Ihr privater Schlüssel ist nötig, um Nachrichten entschlüsseln zu können,
+      die mit Ihrem öffentlichen Schlüssel verschlüsselt wurden.  Außerdem
+      benötigen Sie Ihren privaten Schlüssel, um Nachrichten digital zu
+      unterschreiben. Ihr privater Schlüssel ist mit einem Passwort geschützt,
+      das Sie beim Erzeugen Ihres Schlüsselpaares angegeben haben.  Daher ist
+      dieses Passwort bei jeder Aktion nötig, die Ihren privaten Schlüssel
+      verwendet. Sie müssen das Passwort allerdings nur einmal pro Sitzung
+      angeben.
     </para>
   </entry>
-
-<entry id="pgp-personalkey-public" state="uptodate" md5="3c844d4ff8fdda3e0d446b47a63117e0">
-    <title>PGP: Ihre öffentlichen/privaten PGP-Schlüssel - Öffentlicher
-    Schlüssel</title>
+  <entry id="pgp-personalkey-public" state="uptodate" md5="f73a254f5784c51f3020f8ca11e454cc">
+    <title>PGP: Einstellungen: Verwaltung persönlicher PGP-Schlüssel: Öffentlicher Schlüssel</title>
     <heading>Anzeigen</heading>
     <para>
-      Öffnet ein Fenster, in dem Ihre öffentlichen PGP-Daten angezeigt werden.
+      Öffnet ein Fenster, in dem Ihr öffentlicher PGP-Schlüssel angezeigt
+      wird.
     </para>
     <heading>Details</heading>
     <para>
       Zeigt einige Details zu Ihrem öffentlichen PGP-Schlüssel an.
     </para>
   </entry>
-
-<entry id="pgp-personalkey-private" state="uptodate" md5="1851b67a1aeef1242fc3a2b94af75c03">
-    <title>PGP: Ihre öffentlichen/privaten PGP-Schlüssel - Privater
-    Schlüssel</title>
+  <entry id="pgp-personalkey-private" state="uptodate" md5="350d3c221c933754ee0bc245668e3a56">
+    <title>PGP: Einstellungen: Verwaltung persönlicher PGP-Schlüssel: Privater Schlüssel</title>
     <heading>Passwort eingeben</heading>
     <para>
-      Öffnet ein Dialogfenster, in dem Sie Ihr Passwort eingeben können. Wenn
+      Öffnet ein Dialogfenster, in dem Sie Ihr Passwort eingeben können.  Wenn
       das Passwort korrekt ist, wird es in Ihrer Sitzung gespeichert, bis Sie
       sich wieder abmelden.
     </para>
     <heading>Passwort "vergessen"</heading>
     <para>
-      Entfernt das gespeicherte Passwort, so dass Sie es erneut eingeben
+      Setzt das gespeicherte Passwort zurück, so dass Sie es erneut eingeben
       müssen, wenn Sie Ihren privaten Schlüssel benutzen möchten.
     </para>
     <heading>Anzeigen</heading>
     <para>
       Öffnet ein Fenster, in dem Ihre privaten PGP-Daten angezeigt
       werden. GEBEN SIE DIESEN SCHLÜSSEL AN NIEMANDEN WEITER - diese Funktion
-      dient ausschließlich dazu, Ihren privaten Schlüssel zu exportieren,
-      damit Sie diesen in einem anderen Programm verwenden können.
+      dient ausschließlich dazu, Ihren privaten Schlüssel zu exportieren, damit
+      Sie diesen in einem anderen Programm verwenden können.
     </para>
     <heading>Details</heading>
     <para>
       Zeigt einige Details zu Ihrem privaten PGP-Schlüssel an.
     </para>
   </entry>
-
-<entry id="pgp-personalkey-delete" state="uptodate" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce">
-    <title>PGP: Ihre öffentlichen/privaten PGP-Schlüssel - Löschen</title>
-    <heading>Aktuellen Schlüssel löschen</heading>
+  <entry id="pgp-personalkey-delete" state="uptodate" md5="a86d88b21db235fc2a80563b3d6b0610">
+    <title>PGP: Einstellungen: Verwaltung persönlicher PGP-Schlüssel: Löschen</title>
     <para>
-      Hiermit können Sie Ihr persönliches Schlüsselpaar aus den Einstellungen
-      löschen.
+      Hiermit können Sie Ihr persönliches Schlüsselpaar löschen.
     </para>
   </entry>
-
-<entry id="pgp-personalkey-create-name" state="uptodate" md5="748cb124b7ff52820792e278037a8c27">
-    <title>PGP: Persönlichen Schlüssel erstellen - Ihr Name</title>
-    <heading>Ihr Name</heading>
+  <entry id="pgp-personalkey-create-name" state="uptodate" md5="8e73624f29d8951b9c3f7c2190694460">
+    <title>PGP: Einstellungen: Persönlichen Schlüssel erstellen: Ihr Name</title>
     <para>
       Der Name, der in Ihrem persönlichen Schlüssel verwendet werden soll. Ein
       Pflichtfeld.
     </para>
   </entry>
-
-<entry id="pgp-personalkey-create-comment" state="uptodate" md5="e666eb9f0ee4b49fe04f74fc18db8640">
-    <title>PGP: Persönlichen Schlüssel erstellen - Kommentar</title>
-    <heading>Kommentar</heading>
+  <entry id="pgp-personalkey-create-comment" state="uptodate" md5="7308d506140e37cc582c16354c5f2f20">
+    <title>PGP: Einstellungen: Persönlichen Schlüssel erstellen: Kommentar</title>
     <para>
       Ein Kommentartext, den Sie in Ihren persönlichen Schlüssel integrieren
       können. Ein freiwilliges Feld.
     </para>
   </entry>
-
-<entry id="pgp-personalkey-create-email" state="uptodate" md5="c729f70fdb3a73cbb7ba5ef5888e3092">
-    <title>PGP: Persönlichen Schlüssel erstellen - Emailadresse</title>
-    <heading>Emailadresse</heading>
+  <entry id="pgp-personalkey-create-email" state="uptodate" md5="cfa8ef72051883978adce74e149049fe">
+    <title>PGP: Einstellungen: Persönlichen Schlüssel erstellen: E-Mail-Adresse</title>
     <para>
-      Die Emailadresse, die Ihrem persönlichen Schlüssel zugeordnet sein
+      Die E-Mail-Adresse, die Ihrem persönlichen Schlüssel zugeordnet sein
       soll. Ein Pflichtfeld.
     </para>
   </entry>
-
-<entry id="pgp-personalkey-create-keylength" state="uptodate" md5="24ca641c63fb5ff310a39ee0d3b1ee55">
-    <title>PGP: Persönlichen Schlüssel erstellen - Schlüssellänge</title>
-    <heading>Schlüssellänge</heading>
+  <entry id="pgp-personalkey-create-keylength" state="uptodate" md5="de4811dcbcab2ccc900bcf311b62ccee">
+    <title>PGP: Einstellungen: Persönlichen Schlüssel erstellen: Schlüssellänge</title>
     <para>
-      Die Schlüssellänge Ihres zu erstellenden Schlüssel in Bit. Je größer
-      der Wert, desto stärker ist Ihr Schlüssel geschützt, aber desto länger
-      dauert auch die Schlüsselerstellung und später das Verschlüsseln. 1024
-      Bit sind die Standardeinstellung und bieten einen hervorragenden
-      Schutz.
+      Die Schlüssellänge Ihres zu erstellenden Schlüssel in Bit. Je größer der
+      Wert, desto stärker ist Ihr Schlüssel geschützt, aber desto länger dauert
+      auch die Schlüsselerstellung. 1024 Bit bieten einen ausreichenden Schutz
+      für die meisten Benutzer.
     </para>
   </entry>
-
-<entry id="pgp-personalkey-create-passphrase" state="uptodate" md5="2fb9372970bf33f51e988ba39dbd7193">
-    <title>PGP: Persönlichen Schlüssel erstellen - Passwort</title>
-    <heading>Passwort</heading>
+  <entry id="pgp-personalkey-create-passphrase" state="uptodate" md5="47522ad328d8e1a0a1e68291780e4bd9">
+    <title>PGP: Einstellungen: Persönlichen Schlüssel erstellen: Passwort</title>
     <para>
       Das Passwort, mit dem Ihr persönlicher privater Schlüssel verschlüsselt
       und damit geschützt wird. Es sollte MINDESTENS 6 Zeichen lang und NICHT
       das gleiche wie Ihr Passwort zur Anmeldung sein, sollte KEIN echtes Wort
-      sein und sowohl Zahlen als auch Buchstaben enthalten. Sie müssen das
-      Passwort zur Vorsicht zweimal angeben. Ein Pflichtfeld.
+      sein und sowohl Zahlen als auch Buchstaben enthalten.  Sie müssen das
+      Passwort zur Sicherheit zweimal angeben. Ein Pflichtfeld.
     </para>
   </entry>
-
-<entry id="pgp-personalkey-create-actions" state="uptodate" md5="0f8234935b964c83533b4ec4c15eb712">
-    <title>PGP: Persönlichen Schlüssel erstellen - Aktionen</title>
+  <entry id="pgp-personalkey-create-actions" state="uptodate" md5="4c03caeab8a56878399334062df1b543">
+    <title>PGP: Einstellungen: Persönlichen Schlüssel erstellen: Aktionen</title>
     <heading>Schlüssel erstellen</heading>
     <para>
       Erzeugt und speichert Ihr persönliches Schlüsselpaar.
@@ -846,11 +509,10 @@
       lokalen Computer vorliegen. Wenn es sich um gültige Schlüssel handelt,
       werden diese in Ihren Einstellungen gespeichert und das Fenster
       geschlossen. Anderenfalls wird eine Fehlermeldung angezeigt, die
-      erläutert, warum der Import nicht geklappt hat.
+      erläutert, warum der Import fehlgeschlagen ist.
     </para>
   </entry>
-
-<entry id="smime-overview" state="uptodate" md5="d3c752b1345fb2eccfe575c07461963f">
+  <entry id="smime-overview" state="uptodate" md5="06bc9544a439ca416ebed22df8e6102a">
     <title>S/MIME: Überblick</title>
     <heading>Was ist S/MIME?</heading>
     <para>
@@ -861,8 +523,8 @@
       vom Absender und den Empfängern gelesen werden können. Außerdem kann die
       Identität eines Absenders anhand einer digitalen Unterschrift überprüft
       werden. Beides zusammen hilft bei der Endeckung von Manipulationen und
-      erlaubt den Empfängern festzustellen, ob die Nachricht nach dem
-      Versenden verändert wurde.
+      erlaubt den Empfängern festzustellen, ob die Nachricht nach dem Versenden
+      verändert wurde.
     </para>
     <heading>S/MIME-Funktionen aktivieren?</heading>
     <para>
@@ -872,423 +534,283 @@
       verschlüsseln und/oder digital unterschreiben.
     </para>
   </entry>
-
-<entry id="smime-overview-personalkey" state="uptodate" md5="9f4f36ae72cb4abc731067d338be3b98">
-    <title>S/MIME: Ihre öffentlichen/privaten S/MIME-Zertifikate</title>
-    <heading>Überblick</heading>
+  <entry id="smime-overview-personalkey" state="uptodate" md5="f396c6349cd59218a9f0408878ced995">
+    <title>S/MIME: Einstellungen: Persönliche Zertifikate</title>
     <para>
       Wenn Sie Nachrichten digital unterschreiben oder anderen ermöglichen
       möchten, Ihnen verschlüsselte Nachrichten zu schreiben, müssen Sie ein
-      eigenes S/MIME-Schlüsselpaar haben.
+      eigenes S/MIME-Zertifikat haben.
     </para>
   </entry>
-
-<entry id="smime-import-personal-certs" state="uptodate" md5="cf0ed2e3e24d30dedf8cfef2c2645759">
-    <title>S/MIME: Persönliche Zertifikate importieren</title>
-    <heading>Persönliche Zertifikate importieren</heading>
+  <entry id="smime-import-personal-certs" state="uptodate" md5="edd106f8ca1e841d9a65a345553f33fd">
+    <title>S/MIME: Einstellungen: Persönliche Zertifikate: Importieren</title>
     <para>
       Hiermit können Sie persönliche Zertifikate importieren, die in einer
       Datei im PKCS #12-Format vorliegen. PKCS #12-Dateien sind die Dateien,
       die normalerweise verwendet werden, wenn Sie einen Schlüssel aus einem
       Browser (z.B. Internet Explorer oder Firefox), oder dem
-      Zertifikatspeicher des Betriebssystems (z.B. Windows XP)
-      exportieren. Wenn es sich um gültige Schlüssel handelt, werden diese in
-      Ihren Einstellungen gespeichert und das Fenster
-      geschlossen. Anderenfalls wird eine Fehlermeldung angezeigt, die
-      erläutert, warum der Import nicht geklappt hat.
+      Zertifikatspeicher des Betriebssystems (z.B. Windows) exportieren. Wenn
+      es sich um gültige Schlüssel handelt, werden diese in Ihren Einstellungen
+      gespeichert und das Fenster geschlossen. Anderenfalls wird eine
+      Fehlermeldung angezeigt, die erläutert, warum der Import fehlgeschlagen
+      ist.
     </para>
   </entry>
-
-<entry id="smime-delete-personal-certs" state="uptodate" md5="018bb6b61a7e416892de288ad1c880f4">
-    <title>S/MIME: Persönliche Zertifikate löschen</title>
-    <heading>Persönliche Zertifikate löschen</heading>
+  <entry id="smime-delete-personal-certs" state="uptodate" md5="9a0eb4a3c27d77f0a58be91ac83a86c2">
+    <title>S/MIME: Einstellungen: Persönliche Zertifikate: Löschen</title>
     <para>
-      Löscht Ihre persönlichen Zertifikate aus Ihren Einstellungen. Danach
+      Löscht Ihre persönlichen Zertifikate aus Ihren Einstellungen.  Danach
       können Sie keine Nachrichten mehr mit S/MIME unterschreiben oder an Sie
       gerichtete und mit S/MIME verschlüsselte Nachrichten lesen.
     </para>
   </entry>
-
-<entry id="smime-manage-pubkey" state="uptodate" md5="8b6c63684d3d73b3d084025a78fe7e88">
-    <title>S/MIME: Öffentlicher S/MIME-Schlüsselbund</title>
-    <heading>S/MIME: Öffentlicher S/MIME-Schlüsselbund</heading>
+  <entry id="smime-manage-pubkey" state="uptodate" md5="263a47e866aae1e361c1b9cf0b29f62e">
+    <title>S/MIME: Einstellungen: Verwaltung öffentlicher Schlüssel</title>
     <para>
-      Hiermit können Sie Ihre Liste öffentlicher S/MIME-Schlüssel verwalten.
+      Hiermit können Sie Ihre Liste öffentlicher S/MIME-Schlüssel
+      verwalten.
     </para>
     <heading>Anzeigen</heading>
     <para>
-      Öffnet ein Fenster, das den öffentlichen S/MIME-Schlüssel in Rohform
+      Öffnet ein Fenster, das den öffentlichen Schlüssel in Rohform
       anzeigt.
     </para>
     <heading>Details</heading>
     <para>
-      Zeigt einige technische Details des öffentlichen S/MIME-Schlüssels an.
+      Zeigt einige technische Details des öffentlichen Schlüssels an.
     </para>
     <heading>Löschen</heading>
     <para>
-      Löscht den öffentlichen S/MIME-Schlüssel aus Ihrem Adressbuch. Danach
-      können Sie keine verschlüsselte Nachricht mehr an diese Person
-      schreiben.
+      Löscht den gespeicherten öffentlichen Schlüssel. Danach können Sie keine
+      verschlüsselte Nachricht mehr an diese Person schreiben.
     </para>
   </entry>
-
-<entry id="printing" state="uptodate" md5="f233c11b6b4a6bedeb68f1d5a2a976db">
-    <title>Drucken</title>
-    <heading>Drucken einer Nachricht</heading>
+  <entry id="printing" state="uptodate" md5="8f38316f520b5c60c0311c97f9472144">
+    <title>Nachricht: Drucken</title>
     <para>
       Um die Nachricht, die Sie sich gerade anschauen, auszudrucken, klicken
-      Sie auf den "Drucken"-Link ober- oder unterhalb der Nachricht. Damit
-      öffnen Sie ein neues Fenster, in dem die Nachricht, speziell für den
-      Ausdruck formatiert, angezeigt wird. Je nach verwendeten Browser und
-      Betriebssystem öffnet sich auch gleich der Druckdialog. Falls nicht,
-      rufen Sie die Druckfunktion Ihres Browsers über das Menü
+      Sie auf das Drucken-Symbol neben dem Nachrichtenteil, den Sie drucken
+      möchten. Damit öffnen Sie ein neues Fenster, in dem die Nachricht,
+      speziell für den Ausdruck formatiert, angezeigt wird. Je nach verwendeten
+      Browser und Betriebssystem öffnet sich auch gleich der Druckdialog. Falls
+      nicht, rufen Sie die Druckfunktion Ihres Browsers über das Menü
       "Datei"-&gt;"Drucken" auf.
     </para>
   </entry>
-
-<entry id="sorting" state="uptodate" md5="18cdeac38027fe5c42bab693f2a4260a">
-    <title>Sortieren und Themen</title>
+  <entry id="sorting" state="uptodate" md5="3f793fe1cdb63cedeb0c1f4011f604ec">
+    <title>Ordner: Sortieren und Themen</title>
     <heading>Nachrichten Sortieren</heading>
     <para>
       Sie können Nachrichtenlisten nach einer beliebigen Spalte sortieren,
       indem Sie auf die entsprechende Spaltenüberschrift klicken. Um die
-      Sortierrichtung zu ändern klicken Sie erneut auf die Überschrift oder
-      auf das kleine Pfeilsymbol daneben.
+      Sortierrichtung zu ändern, klicken Sie auf das kleine Pfeilsymbol in der
+      Spaltenüberschrift.
     </para>
     <heading>Themen</heading>
     <para>
-      Um Nachrichten nach Themen (Betreffs) zu sortieren, so dass eine
-      Nachricht zusammen mit allen Antworten darauf gruppiert wird, klicken
-      Sie auf den [Thema]-Link in der Überschrift der Betreffspalte. Um zur
-      normalen Betreffsortierung zurückzukehren, können sie auf den
-      [Betreff]-Link in der Überschrift der Betreffspalte klicken.
+      Das Betreff-Feld kann neben der alphabetischen auch zur thematisch
+      Sortierung verwendet werden. Dabei werden alle Nachrichten eines Themas
+      gruppiert.
     </para>
   </entry>
-
-<entry id="alternative-msg" state="uptodate" md5="4978073f76977b6af6b69810e4d22a65">
-    <title>Multipart/Alternative Nachrichten</title>
-    <para>
-      Einige Nachrichten werden im "multipart/alternative" Format
-      verschickt. Diese Nachrichten enthalten mehrere Teile, die alle den
-      <b>gleichen Inhalt</b>, aber in <b>unterschiedlichen Formaten</b>
-      anzeigen. Dieses Programm zeigt den letzten dieser Teile an, der korrekt
-      im Browser dargestellt werden kann. Alle anderen Formate werden unter
-      der Überschrift "Alternative Nachrichtenteile" aufgelistet und können
-      separat betrachtet oder heruntergeladen werden. Beachten Sie, dass diese
-      alternativen Nachrichtenteile den <b>gleichen Inhalt</b> wie der
-      angezeigte Teil enthalten, nur in einem anderen Format, z.B. als Text an
-      Stelle von HTML.
-    </para>
-  </entry>
-
-<entry id="prefs-rename_sentmail_monthly" state="uptodate" md5="530fa20e0afbc25ffd40877948832899">
-    <title>Einstellungen: Anmeldeaufgaben: Ordner für gesendete Nachrichten am
-    Monatsbeginn umbenennen</title>
+  <entry id="prefs-rename_sentmail_monthly" state="uptodate" md5="3561414016ac45e716230f9dbb870b5e">
+    <title>Neue Nachricht: Gesendete Nachrichten: Einstellungen: Ordner für gesendete Nachrichten monatlich umbenennen</title>
     <para>
       Aktivieren Sie diese Einstellung, wenn Sie möchten, dass Ihre Order für
       gesendete Nachrichten zum Monatsbeginn umbenannt werden. Die Ordner
       werden umbenannt in einen Ordnernamen, der den Monat und das Jahr
-      enthält, und neue Ordner für gesendete Nachrichten werden angelegt.
+      enthält, und neue Ordner für gesendete Nachrichten werden
+      angelegt.
     </para>
   </entry>
-
-<entry id="prefs-delete_sentmail_monthly" state="uptodate" md5="0beed16dfd68e2f25e0c66871fd546df">
-    <title>Einstellungen: Anmeldeaufgaben: Alte Ordner für gesendete
-    Nachrichten am Monatsbeginn löschen</title>
+  <entry id="prefs-delete_sentmail_monthly_keep" state="uptodate" md5="b3d5879b419675c61c41cb84eb246dc7">
+    <title>Neue Nachricht: Gesendete Nachrichten: Einstellungen: Ordner für gesendete Nachrichten monatlich löschen</title>
     <para>
-      Aktivieren Sie diese Einstellung, wenn Sie möchten, dass alte Ordner für
-      gesendete Nachrichten zum Monatsbeginn gelöscht werden. Dies kann zum
-      Beispiel nützlich sein, wenn Sie ein Speicherplatz-Kontingent haben, das
-      nicht überschritten werden darf.
+      Diese Einstellung löscht alte Ordner für gesendete Nachrichten nach einer
+      bestimmten Anzahl von Monaten. Alle Ordner, die älter als dieser Zeitraum
+      sind, werden gelöscht. Das kann zum Beispiel hilfreich sein, wenn Sie
+      eine Speicherplatzbegrenzung haben.
     </para>
   </entry>
-
-<entry id="prefs-delete_sentmail_monthly_keep" state="uptodate" md5="71ed1c2eab48b91a25b5bcd4b14ccea9">
-    <title>Einstellungen: Anmeldeaufgaben: Anzahl der Ordner für gesendete
-    Nachrichten, die bei monatlicher Löschung behalten werden sollen</title>
+  <entry id="prefs-purge_sentmail_interval" state="uptodate" md5="f854e46a1713f25ac9759771d1a0cb2e">
+    <title>Neue Nachricht: Gesendete Nachrichten: Einstellungen: Löschen gesendeter Nachrichten</title>
     <para>
-      Wenn Sie alte Ordner für gesendete Nachrichten monatlich löschen, wie
-      viele Monate an alten Ordnern möchten Sie behalten? Alle Ordner älter
-      als die angegebenen Monate werden gelöscht.
-    </para>
-  </entry>
-
-<entry id="prefs-purge_sentmail" state="uptodate" md5="7b37c534aaaec6b43589f15845cf0273">
-    <title>Einstellungen: Anmeldeaufgaben: Alte Nachrichten in Ordnern für
-    gesendete Nachrichten löschen</title>
-    <para>
-      Sollen die Ordnern für gesendete Nachrichten regelmäßig geleert werden?
-    </para>
-  </entry>
-
-<entry id="prefs-purge_sentmail_interval" state="uptodate" md5="423f3c1b0645cee1bc58e6e22a6d8b68">
-    <title>Einstellungen: Anmeldeaufgaben: Wie oft sollen Ordner für gesendete
-    Nachrichten geleert werden</title>
-    <para>
-      Wenn die Ordner für gesendete Nachrichten regelmäßig geleert werden,
-      wie oft sollen diese geleert werden?
-    </para>
-  </entry>
-
-<entry id="prefs-purge_sentmail_keep" state="uptodate" md5="fcba2b7e5da61a7fdda7970f926f8d8a">
-    <title>Einstellungen: Anmeldeaufgaben: Nachrichten in Ordnern für
-    gesendete Nachrichten nach so vielen Tagen endgültig löschen</title>
-    <para>
-      Wenn die Ordner für gesendete Nachrichten regelmäßig geleert werden,
-      wie viele Tage an gesendeten Nachrichten sollen in den Ordnern
-      verbleiben?
-    </para>
-  </entry>
-
-<entry id="prefs-delete_attachments_monthly" state="uptodate" md5="373ea02ede6df5fc345caf632e19a75f">
-    <title>Einstellungen: Anmeldeaufgaben: Alte verlinkte Anhänge am
-    Monatsbeginn löschen</title>
-    <para>
-      Aktivieren Sie diese Einstellung, wenn Sie alte verlinkte Anhänge zum
-      Monatsbeginn löschen möchten.
-    </para>
-  </entry>
-
-<entry id="prefs-delete_attachments_monthly_keep" state="uptodate" md5="1b340a60214dffd04aec02cc1127df5d">
-    <title>Einstellungen: Anmeldeaufgaben: Anzahl der Monate, für die alte
-    verlinkte Anhänge aufgehoben werden sollen, falls diese monatlich gelöscht
-    werden</title>
-    <para>
-      Wenn Sie alte verlinkte Anhänge monatlich löschen, wie viele Monate an
-      alten Anhängen möchten Sie behalten? Alle Anhänge älter als die
-      angegebenen Monate werden gelöscht.
-    </para>
-  </entry>
-
-<entry id="prefs-purge_trash" state="uptodate" md5="dc71871146be3e46ade0087a8cf18273">
-    <title>Einstellungen: Anmeldeaufgaben: Alte Nachrichten im Papierkorb
-    endgültig löschen?</title>
-    <para>
-      Soll der Papierkorb regelmäßig geleert werden?
-    </para>
-  </entry>
-
-<entry id="prefs-purge_trash_interval" state="uptodate" md5="7be91fbeb05b2d87289d4c5602d5a32f">
-    <title>Einstellungen: Anmeldeaufgaben: Wie oft soll der Papierkorb geleert
-    werden?</title>
-    <para>
-      Wenn der Papierkorb regelmäßig geleert wird, wie oft soll er geleert
+      Wie oft sollen die Ordner für gesendete Nachrichten geleert
       werden?
     </para>
   </entry>
-
-<entry id="prefs-purge_trash_keep" state="uptodate" md5="3cb5a2b5b80b7ac1179ae005f983970e">
-    <title>Einstellungen: Anmeldeaufgaben: Nachrichten im Papierkorb nach so
-    vielen Tagen endgültig löschen</title>
+  <entry id="prefs-purge_sentmail_keep" state="uptodate" md5="422aed0bbe1fc0fa2363d3b1c0e62f4e">
+    <title>Neue Nachricht: Gesendete Nachrichten: Einstellungen: Erhalt gesendeter Nachrichten beim Löschen</title>
     <para>
-      Wenn der Papierkorb regelmäßig geleert wird, wie viele Tage an
-      gelöschten Nachrichten sollen im Papierkorb verbleiben?
+      Wenn die Ordner für gesendete Nachrichten geleert werden, wie alt sollen
+      die Nachrichten sein, die gelöscht werden?
     </para>
   </entry>
-
-<entry id="prefs-purge_spam" state="uptodate" md5="9cabaf3500d3316054db045cf5339f5e">
-    <title>Einstellungen: Anmeldeaufgaben: Alte Nachrichten im Spam-Ordner
-    endgültig löschen?</title>
+  <entry id="prefs-delete_attachments_monthly_keep" state="uptodate" md5="07dea78c24ed2a97c123d4e5e56fe163">
+    <title>Neue Nachricht: Einstellungen: Verlinkte Anhänge monatlich löschen</title>
     <para>
-      Soll der Spamordner regelmäßig geleert werden?
+      Wenn Ihr Konto so konfiguriert wurde, dass Sie verlinkte Anhänge
+      verschicken können, erlaubt diese Einstellungen alte Anhänge nach einer
+      bestimmten Anzahl von Monaten zu löschen. Alle Anhänge älter als die
+      angegebenen Monate werden gelöscht. Das kann zum Beispiel hilfreich sein,
+      wenn Sie eine Speicherplatzbegrenzung haben.
     </para>
   </entry>
-
-<entry id="prefs-purge_spam_interval" state="uptodate" md5="fe0f7289693d19bd386638e25beeb276">
-    <title>Einstellungen: Anmeldeaufgaben: Wie oft soll der Spam-Ordner geleert
-    werden?</title>
+  <entry id="prefs-purge_trash_interval" state="uptodate" md5="35f16f19ee3d55284fa759f14ee38291">
+    <title>Anmeldeaufgaben: Einstellungen: Papierkorb-Leerung</title>
     <para>
-      Wenn der Spamordner regelmäßig geleert wird, wie oft soll er geleert
-      werden?
+      Wie oft soll der Papierkorb geleert werden?
     </para>
   </entry>
-
-<entry id="prefs-purge_spam_keep" state="uptodate" md5="f4748aba20cf4a9b6ce92822bd185de6">
-    <title>Einstellungen: Anmeldeaufgaben: Nachrichten im Spam-Ordner nach so
-    vielen Tagen endgültig löschen</title>
+  <entry id="prefs-purge_trash_keep" state="uptodate" md5="8047a69fde4170ea0e5e509f52564b01">
+    <title>Anmeldeaufgaben: Einstellungen: Erhalt bei Papierkorb-Leerung</title>
     <para>
-      Wenn der Spam-Ordner regelmäßig geleert wird, wie viele Tage an
-      gelöschten Nachrichten sollen im Spam-Ordner verbleiben?
+      Wenn der Papierkorb geleert wird, wie alt sollen die Nachrichten sein,
+      die gelöscht werden?
     </para>
   </entry>
-
-<entry id="prefs-attrib_text" state="uptodate" md5="721a09d7ca028c97e3bd2b38c597fff7">
-     <title>Einstellungen: Neue Nachricht: Wie sollen Zitatantworten markiert
-     werden</title>
-     <para>
-       Hier können Sie angeben, welcher Text zitierten Nachrichten, die Sie
-       beantworten, vorangestellt werden soll.
-     </para>
-     <para>
-       Sie können einen oder mehrere spezielle Platzhalter in diesen Text
-       einfügen, die durch Angaben aus der ursprünglichen Nachricht ersetzt
-       werden. Platzhalter bestehen aus einem "%", gefolgt von einem
-       Buchstaben. Folgende Platzhalter stehen zur Verfügung:
-     </para>
-
-     <para> %f : Der Name und die Emailadresse des Absenders</para>
-     <para> %a : Die Emailadresse des Absenders</para>
-     <para> %p : Der Name des Absenders</para>
-     <para> %r : Das Datum und die Zeitzone im RFC-2822-Stil</para>
-     <para> %d : Das Datum im Format www, tt mmm JJJJ</para>
-     <para> %x : Das Datum im Format der gewählten Sprache</para>
-     <para> %c : Das Datum und die Zeit im Format der gewählten Sprache</para>
-     <para> %m : Die Nachrichten-ID</para>
-     <para> %s : Der Betreff</para>
-     <para> %n : Ein Zeilenumbruch</para>
-     <para> %% : Das "%" Zeichen</para>
+  <entry id="prefs-purge_spam_interval" state="uptodate" md5="19701b374e192a0bac07a0095008da43">
+    <title>Anmeldeaufgaben: Einstellungen: Spamordner-Leerung</title>
+    <para>
+      Wie oft soll der Spamordner geleert werden?
+    </para>
   </entry>
-
-<entry id="prefs-default_msg_charset" state="uptodate" md5="4ef4fb2090e703f6f8e03f39ab96e717">
-    <title>Einstellungen: Standardzeichensatz für Nachrichten</title>
+  <entry id="prefs-purge_spam_keep" state="uptodate" md5="13c1810fa63097999db37ddda6659568">
+    <title>Anmeldeaufgaben: Einstellungen: Erhalt bei Spamordner-Leerung</title>
+    <para>
+      Wenn der Spamordner geleert wird, wie alt sollen die Nachrichten sein,
+      die gelöscht werden?
+    </para>
+  </entry>
+  <entry id="prefs-attrib_text" state="uptodate" md5="47088bb3c410e32d916e6e19ea89da66">
+    <title>Neue Nachricht: Einstellungen: Zitatantworten</title>
+    <para>
+      Hier können Sie angeben, welche Forumulierung einem zitierten Text in
+      Nachrichtenantworten vorangestellt werden soll.
+    </para>
+    <para>
+      Sie können einen oder mehrere spezielle Platzhalter in diesen Text
+      einfügen, die durch Angaben aus der ursprünglichen Nachricht ersetzt
+      werden. Platzhalter bestehen aus einem "%", gefolgt von einem Buchstaben.
+      Folgende Platzhalter stehen zur Verfügung:
+    </para>
+    <raw>%f : Der Name und die E-Mail-Adresse des Absenders</raw>
+    <raw>%a : Die E-Mail-Adresse des Absenders</raw>
+    <raw>%p : Der Name des Absenders</raw>
+    <raw>%r : Das Datum und die Zeitzone gemäß RFC 822/2822/5322</raw>
+    <raw>%d : Das Datum im Format www, tt mmm JJJJ</raw>
+    <raw>%x : Das Datum im Format der aktuellen Sprache</raw>
+    <raw>%c : Das Datum und die Zeit im Format der aktuellen Sprache</raw>
+    <raw>%m : Die Nachrichten-ID</raw>
+    <raw>%s : Der Betreff</raw>
+    <raw>%n : Ein Zeilenumbruch</raw>
+    <raw>%% : Das "%" Zeichen</raw>
+  </entry>
+  <entry id="prefs-default_msg_charset" state="uptodate" md5="b2a6c49163203f3462784dbf4e391066">
+    <title>Nachricht: Einstellungen: Standardzeichensatz für Nachrichten</title>
     <para>
       Hiermit können Sie den Standardzeichensatz angeben, der für Nachrichten
       verwendet werden soll, die keine Zeichensatzinformationen
-      enthalten. Nach RFC 2045 müssen Nachrichten, die keinen Zeichensatz
-      angeben, eigentlich als "US-ASCII"-Nachrichten behandelt
-      werden. Allerdings gibt es einige ziemlich defekte Emailprogramme und
+      enthalten. Gemäßt der E-Mail-Standards müssen Nachrichten, die keinen
+      Zeichensatz angeben, eigentlich als "US-ASCII"-Nachrichten behandelt
+      werden. Allerdings gibt es einige ziemlich defekte E-Mail-Programme und
       Newslettersysteme, die Nachrichten in anderen Zeichensätzen verschicken,
       ohne diese anzugeben. Setzen Sie diese Einstellung auf den Zeichensatz,
       der bei Ihnen am meisten verwendet wird, oder lassen Sie diese auf
       "Standard", um die Zeichensätze nicht anzupassen.
     </para>
-</entry>
-
-<entry id="prefs-disposition_request_read" state="uptodate" md5="89e92c4d68224b2345b59959878a7174">
-    <title>Einstellungen: Lesebestätigungen anfordern</title>
+  </entry>
+  <entry id="prefs-request_mdn" state="uptodate" md5="5155a0b683cd0bbd49606be2b8b42758">
+    <title>Neue Nachricht: Einstellungen: Lesebestätigungen Anfordern</title>
     <para>
-      Mit "Lesebestätigungen anfordern" werden die Empfänger Ihrer Nachrichten
-      aufgefordet, Bestätigungen zurückzuschicken, wenn die Nachricht geöffnet
-      wurde. Nicht alle Emailprogramme unterstützen diese Aufforderungen oder
-      reagieren darauf.
+      Mit "Lesebestätigungen anfordern" schicken Sie eine Anfrage für
+      Lesebestätigungen (auch bekannt als Message Dispositon Notification) an
+      die Empfänger Ihrer Nachricht, damit Sie benachrichtigt zu werden, sobald
+      die Empfänger Ihre Nachricht geöffnet haben. Einige E-Mail-Programme
+      unterstützen diese Anfragen nicht oder ignorieren diese.
     </para>
   </entry>
-
-<entry id="prefs-disposition_send_mdn" state="uptodate" md5="a34111d84fa4ddc3cf19a18fd4765337">
-    <title>Einstellungen: Lesebestätigung schicken</title>
+  <entry id="prefs-send_mdn" state="uptodate" md5="3e09a8766616d7e17553a36f2161d09a">
+    <title>Nachricht: Einstellungen: Lesebestätigungen Verschicken</title>
     <para>
-      Mit "Lesebestätigung schicken" wird eine Message Disposition
-      Notification (eine Lesebestätigung) an den Absender einer Nachricht
-      geschickt, falls er diese angefordet hat und Sie die Nachricht gelesen
-      haben. Mit der Standardeinstellung werden Sie vor dem Abschicken einer
-      solchen Bestätigung um Erlaubnis gefragt. Weitere
-      Einstellungsmöglichkeiten erlauben das Ignorieren solcher Anfragen oder
-      das automatische Verschicken der Bestätigungen.
-    </para>
-</entry>
-
-<entry id="prefs-disposition_request_delivery" state="uptodate" md5="26598e29af05a07de5e13644669be712">
-    <title>Einstellungen: Empfangsbestätigungen anfordern</title>
-    <para>
-      Mit "Empfangsbestätigungen anfordern" werden die Emailserver der
-      Empfänger Ihrer Nachrichten aufgefordet, Bestätigungen zurückzuschicken,
-      wenn die Nachricht in das Postfach des Empfängers ausgeliefert
-      wurde. Das bedeutet nicht, dass die Nachricht gelesen wurde, sondern
-      nur, dass sie in irgendeinem Postfach angekommen ist. Nicht alle
-      Emailserver unterstützen diese Aufforderungen.
+      "Lesebestätigung verschicken" verschickt eine Lesebestätigung (auch
+      bekannt als Message Dispositon Notification), wenn Sie eine Nachricht
+      anzeigen, für die der Absender eine Lesebestätigung angefordert
+      hat. Standardmäßig werden Sie gefragt, bevor eine solche Bestätigung
+      zurückgeschickt wird.
     </para>
   </entry>
-
-<entry id="prefs-delete_spam_after_report" state="uptodate" md5="8d1eb1fb6f3c10802d20630a5f5ad132">
-    <title>Einstellungen: Löschen von Spam</title>
+  <entry id="prefs-delete_spam_after_report" state="uptodate" md5="ff0d7dbc0f05688e9fe7f55e98dfcea1">
+    <title>Nachricht: Einstellungen: Löschen von Spam</title>
     <para>
-      Sie können eine von drei Aktionen auswählen, die ausgeführt werden
-      soll, wenn Sie eine Nachricht als Spam gemeldet haben.
+      Sie können eine von drei Aktionen auswählen, die ausgeführt werden soll,
+      wenn Sie eine Nachricht als Spam gemeldet haben.
     </para>
     <para>
-      Erstens, nicht geschieht - die Nachricht wird als Spam gemeldet, bleibt
+      1. Nichts geschieht. Die Nachricht wird als Spam gemeldet, bleibt aber
+      unverändert in dem Ordner.
+    </para>
+    <para>
+      2. Die Nachricht, die Sie gerade als Spam gemeldet haben, wird sofort
+      gelöscht.
+    </para>
+    <para>
+      3. Die Nachricht, die Sie gerade als Spam gemeldet haben, wird in Ihren
+      Spam-Ordner verschoben.
+    </para>
+  </entry>
+  <entry id="prefs-move_innocent_after_report" state="uptodate" md5="99a33858f784fa3ad393b735f91941d0">
+    <title>Nachricht: Einstellungen: Verschieben von Keinem Spam</title>
+    <para>
+      Sie können eine von zwei Aktionen auswählen, die ausgeführt werden soll,
+      wenn Sie eine Nachricht als kein Spam gemeldet haben.
+    </para>
+    <para>
+      1. Nichts geschieht. Die Nachricht wird als kein Spam gemeldet, bleibt
       aber unverändert in dem Ordner.
     </para>
     <para>
-      Zweitens kann die Nachricht, die Sie gerade als Spam gemeldet haben,
-      sofort gelöscht werden.
-    </para>
-    <para>
-      Drittens kann die Nachricht, die Sie gerade als Spam gemeldet haben, in
-      Ihren Spam-Ordner verschoben werden.
-    </para>
-</entry>
-
-<entry id="prefs-move_ham_after_report" state="uptodate" md5="4b971b84ed993e6a6fff8d45a50d03c5">
-    <title>Einstellungen: Behandlung von Kein Spam</title>
-    <para>
-      Sie können eine von zwei Aktionen auswählen, die ausgeführt werden
-      soll, wenn Sie eine Nachricht als kein Spam gemeldet haben.
-    </para>
-    <para>
-      Erstens, nicht geschieht - die Nachricht wird als kein Spam gemeldet,
-      bleibt aber unverändert in Ihrem Ordner.
-    </para>
-    <para>
-      Zweitens kann die Nachricht, die Sie gerade als kein Spam gemeldet
-      haben, in Ihren Posteingang verschoben werden.
-    </para>
-</entry>
-
-<entry id="prefs-html_image_replacement" state="uptodate" md5="28e1cf08e328345a8e7274c853492d4f">
-    <title>Einstellungen: Ersetzen von Bildern in HTML</title>
-    <para>
-      Wenn HTML-Nachrichten innerhalb des Programms angezeigt werden, sollen
-      alle Bilder blockiert werden, bis Sie ausdrücklich die Bilder nachladen?
-      Beachten Sie, dass Bilder immer angezeigt werden, wenn Sie sich
-      HTML-Nachrichten in einem neuen Fenster anzeigen lassen.
+      2. Die Nachricht, die Sie gerade als kein Spam gemeldet haben, wird in
+      Ihren Posteingang verschoben.
     </para>
   </entry>
-
-<entry id="prefs-html_image_addrbook" state="uptodate" md5="759fa3df24e0a3cd89f320102252f91a">
-    <title>Einstellungen: Ersetzen von Bildern in HTML/Adressbuchsuche</title>
+  <entry id="prefs-image_replacement" state="uptodate" md5="de99f0ad2e7cd7367524ddcbf07dc4d6">
+    <title>Nachricht: Einstellungen: Bilderanzeige</title>
     <para>
-      Wenn Bilder von HTML-Nachrichten, die innerhalb des Programms angezeigt
-      werden, automatisch blockiert werden, soll eine Ausnahme gemacht werden,
-      wenn sich der Absender der Nachricht in Ihrem Adressbuch befindet?
+      Sollen in Nachrichten, die direkt, d.h. in der Nachrichtenansicht,
+      angezeigt werden, alle Bilder blockiert werden, solange Sie nicht
+      ausdrücklich das Nachladen dieser Bilder bestätigen? Bitte beachten Sie,
+      dass Bilder immer anzeigt werden, wenn Sie ausdrücklich einen Anhang
+      öffnen.
     </para>
   </entry>
-
-<entry id="prefs-mailbox_start" state="uptodate" md5="62fcc38a15f54dae7eb8bdafa93ed341">
-    <title>Einstellungen: Startseite in Ordnern</title>
+  <entry id="prefs-mailbox_start" state="uptodate" md5="4eb9c594c460e83c1cd413b2c46c718b">
+    <title>Ordner: Einstellungen: Startseite in Ordnern</title>
     <para>
       Legt fest, welche Seite in der Ordneransicht angezeigt wird, wenn Sie
       einen Ordner öffnen.
     </para>
   </entry>
-
-<entry id="prefs-save_attachments" state="uptodate" md5="35b46334cdcc7fa416b9f9fca5874e80">
-    <title>Einstellungen: Anhänge mit gesendeten Nachrichten speichern</title>
+  <entry id="prefs-save_attachments" state="uptodate" md5="1b2c33ade5d2967f2f532999fefd94ec">
+    <title>Neue Nachricht: Gesendete Nachrichten: Einstellungen: Anhänge mit gesendeten Nachrichten speichern</title>
     <para>
       Wenn eine neue Nachricht im Ordner für gesendete Nachrichten gespeichert
       wird, können Sie festlegen, ob eventuelle Anhänge mitgespeichert
-      werden. Folgende Einstellungen stehen zur Verfügung.
+      werden.
     </para>
-
-    <para>* "Anhänge immer speichern" - NIE beim Schreiben neuer Nachrichten
-     nachfragen, ob die Anhänge mitgespeichert werden sollen; Die Anhänge
-     werden IMMER mitgespeichert.</para>
-     <para>* "Jedesmal nachfragen; standardmäßig JA" - IMMER beim Schreiben
-     neuer Nachrichten nachfragen, ob die Anhänge mitgespeichert werden
-     sollen; Die Standardeinstellung lautet die Anhänge mitzuspeichern.</para>
-     <para>* "Jedesmal nachfragen; standardmäßig NEIN" - IMMER beim Schreiben
-     neuer Nachrichten nachfragen, ob die Anhänge mitgespeichert werden
-     sollen; Die Standardeinstellung lautet die Anhänge nicht
-     mitzuspeichern.</para>
-    <para>* "Anhänge nie speichern" - NIE beim Schreiben neuer Nachrichten
-     nachfragen, ob die Anhänge mitgespeichert werden sollen; Die Anhänge
-     werden NIE mitgespeichert.</para>
   </entry>
-
-<entry id="virtual_inbox" state="uptodate" md5="a91e01732bb8129cbc6a7f5c6dca3ab3">
-    <title>Virtuelle Ordner: Virtueller Posteingang</title>
+  <entry id="virtual_inbox" state="uptodate" md5="bf6db3e373a0592cd285ee6e94adb1fb">
+    <title>Ordner: Virtueller Posteingang</title>
     <para>
-      Der Virtuelle Posteingang ist eine gespeicherte Suchabfrage, die es
-      Ihnen abnimmt, in allen Ordnern nach neuen Nachrichten zu
-      schauen. Stattdessen werden alle Ordner, die Sie für diesen Zweck in der
-      <ref module="imp" entry="folder-options">Ordner Navigation</ref>
-      ausgewählt haben, automatisch nach neuen Nachrichten durchsucht und in
-      einer einzigen Übersicht angezeigt.
+      Der Virtuelle Posteingang ist eine gespeicherte Suchabfrage, die es Ihnen
+      abnimmt, in allen Ordnern nach neuen Nachrichten zu schauen.  Stattdessen
+      werden alle Ordner, die Sie für diesen Zweck ausgewählt haben,
+      automatisch nach neuen Nachrichten durchsucht und in einer einzigen
+      Übersicht angezeigt.
     </para>
   </entry>
-
-<entry id="virtual_trash" state="uptodate" md5="b83f73ed56dff0addcbd4702e5a21a3d">
-    <title>Virtuelle Ordner: Virtueller Papierkorb</title>
+  <entry id="virtual_trash" state="uptodate" md5="3674e4fce2260d4a738bcee3272fa1b8">
+    <title>Ordner: Virtueller Papierkorb</title>
     <para>
       Der Virtuelle Papierkorb ist eine gespeicherte Suchabfrage, die einen
       separaten Papierkorb-Ordner unnötig macht. Anstatt gelöschte Nachrichten
@@ -1296,8 +818,363 @@
       markiert. Wenn "Verstecke gelöschte" ausgewählt wird, werden diese
       Nachrichten in der Nachrichtenliste nicht angezeigt. Wenn Sie den
       Virtuellen Papierkorb öffnen, werden alle Ihre Ordner nach gelöschten
-      Nachrichten durchsucht und in einer einzigen Übersicht angezeigt.
+      Nachrichten durchsucht und diese in einer einzigen Übersicht
+      angezeigt.
     </para>
   </entry>
-
+  <view id="basic">
+    <entry id="mailbox-keyboard" state="uptodate" md5="8cce3b6be2b37cf7a3126ae9e638f950">
+      <title>Ordner: Tastaturbelegung</title>
+      <para>
+        Sie können Ihre Tastatur verwenden, um Nachrichten in der
+        Nachrichtenliste auszuwählen und anzuzeigen. Benutzen Sie die <css class="iconImg keyupImg"/> und <css class="iconImg keydownImg"/>
+        Tasten, während Sie die <css class="kbd">Strg</css> -Taste gedrückt
+        halten, um über die Nachrichten zu navigieren. Es wird zuerst die
+        unterste Nachricht der Seite ausgewählt, wenn Sie <css class="iconImg         keyupImg"/> drücken, und zuerst die oberste, wenn Sie <css class="iconImg keydownImg"/> drücken.
+      </para>
+      <para>
+        Die aktuelle Nachricht wird genauso hervorgehoben, als ob Sie mit der
+        Maus über die Nachricht fahren. Während Sie über die Liste navigieren,
+        können Sie die <css class="kbd">Leerzeichen</css> -Taste drücken, um
+        eine Nachricht auszuwählen, oder die <css class="kbd">↵</css> -Taste, um diese Nachricht anzuzeigen.
+      </para>
+      <para>
+        Wenn Sie die <css class="kbd">Alt</css> -Taste anstelle der <css class="kbd">Strg</css> -Taste drücken, wären Sie durch die
+        Nachrichtenliste navigieren, werden die Nachrichten, über die Sie sich
+        bewegen automatisch aus- oder abgewählt.
+      </para>
+      <para>
+        Sie können die <css class="iconImg keyleftImg"/> und <css class="iconImg keyrightImg"/> Tasten Ihrer Tastatur verwenden, um zu
+        der vorherigen bzw. nächsten Seite der Nachrichtenliste zu gelangen.
+      </para>
+    </entry>
+    <entry id="message-keyboard" state="uptodate" md5="cba7bd946ce1207f05c6dd28ee64073b">
+      <title>Nachricht: Voherige/Nächste Nachricht</title>
+      <para>
+        Sie können die <css class="iconImg keyleftImg"/> und <css class="iconImg keyrightImg"/> Tasten Ihrer Tastatur verwenden, um zu
+        der vorherigen bzw. nächsten Nachricht zu gelangen.
+      </para>
+    </entry>
+    <entry id="compose-attachments" state="uptodate" md5="5d29f2809f557efa25759e642c901369">
+      <title>Neue Nachricht: Anhänge hinzufügen</title>
+      <para>
+        Sie können Dateien zu Ihrer Nachricht als Anhang hinzufügen, falls Ihr
+        Browser das Hochladen von Dateien unterstützt.
+      </para>
+      <para>
+        Klicken Sie auf "Durchsuchen..." und wählen Sie die gewünschte Datei
+        aus. Es erscheint ein weiteres Feld, falls Sie die maximale Anzahl an
+        erlaubten Anhängen noch nicht erreicht haben, so dass Sie mehrere
+        Anhänge auf einmal hochladen können.
+      </para>
+      <para>
+        Wenn Sie die Beschreibung des Anhangs ändern möchten, klicken Sie auf
+        den "Aktualisierung"-Knopf, um damit die Anhänge sofort hochzuladen,
+        und alle anderen Änderungen, die sie an bereits vorhandenen Anhängen
+        vorgenommen haben, zu speichern.
+      </para>
+      <tip>
+        Je nachdem, wie groß der Anhang und wie schnell Ihre Internetverbindung
+        ist, kann es eine Weile dauern, bis die Datei übertragen ist.
+      </tip>
+    </entry>
+    <entry id="compose-current-attachments" state="uptodate" md5="cdaa6aa03ea535e85bb496bdc9a90351">
+      <title>Neue Nachricht: Aktuelle Anhänge</title>
+      <heading>Aktuelle Anhänge</heading>
+      <para>
+        In dieser Liste befinden sich alle Dateien, die Sie bereits an Ihre
+        Nachricht angehängt haben.
+      </para>
+      <heading>Anhänge Löschen</heading>
+      <para>
+        Um einen Anhang wieder zu entfernen, gehen Sie bitte wie folgt
+        vor:
+      </para>
+      <para>
+        Schritt 1: Markieren Sie alle Anhänge, die Sie entfernen möchten, durch
+        das Aktivieren des Kästchens neben dem Namen.
+      </para>
+      <para>
+        Schritt 2: Klicken Sie entweder auf den "Aktualisierung"-Knopf oberhalb
+        des Bereichs mit den aktuellen Anhängen, um die Änderungen sofort
+        vorzunehmen. Anderenfalls werden die Änderungen beim Versenden der
+        Nachricht durchgeführt.
+      </para>
+      <heading>Ändern der Beschreibung</heading>
+      <para>
+        Um die Beschreibung der Anhänge zu ändern, gehen Sie bitte wie folgt
+        vor:
+      </para>
+      <para>
+        Schritt 1: Geben Sie eine Beschreibung in das entsprechende Textfeld
+        ein.
+      </para>
+      <para>
+        Schritt 2: Klicken Sie entweder auf den "Aktualisierung"-Knopf oberhalb
+        des Bereichs mit den aktuellen Anhängen, um die Änderungen sofort
+        vorzunehmen. Anderenfalls werden die Änderungen beim Versenden der
+        Nachricht durchgeführt.
+      </para>
+    </entry>
+    <entry id="compose-link-attachments" state="uptodate" md5="9e301c5f70eb89e4e91cf5deab82ff64">
+      <title>Neue Nachricht: Anhänge Verlinken</title>
+      <para>
+        Legt fest, ob Dateien, die Sie Ihrer Nachricht anhängen, als Teil der
+        Nachricht verschickt werden oder auf dem Server verbleiben. Wenn Sie
+        die Anhäge nur verlinkt verschicken, erhält der Empfänger der Nachricht
+        einen oder mehrere Links, über die Ihre Anhänge heruntergeladen werden
+        können.
+      </para>
+      <para>
+        Der Vorteil von verlinkten Anhängen besteht darin, dass die Größe der
+        versendeten Nachrichten deutlich reduziert wird, insbesondere bei
+        großen Anhängen. Der Nachteil ist, dass nicht garantiert werden kann,
+        dass der Anhang auf alle Zeit verfügbar sein wird, weil die Anhänge
+        nicht in die Nachricht eingebettet sind.
+      </para>
+    </entry>
+    <entry id="folders" state="uptodate" md5="013062bdc2d23e8879bc97137adf90a8">
+      <title>Ordner</title>
+      <para>
+        Sie können Ordner an den Kästchen vor den Ordnernamen markieren.
+        Anschließend können Sie aus der Auswahlliste die entsprechende Aktion
+        wählen.
+      </para>
+    </entry>
+    <entry id="folders-create" state="uptodate" md5="0cdec687f538673ccd19190af40765f2">
+      <title>Ordner: Erstellen</title>
+      <para>
+        Erstellt einen Ordner, falls möglich. Um einen Order in der obersten
+        Ebene zu erstellen, wählen sie "Erstellen" aus, ohne zuvor einen Ordner
+        zu markieren. Wenn Sie einen Unterordner erstellen möchten, markieren
+        Sie zuerst den Ordner, unter dem der neue Order erstellt werden soll.
+      </para>
+    </entry>
+    <entry id="folders-rename" state="uptodate" md5="ee878e110f141c5380b86e605a5d619d">
+      <title>Ordner: Umbenennen</title>
+      <para>
+        Benennt einen Ordner um. Um Ordner umzubennen, markieren Sie zunächst
+        die gewünschten Ordner und wählen Sie dann "Umbenennen" aus. Beim
+        Umbenennen bleiben alle Unterordner erhalten.
+      </para>
+    </entry>
+    <entry id="folders-delete" state="uptodate" md5="cfeb4fb5e1c194a16c370fc3d28c22cd">
+      <title>Ordner: Löschen</title>
+      <para>
+        Löscht einen Ordner und alle darin enthaltenen Nachrichten. Sie müssen
+        die Ordner, die Sie löschen möchten, markieren und anschließend
+        "Löschen" auswählen. Beim Löschen eines Ordner werden die Unterordner
+        nicht automatisch mitgelöscht. Wählen Sie die Unterordner zusätzlich
+        aus, um diese auch zu löschen.
+      </para>
+    </entry>
+    <entry id="folders-empty" state="uptodate" md5="40aa6e04eea1deaafbebbf10b0253b64">
+      <title>Ordner: Leeren</title>
+      <para>
+        Um alle Nachrichten in Ordnern, aber nicht die Ordner selbst zu
+        löschen, markieren Sie die entsprechenden Ordner und wählen Sie
+        "Leeren".
+      </para>
+    </entry>
+    <entry id="folders-purge" state="uptodate" md5="ff4eec60c5f3fccac8efbdb5befd2453">
+      <title>Ordner: Aufräumen</title>
+      <para>
+        Um alle Nachrichten, die in Ordnern als gelöscht markiert sind,
+        endgültig zu entfernen, markieren Sie die entsprechenden Ordner und
+        wählen Sie "Aufräumen". Die Aktion steht nicht zur Verfügung, wenn Sie
+        einen Papierkorb-Ordner verwenden.
+      </para>
+    </entry>
+    <entry id="folders-subscribe" state="uptodate" md5="f6deebeac842b011decafe6d6fd7e28e">
+      <title>Ordner: Einblenden/Ausblenden</title>
+      <para>
+        Markiert einen Ordner, so dass er zum Beispiel in den Auswahllisten
+        angezeigt oder ausgeblendet wird. Diese Aktionen stehen nur Verfügung,
+        wenn Sie IMAP Ordnerabonnements verwenden.
+      </para>
+      <para>
+        Um Ordner einzublenden, markieren Sie die entsprechenden Ordner und
+        wählen Sie "Einblenden", oder wählen Sie "Ausblenden" um die Ordner
+        auszublenden.
+      </para>
+    </entry>
+    <entry id="folders-newmail" state="uptodate" md5="968bf7baad520a2d2bdb59926f649d9b">
+      <title>Ordner: (Nicht) auf neue Nachrichten überpüfen</title>
+      <warn>
+        Diese Aktion steht unter Umständen nicht zur Verfügung, falls sie von
+        Ihrem Administrator deaktiviert wurde.
+      </warn>
+      <para>
+        Markiert einen Ordner, so dass er mit einbezogen wird, wenn im linken
+        Menü oder in der Ordner-Navigation neue Nachrichten gemeldet werden.
+      </para>
+      <para>
+        Markieren Sie die gewünschten Ordner und wählen Sie "Auf neue
+        Nachrichten überprüfen", um diese mit einzubeziehen, oder "Nicht auf
+        neue Nachrichten überprüfen", um diese nicht mit einzubeziehen.
+      </para>
+    </entry>
+    <entry id="folders-markseen" state="uptodate" md5="559380c98d187db02af27d3405a36f9c">
+      <title>Ordner: Alle Nachrichten als (un)gelesen markieren</title>
+      <para>
+        Um alle Nachrichten in einem Order als gelesen zu markieren, wählen Sie
+        die entsprechenden Ordner und dann "Alle Nachrichten als gelesen
+        markieren" aus. Um sie als ungelesen zu markieren wählen Sie "Alle
+        Nachrichten als ungelesen markieren" aus.
+      </para>
+    </entry>
+    <entry id="folders-download" state="uptodate" md5="ca1b4a5affef2ab24994112bd286587b">
+      <title>Ordner: Herunterladen</title>
+      <para>
+        Um alle Nachrichten in einem Ordner in einer einzigen Datei im
+        Mbox-Format herunterzuladen, markieren Sie den gewünschten Ordner und
+        wählen Sie "Herunterladen". Wenn die Datei zusätzlich als ZIP-Datei
+        komprimiert werden soll, wählen Sie stattdessen "Als ZIP-Datei
+        herunterladen" aus.
+      </para>
+    </entry>
+    <entry id="folders-import" state="uptodate" md5="60df93f93185f35846b212b6149578c3">
+      <title>Ordner: Nachrichten importieren</title>
+      <para>
+        Mit dieser Aktion können Sie eine Datei im Mbox- oder .eml-Format in
+        einen beliebigen Ordner importieren. Markieren Sie dazu einen Ordner
+        und wählen Sie anschließend diese Aktion aus der Auswahlliste aus. Sie
+        gelangen danach auf eine andere Seite, auf der Sie die zu importierende
+        Mbox- oder .eml-Datei auswählen können.
+      </para>
+    </entry>
+    <entry id="folders-rebuild" state="uptodate" md5="4d10b81eafbe1658dddd5ee45bd35e20">
+      <title>Ordner: Ordnerbaum neu aufbauen</title>
+      <para>
+        Baut die graphische Darstellung der Ordnerstruktur neu auf, indem die
+        Ordnerliste erneut vom Mailserver abgefragt wird. Dies ist in der Regel
+        nur notwendig, falls Sie auf den Mailserver gleichzeitig mit einem
+        anderen Emailprogramm zugreifen und die Ordnerstruktur geändert haben.
+      </para>
+    </entry>
+    <entry id="folders-showsub" state="uptodate" md5="20b82145260d1e1fc4ad4f93cf9037cf">
+      <title>Ordner: Ausgeblendete Ordner anzeigen/verstecken</title>
+      <para>
+        Versteckt oder zeigt ausgeblendete Ordner an, wenn Sie IMAP
+        Ordnerabonnements verwenden. Markieren Sie die gewünschten Ordner und
+        wählen Sie in der Auswahlliste "Einblenden", um diese anzuzeigen, oder
+        "Ausblenden", um diese zu verstecken.
+      </para>
+    </entry>
+    <entry id="folders-expandall" state="uptodate" md5="2f092b6f14cf3cf7d2e63cd5cfd5e416">
+      <heading>Ordner: Alle öffnen</heading>
+      <para>
+        Alle Ordnereinträge werden aufgeklappt.
+      </para>
+    </entry>
+    <entry id="folders-collapseall" state="uptodate" md5="5bfe9c7029027dc384e08c4c608285d0">
+      <heading>Ordner: Alle schließen</heading>
+      <para>
+        Alle Ordnereinträge werden zugeklappt.
+      </para>
+    </entry>
+    <entry id="filter-apply" state="uptodate" md5="10b30835208f15d76b973498c3e199e6">
+      <title>Filterregeln: Filterregeln Anwenden</title>
+      <para>
+        Wenn Sie auf das Filtersymbol neben dem Ordnernamen klicken, während
+        sich in einem Ordner befinden, werden alle Nachrichten gemäß der
+        Regeln, die Sie festgelegt haben, gefiltert.
+      </para>
+    </entry>
+  </view>
+  <view id="dynamic">
+    <entry id="compose-attachments" state="uptodate" md5="5d29f2809f557efa25759e642c901369">
+      <title>Neue Nachricht: Anhänge hinzufügen</title>
+      <heading>Anhänge hinzufügen</heading>
+      <para>
+        Sie können Dateien zu Ihrer Nachricht als Anhang hinzufügen, falls Ihr
+        Browser das Hochladen von Dateien unterstützt.
+      </para>
+      <para>
+        Klicken Sie auf "Durchsuchen..." und wählen Sie die gewünschte Datei
+        aus. Es erscheint ein weiteres Feld, falls Sie die maximale Anzahl an
+        erlaubten Anhängen noch nicht erreicht haben, so dass Sie mehrere
+        Anhänge auf einmal hochladen können.
+      </para>
+      <tip>
+        Je nachdem, wie groß der Anhang und wie schnell Ihre Internetverbindung
+        ist, kann es eine Weile dauern, bis die Datei übertragen ist.
+      </tip>
+    </entry>
+    <entry id="compose-current-attachments" state="uptodate" md5="cdaa6aa03ea535e85bb496bdc9a90351">
+      <title>Neue Nachricht: Aktuelle Anhänge</title>
+      <heading>Anhänge Anzeigen</heading>
+      <para>
+        Wenn sich der Name der angehängten Datei anklicken lässt, kann der
+        Anhang im Browser angezeigt werden. Klicken Sie auf den Namen, um den
+        Anhang in einem separatem Fenster anzuzeigen.
+      </para>
+      <heading>Anhänge Löschen</heading>
+      <para>
+        Um einen Anhang wieder zu entfernen, klicken Sie den "Entfernen"-Knopf
+        neben dem gewünschten Dateinamen.
+      </para>
+    </entry>
+    <entry id="mailbox" state="uptodate" md5="ef690e1219cfd1cfc2429790202f881a">
+      <title>Ordner</title>
+      <para>
+        Um die Vorschau einer Nachricht anzuzeigen, wählen Sie diese in der
+        Nachrichtenliste aus.
+      </para>
+      <para>
+        Mit einem Rechtsklick auf eine Nachricht oder einen Ordner öffnen Sie
+        ein Menü mit verfügbaren Aktionen.
+      </para>
+      <warn>
+        Opera unterstützt keine Rechtsklick-Aktionen, Sie können die Aktionen
+        stattdessen mit einem Linksklick + <css class="kbd">⇑</css> + <css class="kbd">Strg</css> anzeigen.
+      </warn>
+      <para>
+        Um mehrere einzelne Nachrichten auszuwählen, klicken Sie auf die
+        Nachrichten, während Sie die <css class="kbd">Strg</css> -Taste
+        gedrückt halten. Um mehrere aufeinander folgende Nachrichten
+        auszuwählen, klicken Sie zunächst auf die erste Nachricht und
+        anschließend auf die letzte Nachricht, während Sie die <css class="kbd">⇑</css> -Taste gedrückt halten.
+      </para>
+    </entry>
+    <entry id="mailbox-keyboard" state="uptodate" md5="8cce3b6be2b37cf7a3126ae9e638f950">
+      <title>Ordner: Tastaturbelegung</title>
+      <para>
+        Die folgenden Tastenkombinationen stehen zur Verfügung:
+      </para>
+      <para>
+        <css class="iconImg keyupImg"/>/<css class="iconImg keydownImg"/>: In
+        der Nachrichtenliste auf- und abbewegen.</para>
+      <para>
+        <css class="kbd">Bild ↑</css> / <css class="kbd">Bild
+        ↓</css>: Eine Seite in der Nachrichtenliste auf- und abbewegen.
+      </para>
+      <para>
+        <css class="kbd">Alt</css> + <css class="kbd">Bild ↑</css> / <css class="kbd">Bild ↓</css>: In der Nachrichtenvorschau auf- und
+        abbewegen.
+      </para>
+      <para>
+        <css class="kbd">Pos1</css> / <css class="kbd">Ende</css>: Zur
+        ersten/letzten Nachricht der Nachrichtenliste springen.
+      </para>
+      <para>
+        <css class="kbd">Entf</css>: Die markierten Nachricht(en) löschen.
+        <css class="kbd">⇑</css> + <css class="kbd">Entf</css> löscht die
+        aktuelle Nachricht und öffnet anschließend die nächste, falls nur eine
+        Nachricht markiert ist.
+      </para>
+      <para>
+        <css class="kbd">⇑</css> + <css class="kbd">N</css>: Zur nächsten
+        ungelesen Nachricht springen (nicht in Suchergebnissen).
+      </para>
+      <para>
+        <css class="kbd">↵</css>: Nachricht in einem Popup-Fenster
+        öffnen.
+      </para>
+      <para>
+        <css class="kbd">Strg</css> + <css class="kbd">A</css>: Alle
+        Nachrichten im Ordner markieren.
+      </para>
+    </entry>
+  </view>
 </help>
