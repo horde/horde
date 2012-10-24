@@ -193,7 +193,6 @@ class Horde_Secret
         if (isset($_COOKIE[$this->_params['session_name']]) &&
             isset($_COOKIE[$keyname . '_key'])) {
             $this->_setCookie($keyname, false);
-            unset($_COOKIE[$keyname . '_key']);
             return true;
         }
 
@@ -217,6 +216,12 @@ class Horde_Secret
             $this->_params['cookie_ssl'],
             true
         );
+
+        if ($key === false) {
+            unset($_COOKIE[$keyname], $this->_keyCache[$keyname]);
+        } else {
+            $_COOKIE[$keyname] = $this->_keyCache[$keyname] = $key;
+        }
     }
 
 }
