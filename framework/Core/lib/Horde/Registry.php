@@ -260,6 +260,17 @@ class Horde_Registry
                 $failure->application = $app;
                 throw $failure;
 
+            case self::NOT_ACTIVE:
+                /* Try redirect to Horde if an app is not active. */
+                if ($app != 'horde') {
+                    $GLOBALS['notification']->push($e, 'horde.error');
+                    Horde::url($registry->getInitialPage('horde'))->redirect();
+                }
+
+                /* Shouldn't reach here, but fall back to permission denied
+                 * error if we can't even access Horde. */
+                // Fall-through
+
             case self::PERMISSION_DENIED:
                 $failure = new Horde_Exception_AuthenticationFailure($e->getMessage(), Horde_Auth::REASON_MESSAGE);
                 $failure->application = $app;
