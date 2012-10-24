@@ -101,7 +101,7 @@ case 'sidebar':
         $topics = $help->topics();
         $added_nodes = array();
         $node_params_master = array(
-            'icon' => strval(Horde_Themes::img('help.png')),
+            'icon' => '',
             'target' => 'help_main'
         );
 
