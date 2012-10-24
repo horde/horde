@@ -462,8 +462,11 @@ div.nicetitle {
 }
 
 /* Tree styles. */
-.horde-tree-icon {
+img.horde-tree-icon {
     padding-right: 5px;
+}
+span.horde-tree-icon {
+    padding: 3px 20px 3px 0;
 }
 .horde-tree-row {
     min-height: 20px;
