@@ -105,11 +105,11 @@ class Horde_Secret
     protected function _getCipherOb($key)
     {
         if (!is_string($key)) {
-            throw new Horde_Secret_Exception('Key must be a string', 2);
+            throw new Horde_Secret_Exception('Key must be a string', Horde_Secret_Exception::KEY_NOT_STRING);
         }
 
         if (!strlen($key)) {
-            throw new Horde_Secret_Exception('Key must be non-zero.', 3);
+            throw new Horde_Secret_Exception('Key must be non-zero.', Horde_Secret_Exception::KEY_ZERO_LENGTH);
         }
 
         $key = substr($key, 0, 56);
@@ -117,7 +117,7 @@ class Horde_Secret
         $idx = hash('md5', $key);
         if (!isset($this->_cipherCache[$idx])) {
             if (!class_exists('Crypt_Blowfish')) {
-                throw new Horde_Secret_Exception('Crypt_Blowfish library not found.');
+                throw new Horde_Secret_Exception('Crypt_Blowfish library not found.', Horde_Secret_Exception::NO_BLOWFISH_LIB);
             }
             $this->_cipherCache[$idx] = new Crypt_Blowfish($key);
         }
