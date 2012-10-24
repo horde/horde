@@ -114,7 +114,7 @@ class Horde_Help
                             break;
 
                         case 'raw':
-                            $out .= '<p class="fixed">' . htmlentities($this->_processNode($child)) . '</p>';
+                            $out .= '<p class="fixed">' . htmlspecialchars($this->_processNode($child)) . '</p>';
                             break;
 
                         case 'tip':
