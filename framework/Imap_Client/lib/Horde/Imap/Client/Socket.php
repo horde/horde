@@ -3829,7 +3829,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                      * anyway. */
                     if ($val->binary()) {
                         if (!$this->queryCapability('BINARY')) {
-                            throw new Horde_Imap_Client_Exception_NoSupport(
+                            throw new Horde_Imap_Client_Exception_NoSupportExtension(
                                 'BINARY',
                                 'Cannot send binary data to server that does not support it.'
                             );
