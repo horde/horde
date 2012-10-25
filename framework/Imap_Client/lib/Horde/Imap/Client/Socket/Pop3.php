@@ -434,6 +434,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         if (strcasecmp($mailbox, 'INBOX') !== 0) {
             throw new Horde_Imap_Client_Exception_NoSupportPop3('Mailboxes other than INBOX');
         }
+        $this->_changeSelected($mailbox, $mode);
     }
 
     /**
@@ -826,9 +827,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             }
         }
 
-        $this->_updateCache($results, array(
-            'seq' => $options['ids']->sequence
-        ));
+        $this->_updateCache($results);
     }
 
     /**
@@ -1066,7 +1065,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
     /**
      */
-    protected function _getSearchCache($type, $mailbox, $options)
+    protected function _getSearchCache($type, $options)
     {
         /* POP3 does not support search caching. */
         return null;

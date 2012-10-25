@@ -42,7 +42,8 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
 
     public function getClientSort($data, $sort)
     {
-        $this->_temp['fetchresp'] = new Horde_Imap_Client_Fetch_Results();
+        $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();
+        $this->_temp['fetch_resp'] = new Horde_Imap_Client_Fetch_Results();
 
         $ids = array();
 
@@ -56,7 +57,7 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
             $ids[] = $id_str;
         }
 
-        return $this->sort_ob->clientSortProcess($ids, $this->_temp['fetchresp'], $sort);
+        return $this->sort_ob->clientSortProcess($ids, $this->_temp['fetch_resp'], $sort);
     }
 
     public function getThreadSort($data)
@@ -87,11 +88,12 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
         $token->next();
         $token->next();
 
-        $this->_temp['fetchresp'] = null;
+        $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();
+        $this->_temp['fetch_resp'] = new Horde_Imap_Client_Fetch_Results();
 
         $this->_parseFetch($msg_no, $token);
 
-        return $this->_temp['fetchresp'];
+        return $this->_temp['fetch_resp'];
     }
 
     public function responseCode($data)

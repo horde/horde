@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-19</date>
- <time>20:53:09</time>
+ <date>2012-10-24</date>
+ <time>21:59:27</time>
  <version>
   <release>2.0.0beta5</release>
   <api>2.0.0beta1</api>
@@ -22,6 +22,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Correctly handle FETCH results intermingled with EXPUNGE/VANISHED requests within a single request.
+* [mms] Now that we have accurate sequence numbers for our cached values, we can utilize the known UID set parameter to a QRESYNC EXAMINE/SELECT command.
+* [mms] Correctly handle EXISTS/EXPUNGE/VANISHED untagged responses which may appear at any time.
+* [mms] Fix handling message sequence number actions returned from server when using CONDSTORE/QRESYNC.
 * [mms] Fix CONDSTORE synchronization of deleted messages since last mailbox access.
 * [mms] Need to immediately synchronize mailbox on mailbox load with CONDSTORE or else we may lose flag change information.
 * [mms] Fixes/improvements to CONDSTORE capability sniffing and enabling.
@@ -63,6 +67,10 @@
        <dir name="Auth">
         <file name="DigestMD5.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Auth -->
+       <dir name="Base">
+        <file name="Mailbox.php" role="php" />
+        <file name="Map.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Base -->
        <dir name="Data">
         <dir name="Fetch">
          <file name="Pop3.php" role="php" />
@@ -124,6 +132,7 @@
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Search -->
        <dir name="Socket">
+        <file name="Catenate.php" role="php" />
         <file name="ClientSort.php" role="php" />
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Socket -->
@@ -194,6 +203,7 @@
        <file name="DateTimeTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
        <file name="MailboxTest.php" role="test" />
+       <file name="MapTest.php" role="test" />
        <file name="SearchTest.php" role="test" />
        <file name="SocketTest.php" role="test" />
        <file name="SortTest.php" role="test" />
@@ -304,6 +314,8 @@
    <install as="Horde/Imap/Client/Url.php" name="lib/Horde/Imap/Client/Url.php" />
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Auth/DigestMD5.php" name="lib/Horde/Imap/Client/Auth/DigestMD5.php" />
+   <install as="Horde/Imap/Client/Base/Mailbox.php" name="lib/Horde/Imap/Client/Base/Mailbox.php" />
+   <install as="Horde/Imap/Client/Base/Map.php" name="lib/Horde/Imap/Client/Base/Map.php" />
    <install as="Horde/Imap/Client/Data/Acl.php" name="lib/Horde/Imap/Client/Data/Acl.php" />
    <install as="Horde/Imap/Client/Data/AclCommon.php" name="lib/Horde/Imap/Client/Data/AclCommon.php" />
    <install as="Horde/Imap/Client/Data/AclNegative.php" name="lib/Horde/Imap/Client/Data/AclNegative.php" />
@@ -342,6 +354,7 @@
    <install as="Horde/Imap/Client/Interaction/Server/Untagged.php" name="lib/Horde/Imap/Client/Interaction/Server/Untagged.php" />
    <install as="Horde/Imap/Client/Mailbox/List.php" name="lib/Horde/Imap/Client/Mailbox/List.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
+   <install as="Horde/Imap/Client/Socket/Catenate.php" name="lib/Horde/Imap/Client/Socket/Catenate.php" />
    <install as="Horde/Imap/Client/Socket/ClientSort.php" name="lib/Horde/Imap/Client/Socket/ClientSort.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
@@ -361,6 +374,7 @@
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
    <install as="Horde/Imap/Client/MailboxTest.php" name="test/Horde/Imap/Client/MailboxTest.php" />
+   <install as="Horde/Imap/Client/MapTest.php" name="test/Horde/Imap/Client/MapTest.php" />
    <install as="Horde/Imap/Client/SearchTest.php" name="test/Horde/Imap/Client/SearchTest.php" />
    <install as="Horde/Imap/Client/SocketTest.php" name="test/Horde/Imap/Client/SocketTest.php" />
    <install as="Horde/Imap/Client/SortTest.php" name="test/Horde/Imap/Client/SortTest.php" />
@@ -1136,9 +1150,13 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-19</date>
+   <date>2012-10-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Correctly handle FETCH results intermingled with EXPUNGE/VANISHED requests within a single request.
+* [mms] Now that we have accurate sequence numbers for our cached values, we can utilize the known UID set parameter to a QRESYNC EXAMINE/SELECT command.
+* [mms] Correctly handle EXISTS/EXPUNGE/VANISHED untagged responses which may appear at any time.
+* [mms] Fix handling message sequence number actions returned from server when using CONDSTORE/QRESYNC.
 * [mms] Fix CONDSTORE synchronization of deleted messages since last mailbox access.
 * [mms] Need to immediately synchronize mailbox on mailbox load with CONDSTORE or else we may lose flag change information.
 * [mms] Fixes/improvements to CONDSTORE capability sniffing and enabling.
