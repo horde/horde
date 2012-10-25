@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix setting quota parameters to the VFS backend (Bug #11455).
 * [jan] Fix getViewLink() API method (Bug #11226).
 * [jan] Update Turkish translation (İstanbul Technical University).
  </notes>
@@ -751,6 +752,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix setting quota parameters to the VFS backend (Bug #11455).
 * [jan] Fix getViewLink() API method (Bug #11226).
 * [jan] Update Turkish translation (İstanbul Technical University).
    </notes>

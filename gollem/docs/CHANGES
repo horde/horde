@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Fix setting quota parameters to the VFS backend (Bug #11455).
 [jan] Fix sorting if using a pager.
 [jan] Use standard Horde dialogs.
 
