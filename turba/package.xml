@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Allow searching for &apos;emails&apos; attributes (Bug #11185).
 * [jan] Fix LIKE matching of attributes in Kolab driver.
 * [mms] Convert turba minisearch block to the Horde AJAX framework.
 * [jan] Support &apos;emails&apos; attribute in smartphone view (Bug #11544).
@@ -1491,6 +1492,7 @@
    <date>2012-10-19</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Allow searching for &apos;emails&apos; attributes (Bug #11185).
 * [jan] Fix LIKE matching of attributes in Kolab driver.
 * [mms] Convert turba minisearch block to the Horde AJAX framework.
 * [jan] Support &apos;emails&apos; attribute in smartphone view (Bug #11544).

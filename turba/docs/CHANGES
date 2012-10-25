@@ -2,6 +2,7 @@
 v4.0.0-git
 ----------
 
+[jan] Allow searching for 'emails' attributes (Bug #11185).
 [jan] Fix LIKE matching of attributes in Kolab driver.
 [mms] Convert turba minisearch block to the Horde AJAX framework.
 [jan] Support 'emails' attribute in smartphone view (Bug #11544).
