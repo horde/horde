@@ -51,6 +51,9 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
     // Thrown if read error for server response.
     const SERVER_READERROR = 12;
 
+    // Thrown if write error in server interaction.
+    const SERVER_WRITEERROR = 16;
+
     // Thrown on CATENATE if the URL is invalid.
     const CATENATE_BADURL = 13;
 

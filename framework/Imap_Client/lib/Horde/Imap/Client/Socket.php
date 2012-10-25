@@ -3611,15 +3611,24 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_temp['modseqs'] = array();
         }
 
-        $this->writeDebug('', Horde_Imap_Client::DEBUG_CLIENT);
+        try {
+            $this->writeDebug('', Horde_Imap_Client::DEBUG_CLIENT);
 
-        $this->_processSendList($data, $opts);
+            $this->_processSendList($data, $opts);
 
-        if (!empty($opts['debug'])) {
-            $this->writeDebug($opts['debug']);
+            if (!empty($opts['debug'])) {
+                $this->writeDebug($opts['debug']);
+            }
+
+            $this->_writeStream('', array('eol' => true));
+        } catch (Horde_Imap_Client_Exception $e) {
+            if ($e->getCode() == Horde_Imap_Client_Exception::SERVER_WRITEERROR) {
+                $this->_temp['logout'] = true;
+                $this->logout();
+            }
+
+            throw $e;
         }
-
-        $this->_writeStream('', array('eol' => true));
 
         while ($ob = $this->_getLine()) {
             switch (get_class($ob)) {
@@ -3744,16 +3753,30 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *   - eol: (boolean) If true, output EOL.
      *   - literal: (integer) If set, the length of the literal data.
      *   - nodebug: (boolean) If true, don't output debug data.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _writeStream($data, array $opts = array())
     {
+        $write_error = false;
+
         if (is_resource($data)) {
             rewind($data);
             while (!feof($data)) {
-                fwrite($this->_stream, fread($data, 8192));
+                if (fwrite($this->_stream, fread($data, 8192)) === false) {
+                    $write_error = true;
+                    break;
+                }
             }
-        } else {
-            fwrite($this->_stream, $data . (empty($opts['eol']) ? '' : "\r\n"));
+        } elseif (fwrite($this->_stream, $data . (empty($opts['eol']) ? '' : "\r\n")) === false) {
+            $write_error = true;
+        }
+
+        if ($write_error) {
+            throw new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Server write error."),
+                Horde_Imap_Client_Exception::SERVER_WRITEERROR
+            );
         }
 
         if (!empty($opts['nodebug']) || !$this->_debug) {
