@@ -157,6 +157,23 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testDuplicatesAllowed()
+    {
+        $ids = new Horde_Imap_Client_Ids('1:10,1:10');
+        $this->assertEquals(
+            10,
+            count($ids)
+        );
+
+        $ids = new Horde_Imap_Client_Ids();
+        $ids->duplicates = true;
+        $ids->add('1:10,1:10');
+        $this->assertEquals(
+            20,
+            count($ids)
+        );
+    }
+
     public function testPop3SequenceStringGenerate()
     {
         $this->assertEquals(
