@@ -45,6 +45,13 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     protected $_sequence = false;
 
     /**
+     * Are IDs sorted?
+     *
+     * @var boolean
+     */
+    protected $_sorted = false;
+
+    /**
      * Constructor.
      *
      * @param mixed $ids         See self::add().
@@ -117,6 +124,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
 
             if (in_array($ids, array(self::ALL, self::SEARCH_RES, self::LARGEST))) {
                 $this->_ids = $ids;
+                $this->_sorted = false;
                 return;
             }
 
@@ -135,6 +143,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
             $this->_ids = is_array($this->_ids)
                 ? array_keys(array_flip(array_merge($this->_ids, $add)))
                 : $add;
+            $this->_sorted = false;
         }
     }
 
@@ -163,8 +172,9 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
      */
     public function sort()
     {
-        if (is_array($this->_ids)) {
+        if (!$this->_sorted && is_array($this->_ids)) {
             sort($this->_ids, SORT_NUMERIC);
+            $this->_sorted = true;
         }
     }
 
@@ -324,6 +334,10 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
             $save['s'] = 1;
         }
 
+        if ($this->_sorted) {
+            $save['is'] = 1;
+        }
+
         switch ($this->_ids) {
         case self::ALL:
             $save['a'] = true;
@@ -352,6 +366,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
         $save = @unserialize($data);
 
         $this->_sequence = !empty($save['s']);
+        $this->_sorted = !empty($save['is']);
 
         if (isset($save['a'])) {
             $this->_ids = self::ALL;
