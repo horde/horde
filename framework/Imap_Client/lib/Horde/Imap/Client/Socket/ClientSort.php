@@ -35,8 +35,8 @@ class Horde_Imap_Client_Socket_ClientSort
      * Sort search results client side if the server does not support the SORT
      * IMAP extension (RFC 5256).
      *
-     * @param array $res   The search results.
-     * @param array $opts  The options to _search().
+     * @param Horde_Imap_Client_Ids $res  The search results.
+     * @param array $opts                 The options to _search().
      *
      * @return array  The sort results.
      *
@@ -44,7 +44,7 @@ class Horde_Imap_Client_Socket_ClientSort
      */
     public function clientSort($res, $opts)
     {
-        if (empty($res)) {
+        if (!count($res)) {
             return $res;
         }
 
@@ -77,15 +77,16 @@ class Horde_Imap_Client_Socket_ClientSort
             }
         }
 
-        if (count($query)) {
-            $mbox = $this->_socket->currentMailbox();
-            $fetch_res = $this->_socket->fetch($mbox['mailbox'], $query, array(
-                'ids' => $this->_socket->getIdsOb($res, !empty($opts['sequence']))
-            ));
-            $res = $this->_clientSortProcess($res, $fetch_res, $opts['sort']);
+        if (!count($query)) {
+            return $res;
         }
 
-        return $res;
+        $mbox = $this->_socket->currentMailbox();
+        $fetch_res = $this->_socket->fetch($mbox['mailbox'], $query, array(
+            'ids' => $res
+        ));
+
+        return $this->_clientSortProcess($res->ids, $fetch_res, $opts['sort']);
     }
 
     /**
@@ -121,12 +122,11 @@ class Horde_Imap_Client_Socket_ClientSort
 
         /* Now, $tsort contains the order of the threads, and each thread
          * is sorted in $sorted. */
-        $out = array();
         foreach (array_keys($tsort) as $key) {
             $keys = array_keys($sorted[$key]);
-            $out[] = array_merge(array(
+            $out[$keys[0]] = array(
                 $keys[0] => 0
-            ), array_fill_keys(array_slice($keys, 1) , 1));
+            ) + array_fill_keys(array_slice($keys, 1) , 1);
         }
 
         return new Horde_Imap_Client_Data_Thread($out, $uids ? 'uid' : 'sequence');

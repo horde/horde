@@ -2128,9 +2128,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
             } else {
                 if (!isset($this->_temp['clientsort'])) {
-                    $this->_temp['clientsort'] = new Horde_Imap_Client_Socket_Sort($this);
+                    $this->_temp['clientsort'] = new Horde_Imap_Client_Socket_ClientSort($this);
                 }
-                $sr = $this->getIdsOb(array_values($this->_temp['clientsort']->sort($sr, $options), !empty($options['sequence'])));
+                $sr = $this->getIdsOb($this->_temp['clientsort']->clientSort($sr, $options), !empty($options['sequence']));
             }
         }
 
