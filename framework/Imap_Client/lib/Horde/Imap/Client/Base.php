@@ -1478,7 +1478,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *    </li>
      *    <li>
      *     Return format: (Horde_Imap_Client_Ids) If the server supports the
-     *     QRESYNC IMAP extension, this will be the list of UIDs changed in
+     *     CONDSTORE IMAP extension, this will be the list of UIDs changed in
      *     the mailbox when it was first opened if HIGHESTMODSEQ changed. The
      *     list will be empty if QRESYNC is not available, the mailbox does
      *     not support mod-sequences, or the mod-sequence did not change.
@@ -1886,11 +1886,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *   - ids: (Horde_Imap_Client_Ids) A list of messages to expunge, but
      *          only if they are also flagged as deleted.
      *          DEFAULT: All messages marked as deleted will be expunged.
-     *   - list: (boolean) If true, returns the list of expunged messages.
+     *   - list: (boolean) If true, returns the list of expunged messages
+     *           (UIDs only).
      *           DEFAULT: false
      *
      * @return Horde_Imap_Client_Ids  If 'list' option is true, returns the
-     *                                list of expunged messages.
+     *                                UID list of expunged messages.
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -3690,8 +3691,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _syncMailbox()
     {
-        /* Check that modseqs are available in mailbox. */
         $status = $this->status($this->_selected, Horde_Imap_Client::STATUS_UIDVALIDITY | Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
+
+        /* Check that modseqs are available in mailbox. */
         if (empty($status['highestmodseq'])) {
             return;
         }
