@@ -2,7 +2,6 @@
 v3.0-git
 --------
 
-[jan] Fix setting quota parameters to the VFS backend (Bug #11455).
 [jan] Fix sorting if using a pager.
 [jan] Use standard Horde dialogs.
 
@@ -11,6 +10,7 @@ v3.0-git
 v2.0.3-git
 ----------
 
+[jan] Fix setting quota parameters to the VFS backend (Bug #11455).
 [jan] Fix getViewLink() API method (Bug #11226).
 [jan] Update Turkish translation (İstanbul Technical University).
 
