@@ -62,7 +62,35 @@ class Gollem_Factory_Vfs extends Horde_Core_Factory_Base
                 break;
             }
 
-            $this->_instances[$backend] = Horde_Vfs::factory($be_config['driver'], $params);
+            $vfs = Horde_Vfs::factory($be_config['driver'], $params);
+
+            if (!empty($be_config['quota'])) {
+                $quotaroot = $be_config['root'] == '/' ? '' : $be_config['root'];
+                if (isset($be_config['quota_val'])) {
+                    $vfs->setQuota($be_config['quota_val'], $be_config['quota_metric']);
+                    $vfs->setQuotaRoot($quotaroot);
+                } else {
+                    $quota_metric = array(
+                        'B' => Horde_Vfs::QUOTA_METRIC_BYTE,
+                        'KB' => Horde_Vfs::QUOTA_METRIC_KB,
+                        'MB' => Horde_Vfs::QUOTA_METRIC_MB,
+                        'GB' => Horde_Vfs::QUOTA_METRIC_GB
+                    );
+                    $quota_str = explode(' ', $be_config['quota'], 2);
+                    if (is_numeric($quota_str[0])) {
+                        $metric = trim(Horde_String::upper($quota_str[1]));
+                        if (!isset($quota_metric[$metric])) {
+                            $metric = 'B';
+                        }
+                        $vfs->setQuota($quota_str[0], $quota_metric[$metric]);
+                        $vfs->setQuotaRoot($quotaroot);
+                        $be_config['quota_val'] = $quota_str[0];
+                        $be_config['quota_metric'] = $quota_metric[$metric];
+                    }
+                }
+            }
+
+            $this->_instances[$backend] = $vfs;
         }
 
         return $this->_instances[$backend];

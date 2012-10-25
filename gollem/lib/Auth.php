@@ -86,32 +86,6 @@ class Gollem_Auth
             $vfs->setParams(array('username' => $credentials['userId'],
                                   'password' => $credentials['password']));
             $vfs->checkCredentials();
-
-            if (!empty($backend['quota'])) {
-                $quotaroot = $backend['root'] == '/' ? '' : $backend['root'];
-                if (isset($backend['quota_val'])) {
-                    $vfs->setQuota($backend['quota_val'], $backend['quota_metric']);
-                    $vfs->setQuotaRoot($quotaroot);
-                } else {
-                    $quota_metric = array(
-                        'B' => Horde_Vfs::QUOTA_METRIC_BYTE,
-                        'KB' => Horde_Vfs::QUOTA_METRIC_KB,
-                        'MB' => Horde_Vfs::QUOTA_METRIC_MB,
-                        'GB' => Horde_Vfs::QUOTA_METRIC_GB
-                    );
-                    $quota_str = explode(' ', $backend['quota'], 2);
-                    if (is_numeric($quota_str[0])) {
-                        $metric = trim(Horde_String::upper($quota_str[1]));
-                        if (!isset($quota_metric[$metric])) {
-                            $metric = 'B';
-                        }
-                        $vfs->setQuota($quota_str[0], $quota_metric[$metric]);
-                        $vfs->setQuotaRoot($quotaroot);
-                        $backend['quota_val'] = $quota_str[0];
-                        $backend['quota_metric'] = $quota_metric[$metric];
-                    }
-                }
-            }
         } catch (Horde_Exception $e) {
             throw new Horde_Auth_Exception($e->getMessage(), Horde_Auth::REASON_MESSAGE);
         }
