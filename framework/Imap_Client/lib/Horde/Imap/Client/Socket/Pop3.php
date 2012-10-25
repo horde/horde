@@ -253,7 +253,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         switch ($this->_params['secure']) {
         case 'ssl':
-            $conn = 'ssl://';
+        case 'sslv2':
+        case 'sslv3':
+            $conn = $this->_params['secure'] . '://';
             $this->_isSecure = true;
             break;
 
