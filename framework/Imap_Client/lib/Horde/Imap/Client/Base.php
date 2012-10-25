@@ -1844,8 +1844,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $this->openMailbox($this->_selected, Horde_Imap_Client::OPEN_READWRITE);
             if ($this->_mode == Horde_Imap_Client::OPEN_READONLY)  {
                 throw new Horde_Imap_Client_Exception(
-                    'MAILBOX_READONLY',
-                    'Cannot expunge read-only mailbox.'
+                    Horde_Imap_Client_Translation::t("Cannot expunge read-only mailbox."),
+                    Horde_Imap_Client_Exception::MAILBOX_READONLY
                 );
             }
 
@@ -1903,8 +1903,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
         /* Don't expunge if the mailbox is readonly. */
         if ($this->_mode == Horde_Imap_Client::OPEN_READONLY) {
             throw new Horde_Imap_Client_Exception(
-                'MAILBOX_READONLY',
-                'Cannot expunge read-only mailbox.'
+                Horde_Imap_Client_Translation::t("Cannot expunge read-only mailbox."),
+                Horde_Imap_Client_Exception::MAILBOX_READONLY
             );
         }
 

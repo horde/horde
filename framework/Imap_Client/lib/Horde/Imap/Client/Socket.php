@@ -3862,7 +3862,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                             $this->writeDebug("ERROR: Unexpected response from server while waiting for a continuation request.\n", Horde_Imap_Client::DEBUG_INFO);
                             $e = new Horde_Imap_Client_Exception(
                                 Horde_Imap_Client_Translation::t("Error when communicating with the mail server."),
-                                'SERVER_READERROR'
+                                Horde_Imap_Client_Exception::SERVER_READERROR
                             );
                             $e->details = strval($ob);
                             throw $e;
@@ -4003,7 +4003,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->logout();
                 $e = new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("IMAP Server closed the connection."),
-                    'DISCONNECT'
+                    Horde_Imap_Client_Exception::DISCONNECT
                 );
                 $e->details = strval($server);
                 throw $e;
