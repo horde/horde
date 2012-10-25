@@ -278,7 +278,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $this->_isSecure = false;
             $e = new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Error connecting to POP3 server."),
-                'SERVER_CONNECT'
+                Horde_Imap_Client_Exception::SERVER_CONNECT
             );
             $e->details = sprintf("[%u] %s.", $error_number, $error_string);
             throw $e;
@@ -351,7 +351,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         case 'PLAIN':
             // RFC 5034
-            $this->_sendLine('AUTH PLAIN ' . base64_encode(chr(0) . $this->_params['username'] . chr(0) . $this->getParam('password')), array(
+            $this->_sendLine('AUTH PLAIN ' . base64_encode(implode("\0", array($this->_params['username'], $this->getParam('password')))), array(
                 'debug' => sprintf('[AUTH PLAIN Command - username: %s]', $this->_params['username'])
             ));
             break;
@@ -497,15 +497,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     protected function _status(Horde_Imap_Client_Mailbox $mailbox, $flags)
     {
         $this->openMailbox($mailbox);
-
-        // This driver only supports the base IMAP flags.
-        if (($flags & Horde_Imap_Client::STATUS_FIRSTUNSEEN) ||
-            ($flags & Horde_Imap_Client::STATUS_FLAGS) ||
-            ($flags & Horde_Imap_Client::STATUS_PERMFLAGS) ||
-            ($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) ||
-            ($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY)) {
-            throw new Horde_Imap_Client_Exception_NoSupportPop3('Non-basic status requests');
-        }
 
         $ret = array();
 
@@ -661,12 +652,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                               Horde_Imap_Client_Fetch_Query $query,
                               $options)
     {
-        // These options are not supported by this driver.
-        if (!empty($options['changedsince']) ||
-            !empty($options['vanished'])) {
-            throw new Horde_Imap_Client_Exception_NoSupportPop3('Fetch options');
-        }
-
         // Grab sequence IDs - IDs will always be the message number for
         // POP3 fetch commands.
         $seq_ids = $this->_getSeqIds($options['ids']);
