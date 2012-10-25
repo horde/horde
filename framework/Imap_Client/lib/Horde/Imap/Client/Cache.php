@@ -385,7 +385,7 @@ class Horde_Imap_Client_Cache
         $this->_loadSliceMap($mailbox);
 
         $slicemap = &$this->_slicemap[$mailbox];
-        $update = array_intersect_key($slicemap['s'], array_flip($uids));
+        $update = array_intersect_key($slicemap['s'], array_flip(is_array($uids) ? $uids : iterator_to_array($uids)));
 
         if (!empty($update)) {
             $this->_loadUids($mailbox, array_keys($update));
