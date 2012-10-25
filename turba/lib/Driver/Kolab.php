@@ -122,7 +122,6 @@ class Turba_Driver_Kolab extends Turba_Driver
             }
         }
 
-        $hash['phone'] = array();
         foreach (array('phone-business1',
                        'phone-business2',
                        'phone-businessfax',
@@ -136,13 +135,15 @@ class Turba_Driver_Kolab extends Turba_Driver
                        'phone-radio',
                        'phone-assistant') as $sub) {
             if (isset($hash[$sub])) {
+                if (!isset($hash['phone'])) {
+                    $hash['phone'] = array();
+                }
                 $hash['phone'][] = array('type' => substr($sub, 6),
                                          'number' => $hash[$sub]);
                 unset($hash[$sub]);
             }
         }
 
-        $hash['address'] = array();
         $address = array();
         foreach (array('addr-business-street',
                        'addr-business-locality',
@@ -155,6 +156,7 @@ class Turba_Driver_Kolab extends Turba_Driver
             }
         }
         if ($address) {
+            $hash['address'] = array();
             $address['type'] = 'business';
             $hash['address'][] = $address;
         }
@@ -170,6 +172,9 @@ class Turba_Driver_Kolab extends Turba_Driver
             }
         }
         if ($address) {
+            if (!isset($hash['address'])) {
+                $hash['address'] = array();
+            }
             $address['type'] = 'home';
             $hash['address'][] = $address;
         }
