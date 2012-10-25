@@ -1043,6 +1043,7 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix CRAM-MD5 authentication for POP3 driver (Bug #11449).
 * [mms] Allow SSL version to be explicitly chosen via &apos;secure&apos; configuration option for POP3 driver (Request #11435).
    </notes>
   </release>
