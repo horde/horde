@@ -302,8 +302,10 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             // RFC 5034: CRAM-MD5
             // CRAM-SHA1 & CRAM-SHA256 supported by Courier SASL library
             $challenge = $this->_sendLine('AUTH ' . $method);
-            $response = base64_encode($this->_params['username'] . ' ' . hash_hmac(strtolower($method, 5), $this->getParam('password'), base64_decode(substr($challenge['line'], 2)), true));
-            $this->_sendLine($response, array('debug' => '[' . $method . ' Response]'));
+            $response = base64_encode($this->_params['username'] . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode(substr($challenge['line'], 2)), $this->getParam('password'), true));
+            $this->_sendLine($response, array(
+                'debug' => '[' . $method . ' Response]'
+            ));
             break;
 
         case 'DIGEST-MD5':
