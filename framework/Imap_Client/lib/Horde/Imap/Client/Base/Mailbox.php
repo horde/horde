@@ -23,6 +23,13 @@ class Horde_Imap_Client_Base_Mailbox
     public $map = null;
 
     /**
+     * Is mailbox sync'd with remote server (via CONDSTORE/QRESYNC)?
+     *
+     * @var boolean
+     */
+    public $sync = false;
+
+    /**
      * Status information.
      *
      * @var array
@@ -127,6 +134,8 @@ class Horde_Imap_Client_Base_Mailbox
         foreach (array_diff(array_keys($this->_status), $keep) as $val) {
             unset($this->_status[$val]);
         }
+
+        $this->sync = false;
     }
 
 }

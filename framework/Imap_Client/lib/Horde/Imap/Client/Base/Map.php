@@ -31,7 +31,7 @@ class Horde_Imap_Client_Base_Map implements Countable, IteratorAggregate, Serial
      *
      * @var boolean
      */
-    protected $_sorted = false;
+    protected $_sorted = true;
 
     /**
      * Constructor.
@@ -65,13 +65,31 @@ class Horde_Imap_Client_Base_Map implements Countable, IteratorAggregate, Serial
      * Updates the mapping.
      *
      * @param array $ids  Array of sequence -> UID mapping.
+     *
+     * @return boolean  True if the mapping changed.
      */
     public function update($ids)
     {
-        $this->_ids = empty($this->_ids)
-            ? $ids
-            : $ids + $this->_ids;
-        $this->_sorted = false;
+        if (empty($ids)) {
+            return false;
+        } elseif (empty($this->_ids)) {
+            $this->_ids = $ids;
+            $change = true;
+        } else {
+            $change = false;
+            foreach ($ids as $k => $v) {
+                if (!isset($this->_ids[$k]) || ($this->_ids[$k] != $v)) {
+                    $this->_ids[$k] = $v;
+                    $change = true;
+                }
+            }
+        }
+
+        if ($change) {
+            $this->_sorted = false;
+        }
+
+        return $change;
     }
 
     /**

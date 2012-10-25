@@ -971,6 +971,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
             throw $e;
         }
+
+        if ($qresync) {
+            /* Mailbox is fully sync'd. */
+            $mbox_ob->sync = true;
+        }
     }
 
     /**
@@ -3534,10 +3539,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         /* If there are pending FETCH cache writes, we need to write them
          * before the UID -> sequence number mapping changes. */
-        if (count($this->_temp['fetch_cache'])) {
-            $this->_updateCache($this->_temp['fetch_cache']);
-            $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();
-        }
+        $this->_saveFetchCache();
 
         $res = parent::_deleteMsgs($mailbox, $ids);
 
@@ -3554,17 +3556,23 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
     }
 
+    /* Internal functions. */
+
     /**
+     * Saves pending FETCH entries to the cache.
+     *
+     * @param boolean $remove  If true, removes the cached results object
+     *                         instead of clearing it
      */
-    protected function _syncMailbox()
+    protected function _saveFetchCache($remove = false)
     {
-        /* QRESYNC has already synchronized the mailbox. */
-        if (!isset($this->_init['enabled']['QRESYNC'])) {
-            parent::_syncMailbox();
+        $this->_updateCache($this->_temp['fetch_cache']);
+        if ($remove) {
+            unset($this->_temp['fetch_cache']);
+        } else {
+            $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();
         }
     }
-
-    /* Internal functions. */
 
     /**
      * Perform a command on the IMAP server. A connection to the server must
@@ -3791,12 +3799,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             /* Update HIGHESTMODSEQ value. */
             if (!empty($this->_temp['modseqs'])) {
                 $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ, max($this->_temp['modseqs']));
-                $this->_updateModSeq();
             }
 
             /* Update cache items. */
-            $this->_updateCache($this->_temp['fetch_cache']);
-            unset($this->_temp['fetch_cache']);
+            $this->_saveFetchCache(true);
             break;
 
         case 'Horde_Imap_Client_Interaction_Server_Untagged':
