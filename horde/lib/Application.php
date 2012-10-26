@@ -102,7 +102,7 @@ class Horde_Application extends Horde_Registry_Application
                 'Bing' => 'Bing',
                 'Yahoo' => 'Yahoo',
                 'Cloudmade' => 'CloudMade',
-                'MyTopo' => 'MyTopo',
+                'Mytopo' => 'MyTopo',
                 'Osm' => 'OpenStreetMap',
                 'Ocm' => 'OpenCycleMap',
                 'Mapquest' => 'OpenMapquest'
