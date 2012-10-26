@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>20:38:32</time>
+ <date>2012-10-26</date>
+ <time>23:14:11</time>
  <version>
   <release>2.0.0RC1</release>
   <api>2.0.0</api>
@@ -814,7 +814,7 @@
    <stability>
     <release>beta</release>
     <api>alpha</api></stability>
-   <date>2012-10-12</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Support non-padding operators in strftime() formatting (Bug #10435).
