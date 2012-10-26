@@ -71,11 +71,10 @@ v5.0.0beta1
 v5.0.0alpha1
 ------------
 
-First alpha release for Horde 5.
 [jan] Implement new user interface.
 [mms] Add 'suppress' option to prefs.php group entries.
 [mms] Add 'on_change', 'on_init', 'requires', 'requires_nolock', and
-     'suppress' options to prefs.php preference entries.
+      'suppress' options to prefs.php preference entries.
 [mms] Remove support for IE 6.
 [mms] Token protect all AJAX actions.
 [jan] Allow to use IMAP storage for shares and groupware data without a
