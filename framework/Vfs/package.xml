@@ -28,9 +28,9 @@ Reading, writing and listing of files are all supported.</description>
   <active>yes</active>
  </lead>
  <date>2012-10-26</date>
- <time>23:30:42</time>
+ <time>23:30:58</time>
  <version>
-  <release>2.0.0RC1</release>
+  <release>2.0.0RC2</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix check whether quota limit is set (Bug #11455).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1054,6 +1054,19 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix check whether quota limit is set (Bug #11455).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC2</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
