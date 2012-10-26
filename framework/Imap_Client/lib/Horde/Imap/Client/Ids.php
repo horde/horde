@@ -20,12 +20,13 @@
  * @property boolean $search_res  Does this represent a search result?
  * @property boolean $sequence  Are these sequence IDs? If false, these are
  *                              UIDs.
+ * @property boolean $special  True if this is a "special" ID representation.
  * @property string $tostring  Return the non-sorted string representation.
  * @property string $tostring_sort  Return the sorted string representation.
  */
 class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
 {
-    /* Constants. */
+    /* "Special" representation constants. */
     const ALL = "\01";
     const SEARCH_RES = "\02";
     const LARGEST = "\03";
@@ -90,6 +91,9 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
         case 'sequence':
             return (bool)$this->_sequence;
 
+        case 'special':
+            return is_string($this->_ids);
+
         case 'tostring':
         case 'tostring_sort':
             if ($this->all) {
@@ -122,7 +126,8 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
         if (!is_null($ids)) {
             $add = array();
 
-            if (in_array($ids, array(self::ALL, self::SEARCH_RES, self::LARGEST))) {
+            if (is_string($ids) &&
+                in_array($ids, array(self::ALL, self::SEARCH_RES, self::LARGEST))) {
                 $this->_ids = $ids;
                 $this->_sorted = false;
                 return;
