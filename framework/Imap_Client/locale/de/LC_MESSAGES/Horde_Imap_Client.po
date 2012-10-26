@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Imap_Client \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-12 19:05+0200\n"
-"PO-Revision-Date: 2012-10-12 19:45+0200\n"
+"PO-Revision-Date: 2012-10-26 00:03+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: de\n"
@@ -124,7 +124,7 @@ msgstr "Der E-Mail-Server hat die Verbindung unerwartet unterbrochen."
 
 #: lib/Horde/Imap/Client/Socket.php:388
 msgid "Mail server denied authentication."
-msgstr "Der E-Mail-Server hat Authentifizierung zurückgewiesen."
+msgstr "Der E-Mail-Server hat die Authentifizierung verweigert."
 
 #: lib/Horde/Imap/Client/Socket.php:1861 lib/Horde/Imap/Client/Socket.php:2529
 #: lib/Horde/Imap/Client/Socket.php:2553 lib/Horde/Imap/Client/Socket.php:2977
