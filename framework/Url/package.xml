@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>21:00:00</time>
+ <date>2012-10-26</date>
+ <time>23:30:05</time>
  <version>
   <release>2.0.0RC1</release>
   <api>1.1.0</api>
@@ -53,6 +53,7 @@
       <file name="AddTest.php" role="test" />
       <file name="AllTests.php" role="test" />
       <file name="CallbackTest.php" role="test" />
+      <file name="ConstructorTest.php" role="test" />
       <file name="LinkTest.php" role="test" />
       <file name="RawTest.php" role="test" />
       <file name="RedirectTest.php" role="test" />
@@ -88,6 +89,7 @@
    <install as="Horde/Url/AddTest.php" name="test/Horde/Url/AddTest.php" />
    <install as="Horde/Url/AllTests.php" name="test/Horde/Url/AllTests.php" />
    <install as="Horde/Url/CallbackTest.php" name="test/Horde/Url/CallbackTest.php" />
+   <install as="Horde/Url/ConstructorTest.php" name="test/Horde/Url/ConstructorTest.php" />
    <install as="Horde/Url/LinkTest.php" name="test/Horde/Url/LinkTest.php" />
    <install as="Horde/Url/RawTest.php" name="test/Horde/Url/RawTest.php" />
    <install as="Horde/Url/RedirectTest.php" name="test/Horde/Url/RedirectTest.php" />
@@ -264,7 +266,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-10-12</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix copying all parameters when cloning a Horde_Url object in the constructor.
