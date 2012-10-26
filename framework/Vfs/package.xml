@@ -27,8 +27,8 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>21:02:03</time>
+ <date>2012-10-26</date>
+ <time>23:30:42</time>
  <version>
   <release>2.0.0RC1</release>
   <api>2.0.0beta1</api>
@@ -1050,7 +1050,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-12</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix check whether quota limit is set (Bug #11455).
