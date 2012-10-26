@@ -1,6 +1,6 @@
-----------
-v5.0.0-git
-----------
+---------
+v5.0.0RC1
+---------
 
 [jan] Port VAT identification block to use SOAP extension.
 [jan] Fix dynamic updating of portal blocks.
