@@ -75,13 +75,14 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
 
     /**
      * Get a list of client deliverables. Expects the following in $this->vars:
-     *   - c: The client id
+     *   - c: The client id, if querying for a specific client id. Returns
+     *        all deliverables not attached to only a single client otherwise.
      *
      * @return array @see Hermes::getCostObjectType
      */
     public function listDeliverables()
     {
-        $client = $this->vars->c;
+        $client = !empty($this->vars->c) ? $this->vars->c : null;
 
         return Hermes::getCostObjectType($client);
     }
