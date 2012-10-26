@@ -79,6 +79,10 @@ class Content_Objects_Manager
         if (!count($objects)) {
             throw new InvalidArgumentException('No object requested');
         }
+        // Ensure we take the object as a string indentifier.
+        foreach ($objects as &$object) {
+            $object = strval($object);
+        }
         $params = $objects;
         $params[] = $type;
 
