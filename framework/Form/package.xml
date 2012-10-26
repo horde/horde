@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fixed autoloading of some field actions.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -765,7 +765,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2012-10-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fixed autoloading of some field actions.
    </notes>
   </release>
  </changelog>

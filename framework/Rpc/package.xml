@@ -22,10 +22,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-07-19</date>
- <time>23:38:54</time>
+ <date>2012-10-26</date>
+ <time>19:39:17</time>
  <version>
-  <release>2.0.0beta2</release>
+  <release>2.0.0RC1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Use Horde&apos;s temporary directory for SyncML logs.
+* [mjr] Allow autodiscover requests sent as OPTIONS requests.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -709,15 +710,16 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>2.0.0beta2</release>
+    <release>2.0.0RC1</release>
     <api>1.0.0</api></version>
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Use Horde&apos;s temporary directory for SyncML logs.
+* [mjr] Allow autodiscover requests sent as OPTIONS requests.
    </notes>
   </release>
  </changelog>

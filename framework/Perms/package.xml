@@ -17,10 +17,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-21</date>
- <time>22:04:28</time>
+ <date>2012-10-26</date>
+ <time>19:36:04</time>
  <version>
-  <release>2.0.0beta3</release>
+  <release>2.0.0RC1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -832,12 +832,12 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>2.0.0beta3</release>
+    <release>2.0.0RC1</release>
     <api>1.0.0</api></version>
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-21</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Don&apos;t log permission not exists errors.

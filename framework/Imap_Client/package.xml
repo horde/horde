@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-19</date>
- <time>20:53:09</time>
+ <date>2012-10-26</date>
+ <time>19:29:19</time>
  <version>
-  <release>2.0.0beta5</release>
+  <release>2.0.0RC1</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -124,6 +124,7 @@
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Search -->
        <dir name="Socket">
+        <file name="Catenate.php" role="php" />
         <file name="ClientSort.php" role="php" />
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Socket -->
@@ -342,6 +343,7 @@
    <install as="Horde/Imap/Client/Interaction/Server/Untagged.php" name="lib/Horde/Imap/Client/Interaction/Server/Untagged.php" />
    <install as="Horde/Imap/Client/Mailbox/List.php" name="lib/Horde/Imap/Client/Mailbox/List.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
+   <install as="Horde/Imap/Client/Socket/Catenate.php" name="lib/Horde/Imap/Client/Socket/Catenate.php" />
    <install as="Horde/Imap/Client/Socket/ClientSort.php" name="lib/Horde/Imap/Client/Socket/ClientSort.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
@@ -1131,12 +1133,12 @@
   </release>
   <release>
    <version>
-    <release>2.0.0beta5</release>
+    <release>2.0.0RC1</release>
     <api>2.0.0beta1</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-19</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix CONDSTORE synchronization of deleted messages since last mailbox access.

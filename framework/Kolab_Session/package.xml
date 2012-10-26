@@ -10,10 +10,10 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>23:32:28</time>
+ <date>2012-10-26</date>
+ <time>19:32:22</time>
  <version>
-  <release>2.0.0beta2</release>
+  <release>2.0.0RC1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Reduce logging level of debug messages.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -326,15 +326,15 @@
   </release>
   <release>
    <version>
-    <release>2.0.0beta2</release>
+    <release>2.0.0RC1</release>
     <api>1.1.0</api></version>
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-07-19</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Reduce logging level of debug messages.
    </notes>
   </release>
  </changelog>
