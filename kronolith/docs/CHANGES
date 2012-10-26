@@ -2,6 +2,7 @@
 v4.0.0-git
 ----------
 
+[jan] Fix export links for calendars (Bug #11576).
 [jan] Fix broken Apple iCal behavior with exception dates (Evert Pot
       <evert@rooftopsolutions.nl>).
 [jan] Use more compatible message format for iTip notifications (Bug #9854).

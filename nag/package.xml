@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix export links for tasklists (Bug #11576).
 * [mjr] Fix various issues with importing CSV files.
 * [mjr] Format datetime fields when exporting a task as a hash (Bug #11537).
 * [jan] Fix retrieving tasks from Kolab backend by UID (Bug #11532).
@@ -1205,6 +1206,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix export links for tasklists (Bug #11576).
 * [mjr] Fix various issues with importing CSV files.
 * [mjr] Format datetime fields when exporting a task as a hash (Bug #11537).
 * [jan] Fix retrieving tasks from Kolab backend by UID (Bug #11532).

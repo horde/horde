@@ -26,7 +26,10 @@ class Nag_Api extends Horde_Registry_Api
     public function ajaxDefaults()
     {
         return array(
-            'URI_TASKLIST_EXPORT' => strval($GLOBALS['registry']->downloadUrl('', array('actionID' => 'export', 'exportTasks' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportList' => ''))),
+            'URI_TASKLIST_EXPORT' => str_replace(
+                array('%23', '%2523', '%7B', '%257B', '%7D', '%257D'),
+                array('#', '#', '{', '{', '}', '}'),
+                strval($GLOBALS['registry']->downloadUrl('#{tasklist}.ics', array('actionID' => 'export', 'exportTasks' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportList' => '#{tasklist}'))->setRaw(true))),
             'default_tasklist' => Nag::getDefaultTasklist(Horde_Perms::EDIT),
             'default_due' => (bool)$GLOBALS['prefs']->getValue('default_due'),
             'default_due_days' => (int)$GLOBALS['prefs']->getValue('default_due_days'),

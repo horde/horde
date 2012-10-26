@@ -2996,8 +2996,8 @@ KronolithCore = {
                 $('kronolithCalendar' + type + 'Description').setValue(info.desc);
                 $('kronolithCalendar' + type + 'LinkExport').up('span').show();
                 $('kronolithCalendar' + type + 'Export').href = type == 'internal'
-                    ? Kronolith.conf.URI_CALENDAR_EXPORT + calendar
-                    : Kronolith.conf.tasks.URI_TASKLIST_EXPORT + '=' + calendar.substring(6);
+                    ? Kronolith.conf.URI_CALENDAR_EXPORT.interpolate({ calendar: calendar })
+                    : Kronolith.conf.tasks.URI_TASKLIST_EXPORT.interpolate({ tasklist: calendar.substring(6) });
                 $('kronolithCalendar' + type + 'LinkUrls').up().show();
                 $('kronolithCalendar' + type + 'UrlSub').setValue(info.sub);
                 break;
