@@ -2432,28 +2432,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return $ret;
         }
 
+        $cs_ret = empty($options['changedsince'])
+            ? null
+            : clone $ret;
+
         /* Convert special searches to UID lists. */
         $options['ids'] = $this->_resolveIds($options['ids']);
-
-        /* If doing a changedsince search, limit the UIDs now. */
-        if (!empty($options['changedsince'])) {
-            $changed_query = new Horde_Imap_Client_Fetch_Query();
-            if ($options['ids']->sequence) {
-                $changed_query->seq();
-            } else {
-                $changed_query->uid();
-            }
-
-            $this->_fetch($ret, $changed_query, array(
-                'changedsince' => $options['changedsince'],
-                'ids' => $options['ids']
-            ));
-            if (!count($ret)) {
-                return $ret;
-            }
-
-            $options['ids'] = $this->getIdsOb($ret->ids(), $options['ids']->sequence);
-        }
 
         /* Grab Seq -> UID lookup. */
         $ids = $this->_mailboxOb(true)->map->lookup($options['ids']);
@@ -2558,12 +2542,43 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         foreach ($new_query as $val) {
-            $this->_fetch($ret, $val['c'], array_merge($options, array(
+            $this->_fetch(is_null($cs_ret) ? $ret : $cs_ret, $val['c'], array_merge($options, array(
                 'ids' => $val['i']
             )));
         }
 
-        return $ret;
+        if (is_null($cs_ret)) {
+            return $ret;
+        }
+
+
+        /* If doing changedsince query, and all other data is cached, we still
+         * need to hit IMAP server to determine proper results set. */
+        if (empty($new_query)) {
+            $squery = new Horde_Imap_Client_Search_Query();
+            $squery->modseq($options['changedsince'] + 1);
+            $squery->ids($options['ids']);
+
+            $cs = $this->search($this->_selected, $squery, array(
+                'sequence' => $options['ids']->sequence
+            ));
+
+            foreach ($cs['match'] as $val) {
+                $entry = $ret->get($val);
+                if ($options['ids']->sequence) {
+                    $entry->setSeq($val);
+                } else {
+                    $entry->setUid($val);
+                }
+                $cs_ret->merge($entry);
+            }
+        } else {
+            foreach ($cs_ret as $key => $val) {
+                $val->merge($ret->get($key));
+            }
+        }
+
+        return $cs_ret;
     }
 
     /**
