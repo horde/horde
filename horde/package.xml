@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Port VAT identification block to use SOAP extension.
 * [jan] Fix dynamic updating of portal blocks.
 * [mms] Allow view-specific help files to inherit from base application help file.
 * [mms] Allow application basic/dynamic views to have different help source files.
@@ -1967,10 +1968,6 @@
     <name>File_Find</name>
     <channel>pear.php.net</channel>
    </package>
-   <package>
-    <name>SOAP</name>
-    <channel>pear.php.net</channel>
-   </package>
    <extension>
     <name>iconv</name>
    </extension>
@@ -3704,6 +3701,7 @@
    <date>2012-10-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Port VAT identification block to use SOAP extension.
 * [jan] Fix dynamic updating of portal blocks.
 * [mms] Allow view-specific help files to inherit from base application help file.
 * [mms] Allow application basic/dynamic views to have different help source files.

@@ -2,6 +2,7 @@
 v5.0.0-git
 ----------
 
+[jan] Port VAT identification block to use SOAP extension.
 [jan] Fix dynamic updating of portal blocks.
 [mms] Allow view-specific help files to inherit from base application help
       file.
