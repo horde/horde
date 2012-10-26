@@ -2372,7 +2372,7 @@ KronolithCore = {
             col.insert(new Element('span', { className: 'kronolithInfo' }).update(task.value.sd.escapeHTML()));
         }
 
-        if (!Object.isUndefined(task.value.t) && task.value.t.size() > 0) {
+        if (task.value.t && task.value.t.size() > 0) {
             tagc = new Element('ul', { className: 'horde-tags' });
             task.value.t.each(function(x) {
                 tagc.insert(new Element('li').update(x.escapeHTML()));
