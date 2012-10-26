@@ -2330,7 +2330,7 @@ KronolithCore = {
             }, this);
         }, this);
 
-        if ($('kronolithViewTasksBody').select('tr').length > 3) {
+        if ($('kronolithViewTasksBody').select('tr').length > 2) {
             $('kronolithTasksNoItems').hide();
         } else {
             $('kronolithTasksNoItems').show();
@@ -2736,7 +2736,7 @@ KronolithCore = {
                 (!task || el.retrieve('taskid') == task);
         }).invoke('remove');
         this.removeEvent('tasklists|tasks/' + list, task ? '_tasks' + task : null);
-        if ($('kronolithViewTasksBody').select('tr').length > 3) {
+        if ($('kronolithViewTasksBody').select('tr').length > 2) {
             $('kronolithTasksNoItems').hide();
         } else {
             $('kronolithTasksNoItems').show();
