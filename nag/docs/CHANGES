@@ -1,6 +1,6 @@
-----------
-v4.0.0-git
-----------
+---------
+v4.0.0RC1
+---------
 
 [jan] Fix export links for tasklists (Bug #11576).
 [mjr] Fix various issues with importing CSV files.
