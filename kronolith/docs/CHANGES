@@ -1,6 +1,6 @@
-----------
-v4.0.0-git
-----------
+---------
+v4.0.0RC1
+---------
 
 [jan] Show completed future tasks in complete category, not in future category
       (Bug #11562).
