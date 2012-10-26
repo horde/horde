@@ -1085,28 +1085,6 @@ HermesCore = {
             }
         }.bindAsEventListener(this));
 
-        /* Catch notification actions. */
-        document.observe('HordeCore:showNotifications', function(e) {
-            switch (e.memo.type) {
-            case 'horde.error':
-            case 'horde.warning':
-            case 'horde.message':
-            case 'horde.success':
-                var notify = $('hermesNotifications'),
-                    className = e.memo.type.replace(/\./, '-'),
-                    order = 'horde-error,horde-warning,horde-message,horde-success,hermesNotifications',
-                    open = notify.hasClassName('hermesClose');
-                notify.removeClassName('hermesClose');
-                if (order.indexOf(notify.className) > order.indexOf(className)) {
-                    notify.className = className;
-                }
-                if (open) {
-                    notify.addClassName('hermesClose');
-                }
-                break;
-            }
-        });
-
         HordeCore.doAction('listTimers', [], { 'callback': this.listTimersCallback.bind(this) });
         new PeriodicalExecuter(HordeCore.doAction.bind(this, 'poll'), 60);
     }
