@@ -57,6 +57,9 @@ class Horde_Imap_Client_Base_Mailbox
                 ? false
                 : null;
 
+        case Horde_Imap_Client::STATUS_LASTMODSEQ:
+            return 0;
+
         case Horde_Imap_Client::STATUS_LASTMODSEQUIDS:
             return array();
 
@@ -100,13 +103,11 @@ class Horde_Imap_Client_Base_Mailbox
     public function setStatus($entry, $value)
     {
         switch ($entry) {
-        case Horde_Imap_Client::STATUS_HIGHESTMODSEQ:
-            if (!isset($this->_status[Horde_Imap_Client::STATUS_LASTMODSEQ])) {
-                $this->setStatus(Horde_Imap_Client::STATUS_LASTMODSEQ, $value);
-            }
-            break;
-
         case Horde_Imap_Client::STATUS_LASTMODSEQ:
+            /* This can only be set once per access. */
+            if (isset($this->_status[Horde_Imap_Client::STATUS_LASTMODSEQ])) {
+                return;
+            }
             unset($this->_status[Horde_Imap_Client::STATUS_LASTMODSEQUIDS]);
             break;
 

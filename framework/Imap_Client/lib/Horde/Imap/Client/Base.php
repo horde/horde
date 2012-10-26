@@ -1599,16 +1599,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         /* Handle LASTMODSEQ related options. */
         if ($flags & Horde_Imap_Client::STATUS_LASTMODSEQ) {
-            $ret['lastmodseq'] = isset($this->_init['enabled']['CONDSTORE'])
-                ? $this->_mailboxOb(false, $smailbox)->getStatus(Horde_Imap_Client::STATUS_LASTMODSEQ)
-                : 0;
+            $ret['lastmodseq'] = $this->_mailboxOb(false, $smailbox)->getStatus(Horde_Imap_Client::STATUS_LASTMODSEQ);
             $flags &= ~Horde_Imap_Client::STATUS_LASTMODSEQ;
         }
 
         if ($flags & Horde_Imap_Client::STATUS_LASTMODSEQUIDS) {
-            $ret['lastmodsequids'] = isset($this->_init['enabled']['CONDSTORE'])
-                ? $this->getIdsOb($this->_mailboxOb(false, $smailbox)->getStatus(Horde_Imap_Client::STATUS_LASTMODSEQUIDS))
-                : $this->getIdsOb();
+            $ret['lastmodsequids'] = $this->getIdsOb($this->_mailboxOb(false, $smailbox)->getStatus(Horde_Imap_Client::STATUS_LASTMODSEQUIDS));
             $flags &= ~Horde_Imap_Client::STATUS_LASTMODSEQUIDS;
         }
 
@@ -3440,12 +3436,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
         /* Optimization: we can directly use getStatus() here since we know
          * these values are initialized. */
         $mbox_ob = $this->_mailboxOb();
-        $highestmodseq = isset($this->_init['enabled']['CONDSTORE'])
-            ? $mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)
-            : 0;
+        $highestmodseq = $mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
         $uidvalidity = $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY);
 
-        $mapping = $md_update = $modseq = $tocache = array();
+        $mapping = $modseq = $tocache = array();
         if (count($data)) {
             $cf = $this->_cacheFields();
         }
@@ -3503,19 +3497,15 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
 
             if ($this->_mailboxOb(true)->map->update($mapping)) {
-                $md_update[self::CACHE_IDMAP] = serialize($mbox_ob->map);
+                $this->_updateMetaData($this->_selected, array(
+                    self::CACHE_IDMAP => serialize($mbox_ob->map)
+                ), $uidvalidity);
             }
         }
 
         if (!empty($modseq)) {
+            $this->_updateModSeq(max(array_merge($modseq, array($highestmodseq))));
             $mbox_ob->setStatus(Horde_Imap_Client::STATUS_LASTMODSEQUIDS, array_keys($modseq));
-
-            $modseq[] = $highestmodseq;
-            $md_update[self::CACHE_MODSEQ] = max($modseq);
-        }
-
-        if (!empty($md_update)) {
-            $this->_updateMetaData($this->_selected, $md_update, $uidvalidity);
         }
     }
 
@@ -3675,6 +3665,43 @@ abstract class Horde_Imap_Client_Base implements Serializable
     }
 
     /**
+     * Updates the cached MODSEQ value.
+     *
+     * @param integer $modseq  MODSEQ value to store.
+     *
+     * @return mixed  The MODSEQ of the old value if it was replaced (or false
+     *                if it didn't exist or is the same).
+     */
+    protected function _updateModSeq($modseq)
+    {
+        $mbox_ob = $this->_mailboxOb();
+        $uidvalid = $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY);
+        $md = $this->_cache->getMetaData($this->_selected, $uidvalid, array(self::CACHE_MODSEQ));
+
+        if (isset($md[self::CACHE_MODSEQ])) {
+            if ($md[self::CACHE_MODSEQ] < $modseq) {
+                $set = true;
+                $sync = $md[self::CACHE_MODSEQ];
+            } else {
+                $set = false;
+                $sync = 0;
+            }
+            $mbox_ob->setStatus(Horde_Imap_Client::STATUS_LASTMODSEQ, $md[self::CACHE_MODSEQ]);
+        } else {
+            $set = true;
+            $sync = 0;
+        }
+
+        if ($set) {
+            $this->_updateMetaData($this->_selected, array(
+                self::CACHE_MODSEQ => $modseq
+            ), $uidvalid);
+        }
+
+        return $sync;
+    }
+
+    /**
      * Synchronizes the current mailbox cache with the server (Requires
      * CONDSTORE/QRESYNC).
      */
@@ -3683,35 +3710,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $mbox_ob = $this->_mailboxOb();
 
         /* Check that modseqs are available in mailbox. */
-        if (!($highestmodseq = $mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ))) {
-            return;
-        }
-
-        $uidvalid = $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY);
-        $md = $this->_cache->getMetaData($this->_selected, $uidvalid, array(self::CACHE_MODSEQ));
-
-        if (isset($md[self::CACHE_MODSEQ])) {
-            if ($md[self::CACHE_MODSEQ] < $highestmodseq) {
-                $set_modseq = true;
-            } else {
-                $mbox_ob->sync = true;
-            }
-        } else {
-            $set_modseq = true;
+        if (!($highestmodseq = $mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) ||
+            !($modseq = $this->_updateModSeq($highestmodseq))) {
             $mbox_ob->sync = true;
-        }
-
-        if ($set_modseq) {
-            $this->_updateMetaData($this->_selected, array(
-                self::CACHE_MODSEQ => $highestmodseq
-            ), $uidvalid);
         }
 
         if ($mbox_ob->sync) {
             return;
         }
 
-        $uids = $this->_cache->get($this->_selected, array(), array(), $uidvalid);
+        $uids = $this->_cache->get($this->_selected, array(), array(), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY));
 
         if (!empty($uids)) {
             $uids_ob = $this->getIdsOb($uids);
@@ -3723,7 +3731,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
                 /* Update flags in cache. Cache will be updated in _fetch(). */
                 $this->_fetch(new Horde_Imap_Client_Fetch_Results(), $fquery, array(
-                    'changedsince' => $md[self::CACHE_MODSEQ],
+                    'changedsince' => $modseq,
                     'ids' => $uids_ob
                 ));
             }
