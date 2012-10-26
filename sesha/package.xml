@@ -16,10 +16,10 @@
   <email>lang@b1-systems.de</email>
   <active>yes</active>
  </lead>
- <date>2012-08-08</date>
- <time>13:43:26</time>
+ <date>2012-10-26</date>
+ <time>23:01:13</time>
  <version>
-  <release>1.0.0beta2</release>
+  <release>1.0.0RC1</release>
   <api>1.0.0beta1</api>
  </version>
  <stability>
@@ -365,12 +365,12 @@
   </release>
   <release>
    <version>
-    <release>1.0.0beta2</release>
+    <release>1.0.0RC1</release>
     <api>1.0.0beta1</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-08-08</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Update to work with latest Horde 5 code.

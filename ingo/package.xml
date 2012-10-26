@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>23:11:10</time>
+ <date>2012-10-26</date>
+ <time>22:58:58</time>
  <version>
-  <release>3.0.0beta3</release>
+  <release>3.0.0RC1</release>
   <api>3.0.0beta1</api>
  </version>
  <stability>
@@ -39,7 +39,6 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="ingo-convert-datatree-shares-to-sql" role="script" />
     <file name="ingo-convert-prefs-to-sql" role="script" />
     <file name="ingo-convert-sql-shares-to-sqlng" role="script" />
     <file name="ingo-postfix-policyd" role="script" />
@@ -602,7 +601,6 @@
  </usesrole>
  <phprelease>
   <filelist>
-   <install as="ingo-convert-datatree-shares-to-sql" name="bin/ingo-convert-datatree-shares-to-sql" />
    <install as="ingo-convert-prefs-to-sql" name="bin/ingo-convert-prefs-to-sql" />
    <install as="ingo-convert-sql-shares-to-sqlng" name="bin/ingo-convert-sql-shares-to-sqlng" />
    <install as="ingo-postfix-policyd" name="bin/ingo-postfix-policyd" />
@@ -1122,12 +1120,12 @@
   </release>
   <release>
    <version>
-    <release>3.0.0beta3</release>
+    <release>3.0.0RC1</release>
     <api>3.0.0beta1</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-12</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Add &apos;euser&apos; option to &apos;transport_auth&apos; hook allowing the effective user to be provided for the timsieved transport driver.

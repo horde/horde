@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-22</date>
- <time>12:18:32</time>
+ <date>2012-10-26</date>
+ <time>22:58:15</time>
  <version>
-  <release>6.0.0beta5</release>
+  <release>6.0.0RC1</release>
   <api>6.0.0beta1</api>
  </version>
  <stability>
@@ -2757,12 +2757,12 @@
   </release>
   <release>
    <version>
-    <release>6.0.0beta5</release>
+    <release>6.0.0RC1</release>
     <api>6.0.0beta1</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-22</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Attach as many files as possible instead of aborting on first failed attachment add.

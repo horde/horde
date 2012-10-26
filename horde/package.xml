@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-17</date>
- <time>15:52:17</time>
+ <date>2012-10-26</date>
+ <time>22:57:56</time>
  <version>
-  <release>5.0.0beta7</release>
+  <release>5.0.0RC1</release>
   <api>5.0.0beta1</api>
  </version>
  <stability>
@@ -3693,12 +3693,12 @@
   </release>
   <release>
    <version>
-    <release>5.0.0beta7</release>
+    <release>5.0.0RC1</release>
     <api>5.0.0beta1</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-17</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Port VAT identification block to use SOAP extension.
