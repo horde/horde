@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-26</date>
- <time>23:54:34</time>
+ <time>23:55:41</time>
  <version>
-  <release>5.0.0RC1</release>
+  <release>5.0.0RC2</release>
   <api>5.0.0beta1</api>
  </version>
  <stability>
@@ -40,10 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Port VAT identification block to use SOAP extension.
-* [jan] Fix dynamic updating of portal blocks.
-* [mms] Allow view-specific help files to inherit from base application help file.
-* [mms] Allow application basic/dynamic views to have different help source files.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3705,6 +3702,19 @@
 * [jan] Fix dynamic updating of portal blocks.
 * [mms] Allow view-specific help files to inherit from base application help file.
 * [mms] Allow application basic/dynamic views to have different help source files.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.0RC2</release>
+    <api>5.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
