@@ -2,6 +2,7 @@
 v5.0.0-git
 ----------
 
+[jan] Fix dynamic updating of portal blocks.
 [mms] Allow view-specific help files to inherit from base application help
       file.
 [mms] Allow application basic/dynamic views to have different help source

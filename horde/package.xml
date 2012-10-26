@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix dynamic updating of portal blocks.
 * [mms] Allow view-specific help files to inherit from base application help file.
 * [mms] Allow application basic/dynamic views to have different help source files.
  </notes>
@@ -3703,6 +3704,7 @@
    <date>2012-10-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix dynamic updating of portal blocks.
 * [mms] Allow view-specific help files to inherit from base application help file.
 * [mms] Allow application basic/dynamic views to have different help source files.
    </notes>

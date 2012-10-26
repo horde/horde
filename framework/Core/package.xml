@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix dynamic updating of portal blocks.
 * [mms] Allow AJAX handler methods to be marked externally accessible (i.e. no session token checking) (Bug #11538).
 * [mjr] Fix copying ActiveSync email to sent folder in certain cases (Bug #11529).
 * [jan] Catch exceptions from Horde_Crypt (Bug #11530).
@@ -2518,6 +2519,7 @@
    <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix dynamic updating of portal blocks.
 * [mms] Allow AJAX handler methods to be marked externally accessible (i.e. no session token checking) (Bug #11538).
 * [mjr] Fix copying ActiveSync email to sent folder in certain cases (Bug #11529).
 * [jan] Catch exceptions from Horde_Crypt (Bug #11530).
