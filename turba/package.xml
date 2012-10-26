@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-26</date>
- <time>22:58:34</time>
+ <date>2012-10-27</date>
+ <time>00:01:15</time>
  <version>
   <release>4.0.0RC1</release>
   <api>4.0.0beta1</api>
@@ -1489,7 +1489,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-26</date>
+   <date>2012-10-27</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Allow searching for &apos;emails&apos; attributes (Bug #11185).

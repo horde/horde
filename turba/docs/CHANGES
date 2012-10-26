@@ -1,6 +1,6 @@
-----------
-v4.0.0-git
-----------
+---------
+v4.0.0RC1
+---------
 
 [jan] Allow searching for 'emails' attributes (Bug #11185).
 [jan] Fix LIKE matching of attributes in Kolab driver.
