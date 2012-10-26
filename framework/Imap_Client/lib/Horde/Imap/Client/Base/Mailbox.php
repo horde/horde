@@ -124,7 +124,7 @@ class Horde_Imap_Client_Base_Mailbox
     /**
      * Reset the status information.
      */
-    public function resetStatus()
+    public function reset()
     {
         $keep = array(
             Horde_Imap_Client::STATUS_LASTMODSEQ,

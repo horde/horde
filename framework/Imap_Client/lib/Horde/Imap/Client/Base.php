@@ -932,7 +932,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if ($change) {
             $this->_openMailbox($mailbox, $mode);
-
             if ($this->_initCache(true)) {
                 $this->_syncMailbox();
             }
@@ -963,8 +962,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $this->_selected = null;
         } else {
             $this->_selected = clone $mailbox;
-            $mbox_ob = $this->_mailboxOb(true);
-            $mbox_ob->resetStatus();
+            $this->_mailboxOb(true)->reset();
         }
     }
 
