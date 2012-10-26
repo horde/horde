@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-27</date>
- <time>00:01:15</time>
+ <time>00:02:18</time>
  <version>
-  <release>4.0.0RC1</release>
+  <release>4.0.0RC2</release>
   <api>4.0.0beta1</api>
  </version>
  <stability>
@@ -40,13 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Allow searching for &apos;emails&apos; attributes (Bug #11185).
-* [jan] Fix LIKE matching of attributes in Kolab driver.
-* [mms] Convert turba minisearch block to the Horde AJAX framework.
-* [jan] Support &apos;emails&apos; attribute in smartphone view (Bug #11544).
-* [jan] Attach share owner to all address book titles (Bug #11528).
-* [jan] Fix exporting from browse view (Bug #11526).
-* [jan] Return to the same page after running actions from the browse view.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1499,6 +1493,19 @@
 * [jan] Attach share owner to all address book titles (Bug #11528).
 * [jan] Fix exporting from browse view (Bug #11526).
 * [jan] Return to the same page after running actions from the browse view.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0RC2</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-27</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
