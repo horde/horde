@@ -25,9 +25,9 @@
   <active>yes</active>
  </developer>
  <date>2012-10-26</date>
- <time>23:16:54</time>
+ <time>23:17:12</time>
  <version>
-  <release>2.0.0RC1</release>
+  <release>2.0.0RC2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -36,7 +36,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix parsing of VTIMEZONE components that use RDATE properties.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -972,6 +972,19 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix parsing of VTIMEZONE components that use RDATE properties.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
