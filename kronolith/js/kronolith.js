@@ -2306,9 +2306,7 @@ KronolithCore = {
             $H(tasks).each(function(task) {
                 switch (tasktype) {
                 case 'complete':
-                    if (!task.value.cp ||
-                        (!Object.isUndefined(task.value.start) &&
-                         task.value.start.isAfter(now))) {
+                    if (!task.value.cp) {
                         return;
                     }
                     break;
@@ -2320,7 +2318,8 @@ KronolithCore = {
                     }
                     break;
                 case 'future':
-                    if (Object.isUndefined(task.value.start) ||
+                    if (task.value.cp ||
+                        Object.isUndefined(task.value.start) ||
                         !task.value.start.isAfter(now)) {
                         return;
                     }

@@ -2,6 +2,8 @@
 v4.0.0-git
 ----------
 
+[jan] Show completed future tasks in complete category, not in future category
+      (Bug #11562).
 [jan] Fix exporting of recurring events with exceptions from Kolab backends.
 [jan] Fix export links for calendars (Bug #11576).
 [jan] Fix broken Apple iCal behavior with exception dates (Evert Pot
