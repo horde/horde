@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel H5 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2012-10-26 23:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,7 +61,7 @@ msgid_plural "%d items"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Ajax/Application/Handler.php:350 lib/View/Results.php:256
+#: lib/Ajax/Application/Handler.php:352 lib/View/Results.php:256
 #: lib/Widget/Tags.php:86 templates/faces/search.inc:12
 #, php-format
 msgid "%d photo"
@@ -145,16 +145,14 @@ msgid "A gallery to add this photo to is required."
 msgstr ""
 
 #: lib/View/GalleryProperties.php:185
-#, php-format
-msgid "Access denied adding a gallery to \"%s\"."
+msgid "Access denied adding a sub gallery to this gallery."
 msgstr ""
 
 #: lib/Api.php:198 lib/Api.php:350 xppublish.php:178
-#, php-format
-msgid "Access denied adding photos to \"%s\"."
+msgid "Access denied adding photos to this gallery."
 msgstr ""
 
-#: lib/Gallery.php:872
+#: lib/Gallery.php:871
 msgid "Access denied adding tags to this gallery."
 msgstr ""
 
@@ -163,8 +161,7 @@ msgid "Access denied adding tags to this photo."
 msgstr ""
 
 #: lib/Gallery.php:478
-#, php-format
-msgid "Access denied copying photos to \"%s\"."
+msgid "Access denied copying photos to this gallery."
 msgstr ""
 
 #: lib/Api.php:457
@@ -175,71 +172,61 @@ msgstr ""
 msgid "Access denied deleting galleries."
 msgstr ""
 
-#: gallery/delete.php:32 gallery/delete.php:66 lib/Api.php:515
-#, php-format
-msgid "Access denied deleting gallery \"%s\"."
+#: image.php:665 lib/Api.php:428 lib/View/Results.php:86
+msgid "Access denied deleting photos from this gallery."
 msgstr ""
 
-#: image.php:665 lib/Api.php:428 lib/View/Results.php:86
-#, php-format
-msgid "Access denied deleting photos from \"%s\"."
+#: gallery/delete.php:32 gallery/delete.php:66 lib/Api.php:515
+msgid "Access denied deleting this gallery."
 msgstr ""
 
 #: lib/Api.php:663
-#, php-format
-msgid "Access denied downloading full sized photos from \"%s\"."
+msgid "Access denied downloading full sized photos from this gallery."
 msgstr ""
 
-#: gallery.php:40 image.php:801 lib/Image.php:909
-#, php-format
-msgid "Access denied downloading photos from \"%s\"."
+#: gallery.php:40 image.php:802 lib/Image.php:909
+msgid "Access denied downloading photos from this gallery."
 msgstr ""
 
-#: lib/View/GalleryProperties.php:245
+#: lib/View/GalleryProperties.php:244
 msgid "Access denied editing galleries."
 msgstr ""
 
-#: faces/gallery.php:32 gallery/sort.php:30
-#, php-format
-msgid "Access denied editing gallery \"%s\"."
-msgstr ""
-
-#: faces/custom.php:36 image.php:344 image.php:828
+#: faces/custom.php:36 image.php:344 image.php:830 lib/Faces/Base.php:431
+#: lib/Faces/Base.php:519
 msgid "Access denied editing the photo."
 msgstr ""
 
-#: lib/GalleryMode/Date.php:457 lib/GalleryMode/Normal.php:161
-#, php-format
-msgid "Access denied moving photos to \"%s\"."
+#: faces/gallery.php:32 gallery/sort.php:30 lib/Faces/Base.php:708
+msgid "Access denied editing this gallery."
+msgstr ""
+
+#: lib/GalleryMode/Date.php:457
+msgid "Access denied moving photos to this gallery."
 msgstr ""
 
 #: lib/GalleryMode/Date.php:459 lib/GalleryMode/Normal.php:163
-#, php-format
-msgid "Access denied removing photos from \"%s\"."
-msgstr ""
-
-#: lib/View/GalleryProperties.php:289
-#, php-format
-msgid "Access denied saving gallery \"%s\"."
+msgid "Access denied removing photos from this gallery."
 msgstr ""
 
 #: image.php:190 image.php:401 image.php:445
-#, php-format
-msgid "Access denied saving photo to \"%s\"."
+msgid "Access denied saving photo to this gallery."
+msgstr ""
+
+#: lib/View/GalleryProperties.php:288
+msgid "Access denied saving this gallery."
 msgstr ""
 
 #: gallery/captions.php:33
-#, php-format
-msgid "Access denied setting captions for %s."
+msgid "Access denied setting captions for this gallery."
 msgstr ""
 
 #: lib/View/Base.php:142
-#, php-format
-msgid "Access denied to gallery \"%s\"."
+msgid "Access denied to this gallery."
 msgstr ""
 
 #: lib/Block/Gallery.php:162 lib/Block/RecentComments.php:175
-#: lib/Block/RecentlyAdded.php:205 lib/Gallery.php:839
+#: lib/Block/RecentlyAdded.php:205 lib/Gallery.php:838
 msgid "Access denied viewing this gallery."
 msgstr ""
 
@@ -284,11 +271,11 @@ msgstr ""
 msgid "Add to bookmarks"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:361
+#: lib/View/GalleryProperties.php:360
 msgid "Adding A New Gallery"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:194
+#: lib/View/GalleryProperties.php:193
 #, php-format
 msgid "Adding A Subgallery to %s"
 msgstr ""
@@ -374,7 +361,7 @@ msgstr ""
 msgid "Background Color"
 msgstr ""
 
-#: image.php:723 image.php:772 lib/View/Results.php:136
+#: image.php:724 image.php:773 lib/View/Results.php:136
 #: lib/View/Results.php:176
 msgid "Bad input."
 msgstr ""
@@ -513,7 +500,7 @@ msgid_plural "Copied %d photos from %s to %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: image.php:766
+#: image.php:767
 #, php-format
 msgid "Copied %d photo to %s"
 msgid_plural "Copied %d photos to %s"
@@ -571,7 +558,7 @@ msgstr ""
 msgid "Created:"
 msgstr ""
 
-#: image.php:841 templates/image/crop_image.inc:113
+#: image.php:844 templates/image/crop_image.inc:113
 #: templates/image/edit_image.inc:30 templates/image/resize_image.inc:60
 msgid "Crop"
 msgstr ""
@@ -625,7 +612,7 @@ msgstr ""
 msgid "Delete geotag"
 msgstr ""
 
-#: image.php:670 lib/View/Results.php:90
+#: image.php:671 lib/View/Results.php:90
 msgid "Deleted the photo."
 msgstr ""
 
@@ -1014,7 +1001,7 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: lib/Gallery.php:503
+#: lib/Gallery.php:502
 msgid "Image already has existing attributes."
 msgstr ""
 
@@ -1034,7 +1021,7 @@ msgstr ""
 msgid "Invalid gallery specified."
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:269 lib/Ajax/Application/Handler.php:314
+#: lib/Ajax/Application/Handler.php:271 lib/Ajax/Application/Handler.php:316
 #, php-format
 msgid "Invalid input %s"
 msgstr ""
@@ -1151,7 +1138,7 @@ msgstr ""
 msgid "Mirror"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:206
+#: lib/View/GalleryProperties.php:205
 msgid "Missing gallery parameter"
 msgstr ""
 
@@ -1163,7 +1150,7 @@ msgstr ""
 msgid "Modified"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:226
+#: lib/View/GalleryProperties.php:225
 #, php-format
 msgid "Modifying: %s"
 msgstr ""
@@ -1179,7 +1166,7 @@ msgstr ""
 msgid "Move"
 msgstr ""
 
-#: image.php:717 lib/View/Results.php:125
+#: image.php:718 lib/View/Results.php:125
 #, php-format
 msgid "Moved %d photo from \"%s\" to \"%s\""
 msgid_plural "Moved %d photos from \"%s\" to \"%s\""
@@ -1217,7 +1204,7 @@ msgstr ""
 msgid "New Gallery Title"
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:63
+#: lib/Ajax/Application/Handler.php:65
 #, php-format
 msgid "New images uploaded to %s. %s"
 msgstr ""
@@ -1259,14 +1246,14 @@ msgid ""
 "at the same location."
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:178
+#: lib/Ajax/Application/Handler.php:180
 #, php-format
 msgid ""
 "No location data present. Place using %smap%s or click on image to place at "
 "the same location."
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:180 lib/Widget/Geotag.php:198
+#: lib/Ajax/Application/Handler.php:182 lib/Widget/Geotag.php:198
 #, php-format
 msgid "No location data present. You may add some %s."
 msgstr ""
@@ -1477,7 +1464,7 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: image.php:598 image.php:848
+#: image.php:598 image.php:851
 #, php-format
 msgid "Preview changes for %s :: %s"
 msgstr ""
@@ -1642,7 +1629,7 @@ msgstr ""
 msgid "Remove %s from search"
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:350 lib/Widget/Tags.php:86
+#: lib/Ajax/Application/Handler.php:352 lib/Widget/Tags.php:86
 msgid "Remove Tag"
 msgstr ""
 
@@ -1923,7 +1910,7 @@ msgstr ""
 msgid "Successfully deleted %s."
 msgstr ""
 
-#: gallery/delete.php:74
+#: gallery/delete.php:73
 #, php-format
 msgid "Successfully emptied \"%s\""
 msgstr ""
@@ -1971,17 +1958,17 @@ msgstr ""
 msgid "The gallery \"%s\" could not be created: %s"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:387 xppublish.php:126
+#: lib/View/GalleryProperties.php:386 xppublish.php:126
 #, php-format
 msgid "The gallery \"%s\" couldn't be created: %s"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:382 xppublish.php:123
+#: lib/View/GalleryProperties.php:381 xppublish.php:123
 #, php-format
 msgid "The gallery \"%s\" was created successfully."
 msgstr ""
 
-#: lib/View/GalleryProperties.php:330
+#: lib/View/GalleryProperties.php:329
 msgid "The gallery was saved."
 msgstr ""
 
@@ -2034,7 +2021,7 @@ msgstr ""
 msgid "There was a problem deleting %s: %s"
 msgstr ""
 
-#: image.php:673 lib/View/Results.php:93
+#: image.php:674 lib/View/Results.php:93
 #, php-format
 msgid "There was a problem deleting photos: %s"
 msgstr ""
@@ -2137,7 +2124,7 @@ msgstr ""
 msgid "Undo Changes"
 msgstr ""
 
-#: lib/View/GalleryProperties.php:228
+#: lib/View/GalleryProperties.php:227
 msgid "Unknown Gallery"
 msgstr ""
 
@@ -2303,9 +2290,8 @@ msgstr ""
 msgid "You did not select any photos to upload."
 msgstr ""
 
-#: lib/View/GalleryProperties.php:347
-#, php-format
-msgid "You do not have permission to add children to %s."
+#: lib/View/GalleryProperties.php:346
+msgid "You do not have permission to add sub galleries to this gallery."
 msgstr ""
 
 #: img/ecard.php:42
@@ -2320,7 +2306,7 @@ msgstr ""
 msgid "You have no photo galleries, add one!"
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:68
+#: lib/Ajax/Application/Handler.php:70
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -2349,7 +2335,7 @@ msgstr ""
 msgid "You must enter your e-mail address."
 msgstr ""
 
-#: lib/View/GalleryProperties.php:358
+#: lib/View/GalleryProperties.php:357
 msgid "You must provide a display name for your new gallery."
 msgstr ""
 
@@ -2357,7 +2343,7 @@ msgstr ""
 msgid "You must select at least on photo to edit."
 msgstr ""
 
-#: image.php:809
+#: image.php:811
 msgid "You must select images to download."
 msgstr ""
 
@@ -2410,7 +2396,7 @@ msgstr ""
 msgid "height"
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:180 lib/Widget/Geotag.php:198
+#: lib/Ajax/Application/Handler.php:182 lib/Widget/Geotag.php:198
 msgid "here"
 msgstr ""
 
@@ -2431,7 +2417,7 @@ msgstr ""
 msgid "photo"
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:68
+#: lib/Ajax/Application/Handler.php:70
 msgid "preferences"
 msgstr ""
 
