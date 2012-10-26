@@ -4258,7 +4258,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'APPENDUID':
             // Defined by RFC 4315
             // APPENDUID: [0] = UIDVALIDITY, [1] = UID(s)
-            $this->_temp['appenduid']->getIdsOb($rc->data[1]);
+            $this->_temp['appenduid'] = $this->getIdsOb($rc->data[1]);
             break;
 
         case 'COPYUID':
