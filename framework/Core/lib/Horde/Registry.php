@@ -318,6 +318,11 @@ class Horde_Registry
      */
     public function __construct($session_flags = 0, array $args = array())
     {
+        /* Set a valid timezone. */
+        date_default_timezone_set(
+            ini_get('date.timezone') ?: getenv('TZ') ?: 'UTC'
+        );
+
         /* Save arguments. */
         $this->_args = $args;
 

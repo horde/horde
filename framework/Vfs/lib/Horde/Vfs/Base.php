@@ -698,7 +698,7 @@ abstract class Horde_Vfs_Base
      */
     public function getQuota()
     {
-        if (empty($this->_params['vfs_quotalimit'])) {
+        if ($this->_params['vfs_quotalimit'] == -1) {
             throw new Horde_Vfs_Exception('No quota set.');
         }
 

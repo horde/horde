@@ -569,6 +569,10 @@ class Turba_Driver implements Countable
         $fields = $this->makeSearch($search_criteria, $search_type,
                                     $strict_fields, $match_begin);
 
+        if (in_array('email', $return_fields) &&
+            !in_array('emails', $return_fields)) {
+            $return_fields[] = 'emails';
+        }
         if (count($return_fields)) {
             $return_fields_pre = array_unique(array_merge(array('__key', '__type', '__owner', '__members', 'name'), $return_fields));
             $return_fields = array();
