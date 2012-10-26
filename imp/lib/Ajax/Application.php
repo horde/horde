@@ -1487,7 +1487,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->action = 'addAttachment';
         $result->success = 0;
 
-        if (!isset($this->vars->composeCache)) {
+        if (!isset($this->_vars->composeCache)) {
             $GLOBALS['notification']->push(_("Your attachment was not uploaded. Most likely, the file exceeded the maximum size allowed by the server configuration."), 'horde.warning');
             return $result;
         }
