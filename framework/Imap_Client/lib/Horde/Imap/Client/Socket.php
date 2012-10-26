@@ -4316,6 +4316,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'CLOSED':
             // Defined by RFC 5162 [3.7]
             if (isset($this->_temp['qresyncmbox'])) {
+                /* If there is any pending FETCH cache entries, flush them
+                 * now before changing mailboxes. */
+                $this->_saveFetchCache();
+
                 $this->_changeSelected(
                     $this->_temp['qresyncmbox'][0],
                     $this->_temp['qresyncmbox'][1]
