@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>20:52:15</time>
+ <date>2012-10-26</date>
+ <time>23:27:28</time>
  <version>
   <release>2.0.0RC1</release>
   <api>2.0.0</api>
@@ -697,7 +697,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-10-12</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix parsing JSON responses with PHP 5.4.
