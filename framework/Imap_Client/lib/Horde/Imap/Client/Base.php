@@ -738,11 +738,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     // Ignore if server doesn't support I18NLEVEL=2
                 }
             }
-
-            /* Check for ability to cache flags here. */
-            if (!isset($this->_init['enabled']['CONDSTORE'])) {
-                unset($this->_params['cache']['fields'][Horde_Imap_Client::FETCH_FLAGS]);
-            }
         }
 
         $this->_isAuthenticated = true;
@@ -2382,7 +2377,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
         $cf = $this->_initCache(true)
-            ? $this->_params['cache']['fields']
+            ? $this->_cacheFields()
             : array();
 
         if (!empty($cf)) {
@@ -3462,9 +3457,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
             ? null
             : $this->_getSeqUidLookup($this->getIdsOb($data->ids(), true));
 
-        $cf = empty($options['fields'])
-            ? $this->_params['cache']['fields']
-            : array_intersect_key($this->_params['cache']['fields'], array_flip($options['fields']));
         $tocache = array();
 
         $status_flags = 0;
@@ -3480,6 +3472,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $uidvalid = isset($status_res['uidvalidity'])
             ? $status_res['uidvalidity']
             : $options['uidvalid'];
+        if (count($data)) {
+            $cf = empty($options['fields'])
+                ? $this->_params['cache']['fields']
+                : $this->_cacheFields();
+        }
 
         foreach ($data as $k => $v) {
             $tmp = array();
@@ -3706,11 +3703,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $uids = $this->_cache->get($this->_selected, array(), array(), $status['uidvalidity']);
+
         if (!empty($uids)) {
             $uids_ob = $this->getIdsOb($uids);
 
             /* Are we caching flags? */
-            if (!empty($this->_params['cache']['fields'][Horde_Imap_Client::FETCH_FLAGS])) {
+            if (array_key_exists(Horde_Imap_Client::FETCH_FLAGS, $this->_cacheFields())) {
                 $fquery = new Horde_Imap_Client_Fetch_Query();
                 $fquery->flags();
 
@@ -3738,6 +3736,23 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->_updateMetaData($this->_selected, array(
             self::CACHE_MODSEQ => $status['highestmodseq']
         ), $status['uidvalidity']);
+    }
+
+    /**
+     * Provide the list of available caching fields.
+     *
+     * @return array  The list of available caching fields (fields are in the
+     *                key).
+     */
+    protected function _cacheFields()
+    {
+        $out = $this->_params['cache']['fields'];
+
+        if (!isset($this->_init['enabled']['CONDSTORE'])) {
+            unset($out[Horde_Imap_Client::FETCH_FLAGS]);
+        }
+
+        return $out;
     }
 
 }
