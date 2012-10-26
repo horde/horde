@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Update to work with latest Horde 5 code.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -373,7 +373,7 @@
    <date>2012-08-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Update to work with latest Horde 5 code.
    </notes>
   </release>
  </changelog>
