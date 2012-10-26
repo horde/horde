@@ -1,6 +1,6 @@
-----------
-v4.0.0-git
-----------
+---------
+v4.0.0RC1
+---------
 
 [jan] Fix client-side sorting by date.
 [jan] Fix exporting (Bug #11507).
