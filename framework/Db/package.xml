@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-26</date>
- <time>23:14:51</time>
+ <time>23:15:08</time>
  <version>
-  <release>2.0.0RC1</release>
+  <release>2.0.0RC2</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -35,9 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Fix resetting postgresql error reporting.
-* [mms] Fix Horde_Db_Adapter_Base_Table#offsetExists().
-* [mms] Fix addLock() command.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -620,6 +618,19 @@
 * [mms] Fix resetting postgresql error reporting.
 * [mms] Fix Horde_Db_Adapter_Base_Table#offsetExists().
 * [mms] Fix addLock() command.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
