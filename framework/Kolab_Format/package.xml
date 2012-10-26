@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>20:44:38</time>
+ <date>2012-10-26</date>
+ <time>23:19:24</time>
  <version>
   <release>2.0.0RC1</release>
   <api>1.1.0</api>
@@ -632,7 +632,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-10-12</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Write custom Horde attributes to task objects.
