@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-27</date>
- <time>00:05:40</time>
+ <time>00:06:37</time>
  <version>
-  <release>4.0.0RC1</release>
+  <release>4.0.0RC2</release>
   <api>4.0.0beta1</api>
  </version>
  <stability>
@@ -34,13 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix export links for tasklists (Bug #11576).
-* [mjr] Fix various issues with importing CSV files.
-* [mjr] Format datetime fields when exporting a task as a hash (Bug #11537).
-* [jan] Fix retrieving tasks from Kolab backend by UID (Bug #11532).
-* [jan] Fix toggling tasklists (Bug #11511).
-* [jan] Fix listing tasks from Kolab backends.
-* [jan] Fix sending alarm e-mail messages.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1217,6 +1211,19 @@
 * [jan] Fix toggling tasklists (Bug #11511).
 * [jan] Fix listing tasks from Kolab backends.
 * [jan] Fix sending alarm e-mail messages.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0RC2</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
