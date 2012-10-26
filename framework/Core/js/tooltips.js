@@ -17,7 +17,7 @@ var Horde_ToolTips =
     attach: function(e)
     {
         if (e.hasAttribute('nicetitle')) {
-            e.writeAttribute('title')
+            e.writeAttribute('title', null)
                 .observe('mouseover', this.onMouseover.bindAsEventListener(this))
                 .observe('mouseout', this.out.bind(this))
                 .observe('focus', this.onFocus.bindAsEventListener(this))
