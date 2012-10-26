@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Fix client-side sorting by date.
 * [jan] Fix exporting (Bug #11507).
  </notes>
  <contents>
@@ -920,6 +921,7 @@
    <date>2012-10-17</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Fix client-side sorting by date.
 * [jan] Fix exporting (Bug #11507).
    </notes>
   </release>
