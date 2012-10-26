@@ -25,7 +25,6 @@
 * [mms] Improved handling of server write errors in the Socket driver.
 * [mms] Add support for IMAP MOVE command.
 * [mms] Correctly handle FETCH results intermingled with EXPUNGE/VANISHED requests within a single request.
-* [mms] Now that we have accurate sequence numbers for our cached values, we can utilize the known UID set parameter to a QRESYNC EXAMINE/SELECT command.
 * [mms] Correctly handle EXISTS/EXPUNGE/VANISHED untagged responses which may appear at any time.
 * [mms] Fix handling message sequence number actions returned from server when using CONDSTORE/QRESYNC.
  </notes>
@@ -50,7 +49,6 @@
        </dir> <!-- /lib/Horde/Imap/Client/Auth -->
        <dir name="Base">
         <file name="Mailbox.php" role="php" />
-        <file name="Map.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Base -->
        <dir name="Data">
         <dir name="Fetch">
@@ -95,6 +93,7 @@
         <file name="Results.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Fetch -->
        <dir name="Ids">
+        <file name="Map.php" role="php" />
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Ids -->
        <dir name="Interaction">
@@ -296,7 +295,6 @@
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Auth/DigestMD5.php" name="lib/Horde/Imap/Client/Auth/DigestMD5.php" />
    <install as="Horde/Imap/Client/Base/Mailbox.php" name="lib/Horde/Imap/Client/Base/Mailbox.php" />
-   <install as="Horde/Imap/Client/Base/Map.php" name="lib/Horde/Imap/Client/Base/Map.php" />
    <install as="Horde/Imap/Client/Data/Acl.php" name="lib/Horde/Imap/Client/Data/Acl.php" />
    <install as="Horde/Imap/Client/Data/AclCommon.php" name="lib/Horde/Imap/Client/Data/AclCommon.php" />
    <install as="Horde/Imap/Client/Data/AclNegative.php" name="lib/Horde/Imap/Client/Data/AclNegative.php" />
@@ -327,6 +325,7 @@
    <install as="Horde/Imap/Client/Exception/ServerResponse.php" name="lib/Horde/Imap/Client/Exception/ServerResponse.php" />
    <install as="Horde/Imap/Client/Fetch/Query.php" name="lib/Horde/Imap/Client/Fetch/Query.php" />
    <install as="Horde/Imap/Client/Fetch/Results.php" name="lib/Horde/Imap/Client/Fetch/Results.php" />
+   <install as="Horde/Imap/Client/Ids/Map.php" name="lib/Horde/Imap/Client/Ids/Map.php" />
    <install as="Horde/Imap/Client/Ids/Pop3.php" name="lib/Horde/Imap/Client/Ids/Pop3.php" />
    <install as="Horde/Imap/Client/Interaction/Client.php" name="lib/Horde/Imap/Client/Interaction/Client.php" />
    <install as="Horde/Imap/Client/Interaction/Server.php" name="lib/Horde/Imap/Client/Interaction/Server.php" />

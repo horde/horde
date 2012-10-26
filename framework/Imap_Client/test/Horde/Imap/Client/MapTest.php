@@ -41,12 +41,12 @@ class Horde_Imap_Client_MapTest extends PHPUnit_Framework_TestCase
             12 => 30
         );
 
-        $this->map = new Horde_Imap_Client_Base_Map($this->lookup);
+        $this->map = new Horde_Imap_Client_Ids_Map($this->lookup);
     }
 
     public function testUpdate()
     {
-        $map = new Horde_Imap_Client_Base_Map();
+        $map = new Horde_Imap_Client_Ids_Map();
         $map->update(array(
             1 => 1
         ));
@@ -195,7 +195,7 @@ class Horde_Imap_Client_MapTest extends PHPUnit_Framework_TestCase
 
     public function testRemoveWithDuplicateSequenceNumbers()
     {
-        $map = new Horde_Imap_Client_Base_Map(array(
+        $map = new Horde_Imap_Client_Ids_Map(array(
             1 => 1,
             2 => 2,
             3 => 3

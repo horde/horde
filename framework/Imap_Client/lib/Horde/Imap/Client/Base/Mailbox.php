@@ -18,9 +18,9 @@ class Horde_Imap_Client_Base_Mailbox
     /**
      * Mapping object.
      *
-     * @var Horde_Imap_Client_Base_Map
+     * @var Horde_Imap_Client_Ids_Map
      */
-    public $map = null;
+    public $map;
 
     /**
      * Is mailbox sync'd with remote server (via CONDSTORE/QRESYNC)?
@@ -35,6 +35,14 @@ class Horde_Imap_Client_Base_Mailbox
      * @var array
      */
     protected $_status = array();
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->map = new Horde_Imap_Client_Ids_Map();
+    }
 
     /**
      * Get status information for the mailbox.
@@ -123,7 +131,7 @@ class Horde_Imap_Client_Base_Mailbox
     }
 
     /**
-     * Reset the status information.
+     * Reset the mailbox information.
      */
     public function reset()
     {
@@ -136,6 +144,7 @@ class Horde_Imap_Client_Base_Mailbox
             unset($this->_status[$val]);
         }
 
+        $this->map = new Horde_Imap_Client_Ids_Map();
         $this->sync = false;
     }
 

@@ -1,7 +1,6 @@
 <?php
 /**
- * An object allowing management of a mailbox within a Horde_Imap_Client_Base
- * object.
+ * An object implementing lookups between UIDs and message sequence numbers.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
@@ -17,7 +16,7 @@
  * @property Horde_Imap_Client_Ids $seq  The sorted sequence values.
  * @property Horde_Imap_Client_Ids $uids  The sorted UIDs.
  */
-class Horde_Imap_Client_Base_Map implements Countable, IteratorAggregate, Serializable
+class Horde_Imap_Client_Ids_Map implements Countable, IteratorAggregate, Serializable
 {
     /**
      * Sequence -> UID mapping.

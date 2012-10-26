@@ -19,7 +19,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
     const VERSION = 2;
 
     /* Cache names for miscellaneous data. */
-    const CACHE_IDMAP = 'HICmap';
     const CACHE_MODSEQ = 'HICmodseq';
     const CACHE_SEARCH = 'HICsearch';
 
@@ -962,48 +961,29 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $this->_selected = null;
         } else {
             $this->_selected = clone $mailbox;
-            $this->_mailboxOb(true)->reset();
+            $this->_mailboxOb()->reset();
         }
     }
 
     /**
      * Return the Horde_Imap_Client_Base_Mailbox object.
      *
-     * @param boolean $initmap  Initialize ID map?
-     * @param string $mailbox   The mailbox name. Defaults to currently
-     *                          selected mailbox.
+     * @param string $mailbox  The mailbox name. Defaults to currently
+     *                         selected mailbox.
      *
      * @return Horde_Imap_Client_Base_Mailbox  Mailbox object.
      */
-    protected function _mailboxOb($initmap = false, $mailbox = null)
+    protected function _mailboxOb($mailbox = null)
     {
         $name = is_null($mailbox)
             ? strval($this->_selected)
             : strval($mailbox);
 
-        if (isset($this->_temp['mailbox_ob'][$name])) {
-            $ob = $this->_temp['mailbox_ob'][$name];
-        } else {
-            $ob = $this->_temp['mailbox_ob'][$name] = new Horde_Imap_Client_Base_Mailbox();
+        if (!isset($this->_temp['mailbox_ob'][$name])) {
+            $this->_temp['mailbox_ob'][$name] = new Horde_Imap_Client_Base_Mailbox();
         }
 
-        if ($initmap && is_null($ob->map)) {
-            $map = null;
-
-            if ($this->_initCache()) {
-                $md = $this->_cache->getMetaData($name, null, array(self::CACHE_IDMAP));
-                if (!isset($md[self::CACHE_IDMAP]) ||
-                    !($map = @unserialize($md[self::CACHE_IDMAP]))) {
-                    $this->_cache->deleteMailbox($name);
-                }
-            }
-
-            $ob->map = is_null($map)
-                ? new Horde_Imap_Client_Base_Map()
-                : $map;
-        }
-
-        return $ob;
+        return $this->_temp['mailbox_ob'][$name];
     }
 
     /**
@@ -2436,31 +2416,29 @@ abstract class Horde_Imap_Client_Base implements Serializable
             ? null
             : clone $ret;
 
-        /* Convert special searches to UID lists. */
-        $options['ids'] = $this->_resolveIds($options['ids']);
-
-        /* Grab Seq -> UID lookup. */
-        $ids = $this->_mailboxOb(true)->map->lookup($options['ids']);
+        /* Convert special searches to UID lists and create mapping. */
+        $ids = $this->resolveIds($this->_selected, $options['ids'], 1);
 
         /* Get the cached values. */
-        $status_res = $this->status($this->_selected, Horde_Imap_Client::STATUS_UIDVALIDITY);
-        $data = $this->_cache->get($this->_selected, array_values($ids), array_values($cache_array), $status_res['uidvalidity']);
+        $mbox_ob = $this->_mailboxOb();
+        $data = $this->_cache->get($this->_selected, $ids->ids, array_values($cache_array), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY));
 
         /* Build a list of what we still need. */
+        $map = $mbox_ob->map->map;
         foreach ($options['ids'] as $val) {
             $crit = clone $query;
             $entry = $ret->get($val);
             $uid = null;
 
             if ($options['ids']->sequence) {
-                if (isset($ids[$val])) {
+                if (isset($map[$val])) {
                     $entry->setSeq($val);
                     unset($crit[Horde_Imap_Client::FETCH_SEQ]);
-                    $uid = $ids[$val];
+                    $uid = $map[$val];
                 }
             } else {
                 $uid = $val;
-                if (($pos = array_search($val, $ids)) !== false) {
+                if (($pos = array_search($val, $map)) !== false) {
                     $entry->setSeq($pos);
                     unset($crit[Horde_Imap_Client::FETCH_SEQ]);
                 }
@@ -3289,6 +3267,71 @@ abstract class Horde_Imap_Client_Base implements Serializable
     }
 
     /**
+     * Resolves an IDs object into a list of IDs.
+     *
+     * @param Horde_Imap_Client_Mailbox $mailbox  The mailbox.
+     * @param Horde_Imap_Client_Ids $ids          The Ids object.
+     * @param boolean $convert                    Convert to UIDs?
+     *   - 0: No
+     *   - 1: Only if $ids is not already a UIDs object
+     *   - 2: Always
+     *
+     * @return Horde_Imap_Client_Ids  The list of IDs.
+     */
+    public function resolveIds(Horde_Imap_Client_Mailbox $mailbox,
+                               Horde_Imap_Client_Ids $ids, $convert = 0)
+    {
+        $map = $this->_mailboxOb($mailbox)->map;
+
+        if ($ids->special) {
+            /* Optimization for ALL sequence searches. */
+            if (!$convert && $ids->all && $ids->sequence) {
+                $res = $this->status($mailbox, Horde_Imap_Client::STATUS_MESSAGES);
+                return $this->getIdsOb($res['messages'] ? ('1:' . $res['messages']) : array(), true);
+            }
+        } elseif (!$convert || (!$ids->sequence && ($convert == 1))) {
+            return clone $ids;
+        } else {
+            /* Do an all or nothing: either we have all the numbers/UIDs in
+             * memory and can return, or just send the whole ID query to the
+             * server. Any advantage we would get by a partial search are
+             * outweighed by the complexities needed to make the search and
+             * then merge back into the original results. */
+            $lookup = $map->lookup($ids);
+            if (count($lookup) == $count($ids)) {
+                return $ids->sequence
+                    ? $this->getIdsOb(array_keys($lookup), true)
+                    : $this->getIdsOb(array_values($lookup));
+            }
+        }
+
+        $query = new Horde_Imap_Client_Search_Query();
+        $query->ids($ids);
+
+        $res = $this->search($mailbox, $query, array(
+            'results' => array(
+                Horde_Imap_Client::SEARCH_RESULTS_MATCH,
+                Horde_Imap_Client::SEARCH_RESULTS_SAVE
+            ),
+            'sequence' => (!$convert && $ids->sequence),
+            'sort' => array(Horde_Imap_Client::SORT_SEQUENCE)
+        ));
+
+        /* Update mapping. */
+        if ($convert) {
+            if ($ids->all) {
+                $ids = $this->getIdsOb('1:' . count($res['match']));
+            } elseif ($ids->special) {
+                return $res['match'];
+            }
+
+            $map->update(array_combine($ids->ids, $res['match']->ids));
+        }
+
+        return $res['match'];
+    }
+
+    /**
      * Determines if the given charset is valid for search-related queries.
      * This check pertains just to the basic IMAP SEARCH command.
      *
@@ -3471,11 +3514,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $this->_cache->set($this->_selected, $tocache, $uidvalidity);
             }
 
-            if ($this->_mailboxOb(true)->map->update($mapping)) {
-                $this->_updateMetaData($this->_selected, array(
-                    self::CACHE_IDMAP => serialize($mbox_ob->map)
-                ), $uidvalidity);
-            }
+            $this->_mailboxOb()->map->update($mapping);
         }
 
         if (!empty($modseq)) {
@@ -3538,17 +3577,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return $ids;
         }
 
-        $mbox_ob = $this->_mailboxOb(true);
+        $mbox_ob = $this->_mailboxOb();
         $ids_ob = $ids->sequence
             ? $this->getIdsOb($mbox_ob->map->lookup($ids))
             : $ids;
 
         $this->_cache->deleteMsgs($mailbox, $ids_ob->ids);
         $mbox_ob->map->remove($ids);
-
-        $this->_updateMetaData($mailbox, array(
-            self::CACHE_IDMAP => serialize($mbox_ob->map)
-        ), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY));
 
         return $ids_ob;
     }
@@ -3743,41 +3778,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         return $out;
-    }
-
-    /**
-     * Resolves a "special" IDs object into actual IDs.
-     *
-     * @param Horde_Imap_Client_Ids $ids          The Ids object.
-     * @param Horde_Imap_Client_Mailbox $mailbox  The mailbox.
-     *
-     * @return Horde_Imap_Client_Ids  The Ids object.
-     */
-    protected function _resolveIds(Horde_Imap_Client_Ids $ids, $mailbox = null)
-    {
-        if (!$ids->special) {
-            return $ids;
-        }
-
-        if (is_null($mailbox)) {
-            $mailbox = $this->_selected;
-        }
-
-        /* Optimization for ALL sequence searches. */
-        if ($ids->all && $ids->sequence) {
-            $res = $this->status($mailbox, Horde_Imap_Client::STATUS_MESSAGES);
-            return $this->getIdsOb($res['messages'] ? '1:' . $res['messages'] : array());
-        }
-
-        $query = new Horde_Imap_Client_Search_Query();
-        $query->ids($ids);
-
-        $res = $this->search($mailbox, $query, array(
-            'sequence' => $ids->sequence,
-            'sort' => array(Horde_Imap_Client::SORT_SEQUENCE)
-        ));
-
-        return $res['match'];
     }
 
 }
