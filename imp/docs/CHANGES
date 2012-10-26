@@ -1,6 +1,6 @@
-----------
-v6.0.0-git
-----------
+---------
+v6.0.0RC1
+---------
 
 [mms] Attach as many files as possible instead of aborting on first failed
       attachment add.
