@@ -14,13 +14,14 @@ HordeMap.Mytopo = Class.create(
 {
     initialize: function(opts)
     {
-        this._key = HordeMap.conf.apikeys.mytopo;
+        this._id = HordeMap.conf.apikeys.mytopo.id;
+        this._hash = HordeMap.conf.apikeys.mytopo.hash;
     },
 
     getLayers: function(layer)
     {
         return {'street': new OpenLayers.Layer.XYZ("MyTopo Topographic Map",
-                    ['http://maps.mytopo.com/' + this._key + '/tilecache.py/1.0.0/topoG/${z}/${x}/${y}.png'],
+                    ['http://tileserver.mytopo.com/SecureTile/TileHandler.ashx?mapType=Topo&partnerID=' + this._id + '&hash=' + this._hash + '&x=${x}&y=${y}&z=${z}'],
                      {'sphericalMercator': true,
                       'minZoomLevel': 2,
                       'numZoomLevels': 17}) };

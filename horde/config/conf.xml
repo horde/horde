@@ -1725,6 +1725,8 @@
    required="false"/>
    <configstring name="yahoomaps" desc="Yahoo Maps API Key" required="false" />
    <configstring name="cloudmade" desc="Cloudmade API Key" required="false" />
+   <configstring name="mytopo" desc="Mytopo Maps API Key" required="false" />
+   <configstring name="mytopo_partnerID" desc="Mytopo partner id" required="false" />
    <configstring name="bing" desc="Bing Maps API Key" required="false" />
   </configsection>
   <configsection name="facebook">
